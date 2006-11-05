@@ -98,6 +98,24 @@ applyContext =
                    'origin location
                    'procedure proc))
 
+
+balloonText =
+#(define-music-function (parser location offset text) (number-pair? markup?)
+   
+    (make-music 'AnnotateOutputEvent
+		'X-offset (car offset)
+		'Y-offset (cdr offset)
+		'text text))
+
+balloonGrobText =
+#(define-music-function (parser location grob-name offset text) (symbol? number-pair? markup?)
+   
+    (make-music 'AnnotateOutputEvent
+		'symbol grob-name
+		'X-offset (car offset)
+		'Y-offset (cdr offset)
+		'text text))
+
 bar =
 #(define-music-function (parser location type)
    (string?)

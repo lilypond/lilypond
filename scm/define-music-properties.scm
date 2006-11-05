@@ -16,6 +16,9 @@
   (map
    (lambda (x) (apply music-property-description x))
    `(
+     (X-offset ,number? "Offset of resulting grob; only used for balloon texts.")
+     (Y-offset ,number? "Offset of resulting grob; only used for balloon texts. ")
+     
      (alteration ,number? "alteration for figured bass")
 
      (absolute-octave ,integer?

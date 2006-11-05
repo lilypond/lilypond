@@ -30,12 +30,19 @@ Syntax: @var{note}@code{\\x},
 where x is one of \\ppp, \\pp, \\p, \\mp, \\mf, \\f, \\ff, \\fff.")
 	(types . (general-music event dynamic-event absolute-dynamic-event))
 	))
+
+    (AnnotateOutputEvent
+     . ((description . "Print an annotation of an output element.")
+	(types . (general-music event annotate-output-event))
+	))
+	
     (ApplyContext
      . (
 	(description . "Call the argument with the current context during interpreting phase")
 	(types . (general-music apply-context))
 	(iterator-ctor . ,ly:apply-context-iterator::constructor)
 	))
+    
     (ApplyOutputEvent
      . (
 	(description . "
@@ -95,6 +102,7 @@ is an articulation (such as @code{-.}, @code{->}, @code{\\tenuto},
 
 	(types . (general-music event rhythmic-event bass-figure-event))
 	))
+    
     (BeamEvent
      . (
 	(description .  "Starts or stops a beam.  

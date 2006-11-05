@@ -144,6 +144,14 @@
 				side-position-interface
 				font-interface))))))
 
+    (BalloonTextItem 
+     . ((stencil . ,ly:balloon-interface::print)
+	(text . ,(grob::calc-property-by-copy 'text)) 
+	(X-offset . ,(grob::calc-property-by-copy 'X-offset)) 
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset)) 
+	(meta . ((class . Item)
+		 (interfaces . (text-interface
+				font-interface))))))
     (BarLine
      . (
 	(break-align-symbol . staff-bar)
@@ -920,7 +928,7 @@
     (LyricText
      . (
 	(stencil . ,lyric-text::print)
-	(text . ,lyric-text::calc-text)
+	(text . ,(grob::calc-property-by-copy 'text)) 
 	(X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
 	(self-alignment-X . 0)
 	(word-space . 0.6)

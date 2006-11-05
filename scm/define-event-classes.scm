@@ -13,17 +13,19 @@
     (StreamEvent .
 		 (RemoveContext ChangeParent Override Revert UnsetProperty
 				SetProperty music-event OldMusicEvent CreateContext Prepare
-				OneTimeStep Finish))
-    (music-event . (arpeggio-event breathing-event extender-event span-event
+				OneTimeStep Finish)) 
+    (music-event . (annotate-output-event
+		    arpeggio-event breathing-event extender-event span-event
       rhythmic-event dynamic-event break-event percent-event
       key-change-event string-number-event stroke-finger-event tie-event part-combine-event
       beam-forbid-event script-event
       tremolo-event bend-after-event fingering-event glissando-event
       harmonic-event hyphen-event laissez-vibrer-event mark-event
-      multi-measure-text-event note-grouping-event
+      multi-measure-text-event note-grouping-event 
       pes-or-flexa-event repeat-tie-event spacing-section-event
       layout-instruction-event))
-    (layout-instruction-event . (apply-output-event))
+    
+    (layout-instruction-event . (apply-output-event ))
     (script-event . (articulation-event text-script-event))
     (part-combine-event . (solo-one-event solo-two-event unisono-event))
     (break-event . (line-break-event page-break-event page-turn-event))

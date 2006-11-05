@@ -2061,17 +2061,18 @@ balloon.  The primary purpose of this feature is to explain notation.
 The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
-\applyOutput #'Voice
-  #(add-balloon-text 'NoteHead "heads, or tails?"
-      '(1 . -3))
-  c8
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+}
 @end lilypond
 
 @noindent
-The function @code{add-balloon-text} takes the name of a grob, the
-label to print, and the position where to put the label relative to
-the object.  In the above example, the text ``heads or tails?'' ends
-3 spaces below and 1 space to the right of the marked head.
+There are two music functions, @code{balloonText} and
+@code{balloonGrobText}. The latter takes the name of the grob to
+adorn, while the former may be used as an articulation on a note. 
+The other arguments  are the offset and the text of the label.
 
 @cindex balloon
 @cindex notation, explaining
