@@ -1,3 +1,15 @@
+2006-11-05  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/changing-defaults.itely,
+	Documentation/user/preface.itely: Use `--', not `---'.
+	Minor improvements.
+
+	* Documentation/user/introduction.itely: Minor improvements.
+	(Automated engraving): Make example using \applyOutput work
+	actually.
+
+	* input/regression/apply-output.ly: Improve.
+
 2006-11-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/dynamic-engraver.cc: 
