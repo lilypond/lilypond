@@ -25,4 +25,5 @@ gcstat*.scm
 .htaccess
 *.tfm
 *.afm
-
+*.orig
+*.rej

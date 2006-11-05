@@ -50,8 +50,10 @@ Lily_parser::Lily_parser (Lily_parser const &src)
 
   smobify_self ();
   if (src.lexer_)
-    lexer_ = new Lily_lexer (*src.lexer_);
-
+    {
+      lexer_ = new Lily_lexer (*src.lexer_, this);
+    }
+  
   lexer_->unprotect ();
 }
 

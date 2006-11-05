@@ -53,7 +53,7 @@ public:
   Input last_input_;
 
   Lily_lexer (Sources *, Lily_parser *);
-  Lily_lexer (Lily_lexer const &);
+  Lily_lexer (Lily_lexer const &, Lily_parser *);
   int yylex ();
 
   void add_lexed_char (int);
