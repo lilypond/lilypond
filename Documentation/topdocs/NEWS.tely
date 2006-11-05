@@ -65,6 +65,17 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item Balloon texts can be entered more ergonomically, and are no
+longer clipped from the output.
+
+@lilypond[fragment,ragged-right,relative=1]
+\new Voice \with {\consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
+}
+@end lilypond
+ 
 
 @item Slurs now avoid clefs and key changes.
  

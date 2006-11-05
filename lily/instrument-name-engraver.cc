@@ -99,6 +99,11 @@ Instrument_name_engraver::acknowledge_axis_group (Grob_info info)
 {
   if (dynamic_cast<Spanner *> (info.grob ())
       && Axis_group_interface::has_axis (info.grob (), Y_AXIS)
+
+      /* ugh. */
+
+      && !info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface"))
+      && !info.grob ()->internal_has_interface (ly_symbol2scm ("piano-pedal-interface"))
       && (!Align_interface::has_interface (info.grob ())))
     {
       axis_groups_.push_back (info.grob ());

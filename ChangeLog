@@ -1,5 +1,32 @@
 2006-11-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
+	* lily/instrument-name-engraver.cc: 
+	* input/regression/instrument-name-dynamic.ly: 
+	ignore dynamic and pedal line spanners.
+
+	* Documentation/topdocs/NEWS.tely: 
+	* Documentation/user/advanced-notation.itely: 
+	* THANKS: 
+	* input/regression/balloon.ly: 
+	* lily/balloon.cc: 
+	* ly/music-functions-init.ly: 
+	* scm/define-event-classes.scm: 
+	* scm/define-grobs.scm: 
+	* scm/define-music-properties.scm: 
+	* scm/define-music-types.scm: 
+	* scm/output-lib.scm: 
+	* lily/balloon-engraver.cc: 
+	rewrite balloon-text support. This is now a separate grob, with itsvictim as the parent. This involves addingBalloon_engraver, AnnotateOutputEvent, annotate-output-event,\balloonText, \balloonGrobText, and modifying Balloon_interface::print.
+
+	* lily/paper-score.cc: 
+	remove progress again
+
+	* lily/chord-name-engraver.cc: 
+	formatting nitpicks.
+
+	* lily/paper-score.cc: 
+	some useless statistics.
+
 	* buildscripts/git-update-changelog.py: 
 	update todo/done after rejection due to removal analysis.
 
