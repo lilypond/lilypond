@@ -1,3 +1,11 @@
+2006-11-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* buildscripts/git-update-changelog.py: 
+	update todo/done after rejection due to removal analysis.
+
+	* buildscripts/git-update-changelog.py: 
+	check whether removals from a diff actually apply.
+
 2006-11-05  Joe Neeman  <joeneeman@gmail.com>
 
 	* lily/include/page-turn-page-breaking.hh: remove unused
