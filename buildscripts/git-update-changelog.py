@@ -235,9 +235,6 @@ Run this file from the CVS directory, with commits from the repository in --git-
     commits_done = []
     while commits:
         c = commits[0]
-        commits = commits[1:]
-        
-        commits_done.append (c) 
         
         if not c.has_patch ():
             print 'patchless commit (merge?)'
@@ -251,6 +248,10 @@ Run this file from the CVS directory, with commits from the repository in --git-
             print 'message:', c.message
 
             break
+
+
+        commits = commits[1:]
+        commits_done.append (c) 
             
         print 'patch ', c.committish
         try:
