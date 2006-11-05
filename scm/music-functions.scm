@@ -840,23 +840,6 @@ if appropriate.
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
-
-(define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
-  "Usage: see input/regression/balloon.ly "
-  (let* ((meta (ly:grob-property grob 'meta))
-	 (cb (ly:grob-property-data grob 'stencil))
-	 (nm (if (pair? meta) (cdr (assoc 'name meta)) "nonexistant")))
-    (if (and (equal? nm object-name)
-	     (procedure? cb))
-	(begin
-	  (ly:grob-set-property! grob 'stencil  ly:balloon-interface::print)
-	  (set! (ly:grob-property grob 'original-stencil) cb)
-	  (set! (ly:grob-property grob 'balloon-text) text)
-	  (set! (ly:grob-property grob 'balloon-text-offset) off)
-	  (set! (ly:grob-property grob 'balloon-text-props) '((font-family . roman)))))))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; accidentals
 
 (define-public (set-accidentals-properties extra-natural

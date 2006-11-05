@@ -48,16 +48,6 @@ where a horizontal beam fits that is larger than this number, make a kneed beam.
      (axes ,list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
 
-     (balloon-text ,markup? "Text to add to help balloon")
-     (balloon-text-props ,list? "Font properties
-for balloon text.")
-     (balloon-text-offset ,number-pair?
-			  "Where to put text relative to balloon.")
-     (balloon-padding ,ly:dimension? "Text to add to help balloon")
-     (original-stencil ,ly:stencil? "The
-original stencil drawer to draw the balloon around.")
-
-
      (bar-size ,ly:dimension? "size of a bar line.")
      (barre-type ,symbol? "Type of barre indication used in a fret diagram.
 Choices include @code{curved} and @code{straight}.")
