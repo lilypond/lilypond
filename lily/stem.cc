@@ -419,12 +419,25 @@ Stem::calc_positioning_done (SCM smob)
       dir = UP;
       set_grob_direction (me, dir);
     }
-  
+
+  bool is_harmonic_centered = false;
+  for (vsize i = 0; i < heads.size (); i++)
+    is_harmonic_centered = is_harmonic_centered 
+      || heads[i]->get_property ("style") == ly_symbol2scm ("harmonic");
+  is_harmonic_centered = is_harmonic_centered && is_invisible (me);
+
   Real w = hed->extent (hed, X_AXIS)[dir];
   for (vsize i = 0; i < heads.size (); i++)
-    heads[i]->translate_axis (w - heads[i]->extent (heads[i], X_AXIS)[dir],
-			      X_AXIS);
+    {
+      Real amount = w - heads[i]->extent (heads[i], X_AXIS)[dir];
 
+      if (is_harmonic_centered)
+	amount =
+	  hed->extent (hed, X_AXIS).linear_combination (CENTER)
+	  - heads[i]->extent (heads[i], X_AXIS).linear_combination (CENTER);
+      
+      heads[i]->translate_axis (amount, X_AXIS);
+    }
   bool parity = true;
   Real lastpos = Real (Staff_symbol_referencer::get_position (heads[0]));
   for (vsize i = 1; i < heads.size (); i++)
