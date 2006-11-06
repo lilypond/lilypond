@@ -11,19 +11,12 @@
 #include <cmath>
 #include <cctype>
 #include <algorithm> 		//  min, max
+
 using namespace std;
 
 #include "directional-element-interface.hh"
-#include "dots.hh"
 #include "font-interface.hh"
 #include "international.hh"
-#include "lookup.hh"
-#include "misc.hh"
-#include "music.hh"
-#include "output-def.hh"
-#include "rhythmic-head.hh"
-#include "staff-symbol-referencer.hh"
-#include "staff-symbol.hh"
 #include "warn.hh"
 
 static Stencil
