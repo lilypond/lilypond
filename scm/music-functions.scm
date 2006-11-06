@@ -844,6 +844,7 @@ if appropriate.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
+;; FIXME: update to the new balloon interface
 (define-public ((add-balloon-text object-name text off) grob orig-context cur-context)
   "Usage: see input/regression/balloon.ly "
   (let* ((meta (ly:grob-property grob 'meta))

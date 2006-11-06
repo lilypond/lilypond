@@ -1,3 +1,10 @@
+2006-11-07  Erlend Aasland  <erlenda@gmail.com>
+
+	* scm/music-function.scm (add-ballon-text): add FIXME comment.
+
+	* scm/define-grob-properties.scm: remove old balloon stuff,
+	and do some trivial beautification.
+
 2006-11-06  Nicolas Sceaux  <nicolas.sceaux@free.fr>
 
 	* scm/music-functions.scm (markup-expression->make-markup): fix
