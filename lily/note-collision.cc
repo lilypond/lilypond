@@ -58,8 +58,8 @@ check_meshing_chords (Grob *me,
 		    nd->get_property ("style")))
     merge_possible = false;
 
-  int upball_type = Note_head::get_balltype (nu);
-  int dnball_type = Note_head::get_balltype (nd);
+  int upball_type = Rhythmic_head::duration_log (nu);
+  int dnball_type = Rhythmic_head::duration_log (nd);
 
   /* Do not merge whole notes (or longer, like breve, longa, maxima).  */
   if (merge_possible && (upball_type <= 0 || dnball_type <= 0))

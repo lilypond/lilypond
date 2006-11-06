@@ -20,6 +20,7 @@ using namespace std;
 #include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
+#include "rhythmic-head.hh"
 
 /*
 
@@ -31,7 +32,7 @@ SCM
 Note_head::brew_ez_stencil (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  int log = Note_head::get_balltype (me);
+  int log = Rhythmic_head::duration_log (me);
 
   SCM cause = me->get_property ("cause");
   SCM spitch = unsmob_stream_event (cause)->get_property ("pitch");
