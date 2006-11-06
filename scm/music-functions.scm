@@ -112,9 +112,11 @@ For instance,
 	  (else					 ;; scheme arg
 	   arg)))
   (define (inner-markup->make-markup mrkup)
-    (let ((cmd (proc->command-keyword (car mrkup)))
-	  (args (map transform-arg (cdr mrkup))))
-      `(,cmd ,@args)))
+    (if (string? mrkup)
+	`(#:simple ,mrkup)
+	(let ((cmd (proc->command-keyword (car mrkup)))
+	      (args (map transform-arg (cdr mrkup))))
+	  `(,cmd ,@args))))
   ;; body:
   (if (string? markup-expression)
       markup-expression

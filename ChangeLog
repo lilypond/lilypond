@@ -1,3 +1,9 @@
+2006-11-06  Nicolas Sceaux  <nicolas.sceaux@free.fr>
+
+	* scm/music-functions.scm (markup-expression->make-markup): fix
+	the case when a markup found in a markup list is a simple
+	string (Issue #147).
+
 2006-11-05  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/instrument-name-engraver.cc: 
