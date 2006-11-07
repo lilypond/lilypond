@@ -51,7 +51,8 @@ Dynamic_text_spanner::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   Spanner *spanner = dynamic_cast<Spanner *> (me);
 
-  Grob *common = spanner->get_bound (LEFT)->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
+  Grob *common = spanner->get_bound (LEFT)
+    ->common_refpoint (spanner->get_bound (RIGHT), X_AXIS);
   Output_def *layout = me->layout ();
 
   Interval span_points;

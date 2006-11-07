@@ -15,8 +15,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-static char const *default_font_str0_ = "cmr10";
-
 All_font_metrics::All_font_metrics (string path)
 {
   otf_dict_ = new Scheme_hash_table;
@@ -158,20 +156,9 @@ All_font_metrics::find_font (string name)
 {
   Font_metric *f = find_otf (name);
 
-
   if (!f)
     {
-      warning (_f ("can't find font: `%s'", name.c_str ()));
-      warning (_ ("loading default font"));
-    }
-
-  string def_name = default_font_str0_;
-
-  if (!f)
-    {
-      error (_f ("can't find default font: `%s'", def_name.c_str ()));
-      error (_f ("(search path: `%s')", search_path_.to_string ()));
-      error (_ ("giving up"));
+      error (_f ("can't find font: `%s'", name.c_str ()));
     }
 
   return f;

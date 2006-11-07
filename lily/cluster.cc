@@ -203,7 +203,9 @@ ADD_INTERFACE (Cluster, "cluster-interface",
 	       "The property @code{style} controls the shape of cluster segments.  Valid values "
 	       "include @code{leftsided-stairs}, @code{rightsided-stairs}, @code{centered-stairs}, "
 	       "and @code{ramp}.\n",
-	       "style padding columns");
+	       "style "
+	       "padding "
+	       "columns ");
 
 struct Cluster_beacon
 {

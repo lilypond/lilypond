@@ -32,11 +32,12 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 	   "which the modification was requested, the property to be changed and "
 	   "the new value for the property.")
 {
-  if (!ly_is_procedure (cb))
-    warning (_ ("not setting modification callback: not a procedure"));
-  else
-    modification_callback = cb;
-  return SCM_EOL;
+
+  SCM_ASSERT_TYPE(ly_is_procedure (cb), cb, SCM_ARG1, __FUNCTION__,
+		  "procedure");
+
+  modification_callback = cb;
+  return SCM_UNSPECIFIED;
 }
 #endif
 
