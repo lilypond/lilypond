@@ -225,13 +225,13 @@ Run this file from the CVS directory, with commits from the repository in --git-
 
     try:
         previously_done = dict((c, 1) for c in open ('.git-commits-done').read ().split ('\n'))
-    except OSError:
+    except IOError:
         previously_done = {}
 
     commits = [c for c in commits if not previously_done.has_key (c.committish)]
-    commits = [c for c in commits if not previously_done.has_key (c.committish)]
     commits = sorted (commits, cmp=Commit.compare)
 
+    system ('cvs up')
     
     file_adddel = []
     collated_log = ''
