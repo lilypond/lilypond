@@ -1312,7 +1312,7 @@
     (Rest
      . (
 	(stencil . ,ly:rest::print)
-	(duration-log . ,note-head::calc-duration-log)
+	(duration-log . ,stem::calc-duration-log)
 	(X-extent . ,ly:rest::width)
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
@@ -1707,7 +1707,6 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
-	(duration-log . ,note-head::calc-duration-log)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
