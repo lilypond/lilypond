@@ -1190,6 +1190,7 @@ figured bass notation"
 (define-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
   "Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
+
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
      (format "noteheads.~a~a~a" dir-name (min log 2)
@@ -1211,15 +1212,15 @@ figured bass notation"
 	 (size-factor (magstep (chain-assoc-get 'font-size props 0)))
 	 (style (chain-assoc-get 'style props '()))
          (stem-length (*  size-factor (max 3 (- log 1))))
-         (head-glyph-name (get-glyph-name font (get-glyph-name-candidates dir log style)))
+         (head-glyph-name (get-glyph-name font (get-glyph-name-candidates (sign dir) log style)))
          (head-glyph (ly:font-get-glyph font head-glyph-name))
 	 (attach-indices (ly:note-head::stem-attachment font head-glyph-name))
          (stem-thickness (* size-factor 0.13))
          (stemy (* dir stem-length))
          (attach-off (cons (interval-index
 			    (ly:stencil-extent head-glyph X)
-			    (* dir (car attach-indices)))
-			   (* dir	; fixme, this is inconsistent between X & Y.
+			    (* (sign dir) (car attach-indices)))
+			   (* (sign dir)	; fixme, this is inconsistent between X & Y.
 			      (interval-index
 			       (ly:stencil-extent head-glyph Y)
 			       (cdr attach-indices)))))
