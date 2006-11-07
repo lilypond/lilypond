@@ -99,9 +99,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
-(define-public (note-head::calc-duration-log grob)
+
+(define-public (stem::calc-duration-log grob)
   (ly:duration-log
    (ly:event-property (event-cause grob) 'duration)))
+
+(define-public (note-head::calc-duration-log grob)
+  (min 2 
+       (ly:duration-log
+	(ly:event-property (event-cause grob) 'duration))))
 
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count

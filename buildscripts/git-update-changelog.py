@@ -53,6 +53,9 @@ class Commit:
 
         if removals == []:
             return True
+
+        if not os.path.exists (filename):
+            return False
         
         contents = open (filename).read ()
         for r in removals:
