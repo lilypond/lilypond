@@ -43,6 +43,45 @@ class Commit:
         self.diff = read_pipe ('git show %s' % self.committish)
     def compare (self, other):
         return sign (time.mktime (self.date) - time.mktime (other.date))
+
+
+    def check_diff_chunk (self, filename, chunk):
+        removals = []
+        def note_removal (m):
+            removals.append (m.group (1))
+            
+        re.sub ('\n-([^\n]+)', note_removal, chunk)
+
+        if removals == []:
+            return True
+
+        if not os.path.exists (filename):
+            return False
+   
+        contents = open (filename).read ()
+        for r in removals:
+            if r not in contents:
+                return False
+
+        return True
+
+    def check_diff (self):
+        chunks = re.split ('\ndiff --git ', self.diff)
+
+        ok = True
+        for c in chunks:
+            m = re.search ('^a/([^ ]+)', c)
+            if not m:
+                continue
+            
+            file = m.group (1)
+            
+            c = re.sub('\n--- [^\n]+', '', c)
+            ok = ok and self.check_diff_chunk (file, c)
+            if not ok:
+                break
+
+        return ok
         
     def touched_files (self):
         files = []
@@ -186,28 +225,38 @@ Run this file from the CVS directory, with commits from the repository in --git-
 
     try:
         previously_done = dict((c, 1) for c in open ('.git-commits-done').read ().split ('\n'))
-    except OSError:
+    except IOError:
         previously_done = {}
 
     commits = [c for c in commits if not previously_done.has_key (c.committish)]
     commits = sorted (commits, cmp=Commit.compare)
 
+    system ('cvs up')
     
     file_adddel = []
     collated_log = ''
     collated_message = ''
-
     commits_done = []
     while commits:
         c = commits[0]
-        commits = commits[1:]
         
-        commits_done.append (c) 
-
         if not c.has_patch ():
             print 'patchless commit (merge?)'
             continue
-        
+
+        ok = c.check_diff ()
+
+        if not ok:
+            print "Patch doesn't seem to apply"
+            print 'skipping', c.committish
+            print 'message:', c.message
+
+            break
+
+
+        commits = commits[1:]
+        commits_done.append (c) 
+            
         print 'patch ', c.committish
         try:
             c.apply (file_adddel)

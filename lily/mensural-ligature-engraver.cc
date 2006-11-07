@@ -99,7 +99,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
     {
       Grob_info info = primitives[i];
       Item *primitive = dynamic_cast<Item *> (info.grob ());
-      int duration_log = Note_head::get_balltype (primitive);
+      int duration_log = Rhythmic_head::duration_log (primitive);
 
       Stream_event *nr = info.event_cause ();
 

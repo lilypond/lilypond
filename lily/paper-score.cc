@@ -119,7 +119,7 @@ Paper_score::process ()
 		 system_->element_count (),
 		 system_->spanner_count ()));
 
-  message (_ ("Preprocessing graphical objects...") + " ");
+  message (_ ("Preprocessing graphical objects..."));
 
   /* FIXME: Check out why we need this - removing gives assertion failures
      down the road.

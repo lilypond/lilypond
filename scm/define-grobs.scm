@@ -144,6 +144,14 @@
 				side-position-interface
 				font-interface))))))
 
+    (BalloonTextItem 
+     . ((stencil . ,ly:balloon-interface::print)
+	(text . ,(grob::calc-property-by-copy 'text)) 
+	(X-offset . ,(grob::calc-property-by-copy 'X-offset)) 
+	(Y-offset . ,(grob::calc-property-by-copy 'Y-offset)) 
+	(meta . ((class . Item)
+		 (interfaces . (text-interface
+				font-interface))))))
     (BarLine
      . (
 	(break-align-symbol . staff-bar)
@@ -920,7 +928,7 @@
     (LyricText
      . (
 	(stencil . ,lyric-text::print)
-	(text . ,lyric-text::calc-text)
+	(text . ,(grob::calc-property-by-copy 'text)) 
 	(X-offset . ,ly:self-alignment-interface::aligned-on-x-parent)
 	(self-alignment-X . 0)
 	(word-space . 0.6)
@@ -1304,7 +1312,7 @@
     (Rest
      . (
 	(stencil . ,ly:rest::print)
-	(duration-log . ,note-head::calc-duration-log)
+	(duration-log . ,stem::calc-duration-log)
 	(X-extent . ,ly:rest::width)
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
@@ -1492,7 +1500,7 @@
     (Stem
      . (
 	(direction . ,ly:stem::calc-direction)
-	(duration-log . ,note-head::calc-duration-log)
+	(duration-log . ,stem::calc-duration-log)
 	(default-direction . ,ly:stem::calc-default-direction)
 	(stem-end-position . ,ly:stem::calc-stem-end-position)
 
@@ -1699,7 +1707,6 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
-	(duration-log . ,note-head::calc-duration-log)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)

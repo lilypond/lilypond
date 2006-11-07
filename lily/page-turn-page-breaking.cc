@@ -33,27 +33,6 @@ Page_turn_page_breaking::~Page_turn_page_breaking ()
 {
 }
 
-Real
-Page_turn_page_breaking::calc_demerits (const Break_node &me)
-{
-  Real prev_f = 0;
-  Real prev_dem = 0;
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
-  if (me.prev_ != VPOS)
-    {
-      prev_f = state_[me.prev_].force_;
-      prev_dem = state_[me.prev_].demerits_;
-    }
-
-  Real dem = me.force_ * me.force_ * page_weighting
-           + me.line_force_ * me.line_force_
-           + fabs (me.force_ - prev_f);
-  if (isinf (me.line_force_) || isinf (me.force_) || me.page_count_ == 0)
-    dem = infinity_f;
-
-  return dem + prev_dem + me.penalty_ + me.line_penalty_;
-}
-
 Page_turn_page_breaking::Break_node
 Page_turn_page_breaking::put_systems_on_pages (vsize start,
 					       vsize end,
@@ -67,6 +46,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   Real page_h = page_height (1, false); // FIXME
   SCM force_sym = last ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
   Real blank_force = robust_scm2double (book_->paper_->lookup_variable (force_sym), 0);
+  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
   int min_p_count = min_page_count (lines, page_h, ragged_all, ragged_last);
   bool auto_first = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
 
@@ -109,24 +89,23 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   ret.first_page_number_ = page_number;
   if (auto_first && start == 0)
     ret.first_page_number_ += 1 - (ret.page_count_ % 2);
-  ret.force_ = 0;
-  for (vsize i = 0; i < result.force_.size (); i++)
-    ret.force_ += fabs (result.force_[i]);
 
-  ret.penalty_ = result.penalty_;
   ret.div_ = div;
   ret.system_count_ = result.systems_per_page_;
 
   ret.too_many_lines_ = true;
-  ret.line_force_ = 0;
-  ret.line_penalty_ = 0;
+  ret.demerits_ = result.penalty_;
+  if (start > 0)
+    ret.demerits_ += state_[start-1].demerits_;
   for (vsize i = 0; i < lines.size (); i++)
     {
-      ret.line_force_ += fabs (lines[i].force_);
-      ret.line_penalty_ += lines[i].break_penalty_;
+      ret.demerits_ += lines[i].force_ * lines[i].force_;
+      ret.demerits_ += lines[i].break_penalty_;
       if (lines[i].force_ < 0)
 	ret.too_many_lines_ = false;
     }
+  for (vsize i = 0; i < result.force_.size (); i++)
+    ret.demerits_ += result.force_[i] * result.force_[i] * page_weighting;
   return ret;
 }
 
@@ -190,7 +169,6 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 	      vector<Line_details> line = line_details (start, end, div[d]);
 
               cur = put_systems_on_pages (start, end, line, div[d], p_num);
-	      cur.demerits_ = calc_demerits (cur);
 
               if (isinf (cur.demerits_)
 		  || (cur.page_count_ > 2

@@ -60,11 +60,7 @@ Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
 
   ret.demerits_ = ret.force_[0] * ret.force_[0] * page_weighting;
   for (vsize i = 1; i < ret.force_.size (); i++)
-    {
-      Real uniformity = fabs (ret.force_[i] - ret.force_[i-1]);
-      ret.demerits_ += (ret.force_[i] * ret.force_[i]
-			+ uniformity * uniformity) * page_weighting;
-    }
+    ret.demerits_ += ret.force_[i] * ret.force_[i] * page_weighting;
 
   /* for a while we tried averaging page and line forces instead of summing
      them, but it caused the following problem. If there is a single page

@@ -28,42 +28,33 @@ Balloon_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  SCM stil = me->get_property ("original-stencil");
-  if (!unsmob_stencil (stil))
-    return stil;
+  Grob *p = me->get_parent (X_AXIS);
+  
+  Offset off(me->relative_coordinate (p, X_AXIS),
+	     me->relative_coordinate (p, Y_AXIS));
 
-  SCM scm_off = me->get_property ("balloon-text-offset");
+  Box b (p->extent (p, X_AXIS),
+	 p->extent (p, Y_AXIS));
 
-  if (!is_number_pair (scm_off))
-    return stil;
-
-  Offset off = ly_scm2offset (scm_off);
-  Stencil *s = unsmob_stencil (stil);
-  Box orig_extent = s->extent_box ();
-  Box box_extent = orig_extent;
-
-  Real w = robust_scm2double (me->get_property ("balloon-padding"), .1);
-  box_extent.widen (w, w);
+  Real padding = robust_scm2double (me->get_property ("padding"), .1);
+  b.widen (padding, padding);
 
   // FIXME
-  Stencil fr = Lookup::frame (box_extent, 0.1, 0.05);
+  Stencil fr = Lookup::frame (b, 0.1, 0.05);
 
-  fr.add_stencil (*s);
-
-  SCM bt = me->get_property ("balloon-text");
+  SCM bt = me->get_property ("text");
   SCM chain = Font_interface::text_font_alist_chain (me);
-  chain = scm_cons (me->get_property ("balloon-text-props"), chain);
 
-  SCM text = Text_interface::interpret_markup (me->layout ()->self_scm (),
+  SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
 					       chain, bt);
 
-  Stencil *text_stil = unsmob_stencil (text);
+  Stencil *text_stil = unsmob_stencil (stencil);
 
   Offset z1;
   for (int i = X_AXIS; i < NO_AXES; i++)
     {
       Axis a ((Axis)i);
-      z1[a] = box_extent [a].linear_combination (sign (off[a]));
+      z1[a] = b[a].linear_combination (sign (off[a]));
       text_stil->align_to (a, -sign (off[a]));
     }
 
@@ -74,7 +65,7 @@ Balloon_interface::print (SCM smob)
   text_stil->translate (z2);
   fr.add_stencil (*text_stil);
 
-  fr = Stencil (orig_extent, fr.expr ());
+  fr.translate (-off);
   return fr.smobbed_copy ();
 }
 
@@ -82,9 +73,7 @@ ADD_INTERFACE (Balloon_interface, "text-balloon-interface",
 	       "A collection of routines to put text balloons around an object.",
 
 	       /* properties */
-	       "balloon-padding "
-	       "balloon-text-props "
-	       "balloon-text-offset "
-	       "balloon-text "
-	       "original-stencil ");
+	       "padding "
+	       "text "
+	       );
 

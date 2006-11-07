@@ -99,9 +99,15 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; note heads
 
-(define-public (note-head::calc-duration-log grob)
+
+(define-public (stem::calc-duration-log grob)
   (ly:duration-log
    (ly:event-property (event-cause grob) 'duration)))
+
+(define-public (note-head::calc-duration-log grob)
+  (min 2 
+       (ly:duration-log
+	(ly:event-property (event-cause grob) 'duration))))
 
 (define-public (dots::calc-dot-count grob)
   (ly:duration-dot-count
@@ -458,8 +464,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 					     (make-tied-lyric-markup text)
 					     text))))
 
-(define-public (lyric-text::calc-text grob)
-   (ly:event-property (event-cause grob) 'text))
+(define-public ((grob::calc-property-by-copy prop) grob)
+  (ly:event-property (event-cause grob) prop))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; fret boards

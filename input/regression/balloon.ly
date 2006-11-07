@@ -1,31 +1,18 @@
 
 \header {
+  
   texidoc = "With balloon texts, objects in the output can be marked,
 with lines and explanatory text added."
+  
 }
-\version "2.9.6"
+\version "2.9.28"
 
 \layout{ ragged-right = ##t }
 
+\new Voice \with {\consists "Balloon_engraver" }
 {
-  
   \relative c'  {
-
-    %% by hand:
-    \once\override Stem #'stencil = #ly:balloon-interface::print
-    \once\override Stem #'original-stencil = #ly:stem::print
-    \once\override Stem #'balloon-text = #"I'm a stem"
-    \once\override Stem #'balloon-text-offset = #'(3 . 4)
-    \once\override Stem #'balloon-text-props
-    = #'((font-family .  roman))
-
-
-    %% use predefd function. 
-    \applyOutput #'Voice #(add-balloon-text
-				  'NoteHead "heads, or tails?"
-				  '(0 . -3))
-
-    
-    c8
+    \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+    <c-\balloonText #'(-2 . -2) \markup { \simple #"hoi" }  >8
   }
 }
