@@ -39,6 +39,9 @@ check_meshing_chords (Grob *me,
   if (!Note_column::get_stem (cu) || !Note_column::get_stem (cd))
     return;
 
+  Drul_array<Grob*> stems (Note_column::get_stem (cd),
+			   Note_column::get_stem (cu));
+  
   Grob *nu = Note_column::first_head (cu);
   Grob *nd = Note_column::first_head (cd);
 
@@ -90,10 +93,10 @@ check_meshing_chords (Grob *me,
   /* Should never merge quarter and half notes, as this would make
      them indistinguishable.  */
   if (merge_possible
-      && ((Rhythmic_head::duration_log (nu) == 1
-	   && Rhythmic_head::duration_log (nd) == 2)
-	  || (Rhythmic_head::duration_log (nu) == 2
-	      && Rhythmic_head::duration_log (nd) == 1)))
+      && ((Stem::duration_log (stems[UP]) == 1
+	   && Stem::duration_log (stems[DOWN]) == 2)
+	  || (Stem::duration_log (stems[UP]) == 2
+	      && Stem::duration_log (stems[DOWN]) == 1)))
     merge_possible = false;
 
   /*
@@ -535,4 +538,4 @@ ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
 	       /* properties */
 	       "merge-differently-dotted "
 	       "merge-differently-headed "
-	       "positioning-done");
+	       "positioning-done ");
