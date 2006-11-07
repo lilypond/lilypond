@@ -1227,7 +1227,7 @@ figured bass notation"
          (stem-glyph (and (> log 0)
 			  (ly:round-filled-box
 			   (ordered-cons (car attach-off)
-					 (+ (car attach-off)  (* (- dir) stem-thickness)))
+					 (+ (car attach-off)  (* (- (sign dir)) stem-thickness)))
 			   (cons (min stemy (cdr attach-off))
 				 (max stemy (cdr attach-off)))
 			   (/ stem-thickness 3))))
