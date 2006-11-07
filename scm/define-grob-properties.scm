@@ -30,24 +30,21 @@ relative to its Y-parent")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
      (add-stem-support ,boolean? "If set, the Stem object is included in this script's support") 
-    
      (align-dir ,ly:dir? "Which side to align? @code{-1}: left side,
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached from main spacing.")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
-  
-
      (arrow ,boolean? "Add an arrow to the line.")
      (arrow-length ,number? "Arrow length.")
      (arrow-width ,number? "Arrow width.")
-
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
 where a horizontal beam fits that is larger than this number, make a kneed beam.")
      (average-spacing-wishes ,boolean? "If set, the spacing wishes are averaged over staves.")
+     (avoid-note-head ,boolean? "If set, the stem of a chord does not
+pass through all note heads, but starts at the last note head. ")
      (axes ,list? "list of axis numbers.
 In the case of alignment grobs, this should contain only one number.")
-
      (bar-size ,ly:dimension? "size of a bar line.")
      (barre-type ,symbol? "Type of barre indication used in a fret diagram.
 Choices include @code{curved} and @code{straight}.")
@@ -65,8 +62,6 @@ depending on the number flags/beams.")
 beams to make. 0 is the central beam, 1 is the next beam toward the
 note etc. This information is used to determine how to connect the
 beaming patterns from stem to stem inside a beam.")
-
-
      (before-line-breaking ,boolean? "Dummy property, used to trigger a callback function.")
      (between-cols ,pair? "Where to attach a loose column to")
      (bound-padding ,number? "The amount of padding to insert around spanner bounds.")
@@ -101,7 +96,6 @@ will make it print only if there is no beam associated with this
 tuplet bracket.")
      (break-visibility ,vector? "A vector of 3 booleans, #(end-of-line unbroken begin-of-line).
 #t means visible, #f means killed.")
-
      (c0-position ,integer? "An integer indicating the position of
 middle C.")
      (cautionary-style ,symbol? "How to print cautionary
@@ -113,27 +107,21 @@ closer to the beam than the two outside stems. This number is a
 measure of the closeness of the inner stems. It is used for damping
 the slope of the beam.")
      (collapse-height ,ly:dimension? "Minimum height of system start delimiter.  If equal or smaller, the bracket is removed.")
-
      (color ,color? "The color of this grob.")
-
      (control-points ,list? "List of offsets (number-pairs) that form
 control points for the tie/slur/bracket shape. For beziers, this
 should list the control points of a 3rd order bezier curve." )
-
      (connect-to-neighbor ,pair? "Pair of booleans, indicating whether this
 grob looks as a continued break.")
      (damping ,number? "Amount of beam slope damping. ")
      (dash-period ,number? "the length of one dash + white space. If
 negative, no line is drawn at all.")
-     
      (dash-fraction ,number? "Size of the dashes, relative to
 dash-period. Should be between 0.0 (no line) and 1.0 (continuous
 line).")
-     
      (default-direction ,ly:dir? "Direction determined by note head positions.")
      (digit-names ,vector "Names for string finger digits. ")
      (direction ,ly:dir? "If side-position is 1 (#X), then this property determines if the object is placed #LEFT, #CENTER or #RIGHT with respect to the other object. Otherwise, it determines if the object is placed #UP #CENTER or #DOWN.  Numerical values may also be used. #UP=1, #DOWN=-1, #LEFT=-1, #RIGHT=1, CENTER=0 but also other numerical values are permitted.")
-
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
      (dot-radius ,number? "Radius of dots.")
@@ -144,25 +132,19 @@ the vertical edges '(@var{left-height} . @var{right-height}).")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges '(@var{left-text} . @var{right-text}).")
      (eccentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
-     
      (enclose-bounds ,number?
 		     "How much of the bound a spanner should enclose:
 +1 = completely, 0 = center, -1 not at all.")
-
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
-
      ;; remove me? 
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
 by this much.")
      (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
-     
      (X-extent ,number-pair? "Hard coded extent in X direction. ")
      (Y-extent ,number-pair? "See @code{X-extent}.")
-
      (extra-offset ,number-pair? "A pair representing an offset. This
 offset is added just before outputting the symbol, so the typesetting
 engine is completely oblivious to it.")
-
      (finger-code ,symbol? "Code for the type of fingering indication in a
 fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-string}.")
      (flag-count ,number? "The number of tremolo beams.")
@@ -171,7 +153,6 @@ fret diagram.  Options include @code{none}, @code{in-dot}, and @code{below-strin
 typeset on a Stem. Valid options include @code{()} and
 @code{mensural}.  Additionally, @code{\"no-flag\"} switches off the
 flag.")
-
      (font-family ,symbol? "The font family is the broadest category for selecting text fonts. Options include: @code{sans}, @code{roman} ")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font. Options include: @code{fetaMusic},
@@ -182,36 +163,28 @@ the font to load.  This setting override selection using
 @code{font-family}, @code{font-series} and @code{font-shape}.")
      (font-magnification ,number? "Magnification of the font, when it
 is selected with @code{font-name}.")
-
      (font-size ,number? "The font size, compared the `normal'
 size.  0 is style-sheet's normal size, -1 is smaller, +1 is bigger.
 Each step of 1 is approximately 12% larger, 6 steps are exactly a
 factor 2 larger. Fractional values are allowed.")
-
      (font-series ,symbol? "Select the series of a font. Choices
 include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
 @code{italic}, @code{caps}.")
-
      (forced ,boolean? "manually forced accidental")
      (forced-distance ,ly:dimension? "A fixed distance between object
 reference points in an alignment.")
-
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions. The unit is the note head width of the first voice
 note.  This is used by @internalsref{note-collision-interface}.")
-
      (fraction ,number-pair? "Numerator and denominator of a time
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem. The stem will stop at the innermost beams.")
      (fret-count ,integer? "The number of frets in a fret diagram.")
-
      ;; ugh: double, change.
      (full-size-change ,boolean? "Don't make a change clef smaller.")
      (non-default ,boolean? "Set for manually specified clefs.")
-
-
      (glyph ,string? "a string determining what (style) of glyph is
 typeset. Valid choices depend on the function that is reading this
 property.")
@@ -223,7 +196,6 @@ property.")
      (height ,ly:dimension? "Height of an object in staff-space.")
      (height-limit ,ly:dimension? "Maximum slur height: the longer the
 slur, the closer it is to this height.")
-
      (horizontal-shift ,integer? "An integer that identifies ranking
 of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
@@ -257,11 +229,9 @@ left to an object (eg. a group of accidentals).")
 unbeamed stems.")
      (length-fraction ,number? "Multiplier for lengths. Used for
 determining ledger lines and stem lengths.")
-
      (line-break-system-details ,list?
 				"Alist of properties to use when this
 column is the start of a system.")
-
      (line-count ,integer? "The number of staff lines.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie/slur contour.")
@@ -270,7 +240,6 @@ column is the start of a system.")
 to beams from this stem. Further beams are typeset as beamlets.")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")
-
      (measure-count ,integer? "The number of measures for a
 multimeasure rest.")
      (merge-differently-headed ,boolean? "Merge
@@ -278,11 +247,9 @@ note heads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
 @internalsref{note-collision-interface} .")
-
      (merge-differently-dotted ,boolean? "Merge note heads in
 collisions, even if they have a different number of dots. This normal
 notation for some types of polyphonic music. ")
-
      (minimum-length-fraction ,number? "Minimum length of ledger line as fraction of note head size.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
@@ -298,7 +265,6 @@ should move (after padding).")
 center of the staff.")
      (neutral-position ,number? "Position (in half staff spaces) where
 to flip the direction of custos stem.")
-
      (next ,ly:grob? "Object that is next relation (eg. the lyric syllable following an extender.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
@@ -338,7 +304,6 @@ with a negative penalty.")
 staff-space unit of the current staff.")
      (ratio ,number? "Parameter for slur shape. The higher this number, the
 quicker the slur attains it @code{height-limit}.")
-     
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
@@ -351,13 +316,11 @@ for stems that are placed in tight configurations. This amount is used
 for stems with the same direction to compensate for note-head to stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
-
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value -1 means left aligned, 0 centered, and 1 right-aligned in X
 direction. Values in between may also be specified.")
      (self-alignment-Y ,number? "like @code{self-alignment-X} but for
 Y axis.")
-
      (shorten-pair ,number-pair? "The lengths to shorten a
 text-spanner on both sides, for example a pedal bracket.  Positive values
 shorten the text-spanner, while negative values lengthen it.")
@@ -385,30 +348,28 @@ prefatory items, like clef and time-signature. The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
-
      (spacing-increment ,number? "Add this much space for a doubled
 duration. Typically, the width of a note head. See also
 @internalsref{spacing-spanner-interface}.")
-
      (springs-and-rods ,boolean? "Dummy variable for triggering spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
-     (staff-space ,ly:dimension? "Amount of space between staff lines,
-expressed in global staff-space.")
+     (staff-padding ,ly:dimension?
+		    "Maintain this much space between reference points
+and the staff.  Its effect is to align objects of differing
+sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
-     
+     (staff-space ,ly:dimension? "Amount of space between staff lines,
+expressed in global staff-space.")
      (stemlet-length ,number? "How long should a stem over a rest be?")
      (stem-attachment ,number-pair? "A  (@var{x} . @var{y}) pair where the stem attaches to the notehead.")
-
      (stem-end-position ,number? "Where does the stem end (the end is opposite to the support-head.")
-
      ;;[TODO: doco]
      (stem-spacing-correction ,number? "Optical correction amount for
 stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
      (stencil ,ly:stencil? "The symbol to print.")
-
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")
@@ -417,7 +378,6 @@ are not spaced separately, but put before musical columns.")
      (string-count ,integer? "The number of strings in a fret diagram.")
      (string-fret-finger-combinations ,list? "List consisting of (string-number fret-number finger-number) entries.")
      (stroke-style ,string? "set to \"grace\" to turn stroke through flag on.")
-     
      (style ,symbol? "This setting determines in what style a grob is
 typeset. Valid choices depend on the @code{stencil} callback reading
 this property.")
@@ -431,7 +391,6 @@ use LEFT.")
      (thickness ,number? "Line thickness, generally measured in
 @code{line-thickness}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
-
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of (@var{position} . @var{dir})
@@ -451,14 +410,6 @@ zigzags.")
      (zigzag-width ,ly:dimension? "The width of one
 zigzag-squiggle. This number will be adjusted slightly so that the
 glissando line can be constructed from a whole number of squiggles.")
-
-     (avoid-note-head ,boolean? "If set, the stem of a chord does not
-pass through all note heads, but starts at the last note head. ")
-     (staff-padding ,ly:dimension?
-		    "Maintain this much space between reference points
-and the staff.  Its effect is to align objects of differing
-sizes (like the dynamic @b{p} and @b{f}) on their baselines.")
-
      )))
 
 

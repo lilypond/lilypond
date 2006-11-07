@@ -44,6 +44,7 @@ class Commit:
     def compare (self, other):
         return sign (time.mktime (self.date) - time.mktime (other.date))
 
+
     def check_diff_chunk (self, filename, chunk):
         removals = []
         def note_removal (m):
@@ -56,7 +57,7 @@ class Commit:
 
         if not os.path.exists (filename):
             return False
-        
+   
         contents = open (filename).read ()
         for r in removals:
             if r not in contents:
