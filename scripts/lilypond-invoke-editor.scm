@@ -1,5 +1,4 @@
-#!@GUILE@ \
--e main -s
+#!@GUILE@ -s
 !#
 ;;;; lilypond-invoke-editor.scm -- Invoke an editor in file:line:column mode
 ;;;;
@@ -146,3 +145,4 @@ Options:
 	  (run-editor uri)
 	  (run-browser uri)))))
 
+(main (command-line))
