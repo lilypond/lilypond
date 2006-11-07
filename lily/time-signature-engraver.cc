@@ -62,7 +62,7 @@ Time_signature_engraver::process_music ()
 	  */
 	  warning (_f ("strange time signature found: %d/%d",
 		       den,
-		       scm_to_int (scm_car (fr))));
+		       int (scm_to_int (scm_car (fr)))));
 	}
 
       last_time_fraction_ = fr;
