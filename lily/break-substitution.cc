@@ -322,6 +322,8 @@ Spanner::fast_substitute_grob_array (SCM sym,
 
   /*
     We store items on the left, spanners on the right in this vector.
+
+    FIXME: will not multithread.
   */
   static Substitution_entry *vec;
   static int vec_room;

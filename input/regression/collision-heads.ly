@@ -1,11 +1,7 @@
-\version "2.7.39"
+\version "2.9.29"
 \header {
   texidoc =
-
-  "If @code{merge-differently-headed} is enabled, then
-open note heads may be merged with black noteheads, but only
-if the black note heads are from 8th or shorter notes.
-"
+  "Open and black note heads are not merged by default."
   
 }
 
@@ -15,15 +11,8 @@ if the black note heads are from 8th or shorter notes.
 \context Staff  \relative c'' <<
   {
     c2 c8 c4.
-    
-    \override Staff.NoteCollision  #'merge-differently-headed = ##t
-    c2 c8 c4.
-    c2
   }\\
   {
     c8 c4. c2
-    
-    c8 c4. c2
-    c4
   }
 >>
