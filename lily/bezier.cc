@@ -134,31 +134,28 @@ Bezier::curve_point (Real t) const
 /*
   Cache binom(3,j) t^j (1-t)^{3-j}
 */
-static struct Polynomial bezier_term_cache[4];
-static bool done_cache_init;
+struct Polynomial_cache {
+  Polynomial terms_[4];
+  Polynomial_cache ()
+  {
+    for (int j = 0; j <= 3; j++)
+      terms_[j]
+	= binomial_coefficient_3[j]
+	* Polynomial::power (j, Polynomial (0, 1))
+	* Polynomial::power (3 - j, Polynomial (1, -1));
+  }
+};
 
-void
-init_polynomial_cache ()
-{
-  for (int j = 0; j <= 3; j++)
-    bezier_term_cache[j]
-      = binomial_coefficient_3[j]
-      * Polynomial::power (j, Polynomial (0, 1))
-      * Polynomial::power (3 - j, Polynomial (1, -1));
-  done_cache_init = true;
-}
+static Polynomial_cache poly_cache;
 
 Polynomial
 Bezier::polynomial (Axis a) const
 {
-  if (!done_cache_init)
-    init_polynomial_cache ();
-
   Polynomial p (0.0);
   Polynomial q;
   for (int j = 0; j <= 3; j++)
     {
-      q = bezier_term_cache[j];
+      q = poly_cache.terms_[j];
       q *= control_[j][a];
       p += q;
     }
