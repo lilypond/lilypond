@@ -1,8 +1,6 @@
 ;;; lilypond-font-lock.el --- syntax coloring for LilyPond mode
 
-;; Copyright (C) 1992,1993,1994  Tim Peters
-
-;; Author: 2001-2003: Heikki Junes
+;; Author: 2001-2006: Heikki Junes
 ;;  * Emacs-mode: new keywords, reserved words, identifiers, notenames, 
 ;;    some dynamics and brackets are font-lock-keywords
 ;;  * context-dependent syntax-tables
@@ -10,15 +8,9 @@
 ;; Author: 1995-1996 Barry A. Warsaw
 ;;         1992-1994 Tim Peters
 ;; Created:       Feb 1992
-;; Version:       1.9.9
-;; Last Modified: 23SEP2003
+;; Version:       2.9.29
+;; Last Modified: 11NOV2006
 ;; Keywords: lilypond languages music notation
-
-;; This software is provided as-is, without express or implied
-;; warranty.  Permission to use, copy, modify, distribute or sell this
-;; software, without fee, for any purpose and by any individual or
-;; organization, is hereby granted, provided that the above copyright
-;; notice and this paragraph appear in all copies.
 
 ;; This started out as a cannabalised version of python-mode.el, by hwn
 ;; For changes see the LilyPond ChangeLog

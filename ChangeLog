@@ -1,3 +1,7 @@
+2006-11-09  Heikki Junes  <hjunes@gmail.com>
+
+	* elisp/lilypond-font-lock.el: Should always have been GPL.
+
 2006-11-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
 
 	* lily/break-substitution.cc: 
