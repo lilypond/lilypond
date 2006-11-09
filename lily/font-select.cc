@@ -114,16 +114,7 @@ select_encoded_font (Output_def *layout, SCM chain)
     return select_pango_font (layout, chain);
   else
 #endif
-    if (scm_is_string (name))
-      {
-	Real rmag
-	  = robust_scm2double (ly_chain_assoc_get (ly_symbol2scm ("font-magnification"), chain, SCM_BOOL_F),
-			       1.0);
-	Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
-
-	return find_scaled_font (layout, fm, rmag);
-      }
-    else if (scm_instance_p (name))
+    if (scm_instance_p (name))
       {
 	SCM base_size = scm_slot_ref (name, ly_symbol2scm ("default-size"));
 	SCM vec = scm_slot_ref (name, ly_symbol2scm ("size-vector"));
