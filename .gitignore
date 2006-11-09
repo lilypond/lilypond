@@ -1,6 +1,7 @@
 config.hh
 config.make
 config.status
+config.status.lineno
 config.log
 *~
 GNUmakefile

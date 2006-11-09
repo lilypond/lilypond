@@ -19,7 +19,8 @@
 
 	* lily/note-collision.cc: 
 	* input/regression/collision-merge-differently-headed.ly: 
-	Examine Stem::duration_log() for preventing merge of quarter and halfnote. Fixes collision-heads.ly. Add separate regtest for that.
+	Examine Stem::duration_log() for preventing merge of quarter and
+	halfnote.  Fixes collision-heads.ly.  Add separate regtest for that.
 
 	* scripts/lilypond-invoke-editor.scm: 
 	don't use guile -e main execution.
@@ -83,7 +84,10 @@
 	* scm/define-music-types.scm: 
 	* scm/output-lib.scm: 
 	* lily/balloon-engraver.cc: 
-	rewrite balloon-text support. This is now a separate grob, with itsvictim as the parent. This involves addingBalloon_engraver, AnnotateOutputEvent, annotate-output-event,\balloonText, \balloonGrobText, and modifying Balloon_interface::print.
+	rewrite balloon-text support.  This is now a separate grob, with
+	itsvictim as the parent.  This involves addingBalloon_engraver,
+	AnnotateOutputEvent, annotate-output-event,\balloonText,
+	\balloonGrobText, and modifying Balloon_interface::print.
 
 	* lily/paper-score.cc: 
 	remove progress again
