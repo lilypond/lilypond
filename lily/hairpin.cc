@@ -58,7 +58,12 @@ Hairpin::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
-  consider_suicide (me);
+  if (Spanner *orig = dynamic_cast<Spanner*> (me->original ()))
+    {
+      for (vsize i = 0; i < orig->broken_intos_.size (); i++)
+	Hairpin::consider_suicide (orig->broken_intos_[i]);
+    }
+  
   SCM s = me->get_property ("grow-direction");
   if (!is_direction (s))
     {
@@ -78,17 +83,16 @@ Hairpin::print (SCM smob)
       broken[d] = bounds[d]->break_status_dir () != CENTER;
     }
   while (flip (&d) != LEFT);
+
+  broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT);
+  broken[RIGHT] = broken[RIGHT] && me->broken_neighbor (RIGHT)->is_live ();
+  
   if (broken[RIGHT])
     {
-      Spanner *orig = dynamic_cast<Spanner*> (me->original ());
-      if (me->get_break_index ()
-	  < orig->broken_intos_.size () - 1)
-	{
-	  Spanner *next = orig->broken_intos_[me->get_break_index () + 1];
-	  Stencil *s = next->get_stencil ();
-	  if (!s || s->is_empty ())
-	    broken[RIGHT] = false;
-	}
+      Spanner *next = me->broken_neighbor (RIGHT);
+      Stencil *s = next->get_stencil ();
+      if (!s || s->is_empty ())
+	broken[RIGHT] = false;
     }
 
   Grob *common = bounds[LEFT]->common_refpoint (bounds[RIGHT], X_AXIS);
