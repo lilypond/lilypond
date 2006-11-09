@@ -1549,6 +1549,10 @@ g4
 a2 g2
 @end lilypond
 
+@code{\partial} is only intended to be used at the beginning of a
+piece.  If you use it after the beginning, some odd warnings may
+occur.
+
 
 @node Bar lines
 @subsection Bar lines
