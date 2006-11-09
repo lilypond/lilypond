@@ -187,7 +187,8 @@ Hairpin::print (SCM smob)
 
   bool continued = broken[Direction (-grow_dir)];
 
-  Real starth, endh;
+  Real starth = 0;
+  Real endh = 0;
   if (grow_dir < 0)
     {
       starth = height;
@@ -252,6 +253,8 @@ Hairpin::print (SCM smob)
 
 ADD_INTERFACE (Hairpin, "hairpin-interface",
 	       "A hairpin crescendo/decrescendo.",
+
+	       /* props */
 	       "adjacent-hairpins "
 	       "circled-tip "
 	       "bound-padding "
