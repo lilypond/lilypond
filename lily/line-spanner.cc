@@ -222,9 +222,7 @@ Line_spanner::print (SCM smob)
 	anymore. We have to find the piano-staff object.
       */
 
-      int k = broken_spanner_index (me);
-      Spanner *parent_sp = dynamic_cast<Spanner *> (me->original ());
-      Spanner *next_sp = parent_sp->broken_intos_ [k + 1];
+      Spanner *next_sp = me->broken_neighbor (RIGHT);
       Item *next_bound = next_sp->get_bound (RIGHT);
 
       if (next_bound->break_status_dir ())
