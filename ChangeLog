@@ -6,7 +6,7 @@
 
 	* lily/engraver.cc: 
 	* lily/grob-property.cc: 
-	use  SCM_ASSERT_TYPE for graphing functions.
+	use SCM_ASSERT_TYPE for graphing functions.
 
 	* lily/cluster.cc: 
 	formatting.
