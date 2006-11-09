@@ -85,7 +85,7 @@ may need to install guile-devel or guile-dev or libguile-dev too.
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
 
 @item
- @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
+@uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
 newer). 
 
 @item @uref{http://www.python.org,Python} (version 2.3 or newer)
@@ -93,7 +93,6 @@ newer).
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
-
 
 @item @uref{http://www.gnu.org/software/flex/,Flex} 
 
@@ -293,13 +292,6 @@ export GUILE_CONFIG=guile-1.6-config
 export PKG_CONFIG_PATH=/sw/lib/freetype219/lib/pkgconfig/:/sw/lib/fontconfig2/lib/pkgconfig/
 ./configure
 @end verbatim
-
-@unnumberedsubsec NetBSD
-
-@itemize @bullet
-@item The flex precompiled in NetBSD-1.4.2 is broken.
-Upgrade to flex-2.5.4a.
-@end itemize
 
 @unnumberedsubsec  Solaris
 
