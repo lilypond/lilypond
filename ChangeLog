@@ -1,3 +1,58 @@
+2006-11-07  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/break-substitution.cc: 
+	* lily/dynamic-text-spanner.cc: 
+	nitpicks.
+
+	* lily/engraver.cc: 
+	* lily/grob-property.cc: 
+	use  SCM_ASSERT_TYPE for graphing functions.
+
+	* lily/cluster.cc: 
+	formatting.
+
+	* lily/all-font-metrics.cc: 
+	excise cmr10
+
+	* input/regression/collision-heads.ly: 
+	trim example.
+
+	* lily/note-collision.cc: 
+	* input/regression/collision-merge-differently-headed.ly: 
+	Examine Stem::duration_log() for preventing merge of quarter and
+	halfnote.  Fixes collision-heads.ly.  Add separate regtest for that.
+
+	* scripts/lilypond-invoke-editor.scm: 
+	don't use guile -e main execution.
+
+	* scm/define-grobs.scm: 
+	use stem::calc-duration-log for rest.
+
+	* scm/define-markup-commands.scm: 
+	another (sign dir) fix for note markup
+
+	* scm/define-markup-commands.scm: 
+	use (sign dir) for computing attachment points.
+
+	* buildscripts/git-update-changelog.py: 
+	run cvs up before patching.
+
+2006-11-06  Han-Wen Nienhuys  <hanwen@lilypond.org>
+
+	* lily/note-head.cc: 
+	trim note-head.cc includes.
+
+	* lily/easy-notation.cc: 
+	* lily/mensural-ligature-engraver.cc: 
+	* lily/note-collision.cc: 
+	* lily/note-head.cc: 
+	* scm/define-grobs.scm: 
+	* scm/output-lib.scm: 
+	use Rhythmic_head::duration_log() iso. Note_head::get_balltype().
+
+	* buildscripts/git-update-changelog.py: 
+	also barf if file doesn't exist.
+
 2006-11-07  Erlend Aasland  <erlenda@gmail.com>
 
 	* scm/music-function.scm (add-ballon-text): add FIXME comment.
@@ -29,7 +84,10 @@
 	* scm/define-music-types.scm: 
 	* scm/output-lib.scm: 
 	* lily/balloon-engraver.cc: 
-	rewrite balloon-text support. This is now a separate grob, with itsvictim as the parent. This involves addingBalloon_engraver, AnnotateOutputEvent, annotate-output-event,\balloonText, \balloonGrobText, and modifying Balloon_interface::print.
+	rewrite balloon-text support.  This is now a separate grob, with
+	itsvictim as the parent.  This involves addingBalloon_engraver,
+	AnnotateOutputEvent, annotate-output-event,\balloonText,
+	\balloonGrobText, and modifying Balloon_interface::print.
 
 	* lily/paper-score.cc: 
 	remove progress again

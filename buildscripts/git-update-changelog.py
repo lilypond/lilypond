@@ -54,10 +54,9 @@ class Commit:
 
         if removals == []:
             return True
-
         if not os.path.exists (filename):
             return False
-   
+
         contents = open (filename).read ()
         for r in removals:
             if r not in contents:
@@ -177,16 +176,13 @@ Apply GIT patches and update change log.
 
 Run this file from the CVS directory, with commits from the repository in --git-dir.
 
-
-
-
 """)
     p.add_option ("--start",
                   action='store',
                   default='',
                   metavar="FIRST",
                   dest="start",
-                  help="all commits starting with FIRST.")
+                  help="all commits starting with FIRST (exclusive).")
     
     p.add_option ("--git-dir",
                   action='store',
