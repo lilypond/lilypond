@@ -244,6 +244,20 @@ Spanner::find_broken_piece (System *l) const
   return 0;
 }
 
+Spanner *
+Spanner::broken_neighbor (Direction d) const
+{
+  if (!original_)
+    return 0;
+
+  vsize k = broken_spanner_index (this);
+  int j = int (k) + d;
+  if (j < 0 || vsize (j) >= broken_intos_.size ())
+    return 0;
+
+  return broken_intos_[j];
+}
+
 int
 Spanner::compare (Spanner *const &p1, Spanner *const &p2)
 {
@@ -342,10 +356,11 @@ Spanner::set_spacing_rods (SCM smob)
   Return I such that SP == SP->ORIGINAL ()->BROKEN_INTOS_[I].
 */
 int
-broken_spanner_index (Spanner *sp)
+broken_spanner_index (Spanner const *sp)
 {
   Spanner *parent = dynamic_cast<Spanner *> (sp->original ());
-  return find (parent->broken_intos_, sp) - parent->broken_intos_.begin ();
+  /* ugh: casting */
+  return find (parent->broken_intos_, (Spanner*) sp) - parent->broken_intos_.begin ();
 }
 
 Spanner *
@@ -362,3 +377,4 @@ ADD_INTERFACE (Spanner,
 	       "@code{Item} objects), one on the left and one on the right. The left bound is\n"
 	       "also the X-reference point of the spanner.\n",
 	       "minimum-length");
+

@@ -39,7 +39,8 @@ public:
   vector<Spanner*> broken_intos_;
 
   vsize get_break_index () const;
-
+  Spanner *broken_neighbor (Direction d) const;
+  
   // todo: move to somewhere else.
   Real get_broken_left_end_align () const;
   void substitute_one_mutable_property (SCM sym, SCM val);
@@ -71,5 +72,5 @@ protected:
 void add_bound_item (Spanner *, Grob *);
 
 bool spanner_less (Spanner *s1, Spanner *s2);
-int broken_spanner_index (Spanner *sp);
+int broken_spanner_index (Spanner const *sp);
 #endif
