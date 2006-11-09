@@ -161,8 +161,6 @@ category for selecting a font. Options include: @code{fetaMusic},
      (font-name ,string? "Specifies a file name (without extension) of
 the font to load.  This setting override selection using
 @code{font-family}, @code{font-series} and @code{font-shape}.")
-     (font-magnification ,number? "Magnification of the font, when it
-is selected with @code{font-name}.")
      (font-size ,number? "The font size, compared the `normal'
 size.  0 is style-sheet's normal size, -1 is smaller, +1 is bigger.
 Each step of 1 is approximately 12% larger, 6 steps are exactly a
