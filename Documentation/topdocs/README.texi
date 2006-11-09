@@ -59,7 +59,7 @@ We have the following mailing lists:
 is a low-volume list for information on LilyPond project.
     This list is moderated; ask 
     @email{drl@@gnu.org, David R. Linn} or
-    @email{hanwen@@cs.uu.nl, Han-Wen} to send announcements for this
+    @email{hanwen@@xs4all.nl, Han-Wen} to send announcements for this
 list.
 
 @item
@@ -73,12 +73,12 @@ list.
 for sending bugreports.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
-  for commit messages in CVS development. This is a high-volume moderated
-  list.
+  for commit messages from the CVS repository, and log files from the
+autobuild.
 @end itemize
 
-You can search the lists from the following page:
-@uref{http://lilypond.org/search, searching facilities}.
+You can search the lists from our @uref{http://lilypond.org/search,
+searching facilities}.
 
 @section Bugs
 

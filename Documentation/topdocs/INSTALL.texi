@@ -30,23 +30,20 @@ your platform.
 Download source
 @itemize @bullet
 @item tarballs from
-@itemize @bullet
 @uref{http://lilypond.org/download/} by HTTP.
-@end itemize
+@item tarballs from
+@uref{http://download.linuxaudio.org/lilypond/} by HTTP.
 @item 
-CVS from @uref{http://savannah.gnu.org/cvs/?group=lilypond,savannah.gnu.org}
-@itemize @bullet
-@c @quotation
+GIT from @uref{http://repo.or.cz/w/lilypond.git,repo.or.cz}
 @example
-CVS_RSH=ssh cvs -d:pserver:anonymous@@cvs.savannah.gnu.org:/cvsroot/lilypond co lilypond
+git clone git://repo.or.cz/lilypond.git 
 @end example
-@c @end quotation
-The CVS repository does not contain generated files.  To create
+
+The repository does not contain generated files.  To create
 @file{configure}, run
 @example
 ./autogen.sh
 @end example
-@end itemize
 @end itemize
 
 For information on packaging, see @uref{http://lilypond.org/devel}.
