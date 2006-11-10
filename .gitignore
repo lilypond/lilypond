@@ -28,3 +28,6 @@ gcstat*.scm
 *.afm
 *.orig
 *.rej
+*-systems.texi
+*-systems.tex
+*-midi.ly
