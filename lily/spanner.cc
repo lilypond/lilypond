@@ -251,11 +251,12 @@ Spanner::broken_neighbor (Direction d) const
     return 0;
 
   vsize k = broken_spanner_index (this);
+  Spanner *orig = dynamic_cast<Spanner*> (original_);
   int j = int (k) + d;
-  if (j < 0 || vsize (j) >= broken_intos_.size ())
+  if (j < 0 || vsize (j) >= orig->broken_intos_.size ())
     return 0;
 
-  return broken_intos_[j];
+  return orig->broken_intos_[j];
 }
 
 int
