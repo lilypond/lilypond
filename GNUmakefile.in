@@ -34,8 +34,10 @@ include $(depth)/make/stepmake.make
 
 local-dist: dist-toplevel-txt-files make-dist-version
 
-make-dist-version:
-	echo $(TOPLEVEL_VERSION) > $(outdir)/VERSION
+default: $(outdir)/VERSION
+
+$(outdir)/VERSION: $(config_make)
+	echo $(TOPLEVEL_VERSION) > $@
 
 dist-toplevel-txt-files:
 	-mkdir -p $(distdir)
