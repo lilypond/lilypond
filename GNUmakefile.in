@@ -32,7 +32,10 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
-local-dist: dist-toplevel-txt-files
+local-dist: dist-toplevel-txt-files make-dist-version
+
+make-dist-version:
+	echo $(TOPLEVEL_VERSION) > $(outdir)/VERSION
 
 dist-toplevel-txt-files:
 	-mkdir -p $(distdir)
