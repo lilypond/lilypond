@@ -44,7 +44,6 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	  ))
        stencils))
 
-  
 (define (dump-stencils-as-EPSes stencils book basename)
   (define do-pdf (member  "pdf" (ly:output-formats)))
   (define paper (ly:paper-book-paper book))
@@ -52,7 +51,20 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     (let* ((dump-me (stack-stencils Y DOWN 2.0 stencils)))
       (dump-stencil-as-EPS paper dump-me basename #t)))
 
-  (define (dump-stencils-as-separate-EPS stencils count )
+  (define (dump-counted-stencil stencil-count-pair)
+    "Return EPS filename" 
+    (let*
+	((stencil (car stencil-count-pair))
+	 (number (cdr stencil-count-pair))
+	 (name (format "~a-~a" basename number)))
+
+      (dump-stencil-as-EPS
+       paper stencil name
+       (ly:get-option 'include-eps-fonts))
+
+      (string-append name ".eps")))
+  
+  (define (dump-stencils-as-separate-EPS stencils count)
     (if (pair? stencils)
 	(let* ((line (car stencils))
 	       (rest (cdr stencils))
@@ -60,26 +72,33 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	       )
 
 	  (dump-stencil-as-EPS
-	   paper line system-base-name
-	   (ly:get-option 'include-eps-fonts))
+	   paper line system-base-name)
 
 	  (if do-pdf
 	      (postscript->pdf  0 0  (string-append system-base-name ".eps")))
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
 
-
   ;; main body 
   (let* ((tex-system-name (format "~a-systems.tex" basename))
 	 (texi-system-name (format "~a-systems.texi" basename))
 	 (tex-system-port (open-output-file tex-system-name))
-	 (texi-system-port (open-output-file texi-system-name)))
+	 (texi-system-port (open-output-file texi-system-name))
+	 (widened-stencils (widen-left-stencil-edges stencils))
+	 (counted-systems  (count-list widened-stencils))
+	 (eps-files (map dump-counted-stencil  counted-systems))
+	 )
     
     (ly:message (_ "Writing ~a...") tex-system-name)
     (ly:message (_ "Writing ~a...") texi-system-name)
 
-    (set! stencils (widen-left-stencil-edges stencils))
-    
-    (dump-stencils-as-separate-EPS stencils 1)
+    (if do-pdf
+
+	;; par-for-each: a bit faster ...  
+	(for-each
+	 (lambda (y)
+	   (postscript->pdf 0 0 y))
+	 eps-files))
+
     (for-each (lambda (c)
 		(if (< 0 c)
 		    (display (format "\\ifx\\betweenLilyPondSystem \\undefined
