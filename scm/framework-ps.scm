@@ -482,8 +482,8 @@
 			 (ly:output-formats))))
 
 (define-public (dump-stencil-as-EPS paper dump-me filename
-				    load-fonts
-				    )
+				    load-fonts)
+  
   (let*
       ((xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
@@ -537,8 +537,6 @@
 		     "ps"))
 
 	 (port (ly:outputter-port outputter))
-
-	 
 	 (rounded-bbox (to-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts)))
