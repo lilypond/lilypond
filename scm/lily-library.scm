@@ -231,6 +231,16 @@ found."
 ;; list
 
 
+(define-public (count-list lst)
+  "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
+  (define (helper l acc count)
+    (if (pair? l)
+	(helper (cdr l) (cons (cons (car l) count) acc) (1+ count))
+	acc))
+
+
+  (reverse (helper lst '() 1)))
+  
 (define-public (list-join lst intermediate)
   "put INTERMEDIATE  between all elts of LST."
 
