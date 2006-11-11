@@ -14,7 +14,7 @@ configure
 TAGS
 tags
 .gdbinit
-?.ly
+?.*
 *.midi
 \#*
 lily-[0-9][0-9][0-9]*
@@ -31,3 +31,4 @@ gcstat*.scm
 *-systems.texi
 *-systems.tex
 *-midi.ly
+a.out
