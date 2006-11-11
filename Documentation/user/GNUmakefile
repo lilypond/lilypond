@@ -218,10 +218,12 @@ $(outdir)/source:
 
 $(outdir)/lilypond/source:
 	@rm -f $(@)
+	mkdir -p $(outdir)/lilypond
 	ln -sf ../../../ $(@)
 
 $(outdir)/music-glossary/source:
 	@rm -f $(@)
+	mkdir -p $(outdir)/music-glossary
 	ln -sf ../../../ $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\

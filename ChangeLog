@@ -1,3 +1,15 @@
+2006-11-10  Werner Lemberg  <wl@gnu.org>
+
+	* Documentation/user/GNUmakefile ($(outdir)/lilypond/source,
+	$(outdir)/music-glossary/source): Fixes for `make -j'.
+
+	* Documentation/user/introduction.itely: Don't let images overlap
+	and update its scaling values.
+
+	* Documentation/user/lily-flat-bw.png,
+	Documentation/user/henle-flat-gray.png: Add vertical whitespace:
+	texinfo doesn't center images vertically for PDF output.
+
 2006-11-09  Heikki Junes  <hjunes@gmail.com>
 
 	* elisp/lilypond-font-lock.el: Should always have been GPL.

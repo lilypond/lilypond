@@ -54,11 +54,11 @@ one.  It is rounded, and its weight harmonizes with the thickness of
 our staff lines, which are also much thicker than lines in the
 computer edition.
 
-@multitable @columnfractions .05 .3 .3 .3 .05
+@multitable @columnfractions .125 .25 .25 .25 .125
 @item @tab
 @ifnotinfo
 @iftex
-@image{henle-flat-gray,,8cm}
+@image{henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
 @image{henle-flat-gray,,,png}
@@ -66,7 +66,7 @@ computer edition.
 
 @tab
 @iftex
-@image{baer-flat-gray,,8.4cm}
+@image{baer-flat-gray,,4cm}
 @end iftex
 @ifnottex
 @image{baer-flat-gray,,,png}
@@ -74,7 +74,7 @@ computer edition.
 
 @tab
 @iftex
-@image{lily-flat-bw,,8cm}
+@image{lily-flat-bw,,4cm}
 @end iftex
 @ifnottex
 @image{lily-flat-bw,,,png}
@@ -502,6 +502,7 @@ and the @code{Stem_engraver} adds stems.
 }
 @end lilypond
 
+@noindent
 The @code{Stem_engraver} is notified of any note head coming along.
 Every time one (or more, for a chord) note head is seen, a stem
 object is created and connected to the note head.  By adding
