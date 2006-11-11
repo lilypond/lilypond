@@ -37,7 +37,7 @@ See user manual, \NAME\
 @node Top
 @top
 @end ifnottex
-@unnumbered New features in 2.9 since 2.8
+@unnumbered New features since 2.8
 
 @ifhtml
 This document is also available in @uref{NEWS.pdf,PDF}. It's part of
