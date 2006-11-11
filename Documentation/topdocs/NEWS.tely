@@ -65,6 +65,10 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+@item @code{lilypond-book} supports DocBook too.
+
+This feature was contributed by Bertalan Fodor.
+
 @item Balloon texts can be entered more ergonomically, and are no
 longer clipped from the output.
 
