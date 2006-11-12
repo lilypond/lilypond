@@ -686,7 +686,7 @@ field).
 @item oddFooterMarkup
   This is the page footer for odd-numbered pages.
 
-@funindex evenFotterMarkup
+@funindex evenFooterMarkup
 @item evenFooterMarkup
   This is the page footer for even-numbered pages.  If unspecified,
   the odd header is used instead.
