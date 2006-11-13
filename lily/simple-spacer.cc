@@ -468,7 +468,7 @@ get_line_forces (vector<Grob*> const &columns,
 	      if (!cols[i].keep_inside_line_.is_empty ())
 		{
 		  spacer.add_rod (i - st, end - st, cols[i].keep_inside_line_[RIGHT]);
-		  spacer.add_rod (0, i - st, cols[i].keep_inside_line_[LEFT]);
+		  spacer.add_rod (0, i - st, -cols[i].keep_inside_line_[LEFT]);
 		}
 	    }
 	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
@@ -531,7 +531,7 @@ get_line_configuration (vector<Grob*> const &columns,
       if (!cols[i].keep_inside_line_.is_empty ())
 	{
 	  spacer.add_rod (i, cols.size (), cols[i].keep_inside_line_[RIGHT]);
-	  spacer.add_rod (0, i, cols[i].keep_inside_line_[LEFT]);
+	  spacer.add_rod (0, i, -cols[i].keep_inside_line_[LEFT]);
 	}
     }
 
