@@ -1,41 +1,63 @@
 /*
-  skyline.hh -- declare Skyline_entry and funcbs.
+  skyline.hh -- declare Skyline class.
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2006 Joe Neeman <joeneeman@gmail.com>
 */
 
 #ifndef SKYLINE_HH
 #define SKYLINE_HH
 
-#include "std-vector.hh"
+#include <list>
+#include "axis.hh"
 #include "box.hh"
+#include "interval.hh"
+#include "direction.hh"
+#include "std-vector.hh"
 
-struct Skyline_entry
+struct Building
 {
-  Interval width_;
-  Real height_;
-  Skyline_entry ();
-  Skyline_entry (Interval, Real);
+  Interval iv_;
+  Real start_height_;
+  Real end_height_;
+  Real m_;
+  Real b_;
+
+  Building (Real start, Real start_height, Real end_height, Real end);
+
+  Real height (Real x) const;
+  Real intersection (Building const &other) const;
+  void leading_part (Real chop);
+  bool obstructs (Building const &other) const;
 };
 
-void
-merge_skyline (vector<Skyline_entry> *a1, vector<Skyline_entry> const &a2,
-	       Direction);
-void insert_extent_into_skyline (vector<Skyline_entry> *line, Box b, Axis line_axis,
-				 Direction d);
-vector<Skyline_entry>
-extents_to_skyline (vector<Box> const &extents, Axis a, Direction d);
-vector<Skyline_entry> empty_skyline (Direction d);
-void heighten_skyline (vector<Skyline_entry> *buildings, Real ground);
-Real
-skyline_meshing_distance (vector<Skyline_entry> const &buildings,
-			  vector<Skyline_entry> const &clouds);
+class Skyline
+{
+public:
+private:
+  list<Building> buildings_;
+  Direction sky_;
+  Real last_visible_point (Building const &b, list<Building> *const sky);
+  void internal_merge_skyline (list<Building>*, list<Building>*,
+			       list<Building> *const result);
+  void internal_build_skyline (list<Building>*,
+			       list<Building> *const result);
+  bool is_legal_skyline () const;
 
-Real
-skyline_height (vector<Skyline_entry> const &buildings,
-		Real airplane, Direction sky_dir);
+public:
+  Skyline ();
+  Skyline (Direction sky);
+  Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
+
+  void merge (Skyline const &);
+  void insert (Box const &, Axis);
+  void raise (Real);
+  Real distance (Skyline const &) const;
+  Real height (Real airplane) const;
+  Real max_height () const;
+  void set_minimum_height (Real height);
+};
 
 #endif /* SKYLINE_HH */
 

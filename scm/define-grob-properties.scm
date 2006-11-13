@@ -549,7 +549,7 @@ than a whole rest.")
      
 
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
-
+     (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
      
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      ;; ancient notation

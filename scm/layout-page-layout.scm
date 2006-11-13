@@ -73,9 +73,10 @@
   "Minimum distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
-       (max 0 (- (+ (interval-end (paper-system-extent next-line Y))
-		    (if ignore-padding 0 (line-next-padding line next-line layout)))
-		 (interval-start (paper-system-extent line Y))))))
+       (let ((non-skyline-distance (- (interval-end (paper-system-extent next-line Y))
+				      (interval-start (paper-system-extent line Y)))))
+	 (max 0 (+ (ly:prob-property next-line 'skyline-distance non-skyline-distance)
+		   (if ignore-padding 0 (line-next-padding line next-line layout)))))))
 
 (define (line-ideal-distance line next-line layout ignore-padding)
   "Ideal distance between `line' reference position and `next-line'

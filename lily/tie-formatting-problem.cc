@@ -51,7 +51,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
       if (i == chord_outlines_.end ())
 	programming_error ("Can't find chord outline");
       else
-	attachments[d] = skyline_height ((*i).second, y, -d);
+	attachments[d] = i->second.height (y);
     }
   while (flip (&d) != LEFT);
   
@@ -115,28 +115,6 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
     }
 
   Tuple2<int> key (column_rank, int (dir));
-  
-  chord_outlines_[key] = empty_skyline (-dir);
-      
-  if (bounds[0]->break_status_dir ())
-    {
-      Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
-      chord_outlines_[key].at (0).height_ = x; 
-    }
-  else
-    {
-      Interval x;
-      for (vsize j = 0; j < head_boxes.size (); j++)
-	{
-	  x.unite (head_boxes[j][X_AXIS]);
-	}
-      
-      chord_outlines_[key].at (0).height_ = x[dir];
-    }
-      
-  for (vsize i = 0; i < boxes.size (); i++)
-    insert_extent_into_skyline (&chord_outlines_[key]  ,
-				boxes[i], Y_AXIS, -dir);
 
   if (stem
       && !Stem::is_invisible (stem))
@@ -150,8 +128,8 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
       Direction stemdir = get_grob_direction (stem);
       y.add_point (Stem::head_positions (stem)[-stemdir]
 		   * staff_space * .5);
-	  
-      insert_extent_into_skyline (&chord_outlines_[key], Box (x,y), Y_AXIS, -dir);
+
+      boxes.push_back (Box (x, y));
 
       stem_extents_[key].unite (Box (x,y));
 
@@ -159,8 +137,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	{
 	  Box flag_box = Stem::get_translated_flag (stem).extent_box ();
 	  flag_box.translate( Offset (x[RIGHT], X_AXIS));
-	  insert_extent_into_skyline (&chord_outlines_[key], flag_box,
-				      Y_AXIS, -dir);
+	  boxes.push_back (flag_box);
 	}
     }
   else if (stem)
@@ -176,10 +153,8 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
       Interval y_ext;
       for (vsize j = 0; j < head_boxes.size (); j++)
 	y_ext.unite (head_boxes[j][Y_AXIS]);
-	  
-      insert_extent_into_skyline (&chord_outlines_[key],
-				  Box (x_ext, y_ext),
-				  Y_AXIS, -dir);
+
+      boxes.push_back (Box (x_ext, y_ext));
     }
   
   Direction updowndir = DOWN;
@@ -197,12 +172,27 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	}
 
       if (!x.is_empty ())
-	insert_extent_into_skyline (&chord_outlines_[key],
-				    Box (x,y),
-				    Y_AXIS, -dir);
+	boxes.push_back (Box (x, y));
     }
   while (flip (&updowndir) != DOWN);
   
+  chord_outlines_[key] = Skyline (boxes, Y_AXIS, -dir);
+  if (bounds[0]->break_status_dir ())
+    {
+      Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
+      chord_outlines_[key].set_minimum_height (x);
+    }
+  else
+    {
+      Interval x;
+      for (vsize j = 0; j < head_boxes.size (); j++)
+	{
+	  x.unite (head_boxes[j][X_AXIS]);
+	}
+      
+      chord_outlines_[key].set_minimum_height (x[dir]);
+    }
+
   head_extents_[key].set_empty ();
   for (vsize i = 0; i < head_boxes.size (); i++)
     {
@@ -344,22 +334,12 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &semi_ties, Directio
 
   set_chord_outline (heads, head_dir);
 
-  Real extremal = head_dir * infinity_f;   
-
   Tuple2<int> head_key (column_rank, head_dir);
   Tuple2<int> open_key (column_rank, -head_dir);
-  
-  for (vsize i = 0; i < chord_outlines_[head_key].size (); i++)
-    {
-      extremal = head_dir * min (head_dir * extremal,
-				 head_dir * chord_outlines_[head_key][i].height_);
-    }
+  Real extremal = chord_outlines_[head_key].max_height ();
 
-  Skyline_entry right_entry;
-  right_entry.width_.set_full ();
-  right_entry.height_ = extremal - head_dir * 1.5;
-  
-  chord_outlines_[open_key].push_back (right_entry);
+  chord_outlines_[open_key] = Skyline (head_dir);
+  chord_outlines_[open_key].set_minimum_height (extremal - head_dir * 1.5);
 }
 
 

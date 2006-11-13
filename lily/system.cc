@@ -186,6 +186,13 @@ System::get_paper_systems ()
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
       system->post_processing ();
+      system->build_skylines ();
+      if (i > 0)
+	{
+	  System *prev = dynamic_cast<System*> (broken_intos_[i-1]);
+	  Real r = prev->skylines_[DOWN].distance (system->skylines_[UP]);
+	  system->set_property ("skyline-distance", scm_from_double (r));
+	}
       scm_vector_set_x (lines, scm_from_int (i),
 			system->get_paper_system ());
 
@@ -399,6 +406,7 @@ System::get_paper_system ()
 
   /* information that the page breaker might need */
   Grob *right_bound = this->get_bound (RIGHT);
+  pl->set_property ("skyline-distance", get_property ("skyline-distance"));
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
@@ -499,6 +507,25 @@ get_root_system (Grob *me)
   return dynamic_cast<System*> (system_grob); 
 }
 
+void
+System::build_skylines ()
+{
+  vector<Box> boxes;
+  for (vsize i = 0; i < all_elements_->size (); i++)
+    {
+      Grob *g = all_elements_->grob (i);
+      if (!unsmob_stencil (g->get_property ("stencil")))
+	continue;
+
+      Interval xiv = g->extent (this, X_AXIS);
+      Interval yiv = g->extent (this, Y_AXIS);
+      if (!xiv.is_empty () && !yiv.is_empty ())
+	boxes.push_back (Box (xiv, yiv));
+    }
+
+  skylines_[UP] = Skyline (boxes, X_AXIS, UP);
+  skylines_[DOWN] = Skyline (boxes, X_AXIS, DOWN);
+}
 
 
 ADD_INTERFACE (System, "system-interface",
@@ -510,4 +537,5 @@ ADD_INTERFACE (System, "system-interface",
 	       "columns "
 	       "pure-Y-extent "
 	       "spaceable-staves "
+	       "skyline-distance "
 	       )
