@@ -11,6 +11,7 @@
 #include "column-x-positions.hh"
 #include "spanner.hh"
 #include "grob-array.hh"
+#include "skyline.hh"
 
 /*
   If you keep following offset reference points, you will always end
@@ -21,6 +22,8 @@ class System : public Spanner
 {
   int rank_;
   Grob_array *all_elements_;
+  Drul_array<Skyline> skylines_;
+  void build_skylines ();
   void init_elements ();
   friend class Paper_score;	// ugh.
   Paper_score *pscore_;	// ugh.

@@ -47,7 +47,7 @@ struct Tie_configuration_variation
   Tie_configuration_variation ();
 };
 
-typedef map < Tuple<int, 2>, vector<Skyline_entry> > Chord_outline_map;
+typedef map < Tuple<int, 2>, Skyline> Chord_outline_map;
 typedef map < Tuple<int, 2>, Box> Column_extent_map;
 class Tie_formatting_problem
 {

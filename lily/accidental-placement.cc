@@ -110,8 +110,8 @@ Accidental_placement::get_relevant_accidental_extent (Grob *me,
 
 struct Accidental_placement_entry
 {
-  vector<Skyline_entry> left_skyline_;
-  vector<Skyline_entry> right_skyline_;
+  Skyline left_skyline_;
+  Skyline right_skyline_;
   Interval vertical_extent_;
   vector<Box> extents_;
   vector<Grob*> grobs_;
@@ -307,22 +307,16 @@ Accidental_placement::calc_positioning_done (SCM smob)
   for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
-      ape->left_skyline_ = empty_skyline (LEFT);
-      ape->right_skyline_ = empty_skyline (RIGHT);
 
       for (vsize j = apes[i]->grobs_.size (); j--;)
 	{
 	  Grob *a = apes[i]->grobs_[j];
-
 	  vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
 
 	  ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
-	  for (vsize j = boxes.size (); j--;)
-	    {
-	      insert_extent_into_skyline (&ape->left_skyline_, boxes[j], Y_AXIS, LEFT);
-	      insert_extent_into_skyline (&ape->right_skyline_, boxes[j], Y_AXIS, RIGHT);
-	    }
 	}
+      ape->left_skyline_ = Skyline (ape->extents_, Y_AXIS, LEFT);
+      ape->right_skyline_ = Skyline (ape->extents_, Y_AXIS, RIGHT);
     }
 
   Interval total;
@@ -340,16 +334,11 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   Accidental_placement_entry *head_ape = new Accidental_placement_entry;
   common[X_AXIS] = common_refpoint_of_array (heads, common[X_AXIS], X_AXIS);
-  vector<Skyline_entry> head_skyline (empty_skyline (LEFT));
   
   vector<Box> head_extents;
   for (vsize i = heads.size (); i--;)
-    {
-      Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
-	     heads[i]->extent (common[Y_AXIS], Y_AXIS));
-
-      insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
-    }
+    head_extents.push_back (Box (heads[i]->extent (common[X_AXIS], X_AXIS),
+				 heads[i]->extent (common[Y_AXIS], Y_AXIS)));
 
   vector<Grob *> stems;
   for (vsize i = 0; i < heads.size  (); i++)
@@ -364,27 +353,24 @@ Accidental_placement::calc_positioning_done (SCM smob)
     {
       int very_large = INT_MAX;
       
-      Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
-	     heads[i]->pure_height (common[Y_AXIS], 0, very_large));
-
-      insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
+      head_extents.push_back (Box (heads[i]->extent (common[X_AXIS], X_AXIS),
+				   heads[i]->pure_height (common[Y_AXIS], 0, very_large)));
     }
-  
-  head_ape->left_skyline_ = head_skyline;
+
+  head_ape->left_skyline_ = Skyline (head_extents, Y_AXIS, LEFT);
   head_ape->offset_ = 0.0;
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
-  vector<Skyline_entry> left_skyline = head_ape->left_skyline_;
-  heighten_skyline (&left_skyline,
-		    -robust_scm2double (me->get_property ("right-padding"), 0));
+  Skyline left_skyline = head_ape->left_skyline_;
+  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0))
+;
   /*
     Add accs entries right-to-left.
   */
   for (vsize i = apes.size (); i-- > 0;)
     {
-      Real offset
-	= -skyline_meshing_distance (apes[i]->right_skyline_, left_skyline);
+      Real offset = -apes[i]->right_skyline_.distance (left_skyline);
       if (isinf (offset))
 	offset = (i < apes.size () - 1) ? apes[i + 1]->offset_ : 0.0;
       else
@@ -392,9 +378,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
       apes[i]->offset_ = offset;
 
-      vector<Skyline_entry> new_left_skyline = apes[i]->left_skyline_;
-      heighten_skyline (&new_left_skyline, apes[i]->offset_);
-      merge_skyline (&new_left_skyline, left_skyline, LEFT);
+      Skyline new_left_skyline = apes[i]->left_skyline_;
+      new_left_skyline.raise (apes[i]->offset_);
+      new_left_skyline.merge (left_skyline);
       left_skyline = new_left_skyline;
     }
 
