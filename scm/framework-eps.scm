@@ -97,6 +97,9 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
     (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
     
+    (close-output-port texi-system-port)
+    (close-output-port tex-system-port)
+    
     (dump-infinite-stack-EPS stencils)
     (postprocess-output book framework-eps-module
 			(format "~a.eps" basename) (ly:output-formats))))
