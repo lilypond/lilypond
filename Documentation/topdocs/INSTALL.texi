@@ -34,9 +34,9 @@ Download source
 @item tarballs from
 @uref{http://download.linuxaudio.org/lilypond/} by HTTP.
 @item 
-GIT from @uref{http://repo.or.cz/w/lilypond.git,repo.or.cz}
+GIT from @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=summary,git.sv.gnu.org}
 @example
-git clone git://repo.or.cz/lilypond.git 
+git clone git://git.sv.gnu.org/lilypond.git
 @end example
 
 The repository does not contain generated files.  To create
