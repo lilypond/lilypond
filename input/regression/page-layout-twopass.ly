@@ -3,7 +3,7 @@
   texidoc = "Page breaking details can be stored for later reference." 
 }
 
-\version "2.7.39"
+\version "2.10.0"
 
 \paper  {
   #(define write-page-layout #t)

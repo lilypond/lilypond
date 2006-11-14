@@ -19,7 +19,7 @@ The result will be files named
 
 }
 
-\version "2.9.23"
+\version "2.10.0"
 
 
 % each clip-region is a (START . END) pair

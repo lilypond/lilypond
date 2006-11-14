@@ -31,4 +31,4 @@ That's it.  For more information, visit http://lilypond.org .
 }
 
 
-\version "2.7.39"  % necessary for upgrading to future LilyPond versions.
+\version "2.10.0"  % necessary for upgrading to future LilyPond versions.

@@ -1,4 +1,4 @@
-\version "2.9.29"
+\version "2.10.0"
 \header {
   texidoc =
   "Open and black note heads are not merged by default."

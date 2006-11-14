@@ -1,5 +1,5 @@
 
-\version "2.9.9"
+\version "2.10.0"
 
 #(set! toplevel-score-handler print-score-with-defaults)
 #(set! toplevel-music-handler
