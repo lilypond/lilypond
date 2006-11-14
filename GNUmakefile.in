@@ -17,7 +17,7 @@ SUBDIRS = buildscripts python scripts \
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
 SCRIPTS = configure autogen.sh 
-README_FILES = ChangeLog COPYING DEDICATION ROADMAP THANKS HACKING
+README_FILES = COPYING DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES=AUTHORS README INSTALL NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
@@ -32,7 +32,14 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
-local-dist: dist-toplevel-txt-files 
+local-dist: dist-toplevel-txt-files dist-changelog
+
+dist-changelog:
+	if  test -d .git ; then \
+		git-whatchanged gub-2.9.29-2.. > $(distdir)/ChangeLog ; \
+	else \
+		cp $(srcdir)/ChangeLog $(distdir) ; \
+	fi
 
 default: $(outdir)/VERSION
 
