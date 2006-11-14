@@ -158,7 +158,10 @@
 	      (if (equal? "-" file-name) "<stdout>" file-name))
   (if (equal? file-name "-")
       (display value)
-      (display value (open-file file-name "w")))
+      (let ((port (open-file file-name "w")))
+	(display value port)
+	(close-port port)))
+
   (ly:progress "\n")
   "")
 
