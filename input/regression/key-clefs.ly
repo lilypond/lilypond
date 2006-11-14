@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.10.0"
 \header { texidoc = "Each clef have own accidental placing rules. " }
 
 #(set-global-staff-size 16)

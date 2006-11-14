@@ -2,7 +2,7 @@
 {
   texidoc = "Individual chord notes can also be tied"
 }
-\version "2.9.15"
+\version "2.10.0"
 
 \paper {
   ragged-right = ##t
