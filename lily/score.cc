@@ -39,8 +39,10 @@ Score::Score ()
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
-  error_found_ = false;
   input_location_ = SCM_EOL;
+
+  error_found_ = false;
+
   smobify_self ();
   input_location_ = make_input (Input ());
 }
@@ -78,8 +80,9 @@ Score::Score (Score const &s)
 {
   header_ = SCM_EOL;
   music_ = SCM_EOL;
-  error_found_ = s.error_found_;
   input_location_ = SCM_EOL;
+  error_found_ = s.error_found_;
+
   smobify_self ();
   input_location_ = make_input (*s.origin ()); 
 
