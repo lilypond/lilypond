@@ -15,6 +15,7 @@
 #include "interval.hh"
 #include "direction.hh"
 #include "std-vector.hh"
+#include "stencil.hh"
 
 struct Building
 {
@@ -24,21 +25,20 @@ struct Building
   Real m_;
   Real b_;
 
-  Building (Real start, Real start_height, Real end_height, Real end);
+  Building (Real start, Real start_height, Real end_height, Real end, Real max_slope);
 
   Real height (Real x) const;
   Real intersection (Building const &other) const;
-  void leading_part (Real chop);
+  void leading_part (Real chop, Real h);
   bool obstructs (Building const &other) const;
 };
 
 class Skyline
 {
-public:
 private:
   list<Building> buildings_;
   Direction sky_;
-  Real last_visible_point (Building const &b, list<Building> *const sky);
+  Real max_slope_;
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
   void internal_build_skyline (list<Building>*,
@@ -57,6 +57,7 @@ public:
   Real height (Real airplane) const;
   Real max_height () const;
   void set_minimum_height (Real height);
+  Stencil stencil ();
 };
 
 #endif /* SKYLINE_HH */
