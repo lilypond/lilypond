@@ -1,5 +1,5 @@
 
-\version "2.7.39"
+\version "2.10.0"
 \header {
 
 texidoc = "Scripts can also be attached to chord elements."

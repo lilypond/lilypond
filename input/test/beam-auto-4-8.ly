@@ -1,5 +1,5 @@
 
-%% \version "2.7.39"
+%% \version "2.10.0"
 
 %% keep for now, although merging into beam-auto-override is a possibility.
 \header {

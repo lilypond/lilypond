@@ -5,7 +5,7 @@ SUBDIRS=user bibliography pictures topdocs misc
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
-README_TOP_FILES= DEDICATION THANKS ChangeLog
+README_TOP_FILES= DEDICATION THANKS 
 EXTRA_DIST_FILES= texinfo.css
 
 include $(depth)/make/stepmake.make

@@ -2,7 +2,7 @@
 \header { texidoc = "Ossia fragments can be done with starting and
 stopping staves. " }
 
-\version "2.7.39"
+\version "2.10.0"
 \paper { ragged-right = ##t }
 
 <<

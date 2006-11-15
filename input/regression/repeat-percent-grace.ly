@@ -1,4 +1,4 @@
-\version "2.9.20"
+\version "2.10.0"
 
 \header {
   texidoc = "Percent repeats are also centered when there is a grace note in a parallel staff. "

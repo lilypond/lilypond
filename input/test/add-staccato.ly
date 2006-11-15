@@ -1,4 +1,4 @@
-\version "2.9.7"
+\version "2.10.0"
 \sourcefilename "add-staccato.ly"
 
 \header {

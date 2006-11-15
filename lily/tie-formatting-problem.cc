@@ -494,13 +494,21 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 Interval
 Tie_formatting_problem::get_head_extent (int col, Direction d, Axis a) const
 {
-  return (*head_extents_.find (Tuple2<int> (col, int (d)))).second[a];
+  Column_extent_map::const_iterator i = head_extents_.find (Tuple2<int> (col, int (d)));
+  if (i != head_extents_.end ())
+    return (*i).second[a];
+  else
+    return Interval ();
 }
 
 Interval
 Tie_formatting_problem::get_stem_extent (int col, Direction d, Axis a) const
 {
-  return (*stem_extents_.find (Tuple2<int> (col, int (d)))).second[a];
+  Column_extent_map::const_iterator i = stem_extents_.find (Tuple2<int> (col, int (d)));
+  if (i != stem_extents_.end ())
+    return (*i).second[a];
+  else
+    return Interval ();
 }
 
 /**

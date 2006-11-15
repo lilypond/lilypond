@@ -5,7 +5,7 @@ don't print that ending.  But on the previous line, this hairpin
 should not be left open, and should end at the barline. "
 }
 
-\version "2.9.26"
+\version "2.10.0"
 \layout { ragged-right = ##t }
 \relative c' {
   \set hairpinToBarline = ##t

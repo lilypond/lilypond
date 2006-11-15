@@ -1,4 +1,4 @@
-\version "2.7.39"
+\version "2.10.0"
 
 \header {
     texidoc = " Easy-notation (or Ez-notation) prints names in note heads.
