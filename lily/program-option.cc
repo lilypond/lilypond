@@ -21,6 +21,7 @@ using namespace std;
 /* Write midi as formatted ascii stream? */
 bool do_midi_debugging_global;
 bool use_object_keys;
+bool debug_skylines;
 
 /*
   Backwards compatibility.
@@ -87,6 +88,11 @@ void internal_set_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("strict-infinity-checking"))
     {
       strict_infinity_checking = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("debug-skylines"))
+    {
+      debug_skylines = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
 }

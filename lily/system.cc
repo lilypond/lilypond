@@ -24,6 +24,8 @@
 #include "tweak-registration.hh"
 #include "warn.hh"
 
+extern bool debug_skylines;
+
 System::System (System const &src, int count)
   : Spanner (src, count)
 {
@@ -398,6 +400,11 @@ System::get_paper_system ()
   Stencil sys_stencil (Box (x, y),
 		       scm_cons (ly_symbol2scm ("combine-stencil"),
 				 exprs));
+  if (debug_skylines)
+    {
+      sys_stencil.add_stencil (skylines_[UP].stencil ().in_color (255, 0, 0));
+      sys_stencil.add_stencil (skylines_[DOWN].stencil ().in_color (0, 255, 0));
+    }
 
   Grob *left_bound = this->get_bound (LEFT);
   SCM prop_init = left_bound->get_property ("line-break-system-details");
