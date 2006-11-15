@@ -1,7 +1,4 @@
 #!/bin/sh
-# WARNING WARNING WARNING
-# do not edit! this is autogen.sh, generated from /home/lilydev/src/lilypond/stepmake/autogen.sh
-#!/bin/sh
 # Run this to generate configure and initial GNUmakefiles
 
 srcdir=`dirname $0`
