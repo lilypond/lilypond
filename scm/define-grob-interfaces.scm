@@ -14,7 +14,6 @@
    "An accidental, printed as a suggestion (typically: vertically over a note)"
    '())
 
-
 (ly:add-interface
  'bass-figure-interface
  "A bass figure text"
@@ -70,7 +69,7 @@
 
 (ly:add-interface
  'lyric-syllable-interface
- "a single piece of lyrics"
+ "A single piece of lyrics"
  '())
 
 (ly:add-interface
@@ -80,12 +79,12 @@
 
 (ly:add-interface
  'mark-interface
- "a rehearsal mark"
+ "A rehearsal mark"
  '())
 
 (ly:add-interface
  'metronome-mark-interface
- "a rehearsal mark"
+ "A metronome mark"
  '())
 
 (ly:add-interface
