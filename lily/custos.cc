@@ -83,4 +83,6 @@ Custos::print (SCM smob)
 
 ADD_INTERFACE (Custos, "custos-interface",
 	       "A custos object.",
-	       "style neutral-position neutral-direction");
+	       "style "
+	       "neutral-position "
+	       "neutral-direction ");
