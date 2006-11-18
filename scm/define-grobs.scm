@@ -51,6 +51,7 @@
 				accidental-suggestion-interface
 				self-alignment-interface
 				font-interface))))))
+
     (AccidentalPlacement
      . (
 	(left-padding . 0.2)
