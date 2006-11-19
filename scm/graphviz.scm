@@ -1,0 +1,35 @@
+(define-module (scm graphviz)
+  #:use-module (lily)
+  #:export (make-graph add-node add-edge))
+
+(define (make-graph filename)
+  (let ((empty-graph (list->vector (list filename '() '() '()))))
+    (ly:atexit write-graph (list empty-graph))
+    empty-graph))
+
+(define (filename g) (vector-ref g 0))
+(define (nodes g) (vector-ref g 1))
+(define (edges g) (vector-ref g 2))
+(define (clusters g) (vector-ref g 3))
+
+(define (add-node graph label)
+  (let ((ns (nodes graph)))
+    (vector-set! graph 1 (cons `(,(length ns) . ,label) ns))
+    (length ns)))
+
+(define (add-edge graph node1 node2)
+  (vector-set! graph 2 (cons `(,node1 . ,node2) (edges graph))))
+
+(define (write-graph graph)
+  (let ((out (open-file (filename graph) "w"))
+	(ns (nodes graph))
+	(es (edges graph))
+	(cc (clusters graph)))
+    (ly:message (format "writing graph ~s..." (filename graph)))
+    (display "digraph G {\nrankdir=\"LR\"\nnode [shape=rectangle]\n" out)
+    (map (lambda (n) (display (format "~a [label=\"~a\"]\n" (car n) (cdr n)) out))
+	 ns)
+    (map (lambda (e) (display (format "~a -> ~a\n" (car e) (cdr e)) out))
+	 es)
+    (display "}" out)))
+  
