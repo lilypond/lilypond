@@ -29,19 +29,18 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 txt-to-html:
 	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
 
+ifneq ($(ISOLANG),)
 new-lang:
 	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
 	then echo "Error: $(ISOLANG) directory already exists. Exiting." ; \
 	exit 3 ; \
 	fi
 	mkdir -p $(ISOLANG)/user
-	echo "ISOLANG = $(ISOLANG)" > $(ISOLANG)/GNUmakefile
-	echo "depth = ../$(depth)" >> $(ISOLANG)/GNUmakefile
-	echo -e "\ninclude \$$(depth)/make/doc-lang/root.make\n" >> $(ISOLANG)/GNUmakefile
-	echo "ISOLANG = $(ISOLANG)" > $(ISOLANG)/user/GNUmakefile
-	echo "depth = ../../$(depth)" >> $(ISOLANG)/user/GNUmakefile
-	echo -e "\ninclude \$$(depth)/make/doc-lang/user.make\n" >> $(ISOLANG)/user/GNUmakefile
+	cp fr/GNUmakefile $(ISOLANG)
+	cp fr/user/GNUmakefile $(ISOLANG)/user
+	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
 	$(PYTHON) $(depth)/buildscripts/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -o doc.pot --skeleton --gettext ../user/lilypond.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
+endif
