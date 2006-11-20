@@ -1,0 +1,95 @@
+#!@PYTHON@
+# texi-langutils.py
+
+# WARNING: this script can't find files included in a different directory
+
+import sys
+import re
+import getopt
+import os
+import string
+
+optlist, texi_files = getopt.getopt(sys.argv[1:],'no:d:b:i:',['skeleton', 'gettext'])
+process_includes = not ('-n', '') in optlist # -n   don't process @include's in texinfo files
+
+make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node list from a Texinfo source
+make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tree from a Texinfo source
+
+output_file = 'doc.pot'
+node_blurb = ''
+intro_blurb = ''
+
+for x in optlist:
+	if x[0] == '-o': # -o NAME   set PO output file name to NAME
+		output_file = x[1]
+	elif x[0] == '-d': # -d DIR    set working directory to DIR
+		os.chdir (x[1])
+	elif x[0] == '-b': # -b BLURB  set blurb written at each node to BLURB
+		node_blurb = x[1]
+	elif x[0] == '-i': # -i BLURB  set blurb written at beginning of each file to BLURB
+		intro_blurb = x[1]
+
+def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=None):
+	try:
+		#print "Processing %s..." % texifilename
+		f = open (texifilename, 'r')
+		texifile = f.read ()
+		f.close ()
+		includes = []
+		if write_skeleton:
+			g = open (os.path.basename (texifilename), 'w')
+			g.write (i_blurb)
+			tutu = re.findall (r"""^(\*) +([^:
+			]+)::[^
+			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			]*)[^
+			]*?$""", texifile, re.M)
+			node_trigger = False
+			for item in tutu:
+				if item[0] == '*':
+					g.write ('* ' + item[1] + '::\n')
+				else:
+					g.write ('@' + item[2] + ' ' + item[3] + '\n')
+					if node_trigger:
+						g.write (n_blurb)
+						node_trigger = False
+					if not item[2] in ('include', 'menu', 'end menu'):
+						if output_file:
+							output_file.write ('_("' + item[3].strip () + '")\n')
+						node_trigger = True
+					elif item[2] == 'include':
+						includes.append(item[3])
+			g.close ()
+		elif output_file:
+			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			]*)[^
+			]*?$""", texifile, re.M)
+			for item in toto:
+				if item[0] == 'include':
+					includes.append(item[1])
+				else:
+					output_file.write ('_("' + item[1].strip () + '")\n')
+		if process_includes:
+			dir = os.path.dirname (texifilename)
+			for item in includes:
+				process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, output_file)
+	except IOError, (errno, strerror):
+		print "I/O error(%s): %s: %s" % (errno, texifilename, strerror)
+
+
+if intro_blurb != '':
+	intro_blurb += '\n\n'
+if node_blurb != '':
+	node_blurb = '\n' + node_blurb + '\n\n'
+if make_gettext:
+	node_list_filename = 'node_list'
+	node_list = open (node_list_filename, 'w')
+	for texi_file in texi_files:
+		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, node_list)
+	for word in ('Up:', 'Next:', 'Previous:', 'Appendix'):
+		node_list.write ('_("' + word + '")\n')
+	node_list.close ()
+	os.system ('xgettext -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
+else:
+	for texi_file in texi_files:
+		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton)
