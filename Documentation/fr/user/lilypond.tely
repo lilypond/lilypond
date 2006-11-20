@@ -1,0 +1,184 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename lilypond.info
+@settitle GNU LilyPond
+@iftex
+@afourpaper
+@end iftex
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription User manual of the LilyPond music engraving system
+@omftype user manual
+@omfcategory Applications|Publishing
+@omflanguage French
+@end ignore
+
+@documentlanguage fr
+@documentencoding UTF-8
+
+@syncodeindex fn cp
+@syncodeindex ky cp
+@syncodeindex pg cp
+@syncodeindex tp cp
+@syncodeindex vr cp
+
+@finalout
+
+@titlepage
+@title GNU LilyPond
+@subtitle Le système de gravure musicale
+@author L'équipe de développement de LilyPond
+
+
+Copyright @copyright{} 1999--2006 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+@lilypond[raggedright]
+\score {
+    \context Lyrics {
+        \override Score.RehearsalMark #'self-alignment-X = #LEFT
+        \override Score.RehearsalMark #'font-size = #-2 
+        \mark #(ly:export (string-append
+             "(Pour LilyPond version " (lilypond-version) ")"))
+        s2
+     }
+     \layout {
+         indent = 0.0\pt
+     }
+}
+@end lilypond
+
+@end titlepage
+
+
+@ifnottex
+Ce fichier documente GNU LilyPond.
+
+Copyright @copyright{} 1999--2006 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- The music typesetter
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+
+Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.8.X.
+@ifhtml
+(Allez au bas de la page pour voir le numéro de version exact).
+@end ifhtml
+
+@cindex web site
+@cindex URL
+
+Vous pouvez obtenir plus d'informations sur
+@uref{http://@/www@/.lilypond@/.org/}. Ce site contient des copies en
+ligne de ce manuel, ainsi qu'une documentation supplémentaire.
+
+@ignore
+@include dedication.itely
+@end ignore
+
+@menu
+Manuel d'apprentissage
+
+* Preface::
+* Introduction::                   quoi, pourquoi comment.
+* Tutorial::                       un tutoriel d'introduction.
+* Putting it all together::        explication plus détaillée des concepts de LilyPond.
+* Working on LilyPond projects::   traite de l'utilisation quotidienne.
+* Tweaking output::                introduction aux retouches de mise en forme.
+
+Manuel de référence
+
+* Basic notation::                 notation musicale standard.
+* Instrument-specific notation::
+* Advanced notation::              notation plus rarement utilisée.
+* Changing defaults::              retoucher la mise en forme.
+* Non-musical notation::           aspects autres que la notation musicale.
+* Spacing issues::                 mise en page de la musique sur le papier.
+* Interfaces for programmers::     utilisation avancée.
+
+Utilisation du programme
+
+* Running LilyPond::               mode d'emploi.
+* LilyPond-book::                  intégrer texte et musique.
+* Converting from other formats::  conversion vers le format source lilypond.
+
+Annexes
+
+* Literature list::                ouvrages de référence sur la notation musicale.
+* Scheme tutorial::                programmer au sein de LilyPond.
+* Notation manual tables::         tables et diagrammes.
+* Example templates::              modèles prêts à l'emploi.
+* Cheat sheet::                    résumé de la syntaxe de LilyPond.
+* GNU Free Documentation License:: licence de ce document.
+* LilyPond command index::
+* LilyPond index::
+
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include macros.itexi
+@include preface.itely
+@include introduction.itely
+@include tutorial.itely
+@include putting.itely
+@include working.itely
+@include tweaks.itely
+
+
+@include basic-notation.itely
+@include instrument-notation.itely
+@include advanced-notation.itely
+@include changing-defaults.itely
+@include non-music.itely
+@include spacing.itely
+@include programming-interface.itely
+
+@include running.itely
+@include lilypond-book.itely
+@include converters.itely
+
+
+@include literature.itely
+@include scheme-tutorial.itely
+@include notation-appendices.itely
+@include templates.itely
+@include cheatsheet.itely
+@include fdl.itexi
+
+@node LilyPond command index
+@appendix LilyPond command index
+
+@printindex ky
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye
