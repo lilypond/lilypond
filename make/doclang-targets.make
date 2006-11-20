@@ -2,12 +2,6 @@
 
 OUT_ITEXI_FILES = $(ITELY_FILES:%.itely=$(outdir)/%.itexi)
 
-
-STEPMAKE_TEMPLATES = texinfo
-LOCALSTEPMAKE_TEMPLATES = lilypond ly
-
-include $(depth)/make/stepmake.make
-
 LILYPOND_BOOK_INCLUDES += \
   -I$(depth)/Documentation/$(ISOLANG) \
   -I$(depth)/Documentation/user \
@@ -36,8 +30,8 @@ png-ln:
 	mkdir -p $(outdir)/lilypond
 	# makeinfo is broken, it MUST have PNGs in output dir
 	# symlinking PNGs...
-	@$(foreach i, $(shell find $(depth)/Documentation/user/$(outdir) -maxdepth 1 -name '*.png'), ln -sf ../$(i) $(i:$(depth)/Documentation/user/$(outdir)/%.png=$(outdir)/%.png) &&) true
-	@$(foreach i, $(shell find $(depth)/Documentation/user/$(outdir)/lilypond -name '*.png'), ln -sf ../../$(i) $(i:$(depth)/Documentation/user/$(outdir)/%.png=$(outdir)/%.png) &&) true
+	$(foreach i, $(shell find $(depth)/Documentation/user/$(outdir) -maxdepth 1 -name '*.png'), ln -sf ../$(i) $(i:$(depth)/Documentation/user/$(outdir)/%.png=$(outdir)/%.png) &&) true
+	$(foreach i, $(shell find $(depth)/Documentation/user/$(outdir)/lilypond -name '*.png'), ln -sf ../../$(i) $(i:$(depth)/Documentation/user/$(outdir)/%.png=$(outdir)/%.png) &&) true
 
 # Links referred to by Documentation index
 # BROKEN: the following makes broken symlinks
