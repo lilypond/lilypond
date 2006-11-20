@@ -270,6 +270,7 @@ underscore = _
 LANGUAGES = (
     ('site', 'English'),
     ('nl', 'Nederlands'),
+    ('fr', 'French')
     )
 
 language_available = _ ("Other languages: %s.") % "%(language_menu)s"
