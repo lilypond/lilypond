@@ -621,6 +621,7 @@ ADD_INTERFACE (Grob, "grob-interface",
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
+	       "outside-staff-priority "
 	       "rotation "
 	       "springs-and-rods "
 	       "staff-symbol "

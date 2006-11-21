@@ -153,12 +153,14 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
 
       Building b = s1->front ();
       while (s2->front ().iv_[RIGHT] < b.iv_[RIGHT]
-	     && s2->front ().end_height_ <= b.height (s2->front ().iv_[RIGHT]))
+	     && s2->front ().end_height_ <= b.height (s2->front ().iv_[RIGHT]) + EPS)
 	s2->pop_front ();
 
       /* the front of s2 either intersects with b or it ends after b */
       Real end = infinity_f;
-      if (s2->front ().end_height_ > b.height (s2->front ().iv_[RIGHT]))
+      Real s2_end_height = s2->front ().end_height_;
+      Real s1_end_height = b.height (s2->front ().iv_[RIGHT]);
+      if (s2_end_height > s1_end_height + EPS)
 	end = b.intersection (s2->front ());
       end = min (end, b.iv_[RIGHT]);
       Real height = b.height (end);
@@ -267,10 +269,11 @@ void
 Skyline::insert (Box const &b, Axis a)
 {
   list<Building> other_bld;
-  list<Building> my_bld (buildings_);
+  list<Building> my_bld;
   Interval iv = b[a];
   Real height = sky_ * b[other_axis (a)][sky_];
 
+  my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_), &other_bld, max_slope_);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
   assert (is_legal_skyline ());

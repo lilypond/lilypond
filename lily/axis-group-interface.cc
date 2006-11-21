@@ -9,6 +9,7 @@
 #include "axis-group-interface.hh"
 
 #include "align-interface.hh"
+#include "directional-element-interface.hh"
 #include "pointer-group-interface.hh"
 #include "grob.hh"
 #include "grob-array.hh"
@@ -17,6 +18,7 @@
 #include "item.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "std-vector.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -249,6 +251,68 @@ Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
       Grob *e = elements[i];
       Axis_group_interface::get_children (e, found);
     }
+}
+
+bool
+staff_priority_less (Grob * const &g1, Grob * const &g2)
+{
+  int priority_1 = robust_scm2int (g1->get_property ("outside-staff-priority"), INT_MIN);
+  int priority_2 = robust_scm2int (g2->get_property ("outside-staff-priority"), INT_MIN);
+
+  if (priority_1 < priority_2)
+    return true;
+  else if (priority_1 > priority_2)
+    return false;
+
+  /* if there is no preference in staff priority, choose the one with the lower rank */
+  int rank_1 = g1->spanned_rank_iv ()[LEFT];
+  int rank_2 = g2->spanned_rank_iv ()[LEFT];
+  return rank_1 < rank_2;
+}
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, skyline_spacing, 1)
+SCM
+Axis_group_interface::skyline_spacing (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", ro_elements);
+  vector<Grob*> elements (ro_elements);
+  vector_sort (elements, staff_priority_less);
+  Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
+
+  vsize i = 0;
+  vector<Box> boxes;
+  for (i = 0; i < elements.size ()
+	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
+    boxes.push_back (Box (elements[i]->extent (x_common, X_AXIS),
+			  elements[i]->extent (me, Y_AXIS)));
+
+  Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
+				Skyline (boxes, X_AXIS, UP));
+  for (; i < elements.size (); i++)
+    {
+      Direction dir = get_grob_direction (elements[i]);
+      if (dir == CENTER)
+	{
+	  warning (_ ("an outside-staff object should have a direction"));
+	  continue;
+	}
+
+      Box b (elements[i]->extent (x_common, X_AXIS),
+	     elements[i]->extent (me, Y_AXIS));
+      boxes.clear ();
+      boxes.push_back (b);
+      Skyline other = Skyline (boxes, X_AXIS, -dir);
+      Real dist = skylines[dir].distance (other);
+
+      if (dist > 0)
+	{
+	  b.translate (Offset (0, dir*dist));
+	  elements[i]->translate_axis (dir*dist, Y_AXIS);
+	}
+      skylines[dir].insert (b, X_AXIS);
+    }
+  return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
