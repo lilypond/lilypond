@@ -28,7 +28,7 @@ générer cette image.
 Essayez sur cette image
 
 @lilypond[fragment,quote,ragged-right,relative=2]
-c-\markup { \bold \huge { Cliquer ici.  } }
+c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
 

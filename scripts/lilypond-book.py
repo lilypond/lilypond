@@ -887,6 +887,8 @@ class Lilypond_snippet (Snippet):
 
     def ly (self):
         contents = self.substring ('code')
+        return contents
+        # FIXME: translation foo
         return ('\\sourcefileline %d\n%s'
                 % (self.line_number - 1, contents))
 
