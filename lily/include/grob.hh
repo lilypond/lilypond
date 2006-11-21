@@ -9,6 +9,7 @@
 #ifndef GROB_HH
 #define GROB_HH
 
+#include "box.hh"
 #include "virtual-methods.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
