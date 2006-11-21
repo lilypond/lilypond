@@ -317,6 +317,8 @@ def i18n (file_name, page):
     language_menu = ''
     for (prefix, name) in available:
         lang_file = file_lang (base_name, prefix)
+        if language_menu != '':
+            language_menu += ', '
         language_menu += '<a href="%(lang_file)s">%(name)s</a>' % vars ()
 
     languages = ''
