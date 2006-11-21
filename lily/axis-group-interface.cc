@@ -184,6 +184,8 @@ SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
   extract_grob_set (me, "elements", elts);
+  if (a == Y_AXIS)
+    skyline_spacing (me, elts);
   Grob *common = common_refpoint_of_array (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
@@ -270,22 +272,19 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   return rank_1 < rank_2;
 }
 
-MAKE_SCHEME_CALLBACK (Axis_group_interface, skyline_spacing, 1)
-SCM
-Axis_group_interface::skyline_spacing (SCM smob)
+void
+Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 {
-  Grob *me = unsmob_grob (smob);
-  extract_grob_set (me, "elements", ro_elements);
-  vector<Grob*> elements (ro_elements);
   vector_sort (elements, staff_priority_less);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
+  Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
 
   vsize i = 0;
   vector<Box> boxes;
   for (i = 0; i < elements.size ()
 	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     boxes.push_back (Box (elements[i]->extent (x_common, X_AXIS),
-			  elements[i]->extent (me, Y_AXIS)));
+			  elements[i]->extent (y_common, Y_AXIS)));
 
   Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
 				Skyline (boxes, X_AXIS, UP));
@@ -299,7 +298,7 @@ Axis_group_interface::skyline_spacing (SCM smob)
 	}
 
       Box b (elements[i]->extent (x_common, X_AXIS),
-	     elements[i]->extent (me, Y_AXIS));
+	     elements[i]->extent (y_common, Y_AXIS));
       boxes.clear ();
       boxes.push_back (b);
       Skyline other = Skyline (boxes, X_AXIS, -dir);
@@ -312,7 +311,6 @@ Axis_group_interface::skyline_spacing (SCM smob)
 	}
       skylines[dir].insert (b, X_AXIS);
     }
-  return SCM_UNSPECIFIED;
 }
 
 ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
