@@ -577,7 +577,7 @@ line-width, where X is the number of staff spaces."
       (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
 
 (define-markup-command (justify-field layout props symbol) (symbol?)
--   (let* ((m (chain-assoc-get symbol props)))
+   (let* ((m (chain-assoc-get symbol props)))
      (if (string? m)
       (interpret-markup layout props
        (list justify-string-markup m))
