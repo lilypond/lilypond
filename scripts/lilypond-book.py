@@ -887,8 +887,6 @@ class Lilypond_snippet (Snippet):
 
     def ly (self):
         contents = self.substring ('code')
-        return contents
-        # FIXME: translation foo
         return ('\\sourcefileline %d\n%s'
                 % (self.line_number - 1, contents))
 
@@ -1071,7 +1069,7 @@ class Lilypond_snippet (Snippet):
     # TODO: Use md5?
     def get_hash (self):
         if not self.hash:
-            self.hash = abs (hash (self.full_ly ()))
+            self.hash = abs (hash (self.relevant_contents (self.full_ly ())))
         return self.hash
 
     def basename (self):
@@ -1084,25 +1082,25 @@ class Lilypond_snippet (Snippet):
     def write_ly (self):
         outf = open (self.basename () + '.ly', 'w')
         outf.write (self.full_ly ())
-
         open (self.basename () + '.txt', 'w').write ('image of music')
 
+    def relevant_contents (self, ly):
+        return re.sub (r'\\(version|sourcefileline)[^\n]*\n', '', ly)
+             
     def ly_is_outdated (self):
         base = self.basename ()
+        ly_file = base + '.ly'
+        tex_file = base + '.tex'
+        eps_file = base + '.eps'
+        systems_file = base + '-systems.tex'
 
-        tex_file = '%s.tex' % base
-        eps_file = '%s.eps' % base
-        system_file = '%s-systems.tex' % base
-        ly_file = '%s.ly' % base
-        ok = os.path.exists (ly_file) \
-          and os.path.exists (system_file)\
-          and os.stat (system_file)[stat.ST_SIZE] \
-          and re.match ('% eof', open (system_file).readlines ()[-1])
-        if ok and (not global_options.use_hash or FILENAME in self.option_dict):
-            ok = (self.full_ly () == open (ly_file).read ())
-        if ok:
-            # TODO: Do something smart with target formats
-            #       (ps, png) and m/ctimes.
+        if (os.path.exists (ly_file)
+            and os.path.exists (systems_file)
+            and os.stat (systems_file)[stat.ST_SIZE]
+            and re.match ('% eof', open (systems_file).readlines ()[-1])
+            and (not global_options.use_hash or FILENAME in self.option_dict)
+            and (self.relevant_contents (self.full_ly ())
+                 == self.relevant_contents (open (ly_file).read ()))):
             return None
         return self
 
@@ -1281,11 +1279,6 @@ class Lilypond_file_snippet (Lilypond_snippet):
     def ly (self):
         name = self.substring ('filename')
         contents = open (find_file (name)).read ()
-
-        ## strip version string to make automated regtest comparisons
-        ## across versions easier.
-        contents = re.sub (r'\\version *"[^"]*"', '', contents)
-
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, contents))
 
