@@ -458,9 +458,9 @@ Pour plus d'informations sur les liens de croches, voir @ref{Manual beams}.
 
 
 Voici comment se comportent armures, altérations accidentelles et
-liaisons :
+liaisons
 
-@lilypond[fragment,quote,noindent,line-width=50\staffspace,verbatim]
+@lilypond[fragment,quote,noindent,line-width=50\staff-space,verbatim]
 \relative c'' {
   \time 4/4
   \key g \minor
