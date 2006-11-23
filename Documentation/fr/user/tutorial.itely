@@ -1057,7 +1057,7 @@ A -- le gri -- a
 @end example
 
 @c no ragged-right here, because otherwise the hypens get lost.
-@lilypond[fragment,quote,]
+@lilypond[fragment,quote]
 <<
   \relative {
     \time 2/4
