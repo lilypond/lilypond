@@ -82,7 +82,9 @@ final-install:
 
 web-ext = html midi pdf png txt ly signature
 
-footify = $(PYTHON) $(step-bindir)/add-html-footer.py  --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION)
+# For docball, issue `make web CONTENT_NEGOTIATION='
+CONTENT_NEGOTIATION = --content-negotiation
+footify = $(PYTHON) $(step-bindir)/add-html-footer.py --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) $(CONTENT_NEGOTIATION)
 footifymail = MAILADDRESS='http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 
 
