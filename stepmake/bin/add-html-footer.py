@@ -13,6 +13,7 @@ import getopt
 index_url=''
 top_url=''
 changelog_file=''
+content_negotiation = False
 package_name = ''
 package_version = ''
 
@@ -68,6 +69,7 @@ Add header, footer and top of ChangLog file (up to the ********) to HTML-FILE
 
 Options:
  --changelog=FILE          use FILE as ChangeLog [ChangeLog]
+ --content-negotiation     strip .html and .png from urls
  --footer=FILE             use FILE as footer
  --header=FILE             use FILE as header
  -h, --help                print this help
@@ -80,13 +82,15 @@ Options:
 
 (options, files) = getopt.getopt(sys.argv[1:], 'h', [
     'changelog=', 'footer=', 'header=', 'help', 'index=',
-    'name=', 'version=']) 
+    'name=', 'content-negotiation', 'version=']) 
 
 for opt in options:
     o = opt[0]
     a = opt[1]
     if o == '--changelog':
         changelog_file = a
+    elif o == '--content-negotiation':
+        content_negotiation = True
     elif o == '--footer':
         footer_file = a
     elif o == '--header':
@@ -266,9 +270,9 @@ except:
         return s
 underscore = _
 
-
+C = 'site'
 LANGUAGES = (
-    ('site', 'English'),
+    (C, 'English'),
     ('nl', 'Nederlands'),
     ('fr', 'French')
     )
@@ -288,7 +292,7 @@ LANGUAGES_TEMPLATE = '''\
 def file_lang (file, lang):
     (base, ext) = os.path.splitext (file)
     base = os.path.splitext (base)[0]
-    if lang and lang != 'site':
+    if lang and lang != C:
         return base + '.' + lang + ext
     return base + ext
 
@@ -299,8 +303,8 @@ def i18n (file_name, page):
 
     base_name = os.path.basename (file_name)
 
-    lang = 'site'
-    m = re.match ('.*[.]([^.]*).html', file_name)
+    lang = C
+    m = re.match ('.*[.]([^/.]*).html', file_name)
     if m:
         lang = m.group (1)
 
@@ -310,11 +314,13 @@ def i18n (file_name, page):
               LANGUAGES)
 
     # Strip .html, .png suffix for auto language selection (content
-    # negotiation).
-    page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''',
-                   '\\1="\\2\\4"', page)
+    # negotiation).  The menu must keep the full extension, so do
+    # this before adding the menu.
+    if content_negotiation:
+        page = re.sub ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''',
+                       '\\1="\\2\\4"', page)
 
-    # Create language menu.
+    # Add menu after stripping: must not have autoselection for language menu.
     language_menu = ''
     for (prefix, name) in available:
         lang_file = file_lang (base_name, prefix)
@@ -335,7 +341,6 @@ def i18n (file_name, page):
         page = page + languages
 
     return page
-    ## end i18n
 
 for f in files:
     do_file (f)
