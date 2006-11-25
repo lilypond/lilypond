@@ -3,12 +3,10 @@
 OUT_ITEXI_FILES = $(ITELY_FILES:%.itely=$(outdir)/%.itexi)
 
 LILYPOND_BOOK_INCLUDES += \
-  -I$(depth)/Documentation/$(ISOLANG) \
-  -I$(depth)/Documentation/$(ISOLANG)/user \
-  -I$(depth)/Documentation/user \
-  -I$(builddir)/Documentation/user/$(outdir)
+  -I$(top-src-dir)/Documentation/user \
+  -I$(top-build-dir)/Documentation/user/$(outdir)
 
-default: 
+default:
 
 $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
@@ -16,11 +14,11 @@ MAKEINFO = LANG=$(ISOLANG) $(MAKEINFO_PROGRAM) --force
 
 $(outdir)/lilypond/index.html: $(outdir)/lilypond.nexi doc-po
 	mkdir -p $(dir $@)
-	-$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(depth)/Documentation/texinfo.css --html $<
-	find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(depth)/buildscripts/html-gettext.py $(depth)/Documentation/po/$(outdir) $(ISOLANG)
+	-$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(top-src-dir)/buildscripts/html-gettext.py $(depth)/Documentation/po/$(outdir) $(ISOLANG)
 
 $(outdir)/lilypond.html: $(outdir)/lilypond.nexi
-	-$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(depth)/Documentation/texinfo.css --html --no-split --no-headers $< 
+	-$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
 
 local-WWW: png-ln $(outdir)/lilypond.html $(outdir)/lilypond/index.html deep-ln lang-merge
 
