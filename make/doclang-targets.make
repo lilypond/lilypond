@@ -4,6 +4,7 @@ OUT_ITEXI_FILES = $(ITELY_FILES:%.itely=$(outdir)/%.itexi)
 
 LILYPOND_BOOK_INCLUDES += \
   -I$(depth)/Documentation/$(ISOLANG) \
+  -I$(depth)/Documentation/$(ISOLANG)/user \
   -I$(depth)/Documentation/user \
   -I$(builddir)/Documentation/user/$(outdir)
 
