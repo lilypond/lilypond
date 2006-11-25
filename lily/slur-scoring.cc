@@ -224,13 +224,14 @@ Slur_score_state::fill (Grob *me)
   slur_ = dynamic_cast<Spanner *> (me);
   columns_
     = internal_extract_grob_array (me, ly_symbol2scm ("note-columns"));
-
+  
   if (columns_.empty ())
     {
       me->suicide ();
       return;
     }
 
+  Slur::replace_breakable_encompass_objects (me);
   staff_space_ = Staff_symbol_referencer::staff_space (me);
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   thickness_ = robust_scm2double (me->get_property ("thickness"), 1.0) * lt;

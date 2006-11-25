@@ -421,6 +421,7 @@
 	(stencil . ,ly:clef::print)
 	(glyph-name . ,ly:clef::calc-glyph-name)
 	(non-musical . #t)
+	(avoid-slur . inside)
 	(font-family . music)
 	(break-align-symbol . clef)
 	(break-visibility . ,begin-of-line-visible)
@@ -792,6 +793,7 @@
     (KeySignature
      . (
 	(stencil . ,ly:key-signature-interface::print)
+	(avoid-slur . inside)
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
@@ -1807,6 +1809,7 @@
 	(stencil . ,ly:time-signature::print)
 	(break-align-symbol . time-signature)
 	(break-visibility . ,all-visible)
+	(avoid-slur . inside)
 	(space-alist . (
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
