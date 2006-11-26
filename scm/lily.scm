@@ -34,11 +34,12 @@
 			    "load fonts via Ghostscript.")
 	      (include-book-title-preview #t "include book-titles in preview images.")
 	      (include-eps-fonts #t "Include fonts in separate-system EPS files.")
+	      (job-count #f "Process in parallel") 
 
 	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
 
 	      (gui #f "running from gui; redirect stderr to log file")
-	      
+	      (log-file #f "redirect output to log FILE.log")
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
@@ -58,7 +59,7 @@ on errors, and print a stack trace.")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
 
 	      (ttf-verbosity 0
-			   "how much verbosity for TTF font embedding?")
+			     "how much verbosity for TTF font embedding?")
 
 	      (show-available-fonts #f
 				    "List  font names available.")
@@ -77,7 +78,7 @@ on errors, and print a stack trace.")
 (if (defined? 'set-debug-cell-accesses!)
     (set-debug-cell-accesses! #f))
 
-;(set-debug-cell-accesses! 1000)
+					;(set-debug-cell-accesses! 1000)
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
@@ -174,7 +175,7 @@ on errors, and print a stack trace.")
 	  "//*" "/"
 	  (string-regexp-substitute "\\\\" "/" x))))
    ;; FIXME: this prints a warning.
-  (define-public (ly-getcwd)
+   (define-public (ly-getcwd)
      (slashify (native-getcwd))))
   (else (define-public ly-getcwd getcwd)))
 
@@ -253,7 +254,7 @@ The syntax is the same as `define*-public'."
 (ly:set-default-scale (ly:make-scale #(0 2 4 5 7 9 11)))
 
 
- 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
@@ -379,7 +380,7 @@ The syntax is the same as `define*-public'."
 	   protects))
      outfile)
 
-;    (display (ly:smob-protects))
+					;    (display (ly:smob-protects))
     (newline outfile)
     (if (defined? 'gc-live-object-stats)
 	(let* ((stats #f))
@@ -402,6 +403,18 @@ The syntax is the same as `define*-public'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
+(define (multi-fork count)
+  (define (helper count acc)
+    (if (> count 0)
+      (let*
+	  ((pid  (primitive-fork)))
+	(if (= pid 0)
+	    (1- count)
+	    (helper (1- count) (cons pid acc))))
+      acc))
+  (helper count '()))
+
+
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
   
@@ -415,6 +428,54 @@ The syntax is the same as `define*-public'."
   (if (null? files)
       (no-files-handler))
 
+  (if (and (number? (ly:get-option 'job-count))
+	   (> (length files) (ly:get-option 'job-count)))
+      
+      (let*
+	  ((count (ly:get-option 'job-count))
+	   (split-todo (split-list files count)) 
+	   (joblist (multi-fork count))
+	   (errors '()))
+
+	(if (not (string-or-symbol? (ly:get-option 'log-file)))
+	    (ly:set-option 'log-file "lilypond-multi-run"))
+	
+	(if (number? joblist)
+	    (begin
+	      (ly:set-option 'log-file (format "~a-~a"
+					       (ly:get-option 'log-file) joblist))
+	      (set! files (vector-ref split-todo joblist)))
+
+	    (begin
+	      (for-each
+	       (lambda (pid)
+		 (let* ((stat (cdr (waitpid pid))))
+
+		   (if (not (= stat 0))
+		       (set! errors (cons (list-element-index joblist pid) errors)))))
+	       joblist)
+
+	      (for-each
+	       (lambda (x)
+		 (let* ((logfile  (format "~a-~a.log"
+					  (ly:get-option 'log-file) x))
+			(log (ly:gulp-file logfile))
+			(len (string-length log))
+			(tail (substring log (- len 1024))))
+
+		   (display (format "\n\nlogfile ~a:\n\n ~a" logfile tail))))
+
+	       errors)
+
+	      (if (pair? errors)
+		  (ly:error "Children ~a exited with errors." errors))
+
+	    (exit (if (null? errors) 0 1))))))
+	      
+	   
+  (if (string-or-symbol? (ly:get-option 'log-file))
+      (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
+  
   (let ((failed (lilypond-all files)))
     (if (pair? failed)
 	(begin
@@ -466,12 +527,14 @@ The syntax is the same as `define*-public'."
 (define-public (gui-main files)
   (if (null? files)
       (gui-no-files-handler))
-  (let* ((base (basename (car files) ".ly"))
-	 (log-name (string-append base ".log")))
-    (if (not (ly:get-option 'gui))
-	(ly:message (_ "Redirecting output to ~a...") log-name))
-    (ly:stderr-redirect log-name "w")
-    (ly:message "# -*-compilation-*-")
+
+  (if (not (string? (ly:get-option 'log-file)))
+      (let* ((base (basename (car files) ".ly"))
+	     (log-name (string-append base ".log")))
+	(if (not (ly:get-option 'gui))
+	    (ly:message (_ "Redirecting output to ~a...") log-name))
+	(ly:stderr-redirect log-name "w")
+	(ly:message "# -*-compilation-*-"))
     
     (let ((failed (lilypond-all files)))
       (if (pair? failed)
