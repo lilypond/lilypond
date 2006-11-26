@@ -32,3 +32,4 @@ gcstat*.scm
 *-systems.tex
 *-midi.ly
 a.out
+.dotest
