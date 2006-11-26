@@ -253,6 +253,8 @@ found."
      (else
       (helper (cdr todo) (1+ k)))))
 
+  (helper lst 0))
+
 (define-public (count-list lst)
   "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
   (define (helper l acc count)
