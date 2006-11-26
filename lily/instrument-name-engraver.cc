@@ -91,6 +91,15 @@ Instrument_name_engraver::start_spanner ()
   text_spanner_->set_bound (LEFT, col);
   text_spanner_->set_property ("text", short_text_);
   text_spanner_->set_property ("long-text", long_text_);
+
+  /*
+    UGH, should handle this in Score_engraver.
+  */
+  Grob *system = unsmob_grob (get_property ("rootSystem"));
+  if (system)
+    Axis_group_interface::add_element (system, text_spanner_);
+  else
+    text_spanner_->programming_error ("can't find root system");
 }
 
 
@@ -129,16 +138,6 @@ Instrument_name_engraver::stop_spanner ()
 			    unsmob_grob (get_property ("currentCommandColumn")));
 
   Pointer_group_interface::set_ordered (text_spanner_, ly_symbol2scm ("elements"), false);
-
-  System *system = get_root_system (text_spanner_);
-
-  /*
-    UGH, should handle this in Score_engraver.
-  */
-  if (system)
-    Axis_group_interface::add_element (system, text_spanner_);
-  else
-    text_spanner_->programming_error ("can't find root system");
 
   text_spanner_ = 0;
 }

@@ -184,7 +184,7 @@ SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
   extract_grob_set (me, "elements", elts);
-  if (a == Y_AXIS)
+  if (a == Y_AXIS && to_boolean (me->get_property ("skyline-spacing")))
     skyline_spacing (me, elts);
   Grob *common = common_refpoint_of_array (elts, me, a);
 
@@ -281,10 +281,12 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
   vsize i = 0;
   vector<Box> boxes;
+
   for (i = 0; i < elements.size ()
-	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
+  	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     boxes.push_back (Box (elements[i]->extent (x_common, X_AXIS),
 			  elements[i]->extent (y_common, Y_AXIS)));
+
 
   Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
 				Skyline (boxes, X_AXIS, UP));
@@ -322,5 +324,6 @@ ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
 	       "elements "
 	       "common-refpoint-of-elements "
 	       "pure-relevant-elements "
+	       "skyline-spacing "
 	       "cached-pure-extents "
 	       );

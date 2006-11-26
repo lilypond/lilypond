@@ -300,14 +300,15 @@ Skyline::distance (Skyline const &other) const
   list<Building>::const_iterator j = other.buildings_.begin ();
 
   Real dist = -infinity_f;
-  for (; i != buildings_.end () && j != other.buildings_.end (); i++)
+  while (i != buildings_.end () && j != other.buildings_.end ())
     {
-      while (j->iv_[RIGHT] < i->iv_[LEFT])
-	j++;
-
       Interval iv = intersection (i->iv_, j->iv_);
       dist = max (dist, max (i->height (iv[LEFT]) + j->height (iv[LEFT]),
 			     i->height (iv[RIGHT]) + j->height (iv[RIGHT])));
+      if (i->iv_[RIGHT] <= j->iv_[RIGHT])
+	i++;
+      else
+	j++;
     }
   return dist;
 }

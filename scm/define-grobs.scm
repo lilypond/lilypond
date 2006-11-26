@@ -1643,6 +1643,7 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(skyline-spacing . #t)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
 				axis-group-interface))))))
@@ -1967,6 +1968,7 @@
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
+	(skyline-spacing . #t)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-interface
