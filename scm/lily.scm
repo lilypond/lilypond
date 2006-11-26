@@ -428,6 +428,15 @@ The syntax is the same as `define*-public'."
   (if (null? files)
       (no-files-handler))
 
+  (if (ly:get-option 'read-file-list)
+      (set! files
+	    (filter (lambda (s)
+		      (> (string-length s) 0))
+		    (apply append
+			   (map (lambda (f) (string-split (ly:gulp-file f) #\nl))
+				files)))
+	    ))
+  
   (if (and (number? (ly:get-option 'job-count))
 	   (> (length files) (ly:get-option 'job-count)))
       
@@ -447,6 +456,7 @@ The syntax is the same as `define*-public'."
 	      (set! files (vector-ref split-todo joblist)))
 
 	    (begin
+	      (ly:progress "\nForking into jobs:  ~a\n" joblist)
 	      (for-each
 	       (lambda (pid)
 		 (let* ((stat (cdr (waitpid pid))))
@@ -461,7 +471,7 @@ The syntax is the same as `define*-public'."
 					  (ly:get-option 'log-file) x))
 			(log (ly:gulp-file logfile))
 			(len (string-length log))
-			(tail (substring log (- len 1024))))
+			(tail (substring  log (max 0 (- len 1024)))))
 
 		   (display (format "\n\nlogfile ~a:\n\n ~a" logfile tail))))
 
@@ -487,14 +497,7 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-  (if (ly:get-option 'read-file-list)
-      (set! files
-	    (filter (lambda (s)
-		      (> (string-length s) 0))
-		    (apply append
-			   (map (lambda (f) (string-split (ly:gulp-file f) #\nl))
-				files)))
-	    ))
+
 
   (if (ly:get-option 'show-available-fonts)
       (begin
