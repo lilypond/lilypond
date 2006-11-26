@@ -528,7 +528,7 @@ of beat groupings "
   "Split the parts of a chord into different Voices using separator"
   (let ((es (ly:music-property ch 'elements)))
     (set! (ly:music-property  ch 'elements)
-	  (voicify-list (split-list es music-separator?) 0))
+	  (voicify-list (split-list-by-separator es music-separator?) 0))
     ch))
 
 (define-public (voicify-music m)
