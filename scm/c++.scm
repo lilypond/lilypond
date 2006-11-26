@@ -27,6 +27,9 @@
 (define-public (boolean-or-symbol? x)
   (or (boolean? x) (symbol? x)))
 
+(define-public (string-or-symbol? x)
+  (or (string? x) (symbol? x)))
+
 (define-public (number-or-string? x)
   (or (number? x) (string? x)))
 
