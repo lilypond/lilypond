@@ -99,6 +99,8 @@ Documentation and examples
     Example files, documentation
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
     Cleanups in docs and example files.
+@item @email{john.mandereau@@free.fr, John Mandereau},
+    Internationalization.
 @item @email{scancm@@biobase.dk, Christian Mondrup},
     Glossary.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
@@ -109,7 +111,7 @@ Documentation and examples
     Main author.
 @item @email{gpermus@@gmail.com, Graham Percival},
     @uref{http://percival-music.ca},
-    Documenation Editor.
+    Documentation Editor.
 @item @email{pinard@@iro.umontreal.ca, François Pinard},
     @uref{http://www.iro.umontreal.ca/~pinard/},
     Parts of Documentation/user/glossary*, started
@@ -147,10 +149,17 @@ Translations
     Russian translation.
 @item @email{, David González},
     Spanish glossary translations.
+@item @email{ngclaude@@123mail.org, Nicolas Grandclaude},
+    French documentation translation.
+@item @email{lolyfan@@wanadoo.fr, Jean-Charles Malahieude},
+    French translation of messages, website and documentation.
 @item @email{john.mandereau@@free.fr, John Mandereau},
-    French translation.
-@item @email{lilyfan@@wanadoo.fr, Jean-Charles Malahieude}
-    French translation
+    French translation of messages, website and documentation
+@item @email{gauvainpocentek@@yahoo.fr, Gauvain Pocentek},
+    French website translation.
+@item @email{ludovicsardain@@gmail.com, Ludovic Sardain},
+    French documentation translation.
 @end itemize
+
 
 @bye
