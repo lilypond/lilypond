@@ -230,6 +230,28 @@ found."
 ;;;;;;;;;;;;;;;;
 ;; list
 
+(define (split-list lst n)
+  "Split LST in N equal sized parts"
+  
+  (define (helper todo acc-vector k)
+    (if (null? todo)
+	acc-vector
+	(begin
+	  (if (< k 0)
+	      (set! k (+ n k)))
+	    
+	  (vector-set! acc-vector k (cons (car todo) (vector-ref acc-vector k)))
+	  (helper (cdr todo) acc-vector (1- k)))))
+
+  (helper lst (make-vector n '()) (1- n)))
+
+(define (list-element-index lst x)
+  (define (helper todo k)
+    (cond
+     ((null? todo) #f)
+     ((equal? (car todo) x) k)
+     (else
+      (helper (cdr todo) (1+ k)))))
 
 (define-public (count-list lst)
   "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
@@ -311,8 +333,8 @@ found."
    (set-car! c (reverse! (car c)))
    c))
 
-(define-public (split-list lst sep?)
-   "(display (split-list '(a b c / d e f / g) (lambda (x) (equal? x '/))))
+(define-public (split-list-by-separator lst sep?)
+   "(display (split-list-by-separator '(a b c / d e f / g) (lambda (x) (equal? x '/))))
    =>
    ((a b c) (d e f) (g))
   "
@@ -328,7 +350,7 @@ found."
    (if (null? lst)
        '()
        (let* ((c (split-one sep? lst '())))
-	 (cons (reverse! (car c) '()) (split-list (cdr c) sep?)))))
+	 (cons (reverse! (car c) '()) (split-list-by-separator (cdr c) sep?)))))
 
 (define-public (offset-add a b)
   (cons (+ (car a) (car b))
