@@ -45,7 +45,6 @@ INSTALLPY=$(PYTHON) $(step-bindir)/install.py -c
 INSTALL=$(INSTALLPY)
 
 group-dir = $(shell cd $(DEPTH);pwd)/..
-release-dir = $(group-dir)/releases
 patch-dir = $(group-dir)/patches
 rpm-sources = $(release-dir)
 rpm-build = $(group-dir)/RedHat/BUILD
