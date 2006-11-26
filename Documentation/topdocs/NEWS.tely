@@ -70,7 +70,6 @@ which scares away people.
 avoid collisions.
 
 @lilypond[fragment,ragged-right,relative=1]
-{
   \override TextScript #'outside-staff-priority = #1
   c''
   \once \override TextScript #'self-alignment-X = #CENTER
@@ -78,7 +77,21 @@ avoid collisions.
   b^"this goes above the previous markup"
   a8_"this goes below the dynamic"
   a\f
+@end lilypond
+
+@item Staves are spaced vertically using a skyline algorithm. This helps to avoid
+uneven vertical spacing.
+
+@lilypond[ragged-right]
+\book {
+  \score {
+    {
+      a,,1 | a'4 b' c'' d'' \break
+      \repeat unfold 2 {a' b' c'' d''} | b''''1
+    }
+  }
 }
+@end lilypond
 
 @end itemize
 
