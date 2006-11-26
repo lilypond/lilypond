@@ -296,6 +296,10 @@ typedef map<int, vector<Beam_stem_segment> >  Position_stem_segments_map;
 vector<Beam_segment>
 Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
+  /* ugh, this has a side-effect that we need to ensure that
+     Stem #'beaming is correct */
+  (void) me_grob->get_property ("quantized-positions");
+
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
 
   extract_grob_set (me, "stems", stems);
