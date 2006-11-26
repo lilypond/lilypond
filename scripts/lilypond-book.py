@@ -1098,14 +1098,17 @@ class Lilypond_snippet (Snippet):
             and os.path.exists (systems_file)
             and os.stat (systems_file)[stat.ST_SIZE]
             and re.match ('% eof', open (systems_file).readlines ()[-1])
-            and (not global_options.use_hash or FILENAME in self.option_dict)
+            and (global_options.use_hash or FILENAME in self.option_dict)
             and (self.relevant_contents (self.full_ly ())
                  == self.relevant_contents (open (ly_file).read ()))):
             return None
+        if global_options.verbose:
+            print 'OUT OF DATE: ', ly_file
         return self
 
     def png_is_outdated (self):
         base = self.basename ()
+        # FIXME: refactor stupid OK stuff
         ok = not self.ly_is_outdated ()
         if global_options.format in (HTML, TEXINFO):
             ok = ok and os.path.exists (base + '.eps')
@@ -1127,6 +1130,7 @@ class Lilypond_snippet (Snippet):
         if backend == 'ps':
             return 0
 
+        # FIXME: refactor stupid OK stuff
         base = self.basename ()
         ok = self.ly_is_outdated ()
         ok = ok and (os.path.exists (base + '.texstr'))
@@ -1761,6 +1765,7 @@ def do_options ():
     return args
 
 def main ():
+    # FIXME: 85 lines of `main' macramee??
     files = do_options ()
 
     file = files[0]
