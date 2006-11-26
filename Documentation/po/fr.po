@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-11-19 10:23+0100\n"
-"PO-Revision-Date: 2006-11-12 16:08+0100\n"
+"PO-Revision-Date: 2006-11-25 16:47+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Top"
 msgstr "Sommaire"
 
 msgid "GNU LilyPond --- The music typesetter"
-msgstr ""
+msgstr "GNU LilyPond -- le système de gravure musicale"
 
 msgid "LilyPond command index"
 msgstr "Index des commandes LilyPond"
@@ -30,16 +30,16 @@ msgid "LilyPond index"
 msgstr "Index de LilyPond"
 
 msgid "Bugs"
-msgstr ""
+msgstr "Bogues"
 
 msgid "See also"
-msgstr ""
+msgstr "Voir aussi"
 
 msgid "Predefined commands"
-msgstr ""
+msgstr "Commandes prédéfinies"
 
 msgid "Commonly tweaked properties"
-msgstr ""
+msgstr "Propriétés couramment ajustées"
 
 msgid "Preface"
 msgstr "Préface"
@@ -75,68 +75,67 @@ msgid "Running LilyPond for the first time"
 msgstr "Lancer LilyPond pour la première fois"
 
 msgid "MacOS X"
-msgstr ""
+msgstr "MacOS X"
 
 msgid "Windows"
-msgstr ""
+msgstr "Windows"
 
 msgid "Unix"
-msgstr ""
+msgstr "Unix"
 
-#, fuzzy
 msgid "More about pitches"
-msgstr "Plus à propos des hauteurs"
+msgstr "Les hauteurs en détail"
 
 msgid "Entering ties"
-msgstr ""
+msgstr "Liaisons de durée"
 
 msgid "Automatic and manual beams"
-msgstr ""
+msgstr "Barres de ligature automatiques et manuelles"
 
 msgid "Octave entry"
-msgstr ""
+msgstr "Saisie des octaves"
 
 msgid "Music expressions explained"
-msgstr ""
+msgstr "Les expressions musicales en clair"
 
 msgid "More staves"
-msgstr ""
+msgstr "Plus de portées"
 
 msgid "Adding articulation marks to notes"
-msgstr ""
+msgstr "Ajout de signes d'articulation"
 
 msgid "Combining notes into chords"
-msgstr ""
+msgstr "Combinaison de notes en accords"
 
 msgid "Advanced rhythmic commands"
-msgstr ""
+msgstr "Commandes rythmiques avancées"
 
 msgid "Commenting input files"
-msgstr ""
+msgstr "Commenter un fichier source"
 
 msgid "Printing lyrics"
-msgstr ""
+msgstr "Imprimer des paroles"
 
 msgid "A lead sheet"
-msgstr ""
+msgstr "Partition d'une chanson"
 
 msgid "Adding titles"
-msgstr ""
+msgstr "Ajout de titres"
 
 msgid "Single staff polyphony"
-msgstr ""
+msgstr "Polyphonie sur une portée"
 
 msgid "Piano staves"
-msgstr ""
+msgstr "Double portée"
 
 msgid "Organizing larger pieces"
-msgstr ""
+msgstr "Comment organiser de plus grandes pièces"
 
 msgid "An orchestral part"
-msgstr ""
+msgstr "Partitions d'orchestre"
 
 msgid "After the tutorial"
-msgstr ""
+msgstr "Après le tutoriel"
 
 msgid "Putting it all together"
 msgstr ""
@@ -999,9 +998,8 @@ msgstr ""
 msgid "Integrating LaTeX and music"
 msgstr ""
 
-#, fuzzy
 msgid "Integrating La"
-msgstr "Gravure"
+msgstr ""
 
 msgid "Integrating Texinfo and music"
 msgstr ""
@@ -1185,3 +1183,4 @@ msgstr "Précédent&nbsp;:"
 
 msgid "Appendix"
 msgstr "Annexe"
+
