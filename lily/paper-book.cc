@@ -411,7 +411,7 @@ Paper_book::pages ()
 
   pages_ = SCM_EOL;
   SCM proc = paper_->c_variable ("page-breaking-wrapper");
-  pages_ = scm_apply_0 (proc, scm_list_1(self_scm ()));
+  pages_ = scm_apply_0 (proc, scm_list_1 (self_scm ()));
 
   /* set systems_ from the pages */
   if (systems_ == SCM_BOOL_F)

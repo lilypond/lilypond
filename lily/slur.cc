@@ -9,7 +9,7 @@
 
 #include "slur.hh"
 
-
+#include "grob-array.hh"
 #include "beam.hh"
 #include "bezier.hh"
 #include "directional-element-interface.hh"
@@ -27,7 +27,7 @@
 #include "tie.hh"
 #include "warn.hh"
 #include "slur-scoring.hh"
-
+#include "separation-item.hh"
 #include "script-interface.hh"
 
 
@@ -158,6 +158,42 @@ Slur::print (SCM smob)
 #endif
 
   return a.smobbed_copy ();
+}
+
+
+/*
+  it would be better to do this at engraver level, but that is
+  fragile, as the breakabl items are generated on staff level, at
+  which point slur starts and ends have to be tracked
+*/
+void
+Slur::replace_breakable_encompass_objects (Grob *me)
+{
+  extract_grob_set (me, "encompass-objects", extra_objects);
+  vector<Grob *> new_encompasses;
+
+  for (vsize i = 0; i < extra_objects.size (); i++)
+    {
+      Grob *g = extra_objects[i];
+      
+      if (Separation_item::has_interface (g))
+	{
+	  extract_grob_set (g, "elements", breakables);
+	  for (vsize j = 0; j < breakables.size (); j++)
+	    if (breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+	      new_encompasses.push_back (breakables[j]);
+	}
+      else
+	new_encompasses.push_back (g);
+    }
+
+  SCM encompass_scm = me->get_object ("encompass-objects");
+  if (Grob_array::unsmob (encompass_scm))
+    {
+      vector<Grob *> &arr =
+	unsmob_grob_array (encompass_scm)->array_reference ();
+      arr = new_encompasses;
+    }
 }
 
 Bezier

@@ -52,7 +52,7 @@ scheme are caught in the parser. If off, halt
 on errors, and print a stack trace.")
 	      (profile-property-accesses #f "keep statistics of get_property() calls.")
 	      
-	      (resolution 101 "resolution for generating bitmaps")
+	      (resolution 101 "resolution for generating PNG bitmaps")
 	      (read-file-list #f "Read files to be processed from command line arguments")
 
 	      (safe #f "Run safely")
