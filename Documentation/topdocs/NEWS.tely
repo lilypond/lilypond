@@ -66,6 +66,19 @@ which scares away people.
 
 @end ignore
 
+@item Objects that belong outside of the staff are now positioned automatically to
+avoid collisions.
+
+@lilypond[fragment,ragged-right,relative=1]
+{
+  \override TextScript #'outside-staff-priority = #1
+  c''
+  \once \override TextScript #'self-alignment-X = #CENTER
+  a,^"this doesn't collide with the c"
+  b^"this goes above the previous markup"
+  a8_"this goes below the dynamic"
+  a\f
+}
 
 @end itemize
 
