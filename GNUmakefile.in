@@ -36,7 +36,7 @@ local-dist: dist-toplevel-txt-files dist-changelog
 
 dist-changelog:
 	if  test -d $(top-src-dir)/.git ; then \
-		git-whatchanged gub-2.9.29-2.. > $(distdir)/ChangeLog ; \
+		cd $(top-src-dir) && git-whatchanged gub-2.9.29-2.. > $(distdir)/ChangeLog ; \
 	else \
 		cp $(top-src-dir)/ChangeLog $(distdir) ; \
 	fi
