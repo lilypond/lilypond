@@ -17,9 +17,9 @@ Project.
 
 @section Versioning
 
-LilyPond uses a versioning scheme similar to the Linux kernel.  In a
-version "x.y.z", an even second number 'y' denotes a stable version.
-For development versions 'y' is odd.
+LilyPond uses a versioning scheme that easily identifies stable and
+development releases.  In a version "x.y.z", an even second number 'y'
+denotes a stable version.  For development versions 'y' is odd.
 
 @section Downloading
 
