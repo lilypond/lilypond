@@ -35,10 +35,10 @@ include $(depth)/make/stepmake.make
 local-dist: dist-toplevel-txt-files dist-changelog
 
 dist-changelog:
-	if  test -d $(srcdir)/.git ; then \
+	if  test -d $(top-src-dir)/.git ; then \
 		git-whatchanged gub-2.9.29-2.. > $(distdir)/ChangeLog ; \
 	else \
-		cp $(srcdir)/ChangeLog $(distdir) ; \
+		cp $(top-src-dir)/ChangeLog $(distdir) ; \
 	fi
 
 default: $(outdir)/VERSION
