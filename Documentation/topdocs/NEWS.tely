@@ -83,6 +83,7 @@ avoid collisions.
 uneven vertical spacing.
 
 @lilypond[ragged-right]
+#(set-default-paper-size "a6")
 \book {
   \score {
     {

@@ -5,6 +5,7 @@ systems more uniform."
 }
 
 \paper {ragged-right = ##t}
+#(set-default-paper-size "a6")
 
 \version "2.11.0"
 \book {
