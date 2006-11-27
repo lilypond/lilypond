@@ -83,7 +83,11 @@ avoid collisions.
 uneven vertical spacing.
 
 @lilypond[ragged-right]
-#(set-default-paper-size "a6")
+#(set-default-paper-size "a6" 'landscape)
+\header {
+  tagline = ##f
+}
+
 \book {
   \score {
     {
