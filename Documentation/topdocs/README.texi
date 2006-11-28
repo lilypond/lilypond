@@ -73,7 +73,7 @@ list.
 for sending bugreports.
 
 @item @uref{http://mail.gnu.org/mailman/listinfo/lilypond-cvs,lilypond-cvs@@gnu.org}
-  for commit messages from the CVS repository, and log files from the
+ for log files from the
 autobuild.
 @end itemize
 
