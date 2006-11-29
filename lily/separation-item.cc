@@ -8,6 +8,7 @@
 
 #include "separation-item.hh"
 
+#include "skyline.hh"
 #include "paper-column.hh"
 #include "warn.hh"
 #include "pointer-group-interface.hh"
@@ -60,6 +61,58 @@ Separation_item::conditional_width (Grob *me, Grob *left)
 
   w.widen (robust_scm2double (pad, 0.0));
   return w;
+}
+
+
+MAKE_SCHEME_CALLBACK(Separation_item,calc_skylines,1);
+SCM
+Separation_item::calc_skylines (SCM smob)
+{
+  Item *me = unsmob_item (smob);
+  SCM lines = scm_cons (SCM_BOOL_F,SCM_BOOL_F);
+
+  Direction d = LEFT;
+  do
+    {
+      Skyline l (boxes (me), X_AXIS, d);
+      index_set_cell (lines, d, ly_offsets2scm (l.to_points ()));
+    }
+  while (flip (&d) != LEFT);
+
+  return lines;
+}
+
+
+vector<Box>
+Separation_item::boxes (Grob *me)
+{
+  Item *item = dynamic_cast<Item *> (me);
+
+  int very_large = INT_MAX;
+  Paper_column *pc = item->get_column ();
+  vector<Box> out;
+  extract_grob_set (me, "elements", elts);
+
+  Grob *ycommon = common_refpoint_of_array (elts, me, Y_AXIS);
+  
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      Item *il = dynamic_cast<Item *> (elts[i]);
+      if (pc != il->get_column ())
+	{
+	  continue;
+	}
+
+      if (to_boolean (il->get_property ("no-spacing-rods")))
+	continue;
+
+      Box b (il->extent (pc, X_AXIS),
+	     il->pure_height (ycommon, 0, very_large));
+
+      out.push_back (b);
+    }
+
+  return out;      
 }
 
 Interval

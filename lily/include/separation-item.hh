@@ -16,6 +16,9 @@
 struct Separation_item
 {
   DECLARE_GROB_INTERFACE();
+  DECLARE_SCHEME_CALLBACK(calc_skylines, (SCM));
+
+  static vector<Box> boxes (Grob *me);
   static Interval conditional_width (Grob *, Grob *);
   static Interval width (Grob *);
   static Interval relative_width (Grob *, Grob *);
