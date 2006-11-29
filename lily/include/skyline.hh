@@ -23,6 +23,8 @@ struct Building
   Interval iv_;
   Real start_height_;
   Real end_height_;
+
+  /* fixme: variable naming */
   Real m_;
   Real b_;
 
