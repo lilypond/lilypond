@@ -416,6 +416,28 @@ determines the space between each markup in @var{args}."
      space
      (remove ly:stencil-empty? stencils))))
 
+(define-markup-command (concat layout props args) (markup-list?)
+  "Concatenate @var{args} in a horizontal line, without spaces inbetween.
+Strings and simple markups are concatenated on the input level, allowing
+ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
+equivalent to @code{\"fi\"}."
+
+  (define (concat-string-args arg-list)
+    (fold-right (lambda (arg result-list)
+                  (let ((result (if (pair? result-list)
+                                    (car result-list)
+                                  '())))
+                    (if (and (pair? arg) (eqv? (car arg) simple-markup))
+                      (set! arg (cadr arg)))
+                    (if (and (string? result) (string? arg))
+                        (cons (string-append arg result) (cdr result-list))
+                      (cons arg result-list))))
+                '()
+                arg-list))
+
+  (interpret-markup layout
+                    (prepend-alist-chain 'word-space 0 props)
+                    (make-line-markup (concat-string-args args))))
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
