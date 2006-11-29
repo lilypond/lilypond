@@ -1,5 +1,5 @@
 /*
-  break-align-interface.hh -- declare Break_align_interface
+  break-align-interface.hh -- declare Break_alignment_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -11,7 +11,7 @@
 
 #include "item.hh"
 
-class Break_align_interface
+class Break_alignment_interface
 {
 public:
   static vector<Grob*> ordered_elements (Grob *me);
@@ -27,7 +27,7 @@ struct Break_aligned_interface
   static bool has_interface (Grob *);
 };
 
-struct Break_alignment_align_interface
+struct Break_alignable_interface
 {
   DECLARE_SCHEME_CALLBACK (self_align_callback, (SCM element));
   static bool has_interface (Grob *);

@@ -161,8 +161,8 @@
    ly:hara-kiri-group-spanner::force-hara-kiri-callback
    ly:hara-kiri-group-spanner::y-extent
    ly:horizontal-bracket::print
-   ly:hyphen-spanner::print
-   ly:hyphen-spanner::set-spacing-rods
+   ly:lyric-hyphen::print
+   ly:lyric-hyphen::set-spacing-rods
    ly:key-signature-interface::print
    ly:line-spanner::print
    ly:lyric-extender::print

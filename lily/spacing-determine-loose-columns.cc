@@ -105,7 +105,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   for (vsize i = elts.size (); i--;)
     {
       Grob *g = elts[i];
-      if (g && Break_align_interface::has_interface (g))
+      if (g && Break_alignment_interface::has_interface (g))
 	{
 	  extract_grob_set (g, "elements", gelts);
 	  for (vsize j = gelts.size (); j--;)

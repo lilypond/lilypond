@@ -628,6 +628,7 @@ main (int argc, char **argv)
   setup_paths (argv[0]);
   setup_guile_env ();
 
+#if 0
   /* Debugging aid.  */
   try
     {
@@ -637,7 +638,10 @@ main (int argc, char **argv)
     {
       error (_f ("exception caught: %s", e.what ()));
     };
-
+#else
+  scm_boot_guile (argc, argv, main_with_guile, 0);
+#endif
+	
   /* Only reachable if GUILE exits.  That is an error.  */
   return 1;
 }

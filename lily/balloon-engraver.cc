@@ -9,7 +9,6 @@
 
 #include "engraver.hh"
 
-
 #include "stream-event.hh"
 #include "item.hh"
 

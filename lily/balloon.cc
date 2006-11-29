@@ -69,7 +69,7 @@ Balloon_interface::print (SCM smob)
   return fr.smobbed_copy ();
 }
 
-ADD_INTERFACE (Balloon_interface, "text-balloon-interface",
+ADD_INTERFACE (Balloon_interface, "balloon-interface",
 	       "A collection of routines to put text balloons around an object.",
 
 	       /* properties */

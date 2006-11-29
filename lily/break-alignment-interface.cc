@@ -1,5 +1,5 @@
 /*
-  break-align-interface.cc -- implement Break_align_interface
+  break-align-interface.cc -- implement Break_alignment_interface
 
   source file of the GNU LilyPond music typesetter
 
@@ -21,9 +21,9 @@
 #include "warn.hh"
 
 
-MAKE_SCHEME_CALLBACK (Break_align_interface, self_align_callback, 1);
+MAKE_SCHEME_CALLBACK (Break_alignment_interface, self_align_callback, 1);
 SCM
-Break_align_interface::self_align_callback (SCM smob)
+Break_alignment_interface::self_align_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -46,7 +46,7 @@ Break_align_interface::self_align_callback (SCM smob)
   So we return the correct order as an array.
 */
 SCM
-Break_align_interface::break_align_order (Item *me)
+Break_alignment_interface::break_align_order (Item *me)
 {
   SCM order_vec = me->get_property ("break-align-orders");
   if (!scm_is_vector (order_vec)
@@ -62,7 +62,7 @@ Break_align_interface::break_align_order (Item *me)
 
   
 vector<Grob*>
-Break_align_interface::ordered_elements (Grob *grob)
+Break_alignment_interface::ordered_elements (Grob *grob)
 {
   Item *me = dynamic_cast<Item *> (grob);
   extract_grob_set (me, "elements", elts);
@@ -97,14 +97,14 @@ Break_align_interface::ordered_elements (Grob *grob)
 }
 
 void
-Break_align_interface::add_element (Grob *me, Grob *toadd)
+Break_alignment_interface::add_element (Grob *me, Grob *toadd)
 {
   Align_interface::add_element (me, toadd);
 }
 
-MAKE_SCHEME_CALLBACK(Break_align_interface, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK(Break_alignment_interface, calc_positioning_done, 1)
 SCM
-Break_align_interface::calc_positioning_done (SCM smob)
+Break_alignment_interface::calc_positioning_done (SCM smob)
 {
   Grob *grob = unsmob_grob (smob);  
   Item *me = dynamic_cast<Item *> (grob);
@@ -270,56 +270,21 @@ Break_align_interface::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
-	       "Items that are aligned in prefatory matter.\n"
-	       "\n"
-	       "The spacing of these items is controlled by the @code{space-alist}\n"
-	       "property. It contains a list @code{break-align-symbol}s with a specification\n"
-	       "of the associated space. The space specification can be "
-	       "@table @code\n"
-	       "@item (minimum-space . @var{spc}))\n"
-	       "  Pad space until the distance is @var{spc}\n"
-	       "@item (fixed-space . @var{spc})\n"
-	       "  Set a fixed space\n"
-	       "@item (semi-fixed-space . @var{spc})\n"
-	       "  Set a space. Half of it is fixed and half is stretchable. \n"
-	       "(does not work at start of line. fixme)\n"
-	       "@item (extra-space . @var{spc})\n"
-	       "  Add @var{spc} amount of space.\n"
-	       "@end table\n"
-	       "\n"
-	       "Special keys for the alist are @code{first-note} and @code{next-note}, signifying\n"
-	       "the first note on a line, and the next note halfway a line.\n"
-	       "\n"
-	       "Rules for this spacing are much more complicated than this. \n"
-	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
-
-	       /* properties */ 
-	       "break-align-symbol "
-	       "space-alist "
-	       );
-
-ADD_INTERFACE (Break_align_interface, "break-alignment-interface",
-	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
-
-	       /* properties */
-	       "positioning-done "
-	       "break-align-orders");
 
 
-MAKE_SCHEME_CALLBACK(Break_alignment_align_interface, self_align_callback, 1)
+MAKE_SCHEME_CALLBACK(Break_alignable_interface, self_align_callback, 1)
 SCM
-Break_alignment_align_interface::self_align_callback (SCM grob)
+Break_alignable_interface::self_align_callback (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   Item *alignment = dynamic_cast<Item*> (me->get_parent (X_AXIS));
-  if (!Break_align_interface::has_interface (alignment))
+  if (!Break_alignment_interface::has_interface (alignment))
     return scm_from_int (0);
 
   SCM my_align = me->get_property ("break-align-symbol");
-  SCM order = Break_align_interface::break_align_order (alignment);
+  SCM order = Break_alignment_interface::break_align_order (alignment);
 
-  vector<Grob*> elements = Break_align_interface::ordered_elements (alignment);
+  vector<Grob*> elements = Break_alignment_interface::ordered_elements (alignment);
   if (elements.size () == 0)
     return scm_from_int (0);
   
@@ -350,7 +315,7 @@ Break_alignment_align_interface::self_align_callback (SCM grob)
 			  - me->relative_coordinate (common, X_AXIS));
 }
 
-ADD_INTERFACE (Break_alignment_align_interface, "break-alignment-align-interface",
+ADD_INTERFACE (Break_alignable_interface, "break-alignable-interface",
 	       "Object that is aligned on a break aligment. ",
 
 	       /* properties */
@@ -358,3 +323,39 @@ ADD_INTERFACE (Break_alignment_align_interface, "break-alignment-align-interface
 	       )
 
 
+
+ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
+	       "Items that are aligned in prefatory matter.\n"
+	       "\n"
+	       "The spacing of these items is controlled by the @code{space-alist}\n"
+	       "property. It contains a list @code{break-align-symbol}s with a specification\n"
+	       "of the associated space. The space specification can be "
+	       "@table @code\n"
+	       "@item (minimum-space . @var{spc}))\n"
+	       "  Pad space until the distance is @var{spc}\n"
+	       "@item (fixed-space . @var{spc})\n"
+	       "  Set a fixed space\n"
+	       "@item (semi-fixed-space . @var{spc})\n"
+	       "  Set a space. Half of it is fixed and half is stretchable. \n"
+	       "(does not work at start of line. fixme)\n"
+	       "@item (extra-space . @var{spc})\n"
+	       "  Add @var{spc} amount of space.\n"
+	       "@end table\n"
+	       "\n"
+	       "Special keys for the alist are @code{first-note} and @code{next-note}, signifying\n"
+	       "the first note on a line, and the next note halfway a line.\n"
+	       "\n"
+	       "Rules for this spacing are much more complicated than this. \n"
+	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
+
+	       /* properties */ 
+	       "break-align-symbol "
+	       "space-alist "
+	       );
+
+ADD_INTERFACE (Break_alignment_interface, "break-alignment-interface",
+	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
+
+	       /* properties */
+	       "positioning-done "
+	       "break-align-orders");

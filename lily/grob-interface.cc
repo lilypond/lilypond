@@ -12,12 +12,25 @@
 #include "international.hh"
 #include "protected-scm.hh"
 #include "std-string.hh"
+#include "string-convert.hh"
 #include "warn.hh"
+#include "misc.hh"
 
-void add_interface (char const *symbol,
+void add_interface (char const *cxx_name,
+		    char const *symbol,
 		    char const *descr,
 		    char const *vars)
 {
+  string suffix ("-interface");
+  string lispy_name = camel_case_to_lisp_identifier (cxx_name);
+  vsize end = max (int (0), int (lispy_name.length () - suffix.length ()));
+  if (lispy_name.substr (end) != suffix)
+    lispy_name += suffix;
+
+  if (lispy_name != string (symbol))
+    programming_error (String_convert::form_string ("%s != %s", lispy_name.c_str (),
+						    symbol));
+    
   SCM s = ly_symbol2scm (symbol);
   SCM d = scm_makfrom0str (descr);
   SCM l = parse_symbol_list (vars);

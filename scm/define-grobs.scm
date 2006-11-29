@@ -204,7 +204,7 @@
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
-			  (list ly:break-alignment-align-interface::self-align-callback))
+			  (list ly:break-alignable-interface::self-align-callback))
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
@@ -216,7 +216,7 @@
 	      ((class . Item)
 	       (interfaces . (side-position-interface
 			      text-interface
-			      break-alignment-align-interface
+			      break-alignable-interface
 			      self-alignment-interface
 			      font-interface
 			      ))))
@@ -344,7 +344,7 @@
      . (
 	(non-musical . #t)
 	(stacking-dir . 1)
-	(positioning-done . ,ly:break-align-interface::calc-positioning-done)
+	(positioning-done . ,ly:break-alignment-interface::calc-positioning-done)
 	(X-extent . ,ly:axis-group-interface::width)
 	(break-align-orders . ;; end of line
 			    #((
@@ -543,7 +543,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				break-aligned-interface
-				percent-repeat-interface))))))
+				percent-repeat-item-interface))))))
 
     (DoublePercentRepeatCounter
      . (
@@ -561,7 +561,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
 				self-alignment-interface
-				percent-repeat-interface
+				percent-repeat-item-interface
 				font-interface
 				text-interface))))))
     (DynamicLineSpanner
@@ -845,7 +845,7 @@
 	(length-fraction . 0.25)
 	(layer . 0)
 	(meta . ((class . Spanner)
-		 (interfaces . (ledger-line-interface))))))
+		 (interfaces . (ledger-line-spanner-interface))))))
 
     (LeftEdge
      . (
@@ -907,8 +907,8 @@
 	(minimum-length . 0.3)
 	(minimum-distance . 0.1)
 	(padding . 0.07)
-	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
-	(stencil . ,ly:hyphen-spanner::print)
+	(springs-and-rods . ,ly:lyric-hyphen::set-spacing-rods)
+	(stencil . ,ly:lyric-hyphen::print)
 	(Y-extent . (0 . 0))
 	(meta . ((class . Spanner)
 		 (interfaces . (lyric-interface
@@ -918,7 +918,7 @@
 
     (LyricSpace
      . ((minimum-distance . 0.45)
-	(springs-and-rods . ,ly:hyphen-spanner::set-spacing-rods)
+	(springs-and-rods . ,ly:lyric-hyphen::set-spacing-rods)
 	(padding . 0.0)
 	(Y-extent . #f)
 	(X-extent . #f)
@@ -1213,7 +1213,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (multi-measure-rest-interface
 				font-interface
-				percent-repeat-interface))))))
+				percent-repeat-item-interface))))))
     (PercentRepeatCounter
      . (
 	(stencil . ,ly:text-interface::print)
@@ -1230,7 +1230,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				self-alignment-interface
-				percent-repeat-interface
+				percent-repeat-item-interface
 				font-interface
 				text-interface))))))
 
@@ -1256,7 +1256,7 @@
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
-			  (list ly:break-alignment-align-interface::self-align-callback))
+			  (list ly:break-alignable-interface::self-align-callback))
 			,(ly:make-simple-closure
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
@@ -1272,7 +1272,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface
-				break-alignment-align-interface
+				break-alignable-interface
 				font-interface
 				mark-interface
 				self-alignment-interface))))))
@@ -1283,7 +1283,7 @@
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)
-		 (interfaces . (percent-repeat-interface))))))
+		 (interfaces . (percent-repeat-item-interface))))))
 
     (RepeatTie
      . (
@@ -1379,7 +1379,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (only-prebreak-interface
 				spacing-interface
-				separation-spanner-interface))))))
+				separating-group-spanner-interface))))))
 
     (Slur
      . ((details . ,default-slur-details)
@@ -1971,7 +1971,7 @@
 	(skyline-spacing . #t)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
-				hara-kiri-group-interface
+				hara-kiri-group-spanner-interface
 				vertically-spaceable-interface))))))
 
 

@@ -9,7 +9,7 @@
 
 #include "spanner.hh"
 
-struct Hyphen_spanner
+struct Lyric_hyphen
 {
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));

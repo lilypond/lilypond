@@ -352,18 +352,19 @@ Ledger_line_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Ledger_line_spanner,
-	       "ledger-line-interface",
+	       "ledger-line-spanner-interface",
 
 	       "This spanner draws the ledger lines of a staff.\n"
 	       "This is a separate grob because it has to process\n"
 	       "all potential collisions between all note heads.",
 
 	       /* properties */
+	       "gap "	
+	       "length-fraction "	
+	       "minimum-length-fraction "
 	       "note-heads "
 	       "thickness "
-	       "minimum-length-fraction "
-	       "length-fraction "
-	       "gap");
+	       );
 
 struct Ledgered_interface
 {
@@ -374,6 +375,6 @@ ADD_INTERFACE (Ledgered_interface,
 	       "ledgered-interface",
 
 	       "Objects that need ledger lines, typically "
-	       "note heads. See also @ref{ledger-line-interface}.",
+	       "note heads. See also @ref{ledger-line-spanner-interface}.",
 
 	       "no-ledgers");

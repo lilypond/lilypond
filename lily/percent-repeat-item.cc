@@ -71,7 +71,9 @@ Percent_repeat_item_interface::beat_slash (SCM grob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Percent_repeat_item_interface, "percent-repeat-interface",
+ADD_INTERFACE (Percent_repeat_item_interface, "percent-repeat-item-interface",
 	       "Repeats that look like percent signs",
-	       "slope thickness");
+	       
+	       "slope "
+	       "thickness ");
 

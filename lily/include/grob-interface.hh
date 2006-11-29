@@ -18,11 +18,12 @@
   }								\
   void cl ## _init_ifaces ()					\
   {								\
-    add_interface (a, b, c);					\
+    add_interface (#cl, a, b, c);				\
   }								\
   ADD_SCM_INIT_FUNC (cl ## ifaces, cl ## _init_ifaces);
 
-void add_interface (char const *symbol,
+void add_interface (char const *cxx_name,
+		    char const *symbol,
 		    char const *descr,
 		    char const *vars);
 

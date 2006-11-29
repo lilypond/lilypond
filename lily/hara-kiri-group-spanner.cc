@@ -153,7 +153,7 @@ Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("items-worth-living"), n);
 }
 
-ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-interface",
+ADD_INTERFACE (Hara_kiri_group_spanner, "hara-kiri-group-spanner-interface",
 	       "A group spanner that  keeps track of interesting items.  If it "
 	       "doesn't contain any after linebreaking, then it "
 	       "will remove itself and all its children.",

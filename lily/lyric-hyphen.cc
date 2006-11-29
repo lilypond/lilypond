@@ -1,5 +1,5 @@
 /*
-  hyphen-spanner.cc -- implement Hyphen_spanner
+  hyphen-spanner.cc -- implement Lyric_hyphen
 
   source file of the GNU LilyPond music typesetter
 
@@ -19,9 +19,9 @@
   font.
  */
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner, print, 1);
+MAKE_SCHEME_CALLBACK (Lyric_hyphen, print, 1);
 SCM
-Hyphen_spanner::print (SCM smob)
+Lyric_hyphen::print (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
   Drul_array<Item *> bounds (me->get_bound (LEFT),
@@ -102,9 +102,9 @@ Hyphen_spanner::print (SCM smob)
   return total.smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Hyphen_spanner, set_spacing_rods, 1);
+MAKE_SCHEME_CALLBACK (Lyric_hyphen, set_spacing_rods, 1);
 SCM
-Hyphen_spanner::set_spacing_rods (SCM smob)
+Lyric_hyphen::set_spacing_rods (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
@@ -128,7 +128,7 @@ Hyphen_spanner::set_spacing_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Hyphen_spanner,
+ADD_INTERFACE (Lyric_hyphen,
 
 	       "lyric-hyphen-interface",
 	       
