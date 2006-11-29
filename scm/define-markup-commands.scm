@@ -1339,21 +1339,26 @@ and/or @code{extra-offset} properties. "
 (define-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."
   (let* ((m1 (interpret-markup layout props arg1))
-         (m2 (interpret-markup layout props arg2)))
+         (m2 (interpret-markup layout props arg2))
+         (factor (magstep (chain-assoc-get 'font-size props 0)))
+         (boxdimen (cons (* factor -0.05) (* factor 0.05)))
+         (padding (* factor 0.2))
+         (baseline (* factor 0.6))
+         (offset (* factor 0.75)))
     (set! m1 (ly:stencil-aligned-to m1 X CENTER))
     (set! m2 (ly:stencil-aligned-to m2 X CENTER))
     (let* ((x1 (ly:stencil-extent m1 X))
            (x2 (ly:stencil-extent m2 X))
-           (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
+           (line (ly:round-filled-box (interval-union x1 x2) boxdimen 0.0))
            ;; should stack mols separately, to maintain LINE on baseline
-           (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
+           (stack (stack-lines DOWN padding baseline (list m1 line m2))))
       (set! stack
 	    (ly:stencil-aligned-to stack Y CENTER))
       (set! stack
 	    (ly:stencil-aligned-to stack X LEFT))
       ;; should have EX dimension
       ;; empirical anyway
-      (ly:stencil-translate-axis stack 0.75 Y))))
+      (ly:stencil-translate-axis stack offset Y))))
 
 
 
