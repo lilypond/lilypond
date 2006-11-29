@@ -10,7 +10,6 @@
 #define MULTI_MEASURE_REST_HH
 
 #include "grob-interface.hh"
-#include "lily-guile.hh"
 #include "rod.hh"
 
 class Multi_measure_rest

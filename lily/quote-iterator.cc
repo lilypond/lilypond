@@ -15,7 +15,6 @@
 #include "lily-guile.hh"
 #include "music-sequence.hh"
 #include "music.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 class Quote_iterator : public Music_wrapper_iterator

@@ -17,7 +17,6 @@
 #include "staff-symbol-referencer.hh"
 #include "item.hh"
 #include "tie-formatting-problem.hh"
-#include "tie-configuration.hh"
 #include "tie-column-format.hh"
 
 

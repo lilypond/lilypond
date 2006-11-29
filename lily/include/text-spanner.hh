@@ -9,7 +9,6 @@
 #ifndef TEXT_SPANNER_HH
 #define TEXT_SPANNER_HH
 
-#include "lily-guile.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 

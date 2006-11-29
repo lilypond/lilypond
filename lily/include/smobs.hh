@@ -10,7 +10,6 @@
 #define SMOBS_HH
 
 #include "lily-guile.hh"
-#include "virtual-methods.hh"
 #include "warn.hh"
 
 /*

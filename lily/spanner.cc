@@ -6,9 +6,6 @@
   (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "spanner.hh"
-
-
 #include "pointer-group-interface.hh"
 #include "libc-extension.hh"
 #include "paper-column.hh"

@@ -6,9 +6,10 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "font-metric.hh"
+
 #include "warn.hh"
 #include "stencil.hh"
-#include "font-metric.hh"
 #include "modified-font-metric.hh"
 
 LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",

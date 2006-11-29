@@ -10,9 +10,9 @@
 #include <cstdlib>
 using namespace std;
 
-#include "grob-array.hh"
 #include "item.hh"
 #include "system.hh"
+#include "grob-array.hh"
 
 static SCM break_criterion;
 void

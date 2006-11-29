@@ -9,7 +9,6 @@
 #ifndef TIE_HH
 #define TIE_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "skyline.hh"
 #include "grob-interface.hh"

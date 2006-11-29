@@ -3,9 +3,9 @@
 */
 
 #include "pointer-group-interface.hh"
-#include "std-vector.hh"
 #include "stem.hh"
 #include "beam.hh"
+#include "grob.hh"
 #include "staff-symbol-referencer.hh"
 #include "directional-element-interface.hh"
 

@@ -10,7 +10,6 @@
 #define ALIGN_INTERFACE_HH
 
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"
 

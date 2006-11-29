@@ -12,7 +12,6 @@
 
 #include "config.hh"
 #include "international.hh"
-#include "std-string.hh"
 
 #if !HAVE_GETTEXT
 inline char *

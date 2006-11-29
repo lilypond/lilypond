@@ -18,7 +18,6 @@ using namespace std;
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 Global_context::Global_context (Output_def *o, Object_key *key)

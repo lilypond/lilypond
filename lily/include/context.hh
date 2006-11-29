@@ -10,7 +10,6 @@
 #define CONTEXT_HH
 
 #include "context-key-manager.hh"
-#include "lily-proto.hh"
 #include "listener.hh"
 #include "moment.hh"
 #include "std-vector.hh"

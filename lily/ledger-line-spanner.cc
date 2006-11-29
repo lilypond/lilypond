@@ -9,7 +9,6 @@
 #include <map>
 using namespace std;
 
-#include "item.hh"
 #include "note-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"

@@ -22,6 +22,7 @@ using namespace std;
 #include "staff-symbol.hh"
 #include "string-convert.hh"
 #include "misc.hh"
+#include "grob.hh"
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)

@@ -7,7 +7,6 @@
 */
 
 #include "engraver.hh"
-#include "spanner.hh"
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"

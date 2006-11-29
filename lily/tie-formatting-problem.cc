@@ -12,7 +12,6 @@
 #include "paper-column.hh"
 #include "bezier.hh" 
 #include "directional-element-interface.hh"
-#include "item.hh"
 #include "libc-extension.hh"
 #include "misc.hh"
 #include "note-head.hh"

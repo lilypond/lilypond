@@ -11,7 +11,6 @@
 #include "engraver-group.hh"
 #include "grob.hh"
 #include "paper-score.hh"
-#include "stream-event.hh"
 #include "translator-dispatch-list.hh"
 #include "warn.hh"
 

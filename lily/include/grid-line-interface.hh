@@ -10,7 +10,6 @@
 #define GRID_LINE_INTERFACE_HH
 
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "grob-interface.hh"
 
 

@@ -20,6 +20,7 @@
 #include "direction.hh"
 #include "text-interface.hh"
 #include "font-interface.hh"
+#include "grob.hh"
 
 /*
   TODO: thickness should be a grob property (unit: linethickness)

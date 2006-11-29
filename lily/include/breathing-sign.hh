@@ -10,7 +10,7 @@
 #define BREATHING_SIGN_HH
 
 #include "grob-interface.hh"
-#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 class Grob;
 

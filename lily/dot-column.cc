@@ -21,6 +21,7 @@ using namespace std;
 #include "side-position-interface.hh"
 #include "axis-group-interface.hh"
 #include "stem.hh"
+#include "grob.hh"
 #include "pointer-group-interface.hh"
 
 /*

@@ -10,7 +10,6 @@
 #define SLUR_SCORING_HH
 
 #include "box.hh"
-#include "lily-proto.hh"
 #include "std-vector.hh"
 #include "lily-guile.hh"
 #include "slur-score-parameters.hh"

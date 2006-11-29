@@ -9,7 +9,6 @@
 #ifndef SCRIPT_INTERFACE_HH
 #define SCRIPT_INTERFACE_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

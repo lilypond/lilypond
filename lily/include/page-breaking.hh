@@ -11,7 +11,6 @@
 #define PAGE_BREAKING_HH
 
 #include "constrained-breaking.hh"
-#include "lily-guile.hh"
 
 /* Either a paper-score, markup or header.
  */

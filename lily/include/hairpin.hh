@@ -8,13 +8,10 @@
 
 #ifndef HAIRPIN_HH
 #define HAIRPIN_HH
-#include "grob-interface.hh"
 
-#include "lily-guile.hh"
+#include "grob-interface.hh"
 #include "lily-proto.hh"
-/**
-   The hairpin symbol.
-*/
+
 struct Hairpin
 {
 public:

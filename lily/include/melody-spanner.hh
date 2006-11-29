@@ -10,7 +10,6 @@
 #ifndef MELODY_SPANNER_HH
 #define MELODY_SPANNER_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

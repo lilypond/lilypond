@@ -14,8 +14,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "music.hh"
-#include "pitch.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 Event_chord_iterator::Event_chord_iterator ()

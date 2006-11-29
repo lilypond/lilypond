@@ -9,7 +9,6 @@
 #ifndef REST_HH
 #define REST_HH
 
-#include "lily-guile.hh"
 #include "grob-interface.hh"
 
 class Grob;

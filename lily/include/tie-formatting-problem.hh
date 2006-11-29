@@ -11,9 +11,7 @@
 #define TIE_FORMATTING_PROBLEM_HH
 
 #include "drul-array.hh"
-#include "std-vector.hh"
 #include "skyline.hh"
-#include "lily-proto.hh"
 #include "tie-configuration.hh"
 #include "tie-details.hh"
 #include "tuple.hh"

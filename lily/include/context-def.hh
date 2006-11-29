@@ -13,6 +13,8 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "input.hh"
+#include "virtual-methods.hh"
+
 
 /*
   The definition of a interpretation context as given in the

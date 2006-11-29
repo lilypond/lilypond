@@ -9,7 +9,6 @@
 #ifndef SPACEABLE_GROB_HH
 #define SPACEABLE_GROB_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

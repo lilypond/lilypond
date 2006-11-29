@@ -12,7 +12,6 @@
 #include "duration.hh"
 #include "grob.hh"
 #include "international.hh"
-#include "moment.hh"
 #include "paper-column.hh"
 #include "stream-event.hh"
 #include "warn.hh"

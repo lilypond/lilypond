@@ -10,7 +10,6 @@
 #include "audio-item.hh"
 #include "audio-column.hh"
 #include "global-context.hh"
-#include "pitch.hh"
 #include "stream-event.hh"
 #include "translator.icc"
 #include "warn.hh"

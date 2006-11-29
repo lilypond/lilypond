@@ -8,8 +8,6 @@
 #ifndef ITEM_HH
 #define ITEM_HH
 
-#include "grob-interface.hh"
-#include "box.hh"
 #include "grob.hh"
 
 /**

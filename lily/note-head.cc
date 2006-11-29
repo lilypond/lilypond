@@ -18,6 +18,7 @@ using namespace std;
 #include "font-interface.hh"
 #include "international.hh"
 #include "warn.hh"
+#include "grob.hh"
 
 static Stencil
 internal_print (Grob *me, string *font_char)

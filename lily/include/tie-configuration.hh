@@ -10,12 +10,10 @@
 #ifndef TIE_CONFIGURATION_HH
 #define TIE_CONFIGURATION_HH
 
-#include "main.hh"
-#include "lily-proto.hh"
 #include "direction.hh"
 #include "interval.hh"
-#include "compare.hh"
 #include "std-vector.hh"
+#include "main.hh" // DEBUG_SLUR_SCORING
 
 class Tie_configuration
 {

@@ -16,8 +16,6 @@
 
 using namespace std;
 
-#include "config.hh"
-
 #include "dimensions.hh"
 #include "direction.hh"
 #include "file-path.hh"

@@ -10,7 +10,6 @@
 #define INPUT_HH
 
 #include "flower-proto.hh"
-#include "std-string.hh"
 
 /**
    Base class for anything that records its poisition in the parse file.
@@ -53,8 +52,6 @@ public:
 };
 
 
-
-#include "input.hh"
 #include "smobs.hh"
 
 SCM make_input (Input spot);

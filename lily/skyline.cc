@@ -346,6 +346,9 @@ Skyline::set_minimum_height (Real h)
   merge (s);
 }
 
+/*
+  fixme: move this out of skyline.
+*/
 Stencil
 Skyline::stencil ()
 {

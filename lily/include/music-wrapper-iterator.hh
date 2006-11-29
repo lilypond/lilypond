@@ -9,7 +9,6 @@
 #ifndef MUSIC_WRAPPER_ITERATOR_HH
 #define MUSIC_WRAPPER_ITERATOR_HH
 
-#include "music.hh"
 #include "music-iterator.hh"
 
 /**

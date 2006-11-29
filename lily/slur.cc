@@ -8,7 +8,7 @@
 */
 
 #include "slur.hh"
-
+#include "grob-info.hh"
 #include "grob-array.hh"
 #include "beam.hh"
 #include "bezier.hh"
@@ -320,7 +320,7 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
  * Used by Slur_engraver:: and Phrasing_slur_engraver::
  */
 void
-Slur::auxiliary_acknowledge_extra_object (Grob_info info,
+Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
 					  vector<Grob*> &slurs,
 					  vector<Grob*> &end_slurs)
 {

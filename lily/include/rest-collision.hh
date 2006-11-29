@@ -11,7 +11,6 @@
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 
 class Rest_collision
 {

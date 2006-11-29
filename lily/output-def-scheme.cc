@@ -6,10 +6,10 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "font-metric.hh"
+#include "output-def.hh"
+
 #include "pango-font.hh"
 #include "modified-font-metric.hh"
-#include "output-def.hh"
 #include "ly-module.hh"
 #include "context-def.hh"
 #include "lily-parser.hh"

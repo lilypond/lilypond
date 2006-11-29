@@ -10,9 +10,7 @@
 
 #include "column-x-positions.hh"
 #include "spanner.hh"
-#include "grob-array.hh"
 #include "skyline.hh"
-#include "grob-interface.hh"
 
 /*
   If you keep following offset reference points, you will always end

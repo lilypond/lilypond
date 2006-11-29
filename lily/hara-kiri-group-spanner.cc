@@ -14,7 +14,6 @@
 #include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "warn.hh"
-#include "item.hh"
 
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, y_extent, 1);
 SCM

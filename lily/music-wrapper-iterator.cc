@@ -8,6 +8,7 @@
 
 #include "music-wrapper-iterator.hh"
 #include "music-wrapper.hh"
+#include "music.hh"
 
 Music_wrapper_iterator::Music_wrapper_iterator ()
 {

@@ -9,7 +9,6 @@
 #include <cstdarg>
 using namespace std;
 
-#include "std-string.hh"
 #include "flower-proto.hh"
 
 /** The functor string_convert handles all conversions to/from string

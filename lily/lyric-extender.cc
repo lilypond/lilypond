@@ -12,7 +12,6 @@
 #include "item.hh"
 #include "warn.hh"
 #include "lookup.hh"
-#include "paper-column.hh"
 #include "output-def.hh"
 #include "note-head.hh"
 #include "pointer-group-interface.hh"

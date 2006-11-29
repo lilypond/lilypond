@@ -9,7 +9,6 @@
 #ifndef ARPEGGIO_HH
 #define ARPEGGIO_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

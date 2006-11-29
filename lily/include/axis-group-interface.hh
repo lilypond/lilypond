@@ -11,7 +11,6 @@
 
 #include "std-vector.hh"
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "grob-interface.hh"
 
 struct Axis_group_interface

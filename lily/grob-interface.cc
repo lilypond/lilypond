@@ -11,7 +11,6 @@
 #include "grob.hh"
 #include "international.hh"
 #include "protected-scm.hh"
-#include "std-string.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 #include "misc.hh"

@@ -15,9 +15,8 @@
 
 #include <pango/pango.h>
 #include <pango/pangoft2.h>
-#include "font-metric.hh"
 
-#include "open-type-font.hh"
+#include "font-metric.hh"
 
 class Pango_font : public Font_metric
 {

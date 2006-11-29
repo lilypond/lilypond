@@ -11,7 +11,6 @@
 
 #include "item.hh"
 #include "rod.hh"
-#include "lily-proto.hh"
 
 class Paper_column : public Item
 {

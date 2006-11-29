@@ -13,7 +13,6 @@ using namespace std;
 #include "text-metrics.hh"
 #include "warn.hh"
 #include "stencil.hh"
-#include "lookup.hh"
 #include "main.hh"
 
 Modified_font_metric::Modified_font_metric (Font_metric *fm,

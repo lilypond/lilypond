@@ -16,7 +16,6 @@
 #include "ly-smobs.icc"
 #include "main.hh"
 #include "music-sequence.hh"
-#include "pitch.hh"
 #include "score.hh"
 #include "warn.hh"
 

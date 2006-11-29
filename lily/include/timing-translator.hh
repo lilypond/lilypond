@@ -12,8 +12,6 @@
 #include "moment.hh"
 #include "translator.hh"
 
-#include "std-vector.hh"
-
 class Timing_translator : public Translator
 {
 public:

@@ -10,7 +10,6 @@
 #define ABBREV_HH
 
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "grob-interface.hh"
 
 class Stem_tremolo

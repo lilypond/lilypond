@@ -6,11 +6,12 @@
   (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#include "music-sequence.hh"
+
 #include "warn.hh"
 #include "program-option.hh"
-#include "pitch.hh"
+#include "music.hh"
 #include "input.hh"
-#include "music-sequence.hh"
 
 void
 transpose_music_list (SCM lst, Pitch rq)

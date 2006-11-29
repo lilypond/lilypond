@@ -12,7 +12,6 @@
 #include "international.hh"
 #include "item.hh"
 #include "main.hh"
-#include "paper-column.hh"
 #include "simple-closure.hh"
 #include "spanner.hh"
 #include "warn.hh"

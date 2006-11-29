@@ -12,7 +12,6 @@
 #include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "output-def.hh"
-#include "stencil.hh"
 
 MAKE_SCHEME_CALLBACK (Grid_line_interface, print, 1);
 SCM

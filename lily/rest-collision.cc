@@ -21,6 +21,7 @@ using namespace std;
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
+#include "grob.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Rest_collision, force_shift_callback, 1);

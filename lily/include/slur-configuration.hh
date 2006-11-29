@@ -10,8 +10,8 @@
 #define SLUR_CONFIGURATION_HH
 
 #include "bezier.hh"
+#include "lily-proto.hh"
 #include "std-vector.hh"
-#include "main.hh"
 
 
 enum Configuration_tag

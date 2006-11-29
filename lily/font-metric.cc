@@ -18,7 +18,6 @@ using namespace std;
 #include "modified-font-metric.hh"
 #include "open-type-font.hh"
 #include "stencil.hh"
-#include "virtual-methods.hh"
 #include "warn.hh"
 
 #include "ly-smobs.icc"

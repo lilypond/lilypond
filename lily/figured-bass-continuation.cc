@@ -8,7 +8,6 @@
 */
 
 #include "line-interface.hh"
-#include "lily-guile.hh"
 #include "spanner.hh"
 #include "output-def.hh"
 #include "item.hh"

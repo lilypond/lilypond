@@ -9,10 +9,9 @@
 #ifndef COLLISION_HH
 #define COLLISION_HH
 
-#include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 
 /**

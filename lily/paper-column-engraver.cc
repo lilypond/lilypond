@@ -11,7 +11,6 @@
 #include "international.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
-#include "item.hh"
 #include "note-spacing.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"

@@ -9,7 +9,6 @@
 #ifndef AMBITUS_HH
 #define AMBITUS_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

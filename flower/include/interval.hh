@@ -9,8 +9,6 @@
 
 #include <math.h>
 
-#include "std-string.hh"
-
 #include "flower-proto.hh"
 #include "drul-array.hh"
 

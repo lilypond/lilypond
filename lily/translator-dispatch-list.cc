@@ -7,8 +7,6 @@
 */
 
 #include "translator-dispatch-list.hh"
-
-#include "grob-info.hh"
 #include "engraver.hh"
 
 #include "ly-smobs.icc"

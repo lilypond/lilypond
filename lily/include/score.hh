@@ -15,7 +15,6 @@
 #include "std-vector.hh"
 #include "smobs.hh"
 #include "virtual-methods.hh"
-#include "std-string.hh"
 
 class Score
 {

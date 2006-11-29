@@ -13,6 +13,7 @@
 #include "directional-element-interface.hh"
 #include "side-position-interface.hh"
 #include "warn.hh"
+#include "grob.hh"
 #include "pointer-group-interface.hh"
 
 #include <map>

@@ -11,9 +11,7 @@
 #ifndef PAGE_TURN_PAGE_BREAKING_HH
 #define PAGE_TURN_PAGE_BREAKING_HH
 
-#include "constrained-breaking.hh"
 #include "page-breaking.hh"
-#include "lily-guile.hh"
 
 /*
   A dynamic programming solution to breaking pages

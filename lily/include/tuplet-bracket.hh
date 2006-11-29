@@ -7,7 +7,6 @@
 #ifndef Tuplet_bracket_HH
 #define Tuplet_bracket_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"

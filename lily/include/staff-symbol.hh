@@ -9,7 +9,6 @@
 #ifndef STAFF_SYMBOL_HH
 #define STAFF_SYMBOL_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

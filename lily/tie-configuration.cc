@@ -8,6 +8,7 @@
 */
 
 #include "tie-configuration.hh"
+
 #include "warn.hh"
 #include "tie-formatting-problem.hh"
 #include "bezier.hh"

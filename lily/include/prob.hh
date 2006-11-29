@@ -10,6 +10,8 @@
 #define PROPERTY_OBJECT_HH
 
 #include "stencil.hh"
+#include "virtual-methods.hh"
+
 
 /*
   A formatted "system" (A block of titling also is a Property_object)

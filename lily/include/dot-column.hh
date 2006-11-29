@@ -9,7 +9,7 @@
 #ifndef DOT_COLUMN_HH
 #define DOT_COLUMN_HH
 
-#include "lily-guile.hh"
+#include "lily-proto.hh"
 #include "grob-interface.hh"
 
 

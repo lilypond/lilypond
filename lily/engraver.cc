@@ -10,7 +10,6 @@
 
 #include "context.hh"
 #include "international.hh"
-#include "item.hh"
 #include "lilypond-key.hh"
 #include "music.hh"
 #include "paper-column.hh"

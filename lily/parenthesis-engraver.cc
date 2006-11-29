@@ -9,7 +9,6 @@
 
 #include "engraver.hh"
 
-#include "grob.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
 #include "simple-closure.hh"

@@ -7,12 +7,11 @@
 */
 
 
-#include "music-iterator.hh"
-
 #include <cstdio>
 using namespace std;
 
 #include "warn.hh"
+#include "music.hh"
 #include "context.hh"
 #include "event-iterator.hh"
 #include "input.hh"

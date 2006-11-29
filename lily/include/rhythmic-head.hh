@@ -10,7 +10,6 @@
 #define RHYTHMIC_HEAD_HH
 
 #include "grob-interface.hh"
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 
 class Rhythmic_head

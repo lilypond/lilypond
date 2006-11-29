@@ -10,7 +10,6 @@
 #define SPACING_SPANNER_HH
 
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "rational.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"

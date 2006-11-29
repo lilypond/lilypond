@@ -9,7 +9,6 @@
 #include "music-output.hh"
 
 #include "ly-smobs.icc"
-#include "virtual-methods.hh"
 
 Music_output::Music_output ()
 {

@@ -8,6 +8,7 @@
 
 #include "directional-element-interface.hh"
 #include "warn.hh"
+#include "grob.hh"
 
 Direction
 get_grob_direction (Grob *me)

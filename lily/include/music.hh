@@ -9,7 +9,6 @@
 #ifndef MUSIC_HH
 #define MUSIC_HH
 
-#include "virtual-methods.hh"
 #include "smobs.hh"
 #include "moment.hh"
 #include "pitch.hh"

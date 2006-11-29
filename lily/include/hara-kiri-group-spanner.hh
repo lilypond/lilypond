@@ -9,7 +9,6 @@
 #ifndef HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 #define HARA_KIRI_VERTICAL_GROUP_SPANNER_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

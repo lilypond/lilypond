@@ -10,7 +10,6 @@
 
 #include "duration.hh"
 #include "warn.hh"
-#include "pitch.hh"
 
 LY_DEFINE (ly_music_length, "ly:music-length",
 	   1, 0, 0, (SCM mus),

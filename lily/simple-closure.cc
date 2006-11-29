@@ -9,7 +9,6 @@
 #include "simple-closure.hh"
 
 #include "grob.hh"
-#include "lily-guile.hh"
 
 static scm_t_bits simple_closure_tag;
 

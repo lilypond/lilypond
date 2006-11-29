@@ -6,12 +6,12 @@
   (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "lily-guile.hh"
+#include "ly-module.hh"
+
 #include "warn.hh"
 #include "main.hh"
 #include "std-string.hh"
 
-#include "ly-module.hh"
 
 /*
   If a variable in changed in SRC, we DEST doesn't see the

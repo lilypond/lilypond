@@ -7,15 +7,13 @@
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "grob.hh"
-
 #include "warn.hh"		// error()
 #include "item.hh"
 #include "output-def.hh"
 #include "system.hh"
 #include "font-interface.hh"
 #include "paper-score.hh"
-
+#include "grob-array.hh"
 
 LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 	   2, 0, 0, (SCM grob, SCM sym),

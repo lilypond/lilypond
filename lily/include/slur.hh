@@ -9,9 +9,7 @@
 #ifndef SLUR_HH
 #define SLUR_HH
 
-#include "grob-info.hh"
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"
 
@@ -21,7 +19,7 @@ public:
   static void add_column (Grob *me, Grob *col);
   static void add_extra_encompass (Grob *me, Grob *col);
   static void replace_breakable_encompass_objects (Grob *me);
-  static void auxiliary_acknowledge_extra_object (Grob_info, vector<Grob*>&, vector<Grob*>&);
+  static void auxiliary_acknowledge_extra_object (Grob_info const &, vector<Grob*>&, vector<Grob*>&);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));

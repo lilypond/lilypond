@@ -10,7 +10,7 @@
 #define ACCIDENTAL_PLACEMENT_HH
 
 #include "grob-interface.hh"
-#include "grob.hh"
+#include "lily-proto.hh"
 
 class Accidental_placement
 {

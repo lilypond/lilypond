@@ -9,6 +9,7 @@
 #include "context.hh"
 #include "direction.hh"
 #include "international.hh"
+#include "music.hh"
 #include "music-wrapper-iterator.hh"
 
 class Auto_change_iterator : public Music_wrapper_iterator

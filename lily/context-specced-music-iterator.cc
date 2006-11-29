@@ -9,6 +9,8 @@
 
 #include "music-wrapper-iterator.hh"
 #include "context.hh"
+#include "music.hh"
+
 
 class Context_specced_music_iterator : public Music_wrapper_iterator
 {

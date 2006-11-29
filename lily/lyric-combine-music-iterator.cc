@@ -6,7 +6,6 @@
   (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "context.hh"
 #include "dispatcher.hh"
 #include "global-context.hh"
 #include "grob.hh"

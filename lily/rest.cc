@@ -16,6 +16,7 @@
 #include "paper-score.hh"
 #include "staff-symbol-referencer.hh"
 #include "stencil.hh"
+#include "grob.hh"
 
 // -> offset callback
 MAKE_SCHEME_CALLBACK (Rest, y_offset_callback, 1);

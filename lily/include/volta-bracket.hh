@@ -8,7 +8,6 @@
 #define VOLTA_SPANNER_HH
 
 #include "spanner.hh"
-#include "grob-interface.hh"
 #include "lily-proto.hh"
 
 class Volta_bracket_interface

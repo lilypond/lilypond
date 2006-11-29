@@ -9,8 +9,6 @@
 
 #include "file-path.hh"
 
-#include "std-string.hh"
-
 #include <cstdio>
 #include <cerrno>
 

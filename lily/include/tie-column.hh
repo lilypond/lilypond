@@ -9,9 +9,8 @@
 #ifndef TIE_COLUMN_HH
 #define TIE_COLUMN_HH
 
-#include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Tie_column
 {

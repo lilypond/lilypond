@@ -13,7 +13,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "music.hh"
-#include "pitch.hh"
 #include "warn.hh"
 
 Event_iterator::Event_iterator ()

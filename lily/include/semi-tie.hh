@@ -12,7 +12,7 @@
 
 
 #include "grob-interface.hh"
-#include "lily-guile.hh"
+#include "lily-proto.hh"
 
 struct Semi_tie
 {

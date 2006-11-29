@@ -15,7 +15,6 @@ using namespace std;
 #include "grob.hh"
 #include "music.hh"
 #include "output-def.hh"
-#include "pitch.hh"
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "stream-event.hh"

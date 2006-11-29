@@ -10,13 +10,18 @@
 #include <pango/pangoft2.h>
 #include <freetype/ftxf86.h>
 
+#include <map>
+
 /* Ugh.  */
+
 #include "pango-font.hh"
+
+#include "open-type-font.hh"	// Index_to_charcode_map
 
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "international.hh"
-#include "lookup.hh"
+#include "lookup.hh"		// debugging
 #include "main.hh"
 #include "string-convert.hh"
 #include "warn.hh"

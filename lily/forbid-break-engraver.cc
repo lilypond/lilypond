@@ -10,7 +10,6 @@
 #include "engraver.hh"
 #include "grob.hh"
 #include "input.hh"
-#include "moment.hh"
 #include "pitch.hh"
 #include "rhythmic-head.hh"
 

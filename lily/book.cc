@@ -13,12 +13,10 @@ using namespace std;
 
 #include "lilypond-key.hh"
 #include "main.hh"
-#include "music-output.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "paper-book.hh"
 #include "score.hh"
-#include "stencil.hh"
 #include "text-interface.hh"
 #include "warn.hh"
 #include "performance.hh"

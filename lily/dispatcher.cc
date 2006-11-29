@@ -10,7 +10,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "ly-smobs.icc"
-#include "stream-event.hh"
 #include "warn.hh"
 
 IMPLEMENT_SMOBS (Dispatcher);

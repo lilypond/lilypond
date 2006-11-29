@@ -34,7 +34,6 @@ using namespace std;
 #include "getopt-long.hh"
 #include "global-ctor.hh"
 #include "international.hh"
-#include "lily-guile.hh"
 #include "lily-version.hh"
 #include "misc.hh"
 #include "output-def.hh"

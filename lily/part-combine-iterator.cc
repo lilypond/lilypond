@@ -9,7 +9,6 @@
 #include "context.hh"
 #include "dispatcher.hh"
 #include "lily-guile.hh"
-#include "listener.hh"
 #include "music.hh"
 #include "music-iterator.hh"
 #include "music-sequence.hh"

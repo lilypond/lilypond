@@ -8,8 +8,6 @@
 
 #include "pointer-group-interface.hh"
 
-#include "lily-proto.hh"
-#include "item.hh"
 #include "grob-array.hh"
 #include "grob.hh"
 

@@ -10,6 +10,7 @@
 #define STEM_INFO_HH
 
 #include "real.hh"
+#include "direction.hh"
 
 /*
   Parameters for a stem, (multiply with stemdirection, to get real values

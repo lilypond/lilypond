@@ -16,7 +16,6 @@ using namespace std;
 #include "international.hh"
 #include "libc-extension.hh"
 #include "lily-guile.hh"
-#include "std-string.hh"
 #include "misc.hh"
 #include "warn.hh"
 #include "version.hh"

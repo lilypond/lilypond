@@ -10,6 +10,7 @@
 #define SKYLINE_HH
 
 #include <list>
+
 #include "axis.hh"
 #include "box.hh"
 #include "interval.hh"

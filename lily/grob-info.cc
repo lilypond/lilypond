@@ -8,7 +8,6 @@
 
 #include "context.hh"
 #include "grob-info.hh"
-#include "grob.hh"
 #include "item.hh"
 #include "music.hh"
 #include "spanner.hh"

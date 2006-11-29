@@ -9,8 +9,6 @@
 
 #include "grob.hh"
 #include "rod.hh"
-#include "grob-interface.hh"
-#include "lily-proto.hh"
 
 /** A symbol which is attached between two columns. A spanner is a
     symbol which spans across several columns, so its final appearance

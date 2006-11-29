@@ -9,7 +9,6 @@
 #ifndef HORIZONTAL_BRACKET_HH
 #define HORIZONTAL_BRACKET_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"

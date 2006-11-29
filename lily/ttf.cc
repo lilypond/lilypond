@@ -10,7 +10,6 @@
 
 #include <freetype/tttables.h>
 
-#include "lily-proto.hh"
 #include "memory-stream.hh"
 #include "warn.hh"
 #include "lily-guile.hh"

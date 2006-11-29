@@ -8,7 +8,6 @@
 */
 
 #include "input.hh"
-#include "music.hh"
 #include "repeated-music.hh"
 #include "sequential-iterator.hh"
 

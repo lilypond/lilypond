@@ -19,7 +19,6 @@
 #include "output-def.hh"
 #include "performer-group.hh"
 #include "scm-hash.hh"
-#include "stream-event.hh"
 #include "warn.hh"
 
 Translator_group *

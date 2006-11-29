@@ -10,7 +10,6 @@
 #define TRANSLATOR_DISPATCH_LIST_HH
 
 #include "lily-proto.hh"
-#include "lily-guile.hh"
 #include "std-vector.hh"
 #include "smobs.hh"
 

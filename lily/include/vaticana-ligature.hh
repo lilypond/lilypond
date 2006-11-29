@@ -9,7 +9,6 @@
 #ifndef VATICANA_LIGATURE_HH
 #define VATICANA_LIGATURE_HH
 
-#include "stencil.hh"
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 

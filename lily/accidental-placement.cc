@@ -15,7 +15,6 @@
 #include "music.hh"
 #include "note-collision.hh"
 #include "note-column.hh"
-#include "pitch.hh"
 #include "pointer-group-interface.hh"
 #include "skyline.hh"
 #include "stream-event.hh"

@@ -16,6 +16,7 @@
 #include "spacing-spanner.hh"
 #include "note-spacing.hh"
 #include "moment.hh"
+#include "grob-array.hh"
 #include "break-align-interface.hh"
 #include "warn.hh"
 

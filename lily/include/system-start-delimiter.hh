@@ -9,7 +9,6 @@
 #ifndef SYSTEM_START_DELIMITER_HH
 #define SYSTEM_START_DELIMITER_HH
 
-#include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
 

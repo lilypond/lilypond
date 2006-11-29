@@ -9,7 +9,6 @@
 #include "input.hh"
 #include "international.hh"
 #include "music.hh"
-#include "pitch.hh"
 
 class Relative_octave_check
 {

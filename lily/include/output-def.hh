@@ -9,7 +9,6 @@
 #ifndef MUSIC_OUTPUT_DEF_HH
 #define MUSIC_OUTPUT_DEF_HH
 
-#include "std-string.hh"
 #include "lily-proto.hh"
 #include "virtual-methods.hh"
 #include "smobs.hh"

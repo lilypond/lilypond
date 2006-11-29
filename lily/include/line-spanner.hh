@@ -9,11 +9,8 @@
 #ifndef LINE_SPANNER_HH
 #define LINE_SPANNER_HH
 
-#include "lily-guile.hh"
+#include "lily-proto.hh"
 #include "grob-interface.hh"
-
-class Grob;
-class Stencil;
 
 class Line_spanner
 {

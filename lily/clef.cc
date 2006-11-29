@@ -11,7 +11,6 @@
 #include "font-interface.hh"
 #include "international.hh"
 #include "item.hh"
-#include "std-string.hh"
 #include "stencil.hh"
 
 MAKE_SCHEME_CALLBACK (Clef, calc_glyph_name, 1);

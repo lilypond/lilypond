@@ -20,7 +20,6 @@
 #include "paper-column-engraver.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
-#include "stream-event.hh"
 #include "system.hh"
 #include "warn.hh"
 
