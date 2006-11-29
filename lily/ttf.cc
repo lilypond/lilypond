@@ -53,7 +53,7 @@ print_header (void *out, FT_Face face)
     = (TT_Postscript *) FT_Get_Sfnt_Table (face, ft_sfnt_post);
 
   if (pt->maxMemType42)
-    lily_cookie_fprintf (out, "%%%%VMUsage: %ld %ld\n", 0, 0);
+    lily_cookie_fprintf (out, "%%%%VMUsage: %d %d\n", 0, 0);
 
   lily_cookie_fprintf (out, "%d dict begin\n", 11);
   lily_cookie_fprintf (out, "/FontName /%s def\n",
@@ -75,8 +75,8 @@ print_header (void *out, FT_Face face)
   lily_cookie_fprintf (out, "/FontType 42 def\n");
   lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
   lily_cookie_fprintf (out, "/version (%d.%d) def\n",
-		       (ht->Font_Revision >> 16),
-		       (ht->Font_Revision &((1 << 16) -1)));
+		       int (ht->Font_Revision >> 16),
+		       int (ht->Font_Revision &((1 << 16) -1)));
 
 #if 0
   if (strings[0])

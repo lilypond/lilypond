@@ -24,7 +24,8 @@ using namespace std;
 			  lily_cookie_io_functions_t io_funcs);
 
   int lily_cookie_fclose (void *);
-  int lily_cookie_fprintf (void *file, char const *format, ...);
+  int lily_cookie_fprintf (void *file, char const *format, ...)
+    __attribute__ ((format (printf, 2, 3)));
   int lily_cookie_putc (int c, void *file);
 
 #ifdef __cplusplus

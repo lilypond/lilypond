@@ -31,7 +31,7 @@ public:
   static int dec2int (string dec_string);
   static double dec2double (string dec_string);
   static string double_string (double f, char const *fmt = 0);
-  static string form_string (char const *format, ...);
+  static string form_string (char const *format, ...) __attribute__ ((format (printf, 1,2)));
   static string vform_string (char const *format, va_list args);
   static int hex2int (string str);
   static unsigned hex2unsigned (string str);
