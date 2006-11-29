@@ -326,7 +326,7 @@ LY_DEFINE(ly_hash_table_keys, "ly:hash-table-keys",
 
 LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
 	   1, 0, 0, (SCM name_sym),
-	   "Convert FooBar to foo-bar style symbol.")
+	   "Convert FooBar_Bla to foo-bar-bla style symbol.")
 {
   SCM_ASSERT_TYPE(scm_is_symbol (name_sym), name_sym,
 		  SCM_ARG1, __FUNCTION__, "symbol");
@@ -336,19 +336,7 @@ LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
   */
   
   const string in = ly_symbol2string (name_sym);
-  
-  vector<char>  out;
+  string result = camel_case_to_lisp_identifier (in);
 
-  /* don't add '-' before first character */
-  out.push_back (tolower (in[0]));
-    
-  for (size_t inpos = 1; inpos < in.size (); inpos++)
-    {
-      if (isupper (in[inpos]))
-	out.push_back ('-');
-      out.push_back (tolower (in[inpos]));
-    }
-
-  string result (&out[0], out.size ());
   return ly_symbol2scm (result.c_str ());
 }
