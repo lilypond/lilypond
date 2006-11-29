@@ -66,6 +66,7 @@ Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
 string robust_scm2string (SCM, string);
 
+  
 SCM ly_quote_scm (SCM s);
 bool type_check_assignment (SCM val, SCM sym, SCM type_symbol);
 string print_scm_val (SCM val);
@@ -194,5 +195,8 @@ ly_cxx_vector_to_list  (vector<T> const &src)
   return l;
 }
 
+
+SCM ly_offsets2scm (vector<Offset> os);
+vector<Offset> ly_scm2offsets (SCM s);
 
 #endif /* LILY_GUILE_HH */

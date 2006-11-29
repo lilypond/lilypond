@@ -304,6 +304,28 @@ ly_scm2offset (SCM s)
 }
 
 SCM
+ly_offsets2scm (vector<Offset> os)
+{
+  SCM l = SCM_EOL;
+  SCM *tail = &l;
+  for (vsize i = 0; i < os.size (); i++)
+    {
+      *tail = scm_cons (ly_offset2scm (os[i]), SCM_EOL);
+      tail = SCM_CDRLOC(*tail);
+    }
+  return l;
+}
+
+vector<Offset>
+ly_scm2offsets (SCM s)
+{
+  vector<Offset> os;
+  for (; scm_is_pair (s); s = scm_cdr (s))
+    os.push_back (ly_scm2offset (scm_car (s)));
+  return os;
+}
+
+SCM
 ly_deep_copy (SCM src)
 {
   if (scm_is_pair (src))
