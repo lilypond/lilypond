@@ -600,8 +600,16 @@ AncientRemoveEmptyStaffContext = \context {
     (Voice Slur direction ,DOWN)
   )
 
-  keepAliveInterfaces = #'(rhythmic-grob-interface lyric-interface percent-repeat-interface)
-  quotedEventTypes = #'(note-event rest-event time-scaled-music tie-event beam-event)
+  keepAliveInterfaces = #'(
+    rhythmic-grob-interface
+    lyric-interface
+    percent-repeat-interface)
+  quotedEventTypes = #'(
+    note-event
+    rest-event
+    tie-event
+    beam-event
+    tuplet-span-event)
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
