@@ -416,6 +416,28 @@ determines the space between each markup in @var{args}."
      space
      (remove ly:stencil-empty? stencils))))
 
+(define-markup-command (concat layout props args) (markup-list?)
+  "Concatenate @var{args} in a horizontal line, without spaces inbetween.
+Strings and simple markups are concatenated on the input level, allowing
+ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
+equivalent to @code{\"fi\"}."
+
+  (define (concat-string-args arg-list)
+    (fold-right (lambda (arg result-list)
+                  (let ((result (if (pair? result-list)
+                                    (car result-list)
+                                  '())))
+                    (if (and (pair? arg) (eqv? (car arg) simple-markup))
+                      (set! arg (cadr arg)))
+                    (if (and (string? result) (string? arg))
+                        (cons (string-append arg result) (cdr result-list))
+                      (cons arg result-list))))
+                '()
+                arg-list))
+
+  (interpret-markup layout
+                    (prepend-alist-chain 'word-space 0 props)
+                    (make-line-markup (concat-string-args args))))
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
@@ -1339,21 +1361,26 @@ and/or @code{extra-offset} properties. "
 (define-markup-command (fraction layout props arg1 arg2) (markup? markup?)
   "Make a fraction of two markups."
   (let* ((m1 (interpret-markup layout props arg1))
-         (m2 (interpret-markup layout props arg2)))
+         (m2 (interpret-markup layout props arg2))
+         (factor (magstep (chain-assoc-get 'font-size props 0)))
+         (boxdimen (cons (* factor -0.05) (* factor 0.05)))
+         (padding (* factor 0.2))
+         (baseline (* factor 0.6))
+         (offset (* factor 0.75)))
     (set! m1 (ly:stencil-aligned-to m1 X CENTER))
     (set! m2 (ly:stencil-aligned-to m2 X CENTER))
     (let* ((x1 (ly:stencil-extent m1 X))
            (x2 (ly:stencil-extent m2 X))
-           (line (ly:round-filled-box (interval-union x1 x2) '(-0.05 . 0.05) 0.0))
+           (line (ly:round-filled-box (interval-union x1 x2) boxdimen 0.0))
            ;; should stack mols separately, to maintain LINE on baseline
-           (stack (stack-lines -1 0.2 0.6 (list m1 line m2))))
+           (stack (stack-lines DOWN padding baseline (list m1 line m2))))
       (set! stack
 	    (ly:stencil-aligned-to stack Y CENTER))
       (set! stack
 	    (ly:stencil-aligned-to stack X LEFT))
       ;; should have EX dimension
       ;; empirical anyway
-      (ly:stencil-translate-axis stack 0.75 Y))))
+      (ly:stencil-translate-axis stack offset Y))))
 
 
 
