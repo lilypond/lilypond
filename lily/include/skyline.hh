@@ -24,10 +24,10 @@ struct Building
   Real start_height_;
   Real end_height_;
 
-  /* fixme: variable naming */
-  Real m_;
-  Real b_;
+  Real zero_height_;
+  Real slope_;
 
+  void precompute (Real max_slope);
   Building (Real start, Real start_height, Real end_height, Real end, Real max_slope);
 
   Real height (Real x) const;
@@ -41,7 +41,8 @@ class Skyline
 private:
   list<Building> buildings_;
   Direction sky_;
-  Real max_slope_;
+  Real max_slope_;		// fixme: not part of skyline per se?
+  
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
   void internal_build_skyline (list<Building>*,
@@ -52,7 +53,8 @@ public:
   Skyline ();
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
-
+  Skyline (vector<Offset> const &points, Real max_slope, Direction sky);
+  vector<Offset> to_points () const;
   void merge (Skyline const &);
   void insert (Box const &, Axis);
   void raise (Real);
@@ -60,8 +62,9 @@ public:
   Real height (Real airplane) const;
   Real max_height () const;
   void set_minimum_height (Real height);
-  Stencil stencil ();
 };
+
+Stencil to_stencil (Skyline const &line);
 
 #endif /* SKYLINE_HH */
 

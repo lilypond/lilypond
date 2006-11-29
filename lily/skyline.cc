@@ -67,7 +67,8 @@ Skyline::is_legal_skyline () const
   return last_x == infinity_f;
 }
 
-Building::Building (Real start, Real start_height, Real end_height, Real end, Real max_slope)
+Building::Building (Real start, Real start_height, Real end_height,
+		    Real end, Real max_slope)
   : iv_ (start, end)
 {
   start_height_ = start_height;
@@ -78,22 +79,28 @@ Building::Building (Real start, Real start_height, Real end_height, Real end, Re
   if (isinf (end))
     assert (isinf (end_height) || start_height == end_height);
 
-  m_ = (end_height - start_height) / (end - start);
-  if (start_height == end_height)
-    m_ = 0;
-  if (isinf (m_) || isnan (m_))
-    m_ = max_slope * (start_height < end_height ? 1 : -1);
-  assert (abs (m_) <= max_slope);
+  precompute (max_slope);
+}
 
-  if (isinf (start))
+void
+Building::precompute (Real max_slope)
+{
+  slope_ = (end_height_ - start_height_) / (iv_.length());
+  if (start_height_ == end_height_)
+    slope_ = 0;
+  if (isinf (slope_) || isnan (slope_))
+    slope_ = max_slope * (start_height_ < end_height_ ? 1 : -1);
+  assert (abs (slope_) <= max_slope);
+
+  if (isinf (iv_[START]))
     {
-      if (isinf (end))
-	b_ = start_height;
+      if (isinf (iv_[STOP]))
+	zero_height_ = start_height_;
       else
-	b_ = end_height - m_*end;
+	zero_height_ = end_height_ - slope_ * iv_[STOP];
     }
   else
-    b_ = start_height - m_*start;
+    zero_height_ = start_height_ - slope_ * iv_[START];
 }
 
 Real 
@@ -101,13 +108,13 @@ Building::height (Real x) const
 {
   if (isinf (x))
     return (x > 0) ? end_height_ : start_height_;
-  return m_*x + b_;
+  return slope_*x + zero_height_;
 }
 
 Real
 Building::intersection (Building const &other) const
 {
-  return (b_ - other.b_) / (other.m_ - m_);
+  return (zero_height_ - other.zero_height_) / (other.slope_ - slope_);
 }
 
 void
@@ -138,7 +145,7 @@ bool
 Building::obstructs (Building const &other) const
 {
   if (equal (intersection (other), iv_[LEFT]) || equal (start_height_, other.start_height_))
-    return m_ > other.m_ || (m_ == other.m_ && b_ > other.b_);
+    return slope_ > other.slope_ || (slope_ == other.slope_ && zero_height_ > other.zero_height_);
   return start_height_ > other.start_height_;
 }
 
@@ -236,6 +243,7 @@ Skyline::Skyline (Direction sky)
   empty_skyline (&buildings_);
 }
 
+
 Skyline::Skyline (vector<Box> const &boxes, Axis a, Direction sky)
 {
   list<Building> bldgs;
@@ -250,6 +258,22 @@ Skyline::Skyline (vector<Box> const &boxes, Axis a, Direction sky)
 	bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_));
     }
   internal_build_skyline (&bldgs, &buildings_);
+  assert (is_legal_skyline ());
+}
+
+Skyline::Skyline (vector<Offset> const &points, Real max_slope, Direction sky)
+{
+  sky_ = sky;
+  max_slope_ = max_slope;
+
+  for (vsize i = 1; i < points.size (); i++)
+    {
+      buildings_.push_back (Building (points[i-1][X_AXIS], sky * points[i-1][Y_AXIS],
+				      points[i][X_AXIS], sky * points[i][Y_AXIS],
+				      max_slope));
+
+    }
+
   assert (is_legal_skyline ());
 }
 
@@ -287,7 +311,7 @@ Skyline::raise (Real r)
     {
       i->start_height_ += sky_ * r;
       i->end_height_ += sky_ * r;
-      i->b_ += sky_ * r;
+      i->zero_height_ += sky_ * r;
     }
   assert (is_legal_skyline ());
 }
@@ -324,6 +348,7 @@ Skyline::height (Real airplane) const
       if (i->iv_[RIGHT] >= airplane)
 	return sky_ * i->height (airplane);
     }
+
   assert (0);
   return 0;
 }
@@ -340,28 +365,45 @@ void
 Skyline::set_minimum_height (Real h)
 {
   Skyline s (sky_);
-  s.buildings_.front ().start_height_ = h*sky_;
-  s.buildings_.front ().end_height_ = h*sky_;
-  s.buildings_.front ().b_ = h*sky_;
+  s.buildings_.front ().start_height_ = h * sky_;
+  s.buildings_.front ().end_height_ = h * sky_;
+  s.buildings_.front ().zero_height_ = h * sky_;
   merge (s);
 }
 
-/*
-  fixme: move this out of skyline.
-*/
 Stencil
-Skyline::stencil ()
+to_stencil (Skyline const &line) 
 {
+  vector<Offset> points (line.to_points ());
+  
   Stencil ret;
-  for (list<Building>::iterator i = buildings_.begin (); i != buildings_.end (); i++)
+  for (vsize i = 1; i < points.size (); i++)
     {
-      if (!isinf (i->iv_.length ()))
+      if (points[i-1].is_sane ()  && points[i].is_sane ())
 	{
-	  Stencil line = Line_interface::make_line (0.1,
-						    Offset (i->iv_[LEFT], sky_*i->start_height_),
-						    Offset (i->iv_[RIGHT], sky_*i->end_height_));
+	  Stencil line
+	    = Line_interface::make_line (0.1, points[i-1], points[i]);
 	  ret.add_stencil (line);
 	}
     }
   return ret;
 }
+
+vector<Offset>
+Skyline::to_points () const
+{
+  vector<Offset> out;
+
+  bool first = true;
+  for (list<Building>::const_iterator i (buildings_.begin ());
+       i != buildings_.end (); i++)
+    {
+      if (first)
+	out.push_back (Offset ((*i).iv_[LEFT], sky_ * (*i).start_height_));
+      first = false;
+      out.push_back (Offset ((*i).iv_[RIGHT], sky_ * (*i).end_height_));
+    }
+
+  return out;
+}
+
