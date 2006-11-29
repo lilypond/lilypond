@@ -16,7 +16,7 @@
 
 struct Semi_tie
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));

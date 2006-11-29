@@ -13,6 +13,7 @@
 #include "side-position-interface.hh"
 #include "stem.hh"
 #include "stream-event.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

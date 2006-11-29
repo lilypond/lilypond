@@ -8,8 +8,8 @@
 
 #include "staff-symbol-referencer.hh"
 
-
 #include "staff-symbol.hh"
+#include "grob.hh"
 #include "output-def.hh"
 #include "libc-extension.hh"
 
@@ -163,7 +163,7 @@ position_less (Grob *const &a, Grob *const &b)
     < Staff_symbol_referencer::get_position (b);
 }
 
-ADD_INTERFACE (Staff_symbol_referencer, "staff-symbol-referencer-interface",
+ADD_INTERFACE (Staff_symbol_referencer,
 	       "An object whose Y position is meant relative to a staff "
 	       "symbol. "
 	       "These usually have @code{Staff_symbol_referencer::callback} "

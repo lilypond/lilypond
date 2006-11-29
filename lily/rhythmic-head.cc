@@ -50,8 +50,6 @@ Rhythmic_head::duration_log (Grob *me)
 
 ADD_INTERFACE (Rhythmic_head,
 
-	       "rhythmic-head-interface",
-
 	       "Note head or rest",
 	       
 	       "dot "

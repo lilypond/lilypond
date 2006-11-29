@@ -5,10 +5,13 @@
 
   (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
+
+#include "engraver.hh"
+
 #include "staff-symbol-referencer.hh"
 #include "note-head.hh"
 #include "rhythmic-head.hh"
-#include "engraver.hh"
+#include "grob.hh"
 
 class Pitch_squash_engraver : public Engraver
 {

@@ -12,6 +12,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
 
 struct Align_interface
 {
@@ -27,7 +28,7 @@ struct Align_interface
   static void add_element (Grob *, Grob *);
   static int get_count (Grob *, Grob *);
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   static Real get_pure_child_y_translation (Grob *, Grob *child, int start, int end);
 };

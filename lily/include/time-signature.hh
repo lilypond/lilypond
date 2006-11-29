@@ -7,7 +7,8 @@
 #ifndef METER_HH
 #define METER_HH
 
-#include "item.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /**
    Print a time_signature sign.
@@ -18,7 +19,7 @@
 */
 struct Time_signature
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Stencil special_time_signature (Grob *, SCM, int, int);
   static Stencil numbered_time_signature (Grob *, int, int);
   DECLARE_SCHEME_CALLBACK (print, (SCM));

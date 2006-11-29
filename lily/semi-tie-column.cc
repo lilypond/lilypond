@@ -22,7 +22,6 @@
 
 
 ADD_INTERFACE(Semi_tie_column,
-	      "semi-tie-column-interface",
 	      "The interface for a column of l.v. ties.",
 
 	      /* properties */

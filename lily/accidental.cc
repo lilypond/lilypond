@@ -254,7 +254,7 @@ Accidental_interface::print (SCM smob)
 /*
   TODO: should move avoid-slur into item?
 */
-ADD_INTERFACE (Accidental_interface, "accidental-interface",
+ADD_INTERFACE (Accidental_interface,
 	       "a single accidental",
 	       "accidentals "
 	       "avoid-slur "

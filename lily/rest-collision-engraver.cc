@@ -10,6 +10,7 @@
 #include "engraver.hh"
 #include "rest-collision.hh"
 #include "note-column.hh"
+#include "item.hh"
 
 class Rest_collision_engraver : public Engraver
 {

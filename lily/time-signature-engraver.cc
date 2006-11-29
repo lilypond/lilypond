@@ -8,6 +8,7 @@
 
 #include "engraver-group.hh"
 
+#include "item.hh"
 #include "international.hh"
 #include "misc.hh"
 #include "time-signature.hh"

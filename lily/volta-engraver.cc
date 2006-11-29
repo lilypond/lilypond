@@ -12,6 +12,7 @@
 #include "context.hh"
 #include "international.hh"
 #include "note-column.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol.hh"
 #include "text-interface.hh"

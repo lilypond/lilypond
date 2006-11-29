@@ -12,6 +12,7 @@
 #include "spanner.hh"
 #include "grob-array.hh"
 #include "skyline.hh"
+#include "grob-interface.hh"
 
 /*
   If you keep following offset reference points, you will always end
@@ -42,7 +43,7 @@ public:
   int spanner_count () const;
 
   void break_into_pieces (vector<Column_x_positions> const &);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   vector<Item*> broken_col_range (Item const *, Item const *) const;
   vector<Grob*> columns () const;

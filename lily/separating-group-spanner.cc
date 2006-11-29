@@ -109,7 +109,7 @@ Separating_group_spanner::add_spacing_unit (Grob *me, Item *i)
   Pointer_group_interface::add_unordered_grob (me, ly_symbol2scm ("elements"), i);
 }
 
-ADD_INTERFACE (Separating_group_spanner, "separating-group-spanner-interface",
+ADD_INTERFACE (Separating_group_spanner,
 	       "A spanner that calculates spacing constraints (\"rods\") "
 	       "using the @code{separation-item-interface} grobs in @code{elements}.",
 

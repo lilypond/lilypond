@@ -21,7 +21,7 @@
 
 struct Figured_bass_continuation
 {
-  static bool has_interface (Grob*);
+  DECLARE_GROB_INTERFACE();
   
 public:
   DECLARE_SCHEME_CALLBACK(print, (SCM));
@@ -82,7 +82,6 @@ Figured_bass_continuation::print (SCM grob)
 }
 
 ADD_INTERFACE(Figured_bass_continuation,
-	      "figured-bass-continuation-interface",
 	      "Simple extender line between bounds.",
 	      
 	      /* props */

@@ -161,7 +161,6 @@ Text_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Text_spanner,
-	       "text-spanner-interface",
 
 	       "generic text spanner",
 

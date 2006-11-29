@@ -493,7 +493,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
 }
 
-ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
+ADD_INTERFACE (Spacing_spanner,
 	       "The space taken by a note is dependent on its duration. Doubling a\n"
 	       "duration adds spacing-increment to the space. The most common shortest\n"
 	       "note gets @code{shortest-duration-space}. Notes that are even shorter are\n"
@@ -518,7 +518,7 @@ ADD_INTERFACE (Spacing_spanner, "spacing-spanner-interface",
 	       
 	       );
 
-ADD_INTERFACE (Spacing_interface, "spacing-interface",
+ADD_INTERFACE (Spacing_interface,
 	       "Something to do with line breaking and spacing. "
 	       "Kill this one after determining line breaks.",
 	       

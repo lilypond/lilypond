@@ -47,7 +47,7 @@ Measure_grouping::print (SCM grob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Measure_grouping, "measure-grouping-interface",
+ADD_INTERFACE (Measure_grouping,
 	       "This object indicates groups of beats. "
 	       "Valid choices for @code{style} are @code{bracket} and @code{triangle}.",
 	       "thickness style height");

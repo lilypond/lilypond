@@ -10,6 +10,7 @@
 #define LINE_SPANNER_HH
 
 #include "lily-guile.hh"
+#include "grob-interface.hh"
 
 class Grob;
 class Stencil;
@@ -20,7 +21,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static Stencil line_stencil (Grob *me, Offset f, Offset t);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
 private:
   static Offset get_broken_offset (Grob *me, Direction dir);

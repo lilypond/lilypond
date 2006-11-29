@@ -11,12 +11,13 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+#include "grob-interface.hh"
 
 class Dots
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // DOTS_HH

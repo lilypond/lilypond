@@ -14,7 +14,7 @@
 struct Piano_pedal_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 MAKE_SCHEME_CALLBACK (Piano_pedal_bracket, print, 1);
@@ -90,7 +90,6 @@ Piano_pedal_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Piano_pedal_bracket,
-	       "piano-pedal-bracket-interface",
 
 	       "The bracket of the piano pedal.  "
 	       "It can be tuned through the regular "

@@ -15,7 +15,7 @@
 
 struct Enclosing_bracket
 {
-  static bool has_interface (Grob*);
+  DECLARE_GROB_INTERFACE();
   
 public:
   DECLARE_SCHEME_CALLBACK(print, (SCM));
@@ -24,7 +24,6 @@ public:
 
 
 ADD_INTERFACE(Enclosing_bracket,
-	      "enclosing-bracket-interface",
 	      
 	      "Brackets alongside bass figures.",
 	      

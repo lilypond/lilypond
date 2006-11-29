@@ -13,6 +13,7 @@
 #include "lily-guile.hh"
 #include "rational.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
 
 struct Spacing_options
 {
@@ -56,7 +57,7 @@ public:
 
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_common_shortest_duration, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* SPACING_SPANNER_HH */

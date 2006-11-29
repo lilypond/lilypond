@@ -455,7 +455,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   */
 }
 
-ADD_INTERFACE (Note_spacing, "note-spacing-interface",
+ADD_INTERFACE (Note_spacing,
 	       "This object calculates spacing wishes for individual voices.",
 
 	       

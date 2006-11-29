@@ -8,6 +8,7 @@
 #ifndef ITEM_HH
 #define ITEM_HH
 
+#include "grob-interface.hh"
 #include "box.hh"
 #include "grob.hh"
 
@@ -40,7 +41,7 @@ public:
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
   virtual Interval_t<int> spanned_rank_iv ();
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();

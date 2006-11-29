@@ -16,8 +16,7 @@
 #include "warn.hh"
 #include "misc.hh"
 
-void add_interface (char const *cxx_name,
-		    char const *symbol,
+SCM add_interface (char const *cxx_name,
 		    char const *descr,
 		    char const *vars)
 {
@@ -27,15 +26,13 @@ void add_interface (char const *cxx_name,
   if (lispy_name.substr (end) != suffix)
     lispy_name += suffix;
 
-  if (lispy_name != string (symbol))
-    programming_error (String_convert::form_string ("%s != %s", lispy_name.c_str (),
-						    symbol));
-    
-  SCM s = ly_symbol2scm (symbol);
+  SCM s = ly_symbol2scm (lispy_name.c_str ());
   SCM d = scm_makfrom0str (descr);
   SCM l = parse_symbol_list (vars);
 
   ly_add_interface (s, d, l);
+
+  return s;
 }
 
 void

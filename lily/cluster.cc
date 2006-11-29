@@ -195,7 +195,7 @@ Cluster::print (SCM smob)
   return out.smobbed_copy ();
 }
 
-ADD_INTERFACE (Cluster, "cluster-interface",
+ADD_INTERFACE (Cluster,
 	       "A graphically drawn musical cluster. "
 	       "\n\n"
 	       "@code{padding} adds to the vertical extent of the shape (top and "
@@ -211,7 +211,7 @@ struct Cluster_beacon
 {
 public:
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 1);
@@ -225,7 +225,6 @@ Cluster_beacon::height (SCM g)
 }
 
 ADD_INTERFACE (Cluster_beacon,
-	       "cluster-beacon-interface",
 	       "A place holder for the cluster spanner to determine the vertical "
 	       "extents of a cluster spanner at this X position.",
 

@@ -1440,7 +1440,6 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 }
 
 ADD_INTERFACE (Beam,
-	       "beam-interface",
 
 	       "A beam. \n\n"
 	       "The @code{thickness} property is the weight of beams, "

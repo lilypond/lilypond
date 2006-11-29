@@ -10,6 +10,7 @@
 #define REST_HH
 
 #include "lily-guile.hh"
+#include "grob-interface.hh"
 
 class Grob;
 
@@ -17,7 +18,7 @@ class Rest
 {
 public:
   DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static string glyph_name (Grob *, int, string, bool);
   static SCM brew_internal_stencil (Grob*, bool);
   static SCM generic_extent_callback (Grob*, Axis);

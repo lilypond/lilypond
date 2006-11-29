@@ -10,12 +10,13 @@
 #define CHORD_NAME_HH
 
 #include "stencil.hh"
+#include "grob-interface.hh"
 
 class Chord_name
 {
 public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // CHORD_NAME_HH

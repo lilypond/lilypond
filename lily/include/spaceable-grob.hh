@@ -11,6 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 struct Spaceable_grob
 {
@@ -19,7 +20,7 @@ struct Spaceable_grob
   static void add_spring (Grob *me, Grob *to, Real dist, Real strength);
   static void get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength);
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void remove_interface (Grob *);
   static SCM get_minimum_distances (Grob *);
   static SCM get_ideal_distances (Grob *);

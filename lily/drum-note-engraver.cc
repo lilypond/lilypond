@@ -7,6 +7,7 @@
 #include <cctype>
 using namespace std;
 
+#include "item.hh"
 #include "duration.hh"
 #include "engraver.hh"
 #include "note-column.hh"

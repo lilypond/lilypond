@@ -11,6 +11,7 @@
 #include <cctype>
 using namespace std;
 
+#include "item.hh"
 #include "context.hh"
 #include "bar-line.hh"
 #include "staff-symbol-referencer.hh"

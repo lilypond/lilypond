@@ -11,6 +11,7 @@
 
 #include "context.hh"
 #include "spanner.hh"
+#include "item.hh"
 #include "side-position-interface.hh"
 #include "translator.icc"
 #include "axis-group-interface.hh"

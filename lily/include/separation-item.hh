@@ -11,10 +11,11 @@
 
 #include "lily-proto.hh"
 #include "direction.hh"
+#include "grob-interface.hh"
 
 struct Separation_item
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Interval conditional_width (Grob *, Grob *);
   static Interval width (Grob *);
   static Interval relative_width (Grob *, Grob *);

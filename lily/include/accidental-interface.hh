@@ -14,6 +14,7 @@
 #include "box.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 class Accidental_interface
 {
@@ -21,7 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static string get_fontcharname (string style, int alteration);
   static vector<Box> accurate_boxes (Grob *me,
 							  Grob **common);

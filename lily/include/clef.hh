@@ -11,12 +11,13 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 struct Clef
 {
   DECLARE_SCHEME_CALLBACK (calc_glyph_name, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* CLEF_HH */

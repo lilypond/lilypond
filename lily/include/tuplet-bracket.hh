@@ -10,6 +10,7 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
 
 class Tuplet_bracket
 {
@@ -20,7 +21,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_connect_to_neighbors, (SCM smob));
   
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Grob* get_common_x (Spanner *);
   static void add_tuplet_bracket (Grob *me, Grob *smaller_bracket);
   static void get_bounds (Grob *, Grob **, Grob **);

@@ -9,7 +9,9 @@
 
 #include "accidental-placement.hh"
 #include "arpeggio.hh"
+#include "spanner.hh"
 #include "context.hh"
+#include "item.hh"
 #include "engraver.hh"
 #include "international.hh"
 #include "pitch.hh"

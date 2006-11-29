@@ -9,14 +9,16 @@
 #ifndef MEASURE_GROUPING_SPANNER_HH
 #define MEASURE_GROUPING_SPANNER_HH
 
-#include "grob.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
+
 
 class Measure_grouping
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* MEASURE_GROUPING_SPANNER_HH */

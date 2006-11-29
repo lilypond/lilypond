@@ -11,7 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
-
+#include "grob-interface.hh"
 #include "std-vector.hh"
 
 class Script_column
@@ -20,7 +20,7 @@ public:
   static void add_side_positioned (Grob *, Grob *);
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
   DECLARE_SCHEME_CALLBACK (row_before_line_breaking, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void order_grobs (vector<Grob*> grobs);
 
 };

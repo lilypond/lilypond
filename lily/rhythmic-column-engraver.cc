@@ -10,6 +10,7 @@
 #include "rhythmic-head.hh"
 #include "stem.hh"
 #include "note-column.hh"
+#include "item.hh"
 #include "dot-column.hh"
 #include "pointer-group-interface.hh"
 

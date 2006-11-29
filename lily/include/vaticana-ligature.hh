@@ -10,12 +10,14 @@
 #define VATICANA_LIGATURE_HH
 
 #include "stencil.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Vaticana_ligature
 {
   DECLARE_SCHEME_CALLBACK (brew_ligature_primitive, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 /*

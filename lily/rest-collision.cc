@@ -260,7 +260,7 @@ Rest_collision::calc_positioning_done (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Rest_collision, "rest-collision-interface",
+ADD_INTERFACE (Rest_collision,
 	       "Move around ordinary rests (not multi-measure-rests) to avoid "
 	       "conflicts.",
 

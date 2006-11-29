@@ -11,6 +11,7 @@
 #include "staff-symbol-referencer.hh"
 #include "lookup.hh"
 #include "output-def.hh"
+#include "grob.hh"
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
@@ -139,7 +140,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   return stil;
 }
 
-ADD_INTERFACE (Line_interface, "line-interface",
+ADD_INTERFACE (Line_interface,
 	       "Generic line objects. Any object using lines supports this.  Normally, "
 	       "you get a straight line. If @code{dash-period} is defined, a dashed line is "
 	       "produced; the length of the dashes is tuned with "

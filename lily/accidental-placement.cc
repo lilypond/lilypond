@@ -9,6 +9,7 @@
 
 #include "accidental-placement.hh"
 
+#include "item.hh"
 #include "rhythmic-head.hh"
 #include "accidental-interface.hh"
 #include "music.hh"
@@ -415,7 +416,6 @@ Accidental_placement::calc_positioning_done (SCM smob)
 }
 
 ADD_INTERFACE (Accidental_placement,
-	       "accidental-placement-interface",
 	       "Resolve accidental collisions.",
 
 	       /* properties */

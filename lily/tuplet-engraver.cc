@@ -14,6 +14,7 @@
 #include "stream-event.hh"
 #include "tuplet-bracket.hh"
 #include "warn.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

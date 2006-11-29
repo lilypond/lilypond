@@ -19,7 +19,7 @@ class Balloon_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE ();
 };
 
 MAKE_SCHEME_CALLBACK (Balloon_interface, print, 1);
@@ -69,7 +69,7 @@ Balloon_interface::print (SCM smob)
   return fr.smobbed_copy ();
 }
 
-ADD_INTERFACE (Balloon_interface, "balloon-interface",
+ADD_INTERFACE (Balloon_interface,
 	       "A collection of routines to put text balloons around an object.",
 
 	       /* properties */

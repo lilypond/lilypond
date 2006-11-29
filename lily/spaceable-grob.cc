@@ -120,7 +120,7 @@ Spaceable_grob::remove_interface (Grob *me)
   me->set_object ("ideal-distances", SCM_EOL);
 }
 
-ADD_INTERFACE (Spaceable_grob, "spaceable-grob-interface",
+ADD_INTERFACE (Spaceable_grob,
 	       "A layout object that takes part in the spacing problem. ",
 	       
 

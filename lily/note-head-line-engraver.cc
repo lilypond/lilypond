@@ -13,6 +13,9 @@
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "context.hh"
+#include "spanner.hh"
+#include "item.hh"
+
 
 /**
    Create line-spanner grobs for lines that connect note heads.

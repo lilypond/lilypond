@@ -219,7 +219,7 @@ Mensural_ligature::print (SCM)
   return SCM_EOL;
 }
 
-ADD_INTERFACE (Mensural_ligature, "mensural-ligature-interface",
+ADD_INTERFACE (Mensural_ligature,
 	       "A mensural ligature",
 
 	       "delta-position "

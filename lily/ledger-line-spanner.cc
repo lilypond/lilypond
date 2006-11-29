@@ -29,7 +29,7 @@ struct Ledger_line_spanner
 				    Interval x_extent,
 				    Real left_shorten);
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 Stencil
@@ -352,7 +352,6 @@ Ledger_line_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Ledger_line_spanner,
-	       "ledger-line-spanner-interface",
 
 	       "This spanner draws the ledger lines of a staff.\n"
 	       "This is a separate grob because it has to process\n"
@@ -368,11 +367,10 @@ ADD_INTERFACE (Ledger_line_spanner,
 
 struct Ledgered_interface
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 ADD_INTERFACE (Ledgered_interface,
-	       "ledgered-interface",
 
 	       "Objects that need ledger lines, typically "
 	       "note heads. See also @ref{ledger-line-spanner-interface}.",

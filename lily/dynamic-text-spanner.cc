@@ -22,7 +22,7 @@ class Dynamic_text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 /*
@@ -154,7 +154,6 @@ Dynamic_text_spanner::print (SCM smob)
 }
 
 ADD_INTERFACE (Dynamic_text_spanner,
-	       "dynamic-text-spanner-interface",
 	       "A text spanner for crescendo texts",
 	       
 	       "bound-padding "

@@ -170,7 +170,7 @@ Staff_symbol::height  (SCM smob)
 
 
 
-ADD_INTERFACE (Staff_symbol, "staff-symbol-interface",
+ADD_INTERFACE (Staff_symbol,
 	       "This spanner draws the lines of a staff. "
 	       "A staff symbol definines a vertical unit, the staff space. "
 	       "Quantities that go by a half staff space are called positions "

@@ -9,6 +9,7 @@
 #include "engraver.hh"
 #include "script-column.hh"
 #include "side-position-interface.hh"
+#include "item.hh"
 
 #include "translator.icc"
 
@@ -18,7 +19,7 @@
 class Script_column_engraver : public Engraver
 {
   Grob *script_column_;
-  vector<Item*> scripts_;
+  vector<Grob*> scripts_;
 
 public:
   TRANSLATOR_DECLARATIONS (Script_column_engraver);

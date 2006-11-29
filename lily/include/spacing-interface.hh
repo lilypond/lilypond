@@ -5,9 +5,11 @@
 
   (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 struct Spacing_interface
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 

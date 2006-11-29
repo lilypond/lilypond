@@ -315,7 +315,7 @@ Break_alignable_interface::self_align_callback (SCM grob)
 			  - me->relative_coordinate (common, X_AXIS));
 }
 
-ADD_INTERFACE (Break_alignable_interface, "break-alignable-interface",
+ADD_INTERFACE (Break_alignable_interface,
 	       "Object that is aligned on a break aligment. ",
 
 	       /* properties */
@@ -324,7 +324,7 @@ ADD_INTERFACE (Break_alignable_interface, "break-alignable-interface",
 
 
 
-ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
+ADD_INTERFACE (Break_aligned_interface,
 	       "Items that are aligned in prefatory matter.\n"
 	       "\n"
 	       "The spacing of these items is controlled by the @code{space-alist}\n"
@@ -353,7 +353,7 @@ ADD_INTERFACE (Break_aligned_interface, "break-aligned-interface",
 	       "space-alist "
 	       );
 
-ADD_INTERFACE (Break_alignment_interface, "break-alignment-interface",
+ADD_INTERFACE (Break_alignment_interface,
 	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
 
 	       /* properties */

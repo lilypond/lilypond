@@ -10,13 +10,14 @@
 #define STAFF_SPACING_HH
 
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 class Staff_spacing
 {
 public:
   static void next_notes_correction (Grob *, Grob *, Real *, Real *);
   static void next_note_correction (Grob *, Grob *, Interval, Real*, Real *);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void get_spacing_params (Grob *, Real *, Real *);
 
   static Interval bar_y_positions (Grob *);

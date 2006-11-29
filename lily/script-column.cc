@@ -140,7 +140,7 @@ Script_column::order_grobs (vector<Grob*> grobs)
   while (flip (&d) != DOWN);
 }
 
-ADD_INTERFACE (Script_column, "script-column-interface",
+ADD_INTERFACE (Script_column,
 	       "An interface that sorts scripts "
 	       "according to their @code{script-priority}",
 	       

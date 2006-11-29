@@ -9,6 +9,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 /**
    A vertical bar.
@@ -16,7 +17,7 @@
 class Bar
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   static Stencil compound_barline (Grob *, string, Real height);
   static Stencil simple_barline (Grob *, Real wid, Real height);

@@ -59,7 +59,7 @@ Dots::print (SCM d)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Dots, "dots-interface",
+ADD_INTERFACE (Dots,
 	       "The dots to go with a notehead or rest."
 	       "@code{direction} sets the preferred direction to move in case of staff "
 	       "line collisions.",

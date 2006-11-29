@@ -8,7 +8,8 @@
 
 #include "lyric-extender.hh"
 
-
+#include "spanner.hh"
+#include "item.hh"
 #include "warn.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
@@ -84,7 +85,7 @@ Lyric_extender::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Lyric_extender, "lyric-extender-interface",
+ADD_INTERFACE (Lyric_extender,
 	       "The extender is a simple line at the baseline of the lyric "
 	       "that helps show the length of a melissima (tied/slurred note).",
 

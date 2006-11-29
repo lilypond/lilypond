@@ -11,6 +11,7 @@
 
 #include "item.hh"
 #include "rod.hh"
+#include "lily-proto.hh"
 
 class Paper_column : public Item
 {
@@ -42,7 +43,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (before_line_breaking, (SCM));
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static int get_rank (Grob *);
   static bool is_musical (Grob *);
   static Moment when_mom (Grob *);

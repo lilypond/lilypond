@@ -178,7 +178,7 @@ Breathing_sign::offset_callback (SCM smob)
   return scm_from_double (inter * sz * d);
 }
 
-ADD_INTERFACE (Breathing_sign, "breathing-sign-interface",
+ADD_INTERFACE (Breathing_sign,
 	       "A breathing sign.",
 	       
 	       "direction "

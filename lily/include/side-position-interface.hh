@@ -9,8 +9,8 @@
 #ifndef SIDE_POSITION_INTERFACE_HH
 #define SIDE_POSITION_INTERFACE_HH
 
-#include "spanner.hh"
-#include "item.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /*
   TODO: move out unrelated callbacks.
@@ -33,7 +33,7 @@ public:
 				    bool pure, int start, int end, Real *current_off);
   static Axis get_axis (Grob *);
   static void set_axis (Grob *, Axis);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void add_support (Grob *, Grob *);
   static void add_staff_support (Grob *);
   static Direction get_direction (Grob *);

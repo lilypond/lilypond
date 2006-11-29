@@ -7,8 +7,7 @@
 */
 
 #include "percent-repeat-item.hh"
-
-
+#include "item.hh"
 #include "lookup.hh"
 #include "font-interface.hh"
 
@@ -71,7 +70,7 @@ Percent_repeat_item_interface::beat_slash (SCM grob)
   return m.smobbed_copy ();
 }
 
-ADD_INTERFACE (Percent_repeat_item_interface, "percent-repeat-item-interface",
+ADD_INTERFACE (Percent_repeat_item_interface,
 	       "Repeats that look like percent signs",
 	       
 	       "slope "

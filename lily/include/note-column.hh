@@ -9,7 +9,9 @@
 #ifndef NOTE_COLUMN_HH
 #define NOTE_COLUMN_HH
 
-#include "item.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
+
 
 /** a struct for treating a group of noteheads (noteheads, stem
     (chord) and scripts) as a single entity.
@@ -32,7 +34,7 @@ public:
   static void set_dotcol (Grob *me, Grob *);
   static void add_head (Grob *me, Grob *);
   static bool has_rests (Grob *me);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   static Item *get_stem (Grob *);
 };

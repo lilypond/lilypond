@@ -239,7 +239,6 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
 
 
 ADD_INTERFACE (Bar_line,
-	       "bar-line-interface",
 
 	       "Bar line.\n"
 	       "\n"

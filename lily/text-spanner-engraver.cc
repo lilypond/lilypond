@@ -11,6 +11,7 @@
 #include "international.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"
@@ -90,7 +91,7 @@ Text_spanner_engraver::acknowledge_note_column (Grob_info info)
       if (spans[i])
 	{
 	  Side_position_interface::add_support (spans[i], info.grob ());
-	  add_bound_item (spans[i], dynamic_cast<Item *> (info.grob ()));
+	  add_bound_item (spans[i], info.grob ());
 	}
     }
 }

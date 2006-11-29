@@ -12,6 +12,7 @@
 #include <algorithm>
 using namespace std;
 
+#include "grob.hh"
 #include "align-interface.hh"
 #include "international.hh"
 #include "output-def.hh"

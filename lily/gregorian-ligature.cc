@@ -48,7 +48,7 @@ Gregorian_ligature::prefixes_to_str (Grob *primitive)
   subclass like VaticanaLigatureEngraver.  The property is lateron
   read by the associated item class, such as VaticanaLigature.--jr
 */
-ADD_INTERFACE (Gregorian_ligature, "gregorian-ligature-interface",
+ADD_INTERFACE (Gregorian_ligature,
 	       "A gregorian ligature",
 	       "virga stropha inclinatum auctum descendens ascendens "
 	       "oriscus quilisma deminutum cavum linea pes-or-flexa "

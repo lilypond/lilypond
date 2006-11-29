@@ -175,7 +175,6 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 }
 
 ADD_INTERFACE (System_start_delimiter,
-	       "system-start-delimiter-interface",
 	       "The brace, bracket or bar in front of the system. "
 	       ,
 

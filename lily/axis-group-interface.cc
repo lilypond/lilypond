@@ -315,7 +315,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
     }
 }
 
-ADD_INTERFACE (Axis_group_interface, "axis-group-interface",
+ADD_INTERFACE (Axis_group_interface,
 
 	       "An object that groups other layout objects.",
 

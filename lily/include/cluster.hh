@@ -10,14 +10,13 @@
 #define CLUSTER_HH
 
 #include "stencil.hh"
+#include "grob-interface.hh"
 
 class Cluster
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  //  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  static bool has_interface (Grob *);
-  // DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM ));
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // CLUSTER_HH

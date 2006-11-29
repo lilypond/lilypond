@@ -9,12 +9,13 @@
 #ifndef NOTE_SPACING_HH
 #define NOTE_SPACING_HH
 
+#include "grob-interface.hh"
 #include "lily-proto.hh"
 
 class Note_spacing
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   static void get_spacing (Grob *me, Item *, Real, Real, Real *, Real *);
   static void stem_dir_correction (Grob *me, Item *next_col, Real incr,

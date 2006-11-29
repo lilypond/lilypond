@@ -15,6 +15,7 @@ using namespace std;
 #include "axis-group-interface.hh"
 #include "directional-element-interface.hh"
 #include "international.hh"
+#include "item.hh"
 #include "note-head.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
@@ -186,7 +187,7 @@ Note_column::arpeggio (Grob *me)
   return unsmob_grob (me->get_object ("arpeggio"));
 }
 
-ADD_INTERFACE (Note_column, "note-column-interface",
+ADD_INTERFACE (Note_column,
 	       "Stem and noteheads combined",
 
 	       /* properties */

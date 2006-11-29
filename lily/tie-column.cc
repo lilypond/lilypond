@@ -126,7 +126,7 @@ Tie_column::calc_positioning_done (SCM smob)
 
 
 
-ADD_INTERFACE (Tie_column, "tie-column-interface",
+ADD_INTERFACE (Tie_column,
 	       "Object that sets directions of multiple ties in a tied chord",
 
 	       /* properties */

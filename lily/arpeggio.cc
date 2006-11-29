@@ -8,6 +8,7 @@
 
 #include "arpeggio.hh"
 
+#include "grob.hh"
 #include "output-def.hh"
 #include "stem.hh"
 #include "staff-symbol-referencer.hh"
@@ -143,7 +144,7 @@ Arpeggio::width (SCM smob)
   return ly_interval2scm (arpeggio.extent (X_AXIS));
 }
 
-ADD_INTERFACE (Arpeggio, "arpeggio-interface",
+ADD_INTERFACE (Arpeggio,
 	       "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
 
 	       /* properties */

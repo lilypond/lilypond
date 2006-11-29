@@ -11,6 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 /**
    TODO: add linethickness as parameter.
@@ -26,6 +27,6 @@ public:
   static int line_count (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));  
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 #endif // STAFF_SYMBOL_HH

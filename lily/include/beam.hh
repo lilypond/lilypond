@@ -10,6 +10,7 @@
 #ifndef BEAM_HH
 #define BEAM_HH
 
+#include "grob-interface.hh"
 #include "std-vector.hh"
 #include "lily-proto.hh"
 #include "lily-guile.hh"
@@ -71,7 +72,7 @@ public:
   static int visible_stem_count (Grob *);
   static Grob *first_visible_stem (Grob *);
   static Grob *last_visible_stem (Grob *);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void add_stem (Grob *, Grob *);
   static bool is_knee (Grob *);
   static void set_beaming (Grob *, Beaming_pattern const *);

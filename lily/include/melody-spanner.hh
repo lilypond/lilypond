@@ -12,11 +12,12 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 class Melody_spanner
 {
 public:
-  static bool has_interface (Grob*);
+  DECLARE_GROB_INTERFACE();
   static void add_stem (Grob*, Grob*);
   DECLARE_SCHEME_CALLBACK(calc_neutral_stem_direction, (SCM));
 };

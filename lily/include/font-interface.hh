@@ -10,13 +10,14 @@
 #define FONT_INTERFACE_HH
 
 #include "font-metric.hh"
+#include "grob-interface.hh"
 
 struct Font_interface
 {
   static SCM text_font_alist_chain (Grob *);
   static SCM music_font_alist_chain (Grob *);
   static Font_metric *get_default_font (Grob *);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* FONT_INTERFACE_HH */

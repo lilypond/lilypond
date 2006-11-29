@@ -81,7 +81,7 @@ Custos::print (SCM smob)
   return stencil.smobbed_copy ();
 }
 
-ADD_INTERFACE (Custos, "custos-interface",
+ADD_INTERFACE (Custos,
 	       "A custos object.",
 	       "style "
 	       "neutral-position "

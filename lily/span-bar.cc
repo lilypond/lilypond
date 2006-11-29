@@ -209,7 +209,7 @@ Span_bar::calc_bar_size (SCM smob)
   return scm_from_double (iv.length ());
 }
 
-ADD_INTERFACE (Span_bar, "span-bar-interface",
+ADD_INTERFACE (Span_bar,
 	       "A bar line that spanned between other barlines. This interface is "
 	       " used for  bar lines that connect different staves.",
 

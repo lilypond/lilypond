@@ -17,8 +17,6 @@
 
 ADD_INTERFACE(Semi_tie,
 	      
-	      "semi-tie-interface",
-	      
 	      "A tie which is only on one side connected to note heads. ",
 
 	      /* properties */

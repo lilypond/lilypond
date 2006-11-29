@@ -23,6 +23,8 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+#include "item.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 

@@ -12,6 +12,7 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "skyline.hh"
+#include "grob-interface.hh"
 
 
   
@@ -20,7 +21,7 @@ class Tie
 {
 public:
   static void set_head (Grob *, Direction, Grob *head);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Grob *head (Grob *, Direction);
   static int get_column_rank (Grob *, Direction);
   static int get_position (Grob *);

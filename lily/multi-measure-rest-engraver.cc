@@ -12,6 +12,7 @@
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 #include "moment.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 

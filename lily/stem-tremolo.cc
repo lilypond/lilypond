@@ -215,7 +215,7 @@ Stem_tremolo::print (SCM grob)
   return s.smobbed_copy ();
 }
 
-ADD_INTERFACE (Stem_tremolo, "stem-tremolo-interface",
+ADD_INTERFACE (Stem_tremolo,
 	       "A beam slashing a stem to indicate a tremolo.",
 
 	       "beam-thickness "

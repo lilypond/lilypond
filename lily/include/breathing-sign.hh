@@ -9,6 +9,7 @@
 #ifndef BREATHING_SIGN_HH
 #define BREATHING_SIGN_HH
 
+#include "grob-interface.hh"
 #include "lily-guile.hh"
 
 class Grob;
@@ -28,7 +29,7 @@ public:
   DECLARE_SCHEME_CALLBACK (finalis, (SCM));
   DECLARE_SCHEME_CALLBACK (offset_callback, (SCM element));
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // BREATHING_SIGN_HH

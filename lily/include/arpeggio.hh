@@ -11,6 +11,8 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
+
 
 class Arpeggio
 {
@@ -18,7 +20,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (brew_chord_bracket, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* ARPEGGIO_HH */

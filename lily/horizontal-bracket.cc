@@ -16,6 +16,8 @@
 #include "staff-symbol-referencer.hh"
 #include "tuplet-bracket.hh"
 #include "axis-group-interface.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 
 Stencil
@@ -111,8 +113,6 @@ Horizontal_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Horizontal_bracket,
-
-	       "horizontal-bracket-interface",
 	       "A horizontal bracket encompassing notes.",
 
 	       /* props */		  

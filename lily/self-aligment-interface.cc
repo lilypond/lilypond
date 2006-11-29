@@ -8,6 +8,7 @@
 
 #include "self-alignment-interface.hh"
 #include "warn.hh"
+#include "grob.hh"
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
 SCM
@@ -131,7 +132,7 @@ Self_alignment_interface::set_align_self (Grob *me, Axis a)
 		       a);
 }
 
-ADD_INTERFACE (Self_alignment_interface, "self-alignment-interface",
+ADD_INTERFACE (Self_alignment_interface,
 	       "Position this object on itself and/or on its parent. To this end, the following functions "
 	       " are provided: \n"
 	       "@table @code \n"

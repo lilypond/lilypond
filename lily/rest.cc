@@ -186,7 +186,7 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
-ADD_INTERFACE (Rest, "rest-interface",
+ADD_INTERFACE (Rest,
 	       "A rest symbol.",
 
 	       /* properties */

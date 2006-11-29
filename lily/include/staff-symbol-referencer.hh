@@ -9,7 +9,8 @@
 #ifndef STAFF_SYMBOL_REFERENCER_HH
 #define STAFF_SYMBOL_REFERENCER_HH
 
-#include "grob.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /**
    A notation object that needs access to variables of the staff (no
@@ -18,7 +19,7 @@
 class Staff_symbol_referencer
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static bool ugly_hack (Grob *);
   static void set_position (Grob *, Real);
   DECLARE_SCHEME_CALLBACK (callback, (SCM element));

@@ -91,7 +91,7 @@ Text_interface::is_markup (SCM x)
 				      ly_symbol2scm ("markup-signature"))));
 }
 
-ADD_INTERFACE (Text_interface, "text-interface",
+ADD_INTERFACE (Text_interface,
 	       "A scheme markup text, see @usermanref{Text markup}.",
 	       "baseline-skip "
 	       "text "

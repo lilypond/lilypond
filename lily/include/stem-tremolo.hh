@@ -11,12 +11,13 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+#include "grob-interface.hh"
 
 class Stem_tremolo
 {
 public:
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (calc_slope, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_width, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));

@@ -24,7 +24,7 @@
 struct Ottava_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 /*
@@ -176,8 +176,6 @@ Ottava_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Ottava_bracket,
-	       "ottava-bracket-interface",
-	       
 	       "An ottava bracket",
 
 	       /*

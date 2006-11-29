@@ -9,6 +9,7 @@
 #include "script-interface.hh"
 
 #include "directional-element-interface.hh"
+#include "item.hh"
 #include "warn.hh"
 #include "font-interface.hh"
 #include "side-position-interface.hh"
@@ -78,10 +79,10 @@ Script_interface::print (SCM smob)
 
 struct Text_script
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
-ADD_INTERFACE (Text_script, "text-script-interface",
+ADD_INTERFACE (Text_script,
 	       "An object that is put above or below a note",
 
 	       /* properties */
@@ -94,7 +95,7 @@ ADD_INTERFACE (Text_script, "text-script-interface",
 /*
   Hmm. Where should we put add-stem-support ?
 */
-ADD_INTERFACE (Script_interface, "script-interface",
+ADD_INTERFACE (Script_interface,
 	       "An object that is put above or below a note",
 	       "add-stem-support "
 	       "avoid-slur "

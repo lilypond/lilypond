@@ -292,7 +292,7 @@ Vaticana_ligature::print (SCM)
   return SCM_EOL;
 }
 
-ADD_INTERFACE (Vaticana_ligature, "vaticana-ligature-interface",
+ADD_INTERFACE (Vaticana_ligature,
 	       "A vaticana style gregorian ligature",
 
 	       /* properties */

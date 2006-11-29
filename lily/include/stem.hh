@@ -11,6 +11,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "stem-info.hh"
+#include "grob-interface.hh"
 
 class Stem
 {
@@ -37,7 +38,7 @@ public:
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
   static Stencil get_translated_flag (Grob*);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static void set_spacing_hints (Grob *);
   
   DECLARE_SCHEME_CALLBACK (print, (SCM));

@@ -10,14 +10,13 @@
 #define CUSTOS_HH
 
 #include "lily-guile.hh"
-
-class Grob;
-class Stencil;
+#include "lily-proto.hh"
+#include "grob-interface.hh"
 
 struct Custos
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
 private:
   static void add_streepjes (Grob *me, int pos, int interspaces, Stencil *custos_);

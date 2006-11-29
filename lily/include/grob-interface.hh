@@ -11,19 +11,23 @@
 
 #include "lily-guile.hh"
 
-#define ADD_INTERFACE(cl, a, b, c)				\
+#define DECLARE_GROB_INTERFACE() \
+  static SCM interface_symbol_;	   \
+  static bool has_interface (Grob*)
+
+#define ADD_INTERFACE(cl, b, c)				\
+  SCM cl::interface_symbol_; \
   bool cl::has_interface (Grob *me)				\
   {								\
-    return me->internal_has_interface (ly_symbol2scm (a));	\
+    return me->internal_has_interface (interface_symbol_);	\
   }								\
   void cl ## _init_ifaces ()					\
   {								\
-    add_interface (#cl, a, b, c);				\
+    cl::interface_symbol_ = add_interface (#cl, b, c);		\
   }								\
   ADD_SCM_INIT_FUNC (cl ## ifaces, cl ## _init_ifaces);
 
-void add_interface (char const *cxx_name,
-		    char const *symbol,
+SCM add_interface (char const *cxx_name,
 		    char const *descr,
 		    char const *vars);
 

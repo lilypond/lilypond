@@ -251,7 +251,7 @@ Hairpin::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Hairpin, "hairpin-interface",
+ADD_INTERFACE (Hairpin,
 	       "A hairpin crescendo/decrescendo.",
 
 	       /* props */

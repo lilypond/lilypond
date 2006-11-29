@@ -12,6 +12,7 @@
 #include "axis-group-interface.hh"
 #include "context.hh"
 #include "translator-group.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

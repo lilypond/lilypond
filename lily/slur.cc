@@ -212,7 +212,7 @@ void
 Slur::add_column (Grob *me, Grob *n)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("note-columns"), n);
-  add_bound_item (dynamic_cast<Spanner *> (me), dynamic_cast<Item *> (n));
+  add_bound_item (dynamic_cast<Spanner *> (me), n);
 }
 
 void
@@ -357,7 +357,7 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info info,
 }
 
 
-ADD_INTERFACE (Slur, "slur-interface",
+ADD_INTERFACE (Slur,
 	       
 	       "A slur",
 	       

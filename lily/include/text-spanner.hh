@@ -10,14 +10,14 @@
 #define TEXT_SPANNER_HH
 
 #include "lily-guile.hh"
-
-class Grob;
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Text_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* TEXT_SPANNER_HH */

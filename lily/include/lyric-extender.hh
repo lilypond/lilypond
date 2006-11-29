@@ -8,7 +8,8 @@
 #ifndef EXTENDER_SPANNER_HH
 #define EXTENDER_SPANNER_HH
 
-#include "spanner.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /*
   Extenders must be entered manually for now.
@@ -26,7 +27,7 @@
 class Lyric_extender
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
 

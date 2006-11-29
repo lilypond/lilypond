@@ -9,7 +9,8 @@
 #ifndef SEPARATING_GROUP_SPANNER_HH
 #define SEPARATING_GROUP_SPANNER_HH
 
-#include "spanner.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Separating_group_spanner
 {
@@ -20,7 +21,7 @@ class Separating_group_spanner
 public:
   static void add_spacing_unit (Grob *me, Item *);
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
 };
 

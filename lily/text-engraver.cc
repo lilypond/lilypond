@@ -13,6 +13,7 @@
 #include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
+#include "item.hh"
 
 #include "translator.icc"
 
@@ -22,7 +23,7 @@
 class Text_engraver : public Engraver
 {
   vector<Stream_event *> evs_;
-  vector<Item*> texts_;
+  vector<Grob*> texts_;
 public:
   TRANSLATOR_DECLARATIONS (Text_engraver);
 protected:

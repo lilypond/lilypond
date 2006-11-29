@@ -9,12 +9,13 @@
 #ifndef PERCENT_REPEAT_ITEM_HH
 #define PERCENT_REPEAT_ITEM_HH
 
-#include "grob.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Percent_repeat_item_interface
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (beat_slash, (SCM));
   DECLARE_SCHEME_CALLBACK (double_percent, (SCM));
   static Stencil x_percent (Grob *, int, Real, Real);

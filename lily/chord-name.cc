@@ -32,7 +32,7 @@ Chord_name::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Chord_name, "chord-name-interface",
+ADD_INTERFACE (Chord_name,
 	       "A chord name.",
 
 	       

@@ -566,7 +566,7 @@ Grob::programming_error (string s) const
 }
 
 
-ADD_INTERFACE (Grob, "grob-interface",
+ADD_INTERFACE (Grob,
 	       "A grob represents a piece of music notation\n"
 	       "\n"
 	       "All grobs have an X and Y-position on the page.  These X and Y positions\n"

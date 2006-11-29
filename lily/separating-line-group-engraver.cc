@@ -16,6 +16,7 @@
 #include "note-spacing.hh"
 #include "accidental-placement.hh"
 #include "context.hh"
+#include "spanner.hh"
 #include "grob-array.hh"
 #include "pointer-group-interface.hh"
 

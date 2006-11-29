@@ -19,6 +19,7 @@
 #include "note-column.hh"
 #include "side-position-interface.hh"
 #include "stream-event.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -96,7 +97,7 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
       if (spans[i])
 	{
 	  Side_position_interface::add_support (spans[i], info.grob ());
-	  add_bound_item (spans[i], dynamic_cast<Item *> (info.grob ()));
+	  add_bound_item (spans[i], info.grob ());
 	}
     }
 }

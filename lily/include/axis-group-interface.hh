@@ -12,9 +12,8 @@
 #include "std-vector.hh"
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+#include "grob-interface.hh"
 
-/**
- */
 struct Axis_group_interface
 {
   static SCM generic_group_extent (Grob *me, Axis a);
@@ -35,7 +34,7 @@ struct Axis_group_interface
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
   static void get_children (Grob *, vector<Grob*> *);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* AXIS_GROUP_INTERFACE_HH */

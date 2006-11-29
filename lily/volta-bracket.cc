@@ -166,7 +166,7 @@ Volta_bracket_interface::add_column (Grob *me, Grob *c)
   Side_position_interface::add_support (me, c);
 }
 
-ADD_INTERFACE (Volta_bracket_interface, "volta-bracket-interface",
+ADD_INTERFACE (Volta_bracket_interface,
 	       "Volta bracket with number",
 
 	       /* properties */

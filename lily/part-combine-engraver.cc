@@ -15,6 +15,7 @@
 #include "stem.hh"
 #include "stream-event.hh"
 #include "text-interface.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

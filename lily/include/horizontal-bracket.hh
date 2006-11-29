@@ -12,6 +12,7 @@
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
 
 struct Horizontal_bracket
 {
@@ -20,7 +21,7 @@ struct Horizontal_bracket
   static Stencil make_enclosing_bracket (Grob *me, Grob *refpoint,
 					 vector<Grob*> grobs,
 					 Axis a, Direction dir);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* HORIZONTAL_BRACKET_HH */

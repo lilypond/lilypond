@@ -12,6 +12,8 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
+
 
 /**
    Resolve conflicts between various Note_columns (chords).
@@ -32,6 +34,6 @@ public:
   static Drul_array<vector<Grob*> > get_clash_groups (Grob *me);
   DECLARE_SCHEME_CALLBACK (calc_positioning_done, (SCM smob));
   static void add_column (Grob *me, Grob *ncol);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 #endif // COLLISION_HH

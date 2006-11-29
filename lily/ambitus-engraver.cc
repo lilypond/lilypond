@@ -11,6 +11,7 @@
 #include "engraver.hh"
 
 #include "axis-group-interface.hh"
+#include "item.hh"
 #include "note-head.hh"
 #include "pitch-interval.hh"
 #include "pointer-group-interface.hh"

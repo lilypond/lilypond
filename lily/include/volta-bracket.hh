@@ -8,11 +8,13 @@
 #define VOLTA_SPANNER_HH
 
 #include "spanner.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 class Volta_bracket_interface
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static void modify_edge_height (Spanner *);
   static void add_column (Grob *, Grob *col);

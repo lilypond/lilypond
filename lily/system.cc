@@ -535,7 +535,7 @@ System::build_skylines ()
 }
 
 
-ADD_INTERFACE (System, "system-interface",
+ADD_INTERFACE (System,
 	       "This is the toplevel object: each object in a score "
 	       "ultimately has a System object as its X and Y parent. ",
 

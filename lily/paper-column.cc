@@ -203,8 +203,6 @@ Paper_column::before_line_breaking (SCM grob)
 
 
 ADD_INTERFACE (Paper_column,
-
-	       "paper-column-interface",
 	       "@code{Paper_column} objects form the top-most X-parents for items."
 	       "  The are two types of columns: musical columns, where are attached to, and "
 	       "  non-musical columns, where bar-lines, clefs etc. are attached to. "

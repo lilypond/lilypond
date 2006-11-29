@@ -17,6 +17,7 @@
 #include "pointer-group-interface.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 

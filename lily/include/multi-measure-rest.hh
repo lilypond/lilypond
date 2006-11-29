@@ -9,13 +9,14 @@
 #ifndef MULTI_MEASURE_REST_HH
 #define MULTI_MEASURE_REST_HH
 
+#include "grob-interface.hh"
 #include "lily-guile.hh"
 #include "rod.hh"
 
 class Multi_measure_rest
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (percent, (SCM));
   static void add_column (Grob *, Item *);

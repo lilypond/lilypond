@@ -8,6 +8,7 @@
 
 #ifndef HAIRPIN_HH
 #define HAIRPIN_HH
+#include "grob-interface.hh"
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
@@ -20,7 +21,7 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   static void consider_suicide (Spanner*);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // HAIRPIN_HH

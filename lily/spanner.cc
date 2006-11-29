@@ -371,7 +371,6 @@ unsmob_spanner (SCM s)
 }
 
 ADD_INTERFACE (Spanner,
-	       "spanner-interface",
 	       "Some objects are horizontally spanned between objects. For\n"
 	       "example, slur, beam, tie, etc. These grobs form a subtype called\n"
 	       "@code{Spanner}. All spanners have two span-points (these must be\n"

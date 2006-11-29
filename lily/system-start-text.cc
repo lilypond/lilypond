@@ -19,7 +19,7 @@ class System_start_text
 {
 public:
   static Stencil get_stencil (Grob *);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
@@ -95,7 +95,6 @@ System_start_text::print (SCM smob)
 
 
 ADD_INTERFACE (System_start_text,
-	       "system-start-text-interface",
 	       "Text in front of the system.",
 
 	       /* properties */

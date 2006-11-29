@@ -9,6 +9,8 @@
 
 #include "grob.hh"
 #include "rod.hh"
+#include "grob-interface.hh"
+#include "lily-proto.hh"
 
 /** A symbol which is attached between two columns. A spanner is a
     symbol which spans across several columns, so its final appearance
@@ -60,7 +62,7 @@ public:
   static bool less (Spanner *const &, Spanner *const &);
   virtual Grob *find_broken_piece (System *) const;
   virtual void derived_mark () const;
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   virtual System *get_system () const;
 
 protected:

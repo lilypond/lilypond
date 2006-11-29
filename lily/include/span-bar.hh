@@ -11,6 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 /**
    This is a barline that is spanned across other bar lines.  This is
@@ -21,7 +22,7 @@ class Span_bar
 {
 public:
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Interval get_spanned_interval (Grob *);
   static void add_bar (Grob *, Grob *);
   static void evaluate_glyph (Grob *);

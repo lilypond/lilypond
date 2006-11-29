@@ -11,6 +11,9 @@
 #include "tuplet-bracket.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
+#include "spanner.hh"
+#include "item.hh"
+
 #include "translator.icc"
 
 /*

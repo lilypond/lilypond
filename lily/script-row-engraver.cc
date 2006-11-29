@@ -10,6 +10,7 @@
 #include "engraver.hh"
 
 #include "accidental-placement.hh"
+#include "item.hh"
 #include "script-column.hh"
 #include "side-position-interface.hh"
 

@@ -15,6 +15,7 @@
 #include "note-head.hh"
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
+#include "item.hh"
 #include "rhythmic-head.hh"
 #include "staff-symbol-referencer.hh"
 #include "side-position-interface.hh"
@@ -529,7 +530,7 @@ Note_collision_interface::add_column (Grob *me, Grob *ncol)
   Axis_group_interface::add_element (me, ncol);
 }
 
-ADD_INTERFACE (Note_collision_interface, "note-collision-interface",
+ADD_INTERFACE (Note_collision_interface,
 	       "An object that handles collisions between notes with different stem "
 	       "directions and horizontal shifts. Most of the interesting properties "
 	       "are to be set in @ref{note-column-interface}: these are "

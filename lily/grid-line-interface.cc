@@ -68,10 +68,10 @@ Grid_line_interface::add_grid_point (Grob *me, Grob *b)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("elements"), b);
 }
 
-ADD_INTERFACE (Grid_line_interface, "grid-line-interface",
+ADD_INTERFACE (Grid_line_interface,
 	       "A  line that spanned between grid-points. ",
 	       "elements thickness");
 
-ADD_INTERFACE (Grid_point_interface, "grid-point-interface",
+ADD_INTERFACE (Grid_point_interface,
 	       "A spanning point for grid lines. ",
 	       "");

@@ -11,6 +11,7 @@
 
 #include "lily-guile.hh"
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 /**
    Articulation marks (and the like) that are attached to notes/stems.
@@ -21,7 +22,7 @@ class Script_interface
 {
 public:
   static Stencil get_stencil (Grob *, Direction d);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
 };

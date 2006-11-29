@@ -13,6 +13,7 @@
 #include "pointer-group-interface.hh"
 #include "pitch.hh"
 #include "stream-event.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

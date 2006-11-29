@@ -8,6 +8,7 @@
 
 #include "time-signature.hh"
 
+#include "grob.hh"
 #include "font-interface.hh"
 #include "international.hh"
 #include "output-def.hh"
@@ -119,7 +120,7 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
   return m;
 }
 
-ADD_INTERFACE (Time_signature, "time-signature-interface",
+ADD_INTERFACE (Time_signature,
 	       "A time signature, in different styles.\n"
 	       "  The following values for 'style are are recognized:\n"
 	       "\n"

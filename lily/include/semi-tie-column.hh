@@ -16,7 +16,7 @@
 
 struct Semi_tie_column
 {
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   
   DECLARE_SCHEME_CALLBACK(calc_positioning_done, (SCM));
 };

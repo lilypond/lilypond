@@ -351,7 +351,7 @@ Multi_measure_rest::set_text_rods (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-ADD_INTERFACE (Multi_measure_rest, "multi-measure-rest-interface",
+ADD_INTERFACE (Multi_measure_rest,
 	       "A rest that spans a whole number of measures.",
 
 	       /* properties */

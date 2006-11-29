@@ -56,7 +56,7 @@ Clef::print (SCM smob)
   return out.smobbed_copy ();
 }
 
-ADD_INTERFACE (Clef, "clef-interface",
+ADD_INTERFACE (Clef,
 	       "A clef sign",
 
 	       /* properties */

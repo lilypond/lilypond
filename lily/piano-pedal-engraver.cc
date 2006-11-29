@@ -23,8 +23,11 @@
 #include "stream-event.hh"
 #include "string-convert.hh"
 #include "warn.hh"
-#include "protected-scm.hh"
+#include "spanner.hh"
+#include "item.hh"
+
 #include "translator.icc"
+
 
 /*
   TODO:

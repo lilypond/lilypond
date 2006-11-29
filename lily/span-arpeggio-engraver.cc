@@ -13,6 +13,7 @@
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "staff-symbol-referencer.hh"
+#include "item.hh"
 
 /**
    Make arpeggios that span multiple staves.  Catch arpeggios, and span a

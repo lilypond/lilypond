@@ -276,7 +276,7 @@ Side_position_interface::get_axis (Grob *me)
   return NO_AXES;
 }
 
-ADD_INTERFACE (Side_position_interface, "side-position-interface",
+ADD_INTERFACE (Side_position_interface,
 	       "Position a victim object (this one) next to other objects (the "
 	       "support).   The property @code{direction} signifies where to put the  "
 	       "victim object relative to the support (left or right, up or down?)\n\n "

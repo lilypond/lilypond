@@ -14,6 +14,7 @@
 */
 
 #include "stem.hh"
+#include "spanner.hh"
 
 #include <cmath>		// rint
 using namespace std;
@@ -988,7 +989,7 @@ Stem::beam_multiplicity (Grob *stem)
 }
 
 /* FIXME:  Too many properties  */
-ADD_INTERFACE (Stem, "stem-interface",
+ADD_INTERFACE (Stem,
 	       "The stem represent the graphical stem.  "
 	       "In addition, it internally connects note heads, beams and"
 	       "tremolos. "

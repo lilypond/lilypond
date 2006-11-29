@@ -9,6 +9,7 @@
 #ifndef RHYTHMIC_HEAD_HH
 #define RHYTHMIC_HEAD_HH
 
+#include "grob-interface.hh"
 #include "lily-guile.hh"
 #include "lily-proto.hh"
 
@@ -21,7 +22,7 @@ public:
   static Item *get_dots (Grob *);
   static int dot_count (Grob *);
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif // RHYTHMIC_HEAD_HH

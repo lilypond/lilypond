@@ -13,6 +13,7 @@
 #include "lily-proto.hh"
 #include "lily-guile.hh"
 #include "std-vector.hh"
+#include "grob-interface.hh"
 
 class Slur
 {
@@ -28,7 +29,7 @@ public:
   DECLARE_SCHEME_CALLBACK (height, (SCM));
   DECLARE_SCHEME_CALLBACK (outside_slur_callback, (SCM, SCM));
   DECLARE_SCHEME_CALLBACK (pure_outside_slur_callback, (SCM, SCM, SCM, SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Bezier get_curve (Grob *me);
 };
 

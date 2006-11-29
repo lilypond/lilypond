@@ -13,6 +13,8 @@
 #include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "stream-event.hh"
+#include "spanner.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

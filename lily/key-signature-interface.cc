@@ -20,7 +20,7 @@ struct Key_signature_interface
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 /*
@@ -149,6 +149,6 @@ Key_signature_interface::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-ADD_INTERFACE (Key_signature_interface, "key-signature-interface",
+ADD_INTERFACE (Key_signature_interface,
 	       "A group of accidentals, to be printed as signature sign.",
 	       "style c0-position alteration-alist");

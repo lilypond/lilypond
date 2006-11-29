@@ -15,6 +15,7 @@
 #include "side-position-interface.hh"
 #include "stream-event.hh"
 #include "note-column.hh"
+#include "item.hh"
 
 #include "translator.icc"
 

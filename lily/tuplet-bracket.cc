@@ -731,7 +731,6 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
 }
 
 ADD_INTERFACE (Tuplet_bracket,
-	       "tuplet-bracket-interface",
 	       "A bracket with a number in the middle, used for tuplets. "
 	       "When the bracket spans  a line break, the value of "
 	       "@code{break-overshoot} determines how far it extends "

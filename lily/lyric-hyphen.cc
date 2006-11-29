@@ -13,6 +13,7 @@
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "moment.hh"
+#include "spanner.hh"
 
 /*
   TODO: should extract hyphen dimensions or hyphen glyph from the
@@ -130,8 +131,6 @@ Lyric_hyphen::set_spacing_rods (SCM smob)
 
 ADD_INTERFACE (Lyric_hyphen,
 
-	       "lyric-hyphen-interface",
-	       
 	       "A centered hyphen is a simple line between "
 	       "lyrics used to divide syllables",
 

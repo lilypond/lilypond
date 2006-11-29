@@ -11,6 +11,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "translator.icc"
+#include "item.hh" 
 
 class Dot_column_engraver : public Engraver
 {

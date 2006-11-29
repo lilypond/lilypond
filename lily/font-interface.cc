@@ -49,7 +49,7 @@ Font_interface::text_font_alist_chain (Grob *g)
   return g->get_property_alist_chain (defaults);
 }
 
-ADD_INTERFACE (Font_interface, "font-interface",
+ADD_INTERFACE (Font_interface,
 	       "Any symbol that is typeset through fixed sets of glyphs, "
 	       " (ie. fonts)",
 

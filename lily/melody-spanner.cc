@@ -88,7 +88,7 @@ Melody_spanner::add_stem (Grob *me, Grob *stem)
   stem->set_property ("neutral-direction", Melody_spanner::calc_neutral_stem_direction_proc);
 }
 
-ADD_INTERFACE (Melody_spanner, "melody-spanner-interface",
+ADD_INTERFACE (Melody_spanner,
 	       "Context dependent typesetting decisions.",
 
 	       "stems "

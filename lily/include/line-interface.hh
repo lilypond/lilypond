@@ -10,11 +10,12 @@
 #define LINE_INTERFACE_HH
 
 #include "lily-proto.hh"
+#include "grob-interface.hh"
 
 struct Line_interface
 {
   static Stencil line (Grob *me, Offset from, Offset to);
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
   static Stencil make_dashed_line (Real th, Offset from, Offset to, Real, Real);
   static Stencil make_line (Real th, Offset from, Offset to);
   static Stencil make_arrow (Offset beg, Offset end, Real thick,

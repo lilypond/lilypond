@@ -17,7 +17,7 @@
 struct Tuplet_number
 {
   DECLARE_SCHEME_CALLBACK(print, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
   
 
@@ -62,7 +62,6 @@ Tuplet_number::print (SCM smob)
 
 
 ADD_INTERFACE (Tuplet_number,
-	       "tuplet-number-interface",
 	       "The number for a bracket. "
 	       ,
 

@@ -9,6 +9,7 @@
 #ifndef ACCIDENTAL_PLACEMENT_HH
 #define ACCIDENTAL_PLACEMENT_HH
 
+#include "grob-interface.hh"
 #include "grob.hh"
 
 class Accidental_placement
@@ -25,7 +26,7 @@ public:
 				 vector<Grob*> *real_acc);
 
   DECLARE_SCHEME_CALLBACK(calc_positioning_done, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 #endif /* ACCIDENTAL_PLACEMENT_HH */
 

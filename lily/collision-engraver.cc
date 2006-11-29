@@ -10,6 +10,7 @@
 #include "note-column.hh"
 #include "note-collision.hh"
 #include "axis-group-interface.hh"
+#include "item.hh"
 
 class Collision_engraver : public Engraver
 {

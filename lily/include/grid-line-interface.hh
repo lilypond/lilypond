@@ -11,6 +11,8 @@
 
 #include "lily-proto.hh"
 #include "lily-guile.hh"
+#include "grob-interface.hh"
+
 
 class Grid_line_interface
 {
@@ -18,13 +20,13 @@ public:
   static void add_grid_point (Grob *me, Grob *b);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 class Grid_point_interface
 {
 public:
-  static bool has_interface (Grob *);
+  DECLARE_GROB_INTERFACE();
 };
 
 #endif /* GRID_LINE_INTERFACE_HH */
