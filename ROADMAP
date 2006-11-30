@@ -28,8 +28,7 @@ source files.
        bugs/		Buggy or problematic notation
        mutopia/		Real music, more at www.mutopiaproject.org
        no-notation/	Examples that do not produce output
-       regression/	Testing of [all] features, one test per file
-       templates/	Boilerplates for typical music layouts
+       regression/	Testing of features, one test per file
        test/		Tips and tricks
        tutorial/	Examples from the tutorial 
    lily/		C++ sources for LilyPond (lilypond-bin)
