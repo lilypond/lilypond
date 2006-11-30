@@ -11,21 +11,6 @@
 }
 
 %% hymn tricks
-#(define (prepend-grob-property grob-name
-	  grob-prop entry)
-  (lambda (context)
-   (let*
-    ((grob-def (ly:context-property context grob-name)))
-    (if (pair? grob-def)
-     (ly:context-pushpop-property context grob-name grob-prop
-      (cons
-       entry
-       (assoc-get grob-prop (car grob-def))))))))
-
-#(define (set-extra-space grob-name entry value)
-  (prepend-grob-property grob-name 'space-alist
-   (cons entry (cons 'extra-space value))))
-
 noclefs =  {
   s1
   \override Staff.Clef #'break-visibility =
@@ -33,17 +18,13 @@ noclefs =  {
 }
 
 setMargins = {
-  %% first line left margin
-  %% justified:
-  %% \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 4.5)
-  %% ragged-right:
-  \context Staff \applyContext #(set-extra-space 'TimeSignature 'first-note 9.5)
+  %% \context Staff \applyContext #(set-extra-space 'TimeSignature
+  %% 'first-note -> extra-space 4.5
+
+  \override Staff.TimeSignature #'space-alist #'first-note = #'(extra-space . 9.5)
+  \override Staff.KeySignature #'space-alist #'staff-bar = #'(extra-space . 15)
+  \override Score.LeftEdge #'space-alist #'key-signature = #'(extra-space . 1)
   
-  %% next lines left margin
-  \context Staff \applyContext #(set-extra-space 'KeySignature 'staff-bar 15)
-  
-  %% next lines small key-signature margin
-  \context Staff \applyContext #(set-extra-space 'LeftEdge 'key-signature 1.0)
 }
 
 pipeSymbol = {
