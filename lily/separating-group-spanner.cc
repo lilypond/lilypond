@@ -34,35 +34,10 @@ Separating_group_spanner::find_rods (Item *r,
 
       if (lb)
 	{
-	  Interval li (Separation_item::width (lb));
-	  Interval ri (Separation_item::conditional_width (r, lb));
-	  if (!li.is_empty () && !ri.is_empty ())
-	    {
-	      Rod rod;
-
-	      rod.item_drul_[LEFT] = lb;
-	      rod.item_drul_[RIGHT] = r;
-
-	      rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
-	      rod.add_to_cols ();
-	    }
+	  Separation_item::set_distance (lb, r, padding);
 	}
 
-      Interval li (Separation_item::width (l));
-      Interval ri (Separation_item::conditional_width (r, l));
-      if (!li.is_empty () && !ri.is_empty ())
-	{
-	  Rod rod;
-
-	  rod.item_drul_[LEFT] = l;
-	  rod.item_drul_[RIGHT] = r;
-
-	  rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
-
-	  if (rod.distance_ > 0.0)
-	    rod.add_to_cols ();
-	  break;
-	}
+      Separation_item::set_distance (l, r, padding);
 
       /*
 	this grob doesn't cause a constraint. We look further until we

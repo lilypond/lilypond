@@ -27,6 +27,26 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"), e);
 }
 
+void
+Separation_item::set_distance (Item *l, Item *r,
+			       Real padding)
+{
+  Interval li (Separation_item::width (l));
+  Interval ri (Separation_item::conditional_width (r, l));
+  if (!li.is_empty () && !ri.is_empty ())
+    {
+      Rod rod;
+
+      rod.item_drul_[LEFT] = l;
+      rod.item_drul_[RIGHT] = r;
+
+      rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
+
+      if (rod.distance_  > 0)
+	rod.add_to_cols ();
+    }
+}
+
 /*
   Return the width of ME given that we are considering the object on
   the LEFT.
