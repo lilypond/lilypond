@@ -123,7 +123,10 @@ text = \lyricmode {
 
 oneHalfNoteTime = \markup {
   \override #'(baseline-skip . 0)
-  \column { \line { \number "1" } \line { \smaller \smaller \note #"2" #-0.5 } }
+  \column {
+    \line { \number "1" }
+    \line { \smaller \smaller \note #"2" #-0.6 }
+  }
 }
 
 \layout {
@@ -156,6 +159,7 @@ oneHalfNoteTime = \markup {
       %% Custom time signature
       \override Staff.TimeSignature #'stencil = #ly:text-interface::print
       \override Staff.TimeSignature #'text = #oneHalfNoteTime
+      \override Staff.TimeSignature #'style = #'()
       \noclefs
     
       \new Voice =  "voice" \voice
