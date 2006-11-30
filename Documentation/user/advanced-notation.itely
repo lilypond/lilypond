@@ -1399,7 +1399,7 @@ or @code{\RemoveEmptyRhythmicStaffContext}.
 
 Another application is making ossia sections, i.e., alternative
 melodies on a separate piece of staff, with help of a Frenched
-staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
+staff.  See @inputfileref{input/@/manual,ossia@/.ly} for an example.
 
 
 @node Quoting other voices
