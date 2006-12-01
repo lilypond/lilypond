@@ -260,7 +260,7 @@ ADD_INTERFACE (Separation_item,
 
 	       "X-extent "
 	       "conditional-elements "
-	       "elements"
+	       "elements "
 	       "padding "
 	       "skylines "
 	       );
