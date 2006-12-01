@@ -322,7 +322,7 @@ Constrained_breaking::initialize ()
       
   Output_def *l = pscore_->layout ();
   System *sys = pscore_->root_system ();
-  Real padding = robust_scm2double (l->c_variable ("between-system-padding"), 0);
+  Real padding = robust_scm2double (l->c_variable ("page-breaking-between-system-padding"), 0);
   Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
