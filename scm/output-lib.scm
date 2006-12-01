@@ -416,7 +416,7 @@ centered, X==1 is at the right, X == -1 is at the left."
     
     (if (> digit 5)
 	(ly:input-message (ly:event-property event 'origin)
-			  "Music for the martians"))
+			  "Warning: Fingering notation for finger number ~a" digit))
 
     (number->string digit 10)
   ))
