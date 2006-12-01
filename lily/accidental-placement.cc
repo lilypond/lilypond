@@ -364,8 +364,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
     {
       int very_large = INT_MAX;
       
-      Box b (heads[i]->extent (common[X_AXIS], X_AXIS),
-	     heads[i]->pure_height (common[Y_AXIS], 0, very_large));
+      Box b (stems[i]->extent (common[X_AXIS], X_AXIS),
+	     stems[i]->pure_height (common[Y_AXIS], 0, very_large));
 
       insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
     }
