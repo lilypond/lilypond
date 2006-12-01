@@ -74,6 +74,7 @@ First it recurses over the children, then the function is applied to MUSIC.
 
 (define-public (display-music music)
   "Display music, not done with music-map for clarity of presentation."
+
   (display music)
   (display ": { ")  
   (let ((es (ly:music-property music 'elements))
@@ -800,12 +801,15 @@ if appropriate.
 	   (list
 	    (make-sequential-music
 	     (list
-	      (context-spec-music (make-property-set 'skipTypesetting #t) 'Score)
+	      (context-spec-music (make-property-set 'skipTypesetting #t)
+				  'Score)
 	      (make-music 'SkipMusic 'duration
-			  (ly:make-duration 0 0
-					    (ly:moment-main-numerator skip-length)
-					    (ly:moment-main-denominator skip-length)))
-	      (context-spec-music (make-property-set 'skipTypesetting #f) 'Score)))
+			  (ly:make-duration
+			   0 0
+			   (ly:moment-main-numerator skip-length)
+			   (ly:moment-main-denominator skip-length)))
+	      (context-spec-music (make-property-set 'skipTypesetting #f)
+				  'Score)))
 	    music)))
 	music)))
     
