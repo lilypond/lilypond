@@ -7,7 +7,7 @@
 
 #include "skyline.hh"
 
-#include "line-interface.hh"
+#include "ly-smobs.icc"
 
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
@@ -218,10 +218,12 @@ static void
 single_skyline (Building const &b, list<Building> *const ret, Real max_slope)
 {
   if (!isinf (b.iv_[RIGHT]))
-    ret->push_front (Building (b.iv_[RIGHT], b.end_height_, -infinity_f, infinity_f, max_slope));
+    ret->push_front (Building (b.iv_[RIGHT], b.end_height_,
+			       -infinity_f, infinity_f, max_slope));
   ret->push_front (b);
   if (!isinf (b.iv_[LEFT]))
-    ret->push_front (Building (-infinity_f, -infinity_f, b.start_height_, b.iv_[LEFT], max_slope));
+    ret->push_front (Building (-infinity_f, -infinity_f,
+			       b.start_height_, b.iv_[LEFT], max_slope));
 }
 
 void
@@ -259,6 +261,20 @@ Skyline::Skyline ()
   max_slope_ = 2;
   sky_ = UP;
   empty_skyline (&buildings_);
+
+  
+}
+
+Skyline::Skyline (Skyline const &src)
+{
+  max_slope_ = src.max_slope_;
+  sky_ = src.sky_;
+ 
+  for (list<Building>::const_iterator i = src.buildings_.begin ();
+       i != src.buildings_.end (); i++)
+    {
+      buildings_.push_back (Building ((*i)));
+    }
 }
 
 Skyline::Skyline (Direction sky)
@@ -284,8 +300,10 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
       Interval iv = boxes[i][horizon_axis];
       Real height = sky * boxes[i][other_axis (horizon_axis)][sky];
       if (!iv.is_empty () && !isinf (height) && !equal (iv[LEFT], iv[RIGHT]))
-	bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_));
+	bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT],
+				    max_slope_));
     }
+  
   internal_build_skyline (&bldgs, &buildings_);
   assert (is_legal_skyline ());
 }
@@ -402,23 +420,6 @@ Skyline::set_minimum_height (Real h)
   merge (s);
 }
 
-Stencil
-to_stencil (Skyline const &line) 
-{
-  vector<Offset> points (line.to_points ());
-  
-  Stencil ret;
-  for (vsize i = 1; i < points.size (); i++)
-    {
-      if (points[i-1].is_sane ()  && points[i].is_sane ())
-	{
-	  Stencil line
-	    = Line_interface::make_line (0.1, points[i-1], points[i]);
-	  ret.add_stencil (line);
-	}
-    }
-  return ret;
-}
 
 vector<Offset>
 Skyline::to_points () const
@@ -439,3 +440,26 @@ Skyline::to_points () const
   return out;
 }
 
+/****************************************************************/
+
+
+IMPLEMENT_SIMPLE_SMOBS (Skyline);
+IMPLEMENT_TYPE_P (Skyline, "ly:skyline?");
+IMPLEMENT_DEFAULT_EQUAL_P (Skyline);
+
+SCM
+Skyline::mark_smob (SCM)
+{
+  return SCM_EOL;
+}
+
+int
+Skyline::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Skyline *r = (Skyline *) SCM_CELL_WORD_1 (s);
+  (void) r;
+
+  scm_puts ("#<Skyline>", port);
+
+  return 1;
+}

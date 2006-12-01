@@ -95,4 +95,6 @@ void register_stencil_head (SCM symbol);
 bool is_stencil_head (SCM symbol);
 SCM all_stencil_heads ();
 
+Stencil points_to_line_stencil (vector<Offset> points);
+
 #endif /* STENCIL_HH */

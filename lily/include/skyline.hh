@@ -16,7 +16,7 @@
 #include "interval.hh"
 #include "direction.hh"
 #include "std-vector.hh"
-#include "stencil.hh"
+#include "smobs.hh"
 
 struct Building
 {
@@ -50,8 +50,10 @@ private:
 			       list<Building> *const result);
   bool is_legal_skyline () const;
 
+  DECLARE_SIMPLE_SMOBS(Skyline);
 public:
   Skyline ();
+  Skyline (Skyline const &src);
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
   Skyline (vector<Offset> const &points, Real max_slope, Direction sky);
@@ -65,8 +67,6 @@ public:
   Real max_height () const;
   void set_minimum_height (Real height);
 };
-
-Stencil to_stencil (Skyline const &line);
 
 #endif /* SKYLINE_HH */
 
