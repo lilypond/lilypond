@@ -1366,6 +1366,7 @@
     (SeparationItem
      . (
 	(avoid-slur . inside)
+	(skylines . ,ly:separation-item::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
@@ -2061,6 +2062,8 @@
 (define pure-print-callbacks
   (list
    ly:note-head::print
+   ly:accidental-interface::print
+   ly:dots::print
    ly:clef::print
    ly:text-interface::print
    ly:script-interface::print))
@@ -2072,6 +2075,7 @@
 	 (ly:stencil? sten)
 	 (memq sten pure-print-callbacks))
 	(ly:grob::stencil-height grob)
+
 	'(0 . 0))))
 
 (define pure-conversions-alist
