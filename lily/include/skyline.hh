@@ -21,8 +21,7 @@
 struct Building
 {
   Interval iv_;
-  Real start_height_;
-  Real end_height_;
+  Drul_array<Real> height_;
 
   Real zero_height_;
   Real slope_;

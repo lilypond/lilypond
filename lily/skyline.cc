@@ -69,10 +69,10 @@ Skyline::is_legal_skyline () const
     {
       if (i->iv_[LEFT] != last_x)
 	return false;
-      if (i != buildings_.begin () && !equal (i->start_height_, last_h))
+      if (i != buildings_.begin () && !equal (i->height_[LEFT], last_h))
 	return false;
       last_x = i->iv_[RIGHT];
-      last_h = i->end_height_;
+      last_h = i->height_[RIGHT];
     }
   return last_x == infinity_f;
 }
@@ -81,8 +81,8 @@ Building::Building (Real start, Real start_height, Real end_height,
 		    Real end, Real max_slope)
   : iv_ (start, end)
 {
-  start_height_ = start_height;
-  end_height_ = end_height;
+  height_[LEFT] = start_height;
+  height_[RIGHT] = end_height;
 
   if (isinf (start))
     assert (isinf (start_height) || start_height == end_height);
@@ -95,11 +95,11 @@ Building::Building (Real start, Real start_height, Real end_height,
 void
 Building::precompute (Real max_slope)
 {
-  slope_ = (end_height_ - start_height_) / (iv_.length());
-  if (start_height_ == end_height_)
+  slope_ = (height_[RIGHT] - height_[LEFT]) / (iv_.length());
+  if (height_[LEFT] == height_[RIGHT])
     slope_ = 0;
   if (isinf (slope_) || isnan (slope_))
-    slope_ = max_slope * (start_height_ < end_height_ ? 1 : -1);
+    slope_ = max_slope * (height_[LEFT] < height_[RIGHT] ? 1 : -1);
 
 #if 0
   /*
@@ -112,19 +112,19 @@ Building::precompute (Real max_slope)
   if (isinf (iv_[START]))
     {
       if (isinf (iv_[STOP]))
-	zero_height_ = start_height_;
+	zero_height_ = height_[LEFT];
       else
-	zero_height_ = end_height_ - slope_ * iv_[STOP];
+	zero_height_ = height_[RIGHT] - slope_ * iv_[STOP];
     }
   else
-    zero_height_ = start_height_ - slope_ * iv_[START];
+    zero_height_ = height_[LEFT] - slope_ * iv_[START];
 }
 
 Real 
 Building::height (Real x) const
 {
   if (isinf (x))
-    return (x > 0) ? end_height_ : start_height_;
+    return (x > 0) ? height_[RIGHT] : height_[LEFT];
   return slope_*x + zero_height_;
 }
 
@@ -133,7 +133,7 @@ Building::print () const
 {
   printf ("X[%f,%f] -> Y[%f,%f]\n",
 	  iv_[LEFT], iv_[RIGHT],
-	  start_height_, end_height_);
+	  height_[LEFT], height_[RIGHT]);
 }
 
 Real
@@ -148,7 +148,7 @@ Building::leading_part (Real chop, Real h)
   assert (chop > iv_[LEFT] && chop <= iv_[RIGHT] && !equal (chop, iv_[LEFT]));
   assert (equal (h, height (chop)));
   iv_[RIGHT] = chop;
-  end_height_ = h;
+  height_[RIGHT] = h;
 }
 
 static void
@@ -162,16 +162,16 @@ skyline_trailing_part (list<Building> *sky, Real x)
   if (!sky->empty ())
     {
       sky->front ().iv_[LEFT] = x;
-      sky->front ().start_height_ = sky->front ().height (x);
+      sky->front ().height_[LEFT] = sky->front ().height (x);
     }
 }
 
 bool
 Building::obstructs (Building const &other) const
 {
-  if (equal (intersection (other), iv_[LEFT]) || equal (start_height_, other.start_height_))
+  if (equal (intersection (other), iv_[LEFT]) || equal (height_[LEFT], other.height_[LEFT]))
     return slope_ > other.slope_ || (slope_ == other.slope_ && zero_height_ > other.zero_height_);
-  return start_height_ > other.start_height_;
+  return height_[LEFT] > other.height_[LEFT];
 }
 
 void
@@ -185,12 +185,12 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
 
       Building b = s1->front ();
       while (s2->front ().iv_[RIGHT] < b.iv_[RIGHT]
-	     && s2->front ().end_height_ <= b.height (s2->front ().iv_[RIGHT]) + EPS)
+	     && s2->front ().height_[RIGHT] <= b.height (s2->front ().iv_[RIGHT]) + EPS)
 	s2->pop_front ();
 
       /* the front of s2 either intersects with b or it ends after b */
       Real end = infinity_f;
-      Real s2_end_height = s2->front ().end_height_;
+      Real s2_end_height = s2->front ().height_[RIGHT];
       Real s1_end_height = b.height (s2->front ().iv_[RIGHT]);
       if (s2_end_height > s1_end_height + EPS)
 	end = b.intersection (s2->front ());
@@ -202,7 +202,7 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
 
       skyline_trailing_part (s1, end);
       if (!s1->empty ())
-	s1->front ().start_height_ = height;
+	s1->front ().height_[LEFT] = height;
       skyline_trailing_part (s2, end);
     }
   result->reverse ();
@@ -218,12 +218,12 @@ static void
 single_skyline (Building const &b, list<Building> *const ret, Real max_slope)
 {
   if (!isinf (b.iv_[RIGHT]))
-    ret->push_front (Building (b.iv_[RIGHT], b.end_height_,
+    ret->push_front (Building (b.iv_[RIGHT], b.height_[RIGHT],
 			       -infinity_f, infinity_f, max_slope));
   ret->push_front (b);
   if (!isinf (b.iv_[LEFT]))
     ret->push_front (Building (-infinity_f, -infinity_f,
-			       b.start_height_, b.iv_[LEFT], max_slope));
+			       b.height_[LEFT], b.iv_[LEFT], max_slope));
 }
 
 void
@@ -346,6 +346,8 @@ Skyline::insert (Box const &b, Axis a)
   Interval iv = b[a];
   Real height = sky_ * b[other_axis (a)][sky_];
 
+  assert (!iv.is_empty ());
+
   my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_), &other_bld, max_slope_);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
@@ -358,8 +360,8 @@ Skyline::raise (Real r)
   list<Building>::iterator end = buildings_.end ();
   for (list<Building>::iterator i = buildings_.begin (); i != end; i++)
     {
-      i->start_height_ += sky_ * r;
-      i->end_height_ += sky_ * r;
+      i->height_[LEFT] += sky_ * r;
+      i->height_[RIGHT] += sky_ * r;
       i->zero_height_ += sky_ * r;
     }
   assert (is_legal_skyline ());
@@ -414,8 +416,8 @@ void
 Skyline::set_minimum_height (Real h)
 {
   Skyline s (sky_);
-  s.buildings_.front ().start_height_ = h * sky_;
-  s.buildings_.front ().end_height_ = h * sky_;
+  s.buildings_.front ().height_[LEFT] = h * sky_;
+  s.buildings_.front ().height_[RIGHT] = h * sky_;
   s.buildings_.front ().zero_height_ = h * sky_;
   merge (s);
 }
@@ -431,10 +433,10 @@ Skyline::to_points () const
        i != buildings_.end (); i++)
     {
       if (first)
-	out.push_back (Offset ((*i).iv_[LEFT], sky_ * (*i).start_height_));
+	out.push_back (Offset ((*i).iv_[LEFT], sky_ * (*i).height_[LEFT]));
 
       first = false;
-      out.push_back (Offset ((*i).iv_[RIGHT], sky_ * (*i).end_height_));
+      out.push_back (Offset ((*i).iv_[RIGHT], sky_ * (*i).height_[RIGHT]));
     }
 
   return out;
