@@ -621,6 +621,7 @@ ADD_INTERFACE (Grob,
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
+	       "outside-staff-padding "
 	       "outside-staff-priority "
 	       "rotation "
 	       "springs-and-rods "
