@@ -66,8 +66,19 @@ which scares away people.
 
 @end ignore
 
-@item Objects that belong outside of the staff are now positioned automatically to
-avoid collisions.
+@item Horizontal spacing now follows object outlines more
+accurately. This allows tighter horizontal spacing.
+
+@lilypond[fragment,ragged-right]
+{
+  \stemUp c''4...*1/2
+  ceses'!
+}
+@end lilypond
+
+
+@item Objects that belong outside of the staff are
+now positioned automatically to avoid collisions.
 
 @lilypond[fragment,ragged-right,relative=1]
   \override TextScript #'outside-staff-priority = #1
