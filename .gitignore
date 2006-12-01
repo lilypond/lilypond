@@ -31,3 +31,4 @@ gcstat*.scm
 *-systems.texi
 *-systems.tex
 *-midi.ly
+.dotest
