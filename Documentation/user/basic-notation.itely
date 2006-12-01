@@ -1777,8 +1777,7 @@ b b
 @end lilypond
 
 In combination with Frenched staves, this may be used to typeset ossia
-sections. An example is in @inputfileref{input/@/test@/,ossia.ly},
-shown here
+sections. An example is shown here
 
 @cindex ossia
 

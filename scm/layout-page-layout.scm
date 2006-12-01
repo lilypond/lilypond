@@ -89,7 +89,10 @@
 
 (define (first-line-position line layout)
   "Position of the first line on page"
-  (max (+ (ly:output-def-lookup layout 'page-top-space)
+  (max (+ (if (ly:prob-property? line 'is-title)
+	      ;; do not use page-top-space if first line is a title
+	      0.0
+	    (ly:output-def-lookup layout 'page-top-space))
 	  (interval-end (paper-system-staff-extents line)))
        (interval-end (paper-system-extent line Y))))
 
