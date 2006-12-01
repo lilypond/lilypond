@@ -1366,7 +1366,6 @@
     (SeparationItem
      . (
 	(avoid-slur . inside)
-	(skylines . ,ly:separation-item::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
