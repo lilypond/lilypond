@@ -49,6 +49,16 @@ equal (Real x, Real y)
   return abs (x - y) < EPS || (isinf (x) && isinf (y) && ((x > 0) == (y > 0)));
 }
 
+void
+Skyline::print () const
+{
+  for (list<Building>::const_iterator i = buildings_.begin ();
+       i != buildings_.end (); i++)
+    {
+      (*i).print ();
+    }
+}
+
 bool
 Skyline::is_legal_skyline () const
 {
@@ -90,8 +100,15 @@ Building::precompute (Real max_slope)
     slope_ = 0;
   if (isinf (slope_) || isnan (slope_))
     slope_ = max_slope * (start_height_ < end_height_ ? 1 : -1);
-  assert (abs (slope_) <= max_slope);
 
+#if 0
+  /*
+    this check is sensitive to roundoff errors when converting to/from
+    sequences of points.
+   */
+  assert (abs (slope_) <= max_slope + EPS);
+#endif
+  
   if (isinf (iv_[START]))
     {
       if (isinf (iv_[STOP]))
@@ -109,6 +126,14 @@ Building::height (Real x) const
   if (isinf (x))
     return (x > 0) ? end_height_ : start_height_;
   return slope_*x + zero_height_;
+}
+
+void
+Building::print () const
+{
+  printf ("X[%f,%f] -> Y[%f,%f]\n",
+	  iv_[LEFT], iv_[RIGHT],
+	  start_height_, end_height_);
 }
 
 Real
@@ -243,8 +268,12 @@ Skyline::Skyline (Direction sky)
   empty_skyline (&buildings_);
 }
 
+/*
+  build skyline from a set of boxes.
 
-Skyline::Skyline (vector<Box> const &boxes, Axis a, Direction sky)
+  Boxes should have fatness in the horizon_axis, otherwise they are ignored.
+ */
+Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
 {
   list<Building> bldgs;
   sky_ = sky;
@@ -252,8 +281,8 @@ Skyline::Skyline (vector<Box> const &boxes, Axis a, Direction sky)
 
   for (vsize i = 0; i < boxes.size (); i++)
     {
-      Interval iv = boxes[i][a];
-      Real height = sky * boxes[i][other_axis (a)][sky];
+      Interval iv = boxes[i][horizon_axis];
+      Real height = sky * boxes[i][other_axis (horizon_axis)][sky];
       if (!iv.is_empty () && !isinf (height) && !equal (iv[LEFT], iv[RIGHT]))
 	bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_));
     }
@@ -269,7 +298,9 @@ Skyline::Skyline (vector<Offset> const &points, Real max_slope, Direction sky)
   for (vsize i = 1; i < points.size (); i++)
     {
       buildings_.push_back (Building (points[i-1][X_AXIS], sky * points[i-1][Y_AXIS],
-				      points[i][X_AXIS], sky * points[i][Y_AXIS],
+				      sky * points[i][Y_AXIS],
+
+				      points[i][X_AXIS], 
 				      max_slope));
 
     }
@@ -400,6 +431,7 @@ Skyline::to_points () const
     {
       if (first)
 	out.push_back (Offset ((*i).iv_[LEFT], sky_ * (*i).start_height_));
+
       first = false;
       out.push_back (Offset ((*i).iv_[RIGHT], sky_ * (*i).end_height_));
     }

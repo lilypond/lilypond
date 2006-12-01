@@ -29,6 +29,7 @@ struct Building
 
   void precompute (Real max_slope);
   Building (Real start, Real start_height, Real end_height, Real end, Real max_slope);
+  void print () const;
 
   Real height (Real x) const;
   Real intersection (Building const &other) const;
@@ -57,6 +58,7 @@ public:
   vector<Offset> to_points () const;
   void merge (Skyline const &);
   void insert (Box const &, Axis);
+  void print () const;
   void raise (Real);
   Real distance (Skyline const &) const;
   Real height (Real airplane) const;
