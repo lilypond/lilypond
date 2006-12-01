@@ -23,7 +23,8 @@ struct Separation_item
   static Interval width (Grob *);
   static Interval relative_width (Grob *, Grob *);
   static Grob *extremal_break_aligned_grob (Grob *, Direction, Interval *);
-  static void set_distance (Item *, Item *, Real);
+  static void set_distance (Drul_array<Item *>, Real);
+  static void set_skyline_distance (Drul_array<Item*>, Real);
   static void add_item (Grob *, Item *);
   static void add_conditional_item (Grob *, Grob *);
 };

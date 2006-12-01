@@ -34,10 +34,10 @@ Separating_group_spanner::find_rods (Item *r,
 
       if (lb)
 	{
-	  Separation_item::set_distance (lb, r, padding);
+	  Separation_item::set_distance (Drul_array<Item*> (lb, r), padding);
 	}
 
-      Separation_item::set_distance (l, r, padding);
+      Separation_item::set_distance (Drul_array<Item *> (l, r), padding);
 
       /*
 	this grob doesn't cause a constraint. We look further until we

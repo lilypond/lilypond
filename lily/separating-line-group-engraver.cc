@@ -108,11 +108,11 @@ Separating_line_group_engraver::finalize ()
 void
 Separating_line_group_engraver::acknowledge_item (Grob_info i)
 {
-  Item *it = dynamic_cast<Item *> (i.grob ());
-  if (!it)
-    return;
+  Item *it = i.item ();
   if (it->get_parent (X_AXIS)
-      && Axis_group_interface::has_axis (it->get_parent (X_AXIS), X_AXIS))
+      && it->get_parent (X_AXIS) == it->get_parent (Y_AXIS)
+      && Axis_group_interface::has_axis (it->get_parent (X_AXIS), X_AXIS)
+      && Axis_group_interface::has_axis (it->get_parent (Y_AXIS), Y_AXIS))
     return;
 
   if (to_boolean (it->get_property ("no-spacing-rods")))

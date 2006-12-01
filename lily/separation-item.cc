@@ -28,17 +28,54 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 }
 
 void
-Separation_item::set_distance (Item *l, Item *r,
+Separation_item::set_skyline_distance (Drul_array<Item *> items,
+				       Real padding)
+{
+  Drul_array<Skyline> lines;
+  Direction d = LEFT;
+
+  do
+    {
+      SCM prop = items[d]->get_property ("skylines");
+      lines[d] =
+	Skyline (ly_scm2offsets (index_get_cell (prop, -d)),
+		 2.0,
+		 -d);
+    }
+  while (flip (&d) != LEFT);
+
+  Real dist = padding + lines[LEFT].distance (lines[RIGHT]);
+  if (dist > 0)
+    {
+      Rod rod;
+
+      rod.item_drul_ = items;
+
+      rod.distance_ = dist;
+      rod.add_to_cols ();
+    }  
+}
+
+void
+Separation_item::set_distance (Drul_array<Item *> items,
 			       Real padding)
 {
-  Interval li (Separation_item::width (l));
-  Interval ri (Separation_item::conditional_width (r, l));
+#if 0
+  if (0 && !Item::is_non_musical (items[LEFT])
+      && !Item::is_non_musical (items[RIGHT]))
+    {
+      set_skyline_distance (items, padding);
+      return;
+    }
+#endif
+  
+  Interval li (Separation_item::width (items[LEFT]));
+  Interval ri (Separation_item::conditional_width (items[RIGHT], items[LEFT]));
   if (!li.is_empty () && !ri.is_empty ())
     {
       Rod rod;
 
-      rod.item_drul_[LEFT] = l;
-      rod.item_drul_[RIGHT] = r;
+      rod.item_drul_ = items;
 
       rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
 
@@ -65,9 +102,8 @@ Separation_item::conditional_width (Grob *me, Grob *left)
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
 	{
-	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error ("Separation_item:  I've been drinking too much");
-	  continue;		/*UGH UGH*/
+	  programming_error ("Separation_item element from wrong column");
+	  continue;
 	}
 
       if (to_boolean (il->get_property ("no-spacing-rods")))
@@ -92,9 +128,10 @@ Separation_item::calc_skylines (SCM smob)
   SCM lines = scm_cons (SCM_BOOL_F,SCM_BOOL_F);
 
   Direction d = LEFT;
+  vector<Box> bs = boxes (me);
   do
     {
-      Skyline l (boxes (me), X_AXIS, d);
+      Skyline l (bs, Y_AXIS, d);
       index_set_cell (lines, d, ly_offsets2scm (l.to_points ()));
     }
   while (flip (&d) != LEFT);
@@ -126,8 +163,9 @@ Separation_item::boxes (Grob *me)
       if (to_boolean (il->get_property ("no-spacing-rods")))
 	continue;
 
-      Box b (il->extent (pc, X_AXIS),
-	     il->pure_height (ycommon, 0, very_large));
+      Interval y (il->pure_height (ycommon, 0, very_large));
+      y.widen (0.01);		// fixme
+      Box b (il->extent (pc, X_AXIS), y);
 
       out.push_back (b);
     }
@@ -229,4 +267,5 @@ ADD_INTERFACE (Separation_item,
 	       "conditional-elements "
 	       "elements"
 	       "padding "
+	       "skylines "
 	       );

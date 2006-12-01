@@ -342,6 +342,7 @@ note that starts here.")
 object.")
      (side-axis ,number? "If the value is #X (or equivalently 1), the object is placed horizontally next to the other object. If the value is #Y or 0, it is placed vertically.")
      (size ,number? "Size of object, relative to standard size.")
+     (skylines ,pair? "A pair of lists of (x height) pairs.")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (space-alist ,list? "A table that specifies distances between
