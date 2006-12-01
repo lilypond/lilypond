@@ -304,6 +304,20 @@ Accidental_placement::calc_positioning_done (SCM smob)
   uniq (heads);
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
 
+  vector<Grob *> stems;
+  for (vsize i = 0; i < heads.size  (); i++)
+    {
+      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
+	{
+	  stems.push_back (s);
+	  common[Y_AXIS] = s->common_refpoint (common[Y_AXIS], Y_AXIS);
+	}
+    }
+
+  vector_sort (stems, less<Grob*> ());
+  uniq (stems);
+  
+
   for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
@@ -351,15 +365,6 @@ Accidental_placement::calc_positioning_done (SCM smob)
       insert_extent_into_skyline (&head_skyline, b, Y_AXIS, LEFT);
     }
 
-  vector<Grob *> stems;
-  for (vsize i = 0; i < heads.size  (); i++)
-    {
-      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
-	stems.push_back (s);
-    }
-  
-  vector_sort (stems, less<Grob*> ());
-  uniq (stems);
   for (vsize i = 0; i < stems.size (); i ++)
     {
       int very_large = INT_MAX;
