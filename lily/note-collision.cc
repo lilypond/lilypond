@@ -247,6 +247,22 @@ check_meshing_chords (Grob *me,
     shift_amount *= 0.17;
 
   /*
+    
+  */
+  if (full_collide
+      && dnball_type * upball_type == 0)
+    {
+      if (upball_type == 0 && dnball_type == 1)
+	shift_amount *= 1.25;
+      else if (upball_type == 0 && dnball_type == 2)
+	shift_amount *= 1.35;
+      else if (dnball_type == 0 && upball_type == 1)
+	shift_amount *= 0.7;
+      else if (dnball_type == 0 && upball_type == 2)
+	shift_amount *= 0.75;
+    }
+  
+  /*
    * Fix issue #44:
    *
    * Dots from left note head collide with right note head. Only occurs
