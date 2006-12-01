@@ -98,10 +98,14 @@
 
 (define (script-to-mmrest-text music)
   "Extract 'direction and 'text from SCRIPT-MUSIC, and transform MultiMeasureTextEvent"
+
   (if (memq 'script-event (ly:music-property music 'types))
       
-      (let ((dir (ly:music-property music 'direction))
-	    (p   (make-music 'MultiMeasureTextEvent
+      (let*
+	  ((dir (ly:music-property music 'direction))
+	   (tags (ly:music-property music 'tags))
+	   (p   (make-music 'MultiMeasureTextEvent
+			     'tags tags
 			     'text (ly:music-property music 'text))))
 	(if (ly:dir? dir)
 	    (set! (ly:music-property p 'direction) dir))
