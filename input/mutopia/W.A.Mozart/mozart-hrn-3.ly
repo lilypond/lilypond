@@ -49,7 +49,6 @@ virtuoso that taught in Geneva.
 \include "mozart-hrn3-rondo.ily"
 
 \paper {
-    between-system-padding = 0.0
     between-system-space = 20 \mm
 }
 
