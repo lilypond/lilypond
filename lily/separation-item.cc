@@ -31,20 +31,17 @@ void
 Separation_item::set_skyline_distance (Drul_array<Item *> items,
 				       Real padding)
 {
-  Drul_array<Skyline> lines;
+  Drul_array<Skyline*> lines;
   Direction d = LEFT;
 
   do
     {
       SCM prop = items[d]->get_property ("skylines");
-      lines[d] =
-	Skyline (ly_scm2offsets (index_get_cell (prop, -d)),
-		 2.0,
-		 -d);
+      lines[d] = Skyline::unsmob (index_get_cell (prop, -d));
     }
   while (flip (&d) != LEFT);
 
-  Real dist = padding + lines[LEFT].distance (lines[RIGHT]);
+  Real dist = padding + lines[LEFT]->distance (*lines[RIGHT]);
   if (dist > 0)
     {
       Rod rod;
@@ -60,14 +57,12 @@ void
 Separation_item::set_distance (Drul_array<Item *> items,
 			       Real padding)
 {
-#if 0
-  if (0 && !Item::is_non_musical (items[LEFT])
+  if (!Item::is_non_musical (items[LEFT])
       && !Item::is_non_musical (items[RIGHT]))
     {
       set_skyline_distance (items, padding);
       return;
     }
-#endif
   
   Interval li (Separation_item::width (items[LEFT]));
   Interval ri (Separation_item::conditional_width (items[RIGHT], items[LEFT]));
@@ -132,7 +127,7 @@ Separation_item::calc_skylines (SCM smob)
   do
     {
       Skyline l (bs, Y_AXIS, d);
-      index_set_cell (lines, d, ly_offsets2scm (l.to_points ()));
+      index_set_cell (lines, d, l.smobbed_copy ());
     }
   while (flip (&d) != LEFT);
 
