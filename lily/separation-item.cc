@@ -258,7 +258,7 @@ Separation_item::extremal_break_aligned_grob (Grob *me,
 
 ADD_INTERFACE (Separation_item,
 	       "Item that computes widths to generate spacing rods. "
-	       "This is done in concert with @ref{separation-group-spanner-interface}.",
+	       "This is done in concert with @ref{separating-group-spanner-interface}.",
 
 	       "X-extent "
 	       "conditional-elements "
