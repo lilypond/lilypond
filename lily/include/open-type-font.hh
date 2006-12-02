@@ -9,13 +9,9 @@
 #ifndef OPEN_TYPE_FONT_HH
 #define OPEN_TYPE_FONT_HH
 
-#include <map>
-using namespace std;
 
-#include "freetype.hh"
 #include "font-metric.hh"
 
-typedef map<FT_UInt, FT_ULong> Index_to_charcode_map;
 Index_to_charcode_map make_index_to_charcode_map (FT_Face face);
 void get_unicode_name (char*s, FT_ULong code);
 void get_glyph_index_name (char*s, FT_ULong code);
@@ -57,5 +53,6 @@ public:
 
 string get_otf_table (FT_Face face, string tag);
 FT_Face open_ft_face (string str);
+
 
 #endif /* OPEN_TYPE_FONT_HH */

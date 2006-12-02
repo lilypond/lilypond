@@ -13,6 +13,12 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 #include "virtual-methods.hh"
+#include "freetype.hh"
+
+#include <map>
+using namespace std;
+
+typedef map<FT_UInt, FT_ULong> Index_to_charcode_map;
 
 class Font_metric
 {

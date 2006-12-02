@@ -15,9 +15,6 @@
 /* Ugh.  */
 
 #include "pango-font.hh"
-
-#include "open-type-font.hh"	// Index_to_charcode_map
-
 #include "dimensions.hh"
 #include "file-name.hh"
 #include "international.hh"
@@ -25,6 +22,7 @@
 #include "main.hh"
 #include "string-convert.hh"
 #include "warn.hh"
+#include "all-font-metrics.hh"
 
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
@@ -81,22 +79,6 @@ Pango_font::derived_mark () const
   scm_gc_mark (physical_font_tab_);
 }
 
-
-map<string, Index_to_charcode_map > filename_charcode_maps_map;
-Index_to_charcode_map const *get_index_to_charcode_map (string postscript_name, FT_Face face);
-
-
-Index_to_charcode_map const *
-get_index_to_charcode_map (string filename, FT_Face face)
-{
-  if (filename_charcode_maps_map.find (filename) == filename_charcode_maps_map.end ())
-    filename_charcode_maps_map[filename] = make_index_to_charcode_map (face);
-
-  if (filename_charcode_maps_map.find (filename) == filename_charcode_maps_map.end ())
-    return 0;
-  
-  return &filename_charcode_maps_map[filename];
-}
 
 void
 get_glyph_index_name (char *s, FT_ULong code)
@@ -165,7 +147,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   Index_to_charcode_map const *cmap = 0;
   bool has_glyph_names = ftface->face_flags & FT_FACE_FLAG_GLYPH_NAMES;
   if  (! has_glyph_names)
-    cmap = get_index_to_charcode_map (file_name, ftface);
+    cmap = all_fonts_global->get_index_to_charcode_map (file_name, ftface);
 
   bool is_ttf = string (FT_Get_X11_Font_Format (ftface)) == "TrueType";
   bool cid_keyed = false;
