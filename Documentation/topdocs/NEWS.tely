@@ -94,7 +94,9 @@ now positioned automatically to avoid collisions.
 uneven vertical spacing.
 
 @lilypond[ragged-right]
-#(set-default-paper-size "a6" 'landscape)
+
+%% todo: fix 'landscape PDF.
+#(set-default-paper-size "a6" )
 \header {
   tagline = ##f
 }

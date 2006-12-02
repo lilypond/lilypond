@@ -316,6 +316,20 @@ Accidental_placement::calc_positioning_done (SCM smob)
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
   common[Y_AXIS] = common_refpoint_of_array (stems, common[Y_AXIS], Y_AXIS);
 
+  vector<Grob *> stems;
+  for (vsize i = 0; i < heads.size  (); i++)
+    {
+      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
+	{
+	  stems.push_back (s);
+	  common[Y_AXIS] = s->common_refpoint (common[Y_AXIS], Y_AXIS);
+	}
+    }
+
+  vector_sort (stems, less<Grob*> ());
+  uniq (stems);
+  
+
   for (vsize i = apes.size (); i--;)
     {
       Accidental_placement_entry *ape = apes[i];
