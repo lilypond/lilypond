@@ -309,13 +309,15 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
      it probably means that the Alignment was fixed and it has already been
      calculated.
   */
-  Grob *p = get_parent (Y_AXIS);
-  Real trans = 0;
-  if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
-    trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
+  if (Grob *p = get_parent (Y_AXIS))
+    {
+      Real trans = 0;
+      if (Align_interface::has_interface (p) && !dim_cache_[Y_AXIS].offset_)
+	trans = Align_interface::get_pure_child_y_translation (p, this, start, end);
 
-  return off + trans
-    + dim_cache_[Y_AXIS].parent_->pure_relative_y_coordinate (refp, start, end);
+      return off + trans + p->pure_relative_y_coordinate (refp, start, end);
+    }
+  return off;
 }
 
 /* Invoke callbacks to get offset relative to parent.  */
