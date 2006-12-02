@@ -399,7 +399,24 @@ The syntax is the same as `define*-public'."
 	     (format outfile "~a: ~a\n" (car x) (cdr x)))
 	   (sort (gc-live-object-stats)
 		 (lambda (x y)
-		   (string<? (car x) (car y)))))))))
+		   (string<? (car x) (car y)))))))
+
+
+    (newline outfile)
+    (let*
+	((stats (gc-stats)))
+      
+      (for-each
+       (lambda (sym)
+	 (display
+	  (format "~a ~a ~a\n"
+		  gc-protect-stat-count
+		  sym
+		  (cdr (assoc sym stats)))
+	  outfile))
+       '(protected-objects bytes-malloced cell-heap-size)))
+    
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
