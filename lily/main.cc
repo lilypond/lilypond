@@ -609,6 +609,12 @@ setup_guile_env ()
   sane_putenv ("GUILE_MIN_YIELD_1", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
+
+
+  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1",
+	       "10485760", overwrite);
+  sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
+	       "104857600", overwrite);
 }
 
 void
