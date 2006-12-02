@@ -600,7 +600,7 @@ setup_guile_env ()
   bool overwrite = true;
   if (!yield)
     {
-      yield = "70";
+      yield = "65";
       overwrite = false;
     }
 
