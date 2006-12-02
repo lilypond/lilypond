@@ -575,6 +575,7 @@
 	(minimum-space . 1.2)
 	(direction . ,DOWN)
 	(side-axis . ,Y)
+	(outside-staff-priority . 250)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(meta . ((class . Spanner)
@@ -601,6 +602,7 @@
 	(avoid-slur . around)
 	(no-spacing-rods . #t)
 	(script-priority . 100)
+	(outside-staff-priority . 300)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				text-interface
@@ -1156,6 +1158,7 @@
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
 	(direction . ,UP)
+	(outside-staff-priority . 400)
 	(meta . ((class . Spanner)
 		 (interfaces . (ottava-bracket-interface
 				horizontal-bracket-interface
@@ -1269,6 +1272,7 @@
 	(break-visibility . ,end-of-line-invisible)
 	(break-align-symbol . staff-bar)
 	(padding . 0.8)
+	(outside-staff-priority . 1000)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface
@@ -1367,9 +1371,9 @@
     (SeparationItem
      . (
 	(avoid-slur . inside)
-	(skylines . ,ly:separation-item::calc-skylines)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(skylines . ,ly:separation-item::calc-skylines)
 	(meta . ((class . Item)
 		 (interfaces . (spacing-interface
 				separation-item-interface))))))
@@ -1738,6 +1742,7 @@
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 
+	(outside-staff-priority . 450)
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
@@ -1759,6 +1764,7 @@
 	(dash-period . 3.0)
 	(side-axis . ,Y)
 	(direction . ,UP)
+	(outside-staff-priority . 350)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				line-spanner-interface
@@ -1835,6 +1841,7 @@
 	(direction . ,UP)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
+	(outside-staff-priority . 50)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				line-spanner-interface
@@ -1988,6 +1995,7 @@
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(minimum-space . 5)
 	(font-size . -4)
+	(outside-staff-priority . 100)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface
 				horizontal-bracket-interface				

@@ -53,7 +53,7 @@ Separation_item::set_skyline_distance (Drul_array<Item *> items,
     }  
 }
 
-void
+bool
 Separation_item::set_distance (Drul_array<Item *> items,
 			       Real padding)
 {
@@ -61,7 +61,7 @@ Separation_item::set_distance (Drul_array<Item *> items,
       && !Item::is_non_musical (items[RIGHT]))
     {
       set_skyline_distance (items, padding);
-      return;
+      return true;
     }
   
   Interval li (Separation_item::width (items[LEFT]));
@@ -76,7 +76,9 @@ Separation_item::set_distance (Drul_array<Item *> items,
 
       if (rod.distance_  > 0)
 	rod.add_to_cols ();
+      return true;
     }
+  return false;
 }
 
 /*

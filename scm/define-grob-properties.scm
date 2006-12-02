@@ -274,6 +274,8 @@ get stems extending to the middle staff line.")
      (non-musical ,boolean? "True if the grob belongs in a NonMusicalPaperColumn.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
+     (outside-staff-padding ,number? "The padding to place between this grob and the staff when
+spacing according to outside-staff-priority.")
      (outside-staff-priority ,number? "When set, the grob will be positioned outside the staff
 in such a way as to avoid all collisions. In case of a potential collision, the grob with
 the smaller outside-staff-priority will be closer to the staff.")

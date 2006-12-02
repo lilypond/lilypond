@@ -269,6 +269,22 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   return rank_1 < rank_2;
 }
 
+static void
+add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes)
+{
+  if (Axis_group_interface::has_interface (me)
+      && Axis_group_interface::has_axis (me, Y_AXIS))
+    {
+      Grob_array *elements = unsmob_grob_array (me->get_object ("elements"));
+      if (elements)
+	for (vsize i = 0; i < elements->size (); i++)
+	  add_boxes (elements->grob (i), x_common, y_common, boxes);
+    }
+  else
+    boxes->push_back (Box (me->extent (x_common, X_AXIS),
+			   me->extent (y_common, Y_AXIS)));
+}
+
 void
 Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 {
@@ -281,9 +297,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
   for (i = 0; i < elements.size ()
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
-    boxes.push_back (Box (elements[i]->extent (x_common, X_AXIS),
-			  elements[i]->extent (y_common, Y_AXIS)));
-
+    add_boxes (elements[i], x_common, y_common, &boxes);
 
   Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
 				Skyline (boxes, X_AXIS, UP));
@@ -298,10 +312,17 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       Box b (elements[i]->extent (x_common, X_AXIS),
 	     elements[i]->extent (y_common, Y_AXIS));
+      if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+	{
+	  warning (_f ("outside-staff object %s has an empty extent", elements[i]->name ().c_str ()));
+	  continue;
+	}
+
       boxes.clear ();
       boxes.push_back (b);
       Skyline other = Skyline (boxes, X_AXIS, -dir);
-      Real dist = skylines[dir].distance (other);
+      Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
+      Real dist = skylines[dir].distance (other) + padding;
 
       if (dist > 0)
 	{

@@ -302,7 +302,19 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
   vector_sort (heads, less<Grob*> ());
   uniq (heads);
+
+  vector<Grob *> stems;
+  for (vsize i = 0; i < heads.size  (); i++)
+    {
+      if (Grob *s = Rhythmic_head::get_stem (heads[i]))
+	stems.push_back (s);
+    }
+  
+  vector_sort (stems, less<Grob*> ());
+  uniq (stems);
+
   common[Y_AXIS] = common_refpoint_of_array (heads, common[Y_AXIS], Y_AXIS);
+  common[Y_AXIS] = common_refpoint_of_array (stems, common[Y_AXIS], Y_AXIS);
 
   vector<Grob *> stems;
   for (vsize i = 0; i < heads.size  (); i++)
