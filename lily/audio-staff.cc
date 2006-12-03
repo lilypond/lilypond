@@ -18,6 +18,11 @@ Audio_staff::add_audio_item (Audio_item *l)
   audio_items_.push_back (l);
 }
 
+Audio_staff::Audio_staff ()
+{
+  channel_ = -1; 
+}
+
 void
 Audio_staff::output (Midi_stream &midi_stream, int channel)
 {
