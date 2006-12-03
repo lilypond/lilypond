@@ -154,7 +154,6 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 	ln -s $(TOPLEVEL_VERSION) $(tree-share-prefix-current)
 	mkdir -p $(tree-lib-prefix)
 	ln -s $(TOPLEVEL_VERSION) $(tree-lib-prefix-current)
-	mkdir -p $(tree-share-prefix)/dvips
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -177,9 +176,6 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
 		ln -s ../../../../python/$(outconfbase) python && \
 		ln -s $(top-src-dir)/scm && \
 		ln -s $(top-src-dir)/scripts scripts
-	cd $(tree-share-prefix)/dvips && \
-		ln -s ./../../../mf/$(outconfbase) mf-out && \
-		ln -s $(top-src-dir)/ps
 	cd $(tree-share-prefix)/tex && \
 		ln -s $(top-src-dir)/tex source && \
 		ln -s ../../../../../tex/$(outconfbase) tex-out && \

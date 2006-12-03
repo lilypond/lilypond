@@ -313,7 +313,6 @@ def symlink_tree (target, source, env):
           ('scripts/',   'bin/lilypond-book'),
           ('scripts/',   'bin/ps2png'),
           ('mf',     'share/lilypond/%(ver)s/dvips/mf-out'),
-          ('#ps',    'share/lilypond/%(ver)s/dvips/ps'),
           ('#ps/music-drawing-routines.ps',
            'share/lilypond/%(ver)s/tex/music-drawing-routines.ps'),
           ('mf',     'share/lilypond/%(ver)s/otf'),
@@ -438,7 +437,6 @@ def configure (target, source, env):
     #test_program (optional, 'foo', '2.0', 'Foomatic tester', 'bar')
     test_program (optional, 'bison', '1.25', 'Bison -- parser generator',
             'bison')
-    test_program (optional, 'dvips', '0.0', 'Dvips', 'tetex-bin')
     test_program (optional, 'fontforge', '0.0.20050624', 'FontForge',
               'fontforge')
     test_program (optional, 'flex', '0.0', 'Flex -- lexer generator',
