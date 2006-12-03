@@ -538,7 +538,7 @@ The syntax is the same as `define*-public'."
        (ly:clear-anonymous-modules)
        (if (ly:get-option 'debug-gc)
 	   (dump-gc-protects)
-	   (if (= (rand 40) 1)
+	   (if (= (random 40) 1)
 	       (ly:reset-all-fonts))))
 
      files)
