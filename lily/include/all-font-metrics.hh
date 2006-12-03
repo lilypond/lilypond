@@ -18,7 +18,8 @@
 #include <pango/pangoft2.h>
 #endif
 
-/**
+
+/*
    Interface to all .afm files living in the filesystem.
 */
 class All_font_metrics
@@ -32,8 +33,13 @@ class All_font_metrics
   int pango_dpi_;
 #endif
 
+  map<string, Index_to_charcode_map > filename_charcode_maps_map_;
+  
   All_font_metrics (All_font_metrics const &);
 public:
+
+  Index_to_charcode_map const *get_index_to_charcode_map (string filename, FT_Face face);
+
   All_font_metrics (string search_path);
   ~All_font_metrics ();
 
@@ -49,6 +55,7 @@ public:
 };
 
 extern All_font_metrics *all_fonts_global;
+SCM ly_reset_all_fonts ();
 
 #endif /* ALL_FONTS_HH */
 

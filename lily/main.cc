@@ -393,8 +393,7 @@ main_with_guile (void *, int, char **)
   init_fontconfig ();
 
   init_freetype ();
-
-  all_fonts_global = new All_font_metrics (global_path.to_string ());
+  ly_reset_all_fonts ();
 
   if (!init_scheme_variables.empty ()
       || !init_scheme_code_string.empty ())
@@ -601,13 +600,19 @@ setup_guile_env ()
   bool overwrite = true;
   if (!yield)
     {
-      yield = "70";
+      yield = "65";
       overwrite = false;
     }
 
   sane_putenv ("GUILE_MIN_YIELD_1", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_2", yield, overwrite);
   sane_putenv ("GUILE_MIN_YIELD_MALLOC", yield, overwrite);
+
+
+  sane_putenv ("GUILE_INIT_SEGMENT_SIZE_1",
+	       "10485760", overwrite);
+  sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
+	       "104857600", overwrite);
 }
 
 void

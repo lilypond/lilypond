@@ -15,6 +15,18 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
+
+Index_to_charcode_map const *
+All_font_metrics::get_index_to_charcode_map (string filename, FT_Face face)
+{
+  if (filename_charcode_maps_map_.find (filename)
+      == filename_charcode_maps_map_.end ())
+    filename_charcode_maps_map_[filename] = make_index_to_charcode_map (face);
+
+  return &filename_charcode_maps_map_[filename];
+}
+
+
 All_font_metrics::All_font_metrics (string path)
 {
   otf_dict_ = new Scheme_hash_table;
@@ -166,6 +178,17 @@ All_font_metrics::find_font (string name)
 
 All_font_metrics *all_fonts_global;
 
+LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0,
+	   (),
+	   "Forget all about previously loaded fonts. ")
+{
+  delete all_fonts_global;
+  all_fonts_global = new All_font_metrics (global_path.to_string ());
+
+  return SCM_UNSPECIFIED;
+}
+
+
 LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 	   (SCM name),
 	   "Load the font @var{name}. ")
@@ -176,4 +199,5 @@ LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 
   return fm->self_scm ();
 }
+
 

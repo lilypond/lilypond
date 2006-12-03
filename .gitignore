@@ -33,3 +33,7 @@ gcstat*.scm
 *-midi.ly
 a.out
 .dotest
+/.sconf_temp
+out-scons
+/.sconsign.dblite
+/scons.cache
