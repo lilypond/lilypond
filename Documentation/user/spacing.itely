@@ -814,6 +814,11 @@ c16[ c c8]
 @end lilypond
 
 
+The @code{\newSpacingSection} command creates a new
+@internalsref{SpacingSpanner} object, and hence new @code{\override}s
+may be used in that location.
+
+
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
