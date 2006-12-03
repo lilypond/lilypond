@@ -1,4 +1,6 @@
 
+\version "2.10.0"
+
 \score {
   \new DrumStaff <<
     \drummode {
