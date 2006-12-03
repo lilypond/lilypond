@@ -700,14 +700,6 @@ env.Append (
     LILYPOND_BOOK = BUILD_LILYPOND_BOOK,
     LILYPOND_BOOK_FORMAT = 'texi-html',
     MAKEINFO_FLAGS = '--css-include=$srcdir/Documentation/texinfo.css',
-    # PYTHONPATH = ['$absbuild/python/$out'],
-    TEXI2DVI_PAPERSIZE = '@afourpaper',
-    TEXI2DVI_FLAGS = [ '-t$TEXI2DVI_PAPERSIZE'],
-    DVIPS_PAPERSIZE = 'a4',
-    DVIPS_FLAGS = ['-t$DVIPS_PAPERSIZE',
-               '-u+lilypond.map',
-               '-u+ec-mftrace.map'],
-    PSPDF_FLAGS = ['-sPAPERSIZE=$DVIPS_PAPERSIZE'],
     )
 
 env.Append (CCFLAGS = ['-pipe', '-Wno-pmf-conversions'])
