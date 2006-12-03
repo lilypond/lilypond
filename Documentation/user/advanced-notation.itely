@@ -1849,7 +1849,7 @@ seven sixteenths notes.
 @subsection Proportional notation
 @cindex Proportional notation
 
-Notes can be spaced proportional to their time-difference by
+Notes can be spaced proportionally to their time-difference by
 assigning a duration to @code{proportionalNotationDuration}
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
@@ -1859,6 +1859,36 @@ assigning a duration to @code{proportionalNotationDuration}
   \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
 >>
 @end lilypond
+
+Setting this property only affects the ideal spacing between
+consecutive notes.  For true proportional notation, the following
+settings are also required.
+
+@itemize @bullet
+
+@item True proportional notation requires that symbols are allowed to
+overstrike each other.  That is achieved by removing the
+@internalsref{Separating_line_group_engraver} from
+@internalsref{Staff} context.
+
+@item Spacing influence of  prefatory matter (clefs, bar lines, etc.)
+is removed by setting the @code{strict-note-spacing} property to
+@code{#t} in @internalsref{SpacingSpanner} grob.
+
+@item Optical spacing tweaks are switched by setting 
+@code{uniform-stretching} in @internalsref{SpacingSpanner} to true.
+
+
+@end itemize
+
+@seealso
+
+@inputfileref{input/@/regression,spacing-proportional/.ly}
+@inputfileref{input/@/regression,spacing-strict-notespacing/.ly}
+@inputfileref{input/@/regression,spacing-strict-spacing-grace/.ly}
+
+An example of strict proportional notation is in the
+example file @file{input/proportional.ly}.
 
 
 @node Clusters
