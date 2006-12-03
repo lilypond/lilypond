@@ -220,7 +220,8 @@ single_skyline (Building const &b, list<Building> *const ret, Real max_slope)
   if (!isinf (b.iv_[RIGHT]))
     ret->push_front (Building (b.iv_[RIGHT], b.height_[RIGHT],
 			       -infinity_f, infinity_f, max_slope));
-  ret->push_front (b);
+  if (b.iv_[RIGHT] > b.iv_[LEFT])
+    ret->push_front (b);
   if (!isinf (b.iv_[LEFT]))
     ret->push_front (Building (-infinity_f, -infinity_f,
 			       b.height_[LEFT], b.iv_[LEFT], max_slope));

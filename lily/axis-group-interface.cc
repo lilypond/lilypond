@@ -87,6 +87,8 @@ Axis_group_interface::cached_pure_height (Grob *me,
       if (end == r)
 	end_index = i;
     }
+  if (end == INT_MAX)
+    end_index = breaks.size () - 1;
 
   if (start_index == VPOS || end_index == VPOS)
     {
