@@ -43,6 +43,7 @@ Performance::output (Midi_stream &midi_stream)
 
   midi_stream << Midi_header (1, tracks_, clocks_per_4);
   message (_ ("Track...") + " ");
+  
   int channel = 0;
   for (vsize i = 0; i < audio_staffs_.size (); i++)
     {
@@ -50,30 +51,37 @@ Performance::output (Midi_stream &midi_stream)
       if (be_verbose_global)
 	progress_indication ("[" + to_string (i));
 
-      /*
-	MIDI players tend to ignore instrument settings on
-	channel 10, the percussion channel by default.
-      */
-      if (channel % 16 == 9)
-	channel++;
+      int midi_channel =  s->channel_;
+
+      if (midi_channel < 0)
+	{
+	  midi_channel = channel;
+	  channel ++;
+	  /*
+	    MIDI players tend to ignore instrument settings on
+	    channel 10, the percussion channel.
+	  */
+	  if (channel % 16 == 9)
+	    channel ++;
+	}
 
       /*
 	Huh? Why does each staff also have a separate channel? We
 	should map channels to voices, not staves. --hwn.
       */
-      if (channel > 15)
+      if (midi_channel > 15)
 	{
 	  warning (_ ("MIDI channel wrapped around"));
 	  warning (_ ("remapping modulo 16"));
+
+	  midi_channel = midi_channel % 16; 
 	}
 
-      s->output (midi_stream, channel);
-      channel ++;
+      s->output (midi_stream, midi_channel);
       if (be_verbose_global)
 	progress_indication ("]");
     }
 }
-
 void
 Performance::add_element (Audio_element *p)
 {
