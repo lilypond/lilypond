@@ -419,14 +419,13 @@ def configure (target, source, env):
 
     required = []
     test_program (required, 'bash', '2.0', 'Bash', 'bash')
-    test_program (required, 'gcc', '2.8', 'GNU C compiler', 'gcc')
-    test_program (required, 'g++', '3.0.5', 'GNU C++ compiler', 'g++')
-    test_program (required, 'guile-config', '1.6', 'GUILE development',
+    test_program (required, 'gcc', '4.0', 'GNU C compiler', 'gcc')
+    test_program (required, 'g++', '4.0.5', 'GNU C++ compiler', 'g++')
+    test_program (required, 'guile-config', '1.8', 'GUILE development',
             'libguile-dev or guile-devel')
     test_program (required, 'mf', '0.0', 'Metafont', 'tetex-bin')
-    test_program (required, 'mftrace', '1.1.9',
+    test_program (required, 'mftrace', '1.1.19',
               'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
-    test_program (required, 'potrace', '0.0', 'Potrace', 'potrace')
     test_program (required, 'python', '2.1', 'Python (www.python.org)',
               'python')
     # Silly, and breaks with /bin/sh == dash
@@ -441,16 +440,13 @@ def configure (target, source, env):
               'fontforge')
     test_program (optional, 'flex', '0.0', 'Flex -- lexer generator',
               'flex')
-    test_program (optional, 'guile', '1.6', 'GUILE scheme', 'guile')
+    test_program (optional, 'guile', '1.8', 'GUILE scheme', 'guile')
     test_program (optional, 'gs', '8.15',
               'Ghostscript PostScript interpreter',
               'gs or gs-afpl or gs-esp or gs-gpl')
-    test_program (optional, 'mftrace', '1.1.19', 'Metafont tracing Type1',
-            'mftrace')
-    test_program (optional, 'makeinfo', '4.7', 'Makeinfo tool', 'texinfo')
+    test_program (optional, 'makeinfo', '4.8', 'Makeinfo tool', 'texinfo')
     test_program (optional, 'perl', '4.0',
               'Perl practical efficient readonly language', 'perl')
-    #test_program (optional, 'ps2pdf', '0.0', 'Ps2pdf', 'gs')
 
     def CheckYYCurrentBuffer (context):
         context.Message ('Checking for yy_current_buffer... ')
@@ -716,7 +712,8 @@ env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
 # FIXME: ParseConfig ignores -L flag?
 env.Append (LINKFLAGS = ['-L/usr/X11R6/lib'])
 
-if env['verbose']:
+## UGH? 
+if env['verbose'] and env['verbose'] <> '0':
     env['__verbose'] = ' --verbose'
     env['set__x'] = 'set -x;'
 
