@@ -689,7 +689,7 @@ env.Append (
     libdir_package_version = libdir_package_version,
 
     # global build verbosity switch
-    __verbose = ' --verbose',
+    ## __verbose = ' --verbose',
     
     LILYPOND = BUILD_LILYPOND,
     ABC2LY = BUILD_ABC2LY,
