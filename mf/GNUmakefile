@@ -103,7 +103,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
+ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
