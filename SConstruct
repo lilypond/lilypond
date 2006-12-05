@@ -673,6 +673,9 @@ BUILD_ABC2LY = '${set__x}$PYTHON $srcdir/scripts/abc2ly.py'
 BUILD_LILYPOND = '$absbuild/lily/$out/lilypond ${__verbose}'
 BUILD_LILYPOND_BOOK = '$PYTHON $srcdir/scripts/lilypond-book.py ${__verbose}'
 
+if env['verbose'] and env['verbose'] != '0':
+    env['__verbose'] = ' --verbose'
+    env['set__x'] = 'set -x;'
 
 # post-option environment-update
 env.Append (
@@ -688,9 +691,6 @@ env.Append (
     libdir_package = libdir_package,
     libdir_package_version = libdir_package_version,
 
-    # global build verbosity switch
-    ## __verbose = ' --verbose',
-    
     LILYPOND = BUILD_LILYPOND,
     ABC2LY = BUILD_ABC2LY,
     LILYPOND_BOOK = BUILD_LILYPOND_BOOK,
@@ -711,12 +711,6 @@ if env['warnings']:
 env.Append (LINKFLAGS = ['-Wl,--export-dynamic'])
 # FIXME: ParseConfig ignores -L flag?
 env.Append (LINKFLAGS = ['-L/usr/X11R6/lib'])
-
-## UGH? 
-if env['verbose'] and env['verbose'] <> '0':
-    env['__verbose'] = ' --verbose'
-    env['set__x'] = 'set -x;'
-
 
 ## Explicit target and dependencies
 
@@ -748,10 +742,6 @@ if 'realclean' in COMMAND_LINE_TARGETS:
         os.unlink (config_cache)
     Exit (s)
 
-def symlink_tree ():
-    print "BOE"
-    raise urg
-    
 # Declare SConscript phonies 
 env.Alias ('minimal', config_cache)
 
@@ -967,3 +957,4 @@ for d in subdirs:
             env.BuildDir (b, d, duplicate = 0)
         SConscript (os.path.join (b, 'SConscript'))
 
+env.Command ('tree', ['#/VERSION', '#/SConstruct'], symlink_tree)
