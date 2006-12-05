@@ -763,11 +763,14 @@ to a score, for example,
 @example
 \score @{
   @var{...music...}
-  \midi @{  @}
+   \midi @{
+     \context @{
+       \Score
+       tempoWholesPerMinute = #(ly:make-moment 72 4)
+       @}
+     @}
 @}
 @end example
-
-FIXME
 
 The tempo is specified using the @code{\tempo} command.  In this
 example the tempo of quarter notes is set to 72 beats per minute.
