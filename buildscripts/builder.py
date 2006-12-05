@@ -278,21 +278,6 @@ def at_copy (target, source, env):
 AT_COPY = Builder (action = at_copy, src_suffix = ['.in', '.py', '.sh',])
 env.Append (BUILDERS = {'AT_COPY': AT_COPY})
 
-def at_copy_ext (target, source, env):
-  n = str (source[0])
-  s = open (n).read ()
-  for i in atvars:
-      if env.has_key (i):
-          s = string.replace (s, '@%s@'% i, env[i])
-  # whugh
-  e = os.path.splitext (n)[1]
-  t = str (target[0]) + e
-  open (t, 'w').write (s)
-
-AT_COPY_EXT = Builder (action = at_copy_ext, src_suffix = ['.py', '.sh',])
-env.Append (BUILDERS = {'AT_COPY_EXT': AT_COPY_EXT})
-
-
 MO = Builder (action = 'msgfmt -o $TARGET $SOURCE',
        suffix = '.mo', src_suffix = '.po')
 env.Append (BUILDERS = {'MO': MO})
