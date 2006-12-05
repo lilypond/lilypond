@@ -4,11 +4,10 @@ Import ('env', 'install', 'src_glob')
 py = src_glob ('*.py')
 c = src_glob ('*.c')
 
-pym = map (env.AT_COPY_EXT, py)
 cm = map (env.SharedObject, c)
 
-pym
+py
 cm
 
-install (cm + pym, env['sharedir_package_version'] + '/python')
+install (py, env['sharedir_package_version'] + '/python')
 install (cm, env['libdir_package_version'] + '/python')
