@@ -15,6 +15,7 @@
 #include "spacing-spanner.hh"
 #include "warn.hh"
 #include "moment.hh"
+#include "spacing-options.hh"
 
 /* Find the loose columns in POSNS, and drape them around the columns
    specified in BETWEEN-COLS.  */

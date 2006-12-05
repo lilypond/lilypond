@@ -7,9 +7,13 @@
 */
 
 #include "spacing-spanner.hh"
+
+#include "spacing-options.hh"
 #include "moment.hh"
 #include "paper-column.hh"
 #include "warn.hh"
+#include "pointer-group-interface.hh"
+#include "system.hh"
 
 /*
   LilyPond spaces by taking a simple-minded spacing algorithm, and
@@ -75,6 +79,34 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
     }
 }
 
+Moment *
+get_measure_length (Grob *column)
+{
+  Grob * sys = column->get_parent (X_AXIS);
+
+  extract_grob_set (sys, "columns", cols);
+
+  vsize col_idx = binary_search (cols, column,
+				 Paper_column::less_than);
+
+  if (col_idx == VPOS)
+    {
+      programming_error ( __FUNCTION__ + string (": Unknown column"));
+      return 0;
+    }
+  
+  do
+    {
+      if (Moment *len = unsmob_moment (cols[col_idx]->get_property ("measure-length")))
+	{
+	  return len;
+	}
+    }
+  while (col_idx-- != 0);
+  
+  return 0;
+}
+
 Real
 Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 			       Spacing_options const *options,
@@ -106,7 +138,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	several measures.
       */
 
-      Moment *dt = unsmob_moment (rc->get_property ("measure-length"));
+      Moment *dt = get_measure_length (lc);
       if (dt)
 	{
 	  delta_t = min (delta_t, *dt);

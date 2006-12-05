@@ -10,8 +10,10 @@
 
 #include <math.h>
 #include <cstdio>
+
 using namespace std;
 
+#include "spacing-options.hh"
 #include "international.hh"
 #include "main.hh"
 #include "moment.hh"

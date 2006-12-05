@@ -466,6 +466,7 @@ System::broken_col_range (Item const *left, Item const *right) const
   return ret;
 }
 
+
 /** Return all columns, but filter out any unused columns , since they might
     disrupt the spacing problem. */
 vector<Grob*>
