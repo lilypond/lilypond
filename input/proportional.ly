@@ -28,7 +28,6 @@
    \override Beam #'break-overshoot = #'(-0.5 . 1.0)
    \override TupletBracket #'break-overshoot = #'(-0.5 . 1.0)
    \override TupletBracket #'staff-padding = #3.5
-   \override PaperColumn #'used = ##t   %% check me, why necessary?  
  }
  \context {
    % we want over print if necessary.
