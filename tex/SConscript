@@ -1,5 +1,5 @@
 # -*-python-*-
 
 Import ('env', 'install', 'src_glob')
-sources = src_glob ('*.tex') + ['latin1.enc']
+sources = src_glob ('*.tex')
 install (sources, env['sharedir_package_version'] + '/tex')
