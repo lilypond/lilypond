@@ -9,6 +9,7 @@
 
 #include "staff-spacing.hh"
 
+#include "spacing-options.hh"
 #include "system.hh"
 #include "paper-column.hh"
 #include "column-x-positions.hh"

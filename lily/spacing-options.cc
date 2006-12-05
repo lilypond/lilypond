@@ -7,7 +7,7 @@
 
 */
 
-#include "spacing-spanner.hh"
+#include "spacing-options.hh"
 #include "grob.hh"
 #include "misc.hh"
 #include "moment.hh"
