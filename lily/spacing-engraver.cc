@@ -185,6 +185,7 @@ Spacing_engraver::stop_translation_timestep ()
     {
       musical_column->set_property ("shortest-playing-duration", proportional);
       musical_column->set_property ("shortest-starter-duration", proportional);
+      musical_column->set_property ("used", SCM_BOOL_T);
       return;
     }
 
