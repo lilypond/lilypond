@@ -23,9 +23,6 @@
 
 #include "translator.icc"
 
-/**
-   Make stems upon receiving noteheads.
-*/
 class Stem_engraver : public Engraver
 {
   Grob *stem_;
