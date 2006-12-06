@@ -12,6 +12,8 @@
 #include "lily-guile.hh"
 
 SCM ly_make_music_function (SCM, SCM);
+SCM make_music_function (SCM, SCM);
+
 SCM get_music_function_transform (SCM);
 bool is_music_function (SCM);
 

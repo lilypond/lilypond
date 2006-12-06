@@ -20,6 +20,7 @@
 	       "document-functions.scm"
 	       "document-translation.scm"
 	       "document-music.scm"
+	       "document-identifiers.scm"
 	       "document-backend.scm"
 	       "document-markup.scm"))
 
@@ -32,6 +33,10 @@
 (display 
  (markup-doc-string)
  (open-output-file "markup-commands.tely"))
+
+(display 
+ (identifiers-doc-string)
+ (open-output-file "identifiers.tely"))
 
 
 (display

@@ -15,7 +15,6 @@
 	       (cddr (cadr (procedure-source func)))))
 	 
 	 (sig-type-names (map type-name sig))
-	 (signature (zip arg-names  sig-type-names))
 	 (signature-str
 	  (string-join
 	   (map (lambda (x) (string-append

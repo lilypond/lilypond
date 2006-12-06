@@ -26,19 +26,6 @@ print_music_function (SCM b, SCM port, scm_print_state *)
   return 1;
 }
 
-LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
-	   (SCM signature, SCM func),
-	   "Make a function to process music, to be used for the "
-	   "parser. @code{func} is the function, and @code{signature} describes "
-	   "Its arguments. @code{signature} is a list containing either "
-	   "@code{ly:music?} predicates or other type predicates.")
-{
-  scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
-			     signature);
-
-  SCM_RETURN_NEWSMOB (music_function_tag, func);
-}
-
 bool
 is_music_function (SCM music_function)
 {
@@ -62,4 +49,14 @@ init_music_function (void)
   scm_set_smob_print (music_function_tag, print_music_function);
 }
 
+SCM
+make_music_function (SCM signature, SCM func)
+{
+  scm_set_object_property_x (func, ly_symbol2scm ("music-function-signature"),
+			     signature);
+
+  SCM_RETURN_NEWSMOB (music_function_tag, func);
+}
+
 ADD_SCM_INIT_FUNC (music_function_tag, init_music_function);
+
