@@ -12,7 +12,7 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
-* Scheme procedures as properties::
+* Scheme procedures as properties::  
 @end menu
 
 
@@ -27,6 +27,7 @@ This section discusses how to create music functions within LilyPond.
 * Paired substitution functions::  
 * Mathematics in functions::    
 * Void functions::              
+* Overview of available music functions::  
 @end menu
 
 @node Overview of music functions
@@ -235,6 +236,15 @@ noPointAndClick =
 ...
 \noPointAndClick   % disable point and click
 @end example
+
+@node Overview of available music functions
+@subsection Overview of available music functions
+
+@c fixme ; this should be move somewhere else?
+The following commands are music functions
+
+@include identifiers.tely
+
 
 
 @node Programmer interfaces
