@@ -128,7 +128,8 @@ Separation_item::calc_skylines (SCM smob)
   vector<Box> bs = boxes (me);
   do
     {
-      Skyline l (bs, Y_AXIS, d);
+      /* todo: make skyline max-slope configurable? */
+      Skyline l (bs, 2, Y_AXIS, d);
       index_set_cell (lines, d, l.smobbed_copy ());
     }
   while (flip (&d) != LEFT);

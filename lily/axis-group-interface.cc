@@ -293,6 +293,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   vector_sort (elements, staff_priority_less);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
+  Real max_slope = robust_scm2double (me->get_property ("skyline-max-slope"), 4);
 
   vsize i = 0;
   vector<Box> boxes;
@@ -301,8 +302,8 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     add_boxes (elements[i], x_common, y_common, &boxes);
 
-  Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
-				Skyline (boxes, X_AXIS, UP));
+  Drul_array<Skyline> skylines (Skyline (boxes, max_slope, X_AXIS, DOWN),
+				Skyline (boxes, max_slope, X_AXIS, UP));
   for (; i < elements.size (); i++)
     {
       Direction dir = get_grob_direction (elements[i]);
@@ -322,7 +323,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       boxes.clear ();
       boxes.push_back (b);
-      Skyline other = Skyline (boxes, X_AXIS, -dir);
+      Skyline other = Skyline (boxes, max_slope, X_AXIS, -dir);
       Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
       Real dist = skylines[dir].distance (other) + padding;
 
@@ -331,7 +332,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 	  b.translate (Offset (0, dir*dist));
 	  elements[i]->translate_axis (dir*dist, Y_AXIS);
 	}
-      skylines[dir].insert (b, X_AXIS);
+      skylines[dir].insert (b, max_slope, X_AXIS);
     }
 }
 
@@ -344,6 +345,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "elements "
 	       "common-refpoint-of-elements "
 	       "pure-relevant-elements "
+	       "skyline-max-slope "
 	       "skyline-spacing "
 	       "cached-pure-extents "
 	       );

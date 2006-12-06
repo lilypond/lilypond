@@ -41,11 +41,10 @@ class Skyline
 private:
   list<Building> buildings_;
   Direction sky_;
-  Real max_slope_;		// fixme: not part of skyline per se?
   
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
-  void internal_build_skyline (list<Building>*,
+  void internal_build_skyline (list<Building>*, Real max_slope,
 			       list<Building> *const result);
   bool is_legal_skyline () const;
 
@@ -54,11 +53,11 @@ public:
   Skyline ();
   Skyline (Skyline const &src);
   Skyline (Direction sky);
-  Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
+  Skyline (vector<Box> const &bldgs, Real max_slope, Axis a, Direction sky);
   Skyline (vector<Offset> const &points, Real max_slope, Direction sky);
   vector<Offset> to_points () const;
   void merge (Skyline const &);
-  void insert (Box const &, Axis);
+  void insert (Box const &, Real max_slope, Axis);
   void print () const;
   void raise (Real);
   Real distance (Skyline const &) const;

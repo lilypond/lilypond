@@ -556,6 +556,7 @@ than a whole rest.")
 
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
      (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
+     (skyline-max-slope ,number? "The maximum slope of buildings in the skyline used in skyline-spacing. If this is small, grobs will be placed away from the staff is there is another grob within a short horizontal distance (even if there would be no collision). If this is large (100, say), grobs will be placed close to the staff even if it means packing them in tightly horizontally.")
      (skyline-spacing ,boolean? "When true, this axis-group will vertically space its children
 using a skyline algorithm.")
 

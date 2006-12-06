@@ -175,7 +175,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
     }
   while (flip (&updowndir) != DOWN);
   
-  chord_outlines_[key] = Skyline (boxes, Y_AXIS, -dir);
+  chord_outlines_[key] = Skyline (boxes, 4, Y_AXIS, -dir);
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];

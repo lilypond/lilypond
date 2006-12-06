@@ -228,7 +228,7 @@ single_skyline (Building const &b, list<Building> *const ret, Real max_slope)
 }
 
 void
-Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *const result)
+Skyline::internal_build_skyline (list<Building> *buildings, Real max_slope, list<Building> *const result)
 {
   vsize size = buildings->size ();
 
@@ -239,7 +239,7 @@ Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *cons
     }
   else if (size == 1)
     {
-      single_skyline (buildings->front (), result, max_slope_);
+      single_skyline (buildings->front (), result, max_slope);
       return;
     }
 
@@ -252,23 +252,19 @@ Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *cons
 
   list<Building> right;
   list<Building> left;
-  internal_build_skyline (&right_half, &right);
-  internal_build_skyline (buildings, &left);
+  internal_build_skyline (&right_half, max_slope, &right);
+  internal_build_skyline (buildings, max_slope, &left);
   internal_merge_skyline (&right, &left, result);
 }
 
 Skyline::Skyline ()
 {
-  max_slope_ = 2;
   sky_ = UP;
-  empty_skyline (&buildings_);
-
-  
+  empty_skyline (&buildings_);  
 }
 
 Skyline::Skyline (Skyline const &src)
 {
-  max_slope_ = src.max_slope_;
   sky_ = src.sky_;
  
   for (list<Building>::const_iterator i = src.buildings_.begin ();
@@ -280,7 +276,6 @@ Skyline::Skyline (Skyline const &src)
 
 Skyline::Skyline (Direction sky)
 {
-  max_slope_ = 2;
   sky_ = sky;
   empty_skyline (&buildings_);
 }
@@ -290,11 +285,10 @@ Skyline::Skyline (Direction sky)
 
   Boxes should have fatness in the horizon_axis, otherwise they are ignored.
  */
-Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
+Skyline::Skyline (vector<Box> const &boxes, Real max_slope, Axis horizon_axis, Direction sky)
 {
   list<Building> bldgs;
   sky_ = sky;
-  max_slope_ = 2;
 
   for (vsize i = 0; i < boxes.size (); i++)
     {
@@ -302,23 +296,22 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
       Real height = sky * boxes[i][other_axis (horizon_axis)][sky];
       if (!iv.is_empty () && !isinf (height) && !equal (iv[LEFT], iv[RIGHT]))
 	bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT],
-				    max_slope_));
+				    max_slope));
     }
   
-  internal_build_skyline (&bldgs, &buildings_);
+  internal_build_skyline (&bldgs, max_slope, &buildings_);
   assert (is_legal_skyline ());
 }
 
 Skyline::Skyline (vector<Offset> const &points, Real max_slope, Direction sky)
 {
   sky_ = sky;
-  max_slope_ = max_slope;
 
   for (vsize i = 1; i < points.size (); i++)
     {
-      buildings_.push_back (Building (points[i-1][X_AXIS], sky * points[i-1][Y_AXIS],
+      buildings_.push_back (Building (points[i-1][X_AXIS],
+				      sky * points[i-1][Y_AXIS],
 				      sky * points[i][Y_AXIS],
-
 				      points[i][X_AXIS], 
 				      max_slope));
 
@@ -340,7 +333,7 @@ Skyline::merge (Skyline const &other)
 }
 
 void
-Skyline::insert (Box const &b, Axis a)
+Skyline::insert (Box const &b, Real max_slope, Axis a)
 {
   list<Building> other_bld;
   list<Building> my_bld;
@@ -350,7 +343,7 @@ Skyline::insert (Box const &b, Axis a)
   assert (!iv.is_empty ());
 
   my_bld.splice (my_bld.begin (), buildings_);
-  single_skyline (Building (iv[LEFT], height, height, iv[RIGHT], max_slope_), &other_bld, max_slope_);
+  single_skyline (Building (iv[LEFT], height, height, iv[RIGHT], max_slope), &other_bld, max_slope);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
   assert (is_legal_skyline ());
 }
