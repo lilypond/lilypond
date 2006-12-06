@@ -405,6 +405,8 @@ and assign them to the identifiers provided in @var{voice-ids}.
 @var{music}: a music sequence, containing BarChecks as limiting expressions.
 
 Example:
+
+@verbatim
   \\parallelMusic #'(A B C) {
     c c | d d | e e |
     d d | e e | f f |
@@ -413,6 +415,7 @@ Example:
   A = { c c | d d | }
   B = { d d | e e | }
   C = { e e | f f | }
+@end verbatim
 "
   (let* ((voices (apply circular-list (make-list (length voice-ids) (list))))
          (current-voices voices)

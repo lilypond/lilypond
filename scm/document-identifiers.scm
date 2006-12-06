@@ -1,3 +1,13 @@
+;;
+;; document-identifiers.scm -- implement documentation
+;; of identifiers from .ly file.
+;; 
+;; source file of the GNU LilyPond music typesetter
+;; 
+;; (c) 2006 Han-Wen Nienhuys <hanwen@lilypond.org>
+;; 
+
+
 (use-modules (ice-9 format))
 
 (define (document-music-function music-func-pair)
