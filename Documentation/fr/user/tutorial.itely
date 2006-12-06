@@ -434,15 +434,15 @@ voir @ref{Key signature}.
 @section Entering ties
 
 @cindex tie
-Une liaison de durée@footnote{parfois aussi appelée liaison de
-prolongation.} (@rglos{tie}) est créée en ajoutant un tilde @samp{~} à
+Une liaison de prolongation@footnote{parfois aussi appelée liaison de
+tenue.} (@rglos{tie}) est créée en ajoutant un tilde @samp{~} à
 la suite de la première note liée.
 
 @lilypond[quote,notime,fragment,verbatim,relative=3]
 g4~ g a2~ a4
 @end lilypond
 
-Pour plus d'informations sur les liaisons de durée, voir @ref{Ties}.
+Pour plus d'informations sur les liaisons de prolongation, voir @ref{Ties}.
 
 
 
@@ -827,8 +827,8 @@ d4( c16) cis( d e c cis d) e( d4)
 
 @cindex slurs versus ties
 Une liaison d'articulation ressemble à une liaison de
-durée (@rglos{tie}),
-mais a une signification différente.  Une liaison de durée fait
+prolongation (@rglos{tie}),
+mais a une signification différente.  Une liaison de prolongation fait
 durer la première note plus longtemps, et ne peut être utilisée que
 sur une paire de notes de même hauteur.  Ces deux types de liaison
 peuvent être imbriqués :
