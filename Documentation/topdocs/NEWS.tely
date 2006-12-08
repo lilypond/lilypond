@@ -81,7 +81,6 @@ accurately. This allows tighter horizontal spacing.
 now positioned automatically to avoid collisions.
 
 @lilypond[fragment,ragged-right,relative=1]
-  \override TextScript #'outside-staff-priority = #1
   c''
   \once \override TextScript #'self-alignment-X = #CENTER
   a,^"this doesn't collide with the c"
