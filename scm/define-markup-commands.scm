@@ -127,17 +127,7 @@ circle of diameter 0 (ie sharp corners)."
 
 (define-markup-command (whiteout layout props arg) (markup?)
   "Provide a white underground for @var{arg}"
-  (let* ((stil (interpret-markup layout props arg))
-	 (white
-	  (interpret-markup layout props
-			    (make-with-color-markup
-			     white
-			     (make-filled-box-markup
-			      (ly:stencil-extent stil X)
-			      (ly:stencil-extent stil Y)
-			      0.0)))))
-
-    (ly:stencil-add white stil)))
+  (stencil-whiteout (interpret-markup layout props arg)))
 
 (define-markup-command (pad-markup layout props padding arg) (number? markup?)
   "Add space around a markup object."

@@ -653,6 +653,8 @@ AncientRemoveEmptyStaffContext = \context {
   \name "TabVoice"
   \alias "Voice"
   \consists "Tab_note_heads_engraver"
+  \consists "Tab_harmonic_engraver"
+
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"
   \remove "New_fingering_engraver"

@@ -1184,8 +1184,17 @@
 
     (ParenthesesItem
      . ((stencil . ,parentheses-item::print)
+	(stencils . ,parentheses-item::calc-parenthesis-stencils)
 	(font-size . -6)
 	(padding . 0.2)
+	(meta . ((class . Item)
+		 (interfaces . (parentheses-interface font-interface))))
+	))
+
+    (HarmonicParenthesesItem
+     . ((stencil . ,parentheses-item::print)
+	(padding . 0)
+	(stencils . ,parentheses-item::calc-angled-bracket-stencils)
 	(meta . ((class . Item)
 		 (interfaces . (parentheses-interface font-interface))))
 	))
@@ -1711,11 +1720,12 @@
 		 (interfaces . (side-position-interface
 				system-start-delimiter-interface))))))
 
-
     (TabNoteHead
      . (
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
+	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
+	(direction . 0)
 	(font-size . -2)
 	(stem-attachment . (0.0 . 1.35))
 	(font-series . bold)
