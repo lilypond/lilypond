@@ -26,7 +26,7 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
 LY_DEFINE (ly_event_property, "ly:event-property", 
            2, 0, 0, (SCM sev, SCM sym),
 	   "Get the property @var{sym} of stream event @var{mus}.\n"
-	   "If @var{sym} is undefined, return @code{' ()}.\n")
+	   "If @var{sym} is undefined, return @code{'()}.\n")
 {
   Stream_event *e = unsmob_stream_event (sev);
   SCM_ASSERT_TYPE (e, sev, SCM_ARG1, __FUNCTION__, "stream event");
