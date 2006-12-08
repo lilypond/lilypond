@@ -230,6 +230,18 @@ found."
 ;;;;;;;;;;;;;;;;
 ;; list
 
+(define (functional-or . rest)
+  (if (pair? rest)
+      (or (car rest)
+	   (apply functional-and (cdr rest)))
+      #f))
+
+(define (functional-and . rest)
+  (if (pair? rest)
+      (and (car rest)
+	   (apply functional-and (cdr rest)))
+      #t))
+
 (define (split-list lst n)
   "Split LST in N equal sized parts"
   
