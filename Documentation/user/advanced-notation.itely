@@ -1135,9 +1135,9 @@ the staff.  They are created by invoking the function
 }
 @end lilypond
 
-The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
-(for 15ma) as arguments.  Internally the function sets the properties
-@code{ottavation} (e.g., to @code{"8va"}) and
+The @code{set-octavation} function also takes -1 (for 8va bassa), 2@tie{}(for 15ma),
+and -2 (for 15ma bassa) as arguments.  Internally the function sets the properties
+@code{ottavation} (e.g., to @code{"8va"} or @code{"8vb"}) and
 @code{centralCPosition}.  For overriding the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 

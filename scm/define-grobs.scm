@@ -1790,7 +1790,7 @@
 	(stencil . ,ly:tie::print)
 	(font-size . -6)
 	(details . (
-		    ;; for a full list, see tie-helper.cc
+		    ;; for a full list, see tie-details.cc
 		    (ratio . 0.333)
 		    (center-staff-line-clearance . 0.6)
 		    (tip-staff-line-clearance . 0.45)
