@@ -1,9 +1,7 @@
 /*
   tab-note-heads-engraver.cc -- part of GNU LilyPond
 
-  based on note-heads-engraver.cc, by Jean-Baptiste Lamy <jiba@tuxfamily.org>,
-
-  (c) 2002--2006
+  (c) 2002--2006 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
 */
 
 #include <cctype>
@@ -20,6 +18,7 @@ using namespace std;
 #include "rhythmic-head.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+#include "context.hh"
 
 #include "translator.icc"
 
@@ -67,8 +66,8 @@ Tab_note_heads_engraver::process_music ()
   vsize j = 0;
   for (vsize i = 0; i < note_events_.size (); i++)
     {
-      SCM stringTunings = get_property ("stringTunings");
-      int number_of_strings = scm_ilength (stringTunings);
+      SCM string_tunings = get_property ("stringTunings");
+      int number_of_strings = scm_ilength (string_tunings);
       bool high_string_one = to_boolean (get_property ("highStringOne"));
 
       Stream_event *event = note_events_[i];
@@ -115,22 +114,26 @@ Tab_note_heads_engraver::process_music ()
       while (!string_found)
 	{
 	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
-	    - scm_to_int (scm_list_ref (stringTunings, scm_from_int (tab_string - 1)));
+	    - scm_to_int (scm_list_ref (string_tunings, scm_from_int (tab_string - 1)));
 	  if (fret < min_fret)
 	    tab_string += high_string_one ? 1 : -1;
 	  else
 	    string_found = true;
 	}
 
-      SCM text = scm_call_3 (proc, scm_from_int (tab_string), stringTunings, scm_pitch);
+      SCM text = scm_call_3 (proc, scm_from_int (tab_string),
+			     context ()->self_scm (),
+			     event->self_scm ());
+      note->set_property ("text", text);
+
 
       int pos = 2 * tab_string - number_of_strings - 1; // No tab-note between the string !!!
       if (to_boolean (get_property ("stringOneTopmost")))
 	pos = -pos;
 
-      note->set_property ("text", text);
-
       note->set_property ("staff-position", scm_from_int (pos));
+
+      
       notes_.push_back (note);
     }
 }
