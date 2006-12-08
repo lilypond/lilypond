@@ -445,17 +445,18 @@ System::broken_col_range (Item const *left, Item const *right) const
   left = left->get_column ();
   right = right->get_column ();
 
+  
   extract_grob_set (this, "columns", cols);
-  vsize i = 0;
-  while (i < cols.size ()
-	 && cols[i] != left)
-    i++;
 
+  vsize i = binary_search (cols, (Grob *) left,
+			   Paper_column::less_than);
+
+  int end_rank = Paper_column::get_rank (right);
   if (i < cols.size ())
     i++;
 
   while (i < cols.size ()
-	 && cols[i] != right)
+	 && Paper_column::get_rank (cols[i]) < end_rank)
     {
       Paper_column *c = dynamic_cast<Paper_column *> (cols[i]);
       if (Paper_column::is_breakable (c) && !c->system_)
