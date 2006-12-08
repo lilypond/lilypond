@@ -343,17 +343,17 @@ Spanner::set_spacing_rods (SCM smob)
 
       System *root = get_root_system (me);
       vector<Item*> cols (root->broken_col_range (sp->get_bound (LEFT)->get_column (),
-						  sp->get_bound (LEFT)->get_column ()));
+						  sp->get_bound (RIGHT)->get_column ()));
 
-      if (cols.size () )
+      if (cols.size ())
 	{
 	  Rod r ;
 	  r.item_drul_[LEFT] = sp->get_bound (LEFT);
-	  r.item_drul_[RIGHT] =cols[0];
+	  r.item_drul_[RIGHT] = cols[0]->find_prebroken_piece (LEFT);
 	  r.distance_ = robust_scm2double (num_length, 0);
 	  r.add_to_cols ();
 	  
-	  r.item_drul_[LEFT] = cols.back ();
+	  r.item_drul_[LEFT] = cols.back ()->find_prebroken_piece (RIGHT);
 	  r.item_drul_[RIGHT] = sp->get_bound (RIGHT);
 	  r.add_to_cols ();
 	}
