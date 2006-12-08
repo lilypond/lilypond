@@ -303,9 +303,8 @@ but it can also be used anywhere text is called in lilypond
 }
 @end lilypond
 
-Text can also be placed on its own, away from any @code{\score}
-block.  This is primarily used in a @code{\book} (see
-@ref{Multiple scores in a book}).
+A @code{\markup} command can also be placed on its own, away from any
+@code{\score} block, see @ref{Multiple scores in a book}.
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }

@@ -98,23 +98,29 @@ and texts are entered with a @code{\markup} block,
 
 @funindex \book
 
-The movements and texts are combined together in a @code{\book} block,
-like
+All the movements and texts which appear in the same @code{.ly} file 
+will normally be typeset in the form of a single output file. 
 
 @example
-\book @{
-  \score @{
-    @var{..}
-  @}
-  \markup @{
-    @var{..}
-  @}
-  \score @{
-    @var{..}
-  @}
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
 @}
 @end example
 
+However, if you want multiple output files from the same @code{.ly}
+file, then you can add multiple @code{\book} blocks, where each such
+@code{\book} block will result in a separate output. If you do not
+specify any @code{\book} block in the file, LilyPond will implicitly
+treat the full file as a single @code{\book} block, see @ref{File
+structure}. One important exception is within lilypond-book documents,
+where you explicitly have to add a @code{\book} block, otherwise only
+the first @code{\score} or @code{\markup} will appear in the output.
 
 The header for each piece of music can be put inside the @code{\score}
 block.  The @code{piece} name from the header will be printed before
@@ -123,25 +129,23 @@ each movement.  The title for the entire book can be put inside the
 the top of the file is inserted.
 
 @example
-\book @{
-  \header @{
-    title = "Eight miniatures"
-    composer = "Igor Stravinsky"
-  @}
-  \score @{
-    @dots{}
-    \header @{ piece = "Romanze" @}
-  @}
-  \markup @{
-     ..text of second verse..
-  @}
-  \markup @{
-     ..text of third verse..
-  @}
-  \score @{
-    @dots{}
-    \header @{ piece = "Menuetto" @}
-  @}
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
 @}
 @end example
 
@@ -221,8 +225,13 @@ contain only one music expression.
 @item
 A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  If there are
-a number of @code{\scores}, a single output file will be created
-in which all movements are concatenated.
+a number of @code{\scores}, one output file will be created for
+each @code{\book} block, in which all corresponding movements are
+concatenated. The only reason to explicitly specify @code{\book} blocks
+in a @code{.ly} file is if you wish multiple output files from a single
+input file. One exception is within lilypond-book documents, where you
+explicitly have to add a @code{\book} block if you want more than a
+single @code{\score} or @code{\markup} in the same example.
 
 This behavior can be changed by setting the variable
 @code{toplevel-book-handler} at toplevel.  The default handler is
@@ -469,8 +478,8 @@ some pieces include a lot more information.
 @node Creating titles
 @subsection Creating titles
 
-Titles are created for each @code{\score} block, and over a
-@code{\book}.
+Titles are created for each @code{\score} block, and for the full input
+file (or @code{\book} block).
 
 The contents of the titles are taken from the @code{\header} blocks.
 The header block for a book supports the following
@@ -661,14 +670,13 @@ variables in the @code{\paper} block.  The init file
 @table @code
 @funindex bookTitleMarkup
 @item bookTitleMarkup
-  This is the title put over an entire @code{\book} block.  Typically,
-  it has the composer and the title of the piece
+  This is the title added at the top of the entire output document.
+Typically, it has the composer and the title of the piece
 
 @funindex scoreTitleMarkup
 @item scoreTitleMarkup
-  This is the title put over a @code{\score} block within a
-@code{\book}.  Typically, it has the name of the movement (@code{piece}
-field).
+  This is the title put over a @code{\score} block.  Typically, it has
+the name of the movement (@code{piece} field).
 
 @funindex oddHeaderMarkup
 @item oddHeaderMarkup

@@ -229,8 +229,8 @@ book and the title of a piece). Default is@tie{}2mm.
 
 @funindex printallheaders
 @item printallheaders
-Setting this to #t will print all headers for each \score in a
-\book.  Normally only the piece and opus \headers are printed.
+Setting this to #t will print all headers for each \score in the
+output.  Normally only the piece and opus \headers are printed.
 
 @funindex systemSeparatorMarkup
 @item systemSeparatorMarkup
