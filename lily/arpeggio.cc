@@ -58,8 +58,11 @@ Arpeggio::print (SCM smob)
 
   if (heads.is_empty () || heads.length () < 0.5)
     {
-      programming_error ("no heads for arpeggio found?");
-      me->suicide ();
+      if (!to_boolean (me->get_property ("transparent")))
+	{
+	  me->warning ("no heads for arpeggio found?");
+	  me->suicide ();
+	}
       return SCM_EOL;
     }
 
