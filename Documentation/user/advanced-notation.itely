@@ -2221,7 +2221,7 @@ used in music for beginners
 The command @code{\setEasyHeads} overrides settings for the
 @internalsref{NoteHead} object.  To make the letters readable, it has
 to be printed in a large font size.  To print with a larger font, see
-@ref{Setting global staff size}.
+@ref{Setting the staff size}.
 
 @refcommands
 
