@@ -105,7 +105,7 @@
 (ly:add-interface
  'parentheses-interface
  "Parentheses for other objects"
- '(padding))
+ '(padding stencils))
 
 (ly:add-interface
  'piano-pedal-interface
