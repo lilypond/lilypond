@@ -1,5 +1,5 @@
 /*
-  text-spanner-engraver.cc -- implement Ottava_spanner_engraver
+  ottova-engraver.cc -- implement Ottava_spanner_engraver
 
   source file of the GNU LilyPond music typesetter
 
