@@ -32,3 +32,5 @@ gcstat*.scm
 *-systems.tex
 *-midi.ly
 .dotest
+out-scons
+.scon*
