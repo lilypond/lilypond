@@ -25,6 +25,9 @@ Music_wrapper::length_callback (SCM m)
 {
   Music *me = unsmob_music (m);
   Music *elt = unsmob_music (me->get_property ("element"));
-  return elt->get_length ().smobbed_copy ();
+  if (elt)
+    return elt->get_length ().smobbed_copy ();
+  else
+    return Moment (0).smobbed_copy ();
 }
 
