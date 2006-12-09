@@ -148,7 +148,7 @@ usually the setup for a score will start with a setup of the staves,
 and the @context{Voice} is inserted afterwards
 
 @example
-\new Staff = down
+\context Staff = down
   \new Voice @{ @dots{} \change Staff = up @dots{} @}
 @end example
 
