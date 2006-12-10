@@ -415,7 +415,10 @@ The syntax is the same as `define*-public'."
 	  (format "~a ~a ~a\n"
 		  gc-protect-stat-count
 		  sym
-		  (cdr (assoc sym stats)))
+		  (let ((sym-stat (assoc sym stats)))
+		    (if sym-stat 
+			(cdr sym-stat)
+			"?")))
 	  outfile))
        '(protected-objects bytes-malloced cell-heap-size
 			   

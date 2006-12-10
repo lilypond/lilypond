@@ -118,12 +118,31 @@ encloses the contents.
      `(text ,font-metric ,text) (car b) (cdr b))))
      
 (define-public (fontify-text-white scale font-metric text)
-  "Set TEXT with scale factor s"
+  "Set TEXT with scale factor SCALE"
   (let* ((b (ly:text-dimension font-metric text))
 	 ;;urg -- workaround for using ps font
          (c `(white-text ,(* 2 scale) ,text)))
     ;;urg -- extent is not from ps font, but we hope it's close
     (ly:make-stencil c (car b) (cdr b))))
+
+(define-public (stencil-with-color stencil color)
+  (ly:make-stencil
+   (list 'color color (ly:stencil-expr stencil))
+   (ly:stencil-extent stencil X)
+   (ly:stencil-extent stencil Y)))
+  
+(define-public (stencil-whiteout stencil)
+  (let*
+      ((x-ext (ly:stencil-extent stencil X))
+       (y-ext (ly:stencil-extent stencil Y))
+
+       )
+    
+    (ly:stencil-add
+     (stencil-with-color (ly:round-filled-box x-ext y-ext 0.0)
+			 white)
+     stencil)
+    ))
 
 (define-public (dimension-arrows destination) 
   "Draw twosided arrow from here to @var{destination}"

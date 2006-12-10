@@ -374,6 +374,7 @@ stems that are placed in tight configurations. For opposite
 directions, this amount is the correction for two normal sized stems
 that overlap completely.")
      (stencil ,ly:stencil? "The symbol to print.")
+     (stencils ,list? "Multiple stencils, used as intermediate value.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")

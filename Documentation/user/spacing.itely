@@ -229,8 +229,8 @@ book and the title of a piece). Default is@tie{}2mm.
 
 @funindex printallheaders
 @item printallheaders
-Setting this to #t will print all headers for each \score in a
-\book.  Normally only the piece and opus \headers are printed.
+Setting this to #t will print all headers for each \score in the
+output.  Normally only the piece and opus \headers are printed.
 
 @funindex systemSeparatorMarkup
 @item systemSeparatorMarkup
@@ -332,19 +332,20 @@ add space between the titles and the first system of the score.
 @section Music layout
 
 @menu
-* Setting global staff size::   
+* Setting the staff size::   
 * Score layout::                
 @end menu
 
 
-@node Setting global staff size
-@subsection Setting global staff size
+@node Setting the staff size
+@subsection Setting the staff size
 
 @cindex font size, setting
 @cindex staff size, setting
 @funindex layout file
 
-To set the global staff size, use @code{set-global-staff-size}.
+To set the staff size globally for all scores in a file (or
+in a @code{book} block, to be precise), use @code{set-global-staff-size}.
 
 @example
 #(set-global-staff-size 14)
@@ -353,6 +354,16 @@ To set the global staff size, use @code{set-global-staff-size}.
 @noindent
 This sets the global default size to 14pt staff height and scales all
 fonts accordingly.
+
+To set the staff size individually for each score, use 
+@example
+\score@{
+  ...
+  \layout@{
+  #(layout-set-staff-size 15)
+  @}
+@}
+@end example
 
 The Feta font provides musical symbols at eight different
 sizes.  Each font is tuned for a different staff size: at a smaller size

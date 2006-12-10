@@ -148,7 +148,7 @@ usually the setup for a score will start with a setup of the staves,
 and the @context{Voice} is inserted afterwards
 
 @example
-\new Staff = down
+\context Staff = down
   \new Voice @{ @dots{} \change Staff = up @dots{} @}
 @end example
 
@@ -4546,6 +4546,15 @@ automatically.
   }
 >>
 @end lilypond
+
+
+@refbugs
+
+When using figured bass above the staff with extender lines and
+@code{implicitBassFigures} the lines may become swapped around.
+Maintaining order consistently will be impossible when multiple figures
+have overlapping extender lines.  To avoid this problem, plese
+use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 
 @seealso

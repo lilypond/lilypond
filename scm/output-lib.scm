@@ -55,14 +55,28 @@
 
 ;; The TabNoteHead tablatureFormat callback.
 ;; Compute the text grob-property
-(define-public (fret-number-tablature-format string tuning pitch)
-  (make-whiteout-markup
-   (make-vcenter-markup  
-    (number->string
-     (- (ly:pitch-semitones pitch)
-	(list-ref tuning
-		  ;; remove 1 because list index starts at 0 and guitar string at 1. 
-		  (- string 1)))))))
+(define-public (fret-number-tablature-format string
+					     context event)
+  (let*
+      ((tuning (ly:context-property context 'stringTunings))
+       (pitch (ly:event-property event 'pitch))
+       (is-harmonic (apply
+		     functional-or
+		     (map
+		      (lambda (ev)
+			(eq? 'harmonic-event (ly:event-property ev 'class)))
+		      (ly:event-property event 'articulations)))))
+
+    
+    (make-whiteout-markup
+     (make-vcenter-markup
+      (format
+       "~a"
+       (- (ly:pitch-semitones pitch)
+	  (list-ref tuning
+		    ;; remove 1 because list index starts at 0 and guitar string at 1. 
+		    (- string 1))))))
+    ))
 
 ;; The 5-string banjo has got a extra string, the fifth (duh), wich
 ;; starts at the fifth fret on the neck. Frets on the fifth string
@@ -70,14 +84,20 @@
 ;;   the "first fret" on the fifth string is really the sixth fret
 ;;   on the banjo neck.
 ;; We solve this by defining a new fret-number-tablature function:
-(define-public (fret-number-tablature-format-banjo string tuning pitch)
+(define-public (fret-number-tablature-format-banjo string 
+					     context event)
+  (let*
+      ((tuning (ly:context-property context 'stringTuning))
+       (pitch (ly:event-property event 'pitch))
+	)
   (make-whiteout-markup
    (make-vcenter-markup  
     (let ((fret (- (ly:pitch-semitones pitch) (list-ref tuning (- string 1)))))
       (number->string (cond
 		       ((and (> fret 0) (= string 5))
 			(+ fret 5))
-		       (else fret)))))))
+		       (else fret))))))
+  ))
 
 
 ; default tunings for common string instruments
@@ -285,6 +305,37 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; * Pitch Trill Heads
 ;; * Parentheses
 
+(define-public (parentheses-item::calc-parenthesis-stencils grob)
+  (let* (
+	 (font (ly:grob-default-font grob))
+	 (lp (ly:font-get-glyph font "accidentals.leftparen"))
+	 (rp (ly:font-get-glyph font "accidentals.rightparen"))
+	 )
+
+    (list lp rp)))
+
+
+(define (grob-text grob text)
+  (let*
+      ((layout (ly:grob-layout grob))
+       (defs (ly:output-def-lookup layout 'text-font-defaults))
+       (props (ly:grob-alist-chain grob defs)))
+
+    (ly:text-interface::interpret-markup
+     layout props text)))
+
+(define-public (parentheses-item::calc-angled-bracket-stencils grob)
+  (let* (
+	 (font (ly:grob-default-font grob))
+	 (lp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-text grob (ly:wide-char->utf-8 #x2329))
+							   Y CENTER)  X RIGHT))
+	 (rp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-text grob (ly:wide-char->utf-8 #x232A))
+							   Y CENTER) X LEFT))
+	 )
+
+    (list (stencil-whiteout lp)
+	  (stencil-whiteout rp))))
+
 (define (parenthesize-elements grob . rest)
   (let*
       ((refp (if (null? rest)
@@ -292,10 +343,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 		 (car rest)))
        (elts (ly:grob-object grob 'elements))
        (x-ext (ly:relative-group-extent elts refp X))
-
-       (font (ly:grob-default-font grob))
-       (lp (ly:font-get-glyph font "accidentals.leftparen"))
-       (rp (ly:font-get-glyph font "accidentals.rightparen"))
+       (stencils (ly:grob-property grob 'stencils))
+       (lp (car stencils))
+       (rp (cadr stencils))
        (padding (ly:grob-property grob 'padding 0.1)))
     
     (ly:stencil-add
@@ -322,6 +372,7 @@ centered, X==1 is at the right, X == -1 is at the left."
        y-center
        (ly:grob-relative-coordinate me y-ref Y))))
     ))
+
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

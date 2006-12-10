@@ -73,12 +73,12 @@ Span_arpeggio_engraver::stop_translation_timestep ()
       for (vsize j = 0; j < arpeggios_.size (); j++)
 	{
 	  extract_grob_set (arpeggios_[j], "stems", stems);
-	  for (vsize i = stems.size (); i--;)
+	  for (vsize i = 0; i < stems.size (); i++)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("stems"),
 					       stems[i]);
 
 	  extract_grob_set (arpeggios_[j], "side-support-elements", sses);
-	  for (vsize i = sses.size (); i--;)
+	  for (vsize i = 0; i < sses.size (); i++)
 	    Pointer_group_interface::add_grob (span_arpeggio_, ly_symbol2scm ("side-support-elements"),
 					       sses[i]);
 

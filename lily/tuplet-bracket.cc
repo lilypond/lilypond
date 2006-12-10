@@ -422,12 +422,12 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
     straight_corners[d] += -d * shorten[d] / length * dz;
   while (flip (&d) != LEFT);
 
-  if (gap.is_empty ())
-    gap = Interval (0, 0);
-  do
-    gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
-  while (flip (&d) != LEFT)
-    ;
+  if (!gap.is_empty ())
+    {
+      do
+	gap_corners[d] = (dz * 0.5) + gap[d] / length * dz;
+      while (flip (&d) != LEFT);
+    }
 
   Drul_array<Offset> flare_corners = straight_corners;
   do
@@ -441,14 +441,20 @@ Tuplet_bracket::make_bracket (Grob *me, // for line properties.
   Stencil m;
   do
     {
-      m.add_stencil (Line_interface::line (me, straight_corners[d],
-					   gap_corners[d]));
+      if (!gap.is_empty ())
+	m.add_stencil (Line_interface::line (me, straight_corners[d],
+					     gap_corners[d]));
 
       m.add_stencil (Line_interface::line (me, straight_corners[d],
 					   flare_corners[d]));
     }
+
   while (flip (&d) != LEFT);
 
+  if (gap.is_empty ())
+    m.add_stencil (Line_interface::line (me, straight_corners[LEFT],
+					 straight_corners[RIGHT]));
+  
   return m;
 }
 

@@ -34,9 +34,9 @@ Paper_column::do_break_processing ()
 }
 
 int
-Paper_column::get_rank (Grob *me)
+Paper_column::get_rank (Grob const *me)
 {
-  return dynamic_cast<Paper_column *> (me)->rank_;
+  return dynamic_cast<Paper_column const *> (me)->rank_;
 }
 
 System *
