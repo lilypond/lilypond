@@ -6,6 +6,8 @@
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; constants.
 
 (define-public X 0)
 (define-public Y 1)
@@ -28,11 +30,17 @@
 (define-safe-public DOUBLE-SHARP 4)
 (define-safe-public SEMI-TONE 2)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; moments
+
 (define-public ZERO-MOMENT (ly:make-moment 0 1)) 
 
 (define-public (moment-min a b)
   (if (ly:moment<? a b) a b))
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; arithmetic
 (define-public (average x . lst)
   (/ (+ x (apply + lst)) (1+ (length lst))))
 
@@ -120,6 +128,7 @@
 
 ;;;;;;;;;;;;;;;;
 ;; alist
+
 (define-public assoc-get ly:assoc-get)
 
 (define-public (uniqued-alist alist acc)
@@ -192,6 +201,7 @@ found."
 
 ;;;;;;;;;;;;;;;;
 ;; vector
+
 (define-public (vector-for-each proc vec)
   (do
       ((i 0 (1+ i)))
@@ -269,6 +279,7 @@ found."
 
 (define-public (count-list lst)
   "Given lst (E1 E2 .. ) return ((E1 . 1) (E2 . 2) ... )  "
+
   (define (helper l acc count)
     (if (pair? l)
 	(helper (cdr l) (cons (cons (car l) count) acc) (1+ count))
@@ -305,19 +316,17 @@ found."
   "Return list of elements in A that are not in B."
   (lset-difference eq? a b))
 
-;; TODO: use the srfi-1 partition function.
-(define-public (uniq-list lst)
-  
+(define (uniq lst)
   "Uniq LST, assuming that it is sorted"
-  (define (helper acc lst) 
-    (if (null? lst)
-	acc
-	(if (null? (cdr lst))
-	    (cons (car lst) acc)
-	    (if (equal? (car lst) (cadr lst))
-		(helper acc (cdr lst))
-		(helper (cons (car lst) acc)  (cdr lst))))))
-  (reverse! (helper '() lst) '()))
+
+  (reverse! 
+   (fold (lambda (x acc)
+	   (if (null? acc)
+	       (list x)
+	       (if (eq? x (car acc))
+		   acc
+		   (cons x acc))))
+	 '() lst) '()))
 
 (define (split-at-predicate predicate lst)
  "Split LST = (a_1 a_2 ... a_k b_1 ... b_k)
