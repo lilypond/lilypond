@@ -12,6 +12,7 @@
 (use-modules
  (ice-9 getopt-long)
  (ice-9 regex)
+ (srfi srfi-1)
  (srfi srfi-13)
  (srfi srfi-14))
 
@@ -22,7 +23,6 @@
   (format #f "~a/lilypond/~a" DATADIR TOPLEVEL-VERSION))
 
 ;; argv0 relocation -- do in wrapper?
-
 
 (define LILYPONDPREFIX
   (let* ((prefix
@@ -124,6 +124,19 @@ Options:
        (format "~a ~a" (getenv "BROWSER") uri)
        (format #f "firefox -remote 'OpenURL(~a,new-tab)'" uri))))
 
+
+(define (strip-framework-path var)
+  (define pat "lilypond/usr")
+  (let*
+      ((val (getenv var))
+       (paths (string-split val #\:))
+       (without (remove (lambda (s) (string-contains s pat))
+			paths)))
+
+    (if (not (= (length without)
+		(length paths)))
+	(setenv var (string-join without ":")))))
+
 (define (main args)
   (let ((files (parse-options args)))
     (if (running-from-gui?)
@@ -138,8 +151,10 @@ Options:
 	  (show-help (current-error-port))
 	  (exit 2)))
     (set! %load-path (cons LILYPONDPREFIX %load-path))
+
     (primitive-eval '(use-modules (scm editor)))
 
+    (strip-framework-path "LD_LIBRARY_PATH")
     (let* ((uri (car files)))
       (if (is-textedit-uri? uri)
 	  (run-editor uri)
