@@ -362,34 +362,37 @@ The syntax is the same as `define*-public'."
 			 ".scm"))
 	 (outfile    (open-file  out-file-name  "w")))
 
-    (display (format "Dumping gc protected objs to ~a...\n" out-file-name))
+    (display (format "Dumping GC statistics ~a...\n" out-file-name))
     (display
      (map (lambda (y)
 	    (let ((x (car y))
 		  (c (cdr y)))
-	      
-	      (string-append
-	       (string-join
-		(map object->string (list (object-address x) c x))
-		" ")
-	       "\n")))
-
+	      (display 
+	       (format "~a (~a) = ~a\n" (object-address x) c x)
+	       outfile)))
 	  (filter
 	   (lambda (x)
 	     (not (symbol? (car x))))
 	   protects))
      outfile)
 
-					;    (display (ly:smob-protects))
+    (format outfile "\nprotected symbols: ~a\n"
+	    (length (filter symbol?  (map car protects))))
+    
+	     
+
+    ;; (display (ly:smob-protects))
     (newline outfile)
     (if (defined? 'gc-live-object-stats)
 	(let* ((stats #f))
 	  (display "Live object statistics: GC'ing\n")
+	  (ly:reset-all-fonts)
 	  (gc)
 	  (gc)
 	  (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	  (gc)
-	  
+	  (ly:set-option 'debug-gc-assert-parsed-dead #f)
+
 	  (set! stats (gc-live-object-stats))
 	  (display "Dumping live object statistics.\n")
 	  
@@ -398,7 +401,26 @@ The syntax is the same as `define*-public'."
 	     (format outfile "~a: ~a\n" (car x) (cdr x)))
 	   (sort (gc-live-object-stats)
 		 (lambda (x y)
-		   (string<? (car x) (car y)))))))))
+		   (string<? (car x) (car y)))))))
+
+
+    (newline outfile)
+    (let*
+	((stats (gc-stats)))
+      
+      (for-each
+       (lambda (sym)
+	 (display
+	  (format "~a ~a ~a\n"
+		  gc-protect-stat-count
+		  sym
+		  (cdr (assoc sym stats)))
+	  outfile))
+       '(protected-objects bytes-malloced cell-heap-size
+			   
+			   )))
+    
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -511,12 +533,13 @@ The syntax is the same as `define*-public'."
 
     (for-each
      (lambda (x)
-       (ly:set-option 'debug-gc-assert-parsed-dead #f)
        (lilypond-file handler x)
        (ly:clear-anonymous-modules)
        (if (ly:get-option 'debug-gc)
-	   (dump-gc-protects)))
-     
+	   (dump-gc-protects)
+	   (if (= (rand 40) 1)
+	       (ly:reset-all-fonts))))
+
      files)
     failed))
 
