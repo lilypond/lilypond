@@ -127,26 +127,31 @@
 	0)))
 
 (define-public (make-ps-images ps-name . rest)
-  (let-optional
-   rest ((resolution 90)
-	 page-width
-	 page-height
-	 (rename-page-1? #f)
-	 (verbose? #f)
-	 (aa-factor 1) 
-	 )
-
-   (let* ((base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (png1 (string-append base ".png"))
-	  (pngn (string-append base "-page%d.png"))
+  (let-keywords*
+   rest #f
+     ((resolution 90)
+      (page-width  100)
+      (page-height 100)
+      (rename-page-1 #f)
+      (be-verbose #f)
+      (pixmap-format 'png16m)
+      (anti-alias-factor 1))
+     
+   (let* (
+	  (format-str (format "~a" pixmap-format))
+	  (extension (cond
+		      ((string-contains format-str "png") "png")
+		      ((string-contains format-str "jpg") "jpeg")
+		      ((string-contains format-str "jpeg") "jpeg")
+		      (else
+		       (ly:error "Unknown pixmap format ~a" pixmap-format))))
+	  (base (basename (re-sub "[.]e?ps" "" ps-name)))
+	  (png1 (format "~a.~a" base pixmap-format))
+	  (pngn (format  "~a-page%d.~a" base pixmap-format))
 	  (page-count (ps-page-count ps-name))
-	  
 	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
 
-	  ;; png16m is because Lily produces color nowadays.
-	  ;; can't use pngalpha device, since IE is broken.
-	  ;;
 	  (gs-variable-options
 	   (if multi-page?
 	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f" page-width page-height)
@@ -158,16 +163,17 @@
  -dGraphicsAlphaBits=4\
  -dTextAlphaBits=4\
  -dNOPAUSE\
- -sDEVICE=png16m\
+ -sDEVICE=~a\
  -sOutputFile=~S\
  -r~S\
  ~S\
  -c quit"
 		       (search-gs)
-		       (if verbose? "" "-q")
+		       (if be-verbose "" "-q")
 		       gs-variable-options
+		       pixmap-format
 		       output-file 
-		       (* aa-factor resolution) ps-name))
+		       (* anti-alias-factor resolution) ps-name))
 	  (status 0)
 	  (files '()))
 
@@ -178,7 +184,7 @@
 	   (set! cmd (re-sub "=" "#" cmd))
 	   (set! cmd (re-sub "-dSAFER " "" cmd))))
 
-     (set! status (my-system verbose? #f cmd))
+     (set! status (my-system be-verbose #f cmd))
 
      (set! files
 	   (if multi-page?
@@ -193,7 +199,7 @@
 	   (map delete-file files)
 	   (exit 1)))
 
-     (if (and rename-page-1? multi-page?)
+     (if (and rename-page-1 multi-page?)
 	 (begin
 	   (rename-file (re-sub "%d" "1" pngn) png1)
 	   (set! files
@@ -201,8 +207,8 @@
 		       (cdr files)))
 	   ))
 
-     (if (not (= 1 aa-factor))
-	 (for-each  (lambda (f) (scale-down-image verbose? aa-factor f))
+     (if (not (= 1 anti-alias-factor))
+	 (for-each  (lambda (f) (scale-down-image be-verbose anti-alias-factor f))
 		    files))
 
      files)))
