@@ -43,8 +43,11 @@ For maintenance reasons, we don't excercise the entire markup command set.
     \combine "X" "+"   
     \combine "o" "/"
     \box \column { \line { "string 1" } \line { "string 2" } }
+    " "
     \italic Norsk
     \super "2"
+    \circle \dynamic "p"
+    " "
     \dynamic sfzp
     \huge { "A" \smaller "A" \smaller \smaller "A"
 	    \smaller \smaller \smaller "A" }

@@ -35,9 +35,32 @@ The command is now available in markup mode, e.g.
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup definer utilities
+
+(defmacro-public in-module-define-variable (module-name symbol value)
+  "Define a variable in a module and export its name.
+  (in-module-define-variable (some module) symbol value)"
+  (let ((gmodule (gensym "module")))
+    `(let ((,gmodule (resolve-module ',module-name)))
+       (module-define! ,gmodule ',symbol ,value)
+       (module-export! ,gmodule '(,symbol)))))
+
+(defmacro-public in-module-define-function
+                 (module-name function-name+arg-list . body)
+  "Define a public function in a module:
+  (in-module-define-function (some module) (function-name . args)
+    ..body..)"
+  `(in-module-define-variable
+    ,module-name
+    ,(car function-name+arg-list)
+    (let ((proc (lambda ,(cdr function-name+arg-list)
+                  ,@body)))
+      (set-procedure-property! proc
+                               'name
+                               ',(car function-name+arg-list))
+      proc)))
+
 ;;; `define-markup-command' can be used both for built-in markup
 ;;; definitions and user defined markups.
-
 (defmacro-public define-markup-command (command-and-args signature . body)
   "
 
@@ -54,25 +77,37 @@ Syntax:
   (define-markup-command (COMMAND layout props arg1 arg2 ...) (arg1-type? arg2-type? ...)
     \"documentation string\"
     ...command body...)
- or:
-  (define-markup-command COMMAND (arg1-type? arg2-type? ...)
-    function)
+or:
+  (define-markup-command COMMAND (arg1-type? arg2-type? ...) function)
 "
-  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
-         (args (if (pair? command-and-args) (cdr command-and-args) '()))
-         (command-name (string->symbol (string-append (symbol->string command) "-markup")))
-         (make-markup-name (string->symbol (string-append "make-" (symbol->string command-name)))))
-    `(begin
-       (define-public ,(if (pair? args)
-                           (cons command-name args)
-                           command-name)
-         ,@body)
-       (set! (markup-command-signature ,command-name) (list ,@signature))
-       (if (not (member ,command-name markup-function-list))
-           (set! markup-function-list (cons ,command-name markup-function-list)))
-       (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
+  (let* ((command (if (pair? command-and-args)
+                      (car command-and-args)
+                      command-and-args))
+         (command-name (string->symbol (format #f "~a-markup" command)))
+         (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
+    `(let ((lily-module (resolve-module '(lily))))
+       ;; define the COMMAND-markup procedure in (lily) module
+       ,(if (pair? command-and-args)
+            ;; two cases:
+            ;; 1/ (define (COMMAND-markup layout props arg1 arg2 ...)
+            ;;      ..command body))
+            `(in-module-define-function (lily) (,command-name ,@(cdr command-and-args))
+               ,@body)
+            ;; 2/ (define COMMAND-markup function)
+            `(in-module-define-variable (lily) ,command-name ,(car body)))
+       (let ((command-proc (module-ref lily-module ',command-name)))
+         ;; register its command signature
+         (set! (markup-command-signature command-proc)
+               (list ,@signature))
+         ;; add the COMMAND-markup procedure to the list of markup functions
+         (if (not (member command-proc markup-function-list))
+             (set! markup-function-list (cons command-proc markup-function-list)))
+         ;; define the make-COMMAND-markup procedure in (lily) module
+         (in-module-define-function (lily) (,make-markup-name . args)
+           (make-markup command-proc
+                        ,(symbol->string make-markup-name)
+                        (list ,@signature)
+                        args))))))
 
 (define-public (make-markup markup-function make-name signature args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
@@ -266,8 +301,8 @@ Also set markup-signature and markup-keyword object properties."
 (define (markup-symbol-to-proc markup-sym)
   "Return the markup command procedure which name is `markup-sym', if any."
   (hash-fold (lambda (key val prev)
-                            (or prev
-                                (if (eqv? (procedure-name key) markup-sym) key #f)))
+               (or prev
+                   (if (eqv? (procedure-name key) markup-sym) key #f)))
              #f
              markup-command-signatures))
 
@@ -409,10 +444,4 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
                              (ly:stencil-translate-axis tail xoff X)))
           (car stencils))
       (ly:make-stencil '() '(0 . 0) '(0 . 0))))
-
-
-
-
-
-
 
