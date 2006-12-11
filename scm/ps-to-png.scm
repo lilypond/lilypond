@@ -146,8 +146,8 @@
 		      (else
 		       (ly:error "Unknown pixmap format ~a" pixmap-format))))
 	  (base (basename (re-sub "[.]e?ps" "" ps-name)))
-	  (png1 (format "~a.~a" base pixmap-format))
-	  (pngn (format  "~a-page%d.~a" base pixmap-format))
+	  (png1 (format "~a.~a" base extension))
+	  (pngn (format  "~a-page%d.~a" base extension))
 	  (page-count (ps-page-count ps-name))
 	  (multi-page? (> page-count 1))
 	  (output-file (if multi-page? pngn png1))
