@@ -35,6 +35,7 @@ import commands
 import os
 import sys
 import re
+import md5
 
 ################
 # RELOCATION
@@ -1066,17 +1067,20 @@ class Lilypond_snippet (Snippet):
         d.update (locals())
         return (PREAMBLE_LY + body) % d
 
-    # TODO: Use md5?
     def get_hash (self):
         if not self.hash:
-            self.hash = abs (hash (self.relevant_contents (self.full_ly ())))
+            hash = md5.md5 (self.relevant_contents (self.full_ly ()))
+
+            ## let's not create too long names.
+            self.hash = hash.hexdigest ()[:10]
+            
         return self.hash
 
     def basename (self):
         if FILENAME in self.option_dict:
             return self.option_dict[FILENAME]
         if global_options.use_hash:
-            return 'lily-%d' % self.get_hash ()
+            return 'lily-%s' % self.get_hash ()
         raise 'to be done'
 
     def write_ly (self):
