@@ -394,8 +394,7 @@ main_with_guile (void *, int, char **)
   init_fontconfig ();
 
   init_freetype ();
-
-  all_fonts_global = new All_font_metrics (global_path.to_string ());
+  ly_reset_all_fonts ();
 
   if (!init_scheme_variables.empty ()
       || !init_scheme_code_string.empty ())
