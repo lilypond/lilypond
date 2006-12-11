@@ -108,8 +108,17 @@
 	(rename-page-1 #f))
 
     (ly:message (_ "Converting to ~a...") "PNG")
-    (make-ps-images name resolution paper-width paper-height rename-page-1 verbose
-		    (ly:get-option 'anti-alias-factor))
+
+    (make-ps-images name
+		    #:resolution resolution
+		    #:page-width  paper-width
+		    #:page-height paper-height
+		    #:rename-page-1 rename-page-1
+		    #:be-verbose verbose
+		    #:anti-alias-factor (ly:get-option 'anti-alias-factor)
+		    #:pixmap-format (ly:get-option 'pixmap-format) 
+		    )
+    
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)

@@ -48,6 +48,7 @@ similar to chord syntax")
 			   "experimental mechanism for remembering tweaks")
 	      (point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
+	      (pixmap-format "png16m" "GS format to use for pixel images")
 	      (protected-scheme-parsing #t "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
