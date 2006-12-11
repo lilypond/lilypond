@@ -349,8 +349,10 @@ The syntax is the same as `define*-public'."
 	(,vector? . "vector")))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; debug mem leaks
 
+(define gc-dumping #f)
 (define gc-protect-stat-count 0)
 (define-public (dump-gc-protects)
   (set! gc-protect-stat-count (1+ gc-protect-stat-count))
@@ -365,6 +367,7 @@ The syntax is the same as `define*-public'."
 			 ".scm"))
 	 (outfile    (open-file  out-file-name  "w")))
 
+    (set! gc-dumping #t)
     (display (format "Dumping GC statistics ~a...\n" out-file-name))
     (display
      (map (lambda (y)
@@ -425,6 +428,8 @@ The syntax is the same as `define*-public'."
        '(protected-objects bytes-malloced cell-heap-size
 			   
 			   )))
+
+    (set! gc-dumping #f)
     
     ))
 
@@ -534,11 +539,18 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
+	 (first #t)
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
     (for-each
      (lambda (x)
+
+       ;; We don't carry info across file boundaries
+       (if first
+	   (set! first #f)
+	   (gc))
+       
        (lilypond-file handler x)
        (ly:clear-anonymous-modules)
        (if (ly:get-option 'debug-gc)
