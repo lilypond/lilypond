@@ -654,7 +654,7 @@ AncientRemoveEmptyStaffContext = \context {
   \alias "Voice"
   \consists "Tab_note_heads_engraver"
   \consists "Tab_harmonic_engraver"
-
+  
   \remove "Note_heads_engraver"
   \remove "Fingering_engraver"
   \remove "New_fingering_engraver"
@@ -669,6 +669,8 @@ AncientRemoveEmptyStaffContext = \context {
 
   %% No accidental in tablature !
   \remove Accidental_engraver
+
+  \override Glissando #'extra-dy = #0.75
 }
 
 \context {

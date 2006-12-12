@@ -106,6 +106,7 @@ on errors, and print a stack trace.")
 
 (if (ly:get-option 'verbose)
     (begin
+      (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'debug)
       (debug-enable 'backtrace)
       (read-enable 'positions)))

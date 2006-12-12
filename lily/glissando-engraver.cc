@@ -73,6 +73,7 @@ Glissando_engraver::stop_translation_timestep ()
 {
   if (last_line_ && last_line_->get_bound (RIGHT))
     last_line_ = 0;
+
   if (line_)
     {
       if (last_line_)

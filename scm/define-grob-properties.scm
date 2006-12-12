@@ -136,7 +136,8 @@ edges '(@var{left-text} . @var{right-text}).")
 		     "How much of the bound a spanner should enclose:
 +1 = completely, 0 = center, -1 not at all.")
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
-     ;; remove me? 
+     ;; remove me?
+     (extra-dy ,number? "Slope glissandi this much extra.")
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
 by this much.")
      (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
