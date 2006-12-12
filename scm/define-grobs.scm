@@ -1875,6 +1875,7 @@
 	(axes . (,X))
 	(font-size . -4)
 	(stencil . ,parenthesize-elements)
+	(stencils . ,parentheses-item::calc-parenthesis-stencils)
 	(direction . ,RIGHT)
 	(side-axis . ,X)
 	(padding . 0.3)
