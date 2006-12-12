@@ -87,7 +87,7 @@
 (define-public (fret-number-tablature-format-banjo string 
 					     context event)
   (let*
-      ((tuning (ly:context-property context 'stringTuning))
+      ((tuning (ly:context-property context 'stringTunings))
        (pitch (ly:event-property event 'pitch))
 	)
   (make-whiteout-markup
