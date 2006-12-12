@@ -316,7 +316,7 @@ found."
   "Return list of elements in A that are not in B."
   (lset-difference eq? a b))
 
-(define (uniq lst)
+(define-public (uniq-list lst)
   "Uniq LST, assuming that it is sorted"
 
   (reverse! 
@@ -335,6 +335,7 @@ found."
   L1 is copied, L2 not.
 
   (split-at-predicate (lambda (x y) (= (- y x) 2)) '(1 3 5 9 11) (cons '() '()))"
+ 
  ;; " Emacs is broken
 
  (define (inner-split predicate lst acc)
