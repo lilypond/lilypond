@@ -198,7 +198,7 @@ allfiles = []
 for d in dirs:
     allfiles = allfiles + find ('*.ly', d)
 
-allfiles = filter (lambda x: not x.endswith ('snippet-map.ly') and not re.search ('lily-[0-9]+', x), allfiles)
+allfiles = filter (lambda x: not x.endswith ('snippet-map.ly') and not re.search ('lily-[0-9a-f]+', x), allfiles)
 
 gen_list (allfiles, outfile)
 
