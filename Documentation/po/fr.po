@@ -1,0 +1,1186 @@
+# translation of fr.po to Français
+# translation of LilyPond documentation
+# Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# This file is distributed under the same license as the lilypond package.
+#
+# John Mandereau <john.mandereau@free.fr>, 2006.
+msgid ""
+msgstr ""
+"Project-Id-Version: fr\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2006-11-19 10:23+0100\n"
+"PO-Revision-Date: 2006-11-25 16:47+0100\n"
+"Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
+"Language-Team: Français <lilypond-user-fr@gnu.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+
+msgid "Top"
+msgstr "Sommaire"
+
+msgid "GNU LilyPond --- The music typesetter"
+msgstr "GNU LilyPond -- le système de gravure musicale"
+
+msgid "LilyPond command index"
+msgstr "Index des commandes LilyPond"
+
+msgid "LilyPond index"
+msgstr "Index de LilyPond"
+
+msgid "Bugs"
+msgstr "Bogues"
+
+msgid "See also"
+msgstr "Voir aussi"
+
+msgid "Predefined commands"
+msgstr "Commandes prédéfinies"
+
+msgid "Commonly tweaked properties"
+msgstr "Propriétés couramment ajustées"
+
+msgid "Preface"
+msgstr "Préface"
+
+msgid "Introduction"
+msgstr "Introduction"
+
+msgid "Engraving"
+msgstr "Gravure"
+
+msgid "Automated engraving"
+msgstr "Gravure automatisée"
+
+msgid "What symbols to engrave?"
+msgstr "Quels signes graver ?"
+
+msgid "Music representation"
+msgstr "Représentation de la musique"
+
+msgid "Example applications"
+msgstr "Exemples d'applications"
+
+msgid "About this manual"
+msgstr "À propos de ce manuel"
+
+msgid "Tutorial"
+msgstr "Tutoriel"
+
+msgid "First steps"
+msgstr "Premiers pas"
+
+msgid "Running LilyPond for the first time"
+msgstr "Lancer LilyPond pour la première fois"
+
+msgid "MacOS X"
+msgstr "MacOS X"
+
+msgid "Windows"
+msgstr "Windows"
+
+msgid "Unix"
+msgstr "Unix"
+
+msgid "More about pitches"
+msgstr "Les hauteurs en détail"
+
+msgid "Entering ties"
+msgstr "Liaisons de durée"
+
+msgid "Automatic and manual beams"
+msgstr "Barres de ligature automatiques et manuelles"
+
+msgid "Octave entry"
+msgstr "Saisie des octaves"
+
+msgid "Music expressions explained"
+msgstr "Les expressions musicales en clair"
+
+msgid "More staves"
+msgstr "Plus de portées"
+
+msgid "Adding articulation marks to notes"
+msgstr "Ajout de signes d'articulation"
+
+msgid "Combining notes into chords"
+msgstr "Combinaison de notes en accords"
+
+msgid "Advanced rhythmic commands"
+msgstr "Commandes rythmiques avancées"
+
+msgid "Commenting input files"
+msgstr "Commenter un fichier source"
+
+msgid "Printing lyrics"
+msgstr "Imprimer des paroles"
+
+msgid "A lead sheet"
+msgstr "Partition d'une chanson"
+
+msgid "Adding titles"
+msgstr "Ajout de titres"
+
+msgid "Single staff polyphony"
+msgstr "Polyphonie sur une portée"
+
+msgid "Piano staves"
+msgstr "Double portée"
+
+msgid "Organizing larger pieces"
+msgstr "Comment organiser de plus grandes pièces"
+
+msgid "An orchestral part"
+msgstr "Partitions d'orchestre"
+
+msgid "After the tutorial"
+msgstr "Après le tutoriel"
+
+msgid "Putting it all together"
+msgstr ""
+
+msgid "Extending the templates"
+msgstr ""
+
+msgid "How LilyPond files work"
+msgstr ""
+
+msgid "Score is a single musical expression"
+msgstr ""
+
+msgid "Working on LilyPond projects"
+msgstr ""
+
+msgid "Suggestions for writing LilyPond files"
+msgstr ""
+
+msgid "General suggestions"
+msgstr ""
+
+msgid "Typesetting existing music"
+msgstr ""
+
+msgid "Large projects"
+msgstr ""
+
+msgid "Saving typing with identifiers and functions"
+msgstr ""
+
+msgid "Style sheets"
+msgstr ""
+
+msgid "Updating old files"
+msgstr ""
+
+msgid "Troubleshooting (taking it all apart)"
+msgstr ""
+
+msgid "Tweaking output"
+msgstr ""
+
+msgid "Moving objects"
+msgstr ""
+
+msgid "Fixing overlapping notation"
+msgstr ""
+
+msgid "Common tweaks"
+msgstr ""
+
+msgid "Default files"
+msgstr ""
+
+msgid "Fitting music onto fewer pages"
+msgstr ""
+
+msgid "Advanced tweaks with Scheme"
+msgstr ""
+
+msgid "Basic notation"
+msgstr ""
+
+msgid "Pitches"
+msgstr ""
+
+msgid "Normal pitches"
+msgstr ""
+
+msgid "Accidentals"
+msgstr ""
+
+msgid "Cautionary accidentals"
+msgstr ""
+
+msgid "Micro tones"
+msgstr ""
+
+msgid "Notes names in other languages"
+msgstr ""
+
+msgid "Relative octaves"
+msgstr ""
+
+msgid "Octave check"
+msgstr ""
+
+msgid "Transpose"
+msgstr ""
+
+msgid "Rests"
+msgstr ""
+
+msgid "Skips"
+msgstr ""
+
+msgid "Rhythms"
+msgstr ""
+
+msgid "Durations"
+msgstr ""
+
+msgid "Augmentation dots"
+msgstr ""
+
+msgid "Tuplets"
+msgstr ""
+
+msgid "Scaling durations"
+msgstr ""
+
+msgid "Bar check"
+msgstr ""
+
+msgid "Barnumber check"
+msgstr ""
+
+msgid "Automatic note splitting"
+msgstr ""
+
+msgid "Multiple notes at once"
+msgstr ""
+
+msgid "Chords"
+msgstr ""
+
+msgid "Stems"
+msgstr ""
+
+msgid "Basic polyphony"
+msgstr ""
+
+msgid "Explicitly instantiating voices"
+msgstr ""
+
+msgid "Collision Resolution"
+msgstr ""
+
+msgid "Staff notation"
+msgstr ""
+
+msgid "Clef"
+msgstr ""
+
+msgid "Key signature"
+msgstr ""
+
+msgid "Time signature"
+msgstr ""
+
+msgid "Partial measures"
+msgstr ""
+
+msgid "Bar lines"
+msgstr ""
+
+msgid "Unmetered music"
+msgstr ""
+
+msgid "System start delimiters"
+msgstr ""
+
+msgid "Staff symbol"
+msgstr ""
+
+msgid "Writing music in parallel"
+msgstr ""
+
+msgid "Connecting notes"
+msgstr ""
+
+msgid "Ties"
+msgstr ""
+
+msgid "Slurs"
+msgstr ""
+
+msgid "Phrasing slurs"
+msgstr ""
+
+msgid "Laissez vibrer ties"
+msgstr ""
+
+msgid "Automatic beams"
+msgstr ""
+
+msgid "Manual beams"
+msgstr ""
+
+msgid "Grace notes"
+msgstr ""
+
+msgid "Expressive marks"
+msgstr ""
+
+msgid "Articulations"
+msgstr ""
+
+msgid "Fingering instructions"
+msgstr ""
+
+msgid "Dynamics"
+msgstr ""
+
+msgid "Breath marks"
+msgstr ""
+
+msgid "Trills"
+msgstr ""
+
+msgid "Glissando"
+msgstr ""
+
+msgid "Arpeggio"
+msgstr ""
+
+msgid "Falls and doits"
+msgstr ""
+
+msgid "Repeats"
+msgstr ""
+
+msgid "Repeat types"
+msgstr ""
+
+msgid "Repeat syntax"
+msgstr ""
+
+msgid "Repeats and MIDI"
+msgstr ""
+
+msgid "Manual repeat commands"
+msgstr ""
+
+msgid "Tremolo repeats"
+msgstr ""
+
+msgid "Tremolo subdivisions"
+msgstr ""
+
+msgid "Measure repeats"
+msgstr ""
+
+msgid "Instrument-specific notation"
+msgstr ""
+
+msgid "Piano music"
+msgstr ""
+
+msgid "Automatic staff changes"
+msgstr ""
+
+msgid "Manual staff switches"
+msgstr ""
+
+msgid "Pedals"
+msgstr ""
+
+msgid "Staff switch lines"
+msgstr ""
+
+msgid "Cross staff stems"
+msgstr ""
+
+msgid "Chord names"
+msgstr ""
+
+msgid "Introducing chord names"
+msgstr ""
+
+msgid "Chords mode"
+msgstr ""
+
+msgid "Printing chord names"
+msgstr ""
+
+msgid "Vocal music"
+msgstr ""
+
+msgid "Setting simple songs"
+msgstr ""
+
+msgid "Entering lyrics"
+msgstr ""
+
+msgid "Hyphens and extenders"
+msgstr ""
+
+msgid "The Lyrics context"
+msgstr ""
+
+msgid "Melismata"
+msgstr ""
+
+msgid "Another way of entering lyrics"
+msgstr ""
+
+msgid "Flexibility in placement"
+msgstr ""
+
+msgid "Lyrics to multiple notes of a melisma"
+msgstr ""
+
+msgid "Divisi lyrics"
+msgstr ""
+
+msgid "Switching the melody associated with a lyrics line"
+msgstr ""
+
+msgid "Specifying melismata within the lyrics"
+msgstr ""
+
+msgid "Lyrics independent of notes"
+msgstr ""
+
+msgid "Spacing lyrics"
+msgstr ""
+
+msgid "More about stanzas"
+msgstr ""
+
+msgid "Ambitus"
+msgstr ""
+
+msgid "Other vocal issues"
+msgstr ""
+
+msgid "Rhythmic music"
+msgstr ""
+
+msgid "Showing melody rhythms"
+msgstr ""
+
+msgid "Entering percussion"
+msgstr ""
+
+msgid "Percussion staves"
+msgstr ""
+
+msgid "Ghost notes"
+msgstr ""
+
+msgid "Guitar"
+msgstr ""
+
+msgid "String number indications"
+msgstr ""
+
+msgid "Tablatures basic"
+msgstr ""
+
+msgid "Non-guitar tablatures"
+msgstr ""
+
+msgid "Banjo tablatures"
+msgstr ""
+
+msgid "Fret diagrams"
+msgstr ""
+
+msgid "Right hand fingerings"
+msgstr ""
+
+msgid "Other guitar issues"
+msgstr ""
+
+msgid "Bagpipe"
+msgstr ""
+
+msgid "Bagpipe definitions"
+msgstr ""
+
+msgid "Bagpipe example"
+msgstr ""
+
+msgid "Ancient notation"
+msgstr ""
+
+msgid "Ancient note heads"
+msgstr ""
+
+msgid "Ancient accidentals"
+msgstr ""
+
+msgid "Ancient rests"
+msgstr ""
+
+msgid "Ancient clefs"
+msgstr ""
+
+msgid "Ancient flags"
+msgstr ""
+
+msgid "Ancient time signatures"
+msgstr ""
+
+msgid "Ancient articulations"
+msgstr ""
+
+msgid "Custodes"
+msgstr ""
+
+msgid "Divisiones"
+msgstr ""
+
+msgid "Ligatures"
+msgstr ""
+
+msgid "White mensural ligatures"
+msgstr ""
+
+msgid "Gregorian square neumes ligatures"
+msgstr ""
+
+msgid "Gregorian Chant contexts"
+msgstr ""
+
+msgid "Mensural contexts"
+msgstr ""
+
+msgid "Musica ficta accidentals"
+msgstr ""
+
+msgid "Figured bass"
+msgstr ""
+
+msgid "Other instrument specific notation"
+msgstr ""
+
+msgid "Artificial harmonics (strings)"
+msgstr ""
+
+msgid "Advanced notation"
+msgstr ""
+
+msgid "Text"
+msgstr ""
+
+msgid "Text scripts"
+msgstr ""
+
+msgid "Text spanners"
+msgstr ""
+
+msgid "Text marks"
+msgstr ""
+
+msgid "Text markup"
+msgstr ""
+
+msgid "Nested scores"
+msgstr ""
+
+msgid "Overview of text markup commands"
+msgstr ""
+
+msgid "Font selection"
+msgstr ""
+
+msgid "New dynamic marks"
+msgstr ""
+
+msgid "Preparing parts"
+msgstr ""
+
+msgid "Multi measure rests"
+msgstr ""
+
+msgid "Metronome marks"
+msgstr ""
+
+msgid "Rehearsal marks"
+msgstr ""
+
+msgid "Bar numbers"
+msgstr ""
+
+msgid "Instrument names"
+msgstr ""
+
+msgid "Instrument transpositions"
+msgstr ""
+
+msgid "Ottava brackets"
+msgstr ""
+
+msgid "Different editions from one source"
+msgstr ""
+
+msgid "Orchestral music"
+msgstr ""
+
+msgid "Automatic part combining"
+msgstr ""
+
+msgid "Hiding staves"
+msgstr ""
+
+msgid "Quoting other voices"
+msgstr ""
+
+msgid "Formatting cue notes"
+msgstr ""
+
+msgid "Aligning to cadenzas"
+msgstr ""
+
+msgid "Contemporary notation"
+msgstr ""
+
+msgid "Polymetric notation"
+msgstr ""
+
+msgid "Time administration"
+msgstr ""
+
+msgid "Proportional notation"
+msgstr ""
+
+msgid "Clusters"
+msgstr ""
+
+msgid "Special noteheads"
+msgstr ""
+
+msgid "Feathered beams"
+msgstr ""
+
+msgid "Improvisation"
+msgstr ""
+
+msgid "Selecting notation font size"
+msgstr ""
+
+msgid "Educational use"
+msgstr ""
+
+msgid "Balloon help"
+msgstr ""
+
+msgid "Blank music sheet"
+msgstr ""
+
+msgid "Hidden notes"
+msgstr ""
+
+msgid "Shape note heads"
+msgstr ""
+
+msgid "Easy Notation note heads"
+msgstr ""
+
+msgid "Analysis brackets"
+msgstr ""
+
+msgid "Coloring objects"
+msgstr ""
+
+msgid "Parentheses"
+msgstr ""
+
+msgid "Changing defaults"
+msgstr ""
+
+msgid "Automatic notation"
+msgstr ""
+
+msgid "Automatic accidentals"
+msgstr ""
+
+msgid "Setting automatic beam behavior"
+msgstr ""
+
+msgid "Interpretation contexts"
+msgstr ""
+
+msgid "Contexts explained"
+msgstr ""
+
+msgid "Creating contexts"
+msgstr ""
+
+msgid "Changing context properties on the fly"
+msgstr ""
+
+msgid "Modifying context plug-ins"
+msgstr ""
+
+msgid "Layout tunings within contexts"
+msgstr ""
+
+msgid "Changing context default settings"
+msgstr ""
+
+msgid "Defining new contexts"
+msgstr ""
+
+msgid "The \\override command"
+msgstr ""
+
+msgid "Constructing a tweak"
+msgstr ""
+
+msgid "Navigating the program reference"
+msgstr ""
+
+msgid "Layout interfaces"
+msgstr ""
+
+msgid "Determining the grob property"
+msgstr ""
+
+msgid "Objects connected to the input"
+msgstr ""
+
+msgid "\\set vs. \\override"
+msgstr ""
+
+msgid "Difficult tweaks"
+msgstr ""
+
+msgid "Non-musical notation"
+msgstr ""
+
+msgid "Input files"
+msgstr ""
+
+msgid "File structure (introduction)"
+msgstr ""
+
+msgid "Multiple scores in a book"
+msgstr ""
+
+msgid "Extracting fragments of notation"
+msgstr ""
+
+msgid "File structure"
+msgstr ""
+
+msgid "A single music expression"
+msgstr ""
+
+msgid "Including LilyPond files"
+msgstr ""
+
+msgid "Text encoding"
+msgstr ""
+
+msgid "Titles and headers"
+msgstr ""
+
+msgid "Creating titles"
+msgstr ""
+
+msgid "Custom titles"
+msgstr ""
+
+msgid "MIDI output"
+msgstr ""
+
+msgid "Creating MIDI files"
+msgstr ""
+
+msgid "MIDI block"
+msgstr ""
+
+msgid "MIDI instrument names"
+msgstr ""
+
+msgid "Displaying LilyPond notation"
+msgstr ""
+
+msgid "Skipping corrected music"
+msgstr ""
+
+msgid "Spacing issues"
+msgstr ""
+
+msgid "Paper and pages"
+msgstr ""
+
+msgid "Paper size"
+msgstr ""
+
+msgid "Page formatting"
+msgstr ""
+
+msgid "Music layout"
+msgstr ""
+
+msgid "Setting global staff size"
+msgstr ""
+
+msgid "Score layout"
+msgstr ""
+
+msgid "Vertical spacing"
+msgstr ""
+
+msgid "Vertical spacing inside a system"
+msgstr ""
+
+msgid "Vertical spacing of piano staves"
+msgstr ""
+
+msgid "Vertical spacing between systems"
+msgstr ""
+
+msgid "Controlling spacing of individual systems"
+msgstr ""
+
+msgid "Two-pass vertical spacing"
+msgstr ""
+
+msgid "Horizontal spacing"
+msgstr ""
+
+msgid "Horizontal Spacing"
+msgstr ""
+
+msgid "Horizontal spacing overview"
+msgstr ""
+
+msgid "New spacing area"
+msgstr ""
+
+msgid "Changing horizontal spacing"
+msgstr ""
+
+msgid "Line length"
+msgstr ""
+
+msgid "Breaks"
+msgstr ""
+
+msgid "Line breaking"
+msgstr ""
+
+msgid "Page breaking"
+msgstr ""
+
+msgid "Optimal page breaking"
+msgstr ""
+
+msgid "Optimal page turning"
+msgstr ""
+
+msgid "Displaying spacing"
+msgstr ""
+
+msgid "Interfaces for programmers"
+msgstr ""
+
+msgid "Music functions"
+msgstr ""
+
+msgid "Overview of music functions"
+msgstr ""
+
+msgid "Simple substitution functions"
+msgstr ""
+
+msgid "Paired substitution functions"
+msgstr ""
+
+msgid "Mathematics in functions"
+msgstr ""
+
+msgid "Void functions"
+msgstr ""
+
+msgid "Programmer interfaces"
+msgstr ""
+
+msgid "Input variables and Scheme"
+msgstr ""
+
+msgid "Internal music representation"
+msgstr ""
+
+msgid "Building complicated functions"
+msgstr ""
+
+msgid "Displaying music expressions"
+msgstr ""
+
+msgid "Music properties"
+msgstr ""
+
+msgid "Doubling a note with slurs (example)"
+msgstr ""
+
+msgid "Adding articulation to notes (example)"
+msgstr ""
+
+msgid "Markup programmer interface"
+msgstr ""
+
+msgid "Markup construction in Scheme"
+msgstr ""
+
+msgid "How markups work internally"
+msgstr ""
+
+msgid "New markup command definition"
+msgstr ""
+
+msgid "Contexts for programmers"
+msgstr ""
+
+msgid "Context evaluation"
+msgstr ""
+
+msgid "Running a function on all layout objects"
+msgstr ""
+
+msgid "Scheme procedures as properties"
+msgstr ""
+
+msgid "Running LilyPond"
+msgstr ""
+
+msgid "Invoking lilypond"
+msgstr ""
+
+msgid "Command line options"
+msgstr ""
+
+msgid "Environment variables"
+msgstr ""
+
+msgid "Notes for the MacOS X app"
+msgstr ""
+
+msgid "Updating files with convert-ly"
+msgstr ""
+
+msgid "Updating with"
+msgstr ""
+
+msgid "Reporting bugs"
+msgstr ""
+
+msgid "Error messages"
+msgstr ""
+
+msgid "Editor support"
+msgstr ""
+
+msgid "Point and click"
+msgstr ""
+
+msgid "LilyPond-book"
+msgstr ""
+
+msgid "An example of a musicological document"
+msgstr ""
+
+msgid "Integrating LaTeX and music"
+msgstr ""
+
+msgid "Integrating La"
+msgstr ""
+
+msgid "Integrating Texinfo and music"
+msgstr ""
+
+msgid "Integrating HTML and music"
+msgstr ""
+
+msgid "Integrating DocBook and music"
+msgstr ""
+
+msgid "Common conventions"
+msgstr ""
+
+msgid "Including a LilyPond file"
+msgstr ""
+
+msgid "Including LilyPond code"
+msgstr ""
+
+msgid "Processing the DocBook document"
+msgstr ""
+
+msgid "Music fragment options"
+msgstr ""
+
+msgid "Invoking lilypond-book"
+msgstr ""
+
+msgid "Invoking"
+msgstr ""
+
+msgid "Filename extensions"
+msgstr ""
+
+msgid "Many quotes of a large score"
+msgstr ""
+
+msgid "Inserting LilyPond output into other programs"
+msgstr ""
+
+msgid "Converting from other formats"
+msgstr ""
+
+msgid "Invoking midi2ly"
+msgstr ""
+
+msgid "Invoking etf2ly"
+msgstr ""
+
+msgid "Invoking musicxml2ly"
+msgstr ""
+
+msgid "Invoking abc2ly"
+msgstr ""
+
+msgid "Generating LilyPond files"
+msgstr ""
+
+msgid "Literature list"
+msgstr ""
+
+msgid "Scheme tutorial"
+msgstr ""
+
+msgid "Notation manual tables"
+msgstr ""
+
+msgid "Chord name chart"
+msgstr ""
+
+msgid "MIDI instruments"
+msgstr ""
+
+msgid "List of colors"
+msgstr ""
+
+msgid "Normal colors"
+msgstr ""
+
+msgid "X color names"
+msgstr ""
+
+msgid "Color Names without a numerical suffix:"
+msgstr ""
+
+msgid "Color names with a numerical suffix"
+msgstr ""
+
+msgid "Grey Scale"
+msgstr ""
+
+msgid "The Feta font"
+msgstr ""
+
+msgid "Example templates"
+msgstr ""
+
+msgid "Single staff"
+msgstr ""
+
+msgid "Notes only"
+msgstr ""
+
+msgid "Notes and lyrics"
+msgstr ""
+
+msgid "Notes and chords"
+msgstr ""
+
+msgid "Notes, lyrics, and chords."
+msgstr ""
+
+msgid "Piano templates"
+msgstr ""
+
+msgid "Solo piano"
+msgstr ""
+
+msgid "Piano and melody with lyrics"
+msgstr ""
+
+msgid "Piano centered lyrics"
+msgstr ""
+
+msgid "Piano centered dynamics"
+msgstr ""
+
+msgid "String quartet"
+msgstr ""
+
+msgid "String quartet parts"
+msgstr ""
+
+msgid "Vocal ensembles"
+msgstr ""
+
+msgid "SATB vocal score"
+msgstr ""
+
+msgid "SATB vocal score and automatic piano reduction"
+msgstr ""
+
+msgid "Ancient notation templates"
+msgstr ""
+
+msgid "Transcription of mensural music"
+msgstr ""
+
+msgid "Gregorian transcription template"
+msgstr ""
+
+msgid "Jazz combo"
+msgstr ""
+
+msgid "Lilypond-book templates"
+msgstr ""
+
+msgid "LaTeX"
+msgstr ""
+
+msgid "Texinfo"
+msgstr ""
+
+msgid "Cheat sheet"
+msgstr ""
+
+msgid "GNU Free Documentation License"
+msgstr ""
+
+msgid "ADDENDUM: How to use this License for your documents"
+msgstr ""
+
+msgid "Up:"
+msgstr "Haut&nbsp;:"
+
+msgid "Next:"
+msgstr "Suivant&nbsp;:"
+
+msgid "Previous:"
+msgstr "Précédent&nbsp;:"
+
+msgid "Appendix"
+msgstr "Annexe"
+

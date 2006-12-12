@@ -23,7 +23,7 @@ config.hh
 /scons.cache
 ?.*
 AUTHORS.txt
-GNUmakefile
+/GNUmakefile
 INSTALL.txt
 TAGS
 \#*

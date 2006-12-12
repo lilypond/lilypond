@@ -1,0 +1,51 @@
+@node Running LilyPond
+@chapter Running LilyPond
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Invoking lilypond::
+* Notes for the MacOS X app::
+* Updating files with convert-ly::
+* Reporting bugs::
+* Error messages::
+* Editor support::
+* Point and click::
+@end menu 
+@node Invoking lilypond
+@section Invoking lilypond
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Command line options
+@subsection Environment variables
+@node Notes for the MacOS X app
+@section Notes for the MacOS X app
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Updating files with convert-ly
+@section Updating with 
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Reporting bugs
+@section Reporting bugs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Error messages
+@section Error messages
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Editor support
+@section Editor support
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Point and click
+@section Point and click
+
+UNTRANSLATED NODE: IGNORE ME
+

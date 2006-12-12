@@ -189,13 +189,13 @@ accessed directly using text markup such as @code{g^\markup @{
 
 
 @ignore
-@node All context properties
+@n ode All context properties
 @a ppendixsec All context properties
 
 @i nclude context-properties.tely
 
 
-@node Layout properties
+@n ode Layout properties
 @ap pendixsec Layout properties
 
 @in clude layout-properties.tely
