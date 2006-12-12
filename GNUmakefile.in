@@ -100,7 +100,7 @@ local-WWW-post:
 
 	cd $(top-build-dir) && find Documentation input \
 		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
-		| grep -v 'lily-[0-9].*.pdf' \
+		| grep -v 'lily-[0-9a-f][0-9a-f]*.pdf' \
 		| grep -v '/fr/' \
 		> $(outdir)/weblist
 	ls $(outdir)/*.html >> $(outdir)/weblist
