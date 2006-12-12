@@ -205,6 +205,9 @@ Line_spanner::print (SCM smob)
   Offset my_off;
   Offset his_off;
 
+  Real extra_dy = robust_scm2double (me->get_property ("extra-dy"),
+				     0.0);
+  
   if (bound[RIGHT]->break_status_dir ())
     {
       if (bound[LEFT]->break_status_dir ())
@@ -247,11 +250,11 @@ Line_spanner::print (SCM smob)
       Real yoff = this_common_y->relative_coordinate (all_common_y, Y_AXIS);
 
       Offset p1 (bound[LEFT]->extent (commonx, X_AXIS)[RIGHT],
-		 this_ext.center () + yoff);
+		 this_ext.center () + yoff - extra_dy / 2);
       Offset p2 (bound[RIGHT]->extent (commonx, X_AXIS)[LEFT],
-		 next_ext.center () + yoff);
+		 next_ext.center () + yoff + extra_dy / 2);
 
-      Offset dz (p2 -p1);
+      Offset dz (p2 - p1);
       Real len = dz.length ();
 
       Offset dir = dz * (1 / len);
@@ -288,13 +291,15 @@ Line_spanner::print (SCM smob)
 	  his_off[ax] = bound[LEFT]->relative_coordinate (common[a], ax);
 	}
 
-      ofxy = dxy * (off / dxy.length ());
+      ofxy = dxy * (off / dxy.length ()) ;
       dxy -= 2*ofxy;
 
+      dxy[Y_AXIS] += extra_dy;
+      
       Stencil line = line_stencil (me, Offset (0, 0), dxy);
 
       line.translate_axis (bound[LEFT]->extent (bound[LEFT], X_AXIS).length () / 2, X_AXIS);
-      line.translate (ofxy - my_off + his_off);
+      line.translate (ofxy - my_off + his_off + Offset (0, -extra_dy/2));
       return line.smobbed_copy ();
     }
 }
@@ -305,7 +310,8 @@ ADD_INTERFACE (Line_spanner,
 	       "@code{dashed-line}, @code{trill}, \n"
 	       "@code{dotted-line} or @code{zigzag}.\n"
 	       "\n",
-	       
+
+	       "extra-dy "
 	       "arrow "
 	       "gap "
 	       "thickness "
