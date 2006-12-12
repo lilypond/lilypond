@@ -301,8 +301,8 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     add_boxes (elements[i], x_common, y_common, &boxes);
 
-  Drul_array<Skyline> skylines (Skyline (boxes, X_AXIS, DOWN),
-				Skyline (boxes, X_AXIS, UP));
+  Drul_array<Skyline> skylines (Skyline (boxes, 0, X_AXIS, DOWN),
+				Skyline (boxes, 0, X_AXIS, UP));
   for (; i < elements.size (); i++)
     {
       Direction dir = get_grob_direction (elements[i]);
@@ -322,7 +322,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       boxes.clear ();
       boxes.push_back (b);
-      Skyline other = Skyline (boxes, X_AXIS, -dir);
+      Skyline other = Skyline (boxes, 0, X_AXIS, -dir);
       Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
       Real dist = skylines[dir].distance (other) + padding;
 
@@ -331,7 +331,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 	  b.translate (Offset (0, dir*dist));
 	  elements[i]->translate_axis (dir*dist, Y_AXIS);
 	}
-      skylines[dir].insert (b, X_AXIS);
+      skylines[dir].insert (b, 0, X_AXIS);
     }
 }
 

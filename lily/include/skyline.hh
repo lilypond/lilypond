@@ -35,6 +35,7 @@ struct Building
   void leading_part (Real chop);
   bool conceals_beginning (Building const &other) const;
   bool conceals (Building const &other) const;
+  Building sloped_neighbour (Real horizon_padding, Direction d) const;
 };
 
 class Skyline
@@ -53,11 +54,10 @@ public:
   Skyline ();
   Skyline (Skyline const &src);
   Skyline (Direction sky);
-  Skyline (vector<Box> const &bldgs, Axis a, Direction sky);
-  Skyline (vector<Offset> const &points, Direction sky);
+  Skyline (vector<Box> const &bldgs, Real horizon_padding, Axis a, Direction sky);
   vector<Offset> to_points () const;
   void merge (Skyline const &);
-  void insert (Box const &, Axis);
+  void insert (Box const &, Real horizon_padding, Axis);
   void print () const;
   void raise (Real);
   Real distance (Skyline const &) const;

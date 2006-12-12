@@ -159,6 +159,21 @@ Building::leading_part (Real chop)
   height_[RIGHT] = height (chop);
 }
 
+Building
+Building::sloped_neighbour (Real horizon_padding, Direction d) const
+{
+  Real left = iv_[d];
+  Real right = iv_[d] + d * horizon_padding;
+  Real left_height = height_[d];
+  Real right_height = height_[d] - horizon_padding;
+  if (d == LEFT)
+    {
+      swap (left, right);
+      swap (left_height, right_height);
+    }
+  return Building (left, left_height, right_height, right);
+}
+
 static void
 skyline_trailing_part (list<Building> *sky, Real x)
 {
@@ -237,13 +252,21 @@ empty_skyline (list<Building> *const ret)
 }
 
 static void
-single_skyline (Building const &b, list<Building> *const ret)
+single_skyline (Building b, Real horizon_padding, list<Building> *const ret)
 {
+  b.iv_.widen (horizon_padding);
+  
   if (!isinf (b.iv_[RIGHT]))
     ret->push_front (Building (b.iv_[RIGHT], -infinity_f,
 			       -infinity_f, infinity_f));
+  if (horizon_padding > 0)
+    ret->push_front (b.sloped_neighbour (horizon_padding, RIGHT));
+  
   if (b.iv_[RIGHT] > b.iv_[LEFT])
     ret->push_front (b);
+
+  if (horizon_padding > 0)
+    ret->push_front (b.sloped_neighbour (horizon_padding, LEFT));
   if (!isinf (b.iv_[LEFT]))
     ret->push_front (Building (-infinity_f, -infinity_f,
 			       -infinity_f, b.iv_[LEFT]));
@@ -261,7 +284,7 @@ Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *cons
     }
   else if (size == 1)
     {
-      single_skyline (buildings->front (), result);
+      single_skyline (buildings->front (), 0, result);
       return;
     }
 
@@ -303,11 +326,15 @@ Skyline::Skyline (Direction sky)
 }
 
 /*
-  build skyline from a set of boxes.
+  build skyline from a set of boxes. If horizon_padding > 0, expand all the boxes
+  by that amount and add 45-degree sloped boxes to the edges of each box (of
+  width horizon_padding). That is, the total amount of horizontal expansion is
+  horizon_padding*4, half of which is sloped and half of which is flat.
 
-  Boxes should have fatness in the horizon_axis, otherwise they are ignored.
+  Boxes should have fatness in the horizon_axis (after they are expanded by
+  horizon_padding), otherwise they are ignored.
  */
-Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
+Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_axis, Direction sky)
 {
   list<Building> bldgs;
   sky_ = sky;
@@ -316,30 +343,22 @@ Skyline::Skyline (vector<Box> const &boxes, Axis horizon_axis, Direction sky)
     {
       Interval iv = boxes[i][horizon_axis];
       Real height = sky * boxes[i][other_axis (horizon_axis)][sky];
+      
+      iv.widen (horizon_padding);
       if (!iv.is_empty () && !isinf (height) && !approx_equal (iv[LEFT], iv[RIGHT]))
 	{
 	  iv.widen (EPS);
-	  bldgs.push_front (Building (iv[LEFT], height, height, iv[RIGHT]));
+	  Building front = Building (iv[LEFT], height, height, iv[RIGHT]);
+	  bldgs.push_front (front);
+	  if (horizon_padding > 0)
+	    {
+	      bldgs.push_front (front.sloped_neighbour (horizon_padding, LEFT));
+	      bldgs.push_front (front.sloped_neighbour (horizon_padding, RIGHT));
+	    }
 	}
     }
   
   internal_build_skyline (&bldgs, &buildings_);
-  assert (is_legal_skyline ());
-}
-
-Skyline::Skyline (vector<Offset> const &points, Direction sky)
-{
-  sky_ = sky;
-
-  for (vsize i = 1; i < points.size (); i++)
-    {
-      buildings_.push_back (Building (points[i-1][X_AXIS],
-				      sky * points[i-1][Y_AXIS],
-				      sky * points[i][Y_AXIS],
-				      points[i][X_AXIS]));
-
-    }
-
   assert (is_legal_skyline ());
 }
 
@@ -356,7 +375,7 @@ Skyline::merge (Skyline const &other)
 }
 
 void
-Skyline::insert (Box const &b, Axis a)
+Skyline::insert (Box const &b, Real horizon_padding, Axis a)
 {
   list<Building> other_bld;
   list<Building> my_bld;
@@ -367,7 +386,7 @@ Skyline::insert (Box const &b, Axis a)
   iv.widen (EPS);
 
   my_bld.splice (my_bld.begin (), buildings_);
-  single_skyline (Building (iv[LEFT], height, height, iv[RIGHT]), &other_bld);
+  single_skyline (Building (iv[LEFT], height, height, iv[RIGHT]), horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
   assert (is_legal_skyline ());
 }
@@ -446,17 +465,14 @@ Skyline::to_points () const
 {
   vector<Offset> out;
 
-  bool first = true;
   for (list<Building>::const_iterator i (buildings_.begin ());
        i != buildings_.end (); i++)
     {
-      if (first)
-	out.push_back (Offset ((*i).iv_[LEFT], sky_ * (*i).height_[LEFT]));
-
-      first = false;
-      out.push_back (Offset ((*i).iv_[RIGHT], sky_ * (*i).height_[RIGHT]));
+      if (!isinf (i->iv_[LEFT]) && !isinf (i->height_[LEFT]))
+	out.push_back (Offset (i->iv_[LEFT], sky_ * i->height_[LEFT]));
+      if (!isinf (i->iv_[RIGHT]) && !isinf (i->height_[RIGHT]))
+	out.push_back (Offset (i->iv_[RIGHT], sky_ * i->height_[RIGHT]));
     }
-
   return out;
 }
 
