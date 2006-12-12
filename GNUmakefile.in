@@ -43,7 +43,7 @@ dist-changelog:
 
 default: $(outdir)/VERSION
 
-$(outdir)/VERSION: $(config_make)
+$(outdir)/VERSION: $(config_make) VERSION
 	echo $(TOPLEVEL_VERSION) > $@
 
 dist-toplevel-txt-files:
@@ -120,7 +120,6 @@ local-WWW-post:
 			rm -rf $$a ; \
 		done \
 	done
-	echo $(TOPLEVEL_VERSION) > $(outdir)/web-root/VERSION
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
@@ -149,7 +148,7 @@ PO_FILES = $(call src-wildcard,$(src-depth)/po/*.po)
 HELP_CATALOGS = $(PO_FILES:po/%.po=%)
 CATALOGS = $(HELP_CATALOGS:lilypond=) 
 
-$(tree-share-prefix)/lilypond-force link-tree: GNUmakefile
+$(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION 
 # Preparing LilyPond tree for build-dir exec
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
