@@ -340,8 +340,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
 
 	  ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
 	}
-      ape->left_skyline_ = Skyline (ape->extents_, 4, Y_AXIS, LEFT);
-      ape->right_skyline_ = Skyline (ape->extents_, 4, Y_AXIS, RIGHT);
+      ape->left_skyline_ = Skyline (ape->extents_, Y_AXIS, LEFT);
+      ape->right_skyline_ = Skyline (ape->extents_, Y_AXIS, RIGHT);
     }
 
   Interval total;
@@ -373,7 +373,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
 				   stems[i]->pure_height (common[Y_AXIS], 0, very_large)));
     }
 
-  head_ape->left_skyline_ = Skyline (head_extents, 4, Y_AXIS, LEFT);
+  head_ape->left_skyline_ = Skyline (head_extents, Y_AXIS, LEFT);
   head_ape->offset_ = 0.0;
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
