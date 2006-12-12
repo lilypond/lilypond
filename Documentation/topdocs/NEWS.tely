@@ -66,6 +66,17 @@ which scares away people.
 
 @end ignore
 
+@item Tablature now supports harmonics and slides,
+
+@lilypond[fragment,ragged-right,relative=1]
+\new TabVoice
+{
+    <c g'\harmonic> d\2\glissando e\2
+}
+@end lilypond
+
+This feature was sponsored by Mike Amundsen
+
 @item Horizontal spacing now follows object outlines more
 accurately. This allows tighter horizontal spacing.
 
