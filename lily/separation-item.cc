@@ -128,7 +128,7 @@ Separation_item::calc_skylines (SCM smob)
   vector<Box> bs = boxes (me);
   do
     {
-      Skyline l (bs, Y_AXIS, d);
+      Skyline l (bs, 0, Y_AXIS, d);
       index_set_cell (lines, d, l.smobbed_copy ());
     }
   while (flip (&d) != LEFT);
@@ -161,7 +161,7 @@ Separation_item::boxes (Grob *me)
 	continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
-      y.widen (0.01);		// fixme
+      y.widen (0.1);		// fixme
       Box b (il->extent (pc, X_AXIS), y);
 
       out.push_back (b);

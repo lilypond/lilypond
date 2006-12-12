@@ -82,8 +82,10 @@ get_otf_table (FT_Face face, string tag)
 {
   FT_ULong len;
   FT_Byte *tab = load_table (tag.c_str (), face, &len);
+  string ret ((char const*) tab, len);
+  free (tab);
 
-  return string ((char const*) tab, len);
+  return ret;
 }
 
 FT_Face

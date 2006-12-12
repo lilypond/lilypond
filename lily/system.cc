@@ -532,8 +532,8 @@ System::build_skylines ()
 	boxes.push_back (Box (xiv, yiv));
     }
 
-  skylines_[UP] = Skyline (boxes, X_AXIS, UP);
-  skylines_[DOWN] = Skyline (boxes, X_AXIS, DOWN);
+  skylines_[UP] = Skyline (boxes, 0, X_AXIS, UP);
+  skylines_[DOWN] = Skyline (boxes, 0, X_AXIS, DOWN);
 }
 
 
