@@ -672,7 +672,6 @@
 	(style . line)
 	(gap . 0.5)
 	(zigzag-width . 0.75)
-	(non-musical . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
 	(stencil . ,ly:line-spanner::print)
