@@ -314,6 +314,8 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       Box b (elements[i]->extent (x_common, X_AXIS),
 	     elements[i]->extent (y_common, Y_AXIS));
+      SCM horizon_padding_scm = elements[i]->get_property ("outside-staff-horizontal-padding");
+      Real horizon_padding = robust_scm2double (horizon_padding_scm, 0.0);
       if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
 	{
 	  warning (_f ("outside-staff object %s has an empty extent", elements[i]->name ().c_str ()));
@@ -322,7 +324,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       boxes.clear ();
       boxes.push_back (b);
-      Skyline other = Skyline (boxes, 0, X_AXIS, -dir);
+      Skyline other = Skyline (boxes, horizon_padding, X_AXIS, -dir);
       Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
       Real dist = skylines[dir].distance (other) + padding;
 

@@ -12,12 +12,12 @@
 /* A skyline is a sequence of non-overlapping buildings: something like
    this:
                    _______
-                  /       \                                ________
-                 /         \                      ________/        \
-        /\      /           \                    /                  \
-       /  -----/              \                 /                    \
-      /                         \              /                      \
-     /                            ------------/                        ----
+                  |       \                                 ________
+                  |        \                       ________/        \
+        /\        |          \                    /                  \
+       /  --------             \                 /                    \
+      /                          \              /                      \
+     /                             ------------/                        ----
    --
    Each building has a starting position, and ending position, a starting
    height and an ending height.
@@ -259,13 +259,13 @@ single_skyline (Building b, Real horizon_padding, list<Building> *const ret)
   if (!isinf (b.iv_[RIGHT]))
     ret->push_front (Building (b.iv_[RIGHT], -infinity_f,
 			       -infinity_f, infinity_f));
-  if (horizon_padding > 0)
+  if (horizon_padding > 0 && !isinf (b.iv_.length ()))
     ret->push_front (b.sloped_neighbour (horizon_padding, RIGHT));
   
   if (b.iv_[RIGHT] > b.iv_[LEFT])
     ret->push_front (b);
 
-  if (horizon_padding > 0)
+  if (horizon_padding > 0 && !isinf (b.iv_.length ()))
     ret->push_front (b.sloped_neighbour (horizon_padding, LEFT));
   if (!isinf (b.iv_[LEFT]))
     ret->push_front (Building (-infinity_f, -infinity_f,
@@ -350,7 +350,7 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
 	  iv.widen (EPS);
 	  Building front = Building (iv[LEFT], height, height, iv[RIGHT]);
 	  bldgs.push_front (front);
-	  if (horizon_padding > 0)
+	  if (horizon_padding > 0 && !isinf (front.iv_.length ()))
 	    {
 	      bldgs.push_front (front.sloped_neighbour (horizon_padding, LEFT));
 	      bldgs.push_front (front.sloped_neighbour (horizon_padding, RIGHT));

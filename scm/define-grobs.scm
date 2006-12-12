@@ -1657,6 +1657,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(skyline-spacing . #t)
+	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
 				axis-group-interface))))))

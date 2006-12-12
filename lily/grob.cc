@@ -623,6 +623,7 @@ ADD_INTERFACE (Grob,
 	       "meta "
 	       "minimum-X-extent "
 	       "minimum-Y-extent "
+	       "outside-staff-horizontal-padding "
 	       "outside-staff-padding "
 	       "outside-staff-priority "
 	       "rotation "
