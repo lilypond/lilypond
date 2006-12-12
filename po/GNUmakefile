@@ -5,14 +5,9 @@ depth = ..
 
 NAME = lilypond
 MODULE_NAME = po
-
-POT_FILES = $(call src-wildcard,*.pot)
-PO_FILES = $(call src-wildcard,*.po)
-MO_FILES = $(addprefix $(outdir)/, $(PO_FILES:.po=.mo))
-HELP_CATALOGS = $(PO_FILES:%.po=%)
-CATALOGS = $(HELP_CATALOGS:lilypond=)
-EXTRA_DIST_FILES = TODO $(PO_FILES) $(POT_FILES)
-STEPMAKE_TEMPLATES=podir
+DOMAIN = $(NAME)
+EXTRA_DIST_FILES = TODO 
+STEPMAKE_TEMPLATES=podir 
 
 include $(depth)/make/stepmake.make
 
