@@ -274,6 +274,6 @@ $(outdir)/interfaces.itexi: dummy
 
 local-clean: local-delete
 
+# use `find` together with `xargs` to avoid too long argument-lists.
 local-delete:
-	find $(outdir)/ -name 'lily-[0-9a-f]*' | xargs rm -f
-	-rm -f $(outdir)/*
+	$(FIND) $(outdir)/ -empty -name '*' | xargs rm -f
