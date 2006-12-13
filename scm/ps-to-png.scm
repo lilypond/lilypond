@@ -108,7 +108,7 @@
     (rename-file file old)
     (my-system be-verbose
 	       #t
-	       (format #f "convert -scale \"~a%\" ~a ~a" percentage old file))
+	       (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
     (delete-file old)
     ))
 
