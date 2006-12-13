@@ -16,6 +16,7 @@
 #include "international.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
+#include "separation-item.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -265,26 +266,100 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   else if (priority_1 > priority_2)
     return false;
 
-  /* if there is no preference in staff priority, choose the one with the lower rank */
-  int rank_1 = g1->spanned_rank_iv ()[LEFT];
-  int rank_2 = g2->spanned_rank_iv ()[LEFT];
-  return rank_1 < rank_2;
+  /* if there is no preference in staff priority, choose the left-most one */
+  Grob *common = g1->common_refpoint (g2, X_AXIS);
+  Real start_1 = g1->extent (common, X_AXIS)[LEFT];
+  Real start_2 = g2->extent (common, X_AXIS)[LEFT];
+  return start_1 < start_2;
 }
 
 static void
 add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes)
 {
-  if (Axis_group_interface::has_interface (me)
-      && Axis_group_interface::has_axis (me, Y_AXIS))
+  /* if we are a parent, consider the children's boxes instead of mine */
+  if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
     {
-      Grob_array *elements = unsmob_grob_array (me->get_object ("elements"));
-      if (elements)
-	for (vsize i = 0; i < elements->size (); i++)
-	  add_boxes (elements->grob (i), x_common, y_common, boxes);
+      for (vsize i = 0; i < elements->size (); i++)
+	add_boxes (elements->grob (i), x_common, y_common, boxes);
     }
-  else
+  else if (!scm_is_number (me->get_property ("outside-staff-priority")))
     boxes->push_back (Box (me->extent (x_common, X_AXIS),
 			   me->extent (y_common, Y_AXIS)));
+}
+
+/* We want to avoid situations like this:
+           still more text
+      more text
+   text
+   -------------------
+   staff
+   -------------------
+
+   The point is that "still more text" should be positioned under
+   "more text".  In order to achieve this, we place the grobs in several
+   passes.  We keep track of the right-most horizontal position that has been
+   affected by the current pass so far (actually we keep track of 2
+   positions, one for above the staff, one for below).
+
+   In each pass, we loop through the unplaced grobs from left to right.
+   If the grob overlaps the right-most affected position, we place it
+   (and then update the right-most affected position to point to the right
+   edge of the just-placed grob).  Otherwise, we skip it until the next pass.
+*/
+static void
+add_grobs_of_one_priority (Drul_array<Skyline> *const skylines,
+			   vector<Grob*> elements,
+			   Grob *x_common,
+			   Grob *y_common)
+{
+  vector<Box> boxes;
+  Drul_array<Real> last_affected_position;
+
+  reverse (elements);
+  while (!elements.empty ())
+    {
+      last_affected_position[UP] = -infinity_f;
+      last_affected_position[DOWN] = -infinity_f;
+      /* do one pass */
+      for (vsize i = elements.size (); i--;)
+	{
+	  Direction dir = get_grob_direction (elements[i]);
+	  if (dir == CENTER)
+	    {
+	      warning (_ ("an outside-staff object should have a direction, defaulting to up"));
+	      dir = UP;
+	    }
+
+	  Box b (elements[i]->extent (x_common, X_AXIS),
+		 elements[i]->extent (y_common, Y_AXIS));
+	  SCM horizon_padding_scm = elements[i]->get_property ("outside-staff-horizontal-padding");
+	  Real horizon_padding = robust_scm2double (horizon_padding_scm, 0.0);
+
+	  if (b[X_AXIS][LEFT] - 2*horizon_padding < last_affected_position[dir])
+	    continue;
+
+	  if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
+	    warning (_f ("outside-staff object %s has an empty extent", elements[i]->name ().c_str ()));
+	  else
+	    {
+	      boxes.clear ();
+	      boxes.push_back (b);
+	      Skyline other = Skyline (boxes, horizon_padding, X_AXIS, -dir);
+	      Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
+	      Real dist = (*skylines)[dir].distance (other) + padding;
+
+	      if (dist > 0)
+		{
+		  b.translate (Offset (0, dir*dist));
+		  elements[i]->translate_axis (dir*dist, Y_AXIS);
+		}
+	      (*skylines)[dir].insert (b, 0, X_AXIS);
+	      elements[i]->del_property ("outside-staff-padding");
+	      last_affected_position[dir] = b[X_AXIS][RIGHT];
+	    }
+	  elements.erase (elements.begin () + i);
+	}
+    }
 }
 
 void
@@ -305,35 +380,14 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 				Skyline (boxes, 0, X_AXIS, UP));
   for (; i < elements.size (); i++)
     {
-      Direction dir = get_grob_direction (elements[i]);
-      if (dir == CENTER)
-	{
-	  warning (_ ("an outside-staff object should have a direction"));
-	  continue;
-	}
+      SCM priority = elements[i]->get_property ("outside-staff-priority");
+      vector<Grob*> current_elts;
+      current_elts.push_back (elements[i]);
+      while (i < elements.size () - 1
+	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
+	current_elts.push_back (elements[++i]);
 
-      Box b (elements[i]->extent (x_common, X_AXIS),
-	     elements[i]->extent (y_common, Y_AXIS));
-      SCM horizon_padding_scm = elements[i]->get_property ("outside-staff-horizontal-padding");
-      Real horizon_padding = robust_scm2double (horizon_padding_scm, 0.0);
-      if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
-	{
-	  warning (_f ("outside-staff object %s has an empty extent", elements[i]->name ().c_str ()));
-	  continue;
-	}
-
-      boxes.clear ();
-      boxes.push_back (b);
-      Skyline other = Skyline (boxes, horizon_padding, X_AXIS, -dir);
-      Real padding = robust_scm2double (elements[i]->get_property ("outside-staff-padding"), 0.5);
-      Real dist = skylines[dir].distance (other) + padding;
-
-      if (dist > 0)
-	{
-	  b.translate (Offset (0, dir*dist));
-	  elements[i]->translate_axis (dir*dist, Y_AXIS);
-	}
-      skylines[dir].insert (b, 0, X_AXIS);
+      add_grobs_of_one_priority (&skylines, current_elts, x_common, y_common);
     }
 }
 
