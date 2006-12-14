@@ -9,6 +9,7 @@
 #include "prob.hh"
 #include "main.hh"
 #include "item.hh"
+#include "input.hh"
 
 #include "ly-smobs.icc"
 
@@ -41,12 +42,20 @@ Prob::equal_p (SCM sa, SCM sb)
   /* Compare mutable and immutable lists, element by element. */
   for (i = 0; i < 2; i++)
     {
-      SCM aprop = props[0][i], bprop = props[1][i];
+      SCM aprop = props[0][i];
+      SCM bprop = props[1][i];
 
-      for (; scm_is_pair (aprop) && scm_is_pair(bprop); aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
+      for (;
+	   scm_is_pair (aprop) && scm_is_pair(bprop);
+	   aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
 	{
+	  SCM aval = scm_cdar (aprop);
+	  SCM bval = scm_cdar (bprop);
 	  if (scm_caar (aprop) != scm_caar (bprop) ||
-	      !to_boolean (scm_equal_p (scm_cdar (aprop), scm_cdar (bprop))))
+	      (
+	       !(unsmob_input (aval) && unsmob_input (bval))
+	       &&		 
+	       !to_boolean (scm_equal_p (aval, bval))))
 	    return SCM_BOOL_F;
 	}
 
