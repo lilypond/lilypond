@@ -3,6 +3,22 @@
 Open($1);
 MergeKern($2)
 
+
+# 
+# NCSB is broken as shipped by Fedora Core 6
+# it contains bogus ligatures TM and No in the AFM file.
+#
+# Remove the TM glyph - for want of better FF fix.  
+err = SelectIf("trademark");
+if ( err > 0 )
+   Cut();
+elseif ( err == 0 )
+   Print("Could not find \"Trademark\" glyph");
+elseif ( err < 0 )
+   Print("An error occurred while searching for the \"numero\" glyph");
+endif
+
+
 # Remove the No. glyph - for want of better FF fix.  
 err = SelectIf("afii61352");
 if ( err > 0 )
