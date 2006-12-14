@@ -163,7 +163,15 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_clone_parser, "ly:clone-parser",
+LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
+	   1, 0, 0, (SCM parser_smob),
+	   "Return the lexer for PARSER_SMOB.")
+{
+  Lily_parser *parser = unsmob_lily_parser (parser_smob);
+  return parser->lexer_->self_scm ();
+}
+
+LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 	   1, 0, 0, (SCM parser_smob),
 	   "Return a clone of PARSER_SMOB.")
 {

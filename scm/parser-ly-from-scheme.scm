@@ -78,7 +78,7 @@ character."
                              ;; other caracters
                              (else
                               (display c out))))))))
-      `(let ((parser-clone (ly:clone-parser parser)))
+      `(let ((parser-clone (ly:parser-clone parser)))
          ,@(map (lambda (binding)
                   `(ly:parser-define! parser-clone ',(car binding) ,(cdr binding)))
                 (reverse bindings))

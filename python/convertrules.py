@@ -2878,3 +2878,10 @@ def conv (str):
 
 conversions.append (((2, 10, 0), conv, """bump version for release"""))
 
+
+def conv (str):
+    return re.sub ('ly:clone-parser',
+                   'ly:parser-clone', str)
+
+conversions.append (((2, 11, 2), conv, """ly:clone-parser -> ly:parser-clone"""))
+

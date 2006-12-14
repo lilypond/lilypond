@@ -551,7 +551,7 @@ includePageLayoutFile =
 	 (if (access? tweak-filename R_OK)
 	     (begin
 	       (ly:message "Including tweak file ~a" tweak-filename)
-               (set! page-layout-parser (ly:clone-parser parser))
+               (set! page-layout-parser (ly:parser-clone parser))
 	       (ly:parser-parse-string page-layout-parser
                                        (format #f "\\include \"~a\""
                                                tweak-filename))))))
