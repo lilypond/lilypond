@@ -1132,9 +1132,6 @@
 	
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(stencil . ,ly:text-interface::print)
-
-	;; no Y dimensions, because of lyrics under tenor clef.
-	(Y-extent . (0 . 0))
 	(font-shape . italic)
 	(padding . 0.6)
 	(staff-padding . 0.2)
