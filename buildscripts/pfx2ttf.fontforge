@@ -13,9 +13,9 @@ err = SelectIf("trademark");
 if ( err > 0 )
    Cut();
 elseif ( err == 0 )
-   Print("Could not find \"Trademark\" glyph");
+   Print("Could not find \"trademark\" glyph");
 elseif ( err < 0 )
-   Print("An error occurred while searching for the \"numero\" glyph");
+   Print("An error occurred while searching for the \"trademark\" glyph");
 endif
 
 
