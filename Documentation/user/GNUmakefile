@@ -192,13 +192,13 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 $(outdir)/lilypond.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/%.png: %.png
-	convert -geometry 50x50% $< $@
+	convert -depth 8 -geometry 50x50% $< $@
 
 $(outdir)/%.png: %.eps
 	gs -dTextAlphaBits=4 -dGraphicsAlphaBits=4 -q -sOutputFile=$@ -sDEVICE=png16m -dEPSCrop -dNOPAUSE -f $< -c quit
 
 $(outdir)/%.pdf: %.png
-	convert $< $@
+	convert -depth 8 $< $@
 
 $(outdir)/%.pdf: %.eps
 	gs -dAutoRotatePages=/None -sDEVICE=pdfwrite -dNOPAUSE -dBATCH -sOutputFile=$@ -dEPSCrop -c .setpdfwrite -f $<
@@ -227,11 +227,6 @@ $(outdir)/music-glossary/source:
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info info-dir
 
-local-WWW-clean: deep-WWW-clean
-
-deep-WWW-clean:
-	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals
-
 info-dir:
 	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary
 
@@ -239,9 +234,6 @@ info-dir:
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
 
-local-clean:
-	rm -f fonts.aux fonts.log feta*.tfm feta*.*pk
-	rm -rf $(outdir)/lilypond $(outdir)/lilypond-internals $(outdir)/music-glossary
 
 # lilypond.texi deps
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
@@ -268,10 +260,3 @@ $(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(LILYPOND_
 ## unused
 $(outdir)/interfaces.itexi: dummy
 	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
-
-
-local-clean: local-delete
-
-local-delete:
-	find $(outdir)/ -name 'lily-[0-9]*' | xargs rm -f
-	-rm -f $(outdir)/*
