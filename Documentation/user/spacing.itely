@@ -29,6 +29,7 @@ or stretched.
 * Horizontal spacing::          
 * Breaks::                      
 * Displaying spacing::          
+* Vertical collision avoidance::  
 @end menu
 
 
@@ -1186,3 +1187,76 @@ The pairs
 @var{b} the upper edge of the interval.
 
 
+@node Vertical collision avoidance
+@section Vertical collision avoidance
+
+@funindex outside-staff-priority
+@funindex outside-staff-padding
+@funindex outside-staff-horizontal-padding
+
+Intuitively, there are some objects in musical notation that belong
+to the staff and there are other objects that should be placed outside
+the staff.  Objects belonging outside the staff include things such as
+rehearsal marks, text and dynamic markings (from now on, these will
+be called outside-staff objects).  LilyPond's rule for the
+vertical placement of outside-staff objects is to place them as close
+to the staff as possible but not so close that they collide with
+another object.
+
+LilyPond uses the @code{outside-staff-priority} property to determine
+whether a grob is an outside-staff object: if @code{outside-staff-priority}
+is a number, the grob is an outside-staff object.  In addition,
+@code{outside-staff-priority} tells LilyPond in which order the objects
+should be placed.
+
+First, LilyPond places all the objects that do not belong outside
+the staff.  Then it sorts the outside-staff objects according to their
+@code{outside-staff-priority} (in increasing order).  One by one, LilyPond
+takes the outside-staff objects and places them so that they do
+not collide with any objects that have already been placed.  That
+is, if two outside-staff grobs are competing for the same space, the one
+with the lower @code{outside-staff-priority} will be placed closer to
+the staff.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4_"Text"\pp
+r2.
+\once \override TextScript #'outside-staff-priority = #1
+c4_"Text"\pp % this time the text will be closer to the staff
+r2.
+% by setting outside-staff-priority to a non-number, we
+% disable the automatic collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\once \override DynamicLineSpanner #'outside-staff-priority = ##f
+c4_"Text"\pp % now they will collide
+@end lilypond
+
+The vertical padding between an outside-staff object and the
+previously-positioned grobs can be controlled with
+@code{outside-staff-padding}.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\once \override TextScript #'outside-staff-padding = #0
+a'^"This text is placed very close to the note"
+\once \override TextScript #'outside-staff-padding = #3
+c^"This text is padded away from the previous text"
+c^"This text is placed close to the previous text"
+@end lilypond
+
+By default, outside-staff objects are placed without regard to
+their horizontal distance from the previously-posititioned grobs.  This
+can lead to situations in which objects are placed very close to each
+other horizontally.  Setting @code{outside-staff-horizontal-padding}
+causes an object to be offset vertically so that such a situation
+doesn't occur.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+% the markup is too close to the following note
+c2^"Text"
+c''2
+% setting outside-staff-horizontal-padding fixes this
+R1
+\once \override TextScript #'outside-staff-horizontal-padding = #1
+c,,2^"Text"
+c''2
+@end lilypond
