@@ -532,8 +532,10 @@ System::build_skylines ()
 	boxes.push_back (Box (xiv, yiv));
     }
 
-  skylines_[UP] = Skyline (boxes, 0, X_AXIS, UP);
-  skylines_[DOWN] = Skyline (boxes, 0, X_AXIS, DOWN);
+  SCM horizon_padding_scm = get_property ("skyline-horizontal-padding");
+  Real horizon_padding = robust_scm2double (horizon_padding_scm, 0);
+  skylines_[UP] = Skyline (boxes, horizon_padding, X_AXIS, UP);
+  skylines_[DOWN] = Skyline (boxes, horizon_padding, X_AXIS, DOWN);
 }
 
 
@@ -547,4 +549,5 @@ ADD_INTERFACE (System,
 	       "pure-Y-extent "
 	       "spaceable-staves "
 	       "skyline-distance "
+	       "skyline-horizontal-padding "
 	       )

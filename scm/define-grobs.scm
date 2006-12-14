@@ -602,7 +602,7 @@
 	(avoid-slur . around)
 	(no-spacing-rods . #t)
 	(script-priority . 100)
-	(outside-staff-priority . 300)
+	(outside-staff-priority . 250)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				text-interface
@@ -1657,6 +1657,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(skyline-spacing . #t)
+	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
 				axis-group-interface))))))

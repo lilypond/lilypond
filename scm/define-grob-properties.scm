@@ -275,6 +275,9 @@ get stems extending to the middle staff line.")
      (non-musical ,boolean? "True if the grob belongs in a NonMusicalPaperColumn.")
      (number-type ,symbol? "Type of numbers to use in label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
+     (outside-staff-horizontal-padding ,number? "By default, an outside-staff-object can be
+placed so that is it very close to another grob horizontally. If this property is set,
+the outside-staff-object will be raised so that it is not so close to its neighbour.")
      (outside-staff-padding ,number? "The padding to place between this grob and the staff when
 spacing according to outside-staff-priority.")
      (outside-staff-priority ,number? "When set, the grob will be positioned outside the staff
@@ -558,6 +561,7 @@ than a whole rest.")
 
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
      (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
+     (skyline-horizontal-padding ,number? "For determining the vertical distance between 2 staves, it is possible to have a configuration which would result in a tight interleaving of grobs from the top staff and the bottom staff. The larger this parameter is, the farther apart the staves will be placed in such a configuration.")
      (skyline-spacing ,boolean? "When true, this axis-group will vertically space its children
 using a skyline algorithm.")
 
