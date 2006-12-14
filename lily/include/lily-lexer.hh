@@ -69,6 +69,7 @@ public:
 
   void start_main_input ();
 
+  SCM keyword_list () const;
   SCM lookup_identifier (string s);
   SCM lookup_identifier_symbol (SCM s);
   void push_extra_token (int token_type);

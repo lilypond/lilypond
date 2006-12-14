@@ -184,6 +184,26 @@ Lily_lexer::lookup_keyword (string s)
 }
 
 SCM
+Lily_lexer::keyword_list () const
+{
+  if (!keytable_)
+    return SCM_EOL;
+  
+  SCM l = SCM_EOL;
+  SCM *tail = &l;
+  for (vsize i = 0; i < keytable_->table_.size (); i++)
+    {
+      *tail = scm_acons (scm_makfrom0str (keytable_->table_[i].name_),
+			 scm_from_int (keytable_->table_[i].tokcode_),
+			 SCM_EOL);
+
+      tail = SCM_CDRLOC(*tail);
+    }
+
+  return l;
+}
+
+SCM
 Lily_lexer::lookup_identifier_symbol (SCM sym)
 {
   for (SCM s = scopes_; scm_is_pair (s); s = scm_cdr (s))
