@@ -41,7 +41,7 @@ using namespace std;
 #include "interval.hh"
 #include "lily-guile.hh"
 #include "lily-lexer.hh"
-#include "lilypond-input-version.hh"
+#include "lilypond-version.hh"
 #include "main.hh"
 #include "music.hh"
 #include "music-function.hh"
@@ -875,12 +875,18 @@ is_valid_version (string s)
 {
   Lilypond_version current ( MAJOR_VERSION "." MINOR_VERSION "." PATCH_LEVEL );
   Lilypond_version ver (s);
-  if (! ((ver >= oldest_version) && (ver <= current)))
+  if (int (ver) < oldest_version)
 	{	
-		non_fatal_error (_f ("Incorrect lilypond version: %s (%s, %s)", ver.to_string (), oldest_version.to_string (), current.to_string ()));
-		non_fatal_error (_ ("Consider updating the input with the convert-ly script")); 
+		non_fatal_error (_f ("file too old: %s (oldest supported: %s)", ver.to_string (), oldest_version.to_string ()));
+		non_fatal_error (_ ("consider updating the input with the convert-ly script"));
 		return false;
-    }
+	}
+
+  if (ver > current)
+	{
+		non_fatal_error (_f ("program too old: %s (file requires: %s)",  current.to_string (), ver.to_string ()));
+		return false;
+	}
   return true;
 }
 	
