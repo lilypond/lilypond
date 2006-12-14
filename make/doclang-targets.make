@@ -23,7 +23,7 @@ $(outdir)/lilypond.html: $(outdir)/lilypond.nexi
 local-WWW: png-ln $(outdir)/lilypond.html $(outdir)/lilypond/index.html deep-ln lang-merge
 
 lang-merge:
-	$(foreach i, $(shell find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME'), ln -f $(i) $(i:$(outdir)/%.html=$(depth)/Documentation/user/$(outdir)/%.$(ISOLANG).html) &&) true
+	$(foreach i, $(shell find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME'), ln -f $(i) $(i:$(outdir)/%.html=$(depth)/Documentation/user/$(outdir)/%.$(ISOLANG).html) &&) true
 
 png-ln:
 	mkdir -p $(outdir)/lilypond
