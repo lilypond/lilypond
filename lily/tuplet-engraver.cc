@@ -43,8 +43,10 @@ public:
 
 protected:
   vector<Tuplet_description> tuplets_;
+  vector<Tuplet_description> new_tuplets_;
   vector<Tuplet_description> stopped_tuplets_;
   vector<Spanner*> last_tuplets_;
+  
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (tuplet_span);
   virtual void finalize ();
@@ -61,7 +63,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
     {
       Tuplet_description d;
       d.event_ = ev;
-      tuplets_.push_back (d);
+      new_tuplets_.push_back (d);
     }
   else if (dir == STOP && tuplets_.size ())
     {
@@ -104,6 +106,8 @@ Tuplet_engraver::process_music ()
     }
   stopped_tuplets_.clear ();
 
+  concat (tuplets_, new_tuplets_);
+  new_tuplets_.clear ();
   for (vsize j = tuplets_.size (); j > 0; j--)
     {
       /* i goes from size-1 downto 0, inclusively */
