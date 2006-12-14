@@ -671,6 +671,7 @@ AncientRemoveEmptyStaffContext = \context {
   \remove Accidental_engraver
 
   \override Glissando #'extra-dy = #0.75
+  \override Glissando #'gap = #0.2
 }
 
 \context {
