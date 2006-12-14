@@ -9,8 +9,6 @@
 #include <cctype>
 using namespace std;
 
-#include "dots.hh"
-#include "dot-column.hh"
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"

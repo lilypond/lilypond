@@ -40,7 +40,10 @@ ADD_TRANSLATOR (Vertical_align_engraver,
 		"Catch groups (staffs, lyrics lines, etc.) and stack "
 		"them vertically.",
 		/* create */ "VerticalAlignment",
-		/* read */ "alignAboveContext alignBelowContext",
+		/* read */
+		"alignAboveContext "
+		"alignBelowContext ",
+
 		/* write */ "");
 
 Vertical_align_engraver::Vertical_align_engraver ()
