@@ -80,7 +80,6 @@ using namespace std;
 #include "lily-guile.hh"
 #include "lily-lexer.hh"
 #include "lily-parser.hh"
-#include "lilypond-input-version.hh"
 #include "main.hh"
 #include "misc.hh"
 #include "music.hh"

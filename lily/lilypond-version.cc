@@ -8,7 +8,7 @@
 
 #include <ctype.h>
 
-#include "lilypond-input-version.hh"
+#include "lilypond-version.hh"
 #include "string-convert.hh"
 #include "misc.hh"
 
