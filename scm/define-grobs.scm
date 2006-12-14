@@ -334,7 +334,7 @@
 
     (BendAfter
      . (
-	(stencil . ,fall::print)
+	(stencil . ,bend::print)
 	(thickness . 2.0)
 	(meta . ((class . Spanner)
 		 (interfaces . (spanner-interface

@@ -10,6 +10,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
+(define-public (grob::has-interface grob iface)
+  (memq iface (ly:grob-interfaces grob)))
 
 (define-public (make-stencil-boxer thickness padding callback)
 
@@ -387,12 +389,19 @@ centered, X==1 is at the right, X == -1 is at the left."
   value)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; falls
+;; falls/doits
 
-(define-public (fall::print spanner)
+(define-public (bend::print spanner)
+  (define (close  a b)
+    (< (abs (- a b)) 0.01))
+  
   (let*
       ((delta-y (* 0.5 (ly:grob-property spanner 'delta-position)))
        (left-span (ly:spanner-bound spanner LEFT))
+       (dots (if (and (grob::has-interface left-span 'note-head-interface)
+		      (ly:grob? (ly:grob-object left-span 'dot)))
+		 (ly:grob-object left-span 'dot) #f))
+		 
        (right-span (ly:spanner-bound spanner RIGHT))
        (thickness (* (ly:grob-property spanner 'thickness)
 		     (ly:output-def-lookup (ly:grob-layout spanner)
@@ -402,9 +411,19 @@ centered, X==1 is at the right, X == -1 is at the left."
 					(ly:grob-common-refpoint spanner
 								 left-span X)
 					X))
+       (common-y (ly:grob-common-refpoint spanner left-span Y))
        (left-x (+ padding
-		  (interval-end  (ly:grob-robust-relative-extent
-				  left-span common X))))
+		  (max (interval-end (ly:grob-robust-relative-extent
+				      left-span common X))
+		        (if (and
+			     dots
+			     (close (ly:grob-relative-coordinate dots common-y Y)
+					(ly:grob-relative-coordinate spanner common-y Y)))
+			    (interval-end (ly:grob-robust-relative-extent dots common X))
+			    -10000) ;; TODO: use real infinity constant.
+			)))
+       (x (display (grob::has-interface left-span 'note-head-interface)))
+
        (right-x (- (interval-start
 		    (ly:grob-robust-relative-extent right-span common X))
 		   padding))
@@ -423,9 +442,10 @@ centered, X==1 is at the right, X == -1 is at the left."
 		     ))))
        )
 
+    (display left-span)
     (ly:make-stencil
      exp
-     (cons 0 dx)
+     (cons (- left-x self-x) (- right-x self-x))
      (cons (min 0 delta-y)
 	   (max 0 delta-y)))))
 
