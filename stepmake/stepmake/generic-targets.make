@@ -7,9 +7,8 @@ all:	 default
 man:
 	$(LOOP)
 
-# be careful about deletion.
 clean: local-clean
-	-rm -f $(outdir)/*
+	-rm -rf "./$(outdir)"
 	$(LOOP)
 
 ifneq ($(strip $(depth)),.)
@@ -23,8 +22,8 @@ distclean: clean
 
 cvs-clean:
 	$(MAKE) local-distclean
-	find . -type d -name out | xargs rm -rf
-	find . -type d -name out-www | xargs rm -rf
+	rm -rf out
+	rm -rf out-www
 	rm -f aclocal.m4 configure
 
 maintainerclean:
