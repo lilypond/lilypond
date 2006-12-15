@@ -123,28 +123,71 @@ Align_interface::align_to_fixed_distance (Grob *me, Axis a)
       v.unite (Interval (where, where));
     }
 
-  /*
-    TODO: support self-alignment-{Y, X}
-  */
   for (vsize i = 0; i < translates.size (); i++)
     elems[i]->translate_axis (translates[i] - v.center (), a);
 }
 
-/*
-  Hairy function to put elements where they should be. Can be tweaked
-  from the outside by setting extra-space in its
-  children
+/* for each grob, find its upper and lower skylines. If the grob has
+   an empty extent, delete it from the list instead. If the extent is
+   non-empty but there is no skyline available (or pure is true), just
+   create a flat skyline from the bounding box */
+static void
+get_skylines (Grob *me,
+	      vector<Grob*> *const elements,
+	      Axis a,
+	      bool pure, int start, int end,
+	      vector<Skyline_pair> *const ret)
+{
+  Grob *other_axis_common = common_refpoint_of_array (*elements, me, other_axis (a));
+  for (vsize i = elements->size (); i--;)
+    {
+      Grob *g = (*elements)[i];
+      Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
+      Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
+	: g->extent (other_axis_common, other_axis (a));
+      Box b = (a == X_AXIS) ? Box (extent, other_extent) : Box (other_extent, extent);
+      
+      if (extent.is_empty ())
+	{
+	  elements->erase (elements->begin () + i);
+	  continue;
+	}
 
-  We assume that the children the refpoints of the children are still
-  found at 0.0 -- we will fuck up with thresholds if children's
-  extents are already moved to locations such as (-16, -8), since the
-  dy needed to put things in a row doesn't relate to the distances
-  between original refpoints.
+      Skyline_pair skylines;
+      if (!pure
+	  && Skyline_pair::unsmob (g->get_property ("skylines")))
+	skylines = *Skyline_pair::unsmob (g->get_property ("skylines"));
+      else
+	{
+	  if (!pure)
+	    programming_error ("no skylines for alignment-child\n");
+	  
+	  skylines = Skyline_pair (b, 0, other_axis (a));
+	}
 
-  TODO: maybe we should rethink and throw out thresholding altogether.
-  The original function has been taken over by
-  align_to_fixed_distance ().
-*/
+      /* each skyline is calculated relative to (potentially) a different other_axis
+	 coordinate. In order to compare the skylines effectively, we need to shift them
+	 to some absolute reference point */
+      if (!pure)
+	{
+	  /* this is perhaps an abuse of minimum-?-extent: maybe we should create
+	     another property? But it seems that the only (current) use of
+	     minimum-Y-extent is to separate vertically-aligned elements */
+	  SCM min_extent = g->get_property (a == X_AXIS ? "minimum-X-extent" : "minimum-Y-extent");
+	  if (is_number_pair (min_extent))
+	    {
+	      b[a] = ly_scm2interval (min_extent);
+	      skylines.insert (b, 0, other_axis (a));
+	    }
+	  Real offset = g->relative_coordinate (other_axis_common, other_axis (a));
+	  skylines.shift (-offset);
+	}
+
+
+      ret->push_back (skylines);
+    }
+  reverse (*ret);
+}
 
 vector<Real>
 Align_interface::get_extents_aligned_translates (Grob *me,
@@ -169,63 +212,29 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					   DOWN);
 
-  Interval threshold = robust_scm2interval (me->get_property ("threshold"),
-					    Interval (0, Interval::infinity ()));
+  vector<Grob*> elems (all_grobs); // writable copy
+  vector<Skyline_pair> skylines;
 
-  vector<Interval> dims;
-  vector<Grob*> elems;
+  get_skylines (me, &elems, a, pure, start, end, &skylines);
 
-  for (vsize i = 0; i < all_grobs.size (); i++)
-    {
-      Interval y = all_grobs[i]->maybe_pure_extent (all_grobs[i], a, pure, start, end);
-      if (!y.is_empty ())
-	{
-	  Grob *e = dynamic_cast<Grob *> (all_grobs[i]);
-
-	  elems.push_back (e);
-	  dims.push_back (y);
-	}
-    }
-
-  /*
-    Read self-alignment-X and self-alignment-Y. This may seem like
-    code duplication. (and really: it is), but this is necessary to
-    prevent ugly cyclic dependencies that arise when you combine
-    self-alignment on a child with alignment of children.
-  */
-  SCM align ((a == X_AXIS)
-	     ? me->get_property ("self-alignment-X")
-	     : me->get_property ("self-alignment-Y"));
-
-  Interval total;
   Real where = 0;
-  Real extra_space = 0.0;
   SCM extra_space_handle = scm_assq (ly_symbol2scm ("alignment-extra-space"), line_break_details);
+  Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
+					? scm_cdr (extra_space_handle)
+					: SCM_EOL,
+					0.0);
 
-  extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
-				   ? scm_cdr (extra_space_handle)
-				   : SCM_EOL,
-				   extra_space);
-
-  Real padding = robust_scm2double (me->get_property ("padding"),
-				    0.0);
+  Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
   for (vsize j = 0; j < elems.size (); j++)
     {
-      Real dy = -dims[j][-stacking_dir];
-      if (j)
-	dy += dims[j - 1][stacking_dir];
-
-      /*
-	we want dy to be > 0
-      */
-      dy *= stacking_dir;
-      if (j)
-	dy = min (max (dy, threshold[SMALLER]), threshold[BIGGER]);
-
+      Real dy = 0;
+      if (j == 0)
+	dy = skylines[j][-stacking_dir].max_height ();
+      else
+	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
 
       where += stacking_dir * (dy + padding + extra_space / elems.size ());
-      total.unite (dims[j] + where);
       translates.push_back (where);
     }
 
@@ -243,25 +252,16 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	}
     }
 
-  
-  Real center_offset = 0.0;
-  
-  /*
-    also move the grobs that were empty, to maintain spatial order.
-  */
   vector<Real> all_translates;
-  if (translates.size ())
+
+  if (!translates.empty ())
     {
       Real w = translates[0];
-
-      if (scm_is_number (align))
-	center_offset = total.linear_combination (scm_to_double (align));
-
       for  (vsize i = 0, j = 0; j < all_grobs.size (); j++)
 	{
 	  if (i < elems.size () && all_grobs[j] == elems[i])
 	    w = translates[i++];
-	  all_translates.push_back (w - center_offset);
+	  all_translates.push_back (w);
 	}
     }
   return all_translates;

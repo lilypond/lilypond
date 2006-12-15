@@ -111,6 +111,19 @@ Building::Building (Real start, Real start_height, Real end_height, Real end)
   precompute ();
 }
 
+Building::Building (Box const &b, Real horizon_padding, Axis horizon_axis, Direction sky)
+{
+  Real height = sky * b[other_axis (horizon_axis)][sky];
+
+  iv_ = b[horizon_axis];
+  iv_.widen (horizon_padding + EPS);
+  height_[LEFT] = height;
+  height_[RIGHT] = height;
+
+  if (sane ())
+    precompute ();
+}
+
 void
 Building::precompute ()
 {
@@ -172,6 +185,14 @@ Building::sloped_neighbour (Real horizon_padding, Direction d) const
       swap (left_height, right_height);
     }
   return Building (left, left_height, right_height, right);
+}
+
+bool
+Building::sane () const
+{
+  return approx_less_than (iv_[LEFT], iv_[RIGHT])
+    && !isinf (height_[RIGHT])
+    && !isinf (height_[LEFT]);
 }
 
 static void
@@ -341,14 +362,9 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
 
   for (vsize i = 0; i < boxes.size (); i++)
     {
-      Interval iv = boxes[i][horizon_axis];
-      Real height = sky * boxes[i][other_axis (horizon_axis)][sky];
-      
-      iv.widen (horizon_padding);
-      if (!iv.is_empty () && !isinf (height) && !approx_equal (iv[LEFT], iv[RIGHT]))
+      Building front (boxes[i], horizon_padding, horizon_axis, sky);
+      if (front.sane ())
 	{
-	  iv.widen (EPS);
-	  Building front = Building (iv[LEFT], height, height, iv[RIGHT]);
 	  bldgs.push_front (front);
 	  if (horizon_padding > 0 && !isinf (front.iv_.length ()))
 	    {
@@ -360,6 +376,13 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
   
   internal_build_skyline (&bldgs, &buildings_);
   assert (is_legal_skyline ());
+}
+
+Skyline::Skyline (Box const &b, Real horizon_padding, Axis horizon_axis, Direction sky)
+{
+  sky_ = sky;
+  Building front (b, 0, horizon_axis, sky);
+  single_skyline (front, horizon_padding, &buildings_);
 }
 
 void
@@ -379,14 +402,9 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
 {
   list<Building> other_bld;
   list<Building> my_bld;
-  Interval iv = b[a];
-  Real height = sky_ * b[other_axis (a)][sky_];
-
-  assert (!iv.is_empty ());
-  iv.widen (EPS);
 
   my_bld.splice (my_bld.begin (), buildings_);
-  single_skyline (Building (iv[LEFT], height, height, iv[RIGHT]), horizon_padding, &other_bld);
+  single_skyline (Building (b, 0, a, sky_), horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
   assert (is_legal_skyline ());
 }
@@ -402,6 +420,17 @@ Skyline::raise (Real r)
       i->y_intercept_ += sky_ * r;
     }
   assert (is_legal_skyline ());
+}
+
+void
+Skyline::shift (Real r)
+{
+  list<Building>::iterator end = buildings_.end ();
+  for (list<Building>::iterator i = buildings_.begin (); i != end; i++)
+    {
+      i->iv_[LEFT] += r;
+      i->iv_[RIGHT] += r;
+    }
 }
 
 Real
@@ -476,12 +505,71 @@ Skyline::to_points () const
   return out;
 }
 
+Skyline_pair::Skyline_pair ()
+  : skylines_ (Skyline (DOWN), Skyline (UP))
+{
+}
+
+Skyline_pair::Skyline_pair (vector<Box> const &boxes, Real padding, Axis a)
+  : skylines_ (Skyline (boxes, padding, a, DOWN), Skyline (boxes, padding, a, UP))
+{
+}
+
+Skyline_pair::Skyline_pair (Box const &b, Real padding, Axis a)
+  : skylines_ (Skyline (b, padding, a, DOWN), Skyline (b, padding, a, UP))
+{
+}
+
+void
+Skyline_pair::raise (Real r)
+{
+  skylines_[UP].raise (r);
+  skylines_[DOWN].raise (r);
+}
+
+void
+Skyline_pair::shift (Real r)
+{
+  skylines_[UP].shift (r);
+  skylines_[DOWN].shift (r);
+}
+
+void
+Skyline_pair::insert (Box const &b, Real padding, Axis a)
+{
+  skylines_[UP].insert (b, padding, a);
+  skylines_[DOWN].insert (b, padding, a);
+}
+
+void
+Skyline_pair::merge (Skyline_pair const &other)
+{
+  skylines_[UP].merge (other[UP]);
+  skylines_[DOWN].merge (other[DOWN]);
+}
+
+Skyline&
+Skyline_pair::operator [] (Direction d)
+{
+  return skylines_[d];
+}
+
+Skyline const&
+Skyline_pair::operator [] (Direction d) const
+{
+  return skylines_[d];
+}
+
 /****************************************************************/
 
 
 IMPLEMENT_SIMPLE_SMOBS (Skyline);
 IMPLEMENT_TYPE_P (Skyline, "ly:skyline?");
 IMPLEMENT_DEFAULT_EQUAL_P (Skyline);
+
+IMPLEMENT_SIMPLE_SMOBS (Skyline_pair);
+IMPLEMENT_TYPE_P (Skyline_pair, "ly:skyline-pair?");
+IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
 
 SCM
 Skyline::mark_smob (SCM)
@@ -497,5 +585,21 @@ Skyline::print_smob (SCM s, SCM port, scm_print_state *)
 
   scm_puts ("#<Skyline>", port);
 
+  return 1;
+}
+
+SCM
+Skyline_pair::mark_smob (SCM)
+{
+  return SCM_EOL;
+}
+
+int
+Skyline_pair::print_smob (SCM s, SCM port, scm_print_state *)
+{
+  Skyline_pair *r = (Skyline_pair *) SCM_CELL_WORD_1 (s);
+  (void) r;
+
+  scm_puts ("#<Skyline-pair>", port);
   return 1;
 }

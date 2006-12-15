@@ -28,6 +28,7 @@ struct Building
 
   void precompute ();
   Building (Real start, Real start_height, Real end_height, Real end);
+  Building (Box const &b, Real horizon_padding, Axis a, Direction d);
   void print () const;
 
   Real height (Real x) const;
@@ -35,6 +36,7 @@ struct Building
   void leading_part (Real chop);
   bool conceals_beginning (Building const &other) const;
   bool conceals (Building const &other) const;
+  bool sane () const;
   Building sloped_neighbour (Real horizon_padding, Direction d) const;
 };
 
@@ -55,15 +57,35 @@ public:
   Skyline (Skyline const &src);
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Real horizon_padding, Axis a, Direction sky);
+  Skyline (Box const &b, Real horizon_padding, Axis a, Direction sky);
   vector<Offset> to_points () const;
   void merge (Skyline const &);
   void insert (Box const &, Real horizon_padding, Axis);
   void print () const;
   void raise (Real);
+  void shift (Real);
   Real distance (Skyline const &) const;
   Real height (Real airplane) const;
   Real max_height () const;
   void set_minimum_height (Real height);
+};
+
+class Skyline_pair
+{
+private:
+  Drul_array<Skyline> skylines_;
+
+  DECLARE_SIMPLE_SMOBS(Skyline_pair);
+public:
+  Skyline_pair ();
+  Skyline_pair (vector<Box> const &boxes, Real horizon_padding, Axis a);
+  Skyline_pair (Box const &, Real horizon_padding, Axis a);
+  void raise (Real);
+  void shift (Real);
+  void insert (Box const &, Real horizon_padding, Axis);
+  void merge (Skyline_pair const &other);
+  Skyline &operator [] (Direction d);
+  Skyline const &operator [] (Direction d) const;
 };
 
 #endif /* SKYLINE_HH */

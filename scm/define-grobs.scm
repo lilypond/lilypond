@@ -1653,7 +1653,7 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
-	(skyline-spacing . #t)
+	(skylines . ,ly:axis-group-interface::calc-skylines)
 	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
@@ -1974,7 +1974,8 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
-	(padding . 0.1) 
+	(padding . 0.1)
+	(skylines . ,ly:axis-group-interface::combine-skylines)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
 				axis-group-interface))))))
@@ -1984,7 +1985,7 @@
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
-	(skyline-spacing . #t)
+	(skylines . ,ly:axis-group-interface::calc-skylines);
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-spanner-interface

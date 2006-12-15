@@ -12,6 +12,7 @@
 #include "std-vector.hh"
 #include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "skyline.hh"
 
 struct Axis_group_interface
 {
@@ -20,6 +21,8 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
+  DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (combine_skylines, (SCM smob));
   static Interval relative_group_extent (vector<Grob*> const &list,
 					 Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, vector<Grob*> const &list,
@@ -28,7 +31,7 @@ struct Axis_group_interface
   static Interval cached_pure_height (Grob *me, vector<Grob*> const &list,
 				      Grob *common, int, int);
 
-  static void skyline_spacing (Grob *me, vector<Grob*> elements);
+  static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);

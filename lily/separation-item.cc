@@ -31,17 +31,10 @@ void
 Separation_item::set_skyline_distance (Drul_array<Item *> items,
 				       Real padding)
 {
-  Drul_array<Skyline*> lines;
-  Direction d = LEFT;
+  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("skylines")),
+				   Skyline_pair::unsmob (items[RIGHT]->get_property ("skylines")));
 
-  do
-    {
-      SCM prop = items[d]->get_property ("skylines");
-      lines[d] = Skyline::unsmob (index_get_cell (prop, -d));
-    }
-  while (flip (&d) != LEFT);
-
-  Real dist = padding + lines[LEFT]->distance (*lines[RIGHT]);
+  Real dist = padding + (*lines[LEFT])[RIGHT].distance ((*lines[RIGHT])[LEFT]);
   if (dist > 0)
     {
       Rod rod;
@@ -122,19 +115,9 @@ SCM
 Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob_item (smob);
-  SCM lines = scm_cons (SCM_BOOL_F,SCM_BOOL_F);
-
-  Direction d = LEFT;
   vector<Box> bs = boxes (me);
-  do
-    {
-      /* todo: the horizon_padding is somewhat arbitrary */
-      Skyline l (bs, 0.1, Y_AXIS, d);
-      index_set_cell (lines, d, l.smobbed_copy ());
-    }
-  while (flip (&d) != LEFT);
-
-  return lines;
+  /* todo: the horizon_padding is somewhat arbitrary */
+  return Skyline_pair (bs, 0.1, Y_AXIS).smobbed_copy ();
 }
 
 

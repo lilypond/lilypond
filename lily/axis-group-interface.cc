@@ -179,13 +179,54 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   return pure_group_height (me, start, end);
 }
+
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
+SCM
+Axis_group_interface::calc_skylines (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", elts);
+  return skyline_spacing (me, elts).smobbed_copy ();
+}
+
+/* whereas calc_skylines calculates skylines for axis-groups with a lot of
+   visible children, combine_skylines is designed for axis-groups whose only
+   children are other axis-groups (ie. VerticalAlignment). Rather than
+   calculating all the skylines from scratch, we just merge the skylines
+   of the children.
+*/
+MAKE_SCHEME_CALLBACK (Axis_group_interface, combine_skylines, 1);
+SCM
+Axis_group_interface::combine_skylines (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "elements", elements);
+  Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
+
+  assert (y_common == me);
+
+  Skyline_pair ret;
+  for (vsize i = 0; i < elements.size (); i++)
+    {
+      SCM skyline_scm = elements[i]->get_property ("skylines");
+      if (Skyline_pair::unsmob (skyline_scm))
+	{
+	  Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
+	  Skyline_pair other = *Skyline_pair::unsmob (skyline_scm);
+	  other.raise (offset);
+	  ret.merge (other);
+	}
+    }
+  return ret.smobbed_copy ();
+}
   
 SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
+  /* trigger the callback to do skyline-spacing on the children */
+  (void) me->get_property ("skylines");
+
   extract_grob_set (me, "elements", elts);
-  if (a == Y_AXIS && to_boolean (me->get_property ("skyline-spacing")))
-    skyline_spacing (me, elts);
   Grob *common = common_refpoint_of_array (elts, me, a);
 
   Real my_coord = me->relative_coordinate (common, a);
@@ -307,7 +348,7 @@ add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes)
    edge of the just-placed grob).  Otherwise, we skip it until the next pass.
 */
 static void
-add_grobs_of_one_priority (Drul_array<Skyline> *const skylines,
+add_grobs_of_one_priority (Skyline_pair *const skylines,
 			   vector<Grob*> elements,
 			   Grob *x_common,
 			   Grob *y_common)
@@ -362,12 +403,14 @@ add_grobs_of_one_priority (Drul_array<Skyline> *const skylines,
     }
 }
 
-void
+Skyline_pair
 Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 {
   vector_sort (elements, staff_priority_less);
   Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
+
+  assert (y_common == me);
 
   vsize i = 0;
   vector<Box> boxes;
@@ -376,8 +419,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
     add_boxes (elements[i], x_common, y_common, &boxes);
 
-  Drul_array<Skyline> skylines (Skyline (boxes, 0, X_AXIS, DOWN),
-				Skyline (boxes, 0, X_AXIS, UP));
+  Skyline_pair skylines (boxes, 0, X_AXIS);
   for (; i < elements.size (); i++)
     {
       SCM priority = elements[i]->get_property ("outside-staff-priority");
@@ -389,6 +431,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       add_grobs_of_one_priority (&skylines, current_elts, x_common, y_common);
     }
+  return skylines;
 }
 
 ADD_INTERFACE (Axis_group_interface,
@@ -400,6 +443,6 @@ ADD_INTERFACE (Axis_group_interface,
 	       "elements "
 	       "common-refpoint-of-elements "
 	       "pure-relevant-elements "
-	       "skyline-spacing "
+	       "skylines "
 	       "cached-pure-extents "
 	       );

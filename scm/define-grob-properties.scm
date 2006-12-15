@@ -348,7 +348,7 @@ note that starts here.")
 object.")
      (side-axis ,number? "If the value is #X (or equivalently 1), the object is placed horizontally next to the other object. If the value is #Y or 0, it is placed vertically.")
      (size ,number? "Size of object, relative to standard size.")
-     (skylines ,pair? "A pair of lists of (x height) pairs.")
+     (skylines ,ly:skyline-pair? "Two skylines, one above and one below this grob (or, for some grobs, to the left and to the right).")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (space-alist ,list? "A table that specifies distances between
@@ -562,8 +562,6 @@ than a whole rest.")
      (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
      (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
      (skyline-horizontal-padding ,number? "For determining the vertical distance between 2 staves, it is possible to have a configuration which would result in a tight interleaving of grobs from the top staff and the bottom staff. The larger this parameter is, the farther apart the staves will be placed in such a configuration.")
-     (skyline-spacing ,boolean? "When true, this axis-group will vertically space its children
-using a skyline algorithm.")
 
      
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
