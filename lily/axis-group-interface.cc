@@ -395,7 +395,7 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
 		  elements[i]->translate_axis (dir*dist, Y_AXIS);
 		}
 	      (*skylines)[dir].insert (b, 0, X_AXIS);
-	      elements[i]->del_property ("outside-staff-padding");
+	      elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
 	      last_affected_position[dir] = b[X_AXIS][RIGHT];
 	    }
 	  elements.erase (elements.begin () + i);
