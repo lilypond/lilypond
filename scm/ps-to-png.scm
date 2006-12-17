@@ -48,9 +48,6 @@
     str))
 
 (define-public (gulp-file file-name . max-size)
-  ;; string routines barf when strlen() != string-length,.
-  ;; which may happen as side effect of read-string!/partial.
-  ;;  (gulp-port (open-file nm "r") len))
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
 (define BOUNDING-BOX-RE
@@ -94,16 +91,14 @@
 
 (define (scale-down-image be-verbose factor file)
   (let* ((status 0)
-	 ;;(percentage (* 100 (/ 1.0 factor)))
 	 (old (string-append file ".old")))
 
     (rename-file file old)
     (my-system
      be-verbose #t
-     ;; convert -scale creates (a large rgb) png from a grayscale
-     ;; (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
-
-     (format #f "pngtopnm ~a | pnmscale -reduce ~a | pnmtopng > ~a" old factor file))
+     (format #f
+	     "pngtopnm ~a | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > ~a"
+	     old factor file))
     (delete-file old)))
 
 (define-public (ps-page-count ps-name)
@@ -115,9 +110,6 @@
 				  (substring header 0 first-null)
 				  header))))
     (if match (string->number (match:substring match 1)) 0)))
-
-(define-public (ps-has-color ps-name)
-  (string-contains (gulp-file ps-name) " setrgbcolor"))
 
 (define-public (make-ps-images ps-name . rest)
   (let-keywords*
