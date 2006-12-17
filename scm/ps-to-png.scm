@@ -94,13 +94,16 @@
 
 (define (scale-down-image be-verbose factor file)
   (let* ((status 0)
-	 (percentage (* 100 (/ 1.0 factor)))
+	 ;;(percentage (* 100 (/ 1.0 factor)))
 	 (old (string-append file ".old")))
 
     (rename-file file old)
     (my-system
      be-verbose #t
-     (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
+     ;; convert -scale creates (a large rgb) png from a grayscale
+     ;; (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
+
+     (format #f "pngtopnm ~a | pnmscale -reduce ~a | pnmtopng > ~a" old factor file))
     (delete-file old)))
 
 (define-public (ps-page-count ps-name)
@@ -197,7 +200,6 @@
 	   ))
 
      (if (not (= 1 anti-alias-factor))
-	 (for-each  (lambda (f) (scale-down-image be-verbose anti-alias-factor f))
-		    files))
-
+	 (for-each
+	  (lambda (f) (scale-down-image be-verbose anti-alias-factor f)) files))
      files)))
