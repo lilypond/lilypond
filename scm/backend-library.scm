@@ -105,12 +105,12 @@
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
   (let* ((verbose (ly:get-option 'verbose))
 	 (rename-page-1 #f)
-	 (pixmap-default 'png16m)
+	 (pixmap-default "png16m")
 	 (pixmap-setting (ly:get-option 'pixmap-format))
-	 (pixmap-format (if (or (not (eq pixmap-setting pixmap-default))
+	 (pixmap-format (if (or (not (equal? pixmap-setting pixmap-default))
 				(ps-has-color name))
 			    pixmap-setting
-			    'pnggray)))
+			    "pnggray")))
     (ly:message (_ "Converting to ~a...") "PNG")
     (make-ps-images name
 		    #:resolution resolution
