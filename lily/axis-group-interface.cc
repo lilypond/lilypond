@@ -299,8 +299,8 @@ Axis_group_interface::get_children (Grob *me, vector<Grob*> *found)
 bool
 staff_priority_less (Grob * const &g1, Grob * const &g2)
 {
-  int priority_1 = robust_scm2int (g1->get_property ("outside-staff-priority"), INT_MIN);
-  int priority_2 = robust_scm2int (g2->get_property ("outside-staff-priority"), INT_MIN);
+  Real priority_1 = robust_scm2double (g1->get_property ("outside-staff-priority"), -infinity_f);
+  Real priority_2 = robust_scm2double (g2->get_property ("outside-staff-priority"), -infinity_f);
 
   if (priority_1 < priority_2)
     return true;

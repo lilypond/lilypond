@@ -601,7 +601,6 @@
 	(font-shape . italic)
 	(avoid-slur . around)
 	(no-spacing-rods . #t)
-	(script-priority . 100)
 	(outside-staff-priority . 250)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface

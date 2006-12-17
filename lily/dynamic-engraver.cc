@@ -64,7 +64,6 @@ class Dynamic_engraver : public Engraver
 
   TRANSLATOR_DECLARATIONS (Dynamic_engraver);
   DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (stem_tremolo);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
@@ -454,27 +453,7 @@ Dynamic_engraver::acknowledge_note_column (Grob_info info)
     finished_cresc_->set_bound (RIGHT, info.grob ());
 }
 
-void
-Dynamic_engraver::acknowledge_script (Grob_info info)
-{
-  if (!line_spanner_ || !script_)
-    return;
-
-  SCM p = info.grob ()->get_property ("script-priority");
-
-  /*
-    UGH.
-
-    DynamicText doesn't really have a script-priority field.
-  */
-  if (scm_is_number (p)
-      && scm_to_int (p)
-      < scm_to_int (script_->get_property ("script-priority")))
-    Side_position_interface::add_support (line_spanner_, info.grob ());
-}
-
 ADD_ACKNOWLEDGER (Dynamic_engraver, accidental);
-ADD_ACKNOWLEDGER (Dynamic_engraver, script);
 ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
 ADD_ACKNOWLEDGER (Dynamic_engraver, slur);
 ADD_ACKNOWLEDGER (Dynamic_engraver, stem_tremolo);

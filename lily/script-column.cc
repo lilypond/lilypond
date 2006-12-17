@@ -133,7 +133,19 @@ Script_column::order_grobs (vector<Grob*> grobs)
 	{
 	  Grob *g = unsmob_grob (scm_car (s));
 	  if (last)
-	    Side_position_interface::add_support (g, last);
+	    {
+	      SCM outside_staff = last->get_property ("outside-staff-priority");
+	      if (scm_is_number (outside_staff))
+		{
+		  /* we allow the outside-staff-priority ordering to override the
+		     script-priority ordering */
+		  if (!scm_is_number (g->get_property ("outside-staff-priority")))
+		    g->set_property ("outside-staff-priority",
+				     scm_from_double (scm_to_double (outside_staff) + 0.1));
+		}
+	      else
+		Side_position_interface::add_support (g, last);
+	    }
 
 	  last = g;
 	}
