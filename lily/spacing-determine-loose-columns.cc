@@ -36,17 +36,18 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   if (!to_boolean (col->get_property ("allow-loose-spacing")))
     return false;
   
+
   if ((options->float_nonmusical_columns_
        ||options->float_grace_columns_)
       && Paper_column::when_mom (col).grace_part_)
-    return true;
+    {
+      return true;
+    }
 
+  
   if (Paper_column::is_musical (col)
       || Paper_column::is_breakable (col))
     return false;
-
-  extract_grob_set (col, "right-neighbors", rns);
-  extract_grob_set (col, "left-neighbors", lns);
 
   /*
     If this column doesn't have a proper neighbor, we should really
@@ -69,9 +70,14 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     such a borderline case.)
 
   */
+
+  extract_grob_set (col, "right-neighbors", rns);
+  extract_grob_set (col, "left-neighbors", lns);
+
   if (lns.empty () || rns.empty ())
     return false;
 
+  
   Item *l_neighbor = dynamic_cast<Item *> (lns[0]);
   Item *r_neighbor = dynamic_cast<Item *> (rns[0]);
 
@@ -125,6 +131,68 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   return true;
 }
 
+void
+Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
+					      Drul_array<Item *> next_door,
+					      Spacing_options const *options)
+{
+  Direction d = LEFT;
+  Drul_array<Real> dists (0, 0);
+
+  do
+    {
+      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
+      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
+
+      extract_grob_set (lc, "spacing-wishes", wishes);
+      for (vsize k = wishes.size (); k--;)
+	{
+	  Grob *sp = wishes[k];
+	  if (Note_spacing::left_column (sp) != lc
+	      || Note_spacing::right_column (sp) != rc)
+	    continue;
+
+	  if (Note_spacing::has_interface (sp))
+	    {
+	      /*
+		The note spacing should be taken from the musical
+		columns.
+	      */
+	      Real space = 0.0;
+	      Real fixed = 0.0;
+	      bool dummy = false;
+		  
+	      Real base = note_spacing (me, lc, rc, options, &dummy);
+	      Note_spacing::get_spacing (sp, rc, base, options->increment_,
+					 &space, &fixed);
+
+	      space -= options->increment_;
+
+	      dists[d] = max (dists[d], space);
+	    }
+	  else if (Staff_spacing::has_interface (sp))
+	    {
+	      Real space = 0;
+	      Real fixed_space = 0;
+	      Staff_spacing::get_spacing_params (sp,
+						 &space, &fixed_space);
+
+	      dists[d] = max (dists[d], fixed_space);
+	    }
+	  else
+	    programming_error ("Subversive spacing wish");
+	}
+    }
+  while (flip (&d) != LEFT);
+
+  Rod r;
+  r.distance_ = dists[LEFT] + dists[RIGHT];
+  r.item_drul_ = next_door;
+ 
+  r.add_to_cols (); 
+}
+
+
 /*
   Remove columns that are not tightly fitting from COLS. In the
   removed columns, set 'between-cols to the columns where it is in
@@ -157,71 +225,28 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Grob*> *cols,
 	  */
 
 	  extract_grob_set (unsmob_grob (rns), "right-items", right_items);
-	  c->set_object ("between-cols", scm_cons (lns,
-						   right_items[0]->self_scm ()));
-
-	  /*
-	    Set distance constraints for loose columns
-	  */
-	  Drul_array<Grob *> next_door (cols->at (i - 1),
-					cols->at (i + 1));
-	  Direction d = LEFT;
-	  Drul_array<Real> dists (0, 0);
-
-	  do
+	  if (right_items.size () == 0 || !unsmob_grob (lns))
 	    {
-	      Item *lc = dynamic_cast<Item *> ((d == LEFT) ? next_door[LEFT] : c);
-	      Item *rc = dynamic_cast<Item *> (d == LEFT ? c : next_door[RIGHT]);
-
-	      extract_grob_set (lc, "spacing-wishes", wishes);
-	      for (vsize k = wishes.size (); k--;)
-		{
-		  Grob *sp = wishes[k];
-		  if (Note_spacing::left_column (sp) != lc
-		      || Note_spacing::right_column (sp) != rc)
-		    continue;
-
-		  if (Note_spacing::has_interface (sp))
-		    {
-		      /*
-			The note spacing should be taken from the musical
-			columns.
-		      */
-		      Real space = 0.0;
-		      Real fixed = 0.0;
-		      bool dummy = false;
-		  
-		      Real base = note_spacing (me, lc, rc, options, &dummy);
-		      Note_spacing::get_spacing (sp, rc, base, options->increment_,
-						 &space, &fixed);
-
-		      space -= options->increment_;
-
-		      dists[d] = max (dists[d], space);
-		    }
-		  else if (Staff_spacing::has_interface (sp))
-		    {
-		      Real space = 0;
-		      Real fixed_space = 0;
-		      Staff_spacing::get_spacing_params (sp,
-							 &space, &fixed_space);
-
-		      dists[d] = max (dists[d], fixed_space);
-		    }
-		  else
-		    programming_error ("Subversive spacing wish");
-		}
+	      c->programming_error ("Can't determine neighbors for floating column. ");
+	      c->set_object ("between-cols", scm_cons (cols->at (i-1)->self_scm (),
+						       cols->at (i+1)->self_scm ()));
 	    }
-	  while (flip (&d) != LEFT);
+	  else
+	    {
+	      c->set_object ("between-cols", scm_cons (lns,
+						       right_items[0]->self_scm ()));
 
-	  Rod r;
-	  r.distance_ = dists[LEFT] + dists[RIGHT];
-	  r.item_drul_[LEFT] = dynamic_cast<Item *> (cols->at (i - 1));
-	  r.item_drul_[RIGHT] = dynamic_cast<Item *> (cols->at (i + 1));
+	      /*
+		Set distance constraints for loose columns
+	      */
+	      Drul_array<Item *> next_door (dynamic_cast<Item*> (cols->at (i - 1)),
+					    dynamic_cast<Item*> (cols->at (i + 1)));
 
-	  r.add_to_cols ();
+	      set_distances_for_loose_col (me, c, next_door, options);
+	    }
 	}
-      else
+
+      if (!loose)
 	newcols.push_back (c);
     }
 

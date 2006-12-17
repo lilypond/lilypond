@@ -4,30 +4,25 @@ Open($1);
 MergeKern($2)
 
 
-# 
-# NCSB is broken as shipped by Fedora Core 6
-# it contains bogus ligatures TM and No in the AFM file.
+# The AFM files of `New Century Schoolbook' family as distributed within the
+# urw-fonts-1.0.7pre41.tar.bz2 archive contain a bunch of ligatures which
+# shouldn't be active by default:
 #
-# Remove the TM glyph - for want of better FF fix.  
-err = SelectIf("trademark");
-if ( err > 0 )
-   Cut();
-elseif ( err == 0 )
-   Print("Could not find \"Trademark\" glyph");
-elseif ( err < 0 )
-   Print("An error occurred while searching for the \"numero\" glyph");
-endif
 
+#   T + M -> trademark
+#   N + o -> afii61352
+#   i + j -> ij
+#   I + J -> IJ
+#
+# This font bundle is shipped by Fedora Core 6 and other GNU/Linux
+# distributions; we simply remove those ligatures.
 
-# Remove the No. glyph - for want of better FF fix.  
-err = SelectIf("afii61352");
-if ( err > 0 )
-   Cut();
-elseif ( err == 0 )
-   Print("Could not find \"numero\" glyph");
-elseif ( err < 0 )
-   Print("An error occurred while searching for the \"numero\" glyph");
-endif
+SelectIf("trademark", "trademark", \
+         "afii61352", "afii61352", \
+         "ij", "ij", \
+         "IJ", "IJ");
+RemoveATT("Ligature", "*", "*");
 
 Generate($3 + $fontname + ".otf");
 
+# EOF
