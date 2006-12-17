@@ -18,8 +18,10 @@
   TODO: prune to public interface.
 */
 class Spacing_spanner
+
 {
 public:
+  static void set_distances_for_loose_col (Grob *me, Grob *c, Drul_array<Item *> next_door, Spacing_options const *);
   static void generate_pair_spacing (Grob *me,
 				     Paper_column *l, Paper_column *r,
 				     Paper_column *nextr,
