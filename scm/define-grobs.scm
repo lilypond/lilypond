@@ -275,6 +275,7 @@
      . (
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(skylines . ,ly:axis-group-interface::calc-skylines)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				))))))
