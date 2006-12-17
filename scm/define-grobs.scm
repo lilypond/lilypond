@@ -2080,6 +2080,7 @@
 
 (define pure-print-callbacks
   (list
+   ly:bar-line::print
    ly:note-head::print
    ly:accidental-interface::print
    ly:dots::print
@@ -2094,7 +2095,6 @@
 	 (ly:stencil? sten)
 	 (memq sten pure-print-callbacks))
 	(ly:grob::stencil-height grob)
-
 	'(0 . 0))))
 
 (define pure-conversions-alist

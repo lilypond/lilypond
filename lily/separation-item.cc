@@ -33,8 +33,10 @@ Separation_item::set_skyline_distance (Drul_array<Item *> items,
 {
   Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("skylines")),
 				   Skyline_pair::unsmob (items[RIGHT]->get_property ("skylines")));
+  Skyline right = conditional_skyline (items[RIGHT], items[LEFT]);
+  right.merge ((*lines[RIGHT])[LEFT]);
 
-  Real dist = padding + (*lines[LEFT])[RIGHT].distance ((*lines[RIGHT])[LEFT]);
+  Real dist = padding + (*lines[LEFT])[RIGHT].distance (right);
   if (dist > 0)
     {
       Rod rod;
@@ -50,63 +52,19 @@ bool
 Separation_item::set_distance (Drul_array<Item *> items,
 			       Real padding)
 {
-  if (!Item::is_non_musical (items[LEFT])
-      && !Item::is_non_musical (items[RIGHT]))
-    {
-      set_skyline_distance (items, padding);
-      return true;
-    }
-  
-  Interval li (Separation_item::width (items[LEFT]));
-  Interval ri (Separation_item::conditional_width (items[RIGHT], items[LEFT]));
-  if (!li.is_empty () && !ri.is_empty ())
-    {
-      Rod rod;
-
-      rod.item_drul_ = items;
-
-      rod.distance_ = li[RIGHT] - ri[LEFT] + padding;
-
-      if (rod.distance_  > 0)
-	rod.add_to_cols ();
-      return true;
-    }
-  return false;
+  set_skyline_distance (items, padding);
+  return true;
 }
 
 /*
   Return the width of ME given that we are considering the object on
   the LEFT.
 */
-Interval
-Separation_item::conditional_width (Grob *me, Grob *left)
+Skyline
+Separation_item::conditional_skyline (Grob *me, Grob *left)
 {
-  Interval w = width (me);
-
-  Item *item = dynamic_cast<Item *> (me);
-  Paper_column *pc = item->get_column ();
-
-  extract_grob_set (me, "conditional-elements", elts);
-  for (vsize i = 0; i < elts.size (); i++)
-    {
-      Item *il = dynamic_cast<Item *> (elts[i]);
-      if (pc != il->get_column ())
-	{
-	  programming_error ("Separation_item element from wrong column");
-	  continue;
-	}
-
-      if (to_boolean (il->get_property ("no-spacing-rods")))
-	continue;
-
-      if (Accidental_placement::has_interface (il))
-	w.unite (Accidental_placement::get_relevant_accidental_extent (il, pc, left));
-    }
-
-  SCM pad = me->get_property ("padding");
-
-  w.widen (robust_scm2double (pad, 0.0));
-  return w;
+  vector<Box> bs = boxes (me, left);
+  return Skyline (bs, 0.1, Y_AXIS, LEFT);
 }
 
 
@@ -115,21 +73,25 @@ SCM
 Separation_item::calc_skylines (SCM smob)
 {
   Item *me = unsmob_item (smob);
-  vector<Box> bs = boxes (me);
+  vector<Box> bs = boxes (me, 0);
   /* todo: the horizon_padding is somewhat arbitrary */
   return Skyline_pair (bs, 0.1, Y_AXIS).smobbed_copy ();
 }
 
-
+/* if left is non-NULL, get the boxes corresponding to the
+   conditional-elements (conditioned on the grob LEFT). This
+   sounds more general than it is: conditional-elements are
+   always accidentals attached to a tied note.
+*/
 vector<Box>
-Separation_item::boxes (Grob *me)
+Separation_item::boxes (Grob *me, Grob *left)
 {
   Item *item = dynamic_cast<Item *> (me);
 
   int very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
   vector<Box> out;
-  extract_grob_set (me, "elements", elts);
+  extract_grob_set (me, left ? "conditional-elements" : "elements", elts);
 
   Grob *ycommon = common_refpoint_of_array (elts, me, Y_AXIS);
   
@@ -145,9 +107,19 @@ Separation_item::boxes (Grob *me)
 	continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
-      Box b (il->extent (pc, X_AXIS), y);
+      Interval x;
+      
+      if (!left)
+	x = il->extent (pc, X_AXIS);
+      else if (Accidental_placement::has_interface (il))
+	x = Accidental_placement::get_relevant_accidental_extent (il, pc, left);
+      else
+	continue;
 
-      out.push_back (b);
+      SCM padding = elts[i]->get_property ("padding");
+      x.widen (robust_scm2double (padding, 0));
+
+      out.push_back (Box (x, y));
     }
 
   return out;      
@@ -157,39 +129,7 @@ Interval
 Separation_item::width (Grob *me)
 {
   SCM sw = me->get_property ("X-extent");
-  if (is_number_pair (sw))
-    return ly_scm2interval (sw);
-
-  Item *item = dynamic_cast<Item *> (me);
-  Paper_column *pc = item->get_column ();
-  Interval w;
-
-  extract_grob_set (me, "elements", elts);
-  for (vsize i = 0; i < elts.size (); i++)
-    {
-      Item *il = dynamic_cast<Item *> (elts[i]);
-      if (pc != il->get_column ())
-	{
-	  /* this shouldn't happen, but let's continue anyway. */
-	  programming_error ("Separation_item:  I've been drinking too much");
-	  continue;		/*UGH UGH*/
-	}
-
-      if (to_boolean (il->get_property ("no-spacing-rods")))
-	continue;
-
-      Interval iv (il->extent (pc, X_AXIS));
-      if (!iv.is_empty ())
-	w.unite (iv);
-    }
-
-  SCM pad = me->get_property ("padding");
-
-  w.widen (robust_scm2double (pad, 0.0));
-
-  me->set_property ("X-extent", ly_interval2scm (w));
-
-  return w;
+  return ly_scm2interval (sw);
 }
 
 Interval

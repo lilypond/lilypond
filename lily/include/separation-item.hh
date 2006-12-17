@@ -12,14 +12,15 @@
 #include "lily-proto.hh"
 #include "direction.hh"
 #include "grob-interface.hh"
+#include "skyline.hh"
 
 struct Separation_item
 {
   DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK(calc_skylines, (SCM));
 
-  static vector<Box> boxes (Grob *me);
-  static Interval conditional_width (Grob *, Grob *);
+  static vector<Box> boxes (Grob *me, Grob *left);
+  static Skyline conditional_skyline (Grob *, Grob *);
   static Interval width (Grob *);
   static Interval relative_width (Grob *, Grob *);
   static Grob *extremal_break_aligned_grob (Grob *, Direction, Interval *);
