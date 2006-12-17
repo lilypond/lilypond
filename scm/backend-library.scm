@@ -94,8 +94,7 @@
 
     (ly:message (_ "Converting to `~a'...") pdf-name)
     (ly:progress "\n")
-    (ly:system cmd)
-    ))
+    (ly:system cmd)))
 
 (use-modules (scm ps-to-png))
 
@@ -104,58 +103,45 @@
     ;; GS produces PNG files like BASE-page%d.png.
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
-  (let ((verbose (ly:get-option 'verbose))
-	(rename-page-1 #f))
-
+  (let* ((verbose (ly:get-option 'verbose))
+	 (rename-page-1 #f)
+	 (pixmap-default 'png16m)
+	 (pixmap-setting (ly:get-option 'pixmap-format))
+	 (pixmap-format (if (or (not (eq pixmap-setting pixmap-default))
+				(ps-has-color name))
+			    pixmap-setting
+			    'pnggray)))
     (ly:message (_ "Converting to ~a...") "PNG")
-
     (make-ps-images name
 		    #:resolution resolution
-		    #:page-width  paper-width
+		    #:page-width paper-width
 		    #:page-height paper-height
 		    #:rename-page-1 rename-page-1
 		    #:be-verbose verbose
 		    #:anti-alias-factor (ly:get-option 'anti-alias-factor)
-		    #:pixmap-format (ly:get-option 'pixmap-format) 
-		    )
-    
+		    #:pixmap-format pixmap-format)
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)
-  (let*
-      ((completed (completize-formats formats))
-       (base (string-regexp-substitute "\\.[a-z]+$" "" filename))
-       (intermediate (remove
-		      (lambda (x)
-			(member x formats)) 
-		      completed)))
-
-    (for-each
-     (lambda (f)
-       ((eval (string->symbol (format "convert-to-~a" f)) module)
-	paper-book filename))
-     completed)
-
+  (let* ((completed (completize-formats formats))
+	 (base (string-regexp-substitute "\\.[a-z]+$" "" filename))
+	 (intermediate (remove (lambda (x) (member x formats)) completed)))
+    (for-each (lambda (f)
+		((eval (string->symbol (format "convert-to-~a" f))
+		       module) paper-book filename)) completed)
     (if (ly:get-option 'delete-intermediate-files)
-	(for-each
-	 (lambda (f)
-	   (delete-file (string-append base "." f)))
-	 intermediate))
-    ))
+	(for-each (lambda (f)
+		    (delete-file (string-append base "." f))) intermediate))))
 
 (define-public (completize-formats formats)
   (define new-fmts '())
-
   (if (member "png" formats)
       (set! formats (cons "ps" formats)))
   (if (member "pdf" formats)
       (set! formats (cons "ps" formats)))
-
-  (for-each
-   (lambda (x)
-     (if (member x formats) (set! new-fmts (cons x new-fmts))))
-   '("tex" "dvi" "ps" "pdf" "png"))
-
+  (for-each (lambda (x)
+	      (if (member x formats) (set! new-fmts (cons x new-fmts))))
+	    '("tex" "dvi" "ps" "pdf" "png"))
   (uniq-list (reverse new-fmts)))
 
 (define (header-to-file file-name key value)

@@ -47,19 +47,16 @@
     (read-string!/partial str port 0 max-length)
     str))
 
-(define (gulp-file nm len)
-
+(define-public (gulp-file file-name . max-size)
   ;; string routines barf when strlen() != string-length,.
   ;; which may happen as side effect of read-string!/partial.
-  
-					;  (gulp-port (open-file nm "r") len))
-  (ly:gulp-file nm len))
-
+  ;;  (gulp-port (open-file nm "r") len))
+  (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
 (define BOUNDING-BOX-RE
   "^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)")
 
-(define (get-bbox file-name)
+(define (unused-found-broken-get-bbox file-name)
   (let* ((bbox (string-append file-name ".bbox"))
 	 ;; -sOutputFile does not work with bbox?
 	 (cmd (format #t "gs\
@@ -71,7 +68,7 @@
  -c quit 2>~S"
 		      file-name bbox))
 	 (status (system cmd))
-	 (s (gulp-file d bbox 10240))
+	 (s (gulp-file bbox 10240))
 	 (m (string-match BOUNDING_BOX_RE s)))
 
     (if m
@@ -87,17 +84,12 @@
       (begin
 	(format (current-error-port) (_ "Invoking `~a'...") cmd)
 	(newline (current-error-port))))
-
-  
   (set! status (system cmd))
-  
   (if (not (= status 0))
       (begin
 	(format (current-error-port)
 		(format #f (_ "~a exited with status: ~S") "GS" status))
-	(if exit-on-error
-	    (exit 1))))
-
+	(if exit-on-error (exit 1))))
   status)
 
 (define (scale-down-image be-verbose factor file)
@@ -106,39 +98,36 @@
 	 (old (string-append file ".old")))
 
     (rename-file file old)
-    (my-system be-verbose
-	       #t
-	       (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
-    (delete-file old)
-    ))
+    (my-system
+     be-verbose #t
+     (format #f "convert -scale \"~a%\" -depth 8 ~a ~a" percentage old file))
+    (delete-file old)))
 
 (define-public (ps-page-count ps-name)
-  (let*
-      ((byte-count 10240)
-       (header (gulp-file ps-name byte-count))
-       (first-null (string-index header #\nul))
-       (match (string-match "%%Pages: ([0-9]+)"
-			    (if (number? first-null)
-				(substring header 0 first-null)
-				header))))
+  (let* ((byte-count 10240)
+	 (header (gulp-file ps-name byte-count))
+	 (first-null (string-index header #\nul))
+	 (match (string-match "%%Pages: ([0-9]+)"
+			      (if (number? first-null)
+				  (substring header 0 first-null)
+				  header))))
+    (if match (string->number (match:substring match 1)) 0)))
 
-    (if match
-	(string->number (match:substring match 1))
-	0)))
+(define-public (ps-has-color ps-name)
+  (string-contains (gulp-file ps-name) " setrgbcolor"))
 
 (define-public (make-ps-images ps-name . rest)
   (let-keywords*
    rest #f
-     ((resolution 90)
-      (page-width  100)
-      (page-height 100)
-      (rename-page-1 #f)
-      (be-verbose #f)
-      (pixmap-format 'png16m)
-      (anti-alias-factor 1))
-     
-   (let* (
-	  (format-str (format "~a" pixmap-format))
+   ((resolution 90)
+    (page-width  100)
+    (page-height 100)
+    (rename-page-1 #f)
+    (be-verbose #f)
+    (pixmap-format 'png16m)
+    (anti-alias-factor 1))
+
+   (let* ((format-str (format "~a" pixmap-format))
 	  (extension (cond
 		      ((string-contains format-str "png") "png")
 		      ((string-contains format-str "jpg") "jpeg")
@@ -154,9 +143,9 @@
 
 	  (gs-variable-options
 	   (if multi-page?
-	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f" page-width page-height)
+	       (format #f "-dDEVICEWIDTHPOINTS=~,2f -dDEVICEHEIGHTPOINTS=~,2f"
+		       page-width page-height)
 	       "-dEPSCrop"))
-
 	  (cmd (format #f "~a\
  ~a\
  ~a\
