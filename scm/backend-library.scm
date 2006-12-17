@@ -104,13 +104,7 @@
     ;;(ly:message (_ "Converting to `~a'...")
     ;;	    (string-append (basename name ".ps") "-page1.png" )))
   (let* ((verbose (ly:get-option 'verbose))
-	 (rename-page-1 #f)
-	 (pixmap-default "png16m")
-	 (pixmap-setting (ly:get-option 'pixmap-format))
-	 (pixmap-format (if (or (not (equal? pixmap-setting pixmap-default))
-				(ps-has-color name))
-			    pixmap-setting
-			    "pnggray")))
+	 (rename-page-1 #f))
     (ly:message (_ "Converting to ~a...") "PNG")
     (make-ps-images name
 		    #:resolution resolution
@@ -119,7 +113,7 @@
 		    #:rename-page-1 rename-page-1
 		    #:be-verbose verbose
 		    #:anti-alias-factor (ly:get-option 'anti-alias-factor)
-		    #:pixmap-format pixmap-format)
+		    #:pixmap-format (ly:get-option 'pixmap-format))
     (ly:progress "\n")))
 
 (define-public (postprocess-output paper-book module filename formats)
