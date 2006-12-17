@@ -48,7 +48,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "The file is looked up using the search path. ")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  int sz = -1;
+  int sz = INT_MAX;
   if (size != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (scm_is_number (size), size, SCM_ARG2, __FUNCTION__, "number");

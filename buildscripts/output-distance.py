@@ -268,6 +268,38 @@ def read_signature_file (name):
 
 ################################################################
 # different systems of a .ly file.
+def read_pipe (c):
+    print 'pipe' , c
+    return os.popen (c).read ()
+
+def system (c):
+    print 'system' , c
+    s = os.system (c)
+    if s :
+        raise Exception ("failed")
+    return
+
+def compare_png_images (old, new, dir):
+    def png_dims (f):
+        m = re.search ('([0-9]+) x ([0-9]+)', read_pipe ('file %s' % f))
+        
+        return tuple (map (int, m.groups ()))
+
+    dims1 = png_dims (old)
+    dims2 = png_dims (new)
+
+    dims = (min (dims1[0], dims2[0]),
+            min (dims1[1], dims2[1]))
+
+    system ('convert -crop %dx%d+0+0 %s crop1.png' % (dims + (old,)))
+    system ('convert -crop %dx%d+0+0 %s crop2.png' % (dims + (new,)))
+
+    system ('compare crop1.png crop2.png diff.png')
+
+    system ("convert diff.png -border 2 -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte     -fx 'intensity'    matte.png")
+
+    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
+    system ("composite matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
     def __init__ (self):
@@ -341,11 +373,19 @@ class FileLink:
         self.add_system_link (link, system_index[0])
 
     def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        png_linked = [[], []]
         for ext in ('.png', '.ly', '-page*png'):
+            
             for oldnew in (0,1):
                 for f in glob.glob (self.base_names[oldnew] + ext):
-                    print f
-                    link_file (f, dest_dir + '/' + f)
+                    dst = dest_dir + '/' + f
+                    link_file (f, dst)
+
+                    if f.endswith ('.png'):
+                        png_linked[oldnew].append (f)
+
+        for (old,new) in zip (png_linked[0], png_linked[1]):
+            compare_png_images (old, new, dest_dir)
 
     def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
@@ -387,8 +427,9 @@ class FileLink:
 
 
         def cell (base, name):
-            pages = glob.glob (base + '-page*.png')
-            
+            pat = base + '-page*.png'
+            pages = glob.glob (pat)
+
             if pages:
                 return multi_img_cell (base + '.ly', sorted (pages), name)
             else:
@@ -410,7 +451,7 @@ class FileLink:
 </tr>
 ''' % (self.distance (), html_2,
        cell (self.base_names[0], name),
-       cell (self.base_names[1], name))
+       cell (self.base_names[1], name).replace ('.png', '.compare.png'))
 
         return html_entry
 
@@ -598,6 +639,7 @@ class ComparisonData:
 
             link.link_files_for_html (dir1, dir2, dest_dir) 
             link.write_html_system_details (dir1, dir2, dest_dir)
+            
             html += link.html_record_string (dir1, dir2)
 
 
@@ -699,7 +741,10 @@ def test_compare_trees ():
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
+    system ('cp 19.png dir2/20.png')
+    system ('cp 19multipage-page1.png dir2/20multipage-page1.png')
     system ('cp 20-1.signature dir2/subdir/19-sub-1.signature')
+    system ('cp 20.png dir2/subdir/19-sub.png')
 
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
@@ -811,7 +856,7 @@ def test_compare_signatures (names, timing=False):
 
 
 def run_tests ():
-    dir = 'output-distance-test'
+    dir = 'test-output-distance'
 
     do_clean = not os.path.exists (dir)
 
