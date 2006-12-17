@@ -35,7 +35,7 @@ Separation_item::set_skyline_distance (Drul_array<Item *> items,
 				   Skyline_pair::unsmob (items[RIGHT]->get_property ("skylines")));
   Skyline right = conditional_skyline (items[RIGHT], items[LEFT]);
   right.merge ((*lines[RIGHT])[LEFT]);
-
+  
   Real dist = padding + (*lines[LEFT])[RIGHT].distance (right);
   if (dist > 0)
     {
@@ -91,7 +91,13 @@ Separation_item::boxes (Grob *me, Grob *left)
   int very_large = INT_MAX;
   Paper_column *pc = item->get_column ();
   vector<Box> out;
-  extract_grob_set (me, left ? "conditional-elements" : "elements", elts);
+  extract_grob_set (me, left ? "conditional-elements" : "elements", read_only_elts);
+  vector<Grob*> elts;
+
+  if (left)
+    elts = Accidental_placement::get_break_reminder_accidentals (read_only_elts, left);
+  else
+    elts = read_only_elts;
 
   Grob *ycommon = common_refpoint_of_array (elts, me, Y_AXIS);
   
@@ -107,18 +113,11 @@ Separation_item::boxes (Grob *me, Grob *left)
 	continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
-      Interval x;
-      
-      if (!left)
-	x = il->extent (pc, X_AXIS);
-      else if (Accidental_placement::has_interface (il))
-	x = Accidental_placement::get_relevant_accidental_extent (il, pc, left);
-      else
-	continue;
+      Interval x (il->extent (pc, X_AXIS));
 
       SCM padding = elts[i]->get_property ("padding");
       x.widen (robust_scm2double (padding, 0));
-
+ 
       out.push_back (Box (x, y));
     }
 

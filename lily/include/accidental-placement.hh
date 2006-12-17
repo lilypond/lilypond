@@ -18,6 +18,8 @@ public:
   DECLARE_SCHEME_CALLBACK (alignment_callback, (SCM element));
   static void add_accidental (Grob *, Grob *);
 
+  static vector<Grob*> get_break_reminder_accidentals (vector<Grob*> const &elts,
+						       Grob *left);
   static Interval get_relevant_accidental_extent (Grob *me,
 						  Item *item_col,
 						  Grob *acc);
