@@ -201,6 +201,7 @@ of note-column for horizontal shifting. This is used by
      (avoid-slur ,symbol? "Method of handling slur collisions.
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
+     (ignore-collision ,boolean? "If set, don't do note collision resolution on this NoteColumn.")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam/slur quant to this position, and print the respective scores.")
      (inspect-index ,integer? "If debugging is set,
