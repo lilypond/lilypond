@@ -2139,4 +2139,7 @@
 	      (apply unpure args)
 	      (let ((pure (assq unpure pure-conversions-alist)))
 		(if pure
-		    (apply (cdr pure) (append (list (car args) start end) (cdr args)))))))))
+		    (apply (cdr pure)
+			   (append
+			    (list (car args) start end)
+			    (cdr args)))))))))

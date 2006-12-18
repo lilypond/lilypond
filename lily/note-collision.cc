@@ -424,7 +424,6 @@ Note_collision_interface::get_clash_groups (Grob *me)
 /** This complicated routine moves note columns around horizontally to
     ensure that notes don't clash.
 
-    This should be put into Scheme.
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
