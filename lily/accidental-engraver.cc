@@ -122,8 +122,7 @@ Accidental_engraver::update_local_key_signature ()
 
   /* Huh. Don't understand what this is good for. --hwn.  */
 
-  SCM val;
-  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature"), &val))
+  while (trans)
     {
       trans->set_property ("localKeySignature", ly_deep_copy (last_keysig_));
       trans = trans->get_parent_context ();
@@ -193,11 +192,14 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (scm_car (entry))
-	  && scm_cdar (entry) == scm_from_int (n))
+	  && scm_cdar (entry) == scm_from_int (n)) {
 	from_other_octaves = scm_cdr (entry);
+	break;
+      }
     }
 
-  if (from_same_octave != SCM_BOOL_F
+  if (!ignore_octave
+      && from_same_octave != SCM_BOOL_F
       && recent_enough (bar_number, from_same_octave, laziness))
     previous_alteration = from_same_octave;
   else if (ignore_octave
