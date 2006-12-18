@@ -626,8 +626,8 @@ To have it interpreted at the @context{Score} or @context{Staff} level use
 these forms
 
 @example
-\context \applyOutput #'Score #@var{function}
-\context \applyOutput #'Staff #@var{function}
+\applyOutput #'Score #@var{function}
+\applyOutput #'Staff #@var{function}
 @end example
 
 @end itemize

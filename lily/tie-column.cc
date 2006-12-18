@@ -25,18 +25,22 @@
 using namespace std;
 
 void
-Tie_column::add_tie (Grob *me, Grob *tie)
+Tie_column::add_tie (Grob *tc, Grob *tie)
 {
+  Spanner *me = dynamic_cast<Spanner *> (tc);
+  
   if (tie->get_parent (Y_AXIS)
       && Tie_column::has_interface (tie->get_parent (Y_AXIS)))
     return;
 
-  if (!Pointer_group_interface::count (me, ly_symbol2scm ("ties")))
+  if (!me->get_bound (LEFT)
+      || (Paper_column::get_rank (me->get_bound (LEFT)->get_column ())
+	  > Paper_column::get_rank (dynamic_cast<Spanner*> (tie)->get_bound (LEFT)->get_column ())))
     {
-      dynamic_cast<Spanner *> (me)->set_bound (LEFT, Tie::head (tie, LEFT));
-      dynamic_cast<Spanner *> (me)->set_bound (RIGHT, Tie::head (tie, RIGHT));
+	me->set_bound (LEFT, Tie::head (tie, LEFT));
+	me->set_bound (RIGHT, Tie::head (tie, RIGHT));
     }
-
+      
   tie->set_parent (me, Y_AXIS);
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("ties"), tie);
 }

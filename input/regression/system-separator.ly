@@ -3,7 +3,7 @@
 \header {
 
   texidoc = "System separators maybe defined as markups in the
-@code{systemSeparator} field of the bookpaper block. They are centered
+@code{systemSeparator} field of the paper block. They are centered
 between the boundary staffs of each system. "
 
 }

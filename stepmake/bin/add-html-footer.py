@@ -340,6 +340,9 @@ def i18n (file_name, page):
     else:
         page = page + languages
 
+    if content_negotiation and language_menu:
+        os.symlink (file_name, os.path.splitext (file_name)[0] + '.en.html')
+        
     return page
 
 for f in files:
