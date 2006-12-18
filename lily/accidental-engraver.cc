@@ -192,10 +192,11 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (scm_car (entry))
-	  && scm_cdar (entry) == scm_from_int (n)) {
-	from_other_octaves = scm_cdr (entry);
-	break;
-      }
+	  && scm_cdar (entry) == scm_from_int (n))
+	{
+	  from_other_octaves = scm_cdr (entry);
+	  break;
+	}
     }
 
   if (!ignore_octave
