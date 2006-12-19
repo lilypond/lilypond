@@ -285,21 +285,25 @@ def compare_png_images (old, new, dir):
         
         return tuple (map (int, m.groups ()))
 
-    dims1 = png_dims (old)
-    dims2 = png_dims (new)
-
+    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
+    try:
+        dims1 = png_dims (old)
+        dims2 = png_dims (new)
+    except AttributeError:
+        os.link (new, dest)
+        return
+    
     dims = (min (dims1[0], dims2[0]),
             min (dims1[1], dims2[1]))
 
-    system ('convert -crop %dx%d+0+0 %s crop1.png' % (dims + (old,)))
-    system ('convert -crop %dx%d+0+0 %s crop2.png' % (dims + (new,)))
+    system ('convert -depth 8 -crop %dx%d+0+0 %s crop1.png' % (dims + (old,)))
+    system ('convert -depth 8 -crop %dx%d+0+0 %s crop2.png' % (dims + (new,)))
 
-    system ('compare crop1.png crop2.png diff.png')
+    system ('compare -depth 8 crop1.png crop2.png diff.png')
 
-    system ("convert diff.png -border 2 -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte     -fx 'intensity'    matte.png")
+    system ("convert  -depth 8 diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    matte.png")
 
-    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
-    system ("composite matte.png %(new)s %(dest)s" % locals ())
+    system ("composite -depth 8 -type Palette matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
     def __init__ (self):

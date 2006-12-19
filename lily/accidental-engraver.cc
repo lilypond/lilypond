@@ -66,7 +66,6 @@ protected:
   void acknowledge_finger (Grob_info);
 
   void stop_translation_timestep ();
-  virtual void initialize ();
   void process_acknowledged ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -120,20 +119,17 @@ Accidental_engraver::update_local_key_signature ()
 
   Context *trans = context ()->get_parent_context ();
 
-  /* Huh. Don't understand what this is good for. --hwn.  */
+  /* Reset parent contexts so that e.g. piano-accidentals won't remember old
+     cross-staff accidentals after key-sig-changes */
 
-  while (trans)
+  SCM val;
+  while (trans && trans->where_defined (ly_symbol2scm ("localKeySignature"), &val)==trans)
     {
       trans->set_property ("localKeySignature", ly_deep_copy (last_keysig_));
       trans = trans->get_parent_context ();
     }
 }
 
-void
-Accidental_engraver::initialize ()
-{
-  update_local_key_signature ();
-}
 
 /** Calculate the number of accidentals on basis of the current local key
     sig (passed as argument)
