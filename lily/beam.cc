@@ -381,10 +381,14 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	  Direction event_dir = LEFT;
 	  do
 	    {
-	      Drul_array<bool> on_bound (j == 0 && event_dir==LEFT,
-					 j == segs.size() - 1 && event_dir==RIGHT);
-	      Drul_array<bool> inside (j > 0, j < segs.size()-1);
-	      bool event = on_bound[event_dir]
+	      bool on_bound = (event_dir == LEFT) ? j == 0 :
+		j == segs.size() - 1;
+
+	      bool inside_stem = (event_dir == LEFT)
+			? segs[j].stem_index_ > 0
+			: segs[j].stem_index_ < stems.size () - 1;
+		      
+	      bool event = on_bound
 		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
 		|| (abs (vertical_count) >= segs[j].max_connect_
 		    || abs (vertical_count) >= segs[j + event_dir].max_connect_);
@@ -396,7 +400,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      current.horizontal_[event_dir] = segs[j].stem_x_;
 	      if (segs[j].dir_ == event_dir)
 		{
-		  if (on_bound[event_dir]
+		  if (on_bound
 		      && me->get_bound (event_dir)->break_status_dir ())
 		    {
 		      current.horizontal_[event_dir]
@@ -409,12 +413,16 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 			Stem::duration_log (segs[j].stem_) == 1
 			? 1.98
 			: 1.32; // URG.
-		      
-		      if (inside[event_dir])
-			notehead_width = min (notehead_width,
-					      fabs (segs[j+ event_dir].stem_x_
-						    - segs[j].stem_x_)/2);
-		      
+
+
+		      if (inside_stem)
+			{
+			  Grob *neighbor_stem = stems[segs[j].stem_index_ + event_dir];
+			  Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
+
+			  notehead_width = min (notehead_width,
+						fabs (neighbor_stem_x - segs[j].stem_x_)/2);
+			}
 		      current.horizontal_[event_dir] += event_dir * notehead_width;
 		    }
 		}
