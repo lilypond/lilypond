@@ -17,7 +17,8 @@ Music_wrapper_iterator::Music_wrapper_iterator ()
 void
 Music_wrapper_iterator::do_quit ()
 {
-  child_iter_->quit ();
+  if (child_iter_)
+    child_iter_->quit ();
 }
 
 void
@@ -39,7 +40,9 @@ Music_wrapper_iterator::construct_children ()
 {
   Music *my_music = get_music ();
   Music *child = unsmob_music (my_music->get_property ("element"));
-  child_iter_ = unsmob_iterator (get_iterator (child));
+  child_iter_ = (child)
+    ? unsmob_iterator (get_iterator (child))
+    : 0;
 }
 
 bool
@@ -51,13 +54,17 @@ Music_wrapper_iterator::ok () const
 void
 Music_wrapper_iterator::process (Moment m)
 {
-  child_iter_->process (m);
+  if (child_iter_)
+    child_iter_->process (m);
 }
 
 Moment
 Music_wrapper_iterator::pending_moment () const
 {
-  return child_iter_->pending_moment ();
+  if (child_iter_)
+    return child_iter_->pending_moment ();
+  else
+    return Music_iterator::pending_moment ();
 }
 
 IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
@@ -65,5 +72,5 @@ IMPLEMENT_CTOR_CALLBACK (Music_wrapper_iterator);
 bool
 Music_wrapper_iterator::run_always () const
 {
-  return child_iter_->run_always ();
+  return (child_iter_ &&  child_iter_->run_always ());
 }
