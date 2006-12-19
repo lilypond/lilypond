@@ -285,9 +285,14 @@ def compare_png_images (old, new, dir):
         
         return tuple (map (int, m.groups ()))
 
-    dims1 = png_dims (old)
-    dims2 = png_dims (new)
-
+    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
+    try:
+        dims1 = png_dims (old)
+        dims2 = png_dims (new)
+    except AttributeError:
+        os.link (new, dest)
+        return
+    
     dims = (min (dims1[0], dims2[0]),
             min (dims1[1], dims2[1]))
 
@@ -298,7 +303,6 @@ def compare_png_images (old, new, dir):
 
     system ("convert diff.png -border 2 -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte     -fx 'intensity'    matte.png")
 
-    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
     system ("composite matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
