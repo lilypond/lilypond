@@ -72,6 +72,7 @@ Key_engraver::create_key (bool is_default)
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
+      bool extranatural = to_boolean(get_property("extraNatural"));
 
       if ((to_boolean (get_property ("printKeyCancellation"))
 	   || key == SCM_EOL)
@@ -81,10 +82,13 @@ Key_engraver::create_key (bool is_default)
 	  SCM *tail = &restore;
 	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
 	    {
-	      if (scm_assoc (scm_caar (s), key) == SCM_BOOL_F)
+	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
+	      int old_alter = scm_to_int (scm_cdar (s));
+	      if (new_alter_pair == SCM_BOOL_F
+		  || extranatural
+		     && (scm_to_int(scm_cdr(new_alter_pair))-old_alter)*old_alter < 0)
 		{
-		  *tail = scm_acons (scm_caar (s),
-				     scm_from_int (0), *tail);
+		  *tail = scm_cons (scm_car (s), *tail);
 		  tail = SCM_CDRLOC (*tail);
 		}
 	    }
@@ -94,7 +98,7 @@ Key_engraver::create_key (bool is_default)
 	      cancellation_ = make_item ("KeyCancellation",
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
-	  
+	      
 	      cancellation_->set_property ("alteration-alist", restore);
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
@@ -203,6 +207,7 @@ ADD_TRANSLATOR (Key_engraver,
 		/* read */
 		"createKeyOnClefChange "
 		"explicitKeySignatureVisibility "
+		"extraNatural "
 		"keyAlterationOrder "
 		"keySignature "
 		"keySignature "

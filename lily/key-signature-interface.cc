@@ -31,6 +31,9 @@ const int SHARP_TOP_PITCH = 4; /*  ais and bis typeset in lower octave */
 
 /*
   TODO: look this up. I'm not sure where the naturals ought to go.
+
+  COMMENT: Current implementation does not use the NATURAL_TOP_PITCH for anything,
+           always typesets naturals in the same place as the thing they cancel. -rz
 */
 const int NATURAL_TOP_PITCH = 4;
 
@@ -106,6 +109,9 @@ Key_signature_interface::print (SCM smob)
   if (scm_is_number (c0s))
     c0p = scm_to_int (c0s);
 
+  /* Is this the correct way to determine this? -rz */
+  bool is_cancellation = me->name()=="KeyCancellation";
+
   /*
     SCM lists are stacks, so we work from right to left, ending with
     the cancellation signature.
@@ -117,7 +123,10 @@ Key_signature_interface::print (SCM smob)
     {
       int alteration = scm_to_int (scm_cdar (s));
       string font_char
-	= Accidental_interface::get_fontcharname (style, alteration);
+	= Accidental_interface::get_fontcharname (style,
+						  is_cancellation
+						  ? 0
+						  : alteration);
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())
@@ -134,7 +143,7 @@ Key_signature_interface::print (SCM smob)
 	    needed to prevent collisions.
 	  */
 	  Real padding = 0.0;
-	  if (alteration == 0
+	  if (is_cancellation
 	      && last_pos < pos + 2
 	      && last_pos > pos - 6)
 	    padding = 0.3;
