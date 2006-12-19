@@ -233,5 +233,6 @@ ADD_INTERFACE (Item,
 
 	       /* properties */
 	       "break-visibility "
-	       "no-spacing-rods "
+	       "extra-spacing-width "
+	       "infinite-spacing-height "
 	       "non-musical")

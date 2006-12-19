@@ -161,6 +161,7 @@
 	(layer . 0)
 	(break-visibility . ,all-visible)
 	(non-musical . #t)
+	(extra-spacing-width . (-0.3 . 0.3))
 
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
@@ -475,7 +476,7 @@
     (CombineTextScript
      . (
 	(stencil . ,ly:text-interface::print)
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(direction . ,UP)
@@ -601,7 +602,7 @@
 	(font-encoding . fetaDynamic)
 	(font-shape . italic)
 	(avoid-slur . around)
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 250)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
@@ -1412,7 +1413,7 @@
 	(stencil . ,ly:text-interface::print)
 	(direction . ,RIGHT)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(padding . 0.0) ;; padding relative to SostenutoPedalLineSpanner
 	(font-shape . italic)
 	(self-alignment-X . 0)
@@ -1618,7 +1619,7 @@
 
     (SustainPedal
      . (
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(stencil . ,ly:sustain-pedal::print)
 	(self-alignment-X . 0)
 	(direction . ,RIGHT)
@@ -1736,7 +1737,7 @@
 
     (TextScript
      . (
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
@@ -1931,7 +1932,7 @@
      . (
 	(stencil . ,ly:text-interface::print)
 	(font-shape . italic)
-	(no-spacing-rods . #t)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(self-alignment-X . 0)
 	(direction . ,RIGHT)
 	(padding . 0.0)  ;; padding relative to UnaCordaPedalLineSpanner

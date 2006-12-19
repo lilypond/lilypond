@@ -141,6 +141,7 @@ edges '(@var{left-text} . @var{right-text}).")
      (extra-X-extent ,number-pair? "A grob is enlarged in X dimension
 by this much.")
      (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
+     (extra-spacing-width ,number-pair? "In the horizontal spacing problem, we pad each item by this amount (by adding the car on the left side of the item and adding the cdr on the right side of the item). In order to make a grob take up no horizontal space at all, set this to (+inf.0 . -inf.0)")
      (X-extent ,number-pair? "Hard coded extent in X direction. ")
      (Y-extent ,number-pair? "See @code{X-extent}.")
      (extra-offset ,number-pair? "A pair representing an offset. This
@@ -202,6 +203,9 @@ of note-column for horizontal shifting. This is used by
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
 and slur ignore eachother.")
      (ignore-collision ,boolean? "If set, don't do note collision resolution on this NoteColumn.")
+     (infinite-spacing-height ,boolean? "If true, then for the purposes of
+horizontal spacing, treat this item as though it were infinitely tall. That
+is, no object from another column will be allowed to stick above or below this item.")
      (inspect-quants ,number-pair? "If debugging is set,
 set beam/slur quant to this position, and print the respective scores.")
      (inspect-index ,integer? "If debugging is set,
@@ -269,8 +273,6 @@ to flip the direction of custos stem.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this object.")
-     (no-spacing-rods ,boolean? "Items with this property do not cause
-spacing constraints.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
 get stems extending to the middle staff line.")
      (non-musical ,boolean? "True if the grob belongs in a NonMusicalPaperColumn.")

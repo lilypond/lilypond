@@ -123,8 +123,11 @@ endincipit =  \context Staff {
 autoBeamOff = \set autoBeaming = ##f
 autoBeamOn = \set autoBeaming = ##t
 
-fatText = \override TextScript  #'no-spacing-rods = ##f
-emptyText = \override TextScript  #'no-spacing-rods = ##t
+fatText = { \override TextScript  #'extra-spacing-width = #'(0 . 0)
+            \override TextScript  #'infinite-spacing-height = ##t }
+
+emptyText = { \override TextScript  #'extra-spacing-width = #'(+inf.0 . -inf.0)
+              \override TextScript  #'infinite-spacing-height = ##f }
 
 showStaffSwitch = \set followVoice = ##t
 hideStaffSwitch = \set followVoice = ##f

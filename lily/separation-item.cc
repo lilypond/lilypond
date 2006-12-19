@@ -109,14 +109,15 @@ Separation_item::boxes (Grob *me, Grob *left)
 	  continue;
 	}
 
-      if (to_boolean (il->get_property ("no-spacing-rods")))
-	continue;
-
       Interval y (il->pure_height (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      SCM padding = elts[i]->get_property ("padding");
-      x.widen (robust_scm2double (padding, 0));
+      Interval extra = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
+					    Interval (0, 0));
+      x[LEFT] += extra[LEFT];
+      x[RIGHT] += extra[RIGHT];
+      if (to_boolean (elts[i]->get_property ("infinite-spacing-height")))
+	y = Interval (-infinity_f, infinity_f);
  
       out.push_back (Box (x, y));
     }

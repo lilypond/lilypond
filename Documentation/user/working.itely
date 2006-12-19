@@ -298,7 +298,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup { \bold $markp }
 #})
 
@@ -326,7 +326,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #@{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup @{ \bold $markp @}
 #@})
 @end example
@@ -354,7 +354,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup { \bold $markp }
 #})
 
@@ -383,7 +383,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #@{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup @{ \bold $markp @}
 #@})
 
@@ -408,7 +408,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup { \bold $markp }
 #})
 
@@ -450,7 +450,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #@{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup @{ \bold $markp @}
 #@})
 
@@ -475,7 +475,7 @@ mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
 tempoMark = #(define-music-function (parser location markp) (string?)
 #{
   \once \override Score . RehearsalMark #'self-alignment-X = #left
-  \once \override Score . RehearsalMark #'no-spacing-rods = ##t
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
   \mark \markup { \bold $markp }
 #})
 
