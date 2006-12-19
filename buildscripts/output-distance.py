@@ -285,12 +285,13 @@ def compare_png_images (old, new, dir):
         
         return tuple (map (int, m.groups ()))
 
-    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
+    dest = os.path.join (dir, new.replace ('.png', '.compare.jpeg'))
     try:
         dims1 = png_dims (old)
         dims2 = png_dims (new)
     except AttributeError:
-        os.link (new, dest)
+        ## hmmm. what to do?
+        system ('touch %(dest)s' % locals ())
         return
     
     dims = (min (dims1[0], dims2[0]),
@@ -303,7 +304,7 @@ def compare_png_images (old, new, dir):
 
     system ("convert  -depth 8 diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    matte.png")
 
-    system ("composite -depth 8 -type Palette matte.png %(new)s %(dest)s" % locals ())
+    system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
     def __init__ (self):
@@ -455,7 +456,7 @@ class FileLink:
 </tr>
 ''' % (self.distance (), html_2,
        cell (self.base_names[0], name),
-       cell (self.base_names[1], name).replace ('.png', '.compare.png'))
+       cell (self.base_names[1], name).replace ('.png', '.compare.jpeg'))
 
         return html_entry
 
@@ -600,11 +601,11 @@ class ComparisonData:
         file_link.add_file_compare (f1,f2)
 
     def write_text_result_page (self, filename, threshold):
-        print 'writing "%s"' % filename
         out = None
         if filename == '':
             out = sys.stdout
         else:
+            print 'writing "%s"' % filename
             out = open_write_file (filename)
 
         ## todo: support more scores.
