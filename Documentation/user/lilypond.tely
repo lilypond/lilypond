@@ -133,7 +133,7 @@ Free Documentation License''.
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the user manual for GNU LilyPond 2.8.x series.
+This is the user manual for GNU LilyPond 2.10.x series.
 @ifhtml
 (See the bottom of this page for the exact version number).
 @end ifhtml
