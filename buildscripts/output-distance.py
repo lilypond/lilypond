@@ -915,8 +915,12 @@ def main ():
 
     global inspect_max_count
     inspect_max_count = o.max_count
+
+    name = a[0].replace ('/', '')
+    if len (name) > 20:
+        name = name[:10] + '..' + name[-10:]
     
-    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0].replace ('/', '')),
+    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  name),
                    o.threshold)
 
 if __name__ == '__main__':
