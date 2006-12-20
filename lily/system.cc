@@ -245,10 +245,7 @@ System::add_column (Paper_column *p)
       ga = unsmob_grob_array (scm_ga);
     }
 
-  p->rank_
-    = ga->size ()
-    ? Paper_column::get_rank (ga->array ().back ()) + 1
-    : 0;
+  p->rank_ = ga->size ();
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
