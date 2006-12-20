@@ -90,16 +90,19 @@
   status)
 
 (define (scale-down-image be-verbose factor file)
-  (let* ((status 0)
-	 (old (string-append file ".old")))
+  (define (with-pbm)
+    (let* ((status 0)
+	   (old (string-append file ".old")))
+      
+      (rename-file file old)
+      (my-system
+       be-verbose #t
+       (format #f
+	       "pngtopnm ~a | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > ~a"
+	       old factor file))
+      (delete-file old)))
 
-    (rename-file file old)
-    (my-system
-     be-verbose #t
-     (format #f
-	     "pngtopnm ~a | pnmscale -reduce ~a 2>/dev/null | pnmtopng -compression 9 2>/dev/null > ~a"
-	     old factor file))
-    (delete-file old)))
+  (with-pbm))
 
 (define-public (ps-page-count ps-name)
   (let* ((byte-count 10240)
