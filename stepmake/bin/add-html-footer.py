@@ -258,7 +258,8 @@ def do_file (f):
     s = re.sub (' \((lilypond|lilypond-internals|music-glossary)\)</a>',
           '</a>', s)
 
-    open (f, 'w').write (s)
+    if not os.path.islink (f):
+        open (f, 'w').write (s)
 
 
 
