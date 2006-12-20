@@ -172,6 +172,9 @@ def remove_self_ref (s):
     return s
 
 def do_file (f):
+    if os.path.islink (f):
+        return
+    
     s = open (f).read()
     s = re.sub ('%', '%%', s)
 
@@ -341,7 +344,7 @@ def i18n (file_name, page):
         page = page + languages
 
     if content_negotiation and language_menu:
-        os.symlink (file_name, os.path.splitext (file_name)[0] + '.en.html')
+        os.symlink (file_name, os.path.splitext (os.path.basename (file_name))[0] + '.en.html')
         
     return page
 
