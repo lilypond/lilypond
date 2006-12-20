@@ -135,6 +135,13 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
 
+
+	  if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
+	    {
+	      Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
+	      p->set_property ("direction", scm_from_int (d)); 
+	    }
+	  
 	  ties_.push_back (p);
 	  heads_to_tie_.erase (heads_to_tie_.begin () + i);
 	}
