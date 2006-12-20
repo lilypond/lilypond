@@ -80,7 +80,8 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (to)
     {
       to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
-      lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
+      if (lyrics_context_)
+	lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }
 
@@ -159,6 +160,11 @@ Lyric_combine_music_iterator::construct_children ()
   lyrics_context_ = find_context_below (lyric_iter_->get_outlet (),
 					ly_symbol2scm ("Lyrics"), "");
 
+  if (!lyrics_context_)
+    {
+      m->origin ()->warning ("argument of \\lyricsto should contain Lyrics context");
+    }
+  
   lyricsto_voice_name_ = get_music ()->get_property ("associated-context");
 
   Context *voice = find_voice ();
@@ -170,7 +176,7 @@ Lyric_combine_music_iterator::construct_children ()
         Wait for a Create_context event. If this isn't done, lyrics can be 
         delayed when voices are created implicitly.
       */
-      Global_context *g = lyrics_context_->get_global_context ();
+      Global_context *g = get_outlet ()->get_global_context ();
       g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
     }
 
