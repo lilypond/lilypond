@@ -19,6 +19,12 @@ OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 inspect_max_count = 0
 
+def shorten_string (s):
+    threshold = 15 
+    if len (s) > 2*threshold:
+        s = s[:threshold] + '..' + s[-threshold:]
+    return s
+
 def max_distance (x1, x2):
     dist = 0.0
 
@@ -285,12 +291,13 @@ def compare_png_images (old, new, dir):
         
         return tuple (map (int, m.groups ()))
 
-    dest = os.path.join (dir, new.replace ('.png', '.compare.png'))
+    dest = os.path.join (dir, new.replace ('.png', '.compare.jpeg'))
     try:
         dims1 = png_dims (old)
         dims2 = png_dims (new)
     except AttributeError:
-        os.link (new, dest)
+        ## hmmm. what to do?
+        system ('touch %(dest)s' % locals ())
         return
     
     dims = (min (dims1[0], dims2[0]),
@@ -303,7 +310,7 @@ def compare_png_images (old, new, dir):
 
     system ("convert  -depth 8 diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    matte.png")
 
-    system ("composite -depth 8 -type Palette matte.png %(new)s %(dest)s" % locals ())
+    system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
     def __init__ (self):
@@ -455,7 +462,7 @@ class FileLink:
 </tr>
 ''' % (self.distance (), html_2,
        cell (self.base_names[0], name),
-       cell (self.base_names[1], name).replace ('.png', '.compare.png'))
+       cell (self.base_names[1], name).replace ('.png', '.compare.jpeg'))
 
         return html_entry
 
@@ -600,11 +607,11 @@ class ComparisonData:
         file_link.add_file_compare (f1,f2)
 
     def write_text_result_page (self, filename, threshold):
-        print 'writing "%s"' % filename
         out = None
         if filename == '':
             out = sys.stdout
         else:
+            print 'writing "%s"' % filename
             out = open_write_file (filename)
 
         ## todo: support more scores.
@@ -647,12 +654,14 @@ class ComparisonData:
             html += link.html_record_string (dir1, dir2)
 
 
+        short_dir1 = shorten_string (dir1)
+        short_dir2 = shorten_string (dir2)
         html = '''<html>
 <table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
-<th>%(dir1)s</th>
-<th>%(dir2)s</th>
+<th>%(short_dir1)s</th>
+<th>%(short_dir2)s</th>
 </tr>
 %(html)s
 </table>
@@ -915,7 +924,10 @@ def main ():
     global inspect_max_count
     inspect_max_count = o.max_count
 
-    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0]),
+    name = a[0].replace ('/', '')
+    name = shorten_string (name)
+    
+    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  name),
                    o.threshold)
 
 if __name__ == '__main__':

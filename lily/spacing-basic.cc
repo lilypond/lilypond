@@ -86,14 +86,7 @@ get_measure_length (Grob *column)
 
   extract_grob_set (sys, "columns", cols);
 
-  vsize col_idx = binary_search (cols, column,
-				 Paper_column::less_than);
-
-  if (col_idx == VPOS)
-    {
-      programming_error ( __FUNCTION__ + string (": Unknown column"));
-      return 0;
-    }
+  vsize col_idx = Paper_column::get_rank (column);
   
   do
     {
@@ -130,25 +123,25 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   Moment rwhen = Paper_column::when_mom (rc);
 
   Moment delta_t = rwhen - lwhen;
-  if (!Paper_column::is_musical (rc))
+
+  /*
+    when toying with mmrests, it is possible to have musical
+    column on the left and non-musical on the right, spanning
+    several measures.
+
+    TODO: efficiency: measure length can be cached, or stored as
+    property in paper-column.
+  */
+
+  if (Moment *measure_len = get_measure_length (lc))
     {
+      delta_t = min (delta_t, *measure_len);
+
       /*
-	when toying with mmrests, it is possible to have musical
-	column on the left and non-musical on the right, spanning
-	several measures.
+	The following is an extra safety measure, such that
+	the length of a mmrest event doesn't cause havoc.
       */
-
-      Moment *dt = get_measure_length (lc);
-      if (dt)
-	{
-	  delta_t = min (delta_t, *dt);
-
-	  /*
-	    The following is an extra safety measure, such that
-	    the length of a mmrest event doesn't cause havoc.
-	  */
-	  shortest_playing_len = min (shortest_playing_len, *dt);
-	}
+      shortest_playing_len = min (shortest_playing_len, *measure_len);
     }
 
   Real dist = 0.0;

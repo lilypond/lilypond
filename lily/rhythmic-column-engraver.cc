@@ -47,11 +47,6 @@ class Rhythmic_column_engraver : public Engraver
   Grob *note_column_;
   Grob *dotcol_;
 
-  Grob *last_spacing_;
-  Grob *spacing_;
-
-  void add_spacing_item (Grob *);
-
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
@@ -64,31 +59,13 @@ protected:
 
 Rhythmic_column_engraver::Rhythmic_column_engraver ()
 {
-  spacing_ = 0;
-  last_spacing_ = 0;
 
   stem_ = 0;
   note_column_ = 0;
   dotcol_ = 0;
 }
 
-void
-Rhythmic_column_engraver::add_spacing_item (Grob *g)
-{
-  if (spacing_)
-    {
-      Pointer_group_interface::add_grob (spacing_,
-					 ly_symbol2scm ("left-items"),
-					 g);
 
-      if (last_spacing_)
-	{
-	  Pointer_group_interface::add_grob (last_spacing_,
-					     ly_symbol2scm ("right-items"),
-					     g);
-	}
-    }
-}
 void
 Rhythmic_column_engraver::process_acknowledged ()
 {
@@ -97,9 +74,6 @@ Rhythmic_column_engraver::process_acknowledged ()
       if (!note_column_)
 	{
 	  note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
-
-	  spacing_ = make_item ("NoteSpacing", SCM_EOL);
-	  add_spacing_item (note_column_);
 	}
 
       for (vsize i = 0; i < rheads_.size (); i++)
@@ -147,13 +121,6 @@ void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
   note_column_ = 0;
-
-  if (spacing_)
-    {
-      last_spacing_ = spacing_;
-      spacing_ = 0;
-    }
-
   dotcol_ = 0;
   stem_ = 0;
 }
@@ -164,6 +131,6 @@ ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* doc */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",
-		/* create */ "NoteColumn NoteSpacing",
+		/* create */ "NoteColumn",
 		/* read */ "",
 		/* write */ "");

@@ -447,7 +447,8 @@
      . (
 	(Y-extent . ,ly:cluster-beacon::height)
 	(meta . ((class . Item)
-		 (interfaces . (cluster-beacon-interface))))))
+		 (interfaces . (rhythmic-grob-interface
+				cluster-beacon-interface))))))
 
     (ClusterSpanner
      . (
@@ -1293,7 +1294,8 @@
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)
-		 (interfaces . (percent-repeat-item-interface))))))
+		 (interfaces . (rhythmic-grob-interface
+				percent-repeat-item-interface))))))
 
     (RepeatTie
      . (
