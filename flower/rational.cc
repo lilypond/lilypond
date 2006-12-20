@@ -9,6 +9,7 @@
 #include "rational.hh"
 
 #include <cmath>
+#include <cassert>
 #include <cstdlib>
 using namespace std;
 
@@ -17,7 +18,17 @@ using namespace std;
 
 Rational::operator double () const
 {
-  return ((double)sign_) * num_ / den_;
+  if (sign_==-1 || sign_ == 1)
+    return ((double)sign_) * num_ / den_;
+
+  if (sign_ == -2)
+    return -HUGE_VAL;
+  else if (sign_ == 2)
+    return HUGE_VAL;
+  else
+    assert (false);
+
+  return 0.0;
 }
 
 Rational::operator bool () const
