@@ -66,6 +66,8 @@ which scares away people.
 
 @end ignore
 
+@item Tie directions may be set with @code{^~} and @code{_~}
+
 @item Tablature now supports harmonics and slides,
 
 @lilypond[fragment,ragged-right,relative=1]
