@@ -18,9 +18,8 @@ using namespace std;
 
 Rational::operator double () const
 {
-  if (sign_==-1 || sign_ == 1)
+  if (sign_ == -1 || sign_ == 1 || sign_ == 0)
     return ((double)sign_) * num_ / den_;
-
   if (sign_ == -2)
     return -HUGE_VAL;
   else if (sign_ == 2)
