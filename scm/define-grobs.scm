@@ -445,7 +445,8 @@
      . (
 	(Y-extent . ,ly:cluster-beacon::height)
 	(meta . ((class . Item)
-		 (interfaces . (cluster-beacon-interface))))))
+		 (interfaces . (rhythmic-grob-interface
+				cluster-beacon-interface))))))
 
     (ClusterSpanner
      . (
