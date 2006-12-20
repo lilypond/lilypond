@@ -422,8 +422,6 @@ centered, X==1 is at the right, X == -1 is at the left."
 			    (interval-end (ly:grob-robust-relative-extent dots common X))
 			    -10000) ;; TODO: use real infinity constant.
 			)))
-       (x (display (grob::has-interface left-span 'note-head-interface)))
-
        (right-x (- (interval-start
 		    (ly:grob-robust-relative-extent right-span common X))
 		   padding))
@@ -439,10 +437,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 		     0
 		     ,dx ,(* 0.66 delta-y)
 		     ,dx ,delta-y
-		     ))))
-       )
+		     )))))
 
-    (display left-span)
     (ly:make-stencil
      exp
      (cons (- left-x self-x) (- right-x self-x))
