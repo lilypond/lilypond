@@ -1295,7 +1295,8 @@
 	(thickness . 0.48)
 	(slope . 1.7)
 	(meta . ((class . Item)
-		 (interfaces . (percent-repeat-item-interface))))))
+		 (interfaces . (rhythmic-grob-interface
+				percent-repeat-item-interface))))))
 
     (RepeatTie
      . (

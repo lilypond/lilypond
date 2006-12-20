@@ -387,7 +387,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
     (PercentEvent
      . (
 	(description .	"Used internally to signal percent repeats.")
-	(types . (general-music event percent-event))
+	(types . (general-music event percent-event rhythmic-event))
 	))
 
     (PesOrFlexaEvent

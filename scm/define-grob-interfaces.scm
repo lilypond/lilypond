@@ -129,8 +129,8 @@
 
 (ly:add-interface
  'rhythmic-grob-interface
- "Any object with a rhythmic basis. Used to determine which grobs
-are interesting enough to maintain a hara-kiri staff."
+ "Any object with a duration. Used to determine which grobs are
+interesting enough to maintain a hara-kiri staff."
  '())
 
 
