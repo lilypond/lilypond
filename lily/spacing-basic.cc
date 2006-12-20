@@ -133,16 +133,15 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
     property in paper-column.
   */
 
-  Moment *dt = get_measure_length (lc);
-  if (dt)
+  if (Moment *measure_len = get_measure_length (lc))
     {
-      delta_t = min (delta_t, *dt);
+      delta_t = min (delta_t, *measure_len);
 
       /*
 	The following is an extra safety measure, such that
 	the length of a mmrest event doesn't cause havoc.
       */
-      shortest_playing_len = min (shortest_playing_len, *dt);
+      shortest_playing_len = min (shortest_playing_len, *measure_len);
     }
 
   Real dist = 0.0;
