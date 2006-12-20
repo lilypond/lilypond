@@ -1,8 +1,18 @@
-% ČÁRY ("sorcery") for bass flute (2004 - 2006)
-% dedicated to Carin Levine
-% by Trevor Bača
-%
-% Measures 6 - 10;
+
+\header {
+  dedication = "Carin Levine"
+  instrument = "bass flute"
+  title = "ČÁRY"
+  year = "2004--2006"
+
+  subtitle = \markup { \italic Sorcery (extract) }
+  % Measures 6 - 10;
+
+  composer = "Trevor Bača"
+  copyright = "Copyright 2006 Trevor Bača - all rights reserved."
+  
+}
+
 % Verbatim from composer's score.
 %
 % Upper staff gives fingerings;
@@ -15,17 +25,6 @@
 
 \include "english.ly"
 \include "cary-layout.ly"
-
-\header {
-
-  title = "ČÁRY"
-  year = "2004--2006"
-  subtitle = \markup { \italic Sorcery (extract) }
-  composer = "Trevor Bača"
-  copyright = "Copyright 2006 Trevor Bača - all rights reserved."
-  
-}
-
 
 \new Score <<
 	
