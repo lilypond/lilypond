@@ -911,9 +911,17 @@ def main ():
                   type="float",
                   help='threshold for geometric distance')
 
-    (o,a) = p.parse_args ()
 
-    if o.run_test:
+    p.add_option ('-o', '--output-dir',
+                  dest="output_dir",
+                  default=None,
+                  action="store",
+                  type="string",
+                  help='where to put the test results [tree2/compare-tree1tree2]')
+
+    (options, a) = p.parse_args ()
+
+    if options.run_test:
         run_tests ()
         sys.exit (0)
 
@@ -922,13 +930,14 @@ def main ():
         sys.exit (2)
 
     global inspect_max_count
-    inspect_max_count = o.max_count
+    inspect_max_count = options.max_count
 
-    name = a[0].replace ('/', '')
-    name = shorten_string (name)
+    name = options.output_dir
+    if not name:
+        name = a[0].replace ('/', '')
+        name = os.path.join (a[1], 'compare-' + shorten_string (name))
     
-    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  name),
-                   o.threshold)
+    compare_trees (a[0], a[1], name, options.threshold)
 
 if __name__ == '__main__':
     main()
