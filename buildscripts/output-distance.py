@@ -19,6 +19,12 @@ OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 inspect_max_count = 0
 
+def shorten_string (s):
+    threshold = 15 
+    if len (s) > 2*threshold:
+        s = s[:threshold] + '..' + s[-threshold:]
+    return s
+
 def max_distance (x1, x2):
     dist = 0.0
 
@@ -648,12 +654,14 @@ class ComparisonData:
             html += link.html_record_string (dir1, dir2)
 
 
+        short_dir1 = shorten_string (dir1)
+        short_dir2 = shorten_string (dir2)
         html = '''<html>
 <table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
-<th>%(dir1)s</th>
-<th>%(dir2)s</th>
+<th>%(short_dir1)s</th>
+<th>%(short_dir2)s</th>
 </tr>
 %(html)s
 </table>
@@ -917,8 +925,7 @@ def main ():
     inspect_max_count = o.max_count
 
     name = a[0].replace ('/', '')
-    if len (name) > 20:
-        name = name[:10] + '..' + name[-10:]
+    name = shorten_string (name)
     
     compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  name),
                    o.threshold)
