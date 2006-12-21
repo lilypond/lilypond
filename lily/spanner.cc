@@ -384,11 +384,30 @@ unsmob_spanner (SCM s)
   return dynamic_cast<Spanner *> (unsmob_grob (s));
 }
 
+MAKE_SCHEME_CALLBACK(Spanner, bounds_width, 1);
+SCM
+Spanner::bounds_width (SCM grob)
+{
+  Spanner *me = unsmob_spanner (grob);
+
+
+  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+
+  Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
+	      me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+	      
+  w -= me->relative_coordinate (common, X_AXIS);
+
+  return ly_interval2scm (w);
+}
+
 ADD_INTERFACE (Spanner,
 	       "Some objects are horizontally spanned between objects. For\n"
 	       "example, slur, beam, tie, etc. These grobs form a subtype called\n"
 	       "@code{Spanner}. All spanners have two span-points (these must be\n"
 	       "@code{Item} objects), one on the left and one on the right. The left bound is\n"
 	       "also the X-reference point of the spanner.\n",
-	       "minimum-length");
+
+	       "minimum-length "
+	       );
 

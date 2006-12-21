@@ -157,8 +157,10 @@ get_skylines (Grob *me,
       Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
       Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
 	: g->extent (common_refpoint, other_axis (a));
-      Box b = (a == X_AXIS) ? Box (extent, other_extent) : Box (other_extent, extent);
-      
+      Box b;
+      b[a] = extent;
+      b[other_axis (a)] = other_extent;
+
       if (extent.is_empty ())
 	{
 	  elements->erase (elements->begin () + i);
