@@ -138,13 +138,25 @@ get_skylines (Grob *me,
 	      bool pure, int start, int end,
 	      vector<Skyline_pair> *const ret)
 {
-  Grob *other_axis_common = common_refpoint_of_array (*elements, me, other_axis (a));
+  /* each child's skyline was calculated according to the common refpoint of its
+     elements. Here we need all the skylines to be positioned with respect to
+     a single refpoint, so we need the common refpoint of the common refpoints
+     of the elements of the children */
+  vector<Grob*> child_refpoints;
+  for (vsize i = 0; i < elements->size (); i++)
+    {
+      extract_grob_set ((*elements)[i], "elements", child_elts);
+      Grob *child_common = common_refpoint_of_array (child_elts, (*elements)[i], other_axis (a));
+      child_refpoints.push_back (child_common);
+    }
+  Grob *common_refpoint = common_refpoint_of_array (child_refpoints, me, other_axis (a));
+  
   for (vsize i = elements->size (); i--;)
     {
       Grob *g = (*elements)[i];
       Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
       Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
-	: g->extent (other_axis_common, other_axis (a));
+	: g->extent (common_refpoint, other_axis (a));
       Box b = (a == X_AXIS) ? Box (extent, other_extent) : Box (other_extent, extent);
       
       if (extent.is_empty ())
@@ -179,8 +191,9 @@ get_skylines (Grob *me,
 	      b[a] = ly_scm2interval (min_extent);
 	      skylines.insert (b, 0, other_axis (a));
 	    }
-	  Real offset = g->relative_coordinate (other_axis_common, other_axis (a));
-	  skylines.shift (-offset);
+
+	  Real offset = child_refpoints[i]->relative_coordinate (common_refpoint, other_axis (a));
+	  skylines.shift (offset);
 	}
 
 
@@ -234,7 +247,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
       else
 	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
 
-      where += stacking_dir * (dy + padding + extra_space / elems.size ());
+      where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
       translates.push_back (where);
     }
 

@@ -239,6 +239,7 @@
 	(positioning-done . ,ly:align-interface::calc-positioning-done)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(stacking-dir . -1)
+	(padding . 0.2)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface
 				bass-figure-alignment-interface
@@ -1977,7 +1978,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
-	(padding . 0.1)
+	(padding . 0.5)
 	(skylines . ,ly:axis-group-interface::combine-skylines)
 	(meta . ((class . Spanner)
 		 (interfaces . (align-interface

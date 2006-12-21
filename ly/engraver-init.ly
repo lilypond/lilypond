@@ -57,7 +57,7 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
 
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.5 . 3.5)
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t 
@@ -358,7 +358,7 @@ staffs, with a bracket in front and spanning bar lines. "
 
 \context{
   \type "Engraver_group"
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 2.4)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.75 . 2.0)
 
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
@@ -416,7 +416,7 @@ printing of a single line of lyrics.  "
   \consists "Hara_kiri_engraver"
 %  \consists "Note_spacing_engraver"
   voltaOnThisStaff = ##f
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
   \override SeparatingGroupSpanner #'padding = #0.8
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
@@ -635,7 +635,7 @@ AncientRemoveEmptyStaffContext = \context {
 
   \override VerticalAxisGroup #'remove-empty = ##t
   \override VerticalAxisGroup #'remove-first = ##t
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.5 . 2.5)
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
 }
 
 \context {
