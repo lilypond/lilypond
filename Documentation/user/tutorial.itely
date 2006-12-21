@@ -925,10 +925,10 @@ ignored.  The following fragment shows possible uses for comments
 
 There is a special statement that is a kind of comment.  The @code{\version}
 statement marks for which version of LilyPond the file was written.
-To mark a file for version 2.6.0, use
+To mark a file for version 2.10.1, use
 
 @example
-\version "2.9.13"
+\version "2.10.1"
 @end example
 
 @noindent
