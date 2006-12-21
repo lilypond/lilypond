@@ -145,8 +145,10 @@ get_skylines (Grob *me,
       Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
       Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
 	: g->extent (other_axis_common, other_axis (a));
-      Box b = (a == X_AXIS) ? Box (extent, other_extent) : Box (other_extent, extent);
-      
+      Box b;
+      b[a] = extent;
+      b[other_axis (a)] = other_extent;
+
       if (extent.is_empty ())
 	{
 	  elements->erase (elements->begin () + i);
@@ -234,6 +236,12 @@ Align_interface::get_extents_aligned_translates (Grob *me,
       else
 	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
 
+      if (isinf (dy))
+	{
+	  programming_error ("infinite skyline distance");
+	  dy = 0.0;
+	}
+      
       where += stacking_dir * (dy + padding + extra_space / elems.size ());
       translates.push_back (where);
     }
