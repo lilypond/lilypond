@@ -35,6 +35,7 @@ class Spanner : public Grob
 
 public:
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
+  DECLARE_SCHEME_CALLBACK (bounds_width, (SCM));
 
   vector<Spanner*> broken_intos_;
 
