@@ -67,6 +67,7 @@ protected:
 
   void stop_translation_timestep ();
   void process_acknowledged ();
+  
   virtual void finalize ();
   virtual void derived_mark () const;
 
@@ -353,7 +354,6 @@ Accidental_engraver::process_acknowledged ()
 	      && !note->in_event_class ("trill-span-event"))
 	    create_accidental (&accidentals_[i], num > 1, cautionary);
 
-
 	  if (forced || cautionary)
 	    accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
 	}
@@ -397,8 +397,8 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
 					       Grob *note_head,
 					       Engraver *trans)
 {
-
   (void)note;
+
   /*
     We construct the accidentals at the originating Voice
     level, so that we get the property settings for
@@ -440,6 +440,7 @@ Accidental_engraver::make_suggested_accidental (Stream_event *note,
 						Engraver *trans)
 {
   (void) note;
+
   Grob *a = trans->make_item ("AccidentalSuggestion", note_head->self_scm ());
 
   Side_position_interface::add_support (a, note_head);
@@ -605,5 +606,6 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"internalBarNumber "
 		"extraNatural "
 		"harmonicAccidentals "
-		"localKeySignature",
-		"localKeySignature");
+		"localKeySignature ",
+		"localKeySignature "
+		);

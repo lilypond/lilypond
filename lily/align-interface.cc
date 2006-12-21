@@ -274,8 +274,8 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 
   vector<Real> translates = get_extents_aligned_translates (me, all_grobs, a, false, 0, 0);
   if (translates.size ())
-      for (vsize j = 0; j < all_grobs.size (); j++)
-	all_grobs[j]->translate_axis (translates[j], a);
+    for (vsize j = 0; j < all_grobs.size (); j++)
+      all_grobs[j]->translate_axis (translates[j], a);
 }
 
 Real
