@@ -79,7 +79,7 @@ Change_iterator::process (Moment m)
 	  }
 	else
 	  /* FIXME: constant error message.  */
-	  get_music ()->origin ()->warning (_ (cannot find context to switch to"));
+	  get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
       }
     else
       {
