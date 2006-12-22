@@ -275,14 +275,14 @@ def main ():
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            error (_ ("can't open file: `%s'") % f)
+            error (_ (cannot open file: `%s'") % f)
             if len (files) == 1:
                 sys.exit (1)
             continue
         try:
             do_one_file (f)
         except UnknownVersion:
-            error (_ ("can't determine version for `%s'. Skipping") % f)
+            error (_ (cannot determine version for `%s'. Skipping") % f)
 
     sys.stderr.write ('\n')
 

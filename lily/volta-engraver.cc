@@ -141,7 +141,7 @@ Volta_engraver::process_music ()
 
   if (end && !volta_span_)
     /* fixme: be more verbose.  */
-    warning (_ ("can't end volta spanner"));
+    warning (_ (cannot end volta spanner"));
   else if (end)
     {
       end_volta_span_ = volta_span_;

@@ -115,7 +115,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 
   if (! shortest_playing_len.to_bool ())
     {
-      programming_error ("can't find a ruling note at " + Paper_column::when_mom (lc).to_string ());
+      programming_error (cannot find a ruling note at " + Paper_column::when_mom (lc).to_string ());
       shortest_playing_len = 1;
     }
 

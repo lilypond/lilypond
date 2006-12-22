@@ -90,7 +90,7 @@ Ligature_engraver::process_music ()
     {
       if (!ligature_)
 	{
-	  events_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
+	  events_drul_[STOP]->origin ()->warning (_ (cannot find start of ligature"));
 	  return;
 	}
 

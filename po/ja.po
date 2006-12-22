@@ -166,12 +166,12 @@ msgstr "処理中..."
 
 #: convert-ly.py:279 source-file.cc:54
 #, fuzzy, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "ファイルを開けません: `%s'"
 
 #: convert-ly.py:286
 #, fuzzy, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
 #: etf2ly.py:1198
@@ -327,7 +327,7 @@ msgstr ""
 
 #: lilypond-book.py:1532
 #, fuzzy, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
 #: lilypond-book.py:1543
@@ -519,7 +519,7 @@ msgstr ""
 
 #: all-font-metrics.cc:164
 #, fuzzy, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "フォントが見つかりません: `%s'"
 
 #: all-font-metrics.cc:165
@@ -529,7 +529,7 @@ msgstr "デフォルトフォントをロードします"
 
 #: all-font-metrics.cc:172
 #, fuzzy, c-format
-msgid "can't find default font: `%s'"
+msgid "cannot find default font: `%s'"
 msgstr "デフォルトフォントが見つかりません: `%s'"
 
 #: all-font-metrics.cc:173 includable-lexer.cc:62 lily-parser-scheme.cc:108
@@ -548,7 +548,7 @@ msgstr ""
 
 #: auto-change-iterator.cc:62 change-iterator.cc:61
 #, fuzzy, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr "`%s' から `%s' に変更できません"
 
 #: axis-group-engraver.cc:82
@@ -617,13 +617,13 @@ msgstr "判らないトランスレータ: `%s'"
 
 #: change-iterator.cc:23
 #, fuzzy, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "`%s' から `%s' に変更できません"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
 #, fuzzy
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr "`%s' コンテキストが見つかりません"
 
 #. We could change the current translator's id, but that would make
@@ -692,12 +692,12 @@ msgstr ""
 
 #: context.cc:151
 #, fuzzy, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr "見つからないか作れません: `%s'"
 
 #: context.cc:213
 #, fuzzy, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr "`%2$s' に呼ばれた `%1$s' が見つからないか作れません"
 
 #: context.cc:276
@@ -707,7 +707,7 @@ msgstr ""
 
 #: context.cc:388
 #, fuzzy, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr "見つからないか作れません: `%s'"
 
 #: custos.cc:77
@@ -726,7 +726,7 @@ msgstr "不明な音部記号(Clef)"
 
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
 #, fuzzy
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: dynamic-engraver.cc:195
@@ -817,12 +817,12 @@ msgstr ""
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:212
 #, fuzzy
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
 #: grob-interface.cc:48
@@ -878,7 +878,7 @@ msgstr ""
 
 #: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:115
 #, fuzzy, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
@@ -887,7 +887,7 @@ msgstr "位置が判りません"
 
 #: ligature-engraver.cc:95
 #, fuzzy
-msgid "can't find start of ligature"
+msgid "cannot find start of ligature"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: ligature-engraver.cc:100
@@ -924,7 +924,7 @@ msgstr "(読込パス: `%s')"
 
 #: lily-guile.cc:439
 #, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
 #: lily-guile.cc:442
@@ -962,7 +962,7 @@ msgstr "見つからないか作れません: `%s'"
 
 #: lily-parser-scheme.cc:107
 #, fuzzy, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr "ファイルが見つかりません: `%s'"
 
 #: lily-parser-scheme.cc:125
@@ -1224,7 +1224,7 @@ msgstr "その様な楽器はありません: `%s'"
 
 #: main.cc:324
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
 #: main.cc:339
@@ -1234,27 +1234,27 @@ msgstr "その様な楽器はありません: `%s'"
 
 #: main.cc:341
 #, fuzzy, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "`%s' から `%s' に変更できません"
 
 #: main.cc:349
 #, fuzzy, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr "見つからないか作れません: `%s'"
 
 #: main.cc:356
 #, fuzzy, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "`%s' から `%s' に変更できません"
 
 #: main.cc:362
 #, fuzzy, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "`%s' から `%s' に変更できません"
 
 #: main.cc:368
 #, fuzzy, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "見つからないか作れません: `%s'"
 
 #: main.cc:415
@@ -1342,12 +1342,12 @@ msgstr ""
 
 #: midi-stream.cc:28
 #, fuzzy, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "ファイルを開けません: `%s'"
 
 #: midi-stream.cc:44
 #, fuzzy, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "ファイルを開けません: `%s'"
 
 #: music-iterator.cc:172
@@ -1365,7 +1365,7 @@ msgid "transposition by %s makes alteration larger than double"
 msgstr "%s の変調によって、二つを超える派生音が作られました"
 
 #: new-fingering-engraver.cc:87
-msgid "can't add text scripts to individual note heads"
+msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
 #: new-fingering-engraver.cc:246
@@ -1382,7 +1382,7 @@ msgid "ignoring too many clashing note columns"
 msgstr "釣り合わない音符が多すぎます。それらを無視します。"
 
 #: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
 #: note-head.cc:69
@@ -1396,12 +1396,12 @@ msgstr ""
 
 #: open-type-font.cc:33
 #, fuzzy, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "ファイルを開けません: `%s'"
 
 #: open-type-font.cc:37
 #, fuzzy, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "フォントが見つかりません: `%s'"
 
 #: open-type-font.cc:96
@@ -1504,12 +1504,12 @@ msgstr ""
 #: piano-pedal-engraver.cc:319 piano-pedal-engraver.cc:330
 #: piano-pedal-performer.cc:93
 #, fuzzy, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr "呼び出された文字が見つかりません: `%s'"
 
 #: piano-pedal-engraver.cc:377
 #, fuzzy, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "呼び出された文字が見つかりません: `%s'"
 
 #: program-option.cc:195
@@ -1580,7 +1580,7 @@ msgstr "ファイルを開けません: `%s'"
 
 #: relocate.cc:358
 #, fuzzy, c-format
-msgid "can't open file %s"
+msgid "cannot open file %s"
 msgstr "ファイルを開けません: `%s'"
 
 #: relocate.cc:388
@@ -1589,7 +1589,7 @@ msgid "Unknown relocation command %s"
 msgstr ""
 
 #: rest-collision.cc:150
-msgid "can't resolve rest collision: rest direction not set"
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
 #: rest-collision.cc:164 rest-collision.cc:209
@@ -1655,7 +1655,7 @@ msgstr "終端されていないスラー"
 
 #: slur-engraver.cc:165
 #, fuzzy
-msgid "can't end slur"
+msgid "cannot end slur"
 msgstr "見つかりません: `%s'"
 
 #: source-file.cc:74
@@ -1708,7 +1708,7 @@ msgstr ""
 
 #: text-spanner-engraver.cc:60
 #, fuzzy
-msgid "can't find start of text spanner"
+msgid "cannot find start of text spanner"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: text-spanner-engraver.cc:72
@@ -1749,7 +1749,7 @@ msgstr "判らないトランスレータ: `%s'"
 
 #: translator-group.cc:152
 #, fuzzy, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "見つかりません: `%s'"
 
 #: translator.cc:310
@@ -1764,7 +1764,7 @@ msgstr ""
 
 #: trill-spanner-engraver.cc:67
 #, fuzzy
-msgid "can't find start of trill spanner"
+msgid "cannot find start of trill spanner"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: trill-spanner-engraver.cc:79
@@ -1803,7 +1803,7 @@ msgstr ""
 #. fixme: be more verbose.
 #: volta-engraver.cc:143
 #, fuzzy
-msgid "can't end volta spanner"
+msgid "cannot end volta spanner"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: volta-engraver.cc:153
@@ -1984,7 +1984,7 @@ msgstr ""
 
 #: define-music-types.scm:737
 #, fuzzy, lisp-format
-msgid "can't find music object: ~S"
+msgid "cannot find music object: ~S"
 msgstr "`%s' コンテキストが見つかりません"
 
 #: define-music-types.scm:757
@@ -2003,7 +2003,7 @@ msgstr ""
 
 #: document-backend.scm:135
 #, fuzzy, lisp-format
-msgid "can't find interface for property: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr "文字番号が見つかりません: %d"
 
 #: document-backend.scm:145
@@ -2023,7 +2023,7 @@ msgstr "行 ..."
 
 #: documentation-lib.scm:172
 #, fuzzy, lisp-format
-msgid "can't find description for property ~S (~S)"
+msgid "cannot find description for property ~S (~S)"
 msgstr "文字番号が見つかりません: %d"
 
 #: framework-eps.scm:77 framework-eps.scm:78
@@ -2033,12 +2033,12 @@ msgstr "行 ..."
 
 #: framework-ps.scm:278
 #, lisp-format
-msgid "can't embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:331
 #, lisp-format
-msgid "can't extract file matching ~a from ~a"
+msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
 #: framework-ps.scm:348
@@ -2053,12 +2053,12 @@ msgstr "音節 `%s' の解釈方法が判りません"
 
 #: framework-ps.scm:610
 #, lisp-format
-msgid "can't convert <stdout> to ~S"
+msgid "cannot convert <stdout> to ~S"
 msgstr ""
 
 #: framework-ps.scm:629 framework-ps.scm:632
 #, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+msgid "cannot generate ~S using the postscript back-end"
 msgstr ""
 
 #: framework-ps.scm:639
@@ -2167,7 +2167,7 @@ msgstr ""
 
 #: music-functions.scm:745
 #, fuzzy, lisp-format
-msgid "can't find quoted music `~S'"
+msgid "cannot find quoted music `~S'"
 msgstr "フォントが見つかりません: `%s'"
 
 #: music-functions.scm:953
@@ -2186,12 +2186,12 @@ msgstr ""
 
 #: output-svg.scm:132
 #, lisp-format
-msgid "can't decypher Pango description: ~a"
+msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
 #: output-tex.scm:98
 #, fuzzy, lisp-format
-msgid "can't find ~a in ~a"
+msgid "cannot find ~a in ~a"
 msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #: paper.scm:69
@@ -2245,11 +2245,11 @@ msgstr ""
 #~ msgstr "反復記号を表示するものがありません"
 
 #, fuzzy
-#~ msgid "can't find `%s' context"
+#~ msgid "cannot find `%s' context"
 #~ msgstr "`%s' コンテキストが見つかりません"
 
 #, fuzzy
-#~ msgid "can't find line breaking that satisfies constraints"
+#~ msgid "cannot find line breaking that satisfies constraints"
 #~ msgstr "その解決は制限を満たしません"
 
 #, fuzzy
@@ -2276,7 +2276,7 @@ msgstr ""
 #~ msgstr "%s: TFM ファイルは %u 個のパラメタがありますが、%u 以上は扱えません"
 
 #, fuzzy
-#~ msgid "can't find ascii character: %d"
+#~ msgid "cannot find ascii character: %d"
 #~ msgstr "ascii 文字が見つかりません: `%d'"
 
 #~ msgid "no one to print a tuplet start bracket"
@@ -2291,7 +2291,7 @@ msgstr ""
 #~ msgstr "繰り返しよりも選択肢が多い。超過分を捨てます。"
 
 #, fuzzy
-#~ msgid "can't find signature for music function"
+#~ msgid "cannot find signature for music function"
 #~ msgstr "`%s' コンテキストが見つかりません"
 
 #, fuzzy
@@ -2331,7 +2331,7 @@ msgstr ""
 #~ msgstr "行 ..."
 
 #, fuzzy
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "ファイルを開けません: `%s'"
 
 #, fuzzy
@@ -2355,7 +2355,7 @@ msgstr ""
 #~ msgstr "見つからないか作れません: `%s'"
 
 #, fuzzy
-#~ msgid "can't handle a percent repeat of length: %s"
+#~ msgid "cannot handle a percent repeat of length: %s"
 #~ msgstr "空のキーの扱い方が判りません"
 
 #, fuzzy
@@ -2403,7 +2403,7 @@ msgstr ""
 #~ msgstr "続行可能なエラー: "
 
 #, fuzzy
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "フォントが見つかりません: `%s'"
 
 #, fuzzy
@@ -2462,11 +2462,11 @@ msgstr ""
 #~ msgstr "FIXME: キー変更のマージ"
 
 #, fuzzy
-#~ msgid "kpathsea can't find %s file: `%s'"
+#~ msgid "kpathsea cannot find %s file: `%s'"
 #~ msgstr "ファイルが見つかりません: `%s'"
 
 #, fuzzy
-#~ msgid "kpathsea can't find file: `%s'"
+#~ msgid "kpathsea cannot find file: `%s'"
 #~ msgstr "ファイルが見つかりません: `%s'"
 
 #, fuzzy
@@ -2537,7 +2537,7 @@ msgstr ""
 #~ msgstr "%s への MIDI 出力"
 
 #, fuzzy
-#~ msgid "can't find file: `%s.%s'"
+#~ msgid "cannot find file: `%s.%s'"
 #~ msgstr "ファイルが見つかりません: `%s'"
 
 #, fuzzy
@@ -2624,7 +2624,7 @@ msgstr ""
 #~ msgstr "音楽的定義より: %s"
 
 #, fuzzy
-#~ msgid "can't find start of phrasing slur"
+#~ msgid "cannot find start of phrasing slur"
 #~ msgstr "末尾への(デ)クレッシェンドが見つかりません"
 
 #, fuzzy
@@ -2683,7 +2683,7 @@ msgstr ""
 #~ msgstr "この要求に対する方向を指定することはできません"
 
 #, fuzzy
-#~ msgid "can't map file"
+#~ msgid "cannot map file"
 #~ msgstr "ファイルをマップできません"
 
 #~ msgid "This binary was compiled with the following options:"
@@ -2796,7 +2796,7 @@ msgstr ""
 #~ msgstr "無効なトラック数"
 
 #, fuzzy
-#~ msgid "can't handle non-metrical time"
+#~ msgid "cannot handle non-metrical time"
 #~ msgstr "韻律にならない拍子は扱えません"
 
 #~ msgid "Junking note-end event: channel = %d, pitch = %d"
@@ -2841,7 +2841,7 @@ msgstr ""
 #~ msgstr "浮動小数点例外"
 
 #, fuzzy
-#~ msgid "can't set mem-checking!"
+#~ msgid "cannot set mem-checking!"
 #~ msgstr "メモリチェックを設定できません"
 
 #, fuzzy
@@ -2903,7 +2903,7 @@ msgstr ""
 #~ msgstr "小節が見つかりません。反復を無視します。"
 
 #, fuzzy
-#~ msgid "can't find both ends of %s"
+#~ msgid "cannot find both ends of %s"
 #~ msgstr "%s の両端が見つかりません"
 
 #~ msgid "slur"

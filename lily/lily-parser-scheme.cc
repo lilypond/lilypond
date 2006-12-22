@@ -103,7 +103,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   if (init.length () && global_path.find (init).empty ())
     {
-      warning (_f ("can't find init file: `%s'", init));
+      warning (_f (cannot find init file: `%s'", init));
       warning (_f ("(search path: `%s')",
 		   global_path.to_string ().c_str ()));
       exit (2);
@@ -113,7 +113,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   bool error = false;
   if ((file_name != "-") && file_name.empty ())
     {
-      warning (_f ("can't find file: `%s'", file));
+      warning (_f (cannot find file: `%s'", file));
       error = true;
     }
   else

@@ -162,7 +162,7 @@ Slur_engraver::process_music ()
   if (events_[STOP])
     {
       if (slurs_.size () == 0)
-	events_[STOP]->origin ()->warning (_ ("can't end slur"));
+	events_[STOP]->origin ()->warning (_ (cannot end slur"));
 
       
       end_slurs_ = slurs_;

@@ -30,11 +30,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
-	error (_f ("can't allocate %lu bytes", *length));
+	error (_f (cannot allocate %lu bytes", *length));
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
-	error (_f ("can't load font table: %s", tag_str));
+	error (_f (cannot load font table: %s", tag_str));
 
       return buffer;
     }

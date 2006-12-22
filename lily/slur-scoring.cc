@@ -442,7 +442,7 @@ Slur_score_state::get_closest_index (SCM inspect_quants) const
 	}
     }
   if (mindist > 1e5)
-    programming_error ("can't not find quant");
+    programming_error (cannot not find quant");
   return opt_idx;
 }
 

@@ -167,12 +167,12 @@ msgstr "Обрабатываю..."
 
 #: convert-ly.py:279 source-file.cc:54
 #, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "не могу открыть файл: `%s'"
 
 #: convert-ly.py:286
 #, fuzzy, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
 #: etf2ly.py:1198
@@ -328,7 +328,7 @@ msgstr ""
 
 #: lilypond-book.py:1532
 #, fuzzy, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
 #: lilypond-book.py:1543
@@ -517,7 +517,7 @@ msgstr ""
 
 #: all-font-metrics.cc:164
 #, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "не могу найти шрифт: `%s'"
 
 #: all-font-metrics.cc:165
@@ -527,7 +527,7 @@ msgstr "Загружаю шрифт по умолчанию"
 
 #: all-font-metrics.cc:172
 #, c-format
-msgid "can't find default font: `%s'"
+msgid "cannot find default font: `%s'"
 msgstr "не могу найти шрифт по умолчанию: `%s'"
 
 #: all-font-metrics.cc:173 includable-lexer.cc:62 lily-parser-scheme.cc:108
@@ -546,7 +546,7 @@ msgstr ""
 
 #: auto-change-iterator.cc:62 change-iterator.cc:61
 #, fuzzy, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr "не могу сменить `%s' на `%s'"
 
 #: axis-group-engraver.cc:82
@@ -611,13 +611,13 @@ msgstr "неизвестная переменная бумаги: `%s'"
 
 #: change-iterator.cc:23
 #, fuzzy, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "не могу сменить `%s' на `%s'"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
 #, fuzzy
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr "не могу найти контекст `%s'"
 
 #. We could change the current translator's id, but that would make
@@ -683,12 +683,12 @@ msgstr ""
 
 #: context.cc:151
 #, fuzzy, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr "не могу найти или создать: `%s'"
 
 #: context.cc:213
 #, fuzzy, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr "не могу найти символ под названием: `%s'"
 
 #: context.cc:276
@@ -698,7 +698,7 @@ msgstr ""
 
 #: context.cc:388
 #, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr "не могу найти или создать: `%s'"
 
 #: custos.cc:77
@@ -716,7 +716,7 @@ msgid "Unknown event class %s"
 msgstr "неизвестный тип ключа"
 
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "не могу найти начало (де)крещендо"
 
 #: dynamic-engraver.cc:195
@@ -804,12 +804,12 @@ msgstr ""
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:212
 #, fuzzy
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "что-то не найду начало группировки штилей"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
 #: grob-interface.cc:48
@@ -864,7 +864,7 @@ msgstr ""
 
 #: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:115
 #, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "не могу найти файл: `%s'"
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
@@ -873,7 +873,7 @@ msgstr "положение неизвестно"
 
 #: ligature-engraver.cc:95
 #, fuzzy
-msgid "can't find start of ligature"
+msgid "cannot find start of ligature"
 msgstr "что-то не найду начало группировки штилей"
 
 #: ligature-engraver.cc:100
@@ -910,7 +910,7 @@ msgstr "(путь загрузки: `%s')"
 
 #: lily-guile.cc:439
 #, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
 #: lily-guile.cc:442
@@ -948,7 +948,7 @@ msgstr "не могу найти или создать: `%s'"
 
 #: lily-parser-scheme.cc:107
 #, fuzzy, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr "не могу найти файл: `%s'"
 
 #: lily-parser-scheme.cc:125
@@ -1171,7 +1171,7 @@ msgstr "нет такого инструмента: `%s'"
 
 #: main.cc:324
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
 #: main.cc:339
@@ -1181,27 +1181,27 @@ msgstr "нет такого инструмента: `%s'"
 
 #: main.cc:341
 #, fuzzy, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "не могу сменить `%s' на `%s'"
 
 #: main.cc:349
 #, fuzzy, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr "не могу найти или создать: `%s'"
 
 #: main.cc:356
 #, fuzzy, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "не могу сменить `%s' на `%s'"
 
 #: main.cc:362
 #, fuzzy, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "не могу сменить `%s' на `%s'"
 
 #: main.cc:368
 #, fuzzy, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "не могу найти или создать: `%s'"
 
 #: main.cc:415
@@ -1289,12 +1289,12 @@ msgstr ""
 
 #: midi-stream.cc:28
 #, fuzzy, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "не могу открыть файл: `%s'"
 
 #: midi-stream.cc:44
 #, fuzzy, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "не могу открыть файл: `%s'"
 
 #: music-iterator.cc:172
@@ -1312,7 +1312,7 @@ msgid "transposition by %s makes alteration larger than double"
 msgstr ""
 
 #: new-fingering-engraver.cc:87
-msgid "can't add text scripts to individual note heads"
+msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
 #: new-fingering-engraver.cc:246
@@ -1329,7 +1329,7 @@ msgid "ignoring too many clashing note columns"
 msgstr "Слишком много пересекающихся столбцов нот. Игнорирую."
 
 #: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
 #: note-head.cc:69
@@ -1343,12 +1343,12 @@ msgstr ""
 
 #: open-type-font.cc:33
 #, fuzzy, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "не могу открыть файл: `%s'"
 
 #: open-type-font.cc:37
 #, fuzzy, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "не могу найти шрифт: `%s'"
 
 #: open-type-font.cc:96
@@ -1451,12 +1451,12 @@ msgstr ""
 #: piano-pedal-engraver.cc:319 piano-pedal-engraver.cc:330
 #: piano-pedal-performer.cc:93
 #, fuzzy, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr "что-то не найду начало группировки штилей"
 
 #: piano-pedal-engraver.cc:377
 #, fuzzy, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "что-то не найду начало группировки штилей"
 
 #: program-option.cc:195
@@ -1527,7 +1527,7 @@ msgstr "не могу открыть файл: `%s'"
 
 #: relocate.cc:358
 #, fuzzy, c-format
-msgid "can't open file %s"
+msgid "cannot open file %s"
 msgstr "не могу открыть файл: `%s'"
 
 #: relocate.cc:388
@@ -1536,7 +1536,7 @@ msgid "Unknown relocation command %s"
 msgstr ""
 
 #: rest-collision.cc:150
-msgid "can't resolve rest collision: rest direction not set"
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
 #: rest-collision.cc:164 rest-collision.cc:209
@@ -1601,7 +1601,7 @@ msgstr "незавершенная лига"
 
 #: slur-engraver.cc:165
 #, fuzzy
-msgid "can't end slur"
+msgid "cannot end slur"
 msgstr "что-то не найду начало группировки штилей"
 
 #: source-file.cc:74
@@ -1653,7 +1653,7 @@ msgstr ""
 
 #: text-spanner-engraver.cc:60
 #, fuzzy
-msgid "can't find start of text spanner"
+msgid "cannot find start of text spanner"
 msgstr "что-то не найду начало группировки штилей"
 
 #: text-spanner-engraver.cc:72
@@ -1694,7 +1694,7 @@ msgstr ""
 
 #: translator-group.cc:152
 #, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "не могу найти: `%s'"
 
 #: translator.cc:310
@@ -1709,7 +1709,7 @@ msgstr ""
 
 #: trill-spanner-engraver.cc:67
 #, fuzzy
-msgid "can't find start of trill spanner"
+msgid "cannot find start of trill spanner"
 msgstr "что-то не найду начало группировки штилей"
 
 #: trill-spanner-engraver.cc:79
@@ -1748,7 +1748,7 @@ msgstr ""
 #. fixme: be more verbose.
 #: volta-engraver.cc:143
 #, fuzzy
-msgid "can't end volta spanner"
+msgid "cannot end volta spanner"
 msgstr "что-то не найду начало группировки штилей"
 
 #: volta-engraver.cc:153
@@ -1929,7 +1929,7 @@ msgstr ""
 
 #: define-music-types.scm:737
 #, fuzzy, lisp-format
-msgid "can't find music object: ~S"
+msgid "cannot find music object: ~S"
 msgstr "не могу найти контекст `%s'"
 
 #: define-music-types.scm:757
@@ -1948,7 +1948,7 @@ msgstr ""
 
 #: document-backend.scm:135
 #, fuzzy, lisp-format
-msgid "can't find interface for property: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr "не могу найти символ с номером: %d"
 
 #: document-backend.scm:145
@@ -1968,7 +1968,7 @@ msgstr "Выбрасываю музыку: `%s'"
 
 #: documentation-lib.scm:172
 #, fuzzy, lisp-format
-msgid "can't find description for property ~S (~S)"
+msgid "cannot find description for property ~S (~S)"
 msgstr "не могу найти символ с номером: %d"
 
 #: framework-eps.scm:77 framework-eps.scm:78
@@ -1978,12 +1978,12 @@ msgstr "Выбрасываю музыку: `%s'"
 
 #: framework-ps.scm:278
 #, lisp-format
-msgid "can't embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:331
 #, lisp-format
-msgid "can't extract file matching ~a from ~a"
+msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
 #: framework-ps.scm:348
@@ -1998,12 +1998,12 @@ msgstr ""
 
 #: framework-ps.scm:610
 #, lisp-format
-msgid "can't convert <stdout> to ~S"
+msgid "cannot convert <stdout> to ~S"
 msgstr ""
 
 #: framework-ps.scm:629 framework-ps.scm:632
 #, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+msgid "cannot generate ~S using the postscript back-end"
 msgstr ""
 
 #: framework-ps.scm:639
@@ -2111,7 +2111,7 @@ msgstr ""
 
 #: music-functions.scm:745
 #, fuzzy, lisp-format
-msgid "can't find quoted music `~S'"
+msgid "cannot find quoted music `~S'"
 msgstr "не могу найти шрифт: `%s'"
 
 #: music-functions.scm:953
@@ -2130,12 +2130,12 @@ msgstr ""
 
 #: output-svg.scm:132
 #, lisp-format
-msgid "can't decypher Pango description: ~a"
+msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
 #: output-tex.scm:98
 #, fuzzy, lisp-format
-msgid "can't find ~a in ~a"
+msgid "cannot find ~a in ~a"
 msgstr "что-то не найду начало группировки штилей"
 
 #: paper.scm:69
@@ -2187,7 +2187,7 @@ msgstr ""
 #~ msgid "no one to print a repeat brace"
 #~ msgstr "некому рисовать скобу повтора"
 
-#~ msgid "can't find `%s' context"
+#~ msgid "cannot find `%s' context"
 #~ msgstr "не могу найти контекст `%s'"
 
 #, fuzzy
@@ -2210,7 +2210,7 @@ msgstr ""
 #~ msgstr "Выбрасываю запрос: `%s'"
 
 #, fuzzy
-#~ msgid "can't find ascii character: %d"
+#~ msgid "cannot find ascii character: %d"
 #~ msgstr "не могу найти символ ASCII: `%d'"
 
 #, fuzzy
@@ -2218,7 +2218,7 @@ msgstr ""
 #~ msgstr "незавершенный расширитель"
 
 #, fuzzy
-#~ msgid "can't find signature for music function"
+#~ msgid "cannot find signature for music function"
 #~ msgstr "не могу найти контекст `%s'"
 
 #, fuzzy
@@ -2258,7 +2258,7 @@ msgstr ""
 #~ msgstr "Выбрасываю музыку: `%s'"
 
 #, fuzzy
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "не могу открыть файл: `%s'"
 
 #, fuzzy
@@ -2282,7 +2282,7 @@ msgstr ""
 #~ msgstr "не могу найти или создать: `%s'"
 
 #, fuzzy
-#~ msgid "can't handle a percent repeat of length: %s"
+#~ msgid "cannot handle a percent repeat of length: %s"
 #~ msgstr "Не знаю, что делать с пустыми ключами"
 
 #, fuzzy
@@ -2330,7 +2330,7 @@ msgstr ""
 #~ msgstr "не смертельная ошибка: "
 
 #, fuzzy
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "не могу найти шрифт: `%s'"
 
 #, fuzzy
@@ -2389,11 +2389,11 @@ msgstr ""
 #~ msgstr "ИСПРАВЬМЕНЯ: слияние смены ключа"
 
 #, fuzzy
-#~ msgid "kpathsea can't find %s file: `%s'"
+#~ msgid "kpathsea cannot find %s file: `%s'"
 #~ msgstr "не могу найти файл: `%s'"
 
 #, fuzzy
-#~ msgid "kpathsea can't find file: `%s'"
+#~ msgid "kpathsea cannot find file: `%s'"
 #~ msgstr "не могу найти файл: `%s'"
 
 #, fuzzy
@@ -2448,7 +2448,7 @@ msgstr ""
 #~ msgstr "вывод MIDI в %s..."
 
 #, fuzzy
-#~ msgid "can't find file: `%s.%s'"
+#~ msgid "cannot find file: `%s.%s'"
 #~ msgstr "не могу найти файл: `%s'"
 
 #, fuzzy
@@ -2529,7 +2529,7 @@ msgstr ""
 #~ msgstr "из музыкальной нотации %s"
 
 #, fuzzy
-#~ msgid "can't find start of phrasing slur"
+#~ msgid "cannot find start of phrasing slur"
 #~ msgstr "что-то не найду начало группировки штилей"
 
 #, fuzzy
@@ -2574,7 +2574,7 @@ msgstr ""
 #~ msgid "Can't specify direction for this request"
 #~ msgstr "Не могу указать направление для этого запроса"
 
-#~ msgid "can't map file"
+#~ msgid "cannot map file"
 #~ msgstr "не могу отобразить файл в память"
 
 #~ msgid "This binary was compiled with the following options:"
@@ -2697,7 +2697,7 @@ msgstr ""
 #~ msgid "floating point exception"
 #~ msgstr "исключение арифметики с плавающей запятой"
 
-#~ msgid "can't set mem-checking!"
+#~ msgid "cannot set mem-checking!"
 #~ msgstr "не могу включить проверку памяти"
 
 #, fuzzy
@@ -2745,7 +2745,7 @@ msgstr ""
 #~ msgid "Huh?  Not a Request: `%s'"
 #~ msgstr "А? НЕ Запрос: `%s'"
 
-#~ msgid "can't find both ends of %s"
+#~ msgid "cannot find both ends of %s"
 #~ msgstr "не могу найти оба конца у %s"
 
 #~ msgid "slur"
@@ -2766,7 +2766,7 @@ msgstr ""
 #~ msgid "score does not have any columns"
 #~ msgstr "фрагмент не содержит столбцов"
 
-#~ msgid "can't find start of chord tremolo"
+#~ msgid "cannot find start of chord tremolo"
 #~ msgstr "не найду начало тремоло аккорда"
 
 #~ msgid "already have a chord tremolo"
@@ -2778,5 +2778,5 @@ msgstr ""
 #~ msgid "More than one music block"
 #~ msgstr "Более одного музыкального блока"
 
-#~ msgid "can't put stem tremolo on tuplet"
+#~ msgid "cannot put stem tremolo on tuplet"
 #~ msgstr "не могу поместить штилевое тремоло на группировку"

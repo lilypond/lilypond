@@ -212,7 +212,7 @@ def musicxml_note_to_lily_main_event (n):
         
     
     if not event:
-        n.message ("could not find suitable event")
+        n.message ("cannot find suitable event")
 
     event.duration = musicxml_duration_to_lily (n)
     return event

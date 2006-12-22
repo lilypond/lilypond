@@ -844,7 +844,7 @@ Return: (value, rest-of-STR)
             
         return (string.atoi (dec), str)
     else:
-        sys.stderr.write ("can't convert `%s'\n" % str)
+        sys.stderr.write (cannot convert `%s'\n" % str)
         return (None, str)
 
 
@@ -1197,7 +1197,7 @@ def get_option_parser ():
                  version="etf2ly (LilyPond) @TOPLEVEL_VERSION@",
                  description=_("""Enigma Transport Format is a format used by Coda Music Technology's
 Finale product. This program will convert a subset of ETF to a
-ready-to-use lilypond file."""))
+ready-to-use LilyPond file."""))
     p.add_option ('-o', '--output', help=_("write output to FILE"),
            metavar=_("FILE"),
            action='store')

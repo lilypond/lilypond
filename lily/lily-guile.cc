@@ -91,7 +91,7 @@ gulp_file_to_string (string fn, bool must_exist, int size)
     {
       if (must_exist)
 	{
-	  string e = _f ("can't find file: `%s'", fn);
+	  string e = _f (cannot find file: `%s'", fn);
 	  e += " ";
 	  e += _f ("(load path: `%s')", global_path.to_string ());
 	  error (e);
@@ -456,7 +456,7 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
   if (type != SCM_EOL && !ly_is_procedure (type))
     {
-      warning (_f ("can't find property type-check for `%s' (%s).",
+      warning (_f (cannot find property type-check for `%s' (%s).",
 		   ly_symbol2string (sym).c_str (),
 		   ly_symbol2string (type_symbol).c_str ())
 	       + "  " + _ ("perhaps a typing error?"));

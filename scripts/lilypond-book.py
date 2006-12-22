@@ -1608,7 +1608,7 @@ def guess_format (input_filename):
         # FIXME
         format = ext2format[e]
     else:
-        error (_ ("can't determine format for: %s" \
+        error (_ (cannot determine format for: %s" \
               % input_filename))
         exit (1)
     return format

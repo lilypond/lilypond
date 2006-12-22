@@ -148,7 +148,7 @@ Translator_group::create_child_translator (SCM sev)
     {
       Translator *type = get_translator (scm_car (s));
       if (!type)
-	warning (_f ("can't find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
+	warning (_f (cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
 	{
 	  Translator *tr = type->clone ();

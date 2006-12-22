@@ -176,12 +176,12 @@ msgstr "»%s« wird verarbeitet..."
 
 #: convert-ly.py:289 source-file.cc:56
 #, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "Kann Datei nicht öffnen: `%s'"
 
 #: convert-ly.py:296
 #, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr "Version für »%s« kann nicht erkannt werden. Wird übersprungen"
 
 #: etf2ly.py:1208
@@ -334,7 +334,7 @@ msgstr "Alle Auszüge sind auf dem neuesten Stand..."
 
 #: lilypond-book.py:1531
 #, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "Format für %s kann nicht ermittelt werden"
 
 #: lilypond-book.py:1542
@@ -521,7 +521,7 @@ msgstr ""
 
 #: all-font-metrics.cc:213
 #, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "Schriftart kann nicht gefunden werden: »%s«"
 
 #: all-font-metrics.cc:214
@@ -530,7 +530,7 @@ msgstr "Standardschriftart wird geladen"
 
 #: all-font-metrics.cc:224
 #, c-format
-msgid "can't find default font: `%s'"
+msgid "cannot find default font: `%s'"
 msgstr "Standardschriftart kann nicht gefunden werden: »%s«"
 
 #: all-font-metrics.cc:225 includable-lexer.cc:62 lily-parser-scheme.cc:97
@@ -548,7 +548,7 @@ msgstr "Argument für \\applycontext ist keine Prozedur"
 
 #: auto-change-iterator.cc:62 change-iterator.cc:61
 #, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr "kann nicht geändert werden, bereits im Übersetzer: %s"
 
 #: axis-group-engraver.cc:82
@@ -607,12 +607,12 @@ msgstr "Kein Leerraumeintrag von %s nach »%s«"
 
 #: change-iterator.cc:23
 #, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "»%s« kann nicht nach »%s« geändert werden"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr "es kann kein Kontext zum Umschalten gefunden werden"
 
 #. We could change the current translator's id, but that would make
@@ -692,7 +692,7 @@ msgstr "Das Programm hat keinen solchen Typen: »%s«"
 
 #: context-def.cc:311
 #, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "»%s« kann nicht gefunden werden"
 
 #: context-property.cc:77
@@ -701,17 +701,17 @@ msgstr "Symbol-Argumente für \\override und \\revert benötigt"
 
 #: context.cc:160
 #, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr "ein neues »%s« kann weder gefunden noch erzeugt werden"
 
 #: context.cc:222
 #, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr "»%s« (»%s« genannt) kann weder gefunden noch erzeugt werden"
 
 #: context.cc:276
 #, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr "»%s« kann weder gefunden noch erzeugt werden"
 
 #: custos.cc:77
@@ -720,7 +720,7 @@ msgid "custos `%s' not found"
 msgstr "custos »%s« nicht gefunden"
 
 #: dynamic-engraver.cc:181 span-dynamic-performer.cc:84
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "Anfang des (De-) Crescendos kann nicht gefunden werden"
 
 #: dynamic-engraver.cc:190
@@ -793,7 +793,7 @@ msgstr "verstrichene Zeit: %.2f Sekunden"
 
 #: global-context.cc:159
 #, c-format
-msgid "can't find `%s' context"
+msgid "cannot find `%s' context"
 msgstr "Kontext »%s« kann nicht gefunden werden"
 
 #: gourlay-breaking.cc:202
@@ -806,7 +806,7 @@ msgid "no feasible line breaking found"
 msgstr "Keine praktikablen Zeilenumbrüche gefunden"
 
 #: gourlay-breaking.cc:215
-msgid "can't find line breaking that satisfies constraints"
+msgid "cannot find line breaking that satisfies constraints"
 msgstr "es können keine Zeilenumbrüche gefunden werden, die die Bedingungen erfüllen"
 
 #: gregorian-ligature-engraver.cc:61
@@ -821,12 +821,12 @@ msgstr "implizites \\%s hinzugefügt"
 
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:214
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "»\\~« kann nicht auf ersten Kopf der Bindung angewendet werden"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:226
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr "»\\~« kann nicht auf Köpfe mit gleicher Höhe angewendet werden"
 
 #: grob-interface.cc:48
@@ -873,7 +873,7 @@ msgstr "eingefügte Dateien sind im abgesicherten Modus nicht erlaubt"
 
 #: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:104
 #, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "Datei »%s« kann nicht gefunden werden"
 
 #: input.cc:103 source-file.cc:153 source-file.cc:168
@@ -881,7 +881,7 @@ msgid "position unknown"
 msgstr "Position unbekannt"
 
 #: ligature-engraver.cc:100
-msgid "can't find start of ligature"
+msgid "cannot find start of ligature"
 msgstr "Anfang der Bindung kann nicht gefunden werden"
 
 #: ligature-engraver.cc:105
@@ -915,7 +915,7 @@ msgstr "(Lade-Pfad: `%s')"
 
 #: lily-guile.cc:441
 #, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Eigenschafts-Typprüfung für »%s« (%s) kann nicht gefunden werden."
 
 #: lily-guile.cc:444
@@ -953,7 +953,7 @@ msgstr "aktuelles Verzeichnis kann nicht zu »%s« geändert werden"
 
 #: lily-parser-scheme.cc:96
 #, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr "Init-Datei kann nicht gefunden werden: »%s«"
 
 #: lily-parser-scheme.cc:114
@@ -1194,7 +1194,7 @@ msgstr "kein solcher Benutzer: %s"
 
 #: main.cc:322
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr "Benutzer-ID von Benutzer kann nicht gefunden werden: %s: %s"
 
 #: main.cc:337
@@ -1204,27 +1204,27 @@ msgstr "keine solche Gruppe: %s"
 
 #: main.cc:339
 #, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "Gruppen-ID kann nicht von Gruppennamen ermittelt werden: %s: %s"
 
 #: main.cc:347
 #, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr "kein chroot möglich nach: %s: %s"
 
 #: main.cc:354
 #, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "Gruppen-ID kann nicht geändert werden in: %d: %s"
 
 #: main.cc:360
 #, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "Benutzer-ID kann nicht geändert werden in: %d: %s"
 
 #: main.cc:366
 #, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "aktuelles Verzeichnis kann nicht geändert werden in: %s: %s"
 
 #: main.cc:413
@@ -1318,12 +1318,12 @@ msgstr "Experimentell: temporäre Feinabstimmung (von %d Hundertsteln) des Kanal
 
 #: midi-stream.cc:28
 #, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "Datei kann nicht zum Schreiben geöffnet werden: %s: %s"
 
 #: midi-stream.cc:44
 #, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "in Datei konnte nicht geschrieben werden: »%s«"
 
 #: music.cc:140
@@ -1337,7 +1337,7 @@ msgid "transposition by %s makes alteration larger than double"
 msgstr "Transponieren um %s erzeugt Vorzeichen größer als zwei"
 
 #: new-fingering-engraver.cc:84
-msgid "can't add text scripts to individual note heads"
+msgid "cannot add text scripts to individual note heads"
 msgstr "es kann kein Text zu einzelnen Notenköpfen hinzugefügt werden"
 
 #.
@@ -1360,7 +1360,7 @@ msgid "ignoring too many clashing note columns"
 msgstr "zu viele kollidierende Notenspalten werden ignoriert"
 
 #: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+msgid "cannot have note heads and rests together on a stem"
 msgstr "Notenköpfe und Pausen können nicht zusammen an einem Hals auftreten"
 
 #: note-head.cc:67
@@ -1374,12 +1374,12 @@ msgstr "NoteEvent ohne Tonhöhe"
 
 #: open-type-font.cc:33
 #, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "es können keine %lu Bytes angefordert werden"
 
 #: open-type-font.cc:37
 #, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "Schriftarttabelle kann nicht geladen werden: %s"
 
 #: open-type-font.cc:108
@@ -1469,12 +1469,12 @@ msgstr "3 Striche für Piano-Pedal erwartet, %ld gefunden"
 #: piano-pedal-engraver.cc:238 piano-pedal-engraver.cc:249
 #: piano-pedal-performer.cc:82
 #, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr "kann keinen Anfang für Pedal finden: »%s«"
 
 #: piano-pedal-engraver.cc:296
 #, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "kann keinen Anfang für Piano-Pedal finden: »%s«"
 
 #: program-option.cc:195
@@ -1541,7 +1541,7 @@ msgstr ""
 "argv0=%s"
 
 #: rest-collision.cc:149
-msgid "can't resolve rest collision: rest direction not set"
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr "Restkollision kann nicht aufgelöst werden: Restrichtung nicht gesetzt"
 
 #: rest-collision.cc:163 rest-collision.cc:208
@@ -1598,7 +1598,7 @@ msgid "unterminated slur"
 msgstr "unbegrenzter Bogen"
 
 #: slur-engraver.cc:185
-msgid "can't end slur"
+msgid "cannot end slur"
 msgstr "Bindebogen kann nicht beendet werden"
 
 #: source-file.cc:74
@@ -1654,7 +1654,7 @@ msgid "Calculating line breaks..."
 msgstr "Zeilenumbrüche werden berechnet..."
 
 #: text-spanner-engraver.cc:62
-msgid "can't find start of text spanner"
+msgid "cannot find start of text spanner"
 msgstr "Anfang der Textklammer kann nicht gefunden werden"
 
 #: text-spanner-engraver.cc:74
@@ -1679,7 +1679,7 @@ msgstr "%s: TFM-Datei hat %u Parameter - mehr als die Maximalzahl %u"
 
 #: tfm.cc:72
 #, c-format
-msgid "can't find ascii character: %d"
+msgid "cannot find ascii character: %d"
 msgstr "folgendes ASCII-Zeichen kann nicht gefunden werden: %d"
 
 #: tie-engraver.cc:181
@@ -1713,7 +1713,7 @@ msgid "unknown translator: `%s'"
 msgstr "unbekannter Übersetzer: »%s«"
 
 #: trill-spanner-engraver.cc:71
-msgid "can't find start of trill spanner"
+msgid "cannot find start of trill spanner"
 msgstr "Anfang des Trillers kann nicht gefunden werden"
 
 #: trill-spanner-engraver.cc:83
@@ -1748,7 +1748,7 @@ msgstr "Vaticana_ligature: nichts zusammengefügt (delta_pitch == 0)"
 
 #. fixme: be more verbose.
 #: volta-engraver.cc:142
-msgid "can't end volta spanner"
+msgid "cannot end volta spanner"
 msgstr "Anfang der Textklammer kann nicht gefunden werden"
 
 #: volta-engraver.cc:152
@@ -1882,7 +1882,7 @@ msgstr "Erwägen Sie die Aktualisierung der Eingabe mit dem Skript convert-ly"
 
 #. TODO: print location
 #: lexer.ll:945
-msgid "can't find signature for music function"
+msgid "cannot find signature for music function"
 msgstr "Signatur für Musikfunktion kann nicht gefunden werden"
 
 #: backend-library.scm:19 lily.scm:439 ps-to-png.scm:88
@@ -1932,7 +1932,7 @@ msgstr "Symbol erwartet: ~S"
 
 #: define-music-types.scm:741
 #, lisp-format
-msgid "can't find music object: ~S"
+msgid "cannot find music object: ~S"
 msgstr "Musikobjekt kann nicht gefunden werden: ~S"
 
 #: define-music-types.scm:761
@@ -1951,7 +1951,7 @@ msgstr "Paar erwartet in doc ~s"
 
 #: document-backend.scm:135
 #, lisp-format
-msgid "can't find interface for property: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr "Schnittstelle für Eigenschaft ~S kann nicht gefunden werden"
 
 #: document-backend.scm:145
@@ -1971,7 +1971,7 @@ msgstr "~S wird geschrieben..."
 
 #: documentation-lib.scm:172
 #, lisp-format
-msgid "can't find description for property ~S (~S)"
+msgid "cannot find description for property ~S (~S)"
 msgstr "Beschreibung für Eigenschaft ~S (~S) kann nicht gefunden werden"
 
 #: framework-eps.scm:71 framework-eps.scm:72
@@ -1981,12 +1981,12 @@ msgstr "~a wird geschrieben..."
 
 #: framework-ps.scm:275
 #, lisp-format
-msgid "can't embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr "~S=~S kann nicht eingebettet werden"
 
 #: framework-ps.scm:326
 #, lisp-format
-msgid "can't extract file matching ~a from ~a"
+msgid "cannot extract file matching ~a from ~a"
 msgstr "Eine zu ~a passende Datei kann nicht aus ~a gewonnen werden"
 
 #: framework-ps.scm:343
@@ -2001,12 +2001,12 @@ msgstr "Unbekannte Schriftsatzeinbettung ~s ~s ~s"
 
 #: framework-ps.scm:579
 #, lisp-format
-msgid "can't convert <stdout> to ~S"
+msgid "cannot convert <stdout> to ~S"
 msgstr "<stdout> kann nicht in ~S konvertiert werden"
 
 #: framework-ps.scm:596 framework-ps.scm:599
 #, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+msgid "cannot generate ~S using the postscript back-end"
 msgstr "~S kann nicht mit PostScript-Backend erzeugt werden"
 
 #: framework-ps.scm:606
@@ -2096,7 +2096,7 @@ msgstr "Taktüberprüfung gescheitert. bei ~a erwartet, stattdessen bei ~a"
 
 #: music-functions.scm:739
 #, lisp-format
-msgid "can't find quoted music `~S'"
+msgid "cannot find quoted music `~S'"
 msgstr "zitierte Musik »~S« kann nicht gefunden werden"
 
 #: music-functions.scm:947
@@ -2115,12 +2115,12 @@ msgstr "nicht definiert: ~S"
 
 #: output-svg.scm:121
 #, lisp-format
-msgid "can't decypher Pango description: ~a"
+msgid "cannot decypher Pango description: ~a"
 msgstr "Pango-Beschreibung kann nicht entschlüsselt werden: ~a"
 
 #: output-tex.scm:98
 #, lisp-format
-msgid "can't find ~a in ~a"
+msgid "cannot find ~a in ~a"
 msgstr "~a kann nicht in ~a gefunden werden"
 
 #: paper.scm:69
@@ -2257,7 +2257,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "Wrote `%s'"
 #~ msgstr "`%s' geschrieben"
 
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "dlopen erfolglos: %s: %s"
 
 #~ msgid "install package: %s or %s"
@@ -2306,7 +2306,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "run in safe mode"
 #~ msgstr "im sicheren Modus laufen lassen"
 
-#~ msgid "can't handle a percent repeat of length: %s"
+#~ msgid "cannot handle a percent repeat of length: %s"
 #~ msgstr "Prozentwiederholung der Länge %s kann nicht behandelt werden"
 
 #~ msgid "rest direction not set.  Cannot resolve collision."
@@ -2408,7 +2408,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "Could not find bounding box of `~a'"
 #~ msgstr "Begrenzungskasten von »~a« konnte nicht gefunden werden"
 
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "CFF/PFA/PFB-Schriftart ~S=~S kann nicht gefunden werden"
 
 #~ msgid "unknown bar glyph: `~S'"
@@ -2514,7 +2514,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "%s output to %s..."
 #~ msgstr "Ausgabe von %s nach %s..."
 
-#~ msgid "can't find file: `%s.%s'"
+#~ msgid "cannot find file: `%s.%s'"
 #~ msgstr "Kann Datei nicht finden: `%s.%s'"
 
 #~ msgid "Accidental rule must be pair or context-name; Found %s"
@@ -2691,7 +2691,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "prepend DIR to dependencies"
 #~ msgstr "stelle VERZ den Abhängigkeiten voran"
 
-#~ msgid "can't find start of phrasing slur"
+#~ msgid "cannot find start of phrasing slur"
 #~ msgstr "kann Anfang des Phrasierungsbogens nicht finden"
 
 #~ msgid "Where SYMBOL VAL pair is any of:"
@@ -2730,10 +2730,10 @@ msgstr "Behauptung gescheitert"
 #~ msgid "Symbol is not a parent context: %s. Ignored"
 #~ msgstr "Symbol ist kein Elternkontext: %s. Ignoriert"
 
-#~ msgid "can't find character number: %d"
+#~ msgid "cannot find character number: %d"
 #~ msgstr "Zeichennummer kann nicht gefunden werden: %d"
 
-#~ msgid "can't find character called: `%s'"
+#~ msgid "cannot find character called: `%s'"
 #~ msgstr "Zeichen kann nicht gefunden werden: `%s'"
 
 #~ msgid "Beam has less than two stems. Removing beam."

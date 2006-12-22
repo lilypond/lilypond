@@ -98,7 +98,7 @@ Instrument_name_engraver::start_spanner ()
   if (system)
     Axis_group_interface::add_element (system, text_spanner_);
   else
-    text_spanner_->programming_error ("can't find root system");
+    text_spanner_->programming_error (cannot find root system");
 }
 
 

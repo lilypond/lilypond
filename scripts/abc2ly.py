@@ -328,7 +328,7 @@ def gulp_file(f):
         n = i.tell ()
         i.seek (0,0)
     except:
-        sys.stderr.write ("can't open file: `%s'\n" % f)
+        sys.stderr.write (cannot open file: `%s'\n" % f)
         return ''
     s = i.read (n)
     if len (s) <= 0:

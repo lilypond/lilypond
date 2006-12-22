@@ -276,7 +276,7 @@
 	    ((string? bare-file-name)
 	     (ps-load-file file-name))
 	    (else
-	     (ly:warning (_ "can't embed ~S=~S") name file-name)
+	     (ly:warning (_ cannot embed ~S=~S") name file-name)
 	     "")))
 
 	  )))
@@ -329,7 +329,7 @@
       (if (not embed)
 	  (begin
 	    (set! embed "% failed \n")
-	    (ly:warning (_ "can't extract file matching ~a from ~a") name filename)))
+	    (ly:warning (_ cannot extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)
@@ -726,7 +726,7 @@
 	 )
 
     (if (equal? (basename name ".ps") "-")
-	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
+	(ly:warning (_ cannot convert <stdout> to ~S" "PDF"))
 	(postscript->pdf w h name))))
 
 (define-public (convert-to-png book name)
@@ -745,10 +745,10 @@
 		     name)))
 
 (define-public (convert-to-dvi book name)
-  (ly:warning (_ "can't generate ~S using the postscript back-end") "DVI"))
+  (ly:warning (_ cannot generate ~S using the postscript back-end") "DVI"))
 
 (define-public (convert-to-tex book name)
-  (ly:warning (_ "can't generate ~S using the postscript back-end") "TeX"))
+  (ly:warning (_ cannot generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)
