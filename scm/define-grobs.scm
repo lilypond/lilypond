@@ -787,7 +787,8 @@
 	(break-visibility . ,begin-of-line-invisible)
 	(non-musical . #t)
 	(meta . ((class . Item)
-		 (interfaces . (key-signature-interface
+		 (interfaces . (key-cancellation-interface
+				key-signature-interface
 				font-interface
 				break-aligned-interface))))))
     (KeySignature
