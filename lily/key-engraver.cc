@@ -18,13 +18,6 @@
 
 #include "translator.icc"
 
-/*
-  TODO: The representation  of key sigs is all fucked.
-*/
-
-/**
-   Make the key signature.
-*/
 class Key_engraver : public Engraver
 {
   void create_key (bool);
@@ -59,6 +52,24 @@ Key_engraver::Key_engraver ()
   cancellation_ = 0;
 }
 
+
+SCM
+make_qt_key (SCM rat_key)
+{
+  SCM qt_key = SCM_EOL;
+  SCM *tail = &qt_key;
+      
+  for (SCM s = rat_key; scm_is_pair (s); s = scm_cdr (s))
+    {
+      *tail = scm_cons (scm_cons (scm_caar (s),
+				  scm_from_int (Rational (4)* ly_scm2rational (scm_cdar (s)))),
+			SCM_EOL);
+      tail =  SCM_CDRLOC (*tail);
+    }
+
+  return qt_key;
+}
+
 void
 Key_engraver::create_key (bool is_default)
 {
@@ -83,10 +94,10 @@ Key_engraver::create_key (bool is_default)
 	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
 	    {
 	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
-	      int old_alter = scm_to_int (scm_cdar (s));
+	      Rational old_alter = ly_scm2rational (scm_cdar (s));
 	      if (new_alter_pair == SCM_BOOL_F
 		  || extranatural
-		     && (scm_to_int(scm_cdr(new_alter_pair))-old_alter)*old_alter < 0)
+		  && (ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter)*old_alter < Rational (0))
 		{
 		  *tail = scm_cons (scm_car (s), *tail);
 		  tail = SCM_CDRLOC (*tail);
@@ -99,12 +110,14 @@ Key_engraver::create_key (bool is_default)
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
 	      
-	      cancellation_->set_property ("alteration-alist", restore);
+	      cancellation_->set_property ("alteration-alist", make_qt_key (restore));
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
 	    }
 	}
-      item_->set_property ("alteration-alist", key);
+
+
+      item_->set_property ("alteration-alist", make_qt_key (key));
     }
 
   if (!is_default)
@@ -179,7 +192,7 @@ Key_engraver::read_event (Stream_event const *r)
     }
 
   for (SCM s = n; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_to_int (scm_cdar (s)))
+    if (ly_scm2rational (scm_cdar (s)))
       accs = scm_cons (scm_car (s), accs);
 
   context ()->set_property ("keySignature", accs);

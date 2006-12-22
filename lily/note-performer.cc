@@ -42,7 +42,7 @@ Note_performer::process_music ()
 
       SCM prop = get_property ("instrumentTransposition");
       if (unsmob_pitch (prop))
-	transposing = unsmob_pitch (prop)->semitone_pitch ();
+	transposing = unsmob_pitch (prop)->rounded_semitone_pitch ();
 
       while (note_evs_.size ())
 	{

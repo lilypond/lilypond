@@ -135,7 +135,7 @@ public:
   DECLARE_CLASSNAME(Midi_note);
 
   Moment get_length () const;
-  int get_pitch () const;
+  int get_semitone_pitch () const;
   int get_fine_tuning () const;
   virtual string to_string () const;
 

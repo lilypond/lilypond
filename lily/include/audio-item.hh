@@ -55,7 +55,7 @@ public:
 class Audio_note : public Audio_item
 {
 public:
-  Audio_note (Pitch p, Moment m, bool tie_event, int transposing_i);
+  Audio_note (Pitch p, Moment m, bool tie_event, int transposing);
 
   void tie_to (Audio_note *);
 

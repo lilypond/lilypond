@@ -202,7 +202,7 @@ transpose_mutable (SCM alist, Pitch delta)
 	  Pitch transposed = p->transposed (delta);
 	  scm_set_cdr_x (entry, transposed.smobbed_copy ());
 
-	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
+	  if (transposed.get_alteration ().abs () > Rational (1,1))
 	    {
 	      warning (_f ("transposition by %s makes alteration larger than double",
 			   delta.to_string ()));
@@ -217,7 +217,8 @@ transpose_mutable (SCM alist, Pitch delta)
 	transpose_music_list (val, delta);
       else if (prop == ly_symbol2scm ("pitch-alist") &&
 	       scm_is_pair (val))
-	entry = scm_cons (prop, ly_transpose_key_alist (val, delta.smobbed_copy ()));
+	entry = scm_cons (prop,
+			  ly_transpose_key_alist (val, delta.smobbed_copy ()));
       retval = scm_cons (entry, retval);
     }
 

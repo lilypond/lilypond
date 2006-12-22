@@ -258,22 +258,18 @@ Midi_note::get_length () const
 int
 Midi_note::get_fine_tuning () const
 {
-  int ft = audio_->pitch_.quartertone_pitch ();
-  ft -= 2 * audio_->pitch_.semitone_pitch ();
-  ft *= 50; // 1 quarter tone = 50 cents
-  return ft;
+  Rational tune = audio_->pitch_.tone_pitch () * Rational (2);
+  tune -= Rational (get_semitone_pitch ());
+
+  tune *= 100;
+  return (int) double (tune);
 }
 
 int
-Midi_note::get_pitch () const
+Midi_note::get_semitone_pitch () const
 {
-  int p = audio_->pitch_.semitone_pitch () + audio_->transposing_;
-  if (p == INT_MAX)
-    {
-      warning (_ ("silly pitch"));
-      p = 0;
-    }
-  return p;
+  return int (rint (double (audio_->pitch_.tone_pitch () *  Rational (2, 1))))
+    + audio_->transposing_;
 }
 
 string
@@ -301,7 +297,7 @@ Midi_note::to_string () const
     }
 
   str += ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + c0_pitch_));
+  str += ::to_string ((char) (get_semitone_pitch () + c0_pitch_));
   str += ::to_string ((char)dynamic_byte_);
 
   return str;
@@ -326,7 +322,7 @@ Midi_note_off::to_string () const
   Byte status_byte = (char) (0x80 + channel_);
 
   string str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_));
+  str += ::to_string ((char) (get_semitone_pitch () + Midi_note::c0_pitch_));
   str += ::to_string ((char)aftertouch_byte_);
 
   if (get_fine_tuning () != 0)

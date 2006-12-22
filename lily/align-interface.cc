@@ -60,7 +60,7 @@ Align_interface::stretch_after_break (SCM grob)
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->relative_coordinate (common, Y_AXIS);
 
-      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      SCM details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
       SCM extra_space_handle = scm_assoc (ly_symbol2scm ("fixed-alignment-extra-space"), details);
       
       Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
