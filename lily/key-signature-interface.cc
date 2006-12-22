@@ -109,7 +109,6 @@ Key_signature_interface::print (SCM smob)
   if (scm_is_number (c0s))
     c0p = scm_to_int (c0s);
 
-  /* Is this the correct way to determine this? -rz */
   bool is_cancellation = me->internal_has_interface
     (ly_symbol2scm ("key-cancellation-interface"));
 
