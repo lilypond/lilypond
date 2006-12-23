@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: lilypond 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 16:22+0200\n"
-"PO-Revision-Date: 2002-09-07 21:00+0200\n"
+"PO-Revision-Date: 2006-12-23 16:14+0100\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -2454,9 +2454,6 @@ msgstr ""
 #~ msgid "Programming error: "
 #~ msgstr "programmeringsfejl: "
 
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Kan ikke skifte oversætter, jeg er her allerede"
-
 #~ msgid "I'm one myself"
 #~ msgstr "Jeg er selv én"
 
@@ -2513,10 +2510,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "kpathsea can not find TFM file: `%s'"
 #~ msgstr "Kpathsea kunne ikke finde TMF-fil: \"%s\""
-
-#, fuzzy
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Kan ikke skifte oversætter, jeg er her allerede"
 
 #, fuzzy
 #~ msgid "Converting to `~a.ps'..."

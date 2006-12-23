@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lilypond 1.4.13\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 16:22+0200\n"
-"PO-Revision-Date: 2002-06-28 15:46CET\n"
+"PO-Revision-Date: 2006-12-23 16:15+0100\n"
 "Last-Translator: Quique <quique@sindominio.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2364,9 +2364,6 @@ msgstr ""
 #~ msgid "Programming error: "
 #~ msgstr "error de programación: "
 
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "No puedo pasar de un traductor al otro, ya estoy allí"
-
 #~ msgid "I'm one myself"
 #~ msgstr "Yo mismo soy uno"
 
@@ -2407,10 +2404,6 @@ msgstr ""
 #, fuzzy
 #~ msgid "kpathsea can not find TFM file: `%s'"
 #~ msgstr "no puedo encontrar el fichero: `%s'"
-
-#, fuzzy
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "No puedo pasar de un traductor al otro, ya estoy allí"
 
 #, fuzzy
 #~ msgid "Converting to `~a.ps'..."

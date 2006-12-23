@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lilypond 1.6.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 16:22+0200\n"
-"PO-Revision-Date: 2002-09-28 10:27+0200\n"
+"PO-Revision-Date: 2006-12-23 15:31+0100\n"
 "Last-Translator: Tomá¹ Kopeèek <xkopec14@stud.fit.vutbr.cz>\n"
 "Language-Team: Czech <cz@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2557,10 +2557,6 @@ msgstr "Spu¹tìní LaTeXu selhalo"
 #, fuzzy
 #~ msgid "kpathsea can not find TFM file: `%s'"
 #~ msgstr "Kpathsea nemù¾e nalézt TFM soubor `%s'"
-
-#, fuzzy
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Nelze pøepnout pøekladaèe. Ji¾ jsem tam."
 
 #, fuzzy
 #~ msgid "Converting to `~a.ps'..."
