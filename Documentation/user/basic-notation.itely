@@ -1638,8 +1638,6 @@ In this manual: @ref{Repeats}, @ref{System start delimiters}.
 Program reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across staves).
 
-Examples: @inputfileref{input/@/test,bar@/-lines@/.ly},
-
 
 @node Unmetered music
 @subsection Unmetered music
