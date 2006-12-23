@@ -14,7 +14,7 @@ messages: $(MO_FILES)
 	done
 
 po-update:
-	$(PYTHON) $(depth)/buildscripts/texi-langutils.py -d $(outdir) -o doc.pot --gettext ../$(depth)/Documentation/user/lilypond.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -o doc.pot --gettext ../$(depth)/Documentation/user/lilypond.tely
 	msgmerge -U lilypond-doc.pot $(outdir)/doc.pot
 	for i in $(CATALOGS); do \
 	  msgmerge -U $$i.po lilypond-doc.pot; \
