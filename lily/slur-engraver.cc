@@ -80,7 +80,8 @@ Slur_engraver::listen_slur (Stream_event *ev)
     ASSIGN_EVENT_ONCE (events_[START], ev);
   else if (d == STOP)
     ASSIGN_EVENT_ONCE (events_[STOP], ev);
-  else ev->origin ()->warning (_ ("Invalid direction of slur-event"));
+  else ev->origin ()->warning (_f ("direction of %s invalid: %d",
+				   "slur-event", int (d)));
 }
 
 void

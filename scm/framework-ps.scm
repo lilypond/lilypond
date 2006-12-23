@@ -256,7 +256,7 @@
       (format
        (if (string? name)
 	   "(~a) (r) file .loadfont\n"
-	   "% can't find font file: ~a\n")
+	   "% cannot find font file: ~a\n")
        name))
 
     (let* ((font (car font-name-filename))
@@ -346,7 +346,7 @@
        ((and file-name (string-match "\\.otf" downcase-file-name))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
-	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	(ly:warning (_ "do not know how to embed ~S=~S") name file-name)
 	""))))
 
     (define (mac-font? bare-file-name)
@@ -377,7 +377,7 @@
 
 	(bare-file-name (font-file-as-ps-string name bare-file-name))
 	(else
-	 (ly:warning (_ "don't know how to embed font ~s ~s ~s")
+	 (ly:warning (_ "do not know how to embed font ~s ~s ~s")
 		     name file-name font))))))
 	
 

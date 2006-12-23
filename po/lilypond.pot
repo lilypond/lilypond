@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-22 17:25+0100\n"
+"POT-Creation-Date: 2006-12-23 10:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -165,14 +165,14 @@ msgstr ""
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:285
-#, python-format
-msgid ". Skipping\") % f)"
+#: convert-ly.py:278 source-file.cc:54
+#, c-format, python-format
+msgid "cannot open file: `%s'"
 msgstr ""
 
-#: convert-ly.py:278
+#: convert-ly.py:285
 #, python-format
-msgid "\") % f)"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr ""
 
 #: etf2ly.py:1198
@@ -319,6 +319,11 @@ msgstr ""
 msgid "All snippets are up to date..."
 msgstr ""
 
+#: lilypond-book.py:1611
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr ""
+
 #: lilypond-book.py:1622
 #, python-format
 msgid "%s is up to date."
@@ -372,11 +377,6 @@ msgstr ""
 
 #: lilypond-book.py:1840
 msgid "DVIPS usage:"
-msgstr ""
-
-#: lilypond-book.py:1611
-#, python-format
-msgid "               % input_filename))"
 msgstr ""
 
 #: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
@@ -516,7 +516,7 @@ msgstr ""
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
-#: auto-change-iterator.cc:63
+#: auto-change-iterator.cc:63 change-iterator.cc:61
 #, c-format
 msgid "cannot change, already in translator: %s"
 msgstr ""
@@ -588,6 +588,16 @@ msgstr ""
 msgid "No spacing entry from %s to `%s'"
 msgstr ""
 
+#: change-iterator.cc:23
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr ""
+
+#. FIXME: constant error message.
+#: change-iterator.cc:82
+msgid "cannot find context to switch to"
+msgstr ""
+
 #. We could change the current translator's id, but that would make
 #. errors hard to catch.
 #.
@@ -601,20 +611,6 @@ msgstr ""
 #. FIXME: uncomprehensable message
 #: change-iterator.cc:95
 msgid "none of these in my family"
-msgstr ""
-
-#. FIXME: constant error message.
-#. fixme: be more verbose.
-#: change-iterator.cc:82 dynamic-engraver.cc:186 ligature-engraver.cc:93
-#: new-fingering-engraver.cc:96 note-column.cc:124 rest-collision.cc:151
-#: slur-engraver.cc:165 span-dynamic-performer.cc:87
-#: text-spanner-engraver.cc:61 trill-spanner-engraver.cc:68
-#: volta-engraver.cc:144
-msgid "));"
-msgstr ""
-
-#: change-iterator.cc:23
-msgid ", to_type, to_id)"
 msgstr ""
 
 #: chord-tremolo-engraver.cc:88
@@ -663,13 +659,24 @@ msgstr ""
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
-#: context.cc:213 main.cc:323 main.cc:340
-msgid ","
+#: context.cc:151
+#, c-format
+msgid "cannot find or create new `%s'"
+msgstr ""
+
+#: context.cc:213
+#, c-format
+msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
 #: context.cc:276
 #, c-format
 msgid "Invalid CreateContext event: Cannot create %s context"
+msgstr ""
+
+#: context.cc:388
+#, c-format
+msgid "cannot find or create: `%s'"
 msgstr ""
 
 #: custos.cc:77
@@ -689,6 +696,10 @@ msgstr ""
 #: dots.cc:38
 #, c-format
 msgid "dot `%s' not found"
+msgstr ""
+
+#: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
+msgid "cannot find start of (de)crescendo"
 msgstr ""
 
 #: dynamic-engraver.cc:195
@@ -765,6 +776,16 @@ msgstr ""
 msgid "implied \\%s added"
 msgstr ""
 
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:212
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr ""
+
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:224
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr ""
+
 #: grob-interface.cc:57
 #, c-format
 msgid "Unknown interface `%s'"
@@ -803,17 +824,22 @@ msgstr ""
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
+#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#, c-format
+msgid "cannot find file: `%s'"
+msgstr ""
+
 #: includable-lexer.cc:62 lily-parser-scheme.cc:107
 #, c-format
 msgid "(search path: `%s')"
 msgstr ""
 
-#: includable-lexer.cc:61 midi-stream.cc:57
-msgid "\n"
-msgstr ""
-
 #: input.cc:112 source-file.cc:168 source-file.cc:183
 msgid "position unknown"
+msgstr ""
+
+#: ligature-engraver.cc:93
+msgid "cannot find start of ligature"
 msgstr ""
 
 #: ligature-engraver.cc:98
@@ -845,6 +871,11 @@ msgstr ""
 msgid "(load path: `%s')"
 msgstr ""
 
+#: lily-guile.cc:459
+#, c-format
+msgid "cannot find property type-check for `%s' (%s)."
+msgstr ""
+
 #: lily-guile.cc:462
 msgid "perhaps a typing error?"
 msgstr ""
@@ -856,10 +887,6 @@ msgstr ""
 #: lily-guile.cc:480
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
-msgstr ""
-
-#: lily-guile.cc:95
-msgid " "
 msgstr ""
 
 #: lily-lexer.cc:254
@@ -882,6 +909,11 @@ msgstr ""
 msgid "Changing working directory to `%s'"
 msgstr ""
 
+#: lily-parser-scheme.cc:106
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr ""
+
 #: lily-parser-scheme.cc:125
 #, c-format
 msgid "Processing `%s'"
@@ -892,7 +924,7 @@ msgid "Parsing..."
 msgstr ""
 
 #: lily-parser.cc:127
-msgid "braces don't match"
+msgid "braces do not match"
 msgstr ""
 
 #: lyric-combine-music-iterator.cc:291
@@ -1091,17 +1123,39 @@ msgstr ""
 msgid "no such user: %s"
 msgstr ""
 
+#: main.cc:323
+#, c-format
+msgid "cannot get user id from user name: %s: %s"
+msgstr ""
+
 #: main.cc:338
 #, c-format
 msgid "no such group: %s"
 msgstr ""
 
+#: main.cc:340
+#, c-format
+msgid "cannot get group id from group name: %s: %s"
+msgstr ""
+
 #: main.cc:348
-msgid ", components[JAIL],"
+#, c-format
+msgid "cannot chroot to: %s: %s"
+msgstr ""
+
+#: main.cc:355
+#, c-format
+msgid "cannot change group id to: %d: %s"
+msgstr ""
+
+#: main.cc:361
+#, c-format
+msgid "cannot change user id to: %d: %s"
 msgstr ""
 
 #: main.cc:367
-msgid ", components[DIR],"
+#, c-format
+msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
 #: main.cc:413
@@ -1112,14 +1166,6 @@ msgstr ""
 #: main.cc:643
 #, c-format
 msgid "exception caught: %s"
-msgstr ""
-
-#: main.cc:361
-msgid ", uid, strerror (errno)));"
-msgstr ""
-
-#: main.cc:355
-msgid ", gid, strerror (errno)));"
 msgstr ""
 
 #. FIXME: constant error message.
@@ -1196,7 +1242,13 @@ msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr ""
 
 #: midi-stream.cc:28
-msgid ", file_name, strerror (errno)));"
+#, c-format
+msgid "cannot open for write: %s: %s"
+msgstr ""
+
+#: midi-stream.cc:44
+#, c-format
+msgid "cannot write to file: `%s'"
 msgstr ""
 
 #: music-iterator.cc:171
@@ -1213,6 +1265,10 @@ msgstr ""
 msgid "transposition by %s makes alteration larger than double"
 msgstr ""
 
+#: new-fingering-engraver.cc:96
+msgid "cannot add text scripts to individual note heads"
+msgstr ""
+
 #: new-fingering-engraver.cc:239
 msgid "no placement found for fingerings"
 msgstr ""
@@ -1225,6 +1281,10 @@ msgstr ""
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
+#: note-column.cc:124
+msgid "cannot have note heads and rests together on a stem"
+msgstr ""
+
 #: note-head.cc:63
 #, c-format
 msgid "none of note heads `%s' or `%s' found"
@@ -1232,6 +1292,16 @@ msgstr ""
 
 #: note-heads-engraver.cc:61
 msgid "NoteEvent without pitch"
+msgstr ""
+
+#: open-type-font.cc:33
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr ""
+
+#: open-type-font.cc:37
+#, c-format
+msgid "cannot load font table: %s"
 msgstr ""
 
 #: open-type-font.cc:98
@@ -1247,14 +1317,6 @@ msgstr ""
 #: open-type-font.cc:173 open-type-font.cc:297
 #, c-format
 msgid "FT_Get_Glyph_Name() returned error: %u"
-msgstr ""
-
-#: open-type-font.cc:37
-msgid ", tag_str));"
-msgstr ""
-
-#: open-type-font.cc:33
-msgid ", *length));"
 msgstr ""
 
 #: page-turn-page-breaking.cc:205
@@ -1340,6 +1402,17 @@ msgstr ""
 msgid "expect 3 strings for piano pedals, found: %ld"
 msgstr ""
 
+#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
+#: piano-pedal-performer.cc:93
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr ""
+
+#: piano-pedal-engraver.cc:347
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr ""
+
 #: program-option.cc:205
 #, c-format
 msgid "no such internal option: %s"
@@ -1406,13 +1479,18 @@ msgstr ""
 msgid "Relocation file %s\n"
 msgstr ""
 
+#: relocate.cc:358
+#, c-format
+msgid "cannot open file %s"
+msgstr ""
+
 #: relocate.cc:388
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr ""
 
-#: relocate.cc:358
-msgid ", cname));"
+#: rest-collision.cc:151
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
 #: rest-collision.cc:165 rest-collision.cc:210
@@ -1468,21 +1546,22 @@ msgstr ""
 msgid "No spring between column %d and next one"
 msgstr ""
 
-#: slur-engraver.cc:83
-msgid "Invalid direction of slur-event"
+#: slur-engraver.cc:83 tuplet-engraver.cc:75
+#, c-format
+msgid "direction of %s invalid: %d"
 msgstr ""
 
-#: slur-engraver.cc:156
+#: slur-engraver.cc:157
 msgid "unterminated slur"
+msgstr ""
+
+#: slur-engraver.cc:166
+msgid "cannot end slur"
 msgstr ""
 
 #: source-file.cc:74
 #, c-format
 msgid "expected to read %d characters, got %d"
-msgstr ""
-
-#: source-file.cc:168
-msgid " ("
 msgstr ""
 
 #: staff-symbol-engraver.cc:62
@@ -1527,6 +1606,10 @@ msgstr ""
 msgid "Grob count %d"
 msgstr ""
 
+#: text-spanner-engraver.cc:61
+msgid "cannot find start of text spanner"
+msgstr ""
+
 #: text-spanner-engraver.cc:73
 msgid "already have a text spanner"
 msgstr ""
@@ -1561,6 +1644,11 @@ msgstr ""
 msgid "unknown translator: `%s'"
 msgstr ""
 
+#: translator-group.cc:151
+#, c-format
+msgid "cannot find: `%s'"
+msgstr ""
+
 #: translator.cc:332
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
@@ -1571,12 +1659,12 @@ msgstr ""
 msgid "Previous %s event here"
 msgstr ""
 
-#: trill-spanner-engraver.cc:80
-msgid "already have a trill spanner"
+#: trill-spanner-engraver.cc:68
+msgid "cannot find start of trill spanner"
 msgstr ""
 
-#: tuplet-engraver.cc:75
-msgid "invalid direction of tuplet-span-event"
+#: trill-spanner-engraver.cc:80
+msgid "already have a trill spanner"
 msgstr ""
 
 #: vaticana-ligature-engraver.cc:388
@@ -1601,6 +1689,11 @@ msgstr ""
 
 #: vaticana-ligature.cc:177
 msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+msgstr ""
+
+#. fixme: be more verbose.
+#: volta-engraver.cc:144
+msgid "cannot end volta spanner"
 msgstr ""
 
 #: volta-engraver.cc:154
@@ -1708,21 +1801,21 @@ msgstr ""
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:774
+#: lexer.ll:774 lexer.ll:775
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:880
+#: lexer.ll:880 lexer.ll:881
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:881
+#: lexer.ll:881 lexer.ll:882
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:887
+#: lexer.ll:887 lexer.ll:888
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -1805,12 +1898,12 @@ msgstr ""
 
 #: framework-ps.scm:349
 #, scheme-format
-msgid "don't know how to embed ~S=~S"
+msgid "do not know how to embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:380
 #, scheme-format
-msgid "don't know how to embed font ~s ~s ~s"
+msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
 #: framework-tex.scm:360
@@ -1949,5 +2042,6 @@ msgid "~a exited with status: ~S"
 msgstr ""
 
 #: to-xml.scm:190
-msgid "assertion failed"
+#, scheme-format
+msgid "assertion failed: ~S"
 msgstr ""
