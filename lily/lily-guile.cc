@@ -30,8 +30,10 @@ using namespace std;
 #include "version.hh"
 #include "warn.hh"
 
-// #define TEST_GC
 
+/*
+  symbols/strings.
+ */
 SCM
 ly_to_symbol (SCM scm)
 {
@@ -44,12 +46,6 @@ ly_to_string (SCM scm)
   return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
 
 		     scm_makfrom0str ("~S"), scm);
-}
-
-SCM
-ly_last (SCM list)
-{
-  return scm_car (scm_last_pair (list));
 }
 
 SCM
@@ -122,6 +118,9 @@ extern "C" {
   }
 };
 
+/*
+  STRINGS
+ */
 string
 ly_scm2string (SCM str)
 {
@@ -149,6 +148,10 @@ ly_scm2newstr (SCM str, size_t *lenp)
   return 0;
 }
 
+
+/*
+  PAIRS
+*/
 SCM
 index_get_cell (SCM s, Direction d)
 {
@@ -174,47 +177,46 @@ is_number_pair (SCM p)
     && scm_is_number (scm_car (p)) && scm_is_number (scm_cdr (p));
 }
 
-typedef void (*Void_fptr) ();
-vector<Void_fptr> *scm_init_funcs_;
-
-void add_scm_init_func (void (*f) ())
-{
-  if (!scm_init_funcs_)
-    scm_init_funcs_ = new vector<Void_fptr>;
-
-  scm_init_funcs_->push_back (f);
-}
-
-void
-ly_init_ly_module (void *)
-{
-  for (vsize i = scm_init_funcs_->size (); i--;)
-    (scm_init_funcs_->at (i)) ();
-
-  if (be_verbose_global)
-    {
-      progress_indication ("[");
-      scm_display (scm_c_eval_string ("(%search-load-path \"lily.scm\")"),
-		   scm_current_error_port ());
-      progress_indication ("]\n");
-    }
-
-  scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
-}
-
-SCM global_lily_module;
-
-void
-ly_c_init_guile ()
-{
-  global_lily_module = scm_c_define_module ("lily", ly_init_ly_module, 0);
-  scm_c_use_module ("lily");
-}
 
 unsigned int
 ly_scm_hash (SCM s)
 {
   return scm_ihashv (s, ~1u);
+}
+
+
+bool
+is_axis (SCM s)
+{
+  if (scm_is_number (s))
+    {
+      int i = scm_to_int (s);
+      return i == 0 || i == 1;
+    }
+  return false;
+}
+
+bool
+to_boolean (SCM s)
+{
+  return scm_is_bool (s) && ly_scm2bool (s);
+}
+
+/*
+  DIRECTIONS
+ */
+Direction
+to_dir (SCM s)
+{
+  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
+}
+
+Direction
+robust_scm2dir (SCM d, Direction def)
+{
+  if (is_direction (d))
+    def = to_dir (d);
+  return def;
 }
 
 bool
@@ -228,23 +230,9 @@ is_direction (SCM s)
   return false;
 }
 
-bool
-is_axis (SCM s)
-{
-  if (scm_is_number (s))
-    {
-      int i = scm_to_int (s);
-      return i == 0 || i == 1;
-    }
-  return false;
-}
-
-Direction
-to_dir (SCM s)
-{
-  return scm_is_integer (s) ? (Direction) scm_to_int (s) : CENTER;
-}
-
+/*
+  INTERVALS
+ */
 Interval
 ly_scm2interval (SCM p)
 {
@@ -264,32 +252,40 @@ ly_interval2scm (Drul_array<Real> i)
   return scm_cons (scm_from_double (i[LEFT]), scm_from_double (i[RIGHT]));
 }
 
-bool
-to_boolean (SCM s)
+
+Interval
+robust_scm2interval (SCM k, Drul_array<Real> v)
 {
-  return scm_is_bool (s) && ly_scm2bool (s);
+  Interval i;
+  i[LEFT] = v[LEFT];
+  i[RIGHT] = v[RIGHT];
+  if (is_number_pair (k))
+    i = ly_scm2interval (k);
+  return i;
 }
 
-/* Appendable list L: the cdr contains the list, the car the last cons
-   in the list.  */
-SCM
-appendable_list ()
+Drul_array<Real>
+robust_scm2drul (SCM k, Drul_array<Real> v)
 {
-  SCM s = scm_cons (SCM_EOL, SCM_EOL);
-  scm_set_car_x (s, s);
-
-  return s;
+  if (is_number_pair (k))
+    v = ly_scm2interval (k);
+  return v;
 }
 
-void
-appendable_list_append (SCM l, SCM elt)
+Drul_array<bool>
+robust_scm2booldrul (SCM k, Drul_array<bool> def)
 {
-  SCM newcons = scm_cons (elt, SCM_EOL);
-
-  scm_set_cdr_x (scm_car (l), newcons);
-  scm_set_car_x (l, newcons);
+  if (scm_is_pair (k))
+    {
+      def[LEFT] = to_boolean (scm_car (k));
+      def[RIGHT] = to_boolean (scm_cdr (k));
+    }
+  return def;
 }
 
+/*
+  OFFSET
+*/
 SCM
 ly_offset2scm (Offset o)
 {
@@ -303,6 +299,13 @@ ly_scm2offset (SCM s)
 		 scm_to_double (scm_cdr (s)));
 }
 
+Offset
+robust_scm2offset (SCM k, Offset o)
+{
+  if (is_number_pair (k))
+    o = ly_scm2offset (k);
+  return o;
+}
 SCM
 ly_offsets2scm (vector<Offset> os)
 {
@@ -325,23 +328,12 @@ ly_scm2offsets (SCM s)
   return os;
 }
 
-SCM
-ly_deep_copy (SCM src)
-{
-  if (scm_is_pair (src))
-    return scm_cons (ly_deep_copy (scm_car (src)), ly_deep_copy (scm_cdr (src)));
-  else if (scm_is_vector (src))
-    {
-      int len = scm_c_vector_length (src);
-      SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
-      for (int i = 0;i < len; i++)
-	{
-	  SCM si = scm_from_int (i);
-	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
-	}
-    }
-  return src;
-}
+
+
+
+/*
+  ALIST
+*/
 
 /* looks the key up in the cdrs of the alist-keys
    - ignoring the car and ignoring non-pair keys.
@@ -373,26 +365,69 @@ ly_assoc_cdr (SCM key, SCM alist)
   return SCM_BOOL_F;
 }
 
-SCM
-ly_string_array_to_scm (vector<string> a)
+
+bool
+alist_equal_p (SCM a, SCM b)
 {
-  SCM s = SCM_EOL;
-  for (vsize i = a.size (); i ; i--)
-    s = scm_cons (ly_symbol2scm (a[i - 1].c_str ()), s);
-  return s;
+  for (SCM s = a;
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM key = scm_caar (s);
+      SCM val = scm_cdar (s);
+      SCM l = scm_assoc (key, b);
+
+      if (l == SCM_BOOL_F
+	  || !ly_is_equal (scm_cdr (l), val))
+
+	return false;
+    }
+  return true;
 }
 
-/* SYMBOLS is a whitespace separated list.  */
 SCM
-parse_symbol_list (char const *symbols)
+ly_alist_vals (SCM alist)
 {
-  while (isspace (*symbols))
-    *symbols++;
-  string s = symbols;
-  replace_all (s, '\n', ' ');
-  replace_all (s, '\t', ' ');
-  return ly_string_array_to_scm (string_split (s, ' '));
+  SCM x = SCM_EOL;
+  for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
+    x = scm_cons (scm_cdar (p), x);
+  return x;
 }
+
+/*
+  LISTS
+ */
+
+/* Return I-th element, or last elt L. If I < 0, then we take the first
+   element.
+
+   PRE: length (L) > 0  */
+SCM
+robust_list_ref (int i, SCM l)
+{
+  while (i-- > 0 && scm_is_pair (scm_cdr (l)))
+    l = scm_cdr (l);
+  return scm_car (l);
+}
+
+
+SCM
+ly_deep_copy (SCM src)
+{
+  if (scm_is_pair (src))
+    return scm_cons (ly_deep_copy (scm_car (src)), ly_deep_copy (scm_cdr (src)));
+  else if (scm_is_vector (src))
+    {
+      int len = scm_c_vector_length (src);
+      SCM nv = scm_c_make_vector (len, SCM_UNDEFINED);
+      for (int i = 0;i < len; i++)
+	{
+	  SCM si = scm_from_int (i);
+	  scm_vector_set_x (nv, si, ly_deep_copy (scm_vector_ref (src, si)));
+	}
+    }
+  return src;
+}
+
 
 SCM
 ly_truncate_list (int k, SCM lst)
@@ -411,6 +446,30 @@ ly_truncate_list (int k, SCM lst)
     }
   return lst;
 }
+
+
+
+
+/* Appendable list L: the cdr contains the list, the car the last cons
+   in the list.  */
+SCM
+appendable_list ()
+{
+  SCM s = scm_cons (SCM_EOL, SCM_EOL);
+  scm_set_car_x (s, s);
+
+  return s;
+}
+
+void
+appendable_list_append (SCM l, SCM elt)
+{
+  SCM newcons = scm_cons (elt, SCM_EOL);
+
+  scm_set_cdr_x (scm_car (l), newcons);
+  scm_set_car_x (l, newcons);
+}
+
 
 string
 print_scm_val (SCM val)
@@ -506,6 +565,7 @@ ly_unique (SCM list)
   return scm_reverse_x (unique, SCM_EOL);
 }
 
+
 static int
 scm_default_compare (void const *a, void const *b)
 {
@@ -543,13 +603,6 @@ ly_list_qsort_uniq_x (SCM lst)
   delete[] arr;
 
   return lst;
-}
-
-/* tail add */
-SCM
-ly_snoc (SCM s, SCM list)
-{
-  return ly_append2 (list, scm_list_n (s, SCM_UNDEFINED));
 }
 
 /* Split list at member s, removing s.
@@ -607,18 +660,6 @@ int_list_to_slice (SCM l)
   return s;
 }
 
-/* Return I-th element, or last elt L. If I < 0, then we take the first
-   element.
-
-   PRE: length (L) > 0  */
-SCM
-robust_list_ref (int i, SCM l)
-{
-  while (i-- > 0 && scm_is_pair (scm_cdr (l)))
-    l = scm_cdr (l);
-  return scm_car (l);
-}
-
 Real
 robust_scm2double (SCM k, double x)
 {
@@ -627,51 +668,6 @@ robust_scm2double (SCM k, double x)
   return x;
 }
 
-Direction
-robust_scm2dir (SCM d, Direction def)
-{
-  if (is_direction (d))
-    def = to_dir (d);
-  return def;
-}
-
-Interval
-robust_scm2interval (SCM k, Drul_array<Real> v)
-{
-  Interval i;
-  i[LEFT] = v[LEFT];
-  i[RIGHT] = v[RIGHT];
-  if (is_number_pair (k))
-    i = ly_scm2interval (k);
-  return i;
-}
-
-Drul_array<Real>
-robust_scm2drul (SCM k, Drul_array<Real> v)
-{
-  if (is_number_pair (k))
-    v = ly_scm2interval (k);
-  return v;
-}
-
-Drul_array<bool>
-robust_scm2booldrul (SCM k, Drul_array<bool> def)
-{
-  if (scm_is_pair (k))
-    {
-      def[LEFT] = to_boolean (scm_car (k));
-      def[RIGHT] = to_boolean (scm_cdr (k));
-    }
-  return def;
-}
-
-Offset
-robust_scm2offset (SCM k, Offset o)
-{
-  if (is_number_pair (k))
-    o = ly_scm2offset (k);
-  return o;
-}
 
 string
 robust_scm2string (SCM k, string s)
@@ -689,6 +685,22 @@ robust_scm2int (SCM k, int o)
   return o;
 }
 
+
+SCM
+ly_rational2scm (Rational r)
+{
+  return scm_divide (scm_from_int (r.numerator ()), scm_from_int (r.denominator ()));
+}
+
+
+Rational
+ly_scm2rational (SCM r)
+{
+  return Rational (scm_to_int (scm_numerator (r)),
+		   scm_to_int (scm_denominator (r)));
+}
+
+
 SCM
 alist_to_hashq (SCM alist)
 {
@@ -703,33 +715,6 @@ alist_to_hashq (SCM alist)
       scm_hashq_set_x (tab, scm_caar (s), pt);
     }
   return tab;
-}
-
-bool
-alist_equal_p (SCM a, SCM b)
-{
-  for (SCM s = a;
-       scm_is_pair (s); s = scm_cdr (s))
-    {
-      SCM key = scm_caar (s);
-      SCM val = scm_cdar (s);
-      SCM l = scm_assoc (key, b);
-
-      if (l == SCM_BOOL_F
-	  || !ly_is_equal (scm_cdr (l), val))
-
-	return false;
-    }
-  return true;
-}
-
-SCM
-ly_alist_vals (SCM alist)
-{
-  SCM x = SCM_EOL;
-  for (SCM p = alist; scm_is_pair (p); p = scm_cdr (p))
-    x = scm_cons (scm_cdar (p), x);
-  return x;
 }
 
 SCM
@@ -750,6 +735,10 @@ procedure_arity (SCM proc)
   return scm_to_int (fixed);
 }
 
+/*
+  C++ interfacing.
+ */
+
 string
 mangle_cxx_identifier (string cxx_id)
 {
@@ -769,3 +758,40 @@ mangle_cxx_identifier (string cxx_id)
   return cxx_id;
 }
 
+
+
+SCM
+ly_string_array_to_scm (vector<string> a)
+{
+  SCM s = SCM_EOL;
+  for (vsize i = a.size (); i ; i--)
+    s = scm_cons (ly_symbol2scm (a[i - 1].c_str ()), s);
+  return s;
+}
+
+/* SYMBOLS is a whitespace separated list.  */
+SCM
+parse_symbol_list (char const *symbols)
+{
+  while (isspace (*symbols))
+    *symbols++;
+  string s = symbols;
+  replace_all (s, '\n', ' ');
+  replace_all (s, '\t', ' ');
+  return ly_string_array_to_scm (string_split (s, ' '));
+}
+
+
+bool
+ly_is_fraction (SCM x)
+{
+  return SCM_FRACTIONP(x);
+}
+
+struct ly_t_double_cell
+{
+  SCM a;
+  SCM b;
+  SCM c;
+  SCM d;
+};

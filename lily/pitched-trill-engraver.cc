@@ -83,7 +83,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
 
   SCM handle = scm_assoc (key, keysig);
   bool print_acc
-    = (handle == SCM_BOOL_F) || p->get_alteration () == 0;
+    = (handle == SCM_BOOL_F) || p->get_alteration () == Rational (0);
 
   if (trill_head_)
     {
@@ -110,7 +110,8 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       trill_accidental_ = make_item ("TrillPitchAccidental", ev->self_scm ());
 
       // fixme: naming -> alterations
-      trill_accidental_->set_property ("accidentals", scm_list_1 (scm_from_int (p->get_alteration ())));
+      trill_accidental_->set_property ("accidentals", scm_list_1 (scm_from_int (Rational (4) 
+										* p->get_alteration ())));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
       
       trill_head_->set_object ("accidental-grob", trill_accidental_->self_scm ());

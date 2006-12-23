@@ -45,5 +45,6 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
     }
 
   return Pitch (p.get_octave () + delta_oct,
-		p.get_notename (), p.get_alteration ()).smobbed_copy ();
+		p.get_notename (),
+		p.get_alteration ()).smobbed_copy ();
 }

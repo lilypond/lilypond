@@ -151,13 +151,13 @@ recent_enough (int bar_number, SCM alteration_def, SCM laziness)
   return (bar_number <= scm_to_int (scm_cdr (alteration_def)) + scm_to_int (laziness));
 }
 
-static int
+static Rational
 extract_alteration (SCM alteration_def)
 {
   if (scm_is_number (alteration_def))
-    return scm_to_int (alteration_def);
+    return ly_scm2rational (alteration_def);
   else if (scm_is_pair (alteration_def))
-    return scm_to_int (scm_car (alteration_def));
+    return ly_scm2rational (scm_car (alteration_def));
   else if (alteration_def == SCM_BOOL_F)
     return 0;
   else
@@ -215,13 +215,13 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
     }
   else
     {
-      int prev = extract_alteration (previous_alteration);
-      int alter = pitch->get_alteration ();
+      Rational prev = extract_alteration (previous_alteration);
+      Rational alter = pitch->get_alteration ();
 
       if (alter == prev)
 	num = 0;
-      else if ((abs (alter) < abs (prev)
-		|| prev * alter < 0) && alter != 0)
+      else if ((alter.abs () < prev.abs ()
+		|| (prev * alter).sign () < 0) && alter.sign ())
 	num = 2;
       *different = (alter != prev);
     }
@@ -376,7 +376,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
   else
     a = make_standard_accidental (note, support, entry->origin_engraver_);
 
-  SCM accs = scm_cons (scm_from_int (pitch->get_alteration ()),
+  SCM accs = scm_cons (scm_from_int (pitch->get_alteration () * Rational (4)),
 		       SCM_EOL);
   if (restore_natural)
     {
@@ -489,7 +489,7 @@ Accidental_engraver::stop_translation_timestep ()
 
       int n = pitch->get_notename ();
       int o = pitch->get_octave ();
-      int a = pitch->get_alteration ();
+      Rational a = pitch->get_alteration ();
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
       SCM localsig = SCM_EOL;
@@ -515,7 +515,7 @@ Accidental_engraver::stop_translation_timestep ()
 		noteheads with the same notename.
 	      */
 	      localsig = ly_assoc_front_x (localsig, key,
-					   scm_cons (scm_from_int (a),
+					   scm_cons (ly_rational2scm (a),
 						     scm_from_int (barnum)));
 	      change = true;
 	    }

@@ -22,19 +22,21 @@ LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
 
 /* Should add optional args.  */
 LY_DEFINE (ly_make_pitch, "ly:make-pitch",
-	   3, 0, 0, (SCM octave, SCM note, SCM alter),
+	   2, 1, 0, (SCM octave, SCM note, SCM alter),
 	   "@var{octave} is specified by an integer, "
 	   "zero for the octave containing middle C.  "
 	   "@var{note} is a number from 0 to 6, "
 	   "with 0 corresponding to C and 6 corresponding to B.  "
-	   "The @var{alter} is zero for a natural, negative for "
-	   "flats, or positive for sharps. ")
+	   "The @var{alter} is a rational number of whole tones for alteration.")
 {
-  SCM_ASSERT_TYPE (scm_integer_p (octave) == SCM_BOOL_T, octave, SCM_ARG1, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (scm_integer_p (note) == SCM_BOOL_T, note, SCM_ARG2, __FUNCTION__, "integer");
-  SCM_ASSERT_TYPE (scm_integer_p (alter) == SCM_BOOL_T, alter, SCM_ARG3, __FUNCTION__, "integer");
-
-  Pitch p (scm_to_int (octave), scm_to_int (note), scm_to_int (alter));
+  SCM_ASSERT_TYPE (scm_is_integer (octave), octave, SCM_ARG1, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_is_integer (note), note, SCM_ARG2, __FUNCTION__, "integer");
+  SCM_ASSERT_TYPE (scm_is_rational (alter),
+		   alter, SCM_ARG3, __FUNCTION__, "rational");
+  
+  Pitch p (scm_to_int (octave), scm_to_int (note),
+	   ly_scm2rational (alter));
+  
   return p.smobbed_copy ();
 }
 
@@ -63,9 +65,9 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int q = p->get_alteration ();
+  Rational q = p->get_alteration ();
 
-  return scm_from_int (q);
+  return ly_rational2scm (q);
 }
 
 LY_DEFINE (pitch_notename, "ly:pitch-notename",
@@ -84,7 +86,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int q = p->quartertone_pitch ();
+  int q = p->rounded_quartertone_pitch ();
   return scm_from_int (q);
 }
 
@@ -94,7 +96,7 @@ LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
 {
   Pitch *p = unsmob_pitch (pp);
   SCM_ASSERT_TYPE (p, pp, SCM_ARG1, __FUNCTION__, "Pitch");
-  int q = p->semitone_pitch ();
+  int q = p->rounded_semitone_pitch ();
   return scm_from_int (q);
 }
 

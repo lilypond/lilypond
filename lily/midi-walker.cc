@@ -63,7 +63,7 @@ Midi_walker::do_start_note (Midi_note *note)
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pith already in queue */
-      if (stop_note_queue[i].val->get_pitch () == note->get_pitch ())
+      if (stop_note_queue[i].val->get_semitone_pitch () == note->get_semitone_pitch ())
 	{
 	  if (stop_note_queue[i].key < stop_mom)
 	    {

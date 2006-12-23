@@ -313,12 +313,65 @@ def compare_png_images (old, new, dir):
     system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
+    def text_record_string (self):
+        return '%-30f %-20s\n' % (self.distance (),
+                                  self.name ())
+    def distance (self):
+        return 0.0
+
+    def name (self):
+        return ''
+    
+    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        pass
+
+    def write_html_system_details (self, dir1, dir2, dest_dir):
+        pass
+        
+    def html_record_string (self,  old_dir, new_dir):
+        return ''
+
+class MidiFileLink (FileLink):
+    def __init__ (self, f1, f2):
+        self.files = (f1, f2)
+
+        print 'reading', f1
+        s1 = open (self.files[0]).read ()
+        print 'reading', f2
+        s2 = open (self.files[1]).read ()
+
+        self.same = (s1 == s2)
+        
+    def name (self):
+        name = os.path.split (self.files[0])[1]
+        name = re.sub ('.midi', '', name)
+        return name
+        
+    def distance (self):
+        ## todo: could use import MIDI to pinpoint
+        ## what & where changed.
+        if self.same:
+            return 0
+        else:
+            return 100;
+    def html_record_string (self, d1, d2):
+        return '''<tr>
+<td>
+%f
+</td>
+<td><tt>%s</tt></td>
+<td><tt>%s</tt></td>
+</tr>''' % ((self.distance(),) + self.files)
+
+class SignatureFileLink (FileLink):
     def __init__ (self):
         self.original_name = ''
         self.base_names = ('','')
         self.system_links = {}
         self._distance = None
-        
+    def name (self):
+        return self.original_name
+    
     def add_system_link (self, link, number):
         self.system_links[number] = link
 
@@ -337,10 +390,6 @@ class FileLink:
             return self.calc_distance ()
         
         return self._distance
-
-    def text_record_string (self):
-        return '%-30f %-20s\n' % (self.distance (),
-                             self.original_name)
 
     def source_file (self):
         for ext in ('.ly', '.ly.txt'):
@@ -577,23 +626,35 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
+        for ext in ['signature', 'midi']:
+            (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
-        (paired, m1, m2) = paired_files (dir1, dir2, '*.signature')
+            self.missing += [(dir1, m) for m in m1] 
+            self.added += [(dir2, m) for m in m2] 
 
-        self.missing += [(dir1, m) for m in m1] 
-        self.added += [(dir2, m) for m in m2] 
-
-        for p in paired:
-            if (inspect_max_count
-                and len (self.file_links) > inspect_max_count):
+            for p in paired:
+                if (inspect_max_count
+                    and len (self.file_links) > inspect_max_count):
+                    
+                    continue
                 
-                continue
-            
-            f2 = dir2 +  '/' + p
-            f1 = dir1 +  '/' + p
-            self.compare_files (f1, f2)
+                f2 = dir2 +  '/' + p
+                f1 = dir1 +  '/' + p
+                self.compare_files (f1, f2)
 
     def compare_files (self, f1, f2):
+        if f1.endswith ('signature'):
+            self.compare_signature_files (f1, f2)
+        elif f1.endswith ('midi'):
+            self.compare_midi_files (f1, f2)
+            
+    def compare_midi_files (self, f1, f2):
+        name = os.path.split (f1)[1]
+
+        file_link = MidiFileLink (f1, f2)
+        self.file_links[name] = file_link
+        
+    def compare_signature_files (self, f1, f2):
         name = os.path.split (f1)[1]
         name = re.sub ('-[0-9]+.signature', '', name)
         
@@ -601,10 +662,10 @@ class ComparisonData:
         try:
             file_link = self.file_links[name]
         except KeyError:
-            file_link = FileLink ()
+            file_link = SignatureFileLink ()
             self.file_links[name] = file_link
 
-        file_link.add_file_compare (f1,f2)
+        file_link.add_file_compare (f1, f2)
 
     def write_text_result_page (self, filename, threshold):
         out = None
@@ -762,12 +823,16 @@ def test_compare_trees ():
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
     system ('cp 19-1.signature dir2/20grob-2.signature')
+    system ('cp 19multipage.midi dir1/midi-differ.midi')
+    system ('cp 20multipage.midi dir2/midi-differ.midi')
 
     compare_trees ('dir1', 'dir2', 'compare-dir1dir2', 0.5)
 
 
 def test_basic_compare ():
     ly_template = r"""
+
+\version "2.10.0"
 #(set! toplevel-score-handler print-score-with-defaults)
  #(set! toplevel-music-handler
   (lambda (p m)
@@ -778,7 +843,8 @@ def test_basic_compare ():
 \sourcefilename "my-source.ly"
  
 %(papermod)s
-\header { tagline = ##f } 
+\header { tagline = ##f }
+\score {
 <<
 \new Staff \relative c {
   c4^"%(userstring)s" %(extragrob)s
@@ -787,6 +853,9 @@ def test_basic_compare ():
   c4^"%(userstring)s" %(extragrob)s
   }
 >>
+\layout{}
+}
+
 """
 
     dicts = [{ 'papermod' : '',
@@ -805,7 +874,6 @@ def test_basic_compare ():
                'name' : '20grob',
                'extragrob': 'r2. \\break c1',
                'userstring': 'test' },
-                
              ]
 
     for d in dicts:
@@ -818,10 +886,14 @@ def test_basic_compare ():
 
     multipage_str = r'''
     #(set-default-paper-size "a6")
-    {c1 \pageBreak c1 }
+    \score {
+      \relative {c1 \pageBreak c1 }
+      \layout {}
+      \midi {}
+    }
     '''
 
-    open ('20multipage', 'w').write (multipage_str)
+    open ('20multipage', 'w').write (multipage_str.replace ('c1', 'd1'))
     open ('19multipage', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
     system ('lilypond -ddump-signatures --png 19multipage 20multipage ')
  

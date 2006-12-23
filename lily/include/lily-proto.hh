@@ -135,6 +135,7 @@ class Property_iterator;
 class Rational;
 class Relative_octave_music;
 class Repeated_music;
+class Scale;
 class Scheme_hash_table;
 class Score;
 class Score_context;
