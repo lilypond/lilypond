@@ -171,6 +171,10 @@ typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
 typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #endif
 
+
+/*
+  Inline these for performance reasons.
+ */
 #define scm_cdr ly_cdr
 #define scm_car ly_car
 
