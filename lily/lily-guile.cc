@@ -780,3 +780,18 @@ parse_symbol_list (char const *symbols)
   replace_all (s, '\t', ' ');
   return ly_string_array_to_scm (string_split (s, ' '));
 }
+
+
+bool
+ly_is_fraction (SCM x)
+{
+  return SCM_FRACTIONP(x);
+}
+
+struct ly_t_double_cell
+{
+  SCM a;
+  SCM b;
+  SCM c;
+  SCM d;
+};
