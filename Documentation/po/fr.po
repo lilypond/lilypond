@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-19 10:23+0100\n"
-"PO-Revision-Date: 2006-11-25 16:47+0100\n"
+"POT-Creation-Date: 2006-12-23 14:50+0100\n"
+"PO-Revision-Date: 2006-12-23 15:02+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,7 @@ msgid "Top"
 msgstr "Sommaire"
 
 msgid "GNU LilyPond --- The music typesetter"
-msgstr "GNU LilyPond -- le système de gravure musicale"
+msgstr "GNU LilyPond --- le système de gravure musicale"
 
 msgid "LilyPond command index"
 msgstr "Index des commandes LilyPond"
@@ -138,247 +138,248 @@ msgid "After the tutorial"
 msgstr "Après le tutoriel"
 
 msgid "Putting it all together"
-msgstr ""
+msgstr "Tout mettre en ordre"
 
 msgid "Extending the templates"
-msgstr ""
+msgstr "Étendre les modèles"
 
 msgid "How LilyPond files work"
-msgstr ""
+msgstr "Comment les fichiers LilyPond sont organisés"
 
 msgid "Score is a single musical expression"
-msgstr ""
+msgstr "La partition est une unique expression musicale"
 
 msgid "Working on LilyPond projects"
-msgstr ""
+msgstr "Travailler sur des projets LilyPond"
 
 msgid "Suggestions for writing LilyPond files"
-msgstr ""
+msgstr "Suggestions de saisie des fichiers LilyPond"
 
 msgid "General suggestions"
-msgstr ""
+msgstr "Suggestions générales"
 
 msgid "Typesetting existing music"
-msgstr ""
+msgstr "Graver de la musique existante"
 
 msgid "Large projects"
-msgstr ""
+msgstr "Vastes projets"
 
 msgid "Saving typing with identifiers and functions"
-msgstr ""
+msgstr "Économiser du temps grâce à des identificateurs et fonctions"
 
 msgid "Style sheets"
-msgstr ""
+msgstr "Feuilles de style"
 
 msgid "Updating old files"
-msgstr ""
+msgstr "Mettre à jour des anciens fichiers"
 
 msgid "Troubleshooting (taking it all apart)"
-msgstr ""
+msgstr "Résolution de problèmes --- tout remettre à plat"
 
 msgid "Tweaking output"
-msgstr ""
+msgstr "Retoucher les résultats"
 
 msgid "Moving objects"
-msgstr ""
+msgstr "Déplacer des objets"
 
 msgid "Fixing overlapping notation"
-msgstr ""
+msgstr "Corriger les collisions d'objets"
 
 msgid "Common tweaks"
-msgstr ""
+msgstr "Retouches courantes"
 
 msgid "Default files"
-msgstr ""
+msgstr "Fichiers fournis par LilyPond"
 
 msgid "Fitting music onto fewer pages"
-msgstr ""
+msgstr "Réduire le nombre de pages de la partition"
 
 msgid "Advanced tweaks with Scheme"
-msgstr ""
+msgstr "Retouches avancées avec Scheme"
 
 msgid "Basic notation"
-msgstr ""
+msgstr "Notation de base"
 
 msgid "Pitches"
-msgstr ""
+msgstr "Hauteurs"
 
 msgid "Normal pitches"
-msgstr ""
+msgstr "Hauteurs naturelles"
 
 msgid "Accidentals"
-msgstr ""
+msgstr "Altérations"
 
 msgid "Cautionary accidentals"
-msgstr ""
+msgstr "Altérations de précaution"
 
 msgid "Micro tones"
-msgstr ""
+msgstr "Altérations microtonales"
 
 msgid "Notes names in other languages"
-msgstr ""
+msgstr "Noms de note dans d'autres langues"
 
 msgid "Relative octaves"
-msgstr ""
+msgstr "Octaves relatives"
 
 msgid "Octave check"
-msgstr ""
+msgstr "Vérification d'octave"
 
 msgid "Transpose"
-msgstr ""
+msgstr "Transposition"
 
 msgid "Rests"
-msgstr ""
+msgstr "Silences"
 
 msgid "Skips"
-msgstr ""
+msgstr "Silences invisibles"
 
 msgid "Rhythms"
-msgstr ""
+msgstr "Rythme"
 
 msgid "Durations"
-msgstr ""
+msgstr "Durées"
 
 msgid "Augmentation dots"
-msgstr ""
+msgstr "Points d'addition"
 
 msgid "Tuplets"
-msgstr ""
+msgstr "Nolets"
 
 msgid "Scaling durations"
-msgstr ""
+msgstr "Changement d'échelle des durées"
 
 msgid "Bar check"
-msgstr ""
+msgstr "Vérification des limites de mesure"
 
 msgid "Barnumber check"
-msgstr ""
+msgstr "Vérification du numéro de mesure"
 
 msgid "Automatic note splitting"
-msgstr ""
+msgstr "Découpage automatique des notes"
 
 msgid "Multiple notes at once"
-msgstr ""
+msgstr "Notes simultanées"
 
 msgid "Chords"
-msgstr ""
+msgstr "Accords"
 
 msgid "Stems"
-msgstr ""
+msgstr "Hampes"
 
 msgid "Basic polyphony"
-msgstr ""
+msgstr "Polyphonie basique"
 
 msgid "Explicitly instantiating voices"
-msgstr ""
+msgstr "Instantiation explicite des voix"
 
 msgid "Collision Resolution"
-msgstr ""
+msgstr "Résolution des collisions"
 
 msgid "Staff notation"
-msgstr ""
+msgstr "Notation sur la portée"
 
 msgid "Clef"
-msgstr ""
+msgstr "Clé"
 
 msgid "Key signature"
-msgstr ""
+msgstr "Armure"
 
 msgid "Time signature"
-msgstr ""
+msgstr "Métrique"
 
 msgid "Partial measures"
-msgstr ""
+msgstr "Mesures incomplètes"
 
 msgid "Bar lines"
-msgstr ""
+msgstr "Barres de mesures"
 
 msgid "Unmetered music"
-msgstr ""
+msgstr "Musique sans métrique"
 
 msgid "System start delimiters"
-msgstr ""
+msgstr "Groupements de systèmes"
 
 msgid "Staff symbol"
-msgstr ""
+msgstr "Symbole de la portée"
 
 msgid "Writing music in parallel"
-msgstr ""
+msgstr "Saisir la musique en parallèle"
 
 msgid "Connecting notes"
-msgstr ""
+msgstr "Notation couvrant plusieurs notes"
 
 msgid "Ties"
-msgstr ""
+msgstr "Liaisons de prolongation"
 
 msgid "Slurs"
-msgstr ""
+msgstr "Liaisons d'articulation"
 
 msgid "Phrasing slurs"
-msgstr ""
+msgstr "Liaisons de phrasé"
 
 msgid "Laissez vibrer ties"
-msgstr ""
+msgstr "Liaisons « laissez vibrer »"
 
 msgid "Automatic beams"
-msgstr ""
+msgstr "Barres de ligature automatiques"
 
 msgid "Manual beams"
-msgstr ""
+msgstr "Barres de ligature manuelles"
 
 msgid "Grace notes"
-msgstr ""
+msgstr "Notes d'agrément"
 
 msgid "Expressive marks"
-msgstr ""
+msgstr "Signes d'interprétation"
 
 msgid "Articulations"
-msgstr ""
+msgstr "Articulations"
 
 msgid "Fingering instructions"
-msgstr ""
+msgstr "Doigtés"
 
 msgid "Dynamics"
-msgstr ""
+msgstr "Nuances"
 
 msgid "Breath marks"
-msgstr ""
+msgstr "Signes de respiration"
 
 msgid "Trills"
-msgstr ""
+msgstr "Trilles"
 
 msgid "Glissando"
-msgstr ""
+msgstr "Glissando"
 
 msgid "Arpeggio"
-msgstr ""
+msgstr "Arpège"
 
+#, fuzzy
 msgid "Falls and doits"
-msgstr ""
+msgstr "Chutes et sauts"
 
 msgid "Repeats"
-msgstr ""
+msgstr "Répétitions"
 
 msgid "Repeat types"
-msgstr ""
+msgstr "Types de répétitions"
 
 msgid "Repeat syntax"
-msgstr ""
+msgstr "Syntaxe des répétitions"
 
 msgid "Repeats and MIDI"
-msgstr ""
+msgstr "Répétitions et MIDI"
 
 msgid "Manual repeat commands"
-msgstr ""
+msgstr "Commandes de reprise manuelles"
 
 msgid "Tremolo repeats"
-msgstr ""
+msgstr "Répétitions en trémolo"
 
 msgid "Tremolo subdivisions"
-msgstr ""
+msgstr "Subdivisions de trémolo"
 
 msgid "Measure repeats"
-msgstr ""
+msgstr "Répétitions de mesure"
 
 msgid "Instrument-specific notation"
 msgstr ""
@@ -1183,4 +1184,7 @@ msgstr "Précédent&nbsp;:"
 
 msgid "Appendix"
 msgstr "Annexe"
+
+msgid "Footnotes"
+msgstr "Notes"
 
