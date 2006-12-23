@@ -355,7 +355,7 @@ read_relocation_file (string filename)
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
   if (!f)
-    error (_f (cannot open file %s", cname));
+    error (_f ("cannot open file %s", cname));
 
   while (!feof (f))
     {

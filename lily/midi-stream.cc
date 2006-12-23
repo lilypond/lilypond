@@ -25,7 +25,7 @@ Midi_stream::Midi_stream (string file_name)
   file_name_string_ = file_name;
   out_file_ = fopen (file_name.c_str (), "wb");
   if (!out_file_)
-    error (_f (cannot open for write: %s: %s", file_name, strerror (errno)));
+    error (_f ("cannot open for write: %s: %s", file_name, strerror (errno)));
 }
 
 Midi_stream::~Midi_stream ()

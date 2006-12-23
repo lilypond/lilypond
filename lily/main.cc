@@ -320,7 +320,7 @@ do_chroot_jail ()
       if (errno == 0)
 	error (_f ("no such user: %s", components[USER_NAME]));
       else
-	error (_f (cannot get user id from user name: %s: %s",
+	error (_f ("cannot get user id from user name: %s: %s",
 		   components[USER_NAME],
 		   strerror (errno)));
       exit (3);
@@ -337,7 +337,7 @@ do_chroot_jail ()
       if (errno == 0)
 	error (_f ("no such group: %s", components[GROUP_NAME]));
       else
-	error (_f (cannot get group id from group name: %s: %s",
+	error (_f ("cannot get group id from group name: %s: %s",
 		   components[GROUP_NAME],
 		   strerror (errno)));
       exit (3);
@@ -345,26 +345,26 @@ do_chroot_jail ()
 
   if (chroot (components[JAIL].c_str ()))
     {
-      error (_f (cannot chroot to: %s: %s", components[JAIL],
+      error (_f ("cannot chroot to: %s: %s", components[JAIL],
 		 strerror (errno)));
       exit (3);
     }
 
   if (setgid (gid))
     {
-      error (_f (cannot change group id to: %d: %s", gid, strerror (errno)));
+      error (_f ("cannot change group id to: %d: %s", gid, strerror (errno)));
       exit (3);
     }
 
   if (setuid (uid))
     {
-      error (_f (cannot change user id to: %d: %s", uid, strerror (errno)));
+      error (_f ("cannot change user id to: %d: %s", uid, strerror (errno)));
       exit (3);
     }
 
   if (chdir (components[DIR].c_str ()))
     {
-      error (_f (cannot change working directory to: %s: %s", components[DIR],
+      error (_f ("cannot change working directory to: %s: %s", components[DIR],
 		 strerror (errno)));
       exit (3);
     }
