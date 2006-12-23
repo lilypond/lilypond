@@ -110,6 +110,11 @@ STEPMAKE_TEXMF_DIRS
 
 ## should check for 1.8.2 ?  
 STEPMAKE_GUILE_DEVEL(REQUIRED, 1.8.0)
+
+
+## check rational bugfix.
+save_CPPFLAGS="$CPPFLAGS"
+CPPFLAGS="$GUILE_CFLAGS $CPPFLAGS"
 AC_MSG_CHECKING(GUILE rational bugfix)
 AC_TRY_CPP(
 #include <libguile.h>
@@ -120,6 +125,8 @@ AC_TRY_CPP(
 AC_MSG_RESULT(ok),
 REQUIRED="$REQUIRED GUILE-with-rational-bugfix"
 AC_MSG_RESULT(Must have patched GUILE rational support. See INSTALL.txt))
+CPPFLAGS="$save_CPPFLAGS"
+
 
 STEPMAKE_MAKEINFO(REQUIRED, 4.8)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
