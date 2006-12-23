@@ -85,7 +85,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
       if (dir != "" && dir != "." && dir != get_working_directory ())
 	{
 	  global_path.prepend (get_working_directory ());
-	  message (_f ("Changing working directory to `%s'",
+	  message (_f ("Changing working directory to: `%s'",
 		       dir.c_str ()));
 	  chdir (dir.c_str ());
 	}

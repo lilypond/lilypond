@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 10:49+0100\n"
+"POT-Creation-Date: 2006-12-23 15:07+0100\n"
 "PO-Revision-Date: 2005-04-04 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -85,142 +85,151 @@ msgstr ""
 msgid "Usage: %s"
 msgstr "Iburira"
 
-#: abc2ly.py:1351
-msgid ""
-"This program converts ABC music files (see\n"
-"http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input."
+#: abc2ly.py:1349 convert-ly.py:80 lilypond-book.py:125 midi2ly.py:869
+#, python-format
+msgid "%s [OPTION]... FILE"
 msgstr ""
 
-#: abc2ly.py:1354
+#: abc2ly.py:1351
+#, python-format
+msgid ""
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input."
+msgstr ""
+
+#: abc2ly.py:1355 etf2ly.py:1200 midi2ly.py:885
 #, fuzzy
-msgid "set output filename to FILE"
+msgid "write output to FILE"
 msgstr "Kwandika Ibisohoka Kuri"
 
-#: abc2ly.py:1356
+#: abc2ly.py:1357
 msgid "be strict about succes"
 msgstr ""
 
-#: abc2ly.py:1358
+#: abc2ly.py:1359
 msgid "preserve ABC's notion of beams"
 msgstr ""
+
+#: abc2ly.py:1361 convert-ly.py:112 etf2ly.py:1208 lilypond-book.py:168
+#: midi2ly.py:911 musicxml2ly.py:505
+#, fuzzy
+msgid "Report bugs via"
+msgstr "Kuri"
 
 #: convert-ly.py:41
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version.\n"
-"\n"
-"Examples:\n"
-"\n"
-"  convert-ly -e old.ly\n"
-"  convert-ly --from=2.3.28 --to 2.5.21 foobar.ly\n"
+"version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 
-#: convert-ly.py:57 lilypond-book.py:98 warn.cc:48 input.cc:90
+#: convert-ly.py:43 lilypond-book.py:73
+#, fuzzy
+msgid "Examples:"
+msgstr "Urugero:"
+
+#: convert-ly.py:56 lilypond-book.py:98 warn.cc:48 input.cc:90
 #, fuzzy, c-format, python-format
 msgid "warning: %s"
 msgstr "Iburira"
 
-#: convert-ly.py:60 lilypond-book.py:101 warn.cc:54 input.cc:96 input.cc:104
+#: convert-ly.py:59 lilypond-book.py:101 warn.cc:54 input.cc:96 input.cc:104
 #, fuzzy, c-format, python-format
 msgid "error: %s"
 msgstr "Ikosa"
 
-#: convert-ly.py:76 etf2ly.py:1190 lilypond-book.py:121 midi2ly.py:98
+#: convert-ly.py:75 etf2ly.py:1190 lilypond-book.py:121 midi2ly.py:98
 #, fuzzy
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "Bya i"
 
-#: convert-ly.py:77 etf2ly.py:1191 lilypond-book.py:122 midi2ly.py:99
+#: convert-ly.py:76 etf2ly.py:1191 lilypond-book.py:122 midi2ly.py:99
 #, fuzzy
 msgid "It comes with NO WARRANTY."
 msgstr "Na:"
 
-#: convert-ly.py:88 convert-ly.py:108
+#: convert-ly.py:86 convert-ly.py:106
 msgid "VERSION"
 msgstr ""
 
-#: convert-ly.py:90
+#: convert-ly.py:88
 msgid "start from VERSION [default: \\version found in file]"
 msgstr ""
 
-#: convert-ly.py:93
+#: convert-ly.py:91
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:96
+#: convert-ly.py:94
 msgid "do not add \\version command if missing"
 msgstr ""
 
-#: convert-ly.py:102
-msgid "print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
+#: convert-ly.py:100
+msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
 msgstr ""
 
-#: convert-ly.py:107
+#: convert-ly.py:105
 msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
 msgstr ""
 
-#: convert-ly.py:154
+#: convert-ly.py:153
 msgid "Applying conversion: "
 msgstr ""
 
-#: convert-ly.py:167
+#: convert-ly.py:166
 msgid "Error while converting"
 msgstr ""
 
-#: convert-ly.py:169
+#: convert-ly.py:168
 msgid "Stopping at last succesful rule"
 msgstr ""
 
 # svtools/source\dialogs\prnsetup.src:STR_SVT_PRNDLG_PROCESSING.text
-#: convert-ly.py:191
+#: convert-ly.py:190
 #, fuzzy, python-format
 msgid "Processing `%s'... "
 msgstr "Inonosora"
 
 # sfx2/source\appl\app.src:STR_ERR_NOFILE.text
-#: convert-ly.py:278 source-file.cc:54
+#: convert-ly.py:277 relocate.cc:360 source-file.cc:54
 #, fuzzy, c-format, python-format
 msgid "cannot open file: `%s'"
 msgstr "Ntibishoboka gufungura idosiye$."
 
-#: convert-ly.py:285
+#: convert-ly.py:284
 #, fuzzy, python-format
-msgid "cannot determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'.  Skipping"
 msgstr "Imiterere kugirango"
+
+#: etf2ly.py:1196
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr ""
 
 #: etf2ly.py:1198
 msgid ""
 "Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product. This program will convert a subset of ETF to a\n"
-"ready-to-use LilyPond file."
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
+"file."
 msgstr ""
 
-#: etf2ly.py:1201 midi2ly.py:885
-#, fuzzy
-msgid "write output to FILE"
-msgstr "Kwandika Ibisohoka Kuri"
-
-#: etf2ly.py:1202 midi2ly.py:886 main.cc:172 main.cc:178
+#: etf2ly.py:1201 midi2ly.py:886 musicxml2ly.py:498 main.cc:172 main.cc:178
 msgid "FILE"
 msgstr "IDOSIYE"
 
-#: etf2ly.py:1204 midi2ly.py:899
+#: etf2ly.py:1203 lilypond-book.py:165 midi2ly.py:899 main.cc:185
 #, fuzzy
-msgid "show warranty"
+msgid "show warranty and copyright"
 msgstr "Garagaza Na Uburenganzira bw'umuhimbyi"
 
 #: lilypond-book.py:71
 #, fuzzy
 msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook "
-"document.\n"
-"\n"
-"Example usage:\n"
-"\n"
-" lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
-" lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
-" lilypond-book --process='lilypond -I include' BOOK\n"
-msgstr "0."
+"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "in Cyangwa Inyandiko"
+
+#: lilypond-book.py:78
+msgid "BOOK"
+msgstr ""
 
 #: lilypond-book.py:87
 #, python-format
@@ -232,178 +241,181 @@ msgstr ""
 msgid "Copyright (c) %s by"
 msgstr "C ku"
 
-#: lilypond-book.py:130
+#: lilypond-book.py:129
 #, fuzzy
 msgid "FILTER"
 msgstr "Muyunguruzi"
 
-#: lilypond-book.py:133
+#: lilypond-book.py:132
 #, fuzzy
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "Gihinguranya GUHINDURA N"
 
-#: lilypond-book.py:136
+#: lilypond-book.py:135
 #, fuzzy
 msgid ""
 "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
 msgstr "Gukoresha Ibisohoka Imiterere Mburabuzi HTML HTML"
 
-#: lilypond-book.py:139
+#: lilypond-book.py:138
 #, fuzzy
 msgid "add DIR to include path"
 msgstr "Kongeramo Kuri Gushyiramo Inzira"
 
-#: lilypond-book.py:144
+#: lilypond-book.py:139 lilypond-book.py:144 main.cc:171
+msgid "DIR"
+msgstr ""
+
+#: lilypond-book.py:143
 #, fuzzy
 msgid "write output to DIR"
 msgstr "Kwandika Ibisohoka Kuri"
 
 # padmin/source\rtsetup.src:RID_RTS_RTSDIALOG.RID_RTS_RTSDIALOG_TABCONTROL.RID_RTS_COMMANDPAGE.text
-#: lilypond-book.py:148
+#: lilypond-book.py:147
 #, fuzzy
 msgid "COMMAND"
 msgstr "Icyo wifuza"
 
-#: lilypond-book.py:149
+#: lilypond-book.py:148
 #, fuzzy
 msgid "process ly_files using COMMAND FILE..."
 msgstr "ikoresha"
 
-#: lilypond-book.py:160
+#: lilypond-book.py:154
+msgid "Create PDF files for use with PDFTeX"
+msgstr ""
+
+#: lilypond-book.py:157
 msgid ""
 "extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
 "must use this with dvips -h INPUT.psfonts"
 msgstr ""
 
-#: lilypond-book.py:163 midi2ly.py:896 main.cc:182
+#: lilypond-book.py:160 midi2ly.py:896 musicxml2ly.py:489 main.cc:184
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:169 main.cc:183
-#, fuzzy
-msgid "show warranty and copyright"
-msgstr "Garagaza Na Uburenganzira bw'umuhimbyi"
-
-#: lilypond-book.py:779
+#: lilypond-book.py:773
 #, fuzzy, python-format
 msgid "file not found: %s"
 msgstr "Dosiye ntibonetse"
 
-#: lilypond-book.py:1010
+#: lilypond-book.py:1004
 #, fuzzy, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "Bitemewe. Ihitamo"
 
-#: lilypond-book.py:1013
+#: lilypond-book.py:1007
 #, fuzzy, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "Bihuye neza Ubwoko Umwandiko wahinduwe ururimi"
 
-#: lilypond-book.py:1017
+#: lilypond-book.py:1011
 #, fuzzy, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "Bitemewe. Ihitamo"
 
-#: lilypond-book.py:1020
+#: lilypond-book.py:1014
 #, fuzzy, python-format
 msgid "compatibility mode translation: %s"
 msgstr "Bihuye neza Ubwoko Umwandiko wahinduwe ururimi"
 
-#: lilypond-book.py:1039
+#: lilypond-book.py:1033
 #, fuzzy, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "Kitazwi Ihitamo"
 
-#: lilypond-book.py:1394
+#: lilypond-book.py:1388
 #, fuzzy, python-format
 msgid "Opening filter `%s'"
 msgstr "Muyunguruzi..."
 
-#: lilypond-book.py:1411
+#: lilypond-book.py:1405
 #, fuzzy, python-format
 msgid "`%s' failed (%d)"
 msgstr "`%s'Byanze"
 
-#: lilypond-book.py:1412
+#: lilypond-book.py:1406
 #, fuzzy
 msgid "The error log is as follows:"
 msgstr "Ikosa LOG ni Nka"
 
-#: lilypond-book.py:1482
-msgid "Can't find \\begin{document} in LaTeX document"
+#: lilypond-book.py:1476
+msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: lilypond-book.py:1592
+#: lilypond-book.py:1586
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:1597
+#: lilypond-book.py:1591
 msgid "Processing..."
 msgstr "Inonosora..."
 
-#: lilypond-book.py:1601
+#: lilypond-book.py:1595
 #, fuzzy
 msgid "All snippets are up to date..."
 msgstr "Hejuru Kuri Itariki"
 
-#: lilypond-book.py:1611
+#: lilypond-book.py:1605
 #, fuzzy, python-format
 msgid "cannot determine format for: %s"
 msgstr "Imiterere kugirango"
 
-#: lilypond-book.py:1622
+#: lilypond-book.py:1616
 #, fuzzy, python-format
 msgid "%s is up to date."
 msgstr "Hejuru Kuri Itariki"
 
-#: lilypond-book.py:1628
+#: lilypond-book.py:1622
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:1683
+#: lilypond-book.py:1677
 #, fuzzy
 msgid "Output would overwrite input file; use --output."
 msgstr "Guhindura Iyinjiza IDOSIYE Gukoresha Ibisohoka"
 
-#: lilypond-book.py:1687
+#: lilypond-book.py:1681
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:1706
+#: lilypond-book.py:1700
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:1722
+#: lilypond-book.py:1716
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:1731
+#: lilypond-book.py:1725
 #, fuzzy, python-format
 msgid "Processing include: %s"
 msgstr "Gushyiramo"
 
-#: lilypond-book.py:1745
+#: lilypond-book.py:1739
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:1821
+#: lilypond-book.py:1815
 #, fuzzy, python-format
 msgid "Writing fonts to %s..."
 msgstr "Inonosora..."
 
-#: lilypond-book.py:1836
+#: lilypond-book.py:1830
 msgid "option --psfonts not used"
 msgstr ""
 
-#: lilypond-book.py:1837
+#: lilypond-book.py:1831
 msgid "processing with dvips will have no fonts"
 msgstr ""
 
-#: lilypond-book.py:1840
+#: lilypond-book.py:1834
 msgid "DVIPS usage:"
 msgstr ""
 
@@ -413,7 +425,7 @@ msgid "warning: "
 msgstr "Iburira!"
 
 # starmath/source\smres.src:RID_ERR_IDENT.text
-#: midi2ly.py:109 midi2ly.py:925
+#: midi2ly.py:109 midi2ly.py:924
 #, fuzzy
 msgid "error: "
 msgstr "IKOSA"
@@ -427,9 +439,9 @@ msgstr ""
 msgid "%s output to `%s'..."
 msgstr "%sIbisohoka Kuri"
 
-#: midi2ly.py:871
-#, fuzzy
-msgid "Convert MIDI to LilyPond source."
+#: midi2ly.py:871 musicxml2ly.py:485
+#, fuzzy, python-format
+msgid "Convert %s to LilyPond input."
 msgstr "Kuri Inkomoko"
 
 #: midi2ly.py:875
@@ -481,13 +493,37 @@ msgstr "buri Umwandiko Nka a"
 
 #: midi2ly.py:905
 #, fuzzy
-msgid "example"
+msgid "Examples"
 msgstr "Urugero:"
 
-#: midi2ly.py:926
+#: midi2ly.py:925
 #, fuzzy
 msgid "no files specified on command line."
 msgstr "Oya Idosiye ku Komandi: Umurongo"
+
+#: musicxml2ly.py:473
+msgid "musicxml2ly FILE.xml"
+msgstr ""
+
+#: musicxml2ly.py:476
+#, fuzzy, python-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information."
+msgstr ""
+"Porogaramu ni Kigenga ni ku i Na Urakaza neza Kuri Guhindura>> Na Cyangwa "
+"Gukwirakwiza Amakopi Bya Nka kugirango"
+
+#: musicxml2ly.py:495
+msgid "Use lxml.etree; uses less memory and cpu time."
+msgstr ""
+
+#: musicxml2ly.py:503
+#, fuzzy
+msgid "set output filename to FILE"
+msgstr "Kwandika Ibisohoka Kuri"
 
 #: getopt-long.cc:140
 #, fuzzy, c-format
@@ -496,7 +532,7 @@ msgstr "Ihitamo"
 
 #: getopt-long.cc:144
 #, fuzzy, c-format
-msgid "option `%s' doesn't allow an argument"
+msgid "option `%s' does not allow an argument"
 msgstr "Ihitamo Kwemerera"
 
 #: getopt-long.cc:148
@@ -545,7 +581,7 @@ msgid ""
 msgstr ""
 
 #: align-interface.cc:329
-msgid "tried to get a translation for something that isn't my child"
+msgid "tried to get a translation for something that is no child of mine"
 msgstr ""
 
 #: all-font-metrics.cc:173
@@ -609,7 +645,7 @@ msgstr "Imiterere"
 
 #: beam-engraver.cc:246
 #, fuzzy
-msgid "stem doesn't fit in beam"
+msgid "stem does not fit in beam"
 msgstr "in"
 
 #: beam-engraver.cc:247
@@ -864,7 +900,7 @@ msgstr "Gitoya"
 
 #: horizontal-bracket-engraver.cc:59
 #, fuzzy
-msgid "don't have that many brackets"
+msgid "do not have that many brackets"
 msgstr "Udusodeko"
 
 #: horizontal-bracket-engraver.cc:68
@@ -974,9 +1010,9 @@ msgid "deprecated function called: %s"
 msgstr "Bitemewe. Ihitamo"
 
 #: lily-parser-scheme.cc:88
-#, c-format
-msgid "Changing working directory to `%s'"
-msgstr ""
+#, fuzzy, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "Dosiye ntibonetse"
 
 #: lily-parser-scheme.cc:106
 #, fuzzy, c-format
@@ -1041,9 +1077,8 @@ msgstr ""
 
 #: main.cc:153
 msgid ""
-"use backend BACK (gnome, ps,eps,\n"
-"scm, svg, tex, texstr)\n"
-"default: PS"
+"use backend BACK (eps, gnome, ps [default],\n"
+"scm, svg, tex, texstr)"
 msgstr ""
 
 #: main.cc:155
@@ -1052,7 +1087,7 @@ msgstr ""
 
 #: main.cc:156
 msgid ""
-"set Scheme program option SYM to VAL (default: #t)\n"
+"set Scheme option SYM to VAL (default: #t)\n"
 "Use -dhelp for help."
 msgstr ""
 
@@ -1079,46 +1114,40 @@ msgid "generate DVI (tex backend only)"
 msgstr ""
 
 #: main.cc:164
-msgid "relocate using directory of lilypond program"
-msgstr ""
-
-#: main.cc:165
 #, fuzzy
 msgid "generate PDF (default)"
 msgstr "Ibisohoka"
 
-#: main.cc:166
+#: main.cc:165
 #, fuzzy
 msgid "generate PNG"
 msgstr "Ipaji Ishusho"
 
-#: main.cc:167
+#: main.cc:166
 #, fuzzy
 msgid "generate PostScript"
 msgstr "Ibisohoka"
 
-#: main.cc:168
+#: main.cc:167
 msgid "generate TeX (tex backend only)"
 msgstr ""
 
-#: main.cc:169
+#: main.cc:168
 msgid "show this help and exit"
 msgstr ""
 
 # wizards/source\formwizard\dbwizres.src:RID_DB_REPORT_WIZARD_START_+_71.text
-#: main.cc:170
+#: main.cc:169
 #, fuzzy
 msgid "FIELD"
 msgstr "Umwanya"
 
-#: main.cc:170
+#: main.cc:169
 #, fuzzy
-msgid "dump a header field to file BASENAME.FIELD"
+msgid ""
+"dump header field FIELD to file\n"
+"named BASENAME.FIELD"
 msgstr "Kwandika Umutwempangano Umwanya Kuri"
-
-#: main.cc:171
-msgid "DIR"
-msgstr ""
 
 #: main.cc:171
 #, fuzzy
@@ -1156,15 +1185,21 @@ msgid "generate a preview of the first system"
 msgstr "Ubwoko a() y'Ishusho Bya i Itangira Sisitemu"
 
 #: main.cc:180
-msgid "disallow unsafe Scheme and PostScript operations"
+msgid "relocate using directory of lilypond program"
 msgstr ""
 
 #: main.cc:181
+msgid ""
+"disallow unsafe Scheme and PostScript\n"
+"operations"
+msgstr ""
+
+#: main.cc:183
 #, fuzzy
 msgid "show version number and exit"
 msgstr "Gucapa Verisiyo Umubare"
 
-#: main.cc:222
+#: main.cc:224
 #, fuzzy, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1172,87 +1207,87 @@ msgid ""
 msgstr "C Na Ibindi"
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:249
+#: main.cc:251
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr ""
 
-#: main.cc:251
+#: main.cc:253
 #, fuzzy, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "Na Cyangwa Bivuye"
 
-#: main.cc:253
+#: main.cc:255
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr ""
 
-#: main.cc:255
+#: main.cc:257
 #, fuzzy, c-format
 msgid "For more information, see %s"
 msgstr "Birenzeho Ibisobanuro"
 
-#: main.cc:257
+#: main.cc:259
 #, c-format
 msgid "Options:"
 msgstr "Amahitamo:"
 
-#: main.cc:261
+#: main.cc:263
 #, fuzzy, c-format
 msgid "Report bugs via %s"
 msgstr "Kuri"
 
-#: main.cc:307
+#: main.cc:309
 #, fuzzy, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr "3. Ikurikiranyanyuguti kugirango"
 
-#: main.cc:321
+#: main.cc:323
 #, fuzzy, c-format
 msgid "no such user: %s"
 msgstr "Oya Igenamiterere"
 
-#: main.cc:323
+#: main.cc:325
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
-#: main.cc:338
+#: main.cc:340
 #, fuzzy, c-format
 msgid "no such group: %s"
 msgstr "Oya Imvugiro"
 
-#: main.cc:340
+#: main.cc:342
 #, fuzzy, c-format
 msgid "cannot get group id from group name: %s: %s"
 msgstr "Guhindura>> Kuri"
 
-#: main.cc:348
+#: main.cc:350
 #, c-format
 msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:355
+#: main.cc:357
 #, fuzzy, c-format
 msgid "cannot change group id to: %d: %s"
 msgstr "Guhindura>> Kuri"
 
-#: main.cc:361
+#: main.cc:363
 #, fuzzy, c-format
 msgid "cannot change user id to: %d: %s"
 msgstr "Guhindura>> Kuri"
 
-#: main.cc:367
+#: main.cc:369
 #, c-format
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:413
+#: main.cc:415
 #, c-format
 msgid "Evaluating %s"
 msgstr ""
 
-#: main.cc:643
+#: main.cc:645
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -1355,7 +1390,7 @@ msgstr ""
 
 #: music.cc:141
 #, fuzzy, c-format
-msgid "octave check failed; expected \"%s\", found: %s"
+msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr "Kugenzura... Byanze Ikitezwe: Byabonetse"
 
 #: music.cc:207
@@ -1534,45 +1569,45 @@ msgstr "Kugenzura..."
 
 #: relocate.cc:44
 #, fuzzy, c-format
-msgid "Setting %s to %s\n"
+msgid "Setting %s to %s"
 msgstr "Inonosora..."
 
-#: relocate.cc:58
+#: relocate.cc:59
 #, fuzzy, c-format
 msgid "no such file: %s for %s"
 msgstr "Oya Imvugiro"
 
-#: relocate.cc:68 relocate.cc:86
+#: relocate.cc:69 relocate.cc:87
 #, fuzzy, c-format
 msgid "no such directory: %s for %s"
 msgstr "Oya Imvugiro"
 
-#: relocate.cc:78
+#: relocate.cc:79
 #, c-format
 msgid "%s=%s (prepend)\n"
 msgstr ""
 
-#: relocate.cc:98
+#: relocate.cc:99
 #, c-format
 msgid "Relocation: compile prefix=%s, new prefix=%s"
 msgstr ""
 
-#: relocate.cc:128
+#: relocate.cc:129
 #, c-format
 msgid "Relocation: framework_prefix=%s"
 msgstr ""
 
-#: relocate.cc:168
+#: relocate.cc:169
 #, c-format
 msgid "Relocation: is absolute: argv0=%s"
 msgstr ""
 
-#: relocate.cc:175
+#: relocate.cc:176
 #, c-format
 msgid "Relocation: from cwd: argv0=%s"
 msgstr ""
 
-#: relocate.cc:184
+#: relocate.cc:185
 #, c-format
 msgid ""
 "Relocation: from PATH=%s\n"
@@ -1580,18 +1615,12 @@ msgid ""
 msgstr ""
 
 # sfx2/source\appl\app.src:STR_ERR_NOFILE.text
-#: relocate.cc:353
+#: relocate.cc:354
 #, fuzzy, c-format
-msgid "Relocation file %s\n"
+msgid "Relocation file: %s"
 msgstr "Ntibishoboka gufungura idosiye$."
 
-# sfx2/source\appl\app.src:STR_ERR_NOFILE.text
-#: relocate.cc:358
-#, fuzzy, c-format
-msgid "cannot open file %s"
-msgstr "Ntibishoboka gufungura idosiye$."
-
-#: relocate.cc:388
+#: relocate.cc:390
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr ""
@@ -1644,7 +1673,7 @@ msgstr ""
 #. FIXME:
 #: script-engraver.cc:102
 #, fuzzy
-msgid "don't know how to interpret articulation: "
+msgid "do not know how to interpret articulation: "
 msgstr "Kuri"
 
 #: script-engraver.cc:103
@@ -2011,10 +2040,34 @@ msgstr "OYA a Igihe- ngombwa"
 msgid "symbol expected: ~S"
 msgstr ""
 
+#: define-music-types.scm:754
+#, fuzzy, scheme-format
+msgid "cannot find music object: ~S"
+msgstr "Gushaka"
+
+#: define-music-types.scm:774
+#, fuzzy, scheme-format
+msgid "unknown repeat type `~S'"
+msgstr "Kitazwi IMISUSIRE"
+
+#: define-music-types.scm:775
+msgid "See music-types.scm for supported repeats"
+msgstr ""
+
 #: document-backend.scm:91
 #, scheme-format
 msgid "pair expected in doc ~s"
 msgstr ""
+
+#: document-backend.scm:135
+#, fuzzy, scheme-format
+msgid "cannot find interface for property: ~S"
+msgstr "Gushaka Mburabuzi Intego- nyuguti"
+
+#: document-backend.scm:145
+#, fuzzy, scheme-format
+msgid "unknown Grob interface: ~S"
+msgstr "By'imbere Ihitamo"
 
 #: documentation-lib.scm:45
 #, fuzzy, scheme-format
@@ -2026,20 +2079,56 @@ msgstr "Inonosora..."
 msgid "Writing ~S..."
 msgstr ""
 
+#: documentation-lib.scm:172
+#, fuzzy, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "Gushaka Mburabuzi Intego- nyuguti"
+
 #: framework-eps.scm:91 framework-eps.scm:92
 #, fuzzy, scheme-format
 msgid "Writing ~a..."
 msgstr "Inonosora..."
 
-#: framework-ps.scm:349
+#: framework-ps.scm:279
 #, scheme-format
-msgid "do not know how to embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr ""
+
+#: framework-ps.scm:332
+#, scheme-format
+msgid "cannot extract file matching ~a from ~a"
+msgstr ""
+
+#: framework-ps.scm:349
+#, fuzzy, scheme-format
+msgid "do not know how to embed ~S=~S"
+msgstr "Kuri"
 
 #: framework-ps.scm:380
 #, fuzzy, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr "Kuri"
+
+#: framework-ps.scm:729
+#, scheme-format
+msgid "cannot convert <stdout> to ~S"
+msgstr ""
+
+#: framework-ps.scm:748 framework-ps.scm:751
+#, scheme-format
+msgid "cannot generate ~S using the postscript back-end"
+msgstr ""
+
+#: framework-ps.scm:758
+msgid ""
+"\n"
+"The PostScript backend does not support the 'classic'\n"
+"framework. Use the EPS backend instead,\n"
+"\n"
+"  lilypond -b eps <file>\n"
+"\n"
+"or remove the lilypond-book specific settings from the input.\n"
+msgstr ""
 
 #: framework-tex.scm:360
 #, fuzzy, scheme-format
@@ -2077,7 +2166,7 @@ msgstr ""
 
 #: lily.scm:144
 #, fuzzy, scheme-format
-msgid "Can't find ~A"
+msgid "cannot find: ~A"
 msgstr "Gushaka"
 
 #: lily.scm:209
@@ -2115,7 +2204,7 @@ msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr ""
 
 #: music-functions.scm:213
-msgid "More alternatives than repeats. Junking excess alternatives"
+msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
 #: music-functions.scm:232
@@ -2134,6 +2223,16 @@ msgstr ""
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr ""
 
+#: music-functions.scm:748
+#, fuzzy, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "Gushaka"
+
+#: music-functions.scm:942
+#, fuzzy, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "Kitazwi"
+
 #: output-ps.scm:315
 msgid "utf-8-string encountered in PS backend"
 msgstr ""
@@ -2142,6 +2241,16 @@ msgstr ""
 #, scheme-format
 msgid "undefined: ~S"
 msgstr ""
+
+#: output-svg.scm:132
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr ""
+
+#: output-tex.scm:98
+#, fuzzy, scheme-format
+msgid "cannot find ~a in ~a"
+msgstr "Gushaka Gutangira Bya"
 
 #: paper.scm:69
 msgid "Not in toplevel scope"
@@ -2183,6 +2292,29 @@ msgid "assertion failed: ~S"
 msgstr "Byanze"
 
 #, fuzzy
+#~ msgid "show warranty"
+#~ msgstr "Garagaza Na Uburenganzira bw'umuhimbyi"
+
+#, fuzzy
+#~ msgid ""
+#~ "Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.\n"
+#~ "\n"
+#~ "Example usage:\n"
+#~ "\n"
+#~ " lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
+#~ " lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
+#~ " lilypond-book --process='lilypond -I include' BOOK\n"
+#~ msgstr "0."
+
+#, fuzzy
+#~ msgid "Convert MIDI to LilyPond source."
+#~ msgstr "Kuri Inkomoko"
+
+#, fuzzy
+#~ msgid "example"
+#~ msgstr "Urugero:"
+
+#, fuzzy
 #~ msgid "loading default font"
 #~ msgstr "Mburabuzi Intego- nyuguti"
 
@@ -2198,41 +2330,14 @@ msgstr "Byanze"
 #~ msgid "print this help"
 #~ msgstr "Gucapa iyi Ifashayobora"
 
+# sfx2/source\appl\app.src:STR_ERR_NOFILE.text
+#, fuzzy
+#~ msgid "cannot open file %s"
+#~ msgstr "Ntibishoboka gufungura idosiye$."
+
 #, fuzzy
 #~ msgid "Incorrect lilypond version: %s (%s, %s)"
 #~ msgstr "Verisiyo"
-
-#, fuzzy
-#~ msgid "cannot find music object: ~S"
-#~ msgstr "Gushaka"
-
-#, fuzzy
-#~ msgid "unknown repeat type `~S'"
-#~ msgstr "Kitazwi IMISUSIRE"
-
-#, fuzzy
-#~ msgid "cannot find interface for property: ~S"
-#~ msgstr "Gushaka Mburabuzi Intego- nyuguti"
-
-#, fuzzy
-#~ msgid "unknown Grob interface: ~S"
-#~ msgstr "By'imbere Ihitamo"
-
-#, fuzzy
-#~ msgid "cannot find description for property ~S (~S)"
-#~ msgstr "Gushaka Mburabuzi Intego- nyuguti"
-
-#, fuzzy
-#~ msgid "cannot find quoted music `~S'"
-#~ msgstr "Gushaka"
-
-#, fuzzy
-#~ msgid "unknown accidental style: ~S"
-#~ msgstr "Kitazwi"
-
-#, fuzzy
-#~ msgid "cannot find ~a in ~a"
-#~ msgstr "Gushaka Gutangira Bya"
 
 #, fuzzy
 #~ msgid "no one to print a tremolos"
@@ -2336,14 +2441,6 @@ msgstr "Byanze"
 #, fuzzy
 #~ msgid "command exited with value %d"
 #~ msgstr "Komandi: Na: Agaciro"
-
-#, fuzzy
-#~ msgid "Example:"
-#~ msgstr "Urugero:"
-
-#, fuzzy
-#~ msgid "Convert mup to LilyPond source."
-#~ msgstr "Kuri Inkomoko"
 
 # Debug menu items
 #, fuzzy
@@ -2533,7 +2630,7 @@ msgstr "Byanze"
 #~ msgstr "Ikosa"
 
 #, fuzzy
-#~ msgid "Can't switch translators, I'm there already"
+#~ msgid "Cannot switch translators, I'm there already"
 #~ msgstr "Hindura"
 
 #, fuzzy
@@ -2596,7 +2693,7 @@ msgstr "Byanze"
 #~ msgstr "Gumana: Byose Ibisohoka Ibisohoka Kuri bushyinguro"
 
 #, fuzzy
-#~ msgid "do not run LilyPond"
+#~ msgid "donnot run LilyPond"
 #~ msgstr "Gukoresha"
 
 #, fuzzy
@@ -2687,10 +2784,6 @@ msgstr "Byanze"
 #~ msgstr "Gushaka IDOSIYE"
 
 #, fuzzy
-#~ msgid "Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document"
-#~ msgstr "in Cyangwa Inyandiko"
-
-#, fuzzy
 #~ msgid "DIM"
 #~ msgstr "Byijimye"
 
@@ -2728,11 +2821,11 @@ msgstr "Byanze"
 #~ msgstr "Mbere"
 
 #, fuzzy
-#~ msgid "do not run lilypond"
+#~ msgid "donnot run lilypond"
 #~ msgstr "Gukoresha"
 
 #, fuzzy
-#~ msgid "do not generate pictures"
+#~ msgid "donnot generate pictures"
 #~ msgstr "Amashusho"
 
 #, fuzzy

@@ -210,7 +210,7 @@ Returns `obj'.
   "create a repeat music expression, with all properties initialized properly"
   (let ((talts (if (< times (length alts))
 		   (begin
-		     (ly:warning (_ "More alternatives than repeats. Junking excess alternatives"))
+		     (ly:warning (_ "More alternatives than repeats.  Junking excess alternatives"))
 		     (take alts times))
 		   alts))
 	(r (make-repeated-music name)))
@@ -745,7 +745,7 @@ Syntax:
 	      (set! (ly:music-property music 'quoted-events) quoted-vector)
 	      (set! (ly:music-property music 'iterator-ctor)
 		    ly:quote-iterator::constructor))
-	    (ly:warning (_ cannot find quoted music `~S'" quoted-name))))
+	    (ly:warning (_ "cannot find quoted music: `~S'" quoted-name))))
     music))
 
 

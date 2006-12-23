@@ -150,10 +150,10 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (gnome, ps,eps,\nscm, svg, tex, texstr)\ndefault: PS")},
+  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (eps, gnome, ps [default],\nscm, svg, tex, texstr)")},
 
   {_i ("SYM[=VAL]"), "define-default", 'd',
-   _i ("set Scheme program option SYM to VAL (default: #t)\n"
+   _i ("set Scheme option SYM to VAL (default: #t)\n"
        "Use -dhelp for help.")},
 
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
@@ -161,13 +161,13 @@ static Long_option_init options_static[]
      for --output-format.  */
   {_i ("FORMATs"), "formats", 'f', _i ("dump FORMAT,...  Also as separate options:")},
   {0, "dvi", 0, _i ("generate DVI (tex backend only)")},
-  {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
   {0, "pdf", 0, _i ("generate PDF (default)")},
   {0, "png", 0, _i ("generate PNG")},
   {0, "ps", 0, _i ("generate PostScript")},
   {0, "tex", 0, _i ("generate TeX (tex backend only)")},
   {0, "help", 'h',  _i ("show this help and exit")},
-  {_i ("FIELD"), "header", 'H',  _i ("dump a header field to file BASENAME.FIELD")},
+  {_i ("FIELD"), "header", 'H',  _i ("dump header field FIELD to file\n"
+				     "named BASENAME.FIELD")},
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
 #if HAVE_CHROOT
@@ -177,7 +177,9 @@ static Long_option_init options_static[]
   {0, "no-print", 0, _i ("do not generate printed output")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
-  {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript operations")},
+  {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
+  {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript\n"
+			     "operations")},
   {0, "version", 'v',  _i ("show version number and exit")},
   {0, "verbose", 'V', _i ("be verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},

@@ -169,7 +169,7 @@ with init values from ALIST (1st optional argument)
 	 (handle (assoc sym alist)))
 
     (if (eq? desc #f)
-	(ly:error (_ cannot find description for property ~S (~S)") sym where))
+	(ly:error (_ "cannot find description for property ~S (~S)") sym where))
     
     (cons
      (string-append "@code{" name "} "

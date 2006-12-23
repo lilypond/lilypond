@@ -328,7 +328,7 @@ def gulp_file(f):
         n = i.tell ()
         i.seek (0,0)
     except:
-        sys.stderr.write (cannot open file: `%s'\n" % f)
+        sys.stderr.write ("cannot open file: `%s'\n" % f)
         return ''
     s = i.read (n)
     if len (s) <= 0:
@@ -1338,7 +1338,7 @@ def identify():
     sys.stderr.write ("%s from LilyPond %s\n" % (program_name, version))
 
 authors = """
-Written by Han-Wen Nienhuys <hanwen@cs.uu.nl>, Laura Conrad
+Written by Han-Wen Nienhuys <hanwen@xs4all.nl>, Laura Conrad
 <lconrad@laymusic.org>, Roy Rankin <Roy.Rankin@@alcatel.com.au>.
 """
 
@@ -1346,28 +1346,29 @@ def print_version ():
     print r"""abc2ly (GNU lilypond) %s""" % version
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='abc2ly [OPTIONS] FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'abc2ly',
                  version="abc2ly (LilyPond) @TOPLEVEL_VERSION@",
-                 description=_('''This program converts ABC music files (see
-http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input.'''))
+                 description=_ ('''abc2ly converts ABC music files (see
+%s) to LilyPond input.''') % 'http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt')
 
-    p.add_option ('-o', '--output', metavar='FILE',help=_("set output filename to FILE"),
-           action='store')
-    p.add_option ('-s', '--strict', help=_("be strict about succes"),
-           action='store_true')
-    p.add_option ('-b', '--beams', help=_("preserve ABC's notion of beams"))
-    p.add_option_group  ('bugs',
-              description='''Report bugs via http://post.gmane.org/post.php'''
-              '''?group=gmane.comp.gnu.lilypond.bugs\n''')
-    
+    p.add_option ('-o', '--output', metavar='FILE',
+                  help=_ ("write output to FILE"),
+                  action='store')
+    p.add_option ('-s', '--strict', help=_ ("be strict about succes"),
+                  action='store_true')
+    p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"))
+    p.add_option_group ('bugs',
+                        description=(_ ('Report bugs via')
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
 
-option_parser = get_option_parser()
-(global_options, files) = option_parser.parse_args()
+option_parser = get_option_parser ()
+(global_options, files) = option_parser.parse_args ()
 
 
-identify()
+identify ()
 
 header['tagline'] = 'Lily was here %s -- automatically converted from ABC' % version
 for f in files:

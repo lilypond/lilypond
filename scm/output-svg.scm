@@ -129,7 +129,7 @@
 	  (set! size
 		(string->number (match:substring match 3))))
 
-	(ly:warning (_ cannot decypher Pango description: ~a") str))
+	(ly:warning (_ "cannot decypher Pango description: ~a") str))
 
     (set! style
 	  (if (string? style)
