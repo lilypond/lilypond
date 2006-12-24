@@ -197,4 +197,9 @@ Type:
     make$mc install   to install LilyPond
     make$mc help      to see all possible targets
 
+Edit local.make for local Makefile overrides.
+
+
 EOF
+
+touch local.make
