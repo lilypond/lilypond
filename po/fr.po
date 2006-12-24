@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2006-10-22 11:13+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
@@ -420,7 +420,7 @@ msgstr "le traitement avec dvips n'aura pas de polices"
 msgid "DVIPS usage:"
 msgstr "utilisation de DVIPS :"
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 msgid "warning: "
 msgstr "AVERTISSEMENT : "
 
@@ -914,7 +914,7 @@ msgstr "trait d'union sans suite ; escamoté"
 msgid "include files are not allowed in safe mode"
 msgstr "l'inclusion de fichiers n'est pas permise en mode sécurisé"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "impossible de trouver le fichier : « %s »"
@@ -956,25 +956,25 @@ msgstr "le silence est ignoré : une ligature ne peut contenir de silence"
 msgid "ligature was started here"
 msgstr "la ligature a débuté ici"
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(chemin de chargement : « %s »)"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Vérification de type de propriété pour « %s » (%s) non trouvée."
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 msgid "perhaps a typing error?"
 msgstr "s'agit-il d'une faute de frappe ?"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 msgid "doing assignment anyway"
 msgstr "affectation faite malgré tout"
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -1370,11 +1370,7 @@ msgstr "Mensural_ligature : (join_right == 0)"
 msgid "no such MIDI instrument: `%s'"
 msgstr "instrument MIDI inconnu : « %s »"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr "hauteur étrange"
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "expérimental : ajustement temporaire (de %d centièmes) du canal."
@@ -2141,19 +2137,19 @@ msgstr "Erreur de définition du lien : attendait ~S 0, repéré ~S."
 msgid "Calculating page breaks..."
 msgstr "Calcul des sauts de page..."
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "unité inconnue : « ~S »"
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 "pas de déclaration \\version trouvée, ajoutez ~a pour une compatibilité "
 "future"
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr "compatibilité avec l'ancien mode relatif non utilisée"
 
@@ -2287,6 +2283,9 @@ msgstr "~a terminé avec l'état : ~S"
 #, fuzzy, scheme-format
 msgid "assertion failed: ~S"
 msgstr "erreur d'assertion"
+
+#~ msgid "silly pitch"
+#~ msgstr "hauteur étrange"
 
 #~ msgid "show warranty"
 #~ msgstr "afficher la notice de garantie"

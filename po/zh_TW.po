@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2005-06-29 05:00+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -398,7 +398,7 @@ msgstr ""
 msgid "DVIPS usage:"
 msgstr "DVIPS 用法："
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 msgid "warning: "
 msgstr "警告："
 
@@ -870,7 +870,7 @@ msgstr ""
 msgid "include files are not allowed in safe mode"
 msgstr "安全模式中不允許再包含另一個檔案的內容"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "找不到檔案: ‘%s’"
@@ -912,25 +912,25 @@ msgstr "忽略休止符；樂句中不可含有休止符"
 msgid "ligature was started here"
 msgstr "樂句在這裡開始"
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(載入路徑：‘%s’)"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 msgid "perhaps a typing error?"
 msgstr "是否打錯字？"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 msgid "doing assignment anyway"
 msgstr ""
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -1293,11 +1293,7 @@ msgstr "Mensural_ligature: (join_right == 0)"
 msgid "no such MIDI instrument: `%s'"
 msgstr "MIDI 樂器不存在: ‘%s’"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr ""
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr ""
@@ -2043,17 +2039,17 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr "正在計算頁面分割位置..."
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr ""
 

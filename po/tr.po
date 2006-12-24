@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.3.21\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2005-03-14 04:59+0200\n"
 "Last-Translator: Olcay Yıldırım <olcayyildirim2003@yahoo.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -401,7 +401,7 @@ msgstr ""
 msgid "DVIPS usage:"
 msgstr ""
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 msgid "warning: "
 msgstr "uyarı:"
 
@@ -891,7 +891,7 @@ msgstr "sonlandırılmamış kısa çizgi; kaldırılıyor"
 msgid "include files are not allowed in safe mode"
 msgstr "güvenli kipte dosyaların içerilmesine izin verilmiyor"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "dosya bulunamıyor: `%s'"
@@ -933,27 +933,27 @@ msgstr "gerisini yok sayıyor: bağ gerisini içermeyebilir"
 msgid "ligature was started here"
 msgstr "bağ buradan başlatıldı"
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(yolu yükle: `%s')"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, fuzzy, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "`%s' (%s) için nitelik tür-denetimi bulunamıyor."
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 #, fuzzy
 msgid "perhaps a typing error?"
 msgstr "Galiba bir daktilo hatası yaptınız?"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 #, fuzzy
 msgid "doing assignment anyway"
 msgstr "Görev yine de yapılıyor."
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, fuzzy, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
@@ -1339,11 +1339,7 @@ msgstr "Mensural_bağ: [katılma_sol == 0]"
 msgid "no such MIDI instrument: `%s'"
 msgstr "böyle bir MIDI aracı yok: `%s'"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr "saçma perde"
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, fuzzy, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "Deneysel: geçici olarak bir kanala ince akort yapılıyor (%d cents)."
@@ -2116,17 +2112,17 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr "Satır bölünmeleri sayılıyor..."
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, fuzzy, scheme-format
 msgid "unknown unit: ~S"
 msgstr "bilinmeyen çevirmen: `%s'"
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr ""
 
@@ -2259,6 +2255,9 @@ msgstr "komut %d değeriyle sonlandı"
 #, fuzzy, scheme-format
 msgid "assertion failed: ~S"
 msgstr "LaTeX başarısız oldu."
+
+#~ msgid "silly pitch"
+#~ msgstr "saçma perde"
 
 #, fuzzy
 #~ msgid "show warranty"
@@ -2674,7 +2673,7 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "keep all output, output to directory %s.dir"
 #~ msgstr "bütün çıktıyı sakla, çıktıyı %s dizinine yönlendir"
 
-#~ msgid "donnot run LilyPond"
+#~ msgid "do not run LilyPond"
 #~ msgstr "LilyPond'u çalıştırma"
 
 #~ msgid "produce MIDI output only"
@@ -2862,10 +2861,10 @@ msgstr "LaTeX başarısız oldu."
 #~ msgid "prepend PREF before each -M dependency"
 #~ msgstr "her bir -M bağımlılığının başına PREF ekle"
 
-#~ msgid "donnot run lilypond"
+#~ msgid "do not run lilypond"
 #~ msgstr "lilypond'u çalıştırma"
 
-#~ msgid "donnot generate pictures"
+#~ msgid "do not generate pictures"
 #~ msgstr "resim üretme"
 
 #~ msgid "strip all lilypond blocks from output"

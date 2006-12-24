@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2006-11-04 02:19+0200\n"
 "Last-Translator: hjunes\n"
 "Language-Team:  <en@li.org>\n"
@@ -416,7 +416,7 @@ msgstr "prosessointi dvips:illä ei sisällä fontteja"
 msgid "DVIPS usage:"
 msgstr "DVIPS käyttö:"
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 msgid "warning: "
 msgstr "varoitus: "
 
@@ -897,7 +897,7 @@ msgstr "päättämätön tavuviiva"
 msgid "include files are not allowed in safe mode"
 msgstr "sisällytettävät tiedostot eivät ole sallittuja turvatilassa"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "tiedostoa ei löydy: `%s'"
@@ -939,25 +939,25 @@ msgstr "ligature ei voi sisältää taukoa; sivuutetaan tauko"
 msgid "ligature was started here"
 msgstr "ligature alkoi tästä"
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(hakupolku: `%s')"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Ei löytynyt tyyppitarkistusta ominaisuudelle `%s' (%s)."
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 msgid "perhaps a typing error?"
 msgstr "ehkä näppäilyvirhe?"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 msgid "doing assignment anyway"
 msgstr "suoritetaan tehtävä joka tapauksessa"
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "tyypin `%s' tarkistus epäonnistui; arvon `%s' on oltava tyyppiä `%s'"
@@ -1342,11 +1342,7 @@ msgstr "Mensural_ligature: (join_right == 0)"
 msgid "no such MIDI instrument: `%s'"
 msgstr "ei löytynyt MIDI-instrumenttia: `%s'"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr "sekava äänenkorkeus"
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "kokeellinen: viritetään väliaisesti (%d senttiä) kanavaa."
@@ -2110,19 +2106,19 @@ msgstr "Virhe palkin laskennassa.  Odotettiin ~S 0, löytyi ~S."
 msgid "Calculating page breaks..."
 msgstr "Lasketaan sivunvaihtoja..."
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "tuntematon yksikkö: ~S"
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 "ei löytynyt \\version-määrittelyä, ole hyvä ja lisää~a yhteensopivuuden "
 "varalle"
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr "vanhaa relative -yhteensopivuutta ei käytetty"
 
@@ -2254,6 +2250,9 @@ msgstr "~a komento lopetettiin tilassa: ~S"
 #, fuzzy, scheme-format
 msgid "assertion failed: ~S"
 msgstr "ajaminen epäonnistui"
+
+#~ msgid "silly pitch"
+#~ msgstr "sekava äänenkorkeus"
 
 #~ msgid "show warranty"
 #~ msgstr "näytä takuusitoumus"

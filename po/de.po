@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.9.26\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2006-10-26 08:39+0200\n"
 "Last-Translator: Roland Stigge <stigge@antcom.de>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -416,7 +416,7 @@ msgstr "Verarbeitung mit dvips wird keine Schriftarten haben"
 msgid "DVIPS usage:"
 msgstr "DVIPS-Aufruf:"
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 msgid "warning: "
 msgstr "Warnung: "
 
@@ -899,7 +899,7 @@ msgstr "unbegrenzter Bindestrich; entfernt"
 msgid "include files are not allowed in safe mode"
 msgstr "eingefügte Dateien sind im abgesicherten Modus nicht erlaubt"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, c-format
 msgid "cannot find file: `%s'"
 msgstr "Datei »%s« kann nicht gefunden werden"
@@ -941,25 +941,25 @@ msgstr "Pause wird ignoriert: Bindung darf keine Pause enthalten"
 msgid "ligature was started here"
 msgstr "Bindung wurde hier begonnen"
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(Lade-Pfad: `%s')"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Eigenschafts-Typprüfung für »%s« (%s) kann nicht gefunden werden."
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 msgid "perhaps a typing error?"
 msgstr "vielleicht ein Tippfehler?"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 msgid "doing assignment anyway"
 msgstr "Zuweisung wird trotzdem durchgeführt"
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "Typprüfung für »%s« gescheitert; Wert »%s« muss vom Typ »%s« sein"
@@ -1349,11 +1349,7 @@ msgstr "Mensural_ligature: (join_right == 0)"
 msgid "no such MIDI instrument: `%s'"
 msgstr "kein solches MIDI-Instrument: `%s'"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr "sinnlose Tonhöhe"
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr ""
@@ -2117,19 +2113,19 @@ msgstr "Fehler bei Balkenzuschnitt. ~S 0 erwartet, ~S gefunden."
 msgid "Calculating page breaks..."
 msgstr "Zeilenumbrüche werden berechnet..."
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "unbekannte Einheit: ~S"
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, fuzzy, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 "keine \\version-Anweisung gefunden, ~a für zukünftige Kompatibilität "
 "hinzufügen"
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr "alte relative Kompatibilität nicht verwendet"
 
@@ -2262,6 +2258,9 @@ msgstr "~a mit Rückgabewert ~S beendet"
 #, fuzzy, scheme-format
 msgid "assertion failed: ~S"
 msgstr "Behauptung gescheitert"
+
+#~ msgid "silly pitch"
+#~ msgstr "sinnlose Tonhöhe"
 
 #~ msgid "show warranty"
 #~ msgstr "Gewährleistung anzeigen"
@@ -2678,7 +2677,7 @@ msgstr "Behauptung gescheitert"
 #~ msgid "keep all output, output to directory %s.dir"
 #~ msgstr "Alle Ausgaben aufbewahren, ins Verzeichnis %s.dir ausgeben"
 
-#~ msgid "donnot run LilyPond"
+#~ msgid "do not run LilyPond"
 #~ msgstr "LilyPond nicht aufrufen"
 
 #~ msgid "produce MIDI output only"
@@ -2901,10 +2900,10 @@ msgstr "Behauptung gescheitert"
 #~ msgid "prepend PREF before each -M dependency"
 #~ msgstr "stelle PRÄF den -M Abhängigkeiten voran"
 
-#~ msgid "donnot run lilypond"
+#~ msgid "do not run lilypond"
 #~ msgstr "LilyPond nicht aufrufen"
 
-#~ msgid "donnot generate pictures"
+#~ msgid "do not generate pictures"
 #~ msgstr "keine Bilder generieren"
 
 #~ msgid "strip all lilypond blocks from output"

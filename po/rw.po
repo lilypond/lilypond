@@ -16,7 +16,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.2.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 15:30+0100\n"
+"POT-Creation-Date: 2006-12-24 10:40+0100\n"
 "PO-Revision-Date: 2005-04-04 10:55-0700\n"
 "Last-Translator: Steven Michael Murphy <murf@e-tools.com>\n"
 "Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
@@ -419,7 +419,7 @@ msgstr ""
 msgid "DVIPS usage:"
 msgstr ""
 
-#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
+#: midi2ly.py:106 lily-library.scm:624 lily-library.scm:632
 #, fuzzy
 msgid "warning: "
 msgstr "Iburira!"
@@ -921,7 +921,7 @@ msgstr ""
 msgid "include files are not allowed in safe mode"
 msgstr "Gushyiramo Idosiye OYA"
 
-#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
+#: includable-lexer.cc:60 lily-guile.cc:90 lily-parser-scheme.cc:116
 #, fuzzy, c-format
 msgid "cannot find file: `%s'"
 msgstr "Gushaka IDOSIYE"
@@ -969,27 +969,27 @@ msgstr "Gicurasi OYA"
 msgid "ligature was started here"
 msgstr ""
 
-#: lily-guile.cc:96
+#: lily-guile.cc:92
 #, fuzzy, c-format
 msgid "(load path: `%s')"
 msgstr "(Ibirimo Inzira"
 
-#: lily-guile.cc:459
+#: lily-guile.cc:518
 #, fuzzy, c-format
 msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Gushaka indangakintu Ubwoko Kugenzura... kugirango"
 
-#: lily-guile.cc:462
+#: lily-guile.cc:521
 #, fuzzy
 msgid "perhaps a typing error?"
 msgstr "a Kwandika: Ikosa"
 
-#: lily-guile.cc:468
+#: lily-guile.cc:527
 #, fuzzy
 msgid "doing assignment anyway"
 msgstr "Igenera"
 
-#: lily-guile.cc:480
+#: lily-guile.cc:539
 #, fuzzy, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "Kugenzura... kugirango Byanze Agaciro Bya Ubwoko"
@@ -1364,11 +1364,7 @@ msgstr "0"
 msgid "no such MIDI instrument: `%s'"
 msgstr "Oya"
 
-#: midi-item.cc:273
-msgid "silly pitch"
-msgstr ""
-
-#: midi-item.cc:289
+#: midi-item.cc:285
 #, fuzzy, c-format
 msgid "experimental: temporarily fine tuning (of %d cents) a channel."
 msgstr "Bya a"
@@ -2150,17 +2146,17 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr "Umurongo Amataruka"
 
-#: lily-library.scm:582
+#: lily-library.scm:593
 #, fuzzy, scheme-format
 msgid "unknown unit: ~S"
 msgstr "Kitazwi Umusemuzi"
 
-#: lily-library.scm:615
+#: lily-library.scm:626
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:622
+#: lily-library.scm:633
 msgid "old relative compatibility not used"
 msgstr ""
 
@@ -2693,7 +2689,7 @@ msgstr "Byanze"
 #~ msgstr "Gumana: Byose Ibisohoka Ibisohoka Kuri bushyinguro"
 
 #, fuzzy
-#~ msgid "donnot run LilyPond"
+#~ msgid "do not run LilyPond"
 #~ msgstr "Gukoresha"
 
 #, fuzzy
@@ -2821,11 +2817,11 @@ msgstr "Byanze"
 #~ msgstr "Mbere"
 
 #, fuzzy
-#~ msgid "donnot run lilypond"
+#~ msgid "do not run lilypond"
 #~ msgstr "Gukoresha"
 
 #, fuzzy
-#~ msgid "donnot generate pictures"
+#~ msgid "do not generate pictures"
 #~ msgstr "Amashusho"
 
 #, fuzzy
