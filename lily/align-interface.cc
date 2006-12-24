@@ -326,7 +326,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
 	return 0;
     }
 
-  programming_error (_ ("tried to get a translation for something that isn't my child"));
+  programming_error (_ ("tried to get a translation for something that is no child of mine"));
   return 0;
 }
 

@@ -148,7 +148,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 	  if (d)
 	    ordered_rests[d].push_back (rests[i]);
 	  else
-	    rests[d]->warning (_ ("can't resolve rest collision: rest direction not set"));
+	    rests[d]->warning (_ ("cannot resolve rest collision: rest direction not set"));
 	}
 
       Direction d = LEFT;

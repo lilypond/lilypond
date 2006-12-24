@@ -243,7 +243,7 @@ Beam_engraver::acknowledge_stem (Grob_info info)
   int durlog = unsmob_duration (ev->get_property ("duration"))->duration_log ();
   if (durlog <= 2)
     {
-      ev->origin ()->warning (_ ("stem doesn't fit in beam"));
+      ev->origin ()->warning (_ ("stem does not fit in beam"));
       prev_start_ev_->origin ()->warning (_ ("beam was started here"));
       /*
 	don't return, since

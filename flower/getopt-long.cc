@@ -141,7 +141,7 @@ Getopt_long::report (Errorcod c)
 		 found_option_->to_string ());
       break;
     case E_NOARGEXPECT:
-      str += _f ("option `%s' doesn't allow an argument",
+      str += _f ("option `%s' does not allow an argument",
 		 found_option_->to_string ());
       break;
     case E_UNKNOWNOPTION:

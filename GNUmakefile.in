@@ -41,9 +41,10 @@ dist-changelog:
 		cp $(top-src-dir)/ChangeLog $(distdir) ; \
 	fi
 
-default: $(outdir)/VERSION
+all: $(outdir)/VERSION
 
 $(outdir)/VERSION: $(config_make) VERSION
+	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
 dist-toplevel-txt-files:
@@ -56,8 +57,7 @@ doc:
 
 install-WWW:
 	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	cp -a $(outdir)/web-root/ $(DESTDIR)$(webdir)/
-
+	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
 
@@ -80,46 +80,18 @@ local-install:
 final-install:
 	@true
 
-web-ext = html midi pdf png txt ly signature
 
-# For docball, issue `make web CONTENT_NEGOTIATION='
-CONTENT_NEGOTIATION = --content-negotiation
-footify = $(PYTHON) $(step-bindir)/add-html-footer.py --name $(PACKAGE_NAME) --version $(TOPLEVEL_VERSION) $(CONTENT_NEGOTIATION)
-footifymail = MAILADDRESS='http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
-
-
+# For online docs with content negotiation, issue `make web WEB_TARGETS=online'
+# For both online and offline docs, issue `make web WEB_TARGETS="offline online"'
+WEB_TARGETS = offline
 
 local-WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
-	echo '<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">' > $(outdir)/index.html
-	echo '<html><body>Redirecting to the documentation index...</body></html>' >> $(outdir)/index.html
-
-	cd $(top-build-dir) && $(FIND) . -name '*.html' -print | $(footifymail) xargs $(footify)
-
-	cd $(top-build-dir) && find Documentation input \
-		$(web-ext:%=-path '*/out-www/*.%' -or) -type l \
-		| grep -v 'lily-[0-9a-f]*.*pdf' \
-		| grep -v '/fr/' \
-		> $(outdir)/weblist
-	ls $(outdir)/*.html >> $(outdir)/weblist
-
-## urg: this is too hairy, should write a python script to do this.
-
-## rewrite file names so we lose out-www
-	rm -rf $(outdir)/web-root/ 
-	mkdir $(outdir)/web-root/
-## urg slow.
-	cat $(outdir)/weblist | (cd $(top-build-dir); tar -cf-  -T- ) | \
-		tar -C $(outdir)/web-root/ -xf -  
-	for dir in $(outdir)/web-root/ ; do  \
-		cd $$dir && \
-		for a in `find . -name out-www`; do \
-			rsync -a  --link-dest $$a/ $$a/ $$a/.. ; \
-			rm -rf $$a ; \
-		done \
-	done
+	rm -rf $(outdir)/online-root
+	rm -rf $(outdir)/offline-root
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(outdir) "$(WEB_TARGETS)"
 
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin

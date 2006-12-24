@@ -58,7 +58,7 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-	event_drul_[STOP]->origin ()->warning (_ ("can't find start of text spanner"));
+	event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
       else
 	{
 	  finished_ = span_;
