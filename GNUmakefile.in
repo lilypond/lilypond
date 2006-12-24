@@ -199,11 +199,12 @@ $(config_h): config.hh.in
 	@false
 
 
-test:
+test-clean:
 	$(MAKE) -C input/regression/ out=test clean
 
+test:
 ## no aa-scaling, no PDF
-	$(MAKE) -C input/regression/ out=test WWW LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps,png $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=1"
+	$(MAKE) -C input/regression/ out=test WWW LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps,png $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE=
 
 RESULT_DIR=$(top-build-dir)/out/test-results/
 check: test
