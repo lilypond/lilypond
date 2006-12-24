@@ -56,6 +56,17 @@ Rational::Rational (int n, int d)
   normalize ();
 }
 
+Rational::Rational (int n)
+{
+  sign_ = ::sign (n);
+  num_ = ::abs (n);
+  den_ = 1;
+}
+
+
+/*
+  We can actually do a little better. See Knuth 4.5.2
+ */
 static inline
 int gcd (int a, int b)
 {
