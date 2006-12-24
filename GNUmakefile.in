@@ -205,10 +205,10 @@ $(config_h): config.hh.in
 
 test:
 	$(MAKE) -C input/regression/ out=test clean
-	$(MAKE) -C input/regression/ out=test WWW ANTI_ALIAS_FACTOR=1
 
+## no aa-scaling, no PDF
+	$(MAKE) -C input/regression/ out=test WWW LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps,png $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=1"
 
-CHECK_SOURCE=$(HOME)/vc/gub/target/linux-x86/build/lilypond-master-git.sv.gnu.org-lilypond.git/input/regression/out-test/
 RESULT_DIR=$(top-build-dir)/out/test-results/
 check: test
 	rm -rf $(RESULT_DIR)
