@@ -1,5 +1,5 @@
 
 
-local-WWW: $(outdir)/$(NAME).html $(outdir)/$(NAME).pdf
+local-WWW: $(outdir)/collated-files.html $(outdir)/collated-files.pdf
 
 #.PRECIOUS: $(outdir)/$(NAME).texi
