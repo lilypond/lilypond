@@ -32,6 +32,11 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
+#
+# Set
+# CHECK_SOURCE=
+-include local.make
+
 local-dist: dist-toplevel-txt-files dist-changelog
 
 dist-changelog:
