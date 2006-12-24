@@ -32,6 +32,11 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
+#
+# Set
+# CHECK_SOURCE=
+-include local.make
+
 local-dist: dist-toplevel-txt-files 
 
 default: $(outdir)/VERSION
@@ -199,7 +204,6 @@ test:
 	$(MAKE) -C input/regression/ out=test WWW ANTI_ALIAS_FACTOR=1
 
 
-CHECK_SOURCE=$(HOME)/vc/gub/target/linux-x86/build/lilypond-master-git.sv.gnu.org-lilypond.git/input/regression/out-test/
 RESULT_DIR=$(top-build-dir)/out/test-results/
 check: test
 	rm -rf $(RESULT_DIR)
