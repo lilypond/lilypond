@@ -1,8 +1,8 @@
 \header
 {
-texidoc =  "should deliver f' in MIDI"
-  }
-
+  texidoc =  "should deliver f' in MIDI"
+}
+\version "2.10.5"
 
 \score {
   {
