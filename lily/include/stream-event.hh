@@ -18,14 +18,15 @@ class Stream_event : public Prob
 public:
   Stream_event ();
   VIRTUAL_COPY_CONSTRUCTOR (Stream_event, Stream_event);
-  // todo: remove unneeded constructors
+
   Stream_event (SCM event_class, SCM mutable_props=SCM_EOL);
   Stream_event (SCM class_name, Input *);
-  Stream_event (Stream_event *ev);
 
   Input *origin () const;
   void set_spot (Input *i);
   bool internal_in_event_class (SCM class_name);
+
+  virtual SCM copy_mutable_properties () const;
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
@@ -36,5 +37,6 @@ public:
 
 Stream_event *unsmob_stream_event (SCM);
 DECLARE_TYPE_P (Stream_event);
+SCM ly_event_deep_copy (SCM);
 
 #endif /* STREAM_EVENT_HH */

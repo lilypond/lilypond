@@ -184,7 +184,7 @@ Music::compress (Moment factor)
 }
 
 /*
-TODO: make transposition non-destructive
+  This mutates alist.  Hence, make sure that it is not changed 
 */
 SCM
 transpose_mutable (SCM alist, Pitch delta)
