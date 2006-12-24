@@ -2126,6 +2126,7 @@ removing @code{Bar_number_engraver}.
 
 
 @lilypond[quote,verbatim]
+\layout{ indent = #0 }
 emptymusic = {
   \repeat unfold 2 % Change this for more lines.
   { s1\break }
@@ -2136,6 +2137,8 @@ emptymusic = {
   defaultBarType = #""
   \remove Bar_number_engraver
 } <<
+
+% modify these to get the staves you want
   \new Staff \emptymusic
   \new TabStaff \emptymusic
 >>
