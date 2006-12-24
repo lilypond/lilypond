@@ -34,10 +34,16 @@ for f in glob.glob ('*.gcov-summary'):
         continue
    
     if m:
-        tup = (float (m.group (2)), int (m.group (3)), m.group (1))
+        cov = float (m.group (2))
+        lines = int (m.group (3))
+        pain = lines * (100.0 - cov)
+        file = m.group (1)
+        tup = (pain, locals ().copy())
+        
         results.append(tup)
 
 results.sort ()
-for r in results:
-    print '%5.2f (%6d): %s' % r
+results.reverse()
+for (pain, d) in results:
+    print '%(cov)5.2f (%(lines)6d): %(file)s' % d
 
