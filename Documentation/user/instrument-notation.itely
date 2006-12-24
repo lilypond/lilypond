@@ -1287,24 +1287,15 @@ It is also possible to define melismata entirely in the lyrics. This
 can be done by entering @code{_} for every note that is part of the
 melisma.
 
-@lilypond[relative=1,verbatim,fragment]
+@lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
   c d( e) f f( e) e e  }
 \addlyrics
  { Ky -- _ _ ri __ _ _ _  e }
 @end lilypond
 
-In this case, you can also have ties and slurs in the melody, if you
+In this case, you can also have ties and slurs in the melody if you
 set @code{melismaBusyProperties}, as is done in the example above.
-
-@lilypond[relative=1,verbatim,fragment,quote]
-{
- \set melismaBusyProperties = #'()
-  c d( e) f f( e) e e
-}
-\addlyrics
- { Ky -- _ _ ri __ _ _ _  e }
-@end lilypond
 
 
 @node Lyrics independent of notes
