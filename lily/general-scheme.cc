@@ -297,7 +297,7 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 	   1, 1, 0, (SCM file_name, SCM mode),
 	   "Redirect stderr to FILE-NAME, opened with MODE.")
 {
-  SCM_ASSERT_TYPE (scm_string_p (file_name), file_name, SCM_ARG1,
+  SCM_ASSERT_TYPE (scm_is_string (file_name), file_name, SCM_ARG1,
 		   __FUNCTION__, "file_name");
   char const *m = "w";
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
