@@ -2134,6 +2134,8 @@ emptymusic = {
 }
 \new Score \with {
   \override TimeSignature #'transparent = ##t
+% un-comment this line if desired
+%  \override Clef #'transparent = ##t
   defaultBarType = #""
   \remove Bar_number_engraver
 } <<
