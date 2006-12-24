@@ -6,7 +6,7 @@
   signature are cancelled."  }
 
 
-\version "2.10.2"
+\version "2.10.4"
 
 \paper {
   ragged-right = ##t
