@@ -1,7 +1,6 @@
-#(ly:set-option 'old-relative)
 \version "2.10.0"
 \header {
-texidoc = "@cindex Midi Volume Equaliser
+  texidoc = "@cindex Midi Volume Equaliser
 The full orchestra plays a notes, where groups stop one after
 another. Use this to tune equalizer settings. "
 }
@@ -13,11 +12,11 @@ another. Use this to tune equalizer settings. "
 Override, see scm/midi.scm:
 
 #(set! instrument-equalizer-alist
-      (append 
-       '(
-	 ("flute" . (0 . 0.7))
-        )
-      instrument-equalizer-alist))
+  (append 
+   '(
+     ("flute" . (0 . 0.7))
+   )
+   instrument-equalizer-alist))
 
 %}
 
@@ -91,7 +90,7 @@ violinoII =  \relative c' {
   \set Staff.midiInstrument = #"violin"
   \set Staff.instrumentName = #"Violino II "
   \set Staff.shortInstrumentName = #"Vl. II "
- 
+  
   R1*8 c1\f R1*2
 }
 
@@ -106,7 +105,7 @@ viola =  \relative c' {
 
 violoncello =  \relative c' {
   \set Staff.midiInstrument = #"cello"
-  %\set Staff.midiInstrument = #"contrabass"
+				%\set Staff.midiInstrument = #"contrabass"
   \set Staff.instrumentName = #"Violoncello"
   \set Staff.shortInstrumentName = #"Vc."
   
@@ -129,11 +128,11 @@ violoncello =  \relative c' {
     >>
     \new StaffGroup = "timpani" <<
       \new Staff = "timpani" \timpani
-     { 
-       \skip 1 
-       % Hmm: this forces a staff-bracket, that's good!
-       % However, I can't find where is decided on staff-bracket yes/no
-     }
+      { 
+	\skip 1 
+	%% Hmm: this forces a staff-bracket, that's good!
+	%% However, I can't find where is decided on staff-bracket yes/no
+      }
     >>
     \new StaffGroup = "archi" <<
       \new GrandStaff = "violini" <<
@@ -146,9 +145,6 @@ violoncello =  \relative c' {
   >>
 
   \layout {
-  	\layoutSixteen
-  	indent=100.0\mm
-  	line-width=150.0\mm
     \context {
       \RemoveEmptyStaffContext
     }
@@ -158,10 +154,8 @@ violoncello =  \relative c' {
     \context {
       \Score
       tempoWholesPerMinute = #(ly:make-moment 60 1)
-      }
     }
-
-
+  }
 }
 
 
