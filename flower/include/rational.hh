@@ -54,8 +54,9 @@ public:
      Initialize to 0.
   */
   Rational ();
-  Rational (int, int);
-  Rational (double);
+  Rational (int);
+  explicit Rational (int, int);
+  explicit Rational (double);
   Rational (Rational const &r) { copy (r);}
   Rational &operator = (Rational const &r)
   {
@@ -98,6 +99,6 @@ ostream &
 operator << (ostream &, Rational);
 #endif
 
-const Rational infinity_rat = INT_MAX;
+const Rational infinity_rat (INT_MAX);
 
 #endif // RATIONAL_HH
