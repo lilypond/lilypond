@@ -25,9 +25,10 @@ brackets above beats when the beats of a time signature are grouped.  "
 }
 \layout  {
   ragged-right = ##t
-  \context { \Staff
-	     \consists "Measure_grouping_engraver"
-	   }
+  \context {
+    \Staff
+    \consists "Measure_grouping_engraver"
+  }
 }
 
 
