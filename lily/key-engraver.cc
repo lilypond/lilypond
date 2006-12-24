@@ -197,10 +197,16 @@ Key_engraver::read_event (Stream_event const *r)
 
   if (scm_is_pair (alist))
     {
-      r->origin ()->warning ("No ordering for key signature alterations");
+      bool warn = false;
       for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
 	if (ly_scm2rational (scm_cdar (s)))
-	  accs = scm_cons (scm_car (s), accs);
+	  {
+	    warn = true;
+	    accs = scm_cons (scm_car (s), accs);
+	  }
+
+      if (warn)
+	r->origin ()->warning ("No ordering for key signature alterations");      
     }
   
   context ()->set_property ("keySignature", accs);
