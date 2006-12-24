@@ -33,9 +33,12 @@ STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
 #
-# Set
-# CHECK_SOURCE=
--include local.make
+# suggested settings
+#
+# CHECK_SOURCE=<input/regression/ reference dir>
+# LILYPOND_JOBS= -djob-count=X   ## for SMP/Multicore machine
+# 
+include local.make
 
 local-dist: dist-toplevel-txt-files 
 
@@ -204,10 +207,12 @@ test-clean:
 
 test:
 ## no aa-scaling, no PDF
-	$(MAKE) -C input/regression/ out=test  LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps,png $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html
+	$(MAKE) -C input/regression/ out=test LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps,png $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html 
+foo:
+	echo $(LILYPOND_JOBS)
 
 RESULT_DIR=$(top-build-dir)/out/test-results/
-check: test
+check-test: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(PYTHON) $(buildscript-dir)/output-distance.py --output-dir $(RESULT_DIR) $(CHECK_SOURCE) input/regression/out-test/
