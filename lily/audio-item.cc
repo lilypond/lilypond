@@ -21,12 +21,12 @@ Audio_item::Audio_item ()
   audio_column_ = 0;
 }
 
-Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, int transposing_i)
+Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, int transposing)
 {
   pitch_ = p;
   length_mom_ = m;
   tied_ = 0;
-  transposing_ = transposing_i;
+  transposing_ = transposing;
   tie_event_ = tie_event;
 }
 
@@ -52,9 +52,9 @@ Audio_dynamic::Audio_dynamic (Real volume)
   volume_ = volume;
 }
 
-Audio_tempo::Audio_tempo (int per_minute_4_i)
+Audio_tempo::Audio_tempo (int per_minute_4)
 {
-  per_minute_4_ = per_minute_4_i;
+  per_minute_4_ = per_minute_4;
 }
 
 Audio_time_signature::Audio_time_signature (int beats, int one_beat)
