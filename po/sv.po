@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lilypond 1.7.26\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 16:22+0200\n"
-"PO-Revision-Date: 2003-08-23 13:30+0200\n"
+"PO-Revision-Date: 2006-12-23 16:16+0100\n"
 "Last-Translator: Martin Norbäck <d95mback@dtek.chalmers.se>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,12 +166,12 @@ msgstr "Behandlar \"%s\"..."
 
 #: convert-ly.py:279 source-file.cc:54
 #, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "kan inte öppna fil: \"%s\""
 
 #: convert-ly.py:286
 #, fuzzy, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr "kan inte hitta standardtypsnitt: \"%s\""
 
 #: etf2ly.py:1198
@@ -306,7 +306,7 @@ msgid "The error log is as follows:"
 msgstr "Felloggen är följande:"
 
 #: lilypond-book.py:1405
-msgid "Can't find \\begin{document} in LaTeX document"
+msgid "Cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
 #: lilypond-book.py:1513
@@ -326,7 +326,7 @@ msgstr "lugn, %s är senaste versionen"
 
 #: lilypond-book.py:1532
 #, fuzzy, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "kan inte hitta standardtypsnitt: \"%s\""
 
 #: lilypond-book.py:1543
@@ -467,7 +467,7 @@ msgstr "flaggan \"%s\" kräver ett argument"
 
 #: getopt-long.cc:145
 #, c-format
-msgid "option `%s' doesn't allow an argument"
+msgid "option `%s' doesnnot allow an argument"
 msgstr "flaggan \"%s\" tillåter inget argument"
 
 #: getopt-long.cc:149
@@ -516,12 +516,12 @@ msgid ""
 msgstr ""
 
 #: align-interface.cc:314
-msgid "tried to get a translation for something that isn't my child"
+msgid "tried to get a translation for something that isnnot my child"
 msgstr ""
 
 #: all-font-metrics.cc:164
 #, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "kan inte hitta typsnitt: \"%s\""
 
 #: all-font-metrics.cc:165
@@ -531,7 +531,7 @@ msgstr "Läser in standardtypsnitt"
 
 #: all-font-metrics.cc:172
 #, c-format
-msgid "can't find default font: `%s'"
+msgid "cannot find default font: `%s'"
 msgstr "kan inte hitta standardtypsnitt: \"%s\""
 
 #: all-font-metrics.cc:173 includable-lexer.cc:62 lily-parser-scheme.cc:108
@@ -550,7 +550,7 @@ msgstr ""
 
 #: auto-change-iterator.cc:62 change-iterator.cc:61
 #, fuzzy, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
 #: axis-group-engraver.cc:82
@@ -587,7 +587,7 @@ msgid "stem must have Rhythmic structure"
 msgstr "skaft måste ha en rytmisk struktur"
 
 #: beam-engraver.cc:245
-msgid "stem doesn't fit in beam"
+msgid "stem doesnnot fit in beam"
 msgstr "skaftet passar inte i balken"
 
 #: beam-engraver.cc:246
@@ -615,13 +615,13 @@ msgstr "Ingen avståndsdata från %s till \"%s\""
 
 #: change-iterator.cc:23
 #, fuzzy, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
 #, fuzzy
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr "kan inte hitta omgivningen \"%s\""
 
 #. We could change the current translator's id, but that would make
@@ -676,7 +676,7 @@ msgstr ""
 #. if we get to here, just put everything on one line
 #: constrained-breaking.cc:176 constrained-breaking.cc:193
 #, fuzzy
-msgid "couldn't find line breaking that satisfies constraints"
+msgid "couldnnot find line breaking that satisfies constraints"
 msgstr "kunde inte hitta något typsnitt som uppfyller "
 
 #: context-def.cc:128
@@ -690,12 +690,12 @@ msgstr ""
 
 #: context.cc:151
 #, fuzzy, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr "kan inte hitta eller skapa: \"%s\""
 
 #: context.cc:213
 #, fuzzy, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr "kan inte hitta eller skapa \"%s\" kallad \"%s\""
 
 #: context.cc:276
@@ -705,7 +705,7 @@ msgstr ""
 
 #: context.cc:388
 #, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr "kan inte hitta eller skapa: \"%s\""
 
 #: custos.cc:77
@@ -723,7 +723,7 @@ msgid "Unknown event class %s"
 msgstr "okänd klusterstil: \"%s\""
 
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "kan inte hitta start på crescendo/diminuendo"
 
 #: dynamic-engraver.cc:195
@@ -811,12 +811,12 @@ msgstr "implicit \\%s tillagt"
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:212
 #, fuzzy
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "kan inte hitta start på ligatur"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
 #: grob-interface.cc:48
@@ -847,7 +847,7 @@ msgstr "crescendo för litet"
 
 #: horizontal-bracket-engraver.cc:58
 #, fuzzy
-msgid "don't have that many brackets"
+msgid "donnot have that many brackets"
 msgstr "Har inte så många klamrar"
 
 #: horizontal-bracket-engraver.cc:67
@@ -871,7 +871,7 @@ msgstr ""
 
 #: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:115
 #, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "kan inte hitta fil: \"%s\""
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
@@ -879,7 +879,7 @@ msgid "position unknown"
 msgstr "okänd position"
 
 #: ligature-engraver.cc:95
-msgid "can't find start of ligature"
+msgid "cannot find start of ligature"
 msgstr "kan inte hitta start på ligatur"
 
 #: ligature-engraver.cc:100
@@ -914,7 +914,7 @@ msgstr "(inläsningssökväg: \"%s\""
 
 #: lily-guile.cc:439
 #, fuzzy, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr "Kan inte hitta egenskapstypkontroll för \"%s\" (%s)"
 
 #: lily-guile.cc:442
@@ -955,7 +955,7 @@ msgstr "kan inte skapa katalog: \"%s\""
 
 #: lily-parser-scheme.cc:107
 #, fuzzy, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr "kan inte hitta fil: \"%s\""
 
 #: lily-parser-scheme.cc:125
@@ -969,7 +969,7 @@ msgstr "Tolkar..."
 
 #: lily-parser.cc:126
 #, fuzzy
-msgid "braces don't match"
+msgid "braces donnot match"
 msgstr "Krullparenteser matchar inte"
 
 #: lyric-combine-music-iterator.cc:286
@@ -1200,7 +1200,7 @@ msgstr "inställningen finns inte: \"%s\""
 
 #: main.cc:324
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
 #: main.cc:339
@@ -1210,27 +1210,27 @@ msgstr "omgivning finns inte: %s"
 
 #: main.cc:341
 #, fuzzy, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
 #: main.cc:349
 #, fuzzy, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr "kan inte skapa katalog: \"%s\""
 
 #: main.cc:356
 #, fuzzy, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
 #: main.cc:362
 #, fuzzy, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "kan inte ändra \"%s\" till \"%s\""
 
 #: main.cc:368
 #, fuzzy, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "kan inte skapa katalog: \"%s\""
 
 #: main.cc:415
@@ -1323,12 +1323,12 @@ msgstr ""
 
 #: midi-stream.cc:28
 #, fuzzy, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "kan inte öppna fil: \"%s\""
 
 #: midi-stream.cc:44
 #, fuzzy, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "kan inte öppna fil: \"%s\""
 
 #: music-iterator.cc:172
@@ -1346,7 +1346,7 @@ msgid "transposition by %s makes alteration larger than double"
 msgstr "Transponering med %s gör ändring större än två"
 
 #: new-fingering-engraver.cc:87
-msgid "can't add text scripts to individual note heads"
+msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
 #: new-fingering-engraver.cc:246
@@ -1363,7 +1363,7 @@ msgid "ignoring too many clashing note columns"
 msgstr "För många krockande notkolumner. Ignorerar dem."
 
 #: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
 #: note-head.cc:69
@@ -1377,12 +1377,12 @@ msgstr ""
 
 #: open-type-font.cc:33
 #, fuzzy, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "kan inte öppna fil: \"%s\""
 
 #: open-type-font.cc:37
 #, fuzzy, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "kan inte hitta typsnitt: \"%s\""
 
 #: open-type-font.cc:96
@@ -1402,7 +1402,7 @@ msgstr ""
 
 #: page-turn-page-breaking.cc:227
 msgid ""
-"couldn't fit the first page turn onto a single page. Consider setting first-"
+"couldnnot fit the first page turn onto a single page. Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
@@ -1482,12 +1482,12 @@ msgstr ""
 #: piano-pedal-engraver.cc:319 piano-pedal-engraver.cc:330
 #: piano-pedal-performer.cc:93
 #, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr "kan inte hitta start på pianopedal: \"%s\""
 
 #: piano-pedal-engraver.cc:377
 #, fuzzy, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "kan inte hitta start på pianopedal: \"%s\""
 
 #: program-option.cc:195
@@ -1558,7 +1558,7 @@ msgstr "kan inte öppna fil: \"%s\""
 
 #: relocate.cc:358
 #, fuzzy, c-format
-msgid "can't open file %s"
+msgid "cannot open file %s"
 msgstr "kan inte öppna fil: \"%s\""
 
 #: relocate.cc:388
@@ -1567,7 +1567,7 @@ msgid "Unknown relocation command %s"
 msgstr ""
 
 #: rest-collision.cc:150
-msgid "can't resolve rest collision: rest direction not set"
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
 #: rest-collision.cc:164 rest-collision.cc:209
@@ -1611,7 +1611,7 @@ msgstr "Fel funna/*, behandlar inte partitur*/"
 #. FIXME:
 #: script-engraver.cc:102
 #, fuzzy
-msgid "don't know how to interpret articulation: "
+msgid "donnot know how to interpret articulation: "
 msgstr "Kan inte tolka artikulering \"%s\""
 
 #: script-engraver.cc:103
@@ -1634,7 +1634,7 @@ msgstr "oavslutad båge"
 
 #: slur-engraver.cc:165
 #, fuzzy
-msgid "can't end slur"
+msgid "cannot end slur"
 msgstr "kan inte hitta start på båge"
 
 #: source-file.cc:74
@@ -1686,7 +1686,7 @@ msgid "Grob count %d"
 msgstr "Elementantal %d "
 
 #: text-spanner-engraver.cc:60
-msgid "can't find start of text spanner"
+msgid "cannot find start of text spanner"
 msgstr "kan inte hitta start på textbryggare"
 
 #: text-spanner-engraver.cc:72
@@ -1725,7 +1725,7 @@ msgstr "okänd översättare: \"%s\""
 
 #: translator-group.cc:152
 #, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "kan inte hitta: \"%s\""
 
 #: translator.cc:310
@@ -1740,7 +1740,7 @@ msgstr ""
 
 #: trill-spanner-engraver.cc:67
 #, fuzzy
-msgid "can't find start of trill spanner"
+msgid "cannot find start of trill spanner"
 msgstr "kan inte hitta start på textbryggare"
 
 #: trill-spanner-engraver.cc:79
@@ -1781,7 +1781,7 @@ msgstr "Vaticana_ligature: (delta_pitch == 0)"
 #. fixme: be more verbose.
 #: volta-engraver.cc:143
 #, fuzzy
-msgid "can't end volta spanner"
+msgid "cannot end volta spanner"
 msgstr "kan inte hitta start på textbryggare"
 
 #: volta-engraver.cc:153
@@ -1966,7 +1966,7 @@ msgstr ""
 
 #: define-music-types.scm:737
 #, fuzzy, lisp-format
-msgid "can't find music object: ~S"
+msgid "cannot find music object: ~S"
 msgstr "kan inte hitta omgivningen \"%s\""
 
 #: define-music-types.scm:757
@@ -1985,7 +1985,7 @@ msgstr ""
 
 #: document-backend.scm:135
 #, fuzzy, lisp-format
-msgid "can't find interface for property: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr "kan inte hitta teckennummer: %d"
 
 #: document-backend.scm:145
@@ -2005,7 +2005,7 @@ msgstr "Skriver \"%s\"..."
 
 #: documentation-lib.scm:172
 #, fuzzy, lisp-format
-msgid "can't find description for property ~S (~S)"
+msgid "cannot find description for property ~S (~S)"
 msgstr "kan inte hitta teckennummer: %d"
 
 #: framework-eps.scm:77 framework-eps.scm:78
@@ -2015,32 +2015,32 @@ msgstr "Skriver \"%s\"..."
 
 #: framework-ps.scm:278
 #, lisp-format
-msgid "can't embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:331
 #, lisp-format
-msgid "can't extract file matching ~a from ~a"
+msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
 #: framework-ps.scm:348
 #, lisp-format
-msgid "don't know how to embed ~S=~S"
+msgid "donnot know how to embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:379
 #, fuzzy, lisp-format
-msgid "don't know how to embed font ~s ~s ~s"
+msgid "donnot know how to embed font ~s ~s ~s"
 msgstr "Kan inte tolka artikulering \"%s\""
 
 #: framework-ps.scm:610
 #, lisp-format
-msgid "can't convert <stdout> to ~S"
+msgid "cannot convert <stdout> to ~S"
 msgstr ""
 
 #: framework-ps.scm:629 framework-ps.scm:632
 #, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+msgid "cannot generate ~S using the postscript back-end"
 msgstr ""
 
 #: framework-ps.scm:639
@@ -2089,7 +2089,7 @@ msgstr ""
 
 #: lily.scm:131
 #, fuzzy, lisp-format
-msgid "Can't find ~A"
+msgid "Cannot find ~A"
 msgstr "kan inte hitta: \"%s\""
 
 #: lily.scm:196
@@ -2150,7 +2150,7 @@ msgstr ""
 
 #: music-functions.scm:745
 #, fuzzy, lisp-format
-msgid "can't find quoted music `~S'"
+msgid "cannot find quoted music `~S'"
 msgstr "kan inte hitta typsnitt: \"%s\""
 
 #: music-functions.scm:953
@@ -2169,12 +2169,12 @@ msgstr ""
 
 #: output-svg.scm:132
 #, lisp-format
-msgid "can't decypher Pango description: ~a"
+msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
 #: output-tex.scm:98
 #, fuzzy, lisp-format
-msgid "can't find ~a in ~a"
+msgid "cannot find ~a in ~a"
 msgstr "kan inte hitta start på balk"
 
 #: paper.scm:69
@@ -2238,7 +2238,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "no one to print a repeat brace"
 #~ msgstr "det finns ingen som kan skriva ett repristecken"
 
-#~ msgid "can't find `%s' context"
+#~ msgid "cannot find `%s' context"
 #~ msgstr "kan inte hitta omgivningen \"%s\""
 
 #~ msgid "Optimal demerits: %f"
@@ -2276,7 +2276,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr ""
 #~ "%s: TFM-fil har %u parametrar, vilket är mer än de %u jag kan hantera"
 
-#~ msgid "can't find ascii character: %d"
+#~ msgid "cannot find ascii character: %d"
 #~ msgstr "kan inte hitta ASCII-tecken: %d"
 
 #~ msgid "no one to print a tuplet start bracket"
@@ -2295,7 +2295,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "Fler alternativ än repriser. Slänger överblivna alternativ."
 
 #, fuzzy
-#~ msgid "can't find signature for music function"
+#~ msgid "cannot find signature for music function"
 #~ msgstr "kan inte hitta omgivningen \"%s\""
 
 #~ msgid "lilylib module"
@@ -2372,7 +2372,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "Skriver \"%s\"..."
 
 #, fuzzy
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "kan inte öppna fil: \"%s\""
 
 #, fuzzy
@@ -2409,7 +2409,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "kan inte skapa katalog: \"%s\""
 
 #, fuzzy
-#~ msgid "can't handle a percent repeat of length: %s"
+#~ msgid "cannot handle a percent repeat of length: %s"
 #~ msgstr "Vet inte hur en procentrepris av denna längd ska hanteras."
 
 #~ msgid "lilypond -e EXPR means:"
@@ -2479,7 +2479,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "icke-fatalt fel: "
 
 #, fuzzy
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "kan inte hitta typsnitt: \"%s\""
 
 #, fuzzy
@@ -2522,7 +2522,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "Programming error: "
 #~ msgstr "programmeringsfel: "
 
-#~ msgid "Can't switch translators, I'm there already"
+#~ msgid "Cannot switch translators, I'm there already"
 #~ msgstr "Kan inte byta översättare, jag är redan där"
 
 #, fuzzy
@@ -2539,7 +2539,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "Huh?  Got %d, expected %d characters"
 #~ msgstr "Öh? Fick %d, väntade %d tecken"
 
-#~ msgid "Don't you want polyphonic voices instead?"
+#~ msgid "Donnot you want polyphonic voices instead?"
 #~ msgstr "Vill du ha polyfoniska stämmor istället?"
 
 #~ msgid "No volta spanner to end"
@@ -2558,11 +2558,11 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "FIXA: tonartsbytessammanslagning"
 
 #, fuzzy
-#~ msgid "kpathsea can't find %s file: `%s'"
+#~ msgid "kpathsea cannot find %s file: `%s'"
 #~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
 
 #, fuzzy
-#~ msgid "kpathsea can't find file: `%s'"
+#~ msgid "kpathsea cannot find file: `%s'"
 #~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
 
 #, fuzzy
@@ -2578,7 +2578,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "skapa PNG-sidbilder"
 
 #, fuzzy
-#~ msgid "don't generate full pages"
+#~ msgid "donnot generate full pages"
 #~ msgstr "skapa inte bilder"
 
 #, fuzzy
@@ -2602,10 +2602,6 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "Kpathsea kan inte hitta TFML-fil \"%s\""
 
 #, fuzzy
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "Kan inte byta översättare, jag är redan där"
-
-#, fuzzy
 #~ msgid "Converting to `~a.ps'..."
 #~ msgstr "Skriver \"%s\"..."
 
@@ -2626,7 +2622,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "keep all output, output to directory %s.dir"
 #~ msgstr "behåll all utdata, utdata till katalogen %s.dir"
 
-#~ msgid "don't run LilyPond"
+#~ msgid "donnot run LilyPond"
 #~ msgstr "kör inte LilyPond"
 
 #~ msgid "produce MIDI output only"
@@ -2699,7 +2695,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "%s skrivet till \"%s\"..."
 
 #, fuzzy
-#~ msgid "can't find file: `%s.%s'"
+#~ msgid "cannot find file: `%s.%s'"
 #~ msgstr "kan inte hitta fil: \"%s\""
 
 #~ msgid " 1998--2005"
@@ -2744,7 +2740,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "prepend PREF before each -M dependency"
 #~ msgstr "lägg till PREF före varje beroende angett med -M"
 
-#~ msgid "don't run lilypond"
+#~ msgid "donnot run lilypond"
 #~ msgstr "kör inte lilypond"
 
 #~ msgid "strip all lilypond blocks from output"
@@ -2898,7 +2894,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "from musical definition: %s"
 #~ msgstr "från musikdefinition: %s"
 
-#~ msgid "can't find start of phrasing slur"
+#~ msgid "cannot find start of phrasing slur"
 #~ msgstr "kan inte hitta start på fraseringsbåge"
 
 #~ msgid "unterminated pedal bracket"
@@ -2999,7 +2995,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "EOF i en sträng"
 
 # det handlar om mmap här
-#~ msgid "can't map file"
+#~ msgid "cannot map file"
 #~ msgstr "kan inte göra \"mmap\" på filen"
 
 #~ msgid "<stdin>"
@@ -3074,7 +3070,7 @@ msgstr "LaTeX misslyckades."
 #~ msgstr "Textbryggare för liten"
 
 #~ msgid ""
-#~ "Can't find property type-check for `%s'.  Perhaps you made a typing "
+#~ "Cannot find property type-check for `%s'.  Perhaps you made a typing "
 #~ "error? Doing assignment anyway."
 #~ msgstr ""
 #~ "Kan inte hitta egenskapstypkontroll för \"%s\". Kanske har du gjort ett "
@@ -3086,7 +3082,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "Expecting %d arguments"
 #~ msgstr "Väntade %d argument"
 
-#~ msgid "Can't specify direction for this request"
+#~ msgid "Cannot specify direction for this request"
 #~ msgstr "Kan inte ange riktning för denna förfrågan"
 
 #~ msgid "Oldest supported input version: %s"
@@ -3136,7 +3132,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "enable debugging output"
 #~ msgstr "slå på felsökningsutdata"
 
-#~ msgid "don't output tuplets, double dots or rests, smallest is 32"
+#~ msgid "donnot output tuplets, double dots or rests, smallest is 32"
 #~ msgstr "mata inte ut tupler, dubbelpunkteringar eller pauser, minsta är 32"
 
 #~ msgid "set FILE as default output"
@@ -3145,13 +3141,13 @@ msgstr "LaTeX misslyckades."
 #~ msgid "be quiet"
 #~ msgstr "var tyst"
 
-#~ msgid "don't output rests or skips"
+#~ msgid "donnot output rests or skips"
 #~ msgstr "mata inte ut pauser eller hopp"
 
 #~ msgid "set smallest duration"
 #~ msgstr "ställ in minsta längd"
 
-#~ msgid "don't timestamp the output"
+#~ msgid "donnot timestamp the output"
 #~ msgstr "tidsstämpla inte utdata"
 
 #~ msgid "assume no double dotted notes"
@@ -3193,7 +3189,7 @@ msgstr "LaTeX misslyckades."
 #~ msgid "invalid number of tracks"
 #~ msgstr "ogiltigt antal spår"
 
-#~ msgid "can't handle non-metrical time"
+#~ msgid "cannot handle non-metrical time"
 #~ msgstr "kan inte hantera icke-metrisk tid"
 
 #~ msgid "Junking note-end event: channel = %d, pitch = %d"

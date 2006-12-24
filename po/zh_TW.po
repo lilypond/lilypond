@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.6.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-10-08 16:22+0200\n"
+"POT-Creation-Date: 2006-12-23 15:30+0100\n"
 "PO-Revision-Date: 2005-06-29 05:00+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
@@ -71,150 +71,159 @@ msgid "Running %s..."
 msgstr "正在執行 %s..."
 
 #: lilylib.py:203
-#, python-format
-msgid "Usage: %s\n"
-msgstr ""
+#, fuzzy, python-format
+msgid "Usage: %s"
+msgstr "警告: %s"
+
+#: abc2ly.py:1349 convert-ly.py:80 lilypond-book.py:125 midi2ly.py:869
+#, fuzzy, python-format
+msgid "%s [OPTION]... FILE"
+msgstr "用法: %s [選項]... 檔案"
 
 #: abc2ly.py:1351
+#, python-format
 msgid ""
-"This program converts ABC music files (see\n"
-"http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt) to LilyPond input."
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input."
 msgstr ""
 
-#: abc2ly.py:1354
-#, fuzzy
-msgid "set output filename to FILE"
+#: abc2ly.py:1355 etf2ly.py:1200 midi2ly.py:885
+msgid "write output to FILE"
 msgstr "將輸出資料寫入 <檔案>"
 
-#: abc2ly.py:1356
+#: abc2ly.py:1357
 msgid "be strict about succes"
 msgstr ""
 
-#: abc2ly.py:1358
+#: abc2ly.py:1359
 msgid "preserve ABC's notion of beams"
 msgstr ""
+
+#: abc2ly.py:1361 convert-ly.py:112 etf2ly.py:1208 lilypond-book.py:168
+#: midi2ly.py:911 musicxml2ly.py:505
+#, fuzzy
+msgid "Report bugs via"
+msgstr "請向 %s 匯報錯誤。"
 
 #: convert-ly.py:41
 #, fuzzy
 msgid ""
 "Update LilyPond input to newer version.  By default, update from the\n"
-"version taken from the \\version command, to the current LilyPond version.\n"
-"\n"
-"Examples:\n"
-"\n"
-"  convert-ly -e old.ly\n"
-"  convert-ly --from=2.3.28 --to 2.5.21 foobar.ly\n"
+"version taken from the \\version command, to the current LilyPond version."
 msgstr ""
 "更新 LilyPond 輸入檔的版本。在預設模式中，它會讀取原來檔案中的 \\version\n"
 "指令來決定其版本，並將之更新至最新的版本。"
 
-#: convert-ly.py:57 lilypond-book.py:97 warn.cc:48 input.cc:90
+#: convert-ly.py:43 lilypond-book.py:73
+#, fuzzy
+msgid "Examples:"
+msgstr "例子:"
+
+#: convert-ly.py:56 lilypond-book.py:98 warn.cc:48 input.cc:90
 #, c-format, python-format
 msgid "warning: %s"
 msgstr "警告: %s"
 
-#: convert-ly.py:60 lilypond-book.py:100 warn.cc:54 input.cc:96 input.cc:104
+#: convert-ly.py:59 lilypond-book.py:101 warn.cc:54 input.cc:96 input.cc:104
 #, c-format, python-format
 msgid "error: %s"
 msgstr "錯誤: %s"
 
-#: convert-ly.py:76 etf2ly.py:1190 lilypond-book.py:120 midi2ly.py:98
+#: convert-ly.py:75 etf2ly.py:1190 lilypond-book.py:121 midi2ly.py:98
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "根據 GNU 公共授權條款發佈。"
 
-#: convert-ly.py:77 etf2ly.py:1191 lilypond-book.py:121 midi2ly.py:99
+#: convert-ly.py:76 etf2ly.py:1191 lilypond-book.py:122 midi2ly.py:99
 msgid "It comes with NO WARRANTY."
 msgstr "本程式沒有任何使用保證。"
 
-#: convert-ly.py:88 convert-ly.py:108
+#: convert-ly.py:86 convert-ly.py:106
 msgid "VERSION"
 msgstr ""
 
-#: convert-ly.py:90
+#: convert-ly.py:88
 msgid "start from VERSION [default: \\version found in file]"
 msgstr ""
 
-#: convert-ly.py:93
+#: convert-ly.py:91
 msgid "edit in place"
 msgstr ""
 
-#: convert-ly.py:96
+#: convert-ly.py:94
 msgid "do not add \\version command if missing"
 msgstr ""
 
-#: convert-ly.py:102
-msgid "print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
+#: convert-ly.py:100
+msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
 msgstr ""
 
-#: convert-ly.py:107
+#: convert-ly.py:105
 msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
 msgstr ""
 
-#: convert-ly.py:154
+#: convert-ly.py:153
 msgid "Applying conversion: "
 msgstr "進行轉換："
 
 #: convert-ly.py:166
 #, fuzzy
-msgid "error while converting"
+msgid "Error while converting"
 msgstr "%s: 轉換時發生錯誤"
 
-#: convert-ly.py:168 score-engraver.cc:74
-msgid "Aborting"
-msgstr "終止"
+#: convert-ly.py:168
+msgid "Stopping at last succesful rule"
+msgstr ""
 
-#: convert-ly.py:192
+#: convert-ly.py:190
 #, python-format
 msgid "Processing `%s'... "
 msgstr "正在處理 ‘%s’..."
 
-#: convert-ly.py:279 source-file.cc:54
+#: convert-ly.py:277 relocate.cc:360 source-file.cc:54
 #, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "無法開啟檔案: ‘%s’"
 
-#: convert-ly.py:286
+#: convert-ly.py:284
 #, fuzzy, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'.  Skipping"
 msgstr "%s: 無法決定 ‘%s’ 的版本"
+
+#: etf2ly.py:1196
+#, fuzzy, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "用法: %s [選項]... 檔案"
 
 #: etf2ly.py:1198
 msgid ""
 "Enigma Transport Format is a format used by Coda Music Technology's\n"
-"Finale product. This program will convert a subset of ETF to a\n"
-"ready-to-use lilypond file."
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond "
+"file."
 msgstr ""
 
-#: etf2ly.py:1201 midi2ly.py:885
-msgid "write output to FILE"
-msgstr "將輸出資料寫入 <檔案>"
-
-#: etf2ly.py:1202 midi2ly.py:886 main.cc:173 main.cc:179
+#: etf2ly.py:1201 midi2ly.py:886 musicxml2ly.py:498 main.cc:172 main.cc:178
 msgid "FILE"
 msgstr "檔案"
 
-#: etf2ly.py:1204 midi2ly.py:899
-#, fuzzy
-msgid "show warranty"
+#: etf2ly.py:1203 lilypond-book.py:165 midi2ly.py:899 main.cc:185
+msgid "show warranty and copyright"
 msgstr "顯示保證條款及版權資訊"
 
-#: lilypond-book.py:70
+#: lilypond-book.py:71
 msgid ""
-"Process LilyPond snippets in hybrid HTML, LaTeX, or texinfo document.\n"
-"\n"
-"Example usage:\n"
-"\n"
-" lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
-" lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
-" lilypond-book --process='lilypond -I include' BOOK\n"
+"Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
 msgstr ""
 
-#: lilypond-book.py:86
+#: lilypond-book.py:78
+msgid "BOOK"
+msgstr ""
+
+#: lilypond-book.py:87
 #, python-format
 msgid "Exiting (%d)..."
 msgstr "正在結束 (%d)..."
 
-#: lilypond-book.py:118
+#: lilypond-book.py:119
 #, fuzzy, python-format
 msgid "Copyright (c) %s by"
 msgstr "版權所有 (c) %s"
@@ -229,7 +238,8 @@ msgstr ""
 
 #: lilypond-book.py:135
 #, fuzzy
-msgid "use output format FORMAT (texi [default], texi-html, latex, html)"
+msgid ""
+"use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
 msgstr ""
 "使用指定輸出 <格式> (texi [預設值]、texi-html、\n"
 "latex 或 html)"
@@ -237,6 +247,10 @@ msgstr ""
 #: lilypond-book.py:138
 msgid "add DIR to include path"
 msgstr "將 <目錄> 加入搜尋目錄中"
+
+#: lilypond-book.py:139 lilypond-book.py:144 main.cc:171
+msgid "DIR"
+msgstr "目錄"
 
 #: lilypond-book.py:143
 msgid "write output to DIR"
@@ -250,145 +264,145 @@ msgstr "指令"
 msgid "process ly_files using COMMAND FILE..."
 msgstr ""
 
-#: lilypond-book.py:159
-msgid ""
-"extract all PostScript fonts into INPUT.psfonts for LaTeXmust use this with "
-"dvips -h INPUT.psfonts"
+#: lilypond-book.py:154
+msgid "Create PDF files for use with PDFTeX"
 msgstr ""
 
-#: lilypond-book.py:162 midi2ly.py:896 main.cc:183
+#: lilypond-book.py:157
+msgid ""
+"extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
+"must use this with dvips -h INPUT.psfonts"
+msgstr ""
+
+#: lilypond-book.py:160 midi2ly.py:896 musicxml2ly.py:489 main.cc:184
 msgid "be verbose"
 msgstr "顯示詳細訊息"
 
-#: lilypond-book.py:168 main.cc:184
-msgid "show warranty and copyright"
-msgstr "顯示保證條款及版權資訊"
-
-#: lilypond-book.py:721
+#: lilypond-book.py:773
 #, python-format
 msgid "file not found: %s"
 msgstr "找不到檔案: %s"
 
-#: lilypond-book.py:952
+#: lilypond-book.py:1004
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "使用了過時的 ly-option: %s=%s"
 
-#: lilypond-book.py:955
+#: lilypond-book.py:1007
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:959
+#: lilypond-book.py:1011
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "使用了過時的 ly-option: %s"
 
-#: lilypond-book.py:962
+#: lilypond-book.py:1014
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: lilypond-book.py:981
+#: lilypond-book.py:1033
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "不理會不明的 ly 選項：%s"
 
-#: lilypond-book.py:1318
+#: lilypond-book.py:1388
 #, python-format
 msgid "Opening filter `%s'"
 msgstr ""
 
-#: lilypond-book.py:1335
+#: lilypond-book.py:1405
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "‘%s’ 發生錯誤 (%d)"
 
-#: lilypond-book.py:1336
+#: lilypond-book.py:1406
 msgid "The error log is as follows:"
 msgstr "以下是錯誤紀錄的內容："
 
-#: lilypond-book.py:1405
-msgid "Can't find \\begin{document} in LaTeX document"
+#: lilypond-book.py:1476
+msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: lilypond-book.py:1513
+#: lilypond-book.py:1586
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:1518
+#: lilypond-book.py:1591
 msgid "Processing..."
 msgstr "處理中..."
 
-#: lilypond-book.py:1522
+#: lilypond-book.py:1595
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1532
+#: lilypond-book.py:1605
 #, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "無法決定 %s 的格式"
 
-#: lilypond-book.py:1543
+#: lilypond-book.py:1616
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:1549
+#: lilypond-book.py:1622
 #, python-format
 msgid "Writing `%s'..."
 msgstr "正在寫入 ‘%s’..."
 
-#: lilypond-book.py:1604
+#: lilypond-book.py:1677
 msgid "Output would overwrite input file; use --output."
 msgstr "這樣輸出檔會覆寫輸入檔；請使用 --output 選項。"
 
-#: lilypond-book.py:1608
+#: lilypond-book.py:1681
 #, python-format
 msgid "Reading %s..."
 msgstr "正在讀取 %s..."
 
-#: lilypond-book.py:1627
+#: lilypond-book.py:1700
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:1643
+#: lilypond-book.py:1716
 #, python-format
 msgid "Compiling %s..."
 msgstr "正在編譯 %s ..."
 
-#: lilypond-book.py:1652
+#: lilypond-book.py:1725
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:1666
+#: lilypond-book.py:1739
 #, python-format
 msgid "Removing `%s'"
 msgstr "正在移除 ‘%s’"
 
-#: lilypond-book.py:1743
+#: lilypond-book.py:1815
 #, python-format
 msgid "Writing fonts to %s..."
 msgstr "正在將字型寫入 %s..."
 
-#: lilypond-book.py:1758
+#: lilypond-book.py:1830
 msgid "option --psfonts not used"
 msgstr ""
 
-#: lilypond-book.py:1759
+#: lilypond-book.py:1831
 msgid "processing with dvips will have no fonts"
 msgstr ""
 
-#: lilypond-book.py:1762
+#: lilypond-book.py:1834
 msgid "DVIPS usage:"
 msgstr "DVIPS 用法："
 
-#: midi2ly.py:106 lily-library.scm:541 lily-library.scm:549
+#: midi2ly.py:106 lily-library.scm:613 lily-library.scm:621
 msgid "warning: "
 msgstr "警告："
 
-#: midi2ly.py:109 midi2ly.py:925
+#: midi2ly.py:109 midi2ly.py:924
 msgid "error: "
 msgstr "錯誤："
 
@@ -401,9 +415,10 @@ msgstr "結束 ... "
 msgid "%s output to `%s'..."
 msgstr "%s 輸出至 ‘%s’..."
 
-#: midi2ly.py:871
-msgid "Convert MIDI to LilyPond source."
-msgstr "將 MIDI 轉換為 LilyPond 來源檔。"
+#: midi2ly.py:871 musicxml2ly.py:485
+#, fuzzy, python-format
+msgid "Convert %s to LilyPond input."
+msgstr "將 mup 格式轉換至 LilyPond 格式。"
 
 #: midi2ly.py:875
 msgid "print absolute pitches"
@@ -447,34 +462,56 @@ msgstr "將所有文字當作歌詞處理"
 
 #: midi2ly.py:905
 #, fuzzy
-msgid "example"
-msgstr "例子"
+msgid "Examples"
+msgstr "例子:"
 
-#: midi2ly.py:926
+#: midi2ly.py:925
 msgid "no files specified on command line."
 msgstr "指令參數中未指定任何檔案。"
 
-#: getopt-long.cc:141
+#: musicxml2ly.py:473
+msgid "musicxml2ly FILE.xml"
+msgstr ""
+
+#: musicxml2ly.py:476
+#, python-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information."
+msgstr ""
+
+#: musicxml2ly.py:495
+msgid "Use lxml.etree; uses less memory and cpu time."
+msgstr ""
+
+#: musicxml2ly.py:503
+#, fuzzy
+msgid "set output filename to FILE"
+msgstr "將輸出資料寫入 <檔案>"
+
+#: getopt-long.cc:140
 #, c-format
 msgid "option `%s' requires an argument"
 msgstr "選項 ‘%s’ 需要參數"
 
-#: getopt-long.cc:145
-#, c-format
-msgid "option `%s' doesn't allow an argument"
+#: getopt-long.cc:144
+#, fuzzy, c-format
+msgid "option `%s' does not allow an argument"
 msgstr "選項 ‘%s’ 不可配合參數使用"
 
-#: getopt-long.cc:149
+#: getopt-long.cc:148
 #, c-format
 msgid "unrecognized option: `%s'"
 msgstr "無法識別的選項: ‘%s’"
 
-#: getopt-long.cc:155
+#: getopt-long.cc:154
 #, c-format
 msgid "invalid argument `%s' to option `%s'"
 msgstr "選項 ‘%s’ 的參數 ‘%s’ 無效"
 
-#: warn.cc:68 grob.cc:552 input.cc:82
+#: warn.cc:68 grob.cc:559 input.cc:82
 #, c-format
 msgid "programming error: %s"
 msgstr "程式錯誤：%s"
@@ -483,82 +520,73 @@ msgstr "程式錯誤：%s"
 msgid "continuing, cross fingers"
 msgstr ""
 
-#: accidental-engraver.cc:238
+#: accidental-engraver.cc:240
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr ""
 
-#: accidental-engraver.cc:266
+#: accidental-engraver.cc:268
 #, c-format
 msgid "ignoring unknown accidental: %s"
 msgstr "忽略不明的升降符號：%s"
 
-#: accidental-engraver.cc:282
+#: accidental-engraver.cc:284
 #, c-format
 msgid "pair or context-name expected for accidental rule, found %s"
 msgstr ""
 
-#: accidental.cc:243 key-signature-interface.cc:124
+#: accidental.cc:243 key-signature-interface.cc:133
 #, c-format
 msgid "accidental `%s' not found"
 msgstr "找不到升降符號 ‘%s’"
 
-#: align-interface.cc:164
+#: align-interface.cc:222
 msgid ""
 "vertical alignment called before line-breaking.\n"
 "Only do cross-staff spanners with PianoStaff."
 msgstr ""
 
-#: align-interface.cc:314
-msgid "tried to get a translation for something that isn't my child"
+#: align-interface.cc:329
+msgid "tried to get a translation for something that is no child of mine"
 msgstr ""
 
-#: all-font-metrics.cc:164
+#: all-font-metrics.cc:173
 #, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "找不到字型：‘%s’"
-
-#: all-font-metrics.cc:165
-msgid "loading default font"
-msgstr "正在載入預設字型"
-
-#: all-font-metrics.cc:172
-#, c-format
-msgid "can't find default font: `%s'"
-msgstr "找不到預設字型：‘%s’"
-
-#: all-font-metrics.cc:173 includable-lexer.cc:62 lily-parser-scheme.cc:108
-#, c-format
-msgid "(search path: `%s')"
-msgstr "(搜尋路徑：‘%s’)"
-
-#: all-font-metrics.cc:174 volta-engraver.cc:158
-msgid "giving up"
-msgstr "放棄"
 
 #: apply-context-iterator.cc:31
 msgid "\\applycontext argument is not a procedure"
 msgstr ""
 
-#: auto-change-iterator.cc:62 change-iterator.cc:61
+#: auto-change-iterator.cc:63 change-iterator.cc:61
 #, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr ""
 
-#: axis-group-engraver.cc:82
+#: axis-group-engraver.cc:78
 msgid "Axis_group_engraver: vertical group already has a parent"
 msgstr ""
 
-#: axis-group-engraver.cc:83
+#: axis-group-engraver.cc:79
 msgid "are there two Axis_group_engravers?"
 msgstr ""
 
-#: axis-group-engraver.cc:84
+#: axis-group-engraver.cc:80
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:94
+#: axis-group-interface.cc:96
 msgid "tried to calculate pure-height at a non-breakpoint"
+msgstr ""
+
+#: axis-group-interface.cc:370
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr ""
+
+#: axis-group-interface.cc:383
+#, c-format
+msgid "outside-staff object %s has an empty extent"
 msgstr ""
 
 #: bar-check-iterator.cc:73
@@ -574,19 +602,19 @@ msgstr "已經有了連桁 (beam)"
 msgid "unterminated beam"
 msgstr "連桁沒有終點"
 
-#: beam-engraver.cc:237 chord-tremolo-engraver.cc:134
+#: beam-engraver.cc:238 chord-tremolo-engraver.cc:134
 msgid "stem must have Rhythmic structure"
 msgstr ""
 
-#: beam-engraver.cc:245
-msgid "stem doesn't fit in beam"
+#: beam-engraver.cc:246
+msgid "stem does not fit in beam"
 msgstr ""
 
-#: beam-engraver.cc:246
+#: beam-engraver.cc:247
 msgid "beam was started here"
 msgstr ""
 
-#: beam-quanting.cc:306
+#: beam-quanting.cc:307
 #, fuzzy
 msgid "no feasible beam position"
 msgstr "無法找出適當斷行位置"
@@ -596,23 +624,23 @@ msgstr "無法找出適當斷行位置"
 msgid "removing beam with no stems"
 msgstr "移除少於兩條符桿的連桁"
 
-#: beam.cc:995
+#: beam.cc:1007
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
-#: break-align-interface.cc:208
+#: break-alignment-interface.cc:208
 #, c-format
 msgid "No spacing entry from %s to `%s'"
 msgstr ""
 
 #: change-iterator.cc:23
 #, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "無法將 ‘%s’ 更改為 ‘%s’"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr ""
 
 #. We could change the current translator's id, but that would make
@@ -643,7 +671,7 @@ msgstr "顫音和弦沒有終結"
 msgid "expect 2 elements for chord tremolo, found %d"
 msgstr "顫音和弦需要 2 個元素，但實際上找到 %d 個"
 
-#: clef.cc:55
+#: clef.cc:54
 #, c-format
 msgid "clef `%s' not found"
 msgstr "找不到譜號 ‘%s’"
@@ -657,34 +685,33 @@ msgstr ""
 msgid "junking empty cluster"
 msgstr ""
 
-#: coherent-ligature-engraver.cc:106
+#: coherent-ligature-engraver.cc:100
 #, c-format
 msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
 msgstr ""
 
 #. if we get to here, just put everything on one line
 #: constrained-breaking.cc:176 constrained-breaking.cc:193
-#, fuzzy
-msgid "couldn't find line breaking that satisfies constraints"
+msgid "cannot find line breaking that satisfies constraints"
 msgstr "找不到符合指定條件的斷行位置"
 
-#: context-def.cc:128
+#: context-def.cc:130
 #, c-format
 msgid "program has no such type: `%s'"
 msgstr ""
 
-#: context-property.cc:77
+#: context-property.cc:76
 msgid "need symbol arguments for \\override and \\revert"
 msgstr ""
 
 #: context.cc:151
 #, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr ""
 
 #: context.cc:213
 #, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr ""
 
 #: context.cc:276
@@ -694,7 +721,7 @@ msgstr ""
 
 #: context.cc:388
 #, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr ""
 
 #: custos.cc:77
@@ -702,17 +729,22 @@ msgstr ""
 msgid "custos `%s' not found"
 msgstr ""
 
-#: dispatcher.cc:72
+#: dispatcher.cc:71
 msgid "Event class should be a symbol"
 msgstr ""
 
-#: dispatcher.cc:79
+#: dispatcher.cc:78
 #, c-format
 msgid "Unknown event class %s"
 msgstr ""
 
+#: dots.cc:38
+#, fuzzy, c-format
+msgid "dot `%s' not found"
+msgstr "找不到休止符 ‘%s’"
+
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "漸強/漸弱符號沒有起點"
 
 #: dynamic-engraver.cc:195
@@ -731,11 +763,7 @@ msgstr "漸強符號在這裡開始"
 msgid "unterminated (de)crescendo"
 msgstr "漸強/漸弱符號沒有終點"
 
-#: engraver.cc:102
-msgid "not setting creation callback: not a procedure"
-msgstr ""
-
-#: extender-engraver.cc:130 extender-engraver.cc:139
+#: extender-engraver.cc:131 extender-engraver.cc:140
 msgid "unterminated extender"
 msgstr ""
 
@@ -758,15 +786,15 @@ msgstr "加入字型目錄：%s"
 msgid "adding font directory: %s"
 msgstr "加入字型目錄：%s"
 
-#: general-scheme.cc:161
+#: general-scheme.cc:160
 msgid "infinity or NaN encountered while converting Real number"
 msgstr ""
 
-#: general-scheme.cc:162
+#: general-scheme.cc:161
 msgid "setting to zero"
 msgstr ""
 
-#: glissando-engraver.cc:91
+#: glissando-engraver.cc:92
 msgid "unterminated glissando"
 msgstr "滑奏沒有終結"
 
@@ -796,45 +824,37 @@ msgstr ""
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:212
 #, fuzzy
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "找不到樂句線的起點"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
-#: grob-interface.cc:48
+#: grob-interface.cc:57
 #, c-format
 msgid "Unknown interface `%s'"
 msgstr ""
 
-#: grob-interface.cc:59
+#: grob-interface.cc:68
 #, c-format
 msgid "Grob `%s' has no interface for property `%s'"
-msgstr ""
-
-#: grob-property.cc:36
-msgid "not setting modification callback: not a procedure"
 msgstr ""
 
 #: grob.cc:253
 msgid "Infinity or NaN encountered"
 msgstr ""
 
-#: hairpin.cc:179
+#: hairpin.cc:183
 msgid "decrescendo too small"
 msgstr "漸弱符號太小"
 
-#: hairpin.cc:180
-msgid "crescendo too small"
-msgstr "漸強符號太小"
-
-#: horizontal-bracket-engraver.cc:58
-msgid "don't have that many brackets"
+#: horizontal-bracket-engraver.cc:59
+msgid "do not have that many brackets"
 msgstr ""
 
-#: horizontal-bracket-engraver.cc:67
+#: horizontal-bracket-engraver.cc:68
 msgid "conflicting note group events"
 msgstr ""
 
@@ -850,89 +870,94 @@ msgstr ""
 msgid "include files are not allowed in safe mode"
 msgstr "安全模式中不允許再包含另一個檔案的內容"
 
-#: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:115
+#: includable-lexer.cc:60 lily-guile.cc:94 lily-parser-scheme.cc:116
 #, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "找不到檔案: ‘%s’"
+
+#: includable-lexer.cc:62 lily-parser-scheme.cc:107
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(搜尋路徑：‘%s’)"
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
 msgid "position unknown"
 msgstr "位置不明"
 
-#: ligature-engraver.cc:95
-msgid "can't find start of ligature"
+#: ligature-engraver.cc:93
+msgid "cannot find start of ligature"
 msgstr "找不到樂句線的起點"
 
-#: ligature-engraver.cc:100
+#: ligature-engraver.cc:98
 msgid "no right bound"
 msgstr "沒有右邊邊界"
 
-#: ligature-engraver.cc:122
+#: ligature-engraver.cc:120
 msgid "already have a ligature"
 msgstr "已經有樂句線"
 
-#: ligature-engraver.cc:131
+#: ligature-engraver.cc:129
 msgid "no left bound"
 msgstr "沒有左邊邊界"
 
-#: ligature-engraver.cc:175
+#: ligature-engraver.cc:173
 msgid "unterminated ligature"
 msgstr "樂句線沒有終點"
 
-#: ligature-engraver.cc:204
+#: ligature-engraver.cc:202
 msgid "ignoring rest: ligature may not contain rest"
 msgstr "忽略休止符；樂句中不可含有休止符"
 
-#: ligature-engraver.cc:205
+#: ligature-engraver.cc:203
 msgid "ligature was started here"
 msgstr "樂句在這裡開始"
 
-#: lily-guile.cc:98
+#: lily-guile.cc:96
 #, c-format
 msgid "(load path: `%s')"
 msgstr "(載入路徑：‘%s’)"
 
-#: lily-guile.cc:439
+#: lily-guile.cc:459
 #, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
-#: lily-guile.cc:442
+#: lily-guile.cc:462
 msgid "perhaps a typing error?"
 msgstr "是否打錯字？"
 
-#: lily-guile.cc:448
+#: lily-guile.cc:468
 msgid "doing assignment anyway"
 msgstr ""
 
-#: lily-guile.cc:460
+#: lily-guile.cc:480
 #, c-format
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:222
+#: lily-lexer.cc:254
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:237
+#: lily-lexer.cc:269
 #, c-format
 msgid "error at EOF: %s"
 msgstr "檔案結束的位置發生錯誤: %s"
 
-#: lily-parser-scheme.cc:30
+#: lily-parser-scheme.cc:29
 #, c-format
 msgid "deprecated function called: %s"
 msgstr "調用已過時的函式: %s"
 
-#: lily-parser-scheme.cc:89
+#: lily-parser-scheme.cc:88
 #, fuzzy, c-format
-msgid "Changing working directory to `%s'"
+msgid "Changing working directory to: `%s'"
 msgstr "無法將工作目錄切換至: %s: %s"
 
-#: lily-parser-scheme.cc:107
+#: lily-parser-scheme.cc:106
 #, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr ""
 
 #: lily-parser-scheme.cc:125
@@ -940,20 +965,21 @@ msgstr ""
 msgid "Processing `%s'"
 msgstr "正在處理 ‘%s’"
 
-#: lily-parser.cc:97
+#: lily-parser.cc:99
 msgid "Parsing..."
 msgstr "分析中..."
 
-#: lily-parser.cc:126
-msgid "braces don't match"
-msgstr ""
+#: lily-parser.cc:127
+#, fuzzy
+msgid "braces do not match"
+msgstr "不符合: ‘%s’"
 
-#: lyric-combine-music-iterator.cc:286
+#: lyric-combine-music-iterator.cc:291
 #, c-format
 msgid "cannot find Voice `%s'"
 msgstr ""
 
-#: main.cc:117
+#: main.cc:116
 #, c-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -962,7 +988,8 @@ msgid ""
 "information.\n"
 msgstr ""
 
-#: main.cc:123
+#: main.cc:122
+#, fuzzy
 msgid ""
 "    This program is free software; you can redistribute it and/or\n"
 "modify it under the terms of the GNU General Public License version 2\n"
@@ -973,7 +1000,7 @@ msgid ""
 "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
 "General Public License for more details.\n"
 "\n"
-"    You should have received a copy (refer to the file COPYING) of the\n"
+"    You should have received a copy of the\n"
 "GNU General Public License along with this program; if not, write to\n"
 "the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
 "Boston, MA 02111-1307, USA.\n"
@@ -987,127 +1014,127 @@ msgstr ""
 "您應已收到附隨於本程式的 GNU 通用公共授權的副本；如無，請寫信至自由\n"
 "軟體基金會：59 Temple Place – Suite 330, Boston, Ma 02111-1307, USA\n"
 
-#: main.cc:154
+#: main.cc:153
 msgid "BACK"
 msgstr "背景模組"
 
-#: main.cc:154
+#: main.cc:153
 #, fuzzy
 msgid ""
-"use backend BACK (gnome, ps,eps,\n"
-"scm, svg, tex, texstr)\n"
-"default: PS"
+"use backend BACK (eps, gnome, ps [default],\n"
+"scm, svg, tex, texstr)"
 msgstr ""
 "使用指定的背景模組 (gnome, ps [預設],\n"
 "                                       scm, svg, tex, texstr)"
 
+#: main.cc:155
+msgid "SYM[=VAL]"
+msgstr ""
+
 #: main.cc:156
-msgid "SYM=VAL"
-msgstr ""
-
-#: main.cc:157
 msgid ""
-"set a Scheme program option. Uses #t if VAL is not specified\n"
-"Try -dhelp for help."
+"set Scheme option SYM to VAL (default: #t)\n"
+"Use -dhelp for help."
 msgstr ""
 
-#: main.cc:160
+#: main.cc:159
 msgid "EXPR"
 msgstr "表示式"
 
-#: main.cc:160
+#: main.cc:159
 msgid "evaluate scheme code"
 msgstr ""
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
-#: main.cc:163
+#: main.cc:162
 msgid "FORMATs"
 msgstr "格式"
 
-#: main.cc:163
+#: main.cc:162
 msgid "dump FORMAT,...  Also as separate options:"
 msgstr "輸出為指定 <格式>。也可以使用下列選項:"
 
-#: main.cc:164
+#: main.cc:163
 msgid "generate DVI (tex backend only)"
 msgstr "產生 DVI (只適用於 tex 背景模組)"
 
-#: main.cc:165
-msgid "relocate using directory of lilypond program"
-msgstr ""
-
-#: main.cc:166
+#: main.cc:164
 msgid "generate PDF (default)"
 msgstr "產生 PDF (預設)"
 
-#: main.cc:167
+#: main.cc:165
 msgid "generate PNG"
 msgstr "產生 PNG"
 
-#: main.cc:168
+#: main.cc:166
 msgid "generate PostScript"
 msgstr "產生 PostScript"
 
-#: main.cc:169
+#: main.cc:167
 msgid "generate TeX (tex backend only)"
 msgstr "產生 TeX (只適用於 tex 背景模組)"
 
-#: main.cc:170
-msgid "print this help"
-msgstr "印出這段說明訊息"
+#: main.cc:168
+msgid "show this help and exit"
+msgstr ""
 
-#: main.cc:171
+#: main.cc:169
 msgid "FIELD"
 msgstr "欄位"
 
-#: main.cc:171
-msgid "dump a header field to file BASENAME.FIELD"
+#: main.cc:169
+msgid ""
+"dump header field FIELD to file\n"
+"named BASENAME.FIELD"
 msgstr ""
 
-#: main.cc:172
-msgid "DIR"
-msgstr "目錄"
-
-#: main.cc:172
+#: main.cc:171
 msgid "add DIR to search path"
 msgstr "將 <目錄> 加入搜尋目錄中"
 
-#: main.cc:173
+#: main.cc:172
 msgid "use FILE as init file"
 msgstr ""
 
-#: main.cc:175
+#: main.cc:174
 msgid "USER,GROUP,JAIL,DIR"
 msgstr ""
 
-#: main.cc:175
+#: main.cc:174
 msgid ""
 "chroot to JAIL, become USER:GROUP\n"
 "and cd into DIR"
 msgstr ""
 
-#: main.cc:178
+#: main.cc:177
 msgid "do not generate printed output"
 msgstr ""
 
-#: main.cc:179
+#: main.cc:178
 msgid "write output to FILE (suffix will be added)"
 msgstr "將輸出內容寫入 <檔案> (會自動加上延伸檔名)"
 
-#: main.cc:180
+#: main.cc:179
 msgid "generate a preview of the first system"
 msgstr ""
 
-#: main.cc:181
-msgid "disallow unsafe Scheme and PostScript operations"
+#: main.cc:180
+msgid "relocate using directory of lilypond program"
 msgstr ""
 
-#: main.cc:182
-msgid "print version number"
+#: main.cc:181
+msgid ""
+"disallow unsafe Scheme and PostScript\n"
+"operations"
+msgstr ""
+
+#: main.cc:183
+#, fuzzy
+msgid "show version number and exit"
 msgstr "顯示版本"
 
-#: main.cc:223
+#: main.cc:224
 #, c-format
 msgid ""
 "Copyright (c) %s by\n"
@@ -1117,79 +1144,79 @@ msgstr ""
 "%s  等等。"
 
 #. No version number or newline here.  It confuses help2man.
-#: main.cc:250
+#: main.cc:251
 #, c-format
 msgid "Usage: %s [OPTION]... FILE..."
 msgstr "用法: %s [選項]... 檔案..."
 
-#: main.cc:252
+#: main.cc:253
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
 msgstr "排列樂譜，並且/或者由檔案產生 MIDI。"
 
-#: main.cc:254
+#: main.cc:255
 #, c-format
 msgid "LilyPond produces beautiful music notation."
 msgstr "LilyPond 是用來排列樂譜的軟體。"
 
-#: main.cc:256
+#: main.cc:257
 #, c-format
 msgid "For more information, see %s"
 msgstr "如果想獲取更多資訊，請瀏覽 %s"
 
-#: main.cc:258
+#: main.cc:259
 #, c-format
 msgid "Options:"
 msgstr "選項:"
 
-#: main.cc:262
+#: main.cc:263
 #, fuzzy, c-format
 msgid "Report bugs via %s"
 msgstr "請向 %s 匯報錯誤。"
 
-#: main.cc:308
+#: main.cc:309
 #, fuzzy, c-format
 msgid "expected %d arguments with jail, found: %u"
 msgstr "鋼琴踏板記號後要跟隨 3 個字串，但只找到 %d 個"
 
-#: main.cc:322
+#: main.cc:323
 #, c-format
 msgid "no such user: %s"
 msgstr "%s 用戶不存在"
 
-#: main.cc:324
+#: main.cc:325
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr "無法從用戶名稱獲得 UID: %s: %s"
 
-#: main.cc:339
+#: main.cc:340
 #, c-format
 msgid "no such group: %s"
 msgstr "%s 群組不存在"
 
-#: main.cc:341
+#: main.cc:342
 #, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "無法從群組名稱獲得 GID: %s: %s"
 
-#: main.cc:349
+#: main.cc:350
 #, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr ""
 
-#: main.cc:356
+#: main.cc:357
 #, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "無法將 GID 更改為 %d: %s"
 
-#: main.cc:362
+#: main.cc:363
 #, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "無法將 UID 更改為 %d: %s"
 
-#: main.cc:368
+#: main.cc:369
 #, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "無法將工作目錄切換至: %s: %s"
 
 #: main.cc:415
@@ -1197,7 +1224,7 @@ msgstr "無法將工作目錄切換至: %s: %s"
 msgid "Evaluating %s"
 msgstr ""
 
-#: main.cc:638
+#: main.cc:645
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -1211,37 +1238,37 @@ msgstr "rehearsalMark 必須是整數"
 msgid "mark label must be a markup object"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:88
+#: mensural-ligature-engraver.cc:85
 msgid "ligature with less than 2 heads -> skipping"
 msgstr "圓滑線包含的音符符頭少於 2 個，因此忽略之"
 
-#: mensural-ligature-engraver.cc:115
+#: mensural-ligature-engraver.cc:112
 msgid "cannot determine pitch of ligature primitive -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:129
+#: mensural-ligature-engraver.cc:126
 msgid "single note ligature - skipping"
 msgstr "忽略單音符的圓滑線"
 
-#: mensural-ligature-engraver.cc:141
+#: mensural-ligature-engraver.cc:138
 msgid "prime interval within ligature -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:153
+#: mensural-ligature-engraver.cc:150
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:201
+#: mensural-ligature-engraver.cc:198
 msgid "semibrevis must be followed by another one -> skipping"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:212
+#: mensural-ligature-engraver.cc:209
 msgid ""
 "semibreves can only appear at the beginning of a ligature,\n"
 "and there may be only zero or two of them"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:239
+#: mensural-ligature-engraver.cc:236
 msgid ""
 "invalid ligatura ending:\n"
 "when the last note is a descending brevis,\n"
@@ -1249,7 +1276,7 @@ msgid ""
 "or the ligatura must be LB or SSB"
 msgstr ""
 
-#: mensural-ligature-engraver.cc:359
+#: mensural-ligature-engraver.cc:356
 msgid "unexpected case fall-through"
 msgstr ""
 
@@ -1277,103 +1304,110 @@ msgstr ""
 
 #: midi-stream.cc:28
 #, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "無法開啟檔案來寫入內容: %s: %s"
 
 #: midi-stream.cc:44
 #, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "無法寫入檔案: ‘%s’"
 
-#: music-iterator.cc:172
+#: music-iterator.cc:171
 msgid "Sending non-event to context"
 msgstr ""
 
-#: music.cc:142
+#: music.cc:141
 #, c-format
-msgid "octave check failed; expected \"%s\", found: %s"
+msgid "octave check failed; expected \"%s\", found: \"%s\""
 msgstr ""
 
-#: music.cc:208
+#: music.cc:207
 #, c-format
 msgid "transposition by %s makes alteration larger than double"
 msgstr ""
 
-#: new-fingering-engraver.cc:87
-msgid "can't add text scripts to individual note heads"
+#: new-fingering-engraver.cc:96
+msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
-#: new-fingering-engraver.cc:246
+#: new-fingering-engraver.cc:239
 msgid "no placement found for fingerings"
 msgstr ""
 
-#: new-fingering-engraver.cc:247
+#: new-fingering-engraver.cc:240
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:415
+#: note-collision.cc:457
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
-#: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+#: note-column.cc:124
+msgid "cannot have note heads and rests together on a stem"
 msgstr "一條符桿上不可以同時有符頭和休止符"
 
-#: note-head.cc:69
+#: note-head.cc:63
 #, fuzzy, c-format
 msgid "none of note heads `%s' or `%s' found"
 msgstr "找不到符頭 ‘%s’"
 
-#: note-heads-engraver.cc:63
+#: note-heads-engraver.cc:61
 msgid "NoteEvent without pitch"
 msgstr ""
 
 #: open-type-font.cc:33
 #, fuzzy, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "無法分配 %d 位元組"
 
 #: open-type-font.cc:37
 #, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "無法載入字型表: %s"
 
-#: open-type-font.cc:96
+#: open-type-font.cc:98
 #, c-format
 msgid "unsupported font format: %s"
 msgstr "不支援字型格式: %s"
 
-#: open-type-font.cc:98
+#: open-type-font.cc:100
 #, c-format
 msgid "unknown error: %d reading font file: %s"
 msgstr ""
 
-#: open-type-font.cc:171 open-type-font.cc:295
-#, c-format
-msgid "FT_Get_Glyph_Name() returned error: %d"
+#: open-type-font.cc:173 open-type-font.cc:297
+#, fuzzy, c-format
+msgid "FT_Get_Glyph_Name() returned error: %u"
 msgstr "FT_Get_Glyph_Name() 回傳錯誤代碼: %d"
 
-#: page-turn-page-breaking.cc:227
+#: page-turn-page-breaking.cc:205
 msgid ""
-"couldn't fit the first page turn onto a single page. Consider setting first-"
+"cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:240
+#: page-turn-page-breaking.cc:218
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:258 paper-score.cc:154
+#: page-turn-page-breaking.cc:236 paper-score.cc:154
 msgid "Drawing systems..."
 msgstr ""
 
-#: pango-font.cc:215
+#: pango-font.cc:181
+#, c-format
+msgid ""
+"Glyph has no name, but font supports glyph naming.\n"
+"Skipping glyph U+%0X, file %s"
+msgstr ""
+
+#: pango-font.cc:224
 #, c-format
 msgid "no PostScript font name for font `%s'"
 msgstr "字型 ‘%s’ 沒有 PostScript 字型名稱"
 
-#: pango-font.cc:263
+#: pango-font.cc:272
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
@@ -1407,15 +1441,15 @@ msgstr ""
 msgid "Track..."
 msgstr ""
 
-#: performance.cc:66
+#: performance.cc:74
 msgid "MIDI channel wrapped around"
 msgstr ""
 
-#: performance.cc:67
+#: performance.cc:75
 msgid "remapping modulo 16"
 msgstr ""
 
-#: performance.cc:95
+#: performance.cc:103
 #, c-format
 msgid "MIDI output to `%s'..."
 msgstr "將 MIDI 輸出至 ‘%s’..."
@@ -1424,23 +1458,23 @@ msgstr "將 MIDI 輸出至 ‘%s’..."
 msgid "unterminated phrasing slur"
 msgstr "樂句線沒有終點"
 
-#: piano-pedal-engraver.cc:304
+#: piano-pedal-engraver.cc:286
 #, fuzzy, c-format
 msgid "expect 3 strings for piano pedals, found: %ld"
 msgstr "鋼琴踏板記號後要跟隨 3 個字串，但只找到 %d 個"
 
-#: piano-pedal-engraver.cc:319 piano-pedal-engraver.cc:330
+#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
 #: piano-pedal-performer.cc:93
 #, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr "找不到鋼琴踏板記號的開始位置: ‘%s’"
 
-#: piano-pedal-engraver.cc:377
+#: piano-pedal-engraver.cc:347
 #, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "找不到鋼琴踏板記號的開始位置: ‘%s’"
 
-#: program-option.cc:195
+#: program-option.cc:205
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -1450,114 +1484,113 @@ msgstr ""
 msgid "not a grob name, `%s'"
 msgstr ""
 
-#: relative-octave-check.cc:39
+#: relative-octave-check.cc:38
 msgid "Failed octave check, got: "
 msgstr ""
 
 #: relocate.cc:44
 #, fuzzy, c-format
-msgid "Setting %s to %s\n"
+msgid "Setting %s to %s"
 msgstr "正在將字型寫入 %s"
 
-#: relocate.cc:58
+#: relocate.cc:59
 #, fuzzy, c-format
 msgid "no such file: %s for %s"
 msgstr "%s 用戶不存在"
 
-#: relocate.cc:68 relocate.cc:86
+#: relocate.cc:69 relocate.cc:87
 #, fuzzy, c-format
 msgid "no such directory: %s for %s"
 msgstr "%s 用戶不存在"
 
-#: relocate.cc:78
+#: relocate.cc:79
 #, c-format
 msgid "%s=%s (prepend)\n"
 msgstr ""
 
-#: relocate.cc:98
+#: relocate.cc:99
 #, c-format
 msgid "Relocation: compile prefix=%s, new prefix=%s"
 msgstr ""
 
-#: relocate.cc:128
+#: relocate.cc:129
 #, c-format
 msgid "Relocation: framework_prefix=%s"
 msgstr ""
 
-#: relocate.cc:168
+#: relocate.cc:169
 #, c-format
 msgid "Relocation: is absolute: argv0=%s"
 msgstr ""
 
-#: relocate.cc:175
+#: relocate.cc:176
 #, c-format
 msgid "Relocation: from cwd: argv0=%s"
 msgstr ""
 
-#: relocate.cc:184
+#: relocate.cc:185
 #, c-format
 msgid ""
 "Relocation: from PATH=%s\n"
 "argv0=%s"
 msgstr ""
 
-#: relocate.cc:353
+#: relocate.cc:354
 #, fuzzy, c-format
-msgid "Relocation file %s\n"
+msgid "Relocation file: %s"
 msgstr "無法開啟檔案: ‘%s’"
 
-#: relocate.cc:358
-#, fuzzy, c-format
-msgid "can't open file %s"
-msgstr "無法開啟檔案: ‘%s’"
-
-#: relocate.cc:388
+#: relocate.cc:390
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr ""
 
-#: rest-collision.cc:150
-msgid "can't resolve rest collision: rest direction not set"
+#: rest-collision.cc:151
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
-#: rest-collision.cc:164 rest-collision.cc:209
+#: rest-collision.cc:165 rest-collision.cc:210
 msgid "too many colliding rests"
 msgstr ""
 
-#: rest.cc:143
+#: rest.cc:144
 #, c-format
 msgid "rest `%s' not found"
 msgstr "找不到休止符 ‘%s’"
 
-#: score-engraver.cc:68
+#: score-engraver.cc:67
 #, c-format
 msgid "cannot find `%s'"
 msgstr "找不到 ‘%s’"
 
-#: score-engraver.cc:70
+#: score-engraver.cc:69
 msgid "Music font has not been installed properly."
 msgstr "樂譜字型沒有正確地安裝。"
 
-#: score-engraver.cc:72
+#: score-engraver.cc:71
 #, c-format
 msgid "Search path `%s'"
 msgstr "搜尋路徑 ‘%s’"
 
-#: score.cc:222
+#: score-engraver.cc:73
+msgid "Aborting"
+msgstr "終止"
+
+#: score.cc:225
 msgid "already have music in score"
 msgstr ""
 
-#: score.cc:223
+#: score.cc:226
 msgid "this is the previous music"
 msgstr ""
 
-#: score.cc:228
+#: score.cc:231
 msgid "errors found, ignoring music expression"
 msgstr ""
 
 #. FIXME:
 #: script-engraver.cc:102
-msgid "don't know how to interpret articulation: "
+msgid "do not know how to interpret articulation: "
 msgstr ""
 
 #: script-engraver.cc:103
@@ -1569,16 +1602,17 @@ msgstr ""
 msgid "No spring between column %d and next one"
 msgstr ""
 
-#: slur-engraver.cc:83
-msgid "Invalid direction of slur-event"
+#: slur-engraver.cc:83 tuplet-engraver.cc:75
+#, c-format
+msgid "direction of %s invalid: %d"
 msgstr ""
 
-#: slur-engraver.cc:156
+#: slur-engraver.cc:157
 msgid "unterminated slur"
 msgstr "圓滑線沒有終點"
 
-#: slur-engraver.cc:165
-msgid "can't end slur"
+#: slur-engraver.cc:166
+msgid "cannot end slur"
 msgstr "無法結束圓滑線"
 
 #: source-file.cc:74
@@ -1590,57 +1624,57 @@ msgstr "本來應該讀入 %d 個字元，但實際上是 %d 個"
 msgid "staff-span event has no direction"
 msgstr ""
 
-#: stem-engraver.cc:95
+#: stem-engraver.cc:92
 msgid "tremolo duration is too long"
 msgstr ""
 
 #. FIXME:
-#: stem-engraver.cc:132
+#: stem-engraver.cc:129
 #, c-format
 msgid "adding note head to incompatible stem (type = %d)"
 msgstr "將符頭加入不兼容的符桿 (type = %d)"
 
-#: stem-engraver.cc:134
+#: stem-engraver.cc:131
 msgid "maybe input should specify polyphonic voices"
 msgstr ""
 
-#: stem.cc:104
+#: stem.cc:105
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: stem.cc:627
+#: stem.cc:641
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:638
+#: stem.cc:652
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
 
-#: system.cc:178
+#: system.cc:180
 #, c-format
 msgid "Element count %d."
 msgstr ""
 
-#: system.cc:270
+#: system.cc:276
 #, c-format
 msgid "Grob count %d"
 msgstr ""
 
-#: text-spanner-engraver.cc:60
-msgid "can't find start of text spanner"
+#: text-spanner-engraver.cc:61
+msgid "cannot find start of text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:72
+#: text-spanner-engraver.cc:73
 msgid "already have a text spanner"
 msgstr ""
 
-#: text-spanner-engraver.cc:132
+#: text-spanner-engraver.cc:133
 msgid "unterminated text spanner"
 msgstr ""
 
-#: tie-engraver.cc:257
+#: tie-engraver.cc:264
 msgid "lonely tie"
 msgstr "單邊連結線"
 
@@ -1649,14 +1683,14 @@ msgstr "單邊連結線"
 #.
 #. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
 #.
-#: time-signature-engraver.cc:63
+#: time-signature-engraver.cc:64
 #, c-format
 msgid "strange time signature found: %d/%d"
 msgstr "出現不正常的拍號: %d/%d"
 
 #. If there is no such symbol, we default to the numbered style.
 #. (Here really with a warning!)
-#: time-signature.cc:82
+#: time-signature.cc:83
 #, c-format
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr "找不到拍號 ‘%s’，還原為數字形式"
@@ -1666,41 +1700,37 @@ msgstr "找不到拍號 ‘%s’，還原為數字形式"
 msgid "unknown translator: `%s'"
 msgstr ""
 
-#: translator-group.cc:152
+#: translator-group.cc:151
 #, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "找不到: ‘%s’"
 
-#: translator.cc:310
+#: translator.cc:332
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr ""
 
-#: translator.cc:311
+#: translator.cc:333
 #, c-format
 msgid "Previous %s event here"
 msgstr ""
 
-#: trill-spanner-engraver.cc:67
-msgid "can't find start of trill spanner"
+#: trill-spanner-engraver.cc:68
+msgid "cannot find start of trill spanner"
 msgstr "找不到震音的起點"
 
-#: trill-spanner-engraver.cc:79
+#: trill-spanner-engraver.cc:80
 msgid "already have a trill spanner"
 msgstr "震音已經有起點"
 
-#: tuplet-engraver.cc:72
-msgid "invalid direction of tuplet-span-event"
-msgstr ""
-
-#: vaticana-ligature-engraver.cc:364
+#: vaticana-ligature-engraver.cc:388
 #, c-format
 msgid ""
 "ignored prefix (es) `%s' of this head according to restrictions of the "
 "selected ligature style"
 msgstr ""
 
-#: vaticana-ligature-engraver.cc:601
+#: vaticana-ligature-engraver.cc:714
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr "Vaticana_ligature_engraver: 設定 `spacing-increment = %f': ptr =%ul"
@@ -1718,264 +1748,275 @@ msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr ""
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:143
-msgid "can't end volta spanner"
+#: volta-engraver.cc:144
+msgid "cannot end volta spanner"
 msgstr ""
 
-#: volta-engraver.cc:153
+#: volta-engraver.cc:154
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr ""
 
-#: volta-engraver.cc:157
+#: volta-engraver.cc:158
 msgid "also already have an ended spanner"
 msgstr ""
 
-#: parser.yy:704
+#: volta-engraver.cc:159
+msgid "giving up"
+msgstr "放棄"
+
+#: parser.yy:702
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "\\paper 不可以在 \\score 中使用，請改用 \\layout"
 
-#: parser.yy:728
+#: parser.yy:726
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1174
+#: parser.yy:1172
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1481
+#: parser.yy:1475
 msgid "second argument must be pitch list"
 msgstr ""
 
-#: parser.yy:1508 parser.yy:1513 parser.yy:1988
+#: parser.yy:1502 parser.yy:1507 parser.yy:1972
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1612
+#: parser.yy:1604
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1770 parser.yy:1820
+#: parser.yy:1759 parser.yy:1809
 #, c-format
 msgid "not a duration: %d"
 msgstr "不是音符長度: %d"
 
-#: parser.yy:1940
+#: parser.yy:1926
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2004
+#: parser.yy:1987
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: lexer.ll:177
+#: lexer.ll:176
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:181
+#: lexer.ll:180
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:236
+#: lexer.ll:235
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:254
+#: lexer.ll:252
 msgid "quoted string expected after \\version"
 msgstr "\\version 後應該是加上引號的字串"
 
-#: lexer.ll:258
+#: lexer.ll:256
 msgid "quoted string expected after \\sourcefilename"
 msgstr "\\sourcefilename 後應該是加上引號的字串"
 
-#: lexer.ll:262
+#: lexer.ll:260
 #, fuzzy
 msgid "integer expected after \\sourcefileline"
 msgstr "\\sourcefilename 後應該是加上引號的字串"
 
-#: lexer.ll:275
+#: lexer.ll:273
 msgid "EOF found inside a comment"
 msgstr "檔案突然在註釋內結束"
 
-#: lexer.ll:290
+#: lexer.ll:288
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:314
+#: lexer.ll:312
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "錯誤或仍未定義的識別字: ‘%s’"
 
 #. backup rule
-#: lexer.ll:323
+#: lexer.ll:321
 msgid "end quote missing"
 msgstr "缺少了右引號"
 
-#: lexer.ll:468
+#: lexer.ll:466
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:561
+#: lexer.ll:559
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:661
+#: lexer.ll:659
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "字元無效: ‘%c’"
 
-#: lexer.ll:776
+#: lexer.ll:774 lexer.ll:775
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:882
+#: lexer.ll:880 lexer.ll:881
 #, c-format
-msgid "Incorrect lilypond version: %s (%s, %s)"
-msgstr "lilypond 版本不正確: %s (%s, %s)"
+msgid "file too old: %s (oldest supported: %s)"
+msgstr ""
 
-#: lexer.ll:883
-msgid "Consider updating the input with the convert-ly script"
+#: lexer.ll:881 lexer.ll:882
+#, fuzzy
+msgid "consider updating the input with the convert-ly script"
 msgstr "請考慮使用 convert-ly 命令稿來轉換輸入的內容"
 
-#: backend-library.scm:19 lily.scm:479 ps-to-png.scm:88
-#, lisp-format
+#: lexer.ll:887 lexer.ll:888
+#, c-format
+msgid "program too old: %s (file requires: %s)"
+msgstr ""
+
+#: backend-library.scm:19 lily.scm:599 ps-to-png.scm:82
+#, scheme-format
 msgid "Invoking `~a'..."
 msgstr ""
 
 #: backend-library.scm:24
-#, lisp-format
+#, scheme-format
 msgid "`~a' failed (~a)"
 msgstr "‘~a’ 發生錯誤 (~a)"
 
 #: backend-library.scm:95 framework-tex.scm:343 framework-tex.scm:368
-#, lisp-format
+#, scheme-format
 msgid "Converting to `~a'..."
 msgstr "轉換為 ‘~a’..."
 
-#: backend-library.scm:110
-#, lisp-format
+#: backend-library.scm:108
+#, scheme-format
 msgid "Converting to ~a..."
 msgstr "轉換為 ~a..."
 
-#: backend-library.scm:156
-#, lisp-format
+#: backend-library.scm:145
+#, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
 
 #: define-context-properties.scm:20 define-grob-properties.scm:10
 #: define-music-properties.scm:10
-#, lisp-format
+#, scheme-format
 msgid "symbol ~S redefined"
 msgstr "符號 ~S 被重複定義"
 
-#: define-event-classes.scm:116
-#, lisp-format
+#: define-event-classes.scm:119
+#, scheme-format
 msgid "event class ~A seems to be unused"
 msgstr ""
 
 #. should be programming-error
-#: define-event-classes.scm:122
-#, lisp-format
+#: define-event-classes.scm:125
+#, scheme-format
 msgid "translator listens to nonexisting event class ~A"
 msgstr ""
 
-#: define-markup-commands.scm:256
+#: define-markup-commands.scm:255
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:1249
-#, lisp-format
+#: define-markup-commands.scm:1297
+#, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "音符長度無效: ~a"
 
-#: define-music-types.scm:734
-#, lisp-format
+#: define-music-types.scm:751
+#, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:737
-#, lisp-format
-msgid "can't find music object: ~S"
+#: define-music-types.scm:754
+#, scheme-format
+msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:757
-#, lisp-format
+#: define-music-types.scm:774
+#, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:758
+#: define-music-types.scm:775
 msgid "See music-types.scm for supported repeats"
 msgstr ""
 
 #: document-backend.scm:91
-#, lisp-format
+#, scheme-format
 msgid "pair expected in doc ~s"
 msgstr ""
 
 #: document-backend.scm:135
-#, lisp-format
-msgid "can't find interface for property: ~S"
+#, scheme-format
+msgid "cannot find interface for property: ~S"
 msgstr ""
 
 #: document-backend.scm:145
-#, lisp-format
+#, scheme-format
 msgid "unknown Grob interface: ~S"
 msgstr ""
 
 #: documentation-lib.scm:45
-#, lisp-format
+#, scheme-format
 msgid "Processing ~S..."
 msgstr "正在處理 ~S..."
 
 #: documentation-lib.scm:150
-#, lisp-format
+#, scheme-format
 msgid "Writing ~S..."
 msgstr "正在寫入 ~S..."
 
 #: documentation-lib.scm:172
-#, lisp-format
-msgid "can't find description for property ~S (~S)"
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: framework-eps.scm:77 framework-eps.scm:78
-#, lisp-format
+#: framework-eps.scm:91 framework-eps.scm:92
+#, scheme-format
 msgid "Writing ~a..."
 msgstr "正在寫入 ~a..."
 
-#: framework-ps.scm:278
-#, lisp-format
-msgid "can't embed ~S=~S"
+#: framework-ps.scm:279
+#, scheme-format
+msgid "cannot embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:331
-#, lisp-format
-msgid "can't extract file matching ~a from ~a"
+#: framework-ps.scm:332
+#, scheme-format
+msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
-#: framework-ps.scm:348
-#, lisp-format
-msgid "don't know how to embed ~S=~S"
+#: framework-ps.scm:349
+#, scheme-format
+msgid "do not know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:379
-#, lisp-format
-msgid "don't know how to embed font ~s ~s ~s"
+#: framework-ps.scm:380
+#, scheme-format
+msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:610
-#, lisp-format
-msgid "can't convert <stdout> to ~S"
+#: framework-ps.scm:729
+#, scheme-format
+msgid "cannot convert <stdout> to ~S"
 msgstr "無法將 <標準輸出> 轉換為 ~S"
 
-#: framework-ps.scm:629 framework-ps.scm:632
-#, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+#: framework-ps.scm:748 framework-ps.scm:751
+#, scheme-format
+msgid "cannot generate ~S using the postscript back-end"
 msgstr "無法使用 postscript 背景模組來產生 ~S"
 
-#: framework-ps.scm:639
+#: framework-ps.scm:758
 msgid ""
-"nThe PostScript backend does not support the 'classic'\n"
+"\n"
+"The PostScript backend does not support the 'classic'\n"
 "framework. Use the EPS backend instead,\n"
 "\n"
 "  lilypond -b eps <file>\n"
@@ -1984,55 +2025,55 @@ msgid ""
 msgstr ""
 
 #: framework-tex.scm:360
-#, lisp-format
+#, scheme-format
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr "TeX 檔案名稱不可以有空格: ‘~a’"
 
 #: layout-beam.scm:29
-#, lisp-format
+#, scheme-format
 msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
 msgstr ""
 
 #: layout-beam.scm:46
-#, lisp-format
+#, scheme-format
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr ""
 
-#: layout-page-layout.scm:353
+#: layout-page-layout.scm:357
 msgid "Calculating page breaks..."
 msgstr "正在計算頁面分割位置..."
 
-#: lily-library.scm:510
-#, lisp-format
+#: lily-library.scm:582
+#, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:543
-#, lisp-format
+#: lily-library.scm:615
+#, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:550
+#: lily-library.scm:622
 msgid "old relative compatibility not used"
 msgstr ""
 
-#: lily.scm:131
-#, fuzzy, lisp-format
-msgid "Can't find ~A"
+#: lily.scm:144
+#, fuzzy, scheme-format
+msgid "cannot find: ~A"
 msgstr "找不到: ‘%s’"
 
-#: lily.scm:196
-#, lisp-format
+#: lily.scm:209
+#, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "參數 ~a 類型不正確。應該是 ~a，但實際是 ~s。"
 
-#: lily.scm:409 lily.scm:469
-#, lisp-format
+#: lily.scm:525 lily.scm:589
+#, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:459
-#, fuzzy, lisp-format
+#: lily.scm:579
+#, fuzzy, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr "轉換為 ~a..."
 
@@ -2040,48 +2081,48 @@ msgstr "轉換為 ~a..."
 msgid "Music head function must return Music object"
 msgstr ""
 
-#: ly-syntax-constructors.scm:132
-#, lisp-format
+#: ly-syntax-constructors.scm:136
+#, scheme-format
 msgid "Invalid property operation ~a"
 msgstr ""
 
-#: markup.scm:88
-#, lisp-format
+#: markup.scm:123
+#, scheme-format
 msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
 msgstr "參數數目不正確。應該是 ~A，但實際是 ~A: ~S。"
 
-#: markup.scm:94
-#, lisp-format
+#: markup.scm:129
+#, scheme-format
 msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr "位置 ~A 出現無效的參數。應該是 ~A，但實際是 ~S。"
 
-#: music-functions.scm:210
-msgid "More alternatives than repeats. Junking excess alternatives"
+#: music-functions.scm:213
+msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr ""
 
-#: music-functions.scm:229
-#, fuzzy, lisp-format
+#: music-functions.scm:232
+#, fuzzy, scheme-format
 msgid "expecting 2 elements for chord tremolo, found ~a"
 msgstr "顫音和弦需要 2 個元素，但實際上找到 %d 個"
 
-#: music-functions.scm:535
-#, lisp-format
+#: music-functions.scm:538
+#, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
 #. FIXME: uncomprehensable message
-#: music-functions.scm:586
-#, lisp-format
+#: music-functions.scm:589
+#, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr ""
 
-#: music-functions.scm:745
-#, lisp-format
-msgid "can't find quoted music `~S'"
-msgstr ""
+#: music-functions.scm:748
+#, fuzzy, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "找不到字型：‘%s’"
 
-#: music-functions.scm:953
-#, lisp-format
+#: music-functions.scm:942
+#, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
 
@@ -2091,42 +2132,42 @@ msgid "utf-8-string encountered in PS backend"
 msgstr "PS 背景模組遇到 UTF-8 字串"
 
 #: output-svg.scm:42
-#, lisp-format
+#, scheme-format
 msgid "undefined: ~S"
 msgstr "未定義: ~S"
 
 #: output-svg.scm:132
-#, lisp-format
-msgid "can't decypher Pango description: ~a"
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
 #: output-tex.scm:98
-#, lisp-format
-msgid "can't find ~a in ~a"
+#, scheme-format
+msgid "cannot find ~a in ~a"
 msgstr ""
 
 #: paper.scm:69
 msgid "Not in toplevel scope"
 msgstr ""
 
-#: paper.scm:114
-#, lisp-format
+#: paper.scm:117
+#, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr ""
 
-#: paper.scm:126
-#, lisp-format
+#: paper.scm:129
+#, scheme-format
 msgid "Unknown papersize: ~a"
 msgstr ""
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:141
+#: paper.scm:144
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr "\\paper { ... } 內必須使用 #(set-paper-size .. )"
 
 #: parser-clef.scm:126
-#, lisp-format
+#, scheme-format
 msgid "unknown clef type `~a'"
 msgstr "出現不明譜號 ‘~a’"
 
@@ -2134,14 +2175,49 @@ msgstr "出現不明譜號 ‘~a’"
 msgid "see scm/clef.scm for supported clefs"
 msgstr "請在 scm/clef.scm 內參考目前支援的譜號"
 
-#: ps-to-png.scm:97
-#, fuzzy, lisp-format
+#: ps-to-png.scm:88
+#, fuzzy, scheme-format
 msgid "~a exited with status: ~S"
 msgstr "%s 結束，回傳值為: %d"
 
 #: to-xml.scm:190
-msgid "assertion failed"
+#, scheme-format
+msgid "assertion failed: ~S"
 msgstr ""
+
+#, fuzzy
+#~ msgid "show warranty"
+#~ msgstr "顯示保證條款及版權資訊"
+
+#~ msgid "Convert MIDI to LilyPond source."
+#~ msgstr "將 MIDI 轉換為 LilyPond 來源檔。"
+
+#, fuzzy
+#~ msgid "example"
+#~ msgstr "例子"
+
+#~ msgid "loading default font"
+#~ msgstr "正在載入預設字型"
+
+#~ msgid "cannot find default font: `%s'"
+#~ msgstr "找不到預設字型：‘%s’"
+
+#, fuzzy
+#~ msgid "couldnnot find line breaking that satisfies constraints"
+#~ msgstr "找不到符合指定條件的斷行位置"
+
+#~ msgid "crescendo too small"
+#~ msgstr "漸強符號太小"
+
+#~ msgid "print this help"
+#~ msgstr "印出這段說明訊息"
+
+#, fuzzy
+#~ msgid "cannot open file %s"
+#~ msgstr "無法開啟檔案: ‘%s’"
+
+#~ msgid "Incorrect lilypond version: %s (%s, %s)"
+#~ msgstr "lilypond 版本不正確: %s (%s, %s)"
 
 #~ msgid "distance undefined, assuming 0.1"
 #~ msgstr "未定義距離，假設為 0.1"
@@ -2149,14 +2225,11 @@ msgstr ""
 #~ msgid "no feasible line breaking found"
 #~ msgstr "無法找出適當斷行位置"
 
-#~ msgid "can't find line breaking that satisfies constraints"
-#~ msgstr "找不到符合指定條件的斷行位置"
-
 #~ msgid ""
 #~ "%s: TFM file has %u parameters, which is more than the %u I can handle"
 #~ msgstr "%s: TFM 檔案有 %u 個參數，多於目前能夠處理的 %u 個"
 
-#~ msgid "can't find ascii character: %d"
+#~ msgid "cannot find ascii character: %d"
 #~ msgstr "找不到 ascii 字元: %d"
 
 #~ msgid "unterminated trill spanner"
@@ -2167,9 +2240,6 @@ msgstr ""
 
 #~ msgid "lilylib module"
 #~ msgstr "lilylib 模組"
-
-#~ msgid "Usage: %s [OPTIONS]... FILE"
-#~ msgstr "用法: %s [選項]... 檔案"
 
 #~ msgid "Opening pipe `%s'"
 #~ msgstr "開啟管線 ‘%s’"
@@ -2221,12 +2291,6 @@ msgstr ""
 #~ msgid "command exited with value %d"
 #~ msgstr "指令結束，回傳值為 %d"
 
-#~ msgid "Example:"
-#~ msgstr "例子:"
-
-#~ msgid "Convert mup to LilyPond source."
-#~ msgstr "將 mup 格式轉換至 LilyPond 格式。"
-
 #~ msgid "debug"
 #~ msgstr "偵錯"
 
@@ -2251,7 +2315,7 @@ msgstr ""
 #~ msgid "Wrote `%s'"
 #~ msgstr "寫入‘%s’"
 
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "無法 dlopen: %s: %s"
 
 #~ msgid "error opening kpathsea library"
@@ -2265,9 +2329,6 @@ msgstr ""
 
 #~ msgid "checksum mismatch for font file: `%s'"
 #~ msgstr "字型檔的檢查碼出現錯誤: ‘%s’"
-
-#~ msgid "does not match: `%s'"
-#~ msgstr "不符合: ‘%s’"
 
 #~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
 #~ msgstr "重新產生所有 .afm 檔，並移除所有 .pk 和 .tfm 檔。"
@@ -2322,5 +2383,5 @@ msgstr ""
 #~ msgid "syntax error"
 #~ msgstr "語法錯誤"
 
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "找不到 CFF/PFA/PFB 字型 ~S=~S"

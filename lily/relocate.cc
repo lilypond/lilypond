@@ -41,7 +41,8 @@ sane_putenv (char const *key, string value, bool overwrite)
       char *s = strdup (combine.c_str ());
 
       if (be_verbose_global)
-	progress_indication (_f ("Setting %s to %s\n" , key, value.c_str ())); 
+	progress_indication (_f ("Setting %s to %s" , key, value.c_str ())
+			     + "\n");
 			     
       return putenv (s);
     }
@@ -192,7 +193,7 @@ setup_paths (char const *argv0_ptr)
 #endif /* __MINGW32__ */
 
 	  if (argv0_abs.empty ())
-	    programming_error ("can't find absolute argv0.");
+	    programming_error ("cannot find absolute argv0");
 	}
 
       string bindir = dir_name (argv0_abs);
@@ -350,12 +351,13 @@ void
 read_relocation_file (string filename)
 {
   if (be_verbose_global)
-    progress_indication (_f ("Relocation file %s\n", filename.c_str ()));
+    progress_indication (_f ("Relocation file: %s", filename.c_str ())
+			 + "\n");
       
   char const *cname = filename.c_str ();
   FILE *f = fopen (cname, "r");
   if (!f)
-    error (_f ("can't open file %s", cname));
+    error (_f ("cannot open file: `%s'", cname));
 
   while (!feof (f))
     {

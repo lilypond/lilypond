@@ -72,7 +72,8 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
       tuplets_.pop_back ();
     }
   else 
-    programming_error (_ ("invalid direction of tuplet-span-event"));
+    programming_error (_f ("direction of %s invalid: %d",
+			   "tuplet-span-event", int (dir)));
 }
 
 void

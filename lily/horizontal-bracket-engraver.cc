@@ -56,7 +56,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
     {
       pop_count_++;
       if (pop_count_ > bracket_stack_.size ())
-	ev->origin ()->warning (_ ("don't have that many brackets"));
+	ev->origin ()->warning (_ ("do not have that many brackets"));
     }
   else
     {

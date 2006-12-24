@@ -51,7 +51,7 @@ gulp_file (string filename, int desired_size)
   FILE *f = fopen (filename.c_str (), "rb");
   if (!f)
     {
-      warning (_f ("can't open file: `%s'", filename.c_str ()));
+      warning (_f ("cannot open file: `%s'", filename.c_str ()));
 
       vector<char> cxx_arr;
       return cxx_arr;

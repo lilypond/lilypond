@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: lilypond 1.4.13\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-10-08 16:22+0200\n"
-"PO-Revision-Date: 2002-06-28 15:46CET\n"
+"PO-Revision-Date: 2006-12-23 16:15+0100\n"
 "Last-Translator: Quique <quique@sindominio.net>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -166,12 +166,12 @@ msgstr "Procesando `%s'..."
 
 #: convert-ly.py:279 source-file.cc:54
 #, c-format, python-format
-msgid "can't open file: `%s'"
+msgid "cannot open file: `%s'"
 msgstr "no se puede abrir el fichero: `%s'"
 
 #: convert-ly.py:286
 #, fuzzy, python-format
-msgid "can't determine version for `%s'. Skipping"
+msgid "cannot determine version for `%s'. Skipping"
 msgstr "no puedo encontrar la fuente por defecto: `%s'"
 
 #: etf2ly.py:1198
@@ -306,7 +306,7 @@ msgid "The error log is as follows:"
 msgstr ""
 
 #: lilypond-book.py:1405
-msgid "Can't find \\begin{document} in LaTeX document"
+msgid "Cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
 #: lilypond-book.py:1513
@@ -326,7 +326,7 @@ msgstr "calma, %s está al día"
 
 #: lilypond-book.py:1532
 #, fuzzy, python-format
-msgid "can't determine format for: %s"
+msgid "cannot determine format for: %s"
 msgstr "no puedo encontrar la fuente por defecto: `%s'"
 
 #: lilypond-book.py:1543
@@ -462,7 +462,7 @@ msgstr "la opción `%s' requiere un argumento"
 
 #: getopt-long.cc:145
 #, c-format
-msgid "option `%s' doesn't allow an argument"
+msgid "option `%s' doesnnot allow an argument"
 msgstr "la opción `%s' no permite argumentos"
 
 #: getopt-long.cc:149
@@ -511,12 +511,12 @@ msgid ""
 msgstr ""
 
 #: align-interface.cc:314
-msgid "tried to get a translation for something that isn't my child"
+msgid "tried to get a translation for something that isnnot my child"
 msgstr ""
 
 #: all-font-metrics.cc:164
 #, c-format
-msgid "can't find font: `%s'"
+msgid "cannot find font: `%s'"
 msgstr "no encuentro la fuente: `%s'"
 
 #: all-font-metrics.cc:165
@@ -526,7 +526,7 @@ msgstr "Cargando la fuente por defecto"
 
 #: all-font-metrics.cc:172
 #, c-format
-msgid "can't find default font: `%s'"
+msgid "cannot find default font: `%s'"
 msgstr "no puedo encontrar la fuente por defecto: `%s'"
 
 #: all-font-metrics.cc:173 includable-lexer.cc:62 lily-parser-scheme.cc:108
@@ -545,7 +545,7 @@ msgstr ""
 
 #: auto-change-iterator.cc:62 change-iterator.cc:61
 #, fuzzy, c-format
-msgid "can't change, already in translator: %s"
+msgid "cannot change, already in translator: %s"
 msgstr "no puedo cambiar de `%s' a `%s'"
 
 #: axis-group-engraver.cc:82
@@ -582,7 +582,7 @@ msgid "stem must have Rhythmic structure"
 msgstr ""
 
 #: beam-engraver.cc:245
-msgid "stem doesn't fit in beam"
+msgid "stem doesnnot fit in beam"
 msgstr ""
 
 #: beam-engraver.cc:246
@@ -609,13 +609,13 @@ msgstr "No se añade el traductor: `%s'"
 
 #: change-iterator.cc:23
 #, fuzzy, c-format
-msgid "can't change `%s' to `%s'"
+msgid "cannot change `%s' to `%s'"
 msgstr "no puedo cambiar de `%s' a `%s'"
 
 #. FIXME: constant error message.
 #: change-iterator.cc:82
 #, fuzzy
-msgid "can't find context to switch to"
+msgid "cannot find context to switch to"
 msgstr "no se puede encontrar el contexto de `%s'"
 
 #. We could change the current translator's id, but that would make
@@ -668,7 +668,7 @@ msgstr ""
 #. if we get to here, just put everything on one line
 #: constrained-breaking.cc:176 constrained-breaking.cc:193
 #, fuzzy
-msgid "couldn't find line breaking that satisfies constraints"
+msgid "couldnnot find line breaking that satisfies constraints"
 msgstr "no he podido encontrar ninguna fuente satisfactoria "
 
 #: context-def.cc:128
@@ -682,12 +682,12 @@ msgstr ""
 
 #: context.cc:151
 #, fuzzy, c-format
-msgid "can't find or create new `%s'"
+msgid "cannot find or create new `%s'"
 msgstr "no se puede encontrar o crear: `%s'"
 
 #: context.cc:213
 #, fuzzy, c-format
-msgid "can't find or create `%s' called `%s'"
+msgid "cannot find or create `%s' called `%s'"
 msgstr "no se puede encontrar o crear `%s' llamado `%s'"
 
 #: context.cc:276
@@ -697,7 +697,7 @@ msgstr ""
 
 #: context.cc:388
 #, c-format
-msgid "can't find or create: `%s'"
+msgid "cannot find or create: `%s'"
 msgstr "no se puede encontrar o crear: `%s'"
 
 #: custos.cc:77
@@ -715,7 +715,7 @@ msgid "Unknown event class %s"
 msgstr "traductor desconocido: `%s'"
 
 #: dynamic-engraver.cc:186 span-dynamic-performer.cc:87
-msgid "can't find start of (de)crescendo"
+msgid "cannot find start of (de)crescendo"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #: dynamic-engraver.cc:195
@@ -802,12 +802,12 @@ msgstr ""
 #. ligature may not start with 2nd head of pes or flexa
 #: gregorian-ligature-engraver.cc:212
 #, fuzzy
-msgid "can't apply `\\~' on first head of ligature"
+msgid "cannot apply `\\~' on first head of ligature"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
-msgid "can't apply `\\~' on heads with identical pitch"
+msgid "cannot apply `\\~' on heads with identical pitch"
 msgstr ""
 
 #: grob-interface.cc:48
@@ -837,7 +837,7 @@ msgid "crescendo too small"
 msgstr "crescendo demasiado pequeño"
 
 #: horizontal-bracket-engraver.cc:58
-msgid "don't have that many brackets"
+msgid "donnot have that many brackets"
 msgstr ""
 
 #: horizontal-bracket-engraver.cc:67
@@ -860,7 +860,7 @@ msgstr ""
 
 #: includable-lexer.cc:60 lily-guile.cc:96 lily-parser-scheme.cc:115
 #, c-format
-msgid "can't find file: `%s'"
+msgid "cannot find file: `%s'"
 msgstr "no puedo encontrar el fichero: `%s'"
 
 #: input.cc:112 source-file.cc:168 source-file.cc:183
@@ -869,7 +869,7 @@ msgstr "posición desconocida"
 
 #: ligature-engraver.cc:95
 #, fuzzy
-msgid "can't find start of ligature"
+msgid "cannot find start of ligature"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #: ligature-engraver.cc:100
@@ -905,7 +905,7 @@ msgstr "(ruta de carga: `%s')"
 
 #: lily-guile.cc:439
 #, c-format
-msgid "can't find property type-check for `%s' (%s)."
+msgid "cannot find property type-check for `%s' (%s)."
 msgstr ""
 
 #: lily-guile.cc:442
@@ -943,7 +943,7 @@ msgstr "no se puede crear el directorio: `%s'"
 
 #: lily-parser-scheme.cc:107
 #, fuzzy, c-format
-msgid "can't find init file: `%s'"
+msgid "cannot find init file: `%s'"
 msgstr "no puedo encontrar el fichero: `%s'"
 
 #: lily-parser-scheme.cc:125
@@ -956,7 +956,7 @@ msgid "Parsing..."
 msgstr "Analizando..."
 
 #: lily-parser.cc:126
-msgid "braces don't match"
+msgid "braces donnot match"
 msgstr ""
 
 #: lyric-combine-music-iterator.cc:286
@@ -1169,7 +1169,7 @@ msgstr "no existe tal parámetro: %s"
 
 #: main.cc:324
 #, c-format
-msgid "can't get user id from user name: %s: %s"
+msgid "cannot get user id from user name: %s: %s"
 msgstr ""
 
 #: main.cc:339
@@ -1179,27 +1179,27 @@ msgstr "no hay tal contexto: %s"
 
 #: main.cc:341
 #, fuzzy, c-format
-msgid "can't get group id from group name: %s: %s"
+msgid "cannot get group id from group name: %s: %s"
 msgstr "no puedo cambiar de `%s' a `%s'"
 
 #: main.cc:349
 #, fuzzy, c-format
-msgid "can't chroot to: %s: %s"
+msgid "cannot chroot to: %s: %s"
 msgstr "no se puede crear el directorio: `%s'"
 
 #: main.cc:356
 #, fuzzy, c-format
-msgid "can't change group id to: %d: %s"
+msgid "cannot change group id to: %d: %s"
 msgstr "no puedo cambiar de `%s' a `%s'"
 
 #: main.cc:362
 #, fuzzy, c-format
-msgid "can't change user id to: %d: %s"
+msgid "cannot change user id to: %d: %s"
 msgstr "no puedo cambiar de `%s' a `%s'"
 
 #: main.cc:368
 #, fuzzy, c-format
-msgid "can't change working directory to: %s: %s"
+msgid "cannot change working directory to: %s: %s"
 msgstr "no se puede crear el directorio: `%s'"
 
 #: main.cc:415
@@ -1287,12 +1287,12 @@ msgstr ""
 
 #: midi-stream.cc:28
 #, fuzzy, c-format
-msgid "can't open for write: %s: %s"
+msgid "cannot open for write: %s: %s"
 msgstr "no se puede abrir el fichero: `%s'"
 
 #: midi-stream.cc:44
 #, fuzzy, c-format
-msgid "can't write to file: `%s'"
+msgid "cannot write to file: `%s'"
 msgstr "no se puede abrir el fichero: `%s'"
 
 #: music-iterator.cc:172
@@ -1310,7 +1310,7 @@ msgid "transposition by %s makes alteration larger than double"
 msgstr ""
 
 #: new-fingering-engraver.cc:87
-msgid "can't add text scripts to individual note heads"
+msgid "cannot add text scripts to individual note heads"
 msgstr ""
 
 #: new-fingering-engraver.cc:246
@@ -1327,7 +1327,7 @@ msgid "ignoring too many clashing note columns"
 msgstr "Demasiadas columnas de notas que chocan entre sí. Se las ignora."
 
 #: note-column.cc:123
-msgid "can't have note heads and rests together on a stem"
+msgid "cannot have note heads and rests together on a stem"
 msgstr ""
 
 #: note-head.cc:69
@@ -1341,12 +1341,12 @@ msgstr ""
 
 #: open-type-font.cc:33
 #, fuzzy, c-format
-msgid "can't allocate %lu bytes"
+msgid "cannot allocate %lu bytes"
 msgstr "no se puede abrir el fichero: `%s'"
 
 #: open-type-font.cc:37
 #, fuzzy, c-format
-msgid "can't load font table: %s"
+msgid "cannot load font table: %s"
 msgstr "no encuentro la fuente: `%s'"
 
 #: open-type-font.cc:96
@@ -1366,7 +1366,7 @@ msgstr ""
 
 #: page-turn-page-breaking.cc:227
 msgid ""
-"couldn't fit the first page turn onto a single page. Consider setting first-"
+"couldnnot fit the first page turn onto a single page. Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
@@ -1448,12 +1448,12 @@ msgstr ""
 #: piano-pedal-engraver.cc:319 piano-pedal-engraver.cc:330
 #: piano-pedal-performer.cc:93
 #, c-format
-msgid "can't find start of piano pedal: `%s'"
+msgid "cannot find start of piano pedal: `%s'"
 msgstr ""
 
 #: piano-pedal-engraver.cc:377
 #, fuzzy, c-format
-msgid "can't find start of piano pedal bracket: `%s'"
+msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #: program-option.cc:195
@@ -1524,7 +1524,7 @@ msgstr "no se puede abrir el fichero: `%s'"
 
 #: relocate.cc:358
 #, fuzzy, c-format
-msgid "can't open file %s"
+msgid "cannot open file %s"
 msgstr "no se puede abrir el fichero: `%s'"
 
 #: relocate.cc:388
@@ -1533,7 +1533,7 @@ msgid "Unknown relocation command %s"
 msgstr ""
 
 #: rest-collision.cc:150
-msgid "can't resolve rest collision: rest direction not set"
+msgid "cannot resolve rest collision: rest direction not set"
 msgstr ""
 
 #: rest-collision.cc:164 rest-collision.cc:209
@@ -1578,7 +1578,7 @@ msgstr ""
 #. FIXME:
 #: script-engraver.cc:102
 #, fuzzy
-msgid "don't know how to interpret articulation: "
+msgid "donnot know how to interpret articulation: "
 msgstr "No se sabe como interpretar la articulación `%s'"
 
 #: script-engraver.cc:103
@@ -1600,7 +1600,7 @@ msgstr ""
 
 #: slur-engraver.cc:165
 #, fuzzy
-msgid "can't end slur"
+msgid "cannot end slur"
 msgstr "no se puede encontrar: `%s'"
 
 #: source-file.cc:74
@@ -1651,7 +1651,7 @@ msgid "Grob count %d"
 msgstr "Elementos contados %d"
 
 #: text-spanner-engraver.cc:60
-msgid "can't find start of text spanner"
+msgid "cannot find start of text spanner"
 msgstr ""
 
 #: text-spanner-engraver.cc:72
@@ -1690,7 +1690,7 @@ msgstr "traductor desconocido: `%s'"
 
 #: translator-group.cc:152
 #, c-format
-msgid "can't find: `%s'"
+msgid "cannot find: `%s'"
 msgstr "no se puede encontrar: `%s'"
 
 #: translator.cc:310
@@ -1705,7 +1705,7 @@ msgstr ""
 
 #: trill-spanner-engraver.cc:67
 #, fuzzy
-msgid "can't find start of trill spanner"
+msgid "cannot find start of trill spanner"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #: trill-spanner-engraver.cc:79
@@ -1744,7 +1744,7 @@ msgstr ""
 #. fixme: be more verbose.
 #: volta-engraver.cc:143
 #, fuzzy
-msgid "can't end volta spanner"
+msgid "cannot end volta spanner"
 msgstr "no puedo encontrar el principio del (de)crescendo"
 
 #: volta-engraver.cc:153
@@ -1924,7 +1924,7 @@ msgstr ""
 
 #: define-music-types.scm:737
 #, fuzzy, lisp-format
-msgid "can't find music object: ~S"
+msgid "cannot find music object: ~S"
 msgstr "no se puede encontrar el contexto de `%s'"
 
 #: define-music-types.scm:757
@@ -1943,7 +1943,7 @@ msgstr ""
 
 #: document-backend.scm:135
 #, fuzzy, lisp-format
-msgid "can't find interface for property: ~S"
+msgid "cannot find interface for property: ~S"
 msgstr "no puedo encontrar el carácter número: %d"
 
 #: document-backend.scm:145
@@ -1963,7 +1963,7 @@ msgstr "Escribiendo `%s'..."
 
 #: documentation-lib.scm:172
 #, fuzzy, lisp-format
-msgid "can't find description for property ~S (~S)"
+msgid "cannot find description for property ~S (~S)"
 msgstr "no puedo encontrar el carácter número: %d"
 
 #: framework-eps.scm:77 framework-eps.scm:78
@@ -1973,32 +1973,32 @@ msgstr "Escribiendo `%s'..."
 
 #: framework-ps.scm:278
 #, lisp-format
-msgid "can't embed ~S=~S"
+msgid "cannot embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:331
 #, lisp-format
-msgid "can't extract file matching ~a from ~a"
+msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
 #: framework-ps.scm:348
 #, lisp-format
-msgid "don't know how to embed ~S=~S"
+msgid "donnot know how to embed ~S=~S"
 msgstr ""
 
 #: framework-ps.scm:379
 #, fuzzy, lisp-format
-msgid "don't know how to embed font ~s ~s ~s"
+msgid "donnot know how to embed font ~s ~s ~s"
 msgstr "No se sabe como interpretar la articulación `%s'"
 
 #: framework-ps.scm:610
 #, lisp-format
-msgid "can't convert <stdout> to ~S"
+msgid "cannot convert <stdout> to ~S"
 msgstr ""
 
 #: framework-ps.scm:629 framework-ps.scm:632
 #, lisp-format
-msgid "can't generate ~S using the postscript back-end"
+msgid "cannot generate ~S using the postscript back-end"
 msgstr ""
 
 #: framework-ps.scm:639
@@ -2047,7 +2047,7 @@ msgstr ""
 
 #: lily.scm:131
 #, fuzzy, lisp-format
-msgid "Can't find ~A"
+msgid "Cannot find ~A"
 msgstr "no se puede encontrar: `%s'"
 
 #: lily.scm:196
@@ -2106,7 +2106,7 @@ msgstr ""
 
 #: music-functions.scm:745
 #, fuzzy, lisp-format
-msgid "can't find quoted music `~S'"
+msgid "cannot find quoted music `~S'"
 msgstr "no encuentro la fuente: `%s'"
 
 #: music-functions.scm:953
@@ -2125,12 +2125,12 @@ msgstr "prolongación sin terminar"
 
 #: output-svg.scm:132
 #, lisp-format
-msgid "can't decypher Pango description: ~a"
+msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
 #: output-tex.scm:98
 #, fuzzy, lisp-format
-msgid "can't find ~a in ~a"
+msgid "cannot find ~a in ~a"
 msgstr "no encuentro la fuente: `%s'"
 
 #: paper.scm:69
@@ -2181,7 +2181,7 @@ msgstr ""
 #~ msgid "no one to print a repeat brace"
 #~ msgstr "ninguno para la impresión de llaves repetidas"
 
-#~ msgid "can't find `%s' context"
+#~ msgid "cannot find `%s' context"
 #~ msgstr "no se puede encontrar el contexto de `%s'"
 
 #, fuzzy
@@ -2208,7 +2208,7 @@ msgstr ""
 #~ msgstr "El identificativo debería contener solamente caracteres alfabéticos"
 
 #, fuzzy
-#~ msgid "can't find signature for music function"
+#~ msgid "cannot find signature for music function"
 #~ msgstr "no se puede encontrar el contexto de `%s'"
 
 #~ msgid "Usage: %s [OPTIONS]... FILE"
@@ -2266,7 +2266,7 @@ msgstr ""
 #~ msgstr "Escribiendo `%s'..."
 
 #, fuzzy
-#~ msgid "can't dlopen: %s: %s"
+#~ msgid "cannot dlopen: %s: %s"
 #~ msgstr "no se puede abrir el fichero: `%s'"
 
 #, fuzzy
@@ -2337,7 +2337,7 @@ msgstr ""
 #~ msgstr "error no fatal: "
 
 #, fuzzy
-#~ msgid "can't find CFF/PFA/PFB font ~S=~S"
+#~ msgid "cannot find CFF/PFA/PFB font ~S=~S"
 #~ msgstr "no encuentro la fuente: `%s'"
 
 #, fuzzy
@@ -2364,9 +2364,6 @@ msgstr ""
 #~ msgid "Programming error: "
 #~ msgstr "error de programación: "
 
-#~ msgid "Can't switch translators, I'm there already"
-#~ msgstr "No puedo pasar de un traductor al otro, ya estoy allí"
-
 #~ msgid "I'm one myself"
 #~ msgstr "Yo mismo soy uno"
 
@@ -2377,11 +2374,11 @@ msgstr ""
 #~ msgstr "EXT"
 
 #, fuzzy
-#~ msgid "kpathsea can't find %s file: `%s'"
+#~ msgid "kpathsea cannot find %s file: `%s'"
 #~ msgstr "no puedo encontrar el fichero: `%s'"
 
 #, fuzzy
-#~ msgid "kpathsea can't find file: `%s'"
+#~ msgid "kpathsea cannot find file: `%s'"
 #~ msgstr "no puedo encontrar el fichero: `%s'"
 
 #, fuzzy
@@ -2409,10 +2406,6 @@ msgstr ""
 #~ msgstr "no puedo encontrar el fichero: `%s'"
 
 #, fuzzy
-#~ msgid "Cannot switch translators, I'm there already"
-#~ msgstr "No puedo pasar de un traductor al otro, ya estoy allí"
-
-#, fuzzy
 #~ msgid "Converting to `~a.ps'..."
 #~ msgstr "Escribiendo `%s'..."
 
@@ -2426,7 +2419,7 @@ msgstr ""
 #~ msgid "keep all output, output to directory %s.dir"
 #~ msgstr "conservar todas las salidas, y nombrar el directorio %s.dir"
 
-#~ msgid "don't run LilyPond"
+#~ msgid "donnot run LilyPond"
 #~ msgstr "no ejecutar LilyPond"
 
 #~ msgid "produce MIDI output only"
@@ -2467,7 +2460,7 @@ msgstr ""
 #~ msgstr "%s producidos en `%s'..."
 
 #, fuzzy
-#~ msgid "can't find file: `%s.%s'"
+#~ msgid "cannot find file: `%s.%s'"
 #~ msgstr "no puedo encontrar el fichero: `%s'"
 
 #, fuzzy
@@ -2483,7 +2476,7 @@ msgstr ""
 #~ msgstr "añadir el prefijo DIR a las dependencias"
 
 #, fuzzy
-#~ msgid "don't run lilypond"
+#~ msgid "donnot run lilypond"
 #~ msgstr "no ejecutar LilyPond"
 
 #~ msgid "write Makefile dependencies for every input file"
@@ -2605,7 +2598,7 @@ msgstr ""
 #~ msgid "Generate .dvi with LaTeX for LilyPond"
 #~ msgstr "Generar un fichero .dvi con la ayuda de LaTeX para LilyPond"
 
-#~ msgid "can't map file"
+#~ msgid "cannot map file"
 #~ msgstr "no es posible producir el fichero map"
 
 #~ msgid "This binary was compiled with the following options:"
@@ -2649,13 +2642,13 @@ msgstr ""
 #~ msgid "be quiet"
 #~ msgstr "trabajar en silencio"
 
-#~ msgid "don't output rests or skips"
+#~ msgid "donnot output rests or skips"
 #~ msgstr "no producir pausas o saltos"
 
 #~ msgid "set smallest duration"
 #~ msgstr "definir la duración más pequeña"
 
-#~ msgid "don't timestamp the output"
+#~ msgid "donnot timestamp the output"
 #~ msgstr "no datar la salida"
 
 #~ msgid "assume no double dotted notes"
@@ -2697,7 +2690,7 @@ msgstr ""
 #~ msgid "invalid number of tracks"
 #~ msgstr "número de pistas no válido"
 
-#~ msgid "can't handle non-metrical time"
+#~ msgid "cannot handle non-metrical time"
 #~ msgstr "no se pueden manejar tiempos no métricos"
 
 #~ msgid "invalid running status"
