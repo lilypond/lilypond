@@ -41,3 +41,6 @@ lily-[0-9a-f][0-9a-f][0-9a-f]*
 out-scons
 tags
 test-output-distance
+*.gcov
+*.gcda
+*.gcno
