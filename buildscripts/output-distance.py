@@ -332,14 +332,17 @@ class FileLink:
         return ''
 
 class MidiFileLink (FileLink):
+    def get_midi (self, f):
+        s = open (f).read ()
+        s = re.sub ('LilyPond [0-9.]+', '', s)
+        return s
+    
     def __init__ (self, f1, f2):
         self.files = (f1, f2)
 
-        print 'reading', f1
-        s1 = open (self.files[0]).read ()
-        print 'reading', f2
-        s2 = open (self.files[1]).read ()
-
+        s1 = self.get_midi (self.files[0])
+        s2 = self.get_midi (self.files[1])
+        
         self.same = (s1 == s2)
         
     def name (self):
