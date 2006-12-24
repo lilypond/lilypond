@@ -450,26 +450,6 @@ ly_truncate_list (int k, SCM lst)
 
 
 
-/* Appendable list L: the cdr contains the list, the car the last cons
-   in the list.  */
-SCM
-appendable_list ()
-{
-  SCM s = scm_cons (SCM_EOL, SCM_EOL);
-  scm_set_car_x (s, s);
-
-  return s;
-}
-
-void
-appendable_list_append (SCM l, SCM elt)
-{
-  SCM newcons = scm_cons (elt, SCM_EOL);
-
-  scm_set_cdr_x (scm_car (l), newcons);
-  scm_set_car_x (l, newcons);
-}
-
 
 string
 print_scm_val (SCM val)
@@ -565,45 +545,6 @@ ly_unique (SCM list)
   return scm_reverse_x (unique, SCM_EOL);
 }
 
-
-static int
-scm_default_compare (void const *a, void const *b)
-{
-  SCM pa = *(SCM *) a;
-  SCM pb = *(SCM *) b;
-  if (pa == pb)
-    return 0;
-  return pa < pb ? -1 : 1;
-}
-
-/*  Modify LST in place: qsort it.
-
-FIXME: unused, junk? */
-SCM
-ly_list_qsort_uniq_x (SCM lst)
-{
-  int len = scm_ilength (lst);
-  SCM *arr = new SCM[len];
-  int k = 0;
-  for (SCM s = lst; SCM_NNULLP (s); s = scm_cdr (s))
-    arr[k++] = scm_car (s);
-
-  assert (k == len);
-  qsort (arr, len, sizeof (SCM), &scm_default_compare);
-
-  SCM *tail = &lst;
-  for (int i = 0; i < len; i++)
-    if (!i || arr[i] != arr[i - 1])
-      {
-	SCM_SETCAR (*tail, arr[i]);
-	tail = SCM_CDRLOC (*tail);
-      }
-
-  *tail = SCM_EOL;
-  delete[] arr;
-
-  return lst;
-}
 
 /* Split list at member s, removing s.
    Return (BEFORE . AFTER)  */
