@@ -63,6 +63,11 @@
  '())
 
 (ly:add-interface
+ 'key-cancelation-interface
+ "A key cancelation"
+ '())
+
+(ly:add-interface
  'ligature-bracket-interface
  "A bracket indicating a ligature in the original edition"
  '(width thickness height))
