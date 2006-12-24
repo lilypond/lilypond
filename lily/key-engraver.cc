@@ -18,13 +18,6 @@
 
 #include "translator.icc"
 
-/*
-  TODO: The representation  of key sigs is all fucked.
-*/
-
-/**
-   Make the key signature.
-*/
 class Key_engraver : public Engraver
 {
   void create_key (bool);
@@ -59,6 +52,24 @@ Key_engraver::Key_engraver ()
   cancellation_ = 0;
 }
 
+
+SCM
+make_qt_key (SCM rat_key)
+{
+  SCM qt_key = SCM_EOL;
+  SCM *tail = &qt_key;
+      
+  for (SCM s = rat_key; scm_is_pair (s); s = scm_cdr (s))
+    {
+      *tail = scm_cons (scm_cons (scm_caar (s),
+				  scm_from_int (Rational (4)* ly_scm2rational (scm_cdar (s)))),
+			SCM_EOL);
+      tail =  SCM_CDRLOC (*tail);
+    }
+
+  return qt_key;
+}
+
 void
 Key_engraver::create_key (bool is_default)
 {
@@ -83,10 +94,10 @@ Key_engraver::create_key (bool is_default)
 	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
 	    {
 	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
-	      int old_alter = scm_to_int (scm_cdar (s));
+	      Rational old_alter = ly_scm2rational (scm_cdar (s));
 	      if (new_alter_pair == SCM_BOOL_F
 		  || extranatural
-		     && (scm_to_int(scm_cdr(new_alter_pair))-old_alter)*old_alter < 0)
+		  && (ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter)*old_alter < Rational (0))
 		{
 		  *tail = scm_cons (scm_car (s), *tail);
 		  tail = SCM_CDRLOC (*tail);
@@ -99,12 +110,14 @@ Key_engraver::create_key (bool is_default)
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
 	      
-	      cancellation_->set_property ("alteration-alist", restore);
+	      cancellation_->set_property ("alteration-alist", make_qt_key (restore));
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
 	    }
 	}
-      item_->set_property ("alteration-alist", key);
+
+
+      item_->set_property ("alteration-alist", make_qt_key (key));
     }
 
   if (!is_default)
@@ -166,22 +179,30 @@ Key_engraver::read_event (Stream_event const *r)
   if (!scm_is_pair (p))
     return;
 
-  SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
-  for (SCM s = get_property ("keyAlterationOrder");
-       scm_is_pair (s); s = scm_cdr (s))
+
+  SCM alist = scm_list_copy (p);
+  SCM order = get_property ("keyAlterationOrder");
+  for (SCM s = order;
+       scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
-      if (scm_is_pair (scm_member (scm_car (s), n)))
+      SCM head = scm_member (scm_car (s), alist);
+      
+      if (scm_is_pair (head))
 	{
-	  accs = scm_cons (scm_car (s), accs);
-	  n = scm_delete_x (scm_car (s), n);
+	  accs = scm_cons (scm_car (head), accs);
+	  alist = scm_delete_x (scm_car (head), alist);
 	}
     }
 
-  for (SCM s = n; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_to_int (scm_cdar (s)))
-      accs = scm_cons (scm_car (s), accs);
-
+  if (scm_is_pair (alist))
+    {
+      r->origin ()->warning ("No ordering for key signature alterations");
+      for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+	if (ly_scm2rational (scm_cdar (s)))
+	  accs = scm_cons (scm_car (s), accs);
+    }
+  
   context ()->set_property ("keySignature", accs);
   context ()->set_property ("tonic",
 			    r->get_property ("tonic"));

@@ -4,7 +4,7 @@
 #
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # converting rules are found in python/convertrules.py
@@ -37,18 +37,17 @@ lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
 
 
-help_summary = _ (
-'''Update LilyPond input to newer version.  By default, update from the
-version taken from the \\version command, to the current LilyPond version.
-
-Examples:
-
+help_summary = (
+_ ('''Update LilyPond input to newer version.  By default, update from the
+version taken from the \\version command, to the current LilyPond version.''')
++ _ ("Examples:")
++ '''
   convert-ly -e old.ly
   convert-ly --from=2.3.28 --to 2.5.21 foobar.ly
 ''')
 
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
-         'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
+             'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
@@ -73,13 +72,12 @@ Copyright (c) %s by
 %s
 %s
 '''  ( '2001--2006',
-       _('Distributed under terms of the GNU General Public License.'),
-       _('It comes with NO WARRANTY.')))
-
+       _ ("Distributed under terms of the GNU General Public License."),
+       _ ('It comes with NO WARRANTY.')))
 
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='convert-ly [OPTIONS] FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'convert-ly',
                   version="@TOPLEVEL_VERSION@",
                   description=help_summary)
 
@@ -87,32 +85,33 @@ def get_option_parser ():
               action="store",
               metavar=_ ("VERSION"),
               dest="from_version",
-              help=_('start from VERSION [default: \\version found in file]'),
+              help=_ ("start from VERSION [default: \\version found in file]"),
               default='')
     
-    p.add_option ('-e', '--edit', help=_('edit in place'),
+    p.add_option ('-e', '--edit', help=_ ("edit in place"),
               action='store_true')
     p.add_option ('-n', '--no-version',
-              help=_ ('do not add \\version command if missing'),
+              help=_ ("do not add \\version command if missing"),
               action='store_true',
               dest='skip_version_add',
               default=False)
     
     p.add_option ("-s", '--show-rules',
-              help=_('print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]'),
+              help=_ ("show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"),
               dest='show_rules',
               action='store_true', default=False)
     
     p.add_option ('-t', '--to',
-              help=_('convert to VERSION [default: @TOPLEVEL_VERSION@]'),
-              metavar=_('VERSION'),
+              help=_ ("convert to VERSION [default: @TOPLEVEL_VERSION@]"),
+              metavar=_ ('VERSION'),
               action='store',
               dest="to_version",
               default='')
 
-    p.add_option_group  ('bugs',
-                 description='''Report bugs via http://post.gmane.org/post.php'''
-                 '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+    p.add_option_group ('bugs',
+                        description=(_ ("Report bugs via")
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     
     return p
 
@@ -275,14 +274,14 @@ def main ():
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            error (_ ("can't open file: `%s'") % f)
+            error (_ ("cannot open file: `%s'") % f)
             if len (files) == 1:
                 sys.exit (1)
             continue
         try:
             do_one_file (f)
         except UnknownVersion:
-            error (_ ("can't determine version for `%s'. Skipping") % f)
+            error (_ ("cannot determine version for `%s'.  Skipping") % f)
 
     sys.stderr.write ('\n')
 

@@ -95,7 +95,7 @@
 		       "\\char" (number->string subidx))
 
 	(begin
-	  (ly:warning (_ "can't find ~a in ~a" name font))
+	  (ly:warning (_ "cannot find ~a in ~a" name font))
 	  ""))))
 
 (define (dashed-line thick on off dx dy phase)
@@ -155,8 +155,6 @@
 
 ;; no-origin not yet supported by Xdvi
 (define (no-origin) "")
-
-
 
 
 (define-public (line-location  file line col)

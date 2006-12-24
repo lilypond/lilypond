@@ -12,6 +12,7 @@ Notes: natural 11 is left from chord if not explicitly specified.
 
 Entry point for the parser.
 "
+  (display modifications)
   (let* ((flat-mods (flatten-list modifications))
 	 (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
 	 (complete-chord '())
@@ -218,6 +219,7 @@ DURATION, and INVERSION."
   (map (lambda (n)
 	 (define (nca x)
 	   (if (= x 7) FLAT 0))
+	 
 	 (if (>= n 8)
 	     (ly:make-pitch 1 (- n 8) (nca n))
 	     (ly:make-pitch 0 (- n 1) (nca n))))

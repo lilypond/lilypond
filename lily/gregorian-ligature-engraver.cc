@@ -209,7 +209,7 @@ provide_context_info (vector<Grob_info> primitives)
 
       if (prefix_set & PES_OR_FLEXA)
 	if (!i) // ligature may not start with 2nd head of pes or flexa
-	  primitive->warning (_ ("can't apply `\\~' on first head of ligature"));
+	  primitive->warning (_ ("cannot apply `\\~' on first head of ligature"));
 	else if (pitch > prev_pitch) // pes
 	  {
 	    prev_context_info |= PES_LOWER;
@@ -221,7 +221,7 @@ provide_context_info (vector<Grob_info> primitives)
 	    context_info |= FLEXA_RIGHT;
 	  }
 	else // (pitch == prev_pitch)
-	  primitive->warning (_ ("can't apply `\\~' on heads with identical pitch"));
+	  primitive->warning (_ ("cannot apply `\\~' on heads with identical pitch"));
       if (prev_prefix_set & DEMINUTUM)
 	context_info |= AFTER_DEMINUTUM;
 

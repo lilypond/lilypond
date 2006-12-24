@@ -20,7 +20,7 @@ Change_iterator::error (string reason)
   string to_type = ly_symbol2string (get_music ()->get_property ("change-to-type"));
   string to_id = ly_scm2string (get_music ()->get_property ("change-to-id"));
 
-  string warn1 = _f ("can't change `%s' to `%s'", to_type, to_id)
+  string warn1 = _f ("cannot change `%s' to `%s'", to_type, to_id)
     + ": " + reason;
 
   /*
@@ -58,7 +58,7 @@ Change_iterator::process (Moment m)
   if (current && current->id_string () == to_id)
     {
       string msg;
-      msg += _f ("can't change, already in translator: %s", to_id);
+      msg += _f ("cannot change, already in translator: %s", to_id);
     }
 
   if (current)
@@ -79,7 +79,7 @@ Change_iterator::process (Moment m)
 	  }
 	else
 	  /* FIXME: constant error message.  */
-	  get_music ()->origin ()->warning (_ ("can't find context to switch to"));
+	  get_music ()->origin ()->warning (_ ("cannot find context to switch to"));
       }
     else
       {

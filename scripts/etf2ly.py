@@ -844,7 +844,7 @@ Return: (value, rest-of-STR)
             
         return (string.atoi (dec), str)
     else:
-        sys.stderr.write ("can't convert `%s'\n" % str)
+        sys.stderr.write ("cannot convert `%s'\n" % str)
         return (None, str)
 
 
@@ -1193,21 +1193,21 @@ Copyright (c) %s by
 
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='etf2ly [OPTIONS]... ETF-FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... ETF-FILE") % 'etf2ly',
                  version="etf2ly (LilyPond) @TOPLEVEL_VERSION@",
-                 description=_("""Enigma Transport Format is a format used by Coda Music Technology's
-Finale product. This program will convert a subset of ETF to a
-ready-to-use lilypond file."""))
-    p.add_option ('-o', '--output', help=_("write output to FILE"),
+                 description=_ ("""Enigma Transport Format is a format used by Coda Music Technology's
+Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file."""))
+    p.add_option ('-o', '--output', help=_ ("write output to FILE"),
            metavar=_("FILE"),
            action='store')
-    p.add_option ('-w', '--warranty', help=_ ("show warranty"),
+    p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
            action='store_true',
            ),
 
-    p.add_option_group  ('bugs',
-              description='''Report bugs via http://post.gmane.org/post.php'''
-              '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+    p.add_option_group ('bugs',
+                        description=(_ ('Report bugs via')
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
 def do_options ():

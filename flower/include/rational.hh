@@ -28,7 +28,7 @@ class Rational
   */
   int sign_;
   unsigned int num_, den_;
-  void normalise ();
+  void normalize ();
   void copy (Rational const &);
 
 public:
@@ -43,9 +43,10 @@ public:
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
   Rational mod_rat (Rational) const;
+  Rational abs () const;
   void negate ();
   int to_int () const;
-  operator bool () const;
+
   operator double () const;
 
   Rational operator - () const;
@@ -53,7 +54,6 @@ public:
      Initialize to 0.
   */
   Rational ();
-  Rational (int);
   Rational (int, int);
   Rational (double);
   Rational (Rational const &r) { copy (r);}
@@ -73,6 +73,7 @@ public:
 };
 
 #include "arithmetic-operator.hh"
+
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, /);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Rational, *);

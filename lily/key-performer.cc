@@ -66,8 +66,8 @@ Key_performer::process_music ()
       SCM third = scm_assoc (scm_from_int (2),
 			     c_pitchlist);
       bool minor = (scm_is_pair (third)
-		    && scm_is_integer (scm_cdr (third))
-		    && scm_to_int (scm_cdr (third)) == FLAT);
+		    && scm_is_number (scm_cdr (third))
+		    && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
 
       audio_ = new Audio_key (scm_to_int (acc),
 			      !minor);
@@ -96,5 +96,7 @@ Key_performer::listen_key_change (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Key_performer,
-		"", "",
-		"", "");
+		"",
+		"",
+		"",
+		"");

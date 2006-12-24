@@ -48,7 +48,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
       Tuple2<int> key (columns[d], int (d));
       Chord_outline_map::const_iterator i (chord_outlines_.find (key));
       if (i == chord_outlines_.end ())
-	programming_error ("Can't find chord outline");
+	programming_error ("Cannot find chord outline");
       else
 	attachments[d] = i->second.height (y);
     }

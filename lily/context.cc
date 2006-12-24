@@ -148,7 +148,7 @@ Context::create_unique_context (SCM name, string id, SCM operations)
     ret = daddy_context_->create_unique_context (name, id, operations);
   else
     {
-      warning (_f ("can't find or create new `%s'",
+      warning (_f ("cannot find or create new `%s'",
 		   ly_symbol2string (name).c_str ()));
       ret = 0;
     }
@@ -210,7 +210,7 @@ Context::find_create_context (SCM n, string id, SCM operations)
     ret = daddy_context_->find_create_context (n, id, operations);
   else
     {
-      warning (_f ("can't find or create `%s' called `%s'",
+      warning (_f ("cannot find or create `%s' called `%s'",
 		   ly_symbol2string (n).c_str (), id));
       ret = 0;
     }
@@ -385,7 +385,7 @@ Context::get_default_interpreter ()
       Context_def *t = unsmob_context_def (st);
       if (!t)
 	{
-	  warning (_f ("can't find or create: `%s'", name.c_str ()));
+	  warning (_f ("cannot find or create: `%s'", name.c_str ()));
 	  t = unsmob_context_def (this->definition_);
 	}
 

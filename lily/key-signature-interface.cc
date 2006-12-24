@@ -160,4 +160,8 @@ Key_signature_interface::print (SCM smob)
 
 ADD_INTERFACE (Key_signature_interface,
 	       "A group of accidentals, to be printed as signature sign.",
-	       "style c0-position alteration-alist");
+
+	       "c0-position "
+	       "style "
+	       "alteration-alist "
+	       );

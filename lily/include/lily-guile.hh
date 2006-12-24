@@ -45,6 +45,8 @@ string gulp_file_to_string (string fn, bool must_exist, int size);
 
 string ly_scm2string (SCM s);
 string ly_symbol2string (SCM);
+Rational ly_scm2rational (SCM);
+SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
@@ -169,6 +171,10 @@ typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
 typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #endif
 
+
+/*
+  Inline these for performance reasons.
+ */
 #define scm_cdr ly_cdr
 #define scm_car ly_car
 
