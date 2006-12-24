@@ -66,7 +66,7 @@ Note_performer::process_music ()
                 }
 
 	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), 
-                                              tie_event, transposing);
+                                              tie_event, transposing.negated ());
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push_back (p);

@@ -599,7 +599,7 @@ as a first or second voice."
 	      'quoted-context-id "cue"
 	      'quoted-music-name what
 	      'quoted-voice-direction dir
-	      'quoted-transposition (ly:pitch-negate (pitch-of-note pitch-note))
+	      'quoted-transposition (pitch-of-note pitch-note)
 	      'origin location))
 
 
@@ -610,9 +610,8 @@ transposition =
 
    (context-spec-music
     (make-property-set 'instrumentTransposition
-		       (pitch-of-note pitch-note))
-        'Staff
-))
+		       (ly:pitch-negate (pitch-of-note pitch-note)))
+        'Staff))
 
 tweak = #(define-music-function (parser location sym val arg)
 	   (symbol? scheme? ly:music?)
