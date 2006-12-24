@@ -304,3 +304,9 @@ Pitch::transposed (Pitch d) const
 
 Rational FLAT_ALTERATION (-1, 2);
 Rational SHARP_ALTERATION (1, 2);
+
+Pitch
+Pitch::negated () const
+{
+  return pitch_interval (*this, Pitch ());
+}

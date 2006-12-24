@@ -261,8 +261,9 @@ the @code{instr} property labels following lines.")
 Function taking a string (instrument name), and returning a (@var{min} . @var{max}) pair of numbers for the loudness range of the instrument.
 ")
      (instrumentTransposition ,ly:pitch? "Defines the transposition of
-the instrument. Its value is the pitch that sounds like middle C. This
-is used to transpose the MIDI output, and @code{\\quote}s.")
+the instrument. Its value is the pitch that sounds when the instrument
+plays written middle C.  This is used to transpose the MIDI output,
+and @code{\\quote}s.")
 
      (internalBarNumber ,integer? "Contains the current barnumber. This property is used for internal timekeeping, among others by the @code{Accidental_engraver}.")
      

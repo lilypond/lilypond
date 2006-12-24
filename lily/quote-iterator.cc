@@ -219,7 +219,7 @@ Quote_iterator::process (Moment m)
       Pitch *quote_pitch = unsmob_pitch (scm_cdar (entry));
 
       /*
-	The pitch that sounds like central C
+	The pitch that sounds when written central C is played.
       */
       Pitch *me_pitch = unsmob_pitch (get_music ()->get_property ("quoted-transposition"));
       if (!me_pitch)
@@ -243,7 +243,7 @@ Quote_iterator::process (Moment m)
 		  if (me_pitch)
 		    mp = *me_pitch;
 
-		  Pitch diff = pitch_interval (qp, mp);
+		  Pitch diff = pitch_interval (mp, qp);
 
 		  SCM props =  transpose_mutable (ev->get_property_alist (true), diff);
 		  ev = new Stream_event (ev->get_property ("class"), props);

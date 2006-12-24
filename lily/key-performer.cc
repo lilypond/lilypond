@@ -52,7 +52,7 @@ Key_performer::process_music ()
 
       Pitch key_do (0,
 		    scm_to_int (scm_caar (pitchlist)),
-		    scm_to_int (scm_cdar (pitchlist)));
+		    ly_scm2rational (scm_cdar (pitchlist)));
 
       Pitch c_do (0, 0, 0);
 

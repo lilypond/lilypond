@@ -62,8 +62,8 @@
  '())
 
 (ly:add-interface
- 'key-cancelation-interface
- "A key cancelation"
+ 'key-cancellation-interface
+ "A key cancellation"
  '())
 
 (ly:add-interface

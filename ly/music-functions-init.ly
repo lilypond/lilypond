@@ -599,7 +599,7 @@ as a first or second voice."
 	      'quoted-context-id "cue"
 	      'quoted-music-name what
 	      'quoted-voice-direction dir
-	      'quoted-transposition (pitch-of-note pitch-note)
+	      'quoted-transposition (ly:pitch-negate (pitch-of-note pitch-note))
 	      'origin location))
 
 
@@ -610,7 +610,7 @@ transposition =
 
    (context-spec-music
     (make-property-set 'instrumentTransposition
-		       (ly:pitch-diff (ly:make-pitch 0 0 0) (pitch-of-note pitch-note)))
+		       (pitch-of-note pitch-note))
         'Staff
 ))
 

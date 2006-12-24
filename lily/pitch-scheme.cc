@@ -40,6 +40,15 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
   return p.smobbed_copy ();
 }
 
+LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0,
+	   (SCM p),
+	   "Negate @var{p}.")
+{
+  Pitch *pp = unsmob_pitch (p);
+  SCM_ASSERT_TYPE (pp, p, SCM_ARG1, __FUNCTION__, "Pitch");
+  return pp->negated ().smobbed_copy ();
+}
+
 LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
 	   (SCM p),
 	   "Number of steps counted from middle C of the pitch @var{p}.")

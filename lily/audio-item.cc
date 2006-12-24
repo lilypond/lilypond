@@ -21,7 +21,7 @@ Audio_item::Audio_item ()
   audio_column_ = 0;
 }
 
-Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, int transposing)
+Audio_note::Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposing)
 {
   pitch_ = p;
   length_mom_ = m;
