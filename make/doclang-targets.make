@@ -15,7 +15,7 @@ MAKEINFO = LANG=$(ISOLANG) $(MAKEINFO_PROGRAM) --force
 $(outdir)/lilypond/index.html: $(outdir)/lilypond.nexi doc-po
 	mkdir -p $(dir $@)
 	-$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-	find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(buildscript-dir)/html-gettext.py $(buildscript-dir) $(top-src-dir)/Documentation/po/$(outdir) $(ISOLANG)
+	find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(buildscript-dir)/html-gettext.py $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(ISOLANG)
 
 $(outdir)/lilypond.html: $(outdir)/lilypond.nexi
 	-$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
