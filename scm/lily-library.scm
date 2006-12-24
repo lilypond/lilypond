@@ -144,8 +144,8 @@
 				output-defs))
 	     (music (ly:score-music score))
 	     (layout-def (if (null? layout-defs)
-			     (car layout-defs)
-			     (ly:parser-lookup parser '$defaultlayout))))
+			     (ly:parser-lookup parser '$defaultlayout)
+			     (car layout-defs))))
 
 	  (if (not (module? header))
 	      (set! header (ly:parser-lookup parser '$defaultheader)))
