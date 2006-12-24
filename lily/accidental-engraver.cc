@@ -159,10 +159,10 @@ extract_alteration (SCM alteration_def)
   else if (scm_is_pair (alteration_def))
     return ly_scm2rational (scm_car (alteration_def));
   else if (alteration_def == SCM_BOOL_F)
-    return 0;
+    return Rational (0);
   else
     assert (0);
-  return 0;
+  return Rational (0);
 }
 
 bool
