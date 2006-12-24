@@ -41,9 +41,10 @@ dist-changelog:
 		cp $(top-src-dir)/ChangeLog $(distdir) ; \
 	fi
 
-default: $(outdir)/VERSION
+all: $(outdir)/VERSION
 
 $(outdir)/VERSION: $(config_make) VERSION
+	-mkdir -p $(outdir)
 	echo $(TOPLEVEL_VERSION) > $@
 
 dist-toplevel-txt-files:
