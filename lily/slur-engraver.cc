@@ -209,7 +209,12 @@ Slur_engraver::stop_translation_timestep ()
   
   
   for (vsize i = 0; i < end_slurs_.size (); i++)
-    announce_end_grob (end_slurs_[i], SCM_EOL);
+    {
+      Spanner * s = dynamic_cast<Spanner*> (end_slurs_[i]);
+      if (!s->get_bound (RIGHT))
+	s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+      announce_end_grob (s, SCM_EOL);
+    }
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }

@@ -258,7 +258,8 @@ Midi_note::get_length () const
 int
 Midi_note::get_fine_tuning () const
 {
-  Rational tune = audio_->pitch_.tone_pitch () * Rational (2);
+  Rational tune = (audio_->pitch_.tone_pitch ()
+		   + audio_->transposing_.tone_pitch ()) * Rational (2);
   tune -= Rational (get_semitone_pitch ());
 
   tune *= 100;
@@ -268,8 +269,8 @@ Midi_note::get_fine_tuning () const
 int
 Midi_note::get_semitone_pitch () const
 {
-  return int (rint (double (audio_->pitch_.tone_pitch () *  Rational (2, 1))))
-    + audio_->transposing_;
+  return int (double ((audio_->pitch_.tone_pitch ()
+		       + audio_->transposing_.tone_pitch ()) * Rational (2)));
 }
 
 string

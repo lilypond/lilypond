@@ -260,6 +260,10 @@ the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "
 Function taking a string (instrument name), and returning a (@var{min} . @var{max}) pair of numbers for the loudness range of the instrument.
 ")
+
+     ;; the definition is reversed wrt  traditional transposition
+     ;; this because \transpose { \transposition .. } won't work
+     ;; otherwise.
      (instrumentTransposition ,ly:pitch? "Defines the transposition of
 the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")

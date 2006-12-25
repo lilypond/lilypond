@@ -30,8 +30,7 @@ Beam_rhythmic_element::de_grace ()
 {
   if (start_moment_.grace_part_)
     {
-      start_moment_.main_part_ = 
-	start_moment_.grace_part_; 
+      start_moment_.main_part_ = start_moment_.grace_part_; 
       start_moment_.grace_part_ = 0;
     }
 }

@@ -55,13 +55,14 @@ public:
 class Audio_note : public Audio_item
 {
 public:
-  Audio_note (Pitch p, Moment m, bool tie_event, int transposing);
+  Audio_note (Pitch p, Moment m, bool tie_event, Pitch transposition);
 
   void tie_to (Audio_note *);
 
   Pitch pitch_;
   Moment length_mom_;
-  int transposing_;
+  Pitch transposing_;
+  
   Audio_note *tied_;
   bool tie_event_;
 };

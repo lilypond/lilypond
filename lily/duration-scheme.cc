@@ -53,13 +53,13 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 	   "(whole, half, quarter, etc.) and a number of augmentation\n"
 	   "dots. \n")
 {
-  SCM_ASSERT_TYPE (scm_integer_p (length) == SCM_BOOL_T,
+  SCM_ASSERT_TYPE (scm_is_integer (length),
 		   length, SCM_ARG1, __FUNCTION__, "integer");
 
   int dots = 0;
   if (dotcount != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (scm_integer_p (dotcount) == SCM_BOOL_T,
+      SCM_ASSERT_TYPE (scm_is_integer (dotcount),
 		       dotcount, SCM_ARG2, __FUNCTION__, "integer");
       dots = scm_to_int (dotcount);
     }

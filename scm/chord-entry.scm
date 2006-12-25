@@ -12,7 +12,6 @@ Notes: natural 11 is left from chord if not explicitly specified.
 
 Entry point for the parser.
 "
-  (display modifications)
   (let* ((flat-mods (flatten-list modifications))
 	 (base-chord (stack-thirds (ly:make-pitch 0 4 0) the-canonical-chord))
 	 (complete-chord '())

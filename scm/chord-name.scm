@@ -21,7 +21,8 @@
 	0.3
 	0.6)
     (make-musicglyph-markup
-     (string-append "accidentals." (number->string alteration))))))
+     (format "accidentals.~a"
+	     (inexact->exact (* 4 alteration)))))))
   
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."
@@ -50,36 +51,39 @@
      (vector-ref #("C" "D" "E" "F" "G" "A" "B") (ly:pitch-notename pitch)))
      (accidental->markup (ly:pitch-alteration pitch)))))
 
+(define (pitch-alteration-semitones pitch)
+  (inexact->exact (round (* (ly:pitch-alteration pitch) 2))))
+
 (define-safe-public ((chord-name->german-markup B-instead-of-Bb) pitch)
   "Return pitch markup for PITCH, using german note names.
    If B-instead-of-Bb is set to #t real german names are returned.
    Otherwise semi-german names (with Bb and below keeping the british names)
 "
   (let* ((name (ly:pitch-notename pitch))
-         (alt (ly:pitch-alteration pitch))
-	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
-		 (cons 7 (+ (if B-instead-of-Bb SEMI-TONE 0) alt))
-		 (cons name alt))))
+         (alt-semitones  (pitch-alteration-semitones pitch))
+	 (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
+		  (cons 7 (+ (if B-instead-of-Bb 1 0) alt-semitones))
+		  (cons name alt-semitones))))
     (make-line-markup
      (list
       (make-simple-markup
        (vector-ref #("C" "D" "E" "F" "G" "A" "H" "B") (car n-a)))
       (make-normal-size-super-markup
-       (accidental->markup (cdr n-a)))))))
+       (accidental->markup (/ (cdr n-a) 2)))))))
 
 (define-safe-public (note-name->german-markup pitch)
   (let* ((name (ly:pitch-notename pitch))
-	 (alt (ly:pitch-alteration pitch))
-	 (n-a (if (member (cons name alt) `((6 . ,FLAT) (6 . ,DOUBLE-FLAT)))
-		  (cons 7 (+ SEMI-TONE alt))
-		  (cons name alt))))
+	 (alt-semitones (pitch-alteration-semitones pitch))
+	 (n-a (if (member (cons name alt-semitones) `((6 . -1) (6 . -2)))
+		  (cons 7 (+ 1 alt-semitones))
+		  (cons name alt-semitones))))
     (make-line-markup
      (list
       (string-append
        (list-ref '("c" "d" "e" "f" "g" "a" "h" "b") (car n-a))
        (if (or (equal? (car n-a) 2) (equal? (car n-a) 5))
-	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))
-	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (/ (cdr n-a) 2)))))))))
+	   (list-ref '( "ses" "s" "" "is" "isis") (+ 2 (cdr n-a)))
+	   (list-ref '("eses" "es" "" "is" "isis") (+ 2 (cdr n-a)))))))))
 
 (define-public ((chord-name->italian-markup re-with-eacute) pitch)
   "Return pitch markup for PITCH, using italian/french note names.

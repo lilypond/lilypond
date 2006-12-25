@@ -106,58 +106,6 @@ Score::Score (Score const &s)
     ly_module_copy (header_, s.header_);
 }
 
-void
-default_rendering (SCM music, SCM outdef,
-		   SCM book_outputdef,
-		   SCM header,
-		   SCM outname,
-		   SCM key)
-{
-  SCM scaled_def = outdef;
-  SCM scaled_bookdef = book_outputdef;
-
-  Output_def *bpd = unsmob_output_def (book_outputdef);
-
-  /* ugh.  */
-  if (bpd->c_variable ("is-paper") == SCM_BOOL_T)
-    {
-      Real scale = scm_to_double (bpd->c_variable ("output-scale"));
-
-      Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
-      Output_def *bdef = scale_output_def (bpd, scale);
-      def->parent_ = bdef;
-
-      scaled_def = def->self_scm ();
-      scaled_bookdef = bdef->self_scm ();
-
-      def->unprotect ();
-      bdef->unprotect ();
-    }
-
-  SCM context = ly_run_translator (music, scaled_def, key);
-  
-  SCM output_as_scm = ly_format_output (context);
-  Music_output *output = unsmob_music_output (output_as_scm);
-
-  if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
-    {
-      /* ugh, this is strange, Paper_book without a Book object. */
-      Paper_book *paper_book = new Paper_book ();
-      paper_book->header_ = header;
-      paper_book->paper_ = unsmob_output_def (scaled_bookdef);
-
-      if (ly_is_module (header))
-	paper_book->add_score (header);
-
-      paper_book->add_score (pscore->self_scm ());
-      paper_book->classic_output (outname);
-      paper_book->unprotect ();
-    }
-
-  scm_remember_upto_here_1 (scaled_def);
-  scm_remember_upto_here_1 (output_as_scm);
-  scm_remember_upto_here_1 (scaled_bookdef);
-}
 
 /*
   Format score, return list of Music_output objects.

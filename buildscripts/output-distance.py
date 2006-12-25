@@ -17,7 +17,7 @@ INFTY = 1e6
 
 OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
-inspect_max_count = 0
+options = None
 
 def shorten_string (s):
     threshold = 15 
@@ -332,14 +332,17 @@ class FileLink:
         return ''
 
 class MidiFileLink (FileLink):
+    def get_midi (self, f):
+        s = open (f).read ()
+        s = re.sub ('LilyPond [0-9.]+', '', s)
+        return s
+    
     def __init__ (self, f1, f2):
         self.files = (f1, f2)
 
-        print 'reading', f1
-        s1 = open (self.files[0]).read ()
-        print 'reading', f2
-        s2 = open (self.files[1]).read ()
-
+        s1 = self.get_midi (self.files[0])
+        s2 = self.get_midi (self.files[1])
+        
         self.same = (s1 == s2)
         
     def name (self):
@@ -443,10 +446,11 @@ class SignatureFileLink (FileLink):
 
                     if f.endswith ('.png'):
                         png_linked[oldnew].append (f)
-
-        for (old,new) in zip (png_linked[0], png_linked[1]):
-            compare_png_images (old, new, dest_dir)
-
+                        
+        if options.compare_images:                
+            for (old,new) in zip (png_linked[0], png_linked[1]):
+                compare_png_images (old, new, dest_dir)
+                
     def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
             if not name:
@@ -498,6 +502,11 @@ class SignatureFileLink (FileLink):
 
         html_2  = self.base_names[1] + '.html'
         name = self.original_name
+
+        cell_1 = cell (self.base_names[0], name)
+        cell_2 = cell (self.base_names[1], name)
+        if options.compare_images:
+            cell_2 = cell_2.replace ('.png', '.compare.jpeg')
         
         html_entry = '''
 <tr>
@@ -509,9 +518,7 @@ class SignatureFileLink (FileLink):
 %s
 %s
 </tr>
-''' % (self.distance (), html_2,
-       cell (self.base_names[0], name),
-       cell (self.base_names[1], name).replace ('.png', '.compare.jpeg'))
+''' % (self.distance (), html_2, cell_1, cell_2)
 
         return html_entry
 
@@ -633,8 +640,8 @@ class ComparisonData:
             self.added += [(dir2, m) for m in m2] 
 
             for p in paired:
-                if (inspect_max_count
-                    and len (self.file_links) > inspect_max_count):
+                if (options.max_count
+                    and len (self.file_links) > options.max_count):
                     
                     continue
                 
@@ -983,6 +990,11 @@ def main ():
                   type="float",
                   help='threshold for geometric distance')
 
+    p.add_option ('--no-compare-images',
+                  dest="compare_images",
+                  default=True,
+                  action="store_false",
+                  help="Don't run graphical comparisons")
 
     p.add_option ('-o', '--output-dir',
                   dest="output_dir",
@@ -991,6 +1003,7 @@ def main ():
                   type="string",
                   help='where to put the test results [tree2/compare-tree1tree2]')
 
+    global options
     (options, a) = p.parse_args ()
 
     if options.run_test:
@@ -1000,9 +1013,6 @@ def main ():
     if len (a) != 2:
         p.print_usage()
         sys.exit (2)
-
-    global inspect_max_count
-    inspect_max_count = options.max_count
 
     name = options.output_dir
     if not name:

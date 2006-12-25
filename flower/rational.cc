@@ -66,17 +66,13 @@ Rational::Rational (int n, int d)
   normalize ();
 }
 
-static inline
-int gcd (int a, int b)
+Rational::Rational (int n)
 {
-  int t;
-  while ((t = a % b))
-    {
-      a = b;
-      b = t;
-    }
-  return b;
+  sign_ = ::sign (n);
+  num_ = ::abs (n);
+  den_ = 1;
 }
+
 
 void
 Rational::set_infinite (int s)
@@ -107,6 +103,54 @@ Rational::mod_rat (Rational div) const
   r = (r / div - r.div_rat (div)) * div;
   return r;
 }
+
+
+/*
+  copy & paste from scm_gcd (GUILE).
+ */
+static int
+gcd (long u, long v) 
+{
+  long result = 0;
+  if (u == 0)
+    result = v;
+  else if (v == 0)
+    result = u;
+  else
+    {
+      long k = 1;
+      long t;
+      /* Determine a common factor 2^k */
+      while (!(1 & (u | v)))
+	{
+	  k <<= 1;
+	  u >>= 1;
+	  v >>= 1;
+	}
+      /* Now, any factor 2^n can be eliminated */
+      if (u & 1)
+	t = -v;
+      else
+	{
+	  t = u;
+	b3:
+	  t = t >> 1;
+	}
+      if (!(1 & t))
+	goto b3;
+      if (t > 0)
+	u = t;
+      else
+	v = -t;
+      t = u - v;
+      if (t != 0)
+	goto b3;
+      result = u * k;
+    }
+
+  return result;
+}
+
 
 void
 Rational::normalize ()

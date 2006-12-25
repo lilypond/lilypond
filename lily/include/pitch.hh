@@ -53,7 +53,7 @@ public:
   Rational tone_pitch () const;
   int rounded_semitone_pitch () const;
   int rounded_quartertone_pitch () const;
-
+  Pitch negated () const;
   string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
