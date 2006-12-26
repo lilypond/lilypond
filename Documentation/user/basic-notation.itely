@@ -1817,6 +1817,47 @@ Music for multiple parts can be interleaved
 >>
 @end lilypond
 
+This works quite well for piano music
+
+@lilypond[quote,verbatim]
+music = {
+  \key c \major
+  \time 4/4
+  \parallelMusic #'(voiceA voiceB voiceC voiceD) {
+    % Bar 1
+    r8  g'16[ c''] e''[ g' c'' e''] r8  g'16[ c''] e''[ g' c''
+e''] |
+    c'2                                 c'2 |
+    r8  a16[ d'] f'[ a d' f']       r8  a16[ d'] f'[ a d' f'] |
+    c2                                  c2 |
+
+    % Bar 2
+    a'8 b'      c'' d''    e'' f''    g'' a'' |
+    d'4         d'         d'         d' |
+    c16 d e f   d e f g    e f g a    f g a b |
+    a,4         a,4        a,4        a,4 |
+
+    % Bar 3 ...
+  }
+}
+
+\score {
+  \new PianoStaff <<
+    \music
+    \new Staff <<
+      \voiceA \\
+      \voiceB
+    >>
+    \new Staff {
+      \clef bass
+      <<
+        \voiceC \\
+        \voiceD
+      >>
+    }
+  >>
+}
+@end lilypond
 
 
 @node Connecting notes
