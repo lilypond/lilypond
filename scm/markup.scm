@@ -20,14 +20,15 @@ The function should return a stencil (i.e. a formatted, ready to
 print object).
 
 
-To add a function, use the define-markup-command utility.
+To add a builtin markup command, use the define-builtin-markup-command
+utility. In a user file, the define-markup-command macro shall be used
+(see ly/markup-init.ly).
 
   (define-markup-command (mycommand layout prop arg1 ...) (arg1-type? ...)
     \"my command usage and description\"
     ...function body...)
 
 The command is now available in markup mode, e.g.
-
 
   \\markup { .... \\MYCOMMAND #1 argument ... }
 
@@ -36,34 +37,8 @@ The command is now available in markup mode, e.g.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup definer utilities
 
-(defmacro-public in-module-define-variable (module-name symbol value)
-  "Define a variable in a module and export its name.
-  (in-module-define-variable (some module) symbol value)"
-  (let ((gmodule (gensym "module")))
-    `(let ((,gmodule (resolve-module ',module-name)))
-       (module-define! ,gmodule ',symbol ,value)
-       (module-export! ,gmodule '(,symbol)))))
-
-(defmacro-public in-module-define-function
-                 (module-name function-name+arg-list . body)
-  "Define a public function in a module:
-  (in-module-define-function (some module) (function-name . args)
-    ..body..)"
-  `(in-module-define-variable
-    ,module-name
-    ,(car function-name+arg-list)
-    (let ((proc (lambda ,(cdr function-name+arg-list)
-                  ,@body)))
-      (set-procedure-property! proc
-                               'name
-                               ',(car function-name+arg-list))
-      proc)))
-
-;;; `define-markup-command' can be used both for built-in markup
-;;; definitions and user defined markups.
-(defmacro-public define-markup-command (command-and-args signature . body)
+(define-macro (define-builtin-markup-command command-and-args signature . body)
   "
-
 * Define a COMMAND-markup function after command-and-args and body,
 register COMMAND-markup and its signature,
 
@@ -74,40 +49,36 @@ register COMMAND-markup and its signature,
 * define a make-COMMAND-markup function.
 
 Syntax:
-  (define-markup-command (COMMAND layout props arg1 arg2 ...) (arg1-type? arg2-type? ...)
+  (define-builtin-markup-command (COMMAND layout props arg1 arg2 ...)
+                                 (arg1-type? arg2-type? ...)
     \"documentation string\"
     ...command body...)
-or:
-  (define-markup-command COMMAND (arg1-type? arg2-type? ...) function)
+ or:
+  (define-builtin-markup-command COMMAND (arg1-type? arg2-type? ...)
+    function)
 "
-  (let* ((command (if (pair? command-and-args)
-                      (car command-and-args)
-                      command-and-args))
+  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
+         (args (if (pair? command-and-args) (cdr command-and-args) '()))
          (command-name (string->symbol (format #f "~a-markup" command)))
          (make-markup-name (string->symbol (format #f "make-~a-markup" command))))
-    `(let ((lily-module (resolve-module '(lily))))
-       ;; define the COMMAND-markup procedure in (lily) module
-       ,(if (pair? command-and-args)
-            ;; two cases:
-            ;; 1/ (define (COMMAND-markup layout props arg1 arg2 ...)
-            ;;      ..command body))
-            `(in-module-define-function (lily) (,command-name ,@(cdr command-and-args))
+    `(begin
+       ;; define the COMMAND-markup function
+       ,(if (pair? args)
+            `(define-public (,command-name ,@args)
                ,@body)
-            ;; 2/ (define COMMAND-markup function)
-            `(in-module-define-variable (lily) ,command-name ,(car body)))
-       (let ((command-proc (module-ref lily-module ',command-name)))
-         ;; register its command signature
-         (set! (markup-command-signature command-proc)
-               (list ,@signature))
-         ;; add the COMMAND-markup procedure to the list of markup functions
-         (if (not (member command-proc markup-function-list))
-             (set! markup-function-list (cons command-proc markup-function-list)))
-         ;; define the make-COMMAND-markup procedure in (lily) module
-         (in-module-define-function (lily) (,make-markup-name . args)
-           (make-markup command-proc
-                        ,(symbol->string make-markup-name)
-                        (list ,@signature)
-                        args))))))
+            (let ((args (gensym "args"))
+                  (markup-command (car body)))
+            `(define-public (,command-name . ,args)
+               ,(format #f "Copy of the ~a command" markup-command)
+               (apply ,markup-command ,args))))
+       (set! (markup-command-signature ,command-name) (list ,@signature))
+       ;; add the command to markup-function-list, for markup documentation
+       (if (not (member ,command-name markup-function-list))
+           (set! markup-function-list (cons ,command-name markup-function-list)))
+       ;; define the make-COMMAND-markup function
+       (define-public (,make-markup-name . args)
+         (let ((sig (list ,@signature)))
+           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
 
 (define-public (make-markup markup-function make-name signature args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
@@ -141,22 +112,21 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
   "The `markup' macro provides a lilypond-like syntax for building markups.
 
  - #:COMMAND is used instead of \\COMMAND
- - #:lines ( ... ) is used instead of { ... }
- - #:center-align ( ... ) is used instead of \\center-align < ... >
+ - #:line ( ... ) is used instead of \line { ... }
  - etc.
 
 Example:
   \\markup { foo
             \\raise #0.2 \\hbracket \\bold bar
             \\override #'(baseline-skip . 4)
-            \\bracket \\column < baz bazr bla >
+            \\bracket \\column { baz bazr bla }
   }
          <==>
   (markup \"foo\"
           #:raise 0.2 #:hbracket #:bold \"bar\"
           #:override '(baseline-skip . 4) 
           #:bracket #:column (\"baz\" \"bazr\" \"bla\"))
-Use `markup*' in a \\notes block."
+Use `markup*' in a \\notemode context."
   
   (car (compile-all-markup-expressions `(#:line ,body))))
 

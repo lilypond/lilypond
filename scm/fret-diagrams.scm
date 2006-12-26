@@ -295,7 +295,7 @@ Line thickness is given by @var{th}, fret & string spacing by
            (sans-serif-stencil layout props (* size label-font-mag) label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
  
-(define-markup-command (fret-diagram-verbose layout props marking-list)
+(define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?)
   "Make a fret diagram containing the symbols indicated in @var{marking-list}
   
@@ -391,7 +391,7 @@ indications per string.
          (ly:stencil-aligned-to fret-diagram-stencil X alignment)
 	 ))
          
-(define-markup-command (fret-diagram layout props definition-string)
+(define-builtin-markup-command (fret-diagram layout props definition-string)
   (string?)
   "  
 Example
@@ -522,7 +522,7 @@ Note:  There is no limit to the number of fret indications per string.
                 (cons* numeric-value (numerify (cdr mylist)))
                 (cons* (car (string->list (car mylist))) (numerify (cdr mylist)))))))
            
-(define-markup-command (fret-diagram-terse layout props definition-string)
+(define-builtin-markup-command (fret-diagram-terse layout props definition-string)
   (string?)
   "Make a fret diagram markup using terse string-based syntax.
 
