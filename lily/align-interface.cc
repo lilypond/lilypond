@@ -60,7 +60,7 @@ Align_interface::stretch_after_break (SCM grob)
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->relative_coordinate (common, Y_AXIS);
 
-      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      SCM details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
       SCM extra_space_handle = scm_assoc (ly_symbol2scm ("fixed-alignment-extra-space"), details);
       
       Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
@@ -326,7 +326,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
 	return 0;
     }
 
-  programming_error (_ ("tried to get a translation for something that isn't my child"));
+  programming_error (_ ("tried to get a translation for something that is no child of mine"));
   return 0;
 }
 

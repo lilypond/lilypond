@@ -170,7 +170,7 @@ All_font_metrics::find_font (string name)
 
   if (!f)
     {
-      error (_f ("can't find font: `%s'", name.c_str ()));
+      error (_f ("cannot find font: `%s'", name.c_str ()));
     }
 
   return f;

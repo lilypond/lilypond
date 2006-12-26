@@ -610,9 +610,8 @@ transposition =
 
    (context-spec-music
     (make-property-set 'instrumentTransposition
-		       (ly:pitch-diff (ly:make-pitch 0 0 0) (pitch-of-note pitch-note)))
-        'Staff
-))
+		       (ly:pitch-negate (pitch-of-note pitch-note)))
+        'Staff))
 
 tweak = #(define-music-function (parser location sym val arg)
 	   (symbol? scheme? ly:music?)

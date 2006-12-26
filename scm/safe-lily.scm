@@ -97,7 +97,7 @@
    ly:output-description
    ly:paper-book?
    ly:prob-property
-   ly:layout-def?
+   ly:output-def?
    ly:paper-get-font
    ly:paper-get-number
    ly:paper-system?

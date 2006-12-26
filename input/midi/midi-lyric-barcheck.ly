@@ -17,7 +17,7 @@ this examples causes no bar checks in MIDI.
 	c1
 
     }
-    \lyricsto "A" \lyricmode\new Lyrics { bla bla | bla bla | bla bla | bla }
+    \lyricsto "A" \lyrics { bla bla | bla bla | bla bla | bla }
     >>
     \layout {}
       \midi {}

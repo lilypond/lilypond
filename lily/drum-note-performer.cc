@@ -65,7 +65,7 @@ Drum_note_performer::process_music ()
             }
 
 	  Audio_note *p = new Audio_note (*pit, get_event_length (n), 
-                                          tie_event, 0);
+                                          tie_event, Pitch (0, 0, 0));
 	  Audio_element_info info (p, n);
 	  announce_element (info);
 	  notes_.push_back (p);

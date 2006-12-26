@@ -372,7 +372,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
 
   if (division < 0)
-    /* return midi_error ("can't handle non-metrical time"); */
+    /* return midi_error (cannot handle non-metrical time"); */
     ;
   *midi += header_len - 6;
 

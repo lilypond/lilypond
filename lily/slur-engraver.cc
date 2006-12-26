@@ -80,7 +80,8 @@ Slur_engraver::listen_slur (Stream_event *ev)
     ASSIGN_EVENT_ONCE (events_[START], ev);
   else if (d == STOP)
     ASSIGN_EVENT_ONCE (events_[STOP], ev);
-  else ev->origin ()->warning (_ ("Invalid direction of slur-event"));
+  else ev->origin ()->warning (_f ("direction of %s invalid: %d",
+				   "slur-event", int (d)));
 }
 
 void
@@ -162,7 +163,7 @@ Slur_engraver::process_music ()
   if (events_[STOP])
     {
       if (slurs_.size () == 0)
-	events_[STOP]->origin ()->warning (_ ("can't end slur"));
+	events_[STOP]->origin ()->warning (_ ("cannot end slur"));
 
       
       end_slurs_ = slurs_;
@@ -208,7 +209,12 @@ Slur_engraver::stop_translation_timestep ()
   
   
   for (vsize i = 0; i < end_slurs_.size (); i++)
-    announce_end_grob (end_slurs_[i], SCM_EOL);
+    {
+      Spanner * s = dynamic_cast<Spanner*> (end_slurs_[i]);
+      if (!s->get_bound (RIGHT))
+	s->set_bound (RIGHT, unsmob_grob (get_property ("currentMusicalColumn")));
+      announce_end_grob (s, SCM_EOL);
+    }
   end_slurs_.clear ();
   events_[START] = events_[STOP] = 0;
 }

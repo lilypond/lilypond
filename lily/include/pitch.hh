@@ -11,16 +11,7 @@
 
 #include "lily-proto.hh"
 #include "smobs.hh"
-
-#include "std-vector.hh"
-
-struct Scale
-{
-  vector<int> step_semitones_;
-  Scale ();
-  Scale (Scale const&);
-  DECLARE_SMOBS (Scale);
-};
+#include "rational.hh"
 
 
 /** A "tonal" pitch. This is a pitch used in diatonal western music
@@ -30,35 +21,27 @@ struct Scale
     Pitch is lexicographically ordered by (octave, notename,
     alteration).
 
-
-    TODO:
-
-    - add indeterminate octaves, so it can be used as a key in keySigature
 */
 class Pitch
 {
-private:				// fixme
-  /*
-    TODO: use SCM
-  */
-
-  int notename_;
-  int alteration_;
+private:
   int octave_;
+  int notename_;
+  Rational alteration_;
   Scale *scale_;
-  
+
   void transpose (Pitch);
   void up_to (int);
   void down_to (int);
-  void normalise ();
+  void normalize ();
 
 public:
-
   int get_octave () const;
   int get_notename () const;
-  int get_alteration () const;
+  Rational get_alteration () const;
 
-  Pitch (int octave, int notename, int accidental);
+  Pitch (int octave, int notename, Rational accidental);
+  Pitch (int octave, int notename);
   Pitch ();
 
   Pitch transposed (Pitch) const;
@@ -67,26 +50,38 @@ public:
   static int compare (Pitch const &, Pitch const &);
 
   int steps () const;
-  int semitone_pitch () const;
-  int quartertone_pitch () const;
+  Rational tone_pitch () const;
+  int rounded_semitone_pitch () const;
+  int rounded_quartertone_pitch () const;
+  Pitch negated () const;
   string to_string () const;
 
   DECLARE_SCHEME_CALLBACK (less_p, (SCM a, SCM b));
   DECLARE_SIMPLE_SMOBS (Pitch);
 };
 
-enum
-  {
-    DOUBLE_FLAT = -4,
-    THREE_Q_FLAT,
-    FLAT,
-    SEMI_FLAT,
-    NATURAL,
-    SEMI_SHARP,
-    SHARP,
-    THREE_Q_SHARP,
-    DOUBLE_SHARP,
-  };
+
+enum {
+  DOUBLE_FLAT = -4,
+  THREE_Q_FLAT,
+  FLAT,
+  SEMI_FLAT,
+  NATURAL,
+  SEMI_SHARP,
+  SHARP,
+  THREE_Q_SHARP,
+  DOUBLE_SHARP,
+};
+
+extern Rational  DOUBLE_FLAT_ALTERATION;
+extern Rational  THREE_Q_FLAT_ALTERATION;
+extern Rational  FLAT_ALTERATION;
+extern Rational  SEMI_FLAT_ALTERATION;
+extern Rational  NATURAL_ALTERATION;
+extern Rational  SEMI_SHARP_ALTERATION;
+extern Rational  SHARP_ALTERATION;
+extern Rational  THREE_Q_SHARP_ALTERATION;
+extern Rational  DOUBLE_SHARP_ALTERATION;
 
 SCM ly_pitch_diff (SCM pitch, SCM root);
 SCM ly_pitch_transpose (SCM p, SCM delta);
@@ -96,7 +91,6 @@ INSTANTIATE_COMPARE (Pitch, Pitch::compare);
 
 extern SCM pitch_less_proc;
 Pitch pitch_interval (Pitch const &from, Pitch const &to);
-extern Scale *default_global_scale;
 
 #endif /* MUSICAL_PITCH_HH */
 

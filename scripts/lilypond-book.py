@@ -67,18 +67,18 @@ program_name = os.path.basename (sys.argv[0])
 original_dir = os.getcwd ()
 backend = 'ps'
 
-help_summary = _ (
-'''Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document.
-
-Example usage:
-
- lilypond-book --filter="tr '[a-z]' '[A-Z]'" BOOK
- lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" BOOK
- lilypond-book --process='lilypond -I include' BOOK
-''')
+help_summary = (
+_ ("Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document.")
++ '\n\n'
++ _ ("Examples:")
++ '''
+ lilypond-book --filter="tr '[a-z]' '[A-Z]'" %(BOOK)s
+ lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" %(BOOK)s
+ lilypond-book --process='lilypond -I include' %(BOOK)s
+''' % {'BOOK': _ ("BOOK")})
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
-      'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
+      'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
     
 ################################################################
@@ -116,14 +116,13 @@ def warranty ():
 
 %s
 %s
-''' % ( _('Copyright (c) %s by') % '2001--2006',
+''' % ( _ ('Copyright (c) %s by') % '2001--2006',
     ' '.join (authors),
-   _('Distributed under terms of the GNU General Public License.'),
-   _('It comes with NO WARRANTY.')))
-
+   _ ("Distributed under terms of the GNU General Public License."),
+   _ ("It comes with NO WARRANTY.")))
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='lilypond-book [OPTIONS] FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'lilypond-book',
                               version="@TOPLEVEL_VERSION@",
                               description=help_summary)
 
@@ -133,47 +132,42 @@ def get_option_parser ():
                   help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
                   default=None)
     p.add_option ('-f', '--format',
-                  help=_('''use output format FORMAT (texi [default], texi-html, latex, html, docbook)'''),
+                  help=_ ("use output format FORMAT (texi [default], texi-html, latex, html, docbook)"),
                   action='store')
     
-    p.add_option ("-I", '--include', help=_('add DIR to include path'),
-                  metavar="DIR",
+    p.add_option ("-I", '--include', help=_ ("add DIR to include path"),
+                  metavar=_ ("DIR"),
                   action='append', dest='include_path',
                   default=[os.path.abspath (os.getcwd ())])
     
-    p.add_option ("-o", '--output', help=_('write output to DIR'),
-                  metavar="DIR",
+    p.add_option ("-o", '--output', help=_ ("write output to DIR"),
+                  metavar=_ ("DIR"),
                   action='store', dest='output_name',
                   default='')
-    p.add_option ('-P', '--process', metavar=_("COMMAND"),
+    p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
                   help = _ ("process ly_files using COMMAND FILE..."),
                   action='store', 
                   dest='process_cmd', default='lilypond -b eps')
-
     p.add_option ('--pdf',
                   action="store_true",
                   dest="create_pdf",
-                  help="Create PDF files for use with PDFTeX",
+                  help=_ ("Create PDF files for use with PDFTeX"),
                   default=False)
-    
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
                   help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
 must use this with dvips -h INPUT.psfonts'''),
                   default=None)
-    p.add_option ('-V', '--verbose', help=_("be verbose"),
+    p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",
                   default=False,
                   dest="verbose")
-    
     p.add_option ('-w', '--warranty',
-                  help=_("show warranty and copyright"),
+                  help=_ ("show warranty and copyright"),
                   action='store_true')
-
-    
-    p.add_option_group  ('bugs',
-                         description='''Report bugs via http://post.gmane.org/post.php'''
-                         '''?group=gmane.comp.gnu.lilypond.bugs\n''')
-    
+    p.add_option_group ('bugs',
+                        description=(_ ("Report bugs via")
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
@@ -1479,7 +1473,7 @@ LATEX_INSPECTION_DOCUMENT = r'''
 def get_latex_textwidth (source):
     m = re.search (r'''(?P<preamble>\\begin\s*{document})''', source)
     if m == None:
-        warning (_ ("Can't find \\begin{document} in LaTeX document"))
+        warning (_ ("cannot find \\begin{document} in LaTeX document"))
         
         ## what's a sensible default?
         return 550.0
@@ -1608,7 +1602,7 @@ def guess_format (input_filename):
         # FIXME
         format = ext2format[e]
     else:
-        error (_ ("can't determine format for: %s" \
+        error (_ ("cannot determine format for: %s" \
               % input_filename))
         exit (1)
     return format

@@ -839,7 +839,9 @@ Horizontal spacing may be altered with the
 we compare the same music; once without altering
 the property, and then altered.  Larger values
 of @code{ly:make-moment} will produce smaller
-music.
+music.  Note that @code{ly:make-moment} constructs
+a duration, so @code{1 4} is a longer duration
+than @code{1 16}.
 
 @lilypond[relative,verbatim,line-width=12\cm]
 \score {
@@ -864,7 +866,7 @@ music.
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
+                #'base-shortest-duration = #(ly:make-moment 1 16)
     }
   }
 }

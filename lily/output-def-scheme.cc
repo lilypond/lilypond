@@ -82,7 +82,7 @@ LY_DEFINE (ly_output_description, "ly:output-description",
   return ell;
 }
 
-LY_DEFINE (ly_layout_def_p, "ly:layout-def?",
+LY_DEFINE (ly_output_def_p, "ly:output-def?",
 	   1, 0, 0, (SCM def),
 	   "Is @var{def} a layout definition?")
 {

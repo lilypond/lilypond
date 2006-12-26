@@ -251,9 +251,6 @@ Accidental_interface::print (SCM smob)
   return mol.smobbed_copy ();
 }
 
-/*
-  TODO: should move avoid-slur into item?
-*/
 ADD_INTERFACE (Accidental_interface,
 	       "a single accidental",
 	       "accidentals "

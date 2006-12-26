@@ -136,7 +136,7 @@ SCM make_music_relative (Pitch start, SCM music, Input loc);
 SCM run_music_function (Lily_parser *, SCM expr);
 SCM get_first_context_id (SCM type, Music *m);
 SCM make_chord_elements (SCM pitch, SCM dur, SCM modification_list);
-SCM make_chord_step (int step, int alter);
+SCM make_chord_step (int step, Rational alter);
 SCM make_simple_markup (SCM a);
 bool is_duration (int t);
 bool is_regular_identifier (SCM id);
@@ -1661,7 +1661,7 @@ steno_tonic_pitch:
 		$$ = p.smobbed_copy ();
 	}
 	| TONICNAME_PITCH sub_quotes	 {
-		Pitch p =* unsmob_pitch ($1);
+		Pitch p = *unsmob_pitch ($1);
 
 		p = p.transposed (Pitch (-$2,0,0));
 		$$ = p.smobbed_copy ();
@@ -2063,10 +2063,10 @@ step_number:
 		$$ = make_chord_step ($1, 0);
         }
 	| bare_unsigned '+' {
-		$$ = make_chord_step ($1, SHARP);
+		$$ = make_chord_step ($1, SHARP_ALTERATION);
 	}
 	| bare_unsigned CHORD_MINUS {
-		$$ = make_chord_step ($1, FLAT);
+		$$ = make_chord_step ($1, FLAT_ALTERATION);
 	}
 	;	
 
@@ -2470,10 +2470,10 @@ set_music_properties (Music *p, SCM a)
 
 
 SCM
-make_chord_step (int step, int alter)
+make_chord_step (int step, Rational alter)
 {
 	if (step == 7)
-		alter += FLAT;
+		alter += FLAT_ALTERATION;
 
 	while (step < 0)
 		step += 7;

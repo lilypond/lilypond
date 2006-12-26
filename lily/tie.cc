@@ -300,6 +300,7 @@ ADD_INTERFACE (Tie,
 	       "dash-period "
 	       "details "
 	       "direction "
+	       "head-direction "
 	       "line-thickness " 
 	       "quant-score "
 	       "staff-position "

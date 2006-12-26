@@ -121,7 +121,7 @@ Note_column::add_head (Grob *me, Grob *h)
     }
 
   if (both)
-    me->warning (_ ("can't have note heads and rests together on a stem"));
+    me->warning (_ ("cannot have note heads and rests together on a stem"));
   else
     Axis_group_interface::add_element (me, h);
 }

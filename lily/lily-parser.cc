@@ -124,7 +124,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
 
   if (!define_spots_.empty ())
     {
-      define_spots_.back ().warning (_ ("braces don't match"));
+      define_spots_.back ().warning (_ ("braces do not match"));
       error_level_ = 1;
     }
 

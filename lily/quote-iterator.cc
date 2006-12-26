@@ -244,7 +244,8 @@ Quote_iterator::process (Moment m)
 		    mp = *me_pitch;
 
 		  Pitch diff = pitch_interval (qp, mp);
-
+		  ev = ev->clone ();
+		  
 		  SCM props =  transpose_mutable (ev->get_property_alist (true), diff);
 		  ev = new Stream_event (ev->get_property ("class"), props);
 		  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);

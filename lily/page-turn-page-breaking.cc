@@ -202,7 +202,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       if (start == 0 && end == 1
 	  && this_start_best.first_page_number_ == 1
 	  && this_start_best.page_count_ > 1)
-	warning (_ ("couldn't fit the first page turn onto a single page. "
+	warning (_ ("cannot fit the first page turn onto a single page.  "
 		    "Consider setting first-page-number to an even number."));
 
       if (this_start_best.demerits_ < best.demerits_)

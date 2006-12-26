@@ -132,7 +132,7 @@ node."
 (define (check-dangling-properties prop)
   (if (not (object-property prop 'iface-marked))
       (ly:error (string-append "define-grob-properties.scm: "
-		(_ "can't find interface for property: ~S")) prop)))
+		(_ "cannot find interface for property: ~S")) prop)))
 
 (map check-dangling-properties all-backend-properties)
 

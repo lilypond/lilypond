@@ -297,7 +297,7 @@ Beam::quanting (SCM smob, SCM posns)
 	    }
 	}
       if (mindist > 1e5)
-	programming_error ("can't find quant");
+	programming_error ("cannot find quant");
     }
 #endif
 

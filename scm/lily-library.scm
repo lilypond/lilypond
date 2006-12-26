@@ -19,16 +19,27 @@
 (define-public DOWN -1)
 (define-public CENTER 0)
 
-(define-safe-public DOUBLE-FLAT -4)
-(define-safe-public THREE-Q-FLAT -3)
-(define-safe-public FLAT -2)
-(define-safe-public SEMI-FLAT -1)
+(define-safe-public DOUBLE-FLAT-QTS -4)
+(define-safe-public THREE-Q-FLAT-QTS -3)
+(define-safe-public FLAT-QTS -2)
+(define-safe-public SEMI-FLAT-QTS -1)
+(define-safe-public NATURAL-QTS 0)
+(define-safe-public SEMI-SHARP-QTS 1)
+(define-safe-public SHARP-QTS 2)
+(define-safe-public THREE-Q-SHARP-QTS 3)
+(define-safe-public DOUBLE-SHARP-QTS 4)
+(define-safe-public SEMI-TONE-QTS 2)
+
+(define-safe-public DOUBLE-FLAT  -1)
+(define-safe-public THREE-Q-FLAT -3/4)
+(define-safe-public FLAT -1/2)
+(define-safe-public SEMI-FLAT -1/4)
 (define-safe-public NATURAL 0)
-(define-safe-public SEMI-SHARP 1)
-(define-safe-public SHARP 2)
-(define-safe-public THREE-Q-SHARP 3)
-(define-safe-public DOUBLE-SHARP 4)
-(define-safe-public SEMI-TONE 2)
+(define-safe-public SEMI-SHARP 1/4)
+(define-safe-public SHARP 1/2)
+(define-safe-public THREE-Q-SHARP 3/4)
+(define-safe-public DOUBLE-SHARP 1)
+(define-safe-public SEMI-TONE 1/2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
@@ -49,6 +60,9 @@
 
 (define-public default-script-alist '())
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; parser <-> output hooks.
 
 ;; parser stuff.
 (define-public (print-music-as-book parser music)
@@ -73,7 +87,6 @@
   (ly:parser-define!
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
-
 
 (define-public (scorify-music music parser)
   
@@ -110,8 +123,6 @@
 (define-public (print-score-with-defaults parser score)
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
-       (layout (ly:parser-lookup parser '$defaultlayout))
-       (header (ly:parser-lookup parser '$defaultheader))
        (count (ly:parser-lookup parser 'output-count))
        (base (ly:parser-output-name parser)))
 
@@ -122,8 +133,35 @@
 	(set! base (format #f "~a-~a" base count)))
 
     (ly:parser-define! parser 'output-count (1+ count))
-    (ly:score-process score header paper layout base)
-    ))
+
+    (if (not (ly:score-error? score))
+	(let*
+	    ((header (ly:score-header score))
+	     (output-defs (ly:score-output-defs score))
+	     (layout-defs (filter  (lambda (d) (eq? #t (ly:output-def-lookup d 'is-layout)))
+				  output-defs))
+	     (midi-defs (filter (lambda (d)  (eq? #t (ly:output-def-lookup d 'is-midi)))
+				output-defs))
+	     (music (ly:score-music score))
+	     (layout-def (if (null? layout-defs)
+			     (ly:parser-lookup parser '$defaultlayout)
+			     (car layout-defs))))
+
+	  (if (not (module? header))
+	      (set! header (ly:parser-lookup parser '$defaultheader)))
+	     
+	  (ly:render-music-as-systems
+	   music layout-def paper header base)
+
+	  (if (pair? midi-defs)
+	      (ly:performance-write (ly:format-output (ly:run-translator music (car midi-defs)))
+				    (format #f "~a.midi" base)
+				    ))
+	      
+    ))))
+
+
+
 
 
 ;;;;;;;;;;;;;;;;

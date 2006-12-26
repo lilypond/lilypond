@@ -43,7 +43,6 @@ public:
 
 DECLARE_UNSMOB (Score, score);
 
-void default_rendering (SCM, SCM, SCM, SCM, SCM, SCM);
 SCM ly_render_output (SCM, SCM);
 SCM ly_run_translator (SCM, SCM, SCM);
 

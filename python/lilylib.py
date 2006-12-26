@@ -200,7 +200,7 @@ class NonDentedHeadingFormatter (optparse.IndentedHelpFormatter):
 			       metavar)
 
     def format_usage(self, usage):
-        return _("Usage: %s\n") % usage
+        return _("Usage: %s") % usage + '\n'
 
     def format_description(self, description):
 	return description

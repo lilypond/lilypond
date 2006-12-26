@@ -202,6 +202,7 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
+	(outside-staff-priority . 100)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -985,6 +986,7 @@
 	(direction . ,UP)
 	(padding . 0.8)
 	(side-axis . ,Y)
+	(outside-staff-priority . 1000)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface
@@ -1281,7 +1283,7 @@
 	(break-visibility . ,end-of-line-invisible)
 	(break-align-symbol . staff-bar)
 	(padding . 0.8)
-	(outside-staff-priority . 1000)
+	(outside-staff-priority . 1500)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
 				side-position-interface

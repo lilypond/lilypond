@@ -30,10 +30,6 @@ Rational::operator double () const
   return 0.0;
 }
 
-Rational::operator bool () const
-{
-  return sign_ && num_;
-}
 
 #ifdef STREAM_SUPPORT
 ostream &
@@ -43,6 +39,12 @@ operator << (ostream &o, Rational r)
   return o;
 }
 #endif
+
+Rational
+Rational::abs () const
+{
+  return Rational (num_, den_);
+}
 
 Rational
 Rational::trunc_rat () const
@@ -59,29 +61,18 @@ Rational::Rational ()
 Rational::Rational (int n, int d)
 {
   sign_ = ::sign (n) * ::sign (d);
-  num_ = abs (n);
-  den_ = abs (d);
-  normalise ();
+  num_ = ::abs (n);
+  den_ = ::abs (d);
+  normalize ();
 }
 
 Rational::Rational (int n)
 {
   sign_ = ::sign (n);
-  num_ = abs (n);
+  num_ = ::abs (n);
   den_ = 1;
 }
 
-static inline
-int gcd (int a, int b)
-{
-  int t;
-  while ((t = a % b))
-    {
-      a = b;
-      b = t;
-    }
-  return b;
-}
 
 void
 Rational::set_infinite (int s)
@@ -113,8 +104,56 @@ Rational::mod_rat (Rational div) const
   return r;
 }
 
+
+/*
+  copy & paste from scm_gcd (GUILE).
+ */
+static int
+gcd (long u, long v) 
+{
+  long result = 0;
+  if (u == 0)
+    result = v;
+  else if (v == 0)
+    result = u;
+  else
+    {
+      long k = 1;
+      long t;
+      /* Determine a common factor 2^k */
+      while (!(1 & (u | v)))
+	{
+	  k <<= 1;
+	  u >>= 1;
+	  v >>= 1;
+	}
+      /* Now, any factor 2^n can be eliminated */
+      if (u & 1)
+	t = -v;
+      else
+	{
+	  t = u;
+	b3:
+	  t = t >> 1;
+	}
+      if (!(1 & t))
+	goto b3;
+      if (t > 0)
+	u = t;
+      else
+	v = -t;
+      t = u - v;
+      if (t != 0)
+	goto b3;
+      result = u * k;
+    }
+
+  return result;
+}
+
+
 void
-Rational::normalise ()
+Rational::normalize ()
 {
   if (!sign_)
     {
@@ -185,9 +224,9 @@ Rational::operator += (Rational r)
       int n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
       int d = lcm;
       sign_ = ::sign (n) * ::sign (d);
-      num_ = abs (n);
-      den_ = abs (d);
-      normalise ();
+      num_ = ::abs (n);
+      den_ = ::abs (d);
+      normalize ();
     }
   return *this;
 }
@@ -217,19 +256,19 @@ Rational::Rational (double x)
 
       num_ = (unsigned int) (mantissa * FACT);
       den_ = (unsigned int) FACT;
-      normalise ();
+      normalize ();
       if (expt < 0)
 	den_ <<= -expt;
       else
 	num_ <<= expt;
-      normalise ();
+      normalize ();
     }
   else
     {
       num_ = 0;
       den_ = 1;
       sign_ = 0;
-      normalise ();
+      normalize ();
     }
 }
 
@@ -254,7 +293,7 @@ Rational::operator *= (Rational r)
   num_ *= r.num_;
   den_ *= r.den_;
 
-  normalise ();
+  normalize ();
  exit_func:
   return *this;
 }

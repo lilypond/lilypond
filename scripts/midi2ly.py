@@ -4,7 +4,7 @@
 # 
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 
@@ -866,23 +866,23 @@ def convert_midi (in_file, out_file):
 
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='midi2ly [OPTIONS] FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'midi2ly',
                  version="midi2ly (LilyPond) @TOPLEVEL_VERSION@",
-                 description=_('''Convert MIDI to LilyPond source.'''))
+                 description=_ ("Convert %s to LilyPond input.") % 'MIDI')
 
     p.add_option ('-a', '--absolute-pitches',
            action='store_true',
            help=_ ("print absolute pitches"))
     p.add_option ('-d', '--duration-quant',
            metavar= _("DUR"),
-           help=_("quantise note durations on DUR"))
+           help=_ ("quantise note durations on DUR"))
     p.add_option ('-e', '--explicit-durations',
            action='store_true',
            help=_ ("print explicit durations"))
     p.add_option('-k', '--key', help=_ ("set key: ALT=+sharps|-flats; MINOR=1"),
           metavar=_ ("ALT[:MINOR]"),
           default='0'),
-    p.add_option ('-o', '--output', help=_("write output to FILE"),
+    p.add_option ('-o', '--output', help=_ ("write output to FILE"),
            metavar=_("FILE"),
            action='store')
     p.add_option ('-s', '--start-quant',help= _ ("quantise note starts on DUR"),
@@ -893,25 +893,24 @@ def get_option_parser ():
            dest="allowed_tuplets",
            help=_ ("allow tuplet durations DUR*NUM/DEN"),
            default=[])
-    p.add_option ('-V', '--verbose', help=_("be verbose"),
+    p.add_option ('-V', '--verbose', help=_ ("be verbose"),
            action='store_true'
            ),
-    p.add_option ('-w', '--warranty', help=_("show warranty"),
+    p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
            action='store_true',
            ),
-    p.add_option ('-x', '--text-lyrics', help=_("treat every text as a lyric"),
+    p.add_option ('-x', '--text-lyrics', help=_ ("treat every text as a lyric"),
            action='store_true')
 
-    p.add_option_group (_ ("example"),
+    p.add_option_group (_ ("Examples"),
               description = r'''
   midi2ly --key=-2:1 --duration-quant=32 \
     --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
-    
-    p.add_option_group  ('bugs',
-              description='''Report bugs via http://post.gmane.org/post.php'''
-              '''?group=gmane.comp.gnu.lilypond.bugs\n''')
-    
+    p.add_option_group ('bugs',
+                        description=(_ ('Report bugs via')
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
 

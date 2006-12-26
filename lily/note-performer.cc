@@ -38,11 +38,10 @@ Note_performer::process_music ()
 {
   if (note_evs_.size ())
     {
-      int transposing = 0;
-
+      Pitch transposing;
       SCM prop = get_property ("instrumentTransposition");
       if (unsmob_pitch (prop))
-	transposing = unsmob_pitch (prop)->semitone_pitch ();
+	transposing = *unsmob_pitch (prop);
 
       while (note_evs_.size ())
 	{
@@ -67,7 +66,7 @@ Note_performer::process_music ()
                 }
 
 	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), 
-                                              tie_event, - transposing);
+                                              tie_event, transposing.negated ());
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push_back (p);

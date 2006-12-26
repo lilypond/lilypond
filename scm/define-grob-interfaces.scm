@@ -57,8 +57,18 @@
  '(columns common-shortest-duration))
 
 (ly:add-interface
+ 'key-cancellation-interface
+ "A key cancellation"
+ '())
+
+(ly:add-interface
  'ligature-interface
  "A ligature"
+ '())
+
+(ly:add-interface
+ 'key-cancellation-interface
+ "A key cancellation"
  '())
 
 (ly:add-interface
