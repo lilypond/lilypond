@@ -116,6 +116,9 @@ dvips -o -Ppdf -h lilybook.psfonts lilybook
 ps2pdf lilybook.ps
 @end example
 
+If you are running latex in twocolumn mode, remember to add
+@code{-t landscape} to the dvips options.
+
 Running @command{lilypond-book} and @command{latex} creates a lot of
 temporary files, which would clutter up the working directory.  To
 remedy this, use the @code{--output=@var{dir}} option.  It will create
@@ -304,6 +307,9 @@ can then be produced with a PostScript to PDF translator like
 @code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
 will produce some warnings about fonts; these are harmless and may
 be ignored.
+
+If you are running latex in twocolumn mode, remember to add
+@code{-t landscape} to the dvips options.
 
 @cindex international characters
 @cindex latin1
