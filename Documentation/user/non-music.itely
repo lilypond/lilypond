@@ -277,6 +277,9 @@ A markup text, a verse for example
 Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
+@cindex variables
+@cindex identifiers
+
 @item
 An identifier, such as
 @example
