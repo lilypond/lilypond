@@ -696,14 +696,19 @@ gives a gentle introduction to typesetting music.  First time
 users should start here.
 
 @item
-@emph{@ref{Working on LilyPond projects}}
-demonstrates practical uses of LilyPond.
+@emph{@ref{Putting it all together}}
+explains some general concepts about the lilypond file format.  If
+you are not certain where to place a command, read this chapter!
 
 @item
-@emph{@ref{Running LilyPond}}
-shows how to run LilyPond and its helper
-programs.  In addition, this section explains how to upgrade input
-files from previous versions of LilyPond.
+@emph{@ref{Working on LilyPond projects}}
+discusses practical uses of LilyPond and how to avoid some common
+problems.
+
+@item
+@emph{@ref{Tweaking output}}
+shows how to change the default engraving that LilyPond
+produces.
 
 @item
 @emph{@ref{Basic notation}}
@@ -737,6 +742,16 @@ discusses issues which affect the global output, such as selecting
 paper size or specifying page breaks.
 
 @item
+@emph{@ref{Interfaces for programmers}}
+explains how to create music functions.
+
+@item
+@emph{@ref{Running LilyPond}}
+shows how to run LilyPond and its helper
+programs.  In addition, this section explains how to upgrade input
+files from previous versions of LilyPond.
+
+@item
 @emph{@ref{LilyPond-book}} explains the details behind creating
 documents with in-line music examples, like this manual.
 
@@ -755,9 +770,35 @@ contains a set of useful reference books for those who wish to know
 more on notation and engraving.
 
 @item
+The
+@emph{@ref{Scheme tutorial}}
+presents a short introduction to scheme, the programming
+language that music functions use.
+
+@item
+@emph{@ref{Notation manual tables}}
+are a set of tables showing the chord names, MIDI instruments,
+a list of color names, and the Feta font.
+
+@item
 @emph{@ref{Example templates}}
 provides templates of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
+
+@item
+The
+@emph{@ref{Cheat sheet}}
+is a handy reference of the most common LilyPond commands.
+
+@item
+The
+@emph{@ref{Command index}}
+is an index of all LilyPond @code{\commands}.
+
+@item
+The
+@emph{@ref{LilyPond index}}
+is a complete index.
 
 @end itemize
 
