@@ -181,6 +181,9 @@ g4\fthenp c'8. e16
 @node Saving typing with identifiers and functions
 @section Saving typing with identifiers and functions
 
+@cindex variables
+@cindex identifiers
+
 By this point, you've seen this kind of thing:
 
 @lilypond[quote,verbatim,ragged-right]

@@ -1942,11 +1942,23 @@ notes need not be consecutive.  This can be achieved by setting the
 @code{tieWaitForNote} property to true. The same feature is also useful,
 for example, to tie a tremolo to a chord. For example,
 
-@lilypond[fragment,verbatim,relative=1,ragged-right]
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
 \grace { c16[~ e~ g]~ } <c, e g>2
 \repeat "tremolo" 8 { c32~ c'~ } <c c,>1
 e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Ties may be engraved manually by changing the @code{tie-configuration}
+property.  The first number indicates the distance from the center
+of the staff in staff-spaces, and the second number indicates the
+direction (1=up, -1=down).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
 @end lilypond
 
 
