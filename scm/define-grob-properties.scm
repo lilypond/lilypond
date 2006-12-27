@@ -406,8 +406,11 @@ use LEFT.")
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of (@var{position} . @var{dir})
-pairs, indicating the desired tie configuration. A non-pair entry in
-the list will cause said tie to be formatted automatically. ")
+pairs, indicating the desired tie configuration where @var{position} is
+the offset from the center of the
+staff in staff space and @var{dir} indicates the direction of the tie
+(1=>up, -1=>down, 0=>center).  A non-pair entry in the list will cause
+the corresponding tie to be formatted automatically.")
      (transparent ,boolean? "This makes the grob invisible.")
      (uniform-stretching ,boolean? "If set, items stretch proportional
 to their durations. This looks better in complex polyphonic patterns")

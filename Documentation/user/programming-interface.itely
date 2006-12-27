@@ -27,6 +27,7 @@ This section discusses how to create music functions within LilyPond.
 * Paired substitution functions::  
 * Mathematics in functions::    
 * Void functions::              
+* Functions without arguments::  
 * Overview of available music functions::  
 @end menu
 
@@ -236,6 +237,36 @@ noPointAndClick =
 ...
 \noPointAndClick   % disable point and click
 @end example
+
+
+@node Functions without arguments
+@subsection Functions without arguments
+
+In most cases a function without arguments should be written
+with an identifier,
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+However, in rare cases it may be useful to create a music function
+without arguments,
+
+@example
+displayBarNum =
+#(define-music-function (parser location) ()
+   (if (eq? #t (ly:get-option display-bar-numbers))
+       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+To actually display bar numbers where this function is called,
+invoke lilypond with
+
+@example
+lilypond -d display-bar-numbers FILENAME.ly
+@end example
+
 
 @node Overview of available music functions
 @subsection Overview of available music functions

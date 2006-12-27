@@ -45,6 +45,7 @@ public:
 
   vector<Item*> broken_col_range (Item const *, Item const *) const;
   vector<Grob*> columns () const;
+  Grob *column (int i) const;
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);
