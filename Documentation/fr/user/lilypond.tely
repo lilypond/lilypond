@@ -112,7 +112,7 @@ Manuel d'apprentissage
 Manuel de référence
 
 * Basic notation::                 notation musicale standard.
-* Instrument-specific notation::
+* Instrument-specific notation::   notation spécifique à un instrument.
 * Advanced notation::              notation plus rarement utilisée.
 * Changing defaults::              retoucher la mise en forme.
 * Non-musical notation::           aspects autres que la notation musicale.
@@ -174,10 +174,14 @@ Annexes
 @node LilyPond command index
 @appendix LilyPond command index
 
+UNTRANSLATED NODE: IGNORE ME
+
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
+
+UNTRANSLATED NODE: IGNORE ME
 
 @printindex cp
 
