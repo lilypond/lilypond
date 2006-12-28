@@ -21,8 +21,8 @@
     c \bar ":|:" \mark \markup {  \simple #":|:" }
     c \bar "|." \mark \markup {  \simple #"|." }
     c \bar ":" \mark \markup {  \simple #":" }
-
-    c c c
+    c c c \bar "dashed" \mark \markup { \simple #"dashed" }
+    c c c c
     \bar "||:" \mark \markup { \tiny \typewriter "unbroken" \simple
 #"||:" }
     c c c c

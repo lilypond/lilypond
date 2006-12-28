@@ -1051,6 +1051,19 @@ be added to that context.
 More information about adding and removing engravers can
 be found in @ref{Modifying context plug-ins}.
 
+Instrument names may be changed in the middle of a piece,
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
 
 @seealso
 
