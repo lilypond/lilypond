@@ -783,18 +783,11 @@ Slur_score_state::get_extra_encompass_infos () const
 	  if (Accidental_interface::has_interface (g))
 	    {
 	      penalty = parameters_.accidental_collision_;
-	      /* Begin copy accidental.cc */
-	      bool parens = false;
-	      if (to_boolean (g->get_property ("cautionary")))
-		{
-		  SCM cstyle = g->get_property ("cautionary-style");
-		  parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
-		}
 
 	      SCM alt = g->get_property ("alteration");
 	      SCM scm_style = g->get_property ("style");
 	      if (!scm_is_symbol (scm_style)
-		  && !parens
+		  && !to_boolean (g->get_property ("parenthesized"))
 		  && !to_boolean (g->get_property ("restore-first")))
 		{
 		  /* End copy accidental.cc */

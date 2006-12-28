@@ -420,9 +420,6 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
     Side_position_interface::add_support (a, right_objects_[i]);
 
   a->set_parent (note_head, Y_AXIS);
-  if (cautionary)
-    a->set_property ("cautionary", SCM_BOOL_T);
-
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",

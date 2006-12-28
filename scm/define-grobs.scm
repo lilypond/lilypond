@@ -20,7 +20,6 @@
     (Accidental
      . (
 	(avoid-slur . inside)
-	(cautionary-style . parentheses)
 	(stencil . ,ly:accidental-interface::print)
 	(stencils . ,ly:accidental-interface::calc-stencils)
 	(after-line-breaking
