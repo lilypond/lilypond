@@ -21,8 +21,8 @@
 	      (check-internal-types #f "check every property assignment for types")
 	      (clip-systems #f "Generate cut-out snippets of a score")
 	      (debug-gc #f "dump memory debugging statistics")
-	      (debug-gc-assert-parsed-dead
-	       #f "for memory debugging: ensure that all refs to parsed objects are dead.")
+	      (debug-gc-assert-parsed-dead #f "for memory debugging:
+ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
 	      (debug-lexer #f "debug the flex lexer")
 	      (debug-midi #f "generate human readable MIDI")
 	      (debug-parser #f "debug the bison parser")
@@ -395,6 +395,7 @@ The syntax is the same as `define*-public'."
 	  (ly:reset-all-fonts)
 	  (gc)
 	  (gc)
+	  (display "Asserting dead objects\n")
 	  (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	  (gc)
 	  (ly:set-option 'debug-gc-assert-parsed-dead #f)
