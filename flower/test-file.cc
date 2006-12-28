@@ -47,7 +47,7 @@ void file_find ()
   File_path path;
   char cwd[PATH_MAX];
   getcwd (cwd, PATH_MAX);
-  string ly_dir = string (getenv ("LILYPONDPREFIX")) + "/ly";
+  string ly_dir = string (getenv ("top-src-dir")) + "/ly";
   cout << ly_dir << endl;
   path.parse_path (string (1, PATHSEP) + ly_dir);
   string file_name = path.find (file, extensions);
@@ -57,4 +57,5 @@ void file_find ()
   file_name = path.find (file, extensions);
   cout << file_name << endl;
   BOOST_CHECK_EQUAL (file_name, ly_dir + "/init.ly");
+  
 }
