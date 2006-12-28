@@ -51,7 +51,7 @@ Accidental_entry::Accidental_entry ()
 class Accidental_engraver : public Engraver
 {
   int get_bar_number ();
-  void update_local_key_signature ();
+  void update_local_key_signature (SCM new_signature);
   void create_accidental (Accidental_entry *entry, bool, bool);
   Grob *make_standard_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
   Grob *make_suggested_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
@@ -72,13 +72,8 @@ protected:
   virtual void derived_mark () const;
 
 public:
-  SCM last_keysig_;	// ugh.
+  SCM last_keysig_;
 
-  /*
-    Urgh. Since the accidentals depend on lots of variables, we have
-    to store all information before we can really create the
-    accidentals.
-  */
   vector<Grob*> left_objects_;
   vector<Grob*> right_objects_;
 
@@ -89,12 +84,8 @@ public:
 };
 
 /*
-  TODO:
-
-  ugh, it is not clear what properties are mutable and which
-  aren't. eg. localKeySignature is changed at runtime, which means
-  that references in grobs should always store ly_deep_copy ()s of
-  those.
+  localKeySignature is changed at runtime, which means that references
+  in grobs should always store ly_deep_copy ()s of those.
 */
 
 
@@ -111,12 +102,12 @@ Accidental_engraver::derived_mark () const
 }
 
 void
-Accidental_engraver::update_local_key_signature ()
+Accidental_engraver::update_local_key_signature (SCM new_sig)
 {
-  last_keysig_ = get_property ("keySignature");
+  last_keysig_ = new_sig;
   set_context_property_on_children (context (),
 				    ly_symbol2scm ("localKeySignature"),
-				    last_keysig_);
+				    new_sig);
 
   Context *trans = context ()->get_parent_context ();
 
@@ -168,24 +159,41 @@ extract_alteration (SCM alteration_def)
 bool
 is_tied (SCM alteration_def)
 {
-  return (alteration_def == SCM_BOOL_T)
-    || (scm_is_pair (alteration_def) && scm_car (alteration_def) == SCM_BOOL_T);
+  SCM tied = ly_symbol2scm ("tied");
+  return (alteration_def == tied
+	  || (scm_is_pair (alteration_def) && scm_car (alteration_def) == tied));
 }
 
-static int
-number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
-			     int bar_number, SCM laziness, bool ignore_octave)
+struct Accidental_result
 {
-  int n = pitch->get_notename ();
-  int o = pitch->get_octave ();
+  bool need_acc;
+  bool need_restore;
+
+  Accidental_result () {
+    need_restore = need_acc = false;
+  }
+
+  int score () const {
+    return need_acc ? 1 : 0
+      + need_restore ? 1 : 0;
+  }
+};
+
+Accidental_result
+check_pitch_against_signature (SCM key_signature, Pitch const &pitch,
+			       int bar_number, SCM laziness, bool ignore_octave)
+{
+  Accidental_result result;
+  int n = pitch.get_notename ();
+  int o = pitch.get_octave ();
 
   SCM previous_alteration = SCM_BOOL_F;
 
   SCM from_same_octave = ly_assoc_get (scm_cons (scm_from_int (o),
-						 scm_from_int (n)), sig, SCM_BOOL_F);
-  SCM from_key_signature = ly_assoc_get (scm_from_int (n), sig, SCM_BOOL_F);
+						 scm_from_int (n)), key_signature, SCM_BOOL_F);
+  SCM from_key_signature = ly_assoc_get (scm_from_int (n), key_signature, SCM_BOOL_F);
   SCM from_other_octaves = SCM_BOOL_F;
-  for (SCM s = sig; scm_is_pair (s); s = scm_cdr (s))
+  for (SCM s = key_signature; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       if (scm_is_pair (scm_car (entry))
@@ -207,65 +215,63 @@ number_accidentals_from_sig (bool *different, SCM sig, Pitch *pitch,
   else if (from_key_signature != SCM_BOOL_F)
     previous_alteration = from_key_signature;
 
-  int num = 1;
   if (is_tied (previous_alteration))
     {
-      num = 1;
-      *different = true;
+      result.need_acc = true;
     }
   else
     {
       Rational prev = extract_alteration (previous_alteration);
-      Rational alter = pitch->get_alteration ();
+      Rational alter = pitch.get_alteration ();
 
-      if (alter == prev)
-	num = 0;
-      else if ((alter.abs () < prev.abs ()
-		|| (prev * alter).sign () < 0) && alter.sign ())
-	num = 2;
-      *different = (alter != prev);
+      if (alter != prev)
+        {
+	  result.need_acc = true;
+	  if (alter.sign ()
+	      && (alter.abs () < prev.abs ()
+		  || (prev * alter).sign () < 0))
+	    result.need_restore = true;
+	}
     }
-  return num;
+
+  return result;
 }
 
-static int
-number_accidentals (bool *different,
-		    Pitch *pitch, Context *origin,
-		    SCM accidentals, int bar_number)
+static
+Accidental_result
+check_pitch_against_rules (Pitch const &pitch, Context *origin,
+				 SCM rules, int bar_number)
 {
-  int number = 0;
-
-  *different = false;
-  if (scm_is_pair (accidentals) && !scm_is_symbol (scm_car (accidentals)))
+  Accidental_result result;
+  if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
-		 ly_scm2string (scm_car (accidentals)).c_str ()));
+		 ly_scm2string (scm_car (rules)).c_str ()));
 
-  for (; scm_is_pair (accidentals) && origin;
-       accidentals = scm_cdr (accidentals))
+  for (; scm_is_pair (rules) && origin;
+       rules = scm_cdr (rules))
     {
-      // If pair then it is a new accidentals typesetting rule to be checked
-      SCM rule = scm_car (accidentals);
+      SCM rule = scm_car (rules);
       if (scm_is_pair (rule))
 	{
 	  SCM type = scm_car (rule);
 	  SCM laziness = scm_cdr (rule);
 	  SCM localsig = origin->get_property ("localKeySignature");
 
-	  bool same_octave_b
-	    = scm_is_eq (ly_symbol2scm ("same-octave"), type);
-	  bool any_octave_b
-	    = scm_is_eq (ly_symbol2scm ("any-octave"), type);
+	  bool same_octave
+	    = (ly_symbol2scm ("same-octave") == type);
+	  bool any_octave
+	    = (ly_symbol2scm ("any-octave") == type);
 
-	  if (same_octave_b || any_octave_b)
+	  if (same_octave || any_octave)
 	    {
-	      bool d = false;
-	      int n = number_accidentals_from_sig
-		(&d, localsig, pitch, bar_number, laziness, any_octave_b);
-	      *different = *different || d;
-	      number = max (number, n);
+	      Accidental_result rule_result = check_pitch_against_signature
+		(localsig, pitch, bar_number, laziness, any_octave);
+
+	      result.need_acc |= rule_result.need_acc;
+	      result.need_restore |= rule_result.need_restore;
 	    }
 	  else
-	    warning (_f ("ignoring unknown accidental: %s",
+	    warning (_f ("ignoring unknown accidental rule: %s",
 			 ly_symbol2string (type).c_str ()));
 	}
 
@@ -285,7 +291,7 @@ number_accidentals (bool *different,
 		     ly_scm2string (rule).c_str ()));
     }
 
-  return number;
+  return result;
 }
 
 int
@@ -308,8 +314,8 @@ Accidental_engraver::process_acknowledged ()
 {
   if (accidentals_.size () && !accidentals_.back ().done_)
     {
-      SCM accidentals = get_property ("autoAccidentals");
-      SCM cautionaries = get_property ("autoCautionaries");
+      SCM accidental_rules = get_property ("autoAccidentals");
+      SCM cautionary_rules = get_property ("autoCautionaries");
       int barnum = get_bar_number ();
 
       for (vsize i = 0; i < accidentals_.size (); i++)
@@ -325,34 +331,29 @@ Accidental_engraver::process_acknowledged ()
 	  if (!pitch)
 	    continue;
 
-	  bool different = false;
-	  bool different_caut = false;
-
-	  int num = number_accidentals (&different,
-					pitch, origin,
-					accidentals, barnum);
-	  int num_caut = number_accidentals (&different_caut,
-					     pitch, origin,
-					     cautionaries, barnum);
-
+	  Accidental_result acc = check_pitch_against_rules (*pitch, origin,
+							     accidental_rules, barnum);
+	  Accidental_result caut = check_pitch_against_rules (*pitch, origin,
+							      cautionary_rules, barnum);
 
 	  bool cautionary = to_boolean (note->get_property ("cautionary"));
-	  if (num_caut > num)
+	  if (caut.score () > acc.score ())
 	    {
-	      num = num_caut;
-	      different = different_caut;
+	      acc.need_acc |= caut.need_acc; 
+	      acc.need_restore |= caut.need_restore; 
+
 	      cautionary = true;
 	    }
 
 	  bool forced = to_boolean (note->get_property ("force-accidental"));
-	  if (num == 0 && forced)
-	    num = 1;
+	  if (!acc.need_acc && forced)
+	    acc.need_acc = true;
 
 	  /* Cannot look for ties: it's not guaranteed that they reach
 	     us before the notes. */
-	  if (num
+	  if (acc.need_acc
 	      && !note->in_event_class ("trill-span-event"))
-	    create_accidental (&accidentals_[i], num > 1, cautionary);
+	    create_accidental (&accidentals_[i], acc.need_restore, cautionary);
 
 	  if (forced || cautionary)
 	    accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
@@ -383,8 +384,7 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
       if (to_boolean (get_property ("extraNatural")))
 	accs = scm_cons (scm_from_int (0), accs);
     }
-
-  /* TODO: add cautionary option in accidental. */
+  
   if (cautionary)
     a->set_property ("cautionary", SCM_BOOL_T);
 
@@ -416,9 +416,6 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
 	Side_position_interface::add_support (left_objects_[i], a);
     }
 
-  /*
-    Hmm. Junkme? 
-   */
   for (vsize i = 0; i < right_objects_.size (); i++)
     Side_position_interface::add_support (a, right_objects_[i]);
 
@@ -503,8 +500,8 @@ Accidental_engraver::stop_translation_timestep ()
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
 	      */
-	      localsig = ly_assoc_front_x
-		(localsig, key, scm_cons (SCM_BOOL_T, scm_from_int (barnum)));
+	      localsig = ly_assoc_prepend_x (localsig, key, scm_cons (ly_symbol2scm ("tied"),
+								      scm_from_int (barnum)));
 
 	      change = true;
 	    }
@@ -514,7 +511,7 @@ Accidental_engraver::stop_translation_timestep ()
 		not really really correct if there are more than one
 		noteheads with the same notename.
 	      */
-	      localsig = ly_assoc_front_x (localsig, key,
+	      localsig = ly_assoc_prepend_x (localsig, key,
 					   scm_cons (ly_rational2scm (a),
 						     scm_from_int (barnum)));
 	      change = true;
@@ -544,9 +541,8 @@ Accidental_engraver::acknowledge_rhythmic_head (Grob_info info)
       /*
 	string harmonics usually don't have accidentals.
       */
-      if (to_boolean (get_property ("harmonicAccidentals"))
-	  || !ly_is_equal (info.grob ()->get_property ("style"),
-			   ly_symbol2scm ("harmonic")))
+      if (info.grob ()->get_property ("style") != ly_symbol2scm ("harmonic")
+	  || to_boolean (get_property ("harmonicAccidentals")))
 	{
 	  Accidental_entry entry;
 	  entry.head_ = info.grob ();
@@ -581,10 +577,8 @@ void
 Accidental_engraver::process_music ()
 {
   SCM sig = get_property ("keySignature");
-  /* Detect key sig changes.
-     Update all parents and children.  */
   if (last_keysig_ != sig)
-    update_local_key_signature ();
+    update_local_key_signature (sig);
 }
 
 ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
