@@ -261,6 +261,7 @@ ADD_INTERFACE (Accidental_interface,
 	       "avoid-slur "
 	       "forced "
 	       "style "
-	       "parenthesized " 
+	       "parenthesized "
+	       "restore-first "
 	       "tie "
 	       );
