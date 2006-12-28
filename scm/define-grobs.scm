@@ -1280,7 +1280,7 @@
 	(font-size . 2)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
-	(break-align-symbol . staff-bar)
+	(break-align-symbol . clef)
 	(padding . 0.8)
 	(outside-staff-priority . 1500)
 	(meta . ((class . Item)
