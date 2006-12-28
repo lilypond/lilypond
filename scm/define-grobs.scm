@@ -1139,7 +1139,6 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(stencil . ,ly:text-interface::print)
 	(font-shape . italic)
-	(padding . 0.6)
 	(staff-padding . 0.2)
 	(font-size . -4)
 	(meta . ((class . Item)
