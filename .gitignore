@@ -44,3 +44,4 @@ test-output-distance
 *.gcov
 *.gcda
 *.gcno
+*.600pk
