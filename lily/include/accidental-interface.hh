@@ -19,6 +19,7 @@ class Accidental_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stencils, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
   
   DECLARE_GROB_INTERFACE();

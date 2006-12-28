@@ -791,14 +791,14 @@ Slur_score_state::get_extra_encompass_infos () const
 		  parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
 		}
 
-	      SCM accs = g->get_property ("accidentals");
+	      SCM alt = g->get_property ("alteration");
 	      SCM scm_style = g->get_property ("style");
 	      if (!scm_is_symbol (scm_style)
 		  && !parens
-		  && scm_ilength (accs) == 1)
+		  && !to_boolean (g->get_property ("restore-first")))
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (scm_car (accs)))
+		  switch (scm_to_int (alt))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

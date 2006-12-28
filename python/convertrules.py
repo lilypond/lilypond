@@ -2885,3 +2885,20 @@ def conv (str):
 
 conversions.append (((2, 11, 2), conv, """ly:clone-parser -> ly:parser-clone"""))
 
+
+
+def conv (str):
+    str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'smaller",
+                   "AccidentalCautionary #'font-size = #-2", str)
+    str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
+                   "AccidentalCautionary #'parenthesized = ##t", str)
+
+    str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
+                   r"\1 #'parenthesized = ##t", str)
+    str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
+                   r"\1 #'font-size = #-2", str)
+
+    return str
+
+conversions.append (((2, 11, 5), conv, """ly:clone-parser -> ly:parser-clone"""))
+

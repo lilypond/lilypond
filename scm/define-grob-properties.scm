@@ -25,7 +25,7 @@
      (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its Y-parent")
-     (accidentals ,list? "List of alteration numbers")
+     (alteration ,number? "alteration numbers for accidental")
      (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
@@ -98,10 +98,6 @@ tuplet bracket.")
 #t means visible, #f means killed.")
      (c0-position ,integer? "An integer indicating the position of
 middle C.")
-     (cautionary-style ,symbol? "How to print cautionary
-accidentals. Choices are @code{smaller} or
-@code{parentheses}.")
-     (cautionary ,boolean? "Is this a cautionary accidental?")
      (concaveness ,number? "A beam is concave when its inner stems are
 closer to the beam than the two outside stems. This number is a
 measure of the closeness of the inner stems. It is used for damping
@@ -304,6 +300,7 @@ with a negative penalty.")
 This affects the choices of the page breaker; it will avoid a page
 turn at a column with a positive penalty and prefer a page turn at a column
 with a negative penalty.")
+     (parenthesized ,boolean? "Parenthesize this grob.")
      (line-break-penalty ,number? "Penalty for a line break at this column.
 This affects the choices of the line breaker; it will avoid a line
 break at a column with a positive penalty and prefer a line break at a column
@@ -317,6 +314,7 @@ quicker the slur attains it @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
+     (restore-first ,boolean? "Print a natural before the accidental.")
      (rhythmic-location ,rhythmic-location? "Where (bar number, measure position) in the score.")
      (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
      (rotation ,list? "Number of degrees to rotate this object, and what point

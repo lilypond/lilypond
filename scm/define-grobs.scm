@@ -22,11 +22,24 @@
 	(avoid-slur . inside)
 	(cautionary-style . parentheses)
 	(stencil . ,ly:accidental-interface::print)
+	(stencils . ,ly:accidental-interface::calc-stencils)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
+    (AccidentalCautionary
+     . (
+	(avoid-slur . inside)
+	(parenthesized . #t)
+	(stencil . ,ly:accidental-interface::print)
+	(stencils . ,ly:accidental-interface::calc-stencils)
+	(after-line-breaking
+	 . ,ly:accidental-interface::after-line-breaking)
+	(meta . ((class . Item)
+		 (interfaces . (accidental-interface
+				font-interface))))))
+
     
     (AccidentalSuggestion
      . (
@@ -36,13 +49,13 @@
 			,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
 			,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,CENTER)
-	(cautionary . #t)
-	(cautionary-style . smaller)
+	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-	(cautionary-style . parentheses)
 	(direction . ,UP)
 	(staff-padding . 0.25)
+	(outside-staff-priority . 0)
 	(script-priority . 0)
+	(stencils . ,ly:accidental-interface::calc-stencils)
 	(side-axis . ,X)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
@@ -104,8 +117,9 @@
 	(padding . 0.5)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
-	(cautionary-style . parentheses)
 	(stencil . ,ly:accidental-interface::print)
+	(stencils . ,ly:accidental-interface::calc-stencils)
+	
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
 	(meta . ((class . Item)
@@ -1868,6 +1882,7 @@
 	(font-size . -4)
 	(side-axis . ,X)
 	(stencil . ,ly:accidental-interface::print)
+	(stencils . ,ly:accidental-interface::calc-stencils)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				trill-pitch-accidental-interface
@@ -1888,7 +1903,6 @@
 				note-head-interface
 				rhythmic-head-interface
 				font-interface
-				accidental-interface
 				axis-group-interface))))))
 
     (TrillPitchHead

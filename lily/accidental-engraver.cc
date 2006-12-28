@@ -53,7 +53,7 @@ class Accidental_engraver : public Engraver
   int get_bar_number ();
   void update_local_key_signature (SCM new_signature);
   void create_accidental (Accidental_entry *entry, bool, bool);
-  Grob *make_standard_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
+  Grob *make_standard_accidental (Stream_event *note, Grob *note_head, Engraver *trans, bool);
   Grob *make_suggested_accidental (Stream_event *note, Grob *note_head, Engraver *trans);
 
 protected:
@@ -375,27 +375,23 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
   if (as_suggestion)
     a = make_suggested_accidental (note, support, entry->origin_engraver_);
   else
-    a = make_standard_accidental (note, support, entry->origin_engraver_);
+    a = make_standard_accidental (note, support, entry->origin_engraver_, cautionary);
 
-  SCM accs = scm_cons (scm_from_int (pitch->get_alteration () * Rational (4)),
-		       SCM_EOL);
   if (restore_natural)
     {
       if (to_boolean (get_property ("extraNatural")))
-	accs = scm_cons (scm_from_int (0), accs);
+	a->set_property ("restore-first", SCM_BOOL_T);
     }
-  
-  if (cautionary)
-    a->set_property ("cautionary", SCM_BOOL_T);
 
-  a->set_property ("accidentals", accs);
+  a->set_property ("alteration",  scm_from_int (pitch->get_alteration () * Rational (4)));
   entry->accidental_ = a;
 }
 
 Grob *
 Accidental_engraver::make_standard_accidental (Stream_event *note,
 					       Grob *note_head,
-					       Engraver *trans)
+					       Engraver *trans,
+					       bool cautionary)
 {
   (void)note;
 
@@ -404,7 +400,11 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
     level, so that we get the property settings for
     Accidental from the respective Voice.
   */
-  Grob *a = trans->make_item ("Accidental", note_head->self_scm ());
+  Grob *a = 0;
+  if (cautionary)
+    a = trans->make_item ("AccidentalCautionary", note_head->self_scm ());
+  else
+    a = trans->make_item ("Accidental", note_head->self_scm ());
 
   /*
     We add the accidentals to the support of the arpeggio,
@@ -420,6 +420,9 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
     Side_position_interface::add_support (a, right_objects_[i]);
 
   a->set_parent (note_head, Y_AXIS);
+  if (cautionary)
+    a->set_property ("cautionary", SCM_BOOL_T);
+
 
   if (!accidental_placement_)
     accidental_placement_ = make_item ("AccidentalPlacement",
@@ -427,7 +430,7 @@ Accidental_engraver::make_standard_accidental (Stream_event *note,
   Accidental_placement::add_accidental (accidental_placement_, a);
 
   note_head->set_object ("accidental-grob", a->self_scm ());
-
+  
   return a;
 }
 
@@ -593,8 +596,13 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"This engraver usually lives at Staff level, but "
 		"reads the settings for Accidental at @code{Voice} level, "
 		"so you can @code{\\override} them at @code{Voice}. ",
-		"Accidental AccidentalSuggestion",
 
+		/* grobs */
+		"Accidental "
+		"AccidentalCautionary"
+		"AccidentalSuggestion",
+
+		/* props */
 		"autoAccidentals "
 		"autoCautionaries "
 		"internalBarNumber "

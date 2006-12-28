@@ -158,8 +158,7 @@ Ambitus_engraver::finalize ()
 	    }
 	  else
 	    {
-	      SCM l = scm_list_1 (scm_from_int (int (Real (Rational (4) * p.get_alteration ()))));
-	      accidentals_[d]->set_property ("accidentals", l);
+	      accidentals_[d]->set_property ("alteration", scm_from_int (int (Real (Rational (4) * p.get_alteration ()))));
 	    }
 	}
       while (flip (&d) != DOWN);

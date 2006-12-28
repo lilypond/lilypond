@@ -14,13 +14,6 @@
 #include "pitch.hh"
 #include "stencil.hh"
 
-/*
-  TODO: insert support for smaller cautionaries, tie-break-reminders.
-  Either here or in new-accidental-engraver.
-
-  'accidentals should go, for a single 'accidental property -- see
-  accidental-placement.cc
-*/
 Stencil
 parenthesize (Grob *me, Stencil m)
 {
@@ -57,28 +50,23 @@ Accidental_interface::after_line_breaking (SCM smob)
 }
 
 vector<Box>
-Accidental_interface::accurate_boxes (Grob *a, Grob **common)
+Accidental_interface::accurate_boxes (Grob *me, Grob **common)
 {
   Box b;
-  b[X_AXIS] = a->extent (a, X_AXIS);
-  b[Y_AXIS] = a->extent (a, Y_AXIS);
+  b[X_AXIS] = me->extent (me, X_AXIS);
+  b[Y_AXIS] = me->extent (me, Y_AXIS);
 
   vector<Box> boxes;
 
-  bool parens = false;
-  if (to_boolean (a->get_property ("cautionary")))
-    {
-      SCM cstyle = a->get_property ("cautionary-style");
-      parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
-    }
+  bool parens = to_boolean (me->get_property ("parenthesized"));
 
-  SCM accs = a->get_property ("accidentals");
-  SCM scm_style = a->get_property ("style");
+  SCM scm_style = me->get_property ("style");
   if (!scm_is_symbol (scm_style)
-      && !parens
-      && scm_ilength (accs) == 1)
+      && !to_boolean (me->get_property ("restore-first"))
+      && !parens)
     {
-      switch (scm_to_int (scm_car (accs)))
+      int acc = scm_to_int (me->get_property ("alteration"));
+      switch (acc)
 	{
 	case FLAT:
 	  {
@@ -129,8 +117,9 @@ Accidental_interface::accurate_boxes (Grob *a, Grob **common)
   if (!boxes.size ())
     boxes.push_back (b);
 
-  Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
-	    a->relative_coordinate (common[Y_AXIS], Y_AXIS));
+  Offset o (me->relative_coordinate (common[X_AXIS], X_AXIS),
+	    me->relative_coordinate (common[Y_AXIS], Y_AXIS));
+
   for (vsize i = boxes.size (); i--;)
     boxes[i].translate (o);
 
@@ -186,6 +175,7 @@ Accidental_interface::get_fontcharname (string style, int alteration)
     style = ""; // currently same as default
   if (style == "default")
     style = "";
+  
   return style + to_string (alteration);
 }
 
@@ -194,16 +184,7 @@ SCM
 Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  bool smaller = false;
-  bool parens = false;
-
-  bool caut = to_boolean (me->get_property ("cautionary"));
-  if (caut)
-    {
-      SCM cstyle = me->get_property ("cautionary-style");
-      parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
-      smaller = ly_is_equal (cstyle, ly_symbol2scm ("smaller"));
-    }
+  bool parens = to_boolean (me->get_property ("parenthesized"));
 
   SCM scm_style = me->get_property ("style");
   string style;
@@ -215,49 +196,71 @@ Accidental_interface::print (SCM smob)
     */
     style = "";
 
-  Font_metric *fm = 0;
-  if (smaller)
-    {
-      SCM ac = Font_interface::music_font_alist_chain (me);
-      /*
-	TODO: should calc font-size by adding -2 to current font-size
-      */
-      ac = scm_cons (scm_list_1 (scm_cons
-				 (ly_symbol2scm ("font-size"),
-				  scm_from_int (-2))),
-		     ac);
-      fm = select_font (me->layout (), ac);
-    }
-  else
-    fm = Font_interface::get_default_font (me);
+  Font_metric *fm = Font_interface::get_default_font (me);
 
-  Stencil mol;
-  for (SCM s = me->get_property ("accidentals");
-       scm_is_pair (s); s = scm_cdr (s))
+  SCM stencils = me->get_property ("stencils");
+  if (!scm_is_pair (stencils)
+      || !unsmob_stencil (scm_car (stencils)))
+    return SCM_EOL;
+  
+  Stencil mol (*unsmob_stencil (scm_car (stencils)));
+  if (to_boolean (me->get_property ("restore-first")))
     {
-      int alteration = scm_to_int (scm_car (s));
-      string font_char = get_fontcharname (style, alteration);
+      string font_char = get_fontcharname (style, 0);
       Stencil acc (fm->find_by_name ("accidentals." + font_char));
 
       if (acc.is_empty ())
 	me->warning (_f ("accidental `%s' not found", font_char));
       else
-	mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
+	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1, 0);
     }
-
+  
   if (parens)
     mol = parenthesize (me, mol);
 
   return mol.smobbed_copy ();
 }
+  
+MAKE_SCHEME_CALLBACK (Accidental_interface, calc_stencils, 1);
+SCM
+Accidental_interface::calc_stencils (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
 
+  SCM scm_style = me->get_property ("style");
+  string style;
+  if (scm_is_symbol (scm_style))
+    style = ly_symbol2string (scm_style);
+  else
+    /*
+      preferably no name for the default style.
+    */
+    style = "";
+
+
+  Font_metric *fm = Font_interface::get_default_font (me);
+  SCM acc = me->get_property ("alteration");
+  if (scm_is_number (acc))
+    {
+      string font_char = get_fontcharname (style, scm_to_int (acc));
+      
+      Stencil acc_stencil (fm->find_by_name ("accidentals." + font_char));
+
+      return scm_list_1 (acc_stencil.smobbed_copy ());
+    }
+  else
+    return SCM_EOL;
+}
+
+  
 ADD_INTERFACE (Accidental_interface,
 	       "a single accidental",
-	       "accidentals "
+	       
+	       /* props */
+	       "alteration "
 	       "avoid-slur "
-	       "cautionary "
-	       "cautionary-style "
 	       "forced "
 	       "style "
+	       "parenthesized " 
 	       "tie "
 	       );
