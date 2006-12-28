@@ -217,7 +217,7 @@ test:
 
 
 RESULT_DIR=$(top-build-dir)/out/test-results/
-check-test: test
+local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(PYTHON) $(buildscript-dir)/output-distance.py --output-dir $(RESULT_DIR) $(CHECK_SOURCE) input/regression/out-test/
