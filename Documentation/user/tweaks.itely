@@ -13,6 +13,7 @@ configurable; virtually every fragment of output may be changed.
 * Default files::               
 * Fitting music onto fewer pages::  
 * Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
 @end menu
 
 
@@ -484,4 +485,19 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
   \pattern {d16 dis} { ais16-> b\p }
 }
 @end lilypond
+
+
+@node Avoiding tweaks with slower processing
+@section Avoiding tweaks with slower processing
+
+LilyPond can perform extra checks while it processes files.  These
+commands will take extra time, but the result may require fewer
+manual tweaks.
+
+@example
+%%  makes sure text scripts and lyrics are within the paper margins
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
+
+
 
