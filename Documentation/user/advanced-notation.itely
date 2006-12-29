@@ -2120,6 +2120,7 @@ teaching tools in addition to great musical scores.
 * Analysis brackets::           
 * Coloring objects::            
 * Parentheses::                 
+* Grid lines::                  
 @end menu
 
 @node Balloon help
@@ -2412,4 +2413,12 @@ This only functions inside chords, even for single notes
 < \parenthesize NOTE>
 @end example
 
+
+@node Grid lines
+@subsection Grid lines
+
+Vertical lines can be drawn between staves synchronized with
+the notes.
+
+Examples: @inputfileref{input/@/regression,grid@/-lines@/.ly}.
 
