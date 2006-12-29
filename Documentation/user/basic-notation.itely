@@ -1746,6 +1746,24 @@ in every context, and that type is determined by the property
 @internalsref{systemStartDelimiter}.
 
 
+@commonprop
+
+System start delimiters may be deeply nested,
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup 
+\relative <<
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
+
+
 @node Staff symbol
 @subsection Staff symbol
 

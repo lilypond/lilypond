@@ -736,3 +736,10 @@ struct ly_t_double_cell
   SCM c;
   SCM d;
 };
+
+/* inserts at front, removing duplicates */
+SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
+{
+  return scm_acons (key, val, scm_assoc_remove_x (alist, key));
+}
+

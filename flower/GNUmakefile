@@ -12,5 +12,5 @@ STEPMAKE_TEMPLATES=library c++ po test
 # test uses LILYPONDPREFIX
 LOCALSTEPMAKE_TEMPLATES=lilypond
 TEST_MODULE_LIBS = ../flower
-
+export top-src-dir
 include $(depth)/make/stepmake.make

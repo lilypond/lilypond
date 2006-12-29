@@ -66,38 +66,6 @@ Slur_score_state::~Slur_score_state ()
   junk_pointers (configurations_);
 }
 
-Real
-broken_trend_y (Slur_score_state const &state, Direction hdir)
-{
-  /* A broken slur should maintain the same vertical trend
-     the unbroken slur would have had.  */
-  Real by = 0.0;
-  if (Spanner *mother = dynamic_cast<Spanner *> (state.slur_->original ()))
-    {
-      Grob *neighbor = mother->broken_neighbor (hdir);
-      if (!neighbor)
-	return by;
-
-      
-      Spanner *common_mother
-	= dynamic_cast<Spanner *> (state.common_[Y_AXIS]->original ());
-      int common_k
-	= broken_spanner_index (dynamic_cast<Spanner *> (state.common_[Y_AXIS]));
-      int common_j = common_k + hdir;
-
-      if (common_j < 0 || vsize (common_j) >= common_mother->broken_intos_.size ())
-	return by;
-
-      Grob *common_next_system = common_mother->broken_intos_[common_j];
-
-      SCM last_point = scm_car (scm_last_pair (neighbor->get_property ("control-points")));
-
-      return scm_to_double (scm_cdr (last_point))
-	+ neighbor->relative_coordinate (common_next_system, Y_AXIS);
-    }
-  return by;
-}
-
 /*
   copy slur dir forwards across line break.
 */
@@ -815,22 +783,15 @@ Slur_score_state::get_extra_encompass_infos () const
 	  if (Accidental_interface::has_interface (g))
 	    {
 	      penalty = parameters_.accidental_collision_;
-	      /* Begin copy accidental.cc */
-	      bool parens = false;
-	      if (to_boolean (g->get_property ("cautionary")))
-		{
-		  SCM cstyle = g->get_property ("cautionary-style");
-		  parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
-		}
 
-	      SCM accs = g->get_property ("accidentals");
+	      SCM alt = g->get_property ("alteration");
 	      SCM scm_style = g->get_property ("style");
 	      if (!scm_is_symbol (scm_style)
-		  && !parens
-		  && scm_ilength (accs) == 1)
+		  && !to_boolean (g->get_property ("parenthesized"))
+		  && !to_boolean (g->get_property ("restore-first")))
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (scm_car (accs)))
+		  switch (scm_to_int (alt))
 		    {
 		    case FLAT:
 		    case DOUBLE_FLAT:

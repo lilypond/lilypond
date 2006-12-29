@@ -83,11 +83,7 @@ SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
 int procedure_arity (SCM);
 
-/* inserts at front, removing dublicates */
-inline SCM ly_assoc_front_x (SCM alist, SCM key, SCM val)
-{
-  return scm_acons (key, val, scm_assoc_remove_x (alist, key));
-}
+SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }

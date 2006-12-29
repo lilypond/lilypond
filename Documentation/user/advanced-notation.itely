@@ -1051,6 +1051,19 @@ be added to that context.
 More information about adding and removing engravers can
 be found in @ref{Modifying context plug-ins}.
 
+Instrument names may be changed in the middle of a piece,
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
 
 @seealso
 
@@ -1581,6 +1594,34 @@ the original clef should be stated once again.
 
 @end itemize
 
+The macro @code{\transposedCueDuring} is
+useful to add cues to instruments which use a completely different
+octave range (for example, having a cue of a piccolo flute within
+a contra bassoon part).
+
+@lilypond[verbatim,ragged-right,quote]
+picc = \relative c''' {
+  \clef "treble^8"
+  R1 |
+  c8 c c e g2 |
+  a4 g g2 |
+}
+\addquote "picc" { \picc }
+
+cbsn = \relative c, {
+  \clef "bass_8"
+  c4 r g r
+  \transposedCueDuring #"picc" #UP c,, { R1 } |
+  c4 r g r |
+}
+
+<<
+  \context Staff = "picc" \picc
+  \context Staff = "cbsn" \cbsn
+>>
+@end lilypond
+
+
 
 @node Aligning to cadenzas
 @subsection Aligning to cadenzas
@@ -2079,6 +2120,7 @@ teaching tools in addition to great musical scores.
 * Analysis brackets::           
 * Coloring objects::            
 * Parentheses::                 
+* Grid lines::                  
 @end menu
 
 @node Balloon help
@@ -2371,4 +2413,12 @@ This only functions inside chords, even for single notes
 < \parenthesize NOTE>
 @end example
 
+
+@node Grid lines
+@subsection Grid lines
+
+Vertical lines can be drawn between staves synchronized with
+the notes.
+
+Examples: @inputfileref{input/@/regression,grid@/-lines@/.ly}.
 
