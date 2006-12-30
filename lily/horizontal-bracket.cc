@@ -72,19 +72,25 @@ Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
   Grob *common = common_refpoint_of_array (grobs, refpoint, a);
   Interval ext = Axis_group_interface::relative_group_extent (grobs, common, a);
 
-  Stencil b = make_bracket (me, ext.length(), a, dir);
-  b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
+  if (ext.is_empty ())
+    {
+      me->programming_error ("Can't enclose empty extents with bracket");
+      return Stencil ();
+    }
+  else
+    {
+      Stencil b = make_bracket (me, ext.length(), a, dir);
+      b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
 
-  return b;
+      return b;
+    }
 }
-
 
 /*
   TODO:
 
   Support texts on the brackets?
 */
-
 MAKE_SCHEME_CALLBACK (Horizontal_bracket, print, 1);
 SCM
 Horizontal_bracket::print (SCM smob)

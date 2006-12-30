@@ -85,7 +85,11 @@ Enclosing_bracket::print (SCM grob)
 
   Grob *common_x = common_refpoint_of_array (elements, me, X_AXIS); 
   Interval xext = Axis_group_interface::relative_group_extent (elements, common_x, X_AXIS);
-
+  if (xext.is_empty ())
+    {
+      me->programming_error ("elements have no X extent.");
+      xext = Interval (0, 0);
+    }
 
   Stencil left_br = Horizontal_bracket::make_enclosing_bracket (me, me, elements,
 								Y_AXIS, LEFT);

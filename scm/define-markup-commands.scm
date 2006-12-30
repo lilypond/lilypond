@@ -1168,30 +1168,42 @@ figured bass notation"
        (num-x (interval-widen (ly:stencil-extent number-stencil X)
 			      (* mag 0.2)))
        (num-y (ly:stencil-extent number-stencil Y))
-       (slash-stencil 
-	(ly:make-stencil
-	 `(draw-line
-	   ,thickness
-	   ,(car num-x) ,(- (interval-center num-y) dy)
-	   ,(cdr num-x) ,(+ (interval-center num-y) dy))
-	 num-x num-y
-	 )))
+       (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
+       
+       (slash-stencil
+	(if is-sane
+	    (ly:make-stencil
+	     `(draw-line
+	       ,thickness
+	       ,(car num-x) ,(- (interval-center num-y) dy)
+	       ,(cdr num-x) ,(+ (interval-center num-y) dy))
+	     num-x num-y)
+	    #f)))
 
-    (ly:stencil-add number-stencil
-		    (cond
-		     ((= num 5) (ly:stencil-translate slash-stencil
-						      ;;(cons (* mag -0.05) (* mag 0.42))
-						      (cons (* mag -0.00) (* mag -0.07))
+    (set! slash-stencil
+	  (cond
+	   ((not (ly:stencil? slash-stencil)) #f)
+	   ((= num 5) (ly:stencil-translate slash-stencil
+					    ;;(cons (* mag -0.05) (* mag 0.42))
+					    (cons (* mag -0.00) (* mag -0.07))
 
-						      ))
-		     ((= num 7) (ly:stencil-translate slash-stencil
-						      ;;(cons (* mag -0.05) (* mag 0.42))
-						      (cons (* mag -0.00) (* mag -0.15))
+					    ))
+	   ((= num 7) (ly:stencil-translate slash-stencil
+					    ;;(cons (* mag -0.05) (* mag 0.42))
+					    (cons (* mag -0.00) (* mag -0.15))
 
-						      ))
-		     
-		     (else slash-stencil)))
-    ))
+					    ))
+	   
+	   (else slash-stencil)))
+
+    (if slash-stencil
+	(set! number-stencil
+	      (ly:stencil-add number-stencil slash-stencil))
+	
+	(ly:warning "invalid number for slashed digit ~a" num))
+
+
+    number-stencil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
