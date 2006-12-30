@@ -17,7 +17,13 @@ INFTY = 1e6
 
 OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
-inspect_max_count = 0
+options = None
+
+def shorten_string (s):
+    threshold = 15 
+    if len (s) > 2*threshold:
+        s = s[:threshold] + '..' + s[-threshold:]
+    return s
 
 def max_distance (x1, x2):
     dist = 0.0
@@ -307,12 +313,68 @@ def compare_png_images (old, new, dir):
     system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
+    def text_record_string (self):
+        return '%-30f %-20s\n' % (self.distance (),
+                                  self.name ())
+    def distance (self):
+        return 0.0
+
+    def name (self):
+        return ''
+    
+    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        pass
+
+    def write_html_system_details (self, dir1, dir2, dest_dir):
+        pass
+        
+    def html_record_string (self,  old_dir, new_dir):
+        return ''
+
+class MidiFileLink (FileLink):
+    def get_midi (self, f):
+        s = open (f).read ()
+        s = re.sub ('LilyPond [0-9.]+', '', s)
+        return s
+    
+    def __init__ (self, f1, f2):
+        self.files = (f1, f2)
+
+        s1 = self.get_midi (self.files[0])
+        s2 = self.get_midi (self.files[1])
+        
+        self.same = (s1 == s2)
+        
+    def name (self):
+        name = os.path.split (self.files[0])[1]
+        name = re.sub ('.midi', '', name)
+        return name
+        
+    def distance (self):
+        ## todo: could use import MIDI to pinpoint
+        ## what & where changed.
+        if self.same:
+            return 0
+        else:
+            return 100;
+    def html_record_string (self, d1, d2):
+        return '''<tr>
+<td>
+%f
+</td>
+<td><tt>%s</tt></td>
+<td><tt>%s</tt></td>
+</tr>''' % ((self.distance(),) + self.files)
+
+class SignatureFileLink (FileLink):
     def __init__ (self):
         self.original_name = ''
         self.base_names = ('','')
         self.system_links = {}
         self._distance = None
-        
+    def name (self):
+        return self.original_name
+    
     def add_system_link (self, link, number):
         self.system_links[number] = link
 
@@ -331,10 +393,6 @@ class FileLink:
             return self.calc_distance ()
         
         return self._distance
-
-    def text_record_string (self):
-        return '%-30f %-20s\n' % (self.distance (),
-                             self.original_name)
 
     def source_file (self):
         for ext in ('.ly', '.ly.txt'):
@@ -388,10 +446,11 @@ class FileLink:
 
                     if f.endswith ('.png'):
                         png_linked[oldnew].append (f)
-
-        for (old,new) in zip (png_linked[0], png_linked[1]):
-            compare_png_images (old, new, dest_dir)
-
+                        
+        if options.compare_images:                
+            for (old,new) in zip (png_linked[0], png_linked[1]):
+                compare_png_images (old, new, dest_dir)
+                
     def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
             if not name:
@@ -443,6 +502,11 @@ class FileLink:
 
         html_2  = self.base_names[1] + '.html'
         name = self.original_name
+
+        cell_1 = cell (self.base_names[0], name)
+        cell_2 = cell (self.base_names[1], name)
+        if options.compare_images:
+            cell_2 = cell_2.replace ('.png', '.compare.jpeg')
         
         html_entry = '''
 <tr>
@@ -454,9 +518,7 @@ class FileLink:
 %s
 %s
 </tr>
-''' % (self.distance (), html_2,
-       cell (self.base_names[0], name),
-       cell (self.base_names[1], name).replace ('.png', '.compare.jpeg'))
+''' % (self.distance (), html_2, cell_1, cell_2)
 
         return html_entry
 
@@ -571,23 +633,35 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
+        for ext in ['signature', 'midi']:
+            (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
-        (paired, m1, m2) = paired_files (dir1, dir2, '*.signature')
+            self.missing += [(dir1, m) for m in m1] 
+            self.added += [(dir2, m) for m in m2] 
 
-        self.missing += [(dir1, m) for m in m1] 
-        self.added += [(dir2, m) for m in m2] 
-
-        for p in paired:
-            if (inspect_max_count
-                and len (self.file_links) > inspect_max_count):
+            for p in paired:
+                if (options.max_count
+                    and len (self.file_links) > options.max_count):
+                    
+                    continue
                 
-                continue
-            
-            f2 = dir2 +  '/' + p
-            f1 = dir1 +  '/' + p
-            self.compare_files (f1, f2)
+                f2 = dir2 +  '/' + p
+                f1 = dir1 +  '/' + p
+                self.compare_files (f1, f2)
 
     def compare_files (self, f1, f2):
+        if f1.endswith ('signature'):
+            self.compare_signature_files (f1, f2)
+        elif f1.endswith ('midi'):
+            self.compare_midi_files (f1, f2)
+            
+    def compare_midi_files (self, f1, f2):
+        name = os.path.split (f1)[1]
+
+        file_link = MidiFileLink (f1, f2)
+        self.file_links[name] = file_link
+        
+    def compare_signature_files (self, f1, f2):
         name = os.path.split (f1)[1]
         name = re.sub ('-[0-9]+.signature', '', name)
         
@@ -595,10 +669,10 @@ class ComparisonData:
         try:
             file_link = self.file_links[name]
         except KeyError:
-            file_link = FileLink ()
+            file_link = SignatureFileLink ()
             self.file_links[name] = file_link
 
-        file_link.add_file_compare (f1,f2)
+        file_link.add_file_compare (f1, f2)
 
     def write_text_result_page (self, filename, threshold):
         out = None
@@ -648,12 +722,14 @@ class ComparisonData:
             html += link.html_record_string (dir1, dir2)
 
 
+        short_dir1 = shorten_string (dir1)
+        short_dir2 = shorten_string (dir2)
         html = '''<html>
 <table rules="rows" border bordercolor="blue">
 <tr>
 <th>distance</th>
-<th>%(dir1)s</th>
-<th>%(dir2)s</th>
+<th>%(short_dir1)s</th>
+<th>%(short_dir2)s</th>
 </tr>
 %(html)s
 </table>
@@ -754,12 +830,16 @@ def test_compare_trees ():
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
     system ('cp 19-1.signature dir2/20grob-2.signature')
+    system ('cp 19multipage.midi dir1/midi-differ.midi')
+    system ('cp 20multipage.midi dir2/midi-differ.midi')
 
     compare_trees ('dir1', 'dir2', 'compare-dir1dir2', 0.5)
 
 
 def test_basic_compare ():
     ly_template = r"""
+
+\version "2.10.0"
 #(set! toplevel-score-handler print-score-with-defaults)
  #(set! toplevel-music-handler
   (lambda (p m)
@@ -770,7 +850,8 @@ def test_basic_compare ():
 \sourcefilename "my-source.ly"
  
 %(papermod)s
-\header { tagline = ##f } 
+\header { tagline = ##f }
+\score {
 <<
 \new Staff \relative c {
   c4^"%(userstring)s" %(extragrob)s
@@ -779,6 +860,9 @@ def test_basic_compare ():
   c4^"%(userstring)s" %(extragrob)s
   }
 >>
+\layout{}
+}
+
 """
 
     dicts = [{ 'papermod' : '',
@@ -797,7 +881,6 @@ def test_basic_compare ():
                'name' : '20grob',
                'extragrob': 'r2. \\break c1',
                'userstring': 'test' },
-                
              ]
 
     for d in dicts:
@@ -810,10 +893,14 @@ def test_basic_compare ():
 
     multipage_str = r'''
     #(set-default-paper-size "a6")
-    {c1 \pageBreak c1 }
+    \score {
+      \relative {c1 \pageBreak c1 }
+      \layout {}
+      \midi {}
+    }
     '''
 
-    open ('20multipage', 'w').write (multipage_str)
+    open ('20multipage', 'w').write (multipage_str.replace ('c1', 'd1'))
     open ('19multipage', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
     system ('lilypond -ddump-signatures --png 19multipage 20multipage ')
  
@@ -903,9 +990,23 @@ def main ():
                   type="float",
                   help='threshold for geometric distance')
 
-    (o,a) = p.parse_args ()
+    p.add_option ('--no-compare-images',
+                  dest="compare_images",
+                  default=True,
+                  action="store_false",
+                  help="Don't run graphical comparisons")
 
-    if o.run_test:
+    p.add_option ('-o', '--output-dir',
+                  dest="output_dir",
+                  default=None,
+                  action="store",
+                  type="string",
+                  help='where to put the test results [tree2/compare-tree1tree2]')
+
+    global options
+    (options, a) = p.parse_args ()
+
+    if options.run_test:
         run_tests ()
         sys.exit (0)
 
@@ -913,11 +1014,12 @@ def main ():
         p.print_usage()
         sys.exit (2)
 
-    global inspect_max_count
-    inspect_max_count = o.max_count
-
-    compare_trees (a[0], a[1], os.path.join (a[1],  'compare-' +  a[0]),
-                   o.threshold)
+    name = options.output_dir
+    if not name:
+        name = a[0].replace ('/', '')
+        name = os.path.join (a[1], 'compare-' + shorten_string (name))
+    
+    compare_trees (a[0], a[1], name, options.threshold)
 
 if __name__ == '__main__':
     main()
