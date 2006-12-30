@@ -9,7 +9,7 @@ include $(depth)/make/stepmake.make
 # hangs on feta23
 MFTRACE_FLAGS=  --simplify
 
-EXTRA_DIST_FILES += README feta.tex
+EXTRA_DIST_FILES += README 
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf)\
@@ -36,8 +36,7 @@ NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
-TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
-ENC_FILES = $(TEXTABLES:.tex=.enc)
+ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
  $(SAUTER_FONTS:%=$(outdir)/%.tfm)
 
@@ -103,7 +102,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
+ALL_GEN_FILES= $(TFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -111,9 +110,6 @@ INSTALLATION_DIR=$(local_lilypond_datadir)/fonts/source
 INSTALLATION_FILES=$(MF_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
-
-INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
-INSTALLATION_OUT_FILES1=$(TEXTABLES)
 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_OTFS)
