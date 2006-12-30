@@ -8,12 +8,6 @@ $(outdir)/%.dvi: %.mf
 	mv $(basename $<).dvi $(outdir)
 	rm $(basename $<).*gf
 
-# This is not metafont, this is feta-specific
-$(outdir)/%.log: %.mf
-	MFINPUTS=$(src-dir) $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
-	mv $(@F) $@
-	rm $(basename $(@F)).*gf
-
 $(outdir)/%.tfm $(outdir)%.log: %.mf
 	MFINPUTS=$(src-dir) $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
 # Let's keep this log output, it saves another mf run.
