@@ -2526,9 +2526,9 @@ overview over all available note head styles.
 @cindex accidentals
 
 
-Use the @code{style} property of grob @internalsref{Accidental} to
-select ancient accidentals.   Supported styles are
-@code{mensural}, @code{vaticana}, @code{hufnagel}, and @code{medicaea}.
+Use the @code{glyph-name-alist} property of grob
+@internalsref{Accidental} and @internalsref{KeySignature} to select
+ancient accidentals. 
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -2575,7 +2575,7 @@ different style, as demonstrated in
 @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 
 Similarly to local accidentals, the style of the key signature can be
-controlled by the @code{style} property of the
+controlled by the @code{glyph-name-alist} property of the
 @internalsref{KeySignature} grob.
 
 @seealso
