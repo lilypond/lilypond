@@ -1,4 +1,3 @@
-
 # Don't remove $(outdir)/.log's.  Logs are a target!
 
 # we want to see botched results as well.
@@ -22,7 +21,3 @@ $(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
 	-mv $(basename $(@F)).pfa $(outdir)
 	-mv $(basename $(@F)).pfb $(outdir)
 	-mv $(basename $(@F)).svg $(outdir)
-
-#%.afm:
-#	$(SHELL) $(depth)/buildscripts/tfmtoafm.sh $(shell basename $@ .afm)
-#	mv $@ $@.in
