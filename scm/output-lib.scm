@@ -304,15 +304,111 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public darkyellow  '(0.5 0.5 0.0))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; key signature
+
+
+(define-public (key-signature-interface::alteration-position step alter c0-position)
+  ;; TODO: memoize - this is mostly constant.
+  
+  ;; fes, ges, as and bes typeset in lower octave
+  (define FLAT_TOP_PITCH 2)
+  
+  ;; ais and bis typeset in lower octave
+  (define SHARP_TOP_PITCH 4)
+
+  (if (pair? step)
+      (+ (cdr step) (* (car step) 7)  c0-position)
+      (let*
+	  ((from-bottom-pos (modulo (+ 4 49 c0-position)  7))
+	   (p step)
+	   (c0 (- from-bottom-pos  4)))
+	
+	(if
+	 (or (and (< alter 0) (or (> p FLAT_TOP_PITCH) (> (+ p c0) 4)) (> (+ p c0) 1))
+	     (and (> alter 0) (or (> p SHARP_TOP_PITCH) (> (+ p c0) 5)) (> (+ p c0) 2))
+	     )
+
+	 ;; Typeset below c_position 
+	 (set! p (- p 7)))
+
+	;; Provide for the four cases in which there's a glitch
+	;; it's a hack, but probably not worth
+	;; the effort of finding a nicer solution.
+	;; --dl. 
+	(cond
+	 ((and (= c0 2) (= p 3) (> alter 0))
+	  (set! p (- p 7)))
+	 ((and (= c0 -3) (= p -1) (> alter 0))
+	  (set! p (+ p 7)))
+	 ((and (= c0 -4) (= p -1) (< alter 0))
+	  (set! p (+ p 7)))
+	 ((and (= c0 -2) (= p -3) (< alter 0))
+	  (set! p (+ p 7))))
+
+	(+ c0 p))))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; accidentals
+
+(define-public (accidental-interface::calc-alteration grob)
+  (ly:pitch-alteration  (ly:event-property (event-cause grob) 'pitch)))
+
+(define-public standard-alteration-glyph-name-alist
+     '((1 . "accidentals.doublesharp")
+       (3/4 . "accidentals.sharp.slashslash.stemstemstem")
+       (1/2 . "accidentals.sharp")
+       (1/4 . "accidentals.sharp.slashslash.stem")
+       (0 . "accidentals.natural")
+       (-1/4 . "accidentals.mirroredflat")
+       (-1/2 . "accidentals.flat")
+       (-3/4 . "accidentals.mirroredflat.flat")
+       (-1 . "accidentals.flatflat")
+       ))
+
+(define-public makam-alteration-glyph-name-alist
+     '((1 . "accidentals.doublesharp")
+       (8/9 . "accidentals.sharp.slashslashslash.stemstem")
+       (5/9 . "accidentals.sharp.slashslashslash.stem")
+       (4/9 . "accidentals.sharp")
+       (1/9 . "accidentals.sharp.slashslash.stem")
+       (0 . "accidentals.natural")
+       (-1/9 . "accidentals.mirroredflat")
+       (-4/9 . "accidentals.flat.slash")
+       (-5/9 . "accidentals.flat")
+       (-8/9 . "accidentals.flat.slashslash")
+       (-1 . "accidentals.flatflat")
+       ))
+  
+(define-public alteration-hufnagel-glyph-name-alist
+   '((1/2 . "accidentals.hufnagel-1")
+     (0 . "accidentals.vaticana0")
+     (-1/2 . "accidentals.mensural1")))
+
+(define-public alteration-medicae-glyph-name-alist
+   '((1/2 . "accidentals.medicaea-1")
+     (0 . "accidentals.vaticana0")
+     (-1/2 . "accidentals.mensural1")))
+
+(define-public alteration-vaticana-glyph-name-alist
+   '((1/2 . "accidentals.vaticana-1")
+     (0 . "accidentals.vaticana0")
+     (-1/2 . "accidentals.mensural1")))
+
+(define-public alteration-mensural-glyph-name-alist
+   '((1/2 . "accidentals.mensural-1")
+     (0 . "accidentals.vaticana0")
+     (-1/2 . "accidentals.mensural1")))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; * Pitch Trill Heads
 ;; * Parentheses
 
 (define-public (parentheses-item::calc-parenthesis-stencils grob)
-  (let* (
-	 (font (ly:grob-default-font grob))
+  (let* ((font (ly:grob-default-font grob))
 	 (lp (ly:font-get-glyph font "accidentals.leftparen"))
-	 (rp (ly:font-get-glyph font "accidentals.rightparen"))
-	 )
+	 (rp (ly:font-get-glyph font "accidentals.rightparen")))
 
     (list lp rp)))
 

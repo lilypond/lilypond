@@ -1032,39 +1032,40 @@ recommend font for this is bold and italic"
 (define-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol."
 
-  (interpret-markup layout props (markup #:musicglyph "accidentals.4")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.3")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
+					 
 
 (define-markup-command (sharp layout props) ()
   "Draw a sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.2")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.1")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (natural layout props) ()
   "Draw a natural symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.0")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (semiflat layout props) ()
   "Draw a semiflat."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M1")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (flat layout props) ()
   "Draw a flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M2")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M3")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
 
 (define-markup-command (with-color layout props color arg) (color? markup?)
   "Draw @var{arg} in color specified by @var{color}"
@@ -1098,7 +1099,7 @@ recommend font for this is bold and italic"
 
 (define-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
-#\"accidentals.0\"} will select the natural sign from the music font.
+#\"accidentals.natural\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
   (ly:font-get-glyph
    (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))

@@ -383,7 +383,6 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 	a->set_property ("restore-first", SCM_BOOL_T);
     }
 
-  a->set_property ("alteration",  scm_from_int (pitch->get_alteration () * Rational (4)));
   entry->accidental_ = a;
 }
 

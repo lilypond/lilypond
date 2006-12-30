@@ -191,7 +191,6 @@ ADD_INTERFACE (Note_column,
 	       "Stem and noteheads combined",
 
 	       /* properties */
-	       "accidentals "
 	       "arpeggio "
 	       "force-hshift "
 	       "horizontal-shift "

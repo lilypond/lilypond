@@ -186,6 +186,7 @@ typeset. Valid choices depend on the function that is reading this
 property.")
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
+     (glyph-name-alist ,list? "Alist of key-string pairs.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
      (head-direction ,ly:dir? "Are the note heads left or right in a semitie?")

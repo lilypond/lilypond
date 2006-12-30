@@ -168,10 +168,10 @@ Pitch::to_string () const
 {
   int n = (notename_ + 2) % scale_->step_tones_.size ();
   string s = ::to_string (char (n + 'a'));
-      Rational qtones = alteration_ * Rational (4,1);
-      int qt = int (rint (Real (qtones)));
+  Rational qtones = alteration_ * Rational (4,1);
+  int qt = int (rint (Real (qtones)));
       
-      s += string (accname[qt + 4]);
+  s += string (accname[qt + 4]);
   if (octave_ >= 0)
     {
       int o = octave_ + 1;
@@ -302,7 +302,9 @@ Pitch::transposed (Pitch d) const
   return p;
 }
 
+Rational NATURAL_ALTERATION (0);
 Rational FLAT_ALTERATION (-1, 2);
+Rational DOUBLE_FLAT_ALTERATION (-1);
 Rational SHARP_ALTERATION (1, 2);
 
 Pitch
