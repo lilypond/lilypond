@@ -130,12 +130,13 @@ Accidental_interface::print (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
 
   SCM alist = me->get_property ("glyph-name-alist");
-  SCM glyph_name = ly_assoc_get (me->get_property ("alteration"),
-				 alist, SCM_BOOL_F);
+  SCM alt = me->get_property ("alteration");
+  SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
   
   if (!scm_is_string (glyph_name))
     {
-      me->warning ("Could not find glyph-name for alteration");
+      me->warning (_f ("Could not find glyph-name for alteration %s",
+		       ly_scm2rational (alt).to_string ().c_str ()));
       return SCM_EOL;
     }
   

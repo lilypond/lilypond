@@ -368,8 +368,6 @@ Accidental_engraver::create_accidental (Accidental_entry *entry,
 {
   Stream_event *note = entry->melodic_;
   Grob *support = entry->head_;
-  Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
-
   bool as_suggestion = to_boolean (entry->origin_->get_property ("suggestAccidentals"));
   Grob *a = 0;
   if (as_suggestion)
