@@ -976,7 +976,7 @@ prefix_composite_music:
 	generic_prefix_music_scm {
 		$$ = run_music_function (PARSER, $1);
 	}
-	| CONTEXT    simple_string optional_id optional_context_mod music {
+	| CONTEXT simple_string optional_id optional_context_mod music {
 		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_F);
 	}
 	| NEWCONTEXT simple_string optional_id optional_context_mod music {
@@ -1610,7 +1610,7 @@ direction_reqd_event:
 octave_check:
 	/**/ { $$ = SCM_EOL; }
 	| '='  { $$ = scm_from_int (0); }
-	| '=' sub_quotes { $$ = scm_from_int ($2); }
+	| '=' sub_quotes { $$ = scm_from_int (-$2); }
 	| '=' sup_quotes { $$ = scm_from_int ($2); }
 	;
 
