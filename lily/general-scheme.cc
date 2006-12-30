@@ -135,12 +135,12 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 	   "(or #f if not specified).")
 {
   SCM handle = scm_assoc (key, alist);
-
+  if (scm_is_pair (handle))
+    return scm_cdr (handle);
+  
   if (default_value == SCM_UNDEFINED)
     default_value = SCM_BOOL_F;
 
-  if (scm_is_pair (handle))
-    return scm_cdr (handle);
   return default_value;
 }
 
