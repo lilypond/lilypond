@@ -14,6 +14,7 @@
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
 #include "international.hh"
+#include "system.hh"
 #include "warn.hh"
 
 /*
@@ -158,7 +159,10 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   SCM line_break_details = SCM_EOL;
   if (a == Y_AXIS && me_spanner)
     {
-      line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      if (pure)
+	line_break_details = get_root_system (me)->column (start)->get_property ("line-break-system-details");
+      else
+	line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
 
       if (!me->get_system () && !pure)
 	me->warning (_ ("vertical alignment called before line-breaking.\n"

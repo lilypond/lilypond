@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-12-23 14:50+0100\n"
-"PO-Revision-Date: 2006-12-23 15:02+0100\n"
+"PO-Revision-Date: 2006-12-27 23:51+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -279,7 +279,7 @@ msgid "Staff notation"
 msgstr "Notation sur la portée"
 
 msgid "Clef"
-msgstr "Clé"
+msgstr "Clés"
 
 msgid "Key signature"
 msgstr "Armure"
@@ -382,160 +382,160 @@ msgid "Measure repeats"
 msgstr "Répétitions de mesure"
 
 msgid "Instrument-specific notation"
-msgstr ""
+msgstr "Notation spécifique"
 
 msgid "Piano music"
-msgstr ""
+msgstr "Musique pour piano"
 
 msgid "Automatic staff changes"
-msgstr ""
+msgstr "Changements de portée automatiques"
 
 msgid "Manual staff switches"
-msgstr ""
+msgstr "Changements de portée manuels"
 
 msgid "Pedals"
-msgstr ""
+msgstr "Pédales"
 
 msgid "Staff switch lines"
-msgstr ""
+msgstr "Lignes de changement de portée"
 
 msgid "Cross staff stems"
-msgstr ""
+msgstr "Accords sur plusieurs portées"
 
 msgid "Chord names"
-msgstr ""
+msgstr "Accords nommés"
 
 msgid "Introducing chord names"
-msgstr ""
+msgstr "Introduction aux noms d'accords"
 
 msgid "Chords mode"
-msgstr ""
+msgstr "Mode accords"
 
 msgid "Printing chord names"
-msgstr ""
+msgstr "Imprimer des noms d'accords"
 
 msgid "Vocal music"
-msgstr ""
+msgstr "Musique vocale"
 
 msgid "Setting simple songs"
-msgstr ""
+msgstr "Écrire des chansons simples¿"
 
 msgid "Entering lyrics"
-msgstr ""
+msgstr "Saisie des paroles"
 
 msgid "Hyphens and extenders"
-msgstr ""
+msgstr "Traits d'union et de prolongation"
 
 msgid "The Lyrics context"
-msgstr ""
+msgstr "Le contexte de paroles (Lyrics)"
 
 msgid "Melismata"
-msgstr ""
+msgstr "Mélismes"
 
 msgid "Another way of entering lyrics"
-msgstr ""
+msgstr "Une autre manière de saisir des paroles"
 
 msgid "Flexibility in placement"
-msgstr ""
+msgstr "Flexibilité dans le placement"
 
 msgid "Lyrics to multiple notes of a melisma"
-msgstr ""
+msgstr "Paroles sur plusieurs notes d'un mélisme"
 
 msgid "Divisi lyrics"
-msgstr ""
+msgstr "Paroles alternatives"
 
 msgid "Switching the melody associated with a lyrics line"
-msgstr ""
+msgstr "Changer la voix associée à une ligne de paroles"
 
 msgid "Specifying melismata within the lyrics"
-msgstr ""
+msgstr "Indiquer les mélismes au sein des paroles"
 
 msgid "Lyrics independent of notes"
-msgstr ""
+msgstr "Paroles indépendantes des notes"
 
 msgid "Spacing lyrics"
-msgstr ""
+msgstr "Espacement des paroles"
 
 msgid "More about stanzas"
-msgstr ""
+msgstr "Plus à propos des strophes"
 
 msgid "Ambitus"
-msgstr ""
+msgstr "Ambitus"
 
 msgid "Other vocal issues"
-msgstr ""
+msgstr "Autres éléments relatifs à la voix"
 
 msgid "Rhythmic music"
-msgstr ""
+msgstr "Musique rythmique"
 
 msgid "Showing melody rhythms"
-msgstr ""
+msgstr "Graver des lignes rythmiques"
 
 msgid "Entering percussion"
-msgstr ""
+msgstr "Notation de percussions"
 
 msgid "Percussion staves"
-msgstr ""
+msgstr "Portée de percussions"
 
 msgid "Ghost notes"
-msgstr ""
+msgstr "Notes fantômes"
 
 msgid "Guitar"
-msgstr ""
+msgstr "Guitare"
 
 msgid "String number indications"
-msgstr ""
+msgstr "Indications de numéro de corde"
 
 msgid "Tablatures basic"
-msgstr ""
+msgstr "Base des tablatures"
 
 msgid "Non-guitar tablatures"
-msgstr ""
+msgstr "Tablatures autres que pour la guitare"
 
 msgid "Banjo tablatures"
-msgstr ""
+msgstr "Tablatures pour banjo"
 
 msgid "Fret diagrams"
-msgstr ""
+msgstr "Tablatures"
 
 msgid "Right hand fingerings"
-msgstr ""
+msgstr "Doigtés pour la main droite"
 
 msgid "Other guitar issues"
-msgstr ""
+msgstr "Autres éléments relatifs à la guitare"
 
 msgid "Bagpipe"
-msgstr ""
+msgstr "Cornemuse"
 
 msgid "Bagpipe definitions"
-msgstr ""
+msgstr "Définitions pour la cornemuse"
 
 msgid "Bagpipe example"
-msgstr ""
+msgstr "Exemple pour la cornemuse"
 
 msgid "Ancient notation"
-msgstr ""
+msgstr "Notations anciennes"
 
 msgid "Ancient note heads"
-msgstr ""
+msgstr "Têtes de note anciennes"
 
 msgid "Ancient accidentals"
-msgstr ""
+msgstr "Altérations anciennes"
 
 msgid "Ancient rests"
-msgstr ""
+msgstr "Silences anciens"
 
 msgid "Ancient clefs"
-msgstr ""
+msgstr "Clefs anciennes"
 
 msgid "Ancient flags"
-msgstr ""
+msgstr "Crochets anciens"
 
 msgid "Ancient time signatures"
-msgstr ""
+msgstr "Métriques anciennes"
 
 msgid "Ancient articulations"
-msgstr ""
+msgstr "Articulations anciennes"
 
 msgid "Custodes"
 msgstr ""
@@ -562,19 +562,19 @@ msgid "Musica ficta accidentals"
 msgstr ""
 
 msgid "Figured bass"
-msgstr ""
+msgstr "Basse chiffrée"
 
 msgid "Other instrument specific notation"
-msgstr ""
+msgstr "Autres notations spécifique à des instruments"
 
 msgid "Artificial harmonics (strings)"
-msgstr ""
+msgstr "Harmoniques artificiels (cordes)"
 
 msgid "Advanced notation"
-msgstr ""
+msgstr "Notation avancée"
 
 msgid "Text"
-msgstr ""
+msgstr "Texte"
 
 msgid "Text scripts"
 msgstr ""

@@ -477,6 +477,17 @@ System::columns () const
   return columns;
 }
 
+Grob*
+System::column (int which) const
+{
+  extract_grob_set (this, "columns", columns);
+  for (vsize i = 0; i < columns.size (); i++)
+    if (dynamic_cast<Paper_column*> (columns[i])->get_rank () == which)
+      return columns[i];
+  programming_error ("couldn't find the column of the requested index");
+  return columns[0];
+}
+
 Paper_score*
 System::paper_score () const
 {
