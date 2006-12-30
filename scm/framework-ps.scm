@@ -487,7 +487,11 @@
   (let*
       ((xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
-       (left-overshoot (ly:get-option 'eps-box-padding))
+       (left-overshoot (*
+			-1
+			(ly:get-option 'eps-box-padding)
+			(ly:output-def-lookup paper 'mm)
+			))
        (bbox
 	(map
 	 (lambda (x)

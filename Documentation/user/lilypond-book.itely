@@ -775,6 +775,17 @@ cd out
 ...
 @end example
 
+@itemx --padding=@var{amount}
+Pad EPS boxes by this much. @var{amount} is measured in milimeters,
+and is 3.0 by default.  This option should be used if the lines of
+music stick out of the right margin.
+
+The width of a tightly clipped systems can vary, due to notation
+elements that stick into the left margin, such as bar numbers and
+instrument names. This option will shorten each line and move each 
+line to the right by the same amount.
+
+
 @item -P @var{process}
 @itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
