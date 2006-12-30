@@ -842,6 +842,20 @@ You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
 and @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
+Other styles of rehearsal mark can be specified manually
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} does not affect marks specified in this manner.
+However, it is possible to apply a @code{\markup} to the string.
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
 @cindex segno
 @cindex coda
 @cindex D.S al Fine
@@ -886,6 +900,8 @@ appears at that point in the music.
 
 
 @seealso
+
+This manual: @ref{Text marks}.
 
 Program reference: @internalsref{RehearsalMark}.
 
