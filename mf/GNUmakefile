@@ -37,9 +37,7 @@ NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
-TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
- $(SAUTER_FONTS:%=$(outdir)/%.tfm)
-
+TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
 
 ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(outdir)/$(ENCODING_FILE),) --no-afm
@@ -97,7 +95,7 @@ $(outdir)/aybabtu.subfonts:
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
-ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
+ALL_FONTS = $(FETA_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
