@@ -8,10 +8,23 @@
 
 \version "2.11.6"
 
+%{
+
+Define 1/9 alterations.
+
+%}
+
+
 #(define-public KOMA 1/9)
 #(define-public BAKIYE 4/9)
 #(define-public KUCUK 5/9)
 #(define-public BUYUKMUCENNEB 8/9)
+
+%{
+
+Define pitch names
+
+%}
 
 makamPitchNames = #`(
   (c . ,(ly:make-pitch -1 0 NATURAL))
@@ -89,6 +102,8 @@ makamPitchNames = #`(
 
 )
 
+
+%% set pitch names.
 pitchnames = \makamPitchNames 
 #(ly:parser-set-note-names parser makamPitchNames)
 
@@ -98,23 +113,9 @@ pitchnames = \makamPitchNames
 }
 
 \relative {
-  \override Accidental #'glyph-name-alist = #'((1 . "accidentals.doublesharp")
-       (8/9 . "accidentals.sharp.slashslashslash.stemstem")
-       (5/9 . "accidentals.sharp.slashslashslash.stem")
-       (4/9 . "accidentals.sharp")
-       (1/9 . "accidentals.sharp.slashslash.stem")
-       (0 . "accidentals.natural")
-       (-1/9 . "accidentals.mirroredflat")
-       (-4/9 . "accidentals.flat.slash")
-       (-5/9 . "accidentals.flat")
-       (-8/9 . "accidentals.flat.slashslash")
-       (-1 . "accidentals.flatflat")
-       )
 
-%{
+  %{ define alteration <-> symbol mapping. The following glyphs are available.
 
-  available glyphs:
-  
   accidentals.sharp 
   accidentals.sharp.slashslash.stem 
   accidentals.sharp.slashslashslash.stemstem 
@@ -130,7 +131,22 @@ pitchnames = \makamPitchNames
   accidentals.flatflat.slash 
   accidentals.doublesharp 
 
-%}
+  %}
+
+  
+  \override Accidental #'glyph-name-alist = #'((1 . "accidentals.doublesharp")
+       (8/9 . "accidentals.sharp.slashslashslash.stemstem")
+       (5/9 . "accidentals.sharp.slashslashslash.stem")
+       (4/9 . "accidentals.sharp")
+       (1/9 . "accidentals.sharp.slashslash.stem")
+       (0 . "accidentals.natural")
+       (-1/9 . "accidentals.mirroredflat")
+       (-4/9 . "accidentals.flat.slash")
+       (-5/9 . "accidentals.flat")
+       (-8/9 . "accidentals.flat.slashslash")
+       (-1 . "accidentals.flatflat")
+       )
+
   
   
   c cc db fk gbm gfc gfb efk dfbm
