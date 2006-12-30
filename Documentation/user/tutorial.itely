@@ -86,7 +86,11 @@ c' d' e' f' g' a' b' c''
 @end lilypond
 
 @emph{Warning:}  Every piece of LilyPond input needs to have
-@{curly braces@} placed around the input.  Don't forget them!
+@{curly braces@} placed around the input.  The braces should be
+also be surrounded by a space unless
+they are at the beginning or end of a line to avoid ambiguities.  These
+may be omitted in examples in this manual, but don't forget them in
+your own music!
 
 @cindex Case sensitive
 In addition, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
@@ -180,8 +184,10 @@ available package for viewing and printing PDF and PostScript files.}
 @section Second steps
 
 @emph{Remember:} Every piece of LilyPond input needs to
-have @{curly braces@} placed
-around the input.  For the rest of this manual, most examples will
+have @{curly braces@} placed around the input.
+The braces should be surrounded by a space unless
+they are at the beginning or end of a line to avoid ambiguities.
+For the rest of this manual, most examples will
 omit these braces, but don't forget them in your own music!
 
 @c will be removed once the tutorial either explains \relative or
