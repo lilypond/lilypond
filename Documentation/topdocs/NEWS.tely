@@ -66,6 +66,15 @@ which scares away people.
 
 @end ignore
 
+
+@item Alterations (such as a sharp and flat) may now be arbitrary
+fractions. This allows some forms of microtonal music.  For example,
+Turkish makam music uses 1/9th tone alterations.
+
+@lilypondfile{makam.ly}
+
+
+
 @item Tie directions may be set with @code{^~} and @code{_~}
 
 @item Tablature now supports harmonics and slides,
