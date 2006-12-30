@@ -110,6 +110,28 @@ pitchnames = \makamPitchNames
        (-8/9 . "accidentals.flat.slashslash")
        (-1 . "accidentals.flatflat")
        )
+
+%{
+
+  available glyphs:
+  
+  accidentals.sharp 
+  accidentals.sharp.slashslash.stem 
+  accidentals.sharp.slashslashslash.stemstem 
+  accidentals.sharp.slashslashslash.stem 
+  accidentals.sharp.slashslash.stemstemstem 
+  accidentals.natural 
+  accidentals.flat 
+  accidentals.flat.slash 
+  accidentals.flat.slashslash 
+  accidentals.mirroredflat.flat 
+  accidentals.mirroredflat 
+  accidentals.flatflat 
+  accidentals.flatflat.slash 
+  accidentals.doublesharp 
+
+%}
+  
   
   c cc db fk gbm gfc gfb efk dfbm
 }
