@@ -12,15 +12,7 @@ $(outdir)/%.tfm $(outdir)%.log: %.mf
 	MFINPUTS=$(src-dir) $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
 # Let's keep this log output, it saves another mf run.
 	mv $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
-	rm $(basename $(@F)).*gf
-
-$(outdir)/%.$(XPM_RESOLUTION)gf: %.mf
-	MFINPUTS=$(src-dir) $(METAFONT) "\\mode=$(XPM_MODE); \\input $<"
-# Let's keep this log output, it saves another mf run.
-	mv $(@F) $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
-
-$(outdir)/%.$(XPM_RESOLUTION)pk: $(outdir)/%.$(XPM_RESOLUTION)gf
-	gftopk $< $@
+	rm -f $(basename $(@F)).*gf
 
 
 MFTRACE_FORMATS = pfa pfb svg
