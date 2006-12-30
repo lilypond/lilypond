@@ -144,7 +144,7 @@ def get_option_parser ():
                   dest="padding_mm",
                   help="Pad left side of music to align music inspite of uneven bar numbers. (in mm)",
                   type="float",
-                  default=-3.0)
+                  default=3.0)
     
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
