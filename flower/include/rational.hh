@@ -11,8 +11,6 @@
 
 #include "std-string.hh"
 
-#include "std-string.hh"
-
 /**
    Rational numbers.  Included is support for + and - infinity.
 */
