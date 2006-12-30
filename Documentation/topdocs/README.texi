@@ -32,12 +32,12 @@ For compiling and running LilyPond see the installation instructions.
 These instructions can be found when you unpack lilypond, as
 @file{lilypond-x.y.z/INSTALL.txt}. They are also available on the web
 at
-@uref{http://lilypond.org/doc/v2.1/Documentation/topdocs/out-www/INSTALL.html}.
+@uref{http://lilypond.org/doc/v2.10/Documentation/topdocs/INSTALL.html}.
 
 @section Documentation
 
 The documentation is available online at
-@uref{http://www.lilypond.org/doc/}.
+@uref{http://lilypond.org/doc/}.
 
 You can also build it locally: follow the instructions under `Building
 documentation' in the installation instructions.
