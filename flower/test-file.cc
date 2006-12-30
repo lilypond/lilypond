@@ -8,7 +8,7 @@ using namespace std;
 #include "file-name.hh"
 string slashify (string file_name);
 
-#include "yaffut.h"
+#include "yaffut.hh"
 
 // FIXME: split into file-name, file-path unit fixture tests
 FUNC (mingw_slashify)

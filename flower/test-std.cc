@@ -10,7 +10,7 @@
 #include <iostream>
 
 #define YAFFUT_MAIN
-#include "yaffut.h"
+#include "yaffut.hh"
 
 #if !STD_VECTOR
 #define vector flower_vector
