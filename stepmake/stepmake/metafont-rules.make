@@ -12,7 +12,7 @@ $(outdir)/%.tfm $(outdir)%.log: %.mf
 	MFINPUTS=$(src-dir) $(METAFONT) "\mode:=$(MFMODE); nonstopmode; input $<;"
 # Let's keep this log output, it saves another mf run.
 	mv $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
-	rm -f $(basename $(@F)).*gf
+	rm -f $(basename $(@F)).*gf  $(basename $(@F)).*pk
 
 
 MFTRACE_FORMATS = pfa pfb svg
