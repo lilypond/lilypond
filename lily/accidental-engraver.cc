@@ -593,8 +593,8 @@ ADD_TRANSLATOR (Accidental_engraver,
 
 		/* grobs */
 		"Accidental "
-		"AccidentalCautionary"
-		"AccidentalSuggestion",
+		"AccidentalCautionary "
+		"AccidentalSuggestion ",
 
 		/* props */
 		"autoAccidentals "
