@@ -782,7 +782,7 @@ AncientRemoveEmptyStaffContext = \context {
 
   %% Select vaticana style font.
   \override KeySignature #'style = #'vaticana
-  \override Accidental #'style = #'vaticana
+  \override Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
@@ -793,7 +793,7 @@ AncientRemoveEmptyStaffContext = \context {
   \Voice
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
-
+  
   %% Removing ligature bracket engraver without replacing it by some
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
   %% warning for every "\[" and "\]".  Therefore, we make the grob
@@ -885,7 +885,7 @@ AncientRemoveEmptyStaffContext = \context {
   %% Select mensural style font.
   \override TimeSignature #'style = #'mensural
   \override KeySignature #'style = #'mensural
-  \override Accidental #'style = #'mensural
+  \override Accidental #'glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN

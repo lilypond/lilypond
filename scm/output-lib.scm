@@ -393,7 +393,7 @@ centered, X==1 is at the right, X == -1 is at the left."
      (0 . "accidentals.vaticana0")
      (-1/2 . "accidentals.mensural1")))
 
-(define-public alteration-medicae-glyph-name-alist
+(define-public alteration-medicaea-glyph-name-alist
    '((1/2 . "accidentals.medicaea-1")
      (0 . "accidentals.vaticana0")
      (-1/2 . "accidentals.mensural1")))
