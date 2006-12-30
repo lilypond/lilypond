@@ -15,11 +15,11 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "staff-symbol-referencer.hh"
+#include "rational.hh"
 
 struct Key_signature_interface
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-
   DECLARE_GROB_INTERFACE();
 };
 
@@ -62,10 +62,17 @@ Key_signature_interface::print (SCM smob)
   for (SCM s = me->get_property ("alteration-alist"); scm_is_pair (s); s = scm_cdr (s))
     {
       SCM alt = is_cancellation
-	? scm_from_int (0) 
+	? scm_from_int (0)
 	: scm_cdar (s);
 
       SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
+      if (!scm_is_string (glyph_name))
+	{
+	  me->warning (_f ("No glyph found for alteration: %s",
+			   ly_scm2rational (alt).to_string ().c_str ()));
+	  continue;
+	}
+      
       Stencil acc (fm->find_by_name (ly_scm2string (glyph_name)));
 
       if (acc.is_empty ())

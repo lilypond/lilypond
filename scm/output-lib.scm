@@ -354,16 +354,24 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public (accidental-interface::calc-alteration grob)
   (ly:pitch-alteration  (ly:event-property (event-cause grob) 'pitch)))
 
+
+(define-public cancellation-glyph-name-alist
+  '((0 . "accidentals.natural")))
+
 (define-public standard-alteration-glyph-name-alist
-     '((1 . "accidentals.doublesharp")
-       (3/4 . "accidentals.sharp.slashslash.stemstemstem")
-       (1/2 . "accidentals.sharp")
-       (1/4 . "accidentals.sharp.slashslash.stem")
+     '(
+       ;; ordered for optimal performance.
        (0 . "accidentals.natural")
-       (-1/4 . "accidentals.mirroredflat")
        (-1/2 . "accidentals.flat")
-       (-3/4 . "accidentals.mirroredflat.flat")
+       (1/2 . "accidentals.sharp")
+
+       (1 . "accidentals.doublesharp")
        (-1 . "accidentals.flatflat")
+       
+       (3/4 . "accidentals.sharp.slashslash.stemstemstem")
+       (1/4 . "accidentals.sharp.slashslash.stem")
+       (-1/4 . "accidentals.mirroredflat")
+       (-3/4 . "accidentals.mirroredflat.flat")
        ))
 
 (define-public makam-alteration-glyph-name-alist

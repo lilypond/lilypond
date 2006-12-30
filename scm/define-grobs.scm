@@ -797,6 +797,7 @@
     (KeyCancellation
      . (
 	(stencil . ,ly:key-signature-interface::print)
+	(glyph-name-alist . ,cancellation-glyph-name-alist)
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
