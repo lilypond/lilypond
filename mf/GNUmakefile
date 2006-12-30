@@ -99,8 +99,7 @@ PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-
-ALL_GEN_FILES= $(TFM_FILES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
+ALL_GEN_FILES=$(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -111,9 +110,6 @@ INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_OTFS)
-
-INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
-INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
 INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES4=$(SVG_FILES)
