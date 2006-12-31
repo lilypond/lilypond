@@ -132,5 +132,7 @@ ADD_INTERFACE (Spaceable_grob,
 	       "measure-length "
 	       "minimum-distances "
 	       "right-neighbors "
-	       "spacing-wishes");
+	       "spacing-wishes "
+
+	       );
 
