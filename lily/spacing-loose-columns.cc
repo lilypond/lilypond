@@ -66,9 +66,10 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  loose = right = re->get_column ();
 	}
 
-      if (!right->get_system ()
-	  && right->find_prebroken_piece (LEFT)
-	  && right->find_prebroken_piece (LEFT)->get_system () == which)
+      if (right->get_system ())
+	; /* do nothing */
+      else if (right->find_prebroken_piece (LEFT)
+	       && right->find_prebroken_piece (LEFT)->get_system () == which)
 	right = right->find_prebroken_piece (LEFT);
       else if (Paper_column::get_rank (which->get_bound (RIGHT)) < Paper_column::get_rank (right))
 	
