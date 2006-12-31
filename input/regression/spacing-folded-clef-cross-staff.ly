@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.10.7"
 \header {
     texidoc = "Clefs are also folded under cross staff constructs."
 }

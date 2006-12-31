@@ -1,12 +1,10 @@
-
-
 \header{
   texidoc = "If a floating grace spacing section attaches to a note
 across a line break, it gets attached to the end of line."
 }
 
 
-\version "2.11.5"
+\version "2.10.7"
 
 \new Score \with {
   \override SpacingSpanner #'strict-grace-spacing = ##t
@@ -16,9 +14,9 @@ across a line break, it gets attached to the end of line."
   \new Staff <<
 
     \new Voice {
-      \time 2/4    s2
-      \time 2/4    s2 \break
-      \time 2/4    s2
+      \time 6/4    s2
+      s2 \bar "" \break
+      s2
     }
 
     \new Voice {
