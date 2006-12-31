@@ -29,8 +29,9 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
 	      (debug-skylines #f "debug skylines")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
-	      (dump-signatures #f "dump output signatures of each system")
+	      (dump-profile #f "dump timing information for each file")
 	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
+	      (dump-signatures #f "dump output signatures of each system")
 	      
 	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
 
@@ -350,6 +351,33 @@ The syntax is the same as `define*-public'."
 	(,symbol? . "symbol")
 	(,vector? . "vector")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; timing
+
+(define (profile-measurements)
+  (let* ((t (times))
+	 (stats (gc-stats)))
+
+    (list
+     (- (+ (tms:utime t)
+	   (tms:stime t))
+	(ly:assoc-get 'gc-time-taken stats))
+
+     ;; difficult to put memory amount stats into here.
+     
+     )))
+
+(define (dump-profile name last this)
+  (let*
+      ((outname (format "~a.profile" (basename name ".ly")))
+       (diff (map (lambda (y) (apply - y)) (zip this last))))
+    
+    (display diff)
+    (ly:progress "\nWriting timing to ~a..." outname)
+    (format (open-file outname "w")
+	    "time: ~a"
+	    (car diff))))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; debug mem leaks
@@ -542,19 +570,20 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
-	 (first #t)
+	 (start-measurements #f)
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
     (for-each
      (lambda (x)
 
-       ;; We don't carry info across file boundaries
-       (if first
-	   (set! first #f)
-	   (gc))
-       
+       (gc)
+       (set! start-measurements (profile-measurements))
        (lilypond-file handler x)
+       (if (ly:get-option 'dump-profile)
+	   (dump-profile x start-measurements (profile-measurements)))
+       
+       
        (ly:clear-anonymous-modules)
        (if (ly:get-option 'debug-gc)
 	   (dump-gc-protects)
