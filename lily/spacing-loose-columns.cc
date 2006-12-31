@@ -66,9 +66,19 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  loose = right = re->get_column ();
 	}
 
-      if (!right->get_system ())
+      if (!right->get_system ()
+	  && right->find_prebroken_piece (LEFT)
+	  && right->find_prebroken_piece (LEFT)->get_system () == which)
 	right = right->find_prebroken_piece (LEFT);
-
+      else if (Paper_column::get_rank (which->get_bound (RIGHT)) < Paper_column::get_rank (right))
+	
+	right = which->get_bound (RIGHT);
+      else
+	{
+	  clique.back ()->programming_error ("Loose column does not have right side to attach to.");
+	  right = which->get_bound (RIGHT);
+	}
+      
       Grob *common = right->common_refpoint (left, X_AXIS);
 
       clique.push_back (right);
