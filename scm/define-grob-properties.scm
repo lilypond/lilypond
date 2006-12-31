@@ -247,10 +247,14 @@ multimeasure rest.")
 note heads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
-@internalsref{note-collision-interface} .")
+@internalsref{note-collision-interface} .
+merge-differently-headed only applies to opposing stem dirs
+(ie. Voice 1 & 2).")
      (merge-differently-dotted ,boolean? "Merge note heads in
 collisions, even if they have a different number of dots. This normal
-notation for some types of polyphonic music. ")
+notation for some types of polyphonic music.
+merge-differently-dotted only applies to opposing stem dirs
+(ie. Voice 1 & 2).")
      (minimum-length-fraction ,number? "Minimum length of ledger line as fraction of note head size.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
