@@ -1140,6 +1140,10 @@ Similarly, you can merge half note heads with eighth notes, by setting
 c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
+@noindent
+@code{merge-differently-headed} and @code{merge-differently-dotted}
+only apply to opposing stem directions (ie. Voice 1 & 2).
+
 LilyPond also vertically shifts rests that are opposite of a stem,
 for example
 
