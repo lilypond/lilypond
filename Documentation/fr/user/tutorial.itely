@@ -1,5 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
+@c
+@c Translation of GIT committish: 829be449be664ea765ed43f5d56b50b41e43b397
+@c
+@c When revising a translation, copy the HEAD committish of the
+@c version that you are working on.  Use
+@c
+@c   git-rev-list HEAD | head -1
+@c
+@c to discover that.
 
 @c TODO:
 @c   * more details about running lilypond; error messages,
