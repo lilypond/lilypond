@@ -350,6 +350,7 @@ If we give names, Bison complains.
 %type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
+%type <scm> unsigned_number
 %type <scm> bass_figure
 %type <scm> figured_bass_modification
 %type <scm> br_bass_figure
@@ -854,9 +855,9 @@ alternative_music:
 
 
 repeated_music:
-	REPEAT simple_string bare_unsigned music alternative_music
+	REPEAT simple_string unsigned_number music alternative_music
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, scm_int2num ($3), $4, $5);
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $5);
 	}
 	;
 
@@ -2133,6 +2134,14 @@ bare_unsigned:
 		$$ = $1;
 	}
 	;
+
+unsigned_number:
+	bare_unsigned  { $$ = scm_from_int ($1); }
+	| NUMBER_IDENTIFIER {
+		$$ = $1;
+	}
+	;
+	
 
 exclamations:
 		{ $$ = 0; }
