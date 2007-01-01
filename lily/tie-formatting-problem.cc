@@ -180,6 +180,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
   if (bounds[0]->break_status_dir ())
     {
       Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
+      
       chord_outlines_[key].set_minimum_height (x);
     }
   else
@@ -266,7 +267,14 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
       for (vsize i = 0; i < ties.size (); i++)
 	{
 	  Item *it = dynamic_cast<Spanner*> (ties[i])->get_bound (d);
-					     
+	  if (it->break_status_dir ())
+	    {
+	      Item *sep
+		= dynamic_cast<Item*> (unsmob_grob (ties[i]->get_object ("separation-item")));
+	      if (sep && sep->get_column () == it->get_column ())
+		it = sep;
+	    }
+	  
 	  bounds.push_back (it);
 	}
       

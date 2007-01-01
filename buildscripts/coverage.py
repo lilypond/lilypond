@@ -3,24 +3,6 @@ import os
 import glob
 import re
 
-cmds = """
-./configure --enable-config=cov --disable-optimising
-make conf=cov -j2
-make conf=cov test LILYPOND_JOBS=          
-
-cd out-cov
-ln ../lily/* .
-ln ../lily/out-conv/*cc .
-mkdir include
-ln ../lily/include/* include/
-for a in *[cyl] ; do  gcov -o ../lily/out-cov/  -p $a > $a.gcov-summary ; done 
-"""
-
-cmds = ''
-
-for c in cmds.split ('\n'):
-    os.system (c)
-
 os.chdir ('out-cov')
 
 #File 'accidental-engraver.cc'
@@ -30,7 +12,8 @@ results = []
 for f in glob.glob ('*.gcov-summary'):
     str = open (f).read ()
     m = re.search ("File '([^']+.cc)'\s*Lines executed:([0-9.]+)% of ([0-9]+)", str)
-    if '/usr/lib' in m.group (1):
+
+    if m and '/usr/lib' in m.group (1):
         continue
    
     if m:

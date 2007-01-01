@@ -372,7 +372,6 @@ The syntax is the same as `define*-public'."
       ((outname (format "~a.profile" (basename name ".ly")))
        (diff (map (lambda (y) (apply - y)) (zip this last))))
     
-    (display diff)
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
 	    "time: ~a"

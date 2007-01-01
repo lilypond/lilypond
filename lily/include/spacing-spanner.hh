@@ -14,23 +14,15 @@
 #include "std-vector.hh"
 #include "grob-interface.hh"
 
-/*
-  TODO: prune to public interface.
-*/
 class Spacing_spanner
-
 {
-public:
+private:
   static void set_distances_for_loose_col (Grob *me, Grob *c, Drul_array<Item *> next_door, Spacing_options const *);
   static void generate_pair_spacing (Grob *me,
 				     Paper_column *l, Paper_column *r,
 				     Paper_column *nextr,
 				     Spacing_options const *options);
-  static void standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						 Real *fixed, Real *space,
-						 Spacing_options const *);
   static Real default_bar_spacing (Grob *, Grob *, Grob *, Moment);
-  static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *, bool *);
   static Real get_duration_space (Moment dur, Spacing_options const *, bool *);
   static Rational effective_shortest_duration (Grob *me, vector<Grob*> const &all);
   static void breakable_column_spacing (Grob *, Item *l, Item *r, Spacing_options const *);
@@ -40,7 +32,13 @@ public:
   static void generate_springs (Grob *me, vector<Grob*> const &cols, Spacing_options const *);
   static void musical_column_spacing (Grob *, Item *, Item *, Spacing_options const *);
   static vector<Grob*> get_columns (Spanner *me);
-
+  
+public:
+  static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *, bool *);
+  static void standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
+						 Real *fixed, Real *space,
+						 Spacing_options const *);
+  
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_common_shortest_duration, (SCM));
   DECLARE_GROB_INTERFACE();

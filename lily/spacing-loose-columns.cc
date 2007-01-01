@@ -77,9 +77,23 @@ set_loose_columns (System *which, Column_x_positions const *posns)
       else
 	{
 	  clique.back ()->programming_error ("Loose column does not have right side to attach to.");
-	  right = which->get_bound (RIGHT);
+	  System *base_system = dynamic_cast<System*> (which->original ());
+	  int j = Paper_column::get_rank (clique.back ()) + 1;
+	  int end_rank = Paper_column::get_rank (which->get_bound (RIGHT));
+	  extract_grob_set (base_system, "columns", base_cols);
+	  for (; j < end_rank; j++)
+	    {
+	      if (base_cols[j]->get_system () == which)
+		right = dynamic_cast<Item*> ((Grob*)base_cols[j]);
+	    }
 	}
       
+
+      if (!right)
+	{
+	  programming_error ("Can't attach loose column sensibly. Attaching to end of system.");
+	  right = which->get_bound (RIGHT);
+	}
       Grob *common = right->common_refpoint (left, X_AXIS);
 
       clique.push_back (right);
