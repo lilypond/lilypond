@@ -27,6 +27,7 @@ class Beam_engraver : public Engraver
 public:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rest);
+
 protected:
   Stream_event *start_ev_;
 
