@@ -829,10 +829,14 @@ Otherwise, return #f."
 ;;; Layout properties
 
 (define-display-method OverrideProperty (expr parser)
-  (let ((symbol	  (ly:music-property expr 'symbol))
-	(properties (ly:music-property expr 'grob-property-path))
-	(value	  (ly:music-property expr 'grob-value))
-	(once	  (ly:music-property expr 'once)))
+  (let* ((symbol	  (ly:music-property expr 'symbol))
+	 (property-path   (ly:music-property expr 'grob-property-path))
+	 (properties      (if (pair? property-path)
+			      property-path
+			      (list (ly:music-property expr 'grob-property))))
+	 (value	  (ly:music-property expr 'grob-value))
+	 (once	  (ly:music-property expr 'once)))
+
     (format #f "~a\\override ~a~a #'~a = ~a~a"
 	    (if (or (null? once)
 		    (not once))
