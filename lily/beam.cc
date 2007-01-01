@@ -1336,12 +1336,8 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
       || !Beam::visible_stem_count (beam))
     return scm_from_double (0.0);
 
-  Drul_array<Real> pos (0, 0);
-  SCM s = beam->get_property ("positions");
-  if (scm_is_pair (s) && scm_is_number (scm_car (s)))
-    pos = ly_scm2interval (s);
-  else
-    programming_error ("positions property should always be pair of numbers.");
+  Drul_array<Real> pos (robust_scm2drul (beam->get_property ("positions"),
+					 Drul_array<Real> (0,0)));
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1377,6 +1373,11 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Real beam_y = stem_y - d * height_of_my_beams;
 
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
+
+  /*
+    TODO: this is dubious, because this call needs the info we're
+    computing right now.
+   */
   Interval rest_extent = rest->extent (common_y, Y_AXIS);
   rest_extent.translate (offset);
   
@@ -1385,7 +1386,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     = staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
 		     + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
 
-  Real shift = d * min (((beam_y - d * minimum_distance) - rest_dim) * d, 0.0);
+  Real shift = d * min (d * (beam_y - d * minimum_distance - rest_dim), 0.0);
 
   shift /= staff_space;
   Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
@@ -1400,7 +1401,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
       < rad)
     shift = ceil (fabs (shift)) * sign (shift);
 
-  return scm_from_double (staff_space * shift);
+  return scm_from_double (offset + staff_space * shift);
 }
 
 bool
