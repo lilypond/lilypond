@@ -147,8 +147,14 @@ Stem_tremolo::height (SCM smob)
   return ly_interval2scm (s1.extent (Y_AXIS));
 }
 
+Real
+Stem_tremolo::vertical_length (Grob *me)
+{
+  return untranslated_stencil (me, 0.35).extent (Y_AXIS).length ();
+}
+  
 Stencil
-Stem_tremolo::translated_stencil (Grob *me, Real slope)
+Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
 {
   Grob *stem = unsmob_grob (me->get_object ("stem"));
   if (!stem)
@@ -157,30 +163,37 @@ Stem_tremolo::translated_stencil (Grob *me, Real slope)
       return Stencil();
     }
 
-  Spanner *beam = Stem::get_beam (stem);
   Direction stemdir = get_grob_direction (stem);
-  if (stemdir == 0)
+  if (!stemdir)
     stemdir = UP;
 
   bool whole_note = Stem::duration_log (stem) <= 0;
 
-  Real beam_translation = get_beam_translation (me);
-
   /* for a whole note, we position relative to the notehead, so we want the
      stencil aligned on the flag closest to the head */
   Direction stencil_dir = whole_note ? -stemdir : stemdir;
-  Stencil mol = raw_stencil (me, slope, stencil_dir);
+  return raw_stencil (me, slope, stencil_dir);
+}
 
-  Interval mol_ext = mol.extent (Y_AXIS);
-  Real ss = Staff_symbol_referencer::staff_space (me);
+  
+Stencil
+Stem_tremolo::translated_stencil (Grob *me, Real slope)
+{
+  Stencil mol = untranslated_stencil (me, slope);
 
-  // ugh, rather calc from Stem_tremolo_req
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+  if (!stem)
+    return Stencil ();
+  
+  Direction stemdir = get_grob_direction (stem);
+  if (stemdir == 0)
+    stemdir = UP;
+
+  Spanner *beam = Stem::get_beam (stem);
+  Real beam_translation = get_beam_translation (me);
+
   int beam_count = beam ? (Stem::beam_multiplicity (stem).length () + 1) : 0;
-
-  Real beamthickness = 0.0;
-  SCM sbt = (beam) ? beam->get_property ("thickness") : SCM_EOL;
-  if (scm_is_number (sbt))
-    beamthickness = scm_to_double (sbt) * ss;
+  Real ss = Staff_symbol_referencer::staff_space (me);
 
   Real end_y
     = Stem::stem_end_position (stem) * ss / 2
@@ -192,6 +205,8 @@ Stem_tremolo::translated_stencil (Grob *me, Real slope)
       if (stemdir == UP)
         end_y -= stemdir * beam_translation * 0.5;
     }
+
+  bool whole_note = Stem::duration_log (stem) <= 0;
   if (whole_note)
     {
       /* we shouldn't position relative to the end of the stem since the stem
