@@ -112,7 +112,7 @@ against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
   "The `markup' macro provides a lilypond-like syntax for building markups.
 
  - #:COMMAND is used instead of \\COMMAND
- - #:line ( ... ) is used instead of \line { ... }
+ - #:line ( ... ) is used instead of \\line { ... }
  - etc.
 
 Example:
@@ -239,44 +239,28 @@ Use `markup*' in a \\notemode context."
 ;;; (markup-command-keyword raise-markup) ==> "scheme0-markup1"
 ;;; 
 
-(define markup-command-signatures (make-hash-table 50))
-
-(define (markup-command-signature-ref markup-command)
-  "Return markup-command's signature, e.g. (number? markup?).
-markup-command may be a procedure."
-  (let ((sig-key (hashq-ref markup-command-signatures
-                            markup-command)))
-    (if sig-key (car sig-key) #f)))
-
 (define-public (markup-command-keyword markup-command)
-  "Return markup-command's keyword, e.g. \"scheme0markup1\".
-markup-command may be a procedure."
-  (let ((sig-key (hashq-ref markup-command-signatures
-                            markup-command)))
-    (if sig-key (cdr sig-key) #f)))
+  "Return markup-command's argument keyword, ie a string describing the command
+  arguments, eg. \"scheme0markup1\""
+  (object-property markup-command 'markup-keyword))
 
-(define (markup-command-signatureset! markup-command signature)
-  "Set markup-command's signature. markup-command must be a named procedure.
-Also set markup-signature and markup-keyword object properties."
-  (hashq-set! markup-command-signatures
-              markup-command
-              (cons signature (markup-signature-to-keyword signature)))
-  ;; these object properties are still in use somewhere
+(define-public (markup-command-signature-ref markup-command)
+  "Return markup-command's signature (the 'markup-signature object property)"
+  (object-property markup-command 'markup-signature))
+
+(define-public (markup-command-signature-set! markup-command signature)
+  "Set markup-command's signature and keyword (as object properties)"
   (set-object-property! markup-command 'markup-signature signature)
-  (set-object-property! markup-command 'markup-keyword (markup-signature-to-keyword signature)))
-  
+  (set-object-property! markup-command 'markup-keyword 
+                        (markup-signature-to-keyword signature))
+  signature)
+
 (define-public markup-command-signature
-  (make-procedure-with-setter markup-command-signature-ref markup-command-signatureset!))
+  (make-procedure-with-setter markup-command-signature-ref
+                              markup-command-signature-set!))
 
-(define (markup-symbol-to-proc markup-sym)
-  "Return the markup command procedure which name is `markup-sym', if any."
-  (hash-fold (lambda (key val prev)
-               (or prev
-                   (if (eqv? (procedure-name key) markup-sym) key #f)))
-             #f
-             markup-command-signatures))
-
-(define-public markup-function-list '())
+;; For documentation purposes
+(define-public markup-function-list (list))
 
 (define-public (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
@@ -299,8 +283,13 @@ Also set markup-signature and markup-keyword object properties."
                          "-"))))
 
 (define-public (lookup-markup-command code)
-  (let ((proc (markup-symbol-to-proc (string->symbol (string-append code "-markup")))))
-    (and proc (cons proc (markup-command-keyword proc)))))
+  (let ((proc (catch 'misc-error
+                (lambda ()
+                  (module-ref (current-module)
+                              (string->symbol (format #f "~a-markup" code))))
+                (lambda (key . args) #f))))
+    (and (procedure? proc)
+         (cons proc (markup-command-keyword proc)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; used in parser.yy to map a list of markup commands on markup arguments
