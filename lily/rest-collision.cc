@@ -100,16 +100,7 @@ Rest_collision::calc_positioning_done (SCM smob)
     {
       Grob *e = elts[i];
       if (unsmob_grob (e->get_object ("rest")))
-	{
-	  /*
-	    Ignore rests under beam.
-	  */
-	  Grob *st = unsmob_grob (e->get_object ("stem"));
-	  if (st && unsmob_grob (st->get_object ("beam")))
-	    continue;
-
-	  rests.push_back (e);
-	}
+	rests.push_back (e);
       else
 	notes.push_back (e);
     }
