@@ -97,7 +97,15 @@ Extender_engraver::stop_translation_timestep ()
 						 ly_symbol2scm ("heads"), h);
 	    }
 	}
-
+      else
+	{
+	  if (pending_extender_)
+	    {
+	      completize_extender (pending_extender_);
+	      pending_extender_ = 0;
+	    }
+	  
+	}
       if (extender_)
 	{
 	  pending_extender_ = extender_;
