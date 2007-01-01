@@ -33,6 +33,7 @@ public:
   static Real thickness (Grob *);
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
+  static bool is_normal_stem (Grob *);
   static Interval head_positions (Grob *);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);

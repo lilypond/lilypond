@@ -222,6 +222,14 @@ Stem::is_invisible (Grob *me)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
+
+bool
+Stem::is_normal_stem (Grob *me)
+{
+  return head_count (me) && scm_to_int (me->get_property ("duration-log")) >= 1;
+}
+
+
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
 SCM
 Stem::pure_height (SCM smob, SCM start, SCM end)

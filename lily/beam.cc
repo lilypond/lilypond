@@ -894,8 +894,9 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
       for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *s = stems[i];
-	  if (Stem::is_invisible (s))
+	  if (!Stem::is_normal_stem (s))
 	    continue;
+
 	  ideals.push_back (Offset (x_posns[i],
 			       Stem::get_stem_info (s).ideal_y_
 			       + s->relative_coordinate (commony, Y_AXIS)
@@ -1287,7 +1288,7 @@ Beam::first_visible_stem (Grob *me)
 
   for (vsize i = 0; i < stems.size (); i++)
     {
-      if (!Stem::is_invisible (stems[i]))
+      if (Stem::is_normal_stem (stems[i]))
 	return stems[i];
     }
   return 0;
@@ -1300,7 +1301,7 @@ Beam::last_visible_stem (Grob *me)
 
   for (vsize i = stems.size (); i--;)
     {
-      if (!Stem::is_invisible (stems[i]))
+      if (Stem::is_normal_stem (stems[i]))
 	return stems[i];
     }
   return 0;
