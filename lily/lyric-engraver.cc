@@ -9,12 +9,10 @@
 
 #include "context.hh"
 #include "engraver.hh"
-#include "font-metric.hh"
 #include "item.hh"
-#include "multi-measure-rest.hh"
 #include "note-head.hh"
-#include "rest.hh"
 #include "stream-event.hh"
+#include "international.hh"
 
 #include "translator.icc"
 
@@ -146,6 +144,11 @@ Lyric_engraver::stop_translation_timestep ()
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
 		text_->set_property ("self-alignment-X", scm_from_int (LEFT));
+	    }
+	  else
+	    {
+	      text_->warning (_ ("Lyric syllable does not have note. Use \\lyricsto or associatedVoice."));
+	      text_->set_property ("X-offset", scm_from_int (0));
 	    }
 	}
 
