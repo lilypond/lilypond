@@ -484,6 +484,7 @@ useful clues.
 ")
      (note-heads ,ly:grob-array? "List of note head grobs")
      (note-head ,ly:grob? "A single note head")
+     (separation-item ,ly:grob? "A separation item.")
      (side-support-elements ,ly:grob-array? "the support, a list of grobs.")
      (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
      (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
