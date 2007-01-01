@@ -16,11 +16,6 @@ ln ../lily/include/* include/
 for a in *[cyl] ; do  gcov -o ../lily/out-cov/  -p $a > $a.gcov-summary ; done 
 """
 
-cmds = ''
-
-for c in cmds.split ('\n'):
-    os.system (c)
-
 os.chdir ('out-cov')
 
 #File 'accidental-engraver.cc'
