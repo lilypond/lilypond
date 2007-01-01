@@ -105,6 +105,8 @@ LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
 {
   /*
     C&P from combine-at-edge.
+
+    fixme: just used once.
   */
   Stencil *s1 = unsmob_stencil (first);
   Stencil *s2 = unsmob_stencil (second);
