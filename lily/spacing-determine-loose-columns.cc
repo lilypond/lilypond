@@ -39,7 +39,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
   
 
   if ((options->float_nonmusical_columns_
-       ||options->float_grace_columns_)
+       || options->float_grace_columns_)
       && Paper_column::when_mom (col).grace_part_)
     {
       return true;
@@ -104,9 +104,6 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     return false;
 
   /*
-    A rather hairy check, but we really only want to move around
-    clefs. (anything else?)
-
     in any case, we don't want to move bar lines.
   */
   extract_grob_set (col, "elements", elts);
@@ -120,9 +117,6 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
 	    {
 	      Grob *h = gelts[j];
 
-	      /*
-		ugh. -- fix staff-bar name?
-	      */
 	      if (h && h->get_property ("break-align-symbol") == ly_symbol2scm ("staff-bar"))
 		return false;
 	    }
@@ -234,8 +228,20 @@ Spacing_spanner::prune_loose_columns (Grob *me, vector<Grob*> *cols,
 	    }
 	  else
 	    {
+	      Grob *min_item = 0;
+	      int min_rank = INT_MAX;
+	      for (vsize j = 0; j < right_items.size (); j ++)
+		{
+		  int rank = dynamic_cast<Item*> (right_items[j])->get_column ()->get_rank ();
+		  if (rank < min_rank)
+		    {
+		      min_item = right_items[j];
+		      min_rank = rank;
+		    }
+		}
+	      
 	      c->set_object ("between-cols", scm_cons (lns,
-						       right_items[0]->self_scm ()));
+						       min_item->self_scm ()));
 
 	      /*
 		Set distance constraints for loose columns
@@ -264,7 +270,7 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob*> const &cols)
     {
       SCM right_neighbors = Grob_array::make_array ();
       Grob_array *rn_arr = unsmob_grob_array (right_neighbors);
-      int min_rank = 100000;	// inf.
+      int min_rank = INT_MAX;
 
       extract_grob_set (cols[i], "spacing-wishes", wishes);
       for (vsize k = wishes.size (); k--;)
@@ -337,8 +343,6 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob*> const &cols)
       Item *it = dynamic_cast<Item *> (cols[i]);
       if (!Paper_column::is_breakable (it) && !Paper_column::is_musical (it))
 	continue;
-
-      // it->breakable || it->musical
 
       /*
 	sloppy with typing left/right-neighbors should take list, but paper-column found instead.

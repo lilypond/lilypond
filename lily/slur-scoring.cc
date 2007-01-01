@@ -784,26 +784,20 @@ Slur_score_state::get_extra_encompass_infos () const
 	    {
 	      penalty = parameters_.accidental_collision_;
 
-	      SCM alt = g->get_property ("alteration");
+	      Rational alt = ly_scm2rational (g->get_property ("alteration"));
 	      SCM scm_style = g->get_property ("style");
 	      if (!scm_is_symbol (scm_style)
 		  && !to_boolean (g->get_property ("parenthesized"))
 		  && !to_boolean (g->get_property ("restore-first")))
 		{
 		  /* End copy accidental.cc */
-		  switch (scm_to_int (alt))
-		    {
-		    case FLAT:
-		    case DOUBLE_FLAT:
-		      xp = LEFT;
-		      break;
-		    case SHARP:
-		      xp = 0.5 * dir_;
-		      break;
-		    case NATURAL:
-		      xp = -dir_;
-		      break;
-		    }
+		  if (alt == FLAT_ALTERATION
+		      || alt == DOUBLE_FLAT_ALTERATION)
+		    xp = LEFT;
+		  else if (alt == SHARP_ALTERATION)
+		    xp = 0.5 * dir_;
+		  else if (alt == NATURAL_ALTERATION)
+		    xp = -dir_;
 		}
 	    }
 

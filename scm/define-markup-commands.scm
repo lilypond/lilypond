@@ -1032,39 +1032,40 @@ recommend font for this is bold and italic"
 (define-builtin-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol."
 
-  (interpret-markup layout props (markup #:musicglyph "accidentals.4")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.3")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
+					 
 
 (define-builtin-markup-command (sharp layout props) ()
   "Draw a sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.2")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.1")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (natural layout props) ()
   "Draw a natural symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.0")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (semiflat layout props) ()
   "Draw a semiflat."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M1")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (flat layout props) ()
   "Draw a flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M2")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M3")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol."
-  (interpret-markup layout props (markup #:musicglyph "accidentals.M4")))
+  (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (with-color layout props color arg) (color? markup?)
   "Draw @var{arg} in color specified by @var{color}"
@@ -1098,7 +1099,7 @@ recommend font for this is bold and italic"
 
 (define-builtin-markup-command (musicglyph layout props glyph-name) (string?)
   "This is converted to a musical symbol, e.g. @code{\\musicglyph
-#\"accidentals.0\"} will select the natural sign from the music font.
+#\"accidentals.natural\"} will select the natural sign from the music font.
 See @usermanref{The Feta font} for  a complete listing of the possible glyphs."
   (ly:font-get-glyph
    (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
@@ -1167,30 +1168,42 @@ figured bass notation"
        (num-x (interval-widen (ly:stencil-extent number-stencil X)
 			      (* mag 0.2)))
        (num-y (ly:stencil-extent number-stencil Y))
-       (slash-stencil 
-	(ly:make-stencil
-	 `(draw-line
-	   ,thickness
-	   ,(car num-x) ,(- (interval-center num-y) dy)
-	   ,(cdr num-x) ,(+ (interval-center num-y) dy))
-	 num-x num-y
-	 )))
+       (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
+       
+       (slash-stencil
+	(if is-sane
+	    (ly:make-stencil
+	     `(draw-line
+	       ,thickness
+	       ,(car num-x) ,(- (interval-center num-y) dy)
+	       ,(cdr num-x) ,(+ (interval-center num-y) dy))
+	     num-x num-y)
+	    #f)))
 
-    (ly:stencil-add number-stencil
-		    (cond
-		     ((= num 5) (ly:stencil-translate slash-stencil
-						      ;;(cons (* mag -0.05) (* mag 0.42))
-						      (cons (* mag -0.00) (* mag -0.07))
+    (set! slash-stencil
+	  (cond
+	   ((not (ly:stencil? slash-stencil)) #f)
+	   ((= num 5) (ly:stencil-translate slash-stencil
+					    ;;(cons (* mag -0.05) (* mag 0.42))
+					    (cons (* mag -0.00) (* mag -0.07))
 
-						      ))
-		     ((= num 7) (ly:stencil-translate slash-stencil
-						      ;;(cons (* mag -0.05) (* mag 0.42))
-						      (cons (* mag -0.00) (* mag -0.15))
+					    ))
+	   ((= num 7) (ly:stencil-translate slash-stencil
+					    ;;(cons (* mag -0.05) (* mag 0.42))
+					    (cons (* mag -0.00) (* mag -0.15))
 
-						      ))
-		     
-		     (else slash-stencil)))
-    ))
+					    ))
+	   
+	   (else slash-stencil)))
+
+    (if slash-stencil
+	(set! number-stencil
+	      (ly:stencil-add number-stencil slash-stencil))
+	
+	(ly:warning "invalid number for slashed digit ~a" num))
+
+
+    number-stencil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.

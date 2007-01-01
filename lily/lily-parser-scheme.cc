@@ -8,12 +8,13 @@
 
 #include <unistd.h>
 
+#include "lily-parser.hh"
+
 #include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
-#include "lily-parser.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "program-option.hh"
@@ -165,7 +166,7 @@ LY_DEFINE (ly_parse_string, "ly:parse-string",
 
 LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 	   1, 0, 0, (SCM parser_smob),
-	   "Return the lexer for PARSER_SMOB.")
+	   "Return the lexer for @var{parser-smob}.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   return parser->lexer_->self_scm ();
@@ -173,7 +174,7 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 	   1, 0, 0, (SCM parser_smob),
-	   "Return a clone of PARSER_SMOB.")
+	   "Return a clone of @var{parser-smob}.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   Lily_parser *clone = new Lily_parser (*parser);
@@ -183,7 +184,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 
 LY_DEFINE (ly_parser_define, "ly:parser-define!",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
-	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
+	   "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
@@ -195,7 +196,7 @@ LY_DEFINE (ly_parser_define, "ly:parser-define!",
 
 LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 	   2, 0, 0, (SCM parser_smob, SCM symbol),
-	   "Lookup @var{symbol} in @var{parser_smob}'s module.  "
+	   "Lookup @var{symbol} in @var{parser-smob}'s module.  "
 	   "Undefined is '().")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -212,7 +213,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   2, 0, 0, (SCM parser_smob, SCM ly_code),
-	   "Parse the string LY_CODE with PARSER_SMOB."
+	   "Parse the string @code{ly-code} with @code{parser-smob}."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);

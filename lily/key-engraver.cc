@@ -53,23 +53,6 @@ Key_engraver::Key_engraver ()
 }
 
 
-SCM
-make_qt_key (SCM rat_key)
-{
-  SCM qt_key = SCM_EOL;
-  SCM *tail = &qt_key;
-      
-  for (SCM s = rat_key; scm_is_pair (s); s = scm_cdr (s))
-    {
-      *tail = scm_cons (scm_cons (scm_caar (s),
-				  scm_from_int (Rational (4)* ly_scm2rational (scm_cdar (s)))),
-			SCM_EOL);
-      tail =  SCM_CDRLOC (*tail);
-    }
-
-  return qt_key;
-}
-
 void
 Key_engraver::create_key (bool is_default)
 {
@@ -110,14 +93,13 @@ Key_engraver::create_key (bool is_default)
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
 	      
-	      cancellation_->set_property ("alteration-alist", make_qt_key (restore));
+	      cancellation_->set_property ("alteration-alist", restore);
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
 	    }
 	}
 
-
-      item_->set_property ("alteration-alist", make_qt_key (key));
+      item_->set_property ("alteration-alist", key);
     }
 
   if (!is_default)

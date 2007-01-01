@@ -20,8 +20,9 @@
     (Accidental
      . (
 	(avoid-slur . inside)
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
+	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
-	(stencils . ,ly:accidental-interface::calc-stencils)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -31,8 +32,9 @@
      . (
 	(avoid-slur . inside)
 	(parenthesized . #t)
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
+	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
-	(stencils . ,ly:accidental-interface::calc-stencils)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -49,12 +51,13 @@
 			,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,CENTER)
 	(font-size . -2)
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
+	(alteration . ,accidental-interface::calc-alteration)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(direction . ,UP)
 	(staff-padding . 0.25)
 	(outside-staff-priority . 0)
 	(script-priority . 0)
-	(stencils . ,ly:accidental-interface::calc-stencils)
 	(side-axis . ,X)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
@@ -117,8 +120,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(stencil . ,ly:accidental-interface::print)
-	(stencils . ,ly:accidental-interface::calc-stencils)
-	
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)	
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
 	(meta . ((class . Item)
@@ -795,6 +797,7 @@
     (KeyCancellation
      . (
 	(stencil . ,ly:key-signature-interface::print)
+	(glyph-name-alist . ,cancellation-glyph-name-alist)
 	(space-alist . (
 			(time-signature . (extra-space . 1.25))
 			(staff-bar . (extra-space . 0.6))
@@ -814,6 +817,7 @@
      . (
 	(stencil . ,ly:key-signature-interface::print)
 	(avoid-slur . inside)
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(space-alist . (
 			(time-signature . (extra-space . 1.15))
 			(staff-bar . (extra-space . 1.1))
@@ -1881,7 +1885,7 @@
 	(font-size . -4)
 	(side-axis . ,X)
 	(stencil . ,ly:accidental-interface::print)
-	(stencils . ,ly:accidental-interface::calc-stencils)
+	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(meta . ((class . Item)
 		 (interfaces . (item-interface
 				trill-pitch-accidental-interface

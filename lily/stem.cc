@@ -154,7 +154,7 @@ Stem::last_head (Grob *me)
 Drul_array<Grob *>
 Stem::extremal_heads (Grob *me)
 {
-  const int inf = 1000000;
+  const int inf = INT_MAX;
   Drul_array<int> extpos;
   extpos[DOWN] = inf;
   extpos[UP] = -inf;

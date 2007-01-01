@@ -2892,13 +2892,38 @@ def conv (str):
                    "AccidentalCautionary #'font-size = #-2", str)
     str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
                    "AccidentalCautionary #'parenthesized = ##t", str)
-
     str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
                    r"\1 #'parenthesized = ##t", str)
     str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
                    r"\1 #'font-size = #-2", str)
-
+    
     return str
 
-conversions.append (((2, 11, 5), conv, """ly:clone-parser -> ly:parser-clone"""))
+conversions.append (((2, 11, 5), conv, """deprecate cautionary-style. Use AccidentalCautionary properties"""))
 
+                    
+
+
+def conv (str):
+    
+    def sub_acc_name (m):
+        idx = int (m.group (1).replace ('M','-'))
+        
+        return ["accidentals.doublesharp",
+                "accidentals.sharp.slashslash.stemstemstem",
+                "accidentals.sharp",
+                "accidentals.sharp.slashslash.stem",
+                "accidentals.natural",
+                "accidentals.mirroredflat",
+                "accidentals.flat",
+                "accidentals.mirroredflat.flat",
+                "accidentals.flatflat"][4-idx]
+
+    str = re.sub (r"accidentals[.](M?[-0-9]+)",
+                  sub_acc_name, str) 
+    str = re.sub (r"(KeySignature|Accidental[A-Za-z]*)\s*#'style\s*=\s*#'([a-z]+)",
+                  r"\1 #'glyph-name-alist = #alteration-\2-glyph-name-alist", str)
+            
+    return str
+
+conversions.append (((2, 11, 6), conv, """Rename accidental glyphs, use glyph-name-alist."""))

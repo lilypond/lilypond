@@ -93,13 +93,6 @@ Separating_line_group_engraver::finalize ()
   sep_span_->set_bound (RIGHT, unsmob_grob (ccol));
   sep_span_ = 0;
 
-  for (vsize i = 0; i < last_spacings_.note_spacings_.size (); i++)
-    {
-      Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
-					 ly_symbol2scm ("right-items"),
-					 column);
-    }
-
   if (last_spacings_.staff_spacing_
       && last_spacings_.staff_spacing_->get_column () == column)
     last_spacings_.staff_spacing_->suicide ();
@@ -146,14 +139,8 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 	  Pointer_group_interface::add_grob (it, ly_symbol2scm ("left-items"),
 					     break_item_);
 
-	  if (int i = last_spacings_.note_spacings_.size ())
-	    {
-	      for (; i--;)
-		Pointer_group_interface::add_grob (last_spacings_.note_spacings_[i],
-						   ly_symbol2scm ("right-items"),
-						   break_item_);
-	    }
-	  else if (last_spacings_.staff_spacing_)
+	  if (!last_spacings_.note_spacings_.size ()
+	      && last_spacings_.staff_spacing_)
 	    {
 	      SCM ri = last_spacings_.staff_spacing_->get_object ("right-items");
 	      Grob_array *ga = unsmob_grob_array (ri);

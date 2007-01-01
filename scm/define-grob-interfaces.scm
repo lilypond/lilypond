@@ -135,7 +135,8 @@
 (ly:add-interface
  'trill-pitch-accidental-interface
  "An accidental for trill pitch"
- '(accidentals))
+ '()
+ )
 
 (ly:add-interface
  'rhythmic-grob-interface
