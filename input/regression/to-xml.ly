@@ -1,27 +1,18 @@
 \version "2.10.0"
 
-fooBar =  { << c''4 \\ g'4 >> }
+testMusic =  { << c''4 \\ g'4 >> }
 
-#(ly:set-option 'parse-protect #f)
 #(load-from-path "to-xml.scm")
 
-#(music-to-xml fooBar (current-output-port))
+#(ly:progress "\nXML:\n\n~A\n"
+  (call-with-output-string
+   (lambda (p) (music-to-xml testMusic p))))
 
 \header {
-    texidoc = "@cindex To XML"
-	texidoc = #(string-append
-      "The input representation is very generic. Therefore, it
-      should not be hard to convert it to XML or a similar format:\n\n"
-
-      "@example\n"
-	(call-with-output-string
-	       (lambda (p) (music-to-xml fooBar p))
-      )
-    "@end example" )
+  texidoc =
+  "The input representation is generic, and may be translated to XML. "
 }
 
 
-\score {
-\fooBar
-}
+\testMusic
 
