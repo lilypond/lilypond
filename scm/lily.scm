@@ -362,6 +362,7 @@ The syntax is the same as `define*-public'."
      (- (tms:utime t)
 	(ly:assoc-get 'gc-time-taken stats))
 
+     (ly:assoc-get 'total-cells-allocated  stats 0)
      ;; difficult to put memory amount stats into here.
      
      )))
@@ -373,8 +374,10 @@ The syntax is the same as `define*-public'."
     
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
-	    "time: ~a"
-	    (car diff))))
+	    "time: ~a\ncells: ~a\n"
+	    (car diff)
+	    (cadr diff)
+	    )))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
