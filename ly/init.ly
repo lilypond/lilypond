@@ -15,7 +15,8 @@
 #(define $defaultheader #f)
 #(define version-seen #f)
 #(define expect-error #f) 
-  
+#(define output-empty-score-list #f)
+
 #(use-modules (scm clip-region))
 \maininput
 %% there is a problem at the end of the input file
@@ -33,7 +34,7 @@
       (defined? 'input-file-name))
   (version-not-seen-message input-file-name))
 
-#(if (pair? toplevel-scores)
+#(if (or (pair? toplevel-scores) output-empty-score-list)
   ((if (defined? 'default-toplevel-book-handler)
     default-toplevel-book-handler
     toplevel-book-handler)

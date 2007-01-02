@@ -28,11 +28,14 @@
 stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
   (define left
-    (apply min
-	   (map (lambda (stc)
-		  (interval-start (ly:stencil-extent stc X)))
-		stencils)))
+    (if (pair? stencils)
 
+	(apply min
+	       (map (lambda (stc)
+		      (interval-start (ly:stencil-extent stc X)))
+		    stencils))
+	0.0))
+    
   (map (lambda (stil)
 	 
 	 (ly:make-stencil
