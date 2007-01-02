@@ -435,21 +435,50 @@ class SignatureFileLink (FileLink):
 
         self.add_system_link (link, system_index[0])
 
+    
+    def create_images (self, old_dir, new_dir, dest_dir):
+
+        files_created = [[], []]
+        for oldnew in (0, 1):
+            pat = self.base_names[oldnew] + '.eps'
+
+            for f in glob.glob (pat):
+                infile = f
+                outfile = (dest_dir + '/' + f).replace ('.eps', '.png')
+
+                mkdir (os.path.split (outfile)[0])
+                cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '
+                       ' -r101 '
+                       ' -sOutputFile=%(outfile)s -dNOSAFER -dEPSCrop -q -dNOPAUSE '
+                       ' %(infile)s  -c quit '  % locals ())
+
+                files_created[oldnew].append (outfile)
+                system (cmd)
+
+        return files_created
+    
     def link_files_for_html (self, old_dir, new_dir, dest_dir):
-        png_linked = [[], []]
-        for ext in ('.png', '.ly', '-page*png'):
-            
+        to_compare = [[], []]
+
+        exts = ['.ly']
+        if options.create_images:
+            to_compare = self.create_images (old_dir, new_dir, dest_dir)
+        else:
+            exts += ['.png', '-page*png']
+        
+        for ext in exts:            
             for oldnew in (0,1):
                 for f in glob.glob (self.base_names[oldnew] + ext):
                     dst = dest_dir + '/' + f
                     link_file (f, dst)
 
                     if f.endswith ('.png'):
-                        png_linked[oldnew].append (f)
+                        to_compare[oldnew].append (f)
                         
         if options.compare_images:                
-            for (old,new) in zip (png_linked[0], png_linked[1]):
+            for (old, new) in zip (to_compare[0], to_compare[1]):
                 compare_png_images (old, new, dest_dir)
+
                 
     def html_record_string (self,  old_dir, new_dir):
         def img_cell (ly, img, name):
@@ -467,7 +496,6 @@ class SignatureFileLink (FileLink):
 </font>
 </td>
 ''' % locals ()
-
         def multi_img_cell (ly, imgs, name):
             if not name:
                 name = 'source'
@@ -800,14 +828,15 @@ def test_paired_files ():
 def test_compare_trees ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-*.signature,.ly,.png} dir1')
-    system ('cp 20{-*.signature,.ly,.png} dir2')
-    system ('cp 20expr{-*.signature,.ly,.png} dir1')
-    system ('cp 19{-*.signature,.ly,.png} dir2/')
-    system ('cp 19{-*.signature,.ly,.png} dir1/')
+    system ('cp 20{-*.signature,.ly,.png,.eps} dir1')
+    system ('cp 20{-*.signature,.ly,.png,.eps} dir2')
+    system ('cp 20expr{-*.signature,.ly,.png,.eps} dir1')
+    system ('cp 19{-*.signature,.ly,.png,.eps} dir2/')
+    system ('cp 19{-*.signature,.ly,.png,.eps} dir1/')
     system ('cp 19-1.signature 19-sub-1.signature')
     system ('cp 19.ly 19-sub.ly')
     system ('cp 19.png 19-sub.png')
+    system ('cp 19.eps 19-sub.eps')
 
     system ('cp 20multipage* dir1')
     system ('cp 20multipage* dir2')
@@ -815,10 +844,10 @@ def test_compare_trees ():
 
     
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png} dir1/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png} dir2/subdir/')
-    system ('cp 20grob{-*.signature,.ly,.png} dir2/')
-    system ('cp 20grob{-*.signature,.ly,.png} dir1/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps} dir1/subdir/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps} dir2/subdir/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps} dir2/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps} dir1/')
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
@@ -995,6 +1024,12 @@ def main ():
                   default=True,
                   action="store_false",
                   help="Don't run graphical comparisons")
+
+    p.add_option ('--create-images',
+                  dest="create_images",
+                  default=False,
+                  action="store_true",
+                  help="Create PNGs from EPSes")
 
     p.add_option ('-o', '--output-dir',
                   dest="output_dir",

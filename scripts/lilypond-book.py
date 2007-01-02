@@ -1454,10 +1454,12 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
                             be_verbose=global_options.verbose, 
                             progress_p=1)
 
-    if global_options.format in (HTML, TEXINFO):
+    if global_options.format in (HTML, TEXINFO) and '--formats' not in cmd:
         cmd += ' --formats=png '
-    if global_options.format in (DOCBOOK):
+    elif global_options.format in (DOCBOOK) and '--formats' not in cmd:
         cmd += ' --formats=png,pdf '
+
+        
     # UGH
     # the --process=CMD switch is a bad idea
     # it is too generic for lilypond-book.
