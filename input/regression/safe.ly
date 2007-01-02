@@ -2,7 +2,9 @@
 
 "expect-error" = ##t
 
-#(ly:lexer-set-safe! (ly:parser-lexer parser))
+% Ugh - this affects other files too.
+#(ly:set-option 'protected-scheme-parsing #t)
+#(ly:set-option 'safe #t)
 
 "force-finish" = ##t  
 

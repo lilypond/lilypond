@@ -566,7 +566,6 @@ parse_argv (int argc, char **argv)
 	  be_verbose_global = true;
 	  break;
 	case 's':
-	  be_safe_global = true;
 	  init_scheme_variables
 	    += "(cons \'safe #t)\n";
 

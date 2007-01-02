@@ -580,30 +580,38 @@ The syntax is the same as `define*-public'."
   
   (let* ((failed '())
 	 (separate-logs (ly:get-option 'separate-log-files))
-	 (start-measurements (ly:get-option 'dump-profile))
+	 (do-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
     (for-each
      (lambda (x)
+       (let*
+	   ((start-measurements (if do-measurements
+				    (begin
+				      (gc)
+				      (profile-measurements))
+				    #f))
+	    (base (basename x ".ly"))
+	    (all-settings (ly:all-options)))
 
-       (gc)
-       (if start-measurements
-	   (set! start-measurements (profile-measurements)))
-
-       (if separate-logs
-	   (ly:stderr-redirect (format "~a.log" (basename x ".ly")) "w"))
+	 (if separate-logs
+	     (ly:stderr-redirect (format "~a.log" base) "w"))
        
-       (lilypond-file handler x)
-       (if start-measurements
-	   (dump-profile x start-measurements (profile-measurements)))
+	 (lilypond-file handler x)
+	 (if start-measurements
+	     (dump-profile x start-measurements (profile-measurements)))
        
-       
-       (ly:clear-anonymous-modules)
-       (if (ly:get-option 'debug-gc)
-	   (dump-gc-protects)
-	   (if (= (random 40) 1)
-	       (ly:reset-all-fonts))))
+	 (for-each
+	  (lambda (s)
+	    (ly:set-option (car s) (cdr s)))
+	  all-settings)
+	 
+	 (ly:clear-anonymous-modules)
+	 (if (ly:get-option 'debug-gc)
+	     (dump-gc-protects)
+	     (if (= (random 40) 1)
+		 (ly:reset-all-fonts)))))
 
      files)
 

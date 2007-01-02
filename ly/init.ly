@@ -15,7 +15,7 @@
 #(define $defaultheader #f)
 #(define version-seen #f)
 #(define expect-error #f) 
-
+  
 #(use-modules (scm clip-region))
 \maininput
 %% there is a problem at the end of the input file

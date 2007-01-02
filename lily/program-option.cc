@@ -73,6 +73,11 @@ void internal_set_option (SCM var, SCM val)
       parsed_objects_should_be_dead = to_boolean (val);
       val = scm_from_bool (parsed_objects_should_be_dead);
     }
+  else if (var == ly_symbol2scm ("safe"))
+    {
+      be_safe_global = to_boolean (val);
+      val = scm_from_bool (be_safe_global);
+    }
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = to_boolean (val);
@@ -216,6 +221,13 @@ LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
 
 
 
+LY_DEFINE (ly_all_option, "ly:all-options",
+	   0, 0, 0, (),
+	   "Get all option settings in an alist.")
+{
+  return ly_hash2alist (option_hash);
+}
+
 
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Get a global option setting.")
@@ -224,6 +236,7 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 		   SCM_ARG1, __FUNCTION__, "symbol");
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }
+
 
 
 bool
