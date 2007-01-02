@@ -568,7 +568,7 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
-	 (start-measurements (ly:get-option 'profile-measurements))
+	 (start-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
@@ -579,7 +579,7 @@ The syntax is the same as `define*-public'."
        (if start-measurements
 	   (set! start-measurements (profile-measurements)))
        (lilypond-file handler x)
-       (if (ly:get-option 'dump-profile)
+       (if start-measurements
 	   (dump-profile x start-measurements (profile-measurements)))
        
        
