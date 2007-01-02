@@ -785,7 +785,15 @@ to a score, for example,
 
 The tempo is specified using the @code{\tempo} command.  In this
 example the tempo of quarter notes is set to 72 beats per minute.
+The tempo
+specification can not take dotted note lengths as an argument. In this
+case, break the dotted notes into smaller units. For example, a tempo
+of 90 dotted quarter notes per minute can be specified as 270 eighth
+notes per minute
 
+@example
+tempoWholesPerMinute = #(ly:make-moment 270 8)
+@end example
 
 If there is a @code{\midi} command in a @code{\score}, only MIDI will
 be produced.  When notation is needed too, a @code{\layout} block must
