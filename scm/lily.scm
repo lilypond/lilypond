@@ -359,8 +359,7 @@ The syntax is the same as `define*-public'."
 	 (stats (gc-stats)))
 
     (list
-     (- (+ (tms:utime t)
-	   (tms:stime t))
+     (- (tms:utime t)
 	(ly:assoc-get 'gc-time-taken stats))
 
      ;; difficult to put memory amount stats into here.
