@@ -8,6 +8,9 @@ run through noteheads or stems.
 "
 }
 
+\layout{
+  line-width = 120.\mm
+}
 
 \relative c''{
   \time 3/4
@@ -19,8 +22,3 @@ run through noteheads or stems.
   \stemNeutral c ( \stemUp c \stemNeutral  c) c ( a  c) c( d,  c') c( f,  c')
   \stemDown c( f,  c')
 }
-\layout{
-  line-width = 120.\mm
-}
-
-

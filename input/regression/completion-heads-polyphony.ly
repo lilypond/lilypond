@@ -8,11 +8,6 @@ Completion heads are not fooled by polyphony with a different rhythm.
 
 }
 
-\context Staff  \relative c'' << 
-  { c2. c bes2 } \\
-  { c2. a8 g4 f4. g4 f  }
->>
-
 \layout {
   \context{
     \Voice
@@ -20,3 +15,8 @@ Completion heads are not fooled by polyphony with a different rhythm.
     \consists "Completion_heads_engraver"
   }
 }
+
+\context Staff \relative c'' << 
+  { c2. c bes2 } \\
+  { c2. a8 g4 f4. g4 f  }
+>>
