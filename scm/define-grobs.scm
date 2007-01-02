@@ -23,6 +23,7 @@
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
+	(pure-Y-extent . ,ly:accidental-interface::pure-height)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -35,6 +36,7 @@
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
+	(pure-Y-extent . ,ly:accidental-interface::pure-height)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -120,6 +122,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(stencil . ,ly:accidental-interface::print)
+	(pure-Y-extent . ,ly:accidental-interface::pure-height)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)	
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)

@@ -11,6 +11,7 @@
 #include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "pitch.hh"
 #include "stencil.hh"
 
@@ -47,6 +48,21 @@ Accidental_interface::after_line_breaking (SCM smob)
     }
  
   return SCM_UNSPECIFIED;
+}
+
+MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
+SCM
+Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
+{
+  Item *me = dynamic_cast<Item*> (unsmob_grob (smob));
+  int start = scm_to_int (start_scm);
+  int rank = me->get_column ()->get_rank ();
+
+  bool visible = to_boolean (me->get_property ("forced"))
+    || !unsmob_grob (me->get_object ("tie"))
+    || rank != start + 1; /* we are in the middle of a line */
+
+  return visible ? Grob::stencil_height (smob) : ly_interval2scm (Interval ());
 }
 
 vector<Box>

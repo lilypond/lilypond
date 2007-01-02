@@ -420,11 +420,21 @@ Grob::extent (Grob *refp, Axis a) const
 Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
-  SCM proc = get_property_data ( ly_symbol2scm ("Y-extent"));
-  Interval iv = robust_scm2interval (call_pure_function (proc,
-							 scm_list_1 (self_scm ()),
-							 start, end),
-				     Interval (0, 0));
+  SCM proc = get_property_data (ly_symbol2scm ("Y-extent"));
+  SCM pure_proc = get_property_data (ly_symbol2scm ("pure-Y-extent"));
+  SCM iv_scm;
+
+  if (ly_is_procedure (pure_proc))
+    iv_scm = scm_apply_3 (pure_proc,
+			  self_scm (),
+			  scm_from_int (start),
+			  scm_from_int (end), SCM_EOL);
+  else
+    iv_scm = call_pure_function (proc,
+				 scm_list_1 (self_scm ()),
+				 start, end);
+  
+  Interval iv = robust_scm2interval (iv_scm, Interval (0, 0));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
@@ -626,6 +636,7 @@ ADD_INTERFACE (Grob,
 	       "outside-staff-horizontal-padding "
 	       "outside-staff-padding "
 	       "outside-staff-priority "
+	       "pure-Y-extent "
 	       "rotation "
 	       "springs-and-rods "
 	       "staff-symbol "
