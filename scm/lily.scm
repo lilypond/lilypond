@@ -357,7 +357,7 @@ The syntax is the same as `define*-public'."
 (define (profile-measurements)
   (let* ((t (times))
 	 (stats (gc-stats)))
-
+    
     (list
      (- (+ (tms:utime t)
 	   (tms:stime t))
@@ -569,7 +569,7 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
-	 (start-measurements #f)
+	 (start-measurements (ly:get-option 'profile-measurements))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
@@ -577,7 +577,8 @@ The syntax is the same as `define*-public'."
      (lambda (x)
 
        (gc)
-       (set! start-measurements (profile-measurements))
+       (if start-measurements
+	   (set! start-measurements (profile-measurements)))
        (lilypond-file handler x)
        (if (ly:get-option 'dump-profile)
 	   (dump-profile x start-measurements (profile-measurements)))
