@@ -157,6 +157,22 @@ make out=www web-install
 @end example
 @end quotation
 
+@section Testing LilyPond
+
+LilyPond comes with an extensive suite that excercises the entire
+program. This suite can be used to automatically check the impact of a
+change. This is done as follows
+
+@example
+  make ok-test
+  @emph{apply your changes, compile}
+  make test-clean
+  make check
+@end example
+
+This will leave an HTML page @file{out/test-results/index.html}.  This
+page shows all the important differences that your change introduced,
+whether in the layout, the MIDI output, or error reporting.
 
 @section Building LilyPond
 

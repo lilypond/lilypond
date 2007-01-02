@@ -49,51 +49,19 @@
 (define-public (moment-min a b)
   (if (ly:moment<? a b) a b))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
 (define-public (average x . lst)
   (/ (+ x (apply + lst)) (1+ (length lst))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; lily specific variables.
-
-(define-public default-script-alist '())
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
 
-;; parser stuff.
-(define-public (print-music-as-book parser music)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head (scorify-music music parser))))
-    (print-book-with-defaults parser book)))
-
-(define-public (print-score-as-book parser score)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head score)))
-    (print-book-with-defaults parser book)))
-
-(define-public (print-score parser score)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head score)))
-    (ly:parser-print-score parser book)))
 		
 (define-public (collect-scores-for-book parser score)
   (ly:parser-define!
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
-
-(define-public (scorify-music music parser)
-  (for-each (lambda (func)
-	      (set! music (func music parser)))
-	    toplevel-music-functions)
-
-  (ly:make-score music))
 
 (define-public (collect-music-for-book parser music)
   ;; discard music if its 'void property is true.
@@ -101,6 +69,14 @@
     (if (or (null? void-music) (not void-music))
         (collect-scores-for-book parser (scorify-music music parser)))))
 
+(define-public (scorify-music music parser)
+  "Preprocess MUSIC."
+  
+  (for-each (lambda (func)
+	      (set! music (func music parser)))
+	    toplevel-music-functions)
+
+  (ly:make-score music))
 
 (define (print-book-with parser book process-procedure)
   (let*
@@ -608,14 +584,16 @@ possibly turned off."
 
 (define-public (version-not-seen-message input-file-name)
   (ly:message
-   (string-append
-    input-file-name ": 0: " (_ "warning: ")
-   (format #f
-	   (_ "no \\version statement found, please add~afor future compatibility")
-	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))))
+   "~a:0: ~a: ~a" 
+    input-file-name
+    (_ "warning: ")
+    (format #f
+	    (_ "no \\version statement found, please add~afor future compatibility")
+	    (format #f "\n\n\\version ~s\n\n" (lilypond-version)))))
 
 (define-public (old-relative-not-used-message input-file-name)
   (ly:message
-   (string-append
-    input-file-name ": 0: " (_ "warning: ")
-    (_ "old relative compatibility not used"))))
+   "~a:0: ~a: ~a" 
+    input-file-name
+    (_ "warning: ")
+    (_ "old relative compatibility not used")))

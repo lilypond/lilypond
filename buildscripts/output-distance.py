@@ -313,12 +313,21 @@ def compare_png_images (old, new, dir):
     system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
+    def __init__ (self):
+        self._distance = None
+
     def text_record_string (self):
         return '%-30f %-20s\n' % (self.distance (),
                                   self.name ())
-    def distance (self):
+    def calc_distance (self):
         return 0.0
 
+    def distance (self):
+        if self._distance == None:
+           self._distance = self.calc_distance ()
+
+        return self._distance
+    
     def name (self):
         return ''
     
@@ -331,32 +340,27 @@ class FileLink:
     def html_record_string (self,  old_dir, new_dir):
         return ''
 
-class MidiFileLink (FileLink):
-    def get_midi (self, f):
-        s = open (f).read ()
-        s = re.sub ('LilyPond [0-9.]+', '', s)
-        return s
-    
+class FileCompareLink (FileLink):
     def __init__ (self, f1, f2):
+        FileLink.__init__ (self)
         self.files = (f1, f2)
-
-        s1 = self.get_midi (self.files[0])
-        s2 = self.get_midi (self.files[1])
-        
-        self.same = (s1 == s2)
+        self.contents = (self.get_content (self.files[0]),
+                         self.get_content (self.files[1]))
         
     def name (self):
-        name = os.path.split (self.files[0])[1]
-        name = re.sub ('.midi', '', name)
+        name = os.path.basename (self.files[0])
+        name = os.path.splitext (name)[0]
         return name
         
-    def distance (self):
+    def calc_distance (self):
         ## todo: could use import MIDI to pinpoint
         ## what & where changed.
-        if self.same:
-            return 0
+
+        if self.contents[0] == self.contents[1]:
+            return 0.0
         else:
-            return 100;
+            return 100.0;
+        
     def html_record_string (self, d1, d2):
         return '''<tr>
 <td>
@@ -366,12 +370,52 @@ class MidiFileLink (FileLink):
 <td><tt>%s</tt></td>
 </tr>''' % ((self.distance(),) + self.files)
 
+    def get_content (self, f):
+        s = open (f).read ()
+        return s
+
+class TextFileCompareLink (FileCompareLink):
+    def calc_distance (self):
+        import difflib
+        diff = difflib.unified_diff (self.contents[0].split ('\n'),
+                                     self.contents[1].split ('\n'),
+                                     fromfiledate = self.files[0],
+                                     tofiledate = self.files[1]
+                                     )
+
+        self.diff_lines =  [l for l in diff]
+        return float (len (self.diff_lines))
+        
+    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
+        f = os.path.join (new_dir, self.name ()) + '.diff.txt'
+        f = os.path.join (dest_dir, f)
+        open_write_file (f).write (str)
+     
+    def html_record_string (self, d1, d2):
+        return '''<tr>
+<td>
+%f
+</td>
+<td><tt>%s</tt></td>
+<td><a href="%s.diff.txt"><tt>%s</tt></a></td>
+</tr>''' % (self.distance(),
+            self.files[0],
+            os.path.join (d2, self.name ()),
+            self.files[1])
+
+class MidiFileLink (FileCompareLink):
+    def get_content (self, f):
+        s = open (f).read ()
+        s = re.sub ('LilyPond [0-9.]+', '', s)
+        return s
+
 class SignatureFileLink (FileLink):
     def __init__ (self):
+        FileLink.__init__ (self)
         self.original_name = ''
         self.base_names = ('','')
         self.system_links = {}
-        self._distance = None
     def name (self):
         return self.original_name
     
@@ -387,12 +431,6 @@ class SignatureFileLink (FileLink):
             orphan_distance += l.orphan_count ()
             
         return d + orphan_distance
-
-    def distance (self):
-        if type (self._distance) != type (0.0):
-            return self.calc_distance ()
-        
-        return self._distance
 
     def source_file (self):
         for ext in ('.ly', '.ly.txt'):
@@ -609,8 +647,6 @@ class SignatureFileLink (FileLink):
 import glob
 import re
 
-
-
 def compare_signature_files (f1, f2):
     s1 = read_signature_file (f1)
     s2 = read_signature_file (f2)
@@ -661,7 +697,7 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
-        for ext in ['signature', 'midi']:
+        for ext in ['signature', 'midi', 'log']:
             (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
             self.missing += [(dir1, m) for m in m1] 
@@ -682,6 +718,21 @@ class ComparisonData:
             self.compare_signature_files (f1, f2)
         elif f1.endswith ('midi'):
             self.compare_midi_files (f1, f2)
+        elif f1.endswith ('log'):
+            self.compare_ascii_files (f1, f2)
+
+    def compare_general_files (self, f1, f2):
+        name = os.path.split (f1)[1]
+
+        file_link = FileCompareLink (f1, f2)
+        self.file_links[name] = file_link
+
+    def compare_ascii_files (self, f1, f2):
+        name = os.path.split (f1)[1]
+
+        file_link = TextFileCompareLink (f1, f2)
+        self.file_links[name] = file_link
+        
             
     def compare_midi_files (self, f1, f2):
         name = os.path.split (f1)[1]
@@ -828,13 +879,14 @@ def test_paired_files ():
 def test_compare_trees ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-*.signature,.ly,.png,.eps} dir1')
-    system ('cp 20{-*.signature,.ly,.png,.eps} dir2')
-    system ('cp 20expr{-*.signature,.ly,.png,.eps} dir1')
-    system ('cp 19{-*.signature,.ly,.png,.eps} dir2/')
-    system ('cp 19{-*.signature,.ly,.png,.eps} dir1/')
+    system ('cp 20{-*.signature,.ly,.png,.eps,.log} dir1')
+    system ('cp 20{-*.signature,.ly,.png,.eps,.log} dir2')
+    system ('cp 20expr{-*.signature,.ly,.png,.eps,.log} dir1')
+    system ('cp 19{-*.signature,.ly,.png,.eps,.log} dir2/')
+    system ('cp 19{-*.signature,.ly,.png,.eps,.log} dir1/')
     system ('cp 19-1.signature 19-sub-1.signature')
     system ('cp 19.ly 19-sub.ly')
+    system ('cp 19.log 19-sub.log')
     system ('cp 19.png 19-sub.png')
     system ('cp 19.eps 19-sub.eps')
 
@@ -844,10 +896,10 @@ def test_compare_trees ():
 
     
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps} dir1/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps} dir2/subdir/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps} dir2/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps} dir1/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log} dir1/subdir/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log} dir2/subdir/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log} dir2/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log} dir1/')
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
@@ -861,6 +913,8 @@ def test_compare_trees ():
     system ('cp 19-1.signature dir2/20grob-2.signature')
     system ('cp 19multipage.midi dir1/midi-differ.midi')
     system ('cp 20multipage.midi dir2/midi-differ.midi')
+    system ('cp 19multipage.log dir1/log-differ.log')
+    system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
     compare_trees ('dir1', 'dir2', 'compare-dir1dir2', 0.5)
 
@@ -869,12 +923,10 @@ def test_basic_compare ():
     ly_template = r"""
 
 \version "2.10.0"
-#(set! toplevel-score-handler print-score-with-defaults)
- #(set! toplevel-music-handler
-  (lambda (p m)
-  (if (not (eq? (ly:music-property m 'void) #t))
-     (print-score-with-defaults
-     p (scorify-music m p)))))
+#(define default-toplevel-book-handler
+  print-book-with-defaults-as-systems )
+
+#(ly:set-option (quote no-point-and-click))
 
 \sourcefilename "my-source.ly"
  
@@ -917,7 +969,7 @@ def test_basic_compare ():
         
     names = [d['name'] for d in dicts]
     
-    system ('lilypond -ddump-signatures --png -b eps ' + ' '.join (names))
+    system ('lilypond -dseparate-log-files -ddump-signatures --png -b eps ' + ' '.join (names))
     
 
     multipage_str = r'''
@@ -931,7 +983,7 @@ def test_basic_compare ():
 
     open ('20multipage', 'w').write (multipage_str.replace ('c1', 'd1'))
     open ('19multipage', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
-    system ('lilypond -ddump-signatures --png 19multipage 20multipage ')
+    system ('lilypond -dseparate-log-files -ddump-signatures --png 19multipage 20multipage ')
  
     test_compare_signatures (names)
     

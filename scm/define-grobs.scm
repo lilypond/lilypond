@@ -1373,7 +1373,6 @@
 
 	;; padding set in script definitions.
 	(staff-padding . 0.25)
-	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)

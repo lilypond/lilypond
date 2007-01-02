@@ -69,8 +69,8 @@ on errors, and print a stack trace.")
 	      (read-file-list #f "Read files to be processed from command line arguments")
 
 	      (safe #f "Run safely")
-	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
-
+	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
+	      (separate-log-files #f "Output to FILE.log per file.")
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
 
@@ -579,6 +579,7 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
+	 (separate-logs (ly:get-option 'separate-log-files))
 	 (start-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
@@ -589,6 +590,10 @@ The syntax is the same as `define*-public'."
        (gc)
        (if start-measurements
 	   (set! start-measurements (profile-measurements)))
+
+       (if separate-logs
+	   (ly:stderr-redirect (format "~a.log" (basename x ".ly")) "w"))
+       
        (lilypond-file handler x)
        (if start-measurements
 	   (dump-profile x start-measurements (profile-measurements)))
@@ -601,6 +606,15 @@ The syntax is the same as `define*-public'."
 	       (ly:reset-all-fonts))))
 
      files)
+
+    ;; we want the failed-files notice in the aggregrate logfile.
+    (if (ly:get-option 'separate-logs)
+	(ly:stderr-redirect
+	 (if (string-or-symbol? (ly:get-option 'log-file))
+	     (format "~a.log" (ly:get-option 'log-file))
+	     "/dev/tty") "a"))
+	 
+
     failed))
 
 (define (lilypond-file handler file-name)
