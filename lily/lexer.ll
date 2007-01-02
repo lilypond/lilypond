@@ -271,7 +271,7 @@ BOM_UTF8	\357\273\277
 	}
 	<<EOF>> 	{
 		LexerError (_ ("EOF found inside a comment").c_str ());
-		is_main_input_ = false;
+		is_main_input_ = false; // should be safe , can't have \include in --safe.
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
@@ -334,7 +334,7 @@ BOM_UTF8	\357\273\277
 	Input hi = here_input();
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_global && is_main_input_);
+		be_safe_ && is_main_input_);
 
 	if (sval == SCM_UNDEFINED)
 	{

@@ -42,6 +42,7 @@ public:
   void *lexval;
   Input *lexloc;
   bool is_main_input_;
+  bool be_safe_;
   
   Sources *sources_;
 

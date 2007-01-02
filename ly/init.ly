@@ -4,11 +4,6 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-#(define-public midi-debug  #f)
-
-
-
-
 \version "2.10.0"
 
 \include "declarations-init.ly"

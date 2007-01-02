@@ -57,6 +57,8 @@ public:
   void parser_error (string);
   void parser_error (Input const &, string);
   void set_yydebug (bool);
+
+  SCM make_scope () const; 
 };
 
 DECLARE_UNSMOB (Lily_parser, lily_parser);
