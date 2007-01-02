@@ -112,6 +112,20 @@ pitchnames = \makamPitchNames
   ragged-right = ##t
 }
 
+
+makamGlyphs = #'((1 . "accidentals.doublesharp")
+       (8/9 . "accidentals.sharp.slashslashslash.stemstem")
+       (5/9 . "accidentals.sharp.slashslashslash.stem")
+       (4/9 . "accidentals.sharp")
+       (1/9 . "accidentals.sharp.slashslash.stem")
+       (0 . "accidentals.natural")
+       (-1/9 . "accidentals.mirroredflat")
+       (-4/9 . "accidentals.flat.slash")
+       (-5/9 . "accidentals.flat")
+       (-8/9 . "accidentals.flat.slashslash")
+       (-1 . "accidentals.flatflat")
+       )
+
 \relative {
 
   %{ define alteration <-> symbol mapping. The following glyphs are available.
@@ -133,21 +147,12 @@ pitchnames = \makamPitchNames
 
   %}
 
+  \override Accidental #'glyph-name-alist =  \makamGlyphs
   
-  \override Accidental #'glyph-name-alist = #'((1 . "accidentals.doublesharp")
-       (8/9 . "accidentals.sharp.slashslashslash.stemstem")
-       (5/9 . "accidentals.sharp.slashslashslash.stem")
-       (4/9 . "accidentals.sharp")
-       (1/9 . "accidentals.sharp.slashslash.stem")
-       (0 . "accidentals.natural")
-       (-1/9 . "accidentals.mirroredflat")
-       (-4/9 . "accidentals.flat.slash")
-       (-5/9 . "accidentals.flat")
-       (-8/9 . "accidentals.flat.slashslash")
-       (-1 . "accidentals.flatflat")
-       )
-
-  
+  \override Staff.KeySignature #'glyph-name-alist = \makamGlyphs
+  \set Staff.keySignature =  #'(
+    (3 .  4/9)
+    (6 . -1/9))
   
   c cc db fk gbm gfc gfb efk dfbm
 }
