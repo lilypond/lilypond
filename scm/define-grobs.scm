@@ -322,7 +322,8 @@
 	(beaming . ,ly:beam::calc-beaming)
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
-	
+
+	(details .  ((hint-direction-penalty . 20)))
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
 	(neutral-direction . ,DOWN)
