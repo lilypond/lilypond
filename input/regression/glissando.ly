@@ -12,6 +12,11 @@ The engraver does no time-keeping, so it involves some trickery to get
 }
 
 
+\layout{
+  line-width = 50.\mm
+  indent = 0
+}
+
 \new Staff \relative c''{
 				% gliss non gliss and 
   c4 \glissando d e \glissando f \glissando \break
@@ -21,11 +26,6 @@ The engraver does no time-keeping, so it involves some trickery to get
      \context Voice = VB {\stemDown \repeat unfold 4 d16 } >>
   \override Glissando  #'style = #'zigzag
   c4 \glissando c,, \glissando c' \glissando d
-}
-
-\layout{
-  line-width = 50.\mm
-  indent = 0
 }
 
 

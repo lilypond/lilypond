@@ -6,6 +6,9 @@
 The boolean property @code{no-spacing-rods} in @code{TextScript} is used
 to control the horizontal size of text.  " }
 
+\layout {
+  line-width = 3.0\cm
+}
 
 \relative c''{
   %% \emptyText
@@ -14,9 +17,6 @@ to control the horizontal size of text.  " }
   %% short for \override TextScript  #'no-spacing-rods = ##f
   \fatText
   c_"very wide and long text" c
-}
-\layout {
-  line-width = 3.0\cm
 }
 
 
