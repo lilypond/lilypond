@@ -120,6 +120,7 @@
   (let* ((completed (completize-formats formats))
 	 (base (string-regexp-substitute "\\.[a-z]+$" "" filename))
 	 (intermediate (remove (lambda (x) (member x formats)) completed)))
+    
     (for-each (lambda (f)
 		((eval (string->symbol (format "convert-to-~a" f))
 		       module) paper-book filename)) completed)

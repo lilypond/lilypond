@@ -5,6 +5,14 @@
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+;; Internationalisation: (_i "to be translated") gets an entry in the
+;; POT file (gettext ) must be invoked explicitely to do the actual
+;; "translation".
+;;(define-macro (_i x) x)
+;;(define-macro-public _i (x) x)
+;;(define-public-macro _i (x) x)
+;; Abbrv-PWR!
+(defmacro-public _i (x) x)
 
 (define (define-scheme-options)
   (for-each (lambda (x)
@@ -359,8 +367,7 @@ The syntax is the same as `define*-public'."
 	 (stats (gc-stats)))
 
     (list
-     (- (+ (tms:utime t)
-	   (tms:stime t))
+     (- (tms:utime t)
 	(ly:assoc-get 'gc-time-taken stats))
 
      ;; difficult to put memory amount stats into here.

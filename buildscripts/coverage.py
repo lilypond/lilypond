@@ -27,6 +27,12 @@ for f in glob.glob ('*.gcov-summary'):
 
 results.sort ()
 results.reverse()
+
+print 'files sorted by number of untested lines (decreasing)'
+print
+print '%5s (%6s): %s' % ('cov %', 'lines', 'file')
+print '----------------------------------------------'
+
 for (pain, d) in results:
     print '%(cov)5.2f (%(lines)6d): %(file)s' % d
 

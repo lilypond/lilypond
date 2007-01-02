@@ -15,7 +15,7 @@ fragment = \relative c' {
 
 <<
   \new Staff \fragment
-  \new Staff \applyMusic #notes-to-clusters \fragment
+  \new Staff \makeClusters \fragment
 >>
 
 
