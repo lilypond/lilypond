@@ -271,3 +271,16 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
 
   return parser;
 }
+
+LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
+	   1, 0, 0, (SCM parser),
+	   "Clear the error flag for the parser.")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  p->error_level_ = 0;
+  p->lexer_->error_level_ = 0;
+  
+  return SCM_UNSPECIFIED;
+}

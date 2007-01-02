@@ -19,7 +19,7 @@
 #(define output-count 0) 
 #(define $defaultheader #f)
 #(define version-seen #f)
-
+#(define expect-error #f) 
 
 #(use-modules (scm clip-region))
 \maininput
@@ -44,3 +44,7 @@
     toplevel-book-handler)
    parser
    (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))
+
+
+#(if expect-error
+  (ly:parser-clear-error parser))
