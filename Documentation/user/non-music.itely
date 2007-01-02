@@ -783,9 +783,12 @@ to a score, for example,
 @}
 @end example
 
-The tempo is specified using the @code{\tempo} command.  In this
-example the tempo of quarter notes is set to 72 beats per minute.
-The tempo
+The tempo can be specified using the @code{\tempo} command within the 
+actual music, see @ref{Metronome marks}.  An alternative, which does not
+result in a metronome mark in the printed score, is shown in the example
+above. In this example the tempo of quarter notes is set to 72 beats per
+minute. 
+This kind of tempo
 specification can not take dotted note lengths as an argument. In this
 case, break the dotted notes into smaller units. For example, a tempo
 of 90 dotted quarter notes per minute can be specified as 270 eighth
