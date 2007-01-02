@@ -231,12 +231,27 @@ Lily_lexer::start_main_input ()
   
   new_input (main_input_name_, sources_);
 
-  /* Do not allow \include in --safe-mode */
-  allow_includes_ = allow_includes_ && !be_safe_global;
-
   scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
 		     scm_makfrom0str (main_input_name_.c_str ()));
+}
+
+void
+Lily_lexer::new_input (string str, string d, Sources *ss)
+{
+  Includable_lexer::new_input (str, d, ss);
+}
+
+void
+Lily_lexer::new_input (string str, Sources *ss)
+{
+  if (is_main_input_ && be_safe_global)
+    {
+      LexerError (_ ("include files are not allowed in safe mode").c_str ());
+      return;
+    }
+
+  Includable_lexer::new_input (str, ss);
 }
 
 void

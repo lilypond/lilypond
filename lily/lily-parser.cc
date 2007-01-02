@@ -254,5 +254,5 @@ get_header (Lily_parser *parser)
 SCM 
 Lily_parser::make_scope () const
 {
-  return ly_make_anonymous_module (lexer_->be_safe_);
+  return ly_make_anonymous_module (be_safe_global);
 }

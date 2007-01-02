@@ -334,7 +334,7 @@ BOM_UTF8	\357\273\277
 	Input hi = here_input();
 	hi.step_forward ();
 	SCM sval = ly_parse_scm (hi.start (), &n, hi,
-		be_safe_ && is_main_input_);
+		be_safe_global && is_main_input_);
 
 	if (sval == SCM_UNDEFINED)
 	{
