@@ -232,6 +232,7 @@ contained staves are not connected vertically."
   \consists "Script_engraver"
   \consists "Script_column_engraver"
   \consists "Rhythmic_column_engraver"
+  \consists "Note_spacing_engraver"
   \consists "Phrasing_slur_engraver"
   \consists "Cluster_spanner_engraver"
   \consists "Slur_engraver"
@@ -413,7 +414,7 @@ printing of a single line of lyrics.  "
   \consists "Chord_name_engraver"
   \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
-  
+%  \consists "Note_spacing_engraver"
   voltaOnThisStaff = ##f
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2.5)
   \override SeparatingGroupSpanner #'padding = #0.8

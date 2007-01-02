@@ -302,11 +302,15 @@ ADD_INTERFACE (Tie,
 	       "dash-period "
 	       "details "
 	       "direction "
+	       "separation-item "
+	       "head-direction "
 	       "line-thickness " 
 	       "quant-score "
 	       "staff-position "
 	       "thickness "
+
 	       );
+
 
 
 

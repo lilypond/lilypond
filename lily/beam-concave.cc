@@ -96,13 +96,13 @@ Beam::calc_concaveness (SCM smob)
   Direction beam_dir = CENTER;
   for (vsize i = stems.size (); i--;)
     {
-      if (Stem::is_invisible (stems[i]))
-	stems.erase (stems.begin () + i);
-      else
+      if (Stem::is_normal_stem (stems[i]))
 	{
 	  if (Direction dir = get_grob_direction (stems[i]))
 	    beam_dir = dir;
 	}
+      else
+	stems.erase (stems.begin () + i);
     }
 
   if (stems.size () <= 2)

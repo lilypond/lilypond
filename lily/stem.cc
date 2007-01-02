@@ -221,6 +221,14 @@ Stem::is_invisible (Grob *me)
 	   && scm_to_int (me->get_property ("duration-log")) >= 1);
 }
 
+
+bool
+Stem::is_normal_stem (Grob *me)
+{
+  return head_count (me) && scm_to_int (me->get_property ("duration-log")) >= 1;
+}
+
+
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
 SCM
 Stem::pure_height (SCM smob, SCM start, SCM end)
@@ -316,7 +324,7 @@ Stem::calc_stem_end_position (SCM smob)
   return scm_from_double (stem_end);
 }
 
-
+/* Length is in half-spaces (or: positions) here. */
 MAKE_SCHEME_CALLBACK (Stem, calc_length, 1)
 SCM
 Stem::calc_length (SCM smob)
@@ -363,8 +371,7 @@ Stem::calc_length (SCM smob)
       (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
 
       Real minlen = 1.0
-	+ 2 * t_flag->extent (t_flag, Y_AXIS).length ()
-	/ ss;
+	+ 2 * Stem_tremolo::vertical_length (t_flag) / ss;
 
       /* We don't want to add the whole extent of the flag because the trem
          and the flag can overlap partly. beam_translation gives a good

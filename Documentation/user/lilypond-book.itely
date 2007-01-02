@@ -116,6 +116,9 @@ dvips -o -Ppdf -h lilybook.psfonts lilybook
 ps2pdf lilybook.ps
 @end example
 
+If you are running latex in twocolumn mode, remember to add
+@code{-t landscape} to the dvips options.
+
 Running @command{lilypond-book} and @command{latex} creates a lot of
 temporary files, which would clutter up the working directory.  To
 remedy this, use the @code{--output=@var{dir}} option.  It will create
@@ -304,6 +307,9 @@ can then be produced with a PostScript to PDF translator like
 @code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
 will produce some warnings about fonts; these are harmless and may
 be ignored.
+
+If you are running latex in twocolumn mode, remember to add
+@code{-t landscape} to the dvips options.
 
 @cindex international characters
 @cindex latin1
@@ -768,6 +774,17 @@ lilypond-book --output=out yourfile.lytex
 cd out
 ...
 @end example
+
+@itemx --padding=@var{amount}
+Pad EPS boxes by this much. @var{amount} is measured in milimeters,
+and is 3.0 by default.  This option should be used if the lines of
+music stick out of the right margin.
+
+The width of a tightly clipped systems can vary, due to notation
+elements that stick into the left margin, such as bar numbers and
+instrument names. This option will shorten each line and move each 
+line to the right by the same amount.
+
 
 @item -P @var{process}
 @itemx --process=@var{command}

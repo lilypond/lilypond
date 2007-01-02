@@ -6,10 +6,9 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 include $(depth)/make/stepmake.make
 
 
-# hangs on feta23
 MFTRACE_FLAGS=  --simplify
 
-EXTRA_DIST_FILES += README feta.tex
+EXTRA_DIST_FILES += README 
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf)\
@@ -36,11 +35,8 @@ NCSB_INSTALL_DIR=$(local_lilypond_datadir)/fonts/otf
 
 LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
-TEXTABLES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tex)
-ENC_FILES = $(TEXTABLES:.tex=.enc)
-TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)\
- $(SAUTER_FONTS:%=$(outdir)/%.tfm)
-
+ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
+TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
 
 ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
 MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(outdir)/$(ENCODING_FILE),) --no-afm
@@ -98,12 +94,12 @@ $(outdir)/aybabtu.subfonts:
 $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
-ALL_FONTS = $(FETA_FONTS) $(SAUTER_FONTS)
+ALL_FONTS = $(FETA_FONTS)
 PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES= $(TFM_FILES) $(TEXTABLES) $(TFM_FILES) $(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(FETA_LIST_FILES)  $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
+ALL_GEN_FILES=$(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -112,14 +108,8 @@ INSTALLATION_FILES=$(MF_FILES)
 
 INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 
-INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/tex
-INSTALLATION_OUT_FILES1=$(TEXTABLES)
-
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_OTFS)
-
-INSTALLATION_OUT_DIR3=$(local_lilypond_datadir)/fonts/tfm
-INSTALLATION_OUT_FILES3=$(TFM_FILES)
 
 INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES4=$(SVG_FILES)
@@ -141,7 +131,7 @@ tree-regen:
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log $(outdir)/%.tfm
+$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) $<
 
 local-clean:

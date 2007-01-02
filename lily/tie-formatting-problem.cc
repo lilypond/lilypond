@@ -202,7 +202,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 				    Y_AXIS, -dir);
     }
   while (flip (&updowndir) != DOWN);
-  
+
   head_extents_[key].set_empty ();
   for (vsize i = 0; i < head_boxes.size (); i++)
     {
@@ -276,7 +276,14 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
       for (vsize i = 0; i < ties.size (); i++)
 	{
 	  Item *it = dynamic_cast<Spanner*> (ties[i])->get_bound (d);
-					     
+	  if (it->break_status_dir ())
+	    {
+	      Item *sep
+		= dynamic_cast<Item*> (unsmob_grob (ties[i]->get_object ("separation-item")));
+	      if (sep && sep->get_column () == it->get_column ())
+		it = sep;
+	    }
+	  
 	  bounds.push_back (it);
 	}
       

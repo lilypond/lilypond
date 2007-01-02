@@ -9,10 +9,16 @@ brackets above beats when the beats of a time signature are grouped.  "
 
 \version "2.10.0"
 
+\layout  {
+  ragged-right = ##t
+}
 
 %% TODO: should have 2/4 + 5/8 time sig style.
 
-\context Staff
+\context Staff \with {
+    \consists "Measure_grouping_engraver"
+  }
+
 \relative c' {
   #(set-time-signature 2 4) 
   c8 a'4 a8~
@@ -23,11 +29,3 @@ brackets above beats when the beats of a time signature are grouped.  "
   #(set-time-signature 5 8 '(3 2)) 
   g8 a4 g a4.->
 }
-\layout  {
-  ragged-right = ##t
-  \context { \Staff
-	     \consists "Measure_grouping_engraver"
-	   }
-}
-
-
