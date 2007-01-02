@@ -7,16 +7,20 @@ should appear on 3 pages.
 "
 }
 
-\paper {
-  #(define page-breaking ly:page-turn-breaking)
-  paper-height = #70
-  print-page-number = ##t
-}
+\book {
+  \paper {
+    #(define page-breaking ly:page-turn-breaking)
+    paper-height = #65
+    print-page-number = ##t
+  }
 
-\relative c' {
-  a b c d a b c d \break
-  c d e f c d e f \break
-  d e f g d e f g
+  \score {
+    \relative c' {
+      a b c d a b c d \break
+      c d e f c d e f \break
+      d e f g d e f g
+    }
+  }
 }
 
 
