@@ -14,5 +14,5 @@ testMusic =  { << c''4 \\ g'4 >> }
 }
 
 
-\testMusic
+{ \testMusic }
 
