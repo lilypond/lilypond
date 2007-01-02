@@ -232,7 +232,7 @@ Lily_lexer::start_main_input ()
   new_input (main_input_name_, sources_);
 
   /* Do not allow \include in --safe-mode */
-  allow_includes_b_ = allow_includes_b_ && !be_safe_global;
+  allow_includes_ = allow_includes_ && !be_safe_global;
 
   scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),

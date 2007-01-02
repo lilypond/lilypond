@@ -33,7 +33,7 @@ protected:
   vector<int> char_count_stack_;
 
 public:
-  bool allow_includes_b_;
+  bool allow_includes_;
 
   Includable_lexer ();
   ~Includable_lexer ();

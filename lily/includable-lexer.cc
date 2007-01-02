@@ -41,14 +41,14 @@ Includable_lexer::Includable_lexer ()
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;
 #endif
-  allow_includes_b_ = true;
+  allow_includes_ = true;
 }
 
 /** Set the new input file to NAME, remember old file.  */
 void
 Includable_lexer::new_input (string name, Sources *sources)
 {
-  if (!allow_includes_b_)
+  if (!allow_includes_)
     {
       LexerError (_ ("include files are not allowed in safe mode").c_str ());
       return;
