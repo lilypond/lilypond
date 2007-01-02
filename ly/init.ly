@@ -39,6 +39,8 @@
   (version-not-seen-message input-file-name))
 
 #(if (pair? toplevel-scores)
-  (toplevel-book-handler
+  ((if (defined? 'default-toplevel-book-handler)
+    default-toplevel-book-handler
+    toplevel-book-handler)
    parser
    (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))

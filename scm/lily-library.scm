@@ -89,7 +89,6 @@
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
 (define-public (scorify-music music parser)
-  
   (for-each (lambda (func)
 	      (set! music (func music parser)))
 	    toplevel-music-functions)
@@ -103,7 +102,7 @@
         (collect-scores-for-book parser (scorify-music music parser)))))
 
 
-(define-public (print-book-with-defaults parser book)
+(define (print-book-with parser book process-procedure)
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
@@ -117,52 +116,14 @@
 	(set! base (format #f "~a-~a" base count)))
 
     (ly:parser-define! parser 'output-count (1+ count))
-    (ly:book-process book paper layout base)
+    (process-procedure book paper layout base)
     ))
 
-(define-public (print-score-with-defaults parser score)
-  (let*
-      ((paper (ly:parser-lookup parser '$defaultpaper))
-       (count (ly:parser-lookup parser 'output-count))
-       (base (ly:parser-output-name parser)))
+(define-public (print-book-with-defaults parser book)
+  (print-book-with parser book ly:book-process))
 
-    (if (not (integer? count))
-	(set! count 0))
-
-    (if (> count 0)
-	(set! base (format #f "~a-~a" base count)))
-
-    (ly:parser-define! parser 'output-count (1+ count))
-
-    (if (not (ly:score-error? score))
-	(let*
-	    ((header (ly:score-header score))
-	     (output-defs (ly:score-output-defs score))
-	     (layout-defs (filter  (lambda (d) (eq? #t (ly:output-def-lookup d 'is-layout)))
-				  output-defs))
-	     (midi-defs (filter (lambda (d)  (eq? #t (ly:output-def-lookup d 'is-midi)))
-				output-defs))
-	     (music (ly:score-music score))
-	     (layout-def (if (null? layout-defs)
-			     (ly:parser-lookup parser '$defaultlayout)
-			     (car layout-defs))))
-
-	  (if (not (module? header))
-	      (set! header (ly:parser-lookup parser '$defaultheader)))
-	     
-	  (ly:render-music-as-systems
-	   music layout-def paper header base)
-
-	  (if (pair? midi-defs)
-	      (ly:performance-write (ly:format-output (ly:run-translator music (car midi-defs)))
-				    (format #f "~a.midi" base)
-				    ))
-	      
-    ))))
-
-
-
-
+(define-public (print-book-with-defaults-as-systems parser book)
+  (print-book-with parser book ly:book-process-to-systems))
 
 ;;;;;;;;;;;;;;;;
 ;; alist

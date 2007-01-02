@@ -1,12 +1,10 @@
 
 \version "2.10.0"
 
-#(set! toplevel-score-handler print-score-with-defaults)
-#(set! toplevel-music-handler
-  (lambda (p m)
-   (if (not (eq? (ly:music-property m 'void) #t))
-        (print-score-with-defaults
-         p (scorify-music m p)))))
+%% toplevel \book gets output per page,
+%% everything else gets output per system/title
+#(define default-toplevel-book-handler
+  print-book-with-defaults-as-systems )
 
 #(ly:set-option (quote no-point-and-click))
 #(define inside-lilypond-book #t)
