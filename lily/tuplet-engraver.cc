@@ -79,7 +79,9 @@ Tuplet_engraver::process_music ()
 {
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
-      if (stopped_tuplets_[i].bracket_)
+      Spanner *bracket = stopped_tuplets_[i].bracket_;
+      Spanner *number = stopped_tuplets_[i].number_;
+      if (bracket)
 	{
 	  if (stopped_tuplets_[i].full_length_)
 	    {
@@ -88,20 +90,20 @@ Tuplet_engraver::process_music ()
 			     ? get_property ("currentMusicalColumn")
 			     : get_property ("currentCommandColumn"));
 	      
-	      stopped_tuplets_[i].bracket_->set_bound (RIGHT, col);
-	      stopped_tuplets_[i].number_->set_bound (RIGHT, col);
+	      bracket->set_bound (RIGHT, col);
+	      number->set_bound (RIGHT, col);
 	    }
-	  else if (!stopped_tuplets_[i].bracket_->get_bound (RIGHT))
+	  else if (!bracket->get_bound (RIGHT))
 	    {
-	      stopped_tuplets_[i].bracket_->set_bound (RIGHT,
-						       stopped_tuplets_[i].bracket_->get_bound (LEFT));
-	      stopped_tuplets_[i].number_->set_bound (RIGHT,
+	      bracket->set_bound (RIGHT,
+				  bracket->get_bound (LEFT));
+	      number->set_bound (RIGHT,
 						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
 	    }
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
 	  // clear stopped_tuplets_ at start_translation_timestep
-	  last_tuplets_.push_back (tuplets_[i].bracket_);
-	  last_tuplets_.push_back (tuplets_[i].number_);
+	  last_tuplets_.push_back (bracket);
+	  last_tuplets_.push_back (number);
 	}
     }
   stopped_tuplets_.clear ();
