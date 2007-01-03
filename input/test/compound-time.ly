@@ -12,20 +12,16 @@ compound time.
 
 \layout{ragged-right = ##t}
 
-#(define (compound-time grob one two num)
-  (interpret-markup
-   (ly:grob-layout grob)
-   '(((baseline-skip . 2)
-      (word-space . 2)
-      (font-family . number)))
-   (markup
-    #:line ( #:column (one num) #:lower 1 "+" #:column (two num)))))
+#(define (compound-time one two num)
+  (markup #:override '(baseline-skip . 2) #:number 
+   (#:line ((#:column (one num)) #:lower 1 "+" (#:column (two num))))))
+
 
 \relative {
   %% compound time signature hack
   \time 5/8
-  \override Staff.TimeSignature  #'stencil
-  = #(lambda (grob) (compound-time grob "2" "3" "8"))
+  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+  \override Staff.TimeSignature #'text = #(compound-time "2" "3" "8" )
   #(override-auto-beam-setting '(end 1 8 5 8) 1 4)
   c8 c c8 c c
 }
