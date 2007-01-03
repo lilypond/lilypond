@@ -236,14 +236,17 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
 {
   (void) start;
   (void) end;
-  
-  
+
   Grob *me = unsmob_grob (smob);
+  Interval iv;
+
+  if (!is_normal_stem (me))
+    return ly_interval2scm (iv);
+  
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real len = scm_to_double (calc_length (smob)) * ss / 2;
   Direction dir = get_grob_direction (me);
 
-  Interval iv;
   Interval hp = head_positions (me);
   if (dir == UP)
     iv = Interval (0, len);
