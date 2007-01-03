@@ -44,4 +44,7 @@ new-lang:
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
+
+check-translation:
+	find $(ISOLANG)/user/ -name '*.*tely' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir)
 endif
