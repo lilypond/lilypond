@@ -665,13 +665,6 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-
-	(after-line-breaking . ,(lambda (grob)
-				  (display (list
-					    (ly:grob-extent grob (ly:grob-parent grob X) X)
-					    " " 
-					    (ly:grob-relative-coordinate grob (ly:grob-parent grob X) X) "\n")))) 
-					    
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 	(text . ,fingering::calc-text) 
@@ -2131,6 +2124,7 @@
   (list
    `(,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
    `(,ly:stem::height . ,ly:stem::pure-height)
+   `(,ly:rest::height . ,ly:rest::pure-height)
    `(,ly:grob::stencil-height . ,pure-stencil-height)
    `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
    `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
@@ -2140,7 +2134,6 @@
 
 (define pure-functions
   (list
-   ly:rest::height
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
 

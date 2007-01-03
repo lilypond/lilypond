@@ -187,12 +187,25 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
+MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
+SCM
+Rest::pure_height (SCM smob, SCM start, SCM end)
+{
+  (void) start;
+  (void) end;
+  
+  Grob *me = unsmob_grob (smob);
+  SCM m = brew_internal_stencil (me, false);
+  return ly_interval2scm (unsmob_stencil (m)->extent (Y_AXIS));
+}
+
 ADD_INTERFACE (Rest,
 	       "A rest symbol.",
 
 	       /* properties */
 		  
-	       "style "
 	       "direction "
-	       "minimum-distance");
+	       "minimum-distance "
+	       "style "
+	       );
 
