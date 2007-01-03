@@ -404,16 +404,20 @@ class TextFileCompareLink (FileCompareLink):
         open_write_file (f).write (str)
      
     def html_record_string (self, d1, d2):
+        (dist, f1, f2) = (self.distance(),) + self.files
+        b1 = os.path.basename (f1)
+        b2 = os.path.basename (f2)
+        
         return '''<tr>
 <td>
 %f
 </td>
 <td><tt>%s</tt></td>
 <td><a href="%s.diff.txt"><tt>%s</tt></a></td>
-</tr>''' % (self.distance(),
-            self.files[0],
+</tr>''' % (dist,
+            b1,
             os.path.join (d2, self.name ()),
-            self.files[1])
+            b2)
 
 
 class ProfileFileLink (TextFileCompareLink):
