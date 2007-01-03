@@ -303,6 +303,7 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
     m = ly_scm2newstr (mode, 0);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
+  fflush (stderr); 
   freopen (ly_scm2newstr (file_name, 0), m, stderr);
   return SCM_UNSPECIFIED;
 }

@@ -164,15 +164,25 @@ program. This suite can be used to automatically check the impact of a
 change. This is done as follows
 
 @example
-  make ok-test
+  make test-baseline
   @emph{apply your changes, compile}
-  make test-clean
   make check
 @end example
 
 This will leave an HTML page @file{out/test-results/index.html}.  This
 page shows all the important differences that your change introduced,
-whether in the layout, the MIDI output, or error reporting.
+whether in the layout, the MIDI output, or error reporting.  
+
+To rerun tests, use
+
+@example
+  make test-clean          @emph{## remove files differing from baseline}
+  make test-real-clean     @emph{## remove all test results}
+@end example
+
+@noindent
+and then run @code{make check} again.
+
 
 @section Building LilyPond
 

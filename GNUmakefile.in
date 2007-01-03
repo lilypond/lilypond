@@ -205,19 +205,25 @@ $(config_h): config.hh.in
 	@false
 
 
-test-clean:
-	$(MAKE) -C input/regression/ out=test clean
 
 test:
+	rm input/regression/out-test/collated-files.html
 	$(MAKE) -C input/regression/ out=test LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html 
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
-ok-test: test
-	mv input/regression/out-test input/regression/out-testok
+test-baseline: test
+	rm -rf input/regression/out-test-baseline
+	mv input/regression/out-test input/regression/out-test-baseline
 
 RESULT_DIR=$(top-build-dir)/out/test-results/
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-testok input/regression/out-test/
+	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
 
+
+test-clean:
+	$(PYTHON) $(buildscript-dir)/output-distance.py --remove-changed input/regression/out-test-baseline input/regression/out-test/
+
+test-real-clean:
+	$(MAKE) -C input/regression/ out=test clean

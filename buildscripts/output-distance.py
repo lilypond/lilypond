@@ -416,8 +416,9 @@ class SignatureFileLink (FileLink):
         self.original_name = ''
         self.base_names = ('','')
         self.system_links = {}
+        
     def name (self):
-        return self.original_name
+        return os.path.splitext (self.original_name)[0]
     
     def add_system_link (self, link, number):
         self.system_links[number] = link
@@ -753,6 +754,26 @@ class ComparisonData:
 
         file_link.add_file_compare (f1, f2)
 
+    def remove_changed (self, dir, threshold):
+        (changed, below, unchanged) = self.thresholded_results (threshold)
+        for link in changed:
+            try:
+                system ('rm -f %s*' % link.base_names[1])
+            except AttributeError: ### UGH.
+                system ('rm -f %s/%s*' % (dir, link.name ()))
+    def thresholded_results (self, threshold):
+        ## todo: support more scores.
+        results = [(link.distance(), link)
+                   for link in self.file_links.values ()]
+        results.sort ()
+        results.reverse ()
+
+        unchanged = [r for (d,r) in results if d == 0.0]
+        below = [r for (d,r) in results if threshold >= d > 0.0]
+        changed = [r for (d,r) in results if d > threshold]
+
+        return (changed, below, unchanged)
+                
     def write_text_result_page (self, filename, threshold):
         out = None
         if filename == '':
@@ -761,21 +782,15 @@ class ComparisonData:
             print 'writing "%s"' % filename
             out = open_write_file (filename)
 
-        ## todo: support more scores.
-        results = [(link.distance(), link)
-                   for link in self.file_links.values ()]
-        results.sort ()
-        results.reverse ()
+        (changed, below, unchanged) = self.thresholded_results (threshold)
 
         
-        for (score, link) in results:
-            if score > threshold:
-                out.write (link.text_record_string ())
+        for link in changed:
+            out.write (link.text_record_string ())
 
         out.write ('\n\n')
-        out.write ('%d below threshold\n' % len ([1 for s,l  in results
-                                                    if threshold >=  s > 0.0]))
-        out.write ('%d unchanged\n' % len ([1 for (s,l) in results if s == 0.0]))
+        out.write ('%d below threshold\n' % len (below))
+        out.write ('%d unchanged\n' % len (unchanged))
         
     def create_text_result_page (self, dir1, dir2, dest_dir, threshold):
         self.write_text_result_page (dest_dir + '/index.txt', threshold)
@@ -783,18 +798,13 @@ class ComparisonData:
     def create_html_result_page (self, dir1, dir2, dest_dir, threshold):
         dir1 = dir1.replace ('//', '/')
         dir2 = dir2.replace ('//', '/')
-        
-        results = [(link.distance(), link)
-                   for link in self.file_links.values ()]
-        results.sort ()
-        results.reverse ()
+
+        (changed, below, unchanged) = self.thresholded_results (threshold)
+
 
         html = ''
         old_prefix = os.path.split (dir1)[1]
-        for (score, link) in results:
-            if score <= threshold:
-                continue
-
+        for link in changed:
             link.link_files_for_html (dir1, dir2, dest_dir) 
             link.write_html_system_details (dir1, dir2, dest_dir)
             
@@ -815,15 +825,12 @@ class ComparisonData:
 </html>''' % locals()
 
         html += ('<p>')
-        below_count  =len ([1 for s,l  in results
-                            if threshold >=  s > 0.0])
+        below_count = len (below)
 
         if below_count:
             html += ('<p>%d below threshold</p>' % below_count)
-
-        html += ('<p>%d unchanged</p>'
-                 % len ([1 for (s,l) in results if s == 0.0]))
-
+            
+        html += ('<p>%d unchanged</p>' % len (unchanged))
 
         dest_file = dest_dir + '/index.html'
         open_write_file (dest_file).write (html)
@@ -836,6 +843,10 @@ def compare_trees (dir1, dir2, dest_dir, threshold):
     data.compare_trees (dir1, dir2)
     data.print_results (threshold)
 
+    if options.remove_changed:
+        data.remove_changed (dir2, threshold)
+        return
+    
     if os.path.isdir (dest_dir):
         system ('rm -rf %s '% dest_dir)
 
@@ -1070,6 +1081,13 @@ def main ():
                   action="store",
                   type="float",
                   help='threshold for geometric distance')
+
+
+    p.add_option ('--remove-changed',
+                  dest="remove_changed",
+                  default=False,
+                  action="store_true",
+                  help="Remove all files from tree2 that are over the threshold.")
 
     p.add_option ('--no-compare-images',
                   dest="compare_images",

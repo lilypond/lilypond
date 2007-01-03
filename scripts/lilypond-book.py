@@ -1565,6 +1565,7 @@ def write_file_map (lys, name):
     snippet_map = open ('snippet-map.ly', 'w')
     snippet_map.write ("""
 #(define version-seen #t)
+#(define output-empty-score-list #f)
 #(ly:add-file-name-alist '(
 """)
     for ly in lys:
@@ -1577,7 +1578,7 @@ def write_file_map (lys, name):
 def do_process_cmd (chunks, input_name):
     all_lys = filter (lambda x: is_derived_class (x.__class__,
                            Lilypond_snippet),
-             chunks)
+                      chunks)
 
     write_file_map (all_lys, input_name)
     ly_outdated = filter (lambda x: is_derived_class (x.__class__,
