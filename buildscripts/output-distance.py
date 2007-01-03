@@ -347,6 +347,10 @@ class FileCompareLink (FileLink):
         self.contents = (self.get_content (self.files[0]),
                          self.get_content (self.files[1]))
         
+    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+        for f in self.files:
+            link_file (f, os.path.join (dest_dir, f))
+
     def name (self):
         name = os.path.basename (self.files[0])
         name = os.path.splitext (name)[0]
@@ -389,9 +393,9 @@ class ProfileFileLink (FileCompareLink):
 
         dist = 0.0
         for k in ('time', 'cells'):
-            (v1,v2) = (r[0].get (k ,0),
-                       r[1].get (k ,0))
-            if v1 + v2 <= 0:
+            (v1,v2) = (r[0].get (k , -1),
+                       r[1].get (k , -1))
+            if v1 < 0 or v2 < 0 or float (v1 + v2) == 0.0:
                 continue
 
             ratio = v2 / float (v1+v2)
@@ -404,8 +408,8 @@ class ProfileFileLink (FileCompareLink):
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
         import difflib
-        diff = difflib.unified_diff (self.contents[0].split ('\n'),
-                                     self.contents[1].split ('\n'),
+        diff = difflib.unified_diff (self.contents[0].strip().split ('\n'),
+                                     self.contents[1].strip().split ('\n'),
                                      fromfiledate = self.files[0],
                                      tofiledate = self.files[1]
                                      )

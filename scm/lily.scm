@@ -370,7 +370,8 @@ The syntax is the same as `define*-public'."
      (- (tms:utime t)
 	(ly:assoc-get 'gc-time-taken stats))
 
-     (ly:assoc-get 'total-cells-allocated  stats 0)
+     ;; unreliable...
+     ;;(ly:assoc-get 'total-cells-allocated  stats 0)
      ;; difficult to put memory amount stats into here.
      
      )))
