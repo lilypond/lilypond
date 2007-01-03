@@ -37,8 +37,28 @@ def summary (args):
     for (pain, d) in results:
         print '%(cov)5.2f (%(lines)6d): %(file)s' % d
 
+class Chunk:
+    def __init__ (self, range, all_lines, file):
+        self.range = range
+        self.all_lines = all_lines
+        self.file = file
 
-
+    def length (self):
+        return self.range[1] - self.range[0]
+    def text (self):
+        return ''.join ([l[0] for l in self.lines()])
+        
+    def lines (self):
+        return self.all_lines[self.range[0]:
+                              self.range[1]]
+    def widen (self):
+        self.range = (min (self.range[0] -1, 0),
+                      self.range[0] +1)
+    def write (self):
+        print 'uncovered chunk in', self.file
+        for (c, n, l) in self.lines ():
+            sys.stdout.write ('%8s:%8d:%s' % (c,n,l))
+            
 def read_gcov (f):
     ls = []
 
@@ -59,7 +79,7 @@ def read_gcov (f):
         
     return ls
 
-def get_chunks (ls):
+def get_chunks (ls, file):
     chunks = []
     chunk = []
     for (c,n,l) in ls:
@@ -67,10 +87,20 @@ def get_chunks (ls):
             chunk.append ((n,l))
         elif c.strip () != '-' or l == '}\n':
             if chunk:
-                chunks.append (chunk)
+                nums = [n-1 for (n, l) in chunk]
+                chunks.append (Chunk ((min (nums), max (nums)+1),
+                                      ls, file))
                 chunk = []
             
     return chunks
+
+
+def widen_chunk (ch, ls):
+    a -= 1
+    b += 1
+
+    return [(n, l)  for (c, n, l) in ls[a:b]]
+    
 
 def is_exception_chunk (ch):
     for (n,l) in ch:
@@ -79,15 +109,6 @@ def is_exception_chunk (ch):
                 return True
     return False
 
-def widen_chunk (ch, ls):
-    nums = [n-1 for (n, l) in ch]
-    (a, b) = (min (nums), max (nums)+1)
-    a -= 1
-    b += 1
-
-    return [(n, l)  for (c, n, l) in ls[a:b]]
-    
-
 def is_inspection_chunk (ch):
     for (n,l) in ch:
         for stat in  ('::print',):
@@ -95,30 +116,23 @@ def is_inspection_chunk (ch):
                 return True
     return False
 
-def print_chunk (ch, lines):
-    nums = [n-1 for (n, l) in ch]
-    (a, b) = (min (nums), max (nums)+1)
-    a -= 1
-    b += 1
-    for (c, n, l) in lines[a:b]:
-        sys.stdout.write ('%8s:%8d:%s' % (c,n,l))
-
-
 def extract_uncovered (file):
     try:
         ls = read_gcov (file)
     except IOError, s :
         print s
-        return
+        return []
         
-    cs = get_chunks (ls)
-    cs = [widen_chunk(c, ls) for c in cs]
-    cs = [c for c in cs if not is_exception_chunk (c)]
-    cs = [c for c in cs if not is_inspection_chunk (c)]
-    for c in cs:
-        print 'Uncovered chunk in', file
-        print_chunk (c, ls)
-        print '\n\n: '
+    cs = get_chunks (ls, file)
+    def interesting (c):
+        t = c.text()
+        for stat in  ('warning', 'error', 'print'):
+            if stat in t:
+                return False
+        return True
+
+   
+    return [c for c in cs if interesting (c)]
     
 
 def main ():
@@ -142,9 +156,17 @@ def main ():
         summary (['%s.gcov-summary' % s for s in args])
 
     if options.uncovered:
+        uncovered = []
         for a in args:
-            extract_uncovered ('%s.gcov' % a)
-        
+            uncovered += extract_uncovered ('%s.gcov' % a)
+            
+        uncovered = [(c.length (), c) for c in uncovered]
+        uncovered.sort ()
+        uncovered.reverse ()
+        for (score, c) in uncovered:
+            c.write ()
+
+            
         
 if __name__ == '__main__':
     main ()
