@@ -2,6 +2,7 @@
 import sys
 import optparse
 import os
+import math
 
 ## so we can call directly as buildscripts/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
@@ -329,7 +330,7 @@ class FileLink:
         return self._distance
     
     def name (self):
-        return ''
+        return '<undefined>'
     
     def link_files_for_html (self, old_dir, new_dir, dest_dir):
         pass
@@ -367,13 +368,15 @@ class FileCompareLink (FileLink):
         
     def html_record_string (self, d1, d2):
         (dist, f1, f2) = (self.distance(),) + self.files
+        b1 = os.path.basename (f1)
+        b2 = os.path.basename (f2)
         
         return '''<tr>
 <td>
 %(dist)f
 </td>
-<td><a href="%(f1)s"><tt>%(f1)s</tt></td>
-<td><a href="%(f2)s"><tt>%(f2)s</tt></td>
+<td><a href="%(f1)s"><tt>%(b1)s</tt></td>
+<td><a href="%(f2)s"><tt>%(b2)s</tt></td>
 </tr>''' % locals ()
 
     def get_content (self, f):
@@ -381,29 +384,6 @@ class FileCompareLink (FileLink):
         s = open (f).read ()
         return s
     
-class ProfileFileLink (FileCompareLink):
-    def calc_distance (self):
-        r = [{},{}]
-        for oldnew in (0,1):
-            def note_info (m):
-                r[oldnew][m.group(1)] = float (m.group (2))
-            
-            re.sub ('([a-z]+): ([-0-9.]+)\n',
-                    note_info, self.contents[oldnew])
-
-        dist = 0.0
-        for k in ('time', 'cells'):
-            (v1,v2) = (r[0].get (k , -1),
-                       r[1].get (k , -1))
-            if v1 < 0 or v2 < 0 or float (v1 + v2) == 0.0:
-                continue
-
-            ratio = v2 / float (v1+v2)
-            if ratio < 0.25 or ratio > 0.75:
-                dist += 1
-
-        return dist
-
         
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
@@ -434,6 +414,38 @@ class TextFileCompareLink (FileCompareLink):
             self.files[0],
             os.path.join (d2, self.name ()),
             self.files[1])
+
+
+class ProfileFileLink (TextFileCompareLink):
+    def calc_distance (self):
+        TextFileCompareLink.calc_distance (self)
+        
+        r = [{},{}]
+        for oldnew in (0,1):
+            def note_info (m):
+                r[oldnew][m.group(1)] = float (m.group (2))
+            
+            re.sub ('([a-z]+): ([-0-9.]+)\n',
+                    note_info, self.contents[oldnew])
+
+        dist = 0.0
+        factor = {'time': 1.0 ,
+                  'cells': 10.0,
+                  }
+        
+        for k in ('time', 'cells'):
+            (v1,v2) = (r[0].get (k , -1),
+                       r[1].get (k , -1))
+
+            if v1 <= 0 or v2 <= 0:
+                continue
+
+            ratio = abs (v2 - v1) / float (v1+v2)
+            dist += math.exp (ratio * factor[k]) - 1
+
+        dist = min (dist, 100)
+        
+        return dist
 
 class MidiFileLink (FileCompareLink):
     def get_content (self, f):
@@ -944,6 +956,7 @@ def test_compare_trees ():
     system ('cp 19multipage-page1.png dir2/20multipage-page1.png')
     system ('cp 20-1.signature dir2/subdir/19-sub-1.signature')
     system ('cp 20.png dir2/subdir/19-sub.png')
+    system ("sed 's/: /: 1/g'  20.profile > dir2/subdir/19-sub.profile")
 
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
@@ -1005,7 +1018,7 @@ def test_basic_compare ():
         open (d['name'] + '.ly','w').write (ly_template % d)
         
     names = [d['name'] for d in dicts]
-    
+
     system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png -b eps ' + ' '.join (names))
     
 
