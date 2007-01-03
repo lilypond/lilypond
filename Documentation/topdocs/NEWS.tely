@@ -67,6 +67,10 @@ which scares away people.
 @end ignore
 
 
+@item All @code{\score}s in a lilypond-book fragment are now inserted
+into the document. Also, toplevel markups don't result in an entire
+page.
+
 @item Alterations (such as a sharp and flat) may now be arbitrary
 fractions. This allows some forms of microtonal music.  For example,
 Turkish makam music uses 1/9th tone alterations.
