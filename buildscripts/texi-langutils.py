@@ -71,7 +71,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 			g.write (i_blurb)
 			tutu = re.findall (r"""^(\*) +([^:
 			]+)::[^
-			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
 			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			node_trigger = False
@@ -96,7 +96,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 			g.write (end_blurb)
 			g.close ()
 		elif output_file:
-			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
 			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			for item in toto:
