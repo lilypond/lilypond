@@ -335,37 +335,6 @@ ly_scm2offsets (SCM s)
   ALIST
 */
 
-/* looks the key up in the cdrs of the alist-keys
-   - ignoring the car and ignoring non-pair keys.
-   Returns first match found, i.e.
-
-   alist = ((1 . 10)
-   ((1 . 2) . 11)
-   ((2 . 1) . 12)
-   ((3 . 0) . 13)
-   ((4 . 1) . 14) )
-
-   I would like (ly_assoc_cdr 1) to return 12 - because it's the first
-   element with the cdr of the key = 1.  In other words (alloc_cdr key)
-   corresponds to call
-
-   (alloc (anything . key))
-*/
-SCM
-ly_assoc_cdr (SCM key, SCM alist)
-{
-  if (scm_is_pair (alist))
-    {
-      SCM trykey = scm_caar (alist);
-      if (scm_is_pair (trykey)
-	  && to_boolean (scm_equal_p (key, scm_cdr (trykey))))
-	return scm_car (alist);
-      return ly_assoc_cdr (key, scm_cdr (alist));
-    }
-  return SCM_BOOL_F;
-}
-
-
 bool
 alist_equal_p (SCM a, SCM b)
 {

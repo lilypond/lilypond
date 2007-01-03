@@ -140,9 +140,6 @@ Midi_instrument::to_string () const
   Byte program_byte = 0;
   bool found = false;
 
-  /*
-    UGH. don't use eval.
-  */
   SCM proc = ly_lily_module_constant ("midi-program");
   SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.c_str ()));
   found = (program != SCM_BOOL_F);

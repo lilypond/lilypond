@@ -9,7 +9,6 @@
 #include "engraver.hh"
 
 #include "context.hh"
-#include "grob-pitch-tuple.hh"
 #include "international.hh"
 #include "item.hh"
 #include "note-head.hh"

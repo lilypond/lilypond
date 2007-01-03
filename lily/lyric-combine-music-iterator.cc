@@ -15,6 +15,9 @@
 #include "music-iterator.hh"
 #include "music.hh"
 
+/*
+  Deprecated - junkme.
+ */
 class Lyric_combine_music_iterator : public Music_iterator
 {
 public:

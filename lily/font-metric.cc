@@ -187,12 +187,9 @@ Font_metric::word_stencil (string str) const
 Stencil
 Font_metric::text_stencil (string str) const
 {
-  SCM lst = scm_list_3 (ly_symbol2scm ("text"),
-			this->self_scm (),
-			scm_makfrom0str (str.c_str ()));
-
-  Box b = text_dimension (str);
-  return Stencil (b, lst);
+  (void) str;
+  assert (false);
+  return Stencil (Box (), SCM_EOL);
 }
 
 Box
