@@ -265,6 +265,9 @@ Beam::calc_beaming (SCM smob)
 	}
       else
 	{
+	  /*
+	    FIXME: what's this for? 
+	   */
 	  SCM s = scm_cdr (this_beaming);
 	  for (; scm_is_pair (s); s = scm_cdr (s))
 	    {

@@ -104,31 +104,6 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 
 #endif
 
-string
-kpathsea_find_file (string name, string ext)
-{
-  name += "." + ext;
-  string path = global_path.find (name);
-  if (path.length () > 0)
-    return path;
-
-  static SCM proc;
-  if (!proc)
-    {
-      SCM module = scm_c_resolve_module ("scm kpathsea");
-      proc = scm_c_module_lookup (module, "ly:kpathsea-find-file");
-      proc = scm_variable_ref (proc);
-    }
-
-  if (ly_is_procedure (proc))
-    {
-      SCM kp_result = scm_call_1 (proc, scm_makfrom0str (name.c_str ()));
-      if (scm_is_string (kp_result))
-	return ly_scm2string (kp_result);
-    }
-
-  return "";
-}
 
 Open_type_font *
 All_font_metrics::find_otf (string name)
