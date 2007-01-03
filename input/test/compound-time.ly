@@ -13,8 +13,8 @@ compound time.
 \layout{ragged-right = ##t}
 
 #(define (compound-time one two num)
-  (markup #:override '(baseline-skip . 2) #:number 
-   (#:line ((#:column (one num)) #:lower 1 "+" (#:column (two num))))))
+  (markup #:override '(baseline-skip . 0) #:number 
+   (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num))))))
 
 
 \relative {
