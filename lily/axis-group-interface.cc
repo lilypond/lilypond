@@ -245,11 +245,11 @@ Axis_group_interface::pure_group_height (Grob *me, int start, int end)
       extract_grob_set (me, "elements", elts);
 
       vector<Grob*> relevant_elts;
-      SCM is_relevant = ly_lily_module_constant ("pure-relevant");
+      SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
       for (vsize i = 0; i < elts.size (); i++)
 	{
-	  if (to_boolean (scm_apply_1 (is_relevant, elts[i]->self_scm (), SCM_EOL)))
+	  if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
 	    relevant_elts.push_back (elts[i]);
 
 	  Item *it = dynamic_cast<Item*> (elts[i]);
@@ -258,7 +258,7 @@ Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 	    do
 	      {
 		Item *piece = it->find_prebroken_piece (d);
-		if (piece && to_boolean (scm_apply_1 (is_relevant, piece->self_scm (), SCM_EOL)))
+		if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
 		  relevant_elts.push_back (piece);
 	      }
 	    while (flip (&d) != LEFT);
