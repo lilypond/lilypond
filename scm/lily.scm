@@ -106,7 +106,8 @@ on errors, and print a stack trace.")
 
 
 ;; my display
-(define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
+(define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
+  v)
 
 (define-public (print . args)
   (apply format (cons (current-output-port) args)))
@@ -371,7 +372,7 @@ The syntax is the same as `define*-public'."
 	(ly:assoc-get 'gc-time-taken stats))
      
      ;; unreliable...
-     ;; (ly:assoc-get 'total-cells-allocated  stats 0)
+     (ly:assoc-get 'total-cells-allocated  stats 0)
      ;; difficult to put memory amount stats into here.
      
      )))
@@ -383,10 +384,9 @@ The syntax is the same as `define*-public'."
     
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
-;	    "time: ~a\ncells: ~a\n"
-	    "time: ~a\n"
+	    "time: ~a\ncells: ~a\n"
 	    (car diff)
-;	    (cadr diff)
+	    (cadr diff)
 	    )))
 
 
