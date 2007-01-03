@@ -362,18 +362,45 @@ class FileCompareLink (FileLink):
             return 100.0;
         
     def html_record_string (self, d1, d2):
+        (dist, f1, f2) = (self.distance(),) + self.files
+        
         return '''<tr>
 <td>
-%f
+%(dist)f
 </td>
-<td><tt>%s</tt></td>
-<td><tt>%s</tt></td>
-</tr>''' % ((self.distance(),) + self.files)
+<td><a href="%(f1)s"><tt>%(f1)s</tt></td>
+<td><a href="%(f2)s"><tt>%(f2)s</tt></td>
+</tr>''' % locals ()
 
     def get_content (self, f):
+        print 'reading', f
         s = open (f).read ()
         return s
+    
+class ProfileFileLink (FileCompareLink):
+    def calc_distance (self):
+        r = [{},{}]
+        for oldnew in (0,1):
+            def note_info (m):
+                r[oldnew][m.group(1)] = float (m.group (2))
+            
+            re.sub ('([a-z]+): ([-0-9.]+)\n',
+                    note_info, self.contents[oldnew])
 
+        dist = 0.0
+        for k in ('time', 'cells'):
+            (v1,v2) = (r[0].get (k ,0),
+                       r[1].get (k ,0))
+            if v1 + v2 <= 0:
+                continue
+
+            ratio = v2 / float (v1+v2)
+            if ratio < 0.25 or ratio > 0.75:
+                dist += 1
+
+        return dist
+
+        
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
         import difflib
@@ -406,7 +433,7 @@ class TextFileCompareLink (FileCompareLink):
 
 class MidiFileLink (FileCompareLink):
     def get_content (self, f):
-        s = open (f).read ()
+        s = FileCompareLink.get_content (self, f)
         s = re.sub ('LilyPond [0-9.]+', '', s)
         return s
 
@@ -698,7 +725,7 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
-        for ext in ['signature', 'midi', 'log']:
+        for ext in ['signature', 'midi', 'log', 'profile']:
             (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
             self.missing += [(dir1, m) for m in m1] 
@@ -717,28 +744,21 @@ class ComparisonData:
     def compare_files (self, f1, f2):
         if f1.endswith ('signature'):
             self.compare_signature_files (f1, f2)
-        elif f1.endswith ('midi'):
-            self.compare_midi_files (f1, f2)
-        elif f1.endswith ('log'):
-            self.compare_ascii_files (f1, f2)
-
-    def compare_general_files (self, f1, f2):
-        name = os.path.split (f1)[1]
-
-        file_link = FileCompareLink (f1, f2)
-        self.file_links[name] = file_link
-
-    def compare_ascii_files (self, f1, f2):
-        name = os.path.split (f1)[1]
-
-        file_link = TextFileCompareLink (f1, f2)
-        self.file_links[name] = file_link
-        
+        else:
+            ext = os.path.splitext (f1)[1]
+            klasses = {
+                '.midi': MidiFileLink,
+                '.log' : TextFileCompareLink,
+                '.profile': ProfileFileLink,
+                }
             
-    def compare_midi_files (self, f1, f2):
+            if klasses.has_key (ext):
+                self.compare_general_files (klasses[ext], f1, f2)
+
+    def compare_general_files (self, klass, f1, f2):
         name = os.path.split (f1)[1]
 
-        file_link = MidiFileLink (f1, f2)
+        file_link = klass (f1, f2)
         self.file_links[name] = file_link
         
     def compare_signature_files (self, f1, f2):
@@ -890,13 +910,14 @@ def test_paired_files ():
 def test_compare_trees ():
     system ('rm -rf dir1 dir2')
     system ('mkdir dir1 dir2')
-    system ('cp 20{-*.signature,.ly,.png,.eps,.log} dir1')
-    system ('cp 20{-*.signature,.ly,.png,.eps,.log} dir2')
-    system ('cp 20expr{-*.signature,.ly,.png,.eps,.log} dir1')
-    system ('cp 19{-*.signature,.ly,.png,.eps,.log} dir2/')
-    system ('cp 19{-*.signature,.ly,.png,.eps,.log} dir1/')
+    system ('cp 20{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
+    system ('cp 20{-*.signature,.ly,.png,.eps,.log,.profile} dir2')
+    system ('cp 20expr{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
+    system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
+    system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
     system ('cp 19-1.signature 19-sub-1.signature')
     system ('cp 19.ly 19-sub.ly')
+    system ('cp 19.profile 19-sub.profile')
     system ('cp 19.log 19-sub.log')
     system ('cp 19.png 19-sub.png')
     system ('cp 19.eps 19-sub.eps')
@@ -907,13 +928,14 @@ def test_compare_trees ():
 
     
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log} dir1/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log} dir2/subdir/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log} dir2/')
-    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log} dir1/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log,.profile} dir1/subdir/')
+    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
+    system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
+    system ('cp 19.profile dir2/20.profile')
     system ('cp 19.png dir2/20.png')
     system ('cp 19multipage-page1.png dir2/20multipage-page1.png')
     system ('cp 20-1.signature dir2/subdir/19-sub-1.signature')
@@ -980,7 +1002,7 @@ def test_basic_compare ():
         
     names = [d['name'] for d in dicts]
     
-    system ('lilypond -dseparate-log-files -ddump-signatures --png -b eps ' + ' '.join (names))
+    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png -b eps ' + ' '.join (names))
     
 
     multipage_str = r'''
