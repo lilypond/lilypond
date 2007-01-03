@@ -79,9 +79,28 @@ def is_exception_chunk (ch):
                 return True
     return False
 
+def widen_chunk (ch, ls):
+    nums = [n-1 for (n, l) in ch]
+    (a, b) = (min (nums), max (nums)+1)
+    a -= 1
+    b += 1
+
+    return [(n, l)  for (c, n, l) in ls[a:b]]
+    
+
+def is_inspection_chunk (ch):
+    for (n,l) in ch:
+        for stat in  ('::print',):
+            if stat in l:
+                return True
+    return False
+
 def print_chunk (ch, lines):
     nums = [n-1 for (n, l) in ch]
-    for (c, n, l) in lines[min (nums):max (nums)+1]:
+    (a, b) = (min (nums), max (nums)+1)
+    a -= 1
+    b += 1
+    for (c, n, l) in lines[a:b]:
         sys.stdout.write ('%8s:%8d:%s' % (c,n,l))
 
 
@@ -93,8 +112,9 @@ def extract_uncovered (file):
         return
         
     cs = get_chunks (ls)
+    cs = [widen_chunk(c, ls) for c in cs]
     cs = [c for c in cs if not is_exception_chunk (c)]
-    print '\n'.join (['%d' % x for (a,x,b) in ls])
+    cs = [c for c in cs if not is_inspection_chunk (c)]
     for c in cs:
         print 'Uncovered chunk in', file
         print_chunk (c, ls)
