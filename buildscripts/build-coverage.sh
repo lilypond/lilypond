@@ -21,7 +21,7 @@ fi
 
 make conf=cov -j2 &&  \
   make conf=cov test-real-clean LILYPOND_JOBS= && \
-  make conf=cov test LILYPOND_JOBS= >& out-cov/test-run.log
+  make conf=cov test LILYPOND_JOBS= 
 
 if test "$?" != "0"; then
   tail -100 out-cov/test-run.log
@@ -36,7 +36,7 @@ ln ../lily/* .
 ln ../lily/out-cov/*[ch] .
 mkdir include
 ln ../lily/include/* include/
-for a in *[cyl]
+for a in *[cl] *.yy
 do
    gcov -o ../lily/out-cov/  -p $a > $a.gcov-summary
 done 
