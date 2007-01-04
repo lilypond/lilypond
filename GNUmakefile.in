@@ -222,8 +222,9 @@ local-check: test
 	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
 
 
-test-clean:
+test-redo:
 	$(PYTHON) $(buildscript-dir)/output-distance.py --remove-changed input/regression/out-test-baseline input/regression/out-test/
+	$(MAKE) check
 
-test-real-clean:
+test-clean:
 	$(MAKE) -C input/regression/ out=test clean

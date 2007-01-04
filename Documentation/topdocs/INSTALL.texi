@@ -165,19 +165,19 @@ change. This is done as follows
 
 @example
   make test-baseline
-  @emph{apply your changes, compile}
+  @emph{## apply your changes, compile}
   make check
 @end example
 
 This will leave an HTML page @file{out/test-results/index.html}.  This
 page shows all the important differences that your change introduced,
-whether in the layout, the MIDI output, or error reporting.  
+whether in the layout, MIDI, performance or error reporting.
 
 To rerun tests, use
 
 @example
-  make test-clean          @emph{## remove files differing from baseline}
-  make test-real-clean     @emph{## remove all test results}
+  make test-redo           @emph{## redo files differing from baseline}
+  make test-clean          @emph{## remove all test results}
 @end example
 
 @noindent
