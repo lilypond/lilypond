@@ -14,3 +14,4 @@
 
 
 #(ly:parser-parse-string (ly:parser-clone parser) "foo  = #1 #(ly:progress \"hello there\n\")")
+
