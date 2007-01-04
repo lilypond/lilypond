@@ -377,9 +377,9 @@ The syntax is the same as `define*-public'."
      
      )))
 
-(define (dump-profile name last this)
+(define (dump-profile base last this)
   (let*
-      ((outname (format "~a.profile" (basename name ".ly")))
+      ((outname (format "~a.profile" (basename base ".ly")))
        (diff (map (lambda (y) (apply - y)) (zip this last))))
     
     (ly:progress "\nWriting timing to ~a..." outname)
@@ -623,7 +623,9 @@ The syntax is the same as `define*-public'."
 	 (if (string-or-symbol? (ly:get-option 'log-file))
 	     (format "~a.log" (ly:get-option 'log-file))
 	     "/dev/tty") "a"))
-	 
+
+    (if (ly:get-option 'dump-profile)
+	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
 
     failed))
 
