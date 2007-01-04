@@ -117,7 +117,7 @@ Rest_collision::calc_positioning_done (SCM smob)
     no partners to collide with
   */
   if (rests.size () + notes.size () < 2)
-    return SCM_UNSPECIFIED;
+    return SCM_BOOL_T;
 
   Real staff_space = Staff_symbol_referencer::staff_space (me);
   /*
@@ -155,7 +155,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 	      if (ordered_rests[-d].size () > 1)
 		ordered_rests[-d][0]->warning (_ ("too many colliding rests"));
 
-	      return SCM_UNSPECIFIED;
+	      return SCM_BOOL_T;
 	    }
 	}
       while (flip (&d) != LEFT);
@@ -210,14 +210,14 @@ Rest_collision::calc_positioning_done (SCM smob)
 	  }
 
       if (!rcol)
-	return SCM_UNSPECIFIED;
+	return SCM_BOOL_T;
 
       Grob *rest = Note_column::get_rest (rcol);
       Grob *common = common_refpoint_of_array (notes, rcol, Y_AXIS);
 
       Interval restdim = rcol->extent (common, Y_AXIS);
       if (restdim.is_empty ())
-	return SCM_UNSPECIFIED;
+	return SCM_BOOL_T;
 
       Real staff_space = Staff_symbol_referencer::staff_space (rcol);
       Real minimum_dist = robust_scm2double (me->get_property ("minimum-distance"), 1.0) * staff_space;
@@ -249,7 +249,7 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       Note_column::translate_rests (rcol, discrete_y);
     }
-  return SCM_UNSPECIFIED;
+  return SCM_BOOL_T;
 }
 
 ADD_INTERFACE (Rest_collision,
