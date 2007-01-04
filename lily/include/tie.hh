@@ -25,10 +25,10 @@ public:
   static int get_column_rank (Grob *, Direction);
   static int get_position (Grob *);
   static Direction get_default_dir (Grob *);  
-  static void set_control_points (Grob *, Grob *,
-				  Tie_configuration const&,
-				  Tie_details const&);
-  static void set_default_control_points (Grob *);
+  static SCM get_control_points (Grob *, Grob *,
+				 Tie_configuration const&,
+				 Tie_details const&);
+  static SCM get_default_control_points (Grob *);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (set_spacing_rods, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));

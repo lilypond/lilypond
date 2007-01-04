@@ -100,9 +100,11 @@ Tie_column::calc_positioning_done (SCM smob)
 
   for (vsize i = 0; i < base.size(); i++)
     {
-      Tie::set_control_points (ties[i], problem.common_x_refpoint (),
-			       base[i],
-			       problem.details_);
+      SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
+					base[i],
+					problem.details_);
+
+      ties[i]->set_property ("control-points", cp);
       set_grob_direction (ties[i],
 			  base[i].dir_);
 
