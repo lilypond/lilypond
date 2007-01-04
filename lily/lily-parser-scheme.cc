@@ -147,22 +147,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parse_string, "ly:parse-string",
-	   1, 0, 0, (SCM ly_code),
-	   "Parse the string LY_CODE.  "
-	   "Upon failure, throw @code{ly-file-failed} key.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
-
-  Sources sources;
-  sources.set_path (&global_path);
-  Lily_parser *parser = new Lily_parser (&sources);
-  parser->parse_string (ly_scm2string (ly_code));
-  parser->unprotect ();
-  parser = 0;
-
-  return SCM_UNSPECIFIED;
-}
 
 LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 	   1, 0, 0, (SCM parser_smob),

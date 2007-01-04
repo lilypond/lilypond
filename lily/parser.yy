@@ -503,7 +503,7 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		$$ = get_header(PARSER);
+		$$ = get_header (PARSER);
 		PARSER->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
