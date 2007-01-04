@@ -362,7 +362,7 @@ Slur_score_state::get_best_curve ()
 	}
   
       slur_->set_property ("quant-score",
-			   scm_makfrom0str (total.c_str ()));
+			   ly_string2scm (total));
     }
 #endif
 

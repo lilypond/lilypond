@@ -105,7 +105,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
   File_name f (name);
   string s = global_path.find (f.base_ + ".twy");
   s = gulp_file_to_string (s, false, -1);
-  scm_eval_string (scm_makfrom0str (s.c_str ()));
+  scm_eval_string (ly_string2scm (s));
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */

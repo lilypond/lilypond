@@ -102,7 +102,7 @@ Vertical_align_engraver::acknowledge_axis_group (Grob_info i)
     {
       string id = i.context ()->id_string ();
 
-      scm_hash_set_x (id_to_group_hashtab_, scm_makfrom0str (id.c_str ()),
+      scm_hash_set_x (id_to_group_hashtab_, ly_string2scm (id),
 		      i.grob ()->self_scm ());
 
       SCM before_id = i.context ()->get_property ("alignAboveContext");

@@ -236,7 +236,7 @@ BOM_UTF8	\357\273\277
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (s.c_str ()));
+		     ly_string2scm (s));
 
 }
 
@@ -323,7 +323,7 @@ BOM_UTF8	\357\273\277
 }
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval.scm = scm_makfrom0str (s);
+	yylval.scm = scm_from_locale_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>R		{
@@ -427,7 +427,7 @@ BOM_UTF8	\357\273\277
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		string *sp = yylval.string;
-		yylval.scm = scm_makfrom0str (sp->c_str ());
+		yylval.scm = ly_string2scm (*sp);
 		delete sp;
 		return is_lyric_state () ? LYRICS_STRING : STRING;
 	}
@@ -464,7 +464,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				_ ("Brace found at end of lyric.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.c_str ());
+		yylval.scm = ly_string2scm (s);
 
 
 		return LYRICS_STRING;
@@ -557,7 +557,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}')
 			here_input ().warning (
 				_ ("Brace found at end of markup.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.c_str ());
+		yylval.scm = ly_string2scm (s);
 
 
 		return STRING;
@@ -774,7 +774,7 @@ Lily_lexer::scan_escaped_word (string str)
 	string msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.c_str ());
 
-	yylval.scm = scm_makfrom0str (str.c_str ());
+	yylval.scm = ly_string2scm (str);
 
 	return STRING;
 }
@@ -802,7 +802,7 @@ Lily_lexer::scan_bare_word (string str)
 		}
 	}
 
-	yylval.scm = scm_makfrom0str (str.c_str ());
+	yylval.scm = ly_string2scm (str);
 	return STRING;
 }
 
@@ -937,7 +937,7 @@ SCM
 lookup_markup_command (string s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
-	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));
+	return scm_call_1 (proc, ly_string2scm (s));
 }
 
 /* Shut up lexer warnings.  */

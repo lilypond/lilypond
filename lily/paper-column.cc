@@ -152,10 +152,10 @@ Paper_column::print (SCM p)
 
   SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						  properties,
-						  scm_makfrom0str (r.c_str ()));
+						  ly_string2scm (r));
   SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						   properties,
-						   scm_makfrom0str (when.c_str ()));
+						   ly_string2scm (when));
   Stencil t = *unsmob_stencil (scm_mol);
   t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1, 0.1);
   t.align_to (X_AXIS, CENTER);

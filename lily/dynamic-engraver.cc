@@ -261,7 +261,7 @@ Dynamic_engraver::process_music ()
 	      if (scm_is_string (s) || scm_is_pair (s))
 		{
 		  cresc_->set_property ("edge-text",
-					scm_cons (s, scm_makfrom0str ("")));
+					scm_cons (s, scm_from_locale_string ("")));
 		  context ()->set_property ((start_type + "Text").c_str (),
 					    SCM_EOL);
 		}

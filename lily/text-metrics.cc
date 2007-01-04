@@ -31,7 +31,7 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
   if (text_dimension_hash_tab)
     {
       scm_hash_ref (text_dimension_hash_tab,
-		    scm_makfrom0str (key_str.c_str ()),
+		    ly_string2scm (key_str),
 		    SCM_BOOL_F);
     }
   if (scm_is_pair (val))

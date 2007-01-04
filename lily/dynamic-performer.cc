@@ -80,7 +80,7 @@ Dynamic_performer::process_music ()
 	    s = get_property ("instrumentName");
 
 	  if (!scm_is_string (s))
-	    s = scm_makfrom0str ("piano");
+	    s = scm_from_locale_string ("piano");
 
 	  SCM eq = get_property ("instrumentEqualizer");
 	  if (ly_is_procedure (eq))

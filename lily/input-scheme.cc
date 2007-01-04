@@ -47,7 +47,7 @@ LY_DEFINE (ly_input_file_line_column,
   int ch = 0;
   int col = 0;
   ip->get_counts (&l, &ch, &col);
-  return scm_list_4 (scm_makfrom0str (ip->file_string ().c_str ()),
+  return scm_list_4 (ly_string2scm (ip->file_string ()),
 		     scm_from_int (l),
 		     scm_from_int (ch),
 		     scm_from_int (col));
@@ -61,7 +61,7 @@ LY_DEFINE (ly_input_both_locations,
 {
   Input *ip = unsmob_input (sip);
   SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
-  return scm_list_5 (scm_makfrom0str (ip->file_string ().c_str ()),
+  return scm_list_5 (ly_string2scm (ip->file_string ()),
 		     scm_from_int (ip->line_number ()),
 		     scm_from_int (ip->column_number ()),
 		     scm_from_int (ip->end_line_number ()),

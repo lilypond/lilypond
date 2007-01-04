@@ -120,7 +120,7 @@ Tie_column::calc_positioning_done (SCM smob)
 	    card += to_string ("TOTAL=%.2f", base.score ());
 	  
 	  ties[i]->set_property ("quant-score",
-				 scm_makfrom0str (card.c_str ()));
+				 ly_string2scm (card));
 	}
 #endif
       

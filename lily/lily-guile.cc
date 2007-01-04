@@ -130,7 +130,7 @@ ly_scm2string (SCM str)
 }
 
 SCM
-ly_string2scm (string str)
+ly_string2scm (string const &str)
 {
   return scm_from_locale_stringn (str.c_str(),
 				  str.length ());

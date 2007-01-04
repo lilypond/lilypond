@@ -91,9 +91,9 @@ Grob::internal_set_property (SCM sym, SCM v)
   if (ly_is_procedure (modification_callback))
       scm_apply_0 (modification_callback,
 		   scm_list_n (self_scm (),
-			       scm_makfrom0str (file),
+			       scm_from_locale_string (file),
 			       scm_from_int (line),
-			       scm_makfrom0str (fun),
+			       scm_from_locale_string (fun),
 			       sym, v, SCM_UNDEFINED));
 #endif
 

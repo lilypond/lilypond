@@ -147,7 +147,7 @@ Lookup::horizontal_line (Interval w, Real th)
 Stencil
 Lookup::blank (Box b)
 {
-  return Stencil (b, scm_makfrom0str (""));
+  return Stencil (b, scm_from_locale_string (""));
 }
 
 Stencil

@@ -40,7 +40,7 @@ Font_metric::find_by_name (string s) const
     {
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
-			 scm_makfrom0str (s.c_str ()));
+			 ly_string2scm (s));
       b = get_indexed_char (idx);
     }
 

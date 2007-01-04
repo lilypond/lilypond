@@ -193,7 +193,7 @@ Lily_lexer::keyword_list () const
   SCM *tail = &l;
   for (vsize i = 0; i < keytable_->table_.size (); i++)
     {
-      *tail = scm_acons (scm_makfrom0str (keytable_->table_[i].name_),
+      *tail = scm_acons (scm_from_locale_string (keytable_->table_[i].name_),
 			 scm_from_int (keytable_->table_[i].tokcode_),
 			 SCM_EOL);
 
@@ -233,7 +233,7 @@ Lily_lexer::start_main_input ()
 
   scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (main_input_name_.c_str ()));
+		     ly_string2scm (main_input_name_));
 }
 
 void

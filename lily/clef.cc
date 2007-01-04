@@ -31,7 +31,7 @@ Clef::calc_glyph_name (SCM smob)
 	  str += "_change";
 	}
 
-      return scm_makfrom0str (str.c_str ());
+      return ly_string2scm (str);
     }
 
   s->suicide ();

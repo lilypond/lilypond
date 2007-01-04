@@ -1701,25 +1701,25 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = scm_makfrom0str ("Hat");
+		$$ = scm_from_locale_string ("Hat");
 	}
 	| '+'		{
-		$$ = scm_makfrom0str ("Plus");
+		$$ = scm_from_locale_string ("Plus");
 	}
 	| '-' 		{
-		$$ = scm_makfrom0str ("Dash");
+		$$ = scm_from_locale_string ("Dash");
 	}
  	| '|'		{
-		$$ = scm_makfrom0str ("Bar");
+		$$ = scm_from_locale_string ("Bar");
 	}
 	| ANGLE_CLOSE	{
-		$$ = scm_makfrom0str ("Larger");
+		$$ = scm_from_locale_string ("Larger");
 	}
 	| '.' 		{
-		$$ = scm_makfrom0str ("Dot");
+		$$ = scm_from_locale_string ("Dot");
 	}
 	| '_' {
-		$$ = scm_makfrom0str ("Underscore");
+		$$ = scm_from_locale_string ("Underscore");
 	}
 	;
 
@@ -2384,7 +2384,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 SCM
 get_next_unique_context_id ()
 {
-	return scm_makfrom0str ("$uniqueContextId");
+	return scm_from_locale_string ("$uniqueContextId");
 }
 
 
@@ -2394,7 +2394,7 @@ get_next_unique_lyrics_context_id ()
 	static int new_context_count;
 	char s[128];
 	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
-	return scm_makfrom0str (s);
+	return scm_from_locale_string (s);
 }
 
 

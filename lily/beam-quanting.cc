@@ -323,7 +323,7 @@ Beam::quanting (SCM smob, SCM posns)
 
       // debug quanting
       me->set_property ("quant-score",
-			scm_makfrom0str (qscores[best_idx].score_card_.c_str ()));
+			ly_string2scm (qscores[best_idx].score_card_));
     }
 #endif
 

@@ -142,7 +142,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   if (error)
     /* TODO: pass renamed input file too.  */
     scm_throw (ly_symbol2scm ("ly-file-failed"),
-	       scm_list_1 (scm_makfrom0str (file_name.c_str ())));
+	       scm_list_1 (ly_string2scm (file_name)));
   
   return SCM_UNSPECIFIED;
 }
@@ -251,7 +251,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   Lily_parser *p = unsmob_lily_parser (parser);
   SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
-  return scm_makfrom0str (p->output_basename_.c_str ());
+  return ly_string2scm (p->output_basename_);
 }
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",

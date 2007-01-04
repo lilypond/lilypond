@@ -424,7 +424,7 @@ main_with_guile (void *, int, char **)
   SCM *tail = &files;
   while (char const *arg = option_parser->get_next_arg ())
     {
-      *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
+      *tail = scm_cons (scm_from_locale_string (arg), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   
