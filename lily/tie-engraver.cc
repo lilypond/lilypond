@@ -159,8 +159,8 @@ Tie_engraver::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
-  
-  if (!to_boolean (get_property ("tieWaitForNote")))
+
+  if (heads_to_tie_.size () && !to_boolean (get_property ("tieWaitForNote")))
     {
       Moment now = now_mom ();
       for (vsize i = heads_to_tie_.size ();  i--; )
