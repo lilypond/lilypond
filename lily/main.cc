@@ -568,7 +568,6 @@ parse_argv (int argc, char **argv)
 	case 's':
 	  init_scheme_variables
 	    += "(cons \'safe #t)\n";
-
 	  break;
 	case 'p':
 	  make_preview = true;

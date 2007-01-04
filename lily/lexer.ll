@@ -570,7 +570,8 @@ BOM_UTF8	\357\273\277
 <*><<EOF>> {
 	if (is_main_input_)
 	{
-		is_main_input_ = false;
+		/* 2 = init.ly + current file. */ 
+		is_main_input_ = include_stack_.size () > 2;
 		if (!close_input ())
  	        /* Returns YY_NULL */
 			yyterminate ();

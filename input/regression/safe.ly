@@ -15,7 +15,7 @@
 }
 
 
-#(open-file "/tmp/safe-guile.scm" "r")
+#(open-file "/tmp/safe-guile.scm")
 
 \include "this-should-fail.ly"
 
