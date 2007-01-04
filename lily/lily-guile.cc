@@ -45,7 +45,7 @@ ly_to_string (SCM scm)
 {
   return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
 
-		     scm_makfrom0str ("~S"), scm);
+		     scm_from_locale_string ("~S"), scm);
 }
 
 SCM
@@ -128,6 +128,14 @@ ly_scm2string (SCM str)
   return string (scm_i_string_chars (str),
 		 (int) scm_i_string_length (str));
 }
+
+SCM
+ly_string2scm (string str)
+{
+  return scm_from_locale_stringn (str.c_str(),
+				  str.length ());
+}
+
 
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
