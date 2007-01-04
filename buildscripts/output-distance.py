@@ -20,6 +20,37 @@ OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 options = None
 
+
+temp_dir = None
+class TempDirectory:
+    def __init__ (self):
+        import tempfile
+        self.dir = tempfile.mkdtemp ()
+        print 'dir is', self.dir
+    def __del__ (self):
+        print 'rm -rf %s' % self.dir 
+        os.system ('rm -rf %s' % self.dir )
+    def __call__ (self):
+        return self.dir
+
+
+def get_temp_dir  ():
+    global temp_dir
+    if not temp_dir:
+        temp_dir = TempDirectory ()
+    return temp_dir ()
+
+def read_pipe (c):
+    print 'pipe' , c
+    return os.popen (c).read ()
+
+def system (c):
+    print 'system' , c
+    s = os.system (c)
+    if s :
+        raise Exception ("failed")
+    return
+
 def shorten_string (s):
     threshold = 15 
     if len (s) > 2*threshold:
@@ -277,25 +308,13 @@ def read_signature_file (name):
 
 hash_to_original_name = {}
 
-
-def read_pipe (c):
-    print 'pipe' , c
-    return os.popen (c).read ()
-
-def system (c):
-    print 'system' , c
-    s = os.system (c)
-    if s :
-        raise Exception ("failed")
-    return
-
-def compare_png_images (old, new, dir):
+def compare_png_images (old, new, dest_dir):
     def png_dims (f):
         m = re.search ('([0-9]+) x ([0-9]+)', read_pipe ('file %s' % f))
         
         return tuple (map (int, m.groups ()))
 
-    dest = os.path.join (dir, new.replace ('.png', '.compare.jpeg'))
+    dest = os.path.join (dest_dir, new.replace ('.png', '.compare.jpeg'))
     try:
         dims1 = png_dims (old)
         dims2 = png_dims (new)
@@ -307,14 +326,15 @@ def compare_png_images (old, new, dir):
     dims = (min (dims1[0], dims2[0]),
             min (dims1[1], dims2[1]))
 
-    system ('convert -depth 8 -crop %dx%d+0+0 %s crop1.png' % (dims + (old,)))
-    system ('convert -depth 8 -crop %dx%d+0+0 %s crop2.png' % (dims + (new,)))
+    dir = get_temp_dir ()
+    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
+    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
 
-    system ('compare -depth 8 crop1.png crop2.png diff.png')
+    system ('compare -depth 8 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
 
-    system ("convert  -depth 8 diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    matte.png")
+    system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
 
-    system ("composite -quality 65 matte.png %(new)s %(dest)s" % locals ())
+    system ("composite -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
 
 class FileLink:
     def __init__ (self):
