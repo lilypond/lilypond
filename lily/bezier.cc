@@ -14,21 +14,6 @@ Real binomial_coefficient_3[] = {
   1, 3, 3, 1
 };
 
-Real
-binomial_coefficient (Real over, int under)
-{
-  Real x = 1.0;
-
-  while (under)
-    {
-      x *= over / Real (under);
-
-      over -= 1.0;
-      under--;
-    }
-  return x;
-}
-
 void
 scale (vector<Offset> *array, Real x, Real y)
 {

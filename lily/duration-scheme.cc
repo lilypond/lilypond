@@ -123,7 +123,7 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
 
 LY_DEFINE (ly_duration2string, "ly:duration->string",
 	   1, 0, 0, (SCM dur),
-	   "Convert{dur} to string.")
+	   "Convert @var{dur} to string.")
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return ly_string2scm (unsmob_duration (dur)->to_string ());

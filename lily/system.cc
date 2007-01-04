@@ -23,6 +23,7 @@
 #include "staff-symbol-referencer.hh"
 #include "tweak-registration.hh"
 #include "warn.hh"
+#include "lookup.hh"
 
 extern bool debug_skylines;
 
@@ -399,8 +400,8 @@ System::get_paper_system ()
 				 exprs));
   if (debug_skylines)
     {
-      sys_stencil.add_stencil (points_to_line_stencil (skylines_[UP].to_points ()).in_color (255, 0, 0));
-      sys_stencil.add_stencil (points_to_line_stencil (skylines_[DOWN].to_points ()).in_color (0, 255, 0));
+      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[UP].to_points ()).in_color (255, 0, 0));
+      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[DOWN].to_points ()).in_color (0, 255, 0));
     }
 
   Grob *left_bound = this->get_bound (LEFT);

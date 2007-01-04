@@ -156,21 +156,3 @@ ADD_INTERFACE (Line_interface,
 	       "arrow-length "
 	       "arrow-width")
 
-
-
-/* todo: move this somewhere else? */
-Stencil
-points_to_line_stencil (vector<Offset> points)
-{
-  Stencil ret;
-  for (vsize i = 1; i < points.size (); i++)
-    {
-      if (points[i-1].is_sane ()  && points[i].is_sane ())
-	{
-	  Stencil line
-	    = Line_interface::make_line (0.1, points[i-1], points[i]);
-	  ret.add_stencil (line);
-	}
-    }
-  return ret;
-}

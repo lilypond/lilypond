@@ -344,7 +344,7 @@ LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
 
 LY_DEFINE (ly_expand_environment, "ly:expand-environment",
 	   1, 0, 0, (SCM str),
-	   "Expand $VAR and ${VAR} in @var{str}.")
+	   "Expand $VAR and $@{VAR@} in @var{str}.")
 {
   SCM_ASSERT_TYPE(scm_is_string (str), str,
 		  SCM_ARG1, __FUNCTION__, "string");
