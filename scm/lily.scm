@@ -39,10 +39,9 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
 					 "delete unusable PostScript files")
 	      (dump-profile #f "dump timing information for each file")
 	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
-	      (dump-signatures #f "dump output signatures of each system")
+	      (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
 	      
-	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
-
+	      (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
 	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
 	      (gui #f "running from gui; redirect stderr to log file")
@@ -73,10 +72,8 @@ on errors, and print a stack trace.")
 	      (separate-log-files #f "Output to FILE.log per file.")
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
-
 	      (show-available-fonts #f
-				    "List  font names available.")
-
+				    "List font names available.")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      )))
 
@@ -101,9 +98,7 @@ on errors, and print a stack trace.")
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
-
 	     )
-
 
 ;; my display
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
@@ -368,13 +363,11 @@ The syntax is the same as `define*-public'."
 	 (stats (gc-stats)))
     
     (list
-     (- (tms:utime t)
+     (- (+ (tms:cutime t)
+	   (tms:utime t))
 	(ly:assoc-get 'gc-time-taken stats))
      
-     ;; unreliable...
      (ly:assoc-get 'total-cells-allocated  stats 0)
-     ;; difficult to put memory amount stats into here.
-     
      )))
 
 (define (dump-profile base last this)
@@ -513,7 +506,7 @@ The syntax is the same as `define*-public'."
 	    ))
   
   (if (and (number? (ly:get-option 'job-count))
-	   (> (length files) (ly:get-option 'job-count)))
+	   (>= (length files) (ly:get-option 'job-count)))
       
       (let*
 	  ((count (ly:get-option 'job-count))
@@ -554,6 +547,10 @@ The syntax is the same as `define*-public'."
 
 	      (if (pair? errors)
 		  (ly:error "Children ~a exited with errors." errors))
+
+	      ;; must overwrite individual entries
+	      (if (ly:get-option 'dump-profile)
+		  (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
 
 	    (exit (if (null? errors) 0 1))))))
 	      
@@ -626,7 +623,7 @@ The syntax is the same as `define*-public'."
 
     (if (ly:get-option 'dump-profile)
 	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
-
+    
     failed))
 
 (define (lilypond-file handler file-name)
