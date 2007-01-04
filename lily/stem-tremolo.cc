@@ -33,8 +33,8 @@ Stem_tremolo::calc_slope (SCM smob)
       if (is_number_pair (s))
 	dy = - scm_to_double (scm_car (s)) + scm_to_double (scm_cdr (s));
 
-      Grob *s2 = Beam::last_visible_stem (beam);
-      Grob *s1 = Beam::first_visible_stem (beam);
+      Grob *s2 = Beam::last_normal_stem (beam);
+      Grob *s1 = Beam::first_normal_stem (beam);
       
       Grob *common = s1->common_refpoint (s2, X_AXIS);
       Real dx = s2->relative_coordinate (common, X_AXIS) -

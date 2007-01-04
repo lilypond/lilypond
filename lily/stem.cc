@@ -214,12 +214,9 @@ Stem::add_head (Grob *me, Grob *n)
 bool
 Stem::is_invisible (Grob *me)
 {
-  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
-					   0.0);
-
-  return !((head_count (me)
-	    || stemlet_length > 0.0)
-	   && scm_to_int (me->get_property ("duration-log")) >= 1);
+  return !is_normal_stem (me)
+    && (robust_scm2double (me->get_property ("stemlet-length"),
+			   0.0) == 0.0);
 }
 
 

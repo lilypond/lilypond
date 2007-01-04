@@ -154,8 +154,8 @@ Beam::quanting (SCM smob, SCM posns)
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, me, Axis (a));
 
-  Grob *fvs = first_visible_stem (me);
-  Grob *lvs = last_visible_stem (me);
+  Grob *fvs = first_normal_stem (me);
+  Grob *lvs = last_normal_stem (me);
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   Real xr = fvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
 

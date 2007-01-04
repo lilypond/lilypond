@@ -508,6 +508,7 @@ where this is set in.")
 
      (note-columns ,pair? "list of NoteColumn grobs.")
 
+     (normal-stems ,ly:grob-array? "Array of visible stems.") 
      (note-heads ,ly:grob-array? "List of note head grobs")
      (note-head ,ly:grob? "A single note head")
      (right-items ,ly:grob-array? "")

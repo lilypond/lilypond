@@ -349,6 +349,7 @@
 	;; only for debugging.
 	(font-family . roman)
 	(meta . ((class . Spanner)
+		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems))) 
 		 (interfaces . (staff-symbol-referencer-interface
 				beam-interface))))))
 

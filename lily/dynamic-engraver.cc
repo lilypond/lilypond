@@ -390,14 +390,12 @@ Dynamic_engraver::typeset_all ()
     }
 }
 
-
 void
 Dynamic_engraver::acknowledge_accidental (Grob_info info)
 {
   if (line_spanner_)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
-
 
 void
 Dynamic_engraver::acknowledge_stem_tremolo (Grob_info info)
@@ -406,14 +404,12 @@ Dynamic_engraver::acknowledge_stem_tremolo (Grob_info info)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
 
-
 void
 Dynamic_engraver::acknowledge_slur (Grob_info info)
 {
   if (line_spanner_)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
-
 
 void
 Dynamic_engraver::acknowledge_note_column (Grob_info info)
