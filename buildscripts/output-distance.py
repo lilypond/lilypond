@@ -34,7 +34,6 @@ def max_distance (x1, x2):
         
     return dist
 
-
 empty_interval = (INFTY, -INFTY)
 empty_bbox = (empty_interval, empty_interval)
 
@@ -275,6 +274,10 @@ def read_signature_file (name):
 
 ################################################################
 # different systems of a .ly file.
+
+hash_to_original_name = {}
+
+
 def read_pipe (c):
     print 'pipe' , c
     return os.popen (c).read ()
@@ -352,11 +355,17 @@ class FileCompareLink (FileLink):
         for f in self.files:
             link_file (f, os.path.join (dest_dir, f))
 
+    def extension (self):
+        return '.ext'
+    
     def name (self):
         name = os.path.basename (self.files[0])
         name = os.path.splitext (name)[0]
+        name = hash_to_original_name.get (name, name)
+
+        name = os.path.splitext (name)[0] + self.extension ()
         return name
-        
+    
     def calc_distance (self):
         ## todo: could use import MIDI to pinpoint
         ## what & where changed.
@@ -402,7 +411,10 @@ class TextFileCompareLink (FileCompareLink):
         f = os.path.join (new_dir, self.name ()) + '.diff.txt'
         f = os.path.join (dest_dir, f)
         open_write_file (f).write (str)
-     
+
+    def extension (self):
+        return '.txt'
+    
     def html_record_string (self, d1, d2):
         (dist, f1, f2) = (self.distance(),) + self.files
         b1 = os.path.basename (f1)
@@ -421,6 +433,9 @@ class TextFileCompareLink (FileCompareLink):
 
 
 class ProfileFileLink (TextFileCompareLink):
+    def extension (self):
+        return '.profile'
+    
     def calc_distance (self):
         TextFileCompareLink.calc_distance (self)
         
@@ -457,15 +472,27 @@ class MidiFileLink (FileCompareLink):
         s = re.sub ('LilyPond [0-9.]+', '', s)
         return s
 
+    def extension (self):
+        return '.midi'
+    
+
 class SignatureFileLink (FileLink):
     def __init__ (self):
         FileLink.__init__ (self)
-        self.original_name = ''
         self.base_names = ('','')
         self.system_links = {}
+
+    def extension (self):
+        return '.ly'
+    
         
     def name (self):
-        return os.path.splitext (self.original_name)[0]
+        base = os.path.basename (self.base_names[1])
+        base = os.path.splitext (base)[0]
+        
+        base = hash_to_original_name.get (base, base)
+        base = os.path.splitext (base)[0] + self.extension ()
+        return base
     
     def add_system_link (self, link, number):
         self.system_links[number] = link
@@ -500,19 +527,16 @@ class SignatureFileLink (FileLink):
                            os.path.normpath (base2))
 
         def note_original (match):
-            self.original_name = match.group (1)
+            hash_to_original_name[os.path.basename (self.base_names[1])] = match.group (1)
             return ''
         
-        if not self.original_name:
-            self.original_name = os.path.split (base1)[1]
-
-            ## ugh: drop the .ly.txt
-            for ext in ('.ly', '.ly.txt'):
-                try:
-                    re.sub (r'\\sourcefilename "([^"]+)"',
-                            note_original, open (base1 + ext).read ())
-                except IOError:
-                    pass
+        ## ugh: drop the .ly.txt
+        for ext in ('.ly', '.ly.txt'):
+            try:
+                re.sub (r'\\sourcefilename "([^"]+)"',
+                        note_original, open (base1 + ext).read ())
+            except IOError:
+                pass
                 
         s1 = read_signature_file (f1)
         s2 = read_signature_file (f2)
@@ -615,7 +639,7 @@ class SignatureFileLink (FileLink):
             
 
         html_2  = self.base_names[1] + '.html'
-        name = self.original_name
+        name = self.name ()
 
         cell_1 = cell (self.base_names[0], name)
         cell_2 = cell (self.base_names[1], name)
@@ -661,7 +685,7 @@ class SignatureFileLink (FileLink):
             e = '<tr>%s</tr>' % e
             html += e
             
-        original = self.original_name
+        original = self.name ()
         html = '''<html>
 <head>
 <title>comparison details for %(original)s</title>
