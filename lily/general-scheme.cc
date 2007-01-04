@@ -22,6 +22,7 @@ using namespace std;
 #include "dimensions.hh"
 #include "main.hh"
 #include "file-path.hh"
+#include "relocate.hh"
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
@@ -35,7 +36,7 @@ LY_DEFINE (ly_find_file, "ly:find-file",
   if (file_name.empty ())
     return SCM_BOOL_F;
 
-  return scm_makfrom0str (file_name.c_str ());
+  return ly_string2scm (file_name);
 }
 
 /*
@@ -168,7 +169,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
   else
     snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
 
-  return scm_makfrom0str (str);
+  return scm_from_locale_string (str);
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
@@ -182,7 +183,7 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 	   "Return the unit used for lengths as a string.")
 {
-  return scm_makfrom0str (INTERNAL_UNIT);
+  return scm_from_locale_string (INTERNAL_UNIT);
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
@@ -208,14 +209,14 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 {
   SCM_ASSERT_TYPE (scm_is_string (string), string, SCM_ARG1,
 		   __FUNCTION__, "string");
-  return scm_makfrom0str (_ (scm_i_string_chars (string)).c_str ());
+  return ly_string2scm (_ (scm_i_string_chars (string)));
 }
 
 LY_DEFINE (ly_output_backend, "ly:output-backend",
 	   0, 0, 0, (),
 	   "Return name of output backend.")
 {
-  return scm_makfrom0str (output_backend_global.c_str ());
+  return ly_string2scm (output_backend_global);
 }
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
@@ -228,7 +229,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();
   for (int i = 0; i < output_formats_count; i++)
-    lst = scm_cons (scm_makfrom0str (output_formats[i].c_str ()), lst);
+    lst = scm_cons (ly_string2scm (output_formats[i]), lst);
 
   return lst;
 }
@@ -265,14 +266,14 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
     }
   *p = 0;
 
-  return scm_makfrom0str (buf);
+  return scm_from_locale_string (buf);
 }
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
 {
-  return scm_makfrom0str (prefix_directory.c_str ());
+  return ly_string2scm (prefix_directory);
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
@@ -340,3 +341,14 @@ LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
 
   return ly_symbol2scm (result.c_str ());
 }
+
+LY_DEFINE (ly_expand_environment, "ly:expand-environment",
+	   1, 0, 0, (SCM str),
+	   "Expand $VAR and ${VAR} in @var{str}.")
+{
+  SCM_ASSERT_TYPE(scm_is_string (str), str,
+		  SCM_ARG1, __FUNCTION__, "string");
+
+  return ly_string2scm (expand_environment_variables (ly_scm2string (str)));
+}
+		 
