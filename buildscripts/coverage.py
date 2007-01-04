@@ -45,8 +45,9 @@ class Chunk:
 
     def length (self):
         return self.range[1] - self.range[0]
+
     def text (self):
-        return ''.join ([l[0] for l in self.lines()])
+        return ''.join ([l[2] for l in self.lines()])
         
     def lines (self):
         return self.all_lines[self.range[0]:
@@ -102,20 +103,6 @@ def widen_chunk (ch, ls):
     return [(n, l)  for (c, n, l) in ls[a:b]]
     
 
-def is_exception_chunk (ch):
-    for (n,l) in ch:
-        for stat in  ('warning', 'error'):
-            if stat in l:
-                return True
-    return False
-
-def is_inspection_chunk (ch):
-    for (n,l) in ch:
-        for stat in  ('::print',):
-            if stat in l:
-                return True
-    return False
-
 def extract_uncovered (file):
     try:
         ls = read_gcov (file)
@@ -126,11 +113,10 @@ def extract_uncovered (file):
     cs = get_chunks (ls, file)
     def interesting (c):
         t = c.text()
-        for stat in  ('warning', 'error', 'print'):
+        for stat in  ('warning', 'error', 'print', 'scm_gc_mark'):
             if stat in t:
                 return False
         return True
-
    
     return [c for c in cs if interesting (c)]
     
