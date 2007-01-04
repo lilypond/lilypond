@@ -187,6 +187,15 @@ For tracking memory usage as part of this test, you will need GUILE
 CVS; especially the following patch:
 @uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.9-gcstats.patch}.
 
+For checking the coverage of the test suite, do the following
+
+@example
+  ./buildscripts/build-coverage.sh
+  @emph{# uncovered files, least covered first}
+  python ./buildscripts/coverage.py  --summary out-cov/*.cc
+  @emph{# consecutive uncovered lines, longest first} 
+  python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
+@end example
 
 @section Building LilyPond
 
