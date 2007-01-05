@@ -356,29 +356,6 @@ next_spaceable_column (vector<Grob*> const &list, vsize starting)
   return 0;
 }
 
-static void
-get_column_spring (Grob *this_col, Grob *next_col, Real *ideal, Real *inv_hooke)
-{
-  Spring_smob *spring = 0;
-
-  for (SCM s = this_col->get_object ("ideal-distances");
-       !spring && scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
-
-      if (sp->other_ == next_col)
-	spring = sp;
-    }
-
-  if (!spring)
-    programming_error (_f ("No spring between column %d and next one",
-			   Paper_column::get_rank (this_col)));
-
-  *ideal = (spring) ? spring->distance_ : 5.0;
-  *inv_hooke = (spring) ? spring->inverse_strength_ : 1.0;
-}
-
 static Column_description
 get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_starter)
 {
@@ -389,10 +366,10 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
   Column_description description;
   Grob *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
-    get_column_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
+    Spaceable_grob::get_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
   Grob *end_col = dynamic_cast<Item*> (cols[col_index+1])->find_prebroken_piece (LEFT);
   if (end_col)
-    get_column_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
+    Spaceable_grob::get_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
 
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))

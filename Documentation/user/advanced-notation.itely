@@ -1713,7 +1713,7 @@ created with a markup text.  This markup text is inserted in the
 tsMarkup =\markup {
   \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
-    \lower #1 "+"
+    \vcenter "+"
     \bracket \column { "5" "8" }
   }
 }

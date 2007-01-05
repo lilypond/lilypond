@@ -85,7 +85,7 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
   vector<char> pfb_string = gulp_file (file_name, 0);
   char *pfa = pfb2pfa ((Byte *) &pfb_string[0], pfb_string.size ());
   
-  SCM pfa_scm = scm_makfrom0str (pfa);
+  SCM pfa_scm = scm_from_locale_string (pfa);
   free (pfa);
 
   if (be_verbose_global)

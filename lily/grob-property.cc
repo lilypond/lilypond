@@ -53,8 +53,8 @@ Grob::get_property_alist_chain (SCM def) const
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
-void
 #ifndef NDEBUG
+void
 Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
 {
   SCM grob_p = ly_lily_module_constant ("ly:grob?");
@@ -68,11 +68,32 @@ Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char co
       scm_display (scm_list_2 (sym, type), scm_current_output_port ());
       assert (0);
     }
+  
+  internal_set_value_on_alist (&mutable_property_alist_,
+			       sym, v);
+
+
+  if (ly_is_procedure (modification_callback))
+    scm_apply_0 (modification_callback,
+		 scm_list_n (self_scm (),
+			     scm_from_locale_string (file),
+			     scm_from_int (line),
+			     scm_from_locale_string (fun),
+			     sym, v, SCM_UNDEFINED));
+}
 #else
+void
 Grob::internal_set_property (SCM sym, SCM v)
 {
+  internal_set_value_on_alist (&mutable_property_alist_,
+			       sym, v);
+
+}
 #endif
 
+void
+Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
+{
   /* Perhaps we simply do the assq_set, but what the heck. */
   if (!is_live ())
     return;
@@ -87,20 +108,9 @@ Grob::internal_set_property (SCM sym, SCM v)
       check_interfaces_for_property (this, sym);
     }
 
-#ifndef NDEBUG
-  if (ly_is_procedure (modification_callback))
-      scm_apply_0 (modification_callback,
-		   scm_list_n (self_scm (),
-			       scm_makfrom0str (file),
-			       scm_from_int (line),
-			       scm_makfrom0str (fun),
-			       sym, v, SCM_UNDEFINED));
-#endif
-
-  mutable_property_alist_ = scm_assq_set_x (mutable_property_alist_, sym, v);
+  *alist = scm_assq_set_x (*alist, sym, v);
 }
 
-//#define PROFILE_PROPERTY_ACCESSES
 SCM
 Grob::internal_get_property_data (SCM sym) const
 {
@@ -137,7 +147,8 @@ Grob::internal_get_property (SCM sym) const
   if (ly_is_procedure (val)
       || is_simple_closure (val))
     {
-      val = ((Grob*)this)->try_callback (sym, val);
+      Grob *me = ((Grob*)this);
+      val = me->try_callback_on_alist (&me->mutable_property_alist_, sym, val);
     }
   
   return val;
@@ -151,15 +162,14 @@ bool debug_property_callbacks = 0;
 #endif
 
 SCM
-Grob::try_callback (SCM sym, SCM proc)
+Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 {      
   SCM marker = ly_symbol2scm ("calculation-in-progress");
   /*
     need to put a value in SYM to ensure that we don't get a
     cyclic call chain.
   */
-  mutable_property_alist_
-    = scm_assq_set_x (mutable_property_alist_, sym, marker);
+  *alist = scm_assq_set_x (*alist, sym, marker);
 
 #ifndef NDEBUG
   if (debug_property_callbacks)
@@ -175,6 +185,7 @@ Grob::try_callback (SCM sym, SCM proc)
 					    simple_closure_expression (proc),
 					    false, 0, 0);
     }
+  
 #ifndef NDEBUG
   if (debug_property_callbacks)
     grob_property_callback_stack = scm_cdr (grob_property_callback_stack);
@@ -188,12 +199,13 @@ Grob::try_callback (SCM sym, SCM proc)
   if (value == SCM_UNSPECIFIED)
     {
       value = internal_get_property (sym);
+      assert (value == SCM_EOL || value == marker);
       if (value == marker)
-	mutable_property_alist_ = scm_assq_remove_x (mutable_property_alist_, marker);
+	*alist = scm_assq_remove_x (*alist, marker);
     }
   else
-    set_property (sym, value);
-	  
+    internal_set_value_on_alist (alist, sym, value);
+  
   return value;
 }
 
@@ -216,13 +228,25 @@ Grob::internal_del_property (SCM sym)
 SCM
 Grob::internal_get_object (SCM sym) const
 {
-#ifdef PROFILE_PROPERTY_ACCESSES
-  note_property_access (&grob_property_lookup_table, sym);
-#endif
+  if (profile_property_accesses)
+    note_property_access (&grob_property_lookup_table, sym);
 
   SCM s = scm_sloppy_assq (sym, object_alist_);
+  
+  if (s != SCM_BOOL_F)
+    {
+      SCM val = scm_cdr (s);
+      if (ly_is_procedure (val)
+	  || is_simple_closure (val))
+	{
+	  Grob *me = ((Grob*)this);
+	  val = me->try_callback_on_alist (&me->object_alist_, sym, val);
+	}
+      
+      return val;
+    }
 
-  return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
+  return SCM_EOL;
 }
 
 bool

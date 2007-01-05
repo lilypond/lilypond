@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.6"
 
 #(use-modules (srfi srfi-13)
               (ice-9 format))
@@ -15,7 +15,7 @@
                                   (char=? (peek-char port) #\]))
                              (read-char port))
                           (display c out))))))
-    `(let* ((parser-clone (ly:clone-parser parser))
+    `(let* ((parser-clone (ly:parser-clone parser))
             (input-str (string-trim-both ,lily-string))
             (music (car (ly:music-property (parse-string-result input-str
                                                                 parser-clone)

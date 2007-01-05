@@ -31,6 +31,7 @@ struct Lookup
   static Stencil repeat_slash (Real w, Real slope, Real th);
   static Stencil horizontal_line (Interval w, Real th);
   static Stencil triangle (Interval, Real, Real);
+  static Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
 };
 
 #endif // LOOKUP_HH

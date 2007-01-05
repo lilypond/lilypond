@@ -63,7 +63,7 @@ Lilypond_grob_key::as_scheme () const
 {
   return scm_list_4 (context_ ? context_->self_scm () : SCM_BOOL_F,
 		     creation_moment_.smobbed_copy (),
-		     scm_makfrom0str (grob_name_.c_str ()),
+		     ly_string2scm (grob_name_),
 		     scm_from_int (disambiguation_count_));
 }
 
@@ -146,8 +146,8 @@ Lilypond_context_key::as_scheme () const
 {
   return scm_list_5 (parent_context_ ? parent_context_->self_scm () : SCM_BOOL_F,
 		     start_moment_.smobbed_copy (),
-		     scm_makfrom0str (context_name_.c_str ()),
-		     scm_makfrom0str (id_.c_str ()),
+		     ly_string2scm (context_name_),
+		     ly_string2scm (id_),
 		     scm_from_int (disambiguation_count_));
 }
 
@@ -213,7 +213,7 @@ SCM
 Lilypond_general_key::as_scheme () const
 {
   return scm_list_3 (parent_ ? parent_->self_scm () : SCM_BOOL_F,
-		     scm_makfrom0str (name_.c_str ()),
+		     ly_string2scm (name_),
 		     scm_from_int (disambiguation_count_));
 }
 

@@ -9,6 +9,7 @@
 
 #include "engraver.hh"
 
+#include "grob-array.hh"
 #include "context.hh"
 #include "item.hh"
 #include "pointer-group-interface.hh"
@@ -86,7 +87,8 @@ Note_spacing_engraver::finalize ()
 {
   if (last_spacing_
       && last_spacing_parent_context_
-      && last_spacing_parent_context_ == context ()->get_parent_context ())
+      && last_spacing_parent_context_ == context ()->get_parent_context ()
+      && !unsmob_grob_array (last_spacing_->get_object ("right-items")))
     {
       SCM ccol = get_property ("currentCommandColumn");
       Grob *column = unsmob_grob (ccol);

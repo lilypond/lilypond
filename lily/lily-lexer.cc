@@ -193,7 +193,7 @@ Lily_lexer::keyword_list () const
   SCM *tail = &l;
   for (vsize i = 0; i < keytable_->table_.size (); i++)
     {
-      *tail = scm_acons (scm_makfrom0str (keytable_->table_[i].name_),
+      *tail = scm_acons (scm_from_locale_string (keytable_->table_[i].name_),
 			 scm_from_int (keytable_->table_[i].tokcode_),
 			 SCM_EOL);
 
@@ -231,12 +231,27 @@ Lily_lexer::start_main_input ()
   
   new_input (main_input_name_, sources_);
 
-  /* Do not allow \include in --safe-mode */
-  allow_includes_b_ = allow_includes_b_ && !be_safe_global;
-
   scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (main_input_name_.c_str ()));
+		     ly_string2scm (main_input_name_));
+}
+
+void
+Lily_lexer::new_input (string str, string d, Sources *ss)
+{
+  Includable_lexer::new_input (str, d, ss);
+}
+
+void
+Lily_lexer::new_input (string str, Sources *ss)
+{
+  if (is_main_input_ && be_safe_global)
+    {
+      LexerError (_ ("include files are not allowed in safe mode").c_str ());
+      return;
+    }
+
+  Includable_lexer::new_input (str, ss);
 }
 
 void

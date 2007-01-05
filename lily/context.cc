@@ -337,7 +337,7 @@ Context::create_context (Context_def *cdef,
   send_stream_event (this, "CreateContext", 0,
                      ly_symbol2scm ("ops"), ops,
                      ly_symbol2scm ("type"), cdef->get_context_name (),
-                     ly_symbol2scm ("id"), scm_makfrom0str (id.c_str ()));
+                     ly_symbol2scm ("id"), ly_string2scm (id));
   event_source_->
     remove_listener (GET_LISTENER (acknowledge_infant),
                      ly_symbol2scm ("AnnounceNewContext"));

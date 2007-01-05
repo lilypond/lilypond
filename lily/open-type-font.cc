@@ -296,7 +296,7 @@ Open_type_font::glyph_list () const
       if (code)
 	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
 
-      *tail = scm_cons (scm_makfrom0str (name), SCM_EOL);
+      *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   

@@ -1348,6 +1348,7 @@ music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
 @lilypond[fragment,staffsize=12,line-width=13.0\cm]
+\set Score.implicitTimeSignatureVisibility = #all-invisible
 \override Score.TimeSignature #'break-visibility = #all-invisible
 \context PianoStaff <<
   \context Staff = SA \relative c' {
@@ -3270,8 +3271,8 @@ subject.
 @lilypond[line-width=13.0\cm]
 \score{
 \relative c'' {
+  \set Score.implicitTimeSignatureVisibility = #all-invisible
   \override Score.TimeSignature #'break-visibility = #all-invisible
-  %\override Score.TextScript #'font-style = #'large
   \time 4/4
   \key g \major
   \partial 8 g16\startGroup fis |

@@ -12,22 +12,25 @@ void note_property_access (SCM *table, SCM sym);
 
 SCM context_property_lookup_table;
 SCM grob_property_lookup_table;
+SCM prob_property_lookup_table;
 
-LY_DEFINE (ly_context_property_lookup_stats, "ly:context-property-lookup-stats",
-	   0, 0, 0, (),
-	   "")
+LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
+	   1, 0, 0, (SCM sym),
+	   "Return hash table with a property access corresponding to @var{sym}. "
+	   "Choices are prob, grob and context.")
 {
-  return context_property_lookup_table ? context_property_lookup_table
-    : scm_c_make_hash_table (1);
+  if (sym == ly_symbol2scm ("context"))
+    return context_property_lookup_table ? context_property_lookup_table
+      : scm_c_make_hash_table (1);
+  if (sym == ly_symbol2scm ("prob"))
+    return prob_property_lookup_table ? prob_property_lookup_table
+      : scm_c_make_hash_table (1);
+  if (sym == ly_symbol2scm ("grob"))
+    return grob_property_lookup_table ? grob_property_lookup_table
+      : scm_c_make_hash_table (1);
+  return scm_c_make_hash_table (1);
 }
 
-LY_DEFINE (ly_property_lookup_stats, "ly:grob-property-lookup-stats",
-	   0, 0, 0, (),
-	   "")
-{
-  return grob_property_lookup_table ? grob_property_lookup_table
-    : scm_c_make_hash_table (1);
-}
 
 void
 note_property_access (SCM *table, SCM sym)

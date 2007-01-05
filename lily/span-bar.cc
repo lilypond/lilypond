@@ -185,7 +185,7 @@ Span_bar::calc_glyph_name (SCM smob)
   else if (type == ":|:")
     type = ".|.";
 
-  return scm_makfrom0str (type.c_str ());
+  return ly_string2scm (type);
 }
 
 Interval

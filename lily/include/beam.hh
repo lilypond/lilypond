@@ -34,6 +34,7 @@ struct Beam_quant_parameters
   Real STEM_LENGTH_LIMIT_PENALTY;
   Real DAMPING_DIRECTION_PENALTY;
   Real MUSICAL_DIRECTION_FACTOR;
+  Real HINT_DIRECTION_PENALTY;
   Real IDEAL_SLOPE_FACTOR;
   Real ROUND_TO_ZERO_SLOPE;
 
@@ -68,9 +69,9 @@ bool operator <(Beam_stem_segment const &a, Beam_stem_segment const &b);
 class Beam
 {
 public:
-  static int visible_stem_count (Grob *);
-  static Grob *first_visible_stem (Grob *);
-  static Grob *last_visible_stem (Grob *);
+  static int normal_stem_count (Grob *);
+  static Grob *first_normal_stem (Grob *);
+  static Grob *last_normal_stem (Grob *);
   DECLARE_GROB_INTERFACE();
   static void add_stem (Grob *, Grob *);
   static bool is_knee (Grob *);
@@ -89,6 +90,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_direction, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_positions, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_least_squares_positions, (SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));  
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
 

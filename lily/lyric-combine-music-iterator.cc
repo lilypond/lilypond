@@ -15,6 +15,20 @@
 #include "music-iterator.hh"
 #include "music.hh"
 
+/*
+  This iterator is hairy.  It tracks both lyric and melody contexts,
+  and has a complicated communication route, reading/writing
+  properties in both.
+
+  In the future, this should rather be done with
+
+     \interpretAsMelodyFor { MUSIC } { LYRICS LYRICS LYRICS }
+
+  This can run an interpret step on MUSIC, generating a stream.  Then
+  the stream can be perused at leisure to apply durations to all of
+  the LYRICS.
+*/
+
 class Lyric_combine_music_iterator : public Music_iterator
 {
 public:
@@ -32,7 +46,7 @@ protected:
   virtual void derived_substitute (Context *, Context *);
   void set_music_context (Context *to);
 private:
-  bool start_new_syllable ();
+  bool start_new_syllable () const;
   Context *find_voice ();
   DECLARE_LISTENER (set_busy);
   DECLARE_LISTENER (check_new_context);
@@ -75,6 +89,7 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
       music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
       lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
     }
+
   music_context_ = to;
   if (to)
     {
@@ -85,12 +100,10 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 }
 
 bool
-Lyric_combine_music_iterator::start_new_syllable ()
+Lyric_combine_music_iterator::start_new_syllable () const
 {
   if (!busy_)
     return false;
-
-  busy_ = false;
 
   if (!lyrics_context_)
     return false;
@@ -169,15 +182,13 @@ Lyric_combine_music_iterator::construct_children ()
   Context *voice = find_voice ();
   if (voice)
     set_music_context (voice);
-  else
-    {
-      /*
-        Wait for a Create_context event. If this isn't done, lyrics can be 
-        delayed when voices are created implicitly.
-      */
-      Global_context *g = get_outlet ()->get_global_context ();
-      g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
-    }
+
+  /*
+    Wait for a Create_context event. If this isn't done, lyrics can be 
+    delayed when voices are created implicitly.
+  */
+  Global_context *g = get_outlet ()->get_global_context ();
+  g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*
     We do not create a Lyrics context, because the user might
@@ -191,15 +202,15 @@ void
 Lyric_combine_music_iterator::check_new_context (SCM sev)
 {
   // TODO: Check first if type=Voice and if id matches
-  (void)sev;
-
+  Stream_event * ev = unsmob_stream_event (sev);
+  if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
+    return ;
+  
   Context *voice = find_voice ();
+
   if (voice)
     {
       set_music_context (voice);
-
-      Global_context *g = voice->get_global_context ();
-      g->events_below ()->remove_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
     }
 }
 
@@ -258,6 +269,7 @@ Lyric_combine_music_iterator::process (Moment)
       set_music_context (0);
     }
 
+
   if (music_context_
       && (start_new_syllable () || pending_grace_lyric_)
       && lyric_iter_->ok ())
@@ -275,6 +287,8 @@ Lyric_combine_music_iterator::process (Moment)
 
       music_found_ = true;
     }
+
+  busy_ = false;
 }
 
 void

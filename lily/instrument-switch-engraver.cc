@@ -31,6 +31,9 @@ Instrument_switch_engraver::Instrument_switch_engraver ()
   text_ = 0;
 }
 
+/*
+  TODO: should use an event.
+ */
 void
 Instrument_switch_engraver::process_music ()
 {

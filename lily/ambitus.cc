@@ -24,7 +24,7 @@ Ambitus::print (SCM smob)
   Item *me = (Item *) unsmob_grob (smob);
   Stencil stencil;
 
-  // join heads
+  // FIXME : should be Ambitus_line join heads
   extract_grob_set (me, "note-heads", heads);
   if (to_boolean (me->get_property ("join-heads"))
       && heads.size () > 1)

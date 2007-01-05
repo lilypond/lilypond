@@ -1,5 +1,5 @@
 /*
-  relocate.hh -- declare
+  relocate.hh -- declare relocation functions
 
   source file of the GNU LilyPond music typesetter
 

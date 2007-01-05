@@ -147,7 +147,7 @@ Lookup::horizontal_line (Interval w, Real th)
 Stencil
 Lookup::blank (Box b)
 {
-  return Stencil (b, scm_makfrom0str (""));
+  return Stencil (b, scm_from_locale_string (""));
 }
 
 Stencil
@@ -714,17 +714,29 @@ Lookup::triangle (Interval iv, Real thick, Real protude)
   b[X_AXIS] = Interval (0, iv.length ());
   b[Y_AXIS] = Interval (min (0., protude), max (0.0, protude));
 
-  Offset z1 (iv[LEFT], 0);
-  Offset z2 (iv[RIGHT], 0);
-  Offset z3 ((z1 + z2)[X_AXIS] / 2, protude);
+  vector<Offset> points;
+  points.push_back (Offset (iv[LEFT], 0));
+  points.push_back (Offset (iv[RIGHT], 0));
+  points.push_back (Offset (iv.center (), protude));
 
-  /*
-    TODO: move Triangle to Line_interface ?
-  */
-  Stencil tri = Line_interface::make_line (thick, z1, z2);
-  tri.add_stencil (Line_interface::make_line (thick, z2, z3));
-  tri.add_stencil (Line_interface::make_line (thick, z3, z1));
+  return points_to_line_stencil (thick, points);
 
-  return tri;
 }
 
+
+
+Stencil
+Lookup::points_to_line_stencil (Real thick, vector<Offset> const &points)
+{
+  Stencil ret;
+  for (vsize i = 1; i < points.size (); i++)
+    {
+      if (points[i-1].is_sane ()  && points[i].is_sane ())
+	{
+	  Stencil line
+	    = Line_interface::make_line (thick, points[i-1], points[i]);
+	  ret.add_stencil (line);
+	}
+    }
+  return ret;
+}

@@ -124,7 +124,7 @@
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
 	(meta . ((class . Item)
-		 (interfaces . (item-interface
+		 (interfaces . (
 				accidental-interface
 				break-aligned-interface
 				side-position-interface
@@ -322,7 +322,8 @@
 	(beaming . ,ly:beam::calc-beaming)
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
-	
+
+	(details .  ((hint-direction-penalty . 20)))
 	;; TODO: should be in SLT.
 	(thickness . 0.48) ; in staff-space
 	(neutral-direction . ,DOWN)
@@ -348,6 +349,7 @@
 	;; only for debugging.
 	(font-family . roman)
 	(meta . ((class . Spanner)
+		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems))) 
 		 (interfaces . (staff-symbol-referencer-interface
 				beam-interface))))))
 
@@ -489,7 +491,7 @@
 				rhythmic-grob-interface
 				text-interface
 				chord-name-interface
-				item-interface))))))
+				))))))
 
     (CombineTextScript
      . (
@@ -664,7 +666,6 @@
 	(self-alignment-X . 0)
 	(self-alignment-Y . 0)
 	(script-priority . 100)
-
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 	(text . ,fingering::calc-text) 
@@ -677,7 +678,7 @@
 				text-interface
 				side-position-interface
 				self-alignment-interface
-				item-interface))))))
+				))))))
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
 	(finger-code . below-string)
@@ -1372,7 +1373,6 @@
 
 	;; padding set in script definitions.
 	(staff-padding . 0.25)
-	;; (script-priority . 0) priorities for scripts, see script.scm
 	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
@@ -1615,7 +1615,7 @@
 				text-interface
 				side-position-interface
 				self-alignment-interface
-				item-interface))))))
+				))))))
     
     (StrokeFinger
      . (
@@ -1636,7 +1636,7 @@
 				text-interface
 				side-position-interface
 				self-alignment-interface
-				item-interface))))))
+				))))))
     
 
     (SustainPedal
@@ -1887,8 +1887,7 @@
 	(stencil . ,ly:accidental-interface::print)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(meta . ((class . Item)
-		 (interfaces . (item-interface
-				trill-pitch-accidental-interface
+		 (interfaces . (trill-pitch-accidental-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1915,8 +1914,7 @@
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(font-size . -4)
 	(meta . ((class . Item)
-		 (interfaces . (item-interface
-				rhythmic-head-interface
+		 (interfaces . (rhythmic-head-interface
 				font-interface
 				pitched-trill-interface
 				ledgered-interface
@@ -2079,6 +2077,8 @@
 			       (cons 'spanner-interface ifaces-entry))))
      (else
       (ly:warning "Unknown class ~a" class)))
+
+    (set! ifaces-entry (uniq-list (sort ifaces-entry symbol<?)))
     (set! ifaces-entry (cons 'grob-interface ifaces-entry))
 
     (set! meta-entry (assoc-set! meta-entry 'name name-sym))
@@ -2125,6 +2125,7 @@
   (list
    `(,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
    `(,ly:stem::height . ,ly:stem::pure-height)
+   `(,ly:rest::height . ,ly:rest::pure-height)
    `(,ly:grob::stencil-height . ,pure-stencil-height)
    `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
    `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
@@ -2137,7 +2138,7 @@
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
 
-(define-public (pure-relevant grob)
+(define-public (pure-relevant? grob)
   (let ((extent-callback (ly:grob-property-data grob 'Y-extent)))
     (not (eq? #f
 	      (or
@@ -2149,7 +2150,9 @@
 		  (or
 		   (not (eq? extent-callback ly:grob::stencil-height))
 		   (memq (ly:grob-property-data grob 'stencil) pure-print-callbacks)
-		   (ly:stencil? (ly:grob-property-data grob 'stencil))))))))))
+		   (ly:stencil? (ly:grob-property-data grob 'stencil))
+
+		   ))))))))
 
 (define-public (call-pure-function unpure args start end)
   (if (ly:simple-closure? unpure)

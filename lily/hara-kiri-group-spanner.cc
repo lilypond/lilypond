@@ -119,15 +119,6 @@ Hara_kiri_group_spanner::consider_suicide (Grob *me)
   We can't rely on offsets and dimensions of elements in a hara-kiri
   group. Use a callback to make sure that hara-kiri has been done
   before asking for offsets.  */
-MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, after_line_breaking, 1);
-SCM
-Hara_kiri_group_spanner::after_line_breaking (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  consider_suicide (me);
-  return SCM_UNSPECIFIED;
-}
-
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, force_hara_kiri_callback, 1);
 SCM
 Hara_kiri_group_spanner::force_hara_kiri_callback (SCM smob)

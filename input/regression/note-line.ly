@@ -9,6 +9,11 @@ su = { \change Staff = up}
 sd = { \change Staff = down}
 
 
+\layout {
+  line-width = 8.0 \cm
+}
+
+
 \context PianoStaff
 <<
   \new Staff = "up"   {
@@ -21,9 +26,4 @@ sd = { \change Staff = down}
     \clef F s1*4
   }
 >>
-  \layout {
-    line-width = 8.0 \cm
-  }
-
-
 

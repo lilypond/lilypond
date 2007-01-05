@@ -427,5 +427,11 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 		"@ref{Stem_engraver} properties @code{stemLeftBeamCount} and "
 		"@code{stemRightBeamCount}. ",
 		/* create */ "Beam",
-		/* read */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
+
+		/* read */
+		"autoBeaming "
+		"autoBeamSettings "
+		"beatLength "
+		"subdivideBeams ",
+		
 		/* write */ "");

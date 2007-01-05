@@ -19,7 +19,7 @@ LY_DEFINE (ly_make_pango_description_string, "ly:make-pango-description-string",
   PangoFontDescription *pfd = properties_to_pango_description (chain, scm_to_double (size));
   char *str = pango_font_description_to_string (pfd);
 
-  SCM scm_str = scm_makfrom0str (str);
+  SCM scm_str = scm_from_locale_string (str);
   g_free (str);
   pango_font_description_free (pfd);
   return scm_str;

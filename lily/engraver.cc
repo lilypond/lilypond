@@ -134,8 +134,8 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
 #ifndef NDEBUG
   if (ly_is_procedure (creation_callback))
     scm_apply_0 (creation_callback,
-		 scm_list_n (grob->self_scm (), scm_makfrom0str (file),
-			     scm_from_int (line), scm_makfrom0str (fun), SCM_UNDEFINED));
+		 scm_list_n (grob->self_scm (), scm_from_locale_string (file),
+			     scm_from_int (line), scm_from_locale_string (fun), SCM_UNDEFINED));
 #endif
 
   return grob;

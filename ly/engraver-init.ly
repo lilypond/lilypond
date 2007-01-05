@@ -521,6 +521,8 @@ AncientRemoveEmptyStaffContext = \context {
   
   explicitClefVisibility = #all-visible
   explicitKeySignatureVisibility = #all-visible
+  implicitTimeSignatureVisibility = #end-of-line-invisible
+  
   autoBeamSettings = #default-auto-beam-settings
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
