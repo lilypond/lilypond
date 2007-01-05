@@ -42,5 +42,6 @@
    (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))
 
 
-#(if expect-error
-  (ly:parser-clear-error parser))
+#(if (eq? expect-error (ly:parser-has-error? parser))
+  (ly:parser-clear-error parser)
+  (ly:parser-error parser (_ "expected error, but none found")))
