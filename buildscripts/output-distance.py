@@ -447,7 +447,6 @@ class GitFileCompareLink (FileCompareLink):
         else:
             d = 1.0001 *options.threshold
 
-        print 'dist', d
         return d
         
 class TextFileCompareLink (FileCompareLink):
