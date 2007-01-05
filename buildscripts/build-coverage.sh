@@ -40,6 +40,7 @@ ln $depth/lily/* .
 ln $depth/lily/out-cov/*[ch] .
 mkdir include
 ln $depth/lily/include/* include/
+ln $depth/flower/include/* include/
 for a in *[cl] *.yy
 do
    gcov -o $depth/lily/out-cov/  -p $a > $a.gcov-summary
