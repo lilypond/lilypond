@@ -7,6 +7,7 @@
 */
 
 #include "program-option.hh"
+#include "profile.hh"
 
 #include <cstdio>
 #include <cstring>

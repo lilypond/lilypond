@@ -15,7 +15,6 @@ extern bool do_midi_debugging_global;
 extern int testing_level_global;
 extern bool lily_1_8_relative;
 extern bool lily_1_8_compatibility_used;
-extern bool profile_property_accesses;
 
 SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
