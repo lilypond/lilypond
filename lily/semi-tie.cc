@@ -23,6 +23,7 @@ ADD_INTERFACE(Semi_tie,
 	      "control-points "
 	      "direction "
 	      "details "
+	      "head-direction "
 	      "note-head "
 	      "thickness "
 	      );
