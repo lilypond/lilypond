@@ -493,7 +493,7 @@ Grob*
 System::column (int which) const
 {
   extract_grob_set (this, "columns", columns);
-  return columns[which]
+  return columns[which];
 }
 
 Paper_score*
