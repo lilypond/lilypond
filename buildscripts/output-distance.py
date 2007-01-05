@@ -452,7 +452,7 @@ class TextFileCompareLink (FileCompareLink):
         self.diff_lines =  [l for l in diff]
         self.diff_lines = self.diff_lines[2:]
         
-        return float (len (self.diff_lines))
+        return float (len ([l for l in self.diff_lines if l[0] in '-+']))
         
     def get_cell (self, oldnew):
         str = ''
