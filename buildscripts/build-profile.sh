@@ -17,6 +17,9 @@ fi
 
 make conf=prof -j2
 
+if test "$?" != "0"; then
+  exit 2
+fi
 
 depth=../..
 resultdir=out/profile-results
