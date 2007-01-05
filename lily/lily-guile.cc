@@ -406,25 +406,6 @@ ly_deep_copy (SCM src)
 }
 
 
-SCM
-ly_truncate_list (int k, SCM lst)
-{
-  if (k == 0)
-    lst = SCM_EOL;
-  else
-    {
-      SCM s = lst;
-      k--;
-      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
-	;
-
-      if (scm_is_pair (s))
-	scm_set_cdr_x (s, SCM_EOL);
-    }
-  return lst;
-}
-
-
 
 
 

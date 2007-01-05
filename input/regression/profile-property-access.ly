@@ -26,7 +26,7 @@
    what count rnd
    (string-join
     (map (lambda (x) (format "~30a: ~6@a" (car x) (* rnd (inexact->exact (round (/ (cdr x) rnd))))))
-     (take 
+     (ly:truncate-list! 
     (sort alist prop-stats>?) count))
     "\n"))))
    

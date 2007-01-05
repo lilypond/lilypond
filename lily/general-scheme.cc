@@ -352,3 +352,27 @@ LY_DEFINE (ly_expand_environment, "ly:expand-environment",
   return ly_string2scm (expand_environment_variables (ly_scm2string (str)));
 }
 		 
+
+LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
+	   2, 0, 0, (SCM lst, SCM i),
+	   "Take at most the first @var{i} of list @var{lst}")
+{
+  SCM_ASSERT_TYPE(scm_is_integer (i), i,
+		  SCM_ARG1, __FUNCTION__, "integer");
+
+  int k = scm_to_int (i);
+  if (k == 0)
+    lst = SCM_EOL;
+  else
+    {
+      SCM s = lst;
+      k--;
+      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
+	;
+
+      if (scm_is_pair (s))
+	scm_set_cdr_x (s, SCM_EOL);
+    }
+  return lst;
+}
+
