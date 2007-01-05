@@ -57,3 +57,5 @@ out-scons
 out-cov
 tags
 test-output-distance
+config-*.hh
+config-*.make

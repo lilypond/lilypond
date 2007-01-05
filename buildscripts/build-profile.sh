@@ -17,9 +17,14 @@ fi
 
 make conf=prof -j2
 
-rm -rf out-prof
-mkdir out-prof
-cd out-prof
+
+depth=../..
+resultdir=out/profile-results
+
+rm -rf $resultdir
+mkdir $resultdir
+cd $resultdir
+
 
 echo 'foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ e16[ e e) f] g8  }
 \new ChoirStaff << 
@@ -29,8 +34,8 @@ echo 'foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ 
 >>' > long-score.ly
 
 
-./bin/lilypond -ddump-profile -I ../input/ -I  ../input/mutopia/J.S.Bach/ \
-     -I ../input/mutopia/W.A.Mozart/
+../bin/lilypond -ddump-profile -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
+     -I $depth/input/mutopia/W.A.Mozart/ \
      wtk-fugue2 mozart-hrn-3  long-score
 
-gprof ./bin/lilypond
+gprof ../bin/lilypond
