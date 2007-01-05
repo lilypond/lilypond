@@ -367,9 +367,9 @@ class FileLink:
         base = hash_to_original_name.get (base, base)
         base = os.path.splitext (base)[0]
         return base
-
+    
     def extension (self):
-        return '<undefined>'
+        return os.path.splitext (self.file_names[1])[1]
 
     def link_files_for_html (self, dest_dir):
         for f in self.file_names:
@@ -378,7 +378,7 @@ class FileLink:
     def get_distance_details (self):
         return ''
 
-    def get_cell (oldnew):
+    def get_cell (self, oldnew):
         return ''
     
     def get_file (self, oldnew):
@@ -422,9 +422,6 @@ class FileCompareLink (FileLink):
                          self.get_content (self.file_names[1]))
         
 
-    def extension (self):
-        return '.ext'
-
     def calc_distance (self):
         ## todo: could use import MIDI to pinpoint
         ## what & where changed.
@@ -438,7 +435,20 @@ class FileCompareLink (FileLink):
         print 'reading', f
         s = open (f).read ()
         return s
+
+
+class GitFileCompareLink (FileCompareLink):
+    def get_cell (self, oldnew):
+        return self.contents[oldnew]
     
+    def calc_distance (self):
+        if self.contents[0] == self.contents[1]:
+            d = 0.0
+        else:
+            d = 1.0001 *options.threshold
+
+        print 'dist', d
+        return d
         
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
@@ -461,21 +471,12 @@ class TextFileCompareLink (FileCompareLink):
         str = '<font size="-2"><pre>%s</pre></font>' % str
         return str
 
-    def extension (self):
-        return '.txt'
-    
-class LogFileCompareLink (TextFileCompareLink):
-    def extension (self):
-        return '.log'
-
+        
 class ProfileFileLink (FileCompareLink):
     def __init__ (self, f1, f2):
         FileCompareLink.__init__ (self, f1, f2)
         self.results = [{}, {}]
     
-    def extension (self):
-        return '.profile'
-
     def get_cell (self, oldnew):
         str = ''
         for k in ('time', 'cells'):
@@ -515,6 +516,7 @@ class ProfileFileLink (FileCompareLink):
         dist = min (dist, 100)
         return dist
 
+    
 class MidiFileLink (FileCompareLink):
     def get_content (self, f):
         s = FileCompareLink.get_content (self, f)
@@ -526,18 +528,12 @@ class MidiFileLink (FileCompareLink):
         if oldnew == 1 and self.distance () > 0:
             str = 'changed' 
         return str
-        
-    def extension (self):
-        return '.midi'
     
 
 class SignatureFileLink (FileLink):
     def __init__ (self, f1, f2 ):
         FileLink.__init__ (self, f1, f2)
         self.system_links = {}
-
-    def extension (self):
-        return '.ly'
 
     def add_system_link (self, link, number):
         self.system_links[number] = link
@@ -790,7 +786,7 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
-        for ext in ['signature', 'midi', 'log', 'profile']:
+        for ext in ['signature', 'midi', 'log', 'profile', 'gittxt']:
             (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
             self.missing += [(dir1, m) for m in m1] 
@@ -814,6 +810,7 @@ class ComparisonData:
                 '.midi': MidiFileLink,
                 '.log' : TextFileCompareLink,
                 '.profile': ProfileFileLink,
+                '.gittxt': GitFileCompareLink, 
                 }
             
             if klasses.has_key (ext):
@@ -840,13 +837,15 @@ class ComparisonData:
 
         file_link.add_file_compare (f1, f2)
 
-    def remove_changed (self, dir, threshold):
+    def write_changed (self, dest_dir, threshold):
         (changed, below, unchanged) = self.thresholded_results (threshold)
-        for link in changed:
-            try:
-                system ('rm -f %s*' % link.base_names[1])
-            except AttributeError: ### UGH.
-                system ('rm -f %s/%s*' % (dir, link.name ()))
+
+        str = '\n'.join ([os.path.splitext (link.file_names[1])[0]
+                        for link in changed])
+        fn = dest_dir + '/changed.txt'
+        
+        open_write_file (fn).write (str)
+                
     def thresholded_results (self, threshold):
         ## todo: support more scores.
         results = [(link.distance(), link)
@@ -926,13 +925,10 @@ def compare_trees (dir1, dir2, dest_dir, threshold):
     data.compare_trees (dir1, dir2)
     data.print_results (threshold)
 
-    if options.remove_changed:
-        data.remove_changed (dir2, threshold)
-        return
-    
     if os.path.isdir (dest_dir):
         system ('rm -rf %s '% dest_dir)
 
+    data.write_changed (dest_dir, threshold)
     data.create_html_result_page (dir1, dir2, dest_dir, threshold)
     data.create_text_result_page (dir1, dir2, dest_dir, threshold)
     
@@ -996,6 +992,8 @@ def test_compare_trees ():
     system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
     system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
     system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
+    system ('echo HEAD is 1 > dir1/tree.gittxt')
+    system ('echo HEAD is 2 > dir2/tree.gittxt')
 
     ## introduce differences
     system ('cp 19-1.signature dir2/20-1.signature')
@@ -1014,7 +1012,7 @@ def test_compare_trees ():
     system ('cp 19multipage.log dir1/log-differ.log')
     system ('cp 19multipage.log dir2/log-differ.log &&  echo different >> dir2/log-differ.log &&  echo different >> dir2/log-differ.log')
 
-    compare_trees ('dir1', 'dir2', 'compare-dir1dir2', 0.5)
+    compare_trees ('dir1', 'dir2', 'compare-dir1dir2', options.threshold)
 
 
 def test_basic_compare ():
@@ -1168,13 +1166,6 @@ def main ():
                   action="store",
                   type="float",
                   help='threshold for geometric distance')
-
-
-    p.add_option ('--remove-changed',
-                  dest="remove_changed",
-                  default=False,
-                  action="store_true",
-                  help="Remove all files from tree2 that are over the threshold.")
 
     p.add_option ('--no-compare-images',
                   dest="compare_images",

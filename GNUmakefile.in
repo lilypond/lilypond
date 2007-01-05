@@ -210,12 +210,18 @@ test:
 	rm -f input/regression/out-test/collated-files.html
 	$(MAKE) -C input/regression/ out=test LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html 
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
+	if test -d .git  ; then \
+		echo -n "HEAD is: " \
+		git log --max-count=1 --pretty=oneline ;\
+		echo -e '\n\ndiff\n' ; \
+		git diff ; \
+	fi > input/regression/out-test/tree.gittxt
 
 test-baseline: test
 	rm -rf input/regression/out-test-baseline
 	mv input/regression/out-test input/regression/out-test-baseline
 
-RESULT_DIR=$(top-build-dir)/out/test-results/
+RESULT_DIR=$(top-build-dir)/out/test-results
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
@@ -223,7 +229,10 @@ local-check: test
 
 
 test-redo:
-	$(PYTHON) $(buildscript-dir)/output-distance.py --remove-changed input/regression/out-test-baseline input/regression/out-test/
+	for a in `cat $(RESULT_DIR)/changed.txt` ; do \
+		echo removing $$a* ; \
+		rm -f $$a* ;\
+	done
 	$(MAKE) check
 
 test-clean:
