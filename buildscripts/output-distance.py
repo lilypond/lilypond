@@ -439,7 +439,14 @@ class FileCompareLink (FileLink):
 
 class GitFileCompareLink (FileCompareLink):
     def get_cell (self, oldnew):
-        return self.contents[oldnew]
+        str = self.contents[oldnew]
+
+        # truncate long lines
+        str = '\n'.join ([l[:80] for l in str.split ('\n')])
+
+        
+        str = '<font size="-2"><pre>%s</pre></font>' % str
+        return str
     
     def calc_distance (self):
         if self.contents[0] == self.contents[1]:
@@ -461,7 +468,7 @@ class TextFileCompareLink (FileCompareLink):
         self.diff_lines =  [l for l in diff]
         self.diff_lines = self.diff_lines[2:]
         
-        return float (len ([l for l in self.diff_lines if l[0] in '-+']))
+        return math.sqrt (float (len ([l for l in self.diff_lines if l[0] in '-+'])))
         
     def get_cell (self, oldnew):
         str = ''
@@ -510,7 +517,7 @@ class ProfileFileLink (FileCompareLink):
                   }
         
         for k in ('time', 'cells'):
-            dist += math.exp (self.get_ratio (k) * factor[k]) - 1
+            dist += math.tan (self.get_ratio (k) /(0.5* math.pi)) * factor[k]  - 1
 
         dist = min (dist, 100)
         return dist
