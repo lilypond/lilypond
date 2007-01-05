@@ -28,23 +28,26 @@ if test "$?" != "0"; then
   exit 1
 fi
 
-rm -rf out-cov
-mkdir out-cov
+depth=../..
+resultdir=out/coverage-results
 
-cd out-cov
-ln ../lily/* .
-ln ../lily/out-cov/*[ch] .
+rm -rf $resultdir
+mkdir $resultdir
+cd $resultdir
+
+ln $depth/lily/* .
+ln $depth/lily/out-cov/*[ch] .
 mkdir include
-ln ../lily/include/* include/
+ln $depth/lily/include/* include/
 for a in *[cl] *.yy
 do
-   gcov -o ../lily/out-cov/  -p $a > $a.gcov-summary
+   gcov -o $depth/lily/out-cov/  -p $a > $a.gcov-summary
 done 
 
 cat <<EOF
 
 now run 
 
-         python buildscripts/coverage.py
+         python buildscripts/coverage.py --uncovered $resultdir/*.cc
 
 EOF
