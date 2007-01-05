@@ -18,10 +18,11 @@ else
   find -name '*.gcda' -exec rm  '{}' ';'
 fi
 
-
+mkdir -p scripts/out-cov/
+touch  scripts/out-cov/midi2ly.1
 make conf=cov -j2 &&  \
-  make conf=cov test-real-clean LILYPOND_JOBS= && \
-  make conf=cov test LILYPOND_JOBS= 
+  make conf=cov test-clean OUT_TEST=testcov LILYPOND_JOBS= && \
+  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS= 
 
 if test "$?" != "0"; then
   tail -100 out-cov/test-run.log
