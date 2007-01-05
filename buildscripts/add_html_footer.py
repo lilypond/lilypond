@@ -125,9 +125,14 @@ def do_file (prefix, lang_ext, target, header, footer, pages_dict, out_root, nam
             # Strip .html, .png suffix for auto language selection (content
             # negotiation).  The menu must keep the full extension, so do
             # this before adding the menu.
-            page_flavors[file_name] = re.sub (
-                '''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''',
-                '\\1="\\2\\4"', s)
+            # Don't strip .html suffix for documentation index because of
+            # lilypond/ vs. lilypond.html conflict
+            if prefix == 'Documentation/out-www/index':
+                page_flavors[file_name] = s
+            else:
+                page_flavors[file_name] = re.sub (
+                    '''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''',
+                    '\\1="\\2\\4"', s)
         elif target == 'offline':
             if lang_ext == '':
                 page_flavors[file_name] = s
