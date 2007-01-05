@@ -20,7 +20,8 @@ OUTPUT_EXPRESSION_PENALTY = 1
 ORPHAN_GROB_PENALTY = 1
 options = None
 
-
+################################################################
+# system interface.
 temp_dir = None
 class TempDirectory:
     def __init__ (self):
@@ -64,6 +65,39 @@ def max_distance (x1, x2):
         dist = max (abs (p-q), dist)
         
     return dist
+
+
+def compare_png_images (old, new, dest_dir):
+    def png_dims (f):
+        m = re.search ('([0-9]+) x ([0-9]+)', read_pipe ('file %s' % f))
+        
+        return tuple (map (int, m.groups ()))
+
+    dest = os.path.join (dest_dir, new.replace ('.png', '.compare.jpeg'))
+    try:
+        dims1 = png_dims (old)
+        dims2 = png_dims (new)
+    except AttributeError:
+        ## hmmm. what to do?
+        system ('touch %(dest)s' % locals ())
+        return
+    
+    dims = (min (dims1[0], dims2[0]),
+            min (dims1[1], dims2[1]))
+
+    dir = get_temp_dir ()
+    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
+    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
+
+    system ('compare -depth 8 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
+
+    system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
+
+    system ("composite -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
+
+
+################################################################
+# interval/bbox arithmetic.
 
 empty_interval = (INFTY, -INFTY)
 empty_bbox = (empty_interval, empty_interval)
@@ -308,38 +342,11 @@ def read_signature_file (name):
 
 hash_to_original_name = {}
 
-def compare_png_images (old, new, dest_dir):
-    def png_dims (f):
-        m = re.search ('([0-9]+) x ([0-9]+)', read_pipe ('file %s' % f))
-        
-        return tuple (map (int, m.groups ()))
-
-    dest = os.path.join (dest_dir, new.replace ('.png', '.compare.jpeg'))
-    try:
-        dims1 = png_dims (old)
-        dims2 = png_dims (new)
-    except AttributeError:
-        ## hmmm. what to do?
-        system ('touch %(dest)s' % locals ())
-        return
-    
-    dims = (min (dims1[0], dims2[0]),
-            min (dims1[1], dims2[1]))
-
-    dir = get_temp_dir ()
-    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop1.png' % (dims + (old, dir)))
-    system ('convert -depth 8 -crop %dx%d+0+0 %s %s/crop2.png' % (dims + (new, dir)))
-
-    system ('compare -depth 8 %(dir)s/crop1.png %(dir)s/crop2.png %(dir)s/diff.png' % locals ())
-
-    system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
-
-    system ("composite -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
-
 class FileLink:
-    def __init__ (self):
+    def __init__ (self, f1, f2):
         self._distance = None
-
+        self.file_names = (f1, f2)
+        
     def text_record_string (self):
         return '%-30f %-20s\n' % (self.distance (),
                                   self.name ())
@@ -352,40 +359,72 @@ class FileLink:
 
         return self._distance
     
-    def name (self):
-        return '<undefined>'
-    
-    def link_files_for_html (self, old_dir, new_dir, dest_dir):
-        pass
-
-    def write_html_system_details (self, dir1, dir2, dest_dir):
-        pass
         
-    def html_record_string (self,  old_dir, new_dir):
+    def name (self):
+        base = os.path.basename (self.file_names[1])
+        base = os.path.splitext (base)[0]
+        
+        base = hash_to_original_name.get (base, base)
+        base = os.path.splitext (base)[0]
+        return base
+
+    def extension (self):
+        return '<undefined>'
+
+    def link_files_for_html (self, dest_dir):
+        for f in self.file_names:
+            link_file (f, os.path.join (dest_dir, f))
+
+    def get_distance_details (self):
         return ''
+
+    def get_cell (oldnew):
+        return ''
+    
+    def get_file (self, oldnew):
+        return self.file_names[oldnew]
+    
+    def html_record_string (self, dest_dir):
+        self.link_files_for_html (dest_dir)
+        
+        dist = self.distance()
+        
+        details = self.get_distance_details ()
+        if details:
+            details_base = os.path.splitext (self.file_names[1])[0]
+            details_base += '.details.html'
+            fn = dest_dir + '/'  + details_base
+            open (fn, 'w').write (details)
+
+            details = '<br>(<a href="%(details_base)s">details</a>)' % locals ()
+
+        cell1 = self.get_cell (0)
+        cell2 = self.get_cell (1)
+
+        name = self.name () + self.extension ()
+        file1 = self.get_file (0)
+        file2 = self.get_file (1)
+        
+        return '''<tr>
+<td>
+%(dist)f
+%(details)s
+</td>
+<td>%(cell1)s<br><font size=-2><a href="%(file1)s"><tt>%(name)s</tt></font></td>
+<td>%(cell2)s<br><font size=-2><a href="%(file2)s"><tt>%(name)s</tt></font></td>
+</tr>''' % locals ()
+
 
 class FileCompareLink (FileLink):
     def __init__ (self, f1, f2):
-        FileLink.__init__ (self)
-        self.files = (f1, f2)
-        self.contents = (self.get_content (self.files[0]),
-                         self.get_content (self.files[1]))
+        FileLink.__init__ (self, f1, f2)
+        self.contents = (self.get_content (self.file_names[0]),
+                         self.get_content (self.file_names[1]))
         
-    def link_files_for_html (self, old_dir, new_dir, dest_dir):
-        for f in self.files:
-            link_file (f, os.path.join (dest_dir, f))
 
     def extension (self):
         return '.ext'
-    
-    def name (self):
-        name = os.path.basename (self.files[0])
-        name = os.path.splitext (name)[0]
-        name = hash_to_original_name.get (name, name)
 
-        name = os.path.splitext (name)[0] + self.extension ()
-        return name
-    
     def calc_distance (self):
         ## todo: could use import MIDI to pinpoint
         ## what & where changed.
@@ -395,19 +434,6 @@ class FileCompareLink (FileLink):
         else:
             return 100.0;
         
-    def html_record_string (self, d1, d2):
-        (dist, f1, f2) = (self.distance(),) + self.files
-        b1 = os.path.basename (f1)
-        b2 = os.path.basename (f2)
-        
-        return '''<tr>
-<td>
-%(dist)f
-</td>
-<td><a href="%(f1)s"><tt>%(b1)s</tt></td>
-<td><a href="%(f2)s"><tt>%(b2)s</tt></td>
-</tr>''' % locals ()
-
     def get_content (self, f):
         print 'reading', f
         s = open (f).read ()
@@ -419,50 +445,61 @@ class TextFileCompareLink (FileCompareLink):
         import difflib
         diff = difflib.unified_diff (self.contents[0].strip().split ('\n'),
                                      self.contents[1].strip().split ('\n'),
-                                     fromfiledate = self.files[0],
-                                     tofiledate = self.files[1]
+                                     fromfiledate = self.file_names[0],
+                                     tofiledate = self.file_names[1]
                                      )
-
+        
         self.diff_lines =  [l for l in diff]
+        self.diff_lines = self.diff_lines[2:]
+        
         return float (len (self.diff_lines))
         
-    def link_files_for_html (self, old_dir, new_dir, dest_dir):
-        str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
-        f = os.path.join (new_dir, self.name ()) + '.diff.txt'
-        f = os.path.join (dest_dir, f)
-        open_write_file (f).write (str)
+    def get_cell (self, oldnew):
+        str = ''
+        if oldnew == 1:
+            str = '\n'.join ([d.replace ('\n','') for d in self.diff_lines])
+        str = '<font size="-2"><pre>%s</pre></font>' % str
+        return str
 
     def extension (self):
         return '.txt'
     
-    def html_record_string (self, d1, d2):
-        (dist, f1, f2) = (self.distance(),) + self.files
-        b1 = os.path.basename (f1)
-        b2 = os.path.basename (f2)
-        
-        return '''<tr>
-<td>
-%f
-</td>
-<td><tt>%s</tt></td>
-<td><a href="%s.diff.txt"><tt>%s</tt></a></td>
-</tr>''' % (dist,
-            b1,
-            os.path.join (d2, self.name ()),
-            b2)
+class LogFileCompareLink (TextFileCompareLink):
+    def extension (self):
+        return '.log'
 
-
-class ProfileFileLink (TextFileCompareLink):
+class ProfileFileLink (FileCompareLink):
+    def __init__ (self, f1, f2):
+        FileCompareLink.__init__ (self, f1, f2)
+        self.results = [{}, {}]
+    
     def extension (self):
         return '.profile'
+
+    def get_cell (self, oldnew):
+        str = ''
+        for k in ('time', 'cells'):
+            if oldnew==0:
+                str += '%-8s: %d\n' %  (k, int (self.results[oldnew][k]))
+            else:
+                str += '%-8s: %8d (%5.3f)\n' % (k, int (self.results[oldnew][k]),
+                                         self.get_ratio (k))
+
+        return '<pre>%s</pre>' % str
+            
+    def get_ratio (self, key):
+        (v1,v2) = (self.results[0].get (key, -1),
+                   self.results[1].get (key, -1))
+
+        if v1 <= 0 or v2 <= 0:
+            return 0.0
+
+        return (v1 - v2) / float (v1+v2)
     
     def calc_distance (self):
-        TextFileCompareLink.calc_distance (self)
-        
-        r = [{},{}]
         for oldnew in (0,1):
             def note_info (m):
-                r[oldnew][m.group(1)] = float (m.group (2))
+                self.results[oldnew][m.group(1)] = float (m.group (2))
             
             re.sub ('([a-z]+): ([-0-9.]+)\n',
                     note_info, self.contents[oldnew])
@@ -473,17 +510,9 @@ class ProfileFileLink (TextFileCompareLink):
                   }
         
         for k in ('time', 'cells'):
-            (v1,v2) = (r[0].get (k , -1),
-                       r[1].get (k , -1))
-
-            if v1 <= 0 or v2 <= 0:
-                continue
-
-            ratio = abs (v2 - v1) / float (v1+v2)
-            dist += math.exp (ratio * factor[k]) - 1
+            dist += math.exp (self.get_ratio (k) * factor[k]) - 1
 
         dist = min (dist, 100)
-        
         return dist
 
 class MidiFileLink (FileCompareLink):
@@ -491,29 +520,25 @@ class MidiFileLink (FileCompareLink):
         s = FileCompareLink.get_content (self, f)
         s = re.sub ('LilyPond [0-9.]+', '', s)
         return s
-
+    
+    def get_cell (self, oldnew):
+        str = ''
+        if oldnew == 1 and self.distance () > 0:
+            str = 'changed' 
+        return str
+        
     def extension (self):
         return '.midi'
     
 
 class SignatureFileLink (FileLink):
-    def __init__ (self):
-        FileLink.__init__ (self)
-        self.base_names = ('','')
+    def __init__ (self, f1, f2 ):
+        FileLink.__init__ (self, f1, f2)
         self.system_links = {}
 
     def extension (self):
         return '.ly'
-    
-        
-    def name (self):
-        base = os.path.basename (self.base_names[1])
-        base = os.path.splitext (base)[0]
-        
-        base = hash_to_original_name.get (base, base)
-        base = os.path.splitext (base)[0] + self.extension ()
-        return base
-    
+
     def add_system_link (self, link, number):
         self.system_links[number] = link
 
@@ -566,7 +591,7 @@ class SignatureFileLink (FileLink):
         self.add_system_link (link, system_index[0])
 
     
-    def create_images (self, old_dir, new_dir, dest_dir):
+    def create_images (self, dest_dir):
 
         files_created = [[], []]
         for oldnew in (0, 1):
@@ -587,12 +612,13 @@ class SignatureFileLink (FileLink):
 
         return files_created
     
-    def link_files_for_html (self, old_dir, new_dir, dest_dir):
+    def link_files_for_html (self, dest_dir):
+        FileLink.link_files_for_html (self, dest_dir)
         to_compare = [[], []]
 
-        exts = ['.ly']
+        exts = []
         if options.create_images:
-            to_compare = self.create_images (old_dir, new_dir, dest_dir)
+            to_compare = self.create_images (dest_dir)
         else:
             exts += ['.png', '-page*png']
         
@@ -609,8 +635,8 @@ class SignatureFileLink (FileLink):
             for (old, new) in zip (to_compare[0], to_compare[1]):
                 compare_png_images (old, new, dest_dir)
 
-                
-    def html_record_string (self,  old_dir, new_dir):
+
+    def get_cell (self, oldnew):
         def img_cell (ly, img, name):
             if not name:
                 name = 'source'
@@ -618,13 +644,9 @@ class SignatureFileLink (FileLink):
                 name = '<tt>%s</tt>' % name
                 
             return '''
-<td align="center">
 <a href="%(img)s">
 <img src="%(img)s" style="border-style: none; max-width: 500px;">
 </a><br>
-<font size="-2">(<a href="%(ly)s">%(name)s</a>)
-</font>
-</td>
 ''' % locals ()
         def multi_img_cell (ly, imgs, name):
             if not name:
@@ -639,11 +661,7 @@ class SignatureFileLink (FileLink):
 
 
             return '''
-<td align="center">
 %(imgs_str)s
-<font size="-2">(<a href="%(ly)s">%(name)s</a>)
-</font>
-</td>
 ''' % locals ()
 
 
@@ -656,32 +674,17 @@ class SignatureFileLink (FileLink):
                 return multi_img_cell (base + '.ly', sorted (pages), name)
             else:
                 return img_cell (base + '.ly', base + '.png', name)
+
+
+
+        str = cell (os.path.splitext (self.file_names[oldnew])[0], self.name ())  
+        if options.compare_images and oldnew == 1:
+            str = str.replace ('.png', '.compare.jpeg')
             
-
-        html_2  = self.base_names[1] + '.html'
-        name = self.name ()
-
-        cell_1 = cell (self.base_names[0], name)
-        cell_2 = cell (self.base_names[1], name)
-        if options.compare_images:
-            cell_2 = cell_2.replace ('.png', '.compare.jpeg')
-        
-        html_entry = '''
-<tr>
-<td>
-%f<br>
-(<a href="%s">details</a>)
-</td>
-
-%s
-%s
-</tr>
-''' % (self.distance (), html_2, cell_1, cell_2)
-
-        return html_entry
+        return str
 
 
-    def html_system_details_string (self):
+    def get_distance_details (self):
         systems = self.system_links.items ()
         systems.sort ()
 
@@ -727,11 +730,6 @@ class SignatureFileLink (FileLink):
 ''' % locals ()
         return html
 
-    def write_html_system_details (self, dir1, dir2, dest_dir):
-        dest_file =  os.path.join (dest_dir, self.base_names[1] + '.html')
-
-        details = open_write_file (dest_file)
-        details.write (self.html_system_details_string ())
 
 ################################################################
 # Files/directories
@@ -752,20 +750,23 @@ def paired_files (dir1, dir2, pattern):
     Return (PAIRED, MISSING-FROM-2, MISSING-FROM-1)
 
     """
-    
-    files1 = dict ((os.path.split (f)[1], 1) for f in glob.glob (dir1 + '/' + pattern))
-    files2 = dict ((os.path.split (f)[1], 1) for f in glob.glob (dir2 + '/' + pattern))
 
+    files = []
+    for d in (dir1,dir2):
+        found = [os.path.split (f)[1] for f in glob.glob (d + '/' + pattern)]
+        found = dict ((f, 1) for f in found)
+        files.append (found)
+        
     pairs = []
     missing = []
-    for f in files1.keys ():
+    for f in files[0].keys ():
         try:
-            files2.pop (f)
+            files[1].pop (f)
             pairs.append (f)
         except KeyError:
             missing.append (f)
 
-    return (pairs, files2.keys (), missing)
+    return (pairs, files[1].keys (), missing)
     
 class ComparisonData:
     def __init__ (self):
@@ -798,7 +799,6 @@ class ComparisonData:
             for p in paired:
                 if (options.max_count
                     and len (self.file_links) > options.max_count):
-                    
                     continue
                 
                 f2 = dir2 +  '/' + p
@@ -833,7 +833,9 @@ class ComparisonData:
         try:
             file_link = self.file_links[name]
         except KeyError:
-            file_link = SignatureFileLink ()
+            generic_f1 = re.sub ('-[0-9]+.signature', '.ly', f1)
+            generic_f2 = re.sub ('-[0-9]+.signature', '.ly', f2)
+            file_link = SignatureFileLink (generic_f1, generic_f2)
             self.file_links[name] = file_link
 
         file_link.add_file_compare (f1, f2)
@@ -889,10 +891,7 @@ class ComparisonData:
         html = ''
         old_prefix = os.path.split (dir1)[1]
         for link in changed:
-            link.link_files_for_html (dir1, dir2, dest_dir) 
-            link.write_html_system_details (dir1, dir2, dest_dir)
-            
-            html += link.html_record_string (dir1, dir2)
+            html += link.html_record_string (dest_dir)
 
 
         short_dir1 = shorten_string (dir1)
@@ -948,6 +947,7 @@ def mkdir (x):
 def link_file (x, y):
     mkdir (os.path.split (y)[0])
     try:
+        print x, '->', y
         os.link (x, y)
     except OSError, z:
         print 'OSError', x, y, z
@@ -979,12 +979,12 @@ def test_compare_trees ():
     system ('cp 20expr{-*.signature,.ly,.png,.eps,.log,.profile} dir1')
     system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
     system ('cp 19{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
-    system ('cp 19-1.signature 19-sub-1.signature')
-    system ('cp 19.ly 19-sub.ly')
-    system ('cp 19.profile 19-sub.profile')
-    system ('cp 19.log 19-sub.log')
-    system ('cp 19.png 19-sub.png')
-    system ('cp 19.eps 19-sub.eps')
+    system ('cp 19-1.signature 19.sub-1.signature')
+    system ('cp 19.ly 19.sub.ly')
+    system ('cp 19.profile 19.sub.profile')
+    system ('cp 19.log 19.sub.log')
+    system ('cp 19.png 19.sub.png')
+    system ('cp 19.eps 19.sub.eps')
 
     system ('cp 20multipage* dir1')
     system ('cp 20multipage* dir2')
@@ -992,8 +992,8 @@ def test_compare_trees ():
 
     
     system ('mkdir -p dir1/subdir/ dir2/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log,.profile} dir1/subdir/')
-    system ('cp 19-sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
+    system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir1/subdir/')
+    system ('cp 19.sub{-*.signature,.ly,.png,.eps,.log,.profile} dir2/subdir/')
     system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir2/')
     system ('cp 20grob{-*.signature,.ly,.png,.eps,.log,.profile} dir1/')
 
@@ -1002,9 +1002,9 @@ def test_compare_trees ():
     system ('cp 19.profile dir2/20.profile')
     system ('cp 19.png dir2/20.png')
     system ('cp 19multipage-page1.png dir2/20multipage-page1.png')
-    system ('cp 20-1.signature dir2/subdir/19-sub-1.signature')
-    system ('cp 20.png dir2/subdir/19-sub.png')
-    system ("sed 's/: /: 1/g'  20.profile > dir2/subdir/19-sub.profile")
+    system ('cp 20-1.signature dir2/subdir/19.sub-1.signature')
+    system ('cp 20.png dir2/subdir/19.sub.png')
+    system ("sed 's/: /: 1/g'  20.profile > dir2/subdir/19.sub.profile")
 
     ## radical diffs.
     system ('cp 19-1.signature dir2/20grob-1.signature')
@@ -1079,8 +1079,8 @@ def test_basic_compare ():
     }
     '''
 
-    open ('20multipage', 'w').write (multipage_str.replace ('c1', 'd1'))
-    open ('19multipage', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
+    open ('20multipage.ly', 'w').write (multipage_str.replace ('c1', 'd1'))
+    open ('19multipage.ly', 'w').write ('#(set-global-staff-size 19.5)\n' + multipage_str)
     system ('lilypond -dseparate-log-files -ddump-signatures --png 19multipage 20multipage ')
  
     test_compare_signatures (names)
