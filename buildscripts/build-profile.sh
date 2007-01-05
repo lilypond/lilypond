@@ -33,9 +33,29 @@ echo 'foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ 
 
 >>' > long-score.ly
 
+rm gmon.sum
 
-../bin/lilypond -ddump-profile -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
+exe=$depth/out-prof/bin/lilypond
+
+## todo: figure out representative sample.
+files="wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 mozart-hrn-3  mozart-hrn-3  long-score"
+
+for a in seq 1 3; do
+  $exe -ddump-profile -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
      -I $depth/input/mutopia/W.A.Mozart/ \
-     wtk-fugue2 mozart-hrn-3  long-score
+     $files 
 
-gprof ../bin/lilypond
+  if test -f gmon.sum ; then
+    gprof -s $exe gmon.out gmon.sum
+  else
+    mv gmon.out gmon.sum
+  fi 
+done
+
+
+for a in *.profile; do
+  echo $a
+  cat $a
+done
+
+gprof $exe gmon.sum > profile
