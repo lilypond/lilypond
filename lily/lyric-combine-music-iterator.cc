@@ -275,7 +275,6 @@ Lyric_combine_music_iterator::process (Moment)
       && (start_new_syllable () || pending_grace_lyric_)
       && lyric_iter_->ok ())
     {
-      busy_ = false;
       if (music_context_->now_mom ().grace_part_)
 	{
 	  pending_grace_lyric_ = true;
@@ -289,6 +288,8 @@ Lyric_combine_music_iterator::process (Moment)
 
       music_found_ = true;
     }
+
+  busy_ = false;
 }
 
 void
