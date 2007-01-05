@@ -1147,6 +1147,10 @@ Similarly, you can merge half note heads with eighth notes, by setting
 c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
+@noindent
+@code{merge-differently-headed} and @code{merge-differently-dotted}
+only apply to opposing stem directions (ie. Voice 1 & 2).
+
 LilyPond also vertically shifts rests that are opposite of a stem,
 for example
 
@@ -1753,6 +1757,24 @@ in every context, and that type is determined by the property
 @internalsref{systemStartDelimiter}.
 
 
+@commonprop
+
+System start delimiters may be deeply nested,
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup 
+\relative <<
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
+
+
 @node Staff symbol
 @subsection Staff symbol
 
@@ -1782,8 +1804,7 @@ b b
 @end lilypond
 
 In combination with Frenched staves, this may be used to typeset ossia
-sections. An example is in @inputfileref{input/@/test@/,ossia.ly},
-shown here
+sections. An example is shown here
 
 @cindex ossia
 
@@ -1950,11 +1971,23 @@ notes need not be consecutive.  This can be achieved by setting the
 @code{tieWaitForNote} property to true. The same feature is also useful,
 for example, to tie a tremolo to a chord. For example,
 
-@lilypond[fragment,verbatim,relative=1,ragged-right]
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
 \grace { c16[~ e~ g]~ } <c, e g>2
 \repeat "tremolo" 8 { c32~ c'~ } <c c,>1
 e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Ties may be engraved manually by changing the @code{tie-configuration}
+property.  The first number indicates the distance from the center
+of the staff in staff-spaces, and the second number indicates the
+direction (1=up, -1=down).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
 @end lilypond
 
 

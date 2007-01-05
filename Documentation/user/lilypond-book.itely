@@ -42,11 +42,12 @@ This procedure may be applied to La@TeX{}, HTML, Texinfo or DocBook documents.
 * Integrating LaTeX and music::  
 * Integrating Texinfo and music::  
 * Integrating HTML and music::  
-* Integrating DocBook and music::
+* Integrating DocBook and music::  
 * Music fragment options::      
 * Invoking lilypond-book::      
 * Filename extensions::         
 * Many quotes of a large score::  
+* Inserting LilyPond output into OpenOffice.org::  
 * Inserting LilyPond output into other programs::  
 @end menu
 
@@ -847,11 +848,22 @@ output format based on the input filename's extension.
 @end multitable
 @end quotation
 
+
 @node Many quotes of a large score
 @section Many quotes of a large score
 
 If you need to quote many fragments of a large score, you can also use
 the clip systems feature, see @ref{Extracting fragments of notation}.
+
+
+@node Inserting LilyPond output into OpenOffice.org
+@section Inserting LilyPond output into OpenOffice.org
+
+@cindex OpenOffice.org
+
+LilyPond notation can be added to OpenOffice.org with
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}
+
 
 @node Inserting LilyPond output into other programs
 @section Inserting LilyPond output into other programs

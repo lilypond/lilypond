@@ -178,14 +178,14 @@ c\mf c\sfz
 @end lilypond
 
 
-@item @code{a\< a \!a}
+@item @code{a\< a a\!}
 @tab crescendo
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
 \override Staff.TimeSignature #'break-visibility = #all-invisible
 \set Staff.autoBeaming = ##f
-a\< a \!a
+a\< a a\!
 @end lilypond
 
 @item @code{a\> a a\!}
@@ -234,12 +234,12 @@ f8 c2 d e
 @item @code{\lyricmode @{ twinkle @}}
 @tab entering lyrics
 @tab
+twinkle
 
 
 @item @code{\new Lyrics}
 @tab printing lyrics
 @tab
-twinkle
 @lilypond[fragment]
 \new Lyrics \lyricmode { twinkle }
 @end lilypond
@@ -249,7 +249,7 @@ twinkle
 @tab
 @lilypond[fragment,relative=2]
 <<
-   { g'4 g }
+   { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
 >> 
 @end lilypond
@@ -268,7 +268,7 @@ twinkle
 \chords { c:dim f:maj7 }
 @end lilypond
 
-@item @code{<<@{e f@} \\@{c d@}>>}
+@item @code{<<@{e f@} \\ @{c d@}>>}
 @tab polyphony
 @tab
 @lilypond[fragment,relative=2]

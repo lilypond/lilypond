@@ -3271,7 +3271,6 @@ subject.
 \score{
 \relative c'' {
   \override Score.TimeSignature #'break-visibility = #all-invisible
-  %\override Score.TextScript #'font-style = #'large
   \time 4/4
   \key g \major
   \partial 8 g16\startGroup fis |

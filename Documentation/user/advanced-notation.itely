@@ -309,9 +309,8 @@ but it can also be used anywhere text is called in lilypond
 }
 @end lilypond
 
-Text can also be placed on its own, away from any @code{\score}
-block.  This is primarily used in a @code{\book} (see
-@ref{Multiple scores in a book}).
+A @code{\markup} command can also be placed on its own, away from any
+@code{\score} block, see @ref{Multiple scores in a book}.
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
@@ -849,6 +848,20 @@ You may use @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers},
 and @code{format-mark-circle-barnumbers} to get bar numbers instead of
 incremented numbers or letters.
 
+Other styles of rehearsal mark can be specified manually
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} does not affect marks specified in this manner.
+However, it is possible to apply a @code{\markup} to the string.
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
 @cindex segno
 @cindex coda
 @cindex D.S al Fine
@@ -893,6 +906,8 @@ appears at that point in the music.
 
 
 @seealso
+
+This manual: @ref{Text marks}.
 
 Program reference: @internalsref{RehearsalMark}.
 
@@ -1058,6 +1073,19 @@ be added to that context.
 More information about adding and removing engravers can
 be found in @ref{Modifying context plug-ins}.
 
+Instrument names may be changed in the middle of a piece,
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
 
 @seealso
 
@@ -1141,9 +1169,9 @@ the staff.  They are created by invoking the function
 }
 @end lilypond
 
-The @code{set-octavation} function also takes -1 (for 8va bassa) and 2
-(for 15ma) as arguments.  Internally the function sets the properties
-@code{ottavation} (e.g., to @code{"8va"}) and
+The @code{set-octavation} function also takes -1 (for 8va bassa), 2@tie{}(for 15ma),
+and -2 (for 15ma bassa) as arguments.  Internally the function sets the properties
+@code{ottavation} (e.g., to @code{"8va"} or @code{"8vb"}) and
 @code{centralCPosition}.  For overriding the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
@@ -1405,7 +1433,7 @@ or @code{\RemoveEmptyRhythmicStaffContext}.
 
 Another application is making ossia sections, i.e., alternative
 melodies on a separate piece of staff, with help of a Frenched
-staff.  See @inputfileref{input/@/test,ossia@/.ly} for an example.
+staff.  
 
 
 @node Quoting other voices
@@ -1691,7 +1719,7 @@ created with a markup text.  This markup text is inserted in the
 tsMarkup =\markup {
   \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
-    \lower #1 "+"
+    \vcenter "+"
     \bracket \column { "5" "8" }
   }
 }
@@ -2114,6 +2142,7 @@ teaching tools in addition to great musical scores.
 * Analysis brackets::           
 * Coloring objects::            
 * Parentheses::                 
+* Grid lines::                  
 @end menu
 
 @node Balloon help
@@ -2161,6 +2190,7 @@ removing @code{Bar_number_engraver}.
 
 
 @lilypond[quote,verbatim]
+\layout{ indent = #0 }
 emptymusic = {
   \repeat unfold 2 % Change this for more lines.
   { s1\break }
@@ -2168,9 +2198,13 @@ emptymusic = {
 }
 \new Score \with {
   \override TimeSignature #'transparent = ##t
+% un-comment this line if desired
+%  \override Clef #'transparent = ##t
   defaultBarType = #""
   \remove Bar_number_engraver
 } <<
+
+% modify these to get the staves you want
   \new Staff \emptymusic
   \new TabStaff \emptymusic
 >>
@@ -2255,7 +2289,7 @@ used in music for beginners
 The command @code{\setEasyHeads} overrides settings for the
 @internalsref{NoteHead} object.  To make the letters readable, it has
 to be printed in a large font size.  To print with a larger font, see
-@ref{Setting global staff size}.
+@ref{Setting the staff size}.
 
 @refcommands
 
@@ -2401,4 +2435,12 @@ This only functions inside chords, even for single notes
 < \parenthesize NOTE>
 @end example
 
+
+@node Grid lines
+@subsection Grid lines
+
+Vertical lines can be drawn between staves synchronized with
+the notes.
+
+Examples: @inputfileref{input/@/regression,grid@/-lines@/.ly}.
 

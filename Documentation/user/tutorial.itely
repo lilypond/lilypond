@@ -20,10 +20,9 @@
 @node Tutorial
 @chapter Tutorial
 
-This tutorial starts with a short introduction to the LilyPond music
-language.  After this first contact we will show you how to produce
-printed output.  Then you will be able to create and print your own
-sheets of music.
+This tutorial starts with an introduction to the LilyPond music
+language and how to produce printed music.  After this first contact we
+will explain how to create common musical notation.
 
 @ifhtml
 Many people learn programs by trying and fiddling around with the
@@ -48,7 +47,7 @@ commands for quick reference.
 
 @menu
 * First steps::                 
-* Running LilyPond for the first time::  
+* Second steps::                
 * More about pitches::          
 * Entering ties::               
 * Automatic and manual beams::  
@@ -79,21 +78,126 @@ name, from @samp{a} through @samp{g}.  So, if you enter
 
 @example
 @{
-c d e f g a b
+c' d' e' f' g' a' b' c''
 @}
 @end example
 
 @noindent
 the result looks like this
 
-@lilypond[fragment,quote,notime,relative=1]
-c d e f g a b
+@lilypond[quote]
+{
+c' d' e' f' g' a' b' c''
+}
 @end lilypond
 
-Every piece of LilyPond input needs to have @{curly braces@} placed
-around the input.  For the rest of this manual, most examples will
+@emph{Warning:}  Every piece of LilyPond input needs to have
+@{curly braces@} placed around the input.  The braces should be
+also be surrounded by a space unless
+they are at the beginning or end of a line to avoid ambiguities.  These
+may be omitted in examples in this manual, but don't forget them in
+your own music!
+
+@cindex Case sensitive
+In addition, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
+valid input; @code{ @{ C D E @} } will produce an error message.
+
+
+
+@unnumberedsubsec Entering music and viewing output
+
+In this section we will explain what commands to run
+and how to view or print the output.
+
+@unnumberedsubsec MacOS X
+
+If you double click LilyPond.app, it will open with an example
+file. Save it, for example, to @file{test.ly} on your Desktop, and
+then process it with the menu command @samp{Compile > Typeset File}.
+The resulting PDF file will be displayed on your screen.
+
+Be warned that the first time you ever run lilypond 
+will take a minute or two, because
+all of the system fonts have to be analyzed first.
+
+For future use of LilyPond, you should begin by selecting "New"
+or "Open".
+
+@unnumberedsubsec Windows
+
+On Windows, start up a text-editor@footnote{Any simple or
+programmer-oriented editor will do, for example Notepad.  Do not use a
+word processor, since these insert formatting codes that will confuse
+LilyPond.} and enter
+
+@verbatim
+{ c' e' g' c'' }
+@end verbatim
+
+Save it on the desktop as @file{test.ly} and make sure that it is not
+called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
+the file and show the resulting PDF file.
+
+
+@unnumberedsubsec Unix
+
+Begin by opening a terminal window and starting a text editor.  For
+example, you could open an xterm and execute
+@code{joe}@footnote{There are macro files for VIM addicts, and there
+is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
+installed already, refer to the file @file{INSTALL.txt}.}.  In your
+text editor, enter the following input and save the file as
+@file{test.ly}
+
+@verbatim
+{ c' e' g' c'' }
+@end verbatim
+
+@noindent
+To process @file{test.ly}, proceed as follows
+
+@example
+lilypond test.ly
+@end example
+
+@noindent
+You will see something resembling
+
+@example
+lilypond test.ly
+GNU LilyPond 2.10.0
+Processing `test.ly'
+Parsing...
+Interpreting music... [1]
+Preprocessing graphical objects...
+Calculating line breaks... [2]
+Layout output to `test.ps'...
+Converting to `test.pdf'...
+@end example
+
+@cindex DVI file
+@cindex Viewing music
+@cindex xdvi
+@noindent
+The result is the file @file{test.pdf} which you can print or view
+with the standard facilities of your operating system.@footnote{If
+your system does not have any tools installed, you can try
+@uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
+available package for viewing and printing PDF and PostScript files.}
+
+
+@node Second steps
+@section Second steps
+
+@emph{Remember:} Every piece of LilyPond input needs to
+have @{curly braces@} placed around the input.
+The braces should be surrounded by a space unless
+they are at the beginning or end of a line to avoid ambiguities.
+For the rest of this manual, most examples will
 omit these braces, but don't forget them in your own music!
 
+@c will be removed once the tutorial either explains \relative or
+@c examples are fixed so they don't use it.  -gp
 In addition, many examples use @code{relative} mode.  This is explained
 in @ref{Octave entry}; for now simply be aware that some examples
 should be placed inside @code{\relative @{ @emph{...music...} @}}.
@@ -103,6 +207,11 @@ space, using @code{\paper @{ ragged-right = ##t @}}.
 @cindex Case sensitive
 Finally, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
 valid input; @code{ @{ C D E @} } will produce an error message.
+
+@c  End of latest re-write.  Since I have no life, I may do more
+@c  work on this, but I'd really like to have a Doc Helper take
+@c  over this task.  -gp
+
 
 The @rglos{duration} of a note is specified by a number after the note
 name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
@@ -193,7 +302,6 @@ s16_" "
 Remember to enclose the notes and commands in curly braces
 @code{@{@tie{}@dots{}@tie{}@}} to convert it to printable output.
 
-@c @li lypond[fragment,quote,noindent,line-width=55\staff-space]
 @lilypond[fragment,quote,noindent,verbatim]
 \time 3/4
 \clef bass
@@ -217,89 +325,6 @@ see @ref{Time signature}.
 @end table
 @end quotation
 
-
-@node Running LilyPond for the first time
-@section Running LilyPond for the first time
-
-@c cheesy title to avoid clash with chapter name.
-
-In the last section we explained what kind of things you can enter in
-a LilyPond file.  In this section we will explain what commands to run
-and how to view or print the output.  If you have not used LilyPond
-before, want to test your setup, or want to run an example file
-yourself, read this section.
-
-@unnumberedsubsec MacOS X
-
-If you double click LilyPond.app, it will open with an example
-file. Save it, for example, to @file{test.ly} on your Desktop, and
-then process it with the menu command @samp{Compile > Typeset File}.
-The resulting PDF file will be displayed on your screen.
-
-Be warned that the first-ever run will take a minute or two, because
-all of the system fonts have to be analyzed first.
-
-@unnumberedsubsec Windows
-
-On Windows, start up a text-editor@footnote{Any simple or
-programmer-oriented editor will do, for example Notepad.  Do not use a
-word processor, since these insert formatting codes that will confuse
-LilyPond.} and enter
-
-@verbatim
-{ c'4 e' g' }
-@end verbatim
-
-Save it on the desktop as @file{test.ly} and make sure that it is not
-called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
-the file and show the resulting PDF file.
-
-
-@unnumberedsubsec Unix
-
-Begin by opening a terminal window and starting a text editor.  For
-example, you could open an xterm and execute
-@code{joe}.@footnote{There are macro files for VIM addicts, and there
-is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
-installed already, refer to the file @file{INSTALL.txt}.}  In your
-text editor, enter the following input and save the file as
-@file{test.ly}
-
-@verbatim
-{ c'4 e' g' }
-@end verbatim
-
-@noindent
-To process @file{test.ly}, proceed as follows
-
-@example
-lilypond test.ly
-@end example
-
-@noindent
-You will see something resembling
-
-@example
-lilypond test.ly
-GNU LilyPond 2.6.0
-Processing `test.ly'
-Parsing...
-Interpreting music... [1]
-Preprocessing graphical objects...
-Calculating line breaks... [2]
-Layout output to `test.ps'...
-Converting to `test.pdf'...
-@end example
-
-@cindex DVI file
-@cindex Viewing music
-@cindex xdvi
-@noindent
-The result is the file @file{test.pdf} which you can print or view
-with the standard facilities of your operating system.@footnote{If
-your system does not have any tools installed, you can try
-@uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
-available package for viewing and printing PDF and PostScript files.}
 
 @node More about pitches
 @section More about pitches
@@ -931,10 +956,10 @@ ignored.  The following fragment shows possible uses for comments
 
 There is a special statement that is a kind of comment.  The @code{\version}
 statement marks for which version of LilyPond the file was written.
-To mark a file for version 2.6.0, use
+To mark a file for version 2.10.8, use
 
 @example
-\version "2.9.13"
+\version "2.10.8"
 @end example
 
 @noindent
