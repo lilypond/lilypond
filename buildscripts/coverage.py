@@ -38,7 +38,11 @@ def summary (args):
         print '%(cov)5.2f (%(lines)6d): %(file)s' % d
 
 class Chunk:
-    def __init__ (self, range, all_lines, file):
+    def __init__ (self, range, coverage_count, all_lines, file):
+        assert coverage_count >= 0
+        assert type (range) == type (())
+        
+        self.coverage_count = coverage_count
         self.range = range
         self.all_lines = all_lines
         self.file = file
@@ -56,9 +60,14 @@ class Chunk:
         self.range = (min (self.range[0] -1, 0),
                       self.range[0] +1)
     def write (self):
-        print 'uncovered chunk in', self.file
+        print 'chunk in', self.file
         for (c, n, l) in self.lines ():
-            sys.stdout.write ('%8s:%8d:%s' % (c,n,l))
+            cov = '%d' % c
+            if c == 0:
+                cov = '#######'
+            elif c < 0:
+                cov = ''
+            sys.stdout.write ('%8s:%8d:%s' % (cov, n, l))
             
 def read_gcov (f):
     ls = []
@@ -73,6 +82,13 @@ def read_gcov (f):
 
         if n == 0:
             continue
+
+        if '#' in c:
+            c = 0
+        elif c == '-':
+            c = -1
+        else:
+            c = int (c)
         
         l = l[line_num_len+1:]
 
@@ -83,18 +99,21 @@ def read_gcov (f):
 def get_chunks (ls, file):
     chunks = []
     chunk = []
-    for (c,n,l) in ls:
-        if '#' in c:
-            chunk.append ((n,l))
-        elif c.strip () != '-' or l == '}\n':
-            if chunk:
+
+    last_c = -1
+    for (c, n, l) in ls:
+        if not (c == last_c or c < 0 and l != '}\n'):
+            if chunk and last_c >= 0:
                 nums = [n-1 for (n, l) in chunk]
                 chunks.append (Chunk ((min (nums), max (nums)+1),
-                                      ls, file))
+                                      last_c, ls, file))
                 chunk = []
+
+        chunk.append ((n,l))
+        if c >= 0:
+            last_c = c
             
     return chunks
-
 
 def widen_chunk (ch, ls):
     a -= 1
@@ -103,22 +122,27 @@ def widen_chunk (ch, ls):
     return [(n, l)  for (c, n, l) in ls[a:b]]
     
 
-def extract_uncovered (file):
+def extract_chunks (file):
     try:
         ls = read_gcov (file)
     except IOError, s :
         print s
         return []
         
-    cs = get_chunks (ls, file)
+    return get_chunks (ls, file)
+
+def filter_uncovered (chunks):
     def interesting (c):
+        if c.coverage_count > 0:
+            return False
+        
         t = c.text()
         for stat in  ('warning', 'error', 'print', 'scm_gc_mark'):
             if stat in t:
                 return False
         return True
    
-    return [c for c in cs if interesting (c)]
+    return [c for c in chunks if interesting (c)]
     
 
 def main ():
@@ -128,6 +152,11 @@ def main ():
                   action='store_true',
                   default=False,
                   dest="summary")
+    
+    p.add_option ("--hotspots",
+                  default=False,
+                  action='store_true',
+                  dest="hotspots")
     
     p.add_option ("--uncovered",
                   default=False,
@@ -141,15 +170,21 @@ def main ():
     if options.summary:
         summary (['%s.gcov-summary' % s for s in args])
 
-    if options.uncovered:
-        uncovered = []
+    if options.uncovered or options.hotspots:
+        chunks = []
         for a in args:
-            uncovered += extract_uncovered ('%s.gcov' % a)
+            chunks += extract_chunks  ('%s.gcov' % a)
+
+        if options.uncovered:
+            chunks = filter_uncovered (chunks)
+            chunks = [(c.length (), c) for c in chunks]
+        elif options.hotspots:
+            chunks = [((c.coverage_count, -c.length()), c) for c in chunks]
             
-        uncovered = [(c.length (), c) for c in uncovered]
-        uncovered.sort ()
-        uncovered.reverse ()
-        for (score, c) in uncovered:
+            
+        chunks.sort ()
+        chunks.reverse ()
+        for (score, c) in chunks:
             c.write ()
 
             
