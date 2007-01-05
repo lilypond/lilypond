@@ -446,9 +446,7 @@ System::broken_col_range (Item const *left, Item const *right) const
   
   extract_grob_set (this, "columns", cols);
 
-  vsize i = binary_search (cols, (Grob *) left,
-			   Paper_column::less_than);
-
+  vsize i = Paper_column::get_rank (left);
   int end_rank = Paper_column::get_rank (right);
   if (i < cols.size ())
     i++;
@@ -495,11 +493,7 @@ Grob*
 System::column (int which) const
 {
   extract_grob_set (this, "columns", columns);
-  for (vsize i = 0; i < columns.size (); i++)
-    if (dynamic_cast<Paper_column*> (columns[i])->get_rank () == which)
-      return columns[i];
-  programming_error ("couldn't find the column of the requested index");
-  return columns[0];
+  return columns[which]
 }
 
 Paper_score*
