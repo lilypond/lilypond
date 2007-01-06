@@ -7,9 +7,7 @@ import math
 ## so we can call directly as buildscripts/output-distance.py
 me_path = os.path.abspath (os.path.split (sys.argv[0])[0])
 sys.path.insert (0, me_path + '/../python/')
-
-
-import safeeval
+sys.path.insert (0, me_path + '/../python/out/')
 
 
 X_AXIS = 0
@@ -523,18 +521,25 @@ class ProfileFileLink (FileCompareLink):
         return dist
 
     
-class MidiFileLink (FileCompareLink):
-    def get_content (self, f):
-        s = FileCompareLink.get_content (self, f)
-        s = re.sub ('LilyPond [0-9.]+', '', s)
-        return s
-    
-    def get_cell (self, oldnew):
+class MidiFileLink (TextFileCompareLink):
+    def get_content (self, oldnew):
+        import midi
+        
+        data = FileCompareLink.get_content (self, oldnew)
+        midi = midi.parse (data)
+        tracks = midi[1]
+
         str = ''
-        if oldnew == 1 and self.distance () > 0:
-            str = 'changed' 
+        j = 0
+        for t in tracks:
+            str += 'track %d' % j
+            j += 1
+
+            for e in t:
+                str += '  ev %s\n' % `e`
         return str
     
+
 
 class SignatureFileLink (FileLink):
     def __init__ (self, f1, f2 ):
