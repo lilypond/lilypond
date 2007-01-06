@@ -68,6 +68,14 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
   return r;
 }
 
+
+/*
+  FIXME: pure extent handling has a lot of ad-hoc caching.
+  This should be done with grob property callbacks.
+
+  --hwn
+*/
+
 Interval
 Axis_group_interface::cached_pure_height (Grob *me,
 					  vector<Grob*> const &elts,
