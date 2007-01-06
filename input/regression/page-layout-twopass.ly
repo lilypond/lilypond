@@ -15,6 +15,7 @@ bla = \new Staff {
   \repeat unfold 5 \relative { c1 c1 c1 }
 }
 
+
 \book {
   \score {
     \bla
@@ -28,19 +29,4 @@ tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
 
 #(newline)
 
-%% unfortunately: the following doesn't show up in lp-book output
-
-%% if the following is there, the tweak file will be overwritten.
-
-%{
-
-#(ly:progress "Including file: '~a'" tweakFileName)
-
-\markup {
-  \column {
-    \line { contents of \typewriter tweakFileName: }
-    \smaller \verbatim-file #tweakFileName
-  }
-}
-
-%}
+#(ly:progress "Contents of: '~a'" (ly:gulp-file tweakFileName))
