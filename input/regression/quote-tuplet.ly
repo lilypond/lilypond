@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.10"
 
 \header {
 
@@ -12,7 +12,7 @@ foo = \relative {
   \times 2/3 { c4 c c } \times 2/3 { c4 c c }
 }
 
-\addquote "foo" { \foo }
+\addQuote "foo" { \foo }
 
 \paper {
   ragged-right = ##t
