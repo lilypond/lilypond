@@ -34,28 +34,18 @@
     (let ((input (car strings))
          (output (cdr strings)))
      (set! test-number (1+ test-number))
-     (if (string=? input output)
-         (make-music 'SequentialMusic 'void #t)
-         (make-music 'SequentialMusic
-           'elements
-           (list (ly:parser-lookup parser 'fatText)
-                 (make-music 'EventChord
-                   'elements (list (make-music 'LineBreakEvent
-                                     'break-permission 'force)))
-                 (make-music 'EventChord
-                   'elements (list (make-music 'SkipEvent
-                                     'duration (ly:make-duration 0 0 1 1))
-                                   (make-music 'TextScriptEvent
-                                     'direction -1
-                                     'text (markup #:column
-                                            (#:simple (format #f "Test #~a " test-number)
-                                             (if (string-null? result-info) 
-                                                 (markup #:bold "BUG") 
-                                                 (markup #:simple result-info))
-                                             #:typewriter (lily-string->markup input)
-                                             #:typewriter (lily-string->markup output)))))))))))))
-    
+     (if (not (equal? input output))
+         (ly:progress "Test ~a unequal: ~a. \nin  = ~a\nout = ~a\n"
+	  test-number
+	  (if result-info
+	      result-info "BUG")
+          input output))
 
+
+     (make-music 'SequentialMusic 'void #t)
+    
+   ))))
+	  
 test = 
 #(define-music-function (parser location result-info strings) (string? pair?)
    (test-function parser location result-info strings))
@@ -64,9 +54,8 @@ test =
 %%% Tests
 %%%
 \header {
-  texidoc = \markup \column { \line { \typewriter display-lily-music unit tests }
-                              \line { Real bugs (regressions) are marked as \bold BUG. }
-                              \line { Known bugs are marked as TODO. } }
+  texidoc = "This is a test of the display-lily-music unit. Problems are reported on the
+stderr of this run." 
 }
 
 \layout {
@@ -260,3 +249,8 @@ test =
 %% Cue notes
 \test "" ##[ \cueDuring #"foo" #1 { c d } #]
 \test "" ##[ \quoteDuring #"foo" { c d } #]
+
+
+%% end test.
+
+#(read-hash-extend #\[ #f) %{ ] %}
