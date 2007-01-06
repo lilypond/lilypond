@@ -17,6 +17,7 @@ sd = { \change Staff = down}
 \context PianoStaff
 <<
   \new Staff = "up"   {
+    \override Glissando #'breakable = ##t
     \set PianoStaff.connectArpeggios = ##t
     \showStaffSwitch
     \clef F
