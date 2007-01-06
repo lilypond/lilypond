@@ -44,4 +44,5 @@
 
 #(if (eq? expect-error (ly:parser-has-error? parser))
   (ly:parser-clear-error parser)
-  (ly:parser-error parser (_ "expected error, but none found")))
+  (if expect-error
+   (ly:parser-error parser (_ "expected error, but none found"))))
