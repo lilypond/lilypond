@@ -351,6 +351,7 @@
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((normal-stems . ,ly:beam::calc-normal-stems))) 
 		 (interfaces . (staff-symbol-referencer-interface
+				unbreakable-spanner-interface
 				beam-interface))))))
 
     (BendAfter
