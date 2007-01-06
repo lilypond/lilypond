@@ -214,7 +214,10 @@ OUT_TEST=test
 
 test:
 	rm -f input/regression/out-$(OUT_TEST)/collated-files.html
-	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html 
+	@echo -en 'For tracking crashes: use\n\n\t'
+	@echo 'grep sourcefilename `grep -L systems.texi input/regression/out-test/*log|sed s/log/ly/g'
+	@echo
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts -dleave-canaries --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 	if test -d .git  ; then \
 		echo -e 'HEAD is:\n\n\t' ; \
