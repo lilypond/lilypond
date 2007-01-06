@@ -185,29 +185,28 @@ Music::compress (Moment factor)
 }
 
 /*
-  This mutates alist.  Hence, make sure that it is not changed 
+  This mutates alist.  Hence, make sure that it is not shared 
 */
-SCM
+void
 transpose_mutable (SCM alist, Pitch delta)
 {
-  SCM retval = SCM_EOL;
-
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM entry = scm_car (s);
       SCM prop = scm_car (entry);
       SCM val = scm_cdr (entry);
-
+      SCM new_val = val;
+      
       if (Pitch *p = unsmob_pitch (val))
 	{
 	  Pitch transposed = p->transposed (delta);
-	  scm_set_cdr_x (entry, transposed.smobbed_copy ());
-
-	  if (abs (transposed.get_alteration ()) > DOUBLE_SHARP)
+	  if (transposed.get_alteration ().abs () > Rational (1,1))
 	    {
 	      warning (_f ("transposition by %s makes alteration larger than double",
 			   delta.to_string ()));
 	    }
+
+	  new_val = transposed.smobbed_copy ();
 	}
       else if (prop == ly_symbol2scm ("element"))
 	{
@@ -218,11 +217,11 @@ transpose_mutable (SCM alist, Pitch delta)
 	transpose_music_list (val, delta);
       else if (prop == ly_symbol2scm ("pitch-alist") &&
 	       scm_is_pair (val))
-	entry = scm_cons (prop, ly_transpose_key_alist (val, delta.smobbed_copy ()));
-      retval = scm_cons (entry, retval);
-    }
+	new_val = ly_transpose_key_alist (val, delta.smobbed_copy ());
 
-  return scm_reverse_x (retval, SCM_EOL);
+      if (val != new_val)
+	scm_set_cdr_x (entry , new_val);
+    }
 }
 
 void
@@ -231,7 +230,7 @@ Music::transpose (Pitch delta)
   if (to_boolean (get_property ("untransposable")))
     return;
 
-  mutable_property_alist_ = transpose_mutable (mutable_property_alist_, delta);
+  transpose_mutable (mutable_property_alist_, delta);
 }
 
 void
