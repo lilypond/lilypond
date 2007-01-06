@@ -3039,6 +3039,10 @@ declared within a @code{Voice} context.
 @node Repeat syntax
 @subsection Repeat syntax
 
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+
 LilyPond has one syntactic construct for specifying different types of
 repeats.  The syntax is
 
