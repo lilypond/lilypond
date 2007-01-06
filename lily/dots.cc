@@ -13,7 +13,6 @@
 #include "font-interface.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
-#include "directional-element-interface.hh"
 #include "international.hh"
 
 MAKE_SCHEME_CALLBACK (Dots, print, 1);

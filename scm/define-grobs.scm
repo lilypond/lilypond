@@ -524,6 +524,7 @@
      . (
 	(stencil . ,ly:dots::print)
 	(dot-count . ,dots::calc-dot-count)
+	(staff-position . ,dots::calc-staff-position)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				staff-symbol-referencer-interface

@@ -113,6 +113,21 @@
   (ly:duration-dot-count
    (ly:event-property (event-cause grob) 'duration)))
 
+(define-public (dots::calc-staff-position grob)
+  (let*
+      ((head (ly:grob-parent grob Y))
+       (log (ly:grob-property head 'duration-log)))
+
+    (cond
+     ((or (not (grob::has-interface head 'rest-interface))
+	 (not (integer? log))) 0)
+     ((= log 7) 4)
+     ((> log 4) 3)
+     ((= log 0) -1)
+     ((= log 1) 1)
+     ((= log -1) 1)
+     (else 0))))
+
 (define (note-head::calc-tablature-stem-attachment grob)
   (cons 0.0 1.35))
 
