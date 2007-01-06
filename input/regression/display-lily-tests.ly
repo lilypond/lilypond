@@ -1,5 +1,4 @@
 \version "2.11.6"
-
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -58,20 +57,6 @@ test =
 stderr of this run." 
 }
 
-\layout {
-  raggedright = ##t 
-  indent = 0\cm
-  \context {
-    \Staff
-    \override StaffSymbol #'line-count = #1
-    \remove "Time_signature_engraver"
-    \remove "Clef_engraver"
-  }
-  \context {
-    \Score
-    \remove "Bar_number_engraver"
-  }
-}
 
 %% Sequential music
 \test "" ##[ { { a b } { c d } } #]		% SequentialMusic
