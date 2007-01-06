@@ -18,9 +18,11 @@ The engraver does no time-keeping, so it involves some trickery to get
 }
 
 \new Staff \relative c''{
-				% gliss non gliss and 
+  \override Glissando #'breakable = ##t
+  
+  %% gliss non gliss and 
   c4 \glissando d e \glissando f \glissando \break
-				% consecutive 
+  %% consecutive 
   c \glissando d, \glissando e'
   << { \stemUp e8 \glissando g8 }
      \context Voice = VB {\stemDown \repeat unfold 4 d16 } >>
