@@ -1998,6 +1998,7 @@
 	(padding . 0.5)
 	(skylines . ,ly:axis-group-interface::combine-skylines)
 	(meta . ((class . Spanner)
+		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
 		 (interfaces . (align-interface
 				axis-group-interface))))))
     (VerticalAxisGroup
@@ -2008,6 +2009,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(skylines . ,ly:axis-group-interface::calc-skylines);
 	(meta . ((class . Spanner)
+		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-spanner-interface
 				vertically-spaceable-interface))))))
