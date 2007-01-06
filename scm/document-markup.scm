@@ -10,10 +10,10 @@
 	 (f-name (symbol->string (procedure-name  func)))
 	 (c-name (regexp-substitute/global #f "-markup$" f-name  'pre "" 'post))
 	 (sig (object-property func 'markup-signature))
-	 (arg-names
-	  (map symbol->string 
-	       (cddr (cadr (procedure-source func)))))
-	 
+	 (arg-names (let ((arg-list (cadr (procedure-source func))))
+                      (if (list? arg-list)
+                          (map symbol->string (cddr arg-list))
+                          (make-list (length sig) "arg"))))
 	 (sig-type-names (map type-name sig))
 	 (signature-str
 	  (string-join

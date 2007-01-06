@@ -51,7 +51,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
     \dynamic sfzp
     \huge { "A" \smaller "A" \smaller \smaller "A"
 	    \smaller \smaller \smaller "A" }
-    \sub "alike"
+    \larger \sub "alike"
   }	
   \break
   f'1-#(markup* 
@@ -74,5 +74,5 @@ For maintenance reasons, we don't excercise the entire markup command set.
 	#:dynamic "sfzp"
 	#:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
 		       #:smaller #:smaller #:smaller "A")
-	#:sub "alike")
+	#:larger #:sub "alike")
 }
