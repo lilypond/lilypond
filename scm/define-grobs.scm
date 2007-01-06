@@ -1889,6 +1889,7 @@
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(meta . ((class . Item)
 		 (interfaces . (trill-pitch-accidental-interface
+				accidental-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1903,6 +1904,7 @@
 	(padding . 0.3)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
+				parentheses-interface
 				note-head-interface
 				rhythmic-head-interface
 				font-interface
