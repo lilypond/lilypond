@@ -283,6 +283,17 @@ Axis_group_interface::calc_pure_elts_and_common (Grob *me)
   return common;
 }
 
+MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_x_common, 1);
+SCM
+Axis_group_interface::calc_x_common (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, X_AXIS);
+  return common->self_scm ();
+}
+
 MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_y_common, 1);
 SCM
 Axis_group_interface::calc_y_common (SCM grob)
@@ -290,7 +301,8 @@ Axis_group_interface::calc_y_common (SCM grob)
   Grob *me = unsmob_grob (grob);
 
   extract_grob_set (me, "elements", elts);
-  return common_refpoint_of_array (elts, me, Y_AXIS)->self_scm ();
+  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  return common->self_scm ();
 }
 
 SCM

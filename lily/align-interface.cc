@@ -147,15 +147,9 @@ get_skylines (Grob *me,
   for (vsize i = 0; i < elements->size (); i++)
     {
       Grob *elt = (*elements)[i];
-      Grob *child_common = 0;
-
-      /*
-	should consider whether to restrict to Y_AXIS.
-       */
-      if (a == Y_AXIS)
-	child_common = unsmob_grob (elt->get_object ("Y-common"));
-      else
-	child_common = unsmob_grob (elt->get_object ("X-common"));
+      Grob *child_common = unsmob_grob ((a == Y_AXIS)
+					? elt->get_object ("X-common")
+					: elt->get_object ("Y-common"));
       
       if (!child_common)
 	{

@@ -19,6 +19,7 @@ struct Axis_group_interface
   static SCM generic_group_extent (Grob *me, Axis a);
   static SCM pure_group_height (Grob *me, int start, int end);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
