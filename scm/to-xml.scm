@@ -5,8 +5,11 @@
 ;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define-module (scm to-xml))
+
 (use-modules (ice-9 regex)
 	     (srfi srfi-1)
+	     (lily)
 	     (oop goops))
 
 "

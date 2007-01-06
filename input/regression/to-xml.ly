@@ -2,11 +2,10 @@
 
 testMusic =  { << c''4 \\ g'4 >> }
 
-#(load-from-path "to-xml.scm")
+#(use-modules (scm to-xml))
 
-#(ly:progress "\nXML:\n\n~A\n"
-  (call-with-output-string
-   (lambda (p) (music-to-xml testMusic p))))
+#(ly:progress "\nXML:\n\n~A\n" (call-with-output-string (lambda (p) (music-to-xml testMusic p))))
+
 
 \header {
   texidoc =
@@ -15,4 +14,3 @@ testMusic =  { << c''4 \\ g'4 >> }
 
 
 { \testMusic }
-
