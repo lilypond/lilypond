@@ -100,14 +100,17 @@ local-WWW-post:
 	rm -rf $(outdir)/offline-root
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(outdir) "$(WEB_TARGETS)"
 
+
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
 tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
-tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
-tree-share-prefix-current = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
-tree-lib-prefix-current = $(tree-lib)/lilypond/current
+
+# Don't put version numbers here. During development
+# they make no sense, and cause EPS files to become invalid.
+
+tree-share-prefix = $(tree-share)/lilypond/current
+tree-lib-prefix = $(tree-lib)/lilypond/current
 
 C_DIRS = flower lily
 c-clean:
@@ -132,9 +135,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-share-prefix-current)
 	mkdir -p $(tree-lib-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-lib-prefix-current)
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -223,7 +224,7 @@ test:
 		echo -e '\n\n\n' ; \
 		git diff ; \
 	fi > input/regression/out-test/tree.gittxt
-	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts -dleave-canaries --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
 
