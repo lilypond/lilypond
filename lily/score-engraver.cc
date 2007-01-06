@@ -99,6 +99,20 @@ Score_engraver::connect_to_context (Context *c)
   d->add_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
 }
 
+/*
+  uncovered:
+  
+  check_removal always returns false for Score contexts, it has been that way 
+since I joined the project. There is a reason for this: The typeset score is 
+stored in the Score_engraver, which in turn is accessed through the 
+Global_context returned by ly:run-translator. So the score-translator must be 
+connected to the score-context after run-translator finishes.
+
+I plan to change this: we should junk run-translator, and instead keep track 
+of both context and translator in the SCM code, and access the typeset score 
+directly via the created global-translator. Then it would be possible to 
+disconnect score-translators at iteration time. -es
+ */
 void
 Score_engraver::disconnect_from_context ()
 {
