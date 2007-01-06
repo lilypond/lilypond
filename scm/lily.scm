@@ -607,8 +607,6 @@ The syntax is the same as `define*-public'."
 	 
 	 (ly:clear-anonymous-modules)
 
-	 
-	 (display gui-main)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	 (gc)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
