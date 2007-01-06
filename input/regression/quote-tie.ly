@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.10"
 
 \header {
 
@@ -15,12 +15,12 @@ to the 2nd note. "
 cueI = \relative c'' {
   a1 ~ | a | a |
 }
-\addquote "cueI" { \cueI }
+\addQuote "cueI" { \cueI }
 
 cueII = \relative c' {
   R1 | e | a |
 }
-\addquote "cueII" { \cueII }
+\addQuote "cueII" { \cueII }
 
 \new Staff {
   \cueDuring "cueI" #UP { R1 } |

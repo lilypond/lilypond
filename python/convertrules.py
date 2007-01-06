@@ -2934,6 +2934,10 @@ def conv (str):
                   r"\override \2Beam #'breakable", str)
     str = re.sub (r'(\\set\s+)?allowBeamBreak',
                   r"\override Beam #'breakable", str)
+    str = re.sub (r'addquote' , 'addQuote', str)
     return str
 
-conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t"""))
+conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
+addquote -> addQuote
+
+"""))
