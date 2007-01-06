@@ -43,22 +43,38 @@ exe=$depth/out-prof/bin/lilypond
 ## todo: figure out representative sample.
 files="wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 mozart-hrn-3  mozart-hrn-3  long-score"
 
-for a in seq 1 3; do
-  $exe -ddump-profile -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
-     -I $depth/input/mutopia/W.A.Mozart/ \
-     $files 
 
-  if test -f gmon.sum ; then
-    gprof -s $exe gmon.out gmon.sum
-  else
-    mv gmon.out gmon.sum
-  fi 
-done
+
+$exe -ddump-profile --formats=ps -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
+    -I $depth/input/mutopia/W.A.Mozart/ \
+    $files
 
 
 for a in *.profile; do
   echo $a
   cat $a
+done
+
+echo 'running gprof' 
+gprof $exe > profile
+
+exit 0
+
+
+## gprof -s takes forever.
+for a in seq 1 3; do
+  for f in $files ; do
+    $exe -ddump-profile --formats=ps -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
+       -I $depth/input/mutopia/W.A.Mozart/ \
+       $f
+
+    echo 'running gprof' 
+    if test -f gmon.sum ; then
+      gprof -s $exe gmon.out gmon.sum
+    else
+      mv gmon.out gmon.sum
+    fi
+  done
 done
 
 gprof $exe gmon.sum > profile

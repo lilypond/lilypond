@@ -40,18 +40,6 @@ Rest::y_offset_callback (SCM smob)
   else
     amount += ss / 2;
 
-  Grob *dot = unsmob_grob (me->get_object ("dot"));
-  if (dot && duration_log > 4) // UGH.
-    {
-      dot->set_property ("staff-position",
-		       scm_from_int ((duration_log == 7) ? 4 : 3));
-    }
-  if (dot && duration_log >= -1 && duration_log <= 1) // UGH again.
-    {
-      dot->set_property ("staff-position",
-			 scm_from_int ((duration_log == 0) ? -1 : 1));
-    }
-
   if (!position_override)
     amount += 2 * ss * get_grob_direction (me);; 
   

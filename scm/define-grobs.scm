@@ -548,6 +548,7 @@
      . (
 	(stencil . ,ly:dots::print)
 	(dot-count . ,dots::calc-dot-count)
+	(staff-position . ,dots::calc-staff-position)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				staff-symbol-referencer-interface
@@ -2013,7 +2014,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(skylines . ,ly:axis-group-interface::calc-skylines);
 	(meta . ((class . Spanner)
-		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
+		 (object-callbacks . ((X-common . ,ly:axis-group-interface::calc-x-common)))
 		 (interfaces . (axis-group-interface
 				hara-kiri-group-spanner-interface
 				vertically-spaceable-interface))))))
