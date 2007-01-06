@@ -200,7 +200,7 @@ transpose_mutable (SCM alist, Pitch delta)
       if (Pitch *p = unsmob_pitch (val))
 	{
 	  Pitch transposed = p->transposed (delta);
-	  if (transposed.get_alteration ().abs () > Rational (1,1))
+	  if (transposed.get_alteration () > DOUBLE_SHARP)
 	    {
 	      warning (_f ("transposition by %s makes alteration larger than double",
 			   delta.to_string ()));
