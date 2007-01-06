@@ -82,9 +82,11 @@
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
+
        (count (ly:parser-lookup parser 'output-count))
        (base (ly:parser-output-name parser)))
 
+    ;; must be careful: output-count is under user control.
     (if (not (integer? count))
 	(set! count 0))
 

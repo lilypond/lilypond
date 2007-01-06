@@ -35,8 +35,14 @@
 (define (post-process-pages layout pages)
   "If the write-page-layout paper variable is true, dumps page breaks
   and tweaks."
-  (if (ly:output-def-lookup layout 'write-page-layout #f)
-      (write-page-breaks pages)))
+
+  (let*
+      ((parser (ly:modules-lookup (list (current-module)) 'parser))
+       (output-name (ly:parser-output-name parser)) 
+       )
+
+    (if (ly:output-def-lookup layout 'write-page-layout #f)
+	(write-page-breaks pages output-name))))
 
 ;;;
 ;;; Utilities for computing line distances and positions
