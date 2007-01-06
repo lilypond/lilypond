@@ -583,13 +583,12 @@ The syntax is the same as `define*-public'."
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
+    (gc)
     (for-each
      (lambda (x)
        (let*
 	   ((start-measurements (if do-measurements
-				    (begin
-				      (gc)
-				      (profile-measurements))
+				    (profile-measurements)
 				    #f))
 	    (base (basename x ".ly"))
 	    (all-settings (ly:all-options)))
@@ -607,6 +606,14 @@ The syntax is the same as `define*-public'."
 	  all-settings)
 	 
 	 (ly:clear-anonymous-modules)
+
+	 
+	 (display gui-main)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
+	 (gc)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
+	 
+	 
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)
 	     (if (= (random 40) 1)
