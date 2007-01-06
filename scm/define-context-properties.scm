@@ -38,7 +38,6 @@
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies

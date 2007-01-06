@@ -119,9 +119,6 @@ Beam_engraver::set_melisma (bool ml)
 void
 Beam_engraver::process_music ()
 {
-  if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
-    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
-
   if (start_ev_)
     {
       if (beam_)
@@ -341,7 +338,6 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		/* read */
 		"beamMelismaBusy "
 		"beatLength "
-		"allowBeamBreak "
 		"subdivideBeams "
 		,
 		/* write */ "");

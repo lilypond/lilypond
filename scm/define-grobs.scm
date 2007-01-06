@@ -698,6 +698,7 @@
 	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
+				unbreakable-spanner-interface
 				line-spanner-interface))))))
 
     (GraceSpacing

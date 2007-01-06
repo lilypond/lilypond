@@ -68,6 +68,7 @@ beaming patterns from stem to stem inside a beam.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
+     (breakable ,boolean? "Allow breaks here.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-orders ,vector? " Defines the order in which

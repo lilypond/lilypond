@@ -2927,3 +2927,13 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 6), conv, """Rename accidental glyphs, use glyph-name-alist."""))
+
+
+def conv (str):
+    str = re.sub (r'(\\set\s+)?([A-Z][a-zA-Z]+\s*\.\s*)allowBeamBreak',
+                  r"\override \2Beam #'breakable", str)
+    str = re.sub (r'(\\set\s+)?allowBeamBreak',
+                  r"\override Beam #'breakable", str)
+    return str
+
+conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t"""))
