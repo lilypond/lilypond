@@ -7,23 +7,20 @@
   print-book-with-defaults-as-systems )
 
 #(define toplevel-book-handler
-
   (lambda ( . rest)
   (set! output-empty-score-list #f)
   (apply print-book-with-defaults rest)))
 
 #(define toplevel-music-handler
   (lambda ( . rest)
-   (set! output-empty-score-list #f)
    (apply collect-music-for-book rest)))
 
 #(define toplevel-score-handler
   (lambda ( . rest)
-   (set! output-empty-score-list #f)
    (apply collect-scores-for-book rest)))
+
 #(define toplevel-text-handler
   (lambda ( . rest)
-   (set! output-empty-score-list #f)
    (apply collect-scores-for-book rest)))
 
 #(set! output-empty-score-list #t)
