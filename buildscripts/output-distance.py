@@ -536,6 +536,10 @@ class MidiFileLink (TextFileCompareLink):
             j += 1
 
             for e in t:
+                ev_str = repr (e)
+                if re.search ('LilyPond [0-9.]+', ev_str):
+                    continue
+                
                 str += '  ev %s\n' % `e`
         return str
     
