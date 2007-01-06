@@ -1109,8 +1109,7 @@ class Lilypond_snippet (Snippet):
             and (self.relevant_contents (self.full_ly ())
                  == self.relevant_contents (open (ly_file).read ()))):
             return None
-        if global_options.verbose:
-            print 'OUT OF DATE: ', ly_file
+
         return self
 
     def png_is_outdated (self):
