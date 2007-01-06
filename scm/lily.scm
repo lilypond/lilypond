@@ -528,25 +528,32 @@ The syntax is the same as `define*-public'."
 	      (for-each
 	       (lambda (pid)
 		 (let* ((stat (cdr (waitpid pid))))
-
+		   
 		   (if (not (= stat 0))
-		       (set! errors (cons (list-element-index joblist pid) errors)))))
+		       (set! errors (acons (list-element-index joblist pid) stat errors)))))
 	       joblist)
 
 	      (for-each
 	       (lambda (x)
-		 (let* ((logfile  (format "~a-~a.log"
-					  (ly:get-option 'log-file) x))
+		 (let* ((job (car x))
+			(state (cdr x))
+			(logfile  (format "~a-~a.log"
+					  (ly:get-option 'log-file) job))
 			(log (ly:gulp-file logfile))
 			(len (string-length log))
 			(tail (substring  log (max 0 (- len 1024)))))
 
-		   (display (format "\n\nlogfile ~a:\n\n ~a" logfile tail))))
+		   (if (status:term-sig state)
+		       (ly:message "\n\n~a\n"
+				   (format (_ "job ~a terminated with signal: ~a")
+					   job
+					   (status:term-sig state)))
+		       (ly:message (_ "logfile ~a (exit ~a):\n~a") logfile (status:exit-val state) tail))))
 
 	       errors)
 
 	      (if (pair? errors)
-		  (ly:error "Children ~a exited with errors." errors))
+		  (ly:error "Children ~a exited with errors." (map car errors)))
 
 	      ;; must overwrite individual entries
 	      (if (ly:get-option 'dump-profile)
@@ -606,7 +613,6 @@ The syntax is the same as `define*-public'."
 	  all-settings)
 	 
 	 (ly:clear-anonymous-modules)
-
 	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	 (gc)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
