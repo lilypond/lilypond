@@ -44,7 +44,7 @@ exe=$depth/out-prof/bin/lilypond
 files="wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 wtk1-fugue2 mozart-hrn-3  mozart-hrn-3  long-score"
 
 for a in seq 1 3; do
-  $exe -ddump-profile -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
+  $exe -ddump-profile --formats=ps -I $depth/input/ -I  $depth/input/mutopia/J.S.Bach/ \
      -I $depth/input/mutopia/W.A.Mozart/ \
      $files 
 
