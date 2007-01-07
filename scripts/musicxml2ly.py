@@ -335,7 +335,10 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if n.is_first () and n._measure_position == Rational (0):
-            num = int (n.get_parent ().number)
+            try: 
+                num = int (n.get_parent ().number)
+            except ValueError:
+                num = 0
             voice_builder.add_bar_check (num)
         
         main_event = musicxml_note_to_lily_main_event (n)
