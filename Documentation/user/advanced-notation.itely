@@ -1437,19 +1437,19 @@ staff.
 
 With quotations, fragments of other parts can be inserted into a part
 directly.  Before a part can be quoted, it must be marked especially as
-quotable.  This is done with the @code{\addquote} command.
+quotable.  This is done with the @code{\addQuote} command.
 
 @example
-\addquote @var{name} @var{music}
+\addQuote @var{name} @var{music}
 @end example
 
 
 @noindent
 Here, @var{name} is an identifying string.  The @var{music} is any kind
-of music.  Here is an example of @code{\addquote}
+of music.  Here is an example of @code{\addQuote}
 
 @example
-\addquote clarinet \relative c' @{
+\addQuote clarinet \relative c' @{
   f4 fis g gis
 @}
 @end example
@@ -1457,7 +1457,7 @@ of music.  Here is an example of @code{\addquote}
 This command must be entered at toplevel, i.e., outside any music
 blocks.
 
-After calling @code{\addquote}, the quotation may then be done with
+After calling @code{\addQuote}, the quotation may then be done with
 @code{\quoteDuring} or @code{\cueDuring},
 
 @example
@@ -1477,7 +1477,7 @@ the previously added @code{clarinet} voice.
 
 More precisely, it takes the current time-step of the part being
 printed, and extracts the notes at the corresponding point of the
-@code{\addquote}d voice.  Therefore, the argument to @code{\addquote}
+@code{\addQuote}d voice.  Therefore, the argument to @code{\addQuote}
 should be the entire part of the voice to be quoted, including any
 rests at the beginning.
 
@@ -1485,7 +1485,7 @@ Quotations take into account the transposition of both source and target
 instruments, if they are specified using the @code{\transposition} command.
 
 @lilypond[quote,ragged-right,verbatim]
-\addquote clarinet \relative c' {
+\addQuote clarinet \relative c' {
   \transposition bes
   f4 fis g gis
 }
@@ -1512,7 +1512,7 @@ will quote notes (but no rests), together with scripts and dynamics.
 @refbugs
 
 Only the contents of the first @internalsref{Voice} occurring in an
-@code{\addquote} command will be considered for quotation, so
+@code{\addQuote} command will be considered for quotation, so
 @var{music} can not contain @code{\new} and @code{\context Voice}
 statements that would switch to a different Voice.
 
@@ -1559,7 +1559,7 @@ smaller = {
   \override Beam #'length-fraction = #0.8
 }
 
-\addquote clarinet \relative {
+\addQuote clarinet \relative {
   R1*20
   r2 r8 c f f
 }
@@ -1622,7 +1622,7 @@ picc = \relative c''' {
   c8 c c e g2 |
   a4 g g2 |
 }
-\addquote "picc" { \picc }
+\addQuote "picc" { \picc }
 
 cbsn = \relative c, {
   \clef "bass_8"
