@@ -57,7 +57,7 @@ void
 Midi_walker::do_start_note (Midi_note *note)
 {
   Audio_item *ptr = (*items_)[index_];
-  Moment stop_mom = note->get_length () + ptr->audio_column_->at_mom ();
+  Moment stop_mom = note->get_length () + ptr->audio_column_->when ();
 
   bool play_start = true;
   for (vsize i = 0; i < stop_note_queue.size (); i++)
@@ -93,7 +93,7 @@ Midi_walker::do_start_note (Midi_note *note)
       stop_note_queue.insert (e);
 
       if (play_start)
-	output_event (ptr->audio_column_->at_mom (), note);
+	output_event (ptr->audio_column_->when (), note);
     }
 }
 
@@ -142,7 +142,7 @@ void
 Midi_walker::process ()
 {
   Audio_item *audio = (*items_)[index_];
-  do_stop_notes (audio->audio_column_->at_mom ());
+  do_stop_notes (audio->audio_column_->when ());
 
   if (Midi_item *midi = Midi_item::get_midi (audio))
     {
@@ -156,7 +156,7 @@ Midi_walker::process ()
 	    do_start_note (note);
 	}
       else
-	output_event (audio->audio_column_->at_mom (), midi);
+	output_event (audio->audio_column_->when (), midi);
     }
 }
 

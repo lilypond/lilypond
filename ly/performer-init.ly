@@ -30,9 +30,7 @@
 \context {
     \type "Performer_group"
     \name Voice
-    % The order of the dynamic performers is significant: absolute dynamic events must override crescendo events in midi.
-    \consists "Span_dynamic_performer"
-    \consists "Dynamic_performer"
+    \consists "New_dynamic_performer"    
     \consists "Tie_performer"
     \consists "Piano_pedal_performer"
     \consists "Note_performer"

@@ -113,7 +113,7 @@ Score_performer::one_time_step (SCM)
     {
       if (!skipping_)
         {
-	  skip_start_mom_ = audio_column_->at_mom ();
+	  skip_start_mom_ = audio_column_->when ();
 	  skipping_ = true;
         }
     }
@@ -121,11 +121,11 @@ Score_performer::one_time_step (SCM)
     {
       if (skipping_)
         {
-	  offset_mom_ -= audio_column_->at_mom () - skip_start_mom_;
+	  offset_mom_ -= audio_column_->when () - skip_start_mom_;
 	  skipping_ = false;
 	}
 
-      audio_column_->offset_at_mom (offset_mom_);
+      audio_column_->offset_when (offset_mom_);
       precomputed_recurse_over_translators (context (), PROCESS_MUSIC, UP);
       do_announces ();
     }
