@@ -21,7 +21,10 @@ class Audio_item : public Audio_element
 public:
   Audio_item ();
   Audio_column *audio_column_;
+  Audio_column *get_column () const;
 
+  virtual void render ();
+  
 private:
   Audio_item (Audio_item const &);
   Audio_item &operator = (Audio_item const &);
@@ -30,10 +33,23 @@ private:
 class Audio_dynamic : public Audio_item
 {
 public:
-  Audio_dynamic (Real volume);
+  Audio_dynamic ();
 
   Real volume_;
 };
+
+class Audio_span_dynamic : public Audio_element
+{
+public:
+  Direction grow_dir_;
+  vector<Audio_dynamic*> dynamics_;
+
+
+  virtual void render ();
+  void add_absolute (Audio_dynamic*);
+  Audio_span_dynamic ();
+};
+
 
 class Audio_key : public Audio_item
 {

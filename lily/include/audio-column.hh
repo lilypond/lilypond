@@ -19,21 +19,21 @@
 class Audio_column : public Audio_element
 {
 public:
-  Audio_column (Moment at_mom);
+  Audio_column (Moment when);
 
   void add_audio_item (Audio_item *i);
-  Moment at_mom () const;
+  Moment when () const;
 
   vector<Audio_item*> audio_items_;
 
 protected:
-  void offset_at_mom (Moment m);
+  void offset_when (Moment m);
   friend class Score_performer;
 
 private:
   Audio_column (Audio_column const &);
 
-  Moment at_mom_;
+  Moment when_;
 };
 
 #endif // AUDIO_COLUMN_HH

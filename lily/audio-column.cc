@@ -11,9 +11,9 @@
 #include "audio-item.hh"
 #include "performance.hh"
 
-Audio_column::Audio_column (Moment at_mom)
+Audio_column::Audio_column (Moment when)
 {
-  at_mom_ = at_mom;
+  when_ = when;
 }
 
 void
@@ -24,14 +24,14 @@ Audio_column::add_audio_item (Audio_item *l)
 }
 
 Moment
-Audio_column::at_mom () const
+Audio_column::when () const
 {
-  return at_mom_;
+  return when_;
 }
 
 void
-Audio_column::offset_at_mom (Moment m)
+Audio_column::offset_when (Moment m)
 {
-  at_mom_ += m;
+  when_ += m;
 }
 
