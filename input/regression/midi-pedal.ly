@@ -1,9 +1,7 @@
 \header {
 
-  texidoc = "Sustain pedal elarMidi also handles crescendo and decrescendo, either
-  starting and ending from specified or unspecified sound level.
-
-  Run @code{timidity  -idvvv file.midi |grep Midi} to see midi events."
+  texidoc = "Pedals.  Run @code{timidity -idvvv file.midi |grep Midi}
+  to see midi events."
 
 }
 
