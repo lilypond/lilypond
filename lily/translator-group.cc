@@ -21,11 +21,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-Translator_group *
-Translator_group::get_daddy_translator () const
-{
-  return context ()->get_parent_context ()->implementation ();
-}
 
 void
 translator_each (SCM list, Translator_method method)
