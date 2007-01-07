@@ -53,7 +53,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   /* If [START, END] does not contain an intermediate
      breakpoint, we may need to consider solutions that result in a bad turn.
      In this case, we won't abort if the min_page_count is too big */
-  if (start < end - 1 && min_p_count > 2)
+  if (start < end - 1 && min_p_count + (page_number % 2) > 2)
     return Break_node ();
 
   /* if PAGE-NUMBER is odd, we are starting on a right hand page. That is, we
@@ -115,7 +115,7 @@ vsize
 Page_turn_page_breaking::final_page_num (Break_node const &b)
 {
   vsize end = b.first_page_number_ + b.page_count_;
-  return end + 1 - (end % 2);
+  return end - 1 + (end % 2);
 }
 
 void
@@ -171,7 +171,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
               cur = put_systems_on_pages (start, end, line, div[d], p_num);
 
               if (isinf (cur.demerits_)
-		  || (cur.page_count_ > 2
+		  || (cur.page_count_  + (p_num % 2) > 2
 		      && (!isinf (this_start_best.demerits_))
 		      && final_page_num (cur) > final_page_num (this_start_best)))
                 {
