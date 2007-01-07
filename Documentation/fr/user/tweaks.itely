@@ -1,3 +1,12 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 64f0d86a7c0987b311bfdfdfeddfa063e1f2d6e7
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Tweaking output
 @chapter Tweaking output
 
@@ -10,6 +19,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Default files::
 * Fitting music onto fewer pages::
 * Advanced tweaks with Scheme::
+* Avoiding tweaks with slower processing::
 @end menu 
 @node Moving objects
 @section Moving objects
@@ -41,3 +51,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node Avoiding tweaks with slower processing
+@section Avoiding tweaks with slower processing
+
+UNTRANSLATED NODE: IGNORE ME

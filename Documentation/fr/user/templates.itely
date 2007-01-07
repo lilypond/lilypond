@@ -1,3 +1,12 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Example templates
 @appendix Example templates
 
