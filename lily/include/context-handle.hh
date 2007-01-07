@@ -6,13 +6,11 @@
   (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#ifndef INTERPRETATION_CONTEXT_HANDLE_HH
-#define INTERPRETATION_CONTEXT_HANDLE_HH
+#ifndef CONTEXT_HANDLE_HH
+#define CONTEXT_HANDLE_HH
+
 #include "lily-proto.hh"
 
-/*
-  Rename me to Context_handle.
-*/
 
 class Context_handle
 {
@@ -32,5 +30,5 @@ private:
   void up (Context *);
 };
 
-#endif /* INTERPRETATION_CONTEXT_HANDLE_HH */
+#endif /* CONTEXT_HANDLE_HH */
 
