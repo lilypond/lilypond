@@ -421,8 +421,8 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	    continue;
 
-	  Real space;
-	  Real fixed_space;
+	  Real space = 0.;
+	  Real fixed_space = 0.;
 
 	  /*
 	    column for the left one settings should be ok due automatic

@@ -15,8 +15,8 @@
 class Staff_spacing
 {
 public:
-  static void next_notes_correction (Grob *, Grob *, Real *, Real *);
-  static void next_note_correction (Grob *, Grob *, Interval, Real*, Real *);
+  static void next_notes_correction (Grob *, Grob *, Real, Real, Real *, Real *);
+  static void next_note_correction (Grob *, Grob *, Interval, Real, Real, Real*, Real *, int *);
   DECLARE_GROB_INTERFACE();
   static void get_spacing_params (Grob *, Real *, Real *);
 
