@@ -29,12 +29,15 @@ mkdir $resultdir
 cd $resultdir
 
 
-echo 'foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ e16[ e e) f] g8  }
+cat > long-score.ly << EOF
+\version "2.10.0"
+foo = \new Staff \new Voice \repeat unfold 50 \relative { c4 d8[ d16( e]~ e16[ e e) f] g8  }
 \new ChoirStaff << 
   \foo \foo \foo \foo 
   \foo \foo \foo \foo 
 
->>' > long-score.ly
+>>
+EOF
 
 rm gmon.sum
 

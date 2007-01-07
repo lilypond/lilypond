@@ -50,6 +50,15 @@ Accidental_interface::after_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
+/* This callback exists for the sole purpose of allowing us to override
+   its pure equivalent to accidental-interface::pure-height */
+MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
+SCM
+Accidental_interface::height (SCM smob)
+{
+  return Grob::stencil_height (smob);
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
 SCM
 Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)

@@ -38,6 +38,11 @@ struct Building
   bool conceals (Building const &other) const;
   bool sane () const;
   Building sloped_neighbour (Real horizon_padding, Direction d) const;
+
+  bool operator< (Building const &other)
+  {
+    return iv_[LEFT] < other.iv_[LEFT];
+  }
 };
 
 class Skyline
@@ -48,8 +53,7 @@ private:
   
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
-  void internal_build_skyline (list<Building>*, list<Building> *const result);
-  bool is_legal_skyline () const;
+  list<Building> internal_build_skyline (list<Building>*);
 
   DECLARE_SIMPLE_SMOBS(Skyline);
 public:
