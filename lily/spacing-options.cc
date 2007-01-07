@@ -8,9 +8,11 @@
 */
 
 #include "spacing-options.hh"
+#include "spacing-spanner.hh"
 #include "grob.hh"
 #include "misc.hh"
 #include "moment.hh"
+#include "spanner.hh"
 
 void
 Spacing_options::init_from_grob (Grob *me)
@@ -34,6 +36,7 @@ Spacing_options::init_from_grob (Grob *me)
   else
     global_shortest_ = shortest_dur.grace_part_;
 
+  columns_ = Spacing_spanner::get_columns (me);	// ugh.
 }
 
 Spacing_options::Spacing_options ()

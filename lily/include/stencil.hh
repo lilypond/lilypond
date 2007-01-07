@@ -73,6 +73,7 @@ public:
 		    Real minimum);
   void add_stencil (Stencil const &m);
   void translate (Offset);
+  Stencil translated (Offset) const;
   void rotate (Real, Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real, Axis);

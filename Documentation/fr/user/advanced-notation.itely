@@ -1,3 +1,12 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Advanced notation
 @chapter Advanced notation
 
@@ -226,6 +235,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Analysis brackets::
 * Coloring objects::
 * Parentheses::
+* Grid lines::
 @end menu 
 @node Balloon help
 @subsection Balloon help
@@ -264,6 +274,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Parentheses
 @subsection Parentheses
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Grid lines
+@subsection Grid lines
 
 UNTRANSLATED NODE: IGNORE ME
 

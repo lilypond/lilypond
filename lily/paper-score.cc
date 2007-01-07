@@ -62,7 +62,7 @@ Paper_score::typeset_system (System *system)
 vector<vsize>
 Paper_score::find_break_indices () const
 {
-  vector<Grob*> all = root_system ()->columns ();
+  vector<Grob*> all = root_system ()->used_columns ();
   vector<vsize> retval;
 
   for (vsize i = 0; i < all.size (); i++)
@@ -125,7 +125,7 @@ Paper_score::process ()
      down the road.
 
      doubly, also done in Score_engraver */
-  vector<Grob*> pc (system_->columns ());
+  vector<Grob*> pc (system_->used_columns ());
   pc[0]->set_property ("line-break-permission", ly_symbol2scm ("allow"));
   pc.back ()->set_property ("line-break-permission", ly_symbol2scm ("allow"));
 

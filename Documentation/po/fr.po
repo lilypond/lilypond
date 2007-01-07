@@ -3,13 +3,13 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 #
-# John Mandereau <john.mandereau@free.fr>, 2006.
+# John Mandereau <john.mandereau@free.fr>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-12-23 14:50+0100\n"
-"PO-Revision-Date: 2006-12-27 23:51+0100\n"
+"POT-Creation-Date: 2007-01-07 16:10+0100\n"
+"PO-Revision-Date: 2007-01-07 16:33+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -71,8 +71,8 @@ msgstr "Tutoriel"
 msgid "First steps"
 msgstr "Premiers pas"
 
-msgid "Running LilyPond for the first time"
-msgstr "Lancer LilyPond pour la première fois"
+msgid "Entering music and viewing output"
+msgstr "Saisir la musique et visualiser la partition produite"
 
 msgid "MacOS X"
 msgstr "MacOS X"
@@ -82,6 +82,9 @@ msgstr "Windows"
 
 msgid "Unix"
 msgstr "Unix"
+
+msgid "Second steps"
+msgstr "Initiation à la notation de base"
 
 msgid "More about pitches"
 msgstr "Les hauteurs en détail"
@@ -196,6 +199,9 @@ msgstr "Réduire le nombre de pages de la partition"
 
 msgid "Advanced tweaks with Scheme"
 msgstr "Retouches avancées avec Scheme"
+
+msgid "Avoiding tweaks with slower processing"
+msgstr ""
 
 msgid "Basic notation"
 msgstr "Notation de base"
@@ -699,8 +705,11 @@ msgstr ""
 msgid "Parentheses"
 msgstr ""
 
-msgid "Changing defaults"
+msgid "Grid lines"
 msgstr ""
+
+msgid "Changing defaults"
+msgstr "Changer les réglages prédéfinis"
 
 msgid "Automatic notation"
 msgstr ""
@@ -735,6 +744,9 @@ msgstr ""
 msgid "Defining new contexts"
 msgstr ""
 
+msgid "Aligning contexts"
+msgstr ""
+
 msgid "The \\override command"
 msgstr ""
 
@@ -760,7 +772,7 @@ msgid "Difficult tweaks"
 msgstr ""
 
 msgid "Non-musical notation"
-msgstr ""
+msgstr "Objets non musicaux"
 
 msgid "Input files"
 msgstr ""
@@ -814,7 +826,7 @@ msgid "Skipping corrected music"
 msgstr ""
 
 msgid "Spacing issues"
-msgstr ""
+msgstr "Questions d'espacement"
 
 msgid "Paper and pages"
 msgstr ""
@@ -828,7 +840,7 @@ msgstr ""
 msgid "Music layout"
 msgstr ""
 
-msgid "Setting global staff size"
+msgid "Setting the staff size"
 msgstr ""
 
 msgid "Score layout"
@@ -889,7 +901,7 @@ msgid "Displaying spacing"
 msgstr ""
 
 msgid "Interfaces for programmers"
-msgstr ""
+msgstr "Interfaces pour les programmeurs"
 
 msgid "Music functions"
 msgstr ""
@@ -907,6 +919,9 @@ msgid "Mathematics in functions"
 msgstr ""
 
 msgid "Void functions"
+msgstr ""
+
+msgid "Functions without arguments"
 msgstr ""
 
 msgid "Programmer interfaces"
@@ -958,7 +973,7 @@ msgid "Scheme procedures as properties"
 msgstr ""
 
 msgid "Running LilyPond"
-msgstr ""
+msgstr "Lancer LilyPond"
 
 msgid "Invoking lilypond"
 msgstr ""
@@ -975,7 +990,7 @@ msgstr ""
 msgid "Updating files with convert-ly"
 msgstr ""
 
-msgid "Updating with"
+msgid "Updating with @command{convert-ly}"
 msgstr ""
 
 msgid "Reporting bugs"
@@ -991,7 +1006,10 @@ msgid "Point and click"
 msgstr ""
 
 msgid "LilyPond-book"
-msgstr ""
+msgstr "LilyPond-book"
+
+msgid "@command{lilypond-book}: Integrating text and music"
+msgstr "@command{lilypond-book} : associer de la musique et du texte"
 
 msgid "An example of a musicological document"
 msgstr ""
@@ -999,7 +1017,7 @@ msgstr ""
 msgid "Integrating LaTeX and music"
 msgstr ""
 
-msgid "Integrating La"
+msgid "Integrating La@TeX{} and music"
 msgstr ""
 
 msgid "Integrating Texinfo and music"
@@ -1029,7 +1047,7 @@ msgstr ""
 msgid "Invoking lilypond-book"
 msgstr ""
 
-msgid "Invoking"
+msgid "Invoking @command{lilypond-book}"
 msgstr ""
 
 msgid "Filename extensions"
@@ -1038,35 +1056,50 @@ msgstr ""
 msgid "Many quotes of a large score"
 msgstr ""
 
+msgid "Inserting LilyPond output into OpenOffice.org"
+msgstr ""
+
 msgid "Inserting LilyPond output into other programs"
 msgstr ""
 
 msgid "Converting from other formats"
-msgstr ""
+msgstr "Convertir à partir d'autres formats"
 
 msgid "Invoking midi2ly"
+msgstr ""
+
+msgid "Invoking @command{midi2ly}"
 msgstr ""
 
 msgid "Invoking etf2ly"
 msgstr ""
 
+msgid "Invoking @command{etf2ly}"
+msgstr ""
+
 msgid "Invoking musicxml2ly"
 msgstr ""
 
+msgid "Invoking @code{musicxml2ly}"
+msgstr ""
+
 msgid "Invoking abc2ly"
+msgstr ""
+
+msgid "Invoking @code{abc2ly}"
 msgstr ""
 
 msgid "Generating LilyPond files"
 msgstr ""
 
 msgid "Literature list"
-msgstr ""
+msgstr "Bibliographie"
 
 msgid "Scheme tutorial"
-msgstr ""
+msgstr "Tutoriel Scheme"
 
 msgid "Notation manual tables"
-msgstr ""
+msgstr "Tables du manuel de notation"
 
 msgid "Chord name chart"
 msgstr ""
@@ -1096,7 +1129,7 @@ msgid "The Feta font"
 msgstr ""
 
 msgid "Example templates"
-msgstr ""
+msgstr "Modèles-exemples"
 
 msgid "Single staff"
 msgstr ""
@@ -1143,6 +1176,9 @@ msgstr ""
 msgid "SATB vocal score and automatic piano reduction"
 msgstr ""
 
+msgid "SATB with aligned contexts"
+msgstr ""
+
 msgid "Ancient notation templates"
 msgstr ""
 
@@ -1165,7 +1201,7 @@ msgid "Texinfo"
 msgstr ""
 
 msgid "Cheat sheet"
-msgstr ""
+msgstr "Feuille aide-mémoire"
 
 msgid "GNU Free Documentation License"
 msgstr ""
@@ -1186,5 +1222,5 @@ msgid "Appendix"
 msgstr "Annexe"
 
 msgid "Footnotes"
-msgstr "Notes"
+msgstr "Notes de bas de page"
 

@@ -180,8 +180,6 @@
 	(layer . 0)
 	(break-visibility . ,all-visible)
 	(non-musical . #t)
-	(extra-spacing-width . (-0.3 . 0.3))
-
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
 	(bar-size .  ,ly:bar-line::calc-bar-size)
@@ -193,7 +191,7 @@
 			(key-signature . (extra-space . 1.0))
 			(key-cancellation . (extra-space . 1.0))
 			(first-note . (fixed-space . 1.3))
-			(next-note . (semi-fixed-space . 1.3))
+			(next-note . (semi-fixed-space . 0.9))
 			(right-edge . (extra-space . 0.0))))
 
 	;;

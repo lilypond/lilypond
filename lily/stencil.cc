@@ -237,3 +237,12 @@ Stencil::in_color (Real r, Real g, Real b) const
 				   expr ()));
   return new_stencil;
 }
+
+/* convenience */
+Stencil
+Stencil::translated (Offset z) const
+{
+  Stencil s (*this);
+  s.translate (z);
+  return s;
+}
