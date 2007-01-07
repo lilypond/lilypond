@@ -38,7 +38,6 @@
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -248,6 +247,8 @@ selector for tab notation.")
      (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreBarChecks ,boolean? "Ignore bar checks")
      (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
+
+     (implicitTimeSignatureVisibility ,vector? "break visibility for the default timesignature.")
 
      (implicitBassFigures ,list? "List of bass figures that are not
 printed as numbers, but only as extender lines.")

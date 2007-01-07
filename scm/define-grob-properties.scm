@@ -68,6 +68,7 @@ beaming patterns from stem to stem inside a beam.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
+     (breakable ,boolean? "Allow breaks here.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-orders ,vector? " Defines the order in which
@@ -451,9 +452,9 @@ glissando line can be constructed from a whole number of squiggles.")
 
      ;;;;;;;;;;;;;;;;
      ;; grobs & grob arrays. (alphabetical)
-     
+     (Y-common ,ly:grob? "See X-common")
+     (X-common ,ly:grob? "Common refpoint for axis group.")
      (cached-pure-extents ,vector? "Used by a VerticalAxisGroup to cache the Y-extents of different column ranges.")
-     (common-refpoint-of-elements ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
      (axis-group-parent-X ,ly:grob? "Containing X axis group")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
@@ -482,6 +483,7 @@ columns.
      (left-items ,ly:grob-array? "")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
      
+     (pure-Y-common ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
      (pure-relevant-elements ,ly:grob-array? "The subset of elements that are relevant for finding the pure-Y-extent.")
      (stem ,ly:grob? "pointer to Stem object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
@@ -508,6 +510,7 @@ where this is set in.")
 
      (note-columns ,pair? "list of NoteColumn grobs.")
 
+     (normal-stems ,ly:grob-array? "Array of visible stems.") 
      (note-heads ,ly:grob-array? "List of note head grobs")
      (note-head ,ly:grob? "A single note head")
      (right-items ,ly:grob-array? "")

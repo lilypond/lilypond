@@ -142,27 +142,11 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   if (error)
     /* TODO: pass renamed input file too.  */
     scm_throw (ly_symbol2scm ("ly-file-failed"),
-	       scm_list_1 (scm_makfrom0str (file_name.c_str ())));
+	       scm_list_1 (ly_string2scm (file_name)));
   
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parse_string, "ly:parse-string",
-	   1, 0, 0, (SCM ly_code),
-	   "Parse the string LY_CODE.  "
-	   "Upon failure, throw @code{ly-file-failed} key.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
-
-  Sources sources;
-  sources.set_path (&global_path);
-  Lily_parser *parser = new Lily_parser (&sources);
-  parser->parse_string (ly_scm2string (ly_code));
-  parser->unprotect ();
-  parser = 0;
-
-  return SCM_UNSPECIFIED;
-}
 
 LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 	   1, 0, 0, (SCM parser_smob),
@@ -251,7 +235,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   Lily_parser *p = unsmob_lily_parser (parser);
   SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
-  return scm_makfrom0str (p->output_basename_.c_str ());
+  return ly_string2scm (p->output_basename_);
 }
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
@@ -270,4 +254,27 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
     p->parser_error (s);
 
   return parser;
+}
+
+LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
+	   1, 0, 0, (SCM parser),
+	   "Clear the error flag for the parser.")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  p->error_level_ = 0;
+  p->lexer_->error_level_ = 0;
+  
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
+	   1, 0, 0, (SCM parser),
+	   "Does @var{parser} have an error flag?")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
 }

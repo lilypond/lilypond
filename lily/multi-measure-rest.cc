@@ -205,11 +205,11 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
   int count = 0;
   Real symbols_width = 0.0;
 
-  SCM sml = me->get_property ("use-breve-rest");
+  bool use_breve = to_boolean (me->get_property ("use-breve-rest"));
 
   while (l)
     {
-      if (sml == SCM_BOOL_T)
+      if (use_breve)
 	{
 	  int k;
 	  if (l >= 2)

@@ -14,7 +14,7 @@
 acciaccatura =
 #(def-grace-function startAcciaccaturaMusic stopAcciaccaturaMusic)
 
-addquote =
+addQuote =
 #(define-music-function (parser location name music) (string? ly:music?)
    (_i "Add a piece of music to be quoted ")
    (add-quotable parser name music)

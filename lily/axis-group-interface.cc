@@ -68,6 +68,14 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
   return r;
 }
 
+
+/*
+  FIXME: pure extent handling has a lot of ad-hoc caching.
+  This should be done with grob property callbacks.
+
+  --hwn
+*/
+
 Interval
 Axis_group_interface::cached_pure_height (Grob *me,
 					  vector<Grob*> const &elts,
@@ -235,44 +243,73 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   return ly_interval2scm (r - my_coord);
 }
 
+
+Grob *
+Axis_group_interface::calc_pure_elts_and_common (Grob *me)
+{
+  if (Grob *c = unsmob_grob (me->get_object ("pure-Y-common")))
+    return c;
+  
+  extract_grob_set (me, "elements", elts);
+
+  vector<Grob*> relevant_elts;
+  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
+
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+	relevant_elts.push_back (elts[i]);
+
+      Item *it = dynamic_cast<Item*> (elts[i]);
+      Direction d = LEFT;
+      if (it)
+	do
+	  {
+	    Item *piece = it->find_prebroken_piece (d);
+	    if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+	      relevant_elts.push_back (piece);
+	  }
+	while (flip (&d) != LEFT);
+    }
+
+  Grob *common = common_refpoint_of_array (relevant_elts, me, Y_AXIS);
+  me->set_object ("pure-Y-common", common->self_scm ());
+  
+  SCM ga_scm = Grob_array::make_array ();
+  Grob_array *ga = unsmob_grob_array (ga_scm);
+  ga->set_array (relevant_elts);
+  me->set_object ("pure-relevant-elements", ga_scm);
+
+  return common;
+}
+
+MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_x_common, 1);
+SCM
+Axis_group_interface::calc_x_common (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, X_AXIS);
+  return common->self_scm ();
+}
+
+MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_y_common, 1);
+SCM
+Axis_group_interface::calc_y_common (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  return common->self_scm ();
+}
+
 SCM
 Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 {
-  Grob *common = unsmob_grob (me->get_object ("common-refpoint-of-elements"));
-
-  if (!common)
-    {
-      extract_grob_set (me, "elements", elts);
-
-      vector<Grob*> relevant_elts;
-      SCM is_relevant = ly_lily_module_constant ("pure-relevant");
-
-      for (vsize i = 0; i < elts.size (); i++)
-	{
-	  if (to_boolean (scm_apply_1 (is_relevant, elts[i]->self_scm (), SCM_EOL)))
-	    relevant_elts.push_back (elts[i]);
-
-	  Item *it = dynamic_cast<Item*> (elts[i]);
-	  Direction d = LEFT;
-	  if (it)
-	    do
-	      {
-		Item *piece = it->find_prebroken_piece (d);
-		if (piece && to_boolean (scm_apply_1 (is_relevant, piece->self_scm (), SCM_EOL)))
-		  relevant_elts.push_back (piece);
-	      }
-	    while (flip (&d) != LEFT);
-	}
-
-      common = common_refpoint_of_array (relevant_elts, me, Y_AXIS);
-      me->set_object ("common-refpoint-of-elements", common->self_scm ());
-
-      SCM ga_scm = Grob_array::make_array ();
-      Grob_array *ga = unsmob_grob_array (ga_scm);
-      ga->set_array (relevant_elts);
-      me->set_object ("pure-relevant-elements", ga_scm);
-    }
-
+  Grob *common = calc_pure_elts_and_common (me);
+	
   extract_grob_set (me, "pure-relevant-elements", elts);
   Real my_coord = me->relative_coordinate (common, Y_AXIS);
   Interval r (relative_pure_height (me, elts, common, start, end, true));
@@ -398,6 +435,10 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
 	      elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
 	      last_affected_position[dir] = b[X_AXIS][RIGHT];
 	    }
+
+	  /*
+	    Ugh: quadratic. --hwn
+	   */
 	  elements.erase (elements.begin () + i);
 	}
     }
@@ -439,9 +480,11 @@ ADD_INTERFACE (Axis_group_interface,
 	       "An object that groups other layout objects.",
 
 	       /* properties */
+	       "X-common "
+	       "Y-common "
 	       "axes "
 	       "elements "
-	       "common-refpoint-of-elements "
+	       "pure-Y-common "
 	       "pure-relevant-elements "
 	       "skylines "
 	       "cached-pure-extents "

@@ -106,7 +106,7 @@ Beam::calc_concaveness (SCM smob)
     }
 
   if (stems.size () <= 2)
-    return SCM_UNSPECIFIED;
+    return scm_from_int (0);
 
   vector<int> close_positions;
   vector<int> far_positions;

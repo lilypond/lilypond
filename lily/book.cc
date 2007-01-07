@@ -44,13 +44,17 @@ Book::Book (Book const &s)
   smobify_self ();
 
   if (s.paper_)
-    paper_ = s.paper_->clone ();
+    {
+      paper_ = s.paper_->clone ();
+      paper_->unprotect ();
+    }
   
   input_location_ = make_input (*s.origin ());
+
   header_ = ly_make_anonymous_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
-
+  
   SCM *t = &scores_;
   for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
     {

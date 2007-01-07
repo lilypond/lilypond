@@ -27,8 +27,7 @@ are used then a different symbol is used.
   \time 3/4 \key cis \major
   R2.*15
   
-  R2.
-  R2.*3
+  R2.*7
   R2.*9
   R2.*11
 

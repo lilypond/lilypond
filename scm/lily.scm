@@ -39,10 +39,9 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
 					 "delete unusable PostScript files")
 	      (dump-profile #f "dump timing information for each file")
 	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
-	      (dump-signatures #f "dump output signatures of each system")
+	      (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
 	      
-	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
-
+	      (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
 	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
 	      (gui #f "running from gui; redirect stderr to log file")
@@ -69,14 +68,12 @@ on errors, and print a stack trace.")
 	      (read-file-list #f "Read files to be processed from command line arguments")
 
 	      (safe #f "Run safely")
-	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
-
+	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
+	      (separate-log-files #f "Output to FILE.log per file.")
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
-
 	      (show-available-fonts #f
-				    "List  font names available.")
-
+				    "List font names available.")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
 	      )))
 
@@ -101,12 +98,11 @@ on errors, and print a stack trace.")
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
-
 	     )
 
-
 ;; my display
-(define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
+(define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
+  v)
 
 (define-public (print . args)
   (apply format (cons (current-output-port) args)))
@@ -365,24 +361,26 @@ The syntax is the same as `define*-public'."
 (define (profile-measurements)
   (let* ((t (times))
 	 (stats (gc-stats)))
-
+    
     (list
-     (- (tms:utime t)
+     (- (+ (tms:cutime t)
+	   (tms:utime t))
 	(ly:assoc-get 'gc-time-taken stats))
-
-     ;; difficult to put memory amount stats into here.
      
+     (ly:assoc-get 'total-cells-allocated  stats 0)
      )))
 
-(define (dump-profile name last this)
+(define (dump-profile base last this)
   (let*
-      ((outname (format "~a.profile" (basename name ".ly")))
+      ((outname (format "~a.profile" (basename base ".ly")))
        (diff (map (lambda (y) (apply - y)) (zip this last))))
     
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
-	    "time: ~a"
-	    (car diff))))
+	    "time: ~a\ncells: ~a\n"
+	    (car diff)
+	    (cadr diff)
+	    )))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -508,7 +506,7 @@ The syntax is the same as `define*-public'."
 	    ))
   
   (if (and (number? (ly:get-option 'job-count))
-	   (> (length files) (ly:get-option 'job-count)))
+	   (>= (length files) (ly:get-option 'job-count)))
       
       (let*
 	  ((count (ly:get-option 'job-count))
@@ -530,25 +528,36 @@ The syntax is the same as `define*-public'."
 	      (for-each
 	       (lambda (pid)
 		 (let* ((stat (cdr (waitpid pid))))
-
+		   
 		   (if (not (= stat 0))
-		       (set! errors (cons (list-element-index joblist pid) errors)))))
+		       (set! errors (acons (list-element-index joblist pid) stat errors)))))
 	       joblist)
 
 	      (for-each
 	       (lambda (x)
-		 (let* ((logfile  (format "~a-~a.log"
-					  (ly:get-option 'log-file) x))
+		 (let* ((job (car x))
+			(state (cdr x))
+			(logfile  (format "~a-~a.log"
+					  (ly:get-option 'log-file) job))
 			(log (ly:gulp-file logfile))
 			(len (string-length log))
 			(tail (substring  log (max 0 (- len 1024)))))
 
-		   (display (format "\n\nlogfile ~a:\n\n ~a" logfile tail))))
+		   (if (status:term-sig state)
+		       (ly:message "\n\n~a\n"
+				   (format (_ "job ~a terminated with signal: ~a")
+					   job
+					   (status:term-sig state)))
+		       (ly:message (_ "logfile ~a (exit ~a):\n~a") logfile (status:exit-val state) tail))))
 
 	       errors)
 
 	      (if (pair? errors)
-		  (ly:error "Children ~a exited with errors." errors))
+		  (ly:error "Children ~a exited with errors." (map car errors)))
+
+	      ;; must overwrite individual entries
+	      (if (ly:get-option 'dump-profile)
+		  (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
 
 	    (exit (if (null? errors) 0 1))))))
 	      
@@ -576,27 +585,56 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
-	 (start-measurements #f)
+	 (separate-logs (ly:get-option 'separate-log-files))
+	 (do-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
+    (gc)
     (for-each
      (lambda (x)
+       (let*
+	   ((start-measurements (if do-measurements
+				    (profile-measurements)
+				    #f))
+	    (base (basename x ".ly"))
+	    (all-settings (ly:all-options)))
 
-       (gc)
-       (set! start-measurements (profile-measurements))
-       (lilypond-file handler x)
-       (if (ly:get-option 'dump-profile)
-	   (dump-profile x start-measurements (profile-measurements)))
+	 (if separate-logs
+	     (ly:stderr-redirect (format "~a.log" base) "w"))
        
+	 (lilypond-file handler x)
+	 (if start-measurements
+	     (dump-profile x start-measurements (profile-measurements)))
        
-       (ly:clear-anonymous-modules)
-       (if (ly:get-option 'debug-gc)
-	   (dump-gc-protects)
-	   (if (= (random 40) 1)
-	       (ly:reset-all-fonts))))
+	 (for-each
+	  (lambda (s)
+	    (ly:set-option (car s) (cdr s)))
+	  all-settings)
+	 
+	 (ly:clear-anonymous-modules)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
+	 (gc)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
+	 
+	 
+	 (if (ly:get-option 'debug-gc)
+	     (dump-gc-protects)
+	     (if (= (random 40) 1)
+		 (ly:reset-all-fonts)))))
 
      files)
+
+    ;; we want the failed-files notice in the aggregrate logfile.
+    (if (ly:get-option 'separate-logs)
+	(ly:stderr-redirect
+	 (if (string-or-symbol? (ly:get-option 'log-file))
+	     (format "~a.log" (ly:get-option 'log-file))
+	     "/dev/tty") "a"))
+
+    (if (ly:get-option 'dump-profile)
+	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
+    
     failed))
 
 (define (lilypond-file handler file-name)

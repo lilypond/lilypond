@@ -20,7 +20,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
 
-  return scm_makfrom0str (tr->id_string ().c_str ());
+  return ly_string2scm (tr->id_string ());
 }
 
 LY_DEFINE (ly_context_name, "ly:context-name",

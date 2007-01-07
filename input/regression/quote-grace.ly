@@ -7,13 +7,13 @@
 }
 \paper { ragged-right= ##t }
 
-\version "2.10.0"
+\version "2.11.10"
 quoted = \relative c'' {
   R1
   \grace g16 f4 \grace a16 bes4 \grace b16 c4 c4
 }
 
-\addquote quoted \quoted
+\addQuote quoted \quoted
 
 
 <<

@@ -35,7 +35,6 @@ include $(depth)/make/stepmake.make
 #
 # suggested settings
 #
-# CHECK_SOURCE=<input/regression/ reference dir>
 # LILYPOND_JOBS= -djob-count=X   ## for SMP/Multicore machine
 # 
 include local.make
@@ -101,14 +100,17 @@ local-WWW-post:
 	rm -rf $(outdir)/offline-root
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(outdir) "$(WEB_TARGETS)"
 
+
 tree-prefix = $(outdir)
 tree-bin = $(tree-prefix)/bin
 tree-lib = $(tree-prefix)/lib
 tree-share = $(tree-prefix)/share
-tree-share-prefix = $(tree-share)/lilypond/$(TOPLEVEL_VERSION)
-tree-share-prefix-current = $(tree-share)/lilypond/current
-tree-lib-prefix = $(tree-lib)/lilypond/$(TOPLEVEL_VERSION)
-tree-lib-prefix-current = $(tree-lib)/lilypond/current
+
+# Don't put version numbers here. During development
+# they make no sense, and cause EPS files to become invalid.
+
+tree-share-prefix = $(tree-share)/lilypond/current
+tree-lib-prefix = $(tree-lib)/lilypond/current
 
 C_DIRS = flower lily
 c-clean:
@@ -133,9 +135,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION
 	cd $(top-build-dir)/$(outbase) && rm -rf bin lib share
 	mkdir -p $(tree-bin)
 	mkdir -p $(tree-share-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-share-prefix-current)
 	mkdir -p $(tree-lib-prefix)
-	ln -s $(TOPLEVEL_VERSION) $(tree-lib-prefix-current)
 	mkdir -p $(tree-share-prefix)/elisp
 	mkdir -p $(tree-share-prefix)/fonts
 	mkdir -p $(tree-share-prefix)/fonts/otf
@@ -206,15 +206,44 @@ $(config_h): config.hh.in
 	@false
 
 
-test-clean:
-	$(MAKE) -C input/regression/ out=test clean
+################################################################
+# testing
+
+RESULT_DIR=$(top-build-dir)/out/test-results
+OUT_TEST=test
+
 
 test:
-	$(MAKE) -C input/regression/ out=test LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html 
+	rm -f input/regression/out-$(OUT_TEST)/collated-files.html
+	@echo -en 'For tracking crashes: use\n\n\t'
+	@echo 'grep sourcefilename `grep -L systems.texi input/regression/out-test/*log|sed s/log/ly/g`'
+	@echo
+	if test -d .git  ; then \
+		echo -e 'HEAD is:\n\n\t' ; \
+		git log --max-count=1 --pretty=oneline ;\
+		echo -e '\n\n\n' ; \
+		git diff ; \
+	fi > input/regression/out-test/tree.gittxt
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
-RESULT_DIR=$(top-build-dir)/out/test-results/
+
+test-baseline: test
+	rm -rf input/regression/out-test-baseline
+	mv input/regression/out-test input/regression/out-test-baseline
+
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) $(CHECK_SOURCE) input/regression/out-test/
+	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
+
+
+test-redo:
+	for a in `cat $(RESULT_DIR)/changed.txt` ; do \
+		echo removing $$a* ; \
+		rm -f $$a* ;\
+	done
+	$(MAKE) check
+
+test-clean:
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) clean

@@ -70,12 +70,11 @@
 	(format out-port "~a\n~a\n" skip base)
 	(dump-tweaks out-port (cdr tweak-list) (graceless-moment now)))))
 
-(define (dump-all-tweaks pages tweaks)
-  (let* ((paper (ly:paper-book-paper (page-property  (car pages) 'paper-book)))
-	 (parser (ly:output-def-parser paper))
-	 (name	(format "~a-page-layout.ly"
-			(ly:parser-output-name parser)))
+(define (dump-all-tweaks pages tweaks output-name)
+  (let* ((paper (ly:paper-book-paper (page-property (car pages) 'paper-book)))
+	 (name (format "~a-page-layout.ly" output-name))
 	 (out-port (open-output-file name)))
+    
     (ly:message "Writing page layout to ~a" name)
     (hash-for-each
      (lambda (key val)
@@ -85,7 +84,7 @@
      tweaks)
     (close-port out-port)))
 
-(define (write-page-breaks pages)
+(define (write-page-breaks pages output-name)
   "Dump page breaks and tweaks"
   (let ((tweaks (make-hash-table 60)))
     (define (handle-page page)
@@ -145,4 +144,4 @@
 		(record-line-tweak (cdr lines) #f (1+ index)))))))
     ;; Compute tweaks for each page, then dump them to the page-layout file
     (for-each handle-page pages)
-    (dump-all-tweaks pages tweaks)))
+    (dump-all-tweaks pages tweaks output-name)))

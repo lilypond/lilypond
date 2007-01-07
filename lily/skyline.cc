@@ -41,6 +41,31 @@
    but the distance routine does.
 */
 
+/*
+  FIXME:
+
+  * Consider to use
+
+  typedef list<Skyline_point> Skyline;
+  struct Skyline_point
+  {
+    Real x;
+    Drul_array<Real> ys; 
+  };
+
+  this is a cleaner representation, as it doesn't duplicate the X, and
+  doesn't need bogus buildings at infinity  --hwn.
+
+
+  * All the messing around with EPS is very fishy.  There are no
+  complicated numerical algorithms involved, so EPS should not be
+  necessary.
+
+  --hwn
+  
+  
+ */
+
 #define EPS 1e-10
 
 static inline bool
@@ -159,7 +184,7 @@ Building::print () const
 }
 
 Real
-Building::intersection (Building const &other) const
+Building::intersection_x (Building const &other) const
 {
   return (y_intercept_ - other.y_intercept_) / (other.slope_ - slope_);
 }
@@ -213,9 +238,16 @@ skyline_trailing_part (list<Building> *sky, Real x)
 bool
 Building::conceals_beginning (Building const &other) const
 {
-  if (approx_equal (intersection (other), iv_[LEFT]) || approx_equal (height_[LEFT], other.height_[LEFT]))
-    return slope_ > other.slope_;
-  return height_[LEFT] > other.height_[LEFT];
+  bool w = false;
+  Real h = other.height (iv_[LEFT]);
+  if (approx_equal (height_[LEFT], h))
+    w = slope_ > other.slope_;    
+  else if (height_[LEFT] > h) 
+    w = true;
+  else 
+    w = false;
+
+  return w;
 }
 
 bool
@@ -254,7 +286,7 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
       if (approx_greater_than (s2_start_height, s1_start_height))
 	end = s2->front ().iv_[LEFT];
       else if (approx_greater_than (s2_end_height, s1_end_height))
-	end = b.intersection (s2->front ());
+	end = b.intersection_x (s2->front ());
       end = min (end, b.iv_[RIGHT]);
 
       b.leading_part (end);

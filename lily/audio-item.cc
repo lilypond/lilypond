@@ -16,6 +16,17 @@ Audio_instrument::Audio_instrument (string instrument_string)
   str_ = instrument_string;
 }
 
+void
+Audio_item::render ()
+{
+}
+
+Audio_column *
+Audio_item::get_column () const
+{
+  return audio_column_;
+}
+
 Audio_item::Audio_item ()
 {
   audio_column_ = 0;
@@ -47,10 +58,74 @@ Audio_key::Audio_key (int acc, bool major)
   major_ = major;
 }
 
-Audio_dynamic::Audio_dynamic (Real volume)
+Audio_dynamic::Audio_dynamic ()
 {
-  volume_ = volume;
+  volume_ = -1;
 }
+
+Audio_span_dynamic::Audio_span_dynamic ()
+{
+  grow_dir_ = CENTER;
+}
+
+void
+Audio_span_dynamic::add_absolute (Audio_dynamic *d)
+{
+  assert (d);
+  dynamics_.push_back (d);
+}
+
+static Real
+moment2real (Moment m)
+{
+  return m.main_part_.to_double ()
+    + 0.1 * m.grace_part_.to_double ();
+}
+
+void
+Audio_span_dynamic::render ()
+{
+  if (dynamics_.size () <= 1)
+    return ;
+
+  assert (dynamics_[0]->volume_ >= 0);
+
+  if (dynamics_.back ()->volume_ > 0
+      && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
+    {
+      dynamics_.erase (dynamics_.end () - 1);
+      assert (dynamics_.back ()->volume_ < 0);
+    }
+
+  if (dynamics_.size () <= 1)
+    return ;
+
+  Real delta_v = grow_dir_ * 0.1;
+  
+  Real start_v = dynamics_[0]->volume_;
+  if (dynamics_.back ()->volume_ < 0)
+    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, 1.0), 0.0);
+
+  delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
+
+  Moment start = dynamics_[0]->get_column ()->when ();
+
+  Real total_t = moment2real (dynamics_.back ()->get_column ()->when () - start);
+  
+  for (vsize i = 1; i < dynamics_.size(); i ++)
+    {
+      Moment dt_moment = dynamics_[i]->get_column ()->when ()
+	- start;
+
+      Real dt =  moment2real (dt_moment);
+      
+      Real v = start_v + delta_v *  (dt / total_t);
+
+      dynamics_[i]->volume_ = v;	
+    }
+}
+
+
 
 Audio_tempo::Audio_tempo (int per_minute_4)
 {

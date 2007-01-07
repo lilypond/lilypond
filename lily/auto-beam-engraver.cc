@@ -238,8 +238,12 @@ Auto_beam_engraver::end_beam ()
   else
     {
       finished_beam_ = create_beam ();
+      
       if (finished_beam_)
-	finished_grouping_ = grouping_;
+	{
+	  announce_end_grob (finished_beam_, SCM_EOL);
+	  finished_grouping_ = grouping_;
+	}
       delete stems_;
       stems_ = 0;
       grouping_ = 0;
@@ -427,5 +431,11 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 		"@ref{Stem_engraver} properties @code{stemLeftBeamCount} and "
 		"@code{stemRightBeamCount}. ",
 		/* create */ "Beam",
-		/* read */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
+
+		/* read */
+		"autoBeaming "
+		"autoBeamSettings "
+		"beatLength "
+		"subdivideBeams ",
+		
 		/* write */ "");

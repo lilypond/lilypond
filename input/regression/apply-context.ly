@@ -24,7 +24,7 @@ This example prints a bar-number during processing on stdout.
   
   \applyContext
   #(lambda (tr)
-    (format #t "\nWe were called in barnumber ~a.\n"
+    (ly:progress "\nWe were called in bar number ~a.\n"
      (ly:context-property tr 'currentBarNumber)))
   c1 c1
 }

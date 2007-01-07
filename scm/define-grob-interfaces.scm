@@ -177,6 +177,13 @@ interesting enough to maintain a hara-kiri staff."
  '())
 
 (ly:add-interface
+ 'unbreakable-spanner-interface
+ "A spanner that should not be broken across line breaks. Override
+with @code{breakable=##t}. "
+ 
+ '(breakable))
+
+(ly:add-interface
  'vertically-spaceable-interface
  "Objects that should be kept at constant vertical distances. Typically:
 @internalsref{VerticalAxisGroup} objects of @internalsref{Staff} contexts."

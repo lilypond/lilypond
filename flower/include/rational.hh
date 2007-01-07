@@ -45,7 +45,8 @@ public:
   void negate ();
   int to_int () const;
 
-  operator double () const;
+  operator double () const { return to_double (); }
+  double to_double () const;
 
   Rational operator - () const;
   /**

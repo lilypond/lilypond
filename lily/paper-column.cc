@@ -19,6 +19,9 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 #include "grob-array.hh"
+#include "system.hh"
+#include "spring.hh"
+#include "lookup.hh"
 
 Grob *
 Paper_column::clone (int count) const
@@ -29,7 +32,6 @@ Paper_column::clone (int count) const
 void
 Paper_column::do_break_processing ()
 {
-  Spaceable_grob::remove_interface (this);
   Item::do_break_processing ();
 }
 
@@ -136,26 +138,26 @@ Paper_column::is_breakable (Grob *me)
 /*
   Print a vertical line and  the rank number, to aid debugging.
 */
-
 MAKE_SCHEME_CALLBACK (Paper_column, print, 1);
 SCM
 Paper_column::print (SCM p)
 {
-  Grob *me = unsmob_grob (p);
+  Paper_column *me = dynamic_cast<Paper_column*> (unsmob_grob (p));
 
   string r = to_string (Paper_column::get_rank (me));
 
   Moment *mom = unsmob_moment (me->get_property ("when"));
   string when = mom ? mom->to_string () : "?/?";
 
+  Font_metric *musfont = Font_interface::get_default_font (me);
   SCM properties = Font_interface::text_font_alist_chain (me);
 
   SCM scm_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						  properties,
-						  scm_makfrom0str (r.c_str ()));
+						  ly_string2scm (r));
   SCM when_mol = Text_interface::interpret_markup (me->layout ()->self_scm (),
 						   properties,
-						   scm_makfrom0str (when.c_str ()));
+						   ly_string2scm (when));
   Stencil t = *unsmob_stencil (scm_mol);
   t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1, 0.1);
   t.align_to (X_AXIS, CENTER);
@@ -164,6 +166,55 @@ Paper_column::print (SCM p)
   Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
 
+
+  
+  System * my_system = me->get_system ();
+  int drank =
+    me->get_rank ()
+    - my_system->get_bound (LEFT)->get_column ()->get_rank ();
+  int j = 0;
+  for (SCM s = me->get_object ("ideal-distances");
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      Spring_smob *sp = unsmob_spring (scm_car (s));
+      
+      Real y = -j * 0.1 -3;
+      vector<Offset> pts;
+      pts.push_back (Offset (0, y));
+
+      Offset p2 (sp->distance_, y);
+      pts.push_back (p2);
+      
+      Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
+      Stencil head (musfont->find_by_name ("arrowheads.open.01"));
+      head.translate (p2);
+      id_stencil.add_stencil (head);
+      id_stencil = id_stencil.in_color (0,0,1);
+      l.add_stencil (id_stencil) ;
+     
+    }
+   
+  for (SCM s = me->get_object ("minimum-distances");
+       scm_is_pair (s); s = scm_cdr (s))
+    {
+      Grob *other  = unsmob_grob (scm_caar (s));
+      Real dist = scm_to_double (scm_cdar (s));
+
+      Real y = -j * 0.1 -3.5;
+      vector<Offset> pts;
+      pts.push_back (Offset (0, y));
+
+      Offset p2 (dist, y);
+      pts.push_back (p2);
+
+      Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
+      Stencil head (musfont->find_by_name ("arrowheads.open.0M1"));
+      head.translate_axis (y, Y_AXIS);
+      id_stencil.add_stencil (head);
+      
+      id_stencil = id_stencil.in_color (1,0,0);
+      l.add_stencil (id_stencil);
+    }
   t.add_stencil (l);
   return t.smobbed_copy ();
 }

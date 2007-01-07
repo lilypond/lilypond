@@ -105,7 +105,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
   File_name f (name);
   string s = global_path.find (f.base_ + ".twy");
   s = gulp_file_to_string (s, false, -1);
-  scm_eval_string (scm_makfrom0str (s.c_str ()));
+  scm_eval_string (ly_string2scm (s));
 
   /* Read .ly IN_FILE, lex, parse, write \score blocks from IN_FILE to
      OUT_FILE (unless IN_FILE redefines output file name).  */
@@ -140,8 +140,7 @@ Lily_parser::parse_string (string ly_code)
 			  self_scm ());
 
   lexer_->main_input_name_ = "<string>";
-  lexer_->is_main_input_ = true;
-
+  lexer_->is_main_input_ = true; 
   lexer_->new_input (lexer_->main_input_name_, ly_code, sources_);
 
   SCM mod = lexer_->set_current_scope ();
@@ -208,7 +207,6 @@ get_layout (Lily_parser *parser)
   Output_def *layout = unsmob_output_def (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-layout"), SCM_BOOL_T);
-  layout->parser_ = parser;
     
   return layout;
 }
@@ -220,7 +218,6 @@ get_midi (Lily_parser *parser)
   Output_def *layout = unsmob_output_def (id);
   layout = layout ? layout->clone () : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-midi"), SCM_BOOL_T);
-  layout->parser_ = parser;
   return layout;
 }
 
@@ -232,7 +229,6 @@ get_paper (Lily_parser *parser)
 
   layout = layout ? dynamic_cast<Output_def *> (layout->clone ()) : new Output_def;
   layout->set_variable (ly_symbol2scm ("is-paper"), SCM_BOOL_T);
-  layout->parser_ = parser;
   return layout;
 }
 
@@ -241,13 +237,19 @@ get_header (Lily_parser *parser)
 {
   SCM id = parser->lexer_->lookup_identifier ("$defaultheader");
   if (!ly_is_module (id))
-    id = ly_make_anonymous_module (be_safe_global);
+    id = parser->make_scope ();
   else
     {
-      SCM nid = ly_make_anonymous_module (false);
-      ly_module_copy(nid,id);
+      SCM nid = parser->make_scope ();
+      ly_module_copy (nid, id);
       id = nid;
     }
   
   return id;
+}
+
+SCM 
+Lily_parser::make_scope () const
+{
+  return ly_make_anonymous_module (be_safe_global);
 }

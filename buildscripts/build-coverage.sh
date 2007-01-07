@@ -10,30 +10,46 @@ fi
 
 if test "$fresh" = "yes";
 then
-  ./configure --enable-config=cov --disable-optimising
-  make conf=cov -j2 clean
-  perl -i~ -pe 's/-pipe /-fprofile-arcs -ftest-coverage -pipe /g' config-cov.make
-  perl -i~ -pe 's/ -ldl / -lgcov -ldl /g' config-cov.make
+  ./configure --enable-config=cov --disable-optimising \
+   &&   make conf=cov -j2 clean \
+   &&   perl -i~ -pe 's/-pipe /-fprofile-arcs -ftest-coverage -pipe /g' config-cov.make \
+   &&   perl -i~ -pe 's/ -ldl / -lgcov -ldl /g' config-cov.make
 else
   find -name '*.gcda' -exec rm  '{}' ';'
 fi
 
+mkdir -p scripts/out-cov/
+touch  scripts/out-cov/midi2ly.1
+make conf=cov -j2 &&  \
+  make conf=cov test-clean OUT_TEST=testcov LILYPOND_JOBS= && \
+  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS= 
 
-make conf=cov -j2
-make conf=cov test-clean LILYPOND_JOBS=          
-make conf=cov test LILYPOND_JOBS= >& out-cov/test-run.log
+if test "$?" != "0"; then
+  tail -100 out-cov/test-run.log
+  exit 1
+fi
 
-rm -rf out-cov
-mkdir out-cov
+depth=../..
+resultdir=out/coverage-results
 
-cd out-cov
-ln ../lily/* .
-ln ../lily/out-cov/*[ch] .
+rm -rf $resultdir
+mkdir $resultdir
+cd $resultdir
+
+ln $depth/lily/* .
+ln $depth/lily/out-cov/*[ch] .
 mkdir include
-ln ../lily/include/* include/
-for a in *[cyl]
+ln $depth/lily/include/* include/
+ln $depth/flower/include/* include/
+for a in *[cl] *.yy
 do
-   gcov -o ../lily/out-cov/  -p $a > $a.gcov-summary
+   gcov -o $depth/lily/out-cov/  -p $a > $a.gcov-summary
 done 
 
-python buildscripts/coverage.py
+cat <<EOF
+
+now run 
+
+         python buildscripts/coverage.py --uncovered $resultdir/*.cc
+
+EOF

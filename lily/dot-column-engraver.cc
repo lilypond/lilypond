@@ -16,7 +16,6 @@
 class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
-  vector<Item*> heads_;
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
@@ -36,7 +35,6 @@ void
 Dot_column_engraver::stop_translation_timestep ()
 {
   dotcol_ = 0;
-  heads_.clear ();
 }
 
 void

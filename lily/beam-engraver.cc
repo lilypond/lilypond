@@ -35,7 +35,7 @@ protected:
   Spanner *beam_;
   Stream_event *prev_start_ev_;
 
-  Stream_event *now_stop_ev_;
+  Stream_event *stop_ev_;
 
   Beaming_pattern *beam_info_;
   Beaming_pattern *finished_beam_info_;
@@ -91,7 +91,7 @@ Beam_engraver::Beam_engraver ()
   finished_beam_ = 0;
   finished_beam_info_ = 0;
   beam_info_ = 0;
-  now_stop_ev_ = 0;
+  stop_ev_ = 0;
   start_ev_ = 0;
   prev_start_ev_ = 0;
 }
@@ -105,7 +105,7 @@ Beam_engraver::listen_beam (Stream_event *ev)
   if (d == START && valid_start_point ())
     ASSIGN_EVENT_ONCE (start_ev_, ev);
   else if (d == STOP && valid_end_point ())
-    ASSIGN_EVENT_ONCE (now_stop_ev_, ev);
+    ASSIGN_EVENT_ONCE (stop_ev_, ev);
 }
 
 void
@@ -119,9 +119,6 @@ Beam_engraver::set_melisma (bool ml)
 void
 Beam_engraver::process_music ()
 {
-  if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
-    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
-
   if (start_ev_)
     {
       if (beam_)
@@ -141,6 +138,10 @@ Beam_engraver::process_music ()
       beam_info_ = new Beaming_pattern;
       /* urg, must copy to Auto_beam_engraver too */
     }
+
+  typeset_beam ();
+  if (stop_ev_ && beam_)
+    announce_end_grob (beam_, stop_ev_->self_scm ());
 }
 
 void
@@ -174,13 +175,12 @@ Beam_engraver::start_translation_timestep ()
 void
 Beam_engraver::stop_translation_timestep ()
 {
-  typeset_beam ();
-  if (now_stop_ev_)
+  if (stop_ev_)
     {
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
 
-      now_stop_ev_ = 0;
+      stop_ev_ = 0;
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam ();
@@ -322,7 +322,7 @@ Grace_beam_engraver::listen_beam (Stream_event *ev)
   if (d == START && valid_start_point ())
     start_ev_ = ev;
   else if (d == STOP && valid_end_point ())
-    now_stop_ev_ = ev;
+    stop_ev_ = ev;
 }
 
 
@@ -341,7 +341,6 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		/* read */
 		"beamMelismaBusy "
 		"beatLength "
-		"allowBeamBreak "
 		"subdivideBeams "
 		,
 		/* write */ "");

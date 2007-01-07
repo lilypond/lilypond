@@ -1702,6 +1702,11 @@ see those sections of the documentation.
 @node Polymetric notation
 @subsection Polymetric notation
 
+@cindex double time signatures
+@cindex signatures, polymetric
+@cindex polymetric signatures
+@cindex meter, polymetric
+
 Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
@@ -1713,7 +1718,7 @@ created with a markup text.  This markup text is inserted in the
 tsMarkup =\markup {
   \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
-    \lower #1 "+"
+    \vcenter "+"
     \bracket \column { "5" "8" }
   }
 }

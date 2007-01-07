@@ -59,7 +59,16 @@ Grob::Grob (SCM basicprops,
 
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
-    interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
+    {
+      interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
+
+      SCM object_cbs = scm_assq (ly_symbol2scm ("object-callbacks"), meta);
+      if (scm_is_pair (object_cbs))
+	{
+	  for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
+	    set_object (scm_caar (s), scm_cdar (s)); 
+	}
+    }
   
   if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
@@ -644,14 +653,9 @@ ADD_INTERFACE (Grob,
 	       "transparent "
 	       );
 
-
-
-
-
 /****************************************************************
   CALLBACKS
 ****************************************************************/
-
 
 static SCM
 grob_stencil_extent (Grob *me, Axis a)

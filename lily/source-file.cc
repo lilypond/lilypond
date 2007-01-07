@@ -138,9 +138,9 @@ Source_file::Source_file (string filename_string)
 void
 Source_file::init_port ()
 {
-  SCM str = scm_makfrom0str (c_str ());
+  SCM str = scm_from_locale_string (c_str ());
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
-  scm_set_port_filename_x (str_port_, scm_makfrom0str (name_.c_str ()));
+  scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }
 
 

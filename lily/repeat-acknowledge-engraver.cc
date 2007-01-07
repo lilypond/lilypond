@@ -102,7 +102,7 @@ Repeat_acknowledge_engraver::process_music ()
   if (!scm_is_string (wb) || ly_is_equal (db, wb))
     {
       if (s != "" || (volta_found && !scm_is_string (wb)))
-	context ()->set_property ("whichBar", scm_makfrom0str (s.c_str ()));
+	context ()->set_property ("whichBar", ly_string2scm (s));
     }
 }
 

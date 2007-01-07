@@ -68,6 +68,8 @@
   (if (or (nan? num) (inf? num))
       (begin
 	(ly:warning (_ "Found infinity or nan in output. Substituting 0.0"))
+	(if (ly:get-option 'strict-infinity-checking)
+	    (exit 1))
 	"0.0")
       (format #f "~f" (round4 num))))
 

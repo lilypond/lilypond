@@ -57,7 +57,6 @@ public:
 public:
   virtual void connect_to_context (Context *c);
   virtual void disconnect_from_context ();
-  virtual Translator_group *get_daddy_translator ()const;
   virtual SCM get_simple_trans_list ();
   virtual void initialize ();
   virtual void finalize ();

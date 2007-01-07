@@ -286,7 +286,7 @@ Figured_bass_engraver::add_brackets ()
 void
 Figured_bass_engraver::process_music ()
 {
-  if (!to_boolean (get_property ("useBassFigureExtenders")))
+  if (alignment_ && !to_boolean (get_property ("useBassFigureExtenders")))
     clear_spanners ();
         
   if (rest_event_)

@@ -44,6 +44,9 @@ protected:
   void substitute_object_links (SCM, SCM);
   Real get_offset (Axis a) const;
   SCM try_callback (SCM, SCM);
+  SCM try_callback_on_alist (SCM *, SCM, SCM);
+  void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
+
 public:
   
   /* friends */

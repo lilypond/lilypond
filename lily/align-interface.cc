@@ -146,8 +146,17 @@ get_skylines (Grob *me,
   vector<Grob*> child_refpoints;
   for (vsize i = 0; i < elements->size (); i++)
     {
-      extract_grob_set ((*elements)[i], "elements", child_elts);
-      Grob *child_common = common_refpoint_of_array (child_elts, (*elements)[i], other_axis (a));
+      Grob *elt = (*elements)[i];
+      Grob *child_common = unsmob_grob ((a == Y_AXIS)
+					? elt->get_object ("X-common")
+					: elt->get_object ("Y-common"));
+      
+      if (!child_common)
+	{
+	  extract_grob_set (elt, "elements", child_elts);
+	  child_common = common_refpoint_of_array (child_elts, elt, other_axis (a));
+	}
+      
       child_refpoints.push_back (child_common);
     }
   Grob *common_refpoint = common_refpoint_of_array (child_refpoints, me, other_axis (a));

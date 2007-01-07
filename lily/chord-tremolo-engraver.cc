@@ -108,6 +108,7 @@ Chord_tremolo_engraver::finalize ()
   if (beam_)
     {
       repeat_->origin ()->warning (_ ("unterminated chord tremolo"));
+      announce_end_grob (beam_, SCM_EOL);
       beam_->suicide ();
     }
 }
@@ -125,8 +126,11 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 	beam_->set_property ("gap-count", scm_from_int (flags_ - expected_beam_count_));
 
       if (beam_dir_ == RIGHT)
-        beam_dir_ = LEFT;
-
+	{
+	  beam_dir_ = LEFT;
+	  announce_end_grob (beam_, s->self_scm ());
+	}
+      
       if (info.ultimate_event_cause ()->in_event_class ("rhythmic-event"))
 	Beam::add_stem (beam_, s);
       else

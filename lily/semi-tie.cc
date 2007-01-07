@@ -23,6 +23,7 @@ ADD_INTERFACE(Semi_tie,
 	      "control-points "
 	      "direction "
 	      "details "
+	      "head-direction "
 	      "note-head "
 	      "thickness "
 	      );
@@ -43,8 +44,8 @@ Semi_tie::calc_control_points (SCM smob)
       programming_error ("lv tie without Semi_tie_column. Killing lv tie."); 
       me->suicide (); 
     }
-  
-  return SCM_UNSPECIFIED;
+
+  return me->get_property_data ("control-points");
 }
 
 int

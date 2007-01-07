@@ -152,16 +152,16 @@ Tie::calc_direction (SCM smob)
     {
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
+
+      return me->get_property_data ("direction");
     }
   else
-    set_grob_direction (me, Tie::get_default_dir (me));
-
-  return SCM_UNSPECIFIED;
+    return scm_from_int (Tie::get_default_dir (me));
 }
 
 
-void
-Tie::set_default_control_points (Grob *me_grob)
+SCM
+Tie::get_default_control_points (Grob *me_grob)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
   Grob *common  = me;
@@ -174,17 +174,18 @@ Tie::set_default_control_points (Grob *me_grob)
   spec.has_manual_dir_ = true;
   spec.manual_dir_ = get_grob_direction (me);
 
-  if (me->is_live ())
-    {
-      Tie_configuration conf
-	= problem.find_optimal_tie_configuration (spec);
+  if (!me->is_live ())
+    return SCM_EOL;
+
+  Tie_configuration conf
+    = problem.find_optimal_tie_configuration (spec);
   
-      set_control_points (me, problem.common_x_refpoint (),
-			  conf, problem.details_);
-    }
+  return get_control_points (me, problem.common_x_refpoint (),
+			     conf, problem.details_);
 }
-void
-Tie::set_control_points (Grob *me,
+
+SCM
+Tie::get_control_points (Grob *me,
 			 Grob *common,
 			 Tie_configuration const &conf,
 			 Tie_details const &details
@@ -200,8 +201,9 @@ Tie::set_control_points (Grob *me,
 	programming_error ("Insane offset");
       controls = scm_cons (ly_offset2scm (b.control_[i]), controls);
     }
-  me->set_property ("control-points", controls);
+  return controls;
 }
+
 
 MAKE_SCHEME_CALLBACK(Tie, calc_control_points, 1);
 SCM
@@ -222,12 +224,13 @@ Tie::calc_control_points (SCM smob)
       (void) yparent->get_property ("positioning-done");
     }
 
-  if (!scm_is_pair (me->get_property_data ("control-points")))
+  SCM cp = me->get_property_data ("control-points");
+  if (!scm_is_pair (cp))
     {
-      set_default_control_points (me);
+      cp = get_default_control_points (me);
     }
 
-  return SCM_UNSPECIFIED;
+  return cp;
 }
 
 /*

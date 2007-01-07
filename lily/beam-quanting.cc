@@ -37,15 +37,17 @@ Beam_quant_parameters::fill (Grob *him)
 {
   SCM details = him->get_property ("details");
 
+  /*
+    TODO: put in define-grobs.scm
+   */
   INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("inter-quant-penalty"), 1000.0);
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
   STEM_LENGTH_DEMERIT_FACTOR = get_detail (details, ly_symbol2scm ("stem-length-demerit-factor"), 5);
   REGION_SIZE = get_detail (details, ly_symbol2scm ("region-size"), 2);
   BEAM_EPS = get_detail (details, ly_symbol2scm ("beam-eps"), 1e-3);
-
-  // possibly ridiculous, but too short stems just won't do
   STEM_LENGTH_LIMIT_PENALTY = get_detail (details, ly_symbol2scm ("stem-length-limit-penalty"), 5000);
   DAMPING_DIRECTION_PENALTY = get_detail (details, ly_symbol2scm ("damping-direction-penalty"), 800);
+  HINT_DIRECTION_PENALTY = get_detail (details, ly_symbol2scm ("hint-direction-penalty"), 20);
   MUSICAL_DIRECTION_FACTOR = get_detail (details, ly_symbol2scm ("musical-direction-factor"), 400);
   IDEAL_SLOPE_FACTOR = get_detail (details, ly_symbol2scm ("ideal-slope-factor"), 10);
   ROUND_TO_ZERO_SLOPE = get_detail (details, ly_symbol2scm ("round-to-zero-slope"), 0.02);
@@ -152,8 +154,8 @@ Beam::quanting (SCM smob, SCM posns)
   for (int a = 2; a--;)
     common[a] = common_refpoint_of_array (stems, me, Axis (a));
 
-  Grob *fvs = first_visible_stem (me);
-  Grob *lvs = last_visible_stem (me);
+  Grob *fvs = first_normal_stem (me);
+  Grob *lvs = last_normal_stem (me);
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   Real xr = fvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
 
@@ -321,7 +323,7 @@ Beam::quanting (SCM smob, SCM posns)
 
       // debug quanting
       me->set_property ("quant-score",
-			scm_makfrom0str (qscores[best_idx].score_card_.c_str ()));
+			ly_string2scm (qscores[best_idx].score_card_));
     }
 #endif
 
@@ -401,10 +403,19 @@ Beam::score_slopes_dy (Real yl, Real yr,
     TODO: find a way to incorporate the complexity of the beam in this
     penalty.
   */
-  if (fabs (dy / dx) > parameters->ROUND_TO_ZERO_SLOPE
-      && sign (dy_damp) != sign (dy))
-    dem += parameters->DAMPING_DIRECTION_PENALTY;
-
+  if (sign (dy_damp) != sign (dy))
+    {
+      if (!dy)
+	{
+	  if (fabs (dy_damp / dx) > parameters->ROUND_TO_ZERO_SLOPE)
+	    dem += parameters->DAMPING_DIRECTION_PENALTY;
+	  else
+	    dem += parameters->HINT_DIRECTION_PENALTY;
+	}
+      else
+	dem += parameters->DAMPING_DIRECTION_PENALTY;
+    }
+  
   dem += parameters->MUSICAL_DIRECTION_FACTOR
     * max (0.0, (fabs (dy) - fabs (dy_mus)));
 

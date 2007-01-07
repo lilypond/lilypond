@@ -32,7 +32,7 @@ struct Building
   void print () const;
 
   Real height (Real x) const;
-  Real intersection (Building const &other) const;
+  Real intersection_x (Building const &other) const;
   void leading_part (Real chop);
   bool conceals_beginning (Building const &other) const;
   bool conceals (Building const &other) const;

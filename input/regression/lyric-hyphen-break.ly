@@ -8,6 +8,17 @@ they go past the first note. "
 }
 
 
+\layout   {
+  indent = 0.0 \cm
+  line-width = 3.4 \cm
+
+  \context {
+    \Staff \remove "Time_signature_engraver"
+  }
+}
+
+
+
 <<
   \new Staff \relative c'' {
     \time 1/4 c16[ c c  c]
@@ -23,15 +34,5 @@ they go past the first note. "
     bla16 -- bla -- bla 
   }
 >>
-  \layout   {
-    indent = 0.0 \cm
-    line-width = 3.4 \cm
-
-    \context {
-      \Staff \remove "Time_signature_engraver"
-    }
-  }
-  
-
 
   

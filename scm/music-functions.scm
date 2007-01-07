@@ -228,10 +228,15 @@ Returns `obj'.
 	  (if (memq 'sequential-music (ly:music-property main 'types))
 	      ;; \repeat "tremolo" { c4 d4 }
 	      (let ((children (length (ly:music-property main 'elements))))
-		(if (not (= children 2))
+
+		;; fixme: should be more generic.
+		(if (and (not (= children 2))
+			 (not (= children 1)))
 		    (ly:warning (_ "expecting 2 elements for chord tremolo, found ~a") children))
 		(ly:music-compress r (ly:make-moment 1 children))
-		(shift-duration-log r (1- shift) dots))
+		(shift-duration-log r
+				    (if (= children 2)  (1- shift) shift)
+				    dots))
 	      ;; \repeat "tremolo" c4
 	      (shift-duration-log r shift dots)))
 	r)))
@@ -745,7 +750,7 @@ Syntax:
 	      (set! (ly:music-property music 'quoted-events) quoted-vector)
 	      (set! (ly:music-property music 'iterator-ctor)
 		    ly:quote-iterator::constructor))
-	    (ly:warning (_ "cannot find quoted music: `~S'" quoted-name))))
+	    (ly:warning (_ "cannot find quoted music: `~S'") quoted-name)))
     music))
 
 

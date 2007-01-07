@@ -29,7 +29,9 @@ Chord_tremolo_iterator::get_music_list () const
 
   int elt_count = body_is_sequential ? scm_ilength (body->get_property ("elements")) : 1;
 
-  if (body_is_sequential && elt_count != 2)
+  if (body_is_sequential &&
+      (elt_count != 2
+       && elt_count != 1))
     mus->origin ()->warning (_f ("expect 2 elements for chord tremolo, found %d", elt_count));
 
   if (elt_count <= 0)

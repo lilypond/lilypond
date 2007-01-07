@@ -20,7 +20,6 @@ struct Spaceable_grob
   static void get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength);
 
   DECLARE_GROB_INTERFACE();
-  static void remove_interface (Grob *);
   static SCM get_minimum_distances (Grob *);
   static SCM get_ideal_distances (Grob *);
 };

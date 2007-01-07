@@ -294,8 +294,7 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
       do
 	{
 	  spec.note_head_drul_[d] = Tie::head (ties[i], d);
-	  spec.column_ranks_[d] =
-	    dynamic_cast<Spanner*> (ties[i])->get_bound (d)->get_column ()->get_rank ();
+	  spec.column_ranks_[d] = Tie::get_column_rank (ties[i], d);
 	}
       while (flip (&d) != LEFT);
       specifications_.push_back (spec);
@@ -328,7 +327,7 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &semi_ties, Directio
       spec.get_tie_manual_settings (semi_ties[i]);
       
       spec.note_head_drul_[head_dir] = head;
-      column_rank = dynamic_cast<Item*> (head)->get_column ()->get_rank ();
+      column_rank = Tie::get_column_rank (semi_ties[i], head_dir);
       spec.column_ranks_ = Drul_array<int> (column_rank, column_rank);
       heads.push_back (head);
       specifications_.push_back (spec);
