@@ -111,7 +111,7 @@ LilyPond Feta font (2003)
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the durations
 with mathematical precision, which leads to poor results.  In the next
-example a motive is printed twice : once using exact mathematical
+example a motive is printed twice: once using exact mathematical
 spacing, and once with corrections.  Can you spot which fragment is
 which?
 
