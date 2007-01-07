@@ -107,7 +107,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 	  || glyph_string.substr (0, 1) == ".")
 	{
 	  Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
-	  Interval bar_size = bar_grob->extent (common, Y_AXIS);
+	  bar_size = bar_grob->extent (common, Y_AXIS);
 	  bar_size *= 1.0 / Staff_symbol_referencer::staff_space (bar_grob);
 	}
     }
@@ -138,28 +138,33 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
     {
       Grob *g = right_items[i];
 
-      Real space = 0.0;
-      Real fixed = 0.0;
 
-      next_note_correction (me, g, bar_size, &space, &fixed);
-
-      *compound_space += space;
-      *compound_fixed += fixed; 
-      wish_count ++;
-      
-      extract_grob_set (g, "elements", elts);
-      for (vsize j = elts.size (); j--;)
+      if (Note_column::has_interface (g))
 	{
 	  Real space = 0.0;
 	  Real fixed = 0.0;
-	  next_note_correction (me, elts[j], bar_size, &space, &fixed);
-	  *compound_fixed += fixed;
+      
+	  next_note_correction (me, g, bar_size, &space, &fixed);
+
 	  *compound_space += space;
+	  *compound_fixed += fixed; 
 	  wish_count ++;
 	}
+      else
+	{
+	  extract_grob_set (g, "elements", elts);
+	  for (vsize j = elts.size (); j--;)
+	    {
+	      Real space = 0.0;
+	      Real fixed = 0.0;
+	      next_note_correction (me, elts[j], bar_size, &space, &fixed);
+	      *compound_fixed += fixed;
+	      *compound_space += space;
+	      wish_count ++;
+	    }
+	}
     }
-
-  if (wish_count)
+  if (wish_count > 1)
     {
       *compound_space /= wish_count;
       *compound_fixed /= wish_count;
