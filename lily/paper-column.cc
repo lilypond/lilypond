@@ -167,7 +167,6 @@ Paper_column::print (SCM p)
   Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
   
-  System * my_system = me->get_system ();
   SCM small_letters = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
 					   scm_from_int (-6), SCM_EOL),
 				properties);

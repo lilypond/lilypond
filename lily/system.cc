@@ -467,7 +467,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 /** Return all columns, but filter out any unused columns , since they might
     disrupt the spacing problem. */
 vector<Grob*>
-System::columns () const
+System::used_columns () const
 {
   extract_grob_set (this, "columns", ro_columns);
 
@@ -490,9 +490,12 @@ System::columns () const
 }
 
 Grob*
-System::column (int which) const
+System::column (vsize which) const
 {
   extract_grob_set (this, "columns", columns);
+  if (which >= columns.size ())
+    return 0;
+  
   return columns[which];
 }
 

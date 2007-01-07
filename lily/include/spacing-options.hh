@@ -12,6 +12,7 @@
 
 #include "lily-proto.hh"
 #include "rational.hh"
+#include "std-vector.hh"
 
 struct Spacing_options
 {
@@ -22,7 +23,8 @@ struct Spacing_options
   Rational global_shortest_;
   Real increment_;
   Real shortest_duration_space_;
-
+  vector<Grob*> columns_;
+  
   Spacing_options();
   void init_from_grob (Grob *me);
   Real get_duration_space (Rational d, bool *) const;

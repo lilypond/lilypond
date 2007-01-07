@@ -255,7 +255,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (all_[i].pscore_)
 	{
-	  vector<Grob*> cols = all_[i].pscore_->root_system ()->columns ();
+	  vector<Grob*> cols = all_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
