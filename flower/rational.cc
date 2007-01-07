@@ -15,7 +15,8 @@ using namespace std;
 #include "string-convert.hh"
 #include "libc-extension.hh"
 
-Rational::operator double () const
+double
+Rational::to_double () const
 {
   return ((double)sign_) * num_ / den_;
 }
