@@ -1263,8 +1263,8 @@ figured bass notation"
                     (apply ly:stencil-add
                            (map (lambda (x)
                                   (ly:stencil-translate-axis
-                                   dot  (* (+ 1 (* 2 x)) dotwid) X))
-                                (iota dot-count 1)))))
+                                   dot (* 2 x dotwid) X))
+                                (iota dot-count)))))
          (flaggl (and (> log 2)
                       (ly:stencil-translate
                        (ly:font-get-glyph font
@@ -1272,6 +1272,9 @@ figured bass notation"
 							 (if (> dir 0) "u" "d")
 							 (number->string log)))
                        (cons (+ (car attach-off) (/ stem-thickness 2)) stemy)))))
+
+    (if (and flaggl (> dir 0))
+	(set! dots (ly:stencil-translate-axis dots 0.35 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
@@ -1282,12 +1285,7 @@ figured bass notation"
               (ly:stencil-add
                (ly:stencil-translate-axis
 		dots
-		(+ (if (and (> dir 0) (> log 2))
-		       (* 1.5 dotwid)
-		       0)
-		   ;; huh ? why not necessary?
-		   ;;(cdr (ly:stencil-extent head-glyph X))
-		   dotwid)
+		(+ (cdr (ly:stencil-extent head-glyph X)) dotwid)
 		X)
                stem-glyph)))
     stem-glyph))

@@ -22,6 +22,7 @@
 #include "system.hh"
 #include "spring.hh"
 #include "lookup.hh"
+#include "string-convert.hh"
 
 Grob *
 Paper_column::clone (int count) const
@@ -165,20 +166,18 @@ Paper_column::print (SCM p)
 
   Stencil l = Lookup::filled_box (Box (Interval (-0.01, 0.01),
 				       Interval (-2, -1)));
-
-
   
-  System * my_system = me->get_system ();
-  int drank =
-    me->get_rank ()
-    - my_system->get_bound (LEFT)->get_column ()->get_rank ();
+  SCM small_letters = scm_cons (scm_acons (ly_symbol2scm ("font-size"),
+					   scm_from_int (-6), SCM_EOL),
+				properties);
+  
   int j = 0;
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
       Spring_smob *sp = unsmob_spring (scm_car (s));
       
-      Real y = -j * 0.1 -3;
+      Real y = -j * 1 -3;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
@@ -187,17 +186,20 @@ Paper_column::print (SCM p)
       
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
       Stencil head (musfont->find_by_name ("arrowheads.open.01"));
-      head.translate (p2);
-      id_stencil.add_stencil (head);
+
+      SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
+							   small_letters,
+							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance_)));
+      
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance_/3, y+1)));
+      id_stencil.add_stencil (head.translated (p2));
       id_stencil = id_stencil.in_color (0,0,1);
-      l.add_stencil (id_stencil) ;
-     
+      l.add_stencil (id_stencil);
     }
    
   for (SCM s = me->get_object ("minimum-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Grob *other  = unsmob_grob (scm_caar (s));
       Real dist = scm_to_double (scm_cdar (s));
 
       Real y = -j * 0.1 -3.5;
@@ -211,7 +213,15 @@ Paper_column::print (SCM p)
       Stencil head (musfont->find_by_name ("arrowheads.open.0M1"));
       head.translate_axis (y, Y_AXIS);
       id_stencil.add_stencil (head);
-      
+
+      SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
+							   small_letters,
+							   ly_string2scm (String_convert::form_string ("%5.2lf",
+												       dist)));
+          
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (dist/3, y-1)));
+ 
+       
       id_stencil = id_stencil.in_color (1,0,0);
       l.add_stencil (id_stencil);
     }
