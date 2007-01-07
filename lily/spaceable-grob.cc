@@ -122,13 +122,6 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *in
 }
 
 
-void
-Spaceable_grob::remove_interface (Grob *me)
-{
-  me->set_object ("minimum-distances", SCM_EOL);
-  me->set_object ("spacing-wishes", SCM_EOL);
-  me->set_object ("ideal-distances", SCM_EOL);
-}
 
 ADD_INTERFACE (Spaceable_grob,
 	       "A layout object that takes part in the spacing problem. ",
