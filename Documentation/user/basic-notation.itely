@@ -68,9 +68,9 @@ c1
 @funindex ,
 
 The optional octave specification takes the form of a series of
-single quote (`@code{'}') characters or a series of comma
-(`@code{,}') characters.  Each @code{'} raises the pitch by one
-octave; each @code{,} lowers the pitch by an octave.
+single quote (@samp{'}) characters or a series of comma
+(@samp{,}) characters.  Each @samp{'} raises the pitch by one
+octave; each @samp{,} lowers the pitch by an octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \clef treble
@@ -117,8 +117,8 @@ suffix; a natural pitch is shown as a simple note name
 a4 aes a2
 @end lilypond
 
-The input @code{d e f} is interpreted as ``print a D-natural,
-E-natural, and an F-natural,'' regardless of the key
+The input @code{d e f} is interpreted as @q{print a D-natural,
+E-natural, and an F-natural,} regardless of the key
 signature.  For more information about the distinction between
 musical content and the presentation of that content, see
 @ref{More about pitches}.
@@ -167,7 +167,7 @@ print them manually.  A reminder accidental
 can be forced by adding an exclamation mark @code{!}
 after the pitch.  A cautionary accidental
 (i.e., an accidental within parentheses) can be obtained by adding the
-question mark `@code{?}' after the pitch.  These extra accidentals
+question mark @samp{?} after the pitch.  These extra accidentals
 can be used to produce natural signs, too.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -422,7 +422,7 @@ mus = { \key d \major cis d fis g }
 
 @code{\transpose} may also be used to input written notes for a
 transposing instrument.  Pitches are normally entered into LilyPond
-in C (or ``concert pitch''), but they may be entered in another
+in C (or @q{concert pitch}), but they may be entered in another
 key.  For example, when entering music for a B-flat trumpet which
 begins on concert D, one would write
 
@@ -499,8 +499,8 @@ Program reference: @internalsref{Rest}.
 @funindex \skip
 @funindex s
 
-An invisible rest (also called a `skip') can be entered like a note
-with note name `@code{s}' or with @code{\skip @var{duration}}
+An invisible rest (also called a @q{skip}) can be entered like a note
+with note name @samp{s} or with @code{\skip @var{duration}}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a4 a4 s4 a4 \skip 1 a4
@@ -616,7 +616,7 @@ duration.  The default for the first note is a quarter note.
 
 @funindex .
 
-To obtain dotted note lengths, simply add a dot (`@code{.}') to
+To obtain dotted note lengths, simply add a dot (@samp{.}) to
 the number.  Double-dotted notes are produced in a similar way.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -753,7 +753,7 @@ Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 @subsection Scaling durations
 
 You can alter the length of duration by a fraction @var{N/M}
-appending `@code{*}@var{N/M}' (or `@code{*}@var{N}' if @var{M=1}).  This
+appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).  This
 will not affect the appearance of the notes or rests produced.
 
 In the following example, the first three notes take up exactly two
@@ -779,7 +779,7 @@ This manual: @ref{Tuplets}
 @funindex |
 
 Bar checks help detect errors in the durations.  A bar check is
-entered using the bar symbol, `@code{|}'.  Whenever it is encountered
+entered using the bar symbol, @samp{|}.  Whenever it is encountered
 during interpretation, it should fall on a measure boundary.  If it
 does not, a warning is printed.  In the next example, the second bar
 check will signal an error
@@ -962,7 +962,7 @@ them simultaneously, separating the voices with @code{\\}
 @end lilypond
 
 The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
-voices are sometimes called ``layers'' in other notation packages}
+voices are sometimes called @q{layers} in other notation packages}
 @cindex layers
 to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
 each of these contexts, vertical direction of slurs, stems, etc., is set
@@ -1377,7 +1377,7 @@ command
 
 Here, @var{type} should be @code{\major} or @code{\minor} to get
 @var{pitch}-major or @var{pitch}-minor, respectively.  You may also
-use the standard mode names (also called ``church modes''): @code{\ionian},
+use the standard mode names (also called @q{church modes}): @code{\ionian},
 @code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
 @code{\phrygian}, and @code{\dorian}.
 
@@ -1537,7 +1537,7 @@ This is internally translated into
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
 that this is a negative number; @code{\partial 4} is internally
-translated to mean ``there is a quarter note left in the bar''.
+translated to mean @qq{there is a quarter note left in the bar.}
 
 
 @refbugs
@@ -1774,7 +1774,7 @@ System start delimiters may be deeply nested,
 @cindex adjusting staff symbol
 
 Notes, dynamic signs, etc., are grouped
-with a set of horizontal lines, called a staff (plural `staves').  In
+with a set of horizontal lines, called a staff (plural @q{staves}).  In
 LilyPond, these lines are drawn using a separate layout object called
 @code{staff symbol}.
 
@@ -1907,7 +1907,7 @@ This section deals with notation that affects groups of notes.
 A tie connects two adjacent note heads of the same pitch.  The tie in
 effect extends the length of a note.  Ties should not be confused with
 slurs, which indicate articulation, or phrasing slurs, which indicate
-musical phrasing.  A tie is entered using the tilde symbol `@code{~}'
+musical phrasing.  A tie is entered using the tilde symbol @samp{~}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -2285,7 +2285,7 @@ c4 \grace c16 c4
 Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
 @code{\grace} command does not start a slur.
 
-Internally, timing for grace notes is done using a second, `grace'
+Internally, timing for grace notes is done using a second, @q{grace}
 timing.  Every point in time consists of two rational numbers: one
 denotes the logical time, one denotes the grace timing.  The above
 example is shown here with timing tuples
@@ -2331,7 +2331,7 @@ following the main note.
 c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
-This will put the grace notes after a ``space'' lasting 3/4 of the
+This will put the grace notes after a @q{space} lasting 3/4 of the
 length of the main note.  The fraction 3/4 can be changed by setting
 @code{afterGraceFraction}, ie.
 
@@ -3084,7 +3084,7 @@ c1
 
 In the following example, the first ending is not a complete
 bar (it only had 3 beats).  The beginning of the second ending
-contains the 4th beat from the first ending.  This ``extra''
+contains the 4th beat from the first ending.  This @q{extra}
 beat in the second ending is due to the first time ending,
 and has nothing to do with the @code{\partial} at the
 beginning of the example.
@@ -3284,7 +3284,7 @@ Example files: @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
 @funindex tremoloFlags
 
 Tremolo marks can be printed on a single note by adding
-`@code{:}[@var{number}]' after the note.  The number indicates the
+@q{@code{:}[@var{number}]} after the note.  The number indicates the
 duration of the subdivision, and it must be at least 8.  A
 @var{length} value of 8 gives one line across the note stem.  If the
 length is omitted, the last value (stored in @code{tremoloFlags}) is
