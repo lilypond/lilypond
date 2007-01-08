@@ -1248,7 +1248,7 @@ figured bass notation"
 							 (number->string log)))
                        (cons (+ (car attach-off) (/ stem-thickness 2)) stemy)))))
 
-    (if (and flaggl (> dir 0))
+    (if (and dots flaggl (> dir 0))
 	(set! dots (ly:stencil-translate-axis dots 0.35 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
