@@ -87,8 +87,15 @@ Staff_spacing::next_note_correction (Grob *me,
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
 	{
-	  Real stem_start = Stem::head_positions (stem) [DOWN];
-	  Real stem_end = Stem::stem_end_position (stem);
+
+	  /*
+	    can't look at stem-end-position, since that triggers
+	    beam slope computations.
+	  */
+	  Real stem_start = Stem::head_positions (stem) [d];
+	  Real stem_end = stem_start + 
+	    d * robust_scm2double (stem->get_property ("length"), 7);
+	  
 	  Interval stem_posns (min (stem_start, stem_end),
 			       max (stem_end, stem_start));
 
