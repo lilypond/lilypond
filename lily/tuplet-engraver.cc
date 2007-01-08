@@ -15,6 +15,7 @@
 #include "tuplet-bracket.hh"
 #include "warn.hh"
 #include "item.hh"
+#include "moment.hh"
 
 #include "translator.icc"
 
@@ -26,6 +27,9 @@ struct Tuplet_description
 
   bool full_length_;
   bool full_length_note_;
+  Moment stop_moment_;
+  Moment start_moment_;
+  Moment length_;
   
   Tuplet_description ()
   {
@@ -64,21 +68,51 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
     {
       Tuplet_description d;
       d.event_ = ev;
+
+      d.length_ = robust_scm2moment (d.event_->get_property ("length"),
+				     Moment (0));
+      d.start_moment_ = now_mom ();
+      d.stop_moment_ = now_mom () + d.length_;
+
+      for (vsize i=0; i < new_tuplets_.size (); i++)
+	{
+	  /*
+	    discard duplicates.
+	   */
+	  if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
+	    return;
+	}
+      
       new_tuplets_.push_back (d);
     }
-  else if (dir == STOP && tuplets_.size ())
+  else if (dir == STOP)
+    {
+    if (tuplets_.size ())
     {
       stopped_tuplets_.push_back (tuplets_.back ());
       tuplets_.pop_back ();
     }
+    else
+      ev->origin ()->warning (_f ("No tuplet to end"));
+    }
   else 
-    programming_error (_f ("direction of %s invalid: %d",
-			   "tuplet-span-event", int (dir)));
+    ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
 }
 
 void
 Tuplet_engraver::process_music ()
 {
+  /*
+    This may happen if the end of a tuplet is part of a quoted voice.
+   */
+  Moment now = now_mom();
+  for (vsize i = tuplets_.size (); i --; )
+    {
+      stopped_tuplets_.push_back (tuplets_[i]);
+      if (tuplets_[i].stop_moment_ == now)
+	tuplets_.erase (tuplets_.begin () + i);
+    }
+  
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
       Spanner *bracket = stopped_tuplets_[i].bracket_;
@@ -102,6 +136,7 @@ Tuplet_engraver::process_music ()
 	      number->set_bound (RIGHT,
 						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
 	    }
+	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
 	  // clear stopped_tuplets_ at start_translation_timestep
 	  last_tuplets_.push_back (bracket);
@@ -131,6 +166,8 @@ Tuplet_engraver::process_music ()
 					  tuplets_[i].event_->self_scm ());
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
+      tuplets_[i].stop_moment_.grace_part_ = 0;
+      
       
       if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
