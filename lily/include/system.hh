@@ -1,6 +1,5 @@
-
 /*
-  line-of-score.hh -- part of GNU LilyPond
+  system.hh -- part of GNU LilyPond
 
   (c) 1996--2006 Han-Wen Nienhuys
 */
@@ -45,7 +44,7 @@ public:
 
   vector<Item*> broken_col_range (Item const *, Item const *) const;
   vector<Grob*> used_columns () const;
-  Grob *column (vsize i) const;
+  Paper_column *column (vsize i) const;
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);

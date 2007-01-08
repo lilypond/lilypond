@@ -489,14 +489,14 @@ System::used_columns () const
   return columns;
 }
 
-Grob*
+Paper_column *
 System::column (vsize which) const
 {
   extract_grob_set (this, "columns", columns);
   if (which >= columns.size ())
     return 0;
   
-  return columns[which];
+  return dynamic_cast<Paper_column*> (columns[which]);
 }
 
 Paper_score*
