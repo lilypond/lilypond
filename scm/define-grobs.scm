@@ -23,6 +23,7 @@
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
+	(Y-extent . ,ly:accidental-interface::height)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -35,6 +36,7 @@
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
+	(Y-extent . ,ly:accidental-interface::height)
 	(after-line-breaking
 	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
@@ -45,6 +47,7 @@
     (AccidentalSuggestion
      . (
 	(stencil . ,ly:accidental-interface::print)
+	(Y-extent . ,ly:accidental-interface::height)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
@@ -120,6 +123,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(stencil . ,ly:accidental-interface::print)
+	(Y-extent . ,ly:accidental-interface::height)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)	
 	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
@@ -1885,6 +1889,7 @@
 	(font-size . -4)
 	(side-axis . ,X)
 	(stencil . ,ly:accidental-interface::print)
+	(Y-extent . ,ly:accidental-interface::height)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)
 	(meta . ((class . Item)
 		 (interfaces . (trill-pitch-accidental-interface
@@ -2110,7 +2115,6 @@
   (list
    ly:bar-line::print
    ly:note-head::print
-   ly:accidental-interface::print
    ly:dots::print
    ly:clef::print
    ly:text-interface::print
@@ -2126,16 +2130,17 @@
 	'(0 . 0))))
 
 (define pure-conversions-alist
-  (list
-   `(,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
-   `(,ly:stem::height . ,ly:stem::pure-height)
-   `(,ly:rest::height . ,ly:rest::pure-height)
-   `(,ly:grob::stencil-height . ,pure-stencil-height)
-   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
-   `(,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
-   `(,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
-   `(,ly:slur::height . ,ly:slur::pure-height)
-   `(,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
+  `(
+    (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
+    (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
+    (,ly:stem::height . ,ly:stem::pure-height)
+    (,ly:rest::height . ,ly:rest::pure-height)
+    (,ly:grob::stencil-height . ,pure-stencil-height)
+    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)
+    (,ly:axis-group-interface::height . ,ly:axis-group-interface::pure-height)
+    (,ly:hara-kiri-group-spanner::y-extent . ,ly:hara-kiri-group-spanner::pure-height)
+    (,ly:slur::height . ,ly:slur::pure-height)
+    (,ly:side-position-interface::y-aligned-side . ,ly:side-position-interface::pure-y-aligned-side)))
 
 (define pure-functions
   (list

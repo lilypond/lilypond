@@ -6,6 +6,7 @@
 */
 
 #include "skyline.hh"
+#include <deque>
 
 #include "ly-smobs.icc"
 
@@ -108,12 +109,12 @@ Skyline::print () const
     }
 }
 
-bool
-Skyline::is_legal_skyline () const
+static bool
+is_legal_skyline (list<Building> const &buildings)
 {
   list<Building>::const_iterator i;
   Real last_x = -infinity_f;
-  for (i = buildings_.begin (); i != buildings_.end (); i++)
+  for (i = buildings.begin (); i != buildings.end (); i++)
     {
       if (i->iv_[LEFT] != last_x)
 	return false;
@@ -325,34 +326,78 @@ single_skyline (Building b, Real horizon_padding, list<Building> *const ret)
 			       -infinity_f, b.iv_[LEFT]));
 }
 
-void
-Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *const result)
+/* remove a non-overlapping set of buildings from BUILDINGS and build a skyline
+   out of them */
+static list<Building>
+non_overlapping_skyline (list<Building> *const buildings)
+{
+  list<Building> result;
+  Real last_end = -infinity_f;
+  list<Building>::iterator i = buildings->begin ();
+  while (i != buildings->end ())
+    {
+      if (approx_less_than (i->iv_[LEFT], last_end))
+	{
+	  i++;
+	  continue;
+	}
+
+      if (approx_greater_than (i->iv_[LEFT], last_end))
+	result.push_back (Building (last_end, -infinity_f, -infinity_f, i->iv_[LEFT]));
+      else
+	i->iv_[LEFT] = last_end;
+
+      last_end = i->iv_[RIGHT];
+      list<Building>::iterator j = i;
+      i++;
+      result.splice (result.end (), *buildings, j);
+    }
+  if (last_end < infinity_f)
+    result.push_back (Building (last_end, -infinity_f, -infinity_f, infinity_f));
+  assert (is_legal_skyline (result));
+  return result;
+}
+
+list<Building>
+Skyline::internal_build_skyline (list<Building> *buildings)
 {
   vsize size = buildings->size ();
 
   if (size == 0)
     {
-      empty_skyline (result);
-      return;
+      list<Building> result;
+      empty_skyline (&result);
+      return result;
     }
   else if (size == 1)
     {
-      single_skyline (buildings->front (), 0, result);
-      return;
+      list<Building> result;
+      single_skyline (buildings->front (), 0, &result);
+      return result;
     }
 
-  list<Building> right_half;
-  list<Building>::iterator i = buildings->begin ();
+  deque<list<Building> > partials;
+  buildings->sort ();
+  while (!buildings->empty ())
+    partials.push_back (non_overlapping_skyline (buildings));
 
-  for (vsize s = 0; s < size/2; s++)
-    i++;
-  right_half.splice (right_half.end (), *buildings, i, buildings->end ());
+  /* we'd like to say while (partials->size () > 1) but that's O(n).
+     Instead, we exit in the middle of the loop */
+  while (!partials.empty ())
+    {
+      list<Building> merged;
+      list<Building> one = partials.front ();
+      partials.pop_front ();
+      if (partials.empty ())
+	return one;
 
-  list<Building> right;
-  list<Building> left;
-  internal_build_skyline (&right_half, &right);
-  internal_build_skyline (buildings, &left);
-  internal_merge_skyline (&right, &left, result);
+      list<Building> two = partials.front ();
+      partials.pop_front ();
+      internal_merge_skyline (&one, &two, &merged);
+      partials.push_back (merged);
+    }
+  assert (0);
+  return list<Building> ();
 }
 
 Skyline::Skyline ()
@@ -406,8 +451,8 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
 	}
     }
   
-  internal_build_skyline (&bldgs, &buildings_);
-  assert (is_legal_skyline ());
+  buildings_ = internal_build_skyline (&bldgs);
+  assert (is_legal_skyline (buildings_));
 }
 
 Skyline::Skyline (Box const &b, Real horizon_padding, Axis horizon_axis, Direction sky)
@@ -426,7 +471,7 @@ Skyline::merge (Skyline const &other)
   list<Building> my_bld;
   my_bld.splice (my_bld.begin (), buildings_);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void
@@ -438,7 +483,7 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
   my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (b, 0, a, sky_), horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void
@@ -451,7 +496,7 @@ Skyline::raise (Real r)
       i->height_[RIGHT] += sky_ * r;
       i->y_intercept_ += sky_ * r;
     }
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void

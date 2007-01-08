@@ -429,11 +429,11 @@ Grob::extent (Grob *refp, Axis a) const
 Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
-  SCM proc = get_property_data ( ly_symbol2scm ("Y-extent"));
-  Interval iv = robust_scm2interval (call_pure_function (proc,
-							 scm_list_1 (self_scm ()),
-							 start, end),
-				     Interval (0, 0));
+  SCM proc = get_property_data (ly_symbol2scm ("Y-extent"));
+  SCM iv_scm = call_pure_function (proc,
+				   scm_list_1 (self_scm ()),
+				   start, end);
+  Interval iv = robust_scm2interval (iv_scm, Interval (0, 0));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
