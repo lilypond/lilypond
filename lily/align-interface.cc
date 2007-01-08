@@ -16,6 +16,7 @@
 #include "international.hh"
 #include "system.hh"
 #include "warn.hh"
+#include "paper-column.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring

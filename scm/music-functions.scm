@@ -496,9 +496,9 @@ of beat groupings "
 	      'duration duration
 	      'text string))
 
-(define-safe-public (make-span-event type spandir)
+(define-safe-public (make-span-event type span-dir)
   (make-music type
-	      'span-direction spandir))
+	      'span-direction span-dir))
 
 (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M." 

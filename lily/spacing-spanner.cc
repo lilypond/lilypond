@@ -401,11 +401,13 @@ bool
 Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
 {
   System *sys = get_root_system (me);
-  Grob *next = sys->column (col->get_column()->get_rank () + 1);
+  Item *next = sys->column (col->get_column()->get_rank () + 1);
   if (!next)
     return false;
 
   if (Paper_column::is_musical (next)
+      || Paper_column::is_musical (left)
+      || !Paper_column::is_musical (col)
       || !Paper_column::is_used (next))
     return false;
   
@@ -416,7 +418,13 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
   if (!len)
     return false;
   
-  if (dt.main_part_ == len->main_part_)
+  /*
+    Don't check for exact measure length, since ending measures are
+    often shortened due to pickups.
+   */
+  if (dt.main_part_ > len->main_part_ / Rational (2)
+      && (next->is_broken ()
+	  || next->break_status_dir ()))
     return true;
 
   return false;
