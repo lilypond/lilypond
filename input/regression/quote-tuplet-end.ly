@@ -1,13 +1,13 @@
 \header
 {
-  texidoc  ="Tuplet bracket ends properly when quoting."
+  texidoc = "Tuplet bracket ends properly when quoting."
 }
 
 \version "2.10.10"
 
 \paper { ragged-right = ##t }
 
-\addQuote x {
+\addquote x {
    \times 2/3 { a'8 a' a' } a'4 a'2 |
 }
 
