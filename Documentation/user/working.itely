@@ -79,7 +79,7 @@ which version of LilyPond you used.
 @item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If
 you
 include checks every so often, then if you make a mistake, you can pinpoint
-it quicker.  How often is ``every so often''?  It depends on the complexity
+it quicker.  How often is @q{every so often}?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, perhaps every bar.
 
@@ -87,12 +87,12 @@ very complex music, perhaps every bar.
 either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to `debug' your files.
+worth it if you have to @q{debug} your files.
 
 @item @strong{Comment your files}.  Use either bar numbers (every so often)
 or
-references to musical themes (``second theme in violins,'' ``fourth
-variation'', etc).  You may not need comments when you're writing the piece
+references to musical themes (@q{second theme in violins,} @q{fourth
+variation,} etc.).  You may not need comments when you're writing the piece
 for the first time, but if you want to go back to change something two or
 three years later, or if you pass the source over to a friend, it will
 be much more
@@ -531,7 +531,7 @@ prefers.  The top of @file{music.ly} would then look like this:
 
 This approach can be useful even if you are only producing
 one set of parts.  I use half a dozen different
-``style sheet'' files for my projects.  I begin every music
+@q{style sheet} files for my projects.  I begin every music
 file with @code{\include "../global.ly"}, which contains
 
 @example
@@ -565,9 +565,9 @@ are listed in @ref{Updating files with convert-ly}.
 
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,
-"@code{No\"el}" (this would print the French word for
-`Christmas').  In LilyPond 2.6 and above, the special
-"@code{ë}" must be entered directly into the LilyPond file as an
+@samp{No\"el} (this would print the French word for
+@q{Christmas}).  In LilyPond 2.6 and above, the special
+@samp{ë} must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
 your old LilyPond files.

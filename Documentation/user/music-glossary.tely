@@ -1420,7 +1420,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge or the
-abbreviation ``cresc.''.
+abbreviation @q{cresc.}.
 
 @lilypond[fragment,ragged-right]
 \key g \major \time 4/4
@@ -1502,7 +1502,7 @@ S: da capo,
 FI: da capo, alusta.
 
 The term indicates repetition of the piece from the beginning to the end or
-to a certain place marked @emph{fine}.  Mostly abbreviated as ``D.C.''.
+to a certain place marked @emph{fine}.  Mostly abbreviated as @q{D.C.}.
 
 @node dal segno
 @section dal segno
@@ -1516,7 +1516,7 @@ DK: dal segno,
 S: dal segno,
 FI: dal segno, lähtien merkistä.
 
-Abbreviated ``d.s.''.  Repetition, not from the beginning, but from
+Abbreviated @q{d.s.}.  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign:
 
 @lilypond[fragment,ragged-right]
@@ -1544,7 +1544,7 @@ S: decrescendo,
 FI: decresendo, hiljentyen.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal wedge
-or the abbreviation ``decresc.''.
+or the abbreviation @q{decresc.}.
 
 @lilypond[fragment,ragged-right]
 \relative c'' {
@@ -2810,7 +2810,7 @@ S: ledton,
 FI: johtosävel.
 
 The seventh @aref{scale degree}, a @aref{semitone} below
-the tonic; so called because of its strong tendency to ``lead up'' (resolve
+the tonic; so called because of its strong tendency to @q{lead up} (resolve
 upwards) to the tonic scale degree.
 
 @node ledger line
@@ -4234,7 +4234,7 @@ A form used frequently for single movements of the @aref{sonata},
 falls into three sections called @emph{exposition}, @emph{development} and
 @emph{recapitulation}.  In the exposition the composer introduces some musical
 ideas, consisting of a number of themes; in the development section the
-composer `develops' this material, and in the recapitulation the composer
+composer @q{develops} this material, and in the recapitulation the composer
 repeats the exposition, with certain modifications.  The exposition contains a
 number of themes that fall into two groups, often called first and second
 subject.  Other melodies occurring in each group are considered as

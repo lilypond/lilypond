@@ -51,6 +51,11 @@ Grace_spacing_engraver::process_music ()
 					 column);
 
       column->set_object ("grace-spacing", grace_spacing_->self_scm ());
+
+      if (!grace_spacing_->get_bound (LEFT))
+	grace_spacing_->set_bound (LEFT, column);
+      else
+	grace_spacing_->set_bound (RIGHT, column);
     }
 }
 

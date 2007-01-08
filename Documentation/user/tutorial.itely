@@ -392,8 +392,8 @@ d cis fis
 @end example
 
 @noindent
-The code @samp{d} does not mean `print a black dot just below the
-staff.'  Rather, it means: `a note with pitch D-natural.'  In the key
+The code @samp{d} does not mean @qq{print a black dot just below the
+staff.}  Rather, it means: @qq{a note with pitch D-natural.}  In the key
 of A-flat major, it does get an accidental
 
 @lilypond[quote,notime,fragment,relative=1,verbatim]
@@ -494,8 +494,8 @@ according to standard notation conventions.
 
 @c better to have this just before the `octaves are bad' snipped
 @c but we'd need to remove the ', from \key and tie
-To raise a note by an octave, add a high quote @code{'} (apostrophe) to
-the note name, to lower a note one octave, add a `low quote' @code{,}
+To raise a note by an octave, add a high quote @samp{'} (apostrophe) to
+the note name, to lower a note one octave, add a @q{low quote} @samp{,}
 (comma).  Middle C is @code{c'}
 
 @lilypond[quote,notime,fragment,verbatim]
@@ -514,11 +514,11 @@ b'8. cis''16 b'8 d''4 d''8
 @noindent
 This example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
-solution is to use `relative octave' mode.   This is the
+solution is to use @q{relative octave} mode.   This is the
 most convenient way to copy existing music.
 
-In relative mode, a note without octavation quotes (i.e., the @code{'}
-or @code{,} after a note) is chosen so that it is closest to the
+In relative mode, a note without octavation quotes (i.e., the @samp{'}
+or @samp{,} after a note) is chosen so that it is closest to the
 previous one.  For example, @samp{c f} goes up while @samp{c g} goes
 down.
 
@@ -602,7 +602,7 @@ notes
 This technique is useful for non-monophonic music.  To enter music
 with more voices or more staves, we also combine expressions in
 parallel.  Two voices that should play at the same time, are entered
-as a simultaneous combination of two sequences.  A `simultaneous'
+as a simultaneous combination of two sequences.  A @q{simultaneous}
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two separate notes) are combined simultaneously
@@ -690,7 +690,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 @end lilypond
 
 
-The command @code{\new} introduces a `notation context.'  A notation
+The command @code{\new} introduces a @q{notation context.}  A notation
 context is an environment in which musical events (like notes or
 @code{\clef} commands) are interpreted.  For simple pieces, such
 notation contexts are created automatically.  For more complex pieces, it
@@ -927,7 +927,7 @@ see @ref{Partial measures}.
 A comment is a remark for the human reader of the music input; it is
 ignored while parsing, so it has no effect on the printed output.
 There are two types of comments.  The percent symbol @samp{%}
-introduces a line comment; after @code{%} the rest of the line is
+introduces a line comment; after @samp{%} the rest of the line is
 ignored.  A block comment marks a whole section of music
 input.  Anything that is enclosed in @code{%@{} and @code{%@}} is
 ignored.  The following fragment shows possible uses for comments
@@ -1005,7 +1005,7 @@ The lyrics can be set to these notes, combining both with the
 @cindex melisma
 @cindex extender line
 @c synonyms?
-This melody ends on a @rglos{melisma}, a single syllable (`free')
+This melody ends on a @rglos{melisma}, a single syllable (@q{free})
 sung to more than one note.  This is indicated with an @emph{extender
 line}.  It is entered as two underscores, i.e.,
 
@@ -1157,7 +1157,7 @@ voices with @code{\\}
 For polyphonic music typesetting, spacer rests can also be convenient;
 these are rests that do not print.  They are useful for filling up
 voices that temporarily do not play.  Here is the same example with a
-spacer rest (@code{s}) instead of a normal rest (@code{r}),
+spacer rest (@samp{s}) instead of a normal rest (@samp{r}),
 
 @lilypond[quote,verbatim,relative=2,fragment]
 << { a4 g2 f4~ f4 } \\
@@ -1399,7 +1399,7 @@ leading to
 More in-depth information on preparing parts and scores can be found
 in the notation manual; see @ref{Orchestral music}.
 
-Setting run-time variables (`properties') is discussed in
+Setting run-time variables (@q{properties}) is discussed in
 @ref{Changing context properties on the fly}.
 
 

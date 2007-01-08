@@ -14,6 +14,11 @@
 #include "rational.hh"
 #include "std-vector.hh"
 
+/*
+  Various options for spacing. Usually inited from SpacingSpanner, but sometimes
+  from GraceSpacing.
+ */
+
 struct Spacing_options
 {
   bool packed_;
@@ -23,7 +28,6 @@ struct Spacing_options
   Rational global_shortest_;
   Real increment_;
   Real shortest_duration_space_;
-  vector<Grob*> columns_;
   
   Spacing_options();
   void init_from_grob (Grob *me);

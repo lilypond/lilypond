@@ -26,10 +26,10 @@ private:
   static Real get_duration_space (Moment dur, Spacing_options const *, bool *);
   static Rational effective_shortest_duration (Grob *me, vector<Grob*> const &all);
   static void breakable_column_spacing (Grob *, Item *l, Item *r, Spacing_options const *);
-  static void prune_loose_columns (Grob *, Spacing_options  *);
+  static void prune_loose_columns (Grob *, vector<Grob*> *cols, Spacing_options  *);
   static void set_explicit_neighbor_columns (vector<Grob*> const &cols);
   static void set_implicit_neighbor_columns (vector<Grob*> const &cols);
-  static void generate_springs (Grob *me, Spacing_options const *);
+  static void generate_springs (Grob *me, vector<Grob*> const &cols, Spacing_options const *);
   static void musical_column_spacing (Grob *, Item *, Item *, Spacing_options const *);
   static bool fills_measure (Grob *, Item *, Item *);
 public:

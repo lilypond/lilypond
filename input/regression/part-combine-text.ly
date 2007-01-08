@@ -15,7 +15,8 @@ texts accordingly.
 
 vone =  \relative a' { R1 a2    r4 r a a a a }
 vtwo =  \relative a' { R1 f4 f4 f4 f f f a a  }
-comm = { s1 s2 s4_"expect: solo 2" s4 s2 s4_"expect: a2" s4 }
+comm = { s1 s2 s4_\markup { \small "expect: solo 2" }
+	 s4 s2 s4_\markup { \small "expect: a2"  } s4 } 
 \new Staff <<
     \partcombine \vone \vtwo
     \comm

@@ -30,7 +30,7 @@ want something that isn't covered?
 
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
-cello.  In this case, we would start with ``Notes and lyrics'' (for the
+cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
@@ -60,7 +60,7 @@ text = \lyricmode @{
 @}
 @end example
 
-Now we want to add a cello part.  Let's look at the ``Notes only'' example:
+Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
 \version "2.9.13"

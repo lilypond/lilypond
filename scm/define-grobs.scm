@@ -712,7 +712,7 @@
 	(shortest-duration-space . 1.6)
 	(meta . ((class . Spanner)
 		 (interfaces . (grace-spacing-interface
-				spacing-interface
+				
 				spacing-options-interface
 				spanner-interface))))))
     (GridPoint
@@ -953,7 +953,7 @@
 	(X-extent . #f)
 	(meta . ((class . Spanner)
 		 (interfaces . (spanner-interface
-				lyric-hyphen-interface spacing-interface))
+				lyric-hyphen-interface ))
 		 ))
 	))
     
@@ -992,7 +992,7 @@
      . (
 	(neutral-direction . ,DOWN)
 	(meta . ((class . Item)
-		 (interfaces . (melody-spanner-interface spacing-interface))))))
+		 (interfaces . (melody-spanner-interface ))))))
     (MensuralLigature
      . (
 	(thickness . 1.4)
@@ -1140,7 +1140,7 @@
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)
 	(meta . ((class . Item)
-		 (interfaces . (spacing-interface
+		 (interfaces . (
 				note-spacing-interface))))))
 
     (NoteName
@@ -1408,7 +1408,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(skylines . ,ly:separation-item::calc-skylines)
 	(meta . ((class . Item)
-		 (interfaces . (spacing-interface
+		 (interfaces . (
 				separation-item-interface))))))
 
     (SeparatingGroupSpanner
@@ -1416,7 +1416,7 @@
 	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
 	(meta . ((class . Spanner)
 		 (interfaces . (only-prebreak-interface
-				spacing-interface
+				
 				separating-group-spanner-interface))))))
 
     (Slur
@@ -1474,7 +1474,7 @@
 	
 	(base-shortest-duration . ,(ly:make-moment 3 16))
 	(meta . ((class . Spanner)
-		 (interfaces . (spacing-interface
+		 (interfaces . (
 				spacing-options-interface				
 				spacing-spanner-interface))))))
 
@@ -1524,8 +1524,7 @@
 	(non-musical . #t)
 	(stem-spacing-correction . 0.4)
 	(meta . ((class . Item)
-		 (interfaces . (spacing-interface
-				staff-spacing-interface))))))
+		 (interfaces . (staff-spacing-interface))))))
 
    
     (StaffSymbol

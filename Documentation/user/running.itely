@@ -14,11 +14,11 @@
 This chapter details the technicalities of running LilyPond.
 
 Some of these commands are run from the command-line.  By
-``command-line'', we mean the command
+@q{command-line}, we mean the command
 line in the operating system.  Windows users
-might be more familiar with the terms ``DOS shell'' or
-``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
+might be more familiar with the terms @q{DOS shell} or
+@q{command shell}; OSX users might be more familiar with the
+terms @q{terminal} or @q{console}.  OSX users should also
 consult @ref{Notes for the MacOS X app}.
 
 Describing how to use
@@ -363,11 +363,36 @@ invoking them directly, e.g.
 The same is true of the other scripts in that directory, including
 lilypond-book, convert-ly, abc2ly, etc.
 
-Alternatively, you may add this directory to your path.  Modify (or create)
+Alternatively, you may create scripts which add the path
+automatically.  Create a directory to store these scripts,
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+Create a file called @code{lilypond} which contains
+
+@example
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@"
+@end example
+
+Create similar files @code{lilypond-book}, @code{convert-ly}, and
+any other helper programs you use (@code{abc2ly}, @code{midi2ly},
+etc).  Simply replace the @code{bin/lilypond} with
+@code{bin/convert-ly} (or other program name) in the above file.
+
+Make the file executable,
+
+@example
+chmod u+x lilypond
+@end example
+
+Now, add this directory to your path.  Modify (or create)
 a file called @code{.profile} in your home directory such that it contains
 
 @example
-export PATH=$PATH:@var{path/to}/LilyPond.app/Contents/Resources/bin
+export PATH=$PATH:~/bin
 @end example
 
 @noindent
