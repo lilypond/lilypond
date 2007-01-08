@@ -20,7 +20,7 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
-* Scheme procedures as properties::
+* Scheme procedures as properties::  
 @end menu
 
 
@@ -35,6 +35,7 @@ This section discusses how to create music functions within LilyPond.
 * Paired substitution functions::  
 * Mathematics in functions::    
 * Void functions::              
+* Functions without arguments::  
 @end menu
 
 @node Overview of music functions
@@ -242,6 +243,35 @@ noPointAndClick =
    (make-music 'SequentialMusic 'void #t))
 ...
 \noPointAndClick   % disable point and click
+@end example
+
+
+@node Functions without arguments
+@subsection Functions without arguments
+
+In most cases a function without arguments should be written
+with an identifier,
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+However, in rare cases it may be useful to create a music function
+without arguments,
+
+@example
+displayBarNum =
+#(define-music-function (parser location) ()
+   (if (eq? #t (ly:get-option display-bar-numbers))
+       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+To actually display bar numbers where this function is called,
+invoke lilypond with
+
+@example
+lilypond -d display-bar-numbers FILENAME.ly
 @end example
 
 

@@ -436,6 +436,7 @@ This section describes what contexts are, and how to modify them.
 * Layout tunings within contexts::  
 * Changing context default settings::  
 * Defining new contexts::       
+* Aligning contexts::           
 @end menu
 
 
@@ -634,8 +635,8 @@ To have it interpreted at the @context{Score} or @context{Staff} level use
 these forms
 
 @example
-\context \applyOutput #'Score #@var{function}
-\context \applyOutput #'Staff #@var{function}
+\applyOutput #'Score #@var{function}
+\applyOutput #'Staff #@var{function}
 @end example
 
 @end itemize
@@ -1213,6 +1214,30 @@ Then the output at the start of this subsection can be entered as
 @}
 @end example
 
+
+@node Aligning contexts
+@subsection Aligning contexts
+
+New contexts may be aligned above or below exisiting contexts.  This
+could be useful in setting up a vocal staff (@ref{Vocal ensembles}) and
+in ossia,
+
+@cindex ossia
+@findex alignAboveContext
+@findex alignBelowContext
+
+@lilypond[quote,ragged-right]
+ossia = { f4 f f f }
+\score{
+  \relative c' \new Staff = "main" {
+    c4 c c c
+    <<
+      \new Staff \with {alignAboveContext=main} \ossia
+      { d8 f d f d f d f }
+    >>
+  }
+}
+@end lilypond
 
 
 

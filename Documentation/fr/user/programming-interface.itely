@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 829be449be664ea765ed43f5d56b50b41e43b397
+    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,6 +31,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Paired substitution functions::
 * Mathematics in functions::
 * Void functions::
+* Functions without arguments::
 @end menu 
 @node Overview of music functions
 @subsection Overview of music functions
@@ -54,6 +55,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Void functions
 @subsection Void functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Functions without arguments
+@subsection Functions without arguments
 
 UNTRANSLATED NODE: IGNORE ME
 

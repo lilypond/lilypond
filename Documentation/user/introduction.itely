@@ -60,11 +60,11 @@ one.  It is rounded, and its weight harmonizes with the thickness of
 our staff lines, which are also much thicker than lines in the
 computer edition.
 
-@multitable @columnfractions .05 .3 .3 .3 .05
+@multitable @columnfractions .125 .25 .25 .25 .125
 @item @tab
 @ifnotinfo
 @iftex
-@image{henle-flat-gray,,8cm}
+@image{henle-flat-gray,,4cm}
 @end iftex
 @ifnottex
 @image{henle-flat-gray,,,png}
@@ -72,7 +72,7 @@ computer edition.
 
 @tab
 @iftex
-@image{baer-flat-gray,,8.4cm}
+@image{baer-flat-gray,,4cm}
 @end iftex
 @ifnottex
 @image{baer-flat-gray,,,png}
@@ -80,7 +80,7 @@ computer edition.
 
 @tab
 @iftex
-@image{lily-flat-bw,,8cm}
+@image{lily-flat-bw,,4cm}
 @end iftex
 @ifnottex
 @image{lily-flat-bw,,,png}
@@ -110,10 +110,10 @@ LilyPond Feta font (2003)
 @c introduce illustrating aspects of engraving, spacing...
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the durations
-with mathematical precision, which leads to poor results.  In the
-next example a motive is printed twice.  It is printed once using
-exact mathematical spacing, and once with corrections.  Can you
-spot which fragment is which?
+with mathematical precision, which leads to poor results.  In the next
+example a motive is printed twice : once using exact mathematical
+spacing, and once with corrections.  Can you spot which fragment is
+which?
 
 @cindex optical spacing
 @c file spacing-optical.
@@ -174,42 +174,42 @@ music = {
 @cindex regular rhythms
 @cindex regular spacing
 
-Each bar in the fragment only uses notes that are played in a
-constant rhythm.  The spacing should reflect that.  Unfortunately, the
-eye deceives us a little; not only does it notice the distance between
+Each bar in the fragment only uses notes that are played in a constant
+rhythm.  The spacing should reflect that.  Unfortunately, the eye
+deceives us a little; not only does it notice the distance between
 note heads, it also takes into account the distance between
 consecutive stems.  As a result, the notes of an up-stem/@/down-stem
 combination should be put farther apart, and the notes of a
-down-stem/@/up-stem
-combination should be put closer together, all depending on the
-combined vertical positions of the notes.  The upper two measures are
-printed with this correction, the lower two measures without, forming
-down-stem/@/up-stem clumps of notes.
+down-stem/@/up-stem combination should be put closer together, all
+depending on the combined vertical positions of the notes.  The upper
+two measures are printed with this correction, the lower two measures
+without, forming down-stem/@/up-stem clumps of notes.
 
 @cindex typography
 
 Musicians are usually more absorbed with performing than with studying
-the looks of a piece of music, so nitpicking about typographical details
-may seem academical.  But it is not.  In larger pieces with monotonous
-rhythms, spacing corrections lead to subtle variations in the layout
-of every line, giving each one a distinct visual signature.  Without
-this signature all lines would look the same, and they become like a
-labyrinth.  If a musician looks away once or has a lapse in
+the looks of a piece of music, so nitpicking about typographical
+details may seem academical.  But it is not.  In larger pieces with
+monotonous rhythms, spacing corrections lead to subtle variations in
+the layout of every line, giving each one a distinct visual signature.
+Without this signature all lines would look the same, and they become
+like a labyrinth.  If a musician looks away once or has a lapse in
 concentration, the lines might lose their place on the page.
 
 Similarly, the strong visual look of bold symbols on heavy staff lines
-stands out better when the music is far away from the reader, for example,
-if it is on a music stand.  A careful distribution of white space allows
-music to be set very tightly without cluttering symbols together.  The
-result minimizes the number of page turns, which is a great advantage.
+stands out better when the music is far away from the reader, for
+example, if it is on a music stand.  A careful distribution of white
+space allows music to be set very tightly without cluttering symbols
+together.  The result minimizes the number of page turns, which is a
+great advantage.
 
 This is a common characteristic of typography.  Layout should be
 pretty, not only for its own sake, but especially because it helps the
-reader in her task.  For performance material like sheet music, this is
-of double importance: musicians have a limited amount of attention.  The
-less attention they need for reading, the more they can focus on
-playing the music.  In other words, better typography translates to better
-performances.
+reader in her task.  For performance material like sheet music, this
+is of double importance: musicians have a limited amount of attention.
+The less attention they need for reading, the more they can focus on
+playing the music.  In other words, better typography translates to
+better performances.
 
 These examples demonstrate that music typography is an art that is
 subtle and complex, and that producing it requires considerable
@@ -317,8 +317,8 @@ Formatting rules are also preset variables: each object has variables
 containing procedures.  These procedures perform the actual
 formatting, and by substituting different ones, we can change the
 appearance of objects.  In the following example, the rule which note
-head objects are used to produce their symbol is changed during the music
-fragment.
+head objects are used to produce their symbol is changed during the
+music fragment.
 
 @lilypond[quote,ragged-right]
 #(set-global-staff-size 30)
@@ -367,17 +367,17 @@ fragment.
 @cindex engraving
 @cindex typography
 
-The formatting process decides where to place
-symbols.  However, this can only be done once it is decided @emph{what}
-symbols should be printed, in other words what notation to use.
+The formatting process decides where to place symbols.  However, this
+can only be done once it is decided @emph{what} symbols should be
+printed, in other words what notation to use.
 
 Common music notation is a system of recording music that has evolved
 over the past 1000 years.  The form that is now in common use dates
-from the early renaissance.  Although the basic form (i.e., note heads on a
-5-line staff) has not changed, the details still evolve to express the
-innovations of contemporary notation.  Hence, it encompasses some 500
-years of music.  Its applications range from monophonic melodies to
-monstrous counterpoints for large orchestras.
+from the early renaissance.  Although the basic form (i.e., note heads
+on a 5-line staff) has not changed, the details still evolve to
+express the innovations of contemporary notation.  Hence, it
+encompasses some 500 years of music.  Its applications range from
+monophonic melodies to monstrous counterpoints for large orchestras.
 
 How can we get a grip on such a many-headed beast, and force it into
 the confines of a computer program?  Our solution is to break up the
@@ -385,11 +385,11 @@ problem of notation (as opposed to engraving, i.e., typography) into
 digestible and programmable chunks: every type of symbol is handled by
 a separate module, a so-called plug-in.  Each plug-in is completely
 modular and independent, so each can be developed and improved
-separately.  Such plug-ins are called @code{engraver}s, by analogy with
-craftsmen who translate musical ideas to graphic symbols.
+separately.  Such plug-ins are called @code{engraver}s, by analogy
+with craftsmen who translate musical ideas to graphic symbols.
 
 In the following example, we see how we start out with a plug-in for
-note heads, the @code{Note_heads_engraver}.
+note heads, the @code{Note_heads_engraver}
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -481,7 +481,7 @@ the @code{Clef_engraver} defines a reference point for the staff
 @end lilypond
 
 @noindent
-and the @code{Stem_engraver} adds stems.
+and the @code{Stem_engraver} adds stems
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -508,6 +508,7 @@ and the @code{Stem_engraver} adds stems.
 }
 @end lilypond
 
+@noindent
 The @code{Stem_engraver} is notified of any note head coming along.
 Every time one (or more, for a chord) note head is seen, a stem
 object is created and connected to the note head.  By adding
@@ -531,8 +532,8 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 In this situation, the accidentals and staff are shared, but the stems,
 slurs, beams, etc., are private to each voice.  Hence, engravers should
 be grouped.  The engravers for note heads, stems, slurs, etc., go into a
-group called `Voice context,' while the engravers for key, accidental,
-bar, etc., go into a group called `Staff context.'  In the case of
+group called `Voice context', while the engravers for key, accidental,
+bar, etc., go into a group called `Staff context'.  In the case of
 polyphony, a single Staff context contains more than one Voice context.
 Similarly, multiple Staff contexts can be put into a single Score
 context.  The Score context is the top level notation context.
@@ -648,14 +649,14 @@ and representation take up less than 10% of the source code.
 We have written LilyPond as an experiment of how to condense the art
 of music engraving into a computer program.  Thanks to all that hard
 work, the program can now be used to perform useful tasks.  The
-simplest application is printing notes.
+simplest application is printing notes
 
 @lilypond[quote,relative=1,fragment]
 \time 2/4 c4 c g'4 g a4 a g2
 @end lilypond
 
 @noindent
-By adding chord names and lyrics we obtain a lead sheet.
+By adding chord names and lyrics we obtain a lead sheet:
 
 @lilypond[quote,ragged-right]
 <<
@@ -666,7 +667,7 @@ By adding chord names and lyrics we obtain a lead sheet.
 @end lilypond
 
 Polyphonic notation and piano music can also be printed.  The following
-example combines some more exotic constructs.
+example combines some more exotic constructs
 
 @lilypondfile[quote,ragged-right]{screech-boink.ly}
 
@@ -679,7 +680,7 @@ presentations.
 
 This manual also shows an application: the input format is text, and
 can therefore be easily embedded in other text-based formats such as
-La@TeX{}, HTML, or in the case of this manual, Texinfo.  By means of a
+@LaTeX{}, HTML, or in the case of this manual, Texinfo.  By means of a
 special program, the input fragments can be replaced by music images
 in the resulting PDF or HTML output files.  This makes it easy
 to mix music and text in documents.
@@ -701,14 +702,19 @@ gives a gentle introduction to typesetting music.  First time
 users should start here.
 
 @item
-@emph{@ref{Working on LilyPond projects}}
-demonstrates practical uses of LilyPond.
+@emph{@ref{Putting it all together}}
+explains some general concepts about the lilypond file format.  If
+you are not certain where to place a command, read this chapter!
 
 @item
-@emph{@ref{Running LilyPond}}
-shows how to run LilyPond and its helper
-programs.  In addition, this section explains how to upgrade input
-files from previous versions of LilyPond.
+@emph{@ref{Working on LilyPond projects}}
+discusses practical uses of LilyPond and how to avoid some common
+problems.
+
+@item
+@emph{@ref{Tweaking output}}
+shows how to change the default engraving that LilyPond
+produces.
 
 @item
 @emph{@ref{Basic notation}}
@@ -742,13 +748,23 @@ discusses issues which affect the global output, such as selecting
 paper size or specifying page breaks.
 
 @item
+@emph{@ref{Interfaces for programmers}}
+explains how to create music functions.
+
+@item
+@emph{@ref{Running LilyPond}}
+shows how to run LilyPond and its helper programs.  In addition, this
+section explains how to upgrade input files from previous versions of
+LilyPond.
+
+@item
 @emph{@ref{LilyPond-book}} explains the details behind creating
 documents with in-line music examples, like this manual.
 
 @item
 @emph{@ref{Converting from other formats}}
-explains how to run the conversion programs.  These programs
-are supplied with the LilyPond package, and convert a variety of music
+explains how to run the conversion programs.  These programs are
+supplied with the LilyPond package, and convert a variety of music
 formats to the @code{.ly} format.
 
 @item
@@ -760,9 +776,35 @@ contains a set of useful reference books for those who wish to know
 more on notation and engraving.
 
 @item
+The
+@emph{@ref{Scheme tutorial}}
+presents a short introduction to Scheme, the programming
+language that music functions use.
+
+@item
+@emph{@ref{Notation manual tables}}
+are a set of tables showing the chord names, MIDI instruments,
+a list of color names, and the Feta font.
+
+@item
 @emph{@ref{Example templates}}
 provides templates of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
+
+@item
+The
+@emph{@ref{Cheat sheet}}
+is a handy reference of the most common LilyPond commands.
+
+@item
+The
+@emph{@ref{LilyPond command index}}
+is an index of all LilyPond @code{\commands}.
+
+@item
+The
+@emph{@ref{LilyPond index}}
+is a complete index.
 
 @end itemize
 
@@ -827,10 +869,10 @@ Almost all formatting functionality that is used internally, is
 available directly to the user.  For example, all variables that
 control thickness values, distances, etc., can be changed in input
 files.  There are a huge number of formatting options, and all of them
-are described in this document.  Each section of the
-notation manual has a @b{See also} subsection, which refers to the
-generated documentation.  In the HTML document, these subsections
-have clickable links.
+are described in this document.  Each section of the notation manual
+has a @b{See also} subsection, which refers to the generated
+documentation.  In the HTML document, these subsections have clickable
+links.
 
 @cindex snippets
 @item
