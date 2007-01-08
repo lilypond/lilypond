@@ -42,6 +42,9 @@ Staff_spacing::next_note_correction (Grob *me,
   Item *col = dynamic_cast<Item *> (g)->get_column ();
   Real left_stickout_correction = max (0., (- g->extent (col, X_AXIS)[LEFT]));
 
+  /* staff space -> positions */
+  bar_size *= 2;
+
   /*
     Duh. If this gets out of hand, we should invent something more generic.
   */
@@ -110,7 +113,7 @@ Staff_spacing::next_note_correction (Grob *me,
   Real correction = optical_corr + left_stickout_correction;
   if (correction)
     {
-      wish_count ++; 
+      (*wish_count) ++; 
 
       /*
 	This minute adjustments don't make sense for widely spaced scores.
