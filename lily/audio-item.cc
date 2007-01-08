@@ -91,16 +91,19 @@ Audio_span_dynamic::render ()
 
   assert (dynamics_[0]->volume_ >= 0);
 
-  if (dynamics_.back ()->volume_ > 0
-      && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
+  while  (dynamics_.back ()->volume_ > 0
+	  && dynamics_.size () > 1
+	  && sign (dynamics_.back ()->volume_ - dynamics_[0]->volume_) != grow_dir_)
     {
       dynamics_.erase (dynamics_.end () - 1);
-      assert (dynamics_.back ()->volume_ < 0);
     }
 
   if (dynamics_.size () <= 1)
-    return ;
-
+    {
+      programming_error ("(de)crescendo on items with specified volume.");
+      return ;
+    }
+  
   Real delta_v = grow_dir_ * 0.1;
   
   Real start_v = dynamics_[0]->volume_;
