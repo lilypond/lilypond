@@ -202,15 +202,44 @@ $(config_h): config.hh.in
 	@false
 
 
-test-clean:
-	$(MAKE) -C input/regression/ out=test clean
+################################################################
+# testing
+
+RESULT_DIR=$(top-build-dir)/out/test-results
+OUT_TEST=test
+
 
 test:
-	$(MAKE) -C input/regression/ out=test LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-test/collated-files.html 
+	rm -f input/regression/out-$(OUT_TEST)/collated-files.html
+	@echo -en 'For tracking crashes: use\n\n\t'
+	@echo 'grep sourcefilename `grep -L systems.texi input/regression/out-test/*log|sed s/log/ly/g`'
+	@echo
+	if test -d .git  ; then \
+		echo -e 'HEAD is:\n\n\t' ; \
+		git log --max-count=1 --pretty=oneline ;\
+		echo -e '\n\n\n' ; \
+		git diff ; \
+	fi > input/regression/out-test/tree.gittxt
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="--backend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
-RESULT_DIR=$(top-build-dir)/out/test-results/
-check-test: test
+
+test-baseline: test
+	rm -rf input/regression/out-test-baseline
+	mv input/regression/out-test input/regression/out-test-baseline
+
+local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
-	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) $(CHECK_SOURCE) input/regression/out-test/
+	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
+
+
+test-redo:
+	for a in `cat $(RESULT_DIR)/changed.txt` ; do \
+		echo removing $$a* ; \
+		rm -f $$a* ;\
+	done
+	$(MAKE) check
+
+test-clean:
+	$(MAKE) -C input/regression/ out=$(OUT_TEST) clean

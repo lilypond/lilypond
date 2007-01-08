@@ -10,6 +10,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; general
+(define-public (grob::has-interface grob iface)
+  (memq iface (ly:grob-interfaces grob)))
 
 (define-public (make-stencil-boxer thickness padding callback)
 
