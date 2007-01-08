@@ -176,7 +176,10 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Spring_smob *sp = unsmob_spring (scm_car (s));
+      if (!sp->other_->get_system ())
+	continue;
       
+      j++;
       Real y = -j * 1 -3;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
@@ -201,8 +204,13 @@ Paper_column::print (SCM p)
        scm_is_pair (s); s = scm_cdr (s))
     {
       Real dist = scm_to_double (scm_cdar (s));
+      Grob *other =  unsmob_grob (scm_caar (s));
+      if (!other || other->get_system () != me->get_system ())
+	continue;
 
-      Real y = -j * 0.1 -3.5;
+      j++;
+      
+      Real y = -j * 1.0 -3.5;
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
