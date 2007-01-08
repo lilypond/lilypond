@@ -1,7 +1,7 @@
 /*
   note-head.hh -- part of GNU LilyPond
 
-  (c) 1996--2006 Han-Wen Nienhuys
+  (c) 1996--2007 Han-Wen Nienhuys
 */
 
 #ifndef NOTEHEAD_HH
