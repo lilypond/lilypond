@@ -154,5 +154,5 @@ ADD_INTERFACE (Line_interface,
 	       "thickness "
 	       "style "
 	       "arrow-length "
-	       "arrow-width")
+	       "arrow-width ")
 

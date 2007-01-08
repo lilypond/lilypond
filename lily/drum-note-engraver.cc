@@ -132,6 +132,8 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
+
+
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */

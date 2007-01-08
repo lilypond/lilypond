@@ -109,7 +109,7 @@ Skyline::print () const
     }
 }
 
-static bool
+bool
 is_legal_skyline (list<Building> const &buildings)
 {
   list<Building>::const_iterator i;
