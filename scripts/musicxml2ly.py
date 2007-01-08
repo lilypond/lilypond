@@ -264,7 +264,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            raise NegativeSkip(current_end, moment)
+            print 'Negative skip', diff
+            diff = Rational (0)
 
         if diff > Rational (0):
             skip = musicexp.SkipEvent()
