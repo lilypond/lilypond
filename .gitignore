@@ -34,3 +34,4 @@ gcstat*.scm
 .dotest
 out-scons
 .scon*
+*.600pk
