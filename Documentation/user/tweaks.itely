@@ -149,7 +149,7 @@ object.  The same mechanism can be used to move other types of
 objects; simply replace @code{TextScript} with the name of
 another object.
 
-To find the object name, look at the ``@strong{see also}'' at
+To find the object name, look at the @q{@strong{see also}} at
 bottom of the relevant documentation page.  For example, at
 the bottom of @ref{Dynamics}, we see
 
@@ -252,9 +252,9 @@ f-5
 f-5
 @end lilypond
 
- @item
+@item
 Setting the @code{transparent} property will cause an object to be printed
-in `invisible ink': the object is not printed, but all its other
+in @q{invisible ink}: the object is not printed, but all its other
 behavior is retained.  The object still takes up space, it takes part in
 collisions, and slurs, ties, and beams can be attached to it.
 
@@ -398,7 +398,7 @@ require extra space.  If these repeats are spread over two
 systems, they will take up more space than one system with
 the volta repeats and another system without.
 
-Another example is moving dynamics which ``stick out'' of
+Another example is moving dynamics which @q{stick out} of
 a system.
 
 @lilypond[verbatim,quote,fragment]
