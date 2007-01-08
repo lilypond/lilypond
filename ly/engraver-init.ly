@@ -364,7 +364,10 @@ staffs, with a bracket in front and spanning bar lines. "
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
   
-  \name "Lyrics" 
+  \name "Lyrics"
+  instrumentName = #'()
+  shortInstrumentName = #'()
+  
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
