@@ -355,6 +355,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     {
       stem_dirs[RIGHT] = -stem_dirs[LEFT];
       stem_posns[RIGHT] = bar_yextent;
+      stem_posns[RIGHT] *= 2;
     }
 
   if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
