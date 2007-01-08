@@ -54,12 +54,12 @@ Spacing_spanner::set_springs (SCM smob)
   */
   Spacing_options options;
   options.init_from_grob (me);
+  vector<Grob*> cols = Spacing_spanner::get_columns (me);
+  set_explicit_neighbor_columns (cols);
 
-  set_explicit_neighbor_columns (options.columns_);
-
-  prune_loose_columns (me, &options);
-  set_implicit_neighbor_columns (options.columns_);
-  generate_springs (me, &options);
+  prune_loose_columns (me, &cols, &options);
+  set_implicit_neighbor_columns (cols);
+  generate_springs (me, cols, &options);
 
   return SCM_UNSPECIFIED;
 }
@@ -216,13 +216,14 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 
 void
 Spacing_spanner::generate_springs (Grob *me,
+				   vector<Grob*> const &cols,
 				   Spacing_options const *options)
 {
   Paper_column *prev = 0;
-  for (vsize i = 0; i < options->columns_.size (); i++)
+  for (vsize i = 0; i < cols.size (); i++)
     {
-      Paper_column *col = dynamic_cast<Paper_column *> (options->columns_[i]);
-      Paper_column *next = (i < options->columns_.size()-1) ? dynamic_cast<Paper_column *> (options->columns_[i+1]) : 0;
+      Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
+      Paper_column *next = (i < cols.size()-1) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
       if (i > 0)
 	generate_pair_spacing (me, prev, col, next, options);
@@ -396,12 +397,14 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 bool
 Spacing_spanner::fills_measure (Grob *me, Item *l, Item *r)
 {
-  return false;
   System *sys = get_root_system (me);
   Grob *next = sys->column (r->get_column()->get_rank () + 1);
   if (!next)
     return false;
 
+  if (Paper_column::is_musical (next))
+    return false;
+  
   Moment dt =
     Paper_column::when_mom (next) - Paper_column::when_mom (r);
   
@@ -493,7 +496,8 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       
     }
 
-  if (fills_measure (me, l, r))
+  if (Paper_column::is_musical (r)
+      && fills_measure (me, l, r))
     {
       compound_space += 1.0; 
     }

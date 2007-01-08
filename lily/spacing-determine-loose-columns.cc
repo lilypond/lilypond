@@ -194,9 +194,10 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
   between.
 */
 void
-Spacing_spanner::prune_loose_columns (Grob *me, Spacing_options *options)
- {
-  vector<Grob*> *cols = &options->columns_;  
+Spacing_spanner::prune_loose_columns (Grob *me,
+				      vector<Grob*> *cols,
+				      Spacing_options *options)
+{
   vector<Grob*> newcols;
 
   for (vsize i = 0; i < cols->size (); i++)

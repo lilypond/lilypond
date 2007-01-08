@@ -35,8 +35,6 @@ Spacing_options::init_from_grob (Grob *me)
     global_shortest_ = shortest_dur.main_part_;
   else
     global_shortest_ = shortest_dur.grace_part_;
-
-  columns_ = Spacing_spanner::get_columns (me);	// ugh.
 }
 
 Spacing_options::Spacing_options ()
