@@ -47,9 +47,12 @@ japanese = \lyricmode {
 
 % "a legal song to you"
 portuguese = \lyricmode { 
-  à vo cê uma can ção legal
+  à vo -- cê uma can -- ção legal
 }
 
+\paper {
+  ragged-right = ##T
+}
 
 \relative  { 
   c2 d e f g f e
