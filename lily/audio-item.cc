@@ -130,7 +130,7 @@ Audio_span_dynamic::render ()
 
 Audio_tempo::Audio_tempo (int per_minute_4)
 {
-  per_minute_4_ = per_minute_4_i;
+  per_minute_4_ = per_minute_4;
 }
 
 Audio_time_signature::Audio_time_signature (int beats, int one_beat)
