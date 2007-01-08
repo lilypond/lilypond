@@ -1524,6 +1524,9 @@ statements that would switch to a different Voice.
 
 Quoting grace notes is broken and can even cause LilyPond to crash.
 
+Quoting nested triplets may result in poor notation.
+
+
 @seealso
 
 In this manual: @ref{Instrument transpositions}.
