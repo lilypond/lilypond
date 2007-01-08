@@ -19,9 +19,9 @@ to 1.5 staff space."
   \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
   \override Score.NonMusicalPaperColumn #'layer = #2
   
-  \time 1/4
+  \time 2/4
   \stemDown
-  s4
-  e4 
-  e,4 
+  s2
+  e4 s4 
+  e,4 s4
 }
