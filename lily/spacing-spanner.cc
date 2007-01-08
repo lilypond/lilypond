@@ -394,21 +394,25 @@ Spacing_spanner::musical_column_spacing (Grob *me,
   Spaceable_grob::add_spring (left_col, right_col, distance, inverse_strength);
 }
 
+/*
+  Check if COL fills the whole measure.
+ */
 bool
-Spacing_spanner::fills_measure (Grob *me, Item *l, Item *r)
+Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
 {
   System *sys = get_root_system (me);
-  Grob *next = sys->column (r->get_column()->get_rank () + 1);
+  Grob *next = sys->column (col->get_column()->get_rank () + 1);
   if (!next)
     return false;
 
-  if (Paper_column::is_musical (next))
+  if (Paper_column::is_musical (next)
+      || !Paper_column::is_used (next))
     return false;
   
   Moment dt =
-    Paper_column::when_mom (next) - Paper_column::when_mom (r);
+    Paper_column::when_mom (next) - Paper_column::when_mom (col);
   
-  Moment *len = unsmob_moment (l->get_property ("measure-length"));
+  Moment *len = unsmob_moment (left->get_property ("measure-length"));
   if (!len)
     return false;
   
@@ -497,6 +501,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
     }
 
   if (Paper_column::is_musical (r)
+      && l->break_status_dir () == CENTER
       && fills_measure (me, l, r))
     {
       compound_space += 1.0; 
@@ -544,10 +549,4 @@ ADD_INTERFACE (Spacing_spanner,
 	       "uniform-stretching "
 	       
 	       );
-
-ADD_INTERFACE (Spacing_interface,
-	       "Something to do with line breaking and spacing. "
-	       "Kill this one after determining line breaks.",
-	       
-	       "");
 
