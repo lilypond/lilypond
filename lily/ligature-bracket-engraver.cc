@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "ligature-engraver.hh"
@@ -81,6 +81,7 @@ Ligature_bracket_engraver::acknowledge_rest (Grob_info info)
 
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, rest);
 ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
+
 ADD_TRANSLATOR (Ligature_bracket_engraver,
 		/* doc */ "Handles Ligature_events by engraving Ligature brackets.",
 		/* create */ "TupletBracket",

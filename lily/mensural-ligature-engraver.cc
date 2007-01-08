@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>,
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>,
   Pal Benko <benkop@freestart.hu>
 */
 
@@ -416,6 +416,7 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);
+
 ADD_TRANSLATOR (Mensural_ligature_engraver,
 		/* doc */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
 		/* create */ "MensuralLigature",

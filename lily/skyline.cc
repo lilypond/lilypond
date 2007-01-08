@@ -2,7 +2,7 @@
 
    source file of the GNU LilyPond music typesetter
  
-   (c) 2006 Joe Neeman <joeneeman@gmail.com>
+   (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "skyline.hh"
@@ -109,7 +109,7 @@ Skyline::print () const
     }
 }
 
-static bool
+bool
 is_legal_skyline (list<Building> const &buildings)
 {
   list<Building>::const_iterator i;

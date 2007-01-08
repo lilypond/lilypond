@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -77,6 +77,6 @@ ADD_TRANSLATOR (Laissez_vibrer_engraver,
 		
 		/* create */
 		"LaissezVibrerTie "
-		"LaissezVibrerTieColumn",
+		"LaissezVibrerTieColumn ",
 		/* read */ "",
 		/* write */ "");
