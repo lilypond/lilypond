@@ -744,7 +744,7 @@ Syntax:
 	      (set! (ly:music-property music 'quoted-events) quoted-vector)
 	      (set! (ly:music-property music 'iterator-ctor)
 		    ly:quote-iterator::constructor))
-	    (ly:warning (_ "can't find quoted music `~S'" quoted-name))))
+	    (ly:warning (_ "cannot find quoted music: `~S'") quoted-name)))
     music))
 
 
