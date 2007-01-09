@@ -158,12 +158,11 @@ get_help_string ()
 }
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
-	   "Print ly:set-option usage")
+	   "Print @code{ly:set-option} usage")
 {
   string help = get_help_string ();
-  fputs (help.c_str (), stdout);
+  progress_indication (help);
 
-  exit (0);
   return SCM_UNSPECIFIED;
 }
 
@@ -194,7 +193,10 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 		   __FUNCTION__, "symbol");
 
   if (ly_symbol2scm ("help") == var)
-    ly_option_usage ();
+    {
+      ly_option_usage ();
+      exit (0);
+    }
 
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
