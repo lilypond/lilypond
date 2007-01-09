@@ -300,7 +300,7 @@ If we give names, Bison complains.
 %type <book> book_body
 
 %type <i> bare_unsigned
-%type <i> figured_bass_alteration
+%type <scm> figured_bass_alteration
 %type <i> dots
 %type <i> exclamations
 %type <i> optional_rest
@@ -1824,9 +1824,9 @@ bass_number:
 	;
 
 figured_bass_alteration:
-	'-' 	{ $$ = -2; }
-	| '+'	{ $$ = 2; }
-	| '!'	{ $$ = 0; }
+	'-' 	{ $$ = ly_rational2scm (FLAT_ALTERATION); }
+	| '+'	{ $$ = ly_rational2scm (SHARP_ALTERATION); }
+	| '!'	{ $$ = scm_from_int (0); }
 	;
 
 bass_figure:
@@ -1851,11 +1851,11 @@ bass_figure:
 	}
 	| bass_figure figured_bass_alteration {
 		Music *m = unsmob_music ($1);
-		if ($2) {
+		if (scm_to_double ($2)) {
 			SCM salter = m->get_property ("alteration");
-			int alter = scm_is_number (salter) ? scm_to_int (salter) : 0;
+			SCM alter = scm_is_number (salter) ? salter : scm_from_int (0);
 			m->set_property ("alteration",
-				scm_from_int (alter + $2));
+					 scm_sum (alter, $2));
 		} else {
 			m->set_property ("alteration", scm_from_int (0));
 		}
