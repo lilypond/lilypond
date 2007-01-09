@@ -38,7 +38,6 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
 	      (dump-profile #f "dump timing information for each file")
-	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
 	      (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
 	      
 	      (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
@@ -54,8 +53,6 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
-	      (object-keys #f
-			   "experimental mechanism for remembering tweaks")
 	      (point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
 	      (pixmap-format "png16m" "GS format to use for pixel images")

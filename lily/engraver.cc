@@ -115,7 +115,7 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
   
   SCM props = updated_grob_properties (context (), symbol);
 
-  Object_key const *key = context ()->get_grob_key (name);
+  Object_key const *key = 0;
   Grob *grob = 0;
 
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);

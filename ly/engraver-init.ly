@@ -479,7 +479,6 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
-  \consists "Tweak_engraver"
   \consists "Parenthesis_engraver"
   
   \defaultchild "Staff"

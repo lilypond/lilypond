@@ -253,21 +253,6 @@ System::add_column (Paper_column *p)
 }
 
 void
-apply_tweaks (Grob *g, bool broken)
-{
-  if (bool (g->original ()) == broken)
-    {
-      SCM tweaks = global_registry_->get_tweaks (g);
-      for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM proc = scm_caar (s);
-	  SCM rest = scm_cdar (s);
-	  scm_apply_1 (proc, g->self_scm (), rest);
-	}
-    }
-}
-
-void
 System::pre_processing ()
 {
   for (vsize i = 0; i < all_elements_->size (); i++)
@@ -285,9 +270,6 @@ System::pre_processing ()
     all_elements_->grob (i)->handle_prebroken_dependencies ();
 
   fixup_refpoints (all_elements_->array ());
-
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    apply_tweaks (all_elements_->grob (i), false);
 
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
@@ -309,7 +291,6 @@ System::post_processing ()
     {
       Grob *g = all_elements_->grob (i);
 
-      apply_tweaks (g, true);
       (void) g->get_property ("after-line-breaking");
     }
 

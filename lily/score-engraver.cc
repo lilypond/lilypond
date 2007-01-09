@@ -79,7 +79,7 @@ Score_engraver::initialize ()
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
-  Object_key const *sys_key = context ()->get_grob_key ("System");
+  Object_key const *sys_key = 0;
   pscore_->typeset_system (new System (props, sys_key));
   
   system_ = pscore_->root_system ();

@@ -79,7 +79,7 @@ Grob::Grob (SCM basicprops,
 Grob::Grob (Grob const &s, int copy_index)
   : dim_cache_ (s.dim_cache_)
 {
-  key_ = (use_object_keys) ? new Copied_key (s.key_, copy_index) : 0;
+  key_ = 0; // (use_object_keys) ? new Copied_key (s.key_, copy_index) : 0;
   original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 

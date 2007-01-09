@@ -7,12 +7,12 @@
 */
 
 #include "program-option.hh"
-#include "profile.hh"
 
 #include <cstdio>
 #include <cstring>
 using namespace std;
 
+#include "profile.hh"
 #include "international.hh"
 #include "main.hh"
 #include "parse-scm.hh"
@@ -21,7 +21,6 @@ using namespace std;
 
 /* Write midi as formatted ascii stream? */
 bool do_midi_debugging_global;
-bool use_object_keys;
 bool debug_skylines;
 
 /*
@@ -84,11 +83,6 @@ void internal_set_option (SCM var, SCM val)
       lily_1_8_relative = to_boolean (val);
       /*  Needs to be reset for each file that uses this option.  */
       lily_1_8_compatibility_used = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
-    }
-  else if (var == ly_symbol2scm ("object-keys"))
-    {
-      use_object_keys = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
   else if (var == ly_symbol2scm ("strict-infinity-checking"))

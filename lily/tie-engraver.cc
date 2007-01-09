@@ -123,8 +123,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
       if (ly_is_equal (right_ev->get_property ("pitch"),
 		       left_ev->get_property ("pitch")))
 	{
-	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
-				 context ()->get_grob_key ("Tie"));
+	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_, 0);
 
 	  SCM cause = heads_to_tie_[i].tie_event_
 	    ? heads_to_tie_[i].tie_event_->self_scm ()

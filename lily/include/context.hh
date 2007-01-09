@@ -9,11 +9,12 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
-#include "context-key-manager.hh"
 #include "listener.hh"
 #include "moment.hh"
 #include "std-vector.hh"
 #include "virtual-methods.hh"
+#include "scm-hash.hh"
+#include "lily-proto.hh"
 
 class Context
 {
@@ -37,7 +38,7 @@ protected:
   SCM definition_;
   /* Additions to the Context_def, given by \with */
   SCM definition_mods_;
-  Context_key_manager key_manager_;
+  //  Context_key_manager key_manager_;
   
   SCM properties_scm_;
   SCM context_list_;

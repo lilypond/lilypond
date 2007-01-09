@@ -92,8 +92,6 @@ Global_context::prepare (SCM sev)
   else
     prev_mom_ = now_mom_;
   now_mom_ = *mom;
-  
-  clear_key_disambiguations ();
 }
 
 Moment

@@ -13,7 +13,6 @@
 using namespace std;
 
 #include "lily-proto.hh"
-#include "object-key.hh"
 
 typedef map<Object_key const *, SCM, Object_key_less> Tweak_map;
 
