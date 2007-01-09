@@ -94,11 +94,13 @@ on the command-line, and include
 at the top of the @code{.ly} file.
 
 @item -f,--format=@var{format}
-which formats should be written.  Choices are @code{svg}, @code{ps},
-@code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+which formats should be written.  Choices for @code{format} are
+@code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+
+Example: @code{lilypond -fpng filename.ly}
 
 @item -b,--backend=@var{format}
-the output format to use for the back-end.  Choices are
+the output format to use for the back-end.  Choices for @code{format} are
 @table @code
 @item tex
 for @TeX{} output, to be processed with La@TeX{}.  If present, the file
@@ -136,6 +138,8 @@ This mode is used by default by lilypond-book.
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
 @end table
+
+Example: @code{lilypond -bsvg filename.ly}
 
 @cindex output format, setting
 
