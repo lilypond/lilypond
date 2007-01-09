@@ -521,13 +521,6 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
 
-  /*
-    There used to be code that changed spacing depending on
-    raggedright setting.  Ugh.
-
-    Do it more cleanly, or rename the property.
-
-  */
   Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
