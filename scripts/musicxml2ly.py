@@ -208,8 +208,11 @@ def musicxml_note_to_lily_main_event (n):
         event = musicexp.RestEvent()
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
-        event.drum_type = instrument_drumtype_dict[n.instrument_name]
-        
+        try:
+            event.drum_type = instrument_drumtype_dict[n.instrument_name]
+        except KeyError:
+            n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
+            event.drum_type = 'acousticsnare'
     
     if not event:
         n.message ("cannot find suitable event")
