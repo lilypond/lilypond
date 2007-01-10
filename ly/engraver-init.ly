@@ -206,7 +206,8 @@ contained staves are not connected vertically."
   \consists "Note_heads_engraver"
   \consists "Dots_engraver"
   \consists "Rest_engraver"
-
+  \consists "Tweak_engraver"
+  
   %% switch on to make stem directions interpolate for the
   %% center line.
   %  \consists "Melody_engraver"
