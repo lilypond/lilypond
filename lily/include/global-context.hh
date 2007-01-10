@@ -21,7 +21,7 @@ class Global_context : public virtual Context
 
   friend class Output_def;
 public:
-  Global_context (Output_def *, Object_key *key);
+  Global_context (Output_def *);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);

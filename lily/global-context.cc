@@ -20,10 +20,8 @@ using namespace std;
 #include "output-def.hh"
 #include "warn.hh"
 
-Global_context::Global_context (Output_def *o, Object_key *key)
-  : Context (new Lilypond_context_key (key,
-				       Moment (0),
-				       "Global", "", 0))
+Global_context::Global_context (Output_def *o)
+  : Context ()
 {
   output_def_ = o;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));

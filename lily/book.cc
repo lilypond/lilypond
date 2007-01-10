@@ -144,7 +144,7 @@ Book::process (Output_def *default_paper,
       if (Score *score = unsmob_score (scm_car (s)))
 	{
 	  SCM outputs = score
-	    ->book_rendering (paper_book->paper_, default_layout, key);
+	    ->book_rendering (paper_book->paper_, default_layout);
 
 	  while (scm_is_pair (outputs))
 	    {

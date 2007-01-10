@@ -48,6 +48,7 @@ Context::check_removal ()
 
 Context::Context (Context const &src)
 {
+  (void) src;
   assert (false);
 }
 
@@ -68,7 +69,7 @@ Context::add_context (Context *child)
 }
 
 
-Context::Context (Object_key const *key)
+Context::Context ()
 {
   daddy_context_ = 0;
   aliases_ = SCM_EOL;
@@ -259,7 +260,6 @@ Context::create_context_from_event (SCM sev)
   SCM ops = ev->get_property ("ops");
   SCM type_scm = ev->get_property ("type");
   string type = ly_symbol2string (type_scm);
-  Object_key const *key = 0;
   
   vector<Context_def*> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (type_scm, get_output_def ());
@@ -270,7 +270,7 @@ Context::create_context_from_event (SCM sev)
     }
   Context_def *cdef = path[0];
   
-  Context *new_context = cdef->instantiate (ops, key);
+  Context *new_context = cdef->instantiate (ops);
 
   new_context->id_string_ = id;
   

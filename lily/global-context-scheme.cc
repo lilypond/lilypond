@@ -50,20 +50,18 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
 }
 
 LY_DEFINE (ly_make_global_context, "ly:make-global-context",
-	   1, 1, 0, (SCM output_def, SCM key),
+	   1, 0, 0, (SCM output_def),
 	   "Set up a global interpretation context, using the output\n"
 	   "block @var{output_def}.\n"
 	   "The context is returned.\n"
-
-	   "\n\nOptionally, this routine takes an Object-key to\n"
-	   "to uniquely identify the Score block containing it.\n")
+	   )
 {
   Output_def *odef = unsmob_output_def (output_def);
 
   SCM_ASSERT_TYPE (odef, output_def, SCM_ARG1, __FUNCTION__,
 		   "Output definition");
 
-  Global_context *glob = new Global_context (odef, unsmob_key (key));
+  Global_context *glob = new Global_context (odef);
 
   if (!glob)
     {
@@ -123,7 +121,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 }
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",
-	   2, 1, 0, (SCM mus, SCM output_def, SCM key),
+	   2, 1, 0, (SCM mus, SCM output_def),
 	   "Process @var{mus} according to @var{output_def}. \n"
 	   "An interpretation context is set up,\n"
 	   "and @var{mus} is interpreted with it.  \n"
@@ -132,7 +130,7 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   "Optionally, this routine takes an Object-key to\n"
 	   "to uniquely identify the Score block containing it.\n")
 {
-  SCM glob = ly_make_global_context (output_def, key);
+  SCM glob = ly_make_global_context (output_def);
   ly_make_global_translator (glob);
   ly_interpret_music_expression (mus, glob);
   return glob;

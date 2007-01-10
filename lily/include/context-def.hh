@@ -50,7 +50,7 @@ public:
 
   vector<Context_def*> path_to_acceptable_context (SCM type_string,
 						      Output_def *) const;
-  Context *instantiate (SCM extra_ops, Object_key const *);
+  Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
   static SCM make_scm ();

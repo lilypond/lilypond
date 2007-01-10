@@ -112,6 +112,7 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
   (void) file;
   (void) fun;
   (void) line;
+  (void) name;
   
   SCM props = updated_grob_properties (context (), symbol);
 

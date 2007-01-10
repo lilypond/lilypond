@@ -38,12 +38,12 @@ public:
   SCM get_music () const;
   void add_output_def (Output_def *def);
   void set_music (SCM music);
-  SCM book_rendering (Output_def *, Output_def *, Object_key *);
+  SCM book_rendering (Output_def *, Output_def *);
 };
 
 DECLARE_UNSMOB (Score, score);
 
 SCM ly_render_output (SCM, SCM);
-SCM ly_run_translator (SCM, SCM, SCM);
+SCM ly_run_translator (SCM, SCM);
 
 #endif /* SCORE_HH */
