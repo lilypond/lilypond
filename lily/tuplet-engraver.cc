@@ -108,9 +108,11 @@ Tuplet_engraver::process_music ()
   Moment now = now_mom();
   for (vsize i = tuplets_.size (); i --; )
     {
-      stopped_tuplets_.push_back (tuplets_[i]);
       if (tuplets_[i].stop_moment_ == now)
-	tuplets_.erase (tuplets_.begin () + i);
+	{
+	  stopped_tuplets_.push_back (tuplets_[i]);
+	  tuplets_.erase (tuplets_.begin () + i);
+	}
     }
   
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
@@ -134,7 +136,7 @@ Tuplet_engraver::process_music ()
 	      bracket->set_bound (RIGHT,
 				  bracket->get_bound (LEFT));
 	      number->set_bound (RIGHT,
-						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
+				 stopped_tuplets_[i].bracket_->get_bound (LEFT));
 	    }
 	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
