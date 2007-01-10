@@ -119,6 +119,8 @@ e.g. @code{\\tag #'part ...} could tag a piece of music as only being active in 
      (type ,symbol? "The type of this music object. Determines iteration in some cases.")
      (types ,list? "The types of this music object; determines by what
 engraver this music expression is processed.")
+     (tweaks ,list? "An alist of properties to override in the backend
+-for the grob made of this event.")
      (value ,scheme? "Assignment value for a
 translation property")
      (void ,boolean? "If this property is #t, then the music expression is to be
