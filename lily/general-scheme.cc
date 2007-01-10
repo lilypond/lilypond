@@ -23,6 +23,7 @@ using namespace std;
 #include "main.hh"
 #include "file-path.hh"
 #include "relocate.hh"
+#include "file-name.hh"
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
@@ -293,19 +294,21 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
   return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
 }
 
+
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 	   1, 1, 0, (SCM file_name, SCM mode),
 	   "Redirect stderr to FILE-NAME, opened with MODE.")
 {
   SCM_ASSERT_TYPE (scm_is_string (file_name), file_name, SCM_ARG1,
 		   __FUNCTION__, "file_name");
-  char const *m = "w";
+
+  string m = "w";
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
-    m = ly_scm2newstr (mode, 0);
+    m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
   fflush (stderr); 
-  freopen (ly_scm2newstr (file_name, 0), m, stderr);
+  freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
   return SCM_UNSPECIFIED;
 }
 
