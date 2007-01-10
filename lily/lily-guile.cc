@@ -460,7 +460,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-	abort ();
+	scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
+								 sym, val));
 
       warning (_ ("doing assignment anyway"));
     }

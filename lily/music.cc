@@ -63,8 +63,7 @@ Music::copy_mutable_properties () const
 void
 Music::type_check_assignment (SCM s, SCM v) const
 {
-  if (!::type_check_assignment (s, v, ly_symbol2scm ("music-type?")))
-    abort ();
+  ::type_check_assignment (s, v, ly_symbol2scm ("music-type?"));
 }
 
 Music::Music (Music const &m)
