@@ -133,7 +133,9 @@ GENERAL GUIDELINES
 
 * Lines should be less than 80 characters long.
 
-* Use @q instead of `....'  and @qq instead of ``...''
+* Use @q instead of `...' and @qq instead of ``...''.  The latter macro
+  should be used with care since we use `...' as the default quoting
+  throughout the manual, except for things related to direct speech.
 
 
 %%%%%
