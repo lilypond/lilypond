@@ -974,7 +974,7 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
 	}
     }
 
-  for (vsize i = 1; i < tie_configs->size() - 1; i++)
+  for (vsize i = 1; i + 1 < tie_configs->size (); i++)
     {
       Tie_configuration &conf = tie_configs->at (i);
       if (conf.dir_)

@@ -23,7 +23,7 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
   /*
     notes above and below the interval covered by 1st and last note.
   */
-  for (vsize i = 1; i < positions.size () - 1; i++)
+  for (vsize i = 1; i + 1 < positions.size (); i++)
     {
       above = above || (positions[i] > covering[UP]);
       below = below || (positions[i] < covering[DOWN]);
@@ -36,7 +36,7 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
   */
   int dy = positions.back () - positions[0];
   int closest = max (beam_dir * positions.back (), beam_dir * positions[0]);
-  for (vsize i = 2; !concave && i < positions.size () - 1; i++)
+  for (vsize i = 2; !concave && i + 1 < positions.size (); i++)
     {
       int inner_dy = positions[i] - positions[i - 1];
       if (sign (inner_dy) != sign (dy)
@@ -46,7 +46,7 @@ is_concave_single_notes (vector<int> const &positions, Direction beam_dir)
     }
 
   bool all_closer = true;
-  for (vsize i = 1; all_closer && i < positions.size () - 1; i++)
+  for (vsize i = 1; all_closer && i + 1 < positions.size (); i++)
     {
       all_closer = all_closer
 	&& (beam_dir * positions[i] > closest);
@@ -62,7 +62,7 @@ calc_positions_concaveness (vector<int> const &positions, Direction beam_dir)
   Real dy = positions.back () - positions[0];
   Real slope = dy / Real (positions.size () - 1);
   Real concaveness = 0.0;
-  for (vsize i = 1; i < positions.size () - 1; i++)
+  for (vsize i = 1; i + 1 < positions.size (); i++)
     {
       Real line_y = slope * i + positions[0];
 

@@ -226,7 +226,7 @@ Spacing_spanner::generate_springs (Grob *me,
   for (vsize i = 0; i < cols.size (); i++)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
-      Paper_column *next = (i < cols.size()-1) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
+      Paper_column *next = (i + 1 < cols.size ()) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
       if (i > 0)
 	generate_pair_spacing (me, prev, col, next, options);

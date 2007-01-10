@@ -384,7 +384,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
       if (Rhythmic_head::dot_count (current) > 0)
 	// Move dots above/behind the ligature.
 	{
-	  if (i < primitives.size () - 1)
+	  if (i + 1 < primitives.size ())
 	    // dot in the midst => move above head
 	    {
 	      // FIXME: Amount of vertical dot-shift should depend on

@@ -171,7 +171,7 @@ Tuplet_engraver::process_music ()
       tuplets_[i].stop_moment_.grace_part_ = 0;
       
       
-      if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
+      if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
       
       if (i > 0 && tuplets_[i - 1].bracket_)
