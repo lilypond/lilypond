@@ -77,8 +77,8 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-string init_scheme_code_string;
-string init_scheme_variables;
+string init_scheme_code_string_global;
+string init_scheme_variables_global;
 
 /* Generate preview of first system.  */
 bool make_preview = false;
@@ -178,8 +178,6 @@ static Long_option_init options_static[]
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
-  {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript\n"
-			     "operations")},
   {0, "version", 'v',  _i ("show version number and exit")},
   {0, "verbose", 'V', _i ("be verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
@@ -388,6 +386,8 @@ main_with_guile (void *, int, char **)
 			  || output_backend_global == "texstr");
 
   is_pango_format_global = !is_TeX_format_global;
+  init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
+  init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
   call_constructors ();
@@ -396,24 +396,6 @@ main_with_guile (void *, int, char **)
   init_freetype ();
   ly_reset_all_fonts ();
 
-  if (!init_scheme_variables.empty ()
-      || !init_scheme_code_string.empty ())
-    {
-      init_scheme_variables = "(map (lambda (x) (ly:set-option (car x) (cdr x))) (list "
-	+ init_scheme_variables + "))";
-
-      init_scheme_code_string
-	= "(begin #t "
-	+ init_scheme_variables
-	+ init_scheme_code_string
-	+ ")";
-
-      char const *str0 = init_scheme_code_string.c_str ();
-
-      if (be_verbose_global)
-	progress_indication (_f ("Evaluating %s", str0));
-      scm_c_eval_string ((char *) str0);
-    }
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
@@ -508,7 +490,7 @@ parse_argv (int argc, char **argv)
 		val = arg.substr (eq + 1, arg.length () - 1);
 	      }
 
-	    init_scheme_variables
+	    init_scheme_variables_global
 	      += "(cons \'" + key + "  " + val + ")\n";
 	  }
 	  break;
@@ -527,8 +509,9 @@ parse_argv (int argc, char **argv)
 	case 'j':
 	  jail_spec = option_parser->optional_argument_str0_;
 	  break;
+	  
 	case 'e':
-	  init_scheme_code_string += option_parser->optional_argument_str0_;
+	  init_scheme_code_string_global += option_parser->optional_argument_str0_ + string (" ");
 	  break;
 	case 'w':
 	  warranty ();
@@ -563,10 +546,6 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'V':
 	  be_verbose_global = true;
-	  break;
-	case 's':
-	  init_scheme_variables
-	    += "(cons \'safe #t)\n";
 	  break;
 	case 'p':
 	  make_preview = true;

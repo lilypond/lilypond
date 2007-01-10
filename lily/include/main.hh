@@ -38,6 +38,9 @@ extern bool point_and_click_global;
 extern string prefix_directory;
 extern bool use_object_keys;
 extern bool strict_infinity_checking;
+extern string init_scheme_code_string_global;
+extern string init_scheme_variables_global;
+
 /*
   todo: collect in Output_option struct?
 */

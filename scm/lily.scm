@@ -14,6 +14,10 @@
 ;; Abbrv-PWR!
 (defmacro-public _i (x) x)
 
+(read-enable 'positions)
+(debug-enable 'debug)
+
+
 (define (define-scheme-options)
   (for-each (lambda (x)
 	      (ly:add-option (car x) (cadr x) (caddr x)))
@@ -72,13 +76,20 @@ on errors, and print a stack trace.")
 	      (show-available-fonts #f
 				    "List font names available.")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
-	      )))
+	      ))
+
+  (map
+   (lambda (x)
+     (ly:set-option (car x) (cdr x))) 
+   (eval-string (ly:command-line-options))))
 
 
 ;; need to do this in the beginning. Other parts of the
 ;; Scheme init depend on these options.
 ;;
 (define-scheme-options)
+
+
 
 (debug-set! stack 0)
 
@@ -265,9 +276,10 @@ The syntax is the same as `define*-public'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
-(for-each ly:load
-	  ;; load-from-path
-	  '("lily-library.scm"
+
+(define
+  init-scheme-files
+  '("lily-library.scm"
 	    "file-cache.scm"
 	    "define-event-classes.scm"
 	    "define-music-types.scm"
@@ -312,6 +324,11 @@ The syntax is the same as `define*-public'."
 
 	    ;; must be after everything has been defined
 	    "safe-lily.scm"))
+
+
+
+
+(for-each ly:load init-scheme-files)
 
 
 (set! type-p-name-alist
@@ -482,11 +499,13 @@ The syntax is the same as `define*-public'."
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
-  
+
   (define (no-files-handler)
     (ly:usage)
     (exit 2))
 
+  (eval-string (ly:command-line-code))
+  
   (if (ly:get-option 'gui)
       (gui-main files))
 
@@ -561,6 +580,7 @@ The syntax is the same as `define*-public'."
 	   
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
+
   
   (let ((failed (lilypond-all files)))
     (if (pair? failed)
@@ -573,7 +593,7 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-
+  
 
   (if (ly:get-option 'show-available-fonts)
       (begin
@@ -631,7 +651,7 @@ The syntax is the same as `define*-public'."
 
     (if (ly:get-option 'dump-profile)
 	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
-    
+
     failed))
 
 (define (lilypond-file handler file-name)
