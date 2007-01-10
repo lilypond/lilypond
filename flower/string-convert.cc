@@ -66,7 +66,6 @@ String_convert::bin2unsigned (string bin_string)
   return result_u;
 }
 
-// breendet imp from string
 int
 String_convert::dec2int (string dec_string)
 {
@@ -76,6 +75,8 @@ String_convert::dec2int (string dec_string)
   long l = 0;
   if (!sscanf (dec_string.c_str (), "%ld", &l))
     assert (false);
+
+  assert (form_string ("%ld", l) == dec_string);
   
   return (int)l;
 }
