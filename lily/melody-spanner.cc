@@ -42,7 +42,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
     next_nonneutral++;
 
   SCM retval = SCM_EOL;
-  while (last_nonneutral == VPOS || last_nonneutral < dirs.size () - 1) 
+  while (last_nonneutral == VPOS || last_nonneutral + 1 < dirs.size ()) 
     {
       Direction d1 = CENTER;
       Direction d2 = CENTER;

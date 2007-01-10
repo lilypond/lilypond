@@ -287,7 +287,7 @@ Page_turn_engraver::finalize ()
 
 	  /* it's possible that the last of my newly-split events overlaps the next repeat_penalty,
 	     in which case we need to refilter that event */
-	  if (rep_index < repeat_penalties_.size () - 1
+	  if (rep_index + 1 < repeat_penalties_.size ()
 	      && split.size ()
 	      && split.back ().duration_[RIGHT] > repeat_penalties_[rep_index+1].duration_[LEFT])
 	    {

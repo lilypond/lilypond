@@ -217,7 +217,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       else
 	{
 	  extra_right_space = distance;
-	  if (idx < offsets.size() - 1)
+	  if (idx + 1 < offsets.size()t)
 	    offsets[idx+1] = extents[idx][RIGHT] + distance;
 	}
 

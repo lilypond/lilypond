@@ -409,7 +409,7 @@ get_line_forces (vector<Grob*> const &columns,
   breaks.clear ();
   breaks.push_back (0);
   cols.push_back (Column_description ());
-  for (vsize i = 1; i < non_loose.size () - 1; i++)
+  for (vsize i = 1; i + 1 < non_loose.size (); i++)
     {
       if (Paper_column::is_breakable (non_loose[i]))
 	breaks.push_back (cols.size ());
@@ -419,7 +419,7 @@ get_line_forces (vector<Grob*> const &columns,
   breaks.push_back (cols.size ());
   force.resize (breaks.size () * breaks.size (), infinity_f);
 
-  for (vsize b = 0; b < breaks.size () - 1; b++)
+  for (vsize b = 0; b + 1 < breaks.size (); b++)
     {
       cols[breaks[b]] = get_column_description (non_loose, breaks[b], true);
       vsize st = breaks[b];
@@ -484,7 +484,7 @@ get_line_configuration (vector<Grob*> const &columns,
   Column_x_positions ret;
 
   ret.cols_.push_back (dynamic_cast<Item*> (columns[0])->find_prebroken_piece (RIGHT));
-  for (vsize i = 1; i < columns.size () - 1; i++)
+  for (vsize i = 1; i + 1 < columns.size (); i++)
     {
       if (is_loose (columns[i]))
 	ret.loose_cols_.push_back (columns[i]);
@@ -495,7 +495,7 @@ get_line_configuration (vector<Grob*> const &columns,
 
   /* since we've already put our line-ending column in the column list, we can ignore
      the end_XXX_ fields of our column_description */
-  for (vsize i = 0; i < ret.cols_.size () - 1; i++)
+  for (vsize i = 0; i + 1 < ret.cols_.size (); i++)
     {
       cols.push_back (get_column_description (ret.cols_, i, i == 0));
       spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
@@ -528,7 +528,7 @@ get_line_configuration (vector<Grob*> const &columns,
   /*
     Check if breaking constraints are met.
   */
-  for (vsize i = 1; i < ret.cols_.size () - 1; i++)
+  for (vsize i = 1; i + 1 < ret.cols_.size (); i++)
     {
       SCM p = ret.cols_[i]->get_property ("line-break-permission");
       if (p == ly_symbol2scm ("force"))

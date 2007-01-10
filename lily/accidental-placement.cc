@@ -406,7 +406,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     {
       Real offset = -apes[i]->right_skyline_.distance (left_skyline);
       if (isinf (offset))
-	offset = (i < apes.size () - 1) ? apes[i + 1]->offset_ : 0.0;
+	offset = (i + 1 < apes.size ()) ? apes[i + 1]->offset_ : 0.0;
       else
 	offset -= padding;
 
