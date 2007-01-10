@@ -100,4 +100,4 @@ ADD_INTERFACE (Piano_pedal_bracket,
 	       "edge-height "
 	       "shorten-pair "
 	       "bracket-flare "
-	       "pedal-text");
+	       "pedal-text ");
