@@ -321,6 +321,9 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
 	  if (!Paper_column::is_musical (right_col))
 	    {
+	      /*
+		reconsider this: breaks with wide marks/tempos/etc.
+	       */
 	      Real left_col_stick_out = robust_relative_extent (left_col, left_col,  X_AXIS)[RIGHT];
 	      compound_fixed_note_space = max (left_col_stick_out, options->increment_);
 
@@ -396,6 +399,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
   Spaceable_grob::add_spring (left_col, right_col, distance, inverse_strength);
 }
+
 
 /*
   Read hints from L and generate springs.
