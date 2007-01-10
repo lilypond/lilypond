@@ -505,7 +505,7 @@ parse_argv (int argc, char **argv)
 	    if (eq != NPOS)
 	      {
 		key = arg.substr (0, eq);
-		val = arg.substr (eq + 1, key.length () - 1);
+		val = arg.substr (eq + 1, arg.length () - 1);
 	      }
 
 	    init_scheme_variables
