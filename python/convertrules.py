@@ -2935,6 +2935,9 @@ def conv (str):
     str = re.sub (r'(\\set\s+)?allowBeamBreak',
                   r"\override Beam #'breakable", str)
     str = re.sub (r'addquote' , 'addQuote', str)
+    if re.search ("Span_dynamic_performer", str):
+        error_file.write ("Span_dynamic_performer has been merged into Dynamic_performer")
+
     return str
 
 conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
