@@ -34,7 +34,7 @@ Performance::~Performance ()
 }
 
 void
-Performance::output (Midi_stream &midi_stream)
+Performance::output (Midi_stream &midi_stream) const
 {
   int tracks_ = audio_staffs_.size ();
 
@@ -89,7 +89,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (string out)
+Performance::write_output (string out) const
 {
   if (out == "-")
     out = "lelie.midi";
@@ -107,3 +107,21 @@ Performance::write_output (string out)
 }
 
 
+void
+Performance::remap_grace_durations ()
+{
+  for (vsize i = 0; i < audio_elements_.size (); i++)
+    {
+      if (Audio_column * col = dynamic_cast<Audio_column*> (audio_elements_[i]))
+	{
+	  col->when_.main_part_ = col->when_.main_part_ + Rational (1,4) * col->when_.grace_part_;
+	  col->when_.grace_part_ = Rational (0);
+	}
+    }
+}
+
+void
+Performance::process ()
+{
+  remap_grace_durations ();
+}
