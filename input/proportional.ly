@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.11"
 
 \header
 {
@@ -14,7 +14,7 @@
    \remove "Forbid_line_break_engraver"
   \override  TupletNumber #'text = #tuplet-number::calc-fraction-text
    tupletFullLength = ##t
-   allowBeamBreak = ##t
+   \override Beam #'breakable = ##t
  }
  \context {
    \Score
