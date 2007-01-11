@@ -17,9 +17,8 @@ public:
   Audio_element ();
   virtual ~Audio_element ();
 
-  VIRTUAL_COPY_CONSTRUCTOR(Audio_element, Audio_element);
+  DECLARE_CLASSNAME(Audio_element);
   virtual char const *name () const;
-protected:
 };
 
 #endif // AUDIO_ELEMENT_HH

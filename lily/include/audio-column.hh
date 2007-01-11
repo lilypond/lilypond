@@ -25,15 +25,12 @@ public:
   Moment when () const;
 
   vector<Audio_item*> audio_items_;
+  Moment when_;
 
 protected:
   void offset_when (Moment m);
   friend class Score_performer;
 
-private:
-  Audio_column (Audio_column const &);
-
-  Moment when_;
 };
 
 #endif // AUDIO_COLUMN_HH

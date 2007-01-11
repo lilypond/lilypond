@@ -96,14 +96,12 @@ Midi_event::Midi_event (Moment delta_mom, Midi_item *midi)
   midi_ = midi;
 }
 
-/*
-  ugh. midi output badly broken since grace note hackage.
-*/
 string
 Midi_event::to_string () const
 {
-  Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
-		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
+  assert (delta_mom_.grace_part_ == Rational (0));
+  
+  Rational rat_dt = delta_mom_.main_part_ * Rational (384) * Rational (4);
   int delta = rat_dt.to_int ();
 
   string delta_string = Midi_item::i2varint_string (delta);
@@ -251,7 +249,7 @@ Midi_note::Midi_note (Audio_note *a)
 Moment
 Midi_note::get_length () const
 {
-  Moment m = audio_->length_mom_;
+  Moment m = audio_->end_column_->when () - audio_->audio_column_->when ();
   return m;
 }
 

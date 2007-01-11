@@ -19,12 +19,13 @@ public:
   DECLARE_CLASSNAME(Performance);
 
   void add_element (Audio_element *p);
-
-  void output (Midi_stream &midi_stream_r);
-  void output_header_track (Midi_stream &midi_stream_r);
+  virtual void process ();
+  void remap_grace_durations ();
+  void output (Midi_stream &midi_stream) const;
+  void output_header_track (Midi_stream &midi_stream) const;
 
   void print () const;
-  void write_output (string filename);
+  void write_output (string filename) const;
 
   vector<Audio_staff*> audio_staffs_;
   vector<Audio_element*> audio_elements_;
