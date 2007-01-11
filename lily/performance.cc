@@ -38,11 +38,9 @@ Performance::output (Midi_stream &midi_stream) const
 {
   int tracks_ = audio_staffs_.size ();
 
-  // ugh
-  int clocks_per_4 = 384;
-
-  midi_stream << Midi_header (1, tracks_, clocks_per_4);
-  message (_ ("Track...") + " ");
+  midi_stream << Midi_header (1, tracks_, 384);
+  if (be_verbose_global)
+    progress_indication (_ ("Track...") + " ");
   
   int channel = 0;
   for (vsize i = 0; i < audio_staffs_.size (); i++)
@@ -108,20 +106,6 @@ Performance::write_output (string out) const
 
 
 void
-Performance::remap_grace_durations ()
-{
-  for (vsize i = 0; i < audio_elements_.size (); i++)
-    {
-      if (Audio_column * col = dynamic_cast<Audio_column*> (audio_elements_[i]))
-	{
-	  col->when_.main_part_ = col->when_.main_part_ + Rational (1,4) * col->when_.grace_part_;
-	  col->when_.grace_part_ = Rational (0);
-	}
-    }
-}
-
-void
 Performance::process ()
 {
-  remap_grace_durations ();
 }

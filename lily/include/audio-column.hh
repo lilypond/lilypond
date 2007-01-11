@@ -26,7 +26,7 @@ public:
 
   vector<Audio_item*> audio_items_;
   Moment when_;
-
+  int ticks () const ;
 protected:
   void offset_when (Moment m);
   friend class Score_performer;
