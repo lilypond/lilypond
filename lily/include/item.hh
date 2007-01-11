@@ -22,10 +22,10 @@ class Item : public Grob
 
   DECLARE_CLASSNAME(Item);
 public:
-  Item (SCM, Object_key const *);
-  Item (Item const &, int count);
+  Item (SCM);
+  Item (Item const &);
 
-  virtual Grob *clone (int count) const;
+  virtual Grob *clone () const;
 
   static bool is_non_musical (Grob *);
   bool is_broken () const;

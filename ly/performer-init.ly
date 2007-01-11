@@ -30,7 +30,7 @@
 \context {
     \type "Performer_group"
     \name Voice
-    \consists "New_dynamic_performer"    
+    \consists "Dynamic_performer"    
     \consists "Tie_performer"
     \consists "Piano_pedal_performer"
     \consists "Note_performer"

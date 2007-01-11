@@ -306,17 +306,6 @@ LY_DEFINE (ly_spanner_p, "ly:spanner?",
   return ly_bool2scm (b);
 }
 
-LY_DEFINE (ly_grob_key, "ly:grob-key",
-	   1, 0, 0,
-	   (SCM grob),
-	   "Return the object-key for @var{grob}.")
-{
-  Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
-  
-  return me->key () ?  me->key ()->self_scm () : SCM_EOL;
-}
-
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
 	   1, 0, 0, (SCM grob),
 	   "Return the default font for grob @var{gr}.")

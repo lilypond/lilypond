@@ -22,9 +22,6 @@ Grob::mark_smob (SCM ses)
   Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
 
-  if (s->key_)
-    scm_gc_mark (s->key_->self_scm ());
-
   /* Do not mark the parents.  The pointers in the mutable
      property list form two tree like structures (one for X
      relations, one for Y relations).  Marking these can be done

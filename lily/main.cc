@@ -77,7 +77,7 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-string init_scheme_code_string_global;
+string init_scheme_code_global;
 string init_scheme_variables_global;
 
 /* Generate preview of first system.  */
@@ -511,7 +511,7 @@ parse_argv (int argc, char **argv)
 	  break;
 	  
 	case 'e':
-	  init_scheme_code_string_global += option_parser->optional_argument_str0_ + string (" ");
+	  init_scheme_code_global += option_parser->optional_argument_str0_ + string (" ");
 	  break;
 	case 'w':
 	  warranty ();

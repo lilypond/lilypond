@@ -116,18 +116,17 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
   
   SCM props = updated_grob_properties (context (), symbol);
 
-  Object_key const *key = 0;
   Grob *grob = 0;
 
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
   SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
   if (klass == ly_symbol2scm ("Item"))
-    grob = new Item (props, key);
+    grob = new Item (props);
   else if (klass == ly_symbol2scm ("Spanner"))
-    grob = new Spanner (props, key);
+    grob = new Spanner (props);
   else if (klass == ly_symbol2scm ("Paper_column"))
-    grob = new Paper_column (props, key);
+    grob = new Paper_column (props);
 
   assert (grob);
   announce_grob (grob, cause);

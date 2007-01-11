@@ -186,7 +186,7 @@ Auto_beam_engraver::create_beam ()
     Can't use make_spanner_from_properties() because we have to use
     beam_settings_.
   */
-  Spanner *beam = new Spanner (beam_settings_, 0);
+  Spanner *beam = new Spanner (beam_settings_);
 
   for (vsize i = 0; i < stems_->size (); i++)
     Beam::add_stem (beam, (*stems_)[i]);

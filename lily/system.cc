@@ -21,14 +21,13 @@
 #include "pointer-group-interface.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "tweak-registration.hh"
 #include "warn.hh"
 #include "lookup.hh"
 
 extern bool debug_skylines;
 
-System::System (System const &src, int count)
-  : Spanner (src, count)
+System::System (System const &src)
+  : Spanner (src)
 {
   all_elements_ = 0;
   pscore_ = 0;
@@ -36,8 +35,8 @@ System::System (System const &src, int count)
   init_elements ();
 }
 
-System::System (SCM s, Object_key const *key)
-  : Spanner (s, key)
+System::System (SCM s)
+  : Spanner (s)
 {
   all_elements_ = 0;
   rank_ = 0;
@@ -54,9 +53,9 @@ System::init_elements ()
 }
 
 Grob *
-System::clone (int index) const
+System::clone () const
 {
-  return new System (*this, index);
+  return new System (*this);
 }
 
 int
@@ -210,7 +209,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast<System *> (clone (broken_intos_.size ()));
+      System *system = dynamic_cast<System *> (clone ());
       system->rank_ = broken_intos_.size ();
 
       vector<Grob*> c (breaking[i].cols_);

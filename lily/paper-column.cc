@@ -25,9 +25,9 @@
 #include "string-convert.hh"
 
 Grob *
-Paper_column::clone (int count) const
+Paper_column::clone () const
 {
-  return new Paper_column (*this, count);
+  return new Paper_column (*this);
 }
 
 void
@@ -60,15 +60,15 @@ Paper_column::get_column () const
   return (Paper_column *) (this);
 }
 
-Paper_column::Paper_column (SCM l, Object_key const *key)
-  : Item (l, key)		// guh.?
+Paper_column::Paper_column (SCM l)
+  : Item (l)
 {
   system_ = 0;
   rank_ = -1;
 }
 
-Paper_column::Paper_column (Paper_column const &src, int count)
-  : Item (src, count)
+Paper_column::Paper_column (Paper_column const &src)
+  : Item (src)
 {
   system_ = 0;
   rank_ = src.rank_;
