@@ -184,7 +184,7 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      /* read */
 		      "currentMusicalColumn "
 		      "currentCommandColumn "
-		      "verticallySpacedContexts",
+		      "verticallySpacedContexts ",
 
 		      /* write */
 		      "");

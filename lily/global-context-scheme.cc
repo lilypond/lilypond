@@ -12,7 +12,6 @@
 #include "music-iterator.hh"
 #include "music-output.hh"
 #include "music.hh"
-#include "object-key.hh"
 #include "output-def.hh"
 #include "translator-group.hh"
 #include "warn.hh"

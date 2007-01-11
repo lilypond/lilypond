@@ -15,7 +15,6 @@
 #include "international.hh"
 #include "lily-lexer.hh"
 #include "lily-version.hh"
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

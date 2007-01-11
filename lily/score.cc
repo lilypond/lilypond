@@ -17,7 +17,6 @@ using namespace std;
 #include "global-context.hh"
 #include "international.hh"
 #include "lily-parser.hh"
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "music.hh"
 #include "music.hh"

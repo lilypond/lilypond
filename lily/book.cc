@@ -11,7 +11,6 @@
 #include <cstdio>
 using namespace std;
 
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -130,9 +129,6 @@ Book::process (Output_def *default_paper,
   Real scale = scm_to_double (paper->c_variable ("output-scale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
-  Object_key *key = new Lilypond_general_key (0, user_key_, 0);
-  SCM scm_key = key->unprotect ();
-
   paper_book->paper_ = scaled_bookdef;
   scaled_bookdef->unprotect ();
 
@@ -168,7 +164,6 @@ Book::process (Output_def *default_paper,
 	assert (0);
     }
 
-  scm_remember_upto_here_1 (scm_key);
   return paper_book;
 }
 

@@ -11,9 +11,9 @@
 
 #include "lily-proto.hh"
 #include "std-vector.hh"
-#include "object-key.hh"
 #include "std-string.hh"
 #include "virtual-methods.hh"
+#include "smobs.hh"
 
 class Book
 {

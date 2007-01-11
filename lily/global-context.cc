@@ -14,7 +14,6 @@ using namespace std;
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "international.hh"
-#include "lilypond-key.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"

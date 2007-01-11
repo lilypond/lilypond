@@ -11,7 +11,6 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "global-context.hh"
-#include "lilypond-key.hh"
 #include "music-output.hh"
 #include "paper-score.hh"
 #include "paper-book.hh"
