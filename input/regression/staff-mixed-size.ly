@@ -7,7 +7,7 @@ large on smaller staves."
 
 }
 
-\version "2.10.0"
+\version "2.11.11"
 
 \layout {
   #(layout-set-staff-size 6)
