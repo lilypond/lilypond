@@ -298,6 +298,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
 
+  (void) me->get_property ("beaming");
+  
   extract_grob_set (me, "stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
 
@@ -453,8 +455,8 @@ Beam::print (SCM grob)
 {
   Spanner *me = unsmob_spanner (grob);
   Grob *commonx = 0;
-  vector<Beam_segment> segments = get_beam_segments (me, &commonx);
 
+  vector<Beam_segment> segments = get_beam_segments (me, &commonx);
   Interval span;
   if (visible_stem_count (me))
     {
