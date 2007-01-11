@@ -1,22 +1,16 @@
-\version "2.10.0"
-\header{ texidoc = "Tests MIDI output with grace notes. " }
 
-\score { 
-  \context Voice \relative c {
-    \new Voice = VoiceOne
-	\grace {
-  \override Stem  #'stroke-style = #"grace"
-   c8 
-  \revert Stem #'stroke-style }
- d4 d d d d
-	\grace {
-  \override Stem  #'stroke-style = #"grace"
-   e16 f e f 
-  \revert Stem #'stroke-style }
- d4 d d d d 
-	
-  }
-  \layout { }  
-  \midi { }
+\header {
+
+  texidoc = "Grace notes don't intrroduce syncing problems: the last note
+off will appear at tick 768 (2 * 384)."
+  
 }
-
+\version "2.10.10"
+\score {
+ \relative c' {
+   c4
+   \grace { b8 }
+   d4
+ }
+ \midi { }
+}

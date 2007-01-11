@@ -90,21 +90,16 @@ Midi_duration::to_string () const
   return string ("<duration: ") + ::to_string (seconds_) + ">";
 }
 
-Midi_event::Midi_event (Moment delta_mom, Midi_item *midi)
+Midi_event::Midi_event (int delta_ticks, Midi_item *midi)
 {
-  delta_mom_ = delta_mom;
+  delta_ticks_ = delta_ticks;
   midi_ = midi;
 }
 
 string
 Midi_event::to_string () const
 {
-  assert (delta_mom_.grace_part_ == Rational (0));
-  
-  Rational rat_dt = delta_mom_.main_part_ * Rational (384) * Rational (4);
-  int delta = rat_dt.to_int ();
-
-  string delta_string = Midi_item::i2varint_string (delta);
+  string delta_string = Midi_item::i2varint_string (delta_ticks_);
   string midi_string = midi_->to_string ();
   assert (midi_string.length ());
   return delta_string + midi_string;
@@ -243,12 +238,6 @@ Midi_note::Midi_note (Audio_note *a)
   dynamic_byte_ = 0x7f;
 }
 
-Moment
-Midi_note::get_length () const
-{
-  Moment m = audio_->end_column_->when () - audio_->audio_column_->when ();
-  return m;
-}
 
 int
 Midi_note::get_fine_tuning () const
@@ -292,7 +281,7 @@ Midi_note::to_string () const
       str += ::to_string ((char) (0x00));
     }
 
-  str += ::to_string ((char)status_byte);
+  str += ::to_string ((char) status_byte);
   str += ::to_string ((char) (get_semitone_pitch () + c0_pitch_));
   str += ::to_string ((char)dynamic_byte_);
 
@@ -454,11 +443,11 @@ Midi_track::Midi_track ()
 }
 
 void
-Midi_track::add (Moment delta_time_mom, Midi_item *midi)
+Midi_track::add (int delta_ticks, Midi_item *midi)
 {
-  assert (delta_time_mom >= Moment (0));
+  assert (delta_ticks >= 0);
 
-  Midi_event *e = new Midi_event (delta_time_mom, midi);
+  Midi_event *e = new Midi_event (delta_ticks, midi);
   events_.push_back (e);
 }
 

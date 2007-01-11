@@ -47,9 +47,9 @@ public:
 class Midi_event
 {
 public:
-  Midi_event (Moment delta_mom, Midi_item *midi);
+  Midi_event (int delta, Midi_item *midi);
 
-  Moment delta_mom_;
+  int delta_ticks_;
   Midi_item *midi_;
   string to_string () const;
 };
@@ -134,7 +134,6 @@ public:
   Midi_note (Audio_note *);
   DECLARE_CLASSNAME(Midi_note);
 
-  Moment get_length () const;
   int get_semitone_pitch () const;
   int get_fine_tuning () const;
   virtual string to_string () const;
@@ -225,7 +224,7 @@ public:
   Midi_track ();
   ~Midi_track ();
 
-  void add (Moment delta_time_mom, Midi_item *midi);
+  void add (int, Midi_item *midi);
   virtual string data_string () const;
 };
 

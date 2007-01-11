@@ -122,5 +122,9 @@ public:
   int one_beat_;
 };
 
+int moment_to_ticks (Moment);
+Real moment_to_real (Moment);
+Moment remap_grace_duration (Moment);
+
 #endif // AUDIO_ITEM_HH
 

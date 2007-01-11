@@ -75,11 +75,23 @@ Audio_span_dynamic::add_absolute (Audio_dynamic *d)
   dynamics_.push_back (d);
 }
 
-static Real
-moment2real (Moment m)
+Moment
+remap_grace_duration (Moment m)
 {
-  return m.main_part_.to_double ()
-    + 0.1 * m.grace_part_.to_double ();
+  return Moment (m.main_part_ + Rational (9,40) * m.grace_part_,
+		 Rational (0));
+}
+
+Real
+moment_to_real (Moment m)
+{
+  return remap_grace_duration (m).main_part_.to_double ();
+}
+
+int
+moment_to_ticks (Moment m)
+{
+  return int (moment_to_real (m) * 384 * 4);
 }
 
 void
@@ -113,14 +125,14 @@ Audio_span_dynamic::render ()
 
   Moment start = dynamics_[0]->get_column ()->when ();
 
-  Real total_t = moment2real (dynamics_.back ()->get_column ()->when () - start);
+  Real total_t = moment_to_real (dynamics_.back ()->get_column ()->when () - start);
   
   for (vsize i = 1; i < dynamics_.size(); i ++)
     {
       Moment dt_moment = dynamics_[i]->get_column ()->when ()
 	- start;
 
-      Real dt =  moment2real (dt_moment);
+      Real dt =  moment_to_real (dt_moment);
       
       Real v = start_v + delta_v *  (dt / total_t);
 
