@@ -1,9 +1,9 @@
 /*
-  dynamic-performer.cc -- implement New_dynamic_performer
+  dynamic-performer.cc -- implement Dynamic_performer
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "performer.hh"
@@ -12,17 +12,10 @@
 
 #include "translator.icc"
 
-/*
-  TODO:
-
-  handle multiple events
-
-  perform absolute (text) dynamics
-*/
-class New_dynamic_performer : public Performer
+class Dynamic_performer : public Performer
 {
 public:
-  TRANSLATOR_DECLARATIONS (New_dynamic_performer);
+  TRANSLATOR_DECLARATIONS (Dynamic_performer);
 protected:
   void stop_translation_timestep ();
   void process_music ();
@@ -41,7 +34,7 @@ private:
   Audio_span_dynamic *finished_span_dynamic_;
 };
 
-New_dynamic_performer::New_dynamic_performer ()
+Dynamic_performer::Dynamic_performer ()
 {
   last_volume_ = 0.5;
   script_event_ = 0;
@@ -53,7 +46,7 @@ New_dynamic_performer::New_dynamic_performer ()
 }
 
 Real
-New_dynamic_performer::equalize_volume (Real volume)
+Dynamic_performer::equalize_volume (Real volume)
 {
   /*
     properties override default equaliser setting
@@ -97,7 +90,7 @@ New_dynamic_performer::equalize_volume (Real volume)
 
 
 void
-New_dynamic_performer::process_music ()
+Dynamic_performer::process_music ()
 {
   if (span_events_[STOP] || script_event_)
     {
@@ -149,7 +142,7 @@ New_dynamic_performer::process_music ()
 }
 
 void
-New_dynamic_performer::stop_translation_timestep ()
+Dynamic_performer::stop_translation_timestep ()
 {
   if (finished_span_dynamic_)
     {
@@ -173,33 +166,33 @@ New_dynamic_performer::stop_translation_timestep ()
     span_events_[RIGHT] = 0;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_performer, decrescendo);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, decrescendo);
 void
-New_dynamic_performer::listen_decrescendo (Stream_event *r)
+Dynamic_performer::listen_decrescendo (Stream_event *r)
 {
   Direction d = to_dir (r->get_property ("span-direction"));
   span_events_[d] = r;
   grow_dir_[d] = SMALLER;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_performer, crescendo);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, crescendo);
 void
-New_dynamic_performer::listen_crescendo (Stream_event *r)
+Dynamic_performer::listen_crescendo (Stream_event *r)
 {
   Direction d = to_dir (r->get_property ("span-direction"));
   span_events_[d] = r;
   grow_dir_[d] = BIGGER;
 }
 
-IMPLEMENT_TRANSLATOR_LISTENER (New_dynamic_performer, absolute_dynamic);
+IMPLEMENT_TRANSLATOR_LISTENER (Dynamic_performer, absolute_dynamic);
 void
-New_dynamic_performer::listen_absolute_dynamic (Stream_event *r)
+Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 {
   if (!script_event_)
     script_event_ = r;
 }
 
-ADD_TRANSLATOR (New_dynamic_performer,
+ADD_TRANSLATOR (Dynamic_performer,
 		/* doc */ 		 "",
 		/* create */ "",
 

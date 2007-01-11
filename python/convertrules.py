@@ -2878,3 +2878,11 @@ def conv (str):
 
 conversions.append (((2, 10, 0), conv, """bump version for release"""))
 
+
+def conv (str):
+    if re.search ("Span_dynamic_performer", str):
+        error_file.write ("Span_dynamic_performer has been merged into Dynamic_performer")
+
+    return str
+
+conversions.append (((2, 10, 10), conv, """Warn about Span_dynamic_performer"""))
