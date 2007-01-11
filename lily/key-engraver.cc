@@ -219,7 +219,6 @@ ADD_TRANSLATOR (Key_engraver,
 		"extraNatural "
 		"keyAlterationOrder "
 		"keySignature "
-		"keySignature "
 		"lastKeySignature "
 		"printKeyCancellation "
 		,
