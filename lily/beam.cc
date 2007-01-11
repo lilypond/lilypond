@@ -317,7 +317,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem #'beaming is correct */
-  (void) me_grob->get_property ("quantized-positions");
+  (void) me_grob->get_property ("beaming");
 
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
 
