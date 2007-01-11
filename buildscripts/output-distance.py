@@ -383,8 +383,6 @@ class FileLink:
         return self.file_names[oldnew]
     
     def html_record_string (self, dest_dir):
-        self.link_files_for_html (dest_dir)
-        
         dist = self.distance()
         
         details = self.get_distance_details ()
@@ -392,7 +390,7 @@ class FileLink:
             details_base = os.path.splitext (self.file_names[1])[0]
             details_base += '.details.html'
             fn = dest_dir + '/'  + details_base
-            open (fn, 'w').write (details)
+            open_write_file (fn).write (details)
 
             details = '<br>(<a href="%(details_base)s">details</a>)' % locals ()
 
@@ -931,7 +929,12 @@ class ComparisonData:
 
         dest_file = dest_dir + '/index.html'
         open_write_file (dest_file).write (html)
+
+
+        for link in changed:
+            link.link_files_for_html (dest_dir)
         
+
     def print_results (self, threshold):
         self.write_text_result_page ('', threshold)
 
