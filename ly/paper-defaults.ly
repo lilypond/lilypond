@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.11"
 #(use-modules (scm layout-page-layout))
 \paper {
 
@@ -33,7 +33,7 @@
     %% ugh. hard coded?
     %%
 
-    #(layout-set-staff-size (* 20.0 pt))
+    #(layout-set-absolute-staff-size (* 20.0 pt))
 
 
     #(define-public score-title-properties
