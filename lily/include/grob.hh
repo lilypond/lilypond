@@ -13,7 +13,6 @@
 #include "virtual-methods.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
-#include "object-key.hh"
 
 class Grob
 {
@@ -28,7 +27,6 @@ protected:
   Dimension_cache dim_cache_[NO_AXES];
   Output_def *layout_;
   Grob *original_;
-  Object_key const *key_;
 
   /* SCM data */
   SCM immutable_property_alist_;
@@ -65,12 +63,11 @@ public:
   Output_def *layout () const { return layout_; }
   Grob *original () const { return original_; }
   SCM interfaces () const { return interfaces_; }
-  Object_key const *key () const { return key_; }
 
   /* life & death */ 
-  Grob (SCM basic_props, Object_key const *);
-  Grob (Grob const &, int copy_count);
-  virtual Grob *clone (int count) const;
+  Grob (SCM basic_props);
+  Grob (Grob const &);
+  virtual Grob *clone () const;
 
   /* forced death */
   void suicide ();

@@ -104,5 +104,7 @@ ADD_TRANSLATOR (Note_heads_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */
 		"NoteHead ",
-		/* read */ "middleCPosition",
-		/* write */ "");
+		/* read */
+		"middleCPosition",
+		/* write */
+		"");

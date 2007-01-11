@@ -219,7 +219,7 @@ LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
 	   "The Scheme specified on command-line with @samp{-e}.")
 {
-  return ly_string2scm (init_scheme_code_string_global); 
+  return ly_string2scm (init_scheme_code_global); 
 }
 
 LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),

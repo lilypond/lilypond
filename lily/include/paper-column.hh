@@ -22,10 +22,10 @@ class Paper_column : public Item
   friend void set_loose_columns (System *which, Column_x_positions const *posns);
   friend class System;
 public:
-  Paper_column (SCM, Object_key const *);
-  Paper_column (Paper_column const &, int count);
+  Paper_column (SCM);
+  Paper_column (Paper_column const &);
 
-  virtual Grob *clone (int count) const;
+  virtual Grob *clone () const;
   virtual void do_break_processing ();
   virtual Paper_column *get_column () const;
   virtual System *get_system () const;
