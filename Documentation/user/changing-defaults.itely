@@ -34,7 +34,7 @@ That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/v2.10/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
 There are four areas where the default settings may be changed:
