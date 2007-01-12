@@ -14,30 +14,13 @@
 #include "skyline.hh"
 #include "tie-configuration.hh"
 #include "tie-details.hh"
+#include "tie-specification.hh"
 #include "tuple.hh"
 
 #include <map>
 #include <set>
 
 typedef map< Tuple<int,4>, Tie_configuration *> Tie_configuration_map;
-
-struct Tie_specification
-{
-  int position_;
-  Drul_array<Grob*> note_head_drul_;
-  Drul_array<int> column_ranks_;
-  
-  bool has_manual_position_;
-  bool has_manual_dir_;
-  
-  Real manual_position_;
-  Direction manual_dir_;
-  
-  Tie_specification ();
-  int column_span () const;
-  void get_tie_manual_settings (Grob *);
-};
-
 struct Tie_configuration_variation
 {
   int index_;
@@ -62,11 +45,13 @@ class Tie_formatting_problem
   Grob *x_refpoint_;
 
   
-  Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols) const;
-  Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols) const;
+  Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+  Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+
   vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
   vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
-
+  vector<Tie_configuration_variation> generate_single_tie_variations (Ties_configuration const &ties) const;
+  
   void score_configuration (Tie_configuration *) const;
   Real score_aptitude (Tie_configuration *, Tie_specification const &,
 		       Ties_configuration *, int) const;
@@ -77,7 +62,7 @@ class Tie_formatting_problem
   
   Ties_configuration generate_base_chord_configuration ();
   Ties_configuration find_best_variation (Ties_configuration const &base,
-					  vector<Tie_configuration_variation> vars);
+					  vector<Tie_configuration_variation> const &vars);
 
 public:
   Tie_details details_;
@@ -91,9 +76,8 @@ public:
   ~Tie_formatting_problem ();
 
   Tie_specification get_tie_specification (int) const;
-  Ties_configuration generate_optimal_chord_configuration ();
+  Ties_configuration generate_optimal_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
-  Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
 
   void from_ties (vector<Grob*> const &ties);
   void from_tie (Grob *tie);
@@ -103,6 +87,7 @@ public:
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real, Drul_array<int>) const;
   Grob *common_x_refpoint () const;
+  void set_debug_scoring (Ties_configuration const &);
 };
 
 #endif /* TIE_FORMATTING_PROBLEM_HH */

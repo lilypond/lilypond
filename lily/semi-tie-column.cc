@@ -55,7 +55,7 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   SCM manual_configs = me->get_property ("tie-configuration");
   problem.set_manual_tie_configuration (manual_configs);
 
-  Ties_configuration base = problem.generate_optimal_chord_configuration ();
+  Ties_configuration base = problem.generate_optimal_configuration ();
   for (vsize i = 0; i < lv_ties.size(); i++)
     {
       SCM cp = Tie::get_control_points (lv_ties[i], problem.common_x_refpoint (), base[i],
@@ -63,8 +63,10 @@ Semi_tie_column::calc_positioning_done (SCM smob)
 
       lv_ties[i]->set_property ("control-points", cp);
       set_grob_direction (lv_ties[i], base[i].dir_);
-    }
 
+      problem.set_debug_scoring (base);
+    }
+  
   return SCM_BOOL_T;
 }
   

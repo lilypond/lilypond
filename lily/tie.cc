@@ -148,7 +148,8 @@ Tie::calc_direction (SCM smob)
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent)) 
       && unsmob_grob_array (yparent->get_object ("ties"))
-      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1)
+      //      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1
+      )
     {
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
@@ -170,18 +171,17 @@ Tie::get_default_control_points (Grob *me_grob)
   
   Tie_formatting_problem problem;
   problem.from_tie (me);
+  
   Tie_specification spec = problem.get_tie_specification (0);
-  spec.has_manual_dir_ = true;
-  spec.manual_dir_ = get_grob_direction (me);
-
   if (!me->is_live ())
     return SCM_EOL;
 
-  Tie_configuration conf
-    = problem.find_optimal_tie_configuration (spec);
+  
+  Ties_configuration conf
+    = problem.generate_optimal_configuration ();
   
   return get_control_points (me, problem.common_x_refpoint (),
-			     conf, problem.details_);
+			     conf[0], problem.details_);
 }
 
 SCM
@@ -211,14 +211,12 @@ Tie::calc_control_points (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
 
-  // trigger Tie-column
-  (void)  get_grob_direction (me);
-
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent)) 
       && unsmob_grob_array (yparent->get_object ("ties"))
-      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1)
+      //      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1
+      )
     {
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
@@ -234,7 +232,7 @@ Tie::calc_control_points (SCM smob)
 }
 
 /*
-  TODO: merge witnh Slur::print.
+  TODO: merge with Slur::print.
  */
 MAKE_SCHEME_CALLBACK (Tie, print, 1);
 SCM
@@ -283,8 +281,15 @@ Tie::print (SCM smob)
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
 				     quant_score));
-      tm.translate_axis (b.control_[0][Y_AXIS]*2, Y_AXIS);
-      a.add_at_edge (X_AXIS, RIGHT, tm, 1.0, 0);
+      tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
+			    b.control_[0][Y_AXIS] * 2));
+      tm = tm.in_color (1, 0, 0);
+
+      /*
+	It would be nice if we could put this in a different layer,
+	but alas, this must be done with a Tie override.
+       */
+      a.add_stencil (tm);
     }
 #endif
 

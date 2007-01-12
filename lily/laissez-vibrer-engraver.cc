@@ -60,12 +60,20 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
     {
       lv_column_ = make_item ("LaissezVibrerTieColumn", event_->self_scm ());
     }
-  
-  Grob *lv_tie = make_item ("LaissezVibrerTie", event_->self_scm ());
+
+  SCM cause = event_->self_scm ();
+  Grob *lv_tie = make_item ("LaissezVibrerTie", cause);
   lv_tie->set_object ("note-head", inf.grob ()->self_scm ());
   
   Pointer_group_interface::add_grob (lv_column_, ly_symbol2scm ("ties"),
 				     lv_tie);
+
+  if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
+    {
+      Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
+      lv_tie->set_property ("direction", scm_from_int (d)); 
+    }
+  
   lv_tie->set_parent (lv_column_, Y_AXIS);
 
   lv_ties_.push_back (lv_tie);

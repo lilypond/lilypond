@@ -158,15 +158,37 @@ Ties_configuration::score () const
 }
 
 
+string
+Ties_configuration::complete_tie_card (vsize i) const
+{
+  string s;
+  s += to_string ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
+		  ((*this)[i].dir_ == UP ? 'u' : 'd'))
+    + (*this)[i].card () + (*this).tie_card (i);
+  
+  /*
+    this is a little awkward, but we must decide where to put
+    aggregrates.
+   */
+  if (i == 0)
+    s += card ();
+
+  if (i + 1 == size ())
+    s += to_string ("TOTAL=%.2f", score ());
+  
+  return s;
+}
+
 /* for use inside GDB */
 string
 Ties_configuration::complete_score_card () const
 {
-  string s =  score_card_;
-  for (vsize i = 0; i < tie_score_cards_.size();  i++)
+  string s; 
+  for (vsize i = 0; i < size(); i++)
     {
-      s += "\n" + tie_score_cards_[i];
+      s += complete_tie_card (i);
     }
+
   return s;
 }
 
