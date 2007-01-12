@@ -199,7 +199,8 @@ of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
-and slur ignore eachother.")
+and slur ignore each other.  @code{around} will only move the script if
+there is a collision; @code{outside} will always move the script.")
      (ignore-collision ,boolean? "If set, don't do note collision resolution on this NoteColumn.")
      (infinite-spacing-height ,boolean? "If true, then for the purposes of
 horizontal spacing, treat this item as though it were infinitely tall. That
