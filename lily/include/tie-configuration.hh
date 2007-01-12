@@ -68,6 +68,7 @@ public:
   void reset_score ();
   string card () const; 
   string tie_card (int i) const { return tie_score_cards_[i]; }
+  string complete_score_card () const; 
 };
 
 #endif /* TIE_CONFIGURATION_HH */

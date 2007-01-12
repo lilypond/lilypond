@@ -157,8 +157,24 @@ Ties_configuration::score () const
   return score_;
 }
 
+
+/* for use inside GDB */
+string
+Ties_configuration::complete_score_card () const
+{
+  string s =  score_card_;
+  for (vsize i = 0; i < tie_score_cards_.size();  i++)
+    {
+      s += "\n" + tie_score_cards_[i];
+    }
+  return s;
+}
+
+
+
 string
 Ties_configuration::card () const
 {
   return score_card_;
 }
+
