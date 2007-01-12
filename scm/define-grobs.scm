@@ -1823,7 +1823,7 @@
 		    (height-limit . 1.0)
 		    (horizontal-distance-penalty-factor . 10)
 		    (same-dir-as-stem-penalty . 8)
-		    (min-length-penalty-factor . 20)
+		    (min-length-penalty-factor . 26)
 		    (tie-tie-collision-distance . 0.45) 
 		    (tie-tie-collision-penalty . 25.0)
 		    (intra-space-threshold . 1.25)

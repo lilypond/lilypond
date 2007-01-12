@@ -168,24 +168,25 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
       extract_grob_set (stem, "note-heads", heads);
       for (vsize i = 0; i < heads.size(); i ++)
 	{
-	  if (find (bounds.begin(), bounds.end (), dynamic_cast<Item*> (heads[i])) !=  bounds.end ())
-	    continue;
-
-	  /*
-	    other untied notes in the same chord.
-	   */
+	  if (find (bounds.begin(), bounds.end (), dynamic_cast<Item*> (heads[i])) ==  bounds.end ())
+	    {
+	      /*
+		other untied notes in the same chord.
+	      */
 	  
-	  Interval y = Staff_symbol_referencer::extent_in_staff (heads[i]);
-	  Interval x = heads[i]->extent (x_refpoint_, X_AXIS);
-	  boxes.push_back (Box (x, y));
-
+	      Interval y = Staff_symbol_referencer::extent_in_staff (heads[i]);
+	      Interval x = heads[i]->extent (x_refpoint_, X_AXIS);
+	      boxes.push_back (Box (x, y));
+	    }
 	  
 	  Grob *acc = unsmob_grob (heads[i]->get_object ("accidental-grob"));
-	  if (acc && dir == RIGHT)
+	  if (acc && acc->is_live () && dir == RIGHT)
 	    {
 	      boxes.push_back (Box (acc->extent (x_refpoint_, X_AXIS),
 				    Staff_symbol_referencer::extent_in_staff (acc)));
 	    }
+
+	  head_positions_[column_rank].add_point (int (Staff_symbol_referencer::get_position (heads[i])));
 	}
       
     }
@@ -458,37 +459,41 @@ Tie_formatting_problem::generate_configuration (int pos, Direction dir,
 	size.
 	
        */
-      if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
+      if (head_positions_slice (columns[LEFT]).contains (pos)
+	  || head_positions_slice (columns[RIGHT]).contains (pos)
+	  || abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
 	{
-	  if (!Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos)
-	      && abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+	  if (h < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
 	    {
-	      conf->center_tie_vertically (details_);
+	      if (!Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos)
+		  && abs (pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+		{
+		  conf->center_tie_vertically (details_);
+		}
+	      else if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
+		{
+		  conf->delta_y_ += dir *
+		    details_.tip_staff_line_clearance_ * 0.5 *  details_.staff_space_;
+		}
 	    }
-	  else if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, pos))
+	  else 
 	    {
-	      conf->delta_y_ += dir *
-		details_.tip_staff_line_clearance_ * 0.5 *  details_.staff_space_;
-	    }
-	}
-      else 
-	{
-	  Real top_y = y + conf->delta_y_ + conf->dir_ * h;
-	  Real top_pos = top_y / (0.5*details_.staff_space_);
-	  int round_pos = int (my_round (top_pos));
+	      Real top_y = y + conf->delta_y_ + conf->dir_ * h;
+	      Real top_pos = top_y / (0.5*details_.staff_space_);
+	      int round_pos = int (my_round (top_pos));
 
-	  /* TODO: should use other variable? */
-	  Real clearance = details_.center_staff_line_clearance_;
-	  if (fabs (top_pos - round_pos) < clearance
-	      && Staff_symbol_referencer::on_staff_line (details_.staff_symbol_referencer_,
-							 round_pos))
-	    {
-	      Real new_y = (round_pos + clearance * conf->dir_) * 0.5 * details_.staff_space_;
-	      conf->delta_y_ = (new_y - top_y);
+	      /* TODO: should use other variable? */
+	      Real clearance = details_.center_staff_line_clearance_;
+	      if (fabs (top_pos - round_pos) < clearance
+		  && Staff_symbol_referencer::on_staff_line (details_.staff_symbol_referencer_,
+							     round_pos))
+		{
+		  Real new_y = (round_pos + clearance * conf->dir_) * 0.5 * details_.staff_space_;
+		  conf->delta_y_ = (new_y - top_y);
+		}
 	    }
 	}
-    }
-  
+    }  
   conf->attachment_x_ = get_attachment (y + conf->delta_y_, conf->column_ranks_);
   if (conf->height (details_) < details_.intra_space_threshold_ * 0.5 * details_.staff_space_)
     {
@@ -574,7 +579,8 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
     }
 
   {
-    Real p = details_.vertical_distance_penalty_factor_ * convex_amplifier (1.0, fabs (curve_y - tie_y));
+    Real relevant_dist = max (fabs (curve_y - tie_y) - 0.5, 0.0);
+    Real p = details_.vertical_distance_penalty_factor_ * convex_amplifier (1.0, 0.9, relevant_dist);
     if (ties_conf)
       ties_conf->add_tie_score (p, tie_idx, "vdist");
     else
@@ -595,7 +601,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
 	TODO: flatten with log or sqrt.
        */
       Real p = details_.horizontal_distance_penalty_factor_
-	* convex_amplifier (1.25, dist);
+	* convex_amplifier (1.25, 1.0, dist);
       if (ties_conf)
 	ties_conf->add_tie_score (p, tie_idx,
 				  (d == LEFT) ? "lhdist" : "rhdist");
@@ -646,6 +652,18 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
 }
 
 
+Slice
+Tie_formatting_problem::head_positions_slice (int rank) const
+{
+  Position_extent_map::const_iterator i (head_positions_.find (rank));
+  if (i != head_positions_.end ())
+    {
+      return  (*i).second; 
+    }
+  Slice empty;
+  return empty;
+}
+
 /*
   Score a configuration, ie. how well these ties looks without regard
   to the note heads that they should connect to.
@@ -682,9 +700,13 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
 		       fabs (top_pos - round_top_pos)),
 	"line center");
     }
-  
-  if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_,
-					int (rint (tip_pos))))
+
+  int rounded_tip_pos = int (rint (tip_pos));
+  if (Staff_symbol_referencer::on_line (details_.staff_symbol_referencer_, rounded_tip_pos)
+      && (head_positions_slice (conf->column_ranks_[LEFT]).contains (rounded_tip_pos)
+	  || head_positions_slice (conf->column_ranks_[RIGHT]).contains (rounded_tip_pos)
+	  || abs (rounded_tip_pos) < 2 * Staff_symbol_referencer::staff_radius (details_.staff_symbol_referencer_))
+	  )
     {
       conf->add_score (details_.staff_line_collision_penalty_
 		       * peak_around (0.1 * details_.tip_staff_line_clearance_,

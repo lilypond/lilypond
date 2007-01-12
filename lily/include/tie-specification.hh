@@ -23,6 +23,7 @@ struct Tie_specification
   bool has_manual_position_;
   bool has_manual_dir_;
   bool has_manual_delta_y_;
+  bool has_accidental_;
   
   Real manual_position_;
   Direction manual_dir_;

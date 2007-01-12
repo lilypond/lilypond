@@ -60,9 +60,9 @@ peak_around (Real epsilon,  Real threshold, Real x)
   0 at 0,  1 at standard_x, and increasing thereafter. 
  */
 Real
-convex_amplifier (Real standard_x, Real x)
+convex_amplifier (Real standard_x, Real increase_factor, Real x)
 {
-  return (exp (x / standard_x) - 1.0) / (exp (1) - 1.0); 
+  return (exp (increase_factor * x / standard_x) - 1.0) / (exp (increase_factor) - 1.0); 
 }
 
 string
