@@ -34,19 +34,6 @@ using namespace std;
 /*
   symbols/strings.
  */
-SCM
-ly_to_symbol (SCM scm)
-{
-  return scm_string_to_symbol (ly_to_string (scm));
-}
-
-SCM
-ly_to_string (SCM scm)
-{
-  return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
-
-		     scm_from_locale_string ("~S"), scm);
-}
 
 SCM
 ly_write2scm (SCM s)
@@ -624,16 +611,6 @@ ly_hash2alist (SCM tab)
   return scm_call_1 (func, tab);
 }
 
-int
-procedure_arity (SCM proc)
-{
-  assert (ly_is_procedure (proc));
-  SCM arity = scm_procedure_property (proc,
-				      ly_symbol2scm ("arity"));
-
-  SCM fixed = scm_car (arity);
-  return scm_to_int (fixed);
-}
 
 /*
   C++ interfacing.
