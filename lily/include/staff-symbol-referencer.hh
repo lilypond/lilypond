@@ -39,6 +39,7 @@ public:
   static Real get_position (Grob *);
   static Real staff_radius (Grob *);
   static int get_rounded_position (Grob *);
+  static Interval extent_in_staff (Grob *); 
 };
 
 int compare_position (Grob *const &, Grob *const &);\
