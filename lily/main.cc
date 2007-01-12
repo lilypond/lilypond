@@ -153,7 +153,7 @@ static Long_option_init options_static[]
   {_i ("BACK"), "backend", 'b', _i ("use backend BACK (eps, gnome, ps [default],\nscm, svg, tex, texstr)")},
 
   {_i ("SYM[=VAL]"), "define-default", 'd',
-   _i ("set Scheme option SYM to VAL (default: #t)\n"
+   _i ("set Scheme option SYM to VAL (default: #t).\n"
        "Use -dhelp for help.")},
 
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
