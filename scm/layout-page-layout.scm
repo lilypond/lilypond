@@ -215,7 +215,9 @@
 					    page lines paper))
 			   (spacing (space-systems space-to-fill lines ragged paper #f)))
 		      (if (or (not (car spacing)) (inf? (car spacing)))
-			  (cdr (space-systems space-to-fill lines ragged paper #t))
+			  (begin
+			    (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
+			    (cdr (space-systems space-to-fill lines ragged paper #t)))
 			  (cdr spacing))))))
     (page-set-property! page 'configuration posns)
     page))
