@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "page-turn-page-breaking.hh"
@@ -217,7 +217,7 @@ Page_turn_page_breaking::solve ()
   state_.clear ();
   message (_f ("Calculating page and line breaks (%d possible page breaks)...",
                (int)breaks_.size () - 1) + " ");
-  for (vsize i = 0; i < breaks_.size () - 1; i++)
+  for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       calc_subproblem (i);
       progress_indication (string ("[") + to_string (i + 1) + "]");
@@ -263,7 +263,7 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
       for (vsize j = 0; j < soln[i].page_count_; j++)
 	lines_per_page.push_back (soln[i].system_count_[j]);
 
-      if (i < soln.size () - 1 && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
+      if (i + 1 < soln.size () && (soln[i].first_page_number_ + soln[i].page_count_) % 2)
 	/* add a blank page */
 	lines_per_page.push_back (0);
     }

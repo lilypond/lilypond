@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "axis-group-interface.hh"
@@ -109,7 +109,7 @@ Axis_group_interface::cached_pure_height (Grob *me,
   if (!scm_is_vector (extents))
     {
       extents = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
-      for (vsize i = 0; i < breaks.size () - 1; i++)
+      for (vsize i = 0; i + 1 < breaks.size (); i++)
 	{
 	  int st = Paper_column::get_rank (cols[breaks[i]]);
 	  int ed = Paper_column::get_rank (cols[breaks[i+1]]);
@@ -466,7 +466,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
       SCM priority = elements[i]->get_property ("outside-staff-priority");
       vector<Grob*> current_elts;
       current_elts.push_back (elements[i]);
-      while (i < elements.size () - 1
+      while (i + 1 < elements.size () 
 	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
 	current_elts.push_back (elements[++i]);
 

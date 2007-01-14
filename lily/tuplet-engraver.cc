@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "beam.hh"
@@ -108,9 +108,11 @@ Tuplet_engraver::process_music ()
   Moment now = now_mom();
   for (vsize i = tuplets_.size (); i --; )
     {
-      stopped_tuplets_.push_back (tuplets_[i]);
       if (tuplets_[i].stop_moment_ == now)
-	tuplets_.erase (tuplets_.begin () + i);
+	{
+	  stopped_tuplets_.push_back (tuplets_[i]);
+	  tuplets_.erase (tuplets_.begin () + i);
+	}
     }
   
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
@@ -134,7 +136,7 @@ Tuplet_engraver::process_music ()
 	      bracket->set_bound (RIGHT,
 				  bracket->get_bound (LEFT));
 	      number->set_bound (RIGHT,
-						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
+				 stopped_tuplets_[i].bracket_->get_bound (LEFT));
 	    }
 	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
@@ -169,7 +171,7 @@ Tuplet_engraver::process_music ()
       tuplets_[i].stop_moment_.grace_part_ = 0;
       
       
-      if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
+      if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
       
       if (i > 0 && tuplets_[i - 1].bracket_)

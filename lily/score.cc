@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score.hh"
@@ -17,7 +17,6 @@ using namespace std;
 #include "global-context.hh"
 #include "international.hh"
 #include "lily-parser.hh"
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "music.hh"
 #include "music.hh"
@@ -114,8 +113,7 @@ Score::Score (Score const &s)
 */
 SCM
 Score::book_rendering (Output_def *layoutbook,
-		       Output_def *default_def,
-		       Object_key *book_key)
+		       Output_def *default_def)
 {
   if (error_found_)
     return SCM_EOL;
@@ -131,9 +129,6 @@ Score::book_rendering (Output_def *layoutbook,
 
   int outdef_count = defs_.size ();
 
-  Object_key *key = new Lilypond_general_key (book_key, user_key_, 0);
-  SCM scm_key = key->unprotect ();
-
   for (int i = 0; !i || i < outdef_count; i++)
     {
       Output_def *def = outdef_count ? defs_[i] : default_def;
@@ -148,7 +143,7 @@ Score::book_rendering (Output_def *layoutbook,
 	}
 
       /* TODO: fix or junk --no-layout.  */
-      SCM context = ly_run_translator (music_, def->self_scm (), scm_key);
+      SCM context = ly_run_translator (music_, def->self_scm ());
       if (dynamic_cast<Global_context *> (unsmob_context (context)))
 	{
 	  SCM s = ly_format_output (context);
@@ -160,7 +155,6 @@ Score::book_rendering (Output_def *layoutbook,
       scm_remember_upto_here_1 (scaled);
     }
 
-  scm_remember_upto_here_1 (scm_key);
   scm_remember_upto_here_1 (scaled_bookdef);
   return outputs;
 }

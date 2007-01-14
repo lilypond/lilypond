@@ -3,14 +3,13 @@
 
   Sourcefile of GNU LilyPond music type setter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
 
 #include "context.hh"
 #include "international.hh"
-#include "lilypond-key.hh"
 #include "music.hh"
 #include "paper-column.hh"
 #include "score-engraver.hh"
@@ -112,21 +111,21 @@ Engraver::internal_make_grob (SCM symbol, SCM cause, char const *name, char cons
   (void) file;
   (void) fun;
   (void) line;
+  (void) name;
   
   SCM props = updated_grob_properties (context (), symbol);
 
-  Object_key const *key = context ()->get_grob_key (name);
   Grob *grob = 0;
 
   SCM handle = scm_sloppy_assq (ly_symbol2scm ("meta"), props);
   SCM klass = scm_cdr (scm_sloppy_assq (ly_symbol2scm ("class"), scm_cdr (handle)));
 
   if (klass == ly_symbol2scm ("Item"))
-    grob = new Item (props, key);
+    grob = new Item (props);
   else if (klass == ly_symbol2scm ("Spanner"))
-    grob = new Spanner (props, key);
+    grob = new Spanner (props);
   else if (klass == ly_symbol2scm ("Paper_column"))
-    grob = new Paper_column (props, key);
+    grob = new Paper_column (props);
 
   assert (grob);
   announce_grob (grob, cause);

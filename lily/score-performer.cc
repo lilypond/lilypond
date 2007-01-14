@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "score-performer.hh"
@@ -92,6 +92,7 @@ Score_performer::prepare (SCM sev)
   SCM sm = ev->get_property ("moment");
   Moment *m = unsmob_moment (sm);
   audio_column_ = new Audio_column (*m);
+  announce_element (Audio_element_info (audio_column_, 0));
   precomputed_recurse_over_translators (context (), START_TRANSLATION_TIMESTEP, UP);
 }
 

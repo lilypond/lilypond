@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "performance.hh"
@@ -34,15 +34,13 @@ Performance::~Performance ()
 }
 
 void
-Performance::output (Midi_stream &midi_stream)
+Performance::output (Midi_stream &midi_stream) const
 {
   int tracks_ = audio_staffs_.size ();
 
-  // ugh
-  int clocks_per_4 = 384;
-
-  midi_stream << Midi_header (1, tracks_, clocks_per_4);
-  message (_ ("Track...") + " ");
+  midi_stream << Midi_header (1, tracks_, 384);
+  if (be_verbose_global)
+    progress_indication (_ ("Track...") + " ");
   
   int channel = 0;
   for (vsize i = 0; i < audio_staffs_.size (); i++)
@@ -89,7 +87,7 @@ Performance::add_element (Audio_element *p)
 }
 
 void
-Performance::write_output (string out)
+Performance::write_output (string out) const
 {
   if (out == "-")
     out = "lelie.midi";
@@ -107,3 +105,7 @@ Performance::write_output (string out)
 }
 
 
+void
+Performance::process ()
+{
+}

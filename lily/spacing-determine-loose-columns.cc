@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "staff-spacing.hh"
@@ -204,7 +204,7 @@ Spacing_spanner::prune_loose_columns (Grob *me,
     {
       Grob *c = cols->at (i);
 
-      bool loose = (i > 0 && i < cols->size () - 1)
+      bool loose = (i > 0 && i + 1 < cols->size ())
 	&& is_loose_column (cols->at (i - 1), c, cols->at (i + 1), options);
 
       if (loose)
@@ -357,7 +357,7 @@ Spacing_spanner::set_implicit_neighbor_columns (vector<Grob*> const &cols)
 	  cols[i]->set_object ("left-neighbors", ga_scm);
 	}
       extract_grob_set (cols[i], "right-neighbors", rns);
-      if (rns.empty () && i < cols.size () - 1)
+      if (rns.empty () && i + 1 < cols.size ())
 	{
 	  SCM ga_scm = Grob_array::make_array ();
 	  Grob_array *ga = unsmob_grob_array (ga_scm);

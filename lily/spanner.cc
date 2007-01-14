@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "pointer-group-interface.hh"
@@ -16,9 +16,9 @@
 #include "warn.hh"
 
 Grob *
-Spanner::clone (int count) const
+Spanner::clone () const
 {
-  return new Spanner (*this, count);
+  return new Spanner (*this);
 }
 
 void
@@ -64,7 +64,7 @@ Spanner::do_break_processing ()
 	    programming_error ("no broken bound");
 	  else if (bound->get_system ())
 	    {
-	      Spanner *span = dynamic_cast<Spanner *> (clone (broken_intos_.size ()));
+	      Spanner *span = dynamic_cast<Spanner *> (clone ());
 	      span->set_bound (LEFT, bound);
 	      span->set_bound (RIGHT, bound);
 
@@ -102,7 +102,7 @@ Spanner::do_break_processing ()
 	      continue;
 	    }
 
-	  Spanner *span = dynamic_cast<Spanner *> (clone (broken_intos_.size ()));
+	  Spanner *span = dynamic_cast<Spanner *> (clone ());
 	  span->set_bound (LEFT, bounds[LEFT]);
 	  span->set_bound (RIGHT, bounds[RIGHT]);
 
@@ -196,16 +196,16 @@ Spanner::set_bound (Direction d, Grob *s)
     Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
 }
 
-Spanner::Spanner (SCM s, Object_key const *key)
-  : Grob (s, key)
+Spanner::Spanner (SCM s)
+  : Grob (s)
 {
   break_index_ = 0;
   spanned_drul_[LEFT] = 0;
   spanned_drul_[RIGHT] = 0;
 }
 
-Spanner::Spanner (Spanner const &s, int count)
-  : Grob (s, count)
+Spanner::Spanner (Spanner const &s)
+  : Grob (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] = 0;
 }

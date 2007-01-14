@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "system.hh"
@@ -100,7 +100,7 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 
       vector<Real> clique_spacing;
       clique_spacing.push_back (0.0);
-      for (vsize j = 1; j < clique.size () - 1; j ++)
+      for (vsize j = 1; j + 1 < clique.size (); j ++)
 	{
 	  Grob *clique_col = clique[j];
 

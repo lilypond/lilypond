@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "grob.hh"
@@ -27,15 +27,13 @@
 #include "ly-smobs.icc"
 
 Grob *
-Grob::clone (int count) const
+Grob::clone () const
 {
-  return new Grob (*this, count);
+  return new Grob (*this);
 }
 
-Grob::Grob (SCM basicprops,
-	    Object_key const *key)
+Grob::Grob (SCM basicprops)	    
 {
-  key_ = key;
   
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
@@ -50,12 +48,6 @@ Grob::Grob (SCM basicprops,
      on the heap, none of its SCM variables are protected from
      GC. After smobify_self (), they are.  */
   smobify_self ();
-
-  /*
-    We always get a new key object for a new grob.
-  */
-  if (key_)
-    ((Object_key *)key_)->unprotect ();
 
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
@@ -76,10 +68,9 @@ Grob::Grob (SCM basicprops,
     set_property ("Y-extent", Grob::stencil_height_proc);
 }
 
-Grob::Grob (Grob const &s, int copy_index)
+Grob::Grob (Grob const &s)
   : dim_cache_ (s.dim_cache_)
 {
-  key_ = (use_object_keys) ? new Copied_key (s.key_, copy_index) : 0;
   original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 
@@ -91,8 +82,6 @@ Grob::Grob (Grob const &s, int copy_index)
   layout_ = 0;
 
   smobify_self ();
-  if (key_)
-    ((Object_key *)key_)->unprotect ();
 }
 
 Grob::~Grob ()

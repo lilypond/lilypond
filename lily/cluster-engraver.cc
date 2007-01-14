@@ -1,7 +1,7 @@
 /*
   cluster-engraver.cc -- implement Cluster_engraver
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
@@ -122,8 +122,11 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
 
 ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
-		/* doc */ 	"Engraves a cluster using Spanner notation ",
-		/* create */ 	"ClusterSpanner ClusterSpannerBeacon",
+		/* doc */
+		"Engraves a cluster using Spanner notation ",
+		/* create */
+		"ClusterSpanner "
+		"ClusterSpannerBeacon ",
 		/* read */ 	"",
 		/* write */	"");
 

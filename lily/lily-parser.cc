@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -15,7 +15,6 @@
 #include "international.hh"
 #include "lily-lexer.hh"
 #include "lily-version.hh"
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-book.hh"

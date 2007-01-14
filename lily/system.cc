@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "system.hh"
@@ -21,14 +21,13 @@
 #include "pointer-group-interface.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "tweak-registration.hh"
 #include "warn.hh"
 #include "lookup.hh"
 
 extern bool debug_skylines;
 
-System::System (System const &src, int count)
-  : Spanner (src, count)
+System::System (System const &src)
+  : Spanner (src)
 {
   all_elements_ = 0;
   pscore_ = 0;
@@ -36,8 +35,8 @@ System::System (System const &src, int count)
   init_elements ();
 }
 
-System::System (SCM s, Object_key const *key)
-  : Spanner (s, key)
+System::System (SCM s)
+  : Spanner (s)
 {
   all_elements_ = 0;
   rank_ = 0;
@@ -54,9 +53,9 @@ System::init_elements ()
 }
 
 Grob *
-System::clone (int index) const
+System::clone () const
 {
-  return new System (*this, index);
+  return new System (*this);
 }
 
 int
@@ -210,7 +209,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast<System *> (clone (broken_intos_.size ()));
+      System *system = dynamic_cast<System *> (clone ());
       system->rank_ = broken_intos_.size ();
 
       vector<Grob*> c (breaking[i].cols_);
@@ -253,21 +252,6 @@ System::add_column (Paper_column *p)
 }
 
 void
-apply_tweaks (Grob *g, bool broken)
-{
-  if (bool (g->original ()) == broken)
-    {
-      SCM tweaks = global_registry_->get_tweaks (g);
-      for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM proc = scm_caar (s);
-	  SCM rest = scm_cdar (s);
-	  scm_apply_1 (proc, g->self_scm (), rest);
-	}
-    }
-}
-
-void
 System::pre_processing ()
 {
   for (vsize i = 0; i < all_elements_->size (); i++)
@@ -285,9 +269,6 @@ System::pre_processing ()
     all_elements_->grob (i)->handle_prebroken_dependencies ();
 
   fixup_refpoints (all_elements_->array ());
-
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    apply_tweaks (all_elements_->grob (i), false);
 
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
@@ -309,7 +290,6 @@ System::post_processing ()
     {
       Grob *g = all_elements_->grob (i);
 
-      apply_tweaks (g, true);
       (void) g->get_property ("after-line-breaking");
     }
 

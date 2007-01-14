@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -317,7 +317,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem #'beaming is correct */
-  (void) me_grob->get_property ("quantized-positions");
+  (void) me_grob->get_property ("beaming");
 
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
 
@@ -409,7 +409,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
 	      bool inside_stem = (event_dir == LEFT)
 			? segs[j].stem_index_ > 0
-			: segs[j].stem_index_ < stems.size () - 1;
+			: segs[j].stem_index_ + 1  < stems.size () ;
 		      
 	      bool event = on_bound
 		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
@@ -1237,7 +1237,7 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 	    {
 	      int count = beaming->beamlet_count (i, d);
 	      if (i > 0
-		  && i < stems.size () -1
+		  && i + 1 < stems.size ()
 		  && Stem::is_invisible (stem))
 		count = min (count, beaming->beamlet_count (i,-d));
 

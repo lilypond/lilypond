@@ -206,7 +206,8 @@ contained staves are not connected vertically."
   \consists "Note_heads_engraver"
   \consists "Dots_engraver"
   \consists "Rest_engraver"
-
+  \consists "Tweak_engraver"
+  
   %% switch on to make stem directions interpolate for the
   %% center line.
   %  \consists "Melody_engraver"
@@ -227,7 +228,7 @@ contained staves are not connected vertically."
   \consists "Text_engraver"
   \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
-  \consists "Bend_after_engraver"
+  \consists "Bend_engraver"
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
@@ -479,7 +480,6 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
-  \consists "Tweak_engraver"
   \consists "Parenthesis_engraver"
   
   \defaultchild "Staff"

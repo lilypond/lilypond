@@ -1,5 +1,5 @@
 
-\version "2.10.2"
+\version "2.11.11"
 
 \layout {
   indent = #0
@@ -8,7 +8,7 @@
     \Score
     
     proportionalNotationDuration = #(ly:make-moment 1 64)
-    allowBeamBreak = ##t
+    \override Beam #'breakable = ##t
     autoBeaming = ##f
     tupletFullLength = ##t
     \override BarNumber #'transparent = ##t

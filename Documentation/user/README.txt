@@ -1,7 +1,7 @@
 Info for Documentation
 ----------------------
 
-Current version of the manual: 2.9.13
+Current version of the manual: 2.11.10 ?
 *** Please update this whenever you run convert-ly on the docs.
 
 convert-ly --from=... --to=... --no-version *.itely
@@ -132,6 +132,10 @@ GENERAL GUIDELINES
     all such characters appear in all output formats.
 
 * Lines should be less than 80 characters long.
+
+* Use @q instead of `...' and @qq instead of ``...''.  The latter macro
+  should be used with care since we use `...' as the default quoting
+  throughout the manual, except for things related to direct speech.
 
 
 %%%%%

@@ -13,50 +13,65 @@
 		       staff-space line-thickness ledgerline-thickness
 		       blot-diameter left-margin right-margin)))
 
-(define-public (layout-set-staff-size sz)
-  "Function to be called inside a \\layout{} block to set the staff size."
-  (let* ((m (current-module))
-	 (ss (/ sz 4))
-	 (pt (eval 'pt m))
+(define (calc-line-thickness staff-space pt)
+  ;; linear interpolation.
 
-	 
-	 ;; linear interpolation.
-	 (x1 (* 4.125 pt))
-	 (x0 (* 5 pt))
-	 (f1 (* 0.47 pt))
-	 (f0 (* 0.50 pt))
-	 (lt (/
-	      (+
-	       (* f1 (- ss x0))
-	       (* f0 (- x1 ss)))
-	      (- x1 x0)))
-	 
-	 (mm (eval 'mm m)))
+  ;; !! synchronize with feta-params.mf
+  (let*
+    ((x1 (* 4.125 pt))
+     (x0 (* 5 pt))
+     (f1 (* 0.47 pt))
+     (f0 (* 0.50 pt)))
 
-    (module-define! m 'text-font-size (* 12 (/ sz (* 20 pt))))
+    (/
+     (+
+      (* f1 (- staff-space x0))
+	   (* f0 (- x1 staff-space)))
+     (- x1 x0))))
+
+(define-public (layout-set-absolute-staff-size-in-module m staff-height)
+  (let*
+      ((pt (eval 'pt m))
+       (ss (/ staff-height 4))
+       (factor (/ staff-height (* 20 pt))))
+
+    (module-define! m 'text-font-size (* 12 factor))
     
     (module-define! m 'output-scale ss)
     (module-define! m 'fonts
 		    (if tex-backend?
-			(make-cmr-tree (/  sz (* 20 pt)))
-			(make-century-schoolbook-tree
-			 (/ sz (* 20 pt)))))
-    (module-define! m 'staff-height sz)
-    (module-define! m 'staff-space ss)
+			(make-cmr-tree factor)
+			(make-century-schoolbook-tree factor)))
+    (module-define! m 'staff-height staff-height)
     (module-define! m 'staff-space ss)
 
-    ;; !! synchronize with feta-params.mf
-    (module-define! m 'line-thickness lt)
+    (module-define! m 'line-thickness (calc-line-thickness ss pt))
+
+    ;;  sync with feta  
     (module-define! m 'ledgerline-thickness (+ (* 0.5 pt) (/ ss 10)))
+
+    ;;  sync with feta  
     (module-define! m 'blot-diameter (* 0.4 pt))
     ))
 
+ (define-public (layout-set-absolute-staff-size sz)
+  "Function to be called inside a \\layout{} block to set the staff size. SZ is in
+points"
+  
+  (layout-set-absolute-staff-size-in-module (current-module) sz))
+
+(define-public (layout-set-staff-size sz)
+  "Function to be called inside a \\layout{} block to set the staff size. SZ is in
+points"
+  
+  (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
+
 (define-safe-public (set-global-staff-size sz)
   "Set the default staff size, where SZ is thought to be in PT."
-  (let* ((old-mod (current-module))
-	 (pap (eval '$defaultpaper old-mod))
-	 (in-layout? (or (module-defined? old-mod 'is-paper)
-			 (module-defined? old-mod 'is-layout)))
+  (let* ((current-mod (current-module))
+	 (pap (eval '$defaultpaper current-mod))
+	 (in-layout? (or (module-defined? current-mod 'is-paper)
+			 (module-defined? current-mod 'is-layout)))
 
 	 ; maybe not necessary.
 	 ; but let's be paranoid. Maybe someone still refers to the
@@ -66,11 +81,11 @@
 	 (new-scope (ly:output-def-scope new-paper)))
     
     (if in-layout?
-	(ly:warning (_ "Not in toplevel scope")))
-    (set-current-module new-scope)
-    (layout-set-staff-size (* sz (eval 'pt new-scope)))
-    (set-current-module old-mod)
-    (module-define! old-mod '$defaultpaper new-paper)))
+	(ly:warning (_ "set-global-staff-size: not in toplevel scope")))
+
+    (layout-set-absolute-staff-size-in-module new-scope
+					      (* sz (eval 'pt new-scope)))
+    (module-define! current-mod '$defaultpaper new-paper)))
 
 (define-public paper-alist
 

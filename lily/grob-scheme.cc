@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -87,16 +87,7 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
   return sc->internal_get_object (sym);
 }
 
-LY_DEFINE (ly_spanner_get_bound, "ly:spanner-bound",
-	   2, 0, 0, (SCM slur, SCM dir),
-	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
-	   "for left, and @code{1} for right.")
-{
-  Spanner *sl = dynamic_cast<Spanner *> (unsmob_grob (slur));
-  SCM_ASSERT_TYPE (sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
-  SCM_ASSERT_TYPE (is_direction (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
-  return sl->get_bound (to_dir (dir))->self_scm ();
-}
+
 
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
@@ -257,20 +248,6 @@ LY_DEFINE (ly_grob_original, "ly:grob-original",
   return me->original () ? me->original ()->self_scm () : me->self_scm ();
 }
 
-/* TODO: maybe we should return a vector -- random access is more
-   logical for this list? */
-LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
-	   1, 0, 0, (SCM spanner),
-	   "Return broken-into list for @var{spanner}.")
-{
-  Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (spanner));
-  SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
-
-  SCM s = SCM_EOL;
-  for (vsize i = me->broken_intos_.size (); i--;)
-    s = scm_cons (me->broken_intos_[i]->self_scm (), s);
-  return s;
-}
 
 LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
 	   1, 0, 0, (SCM g),
@@ -294,27 +271,6 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 
   me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));
   return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_spanner_p, "ly:spanner?",
-	   1, 0, 0, (SCM g),
-	   "Is  @var{g} a spanner object?")
-{
-  Grob *me = unsmob_grob (g);
-  bool b = dynamic_cast<Spanner *> (me);
-
-  return ly_bool2scm (b);
-}
-
-LY_DEFINE (ly_grob_key, "ly:grob-key",
-	   1, 0, 0,
-	   (SCM grob),
-	   "Return the object-key for @var{grob}.")
-{
-  Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "Grob");
-  
-  return me->key () ?  me->key ()->self_scm () : SCM_EOL;
 }
 
 LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",

@@ -15,6 +15,7 @@
 ;; TODO: make into markup.
 ;; 
 (define-public (alteration->text-accidental-markup alteration)
+  
   (make-smaller-markup
    (make-raise-markup
     (if (= alteration FLAT)

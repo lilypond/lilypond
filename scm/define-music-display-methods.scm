@@ -598,6 +598,7 @@ Otherwise, return #f."
 	(fig (ly:music-property figure 'figure))
 	(bracket-start (ly:music-property figure 'bracket-start))
 	(bracket-stop (ly:music-property figure 'bracket-stop)))
+
     (format #f "~a~a~a~a"
 	    (if (null? bracket-start) "" "[")
 	    (cond ((null? fig) "_")
@@ -605,12 +606,12 @@ Otherwise, return #f."
 		  (else fig))
 	    (if (null? alteration)
 		""
-		(case alteration
-		  ((-4) "--")
-		  ((-2) "-")
-		  ((0) "!")
-		  ((2) "+")
-		  ((4) "++")
+		(cond 
+		  ((= alteration DOUBLE-FLAT) "--")
+		  ((= alteration FLAT) "-")
+		  ((= alteration NATURAL) "!")
+		  ((= alteration SHARP) "+")
+		  ((= alteration DOUBLE-SHARP) "++")
 		  (else "")))
 	    (if (null? bracket-stop) "" "]"))))
 

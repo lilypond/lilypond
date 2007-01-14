@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score-engraver.hh"
@@ -79,8 +79,7 @@ Score_engraver::initialize ()
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
-  Object_key const *sys_key = context ()->get_grob_key ("System");
-  pscore_->typeset_system (new System (props, sys_key));
+  pscore_->typeset_system (new System (props));
   
   system_ = pscore_->root_system ();
   context ()->set_property ("rootSystem", system_->self_scm ());
@@ -185,7 +184,7 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      /* read */
 		      "currentMusicalColumn "
 		      "currentCommandColumn "
-		      "verticallySpacedContexts",
+		      "verticallySpacedContexts ",
 
 		      /* write */
 		      "");

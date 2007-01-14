@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "bar-line.hh"
@@ -106,8 +106,6 @@ Key_engraver::create_key (bool is_default)
     {
       SCM visibility = get_property ("explicitKeySignatureVisibility");
       item_->set_property ("break-visibility", visibility);
-      if (cancellation_)
-	cancellation_->set_property ("break-visibility", visibility);
     }
 }
 
@@ -218,7 +216,6 @@ ADD_TRANSLATOR (Key_engraver,
 		"explicitKeySignatureVisibility "
 		"extraNatural "
 		"keyAlterationOrder "
-		"keySignature "
 		"keySignature "
 		"lastKeySignature "
 		"printKeyCancellation "

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "context.hh"
@@ -47,8 +47,8 @@ Context::check_removal ()
 }
 
 Context::Context (Context const &src)
-  : key_manager_ (src.key_manager_)
 {
+  (void) src;
   assert (false);
 }
 
@@ -69,8 +69,7 @@ Context::add_context (Context *child)
 }
 
 
-Context::Context (Object_key const *key)
-  : key_manager_ (key)
+Context::Context ()
 {
   daddy_context_ = 0;
   aliases_ = SCM_EOL;
@@ -92,12 +91,6 @@ Context::Context (Object_key const *key)
   event_source_->unprotect ();
   events_below_ = new Dispatcher ();
   events_below_->unprotect ();
-
-  /*
-    UGH UGH
-    const correctness.
-  */
-  key_manager_.unprotect();
 }
 
 /* TODO:  this shares code with find_create_context ().  */
@@ -267,7 +260,6 @@ Context::create_context_from_event (SCM sev)
   SCM ops = ev->get_property ("ops");
   SCM type_scm = ev->get_property ("type");
   string type = ly_symbol2string (type_scm);
-  Object_key const *key = key_manager_.get_context_key (now_mom(), type, id);
   
   vector<Context_def*> path
     = unsmob_context_def (definition_)->path_to_acceptable_context (type_scm, get_output_def ());
@@ -278,7 +270,7 @@ Context::create_context_from_event (SCM sev)
     }
   Context_def *cdef = path[0];
   
-  Context *new_context = cdef->instantiate (ops, key);
+  Context *new_context = cdef->instantiate (ops);
 
   new_context->id_string_ = id;
   
@@ -629,23 +621,10 @@ Context::print_smob (SCM s, SCM port, scm_print_state *)
   return 1;
 }
 
-Object_key const *
-Context::get_grob_key (string name)
-{
-  return key_manager_.get_grob_key (now_mom (), name);
-}
-
-Object_key const *
-Context::get_context_key (string name, string id)
-{
-  return key_manager_.get_context_key (now_mom (), name, id);
-}
-
 SCM
 Context::mark_smob (SCM sm)
 {
   Context *me = (Context *) SCM_CELL_WORD_1 (sm);
-  me->key_manager_.gc_mark();
 
   scm_gc_mark (me->context_list_);
   scm_gc_mark (me->aliases_);
@@ -687,17 +666,6 @@ Context *
 Context::get_parent_context () const
 {
   return daddy_context_;
-}
-
-void
-Context::clear_key_disambiguations ()
-{
-  if (!use_object_keys)
-    return;
-
-  key_manager_.clear ();
-  for (SCM s = context_list_; scm_is_pair (s); s = scm_cdr (s))
-    unsmob_context (scm_car (s))->clear_key_disambiguations ();
 }
 
 /*

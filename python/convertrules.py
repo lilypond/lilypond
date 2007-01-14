@@ -2935,9 +2935,19 @@ def conv (str):
     str = re.sub (r'(\\set\s+)?allowBeamBreak',
                   r"\override Beam #'breakable", str)
     str = re.sub (r'addquote' , 'addQuote', str)
+    if re.search ("Span_dynamic_performer", str):
+        error_file.write ("Span_dynamic_performer has been merged into Dynamic_performer")
+
     return str
 
 conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
 addquote -> addQuote
 
 """))
+
+def conv (str):
+    str = re.sub (r'\(layout-set-staff-size \(\*\s*([0-9.]+)\s*(pt|mm|cm)\)\)',
+                  r'(layout-set-absolute-staff-size (* \1 \2))', str)
+    return str
+
+conversions.append (((2, 11, 11), conv, """layout-set-staff-size -> layout-set-absolute-staff-size"""))

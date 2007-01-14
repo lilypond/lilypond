@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "engraver.hh"
@@ -287,7 +287,7 @@ Page_turn_engraver::finalize ()
 
 	  /* it's possible that the last of my newly-split events overlaps the next repeat_penalty,
 	     in which case we need to refilter that event */
-	  if (rep_index < repeat_penalties_.size () - 1
+	  if (rep_index + 1 < repeat_penalties_.size ()
 	      && split.size ()
 	      && split.back ().duration_[RIGHT] > repeat_penalties_[rep_index+1].duration_[LEFT])
 	    {
@@ -327,6 +327,7 @@ Page_turn_engraver::finalize ()
 }
 
 ADD_ACKNOWLEDGER (Page_turn_engraver, note_head);
+
 ADD_TRANSLATOR (Page_turn_engraver,
                 /* doc */ "Decide where page turns are allowed to go",
                 /* create */ "",

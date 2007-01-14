@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "audio-column.hh"
@@ -29,9 +29,16 @@ Audio_column::when () const
   return when_;
 }
 
+int
+Audio_column::ticks () const
+{
+  return int (moment_to_ticks (when_));
+}
+
 void
 Audio_column::offset_when (Moment m)
 {
   when_ += m;
 }
+
 

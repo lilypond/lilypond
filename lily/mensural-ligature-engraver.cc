@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>,
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>,
   Pal Benko <benkop@freestart.hu>
 */
 
@@ -384,7 +384,7 @@ Mensural_ligature_engraver::fold_up_primitives (vector<Grob_info> primitives)
       if (Rhythmic_head::dot_count (current) > 0)
 	// Move dots above/behind the ligature.
 	{
-	  if (i < primitives.size () - 1)
+	  if (i + 1 < primitives.size ())
 	    // dot in the midst => move above head
 	    {
 	      // FIXME: Amount of vertical dot-shift should depend on
@@ -416,6 +416,7 @@ Mensural_ligature_engraver::build_ligature (Spanner *ligature,
 
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);
+
 ADD_TRANSLATOR (Mensural_ligature_engraver,
 		/* doc */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
 		/* create */ "MensuralLigature",

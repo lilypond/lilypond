@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "constrained-breaking.hh"
@@ -338,7 +338,7 @@ Constrained_breaking::initialize ()
 					 other_lines.length (),
 					 other_lines.length () - first_line.length (),
 					 ragged_right_);
-  for (vsize i = 0; i < breaks_.size () - 1; i++)
+  for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       Real max_ext = 0;
       for (vsize j = i + 1; j < breaks_.size (); j++)
@@ -376,7 +376,7 @@ Constrained_breaking::initialize ()
   for (vsize i = 0; i < start_.size (); i++)
     {
       vsize j;
-      for (j = 0; j < breaks_.size () - 1 && breaks_[j] < start_[i]; j++)
+      for (j = 0; j + 1 < breaks_.size () && breaks_[j] < start_[i]; j++)
 	;
       starting_breakpoints_.push_back (j);
       start_[i] = breaks_[j];

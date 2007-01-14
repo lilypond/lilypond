@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score.hh"
@@ -11,7 +11,6 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "global-context.hh"
-#include "lilypond-key.hh"
 #include "music-output.hh"
 #include "paper-score.hh"
 #include "paper-book.hh"
@@ -74,7 +73,7 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 }
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-	   2, 1, 0, (SCM score, SCM layout, SCM key),
+	   2, 0, 0, (SCM score, SCM layout),
 	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct output-scale already, "
 	   "return a list of layout-lines. "
@@ -107,8 +106,7 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
      itself. */
   score_def->parent_ = od;
 
-  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
-				   key);
+  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
   SCM output = ly_format_output (context);
 
   scm_remember_upto_here_1 (prot);

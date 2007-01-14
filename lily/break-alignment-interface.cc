@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 
@@ -217,7 +217,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       else
 	{
 	  extra_right_space = distance;
-	  if (idx < offsets.size() - 1)
+	  if (idx + 1 < offsets.size ())
 	    offsets[idx+1] = extents[idx][RIGHT] + distance;
 	}
 

@@ -1,7 +1,7 @@
 /*
   system.hh -- part of GNU LilyPond
 
-  (c) 1996--2006 Han-Wen Nienhuys
+  (c) 1996--2007 Han-Wen Nienhuys
 */
 
 #ifndef SYSTEM_HH
@@ -33,8 +33,8 @@ public:
   SCM get_paper_system ();
   SCM get_paper_systems ();
 
-  System (SCM, Object_key const *);
-  System (System const &, int);
+  System (SCM);
+  System (System const &);
 
   int element_count () const;
   int spanner_count () const;
@@ -52,7 +52,7 @@ public:
 
 protected:
   virtual void derived_mark () const;
-  virtual Grob *clone (int count) const;
+  virtual Grob *clone () const;
 };
 
 void set_loose_columns (System *which, Column_x_positions const *posns);

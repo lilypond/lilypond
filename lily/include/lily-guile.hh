@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef LILY_GUILE_HH
@@ -35,9 +35,6 @@ SCM ly_last (SCM list);
 SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
-
-SCM ly_to_string (SCM scm);
-SCM ly_to_symbol (SCM scm);
 
 extern SCM global_lily_module;
 
@@ -82,7 +79,6 @@ SCM alist_to_hashq (SCM);
 SCM ly_alist_vals (SCM alist);
 SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
-int procedure_arity (SCM);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }

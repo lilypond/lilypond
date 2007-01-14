@@ -102,9 +102,9 @@ Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)
     {
       if (!ly_is_procedure (v)
 	  && !is_simple_closure (v)
-	  && v != ly_symbol2scm ("calculation-in-progress") 
-	  && !type_check_assignment (sym, v, ly_symbol2scm ("backend-type?")))
-	abort ();
+	  && v != ly_symbol2scm ("calculation-in-progress"))
+	type_check_assignment (sym, v, ly_symbol2scm ("backend-type?"));
+
       check_interfaces_for_property (this, sym);
     }
 
@@ -128,11 +128,8 @@ Grob::internal_get_property_data (SCM sym) const
   if (do_internal_type_checking_global && scm_is_pair (handle))
     {
       SCM val = scm_cdr (handle);
-      if (!ly_is_procedure (val)
-	  && !is_simple_closure (val)
-	  && !type_check_assignment (sym, val, 
-				  ly_symbol2scm ("backend-type?")))
-	abort ();
+      if (!ly_is_procedure (val) && !is_simple_closure (val))
+	type_check_assignment (sym, val, ly_symbol2scm ("backend-type?"));
 
       check_interfaces_for_property (this, sym);
     }

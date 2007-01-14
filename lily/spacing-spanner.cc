@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "spacing-spanner.hh"
@@ -223,7 +223,7 @@ Spacing_spanner::generate_springs (Grob *me,
   for (vsize i = 0; i < cols.size (); i++)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
-      Paper_column *next = (i < cols.size()-1) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
+      Paper_column *next = (i + 1 < cols.size ()) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
       if (i > 0)
 	generate_pair_spacing (me, prev, col, next, options);
@@ -318,6 +318,9 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
 	  if (!Paper_column::is_musical (right_col))
 	    {
+	      /*
+		reconsider this: breaks with wide marks/tempos/etc.
+	       */
 	      Real left_col_stick_out = robust_relative_extent (left_col, left_col,  X_AXIS)[RIGHT];
 	      compound_fixed_note_space = max (left_col_stick_out, options->increment_);
 
@@ -429,6 +432,7 @@ Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
 
   return false;
 }
+
 /*
   Read hints from L and generate springs.
 */
@@ -521,13 +525,6 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
 
-  /*
-    There used to be code that changed spacing depending on
-    raggedright setting.  Ugh.
-
-    Do it more cleanly, or rename the property.
-
-  */
   Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -34,19 +34,6 @@ using namespace std;
 /*
   symbols/strings.
  */
-SCM
-ly_to_symbol (SCM scm)
-{
-  return scm_string_to_symbol (ly_to_string (scm));
-}
-
-SCM
-ly_to_string (SCM scm)
-{
-  return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
-
-		     scm_from_locale_string ("~S"), scm);
-}
 
 SCM
 ly_write2scm (SCM s)
@@ -460,7 +447,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-	abort ();
+	scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
+								 sym, val));
 
       warning (_ ("doing assignment anyway"));
     }
@@ -623,16 +611,6 @@ ly_hash2alist (SCM tab)
   return scm_call_1 (func, tab);
 }
 
-int
-procedure_arity (SCM proc)
-{
-  assert (ly_is_procedure (proc));
-  SCM arity = scm_procedure_property (proc,
-				      ly_symbol2scm ("arity"));
-
-  SCM fixed = scm_car (arity);
-  return scm_to_int (fixed);
-}
 
 /*
   C++ interfacing.

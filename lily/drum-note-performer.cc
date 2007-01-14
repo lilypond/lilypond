@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "performer.hh"
@@ -64,7 +64,15 @@ Drum_note_performer::process_music ()
                 tie_event = ev;
             }
 
-	  Audio_note *p = new Audio_note (*pit, get_event_length (n), 
+	  Moment len = get_event_length (n);
+	  if (now_mom().grace_part_)
+	    {
+	      len.grace_part_ = len.main_part_;
+	      len.main_part_ = Rational (0);
+	    }
+	      
+
+	  Audio_note *p = new Audio_note (*pit, len,
                                           tie_event, Pitch (0, 0, 0));
 	  Audio_element_info info (p, n);
 	  announce_element (info);
