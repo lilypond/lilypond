@@ -532,7 +532,8 @@ spacingTweaks =
    #{
       \overrideProperty #"Score.NonMusicalPaperColumn"
         #'line-break-system-details
-        #$(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters))))
+        #$(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
+		(cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})
 
 %% Parser used to read page-layout file, and then retreive score tweaks.
