@@ -102,7 +102,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   char glyph_name[GLYPH_NAME_LEN];
   PangoAnalysis const *pa = &(item->analysis);
   PangoGlyphString *pgs = pango_glyph_string_new ();
-
+  
   pango_shape (str.c_str () + item->offset,
 	       item->length, (PangoAnalysis*) pa, pgs);
 
@@ -213,6 +213,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
       tail = SCM_CDRLOC (*tail);
     }
 
+  pango_glyph_string_free (pgs);  
+  pgs = 0;
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
     / (Real (PANGO_SCALE));
@@ -361,6 +363,7 @@ Pango_font::text_stencil (string str, bool tight) const
       return Stencil (b, exp);
     }
 
+  g_list_free (items);
 
   return dest;
 }
