@@ -43,11 +43,8 @@ public:
   All_font_metrics (string search_path);
   ~All_font_metrics ();
 
-#if HAVE_PANGO_FT2
-  Pango_font *find_pango_font (PangoFontDescription *description,
-			       Real magnification,
+  Pango_font *find_pango_font (PangoFontDescription const *description,
 			       Real scale);
-#endif
 
   Font_metric *find_font (string name);
   Open_type_font *find_otf (string name);

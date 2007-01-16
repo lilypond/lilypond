@@ -26,15 +26,15 @@
 #include "stencil.hh"
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
-			PangoFontDescription *description,
+			PangoFontDescription const *description,
 			Real output_scale)
 {
   (void) fontmap;
+  
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_
     = pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
-  //  context_ = pango_ft2_font_map_create_context (fontmap);
 
   pango_description_ = pango_font_description_copy (description);
   attribute_list_ = pango_attr_list_new ();
