@@ -115,12 +115,20 @@ get_voice_to_lyrics (Context *lyrics)
 Grob *
 get_current_note_head (Context *voice)
 {
+  Moment now = voice->now_mom ();
   for (SCM s = voice->get_property ("busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Item *g = dynamic_cast<Item *> (unsmob_grob (scm_cdar (s)));
-
-      if (g && !g->get_column ()
+      Grob *g = unsmob_grob (scm_cdar (s));;
+      Moment *end_mom = unsmob_moment (scm_caar (s));
+      if (!end_mom || !g)
+	{
+	  programming_error ("busyGrobs invalid");
+	  continue;
+	}
+      
+      if (end_mom->main_part_ > now.main_part_
+	  && dynamic_cast<Item *> (g)
 	  && Note_head::has_interface (g))
 	return g;
     }
