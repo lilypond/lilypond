@@ -485,7 +485,7 @@ Valid values are described in @internalsref{bar-line-interface}.
      )
 
    `((slurMelismaBusy ,boolean? "Signal if a slur is present.")
-     (originalCentralCPosition
+     (originalMiddleCPosition
       ,integer?
       "Used for temporary overriding middle C in octavation brackets. ")
      (melismaBusy ,boolean? "Signifies
