@@ -228,11 +228,7 @@ setup_paths (char const *argv0_ptr)
   /*
     When running from build dir, a full LILYPOND_PREFIX is set-up at
 
-        $(OUTBASE)/share/lilypond/TOPLEVEL_VERSION
-
-     This historical hack will allow the shorthand
-
-        LILYPONDPREFIX=out lily/out/lilypond ...
+        $(OUTBASE)/{share,lib}/lilypond/current
 
   */
   

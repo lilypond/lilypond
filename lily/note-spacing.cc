@@ -64,7 +64,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	      continue;
 	    }
 
-	  if (d == LEFT)
+	  if (d == LEFT
+	      && Note_column::has_interface (it))
 	    {
 	      SCM r = it->get_object ("rest");
 	      Grob *g = unsmob_grob (r);
