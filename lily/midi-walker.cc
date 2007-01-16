@@ -54,6 +54,9 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
 Midi_walker::~Midi_walker ()
 {
   do_stop_notes (last_tick_ + 384);
+
+  for (vsize i = 0; i < midi_items_.size (); i++)
+    delete midi_items_[i];
 }
 
 /**
@@ -102,6 +105,8 @@ Midi_walker::do_start_note (Midi_note *note)
 
       if (play_start)
 	output_event (ptr->audio_column_->ticks (), note);
+
+      midi_items_.push_back (e.val);
     }
 }
 
@@ -168,6 +173,9 @@ Midi_walker::process ()
 	}
       else
 	output_event (audio->audio_column_->ticks (), midi);
+
+
+      midi_items_.push_back (midi);
     }
 }
 

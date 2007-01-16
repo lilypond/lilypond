@@ -46,6 +46,8 @@ private:
   vector<Audio_item*> items_;
   PQueue<Midi_note_event> stop_note_queue;
   int last_tick_;
+
+  vector<Midi_item*> midi_items_;
 };
 
 #endif // MIDI_WALKER_HH

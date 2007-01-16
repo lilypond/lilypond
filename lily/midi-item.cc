@@ -40,12 +40,10 @@ Midi_item::get_midi (Audio_item *a)
   else if (Audio_time_signature *i = dynamic_cast<Audio_time_signature *> (a))
     return new Midi_time_signature (i);
   else if (Audio_text *i = dynamic_cast<Audio_text *> (a))
-    //return i->text_string_.length () ? new Midi_text (i) : 0;
     return new Midi_text (i);
   else
     assert (0);
 
-  // isn't C++ grand?
   return 0;
 }
 
