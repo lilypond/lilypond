@@ -31,7 +31,7 @@ class Pango_font : public Font_metric
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
-	      PangoFontDescription *,
+	      PangoFontDescription const *,
 	      Real);
   ~Pango_font ();
 
