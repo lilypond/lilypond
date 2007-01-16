@@ -57,7 +57,8 @@ private:
   Context *music_context_;
   SCM lyricsto_voice_name_;
 
-  bool busy_;
+  Moment busy_moment_;
+  
   Music_iterator *lyric_iter_;
 };
 
@@ -68,17 +69,26 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
-  busy_ = false;
+  busy_moment_.set_infinite (-1);
 }
 
+
+/*
+  It's dubious whether we can ever make this fully work.  Due to
+  associatedVoice switching, this routine may be triggered for 
+  the wrong music_context_ 
+ */
 IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
 void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
   Stream_event *e = unsmob_stream_event (se);
 
-  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
-    busy_ = true;
+  if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
+      && music_context_)
+    busy_moment_ = max (music_context_->now_mom (),
+			busy_moment_);
+  
 }
 
 void
@@ -87,22 +97,19 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
-      lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
     }
 
   music_context_ = to;
   if (to)
     {
       to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
-      if (lyrics_context_)
-	lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }
 
 bool
 Lyric_combine_music_iterator::start_new_syllable () const
 {
-  if (!busy_)
+  if (busy_moment_ < music_context_->now_mom ())
     return false;
 
   if (!lyrics_context_)
@@ -283,12 +290,16 @@ Lyric_combine_music_iterator::process (Moment)
 	pending_grace_lyric_ = false;
       
       Moment m = lyric_iter_->pending_moment ();
+      lyrics_context_->set_property (ly_symbol2scm ("associatedVoiceContext"),
+				     music_context_->self_scm ());
       lyric_iter_->process (m);
 
       music_found_ = true;
     }
 
-  busy_ = false;
+  new_voice = find_voice ();
+  if (new_voice)
+    set_music_context (new_voice);
 }
 
 void
