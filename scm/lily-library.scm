@@ -380,6 +380,9 @@ found."
 
 (define-public interval-end cdr)
 
+(define-public (interval-bound interval dir)
+  ((if (= dir RIGHT) cdr car) interval))
+
 (define-public (interval-index interval dir)
   "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
   
