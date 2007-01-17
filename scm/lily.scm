@@ -70,6 +70,7 @@ on errors, and print a stack trace.")
 	      (safe #f "Run safely")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
 	      (separate-log-files #f "Output to FILE.log per file.")
+	      (trace-memory #f "Statistically record Scheme cell usage, and dump to file.")
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
 	      (show-available-fonts #f
@@ -106,6 +107,7 @@ on errors, and print a stack trace.")
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
+	     (scm memory-trace)
 	     )
 
 ;; my display
@@ -651,11 +653,18 @@ The syntax is the same as `define*-public'."
 
 	 (if separate-logs
 	     (ly:stderr-redirect (format "~a.log" base) "w"))
-       
+	 (if (ly:get-option 'trace-memory) 
+	     (mtrace:start-trace 50))
+	 
 	 (lilypond-file handler x)
 	 (if start-measurements
 	     (dump-profile x start-measurements (profile-measurements)))
-       
+
+	 (if (ly:get-option 'trace-memory)
+	     (begin
+	       (mtrace:stop-trace)
+	       (mtrace:dump-results base)))
+	  	 
 	 (for-each
 	  (lambda (s)
 	    (ly:set-option (car s) (cdr s)))
