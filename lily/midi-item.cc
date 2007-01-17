@@ -1,5 +1,5 @@
 /*
-  midi-item.cc -- implement Midi items.
+  midi-item.cc -- implement MIDI items.
 
   source file of the GNU LilyPond music typesetter
 
@@ -146,11 +146,6 @@ Midi_instrument::to_string () const
 
 Midi_item::Midi_item ()
 {
-}
-
-Midi_channel_item::~Midi_channel_item ()
-{
-  channel_ = 0;
 }
 
 Midi_channel_item::Midi_channel_item ()
@@ -453,15 +448,11 @@ string
 Midi_track::data_string () const
 {
   string str = Midi_chunk::data_string ();
-  if (do_midi_debugging_global)
-    str += "\n";
 
   for (vector<Midi_event*>::const_iterator i (events_.begin());
        i != events_.end(); i ++)
     {
       str += (*i)->to_string ();
-      if (do_midi_debugging_global)
-	str += "\n";
     }
   return str;
 }

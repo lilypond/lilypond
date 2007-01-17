@@ -33,8 +33,8 @@ Midi_stream::~Midi_stream ()
   fclose (out_file_);
 }
 
-Midi_stream &
-Midi_stream::operator << (string str)
+void
+Midi_stream::write (string str)
 {
   size_t sz = sizeof (Byte);
   size_t n = str.length ();
@@ -42,34 +42,19 @@ Midi_stream::operator << (string str)
 
   if (written != sz * n)
     warning (_ ("cannot write to file: `%s'"));
-
-  return *this;
 }
 
-Midi_stream &
-Midi_stream::operator << (Midi_item const &midi_c_r)
+void
+Midi_stream::write (Midi_item const &midi)
 {
-  string str = midi_c_r.to_string ();
+  string str = midi.to_string ();
 
-  // ugh, should have separate debugging output with Midi*::print routines
-  if (do_midi_debugging_global)
-    {
-      str = String_convert::bin2hex (str) + "\n";
-      for (ssize i = str.find ("0a"); i != NPOS; i = str.find ("0a"))
-	{
-	  str[i] = '\n';
-	  str[i + 1] = '\t';
-	}
-    }
-
-  return operator << (str);
+  return write (str);
 }
 
-Midi_stream &
-Midi_stream::operator << (int i)
+void
+Midi_stream::write (int i)
 {
-  // output binary string ourselves
-  *this << Midi_item::i2varint_string (i);
-  return *this;
+  write (Midi_item::i2varint_string (i));
 }
 

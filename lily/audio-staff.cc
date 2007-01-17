@@ -33,6 +33,6 @@ Audio_staff::output (Midi_stream &midi_stream, int channel)
   for (; i.ok (); i++)
     i.process ();
   
-  midi_stream << midi_track;
+  midi_stream.write (midi_track);
 }
 

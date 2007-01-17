@@ -14,7 +14,7 @@
 
 struct Midi_note_event : PQueue_ent<int, Midi_note *>
 {
-  bool ignore_b_;
+  bool ignore_;
   Midi_note_event ();
 };
 
@@ -38,7 +38,7 @@ private:
   void do_start_note (Midi_note *note);
   void do_stop_notes (int);
   void output_event (int, Midi_item *l);
-
+  
   int channel_;
   Midi_track *track_;
   Audio_staff *staff_;
@@ -47,7 +47,6 @@ private:
   PQueue<Midi_note_event> stop_note_queue;
   int last_tick_;
 
-  vector<Midi_item*> midi_items_;
 };
 
 #endif // MIDI_WALKER_HH
