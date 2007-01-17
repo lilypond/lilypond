@@ -145,6 +145,20 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
   return default_value;
 }
 
+LY_DEFINE (ly_string_substitute, "ly:string-substitute",
+	   3, 0, 0, (SCM a, SCM b, SCM s),
+	   "Replace @var{a} by @var{b} in @var{s}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (a), s, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (b), s, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (s), s, SCM_ARG3, __FUNCTION__, "string");
+
+  string ss = ly_scm2string (s);
+  replace_all (ss, string (scm_i_string_chars (a)),
+		   string (scm_i_string_chars (b)));
+  return ly_string2scm (ss);
+}
+  
 LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
@@ -164,7 +178,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	    r = 0.0;
 	  }
 
-      snprintf (str, sizeof (str), "%08.4f", r);
+      snprintf (str, sizeof (str), "%.4f", r);
     }
   else
     snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));

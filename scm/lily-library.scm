@@ -432,9 +432,9 @@ found."
 ;; string
 
 (define-public (string-endswith s suffix)
-  (equal? prefix (substring s
-			    (max 0 (- (string-length s))
-				 (min (string-length s) (string-length prefix))))))
+  (equal? suffix (substring s
+			    (max 0 (- (string-length s) (string-length suffix)))
+			    (string-length s))))
 	     
 (define-public (string-startswith s prefix)
   (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
