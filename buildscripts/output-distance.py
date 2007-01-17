@@ -486,7 +486,7 @@ class ProfileFileLink (FileCompareLink):
                 str += '%-8s: %d\n' %  (k, int (self.results[oldnew][k]))
             else:
                 str += '%-8s: %8d (%5.3f)\n' % (k, int (self.results[oldnew][k]),
-                                         self.get_ratio (k))
+                                                self.get_ratio (k))
 
         return '<pre>%s</pre>' % str
             
@@ -508,12 +508,13 @@ class ProfileFileLink (FileCompareLink):
                     note_info, self.contents[oldnew])
 
         dist = 0.0
-        factor = {'time': 2.0 ,
-                  'cells': 10.0,
+        factor = {'time': 3.0 ,
+                  'cells': 5.0,
                   }
         
         for k in ('time', 'cells'):
-            dist += math.tan (self.get_ratio (k) /(0.5* math.pi)) * factor[k]  - 1
+            real_val = math.tan (self.get_ratio (k) * 0.5* math.pi
+            dist += math.exp (fabs (real_val) * factor[k])  - 1
 
         dist = min (dist, 100)
         return dist
