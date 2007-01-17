@@ -1,6 +1,6 @@
 (define-module (scm memory-trace))
 
-
+(use-modules (ice-9 format))
 (define-public (mtrace:start-trace freq)
   (set! usecond-interval (inexact->exact (/ 1000000 freq)))
   (call-with-new-thread start-install-tracepoint))
@@ -8,7 +8,7 @@
 (define-public (mtrace:stop-trace)
   (set! continue-tracing #f))
 
-(define-public mtrace:trace-depth 8)
+(define-public mtrace:trace-depth 12)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -19,6 +19,11 @@
 
 (define trace-count 0)
 (define usecond-interval 100000)
+(define (arg-procedure args)
+  (if (and (pair? args)
+	   (pair? (cdr args))
+	   (pair? (cadr args)))
+      (caadr args) #f))
 
 (define (record-stack key continuation . args)
   (if (eq? (current-thread) trace-thread)
@@ -31,8 +36,11 @@
 
 	(set! trace-points
 	      (cons (list
-		     (assoc 'total-cells-allocated  (gc-stats))
-		     (cons 'stack (extract-trace continuation)))
+		     (assoc 'total-cells-allocated (gc-stats))
+		     (cons 'stack (extract-trace continuation))
+		     (cons 'proc (arg-procedure args))
+		     )
+		    
 		    trace-points))
 
 	(set! busy-tracing #f))))
@@ -57,20 +65,32 @@
   (define out (open-output-file (format #f "~a.graph" base)))
   (define stacks-out (open-output-file (format #f "~a.stacks" base)))
   (define i 0)
-
+  (define last-mem 0) 
   (format out "# memory trace with ~a points\n" (length trace-points))
   
   (for-each
    (lambda (r)
-     (format out "~a ~a\n" i
-	     (cdr (assoc 'total-cells-allocated r)))
-
-     (if (assoc 'stack r)
-	 (format stacks-out "~a: ~a\n"
-		 i
-		 (cdr (assoc 'stack r))))
-     
-     (set! i (1+ i)))
+     (let*
+	 ((mem (cdr (assoc 'total-cells-allocated r)))
+	  (proc (cdr (assoc 'proc r)))
+	  (stack (cdr (assoc 'stack r))))
+       
+       (format out "~a ~a\n" i mem)
+       (if stack
+	   (begin
+	     (format stacks-out "~15a - delta-mem: ~15a - ~a \n" i
+		     (- mem last-mem) proc)
+	     (do
+		 ((j 0 (1+ j))
+		  (stack (cdr (assoc 'stack r)) stack))
+		 ((>= j (vector-length stack)))
+	       
+	       (format stacks-out "\t~a\n"
+		       (vector-ref stack j)))))
+       
+       (set! i (1+ i))
+       (set! last-mem mem)
+       ))
    (reverse trace-points)))
 
 
