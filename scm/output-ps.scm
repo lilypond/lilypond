@@ -272,7 +272,7 @@
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (format "gsave ~a translate ~a rotate ~a translate\n"
+  (format #f "gsave ~a translate ~a rotate ~a translate\n"
     (numbers->string4 (list x y))
     (number->string ang)
     (numbers->string4 (list (* -1 x) (* -1 y)))))
@@ -343,14 +343,15 @@
 	     )
 
 	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
-	  (cons (format "~a ~a "
-			(string-join (map (lambda (x) (format "~a " x)) args) " ")
+	  (cons (format #f
+			"~a ~a "
+			(string-join (map (lambda (x) (format #f "~a " x)) args) " ")
 			head)
 		(convert-path-exps (drop rest arity))))
 	'()))
     
     
-  (format
+  (format #f
    "1 setlinecap ~a setlinewidth\n~a stroke"
    thickness
    (string-join (convert-path-exps exps) " ")))
