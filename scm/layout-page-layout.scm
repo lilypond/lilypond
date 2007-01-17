@@ -214,7 +214,8 @@
 			   (space-to-fill (page-maximum-space-to-fill
 					    page lines paper))
 			   (spacing (space-systems space-to-fill lines ragged paper #f)))
-		      (if (or (not (car spacing)) (inf? (car spacing)))
+		      (if (and (> (length lines) 1)
+			       (or (not (car spacing)) (inf? (car spacing))))
 			  (begin
 			    (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
 			    (cdr (space-systems space-to-fill lines ragged paper #t)))
