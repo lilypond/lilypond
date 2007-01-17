@@ -513,8 +513,8 @@ class ProfileFileLink (FileCompareLink):
                   }
         
         for k in ('time', 'cells'):
-            real_val = math.tan (self.get_ratio (k) * 0.5* math.pi
-            dist += math.exp (fabs (real_val) * factor[k])  - 1
+            real_val = math.tan (self.get_ratio (k) * 0.5* math.pi)
+            dist += math.exp (math.fabs (real_val) * factor[k])  - 1
 
         dist = min (dist, 100)
         return dist
