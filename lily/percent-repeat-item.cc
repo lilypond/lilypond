@@ -38,14 +38,14 @@ Percent_repeat_item_interface::x_percent (Grob *me, int count,
   Stencil s = brew_slash (me);
 
   for (int i = count; i--;)
-    m.add_at_edge (X_AXIS, RIGHT, s, -slash_neg_kern, 0);
+    m.add_at_edge (X_AXIS, RIGHT, s, -slash_neg_kern);
   Stencil d1 = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
   Stencil d2 = d1;
   d1.translate_axis (0.5, Y_AXIS);
   d2.translate_axis (-0.5, Y_AXIS);
 
-  m.add_at_edge (X_AXIS, LEFT, d1, -dot_neg_kern, 0);
-  m.add_at_edge (X_AXIS, RIGHT, d2, -dot_neg_kern, 0);
+  m.add_at_edge (X_AXIS, LEFT, d1, -dot_neg_kern);
+  m.add_at_edge (X_AXIS, RIGHT, d2, -dot_neg_kern);
 
   return m;
 }

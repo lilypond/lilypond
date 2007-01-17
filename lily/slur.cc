@@ -153,7 +153,7 @@ Slur::print (SCM smob)
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
 				     quant_score));
-      a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0, 0);
+      a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif
 

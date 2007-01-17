@@ -46,12 +46,6 @@ using namespace std;
 */
 class Stencil
 {
-  /*
-    This provides the reference point of the symbol, for example with
-    characters, it is on the base line of the character. Usually,
-    ORIGIN is inside DIM_
-  */
-  Offset origin_;
   Box dim_;
   SCM expr_;
 
@@ -60,17 +54,12 @@ public:
   Stencil (Box, SCM s);
   Stencil ();
 
-  Offset origin () const;
   SCM expr () const;
 
   /**
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
-  Stencil moved_to_edge (Axis a, Direction d, const Stencil &m, Real padding,
-			 Real minimum) const;
-
-  void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding,
-		    Real minimum);
+  void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
   void add_stencil (Stencil const &m);
   void translate (Offset);
   Stencil translated (Offset) const;

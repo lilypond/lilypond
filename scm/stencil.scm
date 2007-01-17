@@ -240,11 +240,11 @@ encloses the contents.
 	  (set! annotation
                 (center-stencil-on-extent text-stencil))
 	  (set! annotation
-		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0))
+		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5))
 	  (set! annotation
 		(ly:stencil-combine-at-edge annotation X LEFT
                                             (center-stencil-on-extent dim-stencil)
-                                            0.5 0))
+                                            0.5))
 	  (set! annotation
 		(ly:make-stencil (list 'color color (ly:stencil-expr annotation))
 				 (ly:stencil-extent annotation X)

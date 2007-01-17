@@ -58,7 +58,7 @@ Sustain_pedal::print (SCM smob)
 	idx += string (&text.c_str ()[i], 1);
       Stencil m = Font_interface::get_default_font (e)->find_by_name (idx);
       if (!m.is_empty ())
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
     }
 
   return mol.smobbed_copy ();

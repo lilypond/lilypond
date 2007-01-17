@@ -25,8 +25,8 @@ parenthesize (Grob *me, Stencil m)
   Stencil close
     = font->find_by_name ("accidentals.rightparen");
 
-  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0, 0);
-  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0, 0);
+  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0);
+  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0);
 
   return m;
 }
@@ -177,7 +177,7 @@ Accidental_interface::print (SCM smob)
       if (acc.is_empty ())
 	me->warning (_ ("natural alteration glyph not found"));
       else
-	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1, 0);
+	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
   
   if (to_boolean (me->get_property ("parenthesized")))
