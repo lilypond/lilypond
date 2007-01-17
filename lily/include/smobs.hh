@@ -146,7 +146,7 @@ extern bool parsed_objects_should_be_dead;
 #define ASSERT_LIVE_IS_ALLOWED()     \
   static bool passed_here_once;\
   if (parsed_objects_should_be_dead && !passed_here_once) { \
-    programming_error (string ("Parsed object should be dead: ")  + __PRETTY_FUNCTION__ ); \
+    ::programming_error (string ("Parsed object should be dead: ")  + __PRETTY_FUNCTION__ ); \
     passed_here_once = true;\
   }    
 

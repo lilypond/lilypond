@@ -132,6 +132,13 @@ ly_scm2string (SCM str)
 		 (int) scm_i_string_length (str));
 }
 
+SCM
+ly_string2scm (string const &str)
+{
+  return scm_from_locale_stringn (str.c_str(),
+				  str.length ());
+}
+
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
 {

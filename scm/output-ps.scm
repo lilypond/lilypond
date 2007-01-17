@@ -69,7 +69,9 @@
       (ly:number->string num)))
 
 (define (number-pair->string4 numpair)
-  (format #f "~f ~f" (round4 (car numpair)) (round4 (cdr numpair))))
+  (string-append (str4 (car numpair))
+		 " "
+		 (str4 (cdr numpair))))
 
 (define (numbers->string4 numlist)
   (string-join (map str4 numlist) " "))

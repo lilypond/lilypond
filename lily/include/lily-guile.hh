@@ -44,6 +44,7 @@ extern SCM global_lily_module;
 string gulp_file_to_string (string fn, bool must_exist, int size);
 
 string ly_scm2string (SCM s);
+SCM ly_string2scm (string const &str);
 string ly_symbol2string (SCM);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
