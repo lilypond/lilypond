@@ -13,7 +13,7 @@ using namespace std;
 
 #include "international.hh"
 #include "source-file.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "warn.hh"
 
 Input::Input (Input const &i)
