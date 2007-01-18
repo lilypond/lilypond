@@ -54,10 +54,6 @@
 
 ;; ice-9 format uses a lot of memory
 ;; using simple-format almost halves lilypond cell usage
-(define format simple-format)
-
-(define (escape-parentheses s)
-  (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
 
 (define (str4 num)
   (if (or (nan? num) (inf? num))
@@ -69,16 +65,14 @@
       (ly:number->string num)))
 
 (define (number-pair->string4 numpair)
-  (string-append (str4 (car numpair))
-		 " "
-		 (str4 (cdr numpair))))
+  (ly:format "~4l" numpair)) 
 
 (define (numbers->string4 numlist)
   (string-join (map str4 numlist) " "))
 
 ;; FIXME: lily-def
 (define-public (ps-string-def prefix key val)
-  (format #f "/ ~a~a (~a) def\n"
+  (ly:format "/ ~a~a (~a) def\n"
 	  prefix
 	  (symbol->string key)
 	  (escape-parentheses val)))
@@ -87,9 +81,9 @@
   (let ((s (if (integer? val)
 	       (ly:number->string val)
 	       (ly:number->string (exact->inexact val)))))
-    (format #f "/~a~a ~a def\n"
-	    prefix
-	    (symbol->string key) s)))
+    (ly:format "/~a~a ~a def\n"
+	       prefix
+	       (symbol->string key) s)))
 
 
 ;;;
@@ -98,54 +92,48 @@
 
 ;; two beziers
 (define (bezier-sandwich lst thick)
-  (format #f "~a ~a draw_bezier_sandwich" 
-	  (string-join (map number-pair->string4 lst) " ")
-	  (str4 thick)))
+  (ly:format "~l ~4f draw_bezier_sandwich" 
+	     (map number-pair->string4 lst)
+	  thick))
 
 (define (char font i)
-  (format #f "~a (\\~a) show"
+  (ly:format "~a (\\~a) show"
    (ps-font-command font)
    (ly:inexact->string i 8)))
 
 (define (circle radius thick fill)
-  (format #f
-   "~a ~a ~a draw_circle"
+  (ly:format
+   "~a ~4f ~4f draw_circle"
    (if fill
      "true"
      "false")
-   (str4 radius) (str4 thick)))
+   radius thick))
 
 (define (dashed-line thick on off dx dy phase)
-  (format #f "~a ~a ~a [ ~a ~a ] ~a draw_dashed_line"
-   (str4 dx)
-   (str4 dy)
-   (str4 thick)
-   (str4 on)
-   (str4 off)
-   (str4 phase)
-   
-   ))
+  (ly:format "~4f ~4f ~4f [ ~4f ~4f ] ~4f draw_dashed_line"
+   dx
+   dy
+   thick
+   on
+   off
+   phase))
 
 ;; what the heck is this interface ?
 (define (dashed-slur thick on off l)
-  (format #f "~a ~a [ ~a ~a ] 0 draw_dashed_slur"
+  (ly:format "~l ~4f [ ~4f ~4f ] 0 draw_dashed_slur"
 	  (let ((control-points (append (cddr l) (list (car l) (cadr l)))))
-	    (string-join (map number-pair->string4 control-points) " "))
-	  (str4 thick)
-	  (str4 on)
-	  (str4 off)))
+	    (map number-pair->string4 control-points) " ")
+	  thick
+	  on
+	  off))
 
 (define (dot x y radius)
-  (format #f " ~a draw_dot"
-   (numbers->string4 (list radius x y))))
+  (ly:format " ~4l draw_dot" (list radius x y)))
 
 (define (draw-line thick x1 y1 x2 y2)
-  (format #f "~a ~a ~a ~a ~a draw_line"
-	  (str4 (- x2 x1))
-	  (str4 (- y2 y1))
-	  (str4 x1)
-	  (str4 y1)
-	  (str4 thick)))
+  (ly:format "~4f ~4f ~4f ~4f ~4f draw_line"
+	  (- x2 x1) (- y2 y1)
+	  x1 y1 thick))
 
 (define (embedded-ps string)
   string)
@@ -157,13 +145,12 @@
 
   (define (glyph-spec w x y g)
     (let ((prefix (if (string? g) "/" "")))
-      (format #f "~a ~a ~a~a"
-	      (str4 (+ w x))
-	      (str4 y)
-	      prefix g)))
+      (ly:format "~4f ~4f ~a~a"
+		 (+ w x)  y
+		 prefix g)))
   
-  (format #f
-	  (if cid?
+  (ly:format 
+   (if cid?
 "/~a /CIDFont findresource ~a output-scale div scalefont setfont
 ~a
 ~a print_glyphs"
@@ -194,21 +181,21 @@
 
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
-	      (format #f "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
-		      (str4 (+ (car offset) (car x-ext)))
-		      (str4 (+ (cdr offset) (car y-ext)))
-		      (str4 (+ (car offset) (cdr x-ext)))
-		      (str4 (+ (cdr offset) (cdr y-ext)))
+	      (ly:format "~4f ~4f ~4f ~4f (textedit://~a:~a:~a:~a) mark_URI\n"
+			 (+ (car offset) (car x-ext))
+			 (+ (cdr offset) (car y-ext))
+			 (+ (car offset) (cdr x-ext))
+			 (+ (cdr offset) (cdr y-ext))
 
-		      ;; TODO
-		      ;;full escaping.
+			 ;; TODO
+			 ;;full escaping.
 
-		      ;; backslash is interpreted by GS.
-		      (ly:string-substitute "\\" "/" 
-					    (ly:string-substitute " " "%20" file))
-		      (cadr location)
-		      (caddr location)
-		      (cadddr location))
+			 ;; backslash is interpreted by GS.
+			 (ly:string-substitute "\\" "/" 
+					       (ly:string-substitute " " "%20" file))
+			 (cadr location)
+			 (caddr location)
+			 (cadddr location))
 	      "")))))
 
 (define (lily-def key val)
@@ -220,27 +207,24 @@
       (format "/~a (~a) def\n" key val))))
 
 (define (named-glyph font glyph)
-  (format #f "~a /~a glyphshow " ;;Why is there a space at the end?
-	  (ps-font-command font)
-	  glyph))
+  (ly:format "~a /~a glyphshow " ;;Why is there a space at the end?
+	     (ps-font-command font)
+	     glyph))
 
 (define (no-origin)
   "")
 
 (define (placebox x y s) 
-  (format #f
-"~a ~a moveto
-~a\n"
-  (str4 x)
-  (str4 y)
-  s))
+  (ly:format
+"~4f ~4f moveto
+~a\n" x y s))
 
 (define (polygon points blot-diameter filled?)
-  (format #f "~a ~a ~a ~a draw_polygon"
-	  (if filled? "true" "false")
-	  (numbers->string4 points)
-	  (number->string (- (/ (length points) 2) 1))
-	  (str4 blot-diameter)))
+  (ly:format "~a ~4l ~a ~4f draw_polygon"
+	     (if filled? "true" "false")
+	     points
+	     (- (/ (length points) 2) 1)
+	     blot-diameter))
 
 (define (repeat-slash width slope beam-thickness)
   (define (euclidean-length x y)
@@ -248,8 +232,8 @@
 
   (let ((x-width (euclidean-length beam-thickness (/ beam-thickness slope)))
 	(height (* width slope)))
-    (format #f "~a draw_repeat_slash"
-	    (numbers->string4 (list x-width width height)))))
+    (ly:format "~4l draw_repeat_slash"
+	     (list x-width width height))))
 
 
 (define (round-filled-box left right bottom top blotdiam)
@@ -258,24 +242,23 @@
 	 (width (- right (+ halfblot x)))
 	 (y (- halfblot bottom))
 	 (height (- top (+ halfblot y))))
-    (format #f "~a draw_round_box"
-	    (numbers->string4
-	      (list width height x y blotdiam)))))
+    (ly:format  "~4l draw_round_box"
+		(list width height x y blotdiam))))
 
 ;; save current color on stack and set new color
 (define (setcolor r g b)
-  (format #f "gsave ~a setrgbcolor\n"
-	  (numbers->string4 (list r g b))))
+  (ly:format "gsave ~4l setrgbcolor\n"
+	      (list r g b)))
 
 ;; restore color from stack
 (define (resetcolor) "grestore \n")
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (format #f "gsave ~a translate ~a rotate ~a translate\n"
-    (numbers->string4 (list x y))
-    (number->string ang)
-    (numbers->string4 (list (* -1 x) (* -1 y)))))
+  (ly:format "gsave ~4l translate ~a rotate ~4l translate\n"
+	     (list x y)
+	     ang
+	     (list (* -1 x) (* -1 y))))
 
 (define (resetrotation ang x y)
   "grestore  ")
@@ -307,25 +290,25 @@
   "\n unknown\n")
 
 (define (url-link url x y)
-  (format #f "~a ~a ~a ~a (~a) mark_URI"
-	  (car x)
-	  (car y)
-	  (cdr x)
-	  (cdr y)
-	  url))
+  (ly:format "~a ~a ~a ~a (~a) mark_URI"
+	     (car x)
+	     (car y)
+	     (cdr x)
+	     (cdr y)
+	     url))
 
 (define (utf-8-string pango-font-description string)
   (ly:warning (_ "utf-8-string encountered in PS backend")))
 
 
-(define (zigzag-line centre? zzw zzh thick dx dy)
-  (format #f "~a ~a ~a ~a 0 0 ~a ~a draw_zigzag_line"
-   (if centre? "true" "false")
-   (str4 zzw)
-   (str4 zzh)
-   (str4 thick)
-   (str4 dx)
-   (str4 dy)))
+(define (zigzag-line is-center zzw zzh thick dx dy)
+  (ly:format "~a ~4f ~4f ~4f 0 0 ~4f ~4f draw_zigzag_line"
+   (if is-center "true" "false")
+   zzw
+   zzh
+   thick
+   dx
+   dy))
 
 
 (define (path thickness exps)
@@ -343,16 +326,16 @@
 	     )
 
 	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
-	  (cons (format #f
-			"~a ~a "
-			(string-join (map (lambda (x) (format #f "~a " x)) args) " ")
+	  (cons (ly:format
+			"~l ~a "
+			args 
 			head)
 		(convert-path-exps (drop rest arity))))
 	'()))
     
     
-  (format #f
-   "1 setlinecap ~a setlinewidth\n~a stroke"
+  (ly:format
+   "1 setlinecap ~a setlinewidth\n~l stroke"
    thickness
-   (string-join (convert-path-exps exps) " ")))
+   (convert-path-exps exps) ))
   
