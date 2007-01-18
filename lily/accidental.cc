@@ -66,13 +66,16 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
   vector<Box> boxes;
 
   bool parens = to_boolean (me->get_property ("parenthesized"));
+  if (!me->is_live ())
+    return boxes;
 
   SCM scm_style = me->get_property ("style");
   if (!scm_is_symbol (scm_style)
       && !to_boolean (me->get_property ("restore-first"))
       && !parens)
     {
-      Rational alteration = ly_scm2rational (me->get_property ("alteration"));
+      Rational alteration
+	= robust_scm2rational (me->get_property ("alteration"), 0);
       if (alteration == FLAT_ALTERATION)
 	{
 	  Box stem = b;
@@ -151,7 +154,7 @@ Accidental_interface::print (SCM smob)
   if (!scm_is_string (glyph_name))
     {
       me->warning (_f ("Could not find glyph-name for alteration %s",
-		       ly_scm2rational (alt).to_string ().c_str ()));
+		       ly_scm_write_string (alt).c_str ()));
       return SCM_EOL;
     }
   
