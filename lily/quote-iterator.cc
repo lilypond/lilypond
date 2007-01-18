@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "music-wrapper-iterator.hh"
@@ -244,9 +244,9 @@ Quote_iterator::process (Moment m)
 		    mp = *me_pitch;
 
 		  Pitch diff = pitch_interval (qp, mp);
-
-		  SCM props =  transpose_mutable (ev->get_property_alist (true), diff);
-		  ev = new Stream_event (ev->get_property ("class"), props);
+		  ev = ev->clone ();
+		  
+		  transpose_mutable (ev->get_property_alist (true), diff);
 		  transposed_musics_ = scm_cons (ev->unprotect (), transposed_musics_);
 		}
 	      quote_outlet_.get_outlet ()->event_source ()->broadcast (ev);

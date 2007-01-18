@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "program-option.hh"
@@ -12,15 +12,13 @@
 #include <cstring>
 using namespace std;
 
+#include "profile.hh"
 #include "international.hh"
 #include "main.hh"
 #include "parse-scm.hh"
 #include "string-convert.hh"
 #include "warn.hh"
 
-/* Write midi as formatted ascii stream? */
-bool do_midi_debugging_global;
-bool use_object_keys;
 bool debug_skylines;
 
 /*
@@ -48,11 +46,6 @@ void internal_set_option (SCM var, SCM val)
       profile_property_accesses = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
-  else if (var == ly_symbol2scm ("debug-midi"))
-    {
-      do_midi_debugging_global = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
-    }
   else if (var == ly_symbol2scm ("point-and-click"))
     {
       point_and_click_global = to_boolean (val);
@@ -73,16 +66,16 @@ void internal_set_option (SCM var, SCM val)
       parsed_objects_should_be_dead = to_boolean (val);
       val = scm_from_bool (parsed_objects_should_be_dead);
     }
+  else if (var == ly_symbol2scm ("safe"))
+    {
+      be_safe_global = to_boolean (val);
+      val = scm_from_bool (be_safe_global);
+    }
   else if (var == ly_symbol2scm ("old-relative"))
     {
       lily_1_8_relative = to_boolean (val);
       /*  Needs to be reset for each file that uses this option.  */
       lily_1_8_compatibility_used = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
-    }
-  else if (var == ly_symbol2scm ("object-keys"))
-    {
-      use_object_keys = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
   else if (var == ly_symbol2scm ("strict-infinity-checking"))
@@ -152,12 +145,11 @@ get_help_string ()
 }
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
-	   "Print ly:set-option usage")
+	   "Print @code{ly:set-option} usage")
 {
   string help = get_help_string ();
-  fputs (help.c_str (), stdout);
+  progress_indication (help);
 
-  exit (0);
   return SCM_UNSPECIFIED;
 }
 
@@ -188,7 +180,10 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 		   __FUNCTION__, "symbol");
 
   if (ly_symbol2scm ("help") == var)
-    ly_option_usage ();
+    {
+      ly_option_usage ();
+      exit (0);
+    }
 
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
@@ -208,6 +203,18 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
+	   "The Scheme specified on command-line with @samp{-d}.")
+{
+  return ly_string2scm (init_scheme_variables_global); 
+}
+
+LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
+	   "The Scheme specified on command-line with @samp{-e}.")
+{
+  return ly_string2scm (init_scheme_code_global); 
+}
+
 LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
 	   "Was be_verbose_global set?")
 {
@@ -215,6 +222,13 @@ LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
 }
 
 
+
+LY_DEFINE (ly_all_option, "ly:all-options",
+	   0, 0, 0, (),
+	   "Get all option settings in an alist.")
+{
+  return ly_hash2alist (option_hash);
+}
 
 
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
@@ -224,6 +238,7 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 		   SCM_ARG1, __FUNCTION__, "symbol");
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }
+
 
 
 bool

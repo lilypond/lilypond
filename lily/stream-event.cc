@@ -35,11 +35,10 @@ Stream_event::Stream_event (SCM class_name, Input *origin)
     set_spot (origin);
 }
 
-Stream_event::Stream_event (Stream_event *ev)
-  : Prob (ly_symbol2scm ("Stream_event"), SCM_EOL)
+SCM
+Stream_event::copy_mutable_properties () const
 {
-  mutable_property_alist_ = scm_copy_tree (ev->mutable_property_alist_);
-  immutable_property_alist_ = ev->immutable_property_alist_;
+  return ly_event_deep_copy (mutable_property_alist_);
 }
 
 Input *

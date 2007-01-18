@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -22,6 +22,8 @@ using namespace std;
 #include "dimensions.hh"
 #include "main.hh"
 #include "file-path.hh"
+#include "relocate.hh"
+#include "file-name.hh"
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
@@ -35,7 +37,7 @@ LY_DEFINE (ly_find_file, "ly:find-file",
   if (file_name.empty ())
     return SCM_BOOL_F;
 
-  return scm_makfrom0str (file_name.c_str ());
+  return ly_string2scm (file_name);
 }
 
 /*
@@ -48,7 +50,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "The file is looked up using the search path. ")
 {
   SCM_ASSERT_TYPE (scm_is_string (name), name, SCM_ARG1, __FUNCTION__, "string");
-  int sz = -1;
+  int sz = INT_MAX;
   if (size != SCM_UNDEFINED)
     {
       SCM_ASSERT_TYPE (scm_is_number (size), size, SCM_ARG2, __FUNCTION__, "number");
@@ -135,15 +137,29 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 	   "(or #f if not specified).")
 {
   SCM handle = scm_assoc (key, alist);
-
+  if (scm_is_pair (handle))
+    return scm_cdr (handle);
+  
   if (default_value == SCM_UNDEFINED)
     default_value = SCM_BOOL_F;
 
-  if (scm_is_pair (handle))
-    return scm_cdr (handle);
   return default_value;
 }
 
+LY_DEFINE (ly_string_substitute, "ly:string-substitute",
+	   3, 0, 0, (SCM a, SCM b, SCM s),
+	   "Replace @var{a} by @var{b} in @var{s}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (a), s, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (b), s, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (s), s, SCM_ARG3, __FUNCTION__, "string");
+
+  string ss = ly_scm2string (s);
+  replace_all (ss, string (scm_i_string_chars (a)),
+		   string (scm_i_string_chars (b)));
+  return ly_string2scm (ss);
+}
+  
 LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
@@ -163,12 +179,12 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	    r = 0.0;
 	  }
 
-      snprintf (str, sizeof (str), "%08.4f", r);
+      snprintf (str, sizeof (str), "%.4f", r);
     }
   else
     snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
 
-  return scm_makfrom0str (str);
+  return scm_from_locale_string (str);
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
@@ -182,7 +198,7 @@ LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
 LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 	   "Return the unit used for lengths as a string.")
 {
-  return scm_makfrom0str (INTERNAL_UNIT);
+  return scm_from_locale_string (INTERNAL_UNIT);
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
@@ -208,14 +224,14 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 {
   SCM_ASSERT_TYPE (scm_is_string (string), string, SCM_ARG1,
 		   __FUNCTION__, "string");
-  return scm_makfrom0str (_ (scm_i_string_chars (string)).c_str ());
+  return ly_string2scm (_ (scm_i_string_chars (string)));
 }
 
 LY_DEFINE (ly_output_backend, "ly:output-backend",
 	   0, 0, 0, (),
 	   "Return name of output backend.")
 {
-  return scm_makfrom0str (output_backend_global.c_str ());
+  return ly_string2scm (output_backend_global);
 }
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
@@ -228,7 +244,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   SCM lst = SCM_EOL;
   int output_formats_count = output_formats.size ();
   for (int i = 0; i < output_formats_count; i++)
-    lst = scm_cons (scm_makfrom0str (output_formats[i].c_str ()), lst);
+    lst = scm_cons (ly_string2scm (output_formats[i]), lst);
 
   return lst;
 }
@@ -265,14 +281,14 @@ LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
     }
   *p = 0;
 
-  return scm_makfrom0str (buf);
+  return scm_from_locale_string (buf);
 }
 
 LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
 {
-  return scm_makfrom0str (prefix_directory.c_str ());
+  return ly_string2scm (prefix_directory);
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
@@ -292,18 +308,21 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
   return dfault == SCM_UNDEFINED ? SCM_BOOL_F : dfault;
 }
 
+
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 	   1, 1, 0, (SCM file_name, SCM mode),
 	   "Redirect stderr to FILE-NAME, opened with MODE.")
 {
-  SCM_ASSERT_TYPE (scm_string_p (file_name), file_name, SCM_ARG1,
+  SCM_ASSERT_TYPE (scm_is_string (file_name), file_name, SCM_ARG1,
 		   __FUNCTION__, "file_name");
-  char const *m = "w";
+
+  string m = "w";
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
-    m = ly_scm2newstr (mode, 0);
+    m = ly_scm2string (mode);
   /* dup2 and (fileno (current-error-port)) do not work with mingw'c
      gcc -mwindows.  */
-  freopen (ly_scm2newstr (file_name, 0), m, stderr);
+  fflush (stderr); 
+  freopen (ly_scm2string (file_name).c_str (), m.c_str (), stderr);
   return SCM_UNSPECIFIED;
 }
 
@@ -339,3 +358,38 @@ LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
 
   return ly_symbol2scm (result.c_str ());
 }
+
+LY_DEFINE (ly_expand_environment, "ly:expand-environment",
+	   1, 0, 0, (SCM str),
+	   "Expand $VAR and $@{VAR@} in @var{str}.")
+{
+  SCM_ASSERT_TYPE(scm_is_string (str), str,
+		  SCM_ARG1, __FUNCTION__, "string");
+
+  return ly_string2scm (expand_environment_variables (ly_scm2string (str)));
+}
+		 
+
+LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
+	   2, 0, 0, (SCM lst, SCM i),
+	   "Take at most the first @var{i} of list @var{lst}")
+{
+  SCM_ASSERT_TYPE(scm_is_integer (i), i,
+		  SCM_ARG1, __FUNCTION__, "integer");
+
+  int k = scm_to_int (i);
+  if (k == 0)
+    lst = SCM_EOL;
+  else
+    {
+      SCM s = lst;
+      k--;
+      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
+	;
+
+      if (scm_is_pair (s))
+	scm_set_cdr_x (s, SCM_EOL);
+    }
+  return lst;
+}
+

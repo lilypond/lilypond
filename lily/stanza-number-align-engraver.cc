@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "context.hh"
@@ -60,9 +60,10 @@ Stanza_number_align_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
 ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
+
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		"This engraver ensures that stanza numbers are neatly aligned. ",
 		"",
-		" ",
+		"",
 		"");
 

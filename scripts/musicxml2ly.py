@@ -208,11 +208,14 @@ def musicxml_note_to_lily_main_event (n):
         event = musicexp.RestEvent()
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
-        event.drum_type = instrument_drumtype_dict[n.instrument_name]
-        
+        try:
+            event.drum_type = instrument_drumtype_dict[n.instrument_name]
+        except KeyError:
+            n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
+            event.drum_type = 'acousticsnare'
     
     if not event:
-        n.message ("could not find suitable event")
+        n.message ("cannot find suitable event")
 
     event.duration = musicxml_duration_to_lily (n)
     return event
@@ -264,7 +267,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            raise NegativeSkip(current_end, moment)
+            print 'Negative skip', diff
+            diff = Rational (0)
 
         if diff > Rational (0):
             skip = musicexp.SkipEvent()
@@ -313,7 +317,12 @@ def musicxml_voice_to_lily_voice (voice):
             
         if isinstance (n, musicxml.Attributes):
             if n.is_first () and n._measure_position == Rational (0):
-                voice_builder.add_bar_check (int (n.get_parent ().number))
+                try:
+                    number = int (n.get_parent ().number)
+                except ValueError:
+                    number = 0
+                
+                voice_builder.add_bar_check (number)
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_music (a, Rational (0))
             continue
@@ -330,7 +339,10 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if n.is_first () and n._measure_position == Rational (0):
-            num = int (n.get_parent ().number)
+            try: 
+                num = int (n.get_parent ().number)
+            except ValueError:
+                num = 0
             voice_builder.add_bar_check (num)
         
         main_event = musicxml_note_to_lily_main_event (n)
@@ -470,44 +482,41 @@ def get_all_voices (parts):
 
 
 def option_parser ():
-    p = ly.get_option_parser(usage='musicxml2ly FILE.xml',
-                 version = """%prog (LilyPond) @TOPLEVEL_VERSION@
-
-This program is free software.  It is covered by the GNU General Public
+    p = ly.get_option_parser(usage=_ ("musicxml2ly FILE.xml"),
+                             version=('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
+                                      +
+_ ("""This program is free software.  It is covered by the GNU General Public
 License and you are welcome to change it and/or distribute copies of it
-under certain conditions.  Invoke as `lilypond --warranty' for more
-information.
-
+under certain conditions.  Invoke as `%s --warranty' for more
+information.""") % 'lilypond'
++ """
 Copyright (c) 2005--2006 by
     Han-Wen Nienhuys <hanwen@xs4all.nl> and
     Jan Nieuwenhuizen <janneke@gnu.org>
-""",
-
-                 description  =
-                 """Convert MusicXML file to LilyPond input.
-"""
-                 )
+"""),
+                             description=_ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
     p.add_option ('-v', '--verbose',
-                  action = "store_true",
-                  dest = 'verbose',
-                  help = 'be verbose')
+                  action="store_true",
+                  dest='verbose',
+                  help=_ ("be verbose"))
 
     p.add_option ('', '--lxml',
                   action="store_true",
                   default=False,
                   dest="use_lxml",
-                  help="Use lxml.etree; uses less memory and cpu time.")
+                  help=_ ("Use lxml.etree; uses less memory and cpu time."))
     
     p.add_option ('-o', '--output',
-                  metavar = 'FILE',
+                  metavar=_ ("FILE"),
                   action="store",
                   default=None,
                   type='string',
                   dest='output_name',
-                  help='set output file')
-
-    p.add_option_group  ('', description = '''Report bugs via http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs
-''')
+                  help=_ ("set output filename to FILE"))
+    p.add_option_group ('bugs',
+                        description=(_ ("Report bugs via")
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
 def music_xml_voice_name_to_lily_name (part, name):

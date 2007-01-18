@@ -283,14 +283,6 @@ e.g. @code{\\mark \"A\"}.")
 
 	(types . (general-music mark-event event))
 	))
-    (ManualMelismaEvent
-     . (
-	(description .	"Start or stop a melisma.
-
-Syntax: @code{c4\\melisma d\\melismaEnd}.")
-	(types . (general-music melisma-span-event event))
-	))
-
     (MultiMeasureRestMusic
      . (
 	(description . "Rests that may be compressed into Multi rests. 
@@ -387,7 +379,7 @@ Syntax: @code{\\property @var{context}.@var{prop} = @var{scheme-val}}.")
     (PercentEvent
      . (
 	(description .	"Used internally to signal percent repeats.")
-	(types . (general-music event percent-event))
+	(types . (general-music event percent-event rhythmic-event))
 	))
 
     (PesOrFlexaEvent
@@ -751,7 +743,7 @@ and values. E.g:
       (ly:error (_ "symbol expected: ~S") name))
   (let ((props (hashq-ref music-name-to-property-table name '())))
     (if (not (pair? props))
-	(ly:error (_ "can't find music object: ~S") name))
+	(ly:error (_ "cannot find music object: ~S") name))
     (let ((m (ly:make-music props)))
       (define (set-props mus-props)
 	(if (and (not (null? mus-props))

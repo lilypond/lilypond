@@ -1,7 +1,7 @@
 /*
   midi-stream.hh -- declare Midi_stream
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef MIDI_STREAM_HH
@@ -20,9 +20,9 @@ struct Midi_stream
   Midi_stream (string file_name_string);
   ~Midi_stream ();
 
-  Midi_stream &operator << (string str);
-  Midi_stream &operator << (Midi_item const &midi_c_r);
-  Midi_stream &operator << (int i);
+  void write (string);
+  void write (Midi_item const &);
+  void write (int);
 
   void open ();
 

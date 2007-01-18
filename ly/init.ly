@@ -4,11 +4,6 @@
 #(if (and #t (defined? 'set-debug-cell-accesses!))
   (set-debug-cell-accesses! 5000))
 
-#(define-public midi-debug  #f)
-
-
-
-
 \version "2.10.0"
 
 \include "declarations-init.ly"
@@ -19,7 +14,8 @@
 #(define output-count 0) 
 #(define $defaultheader #f)
 #(define version-seen #f)
-
+#(define expect-error #f) 
+#(define output-empty-score-list #f)
 
 #(use-modules (scm clip-region))
 \maininput
@@ -38,7 +34,15 @@
       (defined? 'input-file-name))
   (version-not-seen-message input-file-name))
 
-#(if (pair? toplevel-scores)
-  (toplevel-book-handler
+#(if (or (pair? toplevel-scores) output-empty-score-list)
+  ((if (defined? 'default-toplevel-book-handler)
+    default-toplevel-book-handler
+    toplevel-book-handler)
    parser
    (apply ly:make-book $defaultpaper $defaultheader toplevel-scores)))
+
+
+#(if (eq? expect-error (ly:parser-has-error? parser))
+  (ly:parser-clear-error parser)
+  (if expect-error
+   (ly:parser-error parser (_ "expected error, but none found"))))

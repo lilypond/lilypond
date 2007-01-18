@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -68,12 +68,14 @@ protected:
   DECLARE_ACKNOWLEDGER (staff_spacing);
   DECLARE_ACKNOWLEDGER (note_spacing);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (rhythmic_grob);
   DECLARE_TRANSLATOR_LISTENER (spacing_section);
 
   void start_translation_timestep ();
   void stop_translation_timestep ();
   void process_music ();
-  
+  void add_starter_duration (Grob_info i);
+
   virtual void finalize ();
 
   void start_spanner ();
@@ -145,7 +147,20 @@ Spacing_engraver::acknowledge_staff_spacing (Grob_info i)
 }
 
 void
+Spacing_engraver::acknowledge_rhythmic_grob (Grob_info i)
+{
+ add_starter_duration (i);  
+}
+
+void
 Spacing_engraver::acknowledge_rhythmic_head (Grob_info i)
+{
+  add_starter_duration (i);
+}
+
+
+void
+Spacing_engraver::add_starter_duration (Grob_info i)
 {
   if (i.grob ()->internal_has_interface (ly_symbol2scm ("lyric-syllable-interface"))
       || i.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
@@ -243,6 +258,7 @@ Spacing_engraver::start_translation_timestep ()
 ADD_ACKNOWLEDGER (Spacing_engraver, staff_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, note_spacing);
 ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Spacing_engraver,
 		"make a SpacingSpanner and do "

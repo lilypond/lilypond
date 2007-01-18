@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef CONTEXT_DEF_HH
@@ -50,7 +50,7 @@ public:
 
   vector<Context_def*> path_to_acceptable_context (SCM type_string,
 						      Output_def *) const;
-  Context *instantiate (SCM extra_ops, Object_key const *);
+  Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;
   static SCM make_scm ();

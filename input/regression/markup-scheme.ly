@@ -25,7 +25,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 
 
-\version "2.10.0"
+\version "2.11.5"
 
 {
   \fatText
@@ -39,7 +39,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
     \override #'(font-encoding . fetaMusic) {
       \lookup #"noteheads-0"
     }
-    \musicglyph #"accidentals.-1"
+    \musicglyph #"accidentals.mirroredflat"
     \combine "X" "+"   
     \combine "o" "/"
     \box \column { \line { "string 1" } \line { "string 2" } }
@@ -51,7 +51,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
     \dynamic sfzp
     \huge { "A" \smaller "A" \smaller \smaller "A"
 	    \smaller \smaller \smaller "A" }
-    \sub "alike"
+    \larger \sub "alike"
   }	
   \break
   f'1-#(markup* 
@@ -62,7 +62,7 @@ For maintenance reasons, we don't excercise the entire markup command set.
 	#:hspace 2.0
 	#:override '(font-encoding . fetaMusic) #:line (#:lookup "noteheads-0" 
 						      )
-	#:musicglyph "accidentals.-1"
+	#:musicglyph "accidentals.mirroredflat"
 	#:combine "X" "+"   
 	#:combine "o" "/"
 	#:box #:column ("string 1" "string 2")
@@ -74,5 +74,5 @@ For maintenance reasons, we don't excercise the entire markup command set.
 	#:dynamic "sfzp"
 	#:huge #:line ("A" #:smaller "A" #:smaller #:smaller "A" 
 		       #:smaller #:smaller #:smaller "A")
-	#:sub "alike")
+	#:larger #:sub "alike")
 }

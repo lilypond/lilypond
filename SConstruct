@@ -176,10 +176,13 @@ import packagepython
 package = packagepython.Package (srcdir)
 version = packagepython.version_tuple_to_str (package.version)
 
-ENV = { 'PATH' : os.environ['PATH'] }
-for key in ['LD_LIBRARY_PATH', 'GUILE_LOAD_PATH', 'PKG_CONFIG_PATH', 'TEXMF']:
+ENV = { 'PYTHONPATH': '' }
+for key in ['GUILE_LOAD_PATH', 'LD_LIBRARY_PATH', 'PATH', 'PKG_CONFIG_PATH',
+            'PYTHONPATH', 'TEXMF']:
     if os.environ.has_key (key):
         ENV[key] = os.environ[key]
+
+ENV['PYTHONPATH'] = os.path.join (srcdir, 'python') + ':' + ENV['PYTHONPATH']
 
 env = Environment (
     ENV = ENV,

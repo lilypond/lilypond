@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
@@ -164,31 +164,21 @@ Cluster::print (SCM smob)
   /*
     Across a line break we anticipate on the next pitches.
   */
-  if (spanner->original ())
+  if (Spanner *next = spanner->broken_neighbor (RIGHT))
     {
-      Spanner *orig = dynamic_cast<Spanner *> (spanner->original ());
-
-      if (spanner->get_break_index () < orig->broken_intos_.size () - 1)
+      extract_grob_set (next, "columns", next_cols);
+      if (next_cols.size () > 0)
 	{
-	  Spanner *next = orig->broken_intos_[spanner->get_break_index () + 1];
-	  vector<Grob*> const &next_cols = extract_grob_array (next, "columns");
-	  if (next_cols.size () > 0)
-	    {
-	      Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
-	      Grob *col = next_cols[0];
+	  Grob *next_commony = common_refpoint_of_array (next_cols, next, Y_AXIS);
+	  Grob *col = next_cols[0];
 
-	      Interval v = col->extent (next_commony, Y_AXIS);
-	      Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
+	  Interval v = col->extent (next_commony, Y_AXIS);
+	  Real x = right_bound->relative_coordinate (commonx, X_AXIS) - left_coord;
 
-	      bottom_points.insert (bottom_points.begin (),
-				    Offset (x, v[DOWN]));
-	      top_points.insert (top_points.begin (), Offset (x, v[UP]));
-	    }
+	  bottom_points.push_back (Offset (x, v[DOWN]));
+	  top_points.push_back (Offset (x, v[UP]));
 	}
     }
-
-  reverse (bottom_points);
-  reverse (top_points);
 
   Stencil out = brew_cluster_piece (me, bottom_points, top_points);
   out.translate_axis (- me->relative_coordinate (commony, Y_AXIS), Y_AXIS);
@@ -203,9 +193,12 @@ ADD_INTERFACE (Cluster,
 	       "The property @code{style} controls the shape of cluster segments.  Valid values "
 	       "include @code{leftsided-stairs}, @code{rightsided-stairs}, @code{centered-stairs}, "
 	       "and @code{ramp}.\n",
+
+	       /* props */
 	       "style "
 	       "padding "
-	       "columns ");
+	       "columns "
+	       );
 
 struct Cluster_beacon
 {

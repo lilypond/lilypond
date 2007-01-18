@@ -158,7 +158,7 @@
 	  (set! head-stencil
 		(ly:stencil-combine-at-edge
 		 stencil Y dir head-stencil
-		 sep 0.0))
+		 sep))
 
 	  
 	  ;; add arrow markers 

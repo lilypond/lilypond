@@ -10,12 +10,12 @@ quoted ones) will transposed as well.  "
 
 }
 
-\version "2.10.0"
+\version "2.11.10"
 
 \layout { ragged-right = ##t }
 
 
-\addquote clarinet  {
+\addQuote clarinet  {
     \transposition bes
     d'16 d'16 d'8 
     d'16 d'16 d'8 
@@ -23,7 +23,7 @@ quoted ones) will transposed as well.  "
     d'16 d'16 d'8 
 }
 
-\addquote sax  {
+\addQuote sax  {
     \transposition es'
     a8 a a a a a  a a 
 }

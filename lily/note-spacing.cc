@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "note-spacing.hh"
@@ -64,7 +64,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	      continue;
 	    }
 
-	  if (d == LEFT)
+	  if (d == LEFT
+	      && Note_column::has_interface (it))
 	    {
 	      SCM r = it->get_object ("rest");
 	      Grob *g = unsmob_grob (r);
@@ -355,6 +356,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     {
       stem_dirs[RIGHT] = -stem_dirs[LEFT];
       stem_posns[RIGHT] = bar_yextent;
+      stem_posns[RIGHT] *= 2;
     }
 
   if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)

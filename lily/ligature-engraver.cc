@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "ligature-engraver.hh"
@@ -90,7 +90,7 @@ Ligature_engraver::process_music ()
     {
       if (!ligature_)
 	{
-	  events_drul_[STOP]->origin ()->warning (_ ("can't find start of ligature"));
+	  events_drul_[STOP]->origin ()->warning (_ ("cannot find start of ligature"));
 	  return;
 	}
 

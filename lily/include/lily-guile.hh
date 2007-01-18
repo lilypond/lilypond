@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef LILY_GUILE_HH
@@ -36,15 +36,15 @@ SCM ly_write2scm (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
 
-SCM ly_to_string (SCM scm);
-SCM ly_to_symbol (SCM scm);
-
 extern SCM global_lily_module;
 
 string gulp_file_to_string (string fn, bool must_exist, int size);
 
+SCM ly_string2scm (string const &s);
 string ly_scm2string (SCM s);
 string ly_symbol2string (SCM);
+Rational ly_scm2rational (SCM);
+SCM ly_rational2scm (Rational);
 SCM ly_offset2scm (Offset);
 Offset ly_scm2offset (SCM);
 SCM ly_chain_assoc (SCM key, SCM achain);
@@ -79,13 +79,8 @@ SCM alist_to_hashq (SCM);
 SCM ly_alist_vals (SCM alist);
 SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
-int procedure_arity (SCM);
 
-/* inserts at front, removing dublicates */
-inline SCM ly_assoc_front_x (SCM alist, SCM key, SCM val)
-{
-  return scm_acons (key, val, scm_assoc_remove_x (alist, key));
-}
+SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }
@@ -169,6 +164,10 @@ typedef SCM (*Scheme_function_2) (GUILE_ELLIPSIS);
 typedef SCM (*Scheme_function_3) (GUILE_ELLIPSIS);
 #endif
 
+
+/*
+  Inline these for performance reasons.
+ */
 #define scm_cdr ly_cdr
 #define scm_car ly_car
 

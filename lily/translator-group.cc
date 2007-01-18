@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>,
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>,
                  Erik Sandberg <mandolaerik@gmail.com>
 */
 
@@ -21,11 +21,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-Translator_group *
-Translator_group::get_daddy_translator () const
-{
-  return context ()->get_parent_context ()->implementation ();
-}
 
 void
 translator_each (SCM list, Translator_method method)
@@ -148,7 +143,7 @@ Translator_group::create_child_translator (SCM sev)
     {
       Translator *type = get_translator (scm_car (s));
       if (!type)
-	warning (_f ("can't find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
+	warning (_f ("cannot find: `%s'", ly_symbol2string (scm_car (s)).c_str ()));
       else
 	{
 	  Translator *tr = type->clone ();

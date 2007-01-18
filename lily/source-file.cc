@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -51,7 +51,7 @@ gulp_file (string filename, int desired_size)
   FILE *f = fopen (filename.c_str (), "rb");
   if (!f)
     {
-      warning (_f ("can't open file: `%s'", filename.c_str ()));
+      warning (_f ("cannot open file: `%s'", filename.c_str ()));
 
       vector<char> cxx_arr;
       return cxx_arr;
@@ -138,9 +138,9 @@ Source_file::Source_file (string filename_string)
 void
 Source_file::init_port ()
 {
-  SCM str = scm_makfrom0str (c_str ());
+  SCM str = scm_from_locale_string (c_str ());
   str_port_ = scm_mkstrport (SCM_INUM0, str, SCM_OPN | SCM_RDNG, __FUNCTION__);
-  scm_set_port_filename_x (str_port_, scm_makfrom0str (name_.c_str ()));
+  scm_set_port_filename_x (str_port_, ly_string2scm (name_));
 }
 
 

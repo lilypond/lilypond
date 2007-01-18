@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #ifndef SKYLINE_HH
@@ -32,12 +32,17 @@ struct Building
   void print () const;
 
   Real height (Real x) const;
-  Real intersection (Building const &other) const;
+  Real intersection_x (Building const &other) const;
   void leading_part (Real chop);
   bool conceals_beginning (Building const &other) const;
   bool conceals (Building const &other) const;
   bool sane () const;
   Building sloped_neighbour (Real horizon_padding, Direction d) const;
+
+  bool operator< (Building const &other)
+  {
+    return iv_[LEFT] < other.iv_[LEFT];
+  }
 };
 
 class Skyline
@@ -48,8 +53,7 @@ private:
   
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
-  void internal_build_skyline (list<Building>*, list<Building> *const result);
-  bool is_legal_skyline () const;
+  list<Building> internal_build_skyline (list<Building>*);
 
   DECLARE_SIMPLE_SMOBS(Skyline);
 public:

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MY_LILY_LEXER_HH
@@ -55,7 +55,7 @@ public:
   Lily_lexer (Sources *, Lily_parser *);
   Lily_lexer (Lily_lexer const &, Lily_parser *);
   int yylex ();
-
+  
   void add_lexed_char (int);
 
   void prepare_for_next_token ();
@@ -68,6 +68,9 @@ public:
   SCM remove_scope ();
 
   void start_main_input ();
+
+  virtual void new_input (string s, Sources *);
+  virtual void new_input (string s, string d, Sources *);
 
   SCM keyword_list () const;
   SCM lookup_identifier (string s);

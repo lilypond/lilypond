@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-11-19 10:23+0100\n"
+"POT-Creation-Date: 2007-01-07 16:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,7 +70,7 @@ msgstr ""
 msgid "First steps"
 msgstr ""
 
-msgid "Running LilyPond for the first time"
+msgid "Entering music and viewing output"
 msgstr ""
 
 msgid "MacOS X"
@@ -80,6 +80,9 @@ msgid "Windows"
 msgstr ""
 
 msgid "Unix"
+msgstr ""
+
+msgid "Second steps"
 msgstr ""
 
 msgid "More about pitches"
@@ -194,6 +197,9 @@ msgid "Fitting music onto fewer pages"
 msgstr ""
 
 msgid "Advanced tweaks with Scheme"
+msgstr ""
+
+msgid "Avoiding tweaks with slower processing"
 msgstr ""
 
 msgid "Basic notation"
@@ -697,6 +703,9 @@ msgstr ""
 msgid "Parentheses"
 msgstr ""
 
+msgid "Grid lines"
+msgstr ""
+
 msgid "Changing defaults"
 msgstr ""
 
@@ -731,6 +740,9 @@ msgid "Changing context default settings"
 msgstr ""
 
 msgid "Defining new contexts"
+msgstr ""
+
+msgid "Aligning contexts"
 msgstr ""
 
 msgid "The \\override command"
@@ -826,7 +838,7 @@ msgstr ""
 msgid "Music layout"
 msgstr ""
 
-msgid "Setting global staff size"
+msgid "Setting the staff size"
 msgstr ""
 
 msgid "Score layout"
@@ -907,6 +919,9 @@ msgstr ""
 msgid "Void functions"
 msgstr ""
 
+msgid "Functions without arguments"
+msgstr ""
+
 msgid "Programmer interfaces"
 msgstr ""
 
@@ -973,7 +988,7 @@ msgstr ""
 msgid "Updating files with convert-ly"
 msgstr ""
 
-msgid "Updating with"
+msgid "Updating with @command{convert-ly}"
 msgstr ""
 
 msgid "Reporting bugs"
@@ -991,13 +1006,16 @@ msgstr ""
 msgid "LilyPond-book"
 msgstr ""
 
+msgid "@command{lilypond-book}: Integrating text and music"
+msgstr ""
+
 msgid "An example of a musicological document"
 msgstr ""
 
 msgid "Integrating LaTeX and music"
 msgstr ""
 
-msgid "Integrating La"
+msgid "Integrating La@TeX{} and music"
 msgstr ""
 
 msgid "Integrating Texinfo and music"
@@ -1027,13 +1045,16 @@ msgstr ""
 msgid "Invoking lilypond-book"
 msgstr ""
 
-msgid "Invoking"
+msgid "Invoking @command{lilypond-book}"
 msgstr ""
 
 msgid "Filename extensions"
 msgstr ""
 
 msgid "Many quotes of a large score"
+msgstr ""
+
+msgid "Inserting LilyPond output into OpenOffice.org"
 msgstr ""
 
 msgid "Inserting LilyPond output into other programs"
@@ -1045,13 +1066,25 @@ msgstr ""
 msgid "Invoking midi2ly"
 msgstr ""
 
+msgid "Invoking @command{midi2ly}"
+msgstr ""
+
 msgid "Invoking etf2ly"
+msgstr ""
+
+msgid "Invoking @command{etf2ly}"
 msgstr ""
 
 msgid "Invoking musicxml2ly"
 msgstr ""
 
+msgid "Invoking @code{musicxml2ly}"
+msgstr ""
+
 msgid "Invoking abc2ly"
+msgstr ""
+
+msgid "Invoking @code{abc2ly}"
 msgstr ""
 
 msgid "Generating LilyPond files"
@@ -1141,6 +1174,9 @@ msgstr ""
 msgid "SATB vocal score and automatic piano reduction"
 msgstr ""
 
+msgid "SATB with aligned contexts"
+msgstr ""
+
 msgid "Ancient notation templates"
 msgstr ""
 
@@ -1181,4 +1217,7 @@ msgid "Previous:"
 msgstr ""
 
 msgid "Appendix"
+msgstr ""
+
+msgid "Footnotes"
 msgstr ""

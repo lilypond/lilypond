@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "bar-line.hh"
@@ -18,13 +18,6 @@
 
 #include "translator.icc"
 
-/*
-  TODO: The representation  of key sigs is all fucked.
-*/
-
-/**
-   Make the key signature.
-*/
 class Key_engraver : public Engraver
 {
   void create_key (bool);
@@ -59,6 +52,7 @@ Key_engraver::Key_engraver ()
   cancellation_ = 0;
 }
 
+
 void
 Key_engraver::create_key (bool is_default)
 {
@@ -72,6 +66,7 @@ Key_engraver::create_key (bool is_default)
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
+      bool extranatural = to_boolean(get_property("extraNatural"));
 
       if ((to_boolean (get_property ("printKeyCancellation"))
 	   || key == SCM_EOL)
@@ -81,10 +76,13 @@ Key_engraver::create_key (bool is_default)
 	  SCM *tail = &restore;
 	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
 	    {
-	      if (scm_assoc (scm_caar (s), key) == SCM_BOOL_F)
+	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
+	      Rational old_alter = ly_scm2rational (scm_cdar (s));
+	      if (new_alter_pair == SCM_BOOL_F
+		  || extranatural
+		  && (ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter)*old_alter < Rational (0))
 		{
-		  *tail = scm_acons (scm_caar (s),
-				     scm_from_int (0), *tail);
+		  *tail = scm_cons (scm_car (s), *tail);
 		  tail = SCM_CDRLOC (*tail);
 		}
 	    }
@@ -94,12 +92,13 @@ Key_engraver::create_key (bool is_default)
 	      cancellation_ = make_item ("KeyCancellation",
 					 key_event_
 					 ? key_event_->self_scm () : SCM_EOL);
-	  
+	      
 	      cancellation_->set_property ("alteration-alist", restore);
 	      cancellation_->set_property ("c0-position",
 					   get_property ("middleCPosition"));
 	    }
 	}
+
       item_->set_property ("alteration-alist", key);
     }
 
@@ -107,8 +106,6 @@ Key_engraver::create_key (bool is_default)
     {
       SCM visibility = get_property ("explicitKeySignatureVisibility");
       item_->set_property ("break-visibility", visibility);
-      if (cancellation_)
-	cancellation_->set_property ("break-visibility", visibility);
     }
 }
 
@@ -162,22 +159,36 @@ Key_engraver::read_event (Stream_event const *r)
   if (!scm_is_pair (p))
     return;
 
-  SCM n = scm_list_copy (p);
   SCM accs = SCM_EOL;
-  for (SCM s = get_property ("keyAlterationOrder");
-       scm_is_pair (s); s = scm_cdr (s))
+
+  SCM alist = scm_list_copy (p);
+  SCM order = get_property ("keyAlterationOrder");
+  for (SCM s = order;
+       scm_is_pair (s) && scm_is_pair (alist); s = scm_cdr (s))
     {
-      if (scm_is_pair (scm_member (scm_car (s), n)))
+      SCM head = scm_member (scm_car (s), alist);
+      
+      if (scm_is_pair (head))
 	{
-	  accs = scm_cons (scm_car (s), accs);
-	  n = scm_delete_x (scm_car (s), n);
+	  accs = scm_cons (scm_car (head), accs);
+	  alist = scm_delete_x (scm_car (head), alist);
 	}
     }
 
-  for (SCM s = n; scm_is_pair (s); s = scm_cdr (s))
-    if (scm_to_int (scm_cdar (s)))
-      accs = scm_cons (scm_car (s), accs);
+  if (scm_is_pair (alist))
+    {
+      bool warn = false;
+      for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+	if (ly_scm2rational (scm_cdar (s)))
+	  {
+	    warn = true;
+	    accs = scm_cons (scm_car (s), accs);
+	  }
 
+      if (warn)
+	r->origin ()->warning ("No ordering for key signature alterations");      
+    }
+  
   context ()->set_property ("keySignature", accs);
   context ()->set_property ("tonic",
 			    r->get_property ("tonic"));
@@ -203,8 +214,8 @@ ADD_TRANSLATOR (Key_engraver,
 		/* read */
 		"createKeyOnClefChange "
 		"explicitKeySignatureVisibility "
+		"extraNatural "
 		"keyAlterationOrder "
-		"keySignature "
 		"keySignature "
 		"lastKeySignature "
 		"printKeyCancellation "

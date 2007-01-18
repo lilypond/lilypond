@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "pointer-group-interface.hh"
@@ -16,9 +16,9 @@
 #include "warn.hh"
 
 Grob *
-Spanner::clone (int count) const
+Spanner::clone () const
 {
-  return new Spanner (*this, count);
+  return new Spanner (*this);
 }
 
 void
@@ -64,7 +64,7 @@ Spanner::do_break_processing ()
 	    programming_error ("no broken bound");
 	  else if (bound->get_system ())
 	    {
-	      Spanner *span = dynamic_cast<Spanner *> (clone (broken_intos_.size ()));
+	      Spanner *span = dynamic_cast<Spanner *> (clone ());
 	      span->set_bound (LEFT, bound);
 	      span->set_bound (RIGHT, bound);
 
@@ -102,7 +102,7 @@ Spanner::do_break_processing ()
 	      continue;
 	    }
 
-	  Spanner *span = dynamic_cast<Spanner *> (clone (broken_intos_.size ()));
+	  Spanner *span = dynamic_cast<Spanner *> (clone ());
 	  span->set_bound (LEFT, bounds[LEFT]);
 	  span->set_bound (RIGHT, bounds[RIGHT]);
 
@@ -196,16 +196,16 @@ Spanner::set_bound (Direction d, Grob *s)
     Pointer_group_interface::add_grob (i, ly_symbol2scm ("bounded-by-me"), this);
 }
 
-Spanner::Spanner (SCM s, Object_key const *key)
-  : Grob (s, key)
+Spanner::Spanner (SCM s)
+  : Grob (s)
 {
   break_index_ = 0;
   spanned_drul_[LEFT] = 0;
   spanned_drul_[RIGHT] = 0;
 }
 
-Spanner::Spanner (Spanner const &s, int count)
-  : Grob (s, count)
+Spanner::Spanner (Spanner const &s)
+  : Grob (s)
 {
   spanned_drul_[LEFT] = spanned_drul_[RIGHT] = 0;
 }
@@ -384,11 +384,30 @@ unsmob_spanner (SCM s)
   return dynamic_cast<Spanner *> (unsmob_grob (s));
 }
 
+MAKE_SCHEME_CALLBACK(Spanner, bounds_width, 1);
+SCM
+Spanner::bounds_width (SCM grob)
+{
+  Spanner *me = unsmob_spanner (grob);
+
+
+  Grob *common = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+
+  Interval w (me->get_bound (LEFT)->relative_coordinate (common, X_AXIS),
+	      me->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+	      
+  w -= me->relative_coordinate (common, X_AXIS);
+
+  return ly_interval2scm (w);
+}
+
 ADD_INTERFACE (Spanner,
 	       "Some objects are horizontally spanned between objects. For\n"
 	       "example, slur, beam, tie, etc. These grobs form a subtype called\n"
 	       "@code{Spanner}. All spanners have two span-points (these must be\n"
 	       "@code{Item} objects), one on the left and one on the right. The left bound is\n"
 	       "also the X-reference point of the spanner.\n",
-	       "minimum-length");
+
+	       "minimum-length "
+	       );
 

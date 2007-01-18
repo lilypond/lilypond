@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "timing-translator.hh"
@@ -25,13 +25,12 @@ Timing_translator::stop_translation_timestep ()
       Moment barleft = (measure_length () - measure_position (context ()));
       Moment now = now_mom ();
 
-      if (barleft > Moment (0)
-	  /*
-	    Hmm. We insert the bar moment every time we process a
-	    moment.  A waste of cpu?
-	  */
-	  && !now.grace_part_)
-	global->add_moment_to_process (now + barleft);
+      if (barleft > Moment (0))
+	{
+	  Moment nextmom = now + barleft;
+	  nextmom.grace_part_ = Rational (0);
+	  global->add_moment_to_process (nextmom);
+	}
     }
 }
 

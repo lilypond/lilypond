@@ -1,8 +1,7 @@
-
 /*
-  line-of-score.hh -- part of GNU LilyPond
+  system.hh -- part of GNU LilyPond
 
-  (c) 1996--2006 Han-Wen Nienhuys
+  (c) 1996--2007 Han-Wen Nienhuys
 */
 
 #ifndef SYSTEM_HH
@@ -21,7 +20,7 @@ class System : public Spanner
 {
   int rank_;
   Grob_array *all_elements_;
-  Drul_array<Skyline> skylines_;
+  Skyline_pair skylines_;
   void build_skylines ();
   void init_elements ();
   friend class Paper_score;	// ugh.
@@ -30,12 +29,14 @@ class System : public Spanner
 public:
   Paper_score *paper_score () const;
   int get_rank () const;
+  void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
   SCM get_paper_system ();
   SCM get_paper_systems ();
+  SCM get_broken_system_grobs ();
 
-  System (SCM, Object_key const *);
-  System (System const &, int);
+  System (SCM);
+  System (System const &);
 
   int element_count () const;
   int spanner_count () const;
@@ -44,7 +45,8 @@ public:
   DECLARE_GROB_INTERFACE();
 
   vector<Item*> broken_col_range (Item const *, Item const *) const;
-  vector<Grob*> columns () const;
+  vector<Grob*> used_columns () const;
+  Paper_column *column (vsize i) const;
 
   void add_column (Paper_column *);
   void typeset_grob (Grob *);
@@ -52,7 +54,7 @@ public:
 
 protected:
   virtual void derived_mark () const;
-  virtual Grob *clone (int count) const;
+  virtual Grob *clone () const;
 };
 
 void set_loose_columns (System *which, Column_x_positions const *posns);

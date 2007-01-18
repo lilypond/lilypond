@@ -218,6 +218,7 @@ DURATION, and INVERSION."
   (map (lambda (n)
 	 (define (nca x)
 	   (if (= x 7) FLAT 0))
+	 
 	 (if (>= n 8)
 	     (ly:make-pitch 1 (- n 8) (nca n))
 	     (ly:make-pitch 0 (- n 1) (nca n))))

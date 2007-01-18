@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -99,7 +99,7 @@ make_script_from_event (Grob *p,  Context *tg,
   if (art == SCM_BOOL_F)
     {
       /* FIXME: */
-      warning (_ ("don't know how to interpret articulation: "));
+      warning (_ ("do not know how to interpret articulation: "));
       warning (_ ("scheme encoding: "));
       scm_write (art_type, scm_current_error_port ());
       message ("");

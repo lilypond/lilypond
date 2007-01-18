@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -27,7 +27,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
   Grob *stem = unsmob_grob (smob);
   Grob *me =  unsmob_grob (stem->get_object ("melody-spanner"));
   if (!me || !me->is_live ())
-    return SCM_UNSPECIFIED;
+    return scm_from_int (DOWN);
   
   extract_grob_set (me, "stems", stems);
 
@@ -41,7 +41,8 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 	 &&  !dirs[next_nonneutral])
     next_nonneutral++;
 
-  while (last_nonneutral == VPOS || last_nonneutral < dirs.size () - 1) 
+  SCM retval = SCM_EOL;
+  while (last_nonneutral == VPOS || last_nonneutral + 1 < dirs.size ()) 
     {
       Direction d1 = CENTER;
       Direction d2 = CENTER;
@@ -61,8 +62,12 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 	total = to_dir (me->get_property ("neutral-direction"));
       
       for (vsize i = last_nonneutral + 1; i <  next_nonneutral; i++)
-	stems[i]->set_property ("neutral-direction", scm_from_int (total));
-
+	{
+	  if (stems[i] == stem)
+	    retval = scm_from_int (total);
+	  else
+	    stems[i]->set_property ("neutral-direction", scm_from_int (total));
+	}
 
       last_nonneutral = next_nonneutral;
       while (last_nonneutral < dirs.size ()
@@ -76,8 +81,7 @@ Melody_spanner::calc_neutral_stem_direction (SCM smob)
 	next_nonneutral++;
     }
 
-  me->suicide ();
-  return SCM_UNSPECIFIED;
+  return retval;
 }
 
 void

@@ -1,4 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 
 @c TODO: add tablature.
 
@@ -115,7 +123,7 @@ c c,
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c( d e)
 @end lilypond
@@ -126,7 +134,7 @@ c( d e)
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 c\( c( d) e\)
 @end lilypond
@@ -137,7 +145,7 @@ c\( c( d) e\)
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a8-[ b-]
 @end lilypond
@@ -156,7 +164,7 @@ a8-[ b-]
 @tab articulations
 @tab
 @lilypond[fragment,relative=2]
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 c-> c-.
 @end lilypond
 
@@ -165,7 +173,7 @@ c-> c-.
 @tab dynamics
 @tab
 @lilypond[fragment,relative=2]
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 c\mf c\sfz
 @end lilypond
 
@@ -175,7 +183,7 @@ c\mf c\sfz
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\< a a\!
 @end lilypond
@@ -185,7 +193,7 @@ a\< a a\!
 @tab
 @lilypond[fragment,relative=2]
 \set Score.timing = ##f
-\override Staff.TimeSignature #'break-visibility = #all-invisible
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \set Staff.autoBeaming = ##f
 a\> a a\!
 @end lilypond

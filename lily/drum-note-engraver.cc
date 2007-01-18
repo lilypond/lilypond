@@ -1,7 +1,7 @@
 /*
   drum-note-engraver.cc
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include <cctype>
@@ -132,6 +132,8 @@ Drum_notes_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Drum_notes_engraver, stem);
 ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
+
+
 ADD_TRANSLATOR (Drum_notes_engraver,
 		/* doc */ "Generate noteheads.",
 		/* create */

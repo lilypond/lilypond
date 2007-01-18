@@ -1,7 +1,7 @@
 /*
   tab-note-heads-engraver.cc -- part of GNU LilyPond
 
-  (c) 2002--2006 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
+  (c) 2002--2007 Han-Wen Nienhuys, Jean-Baptiste Lamy <jiba@tuxfamily.org>,
 */
 
 #include <cctype>
@@ -113,7 +113,7 @@ Tab_note_heads_engraver::process_music ()
 
       while (!string_found)
 	{
-	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
+	  int fret = unsmob_pitch (scm_pitch)->rounded_semitone_pitch ()
 	    - scm_to_int (scm_list_ref (string_tunings, scm_from_int (tab_string - 1)));
 	  if (fret < min_fret)
 	    tab_string += high_string_one ? 1 : -1;

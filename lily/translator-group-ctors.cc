@@ -3,12 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score-engraver.hh"
 #include "score-performer.hh"
 #include "warn.hh"
+#include "international.hh"
 
 /*
   Quick & dirty.
@@ -25,11 +26,13 @@ get_translator_group (SCM sym)
   else if (sym == ly_symbol2scm ("Score_performer"))
     return new Score_performer ();
 
-  programming_error ("Couldn't find type");
+  error (_f ("fatal error. Couldn't find type: %s",
+	     ly_symbol2string (sym).c_str ()));
   scm_flush (scm_current_error_port ());
   scm_display (sym, scm_current_error_port ());
   scm_flush (scm_current_error_port ());
   
-  assert (0);
+  exit (2);
+  
   return 0;
 }

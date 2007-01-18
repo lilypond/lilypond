@@ -1,7 +1,7 @@
 /*
   midi-item.hh -- declare Midi items
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef MIDI_ITEM_HH
@@ -37,8 +37,6 @@ public:
   int channel_;
   DECLARE_CLASSNAME(Midi_channel_item);
   Midi_channel_item ();
-  virtual const char *name () const { return "Midi_channel_item"; }
-  virtual ~Midi_channel_item ();
 };
 
 /**
@@ -47,9 +45,9 @@ public:
 class Midi_event
 {
 public:
-  Midi_event (Moment delta_mom, Midi_item *midi);
+  Midi_event (int delta, Midi_item *midi);
 
-  Moment delta_mom_;
+  int delta_ticks_;
   Midi_item *midi_;
   string to_string () const;
 };
@@ -125,17 +123,13 @@ public:
   int clocks_per_1_;
 };
 
-/**
-   Turn a note on.
-*/
 class Midi_note : public Midi_channel_item
 {
 public:
   Midi_note (Audio_note *);
   DECLARE_CLASSNAME(Midi_note);
 
-  Moment get_length () const;
-  int get_pitch () const;
+  int get_semitone_pitch () const;
   int get_fine_tuning () const;
   virtual string to_string () const;
 
@@ -146,9 +140,6 @@ public:
   Byte dynamic_byte_;
 };
 
-/**
-   Turn a note off
-*/
 class Midi_note_off : public Midi_note
 {
 public:
@@ -217,15 +208,12 @@ public:
   int number_;
   DECLARE_CLASSNAME(Midi_track);
 
-  /*
-    Compensate for starting grace notes.
-  */
   vector<Midi_event*> events_;
 
   Midi_track ();
   ~Midi_track ();
 
-  void add (Moment delta_time_mom, Midi_item *midi);
+  void add (int, Midi_item *midi);
   virtual string data_string () const;
 };
 

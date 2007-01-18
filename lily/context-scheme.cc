@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -20,7 +20,7 @@ LY_DEFINE (ly_context_id, "ly:context-id",
   Context *tr = unsmob_context (context);
   SCM_ASSERT_TYPE (tr, context, SCM_ARG1, __FUNCTION__, "Context");
 
-  return scm_makfrom0str (tr->id_string ().c_str ());
+  return ly_string2scm (tr->id_string ());
 }
 
 LY_DEFINE (ly_context_name, "ly:context-name",

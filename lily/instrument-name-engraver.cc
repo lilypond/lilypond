@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -98,7 +98,7 @@ Instrument_name_engraver::start_spanner ()
   if (system)
     Axis_group_interface::add_element (system, text_spanner_);
   else
-    text_spanner_->programming_error ("can't find root system");
+    text_spanner_->programming_error ("cannot find root system");
 }
 
 

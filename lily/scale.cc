@@ -3,39 +3,45 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2006 Han-Wen Nienhuys <hanwen@lilypond.org>
+  (c) 2006--2007 Han-Wen Nienhuys <hanwen@lilypond.org>
   
 */
 
-#include  "pitch.hh"
+#include "scale.hh"
 
 #include "ly-smobs.icc"
 
+/*
+  todo: put string <-> pitch here too.
+
+*/
 LY_DEFINE (ly_make_scale, "ly:make-scale",
 	   1, 0, 0, (SCM steps),
 	   "Create a scale. Takes a vector of ints as argument")
 {
   bool type_ok = scm_is_vector (steps);
 
-  vector<int> semitones; 
+  vector<Rational> semitones; 
   if (type_ok)
     {
       int len = scm_c_vector_length (steps);
       for (int i = 0 ; i < len; i++)
 	{
 	  SCM step = scm_c_vector_ref (steps, i);
-	  type_ok = type_ok && scm_is_integer (step);
+	  type_ok = type_ok && scm_is_rational (step);
 	  if (type_ok)
-	    semitones.push_back (scm_to_int (step));
+	    {
+	      Rational from_c (scm_to_int (scm_numerator (step)),
+			       scm_to_int (scm_denominator (step)));
+	      semitones.push_back (from_c);
+	    }
 	}
     }
-
   
   SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__, "vector of int");
 
-
   Scale *s = new Scale;
-  s->step_semitones_ = semitones;
+  s->step_tones_ = semitones;
 
   SCM retval =  s->self_scm ();
 
@@ -96,7 +102,7 @@ Scale::Scale ()
 
 Scale::Scale (Scale const &src)
 {
-  step_semitones_ = src.step_semitones_;
+  step_tones_ = src.step_tones_;
   smobify_self ();
 }
 

@@ -2,10 +2,11 @@
 
    source file of the GNU LilyPond music typesetter
  
-   (c) 2006 Joe Neeman <joeneeman@gmail.com>
+   (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "skyline.hh"
+#include <deque>
 
 #include "ly-smobs.icc"
 
@@ -40,6 +41,31 @@
    This means that the merging routine doesn't need to be aware of direction,
    but the distance routine does.
 */
+
+/*
+  FIXME:
+
+  * Consider to use
+
+  typedef list<Skyline_point> Skyline;
+  struct Skyline_point
+  {
+    Real x;
+    Drul_array<Real> ys; 
+  };
+
+  this is a cleaner representation, as it doesn't duplicate the X, and
+  doesn't need bogus buildings at infinity  --hwn.
+
+
+  * All the messing around with EPS is very fishy.  There are no
+  complicated numerical algorithms involved, so EPS should not be
+  necessary.
+
+  --hwn
+  
+  
+ */
 
 #define EPS 1e-10
 
@@ -84,11 +110,11 @@ Skyline::print () const
 }
 
 bool
-Skyline::is_legal_skyline () const
+is_legal_skyline (list<Building> const &buildings)
 {
   list<Building>::const_iterator i;
   Real last_x = -infinity_f;
-  for (i = buildings_.begin (); i != buildings_.end (); i++)
+  for (i = buildings.begin (); i != buildings.end (); i++)
     {
       if (i->iv_[LEFT] != last_x)
 	return false;
@@ -159,7 +185,7 @@ Building::print () const
 }
 
 Real
-Building::intersection (Building const &other) const
+Building::intersection_x (Building const &other) const
 {
   return (y_intercept_ - other.y_intercept_) / (other.slope_ - slope_);
 }
@@ -213,9 +239,16 @@ skyline_trailing_part (list<Building> *sky, Real x)
 bool
 Building::conceals_beginning (Building const &other) const
 {
-  if (approx_equal (intersection (other), iv_[LEFT]) || approx_equal (height_[LEFT], other.height_[LEFT]))
-    return slope_ > other.slope_;
-  return height_[LEFT] > other.height_[LEFT];
+  bool w = false;
+  Real h = other.height (iv_[LEFT]);
+  if (approx_equal (height_[LEFT], h))
+    w = slope_ > other.slope_;    
+  else if (height_[LEFT] > h) 
+    w = true;
+  else 
+    w = false;
+
+  return w;
 }
 
 bool
@@ -254,7 +287,7 @@ Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
       if (approx_greater_than (s2_start_height, s1_start_height))
 	end = s2->front ().iv_[LEFT];
       else if (approx_greater_than (s2_end_height, s1_end_height))
-	end = b.intersection (s2->front ());
+	end = b.intersection_x (s2->front ());
       end = min (end, b.iv_[RIGHT]);
 
       b.leading_part (end);
@@ -293,34 +326,78 @@ single_skyline (Building b, Real horizon_padding, list<Building> *const ret)
 			       -infinity_f, b.iv_[LEFT]));
 }
 
-void
-Skyline::internal_build_skyline (list<Building> *buildings, list<Building> *const result)
+/* remove a non-overlapping set of buildings from BUILDINGS and build a skyline
+   out of them */
+static list<Building>
+non_overlapping_skyline (list<Building> *const buildings)
+{
+  list<Building> result;
+  Real last_end = -infinity_f;
+  list<Building>::iterator i = buildings->begin ();
+  while (i != buildings->end ())
+    {
+      if (approx_less_than (i->iv_[LEFT], last_end))
+	{
+	  i++;
+	  continue;
+	}
+
+      if (approx_greater_than (i->iv_[LEFT], last_end))
+	result.push_back (Building (last_end, -infinity_f, -infinity_f, i->iv_[LEFT]));
+      else
+	i->iv_[LEFT] = last_end;
+
+      last_end = i->iv_[RIGHT];
+      list<Building>::iterator j = i;
+      i++;
+      result.splice (result.end (), *buildings, j);
+    }
+  if (last_end < infinity_f)
+    result.push_back (Building (last_end, -infinity_f, -infinity_f, infinity_f));
+  assert (is_legal_skyline (result));
+  return result;
+}
+
+list<Building>
+Skyline::internal_build_skyline (list<Building> *buildings)
 {
   vsize size = buildings->size ();
 
   if (size == 0)
     {
-      empty_skyline (result);
-      return;
+      list<Building> result;
+      empty_skyline (&result);
+      return result;
     }
   else if (size == 1)
     {
-      single_skyline (buildings->front (), 0, result);
-      return;
+      list<Building> result;
+      single_skyline (buildings->front (), 0, &result);
+      return result;
     }
 
-  list<Building> right_half;
-  list<Building>::iterator i = buildings->begin ();
+  deque<list<Building> > partials;
+  buildings->sort ();
+  while (!buildings->empty ())
+    partials.push_back (non_overlapping_skyline (buildings));
 
-  for (vsize s = 0; s < size/2; s++)
-    i++;
-  right_half.splice (right_half.end (), *buildings, i, buildings->end ());
+  /* we'd like to say while (partials->size () > 1) but that's O(n).
+     Instead, we exit in the middle of the loop */
+  while (!partials.empty ())
+    {
+      list<Building> merged;
+      list<Building> one = partials.front ();
+      partials.pop_front ();
+      if (partials.empty ())
+	return one;
 
-  list<Building> right;
-  list<Building> left;
-  internal_build_skyline (&right_half, &right);
-  internal_build_skyline (buildings, &left);
-  internal_merge_skyline (&right, &left, result);
+      list<Building> two = partials.front ();
+      partials.pop_front ();
+      internal_merge_skyline (&one, &two, &merged);
+      partials.push_back (merged);
+    }
+  assert (0);
+  return list<Building> ();
 }
 
 Skyline::Skyline ()
@@ -374,8 +451,8 @@ Skyline::Skyline (vector<Box> const &boxes, Real horizon_padding, Axis horizon_a
 	}
     }
   
-  internal_build_skyline (&bldgs, &buildings_);
-  assert (is_legal_skyline ());
+  buildings_ = internal_build_skyline (&bldgs);
+  assert (is_legal_skyline (buildings_));
 }
 
 Skyline::Skyline (Box const &b, Real horizon_padding, Axis horizon_axis, Direction sky)
@@ -394,7 +471,7 @@ Skyline::merge (Skyline const &other)
   list<Building> my_bld;
   my_bld.splice (my_bld.begin (), buildings_);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void
@@ -406,7 +483,7 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
   my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (b, 0, a, sky_), horizon_padding, &other_bld);
   internal_merge_skyline (&other_bld, &my_bld, &buildings_);
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void
@@ -419,7 +496,7 @@ Skyline::raise (Real r)
       i->height_[RIGHT] += sky_ * r;
       i->y_intercept_ += sky_ * r;
     }
-  assert (is_legal_skyline ());
+  assert (is_legal_skyline (buildings_));
 }
 
 void
@@ -574,6 +651,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
 SCM
 Skyline::mark_smob (SCM)
 {
+  ASSERT_LIVE_IS_ALLOWED();
   return SCM_EOL;
 }
 

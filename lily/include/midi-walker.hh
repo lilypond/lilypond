@@ -1,7 +1,7 @@
 /*
   midi-walker.hh -- declare Midi_walker
 
-  (c) 1996--2006 Han-Wen Nienhuys  <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys  <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -12,9 +12,9 @@
 #include "lily-proto.hh"
 #include "moment.hh"
 
-struct Midi_note_event : PQueue_ent<Moment, Midi_note *>
+struct Midi_note_event : PQueue_ent<int, Midi_note *>
 {
-  bool ignore_b_;
+  bool ignore_;
   Midi_note_event ();
 };
 
@@ -36,16 +36,17 @@ public:
 
 private:
   void do_start_note (Midi_note *note);
-  void do_stop_notes (Moment now_mom);
-  void output_event (Moment now_mom, Midi_item *l);
-
+  void do_stop_notes (int);
+  void output_event (int, Midi_item *l);
+  
   int channel_;
   Midi_track *track_;
   Audio_staff *staff_;
   vsize index_;
-  vector<Audio_item*> *items_;
+  vector<Audio_item*> items_;
   PQueue<Midi_note_event> stop_note_queue;
-  Moment last_mom_;
+  int last_tick_;
+
 };
 
 #endif // MIDI_WALKER_HH

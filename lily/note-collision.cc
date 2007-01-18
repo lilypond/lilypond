@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "note-collision.hh"
@@ -424,7 +424,6 @@ Note_collision_interface::get_clash_groups (Grob *me)
 /** This complicated routine moves note columns around horizontally to
     ensure that notes don't clash.
 
-    This should be put into Scheme.
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
@@ -553,6 +552,7 @@ ADD_INTERFACE (Note_collision_interface,
 	       "@code{force-hshift} and @code{horizontal-shift}.",
 
 	       /* properties */
+	       "ignore-collision "
 	       "merge-differently-dotted "
 	       "merge-differently-headed "
 	       "positioning-done ");

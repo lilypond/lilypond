@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -56,6 +56,14 @@ peak_around (Real epsilon,  Real threshold, Real x)
   return max (- epsilon * (x - threshold) / ((x + epsilon)  * threshold), 0.0);
 }
 
+/*
+  0 at 0,  1 at standard_x, and increasing thereafter. 
+ */
+Real
+convex_amplifier (Real standard_x, Real increase_factor, Real x)
+{
+  return (exp (increase_factor * x / standard_x) - 1.0) / (exp (increase_factor) - 1.0); 
+}
 
 string
 camel_case_to_lisp_identifier (string in)

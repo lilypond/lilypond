@@ -3,13 +3,12 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
 
 #include "context.hh"
-#include "grob-pitch-tuple.hh"
 #include "international.hh"
 #include "item.hh"
 #include "note-head.hh"
@@ -124,8 +123,7 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
       if (ly_is_equal (right_ev->get_property ("pitch"),
 		       left_ev->get_property ("pitch")))
 	{
-	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_,
-				 context ()->get_grob_key ("Tie"));
+	  Grob *p = new Spanner (heads_to_tie_[i].tie_definition_);
 
 	  SCM cause = heads_to_tie_[i].tie_event_
 	    ? heads_to_tie_[i].tie_event_->self_scm ()
@@ -135,6 +133,13 @@ Tie_engraver::acknowledge_note_head (Grob_info i)
 	  Tie::set_head (p, LEFT, th);
 	  Tie::set_head (p, RIGHT, h);
 
+
+	  if (is_direction (unsmob_stream_event (cause)->get_property ("direction")))
+	    {
+	      Direction d = to_dir (unsmob_stream_event (cause)->get_property ("direction"));
+	      p->set_property ("direction", scm_from_int (d)); 
+	    }
+	  
 	  ties_.push_back (p);
 	  heads_to_tie_.erase (heads_to_tie_.begin () + i);
 	}
@@ -153,8 +158,8 @@ Tie_engraver::start_translation_timestep ()
 {
   context ()->set_property ("tieMelismaBusy",
 			    ly_bool2scm (heads_to_tie_.size ()));
-  
-  if (!to_boolean (get_property ("tieWaitForNote")))
+
+  if (heads_to_tie_.size () && !to_boolean (get_property ("tieWaitForNote")))
     {
       Moment now = now_mom ();
       for (vsize i = heads_to_tie_.size ();  i--; )
@@ -174,9 +179,14 @@ Tie_engraver::stop_translation_timestep ()
       if (!wait)
 	heads_to_tie_.clear ();
 
+      Grob *sep = unsmob_grob (get_property ("breakableSeparationItem"));
       for (vsize i = 0; i < ties_.size (); i++)
-	typeset_tie (ties_[i]);
-
+	{
+	  if (sep)
+	    ties_[i]->set_object  ("separation-item", sep->self_scm ());
+	  
+	  typeset_tie (ties_[i]);
+	}
       ties_.clear ();
       tie_column_ = 0;
     }

@@ -38,7 +38,6 @@
      (alignBassFigureAccidentals ,boolean?
 				 "If true, then the accidentals are aligned in bass figure context.")
 
-     (allowBeamBreak ,boolean? "If true allow line breaks for beams over bar lines.")
      (associatedVoice ,string? "Name of the
 @code{Voice} that has the melody for this @code{Lyrics} line.")
      (autoBeamSettings ,list? "Specifies
@@ -249,6 +248,8 @@ selector for tab notation.")
      (ignoreBarChecks ,boolean? "Ignore bar checks")
      (ignoreMelismata ,boolean? "Ignore melismata for this @internalsref{Lyrics} line.")
 
+     (implicitTimeSignatureVisibility ,vector? "break visibility for the default timesignature.")
+
      (implicitBassFigures ,list? "List of bass figures that are not
 printed as numbers, but only as extender lines.")
      
@@ -260,6 +261,10 @@ the @code{instr} property labels following lines.")
      (instrumentEqualizer ,procedure? "
 Function taking a string (instrument name), and returning a (@var{min} . @var{max}) pair of numbers for the loudness range of the instrument.
 ")
+
+     ;; the definition is reversed wrt  traditional transposition
+     ;; this because \transpose { \transposition .. } won't work
+     ;; otherwise.
      (instrumentTransposition ,ly:pitch? "Defines the transposition of
 the instrument. Its value is the pitch that sounds like middle C. This
 is used to transpose the MIDI output, and @code{\\quote}s.")
@@ -275,9 +280,10 @@ alterations should be printed.  The format is (@var{step}
 ")
 
      (keySignature ,list? "The current key signature. This is an alist
-containing (@var{name} . @var{alter}) or ((@var{octave} . @var{name}) . @var{alter}).
- where @var{name} is from 0.. 6 and
-@var{alter} from -4 (double flat) to 4 (double sharp).
+containing (@var{step} . @var{alter}) or ((@var{octave} . @var{step})
+. @var{alter}).  where @var{step} is from 0.. 6 and @var{alter} a fraction, denoting
+alteration.  For alterations, use symbols, eg.
+@code{keySignature = #`((6 . ,FLAT))}
 ")
      (majorSevenSymbol ,markup? "How should
 the major 7th be formatted in a chord name?")
@@ -480,7 +486,7 @@ Valid values are described in @internalsref{bar-line-interface}.
      )
 
    `((slurMelismaBusy ,boolean? "Signal if a slur is present.")
-     (originalCentralCPosition
+     (originalMiddleCPosition
       ,integer?
       "Used for temporary overriding middle C in octavation brackets. ")
      (melismaBusy ,boolean? "Signifies
@@ -501,9 +507,6 @@ for this staff.")
 measure.  The format is the same as for keySignature, but can also
 contain ((@var{octave} . @var{name}) . (@var{alter} . @var{barnumber}))
 pairs. It is reset at every bar line.")
-
-     
-     (localKeySignatureChanges ,list? "Experimental. [DOCME]")
 
      (finalizations ,list? "List of expressions to evaluate before proceeding to next time step. Internal variable.")
      (busyGrobs ,list? "a queue of (@var{end-moment} . @var{GROB})

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef SIMPLE_SPACER_HH
@@ -49,6 +49,7 @@ public:
   vector<Real> spring_positions () const;
 
   Real force () const;
+  Real force_penalty (bool ragged) const;
   bool fits () const;
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer);

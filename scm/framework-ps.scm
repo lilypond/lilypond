@@ -8,9 +8,7 @@
 
 ;;; this is still too big a mess.
 
-(use-modules (ice-9 regex)
-	     (ice-9 string-fun)
-	     (ice-9 format)
+(use-modules (ice-9 string-fun)
 	     (guile)
 	     (scm page)
 	     (scm paper-system)
@@ -19,6 +17,10 @@
 	     (scm clip-region)
 	     (lily))
 
+(define (format dest . rest)
+  (if (string? dest)
+      (apply simple-format (cons #f (cons dest rest)))
+      (apply simple-format (cons dest rest))))
 
 (define framework-ps-module (current-module))
 
@@ -31,7 +33,12 @@
 
     (string-append
      "magfont"
-     (string-regexp-substitute "[ /%]" "_" name)
+     (ly:string-substitute
+      " " "_"
+      (ly:string-substitute
+       "/" "_"
+       (ly:string-substitute
+	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
 (define (tex-font? fontname)
@@ -165,10 +172,10 @@
 	       (ly:output-def-lookup paper 'output-scale))
 	    (ly:bp 1)))
 	(landscape? (eq? (ly:output-def-lookup paper 'landscape) #t)))
-  (format "%%DocumentMedia: ~a ~$ ~$ ~a ~a ~a\n"
+  (format "%%DocumentMedia: ~a ~a ~a ~a ~a ~a\n"
    (ly:output-def-lookup paper 'papersizename)
-   (if landscape? h w)
-   (if landscape? w h)
+   (round2 (if landscape? h w))
+   (round2 (if landscape? w h))
    80  ;; weight
    "()" ;; color
    "()"  ;; type
@@ -256,7 +263,7 @@
       (format
        (if (string? name)
 	   "(~a) (r) file .loadfont\n"
-	   "% can't find font file: ~a\n")
+	   "% cannot find font file: ~a\n")
        name))
 
     (let* ((font (car font-name-filename))
@@ -270,13 +277,16 @@
        (if (mac-font? bare-file-name)
 	   (handle-mac-font name bare-file-name)
 	   (cond
-	    ((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
+	    ((or (string-startswith file-name "Emmentaler")
+		 (string-startswith file-name "emmentaler")
+		 (string-startswith file-name "aybabtu")
+		 (string-startswith file-name "Aybabtu"))
 	     (ps-load-file (ly:find-file
 			    (format "~a.otf"  file-name))))
 	    ((string? bare-file-name)
 	     (ps-load-file file-name))
 	    (else
-	     (ly:warning (_ "can't embed ~S=~S") name file-name)
+	     (ly:warning (_ "cannot embed ~S=~S") name file-name)
 	     "")))
 
 	  )))
@@ -329,7 +339,7 @@
       (if (not embed)
 	  (begin
 	    (set! embed "% failed \n")
-	    (ly:warning (_ "can't extract file matching ~a from ~a") name filename)))
+	    (ly:warning (_ "cannot extract file matching ~a from ~a") name filename)))
       embed))
 
     (define (font-file-as-ps-string name file-name)
@@ -337,16 +347,16 @@
 	  ((downcase-file-name (string-downcase file-name)))
 	
       (cond
-       ((and file-name (string-match "\\.pfa" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".pfa"))
 	(embed-document file-name))
-       ((and file-name (string-match "\\.pfb" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".pfb"))
 	(ly:pfb->pfa file-name))
-       ((and file-name (string-match "\\.ttf" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".ttf"))
 	(ly:ttf->pfa file-name))
-       ((and file-name (string-match "\\.otf" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".otf"))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
-	(ly:warning (_ "don't know how to embed ~S=~S") name file-name)
+	(ly:warning (_ "do not know how to embed ~S=~S") name file-name)
 	""))))
 
     (define (mac-font? bare-file-name)
@@ -354,7 +364,7 @@
        (eq? PLATFORM 'darwin)
        bare-file-name
        (or
-	(string-match "\\.dfont" bare-file-name)
+	(string-endswith  bare-file-name ".dfont")
 	(= (stat:size (stat bare-file-name)) 0))))
 
   (define (load-font font-name-filename)
@@ -377,7 +387,7 @@
 
 	(bare-file-name (font-file-as-ps-string name bare-file-name))
 	(else
-	 (ly:warning (_ "don't know how to embed font ~s ~s ~s")
+	 (ly:warning (_ "do not know how to embed font ~s ~s ~s")
 		     name file-name font))))))
 	
 
@@ -487,7 +497,10 @@
   (let*
       ((xext (ly:stencil-extent dump-me X))
        (yext (ly:stencil-extent dump-me Y))
-       (left-overshoot (ly:get-option 'eps-box-padding))
+       (padding (ly:get-option 'eps-box-padding))
+       (left-overshoot (if (number? padding)
+			   (* -1 padding (ly:output-def-lookup paper 'mm))
+			   #f))
        (bbox
 	(map
 	 (lambda (x)
@@ -726,7 +739,7 @@
 	 )
 
     (if (equal? (basename name ".ps") "-")
-	(ly:warning (_ "can't convert <stdout> to ~S" "PDF"))
+	(ly:warning (_ "cannot convert <stdout> to ~S" "PDF"))
 	(postscript->pdf w h name))))
 
 (define-public (convert-to-png book name)
@@ -745,20 +758,26 @@
 		     name)))
 
 (define-public (convert-to-dvi book name)
-  (ly:warning (_ "can't generate ~S using the postscript back-end") "DVI"))
+  (ly:warning (_ "cannot generate ~S using the postscript back-end") "DVI"))
 
 (define-public (convert-to-tex book name)
-  (ly:warning (_ "can't generate ~S using the postscript back-end") "TeX"))
+  (ly:warning (_ "cannot generate ~S using the postscript back-end") "TeX"))
 
 (define-public (convert-to-ps book name)
   #t)
 
 (define-public (output-classic-framework basename book scopes fields)
 
-  (ly:error (_ "\nThe PostScript backend does not support the 'classic'
-framework. Use the EPS backend instead,
+  (ly:error (_ "\nThe PostScript backend does not support the system-by-system 
+output. For that, use the EPS backend instead,
 
   lilypond -b eps <file>
 
-or remove the lilypond-book specific settings from the input.
+If have cut & pasted a lilypond fragment from a webpage, be sure
+to only remove anything before
+
+  %% ****************************************************************
+  %% Start cut-&-pastable-section
+  %% ****************************************************************
+
 ")))

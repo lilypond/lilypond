@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Glen Prideaux <glenprideaux@iname.com>,
+  (c) 1999--2007 Glen Prideaux <glenprideaux@iname.com>,
   Han-Wen Nienhuys <hanwen@xs4all.nl>,
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
@@ -98,7 +98,15 @@ Extender_engraver::stop_translation_timestep ()
 						 ly_symbol2scm ("heads"), h);
 	    }
 	}
-
+      else
+	{
+	  if (pending_extender_)
+	    {
+	      completize_extender (pending_extender_);
+	      pending_extender_ = 0;
+	    }
+	  
+	}
       if (extender_)
 	{
 	  pending_extender_ = extender_;

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -81,7 +81,7 @@ Grace_engraver::consider_change_grace_settings ()
 	    }
 	  else
 	    {
-	      programming_error ("can't find context");
+	      programming_error ("cannot find context: ");
 	      scm_display (context_name, scm_current_error_port ());
 	    }
 	}

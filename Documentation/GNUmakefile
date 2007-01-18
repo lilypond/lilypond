@@ -1,7 +1,7 @@
 depth = ..
 
 NAME = documentation
-LANGS = fr # don't enable unpolished or broken translations
+LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 SUBDIRS=user bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
@@ -39,8 +39,12 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(PYTHON) $(depth)/buildscripts/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -o doc.pot --skeleton --gettext ../user/lilypond.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -o doc.pot --skeleton --gettext ../user/lilypond.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
+	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
+
+check-translation:
+	find $(ISOLANG)/user/ -name '*.*tely' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir)
 endif

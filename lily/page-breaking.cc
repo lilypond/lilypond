@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "page-breaking.hh"
@@ -77,7 +77,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
   vector<Break_position> chunks = chunk_list (start_break, end_break);
   assert (chunks.size () == div.size () + 1);
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)
@@ -86,7 +86,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
-	  vector<Column_x_positions> pos = line_breaking_[sys].get_solution (start, end, div[i]);
+	  vector<Column_x_positions> pos = line_breaking_[sys].solve (start, end, div[i]);
 	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }
@@ -100,8 +100,9 @@ Page_breaking::systems ()
     {
       if (all_[sys].pscore_)
 	{
-	  SCM lines = all_[sys].pscore_->root_system ()->get_paper_systems ();
-	  ret = scm_cons (scm_vector_to_list (lines), ret);
+	  all_[sys].pscore_->root_system ()->do_break_substitution_and_fixup_refpoints ();
+	  SCM lines = all_[sys].pscore_->root_system ()->get_broken_system_grobs ();
+	  ret = scm_cons (lines, ret);
 	}
       else
 	{
@@ -120,7 +121,7 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
   vector<Line_details> ret;
   assert (chunks.size () == div.size () + 1);
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)
@@ -129,7 +130,7 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
-	  vector<Line_details> details = line_breaking_[sys].get_details (start, end, div[i]);
+	  vector<Line_details> details = line_breaking_[sys].line_details (start, end, div[i]);
 	  ret.insert (ret.end (), details.begin (), details.end ());
 	}
       else
@@ -178,7 +179,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   SCM layout_module = scm_c_resolve_module ("scm layout-page-layout");
   SCM page_module = scm_c_resolve_module ("scm page");
 
-  SCM make_page = scm_c_module_lookup (layout_module, "make-page-from-systems");
+  SCM make_page = scm_c_module_lookup (layout_module, "stretch-and-draw-page");
   SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
   make_page = scm_variable_ref (make_page);
   page_stencil = scm_variable_ref (page_stencil);
@@ -255,7 +256,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (all_[i].pscore_)
 	{
-	  vector<Grob*> cols = all_[i].pscore_->root_system ()->columns ();
+	  vector<Grob*> cols = all_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
@@ -341,7 +342,7 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool m
   Line_division ret;
   ret.resize (chunks.size () - 1, 1);
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)
@@ -350,8 +351,8 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool m
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 	  ret[i] = min
-	    ? line_breaking_[sys].get_min_systems (start, end)
-	    : line_breaking_[sys].get_max_systems (start, end);
+	    ? line_breaking_[sys].min_system_count (start, end)
+	    : line_breaking_[sys].max_system_count (start, end);
 	}
     }
 

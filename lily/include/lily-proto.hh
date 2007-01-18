@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef LILY_PROTO_HH
@@ -135,6 +135,7 @@ class Property_iterator;
 class Rational;
 class Relative_octave_music;
 class Repeated_music;
+class Scale;
 class Scheme_hash_table;
 class Score;
 class Score_context;

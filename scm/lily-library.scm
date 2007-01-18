@@ -19,16 +19,27 @@
 (define-public DOWN -1)
 (define-public CENTER 0)
 
-(define-safe-public DOUBLE-FLAT -4)
-(define-safe-public THREE-Q-FLAT -3)
-(define-safe-public FLAT -2)
-(define-safe-public SEMI-FLAT -1)
+(define-safe-public DOUBLE-FLAT-QTS -4)
+(define-safe-public THREE-Q-FLAT-QTS -3)
+(define-safe-public FLAT-QTS -2)
+(define-safe-public SEMI-FLAT-QTS -1)
+(define-safe-public NATURAL-QTS 0)
+(define-safe-public SEMI-SHARP-QTS 1)
+(define-safe-public SHARP-QTS 2)
+(define-safe-public THREE-Q-SHARP-QTS 3)
+(define-safe-public DOUBLE-SHARP-QTS 4)
+(define-safe-public SEMI-TONE-QTS 2)
+
+(define-safe-public DOUBLE-FLAT  -1)
+(define-safe-public THREE-Q-FLAT -3/4)
+(define-safe-public FLAT -1/2)
+(define-safe-public SEMI-FLAT -1/4)
 (define-safe-public NATURAL 0)
-(define-safe-public SEMI-SHARP 1)
-(define-safe-public SHARP 2)
-(define-safe-public THREE-Q-SHARP 3)
-(define-safe-public DOUBLE-SHARP 4)
-(define-safe-public SEMI-TONE 2)
+(define-safe-public SEMI-SHARP 1/4)
+(define-safe-public SHARP 1/2)
+(define-safe-public THREE-Q-SHARP 3/4)
+(define-safe-public DOUBLE-SHARP 1)
+(define-safe-public SEMI-TONE 1/2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; moments
@@ -38,50 +49,19 @@
 (define-public (moment-min a b)
   (if (ly:moment<? a b) a b))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; arithmetic
 (define-public (average x . lst)
   (/ (+ x (apply + lst)) (1+ (length lst))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; lily specific variables.
+;; parser <-> output hooks.
 
-(define-public default-script-alist '())
-
-
-;; parser stuff.
-(define-public (print-music-as-book parser music)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head (scorify-music music parser))))
-    (print-book-with-defaults parser book)))
-
-(define-public (print-score-as-book parser score)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head score)))
-    (print-book-with-defaults parser book)))
-
-(define-public (print-score parser score)
-  (let* ((head (ly:parser-lookup parser '$defaultheader))
-	 (book (ly:make-book (ly:parser-lookup parser '$defaultpaper)
-			     head score)))
-    (ly:parser-print-score parser book)))
 		
 (define-public (collect-scores-for-book parser score)
   (ly:parser-define!
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
-
-
-(define-public (scorify-music music parser)
-  
-  (for-each (lambda (func)
-	      (set! music (func music parser)))
-	    toplevel-music-functions)
-
-  (ly:make-score music))
 
 (define-public (collect-music-for-book parser music)
   ;; discard music if its 'void property is true.
@@ -89,42 +69,39 @@
     (if (or (null? void-music) (not void-music))
         (collect-scores-for-book parser (scorify-music music parser)))))
 
+(define-public (scorify-music music parser)
+  "Preprocess MUSIC."
+  
+  (for-each (lambda (func)
+	      (set! music (func music parser)))
+	    toplevel-music-functions)
+
+  (ly:make-score music))
+
+(define (print-book-with parser book process-procedure)
+  (let*
+      ((paper (ly:parser-lookup parser '$defaultpaper))
+       (layout (ly:parser-lookup parser '$defaultlayout))
+
+       (count (ly:parser-lookup parser 'output-count))
+       (base (ly:parser-output-name parser)))
+
+    ;; must be careful: output-count is under user control.
+    (if (not (integer? count))
+	(set! count 0))
+
+    (if (> count 0)
+	(set! base (format #f "~a-~a" base count)))
+
+    (ly:parser-define! parser 'output-count (1+ count))
+    (process-procedure book paper layout base)
+    ))
 
 (define-public (print-book-with-defaults parser book)
-  (let*
-      ((paper (ly:parser-lookup parser '$defaultpaper))
-       (layout (ly:parser-lookup parser '$defaultlayout))
-       (count (ly:parser-lookup parser 'output-count))
-       (base (ly:parser-output-name parser)))
+  (print-book-with parser book ly:book-process))
 
-    (if (not (integer? count))
-	(set! count 0))
-
-    (if (> count 0)
-	(set! base (format #f "~a-~a" base count)))
-
-    (ly:parser-define! parser 'output-count (1+ count))
-    (ly:book-process book paper layout base)
-    ))
-
-(define-public (print-score-with-defaults parser score)
-  (let*
-      ((paper (ly:parser-lookup parser '$defaultpaper))
-       (layout (ly:parser-lookup parser '$defaultlayout))
-       (header (ly:parser-lookup parser '$defaultheader))
-       (count (ly:parser-lookup parser 'output-count))
-       (base (ly:parser-output-name parser)))
-
-    (if (not (integer? count))
-	(set! count 0))
-
-    (if (> count 0)
-	(set! base (format #f "~a-~a" base count)))
-
-    (ly:parser-define! parser 'output-count (1+ count))
-    (ly:score-process score header paper layout base)
-    ))
-
+(define-public (print-book-with-defaults-as-systems parser book)
+  (print-book-with parser book ly:book-process-to-systems))
 
 ;;;;;;;;;;;;;;;;
 ;; alist
@@ -211,24 +188,9 @@ found."
 ;;;;;;;;;;;;;;;;
 ;; hash
 
-(if (not (defined? 'hash-table?)) ;; guile 1.6 compat
-    (begin
-      (define hash-table? vector?)
-      (define-public (hash-for-each proc tab)
-	(hash-fold (lambda (k v prior)
-		     (proc k v)
-		     #f)
-		   #f
-		   tab))
-      (define-public (hash-table->alist t)
-	"Convert table t to list"
-	(apply append (vector->list t))))
-
-    ;; native hashtabs.
-    (begin
-      (define-public (hash-table->alist t)
-	(hash-fold (lambda (k v acc) (acons  k v  acc))
-		   '() t))))
+(define-public (hash-table->alist t)
+  (hash-fold (lambda (k v acc) (acons  k v  acc))
+	     '() t))
 
 ;; todo: code dup with C++. 
 (define-safe-public (alist->hash-table lst)
@@ -418,6 +380,9 @@ found."
 
 (define-public interval-end cdr)
 
+(define-public (interval-bound interval dir)
+  ((if (= dir RIGHT) cdr car) interval))
+
 (define-public (interval-index interval dir)
   "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
   
@@ -461,9 +426,16 @@ found."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;; string
 
-
+(define-public (string-endswith s suffix)
+  (equal? suffix (substring s
+			    (max 0 (- (string-length s) (string-length suffix)))
+			    (string-length s))))
+	     
+(define-public (string-startswith s prefix)
+  (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
+	     
 (define-public (string-encode-integer i)
   (cond
    ((= i  0) "o")
@@ -554,6 +526,12 @@ possibly turned off."
       0
       (if (< x 0) -1 1)))
 
+(define-public (round2 num)
+  (/ (round (* 100 num)) 100))
+
+(define-public (round4 num)
+  (/ (round (* 10000 num)) 10000))
+
 (define-public (car< a b) (< (car a) (car b)))
 
 (define-public (symbol<? lst r)
@@ -609,14 +587,16 @@ possibly turned off."
 
 (define-public (version-not-seen-message input-file-name)
   (ly:message
-   (string-append
-    input-file-name ": 0: " (_ "warning: ")
-   (format #f
-	   (_ "no \\version statement found, please add~afor future compatibility")
-	   (format #f "\n\n\\version ~s\n\n" (lilypond-version))))))
+   "~a:0: ~a: ~a" 
+    input-file-name
+    (_ "warning: ")
+    (format #f
+	    (_ "no \\version statement found, please add~afor future compatibility")
+	    (format #f "\n\n\\version ~s\n\n" (lilypond-version)))))
 
 (define-public (old-relative-not-used-message input-file-name)
   (ly:message
-   (string-append
-    input-file-name ": 0: " (_ "warning: ")
-    (_ "old relative compatibility not used"))))
+   "~a:0: ~a: ~a" 
+    input-file-name
+    (_ "warning: ")
+    (_ "old relative compatibility not used")))

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "freetype.hh"
@@ -231,7 +231,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
   FT_Face face = open_ft_face (file_name);
   char const *ps_name_str0 = FT_Get_Postscript_Name (face);
-  SCM ps_name = scm_makfrom0str (ps_name_str0 ? ps_name_str0 : "");
+  SCM ps_name = scm_from_locale_string (ps_name_str0 ? ps_name_str0 : "");
   
   FT_Done_Face (face);
   

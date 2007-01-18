@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1999--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "bar-line.hh"
@@ -186,8 +186,7 @@ Auto_beam_engraver::create_beam ()
     Can't use make_spanner_from_properties() because we have to use
     beam_settings_.
   */
-  Spanner *beam = new Spanner (beam_settings_,
-			       context ()->get_grob_key ("Beam"));
+  Spanner *beam = new Spanner (beam_settings_);
 
   for (vsize i = 0; i < stems_->size (); i++)
     Beam::add_stem (beam, (*stems_)[i]);
@@ -238,8 +237,12 @@ Auto_beam_engraver::end_beam ()
   else
     {
       finished_beam_ = create_beam ();
+      
       if (finished_beam_)
-	finished_grouping_ = grouping_;
+	{
+	  announce_end_grob (finished_beam_, SCM_EOL);
+	  finished_grouping_ = grouping_;
+	}
       delete stems_;
       stems_ = 0;
       grouping_ = 0;
@@ -427,5 +430,11 @@ ADD_TRANSLATOR (Auto_beam_engraver,
 		"@ref{Stem_engraver} properties @code{stemLeftBeamCount} and "
 		"@code{stemRightBeamCount}. ",
 		/* create */ "Beam",
-		/* read */ "autoBeaming autoBeamSettings beatLength subdivideBeams",
+
+		/* read */
+		"autoBeaming "
+		"autoBeamSettings "
+		"beatLength "
+		"subdivideBeams ",
+		
 		/* write */ "");

@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys
+  (c) 1996--2007 Han-Wen Nienhuys
 */
 
 #ifndef GROB_HH
@@ -13,7 +13,6 @@
 #include "virtual-methods.hh"
 #include "dimension-cache.hh"
 #include "grob-interface.hh"
-#include "object-key.hh"
 
 class Grob
 {
@@ -28,7 +27,6 @@ protected:
   Dimension_cache dim_cache_[NO_AXES];
   Output_def *layout_;
   Grob *original_;
-  Object_key const *key_;
 
   /* SCM data */
   SCM immutable_property_alist_;
@@ -44,6 +42,9 @@ protected:
   void substitute_object_links (SCM, SCM);
   Real get_offset (Axis a) const;
   SCM try_callback (SCM, SCM);
+  SCM try_callback_on_alist (SCM *, SCM, SCM);
+  void internal_set_value_on_alist (SCM *alist, SCM sym, SCM val);
+
 public:
   
   /* friends */
@@ -62,12 +63,11 @@ public:
   Output_def *layout () const { return layout_; }
   Grob *original () const { return original_; }
   SCM interfaces () const { return interfaces_; }
-  Object_key const *key () const { return key_; }
 
   /* life & death */ 
-  Grob (SCM basic_props, Object_key const *);
-  Grob (Grob const &, int copy_count);
-  virtual Grob *clone (int count) const;
+  Grob (SCM basic_props);
+  Grob (Grob const &);
+  virtual Grob *clone () const;
 
   /* forced death */
   void suicide ();

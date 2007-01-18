@@ -3,17 +3,18 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
-#include "context-key-manager.hh"
 #include "listener.hh"
 #include "moment.hh"
 #include "std-vector.hh"
 #include "virtual-methods.hh"
+#include "scm-hash.hh"
+#include "lily-proto.hh"
 
 class Context
 {
@@ -37,7 +38,6 @@ protected:
   SCM definition_;
   /* Additions to the Context_def, given by \with */
   SCM definition_mods_;
-  Context_key_manager key_manager_;
   
   SCM properties_scm_;
   SCM context_list_;
@@ -59,15 +59,11 @@ protected:
   friend class Context_def;
   // UGH! initialises implementation_
   friend SCM ly_make_global_translator (SCM);
-  void clear_key_disambiguations ();
 
   DECLARE_LISTENER (set_property_from_event);
   DECLARE_LISTENER (unset_property_from_event);
   
 public:
-  Object_key const *get_grob_key (string name);
-  Object_key const *get_context_key (string name, string id);
-
   string id_string () const { return id_string_; }
   SCM children_contexts () const { return context_list_; }
   SCM default_child_context_name () const;
@@ -81,7 +77,7 @@ public:
 
   Translator_group *implementation () const { return implementation_; }
   Context *get_parent_context () const;
-  Context (Object_key const *);
+  Context ();
 
   /* properties:  */
   SCM internal_get_property (SCM name_sym) const;

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MUSIC_HH
@@ -66,6 +66,6 @@ SCM ly_camel_case_to_lisp_identifier (SCM name_sym);
 extern SCM ly_music_p_proc;
 
 /* common transposition function for music and event */
-SCM transpose_mutable (SCM alist, Pitch delta);
+void transpose_mutable (SCM alist, Pitch delta);
 
 #endif /* MUSIC_HH */

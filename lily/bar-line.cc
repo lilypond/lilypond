@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "bar-line.hh"
@@ -78,37 +78,37 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
     return thin;
   else if (str == "|." || (h == 0 && str == ":|"))
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);
-      m.add_at_edge (X_AXIS, LEFT, thin, kern, 0);
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
     }
   else if (str == ".|" || (h == 0 && str == "|:"))
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
     }
   else if (str == ":|")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, 0, 0);
-      m.add_at_edge (X_AXIS, LEFT, thin, kern, 0);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern, 0);
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);
     }
   else if (str == "|:")
     {
-      m.add_at_edge (X_AXIS, RIGHT, thick, 0, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, kern, 0);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thick, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);
     }
   else if (str == ":|:")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern, 0);
-      m.add_at_edge (X_AXIS, LEFT, colon, kern, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern, 0);
-      m.add_at_edge (X_AXIS, RIGHT, colon, kern, 0);
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);
     }
   else if (str == ".|.")
     {
-      m.add_at_edge (X_AXIS, LEFT, thick, thinkern, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thick, kern, 0);
+      m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
+      m.add_at_edge (X_AXIS, RIGHT, thick, kern);
     }
   else if (str == "||")
     {
@@ -116,8 +116,8 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
 	should align to other side? this never appears
 	on the system-start?
       */
-      m.add_at_edge (X_AXIS, RIGHT, thin, 0, 0);
-      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, 0);
+      m.add_at_edge (X_AXIS, RIGHT, thin, thinkern);
     }
   else if (str == ":")
     {

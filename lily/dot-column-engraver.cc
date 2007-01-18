@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "rhythmic-head.hh"
@@ -16,7 +16,6 @@
 class Dot_column_engraver : public Engraver
 {
   Grob *dotcol_;
-  vector<Item*> heads_;
 public:
   TRANSLATOR_DECLARATIONS (Dot_column_engraver);
 
@@ -36,7 +35,6 @@ void
 Dot_column_engraver::stop_translation_timestep ()
 {
   dotcol_ = 0;
-  heads_.clear ();
 }
 
 void

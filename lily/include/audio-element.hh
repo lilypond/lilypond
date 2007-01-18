@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef AUDIO_ELEMENT_HH
@@ -17,9 +17,8 @@ public:
   Audio_element ();
   virtual ~Audio_element ();
 
-  VIRTUAL_COPY_CONSTRUCTOR(Audio_element, Audio_element);
+  DECLARE_CLASSNAME(Audio_element);
   virtual char const *name () const;
-protected:
 };
 
 #endif // AUDIO_ELEMENT_HH

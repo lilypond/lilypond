@@ -1,4 +1,11 @@
-\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@ignore
+    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @setfilename lilypond.info
 @settitle GNU LilyPond
 @iftex
@@ -83,7 +90,7 @@ Free Documentation License''.
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.8.X.
+Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.10.x.
 @ifhtml
 (Allez au bas de la page pour voir le numéro de version exact).
 @end ifhtml
@@ -112,7 +119,7 @@ Manuel d'apprentissage
 Manuel de référence
 
 * Basic notation::                 notation musicale standard.
-* Instrument-specific notation::
+* Instrument-specific notation::   notation spécifique à un instrument.
 * Advanced notation::              notation plus rarement utilisée.
 * Changing defaults::              retoucher la mise en forme.
 * Non-musical notation::           aspects autres que la notation musicale.
@@ -174,10 +181,14 @@ Annexes
 @node LilyPond command index
 @appendix LilyPond command index
 
+UNTRANSLATED NODE: IGNORE ME
+
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
+
+UNTRANSLATED NODE: IGNORE ME
 
 @printindex cp
 

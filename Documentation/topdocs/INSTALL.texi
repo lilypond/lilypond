@@ -79,7 +79,7 @@ You will need to install some additional packages to get mftrace to
 work.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.6.7 or newer).  If you are installing binary packages, you
+(version 1.8.2 or newer).  If you are installing binary packages, you
 may need to install guile-devel or guile-dev or libguile-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
@@ -116,7 +116,8 @@ software
 @item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
 @item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.8.0 or newer).
+(version 1.8.2 or newer), or patch 1.8.1 with
+@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.8-rational.patch}.
 @item @uref{http://www.python.org,Python} (version 2.4 or newer).
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
 newer. 8.50 recommended)
@@ -156,6 +157,45 @@ make out=www web-install
 @end example
 @end quotation
 
+@section Testing LilyPond
+
+LilyPond comes with an extensive suite that excercises the entire
+program. This suite can be used to automatically check the impact of a
+change. This is done as follows
+
+@example
+  make test-baseline
+  @emph{## apply your changes, compile}
+  make check
+@end example
+
+This will leave an HTML page @file{out/test-results/index.html}.  This
+page shows all the important differences that your change introduced,
+whether in the layout, MIDI, performance or error reporting.
+
+To rerun tests, use
+
+@example
+  make test-redo           @emph{## redo files differing from baseline}
+  make test-clean          @emph{## remove all test results}
+@end example
+
+@noindent
+and then run @code{make check} again.
+
+For tracking memory usage as part of this test, you will need GUILE
+CVS; especially the following patch:
+@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.9-gcstats.patch}.
+
+For checking the coverage of the test suite, do the following
+
+@example
+  ./buildscripts/build-coverage.sh
+  @emph{# uncovered files, least covered first}
+  python ./buildscripts/coverage.py  --summary out-cov/*.cc
+  @emph{# consecutive uncovered lines, longest first} 
+  python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
+@end example
 
 @section Building LilyPond
 

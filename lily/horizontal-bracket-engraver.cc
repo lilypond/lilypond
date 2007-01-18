@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2002--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -56,7 +56,7 @@ Horizontal_bracket_engraver::listen_note_grouping (Stream_event *ev)
     {
       pop_count_++;
       if (pop_count_ > bracket_stack_.size ())
-	ev->origin ()->warning (_ ("don't have that many brackets"));
+	ev->origin ()->warning (_ ("do not have that many brackets"));
     }
   else
     {

@@ -304,10 +304,10 @@ midi_parse_track (unsigned char **track, unsigned char *track_end)
 
   {  
     PyObject *pytime = PyInt_FromLong (0L);
+    unsigned char running_status = 0;
+	
     while (*track < track_end)
       {
-	unsigned char running_status = 0;
-	
 	long dt = get_variable_length_number(track, track_end);
 	PyObject *pyev = 0;
 
@@ -372,7 +372,7 @@ midi_parse (unsigned char **midi,unsigned  char *midi_end)
 
 
   if (division < 0)
-    /* return midi_error ("can't handle non-metrical time"); */
+    /* return midi_error (cannot handle non-metrical time"); */
     ;
   *midi += header_len - 6;
 

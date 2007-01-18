@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "open-type-font.hh"
@@ -30,11 +30,11 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
     {
       FT_Byte *buffer = (FT_Byte *) malloc (*length);
       if (buffer == NULL)
-	error (_f ("can't allocate %lu bytes", *length));
+	error (_f ("cannot allocate %lu bytes", *length));
 
       error_code = FT_Load_Sfnt_Table (face, tag, 0, buffer, length);
       if (error_code)
-	error (_f ("can't load font table: %s", tag_str));
+	error (_f ("cannot load font table: %s", tag_str));
 
       return buffer;
     }
@@ -296,7 +296,7 @@ Open_type_font::glyph_list () const
       if (code)
 	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
 
-      *tail = scm_cons (scm_makfrom0str (name), SCM_EOL);
+      *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   

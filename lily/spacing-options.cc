@@ -3,14 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Han-Wen Nienhuys <hanwen@lilypond.org>
+  (c) 2006--2007 Han-Wen Nienhuys <hanwen@lilypond.org>
 
 */
 
 #include "spacing-options.hh"
+#include "spacing-spanner.hh"
 #include "grob.hh"
 #include "misc.hh"
 #include "moment.hh"
+#include "spanner.hh"
 
 void
 Spacing_options::init_from_grob (Grob *me)
@@ -33,7 +35,6 @@ Spacing_options::init_from_grob (Grob *me)
     global_shortest_ = shortest_dur.main_part_;
   else
     global_shortest_ = shortest_dur.grace_part_;
-
 }
 
 Spacing_options::Spacing_options ()

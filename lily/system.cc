@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "system.hh"
@@ -21,13 +21,13 @@
 #include "pointer-group-interface.hh"
 #include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
-#include "tweak-registration.hh"
 #include "warn.hh"
+#include "lookup.hh"
 
 extern bool debug_skylines;
 
-System::System (System const &src, int count)
-  : Spanner (src, count)
+System::System (System const &src)
+  : Spanner (src)
 {
   all_elements_ = 0;
   pscore_ = 0;
@@ -35,8 +35,8 @@ System::System (System const &src, int count)
   init_elements ();
 }
 
-System::System (SCM s, Object_key const *key)
-  : Spanner (s, key)
+System::System (SCM s)
+  : Spanner (s)
 {
   all_elements_ = 0;
   rank_ = 0;
@@ -53,9 +53,9 @@ System::init_elements ()
 }
 
 Grob *
-System::clone (int index) const
+System::clone () const
 {
-  return new System (*this, index);
+  return new System (*this);
 }
 
 int
@@ -114,8 +114,8 @@ fixup_refpoints (vector<Grob*> const &grobs)
     grobs[i]->fixup_refpoint ();
 }
 
-SCM
-System::get_paper_systems ()
+void
+System::do_break_substitution_and_fixup_refpoints ()
 {
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
@@ -178,7 +178,20 @@ System::get_paper_systems ()
 
   if (be_verbose_global)
     message (_f ("Element count %d.", count + element_count ()));
+}
 
+SCM
+System::get_broken_system_grobs ()
+{
+  SCM ret = SCM_EOL;
+  for (vsize i = 0; i < broken_intos_.size (); i++)
+    ret = scm_cons (broken_intos_[i]->self_scm (), ret);
+  return scm_reverse (ret);
+}
+
+SCM
+System::get_paper_systems ()
+{
   SCM lines = scm_c_make_vector (broken_intos_.size (), SCM_EOL);
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
@@ -187,14 +200,6 @@ System::get_paper_systems ()
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
-      system->post_processing ();
-      system->build_skylines ();
-      if (i > 0)
-	{
-	  System *prev = dynamic_cast<System*> (broken_intos_[i-1]);
-	  Real r = prev->skylines_[DOWN].distance (system->skylines_[UP]);
-	  system->set_property ("skyline-distance", scm_from_double (r));
-	}
       scm_vector_set_x (lines, scm_from_int (i),
 			system->get_paper_system ());
 
@@ -209,7 +214,7 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 {
   for (vsize i = 0; i < breaking.size (); i++)
     {
-      System *system = dynamic_cast<System *> (clone (broken_intos_.size ()));
+      System *system = dynamic_cast<System *> (clone ());
       system->rank_ = broken_intos_.size ();
 
       vector<Grob*> c (breaking[i].cols_);
@@ -245,28 +250,10 @@ System::add_column (Paper_column *p)
       ga = unsmob_grob_array (scm_ga);
     }
 
-  p->rank_
-    = ga->size ()
-    ? Paper_column::get_rank (ga->array ().back ()) + 1
-    : 0;
+  p->rank_ = ga->size ();
 
   ga->add (p);
   Axis_group_interface::add_element (this, p);
-}
-
-void
-apply_tweaks (Grob *g, bool broken)
-{
-  if (bool (g->original ()) == broken)
-    {
-      SCM tweaks = global_registry_->get_tweaks (g);
-      for (SCM s = tweaks; scm_is_pair (s); s = scm_cdr (s))
-	{
-	  SCM proc = scm_caar (s);
-	  SCM rest = scm_cdar (s);
-	  scm_apply_1 (proc, g->self_scm (), rest);
-	}
-    }
 }
 
 void
@@ -289,9 +276,6 @@ System::pre_processing ()
   fixup_refpoints (all_elements_->array ());
 
   for (vsize i = 0; i < all_elements_->size (); i++)
-    apply_tweaks (all_elements_->grob (i), false);
-
-  for (vsize i = 0; i < all_elements_->size (); i++)
     {
       Grob *g = all_elements_->grob (i);
       (void) g->get_property ("before-line-breaking");
@@ -311,7 +295,6 @@ System::post_processing ()
     {
       Grob *g = all_elements_->grob (i);
 
-      apply_tweaks (g, true);
       (void) g->get_property ("after-line-breaking");
     }
 
@@ -355,6 +338,9 @@ System::get_paper_system ()
 {
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
+
+  post_processing ();
+  build_skylines ();
 
   vector<Layer_entry> entries;
   for (vsize j = 0; j < all_elements_->size (); j++)
@@ -402,8 +388,8 @@ System::get_paper_system ()
 				 exprs));
   if (debug_skylines)
     {
-      sys_stencil.add_stencil (points_to_line_stencil (skylines_[UP].to_points ()).in_color (255, 0, 0));
-      sys_stencil.add_stencil (points_to_line_stencil (skylines_[DOWN].to_points ()).in_color (0, 255, 0));
+      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[UP].to_points ()).in_color (255, 0, 0));
+      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[DOWN].to_points ()).in_color (0, 255, 0));
     }
 
   Grob *left_bound = this->get_bound (LEFT);
@@ -413,25 +399,18 @@ System::get_paper_system ()
 
   /* information that the page breaker might need */
   Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("skyline-distance", get_property ("skyline-distance"));
+  pl->set_property ("skylines", skylines_.smobbed_copy ());
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
-    {
-      Interval staff_refpoints;
-      staff_refpoints.set_empty ();
-      extract_grob_set (this, "spaceable-staves", staves);
-      for (vsize i = 0; i < staves.size (); i++)
-	{
-	  Grob *g = staves[i];
-	  staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
-	}
-      pl->set_property ("refpoint-Y-extent", ly_interval2scm (staff_refpoints));
-    }
+  Interval staff_refpoints;
+  extract_grob_set (this, "spaceable-staves", staves);
+  for (vsize i = 0; i < staves.size (); i++)
+    staff_refpoints.add_point (staves[i]->relative_coordinate (this, Y_AXIS));
 
+  pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
   pl->set_property ("system-grob", this->self_scm ()); 
 
   return pl->unprotect ();
@@ -448,9 +427,7 @@ System::broken_col_range (Item const *left, Item const *right) const
   
   extract_grob_set (this, "columns", cols);
 
-  vsize i = binary_search (cols, (Grob *) left,
-			   Paper_column::less_than);
-
+  vsize i = Paper_column::get_rank (left);
   int end_rank = Paper_column::get_rank (right);
   if (i < cols.size ())
     i++;
@@ -471,7 +448,7 @@ System::broken_col_range (Item const *left, Item const *right) const
 /** Return all columns, but filter out any unused columns , since they might
     disrupt the spacing problem. */
 vector<Grob*>
-System::columns () const
+System::used_columns () const
 {
   extract_grob_set (this, "columns", ro_columns);
 
@@ -491,6 +468,16 @@ System::columns () const
     }
 
   return columns;
+}
+
+Paper_column *
+System::column (vsize which) const
+{
+  extract_grob_set (this, "columns", columns);
+  if (which >= columns.size ())
+    return 0;
+  
+  return dynamic_cast<Paper_column*> (columns[which]);
 }
 
 Paper_score*

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1996--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "performer.hh"
@@ -38,11 +38,10 @@ Note_performer::process_music ()
 {
   if (note_evs_.size ())
     {
-      int transposing = 0;
-
+      Pitch transposing;
       SCM prop = get_property ("instrumentTransposition");
       if (unsmob_pitch (prop))
-	transposing = unsmob_pitch (prop)->semitone_pitch ();
+	transposing = *unsmob_pitch (prop);
 
       while (note_evs_.size ())
 	{
@@ -66,8 +65,15 @@ Note_performer::process_music ()
                     tie_event = ev;
                 }
 
-	      Audio_note *p = new Audio_note (*pitp, get_event_length (n), 
-                                              tie_event, - transposing);
+	      Moment len = get_event_length (n);
+	      if (now_mom().grace_part_)
+		{
+		  len.grace_part_ = len.main_part_;
+		  len.main_part_ = Rational (0);
+		}
+	      
+	      Audio_note *p = new Audio_note (*pitp, len, 
+                                              tie_event, transposing.negated ());
 	      Audio_element_info info (p, n);
 	      announce_element (info);
 	      notes_.push_back (p);

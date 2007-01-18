@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "includable-lexer.hh"
@@ -41,23 +41,16 @@ Includable_lexer::Includable_lexer ()
 #if HAVE_FLEXLEXER_YY_CURRENT_BUFFER
   yy_current_buffer = 0;
 #endif
-  allow_includes_b_ = true;
 }
 
 /** Set the new input file to NAME, remember old file.  */
 void
 Includable_lexer::new_input (string name, Sources *sources)
 {
-  if (!allow_includes_b_)
-    {
-      LexerError (_ ("include files are not allowed in safe mode").c_str ());
-      return;
-    }
-
   Source_file *file = sources->get_file (&name);
   if (!file)
     {
-      string msg = _f ("can't find file: `%s'", name);
+      string msg = _f ("cannot find file: `%s'", name);
       msg += "\n";
       msg += _f ("(search path: `%s')",
 		 sources->path_->to_string ().c_str ());

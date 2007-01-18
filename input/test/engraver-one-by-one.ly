@@ -105,7 +105,6 @@ MyVoice = \context {
   \consists "Chord_tremolo_engraver"
   \consists "Percent_repeat_engraver"
   \consists "Slash_repeat_engraver"
-  \consists "Melisma_translator"
 
 %{
   Must come before text_engraver, but after note_column engraver.

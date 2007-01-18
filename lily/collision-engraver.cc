@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -46,6 +46,9 @@ Collision_engraver::acknowledge_note_column (Grob_info i)
       if (Note_column::has_rests (i.grob ()) || i.grob ()->get_parent (X_AXIS))
 	return;
 
+      if (to_boolean (i.grob ()->get_property ("ignore-collision")))
+	return;
+      
       note_columns_.push_back (i.grob ());
     }
 }

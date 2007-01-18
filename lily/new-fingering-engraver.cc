@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -93,7 +93,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 		       &fingerings_,
 		       ev, note_ev);
       else if (ev->in_event_class ("text-script-event"))
-	ev->origin ()->warning (_ ("can't add text scripts to individual note heads"));
+	ev->origin ()->warning (_ ("cannot add text scripts to individual note heads"));
       else if (ev->in_event_class ("script-event"))
 	add_script (inf.grob (), ev, note_ev);
       else if (ev->in_event_class ("string-number-event"))
@@ -250,6 +250,11 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
 
+      if (hordir == LEFT
+	  && unsmob_grob (ft.head_->get_object ("accidental-grob")))
+	Side_position_interface::add_support (f,
+					      unsmob_grob (ft.head_->get_object ("accidental-grob")));
+					      
       Self_alignment_interface::set_align_self (f, Y_AXIS);
       Self_alignment_interface::set_center_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);

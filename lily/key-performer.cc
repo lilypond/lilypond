@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "audio-item.hh"
@@ -52,7 +52,7 @@ Key_performer::process_music ()
 
       Pitch key_do (0,
 		    scm_to_int (scm_caar (pitchlist)),
-		    scm_to_int (scm_cdar (pitchlist)));
+		    ly_scm2rational (scm_cdar (pitchlist)));
 
       Pitch c_do (0, 0, 0);
 
@@ -66,8 +66,8 @@ Key_performer::process_music ()
       SCM third = scm_assoc (scm_from_int (2),
 			     c_pitchlist);
       bool minor = (scm_is_pair (third)
-		    && scm_is_integer (scm_cdr (third))
-		    && scm_to_int (scm_cdr (third)) == FLAT);
+		    && scm_is_number (scm_cdr (third))
+		    && ly_scm2rational (scm_cdr (third)) == FLAT_ALTERATION);
 
       audio_ = new Audio_key (scm_to_int (acc),
 			      !minor);
@@ -96,5 +96,7 @@ Key_performer::listen_key_change (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Key_performer,
-		"", "",
-		"", "");
+		"",
+		"",
+		"",
+		"");

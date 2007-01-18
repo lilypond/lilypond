@@ -1,4 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Putting it all together
 @chapter Putting it all together
 
@@ -22,7 +30,7 @@ want something that isn't covered?
 
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
-cello.  In this case, we would start with ``Notes and lyrics'' (for the
+cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
@@ -52,7 +60,7 @@ text = \lyricmode @{
 @}
 @end example
 
-Now we want to add a cello part.  Let's look at the ``Notes only'' example:
+Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
 \version "2.9.13"
@@ -282,6 +290,9 @@ Some people put some of those commands outside the
 @code{\score} block -- for example, @code{\header} is
 often placed above the @code{\score}.  That's just
 another shorthand that LilyPond accepts.
+
+@cindex variables
+@cindex indentifiers
 
 Another great shorthand is the ability to define
 variables.  All the templates use this

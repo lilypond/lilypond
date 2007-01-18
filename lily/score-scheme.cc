@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score.hh"
@@ -11,7 +11,9 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "global-context.hh"
-#include "lilypond-key.hh"
+#include "music-output.hh"
+#include "paper-score.hh"
+#include "paper-book.hh"
 
 LY_DEFINE (ly_make_score, "ly:make-score",
 	   1, 0, 0,
@@ -27,8 +29,51 @@ LY_DEFINE (ly_make_score, "ly:make-score",
   return score->unprotect ();
 }
 
+LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
+	   1, 0, 0, (SCM score),
+	   "All output defs in a score.")
+{
+  Score *sc = unsmob_score (score);
+  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
+
+  SCM l = SCM_EOL;
+  for (vsize i = 0; i < sc->defs_.size (); i++)
+    l = scm_cons (sc->defs_[i]->self_scm(), l);
+  return scm_reverse_x (l, SCM_EOL);
+}
+
+
+
+LY_DEFINE (ly_score_header, "ly:score-header",
+	   1, 0, 0, (SCM score),
+	   "return score header.")
+{
+  Score *sc = unsmob_score (score);
+  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
+  return sc->header_;
+}
+
+
+LY_DEFINE (ly_score_music, "ly:score-music",
+	   1, 0, 0, (SCM score),
+	   "return score music.")
+{
+  Score *sc = unsmob_score (score);
+  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
+  return sc->get_music ();
+}
+
+LY_DEFINE (ly_score_error_p, "ly:score-error?",
+	   1, 0, 0, (SCM score),
+	   "Was there an error in the score?")
+{
+  Score *sc = unsmob_score (score);
+  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
+  return scm_from_bool (sc->error_found_);
+}
+
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-	   2, 1, 0, (SCM score, SCM layout, SCM key),
+	   2, 0, 0, (SCM score, SCM layout),
 	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct output-scale already, "
 	   "return a list of layout-lines. "
@@ -61,55 +106,9 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
      itself. */
   score_def->parent_ = od;
 
-  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
-				   key);
+  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
   SCM output = ly_format_output (context);
 
   scm_remember_upto_here_1 (prot);
   return output;
 }
-
-LY_DEFINE (ly_score_process, "ly:score-process",
-	   5, 0, 0,
-	   (SCM score_smob,
-	    SCM default_header,
-	    SCM default_paper,
-	    SCM default_layout,
-	    SCM basename),
-	   "Print score without page-layout: just print the systems.")
-{
-  Score *score = unsmob_score (score_smob);
-
-  SCM_ASSERT_TYPE (score, score_smob, SCM_ARG1, __FUNCTION__, "score");
-
-  // allow header to be undefined.
-  SCM_ASSERT_TYPE (unsmob_output_def (default_paper),
-		   default_header, SCM_ARG3, __FUNCTION__, "\\paper block");
-  SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
-		   default_header, SCM_ARG4, __FUNCTION__, "\\layout block");
-
-  Object_key *key = new Lilypond_general_key (0, score->user_key_, 0);
-
-  if (score->error_found_)
-    return SCM_UNSPECIFIED;
-
-  SCM header = ly_is_module (score->header_)
-    ? score->header_
-    : default_header;
-
-  for (vsize i = 0; i < score->defs_.size (); i++)
-    default_rendering (score->get_music (), score->defs_[i]->self_scm (),
-		       default_paper, header, basename, key->self_scm ());
-
-  if (score->defs_.empty ())
-    {
-      default_rendering (score->get_music (),
-			 default_layout,
-			 default_paper,
-			 header, basename, key->self_scm ());
-    }
-
-  key->unprotect ();
-  return SCM_UNSPECIFIED;
-}
-

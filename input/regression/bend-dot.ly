@@ -3,6 +3,10 @@
   texidoc  = "Bends avoid dots, but only if necessary."
 }
 
+\paper {
+  ragged-right = ##t
+}
+
 \score {
   <<
     \new Staff \relative c' {
@@ -12,8 +16,4 @@
       f4.-\bendAfter #+1
     }
   >>
-}
-
-\paper {
-  ragged-right = ##t
 }

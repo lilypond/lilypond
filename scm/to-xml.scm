@@ -5,8 +5,11 @@
 ;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define-module (scm to-xml))
+
 (use-modules (ice-9 regex)
 	     (srfi srfi-1)
+	     (lily)
 	     (oop goops))
 
 "
@@ -187,7 +190,7 @@ is then separated.
 (define (assert x)
   (if x
       #t
-      (ly:error (_ "assertion failed"))))
+      (ly:error (_ "assertion failed: ~S") x)))
 
 (define (re-sub re to string)
   (regexp-substitute/global #f re string 'pre to 'post))

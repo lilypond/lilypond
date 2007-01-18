@@ -57,8 +57,18 @@
  '(columns common-shortest-duration))
 
 (ly:add-interface
+ 'key-cancellation-interface
+ "A key cancellation"
+ '())
+
+(ly:add-interface
  'ligature-interface
  "A ligature"
+ '())
+
+(ly:add-interface
+ 'key-cancellation-interface
+ "A key cancellation"
  '())
 
 (ly:add-interface
@@ -125,12 +135,13 @@
 (ly:add-interface
  'trill-pitch-accidental-interface
  "An accidental for trill pitch"
- '(accidentals))
+ '()
+ )
 
 (ly:add-interface
  'rhythmic-grob-interface
- "Any object with a rhythmic basis. Used to determine which grobs
-are interesting enough to maintain a hara-kiri staff."
+ "Any object with a duration. Used to determine which grobs are
+interesting enough to maintain a hara-kiri staff."
  '())
 
 
@@ -164,6 +175,13 @@ are interesting enough to maintain a hara-kiri staff."
  'tablature-interface
  "An interface for any notes set in a tablature staff"
  '())
+
+(ly:add-interface
+ 'unbreakable-spanner-interface
+ "A spanner that should not be broken across line breaks. Override
+with @code{breakable=##t}. "
+ 
+ '(breakable))
 
 (ly:add-interface
  'vertically-spaceable-interface

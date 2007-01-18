@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver-group.hh"
@@ -66,9 +66,14 @@ Time_signature_engraver::process_music ()
 		       int (scm_to_int (scm_car (fr)))));
 	}
 
-      last_time_fraction_ = fr;
       time_signature_ = make_item ("TimeSignature", SCM_EOL);
       time_signature_->set_property ("fraction", fr);
+
+      if (last_time_fraction_ == SCM_BOOL_F)
+	time_signature_->set_property ("break-visibility",
+				       get_property ("implicitTimeSignatureVisibility"));
+      
+      last_time_fraction_ = fr;
     }
 }
 
@@ -81,7 +86,13 @@ Time_signature_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_engraver,
-		/* doc */ "Create a TimeSignature whenever @code{timeSignatureFraction} changes",
-		/* create */ "TimeSignature",
-		/* read */ "",
+		/* doc */ "Create a @ref{TimeSignature} whenever @code{timeSignatureFraction} changes",
+		/* create */
+		"TimeSignature ",
+		
+		/* read */
+		"implicitTimeSignatureVisibility "
+		"timeSignatureFraction "
+
+		,
 		/* write */ "");

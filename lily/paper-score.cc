@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "paper-score.hh"
@@ -62,7 +62,7 @@ Paper_score::typeset_system (System *system)
 vector<vsize>
 Paper_score::find_break_indices () const
 {
-  vector<Grob*> all = root_system ()->columns ();
+  vector<Grob*> all = root_system ()->used_columns ();
   vector<vsize> retval;
 
   for (vsize i = 0; i < all.size (); i++)
@@ -106,9 +106,9 @@ Paper_score::calc_breaking ()
 
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
-    algorithm.resize (system_count);
+    return algorithm.solve (0, VPOS, system_count);
 
-  return algorithm.solve ();
+  return algorithm.best_solution (0, VPOS);
 }
 
 void
@@ -125,7 +125,7 @@ Paper_score::process ()
      down the road.
 
      doubly, also done in Score_engraver */
-  vector<Grob*> pc (system_->columns ());
+  vector<Grob*> pc (system_->used_columns ());
   pc[0]->set_property ("line-break-permission", ly_symbol2scm ("allow"));
   pc.back ()->set_property ("line-break-permission", ly_symbol2scm ("allow"));
 
@@ -152,6 +152,7 @@ Paper_score::get_paper_systems ()
       vector<Column_x_positions> breaking = calc_breaking ();
       system_->break_into_pieces (breaking);
       message (_ ("Drawing systems...") + " ");
+      system_->do_break_substitution_and_fixup_refpoints ();
       paper_systems_ = system_->get_paper_systems ();
     }
   return paper_systems_;

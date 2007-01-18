@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -153,7 +153,7 @@ Slur::print (SCM smob)
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
 				     quant_score));
-      a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0, 0);
+      a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif
 

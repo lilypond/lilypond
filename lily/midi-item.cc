@@ -1,9 +1,9 @@
 /*
-  midi-item.cc -- implement Midi items.
+  midi-item.cc -- implement MIDI items.
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "midi-item.hh"
@@ -40,12 +40,10 @@ Midi_item::get_midi (Audio_item *a)
   else if (Audio_time_signature *i = dynamic_cast<Audio_time_signature *> (a))
     return new Midi_time_signature (i);
   else if (Audio_text *i = dynamic_cast<Audio_text *> (a))
-    //return i->text_string_.length () ? new Midi_text (i) : 0;
     return new Midi_text (i);
   else
     assert (0);
 
-  // isn't C++ grand?
   return 0;
 }
 
@@ -90,23 +88,16 @@ Midi_duration::to_string () const
   return string ("<duration: ") + ::to_string (seconds_) + ">";
 }
 
-Midi_event::Midi_event (Moment delta_mom, Midi_item *midi)
+Midi_event::Midi_event (int delta_ticks, Midi_item *midi)
 {
-  delta_mom_ = delta_mom;
+  delta_ticks_ = delta_ticks;
   midi_ = midi;
 }
 
-/*
-  ugh. midi output badly broken since grace note hackage.
-*/
 string
 Midi_event::to_string () const
 {
-  Rational rat_dt = (delta_mom_.main_part_ * Rational (384)
-		     + delta_mom_.grace_part_ * Rational (100)) * Rational (4);
-  int delta = rat_dt.to_int ();
-
-  string delta_string = Midi_item::i2varint_string (delta);
+  string delta_string = Midi_item::i2varint_string (delta_ticks_);
   string midi_string = midi_->to_string ();
   assert (midi_string.length ());
   return delta_string + midi_string;
@@ -140,9 +131,6 @@ Midi_instrument::to_string () const
   Byte program_byte = 0;
   bool found = false;
 
-  /*
-    UGH. don't use eval.
-  */
   SCM proc = ly_lily_module_constant ("midi-program");
   SCM program = scm_call_1 (proc, ly_symbol2scm (audio_->str_.c_str ()));
   found = (program != SCM_BOOL_F);
@@ -158,11 +146,6 @@ Midi_instrument::to_string () const
 
 Midi_item::Midi_item ()
 {
-}
-
-Midi_channel_item::~Midi_channel_item ()
-{
-  channel_ = 0;
 }
 
 Midi_channel_item::Midi_channel_item ()
@@ -248,32 +231,23 @@ Midi_note::Midi_note (Audio_note *a)
   dynamic_byte_ = 0x7f;
 }
 
-Moment
-Midi_note::get_length () const
-{
-  Moment m = audio_->length_mom_;
-  return m;
-}
 
 int
 Midi_note::get_fine_tuning () const
 {
-  int ft = audio_->pitch_.quartertone_pitch ();
-  ft -= 2 * audio_->pitch_.semitone_pitch ();
-  ft *= 50; // 1 quarter tone = 50 cents
-  return ft;
+  Rational tune = (audio_->pitch_.tone_pitch ()
+		   + audio_->transposing_.tone_pitch ()) * Rational (2);
+  tune -= Rational (get_semitone_pitch ());
+
+  tune *= 100;
+  return (int) double (tune);
 }
 
 int
-Midi_note::get_pitch () const
+Midi_note::get_semitone_pitch () const
 {
-  int p = audio_->pitch_.semitone_pitch () + audio_->transposing_;
-  if (p == INT_MAX)
-    {
-      warning (_ ("silly pitch"));
-      p = 0;
-    }
-  return p;
+  return int (double ((audio_->pitch_.tone_pitch ()
+		       + audio_->transposing_.tone_pitch ()) * Rational (2)));
 }
 
 string
@@ -300,8 +274,8 @@ Midi_note::to_string () const
       str += ::to_string ((char) (0x00));
     }
 
-  str += ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + c0_pitch_));
+  str += ::to_string ((char) status_byte);
+  str += ::to_string ((char) (get_semitone_pitch () + c0_pitch_));
   str += ::to_string ((char)dynamic_byte_);
 
   return str;
@@ -326,7 +300,7 @@ Midi_note_off::to_string () const
   Byte status_byte = (char) (0x80 + channel_);
 
   string str = ::to_string ((char)status_byte);
-  str += ::to_string ((char) (get_pitch () + Midi_note::c0_pitch_));
+  str += ::to_string ((char) (get_semitone_pitch () + Midi_note::c0_pitch_));
   str += ::to_string ((char)aftertouch_byte_);
 
   if (get_fine_tuning () != 0)
@@ -462,11 +436,11 @@ Midi_track::Midi_track ()
 }
 
 void
-Midi_track::add (Moment delta_time_mom, Midi_item *midi)
+Midi_track::add (int delta_ticks, Midi_item *midi)
 {
-  assert (delta_time_mom >= Moment (0));
+  assert (delta_ticks >= 0);
 
-  Midi_event *e = new Midi_event (delta_time_mom, midi);
+  Midi_event *e = new Midi_event (delta_ticks, midi);
   events_.push_back (e);
 }
 
@@ -474,15 +448,11 @@ string
 Midi_track::data_string () const
 {
   string str = Midi_chunk::data_string ();
-  if (do_midi_debugging_global)
-    str += "\n";
 
   for (vector<Midi_event*>::const_iterator i (events_.begin());
        i != events_.end(); i ++)
     {
       str += (*i)->to_string ();
-      if (do_midi_debugging_global)
-	str += "\n";
     }
   return str;
 }

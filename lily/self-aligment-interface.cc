@@ -3,7 +3,7 @@
  
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "self-alignment-interface.hh"
@@ -35,7 +35,7 @@ Self_alignment_interface::aligned_on_self (Grob *me, Axis a)
     {
       Interval ext (me->extent (me, a));
       if (ext.is_empty ())
-	programming_error ("can't align on self: empty element");
+	programming_error ("cannot align on self: empty element");
       else
 	return scm_from_double (- ext.linear_combination (scm_to_double (align)));
     }
@@ -106,7 +106,7 @@ Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 
   Interval ext (me->extent (me, a));
   if (ext.is_empty ())
-    programming_error ("can't align on self: empty element");
+    programming_error ("cannot align on self: empty element");
   else
     x -= ext.linear_combination (align);
 

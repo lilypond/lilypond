@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "engraver.hh"
@@ -58,7 +58,7 @@ Text_spanner_engraver::process_music ()
   if (event_drul_[STOP])
     {
       if (!span_)
-	event_drul_[STOP]->origin ()->warning (_ ("can't find start of text spanner"));
+	event_drul_[STOP]->origin ()->warning (_ ("cannot find start of text spanner"));
       else
 	{
 	  finished_ = span_;

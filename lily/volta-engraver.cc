@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -141,7 +141,7 @@ Volta_engraver::process_music ()
 
   if (end && !volta_span_)
     /* fixme: be more verbose.  */
-    warning (_ ("can't end volta spanner"));
+    warning (_ ("cannot end volta spanner"));
   else if (end)
     {
       end_volta_span_ = volta_span_;

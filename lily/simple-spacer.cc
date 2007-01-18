@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   TODO:
   - add support for different stretch/shrink constants?
@@ -247,6 +247,20 @@ Simple_spacer::spring_positions () const
   return ret;
 }
 
+Real
+Simple_spacer::force_penalty (bool ragged) const
+{
+  /* If we are ragged-right, we don't want to penalise according to the force,
+     but according to the amount of whitespace that is present after the end
+     of the line. */
+  if (ragged)
+    return max (0.0, line_len_ - configuration_length (0.0));
+
+  /* Use a convex compression penalty. */
+  Real f = force_;
+  return f - (f < 0 ? f*f*f*f*4 : 0);
+}
+
 /****************************************************************/
 
 Spring_description::Spring_description ()
@@ -356,29 +370,6 @@ next_spaceable_column (vector<Grob*> const &list, vsize starting)
   return 0;
 }
 
-static void
-get_column_spring (Grob *this_col, Grob *next_col, Real *ideal, Real *inv_hooke)
-{
-  Spring_smob *spring = 0;
-
-  for (SCM s = this_col->get_object ("ideal-distances");
-       !spring && scm_is_pair (s);
-       s = scm_cdr (s))
-    {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
-
-      if (sp->other_ == next_col)
-	spring = sp;
-    }
-
-  if (!spring)
-    programming_error (_f ("No spring between column %d and next one",
-			   Paper_column::get_rank (this_col)));
-
-  *ideal = (spring) ? spring->distance_ : 5.0;
-  *inv_hooke = (spring) ? spring->inverse_strength_ : 1.0;
-}
-
 static Column_description
 get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_starter)
 {
@@ -389,10 +380,10 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
   Column_description description;
   Grob *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
-    get_column_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
+    Spaceable_grob::get_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
   Grob *end_col = dynamic_cast<Item*> (cols[col_index+1])->find_prebroken_piece (LEFT);
   if (end_col)
-    get_column_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
+    Spaceable_grob::get_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
 
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))
@@ -432,7 +423,7 @@ get_line_forces (vector<Grob*> const &columns,
   breaks.clear ();
   breaks.push_back (0);
   cols.push_back (Column_description ());
-  for (vsize i = 1; i < non_loose.size () - 1; i++)
+  for (vsize i = 1; i + 1 < non_loose.size (); i++)
     {
       if (Paper_column::is_breakable (non_loose[i]))
 	breaks.push_back (cols.size ());
@@ -442,7 +433,7 @@ get_line_forces (vector<Grob*> const &columns,
   breaks.push_back (cols.size ());
   force.resize (breaks.size () * breaks.size (), infinity_f);
 
-  for (vsize b = 0; b < breaks.size () - 1; b++)
+  for (vsize b = 0; b + 1 < breaks.size (); b++)
     {
       cols[breaks[b]] = get_column_description (non_loose, breaks[b], true);
       vsize st = breaks[b];
@@ -472,14 +463,7 @@ get_line_forces (vector<Grob*> const &columns,
 		}
 	    }
 	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-
-	  /* add a (convex) penalty for compression. We do this _only_ in get_line_forces,
-	     not get_line_configuration. This is temporary, for backwards compatibility;
-	     the old line/page-breaking stuff ignores page breaks when it calculates line
-	     breaks, so compression penalties can result in scores (eg. wtk-fugue) blowing
-	     up to too many pages. */
-	  Real f = spacer.force ();
-	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*f*f*4 : 0);
+	  force[b * breaks.size () + c] = spacer.force_penalty (ragged);
 
 	  if (!spacer.fits ())
 	    {
@@ -507,7 +491,7 @@ get_line_configuration (vector<Grob*> const &columns,
   Column_x_positions ret;
 
   ret.cols_.push_back (dynamic_cast<Item*> (columns[0])->find_prebroken_piece (RIGHT));
-  for (vsize i = 1; i < columns.size () - 1; i++)
+  for (vsize i = 1; i + 1 < columns.size (); i++)
     {
       if (is_loose (columns[i]))
 	ret.loose_cols_.push_back (columns[i]);
@@ -518,7 +502,7 @@ get_line_configuration (vector<Grob*> const &columns,
 
   /* since we've already put our line-ending column in the column list, we can ignore
      the end_XXX_ fields of our column_description */
-  for (vsize i = 0; i < ret.cols_.size () - 1; i++)
+  for (vsize i = 0; i + 1 < ret.cols_.size (); i++)
     {
       cols.push_back (get_column_description (ret.cols_, i, i == 0));
       spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
@@ -536,12 +520,8 @@ get_line_configuration (vector<Grob*> const &columns,
     }
 
   spacer.solve (line_len, ragged);
-  ret.force_ = spacer.force ();
+  ret.force_ = spacer.force_penalty (ragged);
 
-  /*
-    We used to have a penalty for compression, no matter what, but that
-    fucked up wtk1-fugue2 (taking 3 full pages.)
-  */
   ret.config_ = spacer.spring_positions ();
   for (vsize i = 0; i < ret.config_.size (); i++)
     ret.config_[i] += indent;
@@ -551,7 +531,7 @@ get_line_configuration (vector<Grob*> const &columns,
   /*
     Check if breaking constraints are met.
   */
-  for (vsize i = 1; i < ret.cols_.size () - 1; i++)
+  for (vsize i = 1; i + 1 < ret.cols_.size (); i++)
     {
       SCM p = ret.cols_[i]->get_property ("line-break-permission");
       if (p == ly_symbol2scm ("force"))

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "input.hh"
@@ -45,5 +45,6 @@ Relative_octave_check::relative_callback (SCM music, SCM last_pitch)
     }
 
   return Pitch (p.get_octave () + delta_oct,
-		p.get_notename (), p.get_alteration ()).smobbed_copy ();
+		p.get_notename (),
+		p.get_alteration ()).smobbed_copy ();
 }

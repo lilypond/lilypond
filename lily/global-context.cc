@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "global-context.hh"
@@ -14,16 +14,13 @@ using namespace std;
 #include "context-def.hh"
 #include "dispatcher.hh"
 #include "international.hh"
-#include "lilypond-key.hh"
 #include "music-iterator.hh"
 #include "music.hh"
 #include "output-def.hh"
 #include "warn.hh"
 
-Global_context::Global_context (Output_def *o, Object_key *key)
-  : Context (new Lilypond_context_key (key,
-				       Moment (0),
-				       "Global", "", 0))
+Global_context::Global_context (Output_def *o)
+  : Context ()
 {
   output_def_ = o;
   definition_ = find_context_def (o, ly_symbol2scm ("Global"));
@@ -92,8 +89,6 @@ Global_context::prepare (SCM sev)
   else
     prev_mom_ = now_mom_;
   now_mom_ = *mom;
-  
-  clear_key_disambiguations ();
 }
 
 Moment

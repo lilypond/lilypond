@@ -148,7 +148,7 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
                 pictures = ['jpeg', 'png', 'xpm']
                 lst.write ('\n')
             else:
-                print "can't find" , `file_name`
+                print "cannot find" , `file_name`
 
         list_item (base + ext, 'The input', 'ASCII')
 

@@ -4,10 +4,10 @@
 "
 
 }
-\version "2.10.0"
+\version "2.11.10"
 \layout { ragged-right= ##t }
 
 \relative c''  {
-  \set Score.allowBeamBreak = ##t
+  \override Score.Beam #'breakable = ##t
   \time 3/16 c16-[ d e \break f-] 
 }

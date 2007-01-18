@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Erik Sandberg  <mandolaerik@gmail.com>
+  (c) 2006--2007 Erik Sandberg  <mandolaerik@gmail.com>
 */
 
 #include "scheme-listener.hh"
@@ -16,7 +16,7 @@ LY_DEFINE (ly_make_listener, "ly:make-listener",
 	   "\n"
 	   " @var{callback} should take exactly one argument." )
 {
-  SCM_ASSERT_TYPE (scm_procedure_p (callback), callback, SCM_ARG1, __FUNCTION__, "procedure");
+  SCM_ASSERT_TYPE (ly_is_procedure (callback), callback, SCM_ARG1, __FUNCTION__, "procedure");
   Scheme_listener *l = new Scheme_listener (callback);
   SCM listener = GET_LISTENER (l->call).smobbed_copy ();
   l->unprotect ();

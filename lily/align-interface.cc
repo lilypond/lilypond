@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "align-interface.hh"
@@ -14,7 +14,9 @@
 #include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
 #include "international.hh"
+#include "system.hh"
 #include "warn.hh"
+#include "paper-column.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring
@@ -60,7 +62,7 @@ Align_interface::stretch_after_break (SCM grob)
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->relative_coordinate (common, Y_AXIS);
 
-      SCM details =  me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      SCM details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
       SCM extra_space_handle = scm_assoc (ly_symbol2scm ("fixed-alignment-extra-space"), details);
       
       Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
@@ -138,15 +140,38 @@ get_skylines (Grob *me,
 	      bool pure, int start, int end,
 	      vector<Skyline_pair> *const ret)
 {
-  Grob *other_axis_common = common_refpoint_of_array (*elements, me, other_axis (a));
+  /* each child's skyline was calculated according to the common refpoint of its
+     elements. Here we need all the skylines to be positioned with respect to
+     a single refpoint, so we need the common refpoint of the common refpoints
+     of the elements of the children */
+  vector<Grob*> child_refpoints;
+  for (vsize i = 0; i < elements->size (); i++)
+    {
+      Grob *elt = (*elements)[i];
+      Grob *child_common = unsmob_grob ((a == Y_AXIS)
+					? elt->get_object ("X-common")
+					: elt->get_object ("Y-common"));
+      
+      if (!child_common)
+	{
+	  extract_grob_set (elt, "elements", child_elts);
+	  child_common = common_refpoint_of_array (child_elts, elt, other_axis (a));
+	}
+      
+      child_refpoints.push_back (child_common);
+    }
+  Grob *common_refpoint = common_refpoint_of_array (child_refpoints, me, other_axis (a));
+  
   for (vsize i = elements->size (); i--;)
     {
       Grob *g = (*elements)[i];
       Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
       Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
-	: g->extent (other_axis_common, other_axis (a));
-      Box b = (a == X_AXIS) ? Box (extent, other_extent) : Box (other_extent, extent);
-      
+	: g->extent (common_refpoint, other_axis (a));
+      Box b;
+      b[a] = extent;
+      b[other_axis (a)] = other_extent;
+
       if (extent.is_empty ())
 	{
 	  elements->erase (elements->begin () + i);
@@ -179,8 +204,9 @@ get_skylines (Grob *me,
 	      b[a] = ly_scm2interval (min_extent);
 	      skylines.insert (b, 0, other_axis (a));
 	    }
-	  Real offset = g->relative_coordinate (other_axis_common, other_axis (a));
-	  skylines.shift (-offset);
+
+	  Real offset = child_refpoints[i]->relative_coordinate (common_refpoint, other_axis (a));
+	  skylines.shift (offset);
 	}
 
 
@@ -201,7 +227,10 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   SCM line_break_details = SCM_EOL;
   if (a == Y_AXIS && me_spanner)
     {
-      line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
+      if (pure)
+	line_break_details = get_root_system (me)->column (start)->get_property ("line-break-system-details");
+      else
+	line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
 
       if (!me->get_system () && !pure)
 	me->warning (_ ("vertical alignment called before line-breaking.\n"
@@ -234,7 +263,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
       else
 	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
 
-      where += stacking_dir * (dy + padding + extra_space / elems.size ());
+      where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
       translates.push_back (where);
     }
 
@@ -274,8 +303,29 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
 
   vector<Real> translates = get_extents_aligned_translates (me, all_grobs, a, false, 0, 0);
   if (translates.size ())
-      for (vsize j = 0; j < all_grobs.size (); j++)
-	all_grobs[j]->translate_axis (translates[j], a);
+    for (vsize j = 0; j < all_grobs.size (); j++)
+      all_grobs[j]->translate_axis (translates[j], a);
+}
+
+/* After we have already determined the y-offsets of our children, we may still
+   want to stretch them a little. */
+void
+Align_interface::stretch (Grob *me, Real amount, Axis a)
+{
+  extract_grob_set (me, "elements", elts);
+  Real non_empty_elts = 0.0;
+  for (vsize i = 0; i < elts.size (); i++)
+    non_empty_elts += !elts[i]->extent (me, a).is_empty ();
+
+  Real offset = 0.0;
+  Direction dir = robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      elts[i]->translate_axis (dir * offset, a);
+      if (!elts[i]->extent (me, a).is_empty ())
+	offset += amount / non_empty_elts;
+    }
+  me->flush_extent_cache (Y_AXIS);
 }
 
 Real
@@ -311,7 +361,7 @@ Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, in
 	return 0;
     }
 
-  programming_error (_ ("tried to get a translation for something that isn't my child"));
+  programming_error (_ ("tried to get a translation for something that is no child of mine"));
   return 0;
 }
 
@@ -345,6 +395,31 @@ Align_interface::set_ordered (Grob *me)
     }
 
   ga->set_ordered (true);
+}
+
+MAKE_SCHEME_CALLBACK (Align_interface, calc_max_stretch, 1)
+SCM
+Align_interface::calc_max_stretch (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Spanner *spanner_me = dynamic_cast<Spanner*> (me);
+  Real ret = 0;
+
+  if (spanner_me)
+    {
+      Paper_column *left = dynamic_cast<Paper_column*> (spanner_me->get_bound (LEFT));
+      Real height = me->extent (me, Y_AXIS).length ();
+      SCM line_break_details = left->get_property ("line-break-system-details");
+      SCM fixed_offsets = scm_assq (ly_symbol2scm ("alignment-offsets"),
+				    line_break_details);
+
+      /* if there are fixed offsets, we refuse to stretch */
+      if (fixed_offsets != SCM_BOOL_F)
+	ret = 0;
+      else
+	ret = height * height / 80.0; /* why this, exactly? -- jneem */
+    }
+  return scm_from_double (ret);
 }
 
 /*

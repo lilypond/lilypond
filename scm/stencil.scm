@@ -30,14 +30,33 @@
 
 (define-public (stack-lines dir padding baseline stils)
   "Stack vertically with a baseline-skip."
-  (if (null? stils)
-      empty-stencil
-      (if (null? (cdr stils))
-	  (car stils)
-	  (ly:stencil-combine-at-edge
-	   (car stils) Y dir 
-	   (stack-lines dir padding baseline (cdr stils))
-	   padding baseline))))
+  (define result empty-stencil)
+  (define last-y #f)
+  (do
+      ((last-stencil #f (car p))
+       (p stils (cdr p)))
+      
+      ((null? p))
+
+    (if (number? last-y)
+	(begin
+	  (let* ((dy (max (+ (* dir (interval-bound (ly:stencil-extent last-stencil Y) dir))
+			     padding
+			     (* (- dir) (interval-bound (ly:stencil-extent (car p) Y) (- dir))))
+			  baseline))
+		 (y (+ last-y  (* dir dy))))
+	    
+			  
+	    
+	    (set! result
+		  (ly:stencil-add result (ly:stencil-translate-axis (car p) y Y)))
+	    (set! last-y y)))
+	(begin
+	  (set! last-y 0)
+	  (set! result (car p)))))
+
+  result)
+    
 
 (define-public (bracketify-stencil stil axis thick protusion padding)
   "Add brackets around STIL, producing a new stencil."
@@ -240,11 +259,11 @@ encloses the contents.
 	  (set! annotation
                 (center-stencil-on-extent text-stencil))
 	  (set! annotation
-		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5 0))
+		(ly:stencil-combine-at-edge arrows X RIGHT annotation 0.5))
 	  (set! annotation
 		(ly:stencil-combine-at-edge annotation X LEFT
                                             (center-stencil-on-extent dim-stencil)
-                                            0.5 0))
+                                            0.5))
 	  (set! annotation
 		(ly:make-stencil (list 'color color (ly:stencil-expr annotation))
 				 (ly:stencil-extent annotation X)

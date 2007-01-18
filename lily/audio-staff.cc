@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "audio-staff.hh"
@@ -28,10 +28,11 @@ Audio_staff::output (Midi_stream &midi_stream, int channel)
 {
   Midi_track midi_track;
   midi_track.number_ = channel;
-  
-  for (Midi_walker i (this, &midi_track, channel); i.ok (); i++)
+
+  Midi_walker i (this, &midi_track, channel);
+  for (; i.ok (); i++)
     i.process ();
   
-  midi_stream << midi_track;
+  midi_stream.write (midi_track);
 }
 

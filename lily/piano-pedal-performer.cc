@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "performer.hh"
@@ -90,7 +90,7 @@ Piano_pedal_performer::process_music ()
       if (p->event_drul_[STOP])
 	{
 	  if (!p->start_event_)
-	    p->event_drul_[STOP]->origin ()->warning (_f ("can't find start of piano pedal: `%s'", pedal_type));
+	    p->event_drul_[STOP]->origin ()->warning (_f ("cannot find start of piano pedal: `%s'", pedal_type));
 	  else
 	    {
 	      Audio_piano_pedal *a = new Audio_piano_pedal;

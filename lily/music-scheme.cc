@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "music.hh"
@@ -191,23 +191,23 @@ LY_DEFINE (ly_transpose_key_alist, "ly:transpose-key-alist",
 	{
 	  Pitch orig (scm_to_int (scm_car (key)),
 		      scm_to_int (scm_cdr (key)),
-		      scm_to_int (alter));
+		      ly_scm2rational (alter));
 
 	  orig = orig.transposed (*p);
 
 	  SCM key = scm_cons (scm_from_int (orig.get_octave ()),
 			      scm_from_int (orig.get_notename ()));
 
-	  newlist = scm_cons (scm_cons (key, scm_from_int (orig.get_alteration ())),
+	  newlist = scm_cons (scm_cons (key, ly_rational2scm (orig.get_alteration ())),
 			      newlist);
 	}
       else if (scm_is_number (key))
 	{
-	  Pitch orig (0, scm_to_int (key), scm_to_int (alter));
+	  Pitch orig (0, scm_to_int (key), ly_scm2rational (alter));
 	  orig = orig.transposed (*p);
 
 	  key = scm_from_int (orig.get_notename ());
-	  alter = scm_from_int (orig.get_alteration ());
+	  alter = ly_rational2scm (orig.get_alteration ());
 	  newlist = scm_cons (scm_cons (key, alter), newlist);
 	}
     }

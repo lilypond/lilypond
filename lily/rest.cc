@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "rest.hh"
@@ -39,18 +39,6 @@ Rest::y_offset_callback (SCM smob)
     }
   else
     amount += ss / 2;
-
-  Grob *dot = unsmob_grob (me->get_object ("dot"));
-  if (dot && duration_log > 4) // UGH.
-    {
-      dot->set_property ("staff-position",
-		       scm_from_int ((duration_log == 7) ? 4 : 3));
-    }
-  if (dot && duration_log >= -1 && duration_log <= 1) // UGH again.
-    {
-      dot->set_property ("staff-position",
-			 scm_from_int ((duration_log == 0) ? -1 : 1));
-    }
 
   if (!position_override)
     amount += 2 * ss * get_grob_direction (me);; 
@@ -187,12 +175,25 @@ Rest::generic_extent_callback (Grob *me, Axis a)
   return ly_interval2scm (unsmob_stencil (m)->extent (a));
 }
 
+MAKE_SCHEME_CALLBACK (Rest, pure_height, 3);
+SCM
+Rest::pure_height (SCM smob, SCM start, SCM end)
+{
+  (void) start;
+  (void) end;
+  
+  Grob *me = unsmob_grob (smob);
+  SCM m = brew_internal_stencil (me, false);
+  return ly_interval2scm (unsmob_stencil (m)->extent (Y_AXIS));
+}
+
 ADD_INTERFACE (Rest,
 	       "A rest symbol.",
 
 	       /* properties */
 		  
-	       "style "
 	       "direction "
-	       "minimum-distance");
+	       "minimum-distance "
+	       "style "
+	       );
 

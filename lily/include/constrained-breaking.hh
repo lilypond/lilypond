@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #ifndef CONSTRAINED_BREAKING_HH
@@ -93,17 +93,15 @@ struct Constrained_break_node
 class Constrained_breaking
 {
 public:
-  vector<Column_x_positions> solve ();
+  vector<Column_x_positions> solve (vsize start, vsize end, vsize sys_count);
+  vector<Column_x_positions> best_solution (vsize start, vsize end);
+  vector<Line_details> line_details (vsize start, vsize end, vsize sys_count);
+
   Constrained_breaking (Paper_score *ps);
   Constrained_breaking (Paper_score *ps, vector<vsize> const &start_col_posns);
 
-  vector<Column_x_positions> get_solution (vsize start, vsize end, vsize sys_count);
-  vector<Column_x_positions> get_best_solution (vsize start, vsize end);
-  vector<Line_details> get_details (vsize start, vsize end, vsize sys_count);
-  int get_max_systems (vsize start, vsize end);
-  int get_min_systems (vsize start, vsize end);
-
-  void resize (vsize systems);
+  int max_system_count (vsize start, vsize end);
+  int min_system_count (vsize start, vsize end);
 
 private:
   Paper_score *pscore_;
@@ -127,6 +125,7 @@ private:
   vector<vsize> breaks_;
 
   void initialize ();
+  void resize (vsize systems);
 
   Column_x_positions space_line (vsize start_col, vsize end_col);
   vsize prepare_solution (vsize start, vsize end, vsize sys_count);

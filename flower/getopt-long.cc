@@ -1,7 +1,7 @@
 /*
   process command line, GNU style.
 
-  this is Copyleft (c) 1996--2006 Han-Wen Nienhuys, <hanwen@xs4all.nl>
+  this is Copyleft (c) 1996--2007 Han-Wen Nienhuys, <hanwen@xs4all.nl>
 */
 
 #include "getopt-long.hh"
@@ -141,7 +141,7 @@ Getopt_long::report (Errorcod c)
 		 found_option_->to_string ());
       break;
     case E_NOARGEXPECT:
-      str += _f ("option `%s' doesn't allow an argument",
+      str += _f ("option `%s' does not allow an argument",
 		 found_option_->to_string ());
       break;
     case E_UNKNOWNOPTION:

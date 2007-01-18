@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2006--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -21,8 +21,10 @@ struct Tie_details
   Real stem_gap_; 
   Real between_length_limit_;
   Real wrong_direction_offset_penalty_;
+  Real same_dir_as_stem_penalty_;
   Real min_length_penalty_factor_;
   Real min_length_;
+  Real skyline_padding_;
   Real tip_staff_line_clearance_;
   Real center_staff_line_clearance_;
   Real staff_line_collision_penalty_;

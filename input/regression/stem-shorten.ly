@@ -19,6 +19,8 @@
   \stemNeutral
   \stemUp a b c d e f g a
   \stemNeutral
+  s4 |
+  
   <g, e'>2 <b e g> <c e g> <d f g>
   
 } 

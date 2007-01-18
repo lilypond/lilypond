@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "spaceable-grob.hh"
@@ -15,6 +15,7 @@
 #include "pointer-group-interface.hh"
 #include "grob.hh"
 #include "paper-column.hh"
+#include "international.hh"
 
 SCM
 Spaceable_grob::get_minimum_distances (Grob *me)
@@ -98,27 +99,29 @@ Spaceable_grob::add_spring (Grob *me, Grob *other,
 }
 
 void
-Spaceable_grob::get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength)
+Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *inv_strength)
 {
-  for (SCM s = me->get_object ("ideal-distances");
-       scm_is_pair (s); s = scm_cdr (s))
+  Spring_smob *spring = 0;
+
+  for (SCM s = this_col->get_object ("ideal-distances");
+       !spring && scm_is_pair (s);
+       s = scm_cdr (s))
     {
-      Spring_smob *spring = unsmob_spring (scm_car (s));
-      if (spring && spring->other_ == other)
-	{
-	  *dist = spring->distance_;
-	  *inv_strength = spring->inverse_strength_;
-	}
+      Spring_smob *sp = unsmob_spring (scm_car (s));
+
+      if (sp && sp->other_ == next_col)
+	spring = sp;
     }
+
+  if (!spring)
+    programming_error (_f ("No spring between column %d and next one",
+			   Paper_column::get_rank (this_col)));
+
+  *dist = (spring) ? spring->distance_ : 5.0;
+  *inv_strength = (spring) ? spring->inverse_strength_ : 1.0;
 }
 
-void
-Spaceable_grob::remove_interface (Grob *me)
-{
-  me->set_object ("minimum-distances", SCM_EOL);
-  me->set_object ("spacing-wishes", SCM_EOL);
-  me->set_object ("ideal-distances", SCM_EOL);
-}
+
 
 ADD_INTERFACE (Spaceable_grob,
 	       "A layout object that takes part in the spacing problem. ",
@@ -132,5 +135,7 @@ ADD_INTERFACE (Spaceable_grob,
 	       "measure-length "
 	       "minimum-distances "
 	       "right-neighbors "
-	       "spacing-wishes");
+	       "spacing-wishes "
+
+	       );
 

@@ -598,6 +598,7 @@ Otherwise, return #f."
 	(fig (ly:music-property figure 'figure))
 	(bracket-start (ly:music-property figure 'bracket-start))
 	(bracket-stop (ly:music-property figure 'bracket-stop)))
+
     (format #f "~a~a~a~a"
 	    (if (null? bracket-start) "" "[")
 	    (cond ((null? fig) "_")
@@ -605,12 +606,12 @@ Otherwise, return #f."
 		  (else fig))
 	    (if (null? alteration)
 		""
-		(case alteration
-		  ((-4) "--")
-		  ((-2) "-")
-		  ((0) "!")
-		  ((2) "+")
-		  ((4) "++")
+		(cond 
+		  ((= alteration DOUBLE-FLAT) "--")
+		  ((= alteration FLAT) "-")
+		  ((= alteration NATURAL) "!")
+		  ((= alteration SHARP) "+")
+		  ((= alteration DOUBLE-SHARP) "++")
 		  (else "")))
 	    (if (null? bracket-stop) "" "]"))))
 
@@ -829,10 +830,14 @@ Otherwise, return #f."
 ;;; Layout properties
 
 (define-display-method OverrideProperty (expr parser)
-  (let ((symbol	  (ly:music-property expr 'symbol))
-	(properties (ly:music-property expr 'grob-property-path))
-	(value	  (ly:music-property expr 'grob-value))
-	(once	  (ly:music-property expr 'once)))
+  (let* ((symbol	  (ly:music-property expr 'symbol))
+	 (property-path   (ly:music-property expr 'grob-property-path))
+	 (properties      (if (pair? property-path)
+			      property-path
+			      (list (ly:music-property expr 'grob-property))))
+	 (value	  (ly:music-property expr 'grob-value))
+	 (once	  (ly:music-property expr 'once)))
+
     (format #f "~a\\override ~a~a #'~a = ~a~a"
 	    (if (or (null? once)
 		    (not once))

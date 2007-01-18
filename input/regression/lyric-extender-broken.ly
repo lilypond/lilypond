@@ -8,6 +8,9 @@ of the melisma."
 
 }
 
+\layout {
+  ragged-right = ##t
+}
 
 << 
   \new Voice =A  {
@@ -17,7 +20,4 @@ of the melisma."
   }
   \lyricsto A \context Lyrics \lyricmode { a __ a __ ha }
 >>
-  \layout {
-    ragged-right = ##t
-  }
 

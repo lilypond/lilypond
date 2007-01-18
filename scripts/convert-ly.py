@@ -4,7 +4,7 @@
 #
 # source file of the GNU LilyPond music typesetter
 #
-# (c) 1998--2006  Han-Wen Nienhuys <hanwen@cs.uu.nl>
+# (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
 #                 Jan Nieuwenhuizen <janneke@gnu.org>
 #
 # converting rules are found in python/convertrules.py
@@ -31,24 +31,23 @@ for p in ['share', 'lib']:
 import lilylib as ly
 global _;_=ly._
 
-from convertrules import *
+import convertrules
 
 lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'
 lilypond_version_re = re.compile (lilypond_version_re_str)
 
 
-help_summary = _ (
-'''Update LilyPond input to newer version.  By default, update from the
-version taken from the \\version command, to the current LilyPond version.
-
-Examples:
-
+help_summary = (
+_ ('''Update LilyPond input to newer version.  By default, update from the
+version taken from the \\version command, to the current LilyPond version.''')
++ _ ("Examples:")
++ '''
   convert-ly -e old.ly
   convert-ly --from=2.3.28 --to 2.5.21 foobar.ly
 ''')
 
 copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
-         'Han-Wen Nienhuys <hanwen@cs.uu.nl>')
+             'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
@@ -73,13 +72,12 @@ Copyright (c) %s by
 %s
 %s
 '''  ( '2001--2006',
-       _('Distributed under terms of the GNU General Public License.'),
-       _('It comes with NO WARRANTY.')))
-
+       _ ("Distributed under terms of the GNU General Public License."),
+       _ ('It comes with NO WARRANTY.')))
 
 
 def get_option_parser ():
-    p = ly.get_option_parser (usage='convert-ly [OPTIONS] FILE',
+    p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'convert-ly',
                   version="@TOPLEVEL_VERSION@",
                   description=help_summary)
 
@@ -87,32 +85,33 @@ def get_option_parser ():
               action="store",
               metavar=_ ("VERSION"),
               dest="from_version",
-              help=_('start from VERSION [default: \\version found in file]'),
+              help=_ ("start from VERSION [default: \\version found in file]"),
               default='')
     
-    p.add_option ('-e', '--edit', help=_('edit in place'),
+    p.add_option ('-e', '--edit', help=_ ("edit in place"),
               action='store_true')
     p.add_option ('-n', '--no-version',
-              help=_ ('do not add \\version command if missing'),
+              help=_ ("do not add \\version command if missing"),
               action='store_true',
               dest='skip_version_add',
               default=False)
     
     p.add_option ("-s", '--show-rules',
-              help=_('print rules [default: --from=0, --to=@TOPLEVEL_VERSION@]'),
+              help=_ ("show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"),
               dest='show_rules',
               action='store_true', default=False)
     
     p.add_option ('-t', '--to',
-              help=_('convert to VERSION [default: @TOPLEVEL_VERSION@]'),
-              metavar=_('VERSION'),
+              help=_ ("convert to VERSION [default: @TOPLEVEL_VERSION@]"),
+              metavar=_ ('VERSION'),
               action='store',
               dest="to_version",
               default='')
 
-    p.add_option_group  ('bugs',
-                 description='''Report bugs via http://post.gmane.org/post.php'''
-                 '''?group=gmane.comp.gnu.lilypond.bugs\n''')
+    p.add_option_group ('bugs',
+                        description=(_ ("Report bugs via")
+                                     + ''' http://post.gmane.org/post.php'''
+                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     
     return p
 
@@ -133,13 +132,13 @@ def version_cmp (t1, t2):
 def get_conversions (from_version, to_version):
     def is_applicable (v, f = from_version, t = to_version):
         return version_cmp (v[0], f) > 0 and version_cmp (v[0], t) <= 0
-    return filter (is_applicable, conversions)
+    return filter (is_applicable, convertrules.conversions)
 
 def latest_version ():
-    return conversions[-1][0]
+    return convertrules.conversions[-1][0]
 
 def show_rules (file, from_version, to_version):
-    for x in conversions:
+    for x in convertrules.conversions:
         if (not from_version or x[0] > from_version) \
            and (not to_version or x[0] <= to_version):
             file.write  ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
@@ -150,25 +149,24 @@ tuple (LAST,STR), with the last succesful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
-    if error_file:
-        error_file.write (_ ("Applying conversion: "))
+    if convertrules.error_file:
+        convertrules.error_file.write (_ ("Applying conversion: "))
         
     last_conversion = ()
     try:
         for x in conv_list:
-            error_file.write (tup_to_str (x[0]))
+            convertrules.error_file.write (tup_to_str (x[0]))
             if x != conv_list[-1]:
-                error_file.write (', ')
+                convertrules.error_file.write (', ')
             str = x[1] (str)
             last_conversion = x[0]
 
-    except FatalConversionError:
-        error_file.write (_ ("error while converting")) 
-        error_file.write ('\n')
-        error_file.write (_ ("Aborting"))
-        error_file.write ('\n')
-
-
+    except convertrules.FatalConversionError:
+        convertrules.error_file.write ('\n'
+                                       + _ ("Error while converting")
+                                       + '\n'
+                                       + _ ("Stopping at last succesful rule")
+                                       + '\n')
 
     return (last_conversion, str)
 
@@ -225,7 +223,7 @@ def do_one_file (infile_name):
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
             
-        error_file.write ('\n')            
+        convertrules.error_file.write ('\n')            
     
         if global_options.edit:
             try:
@@ -276,14 +274,14 @@ def main ():
         if f == '-':
             f = ''
         elif not os.path.isfile (f):
-            error (_ ("can't open file: `%s'") % f)
+            error (_ ("cannot open file: `%s'") % f)
             if len (files) == 1:
                 sys.exit (1)
             continue
         try:
             do_one_file (f)
         except UnknownVersion:
-            error (_ ("can't determine version for `%s'. Skipping") % f)
+            error (_ ("cannot determine version for `%s'.  Skipping") % f)
 
     sys.stderr.write ('\n')
 

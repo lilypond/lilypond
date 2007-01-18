@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "line-interface.hh"
@@ -154,23 +154,5 @@ ADD_INTERFACE (Line_interface,
 	       "thickness "
 	       "style "
 	       "arrow-length "
-	       "arrow-width")
+	       "arrow-width ")
 
-
-
-/* todo: move this somewhere else? */
-Stencil
-points_to_line_stencil (vector<Offset> points)
-{
-  Stencil ret;
-  for (vsize i = 1; i < points.size (); i++)
-    {
-      if (points[i-1].is_sane ()  && points[i].is_sane ())
-	{
-	  Stencil line
-	    = Line_interface::make_line (0.1, points[i-1], points[i]);
-	  ret.add_stencil (line);
-	}
-    }
-  return ret;
-}

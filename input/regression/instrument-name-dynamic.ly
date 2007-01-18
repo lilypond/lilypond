@@ -6,15 +6,15 @@
   pedal line spanners."
 }
 
+\paper {
+  line-width = 3\cm
+  indent = 0\cm
+}
+
 \relative {
   \set Staff.shortInstrumentName = "foo"
   f1 | f1 | f1 |
   f1\< | f1 | f1\! |
-}
-
-\paper {
-  line-width = 3\cm
-  indent = 0\cm
 }
 
 % EOF

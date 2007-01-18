@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -157,8 +157,46 @@ Ties_configuration::score () const
   return score_;
 }
 
+
+string
+Ties_configuration::complete_tie_card (vsize i) const
+{
+  string s;
+  s += to_string ("%d (%.2f) %c: ", (*this)[i].position_, (*this)[i].delta_y_,
+		  ((*this)[i].dir_ == UP ? 'u' : 'd'))
+    + (*this)[i].card () + (*this).tie_card (i);
+  
+  /*
+    this is a little awkward, but we must decide where to put
+    aggregrates.
+   */
+  if (i == 0)
+    s += card ();
+
+  if (i + 1 == size ())
+    s += to_string ("TOTAL=%.2f", score ());
+  
+  return s;
+}
+
+/* for use inside GDB */
+string
+Ties_configuration::complete_score_card () const
+{
+  string s; 
+  for (vsize i = 0; i < size(); i++)
+    {
+      s += complete_tie_card (i);
+    }
+
+  return s;
+}
+
+
+
 string
 Ties_configuration::card () const
 {
   return score_card_;
 }
+

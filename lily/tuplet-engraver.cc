@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "beam.hh"
@@ -15,6 +15,7 @@
 #include "tuplet-bracket.hh"
 #include "warn.hh"
 #include "item.hh"
+#include "moment.hh"
 
 #include "translator.icc"
 
@@ -26,6 +27,9 @@ struct Tuplet_description
 
   bool full_length_;
   bool full_length_note_;
+  Moment stop_moment_;
+  Moment start_moment_;
+  Moment length_;
   
   Tuplet_description ()
   {
@@ -64,23 +68,58 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
     {
       Tuplet_description d;
       d.event_ = ev;
+
+      d.length_ = robust_scm2moment (d.event_->get_property ("length"),
+				     Moment (0));
+      d.start_moment_ = now_mom ();
+      d.stop_moment_ = now_mom () + d.length_;
+
+      for (vsize i=0; i < new_tuplets_.size (); i++)
+	{
+	  /*
+	    discard duplicates.
+	   */
+	  if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
+	    return;
+	}
+      
       new_tuplets_.push_back (d);
     }
-  else if (dir == STOP && tuplets_.size ())
+  else if (dir == STOP)
+    {
+    if (tuplets_.size ())
     {
       stopped_tuplets_.push_back (tuplets_.back ());
       tuplets_.pop_back ();
     }
+    else
+      ev->origin ()->warning (_f ("No tuplet to end"));
+    }
   else 
-    programming_error (_ ("invalid direction of tuplet-span-event"));
+    ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
 }
 
 void
 Tuplet_engraver::process_music ()
 {
+  /*
+    This may happen if the end of a tuplet is part of a quoted voice.
+   */
+  Moment now = now_mom();
+  for (vsize i = tuplets_.size (); i --; )
+    {
+      if (tuplets_[i].stop_moment_ == now)
+	{
+	  stopped_tuplets_.push_back (tuplets_[i]);
+	  tuplets_.erase (tuplets_.begin () + i);
+	}
+    }
+  
   for (vsize i = 0; i < stopped_tuplets_.size (); i++)
     {
-      if (stopped_tuplets_[i].bracket_)
+      Spanner *bracket = stopped_tuplets_[i].bracket_;
+      Spanner *number = stopped_tuplets_[i].number_;
+      if (bracket)
 	{
 	  if (stopped_tuplets_[i].full_length_)
 	    {
@@ -89,20 +128,21 @@ Tuplet_engraver::process_music ()
 			     ? get_property ("currentMusicalColumn")
 			     : get_property ("currentCommandColumn"));
 	      
-	      stopped_tuplets_[i].bracket_->set_bound (RIGHT, col);
-	      stopped_tuplets_[i].number_->set_bound (RIGHT, col);
+	      bracket->set_bound (RIGHT, col);
+	      number->set_bound (RIGHT, col);
 	    }
-	  else if (!stopped_tuplets_[i].bracket_->get_bound (RIGHT))
+	  else if (!bracket->get_bound (RIGHT))
 	    {
-	      stopped_tuplets_[i].bracket_->set_bound (RIGHT,
-						       stopped_tuplets_[i].bracket_->get_bound (LEFT));
-	      stopped_tuplets_[i].number_->set_bound (RIGHT,
-						      stopped_tuplets_[i].bracket_->get_bound (LEFT));
+	      bracket->set_bound (RIGHT,
+				  bracket->get_bound (LEFT));
+	      number->set_bound (RIGHT,
+				 stopped_tuplets_[i].bracket_->get_bound (LEFT));
 	    }
+	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
 	  // clear stopped_tuplets_ at start_translation_timestep
-	  last_tuplets_.push_back (tuplets_[i].bracket_);
-	  last_tuplets_.push_back (tuplets_[i].number_);
+	  last_tuplets_.push_back (bracket);
+	  last_tuplets_.push_back (number);
 	}
     }
   stopped_tuplets_.clear ();
@@ -128,8 +168,10 @@ Tuplet_engraver::process_music ()
 					  tuplets_[i].event_->self_scm ());
       tuplets_[i].number_->set_object ("bracket", tuplets_[i].bracket_->self_scm ());
       tuplets_[i].bracket_->set_object ("tuplet-number", tuplets_[i].number_->self_scm ());
+      tuplets_[i].stop_moment_.grace_part_ = 0;
       
-      if (i < tuplets_.size () - 1 && tuplets_[i + 1].bracket_)
+      
+      if (i + 1 < tuplets_.size () && tuplets_[i + 1].bracket_)
 	Tuplet_bracket::add_tuplet_bracket (tuplets_[i].bracket_, tuplets_[i + 1].bracket_);
       
       if (i > 0 && tuplets_[i - 1].bracket_)

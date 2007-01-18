@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #define PANGO_ENABLE_BACKEND // ugh, why necessary?
@@ -28,15 +28,15 @@
 #include "stencil.hh"
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
-			PangoFontDescription *description,
+			PangoFontDescription const *description,
 			Real output_scale)
 {
   (void) fontmap;
+  
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_
     = pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
-  //  context_ = pango_ft2_font_map_create_context (fontmap);
 
   pango_description_ = pango_font_description_copy (description);
   attribute_list_ = pango_attr_list_new ();
@@ -69,8 +69,8 @@ void
 Pango_font::register_font_file (string filename, string ps_name)
 {
   scm_hash_set_x (physical_font_tab_,
-		  scm_makfrom0str (ps_name.c_str ()),
-		  scm_makfrom0str (filename.c_str ()));
+		  ly_string2scm (ps_name),
+		  ly_string2scm (filename));
 }
 
 void
@@ -104,7 +104,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   char glyph_name[GLYPH_NAME_LEN];
   PangoAnalysis const *pa = &(item->analysis);
   PangoGlyphString *pgs = pango_glyph_string_new ();
-
+  
   pango_shape (str.c_str () + item->offset,
 	       item->length, (PangoAnalysis*) pa, pgs);
 
@@ -204,7 +204,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 	  char_id = scm_from_uint32 (pg);
 	}
       else
-	char_id = scm_makfrom0str (glyph_name);
+	char_id = scm_from_locale_string (glyph_name);
       
       *tail = scm_cons (scm_list_4 (scm_from_double (ggeo.width * scale_),
 				    scm_from_double (ggeo.x_offset * scale_),
@@ -215,6 +215,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
       tail = SCM_CDRLOC (*tail);
     }
 
+  pango_glyph_string_free (pgs);  
+  pgs = 0;
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
     / (Real (PANGO_SCALE));
@@ -261,7 +263,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
       pango_fc_font_unlock_face (fcfont);
 
       SCM expr = scm_list_5 (ly_symbol2scm ("glyph-string"),
-			     scm_makfrom0str (ps_name.c_str ()),
+			     ly_string2scm (ps_name),
 			     scm_from_double (size),
 			     scm_from_bool (cid_keyed),
 			     ly_quote_scm (glyph_exprs));
@@ -355,14 +357,15 @@ Pango_font::text_stencil (string str, bool tight) const
       */
       SCM exp
 	= scm_list_3 (ly_symbol2scm ("utf-8-string"),
-		      scm_makfrom0str (description_string ().c_str ()),
-		      scm_makfrom0str (str.c_str ()));
+		      ly_string2scm (description_string ()),
+		      ly_string2scm (str));
 
       Box b (Interval (0, 0), Interval (0, 0));
       b.unite (dest.extent_box ());
       return Stencil (b, exp);
     }
 
+  g_list_free (items);
 
   return dest;
 }

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef MISC_HH
@@ -38,6 +38,7 @@ linear_interpolate (Real x, Real x1, Real x2, Real y1, Real y2)
 Real directed_round (Real f, Direction d);
 
 Real peak_around (Real epsilon,  Real threshold, Real x);
+Real convex_amplifier (Real standard_x, Real increase_factor, Real x);
 string camel_case_to_lisp_identifier (string in);
 
 #endif

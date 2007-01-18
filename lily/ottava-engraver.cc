@@ -1,9 +1,9 @@
 /*
-  text-spanner-engraver.cc -- implement Ottava_spanner_engraver
+  ottova-engraver.cc -- implement Ottava_spanner_engraver
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys
+  (c) 2000--2007 Han-Wen Nienhuys
 */
 
 #include "protected-scm.hh"
@@ -61,7 +61,7 @@ Ottava_spanner_engraver::process_music ()
 	  span_->set_property ("text", ott);
 
 	  SCM c0 (get_property ("middleCPosition"));
-	  SCM oc0 (get_property ("originalCentralCPosition"));
+	  SCM oc0 (get_property ("originalMiddleCPosition"));
 	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
 	    span_->set_property ("direction", scm_from_int (DOWN));
 	}
@@ -132,5 +132,10 @@ ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 ADD_TRANSLATOR (Ottava_spanner_engraver,
 		/* doc */ "Create a text spanner when the ottavation property changes..",
 		/* create */ "OttavaBracket",
-		/* read */ "ottavation",
+		/* read */ "ottavation "
+		"originalMiddleCPosition "
+		"currentMusicalColumn "
+		
+		,
+		
 		/* write */ "");

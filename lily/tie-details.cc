@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -54,6 +54,7 @@ Tie_details::from_grob (Grob *me)
   tie_tie_collision_penalty_ = get_real_detail ("tie-tie-collision-penalty", 30);
   tie_tie_collision_distance_ = get_real_detail ("tie-tie-collision-distance", .25);
   horizontal_distance_penalty_factor_ = get_real_detail ("horizontal-distance-penalty-factor", 5);
+  same_dir_as_stem_penalty_ = get_real_detail ("same-dir-as-stem-penalty", 20);
   vertical_distance_penalty_factor_ = get_real_detail ("vertical-distance-penalty-factor", 5);
   intra_space_threshold_ = get_real_detail ("intra-space-threshold", 1.0);
   outer_tie_length_symmetry_penalty_factor_ = get_real_detail ("outer-tie-length-symmetry-penalty-factor", 3.0);
@@ -62,6 +63,7 @@ Tie_details::from_grob (Grob *me)
   outer_tie_vertical_gap_ = get_real_detail ("outer-tie-vertical-gap", 0.15);
 
   single_tie_region_size_ = get_int_detail ("single-tie-region-size", 3);
+  skyline_padding_ = get_real_detail ("skyline-padding", 0.05);
   multi_tie_region_size_ = get_int_detail ("multi-tie-region-size", 1);
 }
 

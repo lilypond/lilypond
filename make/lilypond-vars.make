@@ -22,12 +22,14 @@ the-script-dir=$(wildcard $(script-dir))
 ABC2LY = $(script-dir)/abc2ly.py
 CONVERT_LY = $(script-dir)/convert-ly.py
 LILYPOND_BOOK = $(script-dir)/lilypond-book.py
-LILYPOND_BOOK_INCLUDES = -I $(src-dir)/ -I $(outdir) -I $(input-dir) -I $(input-dir)/regression/ -I $(input-dir)/manual/ -I $(input-dir)/tutorial/ -I $(top-build-dir)/mf/$(outconfbase)/  -I $(top-build-dir)/mf/out/
+LILYPOND_BOOK_INCLUDES = -I $(src-dir)/ -I $(outdir) -I $(input-dir) -I $(input-dir)/regression/ -I $(input-dir)/manual/ -I $(input-dir)/tutorial/ -I $(top-build-dir)/mf/$(outconfbase)/  -I $(top-build-dir)/mf/out/ -I $(input-dir)/test/ 
 
+## override from cmd line to speed up. 
+ANTI_ALIAS_FACTOR=2
 LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
-LILYPOND_BOOK_LILYPOND_FLAGS=--backend=eps --formats=ps,png,pdf $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=2
-
-LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) $(LILYPOND_BOOK_LILYPOND_FLAGS)"
+LILYPOND_BOOK_LILYPOND_FLAGS=--backend=eps --formats=ps,png,pdf $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=$(ANTI_ALIAS_FACTOR)
+LILYPOND_BOOK_VERBOSE = --verbose
+LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) $(LILYPOND_BOOK_LILYPOND_FLAGS)" $(LILYPOND_BOOK_VERBOSE)
 TEXINPUTS=$(top-src-dir)/tex/::
 export TEXINPUTS
 

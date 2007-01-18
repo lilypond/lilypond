@@ -59,7 +59,7 @@
 	ly:beam::quanting
 	(check-beam-quant l r)
 	))
-			
+
 
 (define-public (check-slope-callbacks comparison)
   (list ly:beam::calc-least-squares-positions
@@ -68,3 +68,4 @@
 	ly:beam::quanting
 	(check-beam-slope-sign comparison)	
 	))
+
