@@ -103,6 +103,8 @@ Midi_walker::do_start_note (Midi_note *note)
     {
       Midi_note_event e;
       e.val = new Midi_note_off (note);
+
+      midi_events_.push_back (e.val);
       e.key = int (stop_ticks);
       stop_note_queue.insert (e);
 
