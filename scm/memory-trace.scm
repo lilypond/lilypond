@@ -31,22 +31,29 @@
 (define (record-stack key continuation . args)
   (if (eq? (current-thread) trace-thread)
       #t ;; do nothing.
-      (begin
+      (let*
+	  ((cells (cdr (assoc 'total-cells-allocated (gc-stats))))
+	   (proc (arg-procedure args))
+	   (time (tms:utime (times)))
+	   (stack (extract-trace continuation)))
+	
 	(set! busy-tracing #t)
 	(trap-disable 'traps)
 	(trap-disable 'enter-frame)
 
 	(set! trace-count (1+ trace-count))
-	(ly:progress "<~a: ~a>\n"
+ 	(ly:progress "<~a: ~a/~a>\n"
 		     trace-count
-		     (- (cdr (assoc 'total-cells-allocated (gc-stats))) last-count))
-	(set! last-count (cdr (assoc 'total-cells-allocated (gc-stats))))
+		     (- time start-time)
+		     (- cells last-count))
+
+	(set! last-count cells)
 	(set! trace-points
 	      (cons (list
-		     (assoc 'total-cells-allocated (gc-stats))
-		     (cons 'stack (extract-trace continuation))
-		     (cons 'proc (arg-procedure args))
-		     (cons 'time (tms:utime (times)))
+		     (cons 'cells cells)
+		     (cons 'proc proc)
+		     (cons 'stack stack)
+		     (cons 'time time)
 		     )
 		    
 		    trace-points))
@@ -91,7 +98,7 @@
     (for-each
      (lambda (r)
        (let*
-	   ((mem (- (cdr (assoc 'total-cells-allocated r)) start-memory))
+	   ((mem (- (cdr (assoc 'cells r)) start-memory))
 	    (proc (cdr (assoc 'proc r)))
 	    (stack (cdr (assoc 'stack r)))
 	    (time (- (cdr (assoc 'time r)) start-time)))
