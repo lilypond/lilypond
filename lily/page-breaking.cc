@@ -86,7 +86,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
-	  vector<Column_x_positions> pos = line_breaking_[sys].get_solution (start, end, div[i]);
+	  vector<Column_x_positions> pos = line_breaking_[sys].solve (start, end, div[i]);
 	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }
@@ -130,7 +130,7 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
-	  vector<Line_details> details = line_breaking_[sys].get_details (start, end, div[i]);
+	  vector<Line_details> details = line_breaking_[sys].line_details (start, end, div[i]);
 	  ret.insert (ret.end (), details.begin (), details.end ());
 	}
       else
@@ -351,8 +351,8 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool m
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 	  ret[i] = min
-	    ? line_breaking_[sys].get_min_systems (start, end)
-	    : line_breaking_[sys].get_max_systems (start, end);
+	    ? line_breaking_[sys].min_system_count (start, end)
+	    : line_breaking_[sys].max_system_count (start, end);
 	}
     }
 

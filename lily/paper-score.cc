@@ -106,9 +106,9 @@ Paper_score::calc_breaking ()
 
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
-    algorithm.resize (system_count);
+    return algorithm.solve (0, VPOS, system_count);
 
-  return algorithm.solve ();
+  return algorithm.best_solution (0, VPOS);
 }
 
 void
