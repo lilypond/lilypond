@@ -100,8 +100,9 @@ Page_breaking::systems ()
     {
       if (all_[sys].pscore_)
 	{
-	  SCM lines = all_[sys].pscore_->root_system ()->get_paper_systems ();
-	  ret = scm_cons (scm_vector_to_list (lines), ret);
+	  all_[sys].pscore_->root_system ()->do_break_substitution_and_fixup_refpoints ();
+	  SCM lines = all_[sys].pscore_->root_system ()->get_broken_system_grobs ();
+	  ret = scm_cons (lines, ret);
 	}
       else
 	{
@@ -178,7 +179,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   SCM layout_module = scm_c_resolve_module ("scm layout-page-layout");
   SCM page_module = scm_c_resolve_module ("scm page");
 
-  SCM make_page = scm_c_module_lookup (layout_module, "make-page-from-systems");
+  SCM make_page = scm_c_module_lookup (layout_module, "stretch-and-draw-page");
   SCM page_stencil = scm_c_module_lookup (page_module, "page-stencil");
   make_page = scm_variable_ref (make_page);
   page_stencil = scm_variable_ref (page_stencil);

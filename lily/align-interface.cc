@@ -307,6 +307,27 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
       all_grobs[j]->translate_axis (translates[j], a);
 }
 
+/* After we have already determined the y-offsets of our children, we may still
+   want to stretch them a little. */
+void
+Align_interface::stretch (Grob *me, Real amount, Axis a)
+{
+  extract_grob_set (me, "elements", elts);
+  Real non_empty_elts = 0.0;
+  for (vsize i = 0; i < elts.size (); i++)
+    non_empty_elts += !elts[i]->extent (me, a).is_empty ();
+
+  Real offset = 0.0;
+  Direction dir = robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      elts[i]->translate_axis (dir * offset, a);
+      if (!elts[i]->extent (me, a).is_empty ())
+	offset += amount / non_empty_elts;
+    }
+  me->flush_extent_cache (Y_AXIS);
+}
+
 Real
 Align_interface::get_pure_child_y_translation (Grob *me, Grob *ch, int start, int end)
 {
@@ -374,6 +395,31 @@ Align_interface::set_ordered (Grob *me)
     }
 
   ga->set_ordered (true);
+}
+
+MAKE_SCHEME_CALLBACK (Align_interface, calc_max_stretch, 1)
+SCM
+Align_interface::calc_max_stretch (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Spanner *spanner_me = dynamic_cast<Spanner*> (me);
+  Real ret = 0;
+
+  if (spanner_me)
+    {
+      Paper_column *left = dynamic_cast<Paper_column*> (spanner_me->get_bound (LEFT));
+      Real height = me->extent (me, Y_AXIS).length ();
+      SCM line_break_details = left->get_property ("line-break-system-details");
+      SCM fixed_offsets = scm_assq (ly_symbol2scm ("alignment-offsets"),
+				    line_break_details);
+
+      /* if there are fixed offsets, we refuse to stretch */
+      if (fixed_offsets != SCM_BOOL_F)
+	ret = 0;
+      else
+	ret = height * height / 80.0; /* why this, exactly? -- jneem */
+    }
+  return scm_from_double (ret);
 }
 
 /*

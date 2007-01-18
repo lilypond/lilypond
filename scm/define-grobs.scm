@@ -1681,6 +1681,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(skylines . ,ly:axis-group-interface::calc-skylines)
+	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
@@ -2007,6 +2008,7 @@
 	(stacking-dir . -1)
 	(padding . 0.5)
 	(skylines . ,ly:axis-group-interface::combine-skylines)
+	(max-stretch . ,ly:align-interface::calc-max-stretch)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
 		 (interfaces . (align-interface
@@ -2017,7 +2019,8 @@
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
-	(skylines . ,ly:axis-group-interface::calc-skylines);
+	(skylines . ,ly:axis-group-interface::calc-skylines)
+	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((X-common . ,ly:axis-group-interface::calc-x-common)))
 		 (interfaces . (axis-group-interface

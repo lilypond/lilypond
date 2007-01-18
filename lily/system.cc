@@ -114,8 +114,8 @@ fixup_refpoints (vector<Grob*> const &grobs)
     grobs[i]->fixup_refpoint ();
 }
 
-SCM
-System::get_paper_systems ()
+void
+System::do_break_substitution_and_fixup_refpoints ()
 {
   for (vsize i = 0; i < all_elements_->size (); i++)
     {
@@ -178,7 +178,20 @@ System::get_paper_systems ()
 
   if (be_verbose_global)
     message (_f ("Element count %d.", count + element_count ()));
+}
 
+SCM
+System::get_broken_system_grobs ()
+{
+  SCM ret = SCM_EOL;
+  for (vsize i = 0; i < broken_intos_.size (); i++)
+    ret = scm_cons (broken_intos_[i]->self_scm (), ret);
+  return scm_reverse (ret);
+}
+
+SCM
+System::get_paper_systems ()
+{
   SCM lines = scm_c_make_vector (broken_intos_.size (), SCM_EOL);
   for (vsize i = 0; i < broken_intos_.size (); i++)
     {
@@ -187,14 +200,6 @@ System::get_paper_systems ()
 
       System *system = dynamic_cast<System *> (broken_intos_[i]);
 
-      system->post_processing ();
-      system->build_skylines ();
-      if (i > 0)
-	{
-	  System *prev = dynamic_cast<System*> (broken_intos_[i-1]);
-	  Real r = prev->skylines_[DOWN].distance (system->skylines_[UP]);
-	  system->set_property ("skyline-distance", scm_from_double (r));
-	}
       scm_vector_set_x (lines, scm_from_int (i),
 			system->get_paper_system ());
 
@@ -334,6 +339,9 @@ System::get_paper_system ()
   SCM exprs = SCM_EOL;
   SCM *tail = &exprs;
 
+  post_processing ();
+  build_skylines ();
+
   vector<Layer_entry> entries;
   for (vsize j = 0; j < all_elements_->size (); j++)
     {
@@ -391,25 +399,21 @@ System::get_paper_system ()
 
   /* information that the page breaker might need */
   Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("skyline-distance", get_property ("skyline-distance"));
+  pl->set_property ("skylines", skylines_.smobbed_copy ());
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  if (!scm_is_pair (pl->get_property ("refpoint-Y-extent")))
-    {
-      Interval staff_refpoints;
-      staff_refpoints.set_empty ();
-      extract_grob_set (this, "spaceable-staves", staves);
-      for (vsize i = 0; i < staves.size (); i++)
-	{
-	  Grob *g = staves[i];
-	  staff_refpoints.add_point (g->relative_coordinate (this, Y_AXIS));
-	}
-      pl->set_property ("refpoint-Y-extent", ly_interval2scm (staff_refpoints));
-    }
+  /* remove me if make web succeeds */
+  assert (!scm_is_pair (pl->get_property ("refpoint-Y-extent")));
 
+  Interval staff_refpoints;
+  extract_grob_set (this, "spaceable-staves", staves);
+  for (vsize i = 0; i < staves.size (); i++)
+    staff_refpoints.add_point (staves[i]->relative_coordinate (this, Y_AXIS));
+
+  pl->set_property ("staff-refpoint-extent", ly_interval2scm (staff_refpoints));
   pl->set_property ("system-grob", this->self_scm ()); 
 
   return pl->unprotect ();
@@ -536,4 +540,5 @@ ADD_INTERFACE (System,
 	       "spaceable-staves "
 	       "skyline-distance "
 	       "skyline-horizontal-padding "
+	       "staff-refpoint-extent "
 	       )

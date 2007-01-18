@@ -241,6 +241,8 @@ column is the start of a system.")
      (long-text ,markup? "Text markup.  See @usermanref{Text markup}.")
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem. Further beams are typeset as beamlets.")
+     (max-stretch ,number? "The maximum amount that this vertical-axis-group
+can be vertically stretched (for example, in order to better fill a page).")
      (measure-length ,ly:moment? "Length of a
 measure. Used in some spacing situations.")
      (measure-count ,integer? "The number of measures for a

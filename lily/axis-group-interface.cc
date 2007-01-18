@@ -486,6 +486,21 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   return skylines;
 }
 
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_max_stretch, 1)
+SCM
+Axis_group_interface::calc_max_stretch (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real ret = 0;
+  extract_grob_set (me, "elements", elts);
+
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Axis_group_interface::has_interface (elts[i]))
+      ret += robust_scm2double (elts[i]->get_property ("max-stretch"), 0.0);
+
+  return scm_from_double (ret);
+}
+
 ADD_INTERFACE (Axis_group_interface,
 
 	       "An object that groups other layout objects.",
@@ -495,6 +510,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "Y-common "
 	       "axes "
 	       "elements "
+	       "max-stretch "
 	       "pure-Y-common "
 	       "pure-relevant-elements "
 	       "skylines "
