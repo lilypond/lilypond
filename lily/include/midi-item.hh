@@ -10,6 +10,8 @@
 #include "audio-item.hh"
 #include "std-vector.hh"
 
+string int2midi_varint_string (int i);
+  
 /**
    Any piece of midi information.
 
@@ -25,7 +27,6 @@ public:
 
   static Midi_item *get_midi (Audio_item *a);
 
-  static string i2varint_string (int i);
 
   virtual string to_string () const = 0;
 };
@@ -38,36 +39,6 @@ public:
   Midi_channel_item ();
 };
 
-/**
-   timed MIDI event
-*/
-class Midi_event
-{
-public:
-  Midi_event (int delta, Midi_item *midi);
-
-  int delta_ticks_;
-  Midi_item *midi_;
-  string to_string () const;
-};
-
-/**
-   variable sized MIDI data
-*/
-class Midi_chunk : public Midi_item
-{
-public:
-  void set (string header_string, string data_string, string footer_string);
-  virtual string to_string () const;
-  virtual string data_string () const;
-  DECLARE_CLASSNAME(Midi_chunk);
-
-private:
-  string data_string_;
-  string footer_string_;
-  string header_string_;
-};
-
 class Midi_duration : public Midi_item
 {
 public:
@@ -77,13 +48,6 @@ public:
   Real seconds_;
 };
 
-class Midi_header : public Midi_chunk
-{
-public:
-    DECLARE_CLASSNAME(Midi_header);
-
-  Midi_header (int format_i, int tracks_i, int clocks_per_4_i);
-};
 
 /**
    Change instrument event
@@ -201,19 +165,6 @@ public:
   Audio_tempo *audio_;
 };
 
-class Midi_track : public Midi_chunk
-{
-public:
-  int number_;
-  DECLARE_CLASSNAME(Midi_track);
 
-  vector<Midi_event*> events_;
-
-  Midi_track ();
-  ~Midi_track ();
-
-  void add (int, Midi_item *midi);
-  virtual string data_string () const;
-};
 
 #endif // MIDI_ITEM_HH

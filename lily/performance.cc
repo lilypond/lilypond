@@ -17,7 +17,7 @@ using namespace std;
 #include "international.hh"
 #include "lily-version.hh"
 #include "main.hh"
-#include "midi-item.hh"
+#include "midi-chunk.hh"
 #include "midi-stream.hh"
 #include "score.hh"
 #include "string-convert.hh"
