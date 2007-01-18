@@ -15,6 +15,7 @@
   #:use-module (lily)
   #:export (post-process-pages optimal-page-breaks make-page-from-systems
 	    page-breaking-wrapper
+	    stretchable-line? ; delete me
 	    ;; utilities for writing custom page breaking functions
             line-height line-next-space line-next-padding
 	    line-minimum-distance line-ideal-distance
@@ -22,6 +23,14 @@
 	    line-ideal-relative-position line-minimum-relative-position
             line-minimum-position-on-page
 	    page-maximum-space-to-fill page-maximum-space-left space-systems))
+
+; this is for 2-pass spacing. Delete me.
+(define (stretchable-line? line)
+  "Say whether a system can be stretched."
+  (not (or (ly:prob-property? line 'is-title)
+	   (let ((system-extent (paper-system-staff-extents line)))
+            (= (interval-start system-extent)
+               (interval-end   system-extent))))))
 
 (define (stretch-and-draw-page paper-book systems page-number ragged last)
   (define (stretchable? sys)

@@ -405,9 +405,6 @@ System::get_paper_system ()
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
   pl->set_property ("page-turn-penalty", right_bound->get_property ("page-turn-penalty"));
 
-  /* remove me if make web succeeds */
-  assert (!scm_is_pair (pl->get_property ("refpoint-Y-extent")));
-
   Interval staff_refpoints;
   extract_grob_set (this, "spaceable-staves", staves);
   for (vsize i = 0; i < staves.size (); i++)
@@ -540,5 +537,4 @@ ADD_INTERFACE (System,
 	       "spaceable-staves "
 	       "skyline-distance "
 	       "skyline-horizontal-padding "
-	       "staff-refpoint-extent "
 	       )

@@ -16,13 +16,6 @@
 	    ;; utilisties for writing other page dump functions
 	    record-tweaks dump-all-tweaks))
 
-(define (stretchable-line? line)
-  "Say whether a system can be stretched."
-  (not (or (ly:prob-property? line 'is-title)
-	   (let ((system-extent (paper-system-staff-extents line)))
-            (= (interval-start system-extent)
-               (interval-end   system-extent))))))
-
 (define (record-tweaks what property-pairs tweaks)
   (let ((key (ly:output-def-lookup (ly:grob-layout what)
 				   'tweak-key
