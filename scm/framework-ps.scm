@@ -8,9 +8,7 @@
 
 ;;; this is still too big a mess.
 
-(use-modules (ice-9 regex)
-	     (ice-9 string-fun)
-	     (ice-9 format)
+(use-modules (ice-9 string-fun)
 	     (guile)
 	     (scm page)
 	     (scm paper-system)
@@ -19,6 +17,10 @@
 	     (scm clip-region)
 	     (lily))
 
+(define (format dest . rest)
+  (if (string? dest)
+      (apply simple-format (cons #f (cons dest rest)))
+      (apply simple-format (cons dest rest))))
 
 (define framework-ps-module (current-module))
 
@@ -31,7 +33,12 @@
 
     (string-append
      "magfont"
-     (string-regexp-substitute "[ /%]" "_" name)
+     (ly:string-substitute
+      " " "_"
+      (ly:string-substitute
+       "/" "_"
+       (ly:string-substitute
+	"%" "_" name)))
      "m" (string-encode-integer (inexact->exact (round (* 1000 magnify)))))))
 
 (define (tex-font? fontname)
@@ -165,10 +172,10 @@
 	       (ly:output-def-lookup paper 'output-scale))
 	    (ly:bp 1)))
 	(landscape? (eq? (ly:output-def-lookup paper 'landscape) #t)))
-  (format "%%DocumentMedia: ~a ~$ ~$ ~a ~a ~a\n"
+  (format "%%DocumentMedia: ~a ~a ~a ~a ~a ~a\n"
    (ly:output-def-lookup paper 'papersizename)
-   (if landscape? h w)
-   (if landscape? w h)
+   (round2 (if landscape? h w))
+   (round2 (if landscape? w h))
    80  ;; weight
    "()" ;; color
    "()"  ;; type
@@ -270,7 +277,10 @@
        (if (mac-font? bare-file-name)
 	   (handle-mac-font name bare-file-name)
 	   (cond
-	    ((string-match "^([eE]mmentaler|[Aa]ybabtu)" file-name)
+	    ((or (string-startswith file-name "Emmentaler")
+		 (string-startswith file-name "emmentaler")
+		 (string-startswith file-name "aybabtu")
+		 (string-startswith file-name "Aybabtu"))
 	     (ps-load-file (ly:find-file
 			    (format "~a.otf"  file-name))))
 	    ((string? bare-file-name)
@@ -337,13 +347,13 @@
 	  ((downcase-file-name (string-downcase file-name)))
 	
       (cond
-       ((and file-name (string-match "\\.pfa" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".pfa"))
 	(embed-document file-name))
-       ((and file-name (string-match "\\.pfb" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".pfb"))
 	(ly:pfb->pfa file-name))
-       ((and file-name (string-match "\\.ttf" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".ttf"))
 	(ly:ttf->pfa file-name))
-       ((and file-name (string-match "\\.otf" downcase-file-name))
+       ((and file-name (string-endswith downcase-file-name ".otf"))
 	(ps-embed-cff (ly:otf->cff file-name) name 0))
        (else
 	(ly:warning (_ "do not know how to embed ~S=~S") name file-name)
@@ -354,7 +364,7 @@
        (eq? PLATFORM 'darwin)
        bare-file-name
        (or
-	(string-match "\\.dfont" bare-file-name)
+	(string-endswith  bare-file-name ".dfont")
 	(= (stat:size (stat bare-file-name)) 0))))
 
   (define (load-font font-name-filename)

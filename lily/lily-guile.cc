@@ -34,7 +34,6 @@ using namespace std;
 /*
   symbols/strings.
  */
-
 SCM
 ly_write2scm (SCM s)
 {
@@ -391,10 +390,6 @@ ly_deep_copy (SCM src)
     }
   return src;
 }
-
-
-
-
 
 string
 print_scm_val (SCM val)

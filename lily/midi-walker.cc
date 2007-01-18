@@ -17,7 +17,7 @@
 
 Midi_note_event::Midi_note_event ()
 {
-  ignore_b_ = false;
+  ignore_ = false;
 }
 
 int
@@ -53,8 +53,9 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
 
 Midi_walker::~Midi_walker ()
 {
-  do_stop_notes (last_tick_ + 384);
+  do_stop_notes (INT_MAX);
 }
+
 
 /**
    Find out if start_note event is needed, and do it if needed.
@@ -77,7 +78,8 @@ Midi_walker::do_start_note (Midi_note *note)
 	    {
 	      /* let stopnote in queue be ignored,
 		 new stop note wins */
-	      stop_note_queue[i].ignore_b_ = true;
+	      stop_note_queue[i].ignore_ = true;
+
 	      /* don't replay start note, */
 	      play_start = false;
 	      break;
@@ -114,7 +116,7 @@ Midi_walker::do_stop_notes (int max_ticks)
   while (stop_note_queue.size () && stop_note_queue.front ().key <= max_ticks)
     {
       Midi_note_event e = stop_note_queue.get ();
-      if (e.ignore_b_)
+      if (e.ignore_)
 	{
 	  delete e.val;
 	  continue;
@@ -127,9 +129,6 @@ Midi_walker::do_stop_notes (int max_ticks)
     }
 }
 
-/**
-   Advance the track to #now#, output the item, and adjust current "moment".
-*/
 void
 Midi_walker::output_event (int now_ticks, Midi_item *l)
 {
@@ -160,7 +159,6 @@ Midi_walker::process ()
       if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (midi))
 	mci->channel_ = channel_;
       
-      //midi->channel_ = track_->number_;
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
 	{
 	  if (note->audio_->length_mom_.to_bool ())

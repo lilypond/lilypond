@@ -37,8 +37,6 @@ public:
   int channel_;
   DECLARE_CLASSNAME(Midi_channel_item);
   Midi_channel_item ();
-  virtual const char *name () const { return "Midi_channel_item"; }
-  virtual ~Midi_channel_item ();
 };
 
 /**
@@ -125,9 +123,6 @@ public:
   int clocks_per_1_;
 };
 
-/**
-   Turn a note on.
-*/
 class Midi_note : public Midi_channel_item
 {
 public:
@@ -145,9 +140,6 @@ public:
   Byte dynamic_byte_;
 };
 
-/**
-   Turn a note off
-*/
 class Midi_note_off : public Midi_note
 {
 public:
@@ -216,9 +208,6 @@ public:
   int number_;
   DECLARE_CLASSNAME(Midi_track);
 
-  /*
-    Compensate for starting grace notes.
-  */
   vector<Midi_event*> events_;
 
   Midi_track ();

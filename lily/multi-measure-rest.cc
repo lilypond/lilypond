@@ -183,8 +183,8 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Stencil m = Lookup::round_filled_box (b, blot);
   Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
 
-  m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
-  m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);
+  m.add_at_edge (X_AXIS, RIGHT, yb, 0);
+  m.add_at_edge (X_AXIS, LEFT, yb, 0);
 
   m.align_to (X_AXIS, LEFT);
 
@@ -268,7 +268,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
     mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
-		     inner_padding, 0);
+		     inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
 

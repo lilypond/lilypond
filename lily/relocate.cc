@@ -44,7 +44,12 @@ sane_putenv (char const *key, string value, bool overwrite)
 	progress_indication (_f ("Setting %s to %s" , key, value.c_str ())
 			     + "\n");
 			     
-      return putenv (s);
+      int retval =  putenv (s);
+      /*
+	unfortunately, we can't portably free S here,
+	due to various bugs in glibc prior to 2.1.1
+       */ 
+      return retval;
     }
   
   return -1;

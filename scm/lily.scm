@@ -36,7 +36,6 @@
 	      (debug-gc-assert-parsed-dead #f "for memory debugging:
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
 	      (debug-lexer #f "debug the flex lexer")
-	      (debug-midi #f "generate human readable MIDI")
 	      (debug-parser #f "debug the bison parser")
 	      (debug-skylines #f "debug skylines")
 	      (delete-intermediate-files #f
@@ -71,6 +70,7 @@ on errors, and print a stack trace.")
 	      (safe #f "Run safely")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
 	      (separate-log-files #f "Output to FILE.log per file.")
+	      (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
 	      (show-available-fonts #f
@@ -100,12 +100,14 @@ on errors, and print a stack trace.")
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (ice-9 rdelim)
              (ice-9 optargs)
 	     (oop goops)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
+	     (scm memory-trace)
 	     )
 
 ;; my display
@@ -402,6 +404,15 @@ The syntax is the same as `define*-public'."
 
 (define gc-dumping #f)
 (define gc-protect-stat-count 0)
+
+(define-public (dump-live-object-stats outfile)
+  (for-each
+   (lambda (x)
+     (format outfile "~a: ~a\n" (car x) (cdr x)))
+   (sort (gc-live-object-stats)
+	 (lambda (x y)
+	   (string<? (car x) (car y))))))
+
 (define-public (dump-gc-protects)
   (set! gc-protect-stat-count (1+ gc-protect-stat-count))
   (let* ((protects (sort
@@ -450,14 +461,7 @@ The syntax is the same as `define*-public'."
 
 	  (set! stats (gc-live-object-stats))
 	  (display "Dumping live object statistics.\n")
-	  
-	  (for-each
-	   (lambda (x)
-	     (format outfile "~a: ~a\n" (car x) (cdr x)))
-	   (sort (gc-live-object-stats)
-		 (lambda (x y)
-		   (string<? (car x) (car y)))))))
-
+	  (dump-live-object-stats outfile)))
 
     (newline outfile)
     (let*
@@ -479,6 +483,36 @@ The syntax is the same as `define*-public'."
 			   )))
 
     (set! gc-dumping #f)
+    (close-port outfile)
+    
+    ))
+
+
+(define (check-memory)
+  "read /proc/self to check up on memory use." 
+  (define (gulp-file name)
+    (let* ((file (open-input-file name))
+	   (text (read-delimited "" file)))
+      (close file)
+      text))
+  (let*
+      ((stat (gulp-file "/proc/self/status"))
+       (lines (string-split stat #\newline))
+       (interesting (filter identity
+			    (map
+			     (lambda (l)
+			       (string-match "^VmData:[ \t]*([0-9]*) kB" l))
+			     lines)))
+       (mem (string->number (match:substring (car interesting) 1)))
+       )
+
+    
+    (display (format  "VMDATA: ~a\n" mem))
+    (display (gc-stats))
+    (if (> mem 100000)
+	(begin
+	  (dump-gc-protects)
+	  (raise 1)))
     
     ))
 
@@ -619,21 +653,28 @@ The syntax is the same as `define*-public'."
 
 	 (if separate-logs
 	     (ly:stderr-redirect (format "~a.log" base) "w"))
-       
+	 (if (ly:get-option 'trace-memory-frequency) 
+	     (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
+	 
 	 (lilypond-file handler x)
 	 (if start-measurements
 	     (dump-profile x start-measurements (profile-measurements)))
-       
+
+	 (if (ly:get-option 'trace-memory-frequency)
+	     (begin
+	       (mtrace:stop-trace)
+	       (mtrace:dump-results base)))
+	  	 
 	 (for-each
 	  (lambda (s)
 	    (ly:set-option (car s) (cdr s)))
 	  all-settings)
-	 
+
 	 (ly:clear-anonymous-modules)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	 (gc)
 	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
-	 
+
 	 
 	 (if (ly:get-option 'debug-gc)
 	     (dump-gc-protects)

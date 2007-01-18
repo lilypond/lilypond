@@ -19,8 +19,6 @@ using namespace std;
 #include "string-convert.hh"
 #include "warn.hh"
 
-/* Write midi as formatted ascii stream? */
-bool do_midi_debugging_global;
 bool debug_skylines;
 
 /*
@@ -46,11 +44,6 @@ void internal_set_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("profile-property-accesses"))
     {
       profile_property_accesses = to_boolean (val);
-      val = scm_from_bool (to_boolean (val));
-    }
-  else if (var == ly_symbol2scm ("debug-midi"))
-    {
-      do_midi_debugging_global = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
   else if (var == ly_symbol2scm ("point-and-click"))

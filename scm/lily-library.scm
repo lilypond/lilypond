@@ -380,6 +380,9 @@ found."
 
 (define-public interval-end cdr)
 
+(define-public (interval-bound interval dir)
+  ((if (= dir RIGHT) cdr car) interval))
+
 (define-public (interval-index interval dir)
   "Interpolate INTERVAL between between left (DIR=-1) and right (DIR=+1)"
   
@@ -423,9 +426,16 @@ found."
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;; string
 
-
+(define-public (string-endswith s suffix)
+  (equal? suffix (substring s
+			    (max 0 (- (string-length s) (string-length suffix)))
+			    (string-length s))))
+	     
+(define-public (string-startswith s prefix)
+  (equal? prefix (substring s 0 (min (string-length s) (string-length prefix)))))
+	     
 (define-public (string-encode-integer i)
   (cond
    ((= i  0) "o")
@@ -515,6 +525,12 @@ possibly turned off."
   (if (= x 0)
       0
       (if (< x 0) -1 1)))
+
+(define-public (round2 num)
+  (/ (round (* 100 num)) 100))
+
+(define-public (round4 num)
+  (/ (round (* 10000 num)) 10000))
 
 (define-public (car< a b) (< (car a) (car b)))
 

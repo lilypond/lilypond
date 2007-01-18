@@ -52,17 +52,12 @@
 ;;;
 
 
+;; ice-9 format uses a lot of memory
+;; using simple-format almost halves lilypond cell usage
+(define format simple-format)
+
 (define (escape-parentheses s)
   (regexp-substitute/global #f "(^|[^\\])([\\(\\)])" s 'pre 1 "\\" 2 'post))
-
-(define (ps-encoding text)
-  (escape-parentheses text))
-
-(define (round2 num)
-  (/ (round (* 100 num)) 100))
-
-(define (round4 num)
-  (/ (round (* 10000 num)) 10000))
 
 (define (str4 num)
   (if (or (nan? num) (inf? num))
@@ -71,7 +66,7 @@
 	(if (ly:get-option 'strict-infinity-checking)
 	    (exit 1))
 	"0.0")
-      (format #f "~f" (round4 num))))
+      (ly:number->string num)))
 
 (define (number-pair->string4 numpair)
   (string-append (str4 (car numpair))
@@ -114,11 +109,11 @@
 
 (define (circle radius thick fill)
   (format #f
-   "~a ~f ~f draw_circle"
+   "~a ~a ~a draw_circle"
    (if fill
      "true"
      "false")
-   (round4 radius) (round4 thick)))
+   (str4 radius) (str4 thick)))
 
 (define (dashed-line thick on off dx dy phase)
   (format #f "~a ~a ~a [ ~a ~a ] ~a draw_dashed_line"
@@ -162,9 +157,9 @@
 
   (define (glyph-spec w x y g)
     (let ((prefix (if (string? g) "/" "")))
-      (format #f "~f ~f ~a~a"
-	      (round2 (+ w x))
-	      (round2 y)
+      (format #f "~a ~a ~a~a"
+	      (str4 (+ w x))
+	      (str4 y)
 	      prefix g)))
   
   (format #f
@@ -199,18 +194,18 @@
 
 	  (if (and (< 0 (interval-length x-ext))
 		   (< 0 (interval-length y-ext)))
-	      (format #f "~$ ~$ ~$ ~$ (textedit://~a:~a:~a:~a) mark_URI\n"
-		      (+ (car offset) (car x-ext))
-		      (+ (cdr offset) (car y-ext))
-		      (+ (car offset) (cdr x-ext))
-		      (+ (cdr offset) (cdr y-ext))
+	      (format #f "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
+		      (str4 (+ (car offset) (car x-ext)))
+		      (str4 (+ (cdr offset) (car y-ext)))
+		      (str4 (+ (car offset) (cdr x-ext)))
+		      (str4 (+ (cdr offset) (cdr y-ext)))
 
 		      ;; TODO
 		      ;;full escaping.
 
 		      ;; backslash is interpreted by GS.
-		      (string-regexp-substitute "\\\\" "/" 
-				      (string-regexp-substitute " " "%20" file))
+		      (ly:string-substitute "\\" "/" 
+					    (ly:string-substitute " " "%20" file))
 		      (cadr location)
 		      (caddr location)
 		      (cadddr location))
@@ -277,7 +272,7 @@
 
 ;; rotation around given point
 (define (setrotation ang x y)
-  (format "gsave ~a translate ~a rotate ~a translate\n"
+  (format #f "gsave ~a translate ~a rotate ~a translate\n"
     (numbers->string4 (list x y))
     (number->string ang)
     (numbers->string4 (list (* -1 x) (* -1 y)))))
@@ -312,7 +307,7 @@
   "\n unknown\n")
 
 (define (url-link url x y)
-  (format #f "~$ ~$ ~$ ~$ (~a) mark_URI"
+  (format #f "~a ~a ~a ~a (~a) mark_URI"
 	  (car x)
 	  (car y)
 	  (cdr x)
@@ -348,14 +343,15 @@
 	     )
 
 	  ;; WARNING: this is a vulnerability: a user can output arbitrary PS code here.
-	  (cons (format "~a ~a "
-			(string-join (map (lambda (x) (format "~a " x)) args) " ")
+	  (cons (format #f
+			"~a ~a "
+			(string-join (map (lambda (x) (format #f "~a " x)) args) " ")
 			head)
 		(convert-path-exps (drop rest arity))))
 	'()))
     
     
-  (format
+  (format #f
    "1 setlinecap ~a setlinewidth\n~a stroke"
    thickness
    (string-join (convert-path-exps exps) " ")))

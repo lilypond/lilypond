@@ -651,6 +651,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
 SCM
 Skyline::mark_smob (SCM)
 {
+  ASSERT_LIVE_IS_ALLOWED();
   return SCM_EOL;
 }
 
