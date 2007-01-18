@@ -1,6 +1,5 @@
 (define-module (scm memory-trace))
 
-(use-modules (ice-9 format))
 (define-public (mtrace:start-trace freq)
   (set! usecond-interval (inexact->exact (/ 1000000 freq)))
   (call-with-new-thread start-install-tracepoint))
@@ -32,6 +31,7 @@
 	(set! busy-tracing #t)
 	(trap-disable 'traps)
 	(trap-disable 'enter-frame)
+
 	(set! trace-count (1+ trace-count))
 
 	(set! trace-points
@@ -39,6 +39,7 @@
 		     (assoc 'total-cells-allocated (gc-stats))
 		     (cons 'stack (extract-trace continuation))
 		     (cons 'proc (arg-procedure args))
+		     (cons 'time (tms:utime (times)))
 		     )
 		    
 		    trace-points))
@@ -62,20 +63,22 @@
       (install-tracepoint)))
 
 (define-public (mtrace:dump-results base)
-  (define out (open-output-file (format #f "~a.graph" base)))
+  (define out-graph (open-output-file (format #f "~a.graph" base)))
   (define stacks-out (open-output-file (format #f "~a.stacks" base)))
   (define i 0)
-  (define last-mem 0) 
-  (format out "# memory trace with ~a points\n" (length trace-points))
+  (define last-mem 0)
+  
+  (format out-graph "# memory trace with ~a points\n" (length trace-points))
   
   (for-each
    (lambda (r)
      (let*
 	 ((mem (cdr (assoc 'total-cells-allocated r)))
 	  (proc (cdr (assoc 'proc r)))
-	  (stack (cdr (assoc 'stack r))))
+	  (stack (cdr (assoc 'stack r)))
+	  (time (cdr (assoc 'time r))))
        
-       (format out "~a ~a\n" i mem)
+       (format out-graph "~a ~a\n" time mem)
        (if stack
 	   (begin
 	     (format stacks-out "~15a - delta-mem: ~15a - ~a \n" i
@@ -123,10 +126,6 @@
 		      (source-property source 'line))))))
 
     trace))
-
-
-
-
 
 
        

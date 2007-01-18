@@ -122,7 +122,8 @@ on errors, and print a stack trace.")
 ;;; debugging evaluator is slower.  This should
 ;;; have a more sensible default.
 
-(if (ly:get-option 'verbose)
+(if (or (ly:get-option 'verbose)
+	(ly:get-option 'trace-memory-frequencency))
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'debug)
