@@ -32,6 +32,8 @@ Audio_staff::output (Midi_stream &midi_stream, int channel)
   Midi_walker i (this, &midi_track, channel);
   for (; i.ok (); i++)
     i.process ();
+
+  i.finalize ();
   
   midi_stream.write (midi_track);
 }
