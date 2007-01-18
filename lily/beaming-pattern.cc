@@ -163,13 +163,16 @@ Beaming_pattern::beamify (Context *context)
 	     && group_starts[j+1] <= infos_[i].start_moment_)
 	j++;
 
-      infos_[i].group_start_ = group_starts[j];
+      if (j < group_starts.size ())
+	infos_[i].group_start_ = group_starts[j];
+      
       infos_[i].beat_length_ = beat_length;  
       while (k + 1 < beat_starts.size() 
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
 
-      infos_[i].beat_start_ = beat_starts[k];
+      if (k < beat_starts.size())
+	infos_[i].beat_start_ = beat_starts[k];
     }
   
   beamify (subdivide_beams);
