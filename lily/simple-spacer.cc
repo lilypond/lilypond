@@ -247,6 +247,20 @@ Simple_spacer::spring_positions () const
   return ret;
 }
 
+Real
+Simple_spacer::force_penalty (bool ragged) const
+{
+  /* If we are ragged-right, we don't want to penalise according to the force,
+     but according to the amount of whitespace that is present after the end
+     of the line. */
+  if (ragged)
+    return max (0.0, line_len_ - configuration_length (0.0));
+
+  /* Use a convex compression penalty. */
+  Real f = force_;
+  return f - (f < 0 ? f*f*f*f*4 : 0);
+}
+
 /****************************************************************/
 
 Spring_description::Spring_description ()
@@ -449,14 +463,7 @@ get_line_forces (vector<Grob*> const &columns,
 		}
 	    }
 	  spacer.solve ((b == 0) ? line_len - indent : line_len, ragged);
-
-	  /* add a (convex) penalty for compression. We do this _only_ in get_line_forces,
-	     not get_line_configuration. This is temporary, for backwards compatibility;
-	     the old line/page-breaking stuff ignores page breaks when it calculates line
-	     breaks, so compression penalties can result in scores (eg. wtk-fugue) blowing
-	     up to too many pages. */
-	  Real f = spacer.force ();
-	  force[b * breaks.size () + c] = f - (f < 0 ? f*f*f*f*4 : 0);
+	  force[b * breaks.size () + c] = spacer.force_penalty (ragged);
 
 	  if (!spacer.fits ())
 	    {
@@ -513,12 +520,8 @@ get_line_configuration (vector<Grob*> const &columns,
     }
 
   spacer.solve (line_len, ragged);
-  ret.force_ = spacer.force ();
+  ret.force_ = spacer.force_penalty (ragged);
 
-  /*
-    We used to have a penalty for compression, no matter what, but that
-    fucked up wtk1-fugue2 (taking 3 full pages.)
-  */
   ret.config_ = spacer.spring_positions ();
   for (vsize i = 0; i < ret.config_.size (); i++)
     ret.config_[i] += indent;

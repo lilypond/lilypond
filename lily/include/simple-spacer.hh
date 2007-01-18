@@ -49,6 +49,7 @@ public:
   vector<Real> spring_positions () const;
 
   Real force () const;
+  Real force_penalty (bool ragged) const;
   bool fits () const;
 
   DECLARE_SIMPLE_SMOBS (Simple_spacer);
