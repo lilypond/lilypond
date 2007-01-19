@@ -71,6 +71,7 @@ on errors, and print a stack trace.")
 	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
 	      (separate-log-files #f "Output to FILE.log per file.")
 	      (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
+	      (trace-scheme-coverage #f "Record coverage of Scheme files") 
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
 	      (show-available-fonts #f
@@ -108,6 +109,7 @@ on errors, and print a stack trace.")
 	     (srfi srfi-14)
 	     (scm clip-region)
 	     (scm memory-trace)
+	     (scm coverage)
 	     )
 
 ;; my display
@@ -123,12 +125,18 @@ on errors, and print a stack trace.")
 ;;; have a more sensible default.
 
 (if (or (ly:get-option 'verbose)
-	(ly:get-option 'trace-memory-frequencency))
+	(ly:get-option 'trace-memory-frequencency)
+	(ly:get-option 'trace-scheme-coverage)
+	)
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'debug)
       (debug-enable 'backtrace)
       (read-enable 'positions)))
+
+
+(if (ly:get-option 'trace-scheme-coverage)
+    (coverage:enable))
 
 (define-public tex-backend?
   (member (ly:output-backend) '("texstr" "tex")))
@@ -618,6 +626,12 @@ The syntax is the same as `define*-public'."
 
   
   (let ((failed (lilypond-all files)))
+    (if (ly:get-option 'trace-scheme-coverage)
+	(begin
+	  (coverage:disable)
+	  (coverage:show-all)))
+	  
+    
     (if (pair? failed)
 	(begin
 	  (ly:error (_ "failed files: ~S") (string-join failed))
