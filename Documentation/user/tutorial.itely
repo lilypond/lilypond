@@ -36,7 +36,8 @@ c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
 
-By cutting and pasting the full input into a test file, you have a
+By cutting and pasting everything from the @qq{Start cut-&-pastable section},
+to the end of the file, you have a
 starting template for experiments.  If you like learning in this way,
 you will probably want to print out or bookmark
 @ifhtml
@@ -46,8 +47,8 @@ the
 commands for quick reference.
 
 @menu
-* First steps::                 
-* Second steps::                
+* First steps (compiling a file)::  
+* Simple notation::             
 * More about pitches::          
 * Entering ties::               
 * Automatic and manual beams::  
@@ -69,8 +70,8 @@ commands for quick reference.
 @end menu
 
 
-@node First steps
-@section First steps
+@node First steps (compiling a file)
+@section First steps (compiling a file)
 
 The first example demonstrates how to enter the most elementary piece
 of music, a @rglos{scale}.  A @rglos{note} can be entered by typing
@@ -78,7 +79,7 @@ its name, from @samp{a} through @samp{g}.  So, if you enter
 
 @example
 @{
-c' d' e' f' g' a' b' c''
+c' e' g' c''
 @}
 @end example
 
@@ -87,21 +88,21 @@ the result looks like this
 
 @lilypond[quote]
 {
-c' d' e' f' g' a' b' c''
+c' e' g' c''
 }
 @end lilypond
 
-@emph{Warning:} Every piece of LilyPond input needs to have @{curly
-braces@} placed around the input.  The braces should be also be
+@strong{Warning:} Every piece of LilyPond input needs to have @strong{@{ curly
+braces @}} placed around the input.  The braces should be also be
 surrounded by a space unless they are at the beginning or end of a
-line to avoid ambiguities.  These may be omitted in examples in this
+line to avoid ambiguities.  These may be omitted in some examples in this
 manual, but don't forget them in your own music!
 
 @cindex Case sensitive
-In addition, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
-valid input; @code{ @{ C D E @} } will produce an error message.
+In addition, LilyPond input is @strong{case sensitive}.  @code{ @{ c d e @} }
+is valid input; @code{ @{ C D E @} } will produce an error message.
 
-
+@sp 1
 
 @unnumberedsubsec Entering music and viewing output
 
@@ -116,7 +117,7 @@ then process it with the menu command @samp{Compile > Typeset File}.
 The resulting PDF file will be displayed on your screen.
 
 Be warned that the first time you ever run lilypond will take a minute
-or two, because all of the system fonts have to be analyzed first.
+or two because all of the system fonts have to be analyzed first.
 
 For future use of LilyPond, you should begin by selecting "New"
 or "Open".
@@ -143,7 +144,9 @@ Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
-installed already, refer to the file @file{INSTALL.txt}.}.  In your
+installed already, refer to the file @file{INSTALL.txt}.  These
+easiest editing environment is @file{LilyPondTool}.  See
+@ref{Editor support} for more information.}.  In your
 text editor, enter the following input and save the file as
 @file{test.ly}
 
@@ -184,14 +187,21 @@ your system does not have any tools installed, you can try
 available package for viewing and printing PDF and PostScript files.}
 
 
-@node Second steps
-@section Second steps
+@node Simple notation
+@section Simple notation
 
-@emph{Remember:} Every piece of LilyPond input needs to have @{curly
-braces@} placed around the input.  The braces should be surrounded by
+@strong{Remember:} Every piece of LilyPond input needs to have
+@strong{@{ curly braces @}} placed around the input.  The braces should
+be surrounded by
 a space unless they are at the beginning or end of a line to avoid
 ambiguities.  For the rest of this manual, most examples will omit
 these braces, but don't forget them in your own music!
+
+@cindex Case sensitive
+In addition, LilyPond input is @strong{case sensitive}.  @code{ @{ c d e @} }
+is valid input; @code{ @{ C D E @} } will produce an error message.
+
+
 
 @c will be removed once the tutorial either explains \relative or
 @c examples are fixed so they don't use it.  -gp
@@ -200,10 +210,6 @@ in @ref{Octave entry}; for now simply be aware that some examples
 should be placed inside @code{\relative @{ @emph{...music...} @}}.
 Many example have also been compressed horizontally to save
 space, using @code{\paper @{ ragged-right = ##t @}}.
-
-@cindex Case sensitive
-Finally, LilyPond input is case sensitive.  @code{ @{ c d e @} } is
-valid input; @code{ @{ C D E @} } will produce an error message.
 
 @c  End of latest re-write.  Since I have no life, I may do more
 @c  work on this, but I'd really like to have a Doc Helper take
