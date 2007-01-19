@@ -378,7 +378,7 @@ cd ~/bin
 Create a file called @code{lilypond} which contains
 
 @example
-exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@"
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 
 Create similar files @code{lilypond-book}, @code{convert-ly}, and
