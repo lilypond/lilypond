@@ -346,6 +346,26 @@ Here is a small example showing all these elements together:
 }
 @end lilypond
 
+@c  I don't think these are useful, but I haven't completely made
+@c  up my mind whether to completely remove them or not.
+@ignore
+For more information on
+
+@q uotation
+@t able @asis
+@i tem Entering pitches and durations
+see
+@r ef{Pitches}, and @ref{Durations}.
+@i tem Clefs
+see @ref{Clef}.
+@i tem Rests
+see @ref{Rests}.
+@i tem Time signatures and other timing commands
+see @ref{Time signature}.
+@e nd table
+@e nd quotation
+@end ignore
+
 
 @node Working on text files
 @section Working on text files
@@ -358,23 +378,49 @@ If the previous sentence sounds like nonsense, don't worry!  We'll explain
 what all these terms mean:
 
 @itemize
-@item
-@strong{Remember:} Every piece of LilyPond input needs to have
-@strong{@{ curly braces @}} placed around the input.  The braces should
-be surrounded by
-a space unless they are at the beginning or end of a line to avoid
-ambiguities.  For the rest of this manual, most examples will omit
-these braces, but don't forget them in your own music!
 
 @cindex Case sensitive
-@item
-In addition, LilyPond input is @strong{case sensitive}.  @code{ @{ c d e @} }
+@item @strong{Case sensitive}:
+it matters whether you enter a letter
+in lower case (i.e. @code{a, b, s, t}) or upper case (i.e.
+@code{A, B, S, T}).  Notes are lower case: @code{ @{ c d e @} }
 is valid input; @code{ @{ C D E @} } will produce an error message.
 
-@c  End of current re-write; more material coming in a few days.  -gp
+@item @strong{Whitespace insensitive}:
+it does not matter how many
+spaces (or new lines) you add.  @code{ @{ c d e @}} means the same thing
+as @code{ @{ c @ @ @ @ @  d e @} } and
+@example
+          @{
+c                        d
+  e @}
+@end example
+
+@noindent
+Of course, the previous example is hard to read.  A good rule of thumb
+is to indent code blocks with either a tab or two spaces:
+@example
+@{
+  c d e
+@}
+@end example
+
+@item @strong{Expressions:}
+Every piece of LilyPond input needs to have
+@strong{@{ curly braces @}} placed around the input.  These braces tell
+LilyPond that the input is a single music expression, just like(
+parenthesis @samp{()} in mathematics.  The braces should
+be surrounded by a space unless they are at the beginning or end of a
+line to avoid ambiguities.  For the rest of this manual, most examples
+will omit these braces@footnote{Why omit the braces?  Most examples
+in this manual can be inserted into the middle of a longer piece of
+msuic.  For these examples, it does not make sense to add @{ @}.},
+but don't forget them in your own music!
+
 @end itemize
 
-
+@c zzz
+@c  End of current re-write; more material coming in a few days.  -gp
 
 @node More about pitches
 @section More about pitches
@@ -1473,23 +1519,5 @@ with reading them now, of course!  However, the rest of the
 Learning Manual assumes that you are familiar with
 LilyPond input.  You may wish to skim these chapters right
 now, and come back to them after you have more experience.
-
-@ignore
-For more information on
-
-@q uotation
-@t able @asis
-@i tem Entering pitches and durations
-see
-@r ef{Pitches}, and @ref{Durations}.
-@i tem Clefs
-see @ref{Clef}.
-@i tem Rests
-see @ref{Rests}.
-@i tem Time signatures and other timing commands
-see @ref{Time signature}.
-@e nd table
-@e nd quotation
-@end ignore
 
 
