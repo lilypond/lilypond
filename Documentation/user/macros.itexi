@@ -217,6 +217,11 @@ user manual, @internalsref{\NAME\}
 
 @end macro
 
+@macro moreinfo
+@subheading For more information, see
+
+@end macro
+
 @macro seealso
 @noindent
 @subsubheading See also
