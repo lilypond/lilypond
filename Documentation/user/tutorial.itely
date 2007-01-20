@@ -7,10 +7,22 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c  Tutorial guidelines:
-@c    - unless you have a really good reason, use
-@c      @lilypond[quote,ragged-right,verbatim]
-@c      (i.e. no fragment or relative in the header.)
+@ignore
+Tutorial guidelines:
+- unless you have a really good reason, use either
+    @l ilypond[quote,ragged-right,verbatim]
+or
+    @l ilypond[quote,ragged-right,verbatim,fragment,relative=2]
+(without spaces)
+    Don't use any other relative=X commands (make it a non-fragment
+    example), and don't use fragment without relative=2.
+
+
+TODO:
+- discuss subheading vs. unnumberedsubsection
+
+@end ignore
+
 
 
 @c   old info that will probably be removed.
@@ -41,24 +53,22 @@ Try it on this image
 @lilypond[fragment,quote,ragged-right,relative=2]
 c-\markup { \bold \huge { Click here.  } }
 @end lilypond
-@end ifhtml
 
-By cutting and pasting everything from the @qq{Start cut-&-pastable-section},
+By cutting and pasting everything from the @qq{Start cut-&-pastable-section}
 to the end of the file, you have a
 starting template for experiments.  If you like learning in this way,
-you will probably want to print out or bookmark
-@ifhtml
-the
-@end ifhtml
+you will probably want to print out or bookmark the
 @ref{Cheat sheet}, which is a table listing of the most common
 commands for quick reference.
+@end ifhtml
 
 @menu
 * First steps (compiling a file)::  
 * Simple notation::             
 * Working on text files::       
+* How to read the manual::      
 * Accidentals and key signatures::  
-* Entering ties::               
+* Ties and slurs::              
 * Automatic and manual beams::  
 * Octave entry::                
 * Music expressions explained::  
@@ -415,18 +425,49 @@ is to indent code blocks with either a tab or two spaces:
 @item @strong{Expressions:}
 Every piece of LilyPond input needs to have
 @strong{@{ curly braces @}} placed around the input.  These braces tell
-LilyPond that the input is a single music expression, just like(
+LilyPond that the input is a single music expression, just like
 parenthesis @samp{()} in mathematics.  The braces should
 be surrounded by a space unless they are at the beginning or end of a
-line to avoid ambiguities.  For the rest of this manual, most examples
-will omit these braces@footnote{Why omit the braces?  Most examples
-in this manual can be inserted into the middle of a longer piece of
-msuic.  For these examples, it does not make sense to add @{ @}.},
-but don't forget them in your own music!
+line to avoid ambiguities.
+
+A function (such as @code{\relative @{ @}} ) also counts as a single
+music expression.
 
 @end itemize
 
+There are more tips for constructing input files in
+@ref{Suggestions for writing LilyPond files}.
+
 @c  End of current re-write; more material coming in a few days.  -gp
+
+
+@node How to read the manual
+@section How to read the manual
+
+As we saw in @ref{Working on text files}, LilyPond input must be
+surrounded by @{ @} marks or a @code{\relative c'' @{ ... @}}.  For the
+rest of this manual, most examples will omit this.
+
+If you are reading the HTML documentation and wish to see the exact
+exact LilyPond code that was used to create the example, simply click
+on the picture.  If you are not reading the HTML version, you could
+copy and paste the displayed input, but you @strong{must} add the
+@code{\relative c'' @{ @}} like this:
+
+@example
+\relative c'' @{
+  ... example goes here...
+@}
+@end example
+
+Why omit the braces?  Most examples
+in this manual can be inserted into the middle of a longer piece of
+music.  For these examples, it does not make sense to add
+@code{\relative c'' @{ @}} -- you should not place a @code{\relative}
+inside another @code{\relative}, so you would not be able to copy
+a small documentation example and paste it inside a longer piece
+of your own.
+
 
 @node Accidentals and key signatures
 @section Accidentals and key signatures
@@ -441,10 +482,8 @@ derived from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other names for accidentals, see
 @ref{Note names in other languages}.}
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  cis1 ees fisis, aeses
-}
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+cis1 ees fisis, aeses
 @end lilypond
 
 @cindex key signature, setting
@@ -453,13 +492,11 @@ like German and Dutch.  To use other names for accidentals, see
 The key signature is set with the command @code{\key} followed by
 a pitch and @code{\major} or @code{\minor}.
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  \key d \major
-  a1
-  \key c \minor
-  a
-}
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\key d \major
+a1
+\key c \minor
+a
 @end lilypond
 
 @sp 1
@@ -483,35 +520,30 @@ not be added automatically, and you must enter what you want to hear.
 
 In this example
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c' {
-  \key d \major
-  d cis fis
-}
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\key d \major
+d cis fis
 @end lilypond
 
 @noindent
-no note has a printed accidental, but you must still add the @code{-is} to
+No note has a printed accidental, but you must still add the @samp{is} to
 @code{cis} and @code{fis}.
 
-The code @samp{d} does not mean @qq{print a black dot just below the
-staff.}  Rather, it means: @qq{a note with pitch D-natural.}  In the key
-of A-flat major, it @emph{does} get an accidental
+The code @samp{e} does not mean @qq{print a black dot just below the
+first line of the staff.}  Rather, it means: @qq{there is a note with
+pitch E-natural.}  In the key of A-flat major, it @emph{does} get an
+accidental:
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c' {
-  \key as \major
-  d
-}
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\key as \major
+e
 @end lilypond
 
 Adding all alterations explicitly might require a little more effort
 when typing, but the advantage is that transposing is easier, and
 accidentals can be printed according to different conventions.  See
-@ref{Automatic accidentals}, for some examples how accidentals can be printed
+@ref{Automatic accidentals} for some examples how accidentals can be printed
 according to different rules.
-
-@c zzz
 
 @ignore
 For more information on
@@ -527,20 +559,63 @@ see @r ef{Key signature}.
 @e nd quotation
 @end ignore
 
+@c zz
 
-@node Entering ties
-@section Entering ties
+@node Ties and slurs
+@section Ties and slurs
 
-@cindex tie
+@cindex ties
+@unnumberedsubsec Ties
 A @rglos{tie} is created by appending a tilde @samp{~} to the first
 note being tied
 
-@lilypond[quote,notime,fragment,verbatim,relative=3]
-g4~ g a2~ a4
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+g4~ g c2~
+c4 ~ c8 a8 ~ a2
 @end lilypond
 
-For more information on Ties see @ref{Ties}.
+@c For more information on Ties see @ref{Ties}.
 
+@cindex slurs
+@unnumberedsubsec Slurs
+
+A @rglos{slur} is a curve drawn across many notes.  The starting note
+and ending note are marked with @samp{(} and @samp{)} respectively.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+d4( c16) cis( d e c cis d) e( d4)
+@end lilypond
+
+@cindex slurs, phrasing
+@cindex phrasing slurs
+@unnumberedsubsec Phrasing slurs
+
+@cindex phrasing slurs
+Slurs to indicate longer phrasing can be entered with @code{\(} and
+@code{\)}.  You can have both legato slurs and phrasing slurs at the
+same time, but you cannot have simultaneous slurs or simultaneous
+phrasing slurs.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+a8(\( ais b c) cis2 b'2 a4 cis,\)
+@end lilypond
+
+@sp 1
+
+@cindex slurs versus ties
+@unnumberedsubsec Warnings: slurs vs. ties
+
+A slur looks like a @rglos{tie}, but it has a different meaning.  A
+tie simply makes the first note longer, and can only be used on
+pairs of notes with the same pitch.  Slurs indicate the articulations
+of notes, and can be used on larger groups of notes.  Slurs and ties
+can be nested.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c2~( c8 fis fis4 ~ fis2 g2)
+@end lilypond
+
+@c zzz
 
 
 @node Automatic and manual beams
@@ -891,37 +966,6 @@ c2\< c2\ff\> c2 c2\!
 @end lilypond
 
 
-
-@cindex slur
-
-A @rglos{slur} is a curve drawn across many notes, and indicates
-legato articulation.  The starting note and ending note are marked
-with @samp{(} and @samp{)}, respectively
-
-@lilypond[fragment,quote,fragment,relative=2,verbatim]
-d4( c16) cis( d e c cis d) e( d4)
-@end lilypond
-
-@cindex slurs versus ties
-A slur looks like a @rglos{tie}, but it has a different meaning.  A
-tie simply makes the first note sound longer, and can only be used on
-pairs of notes with the same pitch.  Slurs indicate the articulations
-of notes, and can be used on larger groups of notes.  Slurs and ties
-can be nested
-
-@lilypond[quote,fragment,relative=2]
-c2~( c8 fis fis4 ~ fis2 g2)
-@end lilypond
-
-@cindex phrasing slurs
-Slurs to indicate phrasing can be entered with @code{\(} and
-@code{\)}, so you can have both legato slurs and phrasing slurs at the
-same time.  You cannot have simultaneous slurs or simultaneous
-phrasing slurs.
-
-@lilypond[quote,fragment,relative=2,verbatim]
-a8(\( ais b c) cis2 b'2 a4 cis, c\)
-@end lilypond
 
 
 For more information on
