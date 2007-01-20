@@ -218,7 +218,7 @@ user manual, @internalsref{\NAME\}
 @end macro
 
 @macro moreinfo
-@subheading For more information, see
+@subheading More information
 
 @end macro
 

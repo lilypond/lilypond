@@ -61,32 +61,29 @@ commands for quick reference.
 @end ifhtml
 
 @menu
-* First steps (compiling a file)::  
-* Simple notation::             
-* Working on text files::       
-* How to read the tutorial::    
-* Accidentals and key signatures::  
-* Ties and slurs::              
-* Articulation and dynamics::   
-* Automatic and manual beams::  
-* Advanced rhythmic commands::  
-* Music expressions explained::  
-* More staves::                 
-* Combining notes into chords::  
-* Printing lyrics::             
-* A lead sheet::                
-* Adding titles::               
-* Single staff polyphony::      
-* Piano staves::                
-* Organizing larger pieces::    
-* An orchestral part::          
-* After the tutorial::          
-* Octave entry::                
+* First steps::                 
+* Notation for one note at once FIXME name::  
+* Multiple notes at once::      
+* Songs::                       
+* Unsorted::                    
 @end menu
 
 
-@node First steps (compiling a file)
-@section First steps (compiling a file)
+@node First steps
+@section First steps
+
+This section gives a basic introduction to working with LilyPond.
+
+@menu
+* Compiling a file::            
+* Simple notation::             
+* Working on text files::       
+* How to read the tutorial::    
+@end menu
+
+
+@node Compiling a file
+@subsection Compiling a file
 
 The first example demonstrates how to start working with LilyPond.  To
 create sheet music, we write a text file that specifies the
@@ -207,7 +204,7 @@ available package for viewing and printing PDF and PostScript files.}
 
 
 @node Simple notation
-@section Simple notation
+@subsection Simple notation
 
 LilyPond will add some notation elements automatically.  In the next
 example, we have only specified four pitches, but LilyPond has
@@ -376,7 +373,7 @@ see @ref{Clef}.
 
 
 @node Working on text files
-@section Working on text files
+@subsection Working on text files
 
 LilyPond input files are treated like files in most programming languages:
 they are case sensitive, white-space insensitive, expressions are
@@ -457,7 +454,7 @@ There are more tips for constructing input files in
 
 
 @node How to read the tutorial
-@section How to read the tutorial
+@subsection How to read the tutorial
 
 As we saw in @ref{Working on text files}, LilyPond input must be
 surrounded by @{ @} marks or a @code{\relative c'' @{ ... @}}.  For the
@@ -484,8 +481,23 @@ a small documentation example and paste it inside a longer piece
 of your own.
 
 
+@node Notation for one note at once FIXME name
+@section Notation for one note at once FIXME name
+
+This section introduces common notation that is used for a single
+staff.
+
+@menu
+* Accidentals and key signatures::  
+* Ties and slurs::              
+* Articulation and dynamics::   
+* Automatic and manual beams::  
+* Advanced rhythmic commands::  
+@end menu
+
+
 @node Accidentals and key signatures
-@section Accidentals and key signatures
+@subsection Accidentals and key signatures
 
 @subheading Accidentals
 
@@ -572,7 +584,7 @@ see @ref{Key signature}.
 
 
 @node Ties and slurs
-@section Ties and slurs
+@subsection Ties and slurs
 
 @cindex ties
 @subheading Ties
@@ -637,7 +649,7 @@ see @ref{Phrasing slurs}.
 
 
 @node Articulation and dynamics
-@section Articulation and dynamics
+@subsection Articulation and dynamics
 
 @cindex articulation
 @cindex accents
@@ -704,7 +716,7 @@ see @ref{Dynamics}.
 
 
 @node Automatic and manual beams
-@section Automatic and manual beams
+@subsection Automatic and manual beams
 
 @cindex beams, by hand
 All @rglos{beam}s are drawn automatically:
@@ -734,7 +746,7 @@ see @ref{Manual beams}.
 
 
 @node Advanced rhythmic commands
-@section Advanced rhythmic commands
+@subsection Advanced rhythmic commands
 
 @cindex pickup
 @cindex anacruse
@@ -794,10 +806,29 @@ see @ref{Partial measures}.
 @end table
 @end quotation
 
-@c zzz
+
+@node Multiple notes at once
+@section Multiple notes at once
+
+This section introduces having more than one note at the same time:
+multiple instruments, multiple staves for a single instrument (i.e. piano),
+and chords.
+
+Polyphony in music refers to having more than one voice occurring in
+a piece of music.  Polyphony in LilyPond refers to having more than
+one voice on the same staff.
+
+@menu
+* Music expressions explained::  
+* Multiple staves::             
+* Piano staves::                
+* Single staff polyphony::      
+* Combining notes into chords::  
+@end menu
+
 
 @node Music expressions explained
-@section Music expressions explained
+@subsection Music expressions explained
 
 In LilyPond input files, music is represented by @emph{music
 expressions}.  A single note is a music expression, although it is not
@@ -854,11 +885,13 @@ simultaneous expression, there is more than one staff.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
-  c <<c e>> << { e f } { c <<b d>> } >>
+  c2 <<c e>>
+  << { e f } { c <<b d>> } >>
 }
 @end lilypond
 
-
+@cindex expression
+@cindex music expression
 @subheading Analogy: mathematical expressions
 
 This mechanism is similar to mathematical
@@ -876,8 +909,6 @@ you can make arbitrarily complex and large expressions.  For example,
 ((1 + 2) * 3) / (4 * 5)
 @end example
 
-@cindex expression
-@cindex music expression
 This is a sequence of expressions, where each expression is contained
 in the next (larger) one.  The simplest expressions are numbers, and larger
 ones are made by combining expressions with operators (like @samp{+},
@@ -886,35 +917,36 @@ music expressions can be nested arbitrarily deep, which is necessary
 for complex music like polyphonic scores.
 
 
-@c zz
+@node Multiple staves
+@subsection Multiple staves
 
-@node More staves
-@section More staves
-
-As we saw in @ref{Music expressions explained}, LilyPond is blah blah.
+As we saw in @ref{Music expressions explained}, LilyPond input files
+are constructed out of music expressions.  If the score begins with
+simultaneous music expressions, LilyPond creates multiples staves.  However,
+it is easier to see what happens if we create each staff explicitly.
 
 To print more than one staff, each piece of music that makes up a
 staff is marked by adding @code{\new Staff} before it.  These
 @code{Staff} elements are then combined in parallel with @code{<<} and
-@code{>>}, as demonstrated here
+@code{>>}:
 
-@lilypond[quote,fragment,verbatim]
-<<
-  \new Staff { \clef treble c'' }
-  \new Staff { \clef bass c }
->>
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  <<
+    \new Staff { \clef treble c }
+    \new Staff { \clef bass c,, }
+  >>
+}
 @end lilypond
-
 
 The command @code{\new} introduces a @q{notation context.}  A notation
 context is an environment in which musical events (like notes or
 @code{\clef} commands) are interpreted.  For simple pieces, such
 notation contexts are created automatically.  For more complex pieces, it
-is best to mark contexts explicitly.  This ensures that each fragment
-gets its own stave.
+is best to mark contexts explicitly.
 
-There are several types of contexts.  @code{Staff}, @code{Voice} and
-@code{Score} handle melodic notation, while @code{Lyrics} sets lyric
+There are several types of contexts.  @code{Score}, @code{Staff},
+and @code{Voice} handle melodic notation, while @code{Lyrics} sets lyric
 texts and @code{ChordNames} prints chord names.
 
 In terms of syntax, prepending @code{\new} to a music expression
@@ -922,87 +954,130 @@ creates a bigger music expression.  In this way it resembles the minus
 sign in mathematics.  The formula @math{(4+5)} is an expression, so
 @math{-(4+5)} is a bigger expression.
 
-We can now typeset a melody with two staves
 
-@c TODO: (c) status of this Paul McCartney (?) song (let's all stand together)
+@node Piano staves
+@subsection Piano staves
 
-@lilypond[fragment,quote,verbatim,ragged-right]
-\relative <<
-  \new Staff {
-    \time 3/4
-    \clef treble
+@cindex staff switch, manual
+@cindex cross staff voice, manual
+Piano music is typeset in two staves connected by a brace.  Printing
+such a staff is similar to the polyphonic example in @ref{Multiple staves},
+but now this entire expression is inserted inside a @code{PianoStaff}:
 
-    e'2 d4 c2 b4 a8[ a]
-    b[ b] g[ g] a2.
-  }
-  \new Staff {
-     \clef bass
-     c,,2 e4 g2.
-     f4 e d c2.
-  }
+@example
+\new PianoStaff <<
+  \new Staff @dots{}
+  \new Staff @dots{}
+>>
+@end example
+
+Here is a small example
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \new PianoStaff <<
+    \new Staff { \time 2/4 c4 e g g, }
+    \new Staff { \clef bass c,, c' e c }
+  >>
+}
+@end lilypond
+
+@moreinfo
+See @ref{Piano music}.
+
+
+@node Single staff polyphony
+@subsection Single staff polyphony
+
+@cindex polyphony
+@cindex multiple voices
+@cindex voices, more -- on a staff
+When different melodic lines are combined on a single staff they are
+printed as polyphonic voices; each voice has its own stems, slurs and
+beams, and the top voice has the stems up, while the bottom voice has
+them down.
+
+Entering such parts is done by entering each voice as a sequence (with
+@code{@{...@}}) and combining these simultaneously, separating the
+voices with @code{\\}
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+<<
+  { a4 g2 f4~ f4 } \\
+  { r4 g4 f2 f4 }
 >>
 @end lilypond
 
-For more information on contexts see the description in
-@ref{Interpretation contexts}.
+For polyphonic music typesetting, spacer rests can also be convenient;
+these are rests that do not print.  They are useful for filling up
+voices that temporarily do not play.  Here is the same example with a
+spacer rest (@samp{s}) instead of a normal rest (@samp{r}),
 
-@c zz
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+<<
+  { a4 g2 f4~ f4 } \\
+  { s4 g4 f2 f4 }
+>>
+@end lilypond
 
+@noindent
+Again, these expressions can be nested arbitrarily.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+<<
+  \new Staff <<
+    { a4 g2 f4~ f4 } \\
+    { s4 g4 f2 f4 }
+  >>
+  \new Staff <<
+    \clef bass
+    { <c g>1 ~ <c g>4 } \\
+    { e,,4 d e2 ~ e4}
+  >>
+>>
+@end lilypond
+
+@moreinfo
+See @ref{Basic polyphony}.
 
 
 @node Combining notes into chords
-@section Combining notes into chords
+@subsection Combining notes into chords
 
 @cindex chords
-Chords can be made by surrounding pitches with angle brackets.
-Angle brackets are the symbols @samp{<} and @samp{>}.
+Chords can be made by surrounding pitches with single angle brackets.  Angle
+brackets are the symbols @samp{<} and @samp{>}.
 
-@lilypond[quote,relative=1,fragment,verbatim]
-r4 <c e g>4 <c f a>8
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
 @end lilypond
-
 
 You can combine markings like beams and ties with chords.  They must
 be placed outside the angled brackets
 
-@lilypond[quote,relative=1,fragment,verbatim]
-r4 <c e g>8[ <c f a>]~ <c f a>
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
 @end lilypond
 
-@example
-r4 <c e g>8\>( <c e g> <c e g> <c f a>\!)
-@end example
-
-@lilypond[quote,relative=1,fragment]
-\slurUp
-r4 <c e g>8\>( <c e g> <c e g> <c f a>\!)
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
 @end lilypond
 
 
+@node Songs
+@section Songs
 
-@c  TODO   post-2.6 reorg
-@c   This is good info, but I wouldn't call it a comment.  IMO it should
-@c   be moved somewhere else.
+This section introduces vocal music and simple song sheets.
 
-@cindex versioning
+@menu
+* Printing lyrics::             
+* A lead sheet::                
+@end menu
 
-There is a special statement that is a kind of comment.  The @code{\version}
-statement marks for which version of LilyPond the file was written.
-To mark a file for version 2.10.1, use
-
-@example
-\version "2.10.1"
-@end example
-
-@noindent
-These annotations make future upgrades of LilyPond go more
-smoothly.  Changes in the syntax are handled with a special program,
-@file{convert-ly} (see @ref{Updating files with convert-ly}), and it uses
-@code{\version} to determine what rules to apply.
-
+@c zz
 
 @node Printing lyrics
-@section Printing lyrics
+@subsection Printing lyrics
 @cindex lyrics
 
 @c TODO: (c) status of the Queen fragment.
@@ -1081,7 +1156,7 @@ discussed in @ref{Vocal music}.
 
 
 @node A lead sheet
-@section A lead sheet
+@subsection A lead sheet
 
 @cindex Lead sheets
 @cindex chords
@@ -1145,8 +1220,19 @@ A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
 
 
+@node Unsorted
+@section Unsorted
+
+@menu
+* Adding titles::               
+* Organizing larger pieces::    
+* An orchestral part::          
+* After the tutorial::          
+* Octave entry::                
+@end menu
+
 @node Adding titles
-@section Adding titles
+@subsection Adding titles
 
 Bibliographic information is entered in a separate block, the
 @code{\header} block.  The name of the piece, its composer, etc., are
@@ -1169,92 +1255,10 @@ the music.  More information on titling can be found in @ref{Creating
 titles}.
 
 
-@node Single staff polyphony
-@section Single staff polyphony
-
-@cindex polyphony
-@cindex multiple voices
-@cindex voices, more -- on a staff
-When different melodic lines are combined on a single staff they are
-printed as polyphonic voices; each voice has its own stems, slurs and
-beams, and the top voice has the stems up, while the bottom voice has
-them down.
-
-Entering such parts is done by entering each voice as a sequence (with
-@code{@{...@}}), and combining these simultaneously, separating the
-voices with @code{\\}
-
-@lilypond[quote,verbatim,relative=2,fragment]
-<< { a4 g2 f4~ f4 } \\
-   { r4 g4 f2 f4 } >>
-@end lilypond
-
-For polyphonic music typesetting, spacer rests can also be convenient;
-these are rests that do not print.  They are useful for filling up
-voices that temporarily do not play.  Here is the same example with a
-spacer rest (@samp{s}) instead of a normal rest (@samp{r}),
-
-@lilypond[quote,verbatim,relative=2,fragment]
-<< { a4 g2 f4~ f4 } \\
-   { s4 g4 f2 f4 } >>
-@end lilypond
-
-@noindent
-Again, these expressions can be nested arbitrarily
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-<<
-  \new Staff <<
-    { a4 g2 f4~ f4 } \\
-    { s4 g4 f2 f4 }
-  >>
-  \new Staff <<
-    \clef bass
-    { <c g>1 ~ <c g>4 } \\
-    { e,,4 d e2 ~ e4}
-  >>
->>
-@end lilypond
-
-More features of polyphonic typesetting are described in this manual
-in section @ref{Basic polyphony}.
-
-
-@node Piano staves
-@section Piano staves
-
-@cindex staff switch, manual
-@cindex cross staff voice, manual
-Piano music is typeset in two staves connected by a brace.  Printing
-such a staff is similar to the polyphonic example in @ref{More staves},
-
-@example
-<< \new Staff @{ @dots{} @}
-   \new Staff @{ @dots{} @} >>
-@end example
-
-@noindent
-but now this entire expression must be interpreted as a
-@code{PianoStaff}
-
-@example
-\new PianoStaff << \new Staff @dots{} >>
-@end example
-
-Here is a small example
-
-@lilypond[quote,verbatim,relative=1,fragment]
-\new PianoStaff <<
-  \new Staff { \time 2/4 c4 c g' g }
-  \new Staff { \clef bass c,, c' e c }
->>
-@end lilypond
-
-More information on formatting piano music is given in @ref{Piano music}.
 
 
 @node Organizing larger pieces
-@section Organizing larger pieces
+@subsection Organizing larger pieces
 
 When all of the elements discussed earlier are combined to produce
 larger files, the @code{\score} blocks get a lot bigger because the
@@ -1311,7 +1315,7 @@ technical manual, in @ref{Input variables and Scheme}.
 
 
 @node An orchestral part
-@section An orchestral part
+@subsection An orchestral part
 
 In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Identifiers can
@@ -1439,7 +1443,7 @@ Setting run-time variables (@q{properties}) is discussed in
 
 
 @node After the tutorial
-@section After the tutorial
+@subsection After the tutorial
 
 After finishing the tutorial, you should probably try writing a
 piece or two.  Start with one of the @ref{Example templates} and
@@ -1461,7 +1465,7 @@ now, and come back to them after you have more experience.
 
 
 @node Octave entry
-@section Octave entry
+@subsection Octave entry
 
 @c Tim wants to move this quotes example just before the: quotes-do not-work
 @c score, but we'd need to remove quotes from the other two (key and
@@ -1543,5 +1547,25 @@ shifts all following notes an octave up or down.
 
 For more information on relative octaves see @ref{Relative octaves},
 and @ref{Octave check}.
+
+@c  TODO   post-2.6 reorg
+@c   This is good info, but I wouldn't call it a comment.  IMO it should
+@c   be moved somewhere else.
+
+@cindex versioning
+
+There is a special statement that is a kind of comment.  The @code{\version}
+statement marks for which version of LilyPond the file was written.
+To mark a file for version 2.10.1, use
+
+@example
+\version "2.10.1"
+@end example
+
+@noindent
+These annotations make future upgrades of LilyPond go more
+smoothly.  Changes in the syntax are handled with a special program,
+@file{convert-ly} (see @ref{Updating files with convert-ly}), and it uses
+@code{\version} to determine what rules to apply.
 
 

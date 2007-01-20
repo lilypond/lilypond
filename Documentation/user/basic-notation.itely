@@ -20,7 +20,7 @@ This chapter explains how to use basic notation features.
 @menu
 * Pitches::                     
 * Rhythms::                     
-* Multiple notes at once::      
+* Polyphony::                   
 * Staff notation::              
 * Connecting notes::            
 * Expressive marks::            
@@ -884,8 +884,8 @@ Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 Program reference: @internalsref{Completion_heads_engraver}.
 
 
-@node Multiple notes at once
-@section Multiple notes at once
+@node Polyphony
+@section Polyphony
 
 Polyphony in music refers to having more than one voice occurring in
 a piece of music.  Polyphony in LilyPond refers to having more than
