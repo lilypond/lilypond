@@ -39,7 +39,7 @@ This section discusses how to specify the pitch of notes.
 * Accidentals::                 
 * Cautionary accidentals::      
 * Micro tones::                 
-* Notes names in other languages::  
+* Note names in other languages::  
 * Relative octaves::            
 * Octave check::                
 * Transpose::                   
@@ -128,7 +128,7 @@ The input @code{d e f} is interpreted as ``print a D-natural,
 E-natural, and an F-natural,'' regardless of the key
 signature.  For more information about the distinction between
 musical content and the presentation of that content, see
-@ref{More about pitches}.
+@ref{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -212,8 +212,8 @@ three-quarter flats, so LilyPond's symbol does not conform to any
 standard.
 
 
-@node Notes names in other languages
-@subsection Notes names in other languages
+@node Note names in other languages
+@subsection Note names in other languages
 
 There are predefined sets of note names for various other languages.
 To use them, include the language specific init file.  For
@@ -1394,7 +1394,7 @@ can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{Accidentals} or @ref{More about pitches}.
+more information, see @ref{Accidentals} or @ref{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major

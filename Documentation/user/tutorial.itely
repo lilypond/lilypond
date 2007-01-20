@@ -7,6 +7,13 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c  Tutorial guidelines:
+@c    - unless you have a really good reason, use
+@c      @lilypond[quote,ragged-right,verbatim]
+@c      (i.e. no fragment or relative in the header.)
+
+
+@c   old info that will probably be removed.
 @c TODO:
 @c   * more details about running lilypond; error messages,
 @c     compiling/viewing (emacs?)
@@ -36,7 +43,7 @@ c-\markup { \bold \huge { Click here.  } }
 @end lilypond
 @end ifhtml
 
-By cutting and pasting everything from the @qq{Start cut-&-pastable section},
+By cutting and pasting everything from the @qq{Start cut-&-pastable-section},
 to the end of the file, you have a
 starting template for experiments.  If you like learning in this way,
 you will probably want to print out or bookmark
@@ -50,7 +57,7 @@ commands for quick reference.
 * First steps (compiling a file)::  
 * Simple notation::             
 * Working on text files::       
-* More about pitches::          
+* Accidentals and key signatures::  
 * Entering ties::               
 * Automatic and manual beams::  
 * Octave entry::                
@@ -352,16 +359,16 @@ Here is a small example showing all these elements together:
 For more information on
 
 @q uotation
-@t able @asis
+@t able @a sis
 @i tem Entering pitches and durations
 see
-@r ef{Pitches}, and @ref{Durations}.
+@r ef{Pitches}, and @r ef{Durations}.
 @i tem Clefs
-see @ref{Clef}.
+see @r ef{Clef}.
 @i tem Rests
-see @ref{Rests}.
+see @r ef{Rests}.
 @i tem Time signatures and other timing commands
-see @ref{Time signature}.
+see @r ef{Time signature}.
 @e nd table
 @e nd quotation
 @end ignore
@@ -419,57 +426,56 @@ but don't forget them in your own music!
 
 @end itemize
 
-@c zzz
 @c  End of current re-write; more material coming in a few days.  -gp
 
-@node More about pitches
-@section More about pitches
+@node Accidentals and key signatures
+@section Accidentals and key signatures
+
+@unnumberedsubsec Accidentals
 
 A @rglos{sharp} pitch is made by adding @samp{is} to
-the name, a @rglos{flat} pitch by adding @samp{es}.  As
+the name, and a @rglos{flat} pitch by adding @samp{es}.  As
 you might expect, a @rglos{double sharp} or @rglos{double flat} is
 made by adding @samp{isis} or @samp{eses}@footnote{This syntax
 derived from note naming conventions in Nordic and Germanic languages,
-like German and Dutch.}
+like German and Dutch.  To use other names for accidentals, see
+@ref{Note names in other languages}.}
 
-@example
-cis1 ees fisis aeses
-@end example
-
-@lilypond[fragment,quote,notime]
-\set Score.timing = ##f
-\transpose c c' { cis1 ees fisis aeses s16_" " }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  cis1 ees fisis, aeses
+}
 @end lilypond
 
 @cindex key signature, setting
-The key signature is set with the command @code{\key}, followed by
-a pitch and @code{\major} or @code{\minor}
+@unnumberedsubsec Key signatures
 
-@example
-\key d \major
-g1
-\key c \minor
-g
-@end example
+The key signature is set with the command @code{\key} followed by
+a pitch and @code{\major} or @code{\minor}.
 
-@lilypond[fragment,quote,notime,fragment]
-\key d \major
-g'1
-\key c \minor
-g'
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  \key d \major
+  a1
+  \key c \minor
+  a
+}
 @end lilypond
 
-@noindent
-Key signatures together with the pitches (including alterations) are
-used to determine when to print accidentals.  This is a
+@sp 1
+
+@unnumberedsubsec Warning: key signatures and pitches
+
+To determine whether to print an accidental, LilyPond examines the
+pitches and the key signature.  The key signature only effects
+the @emph{printed} accidentals, not the actual pitches!  This is a
 feature that often causes confusion to newcomers, so let us explain it
 in more detail.
-
 
 LilyPond makes a sharp distinction between musical content and
 layout.  The alteration (flat, natural or sharp) of a note is part of
 the pitch, and is therefore musical content.  Whether an accidental (a
-flat, natural or sharp @emph{sign}) is printed in front of the
+@emph{printed} flat, natural or sharp sign) is printed in front of the
 corresponding note is a question of layout.  Layout is something that
 follows rules, so accidentals are printed automatically according to
 those rules.  The pitches in your music are works of art, so they will
@@ -477,27 +483,26 @@ not be added automatically, and you must enter what you want to hear.
 
 In this example
 
-@lilypond[quote,notime,fragment]
-\key d \major
-d' cis' fis'
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  \key d \major
+  d cis fis
+}
 @end lilypond
 
 @noindent
-no note has an explicit accidental, but you still must enter
+no note has a printed accidental, but you must still add the @code{-is} to
+@code{cis} and @code{fis}.
 
-@example
-\key d \major
-d cis fis
-@end example
-
-@noindent
 The code @samp{d} does not mean @qq{print a black dot just below the
 staff.}  Rather, it means: @qq{a note with pitch D-natural.}  In the key
-of A-flat major, it does get an accidental
+of A-flat major, it @emph{does} get an accidental
 
-@lilypond[quote,notime,fragment,relative=1,verbatim]
-\key as \major
-d
+@lilypond[quote,ragged-right,verbatim]
+\relative c' {
+  \key as \major
+  d
+}
 @end lilypond
 
 Adding all alterations explicitly might require a little more effort
@@ -506,18 +511,22 @@ accidentals can be printed according to different conventions.  See
 @ref{Automatic accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
+@c zzz
 
+@ignore
 For more information on
 
-@quotation
-@table @asis
-@item Accidentals
-see @ref{Automatic accidentals}.
+@q uotation
+@t able @a sis
+@i tem Accidentals
+see @r ef{Automatic accidentals}.
 
-@item Key signature
-see @ref{Key signature}.
-@end table
-@end quotation
+@i tem Key signature
+see @r ef{Key signature}.
+@e nd table
+@e nd quotation
+@end ignore
+
 
 @node Entering ties
 @section Entering ties
