@@ -11,11 +11,14 @@
 Tutorial guidelines:
 - unless you have a really good reason, use either
     @l ilypond[quote,ragged-right,verbatim]
-or
+  or
     @l ilypond[quote,ragged-right,verbatim,fragment,relative=2]
-(without spaces)
-    Don't use any other relative=X commands (make it a non-fragment
-    example), and don't use fragment without relative=2.
+  (without spaces)
+  Don't use any other relative=X commands (make it a non-fragment
+  example), and don't use fragment without relative=2.
+- use "aes" and "ees" instead of "as" and "aes".  I know it's not
+  correct Dutch naming, but let's not confuse people with this until
+  we get to the Basic notation chapter.
 
 
 TODO:
@@ -66,14 +69,13 @@ commands for quick reference.
 * First steps (compiling a file)::  
 * Simple notation::             
 * Working on text files::       
-* How to read the manual::      
+* How to read the tutorial::    
 * Accidentals and key signatures::  
 * Ties and slurs::              
+* Articulation and dynamics::   
 * Automatic and manual beams::  
-* Octave entry::                
 * Music expressions explained::  
 * More staves::                 
-* Adding articulation marks to notes::  
 * Combining notes into chords::  
 * Advanced rhythmic commands::  
 * Commenting input files::      
@@ -85,6 +87,7 @@ commands for quick reference.
 * Organizing larger pieces::    
 * An orchestral part::          
 * After the tutorial::          
+* Octave entry::                
 @end menu
 
 
@@ -363,25 +366,19 @@ Here is a small example showing all these elements together:
 }
 @end lilypond
 
-@c  I don't think these are useful, but I haven't completely made
-@c  up my mind whether to completely remove them or not.
-@ignore
-For more information on
-
-@q uotation
-@t able @a sis
-@i tem Entering pitches and durations
-see
-@r ef{Pitches}, and @r ef{Durations}.
-@i tem Clefs
-see @r ef{Clef}.
-@i tem Rests
-see @r ef{Rests}.
-@i tem Time signatures and other timing commands
-see @r ef{Time signature}.
-@e nd table
-@e nd quotation
-@end ignore
+@moreinfo
+@quotation
+@table @asis
+@item Entering pitches and durations
+see @ref{Pitches} and @ref{Durations}.
+@item Rests
+see @ref{Rests}.
+@item Time signatures and other timing commands
+see @ref{Time signature}.
+@item Clefs
+see @ref{Clef}.
+@end table
+@end quotation
 
 
 @node Working on text files
@@ -438,11 +435,9 @@ music expression.
 There are more tips for constructing input files in
 @ref{Suggestions for writing LilyPond files}.
 
-@c  End of current re-write; more material coming in a few days.  -gp
 
-
-@node How to read the manual
-@section How to read the manual
+@node How to read the tutorial
+@section How to read the tutorial
 
 As we saw in @ref{Working on text files}, LilyPond input must be
 surrounded by @{ @} marks or a @code{\relative c'' @{ ... @}}.  For the
@@ -535,7 +530,7 @@ pitch E-natural.}  In the key of A-flat major, it @emph{does} get an
 accidental:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\key as \major
+\key aes \major
 e
 @end lilypond
 
@@ -545,21 +540,16 @@ accidentals can be printed according to different conventions.  See
 @ref{Automatic accidentals} for some examples how accidentals can be printed
 according to different rules.
 
-@ignore
-For more information on
+@moreinfo
+@quotation
+@table @asis
+@item Accidentals
+see @ref{Accidentals} and @ref{Automatic accidentals}.
+@item Key signature
+see @ref{Key signature}.
+@end table
+@end quotation
 
-@q uotation
-@t able @a sis
-@i tem Accidentals
-see @r ef{Automatic accidentals}.
-
-@i tem Key signature
-see @r ef{Key signature}.
-@e nd table
-@e nd quotation
-@end ignore
-
-@c zz
 
 @node Ties and slurs
 @section Ties and slurs
@@ -573,8 +563,6 @@ note being tied
 g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
-
-@c For more information on Ties see @ref{Ties}.
 
 @cindex slurs
 @unnumberedsubsec Slurs
@@ -615,192 +603,182 @@ can be nested.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@c zzz
+@moreinfo
+@quotation
+@table @asis
+@item Ties
+see @ref{Ties}.
+@item Slurs
+see @ref{Slurs}.
+@item Phrasing slurs
+see @ref{Phrasing slurs}.
+@end table
+@end quotation
+
+
+@node Articulation and dynamics
+@section Articulation and dynamics
+
+@cindex articulation
+@cindex accents
+@cindex staccato
+
+@c  FIXME: change to @rglos once the term is added  (articulations)
+Common articulations can be added to a note using a dash (@samp{-}) and a
+single character:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c-. c-- c-> c-^ c-+ c-_
+@end lilypond
+
+@cindex fingering
+Similarly, fingering indications can be added to a note using a dash
+(@samp{-}) and the digit to be printed:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c-3 e-5 b-2 a-1
+@end lilypond
+
+Articulations and fingerings are usually placed automatically, but you
+can specify a direction using @samp{^} (up) or @samp{_} (down).  You can
+also use multiple articulations on the same note.  However, in most cases
+it is best to let LilyPond determine the articulation directions.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c_-^1 d^. f^4_2-> e^-_+
+@end lilypond
+
+Dynamic signs are made by adding the markings (with a backslash) to
+the note
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c\ff c\mf c\p c\pp
+@end lilypond
+
+@cindex dynamics
+@cindex decrescendo
+@cindex crescendo
+
+Crescendi and decrescendi are started with the commands @code{\<} and
+@code{\>}.  An ending dynamic, for example @code{\f}, will finish the
+(de)crescendo, or the command @code{\!} can be used
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c2\< c2\ff\> c2 c2\!
+@end lilypond
+
+@moreinfo
+@quotation
+@table @asis
+@item Articulations
+see @ref{Articulations}.
+@item Fingering
+see @ref{Fingering instructions}.
+@item Dynamics
+see @ref{Dynamics}.
+@end table
+@end quotation
 
 
 @node Automatic and manual beams
 @section Automatic and manual beams
 
 @cindex beams, by hand
-All @rglos{beam}s are drawn automatically
+All @rglos{beam}s are drawn automatically:
 
-@lilypond[quote,fragment,relative=2,verbatim]
-a8 ais d es r d
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+a8 ais d ees r d c16 b a8
 @end lilypond
 
 @noindent
-If you do not like where beams are put, they can be entered by
-hand.  Mark the first note to be beamed with @samp{[} and the last one
+If you do not like the automatic beams, they may be overridden
+manually.  Mark the first note to be beamed with @samp{[} and the last one
 with @samp{]}.
 
-@lilypond[quote,fragment,relative=2,verbatim]
-a8[ ais] d[ es r d]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+a8[ ais] d[ ees r d] a b
 @end lilypond
 
-For more information on beams, see @ref{Manual beams}.
+@moreinfo
+@quotation
+@table @asis
+@item Automatic beams
+see @ref{Automatic beams}.
+@item Manual beams
+see @ref{Manual beams}.
+@end table
+@end quotation
 
-
-Here are key signatures, accidentals and ties in action
-
-@lilypond[fragment,quote,noindent,line-width=50\staff-space,verbatim]
-\relative c'' {
-  \time 4/4
-  \key g \minor
-  \clef treble
-  r4 r8 a8 gis4 b
-  a8 d4.~ d e,8
-  fis4 fis8 fis8 eis4 a8 gis~
-  gis2 r2
-}
-@end lilypond
-
-@cindex accidentals
-
-
-@noindent
-There are some interesting points to note in this example.  Bar lines
-and beams are drawn automatically.  Line breaks are calculated
-automatically; it does not matter where the line breaks are in the
-source file.  Finally, the order in which time, key, and clef changes
-are entered is not relevant: in the printout, these are ordered
-according to standard notation conventions.
-
-
-
-@node Octave entry
-@section Octave entry
-
-
-@c Tim wants to move this quotes example just before the: quotes-do not-work
-@c score, but we'd need to remove quotes from the other two (key and
-@c tie) examples...
-
-@c better to have this just before the `octaves are bad' snipped
-@c but we'd need to remove the ', from \key and tie
-To raise a note by an octave, add a high quote @samp{'} (apostrophe) to
-the note name, to lower a note one octave, add a @q{low quote} @samp{,}
-(comma).  Middle C is @code{c'}
-
-@lilypond[quote,notime,fragment,verbatim]
-c'4 c'' c''' \clef bass c c,
-@end lilypond
-
-An example of the use of quotes is in the following Mozart fragment
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\key a \major
-\time 6/8
-cis''8. d''16 cis''8 e''4 e''8
-b'8. cis''16 b'8 d''4 d''8
-@end lilypond
-
-@noindent
-This example shows that music in a high register needs lots of quotes.
-This makes the input less readable, and it is a source of errors.  The
-solution is to use @q{relative octave} mode.   This is the
-most convenient way to copy existing music.
-
-In relative mode, a note without octavation quotes (i.e., the @samp{'}
-or @samp{,} after a note) is chosen so that it is closest to the
-previous one.  For example, @samp{c f} goes up while @samp{c g} goes
-down.
-
-To use relative mode, add @code{\relative} before the piece of
-music.  The first note is taken relative to the middle C
-@c no , for this sentence
-(i.e., @code{c'})
-
-
-
-@lilypond[quote,notime,fragment,verbatim]
-\relative {
-  c' f c g c
-}
-@end lilypond
-
-
-Since most music has small intervals, pieces can be written almost
-without octavation quotes in relative mode.  The previous example is
-entered as
-
-@lilypond[quote,ragged-right,verbatim]
-\relative {
-  \key a \major
-  \time 6/8
-  cis'8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
-}
-@end lilypond
-
-@c needed better, maybe even redundant explanation
-@c   added another example below.
-@c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
-@c in eerste instantie drong het `relative' niet door zonder extra uitleg.
-Larger intervals are made by adding octavation quotes.
-
-@lilypond[quote,notime,verbatim,fragment]
-\relative c {
-  c'' f, f c' c g' c,
-}
-@end lilypond
-
-In summary, quotes or commas no longer determine the absolute height
-of a note in @code{\relative} mode.  Rather, the height of a note is
-relative to the previous one, and changing the octave of a single note
-shifts all following notes an octave up or down.
-
-For more information on relative octaves see @ref{Relative octaves},
-and @ref{Octave check}.
 
 
 @node Music expressions explained
 @section Music expressions explained
 
+In LilyPond input files, music is represented by @emph{music
+expressions}.  A single note is a music expression, although it is not
+valid input all on its own.
 
-In input files, music is represent by so-called @emph{music
-expression}s.  We have already seen some in the previous examples;
-a single note is a music expression
-
-@lilypond[fragment,quote,verbatim,relative=3]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 a4
 @end lilypond
 
-Enclosing a group of notes in braces creates a new music
-expression
+Enclosing a group of notes in braces creates a new music expression:
 
-@lilypond[fragment,quote,verbatim,relative=3]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 { a4 g4 }
 @end lilypond
 
-Putting a bunch of music expressions (e.g., notes) in braces, means that
-they should be played in sequence.  The result again is a music
-expression, which can be grouped with other expressions sequentially.
-Here, the expression from the previous example is combined with two
-notes
+Putting a group of music expressions (e.g. notes) in braces means that
+are in sequence (i.e. each one follows the previous one).  The result
+is another music expression:
 
-@lilypond[fragment,quote,verbatim,relative=3]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 { { a4 g } f g }
 @end lilypond
 
-This technique is useful for non-monophonic music.  To enter music
-with more voices or more staves, we also combine expressions in
-parallel.  Two voices that should play at the same time, are entered
-as a simultaneous combination of two sequences.  A @q{simultaneous}
-music expression is formed by enclosing expressions in @code{<<} and
-@code{>>}.  In the following example, three sequences (all containing
-two separate notes) are combined simultaneously
+@unnumberedsubsec Simultaneous music expressions: multiple staves
 
-@lilypond[fragment,quote,verbatim,relative=3]
-<<
-  { a4 g }
-  { f e }
-  { d b }
->>
+This technique is useful for polyphonic music.  To enter music
+with more voices or more staves, we combine expressions in
+parallel.  To indicate that two voices should play at the same time
+simple enter a simultaneous combination of music expressions.  A
+@q{simultaneous} music expression is formed by enclosing expressions inside
+@code{<<} and @code{>>}.  In the following example, three sequences (all
+containing two separate notes) are combined simultaneously:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  <<
+    { a4 g }
+    { f e }
+    { d b }
+  >>
+}
 @end lilypond
+
+Note that we have indented each level of the input with a different
+amount of space.  LilyPond does not care how much (or little) space there
+is at the beginning of a line, but indenting LilyPond code like this makes
+it much easier for humans to read.
+
+@unnumberedsubsec Simultaneous music expressions: single staff
+
+To determine the number of staves in a piece, LilyPond looks at the first
+exression.  If it is a single note, there is one staff; if there is a
+simultaneous expression, there is more than one staff.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  c <<c e>> << { e f } { c <<b d>> } >>
+}
+@end lilypond
+
+
+@unnumberedsubsec Analogy: mathematical expressions
 
 This mechanism is similar to mathematical
 formulas: a big formula is created by composing small formulas.  Such
-formulas are called expressions, and their definition is recursive, so
+formulas are called expressions, and their definition is recursive so
 you can make arbitrarily complex and large expressions.  For example,
 
 @example
@@ -822,43 +800,13 @@ ones are made by combining expressions with operators (like @samp{+},
 music expressions can be nested arbitrarily deep, which is necessary
 for complex music like polyphonic scores.
 
-Note that this example only has one staff, whereas
-the previous example had three separate staves.  That is because this
-example begins with a single note.  To determine the number of staves,
-LilyPond looks at the first element.  If it is a single note, there is one
-staff; if there is a simultaneous expression, there is more than one staff.
 
-@lilypond[fragment,quote,verbatim,relative=2]
-{
-  c <<c e>>
-  << { e f } { c <<b d>> } >>
-}
-@end lilypond
-
-Music files with deep nesting can be confusing to enter and
-maintain.  One convention that helps against this confusion is
-indenting.  When entering a file with deep nesting of braces and
-angles, it is customary to use an indent that indicates the nesting
-level.  Formatting music like this eases reading and helps you insert
-the right number of closing braces at the end of an expression.  For
-example,
-
-@example
-<<
-  @{
-    @dots{}
-  @}
-  @{
-    @dots{}
-  @}
->>
-@end example
-
-Some editors have special support for entering LilyPond, and can help
-indenting source files.  See @ref{Editor support} for more information.
+@c zz
 
 @node More staves
 @section More staves
+
+As we saw in @ref{Music expressions explained}, LilyPond is blah blah.
 
 To print more than one staff, each piece of music that makes up a
 staff is marked by adding @code{\new Staff} before it.  These
@@ -913,77 +861,8 @@ We can now typeset a melody with two staves
 For more information on contexts see the description in
 @ref{Interpretation contexts}.
 
+@c zz
 
-
-@node Adding articulation marks to notes
-@section Adding articulation marks to notes
-
-@cindex articulation
-@cindex accents
-@cindex staccato
-
-Common accents can be added to a note using a dash (@samp{-}) and a
-single character
-
-@lilypond[fragment,quote,verbatim,relative=2]
-c-.  c-- c-> c-^ c-+ c-_
-@end lilypond
-
-@cindex fingering
-Similarly, fingering indications can be added to a note using a dash
-(@samp{-}) and the digit to be printed
-
-@lilypond[fragment,quote,verbatim,relative=2]
-c-3 e-5 b-2 a-1
-@end lilypond
-
-Articulations and fingerings are usually placed automatically, but you
-can specify a direction using @samp{^} (up) or @samp{_} (down).  You can
-also use multiple articulations on the same note.  In most cases, however,
-it is best to let LilyPond determine the articulation directions.
-
-@lilypond[fragment,quote,verbatim,relative=2]
-c_-^1 d^. f^4_2-> e^-_+
-@end lilypond
-
-Dynamic signs are made by adding the markings (with a backslash) to
-the note
-
-@lilypond[fragment,quote,verbatim,relative=2]
-c\ff c\mf
-@end lilypond
-
-@cindex dynamics
-@cindex decrescendo
-@cindex crescendo
-
-Crescendi and decrescendi are started with the commands @code{\<} and
-@code{\>}.  An ending dynamic, for example @code{\f}, will finish the
-(de)crescendo, or the command @code{\!} can be used
-
-@lilypond[fragment,quote,verbatim,relative=2]
-c2\< c2\ff\> c2 c2\!
-@end lilypond
-
-
-
-
-For more information on
-
-@quotation
-@table @asis
-@item Fingering
-see @ref{Fingering instructions}.
-@item Articulations
-see @ref{Articulations}.
-@item Slurs
-see @ref{Slurs}.
-@item Phrasing slurs
-see @ref{Phrasing slurs}.
-@item Dynamics
-see @ref{Dynamics}.
-@end table
-@end quotation
 
 
 @node Combining notes into chords
@@ -1054,10 +933,7 @@ c4 \appoggiatura b16 c4
 c4 \acciaccatura b16 c4
 @end lilypond
 
-@noindent
-
-For more information on
-
+@moreinfo
 @quotation
 @table @asis
 @item Grace notes
@@ -1572,5 +1448,93 @@ with reading them now, of course!  However, the rest of the
 Learning Manual assumes that you are familiar with
 LilyPond input.  You may wish to skim these chapters right
 now, and come back to them after you have more experience.
+
+
+
+
+
+@node Octave entry
+@section Octave entry
+
+@c Tim wants to move this quotes example just before the: quotes-do not-work
+@c score, but we'd need to remove quotes from the other two (key and
+@c tie) examples...
+
+@c better to have this just before the `octaves are bad' snipped
+@c but we'd need to remove the ', from \key and tie
+To raise a note by an octave, add a high quote @samp{'} (apostrophe) to
+the note name, to lower a note one octave, add a @q{low quote} @samp{,}
+(comma).  Middle C is @code{c'}
+
+@lilypond[quote,notime,fragment,verbatim]
+c'4 c'' c''' \clef bass c c,
+@end lilypond
+
+An example of the use of quotes is in the following Mozart fragment
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\key a \major
+\time 6/8
+cis''8. d''16 cis''8 e''4 e''8
+b'8. cis''16 b'8 d''4 d''8
+@end lilypond
+
+@noindent
+This example shows that music in a high register needs lots of quotes.
+This makes the input less readable, and it is a source of errors.  The
+solution is to use @q{relative octave} mode.   This is the
+most convenient way to copy existing music.
+
+In relative mode, a note without octavation quotes (i.e., the @samp{'}
+or @samp{,} after a note) is chosen so that it is closest to the
+previous one.  For example, @samp{c f} goes up while @samp{c g} goes
+down.
+
+To use relative mode, add @code{\relative} before the piece of
+music.  The first note is taken relative to the middle C
+@c no , for this sentence
+(i.e., @code{c'})
+
+
+
+@lilypond[quote,notime,fragment,verbatim]
+\relative {
+  c' f c g c
+}
+@end lilypond
+
+
+Since most music has small intervals, pieces can be written almost
+without octavation quotes in relative mode.  The previous example is
+entered as
+
+@lilypond[quote,ragged-right,verbatim]
+\relative {
+  \key a \major
+  \time 6/8
+  cis'8. d16 cis8 e4 e8
+  b8. cis16 b8 d4 d8
+}
+@end lilypond
+
+@c needed better, maybe even redundant explanation
+@c   added another example below.
+@c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
+@c in eerste instantie drong het `relative' niet door zonder extra uitleg.
+Larger intervals are made by adding octavation quotes.
+
+@lilypond[quote,notime,verbatim,fragment]
+\relative c {
+  c'' f, f c' c g' c,
+}
+@end lilypond
+
+In summary, quotes or commas no longer determine the absolute height
+of a note in @code{\relative} mode.  Rather, the height of a note is
+relative to the previous one, and changing the octave of a single note
+shifts all following notes an octave up or down.
+
+For more information on relative octaves see @ref{Relative octaves},
+and @ref{Octave check}.
 
 
