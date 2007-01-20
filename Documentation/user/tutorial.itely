@@ -65,7 +65,8 @@ commands for quick reference.
 * Notation for one note at once FIXME name::  
 * Multiple notes at once::      
 * Songs::                       
-* Unsorted::                    
+* Final touches::               
+* FIXME merge with chapter 3::  
 @end menu
 
 
@@ -488,12 +489,45 @@ This section introduces common notation that is used for a single
 staff.
 
 @menu
+* Relative note names::         
 * Accidentals and key signatures::  
 * Ties and slurs::              
 * Articulation and dynamics::   
 * Automatic and manual beams::  
 * Advanced rhythmic commands::  
 @end menu
+
+
+@node Relative note names
+@subsection Relative note names
+
+As we saw in @ref{Simple notation}, LilyPond calculates the pitch of
+each note relative to the previous one@footnote{There is another mode of
+entering pitches, @ref{Absolute note names}, but in practice relative
+mode is much easier and safer to use.}.  If no extra octave marks
+(@code{'} and @code{,}) are added, it assumes that each pitch is within
+a fourth of the previous note.
+
+LilyPond examines pitches based on the note names -- in other words,
+an augmented fourth is @emph{not} the same as a diminished fifth.  If we
+begin at a C, then an F-sharp will be placed a higher than the C, while
+a G-flat will be placed lower than the C.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c2 fis
+c2 ges
+@end lilypond
+
+@moreinfo
+@quotation
+@table @asis
+@item Relative octaves
+see @ref{Relative octaves}.
+@item Octave check
+see @ref{Octave check}.
+@end table
+@end quotation
+
 
 
 @node Accidentals and key signatures
@@ -954,6 +988,22 @@ creates a bigger music expression.  In this way it resembles the minus
 sign in mathematics.  The formula @math{(4+5)} is an expression, so
 @math{-(4+5)} is a bigger expression.
 
+Time signatures entered in one staff affects all other staves, but
+the key signature of one staff does @emph{not} affect other
+staves@footnote{This behavior may be changed if desired; see
+@ref{Changing defaults} for details.}.
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  <<
+    \new Staff { \clef treble \time 3/4 c }
+    \new Staff { \clef bass \key d \major c,, }
+  >>
+}
+@end lilypond
+
+
+
 
 @node Piano staves
 @subsection Piano staves
@@ -983,7 +1033,9 @@ Here is a small example
 @end lilypond
 
 @moreinfo
+@quotation
 See @ref{Piano music}.
+@end quotation
 
 
 @node Single staff polyphony
@@ -1038,7 +1090,9 @@ Again, these expressions can be nested arbitrarily.
 @end lilypond
 
 @moreinfo
+@quotation
 See @ref{Basic polyphony}.
+@end quotation
 
 
 @node Combining notes into chords
@@ -1074,62 +1128,48 @@ This section introduces vocal music and simple song sheets.
 * A lead sheet::                
 @end menu
 
-@c zz
 
 @node Printing lyrics
 @subsection Printing lyrics
-@cindex lyrics
-
-@c TODO: (c) status of the Queen fragment.
 
 @cindex Lyrics
 @cindex Songs
-Lyrics are entered by separating each syllable with a space
+Consider a simple melody:
 
-@example
-I want to break free
-@end example
-
-Consider the melody
-
-@lilypond[quote,verbatim,fragment,ragged-right]
-\relative {
-  r4 c \times 2/3 { f g g }
-  \times 2/3 { g4( a2) }
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  a4 e c r4
+	b2 c4( d)
 }
 @end lilypond
 
 The lyrics can be set to these notes, combining both with the
-@code{\addlyrics} keyword
+@code{\addlyrics} keyword.  Lyrics are entered by separating each
+syllable with a space.
 
-@lilypond[quote,verbatim,fragment,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 <<
-  \relative {
-    r4 c \times 2/3 { f g g }
-    \times 2/3 { g4( a2) }
+  \relative c'' {
+    a4 e c r4
+	  b2 c4( d)
   }
-  \addlyrics { I want to break free }
+  \addlyrics { One day this shall be free }
 >>
 @end lilypond
 
 @cindex melisma
 @cindex extender line
-@c synonyms?
 This melody ends on a @rglos{melisma}, a single syllable (@q{free})
 sung to more than one note.  This is indicated with an @emph{extender
-line}.  It is entered as two underscores, i.e.,
+line}.  It is entered as two underscores @code{__}:
 
-@example
-@{ I want to break free __ @}
-@end example
-
-@lilypond[fragment,quote,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 <<
-  \relative {
-    r4 c \times 2/3 { f g g }
-    \times 2/3 { g4( a2) }
+  \relative c'' {
+    a4 e c r4
+	  b2 c4( d)
   }
-  \addlyrics { I want to break free __ }
+  \addlyrics { One day this shall be free __ }
 >>
 @end lilypond
 
@@ -1140,19 +1180,22 @@ resulting in a centered hyphen between two syllables
 A -- le gri -- a
 @end example
 
-@c no ragged-right here, because otherwise the hypens get lost.
-@lilypond[fragment,quote]
+@c no ragged-right here because otherwise the hypens get lost.
+@lilypond[quote,verbatim]
 <<
-  \relative {
+  \relative c' {
     \time 2/4
-    f4 f c' c
+    f4 f c c
   }
   \addlyrics { A -- le gri -- a }
 >>
 @end lilypond
 
-More options, like putting multiple lines of lyrics below a melody are
+@moreinfo
+@quotation
+More options, such as putting multiple stanzas below a melody, are
 discussed in @ref{Vocal music}.
+@end quotation
 
 
 @node A lead sheet
@@ -1163,11 +1206,12 @@ discussed in @ref{Vocal music}.
 @cindex chord names
 
 @c TODO: revise this, \chords { } is shorter and more intuitive.
+@c  I need help for this.  -gp
 
-In popular music, it is common to denote accompaniment with chord names.
+In popular music it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 \chordmode { c2 f4. g8 }
 @end lilypond
 
@@ -1196,16 +1240,8 @@ following result.
 When put together, chord names, lyrics and a melody form
 a lead sheet, for example,
 
-@example
-<<
-  \chords @{ @emph{chords} @}
-  @emph{the melody}
-  \addlyrics @{ @emph{the text} @}
->>
-@}
-@end example
-
-@lilypond[quote,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
+%  this melody needs to be changed.  See my new example in 2.4.1. -gp
 <<
   \chords { r2 c:sus4 f }
   \relative {
@@ -1220,40 +1256,190 @@ A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
 
 
-@node Unsorted
-@section Unsorted
+@node Final touches
+@section Final touches
+
+This is the final section of the tutorial; it demonstrates how to add the
+final touches to simple pieces, and provides an introduction to the rest
+of the manual.
 
 @menu
+* Version number::              
 * Adding titles::               
-* Organizing larger pieces::    
-* An orchestral part::          
+* Absolute note names::         
 * After the tutorial::          
-* Octave entry::                
+* How to read the manual::      
 @end menu
+
+
+@node Version number
+@subsection Version number
+
+@cindex versioning
+The @code{\version} statement marks for which version of LilyPond the file
+was written.  To mark a file for version 2.10.1, place
+
+@example
+\version "2.10.1"
+@end example
+
+@noindent
+at the top of your LilyPond file.
+
+These annotations make future upgrades of LilyPond go more
+smoothly.  Changes in the syntax are handled with a special program,
+@file{convert-ly} (see @ref{Updating files with convert-ly}), and it uses
+@code{\version} to determine what rules to apply.
+
 
 @node Adding titles
 @subsection Adding titles
 
-Bibliographic information is entered in a separate block, the
-@code{\header} block.  The name of the piece, its composer, etc., are
-entered as an assignment, within @code{\header
-@{@tie{}@dots{}@tie{}@}}.  The @code{\header} block is usually put at
-the top of the file.  For example,
+The title, composer, opus number, and similar information are entered
+in the @code{\header} block.  This exists outside of the main
+music expression; the @code{\header} block is usually placed underneath
+the @ref{Version number}.
 
 @example
+\version "2.10.1"
 \header @{
-  title = "Miniature"
-  composer = "Igor Stravinsky"
+  title = "Symphony"
+  composer = "Me"
+  opus = "Op. 9"
 @}
 
-@{ @dots{} @}
+@{
+  @dots{} music @dots{}
+@}
 @end example
-
 
 When the file is processed, the title and composer are printed above
 the music.  More information on titling can be found in @ref{Creating
 titles}.
 
+
+@node Absolute note names
+@subsection Absolute note names
+
+So far we have always used @code{\relative} to define pitches.  This is
+the easiest way to enter most music, but another way of defining pitches
+exists: absolute mode.
+
+If you omit the @code{\relative}, LilyPond treats all pitches as
+absolute values.  A @code{c'} will always mean middle C, a @code{b} will
+always mean the note one step below middle C, and a @code{g,} will
+always mean the note on the bottom staff of the bass clef.
+
+@lilypond[quote,verbatim,ragged-right]
+{
+  \clef bass
+  c' b g, g,
+  g, f, f c'
+}
+@end lilypond
+
+Here is a four-octave scale:
+
+@lilypond[quote,verbatim,ragged-right]
+{
+  \clef bass
+  c, d, e, f,
+  g, a, b, c
+  d e f g
+  a b c' d'
+  \clef treble
+  e' f' g' a'
+  b' c'' d'' e''
+  f'' g'' a'' b''
+  c'''1
+}
+@end lilypond
+
+As you can see, writing a melody in the treble clef involves a lot of
+quote ' marks.  Consider this fragment from Mozart:
+
+@lilypond[quote,verbatim,ragged-right]
+{
+  \key a \major
+  \time 6/8
+  cis''8. d''16 cis''8 e''4 e''8
+  b'8. cis''16 b'8 d''4 d''8
+}
+@end lilypond
+
+All these quotes makes the input less readable and it is a source of
+errors.  With @code{\relative}, the previous example is much easier
+to read:
+
+@lilypond[quote,verbatim,ragged-right]
+\relative c'' {
+  \key a \major
+  \time 6/8
+  cis8. d16 cis8 e4 e8
+  b8. cis16 b8 d4 d8
+}
+@end lilypond
+
+If you make a mistake with an octave mark (@code{'} or @code{,}) while
+working in @code{\relative} mode, it is very obvious -- many notes will
+be in the wrong octave.  When working in absolute mode, a single mistake
+will not be as visible, and will not be as easy to find.
+
+However, absolute mode is useful for music which has large intervals, and
+is extremely useful for computer-generated LilyPond files.
+
+
+@node After the tutorial
+@subsection After the tutorial
+
+After finishing the tutorial, you should probably try writing a
+piece or two.  Start with one of the @ref{Example templates} and
+add notes.  If you need any notation that was not covered in the
+tutorial, look at the Notation Reference, starting with
+@ref{Basic notation}.  If you want to write for an instrument
+ensemble which is not covered in the @ref{Example templates},
+take a look at @ref{Extending the templates}.
+
+Once you have written a few short pieces, read the rest of
+the Learning Manual (chapters 3-5).  There's nothing wrong
+with reading them now, of course!  However, the rest of the
+Learning Manual assumes that you are familiar with
+LilyPond input.  You may wish to skim these chapters right
+now, and come back to them after you have more experience.
+
+
+@node How to read the manual
+@subsection How to read the manual
+
+As we saw in @ref{How to read the tutorial}, many examples in the
+tutorial omitted a @code{\relative c'' @{ ... @}} around the printed
+example.
+
+In the rest of the manual, we are much more lax about the
+printed examples: sometimes they may have omitted a
+@code{\relative c'' @{ ... @}}, but in other times a different initial
+pitch may be used (such as @code{c'} or @code{c,,}), and in some cases
+the whole example is in absolute note mode!  However, ambiguities like
+this only exist where the pitches are not important.  In any example
+where the pitch matters, we have explicitly stated our @code{\relative}
+our our absolute-mode @code{@{ @}}.
+
+If you are still confused about the exact LilyPond input that was
+used in an example, read the HTML version (if you are not already doing
+so) and click on the picture of the music.  This will display the exact
+input that LilyPond used to generate this manual.
+
+
+
+@c zz
+
+@node FIXME merge with chapter 3
+@section FIXME merge with chapter 3
+
+@menu
+* Organizing larger pieces::    
+* An orchestral part::          
+@end menu
 
 
 
@@ -1441,131 +1627,5 @@ in the notation manual; see @ref{Orchestral music}.
 Setting run-time variables (@q{properties}) is discussed in
 @ref{Changing context properties on the fly}.
 
-
-@node After the tutorial
-@subsection After the tutorial
-
-After finishing the tutorial, you should probably try writing a
-piece or two.  Start with one of the @ref{Example templates} and
-add notes.  If you need any notation that was not covered in the
-tutorial, look at the Notation Reference, starting with
-@ref{Basic notation}.  If you want to write for an instrument
-ensemble which is not covered in the @ref{Example templates},
-take a look at @ref{Extending the templates}.
-
-Once you have written a few short pieces, read the rest of
-the Learning Manual (chapters 3-5).  There's nothing wrong
-with reading them now, of course!  However, the rest of the
-Learning Manual assumes that you are familiar with
-LilyPond input.  You may wish to skim these chapters right
-now, and come back to them after you have more experience.
-
-
-
-
-
-@node Octave entry
-@subsection Octave entry
-
-@c Tim wants to move this quotes example just before the: quotes-do not-work
-@c score, but we'd need to remove quotes from the other two (key and
-@c tie) examples...
-
-@c better to have this just before the `octaves are bad' snipped
-@c but we'd need to remove the ', from \key and tie
-To raise a note by an octave, add a high quote @samp{'} (apostrophe) to
-the note name, to lower a note one octave, add a @q{low quote} @samp{,}
-(comma).  Middle C is @code{c'}
-
-@lilypond[quote,notime,fragment,verbatim]
-c'4 c'' c''' \clef bass c c,
-@end lilypond
-
-An example of the use of quotes is in the following Mozart fragment
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\key a \major
-\time 6/8
-cis''8. d''16 cis''8 e''4 e''8
-b'8. cis''16 b'8 d''4 d''8
-@end lilypond
-
-@noindent
-This example shows that music in a high register needs lots of quotes.
-This makes the input less readable, and it is a source of errors.  The
-solution is to use @q{relative octave} mode.   This is the
-most convenient way to copy existing music.
-
-In relative mode, a note without octavation quotes (i.e., the @samp{'}
-or @samp{,} after a note) is chosen so that it is closest to the
-previous one.  For example, @samp{c f} goes up while @samp{c g} goes
-down.
-
-To use relative mode, add @code{\relative} before the piece of
-music.  The first note is taken relative to the middle C
-@c no , for this sentence
-(i.e., @code{c'})
-
-
-
-@lilypond[quote,notime,fragment,verbatim]
-\relative {
-  c' f c g c
-}
-@end lilypond
-
-
-Since most music has small intervals, pieces can be written almost
-without octavation quotes in relative mode.  The previous example is
-entered as
-
-@lilypond[quote,ragged-right,verbatim]
-\relative {
-  \key a \major
-  \time 6/8
-  cis'8. d16 cis8 e4 e8
-  b8. cis16 b8 d4 d8
-}
-@end lilypond
-
-@c needed better, maybe even redundant explanation
-@c   added another example below.
-@c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
-@c in eerste instantie drong het `relative' niet door zonder extra uitleg.
-Larger intervals are made by adding octavation quotes.
-
-@lilypond[quote,notime,verbatim,fragment]
-\relative c {
-  c'' f, f c' c g' c,
-}
-@end lilypond
-
-In summary, quotes or commas no longer determine the absolute height
-of a note in @code{\relative} mode.  Rather, the height of a note is
-relative to the previous one, and changing the octave of a single note
-shifts all following notes an octave up or down.
-
-For more information on relative octaves see @ref{Relative octaves},
-and @ref{Octave check}.
-
-@c  TODO   post-2.6 reorg
-@c   This is good info, but I wouldn't call it a comment.  IMO it should
-@c   be moved somewhere else.
-
-@cindex versioning
-
-There is a special statement that is a kind of comment.  The @code{\version}
-statement marks for which version of LilyPond the file was written.
-To mark a file for version 2.10.1, use
-
-@example
-\version "2.10.1"
-@end example
-
-@noindent
-These annotations make future upgrades of LilyPond go more
-smoothly.  Changes in the syntax are handled with a special program,
-@file{convert-ly} (see @ref{Updating files with convert-ly}), and it uses
-@code{\version} to determine what rules to apply.
 
 
