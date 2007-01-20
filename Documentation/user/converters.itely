@@ -17,11 +17,11 @@ sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
 These are separate programs from lilypond itself, and are run
-on the command-line.  By ``command-line'', we mean the command
+on the command-line.  By @qq{command-line}, we mean the command
 line in the operating system.  Windows users
-might be more familiar with the terms ``DOS shell'' or
-``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
+might be more familiar with the terms @qq{DOS shell} or
+@qq{command shell}; OSX users might be more familiar with the
+terms @qq{terminal} or @qq{console}.  OSX users should also
 consult @ref{Notes for the MacOS X app}.
 
 Describing how to use
@@ -74,7 +74,7 @@ It is invoked from the command-line as follows,
 midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
-Note that by ``command-line'', we mean the command line of the
+Note that by @qq{command-line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats} for
 more information about this.
 
@@ -146,7 +146,7 @@ It is invoked from the command-line as follows.
 etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
-Note that by ``command-line'', we mean the command line of the
+Note that by @qq{command-line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats} for
 more information about this.
 
@@ -176,7 +176,7 @@ for representing music notation.
 @command{musicxml2ly} extracts the notes from part-wise MusicXML
 files, and writes it to a .ly file.  It is invoked from the command-line.
 
-Note that by ``command-line'', we mean the command line of the
+Note that by @qq{command-line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats} for
 more information about this.
 
@@ -226,7 +226,7 @@ source file.  If you say:
 %%LY voices \set autoBeaming = ##f
 @end example
 
-This will cause the text following the keyword ``voices'' to be inserted
+This will cause the text following the keyword @qq{voices} to be inserted
 into the current voice of the LilyPond output file.
 
 Similarly,
@@ -235,13 +235,13 @@ Similarly,
 %%LY slyrics more words
 @end example
 
-will cause the text following the ``slyrics'' keyword to be inserted
+will cause the text following the @qq{slyrics} keyword to be inserted
 into the current line of lyrics.
 
 
 @refbugs
 
-The ABC standard is not very ``standard''.  For extended features
+The ABC standard is not very @qq{standard}.  For extended features
 (e.g., polyphonic music) different conventions exist.
 
 Multiple tunes in one file cannot be converted.

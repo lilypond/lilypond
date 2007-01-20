@@ -30,7 +30,7 @@ specific notation.
 @section Input files
 
 The main format of input for LilyPond are text files.  By convention,
-these files end with ``@code{.ly}''.
+these files end with @q{@samp{.ly}}.
 
 @menu
 * File structure (introduction)::  
@@ -387,7 +387,7 @@ file, use
 The line @code{\include "file.ly"} is equivalent to pasting the contents
 of file.ly into the current file at the place where you have the
 \include.  For example, for a large project you might write separate files
-for each instrument part and create a ``full score'' file which brings
+for each instrument part and create a @qq{full score} file which brings
 together the individual instrument files.
 
 The initialization of LilyPond is done in a number of files that are
@@ -396,7 +396,7 @@ user.  Run lilypond --verbose to see a list of paths and files that Lily
 finds.
 
 Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
-VERSION is in the form ``2.6.1'') are on the path and available to
+VERSION is in the form @qq{2.6.1}) are on the path and available to
 @code{\include}.  Files in the
 current working directory are available to \include, but a file of the same
 name in LilyPond's installation takes precedence.  Files are
@@ -655,7 +655,7 @@ You may change this behavior (and print all the headers when defining
 The default footer is empty, except for the first page, where the
 @code{copyright} field from @code{\header} is inserted, and the last
 page, where @code{tagline} from @code{\header} is added.  The default
-tagline is ``Music engraving by LilyPond (@var{version})''.@footnote{Nicely
+tagline is @qq{Music engraving by LilyPond (@var{version})}.@footnote{Nicely
 printed parts are good PR for us, so please leave the tagline if you
 can.}
 

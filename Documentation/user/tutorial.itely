@@ -164,13 +164,13 @@ You will see something resembling
 @example
 lilypond test.ly
 GNU LilyPond 2.10.0
-Processing `test.ly'
+Processing @q{test.ly}
 Parsing...
 Interpreting music... [1]
 Preprocessing graphical objects...
 Calculating line breaks... [2]
-Layout output to `test.ps'...
-Converting to `test.pdf'...
+Layout output to @q{test.ps}...
+Converting to @q{test.pdf}...
 @end example
 
 @cindex PDF file
@@ -393,7 +393,7 @@ d cis fis
 
 @noindent
 The code @samp{d} does not mean `print a black dot just below the
-staff.'  Rather, it means: `a note with pitch D-natural.'  In the key
+staff.'  Rather, it means: @q{a note with pitch D-natural.}  In the key
 of A-flat major, it does get an accidental
 
 @lilypond[quote,notime,fragment,relative=1,verbatim]
@@ -492,10 +492,10 @@ according to standard notation conventions.
 @c score, but we'd need to remove quotes from the other two (key and
 @c tie) examples...
 
-@c better to have this just before the `octaves are bad' snipped
+@c better to have this just before the @q{octaves are bad} snipped
 @c but we'd need to remove the ', from \key and tie
 To raise a note by an octave, add a high quote @code{'} (apostrophe) to
-the note name, to lower a note one octave, add a `low quote' @code{,}
+the note name, to lower a note one octave, add a @q{low quote} @code{,}
 (comma).  Middle C is @code{c'}
 
 @lilypond[quote,notime,fragment,verbatim]
@@ -514,7 +514,7 @@ b'8. cis''16 b'8 d''4 d''8
 @noindent
 This example shows that music in a high register needs lots of quotes.
 This makes the input less readable, and it is a source of errors.  The
-solution is to use `relative octave' mode.   This is the
+solution is to use @q{relative octave} mode.   This is the
 most convenient way to copy existing music.
 
 In relative mode, a note without octavation quotes (i.e., the @code{'}
@@ -552,7 +552,7 @@ entered as
 @c needed better, maybe even redundant explanation
 @c   added another example below.
 @c grappig: Pa vond het heel logies, en slim toen-i eenmaal begreep.
-@c in eerste instantie drong het `relative' niet door zonder extra uitleg.
+@c in eerste instantie drong het @q{relative} niet door zonder extra uitleg.
 Larger intervals are made by adding octavation quotes.
 
 @lilypond[quote,notime,verbatim,fragment]
@@ -602,7 +602,7 @@ notes
 This technique is useful for non-monophonic music.  To enter music
 with more voices or more staves, we also combine expressions in
 parallel.  Two voices that should play at the same time, are entered
-as a simultaneous combination of two sequences.  A `simultaneous'
+as a simultaneous combination of two sequences.  A @q{simultaneous}
 music expression is formed by enclosing expressions in @code{<<} and
 @code{>>}.  In the following example, three sequences (all containing
 two separate notes) are combined simultaneously
@@ -690,7 +690,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 @end lilypond
 
 
-The command @code{\new} introduces a `notation context.'  A notation
+The command @code{\new} introduces a @q{notation context.}  A notation
 context is an environment in which musical events (like notes or
 @code{\clef} commands) are interpreted.  For simple pieces, such
 notation contexts are created automatically.  For more complex pieces, it
@@ -1005,7 +1005,7 @@ The lyrics can be set to these notes, combining both with the
 @cindex melisma
 @cindex extender line
 @c synonyms?
-This melody ends on a @rglos{melisma}, a single syllable (`free')
+This melody ends on a @rglos{melisma}, a single syllable (@q{free})
 sung to more than one note.  This is indicated with an @emph{extender
 line}.  It is entered as two underscores, i.e.,
 
@@ -1399,7 +1399,7 @@ leading to
 More in-depth information on preparing parts and scores can be found
 in the notation manual; see @ref{Orchestral music}.
 
-Setting run-time variables (`properties') is discussed in
+Setting run-time variables (@q{properties}) is discussed in
 @ref{Changing context properties on the fly}.
 
 

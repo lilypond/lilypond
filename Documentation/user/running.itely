@@ -14,11 +14,11 @@
 This chapter details the technicalities of running LilyPond.
 
 Some of these commands are run from the command-line.  By
-``command-line'', we mean the command
+@qq{command-line}, we mean the command
 line in the operating system.  Windows users
-might be more familiar with the terms ``DOS shell'' or
-``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
+might be more familiar with the terms @qq{DOS shell} or
+@qq{command shell}; OSX users might be more familiar with the
+terms @qq{terminal} or @qq{console}.  OSX users should also
 consult @ref{Notes for the MacOS X app}.
 
 Describing how to use

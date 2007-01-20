@@ -20,7 +20,7 @@ TODO: cleanup
 @end ignore
 
 
-@c Note: keep this node named so that `info lilypond-book' brings you here.
+@c Note: keep this node named so that @q{info lilypond-book} brings you here.
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
 
@@ -546,7 +546,7 @@ For HTML (HTML Help, JavaHelp etc.) generation you can use the official DocBook 
 @node Music fragment options
 @section Music fragment options
 
-In the following, a ``LilyPond command'' refers to any command described
+In the following, a @qq{LilyPond command} refers to any command described
 in the previous sections which is handled by @command{lilypond-book} to
 produce a music snippet.  For simplicity, LilyPond commands are only
 shown in La@TeX{} syntax.
@@ -618,7 +618,7 @@ LilyPond, not the text layout.  Since no indentation is the default,
 
 @item quote
 Reduce line length of a music snippet by @math{2*0.4}@dmn{in} and put
-the output into a quotation block.  The value `0.4@dmn{in}' can be
+the output into a quotation block.  The value @q{0.4@dmn{in}} can be
 controlled with the @code{exampleindent} option.
 
 @item exampleindent

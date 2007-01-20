@@ -51,7 +51,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 @refbugs
 
 Dynamics are not centered, but workarounds do exist.  See the
-``piano centered dynamics'' template in @ref{Piano templates}.
+@qq{piano centered dynamics} template in @ref{Piano templates}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -204,7 +204,7 @@ b\sustainUp\sustainDown
 b g \sustainUp a \sustainDown \bar "|."
 @end lilypond
 
-The default `*Ped.' style for sustain and damper pedals corresponds to
+The default @q{*Ped.} style for sustain and damper pedals corresponds to
 style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
 default.
 
@@ -363,7 +363,7 @@ modifier (which may include a number if desired)
 @lilypond[quote,fragment,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
-The first number following the root is taken to be the `type' of the
+The first number following the root is taken to be the @q{type} of the
 chord, thirds are added to the root until it reaches the specified
 number
 @lilypond[quote,fragment,verbatim]
@@ -587,7 +587,7 @@ separators, e.g.,
 @item chordRootNamer
 The root of a chord is usually printed as a letter with an optional
 alteration.  The transformation from pitch to letter is done by this
-function.  Special note names (for example, the German ``H'' for a
+function.  Special note names (for example, the German @qq{H} for a
 B-chord) can be produced by storing a new function in this property.
 
 @funindex chordNoteNamer
@@ -599,9 +599,9 @@ base can be printed in lower case.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
-The ``m'' for minor chords is usually printed right after the root of
+The @qq{m} for minor chords is usually printed right after the root of
 the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
-between the root and ``m''. The spacer is not used when the root
+between the root and @qq{m}. The spacer is not used when the root
 is altered.
 
 @end table
@@ -841,7 +841,7 @@ A word in Lyrics mode begins with: an alphabetic character, @code{_},
 @code{?}, @code{!}, @code{:}, @code{'}, the control characters @code{^A}
 through @code{^F}, @code{^Q} through @code{^W}, @code{^Y}, @code{^^},
 any 8-bit character with ASCII code over 127, or a two-character
-combination of a backslash followed by one of @code{`}, @code{'},
+combination of a backslash followed by one of @code{@q{}, @code{}},
 @code{"}, or @code{^}.
 
 To define indentifiers containing lyrics, the function @code{lyricmode}
@@ -873,7 +873,7 @@ Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 @cindex hyphens
 
-Centered hyphens are entered as `@code{--}' between syllables.
+Centered hyphens are entered as @samp{--} between syllables.
 The hyphen will have variable length depending on the space between
 the syllables and it will be centered between the syllables.
 
@@ -883,7 +883,7 @@ the syllables and it will be centered between the syllables.
 When a lyric is sung over many notes (this is called a melisma), this is
 indicated with a horizontal line centered between a syllable and the
 next one.  Such a line is called an extender line, and it is entered as
-`@code{__}'.
+@samp{__}.
 
 In tighly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
@@ -1141,8 +1141,8 @@ in the text, as shown here,
 @end lilypond
 
 
-The @code{ignoreMelismata} applies to the syllable ``fas'', so it
-should be entered before ``go''.
+The @code{ignoreMelismata} applies to the syllable @qq{fas}, so it
+should be entered before @qq{go}.
 
 The reverse is also possible: making a lyric line slower than the
 standard.  This can be achieved by insert @code{\skip}s into the
@@ -1248,7 +1248,7 @@ done by setting the @code{associatedVoice} property.  In the example
 @end lilypond
 
 @noindent
-the text for the first stanza is set to a melody called ``lahlah'',
+the text for the first stanza is set to a melody called @qq{lahlah},
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -1258,7 +1258,7 @@ the text for the first stanza is set to a melody called ``lahlah'',
 
 
 The second stanza initially is set to the @code{lahlah} context, but
-for the syllable ``ran'', it switches to a different melody.
+for the syllable @qq{ran}, it switches to a different melody.
 This is achieved with
 @example
 \set associatedVoice = alternative
@@ -1268,7 +1268,7 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-Again, the command must be one syllable too early, before ``Ty'' in
+Again, the command must be one syllable too early, before @qq{Ty} in
 this case.
 
 @example
@@ -1643,7 +1643,7 @@ can ask them for specific instructions about where to move these
 examples, and that might get them more involved in the docs.  -gp
 @end ignore
 
-``Parlato'' is spoken without pitch but still with rhythm; it is
+@qq{Parlato} is spoken without pitch but still with rhythm; it is
 notated by cross noteheads.  This is demonstrated in
 @ref{Special noteheads}.
 
@@ -2857,7 +2857,7 @@ famous engraver Petrucci (1466-1539)''.
 @emph{Historic style} means ``as was typeset or written in historic
 editions (other than those of Petrucci)''.
 
-@emph{Editio XXX style} means ``as is/was printed in Editio XXX''.
+@emph{Editio XXX style} means @qq{as is/was printed in Editio XXX}.
 
 Petrucci used C clefs with differently balanced left-side vertical
 beams, depending on which staff line it is printed.
@@ -3063,7 +3063,7 @@ the right end of the episem line is often too far to the right.
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; Latin word for `guard') is a
+A @emph{custos} (plural: @emph{custodes}; Latin word for @q{guard}) is a
 symbol that appears at the end of a staff.  It anticipates the pitch
 of the first note(s) of the following line thus helping the performer
 to manage line breaks during performance.
@@ -3144,7 +3144,7 @@ Examples: @inputfileref{input/@/regression,custos@/.ly}.
 @cindex finalis
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
-`division') is a staff context symbol that is used to structure
+@q{division}) is a staff context symbol that is used to structure
 Gregorian music into phrases and sections.  The musical meaning of
 @emph{divisio minima}, @emph{divisio maior}, and @emph{divisio maxima}
 can be characterized as short, medium, and long pause, somewhat like
@@ -4360,7 +4360,7 @@ entering the chant, as the following excerpt demonstrates
 
 In European music from before about 1600, singers were often expected
 to chromatically alter notes at their own initiative. This is called
-``Musica Ficta''. In modern transcriptions, these accidentals are
+@qq{Musica Ficta}. In modern transcriptions, these accidentals are
 usually printed over the note.
 
 @cindex Accidental, musica ficta

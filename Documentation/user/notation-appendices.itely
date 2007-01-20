@@ -103,12 +103,12 @@ darkcyan    darkmagenta    darkyellow
 X color names come several variants:
 
 Any name that is spelled as a single word with capitalisation
-(e.g. ``LightSlateBlue'') can also be spelled as space separated
-words without capitalisation (e.g. ``light slate blue'').
+(e.g. @qq{LightSlateBlue}) can also be spelled as space separated
+words without capitalisation (e.g. @qq{light slate blue}).
 
-The word ``grey'' can always be spelled ``gray'' (e.g. ``DarkSlateGray'').
+The word @qq{grey} can always be spelled @qq{gray} (e.g. @qq{DarkSlateGray}).
 
-Some names can take a numerical suffix (e.g. ``LightSalmon4'').
+Some names can take a numerical suffix (e.g. @qq{LightSalmon4}).
 
 
 @subsubheading Color Names without a numerical suffix:

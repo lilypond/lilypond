@@ -82,7 +82,7 @@ The @code{parser} and @code{location} argument are mandatory,
 and are used in some advanced situations.  The @code{parser}
 argument is used to access to the value of another LilyPond
 variable.  The @code{location} argument
-is used to set the ``origin'' of the music expression that is built
+is used to set the @qq{origin} of the music expression that is built
 by the music function, so that in case of a syntax error LilyPond
 can tell the user an appropriate place to look in the input file.
 
@@ -322,7 +322,7 @@ traLaLa = @{ c'4 d'4 @}
 @noindent
 is internally converted to a Scheme definition
 @example
-(define traLaLa @var{Scheme value of ``@code{... }''})
+(define traLaLa @var{Scheme value of @q{@samp{... }}})
 @end example
 
 This means that input variables and Scheme variables may be freely
@@ -353,7 +353,7 @@ the dummy statement in the above example, the @code{newLa} definition
 is executed before @code{traLaLa} is defined, leading to a syntax
 error.
 
-The above example shows how to `export' music expressions from the
+The above example shows how to @q{export} music expressions from the
 input to the Scheme interpreter.  The opposite is also possible.  By
 wrapping a Scheme value in the function @code{ly:export}, a Scheme
 value is interpreted as if it were entered in LilyPond syntax.
@@ -402,7 +402,7 @@ available is in the Program reference manual, under
 @internalsref{Music expressions}.
 
 @item
-`type' or interface: Each music name has several `types' or
+@q{type} or interface: Each music name has several @q{types} or
 interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event}, and a
 @code{melodic-event}.  All classes of music are listed in the
@@ -422,7 +422,7 @@ under @internalsref{Music properties}.
 
 A compound music expression is a music object that contains other
 music objects in its properties.  A list of objects can be stored in
-the @code{elements} property of a music object, or a single `child'
+the @code{elements} property of a music object, or a single @q{child}
 music object in the @code{element} object.  For example,
 @internalsref{SequentialMusic} has its children in @code{elements},
 and @internalsref{GraceMusic} has its single argument in
@@ -578,7 +578,7 @@ d'
 @subsection Doubling a note with slurs (example)
 
 Suppose we want to create a function which translates
-input like ``@code{a}'' into ``@code{a( a)}''.  We begin
+input like @q{@samp{a}} into @q{@samp{a( a)}}.  We begin
 by examining the internal representation of the music
 we want to end up with.
 
@@ -617,7 +617,7 @@ we want to end up with.
 @end example
 
 The bad news is that the @code{SlurEvent} expressions
-must be added ``inside'' the note (or more precisely,
+must be added @qq{inside} the note (or more precisely,
 inside the @code{EventChord} expression).
 
 Now we examine the input,
@@ -645,7 +645,7 @@ have two notes to build the sequence), add @code{SlurEvents} to the
 @example
 doubleSlur = #(define-music-function (parser location note) (ly:music?)
          "Return: @{ note ( note ) @}.
-         `note' is supposed to be an EventChord."
+         @q{note} is supposed to be an EventChord."
          (let ((note2 (ly:music-deep-copy note)))
            (set! (ly:music-property note 'elements)
                  (cons (make-music 'SlurEvent 'span-direction -1)
@@ -727,7 +727,7 @@ To build this function, we begin with
 
 @example
 (define (add-marcato event-chord)
-  "Add a marcato ArticulationEvent to the elements of `event-chord',
+  "Add a marcato ArticulationEvent to the elements of @q{event-chord},
   which is supposed to be an EventChord expression."
   (let ((result-event-chord (ly:music-deep-copy event-chord)))
     (set! (ly:music-property result-event-chord 'elements)
@@ -755,11 +755,11 @@ necessary, but just like clear variable names, it is good practice.
 (let ((result-event-chord (ly:music-deep-copy event-chord)))
 @end example
 
-`@code{let}' is used to declare local variables.  Here we use one local
-variable, named `@code{result-event-chord}', to which we give the value
-@code{(ly:music-deep-copy event-chord)}.  `@code{ly:music-deep-copy}' is
+@samp{let} is used to declare local variables.  Here we use one local
+variable, named @samp{result-event-chord}, to which we give the value
+@code{(ly:music-deep-copy event-chord)}.  @samp{ly:music-deep-copy} is
 a function specific to LilyPond, like all functions prefixed by
-`@code{ly:}'.  It is use to make a copy of a music
+@samp{ly:}.  It is use to make a copy of a music
 expression.  Here we copy `@code{event-chord} (the parameter of the
 function).  Recall that our purpose is to add a marcato to an
 @code{EventChord} expression.  It is better to not modify the
@@ -794,7 +794,7 @@ former elements property, with an extra item: the
       (ly:music-property result-event-chord 'elements))
 @end example
 
-`@code{cons}' is used to add an element to a list without modifying the
+@samp{cons} is used to add an element to a list without modifying the
 original list.  This is what we
 want: the same list as before, plus the new @code{ArticulationEvent}
 expression.  The order inside the elements property is not important here.
@@ -809,7 +809,7 @@ function,
 @example
 addMarcato = #(define-music-function (parser location event-chord)
                                      (ly:music?)
-    "Add a marcato ArticulationEvent to the elements of `event-chord',
+    "Add a marcato ArticulationEvent to the elements of @q{event-chord},
     which is supposed to be an EventChord expression."
     (let ((result-event-chord (ly:music-deep-copy event-chord)))
       (set! (ly:music-property result-event-chord 'elements)
@@ -958,7 +958,7 @@ The arguments are
 @item argi-type?
 a type predicate for the i@var{th} argument
 @item layout
-the `layout' definition
+the @q{layout} definition
 @item props
 a list of alists, containing all active properties.
 @end table
