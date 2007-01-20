@@ -491,8 +491,8 @@ d cis fis
 @end example
 
 @noindent
-The code @samp{d} does not mean `print a black dot just below the
-staff.'  Rather, it means: @q{a note with pitch D-natural.}  In the key
+The code @samp{d} does not mean @qq{print a black dot just below the
+staff.}  Rather, it means: @qq{a note with pitch D-natural.}  In the key
 of A-flat major, it does get an accidental
 
 @lilypond[quote,notime,fragment,relative=1,verbatim]
