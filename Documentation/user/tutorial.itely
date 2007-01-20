@@ -19,11 +19,6 @@ Tutorial guidelines:
 - use "aes" and "ees" instead of "as" and "aes".  I know it's not
   correct Dutch naming, but let's not confuse people with this until
   we get to the Basic notation chapter.
-
-
-TODO:
-- discuss subheading vs. unnumberedsubsection
-
 @end ignore
 
 
@@ -74,11 +69,10 @@ commands for quick reference.
 * Ties and slurs::              
 * Articulation and dynamics::   
 * Automatic and manual beams::  
+* Advanced rhythmic commands::  
 * Music expressions explained::  
 * More staves::                 
 * Combining notes into chords::  
-* Advanced rhythmic commands::  
-* Commenting input files::      
 * Printing lyrics::             
 * A lead sheet::                
 * Adding titles::               
@@ -125,12 +119,12 @@ is valid input; @code{ @{ C D E @} } will produce an error message.
 
 @sp 1
 
-@unnumberedsubsec Entering music and viewing output
+@subheading Entering music and viewing output
 
 In this section we will explain what commands to run
 and how to view or print the output.
 
-@unnumberedsubsubsec MacOS X
+@subsubheading MacOS X
 
 If you double click LilyPond.app, it will open with an example
 file. Save it, for example, to @file{test.ly} on your Desktop, and
@@ -143,7 +137,7 @@ or two because all of the system fonts have to be analyzed first.
 For future use of LilyPond, you should begin by selecting "New"
 or "Open".
 
-@unnumberedsubsubsec Windows
+@subsubheading Windows
 
 On Windows, start up a text-editor@footnote{Any simple or
 programmer-oriented editor with UTF-8 support will do, for example
@@ -161,7 +155,7 @@ called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
 the file and show the resulting PDF file.
 
 
-@unnumberedsubsubsec Unix
+@subsubheading Unix
 
 Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
@@ -230,7 +224,7 @@ This behavior may be altered, but in most cases these automatic values
 are useful.
 
 
-@unnumberedsubsec Pitches
+@subheading Pitches
 
 The easiest way to enter notes is by using @code{\relative} mode.  In
 this mode, the @rglos{interval} between the previous note and the
@@ -278,7 +272,7 @@ not one double quote @code{"}@tie{}!  The initial value in
 @code{\relative c'} may also be modified like this.
 
 
-@unnumberedsubsec Durations (rhythms)
+@subheading Durations (rhythms)
 
 The @rglos{duration} of a note is specified by a number after the note
 name.  @samp{1} for a @rglos{whole note}, @samp{2} for a @rglos{half note},
@@ -307,7 +301,7 @@ To create @rglos{dotted notes}, add a dot @samp{.} to the duration number.
 @end lilypond
 
 
-@unnumberedsubsec Rests
+@subheading Rests
 
 A @rglos{rest} is entered just like a note with the name @samp{r}:
 
@@ -319,7 +313,7 @@ A @rglos{rest} is entered just like a note with the name @samp{r}:
 @end lilypond
 
 
-@unnumberedsubsec Time signature
+@subheading Time signature
 
 The @rglos{time signature}) can be set with the @code{\time} command:
 
@@ -335,7 +329,7 @@ The @rglos{time signature}) can be set with the @code{\time} command:
 @end lilypond
 
 
-@unnumberedsubsec Clef
+@subheading Clef
 
 The @rglos{clef} can be set using the @code{\clef} command:
 
@@ -353,7 +347,7 @@ The @rglos{clef} can be set using the @code{\clef} command:
 @end lilypond
 
 
-@unnumberedsubsec All together
+@subheading All together
 
 Here is a small example showing all these elements together:
 
@@ -385,8 +379,9 @@ see @ref{Clef}.
 @section Working on text files
 
 LilyPond input files are treated like files in most programming languages:
-they are case sensitive, white-space insensitive, and expressions are
-formed with curly braces @{ @}.
+they are case sensitive, white-space insensitive, expressions are
+formed with curly braces @{ @}, and comments are denoted with @code{%} or
+@code{%@{ .. %@}}.
 
 If the previous sentence sounds like nonsense, don't worry!  We'll explain
 what all these terms mean:
@@ -430,6 +425,31 @@ line to avoid ambiguities.
 A function (such as @code{\relative @{ @}} ) also counts as a single
 music expression.
 
+@cindex comments
+@cindex line comment
+@cindex block comment
+@item @strong{Comments}:
+A comment is a remark for the human reader of the music input; it is
+ignored while parsing, so it has no effect on the printed output.
+There are two types of comments.  The percent symbol @samp{%}
+introduces a line comment; anything after @samp{%} on that line is
+ignored.  A block comment marks a whole section of music
+input as a comment.  Anything that is enclosed in @code{%@{} and @code{%@}} is
+ignored.  The following fragment shows possible uses for comments
+
+@example
+% notes for twinkle twinkle follow
+  c4 c g' g a a g2
+
+%@{
+    This line, and the notes below
+    are ignored, since they are in a
+    block comment.
+
+    g g f f e e d d c2
+%@}
+@end example
+
 @end itemize
 
 There are more tips for constructing input files in
@@ -467,7 +487,7 @@ of your own.
 @node Accidentals and key signatures
 @section Accidentals and key signatures
 
-@unnumberedsubsec Accidentals
+@subheading Accidentals
 
 A @rglos{sharp} pitch is made by adding @samp{is} to
 the name, and a @rglos{flat} pitch by adding @samp{es}.  As
@@ -482,7 +502,7 @@ cis1 ees fisis, aeses
 @end lilypond
 
 @cindex key signature, setting
-@unnumberedsubsec Key signatures
+@subheading Key signatures
 
 The key signature is set with the command @code{\key} followed by
 a pitch and @code{\major} or @code{\minor}.
@@ -496,7 +516,7 @@ a
 
 @sp 1
 
-@unnumberedsubsec Warning: key signatures and pitches
+@subheading Warning: key signatures and pitches
 
 To determine whether to print an accidental, LilyPond examines the
 pitches and the key signature.  The key signature only effects
@@ -555,7 +575,7 @@ see @ref{Key signature}.
 @section Ties and slurs
 
 @cindex ties
-@unnumberedsubsec Ties
+@subheading Ties
 A @rglos{tie} is created by appending a tilde @samp{~} to the first
 note being tied
 
@@ -565,7 +585,7 @@ c4 ~ c8 a8 ~ a2
 @end lilypond
 
 @cindex slurs
-@unnumberedsubsec Slurs
+@subheading Slurs
 
 A @rglos{slur} is a curve drawn across many notes.  The starting note
 and ending note are marked with @samp{(} and @samp{)} respectively.
@@ -576,7 +596,7 @@ d4( c16) cis( d e c cis d) e( d4)
 
 @cindex slurs, phrasing
 @cindex phrasing slurs
-@unnumberedsubsec Phrasing slurs
+@subheading Phrasing slurs
 
 @cindex phrasing slurs
 Slurs to indicate longer phrasing can be entered with @code{\(} and
@@ -591,7 +611,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @sp 1
 
 @cindex slurs versus ties
-@unnumberedsubsec Warnings: slurs vs. ties
+@subheading Warnings: slurs vs. ties
 
 A slur looks like a @rglos{tie}, but it has a different meaning.  A
 tie simply makes the first note longer, and can only be used on
@@ -622,6 +642,7 @@ see @ref{Phrasing slurs}.
 @cindex articulation
 @cindex accents
 @cindex staccato
+@subheading Articulations
 
 @c  FIXME: change to @rglos once the term is added  (articulations)
 Common articulations can be added to a note using a dash (@samp{-}) and a
@@ -632,6 +653,7 @@ c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
 @cindex fingering
+@subheading Fingerings
 Similarly, fingering indications can be added to a note using a dash
 (@samp{-}) and the digit to be printed:
 
@@ -648,6 +670,7 @@ it is best to let LilyPond determine the articulation directions.
 c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
+@subheading Dynamics
 Dynamic signs are made by adding the markings (with a backslash) to
 the note
 
@@ -710,6 +733,68 @@ see @ref{Manual beams}.
 @end quotation
 
 
+@node Advanced rhythmic commands
+@section Advanced rhythmic commands
+
+@cindex pickup
+@cindex anacruse
+@cindex partial measure
+@subheading Partial measure
+
+@c FIXME: glossary "anacrusis".
+A pickup (or @q{anacrusis}) is entered with the keyword @code{\partial}.  It
+is followed by a duration: @code{\partial 4} is a quarter note pickup
+and @code{\partial 8} an eighth note.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\partial 8
+f8 c2 d
+@end lilypond
+
+@cindex tuplets
+@cindex triplets
+@subheading Tuplets
+
+Tuplets are made with the @code{\times} keyword.  It takes two
+arguments: a fraction and a piece of music.  The duration of the piece
+of music is multiplied by the fraction.  Triplets make notes occupy
+2/3 of their notated duration, so a triplet has 2/3 as its fraction
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\times 2/3 { f8 g a }
+\times 2/3 { c r c }
+\times 2/3 { f,8 g16 a g a }
+\times 2/3 { d4 a8 }
+@end lilypond
+
+@cindex grace notes
+@cindex acciaccatura
+@cindex appoggiatura
+@subheading Grace notes
+
+Grace notes are created with the @code{\grace} command, although they
+can also be created by prefixing a music expression with the
+keyword @code{\appoggiatura} or @code{\acciaccatura}
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c2 \grace { a32 b} c2
+c2 \appoggiatura b16 c2
+c2 \acciaccatura b16 c2
+@end lilypond
+
+@moreinfo
+@quotation
+@table @asis
+@item Grace notes
+see @ref{Grace notes},
+@item Tuplets
+see @ref{Tuplets},
+@item Pickups
+see @ref{Partial measures}.
+@end table
+@end quotation
+
+@c zzz
 
 @node Music expressions explained
 @section Music expressions explained
@@ -736,7 +821,7 @@ is another music expression:
 { { a4 g } f g }
 @end lilypond
 
-@unnumberedsubsec Simultaneous music expressions: multiple staves
+@subheading Simultaneous music expressions: multiple staves
 
 This technique is useful for polyphonic music.  To enter music
 with more voices or more staves, we combine expressions in
@@ -761,7 +846,7 @@ amount of space.  LilyPond does not care how much (or little) space there
 is at the beginning of a line, but indenting LilyPond code like this makes
 it much easier for humans to read.
 
-@unnumberedsubsec Simultaneous music expressions: single staff
+@subheading Simultaneous music expressions: single staff
 
 To determine the number of staves in a piece, LilyPond looks at the first
 exression.  If it is a single note, there is one staff; if there is a
@@ -774,7 +859,7 @@ simultaneous expression, there is more than one staff.
 @end lilypond
 
 
-@unnumberedsubsec Analogy: mathematical expressions
+@subheading Analogy: mathematical expressions
 
 This mechanism is similar to mathematical
 formulas: a big formula is created by composing small formulas.  Such
@@ -894,84 +979,6 @@ r4 <c e g>8\>( <c e g> <c e g> <c f a>\!)
 @end lilypond
 
 
-@node Advanced rhythmic commands
-@section Advanced rhythmic commands
-
-@cindex pickup
-@cindex anacruse
-@cindex partial measure
-A pickup is entered with the keyword @code{\partial}.  It
-is followed by a duration: @code{\partial 4} is a quarter note upstep
-and @code{\partial 8} an eighth note
-
-@lilypond[quote,relative=2,verbatim,fragment]
-\partial 8
-f8 c2 d e
-@end lilypond
-
-@cindex tuplets
-@cindex triplets
-Tuplets are made with the @code{\times} keyword.  It takes two
-arguments: a fraction and a piece of music.  The duration of the piece
-of music is multiplied by the fraction.  Triplets make notes occupy
-2/3 of their notated duration, so a triplet has 2/3 as its fraction
-
-@lilypond[quote,relative=1,verbatim,fragment]
-\times 2/3 { f8 g a }
-\times 2/3 { c r c }
-@end lilypond
-
-@cindex grace notes
-@cindex acciaccatura
-Grace notes are also made by prefixing a music expression with the
-keyword @code{\appoggiatura} or @code{\acciaccatura}
-@cindex appoggiatura
-@cindex acciaccatura
-
-@lilypond[quote,relative=2,verbatim,fragment]
-c4 \appoggiatura b16 c4
-c4 \acciaccatura b16 c4
-@end lilypond
-
-@moreinfo
-@quotation
-@table @asis
-@item Grace notes
-see @ref{Grace notes},
-@item Tuplets
-see @ref{Tuplets},
-@item Pickups
-see @ref{Partial measures}.
-@end table
-@end quotation
-
-
-@node Commenting input files
-@section Commenting input files
-
-@cindex comments
-@cindex line comment
-@cindex block comment
-A comment is a remark for the human reader of the music input; it is
-ignored while parsing, so it has no effect on the printed output.
-There are two types of comments.  The percent symbol @samp{%}
-introduces a line comment; after @samp{%} the rest of the line is
-ignored.  A block comment marks a whole section of music
-input.  Anything that is enclosed in @code{%@{} and @code{%@}} is
-ignored.  The following fragment shows possible uses for comments
-
-@example
-% notes for twinkle twinkle follow
-  c4 c g' g a a g2
-
-%@{
-    This line, and the notes below
-    are ignored, since they are in a
-    block comment.
-
-    g g f f e e d d c2
-%@}
-@end example
 
 @c  TODO   post-2.6 reorg
 @c   This is good info, but I wouldn't call it a comment.  IMO it should
