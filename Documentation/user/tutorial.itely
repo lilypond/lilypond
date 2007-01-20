@@ -677,8 +677,8 @@ according to standard notation conventions.
 
 @c better to have this just before the @q{octaves are bad} snipped
 @c but we'd need to remove the ', from \key and tie
-To raise a note by an octave, add a high quote @code{'} (apostrophe) to
-the note name, to lower a note one octave, add a @q{low quote} @code{,}
+To raise a note by an octave, add a high quote @samp{'} (apostrophe) to
+the note name, to lower a note one octave, add a @q{low quote} @samp{,}
 (comma).  Middle C is @code{c'}
 
 @lilypond[quote,notime,fragment,verbatim]
@@ -700,8 +700,8 @@ This makes the input less readable, and it is a source of errors.  The
 solution is to use @q{relative octave} mode.   This is the
 most convenient way to copy existing music.
 
-In relative mode, a note without octavation quotes (i.e., the @code{'}
-or @code{,} after a note) is chosen so that it is closest to the
+In relative mode, a note without octavation quotes (i.e., the @samp{'}
+or @samp{,} after a note) is chosen so that it is closest to the
 previous one.  For example, @samp{c f} goes up while @samp{c g} goes
 down.
 
