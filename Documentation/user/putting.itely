@@ -18,7 +18,6 @@ create @code{\score} blocks.
 * Extending the templates::     
 * How LilyPond files work::     
 * Score is a single musical expression::  
-* Organizing larger pieces::    
 * An orchestral part::          
 @end menu
 
@@ -462,62 +461,6 @@ text editor!
 
 
 
-
-@node Organizing larger pieces
-@section Organizing larger pieces
-
-When all of the elements discussed earlier are combined to produce
-larger files, the @code{\score} blocks get a lot bigger because the
-music expressions are longer, and, in the case of polyphonic music,
-more deeply nested.  Such large expressions can become unwieldy.
-
-By using variables, also known as identifiers, it is possible to break
-up complex music expressions.  An identifier is assigned as follows
-
-@example
-namedMusic = @{ @dots{} @}
-@end example
-
-@noindent
-The contents of the music expression @code{namedMusic}, can be used
-later by preceding the name with a backslash, i.e., @code{\namedMusic}.
-In the next example, a two-note motive is repeated two times by using
-variable substitution
-
-@lilypond[quote,ragged-right,verbatim,nofragment]
-seufzer = {
-  e'4( dis'4)
-}
-{ \seufzer \seufzer }
-@end lilypond
-
-The name of an identifier should have alphabetic characters only: no
-numbers, underscores, or dashes.  The assignment should be outside of
-running music.
-
-It is possible to use variables for many other types of objects in the
-input.  For example,
-
-@example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
-@end example
-
-Depending on its contents, the identifier can be used in different
-places.  The following example uses the above variables
-
-@example
-\paper @{
-  \aFivePaper
-  line-width = \width
-@}
-@{ c4^\name @}
-@end example
-
-More information on the possible uses of identifiers is given in the
-technical manual, in @ref{Input variables and Scheme}.
-@c fixme: the ref is too technical.
 
 
 @node An orchestral part
