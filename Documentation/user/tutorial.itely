@@ -1266,6 +1266,7 @@ of the manual.
 * Version number::              
 * Adding titles::               
 * Absolute note names::         
+* Organizing pieces with identifiers::  
 * After the tutorial::          
 * How to read the manual::      
 @end menu
@@ -1386,6 +1387,67 @@ will not be as visible, and will not be as easy to find.
 
 However, absolute mode is useful for music which has large intervals, and
 is extremely useful for computer-generated LilyPond files.
+
+
+@node Organizing pieces with identifiers
+@subsection Organizing pieces with identifiers
+
+When all of the elements discussed earlier are combined to produce
+larger files, the music expressions get a lot bigger.  In polyphonic
+music with many staves, the input files can become very confusing.  We can
+reduce this confusion by using @emph{identifiers}.
+
+Identifiers (also known as variables or macros), we can break up
+complex music expressions.  An identifier is assigned as follows
+
+@example
+namedMusic = @{ @dots{} @}
+@end example
+
+The contents of the music expression @code{namedMusic} can be used
+later by placing a backslash in front of the name
+(@code{\namedMusic}, just like a normal LilyPond command).  Identifiers
+must be defined @emph{before} the main music expression.
+
+@lilypond[quote,verbatim,ragged-right]
+violin = \new Staff { \relative c'' {
+  a4 b c b
+}}
+cello = \new Staff { \relative c {
+  \clef bass
+  e2 d
+}}
+{
+  <<
+    \violin
+    \cello
+  >>
+}
+@end lilypond
+
+@noindent
+The name of an identifier should have alphabetic characters only: no
+numbers, underscores, or dashes.
+
+It is possible to use variables for many other types of objects in the
+input.  For example,
+
+@example
+width = 4.5\cm
+name = "Wendy"
+aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+@end example
+
+Depending on its contents, the identifier can be used in different
+places.  The following example uses the above variables:
+
+@example
+\paper @{
+  \aFivePaper
+  line-width = \width
+@}
+@{ c4^\name @}
+@end example
 
 
 @node After the tutorial
