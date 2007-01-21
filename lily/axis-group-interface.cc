@@ -61,9 +61,12 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
   for (vsize i = 0; i < elts.size (); i++)
     {
       Grob *se = elts[i];
-      Interval dims = se->extent (common, a);
-      if (!dims.is_empty ())
-	r.unite (dims);
+      if (!to_boolean (se->get_property ("cross-staff")))
+	{
+	  Interval dims = se->extent (common, a);
+	  if (!dims.is_empty ())
+	    r.unite (dims);
+	}
     }
   return r;
 }
@@ -355,6 +358,12 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
   else if (priority_1 > priority_2)
     return false;
 
+  /* if neither grob has an outside-staff priority, the ordering will have no
+     effect -- we just need to choose a consistent ordering. We do this to
+     avoid the side-effect of calculating extents. */
+  if (isinf (priority_1))
+    return g1 < g2;
+
   /* if there is no preference in staff priority, choose the left-most one */
   Grob *common = g1->common_refpoint (g2, X_AXIS);
   Real start_1 = g1->extent (common, X_AXIS)[LEFT];
@@ -371,7 +380,8 @@ add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes)
       for (vsize i = 0; i < elements->size (); i++)
 	add_boxes (elements->grob (i), x_common, y_common, boxes);
     }
-  else if (!scm_is_number (me->get_property ("outside-staff-priority")))
+  else if (!scm_is_number (me->get_property ("outside-staff-priority"))
+	   && !to_boolean (me->get_property ("cross-staff")))
     boxes->push_back (Box (me->extent (x_common, X_AXIS),
 			   me->extent (y_common, Y_AXIS)));
 }
@@ -510,6 +520,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "Y-common "
 	       "axes "
 	       "elements "
+	       "keep-fixed-while-stretching "
 	       "max-stretch "
 	       "pure-Y-common "
 	       "pure-relevant-elements "

@@ -33,20 +33,20 @@
                (interval-end   system-extent))))))
 
 (define (stretch-and-draw-page paper-book systems page-number ragged last)
+  (define (max-stretch sys)
+    (if (ly:grob? sys)
+	(ly:grob-property sys 'max-stretch)
+	0.0))
+
   (define (stretchable? sys)
     (and (ly:grob? sys)
-	 (ly:grob-property sys 'stretchable)))
+	 (> (max-stretch sys) 0.0)))
 
   (define (height-estimate sys)
     (interval-length
      (if (ly:grob? sys)
 	 (ly:grob-property sys 'pure-Y-extent)
 	 (paper-system-extent sys Y))))
-
-  (define (max-stretch sys)
-    (if (stretchable? sys)
-	(ly:grob-property sys 'max-stretch)
-	0.0))
 
   (define (print-system sys)
     (if (ly:grob? sys)

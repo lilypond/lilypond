@@ -72,6 +72,7 @@ public:
   Real height (Real airplane) const;
   Real max_height () const;
   void set_minimum_height (Real height);
+  bool is_empty () const;
 };
 
 class Skyline_pair
@@ -90,6 +91,7 @@ public:
   void merge (Skyline_pair const &other);
   Skyline &operator [] (Direction d);
   Skyline const &operator [] (Direction d) const;
+  bool is_empty () const;
 };
 
 #endif /* SKYLINE_HH */

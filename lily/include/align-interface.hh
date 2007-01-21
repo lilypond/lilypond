@@ -19,11 +19,11 @@ struct Align_interface
   DECLARE_SCHEME_CALLBACK (stretch_after_break, (SCM element));
   DECLARE_SCHEME_CALLBACK (calc_max_stretch, (SCM));
   static void stretch (Grob *, Real amount, Axis a);
-  static void align_to_fixed_distance (Grob *, Axis a);
   static void align_elements_to_extents (Grob *, Axis a);
   static vector<Real> get_extents_aligned_translates (Grob *, vector<Grob*> const&,
 						      Axis a,
 						      bool safe, int start, int end);
+  static int stretchable_children_count (Grob const*);
   static void set_ordered (Grob *);
   static Axis axis (Grob *);
   static void add_element (Grob *, Grob *);
