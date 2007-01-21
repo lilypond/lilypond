@@ -680,7 +680,7 @@ way is to use the @code{\addlyrics} function.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::
+* Hyphens and extenders::       
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
