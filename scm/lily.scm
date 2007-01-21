@@ -629,7 +629,8 @@ The syntax is the same as `define*-public'."
     (if (ly:get-option 'trace-scheme-coverage)
 	(begin
 	  (coverage:disable)
-	  (coverage:show-all)))
+	  (coverage:show-all (lambda (f) (string-contains f "lilypond"))
+			     )))
 	  
     
     (if (pair? failed)
