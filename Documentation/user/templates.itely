@@ -7,8 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Example templates
-@appendix Example templates
+@node Templates
+@appendix Templates
 
 This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy

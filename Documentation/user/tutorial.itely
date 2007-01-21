@@ -62,11 +62,10 @@ commands for quick reference.
 
 @menu
 * First steps::                 
-* Notation for one note at once FIXME name::  
+* Single staff notation::       
 * Multiple notes at once::      
 * Songs::                       
 * Final touches::               
-* FIXME merge with chapter 3::  
 @end menu
 
 
@@ -482,11 +481,11 @@ a small documentation example and paste it inside a longer piece
 of your own.
 
 
-@node Notation for one note at once FIXME name
-@section Notation for one note at once FIXME name
+@node Single staff notation
+@section Single staff notation
 
-This section introduces common notation that is used for a single
-staff.
+This section introduces common notation that is used for one voice
+on one staff.
 
 @menu
 * Relative note names::         
@@ -1393,11 +1392,11 @@ is extremely useful for computer-generated LilyPond files.
 @subsection After the tutorial
 
 After finishing the tutorial, you should probably try writing a
-piece or two.  Start with one of the @ref{Example templates} and
+piece or two.  Start with one of the @ref{Templates} and
 add notes.  If you need any notation that was not covered in the
 tutorial, look at the Notation Reference, starting with
 @ref{Basic notation}.  If you want to write for an instrument
-ensemble which is not covered in the @ref{Example templates},
+ensemble which is not covered in the templates,
 take a look at @ref{Extending the templates}.
 
 Once you have written a few short pieces, read the rest of
@@ -1428,204 +1427,4 @@ If you are still confused about the exact LilyPond input that was
 used in an example, read the HTML version (if you are not already doing
 so) and click on the picture of the music.  This will display the exact
 input that LilyPond used to generate this manual.
-
-
-
-@c zz
-
-@node FIXME merge with chapter 3
-@section FIXME merge with chapter 3
-
-@menu
-* Organizing larger pieces::    
-* An orchestral part::          
-@end menu
-
-
-
-@node Organizing larger pieces
-@subsection Organizing larger pieces
-
-When all of the elements discussed earlier are combined to produce
-larger files, the @code{\score} blocks get a lot bigger because the
-music expressions are longer, and, in the case of polyphonic music,
-more deeply nested.  Such large expressions can become unwieldy.
-
-By using variables, also known as identifiers, it is possible to break
-up complex music expressions.  An identifier is assigned as follows
-
-@example
-namedMusic = @{ @dots{} @}
-@end example
-
-@noindent
-The contents of the music expression @code{namedMusic}, can be used
-later by preceding the name with a backslash, i.e., @code{\namedMusic}.
-In the next example, a two-note motive is repeated two times by using
-variable substitution
-
-@lilypond[quote,ragged-right,verbatim,nofragment]
-seufzer = {
-  e'4( dis'4)
-}
-{ \seufzer \seufzer }
-@end lilypond
-
-The name of an identifier should have alphabetic characters only: no
-numbers, underscores, or dashes.  The assignment should be outside of
-running music.
-
-It is possible to use variables for many other types of objects in the
-input.  For example,
-
-@example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
-@end example
-
-Depending on its contents, the identifier can be used in different
-places.  The following example uses the above variables
-
-@example
-\paper @{
-  \aFivePaper
-  line-width = \width
-@}
-@{ c4^\name @}
-@end example
-
-More information on the possible uses of identifiers is given in the
-technical manual, in @ref{Input variables and Scheme}.
-@c fixme: the ref is too technical.
-
-
-@node An orchestral part
-@subsection An orchestral part
-
-In orchestral music, all notes are printed twice.  Once in a part for
-the musicians, and once in a full score for the conductor.  Identifiers can
-be used to avoid double work.  The music is entered once, and stored in
-a variable.  The contents of that variable is then used to generate
-both the part and the full score.
-
-It is convenient to define the notes in a special file.  For example,
-suppose that the file @file{horn-music.ly} contains the following part
-of a horn/@/bassoon duo
-
-@example
-hornNotes = \relative c @{
-  \time 2/4
-  r4 f8 a cis4 f e d
-@}
-@end example
-
-@noindent
-Then, an individual part is made by putting the following in a file
-
-@example
-\include "horn-music.ly"
-\header @{
-  instrument = "Horn in F"
-@}
-
-@{
- \transpose f c' \hornNotes
-@}
-@end example
-
-The line
-
-@example
-\include "horn-music.ly"
-@end example
-
-@noindent
-substitutes the contents of @file{horn-music.ly} at this position in
-the file, so @code{hornNotes} is defined afterwards.  The command
-@code{\transpose f@tie{}c'} indicates that the argument, being
-@code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
-@samp{f} is denoted by notated @code{c'}, which corresponds with the
-tuning of a normal French Horn in@tie{}F.  The transposition can be seen
-in the following output
-
-@lilypond[quote,ragged-right]
-\transpose f c' \relative c {
-  \time 2/4
-  r4 f8 a cis4 f e d
-}
-@end lilypond
-
-In ensemble pieces, one of the voices often does not play for many
-measures.  This is denoted by a special rest, the multi-measure
-rest.  It is entered with a capital @samp{R} followed by a duration
-(@code{1}@tie{}for a whole note, @code{2}@tie{}for a half note,
-etc.).  By multiplying the
-duration, longer rests can be constructed.  For example, this rest
-takes 3@tie{}measures in 2/4 time
-
-@example
-R2*3
-@end example
-
-When printing the part, multi-rests
-must be condensed.  This is done by setting a run-time variable
-
-@example
-\set Score.skipBars = ##t
-@end example
-
-@noindent
-This command sets the property @code{skipBars} in the
-@code{Score} context to true (@code{##t}).  Prepending the rest and
-this option to the music above, leads to the following result
-
-@lilypond[quote,ragged-right]
-\transpose f c' \relative c {
-  \time 2/4
-  \set Score.skipBars = ##t
-  R2*3
-  r4 f8 a cis4 f e d
-}
-@end lilypond
-
-
-The score is made by combining all of the music together.  Assuming
-that the other voice is in @code{bassoonNotes} in the file
-@file{bassoon-music.ly}, a score is made with
-
-@example
-\include "bassoon-music.ly"
-\include "horn-music.ly"
-
-<<
-  \new Staff \hornNotes
-  \new Staff \bassoonNotes
->>
-@end example
-
-@noindent
-leading to
-
-@lilypond[quote,ragged-right]
-\relative c <<
-  \new Staff {
-    \time 2/4 R2*3
-    r4 f8 a cis4 f e d
-  }
-  \new Staff {
-    \clef bass
-    r4 d,8 f | gis4 c | b bes |
-    a8 e f4 | g d | gis f
-  }
->>
-@end lilypond
-
-More in-depth information on preparing parts and scores can be found
-in the notation manual; see @ref{Orchestral music}.
-
-Setting run-time variables (@q{properties}) is discussed in
-@ref{Changing context properties on the fly}.
-
-
 

@@ -787,8 +787,8 @@ are a set of tables showing the chord names, MIDI instruments,
 a list of color names, and the Feta font.
 
 @item
-@emph{@ref{Example templates}}
-provides templates of LilyPond pieces.  Just cut and paste a
+@emph{@ref{Templates}}
+of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 
 @item
