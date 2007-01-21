@@ -604,24 +604,25 @@ def conv (str):
     return str
 
 conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
+def regularize_id (str):
+    s = ''
+    lastx = ''
+    for x in str:
+        if x == '_':
+            lastx = x
+            continue
+        elif x in string.digits:
+            x = chr(ord (x) - ord ('0')  +ord ('A'))
+        elif x not in string.letters:
+            x = 'x'
+        elif x in string.lowercase and lastx == '_':
+            x = string.upper (x)
+        s = s + x
+        lastx = x
+    return s
 
 def conv (str):
-    def regularize_id (str):
-	s = ''
-	lastx = ''
-	for x in str:
-	    if x == '_':
-		lastx = x
-		continue
-	    elif x in string.digits:
-		x = chr(ord (x) - ord ('0')  +ord ('A'))
-	    elif x not in string.letters:
-		x = 'x'
-	    elif x in string.lowercase and lastx == '_':
-		x = string.upper (x)
-	    s = s + x
-	    lastx = x
-	return s
+
 
     def regularize_dollar_reference (match):
 	return regularize_id (match.group (1))
