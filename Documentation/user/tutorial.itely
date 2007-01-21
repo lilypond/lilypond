@@ -689,9 +689,8 @@ see @ref{Phrasing slurs}.
 @cindex staccato
 @subheading Articulations
 
-@c  FIXME: change to @rglos once the term is added  (articulations)
-Common articulations can be added to a note using a dash (@samp{-}) and a
-single character:
+Common @rglos{articulations} can be added to a note using a dash @samp{-}
+and a single character:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c-. c-- c-> c-^ c-+ c-_
@@ -786,10 +785,9 @@ see @ref{Manual beams}.
 @cindex partial measure
 @subheading Partial measure
 
-@c FIXME: glossary "anacrusis".
-A pickup (or @q{anacrusis}) is entered with the keyword @code{\partial}.  It
-is followed by a duration: @code{\partial 4} is a quarter note pickup
-and @code{\partial 8} an eighth note.
+A pickup (or @rglos{anacrusis}) is entered with the keyword
+@code{\partial}.  It is followed by a duration: @code{\partial 4} is
+a quarter note pickup and @code{\partial 8} an eighth note.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \partial 8

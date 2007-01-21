@@ -150,10 +150,12 @@ Languages in this order.
 * alto::                        
 * alto clef::                   
 * ambit::                       
+* anacrusis::                   
 * ancient minor scale::         
 * andante::                     
 * appoggiatura::                
 * arpeggio::                    
+* articulation::                
 * ascending interval::          
 * augmented interval::          
 * autograph::                   
@@ -576,6 +578,15 @@ The term ambit (from latin: ambitus, plural: ambitus) denotes a range
 of pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
 
+@node anacrusis
+@section anacrusis
+
+@c  TODO: add more languages for anacrusis
+F: anacrouse
+
+An anacrusis (also known as pickup or upbeat) is an incomplete measure
+of music before a section of music.
+
 @node ancient minor scale
 @section ancient minor scale
 
@@ -700,6 +711,15 @@ FI: arpeggio, murtosointu.
   }
 >>
 @end lilypond
+
+@node articulation
+@section articulation
+
+@c TODO: add languages for articulation.
+Articulation refers to notation which indicates how a note or notes should
+be played.  Slurs, accents, staccato, and legato are all examples of
+articulartion.
+
 
 @node ascending interval
 @section ascending interval
