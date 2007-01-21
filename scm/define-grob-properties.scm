@@ -169,8 +169,6 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font. Choices include @code{upright},
 @code{italic}, @code{caps}.")
      (forced ,boolean? "manually forced accidental")
-     (forced-distance ,ly:dimension? "A fixed distance between object
-reference points in an alignment.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions. The unit is the note head width of the first voice
 note.  This is used by @internalsref{note-collision-interface}.")
@@ -210,6 +208,7 @@ set beam/slur quant to this position, and print the respective scores.")
      (inspect-index ,integer? "If debugging is set,
 set beam/slur configuration to this index, and print the respective scores.")
      (implicit ,boolean? "Is this an implicit bass figure?")
+     (keep-fixed-while-stretching ,boolean? "A grob with this property set to true will be fixed relative to the staff above it when systems are stretched.")
      (keep-inside-line ,boolean? "If set, this column cannot have
 things sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add. For
@@ -467,6 +466,7 @@ function is to protect objects from being garbage collected.")
      (arpeggio ,ly:grob? "pointer to arpeggio object.")
      (beam ,ly:grob? "pointer to the beam, if applicable.")
      (bracket ,ly:grob? "the bracket for a  number.")
+     (cross-staff ,boolean? "for a beam or a stem, true if we depend on inter-staff spacing")
      (direction-source ,ly:grob? "in case side-relative-direction is
 set, which grob to get the direction from .")
      (dot ,ly:grob? "reference to Dots object.")

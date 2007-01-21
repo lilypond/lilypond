@@ -307,11 +307,7 @@ contained staves are not connected vertically."
   \description
   "Just like @code{GrandStaff} but with a forced distance between
     the staves, so cross staff beaming and slurring can be used."
-  
-  \override VerticalAlignment #'forced-distance = #12
-  \override VerticalAlignment #'self-alignment-Y = #0
 
-  \consists "Vertical_align_engraver"
   \consists "Instrument_name_engraver"
   
   instrumentName = #'()
@@ -380,6 +376,7 @@ printing of a single line of lyrics.  "
 
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
+  \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
   \override SeparationItem #'padding = #0.2
   \override InstrumentName #'self-alignment-Y = ##f
 

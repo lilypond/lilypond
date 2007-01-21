@@ -34,6 +34,7 @@ public:
   static int head_count (Grob *);
   static bool is_invisible (Grob *);
   static bool is_normal_stem (Grob *);
+  static bool is_cross_staff (Grob *);
   static Interval head_positions (Grob *);
   static Real stem_end_position (Grob *);
   static Stencil flag (Grob *);
@@ -53,5 +54,6 @@ public:
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM));
 };
 #endif

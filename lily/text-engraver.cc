@@ -31,9 +31,6 @@ protected:
   void process_acknowledged ();
 
   DECLARE_TRANSLATOR_LISTENER (text_script);
-  DECLARE_ACKNOWLEDGER (stem_tremolo);
-  DECLARE_ACKNOWLEDGER (stem);
-  DECLARE_ACKNOWLEDGER (rhythmic_head);
 };
 
 IMPLEMENT_TRANSLATOR_LISTENER (Text_engraver, text_script);
@@ -41,40 +38,6 @@ void
 Text_engraver::listen_text_script (Stream_event *ev)
 {
   evs_.push_back (ev);
-}
-
-void
-Text_engraver::acknowledge_rhythmic_head (Grob_info inf)
-{
-  for (vsize i = 0; i < texts_.size (); i++)
-    {
-      Grob *t = texts_[i];
-      Side_position_interface::add_support (t, inf.grob ());
-
-      /*
-	ugh.
-      */
-      if (Side_position_interface::get_axis (t) == X_AXIS
-	  && !t->get_parent (Y_AXIS))
-	t->set_parent (inf.grob (), Y_AXIS);
-      else if (Side_position_interface::get_axis (t) == Y_AXIS
-	       && !t->get_parent (X_AXIS))
-	t->set_parent (inf.grob (), X_AXIS);
-    }
-}
-
-void
-Text_engraver::acknowledge_stem (Grob_info inf)
-{
-  for (vsize i = 0; i < texts_.size (); i++)
-    Side_position_interface::add_support (texts_[i], inf.grob ());
-}
-
-void
-Text_engraver::acknowledge_stem_tremolo (Grob_info info)
-{
-  for (vsize i = 0; i < texts_.size (); i++)
-    Side_position_interface::add_support (texts_[i], info.grob ());
 }
 
 void
@@ -119,9 +82,6 @@ Text_engraver::Text_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Text_engraver, stem);
-ADD_ACKNOWLEDGER (Text_engraver, stem_tremolo);
-ADD_ACKNOWLEDGER (Text_engraver, rhythmic_head);
 ADD_TRANSLATOR (Text_engraver,
 		/* doc */ "Create text-scripts",
 		/* create */ "TextScript",

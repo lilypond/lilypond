@@ -319,6 +319,7 @@
 	(beaming . ,ly:beam::calc-beaming)
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
+	(cross-staff . ,ly:beam::cross-staff)
 
 	(details .  ((hint-direction-penalty . 20)))
 	;; TODO: should be in SLT.
@@ -591,7 +592,6 @@
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(staff-padding . 0.1)
 	(padding . 0.6)
-	(avoid-slur . outside)
 	(slur-padding . 0.3)
 	(minimum-space . 1.2)
 	(direction . ,DOWN)
@@ -620,7 +620,6 @@
 	(font-series . bold)
 	(font-encoding . fetaDynamic)
 	(font-shape . italic)
-	(avoid-slur . around)
 	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 250)
 	(meta . ((class . Item)
@@ -1229,6 +1228,7 @@
 	(minimum-length . 1.5)
 	(height-limit . 2.0)
 	(ratio . 0.333)
+	(cross-staff . ,ly:slur::cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
@@ -1427,6 +1427,7 @@
 	(height-limit . 2.0)
 	(ratio . 0.25)
 	(avoid-slur . inside)
+	(cross-staff . ,ly:slur::cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
@@ -1547,6 +1548,7 @@
 	(Y-extent . ,ly:stem::height)
 	(length . ,ly:stem::calc-length)
 	(thickness . 1.3)
+	(cross-staff . ,ly:stem::cross-staff)
 	(details
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length

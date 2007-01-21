@@ -16,7 +16,6 @@ public:
   DECLARE_GROB_INTERFACE();
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   static void modify_edge_height (Spanner *);
-  static void add_column (Grob *, Grob *col);
   static void add_bar (Grob *me, Item *bar);
 };
 

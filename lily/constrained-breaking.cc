@@ -180,7 +180,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
         }
     }
   /* if we get to here, just put everything on one line */
-  warning (_ ("cannot find line breaking that satisfies constraints" ));
+  warning (_ ("cannot find line breaking that satisfies constraints"));
   ret.push_back (space_line (0, end_brk));
   return ret;
 }
@@ -342,7 +342,7 @@ Constrained_breaking::initialize ()
 
 	  line.force_ = forces[i*breaks_.size () + j];
 	  if (ragged && last && !isinf (line.force_))
-	    line.force_ = 0;
+	    line.force_ = (line.force_ < 0) ? infinity_f : 0;
 	  if (isinf (line.force_))
 	    break;
 
