@@ -844,7 +844,6 @@ in the @code{\midi@{@}} section.
   \context @{
     \Voice
     \remove "Dynamic_performer"
-    \remove "Span_dynamic_performer"
   @}
 @}
 @end example
