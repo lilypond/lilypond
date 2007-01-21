@@ -60,15 +60,10 @@ Coverage for file: ~a
 		       (cond
 			((and (< i (vector-length vec)) (vector-ref vec i)) "1")
 			((and (string-contains file ".ly") (string-match "^[ \t]*%.*$" (car l)))
-
 			 "-")
 			((string-match  "^[ \t]*[()'`,]*$" (car l))
-
 			 "-")
 			((string-match  "^[ \t]*;.*$" (car l))
-			 (format (current-output-port) "~a l=~a, m=~a\n"
-				 i
-				 (car l) (string-match  "^[ \t]*;.*$"  (car l)))
 
 			 "-")
 			(else "0"))
