@@ -186,6 +186,21 @@ Returns `obj'.
   (newline)
   obj)
 
+;;;
+;;; Scheme music expression --> Lily-syntax-using string translator
+;;;
+(use-modules (srfi srfi-39)
+             (scm display-lily))
+
+(define*-public (display-lily-music expr parser #:key force-duration)
+  "Display the music expression using LilyPond syntax"
+  (memoize-clef-names supported-clefs)
+  (parameterize ((*indent* 0)
+		 (*previous-duration* (ly:make-duration 2))
+		 (*force-duration* force-duration))
+    (display (music->lily-string expr parser))
+    (newline)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
