@@ -8,13 +8,13 @@ texidoc = #(string-append "
 @section Introduction
 
 This document shows all kinds of advanced snippets from the
-LilyPond Snippet Repository.
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
 
 In the web version of this document, you can click on the file name
 or figure for each example to see the corresponding input file.
 
 This document is for LilyPond version 
-" (lilypond-version) ".")
+" (lilypond-version) "." )
 }
 
 % make sure .png  is generated.
