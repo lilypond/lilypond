@@ -46,9 +46,9 @@ protected:
   /// moment (global time) where beam started.
   Moment beam_start_mom_;
 
-  bool subdivide_beams_;
-  Moment beat_length_;
-
+  Beaming_options beaming_options_;
+  Beaming_options finished_beaming_options_;
+  
   void typeset_beam ();
   void set_melisma (bool);
 
@@ -138,8 +138,14 @@ Beam_engraver::process_music ()
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
 
+      beaming_options_.from_context (context ());
       beam_info_ = new Beaming_pattern;
       /* urg, must copy to Auto_beam_engraver too */
+    }
+  typeset_beam ();
+  if (now_stop_ev_ && beam_)
+    {
+      announce_end_grob (beam_, now_stop_ev_->self_scm ());
     }
 }
 
@@ -150,8 +156,8 @@ Beam_engraver::typeset_beam ()
     {
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
-	  
-      finished_beam_info_->beamify (context ());
+      
+      finished_beam_info_->beamify (finished_beaming_options_);
       Beam::set_beaming (finished_beam_, finished_beam_info_);
 
       delete finished_beam_info_;
@@ -181,6 +187,8 @@ Beam_engraver::stop_translation_timestep ()
       finished_beam_info_ = beam_info_;
 
       now_stop_ev_ = 0;
+      finished_beaming_options_ = beaming_options_;
+      
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam ();
