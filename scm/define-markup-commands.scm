@@ -716,7 +716,7 @@ alignment accordingly."
   (let* ((m1 (interpret-markup layout props arg1))
 	 (m2 (interpret-markup layout props arg2)))
 
-    (ly:stencil-combine-at-edge m1 axis dir m2 0.0 0.0)
+    (ly:stencil-combine-at-edge m1 axis dir m2 0.0)
   ))
 
 (define-builtin-markup-command (transparent layout props arg) (markup?)
@@ -1465,80 +1465,6 @@ that.
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
-
-(define-builtin-markup-command (bracketed-y-column layout props indices args)
-  (list? markup-list?)
-  "Make a column of the markups in @var{args}, putting brackets around
-the elements marked in @var{indices}, which is a list of numbers.
-
-"
-;;
-;; DROPME? This command is a relic from the old figured bass implementation.
-;;
-  
-  (define (sublist lst start stop)
-    (take (drop lst start) (- (1+ stop) start)))
-
-  (define (stencil-list-extent ss axis)
-    (cons
-     (apply min (map (lambda (x) (car (ly:stencil-extent x axis))) ss))
-     (apply max (map (lambda (x) (cdr (ly:stencil-extent x axis))) ss))))
-  
-
-  (define (stack-stencils-vertically stencils bskip last-stencil)
-    (cond
-     ((null? stencils) '())
-     ((not (ly:stencil? last-stencil))
-      (cons (car stencils)
-	    (stack-stencils-vertically (cdr stencils) bskip (car stencils))))
-     (else
-      (let* ((orig (car stencils))
-	     (dir (chain-assoc-get 'direction  props DOWN))
-	     (new (ly:stencil-moved-to-edge last-stencil Y dir
-					    orig
-					    0.1 bskip)))
-
-	(cons new (stack-stencils-vertically (cdr stencils) bskip new))))))
-
-  (define (make-brackets stencils indices acc)
-    (if (and stencils
-	     (pair? indices)
-	     (pair? (cdr indices)))
-	(let* ((encl (sublist stencils (car indices) (cadr indices)))
-	       (x-ext (stencil-list-extent encl X))
-	       (y-ext (stencil-list-extent encl Y))
-	       (thick 0.10)
-	       (pad 0.35)
-	       (protusion (* 2.5 thick))
-	       (lb
-		(ly:stencil-translate-axis 
-		 (ly:bracket Y y-ext thick protusion)
-		 (- (car x-ext) pad) X))
-	       (rb (ly:stencil-translate-axis
-		    (ly:bracket Y y-ext thick (- protusion))
-		    (+ (cdr x-ext) pad) X)))
-
-	  (make-brackets
-	   stencils (cddr indices)
-	   (append
-	    (list lb rb)
-	    acc)))
-	acc))
-
-  (let* ((stencils
-	  (map (lambda (x)
-		 (interpret-markup
-		  layout
-		  props
-		  x)) args))
-	 (leading
-	  (chain-assoc-get 'baseline-skip props))
-	 (stacked (stack-stencils-vertically
-		   (remove ly:stencil-empty? stencils) 1.25 #f))
-	 (brackets (make-brackets stacked indices '())))
-
-    (apply ly:stencil-add
-	   (append stacked brackets))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

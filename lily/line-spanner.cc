@@ -136,7 +136,7 @@ Line_spanner::line_stencil (Grob *me,
       Stencil mol;
 
       do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
 	     + m.extent (X_AXIS).length () < dz[X_AXIS])

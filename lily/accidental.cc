@@ -25,30 +25,12 @@ parenthesize (Grob *me, Stencil m)
   Stencil close
     = font->find_by_name ("accidentals.rightparen");
 
-  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0, 0);
-  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0, 0);
+  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0);
+  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0);
 
   return m;
 }
 
-/*
-  Hmm. Need separate callback, or perhaps #'live bool property.
- */
-MAKE_SCHEME_CALLBACK (Accidental_interface, after_line_breaking, 1);
-SCM
-Accidental_interface::after_line_breaking (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  Grob *tie = unsmob_grob (me->get_object ("tie"));
-
-  if (tie && !tie->original ()
-      && !to_boolean (me->get_property ("forced")))
-    {
-      me->suicide ();
-    }
- 
-  return SCM_UNSPECIFIED;
-}
 
 /* This callback exists for the sole purpose of allowing us to override
    its pure equivalent to accidental-interface::pure-height */
@@ -84,13 +66,16 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
   vector<Box> boxes;
 
   bool parens = to_boolean (me->get_property ("parenthesized"));
+  if (!me->is_live ())
+    return boxes;
 
   SCM scm_style = me->get_property ("style");
   if (!scm_is_symbol (scm_style)
       && !to_boolean (me->get_property ("restore-first"))
       && !parens)
     {
-      Rational alteration = ly_scm2rational (me->get_property ("alteration"));
+      Rational alteration
+	= robust_scm2rational (me->get_property ("alteration"), 0);
       if (alteration == FLAT_ALTERATION)
 	{
 	  Box stem = b;
@@ -151,7 +136,15 @@ SCM
 Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+  Grob *tie = unsmob_grob (me->get_object ("tie"));
 
+  if (tie && !tie->original ()
+      && !to_boolean (me->get_property ("forced")))
+    {
+      me->suicide ();
+      return SCM_EOL;
+    }
+  
   Font_metric *fm = Font_interface::get_default_font (me);
 
   SCM alist = me->get_property ("glyph-name-alist");
@@ -161,7 +154,7 @@ Accidental_interface::print (SCM smob)
   if (!scm_is_string (glyph_name))
     {
       me->warning (_f ("Could not find glyph-name for alteration %s",
-		       ly_scm2rational (alt).to_string ().c_str ()));
+		       ly_scm_write_string (alt).c_str ()));
       return SCM_EOL;
     }
   
@@ -177,7 +170,7 @@ Accidental_interface::print (SCM smob)
       if (acc.is_empty ())
 	me->warning (_ ("natural alteration glyph not found"));
       else
-	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1, 0);
+	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
   
   if (to_boolean (me->get_property ("parenthesized")))

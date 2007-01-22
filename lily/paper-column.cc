@@ -160,7 +160,7 @@ Paper_column::print (SCM p)
 						   properties,
 						   ly_string2scm (when));
   Stencil t = *unsmob_stencil (scm_mol);
-  t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1, 0.1);
+  t.add_at_edge (Y_AXIS, DOWN, *unsmob_stencil (when_mol), 0.1);
   t.align_to (X_AXIS, CENTER);
   t.align_to (Y_AXIS, DOWN);
 

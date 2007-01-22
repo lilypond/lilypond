@@ -801,8 +801,16 @@ SCM
 Stem::offset_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real r = 0.0;
 
+  extract_grob_set (me, "rests", rests);
+  if (rests.size ())
+    {
+      Grob *rest = rests.back ();
+      Real r = rest->extent (rest, X_AXIS).center ();
+      return scm_from_double (r);
+    }
+
+  
   if (Grob *f = first_head (me))
     {
       Interval head_wid = f->extent (f, X_AXIS);
@@ -815,7 +823,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      r = real_attach;
+      Real r = real_attach;
 
       /* If not centered: correct for stem thickness.  */
       if (attach)
@@ -823,17 +831,11 @@ Stem::offset_callback (SCM smob)
 	  Real rule_thick = thickness (me);
 	  r += -d * rule_thick * 0.5;
 	}
+      return scm_from_double (r);
     }
-  else
-    {
-      extract_grob_set (me, "rests", rests);
-      if (rests.size ())
-	{
-	  Grob *rest = rests.back ();
-	  r = rest->extent (rest, X_AXIS).center ();
-	}
-    }
-  return scm_from_double (r);
+
+  programming_error ("Weird stem.");
+  return scm_from_double (0.0);
 }
 
 Spanner *

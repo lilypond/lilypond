@@ -97,7 +97,7 @@ Key_signature_interface::print (SCM smob)
 	      && last_pos > pos - 6)
 	    padding = 0.3;
 
-	  mol.add_at_edge (X_AXIS, LEFT, acc, padding, 0);
+	  mol.add_at_edge (X_AXIS, LEFT, acc, padding);
 	  last_pos = pos;
 	}
     }

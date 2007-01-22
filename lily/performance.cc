@@ -17,7 +17,7 @@ using namespace std;
 #include "international.hh"
 #include "lily-version.hh"
 #include "main.hh"
-#include "midi-item.hh"
+#include "midi-chunk.hh"
 #include "midi-stream.hh"
 #include "score.hh"
 #include "string-convert.hh"
@@ -38,7 +38,7 @@ Performance::output (Midi_stream &midi_stream) const
 {
   int tracks_ = audio_staffs_.size ();
 
-  midi_stream << Midi_header (1, tracks_, 384);
+  midi_stream.write (Midi_header (1, tracks_, 384));
   if (be_verbose_global)
     progress_indication (_ ("Track...") + " ");
   

@@ -85,60 +85,6 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
   return scm_from_bool (s->is_empty ());
 }
 
-LY_DEFINE (ly_stencil_origin, "ly:stencil-origin",
-	   2, 0, 0, (SCM stil, SCM axis),
-	   "Return a pair of numbers signifying the origin @var{stil} in "
-	   "@var{axis} direction (0 or 1 for x and y axis respectively).")
-{
-  Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-
-  return scm_from_double (s->origin ()[Axis (scm_to_int (axis))]);
-}
-
-LY_DEFINE (ly_stencil_moved_to_edge, "ly:stencil-moved-to-edge",
-	   4, 2, 0, (SCM first, SCM axis, SCM direction, SCM second,
-		     SCM padding, SCM minimum),
-	   "Similar to @code{ly:stencil-combine-edge}, but returns "
-	   "@var{second} positioned to be next to @var{first}. ")
-{
-  /*
-    C&P from combine-at-edge.
-
-    fixme: just used once.
-  */
-  Stencil *s1 = unsmob_stencil (first);
-  Stencil *s2 = unsmob_stencil (second);
-  Stencil first_stencil;
-
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_direction (direction), direction, SCM_ARG4, __FUNCTION__, "dir");
-
-  Real p = 0.0;
-  if (padding != SCM_UNDEFINED)
-    {
-      SCM_ASSERT_TYPE (scm_is_number (padding), padding, SCM_ARG5, __FUNCTION__, "number");
-      p = scm_to_double (padding);
-    }
-  Real m = 0.0;
-  if (minimum != SCM_UNDEFINED)
-    {
-      SCM_ASSERT_TYPE (scm_is_number (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
-      m = scm_to_double (minimum);
-    }
-
-  if (s1)
-    first_stencil = *s1;
-
-  if (s2)
-    return first_stencil.moved_to_edge (Axis (scm_to_int (axis)),
-					Direction (scm_to_int (direction)),
-					*s2, p, m).smobbed_copy ();
-  else
-    return Stencil ().smobbed_copy ();
-}
-
 LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 	   4, 2, 0, (SCM first, SCM axis, SCM direction,
 		     SCM second,
@@ -181,7 +127,7 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 
   if (s2)
     result.add_at_edge (Axis (scm_to_int (axis)),
-			Direction (scm_to_int (direction)), *s2, p, m);
+			Direction (scm_to_int (direction)), *s2, p);
 
   return result.smobbed_copy ();
 }

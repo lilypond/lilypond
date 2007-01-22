@@ -246,7 +246,7 @@ Hairpin::print (SCM smob)
 	don't add another circle the hairpin is broken
       */
       if (!broken[tip_dir])
-	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0, 0);
+	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
     }
 
   mol.translate_axis (x_points[LEFT]

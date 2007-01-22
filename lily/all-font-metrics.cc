@@ -65,15 +65,10 @@ All_font_metrics::All_font_metrics (All_font_metrics const &)
 #if HAVE_PANGO_FT2
 
 Pango_font *
-All_font_metrics::find_pango_font (PangoFontDescription *description,
-				   Real magnification,
+All_font_metrics::find_pango_font (PangoFontDescription const *description,
 				   Real output_scale
 				   )
 {
-  pango_font_description_set_size (description,
-				   gint (magnification *
-					 pango_font_description_get_size (description)));
-
   gchar *pango_fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (pango_fn);
 

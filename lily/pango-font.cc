@@ -28,15 +28,15 @@
 #include "stencil.hh"
 
 Pango_font::Pango_font (PangoFT2FontMap *fontmap,
-			PangoFontDescription *description,
+			PangoFontDescription const *description,
 			Real output_scale)
 {
   (void) fontmap;
+  
   physical_font_tab_ = scm_c_make_hash_table (11);
   PangoDirection pango_dir = PANGO_DIRECTION_LTR;
   context_
     = pango_ft2_get_context (PANGO_RESOLUTION, PANGO_RESOLUTION);
-  //  context_ = pango_ft2_font_map_create_context (fontmap);
 
   pango_description_ = pango_font_description_copy (description);
   attribute_list_ = pango_attr_list_new ();
@@ -104,7 +104,7 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
   char glyph_name[GLYPH_NAME_LEN];
   PangoAnalysis const *pa = &(item->analysis);
   PangoGlyphString *pgs = pango_glyph_string_new ();
-
+  
   pango_shape (str.c_str () + item->offset,
 	       item->length, (PangoAnalysis*) pa, pgs);
 
@@ -215,6 +215,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
       tail = SCM_CDRLOC (*tail);
     }
 
+  pango_glyph_string_free (pgs);  
+  pgs = 0;
   PangoFontDescription *descr = pango_font_describe (pa->font);
   Real size = pango_font_description_get_size (descr)
     / (Real (PANGO_SCALE));
@@ -363,6 +365,7 @@ Pango_font::text_stencil (string str, bool tight) const
       return Stencil (b, exp);
     }
 
+  g_list_free (items);
 
   return dest;
 }

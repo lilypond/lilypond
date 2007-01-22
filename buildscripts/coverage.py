@@ -96,7 +96,7 @@ def read_gcov (f):
         
     return ls
 
-def get_chunks (ls, file):
+def get_c_chunks (ls, file):
     chunks = []
     chunk = []
 
@@ -108,6 +108,35 @@ def get_chunks (ls, file):
                 chunks.append (Chunk ((min (nums), max (nums)+1),
                                       last_c, ls, file))
                 chunk = []
+
+        chunk.append ((n,l))
+        if c >= 0:
+            last_c = c
+            
+    return chunks
+
+def get_scm_chunks (ls, file):
+    chunks = []
+    chunk = []
+
+    def new_chunk ():
+        nums = [n-1 for (n, l) in chunk]
+        chunks.append (Chunk ((min (nums), max (nums)+1),
+                              last_c, ls, file))
+        chunk = []
+        
+    last_c = -1
+    for (c, n, l) in ls:
+
+        if l.startswith ('(define'):
+            new_chunk ()
+            last_c =
+            continue
+        
+        if not (c == last_c or c < 0):
+
+            
+            if chunk and last_c >= 0:
 
         chunk.append ((n,l))
         if c >= 0:
@@ -129,7 +158,13 @@ def extract_chunks (file):
         print s
         return []
         
-    return get_chunks (ls, file)
+    cs = []
+    if 'scm' in file:
+        cs = get_scm_chunks (ls, file)
+    else:
+        cs = get_c_chunks (ls, file)
+    return cs
+
 
 def filter_uncovered (chunks):
     def interesting (c):
@@ -173,7 +208,13 @@ def main ():
     if options.uncovered or options.hotspots:
         chunks = []
         for a in args:
-            chunks += extract_chunks  ('%s.gcov' % a)
+            name = a
+            if name.endswith ('scm'):
+                name += '.cov'
+            else:
+                name += '.gcov'
+            
+            chunks += extract_chunks  (name)
 
         if options.uncovered:
             chunks = filter_uncovered (chunks)

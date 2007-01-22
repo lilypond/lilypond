@@ -72,11 +72,6 @@ Stencil::extent_box () const
 {
   return dim_;
 }
-Offset
-Stencil::origin () const
-{
-  return origin_;
-}
 
 /*
  * Rotate this stencil around the point [x, y]
@@ -143,7 +138,6 @@ Stencil::translate (Offset o)
 		      expr_, SCM_UNDEFINED);
   if (!is_empty ())
     dim_.translate (o);
-  origin_ += o;
 }
 
 void
@@ -186,13 +180,9 @@ Stencil::align_to (Axis a, Real x)
   translate_axis (-i.linear_combination (x), a);
 }
 
-/* FIXME: unintuitive naming, you would expect *this to be moved.
-   Kept (keeping?) API for compat with add_at_edge ().
-
-   What is PADDING, what is MINIMUM, exactly?  */
-Stencil
-Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
-			Real padding, Real minimum) const
+/*  See scheme Function.  */
+void
+Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
 {
   Interval my_extent = dim_[a];
   Interval i (s.extent (a));
@@ -210,20 +200,7 @@ Stencil::moved_to_edge (Axis a, Direction d, Stencil const &s,
 
   Stencil toadd (s);
   toadd.translate_axis (offset, a);
-
-  if (minimum > 0 && d * (-origin ()[a] + toadd.origin ()[a]) < minimum)
-    toadd.translate_axis (-toadd.origin ()[a]
-			  + origin ()[a] + d * minimum, a);
-
-  return toadd;
-}
-
-/*  See scheme Function.  */
-void
-Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding,
-		      Real minimum)
-{
-  add_stencil (moved_to_edge (a, d, s, padding, minimum));
+  add_stencil (toadd);
 }
 
 Stencil

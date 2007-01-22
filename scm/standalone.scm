@@ -5,6 +5,9 @@
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;;                 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+
+(use-modules (ice-9 rdelim))
+
 (define standalone (not (defined? 'ly:gulp-file)))
 ;;(write standalone (current-error-port))
 
@@ -16,8 +19,8 @@
 
 (define (scm-gulp-file name)
   (set! %load-path 
-	(cons (string-append (getenv 'LILYPONDPREFIX) "/ly")
-	      (cons (string-append (getenv 'LILYPONDPREFIX) "/ps")
+	(cons (string-append (getenv "LILYPONDPREFIX") "/ly")
+	      (cons (string-append (getenv "LILYPONDPREFIX") "/ps")
 		    %load-path)))
   (let ((path (%search-load-path name)))
        (if path

@@ -34,9 +34,8 @@ using namespace std;
 /*
   symbols/strings.
  */
-
-SCM
-ly_write2scm (SCM s)
+string
+ly_scm_write_string (SCM s)
 {
   SCM port = scm_mkstrport (SCM_INUM0,
 			    scm_make_string (SCM_INUM0, SCM_UNDEFINED),
@@ -47,7 +46,7 @@ ly_write2scm (SCM s)
 
   // scm_apply (write, port, SCM_EOL);
   scm_call_2 (write, s, port);
-  return scm_strport_to_string (port);
+  return ly_scm2string (scm_strport_to_string (port));
 }
 
 SCM
@@ -392,14 +391,10 @@ ly_deep_copy (SCM src)
   return src;
 }
 
-
-
-
-
 string
 print_scm_val (SCM val)
 {
-  string realval = ly_scm2string (ly_write2scm (val));
+  string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
     realval = realval.substr (0, 100)
       + "\n :\n :\n"
@@ -587,6 +582,14 @@ ly_scm2rational (SCM r)
 		   scm_to_int (scm_denominator (r)));
 }
 
+Rational
+robust_scm2rational (SCM n, Rational rat)
+{
+  if (ly_is_fraction (n))
+    return ly_scm2rational (n);
+  else
+    return rat;
+}
 
 SCM
 alist_to_hashq (SCM alist)
@@ -658,13 +661,7 @@ parse_symbol_list (char const *symbols)
   return ly_string_array_to_scm (string_split (s, ' '));
 }
 
-
-bool
-ly_is_fraction (SCM x)
-{
-  return SCM_FRACTIONP(x);
-}
-
+/* GDB debugging. */
 struct ly_t_double_cell
 {
   SCM a;

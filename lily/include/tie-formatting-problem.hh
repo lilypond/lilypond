@@ -31,6 +31,7 @@ struct Tie_configuration_variation
 typedef map < Tuple<int, 2>, Skyline> Chord_outline_map;
 typedef map < Tuple<int, 2>, Box> Column_extent_map;
 typedef map <int, Slice> Position_extent_map;
+
 class Tie_formatting_problem
 {
   Chord_outline_map chord_outlines_;

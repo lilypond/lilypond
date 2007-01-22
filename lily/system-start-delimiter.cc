@@ -42,7 +42,7 @@ System_start_delimiter::staff_bracket (Grob *me, Real height)
   Stencil bracket = Lookup::filled_box (box);
   Direction d = DOWN;
   do
-    bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap, 0.0);
+    bracket.add_at_edge (Y_AXIS, d, tips[d], -overlap);
   while (flip (&d) != DOWN);
   bracket = Stencil (box, bracket.expr ());
 

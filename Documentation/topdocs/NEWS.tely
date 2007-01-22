@@ -20,7 +20,6 @@ See user manual, \NAME\
 @end macro
 @end ifnothtml
 
-
 @macro textanchor{NAME}
 @html
 <a name="\NAME\"></a>
@@ -65,12 +64,13 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+
 @item
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.
 
-@lilypond[ragged-right,relative=1]
-{
+@lilypond[ragged-right]
+\relative c' {
   \time 4/4
   s1
   c2. c4

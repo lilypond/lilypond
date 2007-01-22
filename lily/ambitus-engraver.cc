@@ -149,7 +149,7 @@ Ambitus_engraver::finalize ()
 				start_key_sig_);
 
 	  Rational sig_alter = (handle != SCM_BOOL_F)
-	    ? ly_scm2rational (scm_cdr (handle)) : Rational (0);
+	    ? robust_scm2rational (scm_cdr (handle), Rational (0)) : Rational (0);
 
 	  if (sig_alter == p.get_alteration ())
 	    {

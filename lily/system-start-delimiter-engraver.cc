@@ -96,8 +96,7 @@ Bracket_nesting_group::add_support (Grob *g)
 
 Bracket_nesting_group::~Bracket_nesting_group ()
 {
-  for (vsize i = 0 ; i < children_.size (); i++)
-    delete children_[i];
+  junk_pointers (children_);
 }
 
 void
@@ -212,6 +211,8 @@ System_start_delimiter_engraver::finalize ()
       nesting_->set_bound (RIGHT,
 			   unsmob_grob (get_property ("currentCommandColumn")));
       nesting_->set_nesting_support (0);
+
+      delete nesting_;
     }
 }
 

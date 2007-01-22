@@ -5,6 +5,7 @@
 
   (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
+#include <cassert> 
 
 #include "audio-element.hh"
 

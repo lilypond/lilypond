@@ -18,7 +18,7 @@
 #include "ly-module.hh"
 #include "main.hh"
 #include "program-option.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "warn.hh"
 
 /* Do not append `!' suffix, since 1st argument is not modified. */

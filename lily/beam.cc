@@ -554,7 +554,7 @@ Beam::print (SCM grob)
 				    (me->layout ()->self_scm (), properties, quant_score));
 
       if (!score.is_empty ())
-	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0, 0);
+	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0);
     }
 #endif
 

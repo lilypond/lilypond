@@ -106,8 +106,8 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
   Stencil m;
   if (den)
     {
-      m.add_at_edge (Y_AXIS, UP, n, 0.0, 0);
-      m.add_at_edge (Y_AXIS, DOWN, d, 0.0, 0);
+      m.add_at_edge (Y_AXIS, UP, n, 0.0);
+      m.add_at_edge (Y_AXIS, DOWN, d, 0.0);
     }
   else
     {

@@ -10,6 +10,7 @@
 #include "config.hh"
 
 #include <cstdio>
+#include <ctype.h>
 #include <cstring>  /* memset */
 using namespace std;
 
@@ -24,6 +25,7 @@ using namespace std;
 #include "file-path.hh"
 #include "relocate.hh"
 #include "file-name.hh"
+#include "string-convert.hh"
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
@@ -146,6 +148,20 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
   return default_value;
 }
 
+LY_DEFINE (ly_string_substitute, "ly:string-substitute",
+	   3, 0, 0, (SCM a, SCM b, SCM s),
+	   "Replace @var{a} by @var{b} in @var{s}.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (a), s, SCM_ARG1, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (b), s, SCM_ARG2, __FUNCTION__, "string");
+  SCM_ASSERT_TYPE (scm_is_string (s), s, SCM_ARG3, __FUNCTION__, "string");
+
+  string ss = ly_scm2string (s);
+  replace_all (ss, string (scm_i_string_chars (a)),
+		   string (scm_i_string_chars (b)));
+  return ly_string2scm (ss);
+}
+  
 LY_DEFINE (ly_number2string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
@@ -165,7 +181,7 @@ LY_DEFINE (ly_number2string, "ly:number->string",
 	    r = 0.0;
 	  }
 
-      snprintf (str, sizeof (str), "%08.4f", r);
+      snprintf (str, sizeof (str), "%.4f", r);
     }
   else
     snprintf (str, sizeof (str), "%d", int (scm_to_int (s)));
@@ -379,3 +395,122 @@ LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
   return lst;
 }
 
+string
+format_single_argument (SCM arg, int precision)
+{
+  if (scm_is_integer (arg) && scm_exact_p (arg) == SCM_BOOL_T)
+    return (String_convert::int_string (scm_to_int (arg)));
+  else if (scm_is_number (arg))
+    {
+      Real val = scm_to_double (arg);
+
+      if (isnan (val) || isinf (val))
+	{
+	  warning (_ ("Found infinity or nan in output. Substituting 0.0"));
+	  return ("0.0");
+	  if (strict_infinity_checking)
+	    abort();
+	}
+      else
+	return (String_convert::form_string ("%.*lf", precision, val));
+    }
+  else if (scm_is_string (arg))
+    return (ly_scm2string (arg));
+  else if (scm_is_symbol (arg))
+    return (ly_symbol2string (arg));
+  else
+    {
+      ly_progress (scm_from_locale_string ("Unsupported SCM value for format: ~a"),
+		   scm_list_1 (arg));
+    }
+  
+    
+  return "";    
+}
+
+LY_DEFINE (ly_format, "ly:format",
+	   1, 0, 1, (SCM str, SCM rest),
+	   "LilyPond specific format, supporting ~a ~[0-9]f.")
+{
+  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "string");
+
+  string format = ly_scm2string (str);
+  vector<string> results;
+
+  vsize i = 0;
+  while (i < format.size())
+    {
+      vsize tilde = format.find ('~', i);
+
+      results.push_back (format.substr (i, (tilde-i)));
+
+      if (tilde == NPOS)
+	break ;
+      
+      tilde ++;
+
+      char spec = format.at (tilde ++);
+      if (spec == '~')
+	results.push_back ("~");
+      else
+	{
+	  if (!scm_is_pair (rest))
+	    {
+	      programming_error (string (__FUNCTION__) 
+				 + ": not enough arguments for format.");
+	      return ly_string2scm ("");
+	    }
+	  
+	  SCM arg = scm_car (rest);
+	  rest = scm_cdr (rest);
+
+	  int precision = 8;
+	  
+	  if (spec == '$')
+	    precision = '2';
+	  else if (isdigit (spec))
+	    {
+	      precision = spec - '0';
+	      spec = format.at (tilde ++);
+	    }
+	    	   
+	  if (spec == 'a' || spec == 'f')
+	    results.push_back (format_single_argument (arg, precision));
+	  else if (spec == 'l')
+	    {
+	      SCM s = arg;
+	      for (; scm_is_pair (s); s = scm_cdr (s))
+		{
+		  results.push_back (format_single_argument (scm_car (s), precision));
+		  if (scm_cdr (s) != SCM_EOL)
+		    results.push_back (" ");
+		}
+
+	      if (s != SCM_EOL)
+		results.push_back (format_single_argument (s, precision));
+		
+	    }
+	}
+
+      i = tilde;
+    }
+
+  if (scm_is_pair (rest))
+    programming_error (string (__FUNCTION__)
+		       + ": too many  arguments");
+
+  vsize len = 0;
+  for (vsize i = 0; i < results.size(); i++)
+    len += results[i].size();
+  
+  char *result = (char*) scm_malloc (len + 1);
+  char *ptr = result;
+  for (vsize i = 0; i < results.size(); i++)
+    {
+      strncpy (ptr, results[i].c_str (), results[i].size());
+      ptr += results[i].size();
+    }
+  *ptr = '\0';
+    
+  return scm_take_locale_stringn (result, len);
+}

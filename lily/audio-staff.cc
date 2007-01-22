@@ -8,7 +8,7 @@
 
 #include "audio-staff.hh"
 
-#include "midi-item.hh"
+#include "midi-chunk.hh"
 #include "midi-stream.hh"
 #include "midi-walker.hh"
 
@@ -28,10 +28,13 @@ Audio_staff::output (Midi_stream &midi_stream, int channel)
 {
   Midi_track midi_track;
   midi_track.number_ = channel;
-  
-  for (Midi_walker i (this, &midi_track, channel); i.ok (); i++)
+
+  Midi_walker i (this, &midi_track, channel);
+  for (; i.ok (); i++)
     i.process ();
+
+  i.finalize ();
   
-  midi_stream << midi_track;
+  midi_stream.write (midi_track);
 }
 
