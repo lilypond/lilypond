@@ -70,7 +70,7 @@ class Chunk:
             sys.stdout.write ('%8s:%8d:%s' % (cov, n, l))
             
     def uncovered_score (self):
-        return length (self)
+        return len (self)
     
 class SchemeChunk (Chunk):
     def uncovered_score (self):
@@ -85,7 +85,7 @@ def read_gcov (f):
     ls = []
 
     in_lines = [l for l in open (f).readlines ()]
-    (count_len, line_num_len) = tuple (map (len, in_lines[0].split( ':')[:2]))
+    (count_len, line_num_len) = tuple (map (len, in_lines[0].split (':')[:2]))
     
     for l in in_lines:
         c = l[:count_len].strip ()
