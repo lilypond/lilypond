@@ -69,6 +69,18 @@ class Chunk:
                 cov = ''
             sys.stdout.write ('%8s:%8d:%s' % (cov, n, l))
             
+    def uncovered_score (self):
+        return length (self)
+    
+class SchemeChunk (Chunk):
+    def uncovered_score (self):
+        text = self.text ()
+        if (text.startswith  ('(define')
+            and not text.startswith ('(define (')):
+            return 0
+
+        return len ([l for (c,n,l) in self.lines() if (c == 0)]) 
+
 def read_gcov (f):
     ls = []
 
@@ -120,28 +132,22 @@ def get_scm_chunks (ls, file):
     chunk = []
 
     def new_chunk ():
-        nums = [n-1 for (n, l) in chunk]
-        chunks.append (Chunk ((min (nums), max (nums)+1),
-                              last_c, ls, file))
-        chunk = []
+        if chunk:
+            nums = [n-1 for (n, l) in chunk]
+            chunks.append (SchemeChunk ((min (nums), max (nums)+1),
+                                        max (last_c, 0), ls, file))
+            chunk[:] = []
         
     last_c = -1
-    for (c, n, l) in ls:
-
-        if l.startswith ('(define'):
+    for (cov_count, line_number, line) in ls:
+        if line.startswith ('(define'):
             new_chunk ()
-            last_c =
-            continue
+            last_c = -1
         
-        if not (c == last_c or c < 0):
+        chunk.append ((line_number, line))
+        if cov_count >= 0:
+            last_c = cov_count
 
-            
-            if chunk and last_c >= 0:
-
-        chunk.append ((n,l))
-        if c >= 0:
-            last_c = c
-            
     return chunks
 
 def widen_chunk (ch, ls):
@@ -218,7 +224,7 @@ def main ():
 
         if options.uncovered:
             chunks = filter_uncovered (chunks)
-            chunks = [(c.length (), c) for c in chunks]
+            chunks = [(c.uncovered_score (), c) for c in chunks]
         elif options.hotspots:
             chunks = [((c.coverage_count, -c.length()), c) for c in chunks]
             
