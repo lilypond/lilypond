@@ -508,7 +508,7 @@ class ProfileFileLink (FileCompareLink):
                     note_info, self.contents[oldnew])
 
         dist = 0.0
-        factor = {'time': 3.0 ,
+        factor = {'time': 2.0 ,
                   'cells': 5.0,
                   }
         

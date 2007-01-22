@@ -116,28 +116,24 @@ Beaming_pattern::de_grace ()
 }
 
 void
-Beaming_pattern::beamify (Context *context)
+Beaming_pattern::beamify (Beaming_options const &options)
 {
   if (infos_.size () <= 1)
     return;
 
   if (infos_[0].start_moment_.grace_part_)
     de_grace ();
-  
-  bool subdivide_beams = to_boolean (context->get_property ("subdivideBeams"));
-  Moment beat_length = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
-  Moment measure_length = robust_scm2moment (context->get_property ("measureLength"), Moment (1, 4));
 
   if (infos_[0].start_moment_ < Moment (0))
     for (vsize i = 0; i < infos_.size(); i++)
-      infos_[i].start_moment_ += measure_length;
+      infos_[i].start_moment_ += options.measure_length_;
   
-  SCM grouping = context->get_property ("beatGrouping");
   Moment measure_pos (0);
   
   vector<Moment> group_starts;
   vector<Moment> beat_starts;
-  
+
+  SCM grouping = options.grouping_;
   while (measure_pos <= infos_.back().start_moment_)
     {
       int count = 2;
@@ -150,9 +146,9 @@ Beaming_pattern::beamify (Context *context)
       group_starts.push_back (measure_pos);
       for (int i = 0; i < count; i++)
 	{
-	  beat_starts.push_back (measure_pos + beat_length * i);
+	  beat_starts.push_back (measure_pos + options.beat_length_ * i);
 	}
-      measure_pos += beat_length * count;
+      measure_pos += options.beat_length_ * count;
     }
    
   vsize j = 0;
@@ -166,7 +162,7 @@ Beaming_pattern::beamify (Context *context)
       if (j < group_starts.size ())
 	infos_[i].group_start_ = group_starts[j];
       
-      infos_[i].beat_length_ = beat_length;  
+      infos_[i].beat_length_ = options.beat_length_;  
       while (k + 1 < beat_starts.size() 
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
@@ -175,7 +171,7 @@ Beaming_pattern::beamify (Context *context)
 	infos_[i].beat_start_ = beat_starts[k];
     }
   
-  beamify (subdivide_beams);
+  beamify (options.subdivide_beams_);
 }
 
 
@@ -236,4 +232,19 @@ int
 Beaming_pattern::beamlet_count (int i, Direction d) const
 {
   return infos_.at (i).beam_count_drul_[d];
+}
+
+void
+Beaming_options::from_context (Context *context)
+{
+  grouping_ = context->get_property ("beatGrouping");
+  subdivide_beams_ = to_boolean (context->get_property ("subdivideBeams"));
+  beat_length_ = robust_scm2moment (context->get_property ("beatLength"), Moment (1, 4));
+  measure_length_ = robust_scm2moment (context->get_property ("measureLength"), Moment (1, 4));
+}
+
+Beaming_options::Beaming_options ()
+{
+  grouping_ = SCM_EOL;
+  subdivide_beams_ = false;
 }
