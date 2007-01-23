@@ -461,18 +461,8 @@ Context::add_alias (SCM sym)
 }
 
 void
-Context::internal_set_property (SCM sym, SCM val
-#ifndef NDEBUG
-				, char const *file, int line, char const *fun
-#endif
-				)
+Context::internal_set_property (SCM sym, SCM val)
 {
-#ifndef NDEBUG
-  (void) file;
-  (void) line;
-  (void) fun;
-#endif
-
   if (do_internal_type_checking_global)
     assert (type_check_assignment (sym, val, ly_symbol2scm ("translation-type?")));
 
