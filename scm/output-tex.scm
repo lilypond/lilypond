@@ -27,7 +27,6 @@
 	    dashed-slur
 	    named-glyph
 	    dashed-line
-	    zigzag-line
 	    comment
 	    repeat-slash
 	    placebox
@@ -100,9 +99,6 @@
 
 (define (dashed-line thick on off dx dy phase)
   (embedded-ps (list 'dashed-line  thick on off dx dy phase)))
-
-(define (zigzag-line centre? zzw zzh thick dx dy)
-  (embedded-ps (list 'zigzag-line centre? zzw zzh thick dx dy)))
 
 (define (embedded-ps expr)
   (let ((ps-string

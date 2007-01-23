@@ -38,7 +38,7 @@
 	    setcolor
 	    setrotation
 	    text
-	    zigzag-line))
+	    ))
 
 
 (use-modules (guile)
@@ -69,22 +69,6 @@
 
 (define (numbers->string4 numlist)
   (string-join (map str4 numlist) " "))
-
-;; FIXME: lily-def
-(define-public (ps-string-def prefix key val)
-  (ly:format "/ ~a~a (~a) def\n"
-	  prefix
-	  (symbol->string key)
-	  (escape-parentheses val)))
-
-(define (ps-number-def prefix key val)
-  (let ((s (if (integer? val)
-	       (ly:number->string val)
-	       (ly:number->string (exact->inexact val)))))
-    (ly:format "/~a~a ~a def\n"
-	       prefix
-	       (symbol->string key) s)))
-
 
 ;;;
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
@@ -198,13 +182,6 @@
 			 (cadddr location))
 	      "")))))
 
-(define (lily-def key val)
-  (let ((prefix "lilypondlayout"))
-    (if (string=?
-	  (substring key 0 (min (string-length prefix) (string-length key)))
-	  prefix)
-      (format "/~a { ~a } bind def\n" key val)
-      (format "/~a (~a) def\n" key val))))
 
 (define (named-glyph font glyph)
   (ly:format "~a /~a glyphshow " ;;Why is there a space at the end?
@@ -299,17 +276,6 @@
 
 (define (utf-8-string pango-font-description string)
   (ly:warning (_ "utf-8-string encountered in PS backend")))
-
-
-(define (zigzag-line is-center zzw zzh thick dx dy)
-  (ly:format "~a ~4f ~4f ~4f 0 0 ~4f ~4f draw_zigzag_line"
-   (if is-center "true" "false")
-   zzw
-   zzh
-   thick
-   dx
-   dy))
-
 
 (define (path thickness exps)
   (define (convert-path-exps exps)

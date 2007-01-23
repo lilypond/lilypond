@@ -89,19 +89,6 @@ is then separated.
 		   (numer . ,(car (ly:duration-factor d)))
 		   (denom . ,(cdr (ly:duration-factor d))))))
 
-(define (musicxml-pitch->xml-node p)
-  (make <xml-node>
-    #:name 'pitch
-    #:children
-    (list
-     (make <xml-node>
-       #:name 'step
-       #:value (list-ref  '("C" "D" "E" "F" "G" "A" "B")
-			  (ly:pitch-notename p)))
-     (make <xml-node>
-       #:name 'octave
-       #:value (number->string (ly:pitch-octave p))))))
-
 (define (pitch->xml-node p)
   (make <xml-node>
     #:name 'pitch
@@ -250,7 +237,6 @@ is then separated.
   ;;
   ;;  (display (dtd-header) port)
 
-  (define pitch->xml-node musicxml-pitch->xml-node)
   (define duration->xml-node musicxml-duration->xml-node)
   
   (display (open-tag 'music '((type . score)) '()) port)
