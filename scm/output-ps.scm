@@ -122,7 +122,7 @@
 (define (dashed-slur thick on off l)
   (ly:format "~l ~4f [ ~4f ~4f ] 0 draw_dashed_slur"
 	  (let ((control-points (append (cddr l) (list (car l) (cadr l)))))
-	    (map number-pair->string4 control-points) " ")
+	    (map number-pair->string4 control-points))
 	  thick
 	  on
 	  off))
