@@ -13,7 +13,7 @@ using namespace std;
 
 #include "international.hh"
 #include "main.hh"
-#include "midi-item.hh"
+#include "midi-chunk.hh"
 #include "misc.hh"
 #include "program-option.hh"
 #include "stream.hh"
@@ -45,16 +45,10 @@ Midi_stream::write (string str)
 }
 
 void
-Midi_stream::write (Midi_item const &midi)
+Midi_stream::write (Midi_chunk const &midi)
 {
   string str = midi.to_string ();
 
   return write (str);
-}
-
-void
-Midi_stream::write (int i)
-{
-  write (Midi_item::i2varint_string (i));
 }
 

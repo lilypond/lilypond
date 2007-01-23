@@ -90,6 +90,7 @@ class Mensural_ligature_engraver;
 class Midi_chunk;
 class Midi_duration;
 class Midi_dynamic;
+class Midi_event;
 class Midi_header;
 class Midi_instrument;
 class Midi_item;

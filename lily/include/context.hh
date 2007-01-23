@@ -85,11 +85,7 @@ public:
   Context *where_defined (SCM name_sym, SCM *value) const;
   void unset_property (SCM var_sym);
 
-#ifndef NDEBUG
-  void internal_set_property (SCM var_sym, SCM value, char const *file, int line, char const *fun);
-#else
   void internal_set_property (SCM var_sym, SCM value);
-#endif
 
   Context *create_context (Context_def *, string, SCM);
   DECLARE_LISTENER (create_context_from_event);

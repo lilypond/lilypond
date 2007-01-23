@@ -900,10 +900,15 @@ Otherwise, return #f."
 	    ?unit-count)))
 
 ;;; \clef 
-(define clef-name-alist (map (lambda (name+vals)
-			       (cons (cdr name+vals)
-				     (car name+vals)))
-			     supported-clefs))
+(define clef-name-alist #f)
+(define-public (memoize-clef-names clefs)
+  "Initialize `clef-name-alist', if not already set."
+  (if (not clef-name-alist)
+      (set! clef-name-alist
+            (map (lambda (name+vals)
+                   (cons (cdr name+vals)
+                         (car name+vals)))
+                 clefs))))
 
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If `expr' is a clef change, return \"\\clef ...\"

@@ -266,7 +266,8 @@ dimension, measured in staff space.")
      (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
 this long. This requires an appropriate callback for the
-@code{springs-and-rods} property.")
+@code{springs-and-rods} property.  If added to a Tie, this sets the
+minimum distance between noteheads.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
 should move (after padding).")
      (neutral-direction ,ly:dir? "Which direction to take in the

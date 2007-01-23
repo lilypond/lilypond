@@ -378,7 +378,7 @@ cd ~/bin
 Create a file called @code{lilypond} which contains
 
 @example
-exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@"
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
 @end example
 
 Create similar files @code{lilypond-book}, @code{convert-ly}, and
@@ -692,12 +692,14 @@ installation instructions.
 @end ifnothtml
 
 
-@item JEdit
+@item LilyPondTool
 
-The @uref{http://@/www@/.jedit@/.org@/,jEdit} editor has a LilyPond plugin.
-This plugin includes a DVI viewer, integrated help and viewing via
-GhostScript.  It can be installed by doing @key{Plugins > Plugin
-Manager}, and selecting @code{LilyTool} from the @key{Install} tab.
+Created as a plugin for the @uref{http://@/www@/.jedit@/.org@/,jEdit} text
+editor, LilyPondTool is the most feature-rich text-based tool for editing
+LilyPond scores.  Its features include a Document Wizard with lyrics
+support to set up documents easier, and embedded PDF viewer with advanced
+point-and-click support.  For screenshots, demos and installation
+instructions, visit @uref{http://lilypondtool@/.organum@/.hu}
 
 @end table
 

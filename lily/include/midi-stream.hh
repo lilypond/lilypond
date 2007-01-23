@@ -11,19 +11,15 @@
 using namespace std;
 
 #include "std-string.hh"
+#include "lily-proto.hh"
 
-class Midi_item;
-
-/// Midi outputfile
 struct Midi_stream
 {
   Midi_stream (string file_name_string);
   ~Midi_stream ();
 
   void write (string);
-  void write (Midi_item const &);
-  void write (int);
-
+  void write (Midi_chunk const &);
   void open ();
 
   FILE *out_file_;

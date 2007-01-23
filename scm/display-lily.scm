@@ -11,9 +11,10 @@
 ;;; Display methods are stored in the `display-methods' property of each music
 ;;; type.
 ;;;
-;;; - `display-lily-music' can be called to display a music expression using
-;;; LilyPond notation. `music->lily-string' return a string describing a music
-;;; expression using LilyPond notation.
+;;; - `music->lily-string' return a string describing a music expression using
+;;; LilyPond notation. The special variables *indent*, *previous-duration*,
+;;; and *force-duration* influence the indentation level and the display of
+;;; music durations.
 ;;;
 ;;; - `with-music-match' can be used to destructure a music expression, extracting
 ;;; some interesting music properties.
@@ -97,13 +98,6 @@ display method will be called."
 	    (format #f "%{ Print method not implemented for music type ~a %}"
 		    music-type)))
       (format #f "%{ expecting a music expression: ~a %}" expr)))
-
-(define*-public (display-lily-music expr parser #:key force-duration)
-  (parameterize ((*indent* 0)
-		 (*previous-duration* (ly:make-duration 2))
-		 (*force-duration* force-duration))
-    (display (music->lily-string expr parser))
-    (newline)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;
@@ -267,13 +261,13 @@ inside body."
 ;;;
 
 ;;; indentation
-(define *indent* (make-parameter 0))
+(define-public *indent* (make-parameter 0))
 
 ;;; set to #t to force duration printing
-(define *force-duration* (make-parameter #f))
+(define-public *force-duration* (make-parameter #f))
 
 ;;; last duration found
-(define *previous-duration* (make-parameter (ly:make-duration 2)))
+(define-public *previous-duration* (make-parameter (ly:make-duration 2)))
 
 ;;; Set to #t to force a line break with some kinds of expressions (eg sequential music)
 (define *force-line-break* (make-parameter #t))

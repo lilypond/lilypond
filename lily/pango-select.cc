@@ -58,7 +58,8 @@ select_pango_font (Output_def *layout, SCM chain)
   char *str = pango_font_description_to_string (pfd);
   SCM scm_str = scm_from_locale_string (str);
   g_free (str);
-
+  pango_font_description_free (pfd);
+  
   return find_pango_font (layout, scm_str, 1.0);
 }
 

@@ -68,15 +68,17 @@ private:
   Moment beam_start_moment_;
   Moment beam_start_location_;
 
-  bool subdivide_beams_;
-  Moment beat_length_;
-
   // We act as if beam were created, and start a grouping anyway.
   Beaming_pattern *grouping_;
   SCM beam_settings_;
 
   Beaming_pattern *finished_grouping_;
 
+
+  Beaming_options beaming_options_;
+  Beaming_options finished_beaming_options_;
+  
+  
   void check_bar_property ();
 };
 
@@ -207,6 +209,7 @@ Auto_beam_engraver::begin_beam ()
 
   stems_ = new vector<Item*>;
   grouping_ = new Beaming_pattern ();
+  beaming_options_.from_context (context ());
   beam_settings_ = updated_grob_properties (context (), ly_symbol2scm ("Beam"));
 
   beam_start_moment_ = now_mom ();
@@ -242,6 +245,7 @@ Auto_beam_engraver::end_beam ()
 	{
 	  announce_end_grob (finished_beam_, SCM_EOL);
 	  finished_grouping_ = grouping_;
+	  finished_beaming_options_ = beaming_options_;
 	}
       delete stems_;
       stems_ = 0;
@@ -260,7 +264,7 @@ Auto_beam_engraver::typeset_beam ()
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
       
-      finished_grouping_->beamify (context ());
+      finished_grouping_->beamify (finished_beaming_options_);
       Beam::set_beaming (finished_beam_, finished_grouping_);
       finished_beam_ = 0;
 

@@ -77,7 +77,7 @@ Key_engraver::create_key (bool is_default)
 	  for (SCM s = last; scm_is_pair (s); s = scm_cdr (s))
 	    {
 	      SCM new_alter_pair = scm_assoc (scm_caar (s), key);
-	      Rational old_alter = ly_scm2rational (scm_cdar (s));
+	      Rational old_alter = robust_scm2rational (scm_cdar (s), 0);
 	      if (new_alter_pair == SCM_BOOL_F
 		  || extranatural
 		  && (ly_scm2rational (scm_cdr (new_alter_pair)) - old_alter)*old_alter < Rational (0))
