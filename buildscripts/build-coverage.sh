@@ -19,10 +19,10 @@ else
 fi
 
 mkdir -p scripts/out-cov/
-touch  scripts/out-cov/midi2ly.1
+touch scripts/out-cov/midi2ly scripts/out-cov/midi2ly.1
 make conf=cov -j2 &&  \
   make conf=cov test-clean OUT_TEST=testcov LILYPOND_JOBS= && \
-  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS='-dtrace-scheme-coverage ' 
+  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS='-dtrace-scheme-coverage '
 
 if test "$?" != "0"; then
   tail -100 out-cov/test-run.log
