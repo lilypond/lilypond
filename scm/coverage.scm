@@ -8,23 +8,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (coverage:show-all filter?)
-  
+  (let*
+      ((keys
+	(filter filter?
+		(sort (map car (hash-table->alist coverage-table)) string<? ))))
+    
   (newline)
-  (hash-fold
-   (lambda (key val acc)
-     (if (filter? key)
-	 (begin
-	   (format #t
-		 "
-Coverage for file: ~a
-"
-		 key)
-	 (display-coverage key val
-			   (format #f "~a.cov" (basename key))
-			   )))
-     #t)
-   #t
-   coverage-table))
+  (for-each
+   (lambda (k)
+
+     (format #t "Coverage for file: ~a\n" k)
+     (display-coverage
+      k (hash-ref coverage-table k)
+      (format #f "~a.cov" (basename k))))
+   keys)))
+
 
 (define-public (coverage:enable)
   (trap-set! memoize-symbol-handler record-coverage)
