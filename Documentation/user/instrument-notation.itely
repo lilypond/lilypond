@@ -680,7 +680,7 @@ way is to use the @code{\addlyrics} function.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::
+* Hyphens and extenders::       
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
@@ -808,7 +808,7 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \relative { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~yho- nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
 The lyric ties is implemented with the Unicode character U+203F, so be
