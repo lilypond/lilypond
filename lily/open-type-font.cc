@@ -39,7 +39,9 @@ load_table (char const *tag_str, FT_Face face, FT_ULong *length)
       return buffer;
     }
   else
-    programming_error ("Cannot find OpenType table.");
+    programming_error (_f ("Free type error: %s",
+			   freetype_error_string (error_code).c_str ()
+			   ));
 
   return 0;
 }
@@ -172,7 +174,8 @@ Open_type_font::get_indexed_char (size_t signed_idx) const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
+	warning (_f ("FT_Get_Glyph_Name() Freetype error: %s",
+		     freetype_error_string (code)));
 
       SCM sym = ly_symbol2scm (name);
       SCM alist = scm_hashq_ref (lily_character_table_, sym, SCM_BOOL_F);
@@ -296,7 +299,8 @@ Open_type_font::glyph_list () const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() returned error: %u", unsigned (code)));
+	warning (_f ("FT_Get_Glyph_Name() error: %s",
+		     freetype_error_string (code).c_str ()));
 
       *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
