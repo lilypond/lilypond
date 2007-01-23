@@ -97,8 +97,10 @@ open_ft_face (string str)
   if (error_code == FT_Err_Unknown_File_Format)
     error (_f ("unsupported font format: %s", str.c_str ()));
   else if (error_code)
-    error (_f ("unknown error: %d reading font file: %s", error_code,
-	       str.c_str ()));
+    error (_f ("error reading font file %s: %s", 
+	       str.c_str (),
+	       freetype_error_string (error_code).c_str ()
+	       ));
   return face;
 }
 
