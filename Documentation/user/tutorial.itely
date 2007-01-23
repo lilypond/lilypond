@@ -1173,10 +1173,6 @@ line}.  It is entered as two underscores @code{__}:
 Similarly, hyphens between words can be entered as two dashes,
 resulting in a centered hyphen between two syllables
 
-@example
-A -- le gri -- a
-@end example
-
 @c no ragged-right here because otherwise the hypens get lost.
 @lilypond[quote,verbatim]
 <<
@@ -1184,7 +1180,7 @@ A -- le gri -- a
     \time 2/4
     f4 f c c
   }
-  \addlyrics { A -- le gri -- a }
+  \addlyrics { A -- le -- gri -- a }
 >>
 @end lilypond
 
