@@ -366,7 +366,6 @@ pedal = {
     \context {
       \PianoStaff
       \accepts Dynamics
-      \override VerticalAlignment #'forced-distance = #7
     }
   }
 }

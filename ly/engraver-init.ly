@@ -57,7 +57,6 @@
   \consists "Figured_bass_position_engraver"
   \consists "Script_row_engraver"
 
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.5 . 3.5)
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t 
@@ -308,6 +307,7 @@ contained staves are not connected vertically."
   "Just like @code{GrandStaff} but with a forced distance between
     the staves, so cross staff beaming and slurring can be used."
 
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   \consists "Instrument_name_engraver"
   
   instrumentName = #'()
