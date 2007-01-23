@@ -70,7 +70,7 @@ class Chunk:
             sys.stdout.write ('%8s:%8d:%s' % (cov, n, l))
             
     def uncovered_score (self):
-        return len (self)
+        return self.length ()
     
 class SchemeChunk (Chunk):
     def uncovered_score (self):
