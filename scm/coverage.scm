@@ -74,7 +74,7 @@ Coverage for file: ~a
   (let*
       ((name (source-property exp 'filename))
        (line (source-property exp 'line))
-       (vec (and name (hashv-ref coverage-table name #f)))
+       (vec (and name (hash-ref coverage-table name #f)))
        (veclen (and vec (vector-length vec)))
        (veccopy (lambda (src dst)
 		  (vector-move-left! src 0 (vector-length src)
@@ -84,7 +84,7 @@ Coverage for file: ~a
 	(begin
 	  (if (or (not vec) (>= line (vector-length vec)))
 	      (set! vec
-		    (hashv-set! coverage-table name
+		    (hash-set! coverage-table name
 				(if vec
 				    (veccopy vec (make-vector (1+ line) #f))
 				    (make-vector (1+ line) #f)))))
