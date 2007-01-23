@@ -75,8 +75,12 @@ class Chunk:
 class SchemeChunk (Chunk):
     def uncovered_score (self):
         text = self.text ()
-        if (text.startswith  ('(define')
+        if (text.startswith  ('(define ')
             and not text.startswith ('(define (')):
+            return 0
+
+        if (text.startswith  ('(define-public ')
+            and not text.startswith ('(define-public (')):
             return 0
 
         return len ([l for (c,n,l) in self.lines() if (c == 0)]) 
@@ -140,7 +144,7 @@ def get_scm_chunks (ls, file):
         
     last_c = -1
     for (cov_count, line_number, line) in ls:
-        if line.startswith ('(define'):
+        if line.startswith ('('):
             new_chunk ()
             last_c = -1
         

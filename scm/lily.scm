@@ -628,7 +628,6 @@ The syntax is the same as `define*-public'."
   (let ((failed (lilypond-all files)))
     (if (ly:get-option 'trace-scheme-coverage)
 	(begin
-	  (coverage:disable)
 	  (coverage:show-all (lambda (f) (string-contains f "lilypond"))
 			     )))
 	  

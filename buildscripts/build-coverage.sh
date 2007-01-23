@@ -38,6 +38,7 @@ cd $resultdir
 
 ln $depth/lily/* .
 ln $depth/scm/*.scm .
+mv $depth/input/regression/out-testcov/*.scm.cov .
 ln $depth/ly/*.ly .
 ln $depth/lily/out-cov/*[ch] .
 mkdir include
