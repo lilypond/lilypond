@@ -14,6 +14,7 @@
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
+#include "moment.hh"
 
 Grob *
 Spanner::clone () const
@@ -145,7 +146,7 @@ Spanner::set_my_columns ()
 }
 
 Interval_t<int>
-Spanner::spanned_rank_iv ()
+Spanner::spanned_rank_iv () const
 {
   Interval_t<int> iv (0, 0);
 
@@ -153,6 +154,31 @@ Spanner::spanned_rank_iv ()
     iv[LEFT] = spanned_drul_[LEFT]->get_column ()->get_rank ();
   if (spanned_drul_[RIGHT] && spanned_drul_[RIGHT]->get_column ())
     iv[RIGHT] = spanned_drul_[RIGHT]->get_column ()->get_rank ();
+  return iv;
+}
+
+Interval_t<Moment>
+Spanner::spanned_time () const
+{
+  Interval_t<Moment> iv;
+
+  Direction d = LEFT;
+  do
+    {
+      if (spanned_drul_[d] && spanned_drul_[d]->get_column ())
+	iv[d] = robust_scm2moment (spanned_drul_[d]->get_column ()->get_property ("when"),
+				  iv[d]);
+    }
+  while (flip (&d) != LEFT);
+
+  do
+    {
+      if (!spanned_drul_[d] || !spanned_drul_[d]->get_column ())
+	iv[d] = iv[-d];
+    }
+  while (flip (&d) != LEFT);
+  
+  
   return iv;
 }
 

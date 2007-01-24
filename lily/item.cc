@@ -174,7 +174,7 @@ Item::pure_is_visible (int start, int end) const
 }
 
 Interval_t<int>
-Item::spanned_rank_iv ()
+Item::spanned_rank_iv () const
 {
   int c = get_column ()->get_rank ();
   return Interval_t<int> (c, c);

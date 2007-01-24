@@ -446,7 +446,7 @@ Grob::maybe_pure_extent (Grob *refp, Axis a, bool pure, int start, int end)
 }
 
 Interval_t<int>
-Grob::spanned_rank_iv ()
+Grob::spanned_rank_iv () const
 {
   return Interval_t<int> (-1, 0);
 }
