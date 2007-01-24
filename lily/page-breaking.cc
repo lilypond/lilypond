@@ -75,7 +75,13 @@ void
 Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_division const &div)
 {
   vector<Break_position> chunks = chunk_list (start_break, end_break);
-  assert (chunks.size () == div.size () + 1);
+  bool ignore_div = false;
+  if (chunks.size () != div.size () + 1)
+    {
+      programming_error ("did not find a valid page breaking configuration");
+      ignore_div = true;
+      assert (0);
+    }
 
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
@@ -86,7 +92,9 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
 	  vsize end;
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
-	  vector<Column_x_positions> pos = line_breaking_[sys].get_solution (start, end, div[i]);
+	  vector<Column_x_positions> pos = ignore_div
+	    ? line_breaking_[sys].get_best_solution (start, end)
+	    : line_breaking_[sys].get_solution (start, end, div[i]);
 	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }

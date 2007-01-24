@@ -48,12 +48,14 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 Try it on this image
 
-@lilypond[fragment,quote,ragged-right,relative=2]
-c-\markup { \bold \huge { Click here.  } }
+@c no verbatim here
+@lilypond[quote,ragged-right]
+\relative c'' {
+  c-\markup { \bold \huge { Click here.  } }
+}
 @end lilypond
 
-By cutting and pasting everything from the @qq{Start cut-&-pastable-section}
-to the end of the file, you have a
+By cutting and pasting everything in the @qq{ly snippet} section, you have a
 starting template for experiments.  If you like learning in this way,
 you will probably want to print out or bookmark the
 @ref{Cheat sheet}, which is a table listing of the most common
@@ -98,6 +100,7 @@ notation.  For example, if we write
 @noindent
 the result looks like this
 
+@c  in this case we don't want verbatim
 @lilypond[quote,ragged-right]
 {
   c' e' g' e'
@@ -105,7 +108,7 @@ the result looks like this
 @end lilypond
 
 @strong{Warning:} Every piece of LilyPond input needs to have @strong{@{ curly
-braces @}} placed around the input.  The braces should be also be
+braces @}} placed around the input.  The braces should also be
 surrounded by a space unless they are at the beginning or end of a
 line to avoid ambiguities.  These may be omitted in some examples in this
 manual, but don't forget them in your own music!
@@ -198,7 +201,7 @@ Converting to `test.pdf'...
 @noindent
 The result is the file @file{test.pdf} which you can print or view
 with the standard facilities of your operating system.@footnote{If
-your system does not have any tools installed, you can try
+your system does not have any such tools installed, you can try
 @uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
 available package for viewing and printing PDF and PostScript files.}
 
