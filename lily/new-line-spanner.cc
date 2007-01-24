@@ -52,38 +52,6 @@ line_spanner_common_parent (Grob *me)
   return common;
 }
 
-MAKE_SCHEME_CALLBACK (New_line_spanner, after_line_breaking, 1);
-SCM
-New_line_spanner::after_line_breaking (SCM g)
-{
-  Grob *me = unsmob_grob (g);
-  Spanner *sp = dynamic_cast<Spanner *> (me);
-
-  /*
-    We remove the line at the start of the line.  For piano voice
-    indicators, it makes no sense to have them at the start of the
-    line.
-
-    I'm not sure what the official rules for glissandi are, but
-    usually the 2nd note of the glissando is "exact", so when playing
-    from the start of the line, there is no need to glide.
-
-    From a typographical p.o.v. this makes sense, since the amount of
-    space left of a note at the start of a line is very small.
-
-    --hwn.
-
-  */
-  if (sp->get_bound (LEFT)->break_status_dir ()
-      && !sp->get_bound (RIGHT)->break_status_dir ())
-    {
-      /*
-	Can't do suicide, since this mucks up finding the trend.
-      */
-      me->set_property ("transparent", SCM_BOOL_T);
-    }
-  return SCM_EOL;
-}
 
 Stencil
 New_line_spanner::line_stencil (Grob *me,
@@ -246,11 +214,23 @@ New_line_spanner::print (SCM smob)
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
   Interval_t<Moment> moments = me->spanned_time ();
+  /*
+    We remove the line at the start of the line.  For piano voice
+    indicators, it makes no sense to have them at the start of the
+    line.
+
+    I'm not sure what the official rules for glissandi are, but
+    usually the 2nd note of the glissando is "exact", so when playing
+    from the start of the line, there is no need to glide.
+
+    From a typographical p.o.v. this makes sense, since the amount of
+    space left of a note at the start of a line is very small.
+
+    --hwn.
+
+  */
   if (moments.length () == Moment (0,0))
-    {
-      me->set_property ("transparent", SCM_BOOL_T);
-      return SCM_EOL;
-    }
+    return SCM_EOL;
   
   Drul_array<SCM> bounds (me->get_property ("left-bound-info"),
 			  me->get_property ("right-bound-info"));
@@ -275,15 +255,19 @@ New_line_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
 
   Offset dz = (span_points[RIGHT] - span_points[LEFT]);
-  Drul_array<Real> gaps;
+  Drul_array<Real> gaps (0, 0);
+  Drul_array<bool> arrows (0, 0);
   do
+    {
      gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
 						bounds[d], SCM_BOOL_F), 0.0);
+     arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
+					   bounds[d], SCM_BOOL_F));
+    }
   while (flip (&d) != LEFT);
 
   if (gaps[LEFT] + gaps[RIGHT] > dz.length ())
     {
-      me->set_property ("transparent", SCM_BOOL_T);
       return SCM_EOL;
     }
 
@@ -300,7 +284,13 @@ New_line_spanner::print (SCM smob)
 			       span_points[LEFT],
 			       span_points[RIGHT]);
 
-  
+
+  line.add_stencil (Line_interface::arrows (me,
+					    span_points[LEFT],
+					    span_points[RIGHT],
+					    arrows[LEFT],
+					    arrows[RIGHT]));
+					    
   return line.smobbed_copy ();
 }
 
@@ -312,7 +302,6 @@ ADD_INTERFACE (New_line_spanner,
 	       "\n",
 
 	       "extra-dy "
-	       "arrow "
 	       "gap "
 	       "thickness "
 	       "bound-details " 
