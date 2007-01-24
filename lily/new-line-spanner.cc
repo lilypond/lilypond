@@ -182,7 +182,10 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("Y"), details, SCM_BOOL_F)))
     {
       Real y = 0.0;
-       
+
+      Real extra_dy = robust_scm2double (me->get_property ("extra-dy"),
+					 0.0);
+         
       if (me->get_bound (dir)->break_status_dir ())
 	{
 	  /*
@@ -210,13 +213,13 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
 	}
       else
 	{
-	  Grob *commony = me->get_bound (LEFT)->common_refpoint (me->get_bound (RIGHT), Y_AXIS);
+	  Grob *commony = me->get_bound (LEFT);
 	  commony = me->common_refpoint (commony, Y_AXIS);
-	
-	  details = scm_acons (ly_symbol2scm ("Y"),
-			       scm_from_double (me->get_bound (dir)->extent (commony, Y_AXIS).center()),
-			       details);
+	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center();
 	}
+
+      y += dir * extra_dy / 2; 
+      details = scm_acons (ly_symbol2scm ("Y"), scm_from_double (y), details);
     }
 
   return details;
@@ -312,7 +315,8 @@ ADD_INTERFACE (New_line_spanner,
 	       "arrow "
 	       "gap "
 	       "thickness "
-	       "zigzag-length "
-	       "zigzag-width "
+	       "bound-details " 
+	       "left-bound-info " 
+	       "right-bound-info " 
 	       );
 
