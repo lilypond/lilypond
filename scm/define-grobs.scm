@@ -616,7 +616,7 @@
 	;; (font-series . bold)
 	(font-shape . italic)
 	(style . dashed-line)
-
+	(minimum-Y-extent . (-1 . 1))
 	;; need to blend with dynamic texts.
 	(font-size . 1)
 	(bound-padding . 0.75)
