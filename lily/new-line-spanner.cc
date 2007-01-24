@@ -28,6 +28,7 @@ public:
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
 
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
   DECLARE_GROB_INTERFACE();
@@ -157,6 +158,29 @@ SCM
 New_line_spanner::calc_left_bound_info (SCM smob)
 {
   return New_line_spanner::calc_bound_info (smob, LEFT);
+}
+
+MAKE_SCHEME_CALLBACK (New_line_spanner, calc_left_bound_info_and_text, 1);
+SCM
+New_line_spanner::calc_left_bound_info_and_text (SCM smob)
+{
+  SCM alist = New_line_spanner::calc_bound_info (smob, LEFT);
+  Spanner *me = unsmob_spanner (smob);
+
+  SCM text = me->get_property ("text");
+  if (Text_interface::is_markup (text)
+      && me->get_bound (LEFT)->break_status_dir () == CENTER
+      && ly_assoc_get (ly_symbol2scm ("stencil"), alist, SCM_BOOL_F) == SCM_BOOL_F)
+    {
+      Output_def *layout = me->layout ();
+      SCM properties = Font_interface::text_font_alist_chain (me);
+      alist = scm_acons (ly_symbol2scm ("stencil"),
+			 Text_interface::interpret_markup (layout->self_scm (),
+							   properties, text),
+			 alist);
+    }
+  
+  return alist;
 }
 
 MAKE_SCHEME_CALLBACK (New_line_spanner, print, 1);
