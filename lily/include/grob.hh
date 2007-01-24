@@ -125,7 +125,7 @@ public:
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
 
-  virtual Interval_t<int> spanned_rank_iv ();
+  virtual Interval_t<int> spanned_rank_iv () const;
 };
 
 /* smob utilities */

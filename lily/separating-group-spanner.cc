@@ -13,6 +13,7 @@
 #include "output-def.hh"
 #include "dimensions.hh"
 #include "pointer-group-interface.hh"
+#include "moment.hh"
 
 void
 Separating_group_spanner::find_rods (Item *r,
@@ -37,7 +38,13 @@ Separating_group_spanner::find_rods (Item *r,
 	  Separation_item::set_distance (Drul_array<Item*> (lb, r), padding);
 	}
 
-      if (Separation_item::set_distance (Drul_array<Item *> (l, r), padding))
+      if (Separation_item::set_distance (Drul_array<Item *> (l, r), padding)
+	  /*
+	    This check is because grace notes are set very tight, and
+	    the accidentals of main note may stick out so far to cover
+	    a barline preceding the grace note.
+	   */
+	  && spanned_time_interval (l, r).length ().main_part_ > Rational (0))
 	break;
 
       /*

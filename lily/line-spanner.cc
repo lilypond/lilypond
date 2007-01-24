@@ -19,54 +19,6 @@
 #include "lookup.hh"
 #include "line-interface.hh"
 
-Stencil
-zigzag_stencil (Grob *me,
-		Offset from,
-		Offset to)
-{
-  Offset dz = to -from;
-
-  Real thick = Staff_symbol_referencer::line_thickness (me);
-  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
-
-  Real staff_space = Staff_symbol_referencer::staff_space (me);
-
-  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
-  int count = (int) ceil (dz.length () / w);
-  w = dz.length () / count;
-
-  Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
-  Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
-
-  Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
-
-  Offset points[3];
-  points[0] = Offset (0, -h / 2);
-  points[1] = Offset (w / 2, h / 2);
-  points[2] = Offset (w, -h / 2);
-  for (int i = 0; i < 3; i++)
-    points[i] = complex_multiply (points[i], rotation_factor);
-
-  Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
-  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
-
-  Stencil total;
-  for (int i = 0; i < count; i++)
-    {
-      Stencil moved_squiggle (squiggle);
-      moved_squiggle.translate (from + Offset (i * w, 0) * rotation_factor);
-      total.add_stencil (moved_squiggle);
-    }
-
-  Box b;
-  b.add_point (Offset (0, 0));
-  b.add_point (dz);
-  b[X_AXIS].widen (thick / 2);
-  b[Y_AXIS].widen (thick / 2);
-
-  return Stencil (b, total.expr ());
-}
-
 MAKE_SCHEME_CALLBACK (Line_spanner, after_line_breaking, 1);
 SCM
 Line_spanner::after_line_breaking (SCM g)
@@ -105,53 +57,7 @@ Line_spanner::line_stencil (Grob *me,
 			    Offset from,
 			    Offset to)
 {
-  Offset dz = to -from;
-  SCM type = me->get_property ("style");
-
-  Stencil line;
-
-  if (scm_is_symbol (type)
-      && (type == ly_symbol2scm ("line")
-	  || type == ly_symbol2scm ("dashed-line")
-	  || type == ly_symbol2scm ("dotted-line")
-	  || type == ly_symbol2scm ("zigzag")
-	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
-    {
-      line = (type == ly_symbol2scm ("zigzag"))
-	? zigzag_stencil (me, from, to)
-	: Line_interface::line (me, from, to);
-    }
-  else if (scm_is_symbol (type)
-	   && type == ly_symbol2scm ("trill"))
-    {
-      SCM alist_chain = Font_interface::text_font_alist_chain (me);
-      SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
-					      ly_symbol2scm ("fetaMusic")),
-				    SCM_UNDEFINED);
-
-      Font_metric *fm = select_font (me->layout (),
-				     scm_cons (style_alist,
-					       alist_chain));
-      Stencil m = fm->find_by_name ("scripts.trill_element");
-      Stencil mol;
-
-      do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
-      while (m.extent (X_AXIS).length ()
-	     && mol.extent (X_AXIS).length ()
-	     + m.extent (X_AXIS).length () < dz[X_AXIS])
-	;
-
-      /*
-	FIXME: should center element on x/y
-      */
-      mol.translate_axis (m.extent (X_AXIS).length () / 2, X_AXIS);
-      mol.translate_axis (- (mol.extent (Y_AXIS)[DOWN]
-			     + mol.extent (Y_AXIS).length ()) / 2, Y_AXIS);
-
-      mol.translate (from);
-      line = mol;
-    }
+  Stencil line = Line_interface::line (me, from, to);
 
   if (to_boolean (me->get_property ("arrow")))
     line.add_stencil (Line_interface::arrows (me, from, to, false, true));
@@ -315,7 +221,5 @@ ADD_INTERFACE (Line_spanner,
 	       "arrow "
 	       "gap "
 	       "thickness "
-	       "zigzag-length "
-	       "zigzag-width "
 	       );
 

@@ -632,22 +632,44 @@
 
     (DynamicTextSpanner
      . (
-	(stencil . ,ly:dynamic-text-spanner::print)
-
 	;; rather ugh with NCSB
 	;; (font-series . bold)
 	(font-shape . italic)
 	(style . dashed-line)
 
+	(bound-details . ((right . ((attach-dir .  ,LEFT)
+				    (Y . 0)
+				    (padding . 0.75)
+				    ))
+			  (right-broken . ((attach-dir .  ,RIGHT)
+				    (padding . 0.0)
+				    ))
+			  
+			  (left . ((attach-dir .  ,LEFT)
+				   (Y . 0)
+				   (stencil-offset . (0 . -0.5))
+				   (padding . 0.5)
+				   ))
+			  (left-broken . ((attach-dir .  ,RIGHT)
+					  
+					  ;; make sure the - - - stays at reasonable
+					  ;; distance from staff.
+					  (text . " ")
+				   ))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info-and-text)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+
 	;; need to blend with dynamic texts.
 	(font-size . 1)
-	(bound-padding . 0.75)
 	(dash-fraction . 0.2)
 	(dash-period . 3.0)
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				text-interface
-				line-spanner-interface
+				new-line-spanner-interface
+				line-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
 				spanner-interface))))))
@@ -693,12 +715,20 @@
 	(zigzag-width . 0.75)
 	(X-extent . #f)
 	(Y-extent . #f)
-	(stencil . ,ly:line-spanner::print)
-	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
+	(bound-details . ((right . ((attach-dir .  ,CENTER)
+				    (padding . 1.5)
+				      ))
+			  (left . ((attach-dir .  ,CENTER)
+				   (padding . 1.5)
+				      ))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				unbreakable-spanner-interface
-				line-spanner-interface))))))
+				new-line-spanner-interface))))))
 
     (GraceSpacing
      . (
@@ -1864,9 +1894,21 @@
 
     (TrillSpanner
      . (
-	(stencil . ,ly:dynamic-text-spanner::print)
-	(edge-text . ,(cons (make-musicglyph-markup "scripts.trill")
-			    ""))
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+
+	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
+					     '(0.5 . -0.6)
+					     (make-musicglyph-markup "scripts.trill")))
+				   (Y . 0)
+				   (padding . 0.25)
+				   (attach-dir . ,LEFT)
+				   ))
+			  (right . ((Y . 0)))
+			  ))
+	
+	(stencil . ,ly:new-line-spanner::print)
+
 	(style . trill)
 	(staff-padding . 1.0)
 	(padding . 0.5)
@@ -1876,7 +1918,7 @@
 	(outside-staff-priority . 50)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
-				line-spanner-interface
+				new-line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -2050,10 +2092,18 @@
 	(non-musical . #t)
 	(X-extent . #f)
 	(Y-extent . #f)
-	(stencil . ,ly:line-spanner::print)
-	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
+	(bound-details . ((right . ((attach-dir .  ,CENTER)
+				    (padding . 1.5)
+				      ))
+			  (left . ((attach-dir .  ,CENTER)
+				   (padding . 1.5)
+				      ))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
-		 (interfaces . (line-spanner-interface
+		 (interfaces . (new-line-spanner-interface
 				line-interface))))
 	))
 

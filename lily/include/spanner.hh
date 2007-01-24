@@ -47,7 +47,8 @@ public:
   void substitute_one_mutable_property (SCM sym, SCM val);
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 
-  virtual Interval_t<int> spanned_rank_iv ();
+  Interval_t<Moment> spanned_time () const;
+  virtual Interval_t<int> spanned_rank_iv () const;
   void set_bound (Direction d, Grob *);
   Item *get_bound (Direction d) const;
 
@@ -64,6 +65,7 @@ public:
   DECLARE_GROB_INTERFACE();
   virtual System *get_system () const;
 
+  
 protected:
   void set_my_columns ();
   virtual Grob *clone () const;

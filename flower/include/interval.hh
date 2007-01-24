@@ -103,11 +103,7 @@ struct Interval_t : public Drul_array<T>
     return *this;
   }
 
-  Real linear_combination (Real x) const
-  {
-    Drul_array<Real> da (at (LEFT), at (RIGHT));
-    return ::linear_combination (da, x);
-  }
+  Real linear_combination (Real x) const;
   string to_string () const;
 
   bool contains (T r) const;
