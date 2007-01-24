@@ -19,6 +19,7 @@
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "text-interface.hh"
 
 class New_line_spanner
 {
@@ -60,25 +61,37 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
 
   SCM bound_details = me->get_property ("bound-details");
 
+  SCM details = SCM_BOOL_F;
+  if (me->get_bound (dir)->break_status_dir ())
+    details = ly_assoc_get ((dir == LEFT)
+			    ? ly_symbol2scm ("left-broken")
+			    : ly_symbol2scm ("right-broken"), bound_details, SCM_BOOL_F);
+  if (details == SCM_BOOL_F)
+    details = ly_assoc_get ((dir == LEFT)
+			    ? ly_symbol2scm ("left")
+			    : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
   
-  SCM sym = 
-    (me->get_bound (dir)->break_status_dir ())
-    ? (dir == LEFT ? ly_symbol2scm ("left-broken")
-       : ly_symbol2scm ("right-broken"))
-    : (dir == LEFT ? ly_symbol2scm ("left")
-       : ly_symbol2scm ("right"));
-
-  SCM details = ly_assoc_get (sym, bound_details, SCM_BOOL_F);
   if (details == SCM_BOOL_F)
     details = ly_assoc_get (ly_symbol2scm ("default"), bound_details, SCM_EOL);
 
+  SCM text = ly_assoc_get (ly_symbol2scm ("text"), details, SCM_BOOL_F);
+  if (Text_interface::is_markup (text))
+    {
+      Output_def *layout = me->layout ();
+      SCM properties = Font_interface::text_font_alist_chain (me);
+      details = scm_acons (ly_symbol2scm ("stencil"),
+			   Text_interface::interpret_markup (layout->self_scm (),
+							     properties, text),
+			   details);
+    }
+  
   if (!scm_is_number (ly_assoc_get (ly_symbol2scm ("X"), details, SCM_BOOL_F)))
     {
       Direction attach = (Direction)
 	robust_scm2int (ly_assoc_get (ly_symbol2scm ("attach-dir"),
 						     details, SCM_BOOL_F),
 			CENTER);
-      
+
       details = scm_acons (ly_symbol2scm ("X"),
 			   scm_from_double (me->get_bound (dir)->extent (commonx, X_AXIS)
 					    .linear_combination (attach)),
@@ -194,13 +207,17 @@ New_line_spanner::print (SCM smob)
   while (flip (&d) != LEFT);
 
   Offset dz = (span_points[RIGHT] - span_points[LEFT]);
+  Offset dz_dir = dz.direction ();
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
+  Drul_array<Stencil*> stencils (0,0);
   do
     {
      gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
 						bounds[d], SCM_BOOL_F), 0.0);
      arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
+					   bounds[d], SCM_BOOL_F));
+     stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
 					   bounds[d], SCM_BOOL_F));
     }
   while (flip (&d) != LEFT);
@@ -210,20 +227,28 @@ New_line_spanner::print (SCM smob)
       return SCM_EOL;
     }
 
+  Stencil line;
   do
-    span_points[d] += -d * gaps[d] *  dz.direction ();
+    {
+      if (stencils[d])
+	line.add_stencil (stencils[d]->translated (span_points[d]));
+    }
   while (flip (&d) != LEFT);
 
-  Offset my_z (me->relative_coordinate (commonx, X_AXIS), 0);
-  
-  span_points[LEFT] -= my_z;
-  span_points[RIGHT] -= my_z;
+  do
+    {
+      if (stencils[d])
+	span_points[d] += dz_dir *
+	  (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
 
-  
-  
-  Stencil line = Line_interface::line (me, 
-				       span_points[LEFT],
-				       span_points[RIGHT]);
+      
+      span_points[d] += -d * gaps[d] *  dz.direction ();
+    }
+  while (flip (&d) != LEFT);
+
+  line.add_stencil (Line_interface::line (me, 
+					  span_points[LEFT],
+					  span_points[RIGHT]));
 
   line.add_stencil (Line_interface::arrows (me,
 					    span_points[LEFT],
@@ -231,6 +256,8 @@ New_line_spanner::print (SCM smob)
 					    arrows[LEFT],
 					    arrows[RIGHT]));
 
+  line.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
+    
   return line.smobbed_copy ();
 }
 
