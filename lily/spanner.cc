@@ -160,27 +160,10 @@ Spanner::spanned_rank_iv () const
 Interval_t<Moment>
 Spanner::spanned_time () const
 {
-  Interval_t<Moment> iv;
-
-  Direction d = LEFT;
-  do
-    {
-      if (spanned_drul_[d] && spanned_drul_[d]->get_column ())
-	iv[d] = robust_scm2moment (spanned_drul_[d]->get_column ()->get_property ("when"),
-				  iv[d]);
-    }
-  while (flip (&d) != LEFT);
-
-  do
-    {
-      if (!spanned_drul_[d] || !spanned_drul_[d]->get_column ())
-	iv[d] = iv[-d];
-    }
-  while (flip (&d) != LEFT);
-  
-  
-  return iv;
+  return spanned_time_interval (spanned_drul_[LEFT],
+				spanned_drul_[RIGHT]);
 }
+
 
 Item *
 Spanner::get_bound (Direction d) const

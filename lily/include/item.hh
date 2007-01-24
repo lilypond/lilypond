@@ -46,4 +46,6 @@ protected:
   virtual void derived_mark () const;
 };
 
+Interval_t<Moment> spanned_time_interval (Item *l, Item *r);
+
 #endif

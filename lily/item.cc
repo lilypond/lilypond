@@ -16,6 +16,9 @@
 #include "system.hh"
 #include "pointer-group-interface.hh"
 
+#include "moment.hh"
+
+
 Grob *
 Item::clone () const
 {
@@ -179,6 +182,33 @@ Item::spanned_rank_iv () const
   int c = get_column ()->get_rank ();
   return Interval_t<int> (c, c);
 }
+
+Interval_t<Moment>
+spanned_time_interval (Item *l, Item *r) 
+{
+  Drul_array<Item*> bounds (l, r);
+  Interval_t<Moment> iv;
+
+  Direction d = LEFT;
+  do
+    {
+      if (bounds[d] && bounds[d]->get_column ())
+	iv[d] = robust_scm2moment (bounds[d]->get_column ()->get_property ("when"),
+				  iv[d]);
+    }
+  while (flip (&d) != LEFT);
+
+  do
+    {
+      if (!bounds[d] || !bounds[d]->get_column ())
+	iv[d] = iv[-d];
+    }
+  while (flip (&d) != LEFT);
+  
+  
+  return iv;
+}
+
 
 void
 Item::derived_mark () const
