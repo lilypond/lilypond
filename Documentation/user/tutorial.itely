@@ -131,7 +131,7 @@ file. Save it, for example, to @file{test.ly} on your Desktop, and
 then process it with the menu command @samp{Compile > Typeset File}.
 The resulting PDF file will be displayed on your screen.
 
-Be warned that the first time you ever run lilypond will take a minute
+Be warned that the first time you ever run LilyPond, it will take a minute
 or two because all of the system fonts have to be analyzed first.
 
 For future use of LilyPond, you should begin by selecting "New"
@@ -161,7 +161,7 @@ Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
-installed already, refer to the file @file{INSTALL.txt}.  These
+installed already, refer to the file @file{INSTALL.txt}.  The
 easiest editing environment is @file{LilyPondTool}.  See
 @ref{Editor support} for more information.}.  In your
 text editor, enter the following input and save the file as
@@ -879,7 +879,7 @@ Enclosing a group of notes in braces creates a new music expression:
 @end lilypond
 
 Putting a group of music expressions (e.g. notes) in braces means that
-are in sequence (i.e. each one follows the previous one).  The result
+they are in sequence (i.e. each one follows the previous one).  The result
 is another music expression:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -890,8 +890,8 @@ is another music expression:
 
 This technique is useful for polyphonic music.  To enter music
 with more voices or more staves, we combine expressions in
-parallel.  To indicate that two voices should play at the same time
-simple enter a simultaneous combination of music expressions.  A
+parallel.  To indicate that two voices should play at the same time,
+simply enter a simultaneous combination of music expressions.  A
 @q{simultaneous} music expression is formed by enclosing expressions inside
 @code{<<} and @code{>>}.  In the following example, three sequences (all
 containing two separate notes) are combined simultaneously:
@@ -911,10 +911,15 @@ amount of space.  LilyPond does not care how much (or little) space there
 is at the beginning of a line, but indenting LilyPond code like this makes
 it much easier for humans to read.
 
+@strong{Warning}: each note is relative to the
+previous note in the input, not relative to the @code{c''} in the
+initial @code{\relative} command.
+
+
 @subheading Simultaneous music expressions: single staff
 
 To determine the number of staves in a piece, LilyPond looks at the first
-exression.  If it is a single note, there is one staff; if there is a
+expression.  If it is a single note, there is one staff; if there is a
 simultaneous expression, there is more than one staff.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1107,7 +1112,7 @@ r4 <c e g>4 <c f a>2
 @end lilypond
 
 You can combine markings like beams and ties with chords.  They must
-be placed outside the angled brackets
+be placed outside the angle brackets
 
 @lilypond[quote,fragment,verbatim,relative=2,fragment]
 r4 <c e g>8[ <c f a>]~ <c f a>2
@@ -1138,7 +1143,7 @@ Consider a simple melody:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
-  a4 e c r4
+  a4 e c8 e r4
 	b2 c4( d)
 }
 @end lilypond
@@ -1150,7 +1155,7 @@ syllable with a space.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \relative c'' {
-    a4 e c r4
+    a4 e c8 e r4
 	  b2 c4( d)
   }
   \addlyrics { One day this shall be free }
@@ -1166,7 +1171,7 @@ line}.  It is entered as two underscores @code{__}:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \relative c'' {
-    a4 e c r4
+    a4 e c8 e r4
 	  b2 c4( d)
   }
   \addlyrics { One day this shall be free __ }
@@ -1237,7 +1242,7 @@ When put together, chord names, lyrics and a melody form
 a lead sheet, for example,
 
 @lilypond[quote,verbatim,ragged-right]
-%  this melody needs to be changed.  See my new example in 2.4.1. -gp
+% FIXME: this melody needs to be changed.  See my new example in 2.4.1. -gp
 <<
   \chords { r2 c:sus4 f }
   \relative {
@@ -1394,7 +1399,7 @@ larger files, the music expressions get a lot bigger.  In polyphonic
 music with many staves, the input files can become very confusing.  We can
 reduce this confusion by using @emph{identifiers}.
 
-Identifiers (also known as variables or macros), we can break up
+With identifiers (also known as variables or macros), we can break up
 complex music expressions.  An identifier is assigned as follows
 
 @example
@@ -1423,7 +1428,7 @@ cello = \new Staff { \relative c {
 @end lilypond
 
 @noindent
-The name of an identifier should have alphabetic characters only: no
+The name of an identifier must have alphabetic characters only: no
 numbers, underscores, or dashes.
 
 It is possible to use variables for many other types of objects in the
