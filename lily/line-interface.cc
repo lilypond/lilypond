@@ -32,6 +32,55 @@ Line_interface::make_arrow (Offset begin, Offset end,
 }
 
 Stencil
+Line_interface::zigzag_stencil (Grob *me,
+				Offset from,
+				Offset to)
+{
+  Offset dz = to -from;
+
+  Real thick = Staff_symbol_referencer::line_thickness (me);
+  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  int count = (int) ceil (dz.length () / w);
+  w = dz.length () / count;
+
+  Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
+  Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
+
+  Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
+
+  Offset points[3];
+  points[0] = Offset (0, -h / 2);
+  points[1] = Offset (w / 2, h / 2);
+  points[2] = Offset (w, -h / 2);
+  for (int i = 0; i < 3; i++)
+    points[i] = complex_multiply (points[i], rotation_factor);
+
+  Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
+  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
+
+  Stencil total;
+  for (int i = 0; i < count; i++)
+    {
+      Stencil moved_squiggle (squiggle);
+      moved_squiggle.translate (from + Offset (i * w, 0) * rotation_factor);
+      total.add_stencil (moved_squiggle);
+    }
+
+  Box b;
+  b.add_point (Offset (0, 0));
+  b.add_point (dz);
+  b[X_AXIS].widen (thick / 2);
+  b[Y_AXIS].widen (thick / 2);
+
+  return Stencil (b, total.expr ());
+}
+
+
+Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 				  Real dash_period, Real dash_fraction)
 {
@@ -113,7 +162,10 @@ Line_interface::line (Grob *me, Offset from, Offset to)
     * robust_scm2double (me->get_property ("thickness"), 1);
 
   SCM type = me->get_property ("style");
-
+  if (type == ly_symbol2scm ("zigzag"))
+    {
+      return zigzag_stencil (me, from, to);
+    }
   Stencil stil;
 
   SCM dash_fraction = me->get_property ("dash-fraction");
@@ -153,6 +205,8 @@ ADD_INTERFACE (Line_interface,
 	       "dash-fraction "
 	       "thickness "
 	       "style "
+	       "zigzag-length "
+	       "zigzag-width "
 	       "arrow-length "
 	       "arrow-width ")
 
