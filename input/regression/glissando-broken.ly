@@ -3,6 +3,8 @@
   
 }
 \version "2.11.13"
+\paper {
+  ragged-right = ##T }
 
 \relative c'' {
   \override Glissando #'breakable = ##t 
