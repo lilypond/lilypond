@@ -577,6 +577,9 @@ bug by following the directions on
 
 @uref{http://lilypond.org/web/devel/participating/bugs}
 
+Please construct submit @ref{Minimal examples} of bug reports.  We do not
+have the resources to investigate reports which are not as small as possible.
+
 
 @node Error messages
 @section Error messages
