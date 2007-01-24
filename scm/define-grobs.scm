@@ -671,6 +671,7 @@
 		 (interfaces . (font-interface
 				text-interface
 				new-line-spanner-interface
+				line-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
 				spanner-interface))))))
@@ -1899,10 +1900,11 @@
 	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
 
 	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
-					     '(0 . -0.6)
+					     '(0.5 . -0.6)
 					     (make-musicglyph-markup "scripts.trill")))
 				   (Y . 0)
 				   (padding . 0.25)
+				   (attach-dir . ,LEFT)
 				   ))
 			  (right . ((Y . 0)))
 			  ))
@@ -2103,7 +2105,7 @@
 	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
 	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
-		 (interfaces . (line-spanner-interface
+		 (interfaces . (new-line-spanner-interface
 				line-interface))))
 	))
 
