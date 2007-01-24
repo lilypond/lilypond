@@ -693,8 +693,17 @@
 	(zigzag-width . 0.75)
 	(X-extent . #f)
 	(Y-extent . #f)
-	(stencil . ,ly:line-spanner::print)
-	(after-line-breaking . ,ly:line-spanner::after-line-breaking)
+	(bound-details . (
+			  (right . ((attach-dir .  ,CENTER)
+				      (padding . 1.5)
+				      ))
+			  (left . ((attach-dir .  ,CENTER)
+				      (padding . 1.5)
+				      ))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				unbreakable-spanner-interface
