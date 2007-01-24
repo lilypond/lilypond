@@ -32,9 +32,24 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
   DECLARE_GROB_INTERFACE();
+
+  static Grob *common_y (Grob*); 
 };
 
+Grob*
+New_line_spanner::common_y (Grob*me_grob) 
+{
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  
+  Grob *commony = me;
+  Direction d = LEFT;
+  do
+    if (me->get_bound (d)->break_status_dir () == CENTER)
+      commony = me->get_bound (d)->common_refpoint (commony, Y_AXIS);
+  while (flip (&d) != LEFT);
 
+  return commony;
+}
 
 static Grob *
 line_spanner_common_parent (Grob *me)
@@ -134,8 +149,7 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
 	}
       else
 	{
-	  Grob *commony = me->get_bound (LEFT);
-	  commony = me->common_refpoint (commony, Y_AXIS);
+	  Grob *commony = common_y (me);
 	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center();
 	}
 
@@ -237,12 +251,13 @@ New_line_spanner::print (SCM smob)
   Drul_array<Stencil*> stencils (0,0);
   do
     {
-     gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
-						bounds[d], SCM_BOOL_F), 0.0);
-     arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
-					   bounds[d], SCM_BOOL_F));
-     stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
-					   bounds[d], SCM_BOOL_F));
+      gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
+						 bounds[d], SCM_BOOL_F), 0.0);
+      arrows[d] = to_boolean (ly_assoc_get (ly_symbol2scm ("arrow"),
+					    bounds[d], SCM_BOOL_F));
+      stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
+						  bounds[d], SCM_BOOL_F));
+     
     }
   while (flip (&d) != LEFT);
 
@@ -255,7 +270,24 @@ New_line_spanner::print (SCM smob)
   do
     {
       if (stencils[d])
-	line.add_stencil (stencils[d]->translated (span_points[d]));
+	{
+	 Stencil s = stencils[d]->translated (span_points[d]);
+	 SCM align = ly_assoc_get (ly_symbol2scm ("stencil-align-dir-y"),
+				   bounds[d], SCM_BOOL_F);
+	 SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"),
+				   bounds[d], SCM_BOOL_F);
+
+	 if (scm_is_number (align)) 
+	   s.align_to (Y_AXIS, scm_to_double (align));
+
+	 /*
+	   todo: should use font-size.
+	  */
+	 if (is_number_pair (off))
+	   s.translate (ly_scm2offset (off));
+	 
+	 line.add_stencil (s);
+	}
     }
   while (flip (&d) != LEFT);
 
@@ -279,8 +311,11 @@ New_line_spanner::print (SCM smob)
 					    span_points[RIGHT],
 					    arrows[LEFT],
 					    arrows[RIGHT]));
+  Grob *commony = common_y (me);
 
-  line.translate_axis (-me->relative_coordinate (commonx, X_AXIS), X_AXIS);
+  line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
+			  -me->relative_coordinate (commony, Y_AXIS)));
+			  
     
   return line.smobbed_copy ();
 }
