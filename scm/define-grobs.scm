@@ -693,12 +693,11 @@
 	(zigzag-width . 0.75)
 	(X-extent . #f)
 	(Y-extent . #f)
-	(bound-details . (
-			  (right . ((attach-dir .  ,CENTER)
-				      (padding . 1.5)
+	(bound-details . ((right . ((attach-dir .  ,CENTER)
+				    (padding . 1.5)
 				      ))
 			  (left . ((attach-dir .  ,CENTER)
-				      (padding . 1.5)
+				   (padding . 1.5)
 				      ))
 			  ))
 	(stencil . ,ly:new-line-spanner::print)
@@ -1873,9 +1872,18 @@
 
     (TrillSpanner
      . (
-	(stencil . ,ly:dynamic-text-spanner::print)
-	(edge-text . ,(cons (make-musicglyph-markup "scripts.trill")
-			    ""))
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
+					     '(0 . -0.6)
+					     (make-musicglyph-markup "scripts.trill")))
+				   (Y . 0)
+				   (padding . 0.25)
+				   ))
+			  (right . ((Y . 0)))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+
 	(style . trill)
 	(staff-padding . 1.0)
 	(padding . 0.5)
