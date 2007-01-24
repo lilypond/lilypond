@@ -642,17 +642,15 @@
 				    (padding . 0.75)
 				    ))
 			  (right-broken . ((attach-dir .  ,RIGHT)
-				    (Y . 0)
 				    (padding . 0.0)
 				    ))
+			  
 			  (left . ((attach-dir .  ,LEFT)
 				   (Y . 0)
 				   (stencil-offset . (0 . -0.5))
 				   (padding . 0.5)
 				   ))
 			  (left-broken . ((attach-dir .  ,RIGHT)
-					  (padding . 0.5)
-					  (Y . 0)
 					  
 					  ;; make sure the - - - stays at reasonable
 					  ;; distance from staff.

@@ -78,14 +78,20 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
   SCM bound_details = me->get_property ("bound-details");
 
   SCM details = SCM_BOOL_F;
-  if (me->get_bound (dir)->break_status_dir ())
-    details = ly_assoc_get ((dir == LEFT)
-			    ? ly_symbol2scm ("left-broken")
-			    : ly_symbol2scm ("right-broken"), bound_details, SCM_BOOL_F);
   if (details == SCM_BOOL_F)
     details = ly_assoc_get ((dir == LEFT)
 			    ? ly_symbol2scm ("left")
 			    : ly_symbol2scm ("right"), bound_details, SCM_BOOL_F);
+
+  if (me->get_bound (dir)->break_status_dir ())
+    {
+      SCM extra = ly_assoc_get ((dir == LEFT)
+				? ly_symbol2scm ("left-broken")
+				: ly_symbol2scm ("right-broken"), bound_details, SCM_EOL);
+
+      for (SCM s = extra; scm_is_pair (s); s = scm_cdr (s))
+	details = scm_cons (scm_car (s), details);
+    }
   
   if (details == SCM_BOOL_F)
     details = ly_assoc_get (ly_symbol2scm ("default"), bound_details, SCM_EOL);
