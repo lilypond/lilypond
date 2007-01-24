@@ -274,7 +274,7 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
 int
 Constrained_breaking::get_max_systems (vsize start, vsize end)
 {
-  vsize brk = (end >= start_.size ()) ? breaks_.size () - 1 : starting_breakpoints_[end];
+  vsize brk = (end >= start_.size ()) ? breaks_.size () : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
 }
 
