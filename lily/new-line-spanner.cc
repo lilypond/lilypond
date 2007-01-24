@@ -30,8 +30,6 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
   DECLARE_GROB_INTERFACE();
-
-  static Stencil line_stencil (Grob *me, Offset f, Offset t);
 };
 
 
@@ -51,65 +49,6 @@ line_spanner_common_parent (Grob *me)
 
   return common;
 }
-
-
-Stencil
-New_line_spanner::line_stencil (Grob *me,
-			    Offset from,
-			    Offset to)
-{
-  Offset dz = to -from;
-  SCM type = me->get_property ("style");
-
-  Stencil line;
-
-  if (scm_is_symbol (type)
-      && (type == ly_symbol2scm ("line")
-	  || type == ly_symbol2scm ("dashed-line")
-	  || type == ly_symbol2scm ("dotted-line")
-	  || type == ly_symbol2scm ("zigzag")
-	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
-    {
-      line = Line_interface::line (me, from, to);
-    }
-  else if (scm_is_symbol (type)
-	   && type == ly_symbol2scm ("trill"))
-    {
-      SCM alist_chain = Font_interface::text_font_alist_chain (me);
-      SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
-					      ly_symbol2scm ("fetaMusic")),
-				    SCM_UNDEFINED);
-
-      Font_metric *fm = select_font (me->layout (),
-				     scm_cons (style_alist,
-					       alist_chain));
-      Stencil m = fm->find_by_name ("scripts.trill_element");
-      Stencil mol;
-
-      do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
-      while (m.extent (X_AXIS).length ()
-	     && mol.extent (X_AXIS).length ()
-	     + m.extent (X_AXIS).length () < dz[X_AXIS])
-	;
-
-      /*
-	FIXME: should center element on x/y
-      */
-      mol.translate_axis (m.extent (X_AXIS).length () / 2, X_AXIS);
-      mol.translate_axis (- (mol.extent (Y_AXIS)[DOWN]
-			     + mol.extent (Y_AXIS).length ()) / 2, Y_AXIS);
-
-      mol.translate (from);
-      line = mol;
-    }
-
-  if (to_boolean (me->get_property ("arrow")))
-    line.add_stencil (Line_interface::arrows (me, from, to, false, true));
-
-  return line;
-}
-
 
 SCM
 New_line_spanner::calc_bound_info (SCM smob, Direction dir)
@@ -279,18 +218,19 @@ New_line_spanner::print (SCM smob)
   
   span_points[LEFT] -= my_z;
   span_points[RIGHT] -= my_z;
-  
-  Stencil line = line_stencil (me,
-			       span_points[LEFT],
-			       span_points[RIGHT]);
 
+  
+  
+  Stencil line = Line_interface::line (me, 
+				       span_points[LEFT],
+				       span_points[RIGHT]);
 
   line.add_stencil (Line_interface::arrows (me,
 					    span_points[LEFT],
 					    span_points[RIGHT],
 					    arrows[LEFT],
 					    arrows[RIGHT]));
-					    
+
   return line.smobbed_copy ();
 }
 

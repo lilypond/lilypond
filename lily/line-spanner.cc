@@ -57,51 +57,7 @@ Line_spanner::line_stencil (Grob *me,
 			    Offset from,
 			    Offset to)
 {
-  Offset dz = to -from;
-  SCM type = me->get_property ("style");
-
-  Stencil line;
-
-  if (scm_is_symbol (type)
-      && (type == ly_symbol2scm ("line")
-	  || type == ly_symbol2scm ("dashed-line")
-	  || type == ly_symbol2scm ("dotted-line")
-	  || type == ly_symbol2scm ("zigzag")
-	  || (type == ly_symbol2scm ("trill") && dz[Y_AXIS] != 0)))
-    {
-      line = Line_interface::line (me, from, to);
-    }
-  else if (scm_is_symbol (type)
-	   && type == ly_symbol2scm ("trill"))
-    {
-      SCM alist_chain = Font_interface::text_font_alist_chain (me);
-      SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
-					      ly_symbol2scm ("fetaMusic")),
-				    SCM_UNDEFINED);
-
-      Font_metric *fm = select_font (me->layout (),
-				     scm_cons (style_alist,
-					       alist_chain));
-      Stencil m = fm->find_by_name ("scripts.trill_element");
-      Stencil mol;
-
-      do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
-      while (m.extent (X_AXIS).length ()
-	     && mol.extent (X_AXIS).length ()
-	     + m.extent (X_AXIS).length () < dz[X_AXIS])
-	;
-
-      /*
-	FIXME: should center element on x/y
-      */
-      mol.translate_axis (m.extent (X_AXIS).length () / 2, X_AXIS);
-      mol.translate_axis (- (mol.extent (Y_AXIS)[DOWN]
-			     + mol.extent (Y_AXIS).length ()) / 2, Y_AXIS);
-
-      mol.translate (from);
-      line = mol;
-    }
+  Stencil line = Line_interface::line (me, from, to);
 
   if (to_boolean (me->get_property ("arrow")))
     line.add_stencil (Line_interface::arrows (me, from, to, false, true));

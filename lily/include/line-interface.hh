@@ -16,7 +16,10 @@ struct Line_interface
 {
   static Stencil line (Grob *me, Offset from, Offset to);
   DECLARE_GROB_INTERFACE();
-  static Stencil zigzag_stencil (Grob *me,
+  static Stencil make_zigzag_line (Grob *me,
+				   Offset from,
+				   Offset to);
+  static Stencil make_trill_line (Grob *me,
 				 Offset from,
 				 Offset to);
   static Stencil make_dashed_line (Real th, Offset from, Offset to, Real, Real);

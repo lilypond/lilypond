@@ -12,6 +12,7 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "grob.hh"
+#include "font-interface.hh"
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
@@ -32,9 +33,49 @@ Line_interface::make_arrow (Offset begin, Offset end,
 }
 
 Stencil
-Line_interface::zigzag_stencil (Grob *me,
-				Offset from,
-				Offset to)
+Line_interface::make_trill_line (Grob *me,
+				 Offset from,
+				 Offset to)
+{
+  Offset dz = (to-from);
+  SCM alist_chain = Font_interface::text_font_alist_chain (me);
+  SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
+					  ly_symbol2scm ("fetaMusic")),
+				SCM_UNDEFINED);
+
+  Font_metric *fm = select_font (me->layout (),
+				 scm_cons (style_alist,
+					   alist_chain));
+
+  Stencil elt = fm->find_by_name ("scripts.trill_element");
+
+  Real elt_len = elt.extent (X_AXIS).length ();
+  if (elt_len <= 0.0)
+    {
+      programming_error ("can't find scripts.trill_element");
+      return Stencil ();
+    }
+      
+  Stencil line;
+  Real len = 0.0;
+  do
+    {
+      line.add_at_edge (X_AXIS, RIGHT, elt, 0);
+      len = line.extent (X_AXIS).length ();
+    }
+  while (len + elt_len < dz.length ());
+
+  line.rotate (dz.arg (), Offset (0,0));
+  line.translate (from);
+
+  return line; 
+}
+
+
+Stencil
+Line_interface::make_zigzag_line (Grob *me,
+				  Offset from,
+				  Offset to)
 {
   Offset dz = to -from;
 
@@ -164,8 +205,11 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   SCM type = me->get_property ("style");
   if (type == ly_symbol2scm ("zigzag"))
     {
-      return zigzag_stencil (me, from, to);
+      return make_zigzag_line (me, from, to);
     }
+  else if (type == ly_symbol2scm ("trill"))
+    return make_trill_line (me, from, to);
+  
   Stencil stil;
 
   SCM dash_fraction = me->get_property ("dash-fraction");
