@@ -637,6 +637,8 @@
 	(font-shape . italic)
 	(style . dashed-line)
 
+	;; make sure the spanner doesn't get too close to notes
+	(minimum-Y-extent . (-1 . 1))
 	(bound-details . ((right . ((attach-dir .  ,LEFT)
 				    (Y . 0)
 				    (padding . 0.75)
@@ -651,10 +653,6 @@
 				   (padding . 0.5)
 				   ))
 			  (left-broken . ((attach-dir .  ,RIGHT)
-					  
-					  ;; make sure the - - - stays at reasonable
-					  ;; distance from staff.
-					  (text . " ")
 				   ))
 			  ))
 	(stencil . ,ly:new-line-spanner::print)
