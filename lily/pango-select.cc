@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dimensions.hh"
@@ -56,9 +56,10 @@ select_pango_font (Output_def *layout, SCM chain)
 				       * layout->get_dimension (ly_symbol2scm ("text-font-size")));
 
   char *str = pango_font_description_to_string (pfd);
-  SCM scm_str = scm_makfrom0str (str);
+  SCM scm_str = scm_from_locale_string (str);
   g_free (str);
-
+  pango_font_description_free (pfd);
+  
   return find_pango_font (layout, scm_str, 1.0);
 }
 

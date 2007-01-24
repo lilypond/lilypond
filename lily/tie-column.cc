@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "tie-column.hh"
@@ -79,14 +79,6 @@ Tie_column::calc_positioning_done (SCM smob)
   if (!ties.size ())
     return SCM_BOOL_T;
 
-  if (ties.size() == 1)
-    {
-      /*
-	Already handled by standard mechanisms.
-       */
-      return SCM_BOOL_T;
-    }
-  
   vector_sort (ties, Tie::less);
 
   Tie_formatting_problem problem;
@@ -96,34 +88,19 @@ Tie_column::calc_positioning_done (SCM smob)
   problem.set_manual_tie_configuration (manual_configs);
 
 
-  Ties_configuration base = problem.generate_optimal_chord_configuration ();
+  Ties_configuration base = problem.generate_optimal_configuration ();
 
   for (vsize i = 0; i < base.size(); i++)
     {
-      Tie::set_control_points (ties[i], problem.common_x_refpoint (),
-			       base[i],
-			       problem.details_);
+      SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
+					base[i],
+					problem.details_);
+
+      ties[i]->set_property ("control-points", cp);
       set_grob_direction (ties[i],
 			  base[i].dir_);
 
-#if DEBUG_TIE_SCORING
-      if (to_boolean (me->layout ()
-		      ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
-	{
-	  string card = to_string ("%d (%.2f): ", base[i].position_, base[i].delta_y_)
-	    + base[i].card () + base.tie_card (i);
-
-	  
-	  if (i == 0)
-	    card += base.card ();
-	  if (i == base.size () - 1)
-	    card += to_string ("TOTAL=%.2f", base.score ());
-	  
-	  ties[i]->set_property ("quant-score",
-				 scm_makfrom0str (card.c_str ()));
-	}
-#endif
-      
+      problem.set_debug_scoring (base);
     }
   return SCM_BOOL_T;
 }

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "multi-measure-rest.hh"
@@ -183,8 +183,8 @@ Multi_measure_rest::big_rest (Grob *me, Real width)
   Stencil m = Lookup::round_filled_box (b, blot);
   Stencil yb = Lookup::round_filled_box (Box (Interval (-0.5, 0.5) * ythick, Interval (-ss, ss)), blot);
 
-  m.add_at_edge (X_AXIS, RIGHT, yb, 0, 0);
-  m.add_at_edge (X_AXIS, LEFT, yb, 0, 0);
+  m.add_at_edge (X_AXIS, RIGHT, yb, 0);
+  m.add_at_edge (X_AXIS, LEFT, yb, 0);
 
   m.align_to (X_AXIS, LEFT);
 
@@ -205,11 +205,11 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
   int count = 0;
   Real symbols_width = 0.0;
 
-  SCM sml = me->get_property ("use-breve-rest");
+  bool use_breve = to_boolean (me->get_property ("use-breve-rest"));
 
   while (l)
     {
-      if (sml == SCM_BOOL_T)
+      if (use_breve)
 	{
 	  int k;
 	  if (l >= 2)
@@ -268,7 +268,7 @@ Multi_measure_rest::church_rest (Grob *me, Font_metric *musfont, int measures,
   Stencil mol;
   for (SCM s = mols; scm_is_pair (s); s = scm_cdr (s))
     mol.add_at_edge (X_AXIS, LEFT, *unsmob_stencil (scm_car (s)),
-		     inner_padding, 0);
+		     inner_padding);
   mol.align_to (X_AXIS, LEFT);
   mol.translate_axis (outer_padding_factor * inner_padding, X_AXIS);
 

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -34,22 +34,8 @@ using namespace std;
 /*
   symbols/strings.
  */
-SCM
-ly_to_symbol (SCM scm)
-{
-  return scm_string_to_symbol (ly_to_string (scm));
-}
-
-SCM
-ly_to_string (SCM scm)
-{
-  return scm_call_3 (ly_lily_module_constant ("format"), SCM_BOOL_F,
-
-		     scm_makfrom0str ("~S"), scm);
-}
-
-SCM
-ly_write2scm (SCM s)
+string
+ly_scm_write_string (SCM s)
 {
   SCM port = scm_mkstrport (SCM_INUM0,
 			    scm_make_string (SCM_INUM0, SCM_UNDEFINED),
@@ -60,7 +46,7 @@ ly_write2scm (SCM s)
 
   // scm_apply (write, port, SCM_EOL);
   scm_call_2 (write, s, port);
-  return scm_strport_to_string (port);
+  return ly_scm2string (scm_strport_to_string (port));
 }
 
 SCM
@@ -128,6 +114,14 @@ ly_scm2string (SCM str)
   return string (scm_i_string_chars (str),
 		 (int) scm_i_string_length (str));
 }
+
+SCM
+ly_string2scm (string const &str)
+{
+  return scm_from_locale_stringn (str.c_str(),
+				  str.length ());
+}
+
 
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
@@ -335,37 +329,6 @@ ly_scm2offsets (SCM s)
   ALIST
 */
 
-/* looks the key up in the cdrs of the alist-keys
-   - ignoring the car and ignoring non-pair keys.
-   Returns first match found, i.e.
-
-   alist = ((1 . 10)
-   ((1 . 2) . 11)
-   ((2 . 1) . 12)
-   ((3 . 0) . 13)
-   ((4 . 1) . 14) )
-
-   I would like (ly_assoc_cdr 1) to return 12 - because it's the first
-   element with the cdr of the key = 1.  In other words (alloc_cdr key)
-   corresponds to call
-
-   (alloc (anything . key))
-*/
-SCM
-ly_assoc_cdr (SCM key, SCM alist)
-{
-  if (scm_is_pair (alist))
-    {
-      SCM trykey = scm_caar (alist);
-      if (scm_is_pair (trykey)
-	  && to_boolean (scm_equal_p (key, scm_cdr (trykey))))
-	return scm_car (alist);
-      return ly_assoc_cdr (key, scm_cdr (alist));
-    }
-  return SCM_BOOL_F;
-}
-
-
 bool
 alist_equal_p (SCM a, SCM b)
 {
@@ -428,33 +391,10 @@ ly_deep_copy (SCM src)
   return src;
 }
 
-
-SCM
-ly_truncate_list (int k, SCM lst)
-{
-  if (k == 0)
-    lst = SCM_EOL;
-  else
-    {
-      SCM s = lst;
-      k--;
-      for (; scm_is_pair (s) && k--; s = scm_cdr (s))
-	;
-
-      if (scm_is_pair (s))
-	scm_set_cdr_x (s, SCM_EOL);
-    }
-  return lst;
-}
-
-
-
-
-
 string
 print_scm_val (SCM val)
 {
-  string realval = ly_scm2string (ly_write2scm (val));
+  string realval = ly_scm_write_string (val);
   if (realval.length () > 200)
     realval = realval.substr (0, 100)
       + "\n :\n :\n"
@@ -502,7 +442,8 @@ type_check_assignment (SCM sym, SCM val, SCM type_symbol)
 
       /* Be strict when being anal :) */
       if (do_internal_type_checking_global)
-	abort ();
+	scm_throw (ly_symbol2scm ("ly-file-failed"), scm_list_3 (ly_symbol2scm ("typecheck"),
+								 sym, val));
 
       warning (_ ("doing assignment anyway"));
     }
@@ -641,6 +582,14 @@ ly_scm2rational (SCM r)
 		   scm_to_int (scm_denominator (r)));
 }
 
+Rational
+robust_scm2rational (SCM n, Rational rat)
+{
+  if (ly_is_fraction (n))
+    return ly_scm2rational (n);
+  else
+    return rat;
+}
 
 SCM
 alist_to_hashq (SCM alist)
@@ -665,16 +614,6 @@ ly_hash2alist (SCM tab)
   return scm_call_1 (func, tab);
 }
 
-int
-procedure_arity (SCM proc)
-{
-  assert (ly_is_procedure (proc));
-  SCM arity = scm_procedure_property (proc,
-				      ly_symbol2scm ("arity"));
-
-  SCM fixed = scm_car (arity);
-  return scm_to_int (fixed);
-}
 
 /*
   C++ interfacing.
@@ -722,13 +661,7 @@ parse_symbol_list (char const *symbols)
   return ly_string_array_to_scm (string_split (s, ' '));
 }
 
-
-bool
-ly_is_fraction (SCM x)
-{
-  return SCM_FRACTIONP(x);
-}
-
+/* GDB debugging. */
 struct ly_t_double_cell
 {
   SCM a;
@@ -736,3 +669,10 @@ struct ly_t_double_cell
   SCM c;
   SCM d;
 };
+
+/* inserts at front, removing duplicates */
+SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val)
+{
+  return scm_acons (key, val, scm_assoc_remove_x (alist, key));
+}
+

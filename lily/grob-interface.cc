@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2002--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "grob-interface.hh"
@@ -26,7 +26,7 @@ SCM add_interface (char const *cxx_name,
     lispy_name += suffix;
 
   SCM s = ly_symbol2scm (lispy_name.c_str ());
-  SCM d = scm_makfrom0str (descr);
+  SCM d = scm_from_locale_string (descr);
   SCM l = parse_symbol_list (vars);
 
   ly_add_interface (s, d, l);

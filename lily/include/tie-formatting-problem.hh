@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -14,30 +14,13 @@
 #include "skyline.hh"
 #include "tie-configuration.hh"
 #include "tie-details.hh"
+#include "tie-specification.hh"
 #include "tuple.hh"
 
 #include <map>
 #include <set>
 
 typedef map< Tuple<int,4>, Tie_configuration *> Tie_configuration_map;
-
-struct Tie_specification
-{
-  int position_;
-  Drul_array<Grob*> note_head_drul_;
-  Drul_array<int> column_ranks_;
-  
-  bool has_manual_position_;
-  bool has_manual_dir_;
-  
-  Real manual_position_;
-  Direction manual_dir_;
-  
-  Tie_specification ();
-  int column_span () const;
-  void get_tie_manual_settings (Grob *);
-};
-
 struct Tie_configuration_variation
 {
   int index_;
@@ -47,11 +30,14 @@ struct Tie_configuration_variation
 
 typedef map < Tuple<int, 2>, Skyline> Chord_outline_map;
 typedef map < Tuple<int, 2>, Box> Column_extent_map;
+typedef map <int, Slice> Position_extent_map;
+
 class Tie_formatting_problem
 {
   Chord_outline_map chord_outlines_;
   Column_extent_map stem_extents_;
   Column_extent_map head_extents_;
+  Position_extent_map head_positions_;
   
   set<int> dot_positions_;
   Interval dot_x_;
@@ -62,11 +48,13 @@ class Tie_formatting_problem
   Grob *x_refpoint_;
 
   
-  Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols) const;
-  Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols) const;
+  Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+  Tie_configuration *generate_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;
+
   vector<Tie_configuration_variation> generate_collision_variations (Ties_configuration const &ties) const;
   vector<Tie_configuration_variation> generate_extremal_tie_variations (Ties_configuration const &ties) const;
-
+  vector<Tie_configuration_variation> generate_single_tie_variations (Ties_configuration const &ties) const;
+  
   void score_configuration (Tie_configuration *) const;
   Real score_aptitude (Tie_configuration *, Tie_specification const &,
 		       Ties_configuration *, int) const;
@@ -75,9 +63,10 @@ class Tie_formatting_problem
   void set_ties_config_standard_directions (Ties_configuration *tie_configs_ptr);
   void score_ties (Ties_configuration *) const;
   
+  Slice head_positions_slice (int) const;
   Ties_configuration generate_base_chord_configuration ();
   Ties_configuration find_best_variation (Ties_configuration const &base,
-					  vector<Tie_configuration_variation> vars);
+					  vector<Tie_configuration_variation> const &vars);
 
 public:
   Tie_details details_;
@@ -91,9 +80,8 @@ public:
   ~Tie_formatting_problem ();
 
   Tie_specification get_tie_specification (int) const;
-  Ties_configuration generate_optimal_chord_configuration ();
+  Ties_configuration generate_optimal_configuration ();
   Ties_configuration generate_ties_configuration (Ties_configuration const &);
-  Tie_configuration find_optimal_tie_configuration (Tie_specification const &) const;
 
   void from_ties (vector<Grob*> const &ties);
   void from_tie (Grob *tie);
@@ -103,6 +91,7 @@ public:
   void set_manual_tie_configuration (SCM);
   Interval get_attachment (Real, Drul_array<int>) const;
   Grob *common_x_refpoint () const;
+  void set_debug_scoring (Ties_configuration const &);
 };
 
 #endif /* TIE_FORMATTING_PROBLEM_HH */

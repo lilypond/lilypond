@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "book.hh"
@@ -11,7 +11,6 @@
 #include <cstdio>
 using namespace std;
 
-#include "lilypond-key.hh"
 #include "main.hh"
 #include "music.hh"
 #include "output-def.hh"
@@ -44,13 +43,17 @@ Book::Book (Book const &s)
   smobify_self ();
 
   if (s.paper_)
-    paper_ = s.paper_->clone ();
+    {
+      paper_ = s.paper_->clone ();
+      paper_->unprotect ();
+    }
   
   input_location_ = make_input (*s.origin ());
+
   header_ = ly_make_anonymous_module (false);
   if (ly_is_module (s.header_))
     ly_module_copy (header_, s.header_);
-
+  
   SCM *t = &scores_;
   for (SCM p = s.scores_; scm_is_pair (p); p = scm_cdr (p))
     {
@@ -126,9 +129,6 @@ Book::process (Output_def *default_paper,
   Real scale = scm_to_double (paper->c_variable ("output-scale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
 
-  Object_key *key = new Lilypond_general_key (0, user_key_, 0);
-  SCM scm_key = key->unprotect ();
-
   paper_book->paper_ = scaled_bookdef;
   scaled_bookdef->unprotect ();
 
@@ -140,7 +140,7 @@ Book::process (Output_def *default_paper,
       if (Score *score = unsmob_score (scm_car (s)))
 	{
 	  SCM outputs = score
-	    ->book_rendering (paper_book->paper_, default_layout, key);
+	    ->book_rendering (paper_book->paper_, default_layout);
 
 	  while (scm_is_pair (outputs))
 	    {
@@ -164,7 +164,6 @@ Book::process (Output_def *default_paper,
 	assert (0);
     }
 
-  scm_remember_upto_here_1 (scm_key);
   return paper_book;
 }
 

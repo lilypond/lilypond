@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2004--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "paper-book.hh"
@@ -136,6 +136,13 @@ Paper_book::output (SCM output_channel)
 void
 Paper_book::classic_output (SCM output)
 {
+  if (scm_is_pair (performances_))
+    {
+      SCM proc = ly_lily_module_constant ("write-performances-midis");
+ 
+      scm_call_2 (proc, performances (), output);
+    }
+  
   /* Generate all stencils to trigger font loads.  */
   systems ();
 

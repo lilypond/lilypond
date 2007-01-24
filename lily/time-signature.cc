@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "time-signature.hh"
@@ -94,9 +94,9 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 		    chain);
 
   SCM sn = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     scm_makfrom0str (to_string (num).c_str ()));
+					     ly_string2scm (to_string (num)));
   SCM sd = Text_interface::interpret_markup (me->layout ()->self_scm (), chain,
-					     scm_makfrom0str (to_string (den).c_str ()));
+					     ly_string2scm (to_string (den)));
 
   Stencil n = *unsmob_stencil (sn);
   Stencil d = *unsmob_stencil (sd);
@@ -106,8 +106,8 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
   Stencil m;
   if (den)
     {
-      m.add_at_edge (Y_AXIS, UP, n, 0.0, 0);
-      m.add_at_edge (Y_AXIS, DOWN, d, 0.0, 0);
+      m.add_at_edge (Y_AXIS, UP, n, 0.0);
+      m.add_at_edge (Y_AXIS, DOWN, d, 0.0);
     }
   else
     {

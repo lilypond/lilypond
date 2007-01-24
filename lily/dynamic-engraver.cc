@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "axis-group-interface.hh"
@@ -261,7 +261,7 @@ Dynamic_engraver::process_music ()
 	      if (scm_is_string (s) || scm_is_pair (s))
 		{
 		  cresc_->set_property ("edge-text",
-					scm_cons (s, scm_makfrom0str ("")));
+					scm_cons (s, scm_from_locale_string ("")));
 		  context ()->set_property ((start_type + "Text").c_str (),
 					    SCM_EOL);
 		}
@@ -339,10 +339,18 @@ Dynamic_engraver::typeset_all ()
       if (!finished_cresc_->get_bound (RIGHT)
 	  || use_bar)
 	{
-	  Grob *column_bound = unsmob_grob (use_bar
-					    ? get_property ("currentCommandColumn")
-					    : get_property ("currentMusicalColumn"));
-	    
+	  	  
+	  Grob *column_bound = 0;
+	  if (use_bar)
+	    {
+	      column_bound = unsmob_grob (get_property ("breakableSeparationItem"));
+	    }
+	  
+	  if (!column_bound)
+	    column_bound = unsmob_grob (use_bar
+					? get_property ("currentCommandColumn")
+					: get_property ("currentMusicalColumn"));
+	  
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
 				      : column_bound);
@@ -390,14 +398,12 @@ Dynamic_engraver::typeset_all ()
     }
 }
 
-
 void
 Dynamic_engraver::acknowledge_accidental (Grob_info info)
 {
   if (line_spanner_)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
-
 
 void
 Dynamic_engraver::acknowledge_stem_tremolo (Grob_info info)
@@ -406,14 +412,12 @@ Dynamic_engraver::acknowledge_stem_tremolo (Grob_info info)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
 
-
 void
 Dynamic_engraver::acknowledge_slur (Grob_info info)
 {
   if (line_spanner_)
     Side_position_interface::add_support (line_spanner_, info.grob ());
 }
-
 
 void
 Dynamic_engraver::acknowledge_note_column (Grob_info info)

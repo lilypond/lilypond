@@ -102,7 +102,6 @@
    ly:paper-get-number
    ly:paper-system?
    ly:output-def-lookup
-   ly:parse-string
    ly:parser-parse-string
    ly:pitch-alteration
    ly:pitch-diff
@@ -126,7 +125,6 @@
    ly:stencil-combine-at-edge
    ly:stencil-expr
    ly:stencil-extent
-   ly:stencil-moved-to-edge
    ly:stencil-translate
    ly:stencil-translate-axis
    ly:stencil?

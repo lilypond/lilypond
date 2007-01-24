@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "translator.hh"
@@ -199,7 +199,7 @@ Translator::static_translator_description (const char *grobs,
 				 parse_symbol_list (grobs), static_properties);
   
   static_properties = scm_acons (ly_symbol2scm ("description"),	
-				 scm_makfrom0str (desc), static_properties); 
+				 scm_from_locale_string (desc), static_properties); 
   
   SCM list = SCM_EOL;
   for (; listener_list; listener_list = listener_list->next_)

@@ -3,21 +3,22 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include <unistd.h>
+
+#include "lily-parser.hh"
 
 #include "file-name-map.hh"
 #include "file-name.hh"
 #include "file-path.hh"
 #include "international.hh"
 #include "lily-lexer.hh"
-#include "lily-parser.hh"
 #include "ly-module.hh"
 #include "main.hh"
 #include "program-option.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "warn.hh"
 
 /* Do not append `!' suffix, since 1st argument is not modified. */
@@ -141,31 +142,15 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
   if (error)
     /* TODO: pass renamed input file too.  */
     scm_throw (ly_symbol2scm ("ly-file-failed"),
-	       scm_list_1 (scm_makfrom0str (file_name.c_str ())));
+	       scm_list_1 (ly_string2scm (file_name)));
   
   return SCM_UNSPECIFIED;
 }
 
-LY_DEFINE (ly_parse_string, "ly:parse-string",
-	   1, 0, 0, (SCM ly_code),
-	   "Parse the string LY_CODE.  "
-	   "Upon failure, throw @code{ly-file-failed} key.")
-{
-  SCM_ASSERT_TYPE (scm_is_string (ly_code), ly_code, SCM_ARG1, __FUNCTION__, "string");
-
-  Sources sources;
-  sources.set_path (&global_path);
-  Lily_parser *parser = new Lily_parser (&sources);
-  parser->parse_string (ly_scm2string (ly_code));
-  parser->unprotect ();
-  parser = 0;
-
-  return SCM_UNSPECIFIED;
-}
 
 LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 	   1, 0, 0, (SCM parser_smob),
-	   "Return the lexer for PARSER_SMOB.")
+	   "Return the lexer for @var{parser-smob}.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   return parser->lexer_->self_scm ();
@@ -173,7 +158,7 @@ LY_DEFINE (ly_parser_lexer, "ly:parser-lexer",
 
 LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 	   1, 0, 0, (SCM parser_smob),
-	   "Return a clone of PARSER_SMOB.")
+	   "Return a clone of @var{parser-smob}.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   Lily_parser *clone = new Lily_parser (*parser);
@@ -183,7 +168,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 
 LY_DEFINE (ly_parser_define, "ly:parser-define!",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
-	   "Bind SYMBOL to VAL in PARSER_SMOB's module.")
+	   "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol, SCM_ARG2, __FUNCTION__, "symbol");
@@ -195,7 +180,7 @@ LY_DEFINE (ly_parser_define, "ly:parser-define!",
 
 LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 	   2, 0, 0, (SCM parser_smob, SCM symbol),
-	   "Lookup @var{symbol} in @var{parser_smob}'s module.  "
+	   "Lookup @var{symbol} in @var{parser-smob}'s module.  "
 	   "Undefined is '().")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -212,7 +197,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   2, 0, 0, (SCM parser_smob, SCM ly_code),
-	   "Parse the string LY_CODE with PARSER_SMOB."
+	   "Parse the string @code{ly-code} with @code{parser-smob}."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
@@ -250,7 +235,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
   Lily_parser *p = unsmob_lily_parser (parser);
   SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
 
-  return scm_makfrom0str (p->output_basename_.c_str ());
+  return ly_string2scm (p->output_basename_);
 }
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
@@ -269,4 +254,27 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
     p->parser_error (s);
 
   return parser;
+}
+
+LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
+	   1, 0, 0, (SCM parser),
+	   "Clear the error flag for the parser.")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  p->error_level_ = 0;
+  p->lexer_->error_level_ = 0;
+  
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
+	   1, 0, 0, (SCM parser),
+	   "Does @var{parser} have an error flag?")
+{
+  Lily_parser *p = unsmob_lily_parser (parser);
+  SCM_ASSERT_TYPE (p, parser, SCM_ARG1, __FUNCTION__, "Lilypond parser");
+
+  return scm_from_bool (p->error_level_ || p->lexer_->error_level_);
 }

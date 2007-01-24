@@ -283,14 +283,6 @@ e.g. @code{\\mark \"A\"}.")
 
 	(types . (general-music mark-event event))
 	))
-    (ManualMelismaEvent
-     . (
-	(description .	"Start or stop a melisma.
-
-Syntax: @code{c4\\melisma d\\melismaEnd}.")
-	(types . (general-music melisma-span-event event))
-	))
-
     (MultiMeasureRestMusic
      . (
 	(description . "Rests that may be compressed into Multi rests. 

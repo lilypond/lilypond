@@ -135,7 +135,8 @@
 (ly:add-interface
  'trill-pitch-accidental-interface
  "An accidental for trill pitch"
- '(accidentals))
+ '()
+ )
 
 (ly:add-interface
  'rhythmic-grob-interface
@@ -174,6 +175,13 @@ interesting enough to maintain a hara-kiri staff."
  'tablature-interface
  "An interface for any notes set in a tablature staff"
  '())
+
+(ly:add-interface
+ 'unbreakable-spanner-interface
+ "A spanner that should not be broken across line breaks. Override
+with @code{breakable=##t}. "
+ 
+ '(breakable))
 
 (ly:add-interface
  'vertically-spaceable-interface

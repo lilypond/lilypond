@@ -5,14 +5,14 @@
 start of the next non-tuplet note.  "
 
 }
-\version "2.10.0"
+\version "2.11.10"
 
 \paper { ragged-right = ##t
 indent = 0.0 }
 
 \relative c'' \new Voice \with {
   \remove  Forbid_line_break_engraver
-  allowBeamBreak = ##t
+  \override Beam #'breakable = ##t
 }
 {
   \set tupletFullLength = ##t

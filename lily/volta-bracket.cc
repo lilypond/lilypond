@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include <cstring>
@@ -99,7 +99,7 @@ Volta_bracket_interface::print (SCM smob)
       num.align_to (Y_AXIS, UP);
       num.translate_axis (-0.5, Y_AXIS);
       total.add_at_edge (X_AXIS, LEFT, num, - num.extent (X_AXIS).length ()
-			 - 1.0, 0);
+			 - 1.0);
     }
   
   total.translate_axis (left, X_AXIS);

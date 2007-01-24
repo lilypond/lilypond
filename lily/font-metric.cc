@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
   Mats Bengtsson <matsb@s3.kth.se> (the ugly TeX parsing in text_dimension)
 */
@@ -40,7 +40,7 @@ Font_metric::find_by_name (string s) const
     {
       expr = scm_list_3 (ly_symbol2scm ("named-glyph"),
 			 self_scm (),
-			 scm_makfrom0str (s.c_str ()));
+			 ly_string2scm (s));
       b = get_indexed_char (idx);
     }
 
@@ -187,12 +187,9 @@ Font_metric::word_stencil (string str) const
 Stencil
 Font_metric::text_stencil (string str) const
 {
-  SCM lst = scm_list_3 (ly_symbol2scm ("text"),
-			this->self_scm (),
-			scm_makfrom0str (str.c_str ()));
-
-  Box b = text_dimension (str);
-  return Stencil (b, lst);
+  (void) str;
+  assert (false);
+  return Stencil (Box (), SCM_EOL);
 }
 
 Box

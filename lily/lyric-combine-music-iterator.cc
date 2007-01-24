@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dispatcher.hh"
@@ -14,6 +14,20 @@
 #include "listener.hh"
 #include "music-iterator.hh"
 #include "music.hh"
+
+/*
+  This iterator is hairy.  It tracks both lyric and melody contexts,
+  and has a complicated communication route, reading/writing
+  properties in both.
+
+  In the future, this should rather be done with
+
+     \interpretAsMelodyFor { MUSIC } { LYRICS LYRICS LYRICS }
+
+  This can run an interpret step on MUSIC, generating a stream.  Then
+  the stream can be perused at leisure to apply durations to all of
+  the LYRICS.
+*/
 
 class Lyric_combine_music_iterator : public Music_iterator
 {
@@ -32,7 +46,7 @@ protected:
   virtual void derived_substitute (Context *, Context *);
   void set_music_context (Context *to);
 private:
-  bool start_new_syllable ();
+  bool start_new_syllable () const;
   Context *find_voice ();
   DECLARE_LISTENER (set_busy);
   DECLARE_LISTENER (check_new_context);
@@ -43,7 +57,8 @@ private:
   Context *music_context_;
   SCM lyricsto_voice_name_;
 
-  bool busy_;
+  Moment busy_moment_;
+  
   Music_iterator *lyric_iter_;
 };
 
@@ -54,17 +69,26 @@ Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
-  busy_ = false;
+  busy_moment_.set_infinite (-1);
 }
 
+
+/*
+  It's dubious whether we can ever make this fully work.  Due to
+  associatedVoice switching, this routine may be triggered for 
+  the wrong music_context_ 
+ */
 IMPLEMENT_LISTENER (Lyric_combine_music_iterator, set_busy)
 void
 Lyric_combine_music_iterator::set_busy (SCM se)
 {
   Stream_event *e = unsmob_stream_event (se);
 
-  if (e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
-    busy_ = true;
+  if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
+      && music_context_)
+    busy_moment_ = max (music_context_->now_mom (),
+			busy_moment_);
+  
 }
 
 void
@@ -73,24 +97,20 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
   if (music_context_)
     {
       music_context_->event_source()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
-      lyrics_context_->unset_property (ly_symbol2scm ("associatedVoiceContext"));
     }
+
   music_context_ = to;
   if (to)
     {
       to->event_source()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
-      if (lyrics_context_)
-	lyrics_context_->set_property ("associatedVoiceContext", to->self_scm ());
     }
 }
 
 bool
-Lyric_combine_music_iterator::start_new_syllable ()
+Lyric_combine_music_iterator::start_new_syllable () const
 {
-  if (!busy_)
+  if (busy_moment_ < music_context_->now_mom ())
     return false;
-
-  busy_ = false;
 
   if (!lyrics_context_)
     return false;
@@ -169,15 +189,13 @@ Lyric_combine_music_iterator::construct_children ()
   Context *voice = find_voice ();
   if (voice)
     set_music_context (voice);
-  else
-    {
-      /*
-        Wait for a Create_context event. If this isn't done, lyrics can be 
-        delayed when voices are created implicitly.
-      */
-      Global_context *g = get_outlet ()->get_global_context ();
-      g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
-    }
+
+  /*
+    Wait for a Create_context event. If this isn't done, lyrics can be 
+    delayed when voices are created implicitly.
+  */
+  Global_context *g = get_outlet ()->get_global_context ();
+  g->events_below ()->add_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
 
   /*
     We do not create a Lyrics context, because the user might
@@ -191,15 +209,15 @@ void
 Lyric_combine_music_iterator::check_new_context (SCM sev)
 {
   // TODO: Check first if type=Voice and if id matches
-  (void)sev;
-
+  Stream_event * ev = unsmob_stream_event (sev);
+  if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
+    return ;
+  
   Context *voice = find_voice ();
+
   if (voice)
     {
       set_music_context (voice);
-
-      Global_context *g = voice->get_global_context ();
-      g->events_below ()->remove_listener (GET_LISTENER (check_new_context), ly_symbol2scm ("CreateContext"));
     }
 }
 
@@ -258,6 +276,7 @@ Lyric_combine_music_iterator::process (Moment)
       set_music_context (0);
     }
 
+
   if (music_context_
       && (start_new_syllable () || pending_grace_lyric_)
       && lyric_iter_->ok ())
@@ -271,10 +290,16 @@ Lyric_combine_music_iterator::process (Moment)
 	pending_grace_lyric_ = false;
       
       Moment m = lyric_iter_->pending_moment ();
+      lyrics_context_->set_property (ly_symbol2scm ("associatedVoiceContext"),
+				     music_context_->self_scm ());
       lyric_iter_->process (m);
 
       music_found_ = true;
     }
+
+  new_voice = find_voice ();
+  if (new_voice)
+    set_music_context (new_voice);
 }
 
 void

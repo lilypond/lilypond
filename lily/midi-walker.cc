@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -12,12 +12,13 @@
 #include "audio-column.hh"
 #include "audio-staff.hh"
 #include "midi-item.hh"
+#include "midi-chunk.hh"
 #include "midi-stream.hh"
 #include "warn.hh"
 
 Midi_note_event::Midi_note_event ()
 {
-  ignore_b_ = false;
+  ignore_ = false;
 }
 
 int
@@ -33,21 +34,33 @@ compare (Midi_note_event const &left, Midi_note_event const &right)
     return 0;
 }
 
+bool
+audio_item_less (Audio_item * const a,
+		 Audio_item * const b)
+{
+  return a->get_column ()->when_ <  b->get_column ()->when_;
+}
+
 Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
 			  int channel)
 {
   channel_ = channel;
   track_ = track;
   index_ = 0;
-  items_ = &audio_staff->audio_items_;
-
-  last_mom_ = 0;
+  items_ = audio_staff->audio_items_;
+  vector_sort (items_, audio_item_less);
+  last_tick_ = 0;
 }
 
 Midi_walker::~Midi_walker ()
 {
-  // ugh
-  do_stop_notes (last_mom_ + Moment (Rational (10, 1)));
+  junk_pointers (midi_events_);
+}
+
+void
+Midi_walker::finalize ()
+{
+  do_stop_notes (INT_MAX);
 }
 
 /**
@@ -56,20 +69,23 @@ Midi_walker::~Midi_walker ()
 void
 Midi_walker::do_start_note (Midi_note *note)
 {
-  Audio_item *ptr = (*items_)[index_];
-  Moment stop_mom = note->get_length () + ptr->audio_column_->at_mom ();
+  Audio_item *ptr = items_[index_];
+  int stop_ticks = int (moment_to_real (note->audio_->length_mom_) * Real (384 * 4))
+    + ptr->audio_column_->ticks ();
 
   bool play_start = true;
   for (vsize i = 0; i < stop_note_queue.size (); i++)
     {
       /* if this pith already in queue */
-      if (stop_note_queue[i].val->get_semitone_pitch () == note->get_semitone_pitch ())
+      if (stop_note_queue[i].val->get_semitone_pitch ()
+	  == note->get_semitone_pitch ())
 	{
-	  if (stop_note_queue[i].key < stop_mom)
+	  if (stop_note_queue[i].key < stop_ticks)
 	    {
 	      /* let stopnote in queue be ignored,
 		 new stop note wins */
-	      stop_note_queue[i].ignore_b_ = true;
+	      stop_note_queue[i].ignore_ = true;
+
 	      /* don't replay start note, */
 	      play_start = false;
 	      break;
@@ -78,7 +94,6 @@ Midi_walker::do_start_note (Midi_note *note)
 	    {
 	      /* skip this stopnote,
 		 don't play the start note */
-	      delete note;
 	      note = 0;
 	      break;
 	    }
@@ -89,11 +104,13 @@ Midi_walker::do_start_note (Midi_note *note)
     {
       Midi_note_event e;
       e.val = new Midi_note_off (note);
-      e.key = stop_mom;
+
+      midi_events_.push_back (e.val);
+      e.key = int (stop_ticks);
       stop_note_queue.insert (e);
 
       if (play_start)
-	output_event (ptr->audio_column_->at_mom (), note);
+	output_event (ptr->audio_column_->ticks (), note);
     }
 }
 
@@ -101,69 +118,75 @@ Midi_walker::do_start_note (Midi_note *note)
    Output note events for all notes which end before #max_mom#
 */
 void
-Midi_walker::do_stop_notes (Moment max_mom)
+Midi_walker::do_stop_notes (int max_ticks)
 {
-  while (stop_note_queue.size () && stop_note_queue.front ().key <= max_mom)
+  while (stop_note_queue.size () && stop_note_queue.front ().key <= max_ticks)
     {
       Midi_note_event e = stop_note_queue.get ();
-      if (e.ignore_b_)
+      if (e.ignore_)
 	{
-	  delete e.val;
 	  continue;
 	}
 
-      Moment stop_mom = e.key;
+      int stop_ticks = e.key;
       Midi_note *note = e.val;
 
-      output_event (stop_mom, note);
+      output_event (stop_ticks, note);
     }
 }
 
-/**
-   Advance the track to #now#, output the item, and adjust current "moment".
-*/
 void
-Midi_walker::output_event (Moment now_mom, Midi_item *l)
+Midi_walker::output_event (int now_ticks, Midi_item *l)
 {
-  Moment delta_t = now_mom - last_mom_;
-  last_mom_ = now_mom;
+  int delta_ticks = now_ticks - last_tick_;
+  last_tick_ = now_ticks;
 
   /*
     this is not correct, but at least it doesn't crash when you
     start with graces
   */
-  if (delta_t < Moment (0))
-    delta_t = Moment (0);
+  if (delta_ticks < 0)
+    {
+      programming_error ("Going back in MIDI time.");
+      delta_ticks = 0;
+    }
 
-  track_->add (delta_t, l);
+  track_->add (delta_ticks, l);
 }
 
 void
 Midi_walker::process ()
 {
-  Audio_item *audio = (*items_)[index_];
-  do_stop_notes (audio->audio_column_->at_mom ());
+  Audio_item *audio = items_[index_];
+  do_stop_notes (audio->audio_column_->ticks ());
 
-  if (Midi_item *midi = Midi_item::get_midi (audio))
+  if (Midi_item *midi = get_midi (audio))
     {
       if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (midi))
 	mci->channel_ = channel_;
       
-      //midi->channel_ = track_->number_;
       if (Midi_note *note = dynamic_cast<Midi_note *> (midi))
 	{
-	  if (note->get_length ().to_bool ())
+	  if (note->audio_->length_mom_.to_bool ())
 	    do_start_note (note);
 	}
       else
-	output_event (audio->audio_column_->at_mom (), midi);
+	output_event (audio->audio_column_->ticks (), midi);
     }
+}
+
+Midi_item*
+Midi_walker::get_midi (Audio_item *i)
+{
+  Midi_item *mi = Midi_item::get_midi (i);
+  midi_events_.push_back (mi);
+  return mi;
 }
 
 bool
 Midi_walker::ok () const
 {
-  return index_ < items_->size ();
+  return index_ < items_.size ();
 }
 
 void

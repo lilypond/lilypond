@@ -3,18 +3,21 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
 #include "lily-guile.hh"
-#include "std-string.hh"
+#include "string-convert.hh"
+#include "warn.hh"
 
 #include <fontconfig/fontconfig.h>
 
-void
+string
 display_fontset (FcFontSet *fs)
 {
+  string retval;
+  
   int j;
   for (j = 0; j < fs->nfont; j++)
     {
@@ -23,36 +26,42 @@ display_fontset (FcFontSet *fs)
 
       font = FcNameUnparse (fs->fonts[j]);
       if (FcPatternGetString (fs->fonts[j], FC_FILE, 0, &str) == FcResultMatch)
-	printf ("FILE %s\n", str);
+	retval += String_convert::form_string ("FILE %s\n", str);
       if (FcPatternGetString (fs->fonts[j], FC_FAMILY, 0, &str) == FcResultMatch)
-	printf ("family %s\n ", str);
+	retval += String_convert::form_string ("family %s\n ", str);
       if (FcPatternGetString (fs->fonts[j],
 			      "designsize", 0, &str) == FcResultMatch)
-	printf ("designsize %s\n ", str);
+	retval += String_convert::form_string ("designsize %s\n ", str);
       
-      printf ("%s\n", (const char*) font);
+      retval += String_convert::form_string ("%s\n", (const char*) font);
       free (font);
     }
+  
+  return retval;
 }
 
-void
+string
 display_strlist (char const*what, FcStrList *slist)
 {
+  string retval;
   while (FcChar8 *dir = FcStrListNext (slist))
     {
-      printf("%s: %s\n", what, dir);
+      retval += String_convert::form_string ("%s: %s\n", what, dir);
     }
+  return retval;
 }
 
-void
+string
 display_config (FcConfig *fcc)
 {
-  display_strlist ("Config files", FcConfigGetConfigFiles(fcc));
-  display_strlist ("Config dir", FcConfigGetConfigDirs(fcc));
-  display_strlist ("Font dir", FcConfigGetFontDirs(fcc));
+  string retval;
+  retval += display_strlist ("Config files", FcConfigGetConfigFiles(fcc));
+  retval +=  display_strlist ("Config dir", FcConfigGetConfigDirs(fcc));
+  retval +=  display_strlist ("Font dir", FcConfigGetFontDirs(fcc));
+  return retval;
 }
 
-void
+string
 display_list (FcConfig *fcc)
 {
   FcPattern*pat = FcPatternCreate ();
@@ -66,11 +75,13 @@ display_list (FcConfig *fcc)
   if (pat)
     FcPatternDestroy (pat);
 
+  string retval;
   if (fs)
     {
-      display_fontset (fs);
+      retval = display_fontset (fs);
       FcFontSetDestroy (fs);
     }
+  return retval;
 }
 
 
@@ -98,7 +109,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   pat = FcFontMatch(NULL, pat, &result);
   FcChar8 *str = 0;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
-    scm_result = scm_makfrom0str ((char const*) str);
+    scm_result = scm_from_locale_string ((char const*) str);
 
   FcPatternDestroy (pat);
 
@@ -109,8 +120,10 @@ LY_DEFINE (ly_font_config_display_fonts, "ly:font-config-display-fonts", 0, 0, 0
 	   (),
 	   "Dump a list of all fonts visible to FontConfig.")
 {
-  display_list (NULL);
-  display_config (NULL);
+  string str = display_list (NULL);
+  str += display_config (NULL);
+
+  progress_indication (str);
   
   return SCM_UNSPECIFIED;
 }

@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.6"
 % TODO: split ancient-font into seperate files; possibly in
 % different locations.
 \header {
@@ -17,8 +17,8 @@ upperStaff = \new GregorianStaff =  "upperStaff" <<
     \override Staff.StaffSymbol  #'line-count = #4
 
      \transpose c c {
-	\override Staff.KeySignature  #'style = #'vaticana
-	\override Staff.Accidental  #'style = #'vaticana
+	\override Staff.KeySignature #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
+	\override Staff.Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
 	\override NoteHead  #'style = #'vaticana.punctum
 	\key es \major
 	\clef "vaticana-fa2"
@@ -58,8 +58,8 @@ upperStaff = \new GregorianStaff =  "upperStaff" <<
 	\override NoteHead  #'style = #'vaticana.cephalicus
 	es f
 
-	\override Staff.KeySignature  #'style = #'medicaea
-	\override Staff.Accidental  #'style = #'medicaea
+	\override Staff.KeySignature #'glyph-name-alist = #alteration-medicaea-glyph-name-alist
+	\override Staff.Accidental #'glyph-name-alist = #alteration-medicaea-glyph-name-alist
 	\override Staff.Custos  #'style = #'medicaea
 	\override NoteHead  #'style = #'medicaea.punctum
 	\clef "medicaea-fa2"
@@ -81,8 +81,8 @@ upperStaff = \new GregorianStaff =  "upperStaff" <<
 	\override NoteHead  #'style = #'medicaea.rvirga
 	e! des! ces!
 
-	\override Staff.KeySignature  #'style = #'hufnagel
-	\override Staff.Accidental  #'style = #'hufnagel
+	\override Staff.KeySignature #'glyph-name-alist = #alteration-hufnagel-glyph-name-alist
+	\override Staff.Accidental #'glyph-name-alist = #alteration-hufnagel-glyph-name-alist
 	\override Staff.Custos  #'style = #'hufnagel
 	\override NoteHead  #'style = #'hufnagel.punctum
 	\clef "hufnagel-fa2"
@@ -258,8 +258,8 @@ lowerStaff = \new MensuralStaff =  "lowerStaff" <<
 	    \accepts MensuralVoice
 	    \consists Custos_engraver
 	    \override TimeSignature #'style = #'mensural
-	    \override KeySignature #'style = #'mensural
-	    \override Accidental #'style = #'mensural
+	    \override KeySignature #'glyph-name-alist = #alteration-mensural-glyph-name-alist
+	    \override Accidental #'glyph-name-alist = #alteration-mensural-glyph-name-alist
 	    \override Custos #'style = #'mensural
 	    \override Custos #'neutral-position = #3
 	    \override Custos #'neutral-direction = #down
@@ -276,8 +276,8 @@ lowerStaff = \new MensuralStaff =  "lowerStaff" <<
 	    \remove Time_signature_engraver
 	    \override StaffSymbol #'thickness = #2.0
 	    \override StaffSymbol #'line-count = #4
-	    \override KeySignature #'style = #'vaticana
-	    \override Accidental #'style = #'vaticana
+	    \override KeySignature #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
+	    \override Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
 	    \override Custos #'style = #'vaticana
 	    \override Custos #'neutral-position = #4
 	    \override Custos #'neutral-direction = #down

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef LILY_PROTO_HH
@@ -90,6 +90,7 @@ class Mensural_ligature_engraver;
 class Midi_chunk;
 class Midi_duration;
 class Midi_dynamic;
+class Midi_event;
 class Midi_header;
 class Midi_instrument;
 class Midi_item;

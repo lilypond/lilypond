@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef BEAMING_PATTERN_HH
@@ -12,6 +12,17 @@
 #include "std-vector.hh"
 #include "moment.hh"
 #include "lily-proto.hh"
+
+struct Beaming_options
+{
+  SCM grouping_;
+  bool subdivide_beams_;
+  Moment beat_length_;
+  Moment measure_length_;
+
+  Beaming_options ();
+  void from_context (Context*);  
+};
 
 struct Beam_rhythmic_element
 {
@@ -38,7 +49,7 @@ class Beaming_pattern
 public:
   Beaming_pattern ();
   
-  void beamify (Context*);
+  void beamify (Beaming_options const&);
   void de_grace ();
   void add_stem (Moment d, int beams);
   int beamlet_count (int idx, Direction d) const;

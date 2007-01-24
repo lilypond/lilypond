@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dimensions.hh"
@@ -31,7 +31,7 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
   if (text_dimension_hash_tab)
     {
       scm_hash_ref (text_dimension_hash_tab,
-		    scm_makfrom0str (key_str.c_str ()),
+		    ly_string2scm (key_str),
 		    SCM_BOOL_F);
     }
   if (scm_is_pair (val))

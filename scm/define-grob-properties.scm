@@ -25,7 +25,7 @@
      (X-offset ,number? "The horizontal amount that this object is moved relative to its X-parent")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its Y-parent")
-     (accidentals ,list? "List of alteration numbers")
+     (alteration ,number? "alteration numbers for accidental")
      (after-line-breaking ,boolean? "Dummy property, used to trigger callback for after-line-breaking")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
@@ -68,6 +68,7 @@ beaming patterns from stem to stem inside a beam.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
+     (breakable ,boolean? "Allow breaks here.")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-orders ,vector? " Defines the order in which
@@ -98,10 +99,6 @@ tuplet bracket.")
 #t means visible, #f means killed.")
      (c0-position ,integer? "An integer indicating the position of
 middle C.")
-     (cautionary-style ,symbol? "How to print cautionary
-accidentals. Choices are @code{smaller} or
-@code{parentheses}.")
-     (cautionary ,boolean? "Is this a cautionary accidental?")
      (concaveness ,number? "A beam is concave when its inner stems are
 closer to the beam than the two outside stems. This number is a
 measure of the closeness of the inner stems. It is used for damping
@@ -190,6 +187,7 @@ typeset. Valid choices depend on the function that is reading this
 property.")
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
      (gap-count ,integer? "Number of gapped beams for tremolo.")
+     (glyph-name-alist ,list? "Alist of key-string pairs.")
      (grow-direction ,ly:dir? "Crescendo or decrescendo?")
      (hair-thickness ,number? "Thickness of the thin line in a bar line.")
      (head-direction ,ly:dir? "Are the note heads left or right in a semitie?")
@@ -201,7 +199,8 @@ of note-column for horizontal shifting. This is used by
 @internalsref{note-collision-interface}.")
      (avoid-slur ,symbol? "Method of handling slur collisions.
 Choices are @code{around}, @code{inside}, @code{outside}.  If unset, script
-and slur ignore eachother.")
+and slur ignore each other.  @code{around} will only move the script if
+there is a collision; @code{outside} will always move the script.")
      (ignore-collision ,boolean? "If set, don't do note collision resolution on this NoteColumn.")
      (infinite-spacing-height ,boolean? "If true, then for the purposes of
 horizontal spacing, treat this item as though it were infinitely tall. That
@@ -250,10 +249,14 @@ multimeasure rest.")
 note heads in collisions, even if they have different note heads. The
 smaller of the two heads will be rendered invisible. This used
 polyphonic guitar notation. The value of this setting is used by
-@internalsref{note-collision-interface} .")
+@internalsref{note-collision-interface} .
+merge-differently-headed only applies to opposing stem dirs
+(ie. Voice 1 & 2).")
      (merge-differently-dotted ,boolean? "Merge note heads in
 collisions, even if they have a different number of dots. This normal
-notation for some types of polyphonic music. ")
+notation for some types of polyphonic music.
+merge-differently-dotted only applies to opposing stem dirs
+(ie. Voice 1 & 2).")
      (minimum-length-fraction ,number? "Minimum length of ledger line as fraction of note head size.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
@@ -262,7 +265,8 @@ dimension, measured in staff space.")
      (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
 this long. This requires an appropriate callback for the
-@code{springs-and-rods} property.")
+@code{springs-and-rods} property.  If added to a Tie, this sets the
+minimum distance between noteheads.")
      (minimum-space ,ly:dimension? "Minimum distance that the victim
 should move (after padding).")
      (neutral-direction ,ly:dir? "Which direction to take in the
@@ -304,6 +308,7 @@ with a negative penalty.")
 This affects the choices of the page breaker; it will avoid a page
 turn at a column with a positive penalty and prefer a page turn at a column
 with a negative penalty.")
+     (parenthesized ,boolean? "Parenthesize this grob.")
      (line-break-penalty ,number? "Penalty for a line break at this column.
 This affects the choices of the line breaker; it will avoid a line
 break at a column with a positive penalty and prefer a line break at a column
@@ -317,6 +322,7 @@ quicker the slur attains it @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
 @code{interesting-items}")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
+     (restore-first ,boolean? "Print a natural before the accidental.")
      (rhythmic-location ,rhythmic-location? "Where (bar number, measure position) in the score.")
      (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
      (rotation ,list? "Number of degrees to rotate this object, and what point
@@ -406,8 +412,11 @@ use LEFT.")
      (threshold ,number-pair? "(@var{min} . @var{max}), where
 @var{min} and @var{max} are dimensions in staff space.")
      (tie-configuration ,list? "List of (@var{position} . @var{dir})
-pairs, indicating the desired tie configuration. A non-pair entry in
-the list will cause said tie to be formatted automatically. ")
+pairs, indicating the desired tie configuration where @var{position} is
+the offset from the center of the
+staff in staff space and @var{dir} indicates the direction of the tie
+(1=>up, -1=>down, 0=>center).  A non-pair entry in the list will cause
+the corresponding tie to be formatted automatically.")
      (transparent ,boolean? "This makes the grob invisible.")
      (uniform-stretching ,boolean? "If set, items stretch proportional
 to their durations. This looks better in complex polyphonic patterns")
@@ -442,9 +451,12 @@ glissando line can be constructed from a whole number of squiggles.")
      (apply define-internal-grob-property x))
    
    `(
-     (pure-relevant-elements ,ly:grob-array? "The subset of elements that are relevant for finding the pure-Y-extent.")
+
+     ;;;;;;;;;;;;;;;;
+     ;; grobs & grob arrays. (alphabetical)
+     (Y-common ,ly:grob? "See X-common")
+     (X-common ,ly:grob? "Common refpoint for axis group.")
      (cached-pure-extents ,vector? "Used by a VerticalAxisGroup to cache the Y-extents of different column ranges.")
-     (common-refpoint-of-elements ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
      (axis-group-parent-X ,ly:grob? "Containing X axis group")
      (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
      (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
@@ -460,8 +472,21 @@ set, which grob to get the direction from .")
      (dots ,ly:grob-array? "multiple Dots objects.")
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
      (important-column-ranks ,vector? "Cache of columns that contain items-worth-living.")
+     (items-worth-living ,ly:grob-array? "A list of interesting items. If
+empty in a particular staff, then that staff is erased.")
+
      (glyph-name ,string? "a name of character within font.")
+     (left-neighbors ,ly:grob-array? " List of
+spacing-wish grobs that are close to the current column.
+
+The closest spacing-wishes determine the actual distances between the
+columns.
+")
+     (left-items ,ly:grob-array? "")
      (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
+     
+     (pure-Y-common ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
+     (pure-relevant-elements ,ly:grob-array? "The subset of elements that are relevant for finding the pure-Y-extent.")
      (stem ,ly:grob? "pointer to Stem object.")
      (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
      (tie ,ly:grob? "")
@@ -474,7 +499,7 @@ set, which grob to get the direction from .")
      (bounded-by-me ,ly:grob-array? "list of spanners that have this
 column as start/begin point. Only columns that have grobs or act as
 bounds are spaced.")
-     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del niente)")
+     
      (columns ,ly:grob-array? "list of grobs, typically containing
 paper-columns or note-column objects.")
      (conditional-elements ,ly:grob-array? "Internal use only")
@@ -483,10 +508,33 @@ in addition to notes and stems.")
      (elements ,ly:grob-array? "list of grobs, type depending on the Grob
 where this is set in.")
      (grace-spacing ,ly:grob? "a run of grace notes.")
-     (spacing ,ly:grob? "the spacing spanner governing this section.")
      (heads ,ly:grob-array? "List of note heads.")
-     (items-worth-living ,ly:grob-array? "A list of interesting items. If
-empty in a particular staff, then that staff is erased.")
+
+     (note-columns ,pair? "list of NoteColumn grobs.")
+
+     (normal-stems ,ly:grob-array? "Array of visible stems.") 
+     (note-heads ,ly:grob-array? "List of note head grobs")
+     (note-head ,ly:grob? "A single note head")
+     (right-items ,ly:grob-array? "")
+     (right-neighbors ,ly:grob-array? "see left-neighbors")
+     (separation-item ,ly:grob? "A separation item.")
+     (slur ,ly:grob? "A pointer to a slur object")
+     (spacing ,ly:grob? "the spacing spanner governing this section.")
+     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
+     (side-support-elements ,ly:grob-array? "the support, a list of grobs.")
+     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
+     (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
+     (tuplets ,ly:grob-array? "list of smaller tuplet brackets")
+     (tuplet-number ,ly:grob? "the number for a bracket.")
+
+     
+     
+     ;;;;;;;;;;;;;;;;
+     ;; other
+     (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
+     (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
+     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del niente)")
+     (delta-position ,number? "vertical position difference")
      (details ,list? "alist of parameters for detailed grob behavior.
 
 more information on the allowed parameters can be found by inspecting
@@ -496,80 +544,48 @@ lily/tie-formatting-problem.cc.  Setting @code{debug-tie-scoring},
 useful clues.
 
 ")
-     (note-heads ,ly:grob-array? "List of note head grobs")
-     (note-head ,ly:grob? "A single note head")
-     (side-support-elements ,ly:grob-array? "the support, a list of grobs.")
-     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
-     (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
-     (tuplets ,ly:grob-array? "list of smaller tuplet brackets")
-     (tuplet-number ,ly:grob? "the number for a bracket.")
 
-     (left-neighbors ,ly:grob-array? " List of
-spacing-wish grobs that are close to the current column.
-
-The closest spacing-wishes determine the actual distances between the
-columns.
-")
-     (right-neighbors ,ly:grob-array? "see left-neighbors")
-     (left-items ,ly:grob-array? "")
-     (right-items ,ly:grob-array? "")
-     (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
      (font ,ly:font-metric? "Cached font metric object")
+     (head-width ,ly:dimension? "width of this ligature head")
+     
+     (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
+     (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
+     (least-squares-dy ,number? 
+		       "ideal beam slope, without damping.")
 
+     (meta ,list? "Contains meta information. It is an alist with the
+entries @code{name} and @code{interfaces}.")
+     (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
+     
      (positioning-done ,boolean?
 		       "Used to signal that a positioning element
 did its job. This ensures that a positioning is only done once.")
      (pure-Y-extent ,number-pair? "The estimated height of a system")
 
-
-     (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which
-acts as an index for looking up a Stencil object.")
-
-     (meta ,list? "Contains meta information. It is an alist with the
-entries @code{name} and @code{interfaces}.")
-
-
-     ;; TODO: use interface for this!
      (quantized-positions ,number-pair? "Beam positions after quanting.")
-     (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
-
      (quantize-position ,boolean? "If set, a vertical alignment is aligned to be within staff spaces.")
      (quant-score ,string? "Beam quanting score -- can be stored for
 debugging")
      
-     (least-squares-dy ,number? 
-		       "ideal beam slope, without damping.")
+     (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which
+acts as an index for looking up a Stencil object.")
+
      (stem-info ,pair? "caching of stem parameters")
-     (note-columns ,pair? "list of NoteColumn grobs.")
-
-;;; add-join would be enough if in ly:mensural-ligature::brew-ligature-primitive
-;;; the next note could be seen
-     (join-right-amount ,number? "")
-
-     (delta-position ,number? "vertical position difference")
-     (head-width ,ly:dimension? "width of this ligature head")
-
-     ;; [TODO: change this]
-     (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
-     (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
-     (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
-
-     (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
      (shorten ,ly:dimension? "The amount of space that a
 stem. Internally used to distribute beam shortening over stems. ")
-     (slur ,ly:grob? "A pointer to a slur object")
+     (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
+     (skyline-horizontal-padding ,number? "For determining the vertical distance between 2 staves, it is possible to have a configuration which would result in a tight interleaving of grobs from the top staff and the bottom staff. The larger this parameter is, the farther apart the staves will be placed in such a configuration.")
+ 
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
      
 
-     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
-     (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
-     (skyline-horizontal-padding ,number? "For determining the vertical distance between 2 staves, it is possible to have a configuration which would result in a tight interleaving of grobs from the top staff and the bottom staff. The larger this parameter is, the farther apart the staves will be placed in such a configuration.")
+     
+     ;; ancient notation
+     (join-right-amount ,number? "")
+     (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
 
      
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-     ;; ancient notation
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
      ;;;;;;; TODO:
      ;; there are too many properties for ancient notation
      ;; probably neume-types (a list of symbols) would also work.

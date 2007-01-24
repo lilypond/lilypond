@@ -3,13 +3,11 @@
 
   source file of the Flower Library
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
-
-#include "std-string.hh"
 
 #include "std-string.hh"
 
@@ -47,7 +45,8 @@ public:
   void negate ();
   int to_int () const;
 
-  operator double () const;
+  operator double () const { return to_double (); }
+  double to_double () const;
 
   Rational operator - () const;
   /**

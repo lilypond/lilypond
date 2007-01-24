@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006  Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2004--2007  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef PROPERTY_OBJECT_HH
@@ -42,12 +42,7 @@ public:
   SCM type () const { return type_; }
   SCM get_property_alist (bool mutble) const;
   SCM internal_get_property (SCM sym) const;
-
-#ifndef NDEBUG
-  void internal_set_property (SCM sym, SCM val, const char *file, int line, char const *fun);
-#else
   void internal_set_property (SCM sym, SCM val);
-#endif
 };
 DECLARE_UNSMOB(Prob,prob);
 SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);

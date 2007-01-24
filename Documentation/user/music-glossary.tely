@@ -150,10 +150,12 @@ Languages in this order.
 * alto::                        
 * alto clef::                   
 * ambit::                       
+* anacrusis::                   
 * ancient minor scale::         
 * andante::                     
 * appoggiatura::                
 * arpeggio::                    
+* articulation::                
 * ascending interval::          
 * augmented interval::          
 * autograph::                   
@@ -576,6 +578,15 @@ The term ambit (from latin: ambitus, plural: ambitus) denotes a range
 of pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
 
+@node anacrusis
+@section anacrusis
+
+@c  TODO: add more languages for anacrusis
+F: anacrouse
+
+An anacrusis (also known as pickup or upbeat) is an incomplete measure
+of music before a section of music.
+
 @node ancient minor scale
 @section ancient minor scale
 
@@ -700,6 +711,15 @@ FI: arpeggio, murtosointu.
   }
 >>
 @end lilypond
+
+@node articulation
+@section articulation
+
+@c TODO: add languages for articulation.
+Articulation refers to notation which indicates how a note or notes should
+be played.  Slurs, accents, staccato, and legato are all examples of
+articulartion.
+
 
 @node ascending interval
 @section ascending interval
@@ -1348,6 +1368,7 @@ music of the baroque era, has been one of the most popular polyphonic
 composition methods.
 
 @lilypond[fragment,staffsize=12,line-width=13.0\cm]
+\set Score.implicitTimeSignatureVisibility = #all-invisible
 \override Score.TimeSignature #'break-visibility = #all-invisible
 \context PianoStaff <<
   \context Staff = SA \relative c' {
@@ -1419,7 +1440,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge or the
-abbreviation ``cresc.''.
+abbreviation @q{cresc.}.
 
 @lilypond[fragment,ragged-right]
 \key g \major \time 4/4
@@ -1501,7 +1522,7 @@ S: da capo,
 FI: da capo, alusta.
 
 The term indicates repetition of the piece from the beginning to the end or
-to a certain place marked @emph{fine}.  Mostly abbreviated as ``D.C.''.
+to a certain place marked @emph{fine}.  Mostly abbreviated as @q{D.C.}.
 
 @node dal segno
 @section dal segno
@@ -1515,7 +1536,7 @@ DK: dal segno,
 S: dal segno,
 FI: dal segno, lähtien merkistä.
 
-Abbreviated ``d.s.''.  Repetition, not from the beginning, but from
+Abbreviated @q{d.s.}.  Repetition, not from the beginning, but from
 another place frequently near the beginning marked by a sign:
 
 @lilypond[fragment,ragged-right]
@@ -1543,7 +1564,7 @@ S: decrescendo,
 FI: decresendo, hiljentyen.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal wedge
-or the abbreviation ``decresc.''.
+or the abbreviation @q{decresc.}.
 
 @lilypond[fragment,ragged-right]
 \relative c'' {
@@ -2809,7 +2830,7 @@ S: ledton,
 FI: johtosävel.
 
 The seventh @aref{scale degree}, a @aref{semitone} below
-the tonic; so called because of its strong tendency to ``lead up'' (resolve
+the tonic; so called because of its strong tendency to @q{lead up} (resolve
 upwards) to the tonic scale degree.
 
 @node ledger line
@@ -3270,8 +3291,8 @@ subject.
 @lilypond[line-width=13.0\cm]
 \score{
 \relative c'' {
+  \set Score.implicitTimeSignatureVisibility = #all-invisible
   \override Score.TimeSignature #'break-visibility = #all-invisible
-  %\override Score.TextScript #'font-style = #'large
   \time 4/4
   \key g \major
   \partial 8 g16\startGroup fis |
@@ -4233,7 +4254,7 @@ A form used frequently for single movements of the @aref{sonata},
 falls into three sections called @emph{exposition}, @emph{development} and
 @emph{recapitulation}.  In the exposition the composer introduces some musical
 ideas, consisting of a number of themes; in the development section the
-composer `develops' this material, and in the recapitulation the composer
+composer @q{develops} this material, and in the recapitulation the composer
 repeats the exposition, with certain modifications.  The exposition contains a
 number of themes that fall into two groups, often called first and second
 subject.  Other melodies occurring in each group are considered as

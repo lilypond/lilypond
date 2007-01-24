@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "spacing-spanner.hh"
@@ -164,7 +164,6 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	{
 	  Spacing_options grace_opts;
 	  grace_opts.init_from_grob (grace_spacing);
-
 	  bool bla;
 	  dist = grace_opts.get_duration_space (delta_t.grace_part_, &bla);
 	}

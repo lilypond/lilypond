@@ -4,7 +4,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
            Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -236,7 +236,7 @@ BOM_UTF8	\357\273\277
 	progress_indication ("\n");
 	scm_module_define (scm_car (scopes_),
 		     ly_symbol2scm ("input-file-name"),
-		     scm_makfrom0str (s.c_str ()));
+		     ly_string2scm (s));
 
 }
 
@@ -271,7 +271,7 @@ BOM_UTF8	\357\273\277
 	}
 	<<EOF>> 	{
 		LexerError (_ ("EOF found inside a comment").c_str ());
-		is_main_input_ = false;
+		is_main_input_ = false; // should be safe , can't have \include in --safe.
 		if (! close_input ()) 
 		  yyterminate (); // can't move this, since it actually rets a YY_NULL
 	}
@@ -323,7 +323,7 @@ BOM_UTF8	\357\273\277
 }
 <chords,notes,figures>{RESTNAME} 	{
 	char const *s = YYText ();
-	yylval.scm = scm_makfrom0str (s);
+	yylval.scm = scm_from_locale_string (s);
 	return RESTNAME;
 }
 <chords,notes,figures>R		{
@@ -427,7 +427,7 @@ BOM_UTF8	\357\273\277
 
 		/* yylval is union. Must remember STRING before setting SCM*/
 		string *sp = yylval.string;
-		yylval.scm = scm_makfrom0str (sp->c_str ());
+		yylval.scm = ly_string2scm (*sp);
 		delete sp;
 		return is_lyric_state () ? LYRICS_STRING : STRING;
 	}
@@ -464,7 +464,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}') // brace open is for not confusing dumb tools.
 			here_input ().warning (
 				_ ("Brace found at end of lyric.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.c_str ());
+		yylval.scm = ly_string2scm (s);
 
 
 		return LYRICS_STRING;
@@ -557,7 +557,7 @@ BOM_UTF8	\357\273\277
 		if (c == '{' ||  c == '}')
 			here_input ().warning (
 				_ ("Brace found at end of markup.  Did you forget a space?"));
-		yylval.scm = scm_makfrom0str (s.c_str ());
+		yylval.scm = ly_string2scm (s);
 
 
 		return STRING;
@@ -570,7 +570,11 @@ BOM_UTF8	\357\273\277
 <*><<EOF>> {
 	if (is_main_input_)
 	{
-		is_main_input_ = false;
+		/* 2 = init.ly + current file.
+		   > because we're before closing, but is_main_input_ should
+		   reflect after.
+ 		*/ 
+		is_main_input_ = include_stack_.size () > 2;
 		if (!close_input ())
  	        /* Returns YY_NULL */
 			yyterminate ();
@@ -774,7 +778,7 @@ Lily_lexer::scan_escaped_word (string str)
 	string msg (_f ("unknown escaped string: `\\%s'", str));	
 	LexerError (msg.c_str ());
 
-	yylval.scm = scm_makfrom0str (str.c_str ());
+	yylval.scm = ly_string2scm (str);
 
 	return STRING;
 }
@@ -802,7 +806,7 @@ Lily_lexer::scan_bare_word (string str)
 		}
 	}
 
-	yylval.scm = scm_makfrom0str (str.c_str ());
+	yylval.scm = ly_string2scm (str);
 	return STRING;
 }
 
@@ -937,7 +941,7 @@ SCM
 lookup_markup_command (string s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
-	return scm_call_1 (proc, scm_makfrom0str (s.c_str ()));
+	return scm_call_1 (proc, ly_string2scm (s));
 }
 
 /* Shut up lexer warnings.  */

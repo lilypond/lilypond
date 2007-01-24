@@ -1,4 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Tweaking output
 @chapter Tweaking output
 
@@ -13,6 +21,7 @@ configurable; virtually every fragment of output may be changed.
 * Default files::               
 * Fitting music onto fewer pages::  
 * Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
 @end menu
 
 
@@ -140,7 +149,7 @@ object.  The same mechanism can be used to move other types of
 objects; simply replace @code{TextScript} with the name of
 another object.
 
-To find the object name, look at the ``@strong{see also}'' at
+To find the object name, look at the @q{@strong{see also}} at
 bottom of the relevant documentation page.  For example, at
 the bottom of @ref{Dynamics}, we see
 
@@ -243,9 +252,9 @@ f-5
 f-5
 @end lilypond
 
- @item
+@item
 Setting the @code{transparent} property will cause an object to be printed
-in `invisible ink': the object is not printed, but all its other
+in @q{invisible ink}: the object is not printed, but all its other
 behavior is retained.  The object still takes up space, it takes part in
 collisions, and slurs, ties, and beams can be attached to it.
 
@@ -389,7 +398,7 @@ require extra space.  If these repeats are spread over two
 systems, they will take up more space than one system with
 the volta repeats and another system without.
 
-Another example is moving dynamics which ``stick out'' of
+Another example is moving dynamics which @q{stick out} of
 a system.
 
 @lilypond[verbatim,quote,fragment]
@@ -484,4 +493,19 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
   \pattern {d16 dis} { ais16-> b\p }
 }
 @end lilypond
+
+
+@node Avoiding tweaks with slower processing
+@section Avoiding tweaks with slower processing
+
+LilyPond can perform extra checks while it processes files.  These
+commands will take extra time, but the result may require fewer
+manual tweaks.
+
+@example
+%%  makes sure text scripts and lyrics are within the paper margins
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
+
+
 

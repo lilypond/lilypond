@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>,
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>,
                  Erik Sandberg <mandolaerik@gmail.com>
 */
 
@@ -21,11 +21,6 @@
 #include "scm-hash.hh"
 #include "warn.hh"
 
-Translator_group *
-Translator_group::get_daddy_translator () const
-{
-  return context ()->get_parent_context ()->implementation ();
-}
 
 void
 translator_each (SCM list, Translator_method method)

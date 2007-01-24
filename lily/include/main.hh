@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 #ifndef MAIN_HH
 #define MAIN_HH
@@ -38,6 +38,9 @@ extern bool point_and_click_global;
 extern string prefix_directory;
 extern bool use_object_keys;
 extern bool strict_infinity_checking;
+extern string init_scheme_code_global;
+extern string init_scheme_variables_global;
+
 /*
   todo: collect in Output_option struct?
 */

@@ -1,4 +1,4 @@
-Release 2.10
+Release 2.11
 ************
 
 
@@ -10,6 +10,7 @@ Jan Nieuwenhuizen - Core development
 Joe Neeman        - Core development
 Graham Percival   - Documentation Editor and Bug Meister
 Mats Bengtsson    - Support Guru 
+John Mandereau    - Translation Meister
 
 CONTRIBUTORS
 
@@ -22,17 +23,48 @@ Mike Amundsen
 
 BUG HUNTERS/SUGGESTIONS
 
+Alard de Boer
+Arvid Grøtting
 Bertalan Fodor
 Benjamin Drung
-David Bobroff
 Cameron Horsburgh
+Carl Sorensen
+Christian Hitz
+David Bobroff
+Daniel Johnson
+Eduardo Vieira
+Frédéric Chiasson
+Georg Dummer
+Jay Anderson
+James Kilfinger
+Jean-Marie Mouchel
+Kazuhiro Suzuki
+Laura Conrad
+Luc Wehli
 Maarten Hijzelendoorn 
 Matthijs Frankeno
+Martijn Vromans
+Marnen Laibow-Koser
+Maximilian Albert
+Mirosław Doroszewski
+Nicolas Mayencourt
+Nicolas Sceaux
+Orm Finnendahl
 Phillip Kirlin
+Ralph Palmer
 Rick Hansen
+Roland Goretzki
+Rune Zedeler
+Ruud van Silfhout
+Sean Reed
+Steven Weber
+Tomas Sauer
 Thomas Scharkowski
 Trevor Bača
 Werner Lemberg
+Wilbert Berendsen
+William Oram
+Yota Moteuchi
 
 
 Release 2.10

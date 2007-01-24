@@ -6,9 +6,3 @@ local-convert-ly:
 
 local-help: local-ly-help
 
-local-ly-help:
-	@echo -e "\
-  convert-ly  convert all LilyPond sources\n\
-"\
-#
-

@@ -8,13 +8,13 @@ prefatory matter."
 
 }
 
-\version "2.10.0"
+\version "2.11.10"
 
 \paper { ragged-right = ##t }
 
 \relative c'' {
   \override Beam #'break-overshoot = #'(1.0 . 2.0)
   \override TupletBracket #'break-overshoot = #'(1.0 . 2.0)
-  \set allowBeamBreak = ##t
+  \override Beam #'breakable = ##t
   c2.. \times 2/3 { c8.[ \break c8.] }
 }

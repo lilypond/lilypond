@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef LILY_GUILE_MACROS_HH
@@ -169,7 +169,11 @@ ly_add_function_documentation (SCM proc, char const *fname,
 #define del_property(x) internal_del_property (ly_symbol2scm (x))
 
 #ifndef NDEBUG
-#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
+/*
+  TODO: include modification callback support here, perhaps
+  through intermediate Grob::instrumented_set_property( .. __LINE__ ).
+ */
+#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)  
 #else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #endif

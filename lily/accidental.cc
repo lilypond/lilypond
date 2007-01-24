@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "accidental-interface.hh"
@@ -11,16 +11,10 @@
 #include "international.hh"
 #include "item.hh"
 #include "output-def.hh"
+#include "paper-column.hh"
 #include "pitch.hh"
 #include "stencil.hh"
 
-/*
-  TODO: insert support for smaller cautionaries, tie-break-reminders.
-  Either here or in new-accidental-engraver.
-
-  'accidentals should go, for a single 'accidental property -- see
-  accidental-placement.cc
-*/
 Stencil
 parenthesize (Grob *me, Stencil m)
 {
@@ -31,18 +25,115 @@ parenthesize (Grob *me, Stencil m)
   Stencil close
     = font->find_by_name ("accidentals.rightparen");
 
-  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0, 0);
-  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0, 0);
+  m.add_at_edge (X_AXIS, LEFT, Stencil (open), 0);
+  m.add_at_edge (X_AXIS, RIGHT, Stencil (close), 0);
 
   return m;
 }
 
-/*
-  Hmm. Need separate callback, or perhaps #'live bool property.
- */
-MAKE_SCHEME_CALLBACK (Accidental_interface, after_line_breaking, 1);
+
+/* This callback exists for the sole purpose of allowing us to override
+   its pure equivalent to accidental-interface::pure-height */
+MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
 SCM
-Accidental_interface::after_line_breaking (SCM smob)
+Accidental_interface::height (SCM smob)
+{
+  return Grob::stencil_height (smob);
+}
+
+MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
+SCM
+Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
+{
+  Item *me = dynamic_cast<Item*> (unsmob_grob (smob));
+  int start = scm_to_int (start_scm);
+  int rank = me->get_column ()->get_rank ();
+
+  bool visible = to_boolean (me->get_property ("forced"))
+    || !unsmob_grob (me->get_object ("tie"))
+    || rank != start + 1; /* we are in the middle of a line */
+
+  return visible ? Grob::stencil_height (smob) : ly_interval2scm (Interval ());
+}
+
+vector<Box>
+Accidental_interface::accurate_boxes (Grob *me, Grob **common)
+{
+  Box b;
+  b[X_AXIS] = me->extent (me, X_AXIS);
+  b[Y_AXIS] = me->extent (me, Y_AXIS);
+
+  vector<Box> boxes;
+
+  bool parens = to_boolean (me->get_property ("parenthesized"));
+  if (!me->is_live ())
+    return boxes;
+
+  SCM scm_style = me->get_property ("style");
+  if (!scm_is_symbol (scm_style)
+      && !to_boolean (me->get_property ("restore-first"))
+      && !parens)
+    {
+      Rational alteration
+	= robust_scm2rational (me->get_property ("alteration"), 0);
+      if (alteration == FLAT_ALTERATION)
+	{
+	  Box stem = b;
+	  Box bulb = b;
+
+	  /*
+	    we could make the stem thinner, but that places the flats
+	    really close.
+	  */
+	  stem[X_AXIS][RIGHT] *= .5;
+
+	  /*
+	    To prevent vertical alignment for 6ths
+	  */
+	  stem[Y_AXIS] *= 1.1;
+	  bulb[Y_AXIS][UP] *= .35;
+
+	  boxes.push_back (bulb);
+	  boxes.push_back (stem);
+	}
+      else if (alteration == NATURAL_ALTERATION)
+	{
+	  Box lstem = b;
+	  Box rstem = b;
+	  Box belly = b;
+
+	  lstem[Y_AXIS] *= 1.1;
+	  rstem[Y_AXIS] *= 1.1;
+
+	  belly[Y_AXIS] *= 0.75;
+	  lstem[X_AXIS][RIGHT] *= .33;
+	  rstem[X_AXIS][LEFT] = rstem[X_AXIS].linear_combination (1.0 / 3.0);
+	  lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
+	  rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
+	  boxes.push_back (belly);
+	  boxes.push_back (lstem);
+	  boxes.push_back (rstem);
+	}
+      /*
+	TODO: add support for, double flat.
+      */
+    }
+
+  if (!boxes.size ())
+    boxes.push_back (b);
+
+  Offset o (me->relative_coordinate (common[X_AXIS], X_AXIS),
+	    me->relative_coordinate (common[Y_AXIS], Y_AXIS));
+
+  for (vsize i = boxes.size (); i--;)
+    boxes[i].translate (o);
+
+  return boxes;
+}
+
+MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
+SCM
+Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *tie = unsmob_grob (me->get_object ("tie"));
@@ -51,213 +142,53 @@ Accidental_interface::after_line_breaking (SCM smob)
       && !to_boolean (me->get_property ("forced")))
     {
       me->suicide ();
+      return SCM_EOL;
     }
- 
-  return SCM_UNSPECIFIED;
-}
+  
+  Font_metric *fm = Font_interface::get_default_font (me);
 
-vector<Box>
-Accidental_interface::accurate_boxes (Grob *a, Grob **common)
-{
-  Box b;
-  b[X_AXIS] = a->extent (a, X_AXIS);
-  b[Y_AXIS] = a->extent (a, Y_AXIS);
-
-  vector<Box> boxes;
-
-  bool parens = false;
-  if (to_boolean (a->get_property ("cautionary")))
+  SCM alist = me->get_property ("glyph-name-alist");
+  SCM alt = me->get_property ("alteration");
+  SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
+  
+  if (!scm_is_string (glyph_name))
     {
-      SCM cstyle = a->get_property ("cautionary-style");
-      parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
+      me->warning (_f ("Could not find glyph-name for alteration %s",
+		       ly_scm_write_string (alt).c_str ()));
+      return SCM_EOL;
     }
-
-  SCM accs = a->get_property ("accidentals");
-  SCM scm_style = a->get_property ("style");
-  if (!scm_is_symbol (scm_style)
-      && !parens
-      && scm_ilength (accs) == 1)
+  
+  Stencil mol (fm->find_by_name (scm_i_string_chars (glyph_name)));
+  if (to_boolean (me->get_property ("restore-first")))
     {
-      switch (scm_to_int (scm_car (accs)))
-	{
-	case FLAT:
-	  {
-	    Box stem = b;
-	    Box bulb = b;
-
-	    /*
-	      we could make the stem thinner, but that places the flats
-	      really close.
-	    */
-	    stem[X_AXIS][RIGHT] *= .5;
-
-	    /*
-	      To prevent vertical alignment for 6ths
-	    */
-	    stem[Y_AXIS] *= 1.1;
-	    bulb[Y_AXIS][UP] *= .35;
-
-	    boxes.push_back (bulb);
-	    boxes.push_back (stem);
-	  }
-	  break;
-	case NATURAL:
-	  {
-	    Box lstem = b;
-	    Box rstem = b;
-	    Box belly = b;
-
-	    lstem[Y_AXIS] *= 1.1;
-	    rstem[Y_AXIS] *= 1.1;
-
-	    belly[Y_AXIS] *= 0.75;
-	    lstem[X_AXIS][RIGHT] *= .33;
-	    rstem[X_AXIS][LEFT] = rstem[X_AXIS].linear_combination (1.0 / 3.0);
-	    lstem[Y_AXIS][DOWN] = belly[Y_AXIS][DOWN];
-	    rstem[Y_AXIS][UP] = belly[Y_AXIS][UP];
-	    boxes.push_back (belly);
-	    boxes.push_back (lstem);
-	    boxes.push_back (rstem);
-	  }
-	  break;
-	  /*
-	    TODO: add support for, double flat.
-	  */
-	}
-    }
-
-  if (!boxes.size ())
-    boxes.push_back (b);
-
-  Offset o (a->relative_coordinate (common[X_AXIS], X_AXIS),
-	    a->relative_coordinate (common[Y_AXIS], Y_AXIS));
-  for (vsize i = boxes.size (); i--;)
-    boxes[i].translate (o);
-
-  return boxes;
-}
-
-/*
- * Some styles do not provide all flavours of accidentals, e.g. there
- * is currently no sharp accidental in vaticana style.  In these cases
- * this function falls back to one of the other styles.
- */
-
-/*
-  todo: this sort of stuff in Scheme. --hwn.
-*/
-string
-Accidental_interface::get_fontcharname (string style, int alteration)
-{
-  if (alteration == DOUBLE_FLAT
-      || alteration == DOUBLE_SHARP)
-    return to_string (alteration);
-
-  if (style == "hufnagel")
-    switch (alteration)
-      {
-      case FLAT: return "hufnagel-1";
-      case 0: return "vaticana0";
-      case SHARP: return "mensural1";
-      }
-  if (style == "medicaea")
-    switch (alteration)
-      {
-      case FLAT: return "medicaea-1";
-      case 0: return "vaticana0";
-      case SHARP: return "mensural1";
-      }
-  if (style == "vaticana")
-    switch (alteration)
-      {
-      case FLAT: return "vaticana-1";
-      case 0: return "vaticana0";
-      case SHARP: return "mensural1";
-      }
-  if (style == "mensural")
-    switch (alteration)
-      {
-      case FLAT: return "mensural-1";
-      case 0: return "vaticana0";
-      case SHARP: return "mensural1";
-      }
-
-  if (style == "neomensural")
-    style = ""; // currently same as default
-  if (style == "default")
-    style = "";
-  return style + to_string (alteration);
-}
-
-MAKE_SCHEME_CALLBACK (Accidental_interface, print, 1);
-SCM
-Accidental_interface::print (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-  bool smaller = false;
-  bool parens = false;
-
-  bool caut = to_boolean (me->get_property ("cautionary"));
-  if (caut)
-    {
-      SCM cstyle = me->get_property ("cautionary-style");
-      parens = ly_is_equal (cstyle, ly_symbol2scm ("parentheses"));
-      smaller = ly_is_equal (cstyle, ly_symbol2scm ("smaller"));
-    }
-
-  SCM scm_style = me->get_property ("style");
-  string style;
-  if (scm_is_symbol (scm_style))
-    style = ly_symbol2string (scm_style);
-  else
-    /*
-      preferably no name for the default style.
-    */
-    style = "";
-
-  Font_metric *fm = 0;
-  if (smaller)
-    {
-      SCM ac = Font_interface::music_font_alist_chain (me);
       /*
-	TODO: should calc font-size by adding -2 to current font-size
-      */
-      ac = scm_cons (scm_list_1 (scm_cons
-				 (ly_symbol2scm ("font-size"),
-				  scm_from_int (-2))),
-		     ac);
-      fm = select_font (me->layout (), ac);
-    }
-  else
-    fm = Font_interface::get_default_font (me);
-
-  Stencil mol;
-  for (SCM s = me->get_property ("accidentals");
-       scm_is_pair (s); s = scm_cdr (s))
-    {
-      int alteration = scm_to_int (scm_car (s));
-      string font_char = get_fontcharname (style, alteration);
-      Stencil acc (fm->find_by_name ("accidentals." + font_char));
+	this isn't correct for ancient accidentals, but they don't
+	use double flats/sharps anyway.
+	*/
+      Stencil acc (fm->find_by_name ("accidentals.natural"));
 
       if (acc.is_empty ())
-	me->warning (_f ("accidental `%s' not found", font_char));
+	me->warning (_ ("natural alteration glyph not found"));
       else
-	mol.add_at_edge (X_AXIS, RIGHT, acc, 0.1, 0);
+	mol.add_at_edge (X_AXIS, LEFT, acc, 0.1);
     }
-
-  if (parens)
+  
+  if (to_boolean (me->get_property ("parenthesized")))
     mol = parenthesize (me, mol);
 
   return mol.smobbed_copy ();
 }
 
+  
 ADD_INTERFACE (Accidental_interface,
 	       "a single accidental",
-	       "accidentals "
+	       
+	       /* props */
+	       "alteration "
 	       "avoid-slur "
-	       "cautionary "
-	       "cautionary-style "
 	       "forced "
-	       "style "
+	       "parenthesized "
+	       "restore-first "
+	       "glyph-name-alist "
 	       "tie "
 	       );

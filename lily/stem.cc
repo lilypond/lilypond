@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1996--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1996--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 
   TODO: This is way too hairy
@@ -154,7 +154,7 @@ Stem::last_head (Grob *me)
 Drul_array<Grob *>
 Stem::extremal_heads (Grob *me)
 {
-  const int inf = 1000000;
+  const int inf = INT_MAX;
   Drul_array<int> extpos;
   extpos[DOWN] = inf;
   extpos[UP] = -inf;
@@ -214,13 +214,18 @@ Stem::add_head (Grob *me, Grob *n)
 bool
 Stem::is_invisible (Grob *me)
 {
-  Real stemlet_length = robust_scm2double (me->get_property ("stemlet-length"),
-					   0.0);
-
-  return !((head_count (me)
-	    || stemlet_length > 0.0)
-	   && scm_to_int (me->get_property ("duration-log")) >= 1);
+  return !is_normal_stem (me)
+    && (robust_scm2double (me->get_property ("stemlet-length"),
+			   0.0) == 0.0);
 }
+
+
+bool
+Stem::is_normal_stem (Grob *me)
+{
+  return head_count (me) && scm_to_int (me->get_property ("duration-log")) >= 1;
+}
+
 
 MAKE_SCHEME_CALLBACK (Stem, pure_height, 3)
 SCM
@@ -228,14 +233,17 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
 {
   (void) start;
   (void) end;
-  
-  
+
   Grob *me = unsmob_grob (smob);
+  Interval iv;
+
+  if (!is_normal_stem (me))
+    return ly_interval2scm (iv);
+  
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real len = scm_to_double (calc_length (smob)) * ss / 2;
   Direction dir = get_grob_direction (me);
 
-  Interval iv;
   Interval hp = head_positions (me);
   if (dir == UP)
     iv = Interval (0, len);
@@ -317,7 +325,7 @@ Stem::calc_stem_end_position (SCM smob)
   return scm_from_double (stem_end);
 }
 
-
+/* Length is in half-spaces (or: positions) here. */
 MAKE_SCHEME_CALLBACK (Stem, calc_length, 1)
 SCM
 Stem::calc_length (SCM smob)
@@ -364,8 +372,7 @@ Stem::calc_length (SCM smob)
       (Stem_tremolo::raw_stencil () looks at the beam.) --hwn  */
 
       Real minlen = 1.0
-	+ 2 * t_flag->extent (t_flag, Y_AXIS).length ()
-	/ ss;
+	+ 2 * Stem_tremolo::vertical_length (t_flag) / ss;
 
       /* We don't want to add the whole extent of the flag because the trem
          and the flag can overlap partly. beam_translation gives a good
@@ -794,8 +801,16 @@ SCM
 Stem::offset_callback (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Real r = 0.0;
 
+  extract_grob_set (me, "rests", rests);
+  if (rests.size ())
+    {
+      Grob *rest = rests.back ();
+      Real r = rest->extent (rest, X_AXIS).center ();
+      return scm_from_double (r);
+    }
+
+  
   if (Grob *f = first_head (me))
     {
       Interval head_wid = f->extent (f, X_AXIS);
@@ -808,7 +823,7 @@ Stem::offset_callback (SCM smob)
 
       Direction d = get_grob_direction (me);
       Real real_attach = head_wid.linear_combination (d * attach);
-      r = real_attach;
+      Real r = real_attach;
 
       /* If not centered: correct for stem thickness.  */
       if (attach)
@@ -816,17 +831,11 @@ Stem::offset_callback (SCM smob)
 	  Real rule_thick = thickness (me);
 	  r += -d * rule_thick * 0.5;
 	}
+      return scm_from_double (r);
     }
-  else
-    {
-      extract_grob_set (me, "rests", rests);
-      if (rests.size ())
-	{
-	  Grob *rest = rests.back ();
-	  r = rest->extent (rest, X_AXIS).center ();
-	}
-    }
-  return scm_from_double (r);
+
+  programming_error ("Weird stem.");
+  return scm_from_double (0.0);
 }
 
 Spanner *

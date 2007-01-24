@@ -206,7 +206,8 @@ contained staves are not connected vertically."
   \consists "Note_heads_engraver"
   \consists "Dots_engraver"
   \consists "Rest_engraver"
-
+  \consists "Tweak_engraver"
+  
   %% switch on to make stem directions interpolate for the
   %% center line.
   %  \consists "Melody_engraver"
@@ -227,12 +228,13 @@ contained staves are not connected vertically."
   \consists "Text_engraver"
   \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
-  \consists "Bend_after_engraver"
+  \consists "Bend_engraver"
 
   \consists "Script_engraver"
   \consists "Script_column_engraver"
   \consists "Rhythmic_column_engraver"
   \consists "Note_spacing_engraver"
+  \consists "Spanner_break_forbid_engraver"
   \consists "Phrasing_slur_engraver"
   \consists "Cluster_spanner_engraver"
   \consists "Slur_engraver"
@@ -363,7 +365,10 @@ staffs, with a bracket in front and spanning bar lines. "
   \description " Corresponds to a voice with lyrics.  Handles the
 printing of a single line of lyrics.  "
   
-  \name "Lyrics" 
+  \name "Lyrics"
+  instrumentName = #'()
+  shortInstrumentName = #'()
+  
   \consists "Lyric_engraver"
   \consists "Extender_engraver"
   \consists "Hyphen_engraver"
@@ -372,6 +377,7 @@ printing of a single line of lyrics.  "
   \consists "Skip_event_swallow_translator"
   \consists "Font_size_engraver"
   \consists "Hara_kiri_engraver"
+
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
   \override SeparationItem #'padding = #0.2
@@ -475,7 +481,6 @@ AncientRemoveEmptyStaffContext = \context {
   \consists "Vertical_align_engraver"
   \consists "Stanza_number_align_engraver"
   \consists "Bar_number_engraver"
-  \consists "Tweak_engraver"
   \consists "Parenthesis_engraver"
   
   \defaultchild "Staff"
@@ -521,6 +526,8 @@ AncientRemoveEmptyStaffContext = \context {
   
   explicitClefVisibility = #all-visible
   explicitKeySignatureVisibility = #all-visible
+  implicitTimeSignatureVisibility = #end-of-line-invisible
+  
   autoBeamSettings = #default-auto-beam-settings
   autoBeaming = ##t
   autoBeamCheck = #default-auto-beam-check
@@ -604,6 +611,9 @@ AncientRemoveEmptyStaffContext = \context {
   keepAliveInterfaces = #'(
     rhythmic-grob-interface
     lyric-interface
+
+    ;; need this, as stanza numbers are items, and appear only once. 
+    stanza-number-interface
     percent-repeat-interface)
   quotedEventTypes = #'(
     note-event
@@ -782,7 +792,7 @@ AncientRemoveEmptyStaffContext = \context {
 
   %% Select vaticana style font.
   \override KeySignature #'style = #'vaticana
-  \override Accidental #'style = #'vaticana
+  \override Accidental #'glyph-name-alist = #alteration-vaticana-glyph-name-alist
   \override Custos #'style = #'vaticana
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN
@@ -793,7 +803,7 @@ AncientRemoveEmptyStaffContext = \context {
   \Voice
   \name "GregorianTranscriptionVoice"
   \alias "Voice"
-
+  
   %% Removing ligature bracket engraver without replacing it by some
   %% other ligature engraver would cause a "Junking event: `LigatureEvent'"
   %% warning for every "\[" and "\]".  Therefore, we make the grob
@@ -885,7 +895,7 @@ AncientRemoveEmptyStaffContext = \context {
   %% Select mensural style font.
   \override TimeSignature #'style = #'mensural
   \override KeySignature #'style = #'mensural
-  \override Accidental #'style = #'mensural
+  \override Accidental #'glyph-name-alist = #alteration-mensural-glyph-name-alist
   \override Custos #'style = #'mensural
   \override Custos #'neutral-position = #3
   \override Custos #'neutral-direction = #DOWN

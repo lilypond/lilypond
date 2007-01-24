@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "system.hh"
@@ -66,16 +66,41 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  loose = right = re->get_column ();
 	}
 
-      if (!right->get_system ())
+      if (right->get_system ())
+	; /* do nothing */
+      else if (right->find_prebroken_piece (LEFT)
+	       && right->find_prebroken_piece (LEFT)->get_system () == which)
 	right = right->find_prebroken_piece (LEFT);
+      else if (Paper_column::get_rank (which->get_bound (RIGHT)) < Paper_column::get_rank (right))
+	
+	right = which->get_bound (RIGHT);
+      else
+	{
+	  clique.back ()->programming_error ("Loose column does not have right side to attach to.");
+	  System *base_system = dynamic_cast<System*> (which->original ());
+	  int j = Paper_column::get_rank (clique.back ()) + 1;
+	  int end_rank = Paper_column::get_rank (which->get_bound (RIGHT));
+	  extract_grob_set (base_system, "columns", base_cols);
+	  for (; j < end_rank; j++)
+	    {
+	      if (base_cols[j]->get_system () == which)
+		right = dynamic_cast<Item*> ((Grob*)base_cols[j]);
+	    }
+	}
+      
 
+      if (!right)
+	{
+	  programming_error ("Can't attach loose column sensibly. Attaching to end of system.");
+	  right = which->get_bound (RIGHT);
+	}
       Grob *common = right->common_refpoint (left, X_AXIS);
 
       clique.push_back (right);
 
       vector<Real> clique_spacing;
       clique_spacing.push_back (0.0);
-      for (vsize j = 1; j < clique.size () - 1; j ++)
+      for (vsize j = 1; j + 1 < clique.size (); j ++)
 	{
 	  Grob *clique_col = clique[j];
 

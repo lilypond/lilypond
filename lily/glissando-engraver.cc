@@ -3,15 +3,17 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "engraver.hh"
+
 #include "international.hh"
 #include "rhythmic-head.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
 #include "warn.hh"
+#include "item.hh"
 
 #include "translator.icc"
 
@@ -65,15 +67,19 @@ Glissando_engraver::acknowledge_rhythmic_head (Grob_info info)
     line_->set_bound (LEFT, g);
 
   if (last_line_)
-    last_line_->set_bound (RIGHT, g);
+    {
+      last_line_->set_bound (RIGHT, g);
+      announce_end_grob (last_line_, g->self_scm ());
+    }      
 }
 
 void
 Glissando_engraver::stop_translation_timestep ()
 {
   if (last_line_ && last_line_->get_bound (RIGHT))
-    last_line_ = 0;
-
+    {
+      last_line_ = 0;
+    }
   if (line_)
     {
       if (last_line_)

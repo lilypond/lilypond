@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "page-spacing.hh"
@@ -164,7 +164,7 @@ space_systems_on_2_pages (vector<Line_details> const &lines,
 			  bool ragged_last)
 {
   /* if there is a forced break, this reduces to 2 1-page problems */
-  for (vsize i = 0; i < lines.size () - 1; i++)
+  for (vsize i = 0; i + 1 < lines.size (); i++)
     if (lines[i].page_permission_ == ly_symbol2scm ("force"))
       {
 	vector<Line_details> lines1 (lines.begin (), lines.begin () + i + 1);
@@ -195,7 +195,7 @@ space_systems_on_2_pages (vector<Line_details> const &lines,
 
       if (ragged || ragged_last)
 	page2_force[page2_force.size () - 1 - i] =
-	  (page2.force_ < 0 && i < page1_force.size () - 1) ? infinity_f : 0;
+	  (page2.force_ < 0 && i + 1 < page1_force.size ()) ? infinity_f : 0;
       else
 	page2_force[page2_force.size () - 1 - i] = page2.force_;
     }
@@ -358,7 +358,7 @@ min_page_count (vector<Line_details> const &uncompressed_lines,
 	+ ((cur_rod_height > 0) ? lines[i].padding_: 0);
 
       if ((next_height > page_height && cur_rod_height > 0)
-	  || (i < lines.size () - 1 && lines[i].page_permission_ == ly_symbol2scm ("force")))
+	  || (i + 1 < lines.size () && lines[i].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  ret++;
 	  cur_rod_height = ext_len + (rag ? lines[i].space_ : 0);

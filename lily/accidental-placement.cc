@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2002--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 
@@ -397,8 +397,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
   Real padding = robust_scm2double (me->get_property ("padding"), 0.2);
 
   Skyline left_skyline = head_ape->left_skyline_;
-  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0))
-;
+  left_skyline.raise (-robust_scm2double (me->get_property ("right-padding"), 0));
+  
   /*
     Add accs entries right-to-left.
   */
@@ -406,7 +406,7 @@ Accidental_placement::calc_positioning_done (SCM smob)
     {
       Real offset = -apes[i]->right_skyline_.distance (left_skyline);
       if (isinf (offset))
-	offset = (i < apes.size () - 1) ? apes[i + 1]->offset_ : 0.0;
+	offset = (i + 1 < apes.size ()) ? apes[i + 1]->offset_ : 0.0;
       else
 	offset -= padding;
 
@@ -442,9 +442,10 @@ Accidental_placement::calc_positioning_done (SCM smob)
   me->flush_extent_cache (X_AXIS);
   me->set_property ("X-extent", scm_width);
 
-  for (vsize i = apes.size (); i--;)
-    delete apes[i];
+  junk_pointers (apes);
 
+  delete head_ape;
+  
   return SCM_BOOL_T;
 }
 

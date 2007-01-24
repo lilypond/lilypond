@@ -3,7 +3,7 @@
 
   source file of the Flower Library
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "rational.hh"
@@ -16,7 +16,8 @@ using namespace std;
 #include "string-convert.hh"
 #include "libc-extension.hh"
 
-Rational::operator double () const
+double
+Rational::to_double () const
 {
   if (sign_ == -1 || sign_ == 1 || sign_ == 0)
     return ((double)sign_) * num_ / den_;

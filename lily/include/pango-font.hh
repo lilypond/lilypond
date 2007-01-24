@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef PANGO_FONT_HH
@@ -31,7 +31,7 @@ class Pango_font : public Font_metric
 public:
   SCM physical_font_tab () const;
   Pango_font (PangoFT2FontMap *,
-	      PangoFontDescription *,
+	      PangoFontDescription const *,
 	      Real);
   ~Pango_font ();
 

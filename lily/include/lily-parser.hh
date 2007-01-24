@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef LILY_PARSER_HH
@@ -57,6 +57,8 @@ public:
   void parser_error (string);
   void parser_error (Input const &, string);
   void set_yydebug (bool);
+
+  SCM make_scope () const; 
 };
 
 DECLARE_UNSMOB (Lily_parser, lily_parser);

@@ -1,13 +1,13 @@
 /*
   breathing_sign.cc -- implement Breathing_sign
 
-  (c) 1999--2006 Michael Krause
+  (c) 1999--2007 Michael Krause
 
   written for the GNU LilyPond music typesetter
 
   TODO: --> see breathing-sign-engraver.cc
 
-  Extensions for ancient notation (c) 2003--2006 by Juergen Reuter
+  Extensions for ancient notation (c) 2003--2007 by Juergen Reuter
 */
 
 #include "breathing-sign.hh"
@@ -41,14 +41,9 @@ Breathing_sign::divisio_minima (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
-  Real staff_size;
 
   Real thickness = Staff_symbol_referencer::line_thickness (me);
   thickness *= robust_scm2double (me->get_property ("thickness"), 1.0);
-  if (Staff_symbol_referencer::get_staff_symbol (me))
-    staff_size = (Staff_symbol_referencer::line_count (me) - 1) * staff_space;
-  else
-    staff_size = 0.0;
 
   Real blotdiameter = me->layout ()->get_dimension (ly_symbol2scm ("blot-diameter"));
 

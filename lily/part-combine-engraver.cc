@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
@@ -104,6 +104,9 @@ ADD_TRANSLATOR (Part_combine_engraver,
 		/* doc */ "Part combine engraver for orchestral scores:		"
 		"Print markings a2, Solo, Solo II, and unisono ",
 		/* create */ "CombineTextScript",
-		/* read */ "printPartCombineTexts soloText soloIIText "
+		/* read */
+		"printPartCombineTexts "
+		"soloText "
+		"soloIIText "
 		"aDueText",
 		/* write */ "");

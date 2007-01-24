@@ -11,14 +11,14 @@ last note."
 
 }
 
-\version "2.10.0"
+\version "2.11.10"
 \layout {
   ragged-right = ##t
 }
 
 quoteMe = \relative c' { fis4 r16  a8.-> b4(-\ff~  b16 c8.  b) }
 
-\addquote quoteMe \quoteMe 
+\addQuote quoteMe \quoteMe 
 
 original = \relative c'' {
   c8 d

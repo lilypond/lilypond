@@ -186,6 +186,21 @@ Returns `obj'.
   (newline)
   obj)
 
+;;;
+;;; Scheme music expression --> Lily-syntax-using string translator
+;;;
+(use-modules (srfi srfi-39)
+             (scm display-lily))
+
+(define*-public (display-lily-music expr parser #:key force-duration)
+  "Display the music expression using LilyPond syntax"
+  (memoize-clef-names supported-clefs)
+  (parameterize ((*indent* 0)
+		 (*previous-duration* (ly:make-duration 2))
+		 (*force-duration* force-duration))
+    (display (music->lily-string expr parser))
+    (newline)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
@@ -228,10 +243,15 @@ Returns `obj'.
 	  (if (memq 'sequential-music (ly:music-property main 'types))
 	      ;; \repeat "tremolo" { c4 d4 }
 	      (let ((children (length (ly:music-property main 'elements))))
-		(if (not (= children 2))
+
+		;; fixme: should be more generic.
+		(if (and (not (= children 2))
+			 (not (= children 1)))
 		    (ly:warning (_ "expecting 2 elements for chord tremolo, found ~a") children))
 		(ly:music-compress r (ly:make-moment 1 children))
-		(shift-duration-log r (1- shift) dots))
+		(shift-duration-log r
+				    (if (= children 2)  (1- shift) shift)
+				    dots))
 	      ;; \repeat "tremolo" c4
 	      (shift-duration-log r shift dots)))
 	r)))
@@ -410,23 +430,26 @@ i.e.  this is not an override"
 old middleCPosition, add OCTAVATION to middleCPosition, and set
 OTTAVATION to `8va', or whatever appropriate."	    
       (if (number? (ly:context-property	 context 'middleCPosition))
-	  (if (= octavation 0)
-	      (let ((where (ly:context-property-where-defined context 'middleCPosition))
-		    (oc0 (ly:context-property context 'originalCentralCPosition)))
-		(ly:context-set-property! context 'middleCPosition oc0)
-		(ly:context-unset-property where 'originalCentralCPosition)
-		(ly:context-unset-property where 'ottavation))
-	      (let* ((where (ly:context-property-where-defined context 'middleCPosition))
-		     (c0 (ly:context-property context 'middleCPosition))
-		     (new-c0 (+ c0 (* -7 octavation)))
-		     (string (cdr (assoc octavation '((2 . "15ma")
-						      (1 . "8va")
-						      (0 . #f)
-						      (-1 . "8vb")
-						      (-2 . "15mb"))))))
-		(ly:context-set-property! context 'middleCPosition new-c0)
-		(ly:context-set-property! context 'originalCentralCPosition c0)
-		(ly:context-set-property! context 'ottavation string)))))
+	  (begin
+	    (if (number? (ly:context-property context 'originalMiddleCPosition))
+		(let ((where (ly:context-property-where-defined context 'middleCPosition)))
+		  
+		  (ly:context-set-property! context 'middleCPosition
+					    (ly:context-property context 'originalMiddleCPosition))
+		  (ly:context-unset-property where 'originalMiddleCPosition)
+		  (ly:context-unset-property where 'ottavation)))
+ot	    
+	    (let* ((where (ly:context-property-where-defined context 'middleCPosition))
+		   (c0 (ly:context-property context 'middleCPosition))
+		   (new-c0 (+ c0 (* -7 octavation)))
+		   (string (cdr (assoc octavation '((2 . "15ma")
+						    (1 . "8va")
+						    (0 . #f)
+						    (-1 . "8vb")
+						    (-2 . "15mb"))))))
+	      (ly:context-set-property! context 'middleCPosition new-c0)
+	      (ly:context-set-property! context 'originalMiddleCPosition c0)
+	      (ly:context-set-property! context 'ottavation string)))))
     (set! (ly:music-property m 'procedure) ottava-modify)
     (context-spec-music m 'Staff)))
 
@@ -491,9 +514,9 @@ of beat groupings "
 	      'duration duration
 	      'text string))
 
-(define-safe-public (make-span-event type spandir)
+(define-safe-public (make-span-event type span-dir)
   (make-music type
-	      'span-direction spandir))
+	      'span-direction span-dir))
 
 (define-public (set-mus-properties! m alist)
   "Set all of ALIST as properties of M." 
@@ -605,36 +628,12 @@ SkipEvent. Useful for extracting parts from crowded scores"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
-(define (has-request-chord elts)
-  (reduce (lambda (x y) (or x y)) #f
-	  (map (lambda (x)
-		 (equal? (ly:music-property x 'name) 'RequestChord))
-	       elts)))
 
 (define-public (ly:music-message music msg)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
 	(ly:input-message ip msg)
 	(ly:warning msg))))
-
-(define (check-start-chords music)
-  "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords),
-without context specification. Called  from parser."
-  (let ((es (ly:music-property music 'elements))
-	(e (ly:music-property music 'element))
-	(name (ly:music-property music 'name)))
-    (cond ((equal? name "Context_specced_music") #t)
-	  ((equal? name "Simultaneous_music")
-	   (if (has-request-chord es)
-	       (ly:music-message music "Starting score with a chord.\nInsert an explicit \\context before chord")
-	       (map check-start-chords es)))
-	  ((equal? name "SequentialMusic")
-	   (if (pair? es)
-	       (check-start-chords (car es))))
-	  (else (if (ly:music? e) (check-start-chords e)))))
-  music)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -745,7 +744,7 @@ Syntax:
 	      (set! (ly:music-property music 'quoted-events) quoted-vector)
 	      (set! (ly:music-property music 'iterator-ctor)
 		    ly:quote-iterator::constructor))
-	    (ly:warning (_ "cannot find quoted music: `~S'" quoted-name))))
+	    (ly:warning (_ "cannot find quoted music: `~S'") quoted-name)))
     music))
 
 

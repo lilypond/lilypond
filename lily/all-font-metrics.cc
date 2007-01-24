@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "all-font-metrics.hh"
@@ -65,15 +65,10 @@ All_font_metrics::All_font_metrics (All_font_metrics const &)
 #if HAVE_PANGO_FT2
 
 Pango_font *
-All_font_metrics::find_pango_font (PangoFontDescription *description,
-				   Real magnification,
+All_font_metrics::find_pango_font (PangoFontDescription const *description,
 				   Real output_scale
 				   )
 {
-  pango_font_description_set_size (description,
-				   gint (magnification *
-					 pango_font_description_get_size (description)));
-
   gchar *pango_fn = pango_font_description_to_filename (description);
   SCM key = ly_symbol2scm (pango_fn);
 
@@ -104,37 +99,12 @@ All_font_metrics::find_pango_font (PangoFontDescription *description,
 
 #endif
 
-string
-kpathsea_find_file (string name, string ext)
-{
-  name += "." + ext;
-  string path = global_path.find (name);
-  if (path.length () > 0)
-    return path;
-
-  static SCM proc;
-  if (!proc)
-    {
-      SCM module = scm_c_resolve_module ("scm kpathsea");
-      proc = scm_c_module_lookup (module, "ly:kpathsea-find-file");
-      proc = scm_variable_ref (proc);
-    }
-
-  if (ly_is_procedure (proc))
-    {
-      SCM kp_result = scm_call_1 (proc, scm_makfrom0str (name.c_str ()));
-      if (scm_is_string (kp_result))
-	return ly_scm2string (kp_result);
-    }
-
-  return "";
-}
 
 Open_type_font *
 All_font_metrics::find_otf (string name)
 {
   SCM sname = ly_symbol2scm (name.c_str ());
-  SCM name_string = scm_makfrom0str (name.c_str ());
+  SCM name_string = ly_string2scm (name);
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {

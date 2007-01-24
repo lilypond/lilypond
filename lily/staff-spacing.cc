@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "staff-spacing.hh"
@@ -30,65 +30,100 @@ void
 Staff_spacing::next_note_correction (Grob *me,
 				     Grob *g,
 				     Interval bar_size,
+				     Real current_space, Real current_fixed,
 				     Real *space,
-				     Real *fix)
+				     Real *fix,
+				     int *wish_count)
 {
-  (void)space;
-  
+  (void) current_fixed; 
   if (!g || !Note_column::has_interface (g))
     return ;
 
   Item *col = dynamic_cast<Item *> (g)->get_column ();
-  Real max_corr = max (0., (- g->extent (col, X_AXIS)[LEFT]));
+  Real left_stickout_correction = max (0., (- g->extent (col, X_AXIS)[LEFT]));
+
+  /* staff space -> positions */
+  bar_size *= 2;
 
   /*
     Duh. If this gets out of hand, we should invent something more generic.
   */
-  if (Grob *a = Note_column::accidentals (g))
+  Grob *accs = Note_column::accidentals (g);
+  if (accs)
     {
       Interval v;
-      if (Accidental_placement::has_interface (a))
-	v = Accidental_placement::get_relevant_accidental_extent (a, col, me);
+      if (Accidental_placement::has_interface (accs))
+	v = Accidental_placement::get_relevant_accidental_extent (accs, col, me);
       else
-	v = a->extent (col, X_AXIS);
-
-      max_corr = max (max_corr, (- v[LEFT]));
+	v = accs->extent (col, X_AXIS);
+      
+      left_stickout_correction = max (left_stickout_correction, (- v[LEFT]));
     }
-  if (Grob *a = unsmob_grob (g->get_object ("arpeggio")))
-    max_corr = max (max_corr, - a->extent (col, X_AXIS)[LEFT]);
+  Grob *arpeggio = unsmob_grob (g->get_object ("arpeggio"));
+  if (arpeggio)
+    left_stickout_correction = max (left_stickout_correction, - arpeggio->extent (col, X_AXIS)[LEFT]);
 
+  
   /*
     Let's decrease the space a little if the problem is not located
     after a barline.
   */
   if (bar_size.is_empty ())
-    max_corr *= 0.75;
+    left_stickout_correction *= 0.75;
 
-  if (!bar_size.is_empty ())
-    if (Grob *stem = Note_column::get_stem (g))
-      {
-	Direction d = get_grob_direction (stem);
-	if (d == DOWN)
-	  {
-	    Real stem_start = Stem::head_positions (stem) [DOWN];
-	    Real stem_end = Stem::stem_end_position (stem);
-	    Interval stem_posns (min (stem_start, stem_end),
-				 max (stem_end, stem_start));
+  /*
+    We want 0.3 ss before the sticking-out object.
+    
+    current_fixed/2 is our guess at (right side of left object + 0.3)
+   */
+  left_stickout_correction += current_fixed/2 - current_space;
+  left_stickout_correction = max (left_stickout_correction, 0.0);
 
-	    stem_posns.intersect (bar_size);
+  
+  Real optical_corr = 0.0;
+  Grob *stem = Note_column::get_stem (g);
+  if (!bar_size.is_empty ()
+      && !arpeggio
+      && !accs
+      && stem)
+    {
+      Direction d = get_grob_direction (stem);
+      if (Stem::is_normal_stem (stem) && d == DOWN)
+	{
 
-	    Real corr = min (abs (stem_posns.length () / 7.0), 1.0);
-	    corr *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+	  /*
+	    can't look at stem-end-position, since that triggers
+	    beam slope computations.
+	  */
+	  Real stem_start = Stem::head_positions (stem) [d];
+	  Real stem_end = stem_start + 
+	    d * robust_scm2double (stem->get_property ("length"), 7);
+	  
+	  Interval stem_posns (min (stem_start, stem_end),
+			       max (stem_end, stem_start));
 
-	    if (d != DOWN)
-	      corr = 0.0;
-	    max_corr = max (max_corr, corr);
-	  }
-      }
+	  stem_posns.intersect (bar_size);
 
-  *fix += max_corr;
+	  optical_corr = min (abs (stem_posns.length () / 7.0), 1.0);
+	  optical_corr *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+	}
+    }
+
+
+  Real correction = optical_corr + left_stickout_correction;
+  if (correction)
+    {
+      (*wish_count) ++; 
+
+      /*
+	This minute adjustments don't make sense for widely spaced scores.
+	Hence, we need to keep the stretchable (that is, space - fix)
+	distance equal.
+      */
+      *space += correction;
+      *fix += correction;
+    }
 }
-
 /*
   Y-positions that are covered by BAR_GROB, in the case that it is a
   barline.  */
@@ -107,7 +142,7 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
 	  || glyph_string.substr (0, 1) == ".")
 	{
 	  Grob *common = bar_grob->common_refpoint (staff_sym, Y_AXIS);
-	  Interval bar_size = bar_grob->extent (common, Y_AXIS);
+	  bar_size = bar_grob->extent (common, Y_AXIS);
 	  bar_size *= 1.0 / Staff_symbol_referencer::staff_space (bar_grob);
 	}
     }
@@ -121,8 +156,10 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   pointers to the separation-items, not the note-columns or
   note-spacings.
 */
+
 void
 Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
+				      Real current_space, Real current_fixed,
 				      Real *compound_space, Real *compound_fixed
 				      )
 {
@@ -133,33 +170,42 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
   *compound_fixed = 0.0;
   *compound_space = 0.0;
   int wish_count = 0;
-  
+
   for (vsize i = right_items.size (); i--;)
     {
       Grob *g = right_items[i];
-
-      Real space = 0.0;
-      Real fixed = 0.0;
-
-      next_note_correction (me, g, bar_size, &space, &fixed);
-
-      *compound_space += space;
-      *compound_fixed += fixed; 
-      wish_count ++;
-      
-      extract_grob_set (g, "elements", elts);
-      for (vsize j = elts.size (); j--;)
+      if (Note_column::has_interface (right_items[i]))
 	{
+	  Grob *g = right_items[i];
+
 	  Real space = 0.0;
 	  Real fixed = 0.0;
-	  next_note_correction (me, elts[j], bar_size, &space, &fixed);
-	  *compound_fixed += fixed;
+      
+	  next_note_correction (me, g, bar_size,
+				current_space, current_fixed,
+				&space, &fixed, &wish_count);
+      
 	  *compound_space += space;
-	  wish_count ++;
+	  *compound_fixed += fixed; 
+	}
+      else
+	{
+	  extract_grob_set (g, "elements", elts);
+	  for (vsize j = elts.size (); j--;)
+	    {
+	      Real space = 0.0;
+	      Real fixed = 0.0;
+	      next_note_correction (me, elts[j], bar_size,
+				    current_space, current_fixed,
+				    &space, &fixed,
+				    &wish_count);
+	      *compound_fixed += fixed;
+	      *compound_space += space;
+	    }
 	}
     }
-
-  if (wish_count)
+  
+  if (wish_count > 1)
     {
       *compound_space /= wish_count;
       *compound_fixed /= wish_count;
@@ -255,8 +301,11 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
       *fixed = *space;
     }
 
-  Real correction_fixed, correction_space;
-  next_notes_correction (me, last_grob, &correction_space, &correction_fixed );
+  Real correction_fixed = 0.0;
+  Real correction_space = 0.0;
+  next_notes_correction (me, last_grob,
+			 *space, *fixed,
+			 &correction_space, &correction_fixed );
   *space += correction_space;
   *fixed += correction_fixed;
 }

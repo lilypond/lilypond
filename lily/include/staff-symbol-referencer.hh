@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef STAFF_SYMBOL_REFERENCER_HH
@@ -39,6 +39,7 @@ public:
   static Real get_position (Grob *);
   static Real staff_radius (Grob *);
   static int get_rounded_position (Grob *);
+  static Interval extent_in_staff (Grob *); 
 };
 
 int compare_position (Grob *const &, Grob *const &);\

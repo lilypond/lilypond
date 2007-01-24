@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef AXIS_GROUP_INTERFACE_HH
@@ -19,6 +19,8 @@ struct Axis_group_interface
   static SCM generic_group_extent (Grob *me, Axis a);
   static SCM pure_group_height (Grob *me, int start, int end);
   DECLARE_SCHEME_CALLBACK (width, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_x_common, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_y_common, (SCM smob));
   DECLARE_SCHEME_CALLBACK (height, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
@@ -31,6 +33,7 @@ struct Axis_group_interface
   static Interval cached_pure_height (Grob *me, vector<Grob*> const &list,
 				      Grob *common, int, int);
 
+  static Grob *calc_pure_elts_and_common (Grob*);
   static Skyline_pair skyline_spacing (Grob *me, vector<Grob*> elements);
   static void add_element (Grob *me, Grob *);
   static void set_axes (Grob *, Axis, Axis);

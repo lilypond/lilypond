@@ -28,11 +28,14 @@
 stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
   (define left
-    (apply min
-	   (map (lambda (stc)
-		  (interval-start (ly:stencil-extent stc X)))
-		stencils)))
+    (if (pair? stencils)
 
+	(apply min
+	       (map (lambda (stc)
+		      (interval-start (ly:stencil-extent stc X)))
+		    stencils))
+	0.0))
+    
   (map (lambda (stil)
 	 
 	 (ly:make-stencil
@@ -79,18 +82,22 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	  (dump-stencils-as-separate-EPS rest (1+ count)))))
 
   ;; main body 
-  (let* ((tex-system-name (format "~a-systems.tex" basename))
-	 (texi-system-name (format "~a-systems.texi" basename))
-	 (tex-system-port (open-output-file tex-system-name))
-	 (texi-system-port (open-output-file texi-system-name))
+  (let* ((write-file (lambda (str-port ext)
+		       (let*
+			   ((name (format "~a-systems.~a" basename ext))
+			    (port (open-output-file name)))
+			 (ly:message (_ "Writing ~a...") name)
+			 (display (get-output-string str-port) port)
+			 (close-output-port port)
+			 )))
+	 
+	 (tex-system-port (open-output-string))
+	 (texi-system-port (open-output-string))
 	 (widened-stencils (widen-left-stencil-edges stencils))
 	 (counted-systems  (count-list widened-stencils))
 	 (eps-files (map dump-counted-stencil  counted-systems))
 	 )
     
-    (ly:message (_ "Writing ~a...") tex-system-name)
-    (ly:message (_ "Writing ~a...") texi-system-name)
-
     (if do-pdf
 
 	;; par-for-each: a bit faster ...  
@@ -113,15 +120,16 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 				 basename (1+ c)) texi-system-port))
 	      (iota (length stencils)))
     
-    (display "@c eof - 'eof' is a Makefile marker; do not remove. " texi-system-port)
-    (display "% eof - 'eof' is Makefile marker; do not remove. " tex-system-port)
-    
-    (close-output-port texi-system-port)
-    (close-output-port tex-system-port)
+    (display "@c eof." texi-system-port)
+    (display "% eof. " tex-system-port)
     
     (dump-infinite-stack-EPS stencils)
     (postprocess-output book framework-eps-module
-			(format "~a.eps" basename) (ly:output-formats))))
+			(format "~a.eps" basename) (ly:output-formats))
+
+    (write-file texi-system-port "texi")
+    (write-file tex-system-port "tex")
+    ))
 
 
 

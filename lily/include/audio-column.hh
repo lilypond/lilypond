@@ -1,7 +1,7 @@
 /*
   audio-column.hh -- declare Audio_column
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #ifndef AUDIO_COLUMN_HH
@@ -19,21 +19,18 @@
 class Audio_column : public Audio_element
 {
 public:
-  Audio_column (Moment at_mom);
+  Audio_column (Moment when);
 
   void add_audio_item (Audio_item *i);
-  Moment at_mom () const;
+  Moment when () const;
 
   vector<Audio_item*> audio_items_;
-
+  Moment when_;
+  int ticks () const ;
 protected:
-  void offset_at_mom (Moment m);
+  void offset_when (Moment m);
   friend class Score_performer;
 
-private:
-  Audio_column (Audio_column const &);
-
-  Moment at_mom_;
 };
 
 #endif // AUDIO_COLUMN_HH

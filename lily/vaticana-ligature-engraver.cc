@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2003--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2003--2007 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "gregorian-ligature-engraver.hh"
@@ -681,7 +681,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 
       if (prev_primitive)
 	prev_primitive->set_property ("glyph-name",
-				      scm_makfrom0str (prev_glyph_name.c_str ()));
+				      ly_string2scm (prev_glyph_name));
 
       /*
        * In the backend, flexa shapes and joins need to know about line
@@ -699,7 +699,7 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
     }
 
   prev_primitive->set_property ("glyph-name",
-				scm_makfrom0str (prev_glyph_name.c_str ()));
+				ly_string2scm (prev_glyph_name));
 
   align_heads (primitives, flexa_width, thickness);
 

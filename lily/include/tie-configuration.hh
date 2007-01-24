@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -68,6 +68,8 @@ public:
   void reset_score ();
   string card () const; 
   string tie_card (int i) const { return tie_score_cards_[i]; }
+  string complete_tie_card (vsize i) const;
+  string complete_score_card () const; 
 };
 
 #endif /* TIE_CONFIGURATION_HH */

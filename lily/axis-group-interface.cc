@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "axis-group-interface.hh"
@@ -68,6 +68,14 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
   return r;
 }
 
+
+/*
+  FIXME: pure extent handling has a lot of ad-hoc caching.
+  This should be done with grob property callbacks.
+
+  --hwn
+*/
+
 Interval
 Axis_group_interface::cached_pure_height (Grob *me,
 					  vector<Grob*> const &elts,
@@ -101,7 +109,7 @@ Axis_group_interface::cached_pure_height (Grob *me,
   if (!scm_is_vector (extents))
     {
       extents = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
-      for (vsize i = 0; i < breaks.size () - 1; i++)
+      for (vsize i = 0; i + 1 < breaks.size (); i++)
 	{
 	  int st = Paper_column::get_rank (cols[breaks[i]]);
 	  int ed = Paper_column::get_rank (cols[breaks[i+1]]);
@@ -177,6 +185,17 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
   int end = robust_scm2int (end_scm, INT_MAX);
   Grob *me = unsmob_grob (smob);
 
+  /* Maybe we are in the second pass of a two-pass spacing run. In that
+     case, the Y-extent of a system is already given to us */
+  System *system = dynamic_cast<System*> (me);
+  if (system)
+    {
+      SCM line_break_details = system->column (start)->get_property ("line-break-system-details");
+      SCM system_y_extent = scm_assq (ly_symbol2scm ("system-Y-extent"), line_break_details);
+      if (scm_is_pair (system_y_extent))
+	return scm_cdr (system_y_extent);
+    }
+
   return pure_group_height (me, start, end);
 }
 
@@ -235,44 +254,73 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   return ly_interval2scm (r - my_coord);
 }
 
+
+Grob *
+Axis_group_interface::calc_pure_elts_and_common (Grob *me)
+{
+  if (Grob *c = unsmob_grob (me->get_object ("pure-Y-common")))
+    return c;
+  
+  extract_grob_set (me, "elements", elts);
+
+  vector<Grob*> relevant_elts;
+  SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
+
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
+	relevant_elts.push_back (elts[i]);
+
+      Item *it = dynamic_cast<Item*> (elts[i]);
+      Direction d = LEFT;
+      if (it)
+	do
+	  {
+	    Item *piece = it->find_prebroken_piece (d);
+	    if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
+	      relevant_elts.push_back (piece);
+	  }
+	while (flip (&d) != LEFT);
+    }
+
+  Grob *common = common_refpoint_of_array (relevant_elts, me, Y_AXIS);
+  me->set_object ("pure-Y-common", common->self_scm ());
+  
+  SCM ga_scm = Grob_array::make_array ();
+  Grob_array *ga = unsmob_grob_array (ga_scm);
+  ga->set_array (relevant_elts);
+  me->set_object ("pure-relevant-elements", ga_scm);
+
+  return common;
+}
+
+MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_x_common, 1);
+SCM
+Axis_group_interface::calc_x_common (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, X_AXIS);
+  return common->self_scm ();
+}
+
+MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_y_common, 1);
+SCM
+Axis_group_interface::calc_y_common (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
+  return common->self_scm ();
+}
+
 SCM
 Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 {
-  Grob *common = unsmob_grob (me->get_object ("common-refpoint-of-elements"));
-
-  if (!common)
-    {
-      extract_grob_set (me, "elements", elts);
-
-      vector<Grob*> relevant_elts;
-      SCM is_relevant = ly_lily_module_constant ("pure-relevant");
-
-      for (vsize i = 0; i < elts.size (); i++)
-	{
-	  if (to_boolean (scm_apply_1 (is_relevant, elts[i]->self_scm (), SCM_EOL)))
-	    relevant_elts.push_back (elts[i]);
-
-	  Item *it = dynamic_cast<Item*> (elts[i]);
-	  Direction d = LEFT;
-	  if (it)
-	    do
-	      {
-		Item *piece = it->find_prebroken_piece (d);
-		if (piece && to_boolean (scm_apply_1 (is_relevant, piece->self_scm (), SCM_EOL)))
-		  relevant_elts.push_back (piece);
-	      }
-	    while (flip (&d) != LEFT);
-	}
-
-      common = common_refpoint_of_array (relevant_elts, me, Y_AXIS);
-      me->set_object ("common-refpoint-of-elements", common->self_scm ());
-
-      SCM ga_scm = Grob_array::make_array ();
-      Grob_array *ga = unsmob_grob_array (ga_scm);
-      ga->set_array (relevant_elts);
-      me->set_object ("pure-relevant-elements", ga_scm);
-    }
-
+  Grob *common = calc_pure_elts_and_common (me);
+	
   extract_grob_set (me, "pure-relevant-elements", elts);
   Real my_coord = me->relative_coordinate (common, Y_AXIS);
   Interval r (relative_pure_height (me, elts, common, start, end, true));
@@ -398,6 +446,10 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
 	      elements[i]->set_property ("outside-staff-priority", SCM_BOOL_F);
 	      last_affected_position[dir] = b[X_AXIS][RIGHT];
 	    }
+
+	  /*
+	    Ugh: quadratic. --hwn
+	   */
 	  elements.erase (elements.begin () + i);
 	}
     }
@@ -425,7 +477,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
       SCM priority = elements[i]->get_property ("outside-staff-priority");
       vector<Grob*> current_elts;
       current_elts.push_back (elements[i]);
-      while (i < elements.size () - 1
+      while (i + 1 < elements.size () 
 	     && scm_eq_p (elements[i+1]->get_property ("outside-staff-priority"), priority))
 	current_elts.push_back (elements[++i]);
 
@@ -439,9 +491,11 @@ ADD_INTERFACE (Axis_group_interface,
 	       "An object that groups other layout objects.",
 
 	       /* properties */
+	       "X-common "
+	       "Y-common "
 	       "axes "
 	       "elements "
-	       "common-refpoint-of-elements "
+	       "pure-Y-common "
 	       "pure-relevant-elements "
 	       "skylines "
 	       "cached-pure-extents "

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -31,6 +31,7 @@ struct Lookup
   static Stencil repeat_slash (Real w, Real slope, Real th);
   static Stencil horizontal_line (Interval w, Real th);
   static Stencil triangle (Interval, Real, Real);
+  static Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
 };
 
 #endif // LOOKUP_HH

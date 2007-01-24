@@ -3,18 +3,16 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "context.hh"
 #include "engraver.hh"
-#include "font-metric.hh"
 #include "item.hh"
-#include "multi-measure-rest.hh"
 #include "note-head.hh"
-#include "rest.hh"
 #include "stream-event.hh"
+#include "international.hh"
 
 #include "translator.icc"
 
@@ -61,7 +59,7 @@ Lyric_engraver::process_music ()
     {
       SCM text = event_->get_property ("text");
 
-      if (ly_is_equal (text, scm_makfrom0str (" ")))
+      if (ly_is_equal (text, scm_from_locale_string (" ")))
 	{
 	  if (last_text_)
 	    last_text_->set_property ("self-alignment-X", scm_from_int (LEFT));
@@ -117,12 +115,20 @@ get_voice_to_lyrics (Context *lyrics)
 Grob *
 get_current_note_head (Context *voice)
 {
+  Moment now = voice->now_mom ();
   for (SCM s = voice->get_property ("busyGrobs");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Item *g = dynamic_cast<Item *> (unsmob_grob (scm_cdar (s)));
-
-      if (g && !g->get_column ()
+      Grob *g = unsmob_grob (scm_cdar (s));;
+      Moment *end_mom = unsmob_moment (scm_caar (s));
+      if (!end_mom || !g)
+	{
+	  programming_error ("busyGrobs invalid");
+	  continue;
+	}
+      
+      if (end_mom->main_part_ > now.main_part_
+	  && dynamic_cast<Item *> (g)
 	  && Note_head::has_interface (g))
 	return g;
     }
@@ -146,6 +152,11 @@ Lyric_engraver::stop_translation_timestep ()
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
 		text_->set_property ("self-alignment-X", scm_from_int (LEFT));
+	    }
+	  else
+	    {
+	      text_->warning (_ ("Lyric syllable does not have note. Use \\lyricsto or associatedVoice."));
+	      text_->set_property ("X-offset", scm_from_int (0));
 	    }
 	}
 

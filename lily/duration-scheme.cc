@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -119,6 +119,14 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
 {
   SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
   return Moment (unsmob_duration (dur)->get_length ()).smobbed_copy ();
+}
+
+LY_DEFINE (ly_duration2string, "ly:duration->string",
+	   1, 0, 0, (SCM dur),
+	   "Convert @var{dur} to string.")
+{
+  SCM_ASSERT_TYPE (unsmob_duration (dur), dur, SCM_ARG1, __FUNCTION__, "duration");
+  return ly_string2scm (unsmob_duration (dur)->to_string ());
 }
 
 LY_DEFINE (ly_duration_factor, "ly:duration-factor",

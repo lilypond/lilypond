@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dimensions.hh"
@@ -80,10 +80,17 @@ find_pango_font (Output_def *layout, SCM descr, Real factor)
 
   PangoFontDescription *description
     = pango_font_description_from_string (scm_i_string_chars (descr));
+
+  pango_font_description_set_size (description,
+				   gint (factor *
+					 pango_font_description_get_size (description)));
+
+  
   Font_metric *fm = all_fonts_global->find_pango_font (description,
-						       factor,
 						       output_scale (layout));
 
+  pango_font_description_free (description);
+ 
   sizes = scm_acons (size_key, fm->self_scm (), sizes);
   scm_hash_set_x (table, descr, sizes);
 

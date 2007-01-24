@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "input.hh"
@@ -13,7 +13,7 @@ using namespace std;
 
 #include "international.hh"
 #include "source-file.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "warn.hh"
 
 Input::Input (Input const &i)

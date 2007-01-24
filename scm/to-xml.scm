@@ -5,8 +5,11 @@
 ;;;; (c) 2003--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
+(define-module (scm to-xml))
+
 (use-modules (ice-9 regex)
 	     (srfi srfi-1)
+	     (lily)
 	     (oop goops))
 
 "
@@ -85,19 +88,6 @@ is then separated.
 		   (dots . ,(ly:duration-dot-count d))
 		   (numer . ,(car (ly:duration-factor d)))
 		   (denom . ,(cdr (ly:duration-factor d))))))
-
-(define (musicxml-pitch->xml-node p)
-  (make <xml-node>
-    #:name 'pitch
-    #:children
-    (list
-     (make <xml-node>
-       #:name 'step
-       #:value (list-ref  '("C" "D" "E" "F" "G" "A" "B")
-			  (ly:pitch-notename p)))
-     (make <xml-node>
-       #:name 'octave
-       #:value (number->string (ly:pitch-octave p))))))
 
 (define (pitch->xml-node p)
   (make <xml-node>
@@ -247,7 +237,6 @@ is then separated.
   ;;
   ;;  (display (dtd-header) port)
 
-  (define pitch->xml-node musicxml-pitch->xml-node)
   (define duration->xml-node musicxml-duration->xml-node)
   
   (display (open-tag 'music '((type . score)) '()) port)

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "span-bar.hh"
@@ -185,7 +185,7 @@ Span_bar::calc_glyph_name (SCM smob)
   else if (type == ":|:")
     type = ".|.";
 
-  return scm_makfrom0str (type.c_str ());
+  return ly_string2scm (type);
 }
 
 Interval

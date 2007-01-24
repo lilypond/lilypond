@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2001--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2001--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "context.hh"
@@ -32,7 +32,8 @@ protected:
   DECLARE_ACKNOWLEDGER (grob);
   void start_translation_timestep ();
   void stop_translation_timestep ();
-
+  void process_acknowledged ();
+  
   vector<Grob_pq_entry> started_now_;
 };
 
@@ -88,14 +89,8 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
 }
 
 void
-Grob_pq_engraver::stop_translation_timestep ()
+Grob_pq_engraver::process_acknowledged ()
 {
-  Moment now = now_mom ();
-  SCM start_busy = get_property ("busyGrobs");
-  SCM busy = start_busy;
-  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
-    busy = scm_cdr (busy);
-
   vector_sort (started_now_, less<Grob_pq_entry> ());
   SCM lst = SCM_EOL;
   SCM *tail = &lst;
@@ -107,10 +102,22 @@ Grob_pq_engraver::stop_translation_timestep ()
       tail = SCM_CDRLOC (*tail);
     }
 
+  SCM busy = get_property ("busyGrobs");
   busy = scm_merge_x (lst, busy, ly_grob_pq_less_p_proc);
   context ()->set_property ("busyGrobs", busy);
 
   started_now_.clear ();
+}
+
+void
+Grob_pq_engraver::stop_translation_timestep ()
+{
+  Moment now = now_mom ();
+  SCM start_busy = get_property ("busyGrobs");
+  SCM busy = start_busy;
+  while (scm_is_pair (busy) && *unsmob_moment (scm_caar (busy)) == now)
+    busy = scm_cdr (busy);
+
 }
 
 void

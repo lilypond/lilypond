@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 #ifndef STENCIL_HH
 #define STENCIL_HH
@@ -46,12 +46,6 @@ using namespace std;
 */
 class Stencil
 {
-  /*
-    This provides the reference point of the symbol, for example with
-    characters, it is on the base line of the character. Usually,
-    ORIGIN is inside DIM_
-  */
-  Offset origin_;
   Box dim_;
   SCM expr_;
 
@@ -60,19 +54,15 @@ public:
   Stencil (Box, SCM s);
   Stencil ();
 
-  Offset origin () const;
   SCM expr () const;
 
   /**
      Set dimensions to empty, or to (Interval (0, 0), Interval (0, 0) */
   void set_empty (bool);
-  Stencil moved_to_edge (Axis a, Direction d, const Stencil &m, Real padding,
-			 Real minimum) const;
-
-  void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding,
-		    Real minimum);
+  void add_at_edge (Axis a, Direction d, const Stencil &m, Real padding);
   void add_stencil (Stencil const &m);
   void translate (Offset);
+  Stencil translated (Offset) const;
   void rotate (Real, Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real, Axis);
@@ -95,6 +85,5 @@ void register_stencil_head (SCM symbol);
 bool is_stencil_head (SCM symbol);
 SCM all_stencil_heads ();
 
-Stencil points_to_line_stencil (vector<Offset> points);
 
 #endif /* STENCIL_HH */

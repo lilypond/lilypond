@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score-engraver.hh"
@@ -79,8 +79,7 @@ Score_engraver::initialize ()
 
   SCM props = updated_grob_properties (context (), ly_symbol2scm ("System"));
 
-  Object_key const *sys_key = context ()->get_grob_key ("System");
-  pscore_->typeset_system (new System (props, sys_key));
+  pscore_->typeset_system (new System (props));
   
   system_ = pscore_->root_system ();
   context ()->set_property ("rootSystem", system_->self_scm ());
@@ -99,6 +98,20 @@ Score_engraver::connect_to_context (Context *c)
   d->add_listener (GET_LISTENER (finish), ly_symbol2scm ("Finish"));
 }
 
+/*
+  uncovered:
+  
+  check_removal always returns false for Score contexts, it has been that way 
+since I joined the project. There is a reason for this: The typeset score is 
+stored in the Score_engraver, which in turn is accessed through the 
+Global_context returned by ly:run-translator. So the score-translator must be 
+connected to the score-context after run-translator finishes.
+
+I plan to change this: we should junk run-translator, and instead keep track 
+of both context and translator in the SCM code, and access the typeset score 
+directly via the created global-translator. Then it would be possible to 
+disconnect score-translators at iteration time. -es
+ */
 void
 Score_engraver::disconnect_from_context ()
 {
@@ -171,7 +184,7 @@ ADD_TRANSLATOR_GROUP (Score_engraver,
 		      /* read */
 		      "currentMusicalColumn "
 		      "currentCommandColumn "
-		      "verticallySpacedContexts",
+		      "verticallySpacedContexts ",
 
 		      /* write */
 		      "");

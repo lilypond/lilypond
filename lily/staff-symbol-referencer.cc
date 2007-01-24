@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "staff-symbol-referencer.hh"
@@ -92,6 +92,25 @@ Staff_symbol_referencer::get_position (Grob *me)
   return robust_scm2double (me->get_property ("staff-position"), p);
 }
 
+
+Interval
+Staff_symbol_referencer::extent_in_staff (Grob *me)
+{
+  Grob *st = get_staff_symbol (me);
+  Grob *c = st ? me->common_refpoint (st, Y_AXIS) : 0;
+
+  Interval retval;
+  if (st && c)
+    {
+      retval  = me->extent (c, Y_AXIS)
+	- st->relative_coordinate (c, Y_AXIS);
+    }
+
+  return retval;
+}
+
+
+
 int
 Staff_symbol_referencer::get_rounded_position (Grob *me)
 {
@@ -171,4 +190,5 @@ ADD_INTERFACE (Staff_symbol_referencer,
 
 	       /* properties */
 	       "staff-position");
+
 

@@ -5,6 +5,18 @@
 ;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
+;; Internationalisation: (_i "to be translated") gets an entry in the
+;; POT file (gettext ) must be invoked explicitely to do the actual
+;; "translation".
+;;(define-macro (_i x) x)
+;;(define-macro-public _i (x) x)
+;;(define-public-macro _i (x) x)
+;; Abbrv-PWR!
+(defmacro-public _i (x) x)
+
+(read-enable 'positions)
+(debug-enable 'debug)
+
 
 (define (define-scheme-options)
   (for-each (lambda (x)
@@ -21,31 +33,29 @@
 	      (check-internal-types #f "check every property assignment for types")
 	      (clip-systems #f "Generate cut-out snippets of a score")
 	      (debug-gc #f "dump memory debugging statistics")
-	      (debug-gc-assert-parsed-dead
-	       #f "for memory debugging: ensure that all refs to parsed objects are dead.")
+	      (debug-gc-assert-parsed-dead #f "for memory debugging:
+ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
 	      (debug-lexer #f "debug the flex lexer")
-	      (debug-midi #f "generate human readable MIDI")
 	      (debug-parser #f "debug the bison parser")
 	      (debug-skylines #f "debug skylines")
 	      (delete-intermediate-files #f
 					 "delete unusable PostScript files")
-	      (dump-signatures #f "dump output signatures of each system")
-	      (dump-tweaks #f "dump page layout and tweaks for each score having the tweak-key layout property set.")
+	      (dump-profile #f "dump timing information for each file")
+	      (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
+	      
+	      (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
 	      (gs-load-fonts #f
 			    "load fonts via Ghostscript.")
+	      (gui #f "running from gui; redirect stderr to log file")
+
 	      (include-book-title-preview #t "include book-titles in preview images.")
 	      (include-eps-fonts #t "Include fonts in separate-system EPS files.")
 	      (job-count #f "Process in parallel") 
-
-	      (eps-box-padding #f "Pad EPS bounding box left edge by this much to guarantee alignment between systems")
-
-	      (gui #f "running from gui; redirect stderr to log file")
 	      (log-file #f "redirect output to log FILE.log")
+
 	      (old-relative #f
 			    "relative for simultaneous music works
 similar to chord syntax")
-	      (object-keys #f
-			   "experimental mechanism for remembering tweaks")
 	      (point-and-click #t "use point & click")
 	      (paper-size "a4" "the default paper size")
 	      (pixmap-format "png16m" "GS format to use for pixel images")
@@ -58,22 +68,29 @@ on errors, and print a stack trace.")
 	      (read-file-list #f "Read files to be processed from command line arguments")
 
 	      (safe #f "Run safely")
-	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN")
-
+	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
+	      (separate-log-files #f "Output to FILE.log per file.")
+	      (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
+	      (trace-scheme-coverage #f "Record coverage of Scheme files") 
 	      (ttf-verbosity 0
 			     "how much verbosity for TTF font embedding?")
-
 	      (show-available-fonts #f
-				    "List  font names available.")
-
+				    "List font names available.")
 	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
-	      )))
+	      ))
+
+  (map
+   (lambda (x)
+     (ly:set-option (car x) (cdr x))) 
+   (eval-string (ly:command-line-options))))
 
 
 ;; need to do this in the beginning. Other parts of the
 ;; Scheme init depend on these options.
 ;;
 (define-scheme-options)
+
+
 
 (debug-set! stack 0)
 
@@ -84,18 +101,20 @@ on errors, and print a stack trace.")
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (ice-9 rdelim)
              (ice-9 optargs)
 	     (oop goops)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
-
+	     (scm memory-trace)
+	     (scm coverage)
 	     )
 
-
 ;; my display
-(define-public (myd k v) (display k) (display ": ") (display v) (display ", "))
+(define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
+  v)
 
 (define-public (print . args)
   (apply format (cons (current-output-port) args)))
@@ -105,12 +124,19 @@ on errors, and print a stack trace.")
 ;;; debugging evaluator is slower.  This should
 ;;; have a more sensible default.
 
-(if (ly:get-option 'verbose)
+(if (or (ly:get-option 'verbose)
+	(ly:get-option 'trace-memory-frequencency)
+	(ly:get-option 'trace-scheme-coverage)
+	)
     (begin
       (ly:set-option 'protected-scheme-parsing #f)
       (debug-enable 'debug)
       (debug-enable 'backtrace)
       (read-enable 'positions)))
+
+
+(if (ly:get-option 'trace-scheme-coverage)
+    (coverage:enable))
 
 (define-public tex-backend?
   (member (ly:output-backend) '("texstr" "tex")))
@@ -261,9 +287,10 @@ The syntax is the same as `define*-public'."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; other files.
 
-(for-each ly:load
-	  ;; load-from-path
-	  '("lily-library.scm"
+
+(define
+  init-scheme-files
+  '("lily-library.scm"
 	    "file-cache.scm"
 	    "define-event-classes.scm"
 	    "define-music-types.scm"
@@ -310,6 +337,11 @@ The syntax is the same as `define*-public'."
 	    "safe-lily.scm"))
 
 
+
+
+(for-each ly:load init-scheme-files)
+
+
 (set! type-p-name-alist
       `(
 	(,boolean-or-symbol? . "boolean or symbol")
@@ -348,12 +380,48 @@ The syntax is the same as `define*-public'."
 	(,symbol? . "symbol")
 	(,vector? . "vector")))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; timing
+
+(define (profile-measurements)
+  (let* ((t (times))
+	 (stats (gc-stats)))
+    
+    (list
+     (- (+ (tms:cutime t)
+	   (tms:utime t))
+	(ly:assoc-get 'gc-time-taken stats))
+     
+     (ly:assoc-get 'total-cells-allocated  stats 0)
+     )))
+
+(define (dump-profile base last this)
+  (let*
+      ((outname (format "~a.profile" (basename base ".ly")))
+       (diff (map (lambda (y) (apply - y)) (zip this last))))
+    
+    (ly:progress "\nWriting timing to ~a..." outname)
+    (format (open-file outname "w")
+	    "time: ~a\ncells: ~a\n"
+	    (car diff)
+	    (cadr diff)
+	    )))
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; debug mem leaks
 
 (define gc-dumping #f)
 (define gc-protect-stat-count 0)
+
+(define-public (dump-live-object-stats outfile)
+  (for-each
+   (lambda (x)
+     (format outfile "~a: ~a\n" (car x) (cdr x)))
+   (sort (gc-live-object-stats)
+	 (lambda (x y)
+	   (string<? (car x) (car y))))))
+
 (define-public (dump-gc-protects)
   (set! gc-protect-stat-count (1+ gc-protect-stat-count))
   (let* ((protects (sort
@@ -395,20 +463,14 @@ The syntax is the same as `define*-public'."
 	  (ly:reset-all-fonts)
 	  (gc)
 	  (gc)
+	  (display "Asserting dead objects\n")
 	  (ly:set-option 'debug-gc-assert-parsed-dead #t)
 	  (gc)
 	  (ly:set-option 'debug-gc-assert-parsed-dead #f)
 
 	  (set! stats (gc-live-object-stats))
 	  (display "Dumping live object statistics.\n")
-	  
-	  (for-each
-	   (lambda (x)
-	     (format outfile "~a: ~a\n" (car x) (cdr x)))
-	   (sort (gc-live-object-stats)
-		 (lambda (x y)
-		   (string<? (car x) (car y)))))))
-
+	  (dump-live-object-stats outfile)))
 
     (newline outfile)
     (let*
@@ -430,6 +492,36 @@ The syntax is the same as `define*-public'."
 			   )))
 
     (set! gc-dumping #f)
+    (close-port outfile)
+    
+    ))
+
+
+(define (check-memory)
+  "read /proc/self to check up on memory use." 
+  (define (gulp-file name)
+    (let* ((file (open-input-file name))
+	   (text (read-delimited "" file)))
+      (close file)
+      text))
+  (let*
+      ((stat (gulp-file "/proc/self/status"))
+       (lines (string-split stat #\newline))
+       (interesting (filter identity
+			    (map
+			     (lambda (l)
+			       (string-match "^VmData:[ \t]*([0-9]*) kB" l))
+			     lines)))
+       (mem (string->number (match:substring (car interesting) 1)))
+       )
+
+    
+    (display (format  "VMDATA: ~a\n" mem))
+    (display (gc-stats))
+    (if (> mem 100000)
+	(begin
+	  (dump-gc-protects)
+	  (raise 1)))
     
     ))
 
@@ -450,11 +542,13 @@ The syntax is the same as `define*-public'."
 
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
-  
+
   (define (no-files-handler)
     (ly:usage)
     (exit 2))
 
+  (eval-string (ly:command-line-code))
+  
   (if (ly:get-option 'gui)
       (gui-main files))
 
@@ -471,7 +565,7 @@ The syntax is the same as `define*-public'."
 	    ))
   
   (if (and (number? (ly:get-option 'job-count))
-	   (> (length files) (ly:get-option 'job-count)))
+	   (>= (length files) (ly:get-option 'job-count)))
       
       (let*
 	  ((count (ly:get-option 'job-count))
@@ -493,33 +587,51 @@ The syntax is the same as `define*-public'."
 	      (for-each
 	       (lambda (pid)
 		 (let* ((stat (cdr (waitpid pid))))
-
+		   
 		   (if (not (= stat 0))
-		       (set! errors (cons (list-element-index joblist pid) errors)))))
+		       (set! errors (acons (list-element-index joblist pid) stat errors)))))
 	       joblist)
 
 	      (for-each
 	       (lambda (x)
-		 (let* ((logfile  (format "~a-~a.log"
-					  (ly:get-option 'log-file) x))
+		 (let* ((job (car x))
+			(state (cdr x))
+			(logfile  (format "~a-~a.log"
+					  (ly:get-option 'log-file) job))
 			(log (ly:gulp-file logfile))
 			(len (string-length log))
 			(tail (substring  log (max 0 (- len 1024)))))
 
-		   (display (format "\n\nlogfile ~a:\n\n ~a" logfile tail))))
+		   (if (status:term-sig state)
+		       (ly:message "\n\n~a\n"
+				   (format (_ "job ~a terminated with signal: ~a")
+					   job
+					   (status:term-sig state)))
+		       (ly:message (_ "logfile ~a (exit ~a):\n~a") logfile (status:exit-val state) tail))))
 
 	       errors)
 
 	      (if (pair? errors)
-		  (ly:error "Children ~a exited with errors." errors))
+		  (ly:error "Children ~a exited with errors." (map car errors)))
+
+	      ;; must overwrite individual entries
+	      (if (ly:get-option 'dump-profile)
+		  (dump-profile "lily-run-total" '(0 0) (profile-measurements)))
 
 	    (exit (if (null? errors) 0 1))))))
 	      
 	   
   (if (string-or-symbol? (ly:get-option 'log-file))
       (ly:stderr-redirect (format "~a.log" (ly:get-option 'log-file)) "w"))
+
   
   (let ((failed (lilypond-all files)))
+    (if (ly:get-option 'trace-scheme-coverage)
+	(begin
+	  (coverage:show-all (lambda (f) (string-contains f "lilypond"))
+			     )))
+	  
+    
     (if (pair? failed)
 	(begin
 	  (ly:error (_ "failed files: ~S") (string-join failed))
@@ -530,7 +642,7 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-
+  
 
   (if (ly:get-option 'show-available-fonts)
       (begin
@@ -539,26 +651,63 @@ The syntax is the same as `define*-public'."
 	))
   
   (let* ((failed '())
-	 (first #t)
+	 (separate-logs (ly:get-option 'separate-log-files))
+	 (do-measurements (ly:get-option 'dump-profile))
 	 (handler (lambda (key failed-file)
 		    (set! failed (append (list failed-file) failed)))))
 
+    (gc)
     (for-each
      (lambda (x)
+       (let*
+	   ((start-measurements (if do-measurements
+				    (profile-measurements)
+				    #f))
+	    (base (basename x ".ly"))
+	    (all-settings (ly:all-options)))
 
-       ;; We don't carry info across file boundaries
-       (if first
-	   (set! first #f)
-	   (gc))
-       
-       (lilypond-file handler x)
-       (ly:clear-anonymous-modules)
-       (if (ly:get-option 'debug-gc)
-	   (dump-gc-protects)
-	   (if (= (random 40) 1)
-	       (ly:reset-all-fonts))))
+	 (if separate-logs
+	     (ly:stderr-redirect (format "~a.log" base) "w"))
+	 (if (ly:get-option 'trace-memory-frequency) 
+	     (mtrace:start-trace  (ly:get-option 'trace-memory-frequency)))
+	 
+	 (lilypond-file handler x)
+	 (if start-measurements
+	     (dump-profile x start-measurements (profile-measurements)))
+
+	 (if (ly:get-option 'trace-memory-frequency)
+	     (begin
+	       (mtrace:stop-trace)
+	       (mtrace:dump-results base)))
+	  	 
+	 (for-each
+	  (lambda (s)
+	    (ly:set-option (car s) (cdr s)))
+	  all-settings)
+
+	 (ly:clear-anonymous-modules)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #t)
+	 (gc)
+	 (ly:set-option 'debug-gc-assert-parsed-dead #f)
+
+	 
+	 (if (ly:get-option 'debug-gc)
+	     (dump-gc-protects)
+	     (if (= (random 40) 1)
+		 (ly:reset-all-fonts)))))
 
      files)
+
+    ;; we want the failed-files notice in the aggregrate logfile.
+    (if (ly:get-option 'separate-logs)
+	(ly:stderr-redirect
+	 (if (string-or-symbol? (ly:get-option 'log-file))
+	     (format "~a.log" (ly:get-option 'log-file))
+	     "/dev/tty") "a"))
+
+    (if (ly:get-option 'dump-profile)
+	(dump-profile "lily-run-total" '(0 0) (profile-measurements)))
+
     failed))
 
 (define (lilypond-file handler file-name)

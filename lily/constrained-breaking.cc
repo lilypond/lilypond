@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "constrained-breaking.hh"
@@ -322,20 +322,23 @@ Constrained_breaking::initialize ()
       
   Output_def *l = pscore_->layout ();
   System *sys = pscore_->root_system ();
-  Real padding = robust_scm2double (l->c_variable ("page-breaking-between-system-padding"), 0);
   Real space = robust_scm2double (l->c_variable ("ideal-system-space"), 0);
+  SCM padding_scm = l->c_variable ("page-breaking-between-system-padding");
+  if (!scm_is_number (padding_scm))
+    padding_scm = l->c_variable ("between-system-padding");
+  Real padding = robust_scm2double (padding_scm, 0.0);
 
   Interval first_line = line_dimensions_int (pscore_->layout (), 0);
   Interval other_lines = line_dimensions_int (pscore_->layout (), 1);
   /* do all the rod/spring problems */
   breaks_ = pscore_->find_break_indices ();
-  all_ = pscore_->root_system ()->columns ();
+  all_ = pscore_->root_system ()->used_columns ();
   lines_.resize (breaks_.size (), breaks_.size (), Line_details ());
   vector<Real> forces = get_line_forces (all_,
 					 other_lines.length (),
 					 other_lines.length () - first_line.length (),
 					 ragged_right_);
-  for (vsize i = 0; i < breaks_.size () - 1; i++)
+  for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
       Real max_ext = 0;
       for (vsize j = i + 1; j < breaks_.size (); j++)
@@ -373,7 +376,7 @@ Constrained_breaking::initialize ()
   for (vsize i = 0; i < start_.size (); i++)
     {
       vsize j;
-      for (j = 0; j < breaks_.size () - 1 && breaks_[j] < start_[i]; j++)
+      for (j = 0; j + 1 < breaks_.size () && breaks_[j] < start_[i]; j++)
 	;
       starting_breakpoints_.push_back (j);
       start_[i] = breaks_[j];

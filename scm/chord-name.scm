@@ -15,14 +15,14 @@
 ;; TODO: make into markup.
 ;; 
 (define-public (alteration->text-accidental-markup alteration)
+  
   (make-smaller-markup
    (make-raise-markup
     (if (= alteration FLAT)
 	0.3
 	0.6)
     (make-musicglyph-markup
-     (format "accidentals.~a"
-	     (inexact->exact (* 4 alteration)))))))
+     (assoc-get alteration standard-alteration-glyph-name-alist "")))))
   
 (define (accidental->markup alteration)
   "Return accidental markup for ALTERATION."

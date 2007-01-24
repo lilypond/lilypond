@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2002--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef ACCIDENTAL_INTERFACE_HH
@@ -19,7 +19,9 @@ class Accidental_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_stencils, (SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   
   DECLARE_GROB_INTERFACE();
   static string get_fontcharname (string style, int alteration);

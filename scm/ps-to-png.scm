@@ -50,30 +50,6 @@
 (define-public (gulp-file file-name . max-size)
   (ly:gulp-file file-name (if (pair? max-size) (car max-size))))
 
-(define BOUNDING-BOX-RE
-  "^%%BoundingBox: (-?[0-9]+) (-?[0-9]+) (-?[0-9]+) (-?[0-9]+)")
-
-(define (unused-found-broken-get-bbox file-name)
-  (let* ((bbox (string-append file-name ".bbox"))
-	 ;; -sOutputFile does not work with bbox?
-	 (cmd (format #t "gs\
- -sDEVICE=bbox\
- -q\
- -dNOPAUSE\
- ~S\
- -c showpage\
- -c quit 2>~S"
-		      file-name bbox))
-	 (status (system cmd))
-	 (s (gulp-file bbox 10240))
-	 (m (string-match BOUNDING_BOX_RE s)))
-
-    (if m
-	(list->vector
-	 (map (lambda (x) (string->number (car x))) (vector->list m)))
-	#f)))
-
-
 ;; copy of ly:system. ly:* not available via lilypond-ps2png.scm
 (define (my-system be-verbose exit-on-error cmd)
   (define status 0)

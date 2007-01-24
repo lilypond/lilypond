@@ -4,7 +4,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2006 Joe Neeman <joeneeman@gmail.com>
+  (c) 2006--2007 Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "page-breaking.hh"
@@ -83,7 +83,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
       assert (0);
     }
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)
@@ -128,7 +128,7 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
   vector<Line_details> ret;
   assert (chunks.size () == div.size () + 1);
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)
@@ -263,7 +263,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (all_[i].pscore_)
 	{
-	  vector<Grob*> cols = all_[i].pscore_->root_system ()->columns ();
+	  vector<Grob*> cols = all_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
@@ -349,7 +349,7 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool m
   Line_division ret;
   ret.resize (chunks.size () - 1, 1);
 
-  for (vsize i = 0; i < chunks.size () - 1; i++)
+  for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
       if (all_[sys].pscore_)

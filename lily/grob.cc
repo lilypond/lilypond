@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "grob.hh"
@@ -27,15 +27,13 @@
 #include "ly-smobs.icc"
 
 Grob *
-Grob::clone (int count) const
+Grob::clone () const
 {
-  return new Grob (*this, count);
+  return new Grob (*this);
 }
 
-Grob::Grob (SCM basicprops,
-	    Object_key const *key)
+Grob::Grob (SCM basicprops)	    
 {
-  key_ = key;
   
   /* FIXME: default should be no callback.  */
   self_scm_ = SCM_EOL;
@@ -51,15 +49,18 @@ Grob::Grob (SCM basicprops,
      GC. After smobify_self (), they are.  */
   smobify_self ();
 
-  /*
-    We always get a new key object for a new grob.
-  */
-  if (key_)
-    ((Object_key *)key_)->unprotect ();
-
   SCM meta = get_property ("meta");
   if (scm_is_pair (meta))
-    interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
+    {
+      interfaces_ = scm_cdr (scm_assq (ly_symbol2scm ("interfaces"), meta));
+
+      SCM object_cbs = scm_assq (ly_symbol2scm ("object-callbacks"), meta);
+      if (scm_is_pair (object_cbs))
+	{
+	  for (SCM s = scm_cdr (object_cbs); scm_is_pair (s); s = scm_cdr (s))
+	    set_object (scm_caar (s), scm_cdar (s)); 
+	}
+    }
   
   if (get_property_data ("X-extent") == SCM_EOL)
     set_property ("X-extent", Grob::stencil_width_proc);
@@ -67,10 +68,9 @@ Grob::Grob (SCM basicprops,
     set_property ("Y-extent", Grob::stencil_height_proc);
 }
 
-Grob::Grob (Grob const &s, int copy_index)
+Grob::Grob (Grob const &s)
   : dim_cache_ (s.dim_cache_)
 {
-  key_ = (use_object_keys) ? new Copied_key (s.key_, copy_index) : 0;
   original_ = (Grob *) & s;
   self_scm_ = SCM_EOL;
 
@@ -82,8 +82,6 @@ Grob::Grob (Grob const &s, int copy_index)
   layout_ = 0;
 
   smobify_self ();
-  if (key_)
-    ((Object_key *)key_)->unprotect ();
 }
 
 Grob::~Grob ()
@@ -420,11 +418,11 @@ Grob::extent (Grob *refp, Axis a) const
 Interval
 Grob::pure_height (Grob *refp, int start, int end)
 {
-  SCM proc = get_property_data ( ly_symbol2scm ("Y-extent"));
-  Interval iv = robust_scm2interval (call_pure_function (proc,
-							 scm_list_1 (self_scm ()),
-							 start, end),
-				     Interval (0, 0));
+  SCM proc = get_property_data (ly_symbol2scm ("Y-extent"));
+  SCM iv_scm = call_pure_function (proc,
+				   scm_list_1 (self_scm ()),
+				   start, end);
+  Interval iv = robust_scm2interval (iv_scm, Interval (0, 0));
   Real offset = pure_relative_y_coordinate (refp, start, end);
 
   SCM min_ext = get_property ("minimum-Y-extent");
@@ -633,14 +631,9 @@ ADD_INTERFACE (Grob,
 	       "transparent "
 	       );
 
-
-
-
-
 /****************************************************************
   CALLBACKS
 ****************************************************************/
-
 
 static SCM
 grob_stencil_extent (Grob *me, Axis a)

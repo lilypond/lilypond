@@ -1179,7 +1179,7 @@ def try_parse_bar (str,state):
         close_beam_state(state)
         voices_append (bs)
         if do_curly != '':
-            voices_append("} }")
+            voices_append("} ")
             do_curly = ''
     return str
 

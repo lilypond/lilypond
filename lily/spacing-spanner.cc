@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "spacing-spanner.hh"
@@ -29,14 +29,15 @@ using namespace std;
 #include "warn.hh"
 
 vector<Grob*>
-Spacing_spanner::get_columns (Spanner *me)
+Spacing_spanner::get_columns (Grob *me_grob)
 {
-  vector<Grob*> all (get_root_system (me)->columns ());
+  Spanner *me = dynamic_cast<Spanner*> (me_grob);
+  vector<Grob*> all (get_root_system (me)->used_columns ());
   vsize start = binary_search (all, (Grob*)me->get_bound (LEFT),
 			       &Paper_column::less_than);
   vsize end = binary_search (all, (Grob*) me->get_bound (RIGHT),
-			     &Paper_column::less_than);
-
+			     &Paper_column::less_than);  
+  
   all = vector<Grob*>::vector<Grob*> (all.begin () + start,
 				      all.begin () + end + 1);
   return all;
@@ -51,15 +52,14 @@ Spacing_spanner::set_springs (SCM smob)
   /*
     can't use get_system() ? --hwn.
   */
-  vector<Grob*> all (get_columns (me));
-  set_explicit_neighbor_columns (all);
-
   Spacing_options options;
   options.init_from_grob (me);
+  vector<Grob*> cols = Spacing_spanner::get_columns (me);
+  set_explicit_neighbor_columns (cols);
 
-  prune_loose_columns (me, &all, &options);
-  set_implicit_neighbor_columns (all);
-  generate_springs (me, all, &options);
+  prune_loose_columns (me, &cols, &options);
+  set_implicit_neighbor_columns (cols);
+  generate_springs (me, cols, &options);
 
   return SCM_UNSPECIFIED;
 }
@@ -223,7 +223,7 @@ Spacing_spanner::generate_springs (Grob *me,
   for (vsize i = 0; i < cols.size (); i++)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
-      Paper_column *next = (i < cols.size()-1) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
+      Paper_column *next = (i + 1 < cols.size ()) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
       if (i > 0)
 	generate_pair_spacing (me, prev, col, next, options);
@@ -318,6 +318,9 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 
 	  if (!Paper_column::is_musical (right_col))
 	    {
+	      /*
+		reconsider this: breaks with wide marks/tempos/etc.
+	       */
 	      Real left_col_stick_out = robust_relative_extent (left_col, left_col,  X_AXIS)[RIGHT];
 	      compound_fixed_note_space = max (left_col_stick_out, options->increment_);
 
@@ -395,6 +398,42 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 }
 
 /*
+  Check if COL fills the whole measure.
+ */
+bool
+Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
+{
+  System *sys = get_root_system (me);
+  Item *next = sys->column (col->get_column()->get_rank () + 1);
+  if (!next)
+    return false;
+
+  if (Paper_column::is_musical (next)
+      || Paper_column::is_musical (left)
+      || !Paper_column::is_musical (col)
+      || !Paper_column::is_used (next))
+    return false;
+  
+  Moment dt =
+    Paper_column::when_mom (next) - Paper_column::when_mom (col);
+  
+  Moment *len = unsmob_moment (left->get_property ("measure-length"));
+  if (!len)
+    return false;
+  
+  /*
+    Don't check for exact measure length, since ending measures are
+    often shortened due to pickups.
+   */
+  if (dt.main_part_ > len->main_part_ / Rational (2)
+      && (next->is_broken ()
+	  || next->break_status_dir ()))
+    return true;
+
+  return false;
+}
+
+/*
   Read hints from L and generate springs.
 */
 void
@@ -421,13 +460,12 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	    continue;
 
-	  Real space;
-	  Real fixed_space;
+	  Real space = 0.;
+	  Real fixed_space = 0.;
 
 	  /*
 	    column for the left one settings should be ok due automatic
 	    pointer munging.
-
 	  */
 	  assert (spacing_grob->get_column () == l);
 
@@ -474,19 +512,19 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
       
     }
 
+  if (Paper_column::is_musical (r)
+      && l->break_status_dir () == CENTER
+      && fills_measure (me, l, r))
+    {
+      compound_space += 1.0; 
+    }
+  
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
     compound_fixed = 0.0;
 
   assert (!isinf (compound_space));
   compound_space = max (compound_space, compound_fixed);
 
-  /*
-    There used to be code that changed spacing depending on
-    raggedright setting.  Ugh.
-
-    Do it more cleanly, or rename the property.
-
-  */
   Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
@@ -516,10 +554,4 @@ ADD_INTERFACE (Spacing_spanner,
 	       "uniform-stretching "
 	       
 	       );
-
-ADD_INTERFACE (Spacing_interface,
-	       "Something to do with line breaking and spacing. "
-	       "Kill this one after determining line breaks.",
-	       
-	       "");
 

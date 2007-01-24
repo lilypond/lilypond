@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "context.hh"
@@ -19,6 +19,11 @@ Grob_info::Grob_info (Translator *t, Grob *g)
   origin_trans_ = t;
   grob_ = g;
   start_end_ = START;
+
+  /*
+    assert here, because this is easier to debug.
+  */
+  assert (g);
 }
 
 Grob_info::Grob_info ()

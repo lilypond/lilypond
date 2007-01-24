@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -110,8 +110,7 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
       trill_accidental_ = make_item ("TrillPitchAccidental", ev->self_scm ());
 
       // fixme: naming -> alterations
-      trill_accidental_->set_property ("accidentals", scm_list_1 (scm_from_int (Rational (4) 
-										* p->get_alteration ())));
+      trill_accidental_->set_property ("alteration", ly_rational2scm (p->get_alteration ()));
       Side_position_interface::add_support (trill_accidental_, trill_head_);
       
       trill_head_->set_object ("accidental-grob", trill_accidental_->self_scm ());

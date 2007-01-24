@@ -35,8 +35,14 @@
 (define (post-process-pages layout pages)
   "If the write-page-layout paper variable is true, dumps page breaks
   and tweaks."
-  (if (ly:output-def-lookup layout 'write-page-layout #f)
-      (write-page-breaks pages)))
+
+  (let*
+      ((parser (ly:modules-lookup (list (current-module)) 'parser))
+       (output-name (ly:parser-output-name parser)) 
+       )
+
+    (if (ly:output-def-lookup layout 'write-page-layout #f)
+	(write-page-breaks pages output-name))))
 
 ;;;
 ;;; Utilities for computing line distances and positions
@@ -208,8 +214,11 @@
 			   (space-to-fill (page-maximum-space-to-fill
 					    page lines paper))
 			   (spacing (space-systems space-to-fill lines ragged paper #f)))
-		      (if (or (not (car spacing)) (inf? (car spacing)))
-			  (cdr (space-systems space-to-fill lines ragged paper #t))
+		      (if (and (> (length lines) 1)
+			       (or (not (car spacing)) (inf? (car spacing))))
+			  (begin
+			    (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
+			    (cdr (space-systems space-to-fill lines ragged paper #t)))
 			  (cdr spacing))))))
     (page-set-property! page 'configuration posns)
     page))

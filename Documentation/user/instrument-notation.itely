@@ -1,5 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -44,7 +51,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 @refbugs
 
 Dynamics are not centered, but workarounds do exist.  See the
-``piano centered dynamics'' template in @ref{Piano templates}.
+@q{piano centered dynamics} template in @ref{Piano templates}.
 
 @cindex cross staff stem
 @cindex stem, cross staff
@@ -197,7 +204,7 @@ b\sustainUp\sustainDown
 b g \sustainUp a \sustainDown \bar "|."
 @end lilypond
 
-The default `*Ped.' style for sustain and damper pedals corresponds to
+The default @q{*Ped.} style for sustain and damper pedals corresponds to
 style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
 default.
 
@@ -356,7 +363,7 @@ modifier (which may include a number if desired)
 @lilypond[quote,fragment,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
-The first number following the root is taken to be the `type' of the
+The first number following the root is taken to be the @q{type} of the
 chord, thirds are added to the root until it reaches the specified
 number
 @lilypond[quote,fragment,verbatim]
@@ -580,7 +587,7 @@ separators, e.g.,
 @item chordRootNamer
 The root of a chord is usually printed as a letter with an optional
 alteration.  The transformation from pitch to letter is done by this
-function.  Special note names (for example, the German ``H'' for a
+function.  Special note names (for example, the German @q{H} for a
 B-chord) can be produced by storing a new function in this property.
 
 @funindex chordNoteNamer
@@ -592,9 +599,9 @@ base can be printed in lower case.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
-The ``m'' for minor chords is usually printed right after the root of
+The @q{m} for minor chords is usually printed right after the root of
 the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
-between the root and ``m''. The spacer is not used when the root
+between the root and @q{m}. The spacer is not used when the root
 is altered.
 
 @end table
@@ -673,7 +680,7 @@ way is to use the @code{\addlyrics} function.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::
+* Hyphens and extenders::       
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
@@ -801,7 +808,7 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \relative { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~yho- nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
 The lyric ties is implemented with the Unicode character U+203F, so be
@@ -866,7 +873,7 @@ Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 @cindex hyphens
 
-Centered hyphens are entered as `@code{--}' between syllables.
+Centered hyphens are entered as @samp{--} between syllables.
 The hyphen will have variable length depending on the space between
 the syllables and it will be centered between the syllables.
 
@@ -876,7 +883,7 @@ the syllables and it will be centered between the syllables.
 When a lyric is sung over many notes (this is called a melisma), this is
 indicated with a horizontal line centered between a syllable and the
 next one.  Such a line is called an extender line, and it is entered as
-`@code{__}'.
+@samp{__}.
 
 In tighly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
@@ -1134,8 +1141,8 @@ in the text, as shown here,
 @end lilypond
 
 
-The @code{ignoreMelismata} applies to the syllable ``fas'', so it
-should be entered before ``go''.
+The @code{ignoreMelismata} applies to the syllable @q{fas}, so it
+should be entered before @q{go}.
 
 The reverse is also possible: making a lyric line slower than the
 standard.  This can be achieved by insert @code{\skip}s into the
@@ -1241,7 +1248,7 @@ done by setting the @code{associatedVoice} property.  In the example
 @end lilypond
 
 @noindent
-the text for the first stanza is set to a melody called ``lahlah'',
+the text for the first stanza is set to a melody called @q{lahlah},
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -1251,7 +1258,7 @@ the text for the first stanza is set to a melody called ``lahlah'',
 
 
 The second stanza initially is set to the @code{lahlah} context, but
-for the syllable ``ran'', it switches to a different melody.
+for the syllable @q{ran}, it switches to a different melody.
 This is achieved with
 @example
 \set associatedVoice = alternative
@@ -1261,7 +1268,7 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-Again, the command must be one syllable too early, before ``Ty'' in
+Again, the command must be one syllable too early, before @q{Ty} in
 this case.
 
 @example
@@ -1374,12 +1381,11 @@ layout.
 @node More about stanzas
 @subsection More about stanzas
 
+@c what's this doing here?
 @cindex phrasing, in lyrics
 
-
 @cindex stanza number
-@cindex singer's names
-@cindex name of singer
+@subsubsection Adding stanza numbers 
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
@@ -1395,7 +1401,57 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 }
 @end lilypond
 
-These numbers are put just before the start of first syllable.
+@noindent
+These numbers are put just before the start of the first syllable.
+
+
+@subsubsection Adding dynamics marks
+
+Stanzas differing in loudness may be indicated by putting a
+dynamics mark before each stanza.  In Lilypond, everthing coming in
+front of a stanza goes into the @code{StanzaNumber} object; dynamics marks
+are no different.  For technical reasons, you have to set the stanza
+outside @code{\lyricmode}:
+
+@lilypond[quote,ragged-right,verbatim]
+text = {
+  \set stanza = \markup { \dynamic "ff" "1. " }
+  \lyricmode {
+    Big bang
+  }
+}
+
+<<
+  \new Voice = "tune" {
+    \time 3/4
+    g'4 c'2
+  }
+\new Lyrics \lyricsto "tune" \text
+>>
+@end lilypond
+
+@cindex singer name
+@cindex name of singer
+@subsubsection Adding singer names
+
+Names of singers can also be added.  They are printed at the start of
+the line, just like instrument names.  They are created by setting
+@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
+
+@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set vocalName = "Bert "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set vocalName = "Ernie "
+  Oh, che -- ri, je t'aime
+}
+@end lilypond
+
+
+@subsubsection Printing stanzas at the end 
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1441,23 +1497,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-Names of singers can also be added.  They are printed at the start of
-the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
-
-
-@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
-} \addlyrics {
-  \set vocalName = "Bert "
-  Hi, my name is Bert.
-} \addlyrics {
-  \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
-}
-@end lilypond
-
+@subsubsection Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page. An outdented verse number often
@@ -1636,7 +1676,7 @@ can ask them for specific instructions about where to move these
 examples, and that might get them more involved in the docs.  -gp
 @end ignore
 
-``Parlato'' is spoken without pitch but still with rhythm; it is
+@q{Parlato} is spoken without pitch but still with rhythm; it is
 notated by cross noteheads.  This is demonstrated in
 @ref{Special noteheads}.
 
@@ -2526,9 +2566,9 @@ overview over all available note head styles.
 @cindex accidentals
 
 
-Use the @code{style} property of grob @internalsref{Accidental} to
-select ancient accidentals.   Supported styles are
-@code{mensural}, @code{vaticana}, @code{hufnagel}, and @code{medicaea}.
+Use the @code{glyph-name-alist} property of grob
+@internalsref{Accidental} and @internalsref{KeySignature} to select
+ancient accidentals. 
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -2575,7 +2615,7 @@ different style, as demonstrated in
 @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
 
 Similarly to local accidentals, the style of the key signature can be
-controlled by the @code{style} property of the
+controlled by the @code{glyph-name-alist} property of the
 @internalsref{KeySignature} grob.
 
 @seealso
@@ -2841,16 +2881,16 @@ historic style hufnagel combined do/fa clef
 
 
 
-@emph{Modern style} means ``as is typeset in contemporary editions of
-transcribed mensural music''.
+@emph{Modern style} means @qq{as is typeset in contemporary editions of
+transcribed mensural music.}
 
-@emph{Petrucci style} means ``inspired by printings published by the
-famous engraver Petrucci (1466-1539)''.
+@emph{Petrucci style} means @qq{inspired by printings published by the
+famous engraver Petrucci (1466-1539).}
 
-@emph{Historic style} means ``as was typeset or written in historic
-editions (other than those of Petrucci)''.
+@emph{Historic style} means @qq{as was typeset or written in historic
+editions (other than those of Petrucci).}
 
-@emph{Editio XXX style} means ``as is/was printed in Editio XXX''.
+@emph{Editio XXX style} means @qq{as is/was printed in Editio XXX.}
 
 Petrucci used C clefs with differently balanced left-side vertical
 beams, depending on which staff line it is printed.
@@ -3056,7 +3096,7 @@ the right end of the episem line is often too far to the right.
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; Latin word for `guard') is a
+A @emph{custos} (plural: @emph{custodes}; Latin word for @q{guard}) is a
 symbol that appears at the end of a staff.  It anticipates the pitch
 of the first note(s) of the following line thus helping the performer
 to manage line breaks during performance.
@@ -3137,7 +3177,7 @@ Examples: @inputfileref{input/@/regression,custos@/.ly}.
 @cindex finalis
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
-`division') is a staff context symbol that is used to structure
+@q{division}) is a staff context symbol that is used to structure
 Gregorian music into phrases and sections.  The musical meaning of
 @emph{divisio minima}, @emph{divisio maior}, and @emph{divisio maxima}
 can be characterized as short, medium, and long pause, somewhat like
@@ -4353,7 +4393,7 @@ entering the chant, as the following excerpt demonstrates
 
 In European music from before about 1600, singers were often expected
 to chromatically alter notes at their own initiative. This is called
-``Musica Ficta''. In modern transcriptions, these accidentals are
+@q{Musica Ficta}. In modern transcriptions, these accidentals are
 usually printed over the note.
 
 @cindex Accidental, musica ficta

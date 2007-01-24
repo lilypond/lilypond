@@ -3,7 +3,7 @@
   
   source file of the GNU LilyPond music typesetter
   
-  (c) 2006 Han-Wen Nienhuys <hanwen@lilypond.org>
+  (c) 2006--2007 Han-Wen Nienhuys <hanwen@lilypond.org>
   
 */
 
@@ -41,7 +41,7 @@ ly_init_ly_module (void *)
       progress_indication ("]\n");
     }
 
-  scm_primitive_load_path (scm_makfrom0str ("lily.scm"));
+  scm_primitive_load_path (scm_from_locale_string ("lily.scm"));
 }
 
 SCM global_lily_module;

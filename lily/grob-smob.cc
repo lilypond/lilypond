@@ -3,12 +3,13 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "grob.hh"
 
 #include "paper-score.hh"
+#include "warn.hh"
 
 #include "ly-smobs.icc"
 
@@ -19,11 +20,10 @@ IMPLEMENT_TYPE_P (Grob, "ly:grob?");
 SCM
 Grob::mark_smob (SCM ses)
 {
+  ASSERT_LIVE_IS_ALLOWED();
+  
   Grob *s = (Grob *) SCM_CELL_WORD_1 (ses);
   scm_gc_mark (s->immutable_property_alist_);
-
-  if (s->key_)
-    scm_gc_mark (s->key_->self_scm ());
 
   /* Do not mark the parents.  The pointers in the mutable
      property list form two tree like structures (one for X

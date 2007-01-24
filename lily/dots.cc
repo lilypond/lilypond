@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dots.hh"
@@ -13,7 +13,6 @@
 #include "font-interface.hh"
 #include "lookup.hh"
 #include "staff-symbol-referencer.hh"
-#include "directional-element-interface.hh"
 #include "international.hh"
 
 MAKE_SCHEME_CALLBACK (Dots, print, 1);
@@ -53,7 +52,7 @@ Dots::print (SCM d)
       for (int i = scm_to_int (c); i--;)
 	{
 	  d.translate_axis (2 * dw, X_AXIS);
-	  mol.add_at_edge (X_AXIS, RIGHT, d, dw, 0);
+	  mol.add_at_edge (X_AXIS, RIGHT, d, dw);
 	}
     }
   return mol.smobbed_copy ();

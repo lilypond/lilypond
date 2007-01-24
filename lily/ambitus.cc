@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 */
 
 #include "ambitus.hh"
@@ -24,7 +24,7 @@ Ambitus::print (SCM smob)
   Item *me = (Item *) unsmob_grob (smob);
   Stencil stencil;
 
-  // join heads
+  // FIXME : should be Ambitus_line join heads
   extract_grob_set (me, "note-heads", heads);
   if (to_boolean (me->get_property ("join-heads"))
       && heads.size () > 1)

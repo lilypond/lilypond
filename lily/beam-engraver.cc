@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "beam.hh"
@@ -27,6 +27,7 @@ class Beam_engraver : public Engraver
 public:
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rest);
+
 protected:
   Stream_event *start_ev_;
 
@@ -34,7 +35,7 @@ protected:
   Spanner *beam_;
   Stream_event *prev_start_ev_;
 
-  Stream_event *now_stop_ev_;
+  Stream_event *stop_ev_;
 
   Beaming_pattern *beam_info_;
   Beaming_pattern *finished_beam_info_;
@@ -45,9 +46,9 @@ protected:
   /// moment (global time) where beam started.
   Moment beam_start_mom_;
 
-  bool subdivide_beams_;
-  Moment beat_length_;
-
+  Beaming_options beaming_options_;
+  Beaming_options finished_beaming_options_;
+  
   void typeset_beam ();
   void set_melisma (bool);
 
@@ -90,7 +91,7 @@ Beam_engraver::Beam_engraver ()
   finished_beam_ = 0;
   finished_beam_info_ = 0;
   beam_info_ = 0;
-  now_stop_ev_ = 0;
+  stop_ev_ = 0;
   start_ev_ = 0;
   prev_start_ev_ = 0;
 }
@@ -104,7 +105,7 @@ Beam_engraver::listen_beam (Stream_event *ev)
   if (d == START && valid_start_point ())
     ASSIGN_EVENT_ONCE (start_ev_, ev);
   else if (d == STOP && valid_end_point ())
-    ASSIGN_EVENT_ONCE (now_stop_ev_, ev);
+    ASSIGN_EVENT_ONCE (stop_ev_, ev);
 }
 
 void
@@ -118,9 +119,6 @@ Beam_engraver::set_melisma (bool ml)
 void
 Beam_engraver::process_music ()
 {
-  if (beam_ && !to_boolean (get_property ("allowBeamBreak")))
-    context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
-
   if (start_ev_)
     {
       if (beam_)
@@ -137,8 +135,16 @@ Beam_engraver::process_music ()
       beam_start_location_ = mp;
       beam_start_mom_ = now_mom ();
 
+      beaming_options_.from_context (context ());
       beam_info_ = new Beaming_pattern;
       /* urg, must copy to Auto_beam_engraver too */
+    }
+
+  typeset_beam ();
+  if (stop_ev_ && beam_)
+    {
+      announce_end_grob (beam_, stop_ev_->self_scm ());
+      
     }
 }
 
@@ -149,8 +155,8 @@ Beam_engraver::typeset_beam ()
     {
       if (!finished_beam_->get_bound (RIGHT))
 	finished_beam_->set_bound (RIGHT, finished_beam_->get_bound (LEFT));
-	  
-      finished_beam_info_->beamify (context ());
+      
+      finished_beam_info_->beamify (finished_beaming_options_);
       Beam::set_beaming (finished_beam_, finished_beam_info_);
 
       delete finished_beam_info_;
@@ -173,13 +179,13 @@ Beam_engraver::start_translation_timestep ()
 void
 Beam_engraver::stop_translation_timestep ()
 {
-  typeset_beam ();
-  if (now_stop_ev_)
+  if (stop_ev_)
     {
       finished_beam_ = beam_;
       finished_beam_info_ = beam_info_;
-
-      now_stop_ev_ = 0;
+      finished_beaming_options_ = beaming_options_;
+      
+      stop_ev_ = 0;
       beam_ = 0;
       beam_info_ = 0;
       typeset_beam ();
@@ -321,7 +327,7 @@ Grace_beam_engraver::listen_beam (Stream_event *ev)
   if (d == START && valid_start_point ())
     start_ev_ = ev;
   else if (d == STOP && valid_end_point ())
-    now_stop_ev_ = ev;
+    stop_ev_ = ev;
 }
 
 
@@ -340,7 +346,6 @@ ADD_TRANSLATOR (Grace_beam_engraver,
 		/* read */
 		"beamMelismaBusy "
 		"beatLength "
-		"allowBeamBreak "
 		"subdivideBeams "
 		,
 		/* write */ "");

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 /* TODO: should junk this class an replace by
@@ -261,9 +261,9 @@ Context_def::get_translator_names (SCM user_mod) const
 }
 
 Context *
-Context_def::instantiate (SCM ops, Object_key const *key)
+Context_def::instantiate (SCM ops)
 {
-  Context *context = new Context (key);
+  Context *context = new Context ();
 
   context->definition_ = self_scm ();
   context->definition_mods_ = ops;

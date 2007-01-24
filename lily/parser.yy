@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
                  Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -300,7 +300,7 @@ If we give names, Bison complains.
 %type <book> book_body
 
 %type <i> bare_unsigned
-%type <i> figured_bass_alteration
+%type <scm> figured_bass_alteration
 %type <i> dots
 %type <i> exclamations
 %type <i> optional_rest
@@ -350,6 +350,7 @@ If we give names, Bison complains.
 %type <scm> absolute_pitch
 %type <scm> assignment_id
 %type <scm> bare_number
+%type <scm> unsigned_number
 %type <scm> bass_figure
 %type <scm> figured_bass_modification
 %type <scm> br_bass_figure
@@ -502,7 +503,7 @@ embedded_scm:
 
 lilypond_header_body:
 	{
-		$$ = get_header(PARSER);
+		$$ = get_header (PARSER);
 		PARSER->lexer_->add_scope ($$);
 	}
 	| lilypond_header_body assignment  {
@@ -854,9 +855,9 @@ alternative_music:
 
 
 repeated_music:
-	REPEAT simple_string bare_unsigned music alternative_music
+	REPEAT simple_string unsigned_number music alternative_music
 	{
-		$$ = MAKE_SYNTAX ("repeat", @$, $2, scm_int2num ($3), $4, $5);
+		$$ = MAKE_SYNTAX ("repeat", @$, $2, $3, $4, $5);
 	}
 	;
 
@@ -975,7 +976,7 @@ prefix_composite_music:
 	generic_prefix_music_scm {
 		$$ = run_music_function (PARSER, $1);
 	}
-	| CONTEXT    simple_string optional_id optional_context_mod music {
+	| CONTEXT simple_string optional_id optional_context_mod music {
 		$$ = MAKE_SYNTAX ("context-specification", @$, $2, $3, $5, $4, SCM_BOOL_F);
 	}
 	| NEWCONTEXT simple_string optional_id optional_context_mod music {
@@ -1609,7 +1610,7 @@ direction_reqd_event:
 octave_check:
 	/**/ { $$ = SCM_EOL; }
 	| '='  { $$ = scm_from_int (0); }
-	| '=' sub_quotes { $$ = scm_from_int ($2); }
+	| '=' sub_quotes { $$ = scm_from_int (-$2); }
 	| '=' sup_quotes { $$ = scm_from_int ($2); }
 	;
 
@@ -1700,25 +1701,25 @@ gen_text_def:
 
 script_abbreviation:
 	'^'		{
-		$$ = scm_makfrom0str ("Hat");
+		$$ = scm_from_locale_string ("Hat");
 	}
 	| '+'		{
-		$$ = scm_makfrom0str ("Plus");
+		$$ = scm_from_locale_string ("Plus");
 	}
 	| '-' 		{
-		$$ = scm_makfrom0str ("Dash");
+		$$ = scm_from_locale_string ("Dash");
 	}
  	| '|'		{
-		$$ = scm_makfrom0str ("Bar");
+		$$ = scm_from_locale_string ("Bar");
 	}
 	| ANGLE_CLOSE	{
-		$$ = scm_makfrom0str ("Larger");
+		$$ = scm_from_locale_string ("Larger");
 	}
 	| '.' 		{
-		$$ = scm_makfrom0str ("Dot");
+		$$ = scm_from_locale_string ("Dot");
 	}
 	| '_' {
-		$$ = scm_makfrom0str ("Underscore");
+		$$ = scm_from_locale_string ("Underscore");
 	}
 	;
 
@@ -1823,9 +1824,9 @@ bass_number:
 	;
 
 figured_bass_alteration:
-	'-' 	{ $$ = -2; }
-	| '+'	{ $$ = 2; }
-	| '!'	{ $$ = 0; }
+	'-' 	{ $$ = ly_rational2scm (FLAT_ALTERATION); }
+	| '+'	{ $$ = ly_rational2scm (SHARP_ALTERATION); }
+	| '!'	{ $$ = scm_from_int (0); }
 	;
 
 bass_figure:
@@ -1850,11 +1851,11 @@ bass_figure:
 	}
 	| bass_figure figured_bass_alteration {
 		Music *m = unsmob_music ($1);
-		if ($2) {
+		if (scm_to_double ($2)) {
 			SCM salter = m->get_property ("alteration");
-			int alter = scm_is_number (salter) ? scm_to_int (salter) : 0;
+			SCM alter = scm_is_number (salter) ? salter : scm_from_int (0);
 			m->set_property ("alteration",
-				scm_from_int (alter + $2));
+					 scm_sum (alter, $2));
 		} else {
 			m->set_property ("alteration", scm_from_int (0));
 		}
@@ -2134,6 +2135,14 @@ bare_unsigned:
 	}
 	;
 
+unsigned_number:
+	bare_unsigned  { $$ = scm_from_int ($1); }
+	| NUMBER_IDENTIFIER {
+		$$ = $1;
+	}
+	;
+	
+
 exclamations:
 		{ $$ = 0; }
 	| exclamations '!'	{ $$ ++; }
@@ -2375,7 +2384,7 @@ Lily_lexer::try_special_identifiers (SCM *destination, SCM sid)
 SCM
 get_next_unique_context_id ()
 {
-	return scm_makfrom0str ("$uniqueContextId");
+	return scm_from_locale_string ("$uniqueContextId");
 }
 
 
@@ -2385,7 +2394,7 @@ get_next_unique_lyrics_context_id ()
 	static int new_context_count;
 	char s[128];
 	snprintf (s, sizeof (s)-1, "uniqueContext%d", new_context_count++);
-	return scm_makfrom0str (s);
+	return scm_from_locale_string (s);
 }
 
 

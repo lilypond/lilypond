@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "output-def.hh"
@@ -97,21 +97,6 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
   SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
   return scm_from_double (output_scale (b));
 }
-
-/*
-  Cannot put in scope, but need a separate function, since we don't
-  want to allow this in --safe.
- */
-LY_DEFINE (ly_output_def_parser, "ly:output-def-parser",
-	   1, 0, 0, (SCM odef),
-	   "Return the parser where @var{odef} is coming from.")
-{
-  Output_def *b = unsmob_output_def (odef);
-  SCM_ASSERT_TYPE (b, odef, SCM_ARG1, __FUNCTION__, "paper");
-
-  return b->get_parser()->self_scm ();
-}
-
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 	   0, 0, 0, (),

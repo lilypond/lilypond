@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "pitch.hh"
@@ -168,10 +168,10 @@ Pitch::to_string () const
 {
   int n = (notename_ + 2) % scale_->step_tones_.size ();
   string s = ::to_string (char (n + 'a'));
-      Rational qtones = alteration_ * Rational (4,1);
-      int qt = int (rint (Real (qtones)));
+  Rational qtones = alteration_ * Rational (4,1);
+  int qt = int (rint (Real (qtones)));
       
-      s += string (accname[qt + 4]);
+  s += string (accname[qt + 4]);
   if (octave_ >= 0)
     {
       int o = octave_ + 1;
@@ -245,7 +245,7 @@ Pitch::print_smob (SCM s, SCM port, scm_print_state *)
 {
   Pitch *r = (Pitch *) SCM_CELL_WORD_1 (s);
   scm_puts ("#<Pitch ", port);
-  scm_display (scm_makfrom0str (r->to_string ().c_str ()), port);
+  scm_display (ly_string2scm (r->to_string ()), port);
   scm_puts (" >", port);
   return 1;
 }
@@ -302,7 +302,9 @@ Pitch::transposed (Pitch d) const
   return p;
 }
 
+Rational NATURAL_ALTERATION (0);
 Rational FLAT_ALTERATION (-1, 2);
+Rational DOUBLE_FLAT_ALTERATION (-1);
 Rational SHARP_ALTERATION (1, 2);
 
 Pitch

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2002--2006 Juergen Reuter <reuter@ipd.uka.de>
+  (c) 2002--2007 Juergen Reuter <reuter@ipd.uka.de>
 
   Han-Wen Nienhuys <hanwen@xs4all.nl
 */
@@ -149,7 +149,7 @@ Ambitus_engraver::finalize ()
 				start_key_sig_);
 
 	  Rational sig_alter = (handle != SCM_BOOL_F)
-	    ? ly_scm2rational (scm_cdr (handle)) : Rational (0);
+	    ? robust_scm2rational (scm_cdr (handle), Rational (0)) : Rational (0);
 
 	  if (sig_alter == p.get_alteration ())
 	    {
@@ -158,8 +158,7 @@ Ambitus_engraver::finalize ()
 	    }
 	  else
 	    {
-	      SCM l = scm_list_1 (scm_from_int (int (Real (Rational (4) * p.get_alteration ()))));
-	      accidentals_[d]->set_property ("accidentals", l);
+	      accidentals_[d]->set_property ("alteration", ly_rational2scm (p.get_alteration ()));
 	    }
 	}
       while (flip (&d) != DOWN);

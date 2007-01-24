@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef INCLUDABLE_LEXER_HH
@@ -33,7 +33,6 @@ protected:
   vector<int> char_count_stack_;
 
 public:
-  bool allow_includes_b_;
 
   Includable_lexer ();
   ~Includable_lexer ();
@@ -42,9 +41,10 @@ public:
   vector<string> file_name_strings_;
 
   Source_file *get_source_file () const;
-  void new_input (string s, Sources *);
+  virtual void new_input (string s, Sources *);
+  
   void new_input (string name, string data, Sources *);
-
+  
   char const *here_str0 () const;
 };
 

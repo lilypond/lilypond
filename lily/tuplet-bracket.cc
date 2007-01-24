@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -511,37 +511,10 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   
   Direction dir = get_grob_direction (me);
 
-  /*
-    Use outer non-rest columns to determine slope
-  */
-  Grob *left_col = 0;
-  Grob *right_col = 0;
-  get_bounds (me, &left_col, &right_col);
-  if (left_col && right_col)
-    {
-      Interval rv = right_col->extent (commony, Y_AXIS);
-      Interval lv = left_col->extent (commony, Y_AXIS);
-      rv.unite (staff);
-      lv.unite (staff);
-      Real graphical_dy = rv[dir] - lv[dir];
+  bool equally_long = false;
+  Grob *par_beam = parallel_beam (me, columns, &equally_long);
+  
 
-      Slice ls = Note_column::head_positions_interval (left_col);
-      Slice rs = Note_column::head_positions_interval (right_col);
-
-      Interval musical_dy;
-      musical_dy[UP] = rs[UP] - ls[UP];
-      musical_dy[DOWN] = rs[DOWN] - ls[DOWN];
-      if (sign (musical_dy[UP]) != sign (musical_dy[DOWN]))
-	*dy = 0.0;
-      else if (sign (graphical_dy) != sign (musical_dy[DOWN]))
-	*dy = 0.0;
-      else
-	*dy = graphical_dy;
-    }
-  else
-    *dy = 0;
-
-  *offset = -dir * infinity_f;
 
   Item *lgr = get_x_bound_item (me, LEFT, dir);
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
@@ -549,18 +522,82 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
 
   vector<Offset> points;
-  points.push_back (Offset (x0 - x0, staff[dir]));
-  points.push_back (Offset (x1 - x0, staff[dir]));
 
-  for (vsize i = 0; i < columns.size (); i++)
+  if (columns.size ()
+      && par_beam
+      && get_grob_direction (par_beam) == dir 
+      && Note_column::get_stem (columns[0])
+      && Note_column::get_stem (columns.back ()))
     {
-      Interval note_ext = columns[i]->extent (commony, Y_AXIS);
-      Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
+      /*
+	trigger set_stem_ends
+       */
+      (void) par_beam->get_property ("quantized-positions");
 
-      Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
-      points.push_back (Offset (x, notey));
+
+      Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
+				Note_column::get_stem (columns.back ()));
+
+      
+      
+
+      Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
+      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0);
+      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0);
+
+      *dy = rp - lp;
+      points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));
+      points.push_back (Offset (stems[RIGHT]->relative_coordinate (commonx, X_AXIS) - x0, rp));
+    }
+  else
+    {
+      /*
+	Use outer non-rest columns to determine slope
+      */
+      Grob *left_col = 0;
+      Grob *right_col = 0;
+      get_bounds (me, &left_col, &right_col);
+      if (left_col && right_col)
+	{
+	  Interval rv = right_col->extent (commony, Y_AXIS);
+	  Interval lv = left_col->extent (commony, Y_AXIS);
+	  rv.unite (staff);
+	  lv.unite (staff);
+	  Real graphical_dy = rv[dir] - lv[dir];
+
+	  Slice ls = Note_column::head_positions_interval (left_col);
+	  Slice rs = Note_column::head_positions_interval (right_col);
+
+	  Interval musical_dy;
+	  musical_dy[UP] = rs[UP] - ls[UP];
+	  musical_dy[DOWN] = rs[DOWN] - ls[DOWN];
+	  if (sign (musical_dy[UP]) != sign (musical_dy[DOWN]))
+	    *dy = 0.0;
+	  else if (sign (graphical_dy) != sign (musical_dy[DOWN]))
+	    *dy = 0.0;
+	  else
+	    *dy = graphical_dy;
+	}
+      else
+	*dy = 0;
+
+      *offset = -dir * infinity_f;      
+      for (vsize i = 0; i < columns.size (); i++)
+	{
+	  Interval note_ext = columns[i]->extent (commony, Y_AXIS);
+	  Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
+
+	  Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
+	  points.push_back (Offset (x, notey));
+	}
     }
 
+  if (!(par_beam && get_grob_direction (par_beam) == dir))
+    {
+      points.push_back (Offset (x0 - x0, staff[dir]));
+      points.push_back (Offset (x1 - x0, staff[dir]));
+    }
+  
   /*
     This is a slight hack. We compute two encompass points from the
     bbox of the smaller tuplets.
@@ -647,7 +684,6 @@ SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-  extract_grob_set (me, "note-columns", columns);
 
   /*
     Don't print if it doesn't span time.
@@ -659,44 +695,9 @@ Tuplet_bracket::calc_positions (SCM smob)
       return SCM_EOL;
     }
 
-  
-  Direction dir = get_grob_direction (me);
-  bool equally_long = false;
-  Grob *par_beam = parallel_beam (me, columns, &equally_long);
-
-  /*
-    We follow the beam only if there is one, and we are next to it.
-  */
   Real dy = 0.0;
   Real offset = 0.0;
-  if (!par_beam
-      || get_grob_direction (par_beam) != dir)
-    calc_position_and_height (me, &offset, &dy);
-  else if  (columns.size ()
-	    && Note_column::get_stem (columns[0])
-	    && Note_column::get_stem (columns.back ()))
-    {
-      /*
-	trigger set_stem_ends
-       */
-      (void) par_beam->get_property ("quantized-positions");
-
-
-      Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
-				Note_column::get_stem (columns.back ()));
-
-      
-      
-
-      Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
-      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0);
-      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0);
-
-      
-      offset = lp + dir * (0.5 + scm_to_double (me->get_property ("padding")));
-      dy = (rp - lp);
-    }
-
+  calc_position_and_height (me, &offset, &dy);
   
   SCM x = scm_cons (scm_from_double (offset),
 		    scm_from_double (offset + dy));

@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef GLOBAL_CONTEXT_HH
@@ -21,7 +21,7 @@ class Global_context : public virtual Context
 
   friend class Output_def;
 public:
-  Global_context (Output_def *, Object_key *key);
+  Global_context (Output_def *);
   int get_moments_left () const;
   Moment sneaky_insert_extra_moment (Moment);
   void add_moment_to_process (Moment);

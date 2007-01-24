@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 #include <cctype>
 using namespace std;
@@ -178,7 +178,7 @@ Modified_font_metric::text_stencil (string text) const
 Box
 Modified_font_metric::text_dimension (string text) const
 {
-  SCM stext = scm_makfrom0str (text.c_str ());
+  SCM stext = ly_string2scm (text);
   
   Box b;
   if (output_backend_global == "tex")

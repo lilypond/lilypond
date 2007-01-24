@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "parse-scm.hh"
@@ -31,6 +31,9 @@ internal_ly_parse_scm (Parse_start *ps)
   scm_seek (port, scm_long2num (off), scm_long2num (SEEK_SET));
   SCM from = scm_ftell (port);
 
+  scm_set_port_line_x (port,  scm_from_int (ps->start_location_.line_number () -1));
+  scm_set_port_column_x (port,  scm_from_int (ps->start_location_.column_number () -1));
+  
   SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 

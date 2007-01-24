@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -250,6 +250,11 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
 
+      if (hordir == LEFT
+	  && unsmob_grob (ft.head_->get_object ("accidental-grob")))
+	Side_position_interface::add_support (f,
+					      unsmob_grob (ft.head_->get_object ("accidental-grob")));
+					      
       Self_alignment_interface::set_align_self (f, Y_AXIS);
       Self_alignment_interface::set_center_parent (f, Y_AXIS);
       Side_position_interface::set_axis (f, X_AXIS);

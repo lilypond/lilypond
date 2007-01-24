@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "audio-column.hh"
@@ -11,9 +11,9 @@
 #include "audio-item.hh"
 #include "performance.hh"
 
-Audio_column::Audio_column (Moment at_mom)
+Audio_column::Audio_column (Moment when)
 {
-  at_mom_ = at_mom;
+  when_ = when;
 }
 
 void
@@ -24,14 +24,21 @@ Audio_column::add_audio_item (Audio_item *l)
 }
 
 Moment
-Audio_column::at_mom () const
+Audio_column::when () const
 {
-  return at_mom_;
+  return when_;
+}
+
+int
+Audio_column::ticks () const
+{
+  return int (moment_to_ticks (when_));
 }
 
 void
-Audio_column::offset_at_mom (Moment m)
+Audio_column::offset_when (Moment m)
 {
-  at_mom_ += m;
+  when_ += m;
 }
+
 

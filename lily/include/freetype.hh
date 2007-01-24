@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2004--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef FREETYPE_HH
@@ -18,6 +18,8 @@ void init_freetype ();
 extern FT_Library freetype2_library;
 
 FT_Face open_ft_face (string str);
+
+string freetype_error_string (int code);
 
 #endif /* FREETYPE_HH */
 

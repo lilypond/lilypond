@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 
@@ -21,22 +21,6 @@
 #include "warn.hh"
 
 
-MAKE_SCHEME_CALLBACK (Break_alignment_interface, self_align_callback, 1);
-SCM
-Break_alignment_interface::self_align_callback (SCM smob)
-{
-  Grob *me = unsmob_grob (smob);
-
-  Item *item = dynamic_cast<Item *> (me);
-  Direction bsd = item->break_status_dir ();
-  if (bsd == LEFT)
-    me->set_property ("self-alignment-X", scm_from_int (RIGHT));
-
-  /*
-    Force break alignment itself to be done first, in the case
-  */
-  return Self_alignment_interface::aligned_on_self (me, X_AXIS);
-}
 
 /*
   This is tricky: we cannot modify 'elements, since callers are
@@ -233,7 +217,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
       else
 	{
 	  extra_right_space = distance;
-	  if (idx < offsets.size() - 1)
+	  if (idx + 1 < offsets.size ())
 	    offsets[idx+1] = extents[idx][RIGHT] + distance;
 	}
 

@@ -208,8 +208,11 @@ def musicxml_note_to_lily_main_event (n):
         event = musicexp.RestEvent()
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
-        event.drum_type = instrument_drumtype_dict[n.instrument_name]
-        
+        try:
+            event.drum_type = instrument_drumtype_dict[n.instrument_name]
+        except KeyError:
+            n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
+            event.drum_type = 'acousticsnare'
     
     if not event:
         n.message ("cannot find suitable event")
@@ -264,7 +267,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            raise NegativeSkip(current_end, moment)
+            print 'Negative skip', diff
+            diff = Rational (0)
 
         if diff > Rational (0):
             skip = musicexp.SkipEvent()
@@ -313,7 +317,12 @@ def musicxml_voice_to_lily_voice (voice):
             
         if isinstance (n, musicxml.Attributes):
             if n.is_first () and n._measure_position == Rational (0):
-                voice_builder.add_bar_check (int (n.get_parent ().number))
+                try:
+                    number = int (n.get_parent ().number)
+                except ValueError:
+                    number = 0
+                
+                voice_builder.add_bar_check (number)
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_music (a, Rational (0))
             continue
@@ -330,7 +339,10 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if n.is_first () and n._measure_position == Rational (0):
-            num = int (n.get_parent ().number)
+            try: 
+                num = int (n.get_parent ().number)
+            except ValueError:
+                num = 0
             voice_builder.add_bar_check (num)
         
         main_event = musicxml_note_to_lily_main_event (n)

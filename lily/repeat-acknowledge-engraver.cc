@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "engraver.hh"
@@ -102,7 +102,7 @@ Repeat_acknowledge_engraver::process_music ()
   if (!scm_is_string (wb) || ly_is_equal (db, wb))
     {
       if (s != "" || (volta_found && !scm_is_string (wb)))
-	context ()->set_property ("whichBar", scm_makfrom0str (s.c_str ()));
+	context ()->set_property ("whichBar", ly_string2scm (s));
     }
 }
 

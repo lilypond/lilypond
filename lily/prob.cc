@@ -3,13 +3,14 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2004--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "prob.hh"
 #include "main.hh"
 #include "item.hh"
 #include "input.hh"
+#include "profile.hh"
 
 #include "ly-smobs.icc"
 
@@ -140,6 +141,11 @@ Prob::print_smob (SCM smob, SCM port, scm_print_state*)
 SCM
 Prob::internal_get_property (SCM sym) const
 {
+#ifndef NDEBUG
+  if (profile_property_accesses)
+    note_property_access (&prob_property_lookup_table, sym);
+#endif
+
   /*
     TODO: type checking
    */
@@ -152,18 +158,8 @@ Prob::internal_get_property (SCM sym) const
 }
 
 void
-Prob::internal_set_property (SCM sym, SCM val
-#ifndef NDEBUG
-			     , char const *file, int line, char const *fun
-#endif
-			     ) 
+Prob::internal_set_property (SCM sym, SCM val) 
 {
-#ifndef NDEBUG
-  (void) file;
-  (void) line;
-  (void) fun;
-#endif
-
   if (do_internal_type_checking_global)
     type_check_assignment (sym, val);
   

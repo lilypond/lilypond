@@ -1,5 +1,11 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 64f0d86a7c0987b311bfdfdfeddfa063e1f2d6e7
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 
 @c TODO:
 @c   * more details about running lilypond; error messages,
@@ -14,10 +20,10 @@
 @node Tutorial   
 @chapter Tutorial
 
-Ce tutoriel commence par une courte introduction au langage utilisé
-par LilyPond pour représenter la musique.  Après ce premier contact,
-nous verrons comment produire une partition à imprimer.  Vous serez
-alors capable de créer et d'imprimer vos propres partitions.
+Ce tutoriel commence par une introduction au langage musical utilisé
+par LilyPond, qui vous permettra de faire fonctionner le logiciel pour
+prosuire une partition.  Après ce premier contact, nous verrons comment
+créer des partitions utilisant une notation musicale courante.
 
 @ifhtml
 Beaucoup de gens apprennent à utiliser les programmes en les essayant
@@ -43,7 +49,7 @@ pour une consultation rapide.
 
 @menu
 * First steps::                 
-* Running LilyPond for the first time::  
+* Second steps::  
 * More about pitches::          
 * Entering ties::               
 * Automatic and manual beams::  
@@ -75,15 +81,17 @@ entrez
 
 @example
 @{
-c d e f g a b
+c' d' e' f' g' a' b' c''
 @}
 @end example
 
 @noindent
 le résultat ressemblera à 
 
-@lilypond[fragment,quote,notime,relative=1]
-c d e f g a b
+@lilypond[quote]
+{
+c' d' e' f' g' a' b' c''
+}
 @end lilypond
 
 @c DIV specific
@@ -92,10 +100,116 @@ re mi fa sol la si}, en insérant au début du fichier la ligne
 @samp{\include "catalan.ly"}
 @c END DIV
 
-Tout extrait de code LilyPond doit être entouré d'une @{paire
-d'accolades@}.  Bien que la plupart des exemples de ce manuel n'en
-comportent pas, ne les oubliez pas dans vos compositions !
+@emph{Attention :} tout extrait de code LilyPond doit être entouré
+d'une @{paire d'accolades@}.  De plus, pour éviter toute ambiguïté, il
+est préférable d'entourer les accolades par des espaces ou retours à
+la ligne.  Bien que certains exemples de ce manuel ne comportent pas
+d'accolades, ne les oubliez pas dans vos partitions !
 
+@cindex Case sensitive
+De plus, LilyPond est sensible à la casse.  @code{ @{ c d e @} } est
+un code valide ; @code{ @{ C D E @} } produira un message d'erreur.
+
+@unnumberedsubsec Entering music and viewing output
+
+Dans cette section nous expliquerons quelles commandes exécuter et
+comment voir ou imprimer le résultat de LilyPond.
+
+@unnumberedsubsubsec MacOS X
+
+Si vous double-cliquez sur LilyPond.app, un fichier d'exemple sera
+ouvert.  Sauvegardez-le, par exemple, sous @file{test.ly} sur votre
+bureau, et traitez-le ensuite avec la commande du menu @samp{Compile >
+Typeset File}.  Le fichier PDF résultant est alors affiché sur votre
+écran.
+
+Pour l'utilisation future de LilyPond, vous commencerez certainement
+en sélectionnant « Nouveau » ou « Ouvrir ».
+
+Notez que le premier démarrage peut prendre une minute ou deux, car
+toutes les polices systèmes doivent être d'abord analysées.
+
+@unnumberedsubsubsec Windows
+
+Sous Windows, démarrez un éditeur de texte @footnote{N'importe quel
+éditeur simple ou orienté programmation, qui prend en charge le codage
+de caractères UTF-8, fera l'affaire, par exemple Notepad.  N'utilisez
+pas de traitement de texte car ceux-ci insèrent des codes de formatage
+qui posent problème à LilyPond.} et saisissez
+
+@verbatim
+{ c' e' g' c'' }
+@end verbatim
+
+Enregistrez-le sur le bureau sous @file{test.ly} et vérifiez bien
+qu'il ne s'appelle pas @file{test.ly.TXT}.  Double-cliquez sur le
+fichier @file{test.ly} pour le traiter et afficher le fichier
+PDF résultant.
+
+
+@unnumberedsubsubsec Unix
+
+Commencez par ouvrir une fenêtre de terminal et un éditeur de
+texte.  Par exemple, vous pouvez ouvrir un xterm et exécuter
+@code{joe}.  @footnote{Des fichiers de macros pour les fans de VIM et un
+@code{LilyPond-mode} pour les fans d'Emacs existent.   S'ils ne sont pas
+encore installés, consultez le fichier @file{INSTALL.txt}.} Dans votre
+éditeur, entrez le texte suivant et sauvegardez le fichier sous
+@file{test.ly}
+
+@verbatim
+{ c' e' g' c'' }
+@end verbatim
+
+@noindent
+Pour traiter @file{test.ly}, procédez comme ceci : 
+
+@example
+lilypond test.ly
+@end example
+
+@noindent
+Vous verrez quelque chose ressemblant à :
+
+@example
+lilypond test.ly
+GNU LilyPond 2.10.0
+Processing `test.ly'
+Parsing...
+Interpreting music... [1]
+Preprocessing graphical objects...
+Calculating line breaks... [2]
+Layout output to `test.ps'...
+Converting to `test.pdf'...
+@end example
+
+@c DIV specific
+Suivant votre installation, les messages peuvent être traduits.
+@c END DIV
+
+@cindex PDF file
+@cindex Viewing music
+
+@noindent
+Le résultat est le fichier @file{test.pdf}, que vous pouvez imprimer
+ou visualiser avec les outils standards de votre système
+d'exploitation.  @footnote{Si votre système ne dispose pas des outils
+nécessaires, vous pouvez essayer
+@uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, un
+programme pour voir et imprimer les fichiers PDF et PostScript.}
+
+
+@node Second steps
+@section Second steps
+
+@emph{N'oubliez pas :} tout extrait de musique source LilyPond doit
+être entouré d'@{accolades@}.  Pour éviter toute ambiguïté, il
+est préférable d'entourer les accolades par des espaces ou retours à
+la ligne.  Bien que certains exemples de ce manuel ne comportent pas
+d'accolades, ne les oubliez pas dans vos partitions !
+
+@c will be removed once the tutorial either explains \relative or
+@c examples are fixed so they don't use it.  -gp
 De plus, de nombreux exemples utilisent le mode @code{relative}.  Ceci
 est expliqué à la section @ref{Octave entry} ; sachez dès à présent
 que certains exemples devraient être libellés sous la forme 
@@ -107,6 +221,10 @@ De nombreux exemples ont aussi été compressés horizontalement pour
 @cindex Case sensitive
 Enfin, LilyPond est sensible à la casse.  @code{ @{ c d e @} } est
 un code valide ; @code{ @{ C D E @} } produira un message d'erreur.
+
+@c  End of latest re-write.  Since I have no life, I may do more
+@c  work on this, but I'd really like to have a Doc Helper take
+@c  over this task.  -gp
 
 La durée (@rglos{duration}) d'une note est spécifiée par un nombre
 qui suit le nom de cette note : @samp{1} pour une ronde (@rglos{whole
@@ -224,98 +342,6 @@ voir @ref{Time signature}.
 @end table
 @end quotation
 
-
-@node Running LilyPond for the first time
-@section Running LilyPond for the first time
-
-@c cheesy title to avoid clash with chapter name.
-
-Dans la section précédente, nous avons vu quelles sortes d'éléments
-peut contenir un fichier LilyPond.  Dans cette section nous
-expliquerons quelles commandes exécuter et comment voir ou imprimer le
-résultat de LilyPond.  Si vous n'avez jamais utilisé
-LilyPond, voulez tester votre installation ou souhaitez compiler
-vous-même un fichier d'exemple, lisez cette section.
-
-@unnumberedsubsec MacOS X
-
-Si vous double-cliquez sur LilyPond.app, un fichier d'exemple sera
-ouvert.  Sauvegardez-le, par exemple, sous @file{test.ly} sur votre
-bureau, et traitez-le ensuite avec la commande du menu 
-@samp{Compile > Typeset File}.
-Le fichier PDF résultant est alors affiché sur votre écran.
-
-Prenez note que le premier démarrage prend une minute ou deux ,
-car toutes les polices systèmes doivent être d'abord analysées.
-
-@unnumberedsubsec Windows
-
-Sous Windows, démarrez un éditeur de texte @footnote{N'importe quel
-éditeur simple ou orienté programmation, qui prend en charge le
-codage de caractères UTF-8, fera l'affaire, par exemple
-Notepad.  N'utilisez pas de traitement de texte car ceux-ci insèrent
-des codes de formatage qui posent problème à LilyPond.} et saisissez
-
-@verbatim
-@{ c'4 e' g' @}
-@end verbatim
-
-Enregistrez le sur le bureau sous @file{test.ly} et vérifiez bien
-qu'il ne s'appelle pas @file{test.ly.TXT}.  Double-cliquez sur le
-fichier @file{test.ly} pour le traiter et afficher le fichier
-PDF résultant.
-
-
-@unnumberedsubsec Unix
-
-Commencez par ouvrir une fenêtre de terminal et un éditeur de
-texte.  Par exemple, vous pouvez ouvrir un xterm et exécuter
-@code{joe}.  @footnote{Des fichiers de macros pour les fans de VIM et un
-@code{LilyPond-mode} pour les fans d'Emacs existent.   S'ils ne sont pas
-encore installés, consultez le fichier @file{INSTALL.txt}.} Dans votre
-éditeur, entrez le texte suivant et sauvegardez le fichier sous
-@file{test.ly}
-
-@verbatim
-@{ c'4 e' g' @}
-@end verbatim
-
-@noindent
-Pour traiter @file{test.ly}, procédez comme ceci : 
-
-@example
-lilypond test.ly
-@end example
-
-@noindent
-Vous verrez quelque chose ressemblant à :
-
-@example
-lilypond test.ly
-GNU LilyPond 2.10.0
-Processing `test.ly'
-Parsing...
-Interpreting music... [1]
-Preprocessing graphical objects...
-Calculating line breaks... [2]
-Layout output to `test.ps'...
-Converting to `test.pdf'...
-@end example
-
-@c DIV specific
-Suivant votre installation, les messages peuvent être traduits.
-@c END DIV
-
-@cindex DVI file
-@cindex Viewing music
-@cindex xdvi
-@noindent
-Le résultat est le fichier @file{test.pdf} que vous pouvez imprimer ou
-visualiser avec les outils standards de votre système d'exploitation.
-@footnote{Si votre système ne dispose pas des outils nécessaires,
-vous pouvez essayer
-@uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, un
-programme pour voir et imprimer les fichiers PDF et PostScript.}
 
 @node More about pitches
 @section More about pitches 

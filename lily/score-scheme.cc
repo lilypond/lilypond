@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "score.hh"
@@ -11,7 +11,6 @@
 #include "music.hh"
 #include "output-def.hh"
 #include "global-context.hh"
-#include "lilypond-key.hh"
 #include "music-output.hh"
 #include "paper-score.hh"
 #include "paper-book.hh"
@@ -74,7 +73,7 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 }
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
-	   2, 1, 0, (SCM score, SCM layout, SCM key),
+	   2, 0, 0, (SCM score, SCM layout),
 	   "Run @var{score} through @var{layout}, an output definition, "
 	   "scaled to correct output-scale already, "
 	   "return a list of layout-lines. "
@@ -107,74 +106,9 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
      itself. */
   score_def->parent_ = od;
 
-  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm (),
-				   key);
+  SCM context = ly_run_translator (sc->get_music (), score_def->self_scm ());
   SCM output = ly_format_output (context);
 
   scm_remember_upto_here_1 (prot);
   return output;
 }
-
-LY_DEFINE (ly_score_process, "ly:render-music-as-systems",
-	   5, 0, 0, (SCM music,
-		     SCM outdef,
-		     SCM book_outputdef,
-		     SCM header,
-		     SCM outname),
-	   "Create output using a default \\book block. ")
-{
-  SCM_ASSERT_TYPE(unsmob_music(music), music,
-		  SCM_ARG1, __FUNCTION__, "music");
-  SCM_ASSERT_TYPE(unsmob_output_def (outdef), outdef,
-		  SCM_ARG2, __FUNCTION__, "output def");
-  SCM_ASSERT_TYPE(unsmob_output_def (book_outputdef), book_outputdef,
-		  SCM_ARG3, __FUNCTION__, "output def");
-  SCM_ASSERT_TYPE(scm_is_string (outname), outname,
-		  SCM_ARG5, __FUNCTION__, "string");
-  
-  
-  SCM scaled_def = outdef;
-  SCM scaled_bookdef = book_outputdef;
-
-  Output_def *bpd = unsmob_output_def (book_outputdef);
-
-  /* ugh .  */
-  assert (bpd->c_variable ("is-paper") == SCM_BOOL_T);
-
-  Real scale = scm_to_double (bpd->c_variable ("output-scale"));
-
-  Output_def *def = scale_output_def (unsmob_output_def (outdef), scale);
-  Output_def *bdef = scale_output_def (bpd, scale);
-  def->parent_ = bdef;
-
-  scaled_def = def->self_scm ();
-  scaled_bookdef = bdef->self_scm ();
-
-  def->unprotect ();
-  bdef->unprotect ();
-
-  SCM context = ly_run_translator (music, scaled_def, SCM_BOOL_F);
-  SCM output_as_scm = ly_format_output (context);
-  Music_output *output = unsmob_music_output (output_as_scm);
-
-  Paper_score *pscore = dynamic_cast<Paper_score *> (output);
-  assert (pscore);
-
-  /* ugh, this is strange, Paper_book without a Book object. */
-  Paper_book *paper_book = new Paper_book ();
-  paper_book->header_ = header;
-  paper_book->paper_ = unsmob_output_def (scaled_bookdef);
-
-  if (ly_is_module (header))
-    paper_book->add_score (header);
-
-  paper_book->add_score (pscore->self_scm ());
-  paper_book->classic_output (outname);
-  paper_book->unprotect ();
-
-  scm_remember_upto_here_1 (scaled_def);
-  scm_remember_upto_here_1 (scaled_bookdef);
-
-  return SCM_UNSPECIFIED;
-}
-

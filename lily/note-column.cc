@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "note-column.hh"
@@ -191,7 +191,6 @@ ADD_INTERFACE (Note_column,
 	       "Stem and noteheads combined",
 
 	       /* properties */
-	       "accidentals "
 	       "arpeggio "
 	       "force-hshift "
 	       "horizontal-shift "

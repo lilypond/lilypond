@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "dot-column.hh"
@@ -256,6 +256,10 @@ Dot_column::calc_positioning_done (SCM smob)
 	}
 
       int p = Staff_symbol_referencer::get_rounded_position (dp.dot_);
+
+      /* icky, since this should go via a Staff_symbol_referencer
+	 offset callback but adding a dot overwrites Y-offset. */
+      p += (int) robust_scm2double (dp.dot_->get_property ("staff-position"), 0.0);
       dp.pos_ = p;
 
       if (dp.extremal_head_)

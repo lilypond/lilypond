@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef SPACEABLE_GROB_HH
@@ -20,7 +20,6 @@ struct Spaceable_grob
   static void get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength);
 
   DECLARE_GROB_INTERFACE();
-  static void remove_interface (Grob *);
   static SCM get_minimum_distances (Grob *);
   static SCM get_ideal_distances (Grob *);
 };

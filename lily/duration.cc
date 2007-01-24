@@ -3,7 +3,7 @@
 
   source file of the LilyPond music typesetter
 
-  (c) 1997--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 1997--2007 Jan Nieuwenhuizen <janneke@gnu.org>
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
@@ -91,7 +91,7 @@ Duration::print_smob (SCM s, SCM port, scm_print_state *)
   Duration *r = (Duration *) SCM_CELL_WORD_1 (s);
 
   scm_puts ("#<Duration ", port);
-  scm_display (scm_makfrom0str (r->to_string ().c_str ()), port);
+  scm_display (ly_string2scm (r->to_string ()), port);
   scm_puts (" >", port);
 
   return 1;

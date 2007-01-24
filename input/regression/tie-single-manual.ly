@@ -18,4 +18,7 @@ specifying their @code{direction} and/or @code{staff-position}."
   c'4 ~ c'
   \override Tie #'staff-position = #-7.5
   c'4 ~ c'
+  \revert Tie #'staff-position
+  \override Tie #'direction = #UP
+  c'4 ~ c'
 }

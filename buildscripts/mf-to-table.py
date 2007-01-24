@@ -256,4 +256,5 @@ for filenm in files:
     if depfile_nm:
         write_deps (open (depfile_nm, 'wb'), deps,
               [base + '.log', base + '.dvi', base + '.pfa',
-              base + '.pfb', texfile_nm])
+               depfile_nm,
+               base + '.pfb', texfile_nm])

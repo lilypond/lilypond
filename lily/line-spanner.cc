@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2000--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+  (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
 #include "line-spanner.hh"
@@ -136,7 +136,7 @@ Line_spanner::line_stencil (Grob *me,
       Stencil mol;
 
       do
-	mol.add_at_edge (X_AXIS, RIGHT, m, 0, 0);
+	mol.add_at_edge (X_AXIS, RIGHT, m, 0);
       while (m.extent (X_AXIS).length ()
 	     && mol.extent (X_AXIS).length ()
 	     + m.extent (X_AXIS).length () < dz[X_AXIS])

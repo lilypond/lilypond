@@ -3,22 +3,21 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "hairpin.hh"
 
 #include "dimensions.hh"
-#include "font-interface.hh"
 #include "international.hh"
 #include "line-interface.hh"
-#include "lookup.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "text-interface.hh"
+#include "note-column.hh"
 #include "warn.hh"
 
 MAKE_SCHEME_CALLBACK (Hairpin, after_line_breaking, 1);
@@ -167,7 +166,12 @@ Hairpin::print (SCM smob)
 		}
 	      else
 		{
-		  x_points[d] = e[d];
+		  if (Note_column::has_interface (b)
+		      && Note_column::has_rests (b))
+		    x_points[d] = e[-d];
+		  else
+		    x_points[d] = e[d];
+		  
 		  Item *bound = me->get_bound (d);
 		  if (bound->is_non_musical (bound))
 		    x_points[d] -=  d * padding;
@@ -242,7 +246,7 @@ Hairpin::print (SCM smob)
 	don't add another circle the hairpin is broken
       */
       if (!broken[tip_dir])
-	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0, 0);
+	mol.add_at_edge (X_AXIS, tip_dir, Stencil (circle), 0);
     }
 
   mol.translate_axis (x_points[LEFT]

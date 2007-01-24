@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2005--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 */
 
@@ -23,6 +23,7 @@ ADD_INTERFACE(Semi_tie,
 	      "control-points "
 	      "direction "
 	      "details "
+	      "head-direction "
 	      "note-head "
 	      "thickness "
 	      );
@@ -43,8 +44,8 @@ Semi_tie::calc_control_points (SCM smob)
       programming_error ("lv tie without Semi_tie_column. Killing lv tie."); 
       me->suicide (); 
     }
-  
-  return SCM_UNSPECIFIED;
+
+  return me->get_property_data ("control-points");
 }
 
 int

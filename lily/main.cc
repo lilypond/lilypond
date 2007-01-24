@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "main.hh"
@@ -77,8 +77,8 @@ bool be_verbose_global = false;
 
 /* Scheme code to execute before parsing, after .scm init.
    This is where -e arguments are appended to.  */
-string init_scheme_code_string;
-string init_scheme_variables;
+string init_scheme_code_global;
+string init_scheme_variables_global;
 
 /* Generate preview of first system.  */
 bool make_preview = false;
@@ -153,7 +153,7 @@ static Long_option_init options_static[]
   {_i ("BACK"), "backend", 'b', _i ("use backend BACK (eps, gnome, ps [default],\nscm, svg, tex, texstr)")},
 
   {_i ("SYM[=VAL]"), "define-default", 'd',
-   _i ("set Scheme option SYM to VAL (default: #t)\n"
+   _i ("set Scheme option SYM to VAL (default: #t).\n"
        "Use -dhelp for help.")},
 
   {_i ("EXPR"), "evaluate", 'e', _i ("evaluate scheme code")},
@@ -178,8 +178,6 @@ static Long_option_init options_static[]
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
   {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
-  {0, "safe-mode", 's',  _i ("disallow unsafe Scheme and PostScript\n"
-			     "operations")},
   {0, "version", 'v',  _i ("show version number and exit")},
   {0, "verbose", 'V', _i ("be verbose")},
   {0, "warranty", 'w',  _i ("show warranty and copyright")},
@@ -222,7 +220,7 @@ static void
 copyright ()
 {
   printf (_f ("Copyright (c) %s by\n%s  and others.",
-	      "1996--2006",
+	      "1996--2007",
 	      AUTHORS).c_str ());
   printf ("\n");
 }
@@ -388,33 +386,16 @@ main_with_guile (void *, int, char **)
 			  || output_backend_global == "texstr");
 
   is_pango_format_global = !is_TeX_format_global;
+  init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
+  init_scheme_code_global = "(begin " + init_scheme_code_global + ")";
 
   ly_c_init_guile ();
   call_constructors ();
-  init_global_tweak_registry ();
   init_fontconfig ();
 
   init_freetype ();
   ly_reset_all_fonts ();
 
-  if (!init_scheme_variables.empty ()
-      || !init_scheme_code_string.empty ())
-    {
-      init_scheme_variables = "(map (lambda (x) (ly:set-option (car x) (cdr x))) (list "
-	+ init_scheme_variables + "))";
-
-      init_scheme_code_string
-	= "(begin #t "
-	+ init_scheme_variables
-	+ init_scheme_code_string
-	+ ")";
-
-      char const *str0 = init_scheme_code_string.c_str ();
-
-      if (be_verbose_global)
-	progress_indication (_f ("Evaluating %s", str0));
-      scm_c_eval_string ((char *) str0);
-    }
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
@@ -424,7 +405,7 @@ main_with_guile (void *, int, char **)
   SCM *tail = &files;
   while (char const *arg = option_parser->get_next_arg ())
     {
-      *tail = scm_cons (scm_makfrom0str (arg), SCM_EOL);
+      *tail = scm_cons (scm_from_locale_string (arg), SCM_EOL);
       tail = SCM_CDRLOC (*tail);
     }
   
@@ -506,10 +487,10 @@ parse_argv (int argc, char **argv)
 	    if (eq != NPOS)
 	      {
 		key = arg.substr (0, eq);
-		val = arg.substr (eq + 1, key.length () - 1);
+		val = arg.substr (eq + 1, arg.length () - 1);
 	      }
 
-	    init_scheme_variables
+	    init_scheme_variables_global
 	      += "(cons \'" + key + "  " + val + ")\n";
 	  }
 	  break;
@@ -528,8 +509,9 @@ parse_argv (int argc, char **argv)
 	case 'j':
 	  jail_spec = option_parser->optional_argument_str0_;
 	  break;
+	  
 	case 'e':
-	  init_scheme_code_string += option_parser->optional_argument_str0_;
+	  init_scheme_code_global += option_parser->optional_argument_str0_ + string (" ");
 	  break;
 	case 'w':
 	  warranty ();
@@ -564,12 +546,6 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'V':
 	  be_verbose_global = true;
-	  break;
-	case 's':
-	  be_safe_global = true;
-	  init_scheme_variables
-	    += "(cons \'safe #t)\n";
-
 	  break;
 	case 'p':
 	  make_preview = true;

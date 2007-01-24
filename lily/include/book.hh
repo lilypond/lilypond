@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef BOOK_HH
@@ -11,9 +11,9 @@
 
 #include "lily-proto.hh"
 #include "std-vector.hh"
-#include "object-key.hh"
 #include "std-string.hh"
 #include "virtual-methods.hh"
+#include "smobs.hh"
 
 class Book
 {

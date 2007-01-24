@@ -185,6 +185,9 @@ STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.8)
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
 
+# must also have local.make if configure fails.
+touch local.make
+
 # Gather requirements and generate output.
 STEPMAKE_END
 
@@ -201,5 +204,3 @@ Edit local.make for local Makefile overrides.
 
 
 EOF
-
-touch local.make

@@ -80,44 +80,44 @@ Line thickness is given by @var{th}, fret & string spacing by
         (ly:stencil-combine-at-edge
          (draw-strings (- string-count 1) fret-range th size) X RIGHT
          string-stencil
-         gap 0))))
+         gap))))
 
 (define (draw-fret-lines fret-count string-count th size)
- "Draw @var{fret-count} frets (horizontal lines) for a fret diagram
+  "Draw @var{fret-count} frets (horizontal lines) for a fret diagram
 with @var{string-count} strings.  Line thickness is given by @var{th},
 fret & string spacing by @var{size}. "
-   (let* ((fret-length (* (- string-count 1) size))
-          (sth (* size th))
-          (half-thickness (* sth 0.5))
-          (gap (- size sth))
-          (fret-line (ly:make-stencil (list 'draw-line sth half-thickness size (- fret-length half-thickness) size)
-                          (cons 0 fret-length)
-                          (cons (- size half-thickness) (+  size half-thickness)))))
-       (if (= fret-count 1)
-         fret-line
-         (ly:stencil-combine-at-edge fret-line Y UP
-          (draw-fret-lines (- fret-count 1) string-count th size)
-          gap 0))))
-          
+  (let* ((fret-length (* (- string-count 1) size))
+	 (sth (* size th))
+	 (half-thickness (* sth 0.5))
+	 (gap (- size sth))
+	 (fret-line (ly:make-stencil (list 'draw-line sth half-thickness size (- fret-length half-thickness) size)
+				     (cons 0 fret-length)
+				     (cons (- size half-thickness) (+  size half-thickness)))))
+    (if (= fret-count 1)
+	fret-line
+	(ly:stencil-combine-at-edge fret-line Y UP
+				    (draw-fret-lines (- fret-count 1) string-count th size)
+				    gap))))
+
 (define (draw-thick-top-fret props string-count th size)
- "Draw a thick top fret for a fret diagram whose base fret is not 1."
-   (let* ((sth (* th size))
-;          (top-fret-thick (* sth (chain-assoc-get 'top-fret-thickness props 3.0)))
-          (top-fret-thick (* sth 3.0))
-;          (top-half-thick (* top-fret-thick 0.5))
-          (half-thick (* sth 0.5))
-          (x1 half-thick)
-          (x2 (+ half-thick (* size (- string-count 1))))
-          (y1 (- half-thick))
-          (y2 (+ top-fret-thick half-thick))
-          (x-extent (cons (- x1) x2))
-          (y-extent (cons 0 y2)))
-          (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 sth)
-                            x-extent y-extent)))           
- 
- 
+  "Draw a thick top fret for a fret diagram whose base fret is not 1."
+  (let* ((sth (* th size))
+					;          (top-fret-thick (* sth (chain-assoc-get 'top-fret-thickness props 3.0)))
+	 (top-fret-thick (* sth 3.0))
+					;          (top-half-thick (* top-fret-thick 0.5))
+	 (half-thick (* sth 0.5))
+	 (x1 half-thick)
+	 (x2 (+ half-thick (* size (- string-count 1))))
+	 (y1 (- half-thick))
+	 (y2 (+ top-fret-thick half-thick))
+	 (x-extent (cons (- x1) x2))
+	 (y-extent (cons 0 y2)))
+    (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 sth)
+		     x-extent y-extent)))           
+
+
 (define (draw-frets layout props fret-range string-count th size)
- "Draw the frets (horizontal lines) for a fret diagram with
+  "Draw the frets (horizontal lines) for a fret diagram with
 @var{string-count} strings and frets as indicated in @var{fret-range}.
 Line thickness is given by @var{th}, fret & string spacing by
 @var{size}. "
@@ -125,13 +125,13 @@ Line thickness is given by @var{th}, fret & string spacing by
          (fret-length (* (- string-count 1) size))
          (half-thickness (* th 0.5))
          (base-fret (car fret-range)))
-       (ly:stencil-combine-at-edge
-          (draw-fret-lines fret-count string-count th size) Y UP
-             (if (= base-fret 1)
-                 (draw-thick-top-fret props string-count th size)
-                 (draw-fret-lines 1 string-count th size)) 
-                 (- size th) 0))) 
-                 
+    (ly:stencil-combine-at-edge
+     (draw-fret-lines fret-count string-count th size) Y UP
+     (if (= base-fret 1)
+	 (draw-thick-top-fret props string-count th size)
+	 (draw-fret-lines 1 string-count th size)) 
+     (- size th)))) 
+
 
 (define (draw-dots layout props string-count fret-range size finger-code 
                     dot-position dot-radius dot-thickness dot-list)
@@ -295,7 +295,7 @@ Line thickness is given by @var{th}, fret & string spacing by
            (sans-serif-stencil layout props (* size label-font-mag) label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))
  
-(define-markup-command (fret-diagram-verbose layout props marking-list)
+(define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?)
   "Make a fret diagram containing the symbols indicated in @var{marking-list}
   
@@ -383,15 +383,15 @@ indications per string.
          (if (not (null? xo-list))
              (set! fret-diagram-stencil (ly:stencil-combine-at-edge
                                     fret-diagram-stencil Y UP
-                                    (draw-xo layout props string-count fret-range size xo-list) xo-padding 0)))
+                                    (draw-xo layout props string-count fret-range size xo-list) xo-padding)))
          (if (> (car fret-range) 1) 
              (set! fret-diagram-stencil
                    (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
-                                              (label-fret layout props string-count fret-range size) label-space 0)))
+                                              (label-fret layout props string-count fret-range size) label-space)))
          (ly:stencil-aligned-to fret-diagram-stencil X alignment)
 	 ))
          
-(define-markup-command (fret-diagram layout props definition-string)
+(define-builtin-markup-command (fret-diagram layout props definition-string)
   (string?)
   "  
 Example
@@ -522,7 +522,7 @@ Note:  There is no limit to the number of fret indications per string.
                 (cons* numeric-value (numerify (cdr mylist)))
                 (cons* (car (string->list (car mylist))) (numerify (cdr mylist)))))))
            
-(define-markup-command (fret-diagram-terse layout props definition-string)
+(define-builtin-markup-command (fret-diagram-terse layout props definition-string)
   (string?)
   "Make a fret diagram markup using terse string-based syntax.
 

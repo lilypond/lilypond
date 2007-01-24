@@ -604,24 +604,25 @@ def conv (str):
     return str
 
 conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
+def regularize_id (str):
+    s = ''
+    lastx = ''
+    for x in str:
+        if x == '_':
+            lastx = x
+            continue
+        elif x in string.digits:
+            x = chr(ord (x) - ord ('0')  +ord ('A'))
+        elif x not in string.letters:
+            x = 'x'
+        elif x in string.lowercase and lastx == '_':
+            x = string.upper (x)
+        s = s + x
+        lastx = x
+    return s
 
 def conv (str):
-    def regularize_id (str):
-	s = ''
-	lastx = ''
-	for x in str:
-	    if x == '_':
-		lastx = x
-		continue
-	    elif x in string.digits:
-		x = chr(ord (x) - ord ('0')  +ord ('A'))
-	    elif x not in string.letters:
-		x = 'x'
-	    elif x in string.lowercase and lastx == '_':
-		x = string.upper (x)
-	    s = s + x
-	    lastx = x
-	return s
+
 
     def regularize_dollar_reference (match):
 	return regularize_id (match.group (1))
@@ -2885,3 +2886,69 @@ def conv (str):
 
 conversions.append (((2, 11, 2), conv, """ly:clone-parser -> ly:parser-clone"""))
 
+
+
+def conv (str):
+    str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'smaller",
+                   "AccidentalCautionary #'font-size = #-2", str)
+    str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'parentheses",
+                   "AccidentalCautionary #'parenthesized = ##t", str)
+    str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'parentheses",
+                   r"\1 #'parenthesized = ##t", str)
+    str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
+                   r"\1 #'font-size = #-2", str)
+    
+    return str
+
+conversions.append (((2, 11, 5), conv, """deprecate cautionary-style. Use AccidentalCautionary properties"""))
+
+                    
+
+
+def conv (str):
+    
+    def sub_acc_name (m):
+        idx = int (m.group (1).replace ('M','-'))
+        
+        return ["accidentals.doublesharp",
+                "accidentals.sharp.slashslash.stemstemstem",
+                "accidentals.sharp",
+                "accidentals.sharp.slashslash.stem",
+                "accidentals.natural",
+                "accidentals.mirroredflat",
+                "accidentals.flat",
+                "accidentals.mirroredflat.flat",
+                "accidentals.flatflat"][4-idx]
+
+    str = re.sub (r"accidentals[.](M?[-0-9]+)",
+                  sub_acc_name, str) 
+    str = re.sub (r"(KeySignature|Accidental[A-Za-z]*)\s*#'style\s*=\s*#'([a-z]+)",
+                  r"\1 #'glyph-name-alist = #alteration-\2-glyph-name-alist", str)
+            
+    return str
+
+conversions.append (((2, 11, 6), conv, """Rename accidental glyphs, use glyph-name-alist."""))
+
+
+def conv (str):
+    str = re.sub (r'(\\set\s+)?([A-Z][a-zA-Z]+\s*\.\s*)allowBeamBreak',
+                  r"\override \2Beam #'breakable", str)
+    str = re.sub (r'(\\set\s+)?allowBeamBreak',
+                  r"\override Beam #'breakable", str)
+    str = re.sub (r'addquote' , 'addQuote', str)
+    if re.search ("Span_dynamic_performer", str):
+        error_file.write ("Span_dynamic_performer has been merged into Dynamic_performer")
+
+    return str
+
+conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
+addquote -> addQuote
+
+"""))
+
+def conv (str):
+    str = re.sub (r'\(layout-set-staff-size \(\*\s*([0-9.]+)\s*(pt|mm|cm)\)\)',
+                  r'(layout-set-absolute-staff-size (* \1 \2))', str)
+    return str
+
+conversions.append (((2, 11, 11), conv, """layout-set-staff-size -> layout-set-absolute-staff-size"""))

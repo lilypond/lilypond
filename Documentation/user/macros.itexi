@@ -70,6 +70,20 @@
 @ref{\NAME\,,,music-glossary}
 @end macro
 
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@html
+&ldquo;\TEXT\&rdquo;
+@end html
+@end macro
+
 @end ifhtml
 
 
@@ -88,6 +102,20 @@
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@xml
+&lsquo;\TEXT\&rsquo;
+@end xml
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@xml
+&ldquo;\TEXT\&rdquo;
+@end xml
 @end macro
 
 @end ifdocbook
@@ -112,6 +140,16 @@
 
 @macro usermanref{NAME}
 @inforef{\NAME\}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+``\TEXT\''
 @end macro
 
 @end ifinfo
@@ -142,7 +180,18 @@ internals document, @internalsref{\NAME\}
 user manual, @internalsref{\NAME\}
 @end macro
 
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+``\TEXT\''
+@end macro
+
 @end iftex
+
 
 @ifnottex
 @c **** not TEX ****
@@ -165,6 +214,11 @@ user manual, @internalsref{\NAME\}
 @macro refbugs
 @noindent
 @subsubheading Bugs
+
+@end macro
+
+@macro moreinfo
+@subheading More information
 
 @end macro
 
@@ -201,4 +255,4 @@ user manual, @internalsref{\NAME\}
 @kindex \WORD\
 @end macro
 
-
+@c EOF

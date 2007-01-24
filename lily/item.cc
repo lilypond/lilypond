@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #include "item.hh"
@@ -17,13 +17,13 @@
 #include "pointer-group-interface.hh"
 
 Grob *
-Item::clone (int count) const
+Item::clone () const
 {
-  return new Item (*this, count);
+  return new Item (*this);
 }
 
-Item::Item (SCM s, Object_key const *key)
-  : Grob (s, key)
+Item::Item (SCM s)
+  : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
 }
@@ -31,8 +31,8 @@ Item::Item (SCM s, Object_key const *key)
 /**
    Item copy ctor.  Copy nothing: everything should be a elt property
    or a special purpose pointer (such as broken_to_drul_[]) */
-Item::Item (Item const &s, int copy_count)
-  : Grob (s, copy_count)
+Item::Item (Item const &s)
+  : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
 }
@@ -66,10 +66,9 @@ Item::copy_breakable_items ()
 {
   Drul_array<Item *> new_copies;
   Direction i = LEFT;
-  int count = 0;
   do
     {
-      Grob *dolly = clone (count++);
+      Grob *dolly = clone ();
       Item *item = dynamic_cast<Item *> (dolly);
       get_root_system (this)->typeset_grob (item);
       new_copies[i] = item;

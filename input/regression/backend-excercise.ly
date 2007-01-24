@@ -23,7 +23,8 @@
       \makeClusters { <g a>8 <e a> <g a>4 }
       
       \override Glissando #'style = #'zigzag
-      f2 \glissando f'
+      \slurDashed
+      f2( \glissando f')
       \setEasyHeads
       f e 
     }

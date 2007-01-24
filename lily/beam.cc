@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
   Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
@@ -41,6 +41,7 @@
 #include "staff-symbol-referencer.hh"
 #include "stem.hh"
 #include "warn.hh"
+#include "grob-array.hh"
 
 #if DEBUG_BEAM_SCORING
 #include "text-interface.hh" // debug output.
@@ -119,6 +120,21 @@ Beam::get_beam_count (Grob *me)
   return m;
 }
 
+MAKE_SCHEME_CALLBACK (Beam, calc_normal_stems, 1);
+SCM
+Beam::calc_normal_stems (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  
+  extract_grob_set (me, "stems", stems);
+  SCM val = Grob_array::make_array ();
+  Grob_array *ga = unsmob_grob_array (val);
+  for (vsize i = 0; i < stems.size ();  i++)
+    if (Stem::is_normal_stem (stems[i]))
+      ga->add (stems[i]);
+  
+  return val;  
+}
 
 MAKE_SCHEME_CALLBACK (Beam, calc_direction, 1);
 SCM
@@ -135,7 +151,7 @@ Beam::calc_direction (SCM smob)
 
   Direction dir = CENTER;
 
-  int count = visible_stem_count (me);
+  int count = normal_stem_count (me);
   if (count < 2)
     {
       extract_grob_set (me, "stems", stems);
@@ -148,7 +164,7 @@ Beam::calc_direction (SCM smob)
 	}
       else 
 	{
-	  Grob *stem = first_visible_stem (me);
+	  Grob *stem = first_normal_stem (me);
 
 	  /*
 	    ugh: stems[0] case happens for chord tremolo.
@@ -265,6 +281,9 @@ Beam::calc_beaming (SCM smob)
 	}
       else
 	{
+	  /*
+	    FIXME: what's this for? 
+	   */
 	  SCM s = scm_cdr (this_beaming);
 	  for (; scm_is_pair (s); s = scm_cdr (s))
 	    {
@@ -298,7 +317,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 {
   /* ugh, this has a side-effect that we need to ensure that
      Stem #'beaming is correct */
-  (void) me_grob->get_property ("quantized-positions");
+  (void) me_grob->get_property ("beaming");
 
   Spanner *me = dynamic_cast<Spanner*> (me_grob);
 
@@ -390,7 +409,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 
 	      bool inside_stem = (event_dir == LEFT)
 			? segs[j].stem_index_ > 0
-			: segs[j].stem_index_ < stems.size () - 1;
+			: segs[j].stem_index_ + 1  < stems.size () ;
 		      
 	      bool event = on_bound
 		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
@@ -460,10 +479,10 @@ Beam::print (SCM grob)
   vector<Beam_segment> segments = get_beam_segments (me, &commonx);
 
   Interval span;
-  if (visible_stem_count (me))
+  if (normal_stem_count (me))
     {
-      span[LEFT] = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
-      span[RIGHT] = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
+      span[LEFT] = first_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
+      span[RIGHT] = last_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
     }
   else
     {
@@ -535,7 +554,7 @@ Beam::print (SCM grob)
 				    (me->layout ()->self_scm (), properties, quant_score));
 
       if (!score.is_empty ())
-	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0, 0);
+	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0);
     }
 #endif
 
@@ -654,7 +673,7 @@ Beam::consider_auto_knees (Grob *me)
 
   gaps.set_full ();
 
-  extract_grob_set (me, "stems", stems);
+  extract_grob_set (me, "normal-stems", stems);
 
   Grob *common = common_refpoint_of_array (stems, me, Y_AXIS);
   Real staff_space = Staff_symbol_referencer::staff_space (me);
@@ -663,8 +682,6 @@ Beam::consider_auto_knees (Grob *me)
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
-      if (Stem::is_invisible (stem))
-	continue;
 
       Interval head_extents = Stem::head_positions (stem);
       if (!head_extents.is_empty ())
@@ -724,9 +741,6 @@ Beam::consider_auto_knees (Grob *me)
       for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *stem = stems[i];
-	  if (Stem::is_invisible (stem))
-	    continue;
-
 	  Interval head_extents = head_extents_array[j++];
 
 	  Direction d = (head_extents.center () < max_gap.center ())
@@ -789,7 +803,7 @@ Beam::calc_stem_shorten (SCM smob)
     return scm_from_int (0);
 
   Real forced_fraction = 1.0 * forced_stem_count (me)
-    / visible_stem_count (me);
+    / normal_stem_count (me);
 
   int beam_count = get_beam_count (me);
 
@@ -825,27 +839,27 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   
   Grob *me = unsmob_grob (smob);
 
-  int count = visible_stem_count (me);
+  int count = normal_stem_count (me);
   Interval pos (0,0);
   if (count < 1)
     return ly_interval2scm (pos);
 
   vector<Real> x_posns;
-  extract_grob_set (me, "stems", stems);
+  extract_grob_set (me, "normal-stems", stems);
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
 
   Real my_y = me->relative_coordinate (commony, Y_AXIS);
 
-  Grob *fvs = first_visible_stem (me);
-  Grob *lvs = last_visible_stem (me);
+  Grob *fvs = first_normal_stem (me);
+  Grob *lvs = last_normal_stem (me);
 
   Interval ideal (Stem::get_stem_info (fvs).ideal_y_
 		  + fvs->relative_coordinate (commony, Y_AXIS) - my_y,
 		  Stem::get_stem_info (lvs).ideal_y_
 		  + lvs->relative_coordinate (commony, Y_AXIS) - my_y);
 
-  Real x0 = first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
+  Real x0 = first_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
@@ -853,7 +867,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
       Real x = s->relative_coordinate (commonx, X_AXIS) - x0;
       x_posns.push_back (x);
     }
-  Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
+  Real dx = last_normal_stem (me)->relative_coordinate (commonx, X_AXIS) - x0;
 
   Real y = 0;
   Real slope = 0;
@@ -861,8 +875,8 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   Real ldy = 0.0;
   if (!ideal.delta ())
     {
-      Interval chord (Stem::chord_start_y (first_visible_stem (me)),
-		      Stem::chord_start_y (last_visible_stem (me)));
+      Interval chord (Stem::chord_start_y (stems[0]),
+		      Stem::chord_start_y (stems.back ()));
 
       /* Simple beams (2 stems) on middle line should be allowed to be
 	 slightly sloped.
@@ -894,8 +908,6 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
       for (vsize i = 0; i < stems.size (); i++)
 	{
 	  Grob *s = stems[i];
-	  if (Stem::is_invisible (s))
-	    continue;
 	  ideals.push_back (Offset (x_posns[i],
 			       Stem::get_stem_info (s).ideal_y_
 			       + s->relative_coordinate (commony, Y_AXIS)
@@ -941,7 +953,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   Grob *commonx = common_refpoint_of_array (stems, me, X_AXIS);
   Grob *commony = common_refpoint_of_array (stems, me, Y_AXIS);
 
-  Grob *fvs = first_visible_stem (me);
+  Grob *fvs = first_normal_stem (me);
 
   if (!fvs)
     return posns;
@@ -955,7 +967,7 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
       x_posns.push_back (x);
     }
 
-  Grob *lvs = last_visible_stem (me);
+  Grob *lvs = last_normal_stem (me);
   if (!lvs)
     return posns;
 
@@ -1032,7 +1044,7 @@ Beam::slope_damping (SCM smob, SCM posns)
   Grob *me = unsmob_grob (smob);
   Drul_array<Real> pos = ly_scm2interval (posns);
 
-  if (visible_stem_count (me) <= 1)
+  if (normal_stem_count (me) <= 1)
     return posns;
 
   
@@ -1052,13 +1064,13 @@ Beam::slope_damping (SCM smob, SCM posns)
 
       Real dy = pos[RIGHT] - pos[LEFT];
 
-      Grob *fvs = first_visible_stem (me);
-      Grob *lvs = last_visible_stem (me);
+      Grob *fvs = first_normal_stem (me);
+      Grob *lvs = last_normal_stem (me);
 
       Grob *commonx = fvs->common_refpoint (lvs, X_AXIS);
 
-      Real dx = last_visible_stem (me)->relative_coordinate (commonx, X_AXIS)
-	- first_visible_stem (me)->relative_coordinate (commonx, X_AXIS);
+      Real dx = last_normal_stem (me)->relative_coordinate (commonx, X_AXIS)
+	- first_normal_stem (me)->relative_coordinate (commonx, X_AXIS);
 
       Real slope = dy && dx ? dy / dx : 0;
 
@@ -1172,8 +1184,8 @@ Beam::set_stem_lengths (SCM smob)
       thick = get_thickness (me);
     }
 
-  Grob *fvs = first_visible_stem (me);
-  Grob *lvs = last_visible_stem (me);
+  Grob *fvs = first_normal_stem (me);
+  Grob *lvs = last_normal_stem (me);
 
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   Real xr = lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
@@ -1225,7 +1237,7 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 	    {
 	      int count = beaming->beamlet_count (i, d);
 	      if (i > 0
-		  && i < stems.size () -1
+		  && i + 1 < stems.size ()
 		  && Stem::is_invisible (stem))
 		count = min (count, beaming->beamlet_count (i,-d));
 
@@ -1245,15 +1257,12 @@ Beam::set_beaming (Grob *me, Beaming_pattern const *beaming)
 int
 Beam::forced_stem_count (Grob *me)
 {
-  extract_grob_set (me, "stems", stems);
+  extract_grob_set (me, "normal-stems", stems);
 
   int f = 0;
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
-
-      if (Stem::is_invisible (s))
-	continue;
 
       /* I can imagine counting those boundaries as a half forced stem,
 	 but let's count them full for now. */
@@ -1268,42 +1277,24 @@ Beam::forced_stem_count (Grob *me)
 }
 
 int
-Beam::visible_stem_count (Grob *me)
+Beam::normal_stem_count (Grob *me)
 {
-  extract_grob_set (me, "stems", stems);
-  int c = 0;
-  for (vsize i = stems.size (); i--;)
-    {
-      if (!Stem::is_invisible (stems[i]))
-	c++;
-    }
-  return c;
+  extract_grob_set (me, "normal-stems", stems);
+  return stems.size ();
 }
 
 Grob *
-Beam::first_visible_stem (Grob *me)
+Beam::first_normal_stem (Grob *me)
 {
-  extract_grob_set (me, "stems", stems);
-
-  for (vsize i = 0; i < stems.size (); i++)
-    {
-      if (!Stem::is_invisible (stems[i]))
-	return stems[i];
-    }
-  return 0;
+  extract_grob_set (me, "normal-stems", stems);
+  return stems.size () ? stems[0] : 0;
 }
 
 Grob *
-Beam::last_visible_stem (Grob *me)
+Beam::last_normal_stem (Grob *me)
 {
-  extract_grob_set (me, "stems", stems);
-
-  for (vsize i = stems.size (); i--;)
-    {
-      if (!Stem::is_invisible (stems[i]))
-	return stems[i];
-    }
-  return 0;
+  extract_grob_set (me, "normal-stems", stems);
+  return stems.size () ? stems.back () : 0;
 }
 
 /*
@@ -1333,15 +1324,11 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Grob *beam = unsmob_grob (stem->get_object ("beam"));
   if (!beam
       || !Beam::has_interface (beam)
-      || !Beam::visible_stem_count (beam))
+      || !Beam::normal_stem_count (beam))
     return scm_from_double (0.0);
 
-  Drul_array<Real> pos (0, 0);
-  SCM s = beam->get_property ("positions");
-  if (scm_is_pair (s) && scm_is_number (scm_car (s)))
-    pos = ly_scm2interval (s);
-  else
-    programming_error ("positions property should always be pair of numbers.");
+  Drul_array<Real> pos (robust_scm2drul (beam->get_property ("positions"),
+					 Drul_array<Real> (0,0)));
 
   Real staff_space = Staff_symbol_referencer::staff_space (rest);
 
@@ -1349,8 +1336,8 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
 
   Real dy = pos[RIGHT] - pos[LEFT];
 
-  Drul_array<Grob*> visible_stems (first_visible_stem (beam),
-				   last_visible_stem (beam));
+  Drul_array<Grob*> visible_stems (first_normal_stem (beam),
+				   last_normal_stem (beam));
   extract_grob_set (beam, "stems", stems);
   
   Grob *common = common_refpoint_of_array (stems, beam, X_AXIS);
@@ -1377,6 +1364,11 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
   Real beam_y = stem_y - d * height_of_my_beams;
 
   Grob *common_y = rest->common_refpoint (beam, Y_AXIS);
+
+  /*
+    TODO: this is dubious, because this call needs the info we're
+    computing right now.
+   */
   Interval rest_extent = rest->extent (common_y, Y_AXIS);
   rest_extent.translate (offset);
   
@@ -1385,7 +1377,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
     = staff_space * (robust_scm2double (stem->get_property ("stemlet-length"), 0.0)
 		     + robust_scm2double (rest->get_property ("minimum-distance"), 0.0));
 
-  Real shift = d * min (((beam_y - d * minimum_distance) - rest_dim) * d, 0.0);
+  Real shift = d * min (d * (beam_y - d * minimum_distance - rest_dim), 0.0);
 
   shift /= staff_space;
   Real rad = Staff_symbol_referencer::line_count (rest) * staff_space / 2;
@@ -1400,7 +1392,7 @@ Beam::rest_collision_callback (SCM smob, SCM prev_offset)
       < rad)
     shift = ceil (fabs (shift)) * sign (shift);
 
-  return scm_from_double (staff_space * shift);
+  return scm_from_double (offset + staff_space * shift);
 }
 
 bool
@@ -1475,6 +1467,7 @@ ADD_INTERFACE (Beam,
 	       "length-fraction "
 	       "least-squares-dy "
 	       "neutral-direction "
+	       "normal-stems "
 	       "positions "
 	       "quant-score "
 	       "quantized-positions "
