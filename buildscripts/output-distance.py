@@ -508,9 +508,10 @@ class ProfileFileLink (FileCompareLink):
                     note_info, self.contents[oldnew])
 
         dist = 0.0
-        factor = {'time': 1.0 ,
-                  'cells': 5.0,
-                  }
+        factor = {
+            'time': 1.0 ,
+            'cells': 5.0,
+            }
         
         for k in ('time', 'cells'):
             real_val = math.tan (self.get_ratio (k) * 0.5 * math.pi)
