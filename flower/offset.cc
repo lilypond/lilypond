@@ -74,6 +74,11 @@ Offset::arg () const
   return atan2 (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
 }
 
+Real
+Offset::angle_degrees () const
+{
+  return arg () * 180 / M_PI;
+}
 /**
    euclidian vector length / complex modulus
 */

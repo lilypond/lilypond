@@ -99,6 +99,7 @@ public:
   Offset direction () const;
   
   Real arg () const;
+  Real angle_degrees () const;
   Real length () const;
   bool is_sane () const;
   Offset operator *= (Offset z2);

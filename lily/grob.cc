@@ -128,7 +128,7 @@ Grob::get_print_stencil () const
 	  Real x = scm_to_double (scm_cadr (rot));
 	  Real y = scm_to_double (scm_caddr (rot));
 
-	  retval.rotate (angle, Offset (x, y));
+	  retval.rotate_degrees (angle, Offset (x, y));
 	}
 
       /* color support... see interpret_stencil_expression () for more... */
