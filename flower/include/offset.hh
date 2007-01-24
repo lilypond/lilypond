@@ -11,10 +11,6 @@
 #include "std-string.hh"
 #include "real.hh"
 
-class Offset;
-Offset complex_multiply (Offset, Offset);
-Offset complex_divide (Offset, Offset);
-Offset complex_exp (Offset);
 
 /*
   This is a mixture a 2D vector. Sometimes it can
@@ -100,21 +96,31 @@ public:
     coordinate_a_[a] = -coordinate_a_[a];
     return *this;
   }
-
+  Offset direction () const;
+  
   Real arg () const;
   Real length () const;
   bool is_sane () const;
-  Offset operator *= (Offset z2)
-  {
-    *this = complex_multiply (*this, z2);
-    return *this;
-  }
+  Offset operator *= (Offset z2);
 };
 
 #include "arithmetic-operator.hh"
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, +);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, -);
 IMPLEMENT_ARITHMETIC_OPERATOR (Offset, *);
+
+
+
+Offset complex_multiply (Offset, Offset);
+Offset complex_divide (Offset, Offset);
+Offset complex_exp (Offset);
+
+inline Offset
+Offset::operator *= (Offset z2)
+{
+  *this = complex_multiply (*this, z2);
+  return *this;
+}
 
 inline Offset
 operator * (Real o1, Offset o2)

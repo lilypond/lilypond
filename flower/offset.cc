@@ -8,7 +8,6 @@
 
 #include "offset.hh"
 
-
 #ifndef STANDALONE
 string
 Offset::to_string () const
@@ -92,4 +91,12 @@ Offset::is_sane () const
     && !isnan (coordinate_a_ [Y_AXIS])
     && !isinf (coordinate_a_[X_AXIS]) 
     && !isnan (coordinate_a_[Y_AXIS]);
+}
+
+Offset
+Offset::direction () const
+{
+  Offset d = *this;
+  d /= length (); 
+  return d;
 }
