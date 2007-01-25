@@ -168,6 +168,9 @@
       ;; statement.  -- jr
       ((xcircle) "2xcircle")
       ((harmonic) "0harmonic")
+      ((harmonic-black) "2harmonic")
+      ((harmonic-mixed) (if (<= log 1) "0harmonic"
+                                       "2harmonic"))
       ((baroque) 
        ;; Oops, I actually would not call this "baroque", but, for
        ;; backwards compatibility to 1.4, this is supposed to take
