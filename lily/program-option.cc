@@ -179,12 +179,6 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
   SCM_ASSERT_TYPE (scm_is_symbol (var), var, SCM_ARG1,
 		   __FUNCTION__, "symbol");
 
-  if (ly_symbol2scm ("help") == var)
-    {
-      ly_option_usage ();
-      exit (0);
-    }
-
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
 

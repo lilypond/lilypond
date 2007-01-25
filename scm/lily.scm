@@ -45,7 +45,7 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
     (gs-load-fonts #f
 		   "load fonts via Ghostscript.")
     (gui #f "running from gui; redirect stderr to log file")
-
+    (help #f "show this help.") 
     (include-book-title-preview #t "include book-titles in preview images.")
     (include-eps-fonts #t "Include fonts in separate-system EPS files.")
     (job-count #f "Process in parallel") 
@@ -638,6 +638,10 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
+  (if (ly:get-option 'help)
+      (begin
+	(ly:option-usage)
+	(exit 0)))
   (if (ly:get-option 'show-available-fonts)
       (begin
 	(ly:font-config-display-fonts)
