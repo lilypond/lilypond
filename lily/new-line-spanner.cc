@@ -302,7 +302,6 @@ New_line_spanner::print (SCM smob)
       if (stencils[d])
 	span_points[d] += dz_dir *
 	  (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
-
       
       span_points[d] += -d * gaps[d] *  dz.direction ();
     }

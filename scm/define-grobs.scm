@@ -1677,7 +1677,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
 				text-spanner-interface
-				line-spanner-interface
 				text-interface
 				self-alignment-interface
 				piano-pedal-script-interface
@@ -1812,7 +1811,6 @@
 
     (TextSpanner
      . (
-	(stencil . ,ly:text-spanner::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(font-shape . italic)
 	(style . dashed-line)
@@ -1822,6 +1820,19 @@
 	(side-axis . ,Y)
 	(direction . ,UP)
 	(outside-staff-priority . 350)
+
+	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(bound-details . ((left . ((Y . 0)
+				   (padding . 0.25)
+				   (attach-dir . ,LEFT)
+				   ))
+			  (right . ((Y . 0)
+				   (padding . 0.25)
+				   ))
+			  ))
+	(stencil . ,ly:new-line-spanner::print)
+
 	(meta . ((class . Spanner)
 		 (interfaces . (text-spanner-interface
 				line-spanner-interface

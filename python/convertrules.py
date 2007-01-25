@@ -2952,3 +2952,20 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 11), conv, """layout-set-staff-size -> layout-set-absolute-staff-size"""))
+
+
+def conv (str):
+    str = re.sub (r"\\override\s*([a-zA-Z.]+)\s*#'arrow\s*=\s*##t",
+                  r"\\override \1 #'bound-details #'right #'arrow = ##t",
+                  str)
+
+    if re.search ('edge-text', str):
+	error_file.write (NOT_SMART % "edge-text settings for TextSpanner.")
+	error_file.write ("Use\n\n"
+                          "\t\\override TextSpanner #'bound-details #'right #'text = <right-text>\n"
+                          "\t\\override TextSpanner #'bound-details #'left #'text = <left-text>\n")
+
+        
+    return str
+
+conversions.append (((2, 11, 13), conv, """#'arrow = ##t -> #'bound-details #'right #'arrow = ##t"""))
