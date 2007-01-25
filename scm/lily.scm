@@ -18,79 +18,77 @@
 (debug-enable 'debug)
 
 
-(define (define-scheme-options)
-  (for-each (lambda (x)
-	      (ly:add-option (car x) (cadr x) (caddr x)))
-	  
-	    `(
 
-	      ;; NAMING: either
+(define scheme-options-definitions
+  `(
 
-	      ;; - [subject-]object-object-verb +"ing"
-	      ;; - [subject-]-verb-object-object
+    ;; NAMING: either
 
-	      (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
-	      (check-internal-types #f "check every property assignment for types")
-	      (clip-systems #f "Generate cut-out snippets of a score")
-	      (debug-gc #f "dump memory debugging statistics")
-	      (debug-gc-assert-parsed-dead #f "for memory debugging:
+    ;; - [subject-]object-object-verb +"ing"
+    ;; - [subject-]-verb-object-object
+
+    (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
+    (check-internal-types #f "check every property assignment for types")
+    (clip-systems #f "Generate cut-out snippets of a score")
+    (debug-gc #f "dump memory debugging statistics")
+    (debug-gc-assert-parsed-dead #f "for memory debugging:
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
-	      (debug-lexer #f "debug the flex lexer")
-	      (debug-parser #f "debug the bison parser")
-	      (debug-skylines #f "debug skylines")
-	      (delete-intermediate-files #f
-					 "delete unusable PostScript files")
-	      (dump-profile #f "dump timing information for each file")
-	      (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
-	      
-	      (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
-	      (gs-load-fonts #f
-			    "load fonts via Ghostscript.")
-	      (gui #f "running from gui; redirect stderr to log file")
+    (debug-lexer #f "debug the flex lexer")
+    (debug-parser #f "debug the bison parser")
+    (debug-skylines #f "debug skylines")
+    (delete-intermediate-files #f
+			       "delete unusable PostScript files")
+    (dump-profile #f "dump timing information for each file")
+    (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
+    
+    (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
+    (gs-load-fonts #f
+		   "load fonts via Ghostscript.")
+    (gui #f "running from gui; redirect stderr to log file")
 
-	      (include-book-title-preview #t "include book-titles in preview images.")
-	      (include-eps-fonts #t "Include fonts in separate-system EPS files.")
-	      (job-count #f "Process in parallel") 
-	      (log-file #f "redirect output to log FILE.log")
+    (include-book-title-preview #t "include book-titles in preview images.")
+    (include-eps-fonts #t "Include fonts in separate-system EPS files.")
+    (job-count #f "Process in parallel") 
+    (log-file #f "redirect output to log FILE.log")
 
-	      (old-relative #f
-			    "relative for simultaneous music works
+    (old-relative #f
+		  "relative for simultaneous music works
 similar to chord syntax")
-	      (point-and-click #t "use point & click")
-	      (paper-size "a4" "the default paper size")
-	      (pixmap-format "png16m" "GS format to use for pixel images")
-	      (protected-scheme-parsing #t "continue when finding errors in inline
+    (point-and-click #t "use point & click")
+    (paper-size "a4" "the default paper size")
+    (pixmap-format "png16m" "GS format to use for pixel images")
+    (protected-scheme-parsing #t "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")
-	      (profile-property-accesses #f "keep statistics of get_property() calls.")
-	      
-	      (resolution 101 "resolution for generating PNG bitmaps")
-	      (read-file-list #f "Read files to be processed from command line arguments")
+    (profile-property-accesses #f "keep statistics of get_property() calls.")
+    
+    (resolution 101 "resolution for generating PNG bitmaps")
+    (read-file-list #f "Read files to be processed from command line arguments")
 
-	      (safe #f "Run safely")
-	      (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
-	      (separate-log-files #f "Output to FILE.log per file.")
-	      (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
-	      (trace-scheme-coverage #f "Record coverage of Scheme files") 
-	      (ttf-verbosity 0
-			     "how much verbosity for TTF font embedding?")
-	      (show-available-fonts #f
-				    "List font names available.")
-	      (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
-	      ))
-
-  (map
-   (lambda (x)
-     (ly:set-option (car x) (cdr x))) 
-   (eval-string (ly:command-line-options))))
-
+    (safe #f "Run safely")
+    (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
+    (separate-log-files #f "Output to FILE.log per file.")
+    (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
+    (trace-scheme-coverage #f "Record coverage of Scheme files") 
+    (ttf-verbosity 0
+		   "how much verbosity for TTF font embedding?")
+    (show-available-fonts #f
+			  "List font names available.")
+    (verbose ,(ly:command-line-verbose?) "value for the --verbose flag")
+    ))
 
 ;; need to do this in the beginning. Other parts of the
 ;; Scheme init depend on these options.
 ;;
-(define-scheme-options)
+(for-each
+ (lambda (x)
+   (ly:add-option (car x) (cadr x) (caddr x)))
+ scheme-options-definitions)
 
-
+(for-each
+ (lambda (x)
+   (ly:set-option (car x) (cdr x)))
+ (eval-string (ly:command-line-options)))
 
 (debug-set! stack 0)
 
@@ -335,8 +333,6 @@ The syntax is the same as `define*-public'."
 
 	    ;; must be after everything has been defined
 	    "safe-lily.scm"))
-
-
 
 
 (for-each ly:load init-scheme-files)
@@ -642,8 +638,6 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-  
-
   (if (ly:get-option 'show-available-fonts)
       (begin
 	(ly:font-config-display-fonts)
