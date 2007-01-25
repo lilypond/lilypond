@@ -53,7 +53,13 @@ Midi_walker::Midi_walker (Audio_staff *audio_staff, Midi_track *track,
 
 Midi_walker::~Midi_walker ()
 {
-  do_stop_notes (last_tick_ + 384);
+  junk_pointers (midi_events_);
+}
+
+void
+Midi_walker::finalize ()
+{
+  do_stop_notes (INT_MAX);
 }
 
 /**
@@ -85,7 +91,6 @@ Midi_walker::do_start_note (Midi_note *note)
 	    {
 	      /* skip this stopnote,
 		 don't play the start note */
-	      delete note;
 	      note = 0;
 	      break;
 	    }
@@ -96,6 +101,8 @@ Midi_walker::do_start_note (Midi_note *note)
     {
       Midi_note_event e;
       e.val = new Midi_note_off (note);
+
+      midi_events_.push_back (e.val);
       e.key = int (stop_ticks);
       stop_note_queue.insert (e);
 
@@ -115,7 +122,6 @@ Midi_walker::do_stop_notes (int max_ticks)
       Midi_note_event e = stop_note_queue.get ();
       if (e.ignore_b_)
 	{
-	  delete e.val;
 	  continue;
 	}
 
@@ -154,7 +160,7 @@ Midi_walker::process ()
   Audio_item *audio = items_[index_];
   do_stop_notes (audio->audio_column_->ticks ());
 
-  if (Midi_item *midi = Midi_item::get_midi (audio))
+  if (Midi_item *midi = get_midi (audio))
     {
       if (Midi_channel_item *mci = dynamic_cast<Midi_channel_item*> (midi))
 	mci->channel_ = channel_;
@@ -168,6 +174,14 @@ Midi_walker::process ()
       else
 	output_event (audio->audio_column_->ticks (), midi);
     }
+}
+
+Midi_item*
+Midi_walker::get_midi (Audio_item *i)
+{
+  Midi_item *mi = Midi_item::get_midi (i);
+  midi_events_.push_back (mi);
+  return mi;
 }
 
 bool

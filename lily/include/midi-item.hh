@@ -23,7 +23,6 @@ public:
   virtual ~Midi_item ();
   virtual char const *name () const;
 
-  /// factory
   static Midi_item *get_midi (Audio_item *a);
 
   static string i2varint_string (int i);

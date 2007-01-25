@@ -427,9 +427,9 @@ Accidental_placement::calc_positioning_done (SCM smob)
   me->flush_extent_cache (X_AXIS);
   me->set_property ("X-extent", scm_width);
 
-  for (vsize i = apes.size (); i--;)
-    delete apes[i];
-
+  junk_pointers (apes);
+  delete head_ape;
+  
   return SCM_BOOL_T;
 }
 

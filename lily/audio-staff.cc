@@ -28,9 +28,11 @@ Audio_staff::output (Midi_stream &midi_stream, int channel)
 {
   Midi_track midi_track;
   midi_track.number_ = channel;
-  
-  for (Midi_walker i (this, &midi_track, channel); i.ok (); i++)
+  Midi_walker i (this, &midi_track, channel);
+  for (; i.ok (); i++)
     i.process ();
+
+  i.finalize ();
   
   midi_stream << midi_track;
 }

@@ -483,5 +483,4 @@ Midi_item::name () const
 
 Midi_track::~Midi_track ()
 {
-  junk_pointers (events_);
 }
