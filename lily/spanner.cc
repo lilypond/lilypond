@@ -14,6 +14,7 @@
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
+#include "moment.hh"
 
 Grob *
 Spanner::clone () const
@@ -145,7 +146,7 @@ Spanner::set_my_columns ()
 }
 
 Interval_t<int>
-Spanner::spanned_rank_iv ()
+Spanner::spanned_rank_iv () const
 {
   Interval_t<int> iv (0, 0);
 
@@ -155,6 +156,14 @@ Spanner::spanned_rank_iv ()
     iv[RIGHT] = spanned_drul_[RIGHT]->get_column ()->get_rank ();
   return iv;
 }
+
+Interval_t<Moment>
+Spanner::spanned_time () const
+{
+  return spanned_time_interval (spanned_drul_[LEFT],
+				spanned_drul_[RIGHT]);
+}
+
 
 Item *
 Spanner::get_bound (Direction d) const

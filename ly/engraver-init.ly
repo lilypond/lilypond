@@ -679,6 +679,11 @@ AncientRemoveEmptyStaffContext = \context {
   \remove Accidental_engraver
 
   \override Glissando #'extra-dy = #0.75
+  \override Glissando #'bound-details #'right = #`((attach-dir . ,LEFT)
+						   (padding . 0.3))
+  \override Glissando #'bound-details #'left = #`((attach-dir . ,RIGHT)
+						   (padding . 0.3))
+  \override Glissando #'extra-dy = #0.75
   \override Glissando #'gap = #0.2
 }
 

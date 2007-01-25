@@ -48,12 +48,14 @@ picture in the HTML version of this manual, you will see the exact
 LilyPond input that was used to generate that image.
 Try it on this image
 
-@lilypond[fragment,quote,ragged-right,relative=2]
-c-\markup { \bold \huge { Click here.  } }
+@c no verbatim here
+@lilypond[quote,ragged-right]
+\relative c'' {
+  c-\markup { \bold \huge { Click here.  } }
+}
 @end lilypond
 
-By cutting and pasting everything from the @qq{Start cut-&-pastable-section}
-to the end of the file, you have a
+By cutting and pasting everything in the @qq{ly snippet} section, you have a
 starting template for experiments.  If you like learning in this way,
 you will probably want to print out or bookmark the
 @ref{Cheat sheet}, which is a table listing of the most common
@@ -98,6 +100,7 @@ notation.  For example, if we write
 @noindent
 the result looks like this
 
+@c  in this case we don't want verbatim
 @lilypond[quote,ragged-right]
 {
   c' e' g' e'
@@ -105,7 +108,7 @@ the result looks like this
 @end lilypond
 
 @strong{Warning:} Every piece of LilyPond input needs to have @strong{@{ curly
-braces @}} placed around the input.  The braces should be also be
+braces @}} placed around the input.  The braces should also be
 surrounded by a space unless they are at the beginning or end of a
 line to avoid ambiguities.  These may be omitted in some examples in this
 manual, but don't forget them in your own music!
@@ -128,11 +131,12 @@ file. Save it, for example, to @file{test.ly} on your Desktop, and
 then process it with the menu command @samp{Compile > Typeset File}.
 The resulting PDF file will be displayed on your screen.
 
-Be warned that the first time you ever run lilypond will take a minute
+Be warned that the first time you ever run LilyPond, it will take a minute
 or two because all of the system fonts have to be analyzed first.
 
 For future use of LilyPond, you should begin by selecting "New"
-or "Open".
+or "Open".  You must save your file before typesetting it.  If any errors
+occur in processing, please see the log window.
 
 @subsubheading Windows
 
@@ -149,7 +153,20 @@ codes that will confuse LilyPond.} and enter
 
 Save it on the desktop as @file{test.ly} and make sure that it is not
 called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
-the file and show the resulting PDF file.
+the file and show the resulting PDF file.  To edit an existing
+@file{.ly} file, right-click on it and select @qq{Edit source}.
+
+If you double-click in the LilyPond icon on the Desktop, it will open
+a simple text editor with an example file. Save it, for example, to
+@file{test.ly} on your Desktop, and then double-click on the file to
+process it.  After some seconds, you will get a file @file{test.pdf}
+on your desktop.  Double-click on this PDF file to view the typeset
+score.  An alternative method to process the @file{test.ly} file
+is to drag and drop it onto the LilyPond icon using your mouse pointer.
+
+Double-clicking the file does not only result in a PDF file, but also
+produces a @file{.log} file that contains some information on what LilyPond
+has done to the file.  If any errors occur, please examine this file.
 
 
 @subsubheading Unix
@@ -158,7 +175,7 @@ Begin by opening a terminal window and starting a text editor.  For
 example, you could open an xterm and execute
 @code{joe}@footnote{There are macro files for VIM addicts, and there
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
-installed already, refer to the file @file{INSTALL.txt}.  These
+installed already, refer to the file @file{INSTALL.txt}.  The
 easiest editing environment is @file{LilyPondTool}.  See
 @ref{Editor support} for more information.}.  In your
 text editor, enter the following input and save the file as
@@ -198,7 +215,7 @@ Converting to `test.pdf'...
 @noindent
 The result is the file @file{test.pdf} which you can print or view
 with the standard facilities of your operating system.@footnote{If
-your system does not have any tools installed, you can try
+your system does not have any such tools installed, you can try
 @uref{http://@/www@/.cs@/.wisc@/.edu/@/~ghost/,Ghostscript}, a freely
 available package for viewing and printing PDF and PostScript files.}
 
@@ -876,7 +893,7 @@ Enclosing a group of notes in braces creates a new music expression:
 @end lilypond
 
 Putting a group of music expressions (e.g. notes) in braces means that
-are in sequence (i.e. each one follows the previous one).  The result
+they are in sequence (i.e. each one follows the previous one).  The result
 is another music expression:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -887,8 +904,8 @@ is another music expression:
 
 This technique is useful for polyphonic music.  To enter music
 with more voices or more staves, we combine expressions in
-parallel.  To indicate that two voices should play at the same time
-simple enter a simultaneous combination of music expressions.  A
+parallel.  To indicate that two voices should play at the same time,
+simply enter a simultaneous combination of music expressions.  A
 @q{simultaneous} music expression is formed by enclosing expressions inside
 @code{<<} and @code{>>}.  In the following example, three sequences (all
 containing two separate notes) are combined simultaneously:
@@ -908,10 +925,15 @@ amount of space.  LilyPond does not care how much (or little) space there
 is at the beginning of a line, but indenting LilyPond code like this makes
 it much easier for humans to read.
 
+@strong{Warning}: each note is relative to the
+previous note in the input, not relative to the @code{c''} in the
+initial @code{\relative} command.
+
+
 @subheading Simultaneous music expressions: single staff
 
 To determine the number of staves in a piece, LilyPond looks at the first
-exression.  If it is a single note, there is one staff; if there is a
+expression.  If it is a single note, there is one staff; if there is a
 simultaneous expression, there is more than one staff.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1104,7 +1126,7 @@ r4 <c e g>4 <c f a>2
 @end lilypond
 
 You can combine markings like beams and ties with chords.  They must
-be placed outside the angled brackets
+be placed outside the angle brackets
 
 @lilypond[quote,fragment,verbatim,relative=2,fragment]
 r4 <c e g>8[ <c f a>]~ <c f a>2
@@ -1135,7 +1157,7 @@ Consider a simple melody:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
-  a4 e c r4
+  a4 e c8 e r4
 	b2 c4( d)
 }
 @end lilypond
@@ -1147,7 +1169,7 @@ syllable with a space.
 @lilypond[quote,ragged-right,verbatim]
 <<
   \relative c'' {
-    a4 e c r4
+    a4 e c8 e r4
 	  b2 c4( d)
   }
   \addlyrics { One day this shall be free }
@@ -1163,7 +1185,7 @@ line}.  It is entered as two underscores @code{__}:
 @lilypond[quote,ragged-right,verbatim]
 <<
   \relative c'' {
-    a4 e c r4
+    a4 e c8 e r4
 	  b2 c4( d)
   }
   \addlyrics { One day this shall be free __ }
@@ -1234,7 +1256,7 @@ When put together, chord names, lyrics and a melody form
 a lead sheet, for example,
 
 @lilypond[quote,verbatim,ragged-right]
-%  this melody needs to be changed.  See my new example in 2.4.1. -gp
+% FIXME: this melody needs to be changed.  See my new example in 2.4.1. -gp
 <<
   \chords { r2 c:sus4 f }
   \relative {
@@ -1391,7 +1413,7 @@ larger files, the music expressions get a lot bigger.  In polyphonic
 music with many staves, the input files can become very confusing.  We can
 reduce this confusion by using @emph{identifiers}.
 
-Identifiers (also known as variables or macros), we can break up
+With identifiers (also known as variables or macros), we can break up
 complex music expressions.  An identifier is assigned as follows
 
 @example
@@ -1420,7 +1442,7 @@ cello = \new Staff { \relative c {
 @end lilypond
 
 @noindent
-The name of an identifier should have alphabetic characters only: no
+The name of an identifier must have alphabetic characters only: no
 numbers, underscores, or dashes.
 
 It is possible to use variables for many other types of objects in the

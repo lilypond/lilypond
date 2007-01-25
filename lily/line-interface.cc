@@ -12,6 +12,7 @@
 #include "lookup.hh"
 #include "output-def.hh"
 #include "grob.hh"
+#include "font-interface.hh"
 
 Stencil
 Line_interface::make_arrow (Offset begin, Offset end,
@@ -30,6 +31,95 @@ Line_interface::make_arrow (Offset begin, Offset end,
 
   return Lookup::round_filled_polygon (points, thick);
 }
+
+Stencil
+Line_interface::make_trill_line (Grob *me,
+				 Offset from,
+				 Offset to)
+{
+  Offset dz = (to-from);
+  SCM alist_chain = Font_interface::text_font_alist_chain (me);
+  SCM style_alist = scm_list_n (scm_cons (ly_symbol2scm ("font-encoding"),
+					  ly_symbol2scm ("fetaMusic")),
+				SCM_UNDEFINED);
+
+  Font_metric *fm = select_font (me->layout (),
+				 scm_cons (style_alist,
+					   alist_chain));
+
+  Stencil elt = fm->find_by_name ("scripts.trill_element");
+
+  Real elt_len = elt.extent (X_AXIS).length ();
+  if (elt_len <= 0.0)
+    {
+      programming_error ("can't find scripts.trill_element");
+      return Stencil ();
+    }
+      
+  Stencil line;
+  Real len = 0.0;
+  do
+    {
+      line.add_at_edge (X_AXIS, RIGHT, elt, 0);
+      len = line.extent (X_AXIS).length ();
+    }
+  while (len + elt_len < dz.length ());
+
+  line.rotate (dz.arg (), Offset (0,0));
+  line.translate (from);
+
+  return line; 
+}
+
+
+Stencil
+Line_interface::make_zigzag_line (Grob *me,
+				  Offset from,
+				  Offset to)
+{
+  Offset dz = to -from;
+
+  Real thick = Staff_symbol_referencer::line_thickness (me);
+  thick *= robust_scm2double (me->get_property ("thickness"), 1.0); // todo: staff sym referencer? 
+
+  Real staff_space = Staff_symbol_referencer::staff_space (me);
+
+  Real w = robust_scm2double (me->get_property ("zigzag-width"), 1) * staff_space;
+  int count = (int) ceil (dz.length () / w);
+  w = dz.length () / count;
+
+  Real l = robust_scm2double (me->get_property ("zigzag-length"), 1) * w;
+  Real h = l > w / 2 ? sqrt (l * l - w * w / 4) : 0;
+
+  Offset rotation_factor = complex_exp (Offset (0, dz.arg ()));
+
+  Offset points[3];
+  points[0] = Offset (0, -h / 2);
+  points[1] = Offset (w / 2, h / 2);
+  points[2] = Offset (w, -h / 2);
+  for (int i = 0; i < 3; i++)
+    points[i] = complex_multiply (points[i], rotation_factor);
+
+  Stencil squiggle (Line_interface::make_line (thick, points[0], points[1]));
+  squiggle.add_stencil (Line_interface::make_line (thick, points[1], points[2]));
+
+  Stencil total;
+  for (int i = 0; i < count; i++)
+    {
+      Stencil moved_squiggle (squiggle);
+      moved_squiggle.translate (from + Offset (i * w, 0) * rotation_factor);
+      total.add_stencil (moved_squiggle);
+    }
+
+  Box b;
+  b.add_point (Offset (0, 0));
+  b.add_point (dz);
+  b[X_AXIS].widen (thick / 2);
+  b[Y_AXIS].widen (thick / 2);
+
+  return Stencil (b, total.expr ());
+}
+
 
 Stencil
 Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
@@ -113,7 +203,13 @@ Line_interface::line (Grob *me, Offset from, Offset to)
     * robust_scm2double (me->get_property ("thickness"), 1);
 
   SCM type = me->get_property ("style");
-
+  if (type == ly_symbol2scm ("zigzag"))
+    {
+      return make_zigzag_line (me, from, to);
+    }
+  else if (type == ly_symbol2scm ("trill"))
+    return make_trill_line (me, from, to);
+  
   Stencil stil;
 
   SCM dash_fraction = me->get_property ("dash-fraction");
@@ -153,6 +249,8 @@ ADD_INTERFACE (Line_interface,
 	       "dash-fraction "
 	       "thickness "
 	       "style "
+	       "zigzag-length "
+	       "zigzag-width "
 	       "arrow-length "
 	       "arrow-width ")
 

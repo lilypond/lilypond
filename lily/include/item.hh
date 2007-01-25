@@ -38,12 +38,14 @@ public:
   virtual System *get_system () const;
   virtual Paper_column *get_column () const;
   virtual void handle_prebroken_dependencies ();
-  virtual Interval_t<int> spanned_rank_iv ();
+  virtual Interval_t<int> spanned_rank_iv () const;
   DECLARE_GROB_INTERFACE();
 protected:
   virtual void discretionary_processing ();
   void copy_breakable_items ();
   virtual void derived_mark () const;
 };
+
+Interval_t<Moment> spanned_time_interval (Item *l, Item *r);
 
 #endif

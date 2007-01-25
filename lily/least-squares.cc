@@ -37,7 +37,9 @@ minimise_least_squares (Real *coef, Real *offset,
   Real den = (count * sqx - sqr (sx));
   if (!count || !den)
     {
-      programming_error ("minimise_least_squares ():  Nothing to minimise");
+      programming_error ("minimise_least_squares ():  Nothing to minimise\n"
+			 "This means that vertical spacing is triggered\n"
+			 "before line breaking\n");
       *coef = 0.0;
       *offset = count ? sy / count : 0.0;
     }

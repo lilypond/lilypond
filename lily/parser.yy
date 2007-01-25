@@ -410,6 +410,7 @@ If we give names, Bison complains.
 %type <scm> pitch_also_in_chords
 %type <scm> post_events
 %type <scm> property_operation
+%type <scm> property_path
 %type <scm> scalar
 %type <scm> script_abbreviation
 %type <scm> simple_chord_elements
@@ -1122,6 +1123,16 @@ context_change:
 	}
 	;
 
+
+property_path:
+	embedded_scm {
+		$$ = scm_cons ($1, SCM_EOL);
+	}
+	| property_path embedded_scm {
+		$$ = scm_cons ($2, $1);
+	}
+	;
+
 property_operation:
 	STRING '=' scalar {
 		$$ = scm_list_3 (ly_symbol2scm ("assign"),
@@ -1131,13 +1142,10 @@ property_operation:
 		$$ = scm_list_2 (ly_symbol2scm ("unset"),
 			scm_string_to_symbol ($2));
 	}
-	| OVERRIDE simple_string embedded_scm '=' embedded_scm {
-		$$ = scm_list_4 (ly_symbol2scm ("push"),
-			scm_string_to_symbol ($2), $5, $3);
-	}
-	| OVERRIDE simple_string embedded_scm embedded_scm '=' embedded_scm {
-		$$ = scm_list_5 (ly_symbol2scm ("push"),
-				scm_string_to_symbol ($2), $6, $4, $3);
+	| OVERRIDE simple_string property_path '=' embedded_scm {
+		$$ = scm_append (scm_list_2 (scm_list_3 (ly_symbol2scm ("push"),
+							scm_string_to_symbol ($2), $5),
+					     $3));
 	}
 	| REVERT simple_string embedded_scm {
 		$$ = scm_list_3 (ly_symbol2scm ("pop"),
@@ -1183,17 +1191,12 @@ context_prop_spec:
 	;
 
 simple_music_property_def:
-	OVERRIDE context_prop_spec embedded_scm '=' scalar {
-		$$ = scm_list_5 (scm_car ($2),
-			ly_symbol2scm ("OverrideProperty"),
-			scm_cadr ($2),
-			$5, $3);
-	}
-	| OVERRIDE context_prop_spec embedded_scm  embedded_scm '=' scalar {
-		$$ = scm_list_n (scm_car ($2),			
-			ly_symbol2scm ("OverrideProperty"),
-			scm_cadr ($2),
-			$6, $4, $3, SCM_UNDEFINED);
+	OVERRIDE context_prop_spec property_path '=' scalar {
+		$$ = scm_append (scm_list_2 (scm_list_n (scm_car ($2),			
+				ly_symbol2scm ("OverrideProperty"),
+				scm_cadr ($2),
+				$5, SCM_UNDEFINED),
+				$3));
 	}
 	| REVERT context_prop_spec embedded_scm {
 		$$ = scm_list_4 (scm_car ($2),

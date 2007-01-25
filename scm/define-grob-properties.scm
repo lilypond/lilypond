@@ -65,6 +65,7 @@ beaming patterns from stem to stem inside a beam.")
      (before-line-breaking ,boolean? "Dummy property, used to trigger a callback function.")
      (between-cols ,pair? "Where to attach a loose column to")
      (bound-padding ,number? "The amount of padding to insert around spanner bounds.")
+     (bound-details ,list? "alist of properties for determining attachments of spanners to edges.")
      (bracket-flare ,number-pair? "A pair of numbers specifying how
 much edges of brackets should slant outward.  Value 0.0 means straight
 edges")
@@ -225,6 +226,7 @@ objects in higher layers.")
 			    "The thickness of ledger lines: it is the
 sum of 2 numbers.  The first is the factor for line thickness, and the
 second for staff space. Both contributions are added.")
+     (left-bound-info ,list? "alist of properties for determining attachments of spanners to edges.")
      (left-padding ,ly:dimension? "The amount of space that is put
 left to an object (eg. a group of accidentals).")
      (length ,ly:dimension? "User override for the stem length of
@@ -325,6 +327,7 @@ quicker the slur attains it @code{height-limit}.")
      (remove-first ,boolean? "Remove the first staff of a orchestral score?")
      (restore-first ,boolean? "Print a natural before the accidental.")
      (rhythmic-location ,rhythmic-location? "Where (bar number, measure position) in the score.")
+     (right-bound-info ,list? "alist of properties for determining attachments of spanners to edges.")
      (right-padding ,ly:dimension? "Space to insert on the right side  of an object (eg. between note and its accidentals.)")
      (rotation ,list? "Number of degrees to rotate this object, and what point
 to rotate around. #'(45 0 0) means rotate 45 degrees around the center of this object.")
