@@ -1676,7 +1676,6 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
-				text-spanner-interface
 				text-interface
 				self-alignment-interface
 				piano-pedal-script-interface
@@ -1828,14 +1827,13 @@
 				   (attach-dir . ,LEFT)
 				   ))
 			  (right . ((Y . 0)
-				   (padding . 0.25)
+				    (padding . 0.25)
 				   ))
 			  ))
 	(stencil . ,ly:new-line-spanner::print)
 
 	(meta . ((class . Spanner)
-		 (interfaces . (text-spanner-interface
-				line-spanner-interface
+		 (interfaces . (new-line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1926,8 +1924,8 @@
 	(side-axis . ,Y)
 	(outside-staff-priority . 50)
 	(meta . ((class . Spanner)
-		 (interfaces . (text-spanner-interface
-				new-line-spanner-interface
+		 (interfaces . (new-line-spanner-interface
+				line-interface
 				side-position-interface
 				font-interface))))))
 
