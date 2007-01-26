@@ -42,7 +42,7 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 		 Rational (grace_num, grace_den)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_sub_moment, "ly:moment-sub",
+LY_DEFINE (ly_moment_sub, "ly:moment-sub",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Subtract two moments.")
 {

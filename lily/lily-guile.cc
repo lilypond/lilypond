@@ -630,11 +630,16 @@ mangle_cxx_identifier (string cxx_id)
       cxx_id = "ly:" + cxx_id;
     }
   if (cxx_id.substr (cxx_id.length () - 2) == "_p")
-    cxx_id = cxx_id.replace (cxx_id.length () - 2, 1, "?");
+    cxx_id = cxx_id.replace (cxx_id.length () - 2, 2, "?");
   else if (cxx_id.substr (cxx_id.length () - 2) == "_x")
-    cxx_id = cxx_id.replace (cxx_id.length () - 2, 1, "!");
+    cxx_id = cxx_id.replace (cxx_id.length () - 2, 2, "!");
 
+  cxx_id = replace_all (cxx_id, "_less?", "<?");
+  cxx_id = replace_all (cxx_id, "_2_", "->");
+  cxx_id = replace_all (cxx_id, "__", "::");
   cxx_id = replace_all (cxx_id, '_', '-');
+
+
   return cxx_id;
 }
 

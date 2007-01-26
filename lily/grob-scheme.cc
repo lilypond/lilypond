@@ -120,7 +120,7 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
   return sc->get_property_alist_chain (global);
 }
 
-LY_DEFINE (ly_get_extent, "ly:grob-extent",
+LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
 	   "Get the extent in @var{axis} direction of @var{grob} relative to "
 	   "the grob @var{refp}")

@@ -250,7 +250,7 @@ Music::origin () const
 Stream_event *
 Music::to_event () const
 {
-  SCM class_name = ly_camel_case_to_lisp_identifier (get_property ("name"));
+  SCM class_name = ly_camel_case_2_lisp_identifier (get_property ("name"));
 
   // catch programming mistakes.
   if (!internal_is_music_type (class_name))

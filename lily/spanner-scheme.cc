@@ -10,7 +10,7 @@
 #include "spanner.hh"
 #include "item.hh"
 
-LY_DEFINE (ly_spanner_get_bound, "ly:spanner-bound",
+LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")

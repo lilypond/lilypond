@@ -243,7 +243,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
 
 
-LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
+LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
 	   "Convert the contents of a TTF file to Type42 PFA, returning it as "
 	   " a string.")

@@ -16,7 +16,7 @@
   TODO: naming add/combine.
 */
 
-LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
+LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
 	   3, 0, 0, (SCM stil, SCM amount, SCM axis),
 	   "Return a copy of @var{stil} but translated by @var{amount} in @var{axis} direction.")
 {
@@ -39,7 +39,7 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
   return new_s;
 }
 
-LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
+LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
 	   2, 0, 0, (SCM stil, SCM offset),
 	   "Return a @var{stil}, "
 	   "but translated by @var{offset} (a pair of numbers).")
@@ -281,7 +281,7 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 			  0.95 * scm_to_double (t)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_rotate_stencil, "ly:stencil-rotate",
+LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 	   4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
 	   "Return a @var{stil} rotated @var{angle} degrees around point (@var{x}, @var{y}).")
 {
@@ -300,7 +300,7 @@ LY_DEFINE (ly_rotate_stencil, "ly:stencil-rotate",
   return new_s;
 }
 
-LY_DEFINE (ly_filled_box, "ly:round-filled-box",
+LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 	   3, 0, 0,
 	   (SCM xext, SCM yext, SCM blot),
 	   "Make a @code{Stencil} "

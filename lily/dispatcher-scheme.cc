@@ -15,7 +15,7 @@ LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher",
   return (new Dispatcher ())->unprotect ();
 }
 
-LY_DEFINE (ly_register_dispatcher, "ly:connect-dispatchers",
+LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 	   2, 0, 0, (SCM to, SCM from),
 	   "Makes the dispatcher @var{to} listen to events from @var{from}." )
 {

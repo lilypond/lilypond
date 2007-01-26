@@ -75,7 +75,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
   return tr->internal_get_property (name);
 }
 
-LY_DEFINE (ly_context_set_property, "ly:context-set-property!",
+LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
 	   3, 0, 0, (SCM context, SCM name, SCM val),
 	   "Set value of property @var{name} in context @var{context} "
 	   "to @var{val}.")
@@ -106,7 +106,7 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
   return SCM_EOL;
 }
 
-LY_DEFINE (ly_unset_context_property, "ly:context-unset-property", 2, 0, 0,
+LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
 	   (SCM context, SCM name),
 	   "Unset value of property @var{name} in context @var{context}.")
 {

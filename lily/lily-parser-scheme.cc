@@ -166,7 +166,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
   return clone->unprotect ();
 }
 
-LY_DEFINE (ly_parser_define, "ly:parser-define!",
+LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 	   3, 0, 0, (SCM parser_smob, SCM symbol, SCM val),
 	   "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
 {

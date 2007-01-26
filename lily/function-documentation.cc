@@ -11,10 +11,23 @@ using namespace std;
 
 #include "std-string.hh"
 #include "lily-guile.hh"
+#include "warn.hh"
 
 static SCM doc_hash_table;
 
-void ly_add_function_documentation (SCM func,
+void
+ly_check_name (string cxx, string scm_name)
+{
+  string mangle = mangle_cxx_identifier (cxx);
+  if (mangle != scm_name)
+    {
+      programming_error ("wrong cxx name: " + mangle + ", " + cxx +  ", " + scm_name);
+    }
+}
+
+
+void
+ly_add_function_documentation (SCM func,
 				    string fname,
 				    string varlist,
 				    string doc)

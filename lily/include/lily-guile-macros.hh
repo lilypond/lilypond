@@ -104,7 +104,8 @@ string mangle_cxx_identifier (string);
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
-    string id = mangle_cxx_identifier (string (#TYPE) + "::" + string (#FUNC)); \
+    string cxx = string (#TYPE) + "::" + string (#FUNC); \
+    string id = mangle_cxx_identifier (cxx); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \
@@ -122,8 +123,8 @@ string mangle_cxx_identifier (string);
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
   MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
-void
-ly_add_function_documentation (SCM proc, string fname, string varlist, string doc);
+void ly_add_function_documentation (SCM proc, string fname, string varlist, string doc);
+void ly_check_name (string cxx, string fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)		\
   class name ## _scm_initter			\
@@ -146,6 +147,7 @@ ly_add_function_documentation (SCM proc, string fname, string varlist, string do
   {									\
     FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,	\
 					 (Scheme_function_unknown) FNAME); \
+    ly_check_name (#FNAME, PRIMNAME);\
     ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,	\
 				   DOCSTRING);				\
     scm_c_export (PRIMNAME, NULL);					\

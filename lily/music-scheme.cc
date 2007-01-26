@@ -30,7 +30,7 @@ LY_DEFINE (ly_music_property,
   return ly_prob_property (mus,sym,dfault);
 }
 
-LY_DEFINE (ly_music_set_property, "ly:music-set-property!",
+LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
 	   3, 0, 0, (SCM mus, SCM sym, SCM val),
 	   "Set property @var{sym} in music expression @var{mus} to @var{val}.")
 {

@@ -162,7 +162,7 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
   return ly_string2scm (ss);
 }
   
-LY_DEFINE (ly_number2string, "ly:number->string",
+LY_DEFINE (ly_number_2_string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
@@ -251,7 +251,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
   return lst;
 }
 
-LY_DEFINE (ly_wchar_to_utf_8, "ly:wide-char->utf-8",
+LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 	   1, 0, 0, (SCM wc),
 	   "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8")
 {
@@ -344,7 +344,7 @@ LY_DEFINE(ly_hash_table_keys, "ly:hash-table-keys",
 				 NULL, SCM_EOL, tab);
 }
 
-LY_DEFINE (ly_camel_case_to_lisp_identifier, "ly:camel-case->lisp-identifier",
+LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
 	   1, 0, 0, (SCM name_sym),
 	   "Convert FooBar_Bla to foo-bar-bla style symbol.")
 {

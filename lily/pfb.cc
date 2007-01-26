@@ -70,7 +70,7 @@ pfb2pfa (Byte const *pfb, int length)
   return out;
 }
 
-LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
+LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 	   1, 0, 0, (SCM pfb_file_name),
 	   "Convert the contents of a PFB file to PFA.")
 {
@@ -94,7 +94,7 @@ LY_DEFINE (ly_pfb_to_pfa, "ly:pfb->pfa",
   return pfa_scm;
 }
 
-LY_DEFINE (ly_otf_to_cff, "ly:otf->cff",
+LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
 	   1, 0, 0, (SCM otf_file_name),
 	   "Convert the contents of a OTF file to CFF file, returning it as "
 	   " a string.")

@@ -36,7 +36,7 @@ LY_DEFINE (ly_event_property, "ly:event-property",
   return e->internal_get_property (sym);
 }
 
-LY_DEFINE (ly_event_set_property, "ly:event-set-property!",
+LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
            3, 0, 0, (SCM ev, SCM sym, SCM val),
            "Set property @var{sym} in event @var{ev} to @var{val}."){
   Stream_event *sc = unsmob_stream_event (ev);

@@ -106,7 +106,7 @@ entry_to_alist (void *closure, SCM key, SCM val, SCM result)
   return result;
 }
 
-LY_DEFINE (ly_module2alist, "ly:module->alist",
+LY_DEFINE (ly_module_2_alist, "ly:module->alist",
 	   1, 0, 0, (SCM mod),
 	   "Dump the contents of  module @var{mod} as an alist.")
 {

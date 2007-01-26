@@ -51,7 +51,6 @@
    ly:grob-original
    ly:grob-layout
    ly:grob-parent
-   ly:grob-pq-less?
    ly:grob-property
    ly:grob-script-priority-less
    ly:grob-set-property!

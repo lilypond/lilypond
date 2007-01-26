@@ -14,7 +14,7 @@
 #include "context-def.hh"
 #include "lily-parser.hh"
 
-LY_DEFINE (ly_layout_lookup, "ly:output-def-lookup",
+LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 	   2, 1, 0, (SCM pap, SCM sym, SCM def),
 	   "Lookup @var{sym} in the Output_def @var{pap}. "
 	   "Return the value or @var{def} (which defaults to  @code{'()}) if undefined.")
@@ -70,7 +70,7 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 {
   Output_def *id = unsmob_output_def (output_def);
 
-  SCM al = ly_module2alist (id->scope_);
+  SCM al = ly_module_2_alist (id->scope_);
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {

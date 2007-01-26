@@ -217,7 +217,7 @@ LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
 
 
 
-LY_DEFINE (ly_all_option, "ly:all-options",
+LY_DEFINE (ly_all_options, "ly:all-options",
 	   0, 0, 0, (),
 	   "Get all option settings in an alist.")
 {

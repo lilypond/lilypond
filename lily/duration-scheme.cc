@@ -121,7 +121,7 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
   return Moment (unsmob_duration (dur)->get_length ()).smobbed_copy ();
 }
 
-LY_DEFINE (ly_duration2string, "ly:duration->string",
+LY_DEFINE (ly_duration_2_string, "ly:duration->string",
 	   1, 0, 0, (SCM dur),
 	   "Convert @var{dur} to string.")
 {

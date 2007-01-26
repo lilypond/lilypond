@@ -11,7 +11,7 @@
 
 /* We don't use IMPLEMENT_TYPE_P, since the smobification part is
    implemented separately from the class.  */
-LY_DEFINE (ly_input, "ly:input-location?", 1, 0, 0,
+LY_DEFINE (ly_input_location_p, "ly:input-location?", 1, 0, 0,
 	   (SCM x),
 	   "Is @var{x} an @code{input-location}?")
 {
@@ -35,7 +35,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 }
 
 
-LY_DEFINE (ly_input_file_line_column,
+LY_DEFINE (ly_input_file_line_char_column,
 	   "ly:input-file-line-char-column",
 	   1, 0, 0, (SCM sip),
 	   "Return input location in @var{sip} as (file-name line char column).")
