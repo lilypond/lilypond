@@ -251,6 +251,8 @@ Accidental_placement::calc_positioning_done (SCM smob)
   if (!me->is_live ())
     return SCM_BOOL_T;
 
+  me->set_property ("positioning-done", SCM_BOOL_T);
+  
   SCM accs = me->get_object ("accidental-grobs");
   if (!scm_is_pair (accs))
     return SCM_BOOL_T;

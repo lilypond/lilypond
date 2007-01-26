@@ -30,6 +30,9 @@ SCM
 Align_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   SCM axis = scm_car (me->get_property ("axes"));
   Axis ax = Axis (scm_to_int (axis));
 

@@ -410,6 +410,8 @@ Stem::calc_positioning_done (SCM smob)
   if (!head_count (me))
     return SCM_BOOL_T;
 
+  me->set_property ("positioning-done", SCM_BOOL_T);
+  
   extract_grob_set (me, "note-heads", ro_heads);
   vector<Grob*> heads (ro_heads);
   vector_sort (heads, position_less);

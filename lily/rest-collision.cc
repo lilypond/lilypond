@@ -92,6 +92,9 @@ SCM
 Rest_collision::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   extract_grob_set (me, "elements", elts);
 
   vector<Grob*> rests;
