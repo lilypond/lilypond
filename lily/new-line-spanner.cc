@@ -162,6 +162,9 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
       y += dir * extra_dy / 2; 
       details = scm_acons (ly_symbol2scm ("Y"), scm_from_double (y), details);
     }
+  else
+    details = scm_acons (ly_symbol2scm ("preset-Y"),
+			 SCM_BOOL_T, details);
 
   return details;
 }
@@ -316,7 +319,17 @@ New_line_spanner::print (SCM smob)
 					    span_points[RIGHT],
 					    arrows[LEFT],
 					    arrows[RIGHT]));
-  Grob *commony = common_y (me);
+  Grob *commony = me;
+ 
+  do
+    {
+      if (ly_assoc_get (ly_symbol2scm ("preset-Y"), bounds[LEFT],
+			SCM_BOOL_F)
+	  != SCM_BOOL_T)
+
+	commony = commony->common_refpoint (me->get_bound (d), Y_AXIS);
+    }
+  while (flip (&d) != LEFT);
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
 			  -me->relative_coordinate (commony, Y_AXIS)));
