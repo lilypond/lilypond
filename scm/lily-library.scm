@@ -436,9 +436,6 @@ found."
 	  (make-string 1 (integer->char (+ 65 (modulo i 26))))
 	  (string-encode-integer (quotient i 26))))))
 
-(define-public (ly:numbers->string lst)
-  (string-join (map ly:number->string lst) " "))
-
 (define (number->octal-string x)
   (let* ((n (inexact->exact x))
          (n64 (quotient n 64))
@@ -518,13 +515,9 @@ possibly turned off."
       0
       (if (< x 0) -1 1)))
 
-(define-public (round2 num)
-  (/ (round (* 100 num)) 100))
 
-(define-public (round4 num)
-  (/ (round (* 10000 num)) 10000))
-
-(define-public (car< a b) (< (car a) (car b)))
+(define-public (car< a b)
+  (< (car a) (car b)))
 
 (define-public (symbol<? lst r)
   (string<? (symbol->string lst) (symbol->string r)))

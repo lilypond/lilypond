@@ -36,8 +36,6 @@ protected:
 void
 Bar_number_engraver::process_music ()
 {
-  // todo include (&&!time->cadenza_b_)
-
   SCM wb = get_property ("whichBar");
 
   if (scm_is_string (wb))

@@ -231,7 +231,7 @@ def main ():
 
         if options.uncovered:
             chunks = filter_uncovered (chunks)
-            chunks = [(c.uncovered_score (), c) for c in chunks]
+            chunks = [(c.uncovered_score (), c) for c in chunks if c.uncovered_score() > 0]
         elif options.hotspots:
             chunks = [((c.coverage_count, -c.length()), c) for c in chunks]
             
