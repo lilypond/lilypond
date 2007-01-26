@@ -116,7 +116,7 @@ over many measures with lines, sometimes dotted or wavy.
 These all use the same routines as the glissando for drawing the texts
 and the lines, and tuning their behavior is therefore also done in the
 same way. It is done with a spanner, and the routine responsible for
-drawing the spanners is @code{ly:new-line-interface::print}. This
+drawing the spanners is @code{ly:line-interface::print}. This
 routine creates determines the exact location of the two @i{span
 points} and draws a line in between, in the style requested.
 
@@ -145,7 +145,7 @@ e2 \glissando f
 @end lilypond
 
 The @code{Glissando} object, like any other using the
-@code{ly:new-line-interface::print} routine, carries a nested
+@code{ly:line-interface::print} routine, carries a nested
 association list. In the above statement, the value for @code{Y}
 is set to @code{-2} for association list corresponding to the right
 end point. Of course, it is also possible to adjust the left side with
@@ -155,13 +155,13 @@ If @code{Y} is not set, the value is computed from the vertical
 position of right attachment point of the spanner. 
 
 In case of a line break, the values for the span-points are extended
-with contents of the @code{left-break} and @code{right-break}
+with contents of the @code{left-broken} and @code{right-broken}
 sublists, for example
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 \override Glissando #'breakable = ##T 
-\override Glissando #'bound-details #'right-break #'Y = #-3
-\override Glissando #'bound-details #'left-break #'Y = #3
+\override Glissando #'bound-details #'right-broken #'Y = #-3
+\override Glissando #'bound-details #'left-broken #'Y = #3
 c1 \glissando \break
 f1
 @end lilypond
@@ -196,10 +196,10 @@ recommended to use @code{text}.
 This is a markup that is evaluated to yield stencil. It is
 used to put @i{cresc.} and @i{tr} on horizontal spanners.
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text
-   = \markup { \bold Slower }
-c2\startTextSpan b c\stopTextSpan a
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
 @end lilypond
 
 @item stencil-align-dir-y
@@ -228,6 +228,19 @@ of the line and the actual end.  Without padding, a glissando would
 start and end in the center of each note head.
 
 @end table
+
+@seealso
+
+Program reference: @internalsref{TextSpanner},
+@internalsref{Glissando}, @internalsref{VoiceFollower},
+@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+
+Examples:
+@inputfileref{input/@/regression,text@/-spanner@/.ly}.
+@inputfileref{input/@/regression,line@/-style/.ly}.
+@inputfileref{input/@/regression,text@/-spanner@/.ly}.
+@inputfileref{input/@/regression,dynamics@/-text@/-spanner@/-padding.ly}.
+@inputfileref{input/@/regression,glissando@/-broken@/.ly}.
 
 
 @node Text spanners
