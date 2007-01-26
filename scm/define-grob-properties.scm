@@ -35,7 +35,6 @@ relative to its Y-parent")
      (allow-loose-spacing ,boolean? "If set, column can be detached from main spacing.")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
-     (arrow ,boolean? "Add an arrow to the line.")
      (arrow-length ,number? "Arrow length.")
      (arrow-width ,number? "Arrow width.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
