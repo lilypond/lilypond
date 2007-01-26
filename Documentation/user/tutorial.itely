@@ -1220,9 +1220,6 @@ discussed in @ref{Vocal music}.
 @cindex chords
 @cindex chord names
 
-@c TODO: revise this, \chords { } is shorter and more intuitive.
-@c  I need help for this.  -gp
-
 In popular music it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
@@ -1230,12 +1227,10 @@ Such chords can be entered like notes,
 \chordmode { c2 f4. g8 }
 @end lilypond
 
-@noindent
 Now each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chordmode}
-
-Other chords can be created by adding modifiers after a colon.  The
-following example shows a few common modifiers
+This mode is switched on with @code{\chordmode}.  Other chords can be
+created by adding modifiers after a colon.  The
+following example shows a few common modifiers:
 
 @lilypond[quote,verbatim,ragged-right]
 \chordmode { c2 f4:m g4:maj7 gis1:dim7 }
@@ -1245,7 +1240,7 @@ For lead sheets, chords are not printed on staves, but as names on a
 line for themselves.  This is achieved by using @code{\chords} instead
 of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
-following result.
+following result:
 
 @lilypond[quote,verbatim,ragged-right]
 \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
@@ -1253,22 +1248,25 @@ following result.
 
 @cindex lead sheet
 When put together, chord names, lyrics and a melody form
-a lead sheet, for example,
+a lead sheet,
 
 @lilypond[quote,verbatim,ragged-right]
-% FIXME: this melody needs to be changed.  See my new example in 2.4.1. -gp
 <<
-  \chords { r2 c:sus4 f }
-  \relative {
-    r4 c' \times 2/3 { f g g }
-    \times 2/3 { g4( a2) }
+  \chords { c2 g:sus4 f e }
+  \relative c'' {
+    a4 e c8 e r4
+    b2 c4( d)
   }
-  \addlyrics { I want to break free __ }
+  \addlyrics { One day this shall be free __ }
 >>
 @end lilypond
 
+
+@moreinfo
+@quotation
 A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
+@end quotation
 
 
 @node Final touches
