@@ -59,3 +59,6 @@ tags
 test-output-distance
 config-*.hh
 config-*.make
+*.graph
+*.stacks
+*.profile
