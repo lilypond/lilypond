@@ -26,14 +26,9 @@
   (lambda (grob) (circle-stencil (callback grob) thickness padding)))
 
 (define-public (print-circled-text-callback grob)
-  (let* ((text (ly:grob-property grob 'text))
-	 
-	 (layout (ly:grob-layout grob))
-	 (defs (ly:output-def-lookup layout 'text-font-defaults))
-	 (props (ly:grob-alist-chain grob defs))
-	 (circle (ly:text-interface::interpret-markup
-		  layout props (make-circle-markup text))))
-    circle))
+  (grob-interpret-markup grob (make-circle-markup
+		   (ly:grob-property grob 'text))
+	     ))
 
 (define-public (music-cause grob)
   (let*
@@ -439,7 +434,7 @@ centered, X==1 is at the right, X == -1 is at the left."
     (list lp rp)))
 
 
-(define (grob-text grob text)
+(define-public (grob-interpret-markup grob text)
   (let*
       ((layout (ly:grob-layout grob))
        (defs (ly:output-def-lookup layout 'text-font-defaults))
@@ -451,9 +446,9 @@ centered, X==1 is at the right, X == -1 is at the left."
 (define-public (parentheses-item::calc-angled-bracket-stencils grob)
   (let* (
 	 (font (ly:grob-default-font grob))
-	 (lp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-text grob (ly:wide-char->utf-8 #x2329))
+	 (lp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-interpret-markup grob (ly:wide-char->utf-8 #x2329))
 							   Y CENTER)  X RIGHT))
-	 (rp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-text grob (ly:wide-char->utf-8 #x232A))
+	 (rp (ly:stencil-aligned-to (ly:stencil-aligned-to (grob-interpret-markup grob (ly:wide-char->utf-8 #x232A))
 							   Y CENTER) X LEFT))
 	 )
 
@@ -642,16 +637,12 @@ centered, X==1 is at the right, X == -1 is at the left."
   "Allow interpretation of tildes as lyric tieing marks."
   
   (let*
-      ((text (ly:grob-property grob 'text))
-       (layout (ly:grob-layout grob))
-       (defs (ly:output-def-lookup layout 'text-font-defaults))
-       (props (ly:grob-alist-chain grob defs)))
+      ((text (ly:grob-property grob 'text)))
 
-    (ly:text-interface::interpret-markup layout
-					 props
-					 (if (string? text)
-					     (make-tied-lyric-markup text)
-					     text))))
+    (grob-interpret-markup grob 
+	       (if (string? text)
+		   (make-tied-lyric-markup text)
+		   text))))
 
 (define-public ((grob::calc-property-by-copy prop) grob)
   (ly:event-property (event-cause grob) prop))
@@ -688,10 +679,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (fret-board::calc-stencil grob)
   (let* ((string-frets (ly:grob-property grob 'string-fret-finger-combinations))
-	 (string-count (ly:grob-property grob 'string-count))
-	 (layout (ly:grob-layout grob))
-	 (defs (ly:output-def-lookup layout 'text-font-defaults))
-	 (props (ly:grob-alist-chain grob defs)))
-
-    (make-fret-diagram layout props
-		       (string-frets->description string-frets 6))))
+	 (string-count (ly:grob-property grob 'string-count)))
+    
+    (grob-interpret-markup grob
+			   (make-fret-diagram-verbose-markup
+			    (string-frets->description string-frets string-count)))))
