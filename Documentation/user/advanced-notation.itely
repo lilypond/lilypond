@@ -236,11 +236,12 @@ Program reference: @internalsref{TextSpanner},
 @internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
 
 Examples:
-@inputfileref{input/@/regression,text@/-spanner@/.ly}.
-@inputfileref{input/@/regression,line@/-style/.ly}.
-@inputfileref{input/@/regression,text@/-spanner@/.ly}.
 @inputfileref{input/@/regression,dynamics@/-text@/-spanner@/-padding.ly}.
 @inputfileref{input/@/regression,glissando@/-broken@/.ly}.
+@inputfileref{input/@/regression,line@/-arrows@/.ly}.
+@inputfileref{input/@/regression,line@/-style@/.ly}.
+@inputfileref{input/@/regression,text@/-spanner@/.ly}.
+@inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
 
 @node Text spanners
