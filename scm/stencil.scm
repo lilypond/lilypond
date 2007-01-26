@@ -274,14 +274,21 @@ encloses the contents.
 (define-public (eps-file->stencil axis size file-name)
   (let*
       ((contents (ly:gulp-file file-name))
-       (bbox (get-postscript-bbox contents))
+       (bbox (get-postscript-bbox (car (string-split contents #\nul))))
        (bbox-size (if (= axis X)
 		      (- (list-ref bbox 2) (list-ref bbox 0))
 		      (- (list-ref bbox 3) (list-ref bbox 1))
 		      ))
        (factor (exact->inexact (/ size bbox-size)))
        (scaled-bbox
-	(map (lambda (x) (* factor x)) bbox)))
+	(map (lambda (x) (* factor x)) bbox))
+       (clip-rect-string (format
+			  "~a ~a ~a ~a rectclip"
+			  (list-ref bbox 0) 
+			  (list-ref bbox 1) 
+			  (- (list-ref bbox 2) (list-ref bbox 0))
+			  (- (list-ref bbox 3) (list-ref bbox 1)))))
+    
 
     (if bbox
 	(ly:make-stencil
@@ -293,9 +300,11 @@ encloses the contents.
 gsave
 currentpoint translate
 BeginEPSF
-~a ~a scale
+~a dup scale
+~a 
 %%BeginDocument: ~a
-" 	   factor factor
+" 	   factor clip-rect-string
+
 	   file-name
 	   )
 	   contents
