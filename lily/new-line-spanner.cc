@@ -8,12 +8,11 @@
 
 #include "spanner.hh"
 #include "output-def.hh"
-#include "paper-column.hh"
+#include "item.hh"
 #include "staff-symbol-referencer.hh"
 #include "font-interface.hh"
 #include "warn.hh"
 #include "align-interface.hh"
-#include "lookup.hh"
 #include "line-interface.hh"
 #include "moment.hh"
 
@@ -32,24 +31,8 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
   DECLARE_GROB_INTERFACE();
-
-  static Grob *common_y (Grob*); 
 };
 
-Grob*
-New_line_spanner::common_y (Grob*me_grob) 
-{
-  Spanner *me = dynamic_cast<Spanner*> (me_grob);
-  
-  Grob *commony = me;
-  Direction d = LEFT;
-  do
-    if (me->get_bound (d)->break_status_dir () == CENTER)
-      commony = me->get_bound (d)->common_refpoint (commony, Y_AXIS);
-  while (flip (&d) != LEFT);
-
-  return commony;
-}
 
 static Grob *
 line_spanner_common_parent (Grob *me)
@@ -155,16 +138,14 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
 	}
       else
 	{
-	  Grob *commony = common_y (me);
+	  Grob *commony = me->common_refpoint (me->get_bound (dir), Y_AXIS);
 	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center();
+	  details = scm_acons (ly_symbol2scm ("common-Y"), commony->self_scm (), details);
 	}
 
       y += dir * extra_dy / 2; 
       details = scm_acons (ly_symbol2scm ("Y"), scm_from_double (y), details);
     }
-  else
-    details = scm_acons (ly_symbol2scm ("preset-Y"),
-			 SCM_BOOL_T, details);
 
   return details;
 }
@@ -253,11 +234,10 @@ New_line_spanner::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
-  Offset dz = (span_points[RIGHT] - span_points[LEFT]);
-  Offset dz_dir = dz.direction ();
   Drul_array<Real> gaps (0, 0);
   Drul_array<bool> arrows (0, 0);
   Drul_array<Stencil*> stencils (0,0);
+  Drul_array<Grob*> common_y (0, 0);
   do
     {
       gaps[d] = robust_scm2double (ly_assoc_get (ly_symbol2scm ("padding"),
@@ -266,10 +246,20 @@ New_line_spanner::print (SCM smob)
 					    bounds[d], SCM_BOOL_F));
       stencils[d] = unsmob_stencil (ly_assoc_get (ly_symbol2scm ("stencil"),
 						  bounds[d], SCM_BOOL_F));
-     
+      common_y[d] = unsmob_grob (ly_assoc_get (ly_symbol2scm ("common-Y"),
+					       bounds[d], SCM_BOOL_F));
+      if (!common_y[d])
+	common_y[d] = me; 
     }
   while (flip (&d) != LEFT);
 
+  Grob *my_common_y = common_y[LEFT]->common_refpoint (common_y[RIGHT], Y_AXIS);
+  do
+    span_points[d][Y_AXIS] += common_y[d]->relative_coordinate (my_common_y, Y_AXIS);
+  while (flip (&d) != LEFT);
+
+  Offset dz = (span_points[RIGHT] - span_points[LEFT]);
+  Offset dz_dir = dz.direction ();
   if (gaps[LEFT] + gaps[RIGHT] > dz.length ())
     {
       return SCM_EOL;
@@ -319,20 +309,9 @@ New_line_spanner::print (SCM smob)
 					    span_points[RIGHT],
 					    arrows[LEFT],
 					    arrows[RIGHT]));
-  Grob *commony = me;
- 
-  do
-    {
-      if (ly_assoc_get (ly_symbol2scm ("preset-Y"), bounds[LEFT],
-			SCM_BOOL_F)
-	  != SCM_BOOL_T)
-
-	commony = commony->common_refpoint (me->get_bound (d), Y_AXIS);
-    }
-  while (flip (&d) != LEFT);
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
-			  -me->relative_coordinate (commony, Y_AXIS)));
+			  -me->relative_coordinate (my_common_y, Y_AXIS)));
 			  
     
   return line.smobbed_copy ();
