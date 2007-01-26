@@ -48,7 +48,7 @@ Line_interface::make_trill_line (Grob *me,
 					   alist_chain));
 
   Stencil elt = fm->find_by_name ("scripts.trill_element");
-
+  elt.align_to (Y_AXIS, CENTER);
   Real elt_len = elt.extent (X_AXIS).length ();
   if (elt_len <= 0.0)
     {
@@ -65,7 +65,7 @@ Line_interface::make_trill_line (Grob *me,
     }
   while (len + elt_len < dz.length ());
 
-  line.rotate (dz.arg (), Offset (0,0));
+  line.rotate (dz.arg (), Offset (LEFT, CENTER));
   line.translate (from);
 
   return line; 
