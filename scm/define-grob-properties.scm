@@ -130,9 +130,6 @@ the vertical edges '(@var{left-height} . @var{right-height}).")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges '(@var{left-text} . @var{right-text}).")
      (eccentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
-     (enclose-bounds ,number?
-		     "How much of the bound a spanner should enclose:
-+1 = completely, 0 = center, -1 not at all.")
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
      ;; remove me?
      (extra-dy ,number? "Slope glissandi this much extra.")

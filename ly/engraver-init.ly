@@ -759,10 +759,7 @@ AncientRemoveEmptyStaffContext = \context {
   %%
   \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
-  \override TextSpanner #'edge-height = #'(0 . 0)
   \override TextSpanner #'padding = #-0.1
-  \override TextSpanner #'enclose-bounds = #1
-  \override TextSpanner #'edge-text = #'("" . "")
 }
 
 \context {
@@ -833,10 +830,7 @@ AncientRemoveEmptyStaffContext = \context {
   %%
   \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
-  \override TextSpanner #'edge-height = #'(0 . 0)
   \override TextSpanner #'padding = #-0.1
-  \override TextSpanner #'enclose-bounds = #1
-  \override TextSpanner #'edge-text = #'("" . "")
 }
 
 \context {
