@@ -17,6 +17,7 @@
   (let*
       ((file (open-output-file (format "~a.scm" basename))))
     
+    (display ";;Creator: LilyPond\n" file)
     (display ";; raw SCM output\n" file)
 
   (for-each

@@ -581,7 +581,7 @@ def print_score_setup (printer, part_list, voices):
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
-    printer.print_verbatim ('%% converted from %s\n' % filename)
+    printer.print_verbatim ('%% automatically converted from %s\n' % filename)
 
 def read_musicxml (filename, use_lxml):
     if use_lxml:
