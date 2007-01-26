@@ -38,7 +38,16 @@ Text_interface::interpret_string (SCM layout_smob,
   return fm->word_stencil (str).smobbed_copy ();
 }
 
-MAKE_SCHEME_CALLBACK (Text_interface, interpret_markup, 3);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Text_interface, interpret_markup, 3, 0,
+				   "Convert a text markup into a stencil. "
+"Takes 3 arguments, @var{layout}, @var{props} and @var{markup}. "
+"\n\n"
+"@var{layout} is a @code{\\layout} block; it may be obtained from a grob with "
+"@code{ly:grob-layout}.  @var{props} is a alist chain, ie. a list of alists. "
+"This is typically obtained with "
+"@code{(ly:grob-alist-chain (ly:layout-lookup layout 'text-font-defaults))}. "
+"@var{markup} is the markup text to be processed. "
+				   );
 SCM
 Text_interface::interpret_markup (SCM layout_smob, SCM props, SCM markup)
 {
@@ -92,7 +101,13 @@ Text_interface::is_markup (SCM x)
 }
 
 ADD_INTERFACE (Text_interface,
-	       "A scheme markup text, see @usermanref{Text markup}.",
+	       "A scheme markup text, see @usermanref{Text markup} and "
+	       "@usermanref{New markup command definition}. "
+	       "\n\n"
+	       "There are two important commands: ly:text-interface::print, which is a "
+	       "grob callback, and ly:text-interface::interpret-markup ",
+
+	       /* props */
 	       "baseline-skip "
 	       "text "
 	       "word-space "

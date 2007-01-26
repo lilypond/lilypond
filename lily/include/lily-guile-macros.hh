@@ -99,7 +99,7 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
   Make TYPE::FUNC available as a Scheme function.
 */
 string mangle_cxx_identifier (string);
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT)	\
+#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
   SCM TYPE ::FUNC ## _proc;						\
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
@@ -108,19 +108,22 @@ string mangle_cxx_identifier (string);
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \
+    ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
+				   DOC);				\
     scm_c_export (id.c_str (), NULL);					\
   }									\
 									\
   ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,			\
 		     TYPE ## _ ## FUNC ## _init_functions);
 
+#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT, DOC)		\
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, 0, DOC);
+
 #define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT,0);
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
 
 void
-ly_add_function_documentation (SCM proc, char const *fname,
-			       char const *varlist,
-			       char const *doc);
+ly_add_function_documentation (SCM proc, string fname, string varlist, string doc);
 
 #define ADD_SCM_INIT_FUNC(name, func)		\
   class name ## _scm_initter			\

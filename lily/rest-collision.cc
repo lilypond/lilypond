@@ -41,7 +41,7 @@ Rest_collision::force_shift_callback (SCM smob)
   return scm_from_double (0.0);
 }
 
-MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1);
+MAKE_SCHEME_CALLBACK_WITH_OPTARGS (Rest_collision, force_shift_callback_rest, 2, 1, "");
 SCM
 Rest_collision::force_shift_callback_rest (SCM rest, SCM offset)
 {

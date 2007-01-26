@@ -16,7 +16,7 @@
 
 LY_DEFINE (ly_layout_lookup, "ly:output-def-lookup",
 	   2, 1, 0, (SCM pap, SCM sym, SCM def),
-	   "Lookup @var{sym} in @var{pap}. "
+	   "Lookup @var{sym} in the Output_def @var{pap}. "
 	   "Return the value or @var{def} (which defaults to  @code{'()}) if undefined.")
 {
   Output_def *op = unsmob_output_def (pap);

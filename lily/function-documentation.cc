@@ -15,11 +15,11 @@ using namespace std;
 static SCM doc_hash_table;
 
 void ly_add_function_documentation (SCM func,
-				    char const *fname,
-				    char const *varlist,
-				    char const *doc)
+				    string fname,
+				    string varlist,
+				    string doc)
 {
-  if (!strlen (doc))
+  if (doc == "")
     return;
 
   if (!doc_hash_table)
@@ -30,8 +30,8 @@ void ly_add_function_documentation (SCM func,
 
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
 				ly_string2scm (s));
-  SCM entry = scm_cons (scm_from_locale_string (varlist), scm_from_locale_string (doc));
-  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname), entry);
+  SCM entry = scm_cons (ly_string2scm (varlist), ly_string2scm (doc));
+  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str()), entry);
 }
 
 LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
