@@ -5,7 +5,7 @@
 
 \header{
 texidoc = #(string-append "
-@section Introduction
+@unnumbered Introduction
 
 This document shows all kinds of tips and tricks, from simple to
 advanced.  You may also find dirty tricks, or the very very

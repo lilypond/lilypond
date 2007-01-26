@@ -5,7 +5,7 @@
 
 \header{
 texidoc = #(string-append "
-@section Introduction
+@unnumbered Introduction
 
 This document shows all kinds of tricks from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
@@ -18,4 +18,4 @@ This document is for LilyPond version
 }
 
 % make sure .png  is generated.
-\lyrics {  "(left blank intentionally)" }
+\lyrics {  " " }

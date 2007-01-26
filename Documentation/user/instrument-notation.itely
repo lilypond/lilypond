@@ -1119,7 +1119,9 @@ There is one tricky aspect: the setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
+@c  FIXME: breaks compile
 @lilypond[verbatim,ragged-right,quote]
+%{
 <<
   \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1138,6 +1140,7 @@ in the text, as shown here,
     still
   }
 >>
+%}
 @end lilypond
 
 
