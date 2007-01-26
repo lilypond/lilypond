@@ -146,7 +146,7 @@ e2 \glissando f
 
 The @code{Glissando} object, like any other using the
 @code{ly:new-line-interface::print} routine, carries a nested
-association list. In the above statement, the @item value for @code{Y}
+association list. In the above statement, the value for @code{Y}
 is set to @code{-2} for association list corresponding to the right
 end point. Of course, it is also possible to adjust the left side with
 @code{left} instead of @code{right}.
@@ -201,7 +201,6 @@ used to put @i{cresc.} and @i{tr} on horizontal spanners.
    = \markup { \bold Slower }
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
-
 
 @item stencil-align-dir-y
 @item stencil-offset
