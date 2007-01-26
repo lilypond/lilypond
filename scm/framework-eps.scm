@@ -146,6 +146,9 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
 (define-public (output-framework basename book scopes fields)
   (output-scopes scopes fields basename)
+  (if (ly:get-option 'clip-systems)
+      (clip-system-EPSes basename book))
+
   (dump-stencils-as-EPSes
    (map page-stencil (ly:paper-book-pages book)) book basename))
   

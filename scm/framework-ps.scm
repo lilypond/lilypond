@@ -603,7 +603,7 @@
     ))
 
 
-(define (clip-system-EPSes basename paper-book)
+(define-public (clip-system-EPSes basename paper-book)
   (define do-pdf (member  "pdf" (ly:output-formats)))
 
   (define (clip-score-systems basename systems)
