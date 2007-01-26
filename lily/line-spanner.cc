@@ -1,5 +1,5 @@
 /*
-  line-spanner.cc -- implement New_line_spanner
+  line-spanner.cc -- implement Line_spanner
 
   source file of the GNU LilyPond music typesetter
 
@@ -20,12 +20,11 @@
 #include "grob-interface.hh"
 #include "text-interface.hh"
 
-class New_line_spanner
+class Line_spanner
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));
-
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
@@ -51,7 +50,7 @@ line_spanner_common_parent (Grob *me)
 }
 
 SCM
-New_line_spanner::calc_bound_info (SCM smob, Direction dir)
+Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
   Spanner *me = unsmob_spanner (smob);
 
@@ -150,25 +149,25 @@ New_line_spanner::calc_bound_info (SCM smob, Direction dir)
   return details;
 }
 
-MAKE_SCHEME_CALLBACK (New_line_spanner, calc_right_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_right_bound_info, 1);
 SCM
-New_line_spanner::calc_right_bound_info (SCM smob)
+Line_spanner::calc_right_bound_info (SCM smob)
 {
-  return New_line_spanner::calc_bound_info (smob, RIGHT);
+  return Line_spanner::calc_bound_info (smob, RIGHT);
 }
 
-MAKE_SCHEME_CALLBACK (New_line_spanner, calc_left_bound_info, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info, 1);
 SCM
-New_line_spanner::calc_left_bound_info (SCM smob)
+Line_spanner::calc_left_bound_info (SCM smob)
 {
-  return New_line_spanner::calc_bound_info (smob, LEFT);
+  return Line_spanner::calc_bound_info (smob, LEFT);
 }
 
-MAKE_SCHEME_CALLBACK (New_line_spanner, calc_left_bound_info_and_text, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, calc_left_bound_info_and_text, 1);
 SCM
-New_line_spanner::calc_left_bound_info_and_text (SCM smob)
+Line_spanner::calc_left_bound_info_and_text (SCM smob)
 {
-  SCM alist = New_line_spanner::calc_bound_info (smob, LEFT);
+  SCM alist = Line_spanner::calc_bound_info (smob, LEFT);
   Spanner *me = unsmob_spanner (smob);
 
   SCM text = me->get_property ("text");
@@ -187,9 +186,9 @@ New_line_spanner::calc_left_bound_info_and_text (SCM smob)
   return alist;
 }
 
-MAKE_SCHEME_CALLBACK (New_line_spanner, print, 1);
+MAKE_SCHEME_CALLBACK (Line_spanner, print, 1);
 SCM
-New_line_spanner::print (SCM smob)
+Line_spanner::print (SCM smob)
 {
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (smob));
 
@@ -317,7 +316,7 @@ New_line_spanner::print (SCM smob)
   return line.smobbed_copy ();
 }
 
-ADD_INTERFACE (New_line_spanner,
+ADD_INTERFACE (Line_spanner,
 	       "Generic line drawn between two objects, e.g. for use with glissandi.\n"
 	       "The property @code{style} can be @code{line}, "
 	       "@code{dashed-line}, @code{trill}, \n"

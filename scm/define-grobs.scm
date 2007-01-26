@@ -655,9 +655,9 @@
 			  (left-broken . ((attach-dir .  ,RIGHT)
 				   ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info-and-text)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info-and-text)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	;; need to blend with dynamic texts.
 	(font-size . 1)
@@ -666,7 +666,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				text-interface
-				new-line-spanner-interface
+				line-spanner-interface
 				line-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
@@ -720,13 +720,13 @@
 				   (padding . 1.5)
 				      ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				unbreakable-spanner-interface
-				new-line-spanner-interface))))))
+				line-spanner-interface))))))
 
     (GraceSpacing
      . (
@@ -1820,8 +1820,8 @@
 	(direction . ,UP)
 	(outside-staff-priority . 350)
 
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 	(bound-details . ((left . ((Y . 0)
 				   (padding . 0.25)
 				   (attach-dir . ,LEFT)
@@ -1830,10 +1830,10 @@
 				    (padding . 0.25)
 				   ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
+	(stencil . ,ly:line-spanner::print)
 
 	(meta . ((class . Spanner)
-		 (interfaces . (new-line-spanner-interface
+		 (interfaces . (line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1901,8 +1901,8 @@
 
     (TrillSpanner
      . (
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
 					     '(0.5 . -0.6)
@@ -1914,7 +1914,7 @@
 			  (right . ((Y . 0)))
 			  ))
 	
-	(stencil . ,ly:new-line-spanner::print)
+	(stencil . ,ly:line-spanner::print)
 
 	(style . trill)
 	(staff-padding . 1.0)
@@ -1924,7 +1924,7 @@
 	(side-axis . ,Y)
 	(outside-staff-priority . 50)
 	(meta . ((class . Spanner)
-		 (interfaces . (new-line-spanner-interface
+		 (interfaces . (line-spanner-interface
 				line-interface
 				trill-spanner-interface
 				side-position-interface
@@ -2107,11 +2107,11 @@
 				   (padding . 1.5)
 				      ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
-		 (interfaces . (new-line-spanner-interface
+		 (interfaces . (line-spanner-interface
 				line-interface))))
 	))
 
