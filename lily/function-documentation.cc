@@ -53,3 +53,24 @@ LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation
 {
   return doc_hash_table;
 }
+
+
+#include <map>
+
+map<void *, string>  type_names;
+  
+void
+ly_add_type_predicate (void *ptr,
+		       string name)
+{
+  type_names[ptr] = name; 
+}
+
+string
+predicate_to_typename (void *ptr)
+{
+  if (type_names.find (ptr) == type_names.end ())
+    return "unknown type";
+  else
+    return type_names[ptr];
+}

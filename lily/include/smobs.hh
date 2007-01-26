@@ -96,6 +96,7 @@
 #define DECLARE_BASE_SMOBS(CL)					\
   friend class Non_existent_class;				\
   private:							\
+  static const char* smob_name_; \
   static scm_t_bits smob_tag_;					\
   static SCM mark_smob (SCM);					\
   static size_t free_smob (SCM s);				\

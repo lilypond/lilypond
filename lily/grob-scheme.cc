@@ -20,7 +20,10 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 	   "Retrieve @var{sym} for @var{grob} but don't process callbacks.")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+
+  LY_FUNC_NOTE_FIRST_ARG(grob);
+  LY_ASSERT_SMOB(Grob, 1);
+
   SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
 
   return sc->get_property_data (sym);

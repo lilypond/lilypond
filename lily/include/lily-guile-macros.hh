@@ -1,5 +1,5 @@
 /*
-  lily-guile-macros.hh -- declare
+  lily-guile-macros.hh -- declare GUILE interaction macros.
 
   source file of the GNU LilyPond music typesetter
 
@@ -24,9 +24,6 @@
 /* Unreliable with gcc-2.x
    FIXME: should add check for x86 as well?  */
 #define CACHE_SYMBOLS
-
-
-
 
 #ifdef CACHE_SYMBOLS
 
@@ -94,11 +91,31 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
 #define DECLARE_SCHEME_CALLBACK(NAME, ARGS)	\
   static SCM NAME ARGS;				\
   static SCM NAME ## _proc
- 
+#define ADD_TYPE_PREDICATE(func, type_name) \
+  void \
+  func ## _type_adder ()			\
+  {\
+    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);	\
+  }\
+  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
+		    func ## _type_adder);
+#define ADD_TYPE_PREDICATE(func, type_name) \
+  void \
+  func ## _type_adder ()			\
+  {\
+    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);	\
+  }\
+  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
+		    func ## _type_adder);
+
+string mangle_cxx_identifier (string);
+
+void ly_add_type_predicate (void *ptr, string name);
+string predicate_to_typename (void *ptr);
+
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
-string mangle_cxx_identifier (string);
 #define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
   SCM TYPE ::FUNC ## _proc;						\
   void									\
@@ -182,5 +199,25 @@ void ly_check_name (string cxx, string fname);
 #else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #endif
+
+
+
+#define LY_FUNC_NOTE_FIRST_ARG(a)  \
+  SCM *first_arg_ptr = &a; \
+  int stack_grow_dir = 0;  \
+  stack_grow_dir = ((void*) &first_arg_ptr < (void*) &stack_grow_dir) ? -1 : 1;
+
+#define LY_ASSERT_TYPE(pred, number) \
+  {									\
+    if (!pred (first_arg_ptr[(number-1)*stack_grow_dir]))		\
+      {									\
+	scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
+			       number, first_arg_ptr[(number-1)*stack_grow_dir], \
+			       predicate_to_typename ((void*) &pred).c_str()); \
+      }									\
+  }
+
+#define LY_ASSERT_SMOB(klass, number) LY_ASSERT_TYPE(klass::unsmob, number)
+
 
 #endif /* LILY_GUILE_MACROS_HH */
