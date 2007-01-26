@@ -557,13 +557,11 @@ SCM
 Stem::height (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-
+  if (!is_normal_stem (me))
+    return ly_interval2scm (Interval ());
+  
   Direction dir = get_grob_direction (me);
   
-  /* Trigger callback.
-
-  UGH. Should be automatic
-  */
   Grob *beam = get_beam (me);
   if (beam)
     {
@@ -910,10 +908,14 @@ Stem::calc_stem_info (SCM smob)
   Real height_of_my_trem = 0.0;
   Grob *trem = unsmob_grob (me->get_object ("tremolo-flag"));
   if (trem)
-      height_of_my_trem = trem->extent (trem, Y_AXIS).length ()
+    {
+      height_of_my_trem
+	= Stem_tremolo::vertical_length (trem)
         /* hack a bit of space around the trem. */
         + beam_translation;
+    }
 
+  
   /* UGH
      It seems that also for ideal minimum length, we must use
      the maximum beam count (for this direction):
