@@ -231,8 +231,14 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real len = (to-from).length();
       
       int n = (int) rint ((len - period * fraction) / period);
-      period = ((to-from).length() - period * fraction) / n;
-
+      if (n > 0)
+	{
+	  /*
+	    TODO: figure out something intelligent for really short
+	    sections.
+	   */
+	  period = ((to-from).length() - period * fraction) / n;
+	}
       stil = make_dashed_line (thick, from, to, period, fraction);
     }
   else
