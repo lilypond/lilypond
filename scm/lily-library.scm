@@ -118,14 +118,6 @@
   (string<? (symbol->string (car x))
 	    (symbol->string (car y))))
 
-(define-public (chain-assoc x alist-list)
-  (if (null? alist-list)
-      #f
-      (let* ((handle (assoc x (car alist-list))))
-	(if (pair? handle)
-	    handle
-	    (chain-assoc x (cdr alist-list))))))
-
 (define-public (chain-assoc-get x alist-list . default)
   "Return ALIST entry for X. Return DEFAULT (optional, else #f) if not
 found."

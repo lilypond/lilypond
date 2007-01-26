@@ -79,6 +79,9 @@ class SchemeChunk (Chunk):
             and not text.startswith ('(define (')):
             return 0
 
+        if text.startswith  ('(use-modules '):
+            return 0
+
         if (text.startswith  ('(define-public ')
             and not text.startswith ('(define-public (')):
             return 0

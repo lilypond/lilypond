@@ -30,14 +30,6 @@
 		   (ly:grob-property grob 'text))
 	     ))
 
-(define-public (music-cause grob)
-  (let*
-      ((event (event-cause grob)))
-
-    (if (ly:stream-event? event)
-	(ly:event-property event 'music-cause)
-	#f)))
-
 (define-public (event-cause grob)
   (let*
       ((cause (ly:grob-property  grob 'cause)))

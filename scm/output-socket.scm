@@ -55,7 +55,6 @@
 
     (cond
      ((ly:stream-event? cause) cause)
-;     ((ly:grob? cause) (music-cause cause))
      (else
       #f))))
 
