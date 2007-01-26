@@ -1926,6 +1926,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (new-line-spanner-interface
 				line-interface
+				trill-spanner-interface
 				side-position-interface
 				font-interface))))))
 
