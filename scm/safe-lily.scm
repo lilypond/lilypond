@@ -195,7 +195,6 @@
    ly:sustain-pedal::print
    ly:system-start-delimiter::print
    ly:text-interface::print
-   ly:text-spanner::print
    ly:tie::print
    ly:time-signature::print
    ly:tuplet-bracket::print
