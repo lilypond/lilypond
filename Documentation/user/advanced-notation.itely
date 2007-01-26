@@ -161,7 +161,6 @@ sublists, for example
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 \override Glissando #'breakable = ##T 
 \override Glissando #'bound-details #'right-broken #'Y = #-3
-\override Glissando #'bound-details #'left-broken #'Y = #3
 c1 \glissando \break
 f1
 @end lilypond
