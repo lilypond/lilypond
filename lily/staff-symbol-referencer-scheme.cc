@@ -14,7 +14,7 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 	   1, 0, 0, (SCM sg),
 	   "Return the Y-position of @var{sg} relative to the staff.")
 {
-  LY_ASSERT_FIRST_SMOB (Grob, sg);
+  LY_ASSERT_SMOB (Grob, sg, 1);
   Grob *g = unsmob_grob (sg);
   Real pos = Staff_symbol_referencer::get_position (g);
 

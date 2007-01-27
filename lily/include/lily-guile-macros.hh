@@ -201,30 +201,19 @@ void ly_check_name (string cxx, string fname);
 #endif
 
 
-extern int function_argument_direction;
 
-#define LY_FUNC_NOTE_FIRST_ARG(a)  \
-  SCM *first_arg_ptr = &a;
-
-#define LY_ASSERT_TYPE(pred, number) \
+#define LY_ASSERT_TYPE(pred, var, number)					\
   {									\
-    if (!pred (first_arg_ptr[(number-1)*function_argument_direction]))		\
+    if (!pred (var)) \
       {									\
 	scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
-			       number, first_arg_ptr[(number-1)*function_argument_direction], \
+			       number, var, \
 			       predicate_to_typename ((void*) &pred).c_str()); \
       }									\
   }
 
-#define LY_ASSERT_SMOB(klass, number) LY_ASSERT_TYPE(klass::unsmob, number)
+#define LY_ASSERT_SMOB(klass, var, number) LY_ASSERT_TYPE(klass::unsmob, var, number)
 
-
-#define LY_ASSERT_FIRST_TYPE(pred, var)				\
-  LY_FUNC_NOTE_FIRST_ARG(var);					\
-  LY_ASSERT_TYPE(pred, 1);
-
-#define LY_ASSERT_FIRST_SMOB(klass, var)                        \
-  LY_ASSERT_FIRST_TYPE(klass::unsmob, var)
 
 
 #endif /* LILY_GUILE_MACROS_HH */

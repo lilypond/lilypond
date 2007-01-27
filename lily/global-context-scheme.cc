@@ -24,7 +24,7 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
   
-  LY_ASSERT_FIRST_TYPE (unsmob_global_context, context)
+  LY_ASSERT_TYPE (unsmob_global_context, context, 1)
 
   SCM output = g->get_output ();
   progress_indication ("\n");
@@ -41,7 +41,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
           "@var{global}. The translator group is returned.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (global));
-  LY_ASSERT_FIRST_TYPE (unsmob_global_context, global)
+  LY_ASSERT_TYPE (unsmob_global_context, global, 1)
 
   Translator_group *tg = new Translator_group ();
   tg->connect_to_context (g);
@@ -57,7 +57,7 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 	   "The context is returned.\n"
 	   )
 {
-  LY_ASSERT_FIRST_SMOB (Output_def, output_def);
+  LY_ASSERT_SMOB (Output_def, output_def, 1);
   Output_def *odef = unsmob_output_def (output_def); 
 
   Global_context *glob = new Global_context (odef);
@@ -77,8 +77,8 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 	   "global context @var{ctx}. The context is returned in its\n"
 	   "final state.\n")
 {
-  LY_ASSERT_FIRST_SMOB (Music, mus);
-  LY_ASSERT_TYPE (unsmob_global_context, 2);
+  LY_ASSERT_SMOB (Music, mus, 1);
+  LY_ASSERT_TYPE (unsmob_global_context,ctx, 2);
 
   Music *music = unsmob_music (mus);
   if (!music
@@ -130,8 +130,8 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   "Optionally, this routine takes an Object-key to\n"
 	   "to uniquely identify the Score block containing it.\n")
 {
-  LY_ASSERT_FIRST_SMOB (Music, mus);
-  LY_ASSERT_SMOB (Output_def, 2);
+  LY_ASSERT_SMOB (Music, mus, 1);
+  LY_ASSERT_SMOB (Output_def, output_def, 2);
 
   SCM glob = ly_make_global_context (output_def);
   ly_make_global_translator (glob);

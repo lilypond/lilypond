@@ -21,20 +21,20 @@ LY_DEFINE (ly_make_moment, "ly:make-moment",
 	   "notes, and @var{g} the timing for grace notes.  "
 	   "In absence of grace notes, @var{g} is zero.\n")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_integer, n);
-  LY_ASSERT_TYPE(scm_is_integer, 2);
+  LY_ASSERT_TYPE (scm_is_integer, n, 1);
+  LY_ASSERT_TYPE(scm_is_integer,d, 2);
 
   int grace_num = 0;
   if (gn != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_integer, 3);
+      LY_ASSERT_TYPE(scm_is_integer,gn, 3);
       grace_num = scm_to_int (gn);
     }
 
   int grace_den = 1;
   if (gd != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_integer, 4);
+      LY_ASSERT_TYPE(scm_is_integer,gd, 4);
       grace_den = scm_to_int (gd);
     }
 
@@ -46,8 +46,8 @@ LY_DEFINE (ly_moment_sub, "ly:moment-sub",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Subtract two moments.")
 {
-  LY_ASSERT_FIRST_SMOB (Moment, a); 
-  LY_ASSERT_SMOB (Moment, 2);
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB (Moment,b, 2);
   
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -59,8 +59,8 @@ LY_DEFINE (ly_moment_add, "ly:moment-add",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Add two moments.")
 {
-  LY_ASSERT_FIRST_SMOB(Moment, a); 
-  LY_ASSERT_SMOB(Moment, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB(Moment,b, 2); 
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -72,8 +72,8 @@ LY_DEFINE (ly_moment_mul, "ly:moment-mul",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Multiply two moments.")
 {
-  LY_ASSERT_FIRST_SMOB(Moment, a); 
-  LY_ASSERT_SMOB(Moment, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB(Moment, b, 2); 
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -84,8 +84,8 @@ LY_DEFINE (ly_moment_div, "ly:moment-div",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Divide two moments.")
 {
-  LY_ASSERT_FIRST_SMOB(Moment, a); 
-  LY_ASSERT_SMOB(Moment, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB(Moment, b, 2); 
 
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -97,8 +97,8 @@ LY_DEFINE (ly_moment_mod, "ly:moment-mod",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Modulo of two moments.")
 {
-  LY_ASSERT_FIRST_SMOB(Moment, a); 
-  LY_ASSERT_SMOB(Moment, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB(Moment, b, 2); 
   
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);
@@ -109,7 +109,7 @@ LY_DEFINE (ly_moment_grace_numerator, "ly:moment-grace-numerator",
 	   1, 0, 0, (SCM mom),
 	   "Extract numerator from grace timing.")
 {
-  LY_ASSERT_FIRST_SMOB (Moment, mom);
+  LY_ASSERT_SMOB (Moment, mom, 1);
 
   Moment *ma = unsmob_moment (mom);
 
@@ -120,7 +120,7 @@ LY_DEFINE (ly_moment_grace_denominator, "ly:moment-grace-denominator",
 	   1, 0, 0, (SCM mom),
 	   "Extract denominator from grace timing.")
 {
-  LY_ASSERT_FIRST_SMOB (Moment, mom);
+  LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
   return scm_from_int (ma->grace_part_.denominator ());
@@ -129,7 +129,7 @@ LY_DEFINE (ly_moment_main_numerator, "ly:moment-main-numerator",
 	   1, 0, 0, (SCM mom),
 	   "Extract numerator from main timing.")
 {
-  LY_ASSERT_FIRST_SMOB (Moment, mom);
+  LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
   return scm_from_int (ma->main_part_.numerator ());
@@ -139,7 +139,7 @@ LY_DEFINE (ly_moment_main_denominator, "ly:moment-main-denominator",
 	   1, 0, 0, (SCM mom),
 	   "Extract denominator from main timing.")
 {
-  LY_ASSERT_FIRST_SMOB (Moment, mom);
+  LY_ASSERT_SMOB (Moment, mom, 1);
   Moment *ma = unsmob_moment (mom);
 
   return scm_from_int (ma->main_part_.denominator ());
@@ -149,8 +149,8 @@ LY_DEFINE (ly_moment_less_p, "ly:moment<?",
 	   2, 0, 0, (SCM a, SCM b),
 	   "Compare two moments.")
 {
-  LY_ASSERT_FIRST_SMOB(Moment, a); 
-  LY_ASSERT_SMOB (Moment, 2); 
+  LY_ASSERT_SMOB (Moment, a, 1); 
+  LY_ASSERT_SMOB (Moment, b, 2); 
   
   Moment *ma = unsmob_moment (a);
   Moment *mb = unsmob_moment (b);

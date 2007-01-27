@@ -17,8 +17,8 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   "Create an outputter that evaluates within "
 	   "@code{output-}@var{format}, writing to  @var{port}.")
 {
-  LY_ASSERT_FIRST_TYPE(ly_is_port, port);
-  LY_ASSERT_TYPE (scm_is_string, 2);
+  LY_ASSERT_TYPE (ly_is_port, port, 1);
+  LY_ASSERT_TYPE (scm_is_string, format, 2);
 
   string f = ly_scm2string (format);
 
@@ -44,8 +44,8 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 	   "Dump stencil @var{expr} onto @var{outputter}.")
 {
   
-  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
-  LY_ASSERT_SMOB(Stencil, 2);
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
+  LY_ASSERT_SMOB(Stencil, stencil, 2);
 
   Paper_outputter *po = unsmob_outputter (outputter);
   Stencil *st = unsmob_stencil (stencil);
@@ -58,8 +58,8 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 	   2, 0, 0, (SCM outputter, SCM str),
 	   "Dump @var{str} onto @var{outputter}.")
 {
-  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
-  LY_ASSERT_TYPE(scm_is_string, 2);
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
+  LY_ASSERT_TYPE(scm_is_string, str, 2);
 
   Paper_outputter *po = unsmob_outputter (outputter);
 
@@ -70,7 +70,7 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
 	   1, 0, 0, (SCM outputter),
 	   "Return output port for @var{outputter}.")
 {
-  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   Paper_outputter *po = unsmob_outputter (outputter);
 
   return po->file ();
@@ -80,7 +80,7 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
 	   1, 0, 0, (SCM outputter),
 	   "Close port of @var{outputter}.")
 {
-  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   Paper_outputter *po = unsmob_outputter (outputter);
 
   po->close ();
@@ -91,7 +91,7 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
 	   2, 0, 0, (SCM outputter, SCM expr),
 	   "Eval @var{expr} in module of @var{outputter}.")
 {
-  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
+  LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
   Paper_outputter *po = unsmob_outputter (outputter);
 
   po->output_scheme (expr);

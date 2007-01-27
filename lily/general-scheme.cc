@@ -32,7 +32,7 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 	   "Return the absolute file name of @var{name}, "
 	   "or @code{#f} if not found.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, name);
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
 
   string nm = ly_scm2string (name);
   string file_name = global_path.find (nm);
@@ -51,11 +51,11 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   "Read the file @var{name}, and return its contents in a string.  "
 	   "The file is looked up using the search path. ")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, name);
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
   int sz = INT_MAX;
   if (size != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_number, 2);
+      LY_ASSERT_TYPE(scm_is_number,size, 2);
       sz = scm_to_int (size);
     }
   
@@ -68,7 +68,7 @@ LY_DEFINE (ly_error, "ly:error",
 	   "Scheme callable function to issue the error @code{msg}. "
 	   "The error is formatted with @code{format} and @code{rest}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   error (ly_scm2string (str));
   return SCM_UNSPECIFIED;
@@ -79,7 +79,7 @@ LY_DEFINE (ly_message, "ly:message",
 	   "Scheme callable function to issue the message @code{msg}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   message (ly_scm2string (str));
   return SCM_UNSPECIFIED;
@@ -90,7 +90,7 @@ LY_DEFINE (ly_progress, "ly:progress",
 	   "Scheme callable function to print progress @code{str}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   progress_indication (ly_scm2string (str));
   return SCM_UNSPECIFIED;
@@ -101,7 +101,7 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 	   "Scheme callable function to issue the warning @code{msg}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   programming_error (ly_scm2string (str));
   return SCM_UNSPECIFIED;
@@ -112,7 +112,7 @@ LY_DEFINE (ly_warning, "ly:warning",
 	   "Scheme callable function to issue the warning @code{str}. "
 	   "The message is formatted with @code{format} and @code{rest}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
   warning (ly_scm2string (str));
   return SCM_UNSPECIFIED;
@@ -152,9 +152,9 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 	   3, 0, 0, (SCM a, SCM b, SCM s),
 	   "Replace @var{a} by @var{b} in @var{s}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, s);
-  LY_ASSERT_TYPE(scm_is_string, 2);
-  LY_ASSERT_TYPE(scm_is_string, 3);
+  LY_ASSERT_TYPE (scm_is_string, s, 1);
+  LY_ASSERT_TYPE(scm_is_string,b, 2);
+  LY_ASSERT_TYPE(scm_is_string,s, 3);
 
   string ss = ly_scm2string (s);
   replace_all (ss, string (scm_i_string_chars (a)),
@@ -166,7 +166,7 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
 	   1, 0, 0, (SCM s),
 	   "Convert @var{num} to a string without generating many decimals.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_number, s);
+  LY_ASSERT_TYPE (scm_is_number, s, 1);
 
   char str[400];			// ugh.
 
@@ -224,7 +224,7 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 	   1, 0, 0, (SCM string),
 	   "Gettext wrapper.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, string);
+  LY_ASSERT_TYPE (scm_is_string, string, 1);
   return ly_string2scm (_ (scm_i_string_chars (string)));
 }
 
@@ -256,7 +256,7 @@ LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 {
   char buf[5];
 
-  LY_ASSERT_FIRST_TYPE(scm_is_integer, wc);
+  LY_ASSERT_TYPE (scm_is_integer, wc, 1);
   unsigned wide_char = (unsigned) scm_to_int (wc);
   char *p = buf;
 
@@ -314,7 +314,7 @@ LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 	   1, 1, 0, (SCM file_name, SCM mode),
 	   "Redirect stderr to FILE-NAME, opened with MODE.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, file_name);
+  LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
   string m = "w";
   if (mode != SCM_UNDEFINED && scm_string_p (mode))
@@ -346,7 +346,7 @@ LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
 	   1, 0, 0, (SCM name_sym),
 	   "Convert FooBar_Bla to foo-bar-bla style symbol.")
 {
-  LY_ASSERT_FIRST_TYPE(ly_is_symbol, name_sym);
+  LY_ASSERT_TYPE (ly_is_symbol, name_sym, 1);
   
   /*
     TODO: should use strings instead?
@@ -362,7 +362,7 @@ LY_DEFINE (ly_expand_environment, "ly:expand-environment",
 	   1, 0, 0, (SCM str),
 	   "Expand $VAR and $@{VAR@} in @var{str}.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
 
   return ly_string2scm (expand_environment_variables (ly_scm2string (str)));
 }
@@ -372,7 +372,7 @@ LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
 	   2, 0, 0, (SCM lst, SCM i),
 	   "Take at most the first @var{i} of list @var{lst}")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_integer, i);
+  LY_ASSERT_TYPE (scm_is_integer, i, 1);
 
   int k = scm_to_int (i);
   if (k == 0)
@@ -427,7 +427,7 @@ LY_DEFINE (ly_format, "ly:format",
 	   1, 0, 1, (SCM str, SCM rest),
 	   "LilyPond specific format, supporting ~a ~[0-9]f.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, str);
+  LY_ASSERT_TYPE (scm_is_string, str, 1);
 
   string format = ly_scm2string (str);
   vector<string> results;

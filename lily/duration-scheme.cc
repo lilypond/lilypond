@@ -27,8 +27,8 @@ LY_DEFINE (ly_duration_less_p, "ly:duration<?",
 	   2, 0, 0, (SCM p1, SCM p2),
 	   "Is @var{p1} shorter than @var{p2}?")
 {
-  LY_ASSERT_FIRST_SMOB(Duration, p1);
-  LY_ASSERT_SMOB(Duration, 2);
+  LY_ASSERT_SMOB(Duration, p1, 1);
+  LY_ASSERT_SMOB(Duration, p2, 2);
 
   Duration *a = unsmob_duration (p1);
   Duration *b = unsmob_duration (p2);
@@ -53,19 +53,19 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 	   "(whole, half, quarter, etc.) and a number of augmentation\n"
 	   "dots. \n")
 {
-  LY_ASSERT_FIRST_TYPE (scm_is_integer, length);
+  LY_ASSERT_TYPE (scm_is_integer, length, 1);
 
   int dots = 0;
   if (dotcount != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_integer, 2);
+      LY_ASSERT_TYPE (scm_is_integer, dotcount,2);
       dots = scm_to_int (dotcount);
     }
 
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_number, 3);
+      LY_ASSERT_TYPE (scm_is_number,num, 3);
       compress = true;
     }
   else
@@ -73,7 +73,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 
   if (den != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_number, 4);
+      LY_ASSERT_TYPE (scm_is_number,den, 4);
       compress = true;
     }
   else
@@ -90,7 +90,7 @@ LY_DEFINE (ly_duration_log, "ly:duration-log",
 	   1, 0, 0, (SCM dur),
 	   "Extract the duration log from @var{dur}")
 {
-  LY_ASSERT_FIRST_SMOB (Duration, dur);
+  LY_ASSERT_SMOB (Duration, dur, 1);
   return scm_from_int (unsmob_duration (dur)->duration_log ());
 }
 
@@ -98,7 +98,7 @@ LY_DEFINE (ly_duration_dot_count, "ly:duration-dot-count",
 	   1, 0, 0, (SCM dur),
 	   "Extract the dot count from @var{dur}")
 {
-  LY_ASSERT_FIRST_SMOB(Duration, dur);
+  LY_ASSERT_SMOB (Duration, dur, 1);
   return scm_from_int (unsmob_duration (dur)->dot_count ());
 }
 
@@ -106,7 +106,7 @@ LY_DEFINE (ly_intlog2, "ly:intlog2",
 	   1, 0, 0, (SCM d),
 	   "The 2-logarithm of 1/@var{d}.")
 {
-  LY_ASSERT_FIRST_TYPE (scm_is_number, d);
+  LY_ASSERT_TYPE (scm_is_number, d, 1);
   int log = intlog2 (scm_to_int (d));
   return scm_from_int (log);
 }
@@ -115,7 +115,7 @@ LY_DEFINE (ly_duration_length, "ly:duration-length",
 	   1, 0, 0, (SCM dur),
 	   "The length of the duration as a Moment.")
 {
-  LY_ASSERT_FIRST_SMOB(Duration, dur);
+  LY_ASSERT_SMOB (Duration, dur, 1);
   return Moment (unsmob_duration (dur)->get_length ()).smobbed_copy ();
 }
 
@@ -123,7 +123,7 @@ LY_DEFINE (ly_duration_2_string, "ly:duration->string",
 	   1, 0, 0, (SCM dur),
 	   "Convert @var{dur} to string.")
 {
-  LY_ASSERT_FIRST_SMOB(Duration, dur);
+  LY_ASSERT_SMOB (Duration, dur, 1);
   return ly_string2scm (unsmob_duration (dur)->to_string ());
 }
 
@@ -131,7 +131,7 @@ LY_DEFINE (ly_duration_factor, "ly:duration-factor",
 	   1, 0, 0, (SCM dur),
 	   "Extract the compression factor from @var{dur}. Return as a pair.")
 {
-  LY_ASSERT_FIRST_SMOB(Duration, dur);
+  LY_ASSERT_SMOB (Duration, dur, 1);
   Rational r = unsmob_duration (dur)->factor ();
   return scm_cons (scm_from_int (r.num ()), scm_from_int (r.den ()));
 }

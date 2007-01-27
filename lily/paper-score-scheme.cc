@@ -13,7 +13,7 @@ LY_DEFINE (ly_paper_score_paper_systems, "ly:paper-score-paper-systems",
 	   (SCM paper_score),
 	   "Return vector of paper_system objects from @var{paper-score}.")
 {
-  LY_ASSERT_FIRST_TYPE (unsmob_paper_score, paper_score);
+  LY_ASSERT_TYPE (unsmob_paper_score, paper_score, 1);
 
   Paper_score *pscore = dynamic_cast<Paper_score *> (unsmob_music_output (paper_score));
   return pscore->get_paper_systems ();

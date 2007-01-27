@@ -23,15 +23,13 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 	   "negative for compressing and #f for non-satisfied constraints) "
 	   "followed by the @var{spring-count}+1 positions of the objects. ")
 {
-  LY_FUNC_NOTE_FIRST_ARG(springs);
-  
   int len = scm_ilength (springs);
   if (len == 0)
     return scm_list_2 (scm_from_double (0.0), scm_from_double (0.0));
 
   SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__, "list of springs");
   SCM_ASSERT_TYPE (scm_ilength (rods)  > 0, rods, SCM_ARG1, __FUNCTION__, "list of rods");
-  LY_ASSERT_TYPE(scm_is_number, 3);
+  LY_ASSERT_TYPE(scm_is_number, length, 3);
 
   bool is_ragged = ragged == SCM_BOOL_T;
   Simple_spacer spacer;

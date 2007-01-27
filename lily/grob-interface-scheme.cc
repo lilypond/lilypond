@@ -15,9 +15,9 @@ LY_DEFINE (ly_add_interface, "ly:add-interface",
 	   3, 0, 0, (SCM a, SCM b, SCM c),
 	   "Add an interface description.")
 {
-  LY_ASSERT_FIRST_TYPE (ly_is_symbol, a);
-  LY_ASSERT_TYPE(scm_is_string, 2);
-  LY_ASSERT_TYPE(ly_is_list, 3);
+  LY_ASSERT_TYPE (ly_is_symbol, a, 1);
+  LY_ASSERT_TYPE(scm_is_string,b, 2);
+  LY_ASSERT_TYPE(ly_is_list,c, 3);
   if (!all_ifaces)
     {
       SCM tab = scm_c_make_hash_table (59);

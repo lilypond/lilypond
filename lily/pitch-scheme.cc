@@ -13,8 +13,8 @@ LY_DEFINE (ly_pitch_transpose, "ly:pitch-transpose",
 	   "Transpose @var{p} by the amount @var{delta}, "
 	   "where @var{delta} is relative to middle C.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, p);
-  LY_ASSERT_SMOB (Pitch, 2);
+  LY_ASSERT_SMOB (Pitch, p, 1);
+  LY_ASSERT_SMOB (Pitch, delta, 2);
 
   Pitch *t = unsmob_pitch (p);
   Pitch *d = unsmob_pitch (delta);
@@ -30,9 +30,9 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 	   "with 0 corresponding to C and 6 corresponding to B.  "
 	   "The @var{alter} is a rational number of whole tones for alteration.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_integer, octave);
-  LY_ASSERT_TYPE(scm_is_integer, 2);
-  LY_ASSERT_TYPE(scm_is_rational, 3);
+  LY_ASSERT_TYPE (scm_is_integer, octave, 1);
+  LY_ASSERT_TYPE(scm_is_integer, note, 2);
+  LY_ASSERT_TYPE(scm_is_rational, alter, 3);
   
   Pitch p (scm_to_int (octave), scm_to_int (note),
 	   ly_scm2rational (alter));
@@ -44,7 +44,7 @@ LY_DEFINE (ly_pitch_negate, "ly:pitch-negate", 1, 0, 0,
 	   (SCM p),
 	   "Negate @var{p}.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, p);
+  LY_ASSERT_SMOB (Pitch, p, 1);
   Pitch *pp = unsmob_pitch (p);
   return pp->negated ().smobbed_copy ();
 }
@@ -53,7 +53,7 @@ LY_DEFINE (ly_pitch_steps, "ly:pitch-steps", 1, 0, 0,
 	   (SCM p),
 	   "Number of steps counted from middle C of the pitch @var{p}.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, p);
+  LY_ASSERT_SMOB (Pitch, p, 1);
   Pitch *pp = unsmob_pitch (p);
   return scm_from_int (pp->steps ());
 }
@@ -62,7 +62,7 @@ LY_DEFINE (ly_pitch_octave, "ly:pitch-octave",
 	   1, 0, 0, (SCM pp),
 	   "Extract the octave from pitch @var{p}.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, pp);
+  LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob_pitch (pp);
   int q = p->get_octave ();
   return scm_from_int (q);
@@ -72,7 +72,7 @@ LY_DEFINE (ly_pitch_alteration, "ly:pitch-alteration",
 	   1, 0, 0, (SCM pp),
 	   "Extract the alteration from pitch  @var{p}.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, pp);
+  LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob_pitch (pp);
   Rational q = p->get_alteration ();
 
@@ -83,7 +83,7 @@ LY_DEFINE (pitch_notename, "ly:pitch-notename",
 	   1, 0, 0, (SCM pp),
 	   "Extract the note name from pitch  @var{pp}.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, pp);
+  LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob_pitch (pp);
   int q = p->get_notename ();
   return scm_from_int (q);
@@ -93,7 +93,7 @@ LY_DEFINE (ly_pitch_quartertones, "ly:pitch-quartertones",
 	   1, 0, 0, (SCM pp),
 	   "Calculate the number of quarter tones of @var{p} from middle C.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, pp);
+  LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob_pitch (pp);
   int q = p->rounded_quartertone_pitch ();
   return scm_from_int (q);
@@ -103,7 +103,7 @@ LY_DEFINE (ly_pitch_semitones, "ly:pitch-semitones",
 	   1, 0, 0, (SCM pp),
 	   "calculate the number of semitones of @var{p} from middle C.")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, pp);
+  LY_ASSERT_SMOB (Pitch, pp, 1);
   Pitch *p = unsmob_pitch (pp);
   int q = p->rounded_semitone_pitch ();
   return scm_from_int (q);
@@ -113,8 +113,8 @@ LY_DEFINE (ly_pitch_less_p, "ly:pitch<?",
 	   2, 0, 0, (SCM p1, SCM p2),
 	   "Is @var{p1} lexicographically smaller than @var{p2}?")
 {
-  LY_ASSERT_FIRST_SMOB (Pitch, p1);
-  LY_ASSERT_SMOB (Pitch, 2);
+  LY_ASSERT_SMOB (Pitch, p1, 1);
+  LY_ASSERT_SMOB (Pitch, p2, 2);
 
   Pitch *a = unsmob_pitch (p1);
   Pitch *b = unsmob_pitch (p2);
@@ -131,8 +131,8 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
 	   "@var{delta} equals @var{root}")
 {
  
-  LY_ASSERT_FIRST_SMOB (Pitch, pitch);
-  LY_ASSERT_SMOB (Pitch, 2);
+  LY_ASSERT_SMOB (Pitch, pitch, 1);
+  LY_ASSERT_SMOB (Pitch, root, 2);
 
   Pitch *p = unsmob_pitch (pitch);
   Pitch *r = unsmob_pitch (root);

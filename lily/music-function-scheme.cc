@@ -11,7 +11,7 @@ LY_DEFINE (ly_music_function_extract, "ly:music-function-extract", 1, 0, 0,
 	   (SCM x),
 	   "Return the Scheme function inside @var{x}")
 {
-  LY_ASSERT_FIRST_TYPE(is_music_function, x);
+  LY_ASSERT_TYPE (is_music_function, x, 1);
   
   return SCM_CELL_OBJECT_1(x);
 }
@@ -23,7 +23,7 @@ LY_DEFINE (ly_make_music_function, "ly:make-music-function", 2, 0, 0,
 	   "Its arguments. @code{signature} is a list containing either "
 	   "@code{ly:music?} predicates or other type predicates.")
 {
-  LY_ASSERT_FIRST_TYPE(ly_is_procedure, func);
+  LY_ASSERT_TYPE (ly_is_procedure, func, 1);
   return  make_music_function (signature, func);
 }
 

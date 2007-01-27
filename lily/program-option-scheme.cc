@@ -174,8 +174,8 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
     {
       option_hash = scm_permanent_object (scm_c_make_hash_table (11));
     }
-  LY_ASSERT_FIRST_TYPE (ly_is_symbol, sym);
-  LY_ASSERT_TYPE (scm_is_string, 3);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 1);
+  LY_ASSERT_TYPE (scm_is_string, description, 3);
 
   internal_set_option (sym, val);
 
@@ -188,7 +188,7 @@ LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
 LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 	   "Set a program option.")
 {
-  LY_ASSERT_FIRST_TYPE(ly_is_symbol, var);
+  LY_ASSERT_TYPE (ly_is_symbol, var, 1);
 
   if (val == SCM_UNDEFINED)
     val = SCM_BOOL_T;
@@ -239,6 +239,6 @@ LY_DEFINE (ly_all_options, "ly:all-options",
 LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
 	   "Get a global option setting.")
 {
-  LY_ASSERT_FIRST_TYPE(ly_is_symbol, var);
+  LY_ASSERT_TYPE (ly_is_symbol, var, 1);
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }

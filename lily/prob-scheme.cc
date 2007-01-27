@@ -12,9 +12,9 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 	   2, 1, 0, (SCM obj, SCM sym, SCM value),
 	   "Set property @var{sym} of @var{obj} to @var{value}")
 {
-  LY_ASSERT_FIRST_SMOB (Prob, obj);
+  LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  LY_ASSERT_TYPE (ly_is_symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   ps->set_property (sym, value);
   return SCM_UNSPECIFIED;
@@ -34,9 +34,9 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 	   2, 1, 0, (SCM obj, SCM sym, SCM dfault),
 	   "Return the value for @var{sym}.")
 {
-  LY_ASSERT_FIRST_SMOB (Prob, obj);
+  LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  LY_ASSERT_TYPE (ly_is_symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
 
   if (dfault == SCM_UNDEFINED)
     dfault = SCM_EOL;

@@ -24,8 +24,8 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 {
   Input *ip = unsmob_input (sip);
 
-  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
-  LY_ASSERT_TYPE(scm_is_string, 2);
+  LY_ASSERT_TYPE (unsmob_input, sip, 1);
+  LY_ASSERT_TYPE(scm_is_string, msg,2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
@@ -41,7 +41,7 @@ LY_DEFINE (ly_input_file_line_char_column,
 	   1, 0, 0, (SCM sip),
 	   "Return input location in @var{sip} as (file-name line char column).")
 {
-  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
+  LY_ASSERT_TYPE (unsmob_input, sip, 1);
   Input *ip = unsmob_input (sip);
 
   int l = 0;
@@ -61,7 +61,7 @@ LY_DEFINE (ly_input_both_locations,
 	   "(file-name first-line first-column last-line last-column).")
 {
   
-  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
+  LY_ASSERT_TYPE (unsmob_input, sip, 1);
   Input *ip = unsmob_input (sip);
   
   return scm_list_5 (ly_string2scm (ip->file_string ()),

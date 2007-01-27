@@ -20,7 +20,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 	   (SCM music),
 	   "Return score with @var{music} encapsulated in @var{score}.")
 {
-  LY_ASSERT_FIRST_SMOB (Music, music);
+  LY_ASSERT_SMOB (Music, music, 1);
   Music *mus = unsmob_music (music);
 
   Score *score = new Score;
@@ -33,7 +33,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 	   1, 0, 0, (SCM score),
 	   "All output defs in a score.")
 {
-  LY_ASSERT_FIRST_SMOB (Score, score);
+  LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
 
   SCM l = SCM_EOL;
@@ -48,7 +48,7 @@ LY_DEFINE (ly_score_header, "ly:score-header",
 	   1, 0, 0, (SCM score),
 	   "return score header.")
 {
-  LY_ASSERT_FIRST_SMOB (Score, score);
+  LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
   return sc->header_;
 }
@@ -58,7 +58,7 @@ LY_DEFINE (ly_score_music, "ly:score-music",
 	   1, 0, 0, (SCM score),
 	   "return score music.")
 {
-  LY_ASSERT_FIRST_SMOB (Score, score);
+  LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
   return sc->get_music ();
 }
@@ -67,7 +67,7 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 	   1, 0, 0, (SCM score),
 	   "Was there an error in the score?")
 {
-  LY_ASSERT_FIRST_SMOB (Score, score);
+  LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
   return scm_from_bool (sc->error_found_);
 }
@@ -79,8 +79,8 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   "return a list of layout-lines. "
 	   "\nTake optional Object_key argument.")
 {
-  LY_ASSERT_FIRST_SMOB (Score, score);
-  LY_ASSERT_SMOB (Output_def, 2);
+  LY_ASSERT_SMOB (Score, score, 1);
+  LY_ASSERT_SMOB (Output_def, layout, 2);
 
   Score *sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (layout);

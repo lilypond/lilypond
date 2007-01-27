@@ -36,7 +36,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   "Parse a single @code{.ly} file.  "
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, name);
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
   string file = ly_scm2string (name);
   char const *extensions[] = {"ly", "", 0};
 
@@ -160,7 +160,7 @@ LY_DEFINE (ly_parser_clone, "ly:parser-clone",
 	   1, 0, 0, (SCM parser_smob),
 	   "Return a clone of @var{parser-smob}.")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser_smob);
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
   Lily_parser *clone = new Lily_parser (*parser);
 
@@ -172,10 +172,10 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 	   "Bind @var{symbol} to @var{val} in @var{parser-smob}'s module.")
 {
   
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser_smob);
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
 
-  LY_ASSERT_TYPE (ly_is_symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol,symbol, 2);
     
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
@@ -186,11 +186,11 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 	   "Lookup @var{symbol} in @var{parser-smob}'s module.  "
 	   "Undefined is '().")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser_smob);
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
 
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
  
-  LY_ASSERT_TYPE (ly_is_symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol,symbol, 2);
 
   SCM val = parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
   if (val != SCM_UNDEFINED)
@@ -204,9 +204,9 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   "Parse the string @code{ly-code} with @code{parser-smob}."
 	   "Upon failure, throw @code{ly-file-failed} key.")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser_smob);
+  LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob); 
-  LY_ASSERT_TYPE(scm_is_string, 2);
+  LY_ASSERT_TYPE(scm_is_string,ly_code, 2);
 
   parser->parse_string (ly_scm2string (ly_code));
 
@@ -219,7 +219,7 @@ LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   "@var{names} is an alist of symbols.  "
 	   "This only has effect if the current mode is notes.")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser);
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
 
   if (p->lexer_->is_note_state ())
@@ -235,7 +235,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 	   1, 0, 0, (SCM parser),
 	   "Return the base name of the output file.")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser);
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
 
   return ly_string2scm (p->output_basename_);
@@ -245,10 +245,10 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
 	   2, 1, 0, (SCM parser, SCM msg, SCM input),
 	   "Display an error message, and make the parser fail")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser);
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
   
-  LY_ASSERT_TYPE(scm_is_string, 2);
+  LY_ASSERT_TYPE(scm_is_string,msg, 2);
   string s = ly_scm2string (msg);
   
   Input *i = unsmob_input (input);
@@ -264,7 +264,7 @@ LY_DEFINE (ly_parser_clear_error, "ly:parser-clear-error",
 	   1, 0, 0, (SCM parser),
 	   "Clear the error flag for the parser.")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser);
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
   
 
@@ -278,7 +278,7 @@ LY_DEFINE (ly_parser_has_error_p, "ly:parser-has-error?",
 	   1, 0, 0, (SCM parser),
 	   "Does @var{parser} have an error flag?")
 {
-  LY_ASSERT_FIRST_SMOB (Lily_parser, parser);
+  LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
 
   return scm_from_bool (p->error_level_ || p->lexer_->error_level_);

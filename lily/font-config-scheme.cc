@@ -89,7 +89,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
 	   (SCM name),
 	   "Get the file for font @var{name}")
 {
-  LY_ASSERT_FIRST_TYPE(scm_is_string, name);
+  LY_ASSERT_TYPE (scm_is_string, name, 1);
   
   FcPattern*pat = FcPatternCreate ();
   FcValue val;

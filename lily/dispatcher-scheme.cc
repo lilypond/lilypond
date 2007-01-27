@@ -22,8 +22,8 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
   Dispatcher *t = unsmob_dispatcher (to);
   Dispatcher *f = unsmob_dispatcher (from);
   
-  LY_ASSERT_FIRST_SMOB(Dispatcher, to); 
-  LY_ASSERT_SMOB(Dispatcher, 2); 
+  LY_ASSERT_SMOB (Dispatcher, to, 1); 
+  LY_ASSERT_SMOB(Dispatcher, from,  2); 
 
   t->register_as_listener (f);
 
@@ -38,8 +38,8 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
   Listener *l = unsmob_listener (list);
   Dispatcher *d = unsmob_dispatcher (disp);
 
-  LY_ASSERT_FIRST_SMOB(Listener, list); 
-  LY_ASSERT_SMOB(Dispatcher, 2); 
+  LY_ASSERT_SMOB (Listener, list, 1); 
+  LY_ASSERT_SMOB(Dispatcher, disp, 2); 
   
   for (int arg = SCM_ARG3; scm_is_pair (cl); cl = scm_cdr (cl), arg++)
     {
@@ -59,9 +59,9 @@ LY_DEFINE (ly_broadcast, "ly:broadcast",
   Dispatcher *d = unsmob_dispatcher (disp);
   Stream_event *e = unsmob_stream_event (ev);
  
-  LY_ASSERT_FIRST_SMOB(Dispatcher, disp);
+  LY_ASSERT_SMOB (Dispatcher, disp, 1);
 
-  LY_ASSERT_SMOB(Stream_event, 2); 
+  LY_ASSERT_SMOB(Stream_event, ev, 2); 
   d->broadcast (e);
   return SCM_UNDEFINED;
 }
