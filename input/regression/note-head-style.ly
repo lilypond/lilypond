@@ -61,6 +61,16 @@ pattern = <<
 
   \break
 
+  \override Staff.NoteHead  #'style = #'harmonic-black
+  s1*0^\markup { "harmonic-black" }
+  \pattern
+
+  \override Staff.NoteHead  #'style = #'harmonic-mixed
+  s1*0^\markup { "harmonic-mixed" }
+  \pattern
+
+  \break
+
   \override Staff.NoteHead  #'style = #'diamond
   s1*0^\markup { "diamond" }
   \pattern
