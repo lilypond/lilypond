@@ -201,6 +201,7 @@ void ly_check_name (string cxx, string fname);
 #endif
 
 
+extern int function_argument_direction;
 
 #define LY_FUNC_NOTE_FIRST_ARG(a)  \
   SCM *first_arg_ptr = &a; \
@@ -218,6 +219,14 @@ void ly_check_name (string cxx, string fname);
   }
 
 #define LY_ASSERT_SMOB(klass, number) LY_ASSERT_TYPE(klass::unsmob, number)
+
+
+#define LY_ASSERT_FIRST_TYPE(pred, var)				\
+  LY_FUNC_NOTE_FIRST_ARG(var);					\
+  LY_ASSERT_TYPE(pred, 1);
+
+#define LY_ASSERT_FIRST_SMOB(klass, var)                        \
+  LY_ASSERT_FIRST_TYPE(klass::unsmob, var)
 
 
 #endif /* LILY_GUILE_MACROS_HH */

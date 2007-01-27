@@ -103,7 +103,7 @@
   static int print_smob (SCM s, SCM p, scm_print_state*);	\
   public:							\
   static SCM equal_p (SCM a, SCM b);				\
-  static CL *unsmob (SCM s)					\
+  static CL *unsmob (SCM s) __attribute__((pure))		\
   {								\
     if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
       return (CL *) SCM_CELL_WORD_1 (s);			\

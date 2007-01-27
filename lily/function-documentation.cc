@@ -74,3 +74,32 @@ predicate_to_typename (void *ptr)
   else
     return type_names[ptr];
 }
+
+static int
+arg_dir (int a, int b)
+{
+  if (&a < &b)
+    return 1;
+  else
+    return -1;
+}
+
+
+int function_argument_direction;
+void
+init_func_doc ()
+{
+  function_argument_direction = arg_dir (2,3);
+
+  ly_add_type_predicate ((void*) &scm_is_integer, "integer");
+  ly_add_type_predicate ((void*) &scm_is_bool, "boolean");
+  ly_add_type_predicate ((void*) &scm_is_pair, "pair");
+  ly_add_type_predicate ((void*) &is_number_pair, "number pair");
+  ly_add_type_predicate ((void*) &scm_is_number, "number");
+  ly_add_type_predicate ((void*) &scm_is_string, "string");
+  ly_add_type_predicate ((void*) &ly_is_symbol, "symbol");
+  ly_add_type_predicate ((void*) &scm_is_vector, "vector");
+  ly_add_type_predicate ((void*) &is_axis, "axis");
+}
+
+ADD_SCM_INIT_FUNC(func_doc, init_func_doc);

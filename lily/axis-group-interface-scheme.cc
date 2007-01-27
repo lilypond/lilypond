@@ -19,8 +19,9 @@ LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
   Grob_array *ga = unsmob_grob_array (elements);
 
   SCM_ASSERT_TYPE (ga || scm_is_pair (elements), elements, SCM_ARG1, __FUNCTION__, "list or Grob_array");
-  SCM_ASSERT_TYPE (unsmob_grob (common), common, SCM_ARG2, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  LY_FUNC_NOTE_FIRST_ARG(elements);
+  LY_ASSERT_SMOB(Grob, 2);
+  LY_ASSERT_TYPE(is_axis, 3);
 
   vector<Grob*> elts;
   if (!ga)
