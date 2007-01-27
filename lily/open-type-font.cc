@@ -174,7 +174,7 @@ Open_type_font::get_indexed_char (size_t signed_idx) const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, signed_idx, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() Freetype error: %s",
+	warning (_f ("FT_Get_Glyph_Name () Freetype error: %s",
 		     freetype_error_string (code)));
 
       SCM sym = ly_symbol2scm (name);
@@ -299,7 +299,7 @@ Open_type_font::glyph_list () const
       char name[len];
       size_t code = FT_Get_Glyph_Name (face_, i, name, len);
       if (code)
-	warning (_f ("FT_Get_Glyph_Name() error: %s",
+	warning (_f ("FT_Get_Glyph_Name () error: %s",
 		     freetype_error_string (code).c_str ()));
 
       *tail = scm_cons (scm_from_locale_string (name), SCM_EOL);

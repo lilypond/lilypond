@@ -15,15 +15,15 @@
 
 struct Enclosing_bracket
 {
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   
 public:
-  DECLARE_SCHEME_CALLBACK(print, (SCM));
-  DECLARE_SCHEME_CALLBACK(width, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (width, (SCM));
 };
 
 
-ADD_INTERFACE(Enclosing_bracket,
+ADD_INTERFACE (Enclosing_bracket,
 	      
 	      "Brackets alongside bass figures.",
 	      

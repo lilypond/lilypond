@@ -204,7 +204,7 @@ struct Cluster_beacon
 {
 public:
   DECLARE_SCHEME_CALLBACK (height, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 MAKE_SCHEME_CALLBACK (Cluster_beacon, height, 1);

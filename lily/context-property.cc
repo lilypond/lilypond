@@ -144,7 +144,7 @@ execute_general_pushpop_property (Context *context,
 
 	  /*
 	    tack onto alist.  We can use set_car, since
-	    updated_grob_properties() in child contexts will check
+	    updated_grob_properties () in child contexts will check
 	    for changes in the car.
 	  */
 	  if (ok)

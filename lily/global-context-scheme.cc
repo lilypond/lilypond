@@ -78,7 +78,7 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 	   "final state.\n")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
-  LY_ASSERT_TYPE (unsmob_global_context,ctx, 2);
+  LY_ASSERT_TYPE (unsmob_global_context, ctx, 2);
 
   Music *music = unsmob_music (mus);
   if (!music

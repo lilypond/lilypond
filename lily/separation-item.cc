@@ -68,7 +68,7 @@ Separation_item::conditional_skyline (Grob *me, Grob *left)
 }
 
 
-MAKE_SCHEME_CALLBACK(Separation_item,calc_skylines,1);
+MAKE_SCHEME_CALLBACK (Separation_item, calc_skylines,1);
 SCM
 Separation_item::calc_skylines (SCM smob)
 {

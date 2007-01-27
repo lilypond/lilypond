@@ -228,7 +228,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       if (period <= 0)
 	return Stencil ();
 
-      Real len = (to-from).length();
+      Real len = (to-from).length ();
       
       int n = (int) rint ((len - period * fraction) / period);
       if (n > 0)
@@ -237,7 +237,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 	    TODO: figure out something intelligent for really short
 	    sections.
 	   */
-	  period = ((to-from).length() - period * fraction) / n;
+	  period = ((to-from).length () - period * fraction) / n;
 	}
       stil = make_dashed_line (thick, from, to, period, fraction);
     }

@@ -29,7 +29,7 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 
   SCM_ASSERT_TYPE (len >= 0, springs, SCM_ARG1, __FUNCTION__, "list of springs");
   SCM_ASSERT_TYPE (scm_ilength (rods)  > 0, rods, SCM_ARG1, __FUNCTION__, "list of rods");
-  LY_ASSERT_TYPE(scm_is_number, length, 3);
+  LY_ASSERT_TYPE (scm_is_number, length, 3);
 
   bool is_ragged = ragged == SCM_BOOL_T;
   Simple_spacer spacer;

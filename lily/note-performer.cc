@@ -66,7 +66,7 @@ Note_performer::process_music ()
                 }
 
 	      Moment len = get_event_length (n);
-	      if (now_mom().grace_part_)
+	      if (now_mom ().grace_part_)
 		{
 		  len.grace_part_ = len.main_part_;
 		  len.main_part_ = Rational (0);

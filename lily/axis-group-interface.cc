@@ -294,7 +294,7 @@ Axis_group_interface::calc_pure_elts_and_common (Grob *me)
   return common;
 }
 
-MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_x_common, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common, 1);
 SCM
 Axis_group_interface::calc_x_common (SCM grob)
 {
@@ -305,7 +305,7 @@ Axis_group_interface::calc_x_common (SCM grob)
   return common->self_scm ();
 }
 
-MAKE_SCHEME_CALLBACK(Axis_group_interface,calc_y_common, 1);
+MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_y_common, 1);
 SCM
 Axis_group_interface::calc_y_common (SCM grob)
 {

@@ -188,7 +188,7 @@ Source_file::quote_input (char const *pos_str0) const
   string context = line.substr (0, ch)
     + to_string ('\n')
     + to_string (' ', col)
-    + line.substr (ch, line.length()-ch);
+    + line.substr (ch, line.length ()-ch);
   return context;
 }
 
@@ -365,9 +365,9 @@ Source_file::get_port () const
 
 #include "ly-smobs.icc"
 
-IMPLEMENT_SMOBS(Source_file);
-IMPLEMENT_DEFAULT_EQUAL_P(Source_file);
-IMPLEMENT_TYPE_P(Source_file, "ly:source-file?");
+IMPLEMENT_SMOBS (Source_file);
+IMPLEMENT_DEFAULT_EQUAL_P (Source_file);
+IMPLEMENT_TYPE_P (Source_file, "ly:source-file?");
 
 SCM
 Source_file::mark_smob (SCM smob)

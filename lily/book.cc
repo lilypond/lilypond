@@ -60,7 +60,7 @@ Book::Book (Book const &s)
       Score *newscore = unsmob_score (scm_car (p))->clone ();
 
       *t = scm_cons (newscore->self_scm (), SCM_EOL);
-      t = SCM_CDRLOC(*t);
+      t = SCM_CDRLOC (*t);
       newscore->unprotect ();
     }
 }

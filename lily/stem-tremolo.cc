@@ -160,7 +160,7 @@ Stem_tremolo::untranslated_stencil (Grob *me, Real slope)
   if (!stem)
     {
       programming_error ("no stem for stem-tremolo");
-      return Stencil();
+      return Stencil ();
     }
 
   Direction stemdir = get_grob_direction (stem);

@@ -92,7 +92,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
 			   Note_column::get_stem (cols.back ()));
 
   if (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
-      != me->get_bound (RIGHT)->get_column())
+      != me->get_bound (RIGHT)->get_column ())
     return 0;
 
   Drul_array<Grob*> beams;
@@ -120,7 +120,7 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
 }
 
 
-MAKE_SCHEME_CALLBACK(Tuplet_bracket,calc_connect_to_neighbors,1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_connect_to_neighbors,1);
 SCM
 Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
 {
@@ -176,7 +176,7 @@ Tuplet_bracket::get_common_x (Spanner *me)
   return commonx;
 }
   
-MAKE_SCHEME_CALLBACK(Tuplet_bracket,calc_control_points,1)
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_control_points,1)
 SCM
 Tuplet_bracket::calc_control_points (SCM smob)
 {

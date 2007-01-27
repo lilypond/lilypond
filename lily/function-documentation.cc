@@ -49,7 +49,7 @@ ly_add_function_documentation (SCM func,
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
 				ly_string2scm (s));
   SCM entry = scm_cons (ly_string2scm (varlist), ly_string2scm (doc));
-  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str()), entry);
+  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str ()), entry);
 }
 
 LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
@@ -109,4 +109,4 @@ init_func_doc ()
   ly_add_type_predicate ((void*) &unsmob_item, "item");
 }
 
-ADD_SCM_INIT_FUNC(func_doc, init_func_doc);
+ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

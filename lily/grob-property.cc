@@ -56,7 +56,7 @@ extern void check_interfaces_for_property (Grob const *me, SCM sym);
 /*
   We can't change signatures depending on NDEBUG, since NDEBUG comes
   over the command line and may be different per .cc file.  This
-  should be done through the macro expansion of get_property().
+  should be done through the macro expansion of get_property ().
  */
 void
 Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
@@ -152,7 +152,7 @@ Grob::internal_get_property (SCM sym) const
   if (val == ly_symbol2scm ("calculation-in-progress"))
     programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
 			   ly_symbol2string (sym).c_str (),
-			   name().c_str ()));
+			   name ().c_str ()));
 #endif
   
   if (ly_is_procedure (val)
@@ -204,7 +204,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 	  
   /*
     If the function returns SCM_UNSPECIFIED, we assume the
-    property has been set with an explicit set_property()
+    property has been set with an explicit set_property ()
     call.
   */
   if (value == SCM_UNSPECIFIED)

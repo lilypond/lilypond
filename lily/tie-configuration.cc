@@ -64,7 +64,7 @@ Tie_configuration::get_transformed_bezier (Tie_details const &details) const
 Bezier
 Tie_configuration::get_untransformed_bezier (Tie_details const &details) const
 {
-  Real l = attachment_x_.length();
+  Real l = attachment_x_.length ();
   if (isinf (l) || isnan (l))
     {
       programming_error ("Inf or NaN encountered");
@@ -106,14 +106,14 @@ Tie_configuration::add_score (Real s, string desc)
 Real
 Tie_configuration::height (Tie_details const &details) const
 {
-  Real l = attachment_x_.length();
+  Real l = attachment_x_.length ();
 
   return slur_shape (l,
 		     details.height_limit_,
 		     details.ratio_).curve_point (0.5)[Y_AXIS]; 
 }
 
-Ties_configuration::Ties_configuration()
+Ties_configuration::Ties_configuration ()
 {
   score_ = 0.0;
   scored_ = false;
@@ -184,7 +184,7 @@ string
 Ties_configuration::complete_score_card () const
 {
   string s; 
-  for (vsize i = 0; i < size(); i++)
+  for (vsize i = 0; i < size (); i++)
     {
       s += complete_tie_card (i);
     }

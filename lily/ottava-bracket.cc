@@ -23,7 +23,7 @@
 struct Ottava_bracket
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 /*

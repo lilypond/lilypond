@@ -31,8 +31,8 @@ LY_DEFINE (ly_make_pitch, "ly:make-pitch",
 	   "The @var{alter} is a rational number of whole tones for alteration.")
 {
   LY_ASSERT_TYPE (scm_is_integer, octave, 1);
-  LY_ASSERT_TYPE(scm_is_integer, note, 2);
-  LY_ASSERT_TYPE(scm_is_rational, alter, 3);
+  LY_ASSERT_TYPE (scm_is_integer, note, 2);
+  LY_ASSERT_TYPE (scm_is_rational, alter, 3);
   
   Pitch p (scm_to_int (octave), scm_to_int (note),
 	   ly_scm2rational (alter));

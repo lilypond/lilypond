@@ -21,7 +21,7 @@
 struct Bracket_nesting_node
 {
 public:
-  virtual ~Bracket_nesting_node(){}
+  virtual ~Bracket_nesting_node (){}
   virtual bool add_staff (Grob *) { return false; }
   virtual void add_support (Grob *) { }
   virtual void set_bound (Direction, Grob *){}
@@ -219,7 +219,7 @@ System_start_delimiter_engraver::finalize ()
 void
 System_start_delimiter_engraver::acknowledge_staff_symbol (Grob_info inf)
 {
-  Grob *staff = inf.grob();
+  Grob *staff = inf.grob ();
   bool succ = nesting_->add_staff (staff);
 
   if (!succ)

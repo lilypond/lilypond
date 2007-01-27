@@ -64,7 +64,7 @@ Output_property_engraver::Output_property_engraver ()
 {
 }
 
-ADD_ACKNOWLEDGER (Output_property_engraver,grob);
+ADD_ACKNOWLEDGER (Output_property_engraver, grob);
 ADD_TRANSLATOR (Output_property_engraver,
 
 		/* doc */

@@ -233,7 +233,7 @@ setup_paths (char const *argv0_ptr)
   /*
     When running from build dir, a full LILYPOND_PREFIX is set-up at
 
-        $(OUTBASE)/{share,lib}/lilypond/current
+        $(OUTBASE)/{share, lib}/lilypond/current
 
   */
   
@@ -268,9 +268,9 @@ setup_paths (char const *argv0_ptr)
 string
 expand_environment_variables (string orig)
 {
-  const char *start_ptr = orig.c_str();
-  const char *ptr = orig.c_str();
-  size_t len = orig.length();
+  const char *start_ptr = orig.c_str ();
+  const char *ptr = orig.c_str ();
+  size_t len = orig.length ();
 
   string out;
   while (ptr < start_ptr + len)
@@ -318,7 +318,7 @@ expand_environment_variables (string orig)
 	  if (start_var < end_var)
 	    {
 	      string var_name (start_var, end_var - start_var);
-	      const char *value = getenv (var_name.c_str());
+	      const char *value = getenv (var_name.c_str ());
 	      if (value != NULL)
 		out += string (value);
 
@@ -380,11 +380,11 @@ read_relocation_file (string filename)
       value = expand_environment_variables (value);
 
       if (command == "set")
-	sane_putenv (variable.c_str(), value, true);
+	sane_putenv (variable.c_str (), value, true);
       else if (command == "setdir")
-	set_env_dir (variable.c_str(), value);
+	set_env_dir (variable.c_str (), value);
       else if (command == "setfile")
-	set_env_file (variable.c_str(), value);
+	set_env_file (variable.c_str (), value);
       else if (command == "prependdir")
 	prepend_env_path (variable.c_str (), value);
       else

@@ -45,7 +45,7 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 {
   
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  LY_ASSERT_SMOB(Stencil, stencil, 2);
+  LY_ASSERT_SMOB (Stencil, stencil, 2);
 
   Paper_outputter *po = unsmob_outputter (outputter);
   Stencil *st = unsmob_stencil (stencil);
@@ -59,7 +59,7 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 	   "Dump @var{str} onto @var{outputter}.")
 {
   LY_ASSERT_SMOB (Paper_outputter, outputter, 1);
-  LY_ASSERT_TYPE(scm_is_string, str, 2);
+  LY_ASSERT_TYPE (scm_is_string, str, 2);
 
   Paper_outputter *po = unsmob_outputter (outputter);
 

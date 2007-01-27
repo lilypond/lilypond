@@ -86,7 +86,7 @@ Break_alignment_interface::add_element (Grob *me, Grob *toadd)
   Align_interface::add_element (me, toadd);
 }
 
-MAKE_SCHEME_CALLBACK(Break_alignment_interface, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Break_alignment_interface, calc_positioning_done, 1)
 SCM
 Break_alignment_interface::calc_positioning_done (SCM smob)
 {
@@ -259,7 +259,7 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
 
 
 
-MAKE_SCHEME_CALLBACK(Break_alignable_interface, self_align_callback, 1)
+MAKE_SCHEME_CALLBACK (Break_alignable_interface, self_align_callback, 1)
 SCM
 Break_alignable_interface::self_align_callback (SCM grob)
 {
@@ -291,7 +291,7 @@ Break_alignable_interface::self_align_callback (SCM grob)
     }	
 
   Direction which_edge = LEFT;
-  if (vsize (last_idx_found + 1) < elements.size())
+  if (vsize (last_idx_found + 1) < elements.size ())
     last_idx_found ++;
   else
     which_edge = RIGHT;

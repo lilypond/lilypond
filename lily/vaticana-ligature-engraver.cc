@@ -433,10 +433,10 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
 void
 Vaticana_ligature_engraver::check_for_ambiguous_dot_pitch (Grob_info primitive)
 {
-  // TODO: Fix performance, which is currently O(n^2) (since this
-  // method is called O(n) times and takes O(n) steps in the for
-  // loop), but could be O(n) (by replacing the for loop by e.g. a
-  // bitmask based O(1) test); where n=<number of primitives in the
+  // TODO: Fix performance, which is currently O (n^2) (since this
+  // method is called O (n) times and takes O (n) steps in the for
+  // loop), but could be O (n) (by replacing the for loop by e.g. a
+  // bitmask based O (1) test); where n=<number of primitives in the
   // ligature> (which is typically small (n<10), though).
   Stream_event *new_cause = primitive.event_cause ();
   int new_pitch = unsmob_pitch (new_cause->get_property ("pitch"))->steps ();

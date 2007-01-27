@@ -47,7 +47,7 @@ Prob::equal_p (SCM sa, SCM sb)
       SCM bprop = props[1][i];
 
       for (;
-	   scm_is_pair (aprop) && scm_is_pair(bprop);
+	   scm_is_pair (aprop) && scm_is_pair (bprop);
 	   aprop = scm_cdr (aprop), bprop = scm_cdr (bprop))
 	{
 	  SCM aval = scm_cdar (aprop);
@@ -111,7 +111,7 @@ Prob::derived_mark () const
 SCM
 Prob::mark_smob (SCM smob)
 {
-  ASSERT_LIVE_IS_ALLOWED();
+  ASSERT_LIVE_IS_ALLOWED ();
   
   Prob *system = (Prob *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (system->mutable_property_alist_);

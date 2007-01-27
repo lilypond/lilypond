@@ -79,7 +79,7 @@ Horizontal_bracket::make_enclosing_bracket (Grob *me, Grob *refpoint,
     }
   else
     {
-      Stencil b = make_bracket (me, ext.length(), a, dir);
+      Stencil b = make_bracket (me, ext.length (), a, dir);
       b.translate_axis (ext[LEFT] - refpoint->relative_coordinate (common, a), a);
 
       return b;

@@ -32,7 +32,7 @@ Context_specced_music_iterator::construct_children ()
 
   Context *a = 0;
 
-  if (to_boolean (get_music()->get_property ("create-new")))
+  if (to_boolean (get_music ()->get_property ("create-new")))
     a = get_outlet ()->create_unique_context (ct, c_id, ops);
   else
     a = get_outlet ()->find_create_context (ct, c_id, ops);

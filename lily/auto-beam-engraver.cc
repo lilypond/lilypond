@@ -185,7 +185,7 @@ Auto_beam_engraver::create_beam ()
       return 0;
 
   /*
-    Can't use make_spanner_from_properties() because we have to use
+    Can't use make_spanner_from_properties () because we have to use
     beam_settings_.
   */
   Spanner *beam = new Spanner (beam_settings_);

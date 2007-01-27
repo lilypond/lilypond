@@ -139,7 +139,7 @@ Tie::get_default_dir (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Tie, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Tie, calc_direction, 1);
 SCM
 Tie::calc_direction (SCM smob)
 {
@@ -205,7 +205,7 @@ Tie::get_control_points (Grob *me,
 }
 
 
-MAKE_SCHEME_CALLBACK(Tie, calc_control_points, 1);
+MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
 {

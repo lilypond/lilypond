@@ -273,7 +273,7 @@ Slur_score_state::fill (Grob *me)
 }
 
 
-MAKE_SCHEME_CALLBACK(Slur, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_control_points, 1)
 SCM
 Slur::calc_control_points (SCM smob)
 {
@@ -621,7 +621,7 @@ Slur_score_state::generate_avoid_offsets () const
 
 	  if (!xe.is_empty ()
 	      && !ye.is_empty ())
-	    avoid.push_back (Offset (xe.center(), ye[dir_]));
+	    avoid.push_back (Offset (xe.center (), ye[dir_]));
 	}
     }  
   return avoid;

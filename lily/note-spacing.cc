@@ -79,7 +79,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	      if (g)
 		{
 		  if (g->common_refpoint (it_col, X_AXIS) != it_col)
-		    programming_error ("Note_spacing::get_spacing(): Common refpoint incorrect");
+		    programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
 		  else
 		    left_head_wid = g->extent (it_col, X_AXIS);
 		}

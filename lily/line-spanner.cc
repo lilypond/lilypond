@@ -29,7 +29,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_left_bound_info_and_text, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_right_bound_info, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 
@@ -138,7 +138,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
       else
 	{
 	  Grob *commony = me->common_refpoint (me->get_bound (dir), Y_AXIS);
-	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center();
+	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center ();
 	  details = scm_acons (ly_symbol2scm ("common-Y"), commony->self_scm (), details);
 	}
 

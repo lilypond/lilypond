@@ -289,7 +289,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
 void
 New_fingering_engraver::stop_translation_timestep ()
 {
-  position_all();
+  position_all ();
   stem_ = 0;
   heads_.clear ();
 }

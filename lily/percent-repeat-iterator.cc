@@ -14,7 +14,7 @@
 class Percent_repeat_iterator : public Sequential_iterator
 {
 public:
-  DECLARE_CLASSNAME(Percent_repeat_iterator);
+  DECLARE_CLASSNAME (Percent_repeat_iterator);
   DECLARE_SCHEME_CALLBACK (constructor, ());
   Percent_repeat_iterator ();
 protected:

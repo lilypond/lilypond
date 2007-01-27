@@ -119,7 +119,7 @@ Pitch::normalize ()
       alteration_ = Rational (0);
       alteration_ -= tone_pitch () - pitch;
     }
-  while (alteration_ < Rational(-1))
+  while (alteration_ < Rational (-1))
     {
       if (notename_ == 0)
 	{

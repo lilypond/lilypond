@@ -154,7 +154,7 @@ Paper_column_engraver::process_music ()
 			   && !measure_position (context ()).main_part_);
 
   /*
-    We can't do this in start_translation_timestep(), since time sig
+    We can't do this in start_translation_timestep (), since time sig
     changes won't have happened by then.
   */
   if (start_of_measure)

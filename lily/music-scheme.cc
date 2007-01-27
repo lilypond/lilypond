@@ -26,7 +26,7 @@ LY_DEFINE (ly_music_property,
 	   "If @var{sym} is undefined, return @code{'()}.\n")
 {
   LY_ASSERT_TYPE (unsmob_music, mus, 1);
-  return ly_prob_property (mus,sym,dfault);
+  return ly_prob_property (mus, sym, dfault);
 }
 
 LY_DEFINE (ly_music_set_property_x, "ly:music-set-property!",
@@ -129,7 +129,7 @@ LY_DEFINE (ly_music_compress, "ly:music-compress",
 	   "Compress music object @var{m} by moment @var{factor}.")
 {
   LY_ASSERT_TYPE (unsmob_music, m, 1);
-  LY_ASSERT_TYPE(unsmob_moment,factor, 2);
+  LY_ASSERT_TYPE (unsmob_moment, factor, 2);
 
   Music *sc = unsmob_music (m);
   sc->compress (*unsmob_moment (factor));

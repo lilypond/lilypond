@@ -163,8 +163,8 @@ Pango_font::pango_item_string_stencil (PangoItem const *item, string str,
 	{
 	  int errorcode = FT_Get_Glyph_Name (ftface, pg, glyph_name, GLYPH_NAME_LEN);
 	  if (errorcode)
-	    programming_error (_f ("FT_Get_Glyph_Name() error: %s",
-				   freetype_error_string (errorcode).c_str()
+	    programming_error (_f ("FT_Get_Glyph_Name () error: %s",
+				   freetype_error_string (errorcode).c_str ()
 				   ));
 	}
 

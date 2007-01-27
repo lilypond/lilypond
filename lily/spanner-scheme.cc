@@ -16,7 +16,7 @@ LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 	   "for left, and @code{1} for right.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, slur, 1);
-  LY_ASSERT_TYPE(is_direction, dir,2);
+  LY_ASSERT_TYPE (is_direction, dir,2);
   
   return unsmob_spanner (slur)->get_bound (to_dir (dir))->self_scm ();
 }

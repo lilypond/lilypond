@@ -116,8 +116,8 @@ Bar_number_engraver::create_items ()
 }
 
 
-ADD_ACKNOWLEDGER(Bar_number_engraver,break_aligned);
-ADD_ACKNOWLEDGER(Bar_number_engraver,break_alignment);
+ADD_ACKNOWLEDGER (Bar_number_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 
 ADD_TRANSLATOR (Bar_number_engraver,
 		/* doc */ "A bar number is created whenever measurePosition "

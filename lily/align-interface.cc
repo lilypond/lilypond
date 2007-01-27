@@ -48,7 +48,7 @@ Align_interface::calc_positioning_done (SCM smob)
 /*
   merge with align-to-extents?
 */
-MAKE_SCHEME_CALLBACK(Align_interface, stretch_after_break, 1)
+MAKE_SCHEME_CALLBACK (Align_interface, stretch_after_break, 1)
 SCM
 Align_interface::stretch_after_break (SCM grob)
 {
@@ -75,7 +75,7 @@ Align_interface::stretch_after_break (SCM grob)
 
       Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					       DOWN);
-      Real delta  = extra_space / elems.size() * stacking_dir;
+      Real delta  = extra_space / elems.size () * stacking_dir;
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->translate_axis (i * delta, Y_AXIS);
     }

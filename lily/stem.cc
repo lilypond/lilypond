@@ -402,7 +402,7 @@ Stem::duration_log (Grob *me)
   return (scm_is_number (s)) ? scm_to_int (s) : 2;
 }
 
-MAKE_SCHEME_CALLBACK(Stem, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_positioning_done, 1);
 SCM
 Stem::calc_positioning_done (SCM smob)
 {
@@ -508,7 +508,7 @@ Stem::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
 
-MAKE_SCHEME_CALLBACK(Stem, calc_direction, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_direction, 1);
 SCM
 Stem::calc_direction (SCM smob)
 {
@@ -531,7 +531,7 @@ Stem::calc_direction (SCM smob)
   return scm_from_int (dir);
 }
 
-MAKE_SCHEME_CALLBACK(Stem, calc_default_direction, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_default_direction, 1);
 SCM
 Stem::calc_default_direction (SCM smob)
 {
@@ -570,11 +570,11 @@ Stem::height (SCM smob)
     }
 
   /*
-    Can't get_stencil(), since that would cache stencils too early.
+    Can't get_stencil (), since that would cache stencils too early.
     This causes problems with beams.
    */
   Stencil *stencil = unsmob_stencil (print (smob));
-  Interval iv = stencil ? stencil->extent (Y_AXIS) : Interval();
+  Interval iv = stencil ? stencil->extent (Y_AXIS) : Interval ();
   if (beam)
     {
       if (dir == CENTER)
@@ -857,7 +857,7 @@ Stem::get_stem_info (Grob *me)
   return si;
 }
 
-MAKE_SCHEME_CALLBACK(Stem, calc_stem_info, 1);
+MAKE_SCHEME_CALLBACK (Stem, calc_stem_info, 1);
 SCM
 Stem::calc_stem_info (SCM smob)
 {

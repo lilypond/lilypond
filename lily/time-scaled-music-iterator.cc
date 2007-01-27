@@ -24,7 +24,7 @@ class Time_scaled_music_iterator : public Music_wrapper_iterator
 public:
   DECLARE_SCHEME_CALLBACK (constructor, ());
   /* construction */
-  DECLARE_CLASSNAME(Time_scaled_music_iterator);
+  DECLARE_CLASSNAME (Time_scaled_music_iterator);
   Time_scaled_music_iterator ();
 protected:
   virtual void process (Moment m);
@@ -96,7 +96,7 @@ Time_scaled_music_iterator::process (Moment m)
       m.main_part_ == next_split_mom_)
     {
       descend_to_bottom_context ();
-      if (tuplet_handler_.get_outlet())
+      if (tuplet_handler_.get_outlet ())
 	create_event (STOP)->send_to_context (tuplet_handler_.get_outlet ());
 
       if (m.main_part_ < music_get_length ().main_part_)
@@ -111,7 +111,7 @@ Time_scaled_music_iterator::process (Moment m)
 	  tuplet_handler_.set_context (0);
 	}
     }
-  Music_wrapper_iterator::process(m);
+  Music_wrapper_iterator::process (m);
   if (child_iter_ && child_iter_->ok ())
     descend_to_child (child_iter_->get_outlet ());
   

@@ -1,5 +1,5 @@
 /*
-  file-name-map.cc --  implement map_file_name()
+  file-name-map.cc --  implement map_file_name ()
 
   source file of the GNU LilyPond music typesetter
 

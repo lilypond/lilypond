@@ -55,7 +55,7 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
   int sz = INT_MAX;
   if (size != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_number,size, 2);
+      LY_ASSERT_TYPE (scm_is_number, size, 2);
       sz = scm_to_int (size);
     }
   
@@ -153,8 +153,8 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 	   "Replace @var{a} by @var{b} in @var{s}.")
 {
   LY_ASSERT_TYPE (scm_is_string, s, 1);
-  LY_ASSERT_TYPE(scm_is_string,b, 2);
-  LY_ASSERT_TYPE(scm_is_string,s, 3);
+  LY_ASSERT_TYPE (scm_is_string, b, 2);
+  LY_ASSERT_TYPE (scm_is_string, s, 3);
 
   string ss = ly_scm2string (s);
   replace_all (ss, string (scm_i_string_chars (a)),
@@ -334,7 +334,7 @@ accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
   return scm_cons (key, result);
 }
 
-LY_DEFINE(ly_hash_table_keys, "ly:hash-table-keys",
+LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
 	  1,0,0, (SCM tab),
 	  "return a list of keys in @var{tab}")
 {
@@ -404,7 +404,7 @@ format_single_argument (SCM arg, int precision)
 	  warning (_ ("Found infinity or nan in output. Substituting 0.0"));
 	  return ("0.0");
 	  if (strict_infinity_checking)
-	    abort();
+	    abort ();
 	}
       else
 	return (String_convert::form_string ("%.*lf", precision, val));
@@ -433,7 +433,7 @@ LY_DEFINE (ly_format, "ly:format",
   vector<string> results;
 
   vsize i = 0;
-  while (i < format.size())
+  while (i < format.size ())
     {
       vsize tilde = format.find ('~', i);
 
@@ -495,15 +495,15 @@ LY_DEFINE (ly_format, "ly:format",
 		       + ": too many  arguments");
 
   vsize len = 0;
-  for (vsize i = 0; i < results.size(); i++)
-    len += results[i].size();
+  for (vsize i = 0; i < results.size (); i++)
+    len += results[i].size ();
   
   char *result = (char*) scm_malloc (len + 1);
   char *ptr = result;
-  for (vsize i = 0; i < results.size(); i++)
+  for (vsize i = 0; i < results.size (); i++)
     {
-      strncpy (ptr, results[i].c_str (), results[i].size());
-      ptr += results[i].size();
+      strncpy (ptr, results[i].c_str (), results[i].size ());
+      ptr += results[i].size ();
     }
   *ptr = '\0';
     

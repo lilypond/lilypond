@@ -63,27 +63,27 @@ slur_height (Real width, Real h_inf, Real r_0)
   slurs.  For large slurs, this gives a certain hookiness at the end,
   so we increase the indent.
 
-  indent = G(w)
+  indent = G (w)
 
-  w -> 0,  G(w) -> .33 w
+  w -> 0,  G (w) -> .33 w
 
 
   (due to derivative constraints, we cannot have indent > len/3)
 
-  w -> inf, G(w) -> 2*h_inf
+  w -> inf, G (w) -> 2*h_inf
 
   i.e.
 
 
-  G(0) = 0 , G'(0) 1/3, G(infty) = 2h_inf
+  G (0) = 0 , G'(0) 1/3, G (infty) = 2h_inf
 
   solve from
 
-  G(w) = r  + p/(w+q)
+  G (w) = r  + p/(w+q)
 
   yields
 
-  G(w) = 2 h_inf - max_fraction * q^2/ (w + q)
+  G (w) = 2 h_inf - max_fraction * q^2/ (w + q)
 
   with q = 2 h_inf
 */

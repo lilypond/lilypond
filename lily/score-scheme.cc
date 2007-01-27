@@ -38,7 +38,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 
   SCM l = SCM_EOL;
   for (vsize i = 0; i < sc->defs_.size (); i++)
-    l = scm_cons (sc->defs_[i]->self_scm(), l);
+    l = scm_cons (sc->defs_[i]->self_scm (), l);
   return scm_reverse_x (l, SCM_EOL);
 }
 

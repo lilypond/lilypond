@@ -319,7 +319,7 @@ check_meshing_chords (Grob *me,
 }
 
 
-MAKE_SCHEME_CALLBACK(Note_collision_interface, calc_positioning_done, 1) 
+MAKE_SCHEME_CALLBACK (Note_collision_interface, calc_positioning_done, 1) 
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
@@ -331,7 +331,7 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   Direction d = UP;
   do
     {
-      for (vsize i = cg[d].size(); i--; )
+      for (vsize i = cg[d].size (); i--; )
 	{
 	  /*
 	    Trigger positioning
