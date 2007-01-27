@@ -128,9 +128,20 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real period = Staff_symbol_referencer::staff_space (me)
 	* robust_scm2double (me->get_property ("dash-period"), 1.0);
 
-      if (period < 0)
+      if (period <= 0)
 	return Stencil ();
 
+      Real len = (to-from).length();
+      
+      int n = (int) rint ((len - period * fraction) / period);
+      if (n > 0)
+	{
+	  /*
+	    TODO: figure out something intelligent for really short
+	    sections.
+	   */
+	  period = ((to-from).length() - period * fraction) / n;
+	}
       stil = make_dashed_line (thick, from, to, period, fraction);
     }
   else

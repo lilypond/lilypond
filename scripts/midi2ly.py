@@ -25,26 +25,15 @@ import os
 import string
 import sys
 
-################################################################
-# Users of python modules should include this snippet.
-#
-
-for d in ['@lilypond_datadir@',
-          '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
-
-# dynamic relocation, for GUB binaries.
-bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
-for p in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-    sys.path.insert (0, datadir)
-
+"""
+@relocate-preamble@
+"""
 
 import midi
 import lilylib as ly
 
 ################################################################
-################ CONSTANTS
+## CONSTANTS
 
 
 output_name = ''
