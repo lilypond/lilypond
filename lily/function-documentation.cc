@@ -75,7 +75,10 @@ string
 predicate_to_typename (void *ptr)
 {
   if (type_names.find (ptr) == type_names.end ())
-    return "unknown type";
+    {
+      programming_error ("Unknown type predicate");
+      return "unknown type";
+    }
   else
     return type_names[ptr];
 }

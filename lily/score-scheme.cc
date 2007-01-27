@@ -21,7 +21,6 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 	   "Return score with @var{music} encapsulated in @var{score}.")
 {
   LY_ASSERT_SMOB (Music, music, 1);
-  Music *mus = unsmob_music (music);
 
   Score *score = new Score;
   score->set_music (music);
