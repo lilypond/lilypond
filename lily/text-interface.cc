@@ -25,15 +25,11 @@ Text_interface::interpret_string (SCM layout_smob,
 				  SCM props,
 				  SCM markup)
 {
-  Output_def *layout = unsmob_output_def (layout_smob);
-
-  SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
-		   __FUNCTION__, "Layout definition");
-  SCM_ASSERT_TYPE (scm_is_string (markup), markup, SCM_ARG3,
-		   __FUNCTION__, "string");
+  LY_ASSERT_FIRST_SMOB (Output_def, layout_smob);
+  LY_ASSERT_TYPE (scm_is_string, 3);
 
   string str = ly_scm2string (markup);
-
+  Output_def *layout = unsmob_output_def (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
   return fm->word_stencil (str).smobbed_copy ();
 }

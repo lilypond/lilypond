@@ -20,8 +20,8 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 	   (SCM music),
 	   "Return score with @var{music} encapsulated in @var{score}.")
 {
+  LY_ASSERT_FIRST_SMOB (Music, music);
   Music *mus = unsmob_music (music);
-  SCM_ASSERT_TYPE (mus, music, SCM_ARG1, __FUNCTION__, "music");
 
   Score *score = new Score;
   score->set_music (music);
@@ -33,8 +33,8 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 	   1, 0, 0, (SCM score),
 	   "All output defs in a score.")
 {
+  LY_ASSERT_FIRST_SMOB (Score, score);
   Score *sc = unsmob_score (score);
-  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
 
   SCM l = SCM_EOL;
   for (vsize i = 0; i < sc->defs_.size (); i++)
@@ -48,8 +48,8 @@ LY_DEFINE (ly_score_header, "ly:score-header",
 	   1, 0, 0, (SCM score),
 	   "return score header.")
 {
+  LY_ASSERT_FIRST_SMOB (Score, score);
   Score *sc = unsmob_score (score);
-  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
   return sc->header_;
 }
 
@@ -58,8 +58,8 @@ LY_DEFINE (ly_score_music, "ly:score-music",
 	   1, 0, 0, (SCM score),
 	   "return score music.")
 {
+  LY_ASSERT_FIRST_SMOB (Score, score);
   Score *sc = unsmob_score (score);
-  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
   return sc->get_music ();
 }
 
@@ -67,8 +67,8 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 	   1, 0, 0, (SCM score),
 	   "Was there an error in the score?")
 {
+  LY_ASSERT_FIRST_SMOB (Score, score);
   Score *sc = unsmob_score (score);
-  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "score");
   return scm_from_bool (sc->error_found_);
 }
 
@@ -79,14 +79,14 @@ LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   "return a list of layout-lines. "
 	   "\nTake optional Object_key argument.")
 {
+  LY_ASSERT_FIRST_SMOB (Score, score);
+  LY_ASSERT_SMOB (Output_def, 2);
+
   Score *sc = unsmob_score (score);
   Output_def *od = unsmob_output_def (layout);
 
   if (sc->error_found_)
     return SCM_EOL;
-
-  SCM_ASSERT_TYPE (sc, score, SCM_ARG1, __FUNCTION__, "Score");
-  SCM_ASSERT_TYPE (od, layout, SCM_ARG2, __FUNCTION__, "Output_def");
 
   Output_def *score_def = 0;
 

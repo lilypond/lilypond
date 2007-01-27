@@ -17,10 +17,8 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   "Create an outputter that evaluates within "
 	   "@code{output-}@var{format}, writing to  @var{port}.")
 {
-  SCM_ASSERT_TYPE (ly_is_port (port), port, SCM_ARG1, __FUNCTION__,
-		   "port");
-  SCM_ASSERT_TYPE (scm_is_string (format), format, SCM_ARG2, __FUNCTION__,
-		   "String");
+  LY_ASSERT_FIRST_TYPE(ly_is_port, port);
+  LY_ASSERT_TYPE (scm_is_string, 2);
 
   string f = ly_scm2string (format);
 
@@ -45,10 +43,13 @@ LY_DEFINE (ly_outputter_dump_stencil, "ly:outputter-dump-stencil",
 	   2, 0, 0, (SCM outputter, SCM stencil),
 	   "Dump stencil @var{expr} onto @var{outputter}.")
 {
+  
+  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
+  LY_ASSERT_SMOB(Stencil, 2);
+
   Paper_outputter *po = unsmob_outputter (outputter);
   Stencil *st = unsmob_stencil (stencil);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  SCM_ASSERT_TYPE (st, stencil, SCM_ARG1, __FUNCTION__, "Paper_outputter");
+
   po->output_stencil (*st);
   return SCM_UNSPECIFIED;
 }
@@ -57,9 +58,10 @@ LY_DEFINE (ly_outputter_dump_string, "ly:outputter-dump-string",
 	   2, 0, 0, (SCM outputter, SCM str),
 	   "Dump @var{str} onto @var{outputter}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
+  LY_ASSERT_TYPE(scm_is_string, 2);
+
   Paper_outputter *po = unsmob_outputter (outputter);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
-  SCM_ASSERT_TYPE (scm_is_string (str), str, SCM_ARG1, __FUNCTION__, "Paper_outputter");
 
   return po->dump_string (str);
 }
@@ -68,8 +70,8 @@ LY_DEFINE (ly_outputter_port, "ly:outputter-port",
 	   1, 0, 0, (SCM outputter),
 	   "Return output port for @var{outputter}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
   Paper_outputter *po = unsmob_outputter (outputter);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
 
   return po->file ();
 }
@@ -78,8 +80,8 @@ LY_DEFINE (ly_outputter_close, "ly:outputter-close",
 	   1, 0, 0, (SCM outputter),
 	   "Close port of @var{outputter}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
   Paper_outputter *po = unsmob_outputter (outputter);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
 
   po->close ();
   return SCM_UNSPECIFIED;
@@ -89,8 +91,8 @@ LY_DEFINE (ly_outputter_output_scheme, "ly:outputter-output-scheme",
 	   2, 0, 0, (SCM outputter, SCM expr),
 	   "Eval @var{expr} in module of @var{outputter}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_outputter, outputter);
   Paper_outputter *po = unsmob_outputter (outputter);
-  SCM_ASSERT_TYPE (po, outputter, SCM_ARG1, __FUNCTION__, "Paper_outputter");
 
   po->output_scheme (expr);
 

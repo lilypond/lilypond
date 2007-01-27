@@ -13,6 +13,11 @@ using namespace std;
 #include "lily-guile.hh"
 #include "warn.hh"
 
+/* type predicates. */
+#include "spanner.hh"
+#include "item.hh"
+
+
 static SCM doc_hash_table;
 
 void
@@ -100,6 +105,8 @@ init_func_doc ()
   ly_add_type_predicate ((void*) &ly_is_symbol, "symbol");
   ly_add_type_predicate ((void*) &scm_is_vector, "vector");
   ly_add_type_predicate ((void*) &is_axis, "axis");
+  ly_add_type_predicate ((void*) &unsmob_spanner, "spanner");
+  ly_add_type_predicate ((void*) &unsmob_item, "item");
 }
 
 ADD_SCM_INIT_FUNC(func_doc, init_func_doc);

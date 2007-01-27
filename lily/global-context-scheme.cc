@@ -5,6 +5,7 @@
 
   (c) 2005--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
+
 #include "cpu-timer.hh"
 #include "global-context.hh"
 #include "international.hh"
@@ -22,7 +23,8 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 	   "process it and return the @code{Music_output} object in its final state.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
-  SCM_ASSERT_TYPE (g, context, SCM_ARG1, __FUNCTION__, "Global context");
+  
+  LY_ASSERT_FIRST_TYPE (unsmob_global_context, context)
 
   SCM output = g->get_output ();
   progress_indication ("\n");
@@ -39,7 +41,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
           "@var{global}. The translator group is returned.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (global));
-  SCM_ASSERT_TYPE (g, global, SCM_ARG1, __FUNCTION__, "Global context");
+  LY_ASSERT_FIRST_TYPE (unsmob_global_context, global)
 
   Translator_group *tg = new Translator_group ();
   tg->connect_to_context (g);
@@ -55,10 +57,8 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 	   "The context is returned.\n"
 	   )
 {
-  Output_def *odef = unsmob_output_def (output_def);
-
-  SCM_ASSERT_TYPE (odef, output_def, SCM_ARG1, __FUNCTION__,
-		   "Output definition");
+  LY_ASSERT_FIRST_SMOB (Output_def, output_def);
+  Output_def *odef = unsmob_output_def (output_def); 
 
   Global_context *glob = new Global_context (odef);
 
@@ -77,17 +77,18 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 	   "global context @var{ctx}. The context is returned in its\n"
 	   "final state.\n")
 {
-  Music *music = unsmob_music (mus);
-  Global_context *g = dynamic_cast<Global_context *> (unsmob_context (ctx));
-  SCM_ASSERT_TYPE (music, mus, SCM_ARG1, __FUNCTION__, "Music");
-  SCM_ASSERT_TYPE (g, ctx, SCM_ARG2, __FUNCTION__, "Global context");
+  LY_ASSERT_FIRST_SMOB (Music, mus);
+  LY_ASSERT_TYPE (unsmob_global_context, 2);
 
+  Music *music = unsmob_music (mus);
   if (!music
       || !music->get_length ().to_bool ())
     {
       warning (_ ("no music found in score"));
       return SCM_BOOL_F;
     }
+
+  Global_context *g = dynamic_cast<Global_context *> (unsmob_context (ctx));
 
   Cpu_timer timer;
 
@@ -129,6 +130,9 @@ LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   "Optionally, this routine takes an Object-key to\n"
 	   "to uniquely identify the Score block containing it.\n")
 {
+  LY_ASSERT_FIRST_SMOB (Music, mus);
+  LY_ASSERT_SMOB (Output_def, 2);
+
   SCM glob = ly_make_global_context (output_def);
   ly_make_global_translator (glob);
   ly_interpret_music_expression (mus, glob);

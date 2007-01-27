@@ -1,0 +1,244 @@
+/*
+  program-option-scheme.cc -- implement option setting from Scheme
+
+  source file of the GNU LilyPond music typesetter
+
+  (c) 2001--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
+*/
+
+#include "program-option.hh"
+
+#include <cstdio>
+#include <cstring>
+using namespace std;
+
+#include "profile.hh"
+#include "international.hh"
+#include "main.hh"
+#include "parse-scm.hh"
+#include "string-convert.hh"
+#include "warn.hh"
+
+bool debug_skylines;
+
+/*
+  Backwards compatibility.
+*/
+bool lily_1_8_relative = false;
+bool lily_1_8_compatibility_used = false;
+bool profile_property_accesses = false;
+/*
+  crash if internally the wrong type is used for a grob property.
+*/
+bool do_internal_type_checking_global;
+bool strict_infinity_checking = false; 
+
+static SCM option_hash;
+
+void internal_set_option (SCM var, SCM val)
+{
+  scm_hashq_set_x (option_hash, var, val);
+
+  if (0)
+    ;
+  else if (var == ly_symbol2scm ("profile-property-accesses"))
+    {
+      profile_property_accesses = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("point-and-click"))
+    {
+      point_and_click_global = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("protected-scheme-parsing"))
+    {
+      parse_protect_global = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("check-internal-types"))
+    {
+      do_internal_type_checking_global = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("debug-gc-assert-parsed-dead"))
+    {
+      parsed_objects_should_be_dead = to_boolean (val);
+      val = scm_from_bool (parsed_objects_should_be_dead);
+    }
+  else if (var == ly_symbol2scm ("safe"))
+    {
+      be_safe_global = to_boolean (val);
+      val = scm_from_bool (be_safe_global);
+    }
+  else if (var == ly_symbol2scm ("old-relative"))
+    {
+      lily_1_8_relative = to_boolean (val);
+      /*  Needs to be reset for each file that uses this option.  */
+      lily_1_8_compatibility_used = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("strict-infinity-checking"))
+    {
+      strict_infinity_checking = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("debug-skylines"))
+    {
+      debug_skylines = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+}
+
+
+
+
+bool
+get_program_option (const char *s)
+{
+  SCM sym = ly_symbol2scm (s);
+
+  return to_boolean (ly_get_option (sym));
+}
+
+
+ssize const HELP_INDENT = 30;
+ssize const INDENT = 2;
+ssize const SEPARATION = 5;
+
+/*
+  Hmmm. should do in SCM / C++  ?
+*/
+static string
+get_help_string ()
+{
+  SCM alist = ly_hash2alist (option_hash);
+  SCM convertor = ly_lily_module_constant ("scm->string");
+
+  vector<string> opts;
+
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
+    {
+      SCM sym = scm_caar (s);
+      SCM val = scm_cdar (s);
+      string opt_spec
+	= String_convert::char_string (' ', INDENT)
+	+ ly_symbol2string (sym)
+	+ " ("
+	+ ly_scm2string (scm_call_1 (convertor, val))
+	+ ")";
+
+      if (opt_spec.length () + SEPARATION > HELP_INDENT)
+	{
+	  opt_spec += "\n"
+	    + String_convert::char_string (' ', HELP_INDENT);
+	}
+      else
+	opt_spec += String_convert::char_string (' ', HELP_INDENT - opt_spec.length ());
+
+      SCM opt_help_scm
+	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation"));
+      string opt_help = ly_scm2string (opt_help_scm);
+      replace_all (opt_help,
+		   string ("\n"),
+		   string ("\n")
+		   + String_convert::char_string (' ', HELP_INDENT));
+
+      opts.push_back (opt_spec + opt_help + "\n");
+    }
+
+  string help ("Options supported by ly:set-option\n\n");
+  vector_sort (opts, less<string> ());
+  for (vsize i = 0; i < opts.size (); i++)
+    help += opts[i];
+
+  help += string ("\n");
+  return help;
+}
+
+
+LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
+	   "Print @code{ly:set-option} usage")
+{
+  string help = get_help_string ();
+  progress_indication (help);
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_add_option, "ly:add-option", 3, 0, 0,
+	   (SCM sym, SCM val, SCM description),
+	   "Add a program option @var{sym} with default @var{val}.")
+{
+  if (!option_hash)
+    {
+      option_hash = scm_permanent_object (scm_c_make_hash_table (11));
+    }
+  LY_ASSERT_FIRST_TYPE (ly_is_symbol, sym);
+  LY_ASSERT_TYPE (scm_is_string, 3);
+
+  internal_set_option (sym, val);
+
+  scm_set_object_property_x (sym, ly_symbol2scm ("program-option-documentation"),
+			     description);
+
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
+	   "Set a program option.")
+{
+  LY_ASSERT_FIRST_TYPE(ly_is_symbol, var);
+
+  if (val == SCM_UNDEFINED)
+    val = SCM_BOOL_T;
+
+  string varstr = ly_scm2string (scm_symbol_to_string (var));
+  if (varstr.substr (0, 3) == string ("no-"))
+    {
+      var = ly_symbol2scm (varstr.substr (3, varstr.length () -3).c_str ());
+      val = scm_from_bool (!to_boolean (val));
+    }
+
+  SCM handle = scm_hashq_get_handle (option_hash, var);
+  if (handle == SCM_BOOL_F)
+    warning (_f ("no such internal option: %s", varstr.c_str ()));
+
+  internal_set_option (var, val);
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
+	   "The Scheme specified on command-line with @samp{-d}.")
+{
+  return ly_string2scm (init_scheme_variables_global); 
+}
+
+LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
+	   "The Scheme specified on command-line with @samp{-e}.")
+{
+  return ly_string2scm (init_scheme_code_global); 
+}
+
+LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
+	   "Was be_verbose_global set?")
+{
+  return scm_from_bool (be_verbose_global);
+}
+
+
+
+LY_DEFINE (ly_all_options, "ly:all-options",
+	   0, 0, 0, (),
+	   "Get all option settings in an alist.")
+{
+  return ly_hash2alist (option_hash);
+}
+
+
+LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
+	   "Get a global option setting.")
+{
+  LY_ASSERT_FIRST_TYPE(ly_is_symbol, var);
+  return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
+}

@@ -73,11 +73,10 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 	   "a string (for file based outputs) or a socket (for network based "
 	   "output).")
 {
-  Book *book = unsmob_book (book_smob);
+  LY_ASSERT_FIRST_SMOB (Book, book_smob);
 
-  LY_FUNC_NOTE_FIRST_ARG(book_smob);
-  
-  LY_ASSERT_SMOB(Book,1);
+  Book *book = unsmob_book (book_smob); 
+
   LY_ASSERT_SMOB(Output_def, 2);
   LY_ASSERT_SMOB(Output_def, 3);
 

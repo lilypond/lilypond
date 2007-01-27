@@ -196,3 +196,9 @@ Global_context::get_default_interpreter ()
   else
     return Context::get_default_interpreter ();
 }
+
+Global_context *
+unsmob_global_context (SCM x)
+{
+  return dynamic_cast<Global_context *> (unsmob_context (x));
+}

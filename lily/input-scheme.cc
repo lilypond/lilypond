@@ -23,8 +23,9 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 	   "location in @var{sip}. @var{msg} is interpreted similar to @code{format}'s argument\n")
 {
   Input *ip = unsmob_input (sip);
-  
-  SCM_ASSERT_TYPE (scm_is_string (msg), msg, SCM_ARG2, __FUNCTION__, "string");
+
+  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
+  LY_ASSERT_TYPE(scm_is_string, 2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 
@@ -40,8 +41,8 @@ LY_DEFINE (ly_input_file_line_char_column,
 	   1, 0, 0, (SCM sip),
 	   "Return input location in @var{sip} as (file-name line char column).")
 {
+  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
   Input *ip = unsmob_input (sip);
-  SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
 
   int l = 0;
   int ch = 0;
@@ -59,8 +60,10 @@ LY_DEFINE (ly_input_both_locations,
 	   "Return input location in @var{sip} as "
 	   "(file-name first-line first-column last-line last-column).")
 {
+  
+  LY_ASSERT_FIRST_TYPE (unsmob_input, sip);
   Input *ip = unsmob_input (sip);
-  SCM_ASSERT_TYPE (ip, sip, SCM_ARG1, __FUNCTION__, "input location");
+  
   return scm_list_5 (ly_string2scm (ip->file_string ()),
 		     scm_from_int (ip->line_number ()),
 		     scm_from_int (ip->column_number ()),

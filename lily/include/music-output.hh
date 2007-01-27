@@ -28,5 +28,6 @@ public:
 };
 
 DECLARE_UNSMOB (Music_output, music_output);
-
+Paper_score *unsmob_paper_score (SCM);
+Performance *unsmob_performance (SCM);
 #endif /* MUSIC_OUTPUT_HH */

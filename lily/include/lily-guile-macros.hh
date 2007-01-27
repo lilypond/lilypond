@@ -204,16 +204,14 @@ void ly_check_name (string cxx, string fname);
 extern int function_argument_direction;
 
 #define LY_FUNC_NOTE_FIRST_ARG(a)  \
-  SCM *first_arg_ptr = &a; \
-  int stack_grow_dir = 0;  \
-  stack_grow_dir = ((void*) &first_arg_ptr < (void*) &stack_grow_dir) ? -1 : 1;
+  SCM *first_arg_ptr = &a;
 
 #define LY_ASSERT_TYPE(pred, number) \
   {									\
-    if (!pred (first_arg_ptr[(number-1)*stack_grow_dir]))		\
+    if (!pred (first_arg_ptr[(number-1)*function_argument_direction]))		\
       {									\
 	scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
-			       number, first_arg_ptr[(number-1)*stack_grow_dir], \
+			       number, first_arg_ptr[(number-1)*function_argument_direction], \
 			       predicate_to_typename ((void*) &pred).c_str()); \
       }									\
   }

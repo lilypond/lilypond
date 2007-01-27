@@ -16,9 +16,9 @@ LY_DEFINE(ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
 	  "Get attachment in @var{font-metric} for attaching a stem to notehead "
 	  "@var{glyph-name}.")
 {
+  LY_ASSERT_FIRST_SMOB (Font_metric, font_metric);
   Font_metric *fm = unsmob_metrics (font_metric);
-  SCM_ASSERT_TYPE(fm, font_metric, SCM_ARG1, __FUNCTION__, "font metric");
-  SCM_ASSERT_TYPE(scm_is_string (glyph_name), glyph_name, SCM_ARG2, __FUNCTION__, "string");
+  LY_ASSERT_TYPE(scm_is_string, 2);
   
   return ly_offset2scm (Note_head::get_stem_attachment (fm, ly_scm2string (glyph_name)));
 }

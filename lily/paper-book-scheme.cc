@@ -14,6 +14,7 @@ LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
 	   1, 0, 0, (SCM pb),
 	   "Return pages in book PB.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_book, pb);
   return unsmob_paper_book (pb)->pages ();
 }
 
@@ -21,8 +22,8 @@ LY_DEFINE (ly_paper_book_scopes, "ly:paper-book-scopes",
 	   1, 0, 0, (SCM book),
 	   "Return pages in layout book @var{book}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_book, book);
   Paper_book *pb = unsmob_paper_book (book);
-  SCM_ASSERT_TYPE (pb, book, SCM_ARG1, __FUNCTION__, "Paper_book");
 
   SCM scopes = SCM_EOL;
   if (ly_is_module (pb->header_))
@@ -35,6 +36,7 @@ LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
 	   1, 0, 0, (SCM paper_book),
 	   "Return performances in book @var{paper-book}.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_book, paper_book);
   return unsmob_paper_book (paper_book)->performances ();
 }
 
@@ -42,6 +44,7 @@ LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 	   1, 0, 0, (SCM pb),
 	   "Return systems in book PB.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_book, pb);
   return unsmob_paper_book (pb)->systems ();
 }
 
@@ -49,7 +52,7 @@ LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 	   1, 0, 0, (SCM pb),
 	   "Return pages in book PB.")
 {
+  LY_ASSERT_FIRST_SMOB (Paper_book, pb);
   Paper_book *pbook = unsmob_paper_book (pb);
-  SCM_ASSERT_TYPE(pbook, pb, SCM_ARG1, __FUNCTION__, "Paper_book");
   return pbook->paper_->self_scm ();
 }

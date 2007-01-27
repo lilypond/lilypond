@@ -14,9 +14,8 @@ LY_DEFINE (ly_grob_staff_position, "ly:grob-staff-position",
 	   1, 0, 0, (SCM sg),
 	   "Return the Y-position of @var{sg} relative to the staff.")
 {
+  LY_ASSERT_FIRST_SMOB (Grob, sg);
   Grob *g = unsmob_grob (sg);
-
-  SCM_ASSERT_TYPE (g, sg, SCM_ARG1, __FUNCTION__, "grob");
   Real pos = Staff_symbol_referencer::get_position (g);
 
   if (fabs (rint (pos) -pos) < 1e-6) // ugh.

@@ -12,12 +12,10 @@ LY_DEFINE (ly_performance_write, "ly:performance-write",
 	   2, 0, 0, (SCM performance, SCM filename),
 	   "Write @var{performance} to @var{filename}")
 {
-  Performance *perf = dynamic_cast<Performance *> (unsmob_music_output (performance));
+  LY_ASSERT_FIRST_TYPE (unsmob_performance, performance);
+  LY_ASSERT_TYPE(scm_is_string, 2);
 
-  SCM_ASSERT_TYPE (perf, performance, SCM_ARG1, __FUNCTION__, "Performance");
-  SCM_ASSERT_TYPE (scm_is_string (filename), filename, SCM_ARG2, __FUNCTION__, "file name");
-
-  perf->write_output (ly_scm2string (filename));
+  unsmob_performance (performance)->write_output (ly_scm2string (filename));
   return SCM_UNSPECIFIED;
 }
 

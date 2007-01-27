@@ -32,9 +32,7 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 	   "which the modification was requested, the property to be changed and "
 	   "the new value for the property.")
 {
-
-  SCM_ASSERT_TYPE(ly_is_procedure (cb), cb, SCM_ARG1, __FUNCTION__,
-		  "procedure");
+  LY_ASSERT_FIRST_TYPE(ly_is_procedure, cb);
 
   modification_callback = cb;
   return SCM_UNSPECIFIED;

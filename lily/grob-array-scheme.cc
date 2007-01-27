@@ -15,8 +15,9 @@ LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
 	   (SCM grob_arr),
 	   "Return the grob_array length.")
 {
+  LY_ASSERT_FIRST_SMOB (Grob_array, grob_arr);
+
   Grob_array *me = unsmob_grob_array (grob_arr);
-  SCM_ASSERT_TYPE (me, grob_arr, SCM_ARG1, __FUNCTION__, "Grob_array");
   return  scm_from_int (me->size ());
 }
 
@@ -27,8 +28,8 @@ LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
 	   "Retrieve the @code{index} element of @code{grob-arr}.")
 {
   Grob_array *me = unsmob_grob_array (grob_arr);
-  SCM_ASSERT_TYPE (me, grob_arr, SCM_ARG1, __FUNCTION__, "Grob_array");
-  SCM_ASSERT_TYPE (scm_is_integer (index), index, SCM_ARG2, __FUNCTION__, "integer");
+  LY_ASSERT_FIRST_SMOB (Grob_array, grob_arr);
+  LY_ASSERT_TYPE(scm_is_integer, 2);
 
   vsize i = scm_to_unsigned (index);
   if (i == VPOS || i >= me->size ())

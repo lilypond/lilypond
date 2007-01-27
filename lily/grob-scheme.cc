@@ -21,10 +21,8 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 {
   Grob *sc = unsmob_grob (grob);
 
-  LY_FUNC_NOTE_FIRST_ARG(grob);
-  LY_ASSERT_SMOB(Grob, 1);
-
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE (ly_is_symbol, 2);
 
   return sc->get_property_data (sym);
 }
@@ -34,8 +32,9 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 	   "Set @var{sym} in grob @var{grob} to value @var{val}")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+ 
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE (ly_is_symbol, 2);
 
   if (!ly_is_procedure (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
@@ -53,8 +52,9 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   "\n\n")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE (ly_is_symbol, 2);
   if (deflt == SCM_UNDEFINED)
     deflt = SCM_EOL;
 
@@ -71,7 +71,8 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 	   "Return the interfaces list of grob @var{grob}.")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   return sc->interfaces ();
 }
@@ -84,8 +85,9 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
 	   "\n\n")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE (ly_is_symbol, 2);
 
   return sc->internal_get_object (sym);
 }
@@ -95,11 +97,12 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
 /* TODO: make difference between scaled and unscalead variable in
    calling (i.e different funcs.) */
 LY_DEFINE (ly_grob_layout, "ly:grob-layout",
-	   1, 0, 0, (SCM g),
-	   "Get @code{\\layout} definition from grob @var{g}.")
+	   1, 0, 0, (SCM grob),
+	   "Get @code{\\layout} definition from grob @var{grob}.")
 {
-  Grob *sc = unsmob_grob (g);
-  SCM_ASSERT_TYPE (sc, g, SCM_ARG1, __FUNCTION__, "grob");
+  Grob *sc = unsmob_grob (grob);
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   return sc->layout ()->self_scm ();
 }
@@ -111,7 +114,8 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 	   "from the layout block is taken. ")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   if (global == SCM_UNDEFINED)
     {
@@ -131,9 +135,10 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
   
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_SMOB(Grob, 2);
+  LY_ASSERT_TYPE(is_axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -154,9 +159,10 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
   
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_SMOB(Grob, 2);
+  LY_ASSERT_TYPE(is_axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
     
@@ -177,9 +183,10 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
   
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (ref, refp, SCM_ARG2, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_SMOB(Grob, 2);
+  LY_ASSERT_TYPE(is_axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -200,8 +207,9 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 	   "1 for the Y-axis.")
 {
   Grob *sc = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (sc, grob, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE(is_axis, 2);
 
   Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
   return par ? par->self_scm () : SCM_EOL;
@@ -212,7 +220,8 @@ LY_DEFINE (ly_grob_properties, "ly:grob-properties",
 	   "Get the mutable proprerties of @var{grob}.")
 {
   Grob *g = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (g, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   /* FIXME: uhg? copy/read only? */
   return g->mutable_property_alist_;
@@ -223,18 +232,20 @@ LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
 	   "Get the immutable properties of @var{grob}.")
 {
   Grob *g = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (g, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   /* FIXME: uhg? copy/read only? */
   return g->immutable_property_alist_;
 }
 
 LY_DEFINE (ly_grob_system, "ly:grob-system",
-	   1, 0, 0, (SCM g),
-	   "Return the System Grob of @var{g}.")
+	   1, 0, 0, (SCM grob),
+	   "Return the System Grob of @var{grob}.")
 {
-  Grob *me = unsmob_grob (g);
-  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
+  Grob *me = unsmob_grob (grob);
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   if (System *g = me->get_system ())
     return g->self_scm ();
@@ -247,30 +258,33 @@ LY_DEFINE (ly_grob_original, "ly:grob-original",
 	   "Return the unbroken original Grob of @var{grob}.")
 {
   Grob *me = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (me, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
   return me->original () ? me->original ()->self_scm () : me->self_scm ();
 }
 
 
 LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
-	   1, 0, 0, (SCM g),
-	   "Kill @var{g}.")
+	   1, 0, 0, (SCM grob),
+	   "Kill @var{grob}.")
 {
-  Grob *me = unsmob_grob (g);
-  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
+  Grob *me = unsmob_grob (grob);
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   me->suicide ();
   return SCM_UNSPECIFIED;
 }
 
 LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
-	   3, 0, 0, (SCM g, SCM d, SCM a),
+	   3, 0, 0, (SCM grob, SCM d, SCM a),
 	   "Translate @var{g} on axis @var{a} over distance @var{d}.")
 {
-  Grob *me = unsmob_grob (g);
-  SCM_ASSERT_TYPE (me, g, SCM_ARG1, __FUNCTION__, "grob");
-  SCM_ASSERT_TYPE (scm_is_number (d), d, SCM_ARG2, __FUNCTION__, "dimension");
-  SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG3, __FUNCTION__, "axis");
+  Grob *me = unsmob_grob (grob);
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_TYPE(scm_is_number, 2);
+  LY_ASSERT_TYPE(is_axis, 3);
 
   me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));
   return SCM_UNSPECIFIED;
@@ -281,7 +295,8 @@ LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
 	   "Return the default font for grob @var{gr}.")
 {
   Grob *gr = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
 
   return Font_interface::get_default_font (gr)->self_scm ();
 }
@@ -299,12 +314,13 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 {
   
   Grob *gr = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_SMOB(Grob, 2);
 
   Grob *o = unsmob_grob (other);
-  SCM_ASSERT_TYPE (o, other, SCM_ARG2, __FUNCTION__, "grob");
 
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  LY_ASSERT_TYPE(is_axis, 3);
 
   Grob *refp = gr->common_refpoint (o,  Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
@@ -317,11 +333,12 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
 	   )
 {
   Grob *gr = unsmob_grob (grob);
-  SCM_ASSERT_TYPE (gr, grob, SCM_ARG1, __FUNCTION__, "grob");
+   
+  LY_ASSERT_FIRST_SMOB(Grob, grob);
+  LY_ASSERT_SMOB(Grob_array, 2);
 
   Grob_array *ga = unsmob_grob_array (others);
-  SCM_ASSERT_TYPE (ga, others, SCM_ARG2, __FUNCTION__, "grob array");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
+  LY_ASSERT_TYPE(is_axis, 3);
 
   Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
