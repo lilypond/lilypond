@@ -288,7 +288,7 @@ voices:
 } >>
 @end lilypond
 
-To make sure that the just blanked stem doesn't sqeeuze the too much
+To make sure that the just blanked stem doesn't squeeze the too much
 tie, we also lengthen the stem, by setting the @code{length} to
 @code{8},
 
