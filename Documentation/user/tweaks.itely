@@ -373,10 +373,10 @@ space at the bottom of the page.
 
 @example
 \paper @{
-between-system-padding = #0.1
-between-system-space = #0.1
-ragged-last-bottom = ##f
-ragged-bottom = ##f
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
 @}
 @end example
 
@@ -387,7 +387,7 @@ use 10).
 
 @example
 \paper @{
-system-count = #10
+  system-count = #10
 @}
 @end example
 
@@ -474,9 +474,9 @@ tempoMark = #(define-music-function (parser location padding marktext)
 #})
 
 \relative c'' {
-c2 e
-\tempoMark #3.0 #"Allegro"
-g c
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
 }
 @end lilypond
 
