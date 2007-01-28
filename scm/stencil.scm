@@ -382,6 +382,7 @@ grestore
 	 (input (if (ly:stream-event? cause) (ly:event-property cause 'origin) #f))
 	 (location (if (ly:input-location? input) (ly:input-file-line-char-column input) '()))
 
+	 ;; todo: use stencil extent if available.
 	 (x-ext (ly:grob-extent grob system-grob X))
 	 (y-ext (ly:grob-extent grob system-grob Y))
 	 )

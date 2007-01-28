@@ -32,7 +32,7 @@
     A ly_B2A (B b);  */
 
 SCM ly_last (SCM list);
-SCM ly_write2scm (SCM s);
+string ly_scm_write_string (SCM s);
 SCM ly_deep_copy (SCM);
 SCM ly_truncate_list (int k, SCM lst);
 
@@ -65,6 +65,7 @@ Drul_array<bool> robust_scm2booldrul (SCM, Drul_array<bool>);
 Interval robust_scm2interval (SCM, Drul_array<Real>);
 Offset robust_scm2offset (SCM, Offset);
 string robust_scm2string (SCM, string);
+Rational robust_scm2rational (SCM, Rational);
 
   
 SCM ly_quote_scm (SCM s);
@@ -81,6 +82,8 @@ SCM ly_hash2alist (SCM tab);
 SCM ly_hash_table_keys (SCM tab);
 
 SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
+inline bool ly_is_fraction (SCM x) { return SCM_FRACTIONP(x) || scm_is_integer (x); }
+    
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }

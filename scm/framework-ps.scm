@@ -52,10 +52,6 @@
     (string-append
       "/" command " { /" fontname " " (ly:number->string scaling) " output-scale div selectfont } bind def\n"))
 
-  (define (standard-tex-font? x)
-    (or (equal? (substring x 0 2) "ms")
-	(equal? (substring x 0 2) "cm")))
-
   (define (font-load-command font)
     (let* ((specced-font-name (ly:font-name font))
 	   (fontname (if specced-font-name
@@ -70,10 +66,6 @@
 	   (ops (ly:output-def-lookup paper 'output-scale))
 	   (scaling (* ops magnification designsize)))
 
-      ;; Bluesky pfbs have UPCASE names (sigh.)
-      ;; FIXME - don't support Bluesky?
-      (if (standard-tex-font? fontname)
-	  (set! fontname (string-upcase fontname)))
       (if (equal? fontname "unknown")
 	  (display (list font fontname)))
       (define-font plain fontname scaling)))

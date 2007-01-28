@@ -69,11 +69,27 @@ class Chunk:
                 cov = ''
             sys.stdout.write ('%8s:%8d:%s' % (cov, n, l))
             
+    def uncovered_score (self):
+        return self.length ()
+    
+class SchemeChunk (Chunk):
+    def uncovered_score (self):
+        text = self.text ()
+        if (text.startswith  ('(define ')
+            and not text.startswith ('(define (')):
+            return 0
+
+        if (text.startswith  ('(define-public ')
+            and not text.startswith ('(define-public (')):
+            return 0
+
+        return len ([l for (c,n,l) in self.lines() if (c == 0)]) 
+
 def read_gcov (f):
     ls = []
 
     in_lines = [l for l in open (f).readlines ()]
-    (count_len, line_num_len) = tuple (map (len, in_lines[0].split( ':')[:2]))
+    (count_len, line_num_len) = tuple (map (len, in_lines[0].split (':')[:2]))
     
     for l in in_lines:
         c = l[:count_len].strip ()
@@ -96,7 +112,7 @@ def read_gcov (f):
         
     return ls
 
-def get_chunks (ls, file):
+def get_c_chunks (ls, file):
     chunks = []
     chunk = []
 
@@ -115,6 +131,29 @@ def get_chunks (ls, file):
             
     return chunks
 
+def get_scm_chunks (ls, file):
+    chunks = []
+    chunk = []
+
+    def new_chunk ():
+        if chunk:
+            nums = [n-1 for (n, l) in chunk]
+            chunks.append (SchemeChunk ((min (nums), max (nums)+1),
+                                        max (last_c, 0), ls, file))
+            chunk[:] = []
+        
+    last_c = -1
+    for (cov_count, line_number, line) in ls:
+        if line.startswith ('('):
+            new_chunk ()
+            last_c = -1
+        
+        chunk.append ((line_number, line))
+        if cov_count >= 0:
+            last_c = cov_count
+
+    return chunks
+
 def widen_chunk (ch, ls):
     a -= 1
     b += 1
@@ -129,7 +168,13 @@ def extract_chunks (file):
         print s
         return []
         
-    return get_chunks (ls, file)
+    cs = []
+    if 'scm' in file:
+        cs = get_scm_chunks (ls, file)
+    else:
+        cs = get_c_chunks (ls, file)
+    return cs
+
 
 def filter_uncovered (chunks):
     def interesting (c):
@@ -173,11 +218,17 @@ def main ():
     if options.uncovered or options.hotspots:
         chunks = []
         for a in args:
-            chunks += extract_chunks  ('%s.gcov' % a)
+            name = a
+            if name.endswith ('scm'):
+                name += '.cov'
+            else:
+                name += '.gcov'
+            
+            chunks += extract_chunks  (name)
 
         if options.uncovered:
             chunks = filter_uncovered (chunks)
-            chunks = [(c.length (), c) for c in chunks]
+            chunks = [(c.uncovered_score (), c) for c in chunks]
         elif options.hotspots:
             chunks = [((c.coverage_count, -c.length()), c) for c in chunks]
             

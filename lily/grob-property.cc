@@ -53,7 +53,13 @@ Grob::get_property_alist_chain (SCM def) const
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
-#ifndef NDEBUG
+#if 0
+
+/*
+  We can't change signatures depending on NDEBUG, since NDEBUG comes
+  over the command line and may be different per .cc file.  This
+  should be done through the macro expansion of get_property().
+ */
 void
 Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
 {
@@ -82,6 +88,8 @@ Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char co
 			     sym, v, SCM_UNDEFINED));
 }
 #else
+
+
 void
 Grob::internal_set_property (SCM sym, SCM v)
 {

@@ -19,10 +19,10 @@ else
 fi
 
 mkdir -p scripts/out-cov/
-touch  scripts/out-cov/midi2ly.1
+touch scripts/out-cov/midi2ly scripts/out-cov/midi2ly.1
 make conf=cov -j2 &&  \
   make conf=cov test-clean OUT_TEST=testcov LILYPOND_JOBS= && \
-  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS= 
+  make conf=cov test OUT_TEST=testcov LILYPOND_JOBS='-dtrace-scheme-coverage '
 
 if test "$?" != "0"; then
   tail -100 out-cov/test-run.log
@@ -37,6 +37,9 @@ mkdir $resultdir
 cd $resultdir
 
 ln $depth/lily/* .
+ln $depth/scm/*.scm .
+mv $depth/input/regression/out-testcov/*.scm.cov .
+ln $depth/ly/*.ly .
 ln $depth/lily/out-cov/*[ch] .
 mkdir include
 ln $depth/lily/include/* include/
@@ -49,6 +52,7 @@ done
 python $depth/buildscripts/coverage.py --uncovered *.cc > uncovered.txt
 python $depth/buildscripts/coverage.py --hotspots *.cc > hotspots.txt
 python $depth/buildscripts/coverage.py --summary *.cc > summary.txt
+python $depth/buildscripts/coverage.py --uncovered *.scm > uncovered-scheme.txt
 
 head -20 summary.txt
 
@@ -57,6 +61,7 @@ results in
 
   out/coverage-results/summary.txt
   out/coverage-results/uncovered.txt
+  out/coverage-results/uncovered-scheme.txt
   out/coverage-results/hotspots.txt
 
 EOF

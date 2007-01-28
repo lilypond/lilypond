@@ -168,7 +168,7 @@ print_trailer (void *out,
 					      GLYPH_NAME_LEN);
 	  if (error)
 	    {
-	      programming_error ("print_trailer(): FT_Get_Glyph_Name() returned error");
+	      programming_error ("FT_Get_Glyph_Name(): error.");
 	      glyph_name[0] = 0;
 	    }
 	}

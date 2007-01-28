@@ -19,5 +19,7 @@ extern FT_Library freetype2_library;
 
 FT_Face open_ft_face (string str);
 
+string freetype_error_string (int code);
+
 #endif /* FREETYPE_HH */
 

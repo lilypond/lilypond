@@ -17,10 +17,6 @@
 
 #include "translator.icc"
 
-/**
-   Create line-spanner grobs for glissandi lines that connect note
-   heads.
-*/
 class Glissando_engraver : public Engraver
 {
 public:
@@ -109,7 +105,11 @@ Glissando_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
-		/* doc */ "Engrave a glissandi",
-		/* create */ "Glissando",
-		/* read */ "followVoice",
+		/* doc */ "",
+		/* create */
+		"Glissando",
+
+		/* read */
+		"",
+
 		/* write */ "");

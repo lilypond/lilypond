@@ -20,7 +20,7 @@
 #include "paper-book.hh"
 #include "parser.hh"
 #include "score.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "text-metrics.hh"
 #include "warn.hh"
 

@@ -40,6 +40,11 @@
    '(avoid-slur))
 
 (ly:add-interface
+ 'dynamic-text-spanner-interface
+   "Dynamic text spanner"
+   '(text))
+
+(ly:add-interface
  'finger-interface
  "A fingering instruction"
  '())

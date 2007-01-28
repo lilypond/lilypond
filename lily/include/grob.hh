@@ -84,12 +84,7 @@ public:
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
   void internal_del_property (SCM symbol);
-
-#ifndef NDEBUG
-  void internal_set_property (SCM sym, SCM val, char const *file, int line, char const *fun);
-#else
   void internal_set_property (SCM sym, SCM val);
-#endif
 
   /* messages */  
   void warning (string) const;
@@ -131,7 +126,7 @@ public:
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
 
-  virtual Interval_t<int> spanned_rank_iv ();
+  virtual Interval_t<int> spanned_rank_iv () const;
 };
 
 /* smob utilities */

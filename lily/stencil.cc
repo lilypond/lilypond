@@ -73,11 +73,17 @@ Stencil::extent_box () const
   return dim_;
 }
 
-/*
- * Rotate this stencil around the point [x, y]
- */
 void
 Stencil::rotate (Real a, Offset off)
+{
+  rotate_degrees (a *180/M_PI, off); 
+}
+
+/*
+  Rotate this stencil around the point [x, y]
+ */
+void
+Stencil::rotate_degrees (Real a, Offset off)
 {
   const Real x_cen = extent (X_AXIS).center ();
   const Real y_cen = extent (Y_AXIS).center ();

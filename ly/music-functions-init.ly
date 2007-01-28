@@ -175,9 +175,6 @@ cueDuring =
 	      'quoted-voice-direction dir
 	      'origin location))
 
-%% The following causes an error with guile 1.6.8 (guile 1.6.7 and 1.8.x are fine)
-#(use-modules (scm display-lily))
-
 displayLilyMusic =
 #(define-music-function (parser location music) (ly:music?)
    (newline)

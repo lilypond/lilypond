@@ -5,7 +5,8 @@
 %%%
 %%% Testing utilities
 %%%
-
+#(use-modules (scm display-lily))
+#(memoize-clef-names supported-clefs)
 #(define (parse-lily-and-compute-lily-string chr port)
   (let ((lily-string (call-with-output-string
                       (lambda (out)
@@ -39,11 +40,7 @@
 	  (if result-info
 	      result-info "BUG")
           input output))
-
-
-     (make-music 'SequentialMusic 'void #t)
-    
-   ))))
+     (make-music 'SequentialMusic 'void #t)))))
 	  
 test = 
 #(define-music-function (parser location result-info strings) (string? pair?)
@@ -56,7 +53,6 @@ test =
   texidoc = "This is a test of the display-lily-music unit. Problems are reported on the
 stderr of this run." 
 }
-
 
 %% Sequential music
 \test "" ##[ { { a b } { c d } } #]		% SequentialMusic

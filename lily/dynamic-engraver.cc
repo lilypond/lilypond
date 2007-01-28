@@ -24,6 +24,7 @@
 #include "stream-event.hh"
 #include "warn.hh"
 #include "spanner.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -252,13 +253,9 @@ Dynamic_engraver::process_music ()
 	      context ()->set_property ((start_type
 					 + "Spanner").c_str (), SCM_EOL);
 	      s = get_property ((start_type + "Text").c_str ());
-	      /*
-		FIXME: use get_markup () to check type.
-	      */
-	      if (scm_is_string (s) || scm_is_pair (s))
+	      if (Text_interface::is_markup (s))
 		{
-		  cresc_->set_property ("edge-text",
-					scm_cons (s, scm_from_locale_string ("")));
+		  cresc_->set_property ("text", s);
 		  context ()->set_property ((start_type + "Text").c_str (),
 					    SCM_EOL);
 		}
@@ -336,10 +333,18 @@ Dynamic_engraver::typeset_all ()
       if (!finished_cresc_->get_bound (RIGHT)
 	  || use_bar)
 	{
-	  Grob *column_bound = unsmob_grob (use_bar
-					    ? get_property ("currentCommandColumn")
-					    : get_property ("currentMusicalColumn"));
-	    
+	  	  
+	  Grob *column_bound = 0;
+	  if (use_bar)
+	    {
+	      column_bound = unsmob_grob (get_property ("breakableSeparationItem"));
+	    }
+	  
+	  if (!column_bound)
+	    column_bound = unsmob_grob (use_bar
+					? get_property ("currentCommandColumn")
+					: get_property ("currentMusicalColumn"));
+	  
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
 				      : column_bound);

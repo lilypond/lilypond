@@ -64,6 +64,7 @@ public:
   void translate (Offset);
   Stencil translated (Offset) const;
   void rotate (Real, Offset);
+  void rotate_degrees (Real, Offset);
   void align_to (Axis a, Real x);
   void translate_axis (Real, Axis);
 

@@ -186,6 +186,21 @@ Returns `obj'.
   (newline)
   obj)
 
+;;;
+;;; Scheme music expression --> Lily-syntax-using string translator
+;;;
+(use-modules (srfi srfi-39)
+             (scm display-lily))
+
+(define*-public (display-lily-music expr parser #:key force-duration)
+  "Display the music expression using LilyPond syntax"
+  (memoize-clef-names supported-clefs)
+  (parameterize ((*indent* 0)
+		 (*previous-duration* (ly:make-duration 2))
+		 (*force-duration* force-duration))
+    (display (music->lily-string expr parser))
+    (newline)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (shift-one-duration-log music shift dot)
@@ -613,36 +628,12 @@ SkipEvent. Useful for extracting parts from crowded scores"
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
 
-(define (has-request-chord elts)
-  (reduce (lambda (x y) (or x y)) #f
-	  (map (lambda (x)
-		 (equal? (ly:music-property x 'name) 'RequestChord))
-	       elts)))
 
 (define-public (ly:music-message music msg)
   (let ((ip (ly:music-property music 'origin)))
     (if (ly:input-location? ip)
 	(ly:input-message ip msg)
 	(ly:warning msg))))
-
-(define (check-start-chords music)
-  "Check music expression for a Simultaneous_music containing notes\n(ie. Request_chords),
-without context specification. Called  from parser."
-  (let ((es (ly:music-property music 'elements))
-	(e (ly:music-property music 'element))
-	(name (ly:music-property music 'name)))
-    (cond ((equal? name "Context_specced_music") #t)
-	  ((equal? name "Simultaneous_music")
-	   (if (has-request-chord es)
-	       (ly:music-message music "Starting score with a chord.\nInsert an explicit \\context before chord")
-	       (map check-start-chords es)))
-	  ((equal? name "SequentialMusic")
-	   (if (pair? es)
-	       (check-start-chords (car es))))
-	  (else (if (ly:music? e) (check-start-chords e)))))
-  music)
-
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

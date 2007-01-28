@@ -350,9 +350,14 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
                                   (cdr arg)))))
 
 ;; 
-;; typecheck, and throw an error when something amiss.
+;; 
+;;
 ;; 
 (define (markup-thrower-typecheck arg)
+  "typecheck, and throw an error when something amiss.
+
+Uncovered - cheap-markup? is used."
+
   (cond ((string? arg) #t)
         ((not (pair? arg))
          (throw 'markup-format "Not a pair" arg))

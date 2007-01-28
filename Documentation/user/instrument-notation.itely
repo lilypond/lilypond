@@ -680,7 +680,7 @@ way is to use the @code{\addlyrics} function.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::
+* Hyphens and extenders::       
 * The Lyrics context::          
 * Melismata::                   
 * Another way of entering lyrics::  
@@ -808,7 +808,7 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \relative { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
-\addlyrics { pu- ro~yho- nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
 The lyric ties is implemented with the Unicode character U+203F, so be
@@ -1119,7 +1119,9 @@ There is one tricky aspect: the setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
+@c  FIXME: breaks compile
 @lilypond[verbatim,ragged-right,quote]
+%{
 <<
   \relative \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1138,6 +1140,7 @@ in the text, as shown here,
     still
   }
 >>
+%}
 @end lilypond
 
 
@@ -1381,12 +1384,11 @@ layout.
 @node More about stanzas
 @subsection More about stanzas
 
+@c what's this doing here?
 @cindex phrasing, in lyrics
 
-
 @cindex stanza number
-@cindex singer's names
-@cindex name of singer
+@subsubsection Adding stanza numbers 
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
@@ -1402,7 +1404,57 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 }
 @end lilypond
 
-These numbers are put just before the start of first syllable.
+@noindent
+These numbers are put just before the start of the first syllable.
+
+
+@subsubsection Adding dynamics marks
+
+Stanzas differing in loudness may be indicated by putting a
+dynamics mark before each stanza.  In Lilypond, everthing coming in
+front of a stanza goes into the @code{StanzaNumber} object; dynamics marks
+are no different.  For technical reasons, you have to set the stanza
+outside @code{\lyricmode}:
+
+@lilypond[quote,ragged-right,verbatim]
+text = {
+  \set stanza = \markup { \dynamic "ff" "1. " }
+  \lyricmode {
+    Big bang
+  }
+}
+
+<<
+  \new Voice = "tune" {
+    \time 3/4
+    g'4 c'2
+  }
+\new Lyrics \lyricsto "tune" \text
+>>
+@end lilypond
+
+@cindex singer name
+@cindex name of singer
+@subsubsection Adding singer names
+
+Names of singers can also be added.  They are printed at the start of
+the line, just like instrument names.  They are created by setting
+@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
+
+@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set vocalName = "Bert "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set vocalName = "Ernie "
+  Oh, che -- ri, je t'aime
+}
+@end lilypond
+
+
+@subsubsection Printing stanzas at the end 
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1448,23 +1500,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-Names of singers can also be added.  They are printed at the start of
-the line, just like instrument names.  They are created by setting
-@code{vocalName}.  A short version may be entered as @code{shortVocalName}.
-
-
-@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
-\new Voice {
-  \time 3/4 g2 e4 a2 f4 g2.
-} \addlyrics {
-  \set vocalName = "Bert "
-  Hi, my name is Bert.
-} \addlyrics {
-  \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
-}
-@end lilypond
-
+@subsubsection Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page. An outdented verse number often

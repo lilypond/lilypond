@@ -17,7 +17,7 @@ using namespace std;
 #include "international.hh"
 #include "main.hh"
 #include "source-file.hh"
-#include "source.hh"
+#include "sources.hh"
 #include "warn.hh"
 
 #ifndef YY_BUF_SIZE
