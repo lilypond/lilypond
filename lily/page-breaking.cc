@@ -93,8 +93,8 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
 	  line_breaker_args (sys, chunks[i], chunks[i+1], &start, &end);
 
 	  vector<Column_x_positions> pos = ignore_div
-	    ? line_breaking_[sys].get_best_solution (start, end)
-	    : line_breaking_[sys].get_solution (start, end, div[i]);
+	    ? line_breaking_[sys].best_solution (start, end)
+	    : line_breaking_[sys].solve (start, end, div[i]);
 	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }
