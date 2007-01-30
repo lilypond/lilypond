@@ -11,11 +11,6 @@
 #include "moment.hh"
 #include "pitch.hh"
 
-/**
-
-Any piece of audio information.  We need virtual constructors, let's
-try decentralised factory for specific audio implemenations.
-*/
 class Audio_item : public Audio_element
 {
 public:

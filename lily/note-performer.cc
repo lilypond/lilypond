@@ -15,9 +15,6 @@
 
 #include "translator.icc"
 
-/**
-   Convert evs to audio notes.
-*/
 class Note_performer : public Performer
 {
 public:
@@ -31,63 +28,83 @@ protected:
 private:
   vector<Stream_event*> note_evs_;
   vector<Audio_note*> notes_;
+
+
+  vector<Audio_note*> last_notes_;
+  Moment last_start_;
+  
 };
 
 void
 Note_performer::process_music ()
 {
-  if (note_evs_.size ())
+  if (!note_evs_.size ())
+    return;
+
+  Pitch transposing;
+  SCM prop = get_property ("instrumentTransposition");
+  if (unsmob_pitch (prop))
+    transposing = *unsmob_pitch (prop);
+
+  for (vsize i = 0; i < note_evs_.size (); i ++)
     {
-      Pitch transposing;
-      SCM prop = get_property ("instrumentTransposition");
-      if (unsmob_pitch (prop))
-	transposing = *unsmob_pitch (prop);
+      Stream_event *n = note_evs_[i];
+      SCM pit = n->get_property ("pitch");
 
-      while (note_evs_.size ())
+      if (Pitch *pitp = unsmob_pitch (pit))
 	{
-	  Stream_event *n = note_evs_.back ();
-	  note_evs_.pop_back ();
-	  SCM pit = n->get_property ("pitch");
-
-	  if (Pitch *pitp = unsmob_pitch (pit))
+	  SCM articulations = n->get_property ("articulations");
+	  Stream_event *tie_event = 0;
+	  for (SCM s = articulations;
+	       !tie_event && scm_is_pair (s);
+	       s = scm_cdr (s))
 	    {
-              SCM articulations = n->get_property ("articulations");
-              Stream_event *tie_event = 0;
-              for (SCM s = articulations;
-                   !tie_event && scm_is_pair (s);
-                   s = scm_cdr (s))
-                {
-                  Stream_event *ev = unsmob_stream_event (scm_car (s));
-                  if (!ev)
-                    continue;
+	      Stream_event *ev = unsmob_stream_event (scm_car (s));
+	      if (!ev)
+		continue;
 	  
-                  if (ev->in_event_class ("tie-event"))
-                    tie_event = ev;
-                }
+	      if (ev->in_event_class ("tie-event"))
+		tie_event = ev;
+	    }
 
-	      Moment len = get_event_length (n);
-	      if (now_mom ().grace_part_)
+	  Moment len = get_event_length (n);
+	  if (now_mom ().grace_part_)
+	    {
+	      len.grace_part_ = len.main_part_;
+	      len.main_part_ = Rational (0);
+	    }
+	  
+	  Audio_note *p = new Audio_note (*pitp, len, 
+					  tie_event, transposing.negated ());
+	  Audio_element_info info (p, n);
+	  announce_element (info);
+	  notes_.push_back (p);
+
+	  /*
+	    shorten previous note.
+	   */
+	  if (now_mom ().grace_part_)
+	    {
+	      if (last_start_.grace_part_ == Rational (0))
 		{
-		  len.grace_part_ = len.main_part_;
-		  len.main_part_ = Rational (0);
+		  for (vsize i = 0; i < last_notes_.size (); i++)
+		    last_notes_[i]->length_mom_ += Moment (0,
+							   now_mom().grace_part_);
 		}
-	      
-	      Audio_note *p = new Audio_note (*pitp, len, 
-                                              tie_event, transposing.negated ());
-	      Audio_element_info info (p, n);
-	      announce_element (info);
-	      notes_.push_back (p);
 	    }
 	}
-      note_evs_.clear ();
     }
 }
 
 void
 Note_performer::stop_translation_timestep ()
 {
-  // why don't grace notes show up here?
-  // --> grace notes effectively do not get delayed
+  if (note_evs_.size ())
+    {
+      last_notes_ = notes_;
+      last_start_ = now_mom ();
+    }
+
   notes_.clear ();
   note_evs_.clear ();
 }
