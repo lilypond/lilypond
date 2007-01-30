@@ -79,16 +79,6 @@ predicate_to_typename (void *ptr)
     return type_names[ptr];
 }
 
-static int
-arg_dir (int a, int b)
-{
-  if (&a < &b)
-    return 1;
-  else
-    return -1;
-}
-
-
 /* type predicates. */
 #include "spanner.hh"
 #include "item.hh"
@@ -102,8 +92,6 @@ arg_dir (int a, int b)
 void
 init_func_doc ()
 {
-  function_argument_direction = arg_dir (2,3);
-
   ly_add_type_predicate ((void*) &is_direction, "direction");
   ly_add_type_predicate ((void*) &is_music_function, "Music_function");
   ly_add_type_predicate ((void*) &ly_is_port, "port");
