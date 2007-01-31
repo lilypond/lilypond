@@ -83,11 +83,6 @@ Book::mark_smob (SCM s)
 {
   Book *book = (Book *) SCM_CELL_WORD_1 (s);
 
-#if 0
-  if (book->key_)
-    scm_gc_mark (book->key_->self_scm ());
-#endif
-
   if (book->paper_)
     scm_gc_mark (book->paper_->self_scm ());
   scm_gc_mark (book->scores_);

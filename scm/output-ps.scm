@@ -67,9 +67,6 @@
 (define (number-pair->string4 numpair)
   (ly:format "~4l" numpair)) 
 
-(define (numbers->string4 numlist)
-  (string-join (map str4 numlist) " "))
-
 ;;;
 ;;; Lily output interface, PostScript implementation --- cleanup and docme
 ;;;

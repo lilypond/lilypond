@@ -24,7 +24,7 @@ LY_DEFINE (ly_item_break_dir, "ly:item-break-dir",
 	   "The break status dir of item @var{it}. @code{-1} is end of "
 	   "line, @code{0} unbroken, and @code{1} begin of line.")
 {
-  Item *me = dynamic_cast<Item *> (unsmob_grob (it));
-  SCM_ASSERT_TYPE (me, it, SCM_ARG1, __FUNCTION__, "Item");
+  LY_ASSERT_TYPE (unsmob_item, it, 1);
+  Item *me = unsmob_item (it);
   return scm_from_int (me->break_status_dir ());
 }

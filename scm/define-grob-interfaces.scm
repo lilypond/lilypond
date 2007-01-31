@@ -144,6 +144,11 @@
  )
 
 (ly:add-interface
+ 'trill-spanner-interface
+ "An accidental for trill pitch"
+ '())
+
+(ly:add-interface
  'rhythmic-grob-interface
  "Any object with a duration. Used to determine which grobs are
 interesting enough to maintain a hara-kiri staff."

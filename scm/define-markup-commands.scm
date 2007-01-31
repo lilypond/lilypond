@@ -848,10 +848,7 @@ any sort of property supported by @internalsref{font-interface} and
 		   (cons 'font-size (+ fs increment )))))
 
     (interpret-markup layout (cons entries props) arg)))
-  
 
-
-;; FIXME -> should convert to font-size.
 (define-builtin-markup-command (magnify layout props sz arg) (number? markup?)
   "Set the font magnification for the its argument. In the following
 example, the middle A will be 10% larger:
@@ -863,7 +860,7 @@ Note: magnification only works if a font-name is explicitly selected.
 Use @code{\\fontsize} otherwise."
   (interpret-markup
    layout 
-   (prepend-alist-chain 'font-magnification sz props)
+   (prepend-alist-chain 'font-size (magnification->font-size sz) props)
    arg))
 
 (define-builtin-markup-command (bold layout props arg) (markup?)

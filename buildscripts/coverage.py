@@ -79,6 +79,9 @@ class SchemeChunk (Chunk):
             and not text.startswith ('(define (')):
             return 0
 
+        if text.startswith  ('(use-modules '):
+            return 0
+
         if (text.startswith  ('(define-public ')
             and not text.startswith ('(define-public (')):
             return 0
@@ -228,7 +231,7 @@ def main ():
 
         if options.uncovered:
             chunks = filter_uncovered (chunks)
-            chunks = [(c.uncovered_score (), c) for c in chunks]
+            chunks = [(c.uncovered_score (), c) for c in chunks if c.uncovered_score() > 0]
         elif options.hotspots:
             chunks = [((c.coverage_count, -c.length()), c) for c in chunks]
             

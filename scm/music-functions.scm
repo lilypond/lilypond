@@ -620,7 +620,7 @@ of beat groupings "
   "Replace MUS by RestEvent of the same duration if it is a
 SkipEvent. Useful for extracting parts from crowded scores"
 
-  (if (equal? (ly:music-property mus 'name) 'SkipEvent)
+  (if  (memq (ly:music-property mus 'name) '(SkipEvent SkipMusic))
    (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
    mus))
 

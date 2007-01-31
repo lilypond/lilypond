@@ -79,6 +79,9 @@ Tie_column::calc_positioning_done (SCM smob)
   if (!ties.size ())
     return SCM_BOOL_T;
 
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   vector_sort (ties, Tie::less);
 
   Tie_formatting_problem problem;

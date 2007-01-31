@@ -16,22 +16,16 @@
   TODO: naming add/combine.
 */
 
-LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
+LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
 	   3, 0, 0, (SCM stil, SCM amount, SCM axis),
 	   "Return a copy of @var{stil} but translated by @var{amount} in @var{axis} direction.")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (scm_is_number (amount), amount, SCM_ARG2, __FUNCTION__, "number");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE(scm_is_number,amount, 2);
+  LY_ASSERT_TYPE(is_axis,axis, 3);
 
   Real real_amount = scm_to_double (amount);
-
-#if 0
-  SCM_ASSERT_TYPE (!isinf (real_amount) && !isnan (real_amount),
-		   amount, SCM_ARG2, __FUNCTION__, "finite number");
-#endif
-
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG3, __FUNCTION__, "axis");
 
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
@@ -39,14 +33,14 @@ LY_DEFINE (ly_translate_stencil_axis, "ly:stencil-translate-axis",
   return new_s;
 }
 
-LY_DEFINE (ly_translate_stencil, "ly:stencil-translate",
+LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
 	   2, 0, 0, (SCM stil, SCM offset),
 	   "Return a @var{stil}, "
 	   "but translated by @var{offset} (a pair of numbers).")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (is_number_pair (offset), offset, SCM_ARG2, __FUNCTION__, "number pair");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE(is_number_pair, offset, 2);
   Offset o = ly_scm2offset (offset);
 
   SCM new_s = s->smobbed_copy ();
@@ -60,7 +54,7 @@ LY_DEFINE (ly_stencil_expr, "ly:stencil-expr",
 	   "Return the expression of @var{stil}.")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
   return s->expr ();
 }
 
@@ -70,8 +64,8 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
 	   "@var{axis} direction (0 or 1 for x and y axis respectively).")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE(is_axis, axis, 2);
 
   return ly_interval2scm (s->extent (Axis (scm_to_int (axis))));
 }
@@ -81,7 +75,7 @@ LY_DEFINE (ly_stencil_empty_p, "ly:stencil-empty?",
 	   "Return whether @var{stil} is empty ")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
   return scm_from_bool (s->is_empty ());
 }
 
@@ -106,19 +100,19 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 		   first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
   SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second == SCM_EOL,
 		   second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_direction (direction), direction, SCM_ARG3, __FUNCTION__, "dir");
+  LY_ASSERT_TYPE(is_axis, axis,  2);
+  LY_ASSERT_TYPE(is_direction, direction, 3);
 
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (scm_is_number (padding), padding, SCM_ARG5, __FUNCTION__, "number");
+      LY_ASSERT_TYPE(scm_is_number, padding, 5);
       p = scm_to_double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (scm_is_number (minimum), minimum, SCM_ARG6, __FUNCTION__, "number");
+      LY_ASSERT_TYPE(scm_is_number, minimum, 6);
       m = scm_to_double (minimum);
     }
 
@@ -180,14 +174,14 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   Interval x; 
   if (xext != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG2, __FUNCTION__, "number pair");
+      LY_ASSERT_TYPE(is_number_pair, xext, 2);
       x = ly_scm2interval (xext);
     }
 
   Interval y; 
   if (yext != SCM_UNDEFINED)
     {
-      SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG3, __FUNCTION__, "number pair");
+      LY_ASSERT_TYPE(is_number_pair,yext, 3);
       y = ly_scm2interval (yext);
     }
 
@@ -202,9 +196,9 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
 	   "@var{dir} is a number -1, 1 are left and right respectively. "
 	   "Other values are interpolated (so 0 means the center).")
 {
-  SCM_ASSERT_TYPE (unsmob_stencil (stil), stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (is_axis (axis), axis, SCM_ARG2, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (scm_is_number (dir), dir, SCM_ARG3, __FUNCTION__, "number");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE(is_axis,axis, 2);
+  LY_ASSERT_TYPE(scm_is_number, dir, 3);
 
   Stencil target = *unsmob_stencil (stil);
 
@@ -217,8 +211,8 @@ LY_DEFINE (ly_stencil_fonts, "ly:stencil-fonts",
 	   1, 0, 0, (SCM s),
 	   " Analyse @var{s}, and return a list of fonts used in @var{s}.")
 {
+  LY_ASSERT_SMOB (Stencil, s, 1);
   Stencil *stil = unsmob_stencil (s);
-  SCM_ASSERT_TYPE (stil, s, SCM_ARG1, __FUNCTION__, "Stencil");
   return find_expression_fonts (stil->expr ());
 }
 
@@ -226,8 +220,8 @@ LY_DEFINE (ly_stencil_in_color, "ly:stencil-in-color",
 	   4, 0, 0, (SCM stc, SCM r, SCM g, SCM b),
 	   "Put @var{stc} in a different color.")
 {
+  LY_ASSERT_SMOB (Stencil, stc, 1);
   Stencil *stil = unsmob_stencil (stc);
-  SCM_ASSERT_TYPE (stil, stc, SCM_ARG1, __FUNCTION__, "Stencil");
   return Stencil (stil->extent_box (),
 		  scm_list_3 (ly_symbol2scm ("color"),
 			      scm_list_3 (r, g, b),
@@ -250,8 +244,7 @@ LY_DEFINE (ly_interpret_stencil_expression, "ly:interpret-stencil-expression",
 	   4, 0, 0, (SCM expr, SCM func, SCM arg1, SCM offset),
 	   "Parse EXPR, feed bits to FUNC with first arg ARG1")
 {
-  SCM_ASSERT_TYPE (ly_is_procedure (func), func, SCM_ARG1, __FUNCTION__,
-		   "procedure");
+  LY_ASSERT_TYPE (ly_is_procedure, func, 2);
 
   Stencil_interpret_arguments a;
   a.func = func;
@@ -270,10 +263,10 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 	   "given by @var{iv}. The wings protude by an amount of @var{p}, which "
 	   "may be negative. The thickness is given by @var{t}.")
 {
-  SCM_ASSERT_TYPE (is_axis (a), a, SCM_ARG1, __FUNCTION__, "axis");
-  SCM_ASSERT_TYPE (is_number_pair (iv), iv, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (scm_is_number (t), a, SCM_ARG3, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE (scm_is_number (p), a, SCM_ARG4, __FUNCTION__, "number");
+  LY_ASSERT_TYPE (is_axis, a, 1);
+  LY_ASSERT_TYPE(is_number_pair,iv, 2);
+  LY_ASSERT_TYPE(scm_is_number, t,3);
+  LY_ASSERT_TYPE(scm_is_number, p,4);
 
   return Lookup::bracket ((Axis)scm_to_int (a), ly_scm2interval (iv),
 			  scm_to_double (t),
@@ -281,15 +274,15 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 			  0.95 * scm_to_double (t)).smobbed_copy ();
 }
 
-LY_DEFINE (ly_rotate_stencil, "ly:stencil-rotate",
+LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 	   4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
 	   "Return a @var{stil} rotated @var{angle} degrees around point (@var{x}, @var{y}).")
 {
   Stencil *s = unsmob_stencil (stil);
-  SCM_ASSERT_TYPE (s, stil, SCM_ARG1, __FUNCTION__, "stencil");
-  SCM_ASSERT_TYPE (scm_is_number (angle), angle, SCM_ARG2, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE (scm_is_number (x), x, SCM_ARG3, __FUNCTION__, "number");
-  SCM_ASSERT_TYPE (scm_is_number (y), y, SCM_ARG4, __FUNCTION__, "number");
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE(scm_is_number,angle, 2);
+  LY_ASSERT_TYPE(scm_is_number, x,3);
+  LY_ASSERT_TYPE(scm_is_number, y, 4);
   Real a = scm_to_double (angle);
   Real x_off = scm_to_double (x);
   Real y_off = scm_to_double (y);
@@ -300,16 +293,16 @@ LY_DEFINE (ly_rotate_stencil, "ly:stencil-rotate",
   return new_s;
 }
 
-LY_DEFINE (ly_filled_box, "ly:round-filled-box",
+LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 	   3, 0, 0,
 	   (SCM xext, SCM yext, SCM blot),
 	   "Make a @code{Stencil} "
 	   "that prints a black box of dimensions @var{xext}, "
 	   "@var{yext} and roundness @var{blot}.")
 {
-  SCM_ASSERT_TYPE (is_number_pair (xext), xext, SCM_ARG1, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (is_number_pair (yext), yext, SCM_ARG2, __FUNCTION__, "number pair");
-  SCM_ASSERT_TYPE (scm_is_number (blot), blot, SCM_ARG3, __FUNCTION__, "number");
+  LY_ASSERT_TYPE (is_number_pair, xext, 1);
+  LY_ASSERT_TYPE(is_number_pair, yext, 2);
+  LY_ASSERT_TYPE(scm_is_number, blot, 3);
 
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
 				   scm_to_double (blot)).smobbed_copy ();
@@ -320,8 +313,7 @@ LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",
 	   (SCM symbol),
 	   "Add @var{symbol} as head of a stencil expression")
 {
-  SCM_ASSERT_TYPE (scm_is_symbol (symbol), symbol,
-		   SCM_ARG1, __FUNCTION__, "Symbol");
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 1);
   register_stencil_head (symbol);
   return SCM_UNSPECIFIED;
 }

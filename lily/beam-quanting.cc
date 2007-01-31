@@ -160,10 +160,8 @@ Beam::quanting (SCM smob, SCM posns)
   Real xr = fvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
 
   /*
-    We store some info to quickly interpolate.
-
-    Sometimes my head is screwed on backwards.  The stemlength are
-    AFFINE linear in YL and YR. If YL == YR == 0, then we might have
+    We store some info to quickly interpolate.  The stemlength are
+    affine linear in YL and YR. If YL == YR == 0, then we might have
     stem_y != 0.0, when we're cross staff.
 
   */
@@ -179,11 +177,18 @@ Beam::quanting (SCM smob, SCM posns)
       bool f = to_boolean (s->get_property ("french-beaming"))
 	&& s != lvs && s != fvs;
 
-      base_lengths.push_back (calc_stem_y (me, s, common, xl, xr,
-				      Interval (0, 0), f) / ss);
+      if (Stem::is_normal_stem (s))
+	{
+	  base_lengths.push_back (calc_stem_y (me, s, common, xl, xr,
+					       Interval (0, 0), f) / ss);
+	}
+      else
+	{
+	  base_lengths.push_back (0);
+	}
+
       stem_xposns.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
-
   bool xstaff = false;
   if (lvs && fvs)
     {
@@ -348,7 +353,7 @@ Beam::score_stem_lengths (vector<Grob*> const &stems,
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *s = stems[i];
-      if (Stem::is_invisible (s))
+      if (!Stem::is_normal_stem (s))
 	continue;
 
       Real x = stem_xs[i];

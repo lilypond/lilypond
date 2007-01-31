@@ -37,5 +37,5 @@ foobar =  \transpose c c' { c4\>-^ c4-^ c4\!-^ c4-^  }
 
   << \applyMusic #(lambda (x) (music-map notes-to-skip x))
      \foobar
-     { d2 d2 } >> 
+     { d8 d d d d d d d  } >> 
 }

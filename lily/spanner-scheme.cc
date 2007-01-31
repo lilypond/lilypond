@@ -10,15 +10,15 @@
 #include "spanner.hh"
 #include "item.hh"
 
-LY_DEFINE (ly_spanner_get_bound, "ly:spanner-bound",
+LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
 	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
 	   "for left, and @code{1} for right.")
 {
-  Spanner *sl = dynamic_cast<Spanner *> (unsmob_grob (slur));
-  SCM_ASSERT_TYPE (sl, slur, SCM_ARG1, __FUNCTION__, "spanner grob");
-  SCM_ASSERT_TYPE (is_direction (dir), slur, SCM_ARG2, __FUNCTION__, "dir");
-  return sl->get_bound (to_dir (dir))->self_scm ();
+  LY_ASSERT_TYPE (unsmob_spanner, slur, 1);
+  LY_ASSERT_TYPE(is_direction, dir,2);
+  
+  return unsmob_spanner (slur)->get_bound (to_dir (dir))->self_scm ();
 }
 
 /* TODO: maybe we should return a vector -- random access is more
@@ -27,8 +27,8 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
 	   1, 0, 0, (SCM spanner),
 	   "Return broken-into list for @var{spanner}.")
 {
+  LY_ASSERT_TYPE (unsmob_spanner, spanner, 1);
   Spanner *me = dynamic_cast<Spanner *> (unsmob_grob (spanner));
-  SCM_ASSERT_TYPE (me, spanner, SCM_ARG1, __FUNCTION__, "spanner");
 
   SCM s = SCM_EOL;
   for (vsize i = me->broken_intos_.size (); i--;)

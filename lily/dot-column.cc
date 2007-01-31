@@ -213,6 +213,9 @@ SCM
 Dot_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);  
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   vector<Grob*> dots
     = extract_grob_array (me, "dots");
 

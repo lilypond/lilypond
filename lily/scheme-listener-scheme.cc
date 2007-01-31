@@ -16,7 +16,7 @@ LY_DEFINE (ly_make_listener, "ly:make-listener",
 	   "\n"
 	   " @var{callback} should take exactly one argument." )
 {
-  SCM_ASSERT_TYPE (ly_is_procedure (callback), callback, SCM_ARG1, __FUNCTION__, "procedure");
+  LY_ASSERT_TYPE (ly_is_procedure, callback, 1);
   Scheme_listener *l = new Scheme_listener (callback);
   SCM listener = GET_LISTENER (l->call).smobbed_copy ();
   l->unprotect ();

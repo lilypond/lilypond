@@ -7,7 +7,9 @@
 */
 
 #include "self-alignment-interface.hh"
+
 #include "warn.hh"
+#include "paper-column.hh"
 #include "grob.hh"
 
 MAKE_SCHEME_CALLBACK (Self_alignment_interface, y_aligned_on_self, 1);
@@ -92,6 +94,9 @@ SCM
 Self_alignment_interface::aligned_on_parent (Grob *me, Axis a)
 {
   Grob *him = me->get_parent (a);
+  if (Paper_column::has_interface (him))
+    return scm_from_double (0.0);
+    
   Interval he = him->extent (him, a);
 
   SCM sym = (a == X_AXIS) ? ly_symbol2scm ("self-alignment-X")

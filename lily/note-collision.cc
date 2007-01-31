@@ -323,7 +323,9 @@ MAKE_SCHEME_CALLBACK(Note_collision_interface, calc_positioning_done, 1)
 SCM
 Note_collision_interface::calc_positioning_done (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);  
+  Grob *me = unsmob_grob (smob);
+  me->set_property ("positioning-done", SCM_BOOL_T);
+  
   Drul_array<vector<Grob*> > cg = get_clash_groups (me);
 
   Direction d = UP;

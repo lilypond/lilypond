@@ -10,7 +10,7 @@
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
 
-This section explains a how to solve or avoid certain common
+This section explains how to solve or avoid certain common
 problems.  If you have programming experience, many of these
 tips may seem obvious, but it is still advisable to read
 this chapter.
@@ -632,7 +632,7 @@ Another very useful debugging technique is constructing
 @node Minimal examples
 @section Minimal examples
 
-A minimal example is an example which is small as possible.  These
+A minimal example is an example which is as small as possible.  These
 examples are much easier to understand than long examples.  Minimal
 examples are used for
 
@@ -655,14 +655,14 @@ There are two exceptions to the @qq{as small as possible} rule:
 @itemize
 @item Include the @code{\version} number.
 @item If possible, use @code{\paper@{ ragged-right=##t @}} at the
-top of your example. 
+top of your example.
 @end itemize
 
 The whole point of a minimal example is to make it easy to read:
 
 @itemize
 @item Avoid using complicated notes, keys, or time signatures, unless you
-wish to demonstrate something is about the behavior of those items. 
+wish to demonstrate something is about the behavior of those items.
 @item Do not use \override commands unless that is the point of the
 example.
 @end itemize

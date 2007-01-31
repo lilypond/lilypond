@@ -65,6 +65,26 @@ which scares away people.
 
 @end ignore
 
+All line spanners are more flexible now in the configuration of their
+end points.  This includes glissando, voice followers, text crescendos
+and other text spanners.
+
+@lilypond
+\relative c'' {
+  \override Glissando #'bound-details #'right #'text = \markup { \hcenter \bold down }
+  \override Glissando #'bound-details #'right #'Y = #-4
+  \override Glissando #'bound-details #'right #'padding = #0.0
+  \override Glissando #'bound-details #'left #'arrow = ##t
+  \override Glissando #'bound-details #'left #'padding = #5.0
+  \override Glissando #'style = #'trill
+  
+  c1 \glissando c'
+}
+@end lilypond
+
+This feature was sponsored by Trevor Bača.
+
+ 
 @item
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.

@@ -13,11 +13,13 @@ source files.
 			patches for third party programs
    Documentation/
        bibliography/	.bib files with references to books and articles
-       misc		Old announcements, ChangeLogs and NEWS
+       misc/		Old announcements, ChangeLogs and NEWS
        pictures/	The logo
        topdocs/		Sources for the toplevel READMEs
 		  	(README.txt, INSTALL.txt, NEWS.txt etc.)
        user/		User manuals
+       po/              translated manual node names
+       fr/              docs translated to French.
    buildscripts/	Scripts for the build process
    cygwin/		Cygwin (Windows) package support
    debian/		Debian package support
@@ -25,9 +27,7 @@ source files.
    flower/		A simple c++ library
        include/
    input/		Music input examples
-       bugs/		Buggy or problematic notation
        mutopia/		Real music, more at www.mutopiaproject.org
-       no-notation/	Examples that do not produce output
        regression/	Testing of features, one test per file
        test/		Tips and tricks
        tutorial/	Examples from the tutorial 

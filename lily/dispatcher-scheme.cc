@@ -15,14 +15,16 @@ LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher",
   return (new Dispatcher ())->unprotect ();
 }
 
-LY_DEFINE (ly_register_dispatcher, "ly:connect-dispatchers",
+LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 	   2, 0, 0, (SCM to, SCM from),
 	   "Makes the dispatcher @var{to} listen to events from @var{from}." )
 {
   Dispatcher *t = unsmob_dispatcher (to);
   Dispatcher *f = unsmob_dispatcher (from);
-  SCM_ASSERT_TYPE (t, from, SCM_ARG1, __FUNCTION__, "dispatcher");
-  SCM_ASSERT_TYPE (f, to, SCM_ARG2, __FUNCTION__, "dispatcher");
+  
+  LY_ASSERT_SMOB (Dispatcher, to, 1); 
+  LY_ASSERT_SMOB(Dispatcher, from,  2); 
+
   t->register_as_listener (f);
 
   return SCM_UNDEFINED;
@@ -35,8 +37,9 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
 {
   Listener *l = unsmob_listener (list);
   Dispatcher *d = unsmob_dispatcher (disp);
-  SCM_ASSERT_TYPE (l, list, SCM_ARG1, __FUNCTION__, "listener");
-  SCM_ASSERT_TYPE (d, disp, SCM_ARG2, __FUNCTION__, "dispatcher");
+
+  LY_ASSERT_SMOB (Listener, list, 1); 
+  LY_ASSERT_SMOB(Dispatcher, disp, 2); 
   
   for (int arg = SCM_ARG3; scm_is_pair (cl); cl = scm_cdr (cl), arg++)
     {
@@ -55,8 +58,10 @@ LY_DEFINE (ly_broadcast, "ly:broadcast",
 {
   Dispatcher *d = unsmob_dispatcher (disp);
   Stream_event *e = unsmob_stream_event (ev);
-  SCM_ASSERT_TYPE (d, disp, SCM_ARG1, __FUNCTION__, "dispatcher");
-  SCM_ASSERT_TYPE (e, ev, SCM_ARG2, __FUNCTION__, "stream event");
+ 
+  LY_ASSERT_SMOB (Dispatcher, disp, 1);
+
+  LY_ASSERT_SMOB(Stream_event, ev, 2); 
   d->broadcast (e);
   return SCM_UNDEFINED;
 }

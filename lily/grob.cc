@@ -394,7 +394,7 @@ Grob::extent (Grob *refp, Axis a) const
 	(a == X_AXIS)
 	? ly_symbol2scm ("X-extent")
 	: ly_symbol2scm ("Y-extent");
-
+	
       SCM ext = internal_get_property (ext_sym);
       if (is_number_pair (ext))
 	real_ext.unite (ly_scm2interval (ext));

@@ -15,7 +15,7 @@ LY_DEFINE (ly_make_pango_description_string, "ly:make-pango-description-string",
 	   2, 0, 0, (SCM chain, SCM size),
 	   "Make a PangoFontDescription string for the property alist @var{chain} at size @var{size}.")
 {
-  SCM_ASSERT_TYPE (scm_is_number (size), size, SCM_ARG1, __FUNCTION__, "number");
+  LY_ASSERT_TYPE (scm_is_number, size, 1);
   PangoFontDescription *pfd = properties_to_pango_description (chain, scm_to_double (size));
   char *str = pango_font_description_to_string (pfd);
 

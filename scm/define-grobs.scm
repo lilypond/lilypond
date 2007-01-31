@@ -636,6 +636,8 @@
 	(font-shape . italic)
 	(style . dashed-line)
 
+	;; make sure the spanner doesn't get too close to notes
+	(minimum-Y-extent . (-1 . 1))
 	(bound-details . ((right . ((attach-dir .  ,LEFT)
 				    (Y . 0)
 				    (padding . 0.75)
@@ -650,15 +652,11 @@
 				   (padding . 0.5)
 				   ))
 			  (left-broken . ((attach-dir .  ,RIGHT)
-					  
-					  ;; make sure the - - - stays at reasonable
-					  ;; distance from staff.
-					  (text . " ")
 				   ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info-and-text)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info-and-text)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	;; need to blend with dynamic texts.
 	(font-size . 1)
@@ -667,7 +665,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (font-interface
 				text-interface
-				new-line-spanner-interface
+				line-spanner-interface
 				line-interface
 				dynamic-interface
 				dynamic-text-spanner-interface
@@ -721,13 +719,13 @@
 				   (padding . 1.5)
 				      ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
 				unbreakable-spanner-interface
-				new-line-spanner-interface))))))
+				line-spanner-interface))))))
 
     (GraceSpacing
      . (
@@ -1680,8 +1678,6 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(meta . ((class . Item)
 		 (interfaces . (piano-pedal-interface
-				text-spanner-interface
-				line-spanner-interface
 				text-interface
 				self-alignment-interface
 				piano-pedal-script-interface
@@ -1817,7 +1813,6 @@
 
     (TextSpanner
      . (
-	(stencil . ,ly:text-spanner::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(font-shape . italic)
 	(style . dashed-line)
@@ -1827,9 +1822,21 @@
 	(side-axis . ,Y)
 	(direction . ,UP)
 	(outside-staff-priority . 350)
+
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
+	(bound-details . ((left . ((Y . 0)
+				   (padding . 0.25)
+				   (attach-dir . ,LEFT)
+				   ))
+			  (right . ((Y . 0)
+				    (padding . 0.25)
+				   ))
+			  ))
+	(stencil . ,ly:line-spanner::print)
+
 	(meta . ((class . Spanner)
-		 (interfaces . (text-spanner-interface
-				line-spanner-interface
+		 (interfaces . (line-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -1897,8 +1904,8 @@
 
     (TrillSpanner
      . (
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
 					     '(0.5 . -0.6)
@@ -1910,7 +1917,7 @@
 			  (right . ((Y . 0)))
 			  ))
 	
-	(stencil . ,ly:new-line-spanner::print)
+	(stencil . ,ly:line-spanner::print)
 
 	(style . trill)
 	(staff-padding . 1.0)
@@ -1920,8 +1927,9 @@
 	(side-axis . ,Y)
 	(outside-staff-priority . 50)
 	(meta . ((class . Spanner)
-		 (interfaces . (text-spanner-interface
-				new-line-spanner-interface
+		 (interfaces . (line-spanner-interface
+				line-interface
+				trill-spanner-interface
 				side-position-interface
 				font-interface))))))
 
@@ -2104,11 +2112,11 @@
 				   (padding . 1.5)
 				      ))
 			  ))
-	(stencil . ,ly:new-line-spanner::print)
-	(left-bound-info . ,ly:new-line-spanner::calc-left-bound-info)
-	(right-bound-info . ,ly:new-line-spanner::calc-right-bound-info)
+	(stencil . ,ly:line-spanner::print)
+	(left-bound-info . ,ly:line-spanner::calc-left-bound-info)
+	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 	(meta . ((class . Spanner)
-		 (interfaces . (new-line-spanner-interface
+		 (interfaces . (line-spanner-interface
 				line-interface))))
 	))
 
