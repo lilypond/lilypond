@@ -29,6 +29,8 @@ blah.")
 	wordwrap:
 	\wordwrap-field #'bla
       }
+
+      draw-line: \draw-line #'(5 . 3)
       
     }
   }

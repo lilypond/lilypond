@@ -126,10 +126,6 @@ prelude =
    >>
 
    \layout {
-       \context {
-	   \PianoStaff
-	   \override VerticalAlignment #'forced-distance = #10
-       }
        line-width = 18.0 \cm
    }
 

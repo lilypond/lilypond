@@ -57,11 +57,6 @@ Dynamics are not centered, but workarounds do exist.  See the
 @cindex stem, cross staff
 @cindex distance between staves in piano music
 
-The distance between the two staves is the same for all systems in the
-score.  It is possible to override this per system, but it does require
-an arcane command incantation.  See
-@inputfileref{input/@/test,piano@/-staff@/-distance@/.ly}.
-
 
 @node Automatic staff changes
 @subsection Automatic staff changes
@@ -274,7 +269,10 @@ of the stem in the lower staff, so it reaches the stem in the upper
 staff, or vice versa.
 
 @lilypond[ragged-right,verbatim,quote]
-stemExtend = \once \override Stem #'length = #22
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
 noFlag = \once \override Stem #'flag-style = #'no-flag
 \new PianoStaff <<
   \new Staff {

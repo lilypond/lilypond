@@ -129,7 +129,7 @@ Note_head::get_stem_attachment (Font_metric *fm, string key)
   return att;
 }
 
-MAKE_SCHEME_CALLBACK(Note_head, calc_stem_attachment, 1);
+MAKE_SCHEME_CALLBACK (Note_head, calc_stem_attachment, 1);
 SCM
 Note_head::calc_stem_attachment (SCM smob)
 {

@@ -15,7 +15,7 @@
 class Instrument_switch_engraver : public Engraver
 {
 
-  TRANSLATOR_DECLARATIONS(Instrument_switch_engraver);
+  TRANSLATOR_DECLARATIONS (Instrument_switch_engraver);
 protected:
   Grob *text_;
   SCM cue_name_;
@@ -53,7 +53,7 @@ Instrument_switch_engraver::stop_translation_time_step ()
   text_ = 0;
 }
 
-ADD_TRANSLATOR(Instrument_switch_engraver,
+ADD_TRANSLATOR (Instrument_switch_engraver,
 	       "Create a cue text for taking instrument.",
 			
 	       "InstrumentSwitch ",

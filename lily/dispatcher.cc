@@ -100,10 +100,10 @@ Dispatcher::dispatch (SCM sev)
   */
   struct { int prio; SCM list; } lists[num_classes+1];
   int i = 0;
-  for (SCM cl = class_list; scm_is_pair(cl); cl = scm_cdr (cl))
+  for (SCM cl = class_list; scm_is_pair (cl); cl = scm_cdr (cl))
     {
       SCM list = scm_hashq_ref (listeners_, scm_car (cl), SCM_EOL);
-      if (!scm_is_pair(list))
+      if (!scm_is_pair (list))
 	num_classes--;
       else
 	{
@@ -141,9 +141,9 @@ Dispatcher::dispatch (SCM sev)
         }
       // go to the next listener; bubble-sort the class list.
       SCM next = scm_cdr (lists[0].list);
-      if (!scm_is_pair(next))
+      if (!scm_is_pair (next))
         num_classes--;
-      int prio = (scm_is_pair(next)) ? scm_to_int (scm_caar (next)) : INT_MAX;
+      int prio = (scm_is_pair (next)) ? scm_to_int (scm_caar (next)) : INT_MAX;
       for (i = 0; prio > lists[i+1].prio; i++)
         lists[i] = lists[i+1];
       lists[i].prio = prio;
@@ -176,7 +176,7 @@ Dispatcher::internal_add_listener (Listener l, SCM ev_class, int priority)
     {
       /* Tell all dispatchers that we listen to, that we want to hear ev_class 
          events */
-      for (SCM disp = dispatchers_; scm_is_pair(disp); disp = scm_cdr (disp))
+      for (SCM disp = dispatchers_; scm_is_pair (disp); disp = scm_cdr (disp))
 	{
 	  int priority = scm_to_int (scm_cdar (disp));
 	  Dispatcher *d = unsmob_dispatcher (scm_caar (disp));
@@ -205,10 +205,10 @@ Dispatcher::remove_listener (Listener l, SCM ev_class)
 
   SCM dummy = scm_cons (SCM_EOL, list);
   SCM e = dummy;
-  while (scm_is_pair(scm_cdr (e)))
+  while (scm_is_pair (scm_cdr (e)))
     if (*unsmob_listener (scm_cdadr (e)) == l && first)
       {
-	scm_set_cdr_x (e, scm_cddr(e));
+	scm_set_cdr_x (e, scm_cddr (e));
 	first = false;
 	break;
       }

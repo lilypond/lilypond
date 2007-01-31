@@ -36,8 +36,6 @@ treble = \new Voice \relative c''{
 
     \change Staff=bass
 
-    \once\override TextScript  #'extra-offset = #'(-3 . -4) %tweak
-    
     cis,16^2(^\markup {\small \italic "m.d." }\sustainUp
     <fis fis,>8 <e! e,!>
     | %4
@@ -50,8 +48,6 @@ treble = \new Voice \relative c''{
 
     #(set-octavation 1)
 
-    \once\override TextScript  #'extra-offset = #'(-3 . -2) %tweak
-	    
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
     \grace {
@@ -121,7 +117,7 @@ bass = \new Voice \relative c{
 
     r8. e,16(\f_2 <a a,>8[ <b b,>]
     | %2
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #5 %tweak
+    %\override Staff.SustainPedalLineSpanner #'staff-padding = #5 %tweak
 			   
     <cis cis,>4\sustainDown
     \change Staff=treble
@@ -134,7 +130,7 @@ bass = \new Voice \relative c{
     r8. cis,,16(\sustainUp <fis fis,>8 <gis gis,>
     
     | %3
-%    \once \override Stem  #'length = #6 %tweak
+
     <a a,>4\sustainDown
     \change Staff=treble
 			
@@ -176,7 +172,7 @@ bass = \new Voice \relative c{
     \override Fingering  #'direction = #DOWN
 
 			   
-    \override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
+    %\override Staff.SustainPedalLineSpanner #'staff-padding = #3.5 %tweak
     \set Staff.pedalSustainStyle = #'mixed
     %%a,8 e'[-5(<a-2 cis-3>])
 
@@ -210,7 +206,7 @@ bassTwo = \new Voice \relative c{
 }
 
 middleDynamics = {
-    \override Dynamics.TextScript  #'padding = #-1 %tweak
+    %\override Dynamics.TextScript  #'padding = #-1 %tweak
     s2
     s1*2
     | %4
@@ -219,9 +215,8 @@ middleDynamics = {
 	s8
 	s16 s s
 	s32 s
-	\once\override Dynamics.Hairpin  #'extra-offset = #'(0 . 2) %tweak
 	s\> s
-	s32 s s s\!
+	s32 s s\! s
     
     }
     \fatText
@@ -229,7 +224,6 @@ middleDynamics = {
     \emptyText
     | %5
     s2-"a tempo" s8
-    \once\override Dynamics.Hairpin  #'extra-offset = #'(1 . 0) %tweak
     s \> s s
     | %6 
     s8\!
@@ -263,7 +257,7 @@ theScore = \score{
 	    \type "Engraver_group"
 	    \name Dynamics
 	    \consists "Output_property_engraver"
-	    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
+	    \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 0)
 
 	    \consists "Script_engraver"
 	    \consists "Dynamic_engraver"
@@ -280,7 +274,6 @@ theScore = \score{
 	\context {
 	    \PianoStaff
 	    \accepts Dynamics
-	    \override VerticalAlignment #'forced-distance = #7
         }
     }
 }

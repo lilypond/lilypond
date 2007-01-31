@@ -69,7 +69,7 @@ Tie_column::before_line_breaking (SCM smob)
   return SCM_UNSPECIFIED;
 }
 
-MAKE_SCHEME_CALLBACK(Tie_column, calc_positioning_done, 1)
+MAKE_SCHEME_CALLBACK (Tie_column, calc_positioning_done, 1)
 SCM
 Tie_column::calc_positioning_done (SCM smob)
 {
@@ -93,7 +93,7 @@ Tie_column::calc_positioning_done (SCM smob)
 
   Ties_configuration base = problem.generate_optimal_configuration ();
 
-  for (vsize i = 0; i < base.size(); i++)
+  for (vsize i = 0; i < base.size (); i++)
     {
       SCM cp = Tie::get_control_points (ties[i], problem.common_x_refpoint (),
 					base[i],

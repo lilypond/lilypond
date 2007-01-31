@@ -74,6 +74,7 @@ public:
   static Grob *last_normal_stem (Grob *);
   DECLARE_GROB_INTERFACE();
   static void add_stem (Grob *, Grob *);
+  static bool is_cross_staff (Grob *);
   static bool is_knee (Grob *);
   static void set_beaming (Grob *, Beaming_pattern const *);
   static void set_stemlens (Grob *);
@@ -93,6 +94,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));  
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
+  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));

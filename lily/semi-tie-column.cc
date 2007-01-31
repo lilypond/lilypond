@@ -20,7 +20,7 @@
 #include "tie-column-format.hh"
 
 
-ADD_INTERFACE(Semi_tie_column,
+ADD_INTERFACE (Semi_tie_column,
 	      "The interface for a column of l.v. ties.",
 
 	      /* properties */
@@ -34,7 +34,7 @@ ADD_INTERFACE(Semi_tie_column,
 /*
   Cut & paste from tie-column.cc
  */   
-MAKE_SCHEME_CALLBACK(Semi_tie_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_positioning_done, 1);
 SCM
 Semi_tie_column::calc_positioning_done (SCM smob)
 {
@@ -58,7 +58,7 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   problem.set_manual_tie_configuration (manual_configs);
 
   Ties_configuration base = problem.generate_optimal_configuration ();
-  for (vsize i = 0; i < lv_ties.size(); i++)
+  for (vsize i = 0; i < lv_ties.size (); i++)
     {
       SCM cp = Tie::get_control_points (lv_ties[i], problem.common_x_refpoint (), base[i],
 					problem.details_);

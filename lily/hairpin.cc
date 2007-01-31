@@ -236,7 +236,7 @@ Hairpin::print (SCM smob)
       Box extent (Interval (-rad, rad), Interval (-rad, rad));
       
       /* Hmmm, perhaps we should have a Lookup::circle () method? */
-      Stencil circle(extent,
+      Stencil circle (extent,
 		     scm_list_4 (ly_symbol2scm ("circle"),
 				 scm_from_double (rad),
 				 scm_from_double (thick),

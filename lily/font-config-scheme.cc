@@ -55,9 +55,9 @@ string
 display_config (FcConfig *fcc)
 {
   string retval;
-  retval += display_strlist ("Config files", FcConfigGetConfigFiles(fcc));
-  retval +=  display_strlist ("Config dir", FcConfigGetConfigDirs(fcc));
-  retval +=  display_strlist ("Font dir", FcConfigGetFontDirs(fcc));
+  retval += display_strlist ("Config files", FcConfigGetConfigFiles (fcc));
+  retval +=  display_strlist ("Config dir", FcConfigGetConfigDirs (fcc));
+  retval +=  display_strlist ("Font dir", FcConfigGetFontDirs (fcc));
   return retval;
 }
 
@@ -96,7 +96,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   
   val.type = FcTypeString;
   val.u.s = (const FcChar8*)ly_scm2string (name).c_str (); // FC_SLANT_ITALIC;
-  FcPatternAdd(pat, FC_FAMILY, val, FcFalse);
+  FcPatternAdd (pat, FC_FAMILY, val, FcFalse);
 
   FcResult result;
   SCM scm_result = SCM_BOOL_F;
@@ -104,7 +104,7 @@ LY_DEFINE (ly_font_config_get_font_file, "ly:font-config-get-font-file", 1, 0, 0
   FcConfigSubstitute (NULL, pat, FcMatchFont);
   FcDefaultSubstitute (pat);
   
-  pat = FcFontMatch(NULL, pat, &result);
+  pat = FcFontMatch (NULL, pat, &result);
   FcChar8 *str = 0;
   if (FcPatternGetString (pat, FC_FILE, 0, &str) == FcResultMatch)
     scm_result = scm_from_locale_string ((char const*) str);

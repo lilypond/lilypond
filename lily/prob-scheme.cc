@@ -7,6 +7,7 @@
 */
 
 #include "prob.hh"
+#include "skyline.hh"
 
 LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 	   2, 1, 0, (SCM obj, SCM sym, SCM value),
@@ -36,7 +37,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 {
   LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (dfault == SCM_UNDEFINED)
     dfault = SCM_EOL;
@@ -54,7 +55,7 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 	   "If obj the specified prob-type?")
 {
   Prob*prob = unsmob_prob (obj);
-  return scm_from_bool (prob && prob->type() == type);
+  return scm_from_bool (prob && prob->type () == type);
 }
 
 LY_DEFINE (ly_make_prob, "ly:make-prob",
@@ -77,9 +78,34 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
 }
 
   
-LY_DEFINE(ly_paper_system_p, "ly:paper-system?",
+LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
 	  1, 0, 0, (SCM obj),
 	  "Type predicate.")
 {
   return ly_prob_type_p (obj, ly_symbol2scm ("paper-system"));
+}
+
+LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
+	   2, 0, 0, (SCM sys1, SCM sys2),
+	   "Measure the minimum distance between these two paper-systems "
+	   "using their stored skylines if possible and falling back to "
+	   "their extents otherwise.")
+{
+  Real ret = 0;
+  Prob *p1 = unsmob_prob (sys1);
+  Prob *p2 = unsmob_prob (sys2);
+  Skyline_pair *sky1 = Skyline_pair::unsmob (p1->get_property ("skylines"));
+  Skyline_pair *sky2 = Skyline_pair::unsmob (p2->get_property ("skylines"));
+
+  if (sky1 && sky2)
+    ret = (*sky1)[DOWN].distance ((*sky2)[UP]);
+  else
+    {
+      Stencil *s1 = unsmob_stencil (p1->get_property ("stencil"));
+      Stencil *s2 = unsmob_stencil (p2->get_property ("stencil"));
+      Interval iv1 = s1->extent (Y_AXIS);
+      Interval iv2 = s2->extent (Y_AXIS);
+      ret = iv2[UP] - iv1[DOWN];
+    }
+  return scm_from_double (ret);
 }

@@ -36,19 +36,15 @@ Align_interface::calc_positioning_done (SCM smob)
   SCM axis = scm_car (me->get_property ("axes"));
   Axis ax = Axis (scm_to_int (axis));
 
-  SCM force = me->get_property ("forced-distance");
-  if (scm_is_number (force))
-    Align_interface::align_to_fixed_distance (me, ax);
-  else
-    Align_interface::align_elements_to_extents (me, ax);
+  Align_interface::align_elements_to_extents (me, ax);
 
   return SCM_BOOL_T;
 }
 
 /*
-  merge with align-to-extents?
+  TODO: This belongs to the old two-pass spacing. Delete me.
 */
-MAKE_SCHEME_CALLBACK(Align_interface, stretch_after_break, 1)
+MAKE_SCHEME_CALLBACK (Align_interface, stretch_after_break, 1)
 SCM
 Align_interface::stretch_after_break (SCM grob)
 {
@@ -75,61 +71,12 @@ Align_interface::stretch_after_break (SCM grob)
 
       Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					       DOWN);
-      Real delta  = extra_space / elems.size() * stacking_dir;
+      Real delta  = extra_space / elems.size () * stacking_dir;
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->translate_axis (i * delta, Y_AXIS);
     }
   
   return SCM_UNSPECIFIED;
-}
-
-/*
-  merge with align-to-extents?
-*/
-void
-Align_interface::align_to_fixed_distance (Grob *me, Axis a)
-{
-  Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
-					   DOWN);
-
-  Real dy = robust_scm2double (me->get_property ("forced-distance"), 0.0);
-
-  extract_grob_set (me, "elements", elem_source);
-
-  vector<Grob*> elems (elem_source); // writable..
-
-  Real where = 0;
-
-  Interval v;
-  v.set_empty ();
-  vector<Real> translates;
-
-  for (vsize j = elems.size (); j--;)
-    {
-      /*
-	This is not very elegant, in that we need special support for
-	hara-kiri. Unfortunately, the generic wiring of
-	force_hara_kiri_callback () (extent and offset callback) is
-	such that we might get into a loop if we call extent () or
-	offset () the elements.
-      */
-      if (a == Y_AXIS
-	  && Hara_kiri_group_spanner::has_interface (elems[j]))
-	Hara_kiri_group_spanner::consider_suicide (elems[j]);
-
-      if (!elems[j]->is_live ())
-	elems.erase (elems.begin () + j);
-    }
-
-  for (vsize j = 0; j < elems.size (); j++)
-    {
-      where += stacking_dir * dy;
-      translates.push_back (where);
-      v.unite (Interval (where, where));
-    }
-
-  for (vsize i = 0; i < translates.size (); i++)
-    elems[i]->translate_axis (translates[i] - v.center (), a);
 }
 
 /* for each grob, find its upper and lower skylines. If the grob has
@@ -168,52 +115,54 @@ get_skylines (Grob *me,
   for (vsize i = elements->size (); i--;)
     {
       Grob *g = (*elements)[i];
-      Interval extent = g->maybe_pure_extent (g, a, pure, start, end);
-      Interval other_extent = pure ? Interval (-infinity_f, infinity_f)
-	: g->extent (common_refpoint, other_axis (a));
-      Box b;
-      b[a] = extent;
-      b[other_axis (a)] = other_extent;
-
-      if (extent.is_empty ())
-	{
-	  elements->erase (elements->begin () + i);
-	  continue;
-	}
-
       Skyline_pair skylines;
-      if (!pure
-	  && Skyline_pair::unsmob (g->get_property ("skylines")))
-	skylines = *Skyline_pair::unsmob (g->get_property ("skylines"));
-      else
-	{
-	  if (!pure)
-	    programming_error ("no skylines for alignment-child\n");
-	  
-	  skylines = Skyline_pair (b, 0, other_axis (a));
-	}
 
       /* each skyline is calculated relative to (potentially) a different other_axis
 	 coordinate. In order to compare the skylines effectively, we need to shift them
 	 to some absolute reference point */
       if (!pure)
 	{
+	  Skyline_pair *skys = Skyline_pair::unsmob (g->get_property ("skylines"));
+	  if (skys)
+	    skylines = *skys;
+	  else
+	    programming_error ("no skylines for alignment-child\n");
+
 	  /* this is perhaps an abuse of minimum-?-extent: maybe we should create
 	     another property? But it seems that the only (current) use of
 	     minimum-Y-extent is to separate vertically-aligned elements */
 	  SCM min_extent = g->get_property (a == X_AXIS ? "minimum-X-extent" : "minimum-Y-extent");
+
 	  if (is_number_pair (min_extent))
 	    {
+	      Box b;
+	      Interval other_extent = g->extent (common_refpoint, other_axis (a));
 	      b[a] = ly_scm2interval (min_extent);
-	      skylines.insert (b, 0, other_axis (a));
+	      b[other_axis (a)] = other_extent;
+	      if (!other_extent.is_empty ())
+		skylines.insert (b, 0, other_axis (a));
 	    }
 
 	  Real offset = child_refpoints[i]->relative_coordinate (common_refpoint, other_axis (a));
 	  skylines.shift (offset);
 	}
+      else
+	{
+	  assert (a == Y_AXIS);
+	  Interval extent = g->pure_height (g, start, end);
+	  if (!extent.is_empty ())
+	    {
+	      Box b;
+	      b[a] = extent;
+	      b[other_axis (a)] = Interval (-infinity_f, infinity_f);
+	      skylines.insert (b, 0, other_axis (a));
+	    }
+	}
 
-
-      ret->push_back (skylines);
+      if (skylines.is_empty ())
+	elements->erase (elements->begin () + i);
+      else
+	ret->push_back (skylines);
     }
   reverse (*ret);
 }
@@ -250,6 +199,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
   get_skylines (me, &elems, a, pure, start, end, &skylines);
 
   Real where = 0;
+  /* TODO: extra-space stuff belongs to two-pass spacing. Delete me */
   SCM extra_space_handle = scm_assq (ly_symbol2scm ("alignment-extra-space"), line_break_details);
   Real extra_space = robust_scm2double (scm_is_pair (extra_space_handle)
 					? scm_cdr (extra_space_handle)
@@ -258,15 +208,21 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
+  Skyline down_skyline (stacking_dir);
   for (vsize j = 0; j < elems.size (); j++)
     {
       Real dy = 0;
       if (j == 0)
 	dy = skylines[j][-stacking_dir].max_height ();
       else
-	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
+	{
+	  down_skyline.merge (skylines[j-1][stacking_dir]);
+	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
+	}
 
-      where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
+      dy = max (0.0, dy + padding + extra_space / elems.size ());
+      down_skyline.raise (-stacking_dir * dy);
+      where += stacking_dir * dy;
       translates.push_back (where);
     }
 
@@ -308,6 +264,25 @@ Align_interface::align_elements_to_extents (Grob *me, Axis a)
   if (translates.size ())
     for (vsize j = 0; j < all_grobs.size (); j++)
       all_grobs[j]->translate_axis (translates[j], a);
+}
+
+/* After we have already determined the y-offsets of our children, we may still
+   want to stretch them a little. */
+void
+Align_interface::stretch (Grob *me, Real amount, Axis a)
+{
+  extract_grob_set (me, "elements", elts);
+  Real non_empty_elts = stretchable_children_count (me);
+  Real offset = 0.0;
+  Direction dir = robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      elts[i]->translate_axis (dir * offset, a);
+      if (!elts[i]->extent (me, a).is_empty ()
+	  && !to_boolean (elts[i]->get_property ("keep-fixed-while-stretching")))
+	offset += amount / non_empty_elts;
+    }
+  me->flush_extent_cache (Y_AXIS);
 }
 
 Real
@@ -379,22 +354,59 @@ Align_interface::set_ordered (Grob *me)
   ga->set_ordered (true);
 }
 
+int
+Align_interface::stretchable_children_count (Grob const *me)
+{
+  extract_grob_set (me, "elements", elts);
+  int ret = 0;
+
+  /* start at 1: we will never move the first child while stretching */
+  for (vsize i = 1; i < elts.size (); i++)
+    if (!to_boolean (elts[i]->get_property ("keep-fixed-while-stretching"))
+	&& !elts[i]->extent (elts[i], Y_AXIS).is_empty ())
+      ret++;
+
+  return ret;
+}
+
+MAKE_SCHEME_CALLBACK (Align_interface, calc_max_stretch, 1)
+SCM
+Align_interface::calc_max_stretch (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Spanner *spanner_me = dynamic_cast<Spanner*> (me);
+  Real ret = 0;
+
+  if (spanner_me && stretchable_children_count (me) > 0)
+    {
+      Paper_column *left = dynamic_cast<Paper_column*> (spanner_me->get_bound (LEFT));
+      Real height = me->extent (me, Y_AXIS).length ();
+      SCM line_break_details = left->get_property ("line-break-system-details");
+      SCM fixed_offsets = scm_assq (ly_symbol2scm ("alignment-offsets"),
+				    line_break_details);
+
+      /* if there are fixed offsets, we refuse to stretch */
+      if (fixed_offsets != SCM_BOOL_F)
+	ret = 0;
+      else
+	ret = height * height / 80.0; /* why this, exactly? -- jneem */
+    }
+  return scm_from_double (ret);
+}
+
 /*
   Find Y-axis parent of G that has a #'forced-distance property. This
   has the effect of finding the piano-staff given an object in that
   piano staff.
+
+  FIXME: piano staves no longer have forced-distance. The code that
+  relies on this function (in line-spanner) is broken.
 */
 Grob *
 find_fixed_alignment_parent (Grob *g)
 {
-  while (g)
-    {
-      if (scm_is_number (g->get_property ("forced-distance")))
-	return g;
-
-      g = g->get_parent (Y_AXIS);
-    }
-
+  (void) g;
+  programming_error ("deprecated. We don't use forced-distance anymore");
   return 0;
 }
 
@@ -414,7 +426,6 @@ ADD_INTERFACE (Align_interface,
 	       "align-dir "
 	       "axes "
 	       "elements "
-	       "forced-distance "
 	       "padding "
 	       "positioning-done "
 	       "stacking-dir "

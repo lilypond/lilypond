@@ -26,7 +26,7 @@ Text_interface::interpret_string (SCM layout_smob,
 				  SCM markup)
 {
   LY_ASSERT_SMOB (Output_def, layout_smob, 1);
-  LY_ASSERT_TYPE (scm_is_string, props, 3);
+  LY_ASSERT_TYPE (scm_is_string, markup, 3);
 
   string str = ly_scm2string (markup);
   Output_def *layout = unsmob_output_def (layout_smob);

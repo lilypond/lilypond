@@ -25,7 +25,7 @@ protected:
   DECLARE_ACKNOWLEDGER (grob);
 };
 
-Parenthesis_engraver::Parenthesis_engraver()
+Parenthesis_engraver::Parenthesis_engraver ()
 {
 }
 

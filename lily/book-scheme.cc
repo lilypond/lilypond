@@ -46,9 +46,9 @@ LY_DEFINE (ly_book_process, "ly:book-process",
 {
   Book *book = unsmob_book (book_smob);
 
-  LY_ASSERT_SMOB(Book, book_smob, 1);
-  LY_ASSERT_SMOB(Output_def, default_paper, 2);
-  LY_ASSERT_SMOB(Output_def, default_layout, 3);
+  LY_ASSERT_SMOB (Book, book_smob, 1);
+  LY_ASSERT_SMOB (Output_def, default_paper, 2);
+  LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
   Paper_book *pb = book->process (unsmob_output_def (default_paper),
 				  unsmob_output_def (default_layout));
@@ -73,8 +73,8 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 	   "output).")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
-  LY_ASSERT_SMOB(Output_def, default_paper, 2);
-  LY_ASSERT_SMOB(Output_def, default_layout, 3);
+  LY_ASSERT_SMOB (Output_def, default_paper, 2);
+  LY_ASSERT_SMOB (Output_def, default_layout, 3);
 
   Book *book = unsmob_book (book_smob); 
 

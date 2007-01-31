@@ -30,7 +30,7 @@ Balloon_interface::print (SCM smob)
 
   Grob *p = me->get_parent (X_AXIS);
   
-  Offset off(me->relative_coordinate (p, X_AXIS),
+  Offset off (me->relative_coordinate (p, X_AXIS),
 	     me->relative_coordinate (p, Y_AXIS));
 
   Box b (p->extent (p, X_AXIS),

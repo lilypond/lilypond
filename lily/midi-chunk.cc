@@ -65,8 +65,8 @@ Midi_track::data_string () const
 {
   string str = Midi_chunk::data_string ();
 
-  for (vector<Midi_event*>::const_iterator i (events_.begin());
-       i != events_.end(); i ++)
+  for (vector<Midi_event*>::const_iterator i (events_.begin ());
+       i != events_.end (); i ++)
     {
       str += (*i)->to_string ();
     }

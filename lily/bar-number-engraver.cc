@@ -98,12 +98,7 @@ Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
-  if (text_)
-    {
-      text_->set_object ("side-support-elements",
-			 grob_list_to_grob_array (get_property ("stavesFound")));
-      text_ = 0;
-    }
+  text_ = 0;
 }
 
 void
@@ -116,8 +111,8 @@ Bar_number_engraver::create_items ()
 }
 
 
-ADD_ACKNOWLEDGER(Bar_number_engraver,break_aligned);
-ADD_ACKNOWLEDGER(Bar_number_engraver,break_alignment);
+ADD_ACKNOWLEDGER (Bar_number_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 
 ADD_TRANSLATOR (Bar_number_engraver,
 		/* doc */ "A bar number is created whenever measurePosition "

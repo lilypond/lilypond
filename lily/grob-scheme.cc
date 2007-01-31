@@ -7,7 +7,7 @@
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
-#include "warn.hh"		// error()
+#include "warn.hh"		// error ()
 #include "item.hh"
 #include "output-def.hh"
 #include "system.hh"
@@ -22,7 +22,7 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
   Grob *sc = unsmob_grob (grob);
 
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   return sc->get_property_data (sym);
 }
@@ -34,7 +34,7 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
   Grob *sc = unsmob_grob (grob);
  
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (!ly_is_procedure (val)
       && !type_check_assignment (sym, val, ly_symbol2scm ("backend-type?")))
@@ -54,7 +54,7 @@ LY_DEFINE (ly_grob_property, "ly:grob-property",
   Grob *sc = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
   if (deflt == SCM_UNDEFINED)
     deflt = SCM_EOL;
 
@@ -87,7 +87,7 @@ LY_DEFINE (ly_grob_object, "ly:grob-object",
   Grob *sc = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   return sc->internal_get_object (sym);
 }
@@ -137,8 +137,8 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
   
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB(Grob, refp, 2);
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_SMOB (Grob, refp, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -161,8 +161,8 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
   
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB(Grob, refp, 2);
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_SMOB (Grob, refp, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
     
@@ -185,8 +185,8 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
   
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB(Grob,refp, 2);
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_SMOB (Grob, refp, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Axis a = Axis (scm_to_int (axis));
 
@@ -197,7 +197,7 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
       SCM_ASSERT_TYPE (false, refp, SCM_ARG2, __FUNCTION__, "common refpoint");
     }
 
-  return scm_from_double (sc->relative_coordinate (ref,a));
+  return scm_from_double (sc->relative_coordinate (ref, a));
 }
 
 
@@ -209,7 +209,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
   Grob *sc = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE(is_axis,axis, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 2);
 
   Grob *par = sc->get_parent (Axis (scm_to_int (axis)));
   return par ? par->self_scm () : SCM_EOL;
@@ -283,8 +283,8 @@ LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
   Grob *me = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_TYPE(scm_is_number,d, 2);
-  LY_ASSERT_TYPE(is_axis,a, 3);
+  LY_ASSERT_TYPE (scm_is_number, d, 2);
+  LY_ASSERT_TYPE (is_axis, a, 3);
 
   me->translate_axis (scm_to_double (d), Axis (scm_to_int (a)));
   return SCM_UNSPECIFIED;
@@ -316,11 +316,11 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
   Grob *gr = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB(Grob,other, 2);
+  LY_ASSERT_SMOB (Grob, other, 2);
 
   Grob *o = unsmob_grob (other);
 
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Grob *refp = gr->common_refpoint (o,  Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;
@@ -335,10 +335,10 @@ LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
   Grob *gr = unsmob_grob (grob);
    
   LY_ASSERT_SMOB (Grob, grob, 1);
-  LY_ASSERT_SMOB(Grob_array,others, 2);
+  LY_ASSERT_SMOB (Grob_array, others, 2);
 
   Grob_array *ga = unsmob_grob_array (others);
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Grob *refp = common_refpoint_of_array (ga->array (), gr, Axis (scm_to_int (axis)));
   return refp ? refp->self_scm () : SCM_BOOL_F;

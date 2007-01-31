@@ -32,7 +32,7 @@
 
 
 
-MAKE_SCHEME_CALLBACK(Slur, calc_direction, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)
 {
@@ -356,6 +356,20 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
     e->warning ("Ignoring grob for slur. avoid-slur not set?");
 }
 
+MAKE_SCHEME_CALLBACK (Slur, cross_staff, 1)
+SCM
+Slur::cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  assert (staff); // delete me
+  extract_grob_set (me, "note-columns", cols);
+
+  for (vsize i = 0; i < cols.size (); i++)
+    if (Staff_symbol_referencer::get_staff_symbol (cols[i]) != staff)
+      return SCM_BOOL_T;
+  return SCM_BOOL_F;
+}
 
 ADD_INTERFACE (Slur,
 	       

@@ -117,7 +117,7 @@ Bezier::curve_point (Real t) const
 }
 
 /*
-  Cache binom(3,j) t^j (1-t)^{3-j}
+  Cache binom (3, j) t^j (1-t)^{3-j}
 */
 struct Polynomial_cache {
   Polynomial terms_[4];

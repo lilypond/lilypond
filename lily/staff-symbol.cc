@@ -139,7 +139,7 @@ Staff_symbol::get_ledger_line_thickness (Grob *me)
   return z[X_AXIS] * get_line_thickness (me) + z[Y_AXIS] * staff_space (me);
 }
 
-MAKE_SCHEME_CALLBACK(Staff_symbol,height,1);
+MAKE_SCHEME_CALLBACK (Staff_symbol, height,1);
 SCM
 Staff_symbol::height  (SCM smob)
 {

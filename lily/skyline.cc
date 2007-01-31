@@ -153,7 +153,7 @@ Building::Building (Box const &b, Real horizon_padding, Axis horizon_axis, Direc
 void
 Building::precompute ()
 {
-  slope_ = (height_[RIGHT] - height_[LEFT]) / (iv_.length());
+  slope_ = (height_[RIGHT] - height_[LEFT]) / (iv_.length ());
   if (height_[LEFT] == height_[RIGHT]) /* in case they're both infinity */
     slope_ = 0;
 
@@ -381,7 +381,7 @@ Skyline::internal_build_skyline (list<Building> *buildings)
   while (!buildings->empty ())
     partials.push_back (non_overlapping_skyline (buildings));
 
-  /* we'd like to say while (partials->size () > 1) but that's O(n).
+  /* we'd like to say while (partials->size () > 1) but that's O (n).
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
@@ -582,6 +582,12 @@ Skyline::to_points () const
   return out;
 }
 
+bool
+Skyline::is_empty () const
+{
+  return buildings_.empty ();
+}
+
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
 {
@@ -625,6 +631,13 @@ Skyline_pair::merge (Skyline_pair const &other)
   skylines_[DOWN].merge (other[DOWN]);
 }
 
+bool
+Skyline_pair::is_empty () const
+{
+  return skylines_[UP].is_empty ()
+    && skylines_[DOWN].is_empty ();
+}
+
 Skyline&
 Skyline_pair::operator [] (Direction d)
 {
@@ -651,7 +664,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
 SCM
 Skyline::mark_smob (SCM)
 {
-  ASSERT_LIVE_IS_ALLOWED();
+  ASSERT_LIVE_IS_ALLOWED ();
   return SCM_EOL;
 }
 

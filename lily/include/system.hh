@@ -20,7 +20,7 @@ class System : public Spanner
 {
   int rank_;
   Grob_array *all_elements_;
-  Drul_array<Skyline> skylines_;
+  Skyline_pair skylines_;
   void build_skylines ();
   void init_elements ();
   friend class Paper_score;	// ugh.
@@ -29,9 +29,11 @@ class System : public Spanner
 public:
   Paper_score *paper_score () const;
   int get_rank () const;
+  void do_break_substitution_and_fixup_refpoints ();
   void post_processing ();
   SCM get_paper_system ();
   SCM get_paper_systems ();
+  SCM get_broken_system_grobs ();
 
   System (SCM);
   System (System const &);

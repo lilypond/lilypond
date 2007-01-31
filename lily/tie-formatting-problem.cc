@@ -58,7 +58,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
   return attachments;
 }
 
-Tie_formatting_problem::Tie_formatting_problem()
+Tie_formatting_problem::Tie_formatting_problem ()
 {
   x_refpoint_ = 0;
 }
@@ -128,7 +128,12 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  x.add_point (stem->relative_coordinate (x_refpoint_, X_AXIS));
 	  x.widen (staff_space / 20); // ugh.
 	  Interval y;
-	  y.add_point (Stem::stem_end_position (stem) * staff_space * .5);
+	  Real stem_end_position =
+	    Stem::is_cross_staff (stem)
+	    ? get_grob_direction (stem) * infinity_f
+	    : Stem::stem_end_position (stem) * staff_space * .5;
+
+	  y.add_point (stem_end_position);
 
 	  Direction stemdir = get_grob_direction (stem);
 	  y.add_point (Stem::head_positions (stem)[-stemdir]
@@ -139,12 +144,12 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  */
 	  boxes.push_back (Box (x, y));
 
-	  stem_extents_[key].unite (Box (x,y));
+	  stem_extents_[key].unite (Box (x, y));
 
 	  if (dir == LEFT)
 	    {
 	      Box flag_box = Stem::get_translated_flag (stem).extent_box ();
-	      flag_box.translate( Offset (x[RIGHT], X_AXIS));
+	      flag_box.translate ( Offset (x[RIGHT], X_AXIS));
 	      boxes.push_back (flag_box);
 	    }
 	}
@@ -166,9 +171,9 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	}
 
       extract_grob_set (stem, "note-heads", heads);
-      for (vsize i = 0; i < heads.size(); i ++)
+      for (vsize i = 0; i < heads.size (); i ++)
 	{
-	  if (find (bounds.begin(), bounds.end (), dynamic_cast<Item*> (heads[i])) ==  bounds.end ())
+	  if (find (bounds.begin (), bounds.end (), dynamic_cast<Item*> (heads[i])) ==  bounds.end ())
 	    {
 	      /*
 		other untied notes in the same chord.
@@ -196,7 +201,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
     {
       Interval x;
       Interval y;
-      if (head_boxes.size())
+      if (head_boxes.size ())
 	{
 	  Box b = boundary (head_boxes, updowndir, 0);
 	  x = b[X_AXIS];
@@ -612,7 +617,7 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
   while (flip (&d) != LEFT);
 
   if (ties_conf
-      && ties_conf->size() == 1)
+      && ties_conf->size () == 1)
     {
       Direction d = LEFT;
       Drul_array<Grob*> stems (0, 0);
@@ -1118,7 +1123,7 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 						       );
 		  vars.push_back (var);
 		}
-	      if (i == ties.size() && !specifications_[i].has_manual_position_
+	      if (i == ties.size () && !specifications_[i].has_manual_position_
 		  && ties[i].dir_ == UP)
 		{
 		  Tie_configuration_variation var;
@@ -1190,7 +1195,7 @@ Tie_formatting_problem::set_debug_scoring (Ties_configuration const &base)
   if (to_boolean (x_refpoint_->layout ()
 		  ->lookup_variable (ly_symbol2scm ("debug-tie-scoring"))))
     {
-      for (vsize i = 0; i < base.size(); i++)
+      for (vsize i = 0; i < base.size (); i++)
 	{
 	  string card = base.complete_tie_card (i);
 	  specifications_[i].tie_grob_->set_property ("quant-score",

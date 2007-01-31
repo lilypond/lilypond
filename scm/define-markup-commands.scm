@@ -24,6 +24,23 @@
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-builtin-markup-command (draw-line layout props dest)
+  (number-pair?)
+  "A simple line. Uses the @code{thickness} property. "
+  (let*
+      ((th (chain-assoc-get 'thickness props  0.1))
+       (x (car dest))
+       (y (cdr dest)))
+
+    (ly:make-stencil
+     `(draw-line
+       ,th
+       0 0
+       ,x ,y)
+
+     (cons (min x 0) (min y 0))
+     (cons (max x 0) (max y 0)))))
+
 (define-builtin-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
   "A circle of radius @var{radius}, thickness @var{thickness} and
@@ -291,11 +308,6 @@ grestore
 			  (make-line-markup joined)))
 			   ;(map (lambda (s) (interpret-markup layout props s)) parts))
       (interpret-markup layout props str)))
-
-
-;; TODO: use font recoding.
-;;		      (make-line-markup
-;;		       (map make-word-markup (string-tokenize str)))))
 
 (define-public empty-markup
   (make-simple-markup ""))

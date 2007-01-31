@@ -16,10 +16,10 @@
 
 class Balloon_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Balloon_engraver);
+  TRANSLATOR_DECLARATIONS (Balloon_engraver);
 
-  DECLARE_TRANSLATOR_LISTENER(annotate_output);
-  DECLARE_ACKNOWLEDGER(grob);
+  DECLARE_TRANSLATOR_LISTENER (annotate_output);
+  DECLARE_ACKNOWLEDGER (grob);
   vector<Stream_event *> events_;
 
   void stop_translation_timestep ();
@@ -77,9 +77,9 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 
 
   
-ADD_ACKNOWLEDGER(Balloon_engraver,grob);
+ADD_ACKNOWLEDGER (Balloon_engraver, grob);
   
-ADD_TRANSLATOR(Balloon_engraver,
+ADD_TRANSLATOR (Balloon_engraver,
 	       "Create balloon texts",
 	       "BalloonTextItem ",
 	       /*read*/ "",

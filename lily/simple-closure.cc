@@ -83,14 +83,14 @@ evaluate_with_simple_closure (SCM delayed_argument,
   return SCM_EOL;
 }
 
-LY_DEFINE(ly_simple_closure_p, "ly:simple-closure?",
+LY_DEFINE (ly_simple_closure_p, "ly:simple-closure?",
 	  1,0,0, (SCM clos),
 	  "Type predicate.")
 {
   return scm_from_bool (is_simple_closure (clos));
 }
 
-LY_DEFINE(ly_make_simple_closure, "ly:make-simple-closure",
+LY_DEFINE (ly_make_simple_closure, "ly:make-simple-closure",
 	  1, 0, 0, (SCM expr),
 	  "Make a simple closure. @var{expr} should be form of "
 	  "@code{(@var{func} @var{a1} @var{A2} ...)}, and will be invoked "
@@ -98,11 +98,11 @@ LY_DEFINE(ly_make_simple_closure, "ly:make-simple-closure",
 {
   SCM z;
 
-  SCM_NEWSMOB(z, simple_closure_tag, expr);
+  SCM_NEWSMOB (z, simple_closure_tag, expr);
   return z;
 }
 
-LY_DEFINE(ly_eval_simple_closure, "ly:eval-simple-closure",
+LY_DEFINE (ly_eval_simple_closure, "ly:eval-simple-closure",
 	  2, 2, 0, (SCM delayed, SCM closure, SCM scm_start, SCM scm_end),
 	  "Evaluate a simple closure with the given delayed argument. "
 	  "If start and end are defined, evaluate it purely with those "

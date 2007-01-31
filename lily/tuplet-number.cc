@@ -16,12 +16,12 @@
 
 struct Tuplet_number
 {
-  DECLARE_SCHEME_CALLBACK(print, (SCM));
-  DECLARE_GROB_INTERFACE();
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_GROB_INTERFACE ();
 };
   
 
-MAKE_SCHEME_CALLBACK(Tuplet_number, print, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_number, print, 1);
 SCM 
 Tuplet_number::print (SCM smob)
 {

@@ -88,7 +88,7 @@ Engraver_group::acknowledge_grobs ()
       else
 	continue;
 
-      SCM acklist = scm_hashq_ref (acknowledge_hash_table_drul_[info.start_end()],
+      SCM acklist = scm_hashq_ref (acknowledge_hash_table_drul_[info.start_end ()],
 				   nm, SCM_BOOL_F);
       
       Engraver_dispatch_list *dispatch

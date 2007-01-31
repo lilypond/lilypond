@@ -613,6 +613,7 @@ ADD_INTERFACE (Grob,
 	       "before-line-breaking "
 	       "cause "
 	       "color "
+	       "cross-staff "
 	       "extra-X-extent "
 	       "extra-Y-extent "
 	       "extra-offset "
@@ -654,7 +655,7 @@ Grob::stencil_height (SCM smob)
   return grob_stencil_extent (me, Y_AXIS);
 }
 
-MAKE_SCHEME_CALLBACK(Grob, y_parent_positioning, 1);
+MAKE_SCHEME_CALLBACK (Grob, y_parent_positioning, 1);
 SCM
 Grob::y_parent_positioning (SCM smob)
 {
@@ -667,7 +668,7 @@ Grob::y_parent_positioning (SCM smob)
 }
 
 
-MAKE_SCHEME_CALLBACK(Grob, x_parent_positioning, 1);
+MAKE_SCHEME_CALLBACK (Grob, x_parent_positioning, 1);
 SCM
 Grob::x_parent_positioning (SCM smob)
 {

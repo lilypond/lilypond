@@ -29,7 +29,7 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
   Open_type_font *otf = dynamic_cast<Open_type_font *> (fm->original_font ());
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OTF font-metric");
-  LY_ASSERT_TYPE(scm_is_string, glyph, 2);
+  LY_ASSERT_TYPE (scm_is_string, glyph, 2);
 
   SCM sym = scm_string_to_symbol (glyph);
   return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);

@@ -15,13 +15,99 @@
   #:use-module (lily)
   #:export (post-process-pages optimal-page-breaks make-page-from-systems
 	    page-breaking-wrapper
+	    stretchable-line? ; delete me
 	    ;; utilities for writing custom page breaking functions
             line-height line-next-space line-next-padding
 	    line-minimum-distance line-ideal-distance
 	    first-line-position
 	    line-ideal-relative-position line-minimum-relative-position
-            line-minimum-position-on-page stretchable-line?
+            line-minimum-position-on-page
 	    page-maximum-space-to-fill page-maximum-space-left space-systems))
+
+; this is for 2-pass spacing. Delete me.
+(define (stretchable-line? line)
+  "Say whether a system can be stretched."
+  (not (or (ly:prob-property? line 'is-title)
+	   (let ((system-extent (paper-system-staff-extents line)))
+            (= (interval-start system-extent)
+               (interval-end   system-extent))))))
+
+(define (stretch-and-draw-page paper-book systems page-number ragged last)
+  (define (max-stretch sys)
+    (if (ly:grob? sys)
+	(ly:grob-property sys 'max-stretch)
+	0.0))
+
+  (define (stretchable? sys)
+    (and (ly:grob? sys)
+	 (> (max-stretch sys) 0.0)))
+
+  (define (height-estimate sys)
+    (interval-length
+     (if (ly:grob? sys)
+	 (ly:grob-property sys 'pure-Y-extent)
+	 (paper-system-extent sys Y))))
+
+  (define (print-system sys)
+    (if (ly:grob? sys)
+	(ly:system-print sys)
+	sys))
+
+  (define (set-line-stretch! sorted-lines rest-height space-left)
+    (if (not (null? sorted-lines))
+	(let* ((line (first sorted-lines))
+	       (height (height-estimate line))
+	       (stretch (min (max-stretch line)
+			     (if (positive? rest-height)
+				 (/ (* height space-left) rest-height)
+				   0.0))))
+	  (if (stretchable? line)
+	      (ly:system-stretch line stretch))
+	  (set-line-stretch! (cdr sorted-lines)
+			     (if (stretchable? line)
+				 (- rest-height height)
+				 rest-height)
+			     (- space-left stretch)))))
+
+  (let* ((page (make-page paper-book
+			  'page-number page-number
+			  'is-last last))
+	 (paper (ly:paper-book-paper paper-book))
+	 (height (page-printable-height page))
+	 ; there is a certain amount of impreciseness going on here:
+	 ; the system heights are estimated, we aren't using skyline distances
+	 ; yet, etc. If we overstretch because of underestimation, the result
+	 ; is very bad. So we stick in some extra space, just to be sure.
+	 (buffer (/ height 10.0))
+	 (total-system-height (apply + (map height-estimate systems)))
+	 (height-left (- height total-system-height buffer)))
+
+    (if (not ragged)
+	(set-line-stretch! (sort systems
+				 (lambda (s1 s2)
+				   (< (height-estimate s1)
+				      (height-estimate s2))))
+			   (apply + (map height-estimate
+					 (filter stretchable? systems)))
+			   (- (page-printable-height page)
+			      total-system-height)))
+
+    (let* ((lines (map print-system systems))
+	   (posns (if (null? lines)
+		      (list)
+		      (let* ((paper (ly:paper-book-paper paper-book))
+			     (space-to-fill (page-maximum-space-to-fill
+					     page lines paper))
+			     (spacing (space-systems space-to-fill lines ragged paper #f)))
+			(if (and (> (length lines) 1)
+				 (or (not (car spacing)) (inf? (car spacing))))
+			    (begin
+			      (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
+			      (cdr (space-systems space-to-fill lines ragged paper #t)))
+			    (cdr spacing))))))
+      (page-set-property! page 'lines lines)
+      (page-set-property! page 'configuration posns)
+      page)))
 
 (define (page-breaking-wrapper paper-book)
   "Compute line and page breaks by calling the page-breaking paper variable,
@@ -47,9 +133,13 @@
 ;;;
 ;;; Utilities for computing line distances and positions
 ;;;
+(define (line-extent line)
+  "Return the extent of the line (its lowest and highest Y-coordinates)."
+  (paper-system-extent line Y))
+
 (define (line-height line)
   "Return the system height, that is the length of its vertical extent."
-  (interval-length (paper-system-extent line Y)))
+  (interval-length (line-extent line)))
 
 (define (line-next-space line next-line layout)
   "Return space to use between `line' and `next-line'.
@@ -79,10 +169,15 @@
   "Minimum distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
-       (let ((non-skyline-distance (- (interval-end (paper-system-extent next-line Y))
-				      (interval-start (paper-system-extent line Y)))))
-	 (max 0 (+ (ly:prob-property next-line 'skyline-distance non-skyline-distance)
-		   (if ignore-padding 0 (line-next-padding line next-line layout)))))))
+       (let ((padding (if ignore-padding
+			  0
+			  (line-next-padding line next-line layout))))
+	 (if (or (ly:grob? line) (ly:grob? next-line))
+	     (max 0 (+ padding
+		       (- (interval-start (line-extent line))
+			  (interval-end (line-extent next-line)))))
+	     (max 0 (+ padding
+		       (ly:paper-system-minimum-distance line next-line)))))))
 
 (define (line-ideal-distance line next-line layout ignore-padding)
   "Ideal distance between `line' reference position and `next-line'
@@ -100,7 +195,7 @@
 	      0.0
 	    (ly:output-def-lookup layout 'page-top-space))
 	  (interval-end (paper-system-staff-extents line)))
-       (interval-end (paper-system-extent line Y))))
+       (interval-end (line-extent line))))
 
 (define (line-ideal-relative-position line prev-line layout ignore-padding)
   "Return ideal position of `line', relative to `prev-line' position.
@@ -129,17 +224,10 @@
          (position (+ (line-minimum-relative-position line prev-line layout #f)
                       (if prev-line prev-position 0.0)))
          (bottom-position (- position
-                             (interval-start (paper-system-extent line Y)))))
+                             (interval-start (line-extent line)))))
     (and (or (not prev-line)
              (< bottom-position (page-printable-height page)))
          position)))
-
-(define (stretchable-line? line)
-  "Say whether a system can be stretched."
-  (not (or (ly:prob-property? line 'is-title)
-	   (let ((system-extent (paper-system-staff-extents line)))
-	     (= (interval-start system-extent)
-		(interval-end	system-extent))))))
 
 (define (page-maximum-space-to-fill page lines paper)
   "Return the space between the first line top position and the last line
@@ -150,7 +238,7 @@
        (first-line-position (first lines) paper)
        (ly:prob-property last-line
 			 'bottom-space 0.0)
-       (- (interval-start (paper-system-extent last-line Y))))))
+       (- (interval-start (line-extent last-line))))))
 
 (define (page-maximum-space-left page)
   (let ((paper (ly:paper-book-paper (page-property page 'paper-book))))
@@ -166,7 +254,7 @@
                 (and position
                      (- (page-printable-height page)
                         (- position
-                           (interval-start (paper-system-extent line Y)))))
+                           (interval-start (line-extent line)))))
                 (bottom-position (cdr lines) line position)))))))
 
 ;;;
@@ -202,26 +290,6 @@
 		   (+ y topskip)))
 	       (cdr space-result)))))
 
-(define (make-page-from-systems paper-book lines page-number ragged last)
-  "Return a new page, filled with `lines'."
-  (let* ((page (make-page paper-book
-			  'lines lines
-			  'page-number page-number
-			  'is-last last))
-	 (posns (if (null? lines)
-		    (list)
-		    (let* ((paper (ly:paper-book-paper paper-book))
-			   (space-to-fill (page-maximum-space-to-fill
-					    page lines paper))
-			   (spacing (space-systems space-to-fill lines ragged paper #f)))
-		      (if (and (> (length lines) 1)
-			       (or (not (car spacing)) (inf? (car spacing))))
-			  (begin
-			    (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
-			    (cdr (space-systems space-to-fill lines ragged paper #t)))
-			  (cdr spacing))))))
-    (page-set-property! page 'configuration posns)
-    page))
 
 ;;;
 ;;; Page breaking function

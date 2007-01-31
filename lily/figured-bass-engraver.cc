@@ -57,8 +57,8 @@ struct Figure_group
 
 struct Figured_bass_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Figured_bass_engraver);
-  void clear_spanners();
+  TRANSLATOR_DECLARATIONS (Figured_bass_engraver);
+  void clear_spanners ();
   void add_brackets ();
   void create_grobs ();
 
@@ -144,7 +144,7 @@ Figured_bass_engraver::listen_rest (Stream_event *ev)
       new_event_found_ = true;
 
       /*
-	No ASSIGN_EVENT_ONCE() ; otherwise we get warnings about
+	No ASSIGN_EVENT_ONCE () ; otherwise we get warnings about
 	polyphonic rests.
        */
       rest_event_ = ev;
@@ -184,13 +184,13 @@ Figured_bass_engraver::center_continuations (vector<Spanner*> const &consecutive
   if (consecutive_lines.size () == 2)
     {
       vector<Grob*> left_figs;
-      for (vsize j = consecutive_lines.size(); j--;)
+      for (vsize j = consecutive_lines.size (); j--;)
 	left_figs.push_back (consecutive_lines[j]->get_bound (LEFT));
 
       SCM  ga = Grob_array::make_array ();
       unsmob_grob_array (ga)->set_array (left_figs);
 
-      for (vsize j = consecutive_lines.size(); j--;)
+      for (vsize j = consecutive_lines.size (); j--;)
 	consecutive_lines[j]->set_object ("figures",
 					  unsmob_grob_array (ga)->smobbed_copy ());
     }
@@ -200,14 +200,14 @@ void
 Figured_bass_engraver::center_repeated_continuations ()
 {  
   vector<Spanner*> consecutive_lines;
-  for (vsize i = 0; i <= groups_.size(); i++)
+  for (vsize i = 0; i <= groups_.size (); i++)
     {
       if (i < groups_.size ()
 	  && groups_[i].continuation_line_
 	  && (consecutive_lines.empty ()
-	      || (consecutive_lines[0]->get_bound(LEFT)->get_column ()
+	      || (consecutive_lines[0]->get_bound (LEFT)->get_column ()
 	          == groups_[i].continuation_line_->get_bound (LEFT)->get_column ()
-		  && consecutive_lines[0]->get_bound(RIGHT)->get_column ()
+		  && consecutive_lines[0]->get_bound (RIGHT)->get_column ()
 	          == groups_[i].continuation_line_->get_bound (RIGHT)->get_column ())))
 	consecutive_lines.push_back (groups_[i].continuation_line_);	  
       else 
@@ -231,7 +231,7 @@ Figured_bass_engraver::clear_spanners ()
     }
 
   if (to_boolean (get_property ("figuredBassCenterContinuations")))
-    center_repeated_continuations();
+    center_repeated_continuations ();
   
   for (vsize i = 0; i < groups_.size (); i++)
     {
@@ -354,7 +354,7 @@ Figured_bass_engraver::process_music ()
   if (use_extenders)
     {
       vector<int> junk_continuations;
-      for (vsize i = 0; i < groups_.size(); i++)
+      for (vsize i = 0; i < groups_.size (); i++)
 	{
 	  Figure_group &group = groups_[i];
 
@@ -389,7 +389,7 @@ Figured_bass_engraver::process_music ()
 	{
 	  for (vsize i = 0; i <= junk_continuations.size (); i++)
 	    {
-	      if (i < junk_continuations.size()
+	      if (i < junk_continuations.size ()
 		  && (i == 0 || junk_continuations[i-1] == junk_continuations[i] - 1))
 		consecutive.push_back (groups_[junk_continuations[i]].continuation_line_);
 	      else 
@@ -421,7 +421,7 @@ Figured_bass_engraver::create_grobs ()
   alignment_->set_bound (RIGHT, muscol);
 
   SCM proc = get_property ("figuredBassFormatter");
-  for (vsize i = 0; i < groups_.size(); i++)
+  for (vsize i = 0; i < groups_.size (); i++)
     {
       Figure_group &group = groups_[i];
       

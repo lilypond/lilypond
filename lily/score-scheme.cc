@@ -21,7 +21,6 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 	   "Return score with @var{music} encapsulated in @var{score}.")
 {
   LY_ASSERT_SMOB (Music, music, 1);
-  Music *mus = unsmob_music (music);
 
   Score *score = new Score;
   score->set_music (music);
@@ -38,7 +37,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 
   SCM l = SCM_EOL;
   for (vsize i = 0; i < sc->defs_.size (); i++)
-    l = scm_cons (sc->defs_[i]->self_scm(), l);
+    l = scm_cons (sc->defs_[i]->self_scm (), l);
   return scm_reverse_x (l, SCM_EOL);
 }
 

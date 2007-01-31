@@ -30,7 +30,6 @@ public:
 
   DECLARE_SCHEME_CALLBACK (undump, (SCM));
   DECLARE_SCHEME_CALLBACK (dump, (SCM));
-
 };
 
 #define in_event_class(class_name) internal_in_event_class (ly_symbol2scm (class_name))

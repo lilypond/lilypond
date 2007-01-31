@@ -208,7 +208,7 @@ remove_collision (Dot_configuration &cfg, int p)
     }
 }
 
-MAKE_SCHEME_CALLBACK(Dot_column, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
 SCM
 Dot_column::calc_positioning_done (SCM smob)
 {

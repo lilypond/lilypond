@@ -19,20 +19,20 @@
 #include "warn.hh"
 
 /*
-  We use the following optimal substructure. Let W(A) be our weight function.
+  We use the following optimal substructure. Let W (A) be our weight function.
 
-  Let A_{k,n} = (a_{k,n,1}, ... a_{k,n,k}) be the optimal set of line breaks
-  for k systems and n potential breakpoints. a_{k,n,k} = n (it is the end of
+  Let A_{k, n} = (a_{k, n,1}, ... a_{k, n, k}) be the optimal set of line breaks
+  for k systems and n potential breakpoints. a_{k, n, k} = n (it is the end of
   the piece)
 
   Then A_{k+1, m} is contructed from
-  min_ {k < j < m} ( W(A_{k,j} :: m) )
+  min_ {k < j < m} ( W (A_{k, j} :: m) )
   where by A::m we denote appending m to the list A
 
   Indices in the code:
 
   The above algorithm makes it easy to end at a point before the end of the
-  score (just find A_{k,m} for some m < breaks_.size () - 1). However, we must
+  score (just find A_{k, m} for some m < breaks_.size () - 1). However, we must
   add information for starting at a point after the beginning. One constructor
   allows the specification of a list of starting columns, start_. We then have
   start_.size () different solution arrays. state_[i] is the array for the
@@ -48,12 +48,12 @@
        .         .         .     .
        .         .         .       .
   where the X's mark invalid solutions (can't have more systems than
-  breakpoints). Note that each value is of the form a_{x,n,x}. This is because
-  a breakpoint of the form a_{x,n,x-1} will also be called a_{x-1,m,x-1} for
+  breakpoints). Note that each value is of the form a_{x, n, x}. This is because
+  a breakpoint of the form a_{x, n, x-1} will also be called a_{x-1, m, x-1} for
   some m < n. Each cell in the array stores the value of its m (ie. the
   ending breakpoint of the previous line) as "prev_".
 
-  For finding A_{sys, brk}, let "me" be the (sys_count,brk) cell in our
+  For finding A_{sys, brk}, let "me" be the (sys_count, brk) cell in our
   solution array (state_[start][sys * rank + brk]).
 
   Then A_{sys, brk} = A_{sys - 1, me.prev_} :: me
@@ -109,15 +109,6 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   return found_something;
 }
 
-vector<Column_x_positions>
-Constrained_breaking::solve ()
-{
-  if (!systems_)
-    return get_best_solution (0, VPOS);
-
-  resize (systems_);
-  return get_solution(0, VPOS, systems_);
-}
 
 Column_x_positions
 Constrained_breaking::space_line (vsize i, vsize j)
@@ -127,7 +118,7 @@ Constrained_breaking::space_line (vsize i, vsize j)
   Column_x_positions col;
 
   vector<Grob*> line (all_.begin () + breaks_[i],
-		      all_.begin() + breaks_[j] + 1);
+		      all_.begin () + breaks_[j] + 1);
   Interval line_dims = line_dimensions_int (pscore_->layout (), i);
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
@@ -156,7 +147,7 @@ Constrained_breaking::resize (vsize systems)
 }
 
 vector<Column_x_positions>
-Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
+Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
 {
   vsize start_brk = starting_breakpoints_[start];
   vsize end_brk = prepare_solution (start, end, sys_count);
@@ -190,16 +181,16 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
         }
     }
   /* if we get to here, just put everything on one line */
-  warning (_ ("cannot find line breaking that satisfies constraints" ));
+  warning (_ ("cannot find line breaking that satisfies constraints"));
   ret.push_back (space_line (0, end_brk));
   return ret;
 }
 
 vector<Column_x_positions>
-Constrained_breaking::get_best_solution (vsize start, vsize end)
+Constrained_breaking::best_solution (vsize start, vsize end)
 {
-  vsize min_systems =  get_min_systems (start, end);
-  vsize max_systems = get_max_systems (start, end);
+  vsize min_systems =  min_system_count (start, end);
+  vsize max_systems = max_system_count (start, end);
   Real best_demerits = infinity_f;
   vector<Column_x_positions> best_so_far;
 
@@ -211,11 +202,11 @@ Constrained_breaking::get_best_solution (vsize start, vsize end)
       if (dem < best_demerits)
 	{
 	  best_demerits = dem;
-	  best_so_far = get_solution (start, end, i);
+	  best_so_far = solve (start, end, i);
 	}
       else
 	{
-	  vector<Column_x_positions> cur = get_solution (start, end, i);
+	  vector<Column_x_positions> cur = solve (start, end, i);
 	  bool too_many_lines = true;
 	  
 	  for (vsize j = 0; j < cur.size (); j++)
@@ -230,11 +221,11 @@ Constrained_breaking::get_best_solution (vsize start, vsize end)
     }
   if (best_so_far.size ())
     return best_so_far;
-  return get_solution (start, end, max_systems);
+  return solve (start, end, max_systems);
 }
 
 std::vector<Line_details>
-Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
+Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 {
   vsize brk = prepare_solution (start, end, sys_count);
   Matrix<Constrained_break_node> const &st = state_[start];
@@ -250,7 +241,7 @@ Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
 }
 
 int
-Constrained_breaking::get_min_systems (vsize start, vsize end)
+Constrained_breaking::min_system_count (vsize start, vsize end)
 {
   vsize sys_count;
   vsize brk = prepare_solution (start, end, 1);
@@ -272,7 +263,7 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
 }
 
 int
-Constrained_breaking::get_max_systems (vsize start, vsize end)
+Constrained_breaking::max_system_count (vsize start, vsize end)
 {
   vsize brk = (end >= start_.size ()) ? breaks_.size () : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
@@ -352,7 +343,7 @@ Constrained_breaking::initialize ()
 
 	  line.force_ = forces[i*breaks_.size () + j];
 	  if (ragged && last && !isinf (line.force_))
-	    line.force_ = 0;
+	    line.force_ = (line.force_ < 0) ? infinity_f : 0;
 	  if (isinf (line.force_))
 	    break;
 

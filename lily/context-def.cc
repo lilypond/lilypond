@@ -87,7 +87,7 @@ Context_def::print_smob (SCM smob, SCM port, scm_print_state*)
 SCM
 Context_def::mark_smob (SCM smob)
 {
-  ASSERT_LIVE_IS_ALLOWED();
+  ASSERT_LIVE_IS_ALLOWED ();
   
   Context_def *me = (Context_def *) SCM_CELL_WORD_1 (smob);
 

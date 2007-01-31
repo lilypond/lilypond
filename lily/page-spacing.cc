@@ -138,7 +138,7 @@ uncompress_solution (vector<vsize> const &systems_per_page,
   return ret;
 }
 
-/* the cases for page_count = 1 or 2 can be done in O(n) time. Since they
+/* the cases for page_count = 1 or 2 can be done in O (n) time. Since they
    are by far the most common cases, we have special functions for them */
 static Spacing_result
 space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)

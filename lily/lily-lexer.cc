@@ -197,7 +197,7 @@ Lily_lexer::keyword_list () const
 			 scm_from_int (keytable_->table_[i].tokcode_),
 			 SCM_EOL);
 
-      tail = SCM_CDRLOC(*tail);
+      tail = SCM_CDRLOC (*tail);
     }
 
   return l;
@@ -341,7 +341,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Lily_lexer);
 SCM
 Lily_lexer::mark_smob (SCM s)
 {
-  ASSERT_LIVE_IS_ALLOWED();
+  ASSERT_LIVE_IS_ALLOWED ();
   
   Lily_lexer *lexer = (Lily_lexer *) SCM_CELL_WORD_1 (s);
 

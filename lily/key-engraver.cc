@@ -66,7 +66,7 @@ Key_engraver::create_key (bool is_default)
 
       SCM last = get_property ("lastKeySignature");
       SCM key = get_property ("keySignature");
-      bool extranatural = to_boolean(get_property("extraNatural"));
+      bool extranatural = to_boolean (get_property ("extraNatural"));
 
       if ((to_boolean (get_property ("printKeyCancellation"))
 	   || key == SCM_EOL)

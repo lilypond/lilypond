@@ -154,7 +154,7 @@ Paper_column_engraver::process_music ()
 			   && !measure_position (context ()).main_part_);
 
   /*
-    We can't do this in start_translation_timestep(), since time sig
+    We can't do this in start_translation_timestep (), since time sig
     changes won't have happened by then.
   */
   if (start_of_measure)
@@ -188,7 +188,13 @@ Paper_column_engraver::stop_translation_timestep ()
   items_.clear ();
 
   if (to_boolean (get_property ("forbidBreak")))
-    command_column_->set_property ("line-break-permission", SCM_EOL);
+    {
+      command_column_->set_property ("page-break-permission", SCM_EOL);
+      command_column_->set_property ("line-break-permission", SCM_EOL);
+      if (break_events_.size ())
+	warning (_f ("break event at moment %d/%d was overridden by some other event, are you using bar checks?",
+		     now_mom ().num (), now_mom ().den ()));
+    }
   else if (Paper_column::is_breakable (command_column_))
     {
       breaks_++;

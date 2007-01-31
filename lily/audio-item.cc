@@ -127,7 +127,7 @@ Audio_span_dynamic::render ()
 
   Real total_t = moment_to_real (dynamics_.back ()->get_column ()->when () - start);
   
-  for (vsize i = 1; i < dynamics_.size(); i ++)
+  for (vsize i = 1; i < dynamics_.size (); i ++)
     {
       Moment dt_moment = dynamics_[i]->get_column ()->when ()
 	- start;

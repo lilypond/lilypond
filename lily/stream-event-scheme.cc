@@ -15,7 +15,7 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
   LY_ASSERT_TYPE (ly_is_symbol, cl, 1);
 
   /* should be scm_list_p, but scm_list_p is expensive. */
-  LY_ASSERT_TYPE(scm_is_pair, proplist, 2);
+  LY_ASSERT_TYPE (scm_is_pair, proplist, 2);
   
   if (proplist == SCM_UNDEFINED)
     proplist = SCM_EOL;

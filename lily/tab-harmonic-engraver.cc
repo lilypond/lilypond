@@ -25,7 +25,7 @@ protected:
   DECLARE_ACKNOWLEDGER (note_head);
 };
 
-Tab_harmonic_engraver::Tab_harmonic_engraver()
+Tab_harmonic_engraver::Tab_harmonic_engraver ()
 {
 }
 

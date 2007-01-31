@@ -125,7 +125,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
     de_grace ();
 
   if (infos_[0].start_moment_ < Moment (0))
-    for (vsize i = 0; i < infos_.size(); i++)
+    for (vsize i = 0; i < infos_.size (); i++)
       infos_[i].start_moment_ += options.measure_length_;
   
   Moment measure_pos (0);
@@ -134,7 +134,7 @@ Beaming_pattern::beamify (Beaming_options const &options)
   vector<Moment> beat_starts;
 
   SCM grouping = options.grouping_;
-  while (measure_pos <= infos_.back().start_moment_)
+  while (measure_pos <= infos_.back ().start_moment_)
     {
       int count = 2;
       if (scm_is_pair (grouping))
@@ -153,9 +153,9 @@ Beaming_pattern::beamify (Beaming_options const &options)
    
   vsize j = 0;
   vsize k = 0;
-  for (vsize i = 0; i  < infos_.size(); i++)
+  for (vsize i = 0; i  < infos_.size (); i++)
     {
-      while (j + 1 < group_starts.size()
+      while (j + 1 < group_starts.size ()
 	     && group_starts[j+1] <= infos_[i].start_moment_)
 	j++;
 
@@ -163,11 +163,11 @@ Beaming_pattern::beamify (Beaming_options const &options)
 	infos_[i].group_start_ = group_starts[j];
       
       infos_[i].beat_length_ = options.beat_length_;  
-      while (k + 1 < beat_starts.size() 
+      while (k + 1 < beat_starts.size () 
 	     && beat_starts[k+1] <= infos_[i].start_moment_)
 	k++;
 
-      if (k < beat_starts.size())
+      if (k < beat_starts.size ())
 	infos_[i].beat_start_ = beat_starts[k];
     }
   

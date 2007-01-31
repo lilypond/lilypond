@@ -32,6 +32,7 @@ SCM add_interface (char const *cxx_name,
 		    char const *vars);
 
 SCM ly_add_interface (SCM, SCM, SCM);
+void internal_add_interface (SCM, SCM, SCM);
 SCM ly_all_grob_interfaces ();
 
 #endif /* INTERFACE_HH */

@@ -33,7 +33,6 @@ protected:
 
   DECLARE_END_ACKNOWLEDGER (staff_symbol);
   DECLARE_ACKNOWLEDGER (staff_symbol);
-  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (bar_line);
 
   virtual void finalize ();
@@ -176,13 +175,6 @@ Volta_engraver::process_music ()
 }
 
 void
-Volta_engraver::acknowledge_note_column (Grob_info i)
-{
-  if (volta_span_)
-    Volta_bracket_interface::add_column (volta_span_, i.grob ());
-}
-
-void
 Volta_engraver::acknowledge_bar_line (Grob_info i)
 {
   if (volta_span_)
@@ -255,7 +247,6 @@ Volta_engraver::stop_translation_timestep ()
 */
 ADD_ACKNOWLEDGER (Volta_engraver, staff_symbol);
 ADD_END_ACKNOWLEDGER (Volta_engraver, staff_symbol);
-ADD_ACKNOWLEDGER (Volta_engraver, note_column);
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
 		/* doc */ "Make volta brackets.",

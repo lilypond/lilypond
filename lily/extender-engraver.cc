@@ -35,7 +35,9 @@ public:
 protected:
   DECLARE_TRANSLATOR_LISTENER (extender);
   DECLARE_ACKNOWLEDGER (lyric_syllable);
+
   virtual void finalize ();
+
   void stop_translation_timestep ();
   void process_music ();
 };
@@ -100,7 +102,8 @@ Extender_engraver::stop_translation_timestep ()
 	}
       else
 	{
-	  if (pending_extender_)
+	  if (pending_extender_
+	      && !get_property ("extendersOverRests"))
 	    {
 	      completize_extender (pending_extender_);
 	      pending_extender_ = 0;
@@ -154,5 +157,5 @@ ADD_ACKNOWLEDGER (Extender_engraver, lyric_syllable);
 ADD_TRANSLATOR (Extender_engraver,
 		/* doc */ "Create lyric extenders",
 		/* create */ "LyricExtender",
-		/* read */ "",
+		/* read */ "extendersOverRests",
 		/* write */ "");
