@@ -206,6 +206,8 @@ note, one above and one below the chord.")
 changes. @samp{\\override} of the @code{break-visibility} property will set the
 visibility for normal (i.e. at the start of the line) key signatures.")
 
+     (extendersOverRests ,boolean? "Whether to continue extenders as
+they cross a rest.")
      (extraNatural ,boolean? "Whether to typeset an
 extra natural sign before accidentals changing from a non-natural to 
 another non-natural.")
