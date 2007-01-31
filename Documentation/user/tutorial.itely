@@ -823,7 +823,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \times 2/3 { f8 g a }
 \times 2/3 { c r c }
-\times 2/3 { f,8 g16 a g a }
+\times 2/3 { f,8 g16[ a g a] }
 \times 2/3 { d4 a8 }
 @end lilypond
 
