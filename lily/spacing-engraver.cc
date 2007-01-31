@@ -174,7 +174,7 @@ Spacing_engraver::add_starter_duration (Grob_info i)
       Stream_event *r = i.event_cause ();
       if (r && r->in_event_class ("rhythmic-event"))
 	{
-	  Moment len = get_event_length (r);
+	  Moment len = get_event_length (r, now_);
 	  Rhythmic_tuple t (i, now_mom () + len);
 	  now_durations_.push_back (t);
 	}
@@ -211,6 +211,7 @@ Spacing_engraver::stop_translation_timestep ()
       Stream_event *ev = playing_durations_[i].info_.event_cause ();
       if (ev)
 	{
+	  Moment now = now_mom ();
 	  Moment m = get_event_length (ev);
 	  shortest_playing = min (shortest_playing, m);
 	}

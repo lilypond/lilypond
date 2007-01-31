@@ -67,16 +67,10 @@ Grob_pq_engraver::acknowledge_grob (Grob_info gi)
       && !gi.grob ()->internal_has_interface (ly_symbol2scm ("multi-measure-interface")))
     {
       Moment n = now_mom ();
-      Moment l = get_event_length (ev);
+      Moment l = get_event_length (ev, n);
 
       if (!l.to_bool ())
 	return;
-
-      if (n.grace_part_)
-	{
-	  l.grace_part_ = l.main_part_;
-	  l.main_part_ = 0;
-	}
 
       Moment end = n + l;
 

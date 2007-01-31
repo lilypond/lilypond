@@ -85,14 +85,8 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
   note_events_.push_back (ev);
   
   is_first_ = true;
-  Moment musiclen = get_event_length (ev);
   Moment now = now_mom ();
-
-  if (now_mom ().grace_part_)
-    {
-      musiclen.grace_part_ = musiclen.main_part_;
-      musiclen.main_part_ = Rational (0, 1);
-    }
+  Moment musiclen = get_event_length (ev, now);
 
   note_end_mom_ = max (note_end_mom_, (now + musiclen));
   do_nothing_until_ = Rational (0, 0);

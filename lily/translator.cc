@@ -295,6 +295,7 @@ generic_get_acknowledger (SCM sym, vector<Acknowledge_information> const *ack_ar
   return 0;
 }
 
+
 Moment
 get_event_length (Stream_event *e)
 {
@@ -303,6 +304,19 @@ get_event_length (Stream_event *e)
     return *m;
   else
     return Moment (0);
+}
+
+Moment
+get_event_length (Stream_event *e, Moment now)
+{
+  Moment len = get_event_length (e);
+  
+  if (now.grace_part_)
+    {
+      len.grace_part_ = len.main_part_;
+      len.main_part_ = Rational (0);
+    }
+  return len;
 }
 
 /*

@@ -50,7 +50,7 @@ Slash_repeat_engraver::listen_percent (Stream_event *ev)
   
   if (get_event_length (ev) < meas_length)
     ASSIGN_EVENT_ONCE (slash_, ev);
-
+  
   /*
     don't warn if nothing happens: this can happen if there are whole
     measure repeats.

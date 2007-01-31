@@ -67,12 +67,7 @@ Note_performer::process_music ()
 		tie_event = ev;
 	    }
 
-	  Moment len = get_event_length (n);
-	  if (now_mom ().grace_part_)
-	    {
-	      len.grace_part_ = len.main_part_;
-	      len.main_part_ = Rational (0);
-	    }
+	  Moment len = get_event_length (n, now_mom ());
 	  
 	  Audio_note *p = new Audio_note (*pitp, len, 
 					  tie_event, transposing.negated ());
