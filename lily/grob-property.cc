@@ -280,3 +280,38 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
   return scm_apply_0 (scm_call_pure_function,
 		      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
 }
+
+
+/*
+  PROP_PATH should be big-to-small ordering
+ */
+SCM 
+nested_property_alist (SCM alist, SCM prop_path, SCM value)
+{
+  SCM new_value = SCM_BOOL_F;
+  if (scm_is_pair (scm_cdr (prop_path)))
+    {
+      SCM sub_alist = ly_assoc_get (scm_car (prop_path), alist, SCM_EOL);
+      new_value = nested_property_alist (sub_alist, scm_cdr (prop_path), value);
+    }
+  else
+    {
+      new_value = value;
+    }
+  
+  return scm_acons (scm_car (prop_path), new_value, alist);
+}
+
+
+void
+set_nested_property (Grob *me, SCM property_path, SCM value)
+{
+  SCM big_to_small = scm_reverse (property_path);
+  SCM alist = me->get_property (scm_car (big_to_small));
+
+  alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
+  
+  me->set_property (scm_car (big_to_small),
+		    alist);
+}
+
