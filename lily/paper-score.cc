@@ -106,9 +106,9 @@ Paper_score::calc_breaking ()
 
   int system_count = robust_scm2int (layout ()->c_variable ("system-count"), 0);
   if (system_count)
-    algorithm.resize (system_count);
+    return algorithm.solve (0, VPOS, system_count);
 
-  return algorithm.solve ();
+  return algorithm.best_solution (0, VPOS);
 }
 
 void
@@ -152,6 +152,7 @@ Paper_score::get_paper_systems ()
       vector<Column_x_positions> breaking = calc_breaking ();
       system_->break_into_pieces (breaking);
       message (_ ("Drawing systems...") + " ");
+      system_->do_break_substitution_and_fixup_refpoints ();
       paper_systems_ = system_->get_paper_systems ();
     }
   return paper_systems_;

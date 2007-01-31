@@ -157,10 +157,6 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	  \override Stem #'stemlet-length = #0.5
 	  \override Slur #'height-limit = #1.5
 	}
-	\context {
-	  \PianoStaff
-	  \override VerticalAlignment #'forced-distance = #10
-	}
       }
       
   \midi {

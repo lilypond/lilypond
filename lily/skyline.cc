@@ -582,6 +582,12 @@ Skyline::to_points () const
   return out;
 }
 
+bool
+Skyline::is_empty () const
+{
+  return buildings_.empty ();
+}
+
 Skyline_pair::Skyline_pair ()
   : skylines_ (Skyline (DOWN), Skyline (UP))
 {
@@ -623,6 +629,13 @@ Skyline_pair::merge (Skyline_pair const &other)
 {
   skylines_[UP].merge (other[UP]);
   skylines_[DOWN].merge (other[DOWN]);
+}
+
+bool
+Skyline_pair::is_empty () const
+{
+  return skylines_[UP].is_empty ()
+    && skylines_[DOWN].is_empty ();
 }
 
 Skyline&

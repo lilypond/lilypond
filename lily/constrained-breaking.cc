@@ -109,15 +109,6 @@ Constrained_breaking::calc_subproblem (vsize start, vsize sys, vsize brk)
   return found_something;
 }
 
-vector<Column_x_positions>
-Constrained_breaking::solve ()
-{
-  if (!systems_)
-    return get_best_solution (0, VPOS);
-
-  resize (systems_);
-  return get_solution (0, VPOS, systems_);
-}
 
 Column_x_positions
 Constrained_breaking::space_line (vsize i, vsize j)
@@ -156,7 +147,7 @@ Constrained_breaking::resize (vsize systems)
 }
 
 vector<Column_x_positions>
-Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
+Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
 {
   vsize start_brk = starting_breakpoints_[start];
   vsize end_brk = prepare_solution (start, end, sys_count);
@@ -190,16 +181,16 @@ Constrained_breaking::get_solution (vsize start, vsize end, vsize sys_count)
         }
     }
   /* if we get to here, just put everything on one line */
-  warning (_ ("cannot find line breaking that satisfies constraints" ));
+  warning (_ ("cannot find line breaking that satisfies constraints"));
   ret.push_back (space_line (0, end_brk));
   return ret;
 }
 
 vector<Column_x_positions>
-Constrained_breaking::get_best_solution (vsize start, vsize end)
+Constrained_breaking::best_solution (vsize start, vsize end)
 {
-  vsize min_systems =  get_min_systems (start, end);
-  vsize max_systems = get_max_systems (start, end);
+  vsize min_systems =  min_system_count (start, end);
+  vsize max_systems = max_system_count (start, end);
   Real best_demerits = infinity_f;
   vector<Column_x_positions> best_so_far;
 
@@ -211,11 +202,11 @@ Constrained_breaking::get_best_solution (vsize start, vsize end)
       if (dem < best_demerits)
 	{
 	  best_demerits = dem;
-	  best_so_far = get_solution (start, end, i);
+	  best_so_far = solve (start, end, i);
 	}
       else
 	{
-	  vector<Column_x_positions> cur = get_solution (start, end, i);
+	  vector<Column_x_positions> cur = solve (start, end, i);
 	  bool too_many_lines = true;
 	  
 	  for (vsize j = 0; j < cur.size (); j++)
@@ -230,11 +221,11 @@ Constrained_breaking::get_best_solution (vsize start, vsize end)
     }
   if (best_so_far.size ())
     return best_so_far;
-  return get_solution (start, end, max_systems);
+  return solve (start, end, max_systems);
 }
 
 std::vector<Line_details>
-Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
+Constrained_breaking::line_details (vsize start, vsize end, vsize sys_count)
 {
   vsize brk = prepare_solution (start, end, sys_count);
   Matrix<Constrained_break_node> const &st = state_[start];
@@ -250,7 +241,7 @@ Constrained_breaking::get_details (vsize start, vsize end, vsize sys_count)
 }
 
 int
-Constrained_breaking::get_min_systems (vsize start, vsize end)
+Constrained_breaking::min_system_count (vsize start, vsize end)
 {
   vsize sys_count;
   vsize brk = prepare_solution (start, end, 1);
@@ -272,7 +263,7 @@ Constrained_breaking::get_min_systems (vsize start, vsize end)
 }
 
 int
-Constrained_breaking::get_max_systems (vsize start, vsize end)
+Constrained_breaking::max_system_count (vsize start, vsize end)
 {
   vsize brk = (end >= start_.size ()) ? breaks_.size () : starting_breakpoints_[end];
   return brk - starting_breakpoints_[start];
@@ -352,7 +343,7 @@ Constrained_breaking::initialize ()
 
 	  line.force_ = forces[i*breaks_.size () + j];
 	  if (ragged && last && !isinf (line.force_))
-	    line.force_ = 0;
+	    line.force_ = (line.force_ < 0) ? infinity_f : 0;
 	  if (isinf (line.force_))
 	    break;
 

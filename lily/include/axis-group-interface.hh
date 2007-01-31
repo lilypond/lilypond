@@ -25,6 +25,7 @@ struct Axis_group_interface
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (combine_skylines, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_max_stretch, (SCM smob));
   static Interval relative_group_extent (vector<Grob*> const &list,
 					 Grob *common, Axis);
   static Interval relative_pure_height (Grob *me, vector<Grob*> const &list,

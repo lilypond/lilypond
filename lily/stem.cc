@@ -239,6 +239,10 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
 
   if (!is_normal_stem (me))
     return ly_interval2scm (iv);
+
+  /* if we are part of a cross-staff beam, return empty */
+  if (get_beam (me) && Beam::is_cross_staff (get_beam (me)))
+    return ly_interval2scm (iv);
   
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real len = scm_to_double (calc_length (smob)) * ss / 2;
@@ -999,6 +1003,20 @@ Stem::beam_multiplicity (Grob *stem)
   Slice ri = int_list_to_slice (scm_cdr (beaming));
   le.unite (ri);
   return le;
+}
+
+bool
+Stem::is_cross_staff (Grob *stem)
+{
+  Grob *beam = unsmob_grob (stem->get_object ("beam"));
+  return beam && Beam::is_cross_staff (beam);
+}
+
+MAKE_SCHEME_CALLBACK (Stem, cross_staff, 1)
+SCM
+Stem::cross_staff (SCM smob)
+{
+  return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }
 
 /* FIXME:  Too many properties  */

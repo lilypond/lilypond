@@ -613,6 +613,7 @@ ADD_INTERFACE (Grob,
 	       "before-line-breaking "
 	       "cause "
 	       "color "
+	       "cross-staff "
 	       "extra-X-extent "
 	       "extra-Y-extent "
 	       "extra-offset "

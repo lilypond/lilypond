@@ -695,7 +695,7 @@ Beam::consider_auto_knees (Grob *me)
 	    sets stem directions, a constant shift does not have an
 	    influence.
 	  */
-	  head_extents += stem->relative_coordinate (common, Y_AXIS);
+	  head_extents += stem->pure_relative_y_coordinate (common, 0, INT_MAX);
 
 	  if (to_dir (stem->get_property_data ("direction")))
 	    {
@@ -974,7 +974,6 @@ Beam::shift_region_to_valid (SCM grob, SCM posns)
   Real dx = lvs->relative_coordinate (commonx, X_AXIS) - x0;
 
   Drul_array<Real> pos = ly_scm2interval (posns);
-  
 
   scale_drul (&pos, Staff_symbol_referencer::staff_space (me));
 
@@ -1419,6 +1418,24 @@ Beam::is_knee (Grob *me)
   me->set_property ("knee", ly_bool2scm (knee));
 
   return knee;
+}
+
+bool
+Beam::is_cross_staff (Grob *me)
+{
+  extract_grob_set (me, "stems", stems);
+  Grob *staff_symbol = Staff_symbol_referencer::get_staff_symbol (me);
+  for (vsize i = 0; i < stems.size (); i++)
+    if (Staff_symbol_referencer::get_staff_symbol (stems[i]) != staff_symbol)
+      return true;
+  return false;
+}
+
+MAKE_SCHEME_CALLBACK (Beam, cross_staff, 1)
+SCM
+Beam::cross_staff (SCM smob)
+{
+  return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }
 
 int

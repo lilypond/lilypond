@@ -484,7 +484,6 @@ staves inside a system.
 
 @menu
 * Vertical spacing inside a system::  
-* Vertical spacing of piano staves::  
 * Vertical spacing between systems::  
 * Controlling spacing of individual systems::  
 * Two-pass vertical spacing::
@@ -536,53 +535,6 @@ the @internalsref{Axis_group_engraver}.
 
 Example files: @inputfileref{input/regression/,page-spacing.ly},
 @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
-
-
-@node Vertical spacing of piano staves
-@subsection Vertical spacing of piano staves
-
-The distance between staves of a @internalsref{PianoStaff} cannot be
-computed during formatting.  Rather, to make cross-staff beaming work
-correctly, that distance has to be fixed beforehand.
-
-The distance of staves in a @code{PianoStaff} is set with the
-@code{forced-distance} property of the
-@internalsref{VerticalAlignment} object, created in
-@internalsref{PianoStaff}.
-
-It can be adjusted as follows
-@example
-\new PianoStaff \with @{
-  \override VerticalAlignment #'forced-distance = #7
-@} @{
-  ...
-@}
-@end example
-
-@noindent
-This would bring the staves together at a distance of 7 staff spaces,
-measured from the center line of each staff.
-
-The difference is demonstrated in the following example,
-@lilypond[quote,verbatim]
-\relative c'' <<
-  \new PianoStaff \with {
-    \override VerticalAlignment #'forced-distance = #7
-  } <<
-    \new Staff { c1 }
-    \new Staff { c }
-  >>
-  \new PianoStaff <<
-    \new Staff { c }
-    \new Staff { c }
-  >>
->>
-@end lilypond
-
-
-@seealso
-
-Example files: @inputfileref{input/regression/,alignment-vertical-spacing.ly}.
 
 
 @node Vertical spacing between systems

@@ -128,7 +128,12 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  x.add_point (stem->relative_coordinate (x_refpoint_, X_AXIS));
 	  x.widen (staff_space / 20); // ugh.
 	  Interval y;
-	  y.add_point (Stem::stem_end_position (stem) * staff_space * .5);
+	  Real stem_end_position =
+	    Stem::is_cross_staff (stem)
+	    ? get_grob_direction (stem) * infinity_f
+	    : Stem::stem_end_position (stem) * staff_space * .5;
+
+	  y.add_point (stem_end_position);
 
 	  Direction stemdir = get_grob_direction (stem);
 	  y.add_point (Stem::head_positions (stem)[-stemdir]

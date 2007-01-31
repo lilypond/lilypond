@@ -29,7 +29,6 @@ public:
   TRANSLATOR_DECLARATIONS (Trill_spanner_engraver);
 protected:
   virtual void finalize ();
-  DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_TRANSLATOR_LISTENER (trill_span);
   void stop_translation_timestep ();
   void process_music ();
@@ -89,20 +88,6 @@ Trill_spanner_engraver::process_music ()
 }
 
 void
-Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
-{
-  Spanner *spans[2] ={span_, finished_};
-  for (int i = 0; i < 2; i++)
-    {
-      if (spans[i])
-	{
-	  Side_position_interface::add_support (spans[i], info.grob ());
-	  add_bound_item (spans[i], info.grob ());
-	}
-    }
-}
-
-void
 Trill_spanner_engraver::typeset_all ()
 {
   if (finished_)
@@ -141,7 +126,6 @@ Trill_spanner_engraver::finalize ()
     }
 }
 
-ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 ADD_TRANSLATOR (Trill_spanner_engraver,
 		/* doc */ "Create trill spanner from an event.",
 		/* create */
