@@ -80,7 +80,6 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
     {
       programming_error ("did not find a valid page breaking configuration");
       ignore_div = true;
-      assert (0);
     }
 
   for (vsize i = 0; i + 1 < chunks.size (); i++)
