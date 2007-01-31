@@ -347,7 +347,10 @@ class FileLink:
         
     def text_record_string (self):
         return '%-30f %-20s\n' % (self.distance (),
-                                  self.name ())
+                                  self.name ()
+                                  + os.path.splitext (self.file_names[1])[1]
+                                  )
+    
     def calc_distance (self):
         return 0.0
 
@@ -433,6 +436,7 @@ class FileCompareLink (FileLink):
             return 0.0
         else:
             return 100.0;
+
         
     def get_content (self, f):
         print 'reading', f
@@ -460,6 +464,7 @@ class GitFileCompareLink (FileCompareLink):
             d = 1.0001 *options.threshold
 
         return d
+
         
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
