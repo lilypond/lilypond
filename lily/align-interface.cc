@@ -220,7 +220,9 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
 	}
 
-      where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
+      dy = max (0.0, dy + padding + extra_space / elems.size ());
+      down_skyline.raise (-stacking_dir * dy);
+      where += stacking_dir * dy;
       translates.push_back (where);
     }
 
