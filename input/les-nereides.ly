@@ -36,7 +36,7 @@ treble = \new Voice \relative c''{
 
     \change Staff=bass
 
-    \once\override TextScript  #'extra-offset = #'(-3 . -4) %tweak
+%    \once\override TextScript  #'extra-offset = #'(-3 . -4) %tweak
     
     cis,16^2(^\markup {\small \italic "m.d." }\sustainUp
     <fis fis,>8 <e! e,!>
@@ -50,7 +50,7 @@ treble = \new Voice \relative c''{
 
     #(set-octavation 1)
 
-    \once\override TextScript  #'extra-offset = #'(-3 . -2) %tweak
+%    \once\override TextScript  #'extra-offset = #'(-3 . -2) %tweak
 	    
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
@@ -219,7 +219,7 @@ middleDynamics = {
 	s8
 	s16 s s
 	s32 s
-	\once\override Dynamics.Hairpin  #'extra-offset = #'(0 . 2) %tweak
+	%\once\override Dynamics.Hairpin  #'extra-offset = #'(0 . 2) %tweak
 	s\> s
 	s32 s s s\!
     
@@ -229,7 +229,7 @@ middleDynamics = {
     \emptyText
     | %5
     s2-"a tempo" s8
-    \once\override Dynamics.Hairpin  #'extra-offset = #'(1 . 0) %tweak
+    %\once\override Dynamics.Hairpin  #'extra-offset = #'(1 . 0) %tweak
     s \> s s
     | %6 
     s8\!
@@ -280,7 +280,6 @@ theScore = \score{
 	\context {
 	    \PianoStaff
 	    \accepts Dynamics
-	    \override VerticalAlignment #'forced-distance = #7
         }
     }
 }
