@@ -127,7 +127,7 @@ and how to view or print the output.
 @subsubheading MacOS X
 
 If you double click LilyPond.app, it will open with an example
-file. Save it, for example, to @file{test.ly} on your Desktop, and
+file.  Save it, for example, to @file{test.ly} on your Desktop, and
 then process it with the menu command @samp{Compile > Typeset File}.
 The resulting PDF file will be displayed on your screen.
 
@@ -157,7 +157,7 @@ the file and show the resulting PDF file.  To edit an existing
 @file{.ly} file, right-click on it and select @qq{Edit source}.
 
 If you double-click in the LilyPond icon on the Desktop, it will open
-a simple text editor with an example file. Save it, for example, to
+a simple text editor with an example file.  Save it, for example, to
 @file{test.ly} on your Desktop, and then double-click on the file to
 process it.  After some seconds, you will get a file @file{test.pdf}
 on your desktop.  Double-click on this PDF file to view the typeset
@@ -352,7 +352,7 @@ The @rglos{clef} can be set using the @code{\clef} command:
   \clef treble
   c1
   \clef alto
-	c1
+  c1
   \clef tenor
   c1
   \clef bass
@@ -823,7 +823,7 @@ of music is multiplied by the fraction.  Triplets make notes occupy
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \times 2/3 { f8 g a }
 \times 2/3 { c r c }
-\times 2/3 { f,8 g16 a g a }
+\times 2/3 { f,8 g16[ a g a] }
 \times 2/3 { d4 a8 }
 @end lilypond
 
@@ -837,7 +837,7 @@ can also be created by prefixing a music expression with the
 keyword @code{\appoggiatura} or @code{\acciaccatura}
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c2 \grace { a32 b} c2
+c2 \grace { a32[ b] } c2
 c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
@@ -1158,7 +1158,7 @@ Consider a simple melody:
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
   a4 e c8 e r4
-	b2 c4( d)
+  b2 c4( d)
 }
 @end lilypond
 
@@ -1170,7 +1170,7 @@ syllable with a space.
 <<
   \relative c'' {
     a4 e c8 e r4
-	  b2 c4( d)
+    b2 c4( d)
   }
   \addlyrics { One day this shall be free }
 >>
@@ -1186,7 +1186,7 @@ line}.  It is entered as two underscores @code{__}:
 <<
   \relative c'' {
     a4 e c8 e r4
-	  b2 c4( d)
+    b2 c4( d)
   }
   \addlyrics { One day this shall be free __ }
 >>
@@ -1220,9 +1220,6 @@ discussed in @ref{Vocal music}.
 @cindex chords
 @cindex chord names
 
-@c TODO: revise this, \chords { } is shorter and more intuitive.
-@c  I need help for this.  -gp
-
 In popular music it is common to denote accompaniment with chord names.
 Such chords can be entered like notes,
 
@@ -1230,12 +1227,10 @@ Such chords can be entered like notes,
 \chordmode { c2 f4. g8 }
 @end lilypond
 
-@noindent
 Now each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chordmode}
-
-Other chords can be created by adding modifiers after a colon.  The
-following example shows a few common modifiers
+This mode is switched on with @code{\chordmode}.  Other chords can be
+created by adding modifiers after a colon.  The
+following example shows a few common modifiers:
 
 @lilypond[quote,verbatim,ragged-right]
 \chordmode { c2 f4:m g4:maj7 gis1:dim7 }
@@ -1245,7 +1240,7 @@ For lead sheets, chords are not printed on staves, but as names on a
 line for themselves.  This is achieved by using @code{\chords} instead
 of @code{\chordmode}.  This uses the same syntax as @code{\chordmode},
 but renders the notes in a @code{ChordNames} context, with the
-following result.
+following result:
 
 @lilypond[quote,verbatim,ragged-right]
 \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
@@ -1253,22 +1248,25 @@ following result.
 
 @cindex lead sheet
 When put together, chord names, lyrics and a melody form
-a lead sheet, for example,
+a lead sheet,
 
 @lilypond[quote,verbatim,ragged-right]
-% FIXME: this melody needs to be changed.  See my new example in 2.4.1. -gp
 <<
-  \chords { r2 c:sus4 f }
-  \relative {
-    r4 c' \times 2/3 { f g g }
-    \times 2/3 { g4( a2) }
+  \chords { c2 g:sus4 f e }
+  \relative c'' {
+    a4 e c8 e r4
+    b2 c4( d)
   }
-  \addlyrics { I want to break free __ }
+  \addlyrics { One day this shall be free __ }
 >>
 @end lilypond
 
+
+@moreinfo
+@quotation
 A complete list of modifiers and other options for layout can be found
 in @ref{Chords}.
+@end quotation
 
 
 @node Final touches

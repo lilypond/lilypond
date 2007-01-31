@@ -27,8 +27,7 @@ public:
 protected:
   DECLARE_ACKNOWLEDGER (note_head);
   DECLARE_ACKNOWLEDGER (dots);
-  DECLARE_ACKNOWLEDGER (text_spanner);
-  void process_music ();
+  DECLARE_ACKNOWLEDGER (trill_spanner);
   void stop_translation_timestep ();
 
 private:
@@ -60,7 +59,7 @@ Pitched_trill_engraver::acknowledge_note_head (Grob_info info)
 }
 
 void
-Pitched_trill_engraver::acknowledge_text_spanner (Grob_info info)
+Pitched_trill_engraver::acknowledge_trill_spanner (Grob_info info)
 {
   Stream_event *ev = info.event_cause ();
   if (ev
@@ -132,17 +131,12 @@ Pitched_trill_engraver::stop_translation_timestep ()
   trill_accidental_ = 0;
 }
 
-void
-Pitched_trill_engraver::process_music ()
-{
-}
-
 
 #include "translator.icc"
 
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, note_head);
 ADD_ACKNOWLEDGER (Pitched_trill_engraver, dots);
-ADD_ACKNOWLEDGER (Pitched_trill_engraver, text_spanner);
+ADD_ACKNOWLEDGER (Pitched_trill_engraver, trill_spanner);
 
 ADD_TRANSLATOR (Pitched_trill_engraver,
 		/* doc */

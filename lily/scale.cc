@@ -66,9 +66,9 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
 	   1, 0, 0, (SCM scale),
 	   "Set the global default scale.")
 {
-  Scale *s = Scale::unsmob (scale);
-  SCM_ASSERT_TYPE (s, scale, SCM_ARG1, __FUNCTION__, "scale");
+  LY_ASSERT_SMOB (Scale, scale, 1);
 
+  Scale *s = Scale::unsmob (scale);
   if (default_global_scale)
     default_global_scale->unprotect ();
   default_global_scale = s;

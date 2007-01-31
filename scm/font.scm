@@ -359,5 +359,8 @@
     "Century Schoolbook L" 
     "Sans" "Mono" factor))
 
-(define-public (magstep x)
-  (exp (* (/ x 6) (log 2))))
+(define-public (magstep s)
+  (exp (* (/ s 6) (log 2))))
+
+(define-public (magnification->font-size m)
+  (* 6 (/ (log m) (log 2))))

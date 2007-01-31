@@ -30,6 +30,9 @@ SCM
 Align_interface::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   SCM axis = scm_car (me->get_property ("axes"));
   Axis ax = Axis (scm_to_int (axis));
 
@@ -205,13 +208,17 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 
   Real padding = robust_scm2double (me->get_property ("padding"), 0.0);
   vector<Real> translates;
+  Skyline down_skyline (stacking_dir);
   for (vsize j = 0; j < elems.size (); j++)
     {
       Real dy = 0;
       if (j == 0)
 	dy = skylines[j][-stacking_dir].max_height ();
       else
-	dy = skylines[j-1][stacking_dir].distance (skylines[j][-stacking_dir]);
+	{
+	  down_skyline.merge (skylines[j-1][stacking_dir]);
+	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
+	}
 
       where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
       translates.push_back (where);

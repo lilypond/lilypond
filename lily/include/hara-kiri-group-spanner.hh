@@ -17,6 +17,7 @@ class Hara_kiri_group_spanner
 public:
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (y_extent, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM smob));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM smob, SCM start, SCM end));
   DECLARE_SCHEME_CALLBACK (force_hara_kiri_in_y_parent_callback, (SCM));
   DECLARE_SCHEME_CALLBACK (after_line_breaking, (SCM));

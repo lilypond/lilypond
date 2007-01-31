@@ -25,6 +25,14 @@
   ADD_SCM_INIT_FUNC (init_type_ ## CL, init_type_ ## CL)
 
 #define IMPLEMENT_BASE_SMOBS(CL)					\
+  void \
+  CL ## _type_adder ()			\
+  {\
+    ly_add_type_predicate ((void*) &CL::unsmob, #CL);	\
+  }\
+  ADD_SCM_INIT_FUNC(CL ## _type_adder_ctor, \
+		    CL ## _type_adder);\
+  const char *CL::smob_name_ = #CL;					\
   scm_t_bits CL::smob_tag_;						\
   SCM									\
   CL::smob_p (SCM s)							\

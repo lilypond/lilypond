@@ -1,5 +1,5 @@
 /*
-  lily-guile-macros.hh -- declare
+  lily-guile-macros.hh -- declare GUILE interaction macros.
 
   source file of the GNU LilyPond music typesetter
 
@@ -24,9 +24,6 @@
 /* Unreliable with gcc-2.x
    FIXME: should add check for x86 as well?  */
 #define CACHE_SYMBOLS
-
-
-
 
 #ifdef CACHE_SYMBOLS
 
@@ -94,33 +91,57 @@ inline SCM ly_symbol2scm (char const *x) { return scm_str2symbol ((x)); }
 #define DECLARE_SCHEME_CALLBACK(NAME, ARGS)	\
   static SCM NAME ARGS;				\
   static SCM NAME ## _proc
- 
+#define ADD_TYPE_PREDICATE(func, type_name) \
+  void \
+  func ## _type_adder ()			\
+  {\
+    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);	\
+  }\
+  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
+		    func ## _type_adder);
+#define ADD_TYPE_PREDICATE(func, type_name) \
+  void \
+  func ## _type_adder ()			\
+  {\
+    ly_add_type_predicate ((Type_predicate_ptr)func, type_name);	\
+  }\
+  ADD_SCM_INIT_FUNC(func ## _type_adder_ctor, \
+		    func ## _type_adder);
+
+string mangle_cxx_identifier (string);
+
+void ly_add_type_predicate (void *ptr, string name);
+string predicate_to_typename (void *ptr);
+
 /*
   Make TYPE::FUNC available as a Scheme function.
 */
-string mangle_cxx_identifier (string);
-#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT)	\
+#define MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, OPTIONAL_COUNT, DOC) \
   SCM TYPE ::FUNC ## _proc;						\
   void									\
   TYPE ## _ ## FUNC ## _init_functions ()				\
   {									\
-    string id = mangle_cxx_identifier (string (#TYPE) + "::" + string (#FUNC)); \
+    string cxx = string (#TYPE) + "::" + string (#FUNC); \
+    string id = mangle_cxx_identifier (cxx); \
     TYPE ::FUNC ## _proc = scm_c_define_gsubr (id.c_str(),			\
 					       (ARGCOUNT-OPTIONAL_COUNT), OPTIONAL_COUNT, 0,	\
 					       (Scheme_function_unknown) TYPE::FUNC); \
+    ly_add_function_documentation (TYPE :: FUNC ## _proc, id.c_str(), "", \
+				   DOC);				\
     scm_c_export (id.c_str (), NULL);					\
   }									\
 									\
   ADD_SCM_INIT_FUNC (TYPE ## _ ## FUNC ## _callback,			\
 		     TYPE ## _ ## FUNC ## _init_functions);
 
-#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
-  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT,0);
+#define MAKE_DOCUMENTED_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT, DOC)		\
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE, FUNC, ARGCOUNT, 0, DOC);
 
-void
-ly_add_function_documentation (SCM proc, char const *fname,
-			       char const *varlist,
-			       char const *doc);
+#define MAKE_SCHEME_CALLBACK(TYPE, FUNC, ARGCOUNT)			\
+  MAKE_SCHEME_CALLBACK_WITH_OPTARGS(TYPE,FUNC,ARGCOUNT, 0, "");
+
+void ly_add_function_documentation (SCM proc, string fname, string varlist, string doc);
+void ly_check_name (string cxx, string fname);
 
 #define ADD_SCM_INIT_FUNC(name, func)		\
   class name ## _scm_initter			\
@@ -143,6 +164,7 @@ ly_add_function_documentation (SCM proc, char const *fname,
   {									\
     FNAME ## _proc = scm_c_define_gsubr (PRIMNAME, REQ, OPT, VAR,	\
 					 (Scheme_function_unknown) FNAME); \
+    ly_check_name (#FNAME, PRIMNAME);\
     ly_add_function_documentation (FNAME ## _proc, PRIMNAME, #ARGLIST,	\
 				   DOCSTRING);				\
     scm_c_export (PRIMNAME, NULL);					\
@@ -177,5 +199,21 @@ ly_add_function_documentation (SCM proc, char const *fname,
 #else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #endif
+
+
+
+#define LY_ASSERT_TYPE(pred, var, number)					\
+  {									\
+    if (!pred (var)) \
+      {									\
+	scm_wrong_type_arg_msg(mangle_cxx_identifier (__FUNCTION__).c_str(), \
+			       number, var, \
+			       predicate_to_typename ((void*) &pred).c_str()); \
+      }									\
+  }
+
+#define LY_ASSERT_SMOB(klass, var, number) LY_ASSERT_TYPE(klass::unsmob, var, number)
+
+
 
 #endif /* LILY_GUILE_MACROS_HH */

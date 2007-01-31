@@ -223,8 +223,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 	   1, 0, 0, (SCM ttf_file_name),
 	   "Extract the PostScript name from a TrueType font.")
 {
-  SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
-		   SCM_ARG1, __FUNCTION__, "string");
+  LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)
     progress_indication ("[" + file_name);
@@ -243,13 +242,12 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
 
 
-LY_DEFINE (ly_ttf_to_pfa, "ly:ttf->pfa",
+LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
 	   "Convert the contents of a TTF file to Type42 PFA, returning it as "
 	   " a string.")
 {
-  SCM_ASSERT_TYPE (scm_is_string (ttf_file_name), ttf_file_name,
-		   SCM_ARG1, __FUNCTION__, "string");
+  LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
 
   string file_name = ly_scm2string (ttf_file_name);
   if (be_verbose_global)

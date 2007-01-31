@@ -35,7 +35,6 @@ relative to its Y-parent")
      (allow-loose-spacing ,boolean? "If set, column can be detached from main spacing.")
      (arpeggio-direction ,ly:dir? "If set, put an
 arrow on the arpeggio squiggly line.")
-     (arrow ,boolean? "Add an arrow to the line.")
      (arrow-length ,number? "Arrow length.")
      (arrow-width ,number? "Arrow width.")
      (auto-knee-gap ,ly:dimension? "If a gap is found between note heads
@@ -130,9 +129,6 @@ the vertical edges '(@var{left-height} . @var{right-height}).")
      (edge-text ,pair? "A pair specifying the texts to be set at the
 edges '(@var{left-text} . @var{right-text}).")
      (eccentricity ,number? "How asymmetrical to make a slur. Positive means move the center to the right.")
-     (enclose-bounds ,number?
-		     "How much of the bound a spanner should enclose:
-+1 = completely, 0 = center, -1 not at all.")
      (expand-limit ,integer? "maximum number of measures expanded in church rests.")
      ;; remove me?
      (extra-dy ,number? "Slope glissandi this much extra.")

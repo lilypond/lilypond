@@ -93,6 +93,9 @@ Break_alignment_interface::calc_positioning_done (SCM smob)
   Grob *grob = unsmob_grob (smob);  
   Item *me = dynamic_cast<Item *> (grob);
 
+
+  me->set_property ("positioning-done", SCM_BOOL_T);
+
   vector<Grob*> elems = ordered_elements (me);
   vector<Interval> extents;
 

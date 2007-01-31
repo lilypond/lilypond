@@ -192,6 +192,13 @@ fet_beginchar("Harmonic notehead (Neo-mensural open)",
 	charwy := 0;
 fet_endchar;
 
+fet_beginchar("Harmonic notehead (Neo-mensural black)",
+	      "s2harmonic")
+	draw_neomensural_black_head (1.3 staff_space#, 1.3 noteheight#);
+	charwx := head_width#;
+	charwy := 0;
+fet_endchar;
+
 fet_beginchar("Neo-mensural semibrevis head","s0neomensural")
       draw_neomensural_open_head (staff_space#, noteheight#);
 fet_endchar;

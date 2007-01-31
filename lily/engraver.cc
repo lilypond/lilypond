@@ -96,8 +96,7 @@ LY_DEFINE (ly_set_grob_creation_callback, "ly:set-grob-creation-callback",
 	   "the grob to be created and the corresponding line number in the "
 	   "C++ source file.")
 {
-  SCM_ASSERT_TYPE(ly_is_procedure (cb), cb, SCM_ARG1, __FUNCTION__,
-		  "procedure");
+  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
 
   creation_callback = cb;
 

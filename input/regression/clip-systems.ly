@@ -21,41 +21,65 @@ The result will be files named
 
 \version "2.10.0"
 
+#(ly:set-option 'clip-systems)
 
-% each clip-region is a (START . END) pair
-% where both are rhythmic-locations.
+#(set! output-count 1)
 
-% (make-rhythmic-locations BAR-NUMBER NUM DEN)
-% means NUM/DEN whole-notes into bar numbered BAR-NUMBER
-
-\paper {
-
-  clip-regions
-  = #(list
-      (cons
-       (make-rhythmic-location 2 0 1)
-       (make-rhythmic-location 4 0 1))
-
-      (cons
-       (make-rhythmic-location 0 0 1)
-       (make-rhythmic-location 4 0 1))
+origScore = \score{
+    \relative {
+      \set Staff.instrumentName = #"bla"
+      c1
+      d
+      \grace c16
+      e1
+      \key d\major
       
-      (cons
-       (make-rhythmic-location 0 0 1)
-       (make-rhythmic-location 6 0 1))
-    )
+      f
+      \break  \clef bass
+      g,
+      fis
+    }  
 }
 
-\relative {
-  \set Staff.instrumentName = #"bla"
-  c1
-  d
-  \grace c16
-  e1
-  \key d\major
-  
-  f
-  \break  \clef bass
-  g,
-  fis
-}  
+\book { 
+  \score {
+    \origScore
+    \layout {
+
+      %% each clip-region is a (START . END) pair
+      %% where both are rhythmic-locations.
+      
+      %% (make-rhythmic-locations BAR-NUMBER NUM DEN)
+      %% means NUM/DEN whole-notes into bar numbered BAR-NUMBER
+
+      clip-regions
+      = #(list
+	  (cons
+	   (make-rhythmic-location 2 0 1)
+	   (make-rhythmic-location 4 0 1))
+
+	  (cons
+	   (make-rhythmic-location 0 0 1)
+	   (make-rhythmic-location 4 0 1))
+	  
+	  (cons
+	   (make-rhythmic-location 0 0 1)
+	   (make-rhythmic-location 6 0 1))
+	)
+    }
+  }
+}
+
+#(set! output-count 0)
+#(ly:set-option 'clip-systems #f)
+
+\book {
+  \score { \origScore }
+  \markup { \bold \fontsize #6 clips }
+  \score {
+    \lyrics {
+      \markup { from-2.0.1-to-4.0.1-clip.eps }
+      \markup { \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps" (ly:parser-output-name parser)) }
+    }
+  }
+}

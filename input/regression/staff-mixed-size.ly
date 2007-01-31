@@ -10,24 +10,24 @@ large on smaller staves."
 \version "2.11.11"
 
 \layout {
-  #(layout-set-staff-size 6)
   ragged-right = ##t
+}
+
+melody = \relative {
+  \override DynamicText  #'extra-offset = #'(0 . 3)
+  s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
 }
 
 <<
   \new Staff \with {
     fontSize = #-4
     \override StaffSymbol #'staff-space = #(magstep -4)
+  } {
+    \melody
   }
-  \relative c' {
-    \override DynamicText  #'extra-offset = #'(0 . 3)
-    s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
-			    }
-    \new Staff
+  \new Staff {
     \relative c' {
-      \override DynamicText  #'extra-offset = #'(0 . 3)
-      s1-\f c''8[(\< r a g]) e[ r d( <f a>])\! \times 2/3 { d4 d d }
-			      }
-    >>
-
-
+      \melody
+    }
+  }
+>>

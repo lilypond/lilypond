@@ -88,6 +88,12 @@ inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }
 
+/*
+  want to take the address of this function; scm_is_symbol() is a
+  macro.
+ */
+inline bool ly_is_symbol (SCM x) { return scm_is_symbol (x); }
+
 inline bool ly_is_equal (SCM x, SCM y)
 {
   return SCM_NFALSEP (scm_equal_p (x, y));

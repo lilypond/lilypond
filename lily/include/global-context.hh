@@ -44,5 +44,6 @@ protected:
 };
 
 SCM ly_format_output (SCM);
+Global_context *unsmob_global_context (SCM x);
 
 #endif // GLOBAL_CONTEXT_HH

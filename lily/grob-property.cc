@@ -32,9 +32,7 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 	   "which the modification was requested, the property to be changed and "
 	   "the new value for the property.")
 {
-
-  SCM_ASSERT_TYPE(ly_is_procedure (cb), cb, SCM_ARG1, __FUNCTION__,
-		  "procedure");
+  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
 
   modification_callback = cb;
   return SCM_UNSPECIFIED;
@@ -149,6 +147,14 @@ SCM
 Grob::internal_get_property (SCM sym) const
 {
   SCM val = get_property_data (sym);
+
+#ifndef NDEBUG
+  if (val == ly_symbol2scm ("calculation-in-progress"))
+    programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
+			   ly_symbol2string (sym).c_str (),
+			   name().c_str ()));
+#endif
+  
   if (ly_is_procedure (val)
       || is_simple_closure (val))
     {
@@ -203,7 +209,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
   */
   if (value == SCM_UNSPECIFIED)
     {
-      value = internal_get_property (sym);
+      value = get_property_data (sym);
       assert (value == SCM_EOL || value == marker);
       if (value == marker)
 	*alist = scm_assq_remove_x (*alist, marker);

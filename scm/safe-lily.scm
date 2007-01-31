@@ -51,7 +51,6 @@
    ly:grob-original
    ly:grob-layout
    ly:grob-parent
-   ly:grob-pq-less?
    ly:grob-property
    ly:grob-script-priority-less
    ly:grob-set-property!
@@ -195,7 +194,6 @@
    ly:sustain-pedal::print
    ly:system-start-delimiter::print
    ly:text-interface::print
-   ly:text-spanner::print
    ly:tie::print
    ly:time-signature::print
    ly:tuplet-bracket::print

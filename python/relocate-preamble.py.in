@@ -1,0 +1,19 @@
+This generic code used for all python scripts.
+
+The quotes are to ensure that the source .py file can still be
+run as a python script, but does not include any sys.path handling.
+Otherwise, the lilypond-book calls inside the build
+might modify installed .pyc files.
+
+"""
+
+for d in ['@lilypond_datadir@',
+	  '@lilypond_libdir@']:
+    sys.path.insert (0, os.path.join (d, 'python'))
+
+# dynamic relocation, for GUB binaries.
+bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
+for p in ['share', 'lib']:
+    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
+    sys.path.insert (0, datadir)
+"""

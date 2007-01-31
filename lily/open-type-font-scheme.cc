@@ -14,8 +14,8 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 	   "Given the font metric @var{font} of an OpenType font, return the "
 	   "names of the subfonts within @var{font}.")
 {
+  LY_ASSERT_SMOB (Font_metric, font, 1);
   Font_metric *fm = unsmob_metrics (font);
-  SCM_ASSERT_TYPE (fm, font, SCM_ARG1, __FUNCTION__, "font-metric");
   return fm->sub_fonts ();
 }
 
@@ -27,9 +27,9 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
   Open_type_font *otf = dynamic_cast<Open_type_font *> (fm->original_font ());
+
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OTF font-metric");
-  SCM_ASSERT_TYPE (scm_is_string (glyph), glyph, SCM_ARG1,
-		   __FUNCTION__, "string");
+  LY_ASSERT_TYPE(scm_is_string, glyph, 2);
 
   SCM sym = scm_string_to_symbol (glyph);
   return scm_hashq_ref (otf->get_char_table (), sym, SCM_EOL);
@@ -47,7 +47,7 @@ LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
     : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
 
   SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "Open type font");
-  SCM_ASSERT_TYPE (scm_is_string (tag), tag, SCM_ARG1, __FUNCTION__, "Open type font");
+  LY_ASSERT_TYPE (scm_is_string, tag, 2);
 
   char ctag [5] = "    ";
 
@@ -83,7 +83,7 @@ LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list",
     : dynamic_cast<Open_type_font *> (unsmob_metrics (font));
 
 
-  SCM_ASSERT_TYPE (otf,font, SCM_ARG1, __FUNCTION__, "OTF font");
+  SCM_ASSERT_TYPE (otf, font, SCM_ARG1, __FUNCTION__, "OTF font");
   return otf->glyph_list ();
 
 }

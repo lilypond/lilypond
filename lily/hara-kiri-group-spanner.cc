@@ -24,6 +24,15 @@ Hara_kiri_group_spanner::y_extent (SCM smob)
   return Axis_group_interface::generic_group_extent (me, Y_AXIS);
 }
 
+MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, calc_skylines, 1);
+SCM
+Hara_kiri_group_spanner::calc_skylines (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  consider_suicide (me);
+  return Axis_group_interface::calc_skylines (smob);
+}
+
 MAKE_SCHEME_CALLBACK (Hara_kiri_group_spanner, pure_height, 3);
 SCM
 Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)

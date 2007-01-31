@@ -96,13 +96,14 @@
 #define DECLARE_BASE_SMOBS(CL)					\
   friend class Non_existent_class;				\
   private:							\
+  static const char* smob_name_; \
   static scm_t_bits smob_tag_;					\
   static SCM mark_smob (SCM);					\
   static size_t free_smob (SCM s);				\
   static int print_smob (SCM s, SCM p, scm_print_state*);	\
   public:							\
   static SCM equal_p (SCM a, SCM b);				\
-  static CL *unsmob (SCM s)					\
+  static CL *unsmob (SCM s) __attribute__((pure))		\
   {								\
     if (SCM_NIMP (s) && SCM_CELL_TYPE (s) == smob_tag_)		\
       return (CL *) SCM_CELL_WORD_1 (s);			\

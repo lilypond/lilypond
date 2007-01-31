@@ -19,8 +19,7 @@ LY_DEFINE (ly_make_book, "ly:make-book",
 	   "containing @code{\\scores}.")
 {
   Output_def *odef = unsmob_output_def (paper);
-  SCM_ASSERT_TYPE (odef, paper,
-		   SCM_ARG1, __FUNCTION__, "Output_def");
+  LY_ASSERT_SMOB (Output_def, paper, 1);
 
   Book *book = new Book;
   book->paper_ = odef;
@@ -35,7 +34,7 @@ LY_DEFINE (ly_make_book, "ly:make-book",
   return x;
 }
 
-LY_DEFINE (ly_parser_print_book, "ly:book-process",
+LY_DEFINE (ly_book_process, "ly:book-process",
 	   4, 0, 0, (SCM book_smob,
 		     SCM default_paper,
 		     SCM default_layout,
@@ -47,11 +46,9 @@ LY_DEFINE (ly_parser_print_book, "ly:book-process",
 {
   Book *book = unsmob_book (book_smob);
 
-  SCM_ASSERT_TYPE (book, book_smob, SCM_ARG1, __FUNCTION__, "Book");
-  SCM_ASSERT_TYPE (unsmob_output_def (default_paper),
-		   default_layout, SCM_ARG2, __FUNCTION__, "\\paper block");
-  SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
-		   default_layout, SCM_ARG3, __FUNCTION__, "\\layout block");
+  LY_ASSERT_SMOB(Book, book_smob, 1);
+  LY_ASSERT_SMOB(Output_def, default_paper, 2);
+  LY_ASSERT_SMOB(Output_def, default_layout, 3);
 
   Paper_book *pb = book->process (unsmob_output_def (default_paper),
 				  unsmob_output_def (default_layout));
@@ -65,7 +62,7 @@ LY_DEFINE (ly_parser_print_book, "ly:book-process",
 }
 
 
-LY_DEFINE (ly_parser_print_book_to_systems, "ly:book-process-to-systems",
+LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 	   4, 0, 0, (SCM book_smob,
 		     SCM default_paper,
 		     SCM default_layout,
@@ -75,13 +72,11 @@ LY_DEFINE (ly_parser_print_book_to_systems, "ly:book-process-to-systems",
 	   "a string (for file based outputs) or a socket (for network based "
 	   "output).")
 {
-  Book *book = unsmob_book (book_smob);
+  LY_ASSERT_SMOB (Book, book_smob, 1);
+  LY_ASSERT_SMOB(Output_def, default_paper, 2);
+  LY_ASSERT_SMOB(Output_def, default_layout, 3);
 
-  SCM_ASSERT_TYPE (book, book_smob, SCM_ARG1, __FUNCTION__, "Book");
-  SCM_ASSERT_TYPE (unsmob_output_def (default_paper),
-		   default_layout, SCM_ARG2, __FUNCTION__, "\\paper block");
-  SCM_ASSERT_TYPE (unsmob_output_def (default_layout),
-		   default_layout, SCM_ARG3, __FUNCTION__, "\\layout block");
+  Book *book = unsmob_book (book_smob); 
 
   Paper_book *pb = book->process (unsmob_output_def (default_paper),
 				  unsmob_output_def (default_layout));

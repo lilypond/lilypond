@@ -6,6 +6,9 @@ STEPMAKE_TEMPLATES=script help2man po
 LOCALSTEPMAKE_TEMPLATES = lilypond
 HELP2MAN_EXECS = $(SEXECUTABLES)
 
+AT_FILES=relocate-preamble
+at-ext=.py.in
+at-dir=$(depth)/python
+
 include $(depth)/make/stepmake.make
 include $(stepdir)/executable-targets.make
-

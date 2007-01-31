@@ -61,8 +61,8 @@ points"
   (layout-set-absolute-staff-size-in-module (current-module) sz))
 
 (define-public (layout-set-staff-size sz)
-  "Function to be called inside a \\layout{} block to set the staff size. SZ is in
-points"
+  "Function to be called inside a \\layout{} block to set the staff
+size. SZ is in points"
   
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 

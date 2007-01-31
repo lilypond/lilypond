@@ -14,14 +14,14 @@
 #include "context-def.hh"
 #include "lily-parser.hh"
 
-LY_DEFINE (ly_layout_lookup, "ly:output-def-lookup",
+LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 	   2, 1, 0, (SCM pap, SCM sym, SCM def),
-	   "Lookup @var{sym} in @var{pap}. "
+	   "Lookup @var{sym} in the Output_def @var{pap}. "
 	   "Return the value or @var{def} (which defaults to  @code{'()}) if undefined.")
 {
+  LY_ASSERT_SMOB (Output_def, pap, 1);
   Output_def *op = unsmob_output_def (pap);
-  SCM_ASSERT_TYPE (op, pap, SCM_ARG1, __FUNCTION__, "Output_def");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   SCM answer = op->lookup_variable (sym);
   if (answer == SCM_UNDEFINED)
@@ -39,8 +39,8 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 	   1, 0, 0, (SCM def),
 	   "Get the variable scope inside @var{def}.")
 {
+  LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
-  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->scope_;
 }
 
@@ -48,8 +48,8 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 	   1, 0, 0, (SCM def),
 	   "Get the parent output-def of @var{def}.")
 {
+  LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
-  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
 }
 
@@ -57,8 +57,8 @@ LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   1, 0, 0, (SCM def),
 	   "Clone @var{def}.")
 {
+  LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
-  SCM_ASSERT_TYPE (op, def, SCM_ARG1, __FUNCTION__, "Output definition");
 
   Output_def *clone = op->clone ();
   return clone->unprotect ();
@@ -70,7 +70,7 @@ LY_DEFINE (ly_output_description, "ly:output-description",
 {
   Output_def *id = unsmob_output_def (output_def);
 
-  SCM al = ly_module2alist (id->scope_);
+  SCM al = ly_module_2_alist (id->scope_);
   SCM ell = SCM_EOL;
   for (SCM s = al; scm_is_pair (s); s = scm_cdr (s))
     {
@@ -93,8 +93,8 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   1, 0, 0, (SCM bp),
 	   "Get output-scale for BP.")
 {
+  LY_ASSERT_SMOB (Output_def, bp, 1);
   Output_def *b = unsmob_output_def (bp);
-  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
   return scm_from_double (output_scale (b));
 }
 
@@ -114,10 +114,9 @@ LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
 	   "(An alist chain is a list of alists, "
 	   "containing grob properties).\n")
 {
-  Output_def *paper = unsmob_output_def (paper_smob);
-  SCM_ASSERT_TYPE (paper, paper_smob, SCM_ARG1,
-		   __FUNCTION__, "paper definition");
+  LY_ASSERT_SMOB (Output_def, paper_smob, 1);
 
+  Output_def *paper = unsmob_output_def (paper_smob);
   Font_metric *fm = select_font (paper, chain);
   return fm->self_scm ();
 }
@@ -126,9 +125,9 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
 	   (SCM layout_smob, SCM name),
 	   "Return the layout variable @var{name}.")
 {
+ 
+  LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   Output_def *layout = unsmob_output_def (layout_smob);
-  SCM_ASSERT_TYPE (layout, layout_smob, SCM_ARG1,
-		   __FUNCTION__, "layout definition");
   return scm_from_double (layout->get_dimension (name));
 }
 
@@ -137,9 +136,8 @@ LY_DEFINE (ly_paper_fonts, "ly:paper-fonts",
 	   (SCM bp),
 	   "Return fonts from the @code{\\paper} block @var{bp}.")
 {
+  LY_ASSERT_SMOB (Output_def, bp, 1);
   Output_def *b = unsmob_output_def (bp);
-
-  SCM_ASSERT_TYPE (b, bp, SCM_ARG1, __FUNCTION__, "paper");
 
   SCM tab1 = b->lookup_variable (ly_symbol2scm ("scaled-fonts"));
   SCM tab2 = b->lookup_variable (ly_symbol2scm ("pango-fonts"));

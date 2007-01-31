@@ -37,23 +37,9 @@ import sys
 import re
 import md5
 
-################
-# RELOCATION
-################
-
-
-for d in ['@lilypond_datadir@',
-          '@lilypond_libdir@']:
-    sys.path.insert (0, os.path.join (d, 'python'))
-
-# dynamic relocation, for GUB binaries.
-bindir = os.path.abspath (os.path.split (sys.argv[0])[0])
-
-os.environ['PATH'] = bindir + os.pathsep + os.environ['PATH']
-for p in ['share', 'lib']:
-    datadir = os.path.abspath (bindir + '/../%s/lilypond/current/python/' % p)
-    sys.path.insert (0, datadir)
-
+"""
+@relocate-preamble@
+"""
 
 import lilylib as ly
 import fontextract

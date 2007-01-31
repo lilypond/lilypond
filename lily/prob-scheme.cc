@@ -13,9 +13,9 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 	   2, 1, 0, (SCM obj, SCM sym, SCM value),
 	   "Set property @var{sym} of @var{obj} to @var{value}")
 {
+  LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  SCM_ASSERT_TYPE (ps, obj, SCM_ARG1, __FUNCTION__, "Prob");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   ps->set_property (sym, value);
   return SCM_UNSPECIFIED;
@@ -23,7 +23,7 @@ LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 
 /*
   Hmm, this is not orthogonal.
- */
+*/
 LY_DEFINE (ly_prob_property_p, "ly:prob-property?",
 	   2, 1, 0, (SCM obj, SCM sym),
 	   "Is boolean prop @var{sym} set?")
@@ -35,9 +35,9 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 	   2, 1, 0, (SCM obj, SCM sym, SCM dfault),
 	   "Return the value for @var{sym}.")
 {
+  LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  SCM_ASSERT_TYPE (ps, obj, SCM_ARG1, __FUNCTION__, "Prob");
-  SCM_ASSERT_TYPE (scm_is_symbol (sym), sym, SCM_ARG2, __FUNCTION__, "symbol");
+  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
 
   if (dfault == SCM_UNDEFINED)
     dfault = SCM_EOL;

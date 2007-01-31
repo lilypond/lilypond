@@ -76,14 +76,17 @@ Stencil::extent_box () const
 void
 Stencil::rotate (Real a, Offset off)
 {
-  rotate_degrees (a *180/M_PI, off); 
+  rotate_degrees (a * 180/M_PI, off); 
 }
 
 /*
-  Rotate this stencil around the point [x, y]
+  Rotate this stencil around the point RELATIVE_OFF.
+
+  RELATIVE_OFF is measured in terms of the extent of the stencil, so
+  -1 = LEFT/DOWN edge, 1 = RIGHT/UP edge.
  */
 void
-Stencil::rotate_degrees (Real a, Offset off)
+Stencil::rotate_degrees (Real a, Offset relative_off)
 {
   const Real x_cen = extent (X_AXIS).center ();
   const Real y_cen = extent (Y_AXIS).center ();
@@ -91,8 +94,8 @@ Stencil::rotate_degrees (Real a, Offset off)
   /*
    * Calculate the center of rotation
    */
-  const Real x = x_cen + off[X_AXIS] * x_cen;
-  const Real y = y_cen + off[Y_AXIS] * y_cen;
+  const Real x = x_cen + relative_off[X_AXIS] * x_cen;
+  const Real y = y_cen + relative_off[Y_AXIS] * y_cen;
 
   /*
    * Build scheme expression (processed in stencil-interpret.cc)
