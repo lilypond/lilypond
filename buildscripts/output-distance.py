@@ -790,8 +790,11 @@ class ComparisonData:
                 return ''
 
             sf = val.source_file ()
-            re.sub (r'\\sourcefilename "([^"]+)"',
-                    note_original, open (sf).read ())
+            if sf:
+                re.sub (r'\\sourcefilename "([^"]+)"',
+                        note_original, open (sf).read ())
+            else:
+                print 'no source for', val
         
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
