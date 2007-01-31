@@ -34,7 +34,8 @@ This section explains how to include text (with various formatting) in
 your scores.
 
 @cindex Text, other languages
-To write non-ascii text (such as characters from other languages), simply
+To write accented and special text (such as characters from other languages),
+simply
 insert the characters directly into the lilypond file.  The file must be
 saved as UTF-8.  For more information, see @ref{Text encoding}.
 

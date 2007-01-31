@@ -817,7 +817,7 @@ glyph.
 
 
 To enter lyrics with characters from non-English languages, or with
-non-ascii characters (such as the heart symbol or slanted quotes),
+accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
 it with utf-8 encoding.  See @ref{Text encoding} for more info.
 
