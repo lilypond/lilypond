@@ -2066,7 +2066,7 @@
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
-	(skylines . ,ly:axis-group-interface::calc-skylines)
+	(skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((X-common . ,ly:axis-group-interface::calc-x-common)))
