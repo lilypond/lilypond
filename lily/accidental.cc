@@ -69,9 +69,7 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
   if (!me->is_live ())
     return boxes;
 
-  SCM scm_style = me->get_property ("style");
-  if (!scm_is_symbol (scm_style)
-      && !to_boolean (me->get_property ("restore-first"))
+  if (!to_boolean (me->get_property ("restore-first"))
       && !parens)
     {
       Rational alteration

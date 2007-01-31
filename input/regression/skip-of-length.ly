@@ -19,7 +19,7 @@ last as long as their arguments."
   \new Staff {
     \applyMusic #skip-of-length { c\breve } f4 r2.
     \applyMusic #mmrest-of-length { c\breve } f4 r2.
-    \displayMusic \musicMap #skip->rest s\breve 
+    \musicMap #skip->rest s\breve 
   }
 >>
   

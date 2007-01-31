@@ -11,13 +11,9 @@
 
 static SCM all_ifaces;
 
-LY_DEFINE (ly_add_interface, "ly:add-interface",
-	   3, 0, 0, (SCM a, SCM b, SCM c),
-	   "Add an interface description.")
+void
+internal_add_interface (SCM a, SCM b, SCM c)
 {
-  LY_ASSERT_TYPE (ly_is_symbol, a, 1);
-  LY_ASSERT_TYPE(scm_is_string,b, 2);
-  LY_ASSERT_TYPE(ly_is_list,c, 3);
   if (!all_ifaces)
     {
       SCM tab = scm_c_make_hash_table (59);
@@ -28,6 +24,17 @@ LY_DEFINE (ly_add_interface, "ly:add-interface",
   SCM entry = scm_list_n (a, b, c, SCM_UNDEFINED);
 
   scm_hashq_set_x (all_ifaces, a, entry);
+}
+
+LY_DEFINE (ly_add_interface, "ly:add-interface",
+	   3, 0, 0, (SCM a, SCM b, SCM c),
+	   "Add an interface description.")
+{
+  LY_ASSERT_TYPE (ly_is_symbol, a, 1);
+  LY_ASSERT_TYPE (scm_is_string, b, 2);
+  LY_ASSERT_TYPE (ly_is_list, c, 3);
+
+  internal_add_interface (a,b,c);
 
   return SCM_UNSPECIFIED;
 }

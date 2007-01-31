@@ -18,7 +18,7 @@
 
 class Figured_bass_position_engraver : public Engraver
 {
-  TRANSLATOR_DECLARATIONS(Figured_bass_position_engraver);
+  TRANSLATOR_DECLARATIONS (Figured_bass_position_engraver);
 
   Spanner *bass_figure_alignment_;
   Spanner *positioner_;
@@ -49,7 +49,7 @@ Figured_bass_position_engraver::start_spanner ()
 {
   assert (!positioner_);
 
-  positioner_ = make_spanner("BassFigureAlignmentPositioning", bass_figure_alignment_->self_scm ());
+  positioner_ = make_spanner ("BassFigureAlignmentPositioning", bass_figure_alignment_->self_scm ());
   positioner_->set_bound (LEFT, bass_figure_alignment_->get_bound (LEFT));
   Axis_group_interface::add_element (positioner_, bass_figure_alignment_);
 }
@@ -129,13 +129,13 @@ Figured_bass_position_engraver::acknowledge_bass_figure_alignment (Grob_info inf
 }
 
 
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,note_column);
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,slur);
-ADD_END_ACKNOWLEDGER(Figured_bass_position_engraver,slur);
+ADD_ACKNOWLEDGER (Figured_bass_position_engraver, note_column);
+ADD_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
+ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, slur);
 
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,tie);
-ADD_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
-ADD_END_ACKNOWLEDGER(Figured_bass_position_engraver,bass_figure_alignment);
+ADD_ACKNOWLEDGER (Figured_bass_position_engraver, tie);
+ADD_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
+ADD_END_ACKNOWLEDGER (Figured_bass_position_engraver, bass_figure_alignment);
 
 ADD_TRANSLATOR (Figured_bass_position_engraver,
 		/* doc */

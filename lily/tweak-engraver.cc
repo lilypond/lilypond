@@ -21,7 +21,7 @@ protected:
   DECLARE_ACKNOWLEDGER (grob);
 };
 
-Tweak_engraver::Tweak_engraver()
+Tweak_engraver::Tweak_engraver ()
 {
 }
 

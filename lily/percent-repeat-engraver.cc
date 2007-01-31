@@ -171,7 +171,7 @@ Percent_repeat_engraver::process_music ()
 	      && to_boolean (get_property ("countPercentRepeats")))
 	    {
 	      Item *double_percent_counter = make_item ("DoublePercentRepeatCounter",
-	      						percent_event_->self_scm());
+	      						percent_event_->self_scm ());
 
 	      SCM text = scm_number_to_string (count,
 					       scm_from_int (10));
@@ -199,7 +199,7 @@ Percent_repeat_engraver::finalize ()
     {
       percent_event_->origin ()->warning (_ ("unterminated percent repeat"));
       percent_->suicide ();
-      percent_counter_->suicide();
+      percent_counter_->suicide ();
     }
 }
 

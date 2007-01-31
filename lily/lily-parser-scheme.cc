@@ -175,7 +175,7 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
 
-  LY_ASSERT_TYPE (ly_is_symbol,symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
     
   parser->lexer_->set_identifier (scm_symbol_to_string (symbol), val);
   return SCM_UNSPECIFIED;
@@ -190,7 +190,7 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
   Lily_parser *parser = unsmob_lily_parser (parser_smob);
  
-  LY_ASSERT_TYPE (ly_is_symbol,symbol, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, symbol, 2);
 
   SCM val = parser->lexer_->lookup_identifier (ly_scm2string (scm_symbol_to_string (symbol)));
   if (val != SCM_UNDEFINED)
@@ -206,7 +206,7 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob); 
-  LY_ASSERT_TYPE(scm_is_string,ly_code, 2);
+  LY_ASSERT_TYPE (scm_is_string, ly_code, 2);
 
   parser->parse_string (ly_scm2string (ly_code));
 
@@ -248,7 +248,7 @@ LY_DEFINE (ly_parser_error, "ly:parser-error",
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
   
-  LY_ASSERT_TYPE(scm_is_string,msg, 2);
+  LY_ASSERT_TYPE (scm_is_string, msg, 2);
   string s = ly_scm2string (msg);
   
   Input *i = unsmob_input (input);

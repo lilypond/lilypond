@@ -19,7 +19,7 @@ class System_start_text
 {
 public:
   static Stencil get_stencil (Grob *);
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 
   DECLARE_SCHEME_CALLBACK (print, (SCM));
 };
@@ -47,7 +47,7 @@ System_start_text::get_stencil (Grob *me_grob)
 	p->align_to (Y_AXIS, robust_scm2double (align_y, 0.0));
       return *p;
     }
-  return Stencil();
+  return Stencil ();
 }
 
 

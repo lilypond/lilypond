@@ -278,7 +278,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
   interface_name += "-interface";
 
   /*
-    this is only called during program init, so safe to use scm_gc_protect_object()
+    this is only called during program init, so safe to use scm_gc_protect_object ()
   */
   inf.symbol_ = scm_gc_protect_object (ly_symbol2scm (interface_name.c_str ()));
   ack_array->push_back (inf);
@@ -326,7 +326,7 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
       assert (0 == ev_class.find (prefix));
 
       /* "listen_foo_bar" -> "foo-bar" */
-      ev_class.erase (0, strlen(prefix));
+      ev_class.erase (0, strlen (prefix));
       replace_all (ev_class, '_', '-');
 
       new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class.c_str ()));

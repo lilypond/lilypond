@@ -44,7 +44,7 @@ Align_interface::calc_positioning_done (SCM smob)
 /*
   TODO: This belongs to the old two-pass spacing. Delete me.
 */
-MAKE_SCHEME_CALLBACK(Align_interface, stretch_after_break, 1)
+MAKE_SCHEME_CALLBACK (Align_interface, stretch_after_break, 1)
 SCM
 Align_interface::stretch_after_break (SCM grob)
 {
@@ -71,7 +71,7 @@ Align_interface::stretch_after_break (SCM grob)
 
       Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),
 					       DOWN);
-      Real delta  = extra_space / elems.size() * stacking_dir;
+      Real delta  = extra_space / elems.size () * stacking_dir;
       for (vsize i = 0; i < elems.size (); i++)
 	elems[i]->translate_axis (i * delta, Y_AXIS);
     }
@@ -220,7 +220,9 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
 	}
 
-      where += stacking_dir * max (0.0, dy + padding + extra_space / elems.size ());
+      dy = max (0.0, dy + padding + extra_space / elems.size ());
+      down_skyline.raise (-stacking_dir * dy);
+      where += stacking_dir * dy;
       translates.push_back (where);
     }
 

@@ -28,7 +28,7 @@ struct Ledger_line_spanner
 				    Interval x_extent,
 				    Real left_shorten);
 
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 Stencil
@@ -42,7 +42,7 @@ Ledger_line_spanner::brew_ledger_lines (Grob *staff,
 {
   int line_count = (staff_extent.contains (pos)
 		    ? 0
-		    : sign (pos) * int (rint(pos -  staff_extent[Direction (sign (pos))])) / 2);
+		    : sign (pos) * int (rint (pos -  staff_extent[Direction (sign (pos))])) / 2);
   Stencil stencil;
   if (line_count)
     {
@@ -366,7 +366,7 @@ ADD_INTERFACE (Ledger_line_spanner,
 
 struct Ledgered_interface
 {
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
 };
 
 ADD_INTERFACE (Ledgered_interface,

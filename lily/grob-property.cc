@@ -56,7 +56,7 @@ extern void check_interfaces_for_property (Grob const *me, SCM sym);
 /*
   We can't change signatures depending on NDEBUG, since NDEBUG comes
   over the command line and may be different per .cc file.  This
-  should be done through the macro expansion of get_property().
+  should be done through the macro expansion of get_property ().
  */
 void
 Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
@@ -152,7 +152,7 @@ Grob::internal_get_property (SCM sym) const
   if (val == ly_symbol2scm ("calculation-in-progress"))
     programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
 			   ly_symbol2string (sym).c_str (),
-			   name().c_str ()));
+			   name ().c_str ()));
 #endif
   
   if (ly_is_procedure (val)
@@ -204,7 +204,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 	  
   /*
     If the function returns SCM_UNSPECIFIED, we assume the
-    property has been set with an explicit set_property()
+    property has been set with an explicit set_property ()
     call.
   */
   if (value == SCM_UNSPECIFIED)
@@ -280,3 +280,38 @@ call_pure_function (SCM unpure, SCM args, int start, int end)
   return scm_apply_0 (scm_call_pure_function,
 		      scm_list_4 (unpure, args, scm_from_int (start), scm_from_int (end)));
 }
+
+
+/*
+  PROP_PATH should be big-to-small ordering
+ */
+SCM 
+nested_property_alist (SCM alist, SCM prop_path, SCM value)
+{
+  SCM new_value = SCM_BOOL_F;
+  if (scm_is_pair (scm_cdr (prop_path)))
+    {
+      SCM sub_alist = ly_assoc_get (scm_car (prop_path), alist, SCM_EOL);
+      new_value = nested_property_alist (sub_alist, scm_cdr (prop_path), value);
+    }
+  else
+    {
+      new_value = value;
+    }
+  
+  return scm_acons (scm_car (prop_path), new_value, alist);
+}
+
+
+void
+set_nested_property (Grob *me, SCM property_path, SCM value)
+{
+  SCM big_to_small = scm_reverse (property_path);
+  SCM alist = me->get_property (scm_car (big_to_small));
+
+  alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
+  
+  me->set_property (scm_car (big_to_small),
+		    alist);
+}
+

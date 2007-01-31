@@ -20,11 +20,11 @@
 
 struct Figured_bass_continuation
 {
-  DECLARE_GROB_INTERFACE();
+  DECLARE_GROB_INTERFACE ();
   
 public:
-  DECLARE_SCHEME_CALLBACK(print, (SCM));
-  DECLARE_SCHEME_CALLBACK(center_on_figures, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (center_on_figures, (SCM));
 };
 
 MAKE_SCHEME_CALLBACK (Figured_bass_continuation, center_on_figures, 1);
@@ -80,7 +80,7 @@ Figured_bass_continuation::print (SCM grob)
   return extender.smobbed_copy ();
 }
 
-ADD_INTERFACE(Figured_bass_continuation,
+ADD_INTERFACE (Figured_bass_continuation,
 	      "Simple extender line between bounds.",
 	      
 	      /* props */

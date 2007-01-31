@@ -37,7 +37,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 {
   LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
-  LY_ASSERT_TYPE (ly_is_symbol,sym, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
 
   if (dfault == SCM_UNDEFINED)
     dfault = SCM_EOL;
@@ -55,7 +55,7 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 	   "If obj the specified prob-type?")
 {
   Prob*prob = unsmob_prob (obj);
-  return scm_from_bool (prob && prob->type() == type);
+  return scm_from_bool (prob && prob->type () == type);
 }
 
 LY_DEFINE (ly_make_prob, "ly:make-prob",
@@ -78,7 +78,7 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
 }
 
   
-LY_DEFINE(ly_paper_system_p, "ly:paper-system?",
+LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
 	  1, 0, 0, (SCM obj),
 	  "Type predicate.")
 {

@@ -22,8 +22,8 @@ LY_DEFINE (ly_stencil_translate_axis, "ly:stencil-translate-axis",
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE(scm_is_number,amount, 2);
-  LY_ASSERT_TYPE(is_axis,axis, 3);
+  LY_ASSERT_TYPE (scm_is_number, amount, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 3);
 
   Real real_amount = scm_to_double (amount);
 
@@ -40,7 +40,7 @@ LY_DEFINE (ly_stencil_translate, "ly:stencil-translate",
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE(is_number_pair, offset, 2);
+  LY_ASSERT_TYPE (is_number_pair, offset, 2);
   Offset o = ly_scm2offset (offset);
 
   SCM new_s = s->smobbed_copy ();
@@ -65,7 +65,7 @@ LY_DEFINE (ly_stencil_extent, "ly:stencil-extent",
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE(is_axis, axis, 2);
+  LY_ASSERT_TYPE (is_axis, axis, 2);
 
   return ly_interval2scm (s->extent (Axis (scm_to_int (axis))));
 }
@@ -100,19 +100,19 @@ LY_DEFINE (ly_stencil_combine_at_edge, "ly:stencil-combine-at-edge",
 		   first, SCM_ARG1, __FUNCTION__, "Stencil, #f or ()");
   SCM_ASSERT_TYPE (s2 || second == SCM_BOOL_F || second == SCM_EOL,
 		   second, SCM_ARG4, __FUNCTION__, "Stencil, #f or ()");
-  LY_ASSERT_TYPE(is_axis, axis,  2);
-  LY_ASSERT_TYPE(is_direction, direction, 3);
+  LY_ASSERT_TYPE (is_axis, axis,  2);
+  LY_ASSERT_TYPE (is_direction, direction, 3);
 
   Real p = 0.0;
   if (padding != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_number, padding, 5);
+      LY_ASSERT_TYPE (scm_is_number, padding, 5);
       p = scm_to_double (padding);
     }
   Real m = 0.0;
   if (minimum != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(scm_is_number, minimum, 6);
+      LY_ASSERT_TYPE (scm_is_number, minimum, 6);
       m = scm_to_double (minimum);
     }
 
@@ -174,14 +174,14 @@ LY_DEFINE (ly_make_stencil, "ly:make-stencil",
   Interval x; 
   if (xext != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(is_number_pair, xext, 2);
+      LY_ASSERT_TYPE (is_number_pair, xext, 2);
       x = ly_scm2interval (xext);
     }
 
   Interval y; 
   if (yext != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE(is_number_pair,yext, 3);
+      LY_ASSERT_TYPE (is_number_pair, yext, 3);
       y = ly_scm2interval (yext);
     }
 
@@ -197,8 +197,8 @@ LY_DEFINE (ly_stencil_aligned_to, "ly:stencil-aligned-to",
 	   "Other values are interpolated (so 0 means the center).")
 {
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE(is_axis,axis, 2);
-  LY_ASSERT_TYPE(scm_is_number, dir, 3);
+  LY_ASSERT_TYPE (is_axis, axis, 2);
+  LY_ASSERT_TYPE (scm_is_number, dir, 3);
 
   Stencil target = *unsmob_stencil (stil);
 
@@ -264,9 +264,9 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 	   "may be negative. The thickness is given by @var{t}.")
 {
   LY_ASSERT_TYPE (is_axis, a, 1);
-  LY_ASSERT_TYPE(is_number_pair,iv, 2);
-  LY_ASSERT_TYPE(scm_is_number, t,3);
-  LY_ASSERT_TYPE(scm_is_number, p,4);
+  LY_ASSERT_TYPE (is_number_pair, iv, 2);
+  LY_ASSERT_TYPE (scm_is_number, t,3);
+  LY_ASSERT_TYPE (scm_is_number, p,4);
 
   return Lookup::bracket ((Axis)scm_to_int (a), ly_scm2interval (iv),
 			  scm_to_double (t),
@@ -280,9 +280,9 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
-  LY_ASSERT_TYPE(scm_is_number,angle, 2);
-  LY_ASSERT_TYPE(scm_is_number, x,3);
-  LY_ASSERT_TYPE(scm_is_number, y, 4);
+  LY_ASSERT_TYPE (scm_is_number, angle, 2);
+  LY_ASSERT_TYPE (scm_is_number, x,3);
+  LY_ASSERT_TYPE (scm_is_number, y, 4);
   Real a = scm_to_double (angle);
   Real x_off = scm_to_double (x);
   Real y_off = scm_to_double (y);
@@ -301,8 +301,8 @@ LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 	   "@var{yext} and roundness @var{blot}.")
 {
   LY_ASSERT_TYPE (is_number_pair, xext, 1);
-  LY_ASSERT_TYPE(is_number_pair, yext, 2);
-  LY_ASSERT_TYPE(scm_is_number, blot, 3);
+  LY_ASSERT_TYPE (is_number_pair, yext, 2);
+  LY_ASSERT_TYPE (scm_is_number, blot, 3);
 
   return Lookup::round_filled_box (Box (ly_scm2interval (xext), ly_scm2interval (yext)),
 				   scm_to_double (blot)).smobbed_copy ();

@@ -7,8 +7,8 @@ LOCALSTEPMAKE_TEMPLATES = lilypond
 HELP2MAN_EXECS = $(SEXECUTABLES)
 
 AT_FILES=relocate-preamble
-at-ext=.py.in
-at-dir=$(depth)/python
+at-ext=.py
+at-dir=$(top-build-dir)/python/$(outdir)
 
 include $(depth)/make/stepmake.make
 include $(stepdir)/executable-targets.make

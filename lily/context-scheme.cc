@@ -45,7 +45,7 @@ LY_DEFINE (ly_context_grob_definition, "ly:context-grob-definition",
   Context *tr = unsmob_context (context);
   
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol, name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   return updated_grob_properties (tr, name);
 }
@@ -60,8 +60,8 @@ LY_DEFINE (ly_context_pushpop_property, "ly:context-pushpop-property",
   Context *tg = unsmob_context (context);
 
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol, grob, 2);
-  LY_ASSERT_TYPE(ly_is_symbol, eltprop, 3);
+  LY_ASSERT_TYPE (ly_is_symbol, grob, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, eltprop, 3);
 
   execute_pushpop_property (tg, grob, eltprop, val);
 
@@ -73,7 +73,7 @@ LY_DEFINE (ly_context_property, "ly:context-property",
 	   "Return the value of @var{name} from context @var{c}")
 {
   LY_ASSERT_SMOB (Context, c, 1);
-  LY_ASSERT_TYPE(ly_is_symbol, name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   Context *t = unsmob_context (c);
   return t->internal_get_property (name);
@@ -85,7 +85,7 @@ LY_DEFINE (ly_context_set_property_x, "ly:context-set-property!",
 	   "to @var{val}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol, name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
 
   Context *tr = unsmob_context (context);
 
@@ -100,7 +100,7 @@ LY_DEFINE (ly_context_property_where_defined, "ly:context-property-where-defined
 	   "where @var{name} is defined.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol,name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
   
   Context *tr = unsmob_context (context);
 
@@ -117,7 +117,7 @@ LY_DEFINE (ly_context_unset_property, "ly:context-unset-property", 2, 0, 0,
 	   "Unset value of property @var{name} in context @var{context}.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol,name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
   Context *tr = unsmob_context (context);
   
   tr->unset_property (name);
@@ -145,7 +145,7 @@ LY_DEFINE (ly_context_find, "ly:context-find",
 	   "Return @code{#f} if not found.")
 {
   LY_ASSERT_SMOB (Context, context, 1);
-  LY_ASSERT_TYPE(ly_is_symbol,name, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, name, 2);
   Context *tr = unsmob_context (context);
 
   while (tr)

@@ -393,7 +393,7 @@ unsmob_spanner (SCM s)
   return dynamic_cast<Spanner *> (unsmob_grob (s));
 }
 
-MAKE_SCHEME_CALLBACK(Spanner, bounds_width, 1);
+MAKE_SCHEME_CALLBACK (Spanner, bounds_width, 1);
 SCM
 Spanner::bounds_width (SCM grob)
 {

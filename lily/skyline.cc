@@ -153,7 +153,7 @@ Building::Building (Box const &b, Real horizon_padding, Axis horizon_axis, Direc
 void
 Building::precompute ()
 {
-  slope_ = (height_[RIGHT] - height_[LEFT]) / (iv_.length());
+  slope_ = (height_[RIGHT] - height_[LEFT]) / (iv_.length ());
   if (height_[LEFT] == height_[RIGHT]) /* in case they're both infinity */
     slope_ = 0;
 
@@ -381,7 +381,7 @@ Skyline::internal_build_skyline (list<Building> *buildings)
   while (!buildings->empty ())
     partials.push_back (non_overlapping_skyline (buildings));
 
-  /* we'd like to say while (partials->size () > 1) but that's O(n).
+  /* we'd like to say while (partials->size () > 1) but that's O (n).
      Instead, we exit in the middle of the loop */
   while (!partials.empty ())
     {
@@ -664,7 +664,7 @@ IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
 SCM
 Skyline::mark_smob (SCM)
 {
-  ASSERT_LIVE_IS_ALLOWED();
+  ASSERT_LIVE_IS_ALLOWED ();
   return SCM_EOL;
 }
 

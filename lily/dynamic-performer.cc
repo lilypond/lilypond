@@ -100,7 +100,7 @@ Dynamic_performer::process_music ()
 
   if (span_events_[START])
     {
-      span_dynamic_ = new Audio_span_dynamic();
+      span_dynamic_ = new Audio_span_dynamic ();
       announce_element (Audio_element_info (span_dynamic_, span_events_[START]));
 
       span_dynamic_->grow_dir_ = grow_dir_[START];

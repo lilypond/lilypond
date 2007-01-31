@@ -97,7 +97,7 @@ Piano_pedal_performer::process_music ()
 	      a->type_string_ = pedal_type;
 	      a->dir_ = STOP;
 	      audios_.push_back (a);
-              Audio_element_info info(a, p->event_drul_[STOP]);
+              Audio_element_info info (a, p->event_drul_[STOP]);
               announce_element (info);
 	    }
 	  p->start_event_ = 0;
@@ -110,7 +110,7 @@ Piano_pedal_performer::process_music ()
 	  a->type_string_ = pedal_type;
 	  a->dir_ = START;
 	  audios_.push_back (a);
-          Audio_element_info info(a, p->event_drul_[START]);
+          Audio_element_info info (a, p->event_drul_[START]);
           announce_element (info);
 	}
       p->event_drul_[START] = 0;

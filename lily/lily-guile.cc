@@ -118,7 +118,7 @@ ly_scm2string (SCM str)
 SCM
 ly_string2scm (string const &str)
 {
-  return scm_from_locale_stringn (str.c_str(),
+  return scm_from_locale_stringn (str.c_str (),
 				  str.length ());
 }
 
@@ -308,7 +308,7 @@ ly_offsets2scm (vector<Offset> os)
   for (vsize i = 0; i < os.size (); i++)
     {
       *tail = scm_cons (ly_offset2scm (os[i]), SCM_EOL);
-      tail = SCM_CDRLOC(*tail);
+      tail = SCM_CDRLOC (*tail);
     }
   return l;
 }

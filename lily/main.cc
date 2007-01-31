@@ -138,7 +138,7 @@ static char const *WARRANTY
 */
 string prefix_directory;
 
-/* The jail specification: USER,GROUP,JAIL,DIR. */
+/* The jail specification: USER, GROUP, JAIL, DIR. */
 string jail_spec;
 
 /*  The option parser */
@@ -171,7 +171,7 @@ static Long_option_init options_static[]
   {_i ("DIR"), "include", 'I',  _i ("add DIR to search path")},
   {_i ("FILE"), "init", 'i',  _i ("use FILE as init file")},
 #if HAVE_CHROOT
-  {_i ("USER,GROUP,JAIL,DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
+  {_i ("USER, GROUP, JAIL, DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
 						"and cd into DIR")},
 #endif
   {0, "no-print", 0, _i ("do not generate printed output")},

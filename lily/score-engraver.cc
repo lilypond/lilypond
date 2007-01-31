@@ -131,7 +131,7 @@ Score_engraver::finalize ()
   typeset_all ();
 }
 
-IMPLEMENT_LISTENER(Score_engraver, one_time_step);
+IMPLEMENT_LISTENER (Score_engraver, one_time_step);
 void
 Score_engraver::one_time_step (SCM)
 {

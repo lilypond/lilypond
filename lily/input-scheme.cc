@@ -25,7 +25,7 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
   Input *ip = unsmob_input (sip);
 
   LY_ASSERT_TYPE (unsmob_input, sip, 1);
-  LY_ASSERT_TYPE(scm_is_string, msg,2);
+  LY_ASSERT_TYPE (scm_is_string, msg,2);
 
   msg = scm_simple_format (SCM_BOOL_F, msg, rest);
 

@@ -101,7 +101,7 @@ Tie_performer::stop_translation_timestep ()
       heads_to_tie_ = now_heads_;
     }
 
-  for (vsize i = now_tied_heads_.size(); i--;)
+  for (vsize i = now_tied_heads_.size (); i--;)
     heads_to_tie_.push_back (now_tied_heads_[i]);
 
   event_ = 0;

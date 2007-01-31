@@ -201,7 +201,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
 	  Real bot_y = max ((i - dash_size) * half_space,
 			    -(count-1) * half_space - line_thick/2);
 
-	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0,thick),
+	  bar.add_stencil (Lookup::round_filled_box (Box (Interval (0, thick),
 							  Interval (bot_y, top_y)),
 						     blot));
 	}
@@ -234,7 +234,7 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
       s.translate (Offset (thick/2, -h/2));
       return s;
     }
-  return Stencil();
+  return Stencil ();
 }
 
 

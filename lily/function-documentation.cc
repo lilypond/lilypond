@@ -13,10 +13,6 @@ using namespace std;
 #include "lily-guile.hh"
 #include "warn.hh"
 
-/* type predicates. */
-#include "spanner.hh"
-#include "item.hh"
-
 
 static SCM doc_hash_table;
 
@@ -49,7 +45,7 @@ ly_add_function_documentation (SCM func,
   scm_set_procedure_property_x (func, ly_symbol2scm ("documentation"),
 				ly_string2scm (s));
   SCM entry = scm_cons (ly_string2scm (varlist), ly_string2scm (doc));
-  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str()), entry);
+  scm_hashq_set_x (doc_hash_table, ly_symbol2scm (fname.c_str ()), entry);
 }
 
 LY_DEFINE (ly_get_all_function_documentation, "ly:get-all-function-documentation",
@@ -75,38 +71,51 @@ string
 predicate_to_typename (void *ptr)
 {
   if (type_names.find (ptr) == type_names.end ())
-    return "unknown type";
+    {
+      programming_error ("Unknown type predicate");
+      return "unknown type";
+    }
   else
     return type_names[ptr];
 }
 
-static int
-arg_dir (int a, int b)
-{
-  if (&a < &b)
-    return 1;
-  else
-    return -1;
-}
+/* type predicates. */
+#include "spanner.hh"
+#include "item.hh"
+#include "music.hh"
+#include "music-function.hh"
+#include "performance.hh"
+#include "paper-score.hh"
+#include "global-context.hh"
+#include "input.hh"
 
-
-int function_argument_direction;
 void
 init_func_doc ()
 {
-  function_argument_direction = arg_dir (2,3);
+  ly_add_type_predicate ((void*) &is_direction, "direction");
+  ly_add_type_predicate ((void*) &is_music_function, "Music_function");
+  ly_add_type_predicate ((void*) &ly_is_port, "port");
+  ly_add_type_predicate ((void*) &unsmob_global_context, "Global_context");
+  ly_add_type_predicate ((void*) &unsmob_input, "Input");
+  ly_add_type_predicate ((void*) &unsmob_moment, "Moment");
+  ly_add_type_predicate ((void*) &unsmob_paper_score, "Paper_score");
+  ly_add_type_predicate ((void*) &unsmob_performance, "Performance");
 
-  ly_add_type_predicate ((void*) &scm_is_integer, "integer");
-  ly_add_type_predicate ((void*) &scm_is_bool, "boolean");
-  ly_add_type_predicate ((void*) &scm_is_pair, "pair");
-  ly_add_type_predicate ((void*) &is_number_pair, "number pair");
-  ly_add_type_predicate ((void*) &scm_is_number, "number");
-  ly_add_type_predicate ((void*) &scm_is_string, "string");
-  ly_add_type_predicate ((void*) &ly_is_symbol, "symbol");
-  ly_add_type_predicate ((void*) &scm_is_vector, "vector");
   ly_add_type_predicate ((void*) &is_axis, "axis");
-  ly_add_type_predicate ((void*) &unsmob_spanner, "spanner");
-  ly_add_type_predicate ((void*) &unsmob_item, "item");
+  ly_add_type_predicate ((void*) &is_number_pair, "number pair");
+  ly_add_type_predicate ((void*) &ly_is_list, "list");
+  ly_add_type_predicate ((void*) &ly_is_procedure, "procedure");
+  ly_add_type_predicate ((void*) &ly_is_symbol, "symbol");
+  ly_add_type_predicate ((void*) &scm_is_bool, "boolean");
+  ly_add_type_predicate ((void*) &scm_is_integer, "integer");
+  ly_add_type_predicate ((void*) &scm_is_number, "number");
+  ly_add_type_predicate ((void*) &scm_is_pair, "pair");
+  ly_add_type_predicate ((void*) &scm_is_rational, "rational");
+  ly_add_type_predicate ((void*) &scm_is_string, "string");
+  ly_add_type_predicate ((void*) &scm_is_vector, "vector");
+  ly_add_type_predicate ((void*) &unsmob_item, "Item");
+  ly_add_type_predicate ((void*) &unsmob_music, "Music");
+  ly_add_type_predicate ((void*) &unsmob_spanner, "Spanner");
 }
 
-ADD_SCM_INIT_FUNC(func_doc, init_func_doc);
+ADD_SCM_INIT_FUNC (func_doc, init_func_doc);

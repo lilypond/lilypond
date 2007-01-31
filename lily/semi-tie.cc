@@ -15,7 +15,7 @@
 #include "warn.hh"
 #include "staff-symbol-referencer.hh"
 
-ADD_INTERFACE(Semi_tie,
+ADD_INTERFACE (Semi_tie,
 	      
 	      "A tie which is only on one side connected to note heads. ",
 
@@ -28,7 +28,7 @@ ADD_INTERFACE(Semi_tie,
 	      "thickness "
 	      );
 
-MAKE_SCHEME_CALLBACK(Semi_tie, calc_control_points, 1)
+MAKE_SCHEME_CALLBACK (Semi_tie, calc_control_points, 1)
 SCM
 Semi_tie::calc_control_points (SCM smob)
 {

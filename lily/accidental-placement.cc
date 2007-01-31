@@ -243,7 +243,7 @@ stagger_apes (vector<Accidental_placement_entry*> *apes)
 
 */
 
-MAKE_SCHEME_CALLBACK(Accidental_placement, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Accidental_placement, calc_positioning_done, 1);
 SCM
 Accidental_placement::calc_positioning_done (SCM smob)
 {

@@ -29,7 +29,7 @@ SCM add_interface (char const *cxx_name,
   SCM d = scm_from_locale_string (descr);
   SCM l = parse_symbol_list (vars);
 
-  ly_add_interface (s, d, l);
+  internal_add_interface (s, d, l);
 
   return s;
 }

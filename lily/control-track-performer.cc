@@ -15,7 +15,7 @@ class Control_track_performer : public Performer
   vector<Audio_item*> texts_;
 
   void add_text (Audio_text::Type, string);
-  TRANSLATOR_DECLARATIONS(Control_track_performer);
+  TRANSLATOR_DECLARATIONS (Control_track_performer);
 protected:
 
   virtual void initialize ();

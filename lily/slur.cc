@@ -32,7 +32,7 @@
 
 
 
-MAKE_SCHEME_CALLBACK(Slur, calc_direction, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_direction, 1)
 SCM
 Slur::calc_direction (SCM smob)
 {

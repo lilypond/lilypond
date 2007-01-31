@@ -27,8 +27,8 @@ LY_DEFINE (ly_duration_less_p, "ly:duration<?",
 	   2, 0, 0, (SCM p1, SCM p2),
 	   "Is @var{p1} shorter than @var{p2}?")
 {
-  LY_ASSERT_SMOB(Duration, p1, 1);
-  LY_ASSERT_SMOB(Duration, p2, 2);
+  LY_ASSERT_SMOB (Duration, p1, 1);
+  LY_ASSERT_SMOB (Duration, p2, 2);
 
   Duration *a = unsmob_duration (p1);
   Duration *b = unsmob_duration (p2);
@@ -65,7 +65,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
   bool compress = false;
   if (num != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_number,num, 3);
+      LY_ASSERT_TYPE (scm_is_number, num, 3);
       compress = true;
     }
   else
@@ -73,7 +73,7 @@ LY_DEFINE (ly_make_duration, "ly:make-duration",
 
   if (den != SCM_UNDEFINED)
     {
-      LY_ASSERT_TYPE (scm_is_number,den, 4);
+      LY_ASSERT_TYPE (scm_is_number, den, 4);
       compress = true;
     }
   else

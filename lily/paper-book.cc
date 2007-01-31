@@ -227,7 +227,7 @@ Paper_book::score_title (SCM header)
 /* read the breakbefore property of a score block and set up the preceding
    system-spec to honour it. That is, SYM should be the system spec that
    immediately precedes the score (from which HEADER is taken)
-   in the get_system_specs() list */
+   in the get_system_specs () list */
 void
 set_system_penalty (SCM sys, SCM header)
 {
@@ -273,7 +273,7 @@ Paper_book::get_score_title (SCM header)
       Prob *ps = make_paper_system (props);
       paper_system_set_stencil (ps, title);
 
-      return ps->self_scm();
+      return ps->self_scm ();
     }
 
   return SCM_BOOL_F;

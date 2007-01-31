@@ -87,7 +87,7 @@ Rest_collision::add_column (Grob *me, Grob *p)
   TODO: look at horizontal-shift to determine ordering between rests
   for more than two voices.
 */
-MAKE_SCHEME_CALLBACK(Rest_collision, calc_positioning_done, 1);
+MAKE_SCHEME_CALLBACK (Rest_collision, calc_positioning_done, 1);
 SCM
 Rest_collision::calc_positioning_done (SCM smob)
 {

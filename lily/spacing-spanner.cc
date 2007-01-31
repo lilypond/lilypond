@@ -50,7 +50,7 @@ Spacing_spanner::set_springs (SCM smob)
   Spanner *me = unsmob_spanner (smob);
 
   /*
-    can't use get_system() ? --hwn.
+    can't use get_system () ? --hwn.
   */
   Spacing_options options;
   options.init_from_grob (me);
@@ -404,7 +404,7 @@ bool
 Spacing_spanner::fills_measure (Grob *me, Item *left, Item *col)
 {
   System *sys = get_root_system (me);
-  Item *next = sys->column (col->get_column()->get_rank () + 1);
+  Item *next = sys->column (col->get_column ()->get_rank () + 1);
   if (!next)
     return false;
 

@@ -252,7 +252,7 @@ Tie_engraver::stop_translation_timestep ()
   if (!wait && new_heads_to_tie.size ())
     heads_to_tie_.clear ();
 
-  // hmmm, how to do with copy() ?
+  // hmmm, how to do with copy () ?
   for (vsize i = 0; i < new_heads_to_tie.size (); i++)
     heads_to_tie_.push_back (new_heads_to_tie[i]);
   

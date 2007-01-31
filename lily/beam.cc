@@ -233,7 +233,7 @@ position_with_maximal_common_beams (SCM left_beaming, SCM right_beaming,
   return best_start;
 }
 
-MAKE_SCHEME_CALLBACK(Beam, calc_beaming, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_beaming, 1)
 SCM
 Beam::calc_beaming (SCM smob)
 {
@@ -405,7 +405,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	  do
 	    {
 	      bool on_bound = (event_dir == LEFT) ? j == 0 :
-		j == segs.size() - 1;
+		j == segs.size () - 1;
 
 	      bool inside_stem = (event_dir == LEFT)
 			? segs[j].stem_index_ > 0
@@ -459,7 +459,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      if (event_dir == RIGHT)
 		{
 		  segments.push_back (current);
-		  current = Beam_segment();
+		  current = Beam_segment ();
 		}
 	    }
 	  while (flip (&event_dir) != LEFT);
@@ -470,7 +470,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
   return segments;
 }
 
-MAKE_SCHEME_CALLBACK(Beam, print, 1);
+MAKE_SCHEME_CALLBACK (Beam, print, 1);
 SCM
 Beam::print (SCM grob)
 {
@@ -790,7 +790,7 @@ set_minimum_dy (Grob *me, Real *dy)
 
   
 
-MAKE_SCHEME_CALLBACK(Beam, calc_stem_shorten, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_stem_shorten, 1)
 SCM
 Beam::calc_stem_shorten (SCM smob)
 {
@@ -1151,7 +1151,7 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Hmm.  At this time, beam position and slope are determined.  Maybe,
   stem directions and length should set to relative to the chord's
   position of the beam.  */
-MAKE_SCHEME_CALLBACK(Beam, set_stem_lengths, 1); 
+MAKE_SCHEME_CALLBACK (Beam, set_stem_lengths, 1); 
 SCM
 Beam::set_stem_lengths (SCM smob)
 {
