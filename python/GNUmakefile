@@ -17,3 +17,5 @@ INSTALLATION_OUT_DIR1=$(local_lilypond_datadir)/python
 INSTALLATION_OUT_FILES1=$(OUT_PY_MODULES) $(OUT_PYC_MODULES)
 
 $(outdir)/midi.lo: $(outdir)/config.hh
+
+default: $(outdir)/relocate-preamble.py
