@@ -27,7 +27,6 @@ class Auto_beam_engraver : public Engraver
 
 protected:
   void stop_translation_timestep ();
-  void start_translation_timestep ();
   void process_music ();
   virtual void finalize ();
   virtual void derived_mark () const;
@@ -106,6 +105,16 @@ Auto_beam_engraver::check_bar_property ()
 void
 Auto_beam_engraver::process_music ()
 {
+  /*
+    don't beam over skips
+  */
+  if (stems_)
+    {
+      Moment now = now_mom ();
+      if (extend_mom_ < now)
+	end_beam ();
+    }
+
   if (scm_is_string (get_property ("whichBar")))
     {
       consider_end (shortest_mom_);
@@ -274,25 +283,11 @@ Auto_beam_engraver::typeset_beam ()
 }
 
 void
-Auto_beam_engraver::start_translation_timestep ()
-{
-  process_acknowledged_count_ = 0;
-  /*
-    don't beam over skips
-  */
-  if (stems_)
-    {
-      Moment now = now_mom ();
-      if (extend_mom_ < now)
-	end_beam ();
-    }
-  forbid_ = 0;
-}
-
-void
 Auto_beam_engraver::stop_translation_timestep ()
 {
   typeset_beam ();
+  process_acknowledged_count_ = 0;
+  forbid_ = 0;
 }
 
 void

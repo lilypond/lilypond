@@ -89,10 +89,7 @@ void
 Ambitus_engraver::process_music ()
 {
   /*
-   * Ensure that ambitus is created in the very first timestep (on
-   * which lily does not call start_translation_timestep ()).
-   * Otherwise, if a voice begins with a rest, the ambitus grob will
-   * be placed after the rest.
+   * Ensure that ambitus is created in the very first timestep
    */
   if (!ambitus_)
     create_ambitus ();
