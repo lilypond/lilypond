@@ -545,7 +545,7 @@ fet_endchar;
 draw_shifted_too;
 
 fet_beginchar ("Flat (slashed)", "flat.slash");
-	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
+	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
@@ -566,7 +566,7 @@ fet_beginchar ("Flat (slashed)", "flat.slash");
 fet_endchar;
 
 fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
-	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
+	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
@@ -620,7 +620,7 @@ fet_beginchar ("Semi flat", "mirroredflat");
 fet_endchar;
 
 fet_beginchar ("Semi flat", "mirroredflat.backslash");
-	set_char_box (1.2 stafflinethickness#, .8 staff_space#,
+	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
