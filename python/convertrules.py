@@ -2969,3 +2969,24 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 13), conv, """#'arrow = ##t -> #'bound-details #'right #'arrow = ##t"""))
+
+def conv (str):
+    def sub_edge_height (m):
+        s = ''
+        for (var, h) in [('left', m.group (3)),
+                         ('right', m.group (4))]:
+
+            if h and float (h):
+                s += (r"%s \override %s #'bound-details #'%s #'text = \markup { \draw-line #'(0 . %s) }"
+                      % (m.group(1), m.group (2), var, h))
+
+                s += '\n'
+            
+        return s
+    
+                  
+    str = re.sub (r"(\\once)?\s*\\override\s*([a-zA-Z.]+)\s*#'edge-height\s*=\s*#'\(([0-9.-]+)\s+[.]\s+([0-9.-]+)\)",
+                  sub_edge_height, str)
+    return str
+
+conversions.append (((2, 11, 15), conv, """#'edge-height -> #'bound-details #'right/left #'text = ..."""))
