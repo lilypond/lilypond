@@ -125,8 +125,6 @@ get_skylines (Grob *me,
 	  Skyline_pair *skys = Skyline_pair::unsmob (g->get_property ("skylines"));
 	  if (skys)
 	    skylines = *skys;
-	  else
-	    programming_error ("no skylines for alignment-child\n");
 
 	  /* this is perhaps an abuse of minimum-?-extent: maybe we should create
 	     another property? But it seems that the only (current) use of

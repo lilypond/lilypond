@@ -180,10 +180,6 @@ pianoLH =  \relative c'' \repeat volta 2 {
 		\override SpacingSpanner #'spacing-increment = #1.0
 		\override Slur #'height-limit = #1.5
 	    }
-	    \context {
-		\PianoStaff
-		\override VerticalAlignment #'forced-distance = #10
-	    }
 	}
 	\midi {
 	  \context {
