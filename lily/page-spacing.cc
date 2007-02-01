@@ -91,7 +91,7 @@ compress_lines (const vector<Line_details> &orig)
 
   for (vsize i = 0; i < orig.size (); i++)
     {
-      if (ret.size () && ret.back ().page_permission_ == SCM_EOL)
+      if (ret.size () && !scm_is_symbol (ret.back ().page_permission_))
 	{
 	  Line_details const &old = ret.back ();
 	  Line_details compressed = orig[i];
