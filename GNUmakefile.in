@@ -229,6 +229,9 @@ test:
 
 
 test-baseline: test
+	if  test -d .git ; then \
+		@$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
+	fi
 	rm -rf input/regression/out-test-baseline
 	mv input/regression/out-test input/regression/out-test-baseline
 
