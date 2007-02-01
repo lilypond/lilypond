@@ -27,15 +27,33 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 	   1, 0, 0, (SCM cb),
 	   "Specify a procedure that will be called every time lilypond modifies "
 	   "a grob property. The callback will receive as arguments "
-	   "the grob that is being modified, the name of the C++ file in which "
-	   "the modification was requested, the line number in the C++ file in "
-	   "which the modification was requested, the property to be changed and "
+	   "the grob that is being modified, "
+	   "the name of the C++ file in which the modification was requested, "
+	   "the line number in the C++ file in which the modification was requested, "
+	   "the name of the function in which the modification was requested, "
+	   "the property to be changed and "
 	   "the new value for the property.")
 {
   LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
 
   modification_callback = cb;
   return SCM_UNSPECIFIED;
+}
+
+void
+Grob::instrumented_set_property (SCM sym, SCM v,
+				 char const *file,
+				 int line,
+				 char const *fun)
+{
+  if (ly_is_procedure (modification_callback))
+    scm_apply_0 (modification_callback,
+		 scm_list_n (self_scm (),
+			     scm_from_locale_string (file),
+			     scm_from_int (line),
+			     scm_from_locale_string (fun),
+			     sym, v, SCM_UNDEFINED));
+  internal_set_property (sym, v);
 }
 #endif
 
@@ -51,43 +69,6 @@ Grob::get_property_alist_chain (SCM def) const
 
 extern void check_interfaces_for_property (Grob const *me, SCM sym);
 
-#if 0
-
-/*
-  We can't change signatures depending on NDEBUG, since NDEBUG comes
-  over the command line and may be different per .cc file.  This
-  should be done through the macro expansion of get_property ().
- */
-void
-Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char const *fun)
-{
-  SCM grob_p = ly_lily_module_constant ("ly:grob?");
-  SCM grob_list_p = ly_lily_module_constant ("grob-list?");
-  SCM type = scm_object_property (sym, ly_symbol2scm ("backend-type?"));
-
-  if (type == grob_p
-      || type == grob_list_p
-      || (unsmob_grob (v) && ly_symbol2scm ("cause") != sym))
-    {
-      scm_display (scm_list_2 (sym, type), scm_current_output_port ());
-      assert (0);
-    }
-  
-  internal_set_value_on_alist (&mutable_property_alist_,
-			       sym, v);
-
-
-  if (ly_is_procedure (modification_callback))
-    scm_apply_0 (modification_callback,
-		 scm_list_n (self_scm (),
-			     scm_from_locale_string (file),
-			     scm_from_int (line),
-			     scm_from_locale_string (fun),
-			     sym, v, SCM_UNDEFINED));
-}
-#else
-
-
 void
 Grob::internal_set_property (SCM sym, SCM v)
 {
@@ -95,7 +76,6 @@ Grob::internal_set_property (SCM sym, SCM v)
 			       sym, v);
 
 }
-#endif
 
 void
 Grob::internal_set_value_on_alist (SCM *alist, SCM sym, SCM v)

@@ -460,6 +460,13 @@ Context::add_alias (SCM sym)
   aliases_ = scm_cons (sym, aliases_);
 }
 
+/* we don't (yet) instrument context properties */
+void
+Context::instrumented_set_property (SCM sym, SCM val, const char*, int, const char*)
+{
+  internal_set_property (sym, val);
+}
+
 void
 Context::internal_set_property (SCM sym, SCM val)
 {
