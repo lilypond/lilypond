@@ -264,7 +264,7 @@
   "\n unknown\n")
 
 (define (url-link url x y)
-  (ly:format "~a ~a ~a ~a (~a) mark_URI"
+  (ly:format "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI"
 	     (car x)
 	     (car y)
 	     (cdr x)
