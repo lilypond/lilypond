@@ -22,6 +22,7 @@
 
 #ifndef NDEBUG
 static SCM modification_callback = SCM_EOL;
+static SCM cache_callback = SCM_EOL;
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
 	   1, 0, 0, (SCM cb),
@@ -37,6 +38,22 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
   LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
 
   modification_callback = cb;
+  return SCM_UNSPECIFIED;
+}
+
+LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
+	   1, 0, 0, (SCM cb),
+	   "Specify a procedure that will be called whenever lilypond calculates "
+	   "a callback function and caches the result. The callback will "
+	   "receive as arguments "
+	   "the grob whose property it is, "
+	   "the name of the property, "
+	   "the name of the callback that calculated the property and "
+	   "the new (cached) value of the property.")
+{
+  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
+  
+  cache_callback = cb;
   return SCM_UNSPECIFIED;
 }
 
@@ -195,7 +212,18 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 	*alist = scm_assq_remove_x (*alist, marker);
     }
   else
-    internal_set_value_on_alist (alist, sym, value);
+    {
+#ifndef NDEBUG
+      if (ly_is_procedure (cache_callback))
+	scm_apply_0 (cache_callback,
+		     scm_list_n (self_scm (),
+				 sym,
+				 proc,
+				 value,
+				 SCM_UNDEFINED));
+#endif
+      internal_set_value_on_alist (alist, sym, value);
+    }
   
   return value;
 }
