@@ -21,7 +21,6 @@
 #include "output-def.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "staff-symbol.hh"
 #include "stem.hh"
 #include "text-interface.hh"
 #include "tie.hh"
