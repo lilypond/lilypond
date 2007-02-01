@@ -4,17 +4,14 @@
 
 #(define last-grob-action '())
 
-#(define sym-blacklist
-  '())
+#(define sym-blacklist '())
+#(define sym-whitelist '())
 
-#(define sym-whitelist
-  '())
+#(define file-line-blacklist '())
+#(define file-line-whitelist '())
 
-#(define file-line-blacklist
-  '())
-
-#(define file-line-whitelist
-  '())
+#(define grob-blacklist '())
+#(define grob-whitelist '())
 
 #(define (blacklist-symbol sym)
   (set! sym-blacklist (cons sym sym-blacklist)))
