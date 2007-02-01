@@ -301,6 +301,17 @@ Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const
   initialize ();
 }
 
+static SCM
+min_permission (SCM perm1, SCM perm2)
+{
+  if (perm1 == ly_symbol2scm ("force"))
+    return perm2;
+  if (perm1 == ly_symbol2scm ("allow")
+     && perm2 != ly_symbol2scm ("force"))
+    return perm2;
+  return SCM_EOL;
+}
+
 /* find the forces for all possible lines and cache ragged_ and ragged_right_ */
 void
 Constrained_breaking::initialize ()
@@ -354,6 +365,13 @@ Constrained_breaking::initialize ()
 	  line.break_permission_ = c->get_property ("line-break-permission");
 	  line.page_permission_ = c->get_property ("page-break-permission");
 	  line.turn_permission_ = c->get_property ("page-turn-permission");
+	  
+	  /* turn permission should always be stricter than page permission
+	     and page permission should always be stricter than line permission */
+	  line.page_permission_ = min_permission (line.break_permission_,
+						  line.page_permission_);
+	  line.turn_permission_ = min_permission (line.page_permission_,
+						  line.turn_permission_);
 
 	  max_ext = max (max_ext, extent.length ());
 	  line.extent_ = extent;
