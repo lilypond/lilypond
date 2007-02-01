@@ -65,15 +65,17 @@ Key_signature_interface::print (SCM smob)
 	? scm_from_int (0)
 	: scm_cdar (s);
 
-      SCM glyph_name = ly_assoc_get (alt, alist, SCM_BOOL_F);
-      if (!scm_is_string (glyph_name))
+      SCM glyph_name_scm = ly_assoc_get (alt, alist, SCM_BOOL_F);
+      if (!scm_is_string (glyph_name_scm))
 	{
 	  me->warning (_f ("No glyph found for alteration: %s",
 			   ly_scm2rational (alt).to_string ().c_str ()));
 	  continue;
 	}
-      
-      Stencil acc (fm->find_by_name (ly_scm2string (glyph_name)));
+
+      string glyph_name = ly_scm2string (glyph_name_scm);
+
+      Stencil acc (fm->find_by_name (glyph_name));
 
       if (acc.is_empty ())
 	me->warning (_ ("alteration not found"));
@@ -91,11 +93,12 @@ Key_signature_interface::print (SCM smob)
 	    has vertical edges on both sides. A little padding is
 	    needed to prevent collisions.
 	  */
-	  Real padding = 0.0;
-	  if (is_cancellation
+	  Real padding = robust_scm2double (me->get_property ("padding"),
+					    0.0);
+	  if (glyph_name ==  "accidentals.natural"
 	      && last_pos < pos + 2
 	      && last_pos > pos - 6)
-	    padding = 0.3;
+	    padding += 0.3;
 
 	  mol.add_at_edge (X_AXIS, LEFT, acc, padding);
 	  last_pos = pos;
@@ -113,5 +116,6 @@ ADD_INTERFACE (Key_signature_interface,
 	       "alteration-alist "
 	       "c0-position "
 	       "glyph-name-alist "
+	       "padding "
 	       "style "
 	       );
