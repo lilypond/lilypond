@@ -36,7 +36,9 @@ public:
 static Grob *
 line_spanner_common_parent (Grob *me)
 {
-  Grob *common = find_fixed_alignment_parent (me);
+  /* FIXME: what is the right thing to do here, now that PianoStaves don't
+     have fixed spacing? */
+  Grob *common = 0; //find_fixed_alignment_parent (me);
   if (!common)
     {
       common = Staff_symbol_referencer::get_staff_symbol (me);
