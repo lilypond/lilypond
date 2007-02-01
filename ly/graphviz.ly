@@ -1,18 +1,23 @@
 \version "2.11.15"
 
+#(use-modules (scm graphviz))
+
 #(define last-grob-action '())
 
 #(define sym-blacklist
-  '(cause font))
+  '())
 
 #(define sym-whitelist
-  '(control-points))
+  '())
 
 #(define file-line-blacklist
   '())
 
 #(define file-line-whitelist
   '())
+
+#(define (whitelist-symbol sym)
+  (set! sym-whitelist (cons sym sym-whitelist)))
 
 #(define graph (make-graph "graph.dot"))
 
@@ -36,18 +41,17 @@
   (let* ((prev (assv grob last-grob-action))
          (val-str0 (format "~a" val))
          (val-str (string-take val-str0 (min 50 (string-length val-str0))))
-	 (label (format "~a\\n~a:~a\\n~a <- ~a" grob file line prop val-str))
-	 (node-id (make-node graph label file)))
+	 (label (format "~a\\n~a:~a\\n~a <- ~a" grob file line prop val-str)))
    (if (relevant? grob file line prop)
-    (begin
+    (let ((node-id (add-node graph label file)))
      (if (pair? prev)
       (add-edge graph (cdr prev) node-id))
      (set! last-grob-action (assv-set! last-grob-action grob node-id))))))
 
 #(define (grob-create grob file line func)
   (let* ((label (format "~a\\n~a:~a" grob file line))
-	 (node-id (make-node graph label file)))
-   (set! last-grob-action (assv-set! last-grob-action grob node-num))))
+	 (node-id (add-node graph label file)))
+   (set! last-grob-action (assv-set! last-grob-action grob node-id))))
 
 #(ly:set-grob-modification-callback grob-mod)
-#(ly:set-grob-creation-callback grob-create)
+%#(ly:set-grob-creation-callback grob-create)

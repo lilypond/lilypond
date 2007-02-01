@@ -20,18 +20,18 @@
 (define (clusters g) (vector-ref g 3))
 
 (define (add-cluster graph node-id cluster-name)
-  (let ((cs (clusters g))
-	(cluster (assq cluster-name cs))
-	(already-in-cluster (if cluster
-				(cdr cluster)
-				'())))
-    (vector-set! graph 3 (assq-set! cluster-name
-				    (cons node-id already-in-cluster)
-				    cs))))
+  (let* ((cs (clusters graph))
+	 (cluster (assq cluster-name cs))
+	 (already-in-cluster (if cluster
+				 (cdr cluster)
+				 '())))
+    (vector-set! graph 3 (assq-set! cs
+				    cluster-name
+				    (cons node-id already-in-cluster)))))
 
 (define (add-node graph label . cluster-name)
-  (let ((ns (nodes graph))
-        (id (length ns)))
+  (let* ((ns (nodes graph))
+         (id (length ns)))
     (vector-set! graph 1 (cons `(,id . ,label) ns))
     (if (and (not (null? cluster-name))
 	     (string? (car cluster-name)))
@@ -54,7 +54,7 @@
 	 es)
     (map (lambda (c)
 	  (display (format "subgraph cluster_~a {\nlabel= \"~a\"\ncolor=blue\n"
-			   (string-filter char-alphabetic? (car c))
+			   (string-filter (car c) char-alphabetic?)
 			   (car c))
 		   out)
 	  (map (lambda (n) (display (format "~a\n" n) out)) (cdr c))
