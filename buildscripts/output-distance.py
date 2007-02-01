@@ -347,7 +347,10 @@ class FileLink:
         
     def text_record_string (self):
         return '%-30f %-20s\n' % (self.distance (),
-                                  self.name ())
+                                  self.name ()
+                                  + os.path.splitext (self.file_names[1])[1]
+                                  )
+    
     def calc_distance (self):
         return 0.0
 
@@ -357,11 +360,18 @@ class FileLink:
 
         return self._distance
     
+    def source_file (self):
+        for ext in ('.ly', '.ly.txt'):
+            base = os.path.splitext (self.file_names[1])[0]
+            f = base + ext
+            if os.path.exists (f):
+                return f
+            
+        return ''
         
     def name (self):
         base = os.path.basename (self.file_names[1])
         base = os.path.splitext (base)[0]
-        
         base = hash_to_original_name.get (base, base)
         base = os.path.splitext (base)[0]
         return base
@@ -426,11 +436,14 @@ class FileCompareLink (FileLink):
             return 0.0
         else:
             return 100.0;
+
         
     def get_content (self, f):
         print 'reading', f
         s = open (f).read ()
         return s
+
+
 
 
 class GitFileCompareLink (FileCompareLink):
@@ -451,6 +464,7 @@ class GitFileCompareLink (FileCompareLink):
             d = 1.0001 *options.threshold
 
         return d
+
         
 class TextFileCompareLink (FileCompareLink):
     def calc_distance (self):
@@ -563,12 +577,8 @@ class SignatureFileLink (FileLink):
             
         return d + orphan_distance
 
-    def source_file (self):
-        for ext in ('.ly', '.ly.txt'):
-            if os.path.exists (self.base_names[1] + ext):
-                return self.base_names[1] + ext
-        return ''
-    
+
+
     def add_file_compare (self, f1, f2):
         system_index = [] 
 
@@ -582,18 +592,6 @@ class SignatureFileLink (FileLink):
         self.base_names = (os.path.normpath (base1),
                            os.path.normpath (base2))
 
-        def note_original (match):
-            hash_to_original_name[os.path.basename (self.base_names[1])] = match.group (1)
-            return ''
-        
-        ## ugh: drop the .ly.txt
-        for ext in ('.ly', '.ly.txt'):
-            try:
-                re.sub (r'\\sourcefilename "([^"]+)"',
-                        note_original, open (base1 + ext).read ())
-            except IOError:
-                pass
-                
         s1 = read_signature_file (f1)
         s2 = read_signature_file (f2)
 
@@ -786,6 +784,23 @@ class ComparisonData:
         self.added = []
         self.file_links = {}
 
+    def read_sources (self):
+
+        ## ugh: drop the .ly.txt
+        for (key, val) in self.file_links.items ():
+            
+            def note_original (match, ln=val):
+                key = ln.name ()
+                hash_to_original_name[key] = match.group (1)
+                return ''
+
+            sf = val.source_file ()
+            if sf:
+                re.sub (r'\\sourcefilename "([^"]+)"',
+                        note_original, open (sf).read ())
+            else:
+                print 'no source for', val
+        
     def compare_trees (self, dir1, dir2):
         self.compare_directories (dir1, dir2)
         
@@ -801,7 +816,11 @@ class ComparisonData:
                 self.compare_trees (d1, d2)
     
     def compare_directories (self, dir1, dir2):
-        for ext in ['signature', 'midi', 'log', 'profile', 'gittxt']:
+        for ext in ['signature',
+                    'midi',
+                    'log',
+                    'profile',
+                    'gittxt']:
             (paired, m1, m2) = paired_files (dir1, dir2, '*.' + ext)
 
             self.missing += [(dir1, m) for m in m1] 
@@ -943,6 +962,9 @@ class ComparisonData:
 def compare_trees (dir1, dir2, dest_dir, threshold):
     data = ComparisonData ()
     data.compare_trees (dir1, dir2)
+    data.read_sources ()
+
+    
     data.print_results (threshold)
 
     if os.path.isdir (dest_dir):

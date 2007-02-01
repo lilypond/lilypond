@@ -72,9 +72,13 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
   if (!to_boolean (me->get_property ("restore-first"))
       && !parens)
     {
-      Rational alteration
-	= robust_scm2rational (me->get_property ("alteration"), 0);
-      if (alteration == FLAT_ALTERATION)
+      SCM alist = me->get_property ("glyph-name-alist");
+      SCM alt = me->get_property ("alteration");
+      string glyph_name = robust_scm2string (ly_assoc_get (alt, alist, SCM_BOOL_F),
+					     "");
+      
+      if (glyph_name == "accidentals.flat"
+	  || glyph_name == "accidentals.mirroredflat")
 	{
 	  Box stem = b;
 	  Box bulb = b;
@@ -83,7 +87,9 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
 	    we could make the stem thinner, but that places the flats
 	    really close.
 	  */
-	  stem[X_AXIS][RIGHT] *= .5;
+	  Direction bulb_dir =
+	    glyph_name=="accidentals.mirroredflat" ? LEFT : RIGHT;
+	  stem[X_AXIS][bulb_dir] = stem[X_AXIS].center ();
 
 	  /*
 	    To prevent vertical alignment for 6ths
@@ -94,7 +100,7 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
 	  boxes.push_back (bulb);
 	  boxes.push_back (stem);
 	}
-      else if (alteration == NATURAL_ALTERATION)
+      else if (glyph_name ==  "accidentals.natural")
 	{
 	  Box lstem = b;
 	  Box rstem = b;
