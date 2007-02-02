@@ -16,25 +16,6 @@
 #include "spanner.hh"
 #include "warn.hh"
 
-SCM
-lookup_nested_property (SCM alist,
-			SCM grob_property_path)
-{
-  if (scm_is_pair (grob_property_path))
-    {
-      SCM sym = scm_car (grob_property_path);
-      SCM handle = scm_assq (sym, alist);
-
-      if (handle == SCM_BOOL_F)
-	return SCM_EOL;
-      else
-	return lookup_nested_property (scm_cdr (handle),
-				       scm_cdr (grob_property_path));
-    }
-  else 
-    return alist;
-}
-
 /*
   copy ALIST leaving out SYMBOL. Copying stops at ALIST_END
 */
@@ -95,6 +76,72 @@ general_pushpop_property (Context *context,
   indicates nested alists, eg. '(beamed-stem-lengths details)
   
 */
+
+
+void
+execute_override_property (Context *context,
+			   SCM context_property,
+			   SCM grob_property_path,
+			   SCM new_value)
+{
+  SCM current_context_val = SCM_EOL;
+  
+  Context *where = context->where_defined (context_property,
+					   &current_context_val);
+
+  /*
+    Don't mess with MIDI.
+  */
+  if (!where)
+    return;
+
+  if (where != context)
+    {
+      SCM base = updated_grob_properties (context, context_property);
+      current_context_val = scm_cons (base, base);
+      context->set_property (context_property, current_context_val);
+    }
+
+  if (!scm_is_pair (current_context_val))
+    {
+      programming_error ("Grob definition should be cons");
+      return;
+    }
+
+  SCM symbol = scm_car (grob_property_path);
+  SCM target_alist = scm_car (current_context_val);
+  if (scm_is_pair (scm_cdr (grob_property_path)))
+    {
+      new_value = nested_property_alist (ly_assoc_get (symbol, target_alist, 
+						       SCM_EOL),
+					 scm_cdr (grob_property_path),
+					 new_value);
+    }
+
+  if (scm_is_pair (target_alist)
+      && scm_caar (target_alist) == symbol)
+    target_alist = scm_cdr (target_alist);
+
+  target_alist = scm_acons (symbol, new_value, target_alist);
+
+  bool ok = true;
+  if (!ly_is_procedure (new_value)
+      && !is_simple_closure (new_value))
+    ok = type_check_assignment (symbol, new_value,
+				ly_symbol2scm ("backend-type?"));
+
+  /*
+    tack onto alist.  We can use set_car, since
+    updated_grob_properties () in child contexts will check
+    for changes in the car.
+  */
+  if (ok)
+    {
+      scm_set_car_x (current_context_val, target_alist);
+    }
+}
+
+	  
 void
 execute_general_pushpop_property (Context *context,
 				  SCM context_property,
@@ -102,66 +149,20 @@ execute_general_pushpop_property (Context *context,
 				  SCM new_value
 				  )
 {
-  SCM current_context_val = SCM_EOL;
   if (new_value != SCM_UNDEFINED)
     {
-      Context *where = context->where_defined (context_property, &current_context_val);
+      execute_override_property (context, context_property,
+				 grob_property_path,
+				 new_value);
 
-      /*
-	Don't mess with MIDI.
-      */
-      if (!where)
-	return;
-
-      if (where != context)
-	{
-	  SCM base = updated_grob_properties (context, context_property);
-	  current_context_val = scm_cons (base, base);
-	  context->set_property (context_property, current_context_val);
-	}
-
-      if (!scm_is_pair (current_context_val))
-	{
-	  programming_error ("Grob definition should be cons");
-	  return;
-	}
-
-      SCM prev_alist = scm_car (current_context_val);
-      SCM symbol = scm_car (grob_property_path);
-      SCM target_alist
-	= lookup_nested_property (prev_alist,
-				  scm_reverse (scm_cdr (grob_property_path)));
-
-      target_alist = scm_acons (symbol, new_value, target_alist);
-
-      bool ok = true;
-      if (!scm_is_pair (scm_cdr (grob_property_path)))
-	{
-	  if (!ly_is_procedure (new_value)
-	      && !is_simple_closure (new_value))
-	    ok = type_check_assignment (symbol, new_value,
-					ly_symbol2scm ("backend-type?"));
-
-	  /*
-	    tack onto alist.  We can use set_car, since
-	    updated_grob_properties () in child contexts will check
-	    for changes in the car.
-	  */
-	  if (ok)
-	    {
-	      scm_set_car_x (current_context_val, target_alist);
-	    }
-	}
-      else
-	{
-	  execute_general_pushpop_property (context,
-					    context_property,
-					    scm_cdr (grob_property_path),
-					    target_alist
-					    );
-	}
+      return;
     }
-  else if (context->where_defined (context_property, &current_context_val) == context)
+
+  /*
+    revert.
+   */
+  SCM current_context_val = SCM_EOL;
+  if (context->where_defined (context_property, &current_context_val) == context)
     {
       SCM current_value = scm_car (current_context_val);
       SCM daddy = scm_cdr (current_context_val);

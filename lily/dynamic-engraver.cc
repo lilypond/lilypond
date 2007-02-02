@@ -263,9 +263,9 @@ Dynamic_engraver::process_music ()
 	      if (script_)
 		{
 		  set_nested_property (cresc_,
-				       scm_list_3 (ly_symbol2scm ("attach-dir"),
+				       scm_list_3 (ly_symbol2scm ("bound-details"),
 						   ly_symbol2scm ("left"),
-						   ly_symbol2scm ("bound-details")
+						   ly_symbol2scm ("attach-dir")
 						   ),
 				       scm_from_int (RIGHT));
 		}

@@ -86,8 +86,6 @@ Grob::internal_set_property (SCM sym, SCM v, char const *file, int line, char co
 			     sym, v, SCM_UNDEFINED));
 }
 #else
-
-
 void
 Grob::internal_set_property (SCM sym, SCM v)
 {
@@ -304,9 +302,8 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
 
 
 void
-set_nested_property (Grob *me, SCM property_path, SCM value)
+set_nested_property (Grob *me, SCM big_to_small, SCM value)
 {
-  SCM big_to_small = scm_reverse (property_path);
   SCM alist = me->get_property (scm_car (big_to_small));
 
   alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
