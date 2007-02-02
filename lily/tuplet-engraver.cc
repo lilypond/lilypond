@@ -215,7 +215,9 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
-		/* doc */ "Catch TupletSpannerEvent and generate appropriate bracket  ",
+		/* doc */
+		"Catch @ref{TupletSpannerEvent} and generate appropriate bracket.",
+		
 		/* create */
 		"TupletBracket "
 		"TupletNumber ",
