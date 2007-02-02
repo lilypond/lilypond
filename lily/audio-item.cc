@@ -120,7 +120,7 @@ Audio_span_dynamic::render ()
   
   Real start_v = dynamics_[0]->volume_;
   if (dynamics_.back ()->volume_ < 0)
-    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, 1.0), 0.0);
+    dynamics_.back ()->volume_ = max (min (start_v + grow_dir_ * 0.25, 1.0), 0.1);
 
   delta_v = dynamics_.back ()->volume_ - dynamics_[0]->volume_;
 
