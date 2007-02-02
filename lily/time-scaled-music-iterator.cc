@@ -120,15 +120,11 @@ Time_scaled_music_iterator::process (Moment m)
 void
 Time_scaled_music_iterator::construct_children ()
 {
+  spanner_duration_ = music_get_length ();
+
   Moment *mp = unsmob_moment (get_outlet ()->get_property ("tupletSpannerDuration"));
   if (mp)
-    {
-      spanner_duration_ = mp->main_part_;
-    }
-  else
-    {
-      spanner_duration_ = music_get_length ();
-    }
+    spanner_duration_ = min (mp->main_part_, spanner_duration_);
   
   Music_wrapper_iterator::construct_children ();
 

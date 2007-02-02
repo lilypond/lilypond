@@ -273,9 +273,6 @@ Midi_note::to_string () const
   // print warning if fine tuning was needed, HJJ
   if (get_fine_tuning () != 0)
     {
-      warning (_f ("experimental: temporarily fine tuning (of %d cents) a channel.",
-		   get_fine_tuning ()));
-
       finetune = PITCH_WHEEL_CENTER;
       // Move pitch wheel to a shifted position.
       // The pitch wheel range (of 4 semitones) is multiplied by the cents.
@@ -287,9 +284,9 @@ Midi_note::to_string () const
       str += ::to_string ((char) (0x00));
     }
 
-  str += ::to_string ((char)status_byte);
+  str += ::to_string ((char) status_byte);
   str += ::to_string ((char) (get_pitch () + c0_pitch_));
-  str += ::to_string ((char)dynamic_byte_);
+  str += ::to_string ((char) dynamic_byte_);
 
   return str;
 }

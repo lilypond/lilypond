@@ -69,6 +69,7 @@ void
 Midi_walker::do_start_note (Midi_note *note)
 {
   Audio_item *ptr = items_[index_];
+  assert (note->audio_ == ptr);
   int stop_ticks = int (moment_to_real (note->audio_->length_mom_) * Real (384 * 4))
     + ptr->audio_column_->ticks ();
 
@@ -111,9 +112,6 @@ Midi_walker::do_start_note (Midi_note *note)
     }
 }
 
-/**
-   Output note events for all notes which end before #max_mom#
-*/
 void
 Midi_walker::do_stop_notes (int max_ticks)
 {

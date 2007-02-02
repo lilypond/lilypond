@@ -13,11 +13,8 @@
 
 % llx lly urx ury URI
 /mark_URI
-% It's possible to eliminate the coordinate variables by doing [ /Rect [ 7 3
-% roll.  That is, however, kind of ugly.  It would be nice if this procedure
-% were only included when PDF marks are enabled.
 {
-    /command exch def
+    /uri exch def
     /ury exch def
     /urx exch def
     /lly exch def
@@ -30,7 +27,7 @@
         /Action
 	    <<
 		/Subtype /URI
-		/URI command
+		/URI uri
 	    >>
         /Subtype /Link
     /ANN
