@@ -921,11 +921,14 @@ use GrandStaff as a context. "
 				   '(Staff (any-octave . 0) (same-octave . 1)
 					   GrandStaff (any-octave . 0) (same-octave . 1))
 				   pcontext))
+      
       ;; do not set localKeySignature when a note alterated differently from
       ;; localKeySignature is found.
       ;; Causes accidentals to be printed at every note instead of
       ;; remembered for the duration of a measure.
-      ;; accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
+      ;; accidentals not being remembered, causing accidentals always to
+      ;; be typeset relative to the time signature
+      
       ((equal? style 'forget)
        (set-accidentals-properties '()
 				   '(Staff (same-octave . -1))

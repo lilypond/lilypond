@@ -307,12 +307,12 @@
   "\n unknown\n")
 
 (define (url-link url x y)
-  (format #f "~a ~a ~a ~a (~a) mark_URI"
-	  (car x)
-	  (car y)
-	  (cdr x)
-	  (cdr y)
-	  url))
+  (format #f "~a ~a currentpoint vector_add  ~a ~a currentpoint vector_add (~a) mark_URI"
+	     (car x)
+	     (car y)
+	     (cdr x)
+	     (cdr y)
+	     url))
 
 (define (utf-8-string pango-font-description string)
   (ly:warning (_ "utf-8-string encountered in PS backend")))
