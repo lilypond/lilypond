@@ -138,6 +138,8 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 	   "Return value if KEY in ALIST, else DEFAULT-VALUE "
 	   "(or #f if not specified).")
 {
+  LY_ASSERT_TYPE(ly_cheap_is_list, alist, 2);
+  
   SCM handle = scm_assoc (key, alist);
   if (scm_is_pair (handle))
     return scm_cdr (handle);
@@ -150,7 +152,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 
 LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 	   3, 0, 0, (SCM a, SCM b, SCM s),
-	   "Replace @var{a} by @var{b} in @var{s}.")
+	   "Replace string @var{a} by string @var{b} in string @var{s}.")
 {
   LY_ASSERT_TYPE (scm_is_string, s, 1);
   LY_ASSERT_TYPE (scm_is_string, b, 2);

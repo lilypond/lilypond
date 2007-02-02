@@ -85,6 +85,7 @@ SCM ly_assoc_prepend_x (SCM alist, SCM key, SCM val);
 inline bool ly_is_fraction (SCM x) { return SCM_FRACTIONP(x) || scm_is_integer (x); }
     
 inline bool ly_is_list (SCM x) { return SCM_NFALSEP (scm_list_p (x)); }
+inline bool ly_cheap_is_list (SCM x) { return scm_is_pair (x) || x == SCM_EOL; }
 inline bool ly_is_procedure (SCM x) { return SCM_NFALSEP (scm_procedure_p (x)); }
 inline bool ly_is_port (SCM x) { return SCM_NFALSEP (scm_port_p (x)); }
 
