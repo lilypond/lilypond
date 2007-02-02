@@ -155,6 +155,7 @@
 		     'HarmonicEvent
 		     'BeamForbidEvent
 		     'AbsoluteDynamicEvent
+		     'TupletSpanEvent
 		     'TrillSpanEvent
 		     'GlissandoEvent
 		     'ArpeggioEvent

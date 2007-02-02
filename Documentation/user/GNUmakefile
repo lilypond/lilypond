@@ -40,7 +40,7 @@ info: $(INFO_FILES)
 
 pathsettings:
 	@echo export PATH=$(PATH)
-	@echo export LILYPONDPREFIX=$(LILYPONDPREFIX)
+	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
 	@echo export PYTHONPATH=$(PYTHONPATH)
 
 xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
