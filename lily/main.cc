@@ -136,7 +136,7 @@ static char const *WARRANTY
 /* Where the init files live.  Typically:
    LILYPOND_DATADIR = /usr/share/lilypond
 */
-string prefix_directory;
+string lilypond_datadir;
 
 /* The jail specification: USER, GROUP, JAIL, DIR. */
 string jail_spec;
@@ -199,9 +199,10 @@ dir_info (FILE *out)
   fputs ("\n", out);
   fprintf (out, "LILYPOND_DATADIR=\"%s\"\n", LILYPOND_DATADIR);
   env_var_info (out, "LILYPONDPREFIX");
+  env_var_info (out, "LILYPOND_DATADIR");
   fprintf (out, "LOCALEDIR=\"%s\"\n", LOCALEDIR);
 
-  fprintf (out, "\nEffective prefix: \"%s\"\n", prefix_directory.c_str ());
+  fprintf (out, "\nEffective prefix: \"%s\"\n", lilypond_datadir.c_str ());
 
   if (relocate_binary)
     {
@@ -377,8 +378,8 @@ main_with_guile (void *, int, char **)
   /* Engravers use lily.scm contents, need to make Guile find it.
      Prepend onto GUILE %load-path, very ugh. */
 
-  prepend_load_path (prefix_directory);
-  prepend_load_path (prefix_directory + "/scm");
+  prepend_load_path (lilypond_datadir);
+  prepend_load_path (lilypond_datadir + "/scm");
 
   if (be_verbose_global)
     dir_info (stderr);
@@ -592,9 +593,6 @@ setup_guile_env ()
   sane_putenv ("GUILE_MAX_SEGMENT_SIZE",
 	       "104857600", overwrite);
 }
-
-void
-read_relocation_dir (string);
 
 int
 main (int argc, char **argv)

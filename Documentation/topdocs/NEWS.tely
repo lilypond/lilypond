@@ -86,6 +86,10 @@ This feature was sponsored by Trevor Bača.
 
  
 @item
+The environment variable LILYPONDPREFIX has been renamed to
+LILYPOND_DATADIR.
+
+@item
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.
 

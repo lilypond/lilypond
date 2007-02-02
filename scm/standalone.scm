@@ -19,8 +19,8 @@
 
 (define (scm-gulp-file name)
   (set! %load-path 
-	(cons (string-append (getenv "LILYPONDPREFIX") "/ly")
-	      (cons (string-append (getenv "LILYPONDPREFIX") "/ps")
+	(cons (string-append (getenv "LILYPOND_DATADIR") "/ly")
+	      (cons (string-append (getenv "LILYPOND_DATADIR") "/ps")
 		    %load-path)))
   (let ((path (%search-load-path name)))
        (if path
