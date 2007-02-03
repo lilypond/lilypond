@@ -27,7 +27,7 @@
   \score {
     \lyrics {
       \markup {
-	\epsfile #X #30.0 #(format #f "s-1.eps" outname)
+	\epsfile #X #30.0 #(format #f "~a-1.eps" outname)
       }
       x x x
     }
