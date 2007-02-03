@@ -5,7 +5,7 @@
 
 \include "typography-demo.ly"
 
-
+\version "2.11.16"
 
 #(define outname (ly:parser-output-name parser))
 
@@ -16,6 +16,7 @@
 #(system (format #f "inkscape -T -E ~a-1.eps ~a-1.svg" outname outname))
 #(set! output-count 0)
 #(set-default-paper-size "a5")
+
 \book { 
   \header {
     texidoc = "SVG output, rendered through inkscape."
