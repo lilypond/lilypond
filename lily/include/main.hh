@@ -35,7 +35,7 @@ extern bool do_internal_type_checking_global;
 extern bool is_pango_format_global;
 extern bool is_TeX_format_global;
 extern bool point_and_click_global;
-extern string prefix_directory;
+extern string lilypond_datadir;
 extern bool use_object_keys;
 extern bool strict_infinity_checking;
 /*

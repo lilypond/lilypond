@@ -287,7 +287,7 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
 {
-  return scm_makfrom0str (prefix_directory.c_str ());
+  return scm_makfrom0str (lilypond_datadir.c_str ());
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
