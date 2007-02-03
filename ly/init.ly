@@ -38,6 +38,7 @@
       (defined? 'input-file-name))
   (version-not-seen-message input-file-name))
 
+#(ly:set-option 'protected-scheme-parsing #f)
 #(if (pair? toplevel-scores)
   (toplevel-book-handler
    parser
