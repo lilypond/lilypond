@@ -21,7 +21,6 @@ def read_log_file (fn):
     deps = []
     autolines = []
     def include_func (match, d = deps):
-        print match.group (1)
         d.append (match.group (1))
         return ''
 
