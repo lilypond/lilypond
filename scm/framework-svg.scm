@@ -20,7 +20,7 @@
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.svg" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb")
-					      (ly:output-backend)))
+					      (ly:get-option 'backend)))
 	 (dump (lambda (str) (display str (ly:outputter-port outputter))))
    	 (paper (ly:paper-book-paper book))
 	 (unit-length (ly:output-def-lookup paper 'output-scale))

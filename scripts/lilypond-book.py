@@ -140,7 +140,7 @@ def get_option_parser ():
     p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
                   help = _ ("process ly_files using COMMAND FILE..."),
                   action='store', 
-                  dest='process_cmd', default='lilypond -b eps')
+                  dest='process_cmd', default='lilypond -dbackend=eps')
     p.add_option ('--pdf',
                   action="store_true",
                   dest="create_pdf",

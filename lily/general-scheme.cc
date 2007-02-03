@@ -230,13 +230,6 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return ly_string2scm (_ (scm_i_string_chars (string)));
 }
 
-LY_DEFINE (ly_output_backend, "ly:output-backend",
-	   0, 0, 0, (),
-	   "Return name of output backend.")
-{
-  return ly_string2scm (output_backend_global);
-}
-
 LY_DEFINE (ly_output_formats, "ly:output-formats",
 	   0, 0, 0, (),
 	   "Formats passed to --format as a list of strings, "

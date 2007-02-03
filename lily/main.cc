@@ -53,9 +53,6 @@ vector<string> dump_header_fieldnames_global;
 /* Name of initialisation file. */
 string init_name_global;
 
-/* Selected output backend
-   One of (gnome, ps [default], eps, scm, svg, tex, texstr)") */
-string output_backend_global = "ps";
 
 /* Output formats to generate.  */
 string output_format_global = "";
@@ -150,8 +147,6 @@ static Getopt_long *option_parser = 0;
 
 static Long_option_init options_static[]
 = {
-  {_i ("BACK"), "backend", 'b', _i ("use backend BACK (eps, gnome, ps [default],\nscm, svg, tex, texstr)")},
-
   {_i ("SYM[=VAL]"), "define-default", 'd',
    _i ("set Scheme option SYM to VAL (default: #t).\n"
        "Use -dhelp for help.")},
@@ -383,8 +378,6 @@ main_with_guile (void *, int, char **)
 
   if (be_verbose_global)
     dir_info (stderr);
-  is_TeX_format_global = (output_backend_global == "tex"
-			  || output_backend_global == "texstr");
 
   is_pango_format_global = !is_TeX_format_global;
   init_scheme_variables_global = "(list " + init_scheme_variables_global + ")";
@@ -397,6 +390,9 @@ main_with_guile (void *, int, char **)
   init_freetype ();
   ly_reset_all_fonts ();
 
+  is_TeX_format_global = (get_output_backend_name () == "tex"
+			  || get_output_backend_name () == "texstr");
+  
 
   /* We accept multiple independent music files on the command line to
      reduce compile time when processing lots of small files.
@@ -492,7 +488,7 @@ parse_argv (int argc, char **argv)
 	      }
 
 	    init_scheme_variables_global
-	      += "(cons \'" + key + "  " + val + ")\n";
+	      += "(cons \'" + key + " '" + val + ")\n";
 	  }
 	  break;
 
@@ -517,10 +513,6 @@ parse_argv (int argc, char **argv)
 	case 'w':
 	  warranty ();
 	  exit (0);
-	  break;
-
-	case 'b':
-	  output_backend_global = option_parser->optional_argument_str0_;
 	  break;
 
 	case 'f':

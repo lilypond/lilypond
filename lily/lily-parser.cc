@@ -23,6 +23,7 @@
 #include "sources.hh"
 #include "text-metrics.hh"
 #include "warn.hh"
+#include "program-option.hh"
 
 #include "ly-smobs.icc"
 
@@ -85,7 +86,7 @@ Lily_parser::print_smob (SCM s, SCM port, scm_print_state*)
 void
 Lily_parser::parse_file (string init, string name, string out_name)
 {
-  if (output_backend_global == "tex")
+  if (get_output_backend_name () == "tex")
     try_load_text_metrics (out_name);
 
   // TODO: use $parser 

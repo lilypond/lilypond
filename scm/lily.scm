@@ -28,6 +28,7 @@
     ;; - [subject-]-verb-object-object
 
     (anti-alias-factor 1 "render at higher resolution and scale down result\nto prevent jaggies in PNG")
+    (backend ps "which backend to use by default; Options: eps, ps [default], scm, svg, tex, texstr)")
     (check-internal-types #f "check every property assignment for types")
     (clip-systems #f "Generate cut-out snippets of a score")
     (debug-gc #f "dump memory debugging statistics")
@@ -137,7 +138,7 @@ on errors, and print a stack trace.")
     (coverage:enable))
 
 (define-public tex-backend?
-  (member (ly:output-backend) '("texstr" "tex")))
+  (member (ly:get-option 'backend) '(texstr tex)))
 
 (define-public parser #f)
 
