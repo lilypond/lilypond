@@ -209,6 +209,9 @@ IMPLEMENT_LISTENER (Lyric_combine_music_iterator, check_new_context)
 void
 Lyric_combine_music_iterator::check_new_context (SCM sev)
 {
+  if (!ok ())
+    return ;
+  
   // TODO: Check first if type=Voice and if id matches
   Stream_event * ev = unsmob_stream_event (sev);
   if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
