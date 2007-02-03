@@ -16,33 +16,6 @@
 #include "spanner.hh"
 #include "warn.hh"
 
-/*
-  copy ALIST leaving out SYMBOL. Copying stops at ALIST_END
-*/
-SCM
-evict_from_alist (SCM symbol,
-		  SCM alist,
-		  SCM alist_end)
-{
-  SCM new_alist = SCM_EOL;
-  SCM *tail = &new_alist;
-
-  while (alist != alist_end)
-    {
-      if (ly_is_equal (scm_caar (alist), symbol))
-	{
-	  alist = scm_cdr (alist);
-	  break;
-	}
-
-      *tail = scm_cons (scm_car (alist), SCM_EOL);
-      tail = SCM_CDRLOC (*tail);
-      alist = scm_cdr (alist);
-    }
-
-  *tail = alist;
-  return new_alist;
-}
 
 void
 general_pushpop_property (Context *context,
@@ -108,8 +81,10 @@ execute_override_property (Context *context,
       return;
     }
 
-  SCM symbol = scm_car (grob_property_path);
   SCM target_alist = scm_car (current_context_val);
+  SCM parent_alist = scm_cdr (current_context_val);
+
+  SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
     {
       new_value = nested_property_alist (ly_assoc_get (symbol, target_alist, 
@@ -119,7 +94,8 @@ execute_override_property (Context *context,
     }
 
   if (scm_is_pair (target_alist)
-      && scm_caar (target_alist) == symbol)
+      && scm_caar (target_alist) == symbol
+      && target_alist != parent_alist)
     target_alist = scm_cdr (target_alist);
 
   target_alist = scm_acons (symbol, new_value, target_alist);
@@ -141,7 +117,11 @@ execute_override_property (Context *context,
     }
 }
 
-	  
+void
+execute_revert_property (Context *context,
+			 SCM context_property,
+			 SCM grob_property_path);
+
 void
 execute_general_pushpop_property (Context *context,
 				  SCM context_property,
@@ -150,21 +130,26 @@ execute_general_pushpop_property (Context *context,
 				  )
 {
   if (new_value != SCM_UNDEFINED)
-    {
-      execute_override_property (context, context_property,
-				 grob_property_path,
-				 new_value);
+    execute_override_property (context, context_property,
+			       grob_property_path,
+			       new_value);
+  else
+    execute_revert_property (context, context_property,
+			     grob_property_path);
+}
 
-      return;
-    }
-
+void
+execute_revert_property (Context *context,
+			 SCM context_property,
+			 SCM grob_property_path)
+{
   /*
     revert.
-   */
+  */
   SCM current_context_val = SCM_EOL;
   if (context->where_defined (context_property, &current_context_val) == context)
     {
-      SCM current_value = scm_car (current_context_val);
+      SCM current_alist = scm_car (current_context_val);
       SCM daddy = scm_cdr (current_context_val);
 
       if (!scm_is_pair (grob_property_path)
@@ -175,12 +160,29 @@ execute_general_pushpop_property (Context *context,
 	}
       
       SCM symbol = scm_car (grob_property_path);
-      SCM new_alist = evict_from_alist (symbol, current_value, daddy);
 
-      if (new_alist == daddy)
-	context->unset_property (context_property);
+      if (scm_is_pair (scm_cdr (grob_property_path)))
+	{
+	  SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
+	  SCM new_val = nested_property_revert_alist (current_sub_alist, scm_cdr (grob_property_path));
+	    
+	  if (scm_is_pair (current_alist)
+	      && scm_caar (current_alist) == symbol
+	      && current_alist != daddy)
+	    current_alist = scm_cdr (current_alist);
+
+	  current_alist = scm_acons (symbol, new_val, current_alist);
+	  scm_set_car_x (current_context_val, current_alist);
+	}
       else
-	context->set_property (context_property, scm_cons (new_alist, daddy));
+	{
+	  SCM new_alist = evict_from_alist (symbol, current_alist, daddy);
+	  
+	  if (new_alist == daddy)
+	    context->unset_property (context_property);
+	  else
+	    context->set_property (context_property, scm_cons (new_alist, daddy));
+	}
     }
 }
 

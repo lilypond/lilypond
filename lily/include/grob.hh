@@ -152,5 +152,4 @@ SCM call_pure_function (SCM unpure, SCM args, int start, int end);
 
 void set_nested_property (Grob *, SCM property_path, SCM value);
 
-
 #endif /* GROB_HH */
