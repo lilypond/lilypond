@@ -21,6 +21,7 @@ def read_log_file (fn):
     deps = []
     autolines = []
     def include_func (match, d = deps):
+        print match.group (1)
         d.append (match.group (1))
         return ''
 
@@ -28,7 +29,7 @@ def read_log_file (fn):
         a.append (match.group (1))
         return ''
 
-    str = re.sub ('\(([a-zA-Z_0-9-]+\.mf)', include_func, str)
+    str = re.sub ('\\(([/a-z.A-Z_0-9-]+\\.mf)', include_func, str)
     str = re.sub ('@{(.*?)@}', auto_func, str)
 
     return (autolines, deps)
