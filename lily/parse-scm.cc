@@ -37,6 +37,14 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 
+
+  /* Reset read_buf for scm_ftell.
+     Shouldn't scm_read () do this for us?  */
+  scm_fill_input (port);
+  SCM to = scm_ftell (port);
+  ps->nchars = scm_to_int (to) - scm_to_int (from);
+  
+
   /* Read expression from port.  */
   if (!SCM_EOF_OBJECT_P (form))
     {
@@ -53,12 +61,6 @@ internal_ly_parse_scm (Parse_start *ps)
       else
 	answer = scm_primitive_eval (form);
     }
-
-  /* Reset read_buf for scm_ftell.
-     Shouldn't scm_read () do this for us?  */
-  scm_fill_input (port);
-  SCM to = scm_ftell (port);
-  ps->nchars = scm_to_int (to) - scm_to_int (from);
 
   /* Don't close the port here; if we re-enter this function via a
      continuation, then the next time we enter it, we'll get an error.
@@ -81,18 +83,14 @@ SCM
 parse_handler (void *data, SCM tag, SCM args)
 {
   Parse_start *ps = (Parse_start *) data;
-  (void) tag;
 
   ps->start_location_.error (_ ("GUILE signaled an error for the expression beginning here"));
 
   if (scm_ilength (args) > 2)
     scm_display_error_message (scm_cadr (args), scm_caddr (args), scm_current_error_port ());
 
-  /*
-    The following is a kludge; we should probably search for
-    [a-z][0-9] (a note), and start before that.
-  */
-  ps->nchars = 1;
+  if (tag == ly_symbol2scm ("read-error"))
+    ps->nchars = 1;
 
   return SCM_UNDEFINED;
 }
