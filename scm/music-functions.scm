@@ -573,9 +573,8 @@ of beat groupings "
 
 (define-public (empty-music)
   (ly:export (make-music 'Music)))
-;;;
 
-					; Make a function that checks score element for being of a specific type. 
+;; Make a function that checks score element for being of a specific type. 
 (define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display	symbol)
@@ -624,6 +623,21 @@ SkipEvent. Useful for extracting parts from crowded scores"
    (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
    mus))
 
+
+(define-public (music-has-type music type)
+  (memq type (ly:music-property music 'types)))
+
+(define-public (music-clone music)
+  (define (alist->args alist acc)
+    (if (null? alist)
+	acc
+	(alist->args (cdr alist)
+		     (cons (caar alist) (cons (cdar alist) acc)))))
+
+  (apply
+   make-music
+   (ly:music-property music 'name)
+   (alist->args (ly:music-mutable-properties music) '())))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.

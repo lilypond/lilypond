@@ -187,6 +187,32 @@ displayMusic =
    (display-scheme-music music)
    music)
 
+
+endSpanners =
+#(define-music-function (parser location music) (ly:music?)
+   (if (eq? (ly:music-property music 'name) 'EventChord)
+       (let*
+	   ((elts (ly:music-property music 'elements))
+	    (start-span-evs (filter (lambda (ev)
+				(and (music-has-type ev 'span-event)
+				     (equal? (ly:music-property ev 'span-direction)
+					     START)))
+			      elts))
+	    (stop-span-evs
+	     (map (lambda (m)
+		    (let* ((c (music-clone m)))
+		      (set! (ly:music-property c 'span-direction) STOP)
+		      c))
+		  start-span-evs))
+	    (end-ev-chord (make-music 'EventChord
+				      'elements stop-span-evs))
+	    (total (make-music 'SequentialMusic
+			       'elements (list music
+					       end-ev-chord))))
+	 total)
+       
+       (ly:input-message location (_ "argument endSpanners is not an EventChord: ~a" music))))
+
 featherDurations=
 #(define-music-function (parser location factor argument) (ly:moment? ly:music?)
    (_i "Rearrange durations in ARGUMENT so there is an
@@ -362,7 +388,7 @@ pitchedTrill =
 		      (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
 		      (ly:music-property ev-chord 'elements))))
 	(sec-note-events (get-notes secondary-note))
-	(trill-events (filter (lambda (m) (memq 'trill-span-event (ly:music-property m 'types)))
+	(trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
 			      (ly:music-property main-note 'elements)))
 
 	(trill-pitch
