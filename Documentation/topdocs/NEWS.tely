@@ -65,6 +65,15 @@ which scares away people.
 
 @end ignore
 
+@item
+Nested properties, such as @code{details} in @code{Slur}, can be
+reverted as well.  The syntax for this is
+
+@example
+\revert Slur #'(details closeness-factor)
+@end example
+
+@item
 All line spanners are more flexible now in the configuration of their
 end points.  This includes glissando, voice followers, text crescendos
 and other text spanners.
