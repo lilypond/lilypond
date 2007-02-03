@@ -19,7 +19,7 @@
 		     channel))
        (outputter (ly:make-paper-outputter
 		   ctor-arg
-		   "socket"))
+		   'socket))
        (systems (ly:paper-book-systems book)))
 
     (if (pair? systems)

@@ -67,7 +67,10 @@
      (string-append
       (ec 'g)
       (if page-set? (ec 'pageSet) "")
-      (ec 'svg)))))
+      (ec 'svg)))
+    
+    (ly:outputter-close outputter)
+    ))
 
 (define (dump-page outputter page page-number page-count landscape? page-set?)
   (define (dump str) (display str (ly:outputter-port outputter)))

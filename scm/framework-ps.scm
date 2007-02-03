@@ -447,7 +447,7 @@
 		     ;; content-mangling is always bad.
 		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file filename "wb")
-		     "ps"))
+		     'ps))
 	 (paper (ly:paper-book-paper book))
 	 (systems (ly:paper-book-systems book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
@@ -539,7 +539,7 @@
 		     ;; content-mangling is always bad.
 		     ;; MINGW hack: need to have "b"inary for embedding CFFs
 		     (open-file (format "~a.eps" filename) "wb")
-		     "ps"))
+		     'ps))
 
 	 (port (ly:outputter-port outputter))
 	 (rounded-bbox (to-bp-box bbox))
