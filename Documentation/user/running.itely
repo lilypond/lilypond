@@ -216,6 +216,14 @@ This mode is used by default by lilypond-book.
 Example: @code{lilypond -dbackend=svg filename.ly}
 
 @cindex output format, setting
+
+@item preview
+Generate an output file containing the titles and the first system
+
+@item print-pages
+Generate the full pages, the default.  @code{-dno-print-pages} is
+useful in combination with @code{-dpreview}.
+
 @end table
 
 
@@ -256,12 +264,6 @@ Generate pictures of each page, in PNG format.  This implies
 @item --pdf
 Generate PDF.  This implies @code{--ps}.
 
-@item --preview
-Generate an output file containing the titles and the first system
-
-@item --no-pages
-Do not generate the full pages.  Useful in combination with
-@code{--preview}.
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}

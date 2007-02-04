@@ -58,6 +58,8 @@ similar to chord syntax")
     (point-and-click #t "use point & click")
     (paper-size "a4" "the default paper size")
     (pixmap-format "png16m" "GS format to use for pixel images")
+    (preview #f "make a incipit image. ")
+    (print-pages #t "print pages normally. ")
     (protected-scheme-parsing #t "continue when finding errors in inline
 scheme are caught in the parser. If off, halt 
 on errors, and print a stack trace.")

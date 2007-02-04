@@ -46,9 +46,6 @@ extern string init_scheme_variables_global;
 */
 extern string output_format_global;
 
-extern bool make_preview;
-extern bool make_print;
-
 /* misc */
 extern vector<string> failed_files;
 extern int exit_status_global;

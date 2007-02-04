@@ -66,11 +66,9 @@ which scares away people.
 @end ignore
 
 @item
-The backend is now switched with the @code{-d} option, e.g.,
-@example
-lilypond -dbackend=svg input-file.ly
-@end example
-
+The following options are now changed as a @code{-d} sub-option:
+@code{--backend}, @code{--safe}, @code{--preview} and
+@code{--no-pages} (which became @code{-dno-print-pages}).
 
 @item
 Improved testing procedure now catch changes in CPU and memory

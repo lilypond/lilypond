@@ -110,7 +110,8 @@ Paper_book::output (SCM output_channel)
   string mod_nm = "scm framework-" + get_output_backend_name ();
 
   SCM mod = scm_c_resolve_module (mod_nm.c_str ());
-  if (make_print)
+
+  if (get_program_option ("print-pages"))
     {
       SCM func = scm_c_module_lookup (mod, "output-framework");
 
@@ -122,7 +123,7 @@ Paper_book::output (SCM output_channel)
 				     SCM_UNDEFINED));
     }
 
-  if (make_preview)
+  if (get_program_option ("preview"))
     {
       SCM func = scm_c_module_lookup (mod, "output-preview-framework");
       func = scm_variable_ref (func);

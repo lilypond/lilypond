@@ -77,20 +77,7 @@ bool be_verbose_global = false;
 string init_scheme_code_global;
 string init_scheme_variables_global;
 
-/* Generate preview of first system.  */
-bool make_preview = false;
-
-/* Generate printed output.  */
-bool make_print = true;
-
-
-bool relocate_binary =
-#if 1
-  true;
-#else
-  false
-#endif
-  ;
+bool relocate_binary = true;
 
 
 /*
@@ -465,10 +452,6 @@ parse_argv (int argc, char **argv)
 	      || string (opt->longname_str0_) == "ps"
 	      || string (opt->longname_str0_) == "tex")
 	    add_output_format (opt->longname_str0_);
-	  else if (string (opt->longname_str0_) == "preview")
-	    make_preview = true;
-	  else if (string (opt->longname_str0_) == "no-pages")
-	    make_print = false;
 	  else if (string (opt->longname_str0_) == "relocate")
 	    relocate_binary = true;
 	  break;
@@ -539,9 +522,6 @@ parse_argv (int argc, char **argv)
 	  break;
 	case 'V':
 	  be_verbose_global = true;
-	  break;
-	case 'p':
-	  make_preview = true;
 	  break;
 	default:
 	  programming_error (to_string ("unhandled short option: %c",
