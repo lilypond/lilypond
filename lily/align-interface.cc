@@ -392,22 +392,6 @@ Align_interface::calc_max_stretch (SCM smob)
   return scm_from_double (ret);
 }
 
-/*
-  Find Y-axis parent of G that has a #'forced-distance property. This
-  has the effect of finding the piano-staff given an object in that
-  piano staff.
-
-  FIXME: piano staves no longer have forced-distance. The code that
-  relies on this function (in line-spanner) is broken.
-*/
-Grob *
-find_fixed_alignment_parent (Grob *g)
-{
-  (void) g;
-  programming_error ("deprecated. We don't use forced-distance anymore");
-  return 0;
-}
-
 ADD_INTERFACE (Align_interface,
 	       
 	       "Order grobs from top to bottom, left to right, right to left or bottom "

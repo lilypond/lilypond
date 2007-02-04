@@ -34,7 +34,5 @@ struct Align_interface
   static Real get_pure_child_y_translation (Grob *, Grob *child, int start, int end);
 };
 
-Grob *find_fixed_alignment_parent (Grob *g);
-
 #endif /* ALIGN_INTERFACE_HH */
 
