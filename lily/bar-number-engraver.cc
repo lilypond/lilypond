@@ -98,7 +98,12 @@ Bar_number_engraver::acknowledge_break_alignment (Grob_info inf)
 void
 Bar_number_engraver::stop_translation_timestep ()
 {
-  text_ = 0;
+  if (text_)
+    {
+      text_->set_object ("side-support-elements",
+			 grob_list_to_grob_array (get_property ("stavesFound")));
+      text_ = 0;
+    }
 }
 
 void
