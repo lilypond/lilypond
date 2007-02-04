@@ -32,25 +32,6 @@ public:
   DECLARE_GROB_INTERFACE ();
 };
 
-
-static Grob *
-line_spanner_common_parent (Grob *me)
-{
-  /* FIXME: what is the right thing to do here, now that PianoStaves don't
-     have fixed spacing? */
-  Grob *common = 0; //find_fixed_alignment_parent (me);
-  if (!common)
-    {
-      common = Staff_symbol_referencer::get_staff_symbol (me);
-      if (common)
-	common = common->get_parent (Y_AXIS);
-      else
-	common = me->get_parent (Y_AXIS);
-    }
-
-  return common;
-}
-
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir)
 {
@@ -114,13 +95,6 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
          
       if (me->get_bound (dir)->break_status_dir ())
 	{
-	  /*
-	    This is hairy. For the normal case, we simply find common
-	    parents, and draw a line between the bounds. When two note
-	    heads are on different systems, there is no common parent
-	    anymore. We have to find the piano-staff object.
-	  */
-
 	  Spanner *next_sp = me->broken_neighbor (dir);
 	  Item *next_bound = next_sp->get_bound (dir);
 
@@ -132,7 +106,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	      return SCM_EOL;
 	    }
 
-	  Grob *next_common_y = line_spanner_common_parent (next_bound);
+	  Grob *next_common_y = next_sp->common_refpoint (next_bound, X_AXIS);
 	  Interval next_ext = next_bound->extent (next_common_y, Y_AXIS);
 
 	  y = next_ext.center ();
