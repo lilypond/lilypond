@@ -14,7 +14,7 @@ Scheme list syntax."
   f2 \glissando c |
   \override Glissando #'bound-details #'left #'Y = #-6
   f2 \glissando c
-  \displayMusic  \revert Glissando #'(bound-details right Y)
+  \revert Glissando #'(bound-details right Y)
   f2 \glissando c
 }
 
