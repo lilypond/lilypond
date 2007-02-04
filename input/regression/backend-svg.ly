@@ -13,7 +13,9 @@
 
 %% TODO: what to do if inkscape fails?
 #(display "Invoking inkscape...\n")
-#(system (format #f "inkscape -T -E ~a-1.eps ~a-1.svg" outname outname))
+
+%% LD_LIBRARY_PATH is necesssary, otherwise, it doesn't build in GUB.  
+#(system (format #f "LD_LIBRARY_PATH= inkscape -T -E ~a-1.eps ~a-1.svg" outname outname))
 #(set! output-count 0)
 #(set-default-paper-size "a5")
 
@@ -22,8 +24,6 @@
     texidoc = "SVG output, rendered through inkscape."
     title = "SVG"
   } 
-
-
 
   \score {
     \lyrics {
