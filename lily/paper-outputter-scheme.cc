@@ -18,10 +18,9 @@ LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   "@code{output-}@var{format}, writing to  @var{port}.")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
-  LY_ASSERT_TYPE (scm_is_string, format, 2);
+  LY_ASSERT_TYPE (ly_is_symbol, format, 2);
 
-  string f = ly_scm2string (format);
-
+  string f = ly_symbol2string (format);
   string output_name = "<unknown>";
 
   SCM port_name = scm_port_filename (port);

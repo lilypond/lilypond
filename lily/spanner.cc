@@ -40,7 +40,7 @@ Spanner::do_break_processing ()
     {
       if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
 	{
-	  if (!parent->spanned_rank_iv ().superset (this->spanned_rank_iv ()))
+	  if (!parent->spanned_rank_interval ().superset (this->spanned_rank_interval ()))
 	    {
 	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner `%s'.",
 					    name ().c_str (),
@@ -146,7 +146,7 @@ Spanner::set_my_columns ()
 }
 
 Interval_t<int>
-Spanner::spanned_rank_iv () const
+Spanner::spanned_rank_interval () const
 {
   Interval_t<int> iv (0, 0);
 

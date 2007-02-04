@@ -35,6 +35,10 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 
   do
     {
+      /*
+	TODO: this is fishy, the extent gets distorted due to wide
+	\marks, so better not do this.
+       */
       if (!Paper_column::is_musical (cols[d]))
 	{
 	  /*

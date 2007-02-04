@@ -159,6 +159,10 @@ make out=www web-install
 
 @section Testing LilyPond
 
+@html
+<a name="testing"></a>
+@end html
+
 LilyPond comes with an extensive suite that excercises the entire
 program. This suite can be used to automatically check the impact of a
 change. This is done as follows

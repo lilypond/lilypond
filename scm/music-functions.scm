@@ -573,9 +573,8 @@ of beat groupings "
 
 (define-public (empty-music)
   (ly:export (make-music 'Music)))
-;;;
 
-					; Make a function that checks score element for being of a specific type. 
+;; Make a function that checks score element for being of a specific type. 
 (define-public (make-type-checker symbol)
   (lambda (elt)
     ;;(display	symbol)
@@ -624,6 +623,21 @@ SkipEvent. Useful for extracting parts from crowded scores"
    (make-music 'RestEvent 'duration (ly:music-property mus 'duration))
    mus))
 
+
+(define-public (music-has-type music type)
+  (memq type (ly:music-property music 'types)))
+
+(define-public (music-clone music)
+  (define (alist->args alist acc)
+    (if (null? alist)
+	acc
+	(alist->args (cdr alist)
+		     (cons (caar alist) (cons (cdar alist) acc)))))
+
+  (apply
+   make-music
+   (ly:music-property music 'name)
+   (alist->args (ly:music-mutable-properties music) '())))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; warn for bare chords at start.
@@ -920,11 +934,14 @@ use GrandStaff as a context. "
 				   '(Staff (any-octave . 0) (same-octave . 1)
 					   GrandStaff (any-octave . 0) (same-octave . 1))
 				   pcontext))
+      
       ;; do not set localKeySignature when a note alterated differently from
       ;; localKeySignature is found.
       ;; Causes accidentals to be printed at every note instead of
       ;; remembered for the duration of a measure.
-      ;; accidentals not being remembered, causing accidentals always to be typeset relative to the time signature
+      ;; accidentals not being remembered, causing accidentals always to
+      ;; be typeset relative to the time signature
+      
       ((equal? style 'forget)
        (set-accidentals-properties '()
 				   '(Staff (same-octave . -1))

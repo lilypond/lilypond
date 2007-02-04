@@ -138,6 +138,8 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 	   "Return value if KEY in ALIST, else DEFAULT-VALUE "
 	   "(or #f if not specified).")
 {
+  LY_ASSERT_TYPE(ly_cheap_is_list, alist, 2);
+  
   SCM handle = scm_assoc (key, alist);
   if (scm_is_pair (handle))
     return scm_cdr (handle);
@@ -150,7 +152,7 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 
 LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 	   3, 0, 0, (SCM a, SCM b, SCM s),
-	   "Replace @var{a} by @var{b} in @var{s}.")
+	   "Replace string @var{a} by string @var{b} in string @var{s}.")
 {
   LY_ASSERT_TYPE (scm_is_string, s, 1);
   LY_ASSERT_TYPE (scm_is_string, b, 2);
@@ -228,13 +230,6 @@ LY_DEFINE (ly_gettext, "ly:gettext",
   return ly_string2scm (_ (scm_i_string_chars (string)));
 }
 
-LY_DEFINE (ly_output_backend, "ly:output-backend",
-	   0, 0, 0, (),
-	   "Return name of output backend.")
-{
-  return ly_string2scm (output_backend_global);
-}
-
 LY_DEFINE (ly_output_formats, "ly:output-formats",
 	   0, 0, 0, (),
 	   "Formats passed to --format as a list of strings, "
@@ -289,7 +284,7 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 	   0, 0, 0, (),
 	   "Return effective prefix.")
 {
-  return ly_string2scm (prefix_directory);
+  return ly_string2scm (lilypond_datadir);
 }
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",

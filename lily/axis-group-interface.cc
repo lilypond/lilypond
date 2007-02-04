@@ -152,7 +152,7 @@ Axis_group_interface::relative_pure_height (Grob *me,
 
   for (vsize i = 0; i < elts.size (); i++)
     {
-      Interval_t<int> rank_span = elts[i]->spanned_rank_iv ();
+      Interval_t<int> rank_span = elts[i]->spanned_rank_interval ();
       Item *it = dynamic_cast<Item*> (elts[i]);
       if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start && (!it || it->pure_is_visible (start, end)))
 	{

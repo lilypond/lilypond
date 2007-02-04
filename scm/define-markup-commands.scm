@@ -89,6 +89,7 @@ the PDF backend."
 	 (yextent (ly:stencil-extent stil Y))
 	 (old-expr (ly:stencil-expr stil))
 	 (url-expr (list 'url-link url `(quote ,xextent) `(quote ,yextent))))
+
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
 

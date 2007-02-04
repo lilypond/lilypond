@@ -48,7 +48,7 @@ public:
   bool fast_substitute_grob_array (SCM sym, Grob_array *);
 
   Interval_t<Moment> spanned_time () const;
-  virtual Interval_t<int> spanned_rank_iv () const;
+  virtual Interval_t<int> spanned_rank_interval () const;
   void set_bound (Direction d, Grob *);
   Item *get_bound (Direction d) const;
 

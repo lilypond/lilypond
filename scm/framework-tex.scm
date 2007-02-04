@@ -190,7 +190,7 @@
 
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.tex" basename))
-	 (outputter  (ly:make-paper-outputter (open-file filename "wb") "tex"))
+	 (outputter  (ly:make-paper-outputter (open-file filename "wb") 'tex))
 	 (paper (ly:paper-book-paper book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
 	 (last-page (car (last-pair pages)))
@@ -233,7 +233,7 @@
 		basename book scopes fields)
   (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter
-		      (open-file filename "w") "tex"))
+		      (open-file filename "w") 'tex))
 	 (paper (ly:paper-book-paper book))
 	 (lines (ly:paper-book-systems book))
 	 (last-line (car (last-pair lines))))
@@ -260,7 +260,7 @@
 		basename book scopes fields)
   (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb")
-					      "tex"))
+					      'tex))
 	 (paper (ly:paper-book-paper book))
 	 (lines (ly:paper-book-systems book))
 	 (first-notes-index (list-index

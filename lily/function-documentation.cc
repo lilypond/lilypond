@@ -95,6 +95,7 @@ init_func_doc ()
   ly_add_type_predicate ((void*) &is_direction, "direction");
   ly_add_type_predicate ((void*) &is_music_function, "Music_function");
   ly_add_type_predicate ((void*) &ly_is_port, "port");
+  ly_add_type_predicate ((void*) &ly_cheap_is_list, "list");
   ly_add_type_predicate ((void*) &unsmob_global_context, "Global_context");
   ly_add_type_predicate ((void*) &unsmob_input, "Input");
   ly_add_type_predicate ((void*) &unsmob_moment, "Moment");

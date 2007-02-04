@@ -127,7 +127,7 @@ public:
   Grob *get_parent (Axis a) const;
   void fixup_refpoint ();
 
-  virtual Interval_t<int> spanned_rank_iv () const;
+  virtual Interval_t<int> spanned_rank_interval () const;
 };
 
 /* smob utilities */
@@ -152,6 +152,5 @@ SCM axis_parent_positioning (Axis a);
 SCM call_pure_function (SCM unpure, SCM args, int start, int end);
 
 void set_nested_property (Grob *, SCM property_path, SCM value);
-
 
 #endif /* GROB_HH */

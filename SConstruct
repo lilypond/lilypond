@@ -22,7 +22,7 @@ Run from build tree
     PATH=$run/bin:$PATH
 
     #optionally, if you do not use custom.py below
-    #export LILYPONDPREFIX=$run/share/lilypond/<VERSION>
+    #export LILYPOND_DATADIR=$run/share/lilypond/<VERSION>
 
     lilypond input/simple
 
@@ -245,7 +245,7 @@ if not os.path.exists (cachedir):
 
 CacheDir (cachedir)
 
-# No need to set $LILYPONDPREFIX to run lily, but cannot install...
+# No need to set $LILYPOND_DATADIR to run lily, but cannot install...
 if env['debugging'] and not 'install' in COMMAND_LINE_TARGETS:
     env['prefix'] = run_prefix
 
@@ -658,17 +658,17 @@ SConscript ('buildscripts/builder.py')
 env.PrependENVPath ('PATH',
             os.path.join (env['absbuild'], env['out'], 'usr/bin'))
 
-LILYPONDPREFIX = os.path.join (run_prefix, 'share/lilypond/', version)
+LILYPOND_DATADIR = os.path.join (run_prefix, 'share/lilypond/', version)
 
-if not os.path.exists (LILYPONDPREFIX):
-    os.makedirs (LILYPONDPREFIX)
+if not os.path.exists (LILYPOND_DATADIR):
+    os.makedirs (LILYPOND_DATADIR)
 
-env.Command (LILYPONDPREFIX, ['#/SConstruct', '#/VERSION'], symlink_tree)
-env.Depends ('lily', LILYPONDPREFIX)
+env.Command (LILYPOND_DATADIR, ['#/SConstruct', '#/VERSION'], symlink_tree)
+env.Depends ('lily', LILYPOND_DATADIR)
 
 env.Append (ENV = {
-    'LILYPONDPREFIX' : LILYPONDPREFIX,
-    'TEXMF' : '{$LILYPONDPREFIX,'
+    'LILYPOND_DATADIR' : LILYPOND_DATADIR,
+    'TEXMF' : '{$LILYPOND_DATADIR,'
     + os.popen ('kpsexpand \$TEXMF').read ()[:-1] + '}',
     })
 
@@ -781,7 +781,7 @@ env.Command (version_hh, '#/VERSION',
 # post-config environment update
 env.Append (
     run_prefix = run_prefix,
-    LILYPONDPREFIX = LILYPONDPREFIX,
+    LILYPOND_DATADIR = LILYPOND_DATADIR,
 
     # FIXME: move to lily/SConscript?
     LIBPATH = [os.path.join (absbuild, 'flower', env['out'])],

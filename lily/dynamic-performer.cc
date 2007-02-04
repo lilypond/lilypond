@@ -149,7 +149,6 @@ Dynamic_performer::stop_translation_timestep ()
       finished_span_dynamic_->render ();
       finished_span_dynamic_ = 0;
     }
-
   
   if (absolute_ && absolute_->volume_ < 0)
     {

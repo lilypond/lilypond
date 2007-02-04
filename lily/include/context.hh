@@ -147,5 +147,9 @@ void set_context_property_on_children (Context *trans, SCM sym, SCM val);
   ctx->internal_send_stream_event (ly_symbol2scm (type), origin, props);	\
 }
 
+SCM nested_property_alist (SCM alist, SCM prop_path, SCM value);
+SCM nested_property_revert_alist (SCM alist, SCM prop_path);
+SCM evict_from_alist (SCM, SCM, SCM);
+
 #endif /* CONTEXT_HH */
 

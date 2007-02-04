@@ -23,6 +23,7 @@
 #include "string-convert.hh"
 #include "warn.hh"
 #include "all-font-metrics.hh"
+#include "program-option.hh"
 
 #if HAVE_PANGO_FT2
 #include "stencil.hh"
@@ -351,8 +352,8 @@ Pango_font::text_stencil (string str, bool tight) const
     UGH. Should have flags per output format signifying supported
     options.
   */
-  if (output_backend_global != "ps"
-      && output_backend_global != "eps")
+  string name = get_output_backend_name ();
+  if (name != "ps" && name != "eps")
     {
       /*
 	For Pango based backends, we take a shortcut.

@@ -79,7 +79,8 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
     }
 
   note_head_ = info.grob ();
-  stop_moment_ = now_mom () + get_event_length (info.event_cause ());
+  stop_moment_ = now_mom () + get_event_length (info.event_cause (),
+						now_mom ());
 }
 
 Bend_engraver::Bend_engraver ()

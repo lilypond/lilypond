@@ -51,13 +51,13 @@ private:
   DECLARE_LISTENER (set_busy);
   DECLARE_LISTENER (check_new_context);
 
-  bool pending_grace_lyric_;
   bool music_found_;
   Context *lyrics_context_;
   Context *music_context_;
   SCM lyricsto_voice_name_;
 
   Moment busy_moment_;
+  Moment pending_grace_moment_;
   
   Music_iterator *lyric_iter_;
 };
@@ -65,7 +65,7 @@ private:
 Lyric_combine_music_iterator::Lyric_combine_music_iterator ()
 {
   music_found_ = false;
-  pending_grace_lyric_ = false;
+  pending_grace_moment_.set_infinite (1);
   lyric_iter_ = 0;
   music_context_ = 0;
   lyrics_context_ = 0;
@@ -86,6 +86,7 @@ Lyric_combine_music_iterator::set_busy (SCM se)
 
   if ((e->in_event_class ("note-event") || e->in_event_class ("cluster-note-event"))
       && music_context_)
+    
     busy_moment_ = max (music_context_->now_mom (),
 			busy_moment_);
   
@@ -208,6 +209,9 @@ IMPLEMENT_LISTENER (Lyric_combine_music_iterator, check_new_context)
 void
 Lyric_combine_music_iterator::check_new_context (SCM sev)
 {
+  if (!ok ())
+    return ;
+  
   // TODO: Check first if type=Voice and if id matches
   Stream_event * ev = unsmob_stream_event (sev);
   if (ev->get_property ("type") != ly_symbol2scm ("Voice"))
@@ -254,8 +258,10 @@ Lyric_combine_music_iterator::find_voice ()
 }
 
 void
-Lyric_combine_music_iterator::process (Moment)
+Lyric_combine_music_iterator::process (Moment when)
 {
+  (void) when;
+  
   /* see if associatedVoice has been changed */
   Context *new_voice = find_voice ();
   if (new_voice)
@@ -278,16 +284,21 @@ Lyric_combine_music_iterator::process (Moment)
 
 
   if (music_context_
-      && (start_new_syllable () || pending_grace_lyric_)
+      && (start_new_syllable () ||
+	  (busy_moment_ >= pending_grace_moment_))
       && lyric_iter_->ok ())
     {
-      if (music_context_->now_mom ().grace_part_)
+      Moment now = music_context_->now_mom ();
+      if (now.grace_part_)
 	{
-	  pending_grace_lyric_ = true;
+	  pending_grace_moment_ = now;
+	  pending_grace_moment_.grace_part_ = Rational (0);
 	  return;
 	}
       else
-	pending_grace_lyric_ = false;
+	{
+	  pending_grace_moment_.set_infinite (1);
+	}
       
       Moment m = lyric_iter_->pending_moment ();
       lyrics_context_->set_property (ly_symbol2scm ("associatedVoiceContext"),

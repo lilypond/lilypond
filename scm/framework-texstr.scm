@@ -35,7 +35,7 @@
   (let* ((filename (format "~a.texstr" basename))
 	 (outputter (ly:make-paper-outputter
 		     (open-file filename "wb")
-		     (ly:output-backend)))
+		     (ly:get-option 'backend)))
 	 (paper (ly:paper-book-paper book))
 	 (lines (ly:paper-book-systems book)))
     (ly:outputter-dump-string outputter (header basename))
@@ -50,7 +50,7 @@
 	 (outputter
 	  (ly:make-paper-outputter
 	   (open-file filename "wb")
-	   (ly:output-backend)))
+	   (ly:get-option 'backend)))
 	 (paper (ly:paper-book-paper book))
 	 (pages (ly:paper-book-pages book)))
     (ly:outputter-dump-string outputter (header basename))

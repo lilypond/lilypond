@@ -92,16 +92,6 @@ void internal_set_option (SCM var, SCM val)
 
 
 
-
-bool
-get_program_option (const char *s)
-{
-  SCM sym = ly_symbol2scm (s);
-
-  return to_boolean (ly_get_option (sym));
-}
-
-
 ssize const HELP_INDENT = 30;
 ssize const INDENT = 2;
 ssize const SEPARATION = 5;
@@ -242,3 +232,5 @@ LY_DEFINE (ly_get_option, "ly:get-option", 1, 0, 0, (SCM var),
   LY_ASSERT_TYPE (ly_is_symbol, var, 1);
   return scm_hashq_ref (option_hash, var, SCM_BOOL_F);
 }
+
+

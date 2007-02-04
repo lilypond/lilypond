@@ -11,8 +11,6 @@
 #include "lily-guile.hh"
 
 /* options */
-extern bool do_midi_debugging_global;
-extern int testing_level_global;
 extern bool lily_1_8_relative;
 extern bool lily_1_8_compatibility_used;
 
@@ -20,5 +18,6 @@ SCM ly_get_option (SCM);
 SCM ly_set_option (SCM, SCM);
 
 bool get_program_option (const char *);
+string get_output_backend_name ();
 
 #endif /* SCM_OPTION_HH */

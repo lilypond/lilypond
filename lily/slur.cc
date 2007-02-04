@@ -21,14 +21,13 @@
 #include "output-def.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
-#include "staff-symbol.hh"
 #include "stem.hh"
 #include "text-interface.hh"
 #include "tie.hh"
 #include "warn.hh"
 #include "slur-scoring.hh"
 #include "separation-item.hh"
-#include "script-interface.hh"
+#include "international.hh"
 
 
 
@@ -353,7 +352,8 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
 	}
     }
   else
-    e->warning ("Ignoring grob for slur. avoid-slur not set?");
+    e->warning (_f ("Ignoring grob for slur: %s. avoid-slur not set?",
+		    e->name().c_str ()));
 }
 
 MAKE_SCHEME_CALLBACK (Slur, cross_staff, 1)

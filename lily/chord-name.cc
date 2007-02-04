@@ -26,7 +26,7 @@ Chord_name::after_line_breaking (SCM smob)
   if (to_boolean (s))
     {
       if (me->get_column ()->get_rank ()
-	  - me->get_system ()->spanned_rank_iv ()[LEFT] > 1)
+	  - me->get_system ()->spanned_rank_interval ()[LEFT] > 1)
 	me->suicide ();
     }
   return SCM_UNSPECIFIED;

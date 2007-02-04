@@ -156,7 +156,7 @@ void
 Figured_bass_engraver::listen_bass_figure (Stream_event *ev)
 {
   new_event_found_ = true;
-  Moment stop  = now_mom () + get_event_length (ev);
+  Moment stop  = now_mom () + get_event_length (ev, now_mom ());
   stop_moment_ = max (stop_moment_, stop);
 
   if (to_boolean (get_property ("useBassFigureExtenders")))

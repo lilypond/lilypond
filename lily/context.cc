@@ -717,7 +717,7 @@ melisma_busy (Context *tr)
   SCM melisma_properties = tr->get_property ("melismaBusyProperties");
   bool busy = false;
 
-  for (; scm_is_pair (melisma_properties);
+  for (; !busy && scm_is_pair (melisma_properties);
        melisma_properties = scm_cdr (melisma_properties))
     busy = busy || to_boolean (tr->internal_get_property (scm_car (melisma_properties)));
 

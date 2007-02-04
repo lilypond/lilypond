@@ -410,7 +410,7 @@ If we give names, Bison complains.
 %type <scm> pitch_also_in_chords
 %type <scm> post_events
 %type <scm> property_operation
-%type <scm> property_path
+%type <scm> property_path property_path_revved
 %type <scm> scalar
 %type <scm> script_abbreviation
 %type <scm> simple_chord_elements
@@ -1124,13 +1124,19 @@ context_change:
 	;
 
 
-property_path:
+property_path_revved:
 	embedded_scm {
 		$$ = scm_cons ($1, SCM_EOL);
 	}
-	| property_path embedded_scm {
+	| property_path_revved embedded_scm {
 		$$ = scm_cons ($2, $1);
 	}
+	;
+
+property_path:
+	property_path_revved  {
+		$$ = scm_reverse_x ($1, SCM_EOL);
+	} 
 	;
 
 property_operation:

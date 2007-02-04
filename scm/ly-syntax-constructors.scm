@@ -132,7 +132,10 @@
 		  ((OverrideProperty) (list 'grob-value (car args)
 					    'grob-property-path (cdr args)
 					    'pop-first #t))
-		  ((RevertProperty) (list 'grob-property-path args))
+		  ((RevertProperty)
+		   (if (list? (car args))
+		       (list 'grob-property-path (car args))
+		       (list 'grob-property-path args)))
 		  (else (ly:error (_ "Invalid property operation ~a") music-type))))
 	 (oprops (if once (cons* 'once once props) props))
 	 (m (apply make-music music-type

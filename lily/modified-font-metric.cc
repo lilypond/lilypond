@@ -14,6 +14,7 @@ using namespace std;
 #include "warn.hh"
 #include "stencil.hh"
 #include "main.hh"
+#include "program-option.hh"
 
 Modified_font_metric::Modified_font_metric (Font_metric *fm,
 					    Real magnification)
@@ -181,7 +182,7 @@ Modified_font_metric::text_dimension (string text) const
   SCM stext = ly_string2scm (text);
   
   Box b;
-  if (output_backend_global == "tex")
+  if (get_output_backend_name () == "tex")
     {
       b = lookup_tex_text_dimension (orig_, stext);
 
