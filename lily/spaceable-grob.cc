@@ -59,7 +59,7 @@ void
 Spaceable_grob::add_spring (Grob *me, Grob *other,
 			    Real distance, Real inverse_strength)
 {
-  if (distance <= 0.0 || inverse_strength < 0.0)
+  if (distance < 0.0 || inverse_strength < 0.0)
     {
       programming_error ("adding reverse spring, setting to unit");
       distance = 1.0;

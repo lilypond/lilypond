@@ -283,10 +283,6 @@ leftb =  \transpose c cis {
       \Score
       \override SpacingSpanner #'common-shortest-duration = #(ly:make-moment 1 8)
     }
-    \context {
-      \PianoStaff
-      \override VerticalAlignment #'forced-distance = #13.0
-    }
   }
   
   \midi {

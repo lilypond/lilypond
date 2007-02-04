@@ -191,9 +191,12 @@ Paper_column_engraver::stop_translation_timestep ()
     {
       command_column_->set_property ("page-break-permission", SCM_EOL);
       command_column_->set_property ("line-break-permission", SCM_EOL);
-      if (break_events_.size ())
-	warning (_f ("break event at moment %d/%d was overridden by some other event, are you using bar checks?",
-		     now_mom ().num (), now_mom ().den ()));
+      for (vsize i = 0; i < break_events_.size (); i++)
+	{
+	  SCM perm = break_events_[i]->get_property ("permission");
+	  if (perm == ly_symbol2scm ("force") || perm == ly_symbol2scm ("allow"))
+	    warning (_f ("forced break was overridden by some other event, should you be using bar checks?"));
+	}
     }
   else if (Paper_column::is_breakable (command_column_))
     {

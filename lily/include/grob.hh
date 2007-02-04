@@ -84,6 +84,7 @@ public:
   SCM internal_get_object (SCM symbol) const;
   void internal_set_object (SCM sym, SCM val);
   void internal_del_property (SCM symbol);
+  void instrumented_set_property (SCM, SCM, char const*, int, char const*);
   void internal_set_property (SCM sym, SCM val);
 
   /* messages */  

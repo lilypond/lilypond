@@ -437,9 +437,7 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
 	  if (b[X_AXIS][LEFT] - 2*horizon_padding < last_affected_position[dir])
 	    continue;
 
-	  if (b[X_AXIS].is_empty () || b[Y_AXIS].is_empty ())
-	    warning (_f ("outside-staff object %s has an empty extent", elements[i]->name ().c_str ()));
-	  else
+	  if (!b[X_AXIS].is_empty () && !b[Y_AXIS].is_empty ())
 	    {
 	      boxes.clear ();
 	      boxes.push_back (b);

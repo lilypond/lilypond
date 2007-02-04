@@ -85,6 +85,7 @@ public:
   Context *where_defined (SCM name_sym, SCM *value) const;
   void unset_property (SCM var_sym);
 
+  void instrumented_set_property (SCM, SCM, const char*, int, const char*);
   void internal_set_property (SCM var_sym, SCM value);
 
   Context *create_context (Context_def *, string, SCM);

@@ -301,6 +301,17 @@ Constrained_breaking::Constrained_breaking (Paper_score *ps, vector<vsize> const
   initialize ();
 }
 
+static SCM
+min_permission (SCM perm1, SCM perm2)
+{
+  if (perm1 == ly_symbol2scm ("force"))
+    return perm2;
+  if (perm1 == ly_symbol2scm ("allow")
+     && perm2 != ly_symbol2scm ("force"))
+    return perm2;
+  return SCM_EOL;
+}
+
 /* find the forces for all possible lines and cache ragged_ and ragged_right_ */
 void
 Constrained_breaking::initialize ()
@@ -331,7 +342,6 @@ Constrained_breaking::initialize ()
 					 ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
-      Real max_ext = 0;
       for (vsize j = i + 1; j < breaks_.size (); j++)
 	{
 	  int start = Paper_column::get_rank (all_[breaks_[i]]);
@@ -354,9 +364,15 @@ Constrained_breaking::initialize ()
 	  line.break_permission_ = c->get_property ("line-break-permission");
 	  line.page_permission_ = c->get_property ("page-break-permission");
 	  line.turn_permission_ = c->get_property ("page-turn-permission");
+	  
+	  /* turn permission should always be stricter than page permission
+	     and page permission should always be stricter than line permission */
+	  line.page_permission_ = min_permission (line.break_permission_,
+						  line.page_permission_);
+	  line.turn_permission_ = min_permission (line.page_permission_,
+						  line.turn_permission_);
 
-	  max_ext = max (max_ext, extent.length ());
-	  line.extent_ = extent;
+	  line.extent_ = extent.is_empty () ? Interval (0, 0) : extent;
 	  line.padding_ = padding;
 	  line.space_ = space;
 	  line.inverse_hooke_ = extent.length () + space;

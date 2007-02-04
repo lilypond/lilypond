@@ -157,6 +157,13 @@ Prob::internal_get_property (SCM sym) const
   return (s == SCM_BOOL_F) ? SCM_EOL : scm_cdr (s);
 }
 
+/* We don't (yet) instrument probs */
+void
+Prob::instrumented_set_property (SCM sym, SCM val, const char*, int, const char*)
+{
+  internal_set_property (sym, val);
+}
+
 void
 Prob::internal_set_property (SCM sym, SCM val) 
 {

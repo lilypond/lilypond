@@ -195,7 +195,7 @@ void ly_check_name (string cxx, string fname);
   TODO: include modification callback support here, perhaps
   through intermediate Grob::instrumented_set_property( .. __LINE__ ).
  */
-#define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)  
+#define set_property(x, y) instrumented_set_property (ly_symbol2scm (x), y, __FILE__, __LINE__, __FUNCTION__)
 #else
 #define set_property(x, y) internal_set_property (ly_symbol2scm (x), y)
 #endif

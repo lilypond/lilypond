@@ -240,8 +240,6 @@ Examples:
 @inputfileref{input/@/regression,glissando@/-broken@/.ly}.
 @inputfileref{input/@/regression,line@/-arrows@/.ly}.
 @inputfileref{input/@/regression,line@/-style@/.ly}.
-@inputfileref{input/@/regression,text@/-spanner@/.ly}.
-@inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
 
 @node Text spanners
@@ -291,8 +289,6 @@ To print a solid line, use
 @seealso
 
 Program reference: @internalsref{TextSpanner}.
-
-Examples: @inputfileref{input/@/regression,text@/-spanner@/.ly}.
 
 
 @node Text marks
@@ -2320,8 +2316,6 @@ The other arguments  are the offset and the text of the label.
 @seealso
 
 Program reference: @internalsref{text-balloon-interface}.
-
-Examples: @inputfileref{input/@/regression,balloon@/.ly}.
 
 
 

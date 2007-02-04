@@ -274,7 +274,7 @@ bool
 Spring_description::is_sane () const
 {
   return (inverse_hooke_ >= 0)
-    && ideal_ > 0
+    && ideal_ >= 0
     && !isinf (ideal_) && !isnan (ideal_)
     && (inverse_hooke_ == 0.0 || fabs (inverse_hooke_) > 1e-8)
     ;
