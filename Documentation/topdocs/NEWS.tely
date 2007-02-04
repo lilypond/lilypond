@@ -66,6 +66,13 @@ which scares away people.
 @end ignore
 
 @item
+The backend is now switched with the @code{-d} option, e.g.,
+@example
+lilypond -dbackend=svg input-file.ly
+@end example
+
+
+@item
 Improved testing procedure now catch changes in CPU and memory
 performance, page layout, MIDI results and warnings.  This helps to
 reduce the number of regression errors during development, resulting

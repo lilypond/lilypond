@@ -99,7 +99,81 @@ which formats should be written.  Choices for @code{format} are
 
 Example: @code{lilypond -fpng filename.ly}
 
-@item -b,--backend=@var{format}
+
+
+@item -d,--define-default=@var{var}=@var{val}
+This sets the internal program option @var{var} to the Scheme value
+@var{val}. If @var{val} is not supplied, then @var{#t} is used. To
+switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
+
+@cindex point and click, command line
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+is the same as
+@example
+-dpoint-and-click='#f'
+@end example
+
+Here are a few interesting options.
+
+@table @samp
+@item help
+Running @code{lilypond -dhelp} will print all of the @code{-d} options
+available.
+
+@item paper-size
+This option sets the default paper-size, 
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Note that the string must be enclosed in escaped quotes ( @code{\"} ).
+
+
+@item safe
+Do not trust the @code{.ly} input.
+
+When LilyPond formatting is available through a web server, either the
+@code{--safe} or the @code{--jail} option @b{MUST} be passed.  The
+@code{--safe} option will prevent inline Scheme code from wreaking
+havoc, for example
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+}
+@end verbatim
+@end quotation
+
+The @code{-dsafe} option works by evaluating in-line Scheme
+expressions in a special safe module.  This safe module is derived from
+GUILE @file{safe-r5rs} module, but adds a number of functions of the
+LilyPond API.  These functions are listed in @file{scm/@/safe@/-lily@/.scm}.
+
+In addition, safe mode disallows @code{\include} directives and
+disables the use of backslashes in @TeX{} strings.
+
+In safe mode, it is not possible to import LilyPond variables
+into Scheme.
+
+safe does @emph{not} detect resource overuse.  It is still possible to
+make the program hang indefinitely, for example by feeding cyclic data
+structures into the backend.  Therefore, if using LilyPond on a
+publicly accessible webserver, the process should be limited in both
+CPU and memory usage.
+
+The safe mode will prevent many useful LilyPond snippets from being
+compiled.  The @code{--jail} is a more secure alternative, but
+requires more work to set up.
+
+@item backend
 the output format to use for the back-end.  Choices for @code{format} are
 @table @code
 @item tex
@@ -139,38 +213,12 @@ This mode is used by default by lilypond-book.
 @cindex Scheme dump
 @end table
 
-Example: @code{lilypond -bsvg filename.ly}
+Example: @code{lilypond -dbackend=svg filename.ly}
 
 @cindex output format, setting
+@end table
 
-@item -d,--define-default=@var{var}=@var{val}
-This sets the internal program option @var{var} to the Scheme value
-@var{val}. If @var{val} is not supplied, then @var{#t} is used. To
-switch off an option, @code{no-} may be prefixed to @var{var}, e.g.
 
-@cindex point and click, command line
-
-@example
--dno-point-and-click
-@end example
-
-@noindent
-is the same as
-@example
--dpoint-and-click='#f'
-@end example
-
-Another notable option is
-
-@example
--dpaper-size=\"letter\"
-@end example
-
-@noindent
-Note that the string must be enclosed in escaped quotes ( @code{\"} ).
-
-Setting the @code{-dhelp} option will print a summary of the options
-available, and exit.
 
 @item -h,--help
 Show a summary of usage.
@@ -214,44 +262,6 @@ Generate an output file containing the titles and the first system
 @item --no-pages
 Do not generate the full pages.  Useful in combination with
 @code{--preview}.
-
-@item -s,--safe
-Do not trust the @code{.ly} input.
-
-When LilyPond formatting is available through a web server, either the
-@code{--safe} or the @code{--jail} option @b{MUST} be passed.  The
-@code{--safe} option will prevent inline Scheme code from wreaking
-havoc, for example
-
-@quotation
-@verbatim
-#(system "rm -rf /")
-{
-  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
-}
-@end verbatim
-@end quotation
-
-The @code{--safe} option works by evaluating in-line Scheme
-expressions in a special safe module.  This safe module is derived from
-GUILE @file{safe-r5rs} module, but adds a number of functions of the
-LilyPond API.  These functions are listed in @file{scm/@/safe@/-lily@/.scm}.
-
-In addition, @code{--safe} disallows @code{\include} directives and
-disables the use of backslashes in @TeX{} strings.
-
-In @code{--safe} mode, it is not possible to import LilyPond variables
-into Scheme.
-
-@code{--safe} does @emph{not} detect resource overuse.  It is still
-possible to make the program hang indefinitely, for example by feeding
-cyclic data structures into the backend.  Therefore, if using LilyPond
-on a publicly accessible webserver, the process should be limited in
-both CPU and memory usage.
-
-Note that @code{--safe} will prevent many useful LilyPond snippets from
-being compiled.  For a softer but secure alternative you can use the
-@code{--jail} option.
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
