@@ -342,7 +342,6 @@ Constrained_breaking::initialize ()
 					 ragged_right_);
   for (vsize i = 0; i + 1 < breaks_.size (); i++)
     {
-      Real max_ext = 0;
       for (vsize j = i + 1; j < breaks_.size (); j++)
 	{
 	  int start = Paper_column::get_rank (all_[breaks_[i]]);
@@ -373,8 +372,7 @@ Constrained_breaking::initialize ()
 	  line.turn_permission_ = min_permission (line.page_permission_,
 						  line.turn_permission_);
 
-	  max_ext = max (max_ext, extent.length ());
-	  line.extent_ = extent;
+	  line.extent_ = extent.is_empty () ? Interval (0, 0) : extent;
 	  line.padding_ = padding;
 	  line.space_ = space;
 	  line.inverse_hooke_ = extent.length () + space;

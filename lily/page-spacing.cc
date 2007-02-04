@@ -53,8 +53,8 @@ Page_spacing::append_system (const Line_details &line)
   rod_height_ += last_line_.padding_;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += line.space_;
-  inverse_spring_k_ += line.inverse_hooke_;
+  spring_len_ += max (0.1, line.space_);
+  inverse_spring_k_ += max (0.1, line.inverse_hooke_);
 
   last_line_ = line;
 
@@ -70,8 +70,8 @@ Page_spacing::prepend_system (const Line_details &line)
     last_line_ = line;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += line.space_;
-  inverse_spring_k_ += line.inverse_hooke_;
+  spring_len_ += max (0.1, line.space_);
+  inverse_spring_k_ += max (0.1, line.inverse_hooke_);
 
   calc_force ();
 }
