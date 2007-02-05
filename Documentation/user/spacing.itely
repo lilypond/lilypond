@@ -640,7 +640,7 @@ For the first pass, the @code{dump-tweaks} option should be set to
 generate the page layout file.
 
 @example
-lilypond -b null -d dump-tweaks <file>.ly
+lilypond -dbackend=null -d dump-tweaks <file>.ly
 lilypond <file>.ly
 @end example
 
