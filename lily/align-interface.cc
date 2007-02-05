@@ -129,7 +129,9 @@ get_skylines (Grob *me,
 	  /* this is perhaps an abuse of minimum-?-extent: maybe we should create
 	     another property? But it seems that the only (current) use of
 	     minimum-Y-extent is to separate vertically-aligned elements */
-	  SCM min_extent = g->get_property (a == X_AXIS ? "minimum-X-extent" : "minimum-Y-extent");
+	  SCM min_extent = g->get_property (a == X_AXIS
+					    ? ly_symbol2scm ("minimum-X-extent")
+					    : ly_symbol2scm ("minimum-Y-extent"));
 
 	  if (is_number_pair (min_extent))
 	    {
