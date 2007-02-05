@@ -2580,6 +2580,7 @@ This only functions inside chords, even for single notes
 @node Grid lines
 @subsection Grid lines
 
+@c FIXME: get an example for grid lines.  -gp
 Vertical lines can be drawn between staves synchronized with
 the notes.
 

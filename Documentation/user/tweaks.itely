@@ -32,7 +32,18 @@ This may come as a surprise, but LilyPond is not perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
 solved.
 
+@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
+@c  yes, I want this TODO to be visible to end-users.  It's better
+@c  than having nothing at all.
+TODO: with the new spacing features in 2.12, these specific examples are no
+longer relevant.  However, they still demonstrate powerful features
+of lilypond, so they remain until somebody creates some better examples.
+
+@c % \once \override TextScript #'extra-offset = #'(0 . -2 )
+@c @l ilypond[quote,fragment,ragged-right,verbatim,relative=2]
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  % \once \override TextScript #'extra-offset = #'(0 . -2 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
 

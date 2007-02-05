@@ -15,6 +15,7 @@
 * MIDI instruments::            
 * List of colors::              
 * The Feta font::               
+* Note head styles::            
 @end menu
 
 
@@ -193,6 +194,14 @@ accessed directly using text markup such as @code{g^\markup @{
 
 @lilypondfile[noindent]{font-table.ly}
 
+
+@node Note head styles
+@appendixsec Note head styles
+
+@cindex note head styles
+The following styles may be used for note heads.
+
+@lilypondfile[noindent]{note-head-style.ly}
 
 @ignore
 @n ode All context properties
