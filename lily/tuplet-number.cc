@@ -52,9 +52,15 @@ Tuplet_number::print (SCM smob)
 
   SCM cpoints =  tuplet->get_property ("control-points");
   Drul_array<Offset> points;
-  points[LEFT] = ly_scm2offset (scm_car (cpoints));
-  points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
-
+  if (scm_is_pair (cpoints))
+    {
+      points[LEFT] = ly_scm2offset (scm_car (cpoints));
+      points[RIGHT] = ly_scm2offset (scm_cadr (cpoints));
+    }
+  else
+    {
+      programming_error ("wrong type for control-points");
+    }
   stc->translate ((points[RIGHT] + points[LEFT]) / 2);
   
   return stc_scm;
