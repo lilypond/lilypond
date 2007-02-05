@@ -156,9 +156,7 @@ static Long_option_init options_static[]
   {_i ("USER, GROUP, JAIL, DIR"), "jail", 'j', _i ("chroot to JAIL, become USER:GROUP\n"
 						"and cd into DIR")},
 #endif
-  {0, "no-print", 0, _i ("do not generate printed output")},
   {_i ("FILE"), "output", 'o',  _i ("write output to FILE (suffix will be added)")},
-  {0, "preview", 'p',  _i ("generate a preview of the first system")},
   {0, "relocate", 0, _i ("relocate using directory of lilypond program")},
   {0, "version", 'v',  _i ("show version number and exit")},
   {0, "verbose", 'V', _i ("be verbose")},
