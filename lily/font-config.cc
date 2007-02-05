@@ -45,8 +45,8 @@ init_fontconfig ()
 			
   vector<string> dirs;
 
-  dirs.push_back (prefix_directory + "/fonts/otf/");
-  dirs.push_back (prefix_directory + "/fonts/type1/");
+  dirs.push_back (lilypond_datadir + "/fonts/otf/");
+  dirs.push_back (lilypond_datadir + "/fonts/type1/");
   
   for (vsize i = 0; i < dirs.size (); i++)
     {

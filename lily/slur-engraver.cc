@@ -153,7 +153,11 @@ void
 Slur_engraver::finalize ()
 {
   if (slurs_.size ())
-    slurs_[0]->warning (_ ("unterminated slur"));
+    {
+      slurs_[0]->warning (_ ("unterminated slur"));
+      for (vsize i = 0; i < slurs_.size (); i++)
+	slurs_[i]->suicide ();
+    }
 }
 
 void

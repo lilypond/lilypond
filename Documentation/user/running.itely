@@ -330,11 +330,11 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 
 
 @cindex LANG
-@cindex LILYPONDPREFIX
+@cindex LILYPOND_DATADIR
 
 @code{Lilypond} recognizes the following environment variables:
 @table @code
-@item LILYPONDPREFIX
+@item LILYPOND_DATADIR
 This specifies a directory where locale messages and
 data files will be looked up by default.  The directory should contain
 subdirectories called @file{ly/}, @file{ps/}, @file{tex/}, etc.

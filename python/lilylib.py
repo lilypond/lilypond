@@ -24,14 +24,14 @@ import optparse
 # it as we do with teTeX on Red Hat Linux: set some environment var
 # (PYTHONPATH) in profile)
 
-# If set, LILYPONDPREFIX must take prevalence
-# if datadir is not set, we're doing a build and LILYPONDPREFIX
+# If set, LILYPOND_DATADIR must take prevalence
+# if datadir is not set, we're doing a build and LILYPOND_DATADIR
 
 datadir = '@local_lilypond_datadir@'
 if not os.path.isdir (datadir):
     datadir = '@lilypond_datadir@'
-if os.environ.has_key ('LILYPONDPREFIX') :
-    datadir = os.environ['LILYPONDPREFIX']
+if os.environ.has_key ('LILYPOND_DATADIR') :
+    datadir = os.environ['LILYPOND_DATADIR']
     while datadir[-1] == os.sep:
 	datadir= datadir[:-1]
 

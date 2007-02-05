@@ -24,9 +24,9 @@
 
 ;; argv0 relocation -- do in wrapper?
 
-(define LILYPONDPREFIX
+(define LILYPOND_DATADIR
   (let* ((prefix
-	  (or (getenv "LILYPONDPREFIX")
+	  (or (getenv "LILYPOND_DATADIR")
 	      (dirname  (dirname (car (command-line)))))))
     
 
@@ -150,7 +150,7 @@ Options:
 	(begin
 	  (show-help (current-error-port))
 	  (exit 2)))
-    (set! %load-path (cons LILYPONDPREFIX %load-path))
+    (set! %load-path (cons LILYPOND_DATADIR %load-path))
 
     (primitive-eval '(use-modules (scm editor)))
 
