@@ -319,7 +319,7 @@
 	(beaming . ,ly:beam::calc-beaming)
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
-	(cross-staff . ,ly:beam::cross-staff)
+	(cross-staff . ,ly:beam::calc-cross-staff)
 
 	(details .  ((hint-direction-penalty . 20)))
 	;; TODO: should be in SLT.
