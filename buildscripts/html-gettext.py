@@ -58,6 +58,9 @@ def h_gettext (m):
 	return '<h' + m.group(1) + m.group(2) + '>' + \
 	       m.group(3) + _(m.group(4)) + '</h' + m.group(1) + '>'
 
+def rglos_gettext (m):
+	return '<a href="../music-glossary/' + m.group(1) + '">' + _(m.group(2)) + '</a>'
+
 for filename in args[3:]:
 	f = open (filename, 'r')
 	page = f.read ()
@@ -66,6 +69,7 @@ for filename in args[3:]:
 	page = re.sub (r'<title>([^<]*?) - ([^<]*?)</title>', title_gettext, page)
 	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?" ?)?)(href="[^"]+?">)((?:<code>|)(?:[\d.]+ |))([^<]+)(</code>|)</a>(:)?', a_href_gettext, page)
 	page = re.sub (r'<h(\d)( class="\w+"|)>([\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
+	page = re.sub (r'<a href="../music-glossary/(.+?)">(.+?)</a>', rglos_gettext, page)
 	for w in ('Next:', 'Previous:', 'Up:'):
 		page = re.sub (w, _(w), page)
 	f = open (os.path.join (outdir, filename), 'w')
