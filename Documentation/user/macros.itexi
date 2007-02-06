@@ -53,21 +53,41 @@
 @c @inforef{\NAME\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
 
+@ifset bigpage
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals-big-page}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary-big-page}
+@end macro
+
+@end ifset
+
+
+@ifclear bigpage
+
 @c annoying parentheses stripped by add-html-footer.py
 @macro internalsref{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
-@end macro
-
 @c annoying parentheses stripped by add-html-footer.py
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
+@end macro
+
+@end ifclear
+
+
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @c to get decent quotes in `foo'
