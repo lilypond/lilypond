@@ -322,7 +322,7 @@ traLaLa = @{ c'4 d'4 @}
 @noindent
 is internally converted to a Scheme definition
 @example
-(define traLaLa @var{Scheme value of @q{@samp{... }}})
+(define traLaLa @var{Scheme value of this music expression})
 @end example
 
 This means that input variables and Scheme variables may be freely
