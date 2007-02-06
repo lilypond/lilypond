@@ -1019,6 +1019,7 @@ to the note immediately preceding it.
 @code{noteD} is relative to @code{noteC}, not @code{noteB} or
 @code{noteA}.
 
+
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
@@ -1121,13 +1122,29 @@ the music.
 }
 @end lilypond
 
+In some instances of complex polyphonic music, you may need additional
+voices to avoid collisions between notes.  Additional voices are added
+by defining an identifier, as shown below:
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
+
 
 @node Collision Resolution
 @subsection Collision Resolution
 
 Normally, note heads with a different number of dots are not merged, but
 when the object property @code{merge-differently-dotted} is set in
-the @internalsref{NoteCollision} object, they are merged
+the @internalsref{NoteCollision} object, they are merged:
+
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice << {
   g8 g8
@@ -1138,7 +1155,8 @@ the @internalsref{NoteCollision} object, they are merged
 @end lilypond
 
 Similarly, you can merge half note heads with eighth notes, by setting
-@code{merge-differently-headed}
+@code{merge-differently-headed}:
+
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \new Voice << {
   c8 c4.
@@ -1156,6 +1174,30 @@ for example
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new Voice << c''4 \\ r4 >>
+@end lilypond
+
+If three or more notes line up in the same column,
+@code{merge-differently-headed} cannot
+successfully complete the merge of the two notes that should be merged.
+To allow the merge to work properly, apply a @code{\shift} to the note that
+should not be merged.  In the first measure of following example,
+@code{merge-differently-headed} does not work (the half-note head is
+solid).  In the second measure, @code{\shiftOn} is applied to move the
+top @code{g} out of the column, and @code{merge-differently-headed}
+works properly.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+<<
+  { d=''2 g2 } \\
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+<<
+  { d'=''2 \shiftOn g2 } \\ 
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
 @end lilypond
 
 
@@ -1179,8 +1221,9 @@ for example
 @funindex \shiftOnnn
 @code{\shiftOnnn},
 @funindex \shiftOff
-@code{\shiftOff}: these commands specify in what chords of the current
-voice should be shifted.  The outer voices (normally: voice one and
+@code{\shiftOff}: these commands specify the
+degree to which chords of the current voice should be shifted.
+The outer voices (normally: voice one and
 two) have @code{\shiftOff}, while the inner voices (three and four)
 have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
 further shift levels.
