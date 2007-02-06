@@ -47,7 +47,6 @@ class Slur_engraver : public Engraver
 protected:
   DECLARE_TRANSLATOR_LISTENER (slur);
   DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (script);
@@ -108,12 +107,6 @@ Slur_engraver::acknowledge_extra_object (Grob_info info)
 
 void
 Slur_engraver::acknowledge_accidental (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
-Slur_engraver::acknowledge_dynamic_line_spanner (Grob_info info)
 {
   acknowledge_extra_object (info);
 }
@@ -224,7 +217,6 @@ Slur_engraver::stop_translation_timestep ()
 }
 
 ADD_ACKNOWLEDGER (Slur_engraver, accidental);
-ADD_ACKNOWLEDGER (Slur_engraver, dynamic_line_spanner);
 ADD_ACKNOWLEDGER (Slur_engraver, fingering);
 ADD_ACKNOWLEDGER (Slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Slur_engraver, script);
