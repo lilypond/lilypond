@@ -353,7 +353,7 @@ Constrained_breaking::initialize ()
 
 	  line.force_ = forces[i*breaks_.size () + j];
 	  if (ragged && last && !isinf (line.force_))
-	    line.force_ = (line.force_ < 0) ? infinity_f : 0;
+	    line.force_ = (line.force_ < 0 && j > i + 1) ? infinity_f : 0;
 	  if (isinf (line.force_))
 	    break;
 
