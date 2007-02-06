@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: d0b8b30fb1e461c215c7867ae0aafed730699403
+   Translation of GIT committish: 3723b442fb7ec5d4e53d6b542248c57443662666
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -667,8 +667,7 @@ Il y a deux exceptions à cette règle du strict nécessaire :
 début de votre exemple.
 @end itemize
 
-Tout l'intérêt d'un exemple minimal réside dans sa facilité de lecture
-:
+Tout l'intérêt d'un exemple minimal réside dans sa facilité de lecture :
 @itemize
 @item évitez d'utiliser des notes, armures ou métriques compliquées, à
 moins que vous vouliez montrer quelque chose en rapport avec
