@@ -1990,6 +1990,7 @@
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(control-points . ,ly:tuplet-bracket::calc-control-points)
 	(stencil . ,ly:tuplet-bracket::print)
+	(cross-staff . ,ly:tuplet-bracket::cross-staff)
 	
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
@@ -2002,6 +2003,7 @@
 	(font-shape . italic)
 	(font-size . -2)
 	(avoid-slur . inside)
+	(cross-staff . ,ly:tuplet-number::cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-interface tuplet-number-interface
 				font-interface))))))

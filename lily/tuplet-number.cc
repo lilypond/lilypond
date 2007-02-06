@@ -17,6 +17,7 @@
 struct Tuplet_number
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM));
   DECLARE_GROB_INTERFACE ();
 };
   
@@ -66,6 +67,13 @@ Tuplet_number::print (SCM smob)
   return stc_scm;
 }
 
+MAKE_SCHEME_CALLBACK (Tuplet_number, cross_staff, 1)
+SCM
+Tuplet_number::cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  return Tuplet_bracket::cross_staff (me->get_object ("bracket"));
+}
 
 ADD_INTERFACE (Tuplet_number,
 	       "The number for a bracket. "

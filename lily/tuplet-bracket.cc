@@ -737,6 +737,24 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
 }
 
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, cross_staff, 1);
+SCM
+Tuplet_bracket::cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *staff_symbol = 0;
+  extract_grob_set (me, "note-columns", cols);
+  for (vsize i = 0; i < cols.size (); i++)
+    {
+      Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
+      Grob *stem_staff = Staff_symbol_referencer::get_staff_symbol (stem);
+      if (staff_symbol && (stem_staff != staff_symbol))
+        return SCM_BOOL_T;
+      staff_symbol = stem_staff;
+    }
+  return SCM_BOOL_F;
+}
+
 ADD_INTERFACE (Tuplet_bracket,
 	       "A bracket with a number in the middle, used for tuplets. "
 	       "When the bracket spans  a line break, the value of "
