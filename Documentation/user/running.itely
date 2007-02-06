@@ -439,6 +439,12 @@ To upgrade LilyPond fragments in texinfo files, use
 convert-ly --from=... --to=... --no-version *.itely
 @end example
 
+To see the changes in the LilyPond syntax between two versions, use
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
 To upgrade many files at once, combine @code{convert-ly} with
 standard unix commands.  This example will upgrade all @code{.ly}
 files in the current directory
