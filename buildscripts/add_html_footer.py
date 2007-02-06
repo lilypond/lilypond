@@ -9,6 +9,19 @@ import time
 
 import langdefs
 
+# This is to try to make the docball not too big with almost duplicate files
+# see process_links()
+non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
+                    'Documentation/user/out-www/lilypond-internals-big-page',
+                    'Documentation/user/out-www/music-glossary-big-page',
+                    'out-www/examples',
+                    'Documentation/topdocs/out-www/NEWS',
+                    'Documentation/topdocs/out-www/INSTALL',
+                    'Documentation/bibliography/out-www/index',
+                    'Documentation/out-www/THANKS',
+                    'Documentation/out-www/DEDICATION',
+                    'Documentation/topdocs/ou-www/AUTHORS']
+
 header = r"""
 """
 
@@ -125,9 +138,8 @@ def find_translations (prefix, lang_ext):
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append (l)
-            elif lang_ext == '' and l.enabled and \
-                     ('lilypond/' in prefix or 'lilypond-internals/' in prefix or 'music-glossary/' in prefix or 'input/' in prefix):
-                # English version of missing translated pages in the splitted docs will be written
+            elif lang_ext == '' and l.enabled and not prefix in non_copied_pages:
+                # English version of missing translated pages will be written
                 missing.append (e)
     return available, missing
 
