@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 3723b442fb7ec5d4e53d6b542248c57443662666
+   Translation of GIT committish: d0b8b30fb1e461c215c7867ae0aafed730699403
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -13,7 +13,7 @@
 Cette section explique comment résoudre ou éviter certains problèmes
 courants.  Si vous avez de l'expérience en programmation, beaucoup de
 ces astuces peuvent vous paraître évidentes, mais vous ne perdrez tout
-de même pas temps à lire ce chapitre.
+de même pas votre temps à lire ce chapitre.
 
 @menu
 * Suggestions for writing LilyPond files::
@@ -27,7 +27,7 @@ de même pas temps à lire ce chapitre.
 @node Suggestions for writing LilyPond files
 @section Suggestions for writing LilyPond files
 
-Maintenant vous êtes prêts à travailler sur de plus gros fichiers
+Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond --- des pièces entières, et plus seulement les petits
 exemples du tutoriel.  Mais comment devriez-vous vous y prendre ?
 
@@ -38,7 +38,7 @@ lorsque l'on écrit un fichier LilyPond.
 
 @itemize @bullet
 @item Si vous faites une erreur, la structure même du fichier LilyPond
-peut permettre de la trouver plus ou moins facilement.
+peut permettre de la localiser plus ou moins facilement.
 
 @item Et si vous souhaitez partager vos fichiers avec quelqu'un
 d'autre, ou si vous souhaitez modifier vos propres fichiers dans
@@ -88,7 +88,7 @@ peut-être à chaque mesure.
 le résultat que vous désirez contient quelque chose de compliqué, il
 est souvent bon de n'écrire qu'une seule mesure par ligne.  Économiser
 de la place en tassant huit mesures par ligne, ça ne vaut pas vraiment
-le coup si vous avez à corriger vos fichiers.
+le coup si l'on doît corriger vos fichiers.
 
 @item @strong{Ajoutez des commentaires}.  Utilisez soit des
 numéros de mesure (assez souvent), soit des références au contenu
@@ -103,7 +103,7 @@ structuré si vous n'y avez pas adjoint de commentaires.
 @item @strong{Indentez les accolades}.  Beaucoup de problèmes
 viennent d'un défaut de parité entre @code{@{} et @code{@}}.
 
-@item @strong{Séparez les retouches de mise en forme} de la musique
+@item @strong{Séparez les affinages de mise en forme} de la musique
 elle-même. Voyez @ref{Saving typing with identifiers and functions} et
 @ref{Style sheets}.
 
@@ -125,7 +125,7 @@ utiliser la commande @code{showLastLength} pour accélérer la
 compilation --- voir @ref{Skipping corrected music} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
-@code{\mBreak} dans le fichier d'entrée à chaque saut de ligne dans la
+@code{\mBreak} dans le fichier d'entrée des sauts de ligne identiques à la
 partition originale.  Cela facilite la comparaison entre la partition
 originale et la partition de LilyPond.  Lorsque vous avez fini de
 relire votre musique, vous pouvez définir @code{mBreak = @{ @}} pour
@@ -324,10 +324,10 @@ cela en utilisant les techniques de @ref{Moving objects}.  On peut
 aussi aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{tempoMark}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
-Nous pourrions simplement les copier et les coller au début de chaque
+Il suffirait de les copier et les coller au début de chaque
 fichier, mais c'est fastidieux.  De plus, cela laisse les définitions
 dans nos fichiers de musique, et je trouve personnellement tous ces
-@code{#()} assez laids.  Cachons-les dans un autre fichier :
+@code{#()} assez laids.  Stockons-les dans un autre fichier :
 
 @example
 %%% enregistrez ceci dans un fichier nommé "definitions.ly"
@@ -535,7 +535,7 @@ alors à
 Cette approche peut être utile même si vous ne produisez qu'un seul
 jeu de partitions.  J'utilise une demi-douzaine de fichiers de
 @qq{feuille de style} pour mes projets.  Je commence chaque fichier de
-musique musical par @code{\include "../global.ly"} qui contient :
+musique par @code{\include "../global.ly"} qui contient :
 
 @example
 %%%   global.ly
@@ -560,8 +560,8 @@ LilyPond est fourni avec un utilitaire qui facilite cette mise à
 jour : @code{convert-ly}.  Pour savoir comment utiliser ce programme,
 voir @ref{Updating files with convert-ly}.
 
-Malheureusement, @code{convert-ly} ne peut pas réaliser tous les
-changements.  Il s'occupe des changements qui ne requièrent qu'une
+Malheureusement, @code{convert-ly} ne peut pas réaliser toutes les
+modifications.  Il s'occupe des changements qui ne requièrent qu'une
 simple substitution de texte --- comme @code{raggedright} devenant
 @code{ragged-right} ---, les autres étant trop compliqués à effectuer.
 Les changements de syntaxe qui ne sont pas gérés par @code{convert-ly}
@@ -596,7 +596,7 @@ fonctionne, c'est que le problème se situe dans cette partie du
 fichier.  Si cela ne fonctionne pas, continuez à mettre en commentaire
 d'autres sections, jusqu'à ce que vous ayez quelque chose qui compile.
 
-Dans un cas extrême, vous pourriez arriver à
+Dans un cas extrême, vous pourriez en arriver à
 
 @example
 \score @{
