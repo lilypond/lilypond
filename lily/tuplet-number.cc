@@ -17,7 +17,7 @@
 struct Tuplet_number
 {
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE ();
 };
   
@@ -67,12 +67,12 @@ Tuplet_number::print (SCM smob)
   return stc_scm;
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_number, cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Tuplet_number, calc_cross_staff, 1)
 SCM
-Tuplet_number::cross_staff (SCM smob)
+Tuplet_number::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  return Tuplet_bracket::cross_staff (me->get_object ("bracket"));
+  return unsmob_grob (me->get_object ("bracket"))->get_property ("cross_staff");
 }
 
 ADD_INTERFACE (Tuplet_number,

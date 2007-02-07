@@ -1431,9 +1431,9 @@ Beam::is_cross_staff (Grob *me)
   return false;
 }
 
-MAKE_SCHEME_CALLBACK (Beam, cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Beam, calc_cross_staff, 1)
 SCM
-Beam::cross_staff (SCM smob)
+Beam::calc_cross_staff (SCM smob)
 {
   return scm_from_bool (is_cross_staff (unsmob_grob (smob)));
 }

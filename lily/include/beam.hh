@@ -94,7 +94,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_normal_stems, (SCM));  
   DECLARE_SCHEME_CALLBACK (calc_concaveness, (SCM));
   DECLARE_SCHEME_CALLBACK (set_stem_lengths, (SCM));
-  DECLARE_SCHEME_CALLBACK (cross_staff, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
 
   /* position callbacks */
   DECLARE_SCHEME_CALLBACK (shift_region_to_valid, (SCM, SCM));

@@ -737,9 +737,9 @@ Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
 }
 
-MAKE_SCHEME_CALLBACK (Tuplet_bracket, cross_staff, 1);
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
 SCM
-Tuplet_bracket::cross_staff (SCM smob)
+Tuplet_bracket::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *staff_symbol = 0;

@@ -319,7 +319,7 @@
 	(beaming . ,ly:beam::calc-beaming)
 	(stencil . ,ly:beam::print)
 	(clip-edges . #t)
-	(cross-staff . ,ly:beam::cross-staff)
+	(cross-staff . ,ly:beam::calc-cross-staff)
 
 	(details .  ((hint-direction-penalty . 20)))
 	;; TODO: should be in SLT.
@@ -1256,7 +1256,7 @@
 	(minimum-length . 1.5)
 	(height-limit . 2.0)
 	(ratio . 0.333)
-	(cross-staff . ,ly:slur::cross-staff)
+	(cross-staff . ,ly:slur::calc-cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
@@ -1455,7 +1455,7 @@
 	(height-limit . 2.0)
 	(ratio . 0.25)
 	(avoid-slur . inside)
-	(cross-staff . ,ly:slur::cross-staff)
+	(cross-staff . ,ly:slur::calc-cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (slur-interface))))))
 
@@ -1576,7 +1576,7 @@
 	(Y-extent . ,ly:stem::height)
 	(length . ,ly:stem::calc-length)
 	(thickness . 1.3)
-	(cross-staff . ,ly:stem::cross-staff)
+	(cross-staff . ,ly:stem::calc-cross-staff)
 	(details
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length
@@ -1990,7 +1990,7 @@
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
 	(control-points . ,ly:tuplet-bracket::calc-control-points)
 	(stencil . ,ly:tuplet-bracket::print)
-	(cross-staff . ,ly:tuplet-bracket::cross-staff)
+	(cross-staff . ,ly:tuplet-bracket::calc-cross-staff)
 	
 	(meta . ((class . Spanner)
 		 (interfaces . (line-interface
@@ -2003,7 +2003,7 @@
 	(font-shape . italic)
 	(font-size . -2)
 	(avoid-slur . inside)
-	(cross-staff . ,ly:tuplet-number::cross-staff)
+	(cross-staff . ,ly:tuplet-number::calc-cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (text-interface tuplet-number-interface
 				font-interface))))))
