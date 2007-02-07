@@ -15,7 +15,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Pitches::
 * Rhythms::
-* Multiple notes at once::
+* Polyphony::
 * Staff notation::
 * Connecting notes::
 * Expressive marks::
@@ -137,8 +137,8 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Multiple notes at once
-@section Multiple notes at once
+@node Polyphony
+@section Polyphony
 
 UNTRANSLATED NODE: IGNORE ME
 

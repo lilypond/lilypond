@@ -100,13 +100,13 @@ multilingue<br>(aussi en <a class="title"
 	  <ul>
 	    <li>
  <a  class="title" href="user/lilypond-internals/index.html">Référence du programme</a>
- (en anglais,<br> en <a class="title" href="user/lilypond-internals-big-page.html">une seule grande page</a> ~ 1 Mb)
+ (en anglais,<br> en <a class="title" href="user/lilypond-internals-big-page.html">page unique</a> ~ 1 Mb)
 
      <br>&mdash; définitions pour les retouches
 
 	    <li>
      <a  class="title"
-     href="../input/regression/collated-files.html">Tests de régression</a> (~ 5 Mb, en <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">comparaison</a>)
+     href="../input/regression/collated-files.html">Tests de régression</a> (~ 5 Mb, <a  class="title" href="../input/regression/collated-files.pdf">au format PDF</a>, <a href="../test-results.html">comparaison</a>)
 
      <br>&mdash; pour les développeurs
 
