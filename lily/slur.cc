@@ -356,9 +356,9 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
 		    e->name().c_str ()));
 }
 
-MAKE_SCHEME_CALLBACK (Slur, cross_staff, 1)
+MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)
 SCM
-Slur::cross_staff (SCM smob)
+Slur::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);

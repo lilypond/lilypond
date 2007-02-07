@@ -72,7 +72,7 @@ SCM
 Tuplet_number::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  return unsmob_grob (me->get_object ("bracket"))->get_property ("cross_staff");
+  return unsmob_grob (me->get_object ("bracket"))->get_property ("cross-staff");
 }
 
 ADD_INTERFACE (Tuplet_number,
