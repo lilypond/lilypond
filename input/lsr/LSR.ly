@@ -5,14 +5,17 @@ texidoc = "@unnumbered LilyPond Examples
 These pages show LilyPond examples (snippets) from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
 
-@c @h eading @uref{../trick/collated-files.html,Trick}:
-@strong{@uref{trick/collated-files.html,Trick}}:
+@strong{@uref{ancient/collated-files.html,Ancient}}:
 These snippets are blah blah.
 
-@c @h eading @uref{../advanced/collated-files.html,Advanced}:
-@strong{@uref{advanced/collated-files.html,Advanced}}:
+@strong{@uref{chords/collated-files.html,Chords}}:
 These snippets are fazzle snap.
 
+@strong{@uref{connecting/collated-files.html,Connecting notes}}:
+These snippets are fazzle snap.
+
+@strong{@uref{contemporary/collated-files.html,Contemporary notation}}:
+These snippets are fazzle snap.
 "
 }
 

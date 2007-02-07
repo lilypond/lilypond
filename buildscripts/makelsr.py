@@ -4,7 +4,7 @@ import os
 import os.path
 import shutil
 
-dirs = ['advanced','trick']
+dirs = ['ancient','chords','connecting','contemporary']
 
 try:
 	in_dir = sys.argv[1]

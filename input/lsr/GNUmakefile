@@ -1,6 +1,6 @@
 depth = ../../
 
-SUBDIRS = advanced trick
+SUBDIRS = ancient chords connecting contemporary
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
