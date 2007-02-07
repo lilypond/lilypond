@@ -50,7 +50,7 @@
 	    <li>
 	    <a class="title"
 	      href="user/lilypond/Tutorial.fr.html">Tutoriel</a>
-	      <br>&mdash; commencez ici
+	      <br>&mdash; commencer ici
 	  </ul>
 	  </td>
 	  <td class="right-column">
@@ -72,24 +72,25 @@
 	  <ul>
 	    <li>
 <a class="title" href="user/lilypond/index.fr.html">Manuel de l'utilisateur</a>
-(partiellement traduit,<br> en <a class="title"
- 	    href="user/lilypond-big-page.html">une seule grande page
- 	    et en anglais</a> ~ 4 Mb,<br>
-en <a class="title" href="user/lilypond.pdf">PDF et en anglais</a>)
+(partiellement traduit,<br> aussi en <a class="title"
+ 	    href="user/lilypond-big-page.html">page unique
+ 	    en anglais</a> ~ 4 Mb,<br>
+ou <a class="title" href="user/lilypond.pdf">au format PDF en anglais</a>)
 
-     <br>&mdash; tout sur LilyPond
+     <br>&mdash; revue de détails
      
 <li><a class="title" href="../examples.html">Exemples</a>
 
-     <br>&mdash; regardez quelques exemples
+     <br>&mdash; voir quelques exemples
 
 <li><a class="title" href="../input/test/collated-files.html">Trucs et astuces</a>
-(~ 2 Mb, en  <a class="title" href="../input/test/collated-files.pdf">PDF</a>)
+(~ 2 Mb, <a class="title" href="../input/test/collated-files.pdf">au format PDF</a>)
 
-     <br>&mdash; pour les utilisateurs avancés
+     <br>&mdash; pour aller encore plus loin
  <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
-(en anglais,<br> en <a class="title" href="user/music-glossary-big-page.html">une seule grande page</a> ~ 1 Mb,
-en <a class="title" href="user/music-glossary.pdf">PDF</a>)
+multilingue<br>(aussi en <a class="title"
+ href="user/music-glossary-big-page.html">page unique</a> ~ 1 Mb ou
+<a class="title" href="user/music-glossary.pdf">au format PDF</a>)
 
      <br>&mdash; pour les utilisateurs non anglophones
 	  </ul>
@@ -142,9 +143,9 @@ en <a class="title" href="user/music-glossary.pdf">PDF</a>)
         </tr>
       </tbody>
     </table>
-    <p><strong>NOTE</strong>&nbsp;: comme dans toutes les pages de
-      cette documentation, vous pouvez trouver au bas de la page des
-      liens vers les traductions existantes.
+    <p><strong>NOTE</strong>&nbsp;: vous pouvez trouver, au bas de
+    chaque page de cette documentation, des liens vers les traductions
+    disponibles.
     </p>
   </body>
 </html>
