@@ -39,11 +39,9 @@ TODO: with the new spacing features in 2.12, these specific examples are no
 longer relevant.  However, they still demonstrate powerful features
 of lilypond, so they remain until somebody creates some better examples.
 
-@c % \once \override TextScript #'extra-offset = #'(0 . -2 )
-@c @l ilypond[quote,fragment,ragged-right,verbatim,relative=2]
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:
-  % \once \override TextScript #'extra-offset = #'(0 . -2 )
+  \override TextScript #'outside-staff-priority = ##f
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
 
@@ -57,6 +55,8 @@ objects, this value is around 1.0 or less (it varies with each
 object). We want to increase it, so let's try 1.5
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
 \once \override TextScript #'padding = #1.5
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -75,16 +75,18 @@ object and the staff.  This is a subtle difference, but you can see
 the behavior here.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
 c4^"piu mosso" b a b
-\once \override TextScript #'padding = #2.6
+\once \override TextScript #'padding = #4.6
 c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #2.6
+\once \override TextScript #'staff-padding = #4.6
 c4^"piu mosso" fis a g
 \break
 c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #2.6
+\once \override TextScript #'padding = #4.6
 c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #2.6
+\once \override TextScript #'staff-padding = #4.6
 c4^"piu mosso" fis a g
 @end lilypond
 
@@ -99,6 +101,8 @@ means
 that the result can overlap with other objects.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
 \once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -109,6 +113,8 @@ movement (up is positive).  After a bit of experimenting, we decided
 that these values look good
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
 \once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
 e4^\markup{ \italic ritenuto } g b e
 @end lilypond
@@ -132,15 +138,17 @@ the command, omit the @code{\once}.  To stop this tweak, use a
 @ref{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
 c4^"piu mosso" b
-\once \override TextScript #'padding = #2.6
+\once \override TextScript #'padding = #4.6
   a4 b
 c4^"piu mosso" d e f
-\once \override TextScript #'padding = #2.6
+\once \override TextScript #'padding = #4.6
 c4^"piu mosso" d e f
 c4^"piu mosso" d e f
 \break
-\override TextScript #'padding = #2.6
+\override TextScript #'padding = #4.6
 c4^"piu mosso" d e f
 c4^"piu mosso" d e f
 \revert TextScript #'padding
