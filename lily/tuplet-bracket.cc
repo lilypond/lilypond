@@ -494,6 +494,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   commony = common_refpoint_of_array (tuplets, commony, Y_AXIS);
   if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
     commony = st->common_refpoint (commony, Y_AXIS);
+  Real my_offset = me->relative_coordinate (commony, Y_AXIS);
 
   Grob *commonx = get_common_x (me);
   commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
@@ -504,7 +505,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       Real pad = robust_scm2double (me->get_property ("staff-padding"), -1.0);
       if  (pad >= 0.0)
 	{
-	  staff = st->extent (commony, Y_AXIS);
+	  staff = st->extent (commony, Y_AXIS) - my_offset;
 	  staff.widen (pad);
 	}
     }
@@ -520,12 +521,13 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
+  bool follow_beam = par_beam
+    && ((get_grob_direction (par_beam) == dir) || to_boolean (par_beam->get_property ("knee")));
 
   vector<Offset> points;
 
   if (columns.size ()
-      && par_beam
-      && get_grob_direction (par_beam) == dir 
+      && follow_beam
       && Note_column::get_stem (columns[0])
       && Note_column::get_stem (columns.back ()))
     {
@@ -542,11 +544,10 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       
 
       Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
-      Real my_parent_offset = me->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
       Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0)
-        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_parent_offset;
+        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_offset;
       Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0)
-        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_parent_offset;
+        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_offset;
 
       *dy = rp - lp;
       points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));
@@ -584,18 +585,17 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       else
 	*dy = 0;
 
-      *offset = -dir * infinity_f;      
       for (vsize i = 0; i < columns.size (); i++)
 	{
 	  Interval note_ext = columns[i]->extent (commony, Y_AXIS);
-	  Real notey = note_ext[dir] - me->relative_coordinate (commony, Y_AXIS);
+	  Real notey = note_ext[dir] - my_offset;
 
 	  Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
 	  points.push_back (Offset (x, notey));
 	}
     }
 
-  if (!(par_beam && get_grob_direction (par_beam) == dir))
+  if (!follow_beam)
     {
       points.push_back (Offset (x0 - x0, staff[dir]));
       points.push_back (Offset (x1 - x0, staff[dir]));
@@ -639,6 +639,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       while (flip (&d) != LEFT);
     }
 
+  *offset = -dir * infinity_f;
   Real factor = (columns.size () > 1) ? 1 / (x1 - x0) : 1.0;
   for (vsize i = 0; i < points.size (); i++)
     {
