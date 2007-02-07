@@ -18,9 +18,12 @@ non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/topdocs/out-www/NEWS',
                     'Documentation/topdocs/out-www/INSTALL',
                     'Documentation/bibliography/out-www/index',
+                    'Documentation/bibliography/out-www/engraving',
+                    'Documentation/bibliography/out-www/colorado',
+                    'Documentation/bibliography/out-www/computer-notation'
                     'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
-                    'Documentation/topdocs/ou-www/AUTHORS']
+                    'Documentation/topdocs/out-www/AUTHORS']
 
 header = r"""
 """
