@@ -542,8 +542,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       
 
       Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
-      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0);
-      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0);
+      Real my_parent_offset = me->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
+      Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0)
+        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_parent_offset;
+      Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0)
+        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_parent_offset;
 
       *dy = rp - lp;
       points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));
@@ -654,6 +657,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
     Kind of pointless since we put them outside the staff anyway, but
     let's leave code for the future when possibly allow them to move
     into the staff once again.
+  
+    This doesn't seem to support cross-staff tuplets atm.
   */
   if (*dy == 0
       && fabs (*offset) < ss * Staff_symbol_referencer::staff_radius (me))
@@ -735,6 +740,24 @@ void
 Tuplet_bracket::add_tuplet_bracket (Grob *me, Grob *bracket)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("tuplets"), bracket);
+}
+
+MAKE_SCHEME_CALLBACK (Tuplet_bracket, calc_cross_staff, 1);
+SCM
+Tuplet_bracket::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *staff_symbol = 0;
+  extract_grob_set (me, "note-columns", cols);
+  for (vsize i = 0; i < cols.size (); i++)
+    {
+      Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
+      Grob *stem_staff = Staff_symbol_referencer::get_staff_symbol (stem);
+      if (staff_symbol && (stem_staff != staff_symbol))
+        return SCM_BOOL_T;
+      staff_symbol = stem_staff;
+    }
+  return SCM_BOOL_F;
 }
 
 ADD_INTERFACE (Tuplet_bracket,

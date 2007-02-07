@@ -19,6 +19,7 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_control_points, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_connect_to_neighbors, (SCM smob));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   
   DECLARE_GROB_INTERFACE();
   static Grob* get_common_x (Spanner *);
