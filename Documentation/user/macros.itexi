@@ -1,5 +1,22 @@
 @c -*- coding: latin-1; mode: texinfo; -*-
 
+@c FIXME: rearranged this file; macros that don't depend on the output
+@c format should go at the beginning.  -gp
+
+
+@c in retrospect this is _not_ one of the output-insensitive macros.
+@c I'll fix it soon.
+@c usage: @lsr{ancient,custodes.ly}
+@macro lsr{DIR,NAME}
+@uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end macro
+
+@macro lsrdir{DIR}
+@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+@end macro
+
+
+
 @ifnottex
   @macro texisharp {word}
   #
