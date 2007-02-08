@@ -16,6 +16,22 @@ These snippets are fazzle snap.
 
 @strong{@uref{contemporary/collated-files.html,Contemporary notation}}:
 These snippets are fazzle snap.
+
+@strong{@uref{parts/collated-files.html,Preparing parts}}:
+These snippets are blah blah.
+
+@strong{@uref{repeats/collated-files.html,Repeats}}:
+These snippets are blah blah.
+
+@strong{@uref{spacing/collated-files.html,Spacing issues}}:
+These snippets are blah blah.
+
+@strong{@uref{text/collated-files.html,Text}}:
+These snippets are blah blah.
+
+@strong{@uref{vocal/collated-files.html,Vocal music}}:
+These snippets are blah blah.
+
 "
 }
 
