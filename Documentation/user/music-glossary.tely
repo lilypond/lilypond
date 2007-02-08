@@ -459,6 +459,7 @@ accidental.
 \set Score.automaticBars = ##f
 << 
   \context Staff \relative c'' {
+    \set Staff.extraNatural = ##f
     gis1 gisis ges geses g!
   }
   \lyrics {
@@ -626,7 +627,7 @@ Walking tempo/character.
 
 ES: apoyatura,
 I: appoggiatura,
-F: appogiature, (port de voix),
+F: appoggiature, (port de voix),
 D: Vorschlag,
 NL: voorslag,
 DK: forslag,
@@ -754,7 +755,7 @@ FI: ylinouseva intervalli.
 
 ES: manuscrito,
 I: autografo,
-F: manuscrit,
+F: manuscrit, autographe
 D: Autograph, Handschrift,
 NL: manuscript,
 DK: håndskrift, autograf,
@@ -1138,6 +1139,7 @@ chords are denoted open chords
 %\override TextScript #'font-style = #'large
 <<
 \context Staff \relative c'' {
+  \set Staff.extraNatural = ##f
   <g b d>1 
   <g bes d>
   <g bes des>
@@ -1463,6 +1465,9 @@ when to start playing.  Usually printed in a smaller type.
 
 @node custos
 @section custos
+
+F: guidon,
+D: Notenzeiger.
 
 A custos is a staff symbol that appears at the end of a staff line
 with monophonic musical contents (i.e., with a single voice).  It
@@ -2980,7 +2985,7 @@ Note value: double length of @aref{breve}.
 
 ES: letra (de la canción),
 I: .,
-F: .,
+F: paroles,
 D: Liedtext,
 NL: liedtekst,
 DK: .,
@@ -3071,6 +3076,7 @@ harmony}, @aref{relative key}.
 @section melisma
 
 ES: melisma,
+F: mélisme,
 NL: melisma,
 FI: melisma, laulettavan tavun sävelkuvio.
 
@@ -3087,7 +3093,7 @@ syllable in plainsong
 
 ES: compás,
 I: tempo, metro,
-F: indication de mésure,
+F: indication de mesure, mesure,
 D: Taktart, Metrum,
 NL: maatsoort,
 DK: taktart,
@@ -4546,7 +4552,7 @@ intervals.  @aref{meantone temperament}, @aref{equal temperament}.
 
 ES: indicación de tempo,
 I: indicazione di tempo,
-F: indication de temps,
+F: indication de tempo,
 D: Zeitmaß, Tempobezeichnung,
 NL: tempo aanduiding,
 DK: tempobetegelse,
@@ -4650,7 +4656,7 @@ FI: kolmanneskymmeneskahdesosatauko.
 
 ES: bajo cifrado,
 I: basso continuo, basso numerato,
-F: basse chiffrée,
+F: basse chiffrée, basse continue,
 D: Generalbass, bezifferter Bass,
 NL: basso continuo, becijferde bas
 DK: generalbas,
@@ -4717,7 +4723,7 @@ uniting them into a single sound (tone) equal to the combined durations.
 
 ES: indicación de compás,
 I: segni di tempo,
-F: chiffrage (chiffres indicateurs), signe de valeur,
+F: chiffrage (chiffres indicateurs), signe de valeur, indication de mesure,
 D: Taktangabe, Angabe der Taktart,
 NL: maatsoort,
 DK: taktangivelse,
