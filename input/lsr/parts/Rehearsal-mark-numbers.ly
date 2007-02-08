@@ -2,7 +2,7 @@
 
 \header { texidoc = "
 Marks can be printed as numbers.  
-By setting {markFormatter} we may choose a different style of mark printing. Also, marks can be specified manually, with a markup argument.
+By setting @{markFormatter@} we may choose a different style of mark printing. Also, marks can be specified manually, with a markup argument.
 " }
 
 \paper { ragged-right = ##t } 

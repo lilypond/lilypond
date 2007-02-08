@@ -1,7 +1,7 @@
 \version "2.10.12"
 
 \header { texidoc = "
-With {strict-note-spacing} spacing for grace notes (even multiple ones), is floating as well.
+With strict-note-spacing spacing for grace notes (even multiple ones), is floating as well.
 " }
 
 \paper {

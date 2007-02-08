@@ -3,7 +3,7 @@
 \header { texidoc = "
 Ambituses indicate pitch ranges for voices.
 
-Accidentals only show up if they're not part of key signature.  {AmbitusNoteHead} grobs also have ledger lines.
+Accidentals only show up if they're not part of key signature.  AmbitusNoteHead grobs also have ledger lines.
 " }
 
 \layout {
