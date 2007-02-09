@@ -1,11 +1,11 @@
 \version "2.10.12"
 
 \header { texidoc = "
-By setting properties in NonMusicalPaperColumn, vertical spacing of alignments can be adjusted per system.
+By setting properties in @{NonMusicalPaperColumn@}, vertical spacing of alignments can be adjusted per system.
 
-By setting alignment-extra-space or fixed-alignment-extra-space an individual system may be stretched vertically.
+By setting @{alignment-extra-space@} or @{fixed-alignment-extra-space@} an individual system may be stretched vertically.
 
-For technical reasons, overrideProperty has to be used for setting properties on individual object. override in a \context block may still be used for global overrides
+For technical reasons, @{overrideProperty@} has to be used for setting properties on individual object. @{override@} in a @{\context@} block may still be used for global overrides
 " }
 
 #(set-global-staff-size 13)
