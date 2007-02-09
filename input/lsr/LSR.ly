@@ -26,6 +26,9 @@ These snippets are blah blah.
 @strong{@uref{spacing/collated-files.html,Spacing issues}}:
 These snippets are blah blah.
 
+@strong{@uref{staff/collated-files.html,Staff notation}}:
+These snippets are blah blah.
+
 @strong{@uref{text/collated-files.html,Text}}:
 These snippets are blah blah.
 
