@@ -1408,6 +1408,7 @@
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 	(font-encoding . fetaMusic)
+	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	(meta . ((class . Item)
 		 (interfaces . (script-interface
 				side-position-interface
