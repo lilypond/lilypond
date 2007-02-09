@@ -1,0 +1,7 @@
+This directory contains examples generated automatically from LSR:
+http://lsr.dsi.unimi.it/
+
+Any changes made to .ly files (other than AAA-intro-*.ly) will be
+lost.  Please make updates to the LSR database directly.  You must
+be an editor to change "approved" snippets in LSR.
+
