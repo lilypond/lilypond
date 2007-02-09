@@ -2660,7 +2660,7 @@ very close to note heads in monophonic music,
 
 Program reference: @internalsref{Fingering}.
 
-Examples: @inputfileref{input/@/regression,finger@/-chords@/.ly}.
+Examples: @lsr{expressive,fingering-chords.ly}
 
 
 @node Dynamics
@@ -2855,6 +2855,8 @@ d4
 
 Program reference: @internalsref{BreathingSign}.
 
+Examples: @lsr{expressive,breathing-sign.ly}
+
 
 @node Trills
 @subsection Trills
@@ -2919,7 +2921,9 @@ c2\glissando c,
 
 Program reference: @internalsref{Glissando}.
 
-Example files: @file{input/@/regression/@/glissando@/.ly}.
+Example files:
+@lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
+
 
 
 @refbugs
