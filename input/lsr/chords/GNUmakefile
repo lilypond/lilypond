@@ -13,4 +13,4 @@ EXTRA_DIST_FILES=
 
 include $(depth)/make/stepmake.make
 
-TITLE=Trick snippets
+TITLE=Advanced snippets

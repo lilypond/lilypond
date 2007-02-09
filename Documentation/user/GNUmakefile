@@ -15,8 +15,8 @@ OUT_PNG_IMAGES=$(OUT_PDF_IMAGES:%.pdf=%.png)
 
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
-HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%.html)\
- $(outdir)/lilypond-internals.html
+HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
+ $(outdir)/lilypond-internals-big-page.html
 
 # todo: add latex.
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
@@ -155,8 +155,8 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_E
 #
 # One big page manual
 #
-$(outdir)/lilypond.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+$(outdir)/lilypond-big-page.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
 
 #
 # The split internals reference
@@ -168,8 +168,8 @@ $(outdir)/lilypond-internals/index.html: $(outdir)/lilypond-internals.texi
 #
 # One big page internals reference
 #
-$(outdir)/lilypond-internals.html: $(outdir)/lilypond-internals.texi
-	$(MAKEINFO) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+$(outdir)/lilypond-internals-big-page.html: $(outdir)/lilypond-internals.texi
+	$(MAKEINFO) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
 
 #
 # The split glossary

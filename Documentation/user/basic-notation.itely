@@ -752,8 +752,6 @@ the next note
 Program reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
 
-Examples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
-
 
 
 @node Scaling durations
@@ -876,10 +874,6 @@ rests.
 
 
 @seealso
-
-Examples: @inputfileref{input/@/regression,completion@/-heads@/.ly}.
-
-@noindent
 
 Program reference: @internalsref{Completion_heads_engraver}.
 
@@ -1249,13 +1243,6 @@ be used to override typesetting decisions.
 
 Program reference: the objects responsible for resolving collisions are
 @internalsref{NoteCollision} and @internalsref{RestCollision}.
-
-Examples:
-@inputfileref{input/@/regression,collision@/-dots@/.ly},
-@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
-@inputfileref{input/@/regression,collision@/-heads@/.ly},
-@inputfileref{input/@/regression,collision@/-mesh@/.ly}, and
-@inputfileref{input/@/regression,collisions@/.ly}.
 
 
 @refbugs
@@ -1865,7 +1852,7 @@ Program reference: @internalsref{StaffSymbol}.
 Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
 @inputfileref{input/@/test@/,ossia.ly},
 @inputfileref{input/@/test,staff@/-size@/.ly},
-@inputfileref{input/@/regression,staff@/-line@/-positions@/.ly}.
+@lsr{staff,staff-line-positions.ly}
 
 
 @node Writing music in parallel
@@ -2057,12 +2044,6 @@ In this manual: @ref{Automatic note splitting}.
 
 Program reference: @internalsref{Tie}.
 
-Examples:
-@inputfileref{input/@/regression,tie-arpeggio.ly}
-@inputfileref{input/@/regression,tie-manual.ly}
-
-
-
 
 @refbugs
 
@@ -2191,7 +2172,7 @@ Program reference:
 @internalsref{LaissezVibrerTieColumn}
 
 Example files:
-@inputfileref{input/regression,laissez-vibrer-tie.ly}
+@lsr{connecting,laissez-vibrer-ties.ly}
 
 
 @node Automatic beams
@@ -2874,8 +2855,6 @@ d4
 
 Program reference: @internalsref{BreathingSign}.
 
-Examples: @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
-
 
 @node Trills
 @subsection Trills
@@ -3179,7 +3158,9 @@ Examples:
 
 Brackets for the repeat are normally only printed over the topmost
 staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
-property; see @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly}.
+property; see
+
+@lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
 @refbugs
@@ -3322,9 +3303,6 @@ Similar output is obtained using the tremolo subdivision, described in
 In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
 Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
-
-Example files: @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
-@inputfileref{input/@/regression,stem@/-tremolo@/.ly}.
 
 
 @node Tremolo subdivisions

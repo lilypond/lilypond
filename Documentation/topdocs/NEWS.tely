@@ -97,7 +97,7 @@ and other text spanners.
   \override Glissando #'bound-details #'right #'Y = #-4
   \override Glissando #'bound-details #'right #'padding = #0.0
   \override Glissando #'bound-details #'left #'arrow = ##t
-  \override Glissando #'bound-details #'left #'padding = #5.0
+  \override Glissando #'bound-details #'left #'padding = #3.0
   \override Glissando #'style = #'trill
   
   c1 \glissando c'

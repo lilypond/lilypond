@@ -2084,6 +2084,7 @@
 	(direction . ,UP)
 	(padding . 1)
 	(font-encoding . fetaNumber)
+	(minimum-Y-extent . (0 . 2))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  line-thickness

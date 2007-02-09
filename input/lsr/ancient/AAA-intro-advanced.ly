@@ -7,7 +7,7 @@
 texidoc = #(string-append "
 @unnumbered Introduction
 
-This document shows all kinds of tricks from the
+This document shows examples from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
 
 In the web version of this document, you can click on the file name
