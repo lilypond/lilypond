@@ -1,21 +1,4 @@
-@c -*- coding: latin-1; mode: texinfo; -*-
-
-@c FIXME: rearranged this file; macros that don't depend on the output
-@c format should go at the beginning.  -gp
-
-
-@c in retrospect this is _not_ one of the output-insensitive macros.
-@c I'll fix it soon.
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,NAME}
-@uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
-
-@macro lsrdir{DIR}
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
-@end macro
-
-
+@c -*- coding: utf-8; mode: texinfo; -*-
 
 @ifnottex
   @macro texisharp {word}
@@ -70,41 +53,21 @@
 @c @inforef{\NAME\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
 
-@ifset bigpage
-
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals-big-page}
-@end macro
-
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary-big-page}
-@end macro
-
-@end ifset
-
-
-@ifclear bigpage
-
 @c annoying parentheses stripped by add-html-footer.py
 @macro internalsref{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+
 @c annoying parentheses stripped by add-html-footer.py
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
-@end macro
-
-@end ifclear
-
-
-@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
 
 @c to get decent quotes in `foo'
@@ -114,10 +77,10 @@
 @end html
 @end macro
 
-@c to get decent quotes in ``foo''
+@c to get decent French quotes in ``foo''
 @macro qq{TEXT}
 @html
-&ldquo;\TEXT\&rdquo;
+&laquo; \TEXT\ &raquo;
 @end html
 @end macro
 
@@ -151,7 +114,7 @@
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
 @xml
-&ldquo;\TEXT\&rdquo;
+&laquo;\TEXT\&raquo;
 @end xml
 @end macro
 
@@ -186,7 +149,7 @@
 
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
-``\TEXT\''
+« \TEXT\ »
 @end macro
 
 @end ifinfo
@@ -224,7 +187,7 @@ user manual, @internalsref{\NAME\}
 
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
-``\TEXT\''
+<< \TEXT\ >>
 @end macro
 
 @end iftex

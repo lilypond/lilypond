@@ -65,6 +65,15 @@ Script_interface::calc_direction (SCM smob)
   return scm_from_int (d);
 }
 
+MAKE_SCHEME_CALLBACK (Script_interface, calc_cross_staff, 1);
+SCM
+Script_interface::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
+  return stem->get_property ("cross-staff");
+}
+
 MAKE_SCHEME_CALLBACK (Script_interface, print, 1);
 
 SCM

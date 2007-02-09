@@ -77,8 +77,8 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If
-you
+@item @strong{Include checks}: @ref{Bar check}, @ref{Octave check} and
+@ref{Barnumber check}.  If you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is @q{every so often}?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
@@ -301,7 +301,7 @@ simply want to separate your tweaks from the actual music?  This
 is quite easy to do.
 
 Let's look at an example.  Don't worry if you don't understand
-the parts with all the #().  This is explained in
+the parts with all the @code{#()}.  This is explained in
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -329,7 +329,7 @@ definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
 at the top of every file, but that's an annoyance.  It also leaves
 those definitions in our music files, and I personally find all
-the #() somewhat ugly.  Let's hide them in another file:
+the @code{#()} somewhat ugly.  Let's hide them in another file:
 
 @example
 %%% save this to a file called "definitions.ly"
@@ -558,7 +558,7 @@ LilyPond comes with a file that makes this updating easier:
 @code{convert-ly}.  For details about how to run this program, see
 @ref{Updating files with convert-ly}.
 
-Unforunately, @code{convert-ly} cannot handle all input changes.  It
+Unfortunately, @code{convert-ly} cannot handle all input changes.  It
 takes care of simple search-and-replace changes (such as @code{raggedright}
 becoming @code{ragged-right}), but some changes are too
 complicated.  The syntax changes that @code{convert-ly} cannot handle
@@ -647,7 +647,7 @@ To construct an example which is as small as possible, the rule is
 quite simple: remove anything which is not necessary.  When trying to
 remove unnecessary parts of a file, it is a very good idea to comment
 out lines instead of deleting them.  That way, if you discover that you
-actually @emph{do} need some lines, you can un-comment them, instead of
+actually @emph{do} need some lines, you can uncomment them, instead of
 typing them in from scratch.
 
 There are two exceptions to the @qq{as small as possible} rule:
@@ -663,7 +663,7 @@ The whole point of a minimal example is to make it easy to read:
 @itemize
 @item Avoid using complicated notes, keys, or time signatures, unless you
 wish to demonstrate something is about the behavior of those items.
-@item Do not use \override commands unless that is the point of the
+@item Do not use @code{\override} commands unless that is the point of the
 example.
 @end itemize
 
