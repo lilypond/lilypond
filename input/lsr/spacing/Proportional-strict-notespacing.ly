@@ -1,13 +1,17 @@
 \version "2.10.12"
 
 \header { texidoc = "
-If strict-note-spacing is set, then spacing of notes is not influenced by bars and clefs half-way on the system.  Rather, they are put just before the note that occurs at the same time.  This may cause collisions.
+If @code{strict-note-spacing} is set, then spacing of notes is not
+influenced by bars and clefs half-way on the system.  Rather, they are put
+just before the note that occurs at the same time.  This may cause
+collisions.
 " }
 
 \paper {
   ragged-right = ##t
   indent = 0
 }
+
 \layout {
   \context {
     \Score

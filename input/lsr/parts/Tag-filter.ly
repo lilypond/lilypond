@@ -1,14 +1,19 @@
 \version "2.10.12"
 
 \header { texidoc = "
-The @{\tag@} command marks music expressions with a name. These tagged expressions can be filtered out later. This mechanism can be used to make different versions of the same music. In this example, the top stave displays the music expression with all tags included. The bottom two staves are filtered: the part has cue notes and fingerings, but the score has not.
+The @code{\tag} command marks music expressions with a name.  These tagged
+expressions can be filtered out later.  This mechanism can be used to make
+different versions of the same music.  In this example, the top stave
+displays the music expression with all tags included.  The bottom two staves
+are filtered: the part has cue notes and fingerings, but the score has not.
 " }
 
-\layout { ragged-right= ##t }
+\layout {
+  ragged-right= ##t
+}
 
 common =
-\relative c''  {
-
+\relative c'' {
   c1
   \relative c' <<
     \tag #'part <<
@@ -21,7 +26,6 @@ common =
   >>
   c1-\tag #'part ^4
 }
-
 
 
 \simultaneous { 
@@ -38,5 +42,3 @@ common =
     \keepWithTag #'score \common
   }
 }
-
-
