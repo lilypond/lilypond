@@ -92,7 +92,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 
       Real extra_dy = robust_scm2double (me->get_property ("extra-dy"),
 					 0.0);
-         
+
+      Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
 	{
 	  Spanner *next_sp = me->broken_neighbor (dir);
@@ -109,13 +110,21 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	  Grob *next_common_y = next_sp->common_refpoint (next_bound, X_AXIS);
 	  Interval next_ext = next_bound->extent (next_common_y, Y_AXIS);
 
-	  y = next_ext.center ();
+	  /* FIXME: this is not a real solution. We want to know would be the
+	     y-position of the right bound (relative to the line-spanner)
+	     if it belonged to the same system
+	     as the left bound. What we do instead is to calculate the
+	     y-position of the right bound relative to the VerticalAlignment
+	     (of the next System!) and subtract the y-position of the
+	     line-spanner relative to the VerticalAlignment (of this System!).
+	     This works as long as the distance between staves is approximately
+	     the same before and after breaking. */
+	  y = next_ext.center () - me->relative_coordinate (common_y, Y_AXIS);
 	}
       else
 	{
-	  Grob *commony = me->common_refpoint (me->get_bound (dir), Y_AXIS);
-	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center ();
-	  details = scm_acons (ly_symbol2scm ("common-Y"), commony->self_scm (), details);
+	  y = me->get_bound (dir)->extent (common_y, Y_AXIS).center ();
+	  details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
 	}
 
       y += dir * extra_dy / 2; 
