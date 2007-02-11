@@ -235,11 +235,8 @@ Program reference: @internalsref{TextSpanner},
 @internalsref{Glissando}, @internalsref{VoiceFollower},
 @internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
 
-Examples:
-@inputfileref{input/@/regression,dynamics@/-text@/-spanner@/-padding.ly}.
-@inputfileref{input/@/regression,glissando@/-broken@/.ly}.
-@inputfileref{input/@/regression,line@/-arrows@/.ly}.
-@inputfileref{input/@/regression,line@/-style@/.ly}.
+Examples: @lsr{expressive,line-styles.ly}
+@c  FIXME: add {contemporary/line-arrows.ly} when LSR is updated.  -gp
 
 
 @node Text spanners
@@ -693,7 +690,7 @@ example,
 
 @seealso
 
-Examples: @inputfileref{input/@/regression,font@/-family@/-override.ly}.
+Examples: @lsr{text,font@/-family@/-override.ly}.
 
 
 @node New dynamic marks
@@ -1051,9 +1048,7 @@ definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for other
 formatting functions.
 
-Examples: @inputfileref{input/@/regression,rehearsal@/-mark@/-letter@/.ly},
-
-@inputfileref{input/@/regression,rehearsal@/-mark@/-number@/.ly}.
+Examples: @lsr{preparing,rehearsal-mark-numbers.ly}
 
 
 @node Bar numbers
@@ -1323,9 +1318,6 @@ and -2 (for 15ma bassa) as arguments.  Internally the function sets the properti
 
 Program reference: @internalsref{OttavaBracket}.
 
-Examples: @inputfileref{input/@/regression,ottava@/.ly},
-@inputfileref{input/@/regression,ottava@/-broken@/.ly}.
-
 
 @refbugs
 
@@ -1399,7 +1391,7 @@ a piece of music with multiple @code{\tag} entries,
 
 @seealso
 
-Examples: @inputfileref{input/@/regression,tag@/-filter@/.ly}.
+Examples: @lsr{preparing,tag@/-filter@/.ly}
 
 
 @refbugs
@@ -1666,8 +1658,10 @@ Quoting nested triplets may result in poor notation.
 
 In this manual: @ref{Instrument transpositions}.
 
-Examples: @inputfileref{input/@/regression,quote@/.ly}
-@inputfileref{input/@/regression,quote@/-transposition@/.ly}
+Examples:
+@c  FIXME: Add when LSR is updated.  -gp
+@c @i nputfileref{input/@/regression,quote@/.ly}
+@c @i nputfileref{input/@/regression,quote@/-transposition@/.ly}
 
 Program reference: @internalsref{QuoteMusic}.
 
@@ -2088,9 +2082,9 @@ is removed by setting the @code{strict-note-spacing} property to
 
 @seealso
 
-@inputfileref{input/@/regression,spacing-proportional/.ly}
-@inputfileref{input/@/regression,spacing-strict-notespacing/.ly}
-@inputfileref{input/@/regression,spacing-strict-spacing-grace/.ly}
+Examples: @lsr{spacing,proportional@/-spacing@/.ly}, 
+@lsr{spacing,proportional@/-strict@/-grace@/-notes@/.ly}, and
+@lsr{spacing,proportional@/-strict@/-notespacing@/.ly}
 
 An example of strict proportional notation is in the
 example file @file{input/proportional.ly}.
@@ -2154,7 +2148,7 @@ e d <c f\harmonic> <d a'\harmonic>
 
 @noindent
 To see all notehead styles, please see
-@inputfileref{input/@/regression,note@/-head@/-style@/.ly}.
+@ref{Note head styles}.
 
 
 @seealso
@@ -2468,8 +2462,6 @@ to @internalsref{Staff} context.  A bracket is started with
 @seealso
 
 Program reference: @internalsref{HorizontalBracket}.
-
-Examples: @inputfileref{input/@/regression,note@/-group@/-bracket@/.ly}.
 
 
 @node Coloring objects

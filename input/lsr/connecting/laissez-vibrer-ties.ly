@@ -1,9 +1,8 @@
 \version "2.10.12"
 
 \header { texidoc = "
-l.v.@: ties should avoid dots and staff lines, similar to normal ties.  They
-have fixed size.  Their formatting can be tuned with
-@code{tie-configuration}.
+l.v. ties should avoid dots and staff lines, similar to normal ties.  They have fixed size. Their formatting can be tuned with
+@code{tie-configuration}
 " }
 
 \paper {
@@ -18,9 +17,10 @@ have fixed size.  Their formatting can be tuned with
 
   <c d e f>4\laissezVibrer r
   \override LaissezVibrerTieColumn #'tie-configuration
-    = #'((-7 . -1)
-         (-5 . -1)
-         (-3 . 1)
-         (-1 . 1))
+  = #'((-7 . -1)
+       (-5 . -1)
+       (-3 . 1)
+       (-1 . 1))
   <c d e f>4\laissezVibrer r
 }
+

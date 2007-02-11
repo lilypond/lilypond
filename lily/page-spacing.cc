@@ -38,6 +38,14 @@ struct Page_spacing
   void clear ();
 };
 
+/* In order to prevent possible division by zero, we require every line
+   to have a spring of non-zero length. */
+static Real
+line_space (const Line_details &line)
+{
+  return max (0.1, line.space_);
+}
+
 void
 Page_spacing::calc_force ()
 {
@@ -53,7 +61,7 @@ Page_spacing::append_system (const Line_details &line)
   rod_height_ += last_line_.padding_;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += max (0.1, line.space_);
+  spring_len_ += line_space (line);
   inverse_spring_k_ += max (0.1, line.inverse_hooke_);
 
   last_line_ = line;
@@ -70,7 +78,7 @@ Page_spacing::prepend_system (const Line_details &line)
     last_line_ = line;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += max (0.1, line.space_);
+  spring_len_ += line_space (line);
   inverse_spring_k_ += max (0.1, line.inverse_hooke_);
 
   calc_force ();
@@ -248,11 +256,27 @@ Page_spacer::solve (vsize page_count)
   ret.systems_per_page_.resize (page_count);
 
   vsize system = lines_.size () - 1;
+  vsize tack_onto_the_end = 0;
 
   if (isinf (state_.at (system, page_count-1).demerits_))
     {
       programming_error ("tried to space systems on a bad number of pages");
-      return Spacing_result (); /* bad number of pages */
+      /* Usually, this means that we tried to cram too many systems into
+	 to few pages. To avoid crashing, we look for the largest number of
+	 systems that we can fit properly onto the right number of pages.
+	 All the systems that don't fit get tacked onto the last page.
+      */
+      vsize i;
+      for (i = system; isinf (state_.at (i, page_count-1).demerits_) && i--; )
+	;
+
+      if (i)
+	{
+	  tack_onto_the_end = system - i;
+	  system = i;
+	}
+      else
+	return Spacing_result (); /* couldn't salvage it -- probably going to crash */
     }
 
   ret.penalty_ = state_.at (system, page_count-1).penalty_
@@ -269,7 +293,7 @@ Page_spacer::solve (vsize page_count)
       if (p == 0)
 	ret.systems_per_page_[p] = system + 1;
       else
-	ret.systems_per_page_[p] = system - ps.prev_;
+	ret.systems_per_page_[p] = system - ps.prev_ + tack_onto_the_end;
       system = ps.prev_;
     }
   ret.demerits_ += ret.penalty_;
@@ -354,14 +378,14 @@ min_page_count (vector<Line_details> const &uncompressed_lines,
       bool rag = ragged || (ragged_last && ret == 1);
       Real ext_len = lines[i].extent_.length ();
       Real next_height = cur_rod_height + ext_len
-	+ (rag ? lines[i].space_ : 0)
+	+ (rag ? line_space (lines[i]) : 0)
 	+ ((cur_rod_height > 0) ? lines[i].padding_: 0);
 
       if ((next_height > page_height && cur_rod_height > 0)
 	  || (i + 1 < lines.size () && lines[i].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  ret++;
-	  cur_rod_height = ext_len + (rag ? lines[i].space_ : 0);
+	  cur_rod_height = ext_len + (rag ? line_space (lines[i]) : 0);
 	}
       else
 	cur_rod_height = next_height;

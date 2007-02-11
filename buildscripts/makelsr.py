@@ -5,7 +5,7 @@ import os.path
 import shutil
 
 # 'expressive' not available yet
-dirs = ['ancient','chords','connecting','contemporary','guitar','parts','repeats','spacing','staff','text','vocal']
+dirs = ['ancient','chords','connecting','contemporary','expressive','guitar','parts','repeats','spacing','staff','text','vocal']
 
 try:
 	in_dir = sys.argv[1]

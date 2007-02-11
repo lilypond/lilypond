@@ -1,0 +1,4 @@
+# -*-python-*-
+
+Import ('env', 'collate')
+collate (title = 'Stuff waiting for LSR -- you should not see this!')

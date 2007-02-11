@@ -4,6 +4,9 @@
 $(outdir)/%.info: $(outdir)/%.texi
 	$(MAKEINFO) -I $(outdir) --output=$@ $<
 
+$(outdir)/%-big-page.html: $(outdir)/%.texi
+	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
 $(outdir)/%.html: $(outdir)/%.texi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
 

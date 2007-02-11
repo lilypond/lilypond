@@ -19,7 +19,17 @@
 #(define (whitelist-symbol sym)
   (set! sym-whitelist (cons sym sym-whitelist)))
 
+#(define (whitelist-grob str)
+  (set! grob-whitelist (cons str grob-whitelist)))
+
 #(define graph (make-graph "graph.dot"))
+
+#(define (grob-name g)
+  (let* ((meta (ly:grob-property g 'meta))
+	 (name-pair (assq 'name meta)))
+   (if (pair? name-pair)
+       (cdr name-pair)
+       #f)))
 
 % an event is relevant if
 % (it is on some whitelist or all whitelists are empty)
@@ -30,11 +40,13 @@
   (let ((file-line `(,file . ,line)))
    (and
     (or
-     (= 0 (length file-line-whitelist) (length sym-whitelist))
+     (= 0 (length file-line-whitelist) (length sym-whitelist) (length grob-whitelist))
      (memq prop sym-whitelist)
+     (memq (grob-name grob) grob-whitelist)
      (member file-line file-line-whitelist))
     (and
      (not (memq prop sym-blacklist))
+     (not (memq (grob-name grob) grob-blacklist))
      (not (member file-line file-line-blacklist))))))
 
 #(define (grob-event-node grob label cluster)
@@ -50,18 +62,18 @@
 
 #(define (grob-mod grob file line func prop val)
   (let* ((val-str (truncate-value val))
-	 (label (format "~a\\n~a:~a\\n~a <- ~a" grob file line prop val-str)))
+	 (label (format "~a\\n~a:~a\\n~a <- ~a" (grob-name grob) file line prop val-str)))
    (if (relevant? grob file line prop)
        (grob-event-node grob label file))))
 
 #(define (grob-cache grob prop callback value)
   (let* ((val-str (truncate-value value))
-	 (label (format "caching ~a.~a\\n~a -> ~a" grob prop callback value)))
+	 (label (format "caching ~a.~a\\n~a -> ~a" (grob-name grob) prop callback value)))
    (if (relevant? grob #f #f prop)
        (grob-event-node grob label #f))))
 
 #(define (grob-create grob file line func)
-  (let ((label (format "~a\\n~a:~a" grob file line)))
+  (let ((label (format "~a\\n~a:~a" (grob-name grob) file line)))
    (grob-event-node grob label file)))
 
 #(ly:set-grob-modification-callback grob-mod)

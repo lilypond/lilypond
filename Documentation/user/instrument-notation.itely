@@ -556,7 +556,7 @@ adds the new exceptions to the default ones, which are defined in
 @file{ly/@/chord@/-modifier@/-init@/.ly}.
 
 For an example of tuning this property, see also
-@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly}.
+@lsr{chords/,chord@/-name@/-exceptions@/.ly}
 @cindex exceptions, chord names.
 
 
@@ -565,7 +565,7 @@ For an example of tuning this property, see also
 This property contains the markup object used for the 7th step, when
 it is major.  Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
-@inputfileref{input/@/regression,chord@/-name@/-major7@/.ly} for an example.
+@lsr{chords,chord@/-name@/-major7@/.ly} for an example.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
@@ -638,8 +638,9 @@ chart}.  Turning on these styles is described in the input file
 
 @seealso
 
-Examples: @inputfileref{input/@/regression,chord@/-name@/-major7@/.ly},
-@inputfileref{input/@/regression,chord@/-name@/-exceptions@/.ly},
+Examples:
+@lsr{chords/,chord@/-name@/-exceptions@/.ly},
+@lsr{chords,chord@/-name@/-major7@/.ly}, and
 @inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
 
 
@@ -1041,8 +1042,7 @@ A complete example of a SATB score setup is in section
 
 Program reference: @internalsref{Melisma_translator}.
 
-
-@inputfileref{input/@/regression,lyric@/-combine@/-new@/.ly}.
+@lsr{vocal,lyric@/-combine.ly}.
 
 @refbugs
 
@@ -1656,7 +1656,8 @@ Program reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
-Examples: @inputfileref{input/@/regression,ambitus@/.ly}.
+Examples:
+@lsr{vocal,ambitus@/.ly}.
 
 @refbugs
 
@@ -1716,8 +1717,6 @@ staff are squashed, and the staff itself has a single line
 @seealso
 
 Program reference: @internalsref{RhythmicStaff}.
-
-Examples: @inputfileref{input/@/regression,rhythmic@/-staff@/.ly}.
 
 
 @node Entering percussion
@@ -2027,12 +2026,11 @@ with @code{\}@var{number},
 <c\1 e\2 g\3>
 @end lilypond
 
-See also @inputfileref{input/regression,string-number.ly}.
-
 
 @seealso
 
-Program reference: @internalsref{StringNumber}.
+Program reference: @internalsref{StringNumber},
+@lsr{guitar/,string-number.ly}.
 
 
 @node Tablatures basic
@@ -2557,8 +2555,7 @@ engravers work.
 
 @seealso
 
-Examples: @inputfileref{input/@/regression,note@/-head@/-style@/.ly} gives an
-overview over all available note head styles.
+@ref{Note head styles} gives an overview over all available note head styles.
 
 
 @node Ancient accidentals
@@ -3167,7 +3164,8 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 Program reference: @internalsref{Custos}.
 
-Examples: @inputfileref{input/@/regression,custos@/.ly}.
+Examples:
+@lsr{ancient,custodes@/.ly}.
 
 
 @node Divisiones
@@ -4248,10 +4246,6 @@ etc. may be mixed in as desired.  The use of the set of rules that
 underlies the construction of the ligatures in the above table is
 accordingly extrapolated.  This way, infinitely many different
 ligatures can be created.
-
-@c TODO: create a regression or tips & tricks example document with
-@c even more Gregorian ligatures, and add a link to this document
-@c here.
 
 Augmentum dots, also called @emph{morae}, are added with the music
 function @code{\augmentum}.  Note that @code{\augmentum} is

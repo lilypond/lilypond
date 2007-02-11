@@ -1,33 +1,29 @@
 \version "2.10.12"
 
 \header { texidoc = "
-The default font families for text can be overridden with
-@code{make-pango-font-tree}.
+The default font families for text can be overridden with @{make-pango-font-tree@}
 " }
 
-\paper {
+\paper  {
   % change for other default global staff size. 
   myStaffSize = #20
-
   %{
-     run
-       lilypond -dshow-available-fonts blabla
-     to show all fonts available in the process log.  
-  %}
+  run
+      lilypond -dshow-available-fonts blabla
+  to show all fonts available in the process log.  
+    %}
 
-  #(define fonts
+    #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
                           "Luxi Mono"
-;;                        "Helvetica"
-;;                        "Courier"
+;;     "Helvetica"
+;;     "Courier"
      (/ myStaffSize 20)))
 }
 
 \relative {
-  c'^\markup {
-    roman: foo \bold bla \italic bar \italic \bold baz
-  }
+  c'^\markup { roman: foo \bold bla \italic bar \italic \bold baz }
   c'_\markup {
     \override #'(font-family . sans)
     {
@@ -41,3 +37,4 @@ The default font families for text can be overridden with
     }
   }
 }  
+

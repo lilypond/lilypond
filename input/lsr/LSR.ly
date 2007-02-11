@@ -17,6 +17,12 @@ These snippets are fazzle snap.
 @strong{@uref{contemporary/collated-files.html,Contemporary notation}}:
 These snippets are fazzle snap.
 
+@strong{@uref{expressive/collated-files.html,Expressive marks}}:
+These snippets are fazzle snap.
+
+@strong{@uref{guitar/collated-files.html,Guitar notation}}:
+These snippets are fazzle snap.
+
 @strong{@uref{parts/collated-files.html,Preparing parts}}:
 These snippets are blah blah.
 

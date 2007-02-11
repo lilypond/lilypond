@@ -1,3 +1,5 @@
+% contemporary
+
 \header {
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
 }
