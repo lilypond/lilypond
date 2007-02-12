@@ -80,7 +80,7 @@
 @c to get decent French quotes in ``foo''
 @macro qq{TEXT}
 @html
-&laquo; \TEXT\ &raquo;
+&laquo;&thinsp;\TEXT\&thinsp;&raquo;
 @end html
 @end macro
 
