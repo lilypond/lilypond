@@ -17,10 +17,10 @@ l.v. ties should avoid dots and staff lines, similar to normal ties.  They have 
 
   <c d e f>4\laissezVibrer r
   \override LaissezVibrerTieColumn #'tie-configuration
-  = #'((-7 . -1)
-       (-5 . -1)
-       (-3 . 1)
-       (-1 . 1))
+    = #'((-7 . -1)
+         (-5 . -1)
+         (-3 . 1)
+         (-1 . 1))
   <c d e f>4\laissezVibrer r
 }
 

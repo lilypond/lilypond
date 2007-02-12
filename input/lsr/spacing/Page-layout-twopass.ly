@@ -9,6 +9,7 @@ Page breaking details can be stored for later reference.
 \paper  {
   #(define write-page-layout #t)
 }
+
 bla = \new Staff {
   c1 c1
   \break
@@ -31,4 +32,3 @@ tweakFileName = #(format "~a-page-layout.ly" (ly:parser-output-name parser))
 #(newline)
 
 #(ly:progress "Contents of: '~a'" (ly:gulp-file tweakFileName))
-
