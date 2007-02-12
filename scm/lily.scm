@@ -542,17 +542,28 @@ The syntax is the same as `define*-public'."
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
 
-  (define (no-files-handler)
-    (ly:usage)
-    (exit 2))
 
   (eval-string (ly:command-line-code))
+
+  (if (ly:get-option 'help)
+      (begin
+	(ly:option-usage)
+	(exit 0)))
+
+  (if (ly:get-option 'show-available-fonts)
+      (begin
+	(ly:font-config-display-fonts)
+	(exit 0)
+	))
+  
   
   (if (ly:get-option 'gui)
       (gui-main files))
 
   (if (null? files)
-      (no-files-handler))
+      (begin
+	(ly:usage)
+	(exit 2)))
 
   (if (ly:get-option 'read-file-list)
       (set! files
@@ -642,16 +653,6 @@ The syntax is the same as `define*-public'."
 	  (exit 0)))))
 
 (define-public (lilypond-all files)
-  (if (ly:get-option 'help)
-      (begin
-	(ly:option-usage)
-	(exit 0)))
-  (if (ly:get-option 'show-available-fonts)
-      (begin
-	(ly:font-config-display-fonts)
-	(exit 0)
-	))
-  
   (let* ((failed '())
 	 (separate-logs (ly:get-option 'separate-log-files))
 	 (do-measurements (ly:get-option 'dump-profile))
