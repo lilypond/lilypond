@@ -7,20 +7,22 @@ Accidentals only show up if they're not part of key signature.  @{AmbitusNoteHea
 " }
 
 \layout {
-    ragged-right = ##t
-    \context {
-	\Voice
-	\consists Ambitus_engraver
-    }
+  ragged-right = ##t
+  \context {
+    \Voice
+    \consists Ambitus_engraver
+  }
 }
 
 \relative
 <<
-    \new Staff {  \time  2/4 c4 f' }
-    \new Staff \relative {
-	\time  2/4
-	\key d \major
-	cis as'
-    }
+  \new Staff {
+    \time  2/4 c4 f' 
+  }
+  \new Staff \relative {
+    \time  2/4
+    \key d \major
+    cis as'
+  }
 >>
 

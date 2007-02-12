@@ -2260,9 +2260,10 @@ For more information about @code{make-moment}, see
 @ref{Time administration}.
 
 Line breaks are normally forbidden when beams cross bar lines.  This
-behavior can be changed by setting @code{allowBeamBreak}.
+behavior can be changed by setting @code{breakable}.
 
-@funindex allowBeamBreak
+@funindex breakable
+
 @cindex beams and line breaks
 @cindex beams, kneed
 @cindex kneed beams
