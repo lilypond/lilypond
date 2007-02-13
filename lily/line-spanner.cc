@@ -6,6 +6,7 @@
   (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
+#include "axis-group-interface.hh"
 #include "spanner.hh"
 #include "output-def.hh"
 #include "item.hh"
@@ -15,6 +16,7 @@
 #include "align-interface.hh"
 #include "line-interface.hh"
 #include "moment.hh"
+#include "system.hh"
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
@@ -31,6 +33,13 @@ public:
   DECLARE_SCHEME_CALLBACK (calc_bound_info, (SCM, Direction));
   DECLARE_GROB_INTERFACE ();
 };
+
+Spanner *parent_spanner (Grob *g)
+{
+  if (Spanner::has_interface (g))
+    return dynamic_cast<Spanner*> (g);
+  return parent_spanner (g->get_parent (Y_AXIS));
+}
 
 SCM
 Line_spanner::calc_bound_info (SCM smob, Direction dir)
@@ -92,7 +101,8 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 
       Real extra_dy = robust_scm2double (me->get_property ("extra-dy"),
 					 0.0);
-         
+
+      Grob *common_y = me->common_refpoint (me->get_bound (dir), Y_AXIS);
       if (me->get_bound (dir)->break_status_dir ())
 	{
 	  Spanner *next_sp = me->broken_neighbor (dir);
@@ -106,16 +116,39 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	      return SCM_EOL;
 	    }
 
-	  Grob *next_common_y = next_sp->common_refpoint (next_bound, X_AXIS);
-	  Interval next_ext = next_bound->extent (next_common_y, Y_AXIS);
+	  Spanner *next_bound_parent = parent_spanner (next_bound);
+	  Interval next_ext = next_bound->extent (next_bound_parent, Y_AXIS);
 
-	  y = next_ext.center ();
+	  /* We want to know what would be the
+	     y-position of the next bound (relative to my y-parent) if it belonged
+	     to the same system as this bound. We rely on the fact that
+	     the y-parent of the next bound is a spanner (probably the
+	     VerticalAxisGroup of a staff) that extends over the break.
+	  */
+	  Spanner *next_bound_parent_on_this_line =
+	    next_bound_parent->broken_neighbor (other_dir (dir));
+
+	  if (next_bound_parent_on_this_line)
+	    {
+	      Grob *common = me->common_refpoint (next_bound_parent_on_this_line, Y_AXIS);
+	      Real bound_offset = next_bound_parent_on_this_line->relative_coordinate (common, Y_AXIS);
+	      y = next_ext.center () + bound_offset - me->relative_coordinate (common, Y_AXIS);
+	    }
+	  else
+	    {
+	      /* We fall back to assuming that the distance between staves doesn't
+		 change over line breaks. */
+	      programming_error ("next-bound's parent doesn't extend to this line");
+	      Grob *next_system = next_bound->get_system ();
+	      Grob *this_system = me->get_system ();
+	      y = next_ext.center () + next_bound_parent->relative_coordinate (next_system, Y_AXIS)
+		- me->relative_coordinate (this_system, Y_AXIS);
+	    }
 	}
       else
 	{
-	  Grob *commony = me->common_refpoint (me->get_bound (dir), Y_AXIS);
-	  y = me->get_bound (dir)->extent (commony, Y_AXIS).center ();
-	  details = scm_acons (ly_symbol2scm ("common-Y"), commony->self_scm (), details);
+	  y = me->get_bound (dir)->extent (common_y, Y_AXIS).center ();
+	  details = scm_acons (ly_symbol2scm ("common-Y"), common_y->self_scm (), details);
 	}
 
       y += dir * extra_dy / 2; 
