@@ -117,7 +117,7 @@ The default layout responds to the following settings in the
 @item first-page-number
 The value of the page number of the first page.  Default is@tie{}1.
 
-@funindex printfirst-page-number
+@funindex print-first-page-number
 @item print-first-page-number
 If set to true, will print the page number in the first page.  Default is
 false.

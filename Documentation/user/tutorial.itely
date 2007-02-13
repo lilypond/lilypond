@@ -1294,7 +1294,7 @@ The @code{\version} statement marks for which version of LilyPond the file
 was written.  To mark a file for version 2.10.1, place
 
 @example
-\version "2.10.1"
+\version "2.10.10"
 @end example
 
 @noindent
@@ -1315,7 +1315,7 @@ music expression; the @code{\header} block is usually placed underneath
 the @ref{Version number}.
 
 @example
-\version "2.10.1"
+\version "2.10.10"
 \header @{
   title = "Symphony"
   composer = "Me"

@@ -539,7 +539,7 @@ musique par @code{\include "../global.ly"} qui contient :
 
 @example
 %%%   global.ly
-\version "2.9.13"
+\version "2.10.10"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-mise-en-page.ly"

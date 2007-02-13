@@ -1399,7 +1399,7 @@ LilyPond pour laquelle le fichier a été écrit.  Pour donner à un
 fichier la version 2.10.0, ajoutez
 
 @example
-\version "2.10.1"
+\version "2.10.10"
 @end example
 
 @noindent
@@ -1422,7 +1422,7 @@ principales.  Le bloc @code{\header} est habituellement placé en début
 de fichier.
 
 @example
-\version "2.10.1"
+\version "2.10.10"
 \header @{
   title = "Symphonie"
   composer = "Moi"
