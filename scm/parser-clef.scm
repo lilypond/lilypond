@@ -33,6 +33,7 @@
     ("vaticana-do2" . ("clefs.vaticana.do" 1 0))
     ("vaticana-do3" . ("clefs.vaticana.do" 3 0))
     ("vaticana-fa1" . ("clefs.vaticana.fa" -1 0))
+
     ("vaticana-fa2" . ("clefs.vaticana.fa" 1 0))
     ("medicaea-do1" . ("clefs.medicaea.do" -1 0))
     ("medicaea-do2" . ("clefs.medicaea.do" 1 0))
@@ -124,6 +125,8 @@
 	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warning (_ "unknown clef type `~a'") clef-name)
-	  (ly:warning (_ "see scm/clef.scm for supported clefs"))
+	  (ly:warning (_ "supported clefs: ~a")
+		      (string-join
+		       (sort (map car supported-clefs) string<?)))
 	  (make-music 'Music)))))
 

@@ -6,6 +6,7 @@ import shutil
 
 # 'expressive' not available yet
 dirs = ['ancient','chords','connecting','contemporary','expressive','guitar','parts','repeats','spacing','staff','text','vocal']
+notsafe=[]
 
 try:
 	in_dir = sys.argv[1]
@@ -32,4 +33,19 @@ for dir in dirs:
 		src = os.path.join (srcdir, file)
 		dest = os.path.join (destdir, file)
 		shutil.copyfile (src, dest)
+		s = os.system('lilypond -dsafe --ps -o /tmp/lsrtest ' + dest)
+		if s:
+			notsafe.append(dest)
+			#raise 'Failed'
+
+file=open("lsr-unsafe.txt", 'w')
+for s in notsafe:
+	file.write(s+'\n')
+file.close()
+print
+print
+print "Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!"
+print "  (probably with  xargs git-diff < lsr-unsafe.txt  )"
+print
+
 

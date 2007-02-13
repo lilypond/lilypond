@@ -14,9 +14,12 @@ For technical reasons, @{overrideProperty@} has to be used for setting propertie
 \new StaffGroup <<
   \new Staff {
     c1\break 
-    c\break c\break
+    c\break 
+    c\break
   }
-  \new Staff { c1 c c }
+  \new Staff { 
+    c1 c c 
+  }
   \new PianoStaff <<
     \new Voice  {
       \set PianoStaff.instrumentName = #"piano"
@@ -24,15 +27,15 @@ For technical reasons, @{overrideProperty@} has to be used for setting propertie
       c1_"normal"
       
       \overrideProperty
-      #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details
-      #'((fixed-alignment-extra-space . 15))
+        #"Score.NonMusicalPaperColumn"
+        #'line-break-system-details
+        #'((fixed-alignment-extra-space . 15))
       c_"fixed-aligment-extra-space"
 
       \overrideProperty
-      #"Score.NonMusicalPaperColumn"
-      #'line-break-system-details
-      #'((alignment-extra-space . 15))
+        #"Score.NonMusicalPaperColumn"
+        #'line-break-system-details
+        #'((alignment-extra-space . 15))
       c_"aligment-extra-space"
     }
     { c1 c c }

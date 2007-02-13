@@ -5,7 +5,9 @@ Marks can be printed as numbers.
 By setting @{markFormatter@} we may choose a different style of mark printing. Also, marks can be specified manually, with a markup argument.
 " }
 
-\paper { ragged-right = ##t } 
+\paper {
+  ragged-right = ##t 
+}
 
 \relative c''{
   \set Score.markFormatter = #format-mark-numbers 
@@ -13,11 +15,11 @@ By setting @{markFormatter@} we may choose a different style of mark printing. A
   c1 | \mark \default
   c1 | \mark \default
   \set Score.markFormatter
-  = #(lambda (mark  context)
-      (make-box-markup (format-mark-numbers mark context)))
+    = #(lambda (mark  context)
+        (make-box-markup (format-mark-numbers mark context)))
   c1 | \mark \default
   \set Score.markFormatter
-  = #(lambda (mark  context)
-      (make-circle-markup (format-mark-numbers mark context)))
+    = #(lambda (mark  context)
+        (make-circle-markup (format-mark-numbers mark context)))
   c1 | \mark \default
 }

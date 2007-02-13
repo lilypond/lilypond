@@ -308,9 +308,10 @@ Line_spanner::print (SCM smob)
     }
   while (flip (&d) != LEFT);
 
+  Offset adjust = dz.direction() * Staff_symbol_referencer::staff_space (me);
   line.add_stencil (Line_interface::line (me, 
-					  span_points[LEFT],
-					  span_points[RIGHT]));
+					  span_points[LEFT]  + (arrows[LEFT]  ? adjust*1.4  : Offset(0,0)),
+					  span_points[RIGHT] - (arrows[RIGHT] ? adjust*0.55 : Offset(0,0))));
 
   line.add_stencil (Line_interface::arrows (me,
 					    span_points[LEFT],
