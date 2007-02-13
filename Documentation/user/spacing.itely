@@ -480,6 +480,7 @@ This manual: @ref{Changing context default settings}
 * Optimal page breaking::       
 * Optimal page turning::        
 * Explicit breaks::             
+* Using an extra voice for breaks::  
 @end menu
 
 @node Line breaking
@@ -713,6 +714,84 @@ page breaks at explicit @code{\pageBreak} commands and nowhere else.
       \repeat unfold 2 { c'8 c'8 c'8 c'8 }
     }
   }
+}
+@end lilypond
+
+
+@node Using an extra voice for breaks
+@subsection Using an extra voice for breaks
+
+Line- and page-breaking information usually appears within note entry directly.
+
+@example
+\new Score @{
+  \new Staff @{
+    \repeat unfold 2 @{ c'4 c'4 c'4 c'4 @}
+    \break
+    \repeat unfold 3 @{ c'4 c'4 c'4 c'4 @}
+  @}
+@}
+@end example
+
+This makes @code{\break} and @code{\pageBreak} commands easy to enter but mixes
+music entry with information that specifies how music should lay out
+on the page.  You can keep music entry and line- and page-breaking
+information in two separate places by introducing an extra voice to 
+contain the  breaks.  This extra voice
+contains only skips together with @code{\break}, @code{pageBreak} and other
+breaking layout information.
+
+@lilypond[quote,verbatim]
+\new Score {
+  \new Staff <<
+     \new Voice {
+        s1 * 2 \break
+        s1 * 3 \break
+        s1 * 6 \break
+        s1 * 5 \break
+     }
+     \new Voice {
+        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+     }
+  >>
+}
+@end lilypond
+
+This pattern becomes especially helpful when overriding
+@code{line-break-system-details} and the other useful but long properties of
+@code{NonMusicalPaperColumnGrob}, as explained in @ref{Vertical spacing}.
+
+@lilypond[quote,verbatim]
+\new Score {
+  \new Staff <<
+     \new Voice {
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 0))
+        s1 * 2 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 35))
+        s1 * 3 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 70))
+        s1 * 6 \break
+
+        \overrideProperty "Score.NonMusicalPaperColumn"
+        #'line-break-system-details #'((Y-offset . 105))
+        s1 * 5 \break
+     }
+     \new Voice {
+        \repeat unfold 2 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 3 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 6 { c'4 c'4 c'4 c'4 }
+        \repeat unfold 5 { c'4 c'4 c'4 c'4 }
+     }
+  >>
 }
 @end lilypond
 
