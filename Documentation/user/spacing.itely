@@ -21,8 +21,8 @@ This influences where line breaks are chosen, and thus ultimately, how
 many pages a piece of music takes.
 
 Globally speaking, this procedure happens in four steps: first,
-flexible distances (``springs'') are chosen, based on durations.  All
-possible line breaking combinations are tried, and a ``badness'' score
+flexible distances (@qq{springs}) are chosen, based on durations.  All
+possible line breaking combinations are tried, and a @qq{badness} score
 is calculated for each. Then the height of each possible system is
 estimated. Finally, a page breaking and line breaking combination is chosen
 so that neither the horizontal nor the vertical spacing is too cramped
@@ -709,7 +709,7 @@ lilypond <file>.ly
 @subsection Horizontal spacing overview
 
 The spacing engine translates differences in durations into stretchable
-distances (``springs'') of differring lengths.  Longer durations get
+distances (@qq{springs}) of differring lengths.  Longer durations get
 more space, shorter durations get less.  The shortest durations get a
 fixed amount of space (which is controlled by
 @code{shortest-duration-space} in the @internalsref{SpacingSpanner}
@@ -1026,7 +1026,7 @@ for details.
 
 @refbugs
 
-Line breaks can only occur if there is a ``proper'' bar line.  A note
+Line breaks can only occur if there is a @qq{proper} bar line.  A note
 which is hanging over a bar line is not proper, such as
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
@@ -1124,8 +1124,8 @@ the absence of notes. This is so that single-staff polyphony with rests in one
 of the parts does not throw off the @code{Page_turn_engraver}). When it finds
 a sufficiently long section without notes, the @code{Page_turn_engraver} will
 insert an @code{\allowPageTurn} at the final barline in that section, unless
-there is a ``special'' barline (such as a double bar), in which case the
-@code{\allowPageTurn} will be inserted at the final ``special'' barline in
+there is a @qq{special} barline (such as a double bar), in which case the
+@code{\allowPageTurn} will be inserted at the final @qq{special} barline in
 the section.
 
 @funindex minimumPageTurnLength

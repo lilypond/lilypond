@@ -14,11 +14,11 @@
 This chapter details the technicalities of running LilyPond.
 
 Some of these commands are run from the command-line.  By
-``command-line'', we mean the command
+@qq{command-line}, we mean the command
 line in the operating system.  Windows users
-might be more familiar with the terms ``DOS shell'' or
-``command shell''; OSX users might be more familiar with the
-terms ``terminal'' or ``console''.  OSX users should also
+might be more familiar with the terms @qq{DOS shell} or
+@qq{command shell}; OSX users might be more familiar with the
+terms @qq{terminal} or @qq{console}.  OSX users should also
 consult @ref{Notes for the MacOS X app}.
 
 Describing how to use
@@ -94,11 +94,13 @@ on the command-line, and include
 at the top of the @code{.ly} file.
 
 @item -f,--format=@var{format}
-which formats should be written.  Choices are @code{svg}, @code{ps},
-@code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+which formats should be written.  Choices for @code{format} are
+@code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}, @code{dvi}.
+
+Example: @code{lilypond -fpng filename.ly}
 
 @item -b,--backend=@var{format}
-the output format to use for the back-end.  Choices are
+the output format to use for the back-end.  Choices for @code{format} are
 @table @code
 @item tex
 for @TeX{} output, to be processed with La@TeX{}.  If present, the file
@@ -136,6 +138,8 @@ This mode is used by default by lilypond-book.
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
 @end table
+
+Example: @code{lilypond -bsvg filename.ly}
 
 @cindex output format, setting
 
@@ -363,11 +367,36 @@ invoking them directly, e.g.
 The same is true of the other scripts in that directory, including
 lilypond-book, convert-ly, abc2ly, etc.
 
-Alternatively, you may add this directory to your path.  Modify (or create)
+Alternatively, you may create scripts which add the path
+automatically.  Create a directory to store these scripts,
+
+@example
+mkdir -p ~/bin
+cd ~/bin
+@end example
+
+Create a file called @code{lilypond} which contains
+
+@example
+exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
+@end example
+
+Create similar files @code{lilypond-book}, @code{convert-ly}, and
+any other helper programs you use (@code{abc2ly}, @code{midi2ly},
+etc).  Simply replace the @code{bin/lilypond} with
+@code{bin/convert-ly} (or other program name) in the above file.
+
+Make the file executable,
+
+@example
+chmod u+x lilypond
+@end example
+
+Now, add this directory to your path.  Modify (or create)
 a file called @code{.profile} in your home directory such that it contains
 
 @example
-export PATH=$PATH:@var{path/to}/LilyPond.app/Contents/Resources/bin
+export PATH=$PATH:~/bin
 @end example
 
 @noindent
@@ -408,6 +437,12 @@ To upgrade LilyPond fragments in texinfo files, use
 
 @example
 convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+To see the changes in the LilyPond syntax between two versions, use
+
+@example
+convert-ly --from=... --to=... -s
 @end example
 
 To upgrade many files at once, combine @code{convert-ly} with
@@ -548,6 +583,9 @@ bug by following the directions on
 
 @uref{http://lilypond.org/web/devel/participating/bugs}
 
+Please construct submit @ref{Minimal examples} of bug reports.  We do not
+have the resources to investigate reports which are not as small as possible.
+
 
 @node Error messages
 @section Error messages
@@ -663,12 +701,14 @@ installation instructions.
 @end ifnothtml
 
 
-@item JEdit
+@item LilyPondTool
 
-The @uref{http://@/www@/.jedit@/.org@/,jEdit} editor has a LilyPond plugin.
-This plugin includes a DVI viewer, integrated help and viewing via
-GhostScript.  It can be installed by doing @key{Plugins > Plugin
-Manager}, and selecting @code{LilyTool} from the @key{Install} tab.
+Created as a plugin for the @uref{http://@/www@/.jedit@/.org@/,jEdit} text
+editor, LilyPondTool is the most feature-rich text-based tool for editing
+LilyPond scores.  Its features include a Document Wizard with lyrics
+support to set up documents easier, and embedded PDF viewer with advanced
+point-and-click support.  For screenshots, demos and installation
+instructions, visit @uref{http://lilypondtool@/.organum@/.hu}
 
 @end table
 

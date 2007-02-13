@@ -111,7 +111,7 @@ LilyPond Feta font (2003)
 In spacing, the distribution of space should reflect the durations
 between notes.  However, many modern scores adhere to the durations
 with mathematical precision, which leads to poor results.  In the next
-example a motive is printed twice : once using exact mathematical
+example a motive is printed twice: once using exact mathematical
 spacing, and once with corrections.  Can you spot which fragment is
 which?
 
@@ -532,8 +532,8 @@ polyphony?  In polyphonic notation, many voices can share a staff.
 In this situation, the accidentals and staff are shared, but the stems,
 slurs, beams, etc., are private to each voice.  Hence, engravers should
 be grouped.  The engravers for note heads, stems, slurs, etc., go into a
-group called `Voice context', while the engravers for key, accidental,
-bar, etc., go into a group called `Staff context'.  In the case of
+group called @q{Voice context}, while the engravers for key, accidental,
+bar, etc., go into a group called @q{Staff context}.  In the case of
 polyphony, a single Staff context contains more than one Voice context.
 Similarly, multiple Staff contexts can be put into a single Score
 context.  The Score context is the top level notation context.
@@ -787,8 +787,8 @@ are a set of tables showing the chord names, MIDI instruments,
 a list of color names, and the Feta font.
 
 @item
-@emph{@ref{Example templates}}
-provides templates of LilyPond pieces.  Just cut and paste a
+@emph{@ref{Templates}}
+of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 
 @item
@@ -915,7 +915,7 @@ vary from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
 example, @file{input/@/test/@/bla@/.ly} may refer to the file
-@file{lilypond@/-2.8.0/@/input/@/test/@/bla@/.ly}.  On binary packages
+@file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  On binary packages
 for the Unix platform, the documentation and examples can typically be
 found somewhere below @file{/usr/@/share/@/doc/@/lilypond/}.
 Initialization files, for example @file{scm/@/lily@/.scm}, or

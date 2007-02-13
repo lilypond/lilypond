@@ -149,7 +149,7 @@ object.  The same mechanism can be used to move other types of
 objects; simply replace @code{TextScript} with the name of
 another object.
 
-To find the object name, look at the ``@strong{see also}'' at
+To find the object name, look at the @qq{@strong{see also}} at
 bottom of the relevant documentation page.  For example, at
 the bottom of @ref{Dynamics}, we see
 
@@ -254,7 +254,7 @@ f-5
 
  @item
 Setting the @code{transparent} property will cause an object to be printed
-in `invisible ink': the object is not printed, but all its other
+in @q{invisible ink}: the object is not printed, but all its other
 behavior is retained.  The object still takes up space, it takes part in
 collisions, and slurs, ties, and beams can be attached to it.
 
@@ -288,7 +288,7 @@ voices:
 } >>
 @end lilypond
 
-To make sure that the just blanked stem doesn't sqeeuze the too much
+To make sure that the just blanked stem doesn't squeeze the too much
 tie, we also lengthen the stem, by setting the @code{length} to
 @code{8},
 
@@ -373,10 +373,10 @@ space at the bottom of the page.
 
 @example
 \paper @{
-between-system-padding = #0.1
-between-system-space = #0.1
-ragged-last-bottom = ##f
-ragged-bottom = ##f
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
 @}
 @end example
 
@@ -387,7 +387,7 @@ use 10).
 
 @example
 \paper @{
-system-count = #10
+  system-count = #10
 @}
 @end example
 
@@ -398,7 +398,7 @@ require extra space.  If these repeats are spread over two
 systems, they will take up more space than one system with
 the volta repeats and another system without.
 
-Another example is moving dynamics which ``stick out'' of
+Another example is moving dynamics which @qq{stick out} of
 a system.
 
 @lilypond[verbatim,quote,fragment]
@@ -474,9 +474,9 @@ tempoMark = #(define-music-function (parser location padding marktext)
 #})
 
 \relative c'' {
-c2 e
-\tempoMark #3.0 #"Allegro"
-g c
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
 }
 @end lilypond
 

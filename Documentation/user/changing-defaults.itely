@@ -14,7 +14,7 @@
 The purpose of LilyPond's design is to provide the finest output
 quality as a default.  Nevertheless, it may happen that you need to
 change this default layout.  The layout is controlled through a large
-number of proverbial ``knobs and switches.''  This chapter does not
+number of proverbial @qq{knobs and switches.}  This chapter does not
 list each and every knob.  Rather, it outlines what groups of controls
 are available and explains how to lookup which knob to use for a
 particular effect.
@@ -33,8 +33,8 @@ Program reference manual.
 That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
-@uref{http://@/lilypond@/.org/@/doc/@/v2.8/@/Documentation/@/user/@/
-lilypond@/-internals/,on@/-line},
+@c leave the @uref as one long line.
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
 There are four areas where the default settings may be changed:
@@ -154,7 +154,7 @@ cis' c'' cis'2 | c'' c'
 
 @item @code{modern-cautionary}
 @funindex modern-cautionary
-This rule is similar to @code{modern}, but the ``extra'' accidentals
+This rule is similar to @code{modern}, but the @qq{extra} accidentals
 (the ones not typeset by @code{default}) are typeset as cautionary
 accidentals.  They are printed in reduced size or with parentheses
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -192,7 +192,7 @@ accidentals typeset as cautionaries.
 @item no-reset
 @funindex no-reset accidental style
 This is the same as @code{default} but with accidentals lasting
-``forever'' and not only until the next measure
+@qq{forever} and not only until the next measure
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 #(set-accidental-style 'no-reset)
 c1 cis cis c
@@ -695,7 +695,7 @@ R1*2
 Contexts are hierarchical, so if a bigger context was specified, for
 example @context{Staff}, then the change would also apply to all
 @context{Voice}s in the current stave.  The change is applied
-`on-the-fly', during the music, so that the setting only affects the
+@q{on-the-fly}, during the music, so that the setting only affects the
 second group of eighth notes.
 
 @funindex \unset
@@ -771,7 +771,7 @@ Translation @arrow{} Tunable context properties.
 
 Notation contexts (like @code{Score} and @code{Staff}) not only
 store properties,
-they also contain plug-ins called ``engravers'' that create notation
+they also contain plug-ins called @qq{engravers} that create notation
 elements.  For example, the @code{Voice} context contains a
 @code{Note_head_engraver} and the @code{Staff} context contains a
 @code{Key_signature_engraver}.
@@ -887,7 +887,7 @@ The syntax for this is
 
 Here @var{name} is the name of a graphical object, like @code{Stem} or
 @code{NoteHead}, and @var{property} is an internal variable of the
-formatting system (`grob property' or `layout property').  The latter is a
+formatting system (@q{grob property} or @q{layout property}).  The latter is a
 symbol, so it must be quoted.  The subsection @ref{Constructing a
 tweak} explains what to fill in for @var{name}, @var{property}, and
 @var{value}.  Here we only discuss the functionality of this command.
@@ -953,7 +953,7 @@ affects settings that were made in the same context.  In other words, the
 \revert Staff.Stem #'thickness
 @end example
 
-Some tweakable options are called ``subproperties'' and reside inside
+Some tweakable options are called @qq{subproperties} and reside inside
 properties.  To tweak those, use commands of the form
 
 @c leave this as a long long
@@ -1280,7 +1280,7 @@ This means that we must determine these bits of information:
 @item a sensible value: here @code{3.0}.
 @end itemize
 
-Some tweakable options are called ``subproperties'' and reside inside
+Some tweakable options are called @qq{subproperties} and reside inside
 properties.  To tweak those, use commands in the form
 
 @example
@@ -1469,13 +1469,13 @@ This object supports the following interfaces:
 
 Clicking any of the links will take you to the page of the respective
 object interface.  Each interface has a number of properties.  Some of
-them are not user-serviceable (``Internal properties''), but others
+them are not user-serviceable (@qq{Internal properties}), but others
 can be modified.
 
 We have been talking of @emph{the} @code{Fingering} object, but actually it
 does not amount to much.  The initialization file (see
 @ref{Default files})
-@file{scm/@/define@/-grobs@/.scm} shows the soul of the `object',
+@file{scm/@/define@/-grobs@/.scm} shows the soul of the @q{object},
 
 @example
 (Fingering
@@ -1637,7 +1637,7 @@ this.  Context properties are modified with @code{\set}.
 There is a special type of context property: the element
 description. These properties are named in @code{StudlyCaps}
 (starting with capital letters).  They contain the
-``default settings'' for said graphical object as an
+@qq{default settings} for said graphical object as an
 association list.  See @file{scm/@/define@/-grobs@/.scm}
 to see what kind of settings there are.  Element descriptions
 may be modified with @code{\override}.

@@ -34,7 +34,8 @@ This section explains how to include text (with various formatting) in
 your scores.
 
 @cindex Text, other languages
-To write non-ascii text (such as characters from other languages), simply
+To write accented and special text (such as characters from other languages),
+simply
 insert the characters directly into the lilypond file.  The file must be
 saved as UTF-8.  For more information, see @ref{Text encoding}.
 
@@ -627,7 +628,7 @@ individual parts.
 @cindex whole rests for a full measure
 @funindex R
 
-Rests for one full measure (or many bars) are entered using `@code{R}'.  It
+Rests for one full measure (or many bars) are entered using @samp{R}.  It
 is specifically meant for full bar rests and for entering parts: the rest
 can expand to fill a score with rests, or it can be printed as a single
 multi-measure rest.  This expansion is controlled by the property
@@ -656,7 +657,7 @@ R1*13/8*12 |
 An @code{R} spanning a single measure is printed as either a whole rest
 or a breve, centered in the measure regardless of the time signature.
 
-If there are only a few measures of rest, LilyPond prints ``church rests''
+If there are only a few measures of rest, LilyPond prints @qq{church rests}
 (a series of rectangles) in the staff.  To replace that with a simple
 rest, use @code{MultiMeasureRest.expand-limit}.
 
@@ -810,8 +811,8 @@ c1 \mark \default
 @end lilypond
 
 @noindent
-The letter@tie{}`I' is skipped in accordance with engraving traditions.
-If you wish to include the letter `I', then use
+The letter@tie{}@q{I} is skipped in accordance with engraving traditions.
+If you wish to include the letter @q{I}, then use
 
 @example
 \set Score.markFormatter = #format-mark-alphabet
@@ -1151,7 +1152,7 @@ c'4^"in G"
 @node Ottava brackets
 @subsection Ottava brackets
 
-`Ottava' brackets introduce an extra transposition of an octave for
+@q{Ottava} brackets introduce an extra transposition of an octave for
 the staff.  They are created by invoking the function
 @code{set-octavation}
 
@@ -1323,8 +1324,8 @@ The first @code{g} appears only once, although it was
 specified twice (once in each part).  Stem, slur, and tie directions are
 set automatically, depending whether there is a solo or unisono.  The
 first part (with context called @code{one}) always gets up stems, and
-`Solo', while the second (called @code{two}) always gets down stems and
-`Solo II'.
+@q{Solo}, while the second (called @code{two}) always gets down stems and
+@q{Solo II}.
 
 If you just want the merging parts, and not the textual markings, you
 may set the property @code{printPartCombineTexts} to false
@@ -1395,7 +1396,7 @@ will be ignored.
 @cindex Hiding staves
 
 In orchestral scores, staff lines that only have rests are usually
-removed; this saves some space.  This style is called `French Score'.
+removed; this saves some space.  This style is called @q{French Score}.
 For @internalsref{Lyrics},
 @internalsref{ChordNames} and @internalsref{FiguredBass}, this is
 switched on by default.  When the lines of these contexts turn out
@@ -1523,6 +1524,9 @@ Only the contents of the first @internalsref{Voice} occurring in an
 statements that would switch to a different Voice.
 
 Quoting grace notes is broken and can even cause LilyPond to crash.
+
+Quoting nested triplets may result in poor notation.
+
 
 @seealso
 
@@ -1682,7 +1686,7 @@ cadenza = \relative c' {
 
 In the 20th century, composers have greatly expanded the musical
 vocabulary.  With this expansion, many innovations in musical notation
-have been tried.  The book ``Music Notation in the 20th century'' by
+have been tried.  The book @qq{Music Notation in the 20th century} by
 Kurt Stone gives a comprehensive overview (see @ref{Literature
 list}).
 
@@ -1707,6 +1711,11 @@ see those sections of the documentation.
 
 @node Polymetric notation
 @subsection Polymetric notation
+
+@cindex double time signatures
+@cindex signatures, polymetric
+@cindex polymetric signatures
+@cindex meter, polymetric
 
 Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
@@ -1996,7 +2005,7 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 @cindex note heads, special
 
 Different noteheads are used by various instruments for various
-meanings -- crosses are used for ``parlato'' with vocalists, stopped
+meanings -- crosses are used for @qq{parlato} with vocalists, stopped
 notes on guitar; diamonds are used for harmonics on string instruments,
 etc.  There is a shorthand (@code{\harmonic}) for diamond shapes; the
 other notehead styles are produced by tweaking the property
@@ -2278,7 +2287,7 @@ combinations are possible, e.g.
 @cindex easy notation
 @cindex Hal Leonard
 
-The `easy play' note head includes a note name inside the head.  It is
+The @q{easy play} note head includes a note name inside the head.  It is
 used in music for beginners
 
 @lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]

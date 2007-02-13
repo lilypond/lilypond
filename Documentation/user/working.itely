@@ -10,7 +10,7 @@
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
 
-This section explains a how to solve or avoid certain common
+This section explains how to solve or avoid certain common
 problems.  If you have programming experience, many of these
 tips may seem obvious, but it is still advisable to read
 this chapter.
@@ -22,6 +22,7 @@ this chapter.
 * Style sheets::                
 * Updating old files::          
 * Troubleshooting (taking it all apart)::  
+* Minimal examples::            
 @end menu
 
 
@@ -76,10 +77,10 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check} and @ref{Octave check}.  If
-you
+@item @strong{Include checks}: @ref{Bar check}, @ref{Octave check} and
+@ref{Barnumber check}.  If you
 include checks every so often, then if you make a mistake, you can pinpoint
-it quicker.  How often is ``every so often''?  It depends on the complexity
+it quicker.  How often is @qq{every so often}?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
 very complex music, perhaps every bar.
 
@@ -87,11 +88,11 @@ very complex music, perhaps every bar.
 either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to `debug' your files.
+worth it if you have to @q{debug} your files.
 
 @item @strong{Comment your files}.  Use either bar numbers (every so often)
 or
-references to musical themes (``second theme in violins,'' ``fourth
+references to musical themes (@qq{second theme in violins,} ``fourth
 variation'', etc).  You may not need comments when you're writing the piece
 for the first time, but if you want to go back to change something two or
 three years later, or if you pass the source over to a friend, it will
@@ -300,7 +301,7 @@ simply want to separate your tweaks from the actual music?  This
 is quite easy to do.
 
 Let's look at an example.  Don't worry if you don't understand
-the parts with all the #().  This is explained in
+the parts with all the @code{#()}.  This is explained in
 @ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -328,7 +329,7 @@ definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
 at the top of every file, but that's an annoyance.  It also leaves
 those definitions in our music files, and I personally find all
-the #() somewhat ugly.  Let's hide them in another file:
+the @code{#()} somewhat ugly.  Let's hide them in another file:
 
 @example
 %%% save this to a file called "definitions.ly"
@@ -531,7 +532,7 @@ prefers.  The top of @file{music.ly} would then look like this:
 
 This approach can be useful even if you are only producing
 one set of parts.  I use half a dozen different
-``style sheet'' files for my projects.  I begin every music
+@qq{style sheet} files for my projects.  I begin every music
 file with @code{\include "../global.ly"}, which contains
 
 @example
@@ -557,7 +558,7 @@ LilyPond comes with a file that makes this updating easier:
 @code{convert-ly}.  For details about how to run this program, see
 @ref{Updating files with convert-ly}.
 
-Unforunately, @code{convert-ly} cannot handle all input changes.  It
+Unfortunately, @code{convert-ly} cannot handle all input changes.  It
 takes care of simple search-and-replace changes (such as @code{raggedright}
 becoming @code{ragged-right}), but some changes are too
 complicated.  The syntax changes that @code{convert-ly} cannot handle
@@ -566,7 +567,7 @@ are listed in @ref{Updating files with convert-ly}.
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,
 "@code{No\"el}" (this would print the French word for
-`Christmas').  In LilyPond 2.6 and above, the special
+@q{Christmas}).  In LilyPond 2.6 and above, the special
 "@code{ë}" must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
@@ -623,5 +624,47 @@ bass = \relative c' @{
 
 Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
+
+Another very useful debugging technique is constructing
+@ref{Minimal examples}.
+
+
+@node Minimal examples
+@section Minimal examples
+
+A minimal example is an example which is as small as possible.  These
+examples are much easier to understand than long examples.  Minimal
+examples are used for
+
+@itemize
+@item Bug reports
+@item Sending a help request to mailists
+@item Adding an example to the @uref{http://lsr@/.dsi@/.unimi/2.it/,LilyPond
+Snippet Repository}
+@end itemize
+
+To construct an example which is as small as possible, the rule is
+quite simple: remove anything which is not necessary.  When trying to
+remove unnecessary parts of a file, it is a very good idea to comment
+out lines instead of deleting them.  That way, if you discover that you
+actually @emph{do} need some lines, you can uncomment them, instead of
+typing them in from scratch.
+
+There are two exceptions to the @qq{as small as possible} rule:
+
+@itemize
+@item Include the @code{\version} number.
+@item If possible, use @code{\paper@{ ragged-right=##t @}} at the
+top of your example.
+@end itemize
+
+The whole point of a minimal example is to make it easy to read:
+
+@itemize
+@item Avoid using complicated notes, keys, or time signatures, unless you
+wish to demonstrate something is about the behavior of those items.
+@item Do not use @code{\override} commands unless that is the point of the
+example.
+@end itemize
 
 

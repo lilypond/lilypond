@@ -31,7 +31,6 @@ for x in optlist:
 
 def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=None):
 	try:
-		#print "Processing %s..." % texifilename
 		f = open (texifilename, 'r')
 		texifile = f.read ()
 		f.close ()
@@ -43,11 +42,13 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 			]+)::[^
 			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
-			]*?$""", texifile, re.M)
+			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			node_trigger = False
 			for item in tutu:
 				if item[0] == '*':
 					g.write ('* ' + item[1] + '::\n')
+				elif output_file and item[4] == 'rglos':
+					output_file.write ('_("' + item[5] + '") # @rglos in ' + texifilename + '\n')
 				else:
 					g.write ('@' + item[2] + ' ' + item[3] + '\n')
 					if node_trigger:
@@ -55,7 +56,8 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 						node_trigger = False
 					if not item[2] in ('include', 'menu', 'end menu'):
 						if output_file:
-							output_file.write ('_("' + item[3].strip () + '")\n')
+							output_file.write ('_("' + item[3].strip () + '") # @' + item[2] + \
+									   ' in ' + texifilename + '\n')
 						node_trigger = True
 					elif item[2] == 'include':
 						includes.append(item[3])
@@ -63,12 +65,14 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 		elif output_file:
 			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
-			]*?$""", texifile, re.M)
+			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			for item in toto:
 				if item[0] == 'include':
 					includes.append(item[1])
+				elif item[2] == 'rglos':
+					output_file.write ('# @rglos in ' + texifilename + '\n_("' + item[3] + '")\n')
 				else:
-					output_file.write ('_("' + item[1].strip () + '")\n')
+					output_file.write ('# @' + item[0] + ' in ' + texifilename + '\n_("' + item[1].strip () + '")\n')
 		if process_includes:
 			dir = os.path.dirname (texifilename)
 			for item in includes:
@@ -89,7 +93,7 @@ if make_gettext:
 	for word in ('Up:', 'Next:', 'Previous:', 'Appendix', 'Footnotes'):
 		node_list.write ('_("' + word + '")\n')
 	node_list.close ()
-	os.system ('xgettext -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
+	os.system ('xgettext -c -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
 else:
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton)

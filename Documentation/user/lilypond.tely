@@ -19,7 +19,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
   * Prepend GNU for dir, must be unique.
 
-  * Do not list the `lilypond' node at toplevel, so that `info lilypond'
+  * Do not list the @q{lilypond} node at toplevel, so that @q{info lilypond}
     goes to Top.
 
   * List all commands in direntry.
@@ -137,7 +137,7 @@ Free Documentation License''.
 @ifnottex
 @node Top
 @top GNU LilyPond --- The music typesetter
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@c HJJ: Info needs @q{@top}, which is a synonym for @q{@unnumbered} in TeX.
 
 This is the user manual for GNU LilyPond 2.10.x series.
 @ifhtml
@@ -184,7 +184,7 @@ Appendices
 * Literature list::                Reference works about music notation.
 * Scheme tutorial::                Programming inside LilyPond.
 * Notation manual tables::         Tables and charts.
-* Example templates::              Ready-made templates.
+* Templates::                      Ready-made templates.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.
 * LilyPond command index::
