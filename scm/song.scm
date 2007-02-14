@@ -65,7 +65,8 @@
   (let ((port (open-output-file filename)))
     (write-header port tempo)
     (write-lyrics port music)
-    (write-footer port))
+    (write-footer port)
+    (close-port port))
   #f)
 
 
