@@ -135,12 +135,12 @@ public:
         }
         catch(const std::exception& e)
         {
-          std::cout << "[FAIL]\n" << e.what() << std::flush;
+          std::cout << "[FAIL]\n  " << e.what() << std::flush;
           ++m_fail;
         }
         catch(...)
         {
-          std::cout << "[FAIL]\nunknown exception" << std::flush;
+          std::cout << "[FAIL]\n  unknown exception" << std::flush;
           ++m_fail;
         }
       }
@@ -241,12 +241,30 @@ struct Registrator
   }
 };
 
-template <typename Suite, typename Case>
-struct Test: public ITest, public Suite
+template <typename Case>
+struct Registrator<Case, void>
+{
+  Registrator()
+  {
+    Factory::Instance().Register(TestName(), Create);
+  }
+  const std::string& TestName()
+  {
+    static const std::string name ("::" + demangle<Case>());
+    return name;
+  }
+  static ITest* Create()
+  {
+    return new Case;
+  }
+};
+
+
+template <typename Suite, typename Case = void>
+struct Test: public ITest, public virtual Suite
 {
   static Registrator<Suite, Case> s_Registrator;
-  Test()
-  : Suite()
+  Test(): Suite()
   {
     Registrator<Suite, Case>* r = &s_Registrator;
     r = 0;
@@ -265,6 +283,33 @@ struct Test: public ITest, public Suite
 
 template <typename Suite, typename Case>
 Registrator<Suite, Case> Test<Suite, Case>::s_Registrator;
+
+
+template <typename Case>
+struct Test<Case, void>: public ITest
+{
+  static Registrator<Case, void> s_Registrator;
+  Test()
+  {
+    Registrator<Case, void>* r = &s_Registrator;
+    r = 0;
+  }
+  template <typename E, typename T>
+  void assert_throw(void(T::*mf)(), const char* at)
+  {
+    try
+    {
+      (dynamic_cast<T*> (this)->*mf)();
+      throw yaffut::failure (at, "statement failed to throw");
+    }
+    catch(const E&){}
+  }
+};
+
+template <typename Case>
+Registrator<Case, void> Test<Case, void>::s_Registrator;
+
+
 
 template <typename Expected, typename Actual>
 void equal(const Expected& e, const Actual& a, const char* at = "", const char* expr = "")
@@ -328,19 +373,16 @@ void assert_throw(void(*pf)(), const char* at = "")
   catch(const E&){}
 }
 
-//define catch-all suite
-struct Suite {};
-
 }
 
-//and for those who prefer macro obscurity over more typing
+//and for those who prefer macro obscurity over typing
 #define TEST(Suite, Case)\
   namespace { struct Case: public yaffut::Test<Suite, Case>{ Case(); }; } \
   template struct yaffut::Test<Suite, Case>; Case::Case()
 
 #define FUNC(Case)\
-  namespace { struct Case: public yaffut::Test<yaffut::Suite, Case>{ Case(); }; } \
-  template struct yaffut::Test<yaffut::Suite, Case>; Case::Case()
+  namespace { struct Case: public yaffut::Test<Case>{ Case(); }; } \
+  template struct yaffut::Test<Case>; Case::Case()
 
 #ifdef YAFFUT_MAIN
 
