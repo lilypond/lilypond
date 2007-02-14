@@ -118,7 +118,7 @@ These all use the same routines as the glissando for drawing the texts
 and the lines, and tuning their behavior is therefore also done in the
 same way. It is done with a spanner, and the routine responsible for
 drawing the spanners is @code{ly:line-interface::print}. This
-routine creates determines the exact location of the two @i{span
+routine determines the exact location of the two @i{span
 points} and draws a line in between, in the style requested.
 
 Here is an example of the different line styles available, and how to
@@ -148,7 +148,7 @@ e2 \glissando f
 The @code{Glissando} object, like any other using the
 @code{ly:line-interface::print} routine, carries a nested
 association list. In the above statement, the value for @code{Y}
-is set to @code{-2} for association list corresponding to the right
+is set to @code{-2} for the association list corresponding to the right
 end point. Of course, it is also possible to adjust the left side with
 @code{left} instead of @code{right}.
 
