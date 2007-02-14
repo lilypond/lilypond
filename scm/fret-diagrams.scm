@@ -297,44 +297,42 @@ Line thickness is given by @var{th}, fret & string spacing by
  
 (define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?)
-  "Make a fret diagram containing the symbols indicated in @var{marking-list}
-  
+  "Make a fret diagram containing the symbols indicated in @var{marking-list}.
+
   For example,
-  
+
 @example
-   \\markup \\fret-diagram-verbose #'((mute 6) (mute 5) (open 4)
-        (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
+\\markup \\fret-diagram-verbose
+  #'((mute 6) (mute 5) (open 4)
+     (place-fret 3 2) (place-fret 2 3) (place-fret 1 2))
 @end example 
-  
-  will produce a standard D chord diagram without fingering indications.
+
+@noindent
+produces a standard D@tie{}chord diagram without fingering indications.
   
 Possible elements in @var{marking-list}:
-@table @asis
-@item (mute string-number)
-Place a small 'x' at the top of string @var{string-number}
 
-@item (open string-number)
-Place a small 'o' at the top of string @var{string-number}
+@table @code
+@item (mute @var{string-number})
+Place a small @q{x} at the top of string @var{string-number}.
 
-@item (barre start-string end-string fret-number)
-Place a barre indicator (much like a tie) from string @var{start-string}to string @var{end-string} at fret @var{fret-number}
+@item (open @var{string-number})
+Place a small @q{o} at the top of string @var{string-number}.
 
-@item (place-fret string-number fret-number finger-value)
+@item (barre @var{start-string} @var{end-string} @var{fret-number})
+Place a barre indicator (much like a tie) from string @var{start-string}
+to string @var{end-string} at fret @var{fret-number}.
 
+@item (place-fret @var{string-number} @var{fret-number} @var{finger-value})
 Place a fret playing indication on string @var{string-number} at fret
 @var{fret-number} with an optional fingering label @var{finger-value}.
 By default, the fret playing indicator is a solid dot.  This can be
 changed by setting the value of the variable @var{dot-color}.  If the
-@var{finger} part of the place-fret element is present,
+@var{finger} part of the @code{place-fret} element is present,
 @var{finger-value} will be displayed according to the setting of the
 variable @var{finger-code}.  There is no limit to the number of fret
 indications per string.
-
-
-
-
-@end table
-"
+@end table"
    (make-fret-diagram layout props marking-list))
    
 (define (make-fret-diagram layout props marking-list)
@@ -393,16 +391,17 @@ indications per string.
          
 (define-builtin-markup-command (fret-diagram layout props definition-string)
   (string?)
-  "  
-Example
+  "Make a (guitar) fret diagram.  For example, say
 
 @example
- \\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
+\\markup \\fret-diagram #\"s:0.75;6-x;5-x;4-o;3-2;2-3;1-2;\"
 @end example
 
-for fret spacing 3/4 of staff space, D chord diagram
+@noindent
+for fret spacing 3/4 of staff space, D@tie{}chord diagram.
 
 Syntax rules for @var{definition-string}:
+
 @itemize @minus
       
 @item
@@ -413,45 +412,54 @@ Possible items:
 
 @itemize @bullet
 @item
-s:number -- set the fret spacing of the diagram (in staff spaces). Default 1
+@code{s:}@var{number} -- Set the fret spacing of the diagram (in staff
+spaces).
+Default:@tie{}1.
 
 @item
-t:number -- set the line thickness (in staff spaces).  Default 0.05
+@code{t:}@var{number} -- Set the line thickness (in staff spaces).
+Default:@tie{}0.05.
 
 @item
-h:number -- set the height of the diagram in frets.  Default 4
+@code{h:}@var{number} -- Set the height of the diagram in frets.
+Default:@tie{}4.
 
 @item
-w:number -- set the width of the diagram in strings.  Default 6
+@code{w:}@var{number} -- Set the width of the diagram in strings.
+Default:@tie{}6.
 
 @item
-f:number -- set fingering label type (0 = none, 1 = in circle on string, 2 = below string)  Default 0
+@code{f:}@var{number} -- Set fingering label type
+(0@tie{}= none, 1@tie{}= in circle on string, 2@tie{}= below string).
+Default:@tie{}0.
 
 @item
-d:number -- set radius of dot, in terms of fret spacing.  Default 0.25
+@code{d:}@var{number} -- Set radius of dot, in terms of fret spacing.
+Default:@tie{}0.25.
 
 @item
-p:number -- set the position of the dot in the fret space. 0.5 is centered; 1 is on lower fret bar,
-0 is on upper fret bar.  Default 0.6 
+@code{p:}@var{number} -- Set the position of the dot in the fret space.
+0.5 is centered; 1@tie{}is on lower fret bar, 0@tie{}is on upper fret bar.
+Default:@tie{}0.6.
 
 @item
-c:string1-string2-fret -- include a barre mark from string1 to string2 on fret
+@code{c:}@var{string1}@code{-}@var{string2}@code{-}@var{fret} -- Include a
+barre mark from @var{string1} to @var{string2} on @var{fret}.
       
 @item
-string-fret -- place a dot on string at fret.  If fret is o, string is identified
-as open.  If fret is x, string is identified as muted.
+@var{string}@code{-}@var{fret} -- Place a dot on @var{string} at @var{fret}.
+If @var{fret} is @samp{o}, @var{string} is identified as open.
+If @var{fret} is @samp{x}, @var{string} is identified as muted.
 
 @item
-string-fret-fingering -- place a dot on string at fret, and label with fingering as 
-defined by f: code.
-
+@var{string}@code{-}@var{fret}@code{-}@var{fingering} -- Place a dot on
+@var{string} at @var{fret}, and label with @var{fingering} as defined
+by the @code{f:} code.
 @end itemize
 
 @item
-Note:  There is no limit to the number of fret indications per string.
-@end itemize
-    
-"
+Note: There is no limit to the number of fret indications per string.
+@end itemize"
        (let ((definition-list (fret-parse-definition-string props definition-string)))
        (make-fret-diagram layout (car definition-list) (cdr definition-list))))
 
@@ -526,13 +534,17 @@ Note:  There is no limit to the number of fret indications per string.
   (string?)
   "Make a fret diagram markup using terse string-based syntax.
 
-Example
+Here an example
+
 @example
- \\markup \\fret-diagram-terse #\"x;x;o;2;3;2;\" 
+\\markup \\fret-diagram-terse #\"x;x;o;2;3;2;\" 
 @end example
-for a D chord diagram.
+
+@noindent
+for a D@tie{}chord diagram.
 
 Syntax rules for @var{definition-string}:
+
 @itemize @bullet
 
 @item    
@@ -540,10 +552,10 @@ Strings are terminated by semicolons; the number of semicolons
 is the number of strings in the diagram.
 
 @item
-Mute strings are indicated by \"x\".
+Mute strings are indicated by @samp{x}.
 
 @item
-Open strings are indicated by \"o\".
+Open strings are indicated by @samp{o}.
 
 @item
 A number indicates a fret indication at that fret.
@@ -553,13 +565,14 @@ If there are multiple fret indicators desired on a string, they
 should be separated by spaces.
 
 @item
-Fingerings are given by following the fret number with a \"-\",
-followed by the finger indicator, e.g. 3-2 for playing the third
+Fingerings are given by following the fret number with a @code{-},
+followed by the finger indicator, e.g. @samp{3-2} for playing the third
 fret with the second finger.
 
 @item
 Where a barre indicator is desired, follow the fret (or fingering) symbol
-with \"-(\" to start a barre and \"-)\" to end the barre.
+with @code{-(} to start a barre and @code{-)} to end the barre.
+
 @end itemize"
 ;TODO -- change syntax to fret\string-finger
        (let ((definition-list (fret-parse-terse-definition-string props definition-string)))

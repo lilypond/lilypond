@@ -69,7 +69,7 @@ Syntax:
             (let ((args (gensym "args"))
                   (markup-command (car body)))
             `(define-public (,command-name . ,args)
-               ,(format #f "Copy of the ~a command" markup-command)
+               ,(format #f "Copy of the ~a command." markup-command)
                (apply ,markup-command ,args))))
        (set! (markup-command-signature ,command-name) (list ,@signature))
        ;; add the command to markup-function-list, for markup documentation
