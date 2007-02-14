@@ -1,4 +1,4 @@
-\version "2.10.12"
+\version "2.11.12"
 
 \header { texidoc = "
 Between notes, there may be simple glissando lines.  Here, the first two glissandi are not consecutive.
