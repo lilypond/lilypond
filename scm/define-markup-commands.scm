@@ -592,7 +592,7 @@ the line width, where @var{X} is the number of staff spaces."
 
 
 (define-builtin-markup-command (wordwrap-field layout props symbol) (symbol?)
-  "Wordwrap the data which has been assigned to @var{symbol}.
+  "Wordwrap the data which has been assigned to @var{symbol}."
   (let* ((m (chain-assoc-get symbol props)))
     (if (string? m)
      (interpret-markup layout props
@@ -600,7 +600,7 @@ the line width, where @var{X} is the number of staff spaces."
      (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
 
 (define-builtin-markup-command (justify-field layout props symbol) (symbol?)
-  "Justify the data which has been assigned to @var{symbol}.
+  "Justify the data which has been assigned to @var{symbol}."
   (let* ((m (chain-assoc-get symbol props)))
     (if (string? m)
      (interpret-markup layout props
@@ -1404,9 +1404,9 @@ and/or @code{extra-offset} properties."
 
 Raising and lowering texts can be done with @code{\\super} and
 @code{\\sub}:
-
+@c
 @lilypond[verbatim,fragment,relative=1]
-c1^\\markup { E \"=\" \\concat { "mc" \\super \"2\" } }
+c1^\\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
