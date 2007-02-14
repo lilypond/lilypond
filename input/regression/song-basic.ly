@@ -1,0 +1,12 @@
+\version "2.11.16"
+
+\include "festival.ly"
+
+\festival #"song-basic.xml" { \tempo 4 = 100 }
+{
+\time 3/4
+\relative { c2 r2 e4 g2. }
+\addlyrics { play the game }
+}
+#(display "song-basic")
+#(ly:progress "~a" (ly:gulp-file "song-basic.xml"))
