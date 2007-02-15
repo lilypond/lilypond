@@ -1074,12 +1074,6 @@ Some points to consider:
 of the distance between adjacent staff lines.  Positive values move staves
 and lyrics up, negative values move staves and lyrics down.
 
-@c FIXME: delete, I think.  Checking.  -gp
-@c @i tem The subproperty @code{fixed-alignment-extra-space} of
-@c @c ode{line-break-system-details} is currently used to add extra space
-@c between the vertically fixed staves of a @code{PianoStaff}.  This
-@c subproperty will disappear during the 2.11.x development series of releases.
-
 @item Because the @code{NonMusicalPaperColumn #'line-break-system-details}
 settings given here allow the positioning of staves and systems anywhere
 on the page, it is possible to violate paper or margin boundaries or even
