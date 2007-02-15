@@ -114,7 +114,7 @@
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
 @xml
-&laquo;\TEXT\&raquo;
+&laquo;&thinsp;\TEXT\&thinsp;&raquo;
 @end xml
 @end macro
 
