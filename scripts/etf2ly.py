@@ -1226,8 +1226,6 @@ for f in files:
     sys.stderr.write ('Writing `%s\'' % out_filename)
     ly = e.dump()
 
-    
-    
     fo = open (out_filename, 'w')
     fo.write ('%% lily was here -- automatically converted by etf2ly from %s\n' % f)
     fo.write(ly)
