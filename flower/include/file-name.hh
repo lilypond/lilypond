@@ -23,7 +23,7 @@ public:
   string base_;
   string ext_;
 
-  File_name (string);
+  File_name (string="");
 
   bool is_absolute () const;
   string to_string () const;

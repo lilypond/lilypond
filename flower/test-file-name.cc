@@ -6,6 +6,11 @@ using namespace std;
 
 string slashify (string file_name);
 
+struct CaseB: public yaffut::Test<File_name, CaseB>
+{
+  CaseB(): File_name("123"){}
+};
+
 TEST_STRING (File_name, Mingw_slashify, "foe.ly")
 {
   string s = slashify (to_string ());

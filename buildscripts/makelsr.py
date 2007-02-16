@@ -33,7 +33,7 @@ for dir in dirs:
 		src = os.path.join (srcdir, file)
 		dest = os.path.join (destdir, file)
 		shutil.copyfile (src, dest)
-		s = os.system('lilypond -dsafe --ps -o /tmp/lsrtest ' + dest)
+		s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
 		if s:
 			notsafe.append(dest)
 			#raise 'Failed'
