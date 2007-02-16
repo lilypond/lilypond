@@ -8,7 +8,8 @@
 
 #include "lyric-extender.hh"
 
-
+#include "system.hh"
+#include "item.hh"
 #include "warn.hh"
 #include "lookup.hh"
 #include "paper-column.hh"
@@ -30,6 +31,8 @@ Lyric_extender::print (SCM smob)
     common = common->common_refpoint (right_text, X_AXIS);
 
   common = common->common_refpoint (me->get_bound (RIGHT), X_AXIS);
+  common = common->common_refpoint (me->get_system (), X_AXIS);
+  
   Real sl = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   extract_grob_set (me, "heads", heads);
@@ -56,6 +59,8 @@ Lyric_extender::print (SCM smob)
   Real right_point
     = left_point + (robust_scm2double (minlen, 0));
 
+  right_point = min (right_point, me->get_system ()->get_bound (RIGHT)->relative_coordinate (common, X_AXIS));
+    
   if (heads.size ())
     right_point = max (right_point, heads.back ()->extent (common, X_AXIS)[RIGHT]);
 
