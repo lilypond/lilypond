@@ -32,22 +32,6 @@ Spanner::do_break_processing ()
   if (!left || !right)
     return;
 
-  /*
-    Check if our parent in X-direction spans equally wide
-    or wider than we do.
-  */
-  for (int a = X_AXIS; a < NO_AXES; a++)
-    {
-      if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
-	{
-	  if (!parent->spanned_rank_interval ().superset (this->spanned_rank_interval ()))
-	    {
-	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner `%s'.",
-					    name ().c_str (),
-					    parent->name ().c_str ()));
-	    }
-	}
-    }
 
   if (get_system () || is_broken ())
     return;
@@ -84,6 +68,21 @@ Spanner::do_break_processing ()
       break_points.insert (break_points.begin () + 0, left);
       break_points.push_back (right);
 
+      Slice parent_rank_slice;
+      parent_rank_slice.set_full ();
+      
+      /*
+	Check if our parent in X-direction spans equally wide
+	or wider than we do.
+      */
+      for (int a = X_AXIS; a < NO_AXES; a++)
+	{
+	  if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
+	    {
+	      parent_rank_slice.intersect (parent->spanned_rank_interval ());
+	    }
+	}
+  
       for (vsize i = 1; i < break_points.size (); i++)
 	{
 	  Drul_array<Item *> bounds;
@@ -103,6 +102,17 @@ Spanner::do_break_processing ()
 	      continue;
 	    }
 
+	  bool ok = parent_rank_slice.contains (bounds[LEFT]->get_column ()->get_rank ());
+	  ok = ok && parent_rank_slice.contains (bounds[RIGHT]->get_column ()->get_rank ());
+	  
+	  if (!ok)
+	    {
+	      programming_error (to_string ("Spanner `%s' is not fully contained in parent spanner. Ignoring orphaned part",
+					    name ().c_str ()));
+	      continue;
+	    }
+	    
+	  
 	  Spanner *span = dynamic_cast<Spanner *> (clone ());
 	  span->set_bound (LEFT, bounds[LEFT]);
 	  span->set_bound (RIGHT, bounds[RIGHT]);
