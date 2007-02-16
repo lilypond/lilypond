@@ -30,11 +30,6 @@ class File_name;
 class File_path;
 struct Getopt_long;
 
-struct Text_stream;
-struct Data_file;
-struct Text_db;
-struct Scalar;
-
 typedef unsigned char U8;
 typedef short I16;
 typedef unsigned short U16;
@@ -43,11 +38,6 @@ typedef int I32;
 typedef long long I64;
 
 
-struct Duration;
-struct Duration_iterator;
-struct Source_file;
-struct Binary_source_file;
-struct Sources;
 struct File_storage;
 struct Mapped_file_storage;
 struct Simple_file_storage;
