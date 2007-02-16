@@ -228,10 +228,12 @@ test:
 	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
 
-test-baseline: test
+test-baseline: 
 	@if  test -d .git ; then \
 		$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
 	fi
+	$(MAKE) 
+	$(MAKE) test
 	rm -rf input/regression/out-test-baseline
 	mv input/regression/out-test input/regression/out-test-baseline
 
