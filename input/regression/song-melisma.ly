@@ -19,5 +19,5 @@
   }
 >>
 }
-#(display "song-melisma")
+#(ly:progress "song-melisma")
 #(ly:progress "~a" (ly:gulp-file "song-melisma.xml"))

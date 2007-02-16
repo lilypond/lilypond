@@ -18,5 +18,5 @@
    dodo rere mimi fafa solsol }
 >>
 }
-#(display "song-repetition")
+#(ly:progress "song-repetition")
 #(ly:progress "~a" (ly:gulp-file "song-repetition.xml"))

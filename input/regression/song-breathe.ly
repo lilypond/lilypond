@@ -8,5 +8,5 @@
 \relative { c2 e \breathe g }
 \addlyrics { play the game }
 }
-#(display "song-breathe")
+#(ly:progress "song-breathe")
 #(ly:progress "~a" (ly:gulp-file "song-breathe.xml"))

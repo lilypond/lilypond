@@ -14,5 +14,5 @@
     play2 the4 game2.
   } >>
 }
-#(display "song-associated-voice")
+#(ly:progress "song-associated-voice")
 #(ly:progress "~a" (ly:gulp-file "song-associated-voice.xml"))

@@ -18,5 +18,5 @@
   \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
   \new Lyrics \lyricsto "splitpart" { will }
 >> }
-#(display "song-splitpart")
+#(ly:progress "song-splitpart")
 #(ly:progress "~a" (ly:gulp-file "song-splitpart.xml"))

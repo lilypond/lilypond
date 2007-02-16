@@ -8,5 +8,5 @@
   twin -- \skip 4
   kle
 }
-#(display "song-skip")
+#(ly:progress "song-skip")
 #(ly:progress "~a" (ly:gulp-file "song-skip.xml"))

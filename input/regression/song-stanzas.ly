@@ -10,5 +10,5 @@
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }
 }
-#(display "song-stanzas")
+#(ly:progress "song-stanzas")
 #(ly:progress "~a" (ly:gulp-file "song-stanzas.xml"))

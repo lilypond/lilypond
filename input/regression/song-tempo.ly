@@ -8,5 +8,5 @@
 \relative { c4 e g \tempo 4=60 c, e g }
 \addlyrics { do re mi do re mi }
 }
-#(display "song-tempo")
+#(ly:progress "song-tempo")
 #(ly:progress "~a" (ly:gulp-file "song-tempo.xml"))

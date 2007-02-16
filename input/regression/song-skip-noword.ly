@@ -9,5 +9,5 @@
   twin -- \skip 4
   kle
 }
-#(display "song-skip-noword")
+#(ly:progress "song-skip-noword")
 #(ly:progress "~a" (ly:gulp-file "song-skip-noword.xml"))

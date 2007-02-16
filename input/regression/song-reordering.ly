@@ -33,5 +33,5 @@
     \set associatedVoice = lahlah % applies to "rus"
     sau -- rus Rex
   } >>
-#(display "song-reordering")
+#(ly:progress "song-reordering")
 #(ly:progress "~a" (ly:gulp-file "song-reordering.xml"))

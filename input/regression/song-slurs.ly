@@ -21,5 +21,5 @@
     still
   }
 >>
-#(display "song-slurs")
+#(ly:progress "song-slurs\n")
 #(ly:progress "~a" (ly:gulp-file "song-slurs.xml"))
