@@ -510,7 +510,7 @@ parse_argv (int argc, char **argv)
 	      }
 
 	    init_scheme_variables
-	      += "(cons \'" + key + "  " + val + ")\n";
+	      += "(cons \'" + key + "  '" + val + ")\n";
 	  }
 	  break;
 
