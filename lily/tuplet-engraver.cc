@@ -78,7 +78,7 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
 	{
 	  /*
 	    discard duplicates.
-	   */
+	  */
 	  if (new_tuplets_[i].stop_moment_ == d.stop_moment_)
 	    return;
 	}
@@ -87,13 +87,13 @@ Tuplet_engraver::listen_tuplet_span (Stream_event *ev)
     }
   else if (dir == STOP)
     {
-    if (tuplets_.size ())
-    {
-      stopped_tuplets_.push_back (tuplets_.back ());
-      tuplets_.pop_back ();
-    }
-    else
-      ev->origin ()->warning (_f ("No tuplet to end"));
+      if (tuplets_.size ())
+	{
+	  stopped_tuplets_.push_back (tuplets_.back ());
+	  tuplets_.pop_back ();
+	}
+      else if (!to_boolean (get_property ("skipTypesetting"))) 
+	ev->origin ()->warning (_f ("No tuplet to end"));
     }
   else 
     ev->origin ()->programming_error ("direction tuplet-span-event_ invalid.");
@@ -196,6 +196,10 @@ void
 Tuplet_engraver::start_translation_timestep ()
 {
   last_tuplets_.clear ();
+  /*
+    May seem superfluous, but necessary for skipTypesetting.
+   */
+  new_tuplets_.clear ();	
 }
 
 void
