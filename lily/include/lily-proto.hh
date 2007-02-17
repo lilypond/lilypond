@@ -152,6 +152,8 @@ class Simultaneous_music_iterator;
 class Skyline_entry;
 class Slur_configuration;
 class Slur_score_state;
+class Source_file;
+class Sources;
 class Spacing_options;
 class Span_score_bar_engraver;
 class Spanner;

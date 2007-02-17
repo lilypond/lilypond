@@ -7,7 +7,7 @@
 #ifndef SOURCES_HH
 #define SOURCES_HH
 
-#include "flower-proto.hh"
+#include "lily-proto.hh"
 #include "std-vector.hh"
 
 class Sources
