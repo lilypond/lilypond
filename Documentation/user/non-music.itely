@@ -34,10 +34,10 @@ these files end with @q{@samp{.ly}}.
 
 @menu
 * File structure (introduction)::  
-* Multiple scores in a book::   
-* Extracting fragments of notation::  
 * File structure::              
 * A single music expression::   
+* Multiple scores in a book::   
+* Extracting fragments of notation::  
 * Including LilyPond files::    
 * Text encoding::               
 @end menu
@@ -74,125 +74,8 @@ c'4
 @noindent
 will result in a parsing error.  Instead, music should be inside other
 expressions, which may be put in a file by themselves.  Such
-expressions are called toplevel expressions.  The next section enumerates
-them all.
-
-
-@node Multiple scores in a book
-@subsection Multiple scores in a book
-
-@funindex \book
-@cindex movements, multiple
-
-A document may contain multiple pieces of music and texts.  Examples
-of these are an etude book, or an orchestral part with multiple
-movements.  Each movement is entered with a @code{\score} block,
-
-@example
-\score @{
-  @var{..music..}
-@}
-@end example
-
-and texts are entered with a @code{\markup} block,
-
-@example
-\markup @{
-  @var{..text..}
-@}
-@end example
-
-@funindex \book
-
-All the movements and texts which appear in the same @code{.ly} file 
-will normally be typeset in the form of a single output file. 
-
-@example
-\score @{
-  @var{..}
-@}
-\markup @{
-  @var{..}
-@}
-\score @{
-  @var{..}
-@}
-@end example
-
-However, if you want multiple output files from the same @code{.ly}
-file, then you can add multiple @code{\book} blocks, where each such
-@code{\book} block will result in a separate output. If you do not
-specify any @code{\book} block in the file, LilyPond will implicitly
-treat the full file as a single @code{\book} block, see @ref{File
-structure}. One important exception is within lilypond-book documents,
-where you explicitly have to add a @code{\book} block, otherwise only
-the first @code{\score} or @code{\markup} will appear in the output.
-
-The header for each piece of music can be put inside the @code{\score}
-block.  The @code{piece} name from the header will be printed before
-each movement.  The title for the entire book can be put inside the
-@code{\book}, but if it is not present, the @code{\header} which is at
-the top of the file is inserted.
-
-@example
-\header @{
-  title = "Eight miniatures"
-  composer = "Igor Stravinsky"
-@}
-\score @{
-  @dots{}
-  \header @{ piece = "Romanze" @}
-@}
-\markup @{
-   ..text of second verse..
-@}
-\markup @{
-   ..text of third verse..
-@}
-\score @{
-  @dots{}
-  \header @{ piece = "Menuetto" @}
-@}
-@end example
-
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
-
-It is possible to quote small fragments of a large score directly from
-the output. This can be compared to clipping a piece of a paper score
-with scissors.
-
-This is done by definining the measures that need to be cut out
-separately. For example, including the following definition
-
-
-@verbatim
-\layout {
-  clip-regions
-  = #(list
-      (cons
-       (make-rhythmic-location 5 1 2)
-       (make-rhythmic-location 7 3 4)))
-}       
-@end verbatim
-
-@noindent
-will extract a fragment starting halfway the fifth measure, ending in
-the seventh measure. The meaning of @code{5 1 2} is: after a 1/2 note
-in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
-
-More clip regions can be defined by adding more pairs of
-rhythmic-locations to the list. 
-
-In order to use this feature, LilyPond must be invoked with
-@code{-dclip-systems}. The clips are output as EPS files, and are
-converted to PDF and PNG if these formats are switched on as well.
-
-For more information on output formats, see @ref{Invoking lilypond}.
-
-@seealso
-
-Examples: @inputfileref{input/regression/,clip-systems.ly}
+expressions are called toplevel expressions; see @ref{File structure} for
+a list of all such expressions.
 
 
 @node File structure
@@ -371,6 +254,123 @@ expressions; note the curly braces @{ @} or angle brackets <<
 @end example
 
 
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple
+
+A document may contain multiple pieces of music and texts.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@funindex \book
+
+All the movements and texts which appear in the same @code{.ly} file 
+will normally be typeset in the form of a single output file. 
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+However, if you want multiple output files from the same @code{.ly}
+file, then you can add multiple @code{\book} blocks, where each such
+@code{\book} block will result in a separate output. If you do not
+specify any @code{\book} block in the file, LilyPond will implicitly
+treat the full file as a single @code{\book} block, see @ref{File
+structure}. One important exception is within lilypond-book documents,
+where you explicitly have to add a @code{\book} block, otherwise only
+the first @code{\score} or @code{\markup} will appear in the output.
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@example
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
+
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
+
+It is possible to quote small fragments of a large score directly from
+the output. This can be compared to clipping a piece of a paper score
+with scissors.
+
+This is done by definining the measures that need to be cut out
+separately. For example, including the following definition
+
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}       
+@end verbatim
+
+@noindent
+will extract a fragment starting halfway the fifth measure, ending in
+the seventh measure. The meaning of @code{5 1 2} is: after a 1/2 note
+in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+
+More clip regions can be defined by adding more pairs of
+rhythmic-locations to the list. 
+
+In order to use this feature, LilyPond must be invoked with
+@code{-dclip-systems}. The clips are output as EPS files, and are
+converted to PDF and PNG if these formats are switched on as well.
+
+For more information on output formats, see @ref{Invoking lilypond}.
+
+@seealso
+
+Examples: @inputfileref{input/regression/,clip-systems.ly}
+
+
 @node Including LilyPond files
 @subsection Including LilyPond files
 
@@ -487,8 +487,8 @@ some pieces include a lot more information.
 @node Creating titles
 @subsection Creating titles
 
-Titles are created for each @code{\score} block, and for the full input
-file (or @code{\book} block).
+Titles are created for each @code{\score} block, as well as for the full
+input file (or @code{\book} block).
 
 The contents of the titles are taken from the @code{\header} blocks.
 The header block for a book supports the following
