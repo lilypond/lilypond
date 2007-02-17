@@ -444,7 +444,7 @@ This section describes what contexts are, and how to modify them.
 @subsection Contexts explained
 
 When music is printed, a lot of notational elements must be added to the
-input.  For example, compare the input and output of the following example:
+output.  For example, compare the input and output of the following example:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 cis4 cis2. g4
@@ -917,8 +917,8 @@ within the current @context{Staff}.  After the command is interpreted
 all stems are thickened.
 
 Analogous to @code{\set}, the @var{context} argument may be left out,
-causing it to default to @context{Voice}, and adding @code{\once} applies
-the change during one timestep only
+causing the default context @context{Voice} to be used.  Adding
+@code{\once} applies the change during one timestep only.
 
 @lilypond[quote,fragment,verbatim,relative=2]
 c4
@@ -1004,8 +1004,8 @@ from the music in the @code{\layout} block,
 @}
 @end example
 
-Here @code{\Staff} takes the existing definition for context @context{Staff} from the
-identifier @code{\Staff}.
+The @code{\Staff} command brings in the existing definition of the
+staff context so that it can be modified.
 
 The statements
 @example
@@ -1100,11 +1100,10 @@ These settings are defined within a @code{\context} block inside a
 @}
 @end example
 
-In the following discussion, the example input shown should go on the
-@dots{} in the previous fragment.
+In the following discussion, the example input shown should go in place
+of the @dots{} in the previous fragment.
 
-First the context's name is defined.  Instead of @context{Voice} it
-will be called @context{ImproVoice},
+First it is necessary to define a name for the new context:
 
 @example
 \name ImproVoice
@@ -1118,14 +1117,15 @@ giving the new context an alias @context{Voice},
 \alias Voice
 @end example
 
-The context will print notes, and instructive texts
+The context will print notes and instructive texts, so we need to add
+the engravers which provide this functionality,
 
 @example
 \consists Note_heads_engraver
 \consists Text_engraver
 @end example
 
-but only on the center line,
+but we only need this on the center line,
 
 @example
 \consists Pitch_squash_engraver
@@ -1246,8 +1246,15 @@ ossia = { f4 f f f }
 
 In the previous section, we have already touched on a command that
 changes layout details: the @code{\override} command.  In this section,
-we will look in more detail at how to use the command in practice.
+we will look in more detail at how to use the command in practice.  The
+general syntax of this command is:
 
+@example
+\override @var{context}.@var{layout_object} #'@var{layout_property} = #@var{value}
+@end example
+
+This will set the @var{layout_property} of the specified @var{layout_object},
+which is a member of the @var{context}, to the @var{value}.
 
 @menu
 * Constructing a tweak::        
@@ -1271,7 +1278,7 @@ Commands which change output generally look like
 @end example
 
 @noindent
-This means that we must determine these bits of information:
+To construct this tweak we must determine these bits of information:
 
 @itemize
 @item the context: here @context{Voice}.
@@ -1365,6 +1372,14 @@ second bit of information listed under @b{See also} in the Notation
 manual.
 @end ignore
 
+@ifnothtml
+The programmer's reference is available as an HTML document.  It is
+highly recommended that you read it in HTML form, either online or
+by downloading the HTML documentation.  This section will be much more
+difficult to understand if you are using the 
+PDF manual.
+@end ifnothtml
+
 Follow the link to @internalsref{Fingering}.  At the top of the
 page, you will see
 
@@ -1373,8 +1388,8 @@ Fingering objects are created by: @internalsref{Fingering_engraver} and
 @internalsref{New_fingering_engraver}.
 @end quotation
 
-By clicking around in the program reference, we can follow the
-flow of information within the program, following links like this:
+By following related links inside the program reference, we can follow the
+flow of information within the program:
 
 @itemize @bullet
 
@@ -1432,7 +1447,7 @@ The page for @code{Fingering} lists the definitions for the
 @end quotation
 
 @noindent
-which means that the number will be kept at a distance of at least 0.6
+which means that the number will be kept at a distance of at least 0.5
 of the note head.
 
 
