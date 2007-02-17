@@ -84,7 +84,9 @@ Stem_tremolo::get_beam_translation (Grob *me)
   Spanner *beam = Stem::get_beam (stem);
 
   return (beam && beam->is_live ())
-    ? Beam::get_beam_translation (beam) : 0.81;
+    ? Beam::get_beam_translation (beam)
+    : (Staff_symbol_referencer::staff_space (me)
+       * robust_scm2double (me->get_property ("length-fraction"), 1.0) * 0.81);
 }
 
 Stencil
