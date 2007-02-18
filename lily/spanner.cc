@@ -81,7 +81,7 @@ Spanner::do_break_processing ()
 	{
 	  if (Spanner *parent = dynamic_cast<Spanner *> (get_parent ((Axis)a)))
 	    {
-	      parent_rank_slice.intersect (parent->spanned_rank_interval ());
+	      parent_rank_slice.intersect (parent->spanned_rank_iv ());
 	    }
 	}
   
