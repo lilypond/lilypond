@@ -31,6 +31,7 @@ De l'utilisation des fonctions de notation de base.
 
 @node Pitches
 @section Pitches
+
 De la manière de spécifier les hauteurs de notes.
 
 @menu
@@ -53,7 +54,7 @@ De la manière de spécifier les hauteurs de notes.
 @cindex Pitch names
 @cindex pitches
 
-La hauteur s'écrit (à moins de préciser une autre langue) avec la
+La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
 notation anglaise, en utilisant les lettres @code{a} à @code{g}.
 Une gamme ascendante de do majeur s'écrit avec
 
@@ -1716,7 +1717,7 @@ D'autres exemples : @inputfileref{input/@/test,bar@/-lines@/.ly},
 
 Les barres de mesure et les chiffres de mesure sont calculés
 automatiquement, ce qui n'est pas souhaitable dans la musique non
-mesurée -- les cadences, par exemple. Les commandes @code{\cadenzaOn}
+mesurée --- les cadences, par exemple. Les commandes @code{\cadenzaOn}
 and @code{\cadenzaOff} permettent de désactiver et de rétablir la
 métrique automatique.
 
@@ -2391,7 +2392,7 @@ pour chaque petite croche.
 
 
 La commande @code{\afterGrace} sert à placer une petite note après
-une note réelle -- et non @emph{avant} comme d'ordinaire.
+une note réelle --- et non @emph{avant} comme d'ordinaire.
 Cette commande requiert deux arguments : la note réelle, et la ou les
 petites notes qui suivent.
 
@@ -2516,8 +2517,8 @@ la petite note se retrouveront sur des portées différentes.
 
 
 La synchronisation des petites notes se fait de façon parfois
-surprenante, car les autres objets de la portée -- barres de mesure,
-armures, etc. -- sont eux aussi synchrones. Pensez-y lorsque vous
+surprenante, car les autres objets de la portée --- barres de mesure,
+armures, etc. --- sont eux aussi synchrones. Pensez-y lorsque vous
 mélez des portées comprenant des petites notes et d'autres sans :
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
@@ -2527,7 +2528,7 @@ mélez des portées comprenant des petites notes et d'autres sans :
 
 @noindent
 Il est possible de remédier à cela en insérant des silences invisibles
-correspondant aux durées des petites notes sur les autres portées --
+correspondant aux durées des petites notes sur les autres portées ---
 les silences invisibles peuvent également être considérés comme des
 petites notes, s'ils suivent la commande @code{grace}.
 
@@ -2642,7 +2643,7 @@ Voici la liste exhaustive de tous les symboles possibles :
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}. Plus le nombre qui la définit est faible, plus
 le symbole se rapprochera de la note. Dans l'exemple suivant, l'objet
-@internalsref{TextScript} -- le dièse -- a d'abord la propriété la
+@internalsref{TextScript} --- le dièse --- a d'abord la propriété la
 plus basse, et il est donc placé plus près de la note ; ensuite c'est
 l'objet @internalsref{Script} qui a la propriété la plus basse,
 et il se place alors sous le dièse.  Lorsque deux objets ont la même
@@ -2792,12 +2793,12 @@ c\< c\! d\> e\!
 
 @noindent
 
-En principe, un crescendo -- s'il est imprimé sous forme graphique --
+En principe, un crescendo --- s'il est imprimé sous forme graphique --
 commence au bord gauche de la note de départ, et se termine au
 bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
 est sur un premier temps, le crescendo s'arrêtera au niveau de la
 barre de mesure qui la précède.  Ce comportement peut être annulé
-en définissant comme fausse (lettre "f") la propriété
+en définissant comme fausse (lettre @q{f}) la propriété
 @code{hairpinToBarline} :
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -2807,7 +2808,7 @@ c4\< c2.  c4\!
 
 
 On peut avoir recours à l'indication @code{\espressivo} pour
-indiquer un "soufflet" -- crescendo puis decrescendo -- sur
+indiquer un @qq{soufflet} --- crescendo puis decrescendo --- sur
 une seule note.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -2818,7 +2819,7 @@ c2 b4 a g1\espressivo
 Cependant, ces deux indications graphiques peuvent se trouver
 très comprimées.  Pour les rallonger, on peut modifier la propriété
 @code{minimum-length} dans @internalsref{Voice}.@internalsref{Hairpin}
--- @internalsref{Voice} étant le contexte, et @internalsref{Hairpin}
+--- @internalsref{Voice} étant le contexte, et @internalsref{Hairpin}
 l'objet affecté. Par exemple :
 
 @example
@@ -2877,7 +2878,7 @@ avec les nuances habituelles, voir @ref{New dynamic marks}.
 @commonprop
 
 
-Des nuances différentes situées -- ou commençant -- sur une même
+Des nuances différentes situées --- ou commençant --- sur une même
 note seront alignées verticalement.  Pour aligner des nuances qui ne
 se situeraient pas sur une même note, il est possible d'augmenter
 la propriété @code{staff-padding}.
@@ -2900,8 +2901,8 @@ précédente.  Ce comportement peut être outrepassé en définissant :
 @end example
 
 
-Les crescendos et decrescendos indiqués textuellement -- tels que
-@emph{cresc.} ou @emph{dim.} -- sont suivis de pointillés qui montrent
+Les crescendos et decrescendos indiqués textuellement --- tels que
+@emph{cresc.} ou @emph{dim.} --- sont suivis de pointillés qui montrent
 leur étendue.  On peut empêcher l'impression de ces pointillés avec :
 
 @example
@@ -3239,9 +3240,9 @@ c1
 
 
 Dans l'exemple qui suit, la première fin proposée n'occupe pas une 
-mesure complète -- il lui manque un temps.  Le quatrième temps
+mesure complète --- il lui manque un temps.  Le quatrième temps
 manquant se trouve au début de la seconde fin, qui compte donc
-un temps en trop -- tout à fait indépendamment du fait que la mélodie
+un temps en trop --- tout à fait indépendamment du fait que la mélodie
 commence par une anacrouse, comme l'indique la commande @code{\partial}
 au début de l'exemple.
 
@@ -3331,7 +3332,7 @@ verticalement.
 Au prix de quelques réglages, les reprises de toutes sortes peuvent
 être rendues dans le fichier MIDI.  Il suffit pour cela d'avoir
 recours à la fonction @code{\unfoldRepeats}, qui rend toutes les
-reprises explicites -- comme celles du type @code{unfold}.
+reprises explicites --- comme celles du type @code{unfold}.
 
 
 @lilypond[quote,verbatim,fragment,line-width=8.0\cm]
@@ -3387,7 +3388,7 @@ Pour imprimer une barre de reprise @code{:|}
 Pour imprimer un crochet indiquant une alternative.  Le texte 
 @var{texte} mentionné dans le crochet peut être n'importe quelle
 chaîne de caractères, ou une indication musicale 
--- voir @ref{Text markup}.
+--- voir @ref{Text markup}.
 Attention cependant à changer la police : la police employée par défaut
 pour les chiffres ne contient aucun caractère alphabétique.
 
@@ -3465,8 +3466,8 @@ de deux points et d'un nombre :
 
 Le nombre en question correspond à la valeur de la subdivision ;
 il doit être au moins de 8, auquel cas la hampe sera barrée par une 
-seule ligature.  Si ce nombre est omis, la dernière valeur -- telle
-que mémorisée dans @code{tremoloFlags}) -- sera utilisée.
+seule ligature.  Si ce nombre est omis, la dernière valeur --- telle
+que mémorisée dans @code{tremoloFlags}) --- sera utilisée.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 c'2:8 c':32 | c': c': |
