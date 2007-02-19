@@ -33,7 +33,7 @@ Paper_column_engraver::Paper_column_engraver ()
 void
 Paper_column_engraver::finalize ()
 {
-  if ((breaks_ % 8))
+  if (! (breaks_ % 8))
     progress_indication ("[" + to_string (breaks_) + "]");
 
   if (command_column_)
