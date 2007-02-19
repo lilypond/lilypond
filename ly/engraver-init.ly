@@ -592,6 +592,9 @@ AncientRemoveEmptyStaffContext = \context {
 %%
   figuredBassFormatter = #format-bass-figure
   metronomeMarkFormatter = #format-metronome-markup
+
+
+  %% See also make-voice-props-set
   graceSettings = #`(
     (Voice Stem direction ,UP)
     (Voice Stem font-size -3)
