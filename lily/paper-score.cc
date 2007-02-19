@@ -121,14 +121,6 @@ Paper_score::process ()
 
   message (_ ("Preprocessing graphical objects..."));
 
-  /* FIXME: Check out why we need this - removing gives assertion failures
-     down the road.
-
-     doubly, also done in Score_engraver */
-  vector<Grob*> pc (system_->used_columns ());
-  pc[0]->set_property ("line-break-permission", ly_symbol2scm ("allow"));
-  pc.back ()->set_property ("line-break-permission", ly_symbol2scm ("allow"));
-
   system_->pre_processing ();
 }
 
