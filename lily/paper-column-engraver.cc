@@ -33,13 +33,13 @@ Paper_column_engraver::Paper_column_engraver ()
 void
 Paper_column_engraver::finalize ()
 {
-  if ((breaks_ % 8))
+  if (! (breaks_ % 8))
     progress_indication ("[" + to_string (breaks_) + "]");
 
   if (command_column_)
     {
-      command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
-      command_column_->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+      if (!scm_is_symbol (command_column_->get_property ("line-break-permission")))
+	command_column_->set_property ("line-break-permission", ly_symbol2scm ("allow"));
       system_->set_bound (RIGHT, command_column_);
     }
 }
@@ -187,7 +187,8 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (to_boolean (get_property ("forbidBreak")))
+  if (to_boolean (get_property ("forbidBreak"))
+     && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
       command_column_->set_property ("page-break-permission", SCM_EOL);
       command_column_->set_property ("line-break-permission", SCM_EOL);

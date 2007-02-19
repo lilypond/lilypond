@@ -313,6 +313,9 @@ Page_turn_engraver::finalize ()
 	}
     }
 
+  /* unless a manual break overrides it, allow a page turn at the end of the piece */
+  breakable_columns_.back ()->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+
   /* apply the manual breaks */
   for (vsize i = 0; i < forced_breaks_.size (); i++)
     {

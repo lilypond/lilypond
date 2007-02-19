@@ -110,7 +110,8 @@ get_skylines (Grob *me,
       
       child_refpoints.push_back (child_common);
     }
-  Grob *common_refpoint = common_refpoint_of_array (child_refpoints, me, other_axis (a));
+
+  Grob *other_common = common_refpoint_of_array (child_refpoints, me, other_axis (a));
   
   for (vsize i = elements->size (); i--;)
     {
@@ -136,14 +137,14 @@ get_skylines (Grob *me,
 	  if (is_number_pair (min_extent))
 	    {
 	      Box b;
-	      Interval other_extent = g->extent (common_refpoint, other_axis (a));
+	      Interval other_extent = g->extent (other_common, other_axis (a));
 	      b[a] = ly_scm2interval (min_extent);
 	      b[other_axis (a)] = other_extent;
 	      if (!other_extent.is_empty ())
 		skylines.insert (b, 0, other_axis (a));
 	    }
 
-	  Real offset = child_refpoints[i]->relative_coordinate (common_refpoint, other_axis (a));
+	  Real offset = child_refpoints[i]->relative_coordinate (other_common, other_axis (a));
 	  skylines.shift (offset);
 	}
       else
@@ -275,12 +276,12 @@ Align_interface::stretch (Grob *me, Real amount, Axis a)
   Real non_empty_elts = stretchable_children_count (me);
   Real offset = 0.0;
   Direction dir = robust_scm2dir (me->get_property ("stacking-dir"), DOWN);
-  for (vsize i = 0; i < elts.size (); i++)
+  for (vsize i = 1; i < elts.size (); i++)
     {
-      elts[i]->translate_axis (dir * offset, a);
       if (!elts[i]->extent (me, a).is_empty ()
 	  && !to_boolean (elts[i]->get_property ("keep-fixed-while-stretching")))
 	offset += amount / non_empty_elts;
+      elts[i]->translate_axis (dir * offset, a);
     }
   me->flush_extent_cache (Y_AXIS);
 }

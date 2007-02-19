@@ -72,6 +72,12 @@ for t in targets:
         p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
         os.symlink (p, strip_file_name[t] (l))
 
+# need this for content negotiation with documentation index
+if 'online' in targets:
+    f = open (os.path.join (target_pattern % 'online', 'Documentation/.htaccess'), 'w')
+    f.write ('#.htaccess\nDirectoryIndex index\n')
+    f.close ()
+
 add_html_footer.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
