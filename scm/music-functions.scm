@@ -351,6 +351,17 @@ i.e.  this is not an override"
 					     (if (odd? n) -1 1)))
 	 direction-polyphonic-grobs)
     (list
+     (make-property-set 'graceSettings
+			;; TODO: take this from voicedGraceSettings or similar.
+			'((Voice Stem font-size -3)
+			  (Voice NoteHead font-size -3)
+			  (Voice Dots font-size -3)
+			  (Voice Stem length-fraction 0.8)
+			  (Voice Stem no-stem-extend #t)
+			  (Voice Beam thickness 0.384)
+			  (Voice Beam length-fraction 0.8)
+			  (Voice Accidental font-size -4)))
+    
      (make-grob-property-set 'NoteColumn 'horizontal-shift (quotient n 2))
      (make-grob-property-set 'MultiMeasureRest 'staff-position (if (odd? n) -4 4)))))) 
 
@@ -359,8 +370,9 @@ i.e.  this is not an override"
    (append
     (map (lambda (x) (make-grob-property-revert x 'direction))
 	 direction-polyphonic-grobs)
-    (list (make-grob-property-revert 'NoteColumn 'horizontal-shift))
-    (list (make-grob-property-revert 'MultiMeasureRest 'staff-position)))))
+    (list (make-property-unset 'graceSettings)
+	  (make-grob-property-revert 'NoteColumn 'horizontal-shift)
+	  (make-grob-property-revert 'MultiMeasureRest 'staff-position)))))
 
 
 (define-safe-public (context-spec-music m context #:optional id)
