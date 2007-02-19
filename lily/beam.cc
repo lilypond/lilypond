@@ -432,7 +432,24 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		{
 		  current.horizontal_[event_dir] += event_dir * segs[j].width_/2;
 		  if (segs[j].gapped_)
-		    current.horizontal_[event_dir] -= event_dir * gap_length;  
+		    {
+		      current.horizontal_[event_dir] -= event_dir * gap_length;
+
+		      if (Stem::is_invisible (segs[j].stem_))
+			{
+			  /*
+			    Need to do this in case of whole notes. We don't want the
+			    heads to collide with the beams.
+			   */
+			  extract_grob_set (segs[j].stem_, "note-heads", heads);
+
+			  for (vsize k = 0; k < heads.size (); k ++)
+			    current.horizontal_[event_dir]
+			      = event_dir * min  (event_dir * current.horizontal_[event_dir],
+						  - gap_length/2
+						  + event_dir * heads[k]->extent (commonx, X_AXIS)[-event_dir]);
+			}
+		    }
 		}
 
 	      if (event_dir == RIGHT)
