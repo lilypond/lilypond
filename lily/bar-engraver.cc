@@ -89,7 +89,7 @@ Bar_engraver::typeset_bar ()
 void
 Bar_engraver::stop_translation_timestep ()
 {
-  if (!bar_ && now_mom () != Moment (Rational (0), Rational (0)))
+  if (!bar_ && now_mom ().main_part_ > Rational (0))
     context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
   else
     typeset_bar ();
