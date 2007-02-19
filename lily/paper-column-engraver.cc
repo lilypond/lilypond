@@ -187,7 +187,8 @@ Paper_column_engraver::stop_translation_timestep ()
     }
   items_.clear ();
 
-  if (to_boolean (get_property ("forbidBreak")))
+  if (to_boolean (get_property ("forbidBreak"))
+     && breaks_) /* don't honour forbidBreak if it occurs on the first moment of a score */
     {
       command_column_->set_property ("page-break-permission", SCM_EOL);
       command_column_->set_property ("line-break-permission", SCM_EOL);
