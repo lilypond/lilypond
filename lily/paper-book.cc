@@ -344,6 +344,12 @@ Paper_book::get_system_specs ()
 	  
 	  // TODO: init props
 	  Prob *ps = make_paper_system (SCM_EOL);
+	  /* we don't have a way of specifying page-{break,turn} on
+	     markup blocks, so for now we just set everything turnable
+	    and breakable by default */
+	  ps->set_property ("page-break-permission", ly_symbol2scm ("allow"));
+	  ps->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+	  
 	  paper_system_set_stencil (ps, *unsmob_stencil (t));
 	  ps->set_property ("is-title", SCM_BOOL_T); 
 	  system_specs = scm_cons (ps->self_scm (), system_specs);
