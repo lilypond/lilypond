@@ -759,6 +759,9 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   for (vsize i = 0; i < cols.size (); i++)
     {
       Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
+      if (to_boolean (stem->get_property ("cross-staff")))
+	return SCM_BOOL_T;
+
       Grob *stem_staff = Staff_symbol_referencer::get_staff_symbol (stem);
       if (staff_symbol && (stem_staff != staff_symbol))
         return SCM_BOOL_T;
