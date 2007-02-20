@@ -19,6 +19,10 @@
 #include "profile.hh"
 #include "simple-closure.hh"
 #include "warn.hh"
+#include "protected-scm.hh"
+
+Protected_scm grob_property_callback_stack = SCM_EOL;
+extern bool debug_property_callbacks;
 
 #ifndef NDEBUG
 static SCM modification_callback = SCM_EOL;
@@ -139,6 +143,14 @@ Grob::internal_get_property_data (SCM sym) const
   return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
 }
 
+static void
+print_property_callback_stack ()
+{
+  int frame = 0;
+  for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
+    message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
+}
+
 SCM
 Grob::internal_get_property (SCM sym) const
 {
@@ -146,9 +158,16 @@ Grob::internal_get_property (SCM sym) const
 
 #ifndef NDEBUG
   if (val == ly_symbol2scm ("calculation-in-progress"))
-    programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
-			   ly_symbol2string (sym).c_str (),
-			   name ().c_str ()));
+    {
+      programming_error (_f ("cyclic dependency: calculation-in-progress encountered for #'%s (%s)",
+			     ly_symbol2string (sym).c_str (),
+			     name ().c_str ()));
+      if (debug_property_callbacks)
+	{
+	  message ("backtrace: ");
+	  print_property_callback_stack ();
+	}
+    }
 #endif
   
   if (ly_is_procedure (val)
@@ -160,13 +179,6 @@ Grob::internal_get_property (SCM sym) const
   
   return val;
 }
-
-#ifndef NDEBUG
-#include "protected-scm.hh"
-
-Protected_scm grob_property_callback_stack = SCM_EOL;
-bool debug_property_callbacks = 0;
-#endif
 
 SCM
 Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
@@ -180,7 +192,7 @@ Grob::try_callback_on_alist (SCM *alist, SCM sym, SCM proc)
 
 #ifndef NDEBUG
   if (debug_property_callbacks)
-    grob_property_callback_stack = scm_acons (sym, proc, grob_property_callback_stack);
+    grob_property_callback_stack = scm_cons (scm_list_3 (self_scm (), sym, proc), grob_property_callback_stack);
 #endif
 
   SCM value = SCM_EOL;

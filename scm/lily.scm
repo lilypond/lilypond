@@ -36,6 +36,7 @@
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
     (debug-lexer #f "debug the flex lexer")
     (debug-parser #f "debug the bison parser")
+    (debug-property-callbacks #f "debug cyclic callback chains")
     (debug-skylines #f "debug skylines")
     (delete-intermediate-files #f
 			       "delete unusable PostScript files")
