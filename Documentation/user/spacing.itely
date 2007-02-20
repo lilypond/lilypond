@@ -1749,5 +1749,156 @@ override this behavior and turn on different spacing features at
 different places in the score.  We do this with the command
 @code{\newSpacingSection}.  See @ref{New spacing area} for more info.
 
-@c zzz
+Next we examine the effects of the @code{Separating_line_group_engraver} and
+see why proportional scores frequently remove this engraver.  The following
+example shows that there is a small amount of @qq{preferatory} space
+just before the first note in each system.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+
+The amount of this preferatory space is the same whether after a time
+signature, a key signature or a clef.  @code{Separating_line_group_engraver}
+is responsible for this space.  Removing @code{Separating_line_group_engraver}
+reduces this space to zero.
+
+@lilypond[quote,verbatim,ragged-right]
+\paper {
+  indent = #0
+}
+
+\new Staff \with {
+  \remove Separating_line_group_engraver
+} {
+  c'1
+  \break
+  c'1
+}
+@end lilypond
+
+Nonmusical elements like time signatures, key signatures, clefs and
+accidentals are problemmatic in proportional notation.  None of these
+elements has rhythmic duration.  But all of these elements consume
+horizontal space.  Different proportional scores approach these
+problems differently.
+
+It may be possible to avoid spacing problems with key signatures
+simply by not having any.  This is a valid option since most
+proportional scores are contemporary music.  The same may be true
+of time signatures, especially for those scores
+that include a measured timeline or other graphic.  But these scores
+are exceptional and most proportional scores include at least some
+time signatures.  Clefs and accidentals are even more essential.
+
+So what strategies exist for spacing nonmusical elements in a
+proportional context?  One good option is the @code{strict-note-spacing}
+property of @code{SpacingSpanner}.  Compare the two scores below:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  c''8
+  c''8
+  c''8
+  \clef alto
+  d'8
+  d'2
+}
+
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \override Score.SpacingSpanner #'strict-note-spacing = ##t
+  c''8
+  c''8
+  c''8
+  \clef alto
+  d'8
+  d'2
+}
+@end lilypond
+
+Both scores are proportional, but the spacing in the first score is
+too loose because of the clef change.  The spacing of the second score
+remains strict, however, because @code{strict-note-spacing} is turned
+on.  Turning on @code{strict-note-spacing} causes the width of time
+signatures, key signatures and clefs to play no part in the spacing
+algorithm.  Accidentals are a different matter, however.  By default, all
+accidentals consume a little extra space, as the following pair of
+scores shows.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+}
+
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
+  c'16
+  cis'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+}
+@end lilypond
+
+Both scores are proportional but the second score exhibits spacing
+irregularities due to accidentals.  Turning on @code{strict-note-spacing}
+does not work for accidentals.  Instead,
+we override the @code{X-extent} of all accidentals to zero and then move the
+accidentals to the left of the notes they modify.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff {
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
+  \override Accidental #'X-extent = #'(0 . 0)
+  \override Accidental #'extra-offset = #'(-1 . 0)
+  c'16
+  cis'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+  c'16
+}
+@end lilypond
+
+In addition to the settings given here, there are other settings that
+frequently appear in proportional scores.  These include:
+
+@itemize
+@item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
+@item @code{tupletFullLength = ##t}
+@item @code{\override Beam #'breakable = ##t}
+@item @code{\override Glissando #'breakable = ##t}
+@item @code{\override TextSpanner #'breakable = ##t}
+@item @code{\remove Forbid_line_break_engraver in the Voice context}
+@end itemize
+
+These settings space grace notes strictly, extend tuplet brackets to
+mark both rhythmic start- and stop-points, and allow spanning elements
+to break across systems and pages.  See the respective parts of the manual
+for these related settings.
+
 
