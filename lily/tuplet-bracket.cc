@@ -750,6 +750,12 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   Grob *me = unsmob_grob (smob);
   Grob *staff_symbol = 0;
   extract_grob_set (me, "note-columns", cols);
+  bool equally_long = false;
+  Grob *par_beam = parallel_beam (me, cols, &equally_long);
+
+  if (par_beam)
+    return par_beam->get_property ("cross-staff");
+
   for (vsize i = 0; i < cols.size (); i++)
     {
       Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
