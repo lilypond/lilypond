@@ -22,13 +22,14 @@ voice = {
   \times 2/3 { \change Staff=III c,
                \change Staff=II b
                \change Staff=I c' }
+  \times 2/3 { c'[ \change Staff=II b] c }
 }
 
 \score {
   \new PianoStaff
   <<
-    \new Staff = "I" { s4 s4 s4 }
+    \new Staff = "I" { s1 }
     \new Staff = "II" { \clef bass \voice }
-    \new Staff = "III" { \clef bass s4 s4 s4 }
+    \new Staff = "III" { \clef bass s1 }
   >>
 }
