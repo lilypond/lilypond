@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 76af76e80c0e336511ff223db0d10229a00534c6
+    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -559,11 +559,11 @@ Dans cette situation, la portée et les altérations accidentelles sont
 partagées, mais les hampes, liaisons etc., sont spécifiques à chaque
 voix.  Par conséquent, les graveurs doivent être groupés.  Les
 graveurs des têtes de notes, hampes, liaisons etc., vont dans un
-groupe appelé « contexte de Voix »@footnote{``Voice context'' en
-anglais, ``Voice'' commence par une majuscule comme tous les noms de
+groupe appelé @qq{contexte de Voix} @footnote{@q{Voice context} en
+anglais, @q{Voice} commence par une majuscule comme tous les noms de
 contexte dans le programme LilyPond.}, alors que les graveurs des clés,
 altérations accidentelles, barres de mesure etc., vont dans un groupe
-appelé « contexte de Portée ». Dans le cas de la polyphonie, un seul
+appelé @qq{contexte de Portée}. Dans le cas de la polyphonie, un seul
 contexte de Portée contient plusieurs contextes de Voix.  De même,
 plusieurs contextes de Portée peuvent être inclus dans un seul
 contexte de Partition.  Le contexte de Partition est le contexte de
@@ -833,8 +833,8 @@ instruments MIDI, les noms de couleur, et la police Feta.
 
 @item
 Les
-@emph{@ref{Example templates}}
-procurent des modèles de pièces LilyPond.  Copiez et collez un modèle
+@emph{@ref{Templates}}
+de pièces LilyPond.  Copiez et collez un modèle
 dans un fichier, ajouter les notes, et c'est prêt!
 
 @item
@@ -965,7 +965,7 @@ aux fichiers d'exemple et d'initialisation.  Tout au long de ce
 manuel, nous donnons les emplacements des fichiers d'entrée
 relativement au répértoire racine de l'archive source.  Par exemple,
 @file{input/@/test/@/bla@/.ly} peut référer au fichier
-@file{lilypond@/-2.8.0/@/input/@/test/@/bla@/.ly}.  Dans les paquets
+@file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  Dans les paquets
 binaires pour les plateformes Unix, la documentation et les exemples
 se trouvent généralement sous @file{/usr/@/share/@/doc/@/lilypond/}.
 Les fichiers d'initialisation, par exemple @file{scm/@/lily@/.scm}, ou
