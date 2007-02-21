@@ -179,37 +179,36 @@
 
 
 (define (grob-cause offset grob)
-  (let* ((cause (ly:grob-property grob 'cause))
-	 (music-origin (if (ly:stream-event? cause)
-			   (ly:event-property cause 'origin))))
-    (if (not (ly:input-location? music-origin))
-	""
-	(let* ((location (ly:input-file-line-char-column music-origin))
-	       (raw-file (car location))
-	       (file (if (is-absolute? raw-file)
-			 raw-file
-			 (string-append (ly-getcwd) "/" raw-file)))
-	       (x-ext (ly:grob-extent grob grob X))
-	       (y-ext (ly:grob-extent grob grob Y)))
+  (if (ly:get-option 'point-and-click)
+      (let* ((cause (ly:grob-property grob 'cause))
+	     (music-origin (if (ly:stream-event? cause)
+			       (ly:event-property cause 'origin))))
+	(if (not (ly:input-location? music-origin))
+	    ""
+	    (let* ((location (ly:input-file-line-char-column music-origin))
+		   (raw-file (car location))
+		   (file (if (is-absolute? raw-file)
+			     raw-file
+			     (string-append (ly-getcwd) "/" raw-file)))
+		   (x-ext (ly:grob-extent grob grob X))
+		   (y-ext (ly:grob-extent grob grob Y)))
 
-	  (if (and (< 0 (interval-length x-ext))
-		   (< 0 (interval-length y-ext)))
-	      (format #f "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
-		      (str4 (+ (car offset) (car x-ext)))
-		      (str4 (+ (cdr offset) (car y-ext)))
-		      (str4 (+ (car offset) (cdr x-ext)))
-		      (str4 (+ (cdr offset) (cdr y-ext)))
+	      (if (and (< 0 (interval-length x-ext))
+		       (< 0 (interval-length y-ext)))
+		  (format #f "~a ~a ~a ~a (textedit://~a:~a:~a:~a) mark_URI\n"
+			  (str4 (+ (car offset) (car x-ext)))
+			  (str4 (+ (cdr offset) (car y-ext)))
+			  (str4 (+ (car offset) (cdr x-ext)))
+			  (str4 (+ (cdr offset) (cdr y-ext)))
 
-		      ;; TODO
-		      ;;full escaping.
-
-		      ;; backslash is interpreted by GS.
-		      (ly:string-substitute "\\" "/" 
-					    (ly:string-substitute " " "%20" file))
-		      (cadr location)
-		      (caddr location)
-		      (cadddr location))
-	      "")))))
+			  ;; backslash is interpreted by GS.
+			  (ly:string-substitute "\\" "/" 
+						(ly:string-substitute " " "%20" file))
+			  (cadr location)
+			  (caddr location)
+			  (cadddr location))
+		  ""))))
+      ""))
 
 (define (lily-def key val)
   (let ((prefix "lilypondlayout"))
@@ -218,6 +217,7 @@
 	  prefix)
       (format "/~a { ~a } bind def\n" key val)
       (format "/~a (~a) def\n" key val))))
+
 
 (define (named-glyph font glyph)
   (format #f "~a /~a glyphshow " ;;Why is there a space at the end?
