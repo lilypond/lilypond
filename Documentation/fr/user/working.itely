@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: d0b8b30fb1e461c215c7867ae0aafed730699403
+   Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -70,7 +70,7 @@ en résoudre d'autres.
 @itemize @bullet
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
 Notez que chaque fichier modèle contient une ligne @code{\version
-"2.9.13"}.  Nous vous conseillons fortement d'inclure cette ligne,
+"2.10.10"}.  Nous vous conseillons fortement d'inclure cette ligne,
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @code{convert-ly} demande que vous
@@ -662,7 +662,7 @@ pouvez les décommenter au lieu de les resaisir.
 Il y a deux exceptions à cette règle du strict nécessaire :
 
 @itemize
-@item incluez le numéro de @code{\version},
+@item incluez le numéro de @code{\version} en début de fichier
 @item si possible, utilisez @code{\paper@{ ragged-right=##t @}} au
 début de votre exemple.
 @end itemize

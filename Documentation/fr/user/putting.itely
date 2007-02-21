@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9abd9b4fa11d01ce3f2c22da7b2ab4d9d1afc3dc
+    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,7 @@
 @chapter Putting it all together
 
 Ce chapitre traite des principes généraux de LilyPond, et de
-la manière de créer des blocs @code{\score} @footnote{Le terme "score" signifie "partition" en anglais.}.
+la manière de créer des blocs @code{\score} @footnote{Le terme @qq{score} signifie partition en anglais.}.
 
 
 @menu
@@ -32,10 +32,10 @@ beau, mais que faire quand ils ne traitent pas ce que l'on veut précisément ?
 Commencez par le modèle qui vous semblera le plus proche de ce à quoi
 vous voulez aboutir.  Disons par exemple que vous voulez écrire une pièce
 pour soprano et violoncelle : dans ce cas l'on pourrait commencer par
-@q{Notes and lyrics}, pour la partie de soprano.
+@qq{Notes and lyrics}, pour la partie de soprano.
 
 @example
-\version "2.9.13"
+\version "2.10.10"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -62,10 +62,10 @@ texte = \lyricmode @{
 @end example
 
 Maintenant, on veut ajouter une partie de violoncelle.
-Jetons un coup d'oeil sur l'exemple @q{Notes only} :
+Jetons un coup d'oeil sur l'exemple @qq{Notes only} :
 
 @example
-\version "2.9.13"
+\version "2.10.10"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -102,7 +102,7 @@ Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
 le veut l'usage, et donnons-lui d'autres notes.
 
 @example
-\version "2.9.13"
+\version "2.10.10"
 musiqueSoprano = \relative c' @{
   \clef treble
   \key c \major
@@ -175,7 +175,7 @@ mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.9.13"
+\version "2.10.10"
 musiqueSoprano = \relative c' {
   \clef treble
   \key c \major

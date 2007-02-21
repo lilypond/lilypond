@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,13 +20,12 @@ De l'utilisation des fonctions de notation de base.
 @menu
 * Pitches::
 * Rhythms::
-* Multiple notes at once::
+* Polyphony::
 * Staff notation::
 * Connecting notes::
 * Expressive marks::
 * Repeats::
 @end menu
-
 
 
 @node Pitches
@@ -39,7 +38,7 @@ De la manière de spécifier les hauteurs de notes.
 * Accidentals::
 * Cautionary accidentals::
 * Micro tones::
-* Notes names in other languages::
+* Note names in other languages::
 * Relative octaves::
 * Octave check::
 * Transpose::
@@ -76,8 +75,8 @@ c1
 @funindex ,
 
 L'octave précise peut être spécifiée sous forme d'une série
-d'apostrophes (`@code{'}') ou d'une série de virgules
-(`@code{,}').  Chaque @code{'} hausse la note d'une octave ; chaque
+d'apostrophes (`@samp{'}') ou d'une série de virgules
+(`@samp{,}').  Chaque @code{'} hausse la note d'une octave ; chaque
 @code{,} baisse la note d'une octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -129,7 +128,7 @@ a4 aes a2
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
 naturel, un mi naturel et un fa naturel} sans tenir compte de
 l'armure.  Pour plus d'information à propos de la distinction entre le
-contenu musical et sa représentation, voir @ref{More about pitches}.
+contenu musical et sa représentation, voir @ref{Accidentalas and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -173,9 +172,9 @@ Référence du programme : @internalsref{LedgerLineSpanner},
 Normalement, les altérations sont imprimées automatiquement, mais il
 se peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
-point d'exclamation `@code{!}' après la hauteur de note.  Une
+point d'exclamation `@samp{!}' après la hauteur de note.  Une
 altération entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation `@code{?}' après la hauteur de note.  Ces signes
+d'interrogation `@samp{?}' après la hauteur de note.  Ces signes
 peuvent aussi être utilisés pour imprimer des bécarres.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -214,8 +213,8 @@ et demi (trois quarts de ton en-dessous), donc le symbole de LilyPond
 n'est conforme à aucun standard.
 
 
-@node Notes names in other languages
-@subsection Notes names in other languages
+@node Note names in other languages
+@subsection Note names in other languages
 
 Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
 langues.  Pour les utiliser, incluez le fichier d'initialisation
@@ -519,7 +518,7 @@ Référence du programme : @internalsref{Rest}.
 @funindex s
 
 Un silence invisible (que l'on pourrait appeler un @qq{saut}) peut être
-entré comme une note avec le nom de note `@code{s}' ou avec
+entré comme une note avec le nom de note `@samp{s}' ou avec
 @code{\skip @var{duration}}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
@@ -640,7 +639,7 @@ précédente.  La valeur par défaut pour la première note est une noire
 @funindex .
 
 Pour obtenir des notes pointées, ajoutez simplement un point
-(`@code{.}') au chiffre.  Les notes doublement pointées sont créées de
+(@samp{.}) au chiffre.  Les notes doublement pointées sont créées de
 la même façon.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -780,7 +779,7 @@ Exemples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 @subsection Scaling durations
 
 Vous pouvez altérer la durée des notes en lui joignant une fraction
-@var{N/M}, donnant `@code{*}@var{N/M}' (or `@code{*}@var{N}' if
+@var{N/M}, donnant @q{@code{*}@var{N/M}} (ou @q{@code{*}@var{N}} si
 @var{M=1}).  Ceci n'affectera pas l'apparence des notes ou silences
 produits.
 
@@ -808,7 +807,7 @@ Dans ce manuel : @ref{Tuplets}
 @funindex |
 
 Les tests de mesure aident à détecter les erreurs dans les durées.  Un
-test de mesure s'écrit avec une barre verticale, `@code{|}'.  Lors du
+test de mesure s'écrit avec une barre verticale, @samp{|}.  Lors du
 traitement, elle devrait tomber sur une barre de mesure.  Sinon, un
 avertissement est émis.  Dans l'exemple suivant, le deuxième test de
 mesure signalera une erreur.
@@ -906,8 +905,8 @@ Exemples : @inputfileref{input/@/regression,completion@/-heads@/.ly}.
 Référence du programme : @internalsref{Completion_heads_engraver}.
 
 
-@node Multiple notes at once
-@section Multiple notes at once
+@node Polyphony
+@section Polyphony
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
@@ -993,8 +992,8 @@ en séparant les voix avec @code{\\}
 @end lilypond
 
 Le séparateur permet aux @internalsref{Voice} contexts@footnote{Ces
-voix polyphoniques sont parfois appelées "couches" dans d'autres
-logiciels de notation.
+voix polyphoniques sont parfois appelées @qq{couches ou calques} dans
+d'autres logiciels de notation.
 @cindex layers
 d'être identifiées.  Elles portent les noms @code{"1"}, @code{"2"},
 etc.  Dans chacun de ces contextes, la direction verticale des
@@ -1045,6 +1044,7 @@ différentes.
 @code{noteC} est calculé relativement à @code{noteB}, pas à @code{noteA};
 @code{noteD} est calculé relativement à @code{noteC}, pas à @code{noteB} ou
 @code{noteA}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -1117,7 +1117,7 @@ La définition correcte des voix permet à la mélodie d'être liée.
      \oneVoice
    }
    \new Voice { \voiceThree
-     s2.  s4 b4 c2
+     s2. s4 b4 c2
      \oneVoice
    }
  >>
@@ -1151,6 +1151,21 @@ naturelle de taper la musique.
 }
 @end lilypond
 
+Dans certaines circonstances de polyphonie complexe, vous pourrez être
+amené à recourir à des voix supplémentaires afin d'éviter des
+collisions de notes.  Ces voix additionnelles s'ajoutent en
+définissant un identificateur, comme le montre l'exemple suivant :
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
 
 @node Collision Resolution
 @subsection Collision Resolution
@@ -1158,7 +1173,7 @@ naturelle de taper la musique.
 D'ordinaire, les têtes de notes pointées et non-pointées ne sont pas
 fusionnées, mais lorsque la propriété d'objet
 @code{merge-differently-dotted} est définie dans l'objet
-@internalsref{NoteCollision}, elles se trouvent fusionnées.
+@internalsref{NoteCollision}, elles se trouvent fusionnées :
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice << {
@@ -1180,11 +1195,35 @@ croche, en définissant
 c8 c4.  } \\ { c2 c2 } >>
 @end lilypond
 
-LilyPond combine aussi verticalement les silences à l'opposé des
+LilyPond empile aussi les silences à l'opposé des
 hampes, par exemple
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new Voice << c''4 \\ r4 >>
+@end lilypond
+
+Lorsque trois notes ou plus s'agglutinent dans un même empilement, 
+@code{merge-differently-headed} ne peut mener à bien la fusion des 
+deux notes qui devraient l'être.  Pour obtenir une fusion optimale, 
+appliquez un décalage (@code{\shift}) à la note qui ne devrait pas
+s'empiler.  Dans la première mesure de l'exemple suivant, 
+@code{merge-differently-headed} ne fonctionne pas (la tête de la
+blanche est ancrée).  Dans la seconde mesure, @code{\shiftOn}
+s'applique pour sortir le sol (@code{g}) de l'alignement, et
+@code{merge-differently-headed} fonctionne correctement.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+<<
+  { d=''2 g2 } \\
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+<<
+  { d'=''2 \shiftOn g2 } \\ 
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
 @end lilypond
 
 
@@ -1208,7 +1247,7 @@ hampes, par exemple
 @funindex \shiftOnnn
 @code{\shiftOnnn},
 @funindex \shiftOff
-@code{\shiftOff}: toutes ces commandes précisent quels accords de la
+@code{\shiftOff} : toutes ces commandes précisent quels accords de la
 voix courante doivent être combinés.  Les voix externes
 (habituellement, les voix un et deux) sont en @code{\shiftOff}, alors
 que les voix internes (trois et quatre) sont en @code{\shiftOn}.
@@ -1428,7 +1467,7 @@ spécifiées en modifiant directement cette propriété.
 Les nouveaux utilisateurs s'embrouillent souvent dans les altérations
 et les armures, car des notes naturelles prendront ou non un bécarre,
 selon l'armure.  Pour plus d'information, voir @ref{Accidentals} ou
-@ref{More about pitches}.
+@ref{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -1930,7 +1969,7 @@ Une liaison de tenue (ou de prolongation) relie deux notes adjacentes
 de même hauteur.  Dans les faits, une liaison de tenue prolonge la
 durée d'une note, et ne doit donc pas être confondue avec les liaisons
 d'articulation ou de phrasé.  Une liaison de tenue est indiquée au
-moyen du symbole appelé tilde @code{~}.
+moyen du symbole appelé tilde @samp{~}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 e' ~ e' <c' e' g'> ~ <c' e' g'>
@@ -2349,9 +2388,8 @@ c4 \grace c16 c4
 Contrairement à @code{\acciaccatura} ou @code{\appoggiatura}, la 
 commande @code{\grace} n'entame pas de liaison.
 
-
 La durée des petites notes est interprétée par le programme en
-fonction d'une deuxième commande  @code{\grace} indiquant la durée
+fonction d'une deuxième commande @code{\grace} indiquant la durée
 sous forme de deux nombres rationnels : le premier indique le rythme
 réel, le second indique le rythme des petites notes.  Reprenons
 l'exemple ci-dessus en y ajoutant ces couples de nombres :
@@ -2636,9 +2674,7 @@ Voici la liste exhaustive de tous les symboles possibles :
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
 
-
 @commonprop
-
 
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}. Plus le nombre qui la définit est faible, plus
@@ -3163,7 +3199,6 @@ de noter ces reprises.
 @cindex repeats
 @funindex \repeat
 
-
 On peut indiquer des répétitions de toutes les façons suivantes :
 
 @table @code
@@ -3195,6 +3230,11 @@ déclarées dans un contexte @code{Voice}.
 
 @node Repeat syntax
 @subsection Repeat syntax
+
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+
 Tous les différents types de reprises se spécifient dans
 LilyPond avec une même construction syntaxique, qui est :
 
@@ -3202,7 +3242,6 @@ LilyPond avec une même construction syntaxique, qui est :
 @example
 \repeat @var{type_de_la_reprise} @var{nombre_de_répétitions} @var{fragment_à_répéter}
 @end example
-
 
 On peut ajouter, pour indiquer une fin alternative :
 @funindex \alternative
@@ -3250,7 +3289,7 @@ au début de l'exemple.
 \new Staff {
  \partial 4
  \repeat volta 4 { e | c2 d2 | e2 f2 | }
- \alternative { { g4 g g } { a | a a a a | b2.  } }
+ \alternative { { g4 g g } { a | a a a a | b2. } }
 }
 @end lilypond
 
@@ -3459,6 +3498,7 @@ D'autres exemples : @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
 
 @cindex tremolo marks
 @funindex tremoloFlags
+
 Un trémolo peut être indiqué sur une seule note, en la faisant suivre
 de deux points et d'un nombre :
 
