@@ -433,9 +433,6 @@
   (display (procset "music-drawing-routines.ps") port)
   (display (procset "lilyponddefs.ps") port)
 
-  (if (not (ly:get-option 'point-and-click))
-      (display "/mark_URI { pop pop pop pop pop } bind def\n" port)) 
-
   (display "%%EndProlog\n" port)
   
   (display "%%BeginSetup\ninit-lilypond-parameters\n%%EndSetup\n\n" port))
