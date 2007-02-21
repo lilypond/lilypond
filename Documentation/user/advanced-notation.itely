@@ -133,12 +133,12 @@ c2\startTextSpan b c\stopTextSpan a
 
 @refcommands
 
-@cindex textSpannerUp
-@code{textSpannerUp},
-@cindex textSpannerDown
-@code{textSpannerDown},
-@cindex textSpannerNeutral
-@code{textSpannerNeutral}.
+@funindex textSpannerUp
+@code{\textSpannerUp},
+@funindex textSpannerDown
+@code{\textSpannerDown},
+@funindex textSpannerNeutral
+@code{\textSpannerNeutral}.
 
 
 @commonprop
@@ -2104,7 +2104,9 @@ of @code{font-size} is a number indicating the size relative to the
 standard size for the current staff height.  Each step up is an
 increase of approximately 12% of the font size.  Six steps is exactly a
 factor two.  The Scheme function @code{magstep} converts a
-@code{font-size} number to a scaling factor.
+@code{font-size} number to a scaling factor.  The @code{font-size}
+property can also be set directly, so that only certain layout objects are
+affected.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c8

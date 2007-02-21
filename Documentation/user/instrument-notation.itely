@@ -427,7 +427,7 @@ Modifiers can be mixed with additions
 @funindex m
 
 Since an unaltered 11 does not sound good when combined with an
-unaltered 3, the 11 is removed in this case (unless it is added
+unaltered 13, the 11 is removed in this case (unless it is added
 explicitly)
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c:13 c:13.11 c:m13 }
@@ -443,7 +443,7 @@ as bass notes, can be specified by appending
 @end lilypond
 @funindex /+
 
-A bass note can be added instead transposed out of the chord,
+A bass note can be added instead of transposed out of the chord,
 by using @code{/+}@var{pitch}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
