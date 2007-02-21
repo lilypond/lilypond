@@ -22,9 +22,9 @@
 #include "protected-scm.hh"
 
 Protected_scm grob_property_callback_stack = SCM_EOL;
-extern bool debug_property_callbacks;
 
 #ifndef NDEBUG
+extern bool debug_property_callbacks;
 static SCM modification_callback = SCM_EOL;
 static SCM cache_callback = SCM_EOL;
 
