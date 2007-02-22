@@ -72,3 +72,6 @@ UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec LaTeX
 @appendixsubsec Texinfo
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
