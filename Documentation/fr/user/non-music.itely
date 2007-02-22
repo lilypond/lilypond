@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Non-musical notation
 @chapter Non-musical notation
@@ -26,25 +28,15 @@ UNTRANSLATED NODE: IGNORE ME
 
 @menu 
 * File structure (introduction)::
-* Multiple scores in a book::
-* Extracting fragments of notation::
 * File structure::
 * A single music expression::
+* Multiple scores in a book::
+* Extracting fragments of notation::
 * Including LilyPond files::
 * Text encoding::
 @end menu 
 @node File structure (introduction)
 @subsection File structure (introduction)
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Multiple scores in a book
-@subsection Multiple scores in a book
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -55,6 +47,16 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node A single music expression
 @subsection A single music expression
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -121,6 +123,7 @@ UNTRANSLATED NODE: IGNORE ME
 @section Skipping corrected music
 
 UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as

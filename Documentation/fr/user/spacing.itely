@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Spacing issues
 @chapter Spacing issues
@@ -15,12 +17,11 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Paper and pages::
 * Music layout::
+* Displaying spacing::
+* Breaks::
 * Vertical spacing::
 * Horizontal spacing::
-* Breaks::
-* Displaying spacing::
-@end menu
-
+@end menu 
 @node Paper and pages
 @section Paper and pages
 
@@ -29,8 +30,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Paper size::
 * Page formatting::
-@end menu
- 
+@end menu 
 @node Paper size
 @subsection Paper size
 
@@ -47,11 +47,11 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Setting global staff size::
+* Setting the staff size::
 * Score layout::
 @end menu 
-@node Setting global staff size
-@subsection Setting global staff size
+@node Setting the staff size
+@subsection Setting the staff size
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -60,71 +60,8 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Vertical spacing
-@section Vertical spacing
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Vertical spacing inside a system::
-* Vertical spacing of piano staves::
-* Vertical spacing between systems::
-* Controlling spacing of individual systems::
-* Two-pass vertical spacing::
-@end menu 
-@node Vertical spacing inside a system
-@subsection Vertical spacing inside a system
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Vertical spacing of piano staves
-@subsection Vertical spacing of piano staves
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Vertical spacing between systems
-@subsection Vertical spacing between systems
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Controlling spacing of individual systems
-@subsection Controlling spacing of individual systems
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Two-pass vertical spacing
-@subsection Two-pass vertical spacing
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Horizontal spacing
-@section Horizontal Spacing
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Horizontal spacing overview::
-* New spacing area::
-* Changing horizontal spacing::
-* Line length::
-@end menu 
-@node Horizontal spacing overview
-@subsection Horizontal spacing overview
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node New spacing area
-@subsection New spacing area
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Changing horizontal spacing
-@subsection Changing horizontal spacing
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Line length
-@subsection Line length
+@node Displaying spacing
+@section Displaying spacing
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -138,6 +75,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Page breaking::
 * Optimal page breaking::
 * Optimal page turning::
+* Explicit breaks::
+* Using an extra voice for breaks::
 @end menu 
 @node Line breaking
 @subsection Line breaking
@@ -159,10 +98,90 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Displaying spacing
-@section Displaying spacing
+@node Explicit breaks
+@subsection Explicit breaks
 
 UNTRANSLATED NODE: IGNORE ME
+
+@node Using an extra voice for breaks
+@subsection Using an extra voice for breaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Vertical spacing
+@section Vertical spacing
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Vertical spacing inside a system::
+* Vertical spacing between systems::
+* Explicit staff and system positioning::
+* Two-pass vertical spacing::
+* Vertical collision avoidance::
+@end menu 
+@node Vertical spacing inside a system
+@subsection Vertical spacing inside a system
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Vertical spacing between systems
+@subsection Vertical spacing between systems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Explicit staff and system positioning
+@subsection Explicit staff and system positioning
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Two-pass vertical spacing
+@subsection Two-pass vertical spacing
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Vertical collision avoidance
+@subsection Vertical collision avoidance
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Horizontal spacing
+@section Horizontal Spacing
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Horizontal spacing overview::
+* New spacing area::
+* Changing horizontal spacing::
+* Line length::
+* Proportional notation::
+@end menu 
+@node Horizontal spacing overview
+@subsection Horizontal spacing overview
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node New spacing area
+@subsection New spacing area
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Changing horizontal spacing
+@subsection Changing horizontal spacing
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Line length
+@subsection Line length
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Proportional notation
+@subsection Proportional notation
+
+UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as

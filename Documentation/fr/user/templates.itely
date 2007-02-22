@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
+    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Templates
 @appendix Templates
@@ -53,6 +55,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec SATB vocal score
 @appendixsubsec SATB vocal score and automatic piano reduction
+@appendixsubsec SATB with aligned contexts
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 
@@ -72,6 +75,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec LaTeX
 @appendixsubsec Texinfo
+
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as
 well as all `UNTRANSLATED NODE: IGNORE ME' lines.
