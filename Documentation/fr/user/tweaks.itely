@@ -55,3 +55,7 @@ UNTRANSLATED NODE: IGNORE ME
 @section Avoiding tweaks with slower processing
 
 UNTRANSLATED NODE: IGNORE ME
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
