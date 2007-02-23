@@ -8,6 +8,8 @@
 
 #include "separation-item.hh"
 
+#include "lookup.hh"
+#include "stencil.hh"
 #include "skyline.hh"
 #include "paper-column.hh"
 #include "warn.hh"
@@ -31,8 +33,8 @@ void
 Separation_item::set_skyline_distance (Drul_array<Item *> items,
 				       Real padding)
 {
-  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("skylines")),
-				   Skyline_pair::unsmob (items[RIGHT]->get_property ("skylines")));
+  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("horizontal-skylines")),
+				   Skyline_pair::unsmob (items[RIGHT]->get_property ("horizontal-skylines")));
   Skyline right = conditional_skyline (items[RIGHT], items[LEFT]);
   right.merge ((*lines[RIGHT])[LEFT]);
   
@@ -179,6 +181,24 @@ Separation_item::extremal_break_aligned_grob (Grob *me,
   return last_grob;
 }
 
+extern bool debug_skylines;
+MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
+SCM
+Separation_item::print (SCM smob)
+{
+  if (!debug_skylines)
+    return SCM_BOOL_F;
+
+  Grob *me = unsmob_grob (smob);
+  Stencil ret;
+  if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("horizontal-skylines")))
+    {
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[LEFT].to_points (Y_AXIS)).in_color (255, 255, 0));
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[RIGHT].to_points (Y_AXIS)).in_color (0, 255, 255));
+    }
+  return ret.smobbed_copy ();
+}
+
 ADD_INTERFACE (Separation_item,
 	       "Item that computes widths to generate spacing rods. "
 	       "This is done in concert with @ref{separating-group-spanner-interface}.",
@@ -187,5 +207,5 @@ ADD_INTERFACE (Separation_item,
 	       "conditional-elements "
 	       "elements "
 	       "padding "
-	       "skylines "
+	       "horizontal-skylines "
 	       );

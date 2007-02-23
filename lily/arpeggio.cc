@@ -147,6 +147,41 @@ Arpeggio::width (SCM smob)
   return ly_interval2scm (arpeggio.extent (X_AXIS));
 }
 
+MAKE_SCHEME_CALLBACK (Arpeggio, height, 1);
+SCM
+Arpeggio::height (SCM smob)
+{
+  return Grob::stencil_height (smob);
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, pure_height, 3);
+SCM
+Arpeggio::pure_height (SCM smob, SCM, SCM)
+{
+  Grob *me = unsmob_grob (smob);
+  if (to_boolean (me->get_property ("cross-staff")))
+    return ly_interval2scm (Interval ());
+
+  return height (smob);
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, calc_cross_staff, 1);
+SCM
+Arpeggio::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "stems", stems);
+
+  for (vsize i = 1; i < stems.size (); i++)
+    {
+      Grob *s1 = Staff_symbol_referencer::get_staff_symbol (stems[i-1]);
+      Grob *s2 = Staff_symbol_referencer::get_staff_symbol (stems[i]);
+      if (s1 != s2)
+	return SCM_BOOL_T;
+    }
+  return SCM_BOOL_F;
+}
+
 ADD_INTERFACE (Arpeggio,
 	       "Functions and settings for drawing an arpeggio symbol (a wavy line left to noteheads.",
 

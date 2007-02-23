@@ -153,6 +153,8 @@
 	(script-priority . 0)
 	(side-axis . ,X)
 	(staff-position . 0.0)
+	(cross-staff . ,ly:arpeggio::calc-cross-staff)
+	(Y-extent . ,ly:arpeggio::height)
 	(meta . ((class . Item)
 		 (interfaces . (arpeggio-interface
 				staff-symbol-referencer-interface
@@ -290,7 +292,7 @@
      . (
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
-	(skylines . ,ly:axis-group-interface::calc-skylines)
+	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				))))))
@@ -1430,7 +1432,8 @@
 	(avoid-slur . inside)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
-	(skylines . ,ly:separation-item::calc-skylines)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
+	(stencil . ,ly:separation-item::print)
 	(meta . ((class . Item)
 		 (interfaces . (
 				separation-item-interface))))))
@@ -1704,7 +1707,7 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
-	(skylines . ,ly:axis-group-interface::calc-skylines)
+	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
@@ -2057,7 +2060,7 @@
 	(X-extent . ,ly:axis-group-interface::width)
 	(stacking-dir . -1)
 	(padding . 0.5)
-	(skylines . ,ly:axis-group-interface::combine-skylines)
+	(vertical-skylines . ,ly:axis-group-interface::combine-skylines)
 	(max-stretch . ,ly:align-interface::calc-max-stretch)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
@@ -2069,8 +2072,9 @@
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
-	(skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
+	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
+	(stencil . ,ly:axis-group-interface::print)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((X-common . ,ly:axis-group-interface::calc-x-common)))
 		 (interfaces . (axis-group-interface
@@ -2178,6 +2182,10 @@
 
 (define pure-print-callbacks
   (list
+   print-circled-text-callback
+   lyric-text::print
+   ly:arpeggio::print
+   ly:arpeggio::brew-chord-bracket
    ly:bar-line::print
    ly:note-head::print
    ly:dots::print
@@ -2197,6 +2205,7 @@
 (define pure-conversions-alist
   `(
     (,ly:accidental-interface::height . ,ly:accidental-interface::pure-height)
+    (,ly:arpeggio::height . ,ly:arpeggio::pure-height)
     (,ly:slur::outside-slur-callback . ,ly:slur::pure-outside-slur-callback)
     (,ly:stem::height . ,ly:stem::pure-height)
     (,ly:rest::height . ,ly:rest::pure-height)
