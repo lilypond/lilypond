@@ -427,7 +427,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		      && me->get_bound (event_dir)->break_status_dir ())
 		    {
 		      current.horizontal_[event_dir]
-			= (me->get_bound (event_dir)->extent (commonx, X_AXIS)[RIGHT]
+			= (robust_relative_extent (me->get_bound (event_dir), commonx, X_AXIS)[RIGHT]
 			   + event_dir * break_overshoot[event_dir]);
 		    }
 		  else

@@ -759,10 +759,12 @@ Program reference: @internalsref{TupletBracket},
 
 You can alter the length of duration by a fraction @var{N/M}
 appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).  This
-will not affect the appearance of the notes or rests produced.
+will not affect the appearance of the notes or rests produced.  These
+may be combined such as @samp{*M*N}.
 
 In the following example, the first three notes take up exactly two
 beats, but no triplet bracket is printed.
+
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \time 2/4
 a4*2/3 gis4*2/3 a4*2/3

@@ -22,9 +22,19 @@
 #include "protected-scm.hh"
 
 Protected_scm grob_property_callback_stack = SCM_EOL;
-extern bool debug_property_callbacks;
 
 #ifndef NDEBUG
+extern bool debug_property_callbacks;
+
+static void
+print_property_callback_stack ()
+{
+  int frame = 0;
+  for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
+    message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
+}
+
+
 static SCM modification_callback = SCM_EOL;
 static SCM cache_callback = SCM_EOL;
 
@@ -141,14 +151,6 @@ Grob::internal_get_property_data (SCM sym) const
     }
   
   return (handle == SCM_BOOL_F) ? SCM_EOL : scm_cdr (handle);
-}
-
-static void
-print_property_callback_stack ()
-{
-  int frame = 0;
-  for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
-    message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
 }
 
 SCM

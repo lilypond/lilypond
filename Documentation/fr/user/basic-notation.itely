@@ -1,18 +1,23 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c A menu is needed before every deeper *section nesting of @node's; run
+@c     M-x texinfo-all-menus-update
+@c to automatically fill in these menus before saving changes
+
 @node Basic notation
 @chapter Basic notation
 
-UNTRANSLATED NODE: IGNORE ME
+De l'utilisation des fonctions de notation de base.
 
-@menu 
+
+@menu
 * Pitches::
 * Rhythms::
 * Polyphony::
@@ -20,80 +25,542 @@ UNTRANSLATED NODE: IGNORE ME
 * Connecting notes::
 * Expressive marks::
 * Repeats::
-@end menu 
+@end menu
+
+
 @node Pitches
 @section Pitches
 
-UNTRANSLATED NODE: IGNORE ME
+De la manière de spécifier les hauteurs de notes.
 
-@menu 
+@menu
 * Normal pitches::
 * Accidentals::
 * Cautionary accidentals::
 * Micro tones::
-* Notes names in other languages::
+* Note names in other languages::
 * Relative octaves::
 * Octave check::
 * Transpose::
 * Rests::
 * Skips::
-@end menu 
+@end menu
+
+
 @node Normal pitches
 @subsection Normal pitches
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Pitch names
+@cindex pitches
+
+La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
+notation anglaise, en utilisant les lettres @code{a} à @code{g}.
+Une gamme ascendante de do majeur s'écrit avec
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\clef bass
+c d e f g a b c'
+@end lilypond
+
+La note @code{c} est écrite une octave sous le do central.
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\clef treble
+c1
+\clef bass
+c1
+@end lilypond
+
+@funindex '
+@funindex ,
+
+L'octave précise peut être spécifiée sous forme d'une série
+d'apostrophes (`@samp{'}') ou d'une série de virgules
+(`@samp{,}').  Chaque @code{'} hausse la note d'une octave ; chaque
+@code{,} baisse la note d'une octave.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\clef treble
+c' c'' e' g d'' d' d c
+\clef bass
+c, c,, e, g d,, d, d c
+@end lilypond
+
+Il existe une autre méthode pour déclarer à quelle octave se situe la
+note à graver ; cette méthode demande moins de spécifications
+d'octaves (@code{'} and @code{,}).  Voir @ref{Relative octaves}.
+
 
 @node Accidentals
 @subsection Accidentals
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex note names, Dutch
+@cindex note names, default
+
+Dans la notation par défaut, un dièse est formé en ajoutant @code{-is}
+après le nom de note, un bémol en ajoutant @code{-es}.  Les
+double-dièses et double-bémols sont obtenus en ajoutant @code{-isis}
+ou @code{-eses} au nom de note.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a2 ais a aes
+a2 aisis a aeses
+@end lilypond
+
+@noindent
+Ce sont les noms de note hollandais.  En hollandais, on élide
+@code{aes} pour écrire @code{as}, mais les deux formes sont acceptées.
+ De manière similaire, on accepte autant @code{es} que @code{ees}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a2 as e es
+@end lilypond
+
+Un bécarre annule l'effet d'une altération, qu'elle soit accidentelle
+ou à l'armure.  Cependant, dans la syntaxe des noms de note, les
+bécarres ne s'écrivent pas avec un suffixe ; un simple nom de note
+donnera une note bécarre.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 aes a2
+@end lilypond
+
+LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
+naturel, un mi naturel et un fa naturel} sans tenir compte de
+l'armure.  Pour plus d'information à propos de la distinction entre le
+contenu musical et sa représentation, voir @ref{Accidentalas and key signatures}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+\key d \major
+d e f g
+d e fis g
+@end lilypond
+
+
+@commonprop
+
+En accord avec les règles standards de l'écriture musicale, on imprime
+un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
+altération précédente.  Pour modifier ce comportement, écrivez
+@code{\set Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{LedgerLineSpanner},
+@internalsref{NoteHead}.
+
 
 @node Cautionary accidentals
 @subsection Cautionary accidentals
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex accidental, reminder
+@cindex accidental, cautionary
+@cindex accidental, parenthesized
+@cindex reminder accidental
+@funindex ?
+@cindex cautionary accidental
+@cindex parenthesized accidental
+@funindex !
+
+Normalement, les altérations sont imprimées automatiquement, mais il
+se peut que vous vouliez les imprimer manuellement.  On peut forcer
+l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
+point d'exclamation `@samp{!}' après la hauteur de note.  Une
+altération entre parenthèses peut être obtenue en ajoutant un point
+d'interrogation `@samp{?}' après la hauteur de note.  Ces signes
+peuvent aussi être utilisés pour imprimer des bécarres.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+cis cis cis! cis? c c? c! c
+@end lilypond
+
+
+@seealso
+
+L'impression automatique des altérations peut être affinée de
+plusieurs manières.  Pour plus d'information, voir @ref{Automatic
+accidentals}.
+
 
 @node Micro tones
 @subsection Micro tones
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex quarter tones
+@cindex semi-flats, semi-sharps
 
-@node Notes names in other languages
-@subsection Notes names in other languages
+Les demi-bémols et les demi-dièses s'écrivent en ajoutant @code{-eh} et
+@code{-ih} respectivement ; ce qui suit est une séries de dos altérés
+en hauteurs croissantes.
 
-UNTRANSLATED NODE: IGNORE ME
+@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
+\set Staff.extraNatural = ##f
+ceseh ceh cih cisih
+@end lilypond
+
+Les micro-intervalles sont aussi exportés dans le fichier MIDI.
+
+@refbugs
+
+Il n'y a pas de standards universellement acceptés pour noter le bémol
+et demi (trois quarts de ton en-dessous), donc le symbole de LilyPond
+n'est conforme à aucun standard.
+
+
+@node Note names in other languages
+@subsection Note names in other languages
+
+Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
+langues.  Pour les utiliser, incluez le fichier d'initialisation
+spécifique à la langue voulue.  Par exemple, pour les langues romanes,
+ajoutez @code{\include "italiano.ly"} au début du fichier d'entrée.
+Les fichiers de langues disponibles ainsi que les noms de notes
+utilisés sont les suivants:
+
+@c  what about micro-tunes, double-sharps, and double-flats?  add
+@c  more columns to the table?
+@c  Oh, and should this be made into a multitable?
+@cindex note names, other languages)
+@example
+                       Note Names               sharp       flat
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
+                                              -x (double)
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
+@end example
+
 
 @node Relative octaves
 @subsection Relative octaves
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Relative
+@cindex Relative octave specification
+@funindex \relative
+
+On spécifie les octaves en ajoutant @code{'} et @code{,} aux noms de
+hauteurs.  En recopiant de la musique, on a vite fait de mettre une
+note à la mauvaise octave, et ce genre d'erreur est difficile à
+retrouver.  Le mode d'écriture \relative prévient ces erreurs en
+rendant les erreurs beaucoup plus évidentes : une seule erreur met le
+reste de la pièce à la mauvaise octave.
+
+
+@example
+\relative @var{startpitch} @var{musicexpr}
+@end example
+
+@noindent
+or
+
+@example
+\relative @var{musicexpr}
+@end example
+
+@noindent
+@code{c'} est utilisé par défaut si aucune hauteur de départ n'est définie.
+
+L'octave des notes mentionnées dans @var{musicexpr} va être calculée
+de la manière suivante : si aucun signe de changement d'octave n'est
+utilisé, l'intervalle de base entre la note actuelle et la précédente
+sera toujours d'une quarte ou moins.  Cet intervalle est déterminé
+sans tenir compte des altérations ; ainsi un @code{fisis} après un
+@code{ceses} sera mis au-dessus le @code{ceses}.  En d'autres termes,
+une quarte doublement augmentée demeure considérée comme un
+intervavlle plus petit qu'une quinte diminuée, bien que la quarte
+doublement augmentée soit de sept demi-tons et la quinte diminuée de
+six demi-tons seulement.
+
+Les signes de changement d'octaves @code{'} et @code{,} peuvent être
+ajoutés pour hausser ou baisser la note d'une octave supplémentaire.
+Lorsque l'on entre en mode \relative, une hauteur absolue de départ
+peut être spécifiée, et agira dès lors comme si elle précédait la
+première note de @var{musicexpr}.  Si aucune hauteur de départ n'est
+spécifiée, le do central sert de point de départ.
+
+Voici le mode \relative en action.
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+ b c d c b c bes a
+}
+@end lilypond
+
+On utilise les signes de changement d'octave pour les intervalles
+dépassant la quarte.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
+ c g c f, c' a, e''
+}
+@end lilypond
+
+Si l'expression précédente est un accord, c'est la première note de
+l'accord qui détermine l'emplacement de la première note du prochain
+accord.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+ c <c e g>
+ <c' e g>
+ <c, e' g>
+}
+@end lilypond
+
+La hauteur après @code{\relative} contient un nom de note.
+
+La conversion en mode \relative n'affectera pas les sections @code{\transpose},
+@code{\chordmode} ou @code{\relative} situées dans son argument.  Pour
+utiliser \relative dans de la musique transposée, un code
+@code{\relative} additionnel doit être placé dans @code{\transpose}.
+
 
 @node Octave check
 @subsection Octave check
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Octave check
+
+Les tests d'octaves rendent la correction d'erreurs d'octaves plus
+facile : une note peut être suivie de @code{=}@var{quotes} indiquant à
+quelle octave absolue elle devrait être.  Dans l'exemple suivant,
+
+@example
+\relative c'' @{ c='' b=' d,='' @}
+@end example
+
+@noindent
+le @code{d} générera un avertissement, puisqu'on attend un @code{d''}
+(il n'y a qu'une tierce entre @code{b'} et @code{d''}), mais qu'on
+obtient un @code{d'}.  Sur la partition, l'octave sera corrigée pour
+donner un @code{d''} et la prochaine note sera calculée en fonction de
+@code{d''} plutôt que @code{d'}.
+
+Il existe aussi une vérification d'octave sans changement visible en
+sortie, avec cette syntaxe :
+
+@example
+\octave @var{pitch}
+@end example
+
+Cette commande vérifie que @var{pitch} (sans apostrophes ou virgules)
+donne @var{pitch} (avec apostrophes ou virgules) dans le mode
+@code{\relative} comparé à la note donnée dans la commande
+@code{\relative}.  Sinon, un avertissement est émis et l'octave est
+corrigée.  La note @var{pitch} n'est pas imprimée.
+
+Dans l'exemple ci-dessous, le premier test se fait sans incident,
+puisque le @code{e} (dans le mode @code{relative}) est à moins d'une
+quinte du @code{a'}.  Cependant, le deuxième test produit un
+avertissement, puisque le @code{e} n'est pas à moins d'une quinte du
+@code{b'}.  Le message d'avertissement est émis, et l'octave est
+corrigée pour que les notes suivantes soient à nouveau à la bonne
+octave.
+
+@example
+\relative c' @{
+ e
+ \octave a'
+ \octave b'
+@}
+@end example
+
+L'octave d'une note qui suit un test d'octave est déterminée selon la
+note précédente.  Dans le prochain exemple, la dernière note est un
+@code{a'}, au-dessus du do central.  Cela veut dire que le test
+@code{\octave} réussit, et peut donc être enlevé sans changer le
+résultat sur la partition.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' {
+ e
+ \octave b
+ a
+}
+@end lilypond
+
 
 @node Transpose
 @subsection Transpose
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Transpose
+@cindex Transposition of pitches
+@funindex \transpose
+
+Une expression musicale peut être transposée avec @code{\transpose}.
+Voici la syntaxe :
+@example
+\transpose @var{note_de départ} @var{note_d_arrivée} @var{musicexpr}
+@end example
+
+Cela signifie que @var{musicexpr} est transposé d'un intervalle entre
+les notes @var{note_de_départ} et @var{note_d_arrivée} : toute note
+dont la hauteur était @code{note_de_départ}
+est changée en @code{note_d_arrivée}.
+
+Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce
+est un peu trop basse pour l'interprète, elle peut être transposée en
+mi majeur avec
+@example
+\transpose d e @dots{}
+@end example
+
+Regardons maintenant une partie écrite pour violon (un instrument en
+ut).  Si cette partie doit être jouée par une clarinette en la (écrite
+à la tierce mineure supérieure, un do écrit donnant un la réel), la
+transposition suivante créera la partie appropriée.
+
+@example
+\transpose a c @dots{}
+@end example
+
+@code{\transpose} fait la distinction entre les notes enharmoniques :
+@code{\transpose c cis} et @code{\transpose c des} transposeront la
+pièce un demi-ton plus haut.  Mais la première version écrira des
+dièses et la deuxième des bémols.
+
+@lilypond[quote,ragged-right,verbatim]
+mus = { \key d \major cis d fis g }
+\new Staff {
+ \clef "F" \mus
+ \clef "G"
+ \transpose c g' \mus
+ \transpose c f' \mus
+}
+@end lilypond
+
+On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
+pour un instrument transpositeur.  Normalement, les hauteurs dans
+LilyPond sont écrites en ut (ou notes réelles), mais elles peuvent
+être écrites dans un autre ton.  Quand, par exemple, on écrit pour une
+trompette en si bémol, commençant sur ré note réelle, on pourrait
+écrire
+@example
+\transpose c bes @{ e4 @dots{} @}
+@end example
+
+Pour imprimer cette musique en si bémol à nouveau (et de ce fait
+produire une partie de trompette, au lieu d'une partition de chef en
+notes réelles), on utilisera un deuxième @code{transpose}
+
+@example
+\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+@end example
+
+
+@seealso
+
+Référence du programme : @internalsref{TransposedMusic}.
+
+Exemple : @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+
+
+@refbugs
+
+Si vous voulez utiliser en même temps @code{\transpose} et
+@code{\relative}, vous devez mettre @code{\transpose} en dehors de
+@code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
+musique apparaissant dans un @code{\transpose}.
+
 
 @node Rests
 @subsection Rests
+@cindex Rests
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \rest
+@funindex r
+
+Les silences sont écrits comme des notes avec le nom de note @code{r}.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+r1 r2 r4 r8
+@end lilypond
+
+Les pauses d'une mesure complète, qui sont placées au centre de la
+mesure, doivent être entrées comme des mesures de silences.  Elles
+peuvent être utilisées pour une seule mesure comme pour plusieurs, et
+leur utilisation est expliquée dans la section @ref{Multi measure
+rests}.
+
+Pour spécifier explicitement la position verticale d'un silence,
+écrivez une note suivie de @code{\rest}.  Un silence sera placé à la
+position où serait imprimée la note.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+a'4\rest d'4\rest
+@end lilypond
+
+@noindent
+Cela rend plus facile la mise en place de la musique polyphonique,
+puisque le formateur automatique de collision des silences laissera
+ces silences tranquilles.
+
+@seealso
+
+Référence du programme : @internalsref{Rest}.
+
 
 @node Skips
 @subsection Skips
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Skip
+@cindex Invisible rest
+@cindex Space note
+@funindex \skip
+@funindex s
+
+Un silence invisible (que l'on pourrait appeler un @qq{saut}) peut être
+entré comme une note avec le nom de note `@samp{s}' ou avec
+@code{\skip @var{duration}}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a4 a4 s4 a4 \skip 1 a4
+@end lilypond
+
+La syntaxe @code{s} est seulement disponible pour les modes d'entrée
+de notes et d'accords.  Dans d'autres situations, pour l'entrée de
+paroles par exemple, vous devrez utiliser la commande @code{\skip}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+ \relative { a'2 a2 }
+ \new Lyrics \lyricmode { \skip 2 bla2 }
+>>
+@end lilypond
+
+La commande de saut génère simplement une case vide.  Elle ne produit
+rien sur la partition, pas même un symbole transparent.  Le code de
+saut @code{s} crée tout de même une @internalsref{Staff} et une
+@internalsref{Voice} lorsque nécessaire, tout comme les commandes de
+notes et de silences.  Ainsi, le code suivant aboutit à une portée
+vide.
+
+@lilypond[quote,ragged-right,verbatim]
+{ s4 }
+@end lilypond
+
+Le fragment @code{@{ \skip 4 @} } produirait une page vide.
+
+@seealso
+
+Référence du programme : @internalsref{SkipMusic}.
+
+
 
 @node Rhythms
 @section Rhythms
 
-UNTRANSLATED NODE: IGNORE ME
+Des rythmes, durées et mesures.
 
-@menu 
+@menu
 * Durations::
 * Augmentation dots::
 * Tuplets::
@@ -101,85 +568,745 @@ UNTRANSLATED NODE: IGNORE ME
 * Bar check::
 * Barnumber check::
 * Automatic note splitting::
-@end menu 
+@end menu
+
+
 @node Durations
 @subsection Durations
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex duration
+@funindex \longa
+@funindex \breve
+@funindex \maxima
+
+Dans les modes Note, Accord et Paroles, les durées sont écrites avec
+des chiffres et des points : les durées sont indiquées par leurs
+valeurs réciproques en notation anglaise.  Une noire, par exemple, qui
+équivaut en anglais à un 1/4 de note, @qq{quarter note}, s'écrit
+@code{4}, alors qu'une blanche (@qq{half-note}, 1/2 note) s'écrit
+@code{2}.  Pour des notes plus longues qu'une ronde, vous devrez
+utiliser les commandes @code{\longa} (pour une longue) et
+@code{\breve} (pour une brève, aussi appelée carrée).
+
+@example
+c'\breve
+c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
+r\longa r\breve
+r1 r2 r4 r8 r16 r32 r64 r64
+@end example
+
+@lilypond[quote]
+\score {
+\relative c'' {
+   a\breve*1/2 \autoBeamOff
+   a1 a2 a4 a8 a16 a32 a64 a64
+  \bar "empty"
+  \break
+   r\longa*1/4 r\breve *1/2
+   r1 r2 r4 r8 r16 r32 r64 r64
+ }
+ \layout {
+   ragged-right = ##t
+   indent=0\mm
+   \context {
+     \Score
+       \remove "Bar_number_engraver"
+   }
+   \context {
+     \Staff
+       \remove "Clef_engraver"
+       \override StaffSymbol #'transparent = ##t
+       \override TimeSignature #'transparent = ##t
+       \override BarLine #'transparent = ##t
+       \consists "Pitch_squash_engraver"
+   }
+ }
+}
+@end lilypond
+
+Si la durée n'est pas précisée, elle est alors assimilée à la durée
+précédente.  La valeur par défaut pour la première note est une noire
+(4).
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+{ a a a2 a a4 a a1 a }
+@end lilypond
+
 
 @node Augmentation dots
 @subsection Augmentation dots
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex .
+
+Pour obtenir des notes pointées, ajoutez simplement un point
+(@samp{.}) au chiffre.  Les notes doublement pointées sont créées de
+la même façon.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+a'4 b' c''4.  b'8 a'4.  b'4..  c''8.
+@end lilypond
+
+@refcommands
+
+Les points sont normalement haussés pour éviter les lignes de portées,
+sauf dans certaines polyphonies.  Les commandes suivantes peuvent être
+utilisées pour demander manuellement une orientation particulière des
+points.
+
+@funindex \dotsUp
+@code{\dotsUp},
+@funindex \dotsDown
+@code{\dotsDown},
+@funindex \dotsNeutral
+@code{\dotsNeutral}.
+
+@seealso
+
+Référence du programme : @internalsref{Dots}, and @internalsref{DotColumn}.
+
 
 @node Tuplets
 @subsection Tuplets
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tuplets
+@cindex triplets
+@funindex \times
+
+Les n-olets (comme les triolets, quintolets, etc.) sont obtenus en
+multipliant toutes les durées d'une expression musicale par une
+fraction.
+
+@example
+\times @var{fraction} @var{musicexpr}
+@end example
+
+@noindent
+La durée de @var{musicexpr} sera multipliée par la fraction.  Le
+dénominateur de la fraction sera imprimé au-dessus des notes,
+optionnellement avec un crochet.  Le n-olet le plus courant est le
+triolet, dans lequel 3 notes ont la durée de 2, et où les notes durent
+donc 2/3 de leur valeur écrite.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+g'4 \times 2/3 {c'4 c' c'} d'4 d'4
+@end lilypond
+
+Les n-olets peuvent être imbriqués ; par exemple,
+
+@lilypond[fragment,ragged-right,verbatim,relative=2]
+\override TupletNumber #'text = #tuplet-number::calc-fraction-text
+\times 4/6 {
+ a4 a
+ \times 3/5 { a a a a a }
+}
+@end lilypond
+
+@refcommands
+
+@funindex \tupletUp
+@code{\tupletUp},
+@funindex \tupletDown
+@code{\tupletDown},
+@funindex \tupletNeutral
+@code{\tupletNeutral}.
+
+
+@commonprop
+
+@funindex tupletNumberFormatFunction
+@cindex tuplet formatting
+
+La propriété @code{tupletSpannerDuration} spécifie la longueur voulue
+de chaque crochet.  Avec elle, vous pouvez faire plusieurs n-olets en
+ne tapant @code{\times} qu'une fois, ce qui évite une longue saisie.
+Dans le prochain exemple, deux triolets sont imprimés avec une seule
+fonction @code{\times}.
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+\set tupletSpannerDuration = #(ly:make-moment 1 4)
+\times 2/3 { c8 c c c c c }
+@end lilypond
+
+@noindent
+Pour plus d'information sur @code{make-moment}, voir
+@ref{Time administration}.
+
+L'apparence du chiffre est déterminée par la propriété @code{text} dans
+@code{TupletNumber}.  La valeur par défaut imprime seulement le
+dénominateur, mais si elle est définie par la fonction
+@code{tuplet-number::calc-fraction-text}, la fraction entière
+@var{num}:@var{den} sera imprimée à la place.
+
+Pour éviter d'imprimer les chiffres des n-olets, utilisez
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+\override TupletNumber #'transparent = ##t
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+@end lilypond
+
+Les crochets de n-olets peuvent aller jusqu'aux prémisses de la mesure
+suivante, ou à la prochaine note.
+
+@lilypond[ragged-right]
+\new RhythmicStaff {
+ \set tupletFullLength = ##t
+ \time 4/4
+ \times 4/5 {
+   c4 c1
+ }
+ \set tupletFullLengthNote = ##t
+ \time 2/4
+ \times 2/3 {
+   c4 c c
+ }
+ \time 3/4
+ c4
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{TupletBracket},
+@internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
+
+Exemples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
+
+
 
 @node Scaling durations
 @subsection Scaling durations
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez altérer la durée des notes en lui joignant une fraction
+@var{N/M}, donnant @q{@code{*}@var{N/M}} (ou @q{@code{*}@var{N}} si
+@var{M=1}).  Ceci n'affectera pas l'apparence des notes ou silences
+produits.
+
+Dans l'exemple suivant, les trois premières notes prennent exactement
+deux temps, mais aucun triolet n'est imprimé.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\time 2/4
+a4*2/3 gis4*2/3 a4*2/3
+a4 a4 a4*2
+b16*4 c4
+@end lilypond
+
+
+@seealso
+
+Dans ce manuel : @ref{Tuplets}
+
 
 @node Bar check
 @subsection Bar check
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Bar check
+@funindex barCheckSynchronize
+@funindex |
+
+Les tests de mesure aident à détecter les erreurs dans les durées.  Un
+test de mesure s'écrit avec une barre verticale, @samp{|}.  Lors du
+traitement, elle devrait tomber sur une barre de mesure.  Sinon, un
+avertissement est émis.  Dans l'exemple suivant, le deuxième test de
+mesure signalera une erreur.
+@example
+\time 3/4 c2 e4 | g2 |
+@end example
+
+Le test de mesure peut être aussi utilisé dans les paroles, par exemple :
+@example
+\lyricmode @{
+ \time 2/4
+ Twin -- kle | Twin -- kle
+@}
+@end example
+
+Des durées incorrectes font échouer les tests de mesure, et peuvent
+souvent mettre la partition sens dessus dessous, particulièrement s'il
+s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
+échoué et les durées incorrectes est un bon moyen de commencer à
+corriger sa partition.
+
+@funindex |
+@funindex pipeSymbol
+
+Il est aussi possible d'attribuer une autre valeur au symbole
+@code{|}, en assignant une expression musicale à @code{pipeSymbol},
+
+@lilypond[quote,ragged-right,verbatim]
+pipeSymbol = \bar "||"
+
+{ c'2 c' | c'2 c' }
+@end lilypond
+
 
 @node Barnumber check
 @subsection Barnumber check
 
-UNTRANSLATED NODE: IGNORE ME
+Lorsque l'on recopie de longues pièces, il peut être utile de vérifier
+que les numéros de mesures de LilyPond correspondent à l'original que
+l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
+
+@verbatim
+\barNumberCheck #123
+@end verbatim
+
+@noindent
+imprimera un avertissement si le @code{currentBarNumber} n'est pas 123
+quand il est traité.
 
 @node Automatic note splitting
 @subsection Automatic note splitting
 
-UNTRANSLATED NODE: IGNORE ME
+On peut convertir automatiquement les notes longues en notes liées.
+Il faut pour cela remplacer le @internalsref{Note_heads_engraver} par
+le
+@internalsref{Completion_heads_engraver}.
+Dans les exemples suivants, les notes dépassant de la mesure sont
+divisées et liées.
+
+@lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
+\new Voice \with {
+ \remove "Note_heads_engraver"
+ \consists "Completion_heads_engraver"
+} {
+ c2.  c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8.  c2
+}
+@end lilypond
+
+Ce graveur divise toutes les notes qui sortent de la mesure, et insère
+des liaisons de prolongation.  L'une de ses utilités est de déboguer
+des partitions complexes : si les mesures ne sont pas entièrement
+remplies, alors les liaisons de prolongation montrent exactement de
+combien de temps les mesures sont décalées.
+
+Si vous voulez permettre le saut de ligne aux barres de mesure où
+@internalsref{Completion_heads_engraver} divise les notes, vous devez
+aussi enlever @internalsref{Forbid_line_breaks_engraver}.
+
+
+@refbugs
+
+Bien que toutes les durées (particulièrement celles contenant des
+n-olets) ne puissent pas être représentées exactement avec des notes
+normales et des points, le graveur n'insèrera pas de n-olets.
+
+@code{Completion_heads_engraver} affecte seulement les notes; il ne
+divise pas les silences.
+
+@seealso
+
+Exemples : @inputfileref{input/@/regression,completion@/-heads@/.ly}.
+
+@noindent
+
+Référence du programme : @internalsref{Completion_heads_engraver}.
+
 
 @node Polyphony
 @section Polyphony
 
-UNTRANSLATED NODE: IGNORE ME
+La notion musicale de polyphonie fait référence au fait d'avoir plus
+d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
+polyphonie fait référence au fait d'avoir plus d'une voix sur la même
+portée.
 
-@menu 
+@menu
 * Chords::
 * Stems::
 * Basic polyphony::
 * Explicitly instantiating voices::
 * Collision Resolution::
-@end menu 
+@end menu
+
+
 @node Chords
 @subsection Chords
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Chords
+
+Un accord est formé en mettant une série de hauteurs entre @code{<}
+et @code{>}.  Un accord peut être suivi d'une durée et d'indications
+d'articulation, comme une simple note.
+
+@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+<c e g>4 <c>8
+@end lilypond
+
+Pour plus d'information à propos des accords, voir @ref{Chord names}.
+
 
 @node Stems
 @subsection Stems
 
-UNTRANSLATED NODE: IGNORE ME
+Dès qu'une note est rencontrée, un objet @internalsref{Stem} se crée
+automatiquement.  Pour les rondes et les silences, ils sont aussi
+créés, mais en mode invisible.
+
+@refcommands
+
+@funindex \stemUp
+@code{\stemUp},
+@funindex \stemDown
+@code{\stemDown},
+@funindex \stemNeutral
+@code{\stemNeutral}.
+
+
+@commonprop
+
+Pour changer la direction des hampes au milieu de la portée, utilisez
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+a4 b c b
+\override Stem #'neutral-direction = #up
+a4 b c b
+\override Stem #'neutral-direction = #down
+a4 b c b
+@end lilypond
+
 
 @node Basic polyphony
 @subsection Basic polyphony
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex polyphony
+
+La manière la plus facile d'entrer des fragments avec plus d'une voix
+sur une portée est d'entrer chaque voix comme une suite de notes
+(entre accolades : @code{@{...@}}), et de les combiner simultanément,
+en séparant les voix avec @code{\\}
+
+@funindex \\
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+ c16 d e f
+ <<
+   { g4 f e | d2 e2 } \\
+   { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+   { s2.  | s4 b4 c2 }
+ >>
+}
+@end lilypond
+
+Le séparateur permet aux @internalsref{Voice} contexts@footnote{Ces
+voix polyphoniques sont parfois appelées @qq{couches ou calques} dans
+d'autres logiciels de notation.
+@cindex layers
+d'être identifiées.  Elles portent les noms @code{"1"}, @code{"2"},
+etc.  Dans chacun de ces contextes, la direction verticale des
+liaisons, hampes, etc.  est réglée de manière appropriée.
+
+Ces voix sont toutes séparées de la voix qui contient les notes en
+dehors de la construction @code{<< \\ >>}.  Cela doit être pris en
+compte lorsqu'on fait des changements au niveau des voix.  Cela veut
+aussi dire que les liaisons de prolongation et d'articulation ne
+peuvent ni entrer ni sortir de la construction @code{<< \\ >>}.  À
+l'inverse, des voix parallèles venant de constructions @code{<< \\ >>}
+séparées sur la même portée sont dans les mêmes voix.  Voici le même
+exemple, avec des têtes de note différentes pour chaque voix.  Notez
+que le changement de style de tête de note n'affecte pas l'intérieur
+des constructions @code{<< \\ >>}.  Aussi, le changement à la deuxième
+voix dans la première construction @code{<< \\ >>} l'affecte aussi
+dans la deuxième construction @code{<< \\ >>}, et la voix est liée
+entre les deux constructions.
+
+@cindex note heads, styles
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+ \override NoteHead #'style = #'cross
+ c16 d e f
+ <<
+   { g4 f e } \\
+   { \override NoteHead #'style = #'triangle
+   r8 e4 d c8 ~ }
+ >> |
+ <<
+   { d2 e2 } \\
+   { c8 b16 a b8 g ~ g2 } \\
+   { \override NoteHead #'style = #'slash s4 b4 c2 }
+ >>
+}
+@end lilypond
+
+La polyphonie ne change pas la relation des notes dans un bloc
+@code{\relative @{ @}}.  Chaque note est calculée en fonction de la
+note qui la précède immédiatement, sans tenir compte des voix
+différentes.
+
+@example
+\relative @{ noteA << noteB \\ noteC >> noteD @}
+@end example
+
+@code{noteC} est calculé relativement à @code{noteB}, pas à @code{noteA};
+@code{noteD} est calculé relativement à @code{noteC}, pas à @code{noteB} ou
+@code{noteA}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-UNTRANSLATED NODE: IGNORE ME
+Les contextes @internalsref{Voice} peuvent être déclarés manuellement
+dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
+utilisant @code{\voiceOne}, jusqu'à @code{\voiceFour} pour assigner
+des directions de hampes et un déplacement horizontal pour chaque
+partie.
+
+En particulier,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+équivaut à
+
+@example
+<<
+ \new Voice = "1" @{ \voiceOne \upper @}
+ \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+Les commandes @code{\voiceXXX} fixent la direction des hampes, des
+liaisons de prolongations et de phrasé, des articulations, des
+annotations, des points d'augmentation des notes pointées et des
+doigtés.  @code{\voiceOne} et @code{\voiceThree} font pointer ces
+objets vers le haut, alors que @code{\voiceTwo} et @code{\voiceFour}
+les font pointer vers le bas.  La commande @code{\oneVoice} les ramène
+aux critères normaux.
+
+Une expression apparaissant directement dans un @code{<< >>}
+appartient à la voix principale.  Ceci est utile lorsque des voix
+supplémentaires apparaissent pendant que la voix principale est jouée.
+ Voici une meilleure réalisation de l'exemple de la section
+précédente.  Les notes en croix démontrent que la mélodie principale
+est maintenant dans un seul contexte de voix.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+ \override NoteHead #'style = #'cross
+ c16 d e f
+ \voiceOne
+ <<
+   { g4 f e | d2 e2 }
+   \new Voice="1" { \voiceTwo
+     r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+     \oneVoice
+   }
+   \new Voice { \voiceThree
+     s2.  | s4 b4 c2
+     \oneVoice
+   }
+ >>
+ \oneVoice
+}
+@end lilypond
+
+La définition correcte des voix permet à la mélodie d'être liée.
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+ c16^( d e f
+ \voiceOne
+ <<
+   { g4 f e | d2 e2) }
+   \context Voice="1" { \voiceTwo
+     r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+     \oneVoice
+   }
+   \new Voice { \voiceThree
+     s2. s4 b4 c2
+     \oneVoice
+   }
+ >>
+ \oneVoice
+}
+@end lilypond
+
+Le fait d'éviter le séparateur @code{\\} permet aussi d'imbriquer des
+constructions polyphoniques, ce qui peut être une manière plus
+naturelle de taper la musique.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+ c16^( d e f
+ \voiceOne
+ <<
+   { g4 f e | d2 e2) }
+   \context Voice="1" { \voiceTwo
+     r8 e4 d c8 ~ |
+     <<
+       {c8 b16 a b8 g ~ g2}
+       \new Voice { \voiceThree
+         s4 b4 c2
+         \oneVoice
+       }
+     >>
+   \oneVoice
+   }
+ >>
+ \oneVoice
+}
+@end lilypond
+
+Dans certaines circonstances de polyphonie complexe, vous pourrez être
+amené à recourir à des voix supplémentaires afin d'éviter des
+collisions de notes.  Ces voix additionnelles s'ajoutent en
+définissant un identificateur, comme le montre l'exemple suivant :
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
 
 @node Collision Resolution
 @subsection Collision Resolution
 
-UNTRANSLATED NODE: IGNORE ME
+D'ordinaire, les têtes de notes pointées et non-pointées ne sont pas
+fusionnées, mais lorsque la propriété d'objet
+@code{merge-differently-dotted} est définie dans l'objet
+@internalsref{NoteCollision}, elles se trouvent fusionnées :
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice << {
+ g8 g8
+ \override Staff.NoteCollision
+   #'merge-differently-dotted = ##t
+ g8 g8
+} \\ { g8.[ f16] g8.[ f16] } >>
+@end lilypond
+
+De même, vous pouvez fusionner une tête de blanche avec une tête de
+croche, en définissant
+@code{merge-differently-headed}
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\new Voice << {
+ c8 c4.
+ \override Staff.NoteCollision
+   #'merge-differently-headed = ##t
+c8 c4.  } \\ { c2 c2 } >>
+@end lilypond
+
+LilyPond empile aussi les silences à l'opposé des
+hampes, par exemple
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new Voice << c''4 \\ r4 >>
+@end lilypond
+
+Lorsque trois notes ou plus s'agglutinent dans un même empilement, 
+@code{merge-differently-headed} ne peut mener à bien la fusion des 
+deux notes qui devraient l'être.  Pour obtenir une fusion optimale, 
+appliquez un décalage (@code{\shift}) à la note qui ne devrait pas
+s'empiler.  Dans la première mesure de l'exemple suivant, 
+@code{merge-differently-headed} ne fonctionne pas (la tête de la
+blanche est ancrée).  Dans la seconde mesure, @code{\shiftOn}
+s'applique pour sortir le sol (@code{g}) de l'alignement, et
+@code{merge-differently-headed} fonctionne correctement.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+<<
+  { d=''2 g2 } \\
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+<<
+  { d'=''2 \shiftOn g2 } \\ 
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+@end lilypond
+
+
+@refcommands
+
+@funindex \oneVoice
+@code{\oneVoice},
+@funindex \voiceOne
+@code{\voiceOne},
+@funindex \voiceTwo
+@code{\voiceTwo},
+@funindex \voiceThree
+@code{\voiceThree},
+@funindex \voiceFour
+@code{\voiceFour}.
+
+@funindex \shiftOn
+@code{\shiftOn},
+@funindex \shiftOnn
+@code{\shiftOnn},
+@funindex \shiftOnnn
+@code{\shiftOnnn},
+@funindex \shiftOff
+@code{\shiftOff} : toutes ces commandes précisent quels accords de la
+voix courante doivent être combinés.  Les voix externes
+(habituellement, les voix un et deux) sont en @code{\shiftOff}, alors
+que les voix internes (trois et quatre) sont en @code{\shiftOn}.
+@code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux supplémentaires
+de combinaison.
+
+Quand LilyPond est dépassé, la propriété @code{force-hshift} de
+l'objet @internalsref{NoteColumn}, et des silences à hauteur
+déterminée, peuvent s'avérer utiles pour dicter au programme les choix
+de placement.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative <<
+{
+ <d g>
+ <d g>
+} \\ {
+ <b f'>
+ \once \override NoteColumn #'force-hshift = #1.7
+ <b f'>
+} >>
+@end lilypond
+
+
+@seealso
+Référence du programme : les objets appropriés pour résoudre les
+collisions sont
+@internalsref{NoteCollision} et @internalsref{RestCollision}.
+
+Exemples :
+@inputfileref{input/@/regression,collision@/-dots@/.ly},
+@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
+@inputfileref{input/@/regression,collision@/-heads@/.ly},
+@inputfileref{input/@/regression,collision@/-mesh@/.ly}, et
+@inputfileref{input/@/regression,collisions@/.ly}.
+
+
+@refbugs
+
+Quand @code{merge-differently-headed} est utilisé avec une croche ou
+une valeur plus courte à hampe vers le haut, et une blanche hampe vers
+le bas, la croche se retrouve à la mauvaise place.
+
+Il n'y a aucune prise en charge des agrégats dans lesquels une même
+note apparaît avec différentes altérations, plaquée en même temps.  Il
+est conseillé d'avoir recours aux enharmoniques, ou d'utiliser un
+cluster spécial (voir @ref{Clusters}).
+
+
 
 @node Staff notation
 @section Staff notation
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Staff notation
 
-@menu 
+De la notation musicale concernant la portée, comme
+les armures, les clefs ou les chiffres de mesure.
+
+@menu
 * Clef::
 * Key signature::
 * Time signature::
@@ -189,58 +1316,639 @@ UNTRANSLATED NODE: IGNORE ME
 * System start delimiters::
 * Staff symbol::
 * Writing music in parallel::
-@end menu 
+@end menu
+
+
 @node Clef
 @subsection Clef
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \clef
+
+La clé indique quelles lignes de la portée correspondent à quelles
+hauteurs.  Elle est réglée par la commande @code{\clef}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+{ c''2 \clef alto g'2 }
+@end lilypond
+
+@cindex treble clef
+@cindex violin clef
+@cindex alto clef
+@cindex tenor clef
+@cindex bass clef
+@cindex french clef
+@cindex soprano clef
+@cindex mezzosoprano clef
+@cindex baritone clef
+@cindex varbaritone clef
+@cindex subbass clef
+
+Les clés prises en charge vont jusqu'à
+
+@multitable @columnfractions .33 .66
+@headitem Clef @tab Position
+@item @code{treble}, violin, G, G2 @tab
+Clé de Sol 2ème ligne
+@item @code{alto, C} @tab
+Clé d'Ut 3ème ligne
+@item @code{tenor} @tab
+Clé d'Ut 4ème ligne
+@item @code{bass, F} @tab
+Clé de Fa 4ème ligne
+@item @code{french} @tab
+Clé de Sol 1ère ligne
+@item @code{soprano} @tab
+Clé d'Ut 1ère ligne
+@item @code{mezzosoprano} @tab
+Clé d'Ut 2ème ligne
+@item @code{baritone} @tab
+Clé d'Ut 5ème ligne
+@item @code{varbaritone} @tab
+Clé de Fa 3ème ligne
+@item @code{subbass} @tab
+Clé de Fa 5ème ligne
+@item @code{percussion} @tab
+Clé de percussion
+@item @code{tab} @tab
+Clé de tablature
+@end multitable
+
+En ajoutant @code{_8} ou @code{^8} au nom de la clé, celle-ci est
+transposée à l'octave respectivement inférieure ou supérieure, et
+@code{_15} ou @code{^15} la transpose de deux octaves.  L'argument
+@var{clefname} doit être mis entre guillemets lorsqu'il contient des
+caractères @qq{souligné} ou des nombres.  Par exemple,
+
+
+@cindex choral tenor clef
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\clef "G_8" c4
+@end lilypond
+
+
+@commonprop
+
+La commande @code{\clef "treble_8"} équivaut à définir
+@code{clefGlyph},
+@code{clefPosition} (qui contrôle la position verticale de la clé),
+@code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
+lorsque l'une de ces propriétés est changée.  Les exemples suivant
+font apparaître des possibilités pour régler les propriétés
+manuellement.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+ \set Staff.clefGlyph = #"clefs.F"
+ \set Staff.clefPosition = #2
+ c'4
+ \set Staff.clefGlyph = #"clefs.G"
+ c'4
+ \set Staff.clefGlyph = #"clefs.C"
+ c'4
+ \set Staff.clefOctavation = #7
+ c'4
+ \set Staff.clefOctavation = #0
+ \set Staff.clefPosition = #0
+ c'4
+ \clef "bass"
+ c'4
+ \set Staff.middleCPosition = #4
+ c'4
+}
+@end lilypond
+
+
+@seealso
+
+Dans ce manuel : @ref{Grace notes}.
+
+Référence du programme : @internalsref{Clef}.
+
 
 @node Key signature
 @subsection Key signature
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Key signature
+@funindex \key
+
+L'armure indique la tonalité dans laquelle la pièce doit être jouée.
+Elle comprend un ensemble d'altérations (dièses ou bémols) à la clé,
+c'est-à-dire au début de la portée.
+
+On définit ou modifie l'armure avec la commande @code{\key}
+
+@example
+@code{\key} @var{pitch} @var{type}
+@end example
+
+@funindex \minor
+@funindex \major
+@funindex \minor
+@funindex \ionian
+@funindex \locrian
+@funindex \aeolian
+@funindex \mixolydian
+@funindex \lydian
+@funindex \phrygian
+@funindex \dorian
+@cindex church modes
+
+Ici, @var{type} devrait être @code{\major} ou @code{\minor} afin
+d'avoir respectivement
+@var{pitch}-major ou @var{pitch}-minor.  Vous pouvez aussi avoir
+recours aux modes dits @qq{d'église} que sont @code{\ionian},
+@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
+@code{\phrygian}, et @code{\dorian}.
+
+Cette commande fixe la propriété de contexte
+@code{Staff.keySignature}.  Des armures inhabituelles peuvent être
+spécifiées en modifiant directement cette propriété.
+
+Les nouveaux utilisateurs s'embrouillent souvent dans les altérations
+et les armures, car des notes naturelles prendront ou non un bécarre,
+selon l'armure.  Pour plus d'information, voir @ref{Accidentals} ou
+@ref{Accidentals and key signatures}.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+\key g \major
+f1
+fis
+@end lilypond
+
+
+@commonprop
+
+Un bécarre est imprimé pour annuler toute altération précédente.  Ceci
+peut être supprimé en réglant la propriété
+@code{Staff.printKeyCancellation}.
+
+@lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+\set Staff.printKeyCancellation = ##f
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{KeyCancellation},
+@internalsref{KeySignature}.
+
 
 @node Time signature
 @subsection Time signature
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Time signature
+@cindex meter
+@funindex \time
+
+Le chiffre de mesure indique le mètre d'une pièce : une alternance
+régulière de temps forts et de temps faibles.  Il est indiqué par une
+fraction au début de la portée.
+
+Le chiffre de mesure est réglé par la commande @code{\time}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 2/4 c'2 \time 3/4 c'2.
+@end lilypond
+
+@commonprop
+
+Le symbole imprimé peut être modifié avec la propriété @code{style}.
+En la réglant sur @code{#'()}, une fraction sera utilisée pour les
+chiffres de mesure 4/4 et 2/2.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+\time 4/4 c'1
+\time 2/2 c'1
+\override Staff.TimeSignature #'style = #'()
+\time 4/4 c'1
+\time 2/2 c'1
+@end lilypond
+
+Il y a bien d'autres options pour sa mise en place.  Voir @ref{Ancient time
+signatures} pour plus d'exemples.
+
+@code{\time} définit les propriétés @code{timeSignatureFraction},
+@code{beatLength} et @code{measureLength} dans le contexte
+@code{Timing}, qui en principe est asservi à @internalsref{Score}.  La
+propriété @code{measureLength} détermine où des barres de mesure
+doivent être insérées, et comment les groupements de notes doivent
+être gérés.  Modifier la valeur de @code{timeSignatureFraction} donne
+également lieu à l'impression d'un symbole.
+
+Plus d'options sont possibles au moyen de la fonction Scheme
+@code{set-time-signature}.  De concert avec le
+@internalsref{Measure_grouping_engraver}, elle crée les signes de
+@internalsref{MeasureGrouping}, qui facilitent la lecture de musiques
+modernes, complexes rythmiquement.  Dans l'exemple suivant, les
+mesures à 9/8 sont subdivisées en  @code{(2 2 2 3)}, ce qui est donné
+comme argument à la commande @code{set-time-signature}, en troisième
+position.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+ \relative c'' {
+   #(set-time-signature 9 8 '(2 2 2 3))
+   g8[ g] d[ d] g[ g] a8[( bes g]) |
+   #(set-time-signature 5 8 '(3 2))
+   a4.  g4
+ }
+ \layout {
+   \context {
+     \Staff
+     \consists "Measure_grouping_engraver"
+   }
+ }
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{TimeSignature}, and
+@internalsref{Timing_translator}.
+
+Exemples : @inputfileref{input/@/test,compound@/-time@/.ly}.
+
+
+@refbugs
+
+Le groupement automatique des ligatures n'utilise pas les groupements
+spécifiés par @code{set-time-signature}.
+
 
 @node Partial measures
 @subsection Partial measures
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex anacrusis
+@cindex upbeat
+@cindex partial measure
+@cindex measure, partial
+@cindex shorten measures
+@funindex \partial
+
+
+Les mesures incomplètes, telles que les anacrouses ou levées, doivent
+être entrées avec la commande
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\partial 16*5 c16 cis d dis e | a2.  c,4 | b2
+@end lilypond
+
+
+La syntaxe de cette commande est
+
+@example
+\partial @var{duration}
+@end example
+
+
+@code{duration} étant la valeur rythmique devant être ajoutée avant la
+mesure suivante.
+
+Le programme traduit cette commande en
+
+@example
+\set Timing.measurePosition = -@var{length of duration}
+@end example
+
+
+La propriété @code{measurePosition} contient un nombre rationnel qui
+indique, à ce point précis, où l'on en est de la mesure. Notez qu'il
+peut s'agir d'un nombre négatif ; @code{\partial 4} signifie, pour le
+programme : @qq{Dans cette mesure, il reste juste une noire}.
+
+@refbugs
+
+
+Cette commande de prend pas en compte les petites notes (appogiatures,
+accacciatures) au début de la musique. Lorsqu'un morceau commence par
+une levée faite de petites notes, la commande @code{\partial} devrait
+être placée après celles-ci.
+
+@lilypond[verbatim,quote,ragged-right,relative,fragment]
+\grace f16
+\partial 4
+g4
+a2 g2
+@end lilypond
+
+
+@code{\partial} n'est destiné qu'à être utilisé au début d'une pièce.
+Si on l'utilise ailleurs qu'au début, des messages d'erreurs peuvent
+s'afficher.
 
 @node Bar lines
 @subsection Bar lines
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Bar lines
+@funindex \bar
+@cindex measure lines
+@cindex repeat bars
+
+
+Les barres de mesures délimitent les mesures, mais peuvent aussi
+indiquer une reprise. En principe, elles sont insérées
+automatiquement, et les changements de ligne ne peuvent se faire qu'au
+niveau de ces barres.
+
+Il est possible de forcer l'affichage d'une barre de mesure spéciale,
+avec la commande @code{\bar} :
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4 \bar "|:" c4
+@end lilypond
+
+
+Les styles de barres de mesure disponibles sont :
+
+@lilypondfile[ragged-right,quote]{bar-lines.ly}
+
+
+En plus de cela, on peut demander @code{"||:"}, qui équivaut à
+@code{"|:"}, mais donnera, en cas de changement de ligne, une double
+barre à la fin de la première ligne, et une barre de reprise au début
+de la suivante.
+
+
+Il est possible d'autoriser un changement de ligne même s'il n'y a pas
+de barre de mesure visible, en utilisant :
+
+@example
+\bar ""
+@end example
+
+@noindent
+
+
+Ceci insérera une barre de mesure invisible, et permettra de changer
+de ligne à cet endroit.  Le nombre de mesures augmente en ce cas.
+
+
+Dans une partition écrite sur plusieurs portées, la commande
+@code{\bar} placée sur une portée s'appliquera automatiquement à
+toutes les portées. Les barres de mesure que l'on obtient alors sont
+d'un seul tenant sur les portées d'un @code{StaffGroup}, d'un
+@code{PianoStaff}, ou d'un @code{ChoirStaff}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+<<
+ \new StaffGroup <<
+   \new Staff {
+     e'4 d'
+     \bar "||"
+     f' e'
+   }
+   \new Staff { \clef bass c4 g e g }
+ >>
+ \new Staff { \clef bass c2 c2 }
+>>
+@end lilypond
+
+
+@commonprop
+
+@funindex whichBar
+@funindex repeatCommands
+@funindex defaultBarType
+
+
+La commande @code{\bar }@var{bartype} sert de raccourci pour
+@code{\set Timing.whichBar = }@var{bartype}.  Dès que l'on définit
+@code{whichBar}, une barre de mesure sera créée suivant le style
+défini.
+
+
+Dès que la propriétée @code{whichBar} est définie, une barre de mesure
+est créée.  À chaque début de mesure elle est définie en tant que
+@code{Timing.defaultBarType}.  Les définitions telles que
+@code{repeatCommands} peuvent servir à remplacer les barres de mesure
+par défaut.
+
+Nous vous invitons à utiliser @code{\repeat} pour indiquer les
+reprises. Voyez à ce sujet @ref{Repeats}.
+
+
+@seealso
+
+Dans ce manuel : @ref{Repeats}, @ref{System start delimiters}.
+
+Référence du programme : @internalsref{BarLine} (created at
+@internalsref{Staff} level), @internalsref{SpanBar} (across staves).
+
+D'autres exemples : @inputfileref{input/@/test,bar@/-lines@/.ly},
+
 
 @node Unmetered music
 @subsection Unmetered music
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex cadenza
+@funindex \cadenzaOn
+@funindex \cadenzaOff
+
+
+Les barres de mesure et les chiffres de mesure sont calculés
+automatiquement, ce qui n'est pas souhaitable dans la musique non
+mesurée --- les cadences, par exemple. Les commandes @code{\cadenzaOn}
+and @code{\cadenzaOff} permettent de désactiver et de rétablir la
+métrique automatique.
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
+
+
+@refbugs
+
+
+LilyPond ne change de ligne ou de page qu'au niveau des barres de
+mesure.  Si votre musique non mesurée dure plus d'une ligne, il vous
+faudra insérer des barres de mesure invisibles, pour indiquer à quels
+endroit un changement de ligne peut intervenir.
+
+@example
+\bar ""
+@end example
+
+@noindent
+
 
 @node System start delimiters
 @subsection System start delimiters
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex start of system
+@cindex Staff, multiple
+@cindex bracket, vertical
+@cindex brace, vertical
+@cindex grand staff
+@cindex staff group
+@cindex staff, choir
+
+
+De nombreuses partitions sont écrites sur plus d'une portée.  Ces
+portées peuvent être regroupées de quatre manières différentes.
+
+@itemize @bullet
+@item Le groupe de portées est attaché par une accolade sur la gauche,
+et les barres de mesure sont d'un seul tenant. Il s'agit du contexte
+@internalsref{GrandStaff}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new GrandStaff
+\relative <<
+ \new Staff { c1 c }
+ \new Staff { c c }
+>>
+@end lilypond
+
+@item Le groupe de portées est attaché par un crochet, et les barres
+de mesure sont d'un seul tenant. Il s'agit du contexte
+@internalsref{StaffGroup}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new StaffGroup
+\relative <<
+ \new Staff { c1 c }
+ \new Staff { c c }
+>>
+@end lilypond
+
+
+
+@item Le groupe de portées est attaché par un crochet, mais les barres
+de mesure sont séparées d'une portée à l'autre. Il s'agit du contexte
+@internalsref{ChoirStaff}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new ChoirStaff
+\relative <<
+ \new Staff { c1 c }
+ \new Staff { c c }
+>>
+@end lilypond
+
+@item Les portées du groupe ne sont pas attachées (à part par une
+simple ligne verticale). Les barres de mesure sont détachées. Il
+s'agit de l'assemblage par défaut.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative <<
+ \new Staff { c1 c }
+ \new Staff { c c }
+>>
+@end lilypond
+@end itemize
+
+
+@seealso
+
+
+Pour les barres de mesure au début de chaque système, voir
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, et
+@internalsref{SystemStartBracket}.  Dans chaque contexte, seul l'un de
+ces styles est utilisé, et c'est la propriété
+@internalsref{systemStartDelimiter} qui détermine lequel.
+
 
 @node Staff symbol
 @subsection Staff symbol
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex adjusting staff symbol
+
+Les notes, les symboles dynamiques, etc. sont regroupés dans un
+assemblage de lignes horizontales, que l'on nomme la portée (en
+anglais qq{staff}}, et @qq{staves} au pluriel).  Dans LilyPond, ces lignes
+sont dessinées au moyen d'un objet de mise en forme à part entière,
+nommé @code{staff symbol}.
+
+
+L'aspect du @code{staff symbol} peut être modifié selon différentes
+propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
+éloignement. Vous en trouverez des exemples dans
+@inputfileref{input/@/test,staff@/-lines@/.ly}
+et
+@inputfileref{input/@/test,staff@/-size@/.ly}.
+
+
+De plus, les portées peuvent commencer et s'arrêter où l'on veut,
+grâce aux commandes @code{\startStaff} et @code{\stopStaff}.
+
+@lilypond[verbatim,relative=2,fragment]
+b4 b
+\override Staff.StaffSymbol #'line-count = 2
+\stopStaff \startStaff
+b b
+\revert Staff.StaffSymbol #'line-count
+\stopStaff \startStaff
+b b
+@end lilypond
+
+
+@c Does any French translator have any clue
+@c about how to tranlate this ?
+Cette manière de procéder peut être utilisée pour introduire des
+qq{Ossias} dans des partitions à portées discontinues @qq{à la française},
+comme sur l'exemple suivant :
+
+@cindex ossia
+
+@lilypondfile{ossia.ly}
+
+@cindex staff lines, setting number of
+@cindex staff lines, setting thickness of
+@cindex thickness of staff lines, setting
+@cindex number of staff lines, setting
+
+@seealso
+
+Référence du programme : @internalsref{StaffSymbol}.
+
+D'autres exemples : @inputfileref{input/@/test,staff@/-lines@/.ly},
+@inputfileref{input/@/test@/,ossia.ly},
+@inputfileref{input/@/test,staff@/-size@/.ly},
+@inputfileref{input/@/regression,staff@/-line@/-positions@/.ly}.
+
 
 @node Writing music in parallel
 @subsection Writing music in parallel
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Writing music in parallel
+@cindex Interleaved music
+
+On peut écrire plusieurs voix de façon entremêlée :
+
+@lilypond[quote,fragment,verbatim]
+\parallelMusic #'(voiceA voiceB) {
+ r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
+ c'2                                c'2                                |
+ r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
+ c'2                                c'2                                |
+}
+\new StaffGroup <<
+ \new Staff \new Voice \voiceA
+ \new Staff \new Voice \voiceB
+>>
+@end lilypond
+
+
 
 @node Connecting notes
 @section Connecting notes
+De la notation qui affecte des groupes de notes.
 
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
+@menu
 * Ties::
 * Slurs::
 * Phrasing slurs::
@@ -248,48 +1956,640 @@ UNTRANSLATED NODE: IGNORE ME
 * Automatic beams::
 * Manual beams::
 * Grace notes::
-@end menu 
+@end menu
+
+
 @node Ties
 @subsection Ties
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tie
+@funindex ~
+
+Une liaison de tenue (ou de prolongation) relie deux notes adjacentes
+de même hauteur.  Dans les faits, une liaison de tenue prolonge la
+durée d'une note, et ne doit donc pas être confondue avec les liaisons
+d'articulation ou de phrasé.  Une liaison de tenue est indiquée au
+moyen du symbole appelé tilde @samp{~}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+
+Quand une liaison de tenue se trouve entre deux accords, toutes les
+notes de même hauteur entre ces deux accords seront reliées.  S'il n'y
+en a aucune, aucune liaison ne sera créée.  Il est également possible
+de lier partiellement deux accords, en mettant la liaison à
+l'intérieur des accords.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+
+Une liaison de tenue est un moyen parmi d'autres de prolonger la durée
+d'une note, tout comme les notes pointées.  L'exemple suivant montre
+deux manières de noter exactement la même idée :
+
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2.  c'2 ~ c'4
+@end lilypond
+
+@noindent
+
+Les liaisons de tenues sont utilisées soit quant la note dépasse de la
+mesure, ou quand les points ne suffisent pas à rendre le bon rythme.
+Lorsque l'on utilise ces liaisons, les valeurs rythmiques les plus
+longues doivent s'aligner sur les subidivisions de la mesure, comme
+ici :
+
+@lilypond[fragment,quote,ragged-right]
+\relative {
+ r8 c8 ~ c2 r4 | r8^"et non pas" c2 ~ c8 r4
+}
+@end lilypond
+
+
+Lorsque l'on doit lier de nombreuses notes sur plusieurs mesures, il
+devient plus facile d'avoir recours à la division automatique des
+notes (voir @ref{Automatic note splitting}).  Ce procédé divise
+automatiquement les notes trop longues, et les lie par-delà les barres
+de mesure.
+
+@funindex \repeatTie
+
+
+Lorsque l'indication "2." d'une reprise commence sur une note liée, la
+liaison doit être répétée. C'est à cela que sert la commande
+@code{\repeatTie}.
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex repeating ties
+@cindex volta brackets and ties
+
+@commonprop
+
+
+Les liaisons de tenues servent parfois à rendre un accord arpégé. Dans
+ce cas, les notes liées ne sont pas toutes l'une contre l'autre. Il
+faut alors définir comme vraie ("t" pour "true") la propriété
+@code{tieWaitForNote}.  Cette même méthode peut servir, par exemple, à
+lier un trémolo à un accord :
+
+@lilypond[fragment,verbatim,relative=1,ragged-right]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat "tremolo" 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+
+@refcommands
+
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+Dans ce même manuel : @ref{Automatic note splitting}.
+
+Référence du programme : @internalsref{Tie}.
+
+D'autres exemples :
+@inputfileref{input/@/regression,tie-arpeggio.ly}
+@inputfileref{input/@/regression,tie-manual.ly}
+
+
+
+
+@refbugs
+
+
+Un changement de portée, lorsqu'une liaison de tenue est active, ne
+peut produire une liaison oblique.
+
+Il n'est pas vraiment possible de changer de clé ou d'octave écrite
+pendant une liaison de tenue.  Dans ces cas-là, il peut être plus
+judicieux d'utiliser un legato.
 
 @node Slurs
 @subsection Slurs
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Slurs
+
+
+Une liaison d'articulation indique que les notes doivent être
+jouées liées, ou @emph{legato}.  Ces liaisons s'indiquent au moyen de
+parenthèses.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+f( g a) a8 b( a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+
+Il est possible d'indiquer l'orientation de la liaison, avec
+@code{\slur@emph{DIR}}, @code{@emph{DIR}} pouvant être soit @code{Up}
+pour une liaison vers le haut, @code{Down} pour une liaison vers le
+bas, ou encore @code{Neutral} pour laisser LilyPond décider.
+
+
+Cependant, il existe un raccourci pratique pour obliger les
+liaisons à s'orienter dans tel ou tel sens.   Il suffit pour cela
+d'ajouter @code{_} ou @code{^} avant d'ouvrir une parenthèse.  Ainsi,
+
+@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
+c4_( c) c^( c)
+@end lilypond
+
+
+Une seule liaison d'articulation peut être imprimée à la fois.
+S'il est nécessaire d'imprimer une liaison plus longue, englobant
+des liaisons plus courtes, il faudra utiliser des @ref{Phrasing slurs}.
+
+
+@commonprop
+
+
+Certains auteurs utilisent deux liaisons lorsqu'ils veulent
+lier des accords. Dans LilyPond, il faut pour cela définir comme
+vraie ("true") la propriété @code{doubleSlurs} :
+
+@lilypond[verbatim,ragged-right,relative,fragment,quote]
+\set doubleSlurs = ##t
+<c e>4 ( <d f> <c e> <d f> )
+@end lilypond
+
+
+@refcommands
+
+@funindex \slurUp
+@code{\slurUp},
+@funindex \slurDown
+@code{\slurDown},
+@funindex \slurNeutral
+@code{\slurNeutral},
+@funindex \slurDashed
+@code{\slurDashed},
+@funindex \slurDotted
+@code{\slurDotted},
+@funindex \slurSolid
+@code{\slurSolid}.
+
+@seealso
+
+Référence du programme : @seeinternals{Slur}.
+
 
 @node Phrasing slurs
 @subsection Phrasing slurs
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex phrasing slurs
+@cindex phrasing marks
+
+
+Les liaisons de phrasé relient plusieurs notes et délimitent une
+phrase musicale.  On indique leut point de départ et d'arrivée avec
+@code{\(} et @code{\)} respectivement.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\time 6/4 c'\( d( e) f( e) d\)
+@end lilypond
+
+
+D'un point de vue typographique, rien ne distingue une liaison de
+phrasé d'une liaison d'articulation. Cependant, LilyPond les
+considère comme des objets différents. Une commande @code{\slurUp}
+n'affectera donc pas une liaison de phrasé : il faut plutôt utiliser
+@code{\phrasingSlurUp}, @code{\phrasingSlurDown} ou
+@code{\phrasingSlurNeutral}.
+
+
+Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
+
+@refcommands
+
+@funindex \phrasingSlurUp
+@code{\phrasingSlurUp},
+@funindex \phrasingSlurDown
+@code{\phrasingSlurDown},
+@funindex \phrasingSlurNeutral
+@code{\phrasingSlurNeutral}.
+
+
+@seealso
+
+Référence du programme : @internalsref{PhrasingSlur}.
+
 
 @node Laissez vibrer ties
 @subsection Laissez vibrer ties
+@cindex Laissez vibrer
+@cindex Ties, laissez vibrer
 
-UNTRANSLATED NODE: IGNORE ME
+
+Les liaisons de "Laissez Vibrer" (L.V.) sont utilisées pour
+le piano, la harpe, et certains instruments de percussion.  Elles
+indiquent à l'instrumentiste de laisser sonner la note au lieu de
+l'étouffer.  Cet effet s'obtient avec la commande
+@code{\laissezVibrer}.
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+@seealso
+
+Référence du programme :
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+D'autres exemples :
+@inputfileref{input/regression,laissez-vibrer-tie.ly}
+
 
 @node Automatic beams
 @subsection Automatic beams
 
-UNTRANSLATED NODE: IGNORE ME
+
+LilyPond décide lui-même de la manière de grouper les notes et
+d'imprimer les ligatures :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c c c \time 6/8 c c c c8.  c16 c8
+@end lilypond
+
+
+Cependant lorsque ces décisions ne sont pas satisfaisantes, il est
+possible de préciser quels groupements l'ont veut, ou même de définir
+des séquences de groupements en lieu et place des groupements
+par défaut. Voir @ref{Setting automatic beam behavior}
+pour plus de détails.
+
+
+La commande @code{\noBeam} peut servir à empêcher des notes
+individuelles d'être rattachées aux autres.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c\noBeam c c
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Beam}.
+
 
 @node Manual beams
 @subsection Manual beams
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex beams, manual
+@funindex ]
+@funindex [
+
+
+Dans certaines situations, il peut s'avérer nécessaire de
+supplanter l'algorithme de groupement automatique des notes, par
+exemple pour prolonger une ligature par-dessus un silence ou une barre
+de mesure.  Le début et la fin de la ligature sont alors indiqués par
+@code{[} et @code{]}.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+{
+ r4 r8[ g' a r8] r8 g[ | a] r8
+}
+@end lilypond
+
+
+@commonprop
+
+@funindex stemLeftBeamCount
+@funindex stemRightBeamCount
+
+
+En principe, les sous-groupements à l'intérieur d'un groupe de notes
+sont déterminés automatiquement.  Cependant, les propriétés
+@code{stemLeftBeamCount} et @code{stemRightBeamCount} peuvent
+servir à contourner ce comportement.  Lorsque l'une ou l'autre de
+ces propriétés est définie, elle ne s'applique qu'une seule fois,
+après quoi sa définition est effacée.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+{
+  f8[ r16
+     f g a]
+  f8[ r16
+  \set stemLeftBeamCount = #1
+     f g a]
+}
+@end lilypond
+
+
+La propriété @code{subdivideBeams} sert à grouper les double-croches
+ou les valeurs plus brèves pulsation par pulsation, la pulsation
+étant définie par la propriété @code{beatLength}.
+
+@lilypond[fragment,quote,relative=2,verbatim]
+c16[ c c c c c c c]
+\set subdivideBeams = ##t
+c16[ c c c c c c c]
+\set Score.beatLength = #(ly:make-moment 1 8)
+c16[ c c c c c c c]
+@end lilypond
+@funindex subdivideBeams
+
+@noindent
+Pour plus d'information sur @code{make-moment}, voir
+@ref{Time administration}.
+
+
+Lorsqu'une ligature entre des notes franchit une barre de mesure,
+le retour à la ligne est en principe interdit à cet endroit.
+Ce comportement peut être changé en définissant @code{allowBeamBreak}
+comme vrai.
+
+@funindex allowBeamBreak
+@cindex beams and line breaks
+@cindex beams, kneed
+@cindex kneed beams
+@cindex auto-knee-gap
+
+
+@refbugs
+
+
+LilyPond insère automatiquement des ligatures d'orientation double
+(certaines notes vers le haut, d'autres vers le bas) lorsqu'il
+détecte un espace important entre des têtes de notes. Ce
+comportement peut être changé en paramétrant l'objet.
+
+
+Les ligatures d'orientation double à cheval sur deux portées
+ne peuvent être employées lorsque l'une des portées est invisible.
+Voir @ref{Hiding staves}.
+
+
+Les ligatures peuvent entrer en collision avec des symboles entourant
+les notes, contrairement aux textes ou aux altérations.
+
 
 @node Grace notes
 @subsection Grace notes
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \grace
+@cindex ornaments
+@cindex grace notes
+@cindex appoggiatura
+@cindex acciaccatura
+
+
+Les petites notes sont des ornements entièrement écrits.  Les plus
+courantes sont les accacciatures, qui doivent se jouer très vite,
+et qui s'écrivent sous forme d'une petite note barrée (sur la hampe)
+et liée.  L'appoggiature est une petite note non barrée, qui vole
+une fraction de la durée de la note réelle qui la suit.
+
+Ces petites notes sont entrées avec les commandes @code{\acciaccatura}
+et @code{\appoggiatura}, comme le montre l'exemple suivant :
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+\acciaccatura { g16[ f] } e4
+@end lilypond
+
+
+Ce sont là deux formes spéciales de la commande @code{\grace}, qui
+prend en charge toutes les petites notes. Si on la fait suivre
+d'une expression musicale, un groupe de petites notes sera créé,
+sans impact sur le reste de la métrique.
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+c4 \grace c16 c4
+\grace { c16[ d16] } c2 c4
+@end lilypond
+
+@noindent
+Contrairement à @code{\acciaccatura} ou @code{\appoggiatura}, la 
+commande @code{\grace} n'entame pas de liaison.
+
+La durée des petites notes est interprétée par le programme en
+fonction d'une deuxième commande @code{\grace} indiquant la durée
+sous forme de deux nombres rationnels : le premier indique le rythme
+réel, le second indique le rythme des petites notes.  Reprenons
+l'exemple ci-dessus en y ajoutant ces couples de nombres :
+
+@lilypond[quote,ragged-right]
+<<
+ \relative c''{
+   c4 \grace c16 c4 \grace {
+   c16[ d16] } c2 c4
+ }
+ \new Lyrics \lyricmode {
+   \override LyricText #'font-family = #'typewriter
+
+   \markup { (0,0) } 4
+   \grace { \markup {
+     ( \fraction 1 4 , \fraction -1 16 ) } 16 }
+   \markup { (\fraction 1 4 , 0 ) } 4
+   \grace {
+     \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
+     \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
+   }
+   \markup { ( \fraction 2 4 , 0 ) }
+ }
+>>
+@end lilypond
+
+
+Les petites notes se placent de façon synchrone entre les différentes
+portées.  Dans l'exemple suivant, il y a deux petites double-croches
+pour chaque petite croche.
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \grace { c16[ d e f] } e4 }
+  \new Staff { c4 \grace { g8[ b] } c4 } >>
+@end lilypond
+
+@funindex \afterGrace
+
+
+La commande @code{\afterGrace} sert à placer une petite note après
+une note réelle --- et non @emph{avant} comme d'ordinaire.
+Cette commande requiert deux arguments : la note réelle, et la ou les
+petites notes qui suivent.
+
+@lilypond[ragged-right, verbatim,relative=2,fragment]
+c1 \afterGrace d1 { c16[ d] } c4
+@end lilypond
+
+
+Les petites notes se placent alors à 3/4 de la durée de la note
+réelle.  Cet espacement peut être changé en définissant
+@code{afterGraceFraction} ; ainsi :
+
+@example
+afterGraceFraction = #(cons 7 8)
+@end example
+
+@noindent
+
+placera la petite note à 7/8èmes de la note réelle.
+
+
+On peut obtenir le même effet manuellement, de la façon suivante :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Voice {
+ << { d1^\trill_( }
+    { s2 \grace { c16[ d] } } >>
+ c4)
+}
+@end lilypond
+
+@noindent
+
+Le silence invisible peut être plus ou moins long (ici c'est une
+blanche) afin d'ajuster l'espace entre la note réelle et les petites
+notes.
+
+Tout ce qui est introduit par @code{\grace} obéit à des règles
+typographiqes particulières, notamment pour règler l'orientation
+et la taille des objets.  De ce fait, toute subtilité de mise en
+forme devra être indiquée @emph{à l'intérieur} de la section
+introduite par @code{\grace} :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Voice {
+ \acciaccatura {
+   \stemDown
+   f16->
+   \stemNeutral
+ }
+ g4
+}
+@end lilypond
+
+@noindent
+
+Tous les réglages ajoutés doivent également être désactivés dans cette
+même section.
+
+Il est possible de changer la mise en forme de toutes les petites
+notes dans un morceau, au moyen de la fonction
+@code{add-grace-property}.  Ici, par exemple, l'on ôte la définition
+de l'orientation des objets @code{Stem} pour toutes les petites notes,
+afin que les hampes ne soient pas toujours orientées vers le haut.
+
+@example
+\new Staff @{
+ #(add-grace-property 'Voice 'Stem 'direction '())
+ @dots{}
+@}
+@end example
+
+@noindent
+Il est par ailleurs possible de chager les variables
+@code{startGraceMusic}, @code{stopGraceMusic},
+@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
+@code{startAppoggiaturaMusic}, et @code{stopAppoggiaturaMusic}.
+Pour plus de détails, voir le fichier @file{ly/@/grace@/-init@/.ly}.
+
+@noindent
+Le trait que l'on trouve sur les hampes des accacciatures peut
+s'appliquer dans d'autres situations en définissant
+@code{\override Stem  #'stroke-style = #"grace"}.
+
+
+@commonprop
+
+
+Les petites notes peuvent être obligées à s'espacer
+de manière fluctuante.
+
+@lilypond[relative=2,ragged-right]
+<<
+ \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+ \new Staff {
+    c'4
+    \afterGrace
+    c'4
+    { c'16[ c'8 c'16] }
+    c'4
+ }
+ \new Staff {
+    c'16[ c'16 c'16 c'16]
+    c'16[ c'16 c'16 c'16]
+    c'4
+ }
+>>
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{GraceMusic}.
+
+
+@refbugs
+
+
+Une partition commençant par une section @code{\grace} doit faire
+intervenir la commande @code{\new Voice}, sans quoi la note réelle et
+la petite note se retrouveront sur des portées différentes.
+
+
+La synchronisation des petites notes se fait de façon parfois
+surprenante, car les autres objets de la portée --- barres de mesure,
+armures, etc. --- sont eux aussi synchrones. Pensez-y lorsque vous
+mélez des portées comprenant des petites notes et d'autres sans :
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+  \new Staff { c4 \bar "|:" d4 } >>
+@end lilypond
+
+@noindent
+Il est possible de remédier à cela en insérant des silences invisibles
+correspondant aux durées des petites notes sur les autres portées ---
+les silences invisibles peuvent également être considérés comme des
+petites notes, s'ils suivent la commande @code{grace}.
+
+@example
+\new Staff @{ c4 \bar "|:" \grace s16 d4 @}
+@end example
+
+
+Les sections de petites notes ne doivent être utilisées que dans des
+expressions musicales linéaires ; il n'est pas possible d'enchâsser
+ni de juxtaposer des sections de petites notes, faute de quoi le
+traitement du code peut échouer ou produire des erreurs.
+
 
 @node Expressive marks
 @section Expressive marks
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+Les indications d'expression permettent aux interprètes de faire en
+sorte que la musique soit plus qu'un assemblage de notes et de rythmes.
+
+
+@menu
 * Articulations::
 * Fingering instructions::
 * Dynamics::
@@ -298,53 +2598,591 @@ UNTRANSLATED NODE: IGNORE ME
 * Glissando::
 * Arpeggio::
 * Falls and doits::
-@end menu 
+@end menu
+
+
 @node Articulations
 @subsection Articulations
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Articulations
+@cindex scripts
+@cindex ornaments
+
+
+Différents symboles peuvent être ajoutés au-dessus ou au-dessous des
+notes pour indiquer des ponctuations ou des modes de jeu différents.
+On les ajoute à chaque note au moyen d'un tiret suivi du caractère
+correspondant à l'articulation désirée.  En voici une démonstration :
+
+@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+
+
+Il est possible de changer la signification de ces raccourcis : voir
+@file{ly/@/script@/-init@/.ly} pour quelques exemples.
+
+
+Même si LilyPond place automatiquement ces symboles, il est
+possible de l'obliger à les placer en-dessus ou en-dessous de la note,
+tout comme d'autres objets, en utilisant respectivement dans le code
+@code{_} et @code{^}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c''4^^ c''4_^
+@end lilypond
+
+
+On peut ajouter d'autres symboles, avec la syntaxe
+@var{note}@code{\}@var{symbole}.  Là encore, on peut les forcer
+en bas ou en haut, avec @code{^} and @code{_}.  Ainsi :
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c\fermata c^\fermata c_\fermata
+@end lilypond
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex fermata
+@cindex stopped
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex upbow
+@cindex downbow
+@cindex foot marks
+@cindex organ pedal marks
+@cindex turn
+@cindex open
+@cindex flageolet
+@cindex reverseturn
+@cindex trill
+@cindex prall
+@cindex mordent
+@cindex prallprall
+@cindex prallmordent
+@cindex prall, up
+@cindex prall, down
+@cindex mordent
+@cindex thumb marking
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+Voici la liste exhaustive de tous les symboles possibles :
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+@commonprop
+
+Les symboles s'ordonnent verticalement suivant la propriété
+@code{script-priority}. Plus le nombre qui la définit est faible, plus
+le symbole se rapprochera de la note. Dans l'exemple suivant, l'objet
+@internalsref{TextScript} --- le dièse --- a d'abord la propriété la
+plus basse, et il est donc placé plus près de la note ; ensuite c'est
+l'objet @internalsref{Script} qui a la propriété la plus basse,
+et il se place alors sous le dièse.  Lorsque deux objets ont la même
+propriété, c'est l'ordre dans lequel ils sont indiqués qui détermine
+lequel sera placé en premier.
+
+@lilypond[verbatim,relative=3,ragged-right,fragment,quote]
+\once \override TextScript #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+
+\once \override Script #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Script}.
+
+
+@refbugs
+
+
+Ces symboles sont présents sur la partition imprimée, mais
+n'ont pas d'effet sur le rendu sonore de la musique en MIDI.
+
 
 @node Fingering instructions
 @subsection Fingering instructions
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fingering
+@cindex finger change
+
+
+Les doigtés peuvent être indiqués comme suit :
+@example
+@var{note}-@var{chiffre_du_doigt}
+@end example
+Pour les substitutions de doigts, on a recours à une indication
+textuelle (commande @code{\markup}) de doigté
+(commande @code{\finger} :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+c4-1 c-2 c-3 c-4
+c^\markup { \finger "2 - 3" }
+@end lilypond
+
+
+La commande @{\thumb} peut être utilisée pour indiquer, par exemple
+dans une partition de violoncelle, si une note doit être jouée
+avec le pouce (en anglais "thumb") :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+<a_\thumb a'-3>8 <b_\thumb b'-3>
+@end lilypond
+
+
+Les doigtés des accords peuvent être saisis note par note,
+en les indiquant après chaque hauteur de note :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+< c-1 e-2 g-3 b-5 >4
+@end lilypond
+
+
+@commonprop
+
+On peut contrôler précisément les doigtés des accords en réglant
+la propriété @code{fingeringOrientations} :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+\set fingeringOrientations = #'(left down)
+<c-1 es-2 g-4 bes-5 > 4
+\set fingeringOrientations = #'(up right down)
+<c-1 es-2 g-4 bes-5 > 4
+@end lilypond
+
+
+Cette propriété permet également, dans de la musique monophonique,
+d'indiquer des doigtés très proches des têtes de notes.
+
+@lilypond[verbatim,ragged-right,quote,fragment]
+\set fingeringOrientations = #'(right)
+<es'-2>4
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Fingering}.
+
+D'autres exemples : @inputfileref{input/@/regression,finger@/-chords@/.ly}.
+
 
 @node Dynamics
 @subsection Dynamics
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Dynamics
+@funindex \pppp
+@funindex \ppp
+@funindex \pp
+@funindex \p
+@funindex \mp
+@funindex \mf
+@funindex \f
+@funindex \ff
+@funindex \fff
+@funindex \ffff
+@funindex \fp
+@funindex \sf
+@funindex \sff
+@funindex \sp
+@funindex \spp
+@funindex \sfz
+@funindex \rfz
+
+
+À chaque nuance absolue correspond une commande, qui peut être
+indiquée après une note : @code{c4\ff} par exemple.
+Les commandes de nuances disponibles sont
+@code{\ppppp}, @code{\pppp}, @code{\ppp},
+@code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f},
+@code{\ff}, @code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf},
+@code{\sff}, @code{\sp}, @code{\spp}, @code{\sfz}, et @code{\rfz}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
+@end lilypond
+
+@funindex \<
+@funindex \>
+@funindex \!
+
+
+Un crescendo est délimité par @code{\<} et @code{\!}, ou peut se
+terminer par une commande de nuance.  Au lieu de @code{\<}
+ou @code{\>}, on peut aussi utiliser @code{\cr} et @code{\decr}.
+Ces indications sont attachées aux notes ; aussi si l'on veut
+faire se succéder plusieurs nuances pendant une note tenue, il faudra
+avoir recours à des silences invisibles :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\< c\! d\> e\!
+<< f1 { s4 s4\< s4\! \> s4\! } >>
+@end lilypond
+
+@noindent
+
+En principe, un crescendo --- s'il est imprimé sous forme graphique --
+commence au bord gauche de la note de départ, et se termine au
+bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
+est sur un premier temps, le crescendo s'arrêtera au niveau de la
+barre de mesure qui la précède.  Ce comportement peut être annulé
+en définissant comme fausse (lettre @q{f}) la propriété
+@code{hairpinToBarline} :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set hairpinToBarline = ##f
+c4\< c2.  c4\!
+@end lilypond
+
+
+On peut avoir recours à l'indication @code{\espressivo} pour
+indiquer un @qq{soufflet} --- crescendo puis decrescendo --- sur
+une seule note.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c2 b4 a g1\espressivo
+@end lilypond
+
+
+Cependant, ces deux indications graphiques peuvent se trouver
+très comprimées.  Pour les rallonger, on peut modifier la propriété
+@code{minimum-length} dans @internalsref{Voice}.@internalsref{Hairpin}
+--- @internalsref{Voice} étant le contexte, et @internalsref{Hairpin}
+l'objet affecté. Par exemple :
+
+@example
+\override Voice.Hairpin #'minimum-length = #5
+@end example
+
+@cindex al niente
+@cindex niente, al
+
+
+Des crescendos ou decrescendos @qq{al niente} peuvent être indiqués
+de manière graphique, en définissant comme vraie (lettre "t") la
+propriété  @code{circled-tip}, ce qui affiche un cercle à leur
+extrémité.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override Hairpin #'circled-tip = ##t
+c2\< c\!
+c4\> c\< c2\!
+@end lilypond
+
+
+@cindex crescendo
+@cindex decrescendo
+@cindex diminuendo
+
+
+Au lieu d'une notation graphique des crescendos, on peu utiliser
+une notation textuelle comme @emph{cresc.} :
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\setTextCresc
+c\< d e f\!
+\setHairpinCresc
+e\> d c b\!
+\setTextDecresc
+c\> d e f\!
+\setTextDim
+e\> d c b\!
+@end lilypond
+
+
+On peut même ajouter ses propres indications textuelles :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\set crescendoText = \markup { \italic "cresc.  poco" }
+\set crescendoSpanner = #'dashed-line
+a'2\< a a a\!\mf
+@end lilypond
+
+
+Pour créer des indications de nuances qui restent alignées
+avec les nuances habituelles, voir @ref{New dynamic marks}.
+
+
+@commonprop
+
+
+Des nuances différentes situées --- ou commençant --- sur une même
+note seront alignées verticalement.  Pour aligner des nuances qui ne
+se situeraient pas sur une même note, il est possible d'augmenter
+la propriété @code{staff-padding}.
+
+@example
+\override DynamicLineSpanner #'staff-padding = #4
+@end example
+
+
+Cette propriété peut aussi servir à régler des problèmes de
+collisions entre des nuances et d'autres objets.
+
+
+Les crescendos ou decrescendos qui aboutissent sur la première note
+d'une nouvelle ligne ne sont imprimés que jusqu'à la fin de la ligne
+précédente.  Ce comportement peut être outrepassé en définissant :
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
+
+Les crescendos et decrescendos indiqués textuellement --- tels que
+@emph{cresc.} ou @emph{dim.} --- sont suivis de pointillés qui montrent
+leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+
+@example
+\override DynamicTextSpanner #'dash-period = #-1.0
+@end example
+
+
+@refcommands
+
+@funindex \dynamicUp
+@code{\dynamicUp},
+@funindex \dynamicDown
+@code{\dynamicDown},
+@funindex \dynamicNeutral
+@code{\dynamicNeutral}.
+
+
+@seealso
+
+Référence du programme : @internalsref{DynamicText}, @internalsref{Hairpin}.
+
+Le placement vertical de ces éléments graphiques est géré par le
+@internalsref{DynamicLineSpanner}.
+
 
 @node Breath marks
 @subsection Breath marks
 
-UNTRANSLATED NODE: IGNORE ME
+
+Les indications de respiration sont indiquées par la commande @code{\breathe}.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c'4 \breathe d4
+@end lilypond
+
+
+@commonprop
+
+
+On peut choisir le glyphe imprimé par cette commande, en
+modifiant la propriété @code{text} relative à l'objet
+@code{BreathingSign} pour lui affecter n'importe quelle indication.
+Par exemple :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+c'4
+\override BreathingSign #'text
+ = #(make-musicglyph-markup "scripts.rvarcomma")
+\breathe
+d4
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{BreathingSign}.
+
+D'autres exemples : @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
+
 
 @node Trills
 @subsection Trills
 
-UNTRANSLATED NODE: IGNORE ME
+Les trilles brefs s'indiquent comme n'importe quelle ponctuation :
+voir @ref{Articulations}.
+
+
+Les trilles plus longs sont délimités par @code{\startTrillSpan} et
+@code{\stopTrillSpan} :
+
+@lilypond[verbatim,ragged-right,relative=2,quote,fragment]
+\new Voice {
+ << { c1 \startTrillSpan }
+    { s2.  \grace { d16[\stopTrillSpan e] } } >>
+ c4 }
+@end lilypond
+
+@cindex Pitched trills
+
+
+Les trilles qui font intervenir une hauteur précise peuvent être
+indiqués par la commande @code{pitchedTrill}.
+
+@lilypond[ragged-right,verbatim,fragment,relative=1,quote]
+\pitchedTrill c4\startTrillSpan fis
+f\stopTrillSpan
+@end lilypond
+
+
+La premier argument est la note réelle ; le second est une
+hauteur qui sera imprimée entre parenthèses et sans hampe.
+
+
+@refcommands
+
+@code{\startTrillSpan},
+@funindex \startTrillSpan
+@code{\stopTrillSpan}.
+@funindex \stopTrillSpan
+
+
+@seealso
+
+Référence du programme : @internalsref{TrillSpanner}.
+
 
 @node Glissando
 @subsection Glissando
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Glissando
+@funindex \glissando
+
+
+Un glissando relie une hauteur à une autre en passant par chaque
+hauteur intermédiaire.  Il est indiqué graphiquement, par une ligne
+ou des vaguelettes entre ces deux notes. On l'obtient en
+accolant la commande @code{\glissando} à la première note.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+c2\glissando c'
+\override Glissando #'style = #'zigzag
+c2\glissando c,
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Glissando}.
+
+D'autres exemples : @file{input/@/regression/@/glissando@/.ly}.
+
+
+@refbugs
+
+
+Il n'est pas possible d'imprimer un texte (tel que @emph{gliss.})
+sur la ligne de glissando.
 
 @node Arpeggio
 @subsection Arpeggio
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Arpeggio
+@cindex broken chord
+@funindex \arpeggio
+
+
+On peut indiquer qu'un accord doit être arpégé en lui accolant la
+commande @code{\arpeggio} :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+<c e g c>\arpeggio
+@end lilypond
+
+
+Pour spécifier qu'un autre accord doit être joué plaqué et non
+arpégé, on peut remplacer ce signe par un crochet :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\arpeggioBracket
+<c' e g c>\arpeggio
+@end lilypond
+
+
+Le sens de l'arpège est parfois indiqué, par une flêche suivant la
+vaguelette :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new Voice {
+ \arpeggioUp
+ <c e g c>\arpeggio
+ \arpeggioDown
+ <c e g c>\arpeggio
+}
+@end lilypond
+
+
+@commonprop
+
+
+Quand un arpège se lit sur plusieurs portées, il est possible
+d'indiquer l'arpège sur chacune des portées, puis de relier la
+ligne de vaguelettes en définissant comme vraie la propriété
+@code{connectArpeggios}, par exemple dans le contexte
+@internalsref{PianoStaff} :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+ \set PianoStaff.connectArpeggios = ##t
+ \new Staff { <c' e g c>\arpeggio }
+ \new Staff { \clef bass <c,, e g>\arpeggio }
+>>
+@end lilypond
+
+
+@refcommands
+
+@code{\arpeggio},
+@funindex \arpeggioUp
+@code{\arpeggioUp},
+@funindex \arpeggioDown
+@code{\arpeggioDown},
+@funindex \arpeggioNeutral
+@code{\arpeggioNeutral},
+@funindex \arpeggioBracket
+@code{\arpeggioBracket}.
+
+
+@seealso
+
+Dans ce même manuel : @ref{Ties}, pour d'autres notations des
+arpèges.
+
+Référence du programme : @internalsref{Arpeggio}.
+
+
+@refbugs
+
+
+Il est impossible de méler au même moment, dans un contexte
+@internalsref{PianoStaff}, des lignes d'arpèges
+connectées et d'autres non connectées.
 
 @node Falls and doits
 @subsection Falls and doits
 
-UNTRANSLATED NODE: IGNORE ME
+
+Des indications de désinence peuvent être obtenues au moyen de la
+commande @code{\bendAfter} :
+
+@lilypond[fragment,ragged-right,relative=2]
+\override Score.SpacingSpanner #'shortest-duration-space = #3.0
+c4-\bendAfter #+5
+c4-\bendAfter #-3
+@end lilypond
+
 
 @node Repeats
 @section Repeats
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+Une des notions essentielles, dans la musique, est le fait que des
+éléments soient joués plusieurs fois. Il existe de nombreuses façons
+de noter ces reprises.
+
+@menu
 * Repeat types::
 * Repeat syntax::
 * Repeats and MIDI::
@@ -352,39 +3190,395 @@ UNTRANSLATED NODE: IGNORE ME
 * Tremolo repeats::
 * Tremolo subdivisions::
 * Measure repeats::
-@end menu 
+@end menu
+
+
 @node Repeat types
 @subsection Repeat types
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex repeats
+@funindex \repeat
+
+On peut indiquer des répétitions de toutes les façons suivantes :
+
+@table @code
+@item unfold
+La musique qui doit être répétée sera entièrement imprimée (et jouée).
+Ceci est particulièrement utile dans de la musique répétitive.  Cette
+reprise est la seule à être prise en compte dans le rendu MIDI.
+
+@item volta
+Le passage répété ne sera pas écrit explicitement, mais il sera 
+encadré sur la partition par des barres de reprises, et peut
+se terminer par plusieurs fins alternatives, imprimées de gauche
+à droite sous des crochets.  Il s'agit là de la notation courante
+des reprises avec des fins alternatives.  Ces dernières, par défaut,
+ne seront pas jouées dans le rendu MIDI.
+
+@item tremolo
+Pour réaliser des trémolos.  Ceux-ci, par défaut, ne seront pas
+joués dans le rendu MIDI.
+
+@item percent
+Pour répéter des temps ou des mesures, sous forme de signes 
+"pourcentage".  Ceux-ci, par défaut, ne seront pas joués dans le rendu
+MIDI.  Les répétitions indiquées par ces symboles doivent être
+déclarées dans un contexte @code{Voice}.
+
+@end table
+
 
 @node Repeat syntax
 @subsection Repeat syntax
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+
+Tous les différents types de reprises se spécifient dans
+LilyPond avec une même construction syntaxique, qui est :
+
+
+@example
+\repeat @var{type_de_la_reprise} @var{nombre_de_répétitions} @var{fragment_à_répéter}
+@end example
+
+On peut ajouter, pour indiquer une fin alternative :
+@funindex \alternative
+@example
+\alternative @{
+ @var{alternative1}
+ @var{alternative2}
+ @var{alternative3}
+ @dots{}
+@}
+@end example
+
+@noindent
+chaque @var{alternative} étant une expression musicale.  Si l'on donne
+trop peu d'alternatives en regard du nombre de fois où le passage doit
+être rejoué, la première alternative sera jouée plusieurs fois.
+
+
+Les reprises courantes s'indiquent comme ceci :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 { c4 d e f }
+\repeat volta 2 { f e d c }
+@end lilypond
+
+
+Et avec des fins alternatives :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f}
+\alternative { {d2 d} {f f,} }
+@end lilypond
+
+
+Dans l'exemple qui suit, la première fin proposée n'occupe pas une 
+mesure complète --- il lui manque un temps.  Le quatrième temps
+manquant se trouve au début de la seconde fin, qui compte donc
+un temps en trop --- tout à fait indépendamment du fait que la mélodie
+commence par une anacrouse, comme l'indique la commande @code{\partial}
+au début de l'exemple.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+ \partial 4
+ \repeat volta 4 { e | c2 d2 | e2 f2 | }
+ \alternative { { g4 g g } { a | a a a a | b2. } }
+}
+@end lilypond
+
+@funindex \repeatTie
+Des liaisons de tenue peuvent être ajoutées à toute alternative :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f ~ }
+\alternative { {f2 d} {f\repeatTie f,} }
+@end lilypond
+
+
+On peut raccourcir les crochets indiquant les fins alternatives,
+en définissant la propriété @code{voltaSpannerDuration}.  Dans 
+l'exemple suivant, le crochet ne se prolonge que sur une mesure
+à 3/4.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c''{
+ \time 3/4
+ c c c
+ \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+ \repeat "volta" 5 { d d d }
+ \alternative { { e e e f f f }
+ { g g g } }
+}
+@end lilypond
+
+
+@seealso
+
+D'autres exemples :
+
+
+Les crochets précédant une reprise s'impriment d'ordinaire
+seulement au-dessus de la portée du haut.  On peut ajuster cela
+en définissant la propriété @code{voltaOnThisStaff} : voir @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly}.
+
+
+@refbugs
+
+@cindex repeat, ambiguous
+
+Des reprises enchâssées telles que :
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+présentent une ambiquïté, dans la mesure où l'on ne sait à quelle
+section @code{\repeat} attribuer la section @code{\alternative}.
+Pour résoudre cette ambiguïté, il convient de toujours insérer
+la commande @code{\alternative} à l'intérieur de la section @code{\repeat}.  
+Il est préférable, dans une telle situation, 
+d'utiliser des accolades pour plus de clarté.
+
+
+Lorsqu'une alternative commence, les informations de métrique sont
+perdues, il faut donc les rappeler après une reprise, par exemple
+en définissant @code{Score.measurePosition} ou en invoquant la commande
+@code{\partial}.  De même, aucune liaison (de tenue ou autre)
+n'est répétée.
+
+Les crochets qui indiquent les alternatives ne sont pas alignés 
+verticalement.
+
 
 @node Repeats and MIDI
 @subsection Repeats and MIDI
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex expanding repeats
+@funindex \unfoldRepeats
+
+
+Au prix de quelques réglages, les reprises de toutes sortes peuvent
+être rendues dans le fichier MIDI.  Il suffit pour cela d'avoir
+recours à la fonction @code{\unfoldRepeats}, qui rend toutes les
+reprises explicites --- comme celles du type @code{unfold}.
+
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+ \repeat tremolo 8 {c'32 e' }
+ \repeat percent 2 { c''8 d'' }
+ \repeat volta 2 {c'4 d' e' f'}
+ \alternative {
+   { g' a' a' g' }
+   {f' e' d' c' }
+ }
+}
+\bar "|."
+@end lilypond
+
+
+Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour
+le rendu MIDI, il faut établir deux blocs @code{\score} : un pour le 
+MIDI, avec des reprises explicites, et l'autre pour la partition, avec
+des reprises notées sous forme de barres de reprises, de trémolos ou
+de symboles "pourcentage".  Par exemple :
+
+@example
+\score @{
+ @var{..music..}
+ \layout @{ ..  @}
+@}
+\score @{
+ \unfoldRepeats @var{..music..}
+ \midi @{ ..  @}
+@}
+@end example
+
 
 @node Manual repeat commands
 @subsection Manual repeat commands
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex repeatCommands
+
+
+La propriété @code{repeatCommands} sert à contrôler la mise en forme
+des reprises.  On la définit par une suite de commandes
+Scheme contrôlant les reprises.
+
+@table @asis
+@item @code{start-repeat}
+Pour imprimer une barre de reprise @code{|:}
+
+@item @code{end-repeat}
+Pour imprimer une barre de reprise @code{:|}
+
+@item @code{(volta @var{texte})}
+Pour imprimer un crochet indiquant une alternative.  Le texte 
+@var{texte} mentionné dans le crochet peut être n'importe quelle
+chaîne de caractères, ou une indication musicale 
+--- voir @ref{Text markup}.
+Attention cependant à changer la police : la police employée par défaut
+pour les chiffres ne contient aucun caractère alphabétique.
+
+@item @code{(volta #f)}
+
+Pour terminer un crochet indiquant une alternative.
+@end table
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c4
+ \set Score.repeatCommands = #'((volta "93") end-repeat)
+c4 c4
+ \set Score.repeatCommands = #'((volta #f))
+c4 c4
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic},
+@internalsref{UnfoldedRepeatedMusic}, et
+@internalsref{FoldedRepeatedMusic}.
+
 
 @node Tremolo repeats
 @subsection Tremolo repeats
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tremolo beams
+
+
+On peut placer une notation de trémolo entre deux notes, avec la
+commande @code{\repeat} suivie du style de trémolo désiré :
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+ \repeat "tremolo" 8 { c16 d16 }
+ \repeat "tremolo" 4 { c16 d16 }
+ \repeat "tremolo" 2 { c16 d16 }
+}
+@end lilypond
+
+
+On peut aussi indiquer un trémolo sur une seule note, qu'il faudra
+alors laisser sans accolades.
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat "tremolo" 4 c'16
+@end lilypond
+
+
+La subdivision des trémolos aboutit à un résultat semblable : voir
+@ref{Tremolo subdivisions}.
+
+
+@seealso
+
+Dans ce manuel : @ref{Tremolo subdivisions}, @ref{Repeats}.
+
+Référence du programme : @internalsref{Beam}, @internalsref{StemTremolo}.
+
+D'autres exemples : @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
+@inputfileref{input/@/regression,stem@/-tremolo@/.ly}.
+
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tremolo marks
+@funindex tremoloFlags
+
+Un trémolo peut être indiqué sur une seule note, en la faisant suivre
+de deux points et d'un nombre :
+
+@code{note:}[@var{nombre}]. 
+
+Le nombre en question correspond à la valeur de la subdivision ;
+il doit être au moins de 8, auquel cas la hampe sera barrée par une 
+seule ligature.  Si ce nombre est omis, la dernière valeur --- telle
+que mémorisée dans @code{tremoloFlags}) --- sera utilisée.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+c'2:8 c':32 | c': c': |
+@end lilypond
+
+
+@refbugs
+
+
+Les trémolos entrés de cette manière ne sont pas rendus dans
+le fichier MIDI.
+
+
+@seealso
+
+
+Dans ce même Manuel : @ref{Tremolo repeats}.
+
+Autre part : @internalsref{StemTremolo}.
+
 
 @node Measure repeats
 @subsection Measure repeats
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex percent repeats
+@cindex measure repeats
 
+
+Le style de reprises @code{percent} sert à répéter une 
+séquence de notes.  Elle sera imprimée une fois, puis remplacée par
+un symbole spécial.  Les séquences d'une ou deux mesures sont
+remplacées par un symbole qui ressemble au symbole de pourcentage, 
+tandis que les séquences inférieures à une mesure sont remplacées par
+une barre oblique.  Toutes ces répétitions doivent être déclarées dans un contexte @code{Voice}.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+ \repeat "percent" 4 { c4 }
+ \repeat "percent" 2 { c2 es2 f4 fis4 g4 c4 }
+}
+@end lilypond
+
+
+Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
+si l'on définit comme vraie (lettre "t") la propriété
+@code{countPercentRepeats}.
+
+@lilypond[relative=2,fragment,quote,verbatim,ragged-right]
+\new Voice {
+\set countPercentRepeats = ##t
+ \repeat "percent" 4 { c1 }
+}
+@end lilypond
+
+
+Des symboles de pourcentage isolés peuvent aussi être obtenus, au moyen d'un silence multi-mesures dont on modifie l'aspect :
+
+
+@lilypond[fragment,verbatim,quote]
+\override MultiMeasureRest #'stencil
+ = #ly:multi-measure-rest::percent
+R1
+@end lilypond
+
+
+
+
+@seealso
+
+Référence du programme : @internalsref{RepeatSlash},
+@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
+@internalsref{DoublePercentRepeatCounter},
+@internalsref{PercentRepeatCounter},
+@internalsref{PercentRepeatedMusic}.

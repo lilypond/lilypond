@@ -1828,7 +1828,7 @@ see those sections of the documentation.
 @menu
 * Polymetric notation::         
 * Time administration::         
-* Proportional notation::       
+* Proportional notation (introduction)::  
 * Clusters::                    
 * Special noteheads::           
 * Feathered beams::             
@@ -2044,9 +2044,14 @@ note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
 
 
-@node Proportional notation
-@subsection Proportional notation
+@node Proportional notation (introduction)
+@subsection Proportional notation (introduction)
 @cindex Proportional notation
+
+See @ref{Proportional notation}.
+
+
+TODO: remove all this stuff?
 
 Notes can be spaced proportionally to their time-difference by
 assigning a duration to @code{proportionalNotationDuration}
