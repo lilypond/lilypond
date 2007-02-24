@@ -78,10 +78,21 @@ if 'online' in targets:
     f.write ('#.htaccess\nDirectoryIndex index\n')
     f.close ()
 
+# load gettext messages catalogs
+t = {}
+localedir = os.path.join (buildscript_dir, '../Documentation/po', outdir)
+for l in langdefs.LANGUAGES:
+    if l.enabled and l.code != 'en':
+        try:
+            t[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
+        except:
+            t[l.code] = lambda s: s
+
 add_html_footer.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
     add_html_footer.add_html_footer (
+        translation = t
         package_name = package_name,
         package_version = package_version,
         target = t,

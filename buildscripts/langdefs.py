@@ -4,6 +4,9 @@
 Documentation i18n module
 """
 
+def _ (s):
+    return s
+
 def lang_file_name (p, langext, ext):
     if langext != '':
         return p + '.' + langext + ext
@@ -28,8 +31,8 @@ class LanguageDef:
 # here. For each 'Documentation/ab' directory containing docs
 # translated in 'ab', there should be an entry in LANGUAGES.
 
-site = LanguageDef ('en', 'English', webext='')
-fr = LanguageDef ('fr', 'French', double_punct_char_sep='&nbsp;')
+site = LanguageDef ('en', _('English'), webext='')
+fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;')
 #nl = LanguageDef ('nl', 'Nederlands')
 
 # Outdated or broken translations may be disabled
@@ -41,7 +44,6 @@ LANGUAGES = (site, fr)
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
 else:
-    import gettext
     LANGDICT = {}
     for l in LANGUAGES:
         LANGDICT[l.code] = l
