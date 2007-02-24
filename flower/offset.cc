@@ -95,7 +95,7 @@ Offset::is_sane () const
   return !isnan (coordinate_a_[X_AXIS])
     && !isnan (coordinate_a_ [Y_AXIS])
     && !isinf (coordinate_a_[X_AXIS]) 
-    && !isnan (coordinate_a_[Y_AXIS]);
+    && !isinf (coordinate_a_[Y_AXIS]);
 }
 
 Offset

@@ -20,8 +20,6 @@ class System : public Spanner
 {
   int rank_;
   Grob_array *all_elements_;
-  Skyline_pair skylines_;
-  void build_skylines ();
   void init_elements ();
   friend class Paper_score;	// ugh.
   Paper_score *pscore_;	// ugh.

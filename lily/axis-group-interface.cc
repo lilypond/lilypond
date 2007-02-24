@@ -14,9 +14,11 @@
 #include "grob-array.hh"
 #include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "lookup.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "separation-item.hh"
+#include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"
 
@@ -208,7 +210,16 @@ Axis_group_interface::calc_skylines (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elts);
-  return skyline_spacing (me, elts).smobbed_copy ();
+  Skyline_pair skylines = skyline_spacing (me, elts);
+
+  /* add a minimum-Y-extent-sized box to the skyline */
+  SCM min_y_extent = me->get_property ("minimum-Y-extent");
+  if (is_number_pair (min_y_extent))
+    {
+      Box b (me->extent (me, X_AXIS), ly_scm2interval (min_y_extent));
+      skylines.insert (b, 0, X_AXIS);
+    }
+  return skylines.smobbed_copy ();
 }
 
 /* whereas calc_skylines calculates skylines for axis-groups with a lot of
@@ -230,7 +241,7 @@ Axis_group_interface::combine_skylines (SCM smob)
   Skyline_pair ret;
   for (vsize i = 0; i < elements.size (); i++)
     {
-      SCM skyline_scm = elements[i]->get_property ("skylines");
+      SCM skyline_scm = elements[i]->get_property ("vertical-skylines");
       if (Skyline_pair::unsmob (skyline_scm))
 	{
 	  Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
@@ -246,7 +257,8 @@ SCM
 Axis_group_interface::generic_group_extent (Grob *me, Axis a)
 {
   /* trigger the callback to do skyline-spacing on the children */
-  (void) me->get_property ("skylines");
+  if (a == Y_AXIS)
+    (void) me->get_property ("vertical-skylines");
 
   extract_grob_set (me, "elements", elts);
   Grob *common = common_refpoint_of_array (elts, me, a);
@@ -372,18 +384,27 @@ staff_priority_less (Grob * const &g1, Grob * const &g2)
 }
 
 static void
-add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes)
+add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes, Skyline_pair *skylines)
 {
-  /* if we are a parent, consider the children's boxes instead of mine */
-  if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
+  /* if a child has skylines, use them instead of the extent box */
+  if (Skyline_pair *pair = Skyline_pair::unsmob (me->get_property ("vertical-skylines")))
+    {
+      Skyline_pair s = *pair;
+      s.shift (me->relative_coordinate (x_common, X_AXIS));
+      s.raise (me->relative_coordinate (y_common, Y_AXIS));
+      skylines->merge (s);
+    }
+  else if (Grob_array *elements = unsmob_grob_array (me->get_object ("elements")))
     {
       for (vsize i = 0; i < elements->size (); i++)
-	add_boxes (elements->grob (i), x_common, y_common, boxes);
+	add_boxes (elements->grob (i), x_common, y_common, boxes, skylines);
     }
   else if (!scm_is_number (me->get_property ("outside-staff-priority"))
 	   && !to_boolean (me->get_property ("cross-staff")))
-    boxes->push_back (Box (me->extent (x_common, X_AXIS),
-			   me->extent (y_common, Y_AXIS)));
+    {
+      boxes->push_back (Box (me->extent (x_common, X_AXIS),
+			     me->extent (y_common, Y_AXIS)));
+    }
 }
 
 /* We want to avoid situations like this:
@@ -475,11 +496,14 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   vsize i = 0;
   vector<Box> boxes;
 
+  Skyline_pair skylines;
   for (i = 0; i < elements.size ()
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
-    add_boxes (elements[i], x_common, y_common, &boxes);
+    add_boxes (elements[i], x_common, y_common, &boxes, &skylines);
 
-  Skyline_pair skylines (boxes, 0, X_AXIS);
+  SCM padding_scm = me->get_property ("skyline-horizontal-padding");
+  Real padding = robust_scm2double (padding_scm, 0.1);
+  skylines.merge (Skyline_pair (boxes, padding, X_AXIS));
   for (; i < elements.size (); i++)
     {
       SCM priority = elements[i]->get_property ("outside-staff-priority");
@@ -491,6 +515,7 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 
       add_grobs_of_one_priority (&skylines, current_elts, x_common, y_common);
     }
+  skylines.shift (-me->relative_coordinate (x_common, X_AXIS));
   return skylines;
 }
 
@@ -509,6 +534,24 @@ Axis_group_interface::calc_max_stretch (SCM smob)
   return scm_from_double (ret);
 }
 
+extern bool debug_skylines;
+MAKE_SCHEME_CALLBACK (Axis_group_interface, print, 1)
+SCM
+Axis_group_interface::print (SCM smob)
+{
+  if (!debug_skylines)
+    return SCM_BOOL_F;
+
+  Grob *me = unsmob_grob (smob);
+  Stencil ret;
+  if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("vertical-skylines")))
+    {
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS)).in_color (255, 0, 255));
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS)).in_color (0, 255, 255));
+    }
+  return ret.smobbed_copy ();
+}
+
 ADD_INTERFACE (Axis_group_interface,
 
 	       "An object that groups other layout objects.",
@@ -522,6 +565,6 @@ ADD_INTERFACE (Axis_group_interface,
 	       "max-stretch "
 	       "pure-Y-common "
 	       "pure-relevant-elements "
-	       "skylines "
+	       "vertical-skylines "
 	       "cached-pure-extents "
 	       );

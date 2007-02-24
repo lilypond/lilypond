@@ -8,13 +8,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@quotation
+Nous souhaitons dédier ce programme à tous les amis que nous avons
+rencontrés par la musique.
 
-@node Literature list
-@appendix Literature list
-
-UNTRANSLATED NODE: IGNORE ME
-
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+Han-Wen et Jan
+@end quotation
