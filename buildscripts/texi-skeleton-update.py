@@ -15,7 +15,7 @@ for f in new_skeletons:
     if f in orig_skeletons:
         g = open (os.path.join (sys.argv[1], f), 'r').read ()
         if '-- SKELETON FILE --' in g:
-            sys.stderr.write ("Copying %s...\n" % f)
+            sys.stderr.write ("Updating %s...\n" % f)
             shutil.copy (os.path.join (sys.argv[2], f), sys.argv[1])
     else:
         sys.stderr.write ("Copying new file %s...\n" % f)
