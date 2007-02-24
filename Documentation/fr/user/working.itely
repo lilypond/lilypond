@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
+   Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -70,7 +70,7 @@ en résoudre d'autres.
 @itemize @bullet
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
 Notez que chaque fichier modèle contient une ligne @code{\version
-"2.10.10"}.  Nous vous conseillons fortement d'inclure cette ligne,
+"2.11.15"}.  Nous vous conseillons fortement d'inclure cette ligne,
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @code{convert-ly} demande que vous
@@ -92,7 +92,7 @@ le coup si l'on doît corriger vos fichiers.
 
 @item @strong{Ajoutez des commentaires}.  Utilisez soit des
 numéros de mesure (assez souvent), soit des références au contenu
-musical (@q{second thème des violons,} @q{quatrième variation,} etc.).
+musical --- @qq{second thème des violons}, @qq{quatrième variation}, etc.
 Vous pouvez ne pas avoir besoin des commentaires lorsque vous écrivez
 une pièce pour la première fois, mais si vous souhaitez y revenir deux
 ou trois ans plus tard pour changer quelque chose, ou si vous donnez

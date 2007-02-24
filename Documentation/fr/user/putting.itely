@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
+    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,7 @@
 @chapter Putting it all together
 
 Ce chapitre traite des principes généraux de LilyPond, et de
-la manière de créer des blocs @code{\score} @footnote{Le terme @qq{score} signifie partition en anglais.}.
+la manière de créer des blocs @code{\score} @footnote{Le terme @q{score} signifie partition en anglais.}.
 
 
 @menu
@@ -31,11 +31,11 @@ beau, mais que faire quand ils ne traitent pas ce que l'on veut précisément ?
 
 Commencez par le modèle qui vous semblera le plus proche de ce à quoi
 vous voulez aboutir.  Disons par exemple que vous voulez écrire une pièce
-pour soprano et violoncelle : dans ce cas l'on pourrait commencer par
-@qq{Notes and lyrics}, pour la partie de soprano.
+pour soprano et violoncelle : dans ce cas l'on pourrait commencer par les
+@qq{notes et paroles}, pour la partie de soprano.
 
 @example
-\version "2.10.10"
+\version "2.11.20"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -62,10 +62,10 @@ texte = \lyricmode @{
 @end example
 
 Maintenant, on veut ajouter une partie de violoncelle.
-Jetons un coup d'oeil sur l'exemple @qq{Notes only} :
+Jetons un coup d'oeil sur l'exemple avec les notes seules :
 
 @example
-\version "2.10.10"
+\version "2.11.20"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -84,7 +84,7 @@ melodie = \relative c' @{
 
 On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a besoin,
 c'est la section @code{melodie}. De même, on n'a pas besoin de deux sections
-@code{\score} -- si nous les gardions toutes les deux, on obtiendrait deux
+@code{\score} --- si nous les gardions toutes les deux, on obtiendrait deux
 parties séparées ; mais nous voulons un vrai duo, avec les deux parties ensemble.
 Dans la section @code{\score}, on n'a pas besoin non plus de deux @code{\layout}
 ou de deux @code{\midi}.
@@ -102,7 +102,7 @@ Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
 le veut l'usage, et donnons-lui d'autres notes.
 
 @example
-\version "2.10.10"
+\version "2.11.20"
 musiqueSoprano = \relative c' @{
   \clef treble
   \key c \major
@@ -137,7 +137,7 @@ musiqueVioloncelle = \relative c @{
 @end example
 
 Voilà qui est mieux, mais la partie de violoncelle n'apparaît pas sur
-la partition -- en effet, nous ne l'avons pas utilisée dans la section
+la partition --- en effet, nous ne l'avons pas utilisée dans la section
 @code{\score}.  Si l'on veut que la partie de violoncelle s'imprime sous
 la partie de soprano, on va devoir ajouter :
 
@@ -148,9 +148,8 @@ la partie de soprano, on va devoir ajouter :
 @noindent
 en dessous de tout ce qui concerne la soprano.  Il nous faut également
 encadrer la musique par des @code{<<} et @code{>>}, qui feront comprendre
-à LilyPond que plusieurs évènements -- ici, des objets @code{Staff} --
+à LilyPond que plusieurs évènements --- ici, des objets @code{Staff} ---
 se déroulent en même temps.  Le bloc @code{\score} ressemble maintenant à
-ceci :
 
 @example
 \score@{
@@ -226,7 +225,7 @@ sommairement l'organisation du code LilyPond, en privilégiant
 la simplicité au détriment de certains détails.  Vous trouverez une
 description plus complète dans @ref{File structure}.
 
-La plupart des exemples de ce manuel sont de courts fragments, par exemple :
+La plupart des exemples de ce manuel sont de courts fragments, par exemple
 
 @example
 c4 a b c
@@ -255,10 +254,9 @@ vraiment déplorable si vous l'oubliez.
 }
 @end lilypond
 
-C'est ici que nous entamons les choses sérieuses :
-le code LilyPond, sous cette forme, est en réalité
-un @emph{autre} raccourci. Même s'il est traité sans
-problème, et aboutit au bon résultat, c'est une forme
+C'est ici que nous entamons les choses sérieuses : le code LilyPond,
+sous cette forme, est en réalité un @emph{autre} raccourci. Même s'il
+est traité sans problème, et aboutit au bon résultat, c'est une forme
 abrégée de :
 
 @example
@@ -269,15 +267,14 @@ abrégée de :
 @}
 @end example
 
-Un bloc @code{\score} doit commencer par une et une seule
-expression musicale. Rappelez-vous que cette expression
-peut être ce que vous voulez, entre une note toute seule et
-un gigantesque 
+Un bloc @code{\score} doit commencer par une et une seule expression
+musicale. Rappelez-vous que cette expression peut être ce que vous
+voulez, d'une note toute seule à un gigantesque
 
 @example
 @{
   \new GrandStaff <<
-    collez ici la partition complète de votre opéra Wagnérien préféré
+    collez ici la partition complète de votre opéra de Wagner préféré
   >>
 @}
 @end example
@@ -286,7 +283,7 @@ un gigantesque
 Dès lors que tout cela est entre accolades : @code{@{ ... @}}, c'est
 une et une seule expression musicale.
 
-Le bloc @code{\score} peut contenir d'autres éléments, tels que :
+Le bloc @code{\score} peut contenir d'autres éléments, tels que
 
 @example
 \score @{
@@ -299,7 +296,7 @@ Le bloc @code{\score} peut contenir d'autres éléments, tels que :
 
 @noindent
 Certains préfèrent mettre ces commandes en dehors du bloc 
-@code{\score} -- par exemple, on met souvent le @code{\header}
+@code{\score} --- par exemple, on met souvent le @code{\header}
 au-dessus. C'est juste là une autre forme abrégée que LilyPond
 accepte.
 
@@ -307,7 +304,7 @@ accepte.
 @cindex indentifiers
 
 Une autre abréviation pratique est la possibilité de définir
-des variables -- également appelées "identificateurs". Dans tous
+des variables --- également appelées @qq{identificateurs}. Dans tous
 les modèles, vous trouverez :
 
 @example
@@ -355,7 +352,7 @@ expression musicale.}
 Peut-être serait-il judicieux de relire la section
 @ref{Music expressions explained}, dans laquelle vous avez
 appris à construire de grandes expressions musicales petit bout
-par petit bout -- nous avons vu les notes, puis les accords, etc.
+par petit bout --- nous avons vu les notes, puis les accords, etc.
 Maintenant, nous allons partir d'une grande expression musicale,
 et redescendre la pente.
 
@@ -363,16 +360,16 @@ et redescendre la pente.
 \score @{
   @{   % cette accolade marque le début de l'expression musicale
     \new GrandStaff <<
-    insérez ici votre opéra Wagnérien préféré
+    insérez ici votre opéra de Wagner préféré
     >>
   @}   % cette accolade marque la fin de l'expression musicale
   \layout @{ @}
 @}
 @end example
 
-Un opéra de Wagner multiplierait aisément la longueur de ce manuel
-par deux ou trois, alors faisons ça en version chant/piano.  On n'a
-plus besoin d'une partition d'orchestre -- @code{GrandStaff} -- donc
+Un opéra de Wagner multiplierait facilement la longueur de ce manuel
+par deux ou trois, alors faisons-le en version chant/piano.  On n'a
+plus besoin d'une partition d'orchestre --- @code{GrandStaff} --- donc
 laissons cela de côté.  Par contre, un chanteur et un piano
 @emph{pourraient} nous être utiles.
 
@@ -413,19 +410,19 @@ soient imprimés ensemble...
 @}
 @end example
 
-On y voit nettement plus clair maintenant.  Nous voici
-donc avec la partie du chanteur, qui contient un ensemble
-@code{Voice}, ce qui dans LilyPond correspond à une voix, au
-sens de vois musicale, pas forcément chantée donc (ce pourrait être
-une partie de violon par exemple). 
+On y voit nettement plus clair maintenant.  Nous voici donc avec la
+partie du chanteur, qui contient un ensemble @code{Voice}, ce qui dans
+LilyPond correspond à une voix, au sens de vois musicale, pas
+forcément chantée donc (ce pourrait être une partie de violon par
+exemple).
 
 Nous avons également une partie de piano, qui contient deux portées :
 une pour la main droite, une autre pour la main gauche.
 
 
-À ce point, on pourrait commencer à ajouter les notes. Dans
-les accolades qui suivent @code{\new Voice = chant}, on pourrait
-commencer à écrire
+À ce point, on pourrait commencer à ajouter les notes. Dans les
+accolades qui suivent @code{\new Voice = chant}, on pourrait commencer
+à écrire
 
 @example
 \relative c'' @{
@@ -434,7 +431,7 @@ commencer à écrire
 @end example
 
 Mais si l'on procédait ainsi, la section @code{\score} deviendrait
-vite plutôt touffue, et il serait très tôt difficile de s'y retrouver.
+vite assez touffue, et très rapidement on ne s'y retrouverait plus.
 C'est pourquoi on utilisera plutôt des variables, ou identificateurs :
 
 @example
@@ -460,18 +457,16 @@ mainGauche = @{ @}
 @end example
 
 @noindent
-Souvenez-vous que vous pouvez désigner vos variables du
-nom que vous voulez, à condition de respecter les caractères
-autorisés. Ces limitations sont décrites dans
-@ref{File structure}.
+Souvenez-vous que vous pouvez donner aux variables le nom que vous
+voulez, à condition de respecter les caractères autorisés. Ces
+limitations sont décrites dans @ref{File structure}.
 
-Quand on écrit, ou que l'on lit, une section @code{\score},
-mieux vaut y aller lentement et soigneusement. Commencez
-par le niveau le plus large, puis travaillez sur chaque
-niveau plus détaillé.  Cela aide vraiment, à ce propos,
-d'avoir une indentation stricte et propre : assurez-vous que
-chaque élément d'un même niveau a le même décalage horizontal
-dans votre éditeur de texte !
+Quand on écrit, ou que l'on lit, une section @code{\score}, mieux vaut
+y aller lentement et soigneusement. Commencez par le niveau le plus
+large, puis travaillez sur chaque niveau plus détaillé.  À ce propos,
+une indentation stricte et propre est vraiment d'une aide précieuse :
+assurez-vous que chaque élément d'un même niveau a le même décalage
+horizontal dans votre éditeur de texte !
 
 
 
@@ -510,7 +505,7 @@ On établira alors une partie séparée en constituant un nouveau fichier :
 @}
 @end example
 
-À La ligne
+À la ligne
 
 @example
 \include "musique-Cor.ly"
@@ -532,9 +527,9 @@ est visible comme suit :
 @end lilypond
 
 Dans les pièces d'ensemble, il arrive souvent qu'une voix ne joue pas
-pendant plusieurs mesures.  Un silence spécial, appelé multi-mesures,
+pendant plusieurs mesures.  Un silence spécial, appelé silence multi-mesures,
 l'indique alors. On l'obtient par un @samp{R} majuscule, suivi d'une
-durée : (@code{1}@tie{} est une pause, @code{2}@tie{} une demi-pause,
+durée : @code{1}@tie{}pour une pause, @code{2}@tie{}pour une demi-pause,
 etc.  Cette durée peut être multipliée pour établir de plus longs silences.
 Par exemple, le silence suivant dure 3@tie{}mesures à 2/4.
 
@@ -543,16 +538,17 @@ R2*3
 @end example
 
 Dans une partie séparée, les silences multi-mesures sont compressés.
-Il faut pour cela définir comme vraie la propriété @code{skipBars} :
+Il faut pour cela définir la propriété @code{skipBars} à @q{vrai} :
 
 @example
 \set Score.skipBars = ##t
 @end example
 
 @noindent
-Cette commande définie comme vraie ("true", lettre "t") la propriété dans
-le contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus
-le silence multi-mesures et cette option, on obtient le résultat suivant :
+Cette commande donne la valeur @q{vrai} --- @q{true} en anglais,
+@samp{#t} dans le langage Scheme --- à cette propriété dans le
+contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
+silence multi-mesures et cette option, on obtient le résultat suivant :
 
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
@@ -565,7 +561,7 @@ le silence multi-mesures et cette option, on obtient le résultat suivant :
 
 Le conducteur rassemble toute la musique. Si l'on suppose que l'autre
 voix de notre duo se trouve dans le fichier @file{musique-Basson.ly} en
-tant que variable @code{notesBasson}, on établira un conducteur avec :
+tant que variable @code{notesBasson}, on établira un conducteur avec
 
 @example
 \include "musique-Basson.ly"
@@ -594,8 +590,9 @@ ce qui équivaut à
 >>
 @end lilypond
 
-Des informations plus détaillées sur la mise en place de conducteurs et
-de parties séparées se trouvent dans le manuel : voir @ref{Orchestral music}.
+Des informations plus détaillées sur la mise en place de conducteurs
+et de parties séparées se trouvent dans le manuel : voir
+@ref{Orchestral music}.
 
-Les propriétés réglables (@q{properties}) sont abordées en détail dans
+Les variables (@q{propriétés}) réglables sont abordées en détail dans
 @ref{Changing context properties on the fly}.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: a9d6b9a317e20cff479f9e0e54320dfae40bde31
+   Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -1396,7 +1396,7 @@ reste du Manuel.
 @cindex versioning
 La déclaration @code{\version} stipule le numéro de la version de
 LilyPond pour laquelle le fichier a été écrit.  Pour donner à un
-fichier la version 2.10.0, ajoutez
+fichier la version 2.10.10, ajoutez
 
 @example
 \version "2.10.10"
