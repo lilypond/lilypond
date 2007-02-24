@@ -16,8 +16,9 @@
 
 struct Separation_item
 {
-  DECLARE_GROB_INTERFACE();
-  DECLARE_SCHEME_CALLBACK(calc_skylines, (SCM));
+  DECLARE_GROB_INTERFACE ();
+  DECLARE_SCHEME_CALLBACK (calc_skylines, (SCM));
+  DECLARE_SCHEME_CALLBACK (print, (SCM));
 
   static vector<Box> boxes (Grob *me, Grob *left);
   static Skyline conditional_skyline (Grob *, Grob *);

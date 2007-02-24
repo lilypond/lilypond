@@ -731,7 +731,7 @@ Lookup::points_to_line_stencil (Real thick, vector<Offset> const &points)
   Stencil ret;
   for (vsize i = 1; i < points.size (); i++)
     {
-      if (points[i-1].is_sane ()  && points[i].is_sane ())
+      if (points[i-1].is_sane () && points[i].is_sane ())
 	{
 	  Stencil line
 	    = Line_interface::make_line (thick, points[i-1], points[i]);
