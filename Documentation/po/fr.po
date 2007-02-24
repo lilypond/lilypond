@@ -4,11 +4,12 @@
 # This file is distributed under the same license as the lilypond package.
 #
 # John Mandereau <john.mandereau@free.fr>, 2006, 2007.
+#. @chapter in ../../../Documentation/user/lilypond-book.itely
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-05 14:23+0100\n"
+"POT-Creation-Date: 2007-02-22 20:59+0100\n"
 "PO-Revision-Date: 2007-02-05 14:38+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
@@ -1172,6 +1173,11 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
+msgid "Text and line spanners"
+msgstr ""
+
+#. @node in ../../../Documentation/user/advanced-notation.itely
+#. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Text spanners"
 msgstr ""
 
@@ -1297,7 +1303,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
-msgid "Proportional notation"
+msgid "Proportional notation (introduction)"
 msgstr ""
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
@@ -1497,22 +1503,22 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
-msgid "Multiple scores in a book"
-msgstr ""
-
-#. @node in ../../../Documentation/user/non-music.itely
-#. @subsection in ../../../Documentation/user/non-music.itely
-msgid "Extracting fragments of notation"
-msgstr ""
-
-#. @node in ../../../Documentation/user/non-music.itely
-#. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure"
 msgstr ""
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "A single music expression"
+msgstr ""
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+msgid "Multiple scores in a book"
+msgstr ""
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+msgid "Extracting fragments of notation"
 msgstr ""
 
 #. @node in ../../../Documentation/user/non-music.itely
@@ -1607,6 +1613,46 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @section in ../../../Documentation/user/spacing.itely
+msgid "Displaying spacing"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @section in ../../../Documentation/user/spacing.itely
+msgid "Breaks"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Line breaking"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Page breaking"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Optimal page breaking"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Optimal page turning"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Explicit breaks"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Using an extra voice for breaks"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @section in ../../../Documentation/user/spacing.itely
 msgid "Vertical spacing"
 msgstr ""
 
@@ -1617,22 +1663,22 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Vertical spacing of piano staves"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
-#. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Vertical spacing between systems"
 msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Controlling spacing of individual systems"
+msgid "Explicit staff and system positioning"
 msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Two-pass vertical spacing"
+msgstr ""
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Vertical collision avoidance"
 msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
@@ -1664,33 +1710,8 @@ msgid "Line length"
 msgstr ""
 
 #. @node in ../../../Documentation/user/spacing.itely
-#. @section in ../../../Documentation/user/spacing.itely
-msgid "Breaks"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Line breaking"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
-#. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Page breaking"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
-#. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Optimal page breaking"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
-#. @subsection in ../../../Documentation/user/spacing.itely
-msgid "Optimal page turning"
-msgstr ""
-
-#. @node in ../../../Documentation/user/spacing.itely
-#. @section in ../../../Documentation/user/spacing.itely
-msgid "Displaying spacing"
+msgid "Proportional notation"
 msgstr ""
 
 #. @node in ../../../Documentation/user/programming-interface.itely
@@ -1731,6 +1752,11 @@ msgstr ""
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Functions without arguments"
+msgstr ""
+
+#. @node in ../../../Documentation/user/programming-interface.itely
+#. @subsection in ../../../Documentation/user/programming-interface.itely
+msgid "Overview of available music functions"
 msgstr ""
 
 #. @node in ../../../Documentation/user/programming-interface.itely
@@ -1841,8 +1867,9 @@ msgid "Updating files with convert-ly"
 msgstr ""
 
 #. @section in ../../../Documentation/user/running.itely
-msgid "Updating with @command{convert-ly}"
-msgstr ""
+#, fuzzy
+msgid "Updating with"
+msgstr "Mettre à jour des anciens fichiers"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
@@ -1868,10 +1895,6 @@ msgstr ""
 msgid "LilyPond-book"
 msgstr "LilyPond-book"
 
-#. @chapter in ../../../Documentation/user/lilypond-book.itely
-msgid "@command{lilypond-book}: Integrating text and music"
-msgstr "@command{lilypond-book} : associer de la musique et du texte"
-
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "An example of a musicological document"
@@ -1882,8 +1905,9 @@ msgid "Integrating LaTeX and music"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating La@TeX{} and music"
-msgstr ""
+#, fuzzy
+msgid "Integrating La"
+msgstr "Gravure"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -1926,7 +1950,8 @@ msgid "Invoking lilypond-book"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Invoking @command{lilypond-book}"
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking"
 msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
@@ -1958,32 +1983,16 @@ msgstr "Convertir à partir d'autres formats"
 msgid "Invoking midi2ly"
 msgstr ""
 
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking @command{midi2ly}"
-msgstr ""
-
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking etf2ly"
-msgstr ""
-
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking @command{etf2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking musicxml2ly"
 msgstr ""
 
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking @code{musicxml2ly}"
-msgstr ""
-
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking abc2ly"
-msgstr ""
-
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking @code{abc2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely
@@ -2044,6 +2053,11 @@ msgstr ""
 #. @node in ../../../Documentation/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
 msgid "The Feta font"
+msgstr ""
+
+#. @node in ../../../Documentation/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/user/notation-appendices.itely
+msgid "Note head styles"
 msgstr ""
 
 #. @node in ../../../Documentation/user/templates.itely
@@ -2181,3 +2195,5 @@ msgstr "Annexe"
 msgid "Footnotes"
 msgstr "Notes de bas de page"
 
+#~ msgid "@command{lilypond-book}: Integrating text and music"
+#~ msgstr "@command{lilypond-book} : associer de la musique et du texte"

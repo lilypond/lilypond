@@ -20,13 +20,11 @@
 
 struct Building
 {
-  Interval iv_;
-  Drul_array<Real> height_;
-
+  Real end_;
   Real y_intercept_;
   Real slope_;
 
-  void precompute ();
+  void precompute (Real start, Real start_height, Real end_height, Real end);
   Building (Real start, Real start_height, Real end_height, Real end);
   Building (Box const &b, Real horizon_padding, Axis a, Direction d);
   void print () const;
@@ -34,15 +32,8 @@ struct Building
   Real height (Real x) const;
   Real intersection_x (Building const &other) const;
   void leading_part (Real chop);
-  bool conceals_beginning (Building const &other) const;
-  bool conceals (Building const &other) const;
-  bool sane () const;
-  Building sloped_neighbour (Real horizon_padding, Direction d) const;
-
-  bool operator< (Building const &other)
-  {
-    return iv_[LEFT] < other.iv_[LEFT];
-  }
+  bool conceals (Building const &other, Real x) const;
+  Building sloped_neighbour (Real start, Real horizon_padding, Direction d) const;
 };
 
 class Skyline
@@ -53,7 +44,7 @@ private:
   
   void internal_merge_skyline (list<Building>*, list<Building>*,
 			       list<Building> *const result);
-  list<Building> internal_build_skyline (list<Building>*);
+  list<Building> internal_build_skyline (list<Box>*, Real, Axis, Direction);
 
   DECLARE_SIMPLE_SMOBS(Skyline);
 public:
@@ -62,7 +53,7 @@ public:
   Skyline (Direction sky);
   Skyline (vector<Box> const &bldgs, Real horizon_padding, Axis a, Direction sky);
   Skyline (Box const &b, Real horizon_padding, Axis a, Direction sky);
-  vector<Offset> to_points () const;
+  vector<Offset> to_points (Axis) const;
   void merge (Skyline const &);
   void insert (Box const &, Real horizon_padding, Axis);
   void print () const;

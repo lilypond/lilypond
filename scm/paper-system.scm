@@ -32,7 +32,7 @@
   (ly:stencil-extent (paper-system-stencil system) axis))
 
 (define-public (paper-system-staff-extents ps)
-  (ly:prob-property ps 'refpoint-Y-extent '(0 . 0)))
+  (ly:prob-property ps 'staff-refpoint-extent '(0 . 0)))
 
 (define-public (paper-system-annotate-last system layout)
   (let*
@@ -142,7 +142,7 @@
 				 "Y-extent" "next-padding" "space after next-padding")
       (annotate-extent-and-space paper-system-staff-extents
 				 (+ next-space next-padding)
-				 "refpoint-Y-extent" "next-space+padding"
+				 "staff-refpoint-extent" "next-space+padding"
 				 "space after next-space+padding"))
     (if estimate-extent
 	(set! annotations

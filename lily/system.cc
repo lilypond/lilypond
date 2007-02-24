@@ -340,7 +340,6 @@ System::get_paper_system ()
   SCM *tail = &exprs;
 
   post_processing ();
-  build_skylines ();
 
   vector<Layer_entry> entries;
   for (vsize j = 0; j < all_elements_->size (); j++)
@@ -388,8 +387,12 @@ System::get_paper_system ()
 				 exprs));
   if (debug_skylines)
     {
-      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[UP].to_points ()).in_color (255, 0, 0));
-      sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, skylines_[DOWN].to_points ()).in_color (0, 255, 0));
+      Skyline_pair *skylines = Skyline_pair::unsmob (get_property ("vertical-skylines"));
+      if (skylines)
+	{
+	  sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS)).in_color (255, 0, 0));
+	  sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS)).in_color (0, 255, 0));
+	}
     }
 
   Grob *left_bound = this->get_bound (LEFT);
@@ -399,7 +402,7 @@ System::get_paper_system ()
 
   /* information that the page breaker might need */
   Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("skylines", skylines_.smobbed_copy ());
+  pl->set_property ("skylines", this->get_property ("skylines"));
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
@@ -502,29 +505,6 @@ get_root_system (Grob *me)
 
   return dynamic_cast<System*> (system_grob); 
 }
-
-void
-System::build_skylines ()
-{
-  vector<Box> boxes;
-  for (vsize i = 0; i < all_elements_->size (); i++)
-    {
-      Grob *g = all_elements_->grob (i);
-      if (!unsmob_stencil (g->get_property ("stencil")))
-	continue;
-
-      Interval xiv = g->extent (this, X_AXIS);
-      Interval yiv = g->extent (this, Y_AXIS);
-      if (!xiv.is_empty () && !yiv.is_empty ())
-	boxes.push_back (Box (xiv, yiv));
-    }
-
-  SCM horizon_padding_scm = get_property ("skyline-horizontal-padding");
-  Real horizon_padding = robust_scm2double (horizon_padding_scm, 0);
-  skylines_[UP] = Skyline (boxes, horizon_padding, X_AXIS, UP);
-  skylines_[DOWN] = Skyline (boxes, horizon_padding, X_AXIS, DOWN);
-}
-
 
 ADD_INTERFACE (System,
 	       "This is the toplevel object: each object in a score "

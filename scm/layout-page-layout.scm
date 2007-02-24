@@ -69,6 +69,14 @@
 				 rest-height)
 			     (- space-left stretch)))))
 
+  (define (total-padding systems)
+    (let ((layout (ly:paper-book-paper paper-book)))
+      (if (or (null? systems)
+	      (null? (cdr systems)))
+	  0.0
+	  (+ (line-next-padding (car systems) (cadr systems) layout)
+	     (total-padding (cdr systems))))))
+
   (let* ((page (make-page paper-book
 			  'page-number page-number
 			  'is-last last))
@@ -79,18 +87,20 @@
 	 ; yet, etc. If we overstretch because of underestimation, the result
 	 ; is very bad. So we stick in some extra space, just to be sure.
 	 (buffer (/ height 10.0))
-	 (total-system-height (apply + (map height-estimate systems)))
+	 (total-system-height (+ (apply + (map height-estimate systems))
+				 (total-padding systems)))
 	 (height-left (- height total-system-height buffer)))
 
-    (if (not ragged)
+    (if (and
+	 (not ragged)
+	 (> height-left 0))
 	(set-line-stretch! (sort systems
 				 (lambda (s1 s2)
 				   (< (height-estimate s1)
 				      (height-estimate s2))))
 			   (apply + (map height-estimate
 					 (filter stretchable? systems)))
-			   (- (page-printable-height page)
-			      total-system-height)))
+			   height-left))
 
     (let* ((lines (map print-system systems))
 	   (posns (if (null? lines)
@@ -160,9 +170,14 @@
 (define (line-next-padding line next-line layout)
   "Return padding to use between `line' and `next-line'.
   `next-line' can be #f, meaning that `line' is the last line."
-  (ly:prob-property
-   line 'next-padding
-   (ly:output-def-lookup layout 'between-system-padding)))
+  (let ((default (ly:output-def-lookup layout 'between-system-padding)))
+    (if (ly:grob? line)
+	(let* ((details (ly:grob-property line 'line-break-system-details))
+	       (padding (assq 'next-padding details)))
+	  (if padding
+	      (cdr padding)
+	      default))
+	(ly:prob-property line 'next-padding default))))
 
 
 (define (line-minimum-distance line next-line layout ignore-padding)

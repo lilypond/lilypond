@@ -243,6 +243,8 @@ slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
 @internalsref{note-collision-interface}.")
+     (horizontal-skylines ,ly:skyline-pair? "Two skylines, one to the
+left and one to the right of this grob.")
 
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
@@ -442,8 +444,6 @@ is placed vertically.")
 @code{direction-source} with this to get the direction of this
 object.")
      (size ,number? "Size of object, relative to standard size.")
-     (skylines ,ly:skyline-pair? "Two skylines, one above and one
-below this grob (or, for some grobs, to the left and to the right).")
      (slope ,number? "The slope of this object.")
      (slur-padding ,number? "Extra distance between slur and script.")
      (space-alist ,list? "A table that specifies distances between
@@ -521,6 +521,9 @@ proportionally to their durations.  This looks better in complex
 polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
 spacing problem")
+
+     (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
+one below this grob.")
 
      (when ,ly:moment? "Global time step associated with this column
 happen?")

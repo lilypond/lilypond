@@ -19,6 +19,9 @@ public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (brew_chord_bracket, (SCM));
   DECLARE_SCHEME_CALLBACK (width, (SCM));
+  DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE();
 };
 
