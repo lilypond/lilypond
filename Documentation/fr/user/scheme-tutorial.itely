@@ -1,16 +1,19 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 64f0d86a7c0987b311bfdfdfeddfa063e1f2d6e7
+    Translation of GIT committish: aa856ade4fbd19c270d394f1d52b755912bf2414
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
 @node Scheme tutorial
 @appendix Scheme tutorial
 
 UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as

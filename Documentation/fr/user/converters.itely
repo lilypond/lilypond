@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0d9d3feea8ca1b22388bd1c67545a518987e72f1
+    Translation of GIT committish: aa856ade4fbd19c270d394f1d52b755912bf2414
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Converting from other formats
 @chapter Converting from other formats
@@ -20,22 +22,22 @@ UNTRANSLATED NODE: IGNORE ME
 * Generating LilyPond files::
 @end menu 
 @node Invoking midi2ly
-@section Invoking 
+@section Invoking @command{midi2ly}
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Invoking etf2ly
-@section Invoking 
+@section Invoking @command{etf2ly}
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Invoking musicxml2ly
-@section Invoking 
+@section Invoking @code{musicxml2ly}
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Invoking abc2ly
-@section Invoking 
+@section Invoking @code{abc2ly}
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -43,6 +45,7 @@ UNTRANSLATED NODE: IGNORE ME
 @section Generating LilyPond files
 
 UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as

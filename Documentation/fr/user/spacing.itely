@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: aa856ade4fbd19c270d394f1d52b755912bf2414
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Spacing issues
 @chapter Spacing issues
@@ -15,12 +17,11 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Paper and pages::
 * Music layout::
+* Breaks::
 * Vertical spacing::
 * Horizontal spacing::
-* Breaks::
 * Displaying spacing::
-@end menu
-
+@end menu 
 @node Paper and pages
 @section Paper and pages
 
@@ -29,8 +30,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Paper size::
 * Page formatting::
-@end menu
- 
+@end menu 
 @node Paper size
 @subsection Paper size
 
@@ -47,16 +47,59 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Setting global staff size::
+* Setting the staff size::
 * Score layout::
 @end menu 
-@node Setting global staff size
-@subsection Setting global staff size
+@node Setting the staff size
+@subsection Setting the staff size
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Score layout
 @subsection Score layout
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Breaks
+@section Breaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Line breaking::
+* Page breaking::
+* Optimal page breaking::
+* Optimal page turning::
+* Explicit breaks::
+* Using an extra voice for breaks::
+@end menu 
+@node Line breaking
+@subsection Line breaking
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Page breaking
+@subsection Page breaking
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Optimal page breaking
+@subsection Optimal page breaking
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Optimal page turning
+@subsection Optimal page turning
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Explicit breaks
+@subsection Explicit breaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Using an extra voice for breaks
+@subsection Using an extra voice for breaks
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -69,7 +112,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Vertical spacing inside a system::
 * Vertical spacing of piano staves::
 * Vertical spacing between systems::
-* Controlling spacing of individual systems::
+* Explicit staff and system positioning::
 * Two-pass vertical spacing::
 @end menu 
 @node Vertical spacing inside a system
@@ -87,8 +130,8 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Controlling spacing of individual systems
-@subsection Controlling spacing of individual systems
+@node Explicit staff and system positioning
+@subsection Explicit staff and system positioning
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -128,41 +171,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Breaks
-@section Breaks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Line breaking::
-* Page breaking::
-* Optimal page breaking::
-* Optimal page turning::
-@end menu 
-@node Line breaking
-@subsection Line breaking
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Page breaking
-@subsection Page breaking
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Optimal page breaking
-@subsection Optimal page breaking
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Optimal page turning
-@subsection Optimal page turning
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Displaying spacing
 @section Displaying spacing
 
 UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as

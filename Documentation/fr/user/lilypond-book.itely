@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: aa856ade4fbd19c270d394f1d52b755912bf2414
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
@@ -22,7 +24,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Invoking lilypond-book::
 * Filename extensions::
 * Many quotes of a large score::
-* Inserting LilyPond output into OpenOffice.org::  
+* Inserting LilyPond output into OpenOffice.org::
 * Inserting LilyPond output into other programs::
 @end menu 
 @node An example of a musicological document
@@ -31,7 +33,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Integrating LaTeX and music
-@section Integrating La
+@section Integrating La@TeX{} and music
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -60,7 +62,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Invoking lilypond-book
-@section Invoking 
+@section Invoking @command{lilypond-book}
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -83,6 +85,7 @@ UNTRANSLATED NODE: IGNORE ME
 @section Inserting LilyPond output into other programs
 
 UNTRANSLATED NODE: IGNORE ME
+
 
 -- SKELETON FILE --
 When you actually translate this file, please remove these lines as
