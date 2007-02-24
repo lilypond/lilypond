@@ -64,66 +64,75 @@
 
 @c NOTE: This is documentation-generate.scm, not macros.itexi
 
+
 @ifhtml
+@c ***** HTML *****
+
 @macro usermanref{NAME}
 @ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
-@end ifhtml
 
-@ifinfo
-@macro usermanref{NAME}
-@inforef{\\NAME\\,,,lilypond}
-@cindex \\NAME\\
-@end macro
-@end ifinfo
-
-@iftex
-@macro usermanref{NAME}
-@ref{\\NAME\\}@c
-@end macro
-@end iftex
-
-@ifhtml
 @macro glossaryref{NAME}
 @ref{\\NAME\\,,,music-glossary}
 @cindex \\NAME\\
 @end macro
-@end ifhtml
-
-@ifinfo
-@macro glossaryref{NAME}
-@inforef{\\NAME\\,,lilypond/music-glossary}
-@cindex \\NAME\\
-@end macro
-@end ifinfo
-
-
-@macro internalsref{NAME}
-@ref{\\NAME\\}
-@end macro
-
-@ifhtml
 
 @macro inputfileref{DIR,NAME}
 @uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
 @end macro
 
+@macro q{TEXT}
+@html
+&lsquo;\\TEXT\\&rsquo;
+@end html
+@end macro
 @end ifhtml
 
+
 @ifinfo
+@c ***** info *****
+
+@macro usermanref{NAME}
+@inforef{\\NAME\\,,,lilypond}
+@cindex \\NAME\\
+@end macro
+
+@macro glossaryref{NAME}
+@inforef{\\NAME\\,,lilypond/music-glossary}
+@cindex \\NAME\\
+@end macro
 
 @macro inputfileref{DIR,NAME}
 @file{\\DIR\\/\\NAME\\}
 @end macro
 
+@macro q{TEXT}
+`\\TEXT\\'
+@end macro
 @end ifinfo
 
+
 @iftex
+@c ***** TeX *****
+
+@macro usermanref{NAME}
+@ref{\\NAME\\}@c
+@end macro
+
 @macro inputfileref{DIR,NAME}@c
 @file{\\DIR\\/\\NAME\\}@c
 @end macro
+
+@macro q{TEXT}
+`\\TEXT\\'
+@end macro
 @end iftex
+
+
+@macro internalsref{NAME}
+@ref{\\NAME\\}
+@end macro
 
 
 @ignore
