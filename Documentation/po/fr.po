@@ -20,38 +20,38 @@ msgstr ""
 #: ../../buildscripts/add_html_footer.py:36
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr ""
+msgstr "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
 
 #: ../../buildscripts/add_html_footer.py:39
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
+msgstr "Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu.org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%(mail_address_url)s\">%(mail_address)s</a>"
 
 #: ../../buildscripts/add_html_footer.py:52
 #, python-format
 msgid "Other languages: %s."
-msgstr ""
+msgstr "Autres langues&nbsp;: %s."
 
 #: ../../buildscripts/add_html_footer.py:53
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr ""
+msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
 #: ../../buildscripts/add_html_footer.py:236
 msgid "stable-branch"
-msgstr ""
+msgstr "branche stable"
 
 #: ../../buildscripts/add_html_footer.py:238
 msgid "development-branch"
-msgstr ""
+msgstr "branche de développement"
 
 #: ../../buildscripts/langdefs.py:34
 msgid "English"
-msgstr ""
+msgstr "Anglais"
 
 #: ../../buildscripts/langdefs.py:35
 msgid "French"
-msgstr ""
+msgstr "Français"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -89,7 +89,7 @@ msgstr "Commandes prédéfinies"
 
 #. @subsubheading in ../../../Documentation/user/macros.itexi
 msgid "Commonly tweaked properties"
-msgstr "Propriétés couramment ajustées"
+msgstr "Propriétés couramment modifiées"
 
 #. @node in ../../../Documentation/user/preface.itely
 #. @unnumbered in ../../../Documentation/user/preface.itely
@@ -629,7 +629,6 @@ msgstr "Altérations microtonales"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Note names in other languages"
 msgstr "Noms de note dans d'autres langues"
 
@@ -666,7 +665,7 @@ msgstr "Durées"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Augmentation dots"
-msgstr "Points d'addition"
+msgstr "Notes pointées"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -690,9 +689,8 @@ msgstr "Découpage automatique des notes"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @section in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Polyphony"
-msgstr "Polyphonie basique"
+msgstr "Polyphonie"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -811,7 +809,6 @@ msgstr "Arpège"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Falls and doits"
 msgstr "Chutes et sauts"
 
@@ -918,7 +915,7 @@ msgstr "Musique vocale"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Setting simple songs"
-msgstr "Écrire des chansons simples¿"
+msgstr "Écrire des chants simples"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -987,24 +984,23 @@ msgstr "Plus à propos des strophes"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding stanza numbers"
-msgstr ""
+msgstr "Numéroter les strophes"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding dynamics marks"
-msgstr ""
+msgstr "Ajouter des nuances"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
-#, fuzzy
 msgid "Adding singer names"
-msgstr "Ajout de titres"
+msgstr "Ajouter le nom des chanteurs"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end"
-msgstr ""
+msgstr "Paroles à la fin de la partition"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end in multiple columns"
-msgstr ""
+msgstr "Paroles sur plusieurs colonnes à la fin de la partition"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1929,7 +1925,7 @@ msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating La@TeX{} and music"
-msgstr ""
+msgstr "Intégrer de la musique dans @LaTeX{}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -2094,9 +2090,8 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendix in ../../../Documentation/user/templates.itely
-#, fuzzy
 msgid "Templates"
-msgstr "Nolets"
+msgstr "Modèles"
 
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendixsec in ../../../Documentation/user/templates.itely
