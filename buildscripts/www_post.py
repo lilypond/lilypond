@@ -9,6 +9,7 @@
 import sys
 import os
 import re
+import gettext
 
 package_name, package_version, buildscript_dir, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
@@ -79,20 +80,20 @@ if 'online' in targets:
     f.close ()
 
 # load gettext messages catalogs
-t = {}
+translation = {}
 localedir = os.path.join (buildscript_dir, '../Documentation/po', outdir)
 for l in langdefs.LANGUAGES:
     if l.enabled and l.code != 'en':
         try:
-            t[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
+            translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
         except:
-            t[l.code] = lambda s: s
+            translation[l.code] = lambda s: s
 
 add_html_footer.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
     add_html_footer.add_html_footer (
-        translation = t
+        translation = translation,
         package_name = package_name,
         package_version = package_version,
         target = t,
