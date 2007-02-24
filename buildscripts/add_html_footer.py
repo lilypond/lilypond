@@ -6,7 +6,6 @@ Print a nice footer.
 import re
 import os
 import time
-import gettext
 
 import langdefs
 
@@ -26,6 +25,9 @@ non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/out-www/DEDICATION',
                     'Documentation/topdocs/out-www/AUTHORS']
 
+def _ (s):
+    return s
+
 header = r"""
 """
 
@@ -33,24 +35,24 @@ footer = '''
 <div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
 <p>
 <font size="-1">
-''' + _ ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).') + '''<br>
+%(footer_name_version)s
+<br>
 </font>
 <address><font size="-1">
-''' + _ ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.') + '''</font></address>
+%(footer_report_errors)s </font></address>
 </p>
 </div>
 '''
+footer_name_version = _ ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
+footer_report_errors = _ ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
 
-def _ (s):
-    return s
-
-language_available = _ ("Other languages: %s.")
-browser_language = _ ('About <A HREF="%s">automatic language selection</A>.')
+lang_available = _ ("Other languages: %s.")
+browser_lang = _ ('About <A HREF="%s">automatic language selection</A>.')
 browser_language_url = "/web/about/browser-language"
 
 LANGUAGES_TEMPLATE = '''
@@ -194,9 +196,9 @@ def add_menu (page_flavors, prefix, available, target, translation):
         if target == 'offline':
             browser_language = ''
         elif target == 'online':
-            browser_language = t (browser_language) % browser_language_url
+            browser_language = t (browser_lang) % browser_language_url
         if language_menu:
-            language_available = t (language_available) % language_menu
+            language_available = t (lang_available) % language_menu
             languages = LANGUAGES_TEMPLATE % vars ()
         # put language menu before '</body>' and '</html>' tags
         if re.search ('(?i)</body', page_flavors[k][1]):
@@ -252,20 +254,24 @@ def add_html_footer (translation,
             ### add footer
             if re.search (footer_tag, s) == None:
                 s = add_footer (s)
+                
                 available, missing = find_translations (prefix, lang_ext)
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.
-                page_flavors = add_menu (page_flavors, prefix, available, translation)
+                page_flavors = add_menu (page_flavors, prefix, available, target, translation)
             # urg, this stuff is outdated and seems useless, let's disable it
             #else:
             #    for e in [l.webext for l in langdefs.LANGUAGES]:
             #        if not e in pages_dict[prefix]:
             #            page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = s
-            subst = globals ()
-            subst.update (locals())
+            subst = dict ([i for i in globals().items() if type (i[1]) is str])
+            subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
             for k in page_flavors.keys():
-                for name in subst.keys():
-                    subst[name] = translation[page_flavors[k][0]] (subst[name])
+                if page_flavors[k][0] in translation.keys():
+                    for name in subst.keys():
+                        subst[name] = translation[page_flavors[k][0]] (subst[name])
+                subst['footer_name_version'] = subst['footer_name_version'] % subst
+                subst['footer_report_errors'] = subst['footer_report_errors'] % subst
                 page_flavors[k][1] = page_flavors[k][1] % subst
                 out_f = open (name_filter (k), 'w')
                 out_f.write (page_flavors[k][1])
