@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 94e27fe2da58c91791e1cacb32c16a4acccf0638
+    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -835,7 +835,7 @@ instruments MIDI, les noms de couleur, et la police Feta.
 Les
 @emph{@ref{Templates}}
 de pièces LilyPond.  Copiez et collez un modèle
-dans un fichier, ajouter les notes, et c'est prêt!
+dans un fichier, ajouter les notes, et c'est prêt !
 
 @item
 La

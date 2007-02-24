@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0bf1e119501727ab8217767d8ce6c29dedf4fed1
+    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -75,9 +75,9 @@ c1
 @funindex ,
 
 L'octave précise peut être spécifiée sous forme d'une série
-d'apostrophes (`@samp{'}') ou d'une série de virgules
-(`@samp{,}').  Chaque @code{'} hausse la note d'une octave ; chaque
-@code{,} baisse la note d'une octave.
+d'apostrophes @samp{'} ou d'une série de virgules @samp{,}.  Chaque
+@samp{'} hausse la note d'une octave, chaque @samp{,} baisse la note
+d'une octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \clef treble
@@ -126,7 +126,7 @@ a4 aes a2
 @end lilypond
 
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
-naturel, un mi naturel et un fa naturel} sans tenir compte de
+naturel, un mi naturel et un fa naturel}, sans tenir compte de
 l'armure.  Pour plus d'information à propos de la distinction entre le
 contenu musical et sa représentation, voir @ref{Accidentalas and key signatures}.
 
@@ -172,9 +172,9 @@ Référence du programme : @internalsref{LedgerLineSpanner},
 Normalement, les altérations sont imprimées automatiquement, mais il
 se peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
-point d'exclamation `@samp{!}' après la hauteur de note.  Une
+point d'exclamation @samp{!} après la hauteur de note.  Une
 altération entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation `@samp{?}' après la hauteur de note.  Ces signes
+d'interrogation @samp{?} après la hauteur de note.  Ces signes
 peuvent aussi être utilisés pour imprimer des bécarres.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -228,10 +228,10 @@ utilisés sont les suivants:
 @c  Oh, and should this be made into a multitable?
 @cindex note names, other languages)
 @example
-                       Note Names               sharp       flat
+                       Noms de note              dièse       bémol
 nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
 english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
-                                              -x (double)
+                                                  -x (double)
 deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
 norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
 svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
@@ -261,7 +261,7 @@ reste de la pièce à la mauvaise octave.
 @end example
 
 @noindent
-or
+ou
 
 @example
 \relative @var{musicexpr}
@@ -283,7 +283,7 @@ six demi-tons seulement.
 
 Les signes de changement d'octaves @code{'} et @code{,} peuvent être
 ajoutés pour hausser ou baisser la note d'une octave supplémentaire.
-Lorsque l'on entre en mode \relative, une hauteur absolue de départ
+Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de départ
 peut être spécifiée, et agira dès lors comme si elle précédait la
 première note de @var{musicexpr}.  Si aucune hauteur de départ n'est
 spécifiée, le do central sert de point de départ.
@@ -487,8 +487,8 @@ r1 r2 r4 r8
 Les pauses d'une mesure complète, qui sont placées au centre de la
 mesure, doivent être entrées comme des mesures de silences.  Elles
 peuvent être utilisées pour une seule mesure comme pour plusieurs, et
-leur utilisation est expliquée dans la section @ref{Multi measure
-rests}.
+leur utilisation est expliquée dans la section
+@ref{Multi measure rests}.
 
 Pour spécifier explicitement la position verticale d'un silence,
 écrivez une note suivie de @code{\rest}.  Un silence sera placé à la
@@ -779,8 +779,8 @@ Exemples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 @subsection Scaling durations
 
 Vous pouvez altérer la durée des notes en lui joignant une fraction
-@var{N/M}, donnant @q{@code{*}@var{N/M}} (ou @q{@code{*}@var{N}} si
-@var{M=1}).  Ceci n'affectera pas l'apparence des notes ou silences
+@var{N/M}, donnant @q{@code{*}@var{N/M}} --- ou @q{@code{*}@var{N}} si
+@var{M=1}.  Ceci n'affectera pas l'apparence des notes ou silences
 produits.
 
 Dans l'exemple suivant, les trois premières notes prennent exactement
@@ -991,13 +991,13 @@ en séparant les voix avec @code{\\}
 }
 @end lilypond
 
-Le séparateur permet aux @internalsref{Voice} contexts@footnote{Ces
-voix polyphoniques sont parfois appelées @qq{couches ou calques} dans
-d'autres logiciels de notation.
+Le séparateur permet aux contextes @internalsref{Voice}@footnote{Ces
+voix polyphoniques sont parfois appelées @qq{couches} ou @qq{calques} dans
+d'autres logiciels de notation.}
 @cindex layers
 d'être identifiées.  Elles portent les noms @code{"1"}, @code{"2"},
 etc.  Dans chacun de ces contextes, la direction verticale des
-liaisons, hampes, etc.  est réglée de manière appropriée.
+liaisons, hampes, etc. sont réglées de manière appropriée.
 
 Ces voix sont toutes séparées de la voix qui contient les notes en
 dehors de la construction @code{<< \\ >>}.  Cela doit être pris en
@@ -2020,7 +2020,7 @@ de mesure.
 @funindex \repeatTie
 
 
-Lorsque l'indication "2." d'une reprise commence sur une note liée, la
+Lorsque l'indication @q{2.} d'une reprise commence sur une note liée, la
 liaison doit être répétée. C'est à cela que sert la commande
 @code{\repeatTie}.
 
@@ -2036,7 +2036,7 @@ r <c e g>\repeatTie
 
 Les liaisons de tenues servent parfois à rendre un accord arpégé. Dans
 ce cas, les notes liées ne sont pas toutes l'une contre l'autre. Il
-faut alors définir comme vraie ("t" pour "true") la propriété
+faut alors définir comme vraie (@q{t} pour @q{true}) la propriété
 @code{tieWaitForNote}.  Cette même méthode peut servir, par exemple, à
 lier un trémolo à un accord :
 
@@ -2129,7 +2129,7 @@ des liaisons plus courtes, il faudra utiliser des @ref{Phrasing slurs}.
 
 Certains auteurs utilisent deux liaisons lorsqu'ils veulent
 lier des accords. Dans LilyPond, il faut pour cela définir comme
-vraie ("true") la propriété @code{doubleSlurs} :
+vraie (@q{true}) la propriété @code{doubleSlurs} :
 
 @lilypond[verbatim,ragged-right,relative,fragment,quote]
 \set doubleSlurs = ##t
@@ -2204,7 +2204,7 @@ Référence du programme : @internalsref{PhrasingSlur}.
 @cindex Ties, laissez vibrer
 
 
-Les liaisons de "Laissez Vibrer" (L.V.) sont utilisées pour
+Les liaisons @qq{Laissez vibrer} (L.V.) sont utilisées pour
 le piano, la harpe, et certains instruments de percussion.  Elles
 indiquent à l'instrumentiste de laisser sonner la note au lieu de
 l'étouffer.  Cet effet s'obtient avec la commande
@@ -2730,7 +2730,7 @@ c^\markup { \finger "2 - 3" }
 
 La commande @{\thumb} peut être utilisée pour indiquer, par exemple
 dans une partition de violoncelle, si une note doit être jouée
-avec le pouce (en anglais "thumb") :
+avec le pouce (@q{thumb} en anglais) :
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>8 <b_\thumb b'-3>
@@ -2867,7 +2867,7 @@ l'objet affecté. Par exemple :
 
 
 Des crescendos ou decrescendos @qq{al niente} peuvent être indiqués
-de manière graphique, en définissant comme vraie (lettre "t") la
+de manière graphique, en définissant comme vraie (lettre @q{t}) la
 propriété  @code{circled-tip}, ce qui affiche un cercle à leur
 extrémité.
 
@@ -3220,8 +3220,8 @@ Pour réaliser des trémolos.  Ceux-ci, par défaut, ne seront pas
 joués dans le rendu MIDI.
 
 @item percent
-Pour répéter des temps ou des mesures, sous forme de signes 
-"pourcentage".  Ceux-ci, par défaut, ne seront pas joués dans le rendu
+Pour répéter des temps ou des mesures, sous forme de signes de
+pourcentage.  Ceux-ci, par défaut, ne seront pas joués dans le rendu
 MIDI.  Les répétitions indiquées par ces symboles doivent être
 déclarées dans un contexte @code{Voice}.
 
@@ -3392,7 +3392,7 @@ Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour
 le rendu MIDI, il faut établir deux blocs @code{\score} : un pour le 
 MIDI, avec des reprises explicites, et l'autre pour la partition, avec
 des reprises notées sous forme de barres de reprises, de trémolos ou
-de symboles "pourcentage".  Par exemple :
+de symboles de pourcentage.  Par exemple
 
 @example
 \score @{
@@ -3552,7 +3552,7 @@ une barre oblique.  Toutes ces répétitions doivent être déclarées dans un c
 
 
 Les répétitions de plus de 2 mesures sont surmontées d'un compteur,
-si l'on définit comme vraie (lettre "t") la propriété
+si l'on définit comme vraie (lettre @q{t}) la propriété
 @code{countPercentRepeats}.
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
@@ -3563,7 +3563,8 @@ si l'on définit comme vraie (lettre "t") la propriété
 @end lilypond
 
 
-Des symboles de pourcentage isolés peuvent aussi être obtenus, au moyen d'un silence multi-mesures dont on modifie l'aspect :
+Des symboles de pourcentage isolés peuvent aussi être obtenus, au
+moyen d'un silence multi-mesures dont on modifie l'aspect :
 
 
 @lilypond[fragment,verbatim,quote]
