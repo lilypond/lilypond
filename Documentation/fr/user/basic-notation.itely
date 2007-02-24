@@ -1277,13 +1277,6 @@ Référence du programme : les objets appropriés pour résoudre les
 collisions sont
 @internalsref{NoteCollision} et @internalsref{RestCollision}.
 
-Exemples :
-@inputfileref{input/@/regression,collision@/-dots@/.ly},
-@inputfileref{input/@/regression,collision@/-head-chords@/.ly},
-@inputfileref{input/@/regression,collision@/-heads@/.ly},
-@inputfileref{input/@/regression,collision@/-mesh@/.ly}, et
-@inputfileref{input/@/regression,collisions@/.ly}.
-
 
 @refbugs
 
@@ -1918,8 +1911,7 @@ Référence du programme : @internalsref{StaffSymbol}.
 D'autres exemples : @inputfileref{input/@/test,staff@/-lines@/.ly},
 @inputfileref{input/@/test@/,ossia.ly},
 @inputfileref{input/@/test,staff@/-size@/.ly},
-@inputfileref{input/@/regression,staff@/-line@/-positions@/.ly}.
-
+@lsr{staff,staff-line-positions.ly}
 
 @node Writing music in parallel
 @subsection Writing music in parallel
@@ -2071,11 +2063,6 @@ Dans ce même manuel : @ref{Automatic note splitting}.
 
 Référence du programme : @internalsref{Tie}.
 
-D'autres exemples :
-@inputfileref{input/@/regression,tie-arpeggio.ly}
-@inputfileref{input/@/regression,tie-manual.ly}
-
-
 
 
 @refbugs
@@ -2221,8 +2208,7 @@ Référence du programme :
 @internalsref{LaissezVibrerTieColumn}
 
 D'autres exemples :
-@inputfileref{input/regression,laissez-vibrer-tie.ly}
-
+@lsr{connecting,laissez-vibrer-ties.ly}
 
 @node Automatic beams
 @subsection Automatic beams
@@ -2321,10 +2307,9 @@ Pour plus d'information sur @code{make-moment}, voir
 
 Lorsqu'une ligature entre des notes franchit une barre de mesure,
 le retour à la ligne est en principe interdit à cet endroit.
-Ce comportement peut être changé en définissant @code{allowBeamBreak}
-comme vrai.
+Ce comportement peut être changé en définissant @code{breakable}.
 
-@funindex allowBeamBreak
+@funindex breakable
 @cindex beams and line breaks
 @cindex beams, kneed
 @cindex kneed beams
@@ -2771,7 +2756,7 @@ d'indiquer des doigtés très proches des têtes de notes.
 
 Référence du programme : @internalsref{Fingering}.
 
-D'autres exemples : @inputfileref{input/@/regression,finger@/-chords@/.ly}.
+D'autres exemples : @lsr{expressive,fingering-chords.ly}.
 
 
 @node Dynamics
@@ -3067,7 +3052,7 @@ c2\glissando c,
 
 Référence du programme : @internalsref{Glissando}.
 
-D'autres exemples : @file{input/@/regression/@/glissando@/.ly}.
+D'autres exemples : @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}.
 
 
 @refbugs
@@ -3327,8 +3312,8 @@ D'autres exemples :
 
 Les crochets précédant une reprise s'impriment d'ordinaire
 seulement au-dessus de la portée du haut.  On peut ajuster cela
-en définissant la propriété @code{voltaOnThisStaff} : voir @inputfileref{input/@/regression,volta@/-multi@/-staff@/.ly}.
-
+en définissant la propriété @code{voltaOnThisStaff} : voir
+@lsr{repeats,volta@/-multi@/-staff@/.ly}
 
 @refbugs
 
@@ -3488,9 +3473,6 @@ La subdivision des trémolos aboutit à un résultat semblable : voir
 Dans ce manuel : @ref{Tremolo subdivisions}, @ref{Repeats}.
 
 Référence du programme : @internalsref{Beam}, @internalsref{StemTremolo}.
-
-D'autres exemples : @inputfileref{input/@/regression,chord@/-tremolo@/.ly},
-@inputfileref{input/@/regression,stem@/-tremolo@/.ly}.
 
 
 @node Tremolo subdivisions
