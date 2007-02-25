@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-24 10:14+0100\n"
-"PO-Revision-Date: 2007-02-24 23:06+0100\n"
+"PO-Revision-Date: 2007-02-25 13:46+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -1220,7 +1220,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Text markup"
-msgstr ""
+msgstr "Texte mis en forme"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1290,7 +1290,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
 msgid "Orchestral music"
-msgstr ""
+msgstr "Musique orchestrale"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1300,7 +1300,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Hiding staves"
-msgstr ""
+msgstr "Cacher des portées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1330,7 +1330,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Time administration"
-msgstr ""
+msgstr "Gestion du temps"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1425,12 +1425,12 @@ msgstr ""
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Automatic accidentals"
-msgstr ""
+msgstr "Altérations accidentelles automatiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Setting automatic beam behavior"
-msgstr ""
+msgstr "Définir les règles de ligatures automatiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
@@ -1450,7 +1450,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Changing context properties on the fly"
-msgstr ""
+msgstr "Changer les propriétés de contexte à la volée"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1525,17 +1525,17 @@ msgstr "Objets non musicaux"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "Input files"
-msgstr ""
+msgstr "Fichiers d'entrée"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure (introduction)"
-msgstr ""
+msgstr "Introduction à la structure de fichier"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure"
-msgstr ""
+msgstr "Structure de fichier"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1570,7 +1570,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Creating titles"
-msgstr ""
+msgstr "Créer des titres"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1605,7 +1605,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "Skipping corrected music"
-msgstr ""
+msgstr "Ignorer des passages de la partition"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @chapter in ../../../Documentation/user/spacing.itely
@@ -1895,7 +1895,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/running.itely
 msgid "Updating files with convert-ly"
-msgstr ""
+msgstr "Mettre à jour des fichiers avec convert-ly"
 
 #. @section in ../../../Documentation/user/running.itely
 msgid "Updating with @command{convert-ly}"
