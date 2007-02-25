@@ -174,8 +174,8 @@ mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.10.10"
-musiqueSoprano = \relative c' {
+\version "2.11.15"
+sopranoMusic = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
@@ -183,11 +183,11 @@ musiqueSoprano = \relative c' {
   a4 b c d
 }
 
-parolesSoprano = \lyricmode {
-  Laaa Siii Dooo Rééé
+sopranoLyrics = \lyricmode {
+  Aaa Bee Cee Dee
 }
 
-musiqueVioloncelle = \relative c {
+celloMusic = \relative c {
   \clef bass
   \key c \major
   \time 4/4
@@ -198,13 +198,13 @@ musiqueVioloncelle = \relative c {
 \score{
   <<
     <<
-      \new Voice = "voixUn" {
+      \new Voice = "one" {
         \autoBeamOff
-        \musiqueSoprano
+        \sopranoMusic
       }
-      \new Lyrics \lyricsto "voixUn" \parolesSoprano
+      \new Lyrics \lyricsto "one" \sopranoLyrics
     >>
-    \new Staff \musiqueVioloncelle
+    \new Staff \celloMusic
   >>
   \layout { }
   \midi { }
@@ -243,10 +243,10 @@ exemples complets ; pour pouvoir être traitées, elles doivent au moins
 @end example
 
 La plupart des exemples font aussi intervenir la commande
-@code{\relative}, suivie de @code{c'} ou @code{c''}.  Elle
-n'est pas à proprement parler nécessaire pour le traitement
-des exemples, mais dans la plupart des cas le résultat sera 
-vraiment déplorable si vous l'oubliez.
+@code{\relative}, suivie de @code{c'} ou @code{c''}.  Elle n'est pas à
+proprement parler nécessaire pour le traitement des exemples, mais
+dans la plupart des cas le résultat sera vraiment déplorable si vous
+l'oubliez.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
@@ -317,15 +317,15 @@ melodie = \relative c' @{
 @}
 @end example
 
-Lorsque LilyPond examinera ce fichier, il va prendre la
-valeur de la variable @{melodie}, c'est-à-dire tout ce qui suit
-le signe @code{=}, et l'insérer partout où il tombera sur
-@code{\melodie}.  Vous êtes libre de choisir comment dénommer
-vos variables@footnote{Les noms de variables sont sensibles aux capitales
-et minuscules, et ne peuvent contenir ni chiffres, ni tirets,
-ni caractères accentués.} ; ce peut être @code{melodie}, @code{global},
-@code{maindroitepiano}, ou @code{laTeteAToto}.  Pour plus de détails,
-voir @ref{Saving typing with identifiers and functions}.
+Lorsque LilyPond examinera ce fichier, il va prendre la valeur de la
+variable @{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
+et l'insérer partout où il tombera sur @code{\melodie}.  Vous êtes
+libre de choisir comment dénommer vos variables@footnote{Les noms de
+variables sont sensibles à la casse, et ne peuvent contenir ni
+chiffres, ni tirets, ni caractères accentués.} ; ce peut être
+@code{melodie}, @code{global}, @code{maindroitepiano}, ou
+@code{laTeteAToto}.  Pour plus de détails, voir @ref{Saving typing
+with identifiers and functions}.
 
 Pour une description complète du format des fichiers d'entrée, voir 
 @ref{File structure}.
@@ -412,9 +412,9 @@ soient imprimés ensemble...
 
 On y voit nettement plus clair maintenant.  Nous voici donc avec la
 partie du chanteur, qui contient un ensemble @code{Voice}, ce qui dans
-LilyPond correspond à une voix, au sens de vois musicale, pas
-forcément chantée donc (ce pourrait être une partie de violon par
-exemple).
+LilyPond correspond à une voix, au sens de voix d'une polyphonie plutôt que
+de voix chantée --- ce pourrait être une partie de violon par
+exemple.
 
 Nous avons également une partie de piano, qui contient deux portées :
 une pour la main droite, une autre pour la main gauche.
