@@ -63,5 +63,6 @@ protected:
   SCM make_pages (vector<Break_node> const &breaks, SCM systems);
 
   void calc_subproblem (vsize i);
+  void print_break_node (Break_node const &b);
 };
 #endif /* PAGE_TURN_PAGE_BREAKING_HH */

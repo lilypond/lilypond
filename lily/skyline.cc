@@ -166,7 +166,7 @@ Building::conceals (Building const &other, Real x) const
 
   /* their slopes were not equal, so there is an intersection point */
   Real i = intersection_x (other);
-  return (i < x && slope_ > other.slope_)
+  return (i <= x && slope_ > other.slope_)
     || (i > x && slope_ < other.slope_);
 }
 
