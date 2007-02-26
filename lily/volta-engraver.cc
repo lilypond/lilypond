@@ -92,7 +92,7 @@ Volta_engraver::staff_eligible ()
      volta engraver in score context or somesuch. */
   if (!scm_is_pair (staffs))
     {
-      programming_error ("volta engraver can't find staffs");
+      programming_error ("volta engraver can't find staves");
       return false;
     }
   else if (scm_car (scm_last_pair (staffs)) != staff_)

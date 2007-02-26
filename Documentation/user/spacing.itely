@@ -1127,7 +1127,7 @@ stretched according to the data in the page layout file.
 @end enumerate
 
 The @code{ragged-bottom} property adds space between systems, while
-the two-pass technique adds space between staffs inside a system.
+the two-pass technique adds space between staves inside a system.
 
 To allow this behaviour, a @code{tweak-key} variable has to be set in
 each score @code{\layout} block, and the tweaks included in each score

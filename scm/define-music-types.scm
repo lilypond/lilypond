@@ -126,7 +126,7 @@ Syntax:
 	)) 
     (ContextChange
      . (
-	(description .	"Change staffs in Piano staff. 
+	(description .	"Change staves in Piano staff. 
 
 Syntax @code{\\translator Staff = @var{new-id}}.")
 	(iterator-ctor . , ly:change-iterator::constructor)
@@ -564,7 +564,7 @@ For example, transposed music.")
     (SkipMusic
      . (
 	(description .	"Filler that takes up duration, does not print anything, and also
-does not create staffs or voices implicitly.
+does not create staves or voices implicitly.
 
 
 

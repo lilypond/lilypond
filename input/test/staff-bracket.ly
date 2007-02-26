@@ -1,12 +1,11 @@
 \version "2.10.0" 
 
-\header{ texidoc="@cindex Nested Staff Groups
-Staffs can be nested in various combinations. Here, @code{StaffGroup}
+\header{
+  texidoc="@cindex Nested Staff Groups
+Staves can be nested in various combinations.  Here, @code{StaffGroup}
 and @code{ChoirStaff} produce similar straight brackets, whereas 
-@code{GrandStaff} produces curly brackets. In @code{InnerStaffGroup} 
-and @code{InnerChoirStaff}, the brackets are shifted leftwards.
-
-"
+@code{GrandStaff} produces curly brackets.  In @code{InnerStaffGroup} 
+and @code{InnerChoirStaff}, the brackets are shifted leftwards."
 }
 
 \score { 

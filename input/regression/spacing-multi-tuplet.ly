@@ -1,12 +1,11 @@
-\version "2.10.0" \header{
+\version "2.10.0"
 
+ \header{
 
-  texidoc = "Concurrent tuplets should be equidistant on all staffs.
-Such equidistant spacing is it at odds with elegant engraver spacing;
+  texidoc = "Concurrent tuplets should be equidistant on all staves.
+Such equidistant spacing is at odds with elegant engraver spacing;
 hence it must be switched on explicitly with the
-@code{uniform-stretching} property of @code{SpacingSpanner}.
-"
-
+@code{uniform-stretching} property of @code{SpacingSpanner}."
 }
 
 
