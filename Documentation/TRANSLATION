@@ -1,0 +1,188 @@
+LILYPOND DOCUMENTATION TRANSLATION
+
+
+SOURCES
+
+The sources live in a GIT repository.  Git 1.4.4.1 or newer is
+required, and Git 1.5.x is highly recommended.  To get a fresh version
+run
+
+    mkdir lily ; cd lily
+    git init-db
+    git fetch git://git.sv.gnu.org/lilypond.git/ refs/heads/master:remotemaster
+    git checkout -b master remotemaster
+
+
+GIT
+
+The reader is supposed to be familiar with Git, for example by
+having experience from lilypond.org translation; see
+http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web/master
+
+
+REQUIREMENTS
+
+Working on LilyPond documentation translations requires:
+
+    * python
+    * make
+    * gettext
+
+
+STARTING A TRANSLATION IN A NEW LANGUAGE
+
+At top of the source directory, do
+
+    ./autogen.sh
+
+or (if you want to install your self-compiled LilyPond locally):
+
+    ./autogen.sh --prefix=$HOME
+
+If you want to compile LilyPond -- which is almost required to build
+the docs, but is not required to do translation only -- fix all
+dependencies and rerun ./configure (with the same options as for
+autogen).
+
+Cd into Documentation and run:
+
+    make ISOLANG=<MY-LANGUAGE> new-lang
+
+where <MY-LANGUAGE> is the ISO 639 language code
+
+Add a language definition for your language in
+buildscripts/langdefs.py.
+
+See next section about what files to translate and the following
+detailed instructions after the next section.
+
+FILES TO BE TRANSLATED
+
+All the following files are in Documentation/
+Translation of Documentation/foo/bar should be
+Documentation/<LANG>/foo/bar.
+Unmentioned files should not be translated.
+
+Priorities:  1. delivery, 2. 3. 4. 5. later, 6. optional.
+
+Files marked with priority 3, 4 or 5 may be submitted individually.
+
+-1- Documentation index, Tutorial and Cheat Sheet
+1 user/lilypond.tely
+1 user/tutorial.itely
+1 user/dedication.itely
+1 user/cheatsheet.itely
+1 index.html.in
+
+-2- User manual introduction
+2 user/preface.itely
+2 user/introduction.itely
+
+-3- Learning manual
+3 user/putting.itely -- Putting it all together
+3 user/working.itely -- Working on LilyPond files
+3 user/tweaks.itely -- Tweaking output
+
+-4- Notation reference
+4 user/basic-notation.itely -- Basic notation
+4 user/instrument-notation.itely -- Instrument-specific notation
+4 user/advanced-notation.itely -- Advanced notation
+4 user/changing-defaults.itely -- Changing defaults
+4 user/non-music.itely -- Non-musical notation
+4 user/spacing.itely -- Spacing issues
+4 user/programming-interface.itely -- Interfaces for programmers
+4 user/scheme-tutorial.itely -- Scheme tutorial
+
+-5- Program usage
+5 user/running.itely -- Running LilyPond
+5 user/lilypond-book.itely -- LilyPond-book
+5 user/converters.itely -- Converting from other formats
+
+-6- Appendices whose translation is optional
+6 user/literature.itely
+6 user/templates.itely
+6 user/notation-appendices.itely
+
+* WORD COUNTS FOR CATEGORIES
+
+LANG=C wc --words $(grep ^1 TRANSLATION | cut -d ' ' -f 2 | sed 's@^@site/@')
+
+LANG=C wc --words $(grep ^2 TRANSLATION | cut -d ' ' -f 2 | sed 's@^@site/@')
+
+
+TRANSLATION DETAILED INSTRUCTIONS
+
+Please follow all these instructions with care to ensure quality work.
+
+* USER MANUAL
+
+Any title which comes with one of the following commands must not be
+translated directly in the Texinfo source
+
+@node          @top                                     @majorheading
+@chapter       @unnumbered          @appendix           @chapheading
+@section       @unnumberedsec       @appendixsec        @heading
+@subsection    @unnumberedsubsec    @appendixsubsec     @subheading
+@subsubsection @unnumberedsubsubsec @appendixsubsubsec  @subsubheading
+@ref           @rglos
+
+
+In any section which looks like
+
+@menu
+* node1:: thing1
+* node2:: thing2
+...
+@end menu
+
+the node names (nodeN) are NOT to be translated, whereas extra title
+information (thingN) is.
+
+
+Every node name or section title must from now on be translated
+separately in a .po file (just as well as LilyPond output messages).
+This .po file should be in Documentation/po.
+
+Make sure to keep *verbatim* copies of music snippets (in @lilypond blocs).
+@example blocs do not have to be verbatim copies, e.g. variable names,
+file names and comments should be translated.
+
+Index entries (@cindex and so on) should be translated.
+
+Carefully apply every rule exposed in Documentation/README.txt.  If
+one of these rules conflicts with a rule specific to your language,
+please ask the Translation meister and/or the Documentation Editor on
+lilypond-devel@gnu.org.
+
+
+* DOCUMENTATION INDEX index.html.in
+
+
+
+CHECK STATE OF TRANSLATION
+
+
+
+UPDATE A TRANSLATION
+
+
+
+TECHNICAL BACKGROUND
+
+*** This section is a draft and should be overhauled ***
+- J. Mandereau
+
+When starting a translation, texi-langutils.py quickly parses
+lilypond.tely and the included .itely's, and generates a skeleton with
+node and sectionning commands.  When translating a .itely file, the
+skeleton file is replaced with the real translation, in exception of
+the the node, sectioning and glossary reference commands, which
+remains in English.  All this ensures easy navigation between nodes in
+different languages in HTML docs, i.e.: there is automatic language
+selection on lilypond.org, all sections and cross-references are
+always available, at least in English (for example, see the "Other
+languages: xxx" menu at bottom of tutorial pages).  From the user's
+point of view, docs in his native language with node and sections in
+English are painful, so texi-langutils generates a .po of node and
+section names; this .po file is used to translate the section titles
+in the HTML generated docs.
