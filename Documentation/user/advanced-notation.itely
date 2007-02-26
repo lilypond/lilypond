@@ -519,7 +519,7 @@ effect.
 
 In addition, vertical placement is performed after creating the
 text markup object.  If you wish to move an entire piece of markup,
-you need to use the #'padding property or create an "anchor" point
+you need to use the #'padding property or create an @q{anchor} point
 inside the markup (generally with @code{\hspace #0}).
 
 @lilypond[quote,verbatim,fragment,relative=1]

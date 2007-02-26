@@ -342,8 +342,8 @@ is trivial.
 @end example
 
 If a greater number of systems is requested, a TeX conditional must be
-used before the @code{\endinput}.  In this example, replace "2" by
-the numer of systems you want in the output,
+used before the @code{\endinput}.  In this example, replace @q{2} by
+the number of systems you want in the output,
 
 @example
 \def\betweenLilyPondSystem#1@{

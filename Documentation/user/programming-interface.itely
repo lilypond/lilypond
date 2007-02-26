@@ -785,8 +785,8 @@ add the marcato to its elements list property.
 (set! place new-value)
 @end example
 
-Here, what we want to set (the "place") is the "elements" property of
-@code{result-event-chord} expression
+Here, what we want to set (the @q{place}) is the @q{elements} property of
+@code{result-event-chord} expression.
 
 @example
 (ly:music-property result-event-chord 'elements)
