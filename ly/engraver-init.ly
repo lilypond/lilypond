@@ -6,7 +6,7 @@
   \accepts "Score"
 
   \defaultchild "Score"
-  \description "Hard coded entry point for LilyPond. Cannot be tuned."
+  \description "Hard coded entry point for LilyPond.  Cannot be tuned."
   \grobdescriptions #all-grob-descriptions
 }
 
@@ -166,10 +166,8 @@ contained staves are not connected vertically."
   \accepts "CueVoice"
   \defaultchild "Voice"
 
-  \description  "
-    A context like @code{Staff} but for printing rhythms.  Pitches are
-    ignored; the notes are printed on one line.  
-"
+  \description "A context like @code{Staff} but for printing rhythms.
+Pitches are ignored; the notes are printed on one line."
 }
 
 
@@ -177,13 +175,12 @@ contained staves are not connected vertically."
   \type "Engraver_group"
   \name "Voice"
 
-  \description "
-    Corresponds to a voice on a staff.  This context handles the
-    conversion of dynamic signs, stems, beams, super- and subscripts,
-    slurs, ties, and rests.
+  \description "Corresponds to a voice on a staff.  This context
+handles the conversion of dynamic signs, stems, beams, super- and
+subscripts, slurs, ties, and rests.
 
-    You have to instantiate this explicitly if you want to have
-    multiple voices on the same staff."
+You have to instantiate this explicitly if you want to have
+multiple voices on the same staff."
 
   localKeySignature = #'()
   \consists "Font_size_engraver"
@@ -285,9 +282,9 @@ contained staves are not connected vertically."
   \name GrandStaff
   localKeySignature = #'()
   
-  \description " A group of staffs, with a brace on the left
-    side, grouping the staves together.  The bar lines of the
-    contained staves are connected vertically.  "
+  \description "A group of staves, with a brace on the left
+side, grouping the staves together.  The bar lines of the
+contained staves are connected vertically."
 
   \consists "Span_bar_engraver"
   \consists "Span_arpeggio_engraver"
@@ -303,9 +300,9 @@ contained staves are not connected vertically."
   \name "PianoStaff"
   \alias "GrandStaff"
 
-  \description
-  "Just like @code{GrandStaff} but with a forced distance between
-    the staves, so cross staff beaming and slurring can be used."
+  \description "Just like @code{GrandStaff} but with a forced
+distance between the staves, so cross staff beaming and slurring
+can be used."
 
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   \consists "Instrument_name_engraver"
@@ -340,12 +337,10 @@ contained staves are not connected vertically."
   \InnerStaffGroup
   \name StaffGroup
   
-  \description
-
-  "Groups staffs while adding a bracket on the left side, grouping
-the staves together.  The bar lines of the contained staves are
-connected vertically.  StaffGroup only consists of a collection of
-staffs, with a bracket in front and spanning bar lines. "
+  \description "Groups staves while adding a bracket on the left
+side, grouping the staves together.  The bar lines of the contained
+staves are connected vertically.  @code{StaffGroup} only consists of
+a collection of staves, with a bracket in front and spanning bar lines."
   
   \accepts "InnerChoirStaff"
   \accepts "ChoirStaff"
@@ -358,8 +353,8 @@ staffs, with a bracket in front and spanning bar lines. "
   \type "Engraver_group"
   \override VerticalAxisGroup #'minimum-Y-extent = #'(-0.75 . 2.0)
 
-  \description " Corresponds to a voice with lyrics.  Handles the
-printing of a single line of lyrics.  "
+  \description "Corresponds to a voice with lyrics.  Handles the
+printing of a single line of lyrics."
   
   \name "Lyrics"
   instrumentName = #'()
@@ -448,16 +443,15 @@ AncientRemoveEmptyStaffContext = \context {
   \name "Score"
   
   \description "This is the top level notation context.  No
-    other context can contain a @code{Score} context.  This context
-    handles the administration of time signatures.  It also makes sure
-    that items such as clefs, time signatures, and key-signatures are
-    aligned across staves.
+other context can contain a @code{Score} context.  This context
+handles the administration of time signatures.  It also makes sure
+that items such as clefs, time signatures, and key-signatures are
+aligned across staves.
 
-    You cannot explicitly instantiate a Score context (since it is
-    not contained in any other context).  It is instantiated
-    automatically when an output definition (a @code{\score} or
-    @code{\layout} block) is processed."
-
+You cannot explicitly instantiate a @code{Score} context (since it
+is not contained in any other context).  It is instantiated
+automatically when an output definition (a @code{\score} or
+@code{\layout} block) is processed."
 
   \consists "Paper_column_engraver"
   \consists "Vertically_spaced_contexts_engraver"
@@ -656,7 +650,8 @@ AncientRemoveEmptyStaffContext = \context {
   \alias "Staff"
   \alias "Voice"
   \consists "Swallow_engraver"
-  \description "Silently discards all musical information given to this context. "
+  \description "Silently discards all musical information given to this
+context."
 }
 
 \context {
@@ -670,7 +665,7 @@ AncientRemoveEmptyStaffContext = \context {
   \remove "Fingering_engraver"
   \remove "New_fingering_engraver"
 
-  \description "Context for drawing notes in a Tab staff. "
+  \description "Context for drawing notes in a Tab staff."
 
   %% TabStaff increase the staff-space, which in turn
   %% increases beam thickness and spacing; beams are
@@ -731,7 +726,9 @@ AncientRemoveEmptyStaffContext = \context {
   \Voice
   \name "VaticanaVoice"
   \alias "Voice"
-  \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
+  \description "Same as @code{Voice} context, except that it is
+accommodated for typesetting Gregorian Chant in the notational style
+of Editio Vaticana."
 
   \remove "Slur_engraver"
   \remove "Stem_engraver"
@@ -770,7 +767,9 @@ AncientRemoveEmptyStaffContext = \context {
   \accepts "VaticanaVoice"
   \defaultchild "VaticanaVoice"
 
-  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting Gregorian Chant in the notational style of Editio Vaticana."
+  \description "Same as @code{Staff} context, except that it is
+accommodated for typesetting Gregorian Chant in the notational style
+of Editio Vaticana."
 
   \remove "Time_signature_engraver"
   \consists "Custos_engraver"
@@ -851,7 +850,8 @@ AncientRemoveEmptyStaffContext = \context {
   \Voice
   \name "MensuralVoice"
   \alias "Voice"
-  \description "Same as @code{Voice} context, except that it is accommodated for tyepsetting a piece in mensural style."
+  \description "Same as @code{Voice} context, except that it is
+accommodated for typesetting a piece in mensural style."
 
   \remove "Slur_engraver"
   \remove "Ligature_bracket_engraver"
@@ -871,7 +871,8 @@ AncientRemoveEmptyStaffContext = \context {
   \denies "Voice"
   \defaultchild "MensuralVoice"
   \accepts "MensuralVoice"
-  \description "Same as @code{Staff} context, except that it is accommodated for tyepsetting a piece in mensural style."
+  \description "Same as @code{Staff} context, except that it is
+accommodated for typesetting a piece in mensural style."
 
   \consists "Custos_engraver"
 

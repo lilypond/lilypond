@@ -37,7 +37,7 @@ protected:
 
 ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
-		"Catch groups (staffs, lyrics lines, etc.) and stack "
+		"Catch groups (staves, lyrics lines, etc.) and stack "
 		"them vertically.",
 		/* create */ "VerticalAlignment",
 		/* read */

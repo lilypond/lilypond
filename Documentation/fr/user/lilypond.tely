@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -72,7 +72,7 @@ Free Documentation License''.
 @ifnottex
 Ce fichier documente GNU LilyPond.
 
-Copyright @copyright{} 1999--2006 by the authors
+Copyright @copyright{} 1999--2007 par les auteurs
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -90,7 +90,7 @@ Free Documentation License''.
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.10.x.
+Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.11.x.
 @ifhtml
 (Allez au bas de la page pour voir le numéro de version exact).
 @end ifhtml
@@ -102,9 +102,7 @@ Vous pouvez obtenir plus d'informations sur
 @uref{http://@/www@/.lilypond@/.org/}. Ce site contient des copies en
 ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 
-@ignore
 @include dedication.itely
-@end ignore
 
 @menu
 Manuel d'apprentissage
@@ -119,7 +117,7 @@ Manuel d'apprentissage
 Manuel de référence
 
 * Basic notation::                 notation musicale standard.
-* Instrument-specific notation::   notation spécifique à un instrument.
+* Instrument-specific notation::   notation spécifique à des instruments.
 * Advanced notation::              notation plus rarement utilisée.
 * Changing defaults::              retoucher la mise en forme.
 * Non-musical notation::           aspects autres que la notation musicale.
@@ -137,7 +135,7 @@ Annexes
 * Literature list::                ouvrages de référence sur la notation musicale.
 * Scheme tutorial::                programmer au sein de LilyPond.
 * Notation manual tables::         tables et diagrammes.
-* Example templates::              modèles prêts à l'emploi.
+* Templates::                      modèles prêts à l'emploi.
 * Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
 * LilyPond command index::

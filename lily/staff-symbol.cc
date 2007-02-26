@@ -29,7 +29,7 @@ Staff_symbol::print (SCM smob)
   Interval span_points (0, 0);
 
   /*
-    For raggedright without ragged staffs, simply set width to the linewidth.
+    For raggedright without ragged staves, simply set width to the linewidth.
 
     (ok -- lousy UI, since width is in staff spaces)
 

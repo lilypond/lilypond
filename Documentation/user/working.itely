@@ -382,8 +382,8 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 That looks better, but let's make a few changes.  The glissando is hard
 to see, so let's make it thicker and closer to the noteheads.  Let's
 put the metronome marking above the clef, instead of over the first
-note.  And finally, my composition professor hates "C" time signatures,
-so we'd better make that "4/4" instead.
+note.  And finally, my composition professor hates @q{C} time signatures,
+so we'd better make that @q{4/4} instead.
 
 Don't change @file{music.ly}, though.  Replace our @file{definitions.ly}
 with this:
@@ -448,7 +448,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 That looks nicer!  But now suppose that I want to publish this
-piece.  My composition professor doesn't like "C" time
+piece.  My composition professor doesn't like @q{C} time
 signatures, but I'm somewhat fond of them.  Let's copy the
 current @file{definitions.ly} to @file{web-publish.ly} and
 modify that.  Since this music is aimed at producing a pdf which

@@ -4,19 +4,54 @@
 # This file is distributed under the same license as the lilypond package.
 #
 # John Mandereau <john.mandereau@free.fr>, 2006, 2007.
-#. @chapter in ../../../Documentation/user/lilypond-book.itely
 msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-22 20:59+0100\n"
-"PO-Revision-Date: 2007-02-05 14:38+0100\n"
+"POT-Creation-Date: 2007-02-24 10:14+0100\n"
+"PO-Revision-Date: 2007-02-25 13:46+0100\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
+
+#: ../../buildscripts/add_html_footer.py:36
+#, python-format
+msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
+msgstr "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
+
+#: ../../buildscripts/add_html_footer.py:39
+#, python-format
+msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
+msgstr "Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu.org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%(mail_address_url)s\">%(mail_address)s</a>"
+
+#: ../../buildscripts/add_html_footer.py:52
+#, python-format
+msgid "Other languages: %s."
+msgstr "Autres langues&nbsp;: %s."
+
+#: ../../buildscripts/add_html_footer.py:53
+#, python-format
+msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
+
+#: ../../buildscripts/add_html_footer.py:236
+msgid "stable-branch"
+msgstr "branche stable"
+
+#: ../../buildscripts/add_html_footer.py:238
+msgid "development-branch"
+msgstr "branche de développement"
+
+#: ../../buildscripts/langdefs.py:34
+msgid "English"
+msgstr "Anglais"
+
+#: ../../buildscripts/langdefs.py:35
+msgid "French"
+msgstr "Français"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -54,7 +89,7 @@ msgstr "Commandes prédéfinies"
 
 #. @subsubheading in ../../../Documentation/user/macros.itexi
 msgid "Commonly tweaked properties"
-msgstr "Propriétés couramment ajustées"
+msgstr "Propriétés couramment modifiées"
 
 #. @node in ../../../Documentation/user/preface.itely
 #. @unnumbered in ../../../Documentation/user/preface.itely
@@ -594,7 +629,6 @@ msgstr "Altérations microtonales"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Note names in other languages"
 msgstr "Noms de note dans d'autres langues"
 
@@ -631,7 +665,7 @@ msgstr "Durées"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Augmentation dots"
-msgstr "Points d'addition"
+msgstr "Notes pointées"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -655,9 +689,8 @@ msgstr "Découpage automatique des notes"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @section in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Polyphony"
-msgstr "Polyphonie basique"
+msgstr "Polyphonie"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -776,7 +809,6 @@ msgstr "Arpège"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
-#, fuzzy
 msgid "Falls and doits"
 msgstr "Chutes et sauts"
 
@@ -883,7 +915,7 @@ msgstr "Musique vocale"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Setting simple songs"
-msgstr "Écrire des chansons simples¿"
+msgstr "Écrire des chants simples"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -952,24 +984,23 @@ msgstr "Plus à propos des strophes"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding stanza numbers"
-msgstr ""
+msgstr "Numéroter les strophes"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding dynamics marks"
-msgstr ""
+msgstr "Ajouter des nuances"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
-#, fuzzy
 msgid "Adding singer names"
-msgstr "Ajout de titres"
+msgstr "Ajouter le nom des chanteurs"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end"
-msgstr ""
+msgstr "Paroles à la fin de la partition"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end in multiple columns"
-msgstr ""
+msgstr "Paroles sur plusieurs colonnes à la fin de la partition"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1104,7 +1135,7 @@ msgstr "Articulations anciennes"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Custodes"
-msgstr ""
+msgstr "Guidons"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1189,12 +1220,12 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Text markup"
-msgstr ""
+msgstr "Texte mis en forme"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Nested scores"
-msgstr ""
+msgstr "Partitions emboîtées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1259,7 +1290,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
 msgid "Orchestral music"
-msgstr ""
+msgstr "Musique orchestrale"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1269,7 +1300,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Hiding staves"
-msgstr ""
+msgstr "Cacher des portées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1299,7 +1330,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Time administration"
-msgstr ""
+msgstr "Gestion du temps"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1394,12 +1425,12 @@ msgstr ""
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Automatic accidentals"
-msgstr ""
+msgstr "Altérations accidentelles automatiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Setting automatic beam behavior"
-msgstr ""
+msgstr "Définir les règles de ligatures automatiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
@@ -1419,7 +1450,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Changing context properties on the fly"
-msgstr ""
+msgstr "Changer les propriétés de contexte à la volée"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1494,17 +1525,17 @@ msgstr "Objets non musicaux"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "Input files"
-msgstr ""
+msgstr "Fichiers d'entrée"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure (introduction)"
-msgstr ""
+msgstr "Introduction à la structure de fichier"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure"
-msgstr ""
+msgstr "Structure de fichier"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1539,7 +1570,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Creating titles"
-msgstr ""
+msgstr "Créer des titres"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1574,7 +1605,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "Skipping corrected music"
-msgstr ""
+msgstr "Ignorer des passages de la partition"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @chapter in ../../../Documentation/user/spacing.itely
@@ -1864,12 +1895,11 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/running.itely
 msgid "Updating files with convert-ly"
-msgstr ""
+msgstr "Mettre à jour des fichiers avec convert-ly"
 
 #. @section in ../../../Documentation/user/running.itely
-#, fuzzy
-msgid "Updating with"
-msgstr "Mettre à jour des anciens fichiers"
+msgid "Updating with @command{convert-ly}"
+msgstr ""
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
@@ -1895,6 +1925,10 @@ msgstr ""
 msgid "LilyPond-book"
 msgstr "LilyPond-book"
 
+#. @chapter in ../../../Documentation/user/lilypond-book.itely
+msgid "@command{lilypond-book}: Integrating text and music"
+msgstr "@command{lilypond-book} : associer de la musique et du texte"
+
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "An example of a musicological document"
@@ -1905,9 +1939,8 @@ msgid "Integrating LaTeX and music"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-#, fuzzy
-msgid "Integrating La"
-msgstr "Gravure"
+msgid "Integrating La@TeX{} and music"
+msgstr "Intégrer de la musique dans @LaTeX{}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -1950,8 +1983,7 @@ msgid "Invoking lilypond-book"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking"
+msgid "Invoking @command{lilypond-book}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
@@ -1983,16 +2015,32 @@ msgstr "Convertir à partir d'autres formats"
 msgid "Invoking midi2ly"
 msgstr ""
 
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @command{midi2ly}"
+msgstr ""
+
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking etf2ly"
+msgstr ""
+
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @command{etf2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking musicxml2ly"
 msgstr ""
 
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @code{musicxml2ly}"
+msgstr ""
+
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking abc2ly"
+msgstr ""
+
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @code{abc2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely
@@ -2062,9 +2110,8 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendix in ../../../Documentation/user/templates.itely
-#, fuzzy
 msgid "Templates"
-msgstr "Nolets"
+msgstr "Modèles"
 
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendixsec in ../../../Documentation/user/templates.itely
@@ -2195,5 +2242,3 @@ msgstr "Annexe"
 msgid "Footnotes"
 msgstr "Notes de bas de page"
 
-#~ msgid "@command{lilypond-book}: Integrating text and music"
-#~ msgstr "@command{lilypond-book} : associer de la musique et du texte"

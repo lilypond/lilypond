@@ -3,19 +3,54 @@
 # This file is distributed under the same license as the lilypond package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#. @chapter in ../../../Documentation/user/lilypond-book.itely
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-22 20:59+0100\n"
+"POT-Creation-Date: 2007-02-24 10:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../../buildscripts/add_html_footer.py:36
+#, python-format
+msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
+msgstr ""
+
+#: ../../buildscripts/add_html_footer.py:39
+#, python-format
+msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
+msgstr ""
+
+#: ../../buildscripts/add_html_footer.py:52
+#, python-format
+msgid "Other languages: %s."
+msgstr ""
+
+#: ../../buildscripts/add_html_footer.py:53
+#, python-format
+msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgstr ""
+
+#: ../../buildscripts/add_html_footer.py:236
+msgid "stable-branch"
+msgstr ""
+
+#: ../../buildscripts/add_html_footer.py:238
+msgid "development-branch"
+msgstr ""
+
+#: ../../buildscripts/langdefs.py:34
+msgid "English"
+msgstr ""
+
+#: ../../buildscripts/langdefs.py:35
+msgid "French"
+msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -1862,7 +1897,7 @@ msgid "Updating files with convert-ly"
 msgstr ""
 
 #. @section in ../../../Documentation/user/running.itely
-msgid "Updating with"
+msgid "Updating with @command{convert-ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/running.itely
@@ -1889,6 +1924,10 @@ msgstr ""
 msgid "LilyPond-book"
 msgstr ""
 
+#. @chapter in ../../../Documentation/user/lilypond-book.itely
+msgid "@command{lilypond-book}: Integrating text and music"
+msgstr ""
+
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "An example of a musicological document"
@@ -1899,7 +1938,7 @@ msgid "Integrating LaTeX and music"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating La"
+msgid "Integrating La@TeX{} and music"
 msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
@@ -1943,8 +1982,7 @@ msgid "Invoking lilypond-book"
 msgstr ""
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking"
+msgid "Invoking @command{lilypond-book}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
@@ -1976,16 +2014,32 @@ msgstr ""
 msgid "Invoking midi2ly"
 msgstr ""
 
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @command{midi2ly}"
+msgstr ""
+
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking etf2ly"
+msgstr ""
+
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @command{etf2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking musicxml2ly"
 msgstr ""
 
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @code{musicxml2ly}"
+msgstr ""
+
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking abc2ly"
+msgstr ""
+
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @code{abc2ly}"
 msgstr ""
 
 #. @node in ../../../Documentation/user/converters.itely

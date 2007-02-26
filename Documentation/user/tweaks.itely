@@ -356,7 +356,7 @@ to understand these files.
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
 To access this, either @code{cd} into this directory from the
 Terminal, or control-click on the LilyPond application and select
-"Show Package Contents".
+@q{Show Package Contents}.
 
 @item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 

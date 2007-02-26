@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ac7d0e72b32b6a11470f598f2bee180b11402fe8
+    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -17,6 +19,7 @@ UNTRANSLATED NODE: IGNORE ME
 * MIDI instruments::
 * List of colors::
 * The Feta font::
+* Note head styles::
 @end menu 
 @node Chord name chart
 @appendixsec Chord name chart
@@ -43,3 +46,12 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node Note head styles
+@appendixsec Note head styles
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

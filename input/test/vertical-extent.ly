@@ -1,7 +1,7 @@
 \version "2.10.0"
 % TODO: huh?  what's this file about?  -gp
-% This file shows that Staffs can get a very deep or high; there is a lot
-% of room between the staffs. 
+% This file shows that Staff grobs can get very deep or high; there is a lot
+% of room between the staves. 
 
 \header { texidoc = "
 Vertical extents may increased by setting @code{\override VerticalAxisGroup #'minimum-Y-extent}, 

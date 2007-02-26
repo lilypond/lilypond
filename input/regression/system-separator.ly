@@ -2,9 +2,9 @@
 
 \header {
 
-  texidoc = "System separators maybe defined as markups in the
-@code{systemSeparator} field of the paper block. They are centered
-between the boundary staffs of each system. "
+  texidoc = "System separators may be defined as markups in the
+@code{systemSeparator} field of the paper block.  They are centered
+between the boundary staves of each system."
 
 }
 

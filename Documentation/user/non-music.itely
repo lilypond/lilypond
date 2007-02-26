@@ -405,7 +405,7 @@ option when invoking @code{lilypond --include=DIR} which adds DIR to the
 search path.
 
 The @code{\include} statement can use full path information, but with the Unix
-convention @code{"/"} rather than the DOS/Windows @code{"\"}.  For example,
+convention @samp{/} rather than the DOS/Windows @samp{\}.  For example,
 if @file{stuff.ly} is located one directory higher than the current working
 directory, use
 

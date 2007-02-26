@@ -7,9 +7,17 @@ import sys
 import re
 import getopt
 import os
-import string
 
-optlist, texi_files = getopt.getopt(sys.argv[1:],'no:d:b:i:',['skeleton', 'gettext'])
+def read_pipe (command):
+    print command
+    pipe = os.popen (command)
+    output = pipe.read ()
+    if pipe.close ():
+        print "pipe failed: %(command)s" % locals ()
+    return output
+
+
+optlist, texi_files = getopt.getopt(sys.argv[1:],'no:d:b:i:l:',['skeleton', 'gettext'])
 process_includes = not ('-n', '') in optlist # -n   don't process @include's in texinfo files
 
 make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node list from a Texinfo source
@@ -17,7 +25,24 @@ make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tr
 
 output_file = 'doc.pot'
 node_blurb = ''
-intro_blurb = ''
+doclang = ''
+topfile = os.path.basename (texi_files[0])
+head_committish = read_pipe ('git-rev-parse HEAD')
+intro_blurb = '''@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
+@c This file is part of %(topfile)s
+@ignore
+    Translation of GIT committish: %(head_committish)s
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+'''
+
+end_blurb = """
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+"""
 
 for x in optlist:
 	if x[0] == '-o': # -o NAME   set PO output file name to NAME
@@ -28,6 +53,12 @@ for x in optlist:
 		node_blurb = x[1]
 	elif x[0] == '-i': # -i BLURB  set blurb written at beginning of each file to BLURB
 		intro_blurb = x[1]
+	elif x[0] == '-l': # -l ISOLANG  set documentlanguage to ISOLANG
+		doclang = '; documentlanguage: ' + x[1]
+
+
+intro_blurb = intro_blurb % vars()
+
 
 def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=None):
 	try:
@@ -40,7 +71,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 			g.write (i_blurb)
 			tutu = re.findall (r"""^(\*) +([^:
 			]+)::[^
-			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
 			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			node_trigger = False
@@ -58,12 +89,14 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 						if output_file:
 							output_file.write ('_("' + item[3].strip () + '") # @' + item[2] + \
 									   ' in ' + texifilename + '\n')
-						node_trigger = True
+						if item[2] == 'node':
+							node_trigger = True
 					elif item[2] == 'include':
 						includes.append(item[3])
+			g.write (end_blurb)
 			g.close ()
 		elif output_file:
-			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^@
+			toto = re.findall (r"""^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
 			]*)[^
 			]*?$|@(rglos){(.+?)}""", texifile, re.M)
 			for item in toto:
