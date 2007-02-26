@@ -21,6 +21,7 @@ using namespace std;
 
 bool debug_skylines;
 bool debug_property_callbacks;
+bool debug_page_breaking_scoring;
 
 /*
   Backwards compatibility.
@@ -92,6 +93,11 @@ void internal_set_option (SCM var, SCM val)
   else if (var == ly_symbol2scm ("debug-property-callbacks"))
     {
       debug_property_callbacks = to_boolean (val);
+      val = scm_from_bool (to_boolean (val));
+    }
+  else if (var == ly_symbol2scm ("debug-page-breaking-scoring"))
+    {
+      debug_page_breaking_scoring = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
 }

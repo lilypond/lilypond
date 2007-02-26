@@ -35,6 +35,7 @@
     (debug-gc-assert-parsed-dead #f "for memory debugging:
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
     (debug-lexer #f "debug the flex lexer")
+    (debug-page-breaking-scoring #f "dump scores for many different page breaking configurations")
     (debug-parser #f "debug the bison parser")
     (debug-property-callbacks #f "debug cyclic callback chains")
     (debug-skylines #f "debug skylines")

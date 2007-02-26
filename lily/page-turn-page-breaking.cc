@@ -53,7 +53,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   /* If [START, END] does not contain an intermediate
      breakpoint, we may need to consider solutions that result in a bad turn.
      In this case, we won't abort if the min_page_count is too big */
-  if (start < end - 1 && min_p_count + (page_number % 2) > 2)
+  if (start < end - 1 && min_p_count + (auto_first ? 0 : (page_number % 2)) > 2)
     return Break_node ();
 
   /* if PAGE-NUMBER is odd, we are starting on a right hand page. That is, we
@@ -118,6 +118,8 @@ Page_turn_page_breaking::final_page_num (Break_node const &b)
   return end - 1 + (end % 2);
 }
 
+extern bool debug_page_breaking_scoring;
+
 void
 Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 {
@@ -156,6 +158,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 
       bool ok_page = true;
 
+      if (debug_page_breaking_scoring)
+	message (_f ("page-turn-page-breaking: breaking from %d to %d", (int) start, (int) end));
+
       /* heuristic: we've just added a breakpoint, we'll need at least as
          many systems as before */
       min_sys_count = max (min_sys_count, prev_best_system_count);
@@ -181,6 +186,9 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 
               if (cur.demerits_ < this_start_best.demerits_)
                 {
+		  if (debug_page_breaking_scoring)
+		    print_break_node (cur);
+
                   found = true;
                   this_start_best = cur;
                   prev_best_system_count = sys_count;
@@ -273,4 +281,18 @@ Page_turn_page_breaking::make_pages (vector<Break_node> const &soln, SCM systems
   book_->paper_->set_variable (ly_symbol2scm ("first-page-number"),
 			       scm_from_int (soln[0].first_page_number_));
   return Page_breaking::make_pages (lines_per_page, systems);
+}
+
+void
+Page_turn_page_breaking::print_break_node (Break_node const &node)
+{
+  int system_count = 0;
+  for (vsize i = 0; i < node.system_count_.size (); i++)
+    system_count += node.system_count_[i];
+
+  message (_f ("break starting at page %d", (int) node.first_page_number_));
+  message (_f ("\tdemerits: %f", node.demerits_));
+  message (_f ("\tsystem count: %d", system_count));
+  message (_f ("\tpage count: %d", (int) node.page_count_));
+  message (_f ("\tprevious break: %d", (int) node.prev_));
 }
