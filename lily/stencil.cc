@@ -198,7 +198,7 @@ Stencil::add_at_edge (Axis a, Direction d, Stencil const &s, Real padding)
   Real his_extent;
   if (i.is_empty ())
     {
-      programming_error ("Stencil::moved_to_edge: adding empty stencil.");
+      programming_error ("Stencil::add_at_edge: adding empty stencil.");
       his_extent = 0.0;
     }
   else
