@@ -1242,7 +1242,7 @@ ossia = { f4 f f f }
 
 
 @node The \override command
-@section The \override command
+@section The @code{\override} command
 
 In the previous section, we have already touched on a command that
 changes layout details: the @code{\override} command.  In this section,
@@ -1262,7 +1262,8 @@ which is a member of the @var{context}, to the @var{value}.
 * Layout interfaces::           
 * Determining the grob property::  
 * Objects connected to the input::  
-* \set vs. \override::          
+* Using Scheme code instead of \tweak::  
+* \set versus \override::          
 * Difficult tweaks::            
 @end menu
 
@@ -1599,7 +1600,7 @@ Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
 @funindex \tweak
 
 In some cases, it is possible to take a short-cut for tuning graphical
-objects. For objects that result directly from a piece of the input,
+objects.  For objects that result directly from a piece of the input,
 you can use the @code{\tweak} function, for example
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
@@ -1611,7 +1612,7 @@ you can use the @code{\tweak} function, for example
 >4-\tweak #'padding #10 -.
 @end lilypond
 
-As you can see, properties are set directly in the objects directly,
+As you can see, properties are set in the objects directly,
 without mentioning the grob name or context where this should be
 applied.
 
@@ -1619,8 +1620,8 @@ This technique only works for objects that are directly connected to
 an @internalsref{event} from the input, for example
 
 @itemize @bullet
-@item note heads, caused by chord-pitch (i.e., notes inside a chord).
-@item articulation signs, caused by articulation instructions.
+@item note heads, caused by chord-pitch (i.e., notes inside a chord)
+@item articulation signs, caused by articulation instructions
 @end itemize
 
 It notably does not work for stems and accidentals (these are caused
@@ -1636,12 +1637,58 @@ to output, so
 @end example
 
 @noindent
-will not change color.  See @ref{Displaying music expressions} for
+does not change color.  See @ref{Displaying music expressions} for
 details.
 
 
-@node \set vs. \override
-@subsection \set vs. \override
+@node Using Scheme code instead of \tweak
+@subsection Using Scheme code instead of @code{\tweak}
+
+The main disadvantage of @code{\tweak} is its syntactical
+inflexibility.  For example, the following produces a syntax error.
+
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+With other words, @code{\tweak} doesn't behave like an articulation
+regarding the syntax; in particular, it can't be attached with
+@samp{^} and @samp{_}.
+
+Using Scheme, this problem can be circumvented.  The route to the
+result is given in @ref{Adding articulation to notes (example)},
+especially how to use @code{\displayMusic} as a helping guide.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+ 
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Here, the @code{tweaks} properties of the flageolet object
+@samp{m} (created with @code{make-music}) are extracted with
+@code{ly:music-property}, a new key-value pair to change the
+font size is prepended to the property list with the
+@code{acons} Scheme function, and the result is finally
+written back with @code{set!}.  The last element of the
+@code{let} block is the return value, @samp{m} itself.
+
+
+@node \set versus \override
+@subsection @code{\set} vs.@: @code{\override}
 
 We have seen two methods of changing properties: @code{\set} and
 @code{\override}.  There are actually two different kinds of

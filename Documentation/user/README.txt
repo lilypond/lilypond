@@ -76,7 +76,7 @@ GENERAL GUIDELINES
     between words.  `makeinfo' copies the input lines verbatim without
     removing those spaces.
 
-  . Use two spaces after a priod.
+  . Use two spaces after a period.
 
   . Variables or numbers which consist of a single character (probably
     followed by a punctuation mark) should be tied properly, either to
