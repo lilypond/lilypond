@@ -2783,6 +2783,9 @@ a'2\< a a a\!\mf
 To create new dynamic marks or text that should be aligned
 with dynamics, see @ref{New dynamic marks}.
 
+Vertical positioning of dynamics is handled by
+@internalsref{DynamicLineSpanner}.
+
 
 @commonprop
 
