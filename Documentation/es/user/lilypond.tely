@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 884968f3b77f345f327857f1df17e114adad877f
+    Translation of GIT committish: f5a2aec5313027cb9b89a917b52230b2a7f31df7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -153,39 +153,39 @@ de la presente documentación y de otras.
 @include dedication.itely
 
 @menu
-Learning Manual
+Manual de aprendizaje
 
-* Preface::                        Preface.
-* Introduction::                   What, Why, How.
-* Tutorial::                       A tutorial introduction.
-* Putting it all together::        More explanation about LilyPond concepts.
-* Working on LilyPond projects::   Discusses real-life usage.
-* Tweaking output::                Introduction to modifying output.
+* Preface::                        Prefacio.
+* Introduction::                   Qué, por qué y cómo.
+* Tutorial::                       Introducción en forma de tutorial.
+* Putting it all together::        Más explicaciones sobre conceptos de LilyPond.
+* Working on LilyPond projects::   Sobre la utilización en el mundo real.
+* Tweaking output::                Introducción a las modificaciones de la salida.
 
-Notation Reference
+Referencia de la notación
 
-* Basic notation::                 Standard musical notation.
-* Instrument-specific notation::   Specialized notation.
-* Advanced notation::              Less frequently used notation.
-* Changing defaults::              Tuning output.
-* Non-musical notation::           Output that is not musical notation.
-* Spacing issues::                 Display of output on paper.
-* Interfaces for programmers::     Expert usage.
+* Basic notation::                 Notación musical estándar.
+* Instrument-specific notation::   Notaciones especiales.
+* Advanced notation::              Notación que se utiliza con menos frecuencia.
+* Changing defaults::              Ajuste fino de la salida.
+* Non-musical notation::           Salida que no es notación musical.
+* Spacing issues::                 Presentación de la salida sobre papel.
+* Interfaces for programmers::     Utilización por expertos.
 
 Program usage
 
-* Running LilyPond::               Operation.
-* LilyPond-book::                  Integrating text and music.
-* Converting from other formats::  Converting to lilypond source format.
+* Running LilyPond::               Funcionamiento.
+* LilyPond-book::                  Integrar texto y música.
+* Converting from other formats::  Convertir al formato de entrada de LilyPond.
 
 Appendices
 
-* Literature list::                Reference works about music notation.
-* Scheme tutorial::                Programming inside LilyPond.
-* Notation manual tables::         Tables and charts.
-* Templates::                      Ready-made templates.
-* Cheat sheet::                    Summary of LilyPond syntax.
-* GNU Free Documentation License:: License of this document.
+* Literature list::                Obras de referencia sobre notación musical.
+* Scheme tutorial::                Programación dentro de LilyPond.
+* Notation manual tables::         Tablas y cuadros.
+* Templates::                      Plantillas ya preparadas.
+* Cheat sheet::                    Resumen de la sintaxis de LilyPond.
+* GNU Free Documentation License:: Licencia de este documento.
 * LilyPond command index::
 * LilyPond index::
 @end menu
