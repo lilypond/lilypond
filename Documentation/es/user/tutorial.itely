@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: faafde735e1765f06d55a2e656e0d6cd4d11dfeb
+    Translation of GIT committish: f5a2aec5313027cb9b89a917b52230b2a7f31df7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -113,7 +113,7 @@ rodeadas por espacios a no ser que se encuentren al principio o al final de una 
 para evitar ambigüedades.  Es posible que se omitan en algunos ejemplos del presente
 manual ¡pero no las omita en su propia música!
 
-@cindex Case sensitive
+@cindex Sencible a las mayúsculas
 Además la entrada de LilyPond es @strong{sensible a las mayúsculas}.  @code{ @{ c d e @} }
 es una entrada válida; @code{ @{ C D E @} } producirá un mensaje de error.
 
@@ -213,8 +213,8 @@ Salida de la página hacia `prueba.ps'...
 Convirtiendo a `prueba.pdf'...
 @end example
 
-@cindex PDF file
-@cindex Viewing music
+@cindex Archivo PDF
+@cindex Ver la música
 
 @noindent
 El resultado es el archivo @file{prueba.pdf} que podrá imprimir o ver
@@ -404,7 +404,7 @@ significado de todos estos términos:
 
 @itemize
 
-@cindex Case sensitive
+@cindex Sensible a las mayúsculas
 @item @strong{Sensible a las mayúsculas}:
 tiene importancia el hecho de que introduzca una letra
 en minúsculas (p.ej. @code{a, b, s, t}) o en mayúsculas (p.ej.
@@ -441,9 +441,9 @@ línea, para evitar cualquier ambigüedad.
 Una función (como, por ejemplo @code{\relative @{ @}} ) también es una expresión musical
 unitaria.
 
-@cindex comments
-@cindex line comment
-@cindex block comment
+@cindex comentarios
+@cindex comentario de línea
+@cindex comentario de bloque
 @item @strong{Comentarios}:
 Un comentario es una nota para el lector humano de la entrada musical; se ignora
 cuando esta entrada se analiza, de manera que no tiene ningún efecto sobre la salida impresa.
@@ -565,7 +565,7 @@ como el alemán y el holandés.  Para utilizar otros nombres para las alteracion
 cis1 ees fisis, aeses
 @end lilypond
 
-@cindex key signature, setting
+@cindex armadura de la tonalidad, establecer
 @subheading Key signatures
 
 LA armadura de la tonadlidad se establece mediante el comando @code{\key} seguido de
@@ -638,7 +638,7 @@ ver @ref{Key signature}.
 @node Ties and slurs
 @subsection Ties and slurs
 
-@cindex ties
+@cindex ligaduras de unión
 @subheading Ties
 Una @rglos{tie} se crea adjuntando un carácter tilde @samp{~} a la primera
 nota ligada
@@ -648,7 +648,7 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@cindex slurs
+@cindex ligaduras de expresión
 @subheading Slurs
 
 Una @rglos{slur} es una curva que se traza abarcando varias notas.  Las notas inicial
@@ -658,11 +658,11 @@ y final se marcan mediante @samp{(} y @samp{)} respectivamente.
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@cindex slurs, phrasing
-@cindex phrasing slurs
+@cindex fraseo, ligaduras de
+@cindex ligaduras de fraseo
 @subheading Phrasing slurs
 
-@cindex phrasing slurs
+@cindex ligaduras de fraseo
 Las ligaduras que se utilizan para indicar fraseos más largos se pueden introducir mediante @code{\(} y
 @code{\)}.  Puede haber al mismo tiempo ligaduras de legato y ligaduras de fraseo,
 pero no es posible tener legatos simultáneos o ligaduras de expresión
@@ -674,7 +674,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 
 @sp 1
 
-@cindex slurs versus ties
+@cindex ligaduras de expresión frente a ligaduras de unión
 @subheading Warnings: slurs vs. ties
 
 Una ligadura de espresión parece una @rglos{ligadura}, pero tiene un sisgnificado distinto.  Una
@@ -703,8 +703,8 @@ ver @ref{Phrasing slurs}.
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
-@cindex articulation
-@cindex accents
+@cindex articulación
+@cindex acentos
 @cindex staccato
 @subheading Articulations
 
@@ -715,7 +715,7 @@ seguido de un carácter único:
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@cindex fingering
+@cindex digitaciones
 @subheading Fingerings
 De manera similar, las indicaciones de digitación se pueden añadir a una nota utilizando un guión 
 (@samp{-}) seguido del dígito deseado:
@@ -741,7 +741,7 @@ nota:
 c\ff c\mf c\p c\pp
 @end lilypond
 
-@cindex dynamics
+@cindex expresiones dinámicas
 @cindex decrescendo
 @cindex crescendo
 
@@ -769,7 +769,7 @@ ver @ref{Dynamics}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
-@cindex beams, by hand
+@cindex barras, establecimiento manual
 Todas las @rglos{beam}s se dibujan automáticamente:
 @c aquí hay un problema con el plural. FVD
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -799,9 +799,9 @@ ver @ref{Manual beams}.
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
-@cindex pickup
-@cindex anacruse
-@cindex partial measure
+@cindex anacrusa
+@c @cindex anacruse @c redundant, in spanish. FVD
+@cindex compás parcial
 @subheading Partial measure
 
 Una anacrusa (o @rglos{anacrusis}) se introduce con la palabra clave
@@ -813,8 +813,8 @@ una anacrusa de negra y @code{\partial 8} de corchea.
 f8 c2 d
 @end lilypond
 
-@cindex tuplets
-@cindex triplets
+@cindex grupos especiales
+@cindex tresillos
 @subheading Tuplets
 
 Los grupos especiales como los tresillos se hacen con la palabra clave @code{\times}.  Requiere dos
@@ -829,7 +829,7 @@ de música se multiplica por la fracción.  Los tresillos hacen que las notas oc
 \times 2/3 { d4 a8 }
 @end lilypond
 
-@cindex grace notes
+@cindex mordentes
 @cindex acciaccatura
 @cindex appoggiatura
 @subheading Grace notes
@@ -945,8 +945,8 @@ expresión simultánea, hay más de un pentagrama.
 }
 @end lilypond
 
-@cindex expression
-@cindex music expression
+@cindex expresión
+@cindex expresión musical
 @subheading Analogy: mathematical expressions
 
 Este mecanismo es semejante a las fórmulas
@@ -1029,8 +1029,8 @@ pentagramas@footnote{Este comportamiento se puede cambiar si uno lo desea; consu
 @node Piano staves
 @subsection Piano staves
 
-@cindex staff switch, manual
-@cindex cross staff voice, manual
+@cindex salto de pentagrama, establecimiento manual
+@cindex voz de pentagrama cruzado, establecimiento manual
 La música para piano se compone tipográficamente en forma de dos pentagramas unidos mediante una llave. El aspecto impreso de
 este sistema de pentagramas se parece al ejemplo polifónico que aparece en @ref{Multiple staves},
 pero en esta ocasión la expresión completa se coloca dentro de un @code{PianoStaff}:
@@ -1062,9 +1062,9 @@ Ver @ref{Piano music}.
 @node Single staff polyphony
 @subsection Single staff polyphony
 
-@cindex polyphony
-@cindex multiple voices
-@cindex voices, more -- on a staff
+@cindex polifonía
+@cindex varias voces
+@cindex voces, más (en un solo pentagrama)
 Cuando distintas líenas melódicas se combinan sobre un solo pentagrama, se
 imprimen como voces polifónicas; cada voz lleva sus propias plicas, ligaduras y
 barras de corchea, y la voz superior tiene las plicas hacia arriba mientras que la voz inferior las
@@ -1119,7 +1119,7 @@ Ver @ref{Basic polyphony}.
 @node Combining notes into chords
 @subsection Combining notes into chords
 
-@cindex chords
+@cindex acordes
 Los acordes se hacen rodeando las notas con paréntesis en ángulo simples. Los paréntesis
 en ángulo son los símbolos @samp{<} (menor que) and @samp{>} (mayor que).
 
@@ -1153,8 +1153,8 @@ Esta sección es una introducción a la música vocal y a las partituras de canc
 @node Printing lyrics
 @subsection Printing lyrics
 
-@cindex Lyrics
-@cindex Songs
+@cindex Letra
+@cindex Canciones
 Consideremos una melodía sencilla:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1179,7 +1179,7 @@ sílaba mediante un espacio.
 @end lilypond
 
 @cindex melisma
-@cindex extender line
+@cindex línea de extensión de sílabas
 Esta melodía acaba en un @rglos{melisma}, una sílaba única (@q{suelta})
 que se canta sobre más de una nota.  Esto se indica mediante unla @emph{línea
 de estensión}.  Se escribe como dos guiones bajos @code{__}:
@@ -1218,9 +1218,9 @@ discuten en @ref{Vocal music}.
 @node A lead sheet
 @subsection A lead sheet
 
-@cindex Lead sheets
-@cindex chords
-@cindex chord names
+@cindex Hojas guía de acordes
+@cindex acordes
+@cindex nombres de los acordes
 
 En la música pop es muy común denotar el acompañamiento con los nombres de los acordes.
 Estos acordes se pueden escribir como notas:
@@ -1248,7 +1248,7 @@ siguiente resultado:
 \chords { c2 f4.:m g4.:maj7 gis8:dim7 }
 @end lilypond
 
-@cindex lead sheet
+@cindex hoja guía de acordes
 Cuando se combinan, los nombres de acorde, la letra y la melodía forman
 una hoja de canción con acordes (@q{lead sheet}):
 
@@ -1291,7 +1291,7 @@ del manual.
 @node Version number
 @subsection Version number
 
-@cindex versioning
+@cindex indicación de la versión
 La indicación @code{\version} indica para qué versión de LilyPond se escribió
 el archivo.  Para marcar un archivo para la versión 2.10.1, escriba
 
