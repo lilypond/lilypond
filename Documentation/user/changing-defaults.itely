@@ -1688,7 +1688,7 @@ written back with @code{set!}.  The last element of the
 
 
 @node \set versus \override
-@subsection @code{\set} vs.@: @code{\override}
+@subsection @code{\set} vs. @code{\override}
 
 We have seen two methods of changing properties: @code{\set} and
 @code{\override}.  There are actually two different kinds of
