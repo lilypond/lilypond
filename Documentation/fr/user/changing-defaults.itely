@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+    Translation of GIT committish: baa716e4047ffb69efad2d864eb8f010ccb2a0b8
 
 
     When revising a translation, copy the HEAD committish of the
@@ -17,7 +17,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Automatic notation::
 * Interpretation contexts::
-* The \override command::
+* The @code{\override} command::
 @end menu 
 @node Automatic notation
 @section Automatic notation
@@ -94,7 +94,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node The \override command
-@section The \override command
+@section The @code{\override} command
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -104,7 +104,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Layout interfaces::
 * Determining the grob property::
 * Objects connected to the input::
-* \set vs. \override::
+* Using Scheme code instead of \tweak::  
+* \set versus \override::  
 * Difficult tweaks::
 @end menu 
 @node Constructing a tweak
@@ -132,8 +133,13 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node \set vs. \override
-@subsection \set vs. \override
+@node Using Scheme code instead of \tweak
+@subsection Using Scheme code instead of @code{\tweak}
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node \set versus \override
+@subsection @code{\set} versus @code{\override}
 
 UNTRANSLATED NODE: IGNORE ME
 
