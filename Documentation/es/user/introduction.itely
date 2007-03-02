@@ -1,61 +1,943 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: f5a2aec5313027cb9b89a917b52230b2a7f31df7
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
 @node Introduction
 @chapter Introduction
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+@menu
+* Engraving::                   
+* Automated engraving::         
+* What symbols to engrave?::    
+* Music representation::        
+* Example applications::        
+* About this manual::           
+@end menu
 
-UNTRANSLATED NODE: IGNORE ME
 
-* Engraving::
-* Automated engraving::
-* What symbols to engrave?::
-* Music representation::
-* Example applications::
-* About this manual::
-@end menu 
 @node Engraving
 @section Engraving
 
-UNTRANSLATED NODE: IGNORE ME
+El arte de la tipografía musical se conoce como @emph{grabado (en plancha)}.  El
+término deriva del proceso tradicional de la impresión musical.  Hace sólo unas
+décadas, la música impresa se hacía estampando la música
+sobre planchas de zinc o estaño de forma invertida como en un espejo.  Después la plancha se
+entintaba y las depresiones causadas por los cortes y estampados retenían
+la tinta.  Al presionra una hoja de papel sobre la plancha se formaba una imagen.  El
+estampado y cortado se hacía completamente a mano.  Cualquier corrección era
+muy fastidiosa de realizar, si es que era posible hacerla siquiera, así que el grabado tenía que quedar
+perfecto a la primera.  El grabado era una habilidad altamente especializada; un artesano necesitaba
+unos cinco años de preparación antes de poder ostentar el título de
+maestro grabador, y se necesitaban otros cinco años de experiencia para
+ser un auténtico experto.
+
+Hoy en día, toda la música impresa nueva se produce con ordenadores.  Esto
+tiene unas ventajas evidentes: las copias son más baratas de producir y el trabajo editorial
+se puede repartir por correo elecrónico.  Desgraciadamente la penetrante utilización de
+ordenadores trambién ha hecho disminuir la calidad gráfica de las partituras.
+Las impresiones de ordenador tienen un aspecto insulso y mecánico, lo que hace que sea desagradable tocar a partir de ellas.
+
+@c introduce illustrating aspects of engraving, font...
+Las imágenes siguientes ilustran la diferencia entre el grabado
+tradicional y la salida típica de ordenador, y la tercera imagen muestra cómo
+LilyPond imita el aspecto tradicional.  La imagen de la izquierda presenta el dibujo escaneado
+de un símbolo de bemol sacado de una edición publicada en el año 2000.  La del centro
+es un símbolo procedente de una edición de B@"{a}renreiter grabada a mano de la
+misma música.  La de la izquierda ilustra los típicos puntos débiles de la impresión por
+ordenador: las líneas del pentagrama son muy delgadas, el peso del símbolo del bemol es también demasiado ligero
+como las líneas del pentagrama, y tiene una apariencia rectilínea con esquinas afiladas.  En
+contraste, el bemol de B@"{a}renreiter tiene una apariencia redonda, pesada, casi
+voluptuosa.  Nuestro símbolo del bemol se diseñó según éste, entre otros.
+Es de forma redondeada y su peso está en armonía con el grosor de
+nuestras líneas de pentagrama, que son asimismo mucho más gruesas que las de la
+edición por ordenador.
+
+@multitable @columnfractions .125 .25 .25 .25 .125
+@item @tab
+@ifnotinfo
+@iftex
+@image{henle-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@image{henle-flat-gray,,,png}
+@end ifnottex
+
+@tab
+@iftex
+@image{baer-flat-gray,,4cm}
+@end iftex
+@ifnottex
+@image{baer-flat-gray,,,png}
+@end ifnottex
+
+@tab
+@iftex
+@image{lily-flat-bw,,4cm}
+@end iftex
+@ifnottex
+@image{lily-flat-bw,,,png}
+@end ifnottex
+@end ifnotinfo
+@ifinfo
+@c workaround for makeinfo-4.6: line breaks and multi-column cookies
+@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
+@image{lily-flat-bw,,,png}
+@end ifinfo
+
+@item @tab
+Henle (2000)
+@tab
+B@"{a}renreiter (1950)
+@tab
+Tipografía Feta de LilyPond (2003)
+
+@end multitable
+
+
+@cindex símbolos musicales
+@cindex tipografías
+@cindex negrura
+@cindex equilibrio
+
+@c introduce illustrating aspects of engraving, spacing...
+Tratándose del espaciado, la distribución del espacio debe reflejar las duraciones
+que hay entre las notas.  Sin embargo muchas partituras modernas se atañen a las duraciones
+con precisión matemática, lo que lleva a unos resultados bastante pobres.  En el siguiente
+ejemplo se muestra un ejemplo dos veces: una utilizando espaciado matemáticamente
+exacto, y otra con ciertas correcciones.  ¿Puede adivinar cuál es cuál?
+
+@cindex espaciado óptico
+@c file spacing-optical.
+@c need to include it here,  because we want two images.
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing #'stem-spacing-correction = #0.6
+    }
+  }
+}
+@end lilypond
+
+@lilypond
+\paper {
+  ragged-right = ##t
+  indent = #0.0
+}
+
+music = {
+   c'4 e''4 e'4 b'4 |
+   \stemDown
+   b'8[ e'' a' e'']
+   \stemNeutral
+   e'8[ e'8 e'8 e'8]
+}
+\score
+{
+  \music
+  \layout {
+    \context {
+      \Staff
+      \override NoteSpacing #'stem-spacing-correction = #0.0
+      \override NoteSpacing #'same-direction-correction = #0.0
+      \override StaffSpacing #'stem-spacing-correction = #0.0
+    }
+  }
+}
+@end lilypond
+
+@cindex ritmos regulares
+@cindex espaciado regular
+
+Cada compás de este fragmento solamente utiliza notas que se tocan a ritmo 
+constante.  El espaciado debería reflejarlo.  Desgraciadamente el ojo
+nos engaña un poco; no solamente percibe la distancia entre las
+cabezas de las notas, sino que tiene también en cuenta la distancia entre
+las plicas.  Como resultado, las notas de una combinación plica arriba/@/plica abajo
+se tendrían que separar más, y las notas de una combinación
+plica abajo/@/plica arriba deberían juntarse, todo ello
+dependiendo de las posiciones combinadas de las notas.  Los dos
+compases de arriba están impresos con esta corrección y los de abajo
+sin ella, formando grupos de notas pegadas con plica abajo/@/plica arriba.
+
+@cindex tipografía
+
+Los músicos están normalmente más concentrados en tocar que en estudiar
+el aspecto de una partitura, y por ello las pequeñeces sobre los detalles
+tipográficos pueden parecer académicas.  Pero no lo son.  En las partituras más largas con
+ritmos monótonos, las correcciones de espaciado llevan a sutiles variaciones en
+la disposición de cada una de las líneas dándoles una especie de firma visual distintiva.
+Sin esta firma, todas las líneas parecerían iguales, y se convertirían en
+un laberinto.  Si un músico aparta la mirada o tiene un lapsus de
+concentración, las líneas podráin perder su lugar sobre el papel.
+
+De forma similar, la fuerza visual de unos símbolos pesados sobre gruesas líneas de pentagrama
+se sostiene mejor cuando el lector se aleja del papel, por
+ejemplo cuando está sobre un atril.  Una distribución cuidadosa del espacio
+blanco permite disponer la música muy apretada sin que los símbolos se toquen unos a otros.
+El resultado reduce a un mínimo las vueltas de página, lo que es
+una gran ventaja.
+
+Ésta es una característica normal del arte tipográfico.  La disposición de la página tiene que ser
+bonita, no sólo por sí misma, sino sobre todo porque así ayuda al lector en su tarea.
+Para los materiales destinados a la interpretación, como las partituras, esto es
+de una importancia doble: los músicos tienen una capacidad de concentración limitada.
+Cuanta menos atención necesiten para el acto de leer, más se pueden dedicar
+al acto de tocar la música.  Dicho de otra forma: una mejor tipografía se traduce
+en una mejor interpretación.
+
+Estos ejemplos demuestran que la tipografía musical es un arte
+sutil y complejo, y que su elaboración requiere una experiencia considerable,
+que los músicos no suelen tener.  LilyPond representa nuestro
+esfuerzo para llevar la excelencia visual de la música grabada a mano
+a la era de la informática, y ponerla a disposición de los músicos normales.  Hemos
+ido afinando nuestros algoritmos, diseños de tipografía y preferencias del programa
+para producir una impresión cuya calidad se equipara con la de las viejas ediciones
+que tanto nos gusta contemplar y de las que tanto nos gusta tocar.
+
 
 @node Automated engraving
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Automated engraving
 
-UNTRANSLATED NODE: IGNORE ME
+¿Cómo nos las arreglamos para implementar la tipografía? Si un artesano
+necesita má de diez años para convertirse en un auténtico maestro ¿cómo vamos
+a poder nosotros, simples hackers, escibir
+un programa que les quite el trabajo?
+
+La respuesta es: ¡no podemos!  Puesto que la tipografía se fundamenta en el juicio humano
+sobre la apariencia, las personas nunca se pueden sustituir completamente.
+Sinm embargo, gran parte del trabajo más duro y repetitivo se peude automatizar.
+Si LilyPond resuelve la mayoría de las situaciones comunes de forma correcta,
+esto ya será una tremenda mejoría sobre los programas existentes.
+El resto de los casos se podrán afinar a mano.  Con el transcurso
+de los años, el software se puede refinar para que haga un mayor número
+de cosas de forma automática, de tal forma que los ajustes manuales tienden a ser
+cada vez menos necesarios.
+
+Cuando empezamos, escibimos el programa LilyPond completamente en el lenguaje C++;
+la funcionalidad del programa quedaba como esculpida en piedra por los desarrolladores.
+Este esquema resultó no ser muy satisfactorio por una serie de motivos:
+
+@itemize @bullet
+@item Cuando LilyPond comete fallos,
+los usuarios tienen la necesidad de superar las decisiones de formateo.  Por
+ello el usuario debe tener acceso
+al motor de formateo.  De aquí que las reglas y valores establecidos no pueden
+quedar fijados por nosotros durante la compilación sino que los usuarios deben poder
+acceder a ellos durante la ejecución del programa.
+
+@item El grabado de música es cosa de juicio visual y por ello es cuestión de gustos.
+A pesar de saber tanto como creemos saber, los usuarios pueden no estar de acuerdo
+con nuestras decisiones personales. Por tanto la definición del estilo tipográfico
+también debe estar al alcance del usuario.
+
+@item Por último, estamos continuamente refinando los algoritmos de formateo y por
+tanto necesitamos un enfoque flexible para las reglas.  El lenguaje C++ fuerza un
+cierto método para agrupar las reglas que no encaja bien con la manera de funcionar
+de la notación musical.
+@end itemize
+
+Estos problemas se han solucionado integrando un intérprete del lenguaje
+Scheme y reescibiendo parte del código de LilyPond en Scheme.
+La actual arquitectura de formateo se construye alrededor del concepto de objetos
+gráficos, descrita por variables y funciones de Scheme.  Esta arquitectura puede
+tratar al mismo tiempo con las reglas de formateo, el estilo tipográfico
+y las decisiones de formateo individuales.  El usuario tiene acceso directo a la
+mayor parte de estos controles.
+
+Las variables de Scheme controlan las decisiones de formateo.  Por ejemplo, muchos
+objetos gráficos tienen una variable de dirección que codifica la elección entre
+arriba y abajo (o izquierda y derecha). Aquí puede ver dos acordes con acentos y
+signos de arpegio.  En el primer acorde los objetos gráficos tienen todas sus
+direcciones hacia abajo (o hacia la izquierda).  El segundo acorde tiene todas las direcciones hacia arriba (o hacia la derecha).
+
+@lilypond[quote,ragged-right]
+\new Score \with {
+   \override SpacingSpanner #'spacing-increment = #3
+   \override TimeSignature #'transparent = ##t
+} \relative {
+   \stemDown <e g b>4_>-\arpeggio
+   \override Arpeggio #'direction = #RIGHT
+   \stemUp <e g b>4^>-\arpeggio
+}
+@end lilypond
+
+@noindent
+El proceso de formatear una partitura consiste en leer y escribir las variables
+de los objetos gráficos.  Ciertas variables tienen un valor predefinido.  Por
+ejemplo, el grosor de muchas líneas (una característica del estilo tipográfico)
+son variables con un valor preestablecido.  Podemos alterar este valor libremente
+dando así a nuestra partitura una impresión tipográfica distinta.
+
+@lilypond[quote,ragged-right]
+fragment = {
+   \clef bass f8 as8
+   c'4-~ c'16 as g f e16 g bes c' des'4
+}
+<<
+   \new Staff \fragment
+   \new Staff \with {
+      \override Beam #'thickness = #0.3
+      \override Stem #'thickness = #0.5
+      \override Bar #'thickness = #3.6
+      \override Tie #'thickness = #2.2
+      \override StaffSymbol #'thickness = #3.0
+      \override Tie #'extra-offset = #'(0 .  0.3)
+      }
+      \fragment
+>>
+@end lilypond
+
+Las reglas de formateo también son variables que están predefinidas: cada objeto tiene
+unas variables que contienen procedimientos.  Estos procedimientos realizan el trabajo
+real de formateo y sustituyéndolos por otros podemos alterar el aspecto de los objetos.
+En el siguiente ejemplo, la regla que define cómo se dibuja la cabeza de una nota
+se altera durante el transcurso del fragmento musical.
+
+@lilypond[quote,ragged-right]
+#(set-global-staff-size 30)
+
+#(define (mc-squared grob orig current)
+  (let* ((interfaces (ly:grob-interfaces grob))
+         (pos (ly:grob-property grob 'staff-position)))
+    (if (memq 'note-head-interface interfaces)
+        (begin
+          (ly:grob-set-property! grob 'stencil ly:text-interface::print)
+          (ly:grob-set-property! grob 'font-family 'roman)
+          (ly:grob-set-property! grob 'text
+            (make-raise-markup -0.5
+              (case pos
+                ((-5) (make-simple-markup "m"))
+                ((-3) (make-simple-markup "c "))
+                ((-2) (make-smaller-markup (make-bold-markup "2")))
+                (else (make-simple-markup "bla")))))))))
+
+\new Voice \relative c' {
+   \stemUp
+   \set autoBeaming = ##f
+   \time 2/4
+   <d f g>4
+   \once \override NoteHead #'stencil = #ly:note-head::brew-ez-stencil
+   \once \override NoteHead #'font-size = #-7
+   \once \override NoteHead #'font-family = #'sans
+   \once \override NoteHead #'font-series = #'bold
+   <d f g>
+   \once \override NoteHead #'style = #'cross
+   <d f g>
+   \applyOutput #'Voice #mc-squared
+   <d f g>
+   <<
+      { d8[ es-( fis^^ g] fis2-) }
+      \repeat unfold 5 { \applyOutput #'Voice #mc-squared s8 }
+   >>
+}
+@end lilypond
+
+
 
 @node What symbols to engrave?
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section What symbols to engrave?
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex grabado
+@cindex tipografía
+
+El proceso de formateo toma las decisiones sobre dónde colocar los símbolos.
+Sin embargo esto sólo se puede hacer una vez que se ha decidido @emph{qué} símbolos
+han de imprimirse, o dicho de otro modo: qué notación utilizar.
+
+La notación musical común es un sistema de registro de música que ha venido
+evolucionando desde hace 1000 años.  La forma que se usa en nuestros días data de
+los primeros tiempos del Renacimiento.  Aunque la forma básica (es decir: puntos
+sobre una pauta de cinco líneas) no ha cambiado, los detalles continúan evolucionando 
+para expresar todas las innovaciones de la notación contemporánea.
+Por tanto abarca unos 500 años de música.  Sus aplicaciones se extienden sobre un
+amplio rango que abarca desde melodías monofónicas hasta monstruosos contrapuntos
+para gran orquesta.
+
+¿Cómo podemos tratar con una bestia de tantas cabezas, y obligarla a que se encierre
+dentro de los límites de un programa de ordenador?  Nuestra solución es trocear el
+problema de la notación (por oposición al grabado, esto es, a la tipografía) en
+fragmentos digeribles y más fáciles de programar: cada tipo de símbolo se maneja por un
+módulo separado que recibe el nombre de plug-in.  Cada plug-in es completamente modular
+e independiente, de forma que puede desarrollarse y mejorarse por separado.  Estos
+plug-ins se llaman @code{engraver}s (grabadores), por analogía con los artesanos que
+traducen las ideas musicales a símbolos gráficos.
+
+En el siguiente ejemplo vemos cómo comenzamos con un plug-in para las cabezas
+de las notas, el @code{Note_heads_engraver}.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+   \topVoice
+   \layout {
+   \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+   }
+   \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \consists "Pitch_squash_engraver"
+   }
+}
+}
+@end lilypond
+
+@noindent
+A continuación un @code{Staff_symbol_engraver} (grabador del pentagrama) añade las
+líneas de la pauta.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
+      \consists "Pitch_squash_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+El @code{Clef_engraver} (grabador de la clave) define un punto de referencia
+para la altura de las notas en el pentagrama.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Stem_engraver"
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+y el @code{Stem_engraver} (grabador de las plicas) añade las plicas.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+
+\score {
+  \topVoice
+  \layout {
+    \context {
+      \Voice
+      \remove "Phrasing_slur_engraver"
+      \remove "Slur_engraver"
+      \remove "Script_engraver"
+      \remove "Beam_engraver"
+      \remove "Auto_beam_engraver"
+    }
+    \context {
+      \Staff
+      \remove "Accidental_engraver"
+      \remove "Key_engraver"
+      \remove "Bar_engraver"
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
+
+@noindent
+El @code{Stem_engraver} (grabador de plicas) recibe una notificación cuando llega
+una cabeza. Cada vez que se ve una cabeza (o más, si es un acorde), se crea un objeto
+plica y se conecta a la cabeza.  Añadiendo grabadores para las barras, ligaduras,
+acentos, alteraciones, líneas divisorias, indicación de compás y armadura conseguimos
+una notación completa.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score { \topVoice }
+@end lilypond
+
+Este sistema funciona bien para la música monofónica, pero ¿y con la polifonía?  En
+notación polifónica muchas voces pueden compartir el mismo pentagrama.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\new Staff << \topVoice \\ \botVoice >>
+@end lilypond
+
+En esta situación, las alteraciones y la pauta se comparten, pero las
+plicas, ligaduras, barras, etc. son propias de cada voz.  Por tanto
+los grabadores han de agruparse.  Los grabadores de cabezas, plicas,
+ligaduras, etc.  se unen en un grupo llamado @q{Contexto de voz},
+mientras que los grabadores de la armadura, alteraciones, compás, etc.
+van a un grupo que se llama @q{Contexto de la pauta}.  En el caso de
+la polifonía, un único Contexto de pauta contiene más de un Contexto
+de voz.  De forma semejante, varios Contextos de pauta pueden
+agruparse en un único Contexto de partitura.  El Contexto de partitura
+es el contexto de notación de más alto nivel.
+
+@seealso
+
+Program reference: @internalsref{Contexts}.
+
+@lilypond[quote,ragged-right]
+\include "engraver-example.ily"
+\score {
+   <<
+      \new Staff << \topVoice \\ \botVoice >>
+      \new Staff << \pah \\ \hoom >>
+   >>
+}
+@end lilypond
 
 @node Music representation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Music representation
 
-UNTRANSLATED NODE: IGNORE ME
+Idealmente el formato de entrada para cualquier sistema de formateo de
+alto nivel es una descripción abstracta del contenido.  En este caso,
+eso constituiría la propia música, lo que plantea un tremendo
+problema: ¿cómo podemos definir qué es realmente la música?  En lugar
+de intentar hallar una respuesta, le hemos dado la vuelta a la
+pregunta.  Escribimos un programa capaz de producir partituras y
+ajustamos el formato para que sea tan escueto como sea posible.
+Cuando el formato ya no puede reducirse más, por definición nos
+habremos quedado con el contenido musical propiamente dicho.  Nuestro
+programa sirve como definición formal de un documento musical.
+
+
+La sintaxis también es el interfaz de usuario de LilyPond, así que es fácil teclear
+
+@example
+c'4 d'8
+@end example
+
+@noindent
+un Do1 (Do central) negra, y un Re1 (el Re por encima del Do central) corchea.
+
+@lilypond[quote,fragment]
+c'4 d'8
+@end lilypond
+
+A una escala microscópca, dicha sintaxis es fácil de utilizar.  A una
+escala mayor, la sintaxis también requiere una estructura.  ¿De qué
+otra forma podríamos introducir piezas complejas como sinfonías u
+óperas?  La estructura se forma mediante el concepto de expresiones
+musicales: al combinar pequeños fragmentos de música dentro de otros
+mayores, se pueden expresar ideas musicales más complejas.  Por
+ejemplo
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c4
+@end lilypond
+
+@noindent
+Los acordes se pueden construir encerrando las notas entre @code{<<} y @code{>>}
+
+@c < > is not a music expression,
+@c so we use <<>> iso. <> to drive home the point of
+@c expressions.  Don't change this back --hwn.
+@example
+<<c4 d4 e4>>
+@end example
+
+@lilypond[quote,fragment,relative=1]
+\new Voice { <<c4 d4 e>> }
+@end lilypond
+
+@noindent
+Esta expresión se coloca en secuencia encerrándola dentro de llaves
+@code{@{@tie{}@dots{}@tie{}@}}
+
+@example
+@{ f4 <<c4 d4 e4>> @}
+@end example
+
+@lilypond[quote,relative=1,fragment]
+{ f4 <<c d e4>> }
+@end lilypond
+
+@noindent
+Lo anterior, a su vez también es una expresión, y por ello se puede combinar
+de nuevo con otra expresión simultánea (una blanca) usando <<,
+@code{\\}, y >>
+
+@example
+<< g2 \\ @{ f4 <<c4 d4 e4>> @} >>
+@end example
+
+@lilypond[quote,fragment,relative=2]
+\new Voice { << g2 \\ { f4 <<c d e>> } >> }
+@end lilypond
+
+Las mencionadas estructuras recursivas se pueden especificar de forma nítida y formal dentro de una
+gramática independiente del contexto.  El código de análisis también se genera a partir de esta
+gramática.  En otras palabras, la sintaxis de LilyPond está definida
+de una forma clara y sin ambigüedades.
+
+Los interfaces de usuario y la sintaxis son lo que la persona ve y con
+lo que trata principalmente.  En parte, son fruto de preferencias
+personales y como tales están sujetas a mucha discusión.  Aunque las
+discusiones sobre el gusto tienen su mérito, no son demasiado
+productivas.  Dentro de la escena global de LilyPond, la sintaxis de
+la entrada tiene una importancia relativamente pequeña: inventarse una
+sintaxis elegante es fácil, pero escribir un código de formateo
+decente es mucho más difícil.  Esto también queda ilustrado por la
+cantidad de líneas de código de los componentes respectivos: el
+análisis y la representación se llevan menos del 10% del código
+fuente.
+
 
 @node Example applications
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Example applications
 
-UNTRANSLATED NODE: IGNORE ME
+Escribimos LilyPond como un experimento de cómo condensar el arte
+del grabado de música dentro de un programa de ordenador.  Gracias a todo este duro
+trabajo, el programa ahora se puede usar para hacer trabajos útiles.  La
+aplicación más sencilla es imprimir notas.
+
+@lilypond[quote,relative=1,fragment]
+\time 2/4 c4 c g'4 g a4 a g2
+@end lilypond
+
+@noindent
+Añadiendo los nombres de acordes y la letra, obtenemos una hoja guía de canción.
+
+@lilypond[quote,ragged-right]
+<<
+   \chords { c2 c f2 c }
+   \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
+   \new Lyrics \lyricmode { twin4 kle twin kle lit tle star2 }
+>>
+@end lilypond
+
+También se pueden imprimir notación polifónica y música para piano.  El ejemplo
+siguiente combina varias otras construcciones exóticas.
+
+@lilypondfile[quote,ragged-right]{screech-boink.ly}
+
+Todos los fragmentos mostrados se han escrito a mano, pero esto no es
+necesariamente así.  Puesto que el motor de formateo es casi completamente automático,
+puede servir como medio de salida para otros programas que manipulan
+música.  Por ejemplo, se puede usar también para convertir bases de datos de
+fragmentos musicales en imágenes con destino a páginas web y presentaciones
+multimedia.
+
+Este manual también es un ejemplo de aplicación: el formato de entrada es texto sencillo, y por ello
+se puede empotrar fácilmente dentro de otros formatos basados en texto, como
+@LaTeX{}, HTML, o en el caso concreto de este manual, Texinfo.  A través de un
+programa especial, los fragmentos de entrada se pueden sustituir por imágenes musicales
+dentro de los archivos de salida PDF o HTML resutantes.  Esto convierte la tarea de 
+mezclar música y texto dentro de los documentos, en algo muy sencillo.
+
+
 
 @node About this manual
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section About this manual
 
-UNTRANSLATED NODE: IGNORE ME
+El manual se divide en los siguientes capítulos:
+@itemize @bullet
+
+@item
+@ifhtml
+El
+@end ifhtml
+@emph{@ref{Tutorial}}
+da una amable introducción a la tipografía musical.  Los usuarios que se acercan
+por primera vez deben comenzar por aquí.
+
+@item
+@emph{@ref{Putting it all together}}
+explica algunos conceptos generales sobre el formato de los archivos de entrada de LilyPond.  Si
+no está seguro de dónde colocar un comando ¡lea este capítulo!
+
+@item
+@emph{@ref{Working on LilyPond projects}}
+trata los usos prácticos de LilyPond y cómo evitar ciertos problemas bastante
+comunes.
+
+@item
+@emph{@ref{Tweaking output}}
+muestra la manera de cambiar el grabado por omisión que produce
+LilyPond.
+
+@item
+@emph{@ref{Basic notation}}
+trata ciertos temas agrupados según las construcciones de notación.  Esta sección proporciona
+detalles sobre notación básica que probablemente serán de utilidad en casi cualquier
+proyecto de notación.
+
+@item
+@emph{@ref{Instrument-specific notation}}
+también trata los temas agrupados por construcciones de notación.  Esta sección proporciona
+detalles sobre notación especial que solamente será útil para ciertos
+grupos de instrumentos (o vocales).
+
+@item
+@emph{@ref{Advanced notation}}
+trata temas agrupados por construcciones de notación.  Esta sección proporciona
+detalles acerca de cierta notación complicada o poco usual.
+
+@item
+@emph{@ref{Changing defaults}}
+explica cómo hacer un ajuste fino de la presentación.
+
+@item
+@emph{@ref{Non-musical notation}}
+trata la salida no musical como los títulos, varios movimientos,
+y sobre cómo elegir los instrumentos MIDI.
+
+@item
+@emph{@ref{Spacing issues}}
+trata asuntos que afectan a la salida global, como la elección del
+tamaño del papel o la especificación de los saltos de página.
+
+@item
+@emph{@ref{Interfaces for programmers}}
+explains how to create music functions.
+
+@item
+@emph{@ref{Running LilyPond}}
+muestra la manera de ejecutar LilyPond y sus programas asistentes.
+Además, esta sección explica cómo actualizar los archivos de entrada
+de versiones de LilyPond anteriores.
+
+@item
+@emph{@ref{LilyPond-book}} da los detalles que se encuentran detrás de la creación de
+documentos con ejemplos de música insertados, como este manual.
+
+@item
+@emph{@ref{Converting from other formats}}
+explica cómo ejecutar los programas de conversión.  Estos programas se proporcionan
+con el paquete LilyPond, y convierten una amplia variedad de formatos de
+música al formato @code{.ly}.
+
+@item
+@ifhtml
+La
+@end ifhtml
+@emph{@ref{Literature list}}
+contiene un conjunto de libros de referencia muy útiles para aquellas personas que desean saber
+más sobre notación y grabado.
+
+@item
+El
+@emph{@ref{Scheme tutorial}}
+presenta una breve introducción a Scheme, el lenguaje de programación
+que utilizan las funciones musicales.
+
+@item
+@emph{@ref{Notation manual tables}}
+son un conjunto de tablas que relacionan los nombres de los acordes, instrumentos MIDI,
+nombres de los colores y la tipografía Feta.
+
+@item
+@emph{@ref{Templates}}
+de piezas de LilyPond.  Sólo tiene que cortar y pegar una
+plantilla en un archivo de texto, escibir las notas y ¡ha terminado!
+
+@item
+La
+@emph{@ref{Cheat sheet}}
+es una referencia manejable de los comandos de LilyPond más comunes.
+
+@item
+El
+@emph{@ref{LilyPond command index}}
+es un índice de todos los @code{\commands} de LilyPond.
+
+@item
+El
+@emph{@ref{LilyPond index}}
+es un índice completo.
+
+@end itemize
+
+
+Cuando ya sea un usuario con experiencia podrá usar el manual como referencia:
+hay un índice muy completo@footnote{Si está buscando algo y
+no lo encuentra en el manual, eso se considera un bug (fallo).  En este
+caso le rogamos que envíe un informe de fallo.}, pero el documento también
+está disponible en
+@iftex
+una sola página HTML enorme,
+@end iftex
+@ifhtml
+@uref{source/Documentation/user/lilypond.html, una sola página enorme},
+@end ifhtml
+en la que es fácil buscar cualquier cosa utilizando la función de búsqueda de su
+navegador de web.
+@cindex buscar en el manual
+@cindex usar el manual
+
+@c FIXME:
+@c add/integrate glossary, put in list above
+Si no está familiarizado con la notación o con la terminología musicales
+(sobre todo si es un hablante de inglés no nativo), le recomendamos que
+consulte también el glosario.
+@iftex
+El glosario explica los términos musicales, e incluye traducciones
+a varios idiomas.  Es un docuento aparte, disponible en HTML
+y en PDF.
+@end iftex
+@ifnottex
+El @ref{Top,Music glossary,,music-glossary} explica los términos musicales e
+incluye traducciones a varios idiomas.  También se encuentra disponible en
+PDF.
+@end ifnottex
+@cindex frase idiomática
+@cindex jerga
+@cindex terminología
+@cindex idiomas extranjeros
+@cindex idioma
+
+
+Este manual no estaría completo sin un cierto número de otros documentos.  No
+se encuentran disponibles en una forma lista para la impresión, pero deberían venir incluidos con el
+paquete de documentación para su plataforma informática
+
+@itemize @bullet
+@item
+@iftex
+Referencia del programa
+@end iftex
+@ifnottex
+@ref{Top,Program reference,,lilypond-internals}.
+@end ifnottex
+
+La referencia del programa es un conjunto de páginas HTML con una tupida red de enlaces cruzados,
+que documentan al detalle el meollo de todas y cada una de las
+clases, objetos y funciones de LilyPond.  Se produce directamente a partir de las
+definiciones de formateo que se utilizan.
+
+Casi toda la funcionalidad de formateo que se emplea internamente, se encuentra
+disponible para el usuario de forma directa.  Por ejemplo, todas las variables que controlan
+los valores de grosor, distancias, etc., se pueden cambiar dentro de los archivos de entrada.
+Hay un enorme número de opciones de formateo, y todas ellas
+se describen en este documento.  Cada sección del manual de notación
+tiene una subsección @b{Véase también}, que hace referencia a la documentación
+generada.  En el documento HTML, estas subseciones llevan enlaces que se pueden plusar.
+
+
+@cindex fragmentos de código
+@item
+@ifnothtml
+Diversos ejemplos de entrada.
+@end ifnothtml
+@ifhtml
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/test,Various input examples}.
+@uref{source/input/test/collated-files.html,Diversos ejemplos de entrada}.
+@end ifhtml
+
+This collection of files shows various tips and tricks, and is
+available as a big HTML document, with pictures and explanatory texts
+included.
+
+@item
+@ifnothtml
+The regression tests.
+@end ifnothtml
+@ifhtml
+@c Works, but link name is not so nice; so write-out macro
+@c @inputfileref{input/regression,The regression tests}.
+@uref{source/input/regression/collated-files.html,The regression tests}.
+@end ifhtml
+
+Esta colección de archivos sirve para probar todas las funcionalidades de notación y grabado
+de LilyPond en un único archivo.  La colección está ahí en primer lugar para ayudarnos
+a depurar los problemas, pero puede ser muy instructiva para ver cómo ponemos al programa a hacer ejercicio.
+El formato es similar al del documento de consejos y trucos.
+@end itemize
+
+
+En todos los documentos HTML que tienen fragmentos de música
+incrustados, la entrada de LilyPond que se utilizó para producir dicha
+imagen se puede ver pulsando con el ratón sobre la imagen.
+
+La localización exacta de los archivos de documentación que hemos mencionado puede
+variar de un sistema a otro.  En ocasiones este manual hace referencia a
+archivos de inicialización y de ejemplo.  A lo largo del manual, nos referimos a
+archivos de entrada por su ruta relativa respecto de directorio de nivel más alto de los archivos de código fuente.  Por
+ejemplo, @file{input/@/test/@/bla@/.ly} puede referirse al archivo
+@file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  En los paquetes binarios para
+la plataforma Unix, la documentación y los ejemplos se pueden encontrar normalmente
+en algún lugar dentro de @file{/usr/@/share/@/doc/@/lilypond/}.
+Los archivos de incialización, como por ejemplo @file{scm/@/lily@/.scm}, o
+@file{ly/@/engraver@/-init@/.ly}, se encuentran normalmente en el directorio
+@file{/usr/@/share/@/lilypond/}.
+
+@cindex ajustar la salida
+@cindex variables
+@cindex propiedades
+@cindex interioridades de lilypond
+@cindex documentación interna
+@cindex Scheme
+@cindex extender lilypond
+@cindex índice
+
+Por último, este y el resto de los manuales, están disponibles en línea tanto como archivos
+PDF como HTML en el sitio web, que encontrará en
+@uref{http://@/www@/.lilypond@/.org/}.
 
