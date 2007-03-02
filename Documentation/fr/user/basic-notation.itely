@@ -2888,9 +2888,9 @@ a'2\< a a a\!\mf
 Pour créer des indications de nuances qui restent alignées
 avec les nuances habituelles, voir @ref{New dynamic marks}.
 
-Le postisionnement vertical desnuances est géré par
+Le positionnement vertical des nuances est géré par
 @internalsref{DynamicLineSpanner}.
- 
+
 @commonprop
 
 
