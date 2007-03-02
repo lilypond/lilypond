@@ -1,0 +1,561 @@
+@node Basic notation
+@chapter Basic notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Pitches::
+* Rhythms::
+* Polyphony::
+* Staff notation::
+* Connecting notes::
+* Expressive marks::
+* Repeats::
+@end menu 
+@node Pitches
+@section Pitches
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Normal pitches::
+* Accidentals::
+* Cautionary accidentals::
+* Micro tones::
+* Note names in other languages::
+* Relative octaves::
+* Octave check::
+* Transpose::
+* Rests::
+* Skips::
+@end menu 
+@node Normal pitches
+@subsection Normal pitches
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Cautionary accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Cautionary accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Micro tones
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Micro tones
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Note names in other languages
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Note names in other languages
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Relative octaves
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Relative octaves
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Octave check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Octave check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Transpose
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Transpose
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Rests
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Rests
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Skips
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Skips
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Rhythms
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Rhythms
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Durations::
+* Augmentation dots::
+* Tuplets::
+* Scaling durations::
+* Bar check::
+* Barnumber check::
+* Automatic note splitting::
+@end menu 
+@node Durations
+@subsection Durations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Augmentation dots
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Augmentation dots
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Tuplets
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Tuplets
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Scaling durations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Scaling durations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bar check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Bar check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Barnumber check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Barnumber check
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Automatic note splitting
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Automatic note splitting
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Polyphony
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Polyphony
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Chords::
+* Stems::
+* Basic polyphony::
+* Explicitly instantiating voices::
+* Collision Resolution::
+@end menu 
+@node Chords
+@subsection Chords
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Stems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Stems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Basic polyphony
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Basic polyphony
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Explicitly instantiating voices
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Explicitly instantiating voices
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Collision Resolution
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Collision Resolution
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Staff notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Staff notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Clef::
+* Key signature::
+* Time signature::
+* Partial measures::
+* Bar lines::
+* Unmetered music::
+* System start delimiters::
+* Staff symbol::
+* Writing music in parallel::
+@end menu 
+@node Clef
+@subsection Clef
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Key signature
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Key signature
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Time signature
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Time signature
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Partial measures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Partial measures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bar lines
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Bar lines
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Unmetered music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Unmetered music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node System start delimiters
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection System start delimiters
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Staff symbol
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Staff symbol
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Writing music in parallel
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Writing music in parallel
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Connecting notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Connecting notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Ties::
+* Slurs::
+* Phrasing slurs::
+* Laissez vibrer ties::
+* Automatic beams::
+* Manual beams::
+* Grace notes::
+@end menu 
+@node Ties
+@subsection Ties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Slurs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Slurs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Phrasing slurs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Phrasing slurs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Laissez vibrer ties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Laissez vibrer ties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Automatic beams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Automatic beams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Manual beams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Manual beams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Grace notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Grace notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Expressive marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Expressive marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Articulations::
+* Fingering instructions::
+* Dynamics::
+* Breath marks::
+* Trills::
+* Glissando::
+* Arpeggio::
+* Falls and doits::
+@end menu 
+@node Articulations
+@subsection Articulations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fingering instructions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Fingering instructions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Dynamics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Dynamics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Breath marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Breath marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Trills
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Trills
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Glissando
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Glissando
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Arpeggio
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Arpeggio
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Falls and doits
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Falls and doits
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Repeats
+
+UNTRANSLATED NODE: IGNORE ME
+
+@section Repeats
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+
+UNTRANSLATED NODE: IGNORE ME
+
+* Repeat types::
+* Repeat syntax::
+* Repeats and MIDI::
+* Manual repeat commands::
+* Tremolo repeats::
+* Tremolo subdivisions::
+* Measure repeats::
+@end menu 
+@node Repeat types
+@subsection Repeat types
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Repeat syntax
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Repeat syntax
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Repeats and MIDI
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Repeats and MIDI
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Manual repeat commands
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Manual repeat commands
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Tremolo repeats
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Tremolo repeats
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Tremolo subdivisions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Tremolo subdivisions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Measure repeats
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Measure repeats
+
+UNTRANSLATED NODE: IGNORE ME
+

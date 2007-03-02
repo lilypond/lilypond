@@ -1,0 +1,71 @@
+@node Top
+@top GNU LilyPond --- The music typesetter
+
+UNTRANSLATED NODE: IGNORE ME
+
+@include dedication.itely
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Preface::
+* Introduction::
+* Tutorial::
+* Putting it all together::
+* Working on LilyPond projects::
+* Tweaking output::
+* Basic notation::
+* Instrument-specific notation::
+* Advanced notation::
+* Changing defaults::
+* Non-musical notation::
+* Spacing issues::
+* Interfaces for programmers::
+* Running LilyPond::
+* LilyPond-book::
+* Converting from other formats::
+* Literature list::
+* Scheme tutorial::
+* Notation manual tables::
+* Templates::
+* Cheat sheet::
+* GNU Free Documentation License::
+* LilyPond command index::
+* LilyPond index::
+@end menu 
+@include macros.itexi
+@include preface.itely
+@include introduction.itely
+@include tutorial.itely
+@include putting.itely
+@include working.itely
+@include tweaks.itely
+@include basic-notation.itely
+@include instrument-notation.itely
+@include advanced-notation.itely
+@include changing-defaults.itely
+@include non-music.itely
+@include spacing.itely
+@include programming-interface.itely
+@include running.itely
+@include lilypond-book.itely
+@include converters.itely
+@include literature.itely
+@include scheme-tutorial.itely
+@include notation-appendices.itely
+@include templates.itely
+@include cheatsheet.itely
+@include fdl.itexi
+@node LilyPond command index
+@appendix LilyPond command index
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node LilyPond index
+
+UNTRANSLATED NODE: IGNORE ME
+
+@appendix LilyPond index
+
+UNTRANSLATED NODE: IGNORE ME
+
