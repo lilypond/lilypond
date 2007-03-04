@@ -156,15 +156,23 @@ LY_DEFINE (ly_stencil_add, "ly:stencil-add",
 
 LY_DEFINE (ly_make_stencil, "ly:make-stencil",
 	   1, 2, 0, (SCM expr, SCM xext, SCM yext),
-	   " \n"
-	   "Stencils are a device independent output expressions."
-	   "They carry two pieces of information: \n\n"
-	   "1: a specification of how to print this object. "
+	   "Stencils are device independent output expressions.  "
+	   "They carry two pieces of information:\n"
+
+	   "@enumerate\n"
+
+	   "@item\n"
+	   "A specification of how to print this object.  "
 	   "This specification is processed by the output backends, "
-	   " for example @file{scm/output-ps.scm}.\n\n"
-	   "2: the vertical and horizontal extents of the object.\n\n"
-	   "If the extents are unspecified, they are taken  to be empty."
-	   )
+	   "for example @file{scm/output-ps.scm}.\n"
+
+	   "@item\n"
+	   "The vertical and horizontal extents of the object, "
+	   "given as pairs.  "
+	   "If an extent is unspecified (or if you use "
+	   "@code{(1000 . -1000)} as its value), it is taken to be empty.\n"
+
+	   "@end enumerate\n")
 {
   SCM_ASSERT_TYPE (!scm_is_pair (expr)
 		   || is_stencil_head (scm_car (expr)),
