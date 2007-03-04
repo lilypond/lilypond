@@ -2315,6 +2315,13 @@ conversions.append (((2, 3, 24),
 		     conv,
 		     '''regularize other identifiers.'''))
 
+def conv (str):
+    str = re.sub ('petrucci_c1', 'petrucci-c1', str)
+    str = re.sub ('1style', 'single-digit', str)
+    return str
+
+conversions.append (((2, 3, 25), conv, """pettrucci_c1 -> petrucci-c1, 1style -> single-digit"""))
+
 
 def conv (str):
     return str

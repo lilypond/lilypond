@@ -1531,11 +1531,11 @@ LilyPond supports five different settings for proportional notation,
 which may be used together or alone:
 
 @itemize
-proportionalNotationDuration
-uniform-stretching
-strict-note-spacing
-\remove Separating_line_group_engraver
-\override PaperColumn #'used = ##t
+@item @code{proportionalNotationDuration}
+@item @code{uniform-stretching}
+@item @code{strict-note-spacing}
+@item @code{\remove Separating_line_group_engraver}
+@item @code{\override PaperColumn #'used = ##t}
 @end itemize
 
 In the examples that follow, we explore these five different

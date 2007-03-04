@@ -312,6 +312,7 @@ Languages in this order.
 * ornament::                    
 * ossia::                       
 * part::                        
+* pause::                       
 * pennant::                     
 * percussion::                  
 * perfect interval::            
@@ -3609,6 +3610,11 @@ FI: stemma, instrumenttiosuus.
 1.@tie{}In instrumental or choral music the music for the single instrument
 or voice.  2.@tie{}in contrapuntal music @aref{counterpoint} the single
 melodic line of the contrapunctal web.
+
+@node pause
+@section pause
+
+@ref{fermata}
 
 @node pennant
 @section pennant
