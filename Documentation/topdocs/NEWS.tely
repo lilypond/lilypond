@@ -68,7 +68,8 @@ which scares away people.
 @item
 The following options are now changed as a @code{-d} sub-option:
 @code{--backend}, @code{--safe}, @code{--preview} and
-@code{--no-pages} (which became @code{-dno-print-pages}).
+@code{--no-pages} (which became @code{-dno-print-pages}).  The @code{-b}
+option does not exist any more.
 
 @item
 Improved testing procedure now catch changes in CPU and memory
