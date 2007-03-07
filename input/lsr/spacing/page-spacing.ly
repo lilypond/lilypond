@@ -1,11 +1,15 @@
 \version "2.10.12"
 
 \header { texidoc = "
-By setting properties in @{NonMusicalPaperColumn@}, vertical spacing of page layout can be adjusted.
+By setting properties in @{NonMusicalPaperColumn@}, vertical spacing of
+page layout can be adjusted.
 
-For technical reasons, @{overrideProperty@} has to be used for setting properties on individual object. @{\override@} may still be used for global overrides.
+For technical reasons, @{overrideProperty@} has to be used for setting
+properties on individual object. @{\override@} may still be used for
+global overrides.
 
-By setting @{annotate-spacing@}, we can see the effect of each property.
+By setting @{annotate-spacing@}, we can see the effect of each
+property.
 " }
 
 #(set-global-staff-size 11)

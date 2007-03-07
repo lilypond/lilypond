@@ -1,7 +1,9 @@
 \version "2.10.12"
 
 \header { texidoc = "
-With the new chord syntax, it is possible to associate fingerings uniquely with notes. This makes it possible to add horizontal fingerings to notes.
+With the new chord syntax, it is possible to associate fingerings
+uniquely with notes. This makes it possible to add horizontal
+fingerings to notes.
 " }
 
 \layout { ragged-right= ##t }

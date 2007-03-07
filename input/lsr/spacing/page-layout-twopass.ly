@@ -3,7 +3,8 @@
 \header { texidoc = "
 Page breaking details can be stored for later reference.
 
-(you should run this snippet on your own computer; we cannot compute the two-pass layout here)
+(you should run this snippet on your own computer; we cannot compute
+the two-pass layout here)
 " }
 
 \paper  {
