@@ -128,6 +128,11 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
   vector<Line_details> ret;
   assert (chunks.size () == div.size () + 1);
 
+  SCM padding_scm = book_->paper_->c_variable ("page-breaking-between-system-padding");
+  if (!scm_is_number (padding_scm))
+    padding_scm = book_->paper_->c_variable ("between-system-padding");
+  Real padding = robust_scm2double (padding_scm, 0.0);
+
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
@@ -144,6 +149,7 @@ Page_breaking::line_details (vsize start_break, vsize end_break, Line_division c
 	{
 	  assert (div[i] == 1);
 	  ret.push_back (Line_details (all_[sys].prob_));
+	  ret.back ().padding_ = padding;
 	}
     }
   return ret;
