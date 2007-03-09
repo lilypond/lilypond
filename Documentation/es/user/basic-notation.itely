@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5fbf194037aff3918ac4b0a076fd5867fbb87527
+    Translation of GIT committish: fdfdc2c6ad77635367916c8300db150fcf29a5a3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -191,105 +191,144 @@ Para ver más información, consulte @ref{Automatic accidentals}.
 @node Micro tones
 @subsection Micro tones
 
-@cindex quarter tones
-@cindex semi-flats, semi-sharps
+@cindex cuartos de tono
+@cindex semi-bemoles, semi-sostenidos
 
-Half-flats and half-sharps are formed by adding @code{-eh} and
-@code{-ih}; the following is a series of Cs with increasing pitches
+Los medios bemoles y los medios sostenidos se forman añadiendo @code{-eh} y
+@code{-ih}; a continuación presentamos una serie de DOs cada vez más agudos
 
 @lilypond[verbatim,ragged-right,quote,relative=2,fragment]
 \set Staff.extraNatural = ##f
 ceseh ceh cih cisih
 @end lilypond
 
-Micro tones are also exported to the MIDI file.
+Los microtonos también se exportan al archivo MIDI.
 
 
 @refbugs
 
-There are no generally accepted standards for denoting
-three-quarter flats, so LilyPond's symbol does not conform to any
-standard.
+No existen estándares reconocidos ampliamente para denotar
+los bemoles de tres cuartos, de manera que los símbolos de LilyPond
+no se ajustan a ningún estándar.
+
 
 
 @node Note names in other languages
 @subsection Note names in other languages
 
-There are predefined sets of note names for various other languages.
-To use them, include the language specific init file.  For
-example, add @code{\include "english.ly"} to the top of the input
-file.  The available language files
-and the note names they define are
+Existen conjuntos predefinidos de nombres de notas para algunos idiomas
+aparte del inglés.  Para usarlos, incluya el archivo de incio
+específico del idioma.  Por ejemplo, añada @code{\include "english.ly"}
+al principio del archivo de entrada.  Los archivos de idioma disponibles
+y los nombres de las notas que definen son los siguientes:
 
-@c  what about micro-tunes, double-sharps, and double-flats?  add
-@c  more columns to the table?
-@c  Oh, and should this be made into a multitable?
-@cindex note names, other languages
+@c  Should this be made into a multitable?
+@cindex idiomas, nombres de las notas en otros
 @example
-                        Note Names               sharp       flat
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
-                                               -x (double)
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
+                     Nombres de las notas      sostenido   bemol       doble        doble
+                                                                      sostenido     bemol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
+                                                                     -sharpsharp   -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
 @end example
+
+@noindent
+Tenga en cuenta que en holandés, alemán, noruego y sueco, los bemoles
+del @samp{La} como por ejemplo @code{aes} y @code{aeses}
+se contraen normalmente como @code{as} y @code{ases} (o más frecuentemente
+como @code{asas}). Algunas veces se definen sólo estas contracciones
+en los archivos de idioma correrspondientes (esto también se aplica a los
+sufijos para cuartos de tono que se ven más abajo).
+
+@noindent
+Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
+de un sostenido o bemol @q{normales}.  Los nombres de nota para cuartos
+de tono que se definen en los distintos archivos de idioma se encuentran
+listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-}
+significan @q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
+sueco, catalán y español no se ha definido aún ningún nombre especial.
+
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+                    Nombres de las notas       semi-      semi-  sesqui-    sesqui-
+                                               sostenido  bemol  sostenido  bemol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih       -eh     -isih      -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs       -qf     -tqs       -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih       -eh     -isih      -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd       -sb     -dsd       -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
 
 
 @node Relative octaves
+
 @subsection Relative octaves
 
-@cindex Relative
-@cindex Relative octave specification
+@cindex Relativo
+@cindex Relativas, especificación de octavas
 @funindex \relative
 
-Octaves are specified by adding @code{'} and @code{,} to pitch names.
-When you copy existing music, it is easy to accidentally put a pitch
-in the wrong octave and hard to find such an error.  The relative
-octave mode prevents these errors by making the mistakes much
-larger: a single error puts the rest of the piece off by one octave
+Las octavas se especifican añadiendo @code{'} y @code{,} a los nombres de las notas.
+Cuando copie música existente, es fácil poner accidentalmente una nota en la octava
+equivocada y es difícil encontrar dicho error.  La octava relativa
+previene estos errores haciendo que los errores tengan consecuencias mucho mayores:
+un solo error transporta una octava el resto de la pieza
 
 @example
-\relative @var{startpitch} @var{musicexpr}
+\relative @var{altura_inicial} @var{expresión_musical}
 @end example
 
 @noindent
-or
+o bien
 
 @example
-\relative @var{musicexpr}
+\relative @var{expresión_musical}
 @end example
 
 @noindent
-@code{c'} is used as the default if no starting pitch is defined.
+@code{c'} se usa por defecto si no se define una altura inicial.
 
-The octave of notes that appear in @var{musicexpr} are calculated as
-follows: if no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or
-less.  This distance is determined without regarding alterations; a
-@code{fisis} following a @code{ceses} will be put above the
-@code{ceses}.  In other words, a doubly-augmented fourth is considered
-a smaller interval than a diminished fifth, even though the
-doubly-augmented fourth spans seven semitones while the diminished
-fifth only spans six semitones.
+La octava de las notas que aparecen dentro de @var{expresión_musical} se calculan como
+sigue: si no se usa ninguna marca de cambio de octava, el intervalo básico
+entre la nota actual y la anterior se toma siempre como si fuera una cuarta o menos.
+Esta distancia se determina independientemente de las alteraciones; un
+@code{fisis} (Fa doble sostenido) después de un @code{ceses} (Do doble bemol) se colocará
+por encima del @code{ceses}.  En otras palabras, una cuarta doble aumentada se considera
+un intervalo menor que una quinta disminuida, incluso aunque la cuarta doble aumentada
+tiene siete semitonos mientras que la quinta disminuida sólo tiene seis semitonos.
 
-The octave changing marks @code{'} and @code{,} can be added to raise
-or lower the pitch by an extra octave.  Upon entering relative mode,
-an absolute starting pitch can be specified that will act as the
-predecessor of the first note of @var{musicexpr}.  If no starting pitch
-is specified, then middle C is used as a start.
+Las marcas de cambio de octava @code{'} y @code{,} se pueden añadir para
+elevar o bajar la altura en una octava más.  Al entrar en el modo relativo,
+se peude especificar una altura de inicio absoluta que se comportará como
+la nota precedente a la primera nota de la @var{expresión_musical}.  Si no
+se especifica ninguna altura inicial, se utilizará el Do central como
+comienzo.
 
-Here is the relative mode shown in action
+Aquí podemos ver el modo relativo en acción:
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
   b c d c b c bes a
 }
 @end lilypond
 
-Octave changing marks are used for intervals greater than a fourth
+Las marcas de cambio de octava se utilizan para intervalos mayores de la cuarta
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c'' {
@@ -297,8 +336,8 @@ Octave changing marks are used for intervals greater than a fourth
 }
 @end lilypond
 
-If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord
+Si el elemento anterior es un acorde, la primera nota del acorde se utiliza para
+determinar la primera nota del siguiente acorde
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' {
@@ -308,51 +347,52 @@ to determine the first note of the next chord
 }
 @end lilypond
 
-The pitch after @code{\relative} contains a note name.
+La altura después del @code{\relative} contiene un nombre de nota.
 
-The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.  To use
-relative within transposed music, an additional @code{\relative} must
-be placed inside @code{\transpose}.
+La converión relativa no afecta a las secciones @code{\transpose},
+@code{\chordmode} o @code{\relative} en su argumento.  Para usar
+el modo relativo dentro de música transportada, se debe escribir 
+un @code{\relative} adicional dentro de @code{\transpose}.
 
 
 @node Octave check
 @subsection Octave check
 
-@cindex Octave check
+@cindex Comprobación de octava
 
-Octave checks make octave errors easier to correct: a note may be
-followed by @code{=}@var{quotes} which indicates what its absolute
-octave should be.  In the following example,
+Las comprobaciones de octava hacen que los errores de octava sean más
+fáciles de corregir: una nota puede venir seguida de @code{=}@var{comillas}
+lo que indica cuál debería ser su octava absoluta.  En el siguiente ejemplo,
 
 @example
 \relative c'' @{ c='' b=' d,='' @}
 @end example
 
 @noindent
-the @code{d} will generate a warning, because a @code{d''} is expected
-(because @code{b'} to @code{d''} is only a third), but a @code{d'} is
-found.  In the output, the octave is corrected to be a @code{d''} and
-the next note is calculated relative to @code{d''} instead of @code{d'}.
+la @code{d} generará una advertencia, porque se esperaba un @code{d''}
+(a causa de que el intervalo de @code{b'} a @code{d''} es de una tercera solamente),
+pero aparece un @code{d'}.  En la salida, la octava se corrige para que sea
+un @code{d''} y la siguiente nota se calcula de forma relativa a @code{d''} 
+en lugar de a @code{d'}.
 
-There is also an octave check that produces no visible output.  The syntax
+También existe una comprobación de octava que no produce ninguna salida visible.
+La sintaxis
 
 @example
-\octave @var{pitch}
+\octave @var{altura}
 @end example
 
-This checks that @var{pitch} (without quotes) yields @var{pitch} (with
-quotes) in @code{\relative} mode compared to the note given in the
-@code{\relative} command.  If not, a warning is printed, and the
-octave is corrected.  The @var{pitch} is not printed as a note.
+Esto comprueba que @var{altura} (sin las comillas) produce @var{altura} (con
+las comillas) en modo @code{\relative} comparado con la nota que se da en el
+comando @code{\relative}.  Si no es así, se imprime una advertencia, y la
+octava se corrige.  La @var{altura} no se imprime como una nota.
 
-In the example below, the first check passes without incident, since
-the @code{e} (in @code{relative} mode) is within a fifth of
-@code{a'}.  However,
-the second check produces a warning, since the @code{e} is not within
-a fifth of @code{b'}.  The warning message is printed, and the octave
-is adjusted so that the following notes are in the correct octave
-once again.
+En el ejemplo que aparece a continuación, la primera comprobación
+se aprueba sin más problema, porque el @code{e} (en modo @code{relative})
+está dentro de una quinta desde @code{a'}.  Sin embargo
+la segunda comprobación produce una advertencia porque el @code{e} no está dentro
+de una quinta del @code{b'}.  Se imprime el mensaje de advertencia y la octava se ajusta
+de modo que las notas siguientes están en la octava correcta de nuevo.
 
 @example
 \relative c' @{
@@ -363,11 +403,11 @@ once again.
 @end example
 
 
-The octave of a note following an octave check is determined with
-respect to the note preceding it.  In the next fragment, the last note
-is an @code{a'}, above middle C.  That means that the @code{\octave}
-check passes successfully, so the check could be deleted without changing
-the output of the piece.
+La octava de una nota que sigue a una comprobación de octava
+se determina con respecto a la nota que la precede.  En el siguiente fragmento,
+la última nota es una @code{a'}, por encima del Do central.  Esto
+significa que la comprobeación de @code{\octave} se aprueba satisfactoriamente,
+así que la comprobación se peude borrar sin que cambie la salida de la pieza.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
@@ -381,41 +421,41 @@ the output of the piece.
 @node Transpose
 @subsection Transpose
 
-@cindex Transpose
-@cindex Transposition of pitches
+@cindex Transposición
+@cindex Transposición de alturas
 @funindex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
 syntax is
 @example
-\transpose @var{from} @var{to} @var{musicexpr}
+\transpose @var{desde} @var{hacia} @var{expresión_musical}
 @end example
 
-This means that @var{musicexpr} is transposed by the interval between
-the pitches @var{from} and @var{to}: any note with pitch @code{from}
-is changed to @code{to}.
+Esto significa que la @var{expresión_musical} se transporta el intervalo
+que hay entre las notas @var{desde} y @var{hacia}: cualquier nota con la altura @code{desde}
+se cambia por @code{hacia}.
 
-For example, consider a piece written in the key of D-major.  If
-this piece is a little too low for its performer, it can be
-transposed up to E-major with
+Por ejemplo, tomemos una pieza escrita en la tonalidad de Re mayor.
+Si esta pieza es demasiado grave para el ejecutante, se puede transportar
+hacia arriba a Mi mayor con
 @example
 \transpose d e @dots{}
 @end example
 
-Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet (for which an
-A is notated as a C, and which sounds a minor third lower
-than notated), the following
-transposition will produce the appropriate part
+Suponga una pieza escrita para el violín (que es un instrumento en Do).  Si
+esta parte se tiene que tocar con un clarinete en La (para el que un La
+se escribe como un Do, y que suena una tercera menor por debajo de lo que
+está escrito), el siguiente transporte producirá la particella correcta:
 
 @example
 \transpose a c @dots{}
 @end example
 
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats
+@code{\transpose} distingue entre notas enarmónicas: tanto
+@code{\transpose c cis} como @code{\transpose c des} transportarán un
+semitono hacia arriba.  La primera versión imprimirá sostenidos y la
+segunda imprimirá bemoles
+
 
 @lilypond[quote,ragged-right,verbatim]
 mus = { \key d \major cis d fis g }
@@ -427,19 +467,19 @@ mus = { \key d \major cis d fis g }
 }
 @end lilypond
 
-@code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into LilyPond
-in C (or @q{concert pitch}), but they may be entered in another
-key.  For example, when entering music for a B-flat trumpet which
-begins on concert D, one would write
+@code{\transpose} también se puede usar para introducir notas escritas para un
+instrumento transpositor.  Las alturas se introducen normalmente en LilyPond
+en Do (o en @q{afinación de concierto}), pero se pueden introducir en otra
+tonalidad.  Por ejemplo, al introducir música para una trompeta en Si bemol
+que comienza en un Re de concierto, se puede escribir
 
 @example
 \transpose c bes @{ e4 @dots{} @}
 @end example
 
-To print this music in B-flat again (i.e., producing a trumpet part,
-instead of a concert pitch conductor's score) you would wrap the
-existing music with another @code{transpose}
+Para imprimir esta música en Si bemol de nuevo (o sea, para producir una particella de trompeta
+en vez de una partitura para el director en afinación de concierto), puede envolver la música existente
+con otro @code{transpose}
 
 @example
 \transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
@@ -448,74 +488,73 @@ existing music with another @code{transpose}
 
 @seealso
 
-Program reference: @internalsref{TransposedMusic}.
+Referencia del programa: @internalsref{TransposedMusic}.
 
-Example: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+Ejemplo: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
 
 
 @refbugs
 
-If you want to use both @code{\transpose} and @code{\relative},
-you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect on music that appears inside a
+Si quiere usar al mismo tiempo @code{\transpose} y @code{\relative},
+debe escribir @code{\transpose} por fuera de @code{\relative}, porque
+@code{\relative} no tendrá ningún efecto sobre la música que aparezca dentro de un
 @code{\transpose}.
 
 
 @node Rests
 @subsection Rests
-@cindex Rests
+@cindex Silencios
 
 @funindex \rest
 @funindex r
 
-Rests are entered like notes with the note name @code{r}
+Los silencios se introducen como notas con el nombre @code{r}
 
 @lilypond[fragment,quote,ragged-right,verbatim]
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests, centered in middle of the bar,
-must be done with multi-measure rests.  They can be used for a
-single bar as well as many bars, and are discussed in
+Los silencios de un compás centrados en medio del comás,
+se deben hacer com silencios multicompás.  Se pueden usar para 
+un solo compás así como para muchos compases, y se tratan en
 @ref{Multi measure rests}.
 
-To explicitly specify a rest's vertical position, write a note
-followed by @code{\rest}.  A rest will be placed in the position
-where the note would appear,
+Para especificar explícitamente la posición vertical de un silencio, escriba una nota
+seguida de @code{\rest}.  Se colocará un silencio en la posición en que debería
+aparecer la nota:
 
 @lilypond[fragment,quote,ragged-right,verbatim]
 a'4\rest d'4\rest
 @end lilypond
 
 @noindent
-This makes manual formatting of
-polyphonic music much easier, since the automatic rest collision
-formatter will leave these rests alone.
+Esto hace mucho más sencillo el formateo de la música polifónica,
+porque el formateador automático de colisiones de silencios se olvidará de ellos.
 
 @seealso
 
-Program reference: @internalsref{Rest}.
+Referencia del programa: @internalsref{Rest}.
 
 
 @node Skips
 @subsection Skips
 
-@cindex Skip
-@cindex Invisible rest
-@cindex Space note
+@cindex Desplazamiento
+@cindex Silencio invisible
+@cindex Nota de espaciado
 @funindex \skip
 @funindex s
 
-An invisible rest (also called a @q{skip}) can be entered like a note
-with note name @samp{s} or with @code{\skip @var{duration}}
+Un silencio invisible -- también conocido como @q{skip} (desplazamiento) --
+se puede introducir como una nota con el nombre @samp{s} o con @code{\skip @var{duración}}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a4 a4 s4 a4 \skip 1 a4
 @end lilypond
 
-The @code{s} syntax is only available in note mode and chord mode.  In
-other situations, for example, when entering lyrics, you should use
-the @code{\skip} command
+La sintaxis de @code{s} sólo está disponible en el modo de notas y en el modo de acordes.
+En otras situaciones, por ejemplo, cuando se introduce la letra, debe
+usar el comando @code{\skip}
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -524,29 +563,29 @@ the @code{\skip} command
 >>
 @end lilypond
 
-The skip command is merely an empty musical placeholder.  It does not
-produce any output, not even transparent output.
+El comando skip es un mero contenedor musical vacío.  No produce
+ninguna salida, ni siguiera una salida transparente.
 
-The @code{s} skip command does create @internalsref{Staff} and
-@internalsref{Voice} when necessary, similar to note and rest
-commands.  For example, the following results in an empty staff.
+El comando de desplazamiento @code{s} crea una @internalsref{Staff} y una
+@internalsref{Voice} cuando es necesario, de forma similar a los comandos de nota y de silencio.
+Por ejemplo, el fragmento siguiente produce un pentagrama vacío.
 
 @lilypond[quote,ragged-right,verbatim]
 { s4 }
 @end lilypond
 
-The fragment @code{@{ \skip 4 @} } would produce an empty page.
+El fragmento @code{@{ \skip 4 @} } produciría una página vacía.
 
 @seealso
 
-Program reference: @internalsref{SkipMusic}.
+Referencia del programa: @internalsref{SkipMusic}.
 
 
 
 @node Rhythms
 @section Rhythms
 
-This section discusses rhythms, durations, and bars.
+Esta sección trata los ritmos, duraciones y compases.
 
 @menu
 * Durations::                   
@@ -562,17 +601,18 @@ This section discusses rhythms, durations, and bars.
 @node Durations
 @subsection Durations
 
-@cindex duration
+@cindex duración
 @funindex \longa
 @funindex \breve
 @funindex \maxima
 
-In Note, Chord, and Lyrics mode, durations are designated by numbers and
-dots: durations are entered as their reciprocal values.  For example, a
-quarter note is entered using a @code{4} (since it is a 1/4 note), while
-a half note is entered using a @code{2} (since it is a 1/2 note).  For
-notes longer than a whole you must use the @code{\longa} and
-@code{\breve} commands
+En los modos de Nota, Acorde y Letra, las duraciones se designan
+mediante números y puntos: las duraciones se introducen como sus
+valores recíprocos respecto de la redonda.  Por ejemplo, una negra
+se escribe usando un @code{4} (puesto que es 1/4 de redonda), mientras
+que una blanca se escribe con un @code{2} (por ser 1/2 de redonda).  Para
+notas mayores de la redonda se deben usar los comandos @code{\longa} y
+@code{\breve}
 
 @example
 c'\breve
@@ -610,8 +650,9 @@ r1 r2 r4 r8 r16 r32 r64 r64
 }
 @end lilypond
 
-If the duration is omitted then it is set to the previously entered
-duration.  The default for the first note is a quarter note.
+Si la duración se omite, su valor será el de la duración de la nota
+anterior.  Por omisión, el valor de la primera nota es el de una
+negra.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 { a a a2 a a4 a a1 a }
@@ -623,8 +664,9 @@ duration.  The default for the first note is a quarter note.
 
 @funindex .
 
-To obtain dotted note lengths, simply add a dot (@samp{.}) to
-the number.  Double-dotted notes are produced in a similar way.
+Para obtener duraciones de notas con puntillo, simplemente escriba un
+punto (@samp{.}) después del número.  Las notas con doble puntillo se
+consiguen de manera similar.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
@@ -632,9 +674,10 @@ a'4 b' c''4. b'8 a'4. b'4.. c''8.
 
 @refcommands
 
-Dots are normally moved up to avoid staff lines, except in polyphonic
-situations.  The following commands may be used to force a particular
-direction manually
+Normalmente los puntillos se desplazan hacia arriba para evitar las
+líneas del pentagrama, excepto en situaciones de polifonía.  Se pueden
+utilizar los siguientes comandos para forzar manualmente una dirección
+en particular
 
 @funindex \dotsUp
 @code{\dotsUp},
@@ -645,35 +688,35 @@ direction manually
 
 @seealso
 
-Program reference: @internalsref{Dots}, and @internalsref{DotColumn}.
+Referencia del programa: @internalsref{Dots} y @internalsref{DotColumn}.
 
 
 @node Tuplets
 @subsection Tuplets
 
-@cindex tuplets
-@cindex triplets
+@cindex grupos especiales
+@cindex tresillos
 @funindex \times
 
-Tuplets are made out of a music expression by multiplying all durations
-with a fraction
+Los grupos especiales se obtienen a partir de una expresión musical
+multiplicando todas las duraciones por una fracción:
 
 @example
-\times @var{fraction} @var{musicexpr}
+\times @var{fracción} @var{expresión_musical}
 @end example
 
 @noindent
-The duration of @var{musicexpr} will be multiplied by the fraction.
-The fraction's denominator will be printed over the notes, optionally
-with a bracket.  The most common tuplet is the triplet in which 3
-notes have the length of 2, so the notes are 2/3 of their written
-length
+La duración de la @var{expresión _musical} se multiplicará or la
+fracción.  El denominador de la fracción se imprimirá sobre las notas,
+opcionalmente con un corchete.  El grupo especial más común es el
+tresillo, en el que 3 notas tienen el valor de 2, por tanto las notas
+duran 2/3 de su valor escrito
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 g'4 \times 2/3 {c'4 c' c'} d'4 d'4
 @end lilypond
 
-Tuplets may be nested, for example,
+Los grupos pueden anidarse unos dentro de otros, por ejemplo
 
 @lilypond[fragment,ragged-right,verbatim,relative=2]
 \override TupletNumber #'text = #tuplet-number::calc-fraction-text
@@ -696,13 +739,13 @@ Tuplets may be nested, for example,
 @commonprop
 
 @funindex tupletNumberFormatFunction
-@cindex tuplet formatting
+@cindex formateo de los grupos especiales
 
-The property @code{tupletSpannerDuration} specifies how long each
-bracket should last.  With this, you can make lots of tuplets while
-typing @code{\times} only once, thus saving lots of typing.  In the next
-example, there are two triplets shown, while @code{\times} was only
-used once
+La propiedad @code{tupletSpannerDuration} (duración del selector de
+grupo) especifica la duración de cada corchete.  Con esto puede hacer
+muchos grupos escribiendo @code{\times} una sola vez, ahorrándose
+mucho trabajo de teclado.  En el siguiente ejemplo se muestran dos
+tresillos, aunque @code{\times} sólo se ha utilizado una vez
 
 @lilypond[quote,fragment,relative=2,ragged-right,verbatim]
 \set tupletSpannerDuration = #(ly:make-moment 1 4)
@@ -710,15 +753,15 @@ used once
 @end lilypond
 
 @noindent
-For more information about @code{make-moment}, see
+Para ver más información sobre @code{make-moment}, consulte
 @ref{Time administration}.
 
-The format of the number is determined by the property @code{text} in
-@code{TupletNumber}.  The default prints only the denominator, but if
-it is set to the function @code{tuplet-number::calc-fraction-text},
-@var{num}:@var{den} will be printed instead.
+El formato del número se determina por medio de la propiedad @code{text} en
+@code{TupletNumber}.  Por defecto se imprime sólo el denominador, pero si
+su valor se establece a la función @code{tuplet-number::calc-fraction-text},
+se imprimirá como @var{numerador}:@var{denominador}
 
-To avoid printing tuplet numbers, use
+Para que no se impriman los números de los grupos, emplee
 
 @lilypond[quote,fragment,relative=2,ragged-right,verbatim]
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
@@ -726,8 +769,10 @@ To avoid printing tuplet numbers, use
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
 @end lilypond
 
-Tuplet brackets can be made to run to prefatory matter or
-the next note
+@c needs revision. FVD
+Se puede hacer que los corchetes de grupo abarquen tanto como su
+duración completa indique o que lleguen hasta justo antes de la nota
+siguiente
 
 @lilypond[ragged-right]
 \new RhythmicStaff {
@@ -749,21 +794,21 @@ the next note
 
 @seealso
 
-Program reference: @internalsref{TupletBracket},
-@internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
+Referencia del programa: @internalsref{TupletBracket},
+@internalsref{TupletNumber} y @internalsref{TimeScaledMusic}.
 
 
 
 @node Scaling durations
 @subsection Scaling durations
 
-You can alter the length of duration by a fraction @var{N/M}
-appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).  This
-will not affect the appearance of the notes or rests produced.  These
-may be combined such as @samp{*M*N}.
+Es posible alterar la duración de las figuras en un factor @var{N/M}
+añadiendo @samp{*@var{N/M}} (o @samp{*@var{N}} si @var{M=1}).  Esto no
+afectará a la apariencia de las notas o silencios que se producen.  Se
+pueden combinar en la forma @samp{*M*N}.
 
-In the following example, the first three notes take up exactly two
-beats, but no triplet bracket is printed.
+En el siguiente ejemplo las tres primeras notas duran exactamente dos
+partes, pero no se imprime ningún corchete de tresillo.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \time 2/4
@@ -775,44 +820,46 @@ b16*4 c4
 
 @seealso
 
-This manual: @ref{Tuplets}
+En este manual: @ref{Tuplets}
 
 
 @node Bar check
 @subsection Bar check
 
-@cindex Bar check
+@cindex Compás, comprobación de
 @funindex barCheckSynchronize
 @funindex |
 
-Bar checks help detect errors in the durations.  A bar check is
-entered using the bar symbol, @samp{|}.  Whenever it is encountered
-during interpretation, it should fall on a measure boundary.  If it
-does not, a warning is printed.  In the next example, the second bar
-check will signal an error
+Las comprobaciones de compás ayudan a detectar errores en las duraciones.  Una comprobación de compás se
+escribe usando el símbolo de la barra vertical, @samp{|}.  Cuando se encuentra durante 
+la interpretación, debe caer en el límite entre dos compases.  Si no es así,
+se muestra una advertencia.  En el siguiente ejemplo, la segunda comprobación
+de compás avisará de un error
 @example
 \time 3/4 c2 e4 | g2 |
 @end example
 
-Bar checks can also be used in lyrics, for example
+Las comprobaciones de compás también se pueden usar en la letra de las canciones, por ejemplo
 
 @example
 \lyricmode @{
   \time 2/4
-  Twin -- kle | Twin -- kle
+  Cam -- pa | ni -- tas 
 @}
 @end example
 
-Failed bar checks are caused by entering incorrect
-durations.  Incorrect durations often completely garble up the score,
-especially if the score is polyphonic, so a good place to start correcting
-input is by scanning for failed bar checks and incorrect durations.
+Las comprobaciones de compás fallidas tienen su origen en la
+introducción incorrecta de las duraciones.  Las duraciones incorrectas
+a menudo desbaratan la partitura completamente, sobre todo si la
+música es polifónica, por ello el mejor sitio para empezar a corregir
+la entrada es hacer un barrido en busca de comprobaciones de compás
+fallidas y duraciones incorrectas.
 
 @funindex |
 @funindex pipeSymbol
 
-It is also possible to redefine the meaning of @code{|}.  This is done
-by assigning a music expression to @code{pipeSymbol},
+También es posible redefinir el significado de @code{|}.  Se hace
+asignando una expresión musical a @code{pipeSymbol},
 
 @lilypond[quote,ragged-right,verbatim]
 pipeSymbol = \bar "||"
@@ -824,27 +871,27 @@ pipeSymbol = \bar "||"
 @node Barnumber check
 @subsection Barnumber check
 
-When copying large pieces of music, it can be helpful to check that
-the LilyPond bar number corresponds to the original that you are
-entering from.  This can be checked with @code{\barNumberCheck}, for
-example,
+Al copiar piezas musicales grandes peude servir de ayuda comprobar que
+el número de compás de LilyPond corresponde al original desde el que está copiando.
+Esto se puede comprobar con @code{\barNumberCheck}, por ejemplo
 
 @verbatim
 \barNumberCheck #123
 @end verbatim
 
 @noindent
-will print a warning if the @code{currentBarNumber} is not 123 when it
-is processed.
+imprimirá una advertencia si el @code{currentBarNumber} (número del
+compás actual) no es 123 cuando se está procesando.
 
 
 @node Automatic note splitting
 @subsection Automatic note splitting
 
-Long notes can be converted automatically to tied notes.  This is done
-by replacing the @internalsref{Note_heads_engraver} by the
-@internalsref{Completion_heads_engraver}.
-In the following examples, notes crossing the bar line are split and tied.
+Las notas largas se pueden convertir automáticamente en notas ligadas.
+Se hace mediante la sustitución del @internalsref{Note_heads_engraver}
+por el @internalsref{Completion_heads_engraver}.  En los siguientes
+ejemplos, las notas que atraviesan la barra de compás se dividen y se
+unen mediante una ligadura.
 
 @lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
 \new Voice \with {
@@ -855,37 +902,39 @@ In the following examples, notes crossing the bar line are split and tied.
 }
 @end lilypond
 
-This engraver splits all running notes at the bar line, and inserts
-ties.  One of its uses is to debug complex scores: if the measures are
-not entirely filled, then the ties exactly show how much each measure
-is off.
+Este grabador dicide todas las notas largas en la barra de compás e
+inserta ligaduras.  Uno de sus usos es depurar partituras complejas:
+si los compases no están completos, las ligaduras mostrarán
+exactamente cuánto le falta a cada compás.
 
-If you want to allow line breaking on the bar lines where
-@internalsref{Completion_heads_engraver} splits notes, you must
-also remove @internalsref{Forbid_line_breaks_engraver}.
+Si quiere permitir el salto de línea en las barras de compás en las
+que @internalsref{Completion_heads_engraver} divide las notas, debe
+eliminar también @internalsref{Forbid_line_breaks_engraver}.
 
 
 @refbugs
 
-Not all durations (especially those containing tuplets) can be
-represented exactly with normal notes and dots, but the engraver will
-not insert tuplets.
+No todas las duraciones (sobre todo las que contienen grupos
+especiales) se pueden representar exactamente con notas normales y
+puntillos, pero el grabador nunca insertará grupos especiales.
 
-@code{Completion_heads_engraver} only affects notes; it does not split
-rests.
+
+@code{Completion_heads_engraver} afecta sólo a las notas; no divide
+silencios.
 
 
 @seealso
 
-Program reference: @internalsref{Completion_heads_engraver}.
+Referencia del programa: @internalsref{Completion_heads_engraver}.
 
 
 @node Polyphony
 @section Polyphony
 
-Polyphony in music refers to having more than one voice occurring in
-a piece of music.  Polyphony in LilyPond refers to having more than
-one voice on the same staff.
+La polifonía en música hace referencia a tener más de una voz en una
+pieza cualquiera de música.  En LilyPond la polifonía hace referencia
+a tener más de una voz en el mismo pentagrama.
+
 
 @menu
 * Chords::                      
@@ -899,25 +948,26 @@ one voice on the same staff.
 @node Chords
 @subsection Chords
 
-@cindex Chords
+@cindex Acordes
 
-A chord is formed by a enclosing a set of pitches between @code{<}
-and @code{>}.  A chord may be followed by a duration, and a set of
-articulations, just like simple notes
+Un acorde se forma encerrando un conjunto de notas entre @code{<} y
+@code{>}.  Un acorde puede ir seguido de una duración o un conjunto de
+articulaciones, como si fueran simples notas.
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
 <c e g>4 <c>8
 @end lilypond
 
-For more information about chords, see @ref{Chord names}.
+Para ver más información sobre los acordes, consulte @ref{Chord names}.
 
 
 @node Stems
 @subsection Stems
 
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created but
-made invisible.
+Cuando se encuentra con una nota, se crea un objeto
+@internalsref{Stem} (plica) automáticamente.  Para las redondas y los
+silencios, también se crean pero se hacen invisibles.
+
 
 @refcommands
 
@@ -931,7 +981,7 @@ made invisible.
 
 @commonprop
 
-To change the direction of stems in the middle of the staff, use
+Para modificar la dirección de las plicas en medio de un pentragrama, utilice
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 a4 b c b
