@@ -1,7 +1,8 @@
 \version "2.10.12"
 
 \header { texidoc = "
-String numbers can be added to chords. They use the same positioning mechanism as finger instructions.
+String numbers can be added to chords. They use the same positioning
+mechanism as finger instructions.
 " }
 
 \paper {

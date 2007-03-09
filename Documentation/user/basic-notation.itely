@@ -221,22 +221,58 @@ example, add @code{\include "english.ly"} to the top of the input
 file.  The available language files
 and the note names they define are
 
-@c  what about micro-tunes, double-sharps, and double-flats?  add
-@c  more columns to the table?
-@c  Oh, and should this be made into a multitable?
+@c  Should this be made into a multitable?
 @cindex note names, other languages
 @example
-                        Note Names               sharp       flat
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
-                                               -x (double)
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
+                        Note Names               sharp       flat     double        double
+                                                                       sharp        flat
+
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
+                                                                     -sharpsharp   -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
 @end example
+
+@noindent
+Note that in Dutch, German, Norwegian, and Swedish, the flat
+alterations of @samp{a} like for example @code{aes} and @code{aeses}
+are usually contracted to @code{as} and @code{ases} (or more commonly
+@code{asas}). Sometimes only these contracted names are defined in the
+corresponding language files (this also applies to the suffixes for
+quartertones below).
+
+@noindent
+Some music uses microtones whose alterations are fractions of a
+@q{regular} sharp or flat. The note names for quartertones defined in
+the various language files are listed in the following table. Here the
+prefixes @q{semi-} and @q{sesqui-} mean @q{half} and @q{one and a
+half}, respectively. For Norwegian, Swedish, Catalan and Spanish no
+special names have been defined yet.
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+                        Note Names             semi-   semi-  sesqui-  sesqui-
+                                               sharp   flat    sharp    flat
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
 
 
 @node Relative octaves

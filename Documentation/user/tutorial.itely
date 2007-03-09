@@ -412,7 +412,7 @@ is valid input; @code{ @{ C D E @} } will produce an error message.
 @item @strong{Whitespace insensitive}:
 it does not matter how many
 spaces (or new lines) you add.  @code{ @{ c d e @}} means the same thing
-as @code{ @{ c @ @ @ @ @  d e @} } and
+as @code{ @{ c @tie{} @tie{} @tie{} d e @} } and
 @example
           @{
 c                        d

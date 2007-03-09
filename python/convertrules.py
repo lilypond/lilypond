@@ -2320,7 +2320,9 @@ def conv (str):
     str = re.sub ('1style', 'single-digit', str)
     return str
 
-conversions.append (((2, 3, 25), conv, """pettrucci_c1 -> petrucci-c1, 1style -> single-digit"""))
+conversions.append (((2, 3, 25),
+		     conv,
+		     '''petrucci_c1 -> petrucci-c1, 1style -> single-digit'''))
 
 
 def conv (str):
