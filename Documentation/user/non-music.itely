@@ -870,6 +870,19 @@ will not work properly but
 will.
 
 
+MIDI output is only created when the @code{\midi} command is within
+a @code{\score} block.  If you put it within an explicitly instantiated
+context ( i.e. @code{\new Score} ) the file will fail.  To solve this,
+enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
+
+@example
+\score @{
+  \new Score @{ @dots{}notes@dots{} @}
+  \midi
+@}
+@end example
+
+
 @node MIDI block
 @subsection MIDI block
 @cindex MIDI block
