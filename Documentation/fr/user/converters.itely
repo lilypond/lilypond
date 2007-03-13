@@ -12,7 +12,23 @@
 @node Converting from other formats
 @chapter Converting from other formats
 
-UNTRANSLATED NODE: IGNORE ME
+La musique peut aussi être récupérée par importation d'un autre
+format.  Ce chapitre passe en revue les différents outils prévus à cet
+effet et inclus dans la distribution.  Il existe d'autres outils qui
+permettent de générer du code LilyPond, comme par exemple des
+seéquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
+de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
+
+Il s'agit de programmes distinct de lilypond qui se lancent en ligne
+de commande.  Par @qq{ligne de commande}, nous parlons de la ligne de
+commande du système.  Les utilisateurs de Windows parlent de
+@qq{commande MSDos} ou @qq{invite de commande}, les utilisateurs
+d'OSX de @qq{terminal} ou de @qq{console}.  Concernant OSX,
+veuillez consuler @ref{Notes for the MacOS X app}.
+
+Décrire l'utilisation du système n'est pas le propos de ce manuel.
+Aussi nous invitons ceux qui ne seraient pas familiers de la ligne de
+commande, à consulter d'autres documentations sur ce sujet. 
 
 @menu 
 * Invoking midi2ly::
@@ -20,33 +36,263 @@ UNTRANSLATED NODE: IGNORE ME
 * Invoking musicxml2ly::
 * Invoking abc2ly::
 * Generating LilyPond files::
-@end menu 
-@node Invoking midi2ly
-@section Invoking 
+@end menu
 
-UNTRANSLATED NODE: IGNORE ME
+
+
+@node Invoking midi2ly
+@section Invoking @command{midi2ly}
+
+@cindex MIDI
+
+@command{midi2ly} traduit un fichier MIDI de Type@tie{}1 en un fichier
+source LilyPond.
+
+MIDI (Music Instrument Digital Interface) constitue un standard pour
+les instruments. Il spécifie le cablage, un protocole série et un
+format de fichier.  Le format de fichier MIDI est de ce fait un format
+standard pour exporter de la musique à partir d'autres programmes, et
+cette faculté prend tout son intérêt lorsqu'un programme dispose d'un
+convertisseur capable d'importer directement un fichier.
+
+@command{midi2ly} convertit les pistes en contextes de portée
+(@internalsref{Staff}) et les canaux en contextes de voix
+(@internalsref{Voice}).  Les hauteurs sont rendues en mode relatif, et
+les durées spécifiées lorsque nécessaires.
+
+Vous pouvez enregistrer un fichier MIDI grace à un clavier
+électronique et ensuite le convertir en fichier @file{.ly}.  Néanmoins
+le rythme humain n'a pas une précision suffisante pour qu'une
+conversion MIDI à ly ne se fasse sans surprise.  En le couplant à une
+quantisation (options @code{-s} et @code{-d}), @command{midi2ly} tente
+de compenser dans la mesure du possible ces problèmes de
+temporisation.  C'est la raison pour laquelle le recours à
+@command{midi2ly} n'est pas recommandé pour des fichiers midi générés
+manuellement.
+
+
+Pour le lancer en ligne de commande, procédez ainsi :
+@example
+midi2ly [@var{option}]@dots{} @var{midi-file}
+@end example
+
+Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+commande du système. Pour plus de détails, voir @ref{Converting from
+other formats}.
+
+@command{midi2ly} accepte les options suivantes :
+
+@table @code
+@item -a, --absolute-pitches
+Rendu en hauteurs absolues.
+
+@item -d, --duration-quant=@var{DUR}
+Quantiser les durées à partir de @var{DUR}.
+
+@item -e, --explicit-durations
+Rendu explicite des durées.
+
+@item -h,--help
+Afficher un résumé des utilisations.
+
+@item -k, --key=@var{acc}[:@var{minor}]
+Déterminer la tonalité par défaut.  @math{@var{acc} > 0} fixe le
+nombre de dièses ; @math{@var{acc} < 0} le nombre de bémols.  Un ton
+mineur est spécifié par l'emploi de @samp{:1}.
+
+@item -o, --output=@var{file}
+Générer le résultat dans le fichier @var{file}.
+
+@item -s, --start-quant=@var{DUR}
+Quantiser le début des notes sur DUR.
+
+@item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
+Accepter des n-olets de valeur @var{DUR}*@var{NUM}/@var{DEN}.
+
+@item -V, --verbose
+Mode verbeux.
+
+@item -v, --version
+Afficher le numéro de version.
+
+@item -w, --warranty
+Afficher les mentions de garantie et de copyright.
+
+@item -x, --text-lyrics
+Interpréter le texte comme des paroles.
+@end table
+
+
+@refbugs
+
+Le tuilage en arpège ne sera pas rendu correctement.  La première note
+sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
+ajoutez une indication de phrasé ou de pédale.
+
 
 @node Invoking etf2ly
-@section Invoking 
+@section Invoking @command{etf2ly}
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) est l'un des formats utilisés par le
+logiciel Finale, édité par Coda Music Technology.  @command{etf2ly}
+convertit partiellement les fichiers ETF en fichiers source LilyPond.
+
+
+Pour le lancer en ligne de commande, procédez ainsi :
+@example
+midi2ly [@var{option}]@dots{} @var{midi-file}
+@end example
+
+Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+commande du système. Pour plus de détails, voir @ref{Converting from
+other formats}.
+
+@command{midi2ly} accepte les options suivantes :
+
+@table @code
+@item -h,--help
+Afficher cette aide.
+
+@item -o, --output=@var{file}
+Générer le résultat dans le fichier @var{file}.
+
+@item -v, --version
+Afficher le numéro de version.
+@end table
+
+
+@refbugs
+
+La liste des scripts d'articulation est incomplète.  Les mesures vides
+perturbent @command{etf2ly}.  Les séquences ne notes d'ornement ne se
+terminent pas de manière satisfaisante.
 
 @node Invoking musicxml2ly
-@section Invoking 
+@section Invoking @code{musicxml2ly}
 
-UNTRANSLATED NODE: IGNORE ME
+@uref{http://@/www.@/recordarde@/.com/xml@/.html,MusicXML} est un
+dialecte XML pour représenter la notation musicale.
+
+@command{musicxml2ly} extrait des notes à partir de fichiers MusicXML,
+et les écrit dans un fichier @var{.ly}.  Il se lance en ligne de
+commande.
+
+Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+commande du système. Pour plus de détails, voir @ref{Converting from
+other formats}.
+
+@command{musicxml2ly} accepte les options suivantes :
+
+@table @code
+@item -h,--help
+Afficher un résumé des utilisations.
+@item -o,--output=@var{file}
+Générer le résultat dans le fichier @var{file}.  (par défaut :
+affichage écran)
+@item -v,--version
+Afficher le numéro de version.
+@end table
 
 @node Invoking abc2ly
-@section Invoking 
+@section Invoking @code{abc2ly}
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex ABC
+
+ABC est un format relativement simple basé sur l'ASCII.  Sa
+description est disponible sur le site d'ABC à l'adresse :
+
+@quotation
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/abc2mtex/@/abc@/.txt}.
+@end quotation
+
+@command{abc2ly} traduit du formt ABC au format LilyPond.
+
+Pour le lancer en ligne de commande, procédez ainsi :
+@example
+abc2ly [@var{option}]@dots{} @var{abc-file}
+@end example
+
+@command{abc2ly} accepte les options suivantes :
+
+@table @code
+@item -h,--help
+Afficher un résumé des utilisations.
+@item -o,--output=@var{file}
+Générer le résultat dans le fichier @var{file}.
+@item -v,--version
+Afficher le numéro de version.
+@end table
+
+Il est possible d'ajouter des bribes de code LilyPond dans un fichier
+source ABC.  Ainsi, l'assertion
+
+@example
+%%LY voices \set autoBeaming = ##f
+@end example
+
+aura pour conséquence d'insérer le texte qui suit le mot-clé @q{voices}
+dans la voix correspondante du fichier LilyPond.
+
+De la même manière,
+
+@example
+%%LY slyrics more words
+@end example
+
+placera le texte suivant le mot-clé @q{slyrics} dans une ligne de paroles.
+
+
+@refbugs
+
+Le standard ABC n'est pas si @q{standard} que cela.  Pour des
+fonctionnalités étendues, comme la polyphonie, existent différentes
+conventions.
+
+Un fichier comportant plusieurs morceaux ne peut être converti.
+
+ABC synchronise paroles et musique en début de ligne ;
+@command{abc2ly} ne le fait pas.
+
+@command{abc2ly} ignore les ligatures ABC.
+
+
 
 @node Generating LilyPond files
 @section Generating LilyPond files
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex External programs, generating LilyPond files
 
+LilyPond ne prend pas en charge d'autre format. Cependant, certains
+outils indépendants permettent de générer des fichiers LilyPond.
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+Nous citerons entre autres
+
+@itemize @bullet
+@item
+@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, une interface
+graphique pour l'édition de partition.
+@item
+@uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, un
+convertisseur temps-réel de MIDI monophonique à LilyPond.
+@item
+@uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, un
+mode majeur pour Emacs.
+@item
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, qui importe
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@item
+@uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
+qui importe @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@item
+@uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden},
+qui importe MIDI
+@item
+@uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
+une bibliothèque LISP pour générer de la notation musicale. 
+@end itemize
+
