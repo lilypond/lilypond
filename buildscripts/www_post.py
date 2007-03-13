@@ -11,7 +11,7 @@ import os
 import re
 import gettext
 
-package_name, package_version, buildscript_dir, outdir, targets = sys.argv[1:]
+package_name, package_version, buildscript_dir, localedir, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
 outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
@@ -81,13 +81,9 @@ if 'online' in targets:
 
 # load gettext messages catalogs
 translation = {}
-localedir = os.path.join (buildscript_dir, '../Documentation/po', outdir)
 for l in langdefs.LANGUAGES:
     if l.enabled and l.code != 'en':
-        try:
-            translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
-        except:
-            translation[l.code] = lambda s: s
+        translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
 
 add_html_footer.build_pages_dict (html_files)
 for t in targets:
