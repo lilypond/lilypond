@@ -32,11 +32,15 @@ my_gettext = t.gettext
 
 html_codes = ((' -- ', ' &ndash; '),
 	      (' --- ', ' &mdash; '))
+html2texi_command = re.compile (r'<samp><span class="command">(.*?)</span></samp>')
+texi2html_command = re.compile (r'@command{(.*?)}')
 
 def _ (s):
 	for c in html_codes:
 		s = s.replace (c[1], c[0])
+	s = html2texi_command.sub (r'@command{\1}', s)
 	s = my_gettext (s)
+	s = texi2html_command.sub (r'<samp><span class="command">\1</span></samp>', s)
 	for c in html_codes:
 		s = s.replace (c[0], c[1])
 	return s
@@ -67,7 +71,7 @@ for filename in args[3:]:
 	f.close()
 	page = re.sub (r'<link rel="(up|prev|next)" (.*?) title="([^"]*?)">', link_gettext, page)
 	page = re.sub (r'<title>([^<]*?) - ([^<]*?)</title>', title_gettext, page)
-	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?" ?)?)(href="[^"]+?">)((?:<code>|)(?:[\d.]+ |))([^<]+)(</code>|)</a>(:)?', a_href_gettext, page)
+	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?")? ?(?:name=".*?")? ?)(href="[^"]+?">)((?:<code>|)(?:[\d.]+ |))([^<]+)(</code>|)</a>(:)?', a_href_gettext, page)
 	page = re.sub (r'<h(\d)( class="\w+"|)>([\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
 	page = re.sub (r'<a href="../music-glossary/(.+?)">(.+?)</a>', rglos_gettext, page)
 	for w in ('Next:', 'Previous:', 'Up:'):
