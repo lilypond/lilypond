@@ -1973,7 +1973,7 @@ e''] |
 @node Connecting notes
 @section Connecting notes
 
-This section deals with notation that affects groups of notes.
+Esta sección trata de la notación que afecta a grupos de notas.
 
 @menu
 * Ties::                        
@@ -1989,38 +1989,39 @@ This section deals with notation that affects groups of notes.
 @node Ties
 @subsection Ties
 
-@cindex tie
+@cindex ligadura de unión
 @funindex ~
 
-A tie connects two adjacent note heads of the same pitch.  The tie in
-effect extends the length of a note.  Ties should not be confused with
-slurs, which indicate articulation, or phrasing slurs, which indicate
-musical phrasing.  A tie is entered using the tilde symbol @samp{~}
+Una ligadura de unión conecta dos notas adyacentes de la misma altura.  La ligadura
+en efecto extiende la longitud de una nota.  No deben confuncirse las ligaduras de unión con
+las ligaduras de expresión, que indican articulación, ni con las ligaduras de fraseo, que indican
+el fraseo musical.  Se intriduce una ligadura de unión usando el símbolo de la tilde curva @samp{~}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
-When a tie is applied to a chord, all note heads whose pitches match
-are connected.  When no note heads match, no ties will be created.  Chords
-may be partially tied by placing the tie inside the chord,
+Cuando se palica una ligadura de unón a nun acorde, se conectan todas las cabezas de las notas cuyas alturas coinciden.
+Si no coincide ningún par de cabezas, no se crea ninguna ligadura.  Los acordes
+se pueden ligar parcialmente colocando la ligadura dentro del acorde,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 <c~ e g~ b> <c e g b>
 @end lilypond
 
-A tie is just a way of extending a note duration, similar to the
-augmentation dot.  The following example shows two ways of notating
-exactly the same concept
+Una ligadura es simplemente una forma de extender la duración de una nota, parecida al
+puntillo.  El ejemplo siguiente muestra dos formas de escribir
+exactamente el mismo concepto:
 
 @lilypond[quote,fragment,ragged-right]
 \time 3/4 c'2. c'2 ~ c'4
 @end lilypond
 
 @noindent
-Ties are used either when the note crosses a bar line, or when dots
-cannot be used to denote the rhythm.  When using ties, larger note
-values should be aligned to subdivisions of the measure, such as
+Se usan ligaduras de expresión bien cuando la nota atraviesa la barra
+de compás o bien cuando no se pueden usar puntillos para denotar el
+ritmo.  Cuando se usan ligaduras, las notas de mayor duración se deben
+alinear con las subdivisiones del compás, como
 
 @lilypond[fragment,quote,ragged-right]
 \relative {
@@ -2028,29 +2029,32 @@ values should be aligned to subdivisions of the measure, such as
 }
 @end lilypond
 
-If you need to tie a lot of notes over bars, it may be easier to use
-automatic note splitting (see @ref{Automatic note splitting}).  This
-mechanism automatically splits long notes, and ties them across bar
-lines.
+Si necesita unir muchas notas a través de las líneas divisorias, puede
+reslutar más fácil utilizar la división automática de notas (vea
+@ref{Automatic note splitting}).  Este mecanismo divide las notas
+largas de forma automática y las liga a través de las barras de
+compás.
 
 @funindex \repeatTie
 
-When a second alternative of a repeat starts with a tied note, you
-have to repeat the tie. This can be achieved with @code{\repeatTie},
+Cuando la segunda vez de una repetición comienza con una nota ligada,
+es necesario repetir la ligadura.  Esto se puede conseguir mediante
+@code{\repeatTie},
 
 @lilypond[fragment,quote,ragged-right,relative=2]
 r <c e g>\repeatTie
 @end lilypond
 
-@cindex repeating ties
-@cindex volta brackets and ties
+@cindex ligaduras de repetición
+@cindex corchetes de repetición de primera y segunda vez y ligaduras
 
 @commonprop
 
-Ties are sometimes used to write out arpeggios.  In this case, two tied
-notes need not be consecutive.  This can be achieved by setting the
-@code{tieWaitForNote} property to true. The same feature is also useful,
-for example, to tie a tremolo to a chord. For example,
+A veces se usan ligaduras para escribir arpegios.  En este caso, dos
+notas ligadas no necesitan ser consecutias.  Esto se puede conseguir
+estableciendo la propiedad @code{tieWaitForNote} (ligadura - esperar
+nota) al valor verdadero. La misma funcionalidad puede resultar útil,
+por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
 
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
@@ -2059,10 +2063,10 @@ for example, to tie a tremolo to a chord. For example,
 e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
-Ties may be engraved manually by changing the @code{tie-configuration}
-property.  The first number indicates the distance from the center
-of the staff in staff-spaces, and the second number indicates the
-direction (1=up, -1=down).
+Las ligaduras de pueden grabar manualmente modificando la propiedad
+@code{tie-configuration}.  El primer número indica la distancia desde
+el centro del pentagrama en espacios de pentagrama, y el segundo
+número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
 
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 <c e g>2~ <c e g> |
@@ -2091,53 +2095,57 @@ direction (1=up, -1=down).
 
 @seealso
 
-In this manual: @ref{Automatic note splitting}.
+En el presente manual: @ref{Automatic note splitting}.
 
-Program reference: @internalsref{Tie}.
+Referencia del programa: @internalsref{Tie}.
 
 
 @refbugs
 
-Switching staves when a tie is active will not produce a slanted tie.
+Un cambio de pentagrama cuando hay una ligadura activa no producirá una ligadura inclinada.
 
-Changing clefs or octavations during a tie is not really
-well-defined.  In these cases, a slur may be preferable.
+Los cambios de clave o de octava durante una ligadura de unión no
+están bien definidos realmente.  En estos casos puede ser preferible
+una ligadura de expresión.
 
 
 @node Slurs
 @subsection Slurs
 
-@cindex Slurs
+@cindex Ligaduras de expresión
 
-A slur indicates that notes are to be played bound or
-@emph{legato}.  They are entered using parentheses
+Una ligadura de expresión indica que las notas se deben tocar unidas o
+@emph{legato}.  Se escriben utilizando paréntesis
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 f( g a) a8 b( a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
 
-The direction of a slur can be specified with
-@code{\slur@emph{DIR}}, where @code{@emph{DIR}} is
-either @code{Up}, @code{Down}, or @code{Neutral} (automatically
-selected).
+La dirección de una ligadura de expresión se puede especificar con
+@code{\slur@emph{DIRECCIÓN}}, donde @code{@emph{DIRECCIÓN}} es o bien
+@code{Up} (arriba), @code{Down} (abajo), o @code{Neutral}
+(seleccionada automáticamente).
 
-However, there is a convenient shorthand for forcing slur
-directions.  By adding @code{_} or @code{^} before the opening
-parentheses, the direction is also set.  For example,
+Sin embargo, hay una forma abreviada muy conveniente para forzar las
+direcciones de las ligaduras de expresión.  Escibiendo @code{_} o
+@code{^} antes de los paréntesis de apertura, también se establece la
+dirección.  Por ejemplo,
 
 @lilypond[relative=2,ragged-right,quote,verbatim,fragment]
 c4_( c) c^( c)
 @end lilypond
 
-Only one slur can be printed at once.  If you need to print a long
-slur over a few small slurs, please see @ref{Phrasing slurs}.
+Se puede imprimir una sola ligadura cada vez.  Si necesita imprimir
+una ligadura larga por encima de varias ligauras más cortas, consulte
+@ref{Phrasing slurs}.
 
 
 @commonprop
 
-Some composers write two slurs when they want legato chords.  This can
-be achieved in LilyPond by setting @code{doubleSlurs},
+Algunos compositores escriben dos ligaduras cuando quieren acordes
+legato.  Esto se consigue en LilyPond mediante el establecimiento de
+@code{doubleSlurs},
 
 @lilypond[verbatim,ragged-right,relative,fragment,quote]
 \set doubleSlurs = ##t
@@ -2162,30 +2170,31 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Program reference: @seeinternals{Slur}.
+Referencia del programa: @seeinternals{Slur}.
 
 
 @node Phrasing slurs
 @subsection Phrasing slurs
 
-@cindex phrasing slurs
-@cindex phrasing marks
+@cindex ligauras de fraseo
+@cindex marcas de fraseo
 
-A phrasing slur (or phrasing mark) connects notes and is used to
-indicate a musical sentence.  It is written using @code{\(} and @code{\)}
-respectively
+Una ligadura de fraseo (o marca de fraseo) conecta las notas y se
+utiliza para indicar una frase musical.  Se escribe usando @code{\(} y
+@code{\)} respectivamente
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \time 6/4 c'\( d( e) f( e) d\)
 @end lilypond
 
-Typographically, the phrasing slur behaves almost exactly like a
-normal slur.  However, they are treated as different objects.  A
-@code{\slurUp} will have no effect on a phrasing slur; instead, use
-@code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
+Tipográficamente, la ligadura de fraseo se comporta casi exactamente
+igual que una ligadura de expresión, normal.  Sin embargo, se tratan
+como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto
+sobre una ligadura de fraseo; utilice en su lugar
+@code{\phrasingSlurUp}, @code{\phrasingSlurDown}, y
 @code{\phrasingSlurNeutral}.
 
-You cannot have simultaneous phrasing slurs.
+No se pueden tener varias ligaduras de fraseo simultáneas.
 
 
 @refcommands
@@ -2200,17 +2209,18 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
-Program reference: @internalsref{PhrasingSlur}.
+Referencia del programa: @internalsref{PhrasingSlur}.
 
 
 @node Laissez vibrer ties
 @subsection Laissez vibrer ties
 @cindex Laissez vibrer
-@cindex Ties, laissez vibrer
+@cindex Ligaduras laissez vibrer
 
-L.v. ties (laissez vibrer) indicate that notes must not be damped at the
-end. It is used in notation for piano, harp and other string and
-percussion instruments. They can be entered using @code{\laissezVibrer},
+Las ligaduras L.v. (laissez vibrer, dejar vibrar) indican que las
+notas no se deben apagar al final.  Se usan en la notación para piano,
+arpa y otros instrumentos de cuerda y percusión.  Se pueden introducir
+escribiendo @code{\laissezVibrer},
 
 @lilypond[fragment,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer
@@ -2218,30 +2228,30 @@ percussion instruments. They can be entered using @code{\laissezVibrer},
 
 @seealso
 
-Program reference:
+Referencia del programa:
 @internalsref{LaissezVibrerTie}
 @internalsref{LaissezVibrerTieColumn}
 
-Example files:
+Archivos de ejemplo:
 @lsr{connecting,laissez-vibrer-ties.ly}
 
 
 @node Automatic beams
 @subsection Automatic beams
 
-LilyPond inserts beams automatically
+LilyPond inserta las barras de corchea automáticamente
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c \time 6/8 c c c c8. c16 c8
 @end lilypond
 
-When these automatic decisions are not good enough, beaming can be
-entered explicitly.  It is also possible to define beaming patterns
-that differ from the defaults.  See @ref{Setting automatic beam behavior}
-for details.
+Cuando estas decisiones automáticas no son lo bastante buenas, se
+peuden escribir los barrados de forma explícita.  También es posible
+definir patrones de barrado que difieran de los ajustes por defecto.
+Consulte @ref{Setting automatic beam behavior} para ver los detalles.
 
-Individual notes may be marked with @code{\noBeam} to prevent them
-from being beamed
+Las notas individuales se pueden marcar con @code{\noBeam} para evitar
+que lleven una barra
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c8 c\noBeam c c
@@ -2250,20 +2260,21 @@ from being beamed
 
 @seealso
 
-Program reference: @internalsref{Beam}.
+Referencia del programa: @internalsref{Beam}.
 
 
 @node Manual beams
 @subsection Manual beams
 
-@cindex beams, manual
+@cindex barras manuales
 @funindex ]
 @funindex [
 
-In some cases it may be necessary to override the automatic beaming
-algorithm.  For example, the autobeamer will not put beams over rests
-or bar lines.  Such beams are specified manually by marking the begin
-and end point with @code{[} and @code{]}
+En ciertos casos puede ser preciso sobreescribir el algoritmo de
+barrado automático.  Por ejemplo, el barrador automático no escribe
+barras por encima de los silencios o las líneas divisorias.  Tales
+barras se especifican manualmente marcando los puntos de comienzo y
+final con @code{[} y @code{]}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
@@ -2277,11 +2288,12 @@ and end point with @code{[} and @code{]}
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-Normally, beaming patterns within a beam are determined automatically.
-If necessary, the properties @code{stemLeftBeamCount} and
-@code{stemRightBeamCount} can be used to override the defaults.  If
-either property is set, its value will be used only once, and then it
-is erased
+Normalmente los patrones de barrado dentro de una barra se determinan
+automáticamente.  Si es necesario se pueden usar las propiedades
+@code{stemLeftBeamCount} y @code{stemRightBeamCount} para
+sobreescribir los ajustes por defecto.  Si se establece el valor de
+una propiedad cualquiera, este valor se utilizará una sola vez, y
+después se boorará.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
@@ -2293,9 +2305,10 @@ is erased
 }
 @end lilypond
 
-The property @code{subdivideBeams} can be set in order to subdivide
-all 16th or shorter beams at beat positions, as defined by the
-@code{beatLength} property.
+Se puede establecer la propiedad @code{subdivideBeams} para subdividir
+todas las barras de semicorchea y de valores inferiores en las
+posiciones de las fracciones o partes, tal y como está definido por
+parte de la propiedad @code{beatLength}.
 
 @lilypond[fragment,quote,relative=2,verbatim]
 c16[ c c c c c c c]
@@ -2307,57 +2320,62 @@ c16[ c c c c c c c]
 @funindex subdivideBeams
 
 @noindent
-For more information about @code{make-moment}, see
+Para ver más información sobre @code{make-moment}, consulte
 @ref{Time administration}.
 
-Line breaks are normally forbidden when beams cross bar lines.  This
-behavior can be changed by setting @code{breakable}.
+Los saltos de línea normalmente están prohibidos cuando las barras
+cruzan las líneas divisorias.  Este comportamiento se puede modificar
+estableciendo @code{breakable}.
 
 @funindex breakable
 
-@cindex beams and line breaks
-@cindex beams, kneed
-@cindex kneed beams
+@cindex barras de corchea y saltos de línea
+@cindex barras en ángulo
+@cindex ángulo, barras en
 @cindex auto-knee-gap
 
 
 @refbugs
 
-Kneed beams are inserted automatically when a large gap is detected
-between the note heads.  This behavior can be tuned through the object.
+Se insertan automáticamente barras de corchea en ángulo cuando se
+detecta un desnivel muy grande entre las cabezas de las notas.  Este
+comportamiento se puede ajustar a través del objeto.
 
-Automatically kneed cross-staff beams cannot be used together with
-hidden staves.  See @ref{Hiding staves}.
+Las barras que cruzan pentagramas y reciben un ángulo automático no se
+pueden usar conjuntamente con los pentagramas ocultos.  Consulte
+@ref{Hiding staves}.
 
-Beams do not avoid collisions with symbols around the notes, such as
-texts and accidentals.
+Las barras de corchea no evitan las colisiones con los símbolos que
+rodean las notas, como los textos y las alteraciones.
 
 
 @node Grace notes
 @subsection Grace notes
 
 @funindex \grace
-@cindex ornaments
-@cindex grace notes
+@cindex ornamentos
+@cindex mordentes
 @cindex appoggiatura
 @cindex acciaccatura
 
-Grace notes are ornaments that are written out.  The most common ones
-are acciaccatura, which should be played as very short.  It is denoted
-by a slurred small note with a slashed stem.  The appoggiatura is a
-grace note that takes a fixed fraction of the main note, and is
-denoted as a slurred note in small print without a slash.  They
-are entered with the commands @code{\acciaccatura} and
-@code{\appoggiatura}, as demonstrated in the following example
+Los mordentes son ornamentos escritos.  El más común es la
+acciaccatura o mordente de una nota, que se debe tocar muy corta.  Se
+denota mediante una corchea pequeña, ligada, con un corchete tachado o
+atravesado por una barrita.  La appoggiatura es una nota de adorno que
+toma una fracción fija de la nota principal, y se denota como una nota
+pequeña, ligada, sin tachar.  Se introducen con los comandos
+@code{\acciaccatura} y @code{\appoggiatura}, como se muestra en el
+ejemplo siguiente
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 b4 \acciaccatura d8 c4 \appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
 
-Both are special forms of the @code{\grace} command.  By prefixing this
-keyword to a music expression, a new one is formed, which will be
-printed in a smaller font and takes up no logical time in a measure.
+Ambas son formas especiales del comando @code{\grace}.  Al anteponer
+esta palabra a una expresión musical se crea una nueva expresión, que
+se imprime en un tipo más pequeño y no ocupa ningún tiempo lógico en
+el compás.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 c4 \grace c16 c4
@@ -2368,10 +2386,11 @@ c4 \grace c16 c4
 Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
 @code{\grace} command does not start a slur.
 
-Internally, timing for grace notes is done using a second, @q{grace}
-timing.  Every point in time consists of two rational numbers: one
-denotes the logical time, one denotes the grace timing.  The above
-example is shown here with timing tuples
+Internamente, la cuenta del tiempo para las notas de adorno se hace
+utilizando un segundo contador, el contador @q{de adorno}.  Cada
+instante en el tiempo comprende dos números racionales: uno denota el
+tiempo lógico, y el otro denota el tiempo de adorno.  El ejemplo
+anterior se muestra a continuación con vectores de tiempo
 
 @lilypond[quote,ragged-right]
 <<
@@ -2395,9 +2414,9 @@ example is shown here with timing tuples
 >>
 @end lilypond
 
-The placement of grace notes is synchronized between different staves.
-In the following example, there are two sixteenth grace notes for
-every eighth grace note
+La colocación de las notas de adorno se sincroniza entre los distintos
+pentragramas.  En el siguiente ejemplo, hay dos semicorcheas de adorno
+por cada corchea de adorno
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 << \new Staff { e4 \grace { c16[ d e f] } e4 }
@@ -2406,26 +2425,26 @@ every eighth grace note
 
 @funindex \afterGrace
 
-If you want to end a note with a grace, use the @code{\afterGrace}
-command.  It takes two arguments: the main note, and the grace notes
-following the main note.
+Si quiere acabar una nota con un adorno, use el comando
+@code{\afterGrace}.  Toma dos argumentos: la nota principal y las
+notas de adorno que siguen a la nota principal.
 
 @lilypond[ragged-right, verbatim,relative=2,fragment]
 c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
-This will put the grace notes after a @q{space} lasting 3/4 of the
-length of the main note.  The fraction 3/4 can be changed by setting
-@code{afterGraceFraction}, ie.
+Esto pondrá las notas de adorno después de un @q{espacio} que dura 3/4
+de la longitud de la nota principal.  La fracción 3/4 se puede cambiar
+estableciendo @code{afterGraceFraction}, por ejemplo
 
 @example
 afterGraceFraction = #(cons 7 8)
 @end example
 
 @noindent
-will put the grace note at 7/8 of the main note.
+pondrá la nota de adorno a 7/8 de la nota principal.
 
-The same effect can be achieved manually by doing
+Se puede conseguir el mismo efecto de formam manual haciendo
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2436,13 +2455,13 @@ The same effect can be achieved manually by doing
 @end lilypond
 
 @noindent
-By adjusting the duration of the skip note (here it is a half-note),
-the space between the main-note and the grace is adjusted.
+Ajustando la duración de la nota de desplazamiento (aquí es una
+blanca), se ajusta el espacio entre la nota principal y la de adorno.
 
-A @code{\grace} section will introduce special typesetting settings,
-for example, to produce smaller type, and set directions.  Hence, when
-introducing layout tweaks, they should be inside the grace section,
-for example,
+Una sección @code{\grace} introduce ajustes de tipografía especiales,
+por ejemplo para producir un tipo más pequeño y para fijar las
+direcciones.  Por ello, cuando se introducen trucos para la
+presentación, deben ir dentro de la sección de adorno, por ejemplo:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2456,12 +2475,13 @@ for example,
 @end lilypond
 
 @noindent
-The overrides should also be reverted inside the grace section.
+Las sobreescrituras también se deben deshacer dentro de la sección de adorno.
 
-The layout of grace sections can be changed throughout the music using
-the function @code{add-grace-property}.  The following example
-undefines the @code{Stem} direction for this grace, so
-that stems do not always point up.
+La disposición de las secciones de adorno se pueden cambiar a lo largo
+de la música usando la función @code{add-grace-property}.  El
+siguiente ejemplo suprime la definición de la dirección de la
+@code{Stem} (plica) para este adorno, y así las plicas no siempre
+apuntan hacia ariba.
 
 @example
 \new Staff @{
@@ -2471,20 +2491,20 @@ that stems do not always point up.
 @end example
 
 @noindent
-Another option is to change the variables @code{startGraceMusic},
+Otra opción es modificar las variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
-@code{stopAppoggiaturaMusic}.  More information is in the file
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
+@code{stopAppoggiaturaMusic}.  Hay más información en el archivo
 @file{ly/@/grace@/-init@/.ly}.
 
 @noindent
-The slash through the stem in acciaccaturas can be obtained
-in other situations by @code{\override Stem  #'stroke-style = #"grace"}.
+La barrita que cruza el corchete de las acciaccaturas se puede obtener
+en otras situaciones mediante @code{\override Stem  #'stroke-style = #"grace"}.
 
 
 @commonprop
 
-Grace notes may be forced to use floating spacing,
+Se puede forzar que las notas de adorno utilicen espaciado flotante,
 
 @lilypond[relative=2,ragged-right]
 <<
@@ -2507,18 +2527,18 @@ Grace notes may be forced to use floating spacing,
 
 @seealso
 
-Program reference: @internalsref{GraceMusic}.
+Referencia del programa: @internalsref{GraceMusic}.
 
 
 @refbugs
 
-A score that starts with a @code{\grace} section needs an explicit
-@code{\new Voice} declaration, otherwise the main note and the grace
-note end up on different staves.
+Una partitura que comienza con una sección @code{\grace} requiere una declaración explícita
+@code{\new Voice} pues en caso contrario la nota principal y la de adorno
+acabarán en pentagramas distintos.
 
-Grace note synchronization can also lead to surprises.  Staff notation,
-such as key signatures, bar lines, etc., are also synchronized.  Take
-care when you mix staves with grace notes and staves without, for example,
+La sincronización de las notas de adorno también puede acarrear sorpresas.  La notación de pentagramas,
+como armaduras, líneas divisorias, etc., se sincronizan también.  Ponga cuidado
+cuando mezcle pentagramas con adornos y sin adornos, por ejemplo
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 << \new Staff { e4 \bar "|:" \grace c16 d4 }
@@ -2526,16 +2546,18 @@ care when you mix staves with grace notes and staves without, for example,
 @end lilypond
 
 @noindent
-This can be remedied by inserting grace skips of the corresponding
-durations in the other staves. For the above example
+Esto se puede remediar insertando desplazamientos de adorno de las
+duraciones correspondientes en los otros pentagramas.  Para el ejemplo
+anterior
 
 @example
 \new Staff @{ c4 \bar "|:" \grace s16 d4 @}
 @end example
 
-Grace sections should only be used within sequential music
-expressions.  Nesting or juxtaposing grace sections is not supported,
-and might produce crashes or other errors.
+Las secciones de adorno sólo se deben usar dentro de expresiones de
+música secuenciales.  No están soportados el anidado ni la
+yuxtaposición de secciones de adorno, y podría producir caídas u otros
+errores.
 
 
 
