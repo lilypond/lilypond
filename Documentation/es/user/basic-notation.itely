@@ -2564,8 +2564,7 @@ errores.
 @node Expressive marks
 @section Expressive marks
 
-Expressive marks help musicians to bring more to the music than simple
-notes and rhythms.
+Las marcas de expresión ayudan al músico a sacar de la música algo más que simples notas y ritmos.
 
 @menu
 * Articulations::               
@@ -2582,82 +2581,83 @@ notes and rhythms.
 @node Articulations
 @subsection Articulations
 
-@cindex Articulations
-@cindex scripts
-@cindex ornaments
+@cindex Articulaciones
+@cindex guiones
+@cindex ornamentos
 
-A variety of symbols can appear above and below notes to indicate
-different characteristics of the performance.  They are added to a note
-by adding a dash and the character signifying the
-articulation.  They are demonstrated here
+Un amplio abanico de símbolos pueden aparecer encima o debajo de las notas
+para indicar distintas características de la ejecución.  Se adjuntan a una
+nota escribiendo un guión y el carácter que significa la articulación.
+Se muestran a continuación:
 
 @lilypondfile[quote,ragged-right]{script-abbreviations.ly}
 
-The meanings of these shorthands can be changed.  See
-@file{ly/@/script@/-init@/.ly} for examples.
+Los significados de estas abreviaturas se pueden modificar.  Consulte
+@file{ly/@/script@/-init@/.ly} para ver ejemplos.
 
-The script is automatically placed, but the direction can be forced as
-well.  Like other pieces of LilyPond code, @code{_} will place them
-below the staff, and @code{^} will place them above.
+La indicación se coloca automáticamente, pero la dirección (arriba o abajo)
+se puede también forzar.  Como otros fragmentos de código de LilyPond,
+@code{_} los situará por debajo del pentagrama, y @code{^} los colocará
+por encima.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 c''4^^ c''4_^
 @end lilypond
 
-Other symbols can be added using the syntax
-@var{note}@code{\}@var{name}.  Again, they
-can be forced up or down using @code{^} and @code{_},
-e.g.,
+Se pueden añadir otros símbolos usando la sintaxis
+@var{nota}@code{\}@var{nombre}.  Una vez más, se puede forzar
+que aparezcan por encima o por debajo usando @code{^} y @code{_},
+por ejemplo
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c\fermata c^\fermata c_\fermata
 @end lilypond
 
-@cindex accent
+@cindex acento
 @cindex marcato
 @cindex staccatissimo
 @cindex espressivo
 @cindex fermata
-@cindex stopped
+@cindex calderón
+@cindex apagado
 @cindex staccato
 @cindex portato
 @cindex tenuto
-@cindex upbow
-@cindex downbow
-@cindex foot marks
-@cindex organ pedal marks
-@cindex turn
+@cindex arco arriba
+@cindex arco abajo
+@cindex pedal, indicaciones de
+@cindex órgano, indicaciones de pedal de
+@cindex grupeto circular
 @cindex open
 @cindex flageolet
-@cindex reverseturn
-@cindex trill
-@cindex prall
-@cindex mordent
+@cindex grupeto circular invertido
+@cindex trino
+@cindex semitrino
+@cindex semitrino descendente
 @cindex prallprall
 @cindex prallmordent
 @cindex prall, up
 @cindex prall, down
-@cindex mordent
+@cindex mordente
 @cindex thumb marking
 @cindex segno
 @cindex coda
 @cindex varcoda
 
-Here is a chart showing all scripts available,
+He aquí un cuadro que muestra todas las articulaciones disponibles:
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
 
 
 @commonprop
 
-The vertical ordering of scripts is controlled with the
-@code{script-priority} property.  The lower this number, the closer it
-will be put to the note.  In this example, the
-@internalsref{TextScript} (the sharp symbol) first has the lowest
-priority, so it is put lowest in the first example.  In the second, the
-prall trill (the @internalsref{Script}) has the lowest, so it is on the
-inside.  When two objects have the same priority, the order in which
-they are entered decides which one comes first.
+El orden vertical de las articulaciones se controla con la propiedad
+@code{script-priority}.  Cuanto más bajo es esta número, más cerca de la nota se colocará.
+En este ejemplo el @internalsref{TextScript} (el símbolo de sostenido) tiene primero la
+prioridad más baja, así que se coloca en la parte más baja en el primer ejemplo.
+En el segundo, el semitrino (el @internalsref{Script}) tiene la proioridad más baja, así que
+está en la parte interior.  Cuando dos objetos tienen la misma prioridad, el orden en que
+se escriben decide cuál de ellos va primero.
 
 @lilypond[verbatim,relative=3,ragged-right,fragment,quote]
 \once \override TextScript #'script-priority = #-100
@@ -2670,40 +2670,40 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Program reference: @internalsref{Script}.
+Referencia del programa: @internalsref{Script}.
 
 
 @refbugs
 
-These signs appear in the printed output but have no effect on the
-MIDI rendering of the music.
+Estos signos aparecen en la salida impresa pero no tienen ningún efecto sobre la
+representación de MIDI de la música.
 
 
 @node Fingering instructions
 @subsection Fingering instructions
 
-@cindex fingering
-@cindex finger change
+@cindex digitación
+@cindex cambio de dedo
 
-Fingering instructions can be entered using
+Las instrucciones de digitación se puede introduci usando
 @example
-@var{note}-@var{digit}
+@var{nota}-@var{dígito}
 @end example
-For finger changes, use markup texts
+Para los cambios de dedo, utilice marcas de texto.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 c4-1 c-2 c-3 c-4
 c^\markup { \finger "2 - 3" }
 @end lilypond
 
-You can use the thumb-script to indicate that a note should be
-played with the thumb (e.g., in cello music)
+Puede usar la articulación de pulgar para indicar que una nota se debe tocar con el pulgar
+(p.ej. en música de cello)
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>8 <b_\thumb b'-3>
 @end lilypond
 
-Fingerings for chords can also be added to individual notes
-of the chord by adding them after the pitches
+Las digitaciones para los acordes también se pueden añadir a las notas individuales del acorde
+escribiéndolas después de las alturas
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 < c-1 e-2 g-3 b-5 >4
 @end lilypond
@@ -2711,8 +2711,7 @@ of the chord by adding them after the pitches
 
 @commonprop
 
-You may exercise greater control over fingering chords by
-setting @code{fingeringOrientations}
+Puede ejercer un mayor control sobre la digitación de los acordes estableciendo @code{fingeringOrientations}
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 \set fingeringOrientations = #'(left down)
@@ -2721,8 +2720,8 @@ setting @code{fingeringOrientations}
 <c-1 es-2 g-4 bes-5 > 4
 @end lilypond
 
-Using this feature, it is also possible to put fingering instructions
-very close to note heads in monophonic music,
+Usando esta funcionalidad, también es posible poner instrucciones de digitación muy cerca de las cabezas 
+de nota en música monofónica,
 
 @lilypond[verbatim,ragged-right,quote,fragment]
 \set fingeringOrientations = #'(right)
@@ -2732,9 +2731,9 @@ very close to note heads in monophonic music,
 
 @seealso
 
-Program reference: @internalsref{Fingering}.
+Referencia del programa: @internalsref{Fingering}.
 
-Examples: @lsr{expressive,fingering-chords.ly}
+Ejemplos: @lsr{expressive,fingering-chords.ly}
 
 
 @node Dynamics
@@ -2759,12 +2758,12 @@ Examples: @lsr{expressive,fingering-chords.ly}
 @funindex \sfz
 @funindex \rfz
 
-Absolute dynamic marks are specified using a command after a note
-@code{c4\ff}.  The available dynamic marks are @code{\ppppp},
+Las marcas dinámicas de matiz absoluto se especifican usando un comando después de una nota
+@code{c4\ff}.  Las marcas dinámicas disponibles son @code{\ppppp},
 @code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
+@code{\sp}, @code{\spp}, @code{\sfz} y @code{\rfz}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
@@ -2775,12 +2774,12 @@ c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 @funindex \>
 @funindex \!
 
-A crescendo mark is started with @code{\<} and terminated with
-@code{\!} or an absolute dynamic.  A decrescendo is started with
-@code{\>} and is also terminated with @code{\!} or an absolute
-dynamic.  @code{\cr} and @code{\decr} may be used instead of
-@code{\<} and @code{\>}.  Because these marks are bound to notes, you must
-use spacer notes if multiple marks are needed during one note
+Un regulador de crescendo se comienza con @code{\<} y se termina con
+@code{\!} o con un matiz absoluto.  Un regulador decrescendo comienza con
+@code{\>} y se termina tmbién con @code{\!} o con un matiz dinámico
+absoluto.  Se pueden usar @code{\cr} y @code{\decr} en lugar de
+@code{\<} y @code{\>}.  A causa de que estas marcas se unen a notas, se deben
+usar notas espaciadoras si se necesitan varias marcas durante una nota.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c\< c\! d\> e\!
@@ -2788,27 +2787,27 @@ c\< c\! d\> e\!
 @end lilypond
 
 @noindent
-A hairpin normally starts at the left edge of the beginning note
-and ends on the right edge of the ending note.  If the ending
-note falls on the downbeat, the hairpin ends on the immediately
-preceding barline. This may be modified by setting the
-@code{hairpinToBarline} property,
+Un regulador comienza normalmente en el borde izquierdo de la nota inicial
+y acaba en el borde derecho de la nota final.  Si la nota
+final cae sobre el principio de un compás,  el regulador finaliza en la línea divisoria
+inmediatamente anterior.  Esto se puede modificar estableciendo la propiedad
+@code{hairpinToBarline},
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set hairpinToBarline = ##f
 c4\< c2. c4\!
 @end lilypond
 
-In some situations the @code{\espressivo} articulation mark may
-be suitable to indicate a crescendo and decrescendo on the one note,
+En algunas situaciones la marca de articulación @code{\espressivo} puede ser
+apropiada para indicar un crescendo y decrescendo sobre una nota,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c2 b4 a g1\espressivo
 @end lilypond
 
-This may give rise to very short hairpins.  Use @code{minimum-length}
-in @internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
-example
+Esto puede dar lugar a reguladores muy cortos.  Utilice @code{minimum-length}
+dentro de @internalsref{Voice}.@internalsref{Hairpin} para alargarlos, por
+ejemplo
 
 @example
 \override Voice.Hairpin #'minimum-length = #5
@@ -2817,8 +2816,8 @@ example
 @cindex al niente
 @cindex niente, al
 
-Hairpins may be printed with a circled tip (al niente notation) by
-setting the @code{circled-tip} property,
+Los reguladores se pueden imprimir con la punta en círculo (notación
+al niente) estableciendo la propiedad @code{circled-tip},
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override Hairpin #'circled-tip = ##t
@@ -2831,7 +2830,7 @@ c4\> c\< c2\!
 @cindex decrescendo
 @cindex diminuendo
 
-You can also use text saying @emph{cresc.} instead of hairpins
+También puede usar texto que diga @emph{cresc.} en vez de reguladores
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \setTextCresc
@@ -2844,44 +2843,44 @@ c\> d e f\!
 e\> d c b\!
 @end lilypond
 
-You can also supply your own texts
+También puede aportar sus propios textos
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
 \set crescendoSpanner = #'dashed-line
 a'2\< a a a\!\mf
 @end lilypond
 
-To create new dynamic marks or text that should be aligned
-with dynamics, see @ref{New dynamic marks}.
+Para crear nuevas indicaciones dinámicas o texto que se deba alinear
+con los matices, consulte @ref{New dynamic marks}.
 
-Vertical positioning of dynamics is handled by
-@internalsref{DynamicLineSpanner}.
+El posicionamiento vertical de las expresiones dinámicas se gestiona a
+través de @internalsref{DynamicLineSpanner}.
 
 
 @commonprop
 
-Dynamics that occur at, begin on, or end on, the same note
-will be vertically aligned.  If you want to ensure that dynamics
-are aligned when they do not occur on the same note, you can
-increase the @code{staff-padding} property.
+Las expresiones dinámicas que suceden en, comienzan sobre, o acaban
+en, la misma nota se alinearán verticalmente.  Si quiere asegurar que
+las expresiones dinámicas se alinean cuando no suceden sobre la misma
+nota, puede aumentar el valor de la propiedad @code{staff-padding}.
 
 @example
 \override DynamicLineSpanner #'staff-padding = #4
 @end example
 
-You may also use this property if the dynamics are colliding
-with other notation.
+También puede utilizar esta propiedad si las expresiones dinámicas
+colisionan con otros elementos de la notación.
 
-Crescendi and decrescendi that end on the first note of a
-new line are not printed.  To change this behavior, use
+Los crescendi y decrescendi que acaban sobre la misma nota de una
+línea nueva no se imprimen.  Para cambiar este comportamiento, utilice
 
 @example
 \override Score.Hairpin #'after-line-breaking = ##t
 @end example
 
-Text style dynamic changes (such as @emph{cresc.} and @emph{dim.})
-are printed with a
-dashed line showing their extent.  To surpress printing this line, use
+Los cambios dinámicos de tipo texto (como @emph{cresc.} y @emph{dim.})
+se imprimen con una línea de puntos que muestra su alcance.  Para
+evitar que se imprima esta línea, use
 
 @example
 \override DynamicTextSpanner #'dash-period = #-1.0
@@ -2900,15 +2899,15 @@ dashed line showing their extent.  To surpress printing this line, use
 
 @seealso
 
-Program reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
-Vertical positioning of these symbols is handled by
+Referencia del programa: @internalsref{DynamicText}, @internalsref{Hairpin}.
+El posicionamiento vertical de estos símbolos se maneja por medio de
 @internalsref{DynamicLineSpanner}.
 
 
 @node Breath marks
 @subsection Breath marks
 
-Breath marks are entered using @code{\breathe}
+Las marcas de respiración se introducen usando @code{\breathe}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 c'4 \breathe d4
@@ -2917,9 +2916,9 @@ c'4 \breathe d4
 
 @commonprop
 
-The glyph of the breath mark can be tuned by overriding the
-@code{text} property of the @code{BreathingSign} layout object with
-any markup text.  For example,
+El glifo de la marca de respiración se puede ajustar por medio de la sobreescritura de la propiedad
+@code{text} del objeto de presentación @code{BreathingSign} con cualquier texto de marcado.
+Por ejemplo,
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 c'4
 \override BreathingSign #'text
@@ -2930,17 +2929,17 @@ d4
 
 @seealso
 
-Program reference: @internalsref{BreathingSign}.
+Referencia del programa: @internalsref{BreathingSign}.
 
-Examples: @lsr{expressive,breathing-sign.ly}
+Ejemplos: @lsr{expressive,breathing-sign.ly}
 
 
 @node Trills
 @subsection Trills
 
-Short trills are printed like normal articulation; see @ref{Articulations}.
+Los trinos cortos se imprimen como una articulación normal; consulte @ref{Articulations}.
 
-Long running trills are made with @code{\startTrillSpan} and
+Los trinos largos mantenidos se hacen con @code{\startTrillSpan} y
 @code{\stopTrillSpan},
 
 @lilypond[verbatim,ragged-right,relative=2,quote,fragment]
@@ -2950,18 +2949,19 @@ Long running trills are made with @code{\startTrillSpan} and
   c4 }
 @end lilypond
 
-@cindex Pitched trills
+@cindex Trinos con altura
 
-Trills that should be executed on an explicitly specified pitch can be
-typeset with the command @code{pitchedTrill},
+Los trinos que se tienen que ejecutar sobre notas especificadas
+explícitamente se pueden tipografiar con el comando
+@code{pitchedTrill},
 
 @lilypond[ragged-right,verbatim,fragment,relative=1,quote]
 \pitchedTrill c4\startTrillSpan fis
 f\stopTrillSpan
 @end lilypond
 
-The first argument is the main note.  The pitch of the second
-is printed as a stemless note head in parentheses.
+El primer argumento es la nota principal.  La altura de la segunda se
+imprime como una cabeza de nota sin plica entre paréntesis.
 
 
 @refcommands
@@ -2974,7 +2974,7 @@ is printed as a stemless note head in parentheses.
 
 @seealso
 
-Program reference: @internalsref{TrillSpanner}.
+Referencia del programa: @internalsref{TrillSpanner}.
 
 
 @node Glissando
@@ -2983,9 +2983,9 @@ Program reference: @internalsref{TrillSpanner}.
 @cindex Glissando
 @funindex \glissando
 
-A glissando is a smooth change in pitch.  It is denoted by a line or a
-wavy line between two notes.  It is requested by attaching
-@code{\glissando} to a note
+Un glissando es un cambio gradual en la altura.  Se denota por medio
+de una línea o una línea ondulada entre dos notas.  Se llama
+adjuntando @code{\glissando} a una nota
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 c2\glissando c'
@@ -2996,42 +2996,42 @@ c2\glissando c,
 
 @seealso
 
-Program reference: @internalsref{Glissando}.
+Referencia del programa: @internalsref{Glissando}.
 
-Example files:
+Archivos de ejemplo:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
 
 
 
 @refbugs
 
-Printing text over the line (such as @emph{gliss.}) is not supported.
+La impresión de texto sobre la línea (como @emph{gliss.}) no está soportado.
 
 
 @node Arpeggio
 @subsection Arpeggio
 
 @cindex Arpeggio
-@cindex broken chord
+@cindex acorde quebrado
 @funindex \arpeggio
 
-You can specify an arpeggio sign (also known as broken chord) on a
-chord by attaching an @code{\arpeggio} to a chord
+Se puede especificar un signo de arpegio (conocido también como acorde quebrado) sobre un
+acorde adjuntando un @code{\arpeggio} a un acorde
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 <c e g c>\arpeggio
 @end lilypond
 
-A square bracket on the left indicates that the player should not
-arpeggiate the chord
+Un corchete recto a la izquierda indica que el intérprete no tiene que
+arpegiar el acorde
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \arpeggioBracket
 <c' e g c>\arpeggio
 @end lilypond
 
-The direction of the arpeggio is sometimes denoted by adding an
-arrowhead to the wiggly line
+La dirección del arpegio se denota a veces mediante la adición de una
+punta de flecha a la línea ondulada
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new Voice {
@@ -3045,8 +3045,8 @@ arrowhead to the wiggly line
 
 @commonprop
 
-When an arpeggio crosses staves, you may attach an arpeggio to the chords
-in both staves and set
+Cuando un arpegio cruza uno o varios pentagramas, puede adjuntar un
+arpegio a los acordes en los dos pentagramas y establecer
 @internalsref{PianoStaff}.@code{connectArpeggios}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
@@ -3073,22 +3073,21 @@ in both staves and set
 
 @seealso
 
-Notation manual: @ref{Ties}, for writing out arpeggios.
+Manual de notación: @ref{Ties}, para escribir arpegios explícitamente.
 
-Program reference: @internalsref{Arpeggio}.
+Referencia del programa: @internalsref{Arpeggio}.
 
 
 @refbugs
 
-It is not possible to mix connected arpeggios and unconnected
-arpeggios in one @internalsref{PianoStaff} at the same point in time.
-
+No es posible mezclar arpegios conectados y no conectados en un
+@internalsref{PianoStaff} en el mismo instante de tiempo.
 
 @node Falls and doits
 @subsection Falls and doits
 
-Falls and doits can be added to notes using the @code{\bendAfter}
-command,
+Se pueden expresar caídas y subidas de tono (falls y doits) añadidas a
+las notas mediante el comando @code{\bendAfter},
 
 @lilypond[fragment,ragged-right,relative=2]
 \override Score.SpacingSpanner #'shortest-duration-space = #3.0
@@ -3100,8 +3099,8 @@ c4-\bendAfter #-3
 @node Repeats
 @section Repeats
 
-Repetition is a central concept in music, and multiple notations exist
-for repetitions.
+La repetición es un concepto fundamental en música, y existen varios
+tipos de notación para las repeticiones.
 
 @menu
 * Repeat types::                
@@ -3117,31 +3116,32 @@ for repetitions.
 @node Repeat types
 @subsection Repeat types
 
-@cindex repeats
+@cindex repeticiones
 @funindex \repeat
 
-The following types of repetition are supported
+Están soportados los siguientes tipos de repetición
 
 @table @code
-@item unfold
-Repeated music is fully written (played) out.  This is useful when
-entering repetitious music.  This is the only kind of repeat that
-is included in MIDI output.
+@item desplegada
+Las música repetida está comletamente escrita (e interpretada).  Es
+útil cuando se introduce música repetitiva.  Éste es el único tipo de
+repetición que se incluye en la salida MIDI.
 
-@item volta
-Repeats are not written out, but alternative endings (volte) are
-printed, left to right with brackets.  This is the standard notation
-for repeats with alternatives.  These are not played in MIDI output by
-default.
+@item volta (primera y segunda vez)
+Las repeticiones no están desarrolladas, pero se imprimen finales
+alternativos (volte) de izquierda a derecha con corchetes.  Ésta es la
+notación estándar para las repeticiones con alternativas.  Por omisión
+no se reproducen en la salida MIDI.
 
 
-@item tremolo
-Make tremolo beams.  These are not played in MIDI output by default.
+@item trémolo
+Hacen barras de trémolo.  Por omisión no se reproducen en la salida MIDI.
 
-@item percent
-Make beat or measure repeats.  These look like percent signs.  These
-are not played in MIDI output by default.  Percent repeats must be
-declared within a @code{Voice} context.
+@item porcentaje
+Hacen repeticiones de compases o parte de ellos.  Tienen un aspecto
+semejante a un signo de porcentaje.  Por omisión no se reproducen en
+la salida MIDI.  Las repeticiones de porcentaje se deben declarar
+dentro de un contexto @code{Voice}.
 
 @end table
 
@@ -3153,30 +3153,30 @@ declared within a @code{Voice} context.
 @cindex prima volta
 @cindex seconda volta
 
-LilyPond has one syntactic construct for specifying different types of
-repeats.  The syntax is
+LilyPond tiene una construcción sintáctica para especificar distintos
+tipos de repetición.  La sintaxis es
 
 @example
-\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+\repeat @var{variante} @var{número_de_repeticiones} @var{cuerpo_de_la_repetición}
 @end example
 
-If you have alternative endings, you may add
+Si tiene finales alternativos, puede añadir
 @funindex \alternative
 @example
 \alternative @{
-  @var{alternative1}
-  @var{alternative2}
-  @var{alternative3}
+  @var{alternativa1}
+  @var{alternativa2}
+  @var{alternativa3}
   @dots{}
 @}
 @end example
 
 @noindent
-where each @var{alternative} is a music expression.  If you do not
-give enough alternatives for all of the repeats, the first alternative
-is assumed to be played more than once.
+donde cada @var{alternativa} es una expresión musical.  Si no da un
+número de alternativas suficiente para todas las repeticiones, se
+supondrá que la primera alternativa se interpreta más de una vez.
 
-Standard repeats are used like this
+Las repeticiones estándar se usan de esta forma:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
@@ -3184,7 +3184,7 @@ c1
 \repeat volta 2 { f e d c }
 @end lilypond
 
-With alternative endings
+Con finales alternativos
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
@@ -3192,12 +3192,12 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-In the following example, the first ending is not a complete
-bar (it only had 3 beats).  The beginning of the second ending
-contains the 4th beat from the first ending.  This @q{extra}
-beat in the second ending is due to the first time ending,
-and has nothing to do with the @code{\partial} at the
-beginning of the example.
+En el ejemplo siguiente, el primer final no es un compás completo
+(sólo tenía 3 partes).  El comienzo del segundo final
+contiene la cuarta parte del primer final.  Esta parte @q{adicional}
+en el segundo final se debe al final de la primera vez,
+y no tiene nada que ver con el @code{\partial} que aparece
+al principio del ejemplo.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
@@ -3209,7 +3209,7 @@ beginning of the example.
 
 @funindex \repeatTie
 
-Ties may be added to a second ending,
+Se pueden añadir ligaduras de unión al segundo final,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
@@ -3217,9 +3217,9 @@ c1
 \alternative { {f2 d} {f\repeatTie f,} }
 @end lilypond
 
-It is possible to shorten volta brackets
-by setting @code{voltaSpannerDuration}.  In the next example, the
-bracket only lasts one measure, which is a duration of 3/4.
+Es posible acortar los corchetes de primera y segunda vez
+estableciendo @code{voltaSpannerDuration}.  En el ejemplo siguiente, el
+corchete sólo dura un compás, lo que supone una duración de 3/4.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c''{
@@ -3235,20 +3235,20 @@ bracket only lasts one measure, which is a duration of 3/4.
 
 @seealso
 
-Examples:
+Ejemplos:
 
-Brackets for the repeat are normally only printed over the topmost
-staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
-property; see
+Normalmente los corchetes para la repetición sólo se imprimen sobre el
+pentagrama superior.  Esto se puede ajustar estableciendo la propiedad
+@code{voltaOnThisStaff}; consulte
 
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
 @refbugs
 
-@cindex repeat, ambiguous
+@cindex repetición ambigua
 
-A nested repeat like
+Una repetición anidada como
 
 @example
 \repeat @dots{}
@@ -3257,29 +3257,32 @@ A nested repeat like
 @end example
 
 @noindent
-is ambiguous, since it is is not clear to which @code{\repeat} the
-@code{\alternative} belongs.  This ambiguity is resolved by always
-having the @code{\alternative} belong to the inner @code{\repeat}.
-For clarity, it is advisable to use braces in such situations.
+es ambigua porque no está claro a qué @code{\repeat} pertenece la
+@code{\alternative}.  Esta ambigüedad se resuelve haciendo que la
+@code{\alternative} pertenezca siempre a la @code{\repeat} más
+interna.  Para más claridad, se recomienda usar llaves en tales
+situaciones.
 
-Timing information is not remembered at the start of an alternative,
-so after a repeat timing information must be reset by hand; for
-example, by setting @code{Score.measurePosition} or entering
-@code{\partial}.  Similarly, slurs or ties are also not repeated.
+La información del contador de tiempo no se recuerda al comienzo de
+una alternativa, por ello después de una repetición la información de
+la cuenta de tiempo se debe reajustar manualmente; por ejemplo,
+estableciendo el valor de @code{Score.measurePosition} o introduciendo
+@code{\partial}.  De forma similar, las ligaduras de expresión o de
+unión tampoco se repiten.
 
-Volta brackets are not vertically aligned.
+Los corchetes de primera y segunda vez no se alinean verticalmente.
 
 
 @node Repeats and MIDI
 @subsection Repeats and MIDI
 
-@cindex expanding repeats
+@cindex expansión de repeticiones
 @funindex \unfoldRepeats
 
-With a little bit of tweaking, all types of repeats can be present
-in the MIDI output.  This is achieved by applying the
-@code{\unfoldRepeats} music function.  This function changes all
-repeats to unfold repeats.
+Con un poco de trucaje, todos los tipos de repeticiones pueden estar
+presentes en la salida MIDI.  Se consigue por medio de la aplicación
+de la función musical @code{\unfoldRepeats}.  Esta función transforma
+todas las repeticiones en repeticiones desarrolladas o desplegadas.
 
 @lilypond[quote,verbatim,fragment,line-width=8.0\cm]
 \unfoldRepeats {
@@ -3294,18 +3297,19 @@ repeats to unfold repeats.
 \bar "|."
 @end lilypond
 
-When creating a score file using @code{\unfoldRepeats} for MIDI,
-it is necessary to make two @code{\score} blocks: one for MIDI (with
-unfolded repeats) and one for notation (with volta, tremolo, and
-percent repeats).  For example,
+Cuando se elabora un archivo de partitura que utiliza
+@code{\unfoldRepeats} para el MIDI, es necesario hacer dos bloques
+@code{\score}: uno para el MIDI (con las repeticiones desplegadas) y
+otro para la notación (con primera y segunda vez, trémolo y
+repeticiones de porcentaje).  Por ejemplo,
 
 @example
 \score @{
-  @var{..music..}
+  @var{..música..}
   \layout @{ .. @}
 @}
 \score @{
-  \unfoldRepeats @var{..music..}
+  \unfoldRepeats @var{..música..}
   \midi @{ .. @}
 @}
 @end example
@@ -3316,24 +3320,26 @@ percent repeats).  For example,
 
 @funindex repeatCommands
 
-The property @code{repeatCommands} can be used to control the layout of
-repeats.  Its value is a Scheme list of repeat commands.
+Se puede usar la propiedad @code{repeatCommands} para controlar la
+disposición de las repeticiones.  Su valor es una lista de Scheme de
+comandos de repetición.
 
 @table @asis
 @item @code{start-repeat}
-Print a @code{|:} bar line.
+Imprimir una barra de compás @code{|:}
 
 @item @code{end-repeat}
-Print a @code{:|} bar line.
+Imprimir una barra de compás @code{:|}
 
-@item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}: The text can be specified as
-a text string or as a markup text, see @ref{Text markup}.  Do not
-forget to change the font, as the default number font does not contain
-alphabetic characters;
+@item @code{(volta @var{texto})}
+Imprimir un corchete de volta que diga @var{texto}: El texto se puede
+especificar como una cadena de texto o como un texto de marcado,
+consulte @ref{Text markup}.  No olvide cambiar la fuente tipográfica,
+porque el tipo por defecto para los números no contiene caracteres
+alfabéticos;
 
 @item @code{(volta #f)}
-Stop a running volta bracket.
+Detener un corchete de volta mantenido.
 @end table
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -3347,20 +3353,19 @@ c4 c4
 
 @seealso
 
-Program reference: @internalsref{VoltaBracket},
+Referencia del programa: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}, and
+@internalsref{UnfoldedRepeatedMusic} y
 @internalsref{FoldedRepeatedMusic}.
 
 
 @node Tremolo repeats
 @subsection Tremolo repeats
 
-@cindex tremolo beams
+@cindex barras de trémolo
 
-To place tremolo marks between notes, use @code{\repeat} with tremolo
-style
+Para colocar marcas de trémolo entre las notas, use @code{\repeat} con el estilo tremolo
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
   \repeat "tremolo" 8 { c16 d16 }
@@ -3369,35 +3374,34 @@ style
 }
 @end lilypond
 
-Tremolo marks can also be put on a single note.  In this case, the
-note should not be surrounded by braces.
+Las marcas de trémolo también se pueden poner sobre una nota única.  En este caso, la
+nota no debe estar encerrada entre llaves.
 @lilypond[quote,verbatim,ragged-right]
 \repeat "tremolo" 4 c'16
 @end lilypond
 
-Similar output is obtained using the tremolo subdivision, described in
+Se obtiene una salida similar usando la subdivisión del trémolo, que se describe en
 @ref{Tremolo subdivisions}.
 
 
 @seealso
 
-In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
+En el presente manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
+Referencia del programa: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 
 @node Tremolo subdivisions
 @subsection Tremolo subdivisions
 
-@cindex tremolo marks
+@cindex marcas de trémolo
 @funindex tremoloFlags
 
-Tremolo marks can be printed on a single note by adding
-@q{@code{:}[@var{number}]} after the note.  The number indicates the
-duration of the subdivision, and it must be at least 8.  A
-@var{length} value of 8 gives one line across the note stem.  If the
-length is omitted, the last value (stored in @code{tremoloFlags}) is
-used
+Las marcas de trémolo se pueden imprimir sobre una nota única escribiendo
+@q{@code{:}[@var{número}]} después de la nota.  El número indica la
+duración de la subdivisión, y debe ser al menos 8.  Un valor de
+@var{longitud} de 8 produce una línea tachando la plica de la nota.  Si se
+omite la longitud, se utiliza el último valor (almacenado en @code{tremoloFlags})
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 c'2:8 c':32 | c': c': |
@@ -3406,27 +3410,27 @@ c'2:8 c':32 | c': c': |
 
 @refbugs
 
-Tremolos entered in this way do not carry over into the MIDI output.
+Los trémolos escritos de esta forma no se trasladan a la salida MIDI.
 
 
 @seealso
 
-In this manual: @ref{Tremolo repeats}.
+En el presente manual: @ref{Tremolo repeats}.
 
-Elsewhere: @internalsref{StemTremolo}.
+En otros lugares: @internalsref{StemTremolo}.
 
 
 @node Measure repeats
 @subsection Measure repeats
 
-@cindex percent repeats
-@cindex measure repeats
+@cindex porcentaje, repeticiones de
+@cindex compás, repeticiones de
 
-In the @code{percent} style, a note pattern can be repeated.  It is
-printed once, and then the pattern is replaced with a special sign.
-Patterns of one and two measures are replaced by percent-like signs,
-patterns that divide the measure length are replaced by slashes.
-Percent repeats must be declared within a @code{Voice} context.
+En el estilo @code{percent} (porcentaje), se puede hacer que se repita un patrón de notas.  Se
+imprime una sola vez, y luego el patrón se sustituye con un símbolo especial.
+Los patrones de uno y dos compases se sustituyen por símbolos parecidos a un porcentaje,
+y los patrones que dividen a la duración de un compás se sustituyen por barras inclinadas.
+Las repeticiones de porcentaje se deben declarar dentro de un contexto @code{Voice}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
@@ -3435,8 +3439,8 @@ Percent repeats must be declared within a @code{Voice} context.
 }
 @end lilypond
 
-Measure repeats of more than 2 measures get a counter, if you switch
-on the @code{countPercentRepeats} property,
+Las repeticiones de compás de más de 2 compases llevan un contador, si
+se activa la propiedad @code{countPercentRepeats},
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \new Voice {
@@ -3447,8 +3451,9 @@ on the @code{countPercentRepeats} property,
 
 
 
-Isolated percents can also be printed. This is done by putting a
-multi-measure rest with a different print function,
+También se pueden imprimir porcentajes aislados.  Esto se hace
+mediante la colocación de un silencio multicompás con una función de
+impresión distinta,
 
 @lilypond[fragment,verbatim,quote]
 \override MultiMeasureRest #'stencil
@@ -3461,11 +3466,8 @@ R1
 
 @seealso
 
-Program reference: @internalsref{RepeatSlash},
+Referencia del programa: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
 @internalsref{DoublePercentRepeatCounter},
 @internalsref{PercentRepeatCounter},
 @internalsref{PercentRepeatedMusic}.
-
-
-
