@@ -1,7 +1,8 @@
 \version "2.10.12"
 
 \header { texidoc = "
-Breathing signs are available in different tastes: commas (default), ticks, vees and `railroad tracks' (caesura).
+Breathing signs are available in different tastes: commas (default),
+ticks, vees and `railroad tracks' (caesura).
 " }
 
 {

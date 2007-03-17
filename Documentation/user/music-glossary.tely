@@ -73,7 +73,7 @@ German glossary,
 Original author of LilyPond glossary, Danish glossary,
 @item David González
 Spanish glossary,
-@item Fran@,{c}ois Pinard
+@item François Pinard
 Original glossary of GNU music project, French glossary,
 @item Han-Wen Nienhuys
 Dutch glossary,
@@ -2244,7 +2244,7 @@ symbol indicates playing an octave lower (for example on double bass
 
 ES: calderón,
 I: corona,
-F: point d'orgue, point d'arr@^et,
+F: point d'orgue, point d'arrêt,
 D: Fermate,
 NL: fermate,
 DK: fermat,
@@ -3415,7 +3415,7 @@ and hears a tone.
 
 ES: cabeza,
 I: testa, testina, capocchia,
-F: t@^ete de la note,
+F: tête de la note,
 D: Notenkopf,
 NL: nootballetje,
 DK: nodehovede,

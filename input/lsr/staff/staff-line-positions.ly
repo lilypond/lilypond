@@ -1,7 +1,8 @@
 \version "2.10.12"
 
 \header { texidoc = "
-The vertical positions of staff lines may be specified individually, by setting the @{line-positions@} property of the StaffSymbol.
+The vertical positions of staff lines may be specified individually, by
+setting the @{line-positions@} property of the StaffSymbol.
 " }
 
 \new Staff \relative c' {

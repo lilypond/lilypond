@@ -50,11 +50,11 @@ The images below illustrate the difference between traditional
 engraving and typical computer output, and the third picture shows how
 LilyPond mimics the traditional look.  The left picture shows a scan
 of a flat symbol from an edition published in 2000.  The center
-depicts a symbol from a hand-engraved B@"{a}renreiter edition of the
+depicts a symbol from a hand-engraved Bärenreiter edition of the
 same music.  The left scan illustrates typical flaws of computer
 print: the staff lines are thin, the weight of the flat symbol matches
 the light lines and it has a straight layout with sharp corners.  By
-contrast, the B@"{a}renreiter flat has a bold, almost voluptuous
+contrast, the Bärenreiter flat has a bold, almost voluptuous
 rounded look.  Our flat symbol is designed after, among others, this
 one.  It is rounded, and its weight harmonizes with the thickness of
 our staff lines, which are also much thicker than lines in the
@@ -95,7 +95,7 @@ computer edition.
 @item @tab
 Henle (2000)
 @tab
-B@"{a}renreiter (1950)
+Bärenreiter (1950)
 @tab
 LilyPond Feta font (2003)
 

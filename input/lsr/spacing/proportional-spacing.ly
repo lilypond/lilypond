@@ -1,7 +1,9 @@
 \version "2.10.12"
 
 \header { texidoc = "
-Proportional notation can be created by setting @{proportionalNotationDuration@}. Notes will be spaced proportional to the distance for the given duration.
+Proportional notation can be created by setting
+@{proportionalNotationDuration@}. Notes will be spaced proportional to
+the distance for the given duration.
 " }
 
 \paper {
