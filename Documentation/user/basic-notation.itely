@@ -2354,7 +2354,8 @@ behavior can be changed by setting @code{breakable}.
 @refbugs
 
 Kneed beams are inserted automatically when a large gap is detected
-between the note heads.
+between the note heads.  This behavior can be tuned through the
+@code{auto-knee-gap} object.
 
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
