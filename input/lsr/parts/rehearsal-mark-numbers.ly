@@ -1,9 +1,12 @@
 \version "2.10.12"
 
 \header { texidoc = "
-Marks can be printed as numbers.   By setting @{markFormatter@} we may
-choose a different style of mark printing. Also, marks can be specified
-manually, with a markup argument.
+Marks can be printed as numbers.
+  
+
+By setting @code{markFormatter} we may choose a different style of mark
+printing. Also, marks can be specified manually, with a markup
+argument. 
 " }
 
 \paper {
