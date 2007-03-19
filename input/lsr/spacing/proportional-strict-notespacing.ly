@@ -1,10 +1,10 @@
 \version "2.10.12"
 
 \header { texidoc = "
-If @{strict-note-spacing@} is set, then spacing of notes is not
-influenced by bars and clefs half-way on the system.  Rather, they are
-put just before the note that occurs at the same time.  This may cause
-collisions.
+If @code{strict-note-spacing} is set spacing of notes is not influenced
+by bars or clefs part way along the system. Rather, they are put just
+before the note that occurs at the same time. This may cause
+collisions. 
 " }
 
 \paper {

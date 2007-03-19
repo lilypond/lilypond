@@ -174,6 +174,12 @@ void
 Skyline::internal_merge_skyline (list<Building> *s1, list<Building> *s2,
 				 list<Building> *const result)
 {
+  if (s1->empty () || s2->empty ())
+    {
+      programming_error ("tried to merge an empty skyline");
+      return;
+    }
+
   Real x = -infinity_f;
   while (!s1->empty ())
     {
@@ -332,7 +338,7 @@ Skyline::internal_build_skyline (list<Box> *boxes, Real horizon_padding, Axis ho
 Skyline::Skyline ()
 {
   sky_ = UP;
-  empty_skyline (&buildings_);  
+  empty_skyline (&buildings_);
 }
 
 Skyline::Skyline (Skyline const &src)
@@ -402,6 +408,12 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
 {
   list<Building> other_bld;
   list<Building> my_bld;
+
+  /* do the same filtering as in Skyline (vector<Box> const&, etc.) */
+  Interval iv = b[a];
+  iv.widen (horizon_padding);
+  if (iv.length () <= EPS || b[other_axis (a)].is_empty ())
+    return;
 
   my_bld.splice (my_bld.begin (), buildings_);
   single_skyline (Building (b, horizon_padding, a, sky_), b[a][LEFT], horizon_padding, &other_bld);

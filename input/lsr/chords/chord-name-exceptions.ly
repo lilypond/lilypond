@@ -2,7 +2,7 @@
 
 \header { texidoc = "
 The property @code{chordNameExceptions} can used to store a list of
-special notations for specific chords.
+special notations for specific chords. 
 " }
 
 % 7sus4 denoted with ^7 wahh

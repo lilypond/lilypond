@@ -2,7 +2,7 @@
 
 \header { texidoc = "
 The default font families for text can be overridden with
-@{make-pango-font-tree@}
+@code{make-pango-font-tree}. 
 " }
 
 \paper {
