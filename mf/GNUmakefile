@@ -121,7 +121,7 @@ export MFINPUTS:=.:$(MFINPUTS)
 
 
 
-default: $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen
+default: $(ALL_GEN_FILES) $(outdir)/emmentaler-20.otf tree-regen $(outdir)/fonts.conf
 
 .PHONY: tree-regen
 
@@ -138,11 +138,17 @@ local-clean:
 	rm -f mfplain.mem mfplain.log
 	rm -f *.tfm *.log
 
+
+## fixme: why is this necessary?
 $(outdir)/%.enc.in: %.enc
 	cp $< $@
 
+
+$(outdir)/fonts.conf:
+	echo '<fontconfig><dir>'$(shell cd $(outdir); pwd)'</dir></fontconfig>' > $@
 
 $(NCSB_OTFS): $(NCSB_SOURCE_FILES)  $(buildscript-dir)/pfx2ttf.fontforge
 	$(foreach i, $(basename $(NCSB_SOURCE_FILES)), \
 		$(FONTFORGE) -script $(buildscript-dir)/pfx2ttf.fontforge \
 			$(i).pfb $(i).afm $(outdir)/ && ) true
+
