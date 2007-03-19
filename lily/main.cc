@@ -564,9 +564,14 @@ setup_guile_env ()
 	       "104857600", overwrite);
 }
 
+vector<string> start_environment_global;
+ 
 int
 main (int argc, char **argv)
 {
+  for (char **p = environ; *p; p++)
+    start_environment_global.push_back(*p);
+  
   if (getenv ("LILYPOND_VERBOSE"))
     be_verbose_global = true;
 

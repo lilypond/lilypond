@@ -27,6 +27,24 @@ using namespace std;
 #include "file-name.hh"
 #include "string-convert.hh"
 
+LY_DEFINE (ly_start_environment, "ly:start-environment",
+	   0, 0, 0, (),
+	   "Return the environment, a list of strings, that was in effect at program start")
+{
+  SCM l = SCM_EOL;
+  SCM *tail = &l;
+
+  for (vsize i = 0; i < start_environment_global.size (); i++)
+    {
+      *tail = scm_cons (ly_string2scm (start_environment_global[i]),
+			SCM_EOL);
+      tail = SCM_CDRLOC(*tail);
+    }
+
+  return l;
+}
+
+
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
 	   "Return the absolute file name of @var{name}, "
