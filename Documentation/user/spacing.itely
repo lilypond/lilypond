@@ -842,7 +842,6 @@ staves inside a system.
 * Vertical spacing inside a system::  
 * Vertical spacing between systems::  
 * Explicit staff and system positioning::  
-* Two-pass vertical spacing::   
 * Vertical collision avoidance::  
 @end menu
 
@@ -900,11 +899,16 @@ moving relative to the one directly above it. In the example above,
 you would override @code{keep-fixed-while-stretching} to @code{##t} in
 the second piano staff:
 
-@example
+@lilypond[verbatim]
+#(set-default-paper-size "a6")
+#(set-global-staff-size 14.0)
+
+\book {
 \paper {
   ragged-last-bottom = ##f
 }
 
+\score {
 \new GrandStaff
 <<
   \new StaffGroup
@@ -929,7 +933,9 @@ the second piano staff:
     \new Staff {c' d' e' f'}
   >>
 >>
-@end example
+}
+}
+@end lilypond
 
 @seealso
 
