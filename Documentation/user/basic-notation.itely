@@ -762,6 +762,49 @@ To avoid printing tuplet numbers, use
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
 @end lilypond
 
+Use the @code{\tweak} function to override nested tuplets beginning at the
+same music moment.  In this example, @code{\tweak} specifies fraction
+text for the
+outer @code{TupletNumber} and denominator text for the @code{TupletNumber}
+of the first of the three inner tuplets.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \times 4/3 {
+     \tweak #'text #tuplet-number::calc-denominator-text
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Here @code{\tweak} and @code{\override} work together to specify
+@code{TupletBracket} direction.  The first @code{\tweak} positions
+the @code{TupletBracket} of the outer
+tuplet above the staff.  The second @code{\tweak} positions the
+@code{TupletBracket} of the first of the three inner tuplets below the
+staff.  Note that this pair of @code{\tweak} functions affects only
+the outer tuplet and the first of the three inner tuplets because only
+those two tuplets begin at the same music moment.  We use @code{\override}
+in the usual way to position the @code{TupletBrackets} of
+the second and third of the inner tuplets below the staff.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \tweak #'direction #up
+  \times 4/3 {
+     \tweak #'direction #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \override TupletBracket #'direction = #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
 Tuplet brackets can be made to run to prefatory matter or
 the next note
 
@@ -2311,7 +2354,8 @@ behavior can be changed by setting @code{breakable}.
 @refbugs
 
 Kneed beams are inserted automatically when a large gap is detected
-between the note heads.  This behavior can be tuned through the object.
+between the note heads.  This behavior can be tuned through the
+@code{auto-knee-gap} object.
 
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
