@@ -113,7 +113,7 @@ rodeadas por espacios a no ser que se encuentren al principio o al final de una 
 para evitar ambigüedades.  Es posible que se omitan en algunos ejemplos del presente
 manual ¡pero no las omita en su propia música!
 
-@cindex Sencible a las mayúsculas
+@cindex Sensible a las mayúsculas
 Además la entrada de LilyPond es @strong{sensible a las mayúsculas}.  @code{ @{ c d e @} }
 es una entrada válida; @code{ @{ C D E @} } producirá un mensaje de error.
 
@@ -347,7 +347,7 @@ La @rglos{time signature}) se puede establecer con el comando @code{\time} :
 
 @subheading Clef
 
-La @rglos{clef} se peude establecer utilizando el comando @code{\clef} :
+La @rglos{clef} se puede establecer utilizando el comando @code{\clef} :
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c' {
@@ -529,7 +529,7 @@ cuarta desde la nota anterior.
 LilyPond examina las alturas basándose en los nombres de las notas (dicho de otra forma:
 una cuarta aumentada @emph{no} es lo mismo que una quinta disminuida.  Si
 empezamos en un Do, un Fa sostenido situado a continuación se colocará por encima del Do, mientras que
-un Sol bemol se colocará por debajo del Do.
+un Sol bemol se colocará por debajo de este mismo Do.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c2 fis
@@ -568,7 +568,7 @@ cis1 ees fisis, aeses
 @cindex armadura de la tonalidad, establecer
 @subheading Key signatures
 
-LA armadura de la tonadlidad se establece mediante el comando @code{\key} seguido de
+La armadura de la tonadlidad se establece mediante el comando @code{\key} seguido de
 una nota y @code{\major} o @code{\minor}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -952,7 +952,7 @@ expresión simultánea, hay más de un pentagrama.
 Este mecanismo es semejante a las fórmulas
 matemáticas: una fórmula grande se construye combinando fórmulas pequeñas.  Dichas
 fórmulas se llaman expresiones, y su definición es recursiva de tal forma que
-puede construir expresiones de un tamaño y complejidad arbitrarios.  Por ejemplo:
+se pueden construir expresiones de un tamaño y complejidad arbitrarios.  Por ejemplo:
 
 @example
 1
@@ -995,8 +995,8 @@ elementos @code{Staff} se combinan después en paralelo con @code{<<} y
 @end lilypond
 
 El comando @code{\new} inaugura un @q{contexto de notación}.  Un contexto de
-notación se un entorno dentro del que los acontecimientos musicales (como las notas o los
-comandos @code{\clef}) se interpretan.  Para piezas sencillas, tales
+notación es un entorno dentro del que se interpretan los acontecimientos musicales (como las notas o los
+comandos @code{\clef}).  Para piezas sencillas, tales
 contextos de notación se crean automáticamente.  Para piezas más complicadas, es mejor
 marcar los contextos de forma explícita.
 
@@ -1232,7 +1232,7 @@ Estos acordes se pueden escribir como notas:
 Ahora, cada altura se lee como la fundamental de un acorde en vez de como una nota.
 Este modo se activa con @code{\chordmode}.  Otros acordes pueden
 construirse añadiendo modificadores después de un signo de dos puntos.  El
-ejemplo que sigue muestra algunos modificadores corrientes:
+ejemplo que sigue muestra algunos modificadores comunes:
 
 @lilypond[quote,verbatim,ragged-right]
 \chordmode { c2 f4:m g4:maj7 gis1:dim7 }
@@ -1344,7 +1344,7 @@ las alturas: el modo absoluto.
 Si omite el @code{\relative}, LilyPond tratará todas las alturas como
 valores absolutos.  Una @code{c'} significará siembre un Do central, una @code{b} significará
 siempre la nota inmediatamente por debajo del Do central, y una @code{g,} significará
-siempre la nota de primera línea del pentagrama en clave de Fa.
+siempre la nota que se coloca en la primera línea del pentagrama en clave de Fa.
 
 @lilypond[quote,verbatim,ragged-right]
 {
@@ -1506,4 +1506,3 @@ Si aún tiene dudas respecto de la entrada de LilyPond exacta que se
 ha utilizado en un ejemplo, lea la versión HTML (si no lo está haciendo ya)
 y pulse con el ratón sobre la imagen de la música.  De esta forma se mostrará la entrada
 exacta que LilyPond usó para generar este manual.
-

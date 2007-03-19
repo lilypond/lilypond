@@ -227,8 +227,8 @@ a poder nosotros, simples hackers, escibir
 un programa que les quite el trabajo?
 
 La respuesta es: ¡no podemos!  Puesto que la tipografía se fundamenta en el juicio humano
-sobre la apariencia, las personas nunca se pueden sustituir completamente.
-Sinm embargo, gran parte del trabajo más duro y repetitivo se peude automatizar.
+sobre la apariencia, nunca se puede sustituir completamente a las personas.
+Sin embargo, se puede automatizar gran parte del trabajo más duro y repetitivo.
 Si LilyPond resuelve la mayoría de las situaciones comunes de forma correcta,
 esto ya será una tremenda mejoría sobre los programas existentes.
 El resto de los casos se podrán afinar a mano.  Con el transcurso
@@ -244,8 +244,8 @@ Este esquema resultó no ser muy satisfactorio por una serie de motivos:
 @item Cuando LilyPond comete fallos,
 los usuarios tienen la necesidad de superar las decisiones de formateo.  Por
 ello el usuario debe tener acceso
-al motor de formateo.  De aquí que las reglas y valores establecidos no pueden
-quedar fijados por nosotros durante la compilación sino que los usuarios deben poder
+al motor de formateo.  De aquí que no podamos dejar establecidas las reglas y valores
+durante la compilación, sino que los usuarios deben poder
 acceder a ellos durante la ejecución del programa.
 
 @item El grabado de música es cosa de juicio visual y por ello es cuestión de gustos.
@@ -368,7 +368,7 @@ Sin embargo esto sólo se puede hacer una vez que se ha decidido @emph{qué} sí
 han de imprimirse, o dicho de otro modo: qué notación utilizar.
 
 La notación musical común es un sistema de registro de música que ha venido
-evolucionando desde hace 1000 años.  La forma que se usa en nuestros días data de
+evolucionando desde hace mil años.  La forma que se usa en nuestros días data de
 los primeros tiempos del Renacimiento.  Aunque la forma básica (es decir: puntos
 sobre una pauta de cinco líneas) no ha cambiado, los detalles continúan evolucionando 
 para expresar todas las innovaciones de la notación contemporánea.
@@ -937,7 +937,7 @@ Los archivos de incialización, como por ejemplo @file{scm/@/lily@/.scm}, o
 @cindex extender lilypond
 @cindex índice
 
-Por último, este y el resto de los manuales, están disponibles en línea tanto como archivos
+Por último, este y el resto de los manuales están disponibles en línea tanto como archivos
 PDF como HTML en el sitio web, que encontrará en
 @uref{http://@/www@/.lilypond@/.org/}.
 

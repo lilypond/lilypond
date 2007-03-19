@@ -32,7 +32,7 @@ Este capítulo explica cómo usar las funcionalidades de notación básica.
 @node Pitches
 @section Pitches
 
-Esta sección trata tómo especificar la altura de las notas.
+Esta sección trata de cómo especificar la altura de las notas.
 
 @menu
 * Normal pitches::              
@@ -118,7 +118,7 @@ a2 as e es
 
 Un becuadro cancelará el efecto de una alteración accidental o de la armadura.
 Sin embargo, los becuadros no se codifican dentro de la sintaxis del nombre de la nota con un
-sufijo; una altura natural se muestra como un simple nombre de nota
+sufijo; una nota becuadro se muestra como un simple nombre de nota natural
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a4 aes a2
@@ -173,7 +173,7 @@ Normalmente las alteraciones accidentales se imprimen automáticamente, pero tam
 imprimirlas manualmente.  Un alteración recordatoria
 se puede forzar añadiendo un signo de admiración @code{!}
 después de la altura de la nota.  Una alteración de precaución
-(o sea, una alteración encerrada en paréntesis) se peude obtener añadiendo el
+(o sea, una alteración entre paréntesis) se puede obtener añadiendo el
 signo de interrogación @samp{?} después del nombre de la nota.  Estas alteraciones adicionales
 se pueden usar también para producir notas con becuadro.
 
@@ -316,7 +316,7 @@ tiene siete semitonos mientras que la quinta disminuida sólo tiene seis semiton
 
 Las marcas de cambio de octava @code{'} y @code{,} se pueden añadir para
 elevar o bajar la altura en una octava más.  Al entrar en el modo relativo,
-se peude especificar una altura de inicio absoluta que se comportará como
+se puede especificar una altura de inicio absoluta que se comportará como
 la nota precedente a la primera nota de la @var{expresión_musical}.  Si no
 se especifica ninguna altura inicial, se utilizará el Do central como
 comienzo.
@@ -407,7 +407,7 @@ La octava de una nota que sigue a una comprobación de octava
 se determina con respecto a la nota que la precede.  En el siguiente fragmento,
 la última nota es una @code{a'}, por encima del Do central.  Esto
 significa que la comprobeación de @code{\octave} se aprueba satisfactoriamente,
-así que la comprobación se peude borrar sin que cambie la salida de la pieza.
+así que la comprobación se puede borrar sin que cambie la salida de la pieza.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
@@ -871,7 +871,7 @@ pipeSymbol = \bar "||"
 @node Barnumber check
 @subsection Barnumber check
 
-Al copiar piezas musicales grandes peude servir de ayuda comprobar que
+Al copiar piezas musicales grandes puede servir de ayuda comprobar que
 el número de compás de LilyPond corresponde al original desde el que está copiando.
 Esto se puede comprobar con @code{\barNumberCheck}, por ejemplo
 
@@ -1631,9 +1631,9 @@ con el significado de @qq{queda un valor de negra en este compás}.
 
 @refbugs
 
-Este comando no tiene en cuenta los mordentes al comienzo
-de la música.  Cuando una pieza comienza con mordentes en la anacrusa,
-el @code{\partial} debe escribirse después de las notas del mordente
+Este comando no tiene en cuenta las notas de adorno al comienzo
+de la música.  Cuando una pieza comienza con notas de adorno en la anacrusa,
+el @code{\partial} debe escribirse después de las notas de adorno
 
 @lilypond[verbatim,quote,ragged-right,relative,fragment]
 \grace f16
@@ -2246,7 +2246,7 @@ LilyPond inserta las barras de corchea automáticamente
 @end lilypond
 
 Cuando estas decisiones automáticas no son lo bastante buenas, se
-peuden escribir los barrados de forma explícita.  También es posible
+pueden escribir los barrados de forma explícita.  También es posible
 definir patrones de barrado que difieran de los ajustes por defecto.
 Consulte @ref{Setting automatic beam behavior} para ver los detalles.
 
@@ -2358,7 +2358,7 @@ rodean las notas, como los textos y las alteraciones.
 @cindex appoggiatura
 @cindex acciaccatura
 
-Los mordentes son ornamentos escritos.  El más común es la
+Los mordentes y notas de adorno son ornamentos escritos.  El más común es la
 acciaccatura o mordente de una nota, que se debe tocar muy corta.  Se
 denota mediante una corchea pequeña, ligada, con un corchete tachado o
 atravesado por una barrita.  La appoggiatura es una nota de adorno que
