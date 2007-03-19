@@ -1,9 +1,9 @@
 \version "2.10.12"
 
 \header { texidoc = "
-l.v. ties should avoid dots and staff lines, similar to normal ties. 
-They have fixed size. Their formatting can be tuned with
- @{tie-configuration@}
+Laissez vibrer ties should avoid dots and staff lines, similar to
+normal ties.  They have fixed size. Their formatting can be tuned with
+@code{tie-configuration} 
 " }
 
 \paper {

@@ -4,8 +4,9 @@
 Between notes, there may be simple glissando lines.  Here, the first
 two glissandi are not consecutive.
 
+
 The engraver does no time-keeping, so it involves some trickery to get
-<< @{ s8 s8 s4 @} @{ c4 \gliss d4 @} >> working correctly.
+@code{>} working correctly. 
 " }
 
 \layout{

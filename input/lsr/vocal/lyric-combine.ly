@@ -1,9 +1,9 @@
 \version "2.10.12"
 
 \header { texidoc = "
-With the @{\lyricsto@} mechanism, individual lyric lines can be
+With the @code{\lyricsto} mechanism, individual lyric lines can be
 associated with one melody line. For each lyric line, they can be tuned
-whether to follow melismata or not.
+whether to follow melismata or not. 
 " }
 
 <<

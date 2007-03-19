@@ -2,7 +2,7 @@
 
 \header { texidoc = "
 The vertical positions of staff lines may be specified individually, by
-setting the @{line-positions@} property of the StaffSymbol.
+setting the @code{line-positions} property of the StaffSymbol. 
 " }
 
 \new Staff \relative c' {

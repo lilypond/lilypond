@@ -1699,19 +1699,19 @@ smaller = {
 
 \addQuote clarinet \relative {
   R1*20
-  r2 r8 c f f
+  r2 r8 c' f f
 }
 
 \new Staff \relative  <<
 
-  % setup a context for  cue  notes.
+  % setup a context for cue notes.
   \new Voice = "cue" { \smaller \skip 1*21 }
 
   \set Score.skipBars = ##t
 
   \new Voice {
     R1*20
-    \cueDuring #"clarinet" #1 {
+    \cueDuring #"clarinet" #UP {
       R1
     }
     g4 g2.
