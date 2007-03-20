@@ -297,7 +297,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
-  q->rotate (a, Offset (x_off, y_off));
+  q->rotate_degrees (a, Offset (x_off, y_off));
   return new_s;
 }
 
