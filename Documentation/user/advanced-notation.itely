@@ -256,11 +256,13 @@ properties
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 c1
 \textSpannerDown
-\override TextSpanner #'edge-text = #'("rall " . "")
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \upright "rall" } 
 c2\startTextSpan b c\stopTextSpan a
 \break
 \textSpannerUp
-\override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \italic "rit" } 
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
