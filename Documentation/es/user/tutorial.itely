@@ -140,38 +140,31 @@ Si se produce algún error durante el proceso, observe la ventana del registro.
 
 @subsubheading Windows
 
-En Windows, abra un editor de texto@footnote{Cualquier editor normal u
-orientado a programadores que tenga soporte para UTF-8 servirá, por ejemplo
-el Bloc de Notas.  No utilice un procesador de texto porque estos programas
-introducen códigos de formato que confundirían a LilyPond.} e introduzca
+En Windows, si hace doble click sobre el icono de LilyPond que está en
+el escritorio, se abrirá un sencillo editor de texto con un archivo de
+ejemplo.  Guárdelo, por ejemplo, con el nombre @file{prueba.ly} en el
+escritorio y después haga doble click sobre el icono del archivo para
+procesarlo (el icono tiene la forma de una nota).  Transcurridos unos
+segundos, obtendrá un archivo @file{prueba.pdf} en el escritorio.
+Haga doble click sobre este archivo PDF para ver la partitura
+compuesta tipográficamente.  Un método alternativo para procesar el
+archivo @file{prueba.ly} es arrastrarlo y soltarlo sobre el icono de
+LilyPond utilizando el ratón.
 
-@verbatim
-{
-  c' e' g' e'
-}
-@end verbatim
-
-Guárdelo en elescritorio como @file{prueba.ly} y asegúrese de que el
-nombre del archivo no es @file{prueba.ly.TXT}.  Al hacer doble click sobre
-@file{prueba.ly} el archivo se procesará
-y mostrará el archivo PDF resultante.  Para editar un archivo
-@file{.ly} existente, pulse con el botón derecho y elija @qq{Editar fuente}.
-
-Si hace doble click sobre el icono de LilyPond que se encuentra en el
-escritorio, se abrirá un editor sencillo de texto con un archivo de ejemplo.
-Guárdelo con un nombre como @file{prueba.ly} en su escritorio, y a
-continuación haga doble click sobre el archivo para procesarlo.
-Transcurridos unos segundos, obtendrá un archivo @file{prueba.pdf}
-en el escritorio.  Haga doble click sobre este archivo PDF para ver la
-partitura compuesta tipográficamente.  Un método alternativo para procesar
-el archivo @file{prueba.ly} 
-es arrastrarlo y soltarlo sobre el icono de LilyPond utilizando el ratón.
+Para editar un archivo @file{.ly} existente, haga click sobre él con
+el botón derecho del ratón y elija @qq{Edit source} (editar el archivo
+fuente). Para empezar con un archivo vacío, arranque el editor como se
+describe más arriba y elija @qq{New} (nuevo) del menú @qq{File}
+(archivo).
 
 Al hacer doble click sobre el archivo no sólo se obtiene como resultado
 un archivo PDF, sino también un archivo @file{.log} que contiene cierta
 información acerca de lo que LilyPond ha hecho con el archivo.
 Si se produce algún error, examine este archivo de registro.
 
+Tenga en cuenta que hay disponibles varios editores de texto
+alternativos con un mejor apoyo para la realización de documentos de
+LilyPond, consulte @ref{Editor support} para ver más información.
 
 @subsubheading Unix
 
@@ -521,7 +514,7 @@ o un pentagrama.
 
 Como hemos visto en @ref{Simple notation}, LilyPond calcula la altura de
 cada nota de forma relativa respecto de la nota anterior@footnote{Existe otra forma de
-itroducir las alturas, @ref{Absolute note names}, pero en la práctica el modo
+introducir las alturas, @ref{Absolute note names}, pero en la práctica el modo
 relativo es mucho más cómodo y seguro de utilizar.}.  Si no se añade ninguna marca de octava
 (@code{'} y @code{,}), se supone que cada altura se encuentra dentro de una
 cuarta desde la nota anterior.
@@ -677,7 +670,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @cindex ligaduras de expresión frente a ligaduras de unión
 @subheading Warnings: slurs vs. ties
 
-Una ligadura de espresión parece una @rglos{ligadura}, pero tiene un sisgnificado distinto.  Una
+Una ligadura de expresión parece una @rglos{ligadura}, pero tiene un significado distinto.  Una
 ligadura (de unión) sencillamente hace que la primera nota sea más larga, y sólo se puede utilizar sobre
 parejas de notas iguales.  Las ligaduras de expresión indican las articulaciones
 de las notas, y se pueden utilizar sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
@@ -829,12 +822,12 @@ de música se multiplica por la fracción.  Los tresillos hacen que las notas oc
 \times 2/3 { d4 a8 }
 @end lilypond
 
-@cindex mordentes
+@cindex notas de adorno
 @cindex acciaccatura
 @cindex appoggiatura
 @subheading Grace notes
 
-Los mordentes se crean con el comando @code{\grace}, aunque
+Las notas de adorno se crean con el comando @code{\grace}, aunque
 también se pueden conseguir precediendo una expresión musical por la
 palabra clave @code{\appoggiatura} o @code{\acciaccatura}
 
@@ -1005,7 +998,7 @@ y @code{Voice} manejan la notación melódica, mientras que @code{Lyrics} se ocu
 cantados y @code{ChordNames} imprime los nombres de los acordes.
 
 En términos de sintaxis, la anteposición de @code{\new} a una expresión musical
-crea una expresión musical mayor.  De esta forma es emejante al signo
+crea una expresión musical mayor.  Es semejante al signo
 menos de las matemáticas.  La fórmula @math{(4+5)} es una expresión, por tanto
 @math{-(4+5)} es una expresión más amplia.
 
@@ -1121,7 +1114,7 @@ Ver @ref{Basic polyphony}.
 
 @cindex acordes
 Los acordes se hacen rodeando las notas con paréntesis en ángulo simples. Los paréntesis
-en ángulo son los símbolos @samp{<} (menor que) and @samp{>} (mayor que).
+en ángulo son los símbolos @samp{<} (menor que) y @samp{>} (mayor que).
 
 @lilypond[quote,fragment,verbatim,relative=2,fragment]
 r4 <c e g>4 <c f a>2
@@ -1443,7 +1436,7 @@ cello = \new Staff { \relative c {
 
 @noindent
 El nombre de un identificador debe consistir enteramente en caracteres alfabéticos, es decir
-sin números, guiones bajos ni guiones.
+sin números, guiones ni guiones bajos.
 
 Es posible utilizar variables para otras muchas clases de objetos en el código de
 entrada.  Por ejemplo:
