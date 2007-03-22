@@ -433,7 +433,7 @@ but it can also be used anywhere text is called in lilypond
 
     \set Staff.instrumentName = \markup{ \column{ Alto solo } }
     c2^\markup{ don't be \flat }
-    \override TextSpanner #'edge-text = #(cons (markup #:italic "rit" ) "")
+    \override TextSpanner #'bound-details #'left #'text = \markup{\italic rit }
     b2\startTextSpan
     a2\mark \markup{ \large \bold Fine }
     r2\stopTextSpan
