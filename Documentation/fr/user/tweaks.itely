@@ -1,64 +1,548 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
-
+    Translation of GIT committish: c7d952c4fd5fbb5b9e32e7a2bf50ceec20098160
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Tweaking output
 @chapter Tweaking output
 
-UNTRANSLATED NODE: IGNORE ME
+Ce chapitre indique comment modifier le résultat que vous obtiendrez.
+LilyPond offre de nombreuses possibilités de réglages, permettant de modifier
+quasiment chaque élément de votre partition.
 
-@menu 
-* Moving objects::
-* Fixing overlapping notation::
-* Common tweaks::
-* Default files::
-* Fitting music onto fewer pages::
-* Advanced tweaks with Scheme::
-* Avoiding tweaks with slower processing::
-@end menu 
+@menu
+* Moving objects::              
+* Fixing overlapping notation::  
+* Common tweaks::               
+* Default files::               
+* Fitting music onto fewer pages::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
+@end menu
+
+
 @node Moving objects
 @section Moving objects
 
-UNTRANSLATED NODE: IGNORE ME
+Aussi surprenant que cela puisse paraître, LilyPond n'est pas parfait.
+Certains éléments sur la partition peuvent se chevaucher, ce qui est 
+regrettable mais, le plus souvent, facile à corriger.
+
+@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
+@c  yes, I want this TODO to be visible to end-users.  It's better
+@c  than having nothing at all.
+TODO: with the new spacing features in 2.12, these specific examples are no
+longer relevant.  However, they still demonstrate powerful features
+of lilypond, so they remain until somebody creates some better examples.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@cindex padding
+
+Le plus simple est ici d'augmenter la distance entre l'objet (du
+texte comme ici, ou bien des nuances ou des doigtés) et la note.
+Dans LilyPond, il s'agit de la propriété @code{padding}, qui
+se mesure en espaces relatifs à la taille de la portée. Pour la plupart
+des objets (chacun ayant sa propre valeur), elle est définie à 1.0, ou
+un peu moins.  Nous voulons ici l'augmenter : essayons 1.5.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'padding = #1.5
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+
+C'est déjà mieux ! Mais on peut certainement encore améliorer le résultat. 
+Il nous semble, après plusieurs essais, que la meilleure valeur
+dans ce cas soit 2.3. Toutefois, ce constat est le fruit 
+d'expérimentation et de goût personnel en matière de notation.
+Essayez le même exemple avec 2.3... mais également  avec 
+des valeurs plus grandes (ou plus petites).
+À votre avis, quelle est la meilleure version ?
+
+
+La propriété @code{staff-padding} est de nature similaire.
+@code{padding} détermine l'espace minimum entre un objet et l'objet
+le plus proche (le plus souvent une note ou les lignes de la portée) ;
+@code{staff-padding} détermine pour sa part l'espace minimum entre
+un objet et la portée. La différence est subtile, mais vous apparaîtra 
+clairement ici :
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+c4^"piu mosso" b a b
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+\once \override TextScript #'staff-padding = #4.6
+c4^"piu mosso" fis a g
+\break
+c'4^"piu mosso" b a b
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+\once \override TextScript #'staff-padding = #4.6
+c4^"piu mosso" fis a g
+@end lilypond
+
+@cindex extra-offset
+
+Une autre façon de faire permet de contrôler totalement la position d'un objet -- on
+peut le déplacer horizontalement ou verticalement.  Ceci peut être effectué à l'aide 
+de la propriété @code{extra-offset}. En fait c'est une méthode plus complexe, qui peut
+en outre poser des problèmes. Quand on déplace un objet à l'aide de @code{extra-offset}, 
+le déplacement est effectué après que LilyPond a placé tous les autres objets.
+Ceci signifie en particulier que l'objet déplacé de cette manière peut venir
+recouvrir d'autres objets déjà placés.
+
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+Lorsqu'on utilise @code{extra-offset}, le premier nombre décrit le
+déplacement horizontal (négatif pour un déplacement vers la gauche) 
+tandis que le deuxième décrit un déplacement vertical (négatif 
+pour le haut). Après quelques essais, on peut choisir les valeurs suivantes
+qui semblent donner un résultat satisfaisant.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@noindent
+
+Une fois encore, c'est après quelques tâtonnements que l'on a abouti à
+ces nombres, au regard du résultat final. Si vous souhaitez que 
+le texte soit plus haut, plus à gauche, etc. essayez vous-même et choisissez
+aprés avoir regardé le résultat.
+
+Une dernière mise en garde : dans cette section, nous avons eu recours à
+
+@example
+\once \override TextScript @dots{}
+@end example
+
+ce qui permet de régler le placement du texte pour la note suivante.
+Mais si cette note n'a pas de texte, le réglage ne s'appliquera pas
+et n'attendra @strong{pas} le prochain texte. Pour que ce comportement 
+persiste après la commande, ne mettez pas @code{\once}.  Votre réglage
+s'appliquera alors partout, jusqu'à ce que vous l'annuliez au moyen de
+la commande @code{\revert}.  Ceci est expliqué en détail dans @ref{The \override command}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+c4^"piu mosso" b
+\once \override TextScript #'padding = #4.6
+  a4 b
+c4^"piu mosso" d e f
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+c4^"piu mosso" d e f
+\break
+\override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+c4^"piu mosso" d e f
+\revert TextScript #'padding
+c4^"piu mosso" d e f
+@end lilypond
+
+@seealso
+
+Dans ce même manuel : @ref{The \override command}, @ref{Common tweaks}.
+
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-UNTRANSLATED NODE: IGNORE ME
+Avec la section @ref{Moving objects}, nous avons vu comment
+déplacer un objet @code{TextScript}.  Ce même procédé peut être
+appliqué à d'autres types d'objets : il vous suffira de remplacer
+@code{TextScript} par le nom de l'objet en question.
+
+Pour trouver cette dénomination, regardez les liens @q{@strong{Voir aussi}}
+en bas des pages de la documentation. Par exemple, en bas de la page @ref{Dynamics},
+nous trouvons 
+
+@quotation
+@seealso
+
+Référence du programme : @internalsref{DynamicText}, @internalsref{Hairpin}.
+Le placement vertical de ces symboles est contrôlé par
+@internalsref{DynamicLineSpanner}.
+@end quotation
+
+@noindent
+
+Ce qui implique que, pour modifier la hauteur d'une nuance, nous utiliserons
+
+@example
+\override DynamicLineSpanner #'padding = #2.0
+@end example
+
+On ne listera pas ici tous les types d'objets, mais seulement
+les plus communs :
+
+@multitable @columnfractions .33 .66
+@headitem Type d'objet            @tab Nom de l'objet
+@item Nuances (verticalement)     @tab @code{DynamicLineSpanner}
+@item Nuances (horizontalement)   @tab @code{DynamicText}
+@item Laisons de tenue            @tab @code{Tie}
+@item Liaisons                    @tab @code{Slur}
+@item Indications d'articulation  @tab @code{Script}
+@item Doigtés                     @tab @code{Fingering}
+@item Textes (@code{^"texte"})    @tab @code{TextScript}
+@item Repères                     @tab @code{RehearsalMark}
+@end multitable
+
 
 @node Common tweaks
 @section Common tweaks
 
-UNTRANSLATED NODE: IGNORE ME
+Certains réglages sont si courants que des raccourcis sont fournis
+sous forme de commandes telles que @code{\slurUp} et @code{\stemDown}.  
+Toutes ces commandes sont décrites dans les différentes sectionts
+de la Référence de notation.
+
+La liste complète des modifications possibles pour chaque type d'objet
+(tels que les liaisons ou les ligatures) se trouve dans la Référence du
+programme. Cependant, certaines propriétés sont communes à de nombreux
+objets, et on peut de ce fait définir quelques réglages génériques.
+
+
+@itemize @bullet
+
+@cindex padding
+
+@item
+La propriété @code{padding} peut être définie de manière à
+accroître (ou décroître) la distance entre les symboles qui se
+placent au-dessus ou au-dessous des notes. Ce qui s'applique à
+tous les objets régis par @code{side-position-interface}.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c2\fermata
+\override Script #'padding = #3
+b2\fermata
+@end lilypond
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below:
+\override MetronomeMark #'padding = #3
+\tempo 4=120
+c1
+% This works:
+\override Score.MetronomeMark #'padding = #3
+\tempo 4=80
+d1
+@end lilypond
+
+Notez, dans le second exemple, l'importane de savoir à quel contexte
+correspond l'objet.  Dans la mesure où l'objet @code{MetronomeMark}
+appartient au contexte @code{Score}, les modifications affectant le
+contexte @code{Voice} ne l'affecteront pas.  Pour plus de détails, voir 
+@ref{Constructing a tweak}.
+
+@cindex extra-offset
+
+@item
+La propriété @code{extra-offset} permet de déplacer latéralement et
+verticalement ; c'est pourquoi elle requiert deux nombres. Le premier
+affecte le placement horizontal (un nombre positif déplace l'objet vers la droite) ;
+le second le placement vertical (un nombre positif déplace l'objet vers le
+haut).  Cette propriété est de bas niveau : le moteur de formatage ne tient
+aucun compte des placements qu'elle induit.
+
+Dans l'exemple suivant, le second doigté est déplacé un peu vers la gauche, et
+plus bas de 1.8 espaces :
+
+@lilypond[quote,fragment,relative=1,verbatim]
+\stemUp
+f-5
+\once \override Fingering
+    #'extra-offset = #'(-0.3 . -1.8)
+f-5
+@end lilypond
+
+@item
+La propriété @code{transparent} imprime les objets avec de 
+l'@q{encre invisible} : l'objet n'est pas visible, mais tous
+les comportement lui afférant s'appliquent quand même.  Il occupe
+une certaine place, intervient dans la gestion des collisions, et on
+peut lui attacher des liaisons ou des ligatures.
+
+@cindex transparent objects
+@cindex removing objects
+@cindex hiding objects
+@cindex invisible objects
+
+L'exemple suivant montre comment tenir des notes entre différentes voix,
+au moyen de liaisons.  Ces liaisons de tenue, en principe, ne peuvent relier
+que deux notes d'une même voix.  On introduit donc la liaison dans une autre voix :
+
+@lilypond[quote,fragment,relative=2]
+<< {
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+@noindent
+et on efface la première croche (hampe vers le haut) de ladite voix ; maintenant
+la liaison semble passer d'une voix à l'autre :
+
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<< {
+  \once \override Stem #'transparent = ##t
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+Pour s'assurer que le crochet de la hampe que nous avons effacée ne 
+raccourcira pas la liaison, nous allons également rallonger cette hampe,
+en attribuant à la propriété @code{length} la valeur @code{8} :
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<< {
+  \once \override Stem #'transparent = ##t
+  \once \override Stem #'length = #8
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+@end itemize
+
+@cindex Tweaks, distances
+@cindex Distances
+
+Les distances dans LilyPond sont mesurées dans l'unité staff-space
+tandis que la plupart des propriétés relatives aux épaisseurs
+sont mesurées à l'aide de l'unité line-thickness. Toutefois, certaines d'entre-elles
+échappent à cette règle : par exemple l'épaisseur des liens de croches
+est mesurée à l'aide de l'unité staff-space.  Pour de plus amples informations, 
+consultez les sections correspondantes de la Référence du programme.
+
 
 @node Default files
 @section Default files
 
-UNTRANSLATED NODE: IGNORE ME
+La Référence du programme contient
+beaucoup d'informations sur LilyPond. Cependant vous pouvez en trouver 
+encore plus en regardant les fichiers internes de LilyPond.
+
+Des réglages par défaut (tels que les définitions des blocs
+@code{\header@{@}}) sont contenus dans des fichiers @code{.ly}. D'autres 
+(comme les définitions des commandes @qq{markup} ) sont contenus dans des fichiers @code{.scm}.
+(Scheme). Malheureusement, des explications plus complètes dépassent le cadre de ce manuel.
+Les utilisateurs qui souhaiteraient comprendre le fonctionnement de ces fichiers de 
+configurations doivent être avertis que des connaissances techniques substantielles et
+beaucoup de temps sont nécessaires.
+
+@itemize @bullet
+
+@item Linux : @file{@var{dossierduprogramme}/lilypond/usr/share/lilypond/current/}
+
+@item Mac OS X :
+@file{@var{dossierduprogramme}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+Pour accéder à ce dossier, deux possibilités : soit, dans un Terminal, taper @code{cd} suivi du
+chemin complet ci-dessus ; soit Control-cliquer  (ou clic droit) sur l'application LilyPond
+et sélectionner @q{Afficher le contenu du paquet}.
+
+
+@item Windows : @file{@var{dossierduprogramme}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+Les répertoires @file{ly/} et @file{scm/} sont tout particulièrement intéressants.
+En effet les fichiers du type @file{ly/property-init.ly} ou encore @file{ly/declarations-init.ly}
+définissent toutes les défintions avancées communes.
 
 @node Fitting music onto fewer pages
 @section Fitting music onto fewer pages
 
-UNTRANSLATED NODE: IGNORE ME
+Parfois, une partition peut se terminer avec seulement 
+un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
+surtout si vous constatez, en regardant les pages précédentes, qu'il
+reste encore beaucoup de place sur celles-ci.
+
+Si vous vous intéressez aux problèmes de mise en page, @code{annotate-spacing}, 
+peut alors être un outil d'une valeur inestimable. Cette commande imprime les valeurs 
+de nombreuses commandes d'espacement concernant la mise en page.
+Consultez @ref{Displaying spacing} pour de plus amples informations. À l'aide 
+des informations données par @code{annotate-spacing} on peut 
+voir quelles marges il est souhaitable de modifier afin de résoudre le problème.
+
+
+En plus d'agir sur les marges, il existe d'autres possibilités
+qui permettent de gagner de la place.
+
+@itemize
+@item
+
+Vous pouvez demander à LilyPond de placer les systèmes aussi 
+près que possible les uns des autres (pour en disposer autant
+que possible dans une page). 
+
+But then to space those systems out so that there is no blank
+space at the bottom of the page.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Vous pouvez obliger LilyPond à mettre un certain nombre de systèmes
+par page. Par exemple si LilyPond veut placer onze systèmes dans une page,
+vous pouvez l'obliger à n'en mettre que dix.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+
+Supprimer (ou réduire) les objets qui augmentent la hauteur du système.
+C'est le cas en particulier de certaines reprises (avec des 
+alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
+de reprise se poursuivent sur deux systèmes, ils prendront plus de place que s'ils
+sont regroupés sur un même système.
+
+Un autre exemple : déplacer les nuances qui dépassent @q{à l'extérieur} d'un système.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+
+
+Modifier l'espacement vertical via @code{SpacingSpanner}.  Regardez
+@ref{Changing horizontal spacing} pour plus de détails.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+
 
 @node Advanced tweaks with Scheme
 @section Advanced tweaks with Scheme
 
-UNTRANSLATED NODE: IGNORE ME
+Nous avons déjà vu comment le résultat obtenu avec LilyPond peut être
+largement personnalisé à l'aide de commandes comme 
+@code{\override TextScript #'extra-offset = ( 1 . -1)}. Cependant,
+l'utilisation de Scheme ouvre des possibilités encore plus grandes.
+Pour des explications complètes là-dessus, consultez @ref{Scheme tutorial} et
+@ref{Interfaces for programmers}.
+
+On peut utiliser Scheme simplement à l'aide des commandes @code{\override}.
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+On peut s'en servir pour créer de nouvelles commandes :
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
+}
+@end lilypond
+
+On peut même y inclure des expressions musicales :
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
+
 
 @node Avoiding tweaks with slower processing
 @section Avoiding tweaks with slower processing
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond peut effectuer des vérifications supplémentaires lors du 
+traitement des fichiers, cependant le rendu nécessitera alors plus de temps.
+En contrepartie, il y aura moins d'ajustements manuels à réaliser.
 
+  
+@example
+%%  Ceci sert à s'assurer que les indications textuelles resteront à l'intérieur des marges de la page.
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
