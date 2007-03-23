@@ -882,7 +882,7 @@ les traductions vers divers languages.  C'est un document séparé,
 disponible dans les formats HTML et PDF.
 @end iftex
 @ifnottex
-Le @ref{Top,Music glossary,,music-glossary} explique les termes
+Le @ref{Top,glossaire musical,,music-glossary} explique les termes
 musicaux et inclut les traductions vers divers languages.  Il est
 également disponible au format PDF. 
 @end ifnottex
@@ -904,7 +904,7 @@ plateforme.
 Référence du programme
 @end iftex
 @ifnottex
-@ref{Top,Program reference,,lilypond-internals}.
+@ref{Top,Référence du programme,,lilypond-internals}.
 @end ifnottex
 
 La référence du programme est un groupe de pages HTML étroitement
