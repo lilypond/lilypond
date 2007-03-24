@@ -9,8 +9,8 @@ run
 
     mkdir lily ; cd lily
     git init-db
-    git fetch git://git.sv.gnu.org/lilypond.git/ refs/heads/master:remotemaster
-    git checkout -b master remotemaster
+    git fetch git://git.sv.gnu.org/lilypond.git/ refs/heads/lilypond/translation:lilypond/translation
+    git checkout -b mytranslations lilypond/translation
 
 
 GIT
@@ -48,7 +48,7 @@ Cd into Documentation and run:
 
     make ISOLANG=<MY-LANGUAGE> new-lang
 
-where <MY-LANGUAGE> is the ISO 639 language code
+where <MY-LANGUAGE> is the ISO 639 language code.
 
 Add a language definition for your language in
 buildscripts/langdefs.py.
@@ -73,6 +73,7 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 1 user/dedication.itely
 1 user/cheatsheet.itely
 1 index.html.in
+  po/<MY-LANGUAGE>.po
 
 -2- User manual introduction
 2 user/preface.itely
@@ -105,14 +106,54 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 
 * WORD COUNTS FOR CATEGORIES
 
-LANG=C wc --words $(grep ^1 TRANSLATION | cut -d ' ' -f 2 | sed 's@^@site/@')
+LANG=C wc --words $(grep ^1 TRANSLATION | cut -d ' ' -f 2)
+  777 user/lilypond.tely
+ 6322 user/tutorial.itely
+   63 user/dedication.itely
+  632 user/cheatsheet.itely
+  361 index.html.in
+ 8155 total
 
-LANG=C wc --words $(grep ^2 TRANSLATION | cut -d ' ' -f 2 | sed 's@^@site/@')
+LANG=C wc --words $(grep ^2 TRANSLATION | cut -d ' ' -f 2)
+  451 user/preface.itely
+ 4170 user/introduction.itely
+ 4621 total
+
+LANG=C wc --words $(grep ^3 TRANSLATION | cut -d ' ' -f 2)
+ 2230 user/putting.itely
+ 3232 user/working.itely
+ 2327 user/tweaks.itely
+ 7789 total
+
+LANG=C wc --words $(grep ^4 TRANSLATION | cut -d ' ' -f 2)
+ 12391 user/basic-notation.itely
+ 15779 user/instrument-notation.itely
+  9530 user/advanced-notation.itely
+  7386 user/changing-defaults.itely
+  3884 user/non-music.itely
+  8318 user/spacing.itely
+  4781 user/programming-interface.itely
+   915 user/scheme-tutorial.itely
+ 62984 total
+
+LANG=C wc --words $(grep ^5 TRANSLATION | cut -d ' ' -f 2)
+ 3566 user/running.itely
+ 3549 user/lilypond-book.itely
+ 1062 user/converters.itely
+ 8177 total
+
+LANG=C wc --words $(grep ^6 TRANSLATION | cut -d ' ' -f 2)
+  339 user/literature.itely
+ 4648 user/templates.itely
+  836 user/notation-appendices.itely
+ 5823 total
 
 
 TRANSLATION DETAILED INSTRUCTIONS
 
 Please follow all these instructions with care to ensure quality work.
+
+All files should be encoded in UTF-8.
 
 * USER MANUAL
 
@@ -126,6 +167,8 @@ translated directly in the Texinfo source
 @subsubsection @unnumberedsubsubsec @appendixsubsubsec  @subsubheading
 @ref           @rglos
 
+As a notable exception, the second argument 'Bar baz' of
+@ref{Foo,'Bar baz',,info-file} should be translated.
 
 In any section which looks like
 
@@ -157,32 +200,52 @@ lilypond-devel@gnu.org.
 
 * DOCUMENTATION INDEX index.html.in
 
+Unlike almost all HTML pages in this documentation, links in this page
+are not tweaked by add_html_footer.py, so links should be manually
+edited to link to existing translations.
 
 
 CHECK STATE OF TRANSLATION
+
+First pull, then cd into Documentation (or at top of the source tree,
+replace 'make' with 'make -C Documentation') and run
+
+    make ISOLANG=<MY_LANGUAGE> check-translation
+
+This presents a diff of the original files since the most recent
+revision of the translation.  To check a single page, run
+
+    buildscripts/check-translation.py Documentation/user/<MY-LANGUAGE>/foo/bar.itely
 
 
 
 UPDATE A TRANSLATION
 
+Texinfo skeleton files, i.e. .itely files not yet translated,
+containing only the Texinfo structure can be updated automatically:
+whenever 'make check-translation' shows that such files shouldbe
+updated, run from Documentation
+
+    make ISOLANG=<MY_LANGUAGE> skeleton-update
+
+.po message catalogs in Documentation/po may be updated with (from
+Documentation or Documentation/po)
+
+    make po-update
+
 
 
 TECHNICAL BACKGROUND
 
-*** This section is a draft and should be overhauled ***
-- J. Mandereau
+A number of Python scripts handle a part of the documentation
+translation process:
 
-When starting a translation, texi-langutils.py quickly parses
-lilypond.tely and the included .itely's, and generates a skeleton with
-node and sectionning commands.  When translating a .itely file, the
-skeleton file is replaced with the real translation, in exception of
-the the node, sectioning and glossary reference commands, which
-remains in English.  All this ensures easy navigation between nodes in
-different languages in HTML docs, i.e.: there is automatic language
-selection on lilypond.org, all sections and cross-references are
-always available, at least in English (for example, see the "Other
-languages: xxx" menu at bottom of tutorial pages).  From the user's
-point of view, docs in his native language with node and sections in
-English are painful, so texi-langutils generates a .po of node and
-section names; this .po file is used to translate the section titles
-in the HTML generated docs.
+langdefs.py  -- language definitions
+check_translation.py  -- show diff to update a translation
+texi-langutils.py  -- quickly and dirtily parse Texinfo files to
+make message catalogs and Texinfo skeleton files
+texi-skeleton-update.py -- update Texinfo skeleton files
+html-gettext.py -- translate node names, section titles and cross
+references in HTML files generated by makeinfo
+add_html_footer.py (module called by www_post.py) -- add footer and
+tweak links in HTML pages
