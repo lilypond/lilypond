@@ -35,9 +35,10 @@ regrettable mais, le plus souvent, facile à corriger.
 @c  FIXME: find a better example for 5.1 Moving Objects.  -gp
 @c  yes, I want this TODO to be visible to end-users.  It's better
 @c  than having nothing at all.
-TODO: with the new spacing features in 2.12, these specific examples are no
-longer relevant.  However, they still demonstrate powerful features
-of lilypond, so they remain until somebody creates some better examples.
+À FAIRE : les modifications de la gestion des espacements de la version 2.12
+feront perdre leur pertinence aux exemples suivants.  Ils démontrent cependant 
+la puissance de LilyPond, et justifient à ce titre leur présence dans ces lignes,
+tant que d'autres exemples n'auront pas été proposés.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:
@@ -65,8 +66,8 @@ e4^\markup{ \italic ritenuto } g b e
 C'est déjà mieux ! Mais on peut certainement encore améliorer le résultat. 
 Il nous semble, après plusieurs essais, que la meilleure valeur
 dans ce cas soit 2.3. Toutefois, ce constat est le fruit 
-d'expérimentation et de goût personnel en matière de notation.
-Essayez le même exemple avec 2.3... mais également  avec 
+d'expérimentations et de goût personnel en matière de notation.
+Essayez le même exemple avec 2.3... mais également avec 
 des valeurs plus grandes (ou plus petites).
 À votre avis, quelle est la meilleure version ?
 
@@ -96,12 +97,10 @@ c4^"piu mosso" fis a g
 
 @cindex extra-offset
 
-Une autre façon de faire permet de contrôler totalement la position d'un objet -- on
-peut le déplacer horizontalement ou verticalement.  Ceci peut être effectué à l'aide 
-de la propriété @code{extra-offset}. En fait c'est une méthode plus complexe, qui peut
-en outre poser des problèmes. Quand on déplace un objet à l'aide de @code{extra-offset}, 
-le déplacement est effectué après que LilyPond a placé tous les autres objets.
-Ceci signifie en particulier que l'objet déplacé de cette manière peut venir
+Une autre démarche permet de contrôler totalement la position d'un objet -- on
+peut le déplacer horizontalement ou verticalement.  Il suffit d'avoir recours à 
+la propriété @code{extra-offset}. En fait c'est une méthode plus complexe, qui peut
+en outre poser des problèmes.  Quand on déplace un objet à l'aide de @code{extra-offset}, le déplacement est effectué après que LilyPond a placé tous les autres objets.  Par conséquent, l'objet ainsi déplacé peut venir
 recouvrir d'autres objets déjà placés.
 
 
@@ -171,7 +170,7 @@ Dans ce même manuel : @ref{The \override command}, @ref{Common tweaks}.
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-Avec la section @ref{Moving objects}, nous avons vu comment
+Dans la section @ref{Moving objects}, nous avons vu comment
 déplacer un objet @code{TextScript}.  Ce même procédé peut être
 appliqué à d'autres types d'objets : il vous suffira de remplacer
 @code{TextScript} par le nom de l'objet en question.
@@ -196,7 +195,7 @@ Ce qui implique que, pour modifier la hauteur d'une nuance, nous utiliserons
 \override DynamicLineSpanner #'padding = #2.0
 @end example
 
-On ne listera pas ici tous les types d'objets, mais seulement
+Nous ne listerons pas ici tous les types d'objets, mais seulement
 les plus communs :
 
 @multitable @columnfractions .33 .66
@@ -217,7 +216,7 @@ les plus communs :
 
 Certains réglages sont si courants que des raccourcis sont fournis
 sous forme de commandes telles que @code{\slurUp} et @code{\stemDown}.  
-Toutes ces commandes sont décrites dans les différentes sectionts
+Toutes ces commandes sont décrites dans les différentes sections
 de la Référence de notation.
 
 La liste complète des modifications possibles pour chaque type d'objet
@@ -253,7 +252,7 @@ c1
 d1
 @end lilypond
 
-Notez, dans le second exemple, l'importane de savoir à quel contexte
+Notez, dans le second exemple, l'importance de savoir à quel contexte
 correspond l'objet.  Dans la mesure où l'objet @code{MetronomeMark}
 appartient au contexte @code{Score}, les modifications affectant le
 contexte @code{Voice} ne l'affecteront pas.  Pour plus de détails, voir 
@@ -337,9 +336,9 @@ en attribuant à la propriété @code{length} la valeur @code{8} :
 @cindex Tweaks, distances
 @cindex Distances
 
-Les distances dans LilyPond sont mesurées dans l'unité staff-space
+Les distances dans LilyPond sont mesurées dans l'unité staff-space (espace de portée)
 tandis que la plupart des propriétés relatives aux épaisseurs
-sont mesurées à l'aide de l'unité line-thickness. Toutefois, certaines d'entre-elles
+sont mesurées à l'aide de l'unité line-thickness (épaiseur de ligne). Toutefois, certaines d'entre-elles
 échappent à cette règle : par exemple l'épaisseur des liens de croches
 est mesurée à l'aide de l'unité staff-space.  Pour de plus amples informations, 
 consultez les sections correspondantes de la Référence du programme.
@@ -349,15 +348,14 @@ consultez les sections correspondantes de la Référence du programme.
 @section Default files
 
 La Référence du programme contient
-beaucoup d'informations sur LilyPond. Cependant vous pouvez en trouver 
-encore plus en regardant les fichiers internes de LilyPond.
+beaucoup d'informations sur LilyPond. Cependant vous pouvez en découvrir 
+encore plus en consultant les fichiers internes de LilyPond.
 
 Des réglages par défaut (tels que les définitions des blocs
 @code{\header@{@}}) sont contenus dans des fichiers @code{.ly}. D'autres 
-(comme les définitions des commandes @qq{markup} ) sont contenus dans des fichiers @code{.scm}.
-(Scheme). Malheureusement, des explications plus complètes dépassent le cadre de ce manuel.
+(comme les définitions des commandes @qq{markup} ) sont contenus dans des fichiers @code{.scm} (Scheme).  Malheureusement, des explications plus complètes dépassent le cadre de ce manuel.
 Les utilisateurs qui souhaiteraient comprendre le fonctionnement de ces fichiers de 
-configurations doivent être avertis que des connaissances techniques substantielles et
+configuration doivent être avertis que des connaissances techniques substantielles et
 beaucoup de temps sont nécessaires.
 
 @itemize @bullet
@@ -377,7 +375,7 @@ et sélectionner @q{Afficher le contenu du paquet}.
 
 Les répertoires @file{ly/} et @file{scm/} sont tout particulièrement intéressants.
 En effet les fichiers du type @file{ly/property-init.ly} ou encore @file{ly/declarations-init.ly}
-définissent toutes les défintions avancées communes.
+déterminent toutes les définitions avancées communes.
 
 @node Fitting music onto fewer pages
 @section Fitting music onto fewer pages
@@ -400,13 +398,10 @@ qui permettent de gagner de la place.
 
 @itemize
 @item
-
 Vous pouvez demander à LilyPond de placer les systèmes aussi 
 près que possible les uns des autres (pour en disposer autant
-que possible dans une page). 
-
-But then to space those systems out so that there is no blank
-space at the bottom of the page.
+que possible sur une page), tout en répartissant les systèmes afin
+de ne pas laisser de blanc en bas de la dernière page.
 
 @example
 \paper @{
@@ -419,7 +414,7 @@ space at the bottom of the page.
 
 @item
 Vous pouvez obliger LilyPond à mettre un certain nombre de systèmes
-par page. Par exemple si LilyPond veut placer onze systèmes dans une page,
+par page. Par exemple, si LilyPond veut placer onze systèmes dans une page,
 vous pouvez l'obliger à n'en mettre que dix.
 
 @example
@@ -429,14 +424,13 @@ vous pouvez l'obliger à n'en mettre que dix.
 @end example
 
 @item
-
 Supprimer (ou réduire) les objets qui augmentent la hauteur du système.
 C'est le cas en particulier de certaines reprises (avec des 
 alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
 de reprise se poursuivent sur deux systèmes, ils prendront plus de place que s'ils
 sont regroupés sur un même système.
 
-Un autre exemple : déplacer les nuances qui dépassent @q{à l'extérieur} d'un système.
+Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
 
 @lilypond[verbatim,quote,fragment]
 \relative c' {
@@ -448,9 +442,7 @@ Un autre exemple : déplacer les nuances qui dépassent @q{à l'extérieur} d'un
 @end lilypond
 
 @item
-
-
-Modifier l'espacement vertical via @code{SpacingSpanner}.  Regardez
+Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
 @ref{Changing horizontal spacing} pour plus de détails.
 
 @lilypond[verbatim,quote]
@@ -479,7 +471,7 @@ Modifier l'espacement vertical via @code{SpacingSpanner}.  Regardez
 
 Nous avons déjà vu comment le résultat obtenu avec LilyPond peut être
 largement personnalisé à l'aide de commandes comme 
-@code{\override TextScript #'extra-offset = ( 1 . -1)}. Cependant,
+@code{\override TextScript #'extra-offset = ( 1 . -1)}.  Cependant,
 l'utilisation de Scheme ouvre des possibilités encore plus grandes.
 Pour des explications complètes là-dessus, consultez @ref{Scheme tutorial} et
 @ref{Interfaces for programmers}.
@@ -545,4 +537,3 @@ En contrepartie, il y aura moins d'ajustements manuels à réaliser.
 %%  Ceci sert à s'assurer que les indications textuelles resteront à l'intérieur des marges de la page.
 \override Score.PaperColumn #'keep-inside-line = ##t 
 @end example
-
