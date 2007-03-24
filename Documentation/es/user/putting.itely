@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5fbf194037aff3918ac4b0a076fd5867fbb87527
+    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -95,7 +95,7 @@ nombres -- tanto la definición inicial (la parte @code{melodia = relative c' @{
 como el uso de ese nombre (en la sección @code{\score}).
 
 También aprovecharemos para cambiar el pentagrama de la parte del cello (los violoncellos
-utilizan normalmente clave de Fa).  Asimismo, cambiaremos algunas notas del cello.
+se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas notas del cello.
 
 @example
 \version "2.11.15"
@@ -133,7 +133,7 @@ musicaCello = \relative c @{
 @end example
 
 Esto tiene una pinta prometedora, pero la parte del cello no sale en la partitura
-(no la hemos puesto en la sección @code{\score}.  Si quieremos que la parte
+(no la hemos puesto en la sección @code{\score}).  Si quieremos que la parte
 del cello aparezca debajo de la de soprano, tenemos que añadir
 
 @example
@@ -169,7 +169,7 @@ fácil solución.  Presentamos aquí la plantilla completa para soprano y cello.
 
 @lilypond[quote,verbatim,ragged-right]
 \version "2.11.15"
-musicaSoprano = \relative c' {
+sopranoMusic = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
@@ -177,11 +177,11 @@ musicaSoprano = \relative c' {
   a4 b c d
 }
 
-letraSoprano = \lyricmode {
+sopranoLyrics = \lyricmode {
   Aaa Bee Cee Dee
 }
 
-musicaCello = \relative c {
+celloMusic = \relative c {
   \clef bass
   \key c \major
   \time 4/4
@@ -192,19 +192,18 @@ musicaCello = \relative c {
 \score{
   <<
     <<
-      \new Voice = "uno" {
+      \new Voice = "one" {
         \autoBeamOff
-        \musicaSoprano
+        \sopranoMusic
       }
-      \new Lyrics \lyricsto "uno" \letraSoprano
+      \new Lyrics \lyricsto "one" \sopranoLyrics
     >>
-    \new Staff \musicaCello
+    \new Staff \celloMusic
   >>
   \layout { }
   \midi { }
 }
 @end lilypond
-
 
 
 @node How LilyPond files work
@@ -264,7 +263,7 @@ cualquier cosa desde una sola nota hasta todo un
 @example
 @{
   \new GrandStaff <<
-    introduzca aquí partitura entera de una ópera de Wagner
+    introduzca aquí la partitura completa de una ópera de Wagner
   >>
 @}
 @end example
@@ -291,7 +290,7 @@ sitúa con frecuencia por encima del @code{\score}.  Es tan sólo
 otra abreviatura que LilyPond acepta.
 
 @cindex variables
-@cindex indentificadores
+@cindex identificadores
 
 Otro atajo genial es la posibilidad de definir variables.
 Todas las plantillas emplean lo siguiente:
@@ -311,7 +310,7 @@ Cuando LilyPond examina este archivo, toma el valor de
 inserta dondequiera que ve
 @code{\melodia}.  No se requiere un cuidado especial con los
 nombres -- puede ser @code{melodia}, @code{global},
-@code{manoderechadelpiano}, or @code{fulanomengano} --.  Puede
+@code{manoderechadelpiano}, o @code{fulanomengano} --.  Puede
 usar el nombre de variable que desee.  Para ver más
 detalles, consulte
 @ref{Saving typing with identifiers and functions}.
@@ -324,13 +323,13 @@ del formato de entrada, consulte @ref{File structure}.
 @section Score is a single musical expression
 
 En la sección anterior, @ref{How LilyPond files work},
-pudimos ver la organización veneral de los archivos de entrada
+pudimos ver la organización general de los archivos de entrada
 de LilyPond.  Pero parece que nos saltamos la parte más importante:
 ¿cómo averiguamos qué escribir después de
 @code{\score}?
 
 No nos hemos saltado nada en absoluto.  El gran misterio es, sencillamente,
-que no hay @emph{ningún} misterio.  La siguinte línea lo explica todo:
+que no hay @emph{ningún} misterio.  La siguiente línea lo explica todo:
 
 @quotation
 @emph{Una @code{\score} debe comenzar con una única expresión musical.}
@@ -348,7 +347,7 @@ recorreremos el camino inverso hacia abajo.
 \score @{
   @{   % esta llave da inicio a la expresión musical completa
     \new GrandStaff <<
-      introduzca aquí partitura entera de una ópera de Wagner
+      introduzca aquí la partitura completa de una ópera de Wagner
     >>
   @}   % esta llave da por terminada la expresión musical completa
   \layout @{ @}
@@ -416,7 +415,7 @@ podríamos empezar escibiendo
 
 Pero si lo hiciéramos, la sección @code{\score} se haría bastante
 larga y sería más difícil comprender lo que ocurre.  En lugar de esto
-utilizaremos indentificadores o variables.
+utilizaremos identificadores o variables.
 
 @example
 melodia = @{ @}
@@ -442,7 +441,7 @@ inferior = @{ @}
 
 @noindent
 Recuerde que puede usar casi cualquier nombre que se le antoje.  Las
-limitaciones impuestas a los nombres de indentificador se detallan en
+limitaciones impuestas a los nombres de identificador se detallan en
 @ref{File structure}.
 
 Cuando escriba una sección @code{\score} o cuando la esté
@@ -467,7 +466,7 @@ duplicación del trabajo.  La música se escribe una vez y se almacena
 en una variable.  El contenido de dicha variable se usa después para
 generar tanto la particella como la partitura del director.
 
-Es muy conveniente definir las notas en un archivo expecial.  Por
+Es muy conveniente definir las notas en un archivo especial.  Por
 ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
 siguiente parte de un dúo para trompa y fagot:
 

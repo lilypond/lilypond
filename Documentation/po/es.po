@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-24 10:14+0100\n"
-"PO-Revision-Date: 2007-02-28 11:37+0100\n"
+"PO-Revision-Date: 2007-03-23 11:57+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -54,7 +54,7 @@ msgstr "Francés"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
-msgstr "Arriba"
+msgstr "Inicio"
 
 #. @top in ../../../Documentation/user/lilypond.tely
 msgid "GNU LilyPond --- The music typesetter"
@@ -88,7 +88,7 @@ msgstr "Comandos predefinidos"
 
 #. @subsubheading in ../../../Documentation/user/macros.itexi
 msgid "Commonly tweaked properties"
-msgstr "Propiedades modificadas frecuentemente"
+msgstr "Propiedades trucadas frecuentemente"
 
 #. @node in ../../../Documentation/user/preface.itely
 #. @unnumbered in ../../../Documentation/user/preface.itely
@@ -393,7 +393,7 @@ msgstr "Grupos especiales"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Grace notes"
-msgstr "Mordentes"
+msgstr "Notas de adorno"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @section in ../../../Documentation/user/tutorial.itely
@@ -403,7 +403,7 @@ msgstr "Varias notas a la vez"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Music expressions explained"
-msgstr "Explicación a las expresiones musicales"
+msgstr "Explicación de las expresiones musicales"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Simultaneous music expressions: multiple staves"
@@ -519,7 +519,7 @@ msgstr "Una particella orquestal"
 #. @node in ../../../Documentation/user/working.itely
 #. @chapter in ../../../Documentation/user/working.itely
 msgid "Working on LilyPond projects"
-msgstr "Trabajar en proyactos de LilyPond"
+msgstr "Trabajar en proyectos de LilyPond"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -569,7 +569,7 @@ msgstr "Ejemplos mínimos"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @chapter in ../../../Documentation/user/tweaks.itely
 msgid "Tweaking output"
-msgstr "Enredar sobre la salida"
+msgstr "Trucar la salida"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -584,7 +584,7 @@ msgstr "Arreglar notación con superposiciones"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Common tweaks"
-msgstr "Enredos comunes"
+msgstr "Trucos comunes"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -604,7 +604,7 @@ msgstr "Trucos avanzados con Scheme"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
-msgstr "Evitar las artimañas con un proceso ralentizado"
+msgstr "Evitar los trucos con un proceso ralentizado"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @chapter in ../../../Documentation/user/basic-notation.itely
@@ -752,7 +752,7 @@ msgstr "Delimitadores del comienzo de un sistema"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Staff symbol"
-msgstr "Símbolo de pentagrama"
+msgstr "El símbolo del pentagrama"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -828,7 +828,7 @@ msgstr "Tipos de repetición"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Repeat syntax"
-msgstr "Sintaxis de la repetición"
+msgstr "Sintaxis de las repeticiones"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -853,7 +853,7 @@ msgstr "Subdivisiones del trémolo"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Measure repeats"
-msgstr "Repetición de compases"
+msgstr "Repeticiones de compás"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @chapter in ../../../Documentation/user/instrument-notation.itely
@@ -868,12 +868,12 @@ msgstr "Música de piano"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Automatic staff changes"
-msgstr "Cambios automáticos de pentagrama"
+msgstr "Cambios de pentagrama automáticos"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Manual staff switches"
-msgstr "Cambios manuales de pentagrama"
+msgstr "Cambios de pentagrama manuales"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -893,12 +893,12 @@ msgstr "Plicas de pentagrama cruzado"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
 msgid "Chord names"
-msgstr "Nombres de acordes"
+msgstr "Nombres de acorde"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Introducing chord names"
-msgstr "Introducción a los nombres de acorde"
+msgstr "Escritura de los nombres de acorde"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -908,7 +908,7 @@ msgstr "Modo de acordes"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing chord names"
-msgstr "Imprimir los nombres de los acordes"
+msgstr "Impresión de los nombres de acorde"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
@@ -1499,7 +1499,7 @@ msgstr "El comando \\override"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Constructing a tweak"
-msgstr "Construir una artimaña"
+msgstr "Construir un truco"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1515,7 +1515,7 @@ msgstr "Interfaces de la presentación"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Determining the grob property"
-msgstr "Determinar la propiedad grob"
+msgstr "Determinar la propiedad del grob"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1531,7 +1531,7 @@ msgstr "\\set frente a \\override"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Difficult tweaks"
-msgstr "Artimañas difíciles"
+msgstr "Trucos difíciles"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @chapter in ../../../Documentation/user/non-music.itely

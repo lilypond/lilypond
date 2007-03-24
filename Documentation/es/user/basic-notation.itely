@@ -98,7 +98,7 @@ una nota; este método no requiere tantas especificaciones de octava
 @cindex nombres de las notas, holandés
 @cindex nombres de las notas, por omisión
 
-Un sostenido se forma añadiendo @code{-is} tal final del nombre de la nota y
+Un sostenido se forma añadiendo @code{-is} al final del nombre de la nota y
 un bemol se forma añadiendo @code{-es}.  Los dobles sostenidos y dobles bemoles
 se obtienen apadiendo @code{-isis} o @code{-eses} al nombre de la nota.
 
@@ -140,7 +140,7 @@ d e fis g
 @commonprop
 
 De acuerdo con las reglas estándar del tipografiado, se imprime un signo de becuadro
-antes de un sostenido o un bemos siempre que una alteración anterior tiene que cancelarse.
+antes de un sostenido o un bemol siempre que una alteración anterior tiene que cancelarse.
 Para modificar este comportamiento, utilice
 @code{\set Staff.extraNatural = ##f}
 
@@ -251,8 +251,8 @@ sufijos para cuartos de tono que se ven más abajo).
 Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
 de un sostenido o bemol @q{normales}.  Los nombres de nota para cuartos
 de tono que se definen en los distintos archivos de idioma se encuentran
-listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-}
-significan @q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
+listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-} significan
+@q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
 sueco, catalán y español no se ha definido aún ningún nombre especial.
 
 @c What about Turkish Maquam music and similar microtonal systems?
@@ -286,9 +286,9 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @funindex \relative
 
 Las octavas se especifican añadiendo @code{'} y @code{,} a los nombres de las notas.
-Cuando copie música existente, es fácil poner accidentalmente una nota en la octava
-equivocada y es difícil encontrar dicho error.  La octava relativa
-previene estos errores haciendo que los errores tengan consecuencias mucho mayores:
+Cuando copie música existente, es fácil poner por accidente una nota en la octava
+equivocada y luego es difícil encontrar dicho error.  La octava relativa
+previene estos errores haciendo que éstos tengan consecuencias mucho mayores:
 un solo error transporta una octava el resto de la pieza
 
 @example
@@ -349,7 +349,7 @@ determinar la primera nota del siguiente acorde
 
 La altura después del @code{\relative} contiene un nombre de nota.
 
-La converión relativa no afecta a las secciones @code{\transpose},
+La conversión relativa no afecta a las secciones @code{\transpose},
 @code{\chordmode} o @code{\relative} en su argumento.  Para usar
 el modo relativo dentro de música transportada, se debe escribir 
 un @code{\relative} adicional dentro de @code{\transpose}.
@@ -382,7 +382,7 @@ La sintaxis
 \octave @var{altura}
 @end example
 
-Esto comprueba que @var{altura} (sin las comillas) produce @var{altura} (con
+comprueba que @var{altura} (sin las comillas) produce @var{altura} (con
 las comillas) en modo @code{\relative} comparado con la nota que se da en el
 comando @code{\relative}.  Si no es así, se imprime una advertencia, y la
 octava se corrige.  La @var{altura} no se imprime como una nota.
@@ -425,8 +425,8 @@ así que la comprobación se puede borrar sin que cambie la salida de la pieza.
 @cindex Transposición de alturas
 @funindex \transpose
 
-A music expression can be transposed with @code{\transpose}.  The
-syntax is
+Una expresión musical se puede transportar mediante @code{\transpose}.  La
+sintaxis es
 @example
 \transpose @var{desde} @var{hacia} @var{expresión_musical}
 @end example
@@ -514,7 +514,7 @@ Los silencios se introducen como notas con el nombre @code{r}
 r1 r2 r4 r8
 @end lilypond
 
-Los silencios de un compás centrados en medio del comás,
+Los silencios de un compás centrados en medio del compás,
 se deben hacer com silencios multicompás.  Se pueden usar para 
 un solo compás así como para muchos compases, y se tratan en
 @ref{Multi measure rests}.
@@ -706,7 +706,7 @@ multiplicando todas las duraciones por una fracción:
 @end example
 
 @noindent
-La duración de la @var{expresión _musical} se multiplicará or la
+La duración de la @var{expresión _musical} se multiplicará por la
 fracción.  El denominador de la fracción se imprimirá sobre las notas,
 opcionalmente con un corchete.  El grupo especial más común es el
 tresillo, en el que 3 notas tienen el valor de 2, por tanto las notas
@@ -902,7 +902,7 @@ unen mediante una ligadura.
 }
 @end lilypond
 
-Este grabador dicide todas las notas largas en la barra de compás e
+Este grabador divide todas las notas largas en la barra de compás e
 inserta ligaduras.  Uno de sus usos es depurar partituras complejas:
 si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
@@ -1014,8 +1014,8 @@ simultáneamente, separando las voces con @code{\\}
 }
 @end lilypond
 
-El separador hace que se produsca un nuevo contexto de @internalsref{Voice}@footnote{Las voces polifónicas
-se conocen a veces como @q{capas} en otros programas de edición de partituras}.
+El separador hace que se produzca un nuevo contexto de @internalsref{Voice}@footnote{Las voces polifónicas
+se conocen a veces como @q{capas} en otros programas de edición de partituras.}.
 @cindex capas
 Llevan los nombres @code{"1"}, @code{"2"}, etc.  En cada
 uno de estos contextos, la dirección vertical de las ligaduras, plicas, etc., se establece
@@ -1028,8 +1028,8 @@ significa que las ligaduras de unión y de expresión no pueden salir ni
 entrar en una construcción @code{<< \\ >>}.  En cambio las voces
 paralelas que están en construcciones @code{<< \\ >>} separadas dentro
 del mismo pentagrama, son la misma voz.  Presentamos a continuación el
-mismo ejemplo, con cabezas distintas apra cada voz.  Dése cuenta de
-que el cambio al estilo de cabezas de nota en la voz principal no
+mismo ejemplo, con cabezas distintas para cada voz.  Dése cuenta de
+que el cambio en el estilo de cabezas de nota en la voz principal no
 afecta a las que están dentro de la construcción @code{<< \\ >>}.
 También, el cambio a la segunda voz en la primera construcción
 @code{<< \\ >>} es efectiva en la segunda @code{<< \\ >>}, y la voz se
@@ -1190,8 +1190,8 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @subsection Collision Resolution
 
 Normalmente las cabezas de nota con un número de puntillos diferente
-no se mezclan en una sola, pero cuando se establece como cierta
-propiedad @code{merge-differently-dotted} en el objeto
+no se mezclan en una sola, pero cuando se le da un valor verdadero a
+la propiedad @code{merge-differently-dotted} en el objeto
 @internalsref{NoteCollision}, se juntan en una sola:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
@@ -1433,7 +1433,7 @@ las posibilidades que se ofrecen estableciendo manualmente las propiedades.
 
 @seealso
 
-Manual: @ref{Grace notes}.
+En el presente manual: @ref{Grace notes}.
 
 Referencia del programa: @internalsref{Clef}.
 
@@ -1467,7 +1467,7 @@ El establecimiento o modificación de la armadura se hace con el comando @code{\
 @cindex modos eclesiásticos
 
 Aquí, @var{tipo} debe ser @code{\major} o @code{\minor} para obtener
-@var{nota}-mayor o @var{nota}-menor, respectivamente.  También puede
+la tonalidad @var{nota}-mayor o @var{nota}-menor, respectivamente.  También puede
 usar los nombres estándar de modo (también conocidos como @q{modos eclesiásticos}): @code{\ionian} (jónico),
 @code{\locrian} (locrio), @code{\aeolian} (eolio), @code{\mixolydian} (mixolidio), @code{\lydian} (lidio),
 @code{\phrygian} (frigio) y @code{\dorian} (dórico).
@@ -1478,7 +1478,7 @@ estableciendo esta propiedad directamente.
 
 Las alteraciones accidentales y las armaduras son una frecuente causa de confusión para los nuevos usuarios,
 porque las notas sin alteración pueden llevar signos de becuadro en función de la armadura.
-Para leer más información, consulte @ref{Accidentals} o @ref{Accidentals and key signatures}.
+Para ver más información, consulte @ref{Accidentals} o @ref{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -1519,10 +1519,10 @@ Referencia del programa: @internalsref{KeyCancellation},
 @funindex \time
 
 La indicación de compás indica el metro de la pieza: su patrón regular de
-partes fuertes y dábiles.  Se denota por una fracción al comienzo del
+partes fuertes y débiles.  Se denota por una fracción al comienzo del
 pentagrama.
 
-La indicación de compás se estbablece mediante el comando @code{\time}
+La indicación de compás se establece mediante el comando @code{\time}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \time 2/4 c'2 \time 3/4 c'2.
@@ -1557,8 +1557,8 @@ Están disponibles más opciones a través de la función de Scheme
 @internalsref{Measure_grouping_engraver} (agrupación de compases), creará signos de
 @internalsref{MeasureGrouping}.  Estos signos facilitan la lectura de música moderna
 rítmicamente compleja.  En el siguiente ejemplo el compás de 9/8
-se subdivide en 2, 2, 2 y 3.  Eseto se pasa a
-@code{set-time-signature} como un tercer argumento @code{(2 2 2 3)}
+se subdivide en 2, 2, 2 y 3.  Esto se pasa a
+@code{set-time-signature} como un tercer argumento con el valor @code{(2 2 2 3)}
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -1602,7 +1602,7 @@ EL barrado automático no utiliza la agrupación de compases especificada con
 @cindex acortar compases
 @funindex \partial
 
-Los comases parciales como las anacrusas o partes al alzar se escriben
+Los compases parciales como las anacrusas o partes al alzar se escriben
 usando la construcción
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -1715,7 +1715,7 @@ El comando @code{\bar }@var{tipo_de_barra} es una forma corta de hacer
 @code{\set Timing.whichBar = }@var{tipo_de_barra}.  Cuando @code{whichBar}
 se establece con el valor de una cadena, se crea una línea divisoria de ese tipo.
 
-Una líne divisoria se crea cuando se establece la propiedad @code{whichBar}.
+Una línea divisoria se crea cuando se establece la propiedad @code{whichBar}.
 Al comienzo del compás su valor se toma de
 @code{Timing.defaultBarType}.  Los contenidos de los @code{repeatCommands} se
 utilizan para sobreescribir a las barras de compás por omisión.
@@ -1993,15 +1993,15 @@ Esta sección trata de la notación que afecta a grupos de notas.
 @funindex ~
 
 Una ligadura de unión conecta dos notas adyacentes de la misma altura.  La ligadura
-en efecto extiende la longitud de una nota.  No deben confuncirse las ligaduras de unión con
+en efecto extiende la longitud de una nota.  No deben confundirse las ligaduras de unión con
 las ligaduras de expresión, que indican articulación, ni con las ligaduras de fraseo, que indican
-el fraseo musical.  Se intriduce una ligadura de unión usando el símbolo de la tilde curva @samp{~}
+el fraseo musical.  Se introduce una ligadura de unión usando el símbolo de la tilde curva @samp{~}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 e' ~ e' <c' e' g'> ~ <c' e' g'>
 @end lilypond
 
-Cuando se palica una ligadura de unón a nun acorde, se conectan todas las cabezas de las notas cuyas alturas coinciden.
+Cuando se aplica una ligadura de unón a un acorde, se conectan todas las cabezas de las notas cuyas alturas coinciden.
 Si no coincide ningún par de cabezas, no se crea ninguna ligadura.  Los acordes
 se pueden ligar parcialmente colocando la ligadura dentro del acorde,
 
@@ -2051,7 +2051,7 @@ r <c e g>\repeatTie
 @commonprop
 
 A veces se usan ligaduras para escribir arpegios.  En este caso, dos
-notas ligadas no necesitan ser consecutias.  Esto se puede conseguir
+notas ligadas no necesitan ser consecutivas.  Esto se puede conseguir
 estableciendo la propiedad @code{tieWaitForNote} (ligadura - esperar
 nota) al valor verdadero. La misma funcionalidad puede resultar útil,
 por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
@@ -2188,7 +2188,7 @@ utiliza para indicar una frase musical.  Se escribe usando @code{\(} y
 @end lilypond
 
 Tipográficamente, la ligadura de fraseo se comporta casi exactamente
-igual que una ligadura de expresión, normal.  Sin embargo, se tratan
+igual que una ligadura de expresión normal.  Sin embargo, se tratan
 como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto
 sobre una ligadura de fraseo; utilice en su lugar
 @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, y
@@ -2338,8 +2338,8 @@ estableciendo @code{breakable}.
 @refbugs
 
 Se insertan automáticamente barras de corchea en ángulo cuando se
-detecta un desnivel muy grande entre las cabezas de las notas.  Este
-comportamiento se puede ajustar a través del objeto.
+detecta un desnivel muy grande entre las cabezas de las notas. 
+@c FIXME Este comportamiento se puede ajustar a través del objeto.
 
 Las barras que cruzan pentagramas y reciben un ángulo automático no se
 pueden usar conjuntamente con los pentagramas ocultos.  Consulte
@@ -2363,7 +2363,7 @@ acciaccatura o mordente de una nota, que se debe tocar muy corta.  Se
 denota mediante una corchea pequeña, ligada, con un corchete tachado o
 atravesado por una barrita.  La appoggiatura es una nota de adorno que
 toma una fracción fija de la nota principal, y se denota como una nota
-pequeña, ligada, sin tachar.  Se introducen con los comandos
+pequeña, ligada, sin tachar.  Ambas se introducen con los comandos
 @code{\acciaccatura} y @code{\appoggiatura}, como se muestra en el
 ejemplo siguiente
 
@@ -2383,8 +2383,8 @@ c4 \grace c16 c4
 @end lilypond
 
 @noindent
-Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
-@code{\grace} command does not start a slur.
+Al contrario que @code{\acciaccatura} y @code{\appoggiatura}, el comando
+@code{\grace} no inicia una ligadura.
 
 Internamente, la cuenta del tiempo para las notas de adorno se hace
 utilizando un segundo contador, el contador @q{de adorno}.  Cada
@@ -2444,7 +2444,7 @@ afterGraceFraction = #(cons 7 8)
 @noindent
 pondrá la nota de adorno a 7/8 de la nota principal.
 
-Se puede conseguir el mismo efecto de formam manual haciendo
+Se puede conseguir el mismo efecto de forma manual haciendo
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2475,7 +2475,7 @@ presentación, deben ir dentro de la sección de adorno, por ejemplo:
 @end lilypond
 
 @noindent
-Las sobreescrituras también se deben deshacer dentro de la sección de adorno.
+Las sobreescrituras (overrides) también se deben deshacer dentro de la sección de adorno.
 
 La disposición de las secciones de adorno se pueden cambiar a lo largo
 de la música usando la función @code{add-grace-property}.  El
@@ -2655,8 +2655,8 @@ El orden vertical de las articulaciones se controla con la propiedad
 @code{script-priority}.  Cuanto más bajo es esta número, más cerca de la nota se colocará.
 En este ejemplo el @internalsref{TextScript} (el símbolo de sostenido) tiene primero la
 prioridad más baja, así que se coloca en la parte más baja en el primer ejemplo.
-En el segundo, el semitrino (el @internalsref{Script}) tiene la proioridad más baja, así que
-está en la parte interior.  Cuando dos objetos tienen la misma prioridad, el orden en que
+En el segundo, el semitrino (el @internalsref{Script}) tiene la prioridad más baja, por tanto
+se coloca en la parte interior.  Cuando dos objetos tienen la misma prioridad, el orden en que
 se escriben decide cuál de ellos va primero.
 
 @lilypond[verbatim,relative=3,ragged-right,fragment,quote]
@@ -2685,7 +2685,7 @@ representación de MIDI de la música.
 @cindex digitación
 @cindex cambio de dedo
 
-Las instrucciones de digitación se puede introduci usando
+Las instrucciones de digitación se pueden introducir usando
 @example
 @var{nota}-@var{dígito}
 @end example
@@ -2758,7 +2758,7 @@ Ejemplos: @lsr{expressive,fingering-chords.ly}
 @funindex \sfz
 @funindex \rfz
 
-Las marcas dinámicas de matiz absoluto se especifican usando un comando después de una nota
+Las marcas dinámicas de matiz absoluto se especifican usando un comando después de una nota:
 @code{c4\ff}.  Las marcas dinámicas disponibles son @code{\ppppp},
 @code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
@@ -2776,7 +2776,7 @@ c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
 
 Un regulador de crescendo se comienza con @code{\<} y se termina con
 @code{\!} o con un matiz absoluto.  Un regulador decrescendo comienza con
-@code{\>} y se termina tmbién con @code{\!} o con un matiz dinámico
+@code{\>} y se termina también con @code{\!} o con un matiz dinámico
 absoluto.  Se pueden usar @code{\cr} y @code{\decr} en lugar de
 @code{\<} y @code{\>}.  A causa de que estas marcas se unen a notas, se deben
 usar notas espaciadoras si se necesitan varias marcas durante una nota.
@@ -2798,7 +2798,7 @@ inmediatamente anterior.  Esto se puede modificar estableciendo la propiedad
 c4\< c2. c4\!
 @end lilypond
 
-En algunas situaciones la marca de articulación @code{\espressivo} puede ser
+En algunas situaciones, la marca de articulación @code{\espressivo} puede ser
 apropiada para indicar un crescendo y decrescendo sobre una nota,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -2843,7 +2843,7 @@ c\> d e f\!
 e\> d c b\!
 @end lilypond
 
-También puede aportar sus propios textos
+Asimismo puede aportar sus propios textos
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
 \set crescendoSpanner = #'dashed-line
@@ -3005,7 +3005,7 @@ Archivos de ejemplo:
 
 @refbugs
 
-La impresión de texto sobre la línea (como @emph{gliss.}) no está soportado.
+La impresión de texto sobre la línea (como @emph{gliss.}) no está soportada.
 
 
 @node Arpeggio
@@ -3123,7 +3123,7 @@ Están soportados los siguientes tipos de repetición
 
 @table @code
 @item desplegada
-Las música repetida está comletamente escrita (e interpretada).  Es
+Las música repetida está completamente escrita (e interpretada).  Es
 útil cuando se introduce música repetitiva.  Éste es el único tipo de
 repetición que se incluye en la salida MIDI.
 
@@ -3194,8 +3194,8 @@ c1
 
 En el ejemplo siguiente, el primer final no es un compás completo
 (sólo tenía 3 partes).  El comienzo del segundo final
-contiene la cuarta parte del primer final.  Esta parte @q{adicional}
-en el segundo final se debe al final de la primera vez,
+contiene la cuarta parte del primer final.  Esta parte @q{adicional} en
+el segundo final se debe al final de la primera vez,
 y no tiene nada que ver con el @code{\partial} que aparece
 al principio del ejemplo.
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f5a2aec5313027cb9b89a917b52230b2a7f31df7
+    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,40 +18,39 @@ gran proyecto en que estaba trabajando. Era un sistema automático para
 imprimir música (para ser exactos se trataba de MPP, un preprocesador para
 MusiXTeX).  Ocurrió entonces que Han-Wen quiso imprimir
 unas particellas sacadas de una partitura, y así empezó a echarle un vistazo al programa, y
-en seguida se quedó estancado.  Se decidió que MPP era un callejón sin salida.  Después de
+en seguida se quedó estancado.  Decidieron que MPP era un callejón sin salida.  Después de
 muchísimo filosofar y de montañas de encendidas conversaciones por correo electrónico, Han-Wen inició
-el proyecto LilyPond en 1996.  Esta vez Jan resultó absorbido por el nuevo proyecto de
+el proyecto LilyPond en 1996.  Esta vez fue Jan quien resultó absorbido por el nuevo proyecto de
 Han-Wen.
 
-En ciertos aspectos desarrollar un programa de ordenador es como aprender a tocar
-un instrumento.  Al principio es divertido descubrir cómo funciona, y
-aquello que no eres capaz de hacer plantea sus retos.  Pasado el entusiasmo inicial,
-hay que practicar más y más.  Las escalas y los estudios pueden aturdir, y
-si no estás motivado por otras personas (profesores, directores o el público)
-uno siempre está tentado de abandonarlo.  Uno persevera y poco a poco
-tocar viene a ser una parte de la vida.  Unos días se acoge de forma natural, y
+En ciertos aspectos, desarrollar un programa de ordenador es como aprender a tocar
+un instrumento.  Al principio es divertido descubrir cómo funciona, y supone un divertido
+reto intentar aquello que no eres capaz de hacer.  Una vez pasado el entusiasmo inicial,
+hay que practicar más y más.  Las escalas y los estudios pueden llegar a aturdir, y
+si no está motivado por otras personas (profesores, directores o el público)
+uno siempre está tentado de abandonarlo.  Uno persevera y, poco a poco,
+tocar se convierte en parte de la vida de uno.  Algunos días se acoge de forma natural, y
 es estupendo, y otros simplemente la cosa no funciona, pero uno sigue
 tocando día tras día.
 
-Igual que hacer música, trabajar sobre LilyPond puede ser un trabajo muy duro y
-hay días en que uno se siente como atravesando un nido de bichos.
-A pesar de todo se ha convertido en parte de nuestra vida y seguimos haciéndolo.
+Igual que hacer música, trabajar en LilyPond puede ser un trabajo muy duro y
+hay días en que uno se siente como pisando un hormiguero.
+A pesar de todo, se ha convertido en parte de nuestra vida y seguimos haciéndolo.
 Con toda probabilidad la motivación más importante es que nuestro programa realmente
 hace algo útil por las personas.  Cuando navegamos por la red
 encontramos mucha gente que utiliza LilyPond y produce unas partituras
-impresionantes con él.  Contemplar esto lo hace sentir irreal, pero de una manera muy agradable.
+impresionantes con él.  De esta observación se desprende una sensación algo irreal, pero muy agradable.
 
 Nuestros usuarios no sólo nos transmiten buenas vibraciones por usar el programa, también
-muchos de ellos nos son de ayuda enviando sugerencias e informes de fallo, así que
-nos gustaría agradecer a todos los usuarios que nos han enviado estos informes, proporcionado
-sugerencias o contribuido de cualquier otra forma a LilyPond.
+muchos de ellos nos ayudan enviando sugerencias e informes de fallo, por ello
+nos gustaría agradecer a todos los usuarios que nos han enviado estos informes, emitido
+sugerencias o contribuido a LilyPond de cualquier otra forma.
 
 Tocar e imprimir música es algo más que una bonita analogía.  Programar
 juntos es muy divertido, y ayudar a las personas es algo profundamente gratificante, pero
 en último término trabajar en LilyPond es una forma de expresar nuestro profundo amor por
-la música.  ¡Ojalá que le ayude a crear montañas de preciosas partituras!
+la música.  ¡Ojalá le ayude a elaborar montañas de preciosas partituras!
 
 Han-Wen y Jan
 
 Utrecht/Eindhoven, Holanda, julio de 2002.
-

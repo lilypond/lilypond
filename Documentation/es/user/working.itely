@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5fbf194037aff3918ac4b0a076fd5867fbb87527
+    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -39,7 +39,7 @@ existen algunas otras cosas a tener en cuenta cuando se escriben archivos de Lil
 
 @itemize @bullet
 @item ¿Qué ocurre si comete un fallo?  La estructura de un archivo
-lilypond puede hacer más fáciles (o más difíciles) de encontrar ciertos errores.
+lilypond puede hacer que ciertos errores se hagan más fáciles (o más difíciles) de encontrar.
 
 @item ¿Qué ocurre si quiere compartir sus archivos con otras personas?
 De hecho, ¿y si quiere alterar sus propios archivos después de algunos años?
@@ -50,7 +50,7 @@ otros pueden tenerle rascándose la cabeza durante una hora.
 una versión más reciente del programa?  La sintaxis de la entrada se modifica
 de forma ocasional según lilypond se va perfeccionando.  Casi todos los cambios se pueden
 hacer de forma automática con @code{convert-ly}, pero algunos podrían necesitar de una
-ayuda manual.  Los archivos de Lilypond se pueden estructurar para que sean
+ayuda manual.  Los archivos de LilyPond se pueden estructurar para que sean
 más fáciles (o más difíciles) de actualizar.
 @end itemize
 
@@ -73,7 +73,7 @@ plantillas contienen una cadena como @code{\version "2.11.15"}.  Le recomendamos
 mucho que siempre incluya la @code{\version}, sin importar cuán
 pequeño pueda ser su archivo.  Desde la experiencia personal podemos decirle que es bastante frustrante
 intentar recordar el número de versión de LilyPond que estaba usando hace unos años.
-.  @code{convert-ly} requiere que declare qué versión de LilyPond utilizó.
+@code{convert-ly} requiere que declare qué versión de LilyPond utilizó.
 
 @item @strong{Incluya comprobaciones}: @ref{Bar check}, @ref{Octave check} y
 @ref{Barnumber check}.  Si
@@ -143,7 +143,7 @@ Al trabajar en proyecto grande se hace esencial tener una estructura clara en lo
 
 @item @strong{Utilice un identificador para cada voz}, con un mínimo de
 estructura dentro de la definición.  La estructura de la sección
-@code{\score} es la que cambiará con mayor probabilidad; es
+@code{\score} es la que cambiará con mayor probabilidad; por contra, es
 extremadamente improbable que cambie la definición de @code{violin} en
 versiones nuevas de LilyPond.
 
@@ -208,7 +208,7 @@ violin = \new Staff { \fragA \fragA \fragB \fragA }
 }
 @end lilypond
 
-Sin ambargo también puede usar estos identificadores (que también se conocen como
+Sin embargo también puede usar estos identificadores (que también se conocen como
 variables, macros o comandos definidos por el usuario) para hacer trucos:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -287,7 +287,7 @@ en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 La salida que produce LilyPond se puede modificar profundamente; consulte
 @ref{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
 archivos a los que les quiere aplicar sus porpios trucos?  O ¿qué ocurre si, sencillamente,
-quere separar los trucos de la propia música?  Todo esto es bastante fácil de conseguir.
+quiere separar los trucos de la propia música?  Todo esto es bastante fácil de conseguir.
 
 Veamos un ejemplo.  No se preocupe si no entiende
 las partes que tienen todos los @code{#()}.  Esto se explicará en
@@ -579,7 +579,7 @@ el problema, comience coviertiendo grandes secciones del
 archivo de entrada en un comentario.  Después de eliminar una
 sección convirtiéndola en un comentario, pruebe a compilar el
 archivo otra vez.  Si funciona, entonces el problema debía estar
-en la porción que había eliminado.  Si no funciona
+en la porción que había eliminado.  Si no funciona,
 continúe eliminando material (transformándolo en comentarios)
 hasta que tenga algo que funcione.
 

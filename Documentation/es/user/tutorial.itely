@@ -51,7 +51,7 @@ Pruébelo sobre esta imagen:
 @c no verbatim here
 @lilypond[quote,ragged-right]
 \relative c'' {
-  c-\markup { \bold \huge { Pulse aquí.  } }
+  c-\markup { \bold \huge { Click here.  } }
 }
 @end lilypond
 
@@ -107,8 +107,8 @@ el resultado tiene este aspecto
 }
 @end lilypond
 
-@strong{Adevertencia:} Todo el código que se da como entrada a LilyPond tiene que
-llevar @strong{@{ llaves @}} rodeando dicha entrada.  Las llaves deberían también estar
+@strong{Advertencia:} Todo el código que se da como entrada a LilyPond tiene que
+ir entre @strong{@{ llaves @}}.  Las llaves deberían también estar
 rodeadas por espacios a no ser que se encuentren al principio o al final de una línea,
 para evitar ambigüedades.  Es posible que se omitan en algunos ejemplos del presente
 manual ¡pero no las omita en su propia música!
@@ -171,7 +171,7 @@ LilyPond, consulte @ref{Editor support} para ver más información.
 Comience abriendo una ventana de terminal e inicando un editor de texto.  Por
 ejemplo, puede abrir un xterm y ejecutar
 @code{joe}@footnote{Existen macros para los adictos a VIM, y hay
-un @code{LilyPond-mode (modo de LilyPond)} para adictos a Emacs.  Si no han sido
+un @code{LilyPond-mode} (modo de LilyPond) para adictos a Emacs.  Si no han sido
 instalados aún, consulte el archivo @file{INSTALL.txt}.  El
 entorno de edición más sencillo es @file{LilyPondTool}.  Consulte
 @ref{Editor support} para más información.}.  En su
@@ -198,11 +198,11 @@ Verá algo parecido a:
 lilypond prueba.ly
 GNU LilyPond 2.10.0
 Procesando `prueba.ly'
-Anaizando...
+Analizando...
 Interpretando la música... [1]
 Preprocesando los objetos gráficos...
 Calculando los cortes de línea... [2]
-Salida de la página hacia `prueba.ps'...
+Escribiendo la página de salida en `prueba.ps'...
 Convirtiendo a `prueba.pdf'...
 @end example
 
@@ -222,7 +222,7 @@ de libre disposición para ver e imprimir archivos PDF y PostScript.}
 
 LilyPond añadirá ciertos elementos de notación de manera automática.  En el siguiente
 ejemplo hemos especificado solamente cuatro alturas, pero LilyPond ha
-añadido la clave, la indicación de compás y los ritmos.
+añadido la clave, el compás y las duraciones.
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -298,7 +298,7 @@ automáticamente.
 
 @noindent
 Si no especifica una duración, se utiliza la duración previa para la nota siguiente.
-La duración de la primera nota es por omisión una negra.
+La figura por omisión de la primera nota es una negra.
 
 Para crear @rglos{dotted notes}, añada un punto @samp{.} al número de la duración.
 
@@ -534,7 +534,7 @@ c2 ges
 @table @asis
 @item Octavas relativas
 ver @ref{Relative octaves}.
-@item Comorobación de octava
+@item Comprobación de octava
 ver @ref{Octave check}.
 @end table
 @end quotation
@@ -577,8 +577,8 @@ a
 
 Para determinar si hay que imprimir una alteración accidental, LilyPond examina las
 notas y la armadura de la tonalidad.  La armadura solamente afecta a las
-alteraciones @emph{impresas}, ¡no a las propias notas!  Esta es una
-funcionalidad que frecuentemente es causa de confusión a los que se inician con el programa, por ello permítanos explicarla
+alteraciones @emph{impresas}, ¡no a las propias notas!  Ésta es una
+funcionalidad que frecuentemente confunde a los que se inician con el programa, por ello permítanos explicarla
 en detalle.
 
 LilyPond hace una clara distinción entre el contenido musical y la
@@ -587,8 +587,8 @@ la altura, y por tanto es contenido musical.  Si una alteración (un
 signo @emph{impreso} de bemol, becuadro o sostenido) se imprime o no delante de la
 nota correspondiente, es una cuestión de presentación.  La presentación es algo que
 sigue unas reglas, así que las alteraciones accidentales se imprimen automáticamente según
-dichas reglas.  Las alturas de las notas en su música son obras de arte, por tanto no serán
-añadidas automáticamente, y usted deberá introducir aquello que quiera oír.
+dichas reglas.  Las alturas de las notas en su música son obras de arte, por tanto no se
+añadirán automáticamente, y usted deberá introducir aquello que quiera oír.
 
 En el siguiente ejemplo
 
@@ -614,7 +614,7 @@ e
 Poner todas las alteraciones de forma explícita puede que requiera algo más de trabajo
 al teclear, pero la ventaja es que la transposición es más fácil, y las
 alteraciones se pueden imprimir siguiendo varias convenciones distintas.  Consulte
-@ref{Automatic accidentals} para ver ejemplos de cómo las alteraciones se pueden imprimir
+@ref{Automatic accidentals} para ver ejemplos de cómo se pueden imprimir las alteraciones
 de acuerdo a reglas diferentes.
 
 @moreinfo
@@ -670,7 +670,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @cindex ligaduras de expresión frente a ligaduras de unión
 @subheading Warnings: slurs vs. ties
 
-Una ligadura de expresión parece una @rglos{ligadura}, pero tiene un significado distinto.  Una
+Una ligadura de expresión parece una @rglos{tie}, pero tiene un significado distinto.  Una
 ligadura (de unión) sencillamente hace que la primera nota sea más larga, y sólo se puede utilizar sobre
 parejas de notas iguales.  Las ligaduras de expresión indican las articulaciones
 de las notas, y se pueden utilizar sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
@@ -720,7 +720,7 @@ c-3 e-5 b-2 a-1
 Las articulaciones y digitaciones normalmente se colocan de forma automática, pero puede
 especificar una dirección mediante @samp{^} (encima) o @samp{_} (debajo).  También
 puede usar varias articulaciones sobre la misma nota.  Sin embargo, casi siempre
-es mejor dejar que LilyPond determine las dirección de las articulaciones.
+es mejor dejar que LilyPond determine la dirección de las articulaciones.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c_-^1 d^. f^4_2-> e^-_+
@@ -840,7 +840,7 @@ c2 \acciaccatura b16 c2
 @moreinfo
 @quotation
 @table @asis
-@item Mordentes
+@item Notas de adorno
 ver @ref{Grace notes},
 @item Grupos especiales
 ver @ref{Tuplets},
@@ -962,7 +962,7 @@ de la siguiente, más grande.  Las expresiones más simples son números, y las 
 se hacen combinando expresiones mediante operadores (como @samp{+},
 @samp{*} y @samp{/}) y paréntesis.  Del mismo modo que las expresiones matemáticas,
 las expresiones musicales se pueden anidar a una profundidad arbitraria, lo que se hace necesario
-para músicas complejas como las partituras plifónicas.
+para músicas complejas como las partituras polifónicas.
 
 
 @node Multiple staves
@@ -1174,8 +1174,8 @@ sílaba mediante un espacio.
 @cindex melisma
 @cindex línea de extensión de sílabas
 Esta melodía acaba en un @rglos{melisma}, una sílaba única (@q{suelta})
-que se canta sobre más de una nota.  Esto se indica mediante unla @emph{línea
-de estensión}.  Se escribe como dos guiones bajos @code{__}:
+que se canta sobre más de una nota.  Esto se indica mediante una @emph{línea
+de extensión}.  Se escribe como dos guiones bajos @code{__}:
 
 @lilypond[quote,ragged-right,verbatim]
 <<
@@ -1233,7 +1233,7 @@ ejemplo que sigue muestra algunos modificadores comunes:
 
 Para canciones con acordes, éstos no se imprimen sobre pentagramas, sino como nombres en su
 propia línea.  Esto se consigue utilizando @code{\chords} en sustitución
-de @code{\chordmode}.  Esto utiliza la misma sintaxis que @code{\chordmode},
+de @code{\chordmode}.  Utiliza la misma sintaxis que @code{\chordmode},
 pero pinta las notas dentro de un contexto de @code{ChordNames}, con el
 siguiente resultado:
 
@@ -1286,14 +1286,14 @@ del manual.
 
 @cindex indicación de la versión
 La indicación @code{\version} indica para qué versión de LilyPond se escribió
-el archivo.  Para marcar un archivo para la versión 2.10.1, escriba
+el archivo.  Para marcar un archivo para la versión 2.11.15, escriba
 
 @example
 \version "2.11.15"
 @end example
 
 @noindent
-en la parte de arriba de su archivo de LilyPond.
+al principio de su archivo de LilyPond.
 
 Estas anotaciones hacen menos problemáticas las subsiguientes actualizaciones de LilyPond.
 Los cambios en la sintaxis se tratan mediante un programa especial,
@@ -1306,7 +1306,7 @@ Los cambios en la sintaxis se tratan mediante un programa especial,
 
 La información sobre el título, autor, número de Opus y similares se escriben
 en el bloque @code{\header}.  Éste se encuentra fuera de la expresión musical
-principal; el bloque @code{\header}normalmente se sitúa por debajo del
+principal; el bloque @code{\header} normalmente se sitúa por debajo del
 @ref{Version number}.
 
 @example
@@ -1331,7 +1331,7 @@ titles}.
 @subsection Absolute note names
 
 Hasta el momento siempre hemos utilizado @code{\relative} para definir las alturas.  Ésta es la
-forma más sencilla de escribir la mayor parte de la música, pero existe otra dorma de definir
+forma más sencilla de escribir la mayor parte de la música, pero existe otra forma de definir
 las alturas: el modo absoluto.
 
 Si omite el @code{\relative}, LilyPond tratará todas las alturas como

@@ -29,7 +29,7 @@ término deriva del proceso tradicional de la impresión musical.  Hace sólo un
 décadas, la música impresa se hacía estampando la música
 sobre planchas de zinc o estaño de forma invertida como en un espejo.  Después la plancha se
 entintaba y las depresiones causadas por los cortes y estampados retenían
-la tinta.  Al presionra una hoja de papel sobre la plancha se formaba una imagen.  El
+la tinta.  Al presionar una hoja de papel sobre la plancha, se formaba una imagen.  El
 estampado y cortado se hacía completamente a mano.  Cualquier corrección era
 muy fastidiosa de realizar, si es que era posible hacerla siquiera, así que el grabado tenía que quedar
 perfecto a la primera.  El grabado era una habilidad altamente especializada; un artesano necesitaba
@@ -39,8 +39,8 @@ ser un auténtico experto.
 
 Hoy en día, toda la música impresa nueva se produce con ordenadores.  Esto
 tiene unas ventajas evidentes: las copias son más baratas de producir y el trabajo editorial
-se puede repartir por correo elecrónico.  Desgraciadamente la penetrante utilización de
-ordenadores trambién ha hecho disminuir la calidad gráfica de las partituras.
+se puede repartir por correo electrónico.  Desgraciadamente la penetrante utilización de
+ordenadores también ha hecho disminuir la calidad gráfica de las partituras.
 Las impresiones de ordenador tienen un aspecto insulso y mecánico, lo que hace que sea desagradable tocar a partir de ellas.
 
 @c introduce illustrating aspects of engraving, font...
@@ -171,8 +171,8 @@ music = {
 @cindex ritmos regulares
 @cindex espaciado regular
 
-Cada compás de este fragmento solamente utiliza notas que se tocan a ritmo 
-constante.  El espaciado debería reflejarlo.  Desgraciadamente el ojo
+Cada uno de los dos compases de este fragmento tiene solamente notas de duración constante.
+El espaciado debería reflejarlo.  Desgraciadamente el ojo
 nos engaña un poco; no solamente percibe la distancia entre las
 cabezas de las notas, sino que tiene también en cuenta la distancia entre
 las plicas.  Como resultado, las notas de una combinación plica arriba/@/plica abajo
@@ -222,7 +222,7 @@ que tanto nos gusta contemplar y de las que tanto nos gusta tocar.
 @section Automated engraving
 
 ¿Cómo nos las arreglamos para implementar la tipografía? Si un artesano
-necesita má de diez años para convertirse en un auténtico maestro ¿cómo vamos
+necesita más de diez años para convertirse en un auténtico maestro ¿cómo vamos
 a poder nosotros, simples hackers, escibir
 un programa que les quite el trabajo?
 
@@ -372,7 +372,7 @@ evolucionando desde hace mil años.  La forma que se usa en nuestros días data 
 los primeros tiempos del Renacimiento.  Aunque la forma básica (es decir: puntos
 sobre una pauta de cinco líneas) no ha cambiado, los detalles continúan evolucionando 
 para expresar todas las innovaciones de la notación contemporánea.
-Por tanto abarca unos 500 años de música.  Sus aplicaciones se extienden sobre un
+Por tanto abarca unos quinientos años de música.  Sus aplicaciones se extienden sobre un
 amplio rango que abarca desde melodías monofónicas hasta monstruosos contrapuntos
 para gran orquesta.
 
@@ -540,7 +540,7 @@ es el contexto de notación de más alto nivel.
 
 @seealso
 
-Program reference: @internalsref{Contexts}.
+Referencia del programa: @internalsref{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -662,7 +662,7 @@ aplicación más sencilla es imprimir notas.
 @end lilypond
 
 @noindent
-Añadiendo los nombres de acordes y la letra, obtenemos una hoja guía de canción.
+Añadiendo los nombres de acordes y la letra, obtenemos una hoja guía de acordes (lead sheet).
 
 @lilypond[quote,ragged-right]
 <<
@@ -673,7 +673,7 @@ Añadiendo los nombres de acordes y la letra, obtenemos una hoja guía de canci�
 @end lilypond
 
 También se pueden imprimir notación polifónica y música para piano.  El ejemplo
-siguiente combina varias otras construcciones exóticas.
+siguiente combina algunas otras construcciones exóticas.
 
 @lilypondfile[quote,ragged-right]{screech-boink.ly}
 
@@ -732,7 +732,7 @@ proyecto de notación.
 @emph{@ref{Instrument-specific notation}}
 también trata los temas agrupados por construcciones de notación.  Esta sección proporciona
 detalles sobre notación especial que solamente será útil para ciertos
-grupos de instrumentos (o vocales).
+grupos de instrumentos (o voces).
 
 @item
 @emph{@ref{Advanced notation}}
@@ -745,7 +745,7 @@ explica cómo hacer un ajuste fino de la presentación.
 
 @item
 @emph{@ref{Non-musical notation}}
-trata la salida no musical como los títulos, varios movimientos,
+trata la salida no musical como los títulos, piezas de varios movimientos,
 y sobre cómo elegir los instrumentos MIDI.
 
 @item
@@ -755,7 +755,7 @@ tamaño del papel o la especificación de los saltos de página.
 
 @item
 @emph{@ref{Interfaces for programmers}}
-explains how to create music functions.
+explica cómo crear funciones musicales.
 
 @item
 @emph{@ref{Running LilyPond}}
@@ -795,7 +795,7 @@ nombres de los colores y la tipografía Feta.
 @item
 @emph{@ref{Templates}}
 de piezas de LilyPond.  Sólo tiene que cortar y pegar una
-plantilla en un archivo de texto, escibir las notas y ¡ha terminado!
+plantilla en un archivo de texto, escibir las notas y ¡ya está!
 
 @item
 La
@@ -833,8 +833,8 @@ navegador de web.
 
 @c FIXME:
 @c add/integrate glossary, put in list above
-Si no está familiarizado con la notación o con la terminología musicales
-(sobre todo si es un hablante de inglés no nativo), le recomendamos que
+Si no está familiarizado con la notación o la terminología musicales
+(sobre todo si no es un anglófono nativo), le recomendamos que
 consulte también el glosario.
 @iftex
 El glosario explica los términos musicales, e incluye traducciones
@@ -842,7 +842,7 @@ a varios idiomas.  Es un docuento aparte, disponible en HTML
 y en PDF.
 @end iftex
 @ifnottex
-El @ref{Top,Music glossary,,music-glossary} explica los términos musicales e
+El @ref{Top,Glosario de música,,music-glossary} explica los términos musicales e
 incluye traducciones a varios idiomas.  También se encuentra disponible en
 PDF.
 @end ifnottex
@@ -863,7 +863,7 @@ paquete de documentación para su plataforma informática
 Referencia del programa
 @end iftex
 @ifnottex
-@ref{Top,Program reference,,lilypond-internals}.
+@ref{Top,Referencia del programa,,lilypond-internals}.
 @end ifnottex
 
 La referencia del programa es un conjunto de páginas HTML con una tupida red de enlaces cruzados,
@@ -897,7 +897,7 @@ included.
 
 @item
 @ifnothtml
-The regression tests.
+Las pruebas de regresión.
 @end ifnothtml
 @ifhtml
 @c Works, but link name is not so nice; so write-out macro
@@ -940,4 +940,3 @@ Los archivos de incialización, como por ejemplo @file{scm/@/lily@/.scm}, o
 Por último, este y el resto de los manuales están disponibles en línea tanto como archivos
 PDF como HTML en el sitio web, que encontrará en
 @uref{http://@/www@/.lilypond@/.org/}.
-
