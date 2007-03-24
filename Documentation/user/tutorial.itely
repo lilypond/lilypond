@@ -140,34 +140,25 @@ occur in processing, please see the log window.
 
 @subsubheading Windows
 
-On Windows, start up a text-editor@footnote{Any simple or
-programmer-oriented editor with UTF-8 support will do, for example
-Notepad.  Do not use a word processor, since these insert formatting
-codes that will confuse LilyPond.} and enter
-
-@verbatim
-{
-  c' e' g' e'
-}
-@end verbatim
-
-Save it on the desktop as @file{test.ly} and make sure that it is not
-called @file{test.ly.TXT}.  Double clicking @file{test.ly} will process
-the file and show the resulting PDF file.  To edit an existing
-@file{.ly} file, right-click on it and select @qq{Edit source}.
-
-If you double-click in the LilyPond icon on the Desktop, it will open
-a simple text editor with an example file.  Save it, for example, to
-@file{test.ly} on your Desktop, and then double-click on the file to
-process it.  After some seconds, you will get a file @file{test.pdf}
+On Windows, if you double-click in the LilyPond icon on the Desktop, it
+will open a simple text editor with an example file. Save it, for
+example, to @file{test.ly} on your Desktop and then double-click on the
+file to process it (the file icon looks like a note).  After some
+seconds, you will get a file @file{test.pdf} 
 on your desktop.  Double-click on this PDF file to view the typeset
 score.  An alternative method to process the @file{test.ly} file
 is to drag and drop it onto the LilyPond icon using your mouse pointer.
+
+To edit an existing @file{.ly} file, right-click on it and select
+@qq{Edit source}. To get an empty file to start from, run the editor
+as described above and use @qq{New} in the @qq{File} menu.
 
 Double-clicking the file does not only result in a PDF file, but also
 produces a @file{.log} file that contains some information on what LilyPond
 has done to the file.  If any errors occur, please examine this file.
 
+Note that there are several other text editors available, with better
+support for LilyPond, see @ref{Editor support} for more information.
 
 @subsubheading Unix
 
