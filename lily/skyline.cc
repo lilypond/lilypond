@@ -59,6 +59,16 @@ Skyline::print () const
   print_buildings (buildings_);
 }
 
+void
+Skyline::print_points () const
+{
+  vector<Offset> ps (to_points (X_AXIS));
+
+  for (vsize i = 0; i < ps.size (); i++)
+    printf ("(%f,%f)%s" , ps[i][X_AXIS], ps[i][Y_AXIS],
+	    (i%2)==1 ? "\n" : " ");
+}
+
 Building::Building (Real start, Real start_height, Real end_height, Real end)
 {
   if (isinf (start) || isinf (end))
@@ -497,7 +507,7 @@ Skyline::set_minimum_height (Real h)
 
 
 vector<Offset>
-Skyline::to_points (Axis a) const
+Skyline::to_points (Axis horizon_axis) const
 {
   vector<Offset> out;
 
@@ -510,9 +520,9 @@ Skyline::to_points (Axis a) const
       start = i->end_;
     }
 
-  if (a == Y_AXIS)
+  if (horizon_axis == Y_AXIS)
     for (vsize i = 0; i < out.size (); i++)
-      out[i] = Offset (out[i][Y_AXIS], out[i][X_AXIS]);
+      out[i] = out[i].swapped ();
 
   return out;
 }

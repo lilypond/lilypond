@@ -97,6 +97,7 @@ public:
     return *this;
   }
   Offset direction () const;
+  Offset swapped () const;
   
   Real arg () const;
   Real angle_degrees () const;
