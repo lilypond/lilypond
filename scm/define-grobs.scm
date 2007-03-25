@@ -538,7 +538,6 @@
 	(direction . ,RIGHT)
 	(positioning-done . ,ly:dot-column::calc-positioning-done) 
 	(X-extent . ,ly:axis-group-interface::width)
-	(X-offset . ,ly:dot-column::side-position)
 	(meta . ((class . Item)
 		 (interfaces . (dot-column-interface
 				axis-group-interface))))))

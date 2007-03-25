@@ -152,7 +152,6 @@
    ly:cluster::print
    ly:cluster-beacon::height
    ly:custos::print
-   ly:dot-column::side-position
    ly:dots::print
    ly:hairpin::print
    ly:hara-kiri-group-spanner::force-hara-kiri-callback

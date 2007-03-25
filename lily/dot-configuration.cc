@@ -9,6 +9,7 @@
 */
 
 #include "dot-configuration.hh"
+#include "dot-formatting-problem.hh"
 #include "staff-symbol-referencer.hh"
 
 
@@ -60,7 +61,7 @@ Dot_configuration::print () const
 Dot_configuration
 Dot_configuration::shifted (int k, Direction d) const
 {
-  Dot_configuration new_cfg;
+  Dot_configuration new_cfg (*problem_);
   int offset = 0;
 
   if (d > 0)
@@ -140,4 +141,20 @@ Dot_configuration::remove_collision (int p)
 
       *this = (b_up < b_down) ? cfg_up : cfg_down;
     }
+}
+
+Dot_configuration::Dot_configuration (Dot_formatting_problem const &problem)
+{
+  problem_ = &problem;
+}
+
+Real
+Dot_configuration::x_offset () const
+{
+  Real off = 0.0;
+  for (Dot_configuration::const_iterator i (begin ());
+       i != end (); i++)
+    off = max (off, problem_->head_skyline_.height ((*i).first));
+
+  return off;
 }

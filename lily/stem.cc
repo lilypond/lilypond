@@ -291,41 +291,6 @@ Stem::calc_stem_end_position (SCM smob)
   if (!no_extend_b && dir * stem_end < 0)
     stem_end = 0.0;
 
-  
-  /* Make a little room if we have a upflag and there is a dot.
-     previous approach was to lengthen the stem. This is not
-     good typesetting practice.  */
-  if (!get_beam (me) && dir == UP
-      && durlog > 2)
-    {
-      Grob *closest_to_flag = extremal_heads (me)[dir];
-      Grob *dots = closest_to_flag
-	? Rhythmic_head::get_dots (closest_to_flag) : 0;
-
-      if (dots)
-	{
-	  Real dp = Staff_symbol_referencer::get_position (dots);
-	  Interval flag_yext = flag (me).extent (Y_AXIS) * (2 / ss) + stem_end;
-
-	  /* Very gory: add myself to the X-support of the parent,
-	     which should be a dot-column. */
-	  
-	  if (flag_yext.distance (dp) < 0.5)
-	    {
-	      Grob *par = dots->get_parent (X_AXIS);
-
-	      if (Dot_column::has_interface (par))
-		{
-		  Side_position_interface::add_support (par, me);
-
-		  /* TODO: apply some better logic here. The flag is
-		     curved inwards, so this will typically be too
-		     much. */
-		}
-	    }
-	}
-    }
-
   return scm_from_double (stem_end);
 }
 

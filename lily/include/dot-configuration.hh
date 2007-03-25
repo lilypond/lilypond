@@ -13,6 +13,7 @@
 
 #include "lily-proto.hh"
 #include "direction.hh"
+#include "box.hh"
 
 #include <map>
 
@@ -21,8 +22,10 @@ struct Dot_position
   int pos_;
   Direction dir_;
   Grob *dot_;
+  Box dot_extents_;
   bool extremal_head_;
-
+  Interval x_extent_;
+  
   Dot_position ()
   {
     dot_ = 0;
@@ -34,11 +37,14 @@ struct Dot_position
 
 struct Dot_configuration : public map<int, Dot_position>
 {
+  Dot_formatting_problem const *problem_;
+  
+  Dot_configuration (Dot_formatting_problem const &);
+  Real x_offset () const;
   int badness () const;
   void print () const;
   Dot_configuration shifted (int k, Direction d) const;
-
-    void remove_collision (int p);
+  void remove_collision (int p);
 };
 
 #endif
