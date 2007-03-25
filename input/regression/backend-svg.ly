@@ -12,7 +12,7 @@
 #(ly:set-option 'backend 'eps)
 
 %% TODO: what to do if inkscape fails?
-#(display "Invoking inkscape...\n")
+#(ly:progress "Invoking inkscape...\n")
 
 %% LD_LIBRARY_PATH is necesssary, otherwise, it doesn't build in GUB.
 %% LD_LIBRARY_PATH is part of the start-environment but should be switched off
