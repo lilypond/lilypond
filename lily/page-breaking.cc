@@ -452,7 +452,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
       Real padding = robust_scm2double (padding_scm, 0.0);
 
       Line_division &div = current_configurations_[configuration_index];
-      uncompressed_line_details_.clear ();
+      cached_line_details_.clear ();
       for (vsize i = 0; i + 1 < current_chunks_.size (); i++)
 	{
 	  vsize sys = next_system (current_chunks_[i]);
@@ -463,16 +463,16 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	      line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
 
 	      vector<Line_details> details = line_breaking_[sys].line_details (start, end, div[i]);
-	      uncompressed_line_details_.insert (uncompressed_line_details_.end (), details.begin (), details.end ());
+	      cached_line_details_.insert (cached_line_details_.end (), details.begin (), details.end ());
 	    }
 	  else
 	    {
 	      assert (div[i] == 1);
-	      uncompressed_line_details_.push_back (Line_details (all_[sys].prob_));
-	      uncompressed_line_details_.back ().padding_ = padding;
+	      cached_line_details_.push_back (Line_details (all_[sys].prob_));
+	      cached_line_details_.back ().padding_ = padding;
 	    }
 	}
-      cached_line_details_ = compress_lines (uncompressed_line_details_);
+      cached_line_details_ = compress_lines (cached_line_details_);
     }
 }
 
@@ -481,7 +481,6 @@ Page_breaking::clear_line_details_cache ()
 {
   cached_configuration_index_ = VPOS;
   cached_line_details_.clear ();
-  uncompressed_line_details_.clear ();
 }
 
 void
@@ -542,8 +541,8 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
 
       if ((next_height > cur_page_height && cur_rod_height > 0)
-	  || (i > 0
-	      && cached_line_details_[i-1].page_permission_ == ly_symbol2scm ("force")))
+	  || (i + 1 < cached_line_details_.size ()
+	      && cached_line_details_[i].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  cur_rod_height = ext_len;
 	  cur_spring_height = line_space (cached_line_details_[i]);
@@ -572,12 +571,8 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
   cur_page_height = page_height (first_page_num + ret - 1, true);
   Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
-  if (cur_height > cur_page_height
-      /* don't increase the page count if the last page had only one system */
-      && cur_rod_height > cached_line_details_.back ().extent_.length ())
+  if (cur_height > cur_page_height)
     ret++;
-
-  assert (ret <= cached_line_details_.size ());
   return ret;
 }
 
@@ -621,9 +616,9 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   n_res.demerits_ += penalty;
   n_res.force_.back () += penalty;
 
-  if (m_res.demerits_ < n_res.demerits_)
-    return m_res;
-  return n_res;
+  if (n_res.demerits_ < m_res.demerits_)
+    return n_res;
+  return m_res;
 }
 
 Spacing_result
@@ -662,20 +657,14 @@ Page_breaking::finalize_spacing_result (vsize configuration, Spacing_result res)
   Real page_force = 0;
   Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
 
-  for (vsize i = 0; i < uncompressed_line_details_.size (); i++)
+  for (vsize i = 0; i < cached_line_details_.size (); i++)
     {
-      line_force += uncompressed_line_details_[i].force_ * uncompressed_line_details_[i].force_;
-      line_penalty += uncompressed_line_details_[i].break_penalty_;
+      line_force += cached_line_details_[i].force_ * cached_line_details_[i].force_;
+      line_penalty += cached_line_details_[i].break_penalty_;
     }
 
   for (vsize i = 0; i < res.force_.size (); i++)
-    {
-      Real f = res.force_[i];
-      if (isinf (f) && res.systems_per_page_[i] == 1)
-	f = 20000;
-
-      page_force += f * f;
-    }
+    page_force += res.force_[i] * res.force_[i];
 
   /* for a while we tried averaging page and line forces across pages instead
      of summing them, but it caused a problem: if there is a single page

@@ -132,7 +132,6 @@ private:
   void clear_line_details_cache ();
   vsize cached_configuration_index_;
   vector<Line_details> cached_line_details_;
-  vector<Line_details> uncompressed_line_details_;
 
   vector<Break_position> chunk_list (vsize start, vsize end);
   Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
