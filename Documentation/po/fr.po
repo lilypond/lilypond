@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-02-24 10:14+0100\n"
-"PO-Revision-Date: 2007-03-17 15:56+0100\n"
+"PO-Revision-Date: 2007-03-25 08:21+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -545,7 +545,7 @@ msgstr "Vastes projets"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Saving typing with identifiers and functions"
-msgstr "Économiser du temps grâce à des identificateurs et fonctions"
+msgstr "Gagner du temps grâce à des identificateurs et fonctions"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -565,7 +565,7 @@ msgstr "Résolution de problèmes --- tout remettre à plat"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Minimal examples"
-msgstr "Exemples minimalistes"
+msgstr "Exemples minimaux"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @chapter in ../../../Documentation/user/tweaks.itely
@@ -590,7 +590,7 @@ msgstr "Retouches courantes"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Default files"
-msgstr "Fichiers fournis par LilyPond"
+msgstr "Fichiers fournis avec LilyPond"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -605,7 +605,7 @@ msgstr "Retouches avancées avec Scheme"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
-msgstr ""
+msgstr "Éviter les retouches ralentissant le traitement"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @chapter in ../../../Documentation/user/basic-notation.itely
@@ -1025,7 +1025,7 @@ msgstr "Graver des lignes rythmiques"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Entering percussion"
-msgstr "Notation de percussions"
+msgstr "Notation des percussions"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1200,7 +1200,7 @@ msgstr "Texte"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Text scripts"
-msgstr "Commentaires textuelle"
+msgstr "Commentaires textuels"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1240,7 +1240,7 @@ msgstr "Sélection de la fonte"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "New dynamic marks"
-msgstr "Personnalisation des indication de nuance"
+msgstr "Personnalisation des indications de nuance"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
@@ -1310,7 +1310,7 @@ msgstr "Citer d'autres voix"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Formatting cue notes"
-msgstr "Mettre en forme un citation"
+msgstr "Mettre en forme une citation"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1375,7 +1375,7 @@ msgstr "Info-bulle"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Blank music sheet"
-msgstr "La feuille de papier à musique"
+msgstr "Papier à musique"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
