@@ -42,6 +42,7 @@ Dot_column::calc_positioning_done (SCM smob)
     = extract_grob_array (me, "dots");
 
   vector<Grob*> main_heads;
+  Real ss = 0;
 
   Grob *commonx = me;
   { /*
@@ -74,21 +75,20 @@ Dot_column::calc_positioning_done (SCM smob)
  
   for (vsize i = 0; i < support.size (); i++)
     {
-      if (Note_head::has_interface (support[i]))
-	{
-	  Interval y(-1, 1);
-	  y += Staff_symbol_referencer::get_position (support[i]);
+      if (!ss)
+	ss = Staff_symbol_referencer::staff_space (support[i]);
+      
+      Interval y (support[i]->extent (support[i], Y_AXIS));
+
+      y *= 2 / ss;
+      y += Staff_symbol_referencer::get_position (support[i]);
 	  
-	  Box b (support[i]->extent (commonx, X_AXIS), y);
-	  boxes.push_back (b);
+      Box b (support[i]->extent (commonx, X_AXIS), y);
+      boxes.push_back (b);
 
-	  if (Grob *s = unsmob_grob (support[i]->get_object ("stem")))
-	    stems.insert (s);
-	}
-      else
-	programming_error ("unknown grob in dot col support");
+      if (Grob *s = unsmob_grob (support[i]->get_object ("stem")))
+	stems.insert (s);
     }
-
 
   for (set<Grob*>::const_iterator i(stems.begin());
        i != stems.end (); i++)
@@ -98,7 +98,7 @@ Dot_column::calc_positioning_done (SCM smob)
       if (!flag.is_empty ())
 	{
 	  Interval y = flag.extent (Y_AXIS)
-	    * (2 / Staff_symbol_referencer::staff_space (stem))
+	    * (2 / ss)
 	    + Stem::stem_end_position (stem);
 		  
 	  Interval x = stem->relative_coordinate (commonx, X_AXIS)
