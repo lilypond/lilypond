@@ -34,13 +34,14 @@ class LanguageDef:
 site = LanguageDef ('en', _('English'), webext='')
 fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;')
 es = LanguageDef ('es', _('Spanish') )
+de = LanguageDef ('de', _('Deutsch') )
 #nl = LanguageDef ('nl', 'Nederlands')
 
 # Outdated or broken translations may be disabled
 # (please run 'make web-clean' before doing that):
 #fr.enabled = False
 
-LANGUAGES = (site, fr, es)
+LANGUAGES = (site, fr, es, de)
 
 if __name__ == '__main__':
     print ' '.join ([l.code for l in LANGUAGES if l.enabled and l.code != 'en'])
