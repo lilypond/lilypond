@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: baa716e4047ffb69efad2d864eb8f010ccb2a0b8
+    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -223,22 +223,58 @@ ajoutez @code{\include "italiano.ly"} au début du fichier d'entrée.
 Les fichiers de langues disponibles ainsi que les noms de notes
 utilisés sont les suivants:
 
-@c  what about micro-tunes, double-sharps, and double-flats?  add
-@c  more columns to the table?
-@c  Oh, and should this be made into a multitable?
 @cindex note names, other languages)
 @example
-                       Noms de note              dièse       bémol
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat
-                                                  -x (double)
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b
+                       Noms de note              dièse       bémol      double          double
+                                                                        dièse           bémol
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es          -isis           -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat     -ss/-x/         -ff/
+                                                                        -sharpshsarp    -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es          -isis           -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es     -ississ/-isis   -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess         -ississ         -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b           -dd             -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b           -dd/-ss         -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b           -ss             -bb
 @end example
+
+@noindent
+Notez qu'en hollandais, en allemand, en norvégien et en suédois,
+un @samp{la} altéré de bemol se note @code{aes} et @code{aeses}.  Ces
+formes sont contractées en @code{as} et @code{ases} (ou plus
+communément @code{asas}).  Dans certains fichiers linguistiques,
+seules ces formes abrégées ont été définies ; ceci s'applique aussi
+aux suffixes pour les quarts de ton.
+
+@noindent
+Certaines musiques utilisent des microtonalités, pour lesquelles les
+altérations sont des fractions de dièse ou bémol @qq{normaux}.  Le
+tableau suivant répertorie les noms de note en quart de ton, tels que
+définis dans plusieurs fichiers linguistiques. Les préfixes @q{semi-}
+et @q{sesqui-} correspondent au @q{demi-} et @q{trois quarts }.  
+À noter qu'aucune définition n'existe à ce jour pour le norvégien, le
+suédois, le catalan et l'espagnol.
+
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+                        Noms de note           semi-   semi-  sesqui-  sesqui-
+                                               dièse   bémol  dièse    bémol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
 
 
 @node Relative octaves
@@ -743,6 +779,49 @@ Pour éviter d'imprimer les chiffres des nolets, utilisez
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
 \override TupletNumber #'transparent = ##t
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
+@end lilypond
+
+Utilisez la fonction @code{\tweak} pour définir une priorité dans le
+cas de nolets imbriqués débutant au même moment.  Dans cet exemple,
+@code{\tweak} spécifie un texte sous forme de fraction pour le
+@code{TupletNumber} externe et de dénominateur pour les trois triolets internes. 
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \times 4/3 {
+     \tweak #'text #tuplet-number::calc-denominator-text
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Ici, @code{\tweak} et @code{\override} agissent de concert pour
+spécifier le positionnement du @code{TupletBracket}.  Le premier
+@code{\tweak} positionne le @code{TupletBracket} du nolet externe au
+dessus de la portée. Le second @code{\tweak} positionne le
+@code{TupletBracket} du premier triolet interne au dessous de la
+portée.  Notez que cette paire de fonctions @code{\tweak} n'affectent
+que le triolet extérieur et le premier des trois triolets imbriqués
+parce qu'ils commencent au même instant musical.  Nous utilisons
+@code{\override} de manière tout à fait normale, pour forcer le
+positionnement du @code{TupletBracket} des deuxième et troisième
+triolets en dessous de la portée.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \tweak #'direction #up
+  \times 4/3 {
+     \tweak #'direction #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \override TupletBracket #'direction = #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
 @end lilypond
 
 Les crochets de nolets peuvent aller jusqu'aux prémisses de la mesure
