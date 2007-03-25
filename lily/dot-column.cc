@@ -23,6 +23,7 @@ using namespace std;
 #include "stem.hh"
 #include "grob.hh"
 #include "pointer-group-interface.hh"
+#include "dot-configuration.hh"
 
 /*
   TODO: let Dot_column communicate with stem via Note_column.
@@ -52,160 +53,8 @@ Dot_column::side_position (SCM smob)
 	  stem->get_property ("stem-end-position");
 	}
     }
-
+  
   return Side_position_interface::x_aligned_side (smob, SCM_EOL);
-}
-
-struct Dot_position
-{
-  int pos_;
-  Direction dir_;
-  Grob *dot_;
-  bool extremal_head_;
-
-  Dot_position ()
-  {
-    dot_ = 0;
-    pos_ = 0;
-    dir_ = CENTER;
-    extremal_head_ = false;
-  }
-};
-
-typedef map<int, Dot_position> Dot_configuration;
-
-/*
-  Value CFG according.
-*/
-int
-dot_config_badness (Dot_configuration const &cfg)
-{
-  int t = 0;
-  for (Dot_configuration::const_iterator i (cfg.begin ());
-       i != cfg.end (); i++)
-    {
-      int p = i->first;
-      int demerit = sqr (p - i->second.pos_) * 2;
-
-      int dot_move_dir = sign (p - i->second.pos_);
-      if (i->second.extremal_head_)
-	{
-	  if (i->second.dir_
-	      && dot_move_dir != i->second.dir_)
-	    demerit += 3;
-	  else if (dot_move_dir != UP)
-	    demerit += 2;
-	}
-      else if (dot_move_dir != UP)
-	demerit += 1;
-
-      t += demerit;
-    }
-
-  return t;
-}
-
-void
-print_dot_configuration (Dot_configuration const &cfg)
-{
-  printf ("dotconf { ");
-  for (Dot_configuration::const_iterator i (cfg.begin ());
-       i != cfg.end (); i++)
-    printf ("%d, ", i->first);
-  printf ("} \n");
-}
-
-/*
-  Shift K and following (preceding) entries up (down) as necessary to
-  prevent staffline collisions if D is up (down).
-
-  If K is in CFG, then do nothing.
-*/
-
-Dot_configuration
-shift_one (Dot_configuration const &cfg,
-	   int k, Direction d)
-{
-  Dot_configuration new_cfg;
-  int offset = 0;
-
-  if (d > 0)
-    {
-      for (Dot_configuration::const_iterator i (cfg.begin ());
-	   i != cfg.end (); i++)
-	{
-	  int p = i->first;
-	  if (p == k)
-	    {
-	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-		p += d;
-	      else
-		p += 2* d;
-
-	      offset = 2*d;
-
-	      new_cfg[p] = i->second;
-	    }
-	  else
-	    {
-	      if (new_cfg.find (p) == new_cfg.end ())
-		offset = 0;
-	      new_cfg[p + offset] = i->second;
-	    }
-	}
-    }
-  else
-    {
-      Dot_configuration::const_iterator i (cfg.end ());
-      do
-	{
-	  i--;
-
-	  int p = i->first;
-	  if (p == k)
-	    {
-	      if (Staff_symbol_referencer::on_line (i->second.dot_, p))
-		p += d;
-	      else
-		p += 2* d;
-
-	      offset = 2*d;
-
-	      new_cfg[p] = i->second;
-	    }
-	  else
-	    {
-	      if (new_cfg.find (p) == new_cfg.end ())
-		offset = 0;
-
-	      new_cfg[p + offset] = i->second;
-	    }
-	}
-      while (i != cfg.begin ());
-    }
-
-  return new_cfg;
-}
-
-/*
-  Remove the collision in CFG either by shifting up or down, whichever
-  is best.
-*/
-void
-remove_collision (Dot_configuration &cfg, int p)
-{
-  bool collide = cfg.find (p) != cfg.end ();
-
-  if (collide)
-    {
-      Dot_configuration cfg_up = shift_one (cfg, p, UP);
-      Dot_configuration cfg_down = shift_one (cfg, p, DOWN);
-
-      int b_up = dot_config_badness (cfg_up);
-      int b_down = dot_config_badness (cfg_down);
-
-      cfg = (b_up < b_down) ? cfg_up : cfg_down;
-    }
 }
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
@@ -238,7 +87,7 @@ Dot_column::calc_positioning_done (SCM smob)
 	n->relative_coordinate (c, X_AXIS);
       }
   }
-
+  
   vector_sort (dots, position_less);
   for (vsize i = dots.size (); i--;)
     if (!dots[i]->is_live ())
@@ -268,10 +117,10 @@ Dot_column::calc_positioning_done (SCM smob)
       if (dp.extremal_head_)
 	dp.dir_ = to_dir (dp.dot_->get_property ("direction"));
 
-      remove_collision (cfg, p);
+      cfg.remove_collision (p);
       cfg[p] = dp;
       if (Staff_symbol_referencer::on_line (dp.dot_, p))
-	remove_collision (cfg, p);
+	cfg.remove_collision (p);
     }
 
   for (Dot_configuration::const_iterator i (cfg.begin ());
