@@ -30,10 +30,12 @@ struct Spacing_result {
    calculations so they can be reused for querying different page counts.
 */
 
+class Page_breaking;
+
 class Page_spacer
 {
 public:
-  Page_spacer (vector<Line_details> const &lines, Real page_height, bool ragged, bool ragged_last);
+  Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const*);
   Spacing_result solve (vsize page_count);
 
 private:
@@ -53,7 +55,8 @@ private:
     vsize prev_;
   };
 
-  Real page_height_;
+  Page_breaking const *breaker_;
+  vsize first_page_num_;
   vector<Line_details> lines_;
   Matrix<Page_spacing_node> state_;
   vsize max_page_count_;
@@ -65,29 +68,28 @@ private:
   bool calc_subproblem (vsize page, vsize lines);
 };
 
-vsize
-min_page_count (vector<Line_details> const &lines,
-		Real page_height, bool ragged, bool ragged_last);
+struct Page_spacing
+{
+  Real force_;
+  Real page_height_;
+  Real rod_height_;
+  Real spring_len_;
+  Real inverse_spring_k_;
 
-Spacing_result
-space_systems_on_n_pages (vector<Line_details> const&,
-			  vsize n,
-			  Real page_height,
-			  bool ragged,
-			  bool ragged_last);
+  Line_details last_line_;
 
-Spacing_result
-space_systems_on_n_or_one_more_pages (vector<Line_details> const&,
-				      vsize n,
-				      Real page_height,
-				      Real odd_pages_penalty,
-				      bool ragged,
-				      bool ragged_last);
-Spacing_result
-space_systems_on_best_pages (vector<Line_details> const&,
-			     Real page_height,
-			     Real odd_pages_penalty,
-			     bool ragged,
-			     bool ragged_last);
+  Page_spacing (Real page_height)
+  {
+    page_height_ = page_height;
+    clear ();
+  }
 
+  void calc_force ();
+
+  void append_system (const Line_details &line);
+  void prepend_system (const Line_details &line);
+  void clear ();
+};
+
+Real line_space (Line_details const &line);
 #endif /* PAGE_SPACING_HH */

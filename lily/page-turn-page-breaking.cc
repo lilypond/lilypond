@@ -36,18 +36,10 @@ Page_turn_page_breaking::~Page_turn_page_breaking ()
 Page_turn_page_breaking::Break_node
 Page_turn_page_breaking::put_systems_on_pages (vsize start,
 					       vsize end,
-					       vector<Line_details> const &lines,
-					       Line_division const &div,
-					       int page_number)
+					       vsize configuration,
+					       vsize page_number)
 {
-  bool last = end == breaks_.size () - 1;
-  bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
-  bool ragged_last = last && to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
-  Real page_h = page_height (1, false); // FIXME
-  SCM force_sym = last ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
-  Real blank_force = robust_scm2double (book_->paper_->lookup_variable (force_sym), 0);
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
-  int min_p_count = min_page_count (lines, page_h, ragged_all, ragged_last);
+  vsize min_p_count = min_page_count (configuration, page_number);
   bool auto_first = to_boolean (book_->paper_->c_variable ("auto-first-page-number"));
 
   /* If [START, END] does not contain an intermediate
@@ -73,14 +65,14 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)
-	result = space_systems_on_n_or_one_more_pages (lines, min_p_count, page_h, 0, ragged_all, ragged_last);
+	result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number);
       else
-	result = space_systems_on_n_pages (lines, min_p_count, page_h, ragged_all, ragged_last);
+	result = space_systems_on_n_pages (configuration, min_p_count, page_number);
     }
   else if (page_number % 2 == min_p_count % 2)
-    result = space_systems_on_n_pages (lines, min_p_count, page_h, ragged_all, ragged_last);
+    result = space_systems_on_n_pages (configuration, min_p_count, page_number);
   else
-    result = space_systems_on_n_or_one_more_pages (lines, min_p_count, page_h, blank_force, ragged_all, ragged_last);
+    result = space_systems_on_n_or_one_more_pages (configuration, min_p_count, page_number);
 
   Break_node ret;
   ret.prev_ = start - 1;
@@ -90,22 +82,14 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   if (auto_first && start == 0)
     ret.first_page_number_ += 1 - (ret.page_count_ % 2);
 
-  ret.div_ = div;
+  ret.div_ = current_configuration (configuration);
   ret.system_count_ = result.systems_per_page_;
 
-  ret.too_many_lines_ = true;
-  ret.demerits_ = result.penalty_;
+  ret.too_many_lines_ = all_lines_stretched (configuration);
+  ret.demerits_ = result.demerits_;
   if (start > 0)
     ret.demerits_ += state_[start-1].demerits_;
-  for (vsize i = 0; i < lines.size (); i++)
-    {
-      ret.demerits_ += lines[i].force_ * lines[i].force_;
-      ret.demerits_ += lines[i].break_penalty_;
-      if (lines[i].force_ < 0)
-	ret.too_many_lines_ = false;
-    }
-  for (vsize i = 0; i < result.force_.size (); i++)
-    ret.demerits_ += result.force_[i] * result.force_[i] * page_weighting;
+
   return ret;
 }
 
@@ -166,14 +150,12 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
       min_sys_count = max (min_sys_count, prev_best_system_count);
       for (vsize sys_count = min_sys_count; sys_count <= max_sys_count && ok_page; sys_count++)
         {
-	  vector<Line_division> div = line_divisions (start, end, sys_count, min_division, max_division);
+	  set_current_breakpoints (start, end, sys_count, min_division, max_division);
           bool found = false;
 
-          for (vsize d = 0; d < div.size (); d++)
+          for (vsize i = 0; i < current_configuration_count (); i++)
             {
-	      vector<Line_details> line = line_details (start, end, div[d]);
-
-              cur = put_systems_on_pages (start, end, line, div[d], p_num);
+              cur = put_systems_on_pages (start, end, i, p_num);
 
               if (isinf (cur.demerits_)
 		  || (cur.page_count_  + (p_num % 2) > 2
@@ -195,7 +177,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
 
 		  /* heuristic: if we increase the number of systems, we can bound the
 		     division from below by our current best division */
-		  min_division = div[d];
+		  min_division = current_configuration (i);
                 }
             }
           if (!found && this_start_best.too_many_lines_)
