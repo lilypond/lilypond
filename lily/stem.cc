@@ -275,8 +275,6 @@ Stem::calc_stem_end_position (SCM smob)
       return me->get_property ("stem-end-position");
     }
   
-  Real ss = Staff_symbol_referencer::staff_space (me);
-  int durlog = duration_log (me);
   vector<Real> a;
 
   /* WARNING: IN HALF SPACES */
@@ -571,6 +569,9 @@ Stem::flag (Grob *me)
       || unsmob_grob (me->get_object ("beam")))
     return Stencil ();
 
+  if (!is_normal_stem (me))
+    return Stencil ();
+  
   /*
     TODO: maybe property stroke-style should take different values,
     e.g. "" (i.e. no stroke), "single" and "double" (currently, it's
