@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: baa716e4047ffb69efad2d864eb8f010ccb2a0b8
+    Translation of GIT committish: 8c96e698d0bb70a1a903ee895b91a38e79bb6692
 
 
     When revising a translation, copy the HEAD committish of the
@@ -17,7 +17,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Automatic notation::
 * Interpretation contexts::
-* The @code{\override} command::
+* The \override command::
 @end menu 
 @node Automatic notation
 @section Automatic notation
@@ -104,8 +104,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Layout interfaces::
 * Determining the grob property::
 * Objects connected to the input::
-* Using Scheme code instead of \tweak::  
-* \set versus \override::  
+* Using Scheme code instead of \tweak::
+* \set versus \override::
 * Difficult tweaks::
 @end menu 
 @node Constructing a tweak
@@ -139,7 +139,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node \set versus \override
-@subsection @code{\set} versus @code{\override}
+@subsection @code{\set} vs. @code{\override}
 
 UNTRANSLATED NODE: IGNORE ME
 

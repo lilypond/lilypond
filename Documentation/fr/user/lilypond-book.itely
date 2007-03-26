@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d56aa8181857c5feabf303ae88e716eba069f0a9
+    Translation of GIT committish: 8c96e698d0bb70a1a903ee895b91a38e79bb6692
 
 
     When revising a translation, copy the HEAD committish of the
@@ -10,7 +10,7 @@
 
 
 @node LilyPond-book
-@chapter 
+@chapter @command{lilypond-book}: Integrating text and music
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -33,7 +33,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Integrating LaTeX and music
-@section Integrating La
+@section Integrating La@TeX{} and music
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -62,7 +62,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Invoking lilypond-book
-@section Invoking 
+@section Invoking @command{lilypond-book}
 
 UNTRANSLATED NODE: IGNORE ME
 
