@@ -612,6 +612,7 @@
 
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
+	(positioning-done . ,ly:script-interface::calc-positioning-done)
 
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(self-alignment-X . 0)
@@ -686,6 +687,8 @@
 	(script-priority . 100)
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
+	(positioning-done . ,ly:script-interface::calc-positioning-done)
+
 	(text . ,fingering::calc-text) 
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
@@ -1401,12 +1404,13 @@
 
 	;; padding set in script definitions.
 	(staff-padding . 0.25)
-	(X-offset . ,ly:self-alignment-interface::centered-on-x-parent)
+	(X-offset . ,script-interface::calc-x-offset)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 
 	(stencil . ,ly:script-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
+	(positioning-done . ,ly:script-interface::calc-positioning-done)
 	(font-encoding . fetaMusic)
 	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	(meta . ((class . Item)
@@ -1801,6 +1805,7 @@
 
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
+	(positioning-done . ,ly:script-interface::calc-positioning-done)
 
 	(outside-staff-priority . 450)
 	(avoid-slur . around)
