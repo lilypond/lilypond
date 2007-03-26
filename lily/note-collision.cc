@@ -306,7 +306,12 @@ check_meshing_chords (Grob *me,
 	far to the right.
       */
       if (Dot_column::has_interface (parent))
-	Side_position_interface::add_support (parent, nu);
+	{
+	  Grob *stem = unsmob_grob (nu->get_object ("stem"));
+	  extract_grob_set (stem, "note-heads", heads);
+	  for (vsize i = 0; i < heads.size (); i++)
+	    Side_position_interface::add_support (parent, heads[i]);
+	}
     }
 
   Direction d = UP;
