@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-24 10:14+0100\n"
-"PO-Revision-Date: 2007-03-26 08:45+0200\n"
+"POT-Creation-Date: 2007-03-26 20:57+0200\n"
+"PO-Revision-Date: 2007-03-26 21:02+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,31 +17,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../buildscripts/add_html_footer.py:36
+#: ../../buildscripts/add_html_footer.py:46
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
+msgstr ""
+"Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
 
-#: ../../buildscripts/add_html_footer.py:39
+#: ../../buildscripts/add_html_footer.py:47
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr "Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu.org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%(mail_address_url)s\">%(mail_address)s</a>"
+msgstr ""
+"Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu."
+"org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
+"(mail_address_url)s\">%(mail_address)s</a>"
 
-#: ../../buildscripts/add_html_footer.py:52
+#: ../../buildscripts/add_html_footer.py:54
 #, python-format
 msgid "Other languages: %s."
 msgstr "Autres langues&nbsp;: %s."
 
-#: ../../buildscripts/add_html_footer.py:53
+#: ../../buildscripts/add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
-#: ../../buildscripts/add_html_footer.py:236
+#: ../../buildscripts/add_html_footer.py:238
 msgid "stable-branch"
 msgstr "branche stable"
 
-#: ../../buildscripts/add_html_footer.py:238
+#: ../../buildscripts/add_html_footer.py:240
 msgid "development-branch"
 msgstr "branche de développement"
 
@@ -52,6 +56,14 @@ msgstr "Anglais"
 #: ../../buildscripts/langdefs.py:35
 msgid "French"
 msgstr "Français"
+
+#: ../../buildscripts/langdefs.py:36
+msgid "Spanish"
+msgstr "Espagnol"
+
+#: ../../buildscripts/langdefs.py:37
+msgid "German"
+msgstr "Allemand"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -1478,9 +1490,12 @@ msgid "Aligning contexts"
 msgstr "Aligner des contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
-#. @section in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
 msgstr "La commande \\override"
+
+#. @section in ../../../Documentation/user/changing-defaults.itely
+msgid "The @code{\\override} command"
+msgstr "La commande @code{\\override}"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1508,9 +1523,20 @@ msgid "Objects connected to the input"
 msgstr "Objets liés à la source"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
+msgid "Using Scheme code instead of \tweak"
+msgstr "Utiliser du code Scheme au lieu de \\tweak"
+
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
-msgid "\\set vs. \\override"
+msgid "Using Scheme code instead of @code{\tweak}"
+msgstr "Utiliser du code Scheme au lieu de @code{\\tweak}"
+
+#. @node in ../../../Documentation/user/changing-defaults.itely
+msgid "\\set versus \\override"
 msgstr "\\set ou \\override"
+
+#. @subsection in ../../../Documentation/user/changing-defaults.itely
+msgid "@code{\\set} vs. @code{\\override}"
+msgstr "@code{\\set} ou @code{\\override}"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1647,9 +1673,9 @@ msgstr "Mise en forme de la partition"
 msgid "Displaying spacing"
 msgstr "Montrer les espacements"
 
+# pourquoi utiliser "rupture" au lieu de "saut" ? -JM
 #. @node in ../../../Documentation/user/spacing.itely
 #. @section in ../../../Documentation/user/spacing.itely
-# pourquoi utiliser "rupture" au lieu de "saut" ? -JM
 msgid "Breaks"
 msgstr "Sauts"
 
@@ -2243,3 +2269,5 @@ msgstr "Annexe"
 msgid "Footnotes"
 msgstr "Notes de bas de page"
 
+msgid "Table of Contents"
+msgstr "Table des matières"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-02-24 10:14+0100\n"
+"POT-Creation-Date: 2007-03-26 20:57+0200\n"
 "PO-Revision-Date: 2007-03-23 11:57+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -16,31 +16,35 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../buildscripts/add_html_footer.py:36
+#: ../../buildscripts/add_html_footer.py:46
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr "Esta página corresponde a %(package_name)s-%(package_version)s (%(branch_str)s)."
+msgstr ""
+"Esta página corresponde a %(package_name)s-%(package_version)s (%(branch_str)"
+"s)."
 
-#: ../../buildscripts/add_html_footer.py:39
+#: ../../buildscripts/add_html_footer.py:47
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr "Informe de los fallos a <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
+msgstr ""
+"Informe de los fallos a <a href=\"%(mail_address_url)s\">%(mail_address)s</"
+"a>."
 
-#: ../../buildscripts/add_html_footer.py:52
+#: ../../buildscripts/add_html_footer.py:54
 #, python-format
 msgid "Other languages: %s."
 msgstr "Otros idiomas: %s."
 
-#: ../../buildscripts/add_html_footer.py:53
+#: ../../buildscripts/add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "Acerca de la <A HREF=\"%s\">selección automática del idioma</A>."
 
-#: ../../buildscripts/add_html_footer.py:236
+#: ../../buildscripts/add_html_footer.py:238
 msgid "stable-branch"
 msgstr "rama estable"
 
-#: ../../buildscripts/add_html_footer.py:238
+#: ../../buildscripts/add_html_footer.py:240
 msgid "development-branch"
 msgstr "rama de desarrollo"
 
@@ -51,6 +55,14 @@ msgstr "Inglés"
 #: ../../buildscripts/langdefs.py:35
 msgid "French"
 msgstr "Francés"
+
+#: ../../buildscripts/langdefs.py:36
+msgid "Spanish"
+msgstr ""
+
+#: ../../buildscripts/langdefs.py:37
+msgid "German"
+msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -1491,8 +1503,12 @@ msgid "Aligning contexts"
 msgstr "Alinear los contextos"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
-#. @section in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
+msgstr "El comando \\override"
+
+#. @section in ../../../Documentation/user/changing-defaults.itely
+#, fuzzy
+msgid "The @code{\\override} command"
 msgstr "El comando \\override"
 
 #  ?? FVD
@@ -1523,8 +1539,21 @@ msgid "Objects connected to the input"
 msgstr "Objetos conectados con la entrada"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
+msgid "Using Scheme code instead of \tweak"
+msgstr ""
+
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
-msgid "\\set vs. \\override"
+msgid "Using Scheme code instead of @code{\tweak}"
+msgstr ""
+
+#. @node in ../../../Documentation/user/changing-defaults.itely
+#, fuzzy
+msgid "\\set versus \\override"
+msgstr "\\set frente a \\override"
+
+#. @subsection in ../../../Documentation/user/changing-defaults.itely
+#, fuzzy
+msgid "@code{\\set} vs. @code{\\override}"
 msgstr "\\set frente a \\override"
 
 # ??FVD
@@ -2259,6 +2288,9 @@ msgstr "Apéndice"
 
 msgid "Footnotes"
 msgstr "Notas al pie"
+
+msgid "Table of Contents"
+msgstr ""
 
 #~ msgid "Controlling spacing of individual systems"
 #~ msgstr "Controlar el espaciado de los sistemas individuales"
