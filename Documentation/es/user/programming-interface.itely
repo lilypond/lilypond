@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Music functions::
 * Programmer interfaces::
 * Building complicated functions::
@@ -20,9 +28,6 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Overview of music functions::
 * Simple substitution functions::
 * Paired substitution functions::
@@ -37,66 +42,42 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Simple substitution functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Simple substitution functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Paired substitution functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Paired substitution functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Mathematics in functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Mathematics in functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Void functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Void functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Functions without arguments
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Functions without arguments
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Overview of available music functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Overview of available music functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @include identifiers.tely
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Programmer interfaces
 @section Programmer interfaces
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Input variables and Scheme::
 * Internal music representation::
 @end menu 
@@ -106,25 +87,16 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Internal music representation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Internal music representation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Building complicated functions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Building complicated functions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Displaying music expressions::
 * Music properties::
 * Doubling a note with slurs (example)::
@@ -136,41 +108,26 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Music properties
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Music properties
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Doubling a note with slurs (example)
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Doubling a note with slurs (example)
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Adding articulation to notes (example)
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Adding articulation to notes (example)
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Markup programmer interface
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Markup programmer interface
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Markup construction in Scheme::
 * How markups work internally::
 * New markup command definition::
@@ -181,33 +138,21 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node How markups work internally
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection How markups work internally
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node New markup command definition
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection New markup command definition
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Contexts for programmers
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Contexts for programmers
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Context evaluation::
 * Running a function on all layout objects::
 @end menu 
@@ -217,18 +162,16 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Running a function on all layout objects
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Running a function on all layout objects
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Scheme procedures as properties
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Scheme procedures as properties
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Notation manual tables
 @appendix Notation manual tables
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Chord name chart::
 * MIDI instruments::
 * List of colors::
@@ -19,54 +27,31 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node MIDI instruments
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec MIDI instruments
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node List of colors
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec List of colors
 
 UNTRANSLATED NODE: IGNORE ME
 
 @subsubheading Normal colors
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubheading X color names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubheading Color Names without a numerical suffix:
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubheading Color names with a numerical suffix
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubheading Grey Scale
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node The Feta font
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec The Feta font
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Note head styles
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Note head styles
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

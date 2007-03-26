@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Advanced notation
 @chapter Advanced notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Text::
 * Preparing parts::
 * Orchestral music::
@@ -19,9 +27,6 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Text scripts::
 * Text and line spanners::
 * Text spanners::
@@ -38,82 +43,52 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Text and line spanners
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Text and line spanners
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Text spanners
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Text spanners
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Text marks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Text marks
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Text markup
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Text markup
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Nested scores
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Nested scores
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Overview of text markup commands
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Overview of text markup commands
 
 UNTRANSLATED NODE: IGNORE ME
 
 @include markup-commands.tely
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Font selection
 @subsection Font selection
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node New dynamic marks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection New dynamic marks
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Preparing parts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Preparing parts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Multi measure rests::
 * Metronome marks::
 * Rehearsal marks::
@@ -129,73 +104,46 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Metronome marks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Metronome marks
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Rehearsal marks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Rehearsal marks
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Bar numbers
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Bar numbers
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Instrument names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Instrument names
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Instrument transpositions
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Instrument transpositions
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ottava brackets
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ottava brackets
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Different editions from one source
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Different editions from one source
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Orchestral music
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Orchestral music
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Automatic part combining::
 * Hiding staves::
 * Quoting other voices::
@@ -208,52 +156,34 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Hiding staves
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Hiding staves
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Quoting other voices
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Quoting other voices
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Formatting cue notes
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Formatting cue notes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Aligning to cadenzas
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Aligning to cadenzas
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Contemporary notation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Contemporary notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Polymetric notation::
 * Time administration::
-* Proportional notation::
+* Proportional notation (introduction)::
 * Clusters::
 * Special noteheads::
 * Feathered beams::
@@ -266,73 +196,46 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Time administration
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Time administration
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Proportional notation
-
-UNTRANSLATED NODE: IGNORE ME
-
-@subsection Proportional notation
+@node Proportional notation (introduction)
+@subsection Proportional notation (introduction)
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Clusters
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Clusters
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Special noteheads
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Special noteheads
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Feathered beams
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Feathered beams
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Improvisation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Improvisation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Selecting notation font size
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Selecting notation font size
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Educational use
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Educational use
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Balloon help::
 * Blank music sheet::
 * Hidden notes::
@@ -349,66 +252,46 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Blank music sheet
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Blank music sheet
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Hidden notes
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Hidden notes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Shape note heads
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Shape note heads
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Easy Notation note heads
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Easy Notation note heads
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Analysis brackets
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Analysis brackets
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Coloring objects
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Coloring objects
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Parentheses
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Parentheses
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Grid lines
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Grid lines
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

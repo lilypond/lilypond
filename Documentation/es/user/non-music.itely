@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Non-musical notation
 @chapter Non-musical notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Input files::
 * Titles and headers::
 * MIDI output::
@@ -19,14 +27,11 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * File structure (introduction)::
-* Multiple scores in a book::
-* Extracting fragments of notation::
 * File structure::
 * A single music expression::
+* Multiple scores in a book::
+* Extracting fragments of notation::
 * Including LilyPond files::
 * Text encoding::
 @end menu 
@@ -35,66 +40,42 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Multiple scores in a book
-
-UNTRANSLATED NODE: IGNORE ME
-
-@subsection Multiple scores in a book
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Extracting fragments of notation
-
-UNTRANSLATED NODE: IGNORE ME
-
-@subsection Extracting fragments of notation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node File structure
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection File structure
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node A single music expression
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection A single music expression
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Including LilyPond files
+@node Multiple scores in a book
+@subsection Multiple scores in a book
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Including LilyPond files
 @subsection Including LilyPond files
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Text encoding
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Text encoding
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Titles and headers
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Titles and headers
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Creating titles::
 * Custom titles::
 @end menu 
@@ -104,25 +85,16 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Custom titles
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Custom titles
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node MIDI output
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section MIDI output
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Creating MIDI files::
 * MIDI block::
 * MIDI instrument names::
@@ -133,34 +105,26 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node MIDI block
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection MIDI block
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node MIDI instrument names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection MIDI instrument names
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Displaying LilyPond notation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Displaying LilyPond notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Skipping corrected music
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Skipping corrected music
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

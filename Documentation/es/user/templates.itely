@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Templates
 @appendix Templates
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Single staff::
 * Piano templates::
 * String quartet::
@@ -21,118 +29,53 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec Notes only
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Notes and lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Notes and chords
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Notes, lyrics, and chords.
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Piano templates
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Piano templates
 
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec Solo piano
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Piano and melody with lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Piano centered lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Piano centered dynamics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node String quartet
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec String quartet
 
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec String quartet
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec String quartet parts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Vocal ensembles
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Vocal ensembles
 
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec SATB vocal score
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec SATB vocal score and automatic piano reduction
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec SATB with aligned contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Ancient notation templates
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Ancient notation templates
 
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec Transcription of mensural music
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Gregorian transcription template
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Jazz combo
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Jazz combo
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Lilypond-book templates
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsec Lilypond-book templates
 
 UNTRANSLATED NODE: IGNORE ME
 
 @appendixsubsec LaTeX
-
-UNTRANSLATED NODE: IGNORE ME
-
 @appendixsubsec Texinfo
 
-UNTRANSLATED NODE: IGNORE ME
-
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

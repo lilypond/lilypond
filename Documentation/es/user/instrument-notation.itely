@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 04dc696a2d747721dd745ce432332e438a0465fe
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Instrument-specific notation
 @chapter Instrument-specific notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Piano music::
 * Chord names::
 * Vocal music::
@@ -22,9 +30,6 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Automatic staff changes::
 * Manual staff switches::
 * Pedals::
@@ -37,49 +42,31 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Manual staff switches
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Manual staff switches
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Pedals
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Pedals
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Staff switch lines
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Staff switch lines
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Cross staff stems
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Cross staff stems
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Chord names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Chord names
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Introducing chord names::
 * Chords mode::
 * Printing chord names::
@@ -90,33 +77,21 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Chords mode
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Chords mode
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Printing chord names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Printing chord names
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Vocal music
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Vocal music
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Setting simple songs::
 * Entering lyrics::
 * Hyphens and extenders::
@@ -135,57 +110,36 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Entering lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Hyphens and extenders
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Hyphens and extenders
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node The Lyrics context
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection The Lyrics context
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Melismata
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Melismata
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Another way of entering lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Another way of entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Flexibility in placement
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Flexibility in placement
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Lyrics to multiple notes of a melisma::
 * Divisi lyrics::
 * Switching the melody associated with a lyrics line::
@@ -198,101 +152,56 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Divisi lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Divisi lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Switching the melody associated with a lyrics line
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Switching the melody associated with a lyrics line
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Specifying melismata within the lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Specifying melismata within the lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Lyrics independent of notes
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Lyrics independent of notes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Spacing lyrics
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Spacing lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More about stanzas
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection More about stanzas
 
 UNTRANSLATED NODE: IGNORE ME
 
 @subsubsection Adding stanza numbers 
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Adding dynamics marks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Adding singer names
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Printing stanzas at the end 
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Printing stanzas at the end in multiple columns 
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Ambitus
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ambitus
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Other vocal issues
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Other vocal issues
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Rhythmic music
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Rhythmic music
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Showing melody rhythms::
 * Entering percussion::
 * Percussion staves::
@@ -304,41 +213,26 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Entering percussion
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Entering percussion
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Percussion staves
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Percussion staves
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ghost notes
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ghost notes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Guitar
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Guitar
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * String number indications::
 * Tablatures basic::
 * Non-guitar tablatures::
@@ -353,65 +247,41 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Tablatures basic
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Tablatures basic
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Non-guitar tablatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Non-guitar tablatures
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Banjo tablatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Banjo tablatures
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Fret diagrams
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Fret diagrams
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Right hand fingerings
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Right hand fingerings
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Other guitar issues
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Other guitar issues
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Bagpipe
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Bagpipe
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Bagpipe definitions::
 * Bagpipe example::
 @end menu 
@@ -421,25 +291,16 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Bagpipe example
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Bagpipe example
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient notation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Ancient notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Ancient note heads::
 * Ancient accidentals::
 * Ancient rests::
@@ -461,81 +322,51 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient accidentals
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient accidentals
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient rests
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient rests
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient clefs
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient clefs
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient flags
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient flags
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient time signatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient time signatures
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ancient articulations
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ancient articulations
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Custodes
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Custodes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Divisiones
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Divisiones
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Ligatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Ligatures
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * White mensural ligatures::
 * Gregorian square neumes ligatures::
 @end menu 
@@ -545,57 +376,36 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Gregorian square neumes ligatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubsection Gregorian square neumes ligatures
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Gregorian Chant contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Gregorian Chant contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Mensural contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Mensural contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Musica ficta accidentals
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Musica ficta accidentals
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Figured bass
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Figured bass
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Other instrument specific notation
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Other instrument specific notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Artificial harmonics (strings)::
 @end menu 
 @node Artificial harmonics (strings)
@@ -603,3 +413,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
