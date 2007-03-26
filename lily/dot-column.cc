@@ -126,11 +126,7 @@ Dot_column::calc_positioning_done (SCM smob)
 	{
 	  Grob *stem = unsmob_grob (note->get_object ("stem"));
 	  if (stem)
-	    {
-	      dp.extremal_head_ = Stem::first_head (stem) == note;
-
-
-	    }
+	    dp.extremal_head_ = Stem::first_head (stem) == note;
 	  
 	  dp.x_extent_ = note->extent (commonx, X_AXIS);
 	}
