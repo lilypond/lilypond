@@ -1,0 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Literature list
+@appendix Literature list
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

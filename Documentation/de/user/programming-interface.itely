@@ -1,0 +1,177 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Interfaces for programmers
+@chapter Interfaces for programmers
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Music functions::
+* Programmer interfaces::
+* Building complicated functions::
+* Markup programmer interface::
+* Contexts for programmers::
+* Scheme procedures as properties::
+@end menu 
+@node Music functions
+@section Music functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Overview of music functions::
+* Simple substitution functions::
+* Paired substitution functions::
+* Mathematics in functions::
+* Void functions::
+* Functions without arguments::
+* Overview of available music functions::
+@end menu 
+@node Overview of music functions
+@subsection Overview of music functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Simple substitution functions
+@subsection Simple substitution functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Paired substitution functions
+@subsection Paired substitution functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Mathematics in functions
+@subsection Mathematics in functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Void functions
+@subsection Void functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Functions without arguments
+@subsection Functions without arguments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Overview of available music functions
+@subsection Overview of available music functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@include identifiers.tely
+@node Programmer interfaces
+@section Programmer interfaces
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Input variables and Scheme::
+* Internal music representation::
+@end menu 
+@node Input variables and Scheme
+@subsection Input variables and Scheme
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Internal music representation
+@subsection Internal music representation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Building complicated functions
+@section Building complicated functions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
+@end menu 
+@node Displaying music expressions
+@subsection Displaying music expressions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Music properties
+@subsection Music properties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Doubling a note with slurs (example)
+@subsection Doubling a note with slurs (example)
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Adding articulation to notes (example)
+@subsection Adding articulation to notes (example)
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Markup programmer interface
+@section Markup programmer interface
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Markup construction in Scheme::
+* How markups work internally::
+* New markup command definition::
+@end menu 
+@node Markup construction in Scheme
+@subsection Markup construction in Scheme
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node How markups work internally
+@subsection How markups work internally
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node New markup command definition
+@subsection New markup command definition
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Contexts for programmers
+@section Contexts for programmers
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Context evaluation::
+* Running a function on all layout objects::
+@end menu 
+@node Context evaluation
+@subsection Context evaluation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Running a function on all layout objects
+@subsection Running a function on all layout objects
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Scheme procedures as properties
+@section Scheme procedures as properties
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

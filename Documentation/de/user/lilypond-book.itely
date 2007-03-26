@@ -1,0 +1,92 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node LilyPond-book
+@chapter @command{lilypond-book}: Integrating text and music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* An example of a musicological document::
+* Integrating LaTeX and music::
+* Integrating Texinfo and music::
+* Integrating HTML and music::
+* Integrating DocBook and music::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Many quotes of a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
+@end menu 
+@node An example of a musicological document
+@section An example of a musicological document
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Integrating LaTeX and music
+@section Integrating La@TeX{} and music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Integrating Texinfo and music
+@section Integrating Texinfo and music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Integrating HTML and music
+@section Integrating HTML and music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Integrating DocBook and music
+@section Integrating DocBook and music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@unnumberedsubsec Common conventions
+@unnumberedsubsec Including a LilyPond file
+@unnumberedsubsec Including LilyPond code
+@unnumberedsubsec Processing the DocBook document
+@node Music fragment options
+@section Music fragment options
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Invoking lilypond-book
+@section Invoking @command{lilypond-book}
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Filename extensions
+@section Filename extensions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Many quotes of a large score
+@section Many quotes of a large score
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Inserting LilyPond output into OpenOffice.org
+@section Inserting LilyPond output into OpenOffice.org
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Inserting LilyPond output into other programs
+@section Inserting LilyPond output into other programs
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

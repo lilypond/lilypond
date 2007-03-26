@@ -1,0 +1,64 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Tweaking output
+@chapter Tweaking output
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Moving objects::
+* Fixing overlapping notation::
+* Common tweaks::
+* Default files::
+* Fitting music onto fewer pages::
+* Advanced tweaks with Scheme::
+* Avoiding tweaks with slower processing::
+@end menu 
+@node Moving objects
+@section Moving objects
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fixing overlapping notation
+@section Fixing overlapping notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Common tweaks
+@section Common tweaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Default files
+@section Default files
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fitting music onto fewer pages
+@section Fitting music onto fewer pages
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Advanced tweaks with Scheme
+@section Advanced tweaks with Scheme
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Avoiding tweaks with slower processing
+@section Avoiding tweaks with slower processing
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
