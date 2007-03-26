@@ -101,10 +101,10 @@ LilyPond Feta-Schriftart (2003)
 @end multitable
 
 
-@cindex musical symbols
-@cindex font
-@cindex blackness
-@cindex balance
+@cindex Musiksymbole
+@cindex Schriftart
+@cindex Dichte
+@cindex Balance
 
 @c introduce illustrating aspects of engraving, spacing...
 Die Verteilung der Noten innerhalb des Taktes sollte ihrer Dauer
@@ -115,7 +115,7 @@ gesetzt: einmal mit den exakten mathematischen Längenverhältnissen, dann
 mit kleinen Korrekturen. Welches von beiden ist mit dieser Korrektur
 gesetzt?
 
-@cindex optical spacing
+@cindex Optischer Ausgleich
 @c file spacing-optical.
 @c need to include it here,  because we want two images.
 @lilypond
@@ -171,8 +171,8 @@ music = {
 }
 @end lilypond
 
-@cindex regular rhythms
-@cindex regular spacing
+@cindex normale Rhythmen
+@cindex normale Abstände
 
 In diesem Ausschnitt kommen nur Viertel vor, Noten, die in einem
  gleichmäßigen Rhythmus gespielt werden. Die Abstände sollten das
@@ -187,7 +187,7 @@ Korrektur gesetzt, das unter ohne. In letzterem Fall bilden sich
 für das Auge bei unten/oben-Folgen Notenklumpen mit schmalen Abständen 
 zwischen den Notenhälsen.
 
-@cindex typography
+@cindex Typographie
 
 Musiker sind üblicherweise zu zu konzentriert, die Musik aufzuführen, 
 als dass sie das Aussehen der Noten studieren könnten; und diese 
@@ -376,8 +376,8 @@ verändert werden. Im nächsten Beispiel wird die Regel,
 @node What symbols to engrave?
 @section What symbols to engrave?
 
-@cindex engraving
-@cindex typography
+@cindex Notensatz
+@cindex Typographie
 
 Während des Notensatzprozesses entscheidet sich, wo
 Symbole platziert werden. Das kann aber nur gelingen, 
@@ -846,8 +846,8 @@ eine große HTML-Seite,
 @uref{source/Documentation/user/lilypond.html, eine große Seite},
 @end ifhtml
 erhältlich, die einfach mit der Suchfunktion des Browsers durchsucht werden kann.
-@cindex search in manual
-@cindex using the manual
+@cindex Suche im Handbuch
+@cindex Benutzung des Handbuchs
 
 @c FIXME:
 @c add/integrate glossary, put in list above
@@ -864,11 +864,12 @@ Im @ref{Top,Glossar musikalischer Begriffe,,music-glossary} werden die wichtigst
 englisch erklärt und in eine Reihe von Sprachen übersetzt, sodass sie auch auf deutsch 
 gefunden werden. Es gibt es auch als PDF.
 @end ifnottex
-@cindex idiom
-@cindex jargon
-@cindex terminology
-@cindex foreign languages
-@cindex language
+@cindex Dialekt
+@cindex Jargon
+@cindex Terminologie
+@cindex Fremdsprache
+@cindex Sprache
+@cindex Englische Begriffe
 
 Dieses Handbuch ist ohne eine Reihe anderer Dokumente nicht vollständig. Sie sind
 nicht in gedruckter Form erhältlich, aber sollten in dem Dokumentationspaket für Ihr
@@ -898,7 +899,7 @@ Im HTML-Handbuch haben diese Abschnitte klickbare Links.
 Die Programmreferenz ist nur auf englisch erhältlich.
 
 
-@cindex snippets
+@cindex Schnipsel
 @item
 @ifnothtml
 Verschiedene Quelltextbeispiele.
@@ -944,14 +945,15 @@ gespeichert. Initialisierungsdateien, etwa  @file{scm/@/lily@/.scm},
 oder @file{ly/@/engraver@/-init@/.ly}, befinden sich normalerweise im 
 Verzeichnis @file{/usr/@/share/@/lilypond/}.
 
-@cindex adjusting output
-@cindex variables
+@cindex Anpassen der Ausgabe
+@cindex Variablen
+@cindex Eigenschaften
 @cindex properties
 @cindex lilypond-internals
-@cindex internal documentation
+@cindex interne Dokumentation
 @cindex Scheme
-@cindex extending lilypond
-@cindex index
+@cindex Erweiterung von LilyPond
+@cindex Index
 
 Dieses Handbuch (so wie alle anderen) ist als PDF- oder HTML-Datei von 
 LilyPonds Internetseite @uref{http://@/www@/.lilypond@/.org/} herunterladbar.

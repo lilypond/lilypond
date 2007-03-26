@@ -308,8 +308,8 @@ Viele setzen einige dieser Befehle außerhalb des
 sehr oft oberhalb der  @code{\score}-Umgebung gesetzt. Das ist genauso
 gut und funktioniert ebenso.
 
-@cindex variables
-@cindex indentifiers
+@cindex Variablen
+@cindex Bezeichner
 
 Eine gut Möglichkeit zur Vereinfachung sind selbst definierte Variablen. 
 Alle

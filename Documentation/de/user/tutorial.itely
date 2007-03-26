@@ -123,7 +123,9 @@ weggelassen werden. Es kann sein, dass in diesem Handbuch
 die Klammern in manchen Beispielen fehlen, aber man sollte
 immer daran denken, sie in den eigenen Dateien zu benutzen!
 
-@cindex Case sensitive
+@cindex Groß- und Kleinschreibung
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
   @code{ @{ c d e @} } ist zulässiger Code,
  @code{ @{ C D E @} } dagegen resultiert in einer Fehlermeldung.
@@ -219,8 +221,9 @@ Layout nach »test.ps« ausgeben...
 Konvertierung nach »test.pdf«...
 @end example
 
-@cindex PDF file
-@cindex Viewing music
+@cindex PDF-Datei
+@cindex Betrachten von Noten
+@cindex Anschauen von Noten
 
 @noindent
 Als Ergebnis erhalten Sie ein @file{test.pdf}, das Sie mit den
@@ -433,7 +436,9 @@ Wenn das jetzt unverständlich klang, sind hier die  Erklärungen:
 @itemize
 
 @c übersetzen?
-@cindex Case sensitive
+@cindex Groß- und Kleinschreibung
+@cindex Kleinbuchstaben
+@cindex Großbuchstaben
 @item @strong{Groß- und Kleinschreibung:}
 Die Bedeutung eines Zeichens verändert sich, je
 nachdem, ob es groß (@code{A, B, S, T}) oder klein
@@ -473,9 +478,9 @@ befinden sich am Anfang oder Ende einer Zeile.
 Eine Funktion (wie etwa @code{\relative @{ @}} ) wird auch als ein einzelner
 Musikausdruck gewertet.
 
-@cindex comments
-@cindex line comment
-@cindex block comment
+@cindex Kommentare
+@cindex Zeilenkommentare
+@cindex Blockkommentare
 @item @strong{Kommentare:}
 Ein Kommentar ist eine Bemerkung für den menschlichen Leser
 einer Quelldatei, es wird bei der Dateianalyse durch das Programm
@@ -610,7 +615,7 @@ Sprachen zu benutzen, siehe
 cis1 ees fisis, aeses
 @end lilypond
 
-@cindex key signature, setting
+@cindex Tonart, Einstellung von
 @subheading Key signatures
 
 Die Tonart eines Stückes wird mit dem Befehl @code{\key} gefolgt
@@ -691,7 +696,7 @@ siehe @ref{Key signature}.
 @node Ties and slurs
 @subsection Ties and slurs
 
-@cindex ties
+@cindex Bindebögen
 @subheading Ties
 Ein @rglos{tie} wird geschrieben, indem man eine Tilde @samp{~} and die
 erste der zu verbindenden Noten hängt.
@@ -701,7 +706,7 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@cindex slurs
+@cindex Legatobögen
 @subheading Slurs
 
 Ein @rglos{slur} ist ein Bogen, der über viele Noten gesetzt wird. Die
@@ -713,11 +718,12 @@ and der er beginngt, und die Note, an der er endet, werden mit
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@cindex slurs, phrasing
-@cindex phrasing slurs
+@cindex Phrasierungsbögen
+@cindex Legatobögen, Phrasierung
+@cindex Bögen
 @subheading Phrasing slurs
 
-@cindex phrasing slurs
+@cindex Phrasierungsbögen
 Bögen, die längere Phrasierungseiheiten bezeichnen
 (Phrasierungsbögen), werden mit @code{\(} und
 @code{\)} eingegeben.  Es können sowohl Legato- als auch
@@ -731,7 +737,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 
 @sp 1
 
-@cindex slurs versus ties
+@cindex Binde- versus Legatobogen
 @subheading Warnings: slurs vs. ties
 
 Ein Legatobogen sieht aus wie ein @rglos{tie}, hat aber eine
@@ -761,9 +767,9 @@ siehe @ref{Phrasing slurs}.
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
-@cindex articulation
-@cindex accents
-@cindex staccato
+@cindex Artikulation
+@cindex Akzente
+@cindex Staccato
 @subheading Articulations
 
 Übliche @rglos{articulations} könne durch Anfügen eines Minus
@@ -773,7 +779,7 @@ siehe @ref{Phrasing slurs}.
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@cindex fingering
+@cindex Fingersatz
 @subheading Fingerings
 Auf gleiche Weise können Fingersatzbezeichnungen hinzugefügt
 werden, indem nach dem Minus (@samp{-}) eine Zahl geschrieben wird:
@@ -803,9 +809,9 @@ hängt:
 c\ff c\mf c\p c\pp
 @end lilypond
 
-@cindex dynamics
-@cindex decrescendo
-@cindex crescendo
+@cindex Lautstärke
+@cindex Decrescendo
+@cindex Crescendo
 
 Crescendo und Decrescendo werden mit dem Befehl @code{\<}
 beziehungsweise @code{\>} begonnen.  Ein Dynamik-Zeichen, etwa
@@ -832,7 +838,7 @@ siehe @ref{Dynamics}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
-@cindex beams, by hand
+@cindex Balken, manuell
 Alle @rglos{beam} werden automatisch gedruckt:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -862,9 +868,8 @@ siehe @ref{Manual beams}.
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
-@cindex pickup
-@cindex anacruse
-@cindex partial measure
+
+@cindex Auftakt
 @subheading Partial measure
 
 Ein @rglos{anacrusis}) wird mit dem Befehl @code{\partial}
@@ -876,8 +881,8 @@ heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 f8 c2 d
 @end lilypond
 
-@cindex tuplets
-@cindex triplets
+@cindex N-tolen
+@cindex Triolen
 @subheading Tuplets
 
 Triolen und N-tolen werden mit dem @code{\times}-Befehl erzeugt. Er braucht
@@ -893,9 +898,9 @@ Bruch:
 \times 2/3 { d4 a8 }
 @end lilypond
 
-@cindex grace notes
-@cindex acciaccatura
-@cindex appoggiatura
+@cindex Verzierungen
+@cindex Vorschlag
+@cindex Vorhalt
 @subheading Grace notes
 
 Verzierungen werden mit dem Befehl @code{\grace}
@@ -1025,8 +1030,8 @@ mit einer Note:
 }
 @end lilypond
 
-@cindex expression
-@cindex music expression
+@cindex Ausdruck
+@cindex musikalischer Ausdruck
 @subheading Analogy: mathematical expressions
 
 Dieser Mechanismus funktioniert ähnlich wie mathematische
@@ -1124,8 +1129,9 @@ werden, siehe
 @node Piano staves
 @subsection Piano staves
 
-@cindex staff switch, manual
-@cindex cross staff voice, manual
+@cindex Systemwechsel, manuell
+@cindex Wechsel zwischen Systemen, manuell
+@cindex Stimmwechsel zwischen Systemen, manuell
 Musik für das Klavier wird üblicherweise auf zwei Systemen notiert,
 die durch eine geschweifte Klammer verbunden sind. Um ein derartiges
 Notensystem zu erstellen, geht man ähnlich vor wie in dem Beispiel
@@ -1159,9 +1165,9 @@ Siehe @ref{Piano music}.
 @node Single staff polyphony
 @subsection Single staff polyphony
 
-@cindex polyphony
-@cindex multiple voices
-@cindex voices, more -- on a staff
+@cindex Mehrstimmigkeit
+@cindex mehrere Stimmen
+@cindex Stimmen, mehrere in einem System
 Wenn unterschiedliche Melodien oder Stimmen in einem System
 kombiniert werden sollen, werden sie als @c{polyphone Stimmen}
 realisiert: Jede Stimme hat eigene Hälse, Balken und Legatobögen,
@@ -1219,7 +1225,7 @@ Siehe @ref{Basic polyphony}.
 @node Combining notes into chords
 @subsection Combining notes into chords
 
-@cindex chords
+@cindex Akkorde
 Akkorde werden notiert, indem die Tonhöhen von spitzen
 Klammern (@samp{<} und @samp{>}) umgeben werden.
 
@@ -1256,8 +1262,8 @@ gezeigt.
 @node Printing lyrics
 @subsection Printing lyrics
 
-@cindex Lyrics
-@cindex Songs
+@cindex Text
+@cindex Lieder
 Hier haben wir eine einfache Melodie:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1283,8 +1289,8 @@ wird eingegeben, indem jede Silbe durch ein Leerzeichen getrennt wird.
 @c this would be German version
 @c \addlyrics { Frei und froh denkt der Mensch }
 
-@cindex melisma
-@cindex extender line
+@cindex Melismen
+@cindex Unterstrich zur Silbenverlängerung
 Diese Melodie endet in einem @rglos{melisma}, d. h. eine einzige Silbe
 wird auf mehr als eine Note gesungen. Das wird im Text meistens mit
 einem Unterstrich hinter der Silbe dargestellt. Dieser Strich wird
@@ -1328,9 +1334,9 @@ Melodie, werden im Kapitel @ref{Vocal music} gezeigt.
 @node A lead sheet
 @subsection A lead sheet
 
-@cindex Lead sheets
-@cindex chords
-@cindex chord names
+@cindex lead sheet
+@cindex Akkorde
+@cindex Akkordbezeichnungen
 
 In der Pop-Musik wird die Begleitung gerne mit Akkordsymbolen
 angegeben. Diese Bezeichnungen können in der @code{\chordmode}-Umgebung
@@ -1408,7 +1414,7 @@ dient es als Einleitung zum Rest des Handbuches.
 @node Version number
 @subsection Version number
 
-@cindex versioning
+@cindex Versionsnummern
 Der @code{\version}-Befehl zeigt an, für welche LilyPond-Version
 eine Quelldatei geschrieben worden ist. Um etwa eine Datei für die
 Version 2.11.20 zu markieren, wird einfach
