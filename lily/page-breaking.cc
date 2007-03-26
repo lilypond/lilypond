@@ -571,7 +571,9 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 
   cur_page_height = page_height (first_page_num + ret - 1, true);
   Real cur_height = cur_rod_height + ((ragged_last () || ragged ()) ? cur_spring_height : 0);
-  if (cur_height > cur_page_height)
+  if (cur_height > cur_page_height
+      /* don't increase the page count if the last page had only one system */
+      && cur_rod_height > cached_line_details_.back ().extent_.length ())
     ret++;
   return ret;
 }
