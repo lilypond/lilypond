@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 884968f3b77f345f327857f1df17e114adad877f
+    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -48,7 +48,7 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond/Tutorial.html">Tutorial</a>
+	    <a class="title" href="user/lilypond/Tutorial.es.html">Tutorial</a>
 	      <br>(comience por aquí)
 
 	  </ul>
@@ -57,11 +57,11 @@
 	  <ul>
 	  
             <li>
-	    <a class="title" href="topdocs/NEWS.html">NOTICIAS</a>
+	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
  	    <br>(cambios producidos desde el último lanzamiento importante)
 
             <li>
-	    <a class="title" href="topdocs/INSTALL.html">INSTALACIÓN</a>
+	    <a class="title" href="topdocs/INSTALL.html">Instalación</a>
  	    <br>(cómo compilarlo)
 	  </ul>
 	  </td>
@@ -71,9 +71,9 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.html">Manual del usuario</a>
-(en <a class="title" href="user/lilypond-big-page.html">una sola página enorme</a> ~ 4 Mb,
-en <a class="title" href="user/lilypond.pdf">PDF</a>)
+<a class="title" href="user/lilypond/index.es.html">Manual del usuario</a> [parcialmente traducido]<br>
+(en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb, <br>
+y en <a class="title" href="user/lilypond.pdf">PDF</a> [en inglés])
 
      <br>(todo sobre LilyPond)
      
@@ -89,8 +89,8 @@ en <a class="title" href="user/lilypond.pdf">PDF</a>)
 <li><a class="title" href="../input/lsr/collated-files.html">Fragmentos de código</a>
      <br>(en desarrollo)
 
- <li><a class="title" href="user/music-glossary/index.html">Glosario</a>
-(en <a class="title" href="user/music-glossary-big-page.html">una sola página enorme</a> ~ 1 Mb,
+ <li><a class="title" href="user/music-glossary/index.html">Glosario</a> multilingüe<br>
+(en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 1 Mb,
 en <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
      <br>(para usuarios de habla no inglesa)
@@ -100,10 +100,10 @@ en <a class="title" href="user/music-glossary.pdf">PDF</a>)
           &nbsp;
 	  <ul>
 	    <li>
- <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a>
- (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página enorme</a> ~ 1 Mb)
+ <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a> [en inglés]<br>
+ (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)
 
-     <br>(definiciones para trastear)
+     <br>(definiciones para hacer trucos)
 
 	    <li>
      <a  class="title" href="../input/regression/collated-files.html">Pruebas de regresión</a> (~ 5 Mb, en <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">comparación</a>)
