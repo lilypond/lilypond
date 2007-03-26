@@ -34,7 +34,7 @@ class LanguageDef:
 site = LanguageDef ('en', _('English'), webext='')
 fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;')
 es = LanguageDef ('es', _('Spanish') )
-de = LanguageDef ('de', _('Deutsch') )
+de = LanguageDef ('de', _('German') )
 #nl = LanguageDef ('nl', 'Nederlands')
 
 # Outdated or broken translations may be disabled
