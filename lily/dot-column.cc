@@ -27,7 +27,7 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "dot-configuration.hh"
 #include "note-head.hh"
-#include "skyline.hh"
+#include "rest.hh"
 #include "dot-formatting-problem.hh"
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
@@ -75,18 +75,28 @@ Dot_column::calc_positioning_done (SCM smob)
  
   for (vsize i = 0; i < support.size (); i++)
     {
+      Grob *s = support[i];
       if (!ss)
-	ss = Staff_symbol_referencer::staff_space (support[i]);
-      
-      Interval y (support[i]->extent (support[i], Y_AXIS));
+	ss = Staff_symbol_referencer::staff_space (s);
 
+      /* can't inspect Y extent of rest.
+	 
+	 Rest collisions should wait after line breaking.
+      */
+      if (Rest::has_interface (s))
+	{
+	  base_x.unite (s->extent (commonx, X_AXIS));
+	  continue;
+	}
+
+      Interval y = s->extent (s, Y_AXIS);
       y *= 2 / ss;
-      y += Staff_symbol_referencer::get_position (support[i]);
+      y += Staff_symbol_referencer::get_position (s);
 	  
-      Box b (support[i]->extent (commonx, X_AXIS), y);
+      Box b (s->extent (commonx, X_AXIS), y);
       boxes.push_back (b);
 
-      if (Grob *s = unsmob_grob (support[i]->get_object ("stem")))
+      if (Grob *s = unsmob_grob (s->get_object ("stem")))
 	stems.insert (s);
     }
 
