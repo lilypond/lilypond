@@ -83,21 +83,31 @@ Dot_column::calc_positioning_done (SCM smob)
 	 
 	 Rest collisions should wait after line breaking.
       */
+      Interval y;
       if (Rest::has_interface (s))
 	{
 	  base_x.unite (s->extent (commonx, X_AXIS));
 	  continue;
 	}
+      else if (Stem::has_interface (s))
+	{
+	  Real y1 = Stem::head_positions (s)[-get_grob_direction (s)];
+	  Real y2 = y1 + get_grob_direction (s) * 7;
 
-      Interval y = s->extent (s, Y_AXIS);
+	  y.add_point (y1);
+	  y.add_point (y2);
+	}
+      else
+	y = s->extent (s, Y_AXIS);
+
       y *= 2 / ss;
       y += Staff_symbol_referencer::get_position (s);
 	  
       Box b (s->extent (commonx, X_AXIS), y);
       boxes.push_back (b);
 
-      if (Grob *s = unsmob_grob (s->get_object ("stem")))
-	stems.insert (s);
+      if (Grob *stem = unsmob_grob (s->get_object ("stem")))
+	stems.insert (stem);
     }
 
   for (set<Grob*>::const_iterator i(stems.begin());

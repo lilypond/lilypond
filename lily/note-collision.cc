@@ -507,6 +507,23 @@ Note_collision_interface::automatic_shift (Grob *me,
     }
   while ((flip (&d)) != UP);
 
+
+  /*
+    see input/regression/dot-up-voice-collision.ly
+   */
+  for (vsize i = 0; i < clash_groups[UP].size (); i++)
+    {
+      Grob *g = clash_groups[UP][i];
+      Grob *dc = Note_column::dot_column (g);
+      
+      if (dc)
+	for (vsize j = i + 1;  j < clash_groups[UP].size (); j++)
+	  {
+	    Grob *stem = Note_column::get_stem (clash_groups[UP][j]);
+	    Side_position_interface::add_support (dc, stem);
+	  }
+    }
+  
   /*
     Check if chords are meshing
   */
