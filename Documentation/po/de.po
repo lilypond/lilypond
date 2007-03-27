@@ -19,46 +19,46 @@ msgstr ""
 #: ../../buildscripts/add_html_footer.py:46
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr ""
+msgstr "Diese Seite ist für %(package_name)s-%(package_version)s (%(branch_str)s)."
 
 #: ../../buildscripts/add_html_footer.py:47
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
+msgstr "Fehler bitte an <a href=\"%(mail_address_url)s\">%(mail_address)s</a> melden."
 
 #: ../../buildscripts/add_html_footer.py:54
 #, python-format
 msgid "Other languages: %s."
-msgstr ""
+msgstr "Andere Sprachen: %s."
 
 #: ../../buildscripts/add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr ""
+msgstr "Über die <A HREF=\"%s\">automatische Sprachauswahl</A>."
 
 #: ../../buildscripts/add_html_footer.py:238
 msgid "stable-branch"
-msgstr ""
+msgstr "stabiler Zweig"
 
 #: ../../buildscripts/add_html_footer.py:240
 msgid "development-branch"
-msgstr ""
+msgstr "Entwicklungszweig"
 
 #: ../../buildscripts/langdefs.py:34
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: ../../buildscripts/langdefs.py:35
 msgid "French"
-msgstr ""
+msgstr "Französisch"
 
 #: ../../buildscripts/langdefs.py:36
 msgid "Spanish"
-msgstr ""
+msgstr "Spanisch"
 
 #: ../../buildscripts/langdefs.py:37
 msgid "German"
-msgstr ""
+msgstr "Deutsch"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -2269,4 +2269,4 @@ msgid "Footnotes"
 msgstr "Fußnoten"
 
 msgid "Table of Contents"
-msgstr ""
+msgstr "Inhaltsverzeichnis"
