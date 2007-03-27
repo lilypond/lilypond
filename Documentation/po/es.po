@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-26 20:57+0200\n"
-"PO-Revision-Date: 2007-03-23 11:57+0100\n"
+"PO-Revision-Date: 2007-03-27 02:00+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,11 +58,11 @@ msgstr "Francés"
 
 #: ../../buildscripts/langdefs.py:36
 msgid "Spanish"
-msgstr ""
+msgstr "Español"
 
 #: ../../buildscripts/langdefs.py:37
 msgid "German"
-msgstr ""
+msgstr "Alemán"
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -1507,9 +1507,8 @@ msgid "The \\override command"
 msgstr "El comando \\override"
 
 #. @section in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "The @code{\\override} command"
-msgstr "El comando \\override"
+msgstr "El comando @code{\\override}"
 
 #  ?? FVD
 #. @node in ../../../Documentation/user/changing-defaults.itely
@@ -1540,21 +1539,19 @@ msgstr "Objetos conectados con la entrada"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of \tweak"
-msgstr ""
+msgstr "Usar código de Scheme en lugar de \tweak"
 
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of @code{\tweak}"
-msgstr ""
+msgstr "Usar código de Scheme en lugar de @code{\tweak}"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "\\set versus \\override"
 msgstr "\\set frente a \\override"
 
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "@code{\\set} vs. @code{\\override}"
-msgstr "\\set frente a \\override"
+msgstr "@code{\\set} frente a @code{\\override}"
 
 # ??FVD
 #. @node in ../../../Documentation/user/changing-defaults.itely
@@ -2289,8 +2286,9 @@ msgstr "Apéndice"
 msgid "Footnotes"
 msgstr "Notas al pie"
 
+# this is the same translation that babel LaTex package uses . FVD
 msgid "Table of Contents"
-msgstr ""
+msgstr "Índice general"
 
 #~ msgid "Controlling spacing of individual systems"
 #~ msgstr "Controlar el espaciado de los sistemas individuales"

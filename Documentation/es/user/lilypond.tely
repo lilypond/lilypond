@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f5a2aec5313027cb9b89a917b52230b2a7f31df7
+    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -79,10 +79,10 @@ Este documento también está disponible como
 
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 por los autores
 
 @quotation
-Se otorga permiso para copiar, distribuiy y/o modificar este documento
+Se otorga permiso para copiar, distribuir y/o modificar este documento
 bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
 o cualquier versión posterior publicada por la Free Software Foundation;
 sin ninguna de las secciones invariantes.
@@ -110,16 +110,16 @@ de Documentación Libre de GNU''.
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2006 por los autores
+Copyright @copyright{} 1999--2007 por los autores
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+@emph{La traducción de la siguiente nota de copyright se ofrece
+como cortesía para las personas de habla no inglesa, pero únicamente la nota en inglés
+tiene validez legal.}
 
-@emph{---Spanish translation here---}
+@emph{---A continuación figura la traducción al español---}
 
 @quotation
-Se otorga permiso para copiar, distribuiy y/o modificar este documento
+Se otorga permiso para copiar, distribuir y/o modificar este documento
 bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
 o cualquier versión posterior publicada por la Free Software Foundation;
 sin ninguna de las secciones invariantes.
@@ -138,18 +138,18 @@ Free Documentation License''.
 @end copying
 
 @ifnottex
-This file documents GNU LilyPond.
+Este archivo es la documentación de GNU LilyPond.
 
-Copyright @copyright{} 1999--2006 by the authors
+Copyright @copyright{} 1999--2007 por los autores
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+@emph{La traducción de la siguiente nota de copyright se ofrece
+como cortesía para las personas de habla no inglesa, pero únicamente la nota en inglés
+tiene validez legal.}
 
-@emph{---Spanish translation here---}
+@emph{---A continuación figura la traducción al español---}
 
 @quotation
-Se otorga permiso para copiar, distribuiy y/o modificar este documento
+Se otorga permiso para copiar, distribuir y/o modificar este documento
 bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
 o cualquier versión posterior publicada por la Free Software Foundation;
 sin ninguna de las secciones invariantes.
@@ -177,7 +177,7 @@ Free Documentation License''.
 (Consulte el final de esta página para ver el número exacto de la versión).
 @end ifhtml
 
-@cindex sitio web
+@cindex web, sitio
 @cindex URL
 
 Se puede encontrar más información en
@@ -206,13 +206,13 @@ Referencia de la notación
 * Spacing issues::                 Presentación de la salida sobre papel.
 * Interfaces for programmers::     Utilización por expertos.
 
-Program usage
+Utilización del programa
 
 * Running LilyPond::               Funcionamiento.
 * LilyPond-book::                  Integrar texto y música.
 * Converting from other formats::  Convertir al formato de entrada de LilyPond.
 
-Appendices
+Apéndices
 
 * Literature list::                Obras de referencia sobre notación musical.
 * Scheme tutorial::                Programación dentro de LilyPond.
