@@ -153,17 +153,17 @@ traitement, vous la trouverez dans la fenêtre @qq{log}.
 Sous Windows, lorsque vous double-cliquez sur l'icône LilyPond qui se
 trouve sur le Bureau, un fichier d'exemple s'ouvre dans un simple
 éditeur de texte.  Enregistrez-le, par exemple en tant que
-@file{test.ly} sur votre Bureau, puis double-cliquez dessus (icône
-représentant une note) pour le traiter.  Après quelques secondes, vous
-obtiendrez un fichier @file{test.pdf} sur votre Bureau, fichier que
-vous pourrez ouvrir pour voir la partition imprimée.  Une autre
-méthode pour lancer le traitement du fichier @file{test.ly} est de le
-glisser avec votre souris sur l'icône de LilyPond.
+@file{test.ly} sur votre Bureau, puis double-cliquez sur son icône
+(qui montre une note de musique) pour le traiter.  Après quelques
+secondes, vous obtiendrez un fichier @file{test.pdf} sur votre Bureau,
+fichier que vous pourrez ouvrir pour voir la partition imprimée.  Une
+autre méthode pour lancer le traitement du fichier @file{test.ly} est
+de le glisser avec votre souris sur l'icône de LilyPond.
 
 Pour modifier un fichier @file{.ly} existant, faites un clic droit
 dessus et sélectionnez @qq{Éditer la source}.  Pour partir d'un
-fichier vide, lancer l'éditeur qomme indiqué ci dessus et utilisez la
-commande @qq{New} du menu @qq{File}.
+fichier vide, lancez l'éditeur en ouvrant un fichier existant et
+utilisez la commande @qq{New} du menu @qq{File}.
 
 En double-cliquant sur le fichier, vous obtiendrez, en plus du fichier
 PDF, un fichier @file{.log} qui récapitule les opérations que LilyPond
