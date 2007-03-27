@@ -32,15 +32,23 @@ my_gettext = t.gettext
 
 html_codes = ((' -- ', ' &ndash; '),
 	      (' --- ', ' &mdash; '))
-html2texi_command = re.compile (r'<samp><span class="command">(.*?)</span></samp>')
-texi2html_command = re.compile (r'@command{(.*?)}')
+html2texi = {'command': (re.compile (r'<samp><span class="command">(.*?)</span></samp>'), r'@command{\1}'),
+	     'code': (re.compile (r'<code>(.*?)</code>'), r'@code{\1}')
+	     }
+texi2html = {'command': (re.compile (r'@command{(.*?)}'), r'<samp><span class="command">\1</span></samp>'),
+	     'code': (re.compile (r'@code{(.*?)}'), r'<code>\1</code>')
+	     }
 
 def _ (s):
+	if not s:
+		return ''
 	for c in html_codes:
 		s = s.replace (c[1], c[0])
-	s = html2texi_command.sub (r'@command{\1}', s)
+	for u in html2texi.values():
+		s = u[0].sub (u[1], s)
 	s = my_gettext (s)
-	s = texi2html_command.sub (r'<samp><span class="command">\1</span></samp>', s)
+	for u in texi2html.values():
+		s = u[0].sub (u[1], s)
 	for c in html_codes:
 		s = s.replace (c[0], c[1])
 	return s
@@ -52,11 +60,13 @@ def title_gettext (m):
 	return '<title>' + _(m.group(1)) + ' - ' + m.group(2) + '</title>'
 
 def a_href_gettext (m):
-	if m.group(6) == ':':
+	s = ''
+	if m.group(0)[-1] == ':':
 		s = double_punct_char_separator + ':'
-	elif m.group(6) == None:
-		s = ''
-	return '<a ' + (m.group(1) or '') + m.group(2) + m.group(3) + _(m.group(4)) + m.group(5) + '</a>' + s
+	t = ''
+	if m.lastindex == 7:
+		t = m.group(7)
+	return '<a ' + (m.group(1) or '') + m.group(2) + (m.group(3) or '') + _(m.group(4)) + m.group(5) + _(m.group(6)) + t + '</a>' + s
 
 def h_gettext (m):
 	return '<h' + m.group(1) + m.group(2) + '>' + \
@@ -71,7 +81,8 @@ for filename in args[3:]:
 	f.close()
 	page = re.sub (r'<link rel="(up|prev|next)" (.*?) title="([^"]*?)">', link_gettext, page)
 	page = re.sub (r'<title>([^<]*?) - ([^<]*?)</title>', title_gettext, page)
-	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?")? ?(?:name=".*?")? ?)(href="[^"]+?">)((?:<code>|)(?:[\d.]+ |))([^<]+)(</code>|)</a>(:)?', a_href_gettext, page)
+	# ugh
+	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?")? ?(?:name=".*?")? ?)(href="[^"]+?">)(<code>)?(Appendix )?([A-Z\d.]+ |)(.+?)(?(3)</code>)</a>:?', a_href_gettext, page)
 	page = re.sub (r'<h(\d)( class="\w+"|)>([\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
 	page = re.sub (r'<a href="../music-glossary/(.+?)">(.+?)</a>', rglos_gettext, page)
 	for w in ('Next:', 'Previous:', 'Up:'):

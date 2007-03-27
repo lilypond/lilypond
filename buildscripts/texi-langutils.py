@@ -123,10 +123,10 @@ if make_gettext:
 	node_list = open (node_list_filename, 'w')
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, node_list)
-	for word in ('Up:', 'Next:', 'Previous:', 'Appendix', 'Footnotes', 'Table of Contents'):
+	for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
 		node_list.write ('_(r"' + word + '")\n')
 	node_list.close ()
-	os.system ('pygettext --no-location -o ' + output_file + ' ' + node_list_filename)
+	os.system ('pygettext.py --no-location -o ' + output_file + ' ' + node_list_filename)
 else:
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton)
