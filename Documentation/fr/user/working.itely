@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
+   Translation of GIT committish: a765cf7a841733570469b8f8b5c5ba538c4187d6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -382,7 +382,7 @@ est peu visible, c'est pourquoi nous allons l'épaissir et le
 rapprocher des têtes de notes.  Déplaçons l'indication métronomique
 au-dessus de la clef, au lieu de la laisser au-dessus de la première
 note.  Et pour finir, mon professeur de composition déteste les
-chiffrages de mesure en "C", nous allons donc le transformer en "4/4".
+chiffrages de mesure en @qq{C}, nous allons donc le transformer en @qq{4/4}.
 
 Cependant, ne changez pas le fichier @file{musique.ly}.  Remplacez le
 fichier @file{definitions.ly} par ceci :
@@ -448,7 +448,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 
 C'est encore mieux !  Mais supposons maintenant que je veuille publier
 cette pièce.  Mon professeur de composition n'aime pas les chiffrages
-de mesure en "C", mais moi je les aime bien.  Copions l'actuel
+de mesure en @qq{C}, mais moi je les aime bien.  Copions l'actuel
 @file{definitions.ly} dans le fichier @file{publication-web.ly}, et
 modifions ce dernier.  Puisque la musique est destinée à produire un
 fichier PDF affiché sur écran, nous allons aussi augmenter la taille

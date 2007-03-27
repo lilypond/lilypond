@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
+   Translation of GIT committish: a765cf7a841733570469b8f8b5c5ba538c4187d6
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -150,37 +150,28 @@ traitement, vous la trouverez dans la fenêtre @qq{log}.
 
 @subsubheading Windows
 
-Sous Windows, démarrez un éditeur de texte @footnote{N'importe quel
-éditeur simple ou orienté programmation, qui prend en charge le codage
-de caractères UTF-8, fera l'affaire, par exemple le Bloc-notes.  N'utilisez
-pas de traitement de texte car ceux-ci insèrent des codes de formatage
-qui posent problème à  LilyPond.}  et saisissez
-
-@verbatim
-{
-  c' e' g' e'
-}
-@end verbatim
-
-Enregistrez-le sur le bureau sous @file{test.ly} et vérifiez bien
-qu'il ne s'appelle pas @file{test.ly.TXT}.  Double-cliquez sur le
-fichier @file{test.ly} pour le traiter et afficher le fichier
-PDF résultant.  Pour modifier un fichier @file{.ly} existant, faites
-un clic droit dessus et sélectionnez @qq{Éditer la source}.
-
-Si vous double-cliquez sur l'icône LilyPond sur le Bureau, un fichier
-d'exemple s'ouvrira dans un simple éditeur de texte.  Enregistrez-le,
-par exemple en tant que @file{test.ly} sur votre Bureau, puis
-double-cliquez dessus pour le traiter.  Après quelques secondes, vous
+Sous Windows, lorsque vous double-cliquez sur l'icône LilyPond qui se
+trouve sur le Bureau, un fichier d'exemple s'ouvre dans un simple
+éditeur de texte.  Enregistrez-le, par exemple en tant que
+@file{test.ly} sur votre Bureau, puis double-cliquez dessus (icône
+représentant une note) pour le traiter.  Après quelques secondes, vous
 obtiendrez un fichier @file{test.pdf} sur votre Bureau, fichier que
 vous pourrez ouvrir pour voir la partition imprimée.  Une autre
 méthode pour lancer le traitement du fichier @file{test.ly} est de le
 glisser avec votre souris sur l'icône de LilyPond.
 
+Pour modifier un fichier @file{.ly} existant, faites un clic droit
+dessus et sélectionnez @qq{Éditer la source}.  Pour partir d'un
+fichier vide, lancer l'éditeur qomme indiqué ci dessus et utilisez la
+commande @qq{New} du menu @qq{File}.
+
 En double-cliquant sur le fichier, vous obtiendrez, en plus du fichier
 PDF, un fichier @file{.log} qui récapitule les opérations que LilyPond
 a effectuées sur votre fichier.  Si une erreur advient, c'est ce
 fichier qu'il vous faudra étudier.
+
+Notez qu'il existe d'autres éditeurs de texte, certains disposant d'un
+meilleur support pour LilyPond ; reportez-vous à @ref{Editor support}.
 
 @subsubheading Unix
 
@@ -439,13 +430,13 @@ Tous ces termes vont être expliqués :
 LilyPond est sensible à  la casse, c'est à dire qu'une lettre en
 capitales n'a pas la même valeur qu'une lettre en minuscules.  Les
 notes, par exemple, doivent être entrées en minuscules :  @code{ @{ c
-d e @} } est
-un code valide, alors que @code{ @{ C D E @} } produira un message d'erreur.
+@tie{} d @tie{} e @tie{} @} } est un code valide, alors que @code{ @{
+C @tie{} D @tie{} E @tie{} @} } produira un message d'erreur.
 
 @item @strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, ou de retours à la
-ligne.  @code{ @{ c d e @}} a le même sens que @code{ @{ c @ @ @ @ @
-d e @} } ou que
+ligne.  @code{ @{ c @tie{} @tie{} @tie{} d  @tie{} e @tie{} e @}} a le
+même sens que @code{ @{ c @tie{} d @tie{} e @tie{} @} } ou que
 @example
          @{
 c                        d
