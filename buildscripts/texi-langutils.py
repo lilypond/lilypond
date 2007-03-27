@@ -79,7 +79,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 				if item[0] == '*':
 					g.write ('* ' + item[1] + '::\n')
 				elif output_file and item[4] == 'rglos':
-					output_file.write ('_("' + item[5] + '") # @rglos in ' + texifilename + '\n')
+					output_file.write ('_(r"' + item[5] + '") # @rglos in ' + texifilename + '\n')
 				else:
 					g.write ('@' + item[2] + ' ' + item[3] + '\n')
 					if node_trigger:
@@ -87,7 +87,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 						node_trigger = False
 					if not item[2] in ('include', 'menu', 'end menu'):
 						if output_file:
-							output_file.write ('_("' + item[3].strip () + '") # @' + item[2] + \
+							output_file.write ('_(r"' + item[3].strip () + '") # @' + item[2] + \
 									   ' in ' + texifilename + '\n')
 						if item[2] == 'node':
 							node_trigger = True
@@ -103,9 +103,9 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 				if item[0] == 'include':
 					includes.append(item[1])
 				elif item[2] == 'rglos':
-					output_file.write ('# @rglos in ' + texifilename + '\n_("' + item[3] + '")\n')
+					output_file.write ('# @rglos in ' + texifilename + '\n_(r"' + item[3] + '")\n')
 				else:
-					output_file.write ('# @' + item[0] + ' in ' + texifilename + '\n_("' + item[1].strip () + '")\n')
+					output_file.write ('# @' + item[0] + ' in ' + texifilename + '\n_(r"' + item[1].strip () + '")\n')
 		if process_includes:
 			dir = os.path.dirname (texifilename)
 			for item in includes:
@@ -124,9 +124,9 @@ if make_gettext:
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, node_list)
 	for word in ('Up:', 'Next:', 'Previous:', 'Appendix', 'Footnotes', 'Table of Contents'):
-		node_list.write ('_("' + word + '")\n')
+		node_list.write ('_(r"' + word + '")\n')
 	node_list.close ()
-	os.system ('xgettext -c -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
+	os.system ('pygettext --no-location -o ' + output_file + ' ' + node_list_filename)
 else:
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton)
