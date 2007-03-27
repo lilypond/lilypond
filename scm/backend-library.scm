@@ -8,7 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; 
 ;; backend helpers.
 
-(define-public (ly:system command)
+(define-public (ly:system command . rest)
   (let* ((status 0)
 	 (dev-null "/dev/null")
 	 (silenced (if (or (ly:get-option 'verbose)
@@ -17,14 +17,34 @@
 		       (format #f "~a > ~a 2>&1 " command dev-null))))
     (if (ly:get-option 'verbose)
 	(ly:message (_ "Invoking `~a'...") command))
-    
-    (set! status (system silenced))
+
+    (set! status
+	  (if (pair? rest)
+	      (system-with-env silenced (car rest))
+	      (system silenced)))
+	
     (if (> status 0)
 	(begin
 	  (ly:message (_ "`~a' failed (~a)") command status)
 	  (ly:progress "\n")
 	  ;; hmmm.  what's the best failure option? 
 	  (throw 'ly-file-failed)))))
+
+(define-public (system-with-env cmd env)
+
+  "Execute CMD in fork, with ENV (a list of strings) as the environment"
+  (let*
+      ;; laziness: should use execle?
+      
+      ((pid (primitive-fork)))
+    (if (= 0 pid)
+	;; child
+	(begin
+	  (environ env)
+	  (system cmd))
+	
+	;; parent
+	(cdr (waitpid pid)))))
 
 (define-public (sanitize-command-option str)
   "Kill dubious shell quoting"

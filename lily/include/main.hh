@@ -27,6 +27,7 @@ extern string init_name_global;
 
 /* options */
 extern vector<string> dump_header_fieldnames_global;
+extern vector<string> start_environment_global;
 extern string output_backend_global;
 extern string output_name_global;
 extern bool be_safe_global;

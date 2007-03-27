@@ -12,10 +12,16 @@
 #(ly:set-option 'backend 'eps)
 
 %% TODO: what to do if inkscape fails?
-#(display "Invoking inkscape...\n")
+#(ly:progress "Invoking inkscape...\n")
 
-%% LD_LIBRARY_PATH is necesssary, otherwise, it doesn't build in GUB.  
-#(system (format #f "LD_LIBRARY_PATH= inkscape -T -E ~a-1.eps ~a-1.svg" outname outname))
+%% LD_LIBRARY_PATH is necesssary, otherwise, it doesn't build in GUB.
+%% LD_LIBRARY_PATH is part of the start-environment but should be switched off
+%% for external inkscape.
+#(ly:system (format #f "LD_LIBRARY_PATH= inkscape -T -E ~a-inkscape.eps ~a-1.svg" outname outname)
+  (cons
+   (format #f "FONTCONFIG_FILE=~a/fonts/fonts.conf" (ly:effective-prefix))
+   (ly:start-environment)))
+
 #(set! output-count 0)
 #(set-default-paper-size "a5")
 
@@ -28,9 +34,9 @@
   \score {
     \lyrics {
       \markup {
-	\epsfile #X #30.0 #(format #f "~a-1.eps" outname)
+	\epsfile #X #30.0 #(format #f "~a-inkscape.eps" outname)
       }
-      x x x
+      bla bla bla
     }
   }
 }

@@ -105,3 +105,9 @@ Offset::direction () const
   d /= length (); 
   return d;
 }
+
+Offset
+Offset::swapped () const
+{
+  return Offset (coordinate_a_[Y_AXIS], coordinate_a_[X_AXIS]);
+}

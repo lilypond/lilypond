@@ -676,3 +676,10 @@ centered, X==1 is at the right, X == -1 is at the left."
     (grob-interpret-markup grob
 			   (make-fret-diagram-verbose-markup
 			    (string-frets->description string-frets string-count)))))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; scripts
+
+(define-public (script-interface::calc-x-offset grob)
+  (ly:grob-property grob 'positioning-done)
+  (ly:self-alignment-interface::centered-on-x-parent grob))

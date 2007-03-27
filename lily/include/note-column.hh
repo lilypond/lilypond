@@ -34,6 +34,7 @@ public:
   static void set_dotcol (Grob *me, Grob *);
   static void add_head (Grob *me, Grob *);
   static bool has_rests (Grob *me);
+  static Grob *dot_column (Grob *me);
   DECLARE_GROB_INTERFACE();
 
   static Item *get_stem (Grob *);

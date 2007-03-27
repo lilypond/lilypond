@@ -42,6 +42,20 @@ Script_interface::get_stencil (Grob *me, Direction d)
   return Stencil ();
 }
 
+MAKE_SCHEME_CALLBACK (Script_interface, calc_positioning_done, 1);
+SCM
+Script_interface::calc_positioning_done (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  if (Grob *par = me->get_parent (X_AXIS))
+    {
+      Grob *stem = Note_column::get_stem (par);
+      if (stem && Stem::first_head (stem))
+	me->set_parent (Stem::first_head (stem), X_AXIS);
+    }
+  return SCM_BOOL_T;
+}
+
 MAKE_SCHEME_CALLBACK (Script_interface, calc_direction, 1);
 SCM
 Script_interface::calc_direction (SCM smob)
@@ -55,13 +69,7 @@ Script_interface::calc_direction (SCM smob)
       d = DOWN;
     }
 
-  if (Grob *par = me->get_parent (X_AXIS))
-    {
-      Grob *stem = Note_column::get_stem (par);
-      if (stem && Stem::first_head (stem))
-	me->set_parent (Stem::first_head (stem), X_AXIS);
-    }
-
+  (void) me->get_property ("positioning-done");
   return scm_from_int (d);
 }
 
@@ -108,6 +116,7 @@ ADD_INTERFACE (Script_interface,
 	       "An object that is put above or below a note",
 	       "add-stem-support "
 	       "avoid-slur "
+	       "positioning-done "
 	       "script-priority "
 	       "script-stencil "
 	       "slur "

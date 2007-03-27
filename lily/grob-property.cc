@@ -70,6 +70,7 @@ LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
   cache_callback = cb;
   return SCM_UNSPECIFIED;
 }
+#endif
 
 void
 Grob::instrumented_set_property (SCM sym, SCM v,
@@ -77,6 +78,7 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 				 int line,
 				 char const *fun)
 {
+#ifndef NDEBUG
   if (ly_is_procedure (modification_callback))
     scm_apply_0 (modification_callback,
 		 scm_list_n (self_scm (),
@@ -84,9 +86,10 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 			     scm_from_int (line),
 			     scm_from_locale_string (fun),
 			     sym, v, SCM_UNDEFINED));
+#endif
+  
   internal_set_property (sym, v);
 }
-#endif
 
 SCM
 Grob::get_property_alist_chain (SCM def) const

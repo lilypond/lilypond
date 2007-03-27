@@ -182,6 +182,20 @@ Note_column::accidentals (Grob *me)
 }
 
 Grob *
+Note_column::dot_column (Grob *me)
+{
+  extract_grob_set (me, "note-heads", heads);
+  for (vsize i = 0; i < heads.size (); i++)
+    {
+      Grob *dots = unsmob_grob (heads[i]->get_object ("dot"));
+      if (dots)
+	return dots->get_parent (X_AXIS);
+    }
+  
+  return 0;
+}
+
+Grob *
 Note_column::arpeggio (Grob *me)
 {
   return unsmob_grob (me->get_object ("arpeggio"));
