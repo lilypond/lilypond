@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3bca66d4f4ce9bff01780d95027d8b07741e2189
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Changing defaults
 @chapter Changing defaults
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Automatic notation::
 * Interpretation contexts::
 * The \override command::
@@ -17,9 +25,6 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Automatic accidentals::
 * Setting automatic beam behavior::
 @end menu 
@@ -29,25 +34,16 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Setting automatic beam behavior
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Setting automatic beam behavior
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Interpretation contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Interpretation contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Contexts explained::
 * Creating contexts::
 * Changing context properties on the fly::
@@ -63,79 +59,53 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Creating contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Creating contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Changing context properties on the fly
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Changing context properties on the fly
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Modifying context plug-ins
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Modifying context plug-ins
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Layout tunings within contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Layout tunings within contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Changing context default settings
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Changing context default settings
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Defining new contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Defining new contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Aligning contexts
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Aligning contexts
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node The \override command
-
-UNTRANSLATED NODE: IGNORE ME
-
-@section The \override command
+@section The @code{\override} command
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Constructing a tweak::
 * Navigating the program reference::
 * Layout interfaces::
 * Determining the grob property::
 * Objects connected to the input::
-* \set vs. \override::
+* Using Scheme code instead of \tweak::
+* \set versus \override::
 * Difficult tweaks::
 @end menu 
 @node Constructing a tweak
@@ -144,50 +114,41 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Navigating the program reference
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Navigating the program reference
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Layout interfaces
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Layout interfaces
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Determining the grob property
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Determining the grob property
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Objects connected to the input
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Objects connected to the input
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node \set vs. \override
+@node Using Scheme code instead of \tweak
+@subsection Using Scheme code instead of @code{\tweak}
 
 UNTRANSLATED NODE: IGNORE ME
 
-@subsection \set vs. \override
+@node \set versus \override
+@subsection @code{\set} vs. @code{\override}
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Difficult tweaks
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Difficult tweaks
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

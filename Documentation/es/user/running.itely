@@ -1,12 +1,20 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 3bca66d4f4ce9bff01780d95027d8b07741e2189
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
 @node Running LilyPond
 @chapter Running LilyPond
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-
-UNTRANSLATED NODE: IGNORE ME
-
 * Invoking lilypond::
 * Notes for the MacOS X app::
 * Updating files with convert-ly::
@@ -21,58 +29,38 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @subsection Command line options
-
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Environment variables
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Notes for the MacOS X app
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Notes for the MacOS X app
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Updating files with convert-ly
-
-UNTRANSLATED NODE: IGNORE ME
-
-@section Updating with 
+@section Updating with @command{convert-ly}
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Reporting bugs
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Reporting bugs
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Error messages
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Error messages
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Editor support
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Editor support
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Point and click
-
-UNTRANSLATED NODE: IGNORE ME
-
 @section Point and click
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
