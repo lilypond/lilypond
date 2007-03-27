@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+    Translation of GIT committish: a765cf7a841733570469b8f8b5c5ba538c4187d6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1183,7 +1183,7 @@ Stimmen gesetzt wird.
 <<
   { a4 g2 f4~ f4 } \\
   { r4 g4 f2 f4 }
->> >>
+>>
 @end lilypond
 
 Für den Satz von mehrstimmigen Stücken kann es auch angebracht sein,
@@ -1195,7 +1195,7 @@ unsichtbaren Pause (@samp{s}) anstelle einer normalen (@samp{r}):
 <<
   { a4 g2 f4~ f4 } \\
   { s4 g4 f2 f4 }
->> >>
+>>
 @end lilypond
 
 @noindent
@@ -1213,7 +1213,7 @@ kombiniert werden.
     { <c g>1 ~ <c g>4 } \\
     { e,,4 d e2 ~ e4}
   >>
->> >>
+>>
 @end lilypond
 
 @moreinfo
