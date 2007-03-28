@@ -86,6 +86,10 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 			     scm_from_int (line),
 			     scm_from_locale_string (fun),
 			     sym, v, SCM_UNDEFINED));
+#else
+  (void) file;
+  (void) line;
+  (void) fun;
 #endif
   
   internal_set_property (sym, v);
