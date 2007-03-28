@@ -44,10 +44,8 @@ class Phrasing_slur_engraver : public Engraver
 protected:
   void acknowledge_extra_object (Grob_info);
   DECLARE_ACKNOWLEDGER (accidental);
-  DECLARE_ACKNOWLEDGER (dynamic_line_spanner);
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
-  DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (slur);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
@@ -103,22 +101,9 @@ Phrasing_slur_engraver::acknowledge_accidental (Grob_info info)
 }
 
 void
-Phrasing_slur_engraver::acknowledge_dynamic_line_spanner (Grob_info info)
-{
-  acknowledge_extra_object (info);
-}
-
-void
 Phrasing_slur_engraver::acknowledge_fingering (Grob_info info)
 {
   acknowledge_extra_object (info);
-}
-
-void
-Phrasing_slur_engraver::acknowledge_script (Grob_info info)
-{
-  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
-    acknowledge_extra_object (info);
 }
 
 void
@@ -176,10 +161,8 @@ Phrasing_slur_engraver::stop_translation_timestep ()
 }
 
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, dynamic_line_spanner);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
-ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
