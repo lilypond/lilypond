@@ -28,7 +28,7 @@ in which case the turn will go after the special barline.
     \relative c' {
       a b c d a b c d \break
       c d e f c d e f R1*4
-      \repeat unfold 15 {d4 e f g} \break
+      \repeat unfold 13 {d4 e f g} \break
       c d e f c d e f R1*2 \bar "||" R1*2
       \repeat unfold 15 {d4 e f g}
     }
