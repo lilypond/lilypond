@@ -213,7 +213,7 @@ farther apart.
 
 @funindex page-breaking-between-system-padding
 @item between-system-padding
-This variable, if set, tricks the page breaker into thinking that
+This variable tricks the page breaker into thinking that
 @code{between-system-padding} is set to something different than it
 really is. For example, if this variable is set to something substantially
 larger than @code{between-system-padding}, then the page-breaker will put
@@ -566,6 +566,11 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 Internals: @internalsref{LineBreakEvent}.
 
+A linebreaking configuration can be saved as a @code{.ly} file
+automatically.  This allows vertical alignments to be stretched to
+fit pages in a second formatting run.  This is fairly new and
+complicated.  More details are available in
+@lsrdir{spacing}
 
 @refbugs
 
@@ -842,6 +847,7 @@ staves inside a system.
 * Vertical spacing inside a system::  
 * Vertical spacing between systems::  
 * Explicit staff and system positioning::  
+* Two-pass vertical spacing::
 * Vertical collision avoidance::  
 @end menu
 
@@ -1166,6 +1172,66 @@ on the page, it is possible to violate paper or margin boundaries or even
 to print staves or systems on top of one another.  Reasonable values
 passed to these different settings will avoid this.
 @end itemize
+
+
+@node Two-pass vertical spacing
+@subsection Two-pass vertical spacing
+
+Warning: two-pass vertical spacing is deprecated and will be removed in
+a future version of LilyPond. Systems are now stretched automatically
+in a single pass. See @ref{Vertical spacing inside a system}.
+
+In order to automatically stretch systems so that they should fill the
+space left on a page, a two-pass technique can be used:
+
+@enumerate
+@item In the first pass, the amount of vertical space used to increase
+the height of each system is computed and dumped to a file.
+@item In the second pass, spacing inside the systems are
+stretched according to the data in the page layout file.
+@end enumerate
+
+The @code{ragged-bottom} property adds space between systems, while
+the two-pass technique adds space between staves inside a system.
+
+To allow this behaviour, a @code{tweak-key} variable has to be set in
+each score @code{\layout} block, and the tweaks included in each score
+music, using the @code{\scoreTweak} music function.
+
+@quotation
+@verbatim
+%% include the generated page layout file:
+\includePageLayoutFile
+
+\score {
+  \new StaffGroup <<
+    \new Staff <<
+      %% Include this score tweaks:
+      \scoreTweak "scoreA"
+      { \clef french c''1 \break c''1 }
+    >>
+    \new Staff { \clef soprano g'1 g'1 }
+    \new Staff { \clef mezzosoprano e'1 e'1 }
+    \new Staff { \clef alto g1 g1 }
+    \new Staff { \clef bass c1 c1 }
+  >>
+  \header {
+    piece = "Score with tweaks"
+  }
+  %% Define how to name the tweaks for this score:
+  \layout { #(define tweak-key "scoreA") }
+}
+@end verbatim
+@end quotation
+
+For the first pass, the @code{dump-tweaks} option should be set to
+generate the page layout file.
+
+@example
+lilypond -dbackend=null -d dump-tweaks <file>.ly
+lilypond <file>.ly
+@end example
+
 
 @node Vertical collision avoidance
 @subsection Vertical collision avoidance
