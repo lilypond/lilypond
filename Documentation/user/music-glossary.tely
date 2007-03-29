@@ -584,6 +584,7 @@ the pitch range that a musical instrument is capable of playing.
 @section anacrusis
 
 @c  TODO: add more languages for anacrusis
+ES: anacrusa
 F: anacrouse
 
 An anacrusis (also known as pickup or upbeat) is an incomplete measure
@@ -3823,7 +3824,7 @@ FI: neljännesosatauko.
 @node quintuplet
 @section quintuplet
 
-ES: cinquillo,
+ES: cinquillo, quintillo.
 I: quintina,
 F: quintolet,
 D: Quintole,
