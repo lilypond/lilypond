@@ -286,8 +286,6 @@ if test > 0:
 fi;
 
 
-
-
 fet_beginchar ("Half notehead", "s1");
 	draw_outside_ellipse (1.53 - puff_up_factor / 3.0, 34, 0.66, 0.17);
 	undraw_inside_ellipse (3.25, 33, 0.81, 2.5 stafflinethickness#);
@@ -317,6 +315,7 @@ fet_beginchar ("Quart notehead", "s2");
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
+
 
 if test > 0:
 	fet_beginchar ("Quart notehead", "s2");
@@ -408,8 +407,7 @@ enddef;
 
 
 %
-%
-% UGH : xs not declared as argument.
+% UGH: xs not declared as argument.
 %
 def define_triangle_shape (expr stemdir) =
 	save triangle_a, triangle_b, triangle_c;
@@ -447,7 +445,7 @@ def define_triangle_shape (expr stemdir) =
 	set_char_box (0, width#, depth#, height#);
 
 	% Formerly, the shape has simply been drawn with an elliptical pen
-	% (`scaled pen_thick xsaled xs'), but the envelope of such a curve
+	% (`scaled pen_thick xscaled xs'), but the envelope of such a curve
 	% is of 6th degree.  For the sake of mf2pt1, we approximate it.
 
 	pickup pencircle scaled pen_thick xscaled xs;
@@ -514,7 +512,6 @@ def define_triangle_shape (expr stemdir) =
 		       & {direction infinity of triangle_out_c}z1'l
 		       .. cycle;
 
-
 	labels (0, 10, 20, 30);
 	penlabels (1, 1', 2, 2', 3, 3', 12, 23, 31);
 
@@ -524,7 +521,7 @@ def define_triangle_shape (expr stemdir) =
 		charwx := xpart exact_right_point + .5 pen_thick# * xs;
 	else:
 		charwy := -ypart exact_down_point;
-		charwx := (width# - (xpart exact_down_point - 0.5 * xs * pen_thick#));
+		charwx := width# - (xpart exact_down_point - .5 pen_thick# * xs);
 	fi
 enddef;
 
