@@ -11,14 +11,13 @@
 def draw_shifted_too =
 if test > 0:
 	fet_beginchar ("shifted too", "");
-		set_char_box (0, 0,0,0);
+		set_char_box (0, 0, 0, 0);
 		currentpicture := remember_pic;
 
 		draw_staff (-2, 2, 0.5);
 	fet_endchar;
 fi;
 enddef;
-
 
 
 %
@@ -30,16 +29,15 @@ enddef;
 
 
 %
-% Naming for microtonal
+% Naming for accidentals (including microtonal variants):
 %
-%  BASES SLASHES STEMS
+%   BASES.SLASHES.STEMS
 %  
-%  mirroredflat.flat.slashslash
+% Examples:
 %
-
-% standard sharp:
-%  sharp.slashslash.stemstem
-%  sharp.slashslash.stem
+%   mirroredflat.flat.slashslash
+%   sharp.slashslash.stemstem     (the standard sharp sign)
+%
 
 
 fet_begingroup ("accidentals");
@@ -138,7 +136,9 @@ fet_beginchar ("Sharp", "sharp");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 	save stem, stemwidth;
@@ -176,7 +176,9 @@ fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 	save stem, stemx, stemwidth;
@@ -224,7 +226,9 @@ fet_beginchar ("Sharp (3 beams)", "sharp.slashslashslash.stemstem");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 	save stem, stemx, stemwidth;
@@ -243,6 +247,7 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 
 	stem := 7 / 16 * w;
 	outer_space := hround ((w - stemwidth) / 2);
+
 	w := 2 outer_space + stemwidth;
 	d := d - feta_space_shift;
 
@@ -257,14 +262,13 @@ fet_beginchar ("1/2 Sharp (3 beams)", "sharp.slashslashslash.stem");
 	bot y5 = -top y6 + feta_space_shift;
 	labels (5, 6);
 
-
 	draw_gridline (z5, z6, stemwidth);
-
 
 	remember_pic := currentpicture;
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
+
 
 draw_shifted_too;
 
@@ -314,8 +318,8 @@ fet_beginchar ("3/4 Sharp", "sharp.slashslash.stemstemstem");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
-draw_shifted_too;
 
+draw_shifted_too;
 
 
 %
@@ -408,6 +412,7 @@ fet_beginchar ("Natural", "natural");
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
+
 
 draw_shifted_too;
 
@@ -542,52 +547,61 @@ fet_beginchar ("Flat", "flat");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 fet_beginchar ("Flat (slashed)", "flat.slash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
+
 	clearxy;
+
 	save slope, slash_width;
 	slope = 0.5;
 	slash_width = w;
+
 	z1 = (0, h / 2);
-	z2 = z1 - (slash_width, slash_width * slope)/2;
-	z3 = z1 + (slash_width, slash_width * slope)/2;
+	z2 = z1 - (slash_width, slash_width * slope) / 2;
+	z3 = z1 + (slash_width, slash_width * slope) / 2;
 
 	pickup pencircle scaled 1.5 stafflinethickness;
-	draw  z2 .. z3;
+	draw z2 .. z3;
 	labels (1, 2, 3);
 	remember_pic := currentpicture;
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 fet_beginchar ("Flat (slashed twice)", "flat.slashslash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
-	clearxy;
-	save slope, slash_width;
 
+	clearxy;
+
+	save slope, slash_width;
 	slope = 0.5;
 	slash_width = w;
-	pickup pencircle scaled 1.5 stafflinethickness;
 
 	z1 = (0, 5/12 h);
 	z2 = (0, 2/3 h);
-	draw z1 - (slash_width, slash_width * slope)/2
-		.. z1 + (slash_width, slash_width * slope)/2;
-	draw z2 - (slash_width, slash_width * slope)/2
-		.. z2 + (slash_width, slash_width * slope)/2;
+
+	pickup pencircle scaled 1.5 stafflinethickness;
+	draw z1 - (slash_width, slash_width * slope) / 2
+	     .. z1 + (slash_width, slash_width * slope) / 2;
+	draw z2 - (slash_width, slash_width * slope) / 2
+	     .. z2 + (slash_width, slash_width * slope) / 2;
 	labels (1, 2);
 	remember_pic := currentpicture;
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
+
 
 fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 	set_char_box (0, 1.6 staff_space#, 
@@ -597,7 +611,7 @@ fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 	currentpicture := currentpicture xscaled -1;
 	draw_meta_flat (0, w/2, 0.31 staff_space);
 
-	currentpicture := currentpicture shifted (w/2,0);
+	currentpicture := currentpicture shifted (w/2, 0);
 	penlabels (range 0 thru 11);
 
 	remember_pic := currentpicture;
@@ -605,10 +619,8 @@ fet_beginchar ("Flatflat (mirrored)", "mirroredflat.flat");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
-
-
-
 
 
 fet_beginchar ("Semi flat", "mirroredflat");
@@ -619,26 +631,29 @@ fet_beginchar ("Semi flat", "mirroredflat");
 	currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 fet_endchar;
 
+
 fet_beginchar ("Semi flat", "mirroredflat.backslash");
 	set_char_box (.4 staff_space#, .8 staff_space#,
 		      0.6 staff_space#, 1.9 staff_space#);
 
 	draw_meta_flat (0, w, 0.31 staff_space);
+
 	clearxy;
 
 	save slope, slash_width;
 	slope = 0.5;
 	slash_width = w;
+
 	z1 = (0, h / 2);
-	z2 = z1 - (slash_width, slash_width * slope)/2;
-	z3 = z1 + (slash_width, slash_width * slope)/2;
+	z2 = z1 - (slash_width, slash_width * slope) / 2;
+	z3 = z1 + (slash_width, slash_width * slope) / 2;
+
 	pickup pencircle scaled 1.5 stafflinethickness;
-	draw  z2 .. z3;
+	draw z2 .. z3;
 
 	currentpicture := currentpicture xscaled -1 shifted (w - b, 0);
 
 	labels (1, 2, 3);
-
 fet_endchar;
 
 
@@ -702,7 +717,9 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 fet_beginchar ("Double Sharp", "doublesharp");
 	save klaverblad, klaversteel;
@@ -757,7 +774,9 @@ fet_beginchar ("Double Sharp", "doublesharp");
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
+
 draw_shifted_too;
+
 
 def draw_paren =
 	save leftindent;
@@ -794,6 +813,7 @@ fet_beginchar ("Right Parenthesis", "rightparen");
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
+
 
 draw_shifted_too;
 
