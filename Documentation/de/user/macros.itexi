@@ -1,0 +1,273 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@c FIXME: rearranged this file; macros that don't depend on the output
+@c format should go at the beginning.  -gp
+
+@c in retrospect this is _not_ one of the output-insensitive macros.
+@c I'll fix it soon.
+@c usage: @lsr{ancient,custodes.ly}
+@macro lsr{DIR,NAME}
+@uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end macro
+
+@macro lsrdir{DIR}
+@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+@end macro
+
+@ifnottex
+  @macro texisharp {word}
+  #
+  @end macro
+  @macro texiflat {word}
+  b
+  @end macro
+@end ifnottex
+
+@c FIXME, use \fetaaccidentalsXMC?
+@c \\kern0.15em\\fetachar\\fetaflat
+@iftex
+ @macro texiflat {word}
+ @tex
+ FIXME: fetaflat
+ @end tex
+ @end macro
+@c FIXME, use \fetaaccidentalsXC?
+@c  \\raise0.5ex\\fetachar\\fetasharp
+ @macro texisharp {word}
+  @tex
+  FIXME: fetasharp
+  @end tex
+  @end macro
+@end iftex
+
+
+@macro arrow{}
+@iftex
+@tex $\\Rightarrow$ @end tex@c
+@end iftex
+@ifhtml
+@html
+&rarr;
+@end html
+@end ifhtml
+@ifinfo
+-->
+@end ifinfo
+@end macro
+
+
+@ifhtml
+@c ***** HTML *****
+
+@c makeinfo-4.7 encodes html names, which means that nodes that
+@c contain nonalphanum characters will be broken links on the website.
+@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @inforef{} adds ``See'' to the sentence, which is annoying, but
+@c better than a broken link.
+@c @inforef{\NAME\,,lilypond-internals}@c
+@c using @ref without punctuation is OK without for formats other than info
+
+@c annoying parentheses stripped by add-html-footer.py
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+
+@c annoying parentheses stripped by add-html-footer.py
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@c to get decent French quotes in ``foo''
+@macro qq{TEXT}
+@html
+&bdquo;\TEXT\&ldquo;
+@end html
+@end macro
+
+@end ifhtml
+
+
+@ifdocbook
+@c ***** DOCBOOK-XML *****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@xml
+,\TEXT\&lsquo;
+@end xml
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@xml
+&bdquo;\TEXT\&ldquo;
+@end xml
+@end macro
+
+@end ifdocbook
+
+
+@ifinfo
+@c **** INFO ****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@inforef{\NAME\,,lilypond-internals}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}
+@end macro
+
+@macro rglos{NAME}@c
+@vindex \NAME\
+@inforef{\NAME\,,,music-glossary}
+@end macro
+
+@macro usermanref{NAME}
+@inforef{\NAME\}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+‚\TEXT\‘
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+„\TEXT\“
+@end macro
+
+@end ifinfo
+
+
+@c **** TEX ****
+@iftex
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/@/\NAME\}
+@end macro
+
+@macro rglos {NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro seeinternals{NAME}
+internals document, @internalsref{\NAME\}
+@end macro
+
+@macro usermanref{NAME}
+user manual, @internalsref{\NAME\}
+@end macro
+
+@c they are actually for LaTeX, do they work?
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+ \glq\TEXT\\grq
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+ \glqq\TEXT\\glqq
+@end macro
+
+@end iftex
+
+
+@ifnottex
+@c **** not TEX ****
+
+@macro seeinternals{NAME}
+@internalsref{\NAME\}
+@end macro
+
+@ifnotinfo
+@macro usermanref{NAME}
+@ref{\NAME\}
+@end macro
+@end ifnotinfo
+
+@end ifnottex
+
+
+@c **** ALL ****
+
+@macro refbugs
+@noindent
+@subsubheading Bugs
+
+@end macro
+
+@macro moreinfo
+@subheading More information
+
+@end macro
+
+@macro seealso
+@noindent
+@subsubheading See also
+
+@end macro
+
+@macro refcommands
+@noindent
+@subsubheading Predefined commands
+
+@end macro
+
+@macro context{NAME}
+@vindex \NAME\
+@code{\NAME\}@c should use internalsref
+@end macro
+
+@macro refcommand{WHAT}
+@vindex \WHAT\
+@code{\WHAT\}
+@end macro
+
+@macro commonprop
+@noindent
+@subsubheading Commonly tweaked properties
+
+@end macro
+
+@macro funindex {WORD}
+@findex \WORD\
+@kindex \WORD\
+@end macro
+
+@c EOF

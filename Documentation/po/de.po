@@ -257,7 +257,7 @@ msgstr "Alles zusammen"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Working on text files"
-msgstr "An Text-Dateien arbeiten"
+msgstr "Arbeiten an Text-Dateien"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
