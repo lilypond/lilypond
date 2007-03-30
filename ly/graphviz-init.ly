@@ -22,7 +22,7 @@
 #(define (whitelist-grob str)
   (set! grob-whitelist (cons str grob-whitelist)))
 
-#(define graph (make-graph (format "~a.dot" (ly:parser-output-name parser))))
+#(define graph (make-empty-graph (ly:parser-output-name parser)))
 
 #(define (grob-name g)
   (let* ((meta (ly:grob-property g 'meta))

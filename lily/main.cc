@@ -600,25 +600,3 @@ main (int argc, char **argv, char **envp)
   /* Only reachable if GUILE exits.  That is an error.  */
   return 1;
 }
-
-SCM atexit_list = SCM_EOL;
-
-LY_DEFINE (ly_atexit, "ly:atexit",
-	   2, 0, 0, (SCM proc, SCM args),
-	   "Just before exiting, call the procedure given. "
-"If this is called multiple times, the procedures are called "
-"in LIFO order.")
-{
-  atexit_list = scm_cons (scm_cons (proc, args), atexit_list);
-  scm_gc_protect_object (atexit_list);
-  return SCM_UNSPECIFIED;
-}
-
-LY_DEFINE (ly_do_atexit, "ly:do-atexit",
-	   0, 0, 0, (),
-	   "Call the atexit procedures.")
-{
-  for (SCM s = atexit_list; scm_is_pair (s); s = scm_cdr (s))
-    scm_apply_0 (scm_caar (s), scm_cdar (s));
-  return SCM_UNSPECIFIED;
-}

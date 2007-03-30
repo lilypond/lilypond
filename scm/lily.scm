@@ -649,7 +649,6 @@ The syntax is the same as `define*-public'."
 	  (ly:error (_ "failed files: ~S") (string-join failed))
 	  (exit 1))
 	(begin
-	  (ly:do-atexit)
 	  ;; HACK: be sure to exit with single newline
 	  (ly:message "")
 	  (exit 0)))))
