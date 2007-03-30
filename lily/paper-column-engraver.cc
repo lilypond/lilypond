@@ -194,7 +194,7 @@ Paper_column_engraver::stop_translation_timestep ()
       command_column_->set_property ("line-break-permission", SCM_EOL);
       for (vsize i = 0; i < break_events_.size (); i++)
 	{
-	  SCM perm = break_events_[i]->get_property ("permission");
+	  SCM perm = break_events_[i]->get_property ("break-permission");
 	  if (perm == ly_symbol2scm ("force") || perm == ly_symbol2scm ("allow"))
 	    warning (_f ("forced break was overridden by some other event, should you be using bar checks?"));
 	}
