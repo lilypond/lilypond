@@ -797,7 +797,7 @@ Möglichkeit,
 wie die Artikulationen plaziert werden sollen.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c_-^1 d^. f4_2-> e^-_+
+c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 @subheading Dynamics
@@ -872,7 +872,7 @@ siehe @ref{Manual beams}.
 @cindex Auftakt
 @subheading Partial measure
 
-Ein @rglos{anacrusis}) wird mit dem Befehl @code{\partial}
+Ein @rglos{anacrusis} wird mit dem Befehl @code{\partial}
 eingegeben. Darauf folgt die Länge des Auftaktes: @code{\partial 4}
 heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 
@@ -1284,7 +1284,7 @@ wird eingegeben, indem jede Silbe durch ein Leerzeichen getrennt wird.
     b2 c4( d)
   }
   \addlyrics { One day this shall be free }
->> >>
+>>
 @end lilypond
 @c this would be German version
 @c \addlyrics { Frei und froh denkt der Mensch }
@@ -1304,7 +1304,7 @@ zwei Unterstriche (@code{__}), von Leerzeichen umgeben, notiert.
     b2 c4( d)
   }
   \addlyrics { One day this shall be free __ }
->> >>
+>>
 @end lilypond
 
 Auf gleiche Art können Trennstriche zwischen einzelnen Silben
@@ -1320,7 +1320,7 @@ dargestellt.
     f4 f c c
   }
   \addlyrics { A -- le -- gri -- a }
->> >>
+>>
 @end lilypond
 @c \addlyrics { In -- te -- res -- sant }
 
@@ -1380,7 +1380,7 @@ kombiniert, hat man ein Liederblatt.
     b2 c4( d)
   }
   \addlyrics { One day this shall be free __ }
->> >>
+>>
 @end lilypond
 @c \addlyrics { Frei und froh denkt der Mensch __ }
 

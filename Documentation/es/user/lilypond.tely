@@ -28,7 +28,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c    LilyPond  program.
 @end ignore
 
-@ignore
+
 @c
 @c Info files are installed in subdirectories to allow images to be present. 
 @c 
@@ -42,7 +42,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
 * mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
 @end direntry
-@end ignore
+
 
 @c don't remove this comment.
 @ignore
