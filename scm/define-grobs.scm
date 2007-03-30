@@ -153,7 +153,6 @@
 	(script-priority . 0)
 	(side-axis . ,X)
 	(staff-position . 0.0)
-	(cross-staff . ,ly:arpeggio::calc-cross-staff)
 	(Y-extent . ,ly:arpeggio::height)
 	(meta . ((class . Item)
 		 (interfaces . (arpeggio-interface
