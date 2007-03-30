@@ -58,7 +58,10 @@ Span_arpeggio_engraver::process_acknowledged ()
   */
   if (!span_arpeggio_ && arpeggios_.size () > 1
       && to_boolean (get_property ("connectArpeggios")))
-    span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
+    {
+      span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
+      span_arpeggio_->set_property ("cross-staff", SCM_BOOL_T);
+    }
 }
 
 void
