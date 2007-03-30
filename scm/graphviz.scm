@@ -8,19 +8,21 @@
 (define-module (scm graphviz)
   #:use-module (lily)
   #:export
-  (make-graph add-node add-edge add-cluster
-	      graph-write
-	      ))
+  (make-empty-graph add-node add-edge add-cluster
+		    graph-write
+		    ))
 
-(define (make-graph filename)
-   #(() () () ()))
+(define graph-type (make-record-type "graph" '(nodes edges clusters name)))
 
+(define make-graph (record-constructor graph-type))
+(define (make-empty-graph name) (make-graph '() '() '() name))
 
-;; fixme: use structs/records.
-;; fixme add & use setters.
-(define (nodes g) (vector-ref g 1))
-(define (edges g) (vector-ref g 2))
-(define (clusters g) (vector-ref g 3))
+(define nodes (record-accessor graph-type 'nodes))
+(define edges (record-accessor graph-type 'edges))
+(define clusters (record-accessor graph-type 'clusters))
+(define set-nodes! (record-modifier graph-type 'nodes))
+(define set-edges! (record-modifier graph-type 'edges))
+(define set-clusters! (record-modifier graph-type 'clusters))
 
 (define (add-cluster graph node-id cluster-name)
   (let* ((cs (clusters graph))
@@ -28,21 +30,21 @@
 	 (already-in-cluster (if cluster
 				 (cdr cluster)
 				 '())))
-    (vector-set! graph 3 (assq-set! cs
+    (set-clusters! graph (assq-set! cs
 				    cluster-name
 				    (cons node-id already-in-cluster)))))
 
 (define (add-node graph label . cluster-name)
   (let* ((ns (nodes graph))
          (id (length ns)))
-    (vector-set! graph 1 (cons `(,id . ,label) ns))
+    (set-nodes! graph (assq-set! ns id label))
     (if (and (not (null? cluster-name))
 	     (string? (car cluster-name)))
 	(add-cluster graph id (car cluster-name)))
     id))
 
 (define (add-edge graph node1 node2)
-  (vector-set! graph 2 (cons `(,node1 . ,node2) (edges graph))))
+  (set-edges! graph (cons `(,node1 . ,node2) (edges graph))))
 
 (define (graph-write graph out)
   (let ((ns (nodes graph))
