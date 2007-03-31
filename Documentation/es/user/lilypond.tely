@@ -34,13 +34,13 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c 
 @dircategory LilyPond
 @direntry
-* LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.      
-* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
-* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
-* lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
-* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
+* LilyPond: (lilypond/lilypond).           El tipografiador de música de GNU.
+* abc2ly: (lilypond/lilypond)Invocar abc2ly.           Importar archivos de ABC.      
+* convert-ly: (lilypond/lilypond)Invocar  convert-ly.  Versiones de LilyPond antiguas.
+* etf2ly: (lilypond/lilypond)Invocar etf2ly.           Importar archivos de Finale.
+* lilypond-book: (lilypond/lilypond)LilyPond-book.     Integrar texto y música.
+* midi2ly: (lilypond/lilypond)Invocar  midi2ly.        Importar archivos MIDI.
+* mup2ly: (lilypond/lilypond)Invocar mup2ly.           Importar archivos de Mup.
 @end direntry
 
 
