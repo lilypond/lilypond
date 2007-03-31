@@ -69,8 +69,12 @@ def a_href_gettext (m):
 	return '<a ' + (m.group(1) or '') + m.group(2) + (m.group(3) or '') + _(m.group(4)) + m.group(5) + _(m.group(6)) + t + '</a>' + s
 
 def h_gettext (m):
-	return '<h' + m.group(1) + m.group(2) + '>' + \
-	       m.group(3) + _(m.group(4)) + '</h' + m.group(1) + '>'
+	if m.group (3):
+		s = _(m.group(3))
+	else:
+		s= ''
+	return '<h' + m.group(1) + m.group(2) + '>' + s +\
+	       m.group(4) + _(m.group(5)) + '</h' + m.group(1) + '>'
 
 def rglos_gettext (m):
 	return '<a href="../music-glossary/' + m.group(1) + '">' + _(m.group(2)) + '</a>'
@@ -83,7 +87,7 @@ for filename in args[3:]:
 	page = re.sub (r'<title>([^<]*?) - ([^<]*?)</title>', title_gettext, page)
 	# ugh
 	page = re.sub (r'<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?")? ?(?:name=".*?")? ?)(href="[^"]+?">)(<code>)?(Appendix )?([A-Z\d.]+ |)(.+?)(?(3)</code>)</a>:?', a_href_gettext, page)
-	page = re.sub (r'<h(\d)( class="\w+"|)>([\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
+	page = re.sub (r'<h(\d)( class="\w+"|)>(Appendix |)([A-Z\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
 	page = re.sub (r'<a href="../music-glossary/(.+?)">(.+?)</a>', rglos_gettext, page)
 	for w in ('Next:', 'Previous:', 'Up:'):
 		page = re.sub (w, _(w), page)
