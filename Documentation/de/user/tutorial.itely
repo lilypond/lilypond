@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a765cf7a841733570469b8f8b5c5ba538c4187d6
+    Translation of GIT committish: e489bed81d0ac43dd58c29d37689823ec3f40a9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -143,7 +143,7 @@ dann betrachtet werden kann.
 Wenn Sie das LilyPond.app-Symbol doppelt klicken, öffnet
 sich eine Beispiel-Datei. Speichern Sie sie etwa als
  @file{test.ly} auf dem Desktop und übersetzen Sie sie
-mit dem Menü-Befehl  @samp{Compile > Typeset File}.
+mit dem Menü-Befehl  @q{Compile > Typeset File}.
 Die PDF-Datei mit dem fertigen Notensatz wird automatisch
 geöffnet.
 
@@ -278,7 +278,7 @@ wir unser erstes Notationsbeispiel mit einer @rglos{scale} an.
 
 Die erste Note ist das @rglos{middle C}. Jede folgende Note
 befindet sich höchstens eine Quarte von der vorhergehenden
-entfernt -- das erste @samp{C} ist also das nächste C vom
+entfernt -- das erste @q{C} ist also das nächste C vom
 eingestrichenen C aus gerechnet. Darauf folgt das nächstmögliche
 D in Bezug auf die vorhergehende Note. Mit diesen Regeln können
 auch Melodien mit größeren Intervallen gebildet werden:
@@ -292,7 +292,7 @@ auch Melodien mit größeren Intervallen gebildet werden:
 
 @noindent
 Dieses Beispiel beginnt nicht mit dem eingestrichenen C. Die
-erste Note (das @samp{D}) ist das nächste D in Bezug auf
+erste Note (das @q{D}) ist das nächste D in Bezug auf
 das eingestrichene C.
 
 Um Intervalle zu notieren, die größer als eine Quarte sind, können
@@ -320,8 +320,8 @@ verändert werden.
 
 Die @rglos{duration} einer Note wird durch eine Zahl bezeichnet,
 die direkt auf den Notennamen folgend eingegeben wird.
-  @samp{1}für eine @rglos{whole note}, @samp{2} für eine @rglos{half note},
-@samp{4} für eine @rglos{quarter note} und so weiter.  Notenhälse
+  @q{1}für eine @rglos{whole note}, @q{2} für eine @rglos{half note},
+@q{4} für eine @rglos{quarter note} und so weiter.  Notenhälse
 werden automatisch hinzugefügt.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -336,7 +336,7 @@ werden automatisch hinzugefügt.
 Wenn keine Dauer bezeichnet wird, wird die der vorhergehenden Note
 verwendet. Für die erste Note ist eine Viertel als Standard definiert.
 
-Um @rglos{dotted notes} zu erzeugen wird einfach ein Punkt @samp{.}
+Um @rglos{dotted notes} zu erzeugen wird einfach ein Punkt @q{.}
 hinter die Notendauer geschrieben.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -350,7 +350,7 @@ hinter die Notendauer geschrieben.
 @subheading Rests
 
 Eine @rglos{rest} wird genauso wie eine Noten eingegeben; ihre
-Bezeichnung ist @samp{r}.
+Bezeichnung ist @q{r}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -435,7 +435,6 @@ Wenn das jetzt unverständlich klang, sind hier die  Erklärungen:
 
 @itemize
 
-@c übersetzen?
 @cindex Groß- und Kleinschreibung
 @cindex Kleinbuchstaben
 @cindex Großbuchstaben
@@ -470,7 +469,7 @@ ist es, Code-Blöcke mit der Tab-Taste oder zwei Leerzeichen einzurücken.
 Jedes Bisschen LilyPond-Code muss in
 @strong{@{ geschweifte Klammern @}} eingeschlossen werden. Diese
 Klammern zeigen LilyPond an, dass es sich um einen zusammengehörenden
-Musikausdruck handelt, genauso wie Klammern @samp{()} in der Mathematik.
+Musikausdruck handelt, genauso wie Klammern @q{()} in der Mathematik.
 Die Klammern sollten von jeweils einem Leerzeichen umgeben sein, um
 Zweideutigkeiten
 auszuschließen, außer sie
@@ -486,7 +485,7 @@ Ein Kommentar ist eine Bemerkung für den menschlichen Leser
 einer Quelldatei, es wird bei der Dateianalyse durch das Programm
 ignoriert, so dass es also keine Auswirkung auf die Druckausgabe der
 Noten hat. Es gibt zwei verschiedene Typen von Kommentaren. Das
-Prozentzeichen @samp{%} geht einem Zeilen-Kommentar voraus: Alles
+Prozentzeichen @q{%} geht einem Zeilen-Kommentar voraus: Alles
 nach diesem Zeichen wird in dieser Zeile ignoriert. Ein Block-Kommentar
 bezeichnet einen ganzen Abschnitt als Kommentar. Alles, was von @code{%@{}
  und @code{%@}} umgeben ist, wird ignoriert. Das folgende Beispiel zeigt
@@ -568,7 +567,7 @@ der vorhergehenden@footnote{Es gibt noch einen anderen Eingabemodus
 für Tonhöhen, siehe @ref{Absolute note names}, aber für die Praxis ist
 der relative Modus viel einfacher und sicherer zu benutzen.}. Wenn
 keine
-zusätzlichen Oktavierungszeichen (@code{'} and @code{,}) gesetzt sind,
+zusätzlichen Oktavierungszeichen (@code{'} und @code{,}) gesetzt sind,
 wird angenommen, dass folgende Tonhöhe sich innerhalb einer Quarte in
 Bezug auf die vorhergehende befindet.
 
@@ -576,7 +575,7 @@ LilyPond untersucht Tonhöhen basierend auf den Notennamen -- eine
 übermäßige Quarte ist also @emph{nicht} das selbe wie eine verminderte
 Quinte. Wenn wir von C aus rechnen, wird ein Fis höher als das C
 gesetzt,
-während ein Ges in der Quarte @{unter} dem C gesetzt wird.
+während ein Ges in der Quarte @emph{unter} dem C gesetzt wird.
 
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -602,10 +601,10 @@ siehe @ref{Octave check}.
 @subheading Accidentals
 
 Ein @rglos{sharp}-Vorzeichen wird eingegeben, indem an den
-Notennamen ein @samp{is} gehängt wird, ein  @rglos{flat}-Vorzeichen
-durch Anhängen von @samp{es}. Logischerweise wird dann ein
+Notennamen ein @q{is} gehängt wird, ein  @rglos{flat}-Vorzeichen
+durch Anhängen von @q{es}. Logischerweise wird dann ein
  @rglos{double sharp} oder @rglos{double flat} durch Anhängen
-von @samp{isis} oder @samp{eses} geschrieben.@footnote{Diese Syntax
+von @q{isis} oder @q{eses} geschrieben.@footnote{Diese Syntax
 stammt aus der Tradition der germanischen Sprachen und ist also für
 deutsche Benutzer kein Problem. Es ist aber möglich, die Namen anderer
 Sprachen zu benutzen, siehe
@@ -661,9 +660,9 @@ d cis fis
 
 @noindent
 hat keine Note ein Vorzeichen gesetzt, trotzdem muss im Quelltext das
- @samp{is} an das @code{cis} und @code{fis} gehängt werden.
+ @q{is} an das @code{cis} und @code{fis} gehängt werden.
 
-Der Code @samp{e} heißt also nicht: @qq{Male einen schwarzen Punkt
+Der Code @q{e} heißt also nicht: @qq{Male einen schwarzen Punkt
 auf die erste Linie des Systems.} Im Gegenteil, er sagt vielmehr:
  @qq{Hier soll eine Note mit der Tonhöhe E gesetzt werden.}
 In der Tonart As-Dur @emph{bekommt} sie ein Vorzeichen:
@@ -698,7 +697,7 @@ siehe @ref{Key signature}.
 
 @cindex Bindebögen
 @subheading Ties
-Ein @rglos{tie} wird geschrieben, indem man eine Tilde @samp{~} and die
+Ein @rglos{tie} wird geschrieben, indem man eine Tilde @q{~} and die
 erste der zu verbindenden Noten hängt.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -712,7 +711,7 @@ c4 ~ c8 a8 ~ a2
 Ein @rglos{slur} ist ein Bogen, der über viele Noten gesetzt wird. Die
 Note,
 and der er beginngt, und die Note, an der er endet, werden mit
- @samp{(} beziehungsweise @samp{)} markiert.
+ @q{(} beziehungsweise @q{)} markiert.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
@@ -773,7 +772,7 @@ siehe @ref{Phrasing slurs}.
 @subheading Articulations
 
 Übliche @rglos{articulations} könne durch Anfügen eines Minus
-@samp{-} und eines Zeichens eingegeben werden:
+@q{-} und eines Zeichens eingegeben werden:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c-. c-- c-> c-^ c-+ c-_
@@ -782,7 +781,7 @@ c-. c-- c-> c-^ c-+ c-_
 @cindex Fingersatz
 @subheading Fingerings
 Auf gleiche Weise können Fingersatzbezeichnungen hinzugefügt
-werden, indem nach dem Minus (@samp{-}) eine Zahl geschrieben wird:
+werden, indem nach dem Minus (@q{-}) eine Zahl geschrieben wird:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c-3 e-5 b-2 a-1
@@ -790,7 +789,7 @@ c-3 e-5 b-2 a-1
 
 Artikulationszeichen und Fingersätze werden normalerweise
 automatisch plaziert, aber man kann ihre Position auch vorgeben
-durch die Zeichen @samp{^} (oben) oder @samp{_} (unten) anstelle
+durch die Zeichen @q{^} (oben) oder @q{_} (unten) anstelle
 des Minus.  An eine Noten können auch mehrfache Artikulationszeichen
 gehängt werden. Meistens findet aber LilyPond alleine die beste
 Möglichkeit,
@@ -802,7 +801,7 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 Die Dynamik innerhalb eines Stückes wird eingegeben, indem man
-die Markierungen (mit einem Backslash, @samp{@\}) an die Note
+die Markierungen (mit einem Backslash, @q{@\}) an die Note
 hängt:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -848,7 +847,7 @@ a8 ais d ees r d c16 b a8
 @noindent
 Wenn diese automatisch gesetzten Balken nicht gewollt sind,
 können sie manuell geändert werden. Die Note, an der der Balken
-anfängt, erhält ein @samp{[} und die, an der er endet, ein @samp{]}.
+anfängt, erhält ein @q{[} und die, an der er endet, ein @q{]}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 a8[ ais] d[ ees r d] a b
@@ -1054,8 +1053,8 @@ erstellt werden können. So etwa hier:
 Das ist eine Folge von (mathematischen) Ausdrücken, in denen
 jeder Ausdruck in dem folgenden (größeren) enthalten ist. Die
 einfachsten Ausdrücke sind Zahlen, und größere werden durch die
-Kombination von Ausdrücken mit Hilfe von Operatoren (wie @samp{+},
-@samp{*} und @samp{/}) sowie Klammern. Genauso wie mathematische
+Kombination von Ausdrücken mit Hilfe von Operatoren (wie @q{+},
+@q{*} und @q{/}) sowie Klammern. Genauso wie mathematische
 Ausdrücke könen auch musikalische Ausdrücke beliebig tief verschachtelt
 werden. Das ist wichtig für komplexe Musik mit vielen Stimmen.
 
@@ -1189,7 +1188,7 @@ Stimmen gesetzt wird.
 Für den Satz von mehrstimmigen Stücken kann es auch angebracht sein,
 unsichtbare Pausen zu verwenden. Hiermit könne Stimmen ausgefüllt
 werden, die gerade nicht aktiv sind. Hier ist ein Beispiel mit einer
-unsichtbaren Pause (@samp{s}) anstelle einer normalen (@samp{r}):
+unsichtbaren Pause (@q{s}) anstelle einer normalen (@q{r}):
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 <<
@@ -1227,7 +1226,7 @@ Siehe @ref{Basic polyphony}.
 
 @cindex Akkorde
 Akkorde werden notiert, indem die Tonhöhen von spitzen
-Klammern (@samp{<} und @samp{>}) umgeben werden.
+Klammern (@q{<} und @q{>}) umgeben werden.
 
 @lilypond[quote,fragment,verbatim,relative=2,fragment]
 r4 <c e g>4 <c f a>2

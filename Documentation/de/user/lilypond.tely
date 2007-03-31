@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+    Translation of GIT committish: e489bed81d0ac43dd58c29d37689823ec3f40a9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -34,13 +34,13 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c 
 @dircategory LilyPond
 @direntry
-* LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* abc2ly: (lilypond/lilypond)Invoking abc2ly.          Importing ABC.      
-* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Older LilyPond versions.
-* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Importing Finale.
-* lilypond-book: (lilypond/lilypond)LilyPond-book.     Itegrating text and music.
-* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Importing Mup.
+* LilyPond: (lilypond/lilypond).           Das GNU Notensatzprogramm.
+* abc2ly: (lilypond/lilypond)Invoking abc2ly.          ABC-Dateien importieren.      
+* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Ältere LilyPond-Versionen.
+* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Finale-Dateien importieren.
+* lilypond-book: (lilypond/lilypond)LilyPond-book.     Noten in den Text integrieren.
+* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Midi-Dateien importieren.
+* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Mup-Dateien importieren.
 @end direntry
 
 @c don't remove this comment.
@@ -112,16 +112,17 @@ Free Documentation License'' angefügt.
 @copying
 Copyright @copyright{} 1999--2007 bei den Autoren
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
 
-@emph{--Please translate the above sentence in German--}
+@c@emph{--Please translate the above sentence in German--}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -142,16 +143,17 @@ Diese Datei dokumentiert GNU LilyPond.
 
 Copyright 1999--2007 bei den Autoren.
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
 
-@emph{--Please translate the above sentence in German--}
+@c@emph{--Please translate the above sentence in German--}
 
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.

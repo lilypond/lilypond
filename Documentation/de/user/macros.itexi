@@ -84,14 +84,14 @@
 @ref{\NAME\,,,music-glossary}
 @end macro
 
-@c to get decent quotes in `foo'
+@c to get decent German quotes in `foo'
 @macro q{TEXT}
 @html
-&lsquo;\TEXT\&rsquo;
+&sbquo;\TEXT\&rsquo;
 @end html
 @end macro
 
-@c to get decent French quotes in ``foo''
+@c to get decent German quotes in ``foo''
 @macro qq{TEXT}
 @html
 &bdquo;\TEXT\&ldquo;
@@ -118,14 +118,14 @@
 @ref{\NAME\,,,music-glossary}
 @end macro
 
-@c to get decent quotes in `foo'
+@c to get decent German quotes in `foo'
 @macro q{TEXT}
 @xml
-,\TEXT\&lsquo;
+&sbquo;\TEXT\&lsquo;
 @end xml
 @end macro
 
-@c to get decent quotes in ``foo''
+@c to get decent German quotes in ``foo''
 @macro qq{TEXT}
 @xml
 &bdquo;\TEXT\&ldquo;
