@@ -286,6 +286,30 @@ result in the first page number remaining as is or being increased by one.
 @end table
 @end quotation
 
+
+@commonprop
+
+The header and footer are created by the functions make-footer and
+make-header, defined in \paper. The default implementations are in
+ly/paper-defaults.ly and ly/titling-init.ly.
+
+The page layout itself is done by two functions in the \paper block,
+page-music-height and page-make-stencil. The former tells the
+line-breaking algorithm how much space can be spent on a page, the
+latter creates the actual page given the system to put on it.
+
+You can define paper block values in Scheme. In that case mm, in, pt,
+and cm are variables defined in paper-defaults.ly with values in
+millimeters. That is why the value 2 cm must be multiplied in the
+example
+
+@example
+\paper @{
+ #(define bottom-margin (* 2 cm))
+@}
+@end example
+
+
 Example:
 
 @example
@@ -295,6 +319,23 @@ Example:
   bottom-margin = 3\cm
   ragged-last-bottom = ##t
 @}
+@end example
+
+This second example centers page numbers at the bottom of every page. 
+
+@example
+\paper @{
+  print-page-number = ##t
+  print-first-page-number = ##t
+  oddHeaderMarkup = \markup \fill-line @{ " " @}
+  evenHeaderMarkup = \markup \fill-line @{ " " @}
+  oddFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+  evenFooterMarkup = \markup @{ \fill-line @{
+     \bold \fontsize #3 \on-the-fly #print-page-number-check-first
+     \fromproperty #'page:page-number-string @} @}
+@} 
 @end example
 
 You can also define these values in Scheme.  In that case @code{mm},
