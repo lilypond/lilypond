@@ -91,7 +91,7 @@ def compare_png_images (old, new, dest_dir):
 
     system ("convert  -depth 8 %(dir)s/diff.png -blur 0x3 -negate -channel alpha,blue -type TrueColorMatte -fx 'intensity'    %(dir)s/matte.png" % locals ())
 
-    system ("composite -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
+    system ("composite -compose atop -quality 65 %(dir)s/matte.png %(new)s %(dest)s" % locals ())
 
 
 ################################################################
@@ -523,7 +523,7 @@ class ProfileFileLink (FileCompareLink):
 
         dist = 0.0
         factor = {
-            'time': 1.0 ,
+            'time': 0.1,
             'cells': 5.0,
             }
         
@@ -1107,7 +1107,7 @@ def test_basic_compare ():
         
     names = [d['name'] for d in dicts]
 
-    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png -b eps ' + ' '.join (names))
+    system ('lilypond -ddump-profile -dseparate-log-files -ddump-signatures --png -dbackend=eps ' + ' '.join (names))
     
 
     multipage_str = r'''
