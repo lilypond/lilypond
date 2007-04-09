@@ -5,7 +5,7 @@
 #   ...
 #
 # (not finished.)
-# ABC standard v1.6:  http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt
+# ABC standard v1.6:  http://www.walshaw.plus.com/abc/
 #
 # Enhancements  (Roy R. Rankin)
 #
