@@ -167,7 +167,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION
 		ln -s $(top-src-dir)/mf source && \
 		true
 	-cd $(tree-share-prefix)/elisp && \
-		ln -sf ../../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
+		ln -sf ../../../../../elisp/$(outconfbase)/lilypond-words.el . && \
 		ln -s $(top-src-dir)/elisp/*.el .
 	$(foreach i,$(CATALOGS), \
 		(mkdir -p $(tree-share)/locale/$i/LC_MESSAGES && \
