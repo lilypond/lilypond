@@ -23,7 +23,6 @@
 
 Protected_scm grob_property_callback_stack = SCM_EOL;
 
-#ifndef NDEBUG
 extern bool debug_property_callbacks;
 
 static void
@@ -73,7 +72,6 @@ LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
   cache_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
 }
-#endif
 
 
 void
