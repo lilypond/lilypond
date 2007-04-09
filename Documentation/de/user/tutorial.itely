@@ -189,7 +189,7 @@ Beispiel können Sie xterm öffnen und
 und es gibt einen @code{LilyPond-Modus}für Emacs.  Wenn sie noch
 nicht installiert sind, lesen Sie die Datei @file{INSTALL.txt}.
 Die einfachste Bearbeitunsumgebung ist das  @file{LilyPondTool}.
-Siehe auch @ref{Editor support} für mehr Information.}. Geben Sie
+Siehe auch @ref{Editor support} für mehr Information.} Geben Sie
 folgendes in Ihrem Editor ein und speichern Sie die Datei als @file{test.ly}:
 
 @verbatim
@@ -211,7 +211,7 @@ Sie werden ungefähr folgende Meldungen sehen:
 
 
 @example
-user@domain:~$ lilypond test.ly
+user@@domain:~$ lilypond test.ly
 GNU LilyPond 2.11.20
 »test.ly« wird verarbeitet
 Analysieren...
@@ -563,9 +563,9 @@ die für eine Stimme auf einem System gebraucht werden.
 
 Wie wir im Kapitel @ref{Simple notation} gesehen haben,
 errechnet LilyPond die Tonhöhe der folgenden Noten bezüglich
-der vorhergehenden@footnote{Es gibt noch einen anderen Eingabemodus
+der vorhergehenden.@footnote{Es gibt noch einen anderen Eingabemodus
 für Tonhöhen, siehe @ref{Absolute note names}, aber für die Praxis ist
-der relative Modus viel einfacher und sicherer zu benutzen.}. Wenn
+der relative Modus viel einfacher und sicherer zu benutzen.} Wenn
 keine
 zusätzlichen Oktavierungszeichen (@code{'} und @code{,}) gesetzt sind,
 wird angenommen, dass folgende Tonhöhe sich innerhalb einer Quarte in
@@ -801,7 +801,7 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 Die Dynamik innerhalb eines Stückes wird eingegeben, indem man
-die Markierungen (mit einem Backslash, @q{@\}) an die Note
+die Markierungen (mit einem Backslash, @q{@value{backslash}}) an die Note
 hängt:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -1109,9 +1109,9 @@ erweitert.
 Die Taktangabe, die in einem einzelnen System angegeben wird, wirkt
 sich auf alle anderen System aus, während die
 Angabe der Tonart sich nur auf ein einzigen System
-beschränkt.@footnote(Dies kann natürlich auch geändert
+beschränkt.@footnote{Dies kann natürlich auch geändert
 werden, siehe
-@ref{Changing defaults} für Einzelheiten.}.
+@ref{Changing defaults} für Einzelheiten.}
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {

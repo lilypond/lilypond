@@ -720,7 +720,7 @@ sites Internet et des présentations multimédias.
 
 Ce manuel montre également une application : le format d'entrée est du
 texte, et peut donc facilement être intégrés dans d'autres formats
-basés sur le texte comme @LaTex{}, HTML, ou dans le cas de ce manuel,
+basés sur le texte comme @LaTeX{}, HTML, ou dans le cas de ce manuel,
 Texinfo.  À l'aide d'un programme spécial, les extraits de code
 peuvent être remplacés par des images de musiques dans les fichiers de
 sortie PDF ou HTML.  Cela donne la possibilité de mélanger de la
