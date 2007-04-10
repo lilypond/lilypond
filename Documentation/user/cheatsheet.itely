@@ -155,9 +155,14 @@ a8-[ b-]
 @tab more staves
 @tab
 @lilypond[fragment]
-\set Staff.implicitTimeSignatureVisibility = #all-invisible
-<< \new Staff { c'1 }
-  \new Staff { c'1 } >>
+<< \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   }
+   \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   } >>
 @end lilypond
 
   
