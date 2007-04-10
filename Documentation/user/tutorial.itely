@@ -386,7 +386,7 @@ see @ref{Clef}.
 LilyPond input files are treated like files in most programming languages:
 they are case sensitive, white-space insensitive, expressions are
 formed with curly braces @{ @}, and comments are denoted with @code{%} or
-@code{%@{ .. %@}}.
+@code{%@{ ... %@}}.
 
 If the previous sentence sounds like nonsense, don't worry!  We'll explain
 what all these terms mean:
@@ -397,13 +397,13 @@ what all these terms mean:
 @item @strong{Case sensitive}:
 it matters whether you enter a letter
 in lower case (i.e. @code{a, b, s, t}) or upper case (i.e.
-@code{A, B, S, T}).  Notes are lower case: @code{ @{ c d e @} }
-is valid input; @code{ @{ C D E @} } will produce an error message.
+@code{A, B, S, T}).  Notes are lower case: @code{@{ c d e @}}
+is valid input; @code{@{ C D E @}} will produce an error message.
 
 @item @strong{Whitespace insensitive}:
 it does not matter how many
-spaces (or new lines) you add.  @code{ @{ c d e @}} means the same thing
-as @code{ @{ c @tie{} @tie{} @tie{} d e @} } and
+spaces (or new lines) you add.  @code{@{ c d e @}} means the same thing
+as @code{@{ c @tie{} @tie{} @tie{} d e @}} and
 @example
           @{
 c                        d
@@ -427,7 +427,7 @@ parenthesis @samp{()} in mathematics.  The braces should
 be surrounded by a space unless they are at the beginning or end of a
 line to avoid ambiguities.
 
-A function (such as @code{\relative @{ @}} ) also counts as a single
+A function (such as @code{\relative @{ @}}) also counts as a single
 music expression.
 
 @cindex comments
