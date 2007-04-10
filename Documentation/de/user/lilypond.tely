@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e489bed81d0ac43dd58c29d37689823ec3f40a9b
+    Translation of GIT committish: 433849e669b71058267108607969eea72403a5de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -193,7 +193,7 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 @include dedication.itely
 
 @menu
-Learning Manual
+Handbuch zum Lernen
 
 * Preface::                        Vorwort.
 * Introduction::                   Was, warum und wie.
@@ -202,7 +202,7 @@ Learning Manual
 * Working on LilyPond projects::   Benutzung des Programms im wirklichen Leben.
 * Tweaking output::                Einleitung in die Beeinflussung des Notenbilds.
 
-Notation Reference
+Alles über die Notation
 
 * Basic notation::                 Grundlegende Notation.
 * Instrument-specific notation::   Spezielle Notation.
@@ -212,13 +212,13 @@ Notation Reference
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
 * Interfaces for programmers::     Benutzung für Experten.
 
-Program usage
+Programmbenutzung
 
 * Running LilyPond::               Das Programm laufen lassen.
 * LilyPond-book::                  Noten in den Text integrieren.
 * Converting from other formats::  Andere Formate in lilypond-Quelldateien umwandeln.
 
-Appendices
+Anhänge
 
 * Literature list::                Wichtige Literatur über die Notation.
 * Scheme tutorial::                Programmierung in LilyPond.

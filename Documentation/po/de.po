@@ -2253,13 +2253,13 @@ msgid "ADDENDUM: How to use this License for your documents"
 msgstr "Anhang: Wie kann die Lizenz für eigene Dokumente verwendet werden"
 
 msgid "Up:"
-msgstr "Hoch:"
+msgstr "Nach oben:"
 
 msgid "Next:"
-msgstr "Nächste:"
+msgstr "Weiter:"
 
 msgid "Previous:"
-msgstr "Vorherige:"
+msgstr "Zurück:"
 
 #, fuzzy
 msgid "Appendix "
