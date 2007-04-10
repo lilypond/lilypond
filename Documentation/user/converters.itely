@@ -75,7 +75,7 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
 Note that by @q{command-line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats} for
+operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
 The following options are supported by @command{midi2ly}.
@@ -147,7 +147,7 @@ etf2ly [@var{option}]@dots{} @var{etf-file}
 @end example
 
 Note that by @q{command-line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats} for
+operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
 The following options are supported by @command{etf2ly}:
@@ -177,7 +177,7 @@ for representing music notation.
 files, and writes it to a .ly file.  It is invoked from the command-line.
 
 Note that by @q{command-line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats} for
+operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
 The following options are supported by @command{musicxml2ly}:

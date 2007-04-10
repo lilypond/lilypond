@@ -377,7 +377,7 @@ been written as
 
 Scheme code is evaluated as soon as the parser encounters it.  To
 define some Scheme code in a macro (to be called later), use
-@ref{Void functions} or
+@ref{Void functions}, or
 
 @example
 #(define (nopc)
@@ -1111,7 +1111,7 @@ to the @code{interpret-markup} function, with the @code{layout} and
 
 Note: there is now an internal command @code{\smallCaps} which can
 be used to set text in small caps.  See
-@ref{Overview of text markup commands} for details.
+@ref{Overview of text markup commands}, for details.
 
 
 

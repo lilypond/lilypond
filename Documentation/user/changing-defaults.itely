@@ -56,14 +56,14 @@ notation.  For example, giving each staff a separate time signature.
 @item
 Page layout: changing the appearance of the spacing, line
 breaks, and page dimensions.  These modifications are discussed
-in @ref{Non-musical notation} and @ref{Spacing issues}.
+in @ref{Non-musical notation}, and @ref{Spacing issues}.
 @end itemize
 
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
 introduced in a @code{.ly} file with the hash mark
-@code{#}.@footnote{@ref{Scheme tutorial} contains a short tutorial
+@code{#}.@footnote{@ref{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
 
 
@@ -889,7 +889,7 @@ Here @var{name} is the name of a graphical object, like @code{Stem} or
 @code{NoteHead}, and @var{property} is an internal variable of the
 formatting system (@q{grob property} or @q{layout property}).  The latter is a
 symbol, so it must be quoted.  The subsection @ref{Constructing a
-tweak} explains what to fill in for @var{name}, @var{property}, and
+tweak}, explains what to fill in for @var{name}, @var{property}, and
 @var{value}.  Here we only discuss the functionality of this command.
 
 The command
@@ -1637,7 +1637,7 @@ to output, so
 @end example
 
 @noindent
-does not change color.  See @ref{Displaying music expressions} for
+does not change color.  See @ref{Displaying music expressions}, for
 details.
 
 
