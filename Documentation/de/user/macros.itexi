@@ -56,6 +56,11 @@
 @end macro
 
 
+@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c say @q{@value{backslash}} instead
+@set backslash \
+
+
 @ifhtml
 @c ***** HTML *****
 
@@ -87,7 +92,7 @@
 @c to get decent German quotes in `foo'
 @macro q{TEXT}
 @html
-&sbquo;\TEXT\&rsquo;
+&sbquo;\TEXT\&lsquo;
 @end html
 @end macro
 
@@ -194,15 +199,63 @@ internals document, @internalsref{\NAME\}
 user manual, @internalsref{\NAME\}
 @end macro
 
-@c they are actually for LaTeX, do they work?
+@tex
+% from german.sty
+\def\allowhyphens{%
+  \penalty\@M
+  \hskip\z@skip}
+
+\gdef\set@low@box#1{%
+  \setbox\tw@\hbox{,}%
+  \setbox\z@\hbox{#1}%
+  \setbox\z@\hbox{%
+    \dimen@\ht\z@
+    \advance\dimen@ -\ht\tw@
+    \lower\dimen@\box\z@}%
+  \ht\z@\ht\tw@
+  \dp\z@\dp\tw@}
+
+\gdef\save@sf@q#1{%
+  {\ifhmode
+     \edef\@SF{\spacefactor\the\spacefactor}%
+   \else
+     \let\@SF\empty
+   \fi
+   \leavevmode #1
+   \@SF}}
+
+\gdef\glq{%
+  \save@sf@q{%
+    \set@low@box{'\/}%
+    \box\z@
+    \kern-.04em
+    \allowhyphens}}
+\gdef\grq{%
+  \save@sf@q{%
+    \kern-.0125em
+    `%
+    \kern.07em}}
+\gdef\glqq{%
+  \save@sf@q{%
+    \set@low@box{''\/}%
+    \box\z@
+    \kern-.04em
+    \allowhyphens}}
+\gdef\grqq{%
+  \save@sf@q{%
+    \kern-.07em
+    ``%
+    \kern.07em}}
+@end tex
+
 @c to get decent quotes in `foo'
 @macro q{TEXT}
- \glq\TEXT\\grq
+@glq\TEXT\@grq
 @end macro
 
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
- \glqq\TEXT\\glqq
+@glqq\TEXT\@grqq
 @end macro
 
 @end iftex

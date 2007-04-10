@@ -893,7 +893,7 @@ So gut wie alle Formatierungsmöglichkeiten, die intern verwendet werden,
 sind auch direkt für den Benutzer zugänglich. Alle Variablen z. B., die
 Dicke-Werte, Entfernungen usw. kontrollieren, können in den Eingabe-Dateien 
 verändert werden. Es gibt eine riesige Anzahl von Formatierungsoptionen, und 
-alle haben einen @{See also}-Abschnitt, der auf die Dokumentation verweist.
+alle haben einen @q{See also}-Abschnitt, der auf die Dokumentation verweist.
 Im HTML-Handbuch haben diese Abschnitte klickbare Links.
 
 Die Programmreferenz ist nur auf englisch erhältlich.

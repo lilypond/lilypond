@@ -601,7 +601,7 @@ respectivement @samp{dd} et @samp{bb}
 @c END DIV
 
 Pour en savoir plus sur les autres langues disponibles, voir @ref{Note
-names in other languages}.}
+names in other languages}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 cis1 ees fisis, aeses

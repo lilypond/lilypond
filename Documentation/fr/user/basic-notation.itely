@@ -128,7 +128,7 @@ a4 aes a2
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
 naturel, un mi naturel et un fa naturel}, sans tenir compte de
 l'armure.  Pour plus d'information à propos de la distinction entre le
-contenu musical et sa représentation, voir @ref{Accidentalas and key signatures}.
+contenu musical et sa représentation, voir @ref{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -1942,7 +1942,7 @@ ces styles est utilisé, et c'est la propriété
 
 Les notes, les symboles dynamiques, etc. sont regroupés dans un
 assemblage de lignes horizontales, que l'on nomme la portée (en
-anglais qq{staff}}, et @qq{staves} au pluriel).  Dans LilyPond, ces lignes
+anglais @qq{staff}, et @qq{staves} au pluriel).  Dans LilyPond, ces lignes
 sont dessinées au moyen d'un objet de mise en forme à part entière,
 nommé @code{staff symbol}.
 
@@ -2785,7 +2785,7 @@ c^\markup { \finger "2 - 3" }
 @end lilypond
 
 
-La commande @{\thumb} peut être utilisée pour indiquer, par exemple
+La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
 dans une partition de violoncelle, si une note doit être jouée
 avec le pouce (@q{thumb} en anglais) :
 

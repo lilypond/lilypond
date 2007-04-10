@@ -80,12 +80,12 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat. Auch @code{convert-ly} benötigt die 
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @ref{Taktüberprüfung}, 
-@ref{Okatavenüberufung} und
-@ref{Taktnummerüberprüfung}.  Wenn Sie hier und da diese Überprüfungen 
+@item @strong{Benutzen Sie Überprüfungen}: @ref{Bar check}, 
+@ref{Octave check} und
+@ref{Barnumber check}.  Wenn Sie hier und da diese Überprüfungen 
 einfügen, finden Sie einen möglichen Fehler weit schneller. Wie oft 
 aber 
-ist \qq{hier und da}? Das hängt von der Komplexität der Musik ab. Bei 
+ist @qq{hier und da}? Das hängt von der Komplexität der Musik ab. Bei 
 einfachen Stücken reicht es vielleicht ein- oder zweimal, in sehr
 komplexer Musik sollte man sie vielleicht in jeden Takt einfügen.
 

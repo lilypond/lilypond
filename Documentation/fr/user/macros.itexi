@@ -56,6 +56,11 @@
 @end macro
 
 
+@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c say @q{@value{backslash}} instead
+@set backslash \
+
+
 @ifhtml
 @c ***** HTML *****
 

@@ -318,7 +318,7 @@ melodie = \relative c' @{
 @end example
 
 Lorsque LilyPond examinera ce fichier, il va prendre la valeur de la
-variable @{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
+variable @code{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
 et l'insérer partout où il tombera sur @code{\melodie}.  Vous êtes
 libre de choisir comment dénommer vos variables@footnote{Les noms de
 variables sont sensibles à la casse, et ne peuvent contenir ni
