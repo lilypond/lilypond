@@ -25,6 +25,7 @@ Protected_scm grob_property_callback_stack = SCM_EOL;
 
 extern bool debug_property_callbacks;
 
+#ifndef NDEBUG
 static void
 print_property_callback_stack ()
 {
@@ -32,7 +33,7 @@ print_property_callback_stack ()
   for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
     message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
 }
-
+#endif
 
 static SCM modification_callback = SCM_EOL;
 static SCM cache_callback = SCM_EOL;
