@@ -1809,16 +1809,20 @@ one.  For example, if using this with @code{Hairpin},
 
 
 @item Some objects cannot be changed with @code{\override} for
-technical reasons. Examples of those are @code{NonMusicalPaperColumn}
+technical reasons.  Examples of those are @code{NonMusicalPaperColumn}
 and @code{PaperColumn}.  They can be changed with the
-@code{\outputProperty} function, which works similar to @code{\once
-\override}, but uses a different syntax,
+@code{\overrideProperty} function, which works similar to @code{\once
+\override}, but uses a different syntax.
 
 @example
-\outputProperty
+\overrideProperty
 #"Score.NonMusicalPaperColumn"  % Grob name
 #'line-break-system-details     % Property name
 #'((next-padding . 20))         % Value
 @end example
+
+Note, however, that @code{\override}, applied to
+@code{NoteMusicalPaperColumn} and @code{PaperColumn}, still works as
+expected within @code{\context} blocks.
 
 @end itemize
