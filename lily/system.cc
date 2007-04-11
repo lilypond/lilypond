@@ -402,7 +402,7 @@ System::get_paper_system ()
 
   /* information that the page breaker might need */
   Grob *right_bound = this->get_bound (RIGHT);
-  pl->set_property ("skylines", this->get_property ("skylines"));
+  pl->set_property ("vertical-skylines", this->get_property ("vertical-skylines"));
   pl->set_property ("page-break-permission", right_bound->get_property ("page-break-permission"));
   pl->set_property ("page-turn-permission", right_bound->get_property ("page-turn-permission"));
   pl->set_property ("page-break-penalty", right_bound->get_property ("page-break-penalty"));
