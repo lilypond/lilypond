@@ -333,7 +333,7 @@ fet_endchar;
 % parameterized punctum
 def punctum_char (expr verbose_name, internal_name,
 		  left_stem, right_stem, linea, cavum,
-		  straight, auctum, rev_auctum, direction_up,
+		  straight, auctum, rev_auctum, dir_up,
 		  excentric, up_shift, down_shift, mag) =
 
 	fet_beginchar(verbose_name, "s" & internal_name)
@@ -350,14 +350,14 @@ def punctum_char (expr verbose_name, internal_name,
 		black_notehead_width# := wd#;
 
 		% direction
-		save direction, direction_sign;
-		pair direction;
-		if direction_up:
-			direction = up;
-			direction_sign# = 1;
+		save dir, dir_sign;
+		pair dir;
+		if dir_up:
+			dir = up;
+			dir_sign# = 1;
 		else:
-			direction = down;
-			direction_sign# = -1;
+			dir = down;
+			dir_sign# = -1;
 		fi;
 
 		% convexity and eccentricity
@@ -376,8 +376,8 @@ def punctum_char (expr verbose_name, internal_name,
 			u_eccentricity# = 0.0ht#; % dummy
 		fi;
 		save convexity, eccentricity;
-		convexity# = direction_sign# * u_convexity#;
-		eccentricity# = direction_sign# * u_eccentricity#;
+		convexity# = dir_sign# * u_convexity#;
+		eccentricity# = dir_sign# * u_eccentricity#;
 
 		% y shift offset
 		save yoffs;
@@ -415,8 +415,8 @@ def punctum_char (expr verbose_name, internal_name,
 				max(0, 1.0*convexity#, 1.0*eccentricity#);
 			box_bt# = yoffs_bt# +
 				min(0, 1.0*convexity#, 1.0*eccentricity#);
-			p = z1a .. {right}z2a .. {direction}z3a --
-			    z3b{-direction} .. z2b{left} .. z1b -- cycle;
+			p = z1a .. {right}z2a .. {dir}z3a --
+			    z3b{-dir} .. z2b{left} .. z1b -- cycle;
 		elseif excentric:
 			z1a = (0.00wd + linethickness/2,
 			       yoffs_bt - 1.0*convexity);
@@ -427,8 +427,8 @@ def punctum_char (expr verbose_name, internal_name,
 				max(-1.0*convexity#, 1.4*convexity#, 0);
 			box_bt# = yoffs_bt# +
 				min(-1.0*convexity#, 1.4*convexity#, 0);
-			p = z1a{direction} .. z2a{right} .. z3a --
-			    z3b .. {left}z2b .. {-direction}z1b -- cycle;
+			p = z1a{dir} .. z2a{right} .. z3a --
+			    z3b .. {left}z2b .. {-dir}z1b -- cycle;
 		else:
 			z1a = (0.00wd + linethickness/2, yoffs_bt);
 			z2a = (0.21wd, yoffs_bt + 1.0*convexity);
@@ -517,7 +517,7 @@ def inclinatum_char(expr verbose_name, internal_name,
 			za = (0, -0.25*head_height)
 				rotated -(alpha# + off_angle)
 				shifted (0.48 head_width, -0.02 head_width);
-			undraw za;
+			undrawdot za;
 		fi;
 
 		if auctum:

@@ -91,7 +91,7 @@ fet_beginchar("augmentum", "augmentum")
 	diameter# = 0.25 staff_space#;
 	define_pixels(diameter);
 	pickup pencircle scaled diameter;
-	draw (0,0);
+	drawdot (0,0);
 	set_char_box(diameter#/2, diameter#/2, diameter#/2, diameter#/2);
 fet_endchar;
 
