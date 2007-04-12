@@ -221,7 +221,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 @seealso
 
-In this manual: @ref{Laissez vibrer ties}
+In this manual: @ref{Laissez vibrer ties}.
 
 @node Staff switch lines
 @subsection Staff switch lines
@@ -818,7 +818,7 @@ glyph.
 To enter lyrics with characters from non-English languages, or with
 accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
-it with utf-8 encoding.  See @ref{Text encoding} for more info.
+it with utf-8 encoding.  See @ref{Text encoding}, for more info.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative { e4 f e d e f e2 }
@@ -2550,12 +2550,12 @@ the proper note heads, so there is no need to explicitly set the
 note head style.  Still, the note head style can be set, e.g., to
 @code{vaticana_punctum} to produce punctum neumes.  Similarly, a
 @internalsref{Mensural_ligature_engraver} is used to automatically
-assemble mensural ligatures.  See @ref{Ligatures} for how ligature
+assemble mensural ligatures.  See @ref{Ligatures}, for how ligature
 engravers work.
 
 @seealso
 
-@ref{Note head styles} gives an overview over all available note head styles.
+@ref{Note head styles}, gives an overview over all available note head styles.
 
 
 @node Ancient accidentals
@@ -2618,9 +2618,9 @@ controlled by the @code{glyph-name-alist} property of the
 
 @seealso
 
-In this manual: @ref{Pitches}, @ref{Cautionary accidentals} and
-@ref{Automatic accidentals} give a general introduction of the use of
-accidentals.  @ref{Key signature} gives a general introduction of
+In this manual: @ref{Pitches}, @ref{Cautionary accidentals}, and
+@ref{Automatic accidentals}, give a general introduction of the use of
+accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.
 
 Program reference: @internalsref{KeySignature}.
@@ -2660,7 +2660,7 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-In this manual: @ref{Rests} gives a general introduction into the use of
+In this manual: @ref{Rests}, gives a general introduction into the use of
 rests.
 
 
@@ -3033,7 +3033,7 @@ The following examples show the differences in style,
 
 @seealso
 
-This manual: @ref{Time signature} gives a general introduction to
+This manual: @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
 @refbugs

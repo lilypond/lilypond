@@ -114,8 +114,8 @@ line to avoid ambiguities.  These may be omitted in some examples in this
 manual, but don't forget them in your own music!
 
 @cindex Case sensitive
-In addition, LilyPond input is @strong{case sensitive}.  @code{ @{ c d e @} }
-is valid input; @code{ @{ C D E @} } will produce an error message.
+In addition, LilyPond input is @strong{case sensitive}.  @code{ @{c d e @}}
+is valid input; @code{@{ C D E @}} will produce an error message.
 
 @sp 1
 
@@ -126,7 +126,7 @@ and how to view or print the output.
 
 @subsubheading MacOS X
 
-If you double click LilyPond.app, it will open with an example
+If you double click @code{LilyPond.app}, it will open with an example
 file.  Save it, for example, to @file{test.ly} on your Desktop, and
 then process it with the menu command @samp{Compile > Typeset File}.
 The resulting PDF file will be displayed on your screen.
@@ -135,7 +135,7 @@ Be warned that the first time you ever run LilyPond, it will take a minute
 or two because all of the system fonts have to be analyzed first.
 
 For future use of LilyPond, you should begin by selecting @q{New}
-or "@q{Open}.  You must save your file before typesetting it.  If any errors
+or @q{Open}.  You must save your file before typesetting it.  If any errors
 occur in processing, please see the log window.
 
 @subsubheading Windows
@@ -158,7 +158,7 @@ produces a @file{.log} file that contains some information on what LilyPond
 has done to the file.  If any errors occur, please examine this file.
 
 Note that there are several other text editors available, with better
-support for LilyPond, see @ref{Editor support} for more information.
+support for LilyPond, see @ref{Editor support}, for more information.
 
 @subsubheading Unix
 
@@ -168,7 +168,7 @@ example, you could open an xterm and execute
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
 installed already, refer to the file @file{INSTALL.txt}.  The
 easiest editing environment is @file{LilyPondTool}.  See
-@ref{Editor support} for more information.}.  In your
+@ref{Editor support}, for more information.}.  In your
 text editor, enter the following input and save the file as
 @file{test.ly}
 
@@ -369,7 +369,7 @@ Here is a small example showing all these elements together:
 @quotation
 @table @asis
 @item Entering pitches and durations
-see @ref{Pitches} and @ref{Durations}.
+see @ref{Pitches}, and @ref{Durations}.
 @item Rests
 see @ref{Rests}.
 @item Time signatures and other timing commands
@@ -386,7 +386,7 @@ see @ref{Clef}.
 LilyPond input files are treated like files in most programming languages:
 they are case sensitive, white-space insensitive, expressions are
 formed with curly braces @{ @}, and comments are denoted with @code{%} or
-@code{%@{ .. %@}}.
+@code{%@{ ... %@}}.
 
 If the previous sentence sounds like nonsense, don't worry!  We'll explain
 what all these terms mean:
@@ -397,13 +397,13 @@ what all these terms mean:
 @item @strong{Case sensitive}:
 it matters whether you enter a letter
 in lower case (i.e. @code{a, b, s, t}) or upper case (i.e.
-@code{A, B, S, T}).  Notes are lower case: @code{ @{ c d e @} }
-is valid input; @code{ @{ C D E @} } will produce an error message.
+@code{A, B, S, T}).  Notes are lower case: @code{@{ c d e @}}
+is valid input; @code{@{ C D E @}} will produce an error message.
 
 @item @strong{Whitespace insensitive}:
 it does not matter how many
-spaces (or new lines) you add.  @code{ @{ c d e @}} means the same thing
-as @code{ @{ c @tie{} @tie{} @tie{} d e @} } and
+spaces (or new lines) you add.  @code{@{ c d e @}} means the same thing
+as @code{@{ c @tie{} @tie{} @tie{} d e @}} and
 @example
           @{
 c                        d
@@ -427,7 +427,7 @@ parenthesis @samp{()} in mathematics.  The braces should
 be surrounded by a space unless they are at the beginning or end of a
 line to avoid ambiguities.
 
-A function (such as @code{\relative @{ @}} ) also counts as a single
+A function (such as @code{\relative @{ @}}) also counts as a single
 music expression.
 
 @cindex comments
@@ -610,14 +610,14 @@ e
 Adding all alterations explicitly might require a little more effort
 when typing, but the advantage is that transposing is easier, and
 accidentals can be printed according to different conventions.  See
-@ref{Automatic accidentals} for some examples how accidentals can be printed
+@ref{Automatic accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
 @moreinfo
 @quotation
 @table @asis
 @item Accidentals
-see @ref{Accidentals} and @ref{Automatic accidentals}.
+see @ref{Accidentals}, and @ref{Automatic accidentals}.
 @item Key signature
 see @ref{Key signature}.
 @end table
@@ -1001,7 +1001,7 @@ sign in mathematics.  The formula @math{(4+5)} is an expression, so
 Time signatures entered in one staff affects all other staves, but
 the key signature of one staff does @emph{not} affect other
 staves@footnote{This behavior may be changed if desired; see
-@ref{Changing defaults} for details.}.
+@ref{Changing defaults}, for details.}.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1459,7 +1459,7 @@ places.  The following example uses the above variables:
 @subsection After the tutorial
 
 After finishing the tutorial, you should probably try writing a
-piece or two.  Start with one of the @ref{Templates} and
+piece or two.  Start with one of the @ref{Templates}, and
 add notes.  If you need any notation that was not covered in the
 tutorial, look at the Notation Reference, starting with
 @ref{Basic notation}.  If you want to write for an instrument

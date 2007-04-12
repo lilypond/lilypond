@@ -727,6 +727,15 @@ than a whole rest.")
 
      ;; end ancient notation
 
+     ;; fret-diagrams extra properties
+     (xo-font-magnification ,number? "Magnification used for mute and
+         open string indicators in fret diagrams")
+     (mute-string ,string? "String to be used to indicate muted string in
+         fret diagrams")
+     (open-string ,string? "String to be used to indicate open string in
+         fret diagrams")
+     (orientation ,symbol? "Orientation of fret-diagram.  Options include @code{normal} and @code{landscape}")
+
      )))
 
 (define-public all-backend-properties

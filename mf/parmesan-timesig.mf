@@ -87,7 +87,7 @@ def mensural_timesig (expr verbose_name, internal_name,
 		fi;
 		if dotted:
 			pickup pencircle scaled 4 linethickness;
-			draw (0,0);
+			drawdot (0,0);
 		fi;
 		currentpicture := currentpicture shifted 0.5(mensural_Cdiameter + mensural_Cthickness, 0);
 	fet_endchar;
@@ -181,7 +181,7 @@ def neomensural_timesig (expr verbose_name, internal_name,
 		fi;
 		if dotted:
 			pickup pencircle scaled 4 linethickness;
-			draw (0,0);
+			drawdot (0,0);
 		fi;
 		currentpicture := currentpicture shifted 0.5(neomensural_Cdiameter + neomensural_Cthickness, 0);
 	fet_endchar;

@@ -74,7 +74,7 @@ c'4
 @noindent
 will result in a parsing error.  Instead, music should be inside other
 expressions, which may be put in a file by themselves.  Such
-expressions are called toplevel expressions; see @ref{File structure} for
+expressions are called toplevel expressions; see @ref{File structure}, for
 a list of all such expressions.
 
 
@@ -557,7 +557,7 @@ Centered at the bottom of the last page.
 @end table
 
 Here is a demonstration of the fields available.  Note that you
-may use any @ref{Text markup} commands in the header.
+may use any @ref{Text markup}, commands in the header.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {

@@ -59,7 +59,7 @@ saved as UTF-8.  For more information, see @ref{Text encoding}.
 @cindex text items, non-empty
 @cindex non-empty texts
 
-It is possible to place arbitrary strings of text or @ref{Text markup}
+It is possible to place arbitrary strings of text or @ref{Text markup},
 above or below notes by using a string @code{c^"text"}.  By default,
 these indications do not influence the note spacing, but by using the
 command @code{\fatText}, the widths will be taken into account
@@ -304,7 +304,7 @@ The @code{\mark} command is primarily used for
 but it can also be used to put signs like coda,
 segno, and fermata on a bar line.  Use @code{\markup} to
 access the appropriate symbol (symbols are listed in
-@ref{The Feta font})
+@ref{The Feta font}).
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
@@ -417,7 +417,7 @@ c1_\markup { "\special {weird} #characters" }
 @end lilypond
 
 @noindent
-See @ref{Overview of text markup commands} for a list of all
+See @ref{Overview of text markup commands}, for a list of all
 commands.
 
 @code{\markup} is primarily used for @internalsref{TextScript}s,
@@ -535,7 +535,7 @@ c'4^\markup{ \hspace #0 \raise #1.5 raised }
 Some situations (such as dynamic marks) have preset font-related
 properties.  If you are creating text in such situations, it
 is advisable to cancel those properties with
-@code{normal-text}.  See @ref{Overview of text markup commands}
+@code{normal-text}.  See @ref{Overview of text markup commands},
 for more details.
 
 
@@ -706,7 +706,7 @@ marks.  Note that the dynamic font only contains the characters
 Some situations (such as dynamic marks) have preset font-related
 properties.  If you are creating text in such situations, it
 is advisable to cancel those properties with
-@code{normal-text}.  See @ref{Overview of text markup commands}
+@code{normal-text}.  See @ref{Overview of text markup commands},
 for more details.
 
 @cindex make-dynamic-script
@@ -906,7 +906,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-See @ref{Text markup} for more details.
+See @ref{Text markup}, for more details.
 
 
 @seealso
@@ -1011,7 +1011,7 @@ c1
 @end lilypond
 
 @noindent
-See @ref{The Feta font} for a list of symbols which may be
+See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 The horizontal location of rehearsal marks can be adjusted by
@@ -2549,7 +2549,7 @@ An x11 color is not necessarily exactly the same shade as a similarly
 named normal color.
 
 Notes in a chord cannot be colored with @code{\override}; use
-@code{\tweak} instead.  See @ref{Objects connected to the input}
+@code{\tweak} instead.  See @ref{Objects connected to the input},
 for details.
 
 

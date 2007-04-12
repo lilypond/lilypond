@@ -62,45 +62,72 @@ with magnification @varr{mag} of the string @var{text}."
         (interpret-markup layout my-props text)))
 
 
-(define (draw-strings string-count fret-range th size)
-"Draw the strings (vertical lines) for a fret diagram with
+(define (draw-strings string-count fret-range th size orientation)
+"Draw the string lines for a fret diagram with
 @var{string-count} strings and frets as indicated in @var{fret-range}.
 Line thickness is given by @var{th}, fret & string spacing by
-@var{size}. "
+@var{size}.  Orientation is determined by @var{orientation}. "
   (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (sl (* (+ fret-count 1) size))
          (sth (* size th))
          (half-thickness (* sth 0.5))
          (gap (- size sth))
-         (string-stencil (ly:make-stencil (list 'draw-line sth 0 0 0 sl)
+         (string-stencil
+            (if (eq? orientation 'normal)
+                (ly:make-stencil (list 'draw-line sth 0 0 0 sl)
                          (cons (- half-thickness) half-thickness)
-                         (cons (- half-thickness) (+ sl half-thickness)))))
+                         (cons (- half-thickness) (+ sl half-thickness)))
+                (ly:make-stencil (list 'draw-line sth 0 0 sl 0)
+                         (cons (- half-thickness) (+ sl half-thickness))
+                         (cons (- half-thickness) half-thickness)))))
     (if (= string-count 1)
          string-stencil
+        (if (eq? orientation 'normal)
         (ly:stencil-combine-at-edge
-         (draw-strings (- string-count 1) fret-range th size) X RIGHT
+                (draw-strings (- string-count 1) fret-range th size orientation) X RIGHT
          string-stencil
-         gap))))
+                gap)
+            (ly:stencil-combine-at-edge
+                (draw-strings (- string-count 1) fret-range th size orientation) Y UP
+                string-stencil
+                gap)))))
 
-(define (draw-fret-lines fret-count string-count th size)
-  "Draw @var{fret-count} frets (horizontal lines) for a fret diagram
+(define (draw-fret-lines fret-count string-count th size orientation)
+ "Draw @var{fret-count} fret lines for a fret diagram
 with @var{string-count} strings.  Line thickness is given by @var{th},
-fret & string spacing by @var{size}. "
-  (let* ((fret-length (* (- string-count 1) size))
+fret & string spacing by @var{size}. Orientation is given by @var{orientation}"
+   (let* (;(fret-length (* (- string-count 1) size))
 	 (sth (* size th))
-	 (half-thickness (* sth 0.5))
+          ;(half-thickness (* sth 0.5))
 	 (gap (- size sth))
-	 (fret-line (ly:make-stencil (list 'draw-line sth half-thickness size (- fret-length half-thickness) size)
-				     (cons 0 fret-length)
-				     (cons (- size half-thickness) (+  size half-thickness)))))
+          (fret-line (draw-fret-line string-count th size orientation)))
     (if (= fret-count 1)
 	fret-line
-	(ly:stencil-combine-at-edge fret-line Y UP
-				    (draw-fret-lines (- fret-count 1) string-count th size)
-				    gap))))
+         (if (eq? orientation 'normal)
+             (ly:stencil-combine-at-edge (draw-fret-lines (- fret-count 1) string-count th size orientation) Y UP
+                 fret-line
+                 gap 0)
+             (ly:stencil-combine-at-edge (draw-fret-lines (- fret-count 1) string-count th size orientation) X RIGHT
+                 fret-line
+                 gap 0)))))
 
-(define (draw-thick-top-fret props string-count th size)
-  "Draw a thick top fret for a fret diagram whose base fret is not 1."
+(define (draw-fret-line string-count th size orientation)
+ "Draw a fret line for a fret diagram."
+   (let* ((fret-length (* (- string-count 1) size))
+          (sth (* size th))
+          (half-thickness (* sth 0.5)))
+         (if (eq? orientation 'normal)
+                         (ly:make-stencil (list 'draw-line sth half-thickness size
+                                                (- fret-length half-thickness) size)
+                                                (cons 0 fret-length)
+                                                (cons  (- half-thickness) half-thickness))
+                         (ly:make-stencil (list 'draw-line sth 0 half-thickness
+                                                0 (- fret-length half-thickness))
+                                                (cons (- half-thickness)  half-thickness)
+                                                (cons 0 fret-length)))))
+
+(define (draw-thick-zero-fret props string-count th size orientation)
+ "Draw a thick zeroth fret for a fret diagram whose base fret is not 1."
   (let* ((sth (* th size))
 					;          (top-fret-thick (* sth (chain-assoc-get 'top-fret-thickness props 3.0)))
 	 (top-fret-thick (* sth 3.0))
@@ -112,29 +139,36 @@ fret & string spacing by @var{size}. "
 	 (y2 (+ top-fret-thick half-thick))
 	 (x-extent (cons (- x1) x2))
 	 (y-extent (cons 0 y2)))
+          (if (eq? orientation 'normal)
     (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 sth)
-		     x-extent y-extent)))           
+                             x-extent y-extent)
+              (ly:make-stencil (list 'round-filled-box y1 y2 x1 x2 sth)
+                            y-extent x-extent))))
 
 
-(define (draw-frets layout props fret-range string-count th size)
-  "Draw the frets (horizontal lines) for a fret diagram with
+(define (draw-frets layout props fret-range string-count th size orientation)
+ "Draw the fret lines for a fret diagram with
 @var{string-count} strings and frets as indicated in @var{fret-range}.
 Line thickness is given by @var{th}, fret & string spacing by
-@var{size}. "
+@var{size}. Orientation is given by @var{orientation}."
   (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (fret-length (* (- string-count 1) size))
          (half-thickness (* th 0.5))
-         (base-fret (car fret-range)))
+         (base-fret (car fret-range))
+         (fret-zero (draw-fret-line string-count th size orientation)))
+      (if (eq? orientation 'normal)
+          (ly:stencil-combine-at-edge
+              (draw-fret-lines fret-count string-count th size orientation) Y UP
+              fret-zero
+              (- size th))
     (ly:stencil-combine-at-edge
-     (draw-fret-lines fret-count string-count th size) Y UP
-     (if (= base-fret 1)
-	 (draw-thick-top-fret props string-count th size)
-	 (draw-fret-lines 1 string-count th size)) 
-     (- size th)))) 
+              fret-zero X RIGHT
+              (draw-fret-lines fret-count string-count th size orientation)
+              (- size th)))))
 
 
-(define (draw-dots layout props string-count fret-range size finger-code 
-                    dot-position dot-radius dot-thickness dot-list)
+(define (draw-dots layout props string-count fret-count fret-range size finger-code
+                    dot-position dot-radius dot-thickness dot-list orientation)
   "Make dots for fret diagram."
 
   (let* ((scale-dot-radius (* size dot-radius))
@@ -148,13 +182,19 @@ Line thickness is given by @var{th}, fret & string spacing by
          (dot-label-font-mag scale-dot-radius)
 ;         (string-label-font-mag (* size (chain-assoc-get 'label-font-mag props 0.7)))
          (string-label-font-mag (* size 0.6))
-         (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
+;         (fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
          (mypair (car dot-list))
          (restlist (cdr dot-list))
-         (xpos (* size (- string-count (car mypair))))
+         (string (car mypair))
+         (fret (cadr mypair))
+         (xpos (* size (if (eq? orientation 'normal)
+                           (- string-count string)
+                           (+ (- fret 1 ) dot-position))))
 ;TODO -- figure out what 4 is and get rid of it
 ;UGH -- 4?
-         (ypos (* size (+ 4 (- fret-count (cadr mypair) dot-position ))))
+         (ypos (* size (if (eq? orientation 'normal)
+                       (+ 2 (- fret-count fret dot-position ))
+                       (- string-count string))))
          (extent (cons (- scale-dot-radius) scale-dot-radius))
          (finger (caddr mypair))
          (finger (if (number? finger) (number->string finger) finger))
@@ -191,66 +231,108 @@ Line thickness is given by @var{th}, fret & string spacing by
                  (if (eq? finger-code 'below-string) 
                      (ly:stencil-add 
                          positioned-dot
+                         (if (eq? orientation 'normal)
                          (ly:stencil-translate-axis 
                              (ly:stencil-translate-axis 
                                  (centered-stencil (sans-serif-stencil layout props 
                                                         string-label-font-mag finger))
                               xpos  X)
-                          (* size finger-yoffset) Y))
+                                 (* size finger-yoffset) Y)
+                              (ly:stencil-translate-axis
+                                 (ly:stencil-translate-axis
+                                     (centered-stencil (sans-serif-stencil layout props
+                                                        string-label-font-mag finger))
+                                    (* size (+ 2 fret-count finger-yoffset))  X)
+                                  ypos Y)))
                      ;unknown finger-code
                      positioned-dot)))))
     (if (null? restlist) 
         labeled-dot-stencil
         (ly:stencil-add 
-            (draw-dots layout props string-count fret-range size finger-code 
-                          dot-position dot-radius dot-thickness restlist)
+            (draw-dots layout props string-count fret-count fret-range size finger-code
+                          dot-position dot-radius dot-thickness restlist orientation)
             labeled-dot-stencil))))
 
-(define (draw-xo layout props string-count fret-range size xo-list) 
+(define (draw-xo layout props string-count fret-range size xo-list orientation)
 "Put open and mute string indications on diagram, as contained in @var{xo-list}."
     (let* ((fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
-;           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
-           (xo-font-mag (* size 0.5))
+           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
+;           (xo-font-mag (* size 0.5))
 ;           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
            (xo-horizontal-offset (* size -0.35))
            (mypair (car xo-list))
            (restlist (cdr xo-list))
-           (glyph-string (if (eq? (car mypair) 'mute) "X" "O"))
+           (glyph-string (if (eq? (car mypair) 'mute)
+               (chain-assoc-get 'mute-string props "X")
+               (chain-assoc-get 'open-string props "O")))
            (xpos (+ (* (- string-count (cadr mypair)) size) xo-horizontal-offset ))
-           (glyph-stencil (ly:stencil-translate-axis 
-              (sans-serif-stencil layout props (* size xo-font-mag) glyph-string) xpos X)))
+           (glyph-stencil (if (eq? orientation 'normal)
+                              (ly:stencil-translate-axis
+                                   (sans-serif-stencil layout props (* size xo-font-mag) glyph-string)
+                                    xpos X)
+                              (ly:stencil-translate-axis
+                                   (sans-serif-stencil layout props (* size xo-font-mag) glyph-string)
+                                    xpos Y))))
+;(display "def-xo-mag" default-xo-magnification)
       (if (null? restlist)
           glyph-stencil
           (ly:stencil-add
-            (draw-xo layout props string-count fret-range size restlist)
+            (draw-xo layout props string-count fret-range size restlist orientation)
             glyph-stencil))))
 
-(define (make-bezier-sandwich-list left right bottom height thickness)
-" Make the argument list for a horizontal bezier sandwich from
-@var{left} to @var{right} with a bottom at @var{bottom}, a height of
-@var{height}, and a thickness of @var{thickness}."
-   (let* ((width (+ (- right left) 1))
-          (x1 (+ (* width thickness) left))
-          (x2 (- right (* width thickness)))
-          (bottom-control-point-height (+ bottom (- height thickness)))
-          (top-control-point-height (+ bottom height)))
+(define (make-bezier-sandwich-list start stop base height thickness orientation)
+" Make the argument list for a bezier sandwich from
+@var{start} to @var{stop} with a baseline at @var{base}, a height of
+@var{height}, and a thickness of @var{thickness}.  If @var{orientation} is
+@var{'normal}, @var{base} is a y coordinate, otherwise it's an x coordinate."
+   (let* ((width (+ (- stop start) 1))
+          (x1 (+ (* width thickness) start))
+          (x2 (- stop (* width thickness)))
+          (bottom-control-point-height (if (eq? orientation 'normal)
+                                           (+ base (- height thickness))
+                                           (- base (- height thickness))))
+          (top-control-point-height (if (eq? orientation 'normal)
+                                        (+ base height)
+                                        (- base height))))
            ; order of points is: left cp low, right cp low, right end low, left end low
            ;                     right cp high, left cp high, left end high, right end high.
-       (list (cons x1 bottom-control-point-height) (cons x2 bottom-control-point-height) (cons right bottom) (cons left bottom)
-             (cons x2 top-control-point-height) (cons x1 top-control-point-height) (cons left bottom) (cons right bottom))))
+       (if (eq? orientation 'normal)
+           (list (cons x1 bottom-control-point-height)
+                 (cons x2 bottom-control-point-height)
+                 (cons stop base)
+                 (cons start base)
+                 (cons x2 top-control-point-height)
+                 (cons x1 top-control-point-height)
+                 (cons start base)
+                 (cons stop base))
+           (list (cons bottom-control-point-height x1)
+                 (cons bottom-control-point-height x2)
+                 (cons base stop)
+                 (cons base start)
+                 (cons top-control-point-height x2)
+                 (cons top-control-point-height x1)
+                 (cons base start)
+                 (cons base stop)))))
 
-(define (draw-barre layout props string-count fret-range size finger-code dot-position dot-radius barre-list)
+(define (draw-barre layout props string-count fret-range size finger-code dot-position dot-radius barre-list orientation)
    "Create barre indications for a fret diagram"
    (if (not (null? barre-list))
      (let* ((string1 (caar barre-list))
             (string2 (cadar barre-list))
             (fret (caddar barre-list))
+            (top-fret (cadr fret-range))
+            (low-fret (car fret-range))
             (barre-type (chain-assoc-get 'barre-type props 'curved))
             (scale-dot-radius (* size dot-radius))
-            (barre-vertical-offset (chain-assoc-get 'barre-vertical-offset props 0.5))
+            (barre-vertical-offset 0.5)
+;            (barre-vertical-offset (chain-assoc-get 'barre-vertical-offset props 0.5))
             ;; 2 is 1 for empty fret at bottom of figure + 1 for interval (top-fret - fret + 1) -- not an arbitrary constant
             (dot-center-y (* size
 			     (- (+ 2 (- (cadr fret-range) fret)) dot-position)))
+            (dot-center-fret-coordinate (+ (- fret low-fret) dot-position))
+            (barre-fret-coordinate (+ dot-center-fret-coordinate (* (- barre-vertical-offset 0.5) dot-radius)))
+            (barre-start-string-coordinate (- string-count string1))
+            (barre-end-string-coordinate (- string-count string2))
             (bottom (+ dot-center-y (* barre-vertical-offset scale-dot-radius)))
             (left (* size (- string-count string1)))
             (right (* size (- string-count string2)))
@@ -258,14 +340,42 @@ Line thickness is given by @var{th}, fret & string spacing by
             (bezier-thick 0.1)
 ;;            (bezier-height (chain-assoc-get 'bezier-height props 0.5))
             (bezier-height 0.5)
-            (bezier-list (make-bezier-sandwich-list left right bottom (* size bezier-height) (* size bezier-thick)))
+            (bezier-list (if (eq? orientation 'normal)
+                             (make-bezier-sandwich-list
+                                 (* size barre-start-string-coordinate)
+                                 (* size barre-end-string-coordinate)
+                                 (* size (+ 1 (- top-fret fret) barre-fret-coordinate))
+                                 (* size bezier-height)
+                                 (* size bezier-thick)
+                                 orientation)
+                              (make-bezier-sandwich-list
+                                 (* size barre-start-string-coordinate)
+                                 (* size barre-end-string-coordinate)
+                                 (* size barre-fret-coordinate)
+                                 (* size bezier-height)
+                                 (* size bezier-thick)
+                                 orientation)))
             (barre-stencil (if (eq? barre-type 'straight)
+                               (if (eq? orientation 'normal)
                               (ly:make-stencil (list 'draw-line (* size dot-radius) left dot-center-y right dot-center-y)
                                                (cons left right)
                                                (cons (- dot-center-y scale-dot-radius) (+ dot-center-y scale-dot-radius))) 
+                                   (ly:make-stencil (list 'draw-line (* size dot-radius)
+                                               (* size barre-fret-coordinate)
+                                               (* size barre-start-string-coordinate)
+                                               (* size barre-fret-coordinate)
+                                               (* size barre-end-string-coordinate))
+                                               (cons (- (* size barre-fret-coordinate) scale-dot-radius)
+                                                     (+ (* size barre-fret-coordinate) scale-dot-radius))
+                                               (cons (* size barre-start-string-coordinate)
+                                                     (* size barre-end-string-coordinate))))
+                              (if (eq? orientation 'normal)
                               (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick))
                                   (cons left right)
-                                  (cons bottom (+ bottom (* size bezier-height)))))))
+                                      (cons bottom (+ bottom (* size bezier-height))))
+                                  (ly:make-stencil (list 'bezier-sandwich `(quote ,bezier-list) (* size bezier-thick))
+                                      (cons bottom (+ bottom (* size bezier-height)))
+                                      (cons left right))))))
         (if (not (null? (cdr barre-list)))
             (ly:stencil-add barre-stencil
                  (draw-barre layout props string-count fret-range size finger-code 
@@ -276,7 +386,7 @@ Line thickness is given by @var{th}, fret & string spacing by
 "Calculate the font step necessary to get a desired magnification"
 (* 6 (/ (log mag) (log 2))))
 
-(define (label-fret layout props string-count fret-range size)
+(define (label-fret layout props string-count fret-range size orientation)
    "Label the base fret on a fret diagram"
    (let* ((base-fret (car fret-range))
 ;          (label-font-mag (chain-assoc-get 'label-font-mag props 0.7))
@@ -291,9 +401,13 @@ Line thickness is given by @var{th}, fret & string spacing by
 	       ((equal?  number-type 'roman-upper) (format #f "~:@r" base-fret))
 	       ((equal? 'arabic number-type)  (format #f "~d" base-fret))
 	       (else (format #f  "~(~:@r~)" base-fret)))))
+       (if (eq? orientation 'normal)
+           (ly:stencil-translate-axis
+               (sans-serif-stencil layout props (* size label-font-mag) label-text)
+                       (* size (+ fret-count label-vertical-offset)) Y)
        (ly:stencil-translate-axis 
            (sans-serif-stencil layout props (* size label-font-mag) label-text) 
-                       (* size (+ fret-count label-vertical-offset)) Y)))
+                       (* size (+ 1 label-vertical-offset)) X))))
  
 (define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?)
@@ -347,6 +461,7 @@ indications per string.
 ;TODO -- adjust padding for fret label?  it appears to be too close to dots
          (string-count (chain-assoc-get 'string-count props 6)) ; needed for everything
          (fret-count (chain-assoc-get 'fret-count props 4)) ; needed for everything
+         (orientation (chain-assoc-get 'orientation props 'normal)) ; needed for everything
          (finger-code (chain-assoc-get 'finger-code props 'none))  ; needed for both draw-dots and draw-barre
          (default-dot-radius (if (eq? finger-code 'in-dot) 0.425 0.25))  ; bigger dots if labeled
          (default-dot-position (if (eq? finger-code 'in-dot) (- 0.95 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
@@ -366,26 +481,40 @@ indications per string.
          (fret-range (cdr (assoc 'fret-range parameters)))
          (barre-list (cdr (assoc 'barre-list parameters)))
          (fret-diagram-stencil (ly:stencil-add
-                            (draw-strings string-count fret-range th size)
-                            (draw-frets layout props fret-range string-count th size))))
+                            (draw-strings string-count fret-range th size orientation)
+                            (draw-frets layout props fret-range string-count th size orientation))))
          (if (not (null? barre-list))
              (set! fret-diagram-stencil (ly:stencil-add
                                     (draw-barre layout props string-count fret-range size finger-code  
-                                                dot-position dot-radius barre-list)
+                                                dot-position dot-radius barre-list orientation)
                                     fret-diagram-stencil)))
          (if (not (null? dot-list))
              (set! fret-diagram-stencil (ly:stencil-add
                                     fret-diagram-stencil
-                                    (draw-dots layout props string-count fret-range size finger-code 
-                                          dot-position dot-radius th dot-list))))
+                                    (draw-dots layout props string-count fret-count fret-range size finger-code
+                                          dot-position dot-radius th dot-list orientation))))
+         (if (= (car fret-range) 1)
+             (set! fret-diagram-stencil
+                 (if (eq? orientation 'normal)
+                     (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
+                         (draw-thick-zero-fret props string-count th size orientation))
+                     (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
+                         (draw-thick-zero-fret props string-count th size orientation)))))
          (if (not (null? xo-list))
-             (set! fret-diagram-stencil (ly:stencil-combine-at-edge
-                                    fret-diagram-stencil Y UP
-                                    (draw-xo layout props string-count fret-range size xo-list) xo-padding)))
+             (set! fret-diagram-stencil
+                  (if (eq? orientation 'normal)
+                      (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
+                          (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding )
+                      (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
+                          (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding))))
          (if (> (car fret-range) 1) 
              (set! fret-diagram-stencil
+                  (if (eq? orientation 'normal)
                    (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
-                                              (label-fret layout props string-count fret-range size) label-space)))
+                             (label-fret layout props string-count fret-range size orientation) label-space)
+                      (ly:stencil-combine-at-edge fret-diagram-stencil Y label-dir
+                             (label-fret layout props string-count fret-range size orientation) label-space))))
+
          (ly:stencil-aligned-to fret-diagram-stencil X alignment)
 	 ))
          
@@ -398,10 +527,9 @@ indications per string.
 @end example
 
 @noindent
-for fret spacing 3/4 of staff space, D@tie{}chord diagram.
+for fret spacing 3/4 of staff space, D chord diagram
 
 Syntax rules for @var{definition-string}:
-
 @itemize @minus
       
 @item

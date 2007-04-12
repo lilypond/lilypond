@@ -23,9 +23,9 @@
 
 Protected_scm grob_property_callback_stack = SCM_EOL;
 
-#ifndef NDEBUG
 extern bool debug_property_callbacks;
 
+#ifndef NDEBUG
 static void
 print_property_callback_stack ()
 {
@@ -33,10 +33,17 @@ print_property_callback_stack ()
   for (SCM s = grob_property_callback_stack; scm_is_pair (s); s = scm_cdr (s))
     message (_f ("%d: %s", frame++, ly_scm_write_string (scm_car (s)).c_str ()));
 }
-
+#endif
 
 static SCM modification_callback = SCM_EOL;
 static SCM cache_callback = SCM_EOL;
+
+
+/*
+
+FIXME: this should use ly:set-option interface instead.
+
+*/
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
 	   1, 0, 0, (SCM cb),
@@ -49,9 +56,7 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 	   "the property to be changed and "
 	   "the new value for the property.")
 {
-  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
-
-  modification_callback = cb;
+  modification_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
 }
 
@@ -65,12 +70,10 @@ LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
 	   "the name of the callback that calculated the property and "
 	   "the new (cached) value of the property.")
 {
-  LY_ASSERT_TYPE (ly_is_procedure, cb, 1);
-  
-  cache_callback = cb;
+  cache_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
 }
-#endif
+
 
 void
 Grob::instrumented_set_property (SCM sym, SCM v,
@@ -86,6 +89,10 @@ Grob::instrumented_set_property (SCM sym, SCM v,
 			     scm_from_int (line),
 			     scm_from_locale_string (fun),
 			     sym, v, SCM_UNDEFINED));
+#else
+  (void) file;
+  (void) line;
+  (void) fun;
 #endif
   
   internal_set_property (sym, v);

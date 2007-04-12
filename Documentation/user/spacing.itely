@@ -508,7 +508,7 @@ layout.
 
 @seealso
 
-This manual: @ref{Changing context default settings}
+This manual: @ref{Changing context default settings}.
 
 
 @node Displaying spacing
@@ -1788,7 +1788,7 @@ means that, by default, @code{uniform-stretching} is either turned on for the
 entire score or turned off for the entire score.  We can, however,
 override this behavior and turn on different spacing features at
 different places in the score.  We do this with the command
-@code{\newSpacingSection}.  See @ref{New spacing area} for more info.
+@code{\newSpacingSection}.  See @ref{New spacing area}, for more info.
 
 Next we examine the effects of the @code{Separating_line_group_engraver} and
 see why proportional scores frequently remove this engraver.  The following

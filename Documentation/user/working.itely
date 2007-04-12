@@ -77,7 +77,7 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check}, @ref{Octave check} and
+@item @strong{Include checks}: @ref{Bar check}, @ref{Octave check}, and
 @ref{Barnumber check}.  If you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is @q{every so often}?  It depends on the complexity
@@ -110,7 +110,7 @@ phrase (instead of just @code{c d e}) you can save yourself some
 problems if you rearrange your music later.
 
 @item @strong{Separate tweaks} from music definitions.  See
-@ref{Saving typing with identifiers and functions} and
+@ref{Saving typing with identifiers and functions}, and
 @ref{Style sheets}.
 
 @end itemize
@@ -295,7 +295,7 @@ instead of making changes throughout every @code{.ly} file.
 @section Style sheets
 
 The output that LilyPond produces can be heavily modified; see
-@ref{Tweaking output} for details.  But what if you have many
+@ref{Tweaking output}, for details.  But what if you have many
 files that you want to apply your tweaks to?  Or what if you
 simply want to separate your tweaks from the actual music?  This
 is quite easy to do.

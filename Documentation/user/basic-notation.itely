@@ -854,7 +854,7 @@ b16*4 c4
 
 @seealso
 
-This manual: @ref{Tuplets}
+This manual: @ref{Tuplets}.
 
 
 @node Bar check
@@ -1505,7 +1505,7 @@ can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{Accidentals} or @ref{Accidentals and key signatures}.
+more information, see @ref{Accidentals}, or @ref{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -1571,7 +1571,7 @@ property.  Setting it to @code{#'()} uses fraction style for 4/4 and
 @end lilypond
 
 There are many more options for its layout.  See @ref{Ancient time
-signatures} for more examples.
+signatures}, for more examples.
 
 @code{\time} sets the property @code{timeSignatureFraction},
 @code{beatLength} and @code{measureLength} in the @code{Timing}
@@ -2267,7 +2267,7 @@ LilyPond inserts beams automatically
 
 When these automatic decisions are not good enough, beaming can be
 entered explicitly.  It is also possible to define beaming patterns
-that differ from the defaults.  See @ref{Setting automatic beam behavior}
+that differ from the defaults.  See @ref{Setting automatic beam behavior},
 for details.
 
 Individual notes may be marked with @code{\noBeam} to prevent them

@@ -377,7 +377,7 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing} for more
+layout spacing commands; see @ref{Displaying spacing}, for more
 details.  From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
 
@@ -431,7 +431,7 @@ a system.
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ref{Changing horizontal spacing} for more details.
+@ref{Changing horizontal spacing}, for more details.
 
 @lilypond[verbatim,quote]
 \score {
@@ -461,7 +461,7 @@ We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explantion
-of this, see the @ref{Scheme tutorial} and
+of this, see the @ref{Scheme tutorial}, and
 @ref{Interfaces for programmers}.
 
 We can use Scheme to simply @code{\override} commands,
