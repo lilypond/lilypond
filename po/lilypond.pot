@@ -29,20 +29,20 @@ msgstr ""
 msgid "%s has been replaced by %s"
 msgstr ""
 
-#: convertrules.py:2399
+#: convertrules.py:2408
 msgid "LilyPond source must be UTF-8"
 msgstr ""
 
-#: convertrules.py:2402
+#: convertrules.py:2411
 msgid "Try the texstrings backend"
 msgstr ""
 
-#: convertrules.py:2405
+#: convertrules.py:2414
 #, python-format
 msgid "Do something like: %s"
 msgstr ""
 
-#: convertrules.py:2408
+#: convertrules.py:2417
 msgid "Or save as UTF-8 in your editor"
 msgstr ""
 
@@ -777,15 +777,15 @@ msgstr ""
 msgid "adding font directory: %s"
 msgstr ""
 
-#: general-scheme.cc:180
+#: general-scheme.cc:198
 msgid "infinity or NaN encountered while converting Real number"
 msgstr ""
 
-#: general-scheme.cc:181
+#: general-scheme.cc:199
 msgid "setting to zero"
 msgstr ""
 
-#: general-scheme.cc:399 output-ps.scm:61
+#: general-scheme.cc:417 output-ps.scm:61
 msgid "Found infinity or nan in output. Substituting 0.0"
 msgstr ""
 
@@ -841,7 +841,7 @@ msgstr ""
 msgid "%d: %s"
 msgstr ""
 
-#: grob-property.cc:164
+#: grob-property.cc:174
 #, c-format
 msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
 msgstr ""
@@ -1200,7 +1200,7 @@ msgstr ""
 msgid "cannot change working directory to: %s: %s"
 msgstr ""
 
-#: main.cc:589
+#: main.cc:594
 #, c-format
 msgid "exception caught: %s"
 msgstr ""
@@ -1305,7 +1305,7 @@ msgstr ""
 msgid "placing below"
 msgstr ""
 
-#: note-collision.cc:459
+#: note-collision.cc:464
 msgid "ignoring too many clashing note columns"
 msgstr ""
 
@@ -1357,19 +1357,49 @@ msgstr ""
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
 
-#: page-turn-page-breaking.cc:205
+#: page-turn-page-breaking.cc:162
+#, c-format
+msgid "page-turn-page-breaking: breaking from %d to %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:213
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:218
+#: page-turn-page-breaking.cc:226
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:236 paper-score.cc:146
+#: page-turn-page-breaking.cc:244 paper-score.cc:146
 msgid "Drawing systems..."
+msgstr ""
+
+#: page-turn-page-breaking.cc:293
+#, c-format
+msgid "break starting at page %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:294
+#, c-format
+msgid "\tdemerits: %f"
+msgstr ""
+
+#: page-turn-page-breaking.cc:295
+#, c-format
+msgid "\tsystem count: %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:296
+#, c-format
+msgid "\tpage count: %d"
+msgstr ""
+
+#: page-turn-page-breaking.cc:297
+#, c-format
+msgid "\tprevious break: %d"
 msgstr ""
 
 #: pango-font.cc:184
@@ -1457,7 +1487,7 @@ msgstr ""
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
-#: program-option-scheme.cc:201
+#: program-option-scheme.cc:207
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -1639,12 +1669,12 @@ msgstr ""
 msgid "weird stem size, check for narrow beams"
 msgstr ""
 
-#: stem.cc:652
+#: stem.cc:618
 #, c-format
 msgid "flag `%s' not found"
 msgstr ""
 
-#: stem.cc:663
+#: stem.cc:629
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr ""
@@ -1882,27 +1912,27 @@ msgstr ""
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
 
-#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
+#: backend-library.scm:19 lily.scm:753 ps-to-png.scm:58
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr ""
 
-#: backend-library.scm:24
+#: backend-library.scm:28
 #, scheme-format
 msgid "`~a' failed (~a)"
 msgstr ""
 
-#: backend-library.scm:95 framework-tex.scm:343 framework-tex.scm:368
+#: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
 #, scheme-format
 msgid "Converting to `~a'..."
 msgstr ""
 
-#: backend-library.scm:108
+#: backend-library.scm:128
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr ""
 
-#: backend-library.scm:146
+#: backend-library.scm:166
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr ""
@@ -2039,6 +2069,11 @@ msgstr ""
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr ""
 
+#: graphviz.scm:51
+#, scheme-format
+msgid "Writing graph `~a'..."
+msgstr ""
+
 #: layout-beam.scm:29
 #, scheme-format
 msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
@@ -2071,34 +2106,34 @@ msgstr ""
 msgid "old relative compatibility not used"
 msgstr ""
 
-#: lily.scm:172
+#: lily.scm:173
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:237
+#: lily.scm:238
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:618
+#: lily.scm:619
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:621
+#: lily.scm:622
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:648 lily.scm:742
+#: lily.scm:649 lily.scm:743
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:732
+#: lily.scm:733
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
