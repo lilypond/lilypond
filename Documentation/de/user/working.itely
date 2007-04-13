@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: e489bed81d0ac43dd58c29d37689823ec3f40a9b
+    Translation of GIT committish: 2655939401240c8261f87583aeda760b8cf52d7e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,11 +10,11 @@
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
 
-Dieses
-This section explains how to solve or avoid certain common
-problems.  If you have programming experience, many of these
-tips may seem obvious, but it is still advisable to read
-this chapter.
+Dieses Kapitel erklärt, wie bestimmte häufige Probleme zu 
+lösen oder ganz zu vermeiden sind. Wenn Sie schon 
+Programmiererfahrung mitbringen, erscheinen diese Hinweise 
+vielleicht überflüssig, aber es wird dennoch empfohlen, dieses Kapitel 
+zu lesen.
 
 
 @menu
