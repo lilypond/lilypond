@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: e489bed81d0ac43dd58c29d37689823ec3f40a9b
+    Translation of GIT committish: fc6469f52dc27d4b5c22067367878a5c2ff5fb45
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -140,10 +140,10 @@ dann betrachtet werden kann.
 
 @subsubheading MacOS X
 
-Wenn Sie das LilyPond.app-Symbol doppelt klicken, öffnet
+Wenn Sie das @code{LilyPond.app}-Symbol doppelt klicken, öffnet
 sich eine Beispiel-Datei. Speichern Sie sie etwa als
  @file{test.ly} auf dem Desktop und übersetzen Sie sie
-mit dem Menü-Befehl  @q{Compile > Typeset File}.
+mit dem Menü-Befehl  @qq{Compile > Typeset File}.
 Die PDF-Datei mit dem fertigen Notensatz wird automatisch
 geöffnet.
 
@@ -152,7 +152,7 @@ Minut dauern, bis die Eingabedatei übersetzt wird, weil die
 Schriften des Betriebssystems erst überprüft werden müssen.
 
 Das nächste Mal, wenn Sie LilyPond benutzen, sollten Sie
- @q{New} oder "@q{Open} wählen.  Sie müssen die Datei
+ @qq{New} oder @qq{Open} wählen.  Sie müssen die Datei
 speichern, bevor Sie sie übersetzen können. Wenn es Fehler gibt,
 lesen Sie die Meldungen im Log-Fenster.
 
@@ -429,7 +429,7 @@ LilyPonds Quelldateien werden wie Dateien in den meisten
 Programmiersprachen behandelt: Es ist auf Groß- und Kleinschreibung
 zu achten, Ausdrücke werden mit geschreiften Klammern @{ @}
 eingeklammert und Kommentare mit dem Prozentzeichen @code{%} auskommentiert
-oder mit @code{%@{ .. %@}} umgeben.
+oder mit @code{%@{ ... %@}} umgeben.
 
 Wenn das jetzt unverständlich klang, sind hier die  Erklärungen:
 
@@ -442,14 +442,14 @@ Wenn das jetzt unverständlich klang, sind hier die  Erklärungen:
 Die Bedeutung eines Zeichens verändert sich, je
 nachdem, ob es groß (@code{A, B, S, T}) oder klein
  (@code{a, b, s, t}) geschrieben wird. Noten müssen
-immer kleingeschrieben werden,  @code{ @{ c d e @} } funktioniert,
-während @code{ @{ C D E @} } eine Fehlernachricht produziert.
+immer kleingeschrieben werden,  @code{@{ c d e @}} funktioniert,
+während @code{@{ C D E @}} eine Fehlernachricht produziert.
 
 @item @strong{Leerzeichen:}
 Es spielt keine Rolle, wie viele Leerzeichen oder lere Zeilen sich zwischen
 den Zeichen der Quelldatei befinden.
-  @code{ @{ c d e @}} bedeutet das Gleiche wie
- @code{ @{ c @ @ @ @ @  d e @} } oder
+  @code{@{ c d e @}} bedeutet das Gleiche wie
+ @code{@{ c @ @ @ @ @  d e @}} oder
 @example
           @{
 c                        d
@@ -474,7 +474,7 @@ Die Klammern sollten von jeweils einem Leerzeichen umgeben sein, um
 Zweideutigkeiten
 auszuschließen, außer sie
 befinden sich am Anfang oder Ende einer Zeile.
-Eine Funktion (wie etwa @code{\relative @{ @}} ) wird auch als ein einzelner
+Eine Funktion (wie etwa @code{\relative @{ @}}) wird auch als ein einzelner
 Musikausdruck gewertet.
 
 @cindex Kommentare
