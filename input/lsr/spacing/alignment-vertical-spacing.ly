@@ -11,8 +11,8 @@ By setting @code{alignment-extra-space} or
 stretched vertically.
 
 
-For technical reasons, @code{overrideProperty} has to be used for
-setting properties on individual objects. @code{override} in a
+For technical reasons, @code{\overrideProperty} has to be used for
+setting properties on individual objects. @code{\override} in a
 @code{\context} block may still be used for global overrides. 
 " }
 
