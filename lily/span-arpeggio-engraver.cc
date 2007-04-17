@@ -58,7 +58,10 @@ Span_arpeggio_engraver::process_acknowledged ()
   */
   if (!span_arpeggio_ && arpeggios_.size () > 1
       && to_boolean (get_property ("connectArpeggios")))
-    span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
+    {
+      span_arpeggio_ = make_item ("Arpeggio", SCM_EOL);
+      span_arpeggio_->set_property ("cross-staff", SCM_BOOL_T);
+    }
 }
 
 void
@@ -89,6 +92,8 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 	  arpeggios_[j]->set_property ("transparent", SCM_BOOL_T);
 	}
 
+
+      span_arpeggio_->set_parent (arpeggios_[0]->get_parent (Y_AXIS), Y_AXIS);
       span_arpeggio_ = 0;
     }
   arpeggios_.clear ();

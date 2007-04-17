@@ -727,6 +727,18 @@ instructions, visit @uref{http://lilypondtool@/.organum@/.hu}
 All these editors can be made to jump into the input file to the source
 of a symbol in the graphical output.  See @ref{Point and click}.
 
+In addition, several other text editors provide some support for
+LilyPond, including
+
+@table @asis
+@item TexShop
+The @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
+editor for Mac OS X can be extended to run LilyPond, lilypond-book and
+convert-ly from within the editor, using the extensions available at 
+@uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
+
+@end table
+
 
 @node Point and click
 @section Point and click
