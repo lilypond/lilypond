@@ -442,6 +442,27 @@ def find_tangent_shift (expr line, curve, p_in, p_out) =
 enddef;
 
 
+%
+% Get subpath specified by `dir_in' and `dir_out' of `curve'
+% which is then shifted by `offset'.  Assure that result has
+% the same orientation as `curve'.
+%
+def get_subpath (expr curve, dir_in, dir_out, offset) =
+	begingroup;
+	save t_in, t_out;
+
+	t_in := directiontime dir_in of curve;
+	t_out := directiontime dir_out of curve;
+
+	if t_in > t_out:
+		t_out := t_out + length curve;
+	fi;
+
+	(subpath (t_in, t_out) of curve) shifted offset
+	endgroup
+enddef;
+
+
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	save head_width, head_height;
 	save ellipse, ellipse_r;
@@ -462,7 +483,6 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 		     xscaled (max (blot_diameter, pen_w * head_width))
 		     yscaled (max (blot_diameter, pen_h * head_width))
 		     rotated -angle;
-	ellipse_r := ellipse rotated 180;
 
 	z1 = find_tangent_shift (((0, h) -- (0, -h)), ellipse,
 				 (0, 0), (w / 2, 0));
@@ -473,18 +493,10 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	z4 = find_tangent_shift (((0, -h) -- (w, -h)), ellipse,
 				 (w / 2, -h), (w / 2, 0));
 
-	fill (subpath (directiontime (z1 - z4) of ellipse,
-		       directiontime (z2 - z1) of ellipse)
-	       of ellipse) shifted z1
-	     -- (subpath (directiontime (z2 - z1) of ellipse,
-			  directiontime (z3 - z2) of ellipse)
-		  of ellipse) shifted z2
-	     -- (subpath (directiontime (z3 - z2) of ellipse_r,
-			  directiontime (z4 - z3) of ellipse_r)
-		  of ellipse_r) shifted z3
-	     -- (subpath (directiontime (z4 - z3) of ellipse_r,
-			  directiontime (z1 - z4) of ellipse_r)
-		  of ellipse_r) shifted z4
+	fill get_subpath (ellipse, z1 - z4, z2 - z1, z1)
+	     -- get_subpath (ellipse, z2 - z1, z3 - z2, z2)
+	     -- get_subpath (ellipse, z3 - z2, z4 - z3, z3)
+	     -- get_subpath (ellipse, z4 - z3, z1 - z4, z4)
 	     -- cycle;
 
 	if open:
@@ -555,9 +567,8 @@ fet_endchar;
 
 % parameterized punctum
 def punctum_char (expr verbose_name, internal_name,
-		       left_stem, right_stem, linea, cavum,
-		       straight, auctum, rev_auctum, d_up,
-		       eccentric, up_shift, down_shift, mag) =
+		       linea, cavum, straight, auctum,
+		       d_up, up_shift, down_shift, mag) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save a_b, b_h, a_w;
 
@@ -579,10 +590,10 @@ def punctum_char (expr verbose_name, internal_name,
 
 		if d_up:
 			d_ := up;
-			d_sign# := 1;
+			d_sign := 1;
 		else:
 			d_ := down;
-			d_sign# := -1;
+			d_sign := -1;
 		fi;
 
 		% convexity and eccentricity
@@ -594,9 +605,6 @@ def punctum_char (expr verbose_name, internal_name,
 		elseif auctum:
 			u_convexity# := -0.03 ht#;
 			u_eccentricity# := +0.25 ht#;
-		elseif rev_auctum:
-			u_convexity# := -0.10 ht#;
-			u_eccentricity# := -0.12 ht#;
 		else:
 			u_convexity# := -0.05 ht#;
 			u_eccentricity# := 0.0 ht#; % dummy
@@ -604,8 +612,8 @@ def punctum_char (expr verbose_name, internal_name,
 
 		save convexity, eccentricity;
 
-		convexity# := d_sign# * u_convexity#;
-		eccentricity# := d_sign# * u_eccentricity#;
+		convexity# := d_sign * u_convexity#;
+		eccentricity# := d_sign * u_eccentricity#;
 
 		% y shift offset
 		save yoffs;
@@ -622,13 +630,15 @@ def punctum_char (expr verbose_name, internal_name,
 
 		pickup pencircle scaled linethickness;
 
-		path p;
-		save height, yoffs_bt;
+		save height, yoffs_bt, p, circle, circle_r;
+		path p, circle, circle_r;
 
 		height# = 0.47 ht#;
 		yoffs_bt# = yoffs# - 0.5 height# - 0.25 convexity#;
 
 		define_pixels (height, yoffs_bt);
+
+		circle := fullcircle scaled linethickness;
 
 		x1 = x6;
 		x2 = x5;
@@ -639,17 +649,15 @@ def punctum_char (expr verbose_name, internal_name,
 
 		save box_top, box_bt;
 
-		if auctum or rev_auctum:
-			z1 = (0.00 wd + linethickness / 2,
-			       yoffs_bt);
-			z2 = (0.21 wd,
-			       yoffs_bt + 1.0 convexity);
+		if auctum:
+			z1 = (0.00 wd + linethickness / 2, yoffs_bt);
+			z2 = (0.21 wd, yoffs_bt + convexity);
 			z3 = (0.42 wd - linethickness/ 2,
-			       yoffs_bt + 1.0 eccentricity);
+			      yoffs_bt + eccentricity);
 			box_top# = height# + yoffs_bt# +
-				max (0, 1.0 convexity#, 1.0 eccentricity#);
+				     max (0, convexity#, eccentricity#);
 			box_bt# = yoffs_bt# +
-				min (0, 1.0 convexity#, 1.0 eccentricity#);
+				     min (0, convexity#, eccentricity#);
 			p = z1
 			    .. {right}z2
 			    .. {d_}z3
@@ -657,35 +665,12 @@ def punctum_char (expr verbose_name, internal_name,
 			    .. z5{left}
 			    .. z6
 			    -- cycle;
-		elseif eccentric:
-			z1 = (0.00 wd + linethickness / 2,
-			       yoffs_bt - 1.0 convexity);
-			z2 = (0.08 wd,
-			       yoffs_bt + 1.4 convexity);
-			z3 = (0.42 wd - linethickness / 2,
-			       yoffs_bt - 1.0 convexity);
-			box_top# = height# + yoffs_bt# +
-				max (-1.0 convexity#, 1.4 convexity#, 0);
-			box_bt# = yoffs_bt# +
-				min (-1.0 convexity#, 1.4 convexity#, 0);
-			p = z1{d_}
-			    .. z2{right}
-			    .. z3
-			    -- z4
-			    .. {left}z5
-			    .. {-d_}z6
-			    -- cycle;
 		else:
-			z1 = (0.00 wd + linethickness / 2,
-			       yoffs_bt);
-			z2 = (0.21 wd,
-			       yoffs_bt + 1.0 convexity);
-			z3 = (0.42 wd - linethickness / 2,
-			       yoffs_bt);
-			box_top# = height# + yoffs_bt# +
-				max (0, 1.0 convexity#);
-			box_bt# = yoffs_bt# +
-				min (0, 1.0 convexity#);
+			z1 = (0.00 wd + linethickness / 2, yoffs_bt);
+			z2 = (0.21 wd, yoffs_bt + convexity);
+			z3 = (0.42 wd - linethickness / 2, yoffs_bt);
+			box_top# = height# + yoffs_bt# + max (0, convexity#);
+			box_bt# = yoffs_bt# + min (0, convexity#);
 			p = z1
 			    .. z2
 			    .. z3
@@ -697,34 +682,56 @@ def punctum_char (expr verbose_name, internal_name,
 
 		labels (1, 2, 3, 4, 5, 6);
 
+		save dirs;
+		pair dirs[];
+
+		dirs12 := direction (0 + epsilon) of p;
+		dirs2 := direction 1 of p;
+		dirs32 := direction (2 - epsilon) of p;
+		dirs45 := direction (3 + epsilon) of p;
+		dirs5 := direction 4 of p;
+		dirs65 := direction (5 - epsilon) of p;
+
+		fill get_subpath (circle, down, dirs12, z1)
+		     .. (bot z2){dirs2}
+		     .. get_subpath (circle, dirs32, up, z3)
+		     -- get_subpath (circle, up, dirs45, z4)
+		     .. (top z5){dirs5}
+		     .. get_subpath (circle, dirs65, down, z6)
+		     -- cycle;
+
 		if cavum:
-			draw p;
-		else:
-			filldraw p;
-		fi;
+			save pat, t;
+			path pat[];
+			numeric t[];
 
-		pickup pencircle scaled 0.6 linethickness;
+			pat123 := ((directionpoint -dirs12 of circle)
+				    shifted z1){dirs12}
+				  .. (top z2){dirs2}
+				  .. {dirs32}((directionpoint -dirs32 of circle)
+				       shifted z3);
+			pat34 := lft z3
+				 -- lft z4;
+			pat456 := ((directionpoint -dirs45 of circle)
+				    shifted z4){dirs45}
+				  .. (bot z5){dirs5}
+				  .. {dirs65}((directionpoint -dirs65 of circle)
+				       shifted z6);
+			pat61 := rt z6
+				 -- rt z1;
 
-		save stem_bt;
+			t61 := ypart (pat61 intersectiontimes pat123);
+			t12 := xpart (pat123 intersectiontimes pat34);
+			t34 := ypart (pat34 intersectiontimes pat456);
+			t45 := xpart (pat456 intersectiontimes pat61);
 
-		if left_stem:
-			z11 = (0.00 wd + 0.6 linethickness / 2, yoffs);
-			z12 = (0.00 wd + 0.6 linethickness / 2, yoffs - 1.1 ht);
-			draw z11
-			     -- z12;
-			stem_bt# = yoffs# - 1.1 ht#;
-		elseif right_stem:
-			z11 = (0.42 wd - 0.6 linethickness / 2, yoffs);
-			z12 = (0.42 wd - 0.6 linethickness / 2, yoffs - 1.5 ht);
-			draw z11
-			     -- z12;
-			stem_bt# = yoffs# - 1.5 ht#;
-		else:
-			stem_bt# = 0;
+			unfill subpath (t61, t12) of pat123
+			       -- subpath (t34, t45) of pat456
+			       -- cycle;
 		fi;
 
 		set_char_box (0.00 wd#, 0.42 wd#,
-			      max (0, -box_bt#, -stem_bt#) + linethickness# / 2,
+			      max (0, -box_bt#) + linethickness# / 2,
 			      max (0, box_top#) + linethickness# / 2);
 
 		if linea:
@@ -735,6 +742,8 @@ def punctum_char (expr verbose_name, internal_name,
 
 			define_pixels (linea_width, linea_height);
 
+			pickup pencircle scaled 0.6 linethickness;
+
 			draw_block ((-0.10 wd - linea_width / 2,
 				     -linea_height / 2),
 				    (-0.10 wd + linea_width / 2,
@@ -744,8 +753,7 @@ def punctum_char (expr verbose_name, internal_name,
 				    (+0.52 wd + linea_width / 2,
 				     +linea_height / 2));
 
-			set_char_box (0,
-				      0.62 wd# + linea_width#,
+			set_char_box (0, 0.62 wd# + linea_width#,
 				      linea_height# / 2,
 				      linea_height# / 2);
 
@@ -756,85 +764,341 @@ def punctum_char (expr verbose_name, internal_name,
 enddef;
 
 
+% parameterized punctum
+def plica_char (expr verbose_name, internal_name,
+		     d_up, mag) =
+	fet_beginchar (verbose_name, "s" & internal_name);
+		save a_b, b_h, a_w;
+
+		a_b := 1.54; % b_h * a_b / a_w = wd / ht
+		b_h := 0.85;
+		a_w := 1.09;
+
+		save a, beta, ht, wd;
+
+		ht# = noteheight# * mag;
+		2 beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 2 a# / a_w;
+		black_notehead_width# := wd#;
+
+		% direction
+		save d_, d_sign;
+		pair d_;
+
+		if d_up:
+			d_ := up;
+			d_sign := 1;
+		else:
+			d_ := down;
+			d_sign := -1;
+		fi;
+
+		% convexity and eccentricity
+		save convexity, eccentricity;
+
+		convexity# := d_sign * -0.10 ht#;
+		eccentricity# := d_sign * -0.12 ht#;
+
+		% y shift offset
+		save yoffs;
+
+		yoffs# := -0.11 ht#;
+
+		define_pixels (convexity, eccentricity, yoffs, ht, wd);
+
+		pickup pencircle scaled linethickness;
+
+		save height, yoffs_bt, p, circle, circle_r;
+		path p, circle, circle_r;
+
+		height# = 0.47 ht#;
+		yoffs_bt# = yoffs# - 0.5 height# - 0.25 convexity#;
+
+		define_pixels (height, yoffs_bt);
+
+		circle := fullcircle scaled linethickness;
+
+		x1 = x6;
+		x2 = x5;
+		x3 = x4;
+		y1 + height = y6;
+		y2 + height = y5;
+		y3 + height = y4;
+
+		save box_top, box_bt;
+
+		z1 = (0.00 wd + linethickness / 2, yoffs_bt);
+		z2 = (0.21 wd, yoffs_bt + convexity);
+		z3 = (0.42 wd - linethickness/ 2, yoffs_bt + eccentricity);
+		box_top# = height# + yoffs_bt# +
+			     max (0, convexity#, eccentricity#);
+		box_bt# = yoffs_bt# +
+			     min (0, convexity#, eccentricity#);
+		p = z1
+		    .. z2{right}
+		    .. z3
+		    -- z4
+		    .. z5{left}
+		    .. z6
+		    -- cycle;
+
+		labels (1, 2, 3, 4, 5, 6);
+
+		save dirs;
+		pair dirs[];
+
+		dirs12 := direction (0 + epsilon) of p;
+		dirs2 := direction 1 of p;
+		dirs32 := direction (2 - epsilon) of p;
+		dirs45 := direction (3 + epsilon) of p;
+		dirs5 := direction 4 of p;
+		dirs65 := direction (5 - epsilon) of p;
+
+		fill get_subpath (circle, down, dirs12, z1)
+		     .. (bot z2){dirs2}
+		     .. get_subpath (circle, dirs32, up, z3)
+		     -- get_subpath (circle, up, dirs45, z4)
+		     .. (top z5){dirs5}
+		     .. get_subpath (circle, dirs65, down, z6)
+		     -- cycle;
+
+		pickup pencircle scaled 0.6 linethickness;
+
+		save stem_bt;
+
+		set_char_box (0.00 wd#, 0.42 wd#,
+			      max (0, -box_bt#) + linethickness# / 2,
+			      max (0, box_top#) + linethickness# / 2);
+
+	fet_endchar;
+enddef;
+
+
+% parameterized punctum
+def epiphonus_char (expr verbose_name, internal_name,
+			 left_stem, d_up, down_shift, mag) =
+	fet_beginchar (verbose_name, "s" & internal_name);
+		save a_b, b_h, a_w;
+
+		a_b := 1.54; % b_h * a_b / a_w = wd / ht
+		b_h := 0.85;
+		a_w := 1.09;
+
+		save a, beta, ht, wd;
+
+		ht# = noteheight# * mag;
+		2 beta# = ht# * b_h;
+		a# = beta# * a_b;
+		wd# = 2 a# / a_w;
+		black_notehead_width# := wd#;
+
+		% direction
+		save d_, d_sign;
+		pair d_;
+
+		if d_up:
+			d_ := up;
+			d_sign := 1;
+		else:
+			d_ := down;
+			d_sign := -1;
+		fi;
+
+		% convexity and eccentricity
+		save convexity;
+
+		convexity# := d_sign * -0.05ht#;
+
+		% y shift offset
+		save yoffs;
+
+		if down_shift:
+			yoffs# := -0.11 ht#;
+		else:
+			yoffs# := 0.00 ht#;
+		fi;
+
+		define_pixels (convexity, yoffs, ht, wd);
+
+		pickup pencircle scaled linethickness;
+
+		save height, yoffs_bt, p, circle, circle_r;
+		path p, circle, circle_r;
+
+		height# = 0.47 ht#;
+		yoffs_bt# = yoffs# - 0.5 height# - 0.25 convexity#;
+
+		define_pixels (height, yoffs_bt);
+
+		circle := fullcircle scaled linethickness;
+
+		x1 = x6;
+		x2 = x5;
+		x3 = x4;
+		y1 + height = y6;
+		y2 + height = y5;
+		y3 + height = y4;
+
+		save box_top, box_bt;
+
+		z1 = (0.00 wd + linethickness / 2, yoffs_bt - 2.5 convexity);
+		z2 = (0.06 wd, yoffs_bt + 1.4 convexity);
+		z3 = (0.42 wd - linethickness / 2, yoffs_bt - 1.0 convexity);
+		box_top# = height# + yoffs_bt# +
+			     max (-1.0 convexity#, 1.4 convexity#, 0);
+		box_bt# = yoffs_bt# +
+			     min (-1.0 convexity#, 1.4 convexity#, 0);
+		p = z1{-d_}
+		    .. {curl 1}z2{right}
+		    .. z3
+		    -- z4
+		    .. {left}z5{curl 1}
+		    .. {d_}z6
+		    -- cycle;
+
+%		filldraw p;
+
+		labels (1, 2, 3, 4, 5, 6);
+
+		save dirs;
+		pair dirs[];
+
+		dirs12 := direction (0 + epsilon) of p;
+		dirs21 := direction (1 - epsilon) of p;
+		dirs23 := direction (1 + epsilon) of p;
+		dirs32 := direction (2 - epsilon) of p;
+		dirs45 := direction (3 + epsilon) of p;
+		dirs54 := direction (4 - epsilon) of p;
+		dirs56 := direction (4 + epsilon) of p;
+		dirs65 := direction (5 - epsilon) of p;
+
+		fill get_subpath (circle, down, dirs12, z1)
+		     .. get_subpath (circle, dirs21, dirs23, z2)
+		     .. get_subpath (circle, dirs32, up, z3)
+		     -- get_subpath (circle, up, dirs45, z4)
+		     .. get_subpath (circle, dirs54, dirs56, z5)
+		     .. get_subpath (circle, dirs65, down, z6)
+		     -- cycle;
+
+		pickup pencircle scaled 0.6 linethickness;
+
+		save stem_bt;
+
+		if left_stem:
+			z11 = (0.00 wd + 0.6 linethickness / 2, yoffs - 1.1 ht);
+			z12 = (0.00 wd + 0.6 linethickness / 2, yoffs);
+			draw_block ((0, yoffs - 1.1 ht - linethickness / 2),
+				    (0.6 linethickness, yoffs));
+			stem_bt# = yoffs# - 1.1 ht#;
+		else:
+			stem_bt# = 0;
+		fi;
+
+		set_char_box (0.00 wd#, 0.42 wd#,
+			      max (0, -box_bt#, -stem_bt#) + linethickness# / 2,
+			      max (0, box_top#) + linethickness# / 2);
+	fet_endchar;
+enddef;
+
+
 % parameterized punctum inclinatum
 def inclinatum_char (expr verbose_name, internal_name,
-		     small, stropha, auctum) =
-
+			  small, stropha, auctum) =
 	fet_beginchar (verbose_name, "s" & internal_name)
 		save ht, alpha;
-		alpha# = 35;
+
+		alpha := 35;
+
 		if small:
 			ht# = 0.50 noteheight#;
 		else:
 			ht# = 0.80 noteheight#;
 		fi;
 
-		draw_diamond_head (ht#, 0, 0, alpha#, false);
+		draw_diamond_head (ht#, 0, 0, alpha, false);
 
 		if stropha:
-			pickup pencircle
-				xscaled (0.25*head_height)
-				yscaled (0.55*head_height)
-				rotated alpha#;
-			save za, off_angle; pair za;
+			pickup pencircle xscaled 0.25 head_height
+					 yscaled 0.55 head_height
+					 rotated alpha;
+
+			save za, off_angle;
+			pair za;
+
 			off_angle := 15;
-			za = (0, -0.25*head_height)
-				rotated -(alpha# + off_angle)
-				shifted (0.48 head_width, -0.02 head_width);
+
+			za = (0, -0.25 head_height)
+			       rotated -(alpha + off_angle)
+			       shifted (0.48 head_width, -0.02 head_width);
+
 			undrawdot za;
 		fi;
 
 		if auctum:
 			pickup pencircle scaled linethickness;
+
 			save za, zb, zc;
 			pair za, zb, zc;
+
 			za = (0, -0.5 head_height + linethickness);
 			zb = 0.6 (za + zc);
 			zc = za + (0.52 head_width, 0);
-			draw za{(0,-1) rotated alpha#} .. {right}zb{right} ..
-			     {(0,1) rotated -alpha#}zc;
+
+			draw za{(0, -1) rotated alpha}
+			     .. {right}zb{right}
+			     .. {(0, 1) rotated -alpha}zc;
 		fi;
 	fet_endchar;
 enddef;
 
+
 % punctum
 punctum_char ("Ed. Vat. punctum", "vaticana.punctum",
-	      false, false, false, false, false,
-	      false, false, false, false, false, false, 1.0);
+	      false, false, false, false,
+	      false, false, false, 1.0);
+
 
 % punctum cavum (for OpusTeX compatibility)
 punctum_char ("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
-	      false, false, false, true, false,
-	      false, false, false, false, false, false, 1.0);
+	      false, true, false, false,
+	      false, false, false, 1.0);
+
 
 % linea punctum (for OpusTeX compatibility)
 punctum_char ("Ed. Vat. linea punctum", "vaticana.linea.punctum",
-	      false, false, true, false, false,
-	      false, false, false, false, false, false, 1.0);
+	      true, false, false, false,
+	      false, false, false, 1.0);
+
 
 % linea punctum cavum (for OpusTeX compatibility)
 punctum_char ("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
-	      false, false, true, true, false,
-	      false, false, false, false, false, false, 1.0);
+	      true, true, false, false,
+	      false, false, false, 1.0);
+
 
 % punctum inclinatum
 inclinatum_char ("Ed. Vat. inclinatum", "vaticana.inclinatum",
 		 false, false, false);
 
+
 % pes lower punctum
 punctum_char ("Ed. Vat. pes lower punctum", "vaticana.lpes",
-	      false, false, false, false, true,
-	      false, false, true, false, false, false, 1.0);
+	      false, false, true, false,
+	      true, false, false, 1.0);
+
 
 % pes lower punctum
 punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
-	      false, false, false, false, true,
-	      false, false, true, false, false, true, 1.0);
+	      false, false, true, false,
+	      true, false, true, 1.0);
+
 
 % pes upper punctum
 punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
-	      false, false, false, false, true,
-	      false, false, false, false, false, false, 1.0);
+	      false, false, true, false,
+	      false, false, false, 1.0);
+
 
 % pes upper punctum (shifted variation)
 %
@@ -843,23 +1107,25 @@ punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes",
 % punctum sits directly on top of the lower punctum.
 %
 punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
-	      false, false, false, false, true,
-	      false, false, false, false, true, false, 1.0);
+	      false, false, true, false,
+	      false, true, false, 1.0);
+
 
 % small punctum as used in epiphonus
 punctum_char ("Ed. Vat. plica", "vaticana.plica", 
-	      false, false, false, false, false,
-	      false, false, false, false, false, false, 0.6);
+	      false, false, false, false,
+	      false, false, false, 0.6);
+
 
 % small punctum as used in epiphonus
-punctum_char ("Ed. Vat. var plica", "vaticana.vplica", 
-	      false, false, false, false, false,
-	      false, true, false, false, false, true, 0.6);
+plica_char ("Ed. Vat. var plica", "vaticana.vplica", 
+	    false, 0.6);
+
 
 % eccentric punctum as used in epiphonus
-punctum_char ("Ed. Vat. epiphonus", "vaticana.epiphonus", 
-	      false, false, false, false, false,
-	      false, false, true, true, false, false, 1.0);
+epiphonus_char ("Ed. Vat. epiphonus", "vaticana.epiphonus", 
+		false, true, false, 1.0);
+
 
 % eccentric punctum as used in epiphonus (shifted variation)
 %
@@ -867,29 +1133,30 @@ punctum_char ("Ed. Vat. epiphonus", "vaticana.epiphonus",
 % avoid collision with the plica head when the plica sits directly on
 % top of the lower head.
 %
-punctum_char ("Ed. Vat. var epiphonus", "vaticana.vepiphonus",
-	      false, false, false, false, false,
-	      false, false, true, true, false, true, 1.0);
+epiphonus_char ("Ed. Vat. var epiphonus", "vaticana.vepiphonus",
+		false, true, true, 1.0);
+
 
 % small punctum as used in cephalicus
 punctum_char ("Ed. Vat. rev. plica", "vaticana.reverse.plica",
-	      false, false, false, false, false,
-	      false, false, true, false, false, false, 0.6);
+	      false, false, false, false,
+	      true, false, false, 0.6);
+
 
 % small punctum as used in cephalicus
-punctum_char ("Ed. Vat. rev. var plica", "vaticana.reverse.vplica",
-	      false, false, false, false, false,
-	      false, true, true, false, false, true, 0.6);
+plica_char ("Ed. Vat. rev. var plica", "vaticana.reverse.vplica",
+	    true, 0.6);
+
 
 % eccentric punctum as used in cephalicus; without left stem
-punctum_char ("Ed. Vat. cephalicus", "vaticana.inner.cephalicus",
-	      false, false, false, false, false,
-	      false, false, false, true, false, false, 1.0);
+epiphonus_char ("Ed. Vat. inner cephalicus", "vaticana.inner.cephalicus",
+		false, false, false, 1.0);
+
 
 % eccentric punctum as used in cephalicus; with left stem
-punctum_char ("Ed. Vat. cephalicus", "vaticana.cephalicus",
-	      true, false, false, false, false,
-	      false, false, false, true, false, false, 1.0);
+epiphonus_char ("Ed. Vat. cephalicus", "vaticana.cephalicus",
+		true, false, false, 1.0);
+
 
 % quilisma
 fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma")
@@ -919,31 +1186,38 @@ fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma")
 	draw z1 .. z2 -- z3 .. z4 -- z5 .. z6 -- z7;
 fet_endchar;
 
+
 % solesmes punctum inclinatum parvum
 inclinatum_char ("Solesmes punctum inclinatum parvum", "solesmes.incl.parvum",
 		 true, false, false);
 
+
 % solesmes punctum auctum ascendens
 punctum_char ("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
-	      false, false, false, false, false,
-	      true, false, true, false, false, false, 1.0);
+	      false, false, false, true,
+	      true, false, false, 1.0);
+
 
 % solesmes punctum auctum descendens
 punctum_char ("Solesmes punctum auctum descendens", "solesmes.auct.desc",
-	      false, false, false, false, false,
-	      true, false, false, false, false, false, 1.0);
+	      false, false, false, true,
+	      false, false, false, 1.0);
+
 
 % solesmes punctum inclinatum auctum
 inclinatum_char ("Solesmes punctum incl. auctum", "solesmes.incl.auctum",
 		 false, false, true);
 
+
 % solesmes stropha
 inclinatum_char ("Solesmes stropha", "solesmes.stropha",
 		 false, true, false);
 
+
 % solesmes stropha aucta
 inclinatum_char ("Solesmes stropha aucta", "solesmes.stropha.aucta",
 		 false, true, true);
+
 
 % solesmes oriscus
 fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus")
@@ -973,6 +1247,7 @@ fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus")
 	set_char_box (0.00 wd#, 0.50 wd#,
 		      0.25 ht# + convexity#, 0.25 ht# + convexity#);
 fet_endchar;
+
 
 %%%%%%%%
 %
