@@ -211,6 +211,13 @@ top-most of the next system. Default is@tie{}4mm.
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
+@funindex page-breaking-between-system-padding
+@item between-system-padding
+This variable tricks the page breaker into thinking that
+@code{between-system-padding} is set to something different than it
+really is. For example, if this variable is set to something substantially
+larger than @code{between-system-padding}, then the page-breaker will put
+fewer systems on each page.
 
 @funindex horizontal-shift
 @item horizontal-shift
@@ -600,12 +607,11 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 Internals: @internalsref{LineBreakEvent}.
 
-A linebreaking configuration can now be saved as a @code{.ly} file
+A linebreaking configuration can be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
 @lsrdir{spacing}
-
 
 @refbugs
 
@@ -882,7 +888,7 @@ staves inside a system.
 * Vertical spacing inside a system::  
 * Vertical spacing between systems::  
 * Explicit staff and system positioning::  
-* Two-pass vertical spacing::   
+* Two-pass vertical spacing::
 * Vertical collision avoidance::  
 @end menu
 
@@ -922,6 +928,61 @@ first number is generally negative.  The numbers need not match;
 for example, the staff can be made larger at the bottom by setting
 it to @code{(-6 . 4)}.
 
+After page breaks are determined, the vertical spacing within each
+system is reevaluated in order to fill the page more evenly; if a page
+has space left over, systems are stretched in order to fill that space.
+The amount of stretching can be configured though the @code{max-stretch}
+property of the @internalsref{VerticalAlignment} grob. To disable this
+stretching entirely, set @code{max-stretch} to zero.
+
+In some situations, you may want to stretch most of a system while
+leaving some parts fixed. For example, if a piano part occurs in the
+middle of an orchestral score, you may want to leave the piano staves
+close to each other while stretching the rest of the score. The
+@code{keep-fixed-while-stretching} property of
+@internalsref{VerticalAxisGroup} can be used to achieve this. When set
+to @code{##t}, this property keeps its staff (or line of lyrics) from
+moving relative to the one directly above it. In the example above,
+you would override @code{keep-fixed-while-stretching} to @code{##t} in
+the second piano staff:
+
+@lilypond[verbatim]
+#(set-default-paper-size "a6")
+#(set-global-staff-size 14.0)
+
+\book {
+\paper {
+  ragged-last-bottom = ##f
+}
+
+\score {
+\new GrandStaff
+<<
+  \new StaffGroup
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+  >>
+
+  \new PianoStaff
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff \with {
+      \override VerticalAxisGroup #'keep-fixed-while-stretching = ##t
+    }
+    {c' d' e' f'}
+  >>
+
+  \new StaffGroup
+  <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+  >>
+>>
+}
+}
+@end lilypond
 
 @seealso
 
@@ -1157,6 +1218,10 @@ passed to these different settings will avoid this.
 @node Two-pass vertical spacing
 @subsection Two-pass vertical spacing
 
+Warning: two-pass vertical spacing is deprecated and will be removed in
+a future version of LilyPond. Systems are now stretched automatically
+in a single pass. See @ref{Vertical spacing inside a system}.
+
 In order to automatically stretch systems so that they should fill the
 space left on a page, a two-pass technique can be used:
 
@@ -1184,7 +1249,7 @@ music, using the @code{\scoreTweak} music function.
     \new Staff <<
       %% Include this score tweaks:
       \scoreTweak "scoreA"
-      { \clef french c''1 \break c''1 } 
+      { \clef french c''1 \break c''1 }
     >>
     \new Staff { \clef soprano g'1 g'1 }
     \new Staff { \clef mezzosoprano e'1 e'1 }

@@ -27,7 +27,7 @@ number to 2 in order to avoid a bad page turn."
   \score {
     {
       a b c d R1
-      \repeat unfold 17 {a4 b c d}
+      \repeat unfold 26 {a4 b c d}
     }
   }
 }

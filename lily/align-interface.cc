@@ -188,9 +188,7 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	line_break_details = me_spanner->get_bound (LEFT)->get_property ("line-break-system-details");
 
       if (!me->get_system () && !pure)
-	me->warning (_ ("vertical alignment called before line-breaking.\n"
-			"Only do cross-staff spanners with PianoStaff."));
-
+	me->programming_error ("vertical alignment called before line-breaking");
     }
   
   Direction stacking_dir = robust_scm2dir (me->get_property ("stacking-dir"),

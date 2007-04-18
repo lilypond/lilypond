@@ -380,6 +380,7 @@ up the interpretation phase. This speeds up debugging large scores.")
      (squashedPosition ,integer? " Vertical position of
 squashing for @internalsref{Pitch_squash_engraver}.")
 
+     (staffLineLayoutFunction ,procedure? "Layout of staff lines, 'traditional, or 'semitone.")
      (stringNumberOrientations ,list? "See @code{fingeringOrientations}")
      (strokeFingerOrientations ,list? "See @code{fingeringOrientations}")
      (stringOneTopmost ,boolean? "Whether the 1st string is printed on the

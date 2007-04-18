@@ -21,9 +21,6 @@ public:
 
   Optimal_page_breaking (Paper_book *pb);
   virtual ~Optimal_page_breaking ();
-
-private:
-  Spacing_result try_page_spacing (Line_division const&);
 };
 
 #endif /* OPTIMAL_PAGE_BREAKING_HH */

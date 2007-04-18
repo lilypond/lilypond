@@ -55,9 +55,8 @@ protected:
   vsize final_page_num (Break_node const &b);
   Break_node put_systems_on_pages (vsize start,
 				   vsize end,
-				   vector<Line_details> const &lines,
-				   Line_division const &div,
-				   int page_number);
+				   vsize configuration,
+				   vsize page_number);
 
   SCM make_lines (vector<Break_node> *breaks);
   SCM make_pages (vector<Break_node> const &breaks, SCM systems);

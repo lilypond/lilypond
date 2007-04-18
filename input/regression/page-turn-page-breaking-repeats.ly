@@ -17,7 +17,7 @@ long gap at the beginning or at the end of the repeat.
 \book {
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #80
+    paper-height = #90
     print-page-number = ##t
     print-first-page-number = ##t
   }
@@ -27,7 +27,7 @@ long gap at the beginning or at the end of the repeat.
       \set Score.skipBars = ##t
       % this should be kept on one page
       \repeat volta 2 {
-	\repeat unfold 7 {a4 b c d16 d d d} R1*10
+	\repeat unfold 6 {a4 b c d16 d d d} R1*10
 	\repeat unfold 8 {a4 b c d16 d d d} \pageTurn
       }
       % use up a page

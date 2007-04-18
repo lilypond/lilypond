@@ -11,6 +11,7 @@
 #define PAGE_BREAKING_HH
 
 #include "constrained-breaking.hh"
+#include "page-spacing.hh"
 
 /* Either a paper-score, markup or header.
  */
@@ -79,27 +80,38 @@ public:
   Page_breaking (Paper_book *pb, Break_predicate);
   virtual ~Page_breaking ();
 
+  bool ragged () const;
+  bool ragged_last () const;
+  bool last () const;
+  Real page_height (int page_number, bool last) const;
+
 protected:
   Paper_book *book_;
 
-  Real page_height (int page_number, bool last);
   vsize next_system (Break_position const &break_pos) const;
 
   SCM make_pages (vector<vsize> lines_per_page, SCM lines);
 
   vsize min_system_count (vsize start, vsize end);
   vsize max_system_count (vsize start, vsize end);
-  vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
+
 
   void break_into_pieces (vsize start, vsize end, Line_division const &div);
   SCM systems ();
 
-
-  vector<Line_division> line_divisions (vsize start,
-					vsize end,
-					vsize system_count,
-					Line_division lower_bound = Line_division (),
-					Line_division upper_bound = Line_division ());
+  void set_current_breakpoints (vsize start,
+				vsize end,
+				vsize system_count,
+				Line_division lower_bound = Line_division (),
+				Line_division upper_bound = Line_division ());
+  vsize current_configuration_count () const;
+  Line_division current_configuration (vsize configuration_index) const;
+  Spacing_result space_systems_on_n_pages (vsize configuration_index, vsize n, vsize first_page_num);
+  Spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n, vsize first_page_num);
+  Spacing_result space_systems_on_best_pages (vsize configuration_index, vsize first_page_num);
+  vsize min_page_count (vsize configuration_index, vsize first_page_num);
+  bool all_lines_stretched (vsize configuration_index);
+  Real blank_page_penalty () const;
 
   SCM breakpoint_property (vsize breakpoint, char const *str);
   vector<Break_position> breaks_;
@@ -108,6 +120,19 @@ private:
   vector<Break_position> chunks_;
   vector<System_spec> all_;
   vector<Constrained_breaking> line_breaking_;
+  bool ragged_;
+  bool ragged_last_;
+
+  vector<Line_division> current_configurations_;
+  vector<Break_position> current_chunks_;
+  vsize current_start_breakpoint_;
+  vsize current_end_breakpoint_;
+
+  void cache_line_details (vsize configuration_index);
+  void clear_line_details_cache ();
+  vsize cached_configuration_index_;
+  vector<Line_details> cached_line_details_;
+  vector<Line_details> uncompressed_line_details_;
 
   vector<Break_position> chunk_list (vsize start, vsize end);
   Line_division system_count_bounds (vector<Break_position> const &chunks, bool min);
@@ -120,9 +145,12 @@ private:
   void line_divisions_rec (vsize system_count,
 			   Line_division const &min,
 			   Line_division const &max,
-			   vector<Line_division> *result,
 			   Line_division *cur);
 
+  vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
+  Spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
+  Spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
+  Spacing_result finalize_spacing_result (vsize configuration_index, Spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate);
 };

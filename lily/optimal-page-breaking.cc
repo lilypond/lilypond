@@ -32,45 +32,6 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 {
 }
 
-Spacing_result
-Optimal_page_breaking::try_page_spacing (Line_division const &line_count)
-{
-  vector<Line_details> lines = line_details (0, breaks_.size () - 1, line_count);
-  Real page_h = page_height (1, false); // FIXME
-  SCM force_sym = ly_symbol2scm ("blank-last-page-force");
-  Real blank_force = robust_scm2double (book_->paper_->lookup_variable (force_sym), 0);
-  bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
-  bool ragged_last = to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
-  Spacing_result ret = space_systems_on_best_pages (lines,
-						    page_h,
-						    blank_force,
-						    ragged_all,
-						    ragged_last);
-
-  /* add in the line penalties */
-  Real line_force = 0;
-  Real line_penalty = 0;
-  Real page_weighting = robust_scm2double (book_->paper_->c_variable ("page-spacing-weight"), 10);
-
-  for (vsize i = 0; i < lines.size (); i++)
-    {
-      line_force += lines[i].force_ * lines[i].force_;
-      line_penalty += lines[i].break_penalty_;
-    }
-
-  ret.demerits_ = ret.force_[0] * ret.force_[0] * page_weighting;
-  for (vsize i = 1; i < ret.force_.size (); i++)
-    ret.demerits_ += ret.force_[i] * ret.force_[i] * page_weighting;
-
-  /* for a while we tried averaging page and line forces instead of summing
-     them, but it caused the following problem. If there is a single page
-     with a very bad page force (for example because of a forced page break),
-     the page breaker will put in a _lot_ of pages so that the bad force
-     becomes averaged out over many pages. */
-  ret.demerits_ += line_force + line_penalty;
-  return ret;
-}
-
 SCM
 Optimal_page_breaking::solve ()
 {
@@ -82,36 +43,32 @@ Optimal_page_breaking::solve ()
   Spacing_result best;
   Line_division best_division;
   Line_division lower_bound;
+  vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
 
   for (vsize sys_count = min_sys_count;
        cur_page_count <= max_page_count && sys_count <= max_sys_count;
        sys_count++)
     {
-      Real this_best_demerits = infinity_f;
-      vector<Line_division> div = line_divisions (0, end, sys_count, lower_bound);
-      for (vsize d = 0; d < div.size (); d++)
+      Real best_demerits_for_this_sys_count = infinity_f;
+      set_current_breakpoints (0, end, sys_count, lower_bound);
+
+      for (vsize i = 0; i < current_configuration_count (); i++)
 	{
-	  Spacing_result cur = try_page_spacing (div[d]);
+	  Spacing_result cur = space_systems_on_best_pages (i, first_page_num);
 	  cur_page_count = cur.systems_per_page_.size ();
 	  if (cur.demerits_ < best.demerits_ || isinf (best.demerits_))
 	    {
 	      best = cur;
-	      best_division = div[d];
+	      best_division = current_configuration (i);
 	    }
 
-	  if (cur.demerits_ < this_best_demerits || isinf (best.demerits_))
+	  if (cur.demerits_ < best_demerits_for_this_sys_count || isinf (best.demerits_))
 	    {
-	      this_best_demerits = cur.demerits_;
-	      lower_bound = div[d];
+	      best_demerits_for_this_sys_count = cur.demerits_;
+	      lower_bound = current_configuration (i);
 	    }
 
-	  vector<Line_details> det = line_details (0, end, div[d]);
-	  bool all_lines_stretched = true;
-	  for (vsize i = 0; i < det.size (); i++)
-	    if (det[i].force_ < 0)
-	      all_lines_stretched = false;
-
-	  if (all_lines_stretched)
+	  if (all_lines_stretched (i))
 	    max_page_count = min (max_page_count, cur_page_count + 1);
 	}
     }
