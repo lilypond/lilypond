@@ -2,9 +2,9 @@
 \version "2.10.12"
 
 \header { texidoc = "
-Feathered beams can be obtained by setting the #'grow-direction
-property; you may also want to use \featherDurations to adjust note
-durations. (See also in tha manual : \"Feathered beams\")
+Feathered beams can be obtained by setting the @code{#'grow-direction}
+property; you may also want to use @code{\featherDurations} to adjust
+note durations. (See also in tha manual : \"Feathered beams\")
 " }
 
 \paper {
