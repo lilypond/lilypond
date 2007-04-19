@@ -466,7 +466,7 @@ enddef;
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	save head_width, head_height;
 	save ellipse, ellipse_r;
-	path ellipse, ellipse_r;
+	path ellipse, ellipse_r, diamond_shape;
 
 	head_height# = head_h;
 	head_width# / head_height# = tand (angle);
@@ -493,11 +493,12 @@ def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	z4 = find_tangent_shift (((0, -h) -- (w, -h)), ellipse,
 				 (w / 2, -h), (w / 2, 0));
 
-	fill get_subpath (ellipse, z1 - z4, z2 - z1, z1)
-	     -- get_subpath (ellipse, z2 - z1, z3 - z2, z2)
-	     -- get_subpath (ellipse, z3 - z2, z4 - z3, z3)
-	     -- get_subpath (ellipse, z4 - z3, z1 - z4, z4)
-	     -- cycle;
+	diamond_shape := get_subpath (ellipse, z1 - z4, z2 - z1, z1)
+			 -- get_subpath (ellipse, z2 - z1, z3 - z2, z2)
+			 -- get_subpath (ellipse, z3 - z2, z4 - z3, z3)
+			 -- get_subpath (ellipse, z4 - z3, z1 - z4, z4)
+			 -- cycle;
+	fill diamond_shape;
 
 	if open:
 		save l;
@@ -565,7 +566,6 @@ fet_endchar;
 %
 %
 
-% parameterized punctum
 def punctum_char (expr verbose_name, internal_name,
 		       linea, cavum, straight, auctum,
 		       d_up, up_shift, down_shift, mag) =
@@ -579,9 +579,9 @@ def punctum_char (expr verbose_name, internal_name,
 		save a, beta, ht, wd;
 
 		ht# = noteheight# * mag;
-		2 beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2 a# / a_w;
+		2 beta = ht# * b_h;
+		a = beta * a_b;
+		wd# = 2 a / a_w;
 		black_notehead_width# := wd#;
 
 		% direction
@@ -764,7 +764,6 @@ def punctum_char (expr verbose_name, internal_name,
 enddef;
 
 
-% parameterized punctum
 def plica_char (expr verbose_name, internal_name,
 		     d_up, mag) =
 	fet_beginchar (verbose_name, "s" & internal_name);
@@ -777,9 +776,9 @@ def plica_char (expr verbose_name, internal_name,
 		save a, beta, ht, wd;
 
 		ht# = noteheight# * mag;
-		2 beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2 a# / a_w;
+		2 beta = ht# * b_h;
+		a = beta * a_b;
+		wd# = 2 a / a_w;
 		black_notehead_width# := wd#;
 
 		% direction
@@ -875,7 +874,6 @@ def plica_char (expr verbose_name, internal_name,
 enddef;
 
 
-% parameterized punctum
 def epiphonus_char (expr verbose_name, internal_name,
 			 left_stem, d_up, down_shift, mag) =
 	fet_beginchar (verbose_name, "s" & internal_name);
@@ -888,9 +886,9 @@ def epiphonus_char (expr verbose_name, internal_name,
 		save a, beta, ht, wd;
 
 		ht# = noteheight# * mag;
-		2 beta# = ht# * b_h;
-		a# = beta# * a_b;
-		wd# = 2 a# / a_w;
+		2 beta = ht# * b_h;
+		a = beta * a_b;
+		wd# = 2 a / a_w;
 		black_notehead_width# := wd#;
 
 		% direction
@@ -957,8 +955,6 @@ def epiphonus_char (expr verbose_name, internal_name,
 		    .. {d_}z6
 		    -- cycle;
 
-%		filldraw p;
-
 		labels (1, 2, 3, 4, 5, 6);
 
 		save dirs;
@@ -1002,7 +998,6 @@ def epiphonus_char (expr verbose_name, internal_name,
 enddef;
 
 
-% parameterized punctum inclinatum
 def inclinatum_char (expr verbose_name, internal_name,
 			  small, stropha, auctum) =
 	fet_beginchar (verbose_name, "s" & internal_name)
@@ -1018,36 +1013,110 @@ def inclinatum_char (expr verbose_name, internal_name,
 
 		draw_diamond_head (ht#, 0, 0, alpha, false);
 
-		if stropha:
-			pickup pencircle xscaled 0.25 head_height
-					 yscaled 0.55 head_height
-					 rotated alpha;
+		save off_angle;
 
-			save za, off_angle;
-			pair za;
+		off_angle := alpha + 15;
 
-			off_angle := 15;
+		save stropha_ellipse, auctum_hook, circle;
+		path stropha_ellipse, auctum_hook, circle;
 
-			za = (0, -0.25 head_height)
-			       rotated -(alpha + off_angle)
-			       shifted (0.48 head_width, -0.02 head_width);
+		circle := reverse fullcircle scaled linethickness;
 
-			undrawdot za;
+		stropha_ellipse := fullcircle xscaled 0.25 head_height
+					      yscaled 0.55 head_height
+					      rotated alpha;
+
+		z11 = z12
+		      + linethickness / 2 * dir (180 - off_angle)
+		      - directionpoint dir (90 - off_angle)
+			  of stropha_ellipse;
+		z12 = directionpoint -dir (90 - off_angle) of diamond_shape +
+			linethickness / 2 * dir (180 - off_angle);
+		z13 = (0, -0.5 head_height + linethickness);
+
+		auctum_hook := z12{-dir (90 - off_angle)}
+			       .. {dir (90 + alpha)}z13;
+
+		labels (12);
+
+		if (stropha and not auctum):
+			clearit;
+
+			save t_in, t_out;
+
+			t_in := xpart ((stropha_ellipse shifted z11)
+				       intersectiontimes
+				       get_subpath (diamond_shape,
+						    left, up,
+						    (0, 0)));
+			t_out := xpart ((stropha_ellipse shifted z11)
+					intersectiontimes
+					get_subpath (diamond_shape,
+						     up, right,
+						     (0, 0)));
+
+			% the `eps' is necessary so that we don't get the
+			% start of a straight line in the diamond shape
+			fill get_subpath (diamond_shape,
+					  dir (angle (z2 - z1) - eps),
+					  dir (angle (z1 - z4) + eps),
+					  (0, 0))
+			     -- get_subpath (stropha_ellipse,
+					     direction t_in of stropha_ellipse,
+					     direction t_out of stropha_ellipse,
+					     z11)
+			     -- cycle;
+
+			labels (11);
 		fi;
 
-		if auctum:
-			pickup pencircle scaled linethickness;
+		if (auctum and not stropha):
+			clearit;
 
-			save za, zb, zc;
-			pair za, zb, zc;
+			fill get_subpath (diamond_shape,
+					  left,
+					  -dir (90 - off_angle),
+					  (0, 0))
+			     .. get_subpath (circle,
+					     dir (90 + alpha),
+					     -dir (90 + alpha),
+					     z13)
+			     .. get_subpath (circle,
+					     dir (90 - off_angle),
+					     right,
+					     z12)
+			     -- cycle;
 
-			za = (0, -0.5 head_height + linethickness);
-			zb = 0.6 (za + zc);
-			zc = za + (0.52 head_width, 0);
+			labels (13);
+		fi;
 
-			draw za{(0, -1) rotated alpha}
-			     .. {right}zb{right}
-			     .. {(0, 1) rotated -alpha}zc;
+		if (auctum and stropha):
+			clearit;
+
+			save t;
+
+			t := xpart ((stropha_ellipse shifted z11)
+				    intersectiontimes
+				    get_subpath (diamond_shape, up, right,
+						 (0, 0)));
+
+			% the `eps' is necessary so that we don't get the
+			% start of a straight line in the diamond shape
+			fill get_subpath (diamond_shape,
+					  dir (angle (z2 - z1) - eps),
+					  -dir (90 - off_angle),
+					  (0, 0))
+			     .. get_subpath (circle,
+					     dir (90 + alpha),
+					     -dir (90 + alpha),
+					     z13)
+			     .. get_subpath (stropha_ellipse,
+					     dir (90 - off_angle),
+					     direction t of stropha_ellipse,
+					     z11)
+			     -- cycle;
+
+			labels (11, 13);
 		fi;
 	fet_endchar;
 enddef;
@@ -1162,28 +1231,53 @@ epiphonus_char ("Ed. Vat. cephalicus", "vaticana.cephalicus",
 fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma")
 	save a_b, b_h, a_w;
 
-	a_b:=1.54; % b_h*a_b/a_w = wd/ht
-	b_h:=0.85;
-	a_w:=1.09;
+	a_b := 1.54; % b_h * a_b / a_w = wd / ht
+	b_h := 0.85;
+	a_w := 1.09;
 
 	save a, beta, ht, wd;
+
 	ht# = noteheight#;
-	2 beta# = ht# * b_h;
-	a# = beta#*a_b;
-	wd# = 2 a# / a_w;
+	2 beta = ht# * b_h;
+	a = beta * a_b;
+	wd# = 2 a / a_w;
+
 	set_char_box (0, 0.42 wd#, 0.28 ht#, 0.36 ht#);
+
 	black_notehead_width# := wd#;
 
 	define_pixels (ht, wd);
-	pickup pencircle xscaled linethickness yscaled 0.44 ht;
-	lft x1 = 0.00 wd; bot y1 = -0.28 ht;
-	x2 = 0.11 wd;     y2 = -0.14 ht;
-	x3 = 0.12 wd;     y3 = +0.03 ht;
-	x4 = 0.25 wd;     y4 = -0.09 ht;
-	x5 = 0.26 wd;     y5 = +0.08 ht;
-	x6 = 0.40 wd;     y6 = -0.04 ht;
-	rt x7 = 0.42 wd;  top y7 = +0.36 ht;
-	draw z1 .. z2 -- z3 .. z4 -- z5 .. z6 -- z7;
+
+	pickup pencircle xscaled linethickness
+			 yscaled 0.44 ht;
+
+	save ellipse;
+	path ellipse;
+
+	ellipse := reverse fullcircle xscaled linethickness
+				      yscaled 0.44 ht;
+
+	z1 = (rt 0.00 wd, top -0.28 ht);
+	z2 = (0.11 wd, -0.14 ht);
+	z3 = (0.12 wd, +0.03 ht);
+	z4 = (0.25 wd, -0.09 ht);
+	z5 = (0.25 wd, +0.08 ht);
+	z6 = (lft 0.42 wd, -0.04 ht);
+	z7 = (lft 0.40 wd, bot +0.36 ht);
+
+	fill get_subpath (ellipse, z1 - z2, z2 - z1, z1)
+	     -- get_subpath (ellipse, z2 - z1, z1 - z2, z2)
+	     -- cycle;
+	fill get_subpath (ellipse, z3 - z4, z4 - z3, z3)
+	     -- get_subpath (ellipse, z4 - z3, z3 - z4, z4)
+	     -- cycle;
+	fill get_subpath (ellipse, z5 - z6, z6 - z5, z5)
+	     -- point 0 of get_subpath (ellipse, z6 - z5, z5 - z6, z6)
+	     -- get_subpath (ellipse, z7 - z6, z6 - z7, z7)
+	     -- get_subpath (ellipse, z6 - z7, z5 - z6, z6)
+	     -- cycle;
+
+	labels (1, 2, 3, 4, 5, 6, 7);
 fet_endchar;
 
 
@@ -1223,29 +1317,67 @@ inclinatum_char ("Solesmes stropha aucta", "solesmes.stropha.aucta",
 fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus")
 	save a_b, b_h, a_w;
 
-	a_b := 1.54; % b_h*a_b/a_w = wd/ht
+	a_b := 1.54; % b_h * a_b / a_w = wd / ht
 	b_h := 0.85;
 	a_w := 1.09;
 
 	save a, beta, ht, wd;
+
 	ht# = noteheight#;
-	2 beta# = ht# * b_h;
-	a# = beta# * a_b;
-	wd# = 2 a# / a_w;
+	2 beta = ht# * b_h;
+	a = beta * a_b;
+	wd# = 2 a / a_w;
 	black_notehead_width# := wd#;
 
 	save convexity;
+
 	convexity# = +0.05 ht#;
 
 	define_pixels (ht, wd, convexity);
-	pickup pencircle xscaled blot_diameter yscaled 0.50 ht;
-	lft x1 = 0.00 wd; y1 = -convexity;
-	x2 = 0.16 wd;     y2 = +convexity;
-	x3 = 0.33 wd;     y3 = -convexity;
-	rt x4 = 0.50 wd;  y4 = +convexity;
-	draw z1 .. z2 .. z3 .. z4;
+
 	set_char_box (0.00 wd#, 0.50 wd#,
 		      0.25 ht# + convexity#, 0.25 ht# + convexity#);
+
+	z1 = (0.00 wd + blot_diameter / 2, -convexity);
+	z2 = (1/6 wd, +convexity);
+	z3 = (2/6 wd, -convexity);
+	z4 = (0.50 wd - blot_diameter / 2, +convexity);
+
+	save height, ellipse;
+	path ellipse;
+
+	height = 2 ypart (directionpoint right of (z1
+						   .. z2
+						   .. z3
+						   .. z4));
+
+	pickup pencircle xscaled blot_diameter
+			 yscaled (h + d - height);
+
+	ellipse := fullcircle xscaled blot_diameter
+			      yscaled (h + d - height);
+
+	% Adjust vertical coordinates to touch bounding box.
+	y1 := top -d;
+	y4 := bot h;
+
+	save d_;
+	pair d_;
+
+	d_ := direction 0 of (z1
+			      .. z2
+			      .. z3
+			      .. z4);
+
+	fill get_subpath (ellipse, -d_, d_, z1)
+	     .. bot z2
+	     .. bot z3
+	     .. get_subpath (ellipse, d_, -d_, z4)
+	     .. top z3
+	     .. top z2
+	     .. cycle;
+
+	labels (1, 2, 3, 4);
 fet_endchar;
 
 
@@ -1264,11 +1396,10 @@ fet_beginchar ("Ed. Med. inclinatum", "smedicaea.inclinatum")
 fet_endchar;
 
 
-% parametrized punctum
 def punctum_char (expr verbose_name, internal_name,
 		       left_up_stem, left_down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
-		save a, beta, ht, wd;
+		save a, ht, wd;
 
 		ht# = 2 staff_space#;
 		wd# = ht#;
@@ -1276,36 +1407,42 @@ def punctum_char (expr verbose_name, internal_name,
 
 		define_pixels (ht, wd);
 
-		pickup pencircle xscaled blot_diameter
-				 yscaled 0.50 ht;
+		save ellipse;
+		path ellipse;
+
+		ellipse := fullcircle xscaled blot_diameter
+				      yscaled 0.50 ht;
 
 		z1 = (0.00 wd + blot_diameter / 2, 0);
 		z2 = (0.4 wd - blot_diameter / 2, 0);
 
-		draw z1
-		     .. z2;
+		fill get_subpath (ellipse, left, right, z1)
+		     -- get_subpath (ellipse, right, left, z2)
+		     -- cycle;
 
-		pickup pencircle xscaled linethickness
-				 yscaled blot_diameter;
+		labels (1, 2);
+
+		pickup pencircle scaled linethickness;
 
 		if left_down_stem:
+			set_char_box (0.0, 0.4 wd#, 1.25 ht#, 0.25 ht#);
+
 			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, -1.25 ht);
 
-			draw z4
-			     .. z5;
-			set_char_box (0.0, 0.4 wd#, 1.25 ht#, 0.25 ht#);
+			draw_block (lft z5, rt z4);
 		elseif left_up_stem:
+			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
+
 			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, +1.25 ht);
 
-			draw z4
-			     .. z5;
-			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
+			draw_block (lft z4, rt z5);
 		else:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 0.25 ht#);
 		fi;
 
+		labels (4, 5);
 	fet_endchar;
 enddef;
 
@@ -1324,6 +1461,7 @@ punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
 punctum_char ("Ed. Med. virga", "medicaea.virga", 
 	      false, true);
 
+
 %%%%%%%%
 %
 %
@@ -1333,60 +1471,83 @@ punctum_char ("Ed. Med. virga", "medicaea.virga",
 %
 %
 
-% punctum
-% parametrized punctum
 def punctum_char (expr verbose_name, internal_name,
 		       down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save alpha;
 
-		alpha# = 55;
-		draw_diamond_head (staff_space#, 0, 0, alpha#, false);
+		alpha = 55;
+
+		draw_diamond_head (staff_space#, 0, 0, alpha, false);
+
 		if down_stem:
-			pickup pencircle xscaled blot_diameter
-					 yscaled 0.7 staff_space
-					 rotated -alpha#;
-
-			save za, zb;
-			pair za, zb;
-
-			za = (head_width / 2, 0);
-			bot zb = (head_width / 2, -1.5 staff_space);
-
-			draw za
-			     -- zb;
 			set_char_box (0, head_width#,
 				      1.5 staff_space#, head_height# / 2);
+
+			save ellipse;
+			path ellipse;
+
+			ellipse := reverse fullcircle xscaled blot_diameter
+						      yscaled 0.7 staff_space
+						      rotated -alpha;
+
+			z11 = (head_width / 2, 0);
+			z12 = find_tangent_shift (((0, -d) -- (w, -d)), ellipse,
+						  (w / 2, -d), (w / 2, 0));
+
+			fill get_subpath (ellipse, up, down, z11)
+			     -- get_subpath (ellipse, down, up, z12)
+			     --cycle;
+
+			labels (11, 12);
 		fi;
 	fet_endchar;
 enddef;
 
+
 % punctum
 punctum_char ("Hufnagel punctum", "hufnagel.punctum", false)
 
+
 % virga
-punctum_char ("Hufnagel virga", "hufnagel.virga",  true)
+punctum_char ("Hufnagel virga", "hufnagel.virga", true)
+
 
 % pes lower punctum
 fet_beginchar ("Hufnagel pes lower punctum", "shufnagel.lpes")
 	save width, height, alpha;
-	width# = 2*staff_space#;
-	height# = 0.7*staff_space#;
-	alpha# = 35;
 
-	set_char_box (0, width#, height#/2, height#/2);
+	width# = 2 * staff_space#;
+	height# = 0.7 * staff_space#;
+	alpha = 35;
 
-	pickup pencircle scaled linethickness;
+	set_char_box (0, width#, height# / 2, height# / 2);
+
 	define_pixels (width, height);
 
-	rt x3 = -lft x1 = width/2;
-	y2 = y3 = height/2;
-	y1 = y4 = -height/2;
-	tand (alpha#) * (y2 - y1) = x2 - x1 = x3 - x4;
+	save circle;
+	path circle;
 
-	filldraw z1 -- z2 -- z3 -- z4 -- cycle;
+	circle := reverse fullcircle scaled linethickness;
+
+	pickup pencircle scaled linethickness;
+
+	rt x3 = -lft x1 = width / 2;
+	y2 = y3 = height / 2;
+	y1 = y4 = -height / 2;
+
+	tand (alpha) * (y2 - y1) = x2 - x1 = x3 - x4;
+
+	fill get_subpath (circle, left, z2 - z1, z1)
+	     -- get_subpath (circle, z2 - z1, right, z2)
+	     -- get_subpath (circle, right, z4 - z3, z3)
+	     -- get_subpath (circle, z4 - z3, left, z4)
+	     -- cycle;
 
 	currentpicture := currentpicture shifted (width/2, 0);
+
+%	labels (1, 2, 3, 4);
 fet_endchar;
+
 
 fet_endgroup ("noteheads")
