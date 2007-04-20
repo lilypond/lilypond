@@ -146,38 +146,6 @@ fet_endchar;
 
 
 %
-% Find point on `curve' which gives the tangent between point `p'
-% and `curve'.  To guide the search, two auxiliary points must be
-% specified, `p_in' and `p_out'.  The line between `p' and `p_in'
-% must intersect `curve', while the line between `p' and `p_out'
-% must not.
-%
-def find_tangent (expr p, curve, p_in, p_out) =
-	begingroup;
-	save mid, t, t_good, in, out;
-	pair mid, in, out;
-
-	in := p_in;
-	out := p_out;
-
-	forever:
-		mid := 0.5 [in, out];
-		exitif abs (out - mid) <= eps;
-		t := xpart (curve intersectiontimes (p -- mid));
-		if (t > 0):
-			in := mid;
-			t_good := t;
-		else:
-			out := mid;
-		fi;
-	endfor;
-
-	point t_good of curve
-	endgroup
-enddef;
-
-
-%
 % Some sources (eg. Musix/OpusTeX) think that the appendage should be on
 % the left, some say right.  Right wins democratically.
 %
@@ -409,78 +377,6 @@ fet_endchar;
 fet_beginchar ("Mensural brevis notehead", "s-1mensural");
 	draw_mensural_brevis (staff_space#);
 fet_endchar;
-
-
-%
-% Shift `curve' along the line given by the auxiliary points `p_in'
-% and `p_out' until `line' is a tangent, and return the shift.
-% If `curve' is shifted to position `p_in', it must intersect
-% `line', while shifted to `p_out' it must not.
-%
-def find_tangent_shift (expr line, curve, p_in, p_out) =
-	begingroup;
-	save mid, t, t_good, in, out;
-	pair mid, in, out;
-
-	in := p_in;
-	out := p_out;
-
-	forever:
-		mid := 0.5 [in, out];
-		exitif abs (out - mid) <= eps;
-		t := xpart ((curve shifted mid) intersectiontimes line);
-		if (t > 0):
-			in := mid;
-			t_good := t;
-		else:
-			out := mid;
-		fi;
-	endfor;
-
-	mid
-	endgroup
-enddef;
-
-
-%
-% Get subpath specified by `dir_in' and `dir_out' of `curve'
-% which is then shifted by `offset'.  Assure that result has
-% the same orientation as `curve'.
-%
-def get_subpath (expr curve, dir_in, dir_out, offset) =
-	begingroup;
-	save t_in, t_out;
-
-	t_in := directiontime dir_in of curve;
-	t_out := directiontime dir_out of curve;
-
-	if t_in > t_out:
-		t_out := t_out + length curve;
-	fi;
-
-	(subpath (t_in, t_out) of curve) shifted offset
-	endgroup
-enddef;
-
-
-%
-% This is the same as `get_subpath', except that the time values
-% used to construct the resulting subpath are rounded to integers.
-%
-def get_subpath_i (expr curve, dir_in, dir_out, offset) =
-	begingroup;
-	save t_in, t_out;
-
-	t_in := directiontime dir_in of curve;
-	t_out := directiontime dir_out of curve;
-
-	if t_in > t_out:
-		t_out := t_out + length curve;
-	fi;
-
-	(subpath (round t_in, round t_out) of curve) shifted offset
-	endgroup
-enddef;
 
 
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
