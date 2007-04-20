@@ -482,9 +482,9 @@ fet_endchar;
 %
 %
 
-def punctum_char (expr verbose_name, internal_name,
-		       linea, cavum, straight, auctum,
-		       d_up, up_shift, down_shift, mag) =
+def vat_punctum_char (expr verbose_name, internal_name,
+			   linea, cavum, straight, auctum,
+			   d_up, up_shift, down_shift, mag) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save a_b, b_h, a_w;
 
@@ -1039,27 +1039,27 @@ enddef;
 
 
 % punctum
-punctum_char ("Ed. Vat. punctum", "vaticana.punctum",
-	      false, false, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. punctum", "vaticana.punctum",
+		  false, false, false, false,
+		  false, false, false, 1.0);
 
 
 % punctum cavum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
-	      false, true, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
+		  false, true, false, false,
+		  false, false, false, 1.0);
 
 
 % linea punctum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. linea punctum", "vaticana.linea.punctum",
-	      true, false, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. linea punctum", "vaticana.linea.punctum",
+		  true, false, false, false,
+		  false, false, false, 1.0);
 
 
 % linea punctum cavum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
-	      true, true, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
+		  true, true, false, false,
+		  false, false, false, 1.0);
 
 
 % punctum inclinatum
@@ -1068,21 +1068,21 @@ inclinatum_char ("Ed. Vat. inclinatum", "vaticana.inclinatum",
 
 
 % pes lower punctum
-punctum_char ("Ed. Vat. pes lower punctum", "vaticana.lpes",
-	      false, false, true, false,
-	      true, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. pes lower punctum", "vaticana.lpes",
+		  false, false, true, false,
+		  true, false, false, 1.0);
 
 
 % pes lower punctum
-punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
-	      false, false, true, false,
-	      true, false, true, 1.0);
+vat_punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
+		  false, false, true, false,
+		  true, false, true, 1.0);
 
 
 % pes upper punctum
-punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
-	      false, false, true, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
+		  false, false, true, false,
+		  false, false, false, 1.0);
 
 
 % pes upper punctum (shifted variation)
@@ -1091,15 +1091,15 @@ punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes",
 % avoid collision with the lower punctum note of the pes when the upper
 % punctum sits directly on top of the lower punctum.
 %
-punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
-	      false, false, true, false,
-	      false, true, false, 1.0);
+vat_punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
+		  false, false, true, false,
+		  false, true, false, 1.0);
 
 
 % small punctum as used in epiphonus
-punctum_char ("Ed. Vat. plica", "vaticana.plica", 
-	      false, false, false, false,
-	      false, false, false, 0.6);
+vat_punctum_char ("Ed. Vat. plica", "vaticana.plica", 
+		  false, false, false, false,
+		  false, false, false, 0.6);
 
 
 % small punctum as used in epiphonus
@@ -1123,9 +1123,9 @@ epiphonus_char ("Ed. Vat. var epiphonus", "vaticana.vepiphonus",
 
 
 % small punctum as used in cephalicus
-punctum_char ("Ed. Vat. rev. plica", "vaticana.reverse.plica",
-	      false, false, false, false,
-	      true, false, false, 0.6);
+vat_punctum_char ("Ed. Vat. rev. plica", "vaticana.reverse.plica",
+		  false, false, false, false,
+		  true, false, false, 0.6);
 
 
 % small punctum as used in cephalicus
@@ -1203,15 +1203,15 @@ inclinatum_char ("Solesmes punctum inclinatum parvum", "solesmes.incl.parvum",
 
 
 % solesmes punctum auctum ascendens
-punctum_char ("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
-	      false, false, false, true,
-	      true, false, false, 1.0);
+vat_punctum_char ("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
+		  false, false, false, true,
+		  true, false, false, 1.0);
 
 
 % solesmes punctum auctum descendens
-punctum_char ("Solesmes punctum auctum descendens", "solesmes.auct.desc",
-	      false, false, false, true,
-	      false, false, false, 1.0);
+vat_punctum_char ("Solesmes punctum auctum descendens", "solesmes.auct.desc",
+		  false, false, false, true,
+		  false, false, false, 1.0);
 
 
 % solesmes punctum inclinatum auctum
@@ -1312,8 +1312,8 @@ fet_beginchar ("Ed. Med. inclinatum", "smedicaea.inclinatum")
 fet_endchar;
 
 
-def punctum_char (expr verbose_name, internal_name,
-		       left_up_stem, left_down_stem) =
+def med_punctum_char (expr verbose_name, internal_name,
+			   left_up_stem, left_down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save a, ht, wd;
 
@@ -1364,18 +1364,18 @@ enddef;
 
 
 % punctum
-punctum_char ("Ed. Med. punctum", "medicaea.punctum", 
-	      false, false);
+med_punctum_char ("Ed. Med. punctum", "medicaea.punctum", 
+		  false, false);
 
 
 % left up-stemmed punctum
-punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
-	      true, false);
+med_punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
+		  true, false);
 
 
 % virga (i.e. left down-stemmed punctum)
-punctum_char ("Ed. Med. virga", "medicaea.virga", 
-	      false, true);
+med_punctum_char ("Ed. Med. virga", "medicaea.virga", 
+		  false, true);
 
 
 %%%%%%%%
@@ -1387,8 +1387,8 @@ punctum_char ("Ed. Med. virga", "medicaea.virga",
 %
 %
 
-def punctum_char (expr verbose_name, internal_name,
-		       down_stem) =
+def huf_punctum_char (expr verbose_name, internal_name,
+			   down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save alpha;
 
@@ -1422,11 +1422,11 @@ enddef;
 
 
 % punctum
-punctum_char ("Hufnagel punctum", "hufnagel.punctum", false)
+huf_punctum_char ("Hufnagel punctum", "hufnagel.punctum", false)
 
 
 % virga
-punctum_char ("Hufnagel virga", "hufnagel.virga", true)
+huf_punctum_char ("Hufnagel virga", "hufnagel.virga", true)
 
 
 % pes lower punctum
