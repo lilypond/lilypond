@@ -106,9 +106,9 @@ def get_subpath_i (expr curve, dir_in, dir_out, offset) =
 		t_out := t_out + length curve;
 	fi;
 
-	(subpath (round t_in, round t_out) of curve) shifted offset
+	(subpath (floor (t_in + 0.5), floor (t_out + 0.5)) of curve)
+	  shifted offset
 	endgroup
 enddef;
-
 
 % EOF
