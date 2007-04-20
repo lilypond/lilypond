@@ -463,6 +463,26 @@ def get_subpath (expr curve, dir_in, dir_out, offset) =
 enddef;
 
 
+%
+% This is the same as `get_subpath', except that the time values
+% used to construct the resulting subpath are rounded to integers.
+%
+def get_subpath_i (expr curve, dir_in, dir_out, offset) =
+	begingroup;
+	save t_in, t_out;
+
+	t_in := directiontime dir_in of curve;
+	t_out := directiontime dir_out of curve;
+
+	if t_in > t_out:
+		t_out := t_out + length curve;
+	fi;
+
+	(subpath (round t_in, round t_out) of curve) shifted offset
+	endgroup
+enddef;
+
+
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	save head_width, head_height;
 	save ellipse, ellipse_r;
@@ -1055,12 +1075,12 @@ def inclinatum_char (expr verbose_name, internal_name,
 						     up, right,
 						     (0, 0)));
 
-			% the `eps' is necessary so that we don't get the
-			% start of a straight line in the diamond shape
-			fill get_subpath (diamond_shape,
-					  dir (angle (z2 - z1) - eps),
-					  dir (angle (z1 - z4) + eps),
-					  (0, 0))
+			% the addition or subtraction of `1' is necessary
+			% so that we get the right starting point
+			fill get_subpath_i (diamond_shape,
+					    dir (angle (z2 - z1) - 1),
+					    dir (angle (z1 - z4) + 1),
+					    (0, 0))
 			     -- get_subpath (stropha_ellipse,
 					     direction t_in of stropha_ellipse,
 					     direction t_out of stropha_ellipse,
@@ -1100,12 +1120,12 @@ def inclinatum_char (expr verbose_name, internal_name,
 				    get_subpath (diamond_shape, up, right,
 						 (0, 0)));
 
-			% the `eps' is necessary so that we don't get the
-			% start of a straight line in the diamond shape
-			fill get_subpath (diamond_shape,
-					  dir (angle (z2 - z1) - eps),
-					  -dir (90 - off_angle),
-					  (0, 0))
+			% the addition or subtraction of `1' is necessary
+			% so that we get the right starting point
+			fill get_subpath_i (diamond_shape,
+					    dir (angle (z2 - z1) - 1),
+					    -dir (90 - off_angle),
+					    (0, 0))
 			     .. get_subpath (circle,
 					     dir (90 + alpha),
 					     -dir (90 + alpha),
@@ -1434,7 +1454,7 @@ def punctum_char (expr verbose_name, internal_name,
 		elseif left_up_stem:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
 
-			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
+			z4 = (0.00 wd + linethickness / 2, -blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, +1.25 ht);
 
 			draw_block (lft z4, rt z5);
