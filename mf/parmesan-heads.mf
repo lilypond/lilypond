@@ -660,14 +660,16 @@ def vat_punctum_char (expr verbose_name, internal_name,
 
 			pickup pencircle scaled 0.6 linethickness;
 
-			draw_block ((-0.10 wd - linea_width / 2,
-				     -linea_height / 2),
-				    (-0.10 wd + linea_width / 2,
-				     +linea_height / 2));
-			draw_block ((+0.52 wd - linea_width / 2,
-				     -linea_height / 2),
-				    (+0.52 wd + linea_width / 2,
-				     +linea_height / 2));
+			draw_rounded_block ((-0.10 wd - linea_width / 2,
+					     -linea_height / 2),
+					    (-0.10 wd + linea_width / 2,
+					     +linea_height / 2),
+					    0.6 linethickness);
+			draw_rounded_block ((+0.52 wd - linea_width / 2,
+					     -linea_height / 2),
+					    (+0.52 wd + linea_width / 2,
+					     +linea_height / 2),
+					    0.6 linethickness);
 
 			set_char_box (0, 0.62 wd# + linea_width#,
 				      linea_height# / 2,
@@ -893,15 +895,15 @@ def epiphonus_char (expr verbose_name, internal_name,
 		     .. get_subpath (circle, dirs65, down, z6)
 		     -- cycle;
 
-		pickup pencircle scaled 0.6 linethickness;
-
 		save stem_bt;
 
 		if left_stem:
 			z11 = (0.00 wd + 0.6 linethickness / 2, yoffs - 1.1 ht);
 			z12 = (0.00 wd + 0.6 linethickness / 2, yoffs);
-			draw_block ((0, yoffs - 1.1 ht - linethickness / 2),
-				    (0.6 linethickness, yoffs));
+			draw_rounded_block ((0, yoffs - 1.1 ht -
+						  linethickness / 2),
+					    (0.6 linethickness, yoffs),
+					    0.6 linethickness);
 			stem_bt# = yoffs# - 1.1 ht#;
 		else:
 			stem_bt# = 0;
@@ -1346,14 +1348,14 @@ def med_punctum_char (expr verbose_name, internal_name,
 			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, -1.25 ht);
 
-			draw_block (lft z5, rt z4);
+			draw_rounded_block (lft z5, rt z4, linethickness);
 		elseif left_up_stem:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
 
 			z4 = (0.00 wd + linethickness / 2, -blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, +1.25 ht);
 
-			draw_block (lft z4, rt z5);
+			draw_rounded_block (lft z4, rt z5, linethickness);
 		else:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 0.25 ht#);
 		fi;
@@ -1413,7 +1415,7 @@ def huf_punctum_char (expr verbose_name, internal_name,
 
 			fill get_subpath (ellipse, up, down, z11)
 			     -- get_subpath (ellipse, down, up, z12)
-			     --cycle;
+			     -- cycle;
 
 			labels (11, 12);
 		fi;
