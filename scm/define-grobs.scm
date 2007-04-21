@@ -1622,8 +1622,8 @@
     (StemTremolo
      . (
 	(Y-extent . ,ly:stem-tremolo::height)
+	(X-extent . ,ly:stem-tremolo::width)
 	(stencil . ,ly:stem-tremolo::print)
-	(X-extent . #f)
 	(slope . ,ly:stem-tremolo::calc-slope)
 	(beam-width . ,ly:stem-tremolo::calc-width) ; staff-space
         (style . ,ly:stem-tremolo::calc-style)

@@ -149,6 +149,20 @@ Stem_tremolo::height (SCM smob)
   return ly_interval2scm (s1.extent (Y_AXIS));
 }
 
+MAKE_SCHEME_CALLBACK (Stem_tremolo, width, 1);
+SCM
+Stem_tremolo::width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  /*
+    Cannot use the real slope, since it looks at the Beam.
+   */
+  Stencil s1 (untranslated_stencil (me, 0.35));
+
+  return ly_interval2scm (s1.extent (X_AXIS));
+}
+
 Real
 Stem_tremolo::vertical_length (Grob *me)
 {
