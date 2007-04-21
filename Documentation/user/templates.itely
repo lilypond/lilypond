@@ -346,6 +346,7 @@ pedal = {
       \consists "Output_property_engraver"
 
       \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
+      \override DynamicLineSpanner #'Y-offset = #0
       pedalSustainStrings = #'("Ped." "*Ped." "*")
       pedalUnaCordaStrings = #'("una corda" "" "tre corde")
 
@@ -356,8 +357,6 @@ pedal = {
 
       \override TextScript #'font-size = #2
       \override TextScript #'font-shape = #'italic
-      \override DynamicText #'extra-offset = #'(0 . 2.5)
-      \override Hairpin #'extra-offset = #'(0 . 2.5)
 
       \consists "Skip_event_swallow_translator"
 

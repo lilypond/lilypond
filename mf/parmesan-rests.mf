@@ -9,7 +9,7 @@
 % Christian Mondrup and Mats Bengtsson.
 % 
 
-fet_begingroup("rests")
+fet_begingroup ("rests")
 
 
 %%%%%%%%
@@ -186,11 +186,11 @@ fet_beginchar ("Neo-mensural 16th rest", "4neomensural");
 	rt x3 = w;
 	top y3 = h;
 	lft x4 = 0;
-	bot y4 = h/2;
+	bot y4 = h / 2;
 	rt x5 = w;
-	top y5 = 5/8h;
+	top y5 = 5/8 h;
 	lft x6 = 0;
-	bot y6 = h/8;
+	bot y6 = h / 8;
 
 	z11 = z1 - stafflinethickness * unitvector (z2 - z1);
 	z14 = z4 + stafflinethickness * unitvector (z4 - z3);
@@ -254,7 +254,7 @@ define_pixels (mens_block_rest_y, mens_half_block_rest_y,
 
 fet_beginchar ("Mensural maxima rest", "-3mensural");
 	set_char_box (0, pen_width#,
-		      mens_block_rest_y#, 2mens_block_rest_y#);
+		      mens_block_rest_y#, 2 mens_block_rest_y#);
 
 	pickup pencircle xscaled pen_width
 			 yscaled pen_height
@@ -317,7 +317,7 @@ fet_beginchar ("Mensural half rest", "1mensural");
 fet_endchar;
 
 
-mensrestsize# = .8staff_space#;
+mensrestsize# = .8 staff_space#;
 
 
 fet_beginchar ("Mensural 4th rest", "2mensural");
@@ -345,7 +345,9 @@ fet_beginchar ("Mensural 4th rest", "2mensural");
 	labels (1, 2, 3, 4);
 fet_endchar;
 
-
+%
+% FIXME: The left sharp corner produces ugly results at lower resolutions.
+%
 fet_beginchar ("Mensural 8th rest", "3mensural");
 	set_char_box (0, mensrestsize#,
 		      0, mensrestsize#);
@@ -374,6 +376,9 @@ fet_endchar;
 %
 % FIXME: So far, I have never seen a semifusa rest printed.  Hence,
 % the shape of this font character is currently pure invention.  --jr
+%
+%
+% FIXME: The left sharp corner produces ugly results at lower resolutions.
 %
 fet_beginchar ("Mensural 16th rest", "4mensural");
 	set_char_box (0, mensrestsize#,
