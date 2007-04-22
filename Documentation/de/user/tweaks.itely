@@ -1,64 +1,551 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
-
+    Translation of GIT committish: 433849e669b71058267108607969eea72403a5de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Tweaking output
 @chapter Tweaking output
 
-UNTRANSLATED NODE: IGNORE ME
+In diesem Kapitel wird erklärt, wie man die Notenausgabe verändern
+kann. In LilyPond kann man sehr viel konfigurieren, fast jedes 
+Notenfragment kann geändert werden.
 
-@menu 
-* Moving objects::
-* Fixing overlapping notation::
-* Common tweaks::
-* Default files::
-* Fitting music onto fewer pages::
-* Advanced tweaks with Scheme::
-* Avoiding tweaks with slower processing::
-@end menu 
+
+@menu
+* Moving objects::              
+* Fixing overlapping notation::  
+* Common tweaks::               
+* Default files::               
+* Fitting music onto fewer pages::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
+@end menu
+
+
 @node Moving objects
 @section Moving objects
 
-UNTRANSLATED NODE: IGNORE ME
+Es wird vielleicht eine Überraschung sein, aber LilyPond ist nicht 
+perfekt. Einige Notationselemente können sich überschneiden. Das 
+ist nicht schön, kann aber (in den meisten Fällen) sehr einfach
+korrigiert werden.
+
+@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
+@c  yes, I want this TODO to be visible to end-users.  It's better
+@c  than having nothing at all.
+TODO: Mit den neuen Abstandseigenschaften seit Version 2.12 sind die
+jeweiligen Beispiele nicht mehr relevant. Sie zeigen jedoch immer noch 
+machtvolle Eigenschaften von LilyPond und verbleiben deshalb in der 
+Dokumentation, bis jemand bessere Beispiel zur Verfügung stellt.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@cindex Abstände füllen
+
+Die einfachste Lösung ist es, Abstände zwischen Objekt und Note zu vergrößern 
+ (genauso auch für Fingersätze oder Dynamikzeichen). In 
+LilyPond wird das durch Veränderung der @code{padding} (Füllungs)-Eigenschaft
+erreicht, ihre Maßeinheit sind Notenzeilenabstände. Für die meisten 
+Objekte ist der Wert etwa 1.0 oder weniger (das unterscheidet sich 
+von Objekt zu Objekt). Hier soll der Abstand vergrößert werden, also
+scheint 1.5 eine gute Wahl.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'padding = #1.5
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+Das sieht besser aus, ist aber noch nicht groß genug. Nach einigen
+Experimenten wird darum 2.3 genommen für diesen Fall. Diese Zahl
+ist aber nur das Resultat einigen Probierens und persönlicher
+Geschmack. Probieren Sie selber ein wenig herum und entscheiden 
+Sie nach eigenem Geschmack.
+
+Die @code{staff-padding}-Eigenschaft ist der vorigen sehr ähnlich. 
+ @code{padding} entscheidet über den minimalen Abstand zwischen einem
+Objekt und dem nächsten anderen Objekt (meistens eine Note oder 
+Notenzeile); @code{staff-padding} entscheidet über den minimalen
+Abstand zwischen einem Objekt und dem Notensystem. Das ist nur ein 
+kleiner Unterschied, aber hier wird das Verhalten demonstriert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+c4^"piu mosso" b a b
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+\once \override TextScript #'staff-padding = #4.6
+c4^"piu mosso" fis a g
+\break
+c'4^"piu mosso" b a b
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+\once \override TextScript #'staff-padding = #4.6
+c4^"piu mosso" fis a g
+@end lilypond
+
+@cindex Abstand, zusätzlicher
+@cindex extra-offset
+
+Eine andere Lösung ermöglicht vollständige Kontrolle über die Positionierung
+eines Objektes sowohl horizontal als auch vertikal. Das wird mit der 
+@code{extra-offset} (Zusätzlicher-Abstand)-Eigenschaft erreicht. Das 
+ist etwas komplizierter und kann andere Probleme mit sich ziehen. Wenn 
+Objekte mit dieser Eigenschaft verschoben werden, heißt das, dass 
+LilyPond sie erst setzt, nachdem alle anderen Objekte positioniert 
+worden sind. Deshalb können sich die Objekte am Ende überlagern.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+Bei Verwendung von @code{extra-offset} bestimmt die erste Zahl über die
+horizontale Verschiebung (nach links ist negativ), die zweite Zahl 
+bestimmt die vertikale Verschiebung (nach oben ist positiv). Nach einigen 
+Experimenten wurden hier folgende Werte für gut befunden:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@noindent
+Auch diese Zahlen sind nur Resultat einigen Herumprobierens und Vergleichens 
+der Ergebnisse. Sie wollen den Text vielleicht etwas höher oder etwas mehr 
+nach links setzen. Versuchen Sie es selber und vergleichen Sie das Ergebnis.
+
+Eine letzte Warnung: in diesem Kapitel haben wir den Befehl 
+
+@example
+\once \override TextScript @dots{}
+@end example
+
+@noindent 
+benutzt. Dieser Befehl verändert die Anzeige des Textes für die nächste 
+Note. Wenn die Note keinen Text zugeordnet hat, wird auch nichts 
+verändert (und es wird @strong{nicht} nach dem nächsten Text gesucht). 
+Um das Verhalten zu verändern, so dass alles, was nach dem Befehl
+kommt, verändert wird, müssen Sie den Befehl @code{\once} weglassen. 
+Um die Veränderung zu stoppen, benutzen Sie den Befehl @code{\revert}.
+Das wird genauer im Kapitel
+@ref{The \override command} erklärt.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+c4^"piu mosso" b
+\once \override TextScript #'padding = #4.6
+  a4 b
+c4^"piu mosso" d e f
+\once \override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+c4^"piu mosso" d e f
+\break
+\override TextScript #'padding = #4.6
+c4^"piu mosso" d e f
+c4^"piu mosso" d e f
+\revert TextScript #'padding
+c4^"piu mosso" d e f
+@end lilypond
+
+@seealso
+
+@ref{The \override command}, @ref{Common tweaks}.
+
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-UNTRANSLATED NODE: IGNORE ME
+Im Kapitel @ref{Moving objects} wurde gezeigt, wie man Texte 
+(@code{TextScript}-Objekte) verschiebt. Mit der gleichen 
+Technik können auch andere Objektklassen verschoben werden, 
+@code{TextScript} muss dann nur durch den Namen des Objektes 
+ersetzt werden.
+
+Um den Objektnamen zu finden, siehe die @q{@strong{see also}}-Hinweise 
+am Ende des jeweiligen Abschnittes. Zum Beispiel am Ende des
+Kapitels  @ref{Dynamics} findet sich:
+
+@quotation
+@seealso
+
+Programmreferenz: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Vertikale Positionierung dieser Symbole wird mit
+@internalsref{DynamicLineSpanner} erreicht.
+@end quotation
+
+@noindent
+Um also Dynamik-Zeichen zu verschieben, muss
+
+@example
+\override DynamicLineSpanner #'padding = #2.0
+@end example
+
+benutzt werden. Es ist nicht genügend Platz, um jedes Objekt aufzulisten,
+aber die gebräuchlichsten finden sich hier:
+
+@multitable @columnfractions .33 .66
+@headitem Objekttyp           @tab Objektbzeichnung
+@item Dynamikzeichen (vertikal)     @tab @code{DynamicLineSpanner}
+@item Dynamikzeichen (horizontal)   @tab @code{DynamicText}
+@item Bindebögen                      @tab @code{Tie}
+@item Phrasierungsbögen                     @tab @code{Slur}
+@item Artikulationszeichen             @tab @code{Script}
+@item Fingersatz                @tab @code{Fingering}
+@item Text, z. B. @code{^"text"}  @tab @code{TextScript}
+@item Übungs-/Textmarken    @tab @code{RehearsalMark}
+@end multitable
+
 
 @node Common tweaks
 @section Common tweaks
+Bestimmte Korrekturen sind so häufig, dass für sie schon fertige 
+angepasste Befehle bereitgestellt sind, so etwa 
+ @code{\slurUp} um einen Bindebogen oberhalb anzuzeigen oder 
+@code{\stemDown} um den Notenhals nach unten zu zwingen. Diese 
+Befehle sind im Teil Alles über die Notation unter dem
+entsprechenden Abschnitt erklärt.
 
-UNTRANSLATED NODE: IGNORE ME
+Eine vollständige Liste aller Veränderungen, die für jeden Objekttypen 
+(etwa Bögen oder Balken) zur Verfügung stehen, ist in der Programmreferenz
+dargestellt. Viele Layoutobjekte benutzen jedoch gleiche Eigenschaften, 
+die benutzt werden können, um eigene Einstellungen vorzunehmen.
+
+@itemize @bullet
+
+@cindex padding
+@cindex Füllung
+
+@item
+@code{padding}-Eigenschaft kann gesetzt werden, um den Abstand zwischen 
+Symbolen über oder unter den Noten zu vergrößern oder zu verkleinern. 
+Das gilt für alle Objekte, die ein @code{side-position-interface} 
+besitzen, also unterscheiden, auf welcher Seite der Note sie sich befinden.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c2\fermata
+\override Script #'padding = #3
+b2\fermata
+@end lilypond
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below:
+\override MetronomeMark #'padding = #3
+\tempo 4=120
+c1
+% This works:
+\override Score.MetronomeMark #'padding = #3
+\tempo 4=80
+d1
+@end lilypond
+
+Im zweiten Beispiel ist es sehr wichtig zu wissen, welcher Kontext 
+für bestimmte Objekte zuständig ist. Weil das 
+ @code{MetronomeMark}-Objekt vom @code{Score}-Kontext gesetzt 
+wird, werden Veränderungen innerhalb des @code{Voice}-Kontextes 
+nicht berücksichtigt. Genauere Details im Kapitel
+@ref{Constructing a tweak}.
+
+@cindex extra-offset
+@cindex zusätzlicher Abstand
+@cindex Abstand, zusätzlicher
+
+@item
+Die @code{extra-offset}-Eigenschaft verschiebt Objekte, hier ist ein 
+Zahlenpaar zur Angabe der Positionierung erforderlich. Die erste Nummer bestimmt 
+die horizontale Bewegung, eine positive Zahl bewegt das Objekt nach rechts.
+Die zweite Zahl bestimmt die vertikale Bewegung, eine positive Zahl bewegt 
+das Objekt nach oben. Die 
+@code{extra-offset}-Eigenschaft läuft auf unterster Ebene ab: Die 
+Formatierungsmaschine ist sich der Veränderungen nicht bewusst.
+
+Im folgenden Beispiel wird die zweite Fingersatzbezeichnung etwas nach 
+links verschoben und 1,8 Notenzeilenabstände nach unten:
+
+@lilypond[quote,fragment,relative=1,verbatim]
+\stemUp
+f-5
+\once \override Fingering
+    #'extra-offset = #'(-0.3 . -1.8)
+f-5
+@end lilypond
+
+@item
+Die Verwendung der @code{transparent}-Eigenschaft druckt das entsprechende Objekt 
+mit @qq{unsichtbarer Druckerschwärze}: Das Objekt wird nicht angezeigt, aber 
+sein Verhalten bleibt bestehen. Das Objekt nimmt weiterhin Platz ein, es nimmt 
+teil an Überschneidungen und deren Auflösung durch das Programm, Bögen und Balken 
+können daran angebunden werden.
+
+@cindex transparente Objekte
+@cindex Entfernen von Objekten
+@cindex Verstecken von Objekten
+@cindex unsichtbare Objekte
+Das nächste Beispiel zeigt, wie man unterschiedliche Stimmen mit 
+Bindebögen verbinden kann. Normalerweise können Bindebögen nur 
+zwei Noten der selben Stimme verbinden. Indem aber ein Bogen in einer 
+anderen Stimme erstellt wird,
+
+@lilypond[quote,fragment,relative=2]
+<< {
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+@noindent
+und dann der erste Hals nach oben unsichtbar gemacht wird, scheint der 
+Bindebogen die Stimme zu wechseln:
+
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<< {
+  \once \override Stem #'transparent = ##t
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+Damit der Hals den Bogen nicht zu sehr verkleinert, wird seine 
+Länge (@code{length}) auf den Wert @code{8} gesetzt:
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<< {
+  \once \override Stem #'transparent = ##t
+  \once \override Stem #'length = #8
+  b8~ b8\noBeam
+} \\ {
+  b[ g8]
+} >>
+@end lilypond
+
+@end itemize
+
+@cindex Veränderungen von Abständen
+@cindex Optimierung von Abständen
+@cindex Abstände
+
+Abstände in LilyPond werden in Notenzeilenabständen
+(@code{staff-space}) gemessen, während die meisten Dicke-Eigenschaften 
+auf mit der Notenliniendicke korrespondieren. Eine Eigenschaften 
+verhalten sich anders, etwa die Dicke von Balken ist an die 
+Notenzeilenabstände gekoppelt. Mehr Information findet sich 
+im relevanten Teil der Programmreferenz.
 
 @node Default files
 @section Default files
 
-UNTRANSLATED NODE: IGNORE ME
+Die Programmreferenz enthält sehr viel Information über LilyPond, aber 
+noch mehr Information findet sich in den internen 
+LilyPond-Dateien.
+
+Eine Standardeinstellungen (wie die Definitionen für den Kopf (@code{\header} 
+sind als @code{.ly}-Datei gespeichert. Andere Einstellungen 
+(wie die Definition für Beschriftung (@code{markup}) sind 
+als @code{.scm} (Scheme)-Datei gespeichert. Eine nähere Erklärung 
+geht über den Rahmen dieses Handbuches hinaus. Der Hinweis 
+scheint aber angebracht, dass es grundlegende technische 
+Kenntnis und sehr viel Zeit  erfordert, diese Dateien zu verstehen.
+
+@itemize @bullet
+
+@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+
+@item OS X:
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+Um diese Ordner anzuschauen, wechseln Sie entweder mit @code{cd} im Terminal 
+zu der Adresse oder klicken Sie mit der rechten Maustaste auf das LilyPond-Symbol 
+und wählen Sie @q{Schow Package Contents}.
+
+@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+Die @file{ly/} und @file{scm/}-Ordner sind von besonderem Interesse.
+Dateien wie @file{ly/property-init.ly} und
+@file{ly/declarations-init.ly} definieren alle häufig vorkommenden Veränderungen.
+
 
 @node Fitting music onto fewer pages
 @section Fitting music onto fewer pages
 
-UNTRANSLATED NODE: IGNORE ME
+Manchmal bleiben nur noch ein oder zwei Systeme auf der 
+letzten Seite übrig. Das ist immer ärgerlich, besonders 
+wenn es scheint, dass auf den vorigen Seiten genug Platz 
+ist, um die Systeme noch unterzubringen.
+
+Wenn man versucht, das Layout zu verändern, kommt einem 
+der Befehl @code{annotate-spacing} zu Hilfe. Mit diesem 
+Befehl erhält man die Werte von verschiedenen Abstandsbefehlen 
+ausgedruckt, mehr Information im Kapitel @ref{Displaying spacing}. 
+Anhand dieser Angaben kann dann entschieden werden, welche 
+Werte verändert werden müssen.
+
+Neben Rändern gibt es nämlich weitere Optionen, Platz zu sparen:
+
+@itemize
+@item
+LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
+so viele Systeme wie möglich auf eine Seite passen), aber sie 
+dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Die Anzahl der Systeme kann reduziert werden (wenn LilyPond 
+die Musik auf 11 Systeme verteilt, kann man die Benutzung von 
+nur 10 Systemen erzwingen).
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
+vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
+etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
+zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
+nur auf einer Zeile gedruckt werden.
+
+Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
+weit @qq{hervorstehen}, zu verschieben.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Die horizontalen Abstände können mit der 
+ @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
+@ref{Changing horizontal spacing} für Einzelheiten.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+
 
 @node Advanced tweaks with Scheme
 @section Advanced tweaks with Scheme
 
-UNTRANSLATED NODE: IGNORE ME
+Es wurde schon gezeigt, wie die LilyPond-Ausgabe sehr stark verändert 
+werden kann, indem man Befehle wie 
+@code{\override TextScript #'extra-offset = ( 1 . -1)} benutzt. Aber 
+noch mehr Einfluss auf die Formatierung kann durch den Einsatz von 
+Scheme genommen werden. Eine vollständige Erklärung findet sich in der 
+ @ref{Scheme tutorial} und den
+@ref{Interfaces for programmers}.
+
+Scheme kann benutzt werden, um einfach nur Befehle zu \qq{überschreiben} 
+(@code{\override}):
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+Hiermit können aber auch neue Befehle erstellt werden:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
+}
+@end lilypond
+
+Sogar ganze musikalische Ausdrücke können eingefügt werden:
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
+
 
 @node Avoiding tweaks with slower processing
 @section Avoiding tweaks with slower processing
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond kann einige zusätzliche Tests durchführen, während 
+die Noten gesetzt werden. Dadurch braucht das Programm länger, 
+um den Notensatz zu produzieren, aber üblicherweise werden 
+weniger nachträgliche Anpassungen nötig sein.
+
+@example
+%%  Um sicher zu gehen, dass Texte und Liedtext 
+%%  innerhalb der Papierränder bleiben
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+

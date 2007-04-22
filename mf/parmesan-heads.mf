@@ -146,38 +146,6 @@ fet_endchar;
 
 
 %
-% Find point on `curve' which gives the tangent between point `p'
-% and `curve'.  To guide the search, two auxiliary points must be
-% specified, `p_in' and `p_out'.  The line between `p' and `p_in'
-% must intersect `curve', while the line between `p' and `p_out'
-% must not.
-%
-def find_tangent (expr p, curve, p_in, p_out) =
-	begingroup;
-	save mid, t, t_good, in, out;
-	pair mid, in, out;
-
-	in := p_in;
-	out := p_out;
-
-	forever:
-		mid := 0.5 [in, out];
-		exitif abs (out - mid) <= eps;
-		t := xpart (curve intersectiontimes (p -- mid));
-		if (t > 0):
-			in := mid;
-			t_good := t;
-		else:
-			out := mid;
-		fi;
-	endfor;
-
-	point t_good of curve
-	endgroup
-enddef;
-
-
-%
 % Some sources (eg. Musix/OpusTeX) think that the appendage should be on
 % the left, some say right.  Right wins democratically.
 %
@@ -411,78 +379,6 @@ fet_beginchar ("Mensural brevis notehead", "s-1mensural");
 fet_endchar;
 
 
-%
-% Shift `curve' along the line given by the auxiliary points `p_in'
-% and `p_out' until `line' is a tangent, and return the shift.
-% If `curve' is shifted to position `p_in', it must intersect
-% `line', while shifted to `p_out' it must not.
-%
-def find_tangent_shift (expr line, curve, p_in, p_out) =
-	begingroup;
-	save mid, t, t_good, in, out;
-	pair mid, in, out;
-
-	in := p_in;
-	out := p_out;
-
-	forever:
-		mid := 0.5 [in, out];
-		exitif abs (out - mid) <= eps;
-		t := xpart ((curve shifted mid) intersectiontimes line);
-		if (t > 0):
-			in := mid;
-			t_good := t;
-		else:
-			out := mid;
-		fi;
-	endfor;
-
-	mid
-	endgroup
-enddef;
-
-
-%
-% Get subpath specified by `dir_in' and `dir_out' of `curve'
-% which is then shifted by `offset'.  Assure that result has
-% the same orientation as `curve'.
-%
-def get_subpath (expr curve, dir_in, dir_out, offset) =
-	begingroup;
-	save t_in, t_out;
-
-	t_in := directiontime dir_in of curve;
-	t_out := directiontime dir_out of curve;
-
-	if t_in > t_out:
-		t_out := t_out + length curve;
-	fi;
-
-	(subpath (t_in, t_out) of curve) shifted offset
-	endgroup
-enddef;
-
-
-%
-% This is the same as `get_subpath', except that the time values
-% used to construct the resulting subpath are rounded to integers.
-%
-def get_subpath_i (expr curve, dir_in, dir_out, offset) =
-	begingroup;
-	save t_in, t_out;
-
-	t_in := directiontime dir_in of curve;
-	t_out := directiontime dir_out of curve;
-
-	if t_in > t_out:
-		t_out := t_out + length curve;
-	fi;
-
-	(subpath (round t_in, round t_out) of curve) shifted offset
-	endgroup
-enddef;
-
-
 def draw_diamond_head (expr head_h, pen_w, pen_h, angle, open) =
 	save head_width, head_height;
 	save ellipse, ellipse_r;
@@ -586,9 +482,9 @@ fet_endchar;
 %
 %
 
-def punctum_char (expr verbose_name, internal_name,
-		       linea, cavum, straight, auctum,
-		       d_up, up_shift, down_shift, mag) =
+def vat_punctum_char (expr verbose_name, internal_name,
+			   linea, cavum, straight, auctum,
+			   d_up, up_shift, down_shift, mag) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save a_b, b_h, a_w;
 
@@ -764,14 +660,16 @@ def punctum_char (expr verbose_name, internal_name,
 
 			pickup pencircle scaled 0.6 linethickness;
 
-			draw_block ((-0.10 wd - linea_width / 2,
-				     -linea_height / 2),
-				    (-0.10 wd + linea_width / 2,
-				     +linea_height / 2));
-			draw_block ((+0.52 wd - linea_width / 2,
-				     -linea_height / 2),
-				    (+0.52 wd + linea_width / 2,
-				     +linea_height / 2));
+			draw_rounded_block ((-0.10 wd - linea_width / 2,
+					     -linea_height / 2),
+					    (-0.10 wd + linea_width / 2,
+					     +linea_height / 2),
+					    0.6 linethickness);
+			draw_rounded_block ((+0.52 wd - linea_width / 2,
+					     -linea_height / 2),
+					    (+0.52 wd + linea_width / 2,
+					     +linea_height / 2),
+					    0.6 linethickness);
 
 			set_char_box (0, 0.62 wd# + linea_width#,
 				      linea_height# / 2,
@@ -997,15 +895,15 @@ def epiphonus_char (expr verbose_name, internal_name,
 		     .. get_subpath (circle, dirs65, down, z6)
 		     -- cycle;
 
-		pickup pencircle scaled 0.6 linethickness;
-
 		save stem_bt;
 
 		if left_stem:
 			z11 = (0.00 wd + 0.6 linethickness / 2, yoffs - 1.1 ht);
 			z12 = (0.00 wd + 0.6 linethickness / 2, yoffs);
-			draw_block ((0, yoffs - 1.1 ht - linethickness / 2),
-				    (0.6 linethickness, yoffs));
+			draw_rounded_block ((0, yoffs - 1.1 ht -
+						  linethickness / 2),
+					    (0.6 linethickness, yoffs),
+					    0.6 linethickness);
 			stem_bt# = yoffs# - 1.1 ht#;
 		else:
 			stem_bt# = 0;
@@ -1143,27 +1041,27 @@ enddef;
 
 
 % punctum
-punctum_char ("Ed. Vat. punctum", "vaticana.punctum",
-	      false, false, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. punctum", "vaticana.punctum",
+		  false, false, false, false,
+		  false, false, false, 1.0);
 
 
 % punctum cavum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
-	      false, true, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. punctum cavum", "vaticana.punctum.cavum",
+		  false, true, false, false,
+		  false, false, false, 1.0);
 
 
 % linea punctum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. linea punctum", "vaticana.linea.punctum",
-	      true, false, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. linea punctum", "vaticana.linea.punctum",
+		  true, false, false, false,
+		  false, false, false, 1.0);
 
 
 % linea punctum cavum (for OpusTeX compatibility)
-punctum_char ("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
-	      true, true, false, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. linea punctum cavum", "vaticana.linea.punctum.cavum",
+		  true, true, false, false,
+		  false, false, false, 1.0);
 
 
 % punctum inclinatum
@@ -1172,21 +1070,21 @@ inclinatum_char ("Ed. Vat. inclinatum", "vaticana.inclinatum",
 
 
 % pes lower punctum
-punctum_char ("Ed. Vat. pes lower punctum", "vaticana.lpes",
-	      false, false, true, false,
-	      true, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. pes lower punctum", "vaticana.lpes",
+		  false, false, true, false,
+		  true, false, false, 1.0);
 
 
 % pes lower punctum
-punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
-	      false, false, true, false,
-	      true, false, true, 1.0);
+vat_punctum_char ("Ed. Vat. pes var lower punctum", "vaticana.vlpes",
+		  false, false, true, false,
+		  true, false, true, 1.0);
 
 
 % pes upper punctum
-punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
-	      false, false, true, false,
-	      false, false, false, 1.0);
+vat_punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes", 
+		  false, false, true, false,
+		  false, false, false, 1.0);
 
 
 % pes upper punctum (shifted variation)
@@ -1195,15 +1093,15 @@ punctum_char ("Ed. Vat. pes upper punctum", "vaticana.upes",
 % avoid collision with the lower punctum note of the pes when the upper
 % punctum sits directly on top of the lower punctum.
 %
-punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
-	      false, false, true, false,
-	      false, true, false, 1.0);
+vat_punctum_char ("Ed. Vat. var pes upper punctum", "vaticana.vupes",
+		  false, false, true, false,
+		  false, true, false, 1.0);
 
 
 % small punctum as used in epiphonus
-punctum_char ("Ed. Vat. plica", "vaticana.plica", 
-	      false, false, false, false,
-	      false, false, false, 0.6);
+vat_punctum_char ("Ed. Vat. plica", "vaticana.plica", 
+		  false, false, false, false,
+		  false, false, false, 0.6);
 
 
 % small punctum as used in epiphonus
@@ -1227,9 +1125,9 @@ epiphonus_char ("Ed. Vat. var epiphonus", "vaticana.vepiphonus",
 
 
 % small punctum as used in cephalicus
-punctum_char ("Ed. Vat. rev. plica", "vaticana.reverse.plica",
-	      false, false, false, false,
-	      true, false, false, 0.6);
+vat_punctum_char ("Ed. Vat. rev. plica", "vaticana.reverse.plica",
+		  false, false, false, false,
+		  true, false, false, 0.6);
 
 
 % small punctum as used in cephalicus
@@ -1307,15 +1205,15 @@ inclinatum_char ("Solesmes punctum inclinatum parvum", "solesmes.incl.parvum",
 
 
 % solesmes punctum auctum ascendens
-punctum_char ("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
-	      false, false, false, true,
-	      true, false, false, 1.0);
+vat_punctum_char ("Solesmes punctum auctum ascendens", "solesmes.auct.asc",
+		  false, false, false, true,
+		  true, false, false, 1.0);
 
 
 % solesmes punctum auctum descendens
-punctum_char ("Solesmes punctum auctum descendens", "solesmes.auct.desc",
-	      false, false, false, true,
-	      false, false, false, 1.0);
+vat_punctum_char ("Solesmes punctum auctum descendens", "solesmes.auct.desc",
+		  false, false, false, true,
+		  false, false, false, 1.0);
 
 
 % solesmes punctum inclinatum auctum
@@ -1416,8 +1314,8 @@ fet_beginchar ("Ed. Med. inclinatum", "smedicaea.inclinatum")
 fet_endchar;
 
 
-def punctum_char (expr verbose_name, internal_name,
-		       left_up_stem, left_down_stem) =
+def med_punctum_char (expr verbose_name, internal_name,
+			   left_up_stem, left_down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save a, ht, wd;
 
@@ -1450,14 +1348,14 @@ def punctum_char (expr verbose_name, internal_name,
 			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, -1.25 ht);
 
-			draw_block (lft z5, rt z4);
+			draw_rounded_block (lft z5, rt z4, linethickness);
 		elseif left_up_stem:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
 
 			z4 = (0.00 wd + linethickness / 2, -blot_diameter / 2);
 			z5 = (0.00 wd + linethickness / 2, +1.25 ht);
 
-			draw_block (lft z4, rt z5);
+			draw_rounded_block (lft z4, rt z5, linethickness);
 		else:
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 0.25 ht#);
 		fi;
@@ -1468,18 +1366,18 @@ enddef;
 
 
 % punctum
-punctum_char ("Ed. Med. punctum", "medicaea.punctum", 
-	      false, false);
+med_punctum_char ("Ed. Med. punctum", "medicaea.punctum", 
+		  false, false);
 
 
 % left up-stemmed punctum
-punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
-	      true, false);
+med_punctum_char ("Ed. Med. reverse virga", "medicaea.rvirga",
+		  true, false);
 
 
 % virga (i.e. left down-stemmed punctum)
-punctum_char ("Ed. Med. virga", "medicaea.virga", 
-	      false, true);
+med_punctum_char ("Ed. Med. virga", "medicaea.virga", 
+		  false, true);
 
 
 %%%%%%%%
@@ -1491,8 +1389,8 @@ punctum_char ("Ed. Med. virga", "medicaea.virga",
 %
 %
 
-def punctum_char (expr verbose_name, internal_name,
-		       down_stem) =
+def huf_punctum_char (expr verbose_name, internal_name,
+			   down_stem) =
 	fet_beginchar (verbose_name, "s" & internal_name);
 		save alpha;
 
@@ -1517,7 +1415,7 @@ def punctum_char (expr verbose_name, internal_name,
 
 			fill get_subpath (ellipse, up, down, z11)
 			     -- get_subpath (ellipse, down, up, z12)
-			     --cycle;
+			     -- cycle;
 
 			labels (11, 12);
 		fi;
@@ -1526,11 +1424,11 @@ enddef;
 
 
 % punctum
-punctum_char ("Hufnagel punctum", "hufnagel.punctum", false)
+huf_punctum_char ("Hufnagel punctum", "hufnagel.punctum", false)
 
 
 % virga
-punctum_char ("Hufnagel virga", "hufnagel.virga", true)
+huf_punctum_char ("Hufnagel virga", "hufnagel.virga", true)
 
 
 % pes lower punctum
