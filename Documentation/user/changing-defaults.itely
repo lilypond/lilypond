@@ -437,6 +437,7 @@ This section describes what contexts are, and how to modify them.
 * Changing context default settings::  
 * Defining new contexts::       
 * Aligning contexts::           
+* Vertical grouping of grobs::  
 @end menu
 
 
@@ -1240,6 +1241,16 @@ ossia = { f4 f f f }
 @end lilypond
 
 
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+The VerticalAlignment and VerticalAxisGroup grobs work together.
+VerticalAxisGroup groups together different grobs like Staff, Lyrics,
+etc. VerticalAlignment then vertically aligns the different grobs
+grouped together by VerticalAxisGroup. There is usually only one
+VerticalAlignment per score but every Staff, Lyrics, etc. has its own
+VerticalAxisGroup. 
+
 
 @node The \override command
 @section The @code{\override} command
@@ -1263,7 +1274,7 @@ which is a member of the @var{context}, to the @var{value}.
 * Determining the grob property::  
 * Objects connected to the input::  
 * Using Scheme code instead of \tweak::  
-* \set versus \override::          
+* \set versus \override::       
 * Difficult tweaks::            
 @end menu
 
