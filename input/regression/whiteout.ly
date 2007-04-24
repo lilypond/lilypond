@@ -2,7 +2,7 @@
 
   texidoc = "The whiteout command underlays a white box under a
 markup.  The whitening effect only is only guaranteed for staff lines,
-since staff lines are in a different layer.  "
+since staff lines are in a lower layer than most other grobs.  "
 
 }
 \version "2.10.0"
