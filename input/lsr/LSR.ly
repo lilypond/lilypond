@@ -28,6 +28,8 @@ These pages show LilyPond examples (snippets) from the
 @strong{@uref{text/collated-files.html,Text}}
 
 @strong{@uref{vocal/collated-files.html,Vocal music}}
+
+@strong{@uref{scheme/collated-files.html,Advanced stuff with scheme}}
 "
 }
 
