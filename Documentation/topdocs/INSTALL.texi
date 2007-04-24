@@ -123,6 +123,10 @@ software
 newer. 8.50 recommended)
 @end itemize
 
+International fonts are required to create music with international text
+or lyrics.  See @ref{Fonts} for more information.
+
+
 @subsection Building documentation
 
 You can view the documentation online at
@@ -358,6 +362,30 @@ or
 @end quotation
 
 @end itemize
+
+@section Fonts
+
+On MacOs X, all fonts are installed by default.
+
+On Linux, international fonts are installed by different means on
+every distribution.  We cannot list the exact commands or packages
+that are necessary, as each distribution is different, and the exact
+package names within each distribution changes.  Here are some
+hints, though:
+
+@verbatim
+Red Hat Fedora
+
+    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
+         ttfonts-zh_CN fonts-ja fonts-hebrew 
+
+Debian GNU/Linux
+
+   apt-get install emacs-intl-fonts xfonts-intl-.* \
+        ttf-kochi-gothic ttf-kochi-mincho \
+        xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
+@end verbatim
+
 
 @bye
 
