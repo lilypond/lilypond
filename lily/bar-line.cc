@@ -237,6 +237,30 @@ Bar_line::dashed_bar_line (Grob *me, Real h, Real thick)
   return Stencil ();
 }
 
+MAKE_SCHEME_CALLBACK (Bar_line, calc_anchor, 1)
+SCM
+Bar_line::calc_anchor (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real kern = robust_scm2double (me->get_property ("kern"), 1);
+  Real staffline = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  string str = robust_scm2string (me->get_property ("glyph-name"), "");
+
+  /* we put the anchor in the center of the barline, unless we are
+     a repeat bar, in which case we put the anchor in the center of
+     the barline without the dots. */
+  Interval ext = me->extent (me, X_AXIS);
+  Real anchor = ext.center ();
+
+  Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
+  Real dot_width = dot.extent (X_AXIS).length () + kern * staffline;
+  if (str == "|:")
+    anchor -= dot_width / 2;
+  else if (str == ":|")
+    anchor += dot_width / 2;
+
+  return scm_from_double (anchor);
+}
 
 ADD_INTERFACE (Bar_line,
 

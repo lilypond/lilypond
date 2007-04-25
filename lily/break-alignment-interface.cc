@@ -296,10 +296,36 @@ Break_alignable_interface::self_align_callback (SCM grob)
   else
     which_edge = RIGHT;
   
-  Grob *common = me->common_refpoint (elements[last_idx_found], X_AXIS);
+  Grob *alignment_parent = elements[last_idx_found];
+  Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
+  Real anchor = robust_scm2double (alignment_parent->get_property ("break-align-anchor"), 0);
 
-  return scm_from_double (robust_relative_extent (elements[last_idx_found], common, X_AXIS)[which_edge]
-			  - me->relative_coordinate (common, X_AXIS));
+  return scm_from_double (alignment_parent->relative_coordinate (common, X_AXIS)
+			  - me->relative_coordinate (common, X_AXIS)
+			  + anchor);
+}
+
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_anchor, 1)
+SCM
+Break_aligned_interface::calc_anchor (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+  Real avg = 0.0;
+  int count = 0;
+
+  /* average the anchors of those children that have it set */
+  extract_grob_set (me, "elements", elts);
+  for (vsize i = 0; i < elts.size (); i++)
+    {
+      SCM anchor = elts[i]->get_property ("break-align-anchor");
+      if (scm_is_number (anchor))
+	{
+	  count++;
+	  avg += scm_to_double (anchor);
+	}
+    }
+
+  return scm_from_double (count > 0 ? avg / count : 0);
 }
 
 ADD_INTERFACE (Break_alignable_interface,
@@ -336,6 +362,7 @@ ADD_INTERFACE (Break_aligned_interface,
 	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
 
 	       /* properties */ 
+	       "break-align-anchor "
 	       "break-align-symbol "
 	       "space-alist "
 	       );

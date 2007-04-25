@@ -171,6 +171,7 @@
     (BarLine
      . (
 	(break-align-symbol . staff-bar)
+	(break-align-anchor . ,ly:bar-line::calc-anchor)
 	(glyph . "|")
 	(gap . 0.4)
 	(layer . 0)
@@ -410,6 +411,7 @@
      . (
 	(axes . (0))
 	(X-extent . ,ly:axis-group-interface::width)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-anchor)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				axis-group-interface))))))
