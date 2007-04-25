@@ -25,7 +25,8 @@ public:
 
 struct Break_aligned_interface
 {
-  DECLARE_SCHEME_CALLBACK (calc_anchor, (SCM element));
+  DECLARE_SCHEME_CALLBACK (calc_average_anchor, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_extent_aligned_anchor, (SCM));
   DECLARE_GROB_INTERFACE();
 };
 

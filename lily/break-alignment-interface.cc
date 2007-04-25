@@ -290,12 +290,6 @@ Break_alignable_interface::self_align_callback (SCM grob)
 	break ;
     }	
 
-  Direction which_edge = LEFT;
-  if (vsize (last_idx_found + 1) < elements.size ())
-    last_idx_found ++;
-  else
-    which_edge = RIGHT;
-  
   Grob *alignment_parent = elements[last_idx_found];
   Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
   Real anchor = robust_scm2double (alignment_parent->get_property ("break-align-anchor"), 0);
@@ -305,9 +299,9 @@ Break_alignable_interface::self_align_callback (SCM grob)
 			  + anchor);
 }
 
-MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_anchor, 1)
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_average_anchor, 1)
 SCM
-Break_aligned_interface::calc_anchor (SCM grob)
+Break_aligned_interface::calc_average_anchor (SCM grob)
 {
   Grob *me = unsmob_grob (grob);
   Real avg = 0.0;
@@ -326,6 +320,16 @@ Break_aligned_interface::calc_anchor (SCM grob)
     }
 
   return scm_from_double (count > 0 ? avg / count : 0);
+}
+
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_extent_aligned_anchor, 1)
+SCM
+Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Real alignment = robust_scm2double (me->get_property ("break-align-anchor-alignment"), 0.0);
+
+  return scm_from_double (me->extent (me, X_AXIS).linear_combination (alignment));
 }
 
 ADD_INTERFACE (Break_alignable_interface,
@@ -363,6 +367,7 @@ ADD_INTERFACE (Break_aligned_interface,
 
 	       /* properties */ 
 	       "break-align-anchor "
+	       "break-align-anchor-alignment "
 	       "break-align-symbol "
 	       "space-alist "
 	       );

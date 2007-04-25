@@ -97,6 +97,9 @@ bracket.")
 grob will have their X-offsets shifted by this number. In barlines,
 for example, this is used to position grobs relative to the (visual)
 center of the barline.")
+     (break-align-anchor-alignment ,number? "Read by
+ly:break-aligned-interface::calc-extent-aligned-anchor for aligning
+an anchor to a grobs extent")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-orders ,vector? "Defines the order in which
