@@ -124,7 +124,7 @@ newer. 8.50 recommended)
 @end itemize
 
 International fonts are required to create music with international text
-or lyrics.  See @ref{Fonts} for more information.
+or lyrics.
 
 
 @subsection Building documentation
@@ -363,7 +363,7 @@ or
 
 @end itemize
 
-@section Fonts
+@section International fonts
 
 On MacOs X, all fonts are installed by default.
 
