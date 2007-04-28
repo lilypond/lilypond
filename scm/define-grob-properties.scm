@@ -93,6 +93,13 @@ visibility of the tuplet bracket.  Setting it to false prevents
 printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
+     (break-align-anchor ,number? "Grobs aligned to this break-align
+grob will have their X-offsets shifted by this number. In barlines,
+for example, this is used to position grobs relative to the (visual)
+center of the barline.")
+     (break-align-anchor-alignment ,number? "Read by
+ly:break-aligned-interface::calc-extent-aligned-anchor for aligning
+an anchor to a grobs extent")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-orders ,vector? "Defines the order in which

@@ -11,6 +11,7 @@
   
 \relative {
   c1 \mark "foo"
+  c1
   \key cis \major
   \clef alto
   \override Score.RehearsalMark #'break-align-symbol = #'key-signature

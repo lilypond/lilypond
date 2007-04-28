@@ -20,6 +20,7 @@ public:
   static Stencil simple_barline (Grob *, Real wid, Real height, bool rounded);
   DECLARE_SCHEME_CALLBACK (calc_bar_size, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_anchor, (SCM));
 };
 #endif // BAR_HH
 

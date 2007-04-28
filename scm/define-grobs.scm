@@ -171,6 +171,7 @@
     (BarLine
      . (
 	(break-align-symbol . staff-bar)
+	(break-align-anchor . ,ly:bar-line::calc-anchor)
 	(glyph . "|")
 	(gap . 0.4)
 	(layer . 0)
@@ -410,6 +411,7 @@
      . (
 	(axes . (0))
 	(X-extent . ,ly:axis-group-interface::width)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-average-anchor)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				axis-group-interface))))))
@@ -445,6 +447,7 @@
 	(avoid-slur . inside)
 	(font-family . music)
 	(break-align-symbol . clef)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,begin-of-line-visible)
 	(space-alist . ((ambitus . (extra-space . 2.0))
 			(staff-bar . (extra-space . 0.7))
@@ -855,6 +858,7 @@
 			(first-note . (fixed-space . 2.5))))
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(break-align-symbol . key-signature)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,begin-of-line-visible)
 	(non-musical . #t)
 	(meta . ((class . Item)
@@ -903,6 +907,7 @@
     (LeftEdge
      . (
 	(break-align-symbol . left-edge)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(X-extent . (0 . 0))
 	(non-musical . #t)
 	(break-visibility . ,center-invisible)
@@ -1895,6 +1900,7 @@
      . (
 	(stencil . ,ly:time-signature::print)
 	(break-align-symbol . time-signature)
+	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,all-visible)
 	(avoid-slur . inside)
 	(space-alist . (

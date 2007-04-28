@@ -1050,7 +1050,7 @@ definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for other
 formatting functions.
 
-Examples: @lsr{preparing,rehearsal-mark-numbers.ly}
+Examples: @lsr{parts,rehearsal-mark-numbers.ly}
 
 
 @node Bar numbers
@@ -1393,7 +1393,7 @@ a piece of music with multiple @code{\tag} entries,
 
 @seealso
 
-Examples: @lsr{preparing,tag@/-filter@/.ly}
+Examples: @lsr{parts,tag@/-filter@/.ly}
 
 
 @refbugs

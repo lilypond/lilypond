@@ -12,8 +12,8 @@ fet_begingroup ("clefs")
 % character aligment:
 %
 %   Each clef is associated with a particular pitch: the treble clef
-%   with the 'g', the alto clef with the 'c', the bass clef with the
-%   'f', etc.  The shape of each clef character defines a vertical
+%   with the `g', the alto clef with the `c', the bass clef with the
+%   `f', etc.  The shape of each clef character defines a vertical
 %   position that is assumed to represent this pitch.  For the treble
 %   clef, it is the vertical position of the center of the spiral
 %   ending that represents the 'g' pitch.  For the bass clef, it is
@@ -31,12 +31,12 @@ fet_begingroup ("clefs")
 %
 % * breapth: Ignored (as far as I know).  Should be set to 0.
 %
-% * width: Should match the head's width.
+% * width: Should match the clef's width.
 %
-% * depth: Should match the bottom edge of the head.  Affects vertical
+% * depth: Should match the bottom edge of the clef.  Affects vertical
 %   collision handling.
 %
-% * height: Should match the top edge of the head.  Affects vertical
+% * height: Should match the top edge of the clef.  Affects vertical
 %   collision handling.
 %
 
@@ -49,95 +49,152 @@ fet_begingroup ("clefs")
 %
 %
 %
-def draw_vaticana_do_clef(expr exact_center, reduction) = 
+def draw_vaticana_do_clef (expr exact_center, reduction) = 
 	save reduced_il;
 
 	reduced_il# = staff_space# * reduction;
-	set_char_box(0 - xpart exact_center,
-		     0.5reduced_il# + xpart exact_center,
-		     0.8reduced_il# - ypart exact_center,
-		     0.8reduced_il# + ypart exact_center);
 
-	define_pixels(reduced_il);
+	set_char_box (0 - xpart exact_center,
+		      0.5 reduced_il# + xpart exact_center,
+		      0.8 reduced_il# - ypart exact_center,
+		      0.8 reduced_il# + ypart exact_center);
 
-	pickup pencircle xscaled 0.6linethickness yscaled 0.6 reduced_il;
+	define_pixels (reduced_il);
 
-	save za, zb, zc, zd, ze, zf;
-	pair za, zb, zc, zd, ze, zf;
+	save pat, ellipse, clef;
+	path pat, ellipse, clef;
+
+	pickup pencircle xscaled 0.6 linethickness
+			 yscaled 0.6 reduced_il;
+
+	ellipse := reverse fullcircle xscaled 0.6 linethickness
+				      yscaled 0.6 reduced_il;
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	rt  za = (xoffs + 0.50reduced_il, yoffs - .45reduced_il);
-	    zb = (xoffs + 0.25reduced_il, yoffs - .50reduced_il);
-	lft zc = (xoffs + 0.00reduced_il, yoffs - .25reduced_il);
-	lft zd = (xoffs + 0.00reduced_il, yoffs + .25reduced_il);
-	    ze = (xoffs + 0.25reduced_il, yoffs + .50reduced_il);
-	rt  zf = (xoffs + 0.50reduced_il, yoffs + .45reduced_il);
-	draw za .. zb .. zc --	% lower punctum
-	     zd .. ze .. zf;	% upper punctum
+	define_pixels (xoffs, yoffs);
+
+	rt z11 = (xoffs + 0.50 reduced_il, yoffs - .45 reduced_il);
+	z12 = (xoffs + 0.25 reduced_il, yoffs - .50 reduced_il);
+	lft z13 = (xoffs + 0.00 reduced_il, yoffs - .28 reduced_il);
+	lft z14 = (xoffs, yoffs);
+
+	pat := z11
+	       .. z12
+	       .. z13
+	       -- z14;
+
+	save shift;
+	pair shift;
+
+	% adjust vertically to fit into bounding box
+	shift = find_tangent_shift (((0, -d + 0.3 reduced_il)
+				     -- (w, -d + 0.3 reduced_il)), pat,
+				    (0, -d / 2), (0, d / 2));
+	pat := pat shifted shift;
+
+	clef := rt z14{down}
+		.. top (point 1 of pat)
+		.. get_subpath (ellipse,
+				-direction 0 of pat, direction 0 of pat,
+				point 0 of pat)
+		.. bot (point 1 of pat)
+		.. get_subpath (ellipse,
+				direction 2 of pat, up,
+				point 2 of pat);
+
+	fill clef
+	     -- reverse clef yscaled -1
+	     -- cycle;
+
+	labels (11, 12, 13, 14);
 enddef;
 
 
-fet_beginchar("Ed. Vat. do clef", "vaticana.do")
+fet_beginchar ("Ed. Vat. do clef", "vaticana.do");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_vaticana_do_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("Ed. Vat. do clef", "vaticana.do_change")
-	draw_vaticana_do_clef((0,0), 1.0); % no reduction
+	draw_vaticana_do_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_vaticana_fa_clef(expr exact_center, reduction) = 
+fet_beginchar ("Ed. Vat. do clef", "vaticana.do_change");
+	draw_vaticana_do_clef ((0, 0), 1.0); % no reduction
+fet_endchar;
 
-	save reduced_il, z;
+
+def draw_vaticana_fa_clef (expr exact_center, reduction) = 
+	save reduced_il, xoffs, yoffs;
+
 	reduced_il# = staff_space# * reduction;
-	define_pixels(reduced_il);
-
-	save za, zb, zc, zd, ze;
-	pair za, zb, zc, zd, ze;
-
-	save xoffs, yoffs;
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	%left-handed punctum
-	pickup pencircle xscaled 0.6linethickness yscaled 0.5reduced_il;
-	lft za = (xoffs + 0.00reduced_il, xoffs + 0.00reduced_il);
-	    zb = (xoffs + 0.25reduced_il, xoffs + 0.05reduced_il);
-	rt  zc = (xoffs + 0.50reduced_il, xoffs - 0.05reduced_il);
-	draw za .. zb .. zc;
+	define_pixels (reduced_il, xoffs, yoffs);
 
-	%stem
-	pickup pencircle scaled 0.6linethickness;
-	xpart zc = xpart zd = xpart ze;
-	ypart zd = yoffs = bot ypart ze + 1.5reduced_il;
-	draw zd -- ze;
+	% left-handed punctum
+	pickup pencircle xscaled 0.6 linethickness
+			 yscaled 0.5 reduced_il;
 
-	%right-handed puncta as in do clef
-	draw_vaticana_do_clef(exact_center + (0.55reduced_il#, 0), reduction);
+	save ellipse, pat;
+	path ellipse, pat;
 
-	set_char_box(0 - xpart exact_center,
-		     1.05reduced_il# + xpart exact_center,
-		     1.5reduced_il# - ypart exact_center,
-		     0.8reduced_il# + ypart exact_center);
+	ellipse := reverse fullcircle xscaled 0.6 linethickness
+				      yscaled 0.5 reduced_il;
+
+	lft z21 = (xoffs + 0.00 reduced_il, yoffs + 0.00 reduced_il);
+	z22 = (xoffs + 0.25 reduced_il, yoffs + 0.05 reduced_il);
+	rt z23 = (xoffs + 0.50 reduced_il, yoffs - 0.05 reduced_il);
+
+	pat := z21
+	       .. z22
+	       .. z23;	
+
+	fill get_subpath (ellipse,
+			  -direction 0 of pat, direction 0 of pat, z21)
+	     .. top z22
+	     .. get_subpath (ellipse,
+			     direction 2 of pat, -direction 2 of pat, z23)
+	     .. bot z22
+	     .. cycle;
+
+	% stem
+	pickup pencircle scaled 0.6 linethickness;
+
+	x23 = x24;
+	yoffs = bot y24 + 1.5 reduced_il;
+
+	draw_rounded_block (bot lft z24, top rt z23, 0.6 linethickness);
+
+	labels (21, 22, 23, 24);
+
+	% right-handed puncta as in do clef
+	draw_vaticana_do_clef (exact_center + (0.55 reduced_il#, 0),
+			       reduction);
+
+	set_char_box (0 - xpart exact_center,
+		      1.05 reduced_il# + xpart exact_center,
+		      1.5 reduced_il# - ypart exact_center,
+		      0.8 reduced_il# + ypart exact_center);
 enddef;
 
 
-fet_beginchar("Ed. Vat. fa clef", "vaticana.fa")
+fet_beginchar ("Ed. Vat. fa clef", "vaticana.fa");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_vaticana_fa_clef((0,0), 1.0);
+	draw_vaticana_fa_clef ((0, 0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Vat. fa clef", "vaticana.fa_change")
-	draw_vaticana_fa_clef((0,0), 1.0); % no reduction
+
+
+fet_beginchar ("Ed. Vat. fa clef", "vaticana.fa_change");
+	draw_vaticana_fa_clef ((0, 0), 1.0); % no reduction
 fet_endchar;
+
 
 %%%%%%%%
 %
@@ -147,114 +204,154 @@ fet_endchar;
 %
 %
 %
-def draw_medicaea_do_clef(expr exact_center, reduction) = 
+def draw_medicaea_do_clef (expr exact_center, reduction) = 
 	save reduced_il, reduced_slt;
+
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
-	define_pixels(reduced_il);
-	define_pixels(reduced_slt);
+
+	define_pixels (reduced_il);
+	define_pixels (reduced_slt);
+
+	set_char_box (0 - xpart exact_center,
+		      1.0 reduced_il# + xpart exact_center,
+		      1.5 reduced_il# - ypart exact_center,
+		      1.5 reduced_il# + ypart exact_center);
 
 	save flag_height;
+
 	flag_height# = 0.5 reduced_il#;
-	define_pixels(flag_height);
+
+	define_pixels (flag_height);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	%upper flag
-	save za, zb;
-	pair za, zb;
-	pickup pencircle xscaled reduced_slt yscaled flag_height;
-	xoffs = lft xpart za = rt xpart zb - reduced_il;
-	ypart za = yoffs + 0.5 (reduced_il - flag_height - staff_space);
-	ypart zb = ypart za - reduced_il + flag_height;
-	draw za -- zb;
+	define_pixels (xoffs, yoffs);
 
-	%lower flag
-	save za, zb;
-	pair za, zb;
-	pickup pencircle xscaled reduced_slt yscaled flag_height;
-	xoffs = lft xpart za = rt xpart zb - reduced_il;
-	ypart za = yoffs + 0.5 (reduced_il - flag_height + staff_space);
-	ypart zb = ypart za - reduced_il + flag_height;
-	draw za -- zb;
+	% flags
+	pickup pencircle xscaled reduced_slt
+			 yscaled flag_height;
 
-	%stem
-	save za, zb;
-	pair za, zb;
+	save ellipse;
+	path ellipse;
+
+	ellipse := reverse fullcircle xscaled reduced_slt
+				      yscaled flag_height;
+
+	xoffs = lft x1 = rt x2 - reduced_il;
+	y1 = yoffs + 0.5 (reduced_il - flag_height - staff_space);
+	y2 = y1 - reduced_il + flag_height;
+
+	fill top z1
+	     -- get_subpath (ellipse, z2 - z1, z1 - z2, z2)
+	     -- bot z1
+	     -- cycle;
+
+	xoffs = lft x3 = rt x4 - reduced_il;
+	y3 = yoffs + 0.5 (reduced_il - flag_height + staff_space);
+	y4 = y3 - reduced_il + flag_height;
+
+	fill top z3
+	     -- get_subpath (ellipse, z4 - z3, z3 - z4, z4)
+	     -- bot z3
+	     -- cycle;
+
+	% stem
 	pickup pencircle scaled reduced_slt;
-	lft xpart za = lft xpart zb = xoffs;
-	yoffs = top ypart zb - 1.5 reduced_il = bot ypart za + 1.5 reduced_il;
-	draw za -- zb;
 
-	set_char_box(0 - xpart exact_center,
-		     1.0reduced_il# + xpart exact_center,
-		     1.5reduced_il# - ypart exact_center,
-		     1.5reduced_il# + ypart exact_center);
+	lft x5 = lft x6 = xoffs;
+	yoffs = top y6 - 1.5 reduced_il = bot y5 + 1.5 reduced_il;
+
+	draw_rounded_block (bot lft z5, top rt z6, reduced_slt);
+
+	labels (1, 2, 3, 4, 5, 6);
 enddef;
 
 
-fet_beginchar("Ed. Med. do clef", "medicaea.do")
+fet_beginchar ("Ed. Med. do clef", "medicaea.do");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_medicaea_do_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("Ed. Med. do clef", "medicaea.do_change")
-	draw_medicaea_do_clef((0,0), .8);
+	draw_medicaea_do_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_medicaea_fa_clef(expr exact_center, reduction) = 
+fet_beginchar ("Ed. Med. do clef", "medicaea.do_change");
+	draw_medicaea_do_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_medicaea_fa_clef (expr exact_center, reduction) = 
 	% inspired by Regensburger Edition of Medicaea (1885/86), in:
 	% MGG, volume 2, col. 1327 ("Choralreform"), fig. 2.
 
 	save reduced_il, reduced_slt;
+
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
-	define_pixels(reduced_il);
-	define_pixels(reduced_slt);
 
-	save za, zb, zc, zd, ze;
-	pair za, zb, zc, zd, ze;
+	define_pixels (reduced_il);
+	define_pixels (reduced_slt);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	%stem
+	define_pixels (xoffs, yoffs);
+
+	% stem
 	pickup pencircle scaled linethickness;
-	xpart za = xpart zb = xoffs + 0.4reduced_il;
-	ypart za = yoffs = bot ypart zb + 1.5reduced_il;
-	draw za -- zb;
 
-	%left-handed punctum
-	pickup pencircle xscaled reduced_slt yscaled reduced_il;
-	lft zc = (xoffs, yoffs);
-	zd = lft zc + (0.4reduced_il, 0);
-	draw zc -- zd;
+	x11 = x12 = xoffs + 0.4 reduced_il;
+	y11 = yoffs = bot y12 + 1.5 reduced_il;
 
-	%right-handed puncta as in do clef
-	draw_medicaea_do_clef(exact_center + (0.7reduced_il#, 0), reduction);
+	draw_rounded_block (bot lft z12, top rt z11, linethickness);
 
-	set_char_box(0 - xpart exact_center,
-		     1.7reduced_il# + xpart exact_center,
-		     1.5reduced_il# - ypart exact_center,
-		     1.5reduced_il# + ypart exact_center);
+	% left-handed punctum
+
+	pickup pencircle xscaled reduced_slt
+			 yscaled reduced_il;
+
+	save ellipse;
+	path ellipse;
+
+	ellipse := reverse fullcircle xscaled reduced_slt
+				      yscaled reduced_il;
+
+	lft z13 = (xoffs, yoffs);
+	rt z14 = z11 + (linethickness / 2, 0);
+
+	fill get_subpath (ellipse, left, right, z13)
+	     -- get_subpath (ellipse, right, left, z14)
+	     -- cycle;
+
+	labels (11, 12, 13, 14);
+
+	% right-handed puncta as in do clef
+	draw_medicaea_do_clef (exact_center + (0.7 reduced_il#, 0),
+			       reduction);
+
+	set_char_box (0 - xpart exact_center,
+		      1.7 reduced_il# + xpart exact_center,
+		      1.5 reduced_il# - ypart exact_center,
+		      1.5 reduced_il# + ypart exact_center);
 enddef;
 
 
-fet_beginchar("Ed. Med. fa clef", "medicaea.fa")
+fet_beginchar ("Ed. Med. fa clef", "medicaea.fa");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_medicaea_fa_clef((0,0), 1.0);
+	draw_medicaea_fa_clef ((0, 0), 1.0);
 fet_endchar;
-fet_beginchar("Ed. Med. fa clef", "medicaea.fa_change")
-	draw_medicaea_fa_clef((0,0), .8);
+
+
+fet_beginchar ("Ed. Med. fa clef", "medicaea.fa_change");
+	draw_medicaea_fa_clef ((0, 0), .8);
 fet_endchar;
 
 
@@ -273,361 +370,743 @@ fet_endchar;
 % exact_center: the coordinates of the vertical center point of the
 %               left edge.
 %
-def draw_brevis(expr exact_center, bwidth, bheight, blinethickness) =
-
+def draw_brevis (expr exact_center, bwidth, bheight, blinethickness) =
 	save brevis_width, brevis_height, linethickness;
-	brevis_width# = bwidth; brevis_height# = bheight;
+
+	brevis_width# = bwidth;
+	brevis_height# = bheight;
 	linethickness# = blinethickness;
 
-	save beam_width, beam_height, serif_size, serif_protrude, hole_height;
+	save beam_width, beam_height;
+	save serif_size, serif_protrude, hole_height;
+
 	beam_width# = 1.4 linethickness#;
 	hole_height# = 3 linethickness#;
 	2 beam_height# + hole_height# = brevis_height#;
-	serif_size# = (hole_height# - linethickness#)/2;
+	serif_size# = (hole_height# - linethickness#) / 2;
 	serif_protrude# = 1.5 serif_size#;
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	define_pixels(brevis_width, brevis_height, linethickness);
-	define_pixels(beam_width, beam_height, serif_size, serif_protrude);
+	define_pixels (xoffs, yoffs);
+	define_pixels (brevis_width, brevis_height, linethickness);
+	define_pixels (beam_width, beam_height, serif_size, serif_protrude);
 
-	penpos1(beam_width, 0);
-	penpos2(beam_width, 0);
-	penpos3(beam_height, 90);
-	penpos4(beam_height, 90);
-	penpos5(beam_width, 180);
-	z1l = (xoffs, yoffs);
-	z2l = z1l + (0, -linethickness);
-	z3r = z2r + serif_size*(1,-1);
-	y4r = y3r;
-	x4l = x1l + brevis_width/2;
-	z5l = z3l + (-serif_size, -serif_protrude);
-	fill z1r -- z1l -- z5r{down} .. z5l{up} .. z3l{right}
-		-- z4l -- z4r -- z3r{left} .. z2r{up} -- cycle;
+	z1l = (xoffs, yoffs - linethickness);
+	z2r = z1r + serif_size * (1, -1);
+	z3l = z2l + (-serif_size, -serif_protrude);
 
-	addto currentpicture also currentpicture
-		yscaled -1 shifted (0, 2*yoffs);
+	penpos1 (beam_width, 0);
+	penpos2 (beam_height, 90);
+	penpos3 (beam_width, 180);
 
-	pickup pencircle scaled linethickness;
-	top y6 = yoffs + brevis_height/2;
-	bot y7 = yoffs - brevis_height/2;
-	lft x6 = lft x7 = xoffs;
-	draw z6 -- z7;
+	save pat_in, pat_out;
+	path pat_in, pat_out;
 
-	addto currentpicture also currentpicture
-		xscaled -1 shifted (2xoffs + brevis_width, 0);
+	pat_out := z3r{down}
+		   .. z3l{up}
+		   .. z2l{right};
+	pat_out := pat_out
+		   -- reverse pat_out xscaled -1
+				      shifted (2 xoffs + brevis_width, 0);
+	pat_out := pat_out
+		   -- reverse pat_out yscaled -1
+				      shifted (0, 2 yoffs)
+		   -- cycle;
+
+	pat_in := z1r{down}
+		  .. z2r{right};
+	pat_in := pat_in
+		  -- reverse pat_in xscaled -1
+				    shifted (2 xoffs + brevis_width, 0);
+	pat_in := pat_in
+		  -- reverse pat_in yscaled -1
+				    shifted (0, 2 yoffs)
+		  -- cycle;
+
+	fill pat_out;
+	unfill pat_in;
+
+	penlabels (1, 2, 3);
+enddef;
+
+%
+% Draw two brevis notes; the second one shifted down by `shift'.
+% The other parameters are the same as with `draw_brevis'.
+%
+def draw_double_brevis (expr exact_center, bwidth, bheight,
+			     blinethickness, shift) =
+	save brevis_width, brevis_height, linethickness;
+
+	brevis_width# = bwidth;
+	brevis_height# = bheight;
+	linethickness# = blinethickness;
+
+	save beam_width, beam_height;
+	save serif_size, serif_protrude, hole_height;
+
+	beam_width# = 1.4 linethickness#;
+	hole_height# = 3 linethickness#;
+	2 beam_height# + hole_height# = brevis_height#;
+	serif_size# = (hole_height# - linethickness#) / 2;
+	serif_protrude# = 1.5 serif_size#;
+
+	save xoffs, yoffs;
+
+	xoffs# = xpart exact_center;
+	yoffs# = ypart exact_center;
+
+	define_pixels (xoffs, yoffs);
+	define_pixels (brevis_width, brevis_height, linethickness);
+	define_pixels (beam_width, beam_height, serif_size, serif_protrude);
+
+	z1l = (xoffs, yoffs - linethickness);
+	z2r = z1r + serif_size * (1, -1);
+	z3l = z2l + (-serif_size, -serif_protrude);
+
+	penpos1 (beam_width, 0);
+	penpos2 (beam_height, 90);
+	penpos3 (beam_width, 180);
+
+	z4 = z1 shifted (0, -shift);
+	z5 = z2 shifted (0, -shift);
+	z6 = z3 shifted (0, -shift);
+	
+	penpos4 (beam_width, 0);
+	penpos5 (beam_height, 90);
+	penpos6 (beam_width, 180);
+
+	save pat_in, pat_out;
+	path pat_in, pat_out;
+
+	pat_out := z6r{down}
+		   .. z6l{up}
+		   .. z5l{right};
+	pat_out := pat_out
+		   -- reverse pat_out xscaled -1
+				      shifted (2 xoffs + brevis_width, 0);
+	pat_out := pat_out
+		   -- reverse pat_out yscaled -1
+				      shifted (0, shift - 2 yoffs)
+		   -- cycle;
+
+	fill pat_out;
+
+	pat_in := z1r{down}
+		  .. z2r{right};
+	pat_in := pat_in
+		  -- reverse pat_in xscaled -1
+				    shifted (2 xoffs + brevis_width, 0);
+	pat_in := pat_in
+		  -- reverse pat_in yscaled -1
+				    shifted (0, 2 yoffs)
+		  -- cycle;
+
+	unfill pat_in;
+	unfill pat_in shifted (0, -shift);
+
+	penlabels (1, 2, 3, 4, 5, 6);
 enddef;
 
 
-def draw_neomensural_c_clef(expr exact_center, reduction) = 
+%
+% Draw three brevis notes; the second one shifted down by `shift',
+% the third one by `2 shift'.
+% The other parameters are the same as with `draw_brevis'.
+%
+def draw_triple_brevis (expr exact_center, bwidth, bheight,
+			     blinethickness, shift) =
+	save brevis_width, brevis_height, linethickness;
+
+	brevis_width# = bwidth;
+	brevis_height# = bheight;
+	linethickness# = blinethickness;
+
+	save beam_width, beam_height;
+	save serif_size, serif_protrude, hole_height;
+
+	beam_width# = 1.4 linethickness#;
+	hole_height# = 3 linethickness#;
+	2 beam_height# + hole_height# = brevis_height#;
+	serif_size# = (hole_height# - linethickness#) / 2;
+	serif_protrude# = 1.5 serif_size#;
+
+	save xoffs, yoffs;
+
+	xoffs# = xpart exact_center;
+	yoffs# = ypart exact_center;
+
+	define_pixels (xoffs, yoffs);
+	define_pixels (brevis_width, brevis_height, linethickness);
+	define_pixels (beam_width, beam_height, serif_size, serif_protrude);
+
+	z1l = (xoffs, yoffs - linethickness);
+	z2r = z1r + serif_size * (1, -1);
+	z3l = z2l + (-serif_size, -serif_protrude);
+
+	penpos1 (beam_width, 0);
+	penpos2 (beam_height, 90);
+	penpos3 (beam_width, 180);
+
+	z7 = z1 shifted (0, -2 shift);
+	z8 = z2 shifted (0, -2 shift);
+	z9 = z3 shifted (0, -2 shift);
+	
+	penpos7 (beam_width, 0);
+	penpos8 (beam_height, 90);
+	penpos9 (beam_width, 180);
+
+	save pat_in, pat_out;
+	path pat_in, pat_out;
+
+	pat_out := z9r{down}
+		   .. z9l{up}
+		   .. z8l{right};
+	pat_out := pat_out
+		   -- reverse pat_out xscaled -1
+				      shifted (2 xoffs + brevis_width, 0);
+	pat_out := pat_out
+		   -- reverse pat_out yscaled -1
+				      shifted (0, -2 yoffs)
+		   -- cycle;
+
+	fill pat_out;
+
+	pat_in := z1r{down}
+		  .. z2r{right};
+	pat_in := pat_in
+		  -- reverse pat_in xscaled -1
+				    shifted (2 xoffs + brevis_width, 0);
+	pat_in := pat_in
+		  -- reverse pat_in yscaled -1
+				    shifted (0, 2 yoffs)
+		  -- cycle;
+
+	unfill pat_in;
+	unfill pat_in shifted (0, -shift);
+	unfill pat_in shifted (0, -2 shift);
+
+	penlabels (1, 2, 3, 7, 8, 9);
+enddef;
+
+
+def draw_neomensural_c_clef (expr exact_center, reduction) = 
 	save reduced_il, reduced_slt, stem_width;
+
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
-	define_pixels(reduced_il, reduced_slt, stem_width);
 
-	draw_brevis(exact_center + (3reduced_slt#, 0),
-		    2reduced_il#, reduced_il#, reduced_slt#);
+	define_pixels (reduced_il, reduced_slt, stem_width);
+
+	set_char_box (0 - xpart exact_center,
+		      2 reduced_il# + 6 reduced_slt# + xpart exact_center,
+		      2 reduced_il# - ypart exact_center,
+		      2 reduced_il# + ypart exact_center);
+
+	draw_brevis (exact_center + (3 reduced_slt#, 0),
+		     2 reduced_il#, reduced_il#, reduced_slt#);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	lft x8  = lft x9  = xoffs;
-	lft x10 = lft x11 = lft x8  + 3reduced_slt;
-	rt  x12 = rt  x13 = lft x10 + 2reduced_il;
-	rt  x14 = rt  x15 = rt  x12 + 3reduced_slt;
-	top y9 - bot y8 = 4reduced_il;
-	top y9 + bot y8 = 2yoffs;
-	y12 = y14 = y10 = y8; y13 = y15 = y11 = y9;
-	draw z8 -- z9;
-	draw z10 -- z11;
-	draw z12 -- z13;
-	draw z14 -- z15;
+	define_pixels (xoffs, yoffs);
 
-	set_char_box(0 - xpart exact_center,
-		     2reduced_il# + 6reduced_slt# + xpart exact_center,
-		     2reduced_il# - ypart exact_center,
-		     2reduced_il# + ypart exact_center);
+	pickup pencircle xscaled stem_width
+			 yscaled blot_diameter;
+
+	save ellipse, pat;
+	path ellipse, pat;
+
+	ellipse := fullcircle xscaled stem_width
+			      yscaled blot_diameter;
+
+	lft x11 = lft x12 = xoffs;
+	top y12 - bot y11 = 4 reduced_il;
+	top y12 + bot y11 = 2 yoffs;
+	x13 = x3;
+	y13 = y11;
+	rt x14 = rt x15 = w;
+	y14 = y11;
+	y15 = y12;
+
+	pat := get_subpath (ellipse, down, up, z13)
+	       -- z3l
+	       -- z3r
+	       -- cycle;
+
+	fill get_subpath (ellipse, down, up, z11)
+	     -- get_subpath (ellipse, up, down, z12)
+	     -- cycle;
+	fill get_subpath (ellipse, down, up, z14)
+	     -- get_subpath (ellipse, up, down, z15)
+	     -- cycle;
+
+	fill pat;
+	fill pat xscaled -1
+		 shifted (w, 0);
+	fill pat yscaled -1
+		 shifted (0, 2 yoffs);
+	fill pat scaled -1
+		 shifted (w, 2 yoffs);
+
+	labels (11, 12, 13, 14, 15);
 enddef;
 
 
-fet_beginchar("neo-mensural c clef", "neomensural.c")
+fet_beginchar ("neo-mensural c clef", "neomensural.c");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_neomensural_c_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("neo-mensural c clef", "neomensural.c_change")
-	draw_neomensural_c_clef((0,0), .8);
+	draw_neomensural_c_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_petrucci_c_clef(expr exact_center, flare_align, reduction) = 
+fet_beginchar ("neo-mensural c clef", "neomensural.c_change");
+	draw_neomensural_c_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_petrucci_c_clef (expr exact_center, flare_align, reduction) = 
 	% inspired by Josquin Desprez, "Stabat Mater", Libro tertio,
 	% 1519, printed by Petrucci, in: MGG, volume 7, Table 11.
 	% Also by Petrucci's Canti C, Venedig 1503.  In: MGG, volume
 	% 9, p. 1681/1682.
 
 	save reduced_il, reduced_slt;
+
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
-	define_pixels(reduced_il);
 
-	draw_brevis(exact_center + (0, 0.5staff_space#),
-		    reduced_il#, reduced_il#, reduced_slt#);
+	define_pixels (reduced_il);
 
-	addto currentpicture also currentpicture shifted (0, -staff_space);
+	draw_double_brevis (exact_center + (0, 0.5 staff_space#),
+			    reduced_il#, reduced_il#, reduced_slt#,
+			    staff_space);
 
 	save half_reduced_il, left_depth, left_height;
-	half_reduced_il# = staff_space# * sqrt(reduction);
-	left_height# = half_reduced_il# * min(3.2, 3.2 + 0.2 + flare_align);
-	left_depth# = half_reduced_il# * min(3.2, 3.2 + 0.2 - flare_align);
 
-	define_pixels(half_reduced_il);
-	define_pixels(left_depth, left_height);
+	half_reduced_il# = staff_space# * sqrt (reduction);
+	left_height# = half_reduced_il# * min (3.2, 3.2 + 0.2 + flare_align);
+	left_depth# = half_reduced_il# * min (3.2, 3.2 + 0.2 - flare_align);
+
+	define_pixels (half_reduced_il);
+	define_pixels (left_depth, left_height);
+
+	set_char_box (0 - xpart exact_center,
+		      reduced_il# + xpart exact_center,
+		      left_depth# - ypart exact_center,
+		      left_height# + ypart exact_center);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 linethickness yscaled blot_diameter;
-	lft x8 = lft x9 = xoffs;
-	top y8 = yoffs + left_height;
-	bot y9 = yoffs - left_depth;
-	draw z8 .. z9;
+	define_pixels (xoffs, yoffs);
 
-	rt x10 = rt x11 = xoffs + brevis_width;
-	y10 = min(y8 - 0.2*half_reduced_il, yoffs + 2.2half_reduced_il);
-	y11 = max(y9 + 0.2*half_reduced_il, yoffs - 2.2half_reduced_il);
-	draw z10 .. z11;
+	pickup pencircle xscaled 1.4 linethickness
+			 yscaled blot_diameter;
 
-	set_char_box(0 - xpart exact_center,
-		     reduced_il# + xpart exact_center,
-		     left_depth# - ypart exact_center,
-		     left_height# + ypart exact_center);
+	save ellipse;
+	path ellipse;
+
+	ellipse := fullcircle xscaled 1.4 linethickness
+			      yscaled blot_diameter;
+
+	lft x11 = lft x13 = xoffs;
+	top y11 = yoffs + left_height;
+	bot y13 = yoffs - left_depth;
+	rt x15 = rt x17 = xoffs + brevis_width;
+	y15 = min (y11 - 0.2 half_reduced_il, yoffs + 2.2 half_reduced_il);
+	y17 = max (y13 + 0.2 half_reduced_il, yoffs - 2.2 half_reduced_il);
+
+	z12 = z14 yscaled -1;
+	z14 = z6;
+	z16 = z18 yscaled -1;
+	rt z18 = lft z14 shifted (brevis_width, 0);
+
+	penpos12 (1.4 linethickness, 0);
+	penpos14 (1.4 linethickness, 0);
+	penpos16 (1.4 linethickness, 0);
+	penpos18 (1.4 linethickness, 0);
+
+	if top y11 > -y6 + 0.7 linethickness:
+		fill get_subpath (ellipse, up, down, z11)
+		     -- z12l
+		     -- z12r
+		     -- cycle;
+	fi;
+	if bot y13 < y6 - 0.7 linethickness:
+		fill get_subpath (ellipse, down, up, z13)
+		     -- z14r
+		     -- z14l
+		     -- cycle;
+	fi;
+	if top y15 > -y6 + 0.7 linethickness:
+		fill get_subpath (ellipse, up, down, z15)
+		     -- z16l
+		     -- z16r
+		     -- cycle;
+	fi;
+	if bot y17 < y6 - 0.7 linethickness:
+		fill get_subpath (ellipse, down, up, z17)
+		     -- z18r
+		     -- z18l
+		     -- cycle;
+	fi;
+
+	labels (11, 13, 15, 17);
+	penlabels (12, 14, 16, 18);
 enddef;
 
 
-fet_beginchar("petrucci c1 clef", "petrucci.c1")
+fet_beginchar ("petrucci c1 clef", "petrucci.c1");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), +2, 1.0);
-fet_endchar;
-fet_beginchar("petrucci c1 clef", "petrucci.c1_change")
-	draw_petrucci_c_clef((0,0), +2, .8);
+	draw_petrucci_c_clef ((0, 0), +2, 1.0);
 fet_endchar;
 
-fet_beginchar("petrucci c2 clef", "petrucci.c2")
+
+fet_beginchar ("petrucci c1 clef", "petrucci.c1_change");
+	draw_petrucci_c_clef ((0, 0), +2, .8);
+fet_endchar;
+
+
+fet_beginchar ("petrucci c2 clef", "petrucci.c2");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), +1, 1.0);
-fet_endchar;
-fet_beginchar("petrucci c2 clef", "petrucci.c2_change")
-	draw_petrucci_c_clef((0,0), +1, .8);
+	draw_petrucci_c_clef ((0, 0), +1, 1.0);
 fet_endchar;
 
-fet_beginchar("petrucci c3 clef", "petrucci.c3")
+
+fet_beginchar ("petrucci c2 clef", "petrucci.c2_change");
+	draw_petrucci_c_clef ((0, 0), +1, .8);
+fet_endchar;
+
+
+fet_beginchar ("petrucci c3 clef", "petrucci.c3");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), 0, 1.0);
-fet_endchar;
-fet_beginchar("petrucci c3 clef", "petrucci.c3_change")
-	draw_petrucci_c_clef((0,0), 0, .8);
+	draw_petrucci_c_clef ((0, 0), 0, 1.0);
 fet_endchar;
 
-fet_beginchar("petrucci c4 clef", "petrucci.c4")
+
+fet_beginchar ("petrucci c3 clef", "petrucci.c3_change");
+	draw_petrucci_c_clef ((0, 0), 0, .8);
+fet_endchar;
+
+
+fet_beginchar ("petrucci c4 clef", "petrucci.c4");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), -1, 1.0);
-fet_endchar;
-fet_beginchar("petrucci c4 clef", "petrucci.c4_change")
-	draw_petrucci_c_clef((0,0), -1, .8);
+	draw_petrucci_c_clef ((0, 0), -1, 1.0);
 fet_endchar;
 
-fet_beginchar("petrucci c5 clef", "petrucci.c5")
+
+fet_beginchar ("petrucci c4 clef", "petrucci.c4_change");
+	draw_petrucci_c_clef ((0, 0), -1, .8);
+fet_endchar;
+
+
+fet_beginchar ("petrucci c5 clef", "petrucci.c5");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_c_clef((0,0), -2, 1.0);
-fet_endchar;
-fet_beginchar("petrucci c5 clef", "petrucci.c5_change")
-	draw_petrucci_c_clef((0,0), -2, .8);
+	draw_petrucci_c_clef ((0, 0), -2, 1.0);
 fet_endchar;
 
 
-def draw_mensural_c_clef(expr exact_center, reduction) =
+fet_beginchar ("petrucci c5 clef", "petrucci.c5_change");
+	draw_petrucci_c_clef ((0, 0), -2, .8);
+fet_endchar;
+
+
+def draw_mensural_c_clef (expr exact_center, reduction) =
 	% inspired by Ockeghem, "Missa Prolationum", in: MGG, volume
 	% 9, table 94.
 
 	save reduced_il;
+
 	reduced_il# = staff_space# * reduction;
-	draw_brevis(exact_center + (0, 0.5staff_space#),
-		    2reduced_il#, 0.8staff_space#, 0.8linethickness#);
-	define_pixels(reduced_il);
-	addto currentpicture also currentpicture shifted (0, -staff_space);
-	addto currentpicture also currentpicture shifted (0, -staff_space);
+
+	define_pixels (reduced_il);
+
+	draw_triple_brevis (exact_center + (0, 0.5 staff_space#),
+			    2 reduced_il#, 0.8 staff_space#,
+			    0.8 linethickness#, staff_space);
 
 	save half_reduced_il;
-	half_reduced_il# = staff_space# * sqrt(reduction);
-	define_pixels(half_reduced_il);
+
+	half_reduced_il# = staff_space# * sqrt (reduction);
+
+	define_pixels (half_reduced_il);
+
+	set_char_box (0 - xpart exact_center,
+		      2 reduced_il# + xpart exact_center,
+		      2.2 half_reduced_il# + staff_space# -
+			2 ypart exact_center,
+		      2.2 half_reduced_il# + 2 ypart exact_center);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 linethickness yscaled blot_diameter;
-	lft x8 = lft x9 = xoffs;
-	top y8 = yoffs + 2.2 half_reduced_il;
-	bot y9 = yoffs - 2.2 half_reduced_il - staff_space;
-	draw z8 .. z9;
+	define_pixels (xoffs, yoffs);
 
-	rt x10 = rt x11 = xoffs + brevis_width;
-	y10 = yoffs + 1.4half_reduced_il;
-	y11 = yoffs - 1.4half_reduced_il - staff_space;
-	draw z10 .. z11;
+	pickup pencircle xscaled 1.4 linethickness
+			 yscaled blot_diameter;
 
-	set_char_box(0 - xpart exact_center,
-		     2reduced_il# + xpart exact_center,
-		     2.2 half_reduced_il# + staff_space# - 2 ypart exact_center,
-		     2.2 half_reduced_il# + 2 ypart exact_center);
+	save ellipse;
+	path ellipse;
+
+	ellipse := fullcircle xscaled 1.4 linethickness
+			      yscaled blot_diameter;
+
+	lft x11 = lft x13 = xoffs;
+	top y11 = yoffs + 2.2 half_reduced_il;
+	bot y13 = yoffs - 2.2 half_reduced_il - staff_space;
+	rt x15 = rt x17 = xoffs + brevis_width;
+	y15 = yoffs + 1.4 half_reduced_il;
+	y17 = yoffs - 1.4 half_reduced_il - staff_space;
+
+	z12 = z14 yscaled -1 shifted (0, -staff_space);
+	z14 = z9;
+	z16 = z18 yscaled -1 shifted (0, -staff_space);
+	rt z18 = lft z14 shifted (brevis_width, 0);
+
+	penpos12 (1.4 linethickness, 0);
+	penpos14 (1.4 linethickness, 0);
+	penpos16 (1.4 linethickness, 0);
+	penpos18 (1.4 linethickness, 0);
+
+	fill get_subpath (ellipse, up, down, z11)
+	     -- z12l
+	     -- z12r
+	     -- cycle;
+	fill get_subpath (ellipse, down, up, z13)
+	     -- z14r
+	     -- z14l
+	     -- cycle;
+	fill get_subpath (ellipse, up, down, z15)
+	     -- z16l
+	     -- z16r
+	     -- cycle;
+	fill get_subpath (ellipse, down, up, z17)
+	     -- z18r
+	     -- z18l
+	     -- cycle;
+
+	labels (11, 13, 15, 17);
+	penlabels (12, 14, 16, 18);
 enddef;
 
 
-fet_beginchar("mensural c clef", "mensural.c")
+fet_beginchar ("mensural c clef", "mensural.c");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_mensural_c_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("mensural c clef", "mensural.c_change")
-	draw_mensural_c_clef((0,0), .8);
+	draw_mensural_c_clef ((0, 0), 1.0);
 fet_endchar;
 
-def draw_diamond(expr exact_center, reduction) =
+
+fet_beginchar ("mensural c clef", "mensural.c_change");
+	draw_mensural_c_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_diamond (expr exact_center, reduction) =
 	save stem_width, reduced_nht, holeheight, beamheight;
 	save rh_height, rh_width;
 
 	stem_width# = 1.4 reduced_slt#;
 	reduced_nht# = noteheight# * reduction;
 	holeheight# = 3 reduced_slt#;
-	beamheight# = 0.4(reduced_nht# - holeheight#);
+	beamheight# = 0.4 (reduced_nht# - holeheight#);
 
 	rh_height# = 1.2 staff_space# * reduction;
-	rh_width# / rh_height# = tand(30);
+	rh_width# / rh_height# = tand (30);
 
-	define_pixels(beamheight);
-	define_pixels(stem_width);
-	define_pixels(rh_height);
-	define_pixels(rh_width);
+	define_pixels (beamheight, stem_width);
+	define_pixels (rh_height, rh_width);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle
-		xscaled beamheight
-		yscaled stem_width
-		rotated 45;
+	define_pixels (xoffs, yoffs);
 
-	draw
-		(xoffs - rh_width/2, yoffs) --
-		(xoffs, yoffs + rh_height/2) --
-		(xoffs + rh_width/2, yoffs) --
-		(xoffs, yoffs - rh_height/2) --
-		cycle;
+	pickup pencircle xscaled beamheight
+			 yscaled stem_width
+			 rotated 45;
+
+	save ellipse;
+	path ellipse;
+
+	ellipse := reverse fullcircle xscaled beamheight
+				      yscaled stem_width
+				      rotated 45;
+
+	x21 := xoffs - rh_width / 2;
+	y21 := yoffs;
+	x22 := xoffs;
+	y22 := yoffs + rh_height / 2;
+	x23 := xoffs + rh_width / 2;
+	y23 := yoffs;
+	x24 := xoffs;
+	y24 := yoffs - rh_height / 2;
+
+	fill get_subpath (ellipse, z21 - z24, z22 - z21, z21)
+	     -- get_subpath (ellipse, z22 - z21, z23 - z22, z22)
+	     -- get_subpath (ellipse, z23 - z22, z24 - z23, z23)
+	     -- get_subpath (ellipse, z24 - z23, z21 - z24, z24)
+	     -- cycle;
+
+	save l;
+	path l[];
+
+	l2122 := (directionpoint (z21 - z22) of ellipse) shifted z21
+		 -- (directionpoint (z21 - z22) of ellipse) shifted z22;
+	l2223 := (directionpoint (z22 - z23) of ellipse) shifted z22
+		 -- (directionpoint (z22 - z23) of ellipse) shifted z23;
+	l2324 := (directionpoint (z23 - z24) of ellipse) shifted z23
+		 -- (directionpoint (z23 - z24) of ellipse) shifted z24;
+	l2421 := (directionpoint (z24 - z21) of ellipse) shifted z24
+		 -- (directionpoint (z24 - z21) of ellipse) shifted z21;
+
+	unfill l2122 intersectionpoint l2223
+	       -- l2223 intersectionpoint l2324
+	       -- l2324 intersectionpoint l2421
+	       -- l2421 intersectionpoint l2122
+	       -- cycle;
+
+	labels (21, 22, 23, 24);
 enddef;
 
-def draw_petrucci_f_clef(expr exact_center, reduction) =
+
+def draw_petrucci_f_clef (expr exact_center, reduction) =
 	% inspired by L'homme arme super voces musicales in Misse
 	% Josquin, 1502, Petrucci, in: MGG, volume 7, col. 200; also
 	% inspired by Gaspar van Weerbeke, "Virgo Maria" (1502), in:
 	% MGG, volume 9, col. 653 ("Motette"), fig. 3.; also by Andr'e
 	% Campra, "Entr'ee des s'er'enades" (1710), in: MGG, volume 2,
 	% col. 1649 ("Contredanse"), fig. 2.
-	%
 
 	save interline, reduced_il, reduced_slt;
+
 	interline# = staff_space#;
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
 
-	draw_brevis(exact_center, reduced_il#, reduced_il#, reduced_slt#);
-	draw_diamond(exact_center + (1.6interline#*reduction, interline#/2),
+	draw_brevis (exact_center, reduced_il#, reduced_il#, reduced_slt#);
+	draw_diamond (exact_center +
+			(1.6 interline# * reduction, interline# / 2),
 		     reduction);
-	draw_diamond(exact_center + (1.6interline#*reduction, -interline#/2),
+	draw_diamond (exact_center +
+			(1.6 interline# * reduction, -interline# / 2),
 		     reduction);
 
-	define_pixels(interline);
-	define_pixels(reduced_il);
-	define_pixels(reduced_slt);
+	define_pixels (interline, reduced_il, reduced_slt);
 
 	save stem_width;
+
 	stem_width# = 1.4 reduced_slt#;
-	define_pixels(stem_width);
+
+	define_pixels (stem_width);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
 
-	define_pixels(xoffs, yoffs);
+	define_pixels (xoffs, yoffs);
 
 	% brevis stem
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	rt z8 = (xoffs + reduced_il, yoffs);
-	z9 = z8 + (0, -4reduced_il);
-	draw z8 .. z9;
+	pickup pencircle xscaled stem_width
+			 yscaled blot_diameter;
+
+	save ellipse;
+	path ellipse;
+
+	ellipse := fullcircle xscaled stem_width
+			      yscaled blot_diameter;
+
+	rt z8 = (xoffs + reduced_il, yoffs - 4 reduced_slt);
+	rt z9 = (xoffs + reduced_il, yoffs - 4 reduced_il);
+
+	penpos8 (stem_width, 0);
+
+	fill get_subpath (ellipse, down, up, z9)
+	     -- z8r
+	     -- z8l
+	     -- cycle;
 
 	% upper diamond's stem
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	z10 = (xoffs + 1.6interline*reduction + stem_width/2,
-	  yoffs + interline*reduction);
-	top z11 = z10 + (0, 1.5interline*reduction);
-	draw z10 .. z11;
+	z10 = (xoffs + 1.6 interline * reduction + stem_width / 2,
+	       yoffs + interline * reduction);
+	top z11 = z10 + (0, 1.5 interline * reduction);
+
+	penpos10 (stem_width, 0);
+
+	fill get_subpath (ellipse, up, down, z11)
+	     -- z10l
+	     -- z10r
+	     -- cycle;
 
 	% lower diamond's stem
-	pickup pencircle xscaled stem_width yscaled blot_diameter;
-	z12 = (xoffs + 1.6interline*reduction - stem_width/2,
-	  yoffs - interline*reduction);
-	bot z13 = z12 + (0, -3.5interline*reduction);
-	draw z12 .. z13;
+	z12 = (xoffs + 1.6 interline * reduction - stem_width / 2,
+	       yoffs - interline * reduction);
+	bot z13 = z12 + (0, -3.5 interline * reduction);
+
+	penpos12 (stem_width, 0);
+
+	fill get_subpath (ellipse, down, up, z13)
+	     -- z12r
+	     -- z12l
+	     -- cycle;
 
 	save reduced_il, rh_height, rh_width;
+
 	reduced_il# = staff_space# * reduction;
-	rh_height# = 1.2reduced_il#;
-	rh_width# / rh_height# = tand(30);
-	set_char_box(0 - xpart exact_center,
-		     1.6interline#*reduction + 0.5rh_width# + xpart exact_center,
-		     4.5*interline#*reduction - ypart exact_center,
-		     2.5*interline#*reduction + ypart exact_center);
+	rh_height# = 1.2 reduced_il#;
+	rh_width# / rh_height# = tand (30);
+
+	set_char_box (0 - xpart exact_center,
+		      1.6 interline# * reduction + 0.5 rh_width# +
+			xpart exact_center,
+		      4.5 interline# * reduction - ypart exact_center,
+		      2.5 interline# * reduction + ypart exact_center);
+
+	labels (9, 11, 13);
+	penlabels (8, 10, 12);
 enddef;
 
 
-fet_beginchar("petrucci f clef", "petrucci.f")
+fet_beginchar ("petrucci f clef", "petrucci.f");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1,3, 0.0);
 	fi;
-	draw_petrucci_f_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("petrucci f clef", "petrucci.f_change")
-	draw_petrucci_f_clef((0,0), .8);
+	draw_petrucci_f_clef ((0,0), 1.0);
 fet_endchar;
 
 
-def draw_mensural_f_clef(expr exact_center, reduction) =
-	%
+fet_beginchar ("petrucci f clef", "petrucci.f_change");
+	draw_petrucci_f_clef ((0,0), .8);
+fet_endchar;
+
+
+def draw_mensural_f_clef (expr exact_center, reduction) =
 	% inspired by Philippe le Duc, "Dite Signori" (1590), in: MGG,
 	% volume 3, col. 848 ("Duc"); also by John Dowland, "The First
 	% Booke of Songes" (1597), in: MGG, volume 3, col. 721
@@ -635,58 +1114,108 @@ def draw_mensural_f_clef(expr exact_center, reduction) =
 
 	save width, reduced_slt, stem_width, dot_diameter;
 
-	width# = 1.2staff_space# * reduction;
+	width# = 1.2 staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
 	stem_width# = 1.4 reduced_slt#;
 	dot_diameter# = 0.1 reduction * staff_space#;
-	define_pixels(width, stem_width, staff_space, dot_diameter);
+
+	define_pixels (width, stem_width, staff_space, dot_diameter);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle
-		xscaled 0.2width
-		yscaled stem_width
-		rotated 45;
+	define_pixels (xoffs, yoffs);
+
+	pickup pencircle xscaled 0.2 width
+			 yscaled stem_width
+			 rotated 45;
+
+	save ellipse;
+	path ellipse;
+
+	ellipse := fullcircle xscaled 0.2 width
+			      yscaled stem_width
+			      rotated 45;
 
 	% half circle
-	lft z5 = (0, 0);
-	draw	halfcircle scaled width rotated -90
-		shifted (z5-(xoffs, yoffs));
+	lft z10 = (0, 0);
 
+	save pat;
+	path pat;
+
+	pat := halfcircle scaled width
+			  rotated -90
+			  shifted (z10 - (xoffs, yoffs));
+
+	z5 = point 0 of pat;
+	z6 = point 1 of pat;
+	z7 = point 2 of pat;
+	z8 = point 3 of pat;
+	z9 = point 4 of pat;
+
+	save dirs;
+	pair dirs[];
+
+	dirs5 := direction 0 of pat;
+	dirs6 := direction 1 of pat;
+	dirs7 := direction 2 of pat;
+	dirs8 := direction 3 of pat;
+	dirs9 := direction 4 of pat;
+
+	% we approximate `draw pat'
+	fill get_subpath (ellipse, -dirs5, dirs5, z5)
+	     .. get_subpoint (ellipse, dirs6, z6)
+	     .. get_subpoint (ellipse, dirs7, z7)
+	     .. get_subpoint (ellipse, dirs8, z8)
+	     .. get_subpath (ellipse, dirs9, -dirs9, z9)
+	     .. get_subpoint (ellipse, -dirs8, z8)
+	     .. get_subpoint (ellipse, -dirs7, z7)
+	     .. get_subpoint (ellipse, -dirs6, z6)
+	     .. cycle;
 
 	% upper dot
 	rt x2 = xoffs + width;
-	top y1 = yoffs + 0.5width;
+	top y1 = yoffs + 0.5 width;
 	z2 - z1 = (dot_diameter, -dot_diameter);
-	draw z1 -- z2;
+
+	fill get_subpath (ellipse, z1 - z2, z2 - z1, z1)
+	     -- get_subpath (ellipse, z2 - z1, z1 - z2, z2)
+	     -- cycle;
 
 	% lower dot
 	x3 = x1;
 	top y1 - bot y4 = width;
 	z4 - z3 = (dot_diameter, -dot_diameter);
-	draw z3 -- z4;
 
-	set_char_box(0 - xpart exact_center,
-		     width# + xpart exact_center,
-		     0.5width# - ypart exact_center,
-		     0.5width# + ypart exact_center);
+	fill get_subpath (ellipse, z3 - z4, z4 - z3, z3)
+	     -- get_subpath (ellipse, z4 - z3, z3 - z4, z4)
+	     -- cycle;
+
+	set_char_box (0 - xpart exact_center,
+		      width# + xpart exact_center,
+		      0.5 width# - ypart exact_center,
+		      0.5 width# + ypart exact_center);
+
+	labels (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 enddef;
 
-fet_beginchar("mensural f clef", "mensural.f")
+
+fet_beginchar ("mensural f clef", "mensural.f");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_mensural_f_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("mensural f clef", "mensural.f_change")
-	draw_mensural_f_clef((0,0), .8);
+	draw_mensural_f_clef ((0,0), 1.0);
 fet_endchar;
 
 
-def draw_petrucci_g_clef(expr exact_center, reduction) =
+fet_beginchar ("mensural f clef", "mensural.f_change");
+	draw_mensural_f_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_petrucci_g_clef (expr exact_center, reduction) =
 	% inspired by Josquin Desprez, "Stabat Mater", Libro tertio,
 	% 1519, printed by Petrucci, in: MGG, volume 7, Table 11.
 
@@ -694,70 +1223,223 @@ def draw_petrucci_g_clef(expr exact_center, reduction) =
 
 	reduced_il# = staff_space# * reduction;
 	reduced_slt# = linethickness# * reduction;
-	define_pixels(reduced_il, reduced_slt);
+	define_pixels (reduced_il, reduced_slt);
 
-	set_char_box(0 - xpart exact_center,
-		     1.25 reduced_il# + xpart exact_center,
-		     0.65 reduced_il# - ypart exact_center,
-		     3.80 reduced_il# + ypart exact_center);
-
-	save za, zb, zc, zd, ze, zf, zg, zh, zi, zj;
-	pair za, zb, zc, zd, ze, zf, zg, zh, zi, zj;
+	set_char_box (0 - xpart exact_center,
+		      1.25 reduced_il# + xpart exact_center,
+		      0.65 reduced_il# - ypart exact_center,
+		      3.80 reduced_il# + ypart exact_center);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	pickup pencircle
-		xscaled 0.50 reduced_slt
-		yscaled 0.22 reduced_il
-		rotated -35;
+	define_pixels (xoffs, yoffs);
 
-	lft za = (xoffs + 0.80 reduced_il, yoffs + 0.00 reduced_il);
-	lft zb = (xoffs + 1.00 reduced_il, yoffs + 1.20 reduced_il);
-	lft zc = (xoffs + 0.70 reduced_il, yoffs + 2.00 reduced_il);
-	lft zd = (xoffs + 0.30 reduced_il, yoffs + 3.00 reduced_il);
-	lft ze = (xoffs + 0.80 reduced_il, yoffs + 3.70 reduced_il);
-	lft zf = (xoffs + 1.00 reduced_il, yoffs + 3.00 reduced_il);
-	lft zg = (xoffs + 0.60 reduced_il, yoffs + 2.00 reduced_il);
-	lft zh = (xoffs + 0.30 reduced_il, yoffs + 1.70 reduced_il);
-	lft zi = (xoffs + 0.00 reduced_il, yoffs + 0.75 reduced_il);
-	lft zj = (xoffs + 0.20 reduced_il, yoffs + 0.60 reduced_il);
+	pickup pencircle xscaled 0.50 reduced_slt
+			 yscaled 0.22 reduced_il
+			 rotated -35;
 
-	draw za{-1,2} .. zb .. zc .. zd .. ze .. zf .. zg .. zh .. zi .. zj;
+	save ellipse, paths, sub_path, outlines, sub_outlines;
+	path ellipse, paths[], sub_path, outlines[], sub_outlines[];
 
-	save za, zb, zc, zd, ze, zf;
-	pair za, zb, zc, zd, ze, zf;
+	ellipse := fullcircle xscaled 0.5 reduced_slt
+			      yscaled 0.22 reduced_il
+			      rotated -35;
 
-	pickup pencircle
-		xscaled 0.75 reduced_slt
-		yscaled 0.33 reduced_il
-		rotated -35;
+	lft z1 = (xoffs + 0.80 reduced_il, yoffs + 0.00 reduced_il);
+	lft z2 = (xoffs + 1.00 reduced_il, yoffs + 1.20 reduced_il);
+	lft z3 = (xoffs + 0.70 reduced_il, yoffs + 2.00 reduced_il);
+	lft z4 = (xoffs + 0.30 reduced_il, yoffs + 3.00 reduced_il);
+	lft z5 = (xoffs + 0.80 reduced_il, yoffs + 3.70 reduced_il);
+	lft z6 = (xoffs + 1.00 reduced_il, yoffs + 3.00 reduced_il);
+	lft z7 = (xoffs + 0.60 reduced_il, yoffs + 2.00 reduced_il);
+	lft z8 = (xoffs + 0.30 reduced_il, yoffs + 1.70 reduced_il);
+	lft z9 = (xoffs + 0.00 reduced_il, yoffs + 0.75 reduced_il);
+	lft z10 = (xoffs + 0.20 reduced_il, yoffs + 0.60 reduced_il);
 
-	lft za = (xoffs + 1.05 reduced_il, yoffs + 0.45 reduced_il);
-	lft zb = (xoffs + 0.55 reduced_il, yoffs + 0.45 reduced_il);
-	lft zc = (xoffs + 0.55 reduced_il, yoffs - 0.45 reduced_il);
-	lft zd = (xoffs + 1.05 reduced_il, yoffs - 0.45 reduced_il);
-	lft ze = (xoffs + 1.10 reduced_il, yoffs + 0.00 reduced_il);
-	lft zf = (xoffs + 0.80 reduced_il, yoffs + 0.00 reduced_il);
+	paths1 := z1{-1, 2}
+		    .. z2
+		    .. z3
+		    .. z4
+		    .. z5
+		    .. z6
+		    .. z7
+		    .. z8
+		    .. z9
+		    .. z10;
 
-	draw za .. zb .. zc .. zd .. {up}ze -- zf;
+	save dirs, s;
+	pair dirs[];
+
+	s := 1/4;
+
+	% we approximate `draw paths1'
+	for i = 1 step s until (length paths1 + 1):
+		dirs[i] := direction (i - 1) of paths1;
+	endfor;
+
+	outlines1 := get_subpath (ellipse, -dirs1, dirs1, z1)
+		     for i = (1 + s) step s until (length paths1 + 1 - s):
+			     .. get_subpoint (ellipse, dirs[i],
+					      point (i - 1) of paths1)
+		     endfor
+		     .. get_subpath (ellipse, dirs10, -dirs10, z10)
+		     for i = (length paths1 + 1 - s) step -s until (1 + s):
+			     .. get_subpoint (ellipse, -dirs[i],
+					      point (i - 1) of paths1)
+		     endfor
+		     .. cycle;
+
+	save len;
+
+	len := length outlines1;
+
+	sub_outlines1 := subpath (0,
+				  floor (1/4 len)) of outlines1;
+	sub_outlines2 := subpath (floor (1/4 len),
+				  floor (2/4 len)) of outlines1;
+	sub_outlines3 := subpath (floor (2/4 len),
+				  floor (3/4 len)) of outlines1;
+	sub_outlines4 := subpath (floor (3/4 len),
+				  len) of outlines1;
+
+	save times;
+	numeric times[];
+
+	(times12, times21) = sub_outlines1 intersectiontimes sub_outlines2;
+	(times13, times31) = sub_outlines1 intersectiontimes sub_outlines3;
+	(times42, times24) = sub_outlines4 intersectiontimes sub_outlines2;
+	(times43, times34) = sub_outlines4 intersectiontimes sub_outlines3;
+
+	pickup pencircle xscaled 0.75 reduced_slt
+			 yscaled 0.33 reduced_il
+			 rotated -35;
+
+	ellipse := fullcircle xscaled 0.75 reduced_slt
+			      yscaled 0.33 reduced_il
+			      rotated -35;
+
+	lft z21 = (xoffs + 1.05 reduced_il, yoffs + 0.45 reduced_il);
+	lft z22 = (xoffs + 0.55 reduced_il, yoffs + 0.45 reduced_il);
+	lft z23 = (xoffs + 0.55 reduced_il, yoffs - 0.45 reduced_il);
+	lft z24 = (xoffs + 1.05 reduced_il, yoffs - 0.45 reduced_il);
+	lft z25 = (xoffs + 1.10 reduced_il, yoffs + 0.00 reduced_il);
+	lft z26 = (xoffs + 0.80 reduced_il, yoffs + 0.00 reduced_il);
+
+	paths2 := z21
+		  .. z22
+		  .. z23
+		  .. z24
+		  .. {up}z25
+		  -- z26;
+
+	sub_path := subpath (0, 1) of paths2;
+
+	times1 = xpart (sub_outlines1 intersectiontimes sub_path);
+	times4 = xpart (sub_outlines4 intersectiontimes sub_path);
+
+	% we have to find the envelope intersections (if any)
+	save t;
+	numeric t[];
+
+	t1 = find_envelope_cusp (reverse ellipse,
+				 subpath (1, 2) of paths2,
+				 1/256) + 1;
+	if t1 < 1:
+		t1 := 1;
+		t2 := 1;
+	else:
+		t2 = find_envelope_cusp (ellipse,
+					 subpath (3, 4) of reverse paths2,
+					 1/256) + 3;
+		t2 := length paths2 - t2;
+	fi;
+
+	t3 = find_envelope_cusp (reverse ellipse,
+				 subpath (2, 4 - epsilon) of paths2,
+				 1/256) + 2;
+	if t3 < 2:
+		t3 := 3;
+		t4 := 3;
+	else:
+		t4 = find_envelope_cusp (ellipse,
+					 subpath (1 + epsilon, 3)
+					   of reverse paths2,
+					 1/256) + 1;
+		t4 := length paths2 - t4;
+	fi;
+
+	fill subpath (times1 + s / 4, times13) of sub_outlines1
+	     -- subpath (times31, infinity) of sub_outlines3
+	     & subpath (0, times42) of sub_outlines4
+	     -- subpath (times24, infinity) of sub_outlines2
+	     & subpath (0, times34) of sub_outlines3
+	     -- subpath (times43, times4 - s / 4) of sub_outlines4
+	     -- cycle;
+	unfill subpath (times12, infinity) of sub_outlines1
+	       & subpath (0, times21) of sub_outlines2
+	       -- cycle;
+	fill subpath (times4 + s / 4, infinity) of sub_outlines4
+	     & subpath (0, times1 - s / 4) of sub_outlines1
+	     -- cycle;
+
+	% we approximate `draw paths2'
+	for i = 1 step s until (length paths2 - s):
+		dirs[i + 20] := direction (i - 1) of paths2;
+	endfor;
+
+	fill get_subpath (ellipse, -dirs21, dirs21, z21)
+	     for i = (1 + s) step s until (length paths2 - s):
+		     .. get_subpoint (ellipse, dirs[i + 20],
+				      point (i - 1) of paths2)
+	     endfor
+	     .. get_subpath (ellipse, up, z26 - z25, z25)
+	     -- get_subpath (ellipse, z26 - z25, z25 - z26, z26)
+	     -- get_subpoint (ellipse, z25 - z26, z25)
+	     -- get_subpoint (ellipse, down, z25)
+	     for i = (length paths2 - s) step -s until (t4 + 1):
+		     .. get_subpoint (ellipse, -dirs[i + 20],
+				      point (i - 1) of paths2)
+	     endfor
+	     .. get_subpoint (ellipse, -direction t4 of paths2,
+			      point t4 of paths2)
+	     -- get_subpoint (ellipse, -direction t3 of paths2,
+			      point t3 of paths2)
+	     for i = (floor (t3 / s) * s + 1) step -s until (t2 + 1):
+		     .. get_subpoint (ellipse, -dirs[i + 20],
+				      point (i - 1) of paths2)
+	     endfor
+	     .. get_subpoint (ellipse, -direction t2 of paths2,
+			      point t2 of paths2)
+	     -- get_subpoint (ellipse, -direction t1 of paths2,
+			      point t1 of paths2)
+	     for i = (floor (t1 / s) * s + 1) step -s until (1 + s):
+		     .. get_subpoint (ellipse, -dirs[i + 20],
+				      point (i - 1) of paths2)
+	     endfor
+	     .. cycle;
+
+	labels (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+	labels (21, 22, 23, 24, 25, 26);
 enddef;
 
 
-fet_beginchar("petrucci g clef", "petrucci.g")
+fet_beginchar ("petrucci g clef", "petrucci.g");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_g_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("petrucci g clef", "petrucci.g_change")
-	draw_petrucci_g_clef((0,0), .8);
+	draw_petrucci_g_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_mensural_g_clef(expr exact_center, reduction) =
+fet_beginchar ("petrucci g clef", "petrucci.g_change");
+	draw_petrucci_g_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_mensural_g_clef (expr exact_center, reduction) =
   % TODO: Rewrite me.  The former mensural g clef looked ugly, and the
   % code was removed when it broke for small font sizes after some
   % global changes in the font.  Currently, the character is mapped to
@@ -773,18 +1455,21 @@ def draw_mensural_g_clef(expr exact_center, reduction) =
   % gebenedye" (1568), in: MGG, volume 3, col. 1735 ("Faignient").
 enddef;
 
+
 %
 % FIXME: This clef is preliminarily mapped to the petrucci g clef
 % until the code for the mensural g clef will be rewritten.
 %
-fet_beginchar("mensural g clef", "mensural.g")
+fet_beginchar ("mensural g clef", "mensural.g");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_g_clef((0,0), 1.0);
+	draw_petrucci_g_clef ((0, 0), 1.0);
 fet_endchar;
-fet_beginchar("mensural g clef", "mensural.g_change")
-	draw_petrucci_g_clef((0,0), .8);
+
+
+fet_beginchar ("mensural g clef", "mensural.g_change");
+	draw_petrucci_g_clef ((0, 0), .8);
 fet_endchar;
 
 
@@ -797,130 +1482,207 @@ fet_endchar;
 %
 %
 %
-def draw_hufnagel_do_clef(expr exact_center, reduction) =
-	%
+def draw_hufnagel_do_clef (expr exact_center, reduction) =
 	% inspired by Graduale of Friedrich Zollner (1442), in: MGG,
 	% volume 9, col. 1413 ("Neustift"), fig. 1.
-	%
+
 	save reduced_il;
 
 	reduced_il# = staff_space# * reduction;
 
-	define_pixels(reduced_il);
+	define_pixels (reduced_il);
 
-	pickup pencircle
-		xscaled (0.60reduced_il)
-		yscaled (0.10reduced_il)
-		rotated 40;
-	save za, zb, zc, zd, ze, zf;
-	pair za, zb, zc, zd, ze, zf;
+	set_char_box (0 - xpart exact_center,
+		      1.10 reduced_il# + xpart exact_center,
+		      0.70 reduced_il# - ypart exact_center,
+		      0.75 reduced_il# + ypart exact_center);
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	za = (xoffs + 0.90reduced_il, yoffs + .45reduced_il);
-	zb = (xoffs + 0.80reduced_il, yoffs + .45reduced_il);
-	zc = (xoffs + 0.50reduced_il, yoffs + .60reduced_il);
-	zd = (xoffs + 0.20reduced_il, yoffs + .45reduced_il);
-	ze = (xoffs + 0.20reduced_il, yoffs - .45reduced_il);
-	zf = (xoffs + 0.40reduced_il, yoffs - .55reduced_il);
-	draw za .. zb .. zc -- zd -- ze -- zf;
+	define_pixels (xoffs, yoffs);
 
-	set_char_box(0 - xpart exact_center,
-		     1.10reduced_il# + xpart exact_center,
-		     0.70reduced_il# - ypart exact_center,
-		     0.75reduced_il# + ypart exact_center);
+	pickup pencircle xscaled (0.60 reduced_il)
+			 yscaled (0.10 reduced_il)
+			 rotated 40;
+
+	save ellipse, pat;
+	path ellipse, pat;
+
+	ellipse := fullcircle xscaled (0.60 reduced_il)
+			      yscaled (0.10 reduced_il)
+			      rotated 40;
+
+	z1 = (xoffs + 0.90 reduced_il, yoffs + .45 reduced_il);
+	z2 = (xoffs + 0.80 reduced_il, yoffs + .45 reduced_il);
+	z3 = (xoffs + 0.50 reduced_il, yoffs + .60 reduced_il);
+	z4 = (xoffs + 0.20 reduced_il, yoffs + .45 reduced_il);
+	z5 = (xoffs + 0.20 reduced_il, yoffs - .45 reduced_il);
+	z6 = (xoffs + 0.40 reduced_il, yoffs - .55 reduced_il);
+
+	pat := z1
+	       .. z2
+	       .. z3
+	       -- z4
+	       -- z5
+	       -- z6;
+
+	fill get_subpath (ellipse,
+			  -direction 0 of pat, direction 0 of pat, z1)
+	     .. get_subpoint (ellipse, direction 1 of pat, z2)
+	     .. get_subpath (ellipse,
+			     direction (2 - epsilon) of pat, z4 - z3, z3)
+	     -- get_subpath (ellipse,
+			     z4 - z3, z5 - z4, z4)
+	     -- get_subpath (ellipse,
+			     z5 - z4, z6 - z5, z5)
+	     -- get_subpath (ellipse,
+			     z6 - z5, z5 - z6, z6)
+	     -- get_subpoint (ellipse, z5 - z6, z5)
+	     -- get_subpoint (ellipse, z4 - z5, z5)
+	     -- get_subpoint (ellipse, z4 - z5, z4)
+	     -- get_subpoint (ellipse, -direction (2 - epsilon) of pat, z3)
+	     .. get_subpath (ellipse,
+			     -direction 1 of pat, -direction 1 of pat, z2)
+	     .. cycle;
+
+	labels (1, 2, 3, 4, 5, 6);
 enddef;
 
 
-fet_beginchar("Hufnagel do clef", "hufnagel.do")
+fet_beginchar ("Hufnagel do clef", "hufnagel.do");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_hufnagel_do_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("Hufnagel do clef", "hufnagel.do_change")
-	draw_hufnagel_do_clef((0,0), .8);
+	draw_hufnagel_do_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_hufnagel_fa_clef(expr exact_center, reduction) =
-	%
+fet_beginchar ("Hufnagel do clef", "hufnagel.do_change");
+	draw_hufnagel_do_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_hufnagel_fa_clef (expr exact_center, reduction) =
 	% inspired by Bamberger Manuscript (15th century), in:
 	% MGG, volume 2, table 59.
-	%
+
 	save reduced_il;
 
 	reduced_il# = staff_space# * reduction;
 
-	define_pixels(reduced_il);
+	define_pixels (reduced_il);
 
-	pickup pencircle
-		xscaled (0.60reduced_il)
-		yscaled (0.10reduced_il)
-		rotated 40;
-	save za, zb, zc, zd, ze, zf;
-	pair za, zb, zc, zd, ze, zf;
+	set_char_box (0 - xpart exact_center,
+		      1.20 reduced_il# + xpart exact_center,
+		      1.15 reduced_il# - ypart exact_center,
+		      1.00 reduced_il# + ypart exact_center);
+
+	pickup pencircle xscaled (0.60 reduced_il)
+			 yscaled (0.10 reduced_il)
+			 rotated 40;
 
 	save xoffs, yoffs;
+
 	xoffs# = xpart exact_center;
 	yoffs# = ypart exact_center;
-	define_pixels(xoffs, yoffs);
 
-	za = (xoffs + 0.90reduced_il, yoffs + 0.70reduced_il);
-	zb = (xoffs + 0.80reduced_il, yoffs + 0.70reduced_il);
-	zc = (xoffs + 0.50reduced_il, yoffs + 0.85reduced_il);
-	zd = (xoffs + 0.20reduced_il, yoffs + 0.70reduced_il);
-	ze = (xoffs + 0.20reduced_il, yoffs - 1.10reduced_il);
-	draw za .. zb .. zc -- zd -- ze;
+	define_pixels (xoffs, yoffs);
 
-	save zg, zh, zi, zj;
-	pair zg, zh, zi, zj;
+	save ellipse, pat;
+	path ellipse, pat;
 
-	zg = (xoffs + 0.90reduced_il, yoffs - 0.05reduced_il);
-	zh = (xoffs + 0.80reduced_il, yoffs - 0.05reduced_il);
-	zi = (xoffs + 0.50reduced_il, yoffs + 0.10reduced_il);
-	zj = (xoffs + 0.20reduced_il, yoffs - 0.05reduced_il);
-	draw zg .. zh .. zi -- zj;
+	ellipse := fullcircle xscaled (0.60 reduced_il)
+			      yscaled (0.10 reduced_il)
+			      rotated 40;
 
-	set_char_box(0 - xpart exact_center,
-		     1.20reduced_il# + xpart exact_center,
-		     1.15reduced_il# - ypart exact_center,
-		     1.00reduced_il# + ypart exact_center);
+	z11 = (xoffs + 0.90 reduced_il, yoffs + 0.70 reduced_il);
+	z12 = (xoffs + 0.80 reduced_il, yoffs + 0.70 reduced_il);
+	z13 = (xoffs + 0.50 reduced_il, yoffs + 0.85 reduced_il);
+	z14 = (xoffs + 0.20 reduced_il, yoffs + 0.70 reduced_il);
+	z15 = (xoffs + 0.20 reduced_il, yoffs - 1.10 reduced_il);
+
+	pat := z11
+	       .. z12
+	       .. z13
+	       -- z14
+	       -- z15;
+
+	fill get_subpath (ellipse,
+			  -direction 0 of pat, direction 0 of pat, z11)
+	     .. get_subpoint (ellipse, direction 1 of pat, z12)
+	     .. get_subpath (ellipse,
+			     direction (2 - epsilon) of pat, z14 - z13, z13)
+	     -- get_subpath (ellipse,
+			     z14 - z13, z15 - z14, z14)
+	     -- get_subpath (ellipse,
+			     z15 - z14, z14 - z15, z15)
+	     -- get_subpoint (ellipse, z14 - z15, z14)
+	     -- get_subpoint (ellipse, -direction (2 - epsilon) of pat, z13)
+	     .. get_subpath (ellipse,
+			     -direction 1 of pat, -direction 1 of pat, z12)
+	     .. cycle;
+
+	z16 = (xoffs + 0.90 reduced_il, yoffs - 0.05 reduced_il);
+	z17 = (xoffs + 0.80 reduced_il, yoffs - 0.05 reduced_il);
+	z18 = (xoffs + 0.50 reduced_il, yoffs + 0.10 reduced_il);
+	z19 = (xoffs + 0.20 reduced_il, yoffs - 0.05 reduced_il);
+
+	pat := z16
+	       .. z17
+	       .. z18
+	       -- z19;
+
+	fill get_subpath (ellipse,
+			  -direction 0 of pat, direction 0 of pat, z16)
+	     .. get_subpoint (ellipse, direction 1 of pat, z17)
+	     .. get_subpath (ellipse,
+			     direction (2 - epsilon) of pat, z19 - z18, z18)
+	     -- get_subpoint (ellipse, z19 - z18, z19)
+	     -- get_subpoint (ellipse, -direction (2 - epsilon) of pat, z18)
+	     .. get_subpoint (ellipse, -direction 1 of pat, z17)
+	     .. cycle;
+
+	labels (11, 12, 13, 14, 15, 16, 17, 18, 19);
 enddef;
 
 
-fet_beginchar("Hufnagel fa clef", "hufnagel.fa")
+fet_beginchar ("Hufnagel fa clef", "hufnagel.fa");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_hufnagel_fa_clef((0,0), 1.0);
-fet_endchar;
-fet_beginchar("Hufnagel fa clef", "hufnagel.fa_change")
-	draw_hufnagel_fa_clef((0,0), .8);
+	draw_hufnagel_fa_clef ((0, 0), 1.0);
 fet_endchar;
 
 
-def draw_hufnagel_do_fa_clef(expr exact_center, reduction) =
-	draw_hufnagel_do_clef(exact_center, reduction);
-	draw_hufnagel_fa_clef(exact_center + (0, -2staff_space#), reduction);
-	set_char_box(0 - xpart exact_center,
-		     1.20reduced_il# + xpart exact_center,
-		     1.15reduced_il# + 2staff_space# - ypart exact_center,
-		     0.75reduced_il# + ypart exact_center);
+fet_beginchar ("Hufnagel fa clef", "hufnagel.fa_change");
+	draw_hufnagel_fa_clef ((0, 0), .8);
+fet_endchar;
+
+
+def draw_hufnagel_do_fa_clef (expr exact_center, reduction) =
+	draw_hufnagel_do_clef (exact_center, reduction);
+	draw_hufnagel_fa_clef (exact_center + (0, -2 staff_space#), reduction);
+
+	set_char_box (0 - xpart exact_center,
+		      1.20 reduced_il# + xpart exact_center,
+		      1.15 reduced_il# + 2 staff_space# - ypart exact_center,
+		      0.75 reduced_il# + ypart exact_center);
 enddef;
 
 
-fet_beginchar("Hufnagel do/fa clef", "hufnagel.do.fa")
+fet_beginchar ("Hufnagel do/fa clef", "hufnagel.do.fa");
 	if test = 1:
-		draw_staff(-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_hufnagel_do_fa_clef((0,0), 1.0);
+	draw_hufnagel_do_fa_clef ((0, 0), 1.0);
 fet_endchar;
-fet_beginchar("Hufnagel do/fa clef", "hufnagel.do.fa_change")
-	draw_hufnagel_do_fa_clef((0,0), .8);
+
+
+fet_beginchar ("Hufnagel do/fa clef", "hufnagel.do.fa_change");
+	draw_hufnagel_do_fa_clef ((0, 0), .8);
 fet_endchar;
 
 

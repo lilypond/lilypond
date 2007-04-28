@@ -62,7 +62,7 @@ Span_bar::print (SCM smobbed_me)
     {
       Grob *bar = elements[i];
       Interval ext = bar->extent (refp, Y_AXIS);
-      if (ext.is_empty ())
+      if (ext.is_empty () || to_boolean (bar->get_property ("transparent")))
 	continue;
 
       extents.push_back (ext);
