@@ -9,7 +9,7 @@
 save black_notehead_width;
 numeric black_notehead_width;
 
-fet_begingroup ("custodes")
+fet_begingroup ("custodes");
 
 %
 % character aligment:
