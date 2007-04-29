@@ -144,6 +144,52 @@ print_body (void *out, string name)
   fclose (fd);
 }
 
+#if 0
+static
+void t42_write_sting (void *out, unsigned char const * buffer, size_t s)
+{
+  lily_cookie_fprintf (out, "\n<");
+  int l = 0;
+  static char xdigits[] = "0123456789ABCDEF";
+  for (size_t j = 0; j < s; j++)
+    {
+      if (j != 0 && j % 36 == 0)
+	lily_cookie_putc ('\n', out);
+
+      if (l ++ >= CHUNKSIZE)
+	lily_cookie_fprintf (out, "00>\n<");
+
+      /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
+      lily_cookie_putc (xdigits[ (buffer[j] & 0xF0) >> 4], out);
+      lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
+    }
+  lily_cookie_fprintf (out, "00>");	/* Adobe bug? */
+}
+
+
+static void
+new_print_body (void *out,  FT_Face face)
+{
+  FT_UInt idx = 0;
+
+  FT_ULong tag, length;
+  
+  lily_cookie_fprintf (out, "/sfnts [");
+  while (FT_Sfnt_Table_Info(face, idx, &tag, &length)!=
+	 FT_Err_Table_Missing)
+    {
+      unsigned char *buf = new unsigned char[length];
+      FT_Error error = FT_Load_Sfnt_Table(face, tag, 0, buf, NULL); 
+
+      t42_write_sting (out, buf, length);
+
+      delete[] buf;
+      idx ++;
+    }
+  lily_cookie_fprintf (out, "\n] def\n");
+}
+#endif
+
 static void
 print_trailer (void *out,
 	       FT_Face face)
@@ -212,7 +258,7 @@ create_type42_font (void *out, string name)
   FT_Face face = open_ft_face (name);
 
   print_header (out, face);
-  print_body (out, name);
+  print_body (out, face);
   print_trailer (out, face);
 
   FT_Done_Face (face);
