@@ -268,29 +268,35 @@ Break_alignable_interface::self_align_callback (SCM grob)
   if (!Break_alignment_interface::has_interface (alignment))
     return scm_from_int (0);
 
-  SCM my_align = me->get_property ("break-align-symbol");
-  SCM order = Break_alignment_interface::break_align_order (alignment);
-
+  SCM symbol_list = me->get_property ("break-align-symbols");
   vector<Grob*> elements = Break_alignment_interface::ordered_elements (alignment);
   if (elements.size () == 0)
     return scm_from_int (0);
   
-  int last_idx_found = -1;
-  vsize i = 0;
-  for (SCM s = order; scm_is_pair (s); s = scm_cdr (s))  
+  int break_aligned_grob = -1;
+  for (; scm_is_pair (symbol_list); symbol_list = scm_cdr (symbol_list))
     {
-      if (i < elements.size ()
-	  && elements[i]->get_property ("break-align-symbol") == scm_car (s))
+      SCM sym = scm_car (symbol_list);
+      for (vsize i = 0; i < elements.size (); i++)
 	{
-	  last_idx_found = i;
-	  i ++;
+	  if (elements[i]->get_property ("break-align-symbol") == sym)
+	    {
+	      if (Item::break_visible (elements[i]))
+		{
+		  break_aligned_grob = i;
+		  goto found_break_aligned_grob; /* ugh. need to break out of 2 loops */
+		}
+	      else if (break_aligned_grob == -1)
+		break_aligned_grob = i;
+	    }
 	}
+    }
 
-      if (scm_car (s) == my_align)
-	break ;
-    }	
+found_break_aligned_grob:
+  if (break_aligned_grob == -1)
+    return scm_from_int (0);
 
-  Grob *alignment_parent = elements[last_idx_found];
+  Grob *alignment_parent = elements[break_aligned_grob];
   Grob *common = me->common_refpoint (alignment_parent, X_AXIS);
   Real anchor = robust_scm2double (alignment_parent->get_property ("break-align-anchor"), 0);
 
@@ -332,11 +338,33 @@ Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
   return scm_from_double (me->extent (me, X_AXIS).linear_combination (alignment));
 }
 
+MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
+SCM
+Break_aligned_interface::calc_break_visibility (SCM smob)
+{
+  /* a BreakAlignGroup is break-visible iff it has one element that is break-visible */
+  Grob *me = unsmob_grob (smob);
+  SCM ret = scm_c_make_vector (3, SCM_EOL);
+  extract_grob_set (me, "elements", elts);
+  for (int dir = 0; dir <= 2; dir++)
+    {
+      bool visible = false;
+      for (vsize i = 0; i < elts.size (); i++)
+	{
+	  SCM vis = elts[i]->get_property ("break-visibility");
+	  if (scm_is_vector (vis) && to_boolean (scm_c_vector_ref (vis, dir)))
+	    visible = true;
+	}
+      scm_c_vector_set_x (ret, dir, scm_from_bool (visible));
+    }
+  return ret;
+}
+
 ADD_INTERFACE (Break_alignable_interface,
 	       "Object that is aligned on a break aligment. ",
 
 	       /* properties */
-	       "break-align-symbol "
+	       "break-align-symbols "
 	       )
 
 

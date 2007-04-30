@@ -1,4 +1,4 @@
-\version "2.11.22"
+\version "2.11.23"
 
 \header {
   texidoc = "The break-align-anchor property of a break-aligned grob gives
@@ -6,7 +6,7 @@ the horizontal offset at which other grobs should attach."
 }
 
 {
-  \override Score.RehearsalMark #'break-align-symbol = #'staff-bar
+  \override Score.RehearsalMark #'break-align-symbols = #'(staff-bar)
   c'1
   \once \override Staff.BarLine #'break-align-anchor = #-5
   \mark \default

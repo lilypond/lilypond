@@ -226,7 +226,7 @@
 	(self-alignment-X . 1)
 
 	;; want the bar number before the clef at line start. 
-	(break-align-symbol . left-edge)
+	(break-align-symbols . (left-edge staff-bar))
 	(meta .
 	      ((class . Item)
 	       (interfaces . (side-position-interface
@@ -412,6 +412,7 @@
 	(axes . (0))
 	(X-extent . ,ly:axis-group-interface::width)
 	(break-align-anchor . ,ly:break-aligned-interface::calc-average-anchor)
+	(break-visibility . ,ly:break-aligned-interface::calc-break-visibility)
 	(meta . ((class . Item)
 		 (interfaces . (break-aligned-interface
 				axis-group-interface))))))
@@ -1333,7 +1334,7 @@
 	(font-size . 2)
 	(baseline-skip . 2)
 	(break-visibility . ,end-of-line-invisible)
-	(break-align-symbol . clef)
+	(break-align-symbols . (staff-bar clef))
 	(padding . 0.8)
 	(outside-staff-priority . 1500)
 	(meta . ((class . Item)

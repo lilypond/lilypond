@@ -149,14 +149,18 @@ Item::handle_prebroken_dependencies ()
     Can't do this earlier, because try_visibility_lambda () might set
     the elt property transparent, which would then be copied.
   */
-  SCM vis = get_property ("break-visibility");
-  if (scm_is_vector (vis))
-    {
-      bool visible = to_boolean (scm_c_vector_ref (vis, break_status_dir () + 1));
+  if (!Item::break_visible (this))
+    suicide ();
+}
 
-      if (!visible)
-	suicide ();
-    }
+bool
+Item::break_visible (Grob *g)
+{
+  Item *it = dynamic_cast<Item*> (g);
+  SCM vis = g->get_property ("break-visibility");
+  if (scm_is_vector (vis))
+    return to_boolean (scm_c_vector_ref (vis, it->break_status_dir () + 1));
+  return true;
 }
 
 bool
