@@ -1,4 +1,4 @@
-\version "2.11.23"
+\version "2.11.22"
 
 \header {
   texidoc = "The default callback for break-align-anchor in clefs and time/key

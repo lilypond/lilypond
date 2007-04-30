@@ -175,7 +175,7 @@
 	(glyph . "|")
 	(gap . 0.4)
 	(layer . 0)
-	(break-visibility . ,all-visible)
+	(break-visibility . ,bar-line::calc-break-visibility)
 	(non-musical . #t)
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)

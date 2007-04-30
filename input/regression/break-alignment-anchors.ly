@@ -1,4 +1,4 @@
-\version "2.11.23"
+\version "2.11.22"
 
 \header {
   texidoc = "The break-align-anchor property of a break-aligned grob gives
