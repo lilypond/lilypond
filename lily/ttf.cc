@@ -258,7 +258,8 @@ create_type42_font (void *out, string name)
   FT_Face face = open_ft_face (name);
 
   print_header (out, face);
-  print_body (out, face);
+  // new_print_body (out, face);
+  print_body (out, name);
   print_trailer (out, face);
 
   FT_Done_Face (face);
