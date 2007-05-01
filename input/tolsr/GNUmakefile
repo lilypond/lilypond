@@ -4,7 +4,7 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
 EXTRA_DIST_FILES=README
 
-EXTRA_DIST_FILES+=expressive parts text
+SUBDIRS+=expressive parts text
 
 include $(depth)/make/stepmake.make
 
