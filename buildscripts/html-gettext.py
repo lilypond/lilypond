@@ -91,6 +91,7 @@ for filename in args[3:]:
 	page = re.sub (r'<a href="../music-glossary/(.+?)">(.+?)</a>', rglos_gettext, page)
 	for w in ('Next:', 'Previous:', 'Up:'):
 		page = re.sub (w, _(w), page)
+	page = langdefs.LANGDICT[lang].html_filter (page)
 	f = open (os.path.join (outdir, filename), 'w')
 	f.write (page)
 	f.close ()
