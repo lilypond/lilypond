@@ -482,7 +482,7 @@ Scheme genommen werden. Eine vollständige Erklärung findet sich in der
  @ref{Scheme tutorial} und den
 @ref{Interfaces for programmers}.
 
-Scheme kann benutzt werden, um einfach nur Befehle zu \qq{überschreiben} 
+Scheme kann benutzt werden, um einfach nur Befehle zu @qq{überschreiben} 
 (@code{\override}):
 
 @lilypond[quote,verbatim,ragged-right]
