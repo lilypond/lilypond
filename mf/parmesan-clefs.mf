@@ -6,7 +6,7 @@
 % (c) 2001--2006 Juergen Reuter <reuter@ipd.uka.de>
 %
 
-fet_begingroup ("clefs")
+fet_begingroup ("clefs");
 
 %
 % character aligment:
@@ -16,10 +16,10 @@ fet_begingroup ("clefs")
 %   `f', etc.  The shape of each clef character defines a vertical
 %   position that is assumed to represent this pitch.  For the treble
 %   clef, it is the vertical position of the center of the spiral
-%   ending that represents the 'g' pitch.  For the bass clef, it is
+%   ending that represents the `g' pitch.  For the bass clef, it is
 %   the center between the two fat dots that define the vertical
-%   position of the 'f' pitch.  For the alto clef, it is the vertical
-%   center of the clef that is aligned with the 'c' pitch.  For each
+%   position of the `f' pitch.  For the alto clef, it is the vertical
+%   center of the clef that is aligned with the `c' pitch.  For each
 %   clef character, this center should be vertically aligned with the
 %   point (0, 0).  The horizontal alignment of each clef character
 %   should be such that the vertical line through the point (0, 0)
@@ -1095,14 +1095,14 @@ enddef;
 
 fet_beginchar ("petrucci f clef", "petrucci.f");
 	if test = 1:
-		draw_staff (-1,3, 0.0);
+		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_petrucci_f_clef ((0,0), 1.0);
+	draw_petrucci_f_clef ((0, 0), 1.0);
 fet_endchar;
 
 
 fet_beginchar ("petrucci f clef", "petrucci.f_change");
-	draw_petrucci_f_clef ((0,0), .8);
+	draw_petrucci_f_clef ((0, 0), .8);
 fet_endchar;
 
 
@@ -1206,7 +1206,7 @@ fet_beginchar ("mensural f clef", "mensural.f");
 	if test = 1:
 		draw_staff (-1, 3, 0.0);
 	fi;
-	draw_mensural_f_clef ((0,0), 1.0);
+	draw_mensural_f_clef ((0, 0), 1.0);
 fet_endchar;
 
 
@@ -1260,15 +1260,15 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 	lft z10 = (xoffs + 0.20 reduced_il, yoffs + 0.60 reduced_il);
 
 	paths1 := z1{-1, 2}
-		    .. z2
-		    .. z3
-		    .. z4
-		    .. z5
-		    .. z6
-		    .. z7
-		    .. z8
-		    .. z9
-		    .. z10;
+		  .. z2
+		  .. z3
+		  .. z4
+		  .. z5
+		  .. z6
+		  .. z7
+		  .. z8
+		  .. z9
+		  .. z10;
 
 	save dirs, s;
 	pair dirs[];
@@ -1686,4 +1686,4 @@ fet_beginchar ("Hufnagel do/fa clef", "hufnagel.do.fa_change");
 fet_endchar;
 
 
-fet_endgroup ("clefs")
+fet_endgroup ("clefs");

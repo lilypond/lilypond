@@ -2999,3 +2999,11 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 15), conv, """#'edge-height -> #'bound-details #'right/left #'text = ..."""))
+
+def conv (str):
+    str = re.sub (r"\\override\s*([a-zA-Z.]+)\s*#'break-align-symbol\s*=\s*#'([a-z-]+)",
+                  r"\\override \1 #'break-align-symbols = #'(\2)", str)
+    return str
+
+conversions.append (((2, 11, 23), conv, """#'break-align-symbol -> #'break-align-symbols"""))
+

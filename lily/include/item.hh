@@ -28,6 +28,7 @@ public:
   virtual Grob *clone () const;
 
   static bool is_non_musical (Grob *);
+  static bool break_visible(Grob *);
   bool is_broken () const;
   bool pure_is_visible (int start, int end) const;
 

@@ -7,7 +7,7 @@ the anchor to the extent of the break-aligned grob."
 }
 
 {
-  \override Score.RehearsalMark #'break-align-symbol = #'key-signature
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
   c1
   \key cis \major
   \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
