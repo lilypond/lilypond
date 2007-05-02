@@ -433,6 +433,57 @@ Page_breaking::set_current_breakpoints (vsize start,
 		      lower_bound,
 		      upper_bound,
 		      &work_in_progress);
+
+  /* we only consider a constant number of configurations. Otherwise,
+     this becomes slow when there are many small scores. The constant
+     5 is somewhat arbitrary. */
+  if (current_configurations_.size () > 5)
+    {
+      vector<pair<Real,vsize> > dems_and_indices;
+
+      for (vsize i = 0; i < current_configurations_.size (); i++)
+	{
+	  cache_line_details (i);
+	  Real dem = 0;
+	  for (vsize j = 0; j < cached_line_details_.size (); j++)
+	    dem += cached_line_details_[j].force_ * cached_line_details_[j].force_
+	      + cached_line_details_[j].break_penalty_;
+
+	  dems_and_indices.push_back (pair<Real,vsize> (dem, i));
+	}
+      vector_sort (dems_and_indices, less<pair<Real,vsize> > ());
+
+      vector<Line_division> best_5_configurations;
+      for (vsize i = 0; i < 5; i++)
+	best_5_configurations.push_back (current_configurations_[dems_and_indices[i].second]);
+
+      clear_line_details_cache ();
+      current_configurations_ = best_5_configurations;
+    }
+}
+
+void
+Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
+{
+  current_chunks_ = chunk_list (start, end);
+  current_start_breakpoint_ = start;
+  current_end_breakpoint_ = end;
+  clear_line_details_cache ();
+
+  Line_division div;
+  for (vsize i = 0; i+1 < current_chunks_.size (); i++)
+    {
+      vsize sys = next_system (current_chunks_[i]);
+      if (all_[sys].pscore_)
+	{
+	  line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
+	  div.push_back (line_breaking_[sys].best_solution (start, end).size ());
+	}
+      else
+	div.push_back (1);
+    }
+  current_configurations_.clear ();
+  current_configurations_.push_back (div);
 }
 
 vsize
@@ -615,8 +666,22 @@ Page_breaking::blank_page_penalty () const
 Spacing_result
 Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num)
 {
-  Spacing_result n_res = space_systems_on_n_pages (configuration, n, first_page_num);
-  Spacing_result m_res = space_systems_on_n_pages (configuration, n+1, first_page_num);
+  Spacing_result n_res;
+  Spacing_result m_res;
+
+  if (n <= 2)
+    {
+      n_res = space_systems_on_n_pages (configuration, n, first_page_num);
+      m_res = space_systems_on_n_pages (configuration, n+1, first_page_num);
+    }
+  else
+    {
+      cache_line_details (configuration);
+      Page_spacer ps (cached_line_details_, first_page_num, this);
+      n_res = ps.solve (n);
+      m_res = ps.solve (n+1);
+    }
+
   Real penalty = blank_page_penalty ();
   n_res.demerits_ += penalty;
   n_res.force_.back () += penalty;
