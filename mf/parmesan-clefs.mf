@@ -1385,40 +1385,51 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 	     & subpath (0, times1 - s / 4) of sub_outlines1
 	     -- cycle;
 
+
 	% we approximate `draw paths2'
 	for i = 1 step s until (length paths2 - s):
 		dirs[i + 20] := direction (i - 1) of paths2;
 	endfor;
 
-	fill get_subpath (ellipse, -dirs21, dirs21, z21)
-	     for i = (1 + s) step s until (length paths2 - s):
-		     .. get_subpoint (ellipse, dirs[i + 20],
-				      point (i - 1) of paths2)
-	     endfor
-	     .. get_subpath (ellipse, up, z26 - z25, z25)
-	     -- get_subpath (ellipse, z26 - z25, z25 - z26, z26)
-	     -- get_subpoint (ellipse, z25 - z26, z25)
-	     -- get_subpoint (ellipse, down, z25)
-	     for i = (length paths2 - s) step -s until (t4 + 1):
-		     .. get_subpoint (ellipse, -dirs[i + 20],
-				      point (i - 1) of paths2)
-	     endfor
-	     .. get_subpoint (ellipse, -direction t4 of paths2,
-			      point t4 of paths2)
-	     -- get_subpoint (ellipse, -direction t3 of paths2,
-			      point t3 of paths2)
-	     for i = (floor (t3 / s) * s + 1) step -s until (t2 + 1):
-		     .. get_subpoint (ellipse, -dirs[i + 20],
-				      point (i - 1) of paths2)
-	     endfor
-	     .. get_subpoint (ellipse, -direction t2 of paths2,
-			      point t2 of paths2)
-	     -- get_subpoint (ellipse, -direction t1 of paths2,
-			      point t1 of paths2)
-	     for i = (floor (t1 / s) * s + 1) step -s until (1 + s):
-		     .. get_subpoint (ellipse, -dirs[i + 20],
-				      point (i - 1) of paths2)
-	     endfor
+	sub_outlines21 := get_subpath (ellipse, -dirs21, dirs21, z21)
+			  for i = (1 + s) step s until (length paths2 - s):
+				  .. get_subpoint (ellipse, dirs[i + 20],
+						   point (i - 1) of paths2)
+			  endfor
+			  .. get_subpath (ellipse, up, z26 - z25, z25);
+	sub_outlines22 := get_subpath (ellipse, z26 - z25, z25 - z26, z26)
+			  -- get_subpoint (ellipse, z25 - z26, z25);
+	sub_outlines23 := get_subpoint (ellipse, down, z25)
+			  for i = (length paths2 - s) step -s until (t4 + 1):
+				  .. get_subpoint (ellipse, -dirs[i + 20],
+						   point (i - 1) of paths2)
+			  endfor
+			  .. get_subpoint (ellipse, -direction t4 of paths2,
+					   point t4 of paths2);
+	sub_outlines24 := get_subpoint (ellipse, -direction t3 of paths2,
+					point t3 of paths2)
+			  for i = (floor (t3 / s) * s + 1) step -s until (t2 + 1):
+				  .. get_subpoint (ellipse, -dirs[i + 20],
+						   point (i - 1) of paths2)
+			  endfor
+			  .. get_subpoint (ellipse, -direction t2 of paths2,
+					   point t2 of paths2);
+	sub_outlines25 := get_subpoint (ellipse, -direction t1 of paths2,
+					point t1 of paths2)
+			  for i = (floor (t1 / s) * s + 1) step -s until (1 + s):
+				  .. get_subpoint (ellipse, -dirs[i + 20],
+						   point (i - 1) of paths2)
+			  endfor;
+
+	(times2223, times2322) = sub_outlines22 intersectiontimes sub_outlines23;
+	(times2324, times2423) = sub_outlines23 intersectiontimes sub_outlines24;
+	(times2425, times2524) = sub_outlines24 intersectiontimes sub_outlines25;
+
+	fill sub_outlines21
+	     -- subpath (0, times2223) of sub_outlines22
+	     -- subpath (times2322, times2324) of sub_outlines23
+	     -- subpath (times2423, times2425) of sub_outlines24
+	     -- subpath (times2524, infinity) of sub_outlines25
 	     .. cycle;
 
 	labels (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
