@@ -4,6 +4,8 @@
 Documentation i18n module
 """
 
+import re
+
 def _ (s):
     return s
 
@@ -13,7 +15,7 @@ def lang_file_name (p, langext, ext):
     return p + ext
 
 class LanguageDef:
-    def __init__ (self, code, name, webext=None, double_punct_char_sep=''):
+    def __init__ (self, code, name, webext=None, double_punct_char_sep='', html_filter=lambda s: s):
         self.code = code
         self.name = name
         self.enabled = True
@@ -22,6 +24,7 @@ class LanguageDef:
         else:
             self.webext = webext
         self.double_punct_char_sep = double_punct_char_sep
+        self.html_filter = html_filter
     
     def file_name (self, prefix, ext):
         return lang_file_name (prefix, self.webext, ext)
@@ -32,7 +35,20 @@ class LanguageDef:
 # translated in 'ab', there should be an entry in LANGUAGES.
 
 site = LanguageDef ('en', _('English'), webext='')
-fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;')
+
+html_page_body = re.compile ('</?body>', re.M | re.I)
+french_html_typo_rules = ((' :', '&nbsp;:'),
+                          (' ;', '&nbsp;;'),
+                          (' ?', '&thinsp;?'),
+                          (' !', '&thinsp;!'))
+
+def french_html_filter (page):
+    parts = html_page_body.split (page)
+    for r in french_html_typo_rules:
+        parts[1] = parts[1].replace (r[0], r[1])
+    return parts[0] + '<body>' + parts[1] + '</body>' + parts[2]
+
+fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 es = LanguageDef ('es', _('Spanish') )
 de = LanguageDef ('de', _('German') )
 #nl = LanguageDef ('nl', 'Nederlands')

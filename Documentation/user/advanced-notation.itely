@@ -1050,7 +1050,7 @@ definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for other
 formatting functions.
 
-Examples: @lsr{preparing,rehearsal-mark-numbers.ly}
+Examples: @lsr{parts,rehearsal-mark-numbers.ly}
 
 
 @node Bar numbers
@@ -1393,7 +1393,7 @@ a piece of music with multiple @code{\tag} entries,
 
 @seealso
 
-Examples: @lsr{preparing,tag@/-filter@/.ly}
+Examples: @lsr{parts,tag@/-filter@/.ly}
 
 
 @refbugs
@@ -2581,9 +2581,44 @@ This only functions inside chords, even for single notes
 @node Grid lines
 @subsection Grid lines
 
-@c FIXME: get an example for grid lines.  -gp
 Vertical lines can be drawn between staves synchronized with
 the notes.
 
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" %% sets of grid
+    gridInterval = #(ly:make-moment 1 4)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
+  %% centers grid lines  horizontally below noteheads
+  \override NoteColumn #'X-offset = #-0.5
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    %% centers grid lines  vertically
+    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
 Examples: @inputfileref{input/@/regression,grid@/-lines@/.ly}.
+
+
 

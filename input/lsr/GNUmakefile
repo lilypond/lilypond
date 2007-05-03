@@ -1,6 +1,6 @@
 depth = ../../
 
-SUBDIRS = ancient chords connecting contemporary guitar parts repeats spacing staff text vocal expressive
+SUBDIRS = ancient chords connecting contemporary guitar parts repeats spacing staff text vocal expressive scheme
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc

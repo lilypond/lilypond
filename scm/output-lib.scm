@@ -224,44 +224,48 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 ;;
 ;; How should a  bar line behave at a break? 
-;;
-;; Why prepend `default-' to every scm identifier?
+(define bar-glyph-alist
+  '((":|:" . (":|" . "|:"))
+    ("||:" . ("||" . "|:"))
+    ("dashed" . ("dashed" . '())) 
+    ("|" . ("|" . ()))
+    ("||:" . ("||" . "|:"))
+    ("|s" . (() . "|"))
+    ("|:" . ("|" . "|:"))
+    ("|." . ("|." . ()))
+    
+    ;; hmm... should we end with a bar line here?
+    (".|" . ("|" . ".|"))
+    (":|" . (":|" . ()))
+    ("||" . ("||" . ()))
+    (".|." . (".|." . ()))
+    ("" . ("" . ""))
+    (":" . (":" . ""))
+    ("." . ("." . ()))
+    ("empty" . (() . ()))
+    ("brace" . (() . "brace"))
+    ("bracket" . (() . "bracket")) 
+    ))
+
 (define-public (bar-line::calc-glyph-name grob)
   (let* (
 	 (glyph (ly:grob-property grob 'glyph))
 	 (dir (ly:item-break-dir grob))
-	 (result (assoc glyph 
-		       '((":|:" . (":|" . "|:"))
-			 ("||:" . ("||" . "|:"))
-			 ("dashed" . ("dashed" . '())) 
-			 ("|" . ("|" . ()))
-			 ("||:" . ("||" . "|:"))
-			 ("|s" . (() . "|"))
-			 ("|:" . ("|" . "|:"))
-			 ("|." . ("|." . ()))
-
-			 ;; hmm... should we end with a bar line here?
-			 (".|" . ("|" . ".|"))
-			 (":|" . (":|" . ()))
-			 ("||" . ("||" . ()))
-			 (".|." . (".|." . ()))
-			 ("" . ("" . ""))
-			 (":" . (":" . ""))
-			 ("." . ("." . ()))
-			 ("empty" . (() . ()))
-			 ("brace" . (() . "brace"))
-			 ("bracket" . (() . "bracket"))  )))
+	 (result (assoc glyph  bar-glyph-alist))
 	 (glyph-name (if (= dir CENTER)
 			 glyph
 		         (if (and result (string? (index-cell (cdr result) dir)))
 			     (index-cell (cdr result) dir)
 			     #f)))
 	 )
-
-    (if (not glyph-name)
-	(ly:grob-suicide! grob))
-
     glyph-name))
+
+(define-public (bar-line::calc-break-visibility grob)
+  (let* ((glyph (ly:grob-property grob 'glyph))
+	 (result (assoc glyph bar-glyph-alist)))
+    (if result
+	(vector (string? (cadr result)) #t (string? (cddr result)))
+	#(#f #f #f))))
 
 
 (define-public (shift-right-at-line-begin g)

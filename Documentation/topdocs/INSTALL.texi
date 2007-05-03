@@ -54,6 +54,7 @@ Check out @uref{http://lilypond.org/web/install/} for up to date
 information on binary packages for your platform.
 
 
+
 @section Requirements
 
 @subsection Compilation
@@ -121,7 +122,12 @@ software
 @item @uref{http://www.python.org,Python} (version 2.4 or newer).
 @item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
 newer. 8.50 recommended)
+@item Dejaview.  (This is normally installed by default)
 @end itemize
+
+International fonts are required to create music with international text
+or lyrics.
+
 
 @subsection Building documentation
 
@@ -357,7 +363,50 @@ or
 @end example
 @end quotation
 
+@item FreeBSD
+
+To use system fonts, dejaview must be installed.  With the default
+port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
+
+Open the file @file{$LILYPONDBASE/usr/etc/fonts/local.conf} and add the
+following line just after the @code{<fontconfig>} line.  (Adjust as necessary
+for your hierarchy.)
+
+@example
+<dir>/usr/X11R6/lib/X11/fonts</dir>
+@end example
+
 @end itemize
+
+
+@section International fonts
+
+On MacOs X, all fonts are installed by default.  However, finding all
+system fonts requires a bit of configuration; see
+@uref{http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00472.html,
+this post} on the @code{lilypond-user} mailing list.
+
+On Linux, international fonts are installed by different means on
+every distribution.  We cannot list the exact commands or packages
+that are necessary, as each distribution is different, and the exact
+package names within each distribution changes.  Here are some
+hints, though:
+
+@verbatim
+Red Hat Fedora
+
+    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
+         ttfonts-zh_CN fonts-ja fonts-hebrew 
+
+Debian GNU/Linux
+
+   apt-get install emacs-intl-fonts xfonts-intl-.* \
+        ttf-kochi-gothic ttf-kochi-mincho \
+        xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
+@end verbatim
+
+
+
 
 @bye
 

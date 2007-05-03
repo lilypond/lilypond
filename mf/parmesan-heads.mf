@@ -12,7 +12,7 @@
 save black_notehead_width;
 numeric black_notehead_width;
 
-fet_begingroup ("noteheads")
+fet_begingroup ("noteheads");
 
 %
 % character aligment:
@@ -918,7 +918,7 @@ enddef;
 
 def inclinatum_char (expr verbose_name, internal_name,
 			  small, stropha, auctum) =
-	fet_beginchar (verbose_name, "s" & internal_name)
+	fet_beginchar (verbose_name, "s" & internal_name);
 		save ht, alpha;
 
 		alpha := 35;
@@ -1146,7 +1146,7 @@ epiphonus_char ("Ed. Vat. cephalicus", "vaticana.cephalicus",
 
 
 % quilisma
-fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma")
+fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma");
 	save a_b, b_h, a_w;
 
 	a_b := 1.54; % b_h * a_b / a_w = wd / ht
@@ -1232,7 +1232,7 @@ inclinatum_char ("Solesmes stropha aucta", "solesmes.stropha.aucta",
 
 
 % solesmes oriscus
-fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus")
+fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus");
 	save a_b, b_h, a_w;
 
 	a_b := 1.54; % b_h * a_b / a_w = wd / ht
@@ -1309,7 +1309,7 @@ fet_endchar;
 %
 
 % inclinatum
-fet_beginchar ("Ed. Med. inclinatum", "smedicaea.inclinatum")
+fet_beginchar ("Ed. Med. inclinatum", "smedicaea.inclinatum");
 	draw_diamond_head (1.2 staff_space#, 0, 0, 35, false);
 fet_endchar;
 
@@ -1468,4 +1468,4 @@ fet_beginchar ("Hufnagel pes lower punctum", "shufnagel.lpes")
 fet_endchar;
 
 
-fet_endgroup ("noteheads")
+fet_endgroup ("noteheads");

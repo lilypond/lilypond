@@ -6,7 +6,7 @@ the horizontal offset at which other grobs should attach."
 }
 
 {
-  \override Score.RehearsalMark #'break-align-symbol = #'staff-bar
+  \override Score.RehearsalMark #'break-align-symbols = #'(staff-bar)
   c'1
   \once \override Staff.BarLine #'break-align-anchor = #-5
   \mark \default

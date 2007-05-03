@@ -1,13 +1,13 @@
 # Translation of LilyPond.
 # Copyright (C) 2007 Han-Wen Nienhuys, Jan Nieuwenhuizen
-# This file is distributed under the same license as the lilypond package.
+# This file is distributed under the same license as lilypond package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.20\n"
-"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs"
-"POT-Creation-Date: 2007-02-25 22:11+0100\n"
+"Project-Id-Version: lilypond 2.11.22\n"
+"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
+"POT-Creation-Date: 2007-04-28 12:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -538,13 +538,7 @@ msgstr ""
 msgid "natural alteration glyph not found"
 msgstr ""
 
-#: align-interface.cc:191
-msgid ""
-"vertical alignment called before line-breaking.\n"
-"Only do cross-staff spanners with PianoStaff."
-msgstr ""
-
-#: align-interface.cc:324
+#: align-interface.cc:322
 msgid "tried to get a translation for something that is no child of mine"
 msgstr ""
 
@@ -1318,7 +1312,7 @@ msgstr ""
 msgid "none of note heads `%s' or `%s' found"
 msgstr ""
 
-#: note-heads-engraver.cc:61
+#: note-heads-engraver.cc:64
 msgid "NoteEvent without pitch"
 msgstr ""
 
@@ -1357,47 +1351,47 @@ msgstr ""
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
 
-#: page-turn-page-breaking.cc:162
+#: page-turn-page-breaking.cc:146
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:213
+#: page-turn-page-breaking.cc:195
 msgid ""
 "cannot fit the first page turn onto a single page.  Consider setting first-"
 "page-number to an even number."
 msgstr ""
 
-#: page-turn-page-breaking.cc:226
+#: page-turn-page-breaking.cc:208
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:244 paper-score.cc:146
+#: page-turn-page-breaking.cc:226 paper-score.cc:146
 msgid "Drawing systems..."
 msgstr ""
 
-#: page-turn-page-breaking.cc:293
+#: page-turn-page-breaking.cc:275
 #, c-format
 msgid "break starting at page %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:294
+#: page-turn-page-breaking.cc:276
 #, c-format
 msgid "\tdemerits: %f"
 msgstr ""
 
-#: page-turn-page-breaking.cc:295
+#: page-turn-page-breaking.cc:277
 #, c-format
 msgid "\tsystem count: %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:296
+#: page-turn-page-breaking.cc:278
 #, c-format
 msgid "\tpage count: %d"
 msgstr ""
 
-#: page-turn-page-breaking.cc:297
+#: page-turn-page-breaking.cc:279
 #, c-format
 msgid "\tprevious break: %d"
 msgstr ""
@@ -1467,7 +1461,7 @@ msgstr ""
 msgid "MIDI output to `%s'..."
 msgstr ""
 
-#: phrasing-slur-engraver.cc:146
+#: phrasing-slur-engraver.cc:131
 msgid "unterminated phrasing slur"
 msgstr ""
 
@@ -1912,7 +1906,7 @@ msgstr ""
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
 
-#: backend-library.scm:19 lily.scm:753 ps-to-png.scm:58
+#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr ""
@@ -2069,7 +2063,7 @@ msgstr ""
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr ""
 
-#: graphviz.scm:51
+#: graphviz.scm:53
 #, scheme-format
 msgid "Writing graph `~a'..."
 msgstr ""
@@ -2128,12 +2122,12 @@ msgid ""
 "~a"
 msgstr ""
 
-#: lily.scm:649 lily.scm:743
+#: lily.scm:649 lily.scm:742
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:733
+#: lily.scm:732
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
