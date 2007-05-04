@@ -2084,6 +2084,7 @@
 	(vertical-skylines . ,ly:hara-kiri-group-spanner::calc-skylines)
 	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
 	(stencil . ,ly:axis-group-interface::print)
+	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((X-common . ,ly:axis-group-interface::calc-x-common)))
 		 (interfaces . (axis-group-interface
