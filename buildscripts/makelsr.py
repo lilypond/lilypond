@@ -50,7 +50,7 @@ for dir in dirs:
 	## copy in new files from LSR download
 	copy_dir_with_test( srcdir, destdir )
 	## copy in new files in source tree
-	copy_dir_with_test( os.path.join ('input', 'tolsr', dir), destdir )
+	copy_dir_with_test( os.path.join ('input', 'new', dir), destdir )
 
 
 file=open("lsr-unsafe.txt", 'w')
