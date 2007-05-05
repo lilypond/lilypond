@@ -677,9 +677,13 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   else
     {
       cache_line_details (configuration);
+
+      vsize min_p_count = min_page_count (configuration, first_page_num);
       Page_spacer ps (cached_line_details_, first_page_num, this);
-      n_res = ps.solve (n);
-      m_res = ps.solve (n+1);
+      if (n >= min_p_count)
+	n_res = ps.solve (n);
+      if (n < cached_line_details_.size ())
+	m_res = ps.solve (n+1);
     }
 
   Real penalty = blank_page_penalty ();

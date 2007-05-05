@@ -62,7 +62,11 @@ Optimal_page_breaking::solve ()
   if (page_count > 1)
     min_sys_count -= best.systems_per_page_[page_count - 2];
 
-  message (_f ("Fitting music on %d (or one fewer) pages...", (int)page_count));
+  if (page_count == 1)
+    message (_ ("Fitting music on 1 page..."));
+  else
+    message (_f ("Fitting music on %d or %d pages...", (int)page_count-1, (int)page_count));
+
   /* try a smaller number of systems than the ideal number for line breaking */
   bound = ideal_line_division;
   for (vsize sys_count = ideal_sys_count; --sys_count >= min_sys_count;)

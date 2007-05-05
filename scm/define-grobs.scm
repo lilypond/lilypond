@@ -292,6 +292,7 @@
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
+	(adjacent-pure-heights . ,ly:axis-group-interface::adjacent-pure-heights)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				))))))
