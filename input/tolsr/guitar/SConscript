@@ -1,4 +1,4 @@
 # -*-python-*-
 
 Import ('env', 'collate')
-collate (title = 'LilyPond Examples')
+collate (title = 'Advanced snippets')

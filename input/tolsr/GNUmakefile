@@ -1,12 +1,12 @@
 depth = ../../
 
+SUBDIRS = ancient chords connecting contemporary guitar parts repeats spacing staff text vocal expressive scheme
+
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
 EXTRA_DIST_FILES=README
-
-SUBDIRS+=expressive parts text
-
 include $(depth)/make/stepmake.make
 
-TITLE=Stuff waiting for LSR -- you should not see this!
+
+TITLE=Storage for new features -- you should not see these!
 
