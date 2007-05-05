@@ -23,12 +23,13 @@ def copy_dir_with_test(srcdir, destdir):
 		return
 	file_names = os.listdir (srcdir)
 	for file in file_names:
-		src = os.path.join (srcdir, file)
-		dest = os.path.join (destdir, file)
-		copy_with_warning(src, dest)
-		s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
-		if s:
-			notsafe.append(dest)
+		if (file.endswith ('.ly')):
+			src = os.path.join (srcdir, file)
+			dest = os.path.join (destdir, file)
+			copy_with_warning(src, dest)
+			s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
+			if s:
+				notsafe.append(dest)
 
 
 for dir in dirs:
@@ -45,7 +46,6 @@ for dir in dirs:
 		if (file.endswith ('.ly')):
 			if (file[:3] != 'AAA'):
 				os.remove( os.path.join(destdir,file) )
-
 	## copy in new files from LSR download
 	copy_dir_with_test( srcdir, destdir )
 	## copy in new files in source tree
@@ -61,5 +61,4 @@ print
 print "Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!"
 print "  xargs git-diff < lsr-unsafe.txt"
 print
-
 
