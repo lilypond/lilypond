@@ -831,8 +831,9 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   Real best_demerits = infinity_f;
   for (vsize i = 0; i < page1_force.size (); i++)
     {
-      Real dem = page1_force[i] * page1_force[i]
-	+ page2_force[i] * page2_force[i]
+      Real f = page1_force[i] * page1_force[i] + page2_force[i] * page2_force[i];
+      Real uneven = 2 * (page1_force[i] - page2_force[i]);
+      Real dem = uneven * uneven + f
 	+ cached_line_details_[i+1].page_penalty_
 	+ cached_line_details_.back ().page_penalty_ + cached_line_details_.back ().turn_penalty_;
       if (dem < best_demerits)
