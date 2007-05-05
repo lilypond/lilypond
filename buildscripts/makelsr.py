@@ -27,7 +27,7 @@ def copy_dir_with_test(srcdir, destdir):
 			src = os.path.join (srcdir, file)
 			dest = os.path.join (destdir, file)
 			copy_with_warning(src, dest)
-			os.system('convert-ly -e ' + src)
+			os.system('convert-ly -e ' + dest)
 			s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
 			if s:
 				notsafe.append(dest)
