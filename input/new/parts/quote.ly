@@ -1,5 +1,3 @@
-%preparing
-
 \header
 {
 

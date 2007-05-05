@@ -1,5 +1,3 @@
-% text
-
 \version "2.10.0"
 
 %% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs

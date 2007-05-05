@@ -84,6 +84,8 @@ def mensural_timesig (expr verbose_name, internal_name,
 			if (full_circle or dotted):
 				draw_nail ((-mensural_Cthickness / 2, -d),
 					   (mensural_Cthickness / 2, h));
+			elseif reverse_circle:
+				draw_nail ((0, -d), (mensural_Cthickness, h));
 			else:
 				draw_nail ((-mensural_Cthickness, -d), (0, h));
 			fi;
@@ -253,6 +255,11 @@ def neomensural_timesig (expr verbose_name, internal_name,
 				draw_block ((-neomensural_Cthickness / 2,
 					     -d + neomensural_Cthickness / 2),
 					    (neomensural_Cthickness / 2,
+					     h - neomensural_Cthickness / 2));
+			elseif reverse_circle:
+				draw_block ((0,
+					     -d + neomensural_Cthickness / 2),
+					    (neomensural_Cthickness,
 					     h - neomensural_Cthickness / 2));
 			else:
 				draw_block ((-neomensural_Cthickness,

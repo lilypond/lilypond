@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS = test regression tutorial mutopia manual lsr tolsr
+SUBDIRS = test regression tutorial mutopia manual lsr new 
 
 examples = typography-demo les-nereides wilhelmus proportional bach-schenker cary
 
