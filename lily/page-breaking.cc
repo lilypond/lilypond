@@ -96,8 +96,8 @@ Page_breaking::next_system (Break_position const &break_pos) const
 Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
 {
   book_ = pb;
-  ragged_ = to_boolean (pb->paper_->c_variable ("ragged"));
-  ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last"));
+  ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
+  ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
   create_system_list ();
   find_chunks_and_breaks (is_break);
 }
@@ -233,8 +233,6 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   page_stencil = scm_variable_ref (page_stencil);
 
   SCM book = book_->self_scm ();
-  bool ragged_all = to_boolean (book_->paper_->c_variable ("ragged-bottom"));
-  bool ragged_last = to_boolean (book_->paper_->c_variable ("ragged-last-bottom"));
   int first_page_number = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
 
@@ -242,11 +240,11 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
     {
       SCM page_num = scm_from_int (i + first_page_number);
       SCM last = scm_from_bool (i == lines_per_page.size () - 1);
-      SCM ragged = scm_from_bool (ragged_all || (to_boolean (last) && ragged_last));
+      SCM rag = scm_from_bool (ragged () || (to_boolean (last) && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       SCM page = scm_apply_0 (make_page,
-			      scm_list_n (book, lines, page_num, ragged, last, SCM_UNDEFINED));
+			      scm_list_n (book, lines, page_num, rag, last, SCM_UNDEFINED));
 
       scm_apply_1 (page_stencil, page, SCM_EOL);
       ret = scm_cons (page, ret);
