@@ -71,32 +71,6 @@
 
 
 
-@ifnottex
-  @macro texisharp {word}
-  #
-  @end macro
-  @macro texiflat {word}
-  b
-  @end macro
-@end ifnottex
-
-@c FIXME, use \fetaaccidentalsXMC?
-@c \\kern0.15em\\fetachar\\fetaflat
-@iftex
- @macro texiflat {word}
- @tex
- FIXME: fetaflat
- @end tex
- @end macro
-@c FIXME, use \fetaaccidentalsXC?
-@c  \\raise0.5ex\\fetachar\\fetasharp
- @macro texisharp {word}
-  @tex
-  FIXME: fetasharp
-  @end tex
-  @end macro
-@end iftex
-
 
 @macro arrow{}
 @iftex
