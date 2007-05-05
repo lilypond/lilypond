@@ -1,18 +1,72 @@
 @c -*- coding: latin-1; mode: texinfo; -*-
 
-@c FIXME: rearranged this file; macros that don't depend on the output
-@c format should go at the beginning.  -gp
+@c **** all formats ****
+
+@macro refbugs
+@noindent
+@subsubheading Bugs
+
+@end macro
+
+@macro moreinfo
+@subheading More information
+
+@end macro
+
+@macro seealso
+@noindent
+@subsubheading See also
+
+@end macro
+
+@macro refcommands
+@noindent
+@subsubheading Predefined commands
+
+@end macro
+
+@macro context{NAME}
+@vindex \NAME\
+@code{\NAME\}@c should use internalsref
+@end macro
+
+@macro refcommand{WHAT}
+@vindex \WHAT\
+@code{\WHAT\}
+@end macro
+
+@macro commonprop
+@noindent
+@subsubheading Commonly tweaked properties
+
+@end macro
+
+@macro funindex {WORD}
+@findex \WORD\
+@kindex \WORD\
+@end macro
 
 
-@c in retrospect this is _not_ one of the output-insensitive macros.
-@c I'll fix it soon.
+
+@c  *** Macros with variable output ***
+
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,NAME}
-@uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\/\NAME\}
+@end ifnothtml
 @end macro
 
 @macro lsrdir{DIR}
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\}
+@end ifnothtml
 @end macro
 
 
@@ -250,51 +304,5 @@ user manual, @internalsref{\NAME\}
 
 @end ifnottex
 
-
-@c **** ALL ****
-
-@macro refbugs
-@noindent
-@subsubheading Bugs
-
-@end macro
-
-@macro moreinfo
-@subheading More information
-
-@end macro
-
-@macro seealso
-@noindent
-@subsubheading See also
-
-@end macro
-
-@macro refcommands
-@noindent
-@subsubheading Predefined commands
-
-@end macro
-
-@macro context{NAME}
-@vindex \NAME\
-@code{\NAME\}@c should use internalsref
-@end macro
-
-@macro refcommand{WHAT}
-@vindex \WHAT\
-@code{\WHAT\}
-@end macro
-
-@macro commonprop
-@noindent
-@subsubheading Commonly tweaked properties
-
-@end macro
-
-@macro funindex {WORD}
-@findex \WORD\
-@kindex \WORD\
-@end macro
 
 @c EOF
