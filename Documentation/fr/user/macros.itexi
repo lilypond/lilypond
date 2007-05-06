@@ -1,234 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
-@c FIXME: rearranged this file; macros that don't depend on the output
-@c format should go at the beginning.  -gp
-
-@c in retrospect this is _not_ one of the output-insensitive macros.
-@c I'll fix it soon.
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,NAME}
-@uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
-
-@macro lsrdir{DIR}
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
-@end macro
-
-@ifnottex
-  @macro texisharp {word}
-  #
-  @end macro
-  @macro texiflat {word}
-  b
-  @end macro
-@end ifnottex
-
-@c FIXME, use \fetaaccidentalsXMC?
-@c \\kern0.15em\\fetachar\\fetaflat
-@iftex
- @macro texiflat {word}
- @tex
- FIXME: fetaflat
- @end tex
- @end macro
-@c FIXME, use \fetaaccidentalsXC?
-@c  \\raise0.5ex\\fetachar\\fetasharp
- @macro texisharp {word}
-  @tex
-  FIXME: fetasharp
-  @end tex
-  @end macro
-@end iftex
-
-
-@macro arrow{}
-@iftex
-@tex $\\Rightarrow$ @end tex@c
-@end iftex
-@ifhtml
-@html
-&rarr;
-@end html
-@end ifhtml
-@ifinfo
--->
-@end ifinfo
-@end macro
-
-
-@c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
-
-
-@ifhtml
-@c ***** HTML *****
-
-@c makeinfo-4.7 encodes html names, which means that nodes that
-@c contain nonalphanum characters will be broken links on the website.
-@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
-@c @inforef{} adds ``See'' to the sentence, which is annoying, but
-@c better than a broken link.
-@c @inforef{\NAME\,,lilypond-internals}@c
-@c using @ref without punctuation is OK without for formats other than info
-
-@c annoying parentheses stripped by add-html-footer.py
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals}
-@end macro
-
-@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
-@end macro
-
-@c annoying parentheses stripped by add-html-footer.py
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary}
-@end macro
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-@html
-&lsquo;\TEXT\&rsquo;
-@end html
-@end macro
-
-@c to get decent French quotes in ``foo''
-@macro qq{TEXT}
-@html
-&laquo;&thinsp;\TEXT\&thinsp;&raquo;
-@end html
-@end macro
-
-@end ifhtml
-
-
-@ifdocbook
-@c ***** DOCBOOK-XML *****
-
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals}
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
-
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary}
-@end macro
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-@xml
-&lsquo;\TEXT\&rsquo;
-@end xml
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-@xml
-&laquo;&thinsp;\TEXT\&thinsp;&raquo;
-@end xml
-@end macro
-
-@end ifdocbook
-
-
-@ifinfo
-@c **** INFO ****
-
-@macro internalsref{NAME}
-@vindex \NAME\
-@inforef{\NAME\,,lilypond-internals}
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}
-@end macro
-
-@macro rglos{NAME}@c
-@vindex \NAME\
-@inforef{\NAME\,,,music-glossary}
-@end macro
-
-@macro usermanref{NAME}
-@inforef{\NAME\}
-@end macro
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-« \TEXT\ »
-@end macro
-
-@end ifinfo
-
-
-@c **** TEX ****
-@iftex
-
-@macro internalsref{NAME}
-@vindex \NAME\
-@code{\NAME\}
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/@/\NAME\}
-@end macro
-
-@macro rglos {NAME}
-@vindex \NAME\
-@code{\NAME\}
-@end macro
-
-@macro seeinternals{NAME}
-internals document, @internalsref{\NAME\}
-@end macro
-
-@macro usermanref{NAME}
-user manual, @internalsref{\NAME\}
-@end macro
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-<< \TEXT\ >>
-@end macro
-
-@end iftex
-
-
-@ifnottex
-@c **** not TEX ****
-
-@macro seeinternals{NAME}
-@internalsref{\NAME\}
-@end macro
-
-@ifnotinfo
-@macro usermanref{NAME}
-@ref{\NAME\}
-@end macro
-@end ifnotinfo
-
-@end ifnottex
-
-
-@c **** ALL ****
+@c **** all formats ****
 
 @macro refbugs
 @noindent
@@ -273,5 +45,238 @@ user manual, @internalsref{\NAME\}
 @findex \WORD\
 @kindex \WORD\
 @end macro
+
+
+
+@c  *** Macros with variable output ***
+
+@c usage: @lsr{ancient,custodes.ly}
+@macro lsr{DIR,NAME}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\/\NAME\}
+@end ifnothtml
+@end macro
+
+@macro lsrdir{DIR}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\}
+@end ifnothtml
+@end macro
+
+
+
+
+@macro arrow{}
+@iftex
+@tex $\\Rightarrow$ @end tex@c
+@end iftex
+@ifhtml
+@html
+&rarr;
+@end html
+@end ifhtml
+@ifinfo
+-->
+@end ifinfo
+@end macro
+
+
+@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c say @q{@value{backslash}} instead
+@set backslash \
+
+
+@ifhtml
+@c ***** HTML *****
+
+@c makeinfo-4.7 encodes html names, which means that nodes that
+@c contain nonalphanum characters will be broken links on the website.
+@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @inforef{} adds ``See'' to the sentence, which is annoying, but
+@c better than a broken link.
+@c @inforef{\NAME\,,lilypond-internals}@c
+@c using @ref without punctuation is OK without for formats other than info
+
+@ifset bigpage
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals-big-page}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary-big-page}
+@end macro
+
+@end ifset
+
+
+@ifclear bigpage
+
+@c annoying parentheses stripped by add-html-footer.py
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@c annoying parentheses stripped by add-html-footer.py
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@end ifclear
+
+
+@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@c to get decent French quotes in ``foo''
+@macro qq{TEXT}
+@html
+&laquo;&thinsp;\TEXT\&thinsp;&raquo;
+@end html
+@end macro
+
+@end ifhtml
+
+
+@ifdocbook
+@c ***** DOCBOOK-XML *****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@c to get decent French quotes in ``foo''
+@macro qq{TEXT}
+@html
+&laquo;&thinsp;\TEXT\&thinsp;&raquo;
+@end html
+@end macro
+
+@end ifdocbook
+
+
+@ifinfo
+@c **** INFO ****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@inforef{\NAME\,,lilypond-internals}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/\NAME\}
+@end macro
+
+@macro rglos{NAME}@c
+@vindex \NAME\
+@inforef{\NAME\,,,music-glossary}
+@end macro
+
+@macro usermanref{NAME}
+@inforef{\NAME\}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent French quotes in ``foo''
+@macro qq{TEXT}
+« \TEXT\ »
+@end macro
+
+@end ifinfo
+
+
+@c **** TEX ****
+@iftex
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro inputfileref{DIR,NAME}
+@file{\DIR\/@/\NAME\}
+@end macro
+
+@macro rglos {NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro seeinternals{NAME}
+internals document, @internalsref{\NAME\}
+@end macro
+
+@macro usermanref{NAME}
+user manual, @internalsref{\NAME\}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent French quotes in ``foo''
+@macro qq{TEXT}
+<< \TEXT\ >>
+@end macro
+
+@end iftex
+
+
+@ifnottex
+@c **** not TEX ****
+
+@macro seeinternals{NAME}
+@internalsref{\NAME\}
+@end macro
+
+@ifnotinfo
+@macro usermanref{NAME}
+@ref{\NAME\}
+@end macro
+@end ifnotinfo
+
+@end ifnottex
+
 
 @c EOF
