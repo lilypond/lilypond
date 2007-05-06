@@ -1132,11 +1132,16 @@ fet_beginchar ("Coda", "coda");
 
 	penlabels (1, 2, 3, 4);
 
-	penstroke z1e{up}
-		  .. z2e{right}
-		  .. z3e{down}
-		  .. z4e{left}
-		  .. cycle;
+	fill z1l{up}
+	     .. z2l{right}
+	     .. z3l{down}
+	     .. z4l{left}
+	     .. cycle;
+	unfill z1r{up}
+	       .. z2r{right}
+	       .. z3r{down}
+	       .. z4r{left}
+	       .. cycle;
 
 	draw_gridline ((0, -h), (0, h), thin);
 	draw_gridline ((-w, 0), (w, 0), thin);
@@ -1154,11 +1159,11 @@ fet_beginchar ("Varied Coda", "varcoda");
 	set_char_box (codawidth# + thick#, codawidth# + thick#,
 		      codaheight# + thick#, codaheight# + thick#);
 
-	x1 = -codawidth + .5 thick;
+	x1 = -codawidth + thick - .5 blot_diameter;
 	y1 = y2 - thin;
-	x2 = codawidth - .5 thick;
+	x2 = codawidth - thick + .5 blot_diameter;
 	y2 = codaheight;
-	draw_block (z1, z2);
+	draw_square_block (z1, z2);
 
 	x3 = -codawidth;
 	y3 = -codaheight;
