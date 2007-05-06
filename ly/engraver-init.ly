@@ -37,6 +37,7 @@
   \consists "Volta_engraver"
   \consists "Separating_line_group_engraver"	
   \consists "Dot_column_engraver"
+  \consists "Staff_collecting_engraver"
 
  %% perhaps move to Voice context?
   \consists "Ottava_spanner_engraver"
