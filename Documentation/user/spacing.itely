@@ -625,20 +625,21 @@ c4 c2 c4 ~ \break % as does this break
 c4 c2 c4
 @end lilypond
 
-To allow line breaks on such bar lines, the
-@code{Forbid_line_break_engraver} can be removed from @code{Voice}
-context, like so
+This can be avoided by removing the @code{Forbid_line_break_engraver}
+and adding the line breaks in another voice:
 
-
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\new Voice \with {
-  \remove "Forbid_line_break_engraver"
-} {
-  c4 c2 c2 \break   % now the break is allowed
-  c2 c4
-}
+@lilypond[quote,ragged-right,verbatim]
+\new Staff <<
+  \new Voice \with {
+    \remove Forbid_line_break_engraver
+  } {
+    c'4 c'2 c'2 c'2 c'4
+  }
+  \new Voice {
+    s1 \break s1
+  }
+>>
 @end lilypond
-
 
 
 @node Page breaking
