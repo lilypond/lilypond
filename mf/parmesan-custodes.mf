@@ -77,16 +77,15 @@ def custos_hufnagel (expr verbose_name, internal_name,
 
 		define_pixels (ht, wd, pen_size, stem_ht);
 
-		save ellipse, pat;
+		save ellipse, pat, T;
 		path ellipse, pat;
+		transform T;
 
-		pickup pencircle xscaled linethickness
-				 yscaled pen_size
-				 rotated -dalpha;
-
-		ellipse := fullcircle xscaled linethickness
-				      yscaled pen_size
-				      rotated -dalpha;
+		T := identity xscaled linethickness
+			      yscaled pen_size
+			      rotated -dalpha;
+		pickup pencircle transformed T;
+		ellipse := fullcircle transformed T;
 
 		if direction = dir_up:
 			top y1 = ht / 2;
@@ -184,14 +183,14 @@ def custos_medicaea (expr verbose_name, internal_name,
 
 		define_pixels (ht, wd, stem_ht);
 
-		save ellipse;
+		save ellipse, T;
 		path ellipse;
+		transform T;
 
-		pickup pencircle xscaled 0.6 linethickness
-				 yscaled ht;
-
-		ellipse := fullcircle xscaled 0.6 linethickness
-				      yscaled ht;
+		T := identity xscaled 0.6 linethickness
+			      yscaled ht;
+		pickup pencircle transformed T;
+		ellipse := fullcircle transformed T;
 
 		lft x1 = 0;
 		y1 = 0;
@@ -393,16 +392,15 @@ def custos_mensural (expr verbose_name, internal_name,
 
 		define_pixels (ht, wd, stem_ht);
 
-		save ellipse;
+		save ellipse, T;
 		path ellipse;
+		transform T;
 
-		pickup pencircle xscaled linethickness
-				 yscaled 0.4ht
-				 rotated -dalpha;
-
-		ellipse := fullcircle xscaled linethickness
-				      yscaled 0.4ht
-				      rotated -dalpha;
+		T := identity xscaled linethickness
+			      yscaled 0.4 ht
+			      rotated -dalpha;
+		pickup pencircle transformed T;
+		ellipse := fullcircle transformed T;
 
 		if direction > 0:
 			bot y1 = bot y3 = bot y5 = -direction * 0.33 ht;

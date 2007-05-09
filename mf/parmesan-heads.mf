@@ -1166,14 +1166,14 @@ fet_beginchar ("Ed. Vat. quilisma", "svaticana.quilisma");
 
 	define_pixels (ht, wd);
 
-	pickup pencircle xscaled linethickness
-			 yscaled 0.44 ht;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := reverse fullcircle xscaled linethickness
-				      yscaled 0.44 ht;
+	T := identity xscaled linethickness
+		      yscaled 0.44 ht;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	z1 = (rt 0.00 wd, top -0.28 ht);
 	z2 = (0.11 wd, -0.14 ht);
@@ -1261,19 +1261,22 @@ fet_beginchar ("Solesmes oriscus", "ssolesmes.oriscus");
 	z3 = (2/6 wd, -convexity);
 	z4 = (0.50 wd - blot_diameter / 2, +convexity);
 
-	save height, ellipse;
-	path ellipse;
+
+	save height;
 
 	height = 2 ypart (directionpoint right of (z1
 						   .. z2
 						   .. z3
 						   .. z4));
 
-	pickup pencircle xscaled blot_diameter
-			 yscaled (h + d - height);
+	save ellipse, T;
+	path ellipse;
+	transform T;
 
-	ellipse := fullcircle xscaled blot_diameter
-			      yscaled (h + d - height);
+	T := identity xscaled blot_diameter
+		      yscaled (h + d - height);
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	% Adjust vertical coordinates to touch bounding box.
 	y1 := top -d;
