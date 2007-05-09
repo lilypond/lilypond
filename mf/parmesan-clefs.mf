@@ -65,8 +65,8 @@ def draw_vaticana_do_clef (expr exact_center, reduction) =
 	path pat, ellipse, clef;
 	transform T;
 
-	T:= identity xscaled 0.6 linethickness
-		     yscaled 0.6 reduced_il;
+	T := identity xscaled 0.6 linethickness
+		      yscaled 0.6 reduced_il;
 	pickup pencircle transformed T;
 	ellipse := reverse fullcircle transformed T;
 
@@ -141,8 +141,8 @@ def draw_vaticana_fa_clef (expr exact_center, reduction) =
 	path ellipse, pat;
 	transform T;
 
-	T:= identity xscaled 0.6 linethickness
-		     yscaled 0.5 reduced_il;
+	T := identity xscaled 0.6 linethickness
+		      yscaled 0.5 reduced_il;
 	pickup pencircle transformed T;
 	ellipse := reverse fullcircle transformed T;
 
@@ -236,8 +236,8 @@ def draw_medicaea_do_clef (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled reduced_slt
-		     yscaled flag_height;
+	T := identity xscaled reduced_slt
+		      yscaled flag_height;
 	pickup pencircle transformed T;
 	ellipse := reverse fullcircle transformed T;
 
@@ -316,8 +316,8 @@ def draw_medicaea_fa_clef (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled reduced_slt
-		     yscaled reduced_il;
+	T := identity xscaled reduced_slt
+		      yscaled reduced_il;
 	pickup pencircle transformed T;
 	ellipse := reverse fullcircle transformed T;
 
@@ -620,8 +620,8 @@ def draw_neomensural_c_clef (expr exact_center, reduction) =
 	path ellipse, pat;
 	transform T;
 
-	T:= identity xscaled stem_width
-		     yscaled blot_diameter;
+	T := identity xscaled stem_width
+		      yscaled blot_diameter;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -713,8 +713,8 @@ def draw_petrucci_c_clef (expr exact_center, flare_align, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled 1.4 linethickness
-		     yscaled blot_diameter;
+	T := identity xscaled 1.4 linethickness
+		      yscaled blot_diameter;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -867,8 +867,8 @@ def draw_mensural_c_clef (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled 1.4 linethickness
-		     yscaled blot_diameter;
+	T := identity xscaled 1.4 linethickness
+		      yscaled blot_diameter;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -950,9 +950,9 @@ def draw_diamond (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled beamheight
-		     yscaled stem_width
-		     rotated 45;
+	T := identity xscaled beamheight
+		      yscaled stem_width
+		      rotated 45;
 	pickup pencircle transformed T;
 	ellipse := reverse fullcircle transformed T;
 
@@ -1035,8 +1035,8 @@ def draw_petrucci_f_clef (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled stem_width
-		     yscaled blot_diameter;
+	T := identity xscaled stem_width
+		      yscaled blot_diameter;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -1130,9 +1130,9 @@ def draw_mensural_f_clef (expr exact_center, reduction) =
 	path ellipse;
 	transform T;
 
-	T:= identity xscaled 0.2 width
-		     yscaled stem_width
-		     rotated 45;
+	T := identity xscaled 0.2 width
+		      yscaled stem_width
+		      rotated 45;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -1238,9 +1238,9 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 	path ellipse, paths[], sub_path, outlines[], sub_outlines[];
 	transform T;
 
-	T:= identity xscaled 0.5 reduced_slt
-		     yscaled 0.22 reduced_il
-		     rotated -35;
+	T := identity xscaled 0.5 reduced_slt
+		      yscaled 0.22 reduced_il
+		      rotated -35;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -1309,9 +1309,9 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 	(times42, times24) = sub_outlines4 intersectiontimes sub_outlines2;
 	(times43, times34) = sub_outlines4 intersectiontimes sub_outlines3;
 
-	T:= identity xscaled 0.75 reduced_slt
-		     yscaled 0.33 reduced_il
-		     rotated -35;
+	T := identity xscaled 0.75 reduced_slt
+		      yscaled 0.33 reduced_il
+		      rotated -35;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -1513,9 +1513,9 @@ def draw_hufnagel_do_clef (expr exact_center, reduction) =
 	path ellipse, pat;
 	transform T;
 
-	T:= identity xscaled 0.6 reduced_il
-		     yscaled 0.1 reduced_il
-		     rotated 40;
+	T := identity xscaled 0.6 reduced_il
+		      yscaled 0.1 reduced_il
+		      rotated 40;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
@@ -1595,9 +1595,9 @@ def draw_hufnagel_fa_clef (expr exact_center, reduction) =
 	path ellipse, pat;
 	transform T;
 
-	T:= identity xscaled 0.6 reduced_il
-		     yscaled 0.1 reduced_il
-		     rotated 40;
+	T := identity xscaled 0.6 reduced_il
+		      yscaled 0.1 reduced_il
+		      rotated 40;
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
