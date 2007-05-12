@@ -180,7 +180,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 
 	last_offset = offset;
       }
-      chunks.push_back (s - last_chunk)
+      chunks.push_back (s - last_chunk);
 
       delete[] loca_buf;
     }
