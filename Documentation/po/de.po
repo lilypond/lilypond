@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-03-27 23:21+0200\n"
-"PO-Revision-Date: 2007-03-25 18:41+0200\n"
+"PO-Revision-Date: 2007-05-12 18:41+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -198,7 +198,7 @@ msgstr "eingestrichenes C"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Durations (rhythms)"
-msgstr "Tondauern (Rhytmen)"
+msgstr "Tondauern (Rhythmen)"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
 msgid "duration"
@@ -277,13 +277,13 @@ msgstr "Relative Notenbezeichnungen"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Accidentals and key signatures"
-msgstr "Vorzeichen und Tonartbeizeichnung"
+msgstr "Versetzungszeichen und Tonartbezeichnung (Vorzeichen)"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Accidentals"
-msgstr "Vorzeichen"
+msgstr "Versetzungszeichen"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
 msgid "sharp"
@@ -303,7 +303,7 @@ msgstr "Doppel-B"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Key signatures"
-msgstr "Tonartbezeichnungen"
+msgstr "Tonartbezeichnungen (Vorzeichen)"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Warning: key signatures and pitches"
@@ -381,7 +381,7 @@ msgstr "Balken"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Advanced rhythmic commands"
-msgstr "Komplizierte rhythmische Befehle"
+msgstr "Zusätzliche rhythmische Befehle"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Partial measure"
@@ -395,7 +395,7 @@ msgstr "Auftakt"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Tuplets"
-msgstr "N-tolen"
+msgstr "Andere rhythmische Aufteilungen"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @node in ../../../Documentation/user/basic-notation.itely
@@ -462,7 +462,7 @@ msgstr "Melisma"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "A lead sheet"
-msgstr "Ein Lieder-Blatt"
+msgstr "Ein Song-Blatt"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @section in ../../../Documentation/user/tutorial.itely
@@ -627,7 +627,7 @@ msgstr "Normale Tonhöhen"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Cautionary accidentals"
-msgstr "Warnungsvorzeichen"
+msgstr "Warnungsversetzungszeichen"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -867,7 +867,7 @@ msgstr "Instrumentenspezifische Notation"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
 msgid "Piano music"
-msgstr "Klaviernoten"
+msgstr "Notation für Klavier"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1112,7 +1112,7 @@ msgstr "Notenköpfe der alten Musik"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient accidentals"
-msgstr "Vorzeichen der alten Musik"
+msgstr "Versetzungszeichen der alten Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1177,7 +1177,7 @@ msgstr "Mensural-Kontexte"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Musica ficta accidentals"
-msgstr "Musica ficta-Vorzeichen"
+msgstr "Musica ficta-Versetzungszeichen"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1432,12 +1432,12 @@ msgstr ""
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Automatic accidentals"
-msgstr "Automatische Vorzeichen"
+msgstr "Automatische Versetzungszeichen"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Setting automatic beam behavior"
-msgstr "Das Setzen von automatischen Balken einstellen"
+msgstr "Einstellung von automatischen Balken"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely

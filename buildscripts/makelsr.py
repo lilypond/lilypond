@@ -4,7 +4,7 @@ import os
 import os.path
 import shutil
 
-dirs = ['ancient','chords','connecting','contemporary','expressive','guitar','parts','repeats','scheme','spacing','staff','text','vocal']
+dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitches','repeats','scheme','spacing','staff','text','vocal','other']
 notsafe=[]
 
 try:
@@ -28,7 +28,7 @@ def copy_dir_with_test(srcdir, destdir):
 			dest = os.path.join (destdir, file)
 			copy_with_warning(src, dest)
 			os.system('convert-ly -e ' + dest)
-			s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
+			s = os.system('lilypond -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
 			if s:
 				notsafe.append(dest)
 

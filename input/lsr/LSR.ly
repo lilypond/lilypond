@@ -15,9 +15,13 @@ These pages show LilyPond examples (snippets) from the
 
 @strong{@uref{expressive/collated-files.html,Expressive marks}}
 
+@strong{@uref{education/collated-files.html,Education}}
+
 @strong{@uref{guitar/collated-files.html,Guitar notation}}
 
 @strong{@uref{parts/collated-files.html,Preparing parts}}
+
+@strong{@uref{pitches/collated-files.html,Pitches}}
 
 @strong{@uref{repeats/collated-files.html,Repeats}}
 
@@ -30,6 +34,9 @@ These pages show LilyPond examples (snippets) from the
 @strong{@uref{vocal/collated-files.html,Vocal music}}
 
 @strong{@uref{scheme/collated-files.html,Advanced stuff with scheme}}
+
+@strong{@uref{other/collated-files.html,Other: snippets that do not fit
+into the above categories.}}
 "
 }
 

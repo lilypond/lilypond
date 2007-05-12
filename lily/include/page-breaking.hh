@@ -104,6 +104,8 @@ protected:
 				vsize system_count,
 				Line_division lower_bound = Line_division (),
 				Line_division upper_bound = Line_division ());
+  void set_to_ideal_line_configuration (vsize start, vsize end);
+
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
   Spacing_result space_systems_on_n_pages (vsize configuration_index, vsize n, vsize first_page_num);

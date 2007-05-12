@@ -29,6 +29,7 @@ Item::Item (SCM s)
   : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
+  cached_pure_height_valid_ = false;
 }
 
 /**
@@ -38,6 +39,7 @@ Item::Item (Item const &s)
   : Grob (s)
 {
   broken_to_drul_[LEFT] = broken_to_drul_[RIGHT] = 0;
+  cached_pure_height_valid_ = false;
 }
 
 bool
@@ -227,6 +229,23 @@ Item *
 unsmob_item (SCM s)
 {
   return dynamic_cast<Item *> (unsmob_grob (s));
+}
+
+Interval
+Item::pure_height (Grob *g, int start, int end)
+{
+  if (cached_pure_height_valid_)
+    return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
+
+  cached_pure_height_ = Grob::pure_height (this, start, end);
+  cached_pure_height_valid_ = true;
+  return cached_pure_height_ + pure_relative_y_coordinate (g, start, end);
+}
+
+bool
+Item::less (Grob * const &g1, Grob * const &g2)
+{
+  return dynamic_cast<Item*> (g1)->get_column ()->get_rank () < dynamic_cast<Item*> (g2)->get_column ()->get_rank ();
 }
 
 ADD_INTERFACE (Item,

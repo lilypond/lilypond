@@ -118,7 +118,7 @@ public:
   /* extents */
   Interval extent (Grob *refpoint, Axis) const;
   void flush_extent_cache (Axis);
-  Interval pure_height (Grob *refpoint, int start_col, int end_col);
+  virtual Interval pure_height (Grob *refpoint, int start_col, int end_col);
   Interval maybe_pure_extent (Grob *refpoint, Axis, bool pure, int start, int end);
 
   /* refpoints */

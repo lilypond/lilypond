@@ -43,7 +43,8 @@ Hara_kiri_group_spanner::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 
   if (request_suicide (me, start, end))
     return ly_interval2scm (Interval ());
-  return Axis_group_interface::pure_group_height (me, start, end);
+
+  return ly_interval2scm (Axis_group_interface::pure_group_height (me, start, end));
 }
 
 /* there is probably a way that doesn't involve re-implementing a binary
