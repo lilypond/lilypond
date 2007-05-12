@@ -2,6 +2,9 @@
 This is a font of music symbols.  All MF sources are original.  Most
 of the documentation is in comments in the MF code.
 
+Non-square pixels are not supported; with other words, the horizontal and
+vertical resolution of the output device must be the same.
+
 Currently, outline fonts are created by using `autotrace', but we are
 already in the process to convert the MF code directly to PostScript code
 with a tool called `mf2pt1', which in turn calls `FontForge' to postprocess
@@ -21,9 +24,9 @@ Here some guidelines to assure a clean conversion.
 . Don't use self-intersecting outlines in general since it can confuse
   mf2pt1's algorithm to get the orientation of a closed path.  Note that
   MetaPost's implementation of the `turningnumber' primitive (which would
-  immediately give the orientation of a path) is severely broken and not
-  fixed yet at the time of writing (November 2005), thus some hand-made code
-  in mf2pt1.mp is used to work around this bug.
+  immediately give the orientation of a path) is severely broken before
+  version 1.0 of MetaPost, thus some hand-made code in mf2pt1.mp is used
+  to work around this bug.
 
 . If outlines intersect, avoid grazing intersections.  In case two outlines
   intersect in an explicitly defined point, include this point into both
@@ -35,7 +38,7 @@ Here some guidelines to assure a clean conversion.
 
 . Don't apply transformations after calling `fill' -- for example, don't
   mirror `currentpicture'.  Instead, transform the path and call `fill'
-  afterwards.  This insures that mf2pt1 gets the correct outline directions
+  afterwards.  This ensures that mf2pt1 gets the correct outline directions
   which is a necessary prerequisite for FontForge's algorithm to remove
   overlaps.
 

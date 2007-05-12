@@ -61,14 +61,14 @@ def draw_vaticana_do_clef (expr exact_center, reduction) =
 
 	define_pixels (reduced_il);
 
-	save pat, ellipse, clef;
+	save pat, ellipse, clef, T;
 	path pat, ellipse, clef;
+	transform T;
 
-	pickup pencircle xscaled 0.6 linethickness
-			 yscaled 0.6 reduced_il;
-
-	ellipse := reverse fullcircle xscaled 0.6 linethickness
-				      yscaled 0.6 reduced_il;
+	T := identity xscaled 0.6 linethickness
+		      yscaled 0.6 reduced_il;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	save xoffs, yoffs;
 
@@ -137,14 +137,14 @@ def draw_vaticana_fa_clef (expr exact_center, reduction) =
 	define_pixels (reduced_il, xoffs, yoffs);
 
 	% left-handed punctum
-	pickup pencircle xscaled 0.6 linethickness
-			 yscaled 0.5 reduced_il;
-
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	ellipse := reverse fullcircle xscaled 0.6 linethickness
-				      yscaled 0.5 reduced_il;
+	T := identity xscaled 0.6 linethickness
+		      yscaled 0.5 reduced_il;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	lft z21 = (xoffs + 0.00 reduced_il, yoffs + 0.00 reduced_il);
 	z22 = (xoffs + 0.25 reduced_il, yoffs + 0.05 reduced_il);
@@ -232,14 +232,14 @@ def draw_medicaea_do_clef (expr exact_center, reduction) =
 	define_pixels (xoffs, yoffs);
 
 	% flags
-	pickup pencircle xscaled reduced_slt
-			 yscaled flag_height;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := reverse fullcircle xscaled reduced_slt
-				      yscaled flag_height;
+	T := identity xscaled reduced_slt
+		      yscaled flag_height;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	xoffs = lft x1 = rt x2 - reduced_il;
 	y1 = yoffs + 0.5 (reduced_il - flag_height - staff_space);
@@ -312,15 +312,14 @@ def draw_medicaea_fa_clef (expr exact_center, reduction) =
 	draw_rounded_block (bot lft z12, top rt z11, linethickness);
 
 	% left-handed punctum
-
-	pickup pencircle xscaled reduced_slt
-			 yscaled reduced_il;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := reverse fullcircle xscaled reduced_slt
-				      yscaled reduced_il;
+	T := identity xscaled reduced_slt
+		      yscaled reduced_il;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	lft z13 = (xoffs, yoffs);
 	rt z14 = z11 + (linethickness / 2, 0);
@@ -617,14 +616,14 @@ def draw_neomensural_c_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled stem_width
-			 yscaled blot_diameter;
-
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	ellipse := fullcircle xscaled stem_width
-			      yscaled blot_diameter;
+	T := identity xscaled stem_width
+		      yscaled blot_diameter;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	lft x11 = lft x12 = xoffs;
 	top y12 - bot y11 = 4 reduced_il;
@@ -710,14 +709,14 @@ def draw_petrucci_c_clef (expr exact_center, flare_align, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 linethickness
-			 yscaled blot_diameter;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := fullcircle xscaled 1.4 linethickness
-			      yscaled blot_diameter;
+	T := identity xscaled 1.4 linethickness
+		      yscaled blot_diameter;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	lft x11 = lft x13 = xoffs;
 	top y11 = yoffs + left_height;
@@ -864,14 +863,14 @@ def draw_mensural_c_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled 1.4 linethickness
-			 yscaled blot_diameter;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := fullcircle xscaled 1.4 linethickness
-			      yscaled blot_diameter;
+	T := identity xscaled 1.4 linethickness
+		      yscaled blot_diameter;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	lft x11 = lft x13 = xoffs;
 	top y11 = yoffs + 2.2 half_reduced_il;
@@ -947,16 +946,15 @@ def draw_diamond (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled beamheight
-			 yscaled stem_width
-			 rotated 45;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := reverse fullcircle xscaled beamheight
-				      yscaled stem_width
-				      rotated 45;
+	T := identity xscaled beamheight
+		      yscaled stem_width
+		      rotated 45;
+	pickup pencircle transformed T;
+	ellipse := reverse fullcircle transformed T;
 
 	x21 := xoffs - rh_width / 2;
 	y21 := yoffs;
@@ -1033,14 +1031,14 @@ def draw_petrucci_f_clef (expr exact_center, reduction) =
 	define_pixels (xoffs, yoffs);
 
 	% brevis stem
-	pickup pencircle xscaled stem_width
-			 yscaled blot_diameter;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := fullcircle xscaled stem_width
-			      yscaled blot_diameter;
+	T := identity xscaled stem_width
+		      yscaled blot_diameter;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	rt z8 = (xoffs + reduced_il, yoffs - 4 reduced_slt);
 	rt z9 = (xoffs + reduced_il, yoffs - 4 reduced_il);
@@ -1128,16 +1126,15 @@ def draw_mensural_f_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled 0.2 width
-			 yscaled stem_width
-			 rotated 45;
-
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	ellipse := fullcircle xscaled 0.2 width
-			      yscaled stem_width
-			      rotated 45;
+	T := identity xscaled 0.2 width
+		      yscaled stem_width
+		      rotated 45;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	% half circle
 	lft z10 = (0, 0);
@@ -1237,16 +1234,15 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled 0.50 reduced_slt
-			 yscaled 0.22 reduced_il
-			 rotated -35;
-
-	save ellipse, paths, sub_path, outlines, sub_outlines;
+	save ellipse, paths, sub_path, outlines, sub_outlines, T;
 	path ellipse, paths[], sub_path, outlines[], sub_outlines[];
+	transform T;
 
-	ellipse := fullcircle xscaled 0.5 reduced_slt
-			      yscaled 0.22 reduced_il
-			      rotated -35;
+	T := identity xscaled 0.5 reduced_slt
+		      yscaled 0.22 reduced_il
+		      rotated -35;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	lft z1 = (xoffs + 0.80 reduced_il, yoffs + 0.00 reduced_il);
 	lft z2 = (xoffs + 1.00 reduced_il, yoffs + 1.20 reduced_il);
@@ -1313,13 +1309,11 @@ def draw_petrucci_g_clef (expr exact_center, reduction) =
 	(times42, times24) = sub_outlines4 intersectiontimes sub_outlines2;
 	(times43, times34) = sub_outlines4 intersectiontimes sub_outlines3;
 
-	pickup pencircle xscaled 0.75 reduced_slt
-			 yscaled 0.33 reduced_il
-			 rotated -35;
-
-	ellipse := fullcircle xscaled 0.75 reduced_slt
-			      yscaled 0.33 reduced_il
-			      rotated -35;
+	T := identity xscaled 0.75 reduced_slt
+		      yscaled 0.33 reduced_il
+		      rotated -35;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	lft z21 = (xoffs + 1.05 reduced_il, yoffs + 0.45 reduced_il);
 	lft z22 = (xoffs + 0.55 reduced_il, yoffs + 0.45 reduced_il);
@@ -1515,16 +1509,15 @@ def draw_hufnagel_do_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	pickup pencircle xscaled (0.60 reduced_il)
-			 yscaled (0.10 reduced_il)
-			 rotated 40;
-
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	ellipse := fullcircle xscaled (0.60 reduced_il)
-			      yscaled (0.10 reduced_il)
-			      rotated 40;
+	T := identity xscaled 0.6 reduced_il
+		      yscaled 0.1 reduced_il
+		      rotated 40;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z1 = (xoffs + 0.90 reduced_il, yoffs + .45 reduced_il);
 	z2 = (xoffs + 0.80 reduced_il, yoffs + .45 reduced_il);
@@ -1591,10 +1584,6 @@ def draw_hufnagel_fa_clef (expr exact_center, reduction) =
 		      1.15 reduced_il# - ypart exact_center,
 		      1.00 reduced_il# + ypart exact_center);
 
-	pickup pencircle xscaled (0.60 reduced_il)
-			 yscaled (0.10 reduced_il)
-			 rotated 40;
-
 	save xoffs, yoffs;
 
 	xoffs# = xpart exact_center;
@@ -1602,12 +1591,15 @@ def draw_hufnagel_fa_clef (expr exact_center, reduction) =
 
 	define_pixels (xoffs, yoffs);
 
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	ellipse := fullcircle xscaled (0.60 reduced_il)
-			      yscaled (0.10 reduced_il)
-			      rotated 40;
+	T := identity xscaled 0.6 reduced_il
+		      yscaled 0.1 reduced_il
+		      rotated 40;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z11 = (xoffs + 0.90 reduced_il, yoffs + 0.70 reduced_il);
 	z12 = (xoffs + 0.80 reduced_il, yoffs + 0.70 reduced_il);

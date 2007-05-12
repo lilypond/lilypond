@@ -53,8 +53,6 @@ def draw_nail (expr bottom_left, top_right) =
 	x6 = x4;
 	y5 = y6 = y2 - 2 mensural_Cthickness;
 
-	pickup pencircle scaled round;
-
 	fill bot z1{right}
 	     .. rt z1{up}
 	     -- rt z5{up}

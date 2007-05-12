@@ -73,7 +73,7 @@ def draw_meta_sharp (expr width, offset) =
 	pickup pencircle scaled 2 blot_diameter;
 
 	rt x2 - lft x1 = beamwidth;
-	y2 - y1 = sharp_beamheight;
+	z2 = z1 + whatever * (beamwidth, sharp_beamheight);
 	.5 [z1, z3] = (.5 w, offset);
 	x3 = x2;
 	top y2 - bot y3 = sharp_beamheight;
@@ -828,8 +828,8 @@ fet_beginchar ("Double Flat", "flatflat");
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
 	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space);
-	draw_meta_flat (round ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 0.33 staff_space);
+	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
+			right_wid * staff_space, 1/3 staff_space);
 fet_endchar;
 
 
@@ -844,8 +844,8 @@ fet_beginchar ("3/4 Flat", "flatflat.slash");
 		      (left_wid + right_wid - overlap) * staff_space#,
 		      .6 staff_space#, 1.9 staff_space#);
 	draw_meta_flat (0, left_wid * staff_space, 1/3 staff_space);
-	draw_meta_flat (round ((left_wid - overlap) * staff_space),
-			right_wid * staff_space, 0.33 staff_space);
+	draw_meta_flat (hround ((left_wid - overlap) * staff_space),
+			right_wid * staff_space, 1/3 staff_space);
 
 	%% maybe we should clip part of the stems?
 	%% or make the 1st flat smaller?

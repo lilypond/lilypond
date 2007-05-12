@@ -163,7 +163,7 @@ def draw_longa (expr up) =
 
 	if up:
 		bot y1 = -d;
-		y2 = h;
+		top y2 = h;
 		rt x1 - fudge = 0;
 		x1 = x2;
 
@@ -185,6 +185,8 @@ def draw_longa (expr up) =
 
 	draw_gridline (z1, z2, stemthick);
 	draw_gridline (z3, z4, stemthick);
+
+	labels (1, 2, 3, 4);
 enddef;
 
 
