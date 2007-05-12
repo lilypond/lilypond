@@ -175,12 +175,11 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 	  {
 	    chunks.push_back (last_offset - last_chunk);
 	    last_chunk = last_offset;
-	    assert (cur_chunk_idx < 100);/* FIXME: only for static arrays */
 	  }
 
 	last_offset = offset;
       }
-      chunks.push_back (s - last_chunk)
+      chunks.push_back (s - last_chunk);
 
       delete[] loca_buf;
     }
