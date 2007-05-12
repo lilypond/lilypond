@@ -32,11 +32,10 @@ make_index_to_charcode_map (FT_Face face)
        charcode = FT_Get_Next_Char (face, charcode, &gindex))
     {
       m[gindex] = charcode;
-      j++;
+      j ++;
     }
   FT_Set_Charmap (face, current_cmap);
 
-  
   return m;
 }
 
@@ -65,17 +64,16 @@ print_header (void *out, FT_Face face)
   TT_Header *ht
     = (TT_Header *)FT_Get_Sfnt_Table (face, ft_sfnt_head);
 
-  lily_cookie_fprintf (out, "/FontBBox [%ld %ld %ld %ld] def\n",
-		       ht->xMin *1000L / ht->Units_Per_EM,
-		       ht->yMin *1000L / ht->Units_Per_EM,
-		       ht->xMax *1000L / ht->Units_Per_EM,
-		       ht->yMax *1000L / ht->Units_Per_EM);
+  lily_cookie_fprintf (out, "/FontBBox [%lf %lf %lf %lf] def\n",
+		       float (ht->xMin) / ht->Units_Per_EM,
+		       float (ht->yMin) / ht->Units_Per_EM,
+		       float (ht->xMax) / ht->Units_Per_EM,
+		       float (ht->yMax) / ht->Units_Per_EM);
 
   lily_cookie_fprintf (out, "/FontType 42 def\n");
   lily_cookie_fprintf (out, "/FontInfo 8 dict dup begin\n");
-  lily_cookie_fprintf (out, "/version (%d.%d) def\n",
-		       int (ht->Font_Revision >> 16),
-		       int (ht->Font_Revision &((1 << 16) -1)));
+  lily_cookie_fprintf (out, "/version (%.3f) def\n",
+		       ht->Font_Revision / 65536.0);
 
 #if 0
   if (strings[0])
@@ -100,95 +98,303 @@ print_header (void *out, FT_Face face)
 
   lily_cookie_fprintf (out, "/isFixedPitch %s def\n",
 		       pt->isFixedPitch ? "true" : "false");
-  lily_cookie_fprintf (out, "/UnderlinePosition %ld def\n",
-		       pt->underlinePosition *1000L / ht->Units_Per_EM);
-  lily_cookie_fprintf (out, "/UnderlineThickness %ld def\n",
-		       pt->underlineThickness *1000L / ht->Units_Per_EM);
+  lily_cookie_fprintf (out, "/UnderlinePosition %lf def\n",
+		       float (pt->underlinePosition) / ht->Units_Per_EM);
+  lily_cookie_fprintf (out, "/UnderlineThickness %lf def\n",
+		       float (pt->underlineThickness) / ht->Units_Per_EM);
   lily_cookie_fprintf (out, "end readonly def\n");
 }
 
 #define CHUNKSIZE 65534
 
-static void
-print_body (void *out, string name)
-{
-  FILE *fd = fopen (name.c_str (), "rb");
+const FT_ULong FT_ENC_TAG (glyf_tag, 'g', 'l', 'y', 'f');
+const FT_ULong FT_ENC_TAG (head_tag, 'h', 'e', 'a', 'd');
+const FT_ULong FT_ENC_TAG (loca_tag, 'l', 'o', 'c', 'a');
 
-  static char xdigits[] = "0123456789ABCDEF";
-
-  unsigned char *buffer;
-  int i, j;
-
-  buffer = new unsigned char[CHUNKSIZE];
-  lily_cookie_fprintf (out, "/sfnts [");
-  for (;;)
-    {
-      i = fread (buffer, 1, CHUNKSIZE, fd);
-      if (i == 0)
-	break;
-      lily_cookie_fprintf (out, "\n<");
-      for (j = 0; j < i; j++)
-	{
-	  if (j != 0 && j % 36 == 0)
-	    lily_cookie_putc ('\n', out);
-	  /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
-	  lily_cookie_putc (xdigits[ (buffer[j] & 0xF0) >> 4], out);
-	  lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
-	}
-      lily_cookie_fprintf (out, "00>");	/* Adobe bug? */
-      if (i < CHUNKSIZE)
-	break;
-    }
-  lily_cookie_fprintf (out, "\n] def\n");
-  delete[] buffer;
-  fclose (fd);
-}
-
-#if 0
 static
-void t42_write_sting (void *out, unsigned char const * buffer, size_t s)
+void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
+		      size_t s, bool is_glyf,
+		      FT_ULong head_length, FT_ULong loca_length)
 {
-  lily_cookie_fprintf (out, "\n<");
+  vector<FT_UShort> chunks;		/* FIXME: use dynamic array */
+
+  if (is_glyf)
+    {
+      /* compute chunk sizes */
+      unsigned char *head_buf = new unsigned char[head_length];
+      FT_Error error = FT_Load_Sfnt_Table (face, head_tag, 0, head_buf, NULL);
+      if (error)
+	programming_error ("FT_Load_Sfnt_Table (): error.");
+
+      /* we access the lower byte of indexToLocFormat */
+      bool long_offsets = head_buf[4*4 + 2*2 + 2*8 + 4*2 + 3*2 + 1] == 1;
+
+      delete[] head_buf;
+
+      unsigned char *loca_buf = new unsigned char[loca_length];
+      error = FT_Load_Sfnt_Table (face, loca_tag, 0, loca_buf, NULL);
+      if (error)
+	programming_error ("FT_Load_Sfnt_Table (): error.");
+
+      unsigned char *p = loca_buf;
+      unsigned char *endp = loca_buf + loca_length;
+
+      FT_ULong offset = 0, last_offset = 0, last_chunk = 0;
+      while (p < endp)
+      {
+	if (long_offsets)
+	  {
+	    offset = (p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3];
+	    p += 4;
+	  }
+	else
+	  {
+	    offset = ((p[0] << 8) | p[1]) << 1;
+	    p += 2;
+	  }
+	if (offset > last_offset + CHUNKSIZE)
+	  {
+	    if (last_chunk != last_offset)
+	      {
+		chunks.push_back (last_offset - last_chunk);
+	      }
+	    /*
+	      a single glyph with more than 64k data
+	      is a pathological case but...
+	     */
+	    FT_ULong rest = offset - last_offset;
+	    while (rest > CHUNKSIZE)
+	      {
+		chunks.push_back (CHUNKSIZE);
+		rest -= CHUNKSIZE;
+	      }
+	    chunks.push_back (rest);
+	    last_chunk = offset;
+	  }
+	else if (offset > last_chunk + CHUNKSIZE)
+	  {
+	    chunks.push_back (last_offset - last_chunk);
+	    last_chunk = last_offset;
+	    assert (cur_chunk_idx < 100);/* FIXME: only for static arrays */
+	  }
+
+	last_offset = offset;
+      }
+      chunks.push_back (s - last_chunk)
+
+      delete[] loca_buf;
+    }
+  else if (s > CHUNKSIZE)
+    {
+      FT_ULong rest = s;
+      while (rest > CHUNKSIZE)
+	{
+	  chunks.push_back (CHUNKSIZE);
+	  rest -= CHUNKSIZE;
+	}
+      chunks.push_back (rest);
+    }
+  else
+    chunks.push_back (CHUNKSIZE);
+
+  lily_cookie_fprintf (out, "\n"
+			    " <");
+
   int l = 0;
   static char xdigits[] = "0123456789ABCDEF";
+
+  int cur_chunk_idx = 0;
   for (size_t j = 0; j < s; j++)
     {
-      if (j != 0 && j % 36 == 0)
-	lily_cookie_putc ('\n', out);
+      if (l >= chunks[cur_chunk_idx])
+	{
+	  lily_cookie_fprintf (out, "\n"
+				    " 00>\n"
+				    " <");
+	  l = 0;
+	  cur_chunk_idx ++;
+	}
 
-      if (l ++ >= CHUNKSIZE)
-	lily_cookie_fprintf (out, "00>\n<");
+      if (l % 31 == 0)
+	lily_cookie_fprintf (out, "\n"
+				  "  ");
 
       /* lily_cookie_fprintf (out,"%02X",(int)buffer[j]) is too slow */
-      lily_cookie_putc (xdigits[ (buffer[j] & 0xF0) >> 4], out);
+      lily_cookie_putc (xdigits[(buffer[j] & 0xF0) >> 4], out);
       lily_cookie_putc (xdigits[buffer[j] & 0x0F], out);
+
+      l ++;
     }
-  lily_cookie_fprintf (out, "00>");	/* Adobe bug? */
+
+  /* pad to four-byte boundary */
+  while ((s ++) % 4 != 0)
+    lily_cookie_fprintf (out, "00");
+
+  lily_cookie_fprintf (out, "\n"
+			    "  00\n"
+			    " >");
 }
 
-
 static void
-new_print_body (void *out,  FT_Face face)
+print_body (void *out, FT_Face face)
 {
   FT_UInt idx = 0;
-
+  FT_ULong head_length = 0, loca_length = 0;
   FT_ULong tag, length;
-  
+  FT_ULong lengths[100], tags[100];	/* FIXME: use dynamic arrays */
+
+  /*
+    we must build our own TTF header -- the original font
+    might be a TTC where tables are not contiguous, or the font
+    contains tables which aren't indexed at all
+   */
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
+	 != FT_Err_Table_Missing)
+  {
+    assert (idx < 100);			/* FIXME: only for static arrays */
+    lengths[idx] = length;
+    tags[idx ++] = tag;
+    if (tag == head_tag)
+      head_length = length;
+    else if (tag == loca_tag)
+      loca_length = length;
+  }
+
+  FT_ULong hlength = 12 + 16 * idx;
+
+  unsigned char *hbuf = new unsigned char[hlength];
+  unsigned char *p;
+
+  hbuf[0] = 0x00;			/* version */
+  hbuf[1] = 0x01;
+  hbuf[2] = 0x00;
+  hbuf[3] = 0x00;
+  hbuf[4] = (idx & 0xFF00) >> 8;	/* numTables */
+  hbuf[5] = idx & 0x00FF;
+
+  FT_UInt searchRange, entrySelector, rangeShift;
+  FT_UInt i, j;
+  for (i = 1, j = 2; j <= idx; i++, j <<= 1)
+    ;
+  entrySelector = i - 1;
+  searchRange = 0x10 << entrySelector;
+  rangeShift = (idx << 4) - searchRange;
+
+  hbuf[6] = (searchRange & 0xFF00) >> 8;
+  hbuf[7] = searchRange & 0x00FF;
+  hbuf[8] = (entrySelector & 0xFF00) >> 8;
+  hbuf[9] = entrySelector & 0x00FF;
+  hbuf[10] = (rangeShift & 0xFF00) >> 8;
+  hbuf[11] = rangeShift & 0x00FF;
+
+  p = &hbuf[12];
+
+  FT_ULong checksum, font_checksum = 0;
+
+  FT_ULong offset = hlength;		/* first table offset */
+
+  for (FT_UInt i = 0; i < idx; i++)
+  {
+    /* here, the buffer length must be a multiple of 4 */
+    FT_ULong len = (lengths[i] + 3) & ~3;
+    unsigned char *buf = new unsigned char[len];
+
+    buf[len - 1] = 0x00;		/* assure padding with zeros */
+    buf[len - 2] = 0x00;
+    buf[len - 3] = 0x00;
+
+    FT_Error error = FT_Load_Sfnt_Table (face, tags[i], 0, buf, NULL);
+    if (error)
+      programming_error ("FT_Load_Sfnt_Table (): error.");
+
+    if (tag == head_tag)
+      {
+	/*
+	  first pass of computing the font checksum
+	  needs checkSumAdjustment = 0
+	 */
+	buf[8] = 0x00;
+	buf[9] = 0x00;
+	buf[10] = 0x00;
+	buf[11] = 0x00;
+      }
+
+    checksum = 0;
+    unsigned char *endq = buf + len;
+    for (unsigned char *q = buf; q < endq; q += 4)
+      checksum += (q[0] << 24) | (q[1] << 16) | (q[2] << 8) | q[3];
+    font_checksum += checksum;
+
+    delete[] buf;
+
+    *(p++) = (tags[i] & 0xFF000000UL) >> 24;
+    *(p++) = (tags[i] & 0x00FF0000UL) >> 16;
+    *(p++) = (tags[i] & 0x0000FF00UL) >> 8;
+    *(p++) = tags[i] & 0x000000FFUL;
+
+    *(p++) = (checksum & 0xFF000000UL) >> 24;
+    *(p++) = (checksum & 0x00FF0000UL) >> 16;
+    *(p++) = (checksum & 0x0000FF00UL) >> 8;
+    *(p++) = checksum & 0x000000FFUL;
+
+    *(p++) = (offset & 0xFF000000UL) >> 24;
+    *(p++) = (offset & 0x00FF0000UL) >> 16;
+    *(p++) = (offset & 0x0000FF00UL) >> 8;
+    *(p++) = offset & 0x000000FFUL;
+
+    *(p++) = (lengths[i] & 0xFF000000UL) >> 24;
+    *(p++) = (lengths[i] & 0x00FF0000UL) >> 16;
+    *(p++) = (lengths[i] & 0x0000FF00UL) >> 8;
+    *(p++) = lengths[i] & 0x000000FFUL;
+
+    /* offset must be a multiple of 4 */
+    offset += (lengths[i] + 3) & ~3;
+  }
+
+  /* add checksum of TTF header */
+  checksum = 0;
+  for (unsigned char *q = hbuf; q < p; q += 4)
+    checksum += (q[0] << 24) | (q[1] << 16) | (q[2] << 8) | q[3];
+  font_checksum += checksum;
+  font_checksum = 0xB1B0AFBAUL - font_checksum;
+
+  /*
+    see Adobe technical note 5012.Type42_Spec.pdf for details how
+    the /sfnts array must be constructed
+   */
   lily_cookie_fprintf (out, "/sfnts [");
-  while (FT_Sfnt_Table_Info(face, idx, &tag, &length)!=
-	 FT_Err_Table_Missing)
+  t42_write_table (out, face, hbuf, hlength, false,
+		   head_length, loca_length);
+  delete[] hbuf;
+
+  idx = 0;
+
+  while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
+	 != FT_Err_Table_Missing)
     {
       unsigned char *buf = new unsigned char[length];
-      FT_Error error = FT_Load_Sfnt_Table(face, tag, 0, buf, NULL); 
+      FT_Error error = FT_Load_Sfnt_Table (face, tag, 0, buf, NULL);
+      if (error)
+	programming_error ("FT_Load_Sfnt_Table (): error.");
 
-      t42_write_sting (out, buf, length);
+      if (tag == head_tag)
+	{
+	  /* in the second pass simply store the computed font checksum */
+	  buf[8] = (font_checksum & 0xFF000000UL) >> 24;
+	  buf[9] = (font_checksum & 0x00FF0000UL) >> 16;
+	  buf[10] = (font_checksum & 0x0000FF00UL) >> 8;
+	  buf[11] = font_checksum & 0x000000FFUL;
+	}
+
+      bool is_glyf_table = tag == glyf_tag && length > CHUNKSIZE;
+      t42_write_table (out, face, buf, length, is_glyf_table,
+		       head_length, loca_length);
 
       delete[] buf;
       idx ++;
     }
   lily_cookie_fprintf (out, "\n] def\n");
 }
-#endif
 
 static void
 print_trailer (void *out,
@@ -225,25 +431,22 @@ print_trailer (void *out,
 	  get_unicode_name (glyph_name, ucode);
 	}
 
-      if (glyph_name == string (".notdef"))
+      if (i == 0)
+	sprintf (glyph_name, ".notdef");
+      else if (glyph_name == string (".notdef"))
 	glyph_name[0] = '\0';
 
-      
       if (!glyph_name[0])
-	{
-	  get_glyph_index_name (glyph_name, i);
-	}
-      
+	get_glyph_index_name (glyph_name, i);
+
       if (glyph_name[0])
 	{
 	  lily_cookie_fprintf (out, "/%s %d def ", glyph_name, i);
 	  output_count ++;
 	}
       else
-	{
-	  programming_error (to_string ("no name for glyph %d", i));
-	}
-			     
+	programming_error (to_string ("no name for glyph %d", i));
+			
       if (! (output_count % 5))
 	lily_cookie_fprintf (out, "\n");
     }
@@ -258,8 +461,7 @@ create_type42_font (void *out, string name)
   FT_Face face = open_ft_face (name);
 
   print_header (out, face);
-  // new_print_body (out, face);
-  print_body (out, name);
+  print_body (out, face);
   print_trailer (out, face);
 
   FT_Done_Face (face);
@@ -278,12 +480,12 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
   FT_Face face = open_ft_face (file_name);
   char const *ps_name_str0 = FT_Get_Postscript_Name (face);
   SCM ps_name = scm_from_locale_string (ps_name_str0 ? ps_name_str0 : "");
-  
+
   FT_Done_Face (face);
-  
+
   if (be_verbose_global)
     progress_indication ("]");
-  
+
   return ps_name;
 }
 
@@ -291,7 +493,7 @@ LY_DEFINE (ly_ttf_ps_name, "ly:ttf-ps-name",
 
 LY_DEFINE (ly_ttf_2_pfa, "ly:ttf->pfa",
 	   1, 0, 0, (SCM ttf_file_name),
-	   "Convert the contents of a TTF file to Type42 PFA, returning it as "
+	   "Convert the contents of a TTF file to Type42 PFA, returning it as"
 	   " a string.")
 {
   LY_ASSERT_TYPE (scm_is_string, ttf_file_name, 1);
