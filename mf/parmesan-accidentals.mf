@@ -21,14 +21,14 @@ fet_beginchar ("Ed. Med. Flat" , "medicaea-1");
 	set_char_box (0.1 staff_space#, 0.6 staff_space#,
 		      0.6 staff_space#, 1.0 staff_space#);
 
-	save ellipse, pat, outline;
+	save ellipse, pat, outline, T;
 	path ellipse, pat, outline;
+	transform T;
 
-	pickup pencircle xscaled 0.50 linethickness
-			 yscaled 0.22 staff_space;
-
-	ellipse := fullcircle xscaled 0.5 linethickness
-				      yscaled 0.22 staff_space;
+	T := identity xscaled 0.50 linethickness
+		      yscaled 0.22 staff_space;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	x1 = x2 = 0;
 	top y1 = h;
@@ -38,13 +38,11 @@ fet_beginchar ("Ed. Med. Flat" , "medicaea-1");
 	     -- get_subpath (ellipse, down, up, z2)
 	     -- cycle;
 
-	pickup pencircle xscaled 0.50 linethickness
-			 yscaled 0.22 staff_space
-			 rotated -63;
-
-	ellipse := fullcircle xscaled 0.50 linethickness
-			      yscaled 0.22 staff_space
-			      rotated -63;
+	T := identity xscaled 0.50 linethickness
+		      yscaled 0.22 staff_space
+		      rotated -63;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z3 = (0.10 staff_space, -0.50 staff_space);
 	z4 = (0.40 staff_space, +0.40 staff_space);
@@ -96,14 +94,14 @@ fet_beginchar ("Ed. Vat. Flat" , "vaticana-1");
 	z6 = (0.25 staff_space, +0.20 staff_space);
 	z7 = (0.15 staff_space, +0.26 staff_space);
 
-	save pat, ellipse;
+	save pat, ellipse, T;
 	path pat, ellipse;
+	transform T;
 
-	pickup pencircle xscaled 0.50 linethickness
-			 yscaled 0.22 staff_space;
-
-	ellipse := fullcircle xscaled 0.50 linethickness
-			      yscaled 0.22 staff_space;
+	T := identity xscaled 0.50 linethickness
+		      yscaled 0.22 staff_space;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	pat := z1
 	       -- z2{down}
@@ -140,14 +138,14 @@ fet_endchar;
 
 
 fet_beginchar ("Ed. Vat. Natural" , "vaticana0");
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	pickup pencircle xscaled 0.80 linethickness
-			 yscaled 0.22 staff_space;
-
-	ellipse := fullcircle xscaled 0.8 linethickness
-			      yscaled 0.22 staff_space;
+	T := identity xscaled 0.80 linethickness
+		      yscaled 0.22 staff_space;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z1 = (0.00 staff_space, +0.65 staff_space);
 	z2 = (0.00 staff_space, -0.35 staff_space);
@@ -194,12 +192,13 @@ fet_beginchar ("Mensural Sharp" , "mensural1");
 
 	stemthick# = linethickness#;
 
-	save circle, pat;
+	save circle, pat, T;
 	path circle, pat;
+	transform T;
 
-	pickup pencircle scaled 0.8 stemthick;
-
-	circle := fullcircle scaled 0.8 stemthick;
+	T := identity scaled 0.8 stemthick;
+	pickup pencircle transformed T;
+	circle := fullcircle transformed T;
 
 	z1 = 0.4 staff_space * (0.8, 1);
 	z1 = -z2;
@@ -229,16 +228,15 @@ fet_beginchar ("Mensural Flat" , "mensural-1");
 
 	stemthick# = linethickness#;
 
-	save ellipse, pat, outline;
+	save ellipse, pat, outline, T;
 	path ellipse, pat, outline;
+	transform T;
 
-	pickup pencircle xscaled 1.4 stemthick
-			 yscaled 0.6 stemthick
-			 rotated 45;
-
-	ellipse := fullcircle xscaled 1.4 stemthick
-			      yscaled 0.6 stemthick
-			      rotated 45;
+	T := identity xscaled 1.4 stemthick
+		      yscaled 0.6 stemthick
+		      rotated 45;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z1 = (0.00 staff_space, +1.80 staff_space);
 	z2 = (0.00 staff_space, -0.25 staff_space);
@@ -294,16 +292,15 @@ fet_beginchar ("Hufnagel Flat" , "hufnagel-1");
 
 	stemthick# = linethickness#;
 
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	pickup pencircle xscaled 2.4 stemthick
-			 yscaled 0.4 stemthick
-			 rotated 45;
-
-	ellipse := fullcircle xscaled 2.4 stemthick
-			      yscaled 0.4 stemthick
-			      rotated 45;
+	T := identity xscaled 2.4 stemthick
+		      yscaled 0.4 stemthick
+		      rotated 45;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	z1 = (0.00 staff_space, +1.80 staff_space);
 	z2 = (0.00 staff_space, -0.15 staff_space);

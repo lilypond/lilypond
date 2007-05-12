@@ -15,14 +15,14 @@ fet_beginchar ("ictus", "ictus");
 
 	define_pixels (wd, ht);
 
-	save ellipse;
+	save ellipse, T;
 	path ellipse;
+	transform T;
 
-	pickup pencircle xscaled wd
-			 yscaled blot_diameter;
-
-	ellipse := fullcircle xscaled wd
-			      yscaled blot_diameter;
+	T := identity xscaled wd
+		      yscaled blot_diameter;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;
 
 	set_char_box (wd# / 2, wd# / 2, ht# / 2, ht# / 2);
 

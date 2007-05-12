@@ -32,17 +32,16 @@ dir_down := -1;
 def draw_mensural_outermost_flare (expr staffline_adjustment, d_) =
 	define_pixels (linethickness, staff_space);
 
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	pickup pencircle xscaled 1.00 linethickness
-			 yscaled 0.22 staff_space
-			 rotated -35;
+	T := identity xscaled 1.00 linethickness
+		      yscaled 0.22 staff_space
+		      rotated -35;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;	
 
-	ellipse := fullcircle xscaled 1.00 linethickness
-			      yscaled 0.22 staff_space
-			      rotated -35;
-	
 	z11 = (+0.00 staff_space, -0.00 staff_space);
 	z12 = (+0.15 staff_space, -0.00 staff_space);
 
@@ -87,16 +86,15 @@ enddef;
 def draw_mensural_inner_flare (expr il_shift, idx, d_) =
 	define_pixels (linethickness, staff_space);
 
-	save ellipse, pat;
+	save ellipse, pat, T;
 	path ellipse, pat;
+	transform T;
 
-	pickup pencircle xscaled 1.00 linethickness
-			 yscaled 0.22 staff_space
-			 rotated -35;
-
-	ellipse := fullcircle xscaled 1.00 linethickness
-			      yscaled 0.22 staff_space
-			      rotated -35;
+	T := identity xscaled 1.00 linethickness
+		      yscaled 0.22 staff_space
+		      rotated -35;
+	pickup pencircle transformed T;
+	ellipse := fullcircle transformed T;	
 
 	save i;
 	numeric i[];
