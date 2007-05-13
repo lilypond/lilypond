@@ -117,7 +117,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 		      size_t s, bool is_glyf,
 		      FT_ULong head_length, FT_ULong loca_length)
 {
-  vector<FT_UShort> chunks;		/* FIXME: use dynamic array */
+  vector<FT_UShort> chunks;
 
   if (is_glyf)
     {
@@ -156,9 +156,7 @@ void t42_write_table (void *out, FT_Face face, unsigned char const *buffer,
 	if (offset > last_offset + CHUNKSIZE)
 	  {
 	    if (last_chunk != last_offset)
-	      {
-		chunks.push_back (last_offset - last_chunk);
-	      }
+	      chunks.push_back (last_offset - last_chunk);
 	    /*
 	      a single glyph with more than 64k data
 	      is a pathological case but...
@@ -242,7 +240,7 @@ print_body (void *out, FT_Face face)
   FT_UInt idx = 0;
   FT_ULong head_length = 0, loca_length = 0;
   FT_ULong tag, length;
-  FT_ULong lengths[100], tags[100];	/* FIXME: use dynamic arrays */
+  vector<FT_ULong> lengths, tags;
 
   /*
     we must build our own TTF header -- the original font
@@ -252,13 +250,13 @@ print_body (void *out, FT_Face face)
   while (FT_Sfnt_Table_Info (face, idx, &tag, &length)
 	 != FT_Err_Table_Missing)
   {
-    assert (idx < 100);			/* FIXME: only for static arrays */
-    lengths[idx] = length;
-    tags[idx ++] = tag;
+    lengths.push_back (length);
+    tags.push_back (tag);
     if (tag == head_tag)
       head_length = length;
     else if (tag == loca_tag)
       loca_length = length;
+    idx ++;
   }
 
   FT_ULong hlength = 12 + 16 * idx;
