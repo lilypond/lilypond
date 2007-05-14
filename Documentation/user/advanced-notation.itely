@@ -235,8 +235,7 @@ Program reference: @internalsref{TextSpanner},
 @internalsref{Glissando}, @internalsref{VoiceFollower},
 @internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
 
-Examples: @lsr{expressive,line-styles.ly}
-@c  FIXME: add {contemporary/line-arrows.ly} when LSR is updated.  -gp
+Examples: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
 
 @node Text spanners
@@ -1660,10 +1659,7 @@ Quoting nested triplets may result in poor notation.
 
 In this manual: @ref{Instrument transpositions}.
 
-Examples:
-@c  FIXME: Add when LSR is updated.  -gp
-@c @i nputfileref{input/@/regression,quote@/.ly}
-@c @i nputfileref{input/@/regression,quote@/-transposition@/.ly}
+Examples: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
 
 Program reference: @internalsref{QuoteMusic}.
 
@@ -2110,12 +2106,6 @@ chords, e.g.,
 \makeClusters { <c e > <b f'> }
 @end lilypond
 
-The following example (from
-@inputfileref{input/@/regression,cluster@/.ly}) shows what the result
-looks like
-
-@lilypondfile[ragged-right,quote]{cluster.ly}
-
 Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
 automatically avoid collisions between ordinary notes and clusters.
@@ -2126,7 +2116,7 @@ Program reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
-Examples: @inputfileref{input/@/regression,cluster@/.ly}.
+Examples: @lsr{contemporary,cluster@/.ly}.
 
 @refbugs
 

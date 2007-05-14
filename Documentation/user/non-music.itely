@@ -468,7 +468,7 @@ To use a Unicode escape sequence, use
 
 @seealso
 
-@inputfileref{input/regression,utf-8.ly}
+@lsr{text,utf-8.ly}
 
 
 

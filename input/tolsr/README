@@ -1,7 +1,0 @@
-If you have a snippet that should be added to the official approved
-LSR snippets, please leave it here.  We'll take care of it.
-
-Note that LSR is currently 2.10.  You can add snippets that require 2.11
-to this directory, but they will not be added to LSR until it is updated.
-The snippets will still be displayed on the LilyPond website.
-

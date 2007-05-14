@@ -4,7 +4,7 @@ import os
 import os.path
 import shutil
 
-dirs = ['ancient','chords','connecting','contemporary','expressive','guitar','parts','repeats','scheme','spacing','staff','text','vocal']
+dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitches','repeats','scheme','spacing','staff','text','vocal','other']
 notsafe=[]
 
 try:
@@ -23,12 +23,14 @@ def copy_dir_with_test(srcdir, destdir):
 		return
 	file_names = os.listdir (srcdir)
 	for file in file_names:
-		src = os.path.join (srcdir, file)
-		dest = os.path.join (destdir, file)
-		copy_with_warning(src, dest)
-		s = os.system('lilypond -dsafe -dbackend=svg -o /tmp/lsrtest ' + dest)
-		if s:
-			notsafe.append(dest)
+		if (file.endswith ('.ly')):
+			src = os.path.join (srcdir, file)
+			dest = os.path.join (destdir, file)
+			copy_with_warning(src, dest)
+			os.system('convert-ly -e ' + dest)
+			s = os.system('lilypond -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
+			if s:
+				notsafe.append(dest)
 
 
 for dir in dirs:
@@ -45,11 +47,10 @@ for dir in dirs:
 		if (file.endswith ('.ly')):
 			if (file[:3] != 'AAA'):
 				os.remove( os.path.join(destdir,file) )
-
 	## copy in new files from LSR download
 	copy_dir_with_test( srcdir, destdir )
 	## copy in new files in source tree
-	copy_dir_with_test( os.path.join ('input', 'tolsr', dir), destdir )
+	copy_dir_with_test( os.path.join ('input', 'new', dir), destdir )
 
 
 file=open("lsr-unsafe.txt", 'w')
@@ -61,5 +62,4 @@ print
 print "Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!"
 print "  xargs git-diff < lsr-unsafe.txt"
 print
-
 

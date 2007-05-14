@@ -82,63 +82,89 @@ Axis_group_interface::relative_group_extent (vector<Grob*> const &elts,
 */
 
 Interval
-Axis_group_interface::cached_pure_height (Grob *me,
-					  vector<Grob*> const &elts,
-					  Grob *common,
-					  int start, int end)
+Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
 {
   Paper_score *ps = get_root_system (me)->paper_score ();
   vector<vsize> breaks = ps->get_break_indices ();
   vector<Grob*> cols = ps->get_columns ();
-  vsize start_index = VPOS;
-  vsize end_index = VPOS;
 
-  for (vsize i = 0; i < breaks.size (); i++)
+  SCM extents = me->get_property ("adjacent-pure-heights");
+
+  Interval ext;
+  for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
       int r = Paper_column::get_rank (cols[breaks[i]]);
-      if (start == r)
-	start_index = i;
-      if (end == r)
-	end_index = i;
-    }
-  if (end == INT_MAX)
-    end_index = breaks.size () - 1;
+      if (r > end)
+	break;
 
-  if (start_index == VPOS || end_index == VPOS)
-    {
-      programming_error (_ ("tried to calculate pure-height at a non-breakpoint"));
-      return Interval (0, 0);
+      if (r >= start)
+	ext.unite (ly_scm2interval (scm_c_vector_ref (extents, i)));
     }
 
-  SCM extents = me->get_property ("cached-pure-extents");
-  if (!scm_is_vector (extents))
-    {
-      extents = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
-      for (vsize i = 0; i + 1 < breaks.size (); i++)
-	{
-	  int st = Paper_column::get_rank (cols[breaks[i]]);
-	  int ed = Paper_column::get_rank (cols[breaks[i+1]]);
-	  Interval iv = relative_pure_height (me, elts, common, st, ed, false);
-	  scm_vector_set_x (extents, scm_from_int (i), ly_interval2scm (iv));
-	}
-      me->set_property ("cached-pure-extents", extents);
-    }
-
-  Interval ext (0, 0);
-  for (vsize i = start_index; i < end_index; i++)
-    ext.unite (ly_scm2interval (scm_c_vector_ref (extents, i)));
   return ext;
 }
 
+MAKE_SCHEME_CALLBACK (Axis_group_interface, adjacent_pure_heights, 1)
+SCM
+Axis_group_interface::adjacent_pure_heights (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  Grob *common = calc_pure_elts_and_common (me);
+  extract_grob_set (me, "pure-relevant-items", items);
+  extract_grob_set (me, "pure-relevant-spanners", spanners);
+
+  Paper_score *ps = get_root_system (me)->paper_score ();
+  vector<vsize> breaks = ps->get_break_indices ();
+  vector<Grob*> cols = ps->get_columns ();
+
+  SCM ret = scm_c_make_vector (breaks.size () - 1, SCM_EOL);
+  vsize it_index = 0;
+  for (vsize i = 0; i + 1 < breaks.size (); i++)
+    {
+      int start = Paper_column::get_rank (cols[breaks[i]]);
+      int end = Paper_column::get_rank (cols[breaks[i+1]]);
+      Interval iv;
+
+      for (vsize j = it_index; j < items.size (); j++)
+	{
+	  Item *it = dynamic_cast<Item*> (items[j]);
+	  int rank = it->get_column ()->get_rank ();
+
+	  if (rank <= end && it->pure_is_visible (start, end))
+	    {
+	      Interval dims = items[j]->pure_height (common, start, end);
+	      if (!dims.is_empty ())
+		iv.unite (dims);
+	    }
+
+	  if (rank < end)
+	    it_index++;
+	  else if (rank > end)
+	    break;
+	}
+
+      for (vsize j = 0; j < spanners.size (); j++)
+	{
+	  Interval_t<int> rank_span = spanners[j]->spanned_rank_interval ();
+	  if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start)
+	    {
+	      Interval dims = spanners[j]->pure_height (common, start, end);
+	      if (!dims.is_empty ())
+		iv.unite (dims);
+	    }
+	}
+
+      scm_vector_set_x (ret, scm_from_int (i), ly_interval2scm (iv));
+    }
+  return ret;
+}
+
 Interval
-Axis_group_interface::relative_pure_height (Grob *me,
-					    vector<Grob*> const &elts,
-					    Grob *common,
-					    int start, int end,
-					    bool use_cache)
+Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
 {
   /* It saves a _lot_ of time if we assume a VerticalAxisGroup is additive
-     (ie. height (i, k) = height (i, j) + height (j, k) for all i <= j <= k).
+     (ie. height (i, k) = max (height (i, j) height (j, k)) for all i <= j <= k).
      Unfortunately, it isn't always true, particularly if there is a
      VerticalAlignment somewhere in the descendants.
 
@@ -147,18 +173,36 @@ Axis_group_interface::relative_pure_height (Grob *me,
      reasonably safe to assume that if our parent is a VerticalAlignment,
      we can assume additivity and cache things nicely. */
   Grob *p = me->get_parent (Y_AXIS);
-  if (use_cache && p && Align_interface::has_interface (p))
-    return Axis_group_interface::cached_pure_height (me, elts, common, start, end);
+  if (p && Align_interface::has_interface (p))
+    return Axis_group_interface::cached_pure_height (me, start, end);
+
+  Grob *common = calc_pure_elts_and_common (me);
+  extract_grob_set (me, "pure-relevant-items", items);
+  extract_grob_set (me, "pure-relevant-spanners", spanners);
 
   Interval r;
 
-  for (vsize i = 0; i < elts.size (); i++)
+  for (vsize i = 0; i < items.size (); i++)
     {
-      Interval_t<int> rank_span = elts[i]->spanned_rank_interval ();
-      Item *it = dynamic_cast<Item*> (elts[i]);
-      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start && (!it || it->pure_is_visible (start, end)))
+      Item *it = dynamic_cast<Item*> (items[i]);
+      int rank = it->get_column ()->get_rank ();
+
+      if (rank > end)
+	break;
+      else if (rank >= start && it->pure_is_visible (start, end))
 	{
-	  Interval dims = elts[i]->pure_height (common, start, end);
+	  Interval dims = it->pure_height (common, start, end);
+	  if (!dims.is_empty ())
+	    r.unite (dims);
+	}
+    }
+
+  for (vsize i = 0; i < spanners.size (); i++)
+    {
+      Interval_t<int> rank_span = spanners[i]->spanned_rank_interval ();
+      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start)
+	{
+	  Interval dims = spanners[i]->pure_height (common, start, end);
 	  if (!dims.is_empty ())
 	    r.unite (dims);
 	}
@@ -201,7 +245,7 @@ Axis_group_interface::pure_height (SCM smob, SCM start_scm, SCM end_scm)
 	return scm_cdr (system_y_extent);
     }
 
-  return pure_group_height (me, start, end);
+  return ly_interval2scm (pure_group_height (me, start, end));
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_skylines, 1);
@@ -278,13 +322,20 @@ Axis_group_interface::calc_pure_elts_and_common (Grob *me)
   
   extract_grob_set (me, "elements", elts);
 
-  vector<Grob*> relevant_elts;
+  vector<Grob*> relevant_items;
+  vector<Grob*> relevant_spanners;
   SCM pure_relevant_p = ly_lily_module_constant ("pure-relevant?");
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       if (to_boolean (scm_apply_1 (pure_relevant_p, elts[i]->self_scm (), SCM_EOL)))
-	relevant_elts.push_back (elts[i]);
+	{
+	  if (dynamic_cast<Item*> (elts[i]))
+	    relevant_items.push_back (elts[i]);
+	  else if (dynamic_cast<Spanner*> (elts[i]))
+	    relevant_spanners.push_back (elts[i]);
+	}
+	    
 
       Item *it = dynamic_cast<Item*> (elts[i]);
       Direction d = LEFT;
@@ -293,18 +344,24 @@ Axis_group_interface::calc_pure_elts_and_common (Grob *me)
 	  {
 	    Item *piece = it->find_prebroken_piece (d);
 	    if (piece && to_boolean (scm_apply_1 (pure_relevant_p, piece->self_scm (), SCM_EOL)))
-	      relevant_elts.push_back (piece);
+	      relevant_items.push_back (piece);
 	  }
 	while (flip (&d) != LEFT);
     }
+  vector_sort (relevant_items, Item::less);
 
-  Grob *common = common_refpoint_of_array (relevant_elts, me, Y_AXIS);
+  Grob *common = common_refpoint_of_array (relevant_items, me, Y_AXIS);
+  common = common_refpoint_of_array (relevant_spanners, common, Y_AXIS);
+
   me->set_object ("pure-Y-common", common->self_scm ());
   
-  SCM ga_scm = Grob_array::make_array ();
-  Grob_array *ga = unsmob_grob_array (ga_scm);
-  ga->set_array (relevant_elts);
-  me->set_object ("pure-relevant-elements", ga_scm);
+  SCM items_scm = Grob_array::make_array ();
+  SCM spanners_scm = Grob_array::make_array ();
+
+  unsmob_grob_array (items_scm)->set_array (relevant_items);
+  unsmob_grob_array (spanners_scm)->set_array (relevant_spanners);
+  me->set_object ("pure-relevant-items", items_scm);
+  me->set_object ("pure-relevant-spanners", spanners_scm);
 
   return common;
 }
@@ -331,16 +388,15 @@ Axis_group_interface::calc_y_common (SCM grob)
   return common->self_scm ();
 }
 
-SCM
+Interval
 Axis_group_interface::pure_group_height (Grob *me, int start, int end)
 {
   Grob *common = calc_pure_elts_and_common (me);
 	
-  extract_grob_set (me, "pure-relevant-elements", elts);
   Real my_coord = me->relative_coordinate (common, Y_AXIS);
-  Interval r (relative_pure_height (me, elts, common, start, end, true));
+  Interval r (relative_pure_height (me, start, end));
 
-  return ly_interval2scm (r - my_coord);
+  return r - my_coord;
 }
 
 void
@@ -559,12 +615,13 @@ ADD_INTERFACE (Axis_group_interface,
 	       /* properties */
 	       "X-common "
 	       "Y-common "
+	       "adjacent-pure-heights "
 	       "axes "
 	       "elements "
 	       "keep-fixed-while-stretching "
 	       "max-stretch "
 	       "pure-Y-common "
-	       "pure-relevant-elements "
+	       "pure-relevant-items "
+	       "pure-relevant-spanners "
 	       "vertical-skylines "
-	       "cached-pure-extents "
 	       );

@@ -47,11 +47,16 @@ fet_beginchar ("accDiscant", "accDiscant")
 	% mf doesn't handle pixel dropouts in outline objects, so we use
 	% `draw' if not called by mpost
 	if known miterlimit:
-		penstroke z1e
-			  .. z2e
-			  .. z3e
-			  .. z4e
-			  .. cycle;
+		fill z1r
+		     .. z2r
+		     .. z3r
+		     .. z4r
+		     .. cycle;
+		unfill z1l
+		       .. z2l
+		       .. z3l
+		       .. z4l
+		       .. cycle;
 	else:
 		pickup pencircle xscaled accreg_linethickness yscaled lt;
 		draw z1
@@ -125,11 +130,16 @@ fet_beginchar ("accFreebase", "accFreebase")
 	% mf doesn't handle pixel dropouts in outline objects, so we use
 	% `draw' if not called by mpost
 	if known miterlimit:
-		penstroke z1e
-			  .. z2e
-			  .. z3e
-			  .. z4e
-			  .. cycle;
+		fill z1r
+		     .. z2r
+		     .. z3r
+		     .. z4r
+		     .. cycle;
+		unfill z1l
+		       .. z2l
+		       .. z3l
+		       .. z4l
+		       .. cycle;
 	else:
 		pickup pencircle xscaled accreg_linethickness yscaled lt;
 		draw z1
@@ -178,11 +188,16 @@ fet_beginchar ("accStdbase", "accStdbase")
 	% mf doesn't handle pixel dropouts in outline objects, so we use
 	% `draw' if not called by mpost
 	if known miterlimit:
-		penstroke z1e
-			  .. z2e
-			  .. z3e
-			  .. z4e
-			  .. cycle;
+		fill z1r
+		     .. z2r
+		     .. z3r
+		     .. z4r
+		     .. cycle;
+		unfill z1l
+		       .. z2l
+		       .. z3l
+		       .. z4l
+		       .. cycle;
 	else:
 		pickup pencircle xscaled accreg_linethickness yscaled lt;
 		draw z1
@@ -366,7 +381,7 @@ fet_beginchar ("accOldEE", "accOldEE")
 
 	pickup pencircle scaled (lr + blot_diameter);
 
-	for pp := 0 step 45 until 180:
+	for pp := 0 step 45 until 135:
 		drawdot z2 rotated pp;
 		drawdot z3 rotated pp;
 
@@ -402,11 +417,16 @@ fet_beginchar ("accOldEE", "accOldEE")
 	% mf doesn't handle pixel dropouts in outline objects, so we use
 	% `draw' if not called by mpost
 	if known miterlimit:
-		penstroke z10e
-			  .. z11e
-			  .. z12e
-			  .. z13e
-			  .. cycle;
+		fill z10r
+		     .. z11r
+		     .. z12r
+		     .. z13r
+		     .. cycle;
+		unfill z10l
+		       .. z11l
+		       .. z12l
+		       .. z13l
+		       .. cycle;
 	else:
 		pickup pencircle xscaled accreg_linethickness yscaled lt;
 		draw z10

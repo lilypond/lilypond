@@ -1,4 +1,3 @@
-
 depth = ../../../
 
 STEPMAKE_TEMPLATES=documentation texinfo tex

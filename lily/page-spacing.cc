@@ -99,7 +99,7 @@ Page_spacer::solve (vsize page_count)
 	 All the systems that don't fit get tacked onto the last page.
       */
       vsize i;
-      for (i = system; isinf (state_.at (i, page_count-1).demerits_) && i--; )
+      for (i = system; isinf (state_.at (i, page_count-1).demerits_) && i; i--)
 	;
 
       if (i)
