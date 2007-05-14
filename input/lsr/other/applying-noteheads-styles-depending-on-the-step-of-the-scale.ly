@@ -30,6 +30,8 @@ fragment = {
 	  \set shapeNoteStyles = ##(do re mi fa #f la ti)
 	  \fragment
 }
+
+%  temporary change help LSR integration -gp
 %{
 \transpose c d 
   \relative {
@@ -42,3 +44,4 @@ fragment = {
 	\fragment
 }
 %}
+
