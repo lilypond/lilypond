@@ -21,7 +21,7 @@ These pages show LilyPond examples (snippets) from the
 
 @strong{@uref{parts/collated-files.html,Preparing parts}}
 
-@strong{@uref{pitches/collated-files.html,Pitches}}
+@strong{@uref{pitch/collated-files.html,Pitch}}
 
 @strong{@uref{repeats/collated-files.html,Repeats}}
 
