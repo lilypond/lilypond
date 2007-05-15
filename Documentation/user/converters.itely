@@ -199,7 +199,7 @@ print version information.
 ABC is a fairly simple ASCII based format.  It is described at the ABC site:
 
 @quotation
-@uref{http://@/www@/.gre@/.ac@/.uk/@/~c.walshaw/@/abc2mtex/@/abc@/.txt}.
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/abc2mtex/@/abc@/.txt}.
 @end quotation
 
 @command{abc2ly} translates from ABC to LilyPond.  It is invoked as follows:

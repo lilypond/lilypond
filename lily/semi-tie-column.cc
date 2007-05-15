@@ -68,4 +68,23 @@ Semi_tie_column::calc_positioning_done (SCM smob)
   return SCM_BOOL_T;
 }
   
+MAKE_SCHEME_CALLBACK (Semi_tie_column, calc_head_direction, 1);
+SCM
+Semi_tie_column::calc_head_direction (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
 
+  extract_grob_set (me, "ties", ties);
+  Direction d = LEFT;
+  for (vsize i = 0; i < ties.size (); i++)
+    {
+      Direction this_d = to_dir (ties[i]->get_property ("head-direction"));
+      if (i > 0 && d != this_d)
+	{
+	  programming_error ("all semi-ties in a semi-tie-column should have the same head-direction");
+	  return scm_from_int (d);
+	}
+      d = this_d;
+    }
+  return scm_from_int (d);
+}
