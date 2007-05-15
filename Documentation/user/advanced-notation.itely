@@ -2178,7 +2178,7 @@ music snippets.
 
 Improvisation is sometimes denoted with slashed note heads.  Such note
 heads can be created by adding a @internalsref{Pitch_squash_engraver}
-to the @internalsref{Staff} or @internalsref{Voice} context.  Then, the
+to the @internalsref{Voice} context.  Then, the
 following command
 
 @example
@@ -2194,7 +2194,7 @@ There are shortcuts @code{\improvisationOn} (and an accompanying
 the following example
 
 @lilypond[verbatim,ragged-right,quote]
-\new Staff \with {
+\new Voice \with {
   \consists Pitch_squash_engraver
 } \transpose c c' {
   e8 e g a a16(bes)(a8) g \improvisationOn

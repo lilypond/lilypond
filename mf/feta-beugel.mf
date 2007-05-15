@@ -100,8 +100,8 @@ for i := 0 step 1 until font_count:
 		y := y + increment;
 		if y > infinity / hppp:
 			message "Resolution and/or magnification is too high";
-			message "HPP: "& decimal hpp &" Y: " & y;
-			error "please report to <bug-lilypond@gnu.org>";
+			message "HPPP: "& decimal hppp &" Y: " & decimal y;
+			errmessage "please report to <bug-lilypond@gnu.org>";
 		fi;
 
 		% x should be about one staff space, taking brace to have
