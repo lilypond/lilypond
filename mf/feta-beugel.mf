@@ -7,6 +7,31 @@
 % (c) 1997--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
 %                Jan Nieuwenhuizen <janneke@gnu.org>
 
+
+% We have to reduce the pixel-per-point value to
+% support large brace glyphs in case we are using MetaPost
+% (which by default sets `hppp' to 49.80244, regardless of
+% the used `mag' value)
+
+if known miterlimit:
+	bpppix_ := 0.2;		% ten times larger than original
+
+	numeric mm, pt, dd, bp, cm, pc, cc, in;
+
+	mm * bpppix_ = 2.83464;
+	pt * bpppix_ = 0.99626;
+	dd * bpppix_ = 1.06601;
+	bp * bpppix_ = 1;
+	cm * bpppix_ = 28.34645;
+	pc * bpppix_ = 11.95517;
+	cc * bpppix_ = 12.79213;
+	in * bpppix_ = 72;
+
+	hppp := pt;
+	vppp := pt;
+fi;
+
+
 input feta-autometric;
 input feta-macros;
 
