@@ -250,6 +250,9 @@ Bar_line::calc_anchor (SCM smob)
      a repeat bar, in which case we put the anchor in the center of
      the barline without the dots. */
   Interval ext = me->extent (me, X_AXIS);
+  if (ext.is_empty ())
+    return scm_from_double (0);
+
   Real anchor = ext.center ();
 
   Stencil dot = Font_interface::get_default_font (me)->find_by_name ("dots.dot");
