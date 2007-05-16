@@ -367,7 +367,7 @@ msgstr "Fingersatz"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Dynamics"
-msgstr "Lautstärke"
+msgstr "Dynamik"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
@@ -727,7 +727,7 @@ msgstr "Auflösung von Zusammenstößen"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @section in ../../../Documentation/user/basic-notation.itely
 msgid "Staff notation"
-msgstr "Notation von Systemen"
+msgstr "Notation innerhalb von Systemen"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -757,7 +757,7 @@ msgstr "Klammern am Systemanfang"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Staff symbol"
-msgstr "Das Systemsymbol"
+msgstr "Das Notensystem"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
