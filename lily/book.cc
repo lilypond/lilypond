@@ -20,6 +20,7 @@ using namespace std;
 #include "warn.hh"
 #include "performance.hh"
 #include "paper-score.hh"
+#include "page-marker.hh"
 
 #include "ly-smobs.icc"
 
@@ -153,7 +154,8 @@ Book::process (Output_def *default_paper,
 	      outputs = scm_cdr (outputs);
 	    }
 	}
-      else if (Text_interface::is_markup (scm_car (s)))
+      else if (Text_interface::is_markup (scm_car (s))
+	       || unsmob_page_marker (scm_car (s)))
 	paper_book->add_score (scm_car (s));
       else
 	assert (0);

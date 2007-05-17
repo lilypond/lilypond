@@ -38,16 +38,8 @@ center = #0
 %% rather name \newline, \pageBreak ?
 break = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission 'force)))
 noBreak = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission '())))
-pageBreak = #(make-event-chord (list
-				(make-music 'LineBreakEvent 'break-permission 'force)
-				(make-music 'PageBreakEvent 'break-permission 'force)))
-noPageBreak = #(make-event-chord (list (make-music 'PageBreakEvent 'break-permission '())))
-pageTurn = #(make-event-chord (list
-				(make-music 'LineBreakEvent 'break-permission 'force)
-				(make-music 'PageBreakEvent 'break-permission 'force)
-				(make-music 'PageTurnEvent 'break-permission 'force)))
-noPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission '())))
-allowPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission 'allow)))
+%% \pageBreak, \noPageBreak, \pageTurn, \noPageTurn, \allowPageTurn are defined
+%% as music functions
 
 stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
 startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))

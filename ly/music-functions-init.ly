@@ -349,6 +349,65 @@ or @code{\"GrobName\"}")
 			grob-name)
 		       (set! (ly:grob-property grob property) value))))))
 
+%% These are music functions (iso music indentifiers), because music identifiers
+%% are not allowed at top-level.
+pageBreak =
+#(define-music-function (location parser) ()
+   (_i "Force a page break. May be used at toplevel (ie between scores or
+markups), or inside a score.")
+   (make-music 'EventChord
+	       'page-marker #t
+	       'line-break-permission 'force
+	       'page-break-permission 'force
+	       'elements (list (make-music 'LineBreakEvent
+					   'break-permission 'force)
+			       (make-music 'PageBreakEvent
+					   'break-permission 'force))))
+
+noPageBreak =
+#(define-music-function (location parser) ()
+   (_i "Forbid a page break. May be used at toplevel (ie between scores or
+markups), or inside a score.")
+   (make-music 'EventChord
+	       'page-marker #t
+	       'page-break-permission 'forbid
+	       'elements (list (make-music 'PageBreakEvent
+					   'break-permission '()))))
+
+pageTurn =
+#(define-music-function (location parser) ()
+   (_i "Force a page turn between two scores or top-level markups.")
+   (make-music 'EventChord 
+	       'page-marker #t
+	       'line-break-permission 'force
+	       'page-break-permission 'force
+	       'page-turn-permission 'force
+	       'elements (list (make-music 'LineBreakEvent
+					   'break-permission 'force)
+			       (make-music 'PageBreakEvent
+					   'break-permission 'force)
+			       (make-music 'PageTurnEvent
+					   'break-permission 'force))))
+
+noPageTurn =
+#(define-music-function (location parser) ()
+   (_i "Forbid a page turn. May be used at toplevel (ie between scores or
+markups), or inside a score.")
+   (make-music 'EventChord
+	       'page-marker #t
+	       'page-turn-permission 'forbid
+	       'elements (list (make-music 'PageTurnEvent
+					   'break-permission '()))))
+
+allowPageTurn =
+#(define-music-function (location parser) ()
+   (_i "Allow a page turn. May be used at toplevel (ie between scores or
+markups), or inside a score.")
+   (make-music 'EventChord
+	       'page-marker #t
+	       'page-turn-permission 'allow
+	       'elements (list (make-music 'PageTurnEvent
+					   'break-permission 'allow))))
 
 removeWithTag = 
 #(define-music-function

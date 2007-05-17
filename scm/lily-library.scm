@@ -64,10 +64,28 @@
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
 (define-public (collect-music-for-book parser music)
-  ;; discard music if its 'void property is true.
-  (let ((void-music (ly:music-property music 'void)))
-    (if (or (null? void-music) (not void-music))
-        (collect-scores-for-book parser (scorify-music music parser)))))
+  (define (music-property symbol)
+    (let ((value (ly:music-property music symbol)))
+      (if (not (null? value))
+	  value
+	  #f)))
+  (cond ((music-property 'page-marker)
+	 ;; a page marker: set page break/turn permissions
+	 (for-each (lambda (symbol)
+		     (let ((permission (music-property symbol)))
+		       (if (symbol? permission)
+			   (collect-scores-for-book
+			    parser
+			    (ly:make-page-marker symbol
+						 (if (eqv? 'forbid permission)
+						     '()
+						     permission))))))
+		   (list 'line-break-permission 'page-break-permission
+                         'page-turn-permission)))
+	((not (music-property 'void))
+	 ;; a regular music expression: make a score with this music
+	 ;; void music is discarded
+	 (collect-scores-for-book parser (scorify-music music parser)))))
 
 (define-public (scorify-music music parser)
   "Preprocess MUSIC."
