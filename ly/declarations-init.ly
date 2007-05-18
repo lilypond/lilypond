@@ -113,3 +113,6 @@ setDefaultDurationToQuarter = { c4 }
 #(define toplevel-score-handler collect-scores-for-book)
 #(define toplevel-text-handler collect-scores-for-book)
 
+#(define book-music-handler collect-book-music-for-book)
+#(define book-score-handler ly:book-add-score!)
+#(define book-text-handler ly:book-add-score!)
