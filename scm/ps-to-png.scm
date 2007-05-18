@@ -125,6 +125,7 @@
  ~a\
  -dGraphicsAlphaBits=4\
  -dTextAlphaBits=4\
+ -q
  -dNOPAUSE\
  -sDEVICE=~a\
  -sOutputFile=~S\
