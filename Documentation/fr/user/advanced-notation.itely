@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 8c96e698d0bb70a1a903ee895b91a38e79bb6692
+    Translation of GIT committish: 58710722240de541ca4f37382c0503ac470ea6a6
 
 
     When revising a translation, copy the HEAD committish of the
@@ -72,7 +72,6 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@include markup-commands.tely
 @node Font selection
 @subsection Font selection
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 8c96e698d0bb70a1a903ee895b91a38e79bb6692
+    Translation of GIT committish: 58710722240de541ca4f37382c0503ac470ea6a6
 
 
     When revising a translation, copy the HEAD committish of the
@@ -52,6 +52,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Changing context default settings::
 * Defining new contexts::
 * Aligning contexts::
+* Vertical grouping of grobs::
 @end menu 
 @node Contexts explained
 @subsection Contexts explained
@@ -90,6 +91,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Aligning contexts
 @subsection Aligning contexts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
 
 UNTRANSLATED NODE: IGNORE ME
 
