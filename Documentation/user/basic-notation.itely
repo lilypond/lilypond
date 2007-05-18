@@ -2450,7 +2450,7 @@ length of the main note.  The fraction 3/4 can be changed by setting
 @code{afterGraceFraction}, ie.
 
 @example
-afterGraceFraction = #(cons 7 8)
+#(define afterGraceFraction (cons 7 8))
 @end example
 
 @noindent
