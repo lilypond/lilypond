@@ -1,7 +1,8 @@
 \version "2.11.19"
 
 \header {
-  texidoc = "Page breaks work when they are placed at the end of a score."
+  texidoc = "Page breaks work when they are placed at the end of a score,
+or between scores."
 }
 
 #(set-default-paper-size "a6")
@@ -9,6 +10,10 @@
   \score {
     {a b c' d' \pageBreak}
   }
+  \score {
+    {a b c' d'}
+  }
+  \pageBreak
   \score {
     {a b c' d'}
   }
