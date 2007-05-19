@@ -89,3 +89,12 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
   return SCM_UNSPECIFIED;
 }
 
+LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
+	   2, 0, 0, (SCM book_smob, SCM score),
+	   "Add @var{score} to @var{book_smob} score list.")
+{
+  LY_ASSERT_SMOB (Book, book_smob, 1);
+  Book *book = unsmob_book (book_smob); 
+  book->add_score (score);
+  return SCM_UNSPECIFIED;
+}

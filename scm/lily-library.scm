@@ -63,11 +63,42 @@
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
+(define (collect-music-aux score-handler parser music)
+  (define (music-property symbol)
+    (let ((value (ly:music-property music symbol)))
+      (if (not (null? value))
+	  value
+	  #f)))
+  (cond ((music-property 'page-marker)
+	 ;; a page marker: set page break/turn permissions
+	 (for-each (lambda (symbol)
+		     (let ((permission (music-property symbol)))
+		       (if (symbol? permission)
+			   (score-handler
+			    (ly:make-page-marker symbol
+						 (if (eqv? 'forbid permission)
+						     '()
+						     permission))))))
+		   (list 'line-break-permission 'page-break-permission
+			 'page-turn-permission)))
+	((not (music-property 'void))
+	 ;; a regular music expression: make a score with this music
+	 ;; void music is discarded
+	 (score-handler (scorify-music music parser)))))
+
 (define-public (collect-music-for-book parser music)
-  ;; discard music if its 'void property is true.
-  (let ((void-music (ly:music-property music 'void)))
-    (if (or (null? void-music) (not void-music))
-        (collect-scores-for-book parser (scorify-music music parser)))))
+  "Top-level music handler"
+  (collect-music-aux (lambda (score)
+		       (collect-scores-for-book parser score))
+                     parser
+		     music))
+
+(define-public (collect-book-music-for-book parser book music)
+  "Book music handler"
+  (collect-music-aux (lambda (score)
+		       (ly:book-add-score! book score))
+                     parser
+		     music))
 
 (define-public (scorify-music music parser)
   "Preprocess MUSIC."

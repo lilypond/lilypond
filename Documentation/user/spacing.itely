@@ -652,6 +652,9 @@ inserted at a bar line.  These commands force and forbid a page-break
 from happening.  Of course, the @code{\pageBreak} command also forces
 a line break.
 
+The @code{\pageBreak} and @code{\noPageBreak} commands may also be
+inserted at top-level, between scores and top-level markups.
+
 Page breaks are computed by the @code{page-breaking} function.
 LilyPond provides two algorithms for computing page
 breaks, @code{ly:optimal-breaking} and @code{ly:page-turn-breaking}. The
@@ -746,6 +749,19 @@ repeat to turn the page back. The @code{Page_turn_engraver} can also disable
 page turns if the repeat is very short. If you set the context property
 @code{minimumRepeatLengthForPageTurn} then the @code{Page_turn_engraver} will
 only allow turns in repeats whose duration is longer than this value.
+
+The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
+@code{\allowPageTurn}, may also be used at top-level, between scores and
+top-level markups.
+
+@refcommands
+
+@funindex \pageTurn
+@code{\pageTurn}
+@funindex \noPageTurn
+@code{\noPageTurn}
+@funindex \allowPageTurn
+@code{\allowPageTurn}
 
 @refbugs
 

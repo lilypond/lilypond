@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+Page breaking and page turning commands (@code{\pageBreak},
+@code{\noPageBreak}, etc) can be used at top-level, between scores and
+top-level markups.
+
+@item
 The following options are now changed as a @code{-d} sub-option:
 @code{--backend}, @code{--safe}, @code{--preview} and
 @code{--no-pages} (which became @code{-dno-print-pages}).  The @code{-b}

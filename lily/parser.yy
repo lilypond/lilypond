@@ -651,12 +651,19 @@ book_body:
 		$2->unprotect ();
 	}
 	| book_body score_block {
-		SCM s = $2->self_scm ();
-		$$->add_score (s);
-		$2->unprotect();
+		Score *score = $2;
+		SCM proc = PARSER->lexer_->lookup_identifier ("book-score-handler");
+		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
+		score->unprotect ();
+	}
+	| book_body composite_music {
+		Music *music = unsmob_music ($2);
+		SCM proc = PARSER->lexer_->lookup_identifier ("book-music-handler");
+		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
 	}
 	| book_body full_markup {
-		$$->add_score ($2);
+		SCM proc = PARSER->lexer_->lookup_identifier ("book-text-handler");
+		scm_call_2 (proc, $$->self_scm (), $2);
 	}
 	| book_body lilypond_header {
 		$$->header_ = $2;
@@ -1443,7 +1450,7 @@ command_element:
 	| PARTIAL duration_length	{
 		Moment m = - unsmob_duration ($2)->get_length ();
 		$$ = MAKE_SYNTAX ("property-operation", @$, SCM_BOOL_F, ly_symbol2scm ("Timing"), ly_symbol2scm ("PropertySet"), ly_symbol2scm ("measurePosition"), m.smobbed_copy ());
-		$$ = MAKE_SYNTAX ("context-specification", @$, ly_symbol2scm ("Timing"), SCM_BOOL_F, $$, SCM_EOL, SCM_BOOL_F);
+		$$ = MAKE_SYNTAX ("context-specification", @$, ly_symbol2scm ("Score"), SCM_BOOL_F, $$, SCM_EOL, SCM_BOOL_F);
 	}
 
 	| TIME_T fraction  {
