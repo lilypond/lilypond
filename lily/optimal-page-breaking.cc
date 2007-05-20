@@ -92,17 +92,11 @@ Optimal_page_breaking::solve ()
 	  best_division = bound;
 	}
 
-      if (best_for_this_sys_count.systems_per_page_.size () < page_count)
-	{
-	  /* if the pages are stretched on average, stop trying to reduce sys_count */
-	  Real average_force = 0;
-	  for (vsize i = 0; i < best_for_this_sys_count.systems_per_page_.size (); i++)
-	    average_force += best_for_this_sys_count.force_[i];
-
-	  average_force /= best_for_this_sys_count.page_count (); 
-	  if (average_force > 0)
-	    break;
-	}
+      /* if the pages are stretched on average, stop trying to reduce sys_count */
+      if (best_for_this_sys_count.page_count () < page_count
+	  && best_for_this_sys_count.average_force () > 0)
+	break;
+	
 
       if (isinf (best_for_this_sys_count.demerits_))
 	break;

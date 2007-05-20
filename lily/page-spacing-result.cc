@@ -30,3 +30,14 @@ Page_spacing_result::page_count () const
 {
   return systems_per_page_.size();
 }
+
+Real
+Page_spacing_result::average_force () const
+{
+  Real average_force = 0;
+  for (vsize i = 0; i < page_count (); i++)
+    average_force += force_[i];
+
+  average_force /= page_count ();
+  return average_force;
+}

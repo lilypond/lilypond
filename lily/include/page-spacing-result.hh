@@ -19,6 +19,7 @@ struct Page_spacing_result {
   Real penalty_;
   Real demerits_;
 
+  Real average_force () const;
   vsize page_count () const;
   vsize system_count () const;  
   Page_spacing_result ();
