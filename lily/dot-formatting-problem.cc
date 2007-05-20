@@ -32,4 +32,5 @@ Dot_formatting_problem::Dot_formatting_problem (vector<Box> const &boxes, Interv
 {
   best_ = 0;
   head_skyline_.set_minimum_height (base_x[RIGHT]);
+  score_ = 1 << 30;
 }
