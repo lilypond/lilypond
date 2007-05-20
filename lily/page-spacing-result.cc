@@ -24,3 +24,9 @@ Page_spacing_result::system_count () const
 
   return total;      
 }
+
+vsize
+Page_spacing_result::page_count () const
+{
+  return systems_per_page_.size();
+}
