@@ -41,10 +41,15 @@ struct System_spec
 
 struct Break_position
 {
-  vsize sys_; /* our index in the all_ list */
-  vsize score_break_; /* if sys_ is a score, then we start at the score_brk_'th
-                         possible page-break in the score */
-  Grob *col_;  /* if sys_ is a score, this points to the broken column */
+   /* our index in the all_ list */
+  vsize sys_;
+
+  /* if sys_ is a score, then we start at the score_brk_'th possible
+     page-break in the score */
+  vsize score_break_; 
+
+  /* if sys_ is a score, this points to the broken column */
+  Grob *col_;  
   bool score_ender_;
 
   Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
@@ -55,6 +60,9 @@ struct Break_position
     score_ender_ = end;
   }
 
+  /*
+    lexicographic in (sys_, score_break_)
+   */
   bool operator< (const Break_position &other)
   {
     return (sys_ == VPOS && other.sys_ != VPOS)
@@ -126,11 +134,14 @@ protected:
   Real blank_page_penalty () const;
 
   SCM breakpoint_property (vsize breakpoint, char const *str);
+
+
+protected:
   vector<Break_position> breaks_;
 
 private:
   vector<Break_position> chunks_;
-  vector<System_spec> all_;
+  vector<System_spec> system_specs_;
   vector<Constrained_breaking> line_breaking_;
   bool ragged_;
   bool ragged_last_;

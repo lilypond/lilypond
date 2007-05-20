@@ -89,7 +89,7 @@ Page_breaking::next_system (Break_position const &break_pos) const
 
   if (sys == VPOS) /* beginning of the book */
     return 0;
-  if (all_[sys].pscore_ && !break_pos.score_ender_)
+  if (system_specs_[sys].pscore_ && !break_pos.score_ender_)
     return sys; /* the score overflows the previous page */
   return sys + 1; /* this page starts with a new sys */
 }
@@ -127,7 +127,7 @@ Page_breaking::line_breaker_args (vsize sys,
 				  vsize *line_breaker_start,
 				  vsize *line_breaker_end)
 {
-  assert (all_[sys].pscore_);
+  assert (system_specs_[sys].pscore_);
   assert (next_system (start) <= sys && sys <= end.sys_);
 
   if (start.sys_ == sys)
@@ -156,7 +156,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  vsize start;
 	  vsize end;
@@ -165,7 +165,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
 	  vector<Column_x_positions> pos = ignore_div
 	    ? line_breaking_[sys].best_solution (start, end)
 	    : line_breaking_[sys].solve (start, end, div[i]);
-	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
+	  system_specs_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }
 }
@@ -174,19 +174,19 @@ SCM
 Page_breaking::systems ()
 {
   SCM ret = SCM_EOL;
-  for (vsize sys = 0; sys < all_.size (); sys++)
+  for (vsize sys = 0; sys < system_specs_.size (); sys++)
     {
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
-	  all_[sys].pscore_->root_system ()
+	  system_specs_[sys].pscore_->root_system ()
 	    ->do_break_substitution_and_fixup_refpoints ();
-	  SCM lines = all_[sys].pscore_->root_system ()
+	  SCM lines = system_specs_[sys].pscore_->root_system ()
 	    ->get_broken_system_grobs ();
 	  ret = scm_cons (lines, ret);
 	}
       else
 	{
-	  Prob *pb = all_[sys].prob_;
+	  Prob *pb = system_specs_[sys].prob_;
 	  ret = scm_cons (scm_list_1 (pb->self_scm ()), ret);
 	  pb->unprotect ();
 	}
@@ -220,9 +220,9 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 
   if (pos.sys_ == VPOS)
     return SCM_EOL;
-  if (all_[pos.sys_].pscore_)
+  if (system_specs_[pos.sys_].pscore_)
     return pos.col_->get_property (str);
-  return all_[pos.sys_].prob_->get_property (str);
+  return system_specs_[pos.sys_].prob_->get_property (str);
 }
 
 SCM
@@ -284,7 +284,7 @@ Page_breaking::create_system_list ()
 					scm_vector_to_list (ps->get_paper_systems ()),
 					scm_cdr (s)));
 	  else
-	    all_.push_back (System_spec (ps));
+	    system_specs_.push_back (System_spec (ps));
 	}
       else
         {
@@ -292,7 +292,7 @@ Page_breaking::create_system_list ()
           assert (pb);
 
           pb->protect ();
-          all_.push_back (System_spec (pb));
+          system_specs_.push_back (System_spec (pb));
         }
     }
 }
@@ -305,11 +305,11 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
   chunks_.push_back (Break_position ());
   breaks_.push_back (Break_position ());
 
-  for (vsize i = 0; i < all_.size (); i++)
+  for (vsize i = 0; i < system_specs_.size (); i++)
     {
-      if (all_[i].pscore_)
+      if (system_specs_[i].pscore_)
 	{
-	  vector<Grob*> cols = all_[i].pscore_->root_system ()->used_columns ();
+	  vector<Grob*> cols = system_specs_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
@@ -323,7 +323,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 						       cols[j],
 						       last);
 
-	      if (break_point || (i == all_.size () - 1 && last))
+	      if (break_point || (i == system_specs_.size () - 1 && last))
 		breaks_.push_back (cur_pos);
 	      if (chunk_end || last)
 		chunks_.push_back (cur_pos);
@@ -331,12 +331,12 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      if ((break_point || chunk_end) && !last)
 		line_breaker_columns.push_back (j);
 	    }
-	  line_breaking_.push_back (Constrained_breaking (all_[i].pscore_, line_breaker_columns));
+	  line_breaking_.push_back (Constrained_breaking (system_specs_[i].pscore_, line_breaker_columns));
 	}
       else
 	{
 	  /* TODO: we want some way of applying Break_p to a prob? */
-	  if (i == all_.size () - 1)
+	  if (i == system_specs_.size () - 1)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));
@@ -399,7 +399,7 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  vsize start;
 	  vsize end;
@@ -480,7 +480,7 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
   for (vsize i = 0; i+1 < current_chunks_.size (); i++)
     {
       vsize sys = next_system (current_chunks_[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
 	  div.push_back (line_breaking_[sys].best_solution (start, end).size ());
@@ -513,7 +513,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
       for (vsize i = 0; i + 1 < current_chunks_.size (); i++)
 	{
 	  vsize sys = next_system (current_chunks_[i]);
-	  if (all_[sys].pscore_)
+	  if (system_specs_[sys].pscore_)
 	    {
 	      vsize start;
 	      vsize end;
@@ -525,7 +525,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	  else
 	    {
 	      assert (div[i] == 1);
-	      uncompressed_line_details_.push_back (Line_details (all_[sys].prob_));
+	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_));
 	      uncompressed_line_details_.back ().padding_ = padding;
 	    }
 	}
