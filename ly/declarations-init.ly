@@ -38,16 +38,8 @@ center = #0
 %% rather name \newline, \pageBreak ?
 break = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission 'force)))
 noBreak = #(make-event-chord (list (make-music 'LineBreakEvent 'break-permission '())))
-pageBreak = #(make-event-chord (list
-				(make-music 'LineBreakEvent 'break-permission 'force)
-				(make-music 'PageBreakEvent 'break-permission 'force)))
-noPageBreak = #(make-event-chord (list (make-music 'PageBreakEvent 'break-permission '())))
-pageTurn = #(make-event-chord (list
-				(make-music 'LineBreakEvent 'break-permission 'force)
-				(make-music 'PageBreakEvent 'break-permission 'force)
-				(make-music 'PageTurnEvent 'break-permission 'force)))
-noPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission '())))
-allowPageTurn = #(make-event-chord (list (make-music 'PageTurnEvent 'break-permission 'allow)))
+%% \pageBreak, \noPageBreak, \pageTurn, \noPageTurn, \allowPageTurn are defined
+%% as music functions
 
 stopStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent STOP)))
 startStaff = #(make-event-chord (list (make-span-event 'StaffSpanEvent START)))
@@ -121,3 +113,6 @@ setDefaultDurationToQuarter = { c4 }
 #(define toplevel-score-handler collect-scores-for-book)
 #(define toplevel-text-handler collect-scores-for-book)
 
+#(define book-music-handler collect-book-music-for-book)
+#(define book-score-handler ly:book-add-score!)
+#(define book-text-handler ly:book-add-score!)

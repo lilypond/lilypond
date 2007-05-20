@@ -17,6 +17,7 @@
 #include "text-interface.hh"
 #include "warn.hh"
 #include "program-option.hh"
+#include "page-marker.hh"
 
 #include "ly-smobs.icc"
 
@@ -226,8 +227,25 @@ Paper_book::score_title (SCM header)
   return title;
 }
 
+void
+set_page_permission (SCM sys, SCM symbol, SCM permission)
+{
+  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
+    {
+      vector<Grob*> cols = ps->get_columns ();
+      if (cols.size ())
+	{
+	  Paper_column *col = dynamic_cast<Paper_column*> (cols.back ());
+	  col->set_property (symbol, permission);
+	  col->find_prebroken_piece (LEFT)->set_property (symbol, permission);
+	}
+    }
+  else if (Prob *pb = unsmob_prob (sys))
+    pb->set_property (symbol, permission);
+}
+
 /* read the breakbefore property of a score block and set up the preceding
-   system-spec to honour it. That is, SYM should be the system spec that
+   system-spec to honour it. That is, SYS should be the system spec that
    immediately precedes the score (from which HEADER is taken)
    in the get_system_specs () list */
 void
@@ -239,25 +257,18 @@ set_system_penalty (SCM sys, SCM header)
       if (SCM_VARIABLEP (force)
 	  && scm_is_bool (SCM_VARIABLE_REF (force)))
 	{
-	  bool b = to_boolean (SCM_VARIABLE_REF (force));
-	  SCM sym = b ? ly_symbol2scm ("force") : SCM_EOL;
-
-	  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
+	  if (to_boolean (SCM_VARIABLE_REF (force)))
 	    {
-	      vector<Grob*> cols = ps->get_columns ();
-	      if (cols.size ())
-		{
-		  Paper_column *col = dynamic_cast<Paper_column*> (cols.back ());
-		  col->set_property ("page-break-permission", sym);
-		  col->find_prebroken_piece (LEFT)->set_property ("page-break-permission", sym);
-		}
+	      set_page_permission (sys, ly_symbol2scm ("page-break-permission"),
+				   ly_symbol2scm ("force"));
+	      set_page_permission (sys, ly_symbol2scm ("line-break-permission"),
+				   ly_symbol2scm ("force"));
 	    }
-	  else if (Prob *pb = unsmob_prob (sys))
-	    pb->set_property ("page-break-permission", sym);
+	  else
+	    set_page_permission (sys, ly_symbol2scm ("page-break-permission"), SCM_EOL);
 	}
     }
 }
-
 
 SCM
 Paper_book::get_score_title (SCM header)
@@ -311,6 +322,14 @@ Paper_book::get_system_specs ()
 	  if (header_0_ == SCM_EOL)
 	    header_0_ = header;
 	}
+      else if (Page_marker *page_marker = unsmob_page_marker (scm_car (s)))
+	{
+	  /* a page marker: set previous element page break or turn permission */
+	  if (scm_is_pair (system_specs))
+	    set_page_permission (scm_car (system_specs),
+				 page_marker->permission_symbol (),
+				 page_marker->permission_value ());
+	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
 	{
 	  if (Paper_score *pscore = dynamic_cast<Paper_score *> (mop))
@@ -344,9 +363,6 @@ Paper_book::get_system_specs ()
 	  
 	  // TODO: init props
 	  Prob *ps = make_paper_system (SCM_EOL);
-	  /* we don't have a way of specifying page-{break,turn} on
-	     markup blocks, so for now we just set everything turnable
-	    and breakable by default */
 	  ps->set_property ("page-break-permission", ly_symbol2scm ("allow"));
 	  ps->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
 	  
