@@ -19,7 +19,8 @@
 #include "system.hh"
 #include "warn.hh"
 
-/* for each forbidden page break, merge the systems around it into one system. */
+/* for each forbidden page break, merge the systems around it into one
+   system. */
 static vector<Line_details>
 compress_lines (const vector<Line_details> &orig)
 {
@@ -141,7 +142,8 @@ Page_breaking::line_breaker_args (vsize sys,
 }
 
 void
-Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_division const &div)
+Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
+				  Line_division const &div)
 {
   vector<Break_position> chunks = chunk_list (start_break, end_break);
   bool ignore_div = false;
@@ -176,8 +178,10 @@ Page_breaking::systems ()
     {
       if (all_[sys].pscore_)
 	{
-	  all_[sys].pscore_->root_system ()->do_break_substitution_and_fixup_refpoints ();
-	  SCM lines = all_[sys].pscore_->root_system ()->get_broken_system_grobs ();
+	  all_[sys].pscore_->root_system ()
+	    ->do_break_substitution_and_fixup_refpoints ();
+	  SCM lines = all_[sys].pscore_->root_system ()
+	    ->get_broken_system_grobs ();
 	  ret = scm_cons (lines, ret);
 	}
       else
@@ -233,18 +237,21 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   page_stencil = scm_variable_ref (page_stencil);
 
   SCM book = book_->self_scm ();
-  int first_page_number = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_number
+    = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
       SCM page_num = scm_from_int (i + first_page_number);
       SCM last = scm_from_bool (i == lines_per_page.size () - 1);
-      SCM rag = scm_from_bool (ragged () || (to_boolean (last) && ragged_last ()));
+      SCM rag = scm_from_bool (ragged () || (to_boolean (last)
+					     && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       SCM page = scm_apply_0 (make_page,
-			      scm_list_n (book, lines, page_num, rag, last, SCM_UNDEFINED));
+			      scm_list_n (book, lines, page_num,
+					  rag, last, SCM_UNDEFINED));
 
       scm_apply_1 (page_stencil, page, SCM_EOL);
       ret = scm_cons (page, ret);
@@ -381,7 +388,8 @@ Page_breaking::max_system_count (vsize start, vsize end)
 }
 
 Page_breaking::Line_division
-Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool min)
+Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
+				    bool min)
 {
   assert (chunks.size () >= 2);
 

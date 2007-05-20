@@ -41,6 +41,7 @@ Optimal_page_breaking::solve ()
   vsize ideal_sys_count = 0;
   vsize max_sys_count = max_system_count (0, end);
   vsize page_count = 0;
+  
   Line_division ideal_line_division;
   Line_division best_division;
   Line_division bound;

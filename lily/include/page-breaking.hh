@@ -75,6 +75,13 @@ class Page_breaking
 public:
   typedef bool (*Break_predicate) (Grob *);
   typedef vector<vsize> Line_division;
+  
+  /*
+    TODO: naming.
+
+    determine the page breaking, and break scores into lines
+    appropriately.
+   */
   virtual SCM solve () = 0;
 
   Page_breaking (Paper_book *pb, Break_predicate);
@@ -108,9 +115,12 @@ protected:
 
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
-  Spacing_result space_systems_on_n_pages (vsize configuration_index, vsize n, vsize first_page_num);
-  Spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n, vsize first_page_num);
-  Spacing_result space_systems_on_best_pages (vsize configuration_index, vsize first_page_num);
+  Spacing_result space_systems_on_n_pages (vsize configuration_index,
+					   vsize n, vsize first_page_num);
+  Spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
+						       vsize first_page_num);
+  Spacing_result space_systems_on_best_pages (vsize configuration_index,
+					      vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
   bool all_lines_stretched (vsize configuration_index);
   Real blank_page_penalty () const;
