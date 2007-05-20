@@ -85,7 +85,7 @@ uncompress_solution (vector<vsize> const &systems_per_page,
 vsize
 Page_breaking::next_system (Break_position const &break_pos) const
 {
-  vsize sys = break_pos.sys_;
+  vsize sys = break_pos.system_spec_index_;
 
   if (sys == VPOS) /* beginning of the book */
     return 0;
@@ -128,14 +128,14 @@ Page_breaking::line_breaker_args (vsize sys,
 				  vsize *line_breaker_end)
 {
   assert (system_specs_[sys].pscore_);
-  assert (next_system (start) <= sys && sys <= end.sys_);
+  assert (next_system (start) <= sys && sys <= end.system_spec_index_);
 
-  if (start.sys_ == sys)
+  if (start.system_spec_index_ == sys)
     *line_breaker_start = start.score_break_;
   else
     *line_breaker_start = 0;
 
-  if (end.sys_ == sys)
+  if (end.system_spec_index_ == sys)
     *line_breaker_end = end.score_break_;
   else
     *line_breaker_end = VPOS;
@@ -218,11 +218,11 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 {
   Break_position const &pos = breaks_[breakpoint];
 
-  if (pos.sys_ == VPOS)
+  if (pos.system_spec_index_ == VPOS)
     return SCM_EOL;
-  if (system_specs_[pos.sys_].pscore_)
+  if (system_specs_[pos.system_spec_index_].pscore_)
     return pos.col_->get_property (str);
-  return system_specs_[pos.sys_].prob_->get_property (str);
+  return system_specs_[pos.system_spec_index_].prob_->get_property (str);
 }
 
 SCM
@@ -649,8 +649,8 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
     return Spacing_result ();
   if (n == 1)
     ret = space_systems_on_1_page (cached_line_details_,
-				   page_height (first_page_num, last ()),
-				   ragged () || (last () && ragged_last ()));
+				   page_height (first_page_num, is_last ()),
+				   ragged () || (is_last () && ragged_last ()));
   else if (n == 2)
     ret = space_systems_on_2_pages (configuration, first_page_num);
   else
@@ -665,7 +665,7 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
 Real
 Page_breaking::blank_page_penalty () const
 {
-  SCM penalty_sym = last () ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
+  SCM penalty_sym = is_last () ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
   return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
@@ -790,9 +790,9 @@ Spacing_result
 Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_num)
 {
   Real page1_height = page_height (first_page_num, false);
-  Real page2_height = page_height (first_page_num+1, last ());
+  Real page2_height = page_height (first_page_num + 1, is_last ());
   bool ragged1 = ragged ();
-  bool ragged2 = ragged () || (last () && ragged_last ());
+  bool ragged2 = ragged () || (is_last () && ragged_last ());
 
   /* if there is a forced break, this reduces to 2 1-page problems */
   cache_line_details (configuration);
@@ -879,7 +879,14 @@ Page_breaking::current_configuration (vsize configuration_index) const
   return current_configurations_[configuration_index];
 }
 
-bool Page_breaking::last () const
+bool
+Page_breaking::is_last () const
 {
-  return current_end_breakpoint_ == breaks_.size () - 1;
+  return current_end_breakpoint_ == last_break_position ();
+}
+
+vsize
+Page_breaking::last_break_position () const
+{
+  return breaks_.size () - 1;  
 }

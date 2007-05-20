@@ -74,7 +74,7 @@ Page_spacer::Page_spacer (vector<Line_details> const &lines, vsize first_page_nu
   breaker_ = breaker;
   max_page_count_ = 0;
   ragged_ = breaker->ragged ();
-  ragged_last_ = breaker->last () && breaker->ragged_last ();
+  ragged_last_ = breaker->is_last () && breaker->ragged_last ();
 }
 
 Spacing_result

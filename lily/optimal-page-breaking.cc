@@ -36,7 +36,7 @@ Optimal_page_breaking::~Optimal_page_breaking ()
 SCM
 Optimal_page_breaking::solve ()
 {
-  vsize end = breaks_.size () - 1;
+  vsize end = last_break_position ();
   vsize min_sys_count = 0;
   vsize ideal_sys_count = 0;
   vsize max_sys_count = max_system_count (0, end);

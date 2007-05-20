@@ -41,40 +41,39 @@ struct System_spec
 
 struct Break_position
 {
-   /* our index in the all_ list */
-  vsize sys_;
+  vsize system_spec_index_;
 
-  /* if sys_ is a score, then we start at the score_brk_'th possible
+  /* if system_spec_index_ is a score, then we start at the score_brk_'th possible
      page-break in the score */
   vsize score_break_; 
 
-  /* if sys_ is a score, this points to the broken column */
+  /* if system_spec_index_ is a score, this points to the broken column */
   Grob *col_;  
   bool score_ender_;
 
   Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
   {
-    sys_ = s;
+    system_spec_index_ = s;
     score_break_ = brk;
     col_ = g;
     score_ender_ = end;
   }
 
   /*
-    lexicographic in (sys_, score_break_)
+    lexicographic in (system_spec_index_, score_break_)
    */
   bool operator< (const Break_position &other)
   {
-    return (sys_ == VPOS && other.sys_ != VPOS)
-      || (sys_ < other.sys_)
-      || (sys_ == other.sys_ && score_break_ < other.score_break_);
+    return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
+      || (system_spec_index_ < other.system_spec_index_)
+      || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
   }
 
   bool operator<= (const Break_position &other)
   {
-    return (sys_ == VPOS)
-      || (sys_ < other.sys_ && other.sys_ != VPOS)
-      || (sys_ == other.sys_ && score_break_ <= other.score_break_);
+    return (system_spec_index_ == VPOS)
+      || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
+      || (system_spec_index_ == other.system_spec_index_ && score_break_ <= other.score_break_);
   }
 };
 
@@ -97,7 +96,7 @@ public:
 
   bool ragged () const;
   bool ragged_last () const;
-  bool last () const;
+  bool is_last () const;
   Real page_height (int page_number, bool last) const;
 
 protected:
@@ -135,11 +134,9 @@ protected:
 
   SCM breakpoint_property (vsize breakpoint, char const *str);
 
-
-protected:
-  vector<Break_position> breaks_;
-
+  vsize last_break_position () const;
 private:
+  vector<Break_position> breaks_;
   vector<Break_position> chunks_;
   vector<System_spec> system_specs_;
   vector<Constrained_breaking> line_breaking_;

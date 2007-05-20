@@ -206,8 +206,8 @@ Page_turn_page_breaking::solve ()
 {
   state_.clear ();
   message (_f ("Calculating page and line breaks (%d possible page breaks)...",
-               (int)breaks_.size () - 1) + " ");
-  for (vsize i = 0; i + 1 < breaks_.size (); i++)
+               (int) last_break_position ()));
+  for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
       progress_indication (string ("[") + to_string (i + 1) + "]");
