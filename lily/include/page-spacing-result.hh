@@ -21,7 +21,8 @@ struct Page_spacing_result {
 
   Real average_force () const;
   vsize page_count () const;
-  vsize system_count () const;  
+  vsize system_count () const;
+  void print () const;  
   Page_spacing_result ();
 };
 

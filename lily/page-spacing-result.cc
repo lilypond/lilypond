@@ -41,3 +41,12 @@ Page_spacing_result::average_force () const
   average_force /= page_count ();
   return average_force;
 }
+
+void
+Page_spacing_result::print () const
+{
+  printf ("penalty %lf, demerits %lf\n" , penalty_, demerits_);
+  for (vsize i = 0; i < page_count (); i++)
+    printf (" %d:  #sys=%d, force=%lf\n", i, systems_per_page_[i],
+	    force_[i]);
+}
