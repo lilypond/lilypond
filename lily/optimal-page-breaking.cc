@@ -44,9 +44,9 @@ Optimal_page_breaking::solve ()
   message (_ ("Finding the ideal number of pages..."));
   set_to_ideal_line_configuration (0, end);
   
-  Line_division ideal_line_division = current_configuration (0);
   Page_spacing_result best = space_systems_on_best_pages (0, first_page_num);
   vsize page_count = best.systems_per_page_.size ();
+  Line_division ideal_line_division = current_configuration (0);
   Line_division best_division = ideal_line_division;
 
   vsize ideal_sys_count = best.system_count ();
@@ -95,10 +95,12 @@ Optimal_page_breaking::solve ()
       if (best_for_this_sys_count.systems_per_page_.size () < page_count)
 	{
 	  /* if the pages are stretched on average, stop trying to reduce sys_count */
-	  Real avg_f = 0;
+	  Real average_force = 0;
 	  for (vsize i = 0; i < best_for_this_sys_count.systems_per_page_.size (); i++)
-	    avg_f += best_for_this_sys_count.systems_per_page_[i];
-	  if (avg_f > 0)
+	    average_force += best_for_this_sys_count.force_[i];
+
+	  average_force /= best_for_this_sys_count.page_count (); 
+	  if (average_force > 0)
 	    break;
 	}
 
