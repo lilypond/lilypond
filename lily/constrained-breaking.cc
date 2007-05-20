@@ -189,7 +189,7 @@ Constrained_breaking::solve (vsize start, vsize end, vsize sys_count)
 vector<Column_x_positions>
 Constrained_breaking::best_solution (vsize start, vsize end)
 {
-  vsize min_systems =  min_system_count (start, end);
+  vsize min_systems = min_system_count (start, end);
   vsize max_systems = max_system_count (start, end);
   Real best_demerits = infinity_f;
   vector<Column_x_positions> best_so_far;

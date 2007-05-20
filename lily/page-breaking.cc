@@ -91,7 +91,7 @@ Page_breaking::next_system (Break_position const &break_pos) const
     return 0;
   if (system_specs_[sys].pscore_ && !break_pos.score_ender_)
     return sys; /* the score overflows the previous page */
-  return sys + 1; /* this page starts with a new sys */
+  return sys + 1; /* this page starts with a new System_spec */
 }
 
 Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
@@ -309,13 +309,14 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
     {
       if (system_specs_[i].pscore_)
 	{
-	  vector<Grob*> cols = system_specs_[i].pscore_->root_system ()->used_columns ();
+	  vector<Grob*> cols
+	    = system_specs_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
 	  for (vsize j = 1; j < cols.size (); j++)
 	    {
-	      bool last = j == cols.size () - 1;
+	      bool last = (j == cols.size () - 1);
 	      bool break_point = is_break (cols[j]);
 	      bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
 	      Break_position cur_pos = Break_position (i,
@@ -340,6 +341,9 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));
+
+	  /* FIXME: shouldn't we push a Null_breaker or similar dummy
+	     class? --hwn */
 	  line_breaking_.push_back (Constrained_breaking (NULL));
 	}
     }
@@ -351,8 +355,8 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index)
   Break_position start = breaks_[start_index];
   Break_position end = breaks_[end_index];
 
-  vsize i;
-  for (i = 0; i < chunks_.size () && chunks_[i] <= start; i++)
+  vsize i = 0;
+  for (; i < chunks_.size () && chunks_[i] <= start; i++)
     ;
 
   vector<Break_position> ret;
@@ -638,15 +642,15 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   return ret;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num)
 {
-  Spacing_result ret;
+  Page_spacing_result ret;
   assert (n >= min_page_count (configuration, first_page_num));
 
   cache_line_details (configuration);
   if (n > cached_line_details_.size ())
-    return Spacing_result ();
+    return Page_spacing_result ();
   if (n == 1)
     ret = space_systems_on_1_page (cached_line_details_,
 				   page_height (first_page_num, is_last ()),
@@ -669,11 +673,11 @@ Page_breaking::blank_page_penalty () const
   return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num)
 {
-  Spacing_result n_res;
-  Spacing_result m_res;
+  Page_spacing_result n_res;
+  Page_spacing_result m_res;
 
   if (n <= 2)
     {
@@ -701,7 +705,7 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   return n_res;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
   vsize min_p_count = min_page_count (configuration, first_page_num);
@@ -709,13 +713,13 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
-  Spacing_result best = ps.solve (min_p_count);
+  Page_spacing_result best = ps.solve (min_p_count);
   best.force_.back () += (min_p_count % 2) ? odd_pages_penalty : 0;
   best.demerits_ += (min_p_count % 2) ? odd_pages_penalty : 0;
 
   for (vsize i = min_p_count+1; i <= cached_line_details_.size (); i++)
     {
-      Spacing_result cur = ps.solve (i);
+      Page_spacing_result cur = ps.solve (i);
       cur.demerits_ += (i % 2) ? odd_pages_penalty : 0;
       if (cur.demerits_ < best.demerits_)
 	best = cur;
@@ -726,8 +730,8 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
 /* Calculate demerits and fix res.systems_per_page_ so that
    it refers to the original line numbers, not the ones given by compress_lines (). */
-Spacing_result
-Page_breaking::finalize_spacing_result (vsize configuration, Spacing_result res)
+Page_spacing_result
+Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result res)
 {
   cache_line_details (configuration);
   res.systems_per_page_ = uncompress_solution (res.systems_per_page_, cached_line_details_);
@@ -769,11 +773,11 @@ Page_breaking::finalize_spacing_result (vsize configuration, Spacing_result res)
    space_systems functions. This is because space_systems_on_1_page is (unlike
    the other space_systems functions) sometimes called on subsets of a full
    configuration. */
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
   Page_spacing space (page_height);
-  Spacing_result ret;
+  Page_spacing_result ret;
 
   for (vsize i = 0; i < lines.size (); i++)
     space.append_system (lines[i]);
@@ -786,7 +790,7 @@ Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real 
   return ret;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_num)
 {
   Real page1_height = page_height (first_page_num, false);
@@ -801,8 +805,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
       {
 	vector<Line_details> lines1 (cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
 	vector<Line_details> lines2 (cached_line_details_.begin () + i + 1, cached_line_details_.end ());
-	Spacing_result p1 = space_systems_on_1_page (lines1, page1_height, ragged1);
-	Spacing_result p2 = space_systems_on_1_page (lines2, page2_height, ragged2);
+	Page_spacing_result p1 = space_systems_on_1_page (lines1, page1_height, ragged1);
+	Page_spacing_result p2 = space_systems_on_1_page (lines2, page2_height, ragged2);
 
 	p1.systems_per_page_.push_back (p2.systems_per_page_[0]);
 	p1.force_.push_back (p2.force_[0]);
@@ -849,7 +853,7 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 	}
     }
 
-  Spacing_result ret;
+  Page_spacing_result ret;
   ret.systems_per_page_.push_back (best_sys_count);
   ret.systems_per_page_.push_back (cached_line_details_.size () - best_sys_count);
   ret.force_.push_back (page1_force[best_sys_count-1]);

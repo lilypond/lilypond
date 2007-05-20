@@ -61,7 +61,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
      min_p_count has that evenness. (For example, if PAGE-NUMBER is even and
      min_p_count is even, we don't even consider the blank page option). */
 
-  Spacing_result result;
+  Page_spacing_result result;
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)

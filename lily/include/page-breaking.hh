@@ -41,6 +41,9 @@ struct System_spec
 
 struct Break_position
 {
+  /*
+    index in system_spec_index_, if VPOS start of book. 
+   */
   vsize system_spec_index_;
 
   /* if system_spec_index_ is a score, then we start at the score_brk_'th possible
@@ -122,11 +125,11 @@ protected:
 
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
-  Spacing_result space_systems_on_n_pages (vsize configuration_index,
+  Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
 					   vsize n, vsize first_page_num);
-  Spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
+  Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
 						       vsize first_page_num);
-  Spacing_result space_systems_on_best_pages (vsize configuration_index,
+  Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
 					      vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
   bool all_lines_stretched (vsize configuration_index);
@@ -168,9 +171,9 @@ private:
 			   Line_division *cur);
 
   vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
-  Spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
-  Spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
-  Spacing_result finalize_spacing_result (vsize configuration_index, Spacing_result);
+  Page_spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
+  Page_spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
+  Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate);
 };
