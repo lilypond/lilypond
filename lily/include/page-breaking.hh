@@ -176,5 +176,6 @@ private:
   Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate);
+  void uncompress_page_spacing_results (Page_spacing_result*);
 };
 #endif /* PAGE_BREAKING_HH */

@@ -53,28 +53,6 @@ compress_lines (const vector<Line_details> &orig)
   return ret;
 }
 
-/* translate the number of systems-per-page into something meaningful for
-   the uncompressed lines.
-*/
-static vector<vsize>
-uncompress_solution (vector<vsize> const &systems_per_page,
-		     vector<Line_details> const &compressed)
-{
-  vector<vsize> ret;
-  vsize start_sys = 0;
-
-  for (vsize i = 0; i < systems_per_page.size (); i++)
-    {
-      int compressed_count = 0;
-      for (vsize j = start_sys; j < start_sys + systems_per_page[i]; j++)
-	compressed_count += (int)compressed[j].force_;
-
-      ret.push_back (systems_per_page[i] + compressed_count);
-      start_sys += systems_per_page[i];
-    }
-  return ret;
-}
-
 /* for Page_breaking, the start index (when we are dealing with the stuff
    between a pair of breakpoints) refers to the break_ index of the end of
    the previous page. So the system index of the start of the current page
@@ -519,8 +497,8 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	  vsize sys = next_system (current_chunks_[i]);
 	  if (system_specs_[sys].pscore_)
 	    {
-	      vsize start;
-	      vsize end;
+	      vsize start = 0;
+	      vsize end = 0;
 	      line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
 
 	      vector<Line_details> details = line_breaking_[sys].line_details (start, end, div[i]);
@@ -652,11 +630,18 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
   if (n > cached_line_details_.size ())
     return Page_spacing_result ();
   if (n == 1)
-    ret = space_systems_on_1_page (cached_line_details_,
-				   page_height (first_page_num, is_last ()),
-				   ragged () || (is_last () && ragged_last ()));
+    {
+      ret = space_systems_on_1_page (cached_line_details_,
+				     page_height (first_page_num, is_last ()),
+				     ragged () || (is_last () && ragged_last ()));
+
+      uncompress_page_spacing_results (&ret);
+    }
   else if (n == 2)
-    ret = space_systems_on_2_pages (configuration, first_page_num);
+    {
+      ret = space_systems_on_2_pages (configuration, first_page_num);
+      uncompress_page_spacing_results (&ret);
+    }
   else
     {
       Page_spacer ps (cached_line_details_, first_page_num, this);
@@ -691,9 +676,16 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
       vsize min_p_count = min_page_count (configuration, first_page_num);
       Page_spacer ps (cached_line_details_, first_page_num, this);
       if (n >= min_p_count)
-	n_res = ps.solve (n);
+	{
+	  n_res = ps.solve (n);
+	  uncompress_page_spacing_results (&n_res);
+	}
       if (n < cached_line_details_.size ())
-	m_res = ps.solve (n+1);
+	{
+	  m_res = ps.solve (n+1);
+	  uncompress_page_spacing_results (&m_res);
+	}
+            
     }
 
   Real penalty = blank_page_penalty ();
@@ -728,14 +720,44 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
   return finalize_spacing_result (configuration, best);
 }
 
+
+
+/* translate the number of systems-per-page into something meaningful for
+   the uncompressed lines.
+*/
+static vector<vsize>
+uncompress_solution (vector<vsize> const &systems_per_page,
+		     vector<Line_details> const &compressed)
+{
+  vector<vsize> ret;
+  vsize start_sys = 0;
+
+  for (vsize i = 0; i < systems_per_page.size (); i++)
+    {
+      int compressed_count = 0;
+      for (vsize j = start_sys; j < start_sys + systems_per_page[i]; j++)
+	compressed_count += (int)compressed[j].force_;
+
+      ret.push_back (systems_per_page[i] + compressed_count);
+      start_sys += systems_per_page[i];
+    }
+  return ret;
+}
+
+void
+Page_breaking::uncompress_page_spacing_results (Page_spacing_result *res)
+{
+  res->systems_per_page_ = uncompress_solution (res->systems_per_page_, cached_line_details_);
+}
+						
 /* Calculate demerits and fix res.systems_per_page_ so that
    it refers to the original line numbers, not the ones given by compress_lines (). */
 Page_spacing_result
 Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result res)
 {
   cache_line_details (configuration);
-  res.systems_per_page_ = uncompress_solution (res.systems_per_page_, cached_line_details_);
-
+  uncompress_page_spacing_results (&res);
+  
   Real line_force = 0;
   Real line_penalty = 0;
   Real page_force = 0;
@@ -763,7 +785,6 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
      becomes averaged out over many pages. */
   res.demerits_ = line_force + line_penalty + (page_force + res.penalty_) * page_weighting;
   return res;
-
 }
 
 /* the cases for page_count = 1 or 2 can be done in O (n) time. Since they
