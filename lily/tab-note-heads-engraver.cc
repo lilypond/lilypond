@@ -13,6 +13,7 @@
 
 using namespace std;
 
+#include "context.hh"
 #include "duration.hh"
 #include "item.hh"
 #include "output-def.hh"
@@ -67,12 +68,11 @@ Tab_note_heads_engraver::process_music ()
   vsize j = 0;
   for (vsize i = 0; i < note_events_.size (); i++)
     {
-      SCM stringTunings = get_property ("stringTunings");
-      int number_of_strings = scm_ilength (stringTunings);
+      SCM string_tunings = get_property ("stringTunings");
+      int string_count = scm_ilength (string_tunings);
       bool high_string_one = to_boolean (get_property ("highStringOne"));
 
       Stream_event *event = note_events_[i];
-      Item *note = make_item ("TabNoteHead", event->self_scm ());
 
       Stream_event *tabstring_event = 0;
 
@@ -92,49 +92,54 @@ Tab_note_heads_engraver::process_music ()
 	    j++;
 	}
 
-      int tab_string;
-      bool string_found;
+      int string_number = 0;
       if (tabstring_event)
+	string_number = scm_to_int (tabstring_event->get_property ("string-number"));
+
+      if (!string_number)
 	{
-	  tab_string = scm_to_int (tabstring_event->get_property ("string-number"));
-	  string_found = true;
+	  SCM scm_pitch = event->get_property ("pitch");
+	  int min_fret = robust_scm2int (get_property ("minimumFret"), 0);
+	  int start = (high_string_one) ? 1 : string_count;
+	  int end = (high_string_one) ? string_count : 1;
+
+	  int i = start;
+	  do
+	    {
+	      int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
+		- scm_to_int (robust_list_ref (i - 1, string_tunings));
+	  
+	      if (fret >= min_fret)
+		{
+		  string_number = i;
+		  break;
+		}
+	      i += high_string_one ? 1 : -1;
+	    }
+	  while (i != end);
+	}
+      
+      if (string_number)
+	{
+	  SCM proc = get_property ("tablatureFormat");
+	  SCM text = scm_call_3 (proc, scm_from_int (string_number),
+				 context ()->self_scm (),
+				 event->self_scm ());
+	  Item *note = make_item ("TabNoteHead", event->self_scm ());
+	  note->set_property ("text", text);
+
+	  int pos = 2 * string_number - string_count - 1; // No tab-note between the string !!!
+	  if (to_boolean (get_property ("stringOneTopmost")))
+	    pos = - pos;
+
+	  note->set_property ("staff-position", scm_from_int (pos));
+      
+	  notes_.push_back (note);
 	}
       else
-	{
-	  tab_string = high_string_one ? 1 : number_of_strings;
-	  string_found = false;
-	}
-
-      Duration dur = *unsmob_duration (event->get_property ("duration"));
-
-      SCM scm_pitch = event->get_property ("pitch");
-      SCM proc = get_property ("tablatureFormat");
-      SCM min_fret_scm = get_property ("minimumFret");
-      int min_fret = scm_is_number (min_fret_scm) ? scm_to_int (min_fret_scm) : 0;
-
-      while (!string_found)
-	{
-	  int fret = unsmob_pitch (scm_pitch)->semitone_pitch ()
-	    - scm_to_int (scm_list_ref (stringTunings, scm_from_int (tab_string - 1)));
-	  if (fret < min_fret)
-	    tab_string += high_string_one ? 1 : -1;
-	  else
-	    string_found = true;
-	}
-
-      SCM text = scm_call_3 (proc, scm_from_int (tab_string), stringTunings, scm_pitch);
-
-      int pos = 2 * tab_string - number_of_strings - 1; // No tab-note between the string !!!
-      if (to_boolean (get_property ("stringOneTopmost")))
-	pos = -pos;
-
-      note->set_property ("text", text);
-
-      note->set_property ("staff-position", scm_from_int (pos));
-      notes_.push_back (note);
+	event->origin ()->warning ("could not calculate a string number.");
     }
 }
-
 void
 Tab_note_heads_engraver::stop_translation_timestep ()
 {
