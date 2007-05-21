@@ -679,30 +679,37 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
   Page_spacing_result n_res;
   Page_spacing_result m_res;
 
-  if (n <= 2)
+  cache_line_details (configuration);
+  vsize min_p_count = min_page_count (configuration, first_page_num);
+
+  if (n == 1)
     {
-      n_res = space_systems_on_n_pages (configuration, n, first_page_num);
-      m_res = space_systems_on_n_pages (configuration, n+1, first_page_num);
+      bool rag = ragged () || (is_last () && ragged_last ());
+      Real height = page_height (first_page_num, is_last ());
+
+      if (1 >= min_p_count)
+	n_res = space_systems_on_1_page (cached_line_details_, height, rag);
+      if (1 < cached_line_details_.size ())
+	m_res = space_systems_on_2_pages (configuration, first_page_num);
     }
   else
     {
-      cache_line_details (configuration);
-
-      vsize min_p_count = min_page_count (configuration, first_page_num);
       Page_spacer ps (cached_line_details_, first_page_num, this);
+      
       if (n >= min_p_count)
 	n_res = ps.solve (n);
       if (n < cached_line_details_.size ())
 	m_res = ps.solve (n+1);
     }
 
+  m_res = finalize_spacing_result (configuration, m_res);
+  n_res = finalize_spacing_result (configuration, n_res);
+
   Real penalty = blank_page_penalty ();
   n_res.demerits_ += penalty;
   n_res.force_.back () += penalty;
 
-  if (m_res.demerits_ < n_res.demerits_)
-    return m_res;
-  return n_res;
+  return (m_res.demerits_ < n_res.demerits_) ? m_res : n_res;
 }
 
 Page_spacing_result
