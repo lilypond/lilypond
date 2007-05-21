@@ -97,7 +97,7 @@
     (page-width  100)
     (page-height 100)
     (rename-page-1 #f)
-    (be-verbose #f)
+    (be-verbose (ly:get-option 'verbose))
     (pixmap-format 'png16m)
     (anti-alias-factor 1))
 
@@ -125,7 +125,6 @@
  ~a\
  -dGraphicsAlphaBits=4\
  -dTextAlphaBits=4\
- -q\
  -dNOPAUSE\
  -sDEVICE=~a\
  -sOutputFile=~S\
