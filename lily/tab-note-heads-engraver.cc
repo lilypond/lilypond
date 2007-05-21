@@ -96,9 +96,9 @@ Tab_note_heads_engraver::process_music ()
       if (tabstring_event)
 	string_number = scm_to_int (tabstring_event->get_property ("string-number"));
 
+      SCM scm_pitch = event->get_property ("pitch");
       if (!string_number)
 	{
-	  SCM scm_pitch = event->get_property ("pitch");
 	  int min_fret = robust_scm2int (get_property ("minimumFret"), 0);
 	  int start = (high_string_one) ? 1 : string_count;
 	  int end = (high_string_one) ? string_count : 1;
@@ -123,8 +123,8 @@ Tab_note_heads_engraver::process_music ()
 	{
 	  SCM proc = get_property ("tablatureFormat");
 	  SCM text = scm_call_3 (proc, scm_from_int (string_number),
-				 context ()->self_scm (),
-				 event->self_scm ());
+				 string_tunings, 
+				 scm_pitch);
 	  Item *note = make_item ("TabNoteHead", event->self_scm ());
 	  note->set_property ("text", text);
 
