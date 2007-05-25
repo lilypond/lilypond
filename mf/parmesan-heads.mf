@@ -898,13 +898,18 @@ def epiphonus_char (expr verbose_name, internal_name,
 		save stem_bt;
 
 		if left_stem:
-			z11 = (0.00 wd + 0.6 linethickness / 2, yoffs - 1.1 ht);
-			z12 = (0.00 wd + 0.6 linethickness / 2, yoffs);
-			draw_rounded_block ((0, yoffs - 1.1 ht -
-						  linethickness / 2),
-					    (0.6 linethickness, yoffs),
+			pickup pencircle scaled 0.6 linethickness;
+
+			lft x11 = x1 - linethickness / 2;
+			bot y11 = yoffs - 1.1 ht - linethickness / 2;
+			x12 = x11;
+			y12 = y1;
+
+			draw_rounded_block (bot lft z11, top rt z12,
 					    0.6 linethickness);
 			stem_bt# = yoffs# - 1.1 ht#;
+
+			labels (11, 12);
 		else:
 			stem_bt# = 0;
 		fi;
@@ -1337,33 +1342,46 @@ def med_punctum_char (expr verbose_name, internal_name,
 		z1 = (0.00 wd + blot_diameter / 2, 0);
 		z2 = (0.4 wd - blot_diameter / 2, 0);
 
-		fill get_subpath (ellipse, left, right, z1)
-		     -- get_subpath (ellipse, right, left, z2)
-		     -- cycle;
-
 		labels (1, 2);
 
 		pickup pencircle scaled linethickness;
 
 		if left_down_stem:
+			z4 = (0.00 wd + linethickness / 2, -1.25 ht);
+
+			fill get_subpath (ellipse, left, down, z1)
+			     -- top lft z4{down}
+			     .. z4{right}
+			     .. top rt z4{up}
+			     -- (rt x4, -.5 ht / 2)
+			     -- get_subpath (ellipse, right, left, z2)
+			     -- cycle;
+
+			labels (4);
+
 			set_char_box (0.0, 0.4 wd#, 1.25 ht#, 0.25 ht#);
-
-			z4 = (0.00 wd + linethickness / 2, blot_diameter / 2);
-			z5 = (0.00 wd + linethickness / 2, -1.25 ht);
-
-			draw_rounded_block (lft z5, rt z4, linethickness);
 		elseif left_up_stem:
+			z4 = (0.00 wd + linethickness / 2, +1.25 ht);
+
+			fill get_subpath (ellipse, down, right, z1)
+			     -- get_subpath (ellipse, right, left, z2)
+			     -- (rt x4, .5 ht / 2)
+			     -- bot rt z4{up}
+			     .. z4{left}
+			     .. bot lft z4{down}
+			     -- cycle;
+
+			labels (4);
+
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 1.25 ht#);
-
-			z4 = (0.00 wd + linethickness / 2, -blot_diameter / 2);
-			z5 = (0.00 wd + linethickness / 2, +1.25 ht);
-
-			draw_rounded_block (lft z4, rt z5, linethickness);
 		else:
+			fill get_subpath (ellipse, left, right, z1)
+			     -- get_subpath (ellipse, right, left, z2)
+			     -- cycle;
+
 			set_char_box (0.0, 0.4 wd#, 0.25 ht#, 0.25 ht#);
 		fi;
 
-		labels (4, 5);
 	fet_endchar;
 enddef;
 
