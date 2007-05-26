@@ -304,12 +304,12 @@ def draw_medicaea_fa_clef (expr exact_center, reduction) =
 	define_pixels (xoffs, yoffs);
 
 	% stem
-	pickup pencircle scaled linethickness;
+	pickup pencircle scaled reduced_slt;
 
 	x11 = x12 = xoffs + 0.4 reduced_il;
 	y11 = yoffs = bot y12 + 1.5 reduced_il;
 
-	draw_rounded_block (bot lft z12, top rt z11, linethickness);
+	draw_rounded_block (bot lft z12, top rt z11, reduced_slt);
 
 	% left-handed punctum
 	save ellipse, T;
@@ -322,7 +322,7 @@ def draw_medicaea_fa_clef (expr exact_center, reduction) =
 	ellipse := reverse fullcircle transformed T;
 
 	lft z13 = (xoffs, yoffs);
-	rt z14 = z11 + (linethickness / 2, 0);
+	rt z14 = z11 + (reduced_slt / 2, 0);
 
 	fill get_subpath (ellipse, left, right, z13)
 	     -- get_subpath (ellipse, right, left, z14)
