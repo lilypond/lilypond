@@ -1040,7 +1040,8 @@ def draw_petrucci_f_clef (expr exact_center, reduction) =
 	pickup pencircle transformed T;
 	ellipse := fullcircle transformed T;
 
-	rt z8 = (xoffs + reduced_il, yoffs - 4 reduced_slt);
+	rt x8 = xoffs + reduced_il;
+	y8 = y3;
 	rt z9 = (xoffs + reduced_il, yoffs - 4 reduced_il);
 
 	penpos8 (stem_width, 0);
