@@ -845,7 +845,7 @@ wird die Klammer der äußeren Triole über dem Notensystem platziert.
 Das zweite @code{\tweak} platziert die erste der drei inneren Klammern 
 unter dem System (von der Klammer wird hier nur der Nenner des
 Bruchs dargestellt). Dieses Paar von @code{\tweak}-Einstellungen wirkt 
-sich jedoch nur auf die äußere und die @italic{erste} innere Klammer 
+sich jedoch nur auf die äußere und die @emph{erste} innere Klammer 
 aus, weil nur sie zur gleichen Zeit beginnen. Mit dem @code{\override}-Befehl 
 kann die Richtung der zweiten und dritten @code{TupletBracket} 
 verändert werden, in 
@@ -1769,7 +1769,7 @@ zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
 Dieser Befehl berücksichtigt keine Verzierungen/Vorschläge am Anfang der 
 Noten. Wenn ein Stück mit einem Vorschlag anfängt, muss der Befehl 
-@code{\partial} @italic{nach} dem Vorschlag kommen:
+@code{\partial} @emph{nach} dem Vorschlag kommen:
 
 @lilypond[verbatim,quote,ragged-right,relative,fragment]
 \grace f16
@@ -2271,7 +2271,7 @@ Legatobogen zu verwenden.
 @cindex Legatobögen
 
 Ein Legatobogen (engl. slur) zeigt an, dass die Noten 
-@italic{legato} gespielt werden sollen. Er wird mit Klammern 
+@emph{legato} gespielt werden sollen. Er wird mit Klammern 
 hinter den Notenwerten notiert.
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
