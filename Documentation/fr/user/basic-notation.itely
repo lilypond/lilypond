@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+    Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -875,7 +875,7 @@ b16*4 c4
 
 @seealso
 
-Dans ce manuel : @ref{Tuplets}
+Dans ce manuel : @ref{Tuplets}.
 
 
 @node Bar check
@@ -2506,7 +2506,7 @@ réelle.  Cet espacement peut être changé en définissant
 @code{afterGraceFraction} ; ainsi,
 
 @example
-afterGraceFraction = #(cons 7 8)
+#(define afterGraceFraction (cons 7 8))
 @end example
 
 @noindent

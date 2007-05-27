@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c7d952c4fd5fbb5b9e32e7a2bf50ceec20098160
+    Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -155,8 +155,14 @@ a8-[ b-]
 @tab ajouter des portées
 @tab
 @lilypond[fragment]
-<< \new Staff { c'1 }
-  \new Staff { c'1 } >>
+<< \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   }
+   \new Staff {
+     \set Staff.implicitTimeSignatureVisibility = #all-invisible
+     c'1
+   } >>
 @end lilypond
 
   
@@ -174,7 +180,7 @@ c-> c-.
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
-c\mf c\sfz
+c2\mf c\sfz
 @end lilypond
 
 
@@ -203,6 +209,7 @@ a\> a a\!
 @tab accords
 @tab
 @lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 <c e> 
 @end lilypond
 
@@ -220,6 +227,7 @@ f8 c2 d e
 @tab triolets
 @tab
 @lilypond[relative=1,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \times 2/3 { f8 g a }
 @end lilypond
 
@@ -228,6 +236,7 @@ f8 c2 d e
 @tab appogiatures
 @tab
 @lilypond[relative=2,fragment]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \context Voice { \grace b16 c4 }
 @end lilypond
 
@@ -248,6 +257,7 @@ twinkle
 @tab diviser un mot en plusieurs syllabes
 @tab
 @lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
@@ -258,6 +268,7 @@ twinkle
 @tab accords chiffrés
 @tab
 @lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \chordmode { c:dim f:maj7 }
 @end lilypond
 
@@ -269,9 +280,10 @@ twinkle
 @end lilypond
 
 @item @code{<<@{e f@} \\ @{c d@}>>}
-@tab polyphonies
+@tab polyphonie
 @tab
 @lilypond[fragment,relative=2]
+\set Staff.implicitTimeSignatureVisibility = #all-invisible
 \context Staff <<{e f} \\ {c d}>>
 @end lilypond
 
