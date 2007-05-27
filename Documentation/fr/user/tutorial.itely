@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: a765cf7a841733570469b8f8b5c5ba538c4187d6
+   Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -134,7 +134,7 @@ comment voir ou imprimer le résultat de LilyPond.
 
 @subsubheading MacOS X
 
-Si vous double-cliquez sur LilyPond.app, un fichier d'exemple
+Si vous double-cliquez sur @code{LilyPond.app}, un fichier d'exemple
 s'ouvrira.  Sauvegardez-le, par exemple, sous @file{test.ly} sur votre
 bureau, et traitez-le ensuite avec la commande du menu @samp{Compile >
 Typeset File}.  Le fichier PDF résultant sera alors affiché sur votre
@@ -417,8 +417,7 @@ voir @ref{Clef}.
 Les fichiers d'entrée de LilyPond sont traités comme la plupart des
 langages de programmation : la casse est prise en compte mais pas les
 espaces vides, les expressions musicales sont délimitées par des
-accolades @{ @}, et les commentaires par des @code{%} ou @code{%@{ ..
-%@}}.
+accolades @{ @}, et les commentaires par @code{%} ou @code{%@{ ... %@}}.
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas !
 Tous ces termes vont être expliqués :
@@ -427,16 +426,16 @@ Tous ces termes vont être expliqués :
 
 @cindex Case sensitive
 @item @strong{La casse} :
-LilyPond est sensible à  la casse, c'est à dire qu'une lettre en
-capitales n'a pas la même valeur qu'une lettre en minuscules.  Les
-notes, par exemple, doivent être entrées en minuscules :  @code{ @{ c
-@tie{} d @tie{} e @tie{} @} } est un code valide, alors que @code{ @{
-C @tie{} D @tie{} E @tie{} @} } produira un message d'erreur.
+LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
+n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
+exemple, doivent être entrées en minuscules : @code{@{ c d e @}} est
+un code valide, alors que @code{@{ C D E @}} produira un message
+d'erreur.
 
 @item @strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, ou de retours à la
-ligne.  @code{ @{ c @tie{} @tie{} @tie{} d  @tie{} e @tie{} e @}} a le
-même sens que @code{ @{ c @tie{} d @tie{} e @tie{} @} } ou que
+ligne.  @code{@{ c d e @}} a le
+même sens que @code{@{ c @tie{} @tie{} d @tie{} e @}} ou que
 @example
          @{
 c                        d
@@ -461,8 +460,8 @@ parenthèses @samp{()} en mathématiques.  Il est préférable, pour
 éviter toute ambiguïté, d'entourer tous ces crochets d'espaces, à
 moins qu'ils se trouvent au début ou à la fin d'une ligne.
 
-Une fonction telle que @code{\relative @{ @}} ) compte également comme
-une seule expression musicale.
+Une fonction --- @code{\relative @{ @}} par exemple --- compte
+également comme une seule expression musicale.
 
 @cindex comments
 @cindex line comment
