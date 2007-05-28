@@ -1716,7 +1716,7 @@ point (without increasing the bar number counter).
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
 connected between different staves of a @code{StaffGroup},
-@code{PianoStaff}, or @code{ChoirStaff}.
+@code{PianoStaff}, or @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
