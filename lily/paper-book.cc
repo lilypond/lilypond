@@ -270,6 +270,24 @@ set_system_penalty (SCM sys, SCM header)
     }
 }
 
+void
+set_label (SCM sys, SCM label)
+{
+  if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
+    {
+      vector<Grob*> cols = ps->get_columns ();
+      if (cols.size ())
+	{
+	  Paper_column *col = dynamic_cast<Paper_column*> (cols[0]);
+	  col->set_property ("labels", scm_cons (label, col->get_property ("labels")));
+	  Paper_column *col_right = col->find_prebroken_piece (RIGHT);
+	  col_right->set_property ("labels", scm_cons (label, col_right->get_property ("labels")));
+	}
+    }
+  else if (Prob *pb = unsmob_prob (sys))
+    pb->set_property ("labels", scm_cons (label, pb->get_property ("labels")));
+}
+
 SCM
 Paper_book::get_score_title (SCM header)
 {
@@ -324,11 +342,22 @@ Paper_book::get_system_specs ()
 	}
       else if (Page_marker *page_marker = unsmob_page_marker (scm_car (s)))
 	{
-	  /* a page marker: set previous element page break or turn permission */
-	  if (scm_is_pair (system_specs))
-	    set_page_permission (scm_car (system_specs),
-				 page_marker->permission_symbol (),
-				 page_marker->permission_value ());
+	  /* page markers are used to set page breaking/turning permission,
+	     or to place bookmarking labels */ 
+	  if (scm_is_symbol (page_marker->permission_symbol ()))
+	    {
+	      /* set previous element page break or turn permission */
+	      if (scm_is_pair (system_specs))
+		set_page_permission (scm_car (system_specs),
+				     page_marker->permission_symbol (),
+				     page_marker->permission_value ());
+	    }
+	  if (scm_is_symbol (page_marker->label ()))
+	    {
+	      /* set previous element label */
+	      if (scm_is_pair (system_specs))
+		set_label (scm_car (system_specs), page_marker->label ());
+	    }
 	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
 	{

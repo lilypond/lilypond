@@ -31,6 +31,7 @@ protected:
   virtual void finalize ();
 
   DECLARE_TRANSLATOR_LISTENER (break);
+  DECLARE_TRANSLATOR_LISTENER (label);
 
   DECLARE_ACKNOWLEDGER (item);
   DECLARE_ACKNOWLEDGER (note_spacing);
@@ -38,6 +39,7 @@ protected:
 
   System *system_;
   vector<Stream_event*> break_events_;
+  vector<Stream_event*> label_events_;
   int breaks_;			// used for stat printing
   Paper_column *command_column_;
   Paper_column *musical_column_;

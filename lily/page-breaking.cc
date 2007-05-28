@@ -235,6 +235,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   SCM book = book_->self_scm ();
   int first_page_number = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
+  SCM label_page_table = SCM_EOL;
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
@@ -246,10 +247,28 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       SCM page = scm_apply_0 (make_page,
 			      scm_list_n (book, lines, page_num, rag, last, SCM_UNDEFINED));
 
+      /* collect labels */
+      for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))
+	{
+	  SCM labels = SCM_EOL;
+	  if (Grob * line = unsmob_grob (scm_car (l)))
+	    {
+	      System *system = dynamic_cast<System*> (line);
+	      labels = system->get_property ("labels");
+	    }
+	  else if (Prob *prob = unsmob_prob (scm_car (l)))
+	    labels = prob->get_property ("labels");
+
+	  for (SCM lbls = labels ; scm_is_pair (lbls) ; lbls = scm_cdr (lbls))
+	    label_page_table = scm_cons (scm_cons (scm_car (lbls), page_num),
+					 label_page_table);
+	}
+
       scm_apply_1 (page_stencil, page, SCM_EOL);
       ret = scm_cons (page, ret);
       systems = scm_list_tail (systems, line_count);
     }
+  book_->paper_->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
   ret = scm_reverse (ret);
   return ret;
 }

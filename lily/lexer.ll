@@ -536,6 +536,8 @@ BOM_UTF8	\357\273\277
 				return MARKUP_HEAD_SCM0_MARKUP1;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
 				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
+			else if (tag == ly_symbol2scm ("scheme0-markup1-markup2"))
+				return MARKUP_HEAD_SCM0_MARKUP1_MARKUP2;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
 			else {

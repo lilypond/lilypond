@@ -116,6 +116,13 @@ Paper_column_engraver::listen_break (Stream_event *ev)
   break_events_.push_back (ev);
 }
 
+IMPLEMENT_TRANSLATOR_LISTENER (Paper_column_engraver, label);
+void
+Paper_column_engraver::listen_label (Stream_event *ev)
+{
+  label_events_.push_back (ev);
+}
+
 void
 Paper_column_engraver::process_music ()
 {
@@ -148,6 +155,13 @@ Paper_column_engraver::process_music ()
 	}
       else
 	command_column_->set_property (perm_str.c_str (), perm);
+    }
+
+  for (vsize i = 0 ; i < label_events_.size () ; i ++)
+    {
+      SCM label = label_events_[i]->get_property ("label");
+      SCM labels = command_column_->get_property ("labels");
+      command_column_->set_property ("labels", scm_cons (label, labels));
     }
 
   bool start_of_measure = (last_moment_.main_part_ != now_mom ().main_part_
@@ -211,7 +225,7 @@ Paper_column_engraver::stop_translation_timestep ()
 
   first_ = false;
   break_events_.clear ();
-
+  label_events_.clear ();
 
   SCM mpos = get_property ("measurePosition");
   SCM barnum = get_property ("internalBarNumber");
