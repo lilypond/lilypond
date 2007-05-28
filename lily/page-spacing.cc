@@ -74,16 +74,16 @@ Page_spacer::Page_spacer (vector<Line_details> const &lines, vsize first_page_nu
   breaker_ = breaker;
   max_page_count_ = 0;
   ragged_ = breaker->ragged ();
-  ragged_last_ = breaker->last () && breaker->ragged_last ();
+  ragged_last_ = breaker->is_last () && breaker->ragged_last ();
 }
 
-Spacing_result
+Page_spacing_result
 Page_spacer::solve (vsize page_count)
 {
   if (page_count > max_page_count_)
     resize (page_count);
 
-  Spacing_result ret;
+  Page_spacing_result ret;
   ret.force_.resize (page_count);
   ret.systems_per_page_.resize (page_count);
 
@@ -108,7 +108,7 @@ Page_spacer::solve (vsize page_count)
 	  system = i;
 	}
       else
-	return Spacing_result (); /* couldn't salvage it -- probably going to crash */
+	return Page_spacing_result (); /* couldn't salvage it -- probably going to crash */
     }
 
   ret.penalty_ = state_.at (system, page_count-1).penalty_

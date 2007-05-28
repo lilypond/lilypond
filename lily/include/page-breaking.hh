@@ -41,32 +41,42 @@ struct System_spec
 
 struct Break_position
 {
-  vsize sys_; /* our index in the all_ list */
-  vsize score_break_; /* if sys_ is a score, then we start at the score_brk_'th
-                         possible page-break in the score */
-  Grob *col_;  /* if sys_ is a score, this points to the broken column */
+  /*
+    index in system_spec_index_, if VPOS start of book. 
+   */
+  vsize system_spec_index_;
+
+  /* if system_spec_index_ is a score, then we start at the score_brk_'th possible
+     page-break in the score */
+  vsize score_break_; 
+
+  /* if system_spec_index_ is a score, this points to the broken column */
+  Grob *col_;  
   bool score_ender_;
 
   Break_position (vsize s=VPOS, vsize brk=VPOS, Grob *g=NULL, bool end=false)
   {
-    sys_ = s;
+    system_spec_index_ = s;
     score_break_ = brk;
     col_ = g;
     score_ender_ = end;
   }
 
+  /*
+    lexicographic in (system_spec_index_, score_break_)
+   */
   bool operator< (const Break_position &other)
   {
-    return (sys_ == VPOS && other.sys_ != VPOS)
-      || (sys_ < other.sys_)
-      || (sys_ == other.sys_ && score_break_ < other.score_break_);
+    return (system_spec_index_ == VPOS && other.system_spec_index_ != VPOS)
+      || (system_spec_index_ < other.system_spec_index_)
+      || (system_spec_index_ == other.system_spec_index_ && score_break_ < other.score_break_);
   }
 
   bool operator<= (const Break_position &other)
   {
-    return (sys_ == VPOS)
-      || (sys_ < other.sys_ && other.sys_ != VPOS)
-      || (sys_ == other.sys_ && score_break_ <= other.score_break_);
+    return (system_spec_index_ == VPOS)
+      || (system_spec_index_ < other.system_spec_index_ && other.system_spec_index_ != VPOS)
+      || (system_spec_index_ == other.system_spec_index_ && score_break_ <= other.score_break_);
   }
 };
 
@@ -75,6 +85,13 @@ class Page_breaking
 public:
   typedef bool (*Break_predicate) (Grob *);
   typedef vector<vsize> Line_division;
+  
+  /*
+    TODO: naming.
+
+    determine the page breaking, and break scores into lines
+    appropriately.
+   */
   virtual SCM solve () = 0;
 
   Page_breaking (Paper_book *pb, Break_predicate);
@@ -82,7 +99,7 @@ public:
 
   bool ragged () const;
   bool ragged_last () const;
-  bool last () const;
+  bool is_last () const;
   Real page_height (int page_number, bool last) const;
 
 protected:
@@ -108,19 +125,23 @@ protected:
 
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
-  Spacing_result space_systems_on_n_pages (vsize configuration_index, vsize n, vsize first_page_num);
-  Spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n, vsize first_page_num);
-  Spacing_result space_systems_on_best_pages (vsize configuration_index, vsize first_page_num);
+  Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
+					   vsize n, vsize first_page_num);
+  Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
+						       vsize first_page_num);
+  Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
+					      vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
   bool all_lines_stretched (vsize configuration_index);
   Real blank_page_penalty () const;
 
   SCM breakpoint_property (vsize breakpoint, char const *str);
-  vector<Break_position> breaks_;
 
+  vsize last_break_position () const;
 private:
+  vector<Break_position> breaks_;
   vector<Break_position> chunks_;
-  vector<System_spec> all_;
+  vector<System_spec> system_specs_;
   vector<Constrained_breaking> line_breaking_;
   bool ragged_;
   bool ragged_last_;
@@ -150,9 +171,9 @@ private:
 			   Line_division *cur);
 
   vector<Line_details> line_details (vsize start, vsize end, Line_division const &div);
-  Spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
-  Spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
-  Spacing_result finalize_spacing_result (vsize configuration_index, Spacing_result);
+  Page_spacing_result space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged);
+  Page_spacing_result space_systems_on_2_pages (vsize configuration_index, vsize first_page_num);
+  Page_spacing_result finalize_spacing_result (vsize configuration_index, Page_spacing_result);
   void create_system_list ();
   void find_chunks_and_breaks (Break_predicate);
 };

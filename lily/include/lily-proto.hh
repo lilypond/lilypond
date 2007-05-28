@@ -123,6 +123,7 @@ class Object_key_dumper;
 class Object_key_undumper;
 class Open_type_font;
 class Output_property;
+class Page_breaking;
 class Pango_font;
 class Paper_book;
 class Paper_column;

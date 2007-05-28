@@ -11,32 +11,18 @@
 #define PAGE_SPACING_HH
 
 #include "constrained-breaking.hh"
+#include "page-spacing-result.hh"
 
-struct Spacing_result {
-  vector<vsize> systems_per_page_;
-  vector<Real> force_;
-  Real penalty_;
-  Real demerits_;
-
-  Spacing_result ()
-  {
-    penalty_ = 0;
-    demerits_ = infinity_f;
-  }
-};
 
 /* for page_count > 2, we use a dynamic algorithm similar to
    constrained-breaking -- we have a class that stores the intermediate
    calculations so they can be reused for querying different page counts.
 */
-
-class Page_breaking;
-
 class Page_spacer
 {
 public:
   Page_spacer (vector<Line_details> const &lines, vsize first_page_num, Page_breaking const*);
-  Spacing_result solve (vsize page_count);
+  Page_spacing_result solve (vsize page_count);
 
 private:
   struct Page_spacing_node

@@ -1,7 +1,7 @@
 \version "2.11.24"
 
 \header {
-  texidoc = "Page breaking and page turning commands (@{\\pageBreak}, 
+  texidoc = "Page breaking and page turning commands (@code{\\pageBreak}, 
 @code{\\noPageBreak}, etc), can be used at top level."
 }
 

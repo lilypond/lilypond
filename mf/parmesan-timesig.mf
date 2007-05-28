@@ -249,21 +249,20 @@ def neomensural_timesig (expr verbose_name, internal_name,
 		  .5 (neomensural_Cdiameter# + neomensural_Cthickness#));
 
 		if slashed:
+			pickup penrazor scaled neomensural_Cthickness;
+
+			save t;
+			t := neomensural_Cthickness / 2;
+
 			if (full_circle or dotted):
-				draw_block ((-neomensural_Cthickness / 2,
-					     -d + neomensural_Cthickness / 2),
-					    (neomensural_Cthickness / 2,
-					     h - neomensural_Cthickness / 2));
+				draw (0, -d + t)
+				     -- (0, h - t);
 			elseif reverse_circle:
-				draw_block ((0,
-					     -d + neomensural_Cthickness / 2),
-					    (neomensural_Cthickness,
-					     h - neomensural_Cthickness / 2));
+				draw (t, -d + t)
+				     -- (t, h - t);
 			else:
-				draw_block ((-neomensural_Cthickness,
-					     -d + neomensural_Cthickness / 2),
-					    (0,
-					     h - neomensural_Cthickness / 2));
+				draw (-t, -d + t)
+				     -- (-t, h - t);
 			fi;
 		fi;
 

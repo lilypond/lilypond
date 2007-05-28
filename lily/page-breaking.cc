@@ -19,7 +19,8 @@
 #include "system.hh"
 #include "warn.hh"
 
-/* for each forbidden page break, merge the systems around it into one system. */
+/* for each forbidden page break, merge the systems around it into one
+   system. */
 static vector<Line_details>
 compress_lines (const vector<Line_details> &orig)
 {
@@ -84,13 +85,13 @@ uncompress_solution (vector<vsize> const &systems_per_page,
 vsize
 Page_breaking::next_system (Break_position const &break_pos) const
 {
-  vsize sys = break_pos.sys_;
+  vsize sys = break_pos.system_spec_index_;
 
   if (sys == VPOS) /* beginning of the book */
     return 0;
-  if (all_[sys].pscore_ && !break_pos.score_ender_)
+  if (system_specs_[sys].pscore_ && !break_pos.score_ender_)
     return sys; /* the score overflows the previous page */
-  return sys + 1; /* this page starts with a new sys */
+  return sys + 1; /* this page starts with a new System_spec */
 }
 
 Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
@@ -126,22 +127,23 @@ Page_breaking::line_breaker_args (vsize sys,
 				  vsize *line_breaker_start,
 				  vsize *line_breaker_end)
 {
-  assert (all_[sys].pscore_);
-  assert (next_system (start) <= sys && sys <= end.sys_);
+  assert (system_specs_[sys].pscore_);
+  assert (next_system (start) <= sys && sys <= end.system_spec_index_);
 
-  if (start.sys_ == sys)
+  if (start.system_spec_index_ == sys)
     *line_breaker_start = start.score_break_;
   else
     *line_breaker_start = 0;
 
-  if (end.sys_ == sys)
+  if (end.system_spec_index_ == sys)
     *line_breaker_end = end.score_break_;
   else
     *line_breaker_end = VPOS;
 }
 
 void
-Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_division const &div)
+Page_breaking::break_into_pieces (vsize start_break, vsize end_break,
+				  Line_division const &div)
 {
   vector<Break_position> chunks = chunk_list (start_break, end_break);
   bool ignore_div = false;
@@ -154,7 +156,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  vsize start;
 	  vsize end;
@@ -163,7 +165,7 @@ Page_breaking::break_into_pieces (vsize start_break, vsize end_break, Line_divis
 	  vector<Column_x_positions> pos = ignore_div
 	    ? line_breaking_[sys].best_solution (start, end)
 	    : line_breaking_[sys].solve (start, end, div[i]);
-	  all_[sys].pscore_->root_system ()->break_into_pieces (pos);
+	  system_specs_[sys].pscore_->root_system ()->break_into_pieces (pos);
 	}
     }
 }
@@ -172,17 +174,19 @@ SCM
 Page_breaking::systems ()
 {
   SCM ret = SCM_EOL;
-  for (vsize sys = 0; sys < all_.size (); sys++)
+  for (vsize sys = 0; sys < system_specs_.size (); sys++)
     {
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
-	  all_[sys].pscore_->root_system ()->do_break_substitution_and_fixup_refpoints ();
-	  SCM lines = all_[sys].pscore_->root_system ()->get_broken_system_grobs ();
+	  system_specs_[sys].pscore_->root_system ()
+	    ->do_break_substitution_and_fixup_refpoints ();
+	  SCM lines = system_specs_[sys].pscore_->root_system ()
+	    ->get_broken_system_grobs ();
 	  ret = scm_cons (lines, ret);
 	}
       else
 	{
-	  Prob *pb = all_[sys].prob_;
+	  Prob *pb = system_specs_[sys].prob_;
 	  ret = scm_cons (scm_list_1 (pb->self_scm ()), ret);
 	  pb->unprotect ();
 	}
@@ -214,11 +218,11 @@ Page_breaking::breakpoint_property (vsize breakpoint, char const *str)
 {
   Break_position const &pos = breaks_[breakpoint];
 
-  if (pos.sys_ == VPOS)
+  if (pos.system_spec_index_ == VPOS)
     return SCM_EOL;
-  if (all_[pos.sys_].pscore_)
+  if (system_specs_[pos.system_spec_index_].pscore_)
     return pos.col_->get_property (str);
-  return all_[pos.sys_].prob_->get_property (str);
+  return system_specs_[pos.system_spec_index_].prob_->get_property (str);
 }
 
 SCM
@@ -233,7 +237,8 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   page_stencil = scm_variable_ref (page_stencil);
 
   SCM book = book_->self_scm ();
-  int first_page_number = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  int first_page_number
+    = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM ret = SCM_EOL;
   SCM label_page_table = SCM_EOL;
 
@@ -241,11 +246,13 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
     {
       SCM page_num = scm_from_int (i + first_page_number);
       SCM last = scm_from_bool (i == lines_per_page.size () - 1);
-      SCM rag = scm_from_bool (ragged () || (to_boolean (last) && ragged_last ()));
+      SCM rag = scm_from_bool (ragged () || (to_boolean (last)
+					     && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       SCM page = scm_apply_0 (make_page,
-			      scm_list_n (book, lines, page_num, rag, last, SCM_UNDEFINED));
+			      scm_list_n (book, lines, page_num,
+					  rag, last, SCM_UNDEFINED));
 
       /* collect labels */
       for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))
@@ -296,7 +303,7 @@ Page_breaking::create_system_list ()
 					scm_vector_to_list (ps->get_paper_systems ()),
 					scm_cdr (s)));
 	  else
-	    all_.push_back (System_spec (ps));
+	    system_specs_.push_back (System_spec (ps));
 	}
       else
         {
@@ -304,7 +311,7 @@ Page_breaking::create_system_list ()
           assert (pb);
 
           pb->protect ();
-          all_.push_back (System_spec (pb));
+          system_specs_.push_back (System_spec (pb));
         }
     }
 }
@@ -317,17 +324,18 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
   chunks_.push_back (Break_position ());
   breaks_.push_back (Break_position ());
 
-  for (vsize i = 0; i < all_.size (); i++)
+  for (vsize i = 0; i < system_specs_.size (); i++)
     {
-      if (all_[i].pscore_)
+      if (system_specs_[i].pscore_)
 	{
-	  vector<Grob*> cols = all_[i].pscore_->root_system ()->used_columns ();
+	  vector<Grob*> cols
+	    = system_specs_[i].pscore_->root_system ()->used_columns ();
 	  vector<vsize> line_breaker_columns;
 	  line_breaker_columns.push_back (0);
 
 	  for (vsize j = 1; j < cols.size (); j++)
 	    {
-	      bool last = j == cols.size () - 1;
+	      bool last = (j == cols.size () - 1);
 	      bool break_point = is_break (cols[j]);
 	      bool chunk_end = cols[j]->get_property ("page-break-permission") == force_sym;
 	      Break_position cur_pos = Break_position (i,
@@ -335,7 +343,7 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 						       cols[j],
 						       last);
 
-	      if (break_point || (i == all_.size () - 1 && last))
+	      if (break_point || (i == system_specs_.size () - 1 && last))
 		breaks_.push_back (cur_pos);
 	      if (chunk_end || last)
 		chunks_.push_back (cur_pos);
@@ -343,15 +351,18 @@ Page_breaking::find_chunks_and_breaks (Break_predicate is_break)
 	      if ((break_point || chunk_end) && !last)
 		line_breaker_columns.push_back (j);
 	    }
-	  line_breaking_.push_back (Constrained_breaking (all_[i].pscore_, line_breaker_columns));
+	  line_breaking_.push_back (Constrained_breaking (system_specs_[i].pscore_, line_breaker_columns));
 	}
       else
 	{
 	  /* TODO: we want some way of applying Break_p to a prob? */
-	  if (i == all_.size () - 1)
+	  if (i == system_specs_.size () - 1)
 	    breaks_.push_back (Break_position (i));
 
 	  chunks_.push_back (Break_position (i));
+
+	  /* FIXME: shouldn't we push a Null_breaker or similar dummy
+	     class? --hwn */
 	  line_breaking_.push_back (Constrained_breaking (NULL));
 	}
     }
@@ -363,8 +374,8 @@ Page_breaking::chunk_list (vsize start_index, vsize end_index)
   Break_position start = breaks_[start_index];
   Break_position end = breaks_[end_index];
 
-  vsize i;
-  for (i = 0; i < chunks_.size () && chunks_[i] <= start; i++)
+  vsize i = 0;
+  for (; i < chunks_.size () && chunks_[i] <= start; i++)
     ;
 
   vector<Break_position> ret;
@@ -400,7 +411,8 @@ Page_breaking::max_system_count (vsize start, vsize end)
 }
 
 Page_breaking::Line_division
-Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool min)
+Page_breaking::system_count_bounds (vector<Break_position> const &chunks,
+				    bool min)
 {
   assert (chunks.size () >= 2);
 
@@ -410,7 +422,7 @@ Page_breaking::system_count_bounds (vector<Break_position> const &chunks, bool m
   for (vsize i = 0; i + 1 < chunks.size (); i++)
     {
       vsize sys = next_system (chunks[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  vsize start;
 	  vsize end;
@@ -491,7 +503,7 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
   for (vsize i = 0; i+1 < current_chunks_.size (); i++)
     {
       vsize sys = next_system (current_chunks_[i]);
-      if (all_[sys].pscore_)
+      if (system_specs_[sys].pscore_)
 	{
 	  line_breaker_args (sys, current_chunks_[i], current_chunks_[i+1], &start, &end);
 	  div.push_back (line_breaking_[sys].best_solution (start, end).size ());
@@ -524,7 +536,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
       for (vsize i = 0; i + 1 < current_chunks_.size (); i++)
 	{
 	  vsize sys = next_system (current_chunks_[i]);
-	  if (all_[sys].pscore_)
+	  if (system_specs_[sys].pscore_)
 	    {
 	      vsize start;
 	      vsize end;
@@ -536,7 +548,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	  else
 	    {
 	      assert (div[i] == 1);
-	      uncompressed_line_details_.push_back (Line_details (all_[sys].prob_));
+	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_));
 	      uncompressed_line_details_.back ().padding_ = padding;
 	    }
 	}
@@ -649,19 +661,19 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   return ret;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num)
 {
-  Spacing_result ret;
+  Page_spacing_result ret;
   assert (n >= min_page_count (configuration, first_page_num));
 
   cache_line_details (configuration);
   if (n > cached_line_details_.size ())
-    return Spacing_result ();
+    return Page_spacing_result ();
   if (n == 1)
     ret = space_systems_on_1_page (cached_line_details_,
-				   page_height (first_page_num, last ()),
-				   ragged () || (last () && ragged_last ()));
+				   page_height (first_page_num, is_last ()),
+				   ragged () || (is_last () && ragged_last ()));
   else if (n == 2)
     ret = space_systems_on_2_pages (configuration, first_page_num);
   else
@@ -676,43 +688,50 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
 Real
 Page_breaking::blank_page_penalty () const
 {
-  SCM penalty_sym = last () ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
+  SCM penalty_sym = is_last () ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
   return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num)
 {
-  Spacing_result n_res;
-  Spacing_result m_res;
+  Page_spacing_result n_res;
+  Page_spacing_result m_res;
 
-  if (n <= 2)
+  cache_line_details (configuration);
+  vsize min_p_count = min_page_count (configuration, first_page_num);
+
+  if (n == 1)
     {
-      n_res = space_systems_on_n_pages (configuration, n, first_page_num);
-      m_res = space_systems_on_n_pages (configuration, n+1, first_page_num);
+      bool rag = ragged () || (is_last () && ragged_last ());
+      Real height = page_height (first_page_num, is_last ());
+
+      if (1 >= min_p_count)
+	n_res = space_systems_on_1_page (cached_line_details_, height, rag);
+      if (1 < cached_line_details_.size ())
+	m_res = space_systems_on_2_pages (configuration, first_page_num);
     }
   else
     {
-      cache_line_details (configuration);
-
-      vsize min_p_count = min_page_count (configuration, first_page_num);
       Page_spacer ps (cached_line_details_, first_page_num, this);
+      
       if (n >= min_p_count)
 	n_res = ps.solve (n);
       if (n < cached_line_details_.size ())
 	m_res = ps.solve (n+1);
     }
 
+  m_res = finalize_spacing_result (configuration, m_res);
+  n_res = finalize_spacing_result (configuration, n_res);
+
   Real penalty = blank_page_penalty ();
   n_res.demerits_ += penalty;
   n_res.force_.back () += penalty;
 
-  if (m_res.demerits_ < n_res.demerits_)
-    return m_res;
-  return n_res;
+  return (m_res.demerits_ < n_res.demerits_) ? m_res : n_res;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_page_num)
 {
   vsize min_p_count = min_page_count (configuration, first_page_num);
@@ -720,13 +739,13 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
   cache_line_details (configuration);
   Page_spacer ps (cached_line_details_, first_page_num, this);
-  Spacing_result best = ps.solve (min_p_count);
+  Page_spacing_result best = ps.solve (min_p_count);
   best.force_.back () += (min_p_count % 2) ? odd_pages_penalty : 0;
   best.demerits_ += (min_p_count % 2) ? odd_pages_penalty : 0;
 
   for (vsize i = min_p_count+1; i <= cached_line_details_.size (); i++)
     {
-      Spacing_result cur = ps.solve (i);
+      Page_spacing_result cur = ps.solve (i);
       cur.demerits_ += (i % 2) ? odd_pages_penalty : 0;
       if (cur.demerits_ < best.demerits_)
 	best = cur;
@@ -737,8 +756,8 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
 /* Calculate demerits and fix res.systems_per_page_ so that
    it refers to the original line numbers, not the ones given by compress_lines (). */
-Spacing_result
-Page_breaking::finalize_spacing_result (vsize configuration, Spacing_result res)
+Page_spacing_result
+Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result res)
 {
   cache_line_details (configuration);
   res.systems_per_page_ = uncompress_solution (res.systems_per_page_, cached_line_details_);
@@ -780,11 +799,11 @@ Page_breaking::finalize_spacing_result (vsize configuration, Spacing_result res)
    space_systems functions. This is because space_systems_on_1_page is (unlike
    the other space_systems functions) sometimes called on subsets of a full
    configuration. */
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
   Page_spacing space (page_height);
-  Spacing_result ret;
+  Page_spacing_result ret;
 
   for (vsize i = 0; i < lines.size (); i++)
     space.append_system (lines[i]);
@@ -797,13 +816,13 @@ Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real 
   return ret;
 }
 
-Spacing_result
+Page_spacing_result
 Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_num)
 {
   Real page1_height = page_height (first_page_num, false);
-  Real page2_height = page_height (first_page_num+1, last ());
+  Real page2_height = page_height (first_page_num + 1, is_last ());
   bool ragged1 = ragged ();
-  bool ragged2 = ragged () || (last () && ragged_last ());
+  bool ragged2 = ragged () || (is_last () && ragged_last ());
 
   /* if there is a forced break, this reduces to 2 1-page problems */
   cache_line_details (configuration);
@@ -812,8 +831,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
       {
 	vector<Line_details> lines1 (cached_line_details_.begin (), cached_line_details_.begin () + i + 1);
 	vector<Line_details> lines2 (cached_line_details_.begin () + i + 1, cached_line_details_.end ());
-	Spacing_result p1 = space_systems_on_1_page (lines1, page1_height, ragged1);
-	Spacing_result p2 = space_systems_on_1_page (lines2, page2_height, ragged2);
+	Page_spacing_result p1 = space_systems_on_1_page (lines1, page1_height, ragged1);
+	Page_spacing_result p2 = space_systems_on_1_page (lines2, page2_height, ragged2);
 
 	p1.systems_per_page_.push_back (p2.systems_per_page_[0]);
 	p1.force_.push_back (p2.force_[0]);
@@ -860,7 +879,7 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 	}
     }
 
-  Spacing_result ret;
+  Page_spacing_result ret;
   ret.systems_per_page_.push_back (best_sys_count);
   ret.systems_per_page_.push_back (cached_line_details_.size () - best_sys_count);
   ret.force_.push_back (page1_force[best_sys_count-1]);
@@ -890,7 +909,14 @@ Page_breaking::current_configuration (vsize configuration_index) const
   return current_configurations_[configuration_index];
 }
 
-bool Page_breaking::last () const
+bool
+Page_breaking::is_last () const
 {
-  return current_end_breakpoint_ == breaks_.size () - 1;
+  return current_end_breakpoint_ == last_break_position ();
+}
+
+vsize
+Page_breaking::last_break_position () const
+{
+  return breaks_.size () - 1;  
 }

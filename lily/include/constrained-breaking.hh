@@ -17,7 +17,9 @@
 struct Line_details {
   Real force_;
   Interval extent_;   /* Y-extent of the system */
-  Real padding_;  /* compulsory space after this system (if we're not last on a page) */
+
+  Real padding_;  /* compulsory space after this system (if we're not
+		     last on a page) */
   Real bottom_padding_;
   Real space_;    /* spring length */
   Real inverse_hooke_;

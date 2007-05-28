@@ -61,7 +61,7 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
      min_p_count has that evenness. (For example, if PAGE-NUMBER is even and
      min_p_count is even, we don't even consider the blank page option). */
 
-  Spacing_result result;
+  Page_spacing_result result;
   if (start == 0 && auto_first)
     {
       if (min_p_count % 2)
@@ -206,8 +206,8 @@ Page_turn_page_breaking::solve ()
 {
   state_.clear ();
   message (_f ("Calculating page and line breaks (%d possible page breaks)...",
-               (int)breaks_.size () - 1) + " ");
-  for (vsize i = 0; i + 1 < breaks_.size (); i++)
+               (int) last_break_position ()));
+  for (vsize i = 0; i < last_break_position (); i++)
     {
       calc_subproblem (i);
       progress_indication (string ("[") + to_string (i + 1) + "]");
