@@ -159,7 +159,7 @@ Paper_column_engraver::process_music ()
 
   for (vsize i = 0 ; i < label_events_.size () ; i ++)
     {
-      SCM label = label_events_[i]->get_property ("label");
+      SCM label = label_events_[i]->get_property ("page-label");
       SCM labels = command_column_->get_property ("labels");
       command_column_->set_property ("labels", scm_cons (label, labels));
     }

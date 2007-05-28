@@ -1,4 +1,4 @@
-\version "2.11.24"
+\version "2.11.25"
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,

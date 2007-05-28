@@ -72,7 +72,7 @@
   (cond ((music-property 'page-marker)
 	 ;; a page marker: set page break/turn permissions or label
 	 (begin
-	   (let ((label (music-property 'label)))
+	   (let ((label (music-property 'page-label)))
 	     (if (symbol? label)
 		 (score-handler (ly:make-page-label-marker label))))
 	   (for-each (lambda (symbol)

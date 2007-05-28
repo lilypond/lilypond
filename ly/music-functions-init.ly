@@ -304,9 +304,9 @@ label =
    (_i "Place a bookmarking label, either at top-level or inside music.")
    (make-music 'EventChord
 	       'page-marker #t
-	       'label label
+	       'page-label label
 	       'elements (list (make-music 'LabelEvent
-					   'label label)))) 
+					   'page-label label)))) 
 
 makeClusters =
 #(define-music-function
