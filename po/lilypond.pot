@@ -1,19 +1,67 @@
-# Translation of LilyPond.
-# Copyright (C) 2007 Han-Wen Nienhuys, Jan Nieuwenhuizen
-# This file is distributed under the same license as lilypond package.
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.22\n"
-"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2007-04-28 12:03+0200\n"
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-05-29 14:39+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: add_html_footer.py:46
+#, python-format
+msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
+msgstr ""
+
+#: add_html_footer.py:47
+#, python-format
+msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
+msgstr ""
+
+#: add_html_footer.py:54
+#, python-format
+msgid "Other languages: %s."
+msgstr ""
+
+#: add_html_footer.py:55
+#, python-format
+msgid "About <A HREF=\"%s\">automatic language selection</A>."
+msgstr ""
+
+#: add_html_footer.py:238
+msgid "stable-branch"
+msgstr ""
+
+#: add_html_footer.py:240
+msgid "development-branch"
+msgstr ""
+
+#. All language information needed for documentation i18n is defined
+#. here. For each 'Documentation/ab' directory containing docs
+#. translated in 'ab', there should be an entry in LANGUAGES.
+#: langdefs.py:37
+msgid "English"
+msgstr ""
+
+#: langdefs.py:51
+msgid "French"
+msgstr ""
+
+#: langdefs.py:52
+msgid "Spanish"
+msgstr ""
+
+#: langdefs.py:53
+msgid "German"
+msgstr ""
 
 #: convertrules.py:12
 #, python-format
@@ -394,7 +442,7 @@ msgstr ""
 msgid "Writing fonts to %s..."
 msgstr ""
 
-#: midi2ly.py:95 lily-library.scm:577 lily-library.scm:586
+#: midi2ly.py:95 lily-library.scm:612 lily-library.scm:621
 msgid "warning: "
 msgstr ""
 
@@ -568,11 +616,7 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:109
-msgid "tried to calculate pure-height at a non-breakpoint"
-msgstr ""
-
-#: axis-group-interface.cc:449
+#: axis-group-interface.cc:505
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -846,10 +890,6 @@ msgstr ""
 
 #: hairpin.cc:187
 msgid "decrescendo too small"
-msgstr ""
-
-#: hairpin.cc:188
-msgid "crescendo too small"
 msgstr ""
 
 #: horizontal-bracket-engraver.cc:59
@@ -1351,6 +1391,20 @@ msgstr ""
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
 
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:44
+msgid "Finding the ideal number of pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:59
+msgid "Fitting music on 1 page..."
+msgstr ""
+
+#: optimal-page-breaking.cc:61
+#, c-format
+msgid "Fitting music on %d or %d pages..."
+msgstr ""
+
 #: page-turn-page-breaking.cc:146
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
@@ -1412,7 +1466,7 @@ msgstr ""
 msgid "FreeType face has no PostScript font name"
 msgstr ""
 
-#: paper-column-engraver.cc:199
+#: paper-column-engraver.cc:213
 msgid ""
 "forced break was overridden by some other event, should you be using bar "
 "checks?"
@@ -1678,7 +1732,7 @@ msgstr ""
 msgid "Element count %d."
 msgstr ""
 
-#: system.cc:266
+#: system.cc:272
 #, c-format
 msgid "Grob count %d"
 msgstr ""
@@ -1794,40 +1848,40 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:704
+#: parser.yy:712
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:728
+#: parser.yy:736
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1187
+#: parser.yy:1195
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1485
+#: parser.yy:1493
 msgid "second argument must be pitch list"
 msgstr ""
 
-#: parser.yy:1512 parser.yy:1517 parser.yy:1982
+#: parser.yy:1520 parser.yy:1525 parser.yy:1990
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1614
+#: parser.yy:1622
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1769 parser.yy:1819
+#: parser.yy:1777 parser.yy:1827
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:1936
+#: parser.yy:1944
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:1997
+#: parser.yy:2005
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
@@ -1878,30 +1932,30 @@ msgstr ""
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:559
+#: lexer.ll:561
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:663
+#: lexer.ll:665
 #, c-format
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:778
+#: lexer.ll:780
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:884
+#: lexer.ll:886
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:885
+#: lexer.ll:887
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:891
+#: lexer.ll:893
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -1957,22 +2011,22 @@ msgstr ""
 msgid "not a valid duration string: ~a"
 msgstr ""
 
-#: define-music-types.scm:743
+#: define-music-types.scm:746
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr ""
 
-#: define-music-types.scm:746
+#: define-music-types.scm:749
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr ""
 
-#: define-music-types.scm:766
+#: define-music-types.scm:769
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr ""
 
-#: define-music-types.scm:767
+#: define-music-types.scm:770
 msgid "See music-types.scm for supported repeats"
 msgstr ""
 
@@ -2047,7 +2101,7 @@ msgid ""
 "The PostScript backend does not support the system-by-system \n"
 "output. For that, use the EPS backend instead,\n"
 "\n"
-"  lilypond -b eps <file>\n"
+"  lilypond -b eps FILE\n"
 "\n"
 "If have cut & pasted a lilypond fragment from a webpage, be sure\n"
 "to only remove anything before\n"
@@ -2055,7 +2109,6 @@ msgid ""
 "  %% ****************************************************************\n"
 "  %% Start cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
-"\n"
 msgstr ""
 
 #: framework-tex.scm:360
@@ -2086,17 +2139,17 @@ msgstr ""
 msgid "Calculating page breaks..."
 msgstr ""
 
-#: lily-library.scm:545
+#: lily-library.scm:580
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr ""
 
-#: lily-library.scm:579
+#: lily-library.scm:614
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr ""
 
-#: lily-library.scm:587
+#: lily-library.scm:622
 msgid "old relative compatibility not used"
 msgstr ""
 
