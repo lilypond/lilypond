@@ -280,7 +280,7 @@ set_label (SCM sys, SCM label)
 	{
 	  Paper_column *col = dynamic_cast<Paper_column*> (cols[0]);
 	  col->set_property ("labels", scm_cons (label, col->get_property ("labels")));
-	  Paper_column *col_right = col->find_prebroken_piece (RIGHT);
+	  Paper_column *col_right = dynamic_cast<Paper_column*> (col->find_prebroken_piece (RIGHT));
 	  col_right->set_property ("labels", scm_cons (label, col_right->get_property ("labels")));
 	}
     }
