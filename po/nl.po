@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: lilypond 2.11.22\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-05-29 14:39+0200\n"
-"PO-Revision-Date: 2007-05-29 14:40+0200\n"
+"PO-Revision-Date: 2007-05-31 14:10+0200\n"
 "Last-Translator: Jan Nieuwenhuizen <janneke@gnu.org>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
@@ -44,7 +44,7 @@ msgstr "Andere talen: %s."
 #: add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr "Gebruik van <A HREF=\\\"%s\\\">automatische taalkeuze</A>.\n"
+msgstr "Gebruik van <A HREF=\\\"%s\\\">automatische taalkeuze</A>."
 
 #: add_html_footer.py:238
 msgid "stable-branch"
