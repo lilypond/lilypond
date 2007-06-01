@@ -31,6 +31,6 @@ struct Spacing_options
   
   Spacing_options();
   void init_from_grob (Grob *me);
-  Real get_duration_space (Rational d, bool *) const;
+  Real get_duration_space (Rational d) const;
 };
 #endif /* SPACING_OPTIONS_HH */

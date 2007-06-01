@@ -155,9 +155,8 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 	      */
 	      Real space = 0.0;
 	      Real fixed = 0.0;
-	      bool dummy = false;
 		  
-	      Real base = note_spacing (me, lc, rc, options, &dummy);
+	      Real base = note_spacing (me, lc, rc, options);
 	      Note_spacing::get_spacing (sp, rc, base, options->increment_,
 					 &space, &fixed);
 
