@@ -227,11 +227,17 @@ System::break_into_pieces (vector<Column_x_positions> const &breaking)
 
       system->set_bound (LEFT, c[0]);
       system->set_bound (RIGHT, c.back ());
+      SCM system_labels = SCM_EOL;
       for (vsize j = 0; j < c.size (); j++)
 	{
 	  c[j]->translate_axis (breaking[i].config_[j], X_AXIS);
 	  dynamic_cast<Paper_column *> (c[j])->system_ = system;
+	  /* collect the column labels */
+	  SCM col_labels = c[j]->get_property ("labels");
+	  if (scm_is_pair (col_labels))
+	    system_labels = scm_append (scm_list_2 (col_labels, system_labels));
 	}
+      system->set_property ("labels", system_labels);
       
       set_loose_columns (system, &breaking[i]);
       broken_intos_.push_back (system);

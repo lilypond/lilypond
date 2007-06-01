@@ -17,12 +17,17 @@ class Page_marker
 
   SCM symbol_; /* either 'page-turn-permission or 'page-break-permission */
   SCM permission_;  /* 'force, 'allow, or '() */
+  SCM label_; /* bookmarking label (a symbol) */
 
 public:
-  Page_marker (SCM symbol, SCM permission);
+  Page_marker ();
   
+  void set_permission (SCM symbol, SCM permission);
+  void set_label (SCM label);
+
   SCM permission_symbol ();
   SCM permission_value ();
+  SCM label ();
 };
 
 DECLARE_UNSMOB (Page_marker, page_marker)

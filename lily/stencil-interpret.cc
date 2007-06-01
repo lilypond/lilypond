@@ -21,6 +21,11 @@ interpret_stencil_expression (SCM expr,
 
       SCM head = scm_car (expr);
 
+      if (head == ly_symbol2scm ("delay-stencil-evaluation"))
+	{
+	  interpret_stencil_expression (scm_force (scm_cadr (expr)), func, func_arg, o);
+	  return;
+	}
       if (head == ly_symbol2scm ("translate-stencil"))
 	{
 	  o += ly_scm2offset (scm_cadr (expr));

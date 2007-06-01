@@ -20,7 +20,11 @@ SelectIf("trademark", "trademark", \
          "afii61352", "afii61352", \
          "ij", "ij", \
          "IJ", "IJ");
-RemoveATT("Ligature", "*", "*");
+if (Strtol($version) < 20070501)
+  RemoveATT("Ligature", "*", "*");
+else
+  RemovePosSub("*");
+endif
 
 Generate($3 + $fontname + ".otf");
 

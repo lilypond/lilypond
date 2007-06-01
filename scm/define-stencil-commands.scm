@@ -37,6 +37,8 @@
        no-origin
        placebox
        unknown
+
+       delay-stencil-evaluation
        ))
 
 ;; TODO:

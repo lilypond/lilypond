@@ -70,17 +70,21 @@
 	  value
 	  #f)))
   (cond ((music-property 'page-marker)
-	 ;; a page marker: set page break/turn permissions
-	 (for-each (lambda (symbol)
-		     (let ((permission (music-property symbol)))
-		       (if (symbol? permission)
-			   (score-handler
-			    (ly:make-page-marker symbol
-						 (if (eqv? 'forbid permission)
-						     '()
-						     permission))))))
-		   (list 'line-break-permission 'page-break-permission
-			 'page-turn-permission)))
+	 ;; a page marker: set page break/turn permissions or label
+	 (begin
+	   (let ((label (music-property 'page-label)))
+	     (if (symbol? label)
+		 (score-handler (ly:make-page-label-marker label))))
+	   (for-each (lambda (symbol)
+		       (let ((permission (music-property symbol)))
+			 (if (symbol? permission)
+			     (score-handler
+			      (ly:make-page-permission-marker symbol
+							      (if (eqv? 'forbid permission)
+								  '()
+								  permission))))))
+		     (list 'line-break-permission 'page-break-permission
+			   'page-turn-permission))))
 	((not (music-property 'void))
 	 ;; a regular music expression: make a score with this music
 	 ;; void music is discarded

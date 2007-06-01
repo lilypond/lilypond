@@ -282,6 +282,7 @@ bar lines, this is the amount of space after a thick line.")
 correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
+     (labels ,list? "List of labels (symbols) placed on a column")
      (label-dir ,ly:dir? "Side to which a label is attached.
 @code{-1} for left, @code{1}@tie{}for right.")
      (layer ,number? "The output layer (a value between 0 and@tie{}2:

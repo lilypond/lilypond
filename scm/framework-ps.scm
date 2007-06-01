@@ -760,7 +760,7 @@
   (ly:error (_ "\nThe PostScript backend does not support the system-by-system 
 output. For that, use the EPS backend instead,
 
-  lilypond -b eps <file>
+  lilypond -b eps FILE
 
 If have cut & pasted a lilypond fragment from a webpage, be sure
 to only remove anything before
@@ -768,5 +768,4 @@ to only remove anything before
   %% ****************************************************************
   %% Start cut-&-pastable-section
   %% ****************************************************************
-
 ")))
