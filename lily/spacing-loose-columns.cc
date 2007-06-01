@@ -119,13 +119,12 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 	  else
 	    programming_error ("Column without spacing object");
 
-	  bool expand_only = false;
 	  Real base_note_space = 0.0;
 
 	  if (Paper_column::is_musical (next_col)
 	      && Paper_column::is_musical (loose_col))
-	    base_note_space = Spacing_spanner::note_spacing (spacing, loose_col, next_col, 
-							     &options, &expand_only);
+	    base_note_space = Spacing_spanner::note_spacing (spacing, loose_col, next_col,
+							     &options);
 	  else
 	    {
 	      Real fixed, space;

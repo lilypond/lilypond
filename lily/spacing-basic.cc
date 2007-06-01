@@ -76,10 +76,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  *space = *fixed + 0.5;
 	}
       else
-	{
-	  bool dummy;
-	  *space = *fixed + options->get_duration_space (dt.main_part_, &dummy);
-	}
+	*space = *fixed + options->get_duration_space (dt.main_part_);
     }
 }
 
@@ -106,8 +103,7 @@ get_measure_length (Grob *column)
 
 Real
 Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
-			       Spacing_options const *options,
-			       bool *expand_only)
+			       Spacing_options const *options)
 {
   (void) me;
   
@@ -151,8 +147,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   Real dist = 0.0;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
-      dist = options->get_duration_space (shortest_playing_len.main_part_,
-					  expand_only);
+      dist = options->get_duration_space (shortest_playing_len.main_part_);
       dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
     }
   else if (delta_t.grace_part_)
@@ -162,14 +157,13 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	available (namely the space for the global shortest note), and
 	multiply that by grace-space-factor
       */
-      dist = options->get_duration_space (options->global_shortest_, expand_only) / 2.0;
+      dist = options->get_duration_space (options->global_shortest_) / 2.0;
       Grob *grace_spacing = unsmob_grob (lc->get_object ("grace-spacing"));
       if (grace_spacing)
 	{
 	  Spacing_options grace_opts;
 	  grace_opts.init_from_grob (grace_spacing);
-	  bool bla;
-	  dist = grace_opts.get_duration_space (delta_t.grace_part_, &bla);
+	  dist = grace_opts.get_duration_space (delta_t.grace_part_);
 	}
       
     }

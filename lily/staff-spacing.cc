@@ -71,15 +71,6 @@ Staff_spacing::next_note_correction (Grob *me,
   if (bar_size.is_empty ())
     left_stickout_correction *= 0.75;
 
-  /*
-    We want 0.3 ss before the sticking-out object.
-    
-    current_fixed/2 is our guess at (right side of left object + 0.3)
-   */
-  left_stickout_correction += current_fixed/2 - current_space;
-  left_stickout_correction = max (left_stickout_correction, 0.0);
-
-  
   Real optical_corr = 0.0;
   Grob *stem = Note_column::get_stem (g);
   if (!bar_size.is_empty ()
@@ -164,8 +155,9 @@ Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
 				      )
 {
   Interval bar_size = bar_y_positions (last_grob);
+  Grob *orig = me->original () ? me->original () : me;
 
-  extract_grob_set (me, "right-items", right_items);
+  extract_grob_set (orig, "right-items", right_items);
 
   *compound_fixed = 0.0;
   *compound_space = 0.0;

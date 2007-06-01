@@ -167,15 +167,10 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 {
   if (Paper_column::is_musical (left_col))
     {
-      bool skip_unbroken_right = false;
-
       if (!Paper_column::is_musical (right_col)
 	  && options->float_nonmusical_columns_
 	  && after_right_col
 	  && Paper_column::is_musical (after_right_col))
-	skip_unbroken_right = true;
-
-      if (skip_unbroken_right)
 	{
 	  /*
 	    TODO: should generate rods to prevent collisions.
@@ -233,8 +228,7 @@ Spacing_spanner::generate_springs (Grob *me,
 }
 
 /*
-  Generate the space between two musical columns LEFT_COL and RIGHT_COL, given
-  spacing parameters INCR and SHORTEST.
+  Generate the space between two musical columns LEFT_COL and RIGHT_COL.
 */
 void
 Spacing_spanner::musical_column_spacing (Grob *me,
@@ -242,8 +236,7 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 					 Item *right_col,
 					 Spacing_options const *options)
 {
-  bool expand_only = false;
-  Real base_note_space = note_spacing (me, left_col, right_col, options, &expand_only);
+  Real base_note_space = note_spacing (me, left_col, right_col, options);
 
   Real max_fixed = 0;
   Real max_space = 0;
