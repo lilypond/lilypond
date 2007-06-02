@@ -12,33 +12,20 @@
 #include "lily-proto.hh"
 #include "smobs.hh"
 
-struct Spring_smob
+struct Spring
 {
   Grob *other_;
   Real distance_;
-  bool expand_only_b_;
-  Real inverse_strength_;
+  Real min_distance_;
 
-  DECLARE_SIMPLE_SMOBS (Spring_smob);
+  Real inverse_stretch_strength_;
+  Real inverse_compress_strength_;
+
+  DECLARE_SIMPLE_SMOBS (Spring);
 public:
-  Spring_smob ();
-};
-DECLARE_UNSMOB (Spring_smob, spring);
-
-struct Spring
-{
-  Drul_array<Item *> item_drul_;
-  Real distance_;
-  bool expand_only_b_;
-
-  /*
-    TODO: make 2 strengths: one for stretching, and one for shrinking.
-  */
-  Real inverse_strength_;
-  void add_to_cols ();
-  void set_to_cols ();
   Spring ();
 };
+DECLARE_UNSMOB (Spring, spring);
 
 #endif /* SPRING_HH */
 

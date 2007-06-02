@@ -11,15 +11,17 @@
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "spring.hh"
 
 class Staff_spacing
 {
-public:
-  static void next_notes_correction (Grob *, Grob *, Real, Real, Real *, Real *);
-  static void next_note_correction (Grob *, Grob *, Interval, Real, Real, Real*, Real *, int *);
-  DECLARE_GROB_INTERFACE();
-  static void get_spacing_params (Grob *, Real *, Real *);
+  static Real optical_correction (Grob *, Grob *, Interval);
+  static Real left_stickout (Grob *, Grob *);
+  static Real next_notes_correction (Grob *, Grob *, Real, Real);
 
+public:
+  DECLARE_GROB_INTERFACE();
+  static Spring get_spacing_params (Grob *);
   static Interval bar_y_positions (Grob *);
 };
 

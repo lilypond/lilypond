@@ -11,6 +11,7 @@
 #include <cstdio>
 using namespace std;
 
+#include "international.hh"
 #include "paper-column.hh"
 #include "separation-item.hh"
 #include "warn.hh"
@@ -22,28 +23,14 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 
-/*
-  Insert some more space for the next note, in case it has a stem in
-  the wrong direction
-*/
-void
-Staff_spacing::next_note_correction (Grob *me,
-				     Grob *g,
-				     Interval bar_size,
-				     Real current_space, Real current_fixed,
-				     Real *space,
-				     Real *fix,
-				     int *wish_count)
+Real
+Staff_spacing::left_stickout (Grob *me, Grob *g)
 {
-  (void) current_fixed; 
   if (!g || !Note_column::has_interface (g))
-    return ;
+    return 0;
 
   Item *col = dynamic_cast<Item *> (g)->get_column ();
-  Real left_stickout_correction = max (0., (- g->extent (col, X_AXIS)[LEFT]));
-
-  /* staff space -> positions */
-  bar_size *= 2;
+  Real ret = max (0., (- g->extent (col, X_AXIS)[LEFT]));
 
   /*
     Duh. If this gets out of hand, we should invent something more generic.
@@ -57,26 +44,25 @@ Staff_spacing::next_note_correction (Grob *me,
       else
 	v = accs->extent (col, X_AXIS);
       
-      left_stickout_correction = max (left_stickout_correction, (- v[LEFT]));
+      ret = max (ret, (- v[LEFT]));
     }
   Grob *arpeggio = unsmob_grob (g->get_object ("arpeggio"));
   if (arpeggio)
-    left_stickout_correction = max (left_stickout_correction, - arpeggio->extent (col, X_AXIS)[LEFT]);
+    ret = max (ret, - arpeggio->extent (col, X_AXIS)[LEFT]);
 
-  
-  /*
-    Let's decrease the space a little if the problem is not located
-    after a barline.
-  */
-  if (bar_size.is_empty ())
-    left_stickout_correction *= 0.75;
+  return ret;
+}
 
-  Real optical_corr = 0.0;
+Real
+Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
+{
+  if (!g || !Note_column::has_interface (g))
+    return 0;
+
   Grob *stem = Note_column::get_stem (g);
-  if (!bar_size.is_empty ()
-      && !arpeggio
-      && !accs
-      && stem)
+  Real ret = 0.0;
+
+  if (!bar_height.is_empty () && stem)
     {
       Direction d = get_grob_direction (stem);
       if (Stem::is_normal_stem (stem) && d == DOWN)
@@ -93,28 +79,15 @@ Staff_spacing::next_note_correction (Grob *me,
 	  Interval stem_posns (min (stem_start, stem_end),
 			       max (stem_end, stem_start));
 
-	  stem_posns.intersect (bar_size);
+	  stem_posns.intersect (bar_height);
 
-	  optical_corr = min (abs (stem_posns.length () / 7.0), 1.0);
-	  optical_corr *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
+	  ret = min (abs (stem_posns.length () / 7.0), 1.0);
+	  ret *= robust_scm2double (me->get_property ("stem-spacing-correction"), 1);
 	}
     }
-
-
-  Real correction = optical_corr + left_stickout_correction;
-  if (correction)
-    {
-      (*wish_count) ++; 
-
-      /*
-	This minute adjustments don't make sense for widely spaced scores.
-	Hence, we need to keep the stretchable (that is, space - fix)
-	distance equal.
-      */
-      *space += correction;
-      *fix += correction;
-    }
+  return ret;
 }
+
 /*
   Y-positions that are covered by BAR_GROB, in the case that it is a
   barline.  */
@@ -148,68 +121,54 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   note-spacings.
 */
 
-void
-Staff_spacing::next_notes_correction (Grob *me, Grob *last_grob,
-				      Real current_space, Real current_fixed,
-				      Real *compound_space, Real *compound_fixed
-				      )
+Real
+Staff_spacing::next_notes_correction (Grob *me,
+				      Grob *last_grob,
+				      Real current_fixed,
+				      Real right_stickout)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Grob *orig = me->original () ? me->original () : me;
 
   extract_grob_set (orig, "right-items", right_items);
 
-  *compound_fixed = 0.0;
-  *compound_space = 0.0;
-  int wish_count = 0;
+  Real max_left_stickout = 0.0;
+  Real max_optical = 0.0;
 
   for (vsize i = right_items.size (); i--;)
     {
       Grob *g = right_items[i];
       if (Note_column::has_interface (right_items[i]))
 	{
-	  Grob *g = right_items[i];
-
-	  Real space = 0.0;
-	  Real fixed = 0.0;
-      
-	  next_note_correction (me, g, bar_size,
-				current_space, current_fixed,
-				&space, &fixed, &wish_count);
-      
-	  *compound_space += space;
-	  *compound_fixed += fixed; 
+	  max_left_stickout = max (max_left_stickout, left_stickout (me, g));
+	  max_optical = max (max_optical, optical_correction (me, g, bar_size));
 	}
       else
 	{
 	  extract_grob_set (g, "elements", elts);
 	  for (vsize j = elts.size (); j--;)
 	    {
-	      Real space = 0.0;
-	      Real fixed = 0.0;
-	      next_note_correction (me, elts[j], bar_size,
-				    current_space, current_fixed,
-				    &space, &fixed,
-				    &wish_count);
-	      *compound_fixed += fixed;
-	      *compound_space += space;
+	      max_left_stickout = max (max_left_stickout, left_stickout (me, elts[j]));
+	      max_optical = max (max_optical, optical_correction (me, g, bar_size));
 	    }
 	}
     }
-  
-  if (wish_count > 1)
-    {
-      *compound_space /= wish_count;
-      *compound_fixed /= wish_count;
-    }
+
+  /* we put a minimum distance of 0.3 between the right edge of the left grob and
+     the left edge of the right grob */
+  max_left_stickout = max (0.0, max_left_stickout + right_stickout + 0.3 - current_fixed);
+  return max (max_left_stickout, max_optical);
 }
 
-void
-Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
+/* This routine does not impose any minimum distances between columns; it only
+   affects springs. As such, the FIXED variable does not refer to a minimum
+   distance between columns, but instead to a minimum desired distance between
+   columns -- this ends up affecting the stiffness of a spring. In fact, FIXED
+   will be the distance between columns if there is a compression force of 1.0
+   applied to the line. */
+Spring
+Staff_spacing::get_spacing_params (Grob *me)
 {
-  *space = 1.0;
-  *fixed = 1.0;
-
   Grob *separation_item = 0;
   Item *me_item = dynamic_cast<Item *> (me);
 
@@ -225,7 +184,7 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
   if (!separation_item)
     {
       programming_error ("no sep item");
-      return;
+      return Spring ();
     }
 
   Interval last_ext;
@@ -244,15 +203,12 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
 	we used to have a warning here, but it generates a lot of
 	spurious error messages.
       */
-      return;
+      return Spring ();
     }
-
-  *fixed = last_ext[RIGHT];
-  *space = *fixed + 1.0;
 
   SCM alist = last_grob->get_property ("space-alist");
   if (!scm_list_p (alist))
-    return;
+    return Spring ();
 
   SCM space_def = scm_sloppy_assq (ly_symbol2scm ("first-note"), alist);
   if (me_item->break_status_dir () == CENTER)
@@ -265,41 +221,45 @@ Staff_spacing::get_spacing_params (Grob *me, Real *space, Real *fixed)
   if (!scm_is_pair (space_def))
     {
       programming_error ("unknown prefatory spacing");
-      return;
+      return Spring ();
     }
 
   space_def = scm_cdr (space_def);
   Real distance = scm_to_double (scm_cdr (space_def));
   SCM type = scm_car (space_def);
 
-  *fixed = last_ext[RIGHT];
+  Real fixed = last_ext[RIGHT];
+  Real ideal = fixed + 1.0;
+
   if (type == ly_symbol2scm ("fixed-space"))
     {
-      *fixed += distance;
-      *space = *fixed;
+      fixed += distance;
+      ideal = fixed;
     }
   else if (type == ly_symbol2scm ("extra-space"))
-    *space = *fixed + distance;
+    ideal = fixed + distance;
   else if (type == ly_symbol2scm ("semi-fixed-space"))
     {
-      *fixed += distance / 2;
-      *space = *fixed + distance / 2;
+      fixed += distance / 2;
+      ideal = fixed + distance / 2;
     }
   else if (type == ly_symbol2scm ("minimum-space"))
-    *space = last_ext[LEFT] + max (last_ext.length (), distance);
+    ideal = last_ext[LEFT] + max (last_ext.length (), distance);
   else if (type == ly_symbol2scm ("minimum-fixed-space"))
     {
-      *space = last_ext[LEFT] + max (last_ext.length (), distance);
-      *fixed = *space;
+      fixed = last_ext[LEFT] + max (last_ext.length (), distance);
+      ideal = fixed;
     }
 
-  Real correction_fixed = 0.0;
-  Real correction_space = 0.0;
-  next_notes_correction (me, last_grob,
-			 *space, *fixed,
-			 &correction_space, &correction_fixed );
-  *space += correction_space;
-  *fixed += correction_fixed;
+  Real correction = next_notes_correction (me, last_grob, fixed, last_ext[RIGHT]);
+  fixed += correction;
+  ideal += correction;
+
+  Spring ret;
+  ret.min_distance_ = 0.0;
+  ret.distance_ = ideal;
+  ret.inverse_stretch_strength_ = ret.inverse_compress_strength_ = ideal - fixed;
+  return ret;
 }
 
 ADD_INTERFACE (Staff_spacing,

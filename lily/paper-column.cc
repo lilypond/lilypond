@@ -175,7 +175,7 @@ Paper_column::print (SCM p)
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
+      Spring *sp = unsmob_spring (scm_car (s));
       if (!sp->other_->get_system ())
 	continue;
       

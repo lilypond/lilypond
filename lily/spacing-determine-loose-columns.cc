@@ -166,12 +166,10 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 	    }
 	  else if (Staff_spacing::has_interface (sp))
 	    {
-	      Real space = 0;
-	      Real fixed_space = 0;
-	      Staff_spacing::get_spacing_params (sp,
-						 &space, &fixed_space);
+	      Spring spring = Staff_spacing::get_spacing_params (sp);
+	      Real fixed = spring.distance_ - spring.inverse_compress_strength_;
 
-	      dists[d] = max (dists[d], fixed_space);
+	      dists[d] = max (dists[d], fixed);
 	    }
 	  else
 	    programming_error ("Subversive spacing wish");

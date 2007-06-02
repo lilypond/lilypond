@@ -454,17 +454,15 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  if (!spacing_grob || !Staff_spacing::has_interface (spacing_grob))
 	    continue;
 
-	  Real space = 0.;
-	  Real fixed_space = 0.;
-
 	  /*
 	    column for the left one settings should be ok due automatic
 	    pointer munging.
 	  */
 	  assert (spacing_grob->get_column () == l);
 
-	  Staff_spacing::get_spacing_params (spacing_grob,
-					     &space, &fixed_space);
+	  Spring sp = Staff_spacing::get_spacing_params (spacing_grob);
+	  Real space = sp.distance_;
+	  Real fixed = sp.distance_ - sp.inverse_compress_strength_;
 
 	  if (Paper_column::when_mom (r).grace_part_)
 	    {
@@ -477,10 +475,10 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	    }
 
 	  max_space = max (max_space, space);
-	  max_fixed = max (max_fixed, fixed_space);
+	  max_fixed = max (max_fixed, fixed);
 	  
 	  compound_space += space;
-	  compound_fixed += fixed_space;
+	  compound_fixed += fixed;
 	  wish_count++;
 	}
     }
@@ -521,6 +519,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 
   Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
+  message (_f ("adding spring of length %f", distance));
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
 }
 
