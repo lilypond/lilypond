@@ -78,6 +78,7 @@ here. TODO: use SpanEvents?")
      (octavation ,integer? "This pitch was octavated by how many octaves? For chord inversions, this is negative.")
      (origin ,ly:input-location? "where was this piece of music defined?")
      (page-break-permission ,symbol? "When the music is at top-level, whether to allow, forbid or force a page break.")
+     (page-label ,symbol? "The label of a page marker")
      (page-marker ,boolean? "If true, and the music expression is found at top-level, a page marker object is instanciated instead of a score.")
      (page-turn-permission ,symbol? "When the music is at top-level, whether to allow, forbid or force a page turn.")
      (part-combine-status ,symbol?

@@ -298,7 +298,15 @@ killCues =
       (if (string? (ly:music-property mus 'quoted-music-name))
 	  (ly:music-property mus 'element)
 	  mus)) music))
-   
+
+label = 
+#(define-music-function (parser location label) (symbol?)
+   (_i "Place a bookmarking label, either at top-level or inside music.")
+   (make-music 'EventChord
+	       'page-marker #t
+	       'page-label label
+	       'elements (list (make-music 'LabelEvent
+					   'page-label label)))) 
 
 makeClusters =
 #(define-music-function

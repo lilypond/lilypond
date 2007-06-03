@@ -9,10 +9,11 @@
 #include "page-marker.hh"
 #include "ly-smobs.icc"
 
-Page_marker::Page_marker (SCM symbol, SCM permission)
+Page_marker::Page_marker ()
 {
-  symbol_ = symbol;
-  permission_ = permission;
+  symbol_ = SCM_EOL;
+  permission_ = SCM_EOL;
+  label_ = SCM_EOL;
   smobify_self ();
 }
 
@@ -30,6 +31,7 @@ Page_marker::mark_smob (SCM smob)
   Page_marker *pm = (Page_marker *) SCM_CELL_WORD_1 (smob);
   scm_gc_mark (pm->symbol_);
   scm_gc_mark (pm->permission_);
+  scm_gc_mark (pm->label_);
   return SCM_EOL;
 }
 
@@ -53,3 +55,24 @@ Page_marker::permission_value ()
 {
   return permission_;
 }
+
+SCM
+Page_marker::label ()
+{
+  return label_;
+}
+
+void
+Page_marker::set_permission (SCM symbol, SCM permission)
+{
+  symbol_ = symbol;
+  permission_ = permission;
+}
+
+void
+Page_marker::set_label (SCM label)
+{
+  label_ = label;
+}
+
+

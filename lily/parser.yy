@@ -279,6 +279,7 @@ If we give names, Bison complains.
 %token <scm> MARKUP_HEAD_SCM0_MARKUP1
 %token <scm> MARKUP_HEAD_SCM0_SCM1
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
+%token <scm> MARKUP_HEAD_SCM0_MARKUP1_MARKUP2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
@@ -2292,6 +2293,9 @@ simple_markup:
 	}
 	| MARKUP_HEAD_SCM0_SCM1 embedded_scm embedded_scm {
 		$$ = scm_list_3 ($1, $2, $3);
+	}
+	| MARKUP_HEAD_SCM0_MARKUP1_MARKUP2 embedded_scm markup markup {
+		$$ = scm_list_4 ($1, $2, $3, $4);
 	}
 	| MARKUP_HEAD_EMPTY {
 		$$ = scm_list_1 ($1);

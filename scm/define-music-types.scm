@@ -238,6 +238,9 @@ Syntax: @code{\\key } @var{name} @var{scale}.")
 	(to-relative-callback . ,(lambda (x p) p))
 	(types . (general-music key-change-event event))
 	))
+    (LabelEvent
+     . ((description . "Place a bookmarking label")
+	(types . (general-music label-event event))))
     (LaissezVibrerEvent
      . ((description . "Don't damp this chord.
 

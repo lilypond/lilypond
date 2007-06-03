@@ -1463,8 +1463,30 @@ that."
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; size indications arrow
+;; Delayed markup evaluation
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(define-builtin-markup-command (page-ref layout props label gauge default)
+  (symbol? markup? markup?)
+  "Reference to a page number. @var{label} is the label set on the referenced
+page (using the @code{\\label} command), @var{gauge} a markup used to estimate
+the maximum width of the page number, and @var{default} the value to display
+when @var{label} is not found."
+  (let* ((gauge-stencil (interpret-markup layout props gauge))
+	 (x-ext (ly:stencil-extent gauge-stencil X))
+	 (y-ext (ly:stencil-extent gauge-stencil Y)))
+    (ly:make-stencil
+     `(delay-stencil-evaluation
+       ,(delay (ly:stencil-expr
+		(let* ((table (ly:output-def-lookup layout 'label-page-table))
+		       (label-page (and (list? table) (assoc label table)))
+		       (page-number (and label-page (cdr label-page)))
+		       (page-markup (if page-number (format "~a" page-number) default))
+		       (page-stencil (interpret-markup layout props page-markup))
+		       (gap (- (interval-length x-ext)
+			       (interval-length (ly:stencil-extent page-stencil X)))))
+		  (interpret-markup layout props
+				    (markup #:concat (#:hspace gap page-markup)))))))
+     x-ext
+     y-ext)))

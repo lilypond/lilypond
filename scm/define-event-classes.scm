@@ -16,7 +16,7 @@
 				OneTimeStep Finish)) 
     (music-event . (annotate-output-event
 		    arpeggio-event breathing-event extender-event span-event
-      rhythmic-event dynamic-event break-event percent-event
+      rhythmic-event dynamic-event break-event label-event percent-event
       key-change-event string-number-event stroke-finger-event tie-event part-combine-event
       beam-forbid-event script-event
       tremolo-event bend-after-event fingering-event glissando-event
@@ -86,7 +86,7 @@
 ;; All leaf event classes that no translator listens to
 ;; directly. Avoids printing a warning.
 (define unlistened-music-event-classes
-  '(harmonic-event line-break-event page-break-event page-turn-event
+  '(harmonic-event line-break-event page-break-event page-turn-event label-event
 		   solo-one-event solo-two-event skip-event unisono-event))
 
 ;; produce neater representation of music event tree.

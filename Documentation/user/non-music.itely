@@ -481,6 +481,7 @@ some pieces include a lot more information.
 @menu
 * Creating titles::             
 * Custom titles::               
+* Table of contents::                
 @end menu
 
 
@@ -733,7 +734,90 @@ composer flush right on a single line.
 }
 @end verbatim
 
+@node Table of contents
+@subsection Table of contents
 
+A particular place of a score can be marked using the @code{\label}
+command, either at top-level or inside music.  This label can then be
+refered to in a markup, to get the number of the page where the marked
+point is placed, using the @code{\page-ref} markup command.
+
+@verbatim
+\score {
+  {
+    c'1
+    \mark A \label #'markA
+    c'
+  }
+} \label #'firstScore
+
+\markup { The first score is on page \page-ref #'firstScore "0" "?" }
+\markup { Mark A is on page \page-ref #'markA "0" "?" }
+@end verbatim
+
+The @code{\page-ref} markup command takes three arguments:
+@enumerate
+@item the label, a scheme symbol, eg. #'firstScore
+@item a markup that will be used as a gauge to estimate the dimensions
+of the markup
+@item a markup that will be used if the label is not known
+@end enumerate
+
+The reason why a gauge is needed is that, at the time markups are
+interpreted, the page breaking has not yet occured, so the page numbers
+are not yet known.  To work around this issue, the actual markup
+interpretation is delayed to a later time; however, the dimensions of
+the markup have to be known before, so a gauge is used to decide these
+dimensions.  If the book has between 10 and 99 pages, it may be "00",
+ie. a two digit number.
+
+@code{\label} and @code{\page-ref} can be used to build a table of contents:
+
+@verbatim
+#(set-default-paper-size "a6")
+
+#(define-markup-command (toc-line layout props label text) (symbol? markup?)
+  (interpret-markup layout props
+   (markup #:fill-line (text #:page-ref label "8" "?"))))
+
+\markup \column {
+  \large \fill-line { \null "Table of contents" \null }
+  \hspace #1
+  \toc-line #'toc "Table of contents"
+  \toc-line #'scoreI "First Score"
+  \toc-line #'markA \line { \hspace #3 Mark A }
+  \toc-line #'scoreII "Second Score"
+} \label #'toc
+
+\pageBreak
+
+\score {
+  { 
+    c'1 \break
+    \mark A \label #'markA
+    c'1
+  }
+  \header { piece = "First score" }
+} \label #'scoreI
+
+\pageBreak
+
+\score {
+  { d' }
+  \header { piece = "Second score" }
+} \label #'scoreII
+@end verbatim
+
+In this example, a @code{\toc-line} markup command is defined to build
+the table of content items. As this example has less than 10 pages, the
+gauge used by @code{\page-ref} has a single digit.
+
+@refcommands
+
+@funindex \label
+@code{\label}
+@funindex \page-ref
+@code{\page-ref}
 
 @node MIDI output
 @section MIDI output

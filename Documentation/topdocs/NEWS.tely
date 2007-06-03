@@ -66,6 +66,11 @@ which scares away people.
 @end ignore
 
 @item
+Particular points of a book may be marked with the @code{\label}
+command. Then, the page where these points are placed can be refered to
+using the @code{\page-ref} markup command.
+
+@item
 Page breaking and page turning commands (@code{\pageBreak},
 @code{\noPageBreak}, etc) can be used at top-level, between scores and
 top-level markups.
