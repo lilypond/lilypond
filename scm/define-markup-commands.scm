@@ -30,16 +30,17 @@
   (let*
       ((th (chain-assoc-get 'thickness props  0.1))
        (x (car dest))
-       (y (cdr dest)))
+       (y (cdr dest))
+       (s (ly:make-stencil
+	   `(draw-line
+	     ,th
+	     0 0
+	     ,x ,y)
 
-    (ly:make-stencil
-     `(draw-line
-       ,th
-       0 0
-       ,x ,y)
+	   (cons (min x 0) (max x 0))
+	   (cons (min y 0) (max y 0)))))
 
-     (cons (min x 0) (min y 0))
-     (cons (max x 0) (max y 0)))))
+    s))
 
 (define-builtin-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
