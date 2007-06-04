@@ -67,6 +67,9 @@ to_string (char const *format, ...)
   return str;
 }
 
+/*
+  TODO: this O(n^2) in #occurences of find, due to repeated copying.
+ */
 string &
 replace_all (string &str, string find, string replace)
 {
@@ -113,12 +116,25 @@ string_split (string str, char c)
     {
       string s = str.substr (0, i);
       a.push_back (s);
-      while (str[++i] == c)
-	;
+      i ++;
       str = str.substr (i);
       i = str.find (c);
     }
   if (str.length ())
     a.push_back (str);
   return a;
+}
+
+string
+string_join (vector<string> const &strs, string infix)
+{
+  string result;
+  for (vsize i = 0; i < strs.size (); i ++)
+    {
+      if (i)
+	result += infix;
+      result += strs[i];
+    }
+
+  return result;
 }

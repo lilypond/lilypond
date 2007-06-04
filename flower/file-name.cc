@@ -177,3 +177,26 @@ File_name::is_absolute () const
   return (dir_.length () && dir_[0] == DIRSEP) || root_.length ();
 }
 
+
+
+File_name
+File_name::canonicalized () const
+{
+  File_name c = *this;
+
+  replace_all (c.dir_, string ("//"), string ("/"));
+
+  vector<string> components =  string_split (c.dir_, '/');
+  vector<string> new_components;
+
+  for (vsize i = 0; i < components.size (); i++)
+    {
+      if (components[i] == "..")
+	new_components.pop_back ();
+      else
+	new_components.push_back (components[i]);
+    }
+
+  c.dir_ = string_join (new_components,  "/");
+  return c;  
+}

@@ -34,3 +34,10 @@ TEST_STRING (File_name, Mingw_slashify_4, "\\tmp\\x.ly")
   string s = slashify (to_string ());
   EQUAL ("/tmp/x.ly", s);
 }
+
+TEST_STRING (File_name, Canonicalize, "foo//bar/..//bla//z.ly")
+{
+  string s = canonicalized ().to_string ();
+  EQUAL ("foo/bla/z.ly", s);
+}
+
