@@ -31,6 +31,7 @@
     (backend ps "which backend to use by default; Options: eps, ps [default], scm, svg, tex, texstr)")
     (check-internal-types #f "check every property assignment for types")
     (clip-systems #f "Generate cut-out snippets of a score")
+    (datadir #f "LilyPond prefix for data files (Readonly).")
     (debug-gc #f "dump memory debugging statistics")
     (debug-gc-assert-parsed-dead #f "for memory debugging:
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 

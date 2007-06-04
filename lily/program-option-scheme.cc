@@ -39,8 +39,6 @@ static SCM option_hash;
 
 void internal_set_option (SCM var, SCM val)
 {
-  scm_hashq_set_x (option_hash, var, val);
-
   if (0)
     ;
   else if (var == ly_symbol2scm ("profile-property-accesses"))
@@ -100,6 +98,16 @@ void internal_set_option (SCM var, SCM val)
       debug_page_breaking_scoring = to_boolean (val);
       val = scm_from_bool (to_boolean (val));
     }
+  else if (var == ly_symbol2scm ("datadir"))
+    {
+      /* ignore input value. */
+      val = ly_string2scm (lilypond_datadir);
+    }
+
+
+  scm_hashq_set_x (option_hash, var, val);
+
+
 }
 
 
