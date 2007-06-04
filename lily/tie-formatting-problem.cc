@@ -61,6 +61,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 Tie_formatting_problem::Tie_formatting_problem ()
 {
   x_refpoint_ = 0;
+  use_horizontal_spacing_ = true;
 }
 
 Tie_formatting_problem::~Tie_formatting_problem ()
@@ -123,16 +124,23 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
     {
       if (Stem::is_normal_stem (stem))
 	{
-	  
 	  Interval x;
 	  x.add_point (stem->relative_coordinate (x_refpoint_, X_AXIS));
 	  x.widen (staff_space / 20); // ugh.
 	  Interval y;
-	  Real stem_end_position =
-	    Stem::is_cross_staff (stem)
-	    ? get_grob_direction (stem) * infinity_f
-	    : Stem::stem_end_position (stem) * staff_space * .5;
 
+	  Real stem_end_position = 0.0;
+	  if (Stem::is_cross_staff (stem))
+	    stem_end_position =  get_grob_direction (stem) * infinity_f;
+	  else
+	    {
+	      if (use_horizontal_spacing_ || !Stem::get_beam (stem))
+		stem_end_position = Stem::stem_end_position (stem) * staff_space * .5;
+	      else
+		stem_end_position = Stem::note_head_positions (stem)[get_grob_direction (stem)]
+		  * staff_space * .5;
+	    }
+	  
 	  y.add_point (stem_end_position);
 
 	  Direction stemdir = get_grob_direction (stem);
@@ -347,7 +355,8 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &semi_ties, Directio
 {
   if (semi_ties.empty ())
     return;
-  
+
+  use_horizontal_spacing_ = false; 
   details_.from_grob (semi_ties[0]);
   vector<Item*> heads;
 
