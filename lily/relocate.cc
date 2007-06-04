@@ -230,12 +230,8 @@ setup_paths (char const *argv0_ptr)
 
   if (char const *env = getenv ("LILYPOND_DATADIR"))
     {
-#ifdef __MINGW32__
       /* Normalize file name.  */
       lilypond_datadir = File_name (env).to_string ();
-#else
-      lilypond_datadir = env;
-#endif
     }
 
   /* When running from build dir, a full LILYPOND_DATADIR is set-up at
@@ -245,6 +241,9 @@ setup_paths (char const *argv0_ptr)
   if (!is_dir (lilypond_datadir.c_str ())
       && is_dir (build_datadir_current.c_str ()))
     lilypond_datadir = build_datadir_current;
+
+
+  lilypond_datadir = File_name (lilypond_datadir).canonicalized().to_string();
   
   global_path.append ("");
 
