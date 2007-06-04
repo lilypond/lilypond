@@ -609,12 +609,17 @@ class SignatureFileLink (FileLink):
             for f in glob.glob (pat):
                 infile = f
                 outfile = (dest_dir + '/' + f).replace ('.eps', '.png')
-
+                data_option = ''
+                if options.local_data_dir:
+                    data_option = ('-slilypond-datadir=%s/share/lilypond/current '
+                                   % os.path.split(infile)[0])
+                
                 mkdir (os.path.split (outfile)[0])
                 cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '
+                       ' %(data_option)s '
                        ' -r101 '
                        ' -sOutputFile=%(outfile)s -dNOSAFER -dEPSCrop -q -dNOPAUSE '
-                       ' %(infile)s  -c quit '  % locals ())
+                       ' %(infile)s  -c quit ') % locals ()
 
                 files_created[oldnew].append (outfile)
                 system (cmd)
@@ -1220,6 +1225,13 @@ def main ():
                   default=False,
                   action="store_true",
                   help="Create PNGs from EPSes")
+
+
+    p.add_option ('--local-datadir',
+                  dest="local_data_dir",
+                  default=False,
+                  action="store_true",
+                  help='whether to use the share/lilypond/ directory in the test directory')
 
     p.add_option ('-o', '--output-dir',
                   dest="output_dir",
