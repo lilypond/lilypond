@@ -3201,18 +3201,13 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-In the following example, the first ending is not a complete
-bar (it only had 3 beats).  The beginning of the second ending
-contains the 4th beat from the first ending.  This @q{extra} beat
-in the second ending is due to the first time ending,
-and has nothing to do with the @code{\partial} at the
-beginning of the example.
+Repeats with upbeats may be created.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } { a | a a a a | b2. } }
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
 
