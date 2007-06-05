@@ -2,12 +2,11 @@
 \version "2.11.23"
 
 \header { texidoc = "
-By setting the Scheme property 'debug-skylines, you can make a nice
-funky artwork out of you score :-)
-
-More seriously, drawing your skyline can be helpful to debug spacing
-and collision issues. (Still, it does make your score pretty; so just
-try it, no matter how you really need to...)
+By setting the Scheme property 'debug-skylines, you can turn your score
+into a nice funky artwork :-) More seriously, drawing this skyline can
+be helpful to debug spacing and collision issues. (Still, it does make
+your score pretty; so just try it, no matter how much you really need
+to...)
 " }
 
 #(ly:set-option 'debug-skylines #t)
