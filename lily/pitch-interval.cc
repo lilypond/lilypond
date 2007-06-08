@@ -31,6 +31,34 @@ Pitch_interval::is_empty () const
 void
 Pitch_interval::add_point (Pitch p)
 {
+  if (at (LEFT).tone_pitch () > p.tone_pitch ())
+    at (LEFT) = p;
+  if (at (RIGHT).tone_pitch () < p.tone_pitch ())
+    at (RIGHT) = p;
+}
+
+
+Pitch_lexicographic_interval::Pitch_lexicographic_interval (Pitch p1, Pitch p2)
+{
+  at (LEFT) = p1;
+  at (RIGHT) = p2;
+}
+
+Pitch_lexicographic_interval::Pitch_lexicographic_interval ()
+{
+  at (LEFT) = Pitch (100, 0, 0);
+  at (RIGHT) = Pitch (-100, 0, 0);
+}
+
+bool
+Pitch_lexicographic_interval::is_empty () const
+{
+  return at (LEFT) > at (RIGHT);
+}
+
+void
+Pitch_lexicographic_interval::add_point (Pitch p)
+{
   if (at (LEFT) > p)
     at (LEFT) = p;
   if (at (RIGHT) < p)
