@@ -453,9 +453,10 @@ The syntax is the same as `define*-public'."
      outfile)
 
     (format outfile "\nprotected symbols: ~a\n"
-	    (length (filter symbol?  (map car protects))))
-    
-	     
+	    (apply + (map (lambda (obj-count) (if (symbol? (car obj-count))
+						  (cdr obj-count)
+						  0))
+			     protects)))	     
 
     ;; (display (ly:smob-protects))
     (newline outfile)
