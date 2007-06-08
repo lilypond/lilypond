@@ -2,8 +2,8 @@
 \version "2.11.23"
 
 \header { texidoc = "
-With the \tweak command, you can tune every grob directly. Here are
-some examples of available tweaks.
+With the @code{\tweak} command, you can tune every grob directly. Here
+are some examples of available tweaks.
 " }
 
 \paper {
