@@ -21,8 +21,8 @@ output.
     a \stopTextSpan
 
     \revert TextSpanner #'style
-    \override TextSpanner  #'style = #'dashed-lineNone \override TextSpanner #'bound-details #'left #'text = \markup { \draw-line #'(0 . 1) }
-None \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'(0 . -2) }
+    \override TextSpanner  #'style = #'dashed-line \override TextSpanner #'bound-details #'left #'text = \markup { \draw-line #'(0 . 1) }
+ \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'(0 . -2) }
 
     a \startTextSpan
     b c 
