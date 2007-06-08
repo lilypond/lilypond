@@ -2986,8 +2986,12 @@ def conv (str):
                          ('right', m.group (4))]:
 
             if h and float (h):
+                once = m.group(1)
+                if not once:
+                    once = ''
+                    
                 s += (r"%s \override %s #'bound-details #'%s #'text = \markup { \draw-line #'(0 . %s) }"
-                      % (m.group(1), m.group (2), var, h))
+                      % (once, m.group (2), var, h))
 
                 s += '\n'
             
