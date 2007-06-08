@@ -223,8 +223,24 @@ Rest_collision::calc_positioning_done (SCM smob)
 
       Interval notedim;
       for (vsize i = 0; i < notes.size (); i++)
-	notedim.unite (notes[i]->extent (common, Y_AXIS));
+	{
+	  if (Note_column::dir (notes[i]) == -dir)
+	    {
+	      /* try not to look at the stem, as looking at a beamed
+		 note may trigger beam positioning prematurely.
 
+		 This happens with dotted rests, which need Y
+		 positioning to compute X-positioning.
+	      */
+	      Grob *head = Note_column::first_head (notes[i]);
+	      if (head)
+		notedim.unite (head->extent (common, Y_AXIS));
+	      else
+		programming_error ("Note_column without first_head()");
+	    }
+	  else
+	    notedim.unite (notes[i]->extent (common, Y_AXIS));
+	}
 
       Real y = dir * max (0.0,
 			  -dir * restdim[-dir] + dir * notedim[dir]  + minimum_dist);

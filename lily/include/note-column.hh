@@ -24,7 +24,6 @@ public:
   static Grob *accidentals (Grob *me);
   static Grob *arpeggio (Grob *me);
   static Slice head_positions_interval (Grob *me);
-  static Direction static_dir (Grob *);
   static void translate_rests (Grob *me, int dy);
   static Grob *first_head (Grob *me);
   static Grob *get_rest (Grob *me);
