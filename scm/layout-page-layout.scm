@@ -156,16 +156,13 @@
   `next-line' can be #f, meaning that `line' is the last line."
   (let* ((title (paper-system-title? line))
 	 (next-title (and next-line (paper-system-title? next-line))))
-    (cond ((and title next-title)
-	   (ly:output-def-lookup layout 'between-title-space))
-	  (title
-	   (ly:output-def-lookup layout 'after-title-space))
-	  (next-title
-	   (ly:output-def-lookup layout 'before-title-space))
-	  (else
-	   (ly:prob-property
-	    line 'next-space
-	    (ly:output-def-lookup layout 'between-system-space))))))
+    (ly:prob-property
+     line 'next-space
+     (ly:output-def-lookup layout 
+			   (cond ((and title next-title) 'between-title-space)
+				 (title 'after-title-space)
+				 (next-title 'before-title-space)
+				 (else 'between-system-space))))))
 
 (define (line-next-padding line next-line layout)
   "Return padding to use between `line' and `next-line'.
@@ -198,10 +195,11 @@
   "Ideal distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
-       (+ (max 0 (- (+ (interval-end (paper-system-staff-extents next-line))
-		       (if ignore-padding 0 (line-next-padding line next-line layout)))
-		    (interval-start (paper-system-staff-extents line))))
-	  (line-next-space line next-line layout))))
+       (max (+ (max 0 (- (+ (interval-end (paper-system-staff-extents next-line))
+			    (if ignore-padding 0 (line-next-padding line next-line layout)))
+			 (interval-start (paper-system-staff-extents line))))
+	       (line-next-space line next-line layout))
+	    (line-minimum-distance line next-line layout ignore-padding))))
 
 (define (first-line-position line layout)
   "Position of the first line on page"
@@ -287,7 +285,7 @@
 				'())))
 	 (springs (map (lambda (prev-line line)
 			 (list (line-ideal-distance prev-line line paper ignore-padding)
-			       (/ 1.0 (line-next-space prev-line line paper))))
+			       (line-next-space prev-line line paper)))
 		       lines
 		       cdr-lines))
 	 (rods (map (let ((i -1))

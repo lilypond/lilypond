@@ -144,10 +144,13 @@ void
 Simple_spacer::solve (Real line_len, bool ragged)
 {
   Real conf = configuration_length (force_);
+  double inv_hooke = 0;
+  for (vsize i=0; i < springs_.size (); i++)
+    inv_hooke += springs_[i].inverse_hooke_;
 
   ragged_ = ragged;
   line_len_ = line_len;
-  if (conf < line_len_)
+  if ((inv_hooke > 0) && (conf < line_len_))
     force_ = expand_line ();
   else if (conf > line_len_)
     force_ = compress_line ();
