@@ -1,6 +1,6 @@
 #!@PYTHON@
 
-# mf-to-table.py -- convert spacing info in MF logs . and .tex
+# mf-to-table.py -- convert spacing info in MF logs . 
 #
 # source file of the GNU LilyPond music typesetter
 #
@@ -107,17 +107,6 @@ def parse_logfile (fn):
 
 
 
-def write_tex_defs (file, global_info, charmetrics):
-    nm = font_family
-    for m in charmetrics:
-        
-        texname = re.sub ('[_.]', 'X',  m['name'])
-        def digit_to_letter (match):
-            return chr (ord (match.group(1)) - ord ('0') + ord ('A'))
-        texname = re.sub ('([0-9])', digit_to_letter, texname)
-        file.write (r'''\gdef\%s%s{\char%d}%%%s''' % \
-              (nm, texname, m['code'],'\n'))
-    file.write ('\\endinput\n')
 
 
 def write_character_lisp_table (file, global_info, charmetrics):
@@ -192,7 +181,6 @@ Options:
  -l, --ly=FILE          name output table
  -o, --outdir=DIR       prefix for dependency info
  -p, --package=DIR      specify package
- -t, --tex=FILE         name output tex chardefs
 
  """)
     sys.exit (0)
@@ -203,12 +191,11 @@ Options:
         'a:d:ho:p:t:',
         ['enc=',  'outdir=', 'dep=', 'lisp=',
          'global-lisp=',
-         'tex=', 'debug', 'help', 'package='])
+         'debug', 'help', 'package='])
 
 global_lisp_nm = ''
 char_lisp_nm = ''
 enc_nm = ''
-texfile_nm = ''
 depfile_nm = ''
 lyfile_nm = ''
 outdir_prefix = '.'
@@ -220,8 +207,6 @@ for opt in options:
         depfile_nm = a
     elif o == '--outdir' or o == '-o':
         outdir_prefix = a
-    elif o == '--tex' or o == '-t':
-        texfile_nm = a
     elif o == '--lisp': 
         char_lisp_nm = a
     elif o == '--global-lisp': 
@@ -236,12 +221,11 @@ for opt in options:
         print o
         raise getopt.error
 
-base = re.sub ('.tex$', '', texfile_nm)
+base = os.path.splitext (lyfile_nm)[0]
 
 for filenm in files:
     (g, m, deps) = parse_logfile (filenm)
 
-    write_tex_defs (open (texfile_nm, 'w'), g, m)
     enc_name = 'FetaEncoding'
     if re.search ('parmesan', filenm):
         enc_name = 'ParmesanEncoding'
@@ -257,4 +241,4 @@ for filenm in files:
         write_deps (open (depfile_nm, 'wb'), deps,
               [base + '.log', base + '.dvi', base + '.pfa',
                depfile_nm,
-               base + '.pfb', texfile_nm])
+               base + '.pfb'])

@@ -663,6 +663,7 @@ parse_symbol_list (char const *symbols)
   string s = symbols;
   replace_all (s, '\n', ' ');
   replace_all (s, '\t', ' ');
+  replace_all (s, "  ", " ");
   return ly_string_array_to_scm (string_split (s, ' '));
 }
 

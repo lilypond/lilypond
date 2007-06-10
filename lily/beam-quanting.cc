@@ -189,12 +189,7 @@ Beam::quanting (SCM smob, SCM posns)
 
       stem_xposns.push_back (s->relative_coordinate (common[X_AXIS], X_AXIS));
     }
-  bool xstaff = false;
-  if (lvs && fvs)
-    {
-      Grob *commony = fvs->common_refpoint (lvs, Y_AXIS);
-      xstaff = Align_interface::has_interface (commony);
-    }
+  bool xstaff = Align_interface::has_interface (common[Y_AXIS]);
 
   Direction ldir = Direction (stem_infos[0].dir_);
   Direction rdir = Direction (stem_infos.back ().dir_);
@@ -384,8 +379,7 @@ Beam::score_stem_lengths (vector<Grob*> const &stems,
   Direction d = DOWN;
   do
     score[d] /= max (count[d], 1);
-  while (flip (&d) != DOWN)
-    ;
+  while (flip (&d) != DOWN);
 
   return score[LEFT] + score[RIGHT];
 }

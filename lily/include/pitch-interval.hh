@@ -20,4 +20,13 @@ public:
   bool is_empty () const;
 };
 
+class Pitch_lexicographic_interval : public Drul_array<Pitch>
+{
+public:
+  Pitch_lexicographic_interval ();
+  Pitch_lexicographic_interval (Pitch, Pitch);
+  void add_point (Pitch);
+  bool is_empty () const;
+};
+
 #endif /* PITCH_INTERVAL_HH */

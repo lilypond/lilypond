@@ -5,7 +5,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-1)
 	     (ice-9 pretty-print)
@@ -15,7 +14,7 @@
 
 (define-public (output-framework basename book scopes fields )
   (let*
-      ((file (open-output-file (format "~a.scm" basename))))
+      ((file (open-output-file (format #f "~a.scm" basename))))
     
     (display ";;Creator: LilyPond\n" file)
     (display ";; raw SCM output\n" file)

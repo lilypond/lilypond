@@ -131,8 +131,8 @@ tree-regen:
 
 ##
 ## todo: this also depends on .tfm, FIXME.
-$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc  $(outdir)/%.tex $(outdir)/%.dep: $(outdir)/%.log
-	$(PYTHON) $(buildscript-dir)/mf-to-table.py --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --enc $(outdir)/$(<F:.log=.enc) --tex $(outdir)/$(<F:.log=.tex) $<
+$(outdir)/%.lisp $(outdir)/%.otf-gtable $(outdir)/%.enc $(outdir)/%.dep: $(outdir)/%.log
+	$(PYTHON) $(buildscript-dir)/mf-to-table.py --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) --lisp=$(outdir)/$(<F:.log=.lisp) --outdir=$(outdir) --dep $(outdir)/$(<F:.log=.dep) --enc $(outdir)/$(<F:.log=.enc)  $<
 
 local-clean:
 	rm -f mfplain.mem mfplain.log

@@ -427,7 +427,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		      && me->get_bound (event_dir)->break_status_dir ())
 		    {
 		      current.horizontal_[event_dir]
-			= (robust_relative_extent (me->get_bound (event_dir), commonx, X_AXIS)[RIGHT]
+			= (robust_relative_extent (me->get_bound (event_dir),
+						   commonx, X_AXIS)[RIGHT]
 			   + event_dir * break_overshoot[event_dir]);
 		    }
 		  else
@@ -441,7 +442,8 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 		      if (inside_stem)
 			{
 			  Grob *neighbor_stem = stems[segs[j].stem_index_ + event_dir];
-			  Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
+			  Real neighbor_stem_x
+			    = neighbor_stem->relative_coordinate (commonx, X_AXIS);
 
 			  notehead_width = min (notehead_width,
 						fabs (neighbor_stem_x - segs[j].stem_x_)/2);
@@ -468,7 +470,9 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 			    current.horizontal_[event_dir]
 			      = event_dir * min  (event_dir * current.horizontal_[event_dir],
 						  - gap_length/2
-						  + event_dir * heads[k]->extent (commonx, X_AXIS)[-event_dir]);
+						  + event_dir
+						    * heads[k]->extent (commonx,
+									X_AXIS)[-event_dir]);
 			}
 		    }
 		}

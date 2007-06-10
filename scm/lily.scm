@@ -17,8 +17,6 @@
 (read-enable 'positions)
 (debug-enable 'debug)
 
-
-
 (define scheme-options-definitions
   `(
 
@@ -31,6 +29,7 @@
     (backend ps "which backend to use by default; Options: eps, ps [default], scm, svg, tex, texstr)")
     (check-internal-types #f "check every property assignment for types")
     (clip-systems #f "Generate cut-out snippets of a score")
+    (datadir #f "LilyPond prefix for data files (Readonly).")
     (debug-gc #f "dump memory debugging statistics")
     (debug-gc-assert-parsed-dead #f "for memory debugging:
 ensure that all refs to parsed objects are dead.  This is an internal option, and is switched on automatically for -ddebug-gc.") 
@@ -104,6 +103,7 @@ on errors, and print a stack trace.")
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (ice-9 format)
 	     (ice-9 rdelim)
              (ice-9 optargs)
 	     (oop goops)
@@ -114,6 +114,15 @@ on errors, and print a stack trace.")
 	     (scm memory-trace)
 	     (scm coverage)
 	     )
+(define-public fancy-format format)
+(define-public (ergonomic-simple-format dest . rest)
+  "Like ice-9 format, but without the memory consumption."
+  
+  (if (string? dest)
+      (apply simple-format (cons #f (cons dest rest)))
+      (apply simple-format (cons dest rest))))
+
+(define format ergonomic-simple-format)
 
 ;; my display
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
@@ -452,9 +461,10 @@ The syntax is the same as `define*-public'."
      outfile)
 
     (format outfile "\nprotected symbols: ~a\n"
-	    (length (filter symbol?  (map car protects))))
-    
-	     
+	    (apply + (map (lambda (obj-count) (if (symbol? (car obj-count))
+						  (cdr obj-count)
+						  0))
+			     protects)))	     
 
     ;; (display (ly:smob-protects))
     (newline outfile)

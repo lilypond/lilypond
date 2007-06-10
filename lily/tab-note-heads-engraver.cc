@@ -99,7 +99,7 @@ Tab_note_heads_engraver::process_music ()
 	  SCM scm_pitch = event->get_property ("pitch");
 	  int min_fret = robust_scm2int (get_property ("minimumFret"), 0);
 	  int start = (high_string_one) ? 1 : string_count;
-	  int end = (high_string_one) ? string_count : 1;
+	  int end = (high_string_one) ? string_count+1 : 0;
 
 	  int i = start;
 	  do

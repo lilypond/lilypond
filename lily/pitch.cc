@@ -67,6 +67,10 @@ Pitch::tone_pitch () const
       o--;
     }
 
+  /*
+    we're effictively hardcoding the octave to 6 whole-tones,
+    which is as arbitrary as coding it to 1200 cents
+  */
   Rational tones ((o + n / scale_->step_tones_.size ()) * 6, 1);
   tones += scale_->step_tones_[n % scale_->step_tones_.size ()];
 

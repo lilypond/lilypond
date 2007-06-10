@@ -10,7 +10,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (scm page)
 	     (scm paper-system)
 	     (guile)
@@ -19,6 +18,8 @@
 	     (srfi srfi-14)
 	     (scm kpathsea)
 	     (lily))
+
+(define format ergonomic-simple-format)
 
 (define (output-formats)
   (define formats (ly:output-formats))
@@ -83,7 +84,7 @@
      (apply string-append
 	    (map
 	     (lambda (sub-name)
-	       (format #f "\\font\\~a=~a scaled ~a%\n"
+	       (format "\\font\\~a=~a scaled ~a%\n"
 		       (tex-font-command-raw
 			sub-name (ly:font-magnification font))
 		       sub-name

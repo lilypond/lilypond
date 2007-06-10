@@ -4,7 +4,7 @@ import os
 import os.path
 import shutil
 
-dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitches','repeats','scheme','spacing','staff','text','vocal','other']
+dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other']
 notsafe=[]
 
 try:

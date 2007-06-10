@@ -3,7 +3,8 @@
 (use-modules (lily)
 	     (ice-9 rdelim)
 	     (ice-9 regex)
-	     (ice-9 format))
+	     (ice-9 format) ;; needed for ~8@ 
+	     )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 

@@ -6,14 +6,13 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-1)
 	     (ice-9 pretty-print)
 	     (srfi srfi-13)
 	     (lily))
 
-(define-public (output-framework channel book scopes fields )
+(define-public (output-framework channel book scopes fields)
 
   
   #t)

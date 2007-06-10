@@ -55,6 +55,7 @@ gcstat*.scm
 lily-[0-9a-f][0-9a-f][0-9a-f]*
 out-scons
 out-cov
+out-test
 tags
 test-output-distance
 config-*.hh

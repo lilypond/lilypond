@@ -42,6 +42,7 @@ class Tie_formatting_problem
   set<int> dot_positions_;
   Interval dot_x_;
   vector<Tie_specification> specifications_;
+  bool use_horizontal_spacing_;
   
   Tie_configuration_map possibilities_;
 

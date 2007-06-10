@@ -27,7 +27,7 @@ public:
 
   bool is_absolute () const;
   string to_string () const;
-
+  File_name canonicalized () const;
   string dir_part () const;
   string file_part () const;
 };

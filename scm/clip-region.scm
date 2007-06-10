@@ -50,13 +50,13 @@
 
 
 (define-public (rhythmic-location->file-string a)
-  (format "~a.~a.~a"
+  (ly:format "~a.~a.~a"
 	  (car a)
 	  (ly:moment-main-numerator (cdr a))
 	  (ly:moment-main-denominator (cdr a))))
 
 (define-public (rhythmic-location->string a)
-  (format "bar ~a ~a"
+  (ly:format "bar ~a ~a"
 	  (car a)
 	  (ly:moment->string  (cdr a))))
 

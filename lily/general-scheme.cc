@@ -475,14 +475,14 @@ LY_DEFINE (ly_format, "ly:format",
 	  int precision = 8;
 	  
 	  if (spec == '$')
-	    precision = '2';
+	    precision = 2;
 	  else if (isdigit (spec))
 	    {
 	      precision = spec - '0';
 	      spec = format.at (tilde ++);
 	    }
 	    	   
-	  if (spec == 'a' || spec == 'f')
+	  if (spec == 'a' || spec == 'A' || spec == 'f' || spec == '$')
 	    results.push_back (format_single_argument (arg, precision));
 	  else if (spec == 'l')
 	    {

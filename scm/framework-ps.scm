@@ -17,10 +17,7 @@
 	     (scm clip-region)
 	     (lily))
 
-(define (format dest . rest)
-  (if (string? dest)
-      (apply simple-format (cons #f (cons dest rest)))
-      (apply simple-format (cons dest rest))))
+(define format ergonomic-simple-format)
 
 (define framework-ps-module (current-module))
 
@@ -251,12 +248,14 @@
 (define (write-preamble paper load-fonts? port)
 
   (define (load-font-via-GS font-name-filename)
-    (define (ps-load-file name)
-      (format
-       (if (string? name)
-	   "(~a) (r) file .loadfont\n"
-	   "% cannot find font file: ~a\n")
-       name))
+    (define (ps-load-file file-name)
+      (if (string? file-name)
+	  (if (string-contains file-name (ly:get-option 'datadir))
+	      (begin
+		(set! file-name (ly:string-substitute (ly:get-option 'datadir) "" file-name))
+		(format "lilypond-datadir (~a) concatstrings (r) file .loadfont" file-name))
+	      (format "(~a) (r) file .loadfont\n" file-name))
+	  (format "% cannot find font file: ~a\n" file-name)))
 
     (let* ((font (car font-name-filename))
 	   (name (cadr font-name-filename))
@@ -419,6 +418,11 @@
       pfas))
 
   (display "%%BeginProlog\n" port)
+
+  (format port
+	    "/lilypond-datadir where {pop} {userdict /lilypond-datadir (~a) put } ifelse"
+	    (ly:get-option 'datadir))
+  
   (if load-fonts?
       (for-each
        (lambda (f)
