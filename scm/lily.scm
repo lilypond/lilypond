@@ -103,6 +103,7 @@ on errors, and print a stack trace.")
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (ice-9 format)
 	     (ice-9 rdelim)
              (ice-9 optargs)
 	     (oop goops)
@@ -113,13 +114,13 @@ on errors, and print a stack trace.")
 	     (scm memory-trace)
 	     (scm coverage)
 	     )
+(define-public fancy-format format)
 (define-public (ergonomic-simple-format dest . rest)
   "Like ice-9 format, but without the memory consumption."
   
   (if (string? dest)
       (apply simple-format (cons #f (cons dest rest)))
       (apply simple-format (cons dest rest))))
-
 
 (define format ergonomic-simple-format)
 
