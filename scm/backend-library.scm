@@ -76,11 +76,11 @@
 	 (is-eps (string-match "\\.eps$" name))
 	 (paper-size-string (if is-eps
 				" -dEPSCrop "
-				(format "-dDEVICEWIDTHPOINTS=~,2f \
--dDEVICEHEIGHTPOINTS=~,2f "
+				(ly:format "-dDEVICEWIDTHPOINTS=~$ \
+-dDEVICEHEIGHTPOINTS=~$ "
 					paper-width paper-height )))
 
-	 (cmd (format #f
+	 (cmd (simple-format #f
 		      "~a\
  ~a\
  ~a\
