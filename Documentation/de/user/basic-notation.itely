@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0bf625c588a94030d351f3f8ec631cada2e15d8a
+    Translation of GIT committish: 3733d93a10f64a886941dc05afd8dc07fe47b67a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1825,7 +1825,8 @@ erhöhen würde).
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem 
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden 
 Taktlinien sind miteinander verbunden innerhalb einer Gruppe 
- (@code{StaffGroup}) oder einem Klaviersystem @code{PianoStaff}.
+ (@code{StaffGroup}) oder einem Klaviersystem (@code{PianoStaff} 
+bzw. (@code{GrandStaff}).
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
@@ -3370,18 +3371,13 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-@c hier neues Beispiel (korrigiert) finden oder ganz weglassen.
-Im nächsten Beispiel ist die erste Klammer kein vollständiger Takt, 
-denn sie umfasst nur drei Schläge. Der Anfang der zweiten Klammer 
-enthält die fehlende Viertelnote aus der ersten Klammer. Diese 
-zusätzliche Note hat nichts zu tun mit dem Auftakt zu Beginn des 
-Beispiels.
+Wiederholungen können mit Auftakten kombiniert werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } { a | a a a a | b2. } }
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
 
