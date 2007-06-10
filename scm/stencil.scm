@@ -332,7 +332,6 @@ grestore
 	  (write-system-signature outname (car paper-systems))
 	  (write-system-signatures basename (cdr paper-systems) (1+ count))))))
 
-
 (use-modules (scm paper-system))
 (define-public (write-system-signature filename paper-system)
   (define (float? x)
@@ -342,7 +341,9 @@ grestore
     (paper-system-system-grob paper-system))
   
   (define output (open-output-file filename))
-  
+
+  ;; todo: optionally use a command line flag? Or just junk this?
+  (define compare-expressions #f)
   (define (strip-floats expr)
     "Replace floats by #f"
     (cond
@@ -364,16 +365,6 @@ grestore
 	      rest))
 	expr))
   
-
-  (define (pythonic-string expr)
-    "escape quotes and slashes for python consumption"
-    (regexp-substitute/global #f "([\n\\\\'\"])" (format "~a" expr) 'pre "\\" 1 'post))
-
-  (define (pythonic-pair expr)
-    (format "(~a,~a)"
-	    (car expr) (cdr expr)))
-
-
   (define (raw-string expr)
     "escape quotes and slashes for python consumption"
     (regexp-substitute/global #f "[@\n]" (format "~a" expr) 'pre " " 'post))
@@ -394,11 +385,13 @@ grestore
 	 ;; todo: use stencil extent if available.
 	 (x-ext (ly:grob-extent grob system-grob X))
 	 (y-ext (ly:grob-extent grob system-grob Y))
-	 )
-
-      (interpret-for-signature #f (lambda (e)
-				    (set! collected (cons e collected)))
-			       rest)
+	 (expression-skeleton
+	  (if compare-expressions
+	      (interpret-for-signature
+	       #f (lambda (e)
+		    (set! collected (cons e collected)))
+	       rest)
+	     "")))
 
       (format output
 	      "~a@~a@~a@~a@~a\n"
