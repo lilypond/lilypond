@@ -85,15 +85,25 @@ on errors, and print a stack trace.")
 
 (use-modules (ice-9 regex)
 	     (ice-9 safe)
+	     (ice-9 format)
              (ice-9 optargs)
 	     (oop goops)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (srfi srfi-14)
 	     (scm clip-region)
-
 	     )
 
+
+(define-public (ergonomic-simple-format dest . rest)
+  "Like ice-9 format, but without the memory consumption."
+  
+  (if (string? dest)
+      (apply simple-format (cons #f (cons dest rest)))
+      (apply simple-format (cons dest rest))))
+
+(define-public fancy-format format)
+(define format ergonomic-simple-format)
 
 ;; my display
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", "))

@@ -211,9 +211,9 @@ encloses the contents.
                                               ((interval-empty? extent)
                                                (format "empty"))
                                               (is-length
-                                               (format "~$" (interval-length extent)))
+                                               (fancy-format "~$" (interval-length extent)))
                                               (else
-                                               (format "(~$,~$)"
+                                               (fancy-format "(~$,~$)"
                                                        (car extent) (cdr extent)))))))
 	      (arrows (ly:stencil-translate-axis 
 		       (dimension-arrows (cons 0 (interval-length extent)))

@@ -287,10 +287,10 @@ Line thickness is given by @var{th}, fret & string spacing by
           (fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
            (label-text 
               (cond
-	       ((equal?   number-type  'roman-lower) (format #f "~(~:@r~)" base-fret))
-	       ((equal?  number-type 'roman-upper) (format #f "~:@r" base-fret))
-	       ((equal? 'arabic number-type)  (format #f "~d" base-fret))
-	       (else (format #f  "~(~:@r~)" base-fret)))))
+	       ((equal?   number-type  'roman-lower) (fancy-format #f "~(~:@r~)" base-fret))
+	       ((equal?  number-type 'roman-upper) (fancy-format #f "~:@r" base-fret))
+	       ((equal? 'arabic number-type)  (fancy-format #f "~d" base-fret))
+	       (else (fancy-format #f  "~(~:@r~)" base-fret)))))
        (ly:stencil-translate-axis 
            (sans-serif-stencil layout props (* size label-font-mag) label-text) 
                        (* size (+ fret-count label-vertical-offset)) Y)))

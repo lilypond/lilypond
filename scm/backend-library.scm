@@ -56,7 +56,7 @@
 	 (is-eps (string-match "\\.eps$" name))
 	 (paper-size-string (if is-eps
 				" -dEPSCrop "
-				(format "-dDEVICEWIDTHPOINTS=~,2f \
+				(fancy-format "-dDEVICEWIDTHPOINTS=~,2f \
 -dDEVICEHEIGHTPOINTS=~,2f "
 					paper-width paper-height )))
 
