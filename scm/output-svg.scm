@@ -27,6 +27,7 @@
  (srfi srfi-1)
  (srfi srfi-13))
 
+(define format ergonomic-simple-format)
 
 (define lily-unit-length 1.75)
 
@@ -45,20 +46,20 @@
 ;; Helper functions
 (define-public (attributes attributes-alist)
   (apply string-append
-	 (map (lambda (x) (format #f " ~s=\"~a\"" (car x) (cdr x)))
+	 (map (lambda (x) (format " ~s=\"~a\"" (car x) (cdr x)))
 	      attributes-alist)))
 
 (define-public (eo entity . attributes-alist)
   "o = open"
-  (format #f "<~S~a>\n" entity (attributes attributes-alist)))
+  (format "<~S~a>\n" entity (attributes attributes-alist)))
 
 (define-public (eoc entity . attributes-alist)
   " oc = open/close"
-  (format #f "<~S~a/>\n" entity (attributes attributes-alist)))
+  (format "<~S~a/>\n" entity (attributes attributes-alist)))
 
 (define-public (ec entity)
   "c = close"
-  (format #f "</~S>\n" entity))
+  (format "</~S>\n" entity))
 
 
 
@@ -69,7 +70,7 @@
        (apply eo (cons entity attributes-alist)) string (ec entity))))
 
 (define (offset->point o)
-  (format #f " ~S,~S" (car o)  (- (cdr o))))
+  (format " ~S,~S" (car o)  (- (cdr o))))
 
 (define (number-list->point lst)
   (define (helper lst)
@@ -95,7 +96,7 @@
   (* x x))
 
 (define (integer->entity integer)
-  (format #f "&#x~x;" integer))
+  (format "&#x~x;" integer))
 
 (define (char->entity char)
   (integer->entity (char->integer char)))
@@ -150,7 +151,7 @@
 	    (size (modified-font-metric-font-scaling font))
 	    (anchor "west"))
 
-	(format #f "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
+	(format "font-family:~a;font-style:~a;font-size:~a;text-anchor:~a;"
 		(car name-style) (cadr name-style)
 		size anchor))))
 
@@ -281,7 +282,7 @@
 	  expr
 	  ;; FIXME: Not using GNU coding standards [translate ()] here
 	  ;; to work around a bug in Microsoft Internet Explorer 6.0
-	  `(transform . ,(format #f "translate(~f, ~f)"
+	  `(transform . ,(format "translate(~f, ~f)"
 				 x (- y)))))
 
 (define (polygon coords blot-diameter is-filled)
