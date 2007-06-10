@@ -579,9 +579,9 @@ block.
 
 @node Page wrapping text
 @subsection Page wrapping text
-Whereas @code{\markup} is used to enter a not breakable block of text,
+Whereas @code{\markup} is used to enter a non-breakable block of text,
 @code{\markuplines} can be used at top-level to enter lines of text that
-can spread over pages:
+can spread over multiple pages:
 
 @verbatim
 \markuplines {
