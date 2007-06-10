@@ -23,10 +23,12 @@
 (use-modules
  (guile)
  (ice-9 regex)
+ (ice-9 format)
  (lily)
  (srfi srfi-1)
  (srfi srfi-13))
 
+(define fancy-format format)
 (define format ergonomic-simple-format)
 
 (define lily-unit-length 1.75)
@@ -96,7 +98,7 @@
   (* x x))
 
 (define (integer->entity integer)
-  (format "&#x~x;" integer))
+  (fancy-format "&#x~x;" integer))
 
 (define (char->entity char)
   (integer->entity (char->integer char)))
@@ -282,7 +284,7 @@
 	  expr
 	  ;; FIXME: Not using GNU coding standards [translate ()] here
 	  ;; to work around a bug in Microsoft Internet Explorer 6.0
-	  `(transform . ,(format "translate(~f, ~f)"
+	  `(transform . ,(ly:format "translate(~f, ~f)"
 				 x (- y)))))
 
 (define (polygon coords blot-diameter is-filled)
