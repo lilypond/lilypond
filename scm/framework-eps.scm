@@ -10,7 +10,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (scm framework-ps)
 	     (scm paper-system)

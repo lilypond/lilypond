@@ -10,7 +10,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (scm page)
 	     (scm paper-system)
 	     (guile)
@@ -68,7 +67,7 @@
 (define-public (tex-font-command-raw name magnification)
   (string-append
    "magfont"
-   (digits->letters (format "~a" name))
+   (digits->letters (format #f "~a" name))
    "m"
    (string-encode-integer
     (inexact->exact (round (* 1000 magnification))))))
@@ -174,7 +173,7 @@
 (define (dump-page putter page last? with-extents?)
   (ly:outputter-dump-string
    putter
-   (format "\\lybox{~a}{~a}{%\n"
+   (format #f "\\lybox{~a}{~a}{%\n"
 	   (if with-extents?
 	       (interval-start (ly:stencil-extent page X))
 	       0.0)
@@ -189,7 +188,7 @@
        "}%\n\\vfill\n\\lilypondpagebreak\n")))
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((filename (format "~a.tex" basename))
+  (let* ((filename (format #f "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb") 'tex))
 	 (paper (ly:paper-book-paper book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
@@ -216,7 +215,7 @@
 (define (dump-line putter line last?)
   (ly:outputter-dump-string
    putter
-   (format "\\lybox{~a}{~a}{%\n"
+   (format #f "\\lybox{~a}{~a}{%\n"
 	   (ly:number->string
 	    (max 0 (interval-end (paper-system-extent line X))))
 	   (ly:number->string
@@ -231,7 +230,7 @@
 
 (define-public (output-classic-framework
 		basename book scopes fields)
-  (let* ((filename (format "~a.tex" basename))
+  (let* ((filename (format #f "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter
 		      (open-file filename "w") 'tex))
 	 (paper (ly:paper-book-paper book))
@@ -258,7 +257,7 @@
 
 (define-public (output-preview-framework
 		basename book scopes fields)
-  (let* ((filename (format "~a.tex" basename))
+  (let* ((filename (format #f "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb")
 					      'tex))
 	 (paper (ly:paper-book-paper book))
@@ -319,7 +318,7 @@
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
 	 (base (basename name ".tex"))
-	 (ps-name (format "~a.ps"  base ".ps"))
+	 (ps-name (format #f "~a.ps"  base ".ps"))
 	 (cmd (string-append "dvips"
 			     (if preview?
 				 " -E"

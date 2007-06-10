@@ -11,7 +11,6 @@
 (use-modules (ice-9 regex)
 	     (scm paper-system)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-1)
 	     (srfi srfi-13)
@@ -32,7 +31,7 @@
 ")
 
 (define-public (output-classic-framework basename book scopes fields)
-  (let* ((filename (format "~a.texstr" basename))
+  (let* ((filename (format #f "~a.texstr" basename))
 	 (outputter (ly:make-paper-outputter
 		     (open-file filename "wb")
 		     (ly:get-option 'backend)))
@@ -46,7 +45,7 @@
     (ly:outputter-dump-string outputter (footer))))
 
 (define-public (output-framework basename book scopes fields )
-  (let* ((filename (format "~a.texstr" basename))
+  (let* ((filename (format #f "~a.texstr" basename))
 	 (outputter
 	  (ly:make-paper-outputter
 	   (open-file filename "wb")
