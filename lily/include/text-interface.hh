@@ -22,6 +22,7 @@ public:
   DECLARE_SCHEME_CALLBACK (interpret_string, (SCM, SCM, SCM));
   DECLARE_GROB_INTERFACE();
   static bool is_markup (SCM);
+  static bool is_markup_list (SCM);
 };
 
 #endif /* TEXT_ITEM */

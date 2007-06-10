@@ -182,6 +182,7 @@ void set_music_properties (Music *p, SCM a);
 %token LYRICSTO "\\lyricsto"
 %token MARK "\\mark"
 %token MARKUP "\\markup"
+%token MARKUPLINES "\\markuplines"
 %token MIDI "\\midi"
 %token NAME "\\name"
 %token NOTEMODE "\\notemode"
@@ -281,6 +282,10 @@ If we give names, Bison complains.
 %token <scm> MARKUP_HEAD_SCM0_SCM1_MARKUP2
 %token <scm> MARKUP_HEAD_SCM0_MARKUP1_MARKUP2
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
+%token <scm> MARKUP_LIST_HEAD_EMPTY
+%token <scm> MARKUP_LIST_HEAD_LIST0
+%token <scm> MARKUP_LIST_HEAD_SCM0_LIST1
+%token <scm> MARKUP_LIST_HEAD_SCM0_SCM1_LIST2
 %token <scm> MARKUP_IDENTIFIER
 %token <scm> MUSIC_FUNCTION
 %token <scm> MUSIC_IDENTIFIER
@@ -373,6 +378,7 @@ If we give names, Bison complains.
 %type <scm> figure_spec
 %type <scm> fraction
 %type <scm> full_markup
+%type <scm> full_markup_list
 %type <scm> function_scm_argument
 %type <scm> function_arglist
 %type <scm> function_arglist_music_last
@@ -387,6 +393,7 @@ If we give names, Bison complains.
 %type <scm> markup_braced_list
 %type <scm> markup_braced_list_body 
 %type <scm> markup_composed_list
+%type <scm> markup_command_list
 %type <scm> markup_head_1_item
 %type <scm> markup_head_1_list
 %type <scm> markup_list
@@ -478,6 +485,10 @@ toplevel_expression:
 		scm_call_2 (proc, PARSER->self_scm (), music->self_scm ());
 	}
 	| full_markup {
+		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-text-handler");
+		scm_call_2 (proc, PARSER->self_scm (), scm_list_1 ($1));
+	}
+	| full_markup_list {
 		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-text-handler");
 		scm_call_2 (proc, PARSER->self_scm (), $1);
 	}
@@ -663,6 +674,10 @@ book_body:
 		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
 	}
 	| book_body full_markup {
+		SCM proc = PARSER->lexer_->lookup_identifier ("book-text-handler");
+		scm_call_2 (proc, $$->self_scm (), scm_list_1 ($2));
+	}
+	| book_body full_markup_list {
 		SCM proc = PARSER->lexer_->lookup_identifier ("book-text-handler");
 		scm_call_2 (proc, $$->self_scm (), $2);
 	}
@@ -2186,6 +2201,15 @@ lyric_markup:
 	}
 	;
 
+full_markup_list:
+	MARKUPLINES
+		{ PARSER->lexer_->push_markup_state (); }
+	markup_list {
+		$$ = $3;
+		PARSER->lexer_->pop_state ();
+	}
+	;
+
 full_markup:
 	MARKUP_IDENTIFIER {
 		$$ = $1;
@@ -2217,6 +2241,9 @@ markup_list:
 	| markup_braced_list {
 		$$ = $1;
 	}
+	| markup_command_list {
+		$$ = scm_list_1 ($1);
+	}
 	;
 
 markup_composed_list:
@@ -2239,6 +2266,21 @@ markup_braced_list_body:
 	}
 	| markup_braced_list_body markup_list {
 		$$ = scm_append_x (scm_list_2 (scm_reverse_x ($2, SCM_EOL), $1));
+	}
+	;
+
+markup_command_list:
+	MARKUP_LIST_HEAD_EMPTY	{
+		$$ = scm_list_1 ($1);
+	}
+	| MARKUP_LIST_HEAD_LIST0 markup_list	{
+		$$ = scm_list_2 ($1, $2);
+	}
+	| MARKUP_LIST_HEAD_SCM0_LIST1 embedded_scm markup_list	{
+		$$ = scm_list_3 ($1, $2, $3);
+	}
+	| MARKUP_LIST_HEAD_SCM0_SCM1_LIST2 embedded_scm embedded_scm markup_list	{
+		$$ = scm_list_4 ($1, $2, $3, $4);
 	}
 	;
 

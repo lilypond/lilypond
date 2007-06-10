@@ -35,6 +35,10 @@
  (open-output-file "markup-commands.tely"))
 
 (display 
+ (markup-list-doc-string)
+ (open-output-file "markup-list-commands.tely"))
+
+(display 
  (identifiers-doc-string)
  (open-output-file "identifiers.tely"))
 

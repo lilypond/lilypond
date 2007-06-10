@@ -53,6 +53,7 @@ static Keyword_ent the_key_tab[]
   {"lyricsto", LYRICSTO},
   {"mark", MARK},
   {"markup", MARKUP},
+  {"markuplines", MARKUPLINES},
   {"midi", MIDI},
   {"name", NAME},
   {"new", NEWCONTEXT},
