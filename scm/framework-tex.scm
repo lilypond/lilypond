@@ -19,6 +19,8 @@
 	     (scm kpathsea)
 	     (lily))
 
+(define format ergonomic-simple-format)
+
 (define (output-formats)
   (define formats (ly:output-formats))
   (set! formats (completize-formats formats))
@@ -67,7 +69,7 @@
 (define-public (tex-font-command-raw name magnification)
   (string-append
    "magfont"
-   (digits->letters (format #f "~a" name))
+   (digits->letters (format "~a" name))
    "m"
    (string-encode-integer
     (inexact->exact (round (* 1000 magnification))))))
@@ -82,7 +84,7 @@
      (apply string-append
 	    (map
 	     (lambda (sub-name)
-	       (format #f "\\font\\~a=~a scaled ~a%\n"
+	       (format "\\font\\~a=~a scaled ~a%\n"
 		       (tex-font-command-raw
 			sub-name (ly:font-magnification font))
 		       sub-name
@@ -173,7 +175,7 @@
 (define (dump-page putter page last? with-extents?)
   (ly:outputter-dump-string
    putter
-   (format #f "\\lybox{~a}{~a}{%\n"
+   (format "\\lybox{~a}{~a}{%\n"
 	   (if with-extents?
 	       (interval-start (ly:stencil-extent page X))
 	       0.0)
@@ -188,7 +190,7 @@
        "}%\n\\vfill\n\\lilypondpagebreak\n")))
 
 (define-public (output-framework basename book scopes fields)
-  (let* ((filename (format #f "~a.tex" basename))
+  (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb") 'tex))
 	 (paper (ly:paper-book-paper book))
 	 (page-stencils (map page-stencil (ly:paper-book-pages book)))
@@ -215,7 +217,7 @@
 (define (dump-line putter line last?)
   (ly:outputter-dump-string
    putter
-   (format #f "\\lybox{~a}{~a}{%\n"
+   (format "\\lybox{~a}{~a}{%\n"
 	   (ly:number->string
 	    (max 0 (interval-end (paper-system-extent line X))))
 	   (ly:number->string
@@ -230,7 +232,7 @@
 
 (define-public (output-classic-framework
 		basename book scopes fields)
-  (let* ((filename (format #f "~a.tex" basename))
+  (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter
 		      (open-file filename "w") 'tex))
 	 (paper (ly:paper-book-paper book))
@@ -257,7 +259,7 @@
 
 (define-public (output-preview-framework
 		basename book scopes fields)
-  (let* ((filename (format #f "~a.tex" basename))
+  (let* ((filename (format "~a.tex" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb")
 					      'tex))
 	 (paper (ly:paper-book-paper book))
@@ -318,7 +320,7 @@
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
 	 (base (basename name ".tex"))
-	 (ps-name (format #f "~a.ps"  base ".ps"))
+	 (ps-name (format "~a.ps"  base ".ps"))
 	 (cmd (string-append "dvips"
 			     (if preview?
 				 " -E"

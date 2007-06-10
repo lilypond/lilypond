@@ -16,6 +16,8 @@
 	     (srfi srfi-13)
 	     (lily))
 
+(define format ergonomic-simple-format)
+
 (define (header filename)
   (format  "% header
 \\input{lilypond-tex-metrics}

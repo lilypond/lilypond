@@ -17,8 +17,6 @@
 (read-enable 'positions)
 (debug-enable 'debug)
 
-
-
 (define scheme-options-definitions
   `(
 
@@ -115,12 +113,15 @@ on errors, and print a stack trace.")
 	     (scm memory-trace)
 	     (scm coverage)
 	     )
-(define-public (format . rest)
-  "We don't want to use ice-9 format, due to its memory use."
+(define-public (ergonomic-simple-format dest . rest)
+  "Like ice-9 format, but without the memory consumption."
   
-  (if (string? (car rest))
-      (apply simple-format (cons #f rest))
-      (apply simple-format rest)))
+  (if (string? dest)
+      (apply simple-format (cons #f (cons dest rest)))
+      (apply simple-format (cons dest rest))))
+
+
+(define format ergonomic-simple-format)
 
 ;; my display
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
