@@ -115,6 +115,12 @@ on errors, and print a stack trace.")
 	     (scm memory-trace)
 	     (scm coverage)
 	     )
+(define-public (format . rest)
+  "We don't want to use ice-9 format, due to its memory use."
+  
+  (if (string? (car rest))
+      (apply simple-format (cons #f rest))
+      (apply simple-format rest)))
 
 ;; my display
 (define-public (myd k v) (display k) (display ": ") (display v) (display ", ")
