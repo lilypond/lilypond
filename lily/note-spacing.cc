@@ -152,30 +152,6 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   *space = (base_space - increment) + *fixed;
 
-#if 0
-  /*
-    The below situation is now handled by the "sticks out a lot" case
-    above. However we keep around the code for a few releases before
-    we drop it.
-   */
-  if (!extents[RIGHT].is_empty ()
-      && (Paper_column::is_breakable (right_col)))
-    {
-      /*
-	This is for the situation
-
-	rest | 3/4 (eol)
-
-	Since we only take half of the right-object space above, the
-	barline will bump into the notes preceding it, if the right
-	thing is big. We add the rest of the extents here:
-      */
-
-      *space += -extents[RIGHT][LEFT] / 2;
-      *fixed += -extents[RIGHT][LEFT] / 2;
-    }
-#endif
-  
   stem_dir_correction (me, right_col, increment, space, fixed);
 }
 
@@ -190,8 +166,8 @@ Note_spacing::left_column (Grob *me)
 
 /*
   Compute the column of the right-items.  This is a big function,
-  since RIGHT-ITEMS may span more columns (eg. if a clef if inserted,
-  this will add a new columns to RIGHT-ITEMS. Here we look at the
+  since RIGHT-ITEMS may span more columns (eg. if a clef is inserted,
+  this will add a new column to RIGHT-ITEMS. Here we look at the
   columns, and return the left-most. If there are multiple columns, we
   prune RIGHT-ITEMS.
 */
@@ -231,9 +207,6 @@ Note_spacing::right_column (Grob *me)
 	    right.erase (right.begin () + i);
 	}
     }
-
-  if (!mincol)
-    return 0;
 
   return mincol;
 }
