@@ -212,7 +212,7 @@ Increasing this will put systems whose bounding boxes almost touch
 farther apart.
 
 @funindex page-breaking-between-system-padding
-@item between-system-padding
+@item page-breaking-between-system-padding
 This variable tricks the page breaker into thinking that
 @code{between-system-padding} is set to something different than it
 really is. For example, if this variable is set to something substantially
