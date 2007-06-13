@@ -347,9 +347,7 @@ grestore
 The markups are spaced or flushed to fill the entire line.
 If there are no arguments, return an empty stencil."
  
-  (let* ((orig-stencils
-	  (map (lambda (x) (interpret-markup layout props x))
-	       markups))
+  (let* ((orig-stencils (interpret-markup-list layout props markups))
 	 (stencils
 	  (map (lambda (stc)
 		 (if (ly:stencil-empty? stc)
@@ -405,7 +403,7 @@ If there are no arguments, return an empty stencil."
   "Put @var{args} in a horizontal line.  The property @code{word-space}
 determines the space between each markup in @var{args}."
   (let*
-      ((stencils (map (lambda (m) (interpret-markup layout props m)) args))
+      ((stencils (interpret-markup-list layout props args))
        (space    (chain-assoc-get 'word-space props))
        (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
        )
@@ -439,7 +437,9 @@ equivalent to @code{\"fi\"}."
 
   (interpret-markup layout
                     (prepend-alist-chain 'word-space 0 props)
-                    (make-line-markup (concat-string-args args))))
+                    (make-line-markup (if (markup-command-list? args)
+					  args
+					  (concat-string-args args)))))
 
 (define (wordwrap-stencils stencils
 			   justify base-space line-width text-dir)
@@ -521,32 +521,28 @@ equivalent to @code{\"fi\"}."
 
 (define (wordwrap-markups layout props args justify)
   (let*
-      ((baseline-skip (chain-assoc-get 'baseline-skip props))
-       (prop-line-width (chain-assoc-get 'line-width props #f))
+      ((prop-line-width (chain-assoc-get 'line-width props #f))
        (line-width (if prop-line-width prop-line-width
 		       (ly:output-def-lookup layout 'line-width)))
        (word-space (chain-assoc-get 'word-space props))
-       (text-dir (chain-assoc-get 'text-direction props RIGHT)) 
-       (lines (wordwrap-stencils
-	       (remove ly:stencil-empty?
-		       (map (lambda (m) (interpret-markup layout props m)) args))
-	       justify word-space line-width
-	       text-dir)
-	       ))
-
-    (stack-lines DOWN 0.0 baseline-skip lines)))
+       (text-dir (chain-assoc-get 'text-direction props RIGHT)))
+    (wordwrap-stencils (remove ly:stencil-empty?
+                               (interpret-markup-list layout props args))
+                       justify word-space line-width
+                       text-dir)))
 
 (define-builtin-markup-command (justify layout props args) (markup-list?)
   "Like wordwrap, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces."
-  (wordwrap-markups layout props args #t))
+  (stack-lines DOWN 0.0 (chain-assoc-get 'baseline-skip props)
+	       (wordwrap-markups layout props args #t)))
 
 (define-builtin-markup-command (wordwrap layout props args) (markup-list?)
   "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
 the line width, where @var{X} is the number of staff spaces."
-
-  (wordwrap-markups layout props args #f))
+  (stack-lines DOWN 0.0 (chain-assoc-get 'baseline-skip props)
+	       (wordwrap-markups layout props args #f)))
 
 (define (wordwrap-string layout props justify arg) 
   (let*
@@ -624,7 +620,7 @@ the line width, where @var{X} is the number of staff spaces."
 @code{baseline-skip} determines the space between each markup in @var{args}."
 
   (let*
-      ((arg-stencils (map (lambda (m) (interpret-markup layout props m)) args))
+      ((arg-stencils (interpret-markup-list layout props args))
        (skip (chain-assoc-get 'baseline-skip props)))
 
     
@@ -641,11 +637,11 @@ of the @code{#'direction} layout property."
      (if (number? dir) dir -1)
      0.0
      (chain-assoc-get 'baseline-skip props)
-     (map (lambda (x) (interpret-markup layout props x)) args))))
+     (interpret-markup-list layout props args))))
 
 (define-builtin-markup-command (center-align layout props args) (markup-list?)
   "Put @code{args} in a centered column."
-  (let* ((mols (map (lambda (x) (interpret-markup layout props x)) args))
+  (let* ((mols (interpret-markup-list layout props args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
@@ -1491,3 +1487,41 @@ when @var{label} is not found."
 				    (markup #:concat (#:hspace gap page-markup)))))))
      x-ext
      y-ext)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Markup list commands
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define (space-lines baseline-skip lines)
+  (map (lambda (line)
+	 (stack-lines DOWN 0.0 (/ baseline-skip 2.0)
+		      (list (ly:make-stencil "" (cons 0 0) (cons 0 0))
+			    line
+			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))))
+       lines))
+
+(define-builtin-markup-list-command (justified-lines layout props args) (markup-list?)
+  "Like @code{\\justify}, but return a list of lines instead of a single markup.
+Use @code{\\override #'(line-width . @var{X})} to set the line width;
+@var{X}@tie{}is the number of staff spaces."
+  (space-lines (chain-assoc-get 'baseline-skip props)
+	       (wordwrap-markups layout props args #t)))
+
+(define-builtin-markup-list-command (wordwrap-lines layout props args) (markup-list?)
+  "Like @code{\\wordwrap}, but return a list of lines instead of a single markup.
+Use @code{\\override #'(line-width . @var{X})} to set the line width,
+where @var{X} is the number of staff spaces."
+  (space-lines (chain-assoc-get 'baseline-skip props)
+	       (wordwrap-markups layout props args #f)))
+
+(define-builtin-markup-list-command (column-lines layout props args) (markup-list?)
+  "Like @code{\\column}, but return a list of lines instead of a single markup.
+@code{baseline-skip} determines the space between each markup in @var{args}."
+  (space-lines (chain-assoc-get 'baseline-skip props)
+	       (interpret-markup-list layout props args)))
+
+(define-builtin-markup-list-command (override-lines layout props new-prop args)
+  (pair? markup-list?)
+  "Like @code{\\override}, for markup lists."
+  (interpret-markup-list layout (cons (list new-prop) props) args))

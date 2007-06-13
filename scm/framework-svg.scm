@@ -17,6 +17,8 @@
 	     (srfi srfi-13)
 	     (ice-9 regex))
 
+(define format ergonomic-simple-format)
+
 (define-public (output-framework basename book scopes fields)
   (let* ((filename (format "~a.svg" basename))
 	 (outputter  (ly:make-paper-outputter (open-file filename "wb")
@@ -44,8 +46,8 @@
 	      '(version . "1.2")
 
 	      ;; Argggghhhh: SVG takes the px <-> mm mapping from the windowing system
-	      `(width . ,(format #f "~s" page-width))
-	      `(height . ,(format #f "~s" page-height))))
+	      `(width . ,(format "~s" page-width))
+	      `(height . ,(format "~s" page-height))))
     
     (dump (dump-fonts outputter paper))
     (dump
@@ -75,7 +77,7 @@
 (define (dump-page outputter page page-number page-count landscape? page-set?)
   (define (dump str) (display str (ly:outputter-port outputter)))
   
-  (dump (comment (format #f "Page: ~S/~S" page-number page-count)))
+  (dump (comment (format "Page: ~S/~S" page-number page-count)))
   (if (or landscape? page-set?)
       (dump
        (if landscape?

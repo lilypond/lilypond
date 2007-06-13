@@ -847,6 +847,7 @@ Stencil object given a number of arguments.
 * Markup construction in Scheme::  
 * How markups work internally::  
 * New markup command definition::  
+* New markup list command definition::  
 @end menu
 
 
@@ -1114,6 +1115,56 @@ be used to set text in small caps.  See
 @ref{Overview of text markup commands}, for details.
 
 
+@node New markup list command definition
+@subsection New markup list command definition
+Markup list commands are defined with the
+@code{define-markup-list-command} Scheme macro, which is similar to the
+@code{define-markup-command} macro described in
+@ref{New markup command definition}, except that where the later returns
+a single stencil, the former returns a list stencils.
+
+In the following example, a @code{\paragraph} markup list command is
+defined, which returns a list of justified lines, the first one being
+indented.  The indent width is taken from the @code{props} argument.
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   (let ((indent (chain-assoc-get 'par-indent props 2)))
+     (interpret-markup-list layout props 
+       (make-justified-lines-markup-list (cons (make-hspace-markup indent)
+                                               args)))))
+@end example
+
+Besides the usual @code{layout} and @code{props} arguments, the
+@code{paragraph} markup list command takes a markup list argument, named
+@code{args}.  The predicate for markup lists is @code{markup-list?}.
+
+First, the function gets the indent width, a property here named
+@code{par-indent}, from the property list @code{props} If the property
+is not found, the default value is @code{2}.  Then, a list of justified
+lines is made using the @code{make-justified-lines-markup-list}
+function, which is related to the @code{\justified-lines}
+built-in markup list command. An horizontal space is added at the
+begining using the @code{make-hspace-markup} function. Finally, the
+markup list is interpreted using the @code{interpret-markup-list}
+function.
+
+This new markup list command can be used as follows:
+@example
+\markuplines @{
+  \paragraph @{
+    The art of music typography is called \italic @{(plate) engraving.@}
+    The term derives from the traditional process of music printing.
+    Just a few decades ago, sheet music was made by cutting and stamping
+    the music into a zinc or pewter plate in mirror image.
+  @}
+  \override-lines #'(par-indent . 4) \paragraph @{
+    The plate would be inked, the depressions caused by the cutting
+    and stamping would hold ink. An image was formed by pressing paper
+    to the plate. The stamping and cutting was completely done by
+    hand.
+  @}
+@}
+@end example
 
 @node Contexts for programmers
 @section Contexts for programmers

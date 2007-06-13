@@ -46,7 +46,9 @@ saved as UTF-8.  For more information, see @ref{Text encoding}.
 * Text marks::                  
 * Text markup::                 
 * Nested scores::               
+* Page wrapping text::          
 * Overview of text markup commands::  
+* Overview of text markup list commands::  
 * Font selection::              
 * New dynamic marks::           
 @end menu
@@ -575,6 +577,40 @@ block.
 }
 @end lilypond
 
+@node Page wrapping text
+@subsection Page wrapping text
+Whereas @code{\markup} is used to enter a non-breakable block of text,
+@code{\markuplines} can be used at top-level to enter lines of text that
+can spread over multiple pages:
+
+@verbatim
+\markuplines {
+  \justified-lines {
+    A very long text of justified lines.
+    ...
+  }
+  \justified-lines {
+    An other very long paragraph.
+    ...
+  }
+  ...
+}
+@end verbatim
+
+@code{\markuplines} accepts a list of markup, that is either the result
+of a markup list command, or a list of markups or of markup lists. The
+built-in markup list commands are described in
+@ref{Overview of text markup list commands}.
+
+@seealso
+
+This manual: @ref{Overview of text markup list commands}, 
+@ref{New markup list command definition}.
+
+@refcommands
+
+@funindex \markuplines
+@code{\markuplines}
 
 @node Overview of text markup commands
 @subsection Overview of text markup commands
@@ -583,6 +619,12 @@ The following commands can all be used inside @code{\markup @{ @}}.
 
 @include markup-commands.tely
 
+@node Overview of text markup list commands
+@subsection Overview of text markup list commands
+
+The following commands can all be used with @code{\markuplines}.
+
+@include markup-list-commands.tely
 
 @node Font selection
 @subsection Font selection

@@ -379,8 +379,7 @@ Beam::score_stem_lengths (vector<Grob*> const &stems,
   Direction d = DOWN;
   do
     score[d] /= max (count[d], 1);
-  while (flip (&d) != DOWN)
-    ;
+  while (flip (&d) != DOWN);
 
   return score[LEFT] + score[RIGHT];
 }

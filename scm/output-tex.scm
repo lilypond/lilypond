@@ -42,7 +42,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (srfi srfi-13)
 	     (scm framework-tex)
@@ -126,7 +125,7 @@
   (embedded-ps (list 'round-filled-box  x y width height blotdiam)))
 
 (define (text font s)
-  (format
+  (format #f
    "\\hbox{\\~a{}~a}" (tex-font-command font)
    (sanitize-tex-string s)))
 

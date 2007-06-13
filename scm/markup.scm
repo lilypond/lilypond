@@ -80,6 +80,36 @@ Syntax:
          (let ((sig (list ,@signature)))
            (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
 
+(define-macro (define-builtin-markup-list-command command-and-args signature . body)
+  "Same as `define-builtin-markup-command, but defines a command that, when
+interpreted, returns a list of stencils instead os a single one"
+  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
+	 (args (if (pair? command-and-args) (cdr command-and-args) '()))
+	 (command-name (string->symbol (format #f "~a-markup-list" command)))
+	 (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
+    `(begin
+       ;; define the COMMAND-markup-list function
+       ,(if (pair? args)
+	    `(define-public (,command-name ,@args)
+	       ,@body)
+	    (let ((args (gensym "args"))
+		  (markup-command (car body)))
+	    `(define-public (,command-name . ,args)
+	       ,(format #f "Copy of the ~a command." markup-command)
+	       (apply ,markup-command ,args))))
+       (set! (markup-command-signature ,command-name) (list ,@signature))
+       ;; add the command to markup-list-function-list, for markup documentation
+       (if (not (member ,command-name markup-list-function-list))
+	   (set! markup-list-function-list (cons ,command-name
+						 markup-list-function-list)))
+       ;; it's a markup-list command:
+       (set-object-property! ,command-name 'markup-list-command #t)
+       ;; define the make-COMMAND-markup-list function
+       (define-public (,make-markup-name . args)
+	 (let ((sig (list ,@signature)))
+	   (list (make-markup ,command-name
+			      ,(symbol->string make-markup-name) sig args)))))))
+
 (define-public (make-markup markup-function make-name signature args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
 against SIGNATURE, reporting MAKE-NAME as the user-invoked function.
@@ -261,6 +291,7 @@ Use `markup*' in a \\notemode context."
 
 ;; For documentation purposes
 (define-public markup-function-list (list))
+(define-public markup-list-function-list (list))
 
 (define-public (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
@@ -282,14 +313,24 @@ Use `markup*' in a \\notemode context."
                                     sig)
                          "-"))))
 
-(define-public (lookup-markup-command code)
+(define (lookup-markup-command-aux symbol)
   (let ((proc (catch 'misc-error
                 (lambda ()
-                  (module-ref (current-module)
-                              (string->symbol (format #f "~a-markup" code))))
+                  (module-ref (current-module) symbol))
                 (lambda (key . args) #f))))
-    (and (procedure? proc)
-         (cons proc (markup-command-keyword proc)))))
+    (and (procedure? proc) proc)))
+
+(define-public (lookup-markup-command code)
+  (let ((proc (lookup-markup-command-aux
+	       (string->symbol (format #f "~a-markup" code)))))
+    (and proc (markup-function? proc)
+	 (cons proc (markup-command-keyword proc)))))
+
+(define-public (lookup-markup-list-command code)
+  (let ((proc (lookup-markup-command-aux
+	       (string->symbol (format #f "~a-markup-list" code)))))
+     (and proc (markup-list-function? proc)
+	  (cons proc (markup-command-keyword proc)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;
 ;;; used in parser.yy to map a list of markup commands on markup arguments
@@ -313,13 +354,25 @@ eg: ((italic) (raise 4) (bold)), maps the commands on each markup argument, eg:
 ;;; markup type predicates
 
 (define (markup-function? x)
-  (not (not (markup-command-signature x))))
+  (and (markup-command-signature x)
+       (not (object-property x 'markup-list-command))))
+
+(define (markup-list-function? x)
+  (and (markup-command-signature x)
+       (object-property x 'markup-list-command)))
+
+(define-public (markup-command-list? x)
+  "Determine if `x' is a markup command list, ie. a list composed of
+a markup list function and its arguments."
+  (and (pair? x) (markup-list-function? (car x))))
 
 (define-public (markup-list? arg)
+  "Return a true value if `x' is a list of markups or markup command lists."
   (define (markup-list-inner? lst)
     (or (null? lst)
-        (and (markup? (car lst)) (markup-list-inner? (cdr lst)))))
-  (and (list? arg) (markup-list-inner? arg)))
+	(and (or (markup? (car lst)) (markup-command-list? (car lst)))
+             (markup-list-inner? (cdr lst)))))
+  (not (not (and (list? arg) (markup-list-inner? arg)))))
 
 (define (markup-argument-list? signature arguments)
   "Typecheck argument list."
@@ -391,6 +444,18 @@ Uncovered - cheap-markup? is used."
 
 
 (define-public interpret-markup ly:text-interface::interpret-markup)
+
+(define-public (interpret-markup-list layout props markup-list)
+  (let ((stencils (list)))
+    (for-each (lambda (m)
+		(set! stencils
+		      (if (markup-command-list? m)
+			  (append! (reverse! (apply (car m) layout props (cdr m)))
+				   stencils)
+			  (cons (interpret-markup layout props m) stencils))))
+	      markup-list)
+    (reverse! stencils)))
+
 (define-public (prepend-alist-chain key val chain)
   (cons (acons key val (car chain)) (cdr chain)))
 

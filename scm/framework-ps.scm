@@ -17,10 +17,7 @@
 	     (scm clip-region)
 	     (lily))
 
-(define (format dest . rest)
-  (if (string? dest)
-      (apply simple-format (cons #f (cons dest rest)))
-      (apply simple-format (cons dest rest))))
+(define format ergonomic-simple-format)
 
 (define framework-ps-module (current-module))
 

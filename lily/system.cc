@@ -519,6 +519,7 @@ ADD_INTERFACE (System,
 	       /* properties */
 	       "all-elements "
 	       "columns "
+	       "labels "
 	       "pure-Y-extent "
 	       "spaceable-staves "
 	       "skyline-distance "

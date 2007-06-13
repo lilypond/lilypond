@@ -331,6 +331,7 @@ Paper_book::get_system_specs ()
     = scm_call_1 (ly_lily_module_constant ("layout-extract-page-properties"),
 		  paper_->self_scm ());
 
+  SCM interpret_markup_list = ly_lily_module_constant ("interpret-markup-list");
   SCM header = SCM_EOL;
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
@@ -384,24 +385,37 @@ Paper_book::get_system_specs ()
 	      */
 	    }
 	}
-      else if (Text_interface::is_markup (scm_car (s)))
+      else if (Text_interface::is_markup_list (scm_car (s)))
 	{
-	  SCM t = Text_interface::interpret_markup (paper_->self_scm (),
-						    page_properties,
-						    scm_car (s));
-	  
-	  // TODO: init props
-	  Prob *ps = make_paper_system (SCM_EOL);
-	  ps->set_property ("page-break-permission", ly_symbol2scm ("allow"));
-	  ps->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
-	  
-	  paper_system_set_stencil (ps, *unsmob_stencil (t));
-	  ps->set_property ("is-title", SCM_BOOL_T); 
-	  system_specs = scm_cons (ps->self_scm (), system_specs);
-	  ps->unprotect ();
-	  
-	  // FIXME: figure out penalty.
-	  //set_system_penalty (ps, scores_[i].header_);
+	  SCM texts = scm_call_3 (interpret_markup_list,
+				  paper_->self_scm (),
+				  page_properties,
+				  scm_car (s));
+	  for (SCM list = texts ; scm_is_pair (list) ; list = scm_cdr (list))
+	    {
+	      SCM t = scm_car (list);
+	      // TODO: init props
+	      Prob *ps = make_paper_system (SCM_EOL);
+	      ps->set_property ("page-break-permission", ly_symbol2scm ("allow"));
+	      ps->set_property ("page-turn-permission", ly_symbol2scm ("allow"));
+	      
+	      paper_system_set_stencil (ps, *unsmob_stencil (t));
+	      ps->set_property ("is-title", SCM_BOOL_T); 
+	      if (scm_is_pair (scm_cdr (list)))
+		{
+		  /* If an other markup is following, set this markup 
+		   * next padding and next space to 0, so that baseline-skip 
+		   * only should be taken into account for lines vertical
+		   * spacing. */
+		  ps->set_property ("next-padding", scm_double2num (0.0));
+		  ps->set_property ("next-space", scm_double2num (0.0));
+		}
+	      system_specs = scm_cons (ps->self_scm (), system_specs);
+	      ps->unprotect ();
+	      
+	      // FIXME: figure out penalty.
+	      //set_system_penalty (ps, scores_[i].header_);
+	    }
 	}
       else
 	assert (0);

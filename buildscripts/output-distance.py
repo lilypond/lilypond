@@ -577,8 +577,6 @@ class SignatureFileLink (FileLink):
             
         return d + orphan_distance
 
-
-
     def add_file_compare (self, f1, f2):
         system_index = [] 
 

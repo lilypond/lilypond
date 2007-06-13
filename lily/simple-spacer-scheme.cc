@@ -17,7 +17,7 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 	   4, 1, 0, (SCM springs, SCM rods, SCM length, SCM ragged),
 	   "Solve a spring and rod problem for @var{count} objects, that "
 	   "are connected by @var{count-1} springs, and an arbitrary number of rods "
-	   "Springs have the format (ideal, hooke) and rods (idx1, idx2, distance) "
+	   "Springs have the format (ideal, inverse_hooke) and rods (idx1, idx2, distance) "
 	   "@var{length} is a number, @var{ragged} a boolean "
 	   "Return: a list containing the force (positive for stretching, "
 	   "negative for compressing and #f for non-satisfied constraints) "
@@ -36,9 +36,9 @@ LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
   for (SCM s = springs; scm_is_pair (s); s = scm_cdr (s))
     {
       Real ideal = scm_to_double (scm_caar (s));
-      Real hooke = scm_to_double (scm_cadar (s));
+      Real inv_hooke = scm_to_double (scm_cadar (s));
 
-      spacer.add_spring (ideal, 1 / hooke);
+      spacer.add_spring (ideal, inv_hooke);
     }
 
   for (SCM s = rods; scm_is_pair (s); s = scm_cdr (s))

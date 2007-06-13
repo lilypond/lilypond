@@ -66,6 +66,12 @@ which scares away people.
 @end ignore
 
 @item
+Text spreading over several pages is entered using the
+@code{\markuplines} keyword. Builtin markup list commands, such as
+@code{\justified-lines} or @code{\wordwrap-lines} may be used, and new
+ones created using the @code{define-markup-list-command} Scheme macro.
+
+@item
 Particular points of a book may be marked with the @code{\label}
 command. Then, the page where these points are placed can be refered to
 using the @code{\page-ref} markup command.

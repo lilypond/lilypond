@@ -96,6 +96,14 @@ Text_interface::is_markup (SCM x)
 				      ly_symbol2scm ("markup-signature"))));
 }
 
+bool
+Text_interface::is_markup_list (SCM x)
+{
+  SCM music_list_p = ly_lily_module_constant ("markup-list?");
+  return scm_is_true (scm_call_1 (music_list_p, x));
+}
+
+
 ADD_INTERFACE (Text_interface,
 	       "A scheme markup text, see @usermanref{Text markup} and "
 	       "@usermanref{New markup command definition}. "

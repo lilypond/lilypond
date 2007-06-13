@@ -405,7 +405,9 @@ whether to put a page turn at this column.  Can be @code{force} or
      (parenthesized ,boolean? "Parenthesize this grob.")
      (positions ,pair? "Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in
-@code{staff-space} units of the current staff.")
+@code{staff-space} units of the current staff.  LilyPond uses these
+values to select which slur candidate positions to use; if extreme
+positions are requested, LilyPond selects the closest positions.")
 
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")

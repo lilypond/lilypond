@@ -85,3 +85,36 @@ or:
                         ,(symbol->string make-markup-name)
                         (list ,@signature)
                         args))))))
+
+#(defmacro-public define-markup-list-command (command-and-args signature . body)
+  "Same as `define-markup-command', but defines a command that, when interpreted,
+returns a list of stencils, instead of a single one."
+  (let* ((command (if (pair? command-and-args)
+		      (car command-and-args)
+		      command-and-args))
+	 (command-name (string->symbol (format #f "~a-markup-list" command)))
+	 (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
+    `(begin
+       ;; define the COMMAND-markup-list procedure in toplevel module
+       ,(if (pair? command-and-args)
+	    ;; 1/ (define (COMMAND-markup-list layout props arg1 arg2 ...)
+	    ;;	    ..command body))
+	    `(define-public-toplevel (,command-name ,@(cdr command-and-args))
+	       ,@body)
+	    ;; 2/ (define (COMMAND-markup-list . args) (apply function args))
+	    (let ((args (gensym "args"))
+		  (command (car body)))
+	    `(define-public-toplevel (,command-name . ,args)
+	       (apply ,command ,args))))
+       (let ((command-proc (toplevel-module-ref ',command-name)))
+	 ;; register its command signature
+	 (set! (markup-command-signature command-proc)
+	       (list ,@signature))
+	 ;; it's a markup-list command:
+	 (set-object-property! command-proc 'markup-list-command #t)
+	 ;; define the make-COMMAND-markup-list procedure in the toplevel module
+	 (define-public-toplevel (,make-markup-name . args)
+	   (list (make-markup command-proc
+			      ,(symbol->string make-markup-name)
+			      (list ,@signature)
+			      args)))))))

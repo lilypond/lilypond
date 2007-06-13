@@ -62,6 +62,7 @@ void strip_trailing_white (string&);
 void strip_leading_white (string&);
 string lyric_fudge (string s);
 SCM lookup_markup_command (string s);
+SCM lookup_markup_list_command (string s);
 bool is_valid_version (string s);
 
 
@@ -516,7 +517,7 @@ BOM_UTF8	\357\273\277
 	{MARKUPCOMMAND} {
 		string str (YYText () + 1);
 		SCM s = lookup_markup_command (str);
-
+		SCM s2 = lookup_markup_list_command (str);
 		if (scm_is_pair (s) && scm_is_symbol (scm_cdr (s)) ) {
 			yylval.scm = scm_car(s);
 			SCM tag = scm_cdr(s);
@@ -540,6 +541,22 @@ BOM_UTF8	\357\273\277
 				return MARKUP_HEAD_SCM0_MARKUP1_MARKUP2;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
 				return MARKUP_HEAD_SCM0_SCM1_SCM2;
+			else {
+				programming_error ("no parser tag defined for this markup signature"); 
+				ly_display_scm (s);
+				assert(false);
+			}
+		} else if (scm_is_pair (s2) && scm_is_symbol (scm_cdr (s2))) {
+		        yylval.scm = scm_car(s2);
+			SCM tag = scm_cdr(s2);
+			if (tag == ly_symbol2scm("empty"))
+				return MARKUP_LIST_HEAD_EMPTY;
+			else if (tag == ly_symbol2scm ("markup-list0"))
+				return MARKUP_LIST_HEAD_LIST0;
+			else if (tag == ly_symbol2scm ("scheme0-markup-list1"))
+				return MARKUP_LIST_HEAD_SCM0_LIST1;
+			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup-list2"))
+				return MARKUP_LIST_HEAD_SCM0_SCM1_LIST2;
 			else {
 				programming_error ("no parser tag defined for this markup signature"); 
 				ly_display_scm (s);
@@ -943,6 +960,13 @@ SCM
 lookup_markup_command (string s)
 {
 	SCM proc = ly_lily_module_constant ("lookup-markup-command");
+	return scm_call_1 (proc, ly_string2scm (s));
+}
+
+SCM
+lookup_markup_list_command (string s)
+{
+	SCM proc = ly_lily_module_constant ("lookup-markup-list-command");
 	return scm_call_1 (proc, ly_string2scm (s));
 }
 

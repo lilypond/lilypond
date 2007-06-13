@@ -10,7 +10,6 @@
 
 (use-modules (ice-9 regex)
 	     (ice-9 string-fun)
-	     (ice-9 format)
 	     (guile)
 	     (scm framework-ps)
 	     (scm paper-system)
@@ -19,6 +18,8 @@
 	     (srfi srfi-1)
 	     (srfi srfi-13)
 	     (lily))
+
+(define format ergonomic-simple-format)
 
 (define framework-eps-module (current-module))
 
