@@ -702,9 +702,10 @@ attempts to find a page breaking minimizing cramping and stretching, but with
 the additional restriction that it is only allowed to introduce page turns
 in specified places.
 
-There are two steps to using this page breaking function. First, you must
-enable it in the @code{\paper} block. Then, you must tell the function
-where you would like to allow page breaks.
+There are two steps to using this page breaking function. First, you
+must enable it in the @code{\paper} block, as explained in @ref{Page
+breaking}. Then you must tell the function where you would like to allow
+page breaks.
 
 There are two ways to achieve the second step. First, you can specify each
 potential page turn manually, by inserting @code{\allowPageTurn} into your
