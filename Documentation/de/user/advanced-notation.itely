@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: fe3ad51aa284b6f8c6dfd27a5b3fb7cffe83c666
+    Translation of GIT committish: c946d2870fa81d9f07f763762d512501273d65a6
 
 
     When revising a translation, copy the HEAD committish of the
@@ -33,7 +33,9 @@ UNTRANSLATED NODE: IGNORE ME
 * Text marks::
 * Text markup::
 * Nested scores::
+* Page wrapping text::
 * Overview of text markup commands::
+* Overview of text markup list commands::
 * Font selection::
 * New dynamic marks::
 @end menu 
@@ -67,12 +69,23 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node Page wrapping text
+@subsection Page wrapping text
+
+UNTRANSLATED NODE: IGNORE ME
+
 @node Overview of text markup commands
 @subsection Overview of text markup commands
 
 UNTRANSLATED NODE: IGNORE ME
 
 @include markup-commands.tely
+@node Overview of text markup list commands
+@subsection Overview of text markup list commands
+
+UNTRANSLATED NODE: IGNORE ME
+
+@include markup-list-commands.tely
 @node Font selection
 @subsection Font selection
 

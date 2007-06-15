@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: fe3ad51aa284b6f8c6dfd27a5b3fb7cffe83c666
+    Translation of GIT committish: c946d2870fa81d9f07f763762d512501273d65a6
 
 
     When revising a translation, copy the HEAD committish of the
@@ -131,6 +131,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Markup construction in Scheme::
 * How markups work internally::
 * New markup command definition::
+* New markup list command definition::
 @end menu 
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
@@ -144,6 +145,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node New markup command definition
 @subsection New markup command definition
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node New markup list command definition
+@subsection New markup list command definition
 
 UNTRANSLATED NODE: IGNORE ME
 
