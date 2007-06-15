@@ -264,6 +264,7 @@ LilyPond gère également des substitutions non-statiques --- vous
 pouvez les voir comme des fonctions.
 
 @lilypond[quote,verbatim,ragged-right]
+padText =
 #(define-music-function (parser location padding) (number?)
   #{
     \once \override TextScript #'padding = #$padding
