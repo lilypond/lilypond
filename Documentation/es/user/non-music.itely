@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2540b584a4ac28a8e6f84e7df8bffd7bd46fafa2
+    Translation of GIT committish: c9b08ba86f4c59228b92e2357b2a0bc1c62c29dc
 
 
     When revising a translation, copy the HEAD committish of the
@@ -78,6 +78,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Creating titles::
 * Custom titles::
+* Table of contents::
 @end menu 
 @node Creating titles
 @subsection Creating titles
@@ -86,6 +87,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Custom titles
 @subsection Custom titles
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Table of contents
+@subsection Table of contents
 
 UNTRANSLATED NODE: IGNORE ME
 
