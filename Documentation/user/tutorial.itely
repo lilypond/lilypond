@@ -1487,8 +1487,8 @@ printed examples: sometimes they may have omitted a
 pitch may be used (such as @code{c'} or @code{c,,}), and in some cases
 the whole example is in absolute note mode!  However, ambiguities like
 this only exist where the pitches are not important.  In any example
-where the pitch matters, we have explicitly stated our @code{\relative}
-our our absolute-mode @code{@{ @}}.
+where the pitch matters, we have explicitly stated @code{\relative}
+or absolute-mode @code{@{ @}}.
 
 If you are still confused about the exact LilyPond input that was
 used in an example, read the HTML version (if you are not already doing
