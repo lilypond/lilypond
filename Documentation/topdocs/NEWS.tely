@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+A table of contents is included using @code{\markuplines \table-of-contents}.
+Elements are added to it using the @code{\tocItem} command.
+
+@item
 Text spreading over several pages is entered using the
 @code{\markuplines} keyword. Builtin markup list commands, such as
 @code{\justified-lines} or @code{\wordwrap-lines} may be used, and new
