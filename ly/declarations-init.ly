@@ -10,6 +10,7 @@ maxima = #(ly:make-duration -3 0)
 
 \include "markup-init.ly"
 \include "music-functions-init.ly"
+\include "toc-init.ly"
 
 %% default note names are dutch
 \include "nederlands.ly"

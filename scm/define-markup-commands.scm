@@ -1493,7 +1493,7 @@ when @var{label} is not found."
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (space-lines baseline-skip lines)
+(define-public (space-lines baseline-skip lines)
   (map (lambda (line)
 	 (stack-lines DOWN 0.0 (/ baseline-skip 2.0)
 		      (list (ly:make-stencil "" (cons 0 0) (cons 0 0))

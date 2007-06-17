@@ -482,6 +482,7 @@ some pieces include a lot more information.
 * Creating titles::             
 * Custom titles::               
 * Reference to page numbers::   
+* Table of contents::           
 @end menu
 
 
@@ -742,26 +743,30 @@ command, either at top-level or inside music.  This label can then be
 refered to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
-@verbatim
-\label #'firstScore
-\score {
-  {
-    c'1
-    \mark A \label #'markA
-    c'
+@lilypond[verbatim,line-width=11.0\cm]
+\header { tagline = ##f }
+\book {
+  \label #'firstScore
+  \score {
+    {
+      c'1
+      \pageBreak \mark A \label #'markA
+      c'
+    }
   }
-}
 
-\markup { The first score is on page \page-ref #'firstScore "0" "?" }
-\markup { Mark A is on page \page-ref #'markA "0" "?" }
-@end verbatim
+  \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
+  \markup { Mark A is on page \page-ref #'markA "0" "?" }
+}
+@end lilypond
 
 The @code{\page-ref} markup command takes three arguments:
 @enumerate
-@item the label, a scheme symbol, eg. #'firstScore
+@item the label, a scheme symbol, eg. @code{#'firstScore};
 @item a markup that will be used as a gauge to estimate the dimensions
-of the markup
-@item a markup that will be used if the label is not known
+of the markup;
+@item a markup that will be used in place of the page number if the label 
+is not known;
 @end enumerate
 
 The reason why a gauge is needed is that, at the time markups are
@@ -772,53 +777,125 @@ the markup have to be known before, so a gauge is used to decide these
 dimensions.  If the book has between 10 and 99 pages, it may be "00",
 ie. a two digit number.
 
-@code{\label} and @code{\page-ref} can be used to build a table of contents:
-
-@verbatim
-#(set-default-paper-size "a6")
-
-#(define-markup-command (toc-line layout props label text) (symbol? markup?)
-  (interpret-markup layout props
-   (markup #:fill-line (text #:page-ref label "8" "?"))))
-
-\markup \column {
-  \large \fill-line { \null "Table of contents" \null }
-  \hspace #1
-  \toc-line #'toc "Table of contents"
-  \toc-line #'scoreI "First Score"
-  \toc-line #'markA \line { \hspace #3 Mark A }
-  \toc-line #'scoreII "Second Score"
-} \label #'toc
-
-\pageBreak
-
-\score {
-  { 
-    c'1 \break
-    \mark A \label #'markA
-    c'1
-  }
-  \header { piece = "First score" }
-} \label #'scoreI
-
-\pageBreak
-
-\score {
-  { d' }
-  \header { piece = "Second score" }
-} \label #'scoreII
-@end verbatim
-
-In this example, a @code{\toc-line} markup command is defined to build
-the table of content items. As this example has less than 10 pages, the
-gauge used by @code{\page-ref} has a single digit.
-
 @refcommands
 
 @funindex \label
 @code{\label}
 @funindex \page-ref
 @code{\page-ref}
+
+@node Table of contents
+@subsection Table of contents
+A table of contents is included using the @code{\markuplines \table-of-contents}
+command.  The elements which should appear in the table of contents are
+entered with the @code{\tocItem} command, which may be used either at
+top-level, or inside a music expression.
+
+@verbatim
+\markuplines \table-of-contents
+\pageBreak
+
+\tocItem \markup "First score"
+\score { 
+  {
+    c'  % ...
+    \tocItem \markup "Some particular point in the first score"
+    d'  % ... 
+  }
+}
+
+\tocItem \markup "Second score"
+\score {
+  {
+    e' % ...
+  }
+}
+@end verbatim
+
+The markups which are used to format the table of contents are defined
+in the @code{\paper} block. The default ones are @code{tocTitleMarkup},
+for formatting the title of the table, and @code{tocItemMarkup}, for
+formatting the toc elements, composed of the element title and page
+number. These variables may be changed by the user:
+
+@verbatim
+\paper {
+  %% Translate the toc title into French:
+  tocTitleMarkup = \markup \huge \column {
+    \fill-line { \null "Table des matières" \null }
+    \hspace #1
+  }
+  %% use larfer font size
+  tocItemMarkup = \markup \large \fill-line {
+    \fromproperty #'toc:text \fromproperty #'toc:page
+  }
+}
+@end verbatim
+
+Note how the toc element text and page number are refered to in
+the @code{tocItemMarkup} definition.
+
+New commands and markups may also be defined to build more elaborated
+table of contents:
+@itemize @bullet
+@item first, define a new markup variable in the @code{\paper} block
+@item then, define a music function which aims at adding a toc element
+using this markup paper variable.
+@end itemize
+
+In the following example, a new style is defined for entering act names
+in the table of contents of an opera:
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct = 
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@lilypond[line-width=11.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct = 
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplines \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+@seealso
+
+Init files: @file{ly/@/toc@/-init@/.ly}.
+
+@refcommands
+
+@funindex \table-of-contents
+@code{\table-of-contents}
+@funindex \tocItem
+@code{\tocItem}
 
 @node MIDI output
 @section MIDI output

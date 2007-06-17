@@ -11,34 +11,36 @@ and refered to in markups."
   (interpret-markup layout props
    (markup #:fill-line (text #:page-ref label "8" "?"))))
 
-\markup \huge \fill-line { \null "Title Page" \null }
+\book {
+  \markup \huge \fill-line { \null "Title Page" \null }
 
-\pageBreak
+  \pageBreak
 
-\label #'toc
-\markup \column {
-  \large \fill-line { \null "Table of contents" \null }
-  \toc-line #'toc "Table of contents"
-  \toc-line #'firstScore "First Score"
-  \toc-line #'markA "Mark A"
-  \toc-line #'markB "Mark B"
-  \toc-line #'markC "Mark C"
-  \toc-line #'unknown "Unknown label"
-}
-
-\pageBreak
-
-\label #'firstScore
-\score {
-  { c'2 c'
-    \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) }} \label #'markA 
-    c' c'
-    \pageBreak
-    \mark "B" \label #'markB
-    d' d'
-    d' d'
-    \once \override Score . RehearsalMark #'break-visibility = #begin-of-line-invisible
-    \mark "C" \label #'markC
+  \label #'toc
+  \markup \column {
+    \large \fill-line { \null "Table of contents" \null }
+    \toc-line #'toc "Table of contents"
+    \toc-line #'firstScore "First Score"
+    \toc-line #'markA "Mark A"
+    \toc-line #'markB "Mark B"
+    \toc-line #'markC "Mark C"
+    \toc-line #'unknown "Unknown label"
   }
-  \header { piece = "First score" }
+
+  \pageBreak
+
+  \label #'firstScore
+  \score {
+    { c'2 c'
+      \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) }} \label #'markA 
+      c' c'
+      \pageBreak
+      \mark "B" \label #'markB
+      d' d'
+      d' d'
+      \once \override Score . RehearsalMark #'break-visibility = #begin-of-line-invisible
+      \mark "C" \label #'markC
+    }
+    \header { piece = "First score" }
+  }
 }
