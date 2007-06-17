@@ -333,6 +333,8 @@ Paper_book::get_system_specs ()
 
   SCM interpret_markup_list = ly_lily_module_constant ("interpret-markup-list");
   SCM header = SCM_EOL;
+  bool set_next_label = false;
+  SCM label;
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
       if (ly_is_module (scm_car (s)))
@@ -355,9 +357,9 @@ Paper_book::get_system_specs ()
 	    }
 	  if (scm_is_symbol (page_marker->label ()))
 	    {
-	      /* set previous element label */
-	      if (scm_is_pair (system_specs))
-		set_label (scm_car (system_specs), page_marker->label ());
+	      /* The next element label is to be set */
+	      set_next_label = true;
+	      label = page_marker->label ();
 	    }
 	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
@@ -377,6 +379,11 @@ Paper_book::get_system_specs ()
 
 	      header = SCM_EOL;
 	      system_specs = scm_cons (pscore->self_scm (), system_specs);
+	      if (set_next_label)
+		{
+		  set_label (scm_car (system_specs), label);
+		  set_next_label = false;
+		}
 	    }
 	  else
 	    {
@@ -413,6 +420,11 @@ Paper_book::get_system_specs ()
 	      system_specs = scm_cons (ps->self_scm (), system_specs);
 	      ps->unprotect ();
 	      
+	      if (set_next_label)
+		{
+		  set_label (scm_car (system_specs), label);
+		  set_next_label = false;
+		}
 	      // FIXME: figure out penalty.
 	      //set_system_penalty (ps, scores_[i].header_);
 	    }

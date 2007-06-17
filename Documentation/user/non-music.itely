@@ -481,7 +481,7 @@ some pieces include a lot more information.
 @menu
 * Creating titles::             
 * Custom titles::               
-* Table of contents::                
+* Reference to page numbers::   
 @end menu
 
 
@@ -734,8 +734,8 @@ composer flush right on a single line.
 }
 @end verbatim
 
-@node Table of contents
-@subsection Table of contents
+@node Reference to page numbers
+@subsection Reference to page numbers
 
 A particular place of a score can be marked using the @code{\label}
 command, either at top-level or inside music.  This label can then be
@@ -743,13 +743,14 @@ refered to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
 @verbatim
+\label #'firstScore
 \score {
   {
     c'1
     \mark A \label #'markA
     c'
   }
-} \label #'firstScore
+}
 
 \markup { The first score is on page \page-ref #'firstScore "0" "?" }
 \markup { Mark A is on page \page-ref #'markA "0" "?" }

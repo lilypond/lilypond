@@ -1,4 +1,4 @@
-\version "2.11.25"
+\version "2.11.26"
 
 \header {
   texidoc = "Page labels may be placed inside music or at top-level,
@@ -15,6 +15,7 @@ and refered to in markups."
 
 \pageBreak
 
+\label #'toc
 \markup \column {
   \large \fill-line { \null "Table of contents" \null }
   \toc-line #'toc "Table of contents"
@@ -23,10 +24,11 @@ and refered to in markups."
   \toc-line #'markB "Mark B"
   \toc-line #'markC "Mark C"
   \toc-line #'unknown "Unknown label"
-} \label #'toc
+}
 
 \pageBreak
 
+\label #'firstScore
 \score {
   { c'2 c'
     \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) }} \label #'markA 
@@ -39,4 +41,4 @@ and refered to in markups."
     \mark "C" \label #'markC
   }
   \header { piece = "First score" }
-} \label #'firstScore
+}
