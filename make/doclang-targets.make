@@ -1,6 +1,8 @@
-# assumes depth and ISOLANG are defined
+# one assumes depth and ISOLANG are defined
 
 OUT_ITEXI_FILES = $(ITELY_FILES:%.itely=$(outdir)/%.itexi)
+
+TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
 LILYPOND_BOOK_INCLUDES += \
   -I$(top-src-dir)/Documentation/user \
@@ -12,7 +14,7 @@ $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
 MAKEINFO = LANG=$(ISOLANG) $(MAKEINFO_PROGRAM) --force
 
-$(outdir)/lilypond/index.html: $(outdir)/lilypond.nexi doc-po
+$(outdir)/lilypond/index.html: png-ln $(outdir)/lilypond.nexi doc-po
 	mkdir -p $(dir $@)
 	-$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 	find $(outdir) -name '*.html' | xargs grep -L 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(buildscript-dir)/html-gettext.py $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(ISOLANG)
@@ -22,10 +24,14 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.nexi doc-po
 #$(outdir)/lilypond.html: $(outdir)/lilypond.nexi
 #	-$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
 
-local-WWW: png-ln $(outdir)/lilypond/index.html lang-merge
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/lilypond/index.html
+	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(ISOLANG) $(<)
+	cd $(outdir); texi2pdf -I $(top-build-dir)/Documentation/user/$(outdir) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
-lang-merge:
-	$(foreach i, $(shell find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME'), ln -f $(i) $(i:$(outdir)/%.html=$(depth)/Documentation/user/$(outdir)/%.$(ISOLANG).html) &&) true
+local-WWW: $(outdir)/lilypond/index.html $(outdir)/lilypond.pdf lang-merge
+
+lang-merge: $(outdir)/lilypond/index.html $(outdir)/lilypond.pdf
+	$(foreach i, $(shell find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME'), ln -f $(i) $(i:$(outdir)/%.html=$(depth)/Documentation/user/$(outdir)/%.$(ISOLANG).html) &&) ln -f $(outdir)/lilypond.pdf $(depth)/Documentation/user/$(outdir)/lilypond.$(ISOLANG).pdf && true
 
 LINKED_PNGS = henle-flat-gray.png baer-flat-gray.png lily-flat-bw.png
 
