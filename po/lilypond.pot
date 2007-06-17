@@ -8,60 +8,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-05-29 14:39+0200\n"
+"POT-Creation-Date: 2007-06-17 22:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#: add_html_footer.py:46
-#, python-format
-msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
-msgstr ""
-
-#: add_html_footer.py:47
-#, python-format
-msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
-
-#: add_html_footer.py:54
-#, python-format
-msgid "Other languages: %s."
-msgstr ""
-
-#: add_html_footer.py:55
-#, python-format
-msgid "About <A HREF=\"%s\">automatic language selection</A>."
-msgstr ""
-
-#: add_html_footer.py:238
-msgid "stable-branch"
-msgstr ""
-
-#: add_html_footer.py:240
-msgid "development-branch"
-msgstr ""
-
-#. All language information needed for documentation i18n is defined
-#. here. For each 'Documentation/ab' directory containing docs
-#. translated in 'ab', there should be an entry in LANGUAGES.
-#: langdefs.py:37
-msgid "English"
-msgstr ""
-
-#: langdefs.py:51
-msgid "French"
-msgstr ""
-
-#: langdefs.py:52
-msgid "Spanish"
-msgstr ""
-
-#: langdefs.py:53
-msgid "German"
-msgstr ""
 
 #: convertrules.py:12
 #, python-format
@@ -222,7 +175,7 @@ msgstr ""
 msgid "Processing `%s'... "
 msgstr ""
 
-#: convert-ly.py:268 relocate.cc:363 source-file.cc:54
+#: convert-ly.py:268 relocate.cc:362 source-file.cc:54
 #, c-format, python-format
 msgid "cannot open file: `%s'"
 msgstr ""
@@ -645,7 +598,7 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam-quanting.cc:314
+#: beam-quanting.cc:309
 msgid "no feasible beam position"
 msgstr ""
 
@@ -653,7 +606,7 @@ msgstr ""
 msgid "removing beam with no stems"
 msgstr ""
 
-#: beam.cc:1035
+#: beam.cc:1039
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -982,16 +935,16 @@ msgstr ""
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr ""
 
-#: lily-lexer.cc:250
+#: lily-lexer.cc:251
 msgid "include files are not allowed in safe mode"
 msgstr ""
 
-#: lily-lexer.cc:269
+#: lily-lexer.cc:270
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr ""
 
-#: lily-lexer.cc:284
+#: lily-lexer.cc:285
 #, c-format
 msgid "error at EOF: %s"
 msgstr ""
@@ -1535,7 +1488,7 @@ msgstr ""
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr ""
 
-#: program-option-scheme.cc:207
+#: program-option-scheme.cc:215
 #, c-format
 msgid "no such internal option: %s"
 msgstr ""
@@ -1605,12 +1558,12 @@ msgstr ""
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr ""
 
-#: relocate.cc:357
+#: relocate.cc:356
 #, c-format
 msgid "Relocation file: %s"
 msgstr ""
 
-#: relocate.cc:393
+#: relocate.cc:392
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr ""
@@ -1848,119 +1801,119 @@ msgstr ""
 msgid "giving up"
 msgstr ""
 
-#: parser.yy:712
+#: parser.yy:727
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr ""
 
-#: parser.yy:736
+#: parser.yy:751
 msgid "need \\paper for paper block"
 msgstr ""
 
-#: parser.yy:1195
+#: parser.yy:1210
 msgid "Grob name should be alphanumeric"
 msgstr ""
 
-#: parser.yy:1493
+#: parser.yy:1508
 msgid "second argument must be pitch list"
 msgstr ""
 
-#: parser.yy:1520 parser.yy:1525 parser.yy:1990
+#: parser.yy:1535 parser.yy:1540 parser.yy:2005
 msgid "have to be in Lyric mode for lyrics"
 msgstr ""
 
-#: parser.yy:1622
+#: parser.yy:1637
 msgid "expecting string as script definition"
 msgstr ""
 
-#: parser.yy:1777 parser.yy:1827
+#: parser.yy:1792 parser.yy:1842
 #, c-format
 msgid "not a duration: %d"
 msgstr ""
 
-#: parser.yy:1944
+#: parser.yy:1959
 msgid "have to be in Note mode for notes"
 msgstr ""
 
-#: parser.yy:2005
+#: parser.yy:2020
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: lexer.ll:176
+#: lexer.ll:177
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:180
+#: lexer.ll:181
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:235
+#: lexer.ll:236
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:252
+#: lexer.ll:253
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:256
+#: lexer.ll:257
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:260
+#: lexer.ll:261
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:273
+#: lexer.ll:274
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:288
+#: lexer.ll:289
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:312
+#: lexer.ll:313
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:321
+#: lexer.ll:322
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:466
+#: lexer.ll:467
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:561
+#: lexer.ll:578
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:665
+#: lexer.ll:682
 #, c-format
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:780
+#: lexer.ll:797 lexer.ll:798
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:886
+#: lexer.ll:903 lexer.ll:904
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:887
+#: lexer.ll:904 lexer.ll:905
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:893
+#: lexer.ll:910 lexer.ll:911
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
 
-#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
+#: backend-library.scm:19 lily.scm:762 ps-to-png.scm:58
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr ""
@@ -1970,7 +1923,7 @@ msgstr ""
 msgid "`~a' failed (~a)"
 msgstr ""
 
-#: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
+#: backend-library.scm:115 framework-tex.scm:344 framework-tex.scm:369
 #, scheme-format
 msgid "Converting to `~a'..."
 msgstr ""
@@ -2002,11 +1955,11 @@ msgstr ""
 msgid "translator listens to nonexisting event class ~A"
 msgstr ""
 
-#: define-markup-commands.scm:273
+#: define-markup-commands.scm:274
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:1315
+#: define-markup-commands.scm:1312
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
@@ -2060,42 +2013,42 @@ msgstr ""
 msgid "cannot find description for property ~S (~S)"
 msgstr ""
 
-#: framework-eps.scm:89
+#: framework-eps.scm:90
 #, scheme-format
 msgid "Writing ~a..."
 msgstr ""
 
-#: framework-ps.scm:281
+#: framework-ps.scm:280
 #, scheme-format
 msgid "cannot embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:334
+#: framework-ps.scm:333
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr ""
 
-#: framework-ps.scm:351
+#: framework-ps.scm:350
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr ""
 
-#: framework-ps.scm:382
+#: framework-ps.scm:381
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr ""
 
-#: framework-ps.scm:731
+#: framework-ps.scm:735
 #, scheme-format
 msgid "cannot convert <stdout> to ~S"
 msgstr ""
 
-#: framework-ps.scm:750 framework-ps.scm:753
+#: framework-ps.scm:754 framework-ps.scm:757
 #, scheme-format
 msgid "cannot generate ~S using the postscript back-end"
 msgstr ""
 
-#: framework-ps.scm:760
+#: framework-ps.scm:764
 msgid ""
 "\n"
 "The PostScript backend does not support the system-by-system \n"
@@ -2111,7 +2064,7 @@ msgid ""
 "  %% ****************************************************************\n"
 msgstr ""
 
-#: framework-tex.scm:360
+#: framework-tex.scm:361
 #, scheme-format
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr ""
@@ -2135,7 +2088,7 @@ msgstr ""
 msgid "Can't fit systems on page -- ignoring between-system-padding"
 msgstr ""
 
-#: layout-page-layout.scm:449
+#: layout-page-layout.scm:447
 msgid "Calculating page breaks..."
 msgstr ""
 
@@ -2153,34 +2106,34 @@ msgstr ""
 msgid "old relative compatibility not used"
 msgstr ""
 
-#: lily.scm:173
+#: lily.scm:182
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:238
+#: lily.scm:247
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:619
+#: lily.scm:629
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:622
+#: lily.scm:632
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:649 lily.scm:742
+#: lily.scm:659 lily.scm:752
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:732
+#: lily.scm:742
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
@@ -2194,12 +2147,12 @@ msgstr ""
 msgid "Invalid property operation ~a"
 msgstr ""
 
-#: markup.scm:94
+#: markup.scm:124
 #, scheme-format
 msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
 msgstr ""
 
-#: markup.scm:100
+#: markup.scm:130
 #, scheme-format
 msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr ""
@@ -2238,17 +2191,17 @@ msgstr ""
 msgid "utf-8-string encountered in PS backend"
 msgstr ""
 
-#: output-svg.scm:42
+#: output-svg.scm:45
 #, scheme-format
 msgid "undefined: ~S"
 msgstr ""
 
-#: output-svg.scm:132
+#: output-svg.scm:135
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
 msgstr ""
 
-#: output-tex.scm:97
+#: output-tex.scm:96
 #, scheme-format
 msgid "cannot find ~a in ~a"
 msgstr ""

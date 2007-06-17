@@ -6,7 +6,7 @@ include $(depth)/make/stepmake.make
 
 doc-localedir=$(outdir)
 DOMAIN=lilypond-doc
-DOC_PO_SOURCES = add_html_footer.py langdefs.py
+DOC_PO_SOURCES = add_html_footer.py texi-gettext.py
 
 messages: $(MO_FILES)
 	for i in $(CATALOGS); do \
@@ -16,7 +16,9 @@ messages: $(MO_FILES)
 
 po-update:
 	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -o texi.pot --gettext ../$(depth)/Documentation/user/lilypond.tely
-	xgettext -cjn -L Python -o $(outdir)/buildscripts.pot $(foreach i, $(DOC_PO_SOURCES), $(buildscript-dir)/$(i) )
+	$(foreach i, $(DOC_PO_SOURCES), cp $(buildscript-dir)/$(i) $(outdir) &&) true
+	cd $(outdir) && sed -i -e s/_doc/_/g $(DOC_PO_SOURCES)
+	cd $(outdir) && xgettext -cjn -L Python -o buildscripts.pot $(DOC_PO_SOURCES)
 	msgcat -o $(outdir)/doc.pot $(outdir)/buildscripts.pot $(outdir)/texi.pot
 	msgmerge -U lilypond-doc.pot $(outdir)/doc.pot
 	for i in $(CATALOGS); do \

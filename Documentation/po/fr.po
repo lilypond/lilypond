@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-27 23:21+0200\n"
+"POT-Creation-Date: 2007-06-17 23:05+0200\n"
 "PO-Revision-Date: 2007-03-27 23:06+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
@@ -17,13 +17,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: ../../buildscripts/add_html_footer.py:46
+#: add_html_footer.py:46
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
 "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
 
-#: ../../buildscripts/add_html_footer.py:47
+#: add_html_footer.py:47
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
@@ -31,39 +31,29 @@ msgstr ""
 "org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
 "(mail_address_url)s\">%(mail_address)s</a>"
 
-#: ../../buildscripts/add_html_footer.py:54
+#: add_html_footer.py:54
 #, python-format
 msgid "Other languages: %s."
 msgstr "Autres langues&nbsp;: %s."
 
-#: ../../buildscripts/add_html_footer.py:55
+#: add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
-#: ../../buildscripts/add_html_footer.py:238
+#: add_html_footer.py:238
 msgid "stable-branch"
 msgstr "branche stable"
 
-#: ../../buildscripts/add_html_footer.py:240
+#: add_html_footer.py:240
 msgid "development-branch"
 msgstr "branche de développement"
 
-#: ../../buildscripts/langdefs.py:34
-msgid "English"
-msgstr "Anglais"
-
-#: ../../buildscripts/langdefs.py:35
-msgid "French"
-msgstr "Français"
-
-#: ../../buildscripts/langdefs.py:36
-msgid "Spanish"
-msgstr "Espagnol"
-
-#: ../../buildscripts/langdefs.py:37
-msgid "German"
-msgstr "Allemand"
+#: texi-gettext.py:45
+msgid ""
+"This section has not been translated yet; please refer to the manual in "
+"English."
+msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -1241,7 +1231,19 @@ msgstr "Partitions emboîtées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
+#, fuzzy
+msgid "Page wrapping text"
+msgstr "Saut de page"
+
+#. @node in ../../../Documentation/user/advanced-notation.itely
+#. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Overview of text markup commands"
+msgstr "Vue d'ensemble des commandes d'indication textuelle"
+
+#. @node in ../../../Documentation/user/advanced-notation.itely
+#. @subsection in ../../../Documentation/user/advanced-notation.itely
+#, fuzzy
+msgid "Overview of text markup list commands"
 msgstr "Vue d'ensemble des commandes d'indication textuelle"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
@@ -1490,6 +1492,12 @@ msgid "Aligning contexts"
 msgstr "Aligner des contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
+#. @subsection in ../../../Documentation/user/changing-defaults.itely
+#, fuzzy
+msgid "Vertical grouping of grobs"
+msgstr "Espacement vertical"
+
+#. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
 msgstr "La commande \\override"
 
@@ -1602,6 +1610,17 @@ msgstr "Créer des titres"
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Custom titles"
 msgstr "Titres personnalisés"
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+msgid "Reference to page numbers"
+msgstr ""
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+#, fuzzy
+msgid "Table of contents"
+msgstr "Table des matières"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
@@ -1875,6 +1894,12 @@ msgstr "Fonctionnement interne des marqueurs"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "New markup command definition"
+msgstr "Définition d'une nouvelle commande de marqueur"
+
+#. @node in ../../../Documentation/user/programming-interface.itely
+#. @subsection in ../../../Documentation/user/programming-interface.itely
+#, fuzzy
+msgid "New markup list command definition"
 msgstr "Définition d'une nouvelle commande de marqueur"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
@@ -2271,3 +2296,15 @@ msgstr "Notes de bas de page"
 
 msgid "Table of Contents"
 msgstr "Table des matières"
+
+#~ msgid "English"
+#~ msgstr "Anglais"
+
+#~ msgid "French"
+#~ msgstr "Français"
+
+#~ msgid "Spanish"
+#~ msgstr "Espagnol"
+
+#~ msgid "German"
+#~ msgstr "Allemand"

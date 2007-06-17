@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-03-27 23:21+0200\n"
+"POT-Creation-Date: 2007-06-17 23:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,48 +16,38 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../../buildscripts/add_html_footer.py:46
+#: add_html_footer.py:46
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
 
-#: ../../buildscripts/add_html_footer.py:47
+#: add_html_footer.py:47
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 
-#: ../../buildscripts/add_html_footer.py:54
+#: add_html_footer.py:54
 #, python-format
 msgid "Other languages: %s."
 msgstr ""
 
-#: ../../buildscripts/add_html_footer.py:55
+#: add_html_footer.py:55
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr ""
 
-#: ../../buildscripts/add_html_footer.py:238
+#: add_html_footer.py:238
 msgid "stable-branch"
 msgstr ""
 
-#: ../../buildscripts/add_html_footer.py:240
+#: add_html_footer.py:240
 msgid "development-branch"
 msgstr ""
 
-#: ../../buildscripts/langdefs.py:34
-msgid "English"
-msgstr ""
-
-#: ../../buildscripts/langdefs.py:35
-msgid "French"
-msgstr ""
-
-#: ../../buildscripts/langdefs.py:36
-msgid "Spanish"
-msgstr ""
-
-#: ../../buildscripts/langdefs.py:37
-msgid "German"
+#: texi-gettext.py:45
+msgid ""
+"This section has not been translated yet; please refer to the manual in "
+"English."
 msgstr ""
 
 #. @node in ../../../Documentation/user/lilypond.tely
@@ -1236,7 +1226,17 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
+msgid "Page wrapping text"
+msgstr ""
+
+#. @node in ../../../Documentation/user/advanced-notation.itely
+#. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Overview of text markup commands"
+msgstr ""
+
+#. @node in ../../../Documentation/user/advanced-notation.itely
+#. @subsection in ../../../Documentation/user/advanced-notation.itely
+msgid "Overview of text markup list commands"
 msgstr ""
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
@@ -1485,6 +1485,11 @@ msgid "Aligning contexts"
 msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
+#. @subsection in ../../../Documentation/user/changing-defaults.itely
+msgid "Vertical grouping of grobs"
+msgstr ""
+
+#. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
 msgstr ""
 
@@ -1596,6 +1601,16 @@ msgstr ""
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Custom titles"
+msgstr ""
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+msgid "Reference to page numbers"
+msgstr ""
+
+#. @node in ../../../Documentation/user/non-music.itely
+#. @subsection in ../../../Documentation/user/non-music.itely
+msgid "Table of contents"
 msgstr ""
 
 #. @node in ../../../Documentation/user/non-music.itely
@@ -1869,6 +1884,11 @@ msgstr ""
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "New markup command definition"
+msgstr ""
+
+#. @node in ../../../Documentation/user/programming-interface.itely
+#. @subsection in ../../../Documentation/user/programming-interface.itely
+msgid "New markup list command definition"
 msgstr ""
 
 #. @node in ../../../Documentation/user/programming-interface.itely

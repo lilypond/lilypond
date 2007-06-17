@@ -25,7 +25,7 @@ non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/out-www/DEDICATION',
                     'Documentation/topdocs/out-www/AUTHORS']
 
-def _ (s):
+def _doc (s):
     return s
 
 header = r"""
@@ -43,16 +43,16 @@ footer = '''
 </p>
 </div>
 '''
-footer_name_version = _ ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
-footer_report_errors = _ ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
+footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
+footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
 
-lang_available = _ ("Other languages: %s.")
-browser_lang = _ ('About <A HREF="%s">automatic language selection</A>.')
+lang_available = _doc ("Other languages: %s.")
+browser_lang = _doc ('About <A HREF="%s">automatic language selection</A>.')
 browser_language_url = "/web/about/browser-language"
 
 LANGUAGES_TEMPLATE = '''
@@ -187,7 +187,7 @@ def add_menu (page_flavors, prefix, available, target, translation):
         if page_flavors[k][0] != '':
             t = translation[page_flavors[k][0]]
         else:
-            t = _
+            t = _doc
         for lang in available:
             lang_file = lang.file_name (os.path.basename (prefix), '.html')
             if language_menu != '':
@@ -235,9 +235,9 @@ def add_html_footer (translation,
         mail_address_url= 'mailto:' + mail_address
 
     versiontup = package_version.split ('.')
-    branch_str = _('stable-branch')
-    if int ( versiontup[1]) %  2:
-        branch_str = _('development-branch')
+    branch_str = _doc ('stable-branch')
+    if int (versiontup[1]) %  2:
+        branch_str = _doc ('development-branch')
 
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:
