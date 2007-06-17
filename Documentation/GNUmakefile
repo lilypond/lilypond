@@ -47,7 +47,7 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
 
 check-translation:
-	find $(ISOLANG)/user/ -name '*.*tely' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir)
+	find $(ISOLANG)/user/ -name '*.*tely' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
 
 skeleton-update:
 	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) --skeleton ../user/lilypond.tely
