@@ -25,8 +25,6 @@ sys.path.append (buildscript_dir)
 import langdefs
 
 double_punct_char_separator = langdefs.LANGDICT[lang].double_punct_char_sep
-print localedir
-print lang
 t = gettext.translation('lilypond-doc', localedir, [lang])
 my_gettext = t.gettext
 

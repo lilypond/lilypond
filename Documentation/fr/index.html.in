@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 64f0d86a7c0987b311bfdfdfeddfa063e1f2d6e7
+    Translation of GIT committish: 68bd4534efe807b8b7394290ba510e97e38909d4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -84,12 +84,8 @@ ou <a class="title" href="user/lilypond.pdf">au format PDF en anglais</a>)
      <br>&mdash; voir quelques exemples
 
 <li><a class="title" href="../input/lsr/collated-files.html">Extraits de code</a>
-     <br>&mdash; en cours de développement
+     <br>&mdash; petits trucs, astuces et exemples
 
-<li><a class="title" href="../input/test/collated-files.html">Trucs et astuces</a>
-(~ 2 Mb, <a class="title" href="../input/test/collated-files.pdf">au format PDF</a>)
-
-     <br>&mdash; pour aller encore plus loin
  <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
 multilingue<br>(aussi en <a class="title"
  href="user/music-glossary-big-page.html">page unique</a> ~ 1 Mb ou

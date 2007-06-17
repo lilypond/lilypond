@@ -1,13 +1,11 @@
 #!@PYTHON@
+#-*- coding: utf-8 -*-
 
 """
 Documentation i18n module
 """
 
 import re
-
-def _ (s):
-    return s
 
 def lang_file_name (p, langext, ext):
     if langext != '':
@@ -32,9 +30,9 @@ class LanguageDef:
 
 # All language information needed for documentation i18n is defined
 # here. For each 'Documentation/ab' directory containing docs
-# translated in 'ab', there should be an entry in LANGUAGES.
+# translated in 'ab', there should be one entry in LANGUAGES.
 
-site = LanguageDef ('en', _('English'), webext='')
+site = LanguageDef ('en', 'English', webext='')
 
 html_page_body = re.compile ('</?body>', re.M | re.I)
 french_html_typo_rules = ((' :', '&nbsp;:'),
@@ -48,10 +46,9 @@ def french_html_filter (page):
         parts[1] = parts[1].replace (r[0], r[1])
     return parts[0] + '<body>' + parts[1] + '</body>' + parts[2]
 
-fr = LanguageDef ('fr', _('French'), double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
-es = LanguageDef ('es', _('Spanish') )
-de = LanguageDef ('de', _('German') )
-#nl = LanguageDef ('nl', 'Nederlands')
+fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
+es = LanguageDef ('es', 'español')
+de = LanguageDef ('de', 'deutsch')
 
 # Outdated or broken translations may be disabled
 # (please run 'make web-clean' before doing that):
