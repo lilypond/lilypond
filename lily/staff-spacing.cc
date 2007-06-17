@@ -269,6 +269,4 @@ ADD_INTERFACE (Staff_spacing,
 
 	       /* properties */
 	       "stem-spacing-correction "
-	       "left-items "
-	       "right-items "
 	       );

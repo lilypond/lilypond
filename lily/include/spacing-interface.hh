@@ -8,8 +8,17 @@
 #include "grob-interface.hh"
 #include "lily-proto.hh"
 
+#ifndef SPACING_INTERFACE_HH
+#define SPACING_INTERFACE_HH
+
 struct Spacing_interface
 {
+  static Real minimum_distance (Grob *me);
+  static Drul_array<Item*> note_columns (Grob *me);
+  static Item* right_column (Grob *me);
+  static Item* left_column (Grob *me);
+
   DECLARE_GROB_INTERFACE();
 };
 
+#endif /* SPACING_INTERFACE_HH */

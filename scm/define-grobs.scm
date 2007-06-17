@@ -1145,6 +1145,7 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(meta . ((class . Item)
 		 (interfaces . (axis-group-interface
+				separation-item-iterface
 				note-column-interface))))))
 
     (NoteHead
@@ -1171,7 +1172,7 @@
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)
 	(meta . ((class . Item)
-		 (interfaces . (
+		 (interfaces . (spacing-interface
 				note-spacing-interface))))))
 
     (NoteName
@@ -1560,7 +1561,8 @@
 	(non-musical . #t)
 	(stem-spacing-correction . 0.4)
 	(meta . ((class . Item)
-		 (interfaces . (staff-spacing-interface))))))
+		 (interfaces . (spacing-interface
+				staff-spacing-interface))))))
 
    
     (StaffSymbol

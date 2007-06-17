@@ -272,8 +272,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	{
 	  Grob *wish = neighbors[i];
 
-	  Item *wish_rcol = Note_spacing::right_column (wish);
-	  if (Note_spacing::left_column (wish) != left_col
+	  Item *wish_rcol = Spacing_interface::right_column (wish);
+	  if (Spacing_interface::left_column (wish) != left_col
 	      || (wish_rcol != right_col && wish_rcol != right_col->original ()))
 	    continue;
 
