@@ -16,8 +16,7 @@
 class Staff_spacing
 {
   static Real optical_correction (Grob *, Grob *, Interval);
-  static Real left_stickout (Grob *, Grob *);
-  static Real next_notes_correction (Grob *, Grob *, Real, Real);
+  static Real next_notes_correction (Grob *, Grob *);
 
 public:
   DECLARE_GROB_INTERFACE();
