@@ -35,7 +35,10 @@ Spacing_interface::minimum_distance (Grob *me)
 	  {
 	    SCM sky_scm = items[d][i]->get_property ("horizontal-skylines");
 	    Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
-	    skylines[d].merge ((*sky)[-d]);
+	    if (sky)
+	      skylines[d].merge ((*sky)[-d]);
+	    else
+	      programming_error ("separation item has no skyline");
 	    
 	    if (d == RIGHT && items[LEFT].size ())
 	      skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
