@@ -19,39 +19,10 @@ using namespace std;
 #include "staff-symbol-referencer.hh"
 #include "note-column.hh"
 #include "stem.hh"
+#include "spacing-interface.hh"
 #include "accidental-placement.hh"
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
-
-Real
-Staff_spacing::left_stickout (Grob *me, Grob *g)
-{
-  if (!g || !Note_column::has_interface (g))
-    return 0;
-
-  Item *col = dynamic_cast<Item *> (g)->get_column ();
-  Real ret = max (0., (- g->extent (col, X_AXIS)[LEFT]));
-
-  /*
-    Duh. If this gets out of hand, we should invent something more generic.
-  */
-  Grob *accs = Note_column::accidentals (g);
-  if (accs)
-    {
-      Interval v;
-      if (Accidental_placement::has_interface (accs))
-	v = Accidental_placement::get_relevant_accidental_extent (accs, col, me);
-      else
-	v = accs->extent (col, X_AXIS);
-      
-      ret = max (ret, (- v[LEFT]));
-    }
-  Grob *arpeggio = unsmob_grob (g->get_object ("arpeggio"));
-  if (arpeggio)
-    ret = max (ret, - arpeggio->extent (col, X_AXIS)[LEFT]);
-
-  return ret;
-}
 
 Real
 Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
@@ -113,51 +84,20 @@ Staff_spacing::bar_y_positions (Grob *bar_grob)
   return bar_size;
 }
 
-/*
-  Do corrections for the following notes.
-
-  This is slightly convoluted, since the staffspacing grob gets
-  pointers to the separation-items, not the note-columns or
-  note-spacings.
-*/
-
 Real
 Staff_spacing::next_notes_correction (Grob *me,
-				      Grob *last_grob,
-				      Real current_fixed,
-				      Real right_stickout)
+				      Grob *last_grob)
 {
   Interval bar_size = bar_y_positions (last_grob);
   Grob *orig = me->original () ? me->original () : me;
+  vector<Item*> note_columns = Spacing_interface::right_note_columns (orig);
 
-  extract_grob_set (orig, "right-items", right_items);
-
-  Real max_left_stickout = 0.0;
   Real max_optical = 0.0;
 
-  for (vsize i = right_items.size (); i--;)
-    {
-      Grob *g = right_items[i];
-      if (Note_column::has_interface (right_items[i]))
-	{
-	  max_left_stickout = max (max_left_stickout, left_stickout (me, g));
-	  max_optical = max (max_optical, optical_correction (me, g, bar_size));
-	}
-      else
-	{
-	  extract_grob_set (g, "elements", elts);
-	  for (vsize j = elts.size (); j--;)
-	    {
-	      max_left_stickout = max (max_left_stickout, left_stickout (me, elts[j]));
-	      max_optical = max (max_optical, optical_correction (me, g, bar_size));
-	    }
-	}
-    }
+  for (vsize i = 0; i < note_columns.size (); i++)
+    max_optical = max (max_optical, optical_correction (me, note_columns[i], bar_size));
 
-  /* we put a minimum distance of 0.3 between the right edge of the left grob and
-     the left edge of the right grob */
-  max_left_stickout = max (0.0, max_left_stickout + right_stickout + 0.3 - current_fixed);
-  return max (max_left_stickout, max_optical);
+  return max_optical;
 }
 
 /* This routine does not impose any minimum distances between columns; it only
@@ -251,12 +191,16 @@ Staff_spacing::get_spacing_params (Grob *me)
       ideal = fixed;
     }
 
-  Real correction = next_notes_correction (me, last_grob, fixed, last_ext[RIGHT]);
+  Real optical_correction = next_notes_correction (me, last_grob);
+  Real min_dist = Spacing_interface::minimum_distance (me);
+  Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
+  Real correction = max (optical_correction, min_dist_correction);
+
   fixed += correction;
   ideal += correction;
 
   Spring ret;
-  ret.min_distance_ = 0.0;
+  ret.min_distance_ = max (min_dist, fixed);
   ret.distance_ = ideal;
   ret.inverse_stretch_strength_ = ret.inverse_compress_strength_ = ideal - fixed;
   return ret;

@@ -13,6 +13,7 @@
 #include "grob-array.hh"
 #include "item.hh"
 #include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "paper-column.hh"
 #include "separation-item.hh"
 #include "skyline.hh"
@@ -101,23 +102,30 @@ Spacing_interface::left_column (Grob *me)
   return dynamic_cast<Item *> (me)->get_column ();
 }
 
-Drul_array<Item*>
-Spacing_interface::note_columns (Grob *me)
+static vector<Item*>
+get_note_columns (vector<Grob*> const &elts)
 {
-  Drul_array<Item*> ret (0, 0);
-  Drul_array<vector<Grob*> > items (ly_scm2link_array (me->get_object ("left-items")),
-				    ly_scm2link_array (me->get_object ("right-items")));
+  vector<Item*> ret;
 
-  Direction d = LEFT;
-  do
-    {
-      for (vsize i = 0; i < items[d].size (); i++)
-	if (Note_column::has_interface (items[d][i]))
-	  ret[d] = dynamic_cast<Item*> (items[d][i]);
-    }
-  while (flip (&d) != LEFT);
+  for (vsize i = 0; i < elts.size (); i++)
+    if (Note_column::has_interface (elts[i]))
+      ret.push_back (dynamic_cast<Item*> (elts[i]));
 
   return ret;
+}
+
+vector<Item*>
+Spacing_interface::right_note_columns (Grob *me)
+{
+  extract_grob_set (me, "right-items", elts);
+  return get_note_columns (elts);
+}
+
+vector<Item*>
+Spacing_interface::left_note_columns (Grob *me)
+{
+  extract_grob_set (me, "left-items", elts);
+  return get_note_columns (elts);
 }
 
 ADD_INTERFACE (Spacing_interface,
