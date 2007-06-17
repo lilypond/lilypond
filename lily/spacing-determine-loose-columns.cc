@@ -14,6 +14,7 @@
 #include "paper-column.hh"
 #include "column-x-positions.hh"
 #include "pointer-group-interface.hh"
+#include "spacing-interface.hh"
 #include "spacing-spanner.hh"
 #include "note-spacing.hh"
 #include "moment.hh"
@@ -86,7 +87,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     return false;
 
   l_neighbor = l_neighbor->get_column ();
-  r_neighbor = dynamic_cast<Item *> (Note_spacing::right_column (r_neighbor));
+  r_neighbor = dynamic_cast<Item *> (Spacing_interface::right_column (r_neighbor));
 
   if (l == l_neighbor && r == r_neighbor)
     return false;
@@ -143,8 +144,8 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
       for (vsize k = wishes.size (); k--;)
 	{
 	  Grob *sp = wishes[k];
-	  if (Note_spacing::left_column (sp) != lc
-	      || Note_spacing::right_column (sp) != rc)
+	  if (Spacing_interface::left_column (sp) != lc
+	      || Spacing_interface::right_column (sp) != rc)
 	    continue;
 
 	  if (Note_spacing::has_interface (sp))
@@ -276,7 +277,7 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob*> const &cols)
 	  Item *wish = dynamic_cast<Item *> (wishes[k]);
 
 	  Item *lc = wish->get_column ();
-	  Grob *right = Note_spacing::right_column (wish);
+	  Grob *right = Spacing_interface::right_column (wish);
 
 	  if (!right)
 	    continue;

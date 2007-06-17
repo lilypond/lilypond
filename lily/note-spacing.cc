@@ -58,12 +58,6 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	  if (d == RIGHT && right_col != it_col)
 	    continue;
 
-	  if (Separation_item::has_interface (it))
-	    {
-	      extents[d].unite (Separation_item::width (it));
-	      continue;
-	    }
-
 	  if (d == LEFT
 	      && Note_column::has_interface (it))
 	    {
@@ -155,61 +149,6 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   stem_dir_correction (me, right_col, increment, space, fixed);
 }
 
-Item *
-Note_spacing::left_column (Grob *me)
-{
-  if (!me->is_live ())
-    return 0;
-
-  return dynamic_cast<Item *> (me)->get_column ();
-}
-
-/*
-  Compute the column of the right-items.  This is a big function,
-  since RIGHT-ITEMS may span more columns (eg. if a clef is inserted,
-  this will add a new column to RIGHT-ITEMS. Here we look at the
-  columns, and return the left-most. If there are multiple columns, we
-  prune RIGHT-ITEMS.
-*/
-Item *
-Note_spacing::right_column (Grob *me)
-{
-  if (!me->is_live ())
-    return 0;
-
-  Grob_array *a = unsmob_grob_array (me->get_object ("right-items"));
-  Item *mincol = 0;
-  int min_rank = INT_MAX;
-  bool prune = false;
-  for (vsize i = 0; a && i < a->size (); i++)
-    {
-      Item *ri = a->item (i);
-      Item *col = ri->get_column ();
-
-      int rank = Paper_column::get_rank (col);
-
-      if (rank < min_rank)
-	{
-	  min_rank = rank;
-	  if (mincol)
-	    prune = true;
-
-	  mincol = col;
-	}
-    }
-
-  if (prune && a)
-    {
-      vector<Grob*> &right = a->array_reference ();
-      for (vsize i = right.size (); i--;)
-	{
-	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
-	    right.erase (right.begin () + i);
-	}
-    }
-
-  return mincol;
-}
 
 /**
    Correct for optical illusions. See [Wanske] p. 138. The combination
