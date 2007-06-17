@@ -16,6 +16,7 @@
 #include "warn.hh"
 #include "stem.hh"
 #include "separation-item.hh"
+#include "spacing-interface.hh"
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
 #include "output-def.hh"
@@ -30,79 +31,30 @@ void
 Note_spacing::get_spacing (Grob *me, Item *right_col,
 			   Real base_space, Real increment, Real *space, Real *fixed)
 {
-  Drul_array<SCM> props (me->get_object ("left-items"),
-			 me->get_object ("right-items"));
-  Direction d = LEFT;
-  Direction col_dir = right_col->break_status_dir ();
-  Drul_array<Interval> extents;
+  vector<Item*> note_columns = Spacing_interface::left_note_columns (me);
+  Real left_head_end = 0;
 
-  Interval left_head_wid;
-  do
+  for (vsize i = 0; i < note_columns.size (); i++)
     {
-      vector<Grob*> const &items (ly_scm2link_array (props [d]));
-      for (vsize i = items.size (); i--;)
-	{
-	  Item *it = dynamic_cast<Item *> (items[i]);
+       SCM r = note_columns[i]->get_object ("rest");
+       Grob *g = unsmob_grob (r);
+       Grob *col = note_columns[i]->get_column ();
 
-	  if (d == RIGHT && it->break_status_dir () != col_dir)
-	    it = it->find_prebroken_piece (col_dir);
+       if (!g)
+	 g = Note_column::first_head (note_columns[i]);
 
-	  /*
-	    some kind of mismatch, eg. a note column, that is behind a
-	    linebreak.
-	  */
-	  if (!it)
-	    continue;
-
-	  Item *it_col = it->get_column ();
-	  if (d == RIGHT && right_col != it_col)
-	    continue;
-
-	  if (d == LEFT
-	      && Note_column::has_interface (it))
-	    {
-	      SCM r = it->get_object ("rest");
-	      Grob *g = unsmob_grob (r);
-	      if (!g)
-		g = Note_column::first_head (it);
-
-	      /*
-		Ugh. If Stem is switched off, we don't know what the
-		first note head will be.
-	      */
-	      if (g)
-		{
-		  if (g->common_refpoint (it_col, X_AXIS) != it_col)
-		    programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
-		  else
-		    left_head_wid = g->extent (it_col, X_AXIS);
-		}
-	    }
-
-	  extents[d].unite (it->extent (it_col, X_AXIS));
-	  if (d == RIGHT)
-	    {
-	      Grob *accs = Note_column::accidentals (it);
-	      if (!accs)
-		accs = Note_column::accidentals (it->get_parent (X_AXIS));
-
-	      if (accs)
-		{
-		  Interval v
-		    = Accidental_placement::get_relevant_accidental_extent (accs, it_col, me);
-
-		  extents[d].unite (v);
-		}
-
-	      if (Grob *arpeggio = Note_column::arpeggio (it))
-		extents[d].unite (arpeggio->extent (it_col, X_AXIS));
-	    }
-	}
-
-      if (extents[d].is_empty ())
-	extents[d] = Interval (0, 0);
+       /*
+	 Ugh. If Stem is switched off, we don't know what the
+	 first note head will be.
+       */
+       if (g)
+	 {
+	   if (g->common_refpoint (col, X_AXIS) != col)
+	     programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
+	   else
+	     left_head_end = g->extent (col, X_AXIS)[RIGHT];
+	 }
     }
-  while (flip (&d) != LEFT);
 
   /*
     We look at the width of the note head, since smaller heads get less space
@@ -111,32 +63,10 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
     What is sticking out of the note head (eg. a flag), doesn't get
     the full amount of space.
-
-    FIXED also includes the left part of the right object.
   */
-  *fixed
-    = (left_head_wid.is_empty () ? increment
-       :        /*
-		  Size of the head:
-		*/
-       (left_head_wid[RIGHT]+
+  Real min_dist = Spacing_interface::minimum_distance (me);
 
-	/*
-	  What's sticking out of the head, eg. a flag:
-	*/
-	(extents[LEFT][RIGHT] - left_head_wid[RIGHT]) / 2))
-
-    /*
-      What is sticking out on the left side of the right note:
-    */
-    + (extents[RIGHT].is_empty ()
-       ? 0.0
-       : ((- extents[RIGHT][LEFT] / 2)
-
-	  /*
-	    Add that which sticks out a lot.
-	  */
-	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - 0.5 * increment))));
+  *fixed = max (min_dist, left_head_end + min_dist/2);
 
   /*
     We don't do complicated stuff: (base_space - increment) is the
@@ -291,12 +221,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	      if (!head_extent.is_empty ())
 		note_head_width = head_extent[RIGHT];
 
-	      if (st)
-		{
-		  Real thick = Stem::thickness (st);
-
-		  note_head_width -= thick;
-		}
+	      note_head_width -= Stem::thickness (st);
 	    }
 
 	  correction = note_head_width * stem_dirs[LEFT];

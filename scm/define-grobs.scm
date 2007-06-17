@@ -1143,9 +1143,10 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(meta . ((class . Item)
 		 (interfaces . (axis-group-interface
-				separation-item-iterface
+				separation-item-interface
 				note-column-interface))))))
 
     (NoteHead

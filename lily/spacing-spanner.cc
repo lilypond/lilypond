@@ -519,7 +519,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 
   Real inverse_strength = (compound_space - compound_fixed);
   Real distance = compound_space;
-  message (_f ("adding spring of length %f", distance));
+
   Spaceable_grob::add_spring (l, r, distance, inverse_strength);
 }
 
