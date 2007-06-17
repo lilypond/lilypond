@@ -271,7 +271,7 @@ set_system_penalty (SCM sys, SCM header)
 }
 
 void
-set_label (SCM sys, SCM label)
+set_labels (SCM sys, SCM labels)
 {
   if (Paper_score *ps = dynamic_cast<Paper_score*> (unsmob_music_output (sys)))
     {
@@ -279,13 +279,19 @@ set_label (SCM sys, SCM label)
       if (cols.size ())
 	{
 	  Paper_column *col = dynamic_cast<Paper_column*> (cols[0]);
-	  col->set_property ("labels", scm_cons (label, col->get_property ("labels")));
+	  col->set_property ("labels", 
+			     scm_append_x (scm_list_2 (col->get_property ("labels"),
+						       labels)));
 	  Paper_column *col_right = dynamic_cast<Paper_column*> (col->find_prebroken_piece (RIGHT));
-	  col_right->set_property ("labels", scm_cons (label, col_right->get_property ("labels")));
+	  col_right->set_property ("labels", 
+				   scm_append_x (scm_list_2 (col_right->get_property ("labels"),
+							     labels)));
 	}
     }
   else if (Prob *pb = unsmob_prob (sys))
-    pb->set_property ("labels", scm_cons (label, pb->get_property ("labels")));
+    pb->set_property ("labels", 
+		      scm_append_x (scm_list_2 (pb->get_property ("labels"),
+						labels)));
 }
 
 SCM
@@ -333,8 +339,7 @@ Paper_book::get_system_specs ()
 
   SCM interpret_markup_list = ly_lily_module_constant ("interpret-markup-list");
   SCM header = SCM_EOL;
-  bool set_next_label = false;
-  SCM label;
+  SCM labels = SCM_EOL;
   for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
     {
       if (ly_is_module (scm_car (s)))
@@ -358,8 +363,7 @@ Paper_book::get_system_specs ()
 	  if (scm_is_symbol (page_marker->label ()))
 	    {
 	      /* The next element label is to be set */
-	      set_next_label = true;
-	      label = page_marker->label ();
+	      labels = scm_cons (page_marker->label (), labels);
 	    }
 	}
       else if (Music_output *mop = unsmob_music_output (scm_car (s)))
@@ -379,10 +383,10 @@ Paper_book::get_system_specs ()
 
 	      header = SCM_EOL;
 	      system_specs = scm_cons (pscore->self_scm (), system_specs);
-	      if (set_next_label)
+	      if (scm_is_pair (labels))
 		{
-		  set_label (scm_car (system_specs), label);
-		  set_next_label = false;
+		  set_labels (scm_car (system_specs), labels);
+		  labels = SCM_EOL;
 		}
 	    }
 	  else
@@ -420,10 +424,10 @@ Paper_book::get_system_specs ()
 	      system_specs = scm_cons (ps->self_scm (), system_specs);
 	      ps->unprotect ();
 	      
-	      if (set_next_label)
+	      if (scm_is_pair (labels))
 		{
-		  set_label (scm_car (system_specs), label);
-		  set_next_label = false;
+		  set_labels (scm_car (system_specs), labels);
+		  labels = SCM_EOL;
 		}
 	      // FIXME: figure out penalty.
 	      //set_system_penalty (ps, scores_[i].header_);
