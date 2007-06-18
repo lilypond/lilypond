@@ -66,7 +66,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   */
   Real min_dist = Spacing_interface::minimum_distance (me);
 
-  *fixed = max (min_dist, left_head_end + min_dist/2);
+  *fixed = max (left_head_end + (min_dist - left_head_end) / 2,
+		min_dist - (base_space - increment) / 2);
 
   /*
     We don't do complicated stuff: (base_space - increment) is the
@@ -85,7 +86,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
    up-stem + down-stem should get extra space, the combination
    down-stem + up-stem less.
 
-   TODO: have to check wether the stems are in the same staff.
+   TODO: have to check whether the stems are in the same staff.
 */
 void
 Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,

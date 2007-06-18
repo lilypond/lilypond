@@ -97,7 +97,7 @@ Separation_item::boxes (Grob *me, Grob *left)
   vector<Grob*> elts;
 
   if (left)
-    elts = Accidental_placement::get_break_reminder_accidentals (read_only_elts, left);
+    elts = Accidental_placement::get_relevant_accidentals (read_only_elts, left);
   else
     elts = read_only_elts;
 
