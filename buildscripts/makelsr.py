@@ -4,7 +4,8 @@ import os
 import os.path
 import shutil
 
-dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other']
+dirs =
+['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other','non-music','engravers','instrument-specific']
 notsafe=[]
 
 try:
@@ -45,8 +46,7 @@ for dir in dirs:
 	file_names = os.listdir (destdir)
 	for file in file_names:
 		if (file.endswith ('.ly')):
-			if (file[:3] != 'AAA'):
-				os.remove( os.path.join(destdir,file) )
+			os.remove( os.path.join(destdir,file) )
 	## copy in new files from LSR download
 	copy_dir_with_test( srcdir, destdir )
 	## copy in new files in source tree
