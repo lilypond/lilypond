@@ -23,26 +23,46 @@
 Real
 Spacing_interface::minimum_distance (Grob *me)
 {
+  /* the logic here is a little convoluted.
+     A {Staff,Note}_spacing doesn't copy {left-,right-}items when it clones,
+     so in order to find the separation items, we need to use the original
+     spacing grob. But once we find the separation items, we need to get back
+     the broken piece.
+
+     FIXME: this only works for the left column. There is only one spacing
+     grob for the original and non-original right column and we have no way
+     to tell which one we need */
+
+  Grob *orig = me->original () ? me->original () : me;
+  Direction break_dir = dynamic_cast<Item*> (me)->break_status_dir ();
   Drul_array<Skyline> skylines = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
-  Drul_array<vector<Grob*> > items (ly_scm2link_array (me->get_object ("left-items")),
-				    ly_scm2link_array (me->get_object ("right-items")));
+  Drul_array<vector<Grob*> > items (ly_scm2link_array (orig->get_object ("left-items")),
+				    ly_scm2link_array (orig->get_object ("right-items")));
 
   Direction d = LEFT;
   do
     {
       for (vsize i = 0; i < items[d].size (); i++)
-	if (Separation_item::has_interface (items[d][i]))
-	  {
-	    SCM sky_scm = items[d][i]->get_property ("horizontal-skylines");
-	    Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
-	    if (sky)
-	      skylines[d].merge ((*sky)[-d]);
-	    else
-	      programming_error ("separation item has no skyline");
+	{
+	  Grob *g = items[d][i];
+	  if (d == LEFT)
+	    if (Item *it = dynamic_cast<Item*> (g))
+	      if (Grob *piece = it->find_prebroken_piece (break_dir))
+		g = piece;
+
+	  if (Separation_item::has_interface (g))
+	    {
+	      SCM sky_scm = g->get_property ("horizontal-skylines");
+	      Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
+	      if (sky)
+		skylines[d].merge ((*sky)[-d]);
+	      else
+		programming_error ("separation item has no skyline");
 	    
-	    if (d == RIGHT && items[LEFT].size ())
-	      skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
-	  }
+	      if (d == RIGHT && items[LEFT].size ())
+		skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
+	    }
+	}
     }
   while (flip (&d) != LEFT);
 
