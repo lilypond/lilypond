@@ -76,54 +76,23 @@ Accidental_placement::split_accidentals (Grob *accs,
 }
 
 vector<Grob*>
-Accidental_placement::get_break_reminder_accidentals (vector<Grob*> const &elts, Grob *left)
+Accidental_placement::get_relevant_accidentals (vector<Grob*> const &elts, Grob *left)
 {
   vector<Grob*> br;
   vector<Grob*> ra;
   vector<Grob*> ret;
-
-  if (dynamic_cast<Item *> (left)->break_status_dir () != RIGHT)
-    return vector<Grob*> ();
+  bool right = dynamic_cast<Item *> (left)->break_status_dir () == RIGHT;
 
   for (vsize i = 0; i < elts.size (); i++)
     {
       split_accidentals (elts[i], &br, &ra);
-      ret.insert (ret.end (), br.begin (), br.end ());
+      
+      ret.insert (ret.end (), ra.begin (), ra.end ());
+
+      if (right)
+	ret.insert (ret.end (), br.begin (), br.end ());
     }
   return ret;
-}
-
-/*
-  Accidentals are special, because they appear and disappear after
-  ties at will.
-*/
-Interval
-Accidental_placement::get_relevant_accidental_extent (Grob *me,
-						      Item *item_col,
-						      Grob *left_object)
-{
-  vector<Grob*> br, ra;
-  vector<Grob*> *which = 0;
-
-  Accidental_placement::split_accidentals (me, &br, &ra);
-  concat (br, ra);
-
-  if (dynamic_cast<Item *> (left_object)->break_status_dir () == RIGHT)
-    which = &br;
-  else
-    which = &ra;
-
-  Interval extent;
-  for (vsize i = 0; i < which->size (); i++)
-    extent.unite (which->at (i)->extent (item_col, X_AXIS));
-
-  if (!extent.is_empty ())
-    {
-      Real p = robust_scm2double (me->get_property ("left-padding"), 0.2);
-      extent[LEFT] -= p;
-    }
-
-  return extent;
 }
 
 struct Accidental_placement_entry
