@@ -20,6 +20,10 @@ class Spring
   Real inverse_stretch_strength_;
   Real inverse_compress_strength_;
 
+  Real blocking_force_;
+
+  void update_blocking_force ();
+
   DECLARE_SIMPLE_SMOBS (Spring);
 public:
   Spring ();
@@ -29,14 +33,19 @@ public:
   Real min_distance () const {return min_distance_;}
   Real inverse_stretch_strength () const {return inverse_stretch_strength_;}
   Real inverse_compress_strength () const {return inverse_compress_strength_;}
+  Real blocking_force () const {return blocking_force_;}
+  
+  Real length (Real f) const;
 
   void set_distance (Real);
   void set_min_distance (Real);
   void set_inverse_stretch_strength (Real);
   void set_inverse_compress_strength (Real);
+  void set_blocking_force (Real);
   void set_default_strength ();
 
   void operator*= (Real);
+  bool operator> (Spring const&) const;
   Grob *other_;
 };
 DECLARE_UNSMOB (Spring, spring);

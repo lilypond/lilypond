@@ -21,20 +21,18 @@
 /* return the minimum distance between the left-items and the right-items of
    this spacing object */
 Real
-Spacing_interface::minimum_distance (Grob *me)
+Spacing_interface::minimum_distance (Grob *me, Grob *right_col)
 {
   /* the logic here is a little convoluted.
-     A {Staff,Note}_spacing doesn't copy {left-,right-}items when it clones,
+     A {Staff,Note}_spacing doesn't copy left-items when it clones,
      so in order to find the separation items, we need to use the original
      spacing grob. But once we find the separation items, we need to get back
      the broken piece.
-
-     FIXME: this only works for the left column. There is only one spacing
-     grob for both the original and non-original right columns and we have no way
-     to tell which one we need */
+  */
 
   Grob *orig = me->original () ? me->original () : me;
-  Direction break_dir = dynamic_cast<Item*> (me)->break_status_dir ();
+  Drul_array<Direction> break_dirs (dynamic_cast<Item*> (me)->break_status_dir (),
+				    dynamic_cast<Item*> (right_col)->break_status_dir ());
   Drul_array<Skyline> skylines = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
   Drul_array<vector<Grob*> > items (ly_scm2link_array (orig->get_object ("left-items")),
 				    ly_scm2link_array (orig->get_object ("right-items")));
@@ -45,10 +43,9 @@ Spacing_interface::minimum_distance (Grob *me)
       for (vsize i = 0; i < items[d].size (); i++)
 	{
 	  Grob *g = items[d][i];
-	  if (d == LEFT)
-	    if (Item *it = dynamic_cast<Item*> (g))
-	      if (Grob *piece = it->find_prebroken_piece (break_dir))
-		g = piece;
+	  if (Item *it = dynamic_cast<Item*> (g))
+	    if (Grob *piece = it->find_prebroken_piece (break_dirs[d]))
+	      g = piece;
 
 	  if (Separation_item::has_interface (g))
 	    {

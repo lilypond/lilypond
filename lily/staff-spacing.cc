@@ -107,7 +107,7 @@ Staff_spacing::next_notes_correction (Grob *me,
    will be the distance between columns if there is a compression force of 1.0
    applied to the line. */
 Spring
-Staff_spacing::get_spacing (Grob *me)
+Staff_spacing::get_spacing (Grob *me, Grob *right_col)
 {
   Grob *separation_item = 0;
   Item *me_item = dynamic_cast<Item *> (me);
@@ -192,7 +192,7 @@ Staff_spacing::get_spacing (Grob *me)
     }
 
   Real optical_correction = next_notes_correction (me, last_grob);
-  Real min_dist = Spacing_interface::minimum_distance (me);
+  Real min_dist = Spacing_interface::minimum_distance (me, right_col);
   Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
   Real correction = max (optical_correction, min_dist_correction);
 

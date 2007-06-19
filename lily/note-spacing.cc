@@ -64,7 +64,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     What is sticking out of the note head (eg. a flag), doesn't get
     the full amount of space.
   */
-  Real min_dist = Spacing_interface::minimum_distance (me);
+  Real min_dist = Spacing_interface::minimum_distance (me, right_col);
   Real min_desired_space = max (left_head_end + (min_dist - left_head_end) / 2,
 				min_dist - (base_space - increment) / 2);
   Real ideal = base_space - increment + min_desired_space;

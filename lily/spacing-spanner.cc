@@ -392,7 +392,7 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  */
 	  assert (spacing_grob->get_column () == l);
 
-	  springs.push_back (Staff_spacing::get_spacing (spacing_grob));
+	  springs.push_back (Staff_spacing::get_spacing (spacing_grob, r));
 	}
     }
 

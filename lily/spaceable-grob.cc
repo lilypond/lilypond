@@ -56,34 +56,6 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob *me, Grob *other,
-			    Real distance, Real inverse_strength)
-{
-#ifndef NDEBUG
-  SCM mins = me->get_object ("ideal-distances");
-  for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Spring *sp = unsmob_spring (scm_car (s));
-      if (sp->other_ == other)
-	{
-	  programming_error ("already have that spring");
-	  return;
-	}
-    }
-#endif
-
-  Spring spring;
-  spring.set_inverse_stretch_strength (inverse_strength);
-  spring.set_inverse_compress_strength (inverse_strength);
-  spring.set_distance (distance);
-  spring.other_ = other;
-
-  SCM ideal = me->get_object ("ideal-distances");
-  ideal = scm_cons (spring.smobbed_copy (), ideal);
-  me->set_object ("ideal-distances", ideal);
-}
-
-void
 Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 {
   SCM ideal = me->get_object ("ideal-distances");
@@ -92,8 +64,8 @@ Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
   me->set_object ("ideal-distances", ideal);
 }
 
-void
-Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *inv_strength)
+Spring
+Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
 {
   Spring *spring = 0;
 
@@ -111,8 +83,7 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *in
     programming_error (_f ("No spring between column %d and next one",
 			   Paper_column::get_rank (this_col)));
 
-  *dist = (spring) ? spring->distance () : 5.0;
-  *inv_strength = (spring) ? spring->inverse_stretch_strength () : 1.0;
+  return spring ? *spring : Spring ();
 }
 
 
