@@ -184,7 +184,7 @@ Paper_column::print (SCM p)
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
-      Offset p2 (sp->distance_, y);
+      Offset p2 (sp->distance (), y);
       pts.push_back (p2);
       
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
@@ -192,9 +192,9 @@ Paper_column::print (SCM p)
 
       SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
 							   small_letters,
-							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance_)));
+							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
       
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance_/3, y+1)));
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance ()/3, y+1)));
       id_stencil.add_stencil (head.translated (p2));
       id_stencil = id_stencil.in_color (0,0,1);
       l.add_stencil (id_stencil);

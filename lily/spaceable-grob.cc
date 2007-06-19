@@ -59,22 +59,6 @@ void
 Spaceable_grob::add_spring (Grob *me, Grob *other,
 			    Real distance, Real inverse_strength)
 {
-  if (distance < 0.0 || inverse_strength < 0.0)
-    {
-      programming_error ("adding reverse spring, setting to unit");
-      distance = 1.0;
-      inverse_strength = 1.0;
-    }
-
-  if (isinf (distance) || isnan (distance)
-      || isnan (inverse_strength))
-    {
-      /* strength == INF is possible. It means fixed distance.  */
-      programming_error ("insane distance found");
-      distance = 1.0;
-      inverse_strength = 1.0;
-    }
-
 #ifndef NDEBUG
   SCM mins = me->get_object ("ideal-distances");
   for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
@@ -89,13 +73,22 @@ Spaceable_grob::add_spring (Grob *me, Grob *other,
 #endif
 
   Spring spring;
-  spring.inverse_stretch_strength_ = inverse_strength;
-  spring.inverse_compress_strength_ = inverse_strength;
-  spring.distance_ = distance;
+  spring.set_inverse_stretch_strength (inverse_strength);
+  spring.set_inverse_compress_strength (inverse_strength);
+  spring.set_distance (distance);
   spring.other_ = other;
 
   SCM ideal = me->get_object ("ideal-distances");
   ideal = scm_cons (spring.smobbed_copy (), ideal);
+  me->set_object ("ideal-distances", ideal);
+}
+
+void
+Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
+{
+  SCM ideal = me->get_object ("ideal-distances");
+  sp.other_ = other;
+  ideal = scm_cons (sp.smobbed_copy (), ideal);
   me->set_object ("ideal-distances", ideal);
 }
 
@@ -118,8 +111,8 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *in
     programming_error (_f ("No spring between column %d and next one",
 			   Paper_column::get_rank (this_col)));
 
-  *dist = (spring) ? spring->distance_ : 5.0;
-  *inv_strength = (spring) ? spring->inverse_stretch_strength_ : 1.0;
+  *dist = (spring) ? spring->distance () : 5.0;
+  *inv_strength = (spring) ? spring->inverse_stretch_strength () : 1.0;
 }
 
 

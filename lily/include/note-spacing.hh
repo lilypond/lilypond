@@ -11,13 +11,14 @@
 
 #include "grob-interface.hh"
 #include "lily-proto.hh"
+#include "spring.hh"
 
 class Note_spacing
 {
 public:
   DECLARE_GROB_INTERFACE();
 
-  static void get_spacing (Grob *me, Item *, Real, Real, Real *, Real *);
+  static Spring get_spacing (Grob *me, Item *, Real, Real);
   static void stem_dir_correction (Grob *me, Item *next_col, Real incr,
 				   Real *, Real *);
 };
