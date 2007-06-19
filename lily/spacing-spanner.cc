@@ -370,12 +370,8 @@ void
 Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 					   Spacing_options const *options)
 {
-  Real compound_fixed = 0.0;
-  Real compound_space = 0.0;
-  Real max_fixed = 0.0;
-  Real max_space = 0.0;
-  
-  int wish_count = 0;
+  vector<Spring> springs;
+  Spring spring;
 
   Moment dt = Paper_column::when_mom (r) - Paper_column::when_mom (l);
 
@@ -396,67 +392,40 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  */
 	  assert (spacing_grob->get_column () == l);
 
-	  Spring sp = Staff_spacing::get_spacing (spacing_grob);
-	  Real space = sp.distance ();
-	  Real fixed = sp.min_distance ();
-
-	  if (Paper_column::when_mom (r).grace_part_)
-	    {
-	      /*
-		Correct for grace notes.
-
-		Ugh. The 0.8 is arbitrary.
-	      */
-	      space *= 0.8;
-	    }
-
-	  max_space = max (max_space, space);
-	  max_fixed = max (max_fixed, fixed);
-	  
-	  compound_space += space;
-	  compound_fixed += fixed;
-	  wish_count++;
+	  springs.push_back (Staff_spacing::get_spacing (spacing_grob));
 	}
     }
 
-  if (compound_space <= 0.0 || !wish_count)
-    {
-      standard_breakable_column_spacing (me, l, r, &compound_fixed, &compound_space,
-					 options);
-      wish_count = 1;
-    }
+  if (springs.empty ())
+    spring = standard_breakable_column_spacing (me, l, r, options);
   else
+    spring = merge_springs (springs);
+
+  if (Paper_column::when_mom (r).grace_part_)
     {
-      if (to_boolean (me->get_property ("average-spacing-wishes")))
-	{
-	  compound_space /= wish_count;
-	  compound_fixed /= wish_count;
-	}
-      else
-	{
-	  compound_fixed = max_fixed;
-	  compound_space = max_space;
-	}
-      
+      /*
+	Correct for grace notes.
+	
+	Ugh. The 0.8 is arbitrary.
+      */
+      spring *= 0.8;
     }
 
   if (Paper_column::is_musical (r)
       && l->break_status_dir () == CENTER
       && fills_measure (me, l, r))
     {
-      compound_space += 1.0; 
+      spring.set_distance (spring.distance () + 1.0);
+      spring.set_default_strength ();
     }
   
   if (options->stretch_uniformly_ && l->break_status_dir () != RIGHT)
-    compound_fixed = 0.0;
+    {
+      spring.set_min_distance (0.0);
+      spring.set_default_strength ();
+    }
 
-  assert (!isinf (compound_space));
-  compound_space = max (compound_space, compound_fixed);
-
-  Real inverse_strength = (compound_space - compound_fixed);
-  Real distance = compound_space;
-
-  Spaceable_grob::add_spring (l, r, distance, inverse_strength);
+  Spaceable_grob::add_spring (l, r, spring);
 }
 
 ADD_INTERFACE (Spacing_spanner,

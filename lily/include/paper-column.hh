@@ -48,6 +48,7 @@ public:
   static Moment when_mom (Grob *);
   static bool is_used (Grob *);
   static bool is_breakable (Grob *);
+  static Real minimum_distance (Grob *l, Grob *r);
 };
 
 #endif // PAPER_COLUMN_HH
