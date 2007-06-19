@@ -13,6 +13,7 @@
 #include "rational.hh"
 #include "std-vector.hh"
 #include "grob-interface.hh"
+#include "spring.hh"
 
 class Spacing_spanner
 {
@@ -34,9 +35,7 @@ private:
 public:
   static vector<Grob*> get_columns (Grob *me);
   static Real note_spacing (Grob *, Grob *, Grob *, Spacing_options const *);
-  static void standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						 Real *fixed, Real *space,
-						 Spacing_options const *);
+  static Spring standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *);
   
   DECLARE_SCHEME_CALLBACK (set_springs, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_common_shortest_duration, (SCM));

@@ -127,14 +127,11 @@ set_loose_columns (System *which, Column_x_positions const *posns)
 							     &options);
 	  else
 	    {
-	      Real fixed, space;
-	      
-	      Spacing_spanner::standard_breakable_column_spacing (spacing, 
-								  loose_col, next_col,
-								  &fixed, &space,
-								  &options);
+	      Spring spring = Spacing_spanner::standard_breakable_column_spacing (spacing,
+										  loose_col, next_col,
+										  &options);
 
-	      base_note_space = space;
+	      base_note_space = spring.distance ();
 	    }
 
 	  base_note_space = max (base_note_space,

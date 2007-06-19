@@ -30,7 +30,7 @@ Spacing_interface::minimum_distance (Grob *me)
      the broken piece.
 
      FIXME: this only works for the left column. There is only one spacing
-     grob for the original and non-original right column and we have no way
+     grob for both the original and non-original right columns and we have no way
      to tell which one we need */
 
   Grob *orig = me->original () ? me->original () : me;

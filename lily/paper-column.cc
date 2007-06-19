@@ -22,6 +22,7 @@
 #include "system.hh"
 #include "spring.hh"
 #include "lookup.hh"
+#include "separation-item.hh"
 #include "string-convert.hh"
 
 Grob *
@@ -134,6 +135,30 @@ bool
 Paper_column::is_breakable (Grob *me)
 {
   return scm_is_symbol (me->get_property ("line-break-permission"));
+}
+
+Real
+Paper_column::minimum_distance (Grob *left, Grob *right)
+{
+  Drul_array<Grob*> cols (left, right);
+  Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
+
+  Direction d = LEFT;
+  do
+    {
+      extract_grob_set (cols[d], "elements", elts);
+
+      for (vsize i = 0; i < elts.size (); i++)
+	if (Separation_item::has_interface (elts[i]))
+	  {
+	    Skyline_pair *sp = Skyline_pair::unsmob (elts[i]->get_property ("horizontal-skylines"));
+	    if (sp)
+	      skys[d].merge ((*sp)[-d]);
+	  }
+    }
+  while (flip (&d) != LEFT);
+
+  return min (0.0, skys[LEFT].distance (skys[RIGHT]));
 }
 
 /*

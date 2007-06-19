@@ -14,6 +14,8 @@
 #include "warn.hh"
 #include "pointer-group-interface.hh"
 #include "system.hh"
+#include "spacing-interface.hh"
+#include "spring.hh"
 
 /*
   LilyPond spaces by taking a simple-minded spacing algorithm, and
@@ -24,33 +26,11 @@
   The one-size-fits all spacing. It doesn't take into account
   different spacing wishes from one to the next column.
 */
-void
-Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						    Real *fixed, Real *space,
-						    Spacing_options const *options)
+Spring
+Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
-  *fixed = 0.0;
-  Direction d = LEFT;
-  Drul_array<Item *> cols (l, r);
-
-  do
-    {
-      /*
-	TODO: this is fishy, the extent gets distorted due to wide
-	\marks, so better not do this.
-       */
-      if (!Paper_column::is_musical (cols[d]))
-	{
-	  /*
-	    Tied accidentals over barlines cause problems, so lets see
-	    what happens if we do this for non musical columns only.
-	  */
-	  Interval lext = cols[d]->extent (cols [d], X_AXIS);
-	  if (!lext.is_empty ())
-	    *fixed += -d * lext[-d];
-	}
-    }
-  while (flip (&d) != LEFT);
+  Real min_dist = Paper_column::minimum_distance (l, r);
+  Real ideal;
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
@@ -61,7 +41,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 
       Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
 
-      *space = *fixed + incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      ideal = min_dist + incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
     }
   else
     {
@@ -73,11 +53,12 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 	    In this case, Staff_spacing should handle the job,
 	    using dt when it is 0 is silly.
 	  */
-	  *space = *fixed + 0.5;
+	  ideal = min_dist + 0.5;
 	}
       else
-	*space = *fixed + options->get_duration_space (dt.main_part_);
+	ideal = min_dist + options->get_duration_space (dt.main_part_);
     }
+  return Spring (ideal, min_dist);
 }
 
 Moment *
