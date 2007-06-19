@@ -66,7 +66,7 @@ Spacing_interface::minimum_distance (Grob *me)
     }
   while (flip (&d) != LEFT);
 
-  return skylines[LEFT].distance (skylines[RIGHT]);
+  return max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
 }
 
 /*

@@ -237,37 +237,15 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 					 Spacing_options const *options)
 {
   Real base_note_space = note_spacing (me, left_col, right_col, options);
-
-  Real max_fixed = 0;
-  Real max_space = 0;
-  Real compound_note_space = 0.0;
-  Real compound_fixed_note_space = 0.0;
+  Spring spring;
 
   if (options->stretch_uniformly_)
-    {
-      compound_note_space = base_note_space;
-            
-      if (!Paper_column::is_musical (right_col))
-	{
-	  /*
-	    Crude fix for notes that lead up to barlines and time sigs.
-	  */
-	  Interval lext = right_col->extent (right_col, X_AXIS);
-	  if (!lext.is_empty ())
-	    compound_note_space += -lext[LEFT];
-	}
-    }
+    spring = Spring (base_note_space, 0.0);
   else
     {
-      int wish_count = 0;
-      
+      vector<Spring> springs;
       extract_grob_set (left_col, "right-neighbors", neighbors);
 
-      /*
-	We adjust the space following a note only if the next note
-	happens after the current note (this is set in the grob
-	property SPACING-SEQUENCE.
-      */
       for (vsize i = 0; i < neighbors.size (); i++)
 	{
 	  Grob *wish = neighbors[i];
@@ -281,32 +259,10 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	    This is probably a waste of time in the case of polyphonic
 	    music.  */
 	  if (Note_spacing::has_interface (wish))
-	    {
-	      Real space = 0.0;
-	      Real fixed = 0.0;
-
-	      Note_spacing::get_spacing (wish, right_col, base_note_space, options->increment_, &space, &fixed);
-
-
-	      max_space = max (max_space, space);
-	      max_fixed = max (max_fixed, fixed);
-	      
-	      compound_note_space += space;
-	      compound_fixed_note_space += fixed;
-	      wish_count++;
-	    }
+	    springs.push_back (Note_spacing::get_spacing (wish, right_col, base_note_space, options->increment_));
 	}
 
-      if (Paper_column::when_mom (right_col).grace_part_
-	  && !Paper_column::when_mom (left_col).grace_part_)
-	{
-	  /*
-	    Ugh. 0.8 is arbitrary.
-	  */
-	  compound_note_space *= 0.8;
-	}
-
-      if (compound_note_space < 0 || wish_count == 0)
+      if (springs.empty ())
 	{
 
 	  if (!Paper_column::is_musical (right_col))
@@ -317,9 +273,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 		spacing, because the width of s^"text" output is also
 		taken into account here.
 	       */
-	      compound_fixed_note_space = options->increment_;
-	      compound_note_space = max (base_note_space,
-					 options->increment_);
+	      spring = Spring (max (base_note_space, options->increment_),
+			       options->increment_);
 	    }
 	  else
 	    {
@@ -327,43 +282,29 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 		Fixed should be 0.0. If there are no spacing wishes, we're
 		likely dealing with polyphonic spacing of hemiolas.
 	    
-		We used to have compound_fixed_note_space = options->increment_
+		We used to have min_distance_ = options->increment_
 
 		but this can lead to numeric instability problems when we
 		do
 	    
-		inverse_strength = (compound_note_space - compound_fixed_note_space)
+		inverse_strength = (distance_ - min_distance_)
       
 	      */
-
-	      compound_note_space = base_note_space;
-	      compound_fixed_note_space = 0.0;
+	      spring = Spring (base_note_space, 0.0);
 	    }
 	}
-      else if (to_boolean (me->get_property ("average-spacing-wishes")))
-	{
-	  compound_note_space /= wish_count;
-	  compound_fixed_note_space /= wish_count;
-	}
       else
-	{
-	  compound_fixed_note_space = max_fixed;
-	  compound_note_space = max_space;
-	}
-
-      /*
-	Whatever we do, the fixed space is smaller than the real
-	space.
-
-	TODO: this criterion is discontinuous in the derivative.
-	Maybe it should be continuous?
-      */
-      compound_fixed_note_space = min (compound_fixed_note_space,
-				       compound_note_space);
+	spring = merge_springs (springs);
     }
 
-  Real inverse_strength = 1.0;
-  Real distance = 1.0;
+  if (Paper_column::when_mom (right_col).grace_part_
+      && !Paper_column::when_mom (left_col).grace_part_)
+    {
+      /*
+	Ugh. 0.8 is arbitrary.
+      */
+      spring *= 0.8;
+    }
 
   /*
     TODO: make sure that the space doesn't exceed the right margin.
@@ -379,16 +320,11 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	pack as much bars of music as possible into a line, but the
 	line will then be stretched to fill the whole linewidth.
       */
-      inverse_strength = 1.0;
-      distance = compound_fixed_note_space;
-    }
-  else
-    {
-      inverse_strength = (compound_note_space - compound_fixed_note_space);
-      distance = compound_note_space;
+      spring.set_distance (spring.min_distance ());
+      spring.set_inverse_stretch_strength (1.0);
     }
 
-  Spaceable_grob::add_spring (left_col, right_col, distance, inverse_strength);
+  Spaceable_grob::add_spring (left_col, right_col, spring);
 }
 
 /*
@@ -460,9 +396,9 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 	  */
 	  assert (spacing_grob->get_column () == l);
 
-	  Spring sp = Staff_spacing::get_spacing_params (spacing_grob);
-	  Real space = sp.distance_;
-	  Real fixed = sp.distance_ - sp.inverse_compress_strength_;
+	  Spring sp = Staff_spacing::get_spacing (spacing_grob);
+	  Real space = sp.distance ();
+	  Real fixed = sp.min_distance ();
 
 	  if (Paper_column::when_mom (r).grace_part_)
 	    {

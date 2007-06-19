@@ -107,7 +107,7 @@ Staff_spacing::next_notes_correction (Grob *me,
    will be the distance between columns if there is a compression force of 1.0
    applied to the line. */
 Spring
-Staff_spacing::get_spacing_params (Grob *me)
+Staff_spacing::get_spacing (Grob *me)
 {
   Grob *separation_item = 0;
   Item *me_item = dynamic_cast<Item *> (me);
@@ -199,10 +199,8 @@ Staff_spacing::get_spacing_params (Grob *me)
   fixed += correction;
   ideal += correction;
 
-  Spring ret;
-  ret.min_distance_ = max (min_dist, fixed);
-  ret.distance_ = ideal;
-  ret.inverse_stretch_strength_ = ret.inverse_compress_strength_ = ideal - fixed;
+  Spring ret (ideal, min_dist);
+  ret.set_inverse_stretch_strength (ideal - fixed);
   return ret;
 }
 

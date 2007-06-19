@@ -154,23 +154,16 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 		The note spacing should be taken from the musical
 		columns.
 	      */
-	      Real space = 0.0;
-	      Real fixed = 0.0;
-		  
 	      Real base = note_spacing (me, lc, rc, options);
-	      Note_spacing::get_spacing (sp, rc, base, options->increment_,
-					 &space, &fixed);
+	      Spring spring = Note_spacing::get_spacing (sp, rc, base, options->increment_);
 
-	      space -= options->increment_;
-
-	      dists[d] = max (dists[d], space);
+	      dists[d] = max (dists[d], spring.distance () - options->increment_);
 	    }
 	  else if (Staff_spacing::has_interface (sp))
 	    {
-	      Spring spring = Staff_spacing::get_spacing_params (sp);
-	      Real fixed = spring.distance_ - spring.inverse_compress_strength_;
+	      Spring spring = Staff_spacing::get_spacing (sp);
 
-	      dists[d] = max (dists[d], fixed);
+	      dists[d] = max (dists[d], spring.min_distance ());
 	    }
 	  else
 	    programming_error ("Subversive spacing wish");

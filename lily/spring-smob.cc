@@ -10,15 +10,6 @@
 #include "warn.hh"
 #include "ly-smobs.icc"
 
-Spring::Spring ()
-{
-  distance_ = 1.0;
-  min_distance_ = 1.0;
-  inverse_stretch_strength_ = 1.0;
-  inverse_compress_strength_ = 1.0;
-  other_ = 0;
-}
-
 IMPLEMENT_SIMPLE_SMOBS (Spring);
 
 SCM

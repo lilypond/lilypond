@@ -27,9 +27,9 @@
   spacing?
 */
 
-void
+Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
-			   Real base_space, Real increment, Real *space, Real *fixed)
+			   Real base_space, Real increment)
 {
   vector<Item*> note_columns = Spacing_interface::left_note_columns (me);
   Real left_head_end = 0;
@@ -65,19 +65,15 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     the full amount of space.
   */
   Real min_dist = Spacing_interface::minimum_distance (me);
+  Real min_desired_space = max (left_head_end + (min_dist - left_head_end) / 2,
+				min_dist - (base_space - increment) / 2);
+  Real ideal = base_space - increment + min_desired_space;
 
-  *fixed = max (left_head_end + (min_dist - left_head_end) / 2,
-		min_dist - (base_space - increment) / 2);
+  stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
-  /*
-    We don't do complicated stuff: (base_space - increment) is the
-    normal amount of white, which also determines the amount of
-    stretch. Upon (extreme) stretching, notes with accidentals should
-    stretch as much as notes without accidentals.
-  */
-  *space = (base_space - increment) + *fixed;
-
-  stem_dir_correction (me, right_col, increment, space, fixed);
+  Spring ret (ideal, min_dist);
+  ret.set_inverse_compress_strength (ideal - max (min_dist, min_desired_space));
+  return ret;
 }
 
 

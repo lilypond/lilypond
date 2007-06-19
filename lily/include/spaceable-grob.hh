@@ -11,12 +11,14 @@
 
 #include "lily-proto.hh"
 #include "grob-interface.hh"
+#include "spring.hh"
 
 struct Spaceable_grob
 {
   /// set a minimum distance
   static void add_rod (Grob *me, Grob *to, Real distance);
   static void add_spring (Grob *me, Grob *to, Real dist, Real strength);
+  static void add_spring (Grob *me, Grob *to, Spring sp);
   static void get_spring (Grob *me, Grob *other, Real *dist, Real *inv_strength);
 
   DECLARE_GROB_INTERFACE();
