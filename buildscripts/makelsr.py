@@ -30,11 +30,9 @@ def copy_dir_with_test(srcdir, destdir):
 			src = os.path.join (srcdir, file)
 			dest = os.path.join (destdir, file)
 			copy_with_warning(src, dest)
-			s = os.system('convert-ly -e ' + dest)
+			os.system('convert-ly -e ' + dest)
 			if os.path.exists( dest + '~' ):
 				os.remove( dest + '~' )
-			if s:
-				notconvert.append(dest)
 			# the -V seems to make unsafe snippets fail nicer/sooner.
 			s = os.system('nice lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
 			#s = os.system('nice lilypond -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
