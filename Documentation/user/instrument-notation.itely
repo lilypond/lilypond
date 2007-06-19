@@ -4574,6 +4574,16 @@ automatically.
 @end lilypond
 
 
+@commonprop
+
+By default, this method produces figures above the notes.  To get
+figures below the notes, use
+
+@example
+\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+@end example
+
+
 @refbugs
 
 When using figured bass above the staff with extender lines and
