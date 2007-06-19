@@ -6,6 +6,7 @@ import shutil
 
 dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other','non-music','engravers','instrument-specific']
 notsafe=[]
+notconvert=[]
 
 try:
 	in_dir = sys.argv[1]
@@ -19,6 +20,8 @@ def copy_with_warning(src, dest):
 
 
 def copy_dir_with_test(srcdir, destdir):
+	global notsafe
+	global notconvert
 	if not(os.path.exists(srcdir)):
 		return
 	file_names = os.listdir (srcdir)
@@ -27,8 +30,14 @@ def copy_dir_with_test(srcdir, destdir):
 			src = os.path.join (srcdir, file)
 			dest = os.path.join (destdir, file)
 			copy_with_warning(src, dest)
-			os.system('convert-ly -e ' + dest)
-			s = os.system('nice lilypond -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
+			s = os.system('convert-ly -e ' + dest)
+			if os.path.exists( dest + '~' ):
+				os.remove( dest + '~' )
+			if s:
+				notconvert.append(dest)
+			# the -V seems to make unsafe snippets fail nicer/sooner.
+			s = os.system('nice lilypond -V -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
+			#s = os.system('nice lilypond -dno-print-pages -dsafe -o /tmp/lsrtest ' + dest)
 			if s:
 				notsafe.append(dest)
 
@@ -52,11 +61,20 @@ for dir in dirs:
 	copy_dir_with_test( os.path.join ('input', 'new', dir), destdir )
 
 
+file=open("not-converted.txt", 'w')
+for s in notconvert:
+	file.write(s+'\n')
+file.close()
+
 file=open("lsr-unsafe.txt", 'w')
 for s in notsafe:
 	file.write(s+'\n')
 file.close()
+
 print
+print
+print "List of files that could not be automatically updated printed",
+print "in not-converted.txt: CHECK MANUALLY!"
 print
 print "Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!"
 print "  xargs git-diff < lsr-unsafe.txt"
