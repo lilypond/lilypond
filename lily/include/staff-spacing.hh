@@ -20,7 +20,7 @@ class Staff_spacing
 
 public:
   DECLARE_GROB_INTERFACE();
-  static Spring get_spacing (Grob *);
+  static Spring get_spacing (Grob *, Grob *right_col);
   static Interval bar_y_positions (Grob *);
 };
 

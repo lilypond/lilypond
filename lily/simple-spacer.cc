@@ -80,8 +80,8 @@ Simple_spacer::fits () const
 Real
 Simple_spacer::rod_force (int l, int r, Real dist)
 {
-  Real c = range_stiffness (l, r);
   Real d = range_ideal_len (l, r);
+  Real c = range_stiffness (l, r, d > dist);
   Real block_stretch = dist - d;
   return c * block_stretch;
 }
@@ -102,13 +102,13 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
 	for (int i = l; i < r; i++)
-	  springs_[i].ideal_ *= dist / spring_dist;
+	  springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
 
       return;
     }
   force_ = max (force_, block_force);
   for (int i = l; i < r; i++)
-    springs_[i].block_force_ = max (block_force, springs_[i].block_force_);
+    springs_[i].set_blocking_force (max (block_force, springs_[i].blocking_force ()));
 }
 
 Real
@@ -116,16 +116,17 @@ Simple_spacer::range_ideal_len (int l, int r) const
 {
   Real d = 0.;
   for (int i = l; i < r; i++)
-    d += springs_[i].ideal_;
+    d += springs_[i].distance ();
   return d;
 }
 
 Real
-Simple_spacer::range_stiffness (int l, int r) const
+Simple_spacer::range_stiffness (int l, int r, bool stretch) const
 {
   Real den = 0.0;
   for (int i = l; i < r; i++)
-    den += springs_[i].inverse_hooke_;
+    den += stretch ? springs_[i].inverse_stretch_strength ()
+      : springs_[i].inverse_compress_strength ();
 
   return 1 / den;
 }
@@ -144,13 +145,10 @@ void
 Simple_spacer::solve (Real line_len, bool ragged)
 {
   Real conf = configuration_length (force_);
-  double inv_hooke = 0;
-  for (vsize i=0; i < springs_.size (); i++)
-    inv_hooke += springs_[i].inverse_hooke_;
 
   ragged_ = ragged;
   line_len_ = line_len;
-  if ((inv_hooke > 0) && (conf < line_len_))
+  if (conf < line_len_)
     force_ = expand_line ();
   else if (conf > line_len_)
     force_ = compress_line ();
@@ -167,7 +165,7 @@ Simple_spacer::expand_line ()
 
   fits_ = true;
   for (vsize i=0; i < springs_.size (); i++)
-    inv_hooke += springs_[i].inverse_hooke_;
+    inv_hooke += springs_[i].inverse_stretch_strength ();
 
   assert (cur_len <= line_len_);
   return (line_len_ - cur_len) / inv_hooke + force_;
@@ -179,39 +177,53 @@ Simple_spacer::compress_line ()
   double inv_hooke = 0;
   double cur_len = configuration_length (force_);
   double cur_force = force_;
+  bool compressed = false;
+
+  /* just because we are in compress_line () doesn't mean that the line
+     will actually be compressed (as in, a negative force) because
+     we start out with a stretched line. Here, we check whether we
+     will be compressed or stretched (so we know which spring constant to use) */
+  if (configuration_length (0.0) > line_len_)
+    {
+      cur_force = 0.0;
+      cur_len = configuration_length (0.0);
+      compressed = true;
+    }
 
   fits_ = true;
   for (vsize i=0; i < springs_.size (); i++)
-    inv_hooke += springs_[i].inverse_hooke_;
+    inv_hooke += compressed
+      ? springs_[i].inverse_compress_strength ()
+      : springs_[i].inverse_stretch_strength ();
 
   assert (line_len_ <= cur_len);
 
-  vector<Spring_description> sorted_springs = springs_;
-  sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring_description> ());
+  vector<Spring> sorted_springs = springs_;
+  sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring> ());
   for (vsize i = 0; i < sorted_springs.size (); i++)
     {
-      Spring_description sp = sorted_springs[i];
+      Spring sp = sorted_springs[i];
 
-      assert (sp.block_force_ <= cur_force);
-      if (isinf (sp.block_force_))
+      assert (sp.blocking_force () <= cur_force);
+      if (isinf (sp.blocking_force ()))
 	break;
 
-      double block_dist = (cur_force - sp.block_force_) * inv_hooke;
+      double block_dist = (cur_force - sp.blocking_force ()) * inv_hooke;
       if (cur_len - block_dist < line_len_)
 	{
-	 cur_force += (line_len_ - cur_len) / inv_hooke;
-	 cur_len = line_len_;
+	  cur_force += (line_len_ - cur_len) / inv_hooke;
+	  cur_len = line_len_;
 
-	 /*
-	   Paranoia check.
+	  /*
+	    Paranoia check.
 	  */
-	 assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
-	 return cur_force;
+	  assert (fabs (configuration_length (cur_force) - cur_len) < 1e-6);
+	  return cur_force;
 	}
       
       cur_len -= block_dist;
-      inv_hooke -= sp.inverse_hooke_;
-      cur_force = sp.block_force_;
+      inv_hooke -= sp.inverse_compress_strength ();
+      cur_force = sp.blocking_force ();
     }
 
   fits_ = false;
@@ -219,24 +231,10 @@ Simple_spacer::compress_line ()
 }
 
 void
-Simple_spacer::add_spring (Real ideal, Real inverse_hooke)
+Simple_spacer::add_spring (Spring const &sp)
 {
-  Spring_description description;
-
-  description.ideal_ = ideal;
-  description.inverse_hooke_ = inverse_hooke;
-  if (!description.is_sane ())
-    {
-      programming_error ("insane spring found, setting to unit");
-
-      description.inverse_hooke_ = 1.0;
-      description.ideal_ = 1.0;
-    }
-
-  description.block_force_ = -description.ideal_ / description.inverse_hooke_;
-  // block at distance 0
-
-  springs_.push_back (description);
+  force_ = max (force_, sp.blocking_force ());
+  springs_.push_back (sp);
 }
 
 vector<Real>
@@ -262,31 +260,6 @@ Simple_spacer::force_penalty (bool ragged) const
   /* Use a convex compression penalty. */
   Real f = force_;
   return f - (f < 0 ? f*f*f*f*4 : 0);
-}
-
-/****************************************************************/
-
-Spring_description::Spring_description ()
-{
-  ideal_ = 0.0;
-  inverse_hooke_ = 0.0;
-  block_force_ = 0.0;
-}
-
-bool
-Spring_description::is_sane () const
-{
-  return (inverse_hooke_ >= 0)
-    && ideal_ >= 0
-    && !isinf (ideal_) && !isnan (ideal_)
-    && (inverse_hooke_ == 0.0 || fabs (inverse_hooke_) > 1e-8)
-    ;
-}
-
-Real
-Spring_description::length (Real f) const
-{
-  return ideal_ + max (f, block_force_) * inverse_hooke_;
 }
 
 /****************************************************************/
@@ -332,19 +305,14 @@ struct Column_description
 {
   vector<Rod_description> rods_;
   vector<Rod_description> end_rods_;   /* use these if they end at the last column of the line */
-  Real ideal_;
-  Real inverse_hooke_;
-  Real end_ideal_;
-  Real end_inverse_hooke_;
+  Spring spring_;
+  Spring end_spring_;
+
   SCM break_permission_;
   Interval keep_inside_line_;
 
   Column_description ()
   {
-    ideal_ = 0;
-    inverse_hooke_ = 0;
-    end_ideal_ = 0;
-    end_inverse_hooke_ = 0;
     break_permission_ = SCM_EOL;
   }
 };
@@ -383,10 +351,11 @@ get_column_description (vector<Grob*> const &cols, vsize col_index, bool line_st
   Column_description description;
   Grob *next_col = next_spaceable_column (cols, col_index);
   if (next_col)
-    Spaceable_grob::get_spring (col, next_col, &description.ideal_, &description.inverse_hooke_);
+    description.spring_ = Spaceable_grob::get_spring (col, next_col);
+
   Grob *end_col = dynamic_cast<Item*> (cols[col_index+1])->find_prebroken_piece (LEFT);
   if (end_col)
-    Spaceable_grob::get_spring (col, end_col, &description.end_ideal_, &description.end_inverse_hooke_);
+    description.end_spring_ = Spaceable_grob::get_spring (col, end_col);
 
   for (SCM s = Spaceable_grob::get_minimum_distances (col);
        scm_is_pair (s); s = scm_cdr (s))
@@ -447,8 +416,8 @@ get_line_forces (vector<Grob*> const &columns,
 	  Simple_spacer spacer;
 
 	  for (vsize i = breaks[b]; i < end - 1; i++)
-	    spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
-	  spacer.add_spring (cols[end-1].end_ideal_, cols[end-1].end_inverse_hooke_);
+	    spacer.add_spring (cols[i].spring_);
+	  spacer.add_spring (cols[end-1].end_spring_);
 
 
 	  for (vsize i = breaks[b]; i < end; i++)
@@ -508,7 +477,7 @@ get_line_configuration (vector<Grob*> const &columns,
   for (vsize i = 0; i + 1 < ret.cols_.size (); i++)
     {
       cols.push_back (get_column_description (ret.cols_, i, i == 0));
-      spacer.add_spring (cols[i].ideal_, cols[i].inverse_hooke_);
+      spacer.add_spring (cols[i].spring_);
     }
   for (vsize i = 0; i < cols.size (); i++)
     {

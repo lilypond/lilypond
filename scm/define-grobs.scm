@@ -1448,14 +1448,6 @@
 		 (interfaces . (
 				separation-item-interface))))))
 
-    (SeparatingGroupSpanner
-     . (
-	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
-	(meta . ((class . Spanner)
-		 (interfaces . (only-prebreak-interface
-				
-				separating-group-spanner-interface))))))
-
     (Slur
      . ((details . ,default-slur-details)
 	(control-points . ,ly:slur::calc-control-points)
