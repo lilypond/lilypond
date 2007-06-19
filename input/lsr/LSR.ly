@@ -33,6 +33,12 @@ These pages show LilyPond examples (snippets) from the
 
 @strong{@uref{vocal/collated-files.html,Vocal music}}
 
+@strong{@uref{non-music/collated-files.html,Non-musical}}
+
+@strong{@uref{instrument-specific/collated-files.html,Instrument-specific}}
+
+@strong{@uref{engravers/collated-files.html,Engravers}}
+
 @strong{@uref{scheme/collated-files.html,Advanced stuff with scheme}}
 
 @strong{@uref{other/collated-files.html,Other: snippets that do not fit
