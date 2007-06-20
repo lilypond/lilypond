@@ -50,7 +50,7 @@ GENERAL GUIDELINES
   `invalid' instead.
 
 * Avoid long stretches of input code.  Noone is going to read them in
-  print.  Instead refer to an example input file (@inputfileref), these
+  print.  Instead refer to an example input file (with @lsr{}); these
   are clickable in HTML.
 
 * Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
