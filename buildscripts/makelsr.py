@@ -6,7 +6,6 @@ import shutil
 
 dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other','non-music','engravers','instrument-specific']
 notsafe=[]
-notconvert=[]
 
 try:
 	in_dir = sys.argv[1]
@@ -70,9 +69,6 @@ for s in notsafe:
 file.close()
 
 print
-print
-print "List of files that could not be automatically updated printed",
-print "in not-converted.txt: CHECK MANUALLY!"
 print
 print "Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!"
 print "  xargs git-diff < lsr-unsafe.txt"
