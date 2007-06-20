@@ -556,7 +556,7 @@ adds the new exceptions to the default ones, which are defined in
 @file{ly/@/chord@/-modifier@/-init@/.ly}.
 
 For an example of tuning this property, see also
-@lsr{chords/,chord@/-name@/-exceptions@/.ly}
+@lsr{chords,chord@/-name@/-exceptions@/.ly}
 @cindex exceptions, chord names.
 
 
@@ -614,8 +614,8 @@ demonstrated here,
 There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords.  The
 alternate Jazz notation is also shown on the chart in @ref{Chord name
-chart}.  Turning on these styles is described in the input file
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
+chart}.  Turning on these styles is demonstrated in
+@lsr{chords,chord-names-jazz.ly}.
 
 @cindex Banter
 @cindex jazz chords
@@ -639,10 +639,7 @@ chart}.  Turning on these styles is described in the input file
 @seealso
 
 Examples:
-@lsr{chords/,chord@/-name@/-exceptions@/.ly},
-@lsr{chords,chord@/-name@/-major7@/.ly}, and
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
-
+@lsrdir{chords}
 
 Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
 @file{scm/@/chord@/-entry@/.scm}.
@@ -2237,7 +2234,7 @@ Details about the property interface to fret diagrams are found at
 
 @seealso
 
-Examples: @inputfileref{input/@/test,fret@/-diagram@/.ly}
+Examples: @lsrdir{guitar}
 
 
 @node Right hand fingerings
@@ -2610,7 +2607,7 @@ ancient accidentals.
 As shown, not all accidentals are supported by each style.  When
 trying to access an unsupported accidental, LilyPond will switch to a
 different style, as demonstrated in
-@inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
+@lsr{ancient,ancient-accidentals.ly}.
 
 Similarly to local accidentals, the style of the key signature can be
 controlled by the @code{glyph-name-alist} property of the
@@ -2625,7 +2622,7 @@ the use of key signatures.
 
 Program reference: @internalsref{KeySignature}.
 
-Examples: @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
+Examples: @lsrdir{ancient}
 
 @node Ancient rests
 @subsection Ancient rests
@@ -2652,8 +2649,7 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
-taken.  See @inputfileref{input/@/test,rests@/.ly} for a chart of all
-rests.
+taken.  See @lsr{pitches,rests} for a chart of all rests.
 
 There are no rests in Gregorian Chant notation; instead, it uses
 @ref{Divisiones}.
@@ -3216,7 +3212,8 @@ In this manual: @ref{Breath marks}.
 
 Program reference: @internalsref{BreathingSign}.
 
-Examples: @inputfileref{input/@/test,divisiones@/.ly}.
+Examples: @lsr{expressive,breathing-sign.ly}.
+
 
 @node Ligatures
 @subsection Ligatures

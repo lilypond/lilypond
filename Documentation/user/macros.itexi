@@ -62,7 +62,7 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
 @end ifhtml
 @ifnothtml
   @file{\DIR\}

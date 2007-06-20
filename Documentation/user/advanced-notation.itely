@@ -1125,7 +1125,7 @@ be added
 Bar numbers can be typeset at regular intervals instead of at the
 beginning of each line.  This is illustrated in the following example,
 whose source is available as
-@inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}
+@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
 
 @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
 
@@ -1150,9 +1150,7 @@ c4 c c c
 
 Program reference: @internalsref{BarNumber}.
 
-Examples:
-@inputfileref{input/@/test,bar@/-number@/-every@/-five@/-reset@/.ly},
-and @inputfileref{input/@/test,bar@/-number@/-regular@/-interval@/.ly}.
+Examples: @lsrdir{staff}
 
 
 @refbugs
@@ -1889,7 +1887,7 @@ Double time signatures are not supported explicitly, but they can be
 faked.  In the next example, the markup for the time signature is
 created with a markup text.  This markup text is inserted in the
 @internalsref{TimeSignature} grob. See also
-@inputfileref{input/@/test,compound@/-time@/.ly}).
+@lsr{contemporary,compound-time-signature}.
 
 @lilypond[verbatim,ragged-right]
 % create 2/4 + 5/8
@@ -2650,7 +2648,6 @@ the notes.
 >>
 @end lilypond
 
-Examples: @inputfileref{input/@/regression,grid@/-lines@/.ly}.
-
+Examples: @lsrdir{education}
 
 
