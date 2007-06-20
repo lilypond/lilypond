@@ -58,11 +58,6 @@ for dir in dirs:
 	copy_dir_with_test( os.path.join ('input', 'new', dir), destdir )
 
 
-file=open("not-converted.txt", 'w')
-for s in notconvert:
-	file.write(s+'\n')
-file.close()
-
 file=open("lsr-unsafe.txt", 'w')
 for s in notsafe:
 	file.write(s+'\n')
