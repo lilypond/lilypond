@@ -416,7 +416,6 @@ printing of a single line of lyrics."
 %  \consists "Note_spacing_engraver"
   voltaOnThisStaff = ##f
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
-  \override SeparatingGroupSpanner #'padding = #0.8
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
 }
