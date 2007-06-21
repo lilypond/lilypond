@@ -201,7 +201,7 @@ Separation_item::print (SCM smob)
 
 ADD_INTERFACE (Separation_item,
 	       "Item that computes widths to generate spacing rods. "
-	       "This is done in concert with @ref{separating-group-spanner-interface}.",
+	       ,
 
 	       "X-extent "
 	       "conditional-elements "
