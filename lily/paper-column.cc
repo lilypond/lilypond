@@ -200,8 +200,9 @@ Paper_column::print (SCM p)
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring *sp = unsmob_spring (scm_car (s));
-      if (!sp->other_->get_system ())
+      Spring *sp = unsmob_spring (scm_caar (s));
+      if (!unsmob_grob (scm_cdar (s))
+	  || !unsmob_grob (scm_cdar (s))->get_system ())
 	continue;
       
       j++;

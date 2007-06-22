@@ -24,6 +24,13 @@ using namespace std;
 #include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
 
+/* A stem following a bar-line creates an optical illusion similar to the
+   one mentioned in note-spacing.cc. We correct for it here.
+
+   TODO: should we still correct if there are accidentals/arpeggios before
+   the stem?
+*/
+
 Real
 Staff_spacing::optical_correction (Grob *me, Grob *g, Interval bar_height)
 {
@@ -100,12 +107,11 @@ Staff_spacing::next_notes_correction (Grob *me,
   return max_optical;
 }
 
-/* This routine does not impose any minimum distances between columns; it only
-   affects springs. As such, the FIXED variable does not refer to a minimum
-   distance between columns, but instead to a minimum desired distance between
-   columns -- this ends up affecting the stiffness of a spring. In fact, FIXED
-   will be the distance between columns if there is a compression force of 1.0
-   applied to the line. */
+/* We calculate three things here: the ideal distance, the minimum distance
+   (which is the distance at which collisions will occure) and the "fixed"
+   distance, which is the distance at which things start to look really bad.
+   We arrange things so that the fixed distance will be attained when the
+   line is compressed with a force of 1.0 */
 Spring
 Staff_spacing::get_spacing (Grob *me, Grob *right_col)
 {
@@ -193,6 +199,8 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
 
   Real optical_correction = next_notes_correction (me, last_grob);
   Real min_dist = Spacing_interface::minimum_distance (me, right_col);
+
+  /* ensure that the "fixed" distance will leave a gap of at least 0.3 ss. */
   Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
   Real correction = max (optical_correction, min_dist_correction);
 

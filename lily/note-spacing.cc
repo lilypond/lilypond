@@ -57,12 +57,13 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     }
 
   /*
-    We look at the width of the note head, since smaller heads get less space
+    The main factor that determines the amount of space is the width of the
+    note head (or the rest). For example, a quarter rest gets almost 0.5 ss
+    less horizontal space than a note.
 
-    eg. a quarter rest gets almost 0.5 ss less horizontal space than a note.
-
-    What is sticking out of the note head (eg. a flag), doesn't get
-    the full amount of space.
+    The other parts of a note column (eg. flags, accidentals, etc.) don't get
+    the full amount of space. We give them half the amount of space, but then
+    adjust things so there are no collisions.
   */
   Real min_dist = Spacing_interface::minimum_distance (me, right_col);
   Real min_desired_space = max (left_head_end + (min_dist - left_head_end) / 2,

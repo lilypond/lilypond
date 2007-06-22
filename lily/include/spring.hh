@@ -46,7 +46,6 @@ public:
 
   void operator*= (Real);
   bool operator> (Spring const&) const;
-  Grob *other_;
 };
 DECLARE_UNSMOB (Spring, spring);
 

@@ -59,8 +59,8 @@ void
 Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 {
   SCM ideal = me->get_object ("ideal-distances");
-  sp.other_ = other;
-  ideal = scm_cons (sp.smobbed_copy (), ideal);
+
+  ideal = scm_cons (scm_cons (sp.smobbed_copy (), other->self_scm ()), ideal);
   me->set_object ("ideal-distances", ideal);
 }
 
@@ -73,10 +73,10 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
        !spring && scm_is_pair (s);
        s = scm_cdr (s))
     {
-      Spring *sp = unsmob_spring (scm_car (s));
-
-      if (sp && sp->other_ == next_col)
-	spring = sp;
+      if (scm_is_pair (scm_car (s))
+	  && unsmob_grob (scm_cdar (s)) == next_col
+	  && unsmob_spring (scm_caar (s)))
+	spring = unsmob_spring (scm_caar (s));
     }
 
   if (!spring)
