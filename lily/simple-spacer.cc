@@ -200,6 +200,7 @@ Simple_spacer::compress_line ()
 
   vector<Spring> sorted_springs = springs_;
   sort (sorted_springs.begin (), sorted_springs.end (), greater<Spring> ());
+
   for (vsize i = 0; i < sorted_springs.size (); i++)
     {
       Spring sp = sorted_springs[i];
@@ -263,20 +264,6 @@ Simple_spacer::force_penalty (bool ragged) const
 }
 
 /****************************************************************/
-
-/*
-  TODO: should a add penalty for widely varying spring forces (caused
-  by constraints, eg.
-
-
-  .     =====
-  .     |   |
-  .o|o|x ##x
-  .
-
-  The ## forces the notes apart; we shouldn't allow the O's to touch
-  this closely.
-*/
 
 struct Rod_description
 {
