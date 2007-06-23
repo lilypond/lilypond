@@ -690,7 +690,13 @@ to mix music and text in documents.
 @node About this manual
 @section About this manual
 
-The manual is divided into the following chapters:
+The manual is divided into four books.
+
+@subsubheading Learning manual
+
+This book explains how to begin learning LilyPond, as well as explaining
+some key concepts in easy terms.
+
 @itemize @bullet
 
 @item
@@ -715,6 +721,16 @@ problems.
 @emph{@ref{Tweaking output}},
 shows how to change the default engraving that LilyPond
 produces.
+
+@end itemize
+
+@subsubheading Notation reference
+
+This book explains all the LilyPond commands which produce notation.  It
+assumes that readers are familiar with the concepts in the Learning
+manual.
+
+@itemize @bullet
 
 @item
 @emph{@ref{Basic notation}},
@@ -751,6 +767,16 @@ paper size or specifying page breaks.
 @emph{@ref{Interfaces for programmers}},
 explains how to create music functions.
 
+@end itemize
+
+
+@subsubheading Program usage
+
+This book explains how to execute the program and how to integrate
+LilyPond notation with other programs.
+
+@itemize @bullet
+
 @item
 @emph{@ref{Running LilyPond}},
 shows how to run LilyPond and its helper programs.  In addition, this
@@ -768,6 +794,14 @@ explains how to run the conversion programs.  These programs are
 supplied with the LilyPond package, and convert a variety of music
 formats to the @code{.ly} format.
 
+@end itemize
+
+
+@subsubheading Appendices
+
+This book contains useful reference charts.
+
+@itemize @bullet
 @item
 @ifhtml
 The
@@ -810,6 +844,70 @@ is a complete index.
 @end itemize
 
 
+@subsubheading Other information
+
+There are a number of other places which may be very valuable.
+
+@itemize @bullet
+@cindex idiom
+@cindex jargon
+@cindex terminology
+@cindex foreign languages
+@cindex language
+@item
+@ifnottex
+The @ref{Top,Music glossary,,music-glossary}, explains musical terms and
+includes translations to various languages.  It is also available in
+PDF.
+@end ifnottex
+@iftex
+The music glossary explains musical terms, and includes translations
+to various languages.  It is a separate document, available in HTML
+and PDF.
+@end iftex
+If you are not familiar with music notation or music terminology
+(especially if you are a non-native English speaker), it is highly
+advisable to consult the glossary.
+
+@cindex snippets
+@cindex LSR
+@item
+The
+@ifhtml
+@uref{source/input/lsr/collated-files.html,Snippets}
+@end ifhtml
+@ifnothtml
+Snippets
+@end ifnothtml
+are a great collection of short examples which demonstrate tricks, tips,
+and special features of LilyPond.  Most of these snippets can also be
+found in the @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet
+Repository}.  This website also has a searchable LilyPond manual.
+
+
+@item
+The
+@iftex
+Program reference
+@end iftex
+@ifnottex
+@ref{Top,Program reference,,lilypond-internals}
+@end ifnottex
+is a set of heavily cross linked HTML pages, which document the
+nitty-gritty details of each and every LilyPond class, object, and
+function.  It is produced directly from the formatting definitions used.
+
+Almost all formatting functionality that is used internally, is
+available directly to the user.  For example, all variables that control
+thickness values, distances, etc., can be changed in input files.  There
+are a huge number of formatting options, and all of them are described
+in this document.  Each section of the notation manual has a @b{See
+also} subsection, which refers to the generated documentation.  In the
+HTML document, these subsections have clickable links.
+
+@end itemize
+
+
 Once you are an experienced user, you can use the manual as reference:
 there is an extensive index@footnote{If you are looking for something,
 and you cannot find it in the manual, that is considered a bug.  In
@@ -823,105 +921,23 @@ a big HTML page,
 @end ifhtml
 which can be searched easily using the search facility of a web
 browser.
-@cindex search in manual
-@cindex using the manual
-
-@c FIXME:
-@c add/integrate glossary, put in list above
-If you are not familiar with music notation or music terminology
-(especially if you are a non-native English speaker), it is advisable
-to consult the glossary as well.
-@iftex
-The music glossary explains musical terms, and includes translations
-to various languages.  It is a separate document, available in HTML
-and PDF.
-@end iftex
-@ifnottex
-The @ref{Top,Music glossary,,music-glossary}, explains musical terms and
-includes translations to various languages.  It is also available in
-PDF.
-@end ifnottex
-@cindex idiom
-@cindex jargon
-@cindex terminology
-@cindex foreign languages
-@cindex language
-
-
-This manual is not complete without a number of other documents.  They
-are not available in print, but should be included with the
-documentation package for your platform
-
-@itemize @bullet
-@item
-@iftex
-Program reference
-@end iftex
-@ifnottex
-@ref{Top,Program reference,,lilypond-internals}.
-@end ifnottex
-
-The program reference is a set of heavily cross linked HTML pages,
-which document the nitty-gritty details of each and every LilyPond
-class, object, and function.  It is produced directly from the
-formatting definitions used.
-
-Almost all formatting functionality that is used internally, is
-available directly to the user.  For example, all variables that
-control thickness values, distances, etc., can be changed in input
-files.  There are a huge number of formatting options, and all of them
-are described in this document.  Each section of the notation manual
-has a @b{See also} subsection, which refers to the generated
-documentation.  In the HTML document, these subsections have clickable
-links.
-
-@cindex snippets
-@item
-@ifnothtml
-Various input examples.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/test,Various input examples}.
-@uref{source/input/test/collated-files.html,Various input examples}.
-@end ifhtml
-
-This collection of files shows various tips and tricks, and is
-available as a big HTML document, with pictures and explanatory texts
-included.
-
-@item
-@ifnothtml
-The regression tests.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/regression,The regression tests}.
-@uref{source/input/regression/collated-files.html,The regression tests}.
-@end ifhtml
-
-This collection of files tests each notation and engraving feature of
-LilyPond in one file.  The collection is primarily there to help us
-debug problems, but it can be instructive to see how we exercise the
-program.  The format is similar to the tips and tricks document.
-@end itemize
 
 
 In all HTML documents that have music fragments embedded, the LilyPond
 input that was used to produce that image can be viewed by clicking
 the image.
 
-The location of the documentation files that are mentioned here can
-vary from system to system.  On occasion, this manual refers to
+The location of the documentation files that are mentioned here can vary
+from system to system.  On occasion, this manual refers to
 initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
-example, @file{input/@/test/@/bla@/.ly} may refer to the file
-@file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  On binary packages
-for the Unix platform, the documentation and examples can typically be
-found somewhere below @file{/usr/@/share/@/doc/@/lilypond/}.
-Initialization files, for example @file{scm/@/lily@/.scm}, or
-@file{ly/@/engraver@/-init@/.ly}, are usually found in the directory
-@file{/usr/@/share/@/lilypond/}.
+example, @file{input/@/lsr/@/dirname/@/bla@/.ly} may refer to the file
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
+packages for the Unix platform, the documentation and examples can
+typically be found somewhere below
+@file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
+example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
+are usually found in the directory @file{/usr/@/share/@/lilypond/}.
 
 @cindex adjusting output
 @cindex variables
@@ -935,4 +951,5 @@ Initialization files, for example @file{scm/@/lily@/.scm}, or
 Finally, this and all other manuals, are available online both as PDF
 files and HTML from the web site, which can be found at
 @uref{http://@/www@/.lilypond@/.org/}.
+
 

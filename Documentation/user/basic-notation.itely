@@ -486,7 +486,7 @@ existing music with another @code{transpose}
 
 Program reference: @internalsref{TransposedMusic}.
 
-Example: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+Example: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
@@ -1612,7 +1612,7 @@ measure is subdivided in 2, 2, 2 and 3.  This is passed to
 Program reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
-Examples: @inputfileref{input/@/test,compound@/-time@/.ly}.
+Examples: @lsr{contemporary,compound-time-signature.ly}.
 
 
 @refbugs
@@ -1898,8 +1898,8 @@ LilyPond, these lines are drawn using a separate layout object called
 
 The staff symbol may be tuned in the number, thickness and distance
 of lines, using properties.  This is demonstrated in the example files
-@inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly}.
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
+@lsr{staff,changing-the-staff-size.ly}.
 
 In addition, staves may be started and stopped at will. This is done
 with @code{\startStaff} and @code{\stopStaff}.
@@ -1930,10 +1930,7 @@ sections. An example is shown here
 
 Program reference: @internalsref{StaffSymbol}.
 
-Examples: @inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly},
-@lsr{staff,staff-line-positions.ly}
+Examples: @lsrdir{staff}
 
 
 @node Writing music in parallel

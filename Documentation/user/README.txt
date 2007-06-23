@@ -4,7 +4,7 @@ Info for Documentation
 Current version of the manual: 2.11.15
 *** Please update this whenever you run convert-ly on the docs.
 
-convert-ly --from=... --to=... --no-version *.itely
+convert-ly -e --from=... --to=... --no-version *.itely
  
 %%%%%
 DOC ORGANIZATION
@@ -34,11 +34,13 @@ technical writing style.
 * Technical Details contains information about using
 the program lilypond with other programs (lilypond-book,
 operating systems, GUIs, convert-ly, etc).  This section
-is writtin in formal technical writing style.
+is written in formal technical writing style.
 
 
 %%%%%
 GENERAL GUIDELINES
+
+* Use two spaces for indentation in lilypond examples.
 
 * Do not forget to create @cindex entries for new sections of text.
   Enter commands with @funindex, i.e.
@@ -50,7 +52,7 @@ GENERAL GUIDELINES
   `invalid' instead.
 
 * Avoid long stretches of input code.  Noone is going to read them in
-  print.  Instead refer to an example input file (@inputfileref), these
+  print.  Instead refer to an example input file (with @lsr{}); these
   are clickable in HTML.
 
 * Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.

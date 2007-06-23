@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3733d93a10f64a886941dc05afd8dc07fe47b67a
+    Translation of GIT committish: cc4d776da798710d18d2dec631b2f02c1450442f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1011,7 +1011,7 @@ Notenwerte noch in dem jeweiligen Takt fehlen.
 
 Wenn Sie wollen, dass auch Zeilenumbrüche an den Stellen, an denen 
 automatisch Noten aufgeteilt wurden, stattfinden, müssen Sie auch 
-den Formatierer  @internalsref{Forbid_line_breaks_engraver}  mit 
+den Formatierer  @internalsref{Forbid_line_break_engraver}  mit 
 dem @code{\remove}-Befehl entfernen.
 
 

@@ -368,7 +368,7 @@ For more information on output formats, see @ref{Invoking lilypond}.
 
 @seealso
 
-Examples: @inputfileref{input/regression/,clip-systems.ly}
+Examples: @lsr{non-notation,clip-systems.ly}
 
 
 @node Including LilyPond files
