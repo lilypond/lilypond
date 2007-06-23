@@ -91,8 +91,10 @@ Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
   Drul_array<Grob*> stems (Note_column::get_stem (cols[0]),
 			   Note_column::get_stem (cols.back ()));
 
-  if (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
-      != me->get_bound (RIGHT)->get_column ())
+  if (!stems[RIGHT]
+      || !stems[LEFT]
+      || (dynamic_cast<Item*> (stems[RIGHT])->get_column ()
+	  != me->get_bound (RIGHT)->get_column ()))
     return 0;
 
   Drul_array<Grob*> beams;
@@ -759,6 +761,9 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
   for (vsize i = 0; i < cols.size (); i++)
     {
       Grob *stem = unsmob_grob (cols[i]->get_object ("stem"));
+      if (!stem)
+	continue;
+      
       if (to_boolean (stem->get_property ("cross-staff")))
 	return SCM_BOOL_T;
 
