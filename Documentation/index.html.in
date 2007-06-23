@@ -60,14 +60,13 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  </td>
 	  <td class="right-column">
 	  <ul>
-	  
             <li>
-	    <a class="title" href="topdocs/NEWS.html">NEWS</a>
- 	    <br>(changes since the previous major release)
-
-            <li>
-	    <a class="title" href="topdocs/INSTALL.html">INSTALL</a>
+	    <a class="title" href="topdocs/INSTALL.html">Install</a>
  	    <br>(how to compile)
+	  
+<li><a class="title" href="../examples.html">Examples</a>
+     <br>(see some examples)
+
 	  </ul>
 	  </td>
         </tr>
@@ -91,8 +90,9 @@ in <a class="title" href="user/lilypond.pdf">PDF</a>)
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-<li><a class="title" href="../examples.html">Examples</a>
-     <br>(see some examples)
+            <li>
+	    <a class="title" href="topdocs/NEWS.html">News</a>
+ 	    <br>(changes since the previous major release)
 
 <li><a class="title" href="../input/lsr/collated-files.html">Snippets</a>
      <br>(Short tricks, tips, and examples)
