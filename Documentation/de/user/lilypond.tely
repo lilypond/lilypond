@@ -7,8 +7,14 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond
+
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @c  Keep this here, since it pertains to the direntry below.
@@ -58,6 +64,9 @@ Dieses Dokument ist auch als
 @uref{source/Documentation/user/lilypond.pdf,PDF} verfügbar.
 @end ifhtml
 
+@documentlanguage de
+@documentencoding UTF-8
+
 
 @c  This produces the unified index
 @syncodeindex fn cp
@@ -65,9 +74,6 @@ Dieses Dokument ist auch als
 @syncodeindex pg cp
 @syncodeindex tp cp
 @syncodeindex vr cp
-
-@documentlanguage de
-@documentencoding utf-8
 
 
 @finalout

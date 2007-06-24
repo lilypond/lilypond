@@ -8,8 +8,14 @@
 
 @setfilename lilypond.info
 @settitle GNU LilyPond
+
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @c don't remove this comment.
@@ -22,13 +28,14 @@
 @end ignore
 
 @documentlanguage fr
+@frenchspacing on
 @documentencoding UTF-8
 
 @syncodeindex fn cp
-@syncodeindex ky cp
-@syncodeindex pg cp
-@syncodeindex tp cp
-@syncodeindex vr cp
+@c @syncodeindex ky cp
+@c @syncodeindex pg cp
+@c @syncodeindex tp cp
+@c @syncodeindex vr cp
 
 @finalout
 
