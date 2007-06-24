@@ -893,6 +893,6 @@ the following options
 To produce a useful @file{eps} file, use
 
 @example
-lilypond -b eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
 @end example
 

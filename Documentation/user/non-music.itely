@@ -442,7 +442,7 @@ in the input are put in the output as-is.  Extents of text items in the
 @file{texstr} backend,
 
 @example
-lilypond -b texstr input/les-nereides.ly
+lilypond -dbackend=texstr input/les-nereides.ly
 latex les-nereides.texstr
 @end example
 
@@ -450,7 +450,7 @@ The last command produces @file{les-nereides.textmetrics}, which is
 read when you execute
 
 @example
-lilypond -b tex input/les-nereides.ly
+lilypond -dbackend=tex input/les-nereides.ly
 @end example
 
 Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
