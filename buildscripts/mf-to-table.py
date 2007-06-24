@@ -58,7 +58,6 @@ def parse_logfile (fn):
         elif tags[0] == 'char':
             name = tags[9]
 
-            name = re.sub ('-', 'M', name)
             if group:
                 name = group + '.' + name
             m = {
