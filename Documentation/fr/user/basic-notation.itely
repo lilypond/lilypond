@@ -50,12 +50,12 @@ De la manière de spécifier les hauteurs de notes.
 @node Normal pitches
 @subsection Normal pitches
 
-@cindex Pitch names
-@cindex pitches
+@cindex noms de note
+@cindex hauteurs
 
 La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
 notation anglaise, en utilisant les lettres @code{a} à @code{g}.
-Une gamme ascendante de do majeur s'écrit avec
+Une gamme ascendante de do majeur s'écrit
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \clef bass
@@ -74,10 +74,9 @@ c1
 @funindex '
 @funindex ,
 
-L'octave précise peut être spécifiée sous forme d'une série
-d'apostrophes @samp{'} ou d'une série de virgules @samp{,}.  Chaque
-@samp{'} hausse la note d'une octave, chaque @samp{,} baisse la note
-d'une octave.
+L'octave peut être précisée sous forme d'une série d'apostrophes
+@samp{'} ou d'une série de virgules @samp{,}.  Chaque @samp{'} hausse la
+note d'une octave, chaque @samp{,} baisse la note d'une octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \clef treble
@@ -86,16 +85,16 @@ c' c'' e' g d'' d' d c
 c, c,, e, g d,, d, d c
 @end lilypond
 
-Il existe une autre méthode pour déclarer à quelle octave se situe la
-note à graver ; cette méthode demande moins de spécifications
-d'octaves (@code{'} and @code{,}).  Voir @ref{Relative octaves}.
+Il existe une autre méthode pour préciser à quelle octave se situe la
+note à graver ; cette méthode demande moins d'indications d'octaves
+(@code{'} and @code{,}) --- voir @ref{Relative octaves}.
 
 
 @node Accidentals
 @subsection Accidentals
 
-@cindex note names, Dutch
-@cindex note names, default
+@cindex noms de note, hollandais
+@cindex noms de note, par défaut
 
 Dans la notation par défaut, un dièse est formé en ajoutant @code{-is}
 après le nom de note, un bémol en ajoutant @code{-es}.  Les
@@ -108,9 +107,9 @@ a2 aisis a aeses
 @end lilypond
 
 @noindent
-Ce sont les noms de note hollandais.  En hollandais, on élide
-@code{aes} pour écrire @code{as}, mais les deux formes sont acceptées.
- De manière similaire, on accepte autant @code{es} que @code{ees}.
+Ce sont les noms de note hollandais.  En hollandais, on élide @code{aes}
+pour écrire @code{as}, mais les deux formes sont acceptées.  De manière
+similaire, on accepte aussi bien @code{es} que @code{ees}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a2 as e es
@@ -126,9 +125,9 @@ a4 aes a2
 @end lilypond
 
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
-naturel, un mi naturel et un fa naturel}, sans tenir compte de
-l'armure.  Pour plus d'information à propos de la distinction entre le
-contenu musical et sa représentation, voir @ref{Accidentals and key signatures}.
+naturel, un mi naturel et un fa naturel}, sans tenir compte de l'armure.
+Pour plus d'information à propos de la distinction entre le contenu
+musical et sa représentation, voir @ref{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -160,22 +159,20 @@ Référence du programme : @internalsref{LedgerLineSpanner},
 @node Cautionary accidentals
 @subsection Cautionary accidentals
 
-@cindex accidental, reminder
-@cindex accidental, cautionary
-@cindex accidental, parenthesized
-@cindex reminder accidental
+@cindex altération, de précaution
+@cindex altération, entre parenthèses
+@cindex altération de précaution
 @funindex ?
-@cindex cautionary accidental
-@cindex parenthesized accidental
+@cindex altération entre parenthèses
 @funindex !
 
-Normalement, les altérations sont imprimées automatiquement, mais il
-se peut que vous vouliez les imprimer manuellement.  On peut forcer
+Normalement, les altérations sont imprimées automatiquement, mais il se
+peut que vous vouliez les imprimer manuellement.  On peut forcer
 l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
-point d'exclamation @samp{!} après la hauteur de note.  Une
-altération entre parenthèses peut être obtenue en ajoutant un point
-d'interrogation @samp{?} après la hauteur de note.  Ces signes
-peuvent aussi être utilisés pour imprimer des bécarres.
+point d'exclamation @samp{!} après la hauteur de note.  Une altération
+entre parenthèses peut être obtenue en ajoutant un point d'interrogation
+@samp{?} après la hauteur de note.  Ces signes peuvent aussi être
+utilisés pour imprimer des bécarres.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 cis cis cis! cis? c c? c! c
@@ -184,20 +181,19 @@ cis cis cis! cis? c c? c! c
 
 @seealso
 
-L'impression automatique des altérations peut être affinée de
-plusieurs manières.  Pour plus d'information, voir @ref{Automatic
-accidentals}.
+L'impression automatique des altérations peut être affinée de plusieurs
+manières.  Pour plus d'information, voir @ref{Automatic accidentals}.
 
 
 @node Micro tones
 @subsection Micro tones
 
-@cindex quarter tones
-@cindex semi-flats, semi-sharps
+@cindex quarts de ton
+@cindex demi-bémols, demi-dièses
 
-Les demi-bémols et les demi-dièses s'écrivent en ajoutant @code{-eh} et
-@code{-ih} respectivement ; ce qui suit est une séries de dos altérés
-en hauteurs croissantes.
+Les demi-bémols et les demi-dièses s'écrivent en ajoutant respectivement
+@code{-eh} et @code{-ih}. Voici une séries de dos altérés en hauteurs
+croissantes :
 
 @lilypond[verbatim,ragged-right,quote,relative=2,fragment]
 \set Staff.extraNatural = ##f
@@ -208,9 +204,9 @@ Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
 @refbugs
 
-Il n'y a pas de standards universellement acceptés pour noter le bémol
-et demi (trois quarts de ton en-dessous), donc le symbole de LilyPond
-n'est conforme à aucun standard.
+Il n'y a pas de standard universellement accepté pour noter le bémol et
+demi (qui abaisse la hauteur trois quarts de ton), donc le symbole de
+LilyPond n'est conforme à aucun standard.
 
 
 @node Note names in other languages
@@ -219,11 +215,11 @@ n'est conforme à aucun standard.
 Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
 langues.  Pour les utiliser, incluez le fichier d'initialisation
 spécifique à la langue voulue.  Par exemple, pour les langues romanes,
-ajoutez @code{\include "italiano.ly"} au début du fichier d'entrée.
-Les fichiers de langues disponibles ainsi que les noms de notes
-utilisés sont les suivants:
+ajoutez @code{\include "italiano.ly"} au début du fichier source.  Les
+fichiers de langues disponibles ainsi que les noms de notes utilisés
+sont les suivants :
 
-@cindex note names, other languages)
+@cindex noms de note, autres langues
 @example
                        Noms de note              dièse       bémol      double          double
                                                                         dièse           bémol
@@ -251,7 +247,7 @@ Certaines musiques utilisent des microtonalités, pour lesquelles les
 altérations sont des fractions de dièse ou bémol @qq{normaux}.  Le
 tableau suivant répertorie les noms de note en quart de ton, tels que
 définis dans plusieurs fichiers linguistiques. Les préfixes @q{semi-}
-et @q{sesqui-} correspondent au @q{demi-} et @q{trois quarts }.  
+et @q{sesqui-} correspondent au @q{demi-} et @q{trois demis}.  
 À noter qu'aucune définition n'existe à ce jour pour le norvégien, le
 suédois, le catalan et l'espagnol.
 
@@ -280,8 +276,8 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @node Relative octaves
 @subsection Relative octaves
 
-@cindex Relative
-@cindex Relative octave specification
+@cindex relatif
+@cindex indication d'octave relative
 @funindex \relative
 
 On spécifie les octaves en ajoutant @code{'} et @code{,} aux noms de

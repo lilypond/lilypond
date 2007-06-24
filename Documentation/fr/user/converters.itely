@@ -77,8 +77,8 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
-commande du système. Pour plus de détails, voir @ref{Converting from
-other formats}.
+commande du système. Pour plus de détails, voir
+@ref{Converting from other formats}.
 
 @command{midi2ly} accepte les options suivantes :
 
@@ -149,8 +149,8 @@ midi2ly [@var{option}]@dots{} @var{midi-file}
 @end example
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
-commande du système. Pour plus de détails, voir @ref{Converting from
-other formats}.
+commande du système. Pour plus de détails, voir
+@ref{Converting from other formats}.
 
 @command{midi2ly} accepte les options suivantes :
 
@@ -183,8 +183,8 @@ et les écrit dans un fichier @var{.ly}.  Il se lance en ligne de
 commande.
 
 Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
-commande du système. Pour plus de détails, voir @ref{Converting from
-other formats}.
+commande du système. Pour plus de détails, voir
+@ref{Converting from other formats}.
 
 @command{musicxml2ly} accepte les options suivantes :
 

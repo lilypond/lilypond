@@ -183,13 +183,13 @@ le refléter.  Malheureusement, notre oeil nous trompe quelque peu ; il
 ne se contente pas de remarquer la distance entre les têtes de notes,
 il prend en compte également la distance entre les hampes
 consécutives.  Ainsi, par compensation, les notes avec une combinaison
-« hampe vers le haut »/@/« hampe vers le bas » doivent être éloignées
-l'une de l'autre, et les notes avec une combinaison « hampe vers le
-bas »/@/« hampe vers le haut » rapprochées, le tout dépendant de la
+@qq{hampe vers le haut}/@/@qq{hampe vers le bas} doivent être éloignées
+l'une de l'autre, et les notes avec une combinaison @qq{hampe vers le
+bas}/@/@qq{hampe vers le haut} rapprochées, le tout dépendant de la
 position verticale des notes.  Les deux premières mesures sont
 imprimées avec cette correction, les deux suivantes sans.  Les notes
-dans les deux dernières mesures forment des blocs de notes « hampe
-vers le bas »/@/« hampe vers le haut ».
+dans les deux dernières mesures forment des blocs de notes @qq{hampe
+vers le bas}/@/@qq{hampe vers le haut}.
 
 @cindex typography
 
@@ -239,7 +239,7 @@ aimons tant lire et jouer.
 Comment pouvons-nous implémenter la typographie ? Si les artisans ont
 besoin de plus de dix ans pour devenir de vrais maîtres, comment nous,
 simples programmeurs, pourrions-nous jamais écrire un programme pour
-faire leur travail?
+faire leur travail ?
 
 La réponse est : nous ne le pouvons pas.  La typographie se base sur
 le jugement visuel humain, donc les humains ne peuvent pas être

@@ -257,7 +257,7 @@ user manual, @internalsref{\NAME\}
 
 @c to get decent French quotes in ``foo''
 @macro qq{TEXT}
-<< \TEXT\ >>
+``\TEXT\''
 @end macro
 
 @end iftex

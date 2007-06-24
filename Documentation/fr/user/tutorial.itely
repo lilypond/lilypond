@@ -1066,7 +1066,7 @@ Ces éléments @code{Staff} sont ensuite combinés en parallèle avec
 @end lilypond
 
 
-La commande @code{\new} introduit un « contexte de notation ».  Un
+La commande @code{\new} introduit un @qq{contexte de notation}.  Un
 contexte de notation est un environnement dans lequel les événements
 musicaux --- comme les notes ou les commandes @code{\clef} --- sont
 interprétés.   Pour des pièces simples, ces contextes sont créés
@@ -1081,7 +1081,7 @@ notation de la mélodie, alors que @code{Lyrics} gère les paroles et
 
 En termes de syntaxe, faire précéder une expression musicale de
 @code{\new} crée une plus grosse expression musicale.  En reprenant la
-comparaison, cela ressemble au signe « moins » en mathématiques.  La
+comparaison, cela ressemble au signe @qq{moins} en mathématiques.  La
 formule @math{(4+5)} est une expression, donc @math{-(4+5)} est une
 plus grosse expression.
 
@@ -1264,7 +1264,7 @@ chaque syllable par un espace :
 @cindex melisma
 @cindex extender line
 Cette mélodie se termine sur un @rglos{melisma}, c'est-à-dire qu'une
-seule syllable (« free ») correspond à plus d'une note.  Ceci est
+seule syllable (@qq{free}) correspond à plus d'une note.  Ceci est
 indiqué avec une @emph{ligne d'extension}.  Elle est entrée avec deux
 caractères souligné (@code{_}), c'est-à-dire :
 
