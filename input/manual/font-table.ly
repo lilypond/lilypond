@@ -90,9 +90,8 @@
 		       (ly:font-load "emmentaler-20"))))
       (lines (doc-chars glyphs '()))
       (pages (group-lines (reverse lines))))
-   (for-each
-    (lambda (x)
-      (collect-scores-for-book
-       parser
-       (make-override-markup '(word-space . 4) x)))
-    pages))
+  (collect-scores-for-book
+   parser
+   (map (lambda (x)
+         (make-override-markup '(word-space . 4) x))
+    pages)))
