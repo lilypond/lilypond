@@ -354,15 +354,15 @@ bar lines,
   c1
   \key cis \major
   \clef alto
-  \override Score.RehearsalMark #'break-align-symbol = #'key-signature
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
   \mark "on key"
   cis
   \key ces \major
-  \override Score.RehearsalMark #'break-align-symbol = #'clef
+  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
   \clef treble
   \mark "on clef"
   ces
-  \override Score.RehearsalMark #'break-align-symbol = #'time-signature
+  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
   \key d \minor
   \clef tenor
   \time 3/4
@@ -370,6 +370,35 @@ bar lines,
   c
 }
 @end lilypond
+
+The text marks will, by default, be aligned with the middle of the notation
+object, but this can be changed by overriding the
+@code{break-align-anchor-alignment} and
+@code{break-align-anchor} properties for the appropriate grob.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+{
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  c1
+  \key cis \major
+
+  % the RehearsalMark will be aligned with the left edge of the KeySignature
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
+  \mark \default
+  cis1
+  \key ces \major
+
+  % the RehearsalMark will be aligned with the right edge of the KeySignature
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \mark \default
+  ces1
+
+  % the RehearsalMark will be aligned with the right edge of the KeySignature
+  % and then shifted right by an additional 2 units.
+  \once \override Staff.KeySignature #'break-align = #2
+  \mark \default
+  ces1
+}
 
 Although text marks are normally only printed above the topmost
 staff, you may alter this to print them on every staff,
