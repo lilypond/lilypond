@@ -127,12 +127,14 @@
 
       (string-append
        "@item Set "
-       (format "grob-property @code{~a} " (string-join (map symbol->string path) " "))
-       (format " in @ref{~a} to @code{~a}.  " context-sym (scm->texi value))
+       (format "grob-property @code{~a} "
+	       (string-join (map symbol->string path) " "))
+       (format "in @ref{~a} to ~a."
+	       context-sym (scm->texi value))
        "\n")))
      ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
-      (format "@item Set translator property @code{~a} to @code{~a}"
+      (format "@item Set translator property @code{~a} to ~a.\n"
 	      context-sym
 	      (scm->texi (car args))))
      )))
@@ -158,13 +160,17 @@
       (string-append 
        desc
        (if (pair? aliases)
-	   (string-append "\n\n This context also accepts commands for the following context(s):\n\n"
-			  (human-listify aliases))
+	   (string-append
+	    "\n\nThis context also accepts commands for the following context(s):\n\n"
+	    (human-listify aliases)
+	    ".")
 	   "")
-       "\n\nThis context creates the following layout objects: \n\n"
-       (human-listify (uniq-list (sort grob-refs string<? )))
+
+       "\n\nThis context creates the following layout objects:\n\n"
+       (human-listify (uniq-list (sort grob-refs string<?)))
        "."
-       (if (pair? props)
+
+       (if (and (pair? props) (not (null? props)))
 	   (string-append
 	    "\n\nThis context sets the following properties:\n"
 	    "@itemize @bullet\n"
@@ -173,15 +179,19 @@
 	   "")
        
        (if (null? accepts)
-	   "\n\nThis context is a `bottom' context; it can not contain other contexts."
+	   "\n\nThis context is a `bottom' context; it cannot contain other contexts."
 	   (string-append
 	    "\n\nContext "
-	    name " can contain \n"
-	    (human-listify (map ref-ify (map symbol->string accepts)))))
+	    name
+	    " can contain\n"
+	    (human-listify (map ref-ify (map symbol->string accepts)))
+	    "."))
        
-       "\n\nThis context is built from the following engravers: "
-       (description-list->texi
-	(map document-engraver-by-name consists))))))
+       (if (null? consists)
+	   ""
+	   (string-append
+	    "\n\nThis context is built from the following engravers:"
+	    (description-list->texi (map document-engraver-by-name consists))))))))
 
 (define (engraver-grobs grav)
   (let* ((eg (if (symbol? grav)
