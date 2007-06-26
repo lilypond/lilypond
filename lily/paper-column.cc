@@ -146,6 +146,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
   Direction d = LEFT;
   do
     {
+      skys[d].set_minimum_height (0.0);
       extract_grob_set (cols[d], "elements", elts);
 
       for (vsize i = 0; i < elts.size (); i++)
@@ -158,7 +159,7 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
     }
   while (flip (&d) != LEFT);
 
-  return min (0.0, skys[LEFT].distance (skys[RIGHT]));
+  return max (0.0, skys[LEFT].distance (skys[RIGHT]));
 }
 
 /*

@@ -40,6 +40,8 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right_col)
   Direction d = LEFT;
   do
     {
+      skylines[d].set_minimum_height (0.0);
+
       for (vsize i = 0; i < items[d].size (); i++)
 	{
 	  Grob *g = items[d][i];
@@ -128,8 +130,17 @@ get_note_columns (vector<Grob*> const &elts)
   vector<Item*> ret;
 
   for (vsize i = 0; i < elts.size (); i++)
-    if (Note_column::has_interface (elts[i]))
-      ret.push_back (dynamic_cast<Item*> (elts[i]));
+    {
+      if (Note_column::has_interface (elts[i]))
+	ret.push_back (dynamic_cast<Item*> (elts[i]));
+      else if (Separation_item::has_interface (elts[i]))
+	{
+	  extract_grob_set (elts[i], "elements", more_elts);
+	  vector<Item*> ncs = get_note_columns (more_elts);
+
+	  ret.insert (ret.end (), ncs.begin (), ncs.end ());
+	}
+    }
 
   return ret;
 }
