@@ -83,6 +83,9 @@ Rhythmic_column_engraver::process_acknowledged ()
 	{
 	  if (!rheads_[i]->get_parent (X_AXIS))
 	    Note_column::add_head (note_column_, rheads_[i]);
+
+	  if (Grob *dot = unsmob_grob (rheads_[i]->get_object ("dot")))
+	    Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), dot);
 	}
       rheads_.resize (0);
     }

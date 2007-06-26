@@ -29,7 +29,7 @@
 Spring
 Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
-  Real min_dist = Paper_column::minimum_distance (l, r);
+  Real min_dist = max (0.0, Paper_column::minimum_distance (l, r));
   Real ideal;
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))

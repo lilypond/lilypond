@@ -66,14 +66,14 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     adjust things so there are no collisions.
   */
   Real min_dist = Spacing_interface::minimum_distance (me, right_col);
-  Real min_desired_space = max (left_head_end + (min_dist - left_head_end) / 2,
-				min_dist - (base_space - increment) / 2);
+  Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
   Real ideal = base_space - increment + min_desired_space;
 
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_compress_strength (ideal - max (min_dist, min_desired_space));
+  ret.set_inverse_compress_strength (max (0.0, ideal - max (min_dist, min_desired_space)));
+  ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
   return ret;
 }
 

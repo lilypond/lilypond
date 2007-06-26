@@ -11,7 +11,7 @@ The accidental does add a little non-stretchable space.
 \layout {
   line-width = 18.\cm
 }
-\relative c'' \context GrandStaff {
+\relative c'' {
   #(set-accidental-style 'piano-cautionary)
   \time 2/4 
   d16 d d d d d cis d dis dis dis dis 
