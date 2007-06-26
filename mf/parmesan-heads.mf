@@ -182,17 +182,17 @@ enddef;
 %
 % (ze is wel breed)
 % 
-fet_beginchar ("Neo-mensural maxima notehead", "s-3neomensural");
+fet_beginchar ("Neo-mensural maxima notehead", "sM3neomensural");
 	draw_neomensural_longa (2.6 staff_space#);
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural longa notehead", "s-2neomensural");
+fet_beginchar ("Neo-mensural longa notehead", "sM2neomensural");
 	draw_neomensural_longa (2 staff_space#);
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural brevis notehead", "s-1neomensural");
+fet_beginchar ("Neo-mensural brevis notehead", "sM1neomensural");
 	draw_neomensural_brevis (2 staff_space#);
 fet_endchar;
 
@@ -364,17 +364,17 @@ fet_beginchar ("Mensural left stemmed notehead", "slmensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural maxima notehead", "s-3mensural");
+fet_beginchar ("Mensural maxima notehead", "sM3mensural");
 	draw_mensural_longa (2.0 staff_space#);
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa notehead", "s-2mensural");
+fet_beginchar ("Mensural longa notehead", "sM2mensural");
 	draw_mensural_longa (staff_space#);
 fet_endchar;
 
 
-fet_beginchar ("Mensural brevis notehead", "s-1mensural");
+fet_beginchar ("Mensural brevis notehead", "sM1mensural");
 	draw_mensural_brevis (staff_space#);
 fet_endchar;
 

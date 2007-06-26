@@ -85,7 +85,7 @@ fet_beginchar ("half rest (outside staff)", "1o");
 fet_endchar;
 
 
-fet_beginchar ("maxima rest", "-3");
+fet_beginchar ("maxima rest", "M3");
 	set_char_box (0, 3 breve_rest_x#, breve_rest_y#, breve_rest_y#);
 
 	draw_block ((0, -breve_rest_y + feta_shift),
@@ -97,7 +97,7 @@ fet_beginchar ("maxima rest", "-3");
 fet_endchar;
 
 
-fet_beginchar ("longa rest", "-2");
+fet_beginchar ("longa rest", "M2");
 	set_char_box (0, breve_rest_x#, breve_rest_y#, breve_rest_y#);
 
 	draw_block ((0, -breve_rest_y + feta_shift),
@@ -107,7 +107,7 @@ fet_beginchar ("longa rest", "-2");
 fet_endchar;
 
 
-fet_beginchar ("breve rest", "-1");
+fet_beginchar ("breve rest", "M1");
 	set_char_box (0, breve_rest_x#, 0, breve_rest_y#);
 
 	draw_block ((0, 0), (breve_rest_x, breve_rest_y));

@@ -17,7 +17,7 @@ fet_begingroup ("accidentals");
 %
 %
 %
-fet_beginchar ("Ed. Med. Flat" , "medicaea-1");
+fet_beginchar ("Ed. Med. Flat" , "medicaeaM1");
 	set_char_box (0.1 staff_space#, 0.6 staff_space#,
 		      0.6 staff_space#, 1.0 staff_space#);
 
@@ -85,7 +85,7 @@ fet_endchar;
 %
 %
 %
-fet_beginchar ("Ed. Vat. Flat" , "vaticana-1");
+fet_beginchar ("Ed. Vat. Flat" , "vaticanaM1");
 	z1 = (0.00 staff_space, +0.80 staff_space);
 	z2 = (0.00 staff_space, -0.08 staff_space);
 	z3 = (0.25 staff_space, -0.23 staff_space);
@@ -221,7 +221,7 @@ fet_beginchar ("Mensural Sharp" , "mensural1");
 fet_endchar;
 
 
-fet_beginchar ("Mensural Flat" , "mensural-1");
+fet_beginchar ("Mensural Flat" , "mensuralM1");
 	save stemthick;
 
 	define_pixels (stemthick);
@@ -285,7 +285,7 @@ fet_beginchar ("Mensural Flat" , "mensural-1");
 fet_endchar;
 
 
-fet_beginchar ("Hufnagel Flat" , "hufnagel-1");
+fet_beginchar ("Hufnagel Flat" , "hufnagelM1");
 	save stemthick;
 
 	define_pixels (stemthick);

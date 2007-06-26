@@ -190,13 +190,13 @@ def draw_longa (expr up) =
 enddef;
 
 
-fet_beginchar ("Longa notehead", "u-2");
+fet_beginchar ("Longa notehead", "uM2");
 	draw_longa (true);
 
 	draw_staff (-2, 2, 0);
 fet_endchar;
 
-fet_beginchar ("Longa notehead", "d-2");
+fet_beginchar ("Longa notehead", "dM2");
 	draw_longa (false);
 
 	draw_staff (-2, 2, 0);
@@ -204,13 +204,13 @@ fet_endchar;
 
 
 if test > 0:
-	fet_beginchar ("Longa notehead", "u-2");
+	fet_beginchar ("Longa notehead", "uM2");
 		draw_longa (true);
 
 		draw_staff (-2, 2, 0.5);
 	fet_endchar;
 
-	fet_beginchar ("Longa notehead", "d-2");
+	fet_beginchar ("Longa notehead", "dM2");
 		draw_longa (false);
 
 		draw_staff (-2, 2, 0.5);
@@ -249,7 +249,7 @@ def draw_brevis =
 enddef;
 
 
-fet_beginchar ("Brevis notehead", "s-1");
+fet_beginchar ("Brevis notehead", "sM1");
 	draw_brevis;
 
 	draw_staff (-2, 2, 0);
@@ -257,7 +257,7 @@ fet_endchar;
 
 
 if test > 0:
-	fet_beginchar ("Brevis notehead", "s-1");
+	fet_beginchar ("Brevis notehead", "sM1");
 		draw_brevis;
 
 		draw_staff (-2, 2, 0.5);

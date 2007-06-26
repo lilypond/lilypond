@@ -51,18 +51,22 @@
 	    <a class="title" href="user/lilypond/Tutorial.html">Tutorial</a>
 	      <br>(start here)
 
-	  </ul>
+	   <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
+(in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 1 Mb,
+in <a class="title" href="user/music-glossary.pdf">PDF</a>)
+
+     <br>(for non-English users)
+	</ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
-	  
             <li>
-	    <a class="title" href="topdocs/NEWS.html">NEWS</a>
- 	    <br>(changes since the previous major release)
-
-            <li>
-	    <a class="title" href="topdocs/INSTALL.html">INSTALL</a>
+	    <a class="title" href="topdocs/INSTALL.html">Install</a>
  	    <br>(how to compile)
+	  
+<li><a class="title" href="../examples.html">Examples</a>
+     <br>(see some examples)
+
 	  </ul>
 	  </td>
         </tr>
@@ -74,47 +78,48 @@
 <a class="title" href="user/lilypond/index.html">User manual</a>
 (in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 Mb,
 in <a class="title" href="user/lilypond.pdf">PDF</a>)
-
      <br>(everything about LilyPond)
-     
-<li><a class="title" href="../examples.html">Examples</a>
 
-     <br>(see some examples)
-
-<li><a class="title" href="../input/lsr/collated-files.html">Snippets</a>
-     <br>(Short tricks, tips, and examples)
-
- <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
-(in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 1 Mb,
-in <a class="title" href="user/music-glossary.pdf">PDF</a>)
-
-     <br>(for non-English users)
-	  </ul>
+       <li>
+ <a  class="title" href="user/lilypond-internals/index.html">Program reference</a>
+ (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 Mb)
+     <br>(definitions for tweaking)
+	 
+  </ul>
 	  </td>
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-	    <li>
- <a  class="title" href="user/lilypond-internals/index.html">Program reference</a>
- (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 Mb)
+            <li>
+	    <a class="title" href="topdocs/NEWS.html">News</a>
+ 	    <br>(changes since the previous major release)
 
-     <br>(definitions for tweaking)
+<li><a class="title" href="../input/lsr/collated-files.html">Snippets</a>
+     <br>(Short tricks, tips, and examples)
 
-	    <li>
-     <a  class="title" href="../input/regression/collated-files.html">Regression tests</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">comparison</a>)
+	</ul>
 
+    </td><tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+	<ul>
+	    <li><a class="title" href="bibliography/index.html">Bibliography</a>
+     <br>(on background information)
+
+    <li>
+     <a class="title" href="../input/regression/collated-files.html">Regression tests</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">comparison</a>)
      <br>(for developers)
 
+	</ul>
+    </td><td class="right-column">
+          &nbsp;
+    <ul>
+        <li><a class="title"  href="THANKS.html">Thankyous</a>
+        <br>(to our contributors)
 
-	    <li><a  class="title" href="bibliography/index.html">Bibliography</a>
-
-     <br>(on background information)
-<li><a class="title"  href="THANKS.html">Thankyous</a>
-<br>(to our contributors)
-
-<li><a class="title"  href="DEDICATION.html">Dedication</a>
-
-     <br>(by Jan and Han-Wen)
+        <li><a class="title"  href="DEDICATION.html">Dedication</a>
+        <br>(by Jan and Han-Wen)
 
 	  </ul>
 	  </td>

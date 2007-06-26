@@ -38,7 +38,7 @@ def neomens_half_block_rest =
 enddef;
 
 
-fet_beginchar ("Neo-mensural maxima rest", "-3neomensural");
+fet_beginchar ("Neo-mensural maxima rest", "M3neomensural");
 	set_char_box (0, 3 neomens_block_rest_x#,
 		      neomens_block_rest_y#, neomens_block_rest_y#);
 
@@ -49,7 +49,7 @@ fet_beginchar ("Neo-mensural maxima rest", "-3neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural longa rest", "-2neomensural");
+fet_beginchar ("Neo-mensural longa rest", "M2neomensural");
 	set_char_box (0, neomens_block_rest_x#,
 		      neomens_block_rest_y#, neomens_block_rest_y#);
 
@@ -58,7 +58,7 @@ fet_beginchar ("Neo-mensural longa rest", "-2neomensural");
 fet_endchar;
 
 
-fet_beginchar ("Neo-mensural breve rest", "-1neomensural");
+fet_beginchar ("Neo-mensural breve rest", "M1neomensural");
 	set_char_box (0, neomens_block_rest_x#,
 		      0, neomens_block_rest_y#);
 
@@ -252,7 +252,7 @@ define_pixels (mens_block_rest_y, mens_half_block_rest_y,
 	       pen_width, pen_height);
 
 
-fet_beginchar ("Mensural maxima rest", "-3mensural");
+fet_beginchar ("Mensural maxima rest", "M3mensural");
 	set_char_box (0, pen_width#,
 		      mens_block_rest_y#, 2 mens_block_rest_y#);
 
@@ -265,7 +265,7 @@ fet_beginchar ("Mensural maxima rest", "-3mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural longa rest", "-2mensural");
+fet_beginchar ("Mensural longa rest", "M2mensural");
 	set_char_box (0, pen_width#,
 		      mens_block_rest_y#, mens_block_rest_y#);
 
@@ -278,7 +278,7 @@ fet_beginchar ("Mensural longa rest", "-2mensural");
 fet_endchar;
 
 
-fet_beginchar ("Mensural breve rest", "-1mensural");
+fet_beginchar ("Mensural breve rest", "M1mensural");
 	set_char_box (0, pen_width#,
 		      0, mens_block_rest_y#);
 

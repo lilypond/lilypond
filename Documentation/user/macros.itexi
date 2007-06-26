@@ -62,7 +62,7 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
 @end ifhtml
 @ifnothtml
   @file{\DIR\}
@@ -135,7 +135,7 @@
 @end ifclear
 
 
-@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
+@c  not used anymore
 @macro inputfileref{DIR,NAME}
 @uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
 @end macro
