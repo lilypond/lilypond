@@ -45,7 +45,7 @@
 	 (string-append
 	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation  x '())) propsr)))
+	   (map (lambda (x) (property->texi 'translation x '())) propsr)))
 	 "")
      
      (if (null? propsw)
@@ -53,12 +53,12 @@
 	 (string-append
 	  "Properties (write)" 
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation  x '())) propsw))))
+	   (map (lambda (x) (property->texi 'translation x '())) propsw))))
      (if  (null? grobs)
 	  ""
 	  (string-append
-	   "This engraver creates the following layout objects: \n "
-	   (human-listify (map ref-ify (uniq-list (sort grobs string<? ))))
+	   "\n\nThis engraver creates the following layout objects:\n\n"
+	   (human-listify (map ref-ify (uniq-list (sort grobs string<?))))
 	   "."))
 
      "\n\n"
