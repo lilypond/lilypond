@@ -65,7 +65,7 @@ Syntax: @var{note}@code{-\\arpeggio}")
     ;; todo: use articulation-event for slur as well.
     ;; separate non articulation scripts
     (ArticulationEvent
-     . ((description .  "Add an articulation marking to a note.
+     . ((description . "Add an articulation marking to a note.
 
 Syntax: @var{note}@code{x}@code{y}, where @code{x} is a direction
 (@code{^} for up or @code{_} for down), or LilyPond's choice
@@ -578,8 +578,8 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.
 	))
 
     (TremoloRepeatedMusic
-     . ((iterator-ctor . ,ly:chord-tremolo-iterator::constructor)
-	(description . "Repeated notes denoted by tremolo beams.")
+     . ((description . "Repeated notes denoted by tremolo beams.")
+	(iterator-ctor . ,ly:chord-tremolo-iterator::constructor)
 	(start-callback .  ,ly:repeated-music::first-start)
 	;; the length of the repeat is handled by shifting the note logs
 	(length-callback . ,ly:repeated-music::folded-music-length)
@@ -587,8 +587,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.
 	))
 
     (TremoloSpanEvent
-     . (
-	(description . "Tremolo over two stems")
+     . ((description . "Tremolo over two stems")
 	(types . (general-music event span-event tremolo-span-event))
 	))
 
@@ -598,7 +597,7 @@ Syntax: @code{\\times @var{fraction} @var{music}}, e.g.
 	))
 
     (TupletSpanEvent
-     . ((description .  "Used internally to signal where tuplet
+     . ((description . "Used internally to signal where tuplet
 brackets start and stop.")
 	(types . (tuplet-span-event span-event event general-music))
        ))
@@ -609,7 +608,8 @@ brackets start and stop.")
 	))
 
     (UnfoldedRepeatedMusic
-     . ((description . "DOCME")
+     . ((description . "Repeated music which is fully written
+(and played) out.")
 	(iterator-ctor . ,ly:unfolded-repeat-iterator::constructor)
 	(start-callback .  ,ly:repeated-music::first-start)
 	(types . (general-music repeated-music unfolded-repeated-music))
@@ -638,7 +638,7 @@ Syntax: @code{\\\\}")
 	))
 
     (VoltaRepeatedMusic
-     . ((description . "DOCME")
+     . ((description . "Repeats with alternatives placed sequentially.")
 	(iterator-ctor . ,ly:volta-repeat-iterator::constructor)
 	(start-callback .  ,ly:repeated-music::first-start)
 	(length-callback . ,ly:repeated-music::volta-music-length)
