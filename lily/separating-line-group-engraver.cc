@@ -53,7 +53,11 @@ protected:
   Spacings current_spacings_;
   Spacings last_spacings_;
 
+  Spanner *sep_span_;
+
   DECLARE_ACKNOWLEDGER (item);
+  void process_music ();
+  virtual void finalize ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
 public:
@@ -62,8 +66,36 @@ public:
 
 Separating_line_group_engraver::Separating_line_group_engraver ()
 {
+  sep_span_ = 0;
   break_item_ = 0;
   musical_item_ = 0;
+}
+
+void
+Separating_line_group_engraver::process_music ()
+{
+  if (!sep_span_)
+    {
+      sep_span_ = make_spanner ("SeparatingGroupSpanner", SCM_EOL);
+
+      sep_span_->set_bound (LEFT, unsmob_grob (get_property ("currentCommandColumn")));
+    }
+}
+void
+Separating_line_group_engraver::finalize ()
+{
+  if (!sep_span_)
+    return;
+
+  SCM ccol = get_property ("currentCommandColumn");
+  Grob *column = unsmob_grob (ccol);
+
+  sep_span_->set_bound (RIGHT, unsmob_grob (ccol));
+  sep_span_ = 0;
+
+  if (last_spacings_.staff_spacing_
+      && last_spacings_.staff_spacing_->get_column () == column)
+    last_spacings_.staff_spacing_->suicide ();
 }
 
 void
@@ -144,6 +176,9 @@ Separating_line_group_engraver::start_translation_timestep ()
 void
 Separating_line_group_engraver::stop_translation_timestep ()
 {
+  if (break_item_)
+    Separating_group_spanner::add_spacing_unit (sep_span_, break_item_);
+
   if (Item *sp = current_spacings_.staff_spacing_)
     {
       /*
@@ -160,6 +195,9 @@ Separating_line_group_engraver::stop_translation_timestep ()
 
   current_spacings_.clear ();
 
+  if (musical_item_)
+    Separating_group_spanner::add_spacing_unit (sep_span_, musical_item_);
+
   musical_item_ = 0;
 }
 
@@ -169,6 +207,7 @@ ADD_TRANSLATOR (Separating_line_group_engraver,
 
 		/* create */
 		"SeparationItem "
+		"SeparatingGroupSpanner "
 		"StaffSpacing",
 		/* read */ "createSpacing",
 		/* write */ "breakableSeparationItem");

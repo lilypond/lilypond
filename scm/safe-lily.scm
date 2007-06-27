@@ -177,6 +177,7 @@
    ly:piano-pedal-bracket::print
    ly:rest::print
    ly:script-interface::print
+   ly:separating-group-spanner::set-spacing-rods
    ly:slur::height
    ly:slur::print
    ly:spacing-spanner::set-springs

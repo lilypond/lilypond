@@ -12,5 +12,5 @@
   \override Score.NonMusicalPaperColumn #'layer = #1
   
   s1
-  <b' c'' c'>1\arpeggio
+  <b' c'' c'>2\arpeggio
 }
