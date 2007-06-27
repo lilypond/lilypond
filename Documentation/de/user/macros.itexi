@@ -250,6 +250,7 @@ internals document, @internalsref{\NAME\}
 user manual, @internalsref{\NAME\}
 @end macro
 
+@ignore
 @tex
 % from german.sty
 \def\allowhyphens{%
@@ -298,15 +299,17 @@ user manual, @internalsref{\NAME\}
     ``%
     \kern.07em}}
 @end tex
+@end ignore
 
+@c FIXME
 @c to get decent quotes in `foo'
 @macro q{TEXT}
-@glq\TEXT\@grq
+`\TEXT\'
 @end macro
 
 @c to get decent quotes in ``foo''
 @macro qq{TEXT}
-@glqq\TEXT\@grqq
+``\TEXT\''
 @end macro
 
 @end iftex
