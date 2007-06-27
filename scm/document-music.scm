@@ -47,6 +47,7 @@
       (sort
        (map (lambda (x) (ref-ify (symbol->string x)))
 	    (cdr entry)) string<?))
+     "."
 
      "\n\nAccepted by: "
      (human-listify
@@ -55,6 +56,7 @@
 		(map ly:translator-name
 		     (filter
 		      (lambda (x) (engraver-accepts-music-type? (car entry) x)) all-engravers-list)))))
+     "."
      "\n\n")))
 
 (define (music-types-doc)
@@ -74,22 +76,24 @@
 			 (string-append
 			  "\n\nEvent classes:\n"
 			  (human-listify (map ref-ify (map symbol->string classes)))
-			  "\n\n"
+			  "."
+
 			  "\n\nAccepted by: "
 			  (human-listify
 			   (map ref-ify
 				(map symbol->string (map ly:translator-name
 							 (filter
-							  (lambda (x) (engraver-accepts-music-types? classes x)) all-engravers-list))))))
+							  (lambda (x) (engraver-accepts-music-types? classes x)) all-engravers-list)))))
+			  ".")
 			 "")))
 
     (string-append
      (object-property namesym 'music-description)
      event-texi
-     "\n\nProperties: \n"
+     "\n\nProperties:\n"
      (description-list->texi
       (map
-       (lambda (x) (property->texi 'music  x props))
+       (lambda (x) (property->texi 'music x props))
        (map car props))))))
 
 (define (music-object-doc obj)

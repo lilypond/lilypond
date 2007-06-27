@@ -89,7 +89,7 @@ may need to install guile-devel or guile-dev or libguile-dev too.
 @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
 newer). 
 
-@item @uref{http://www.python.org,Python} (version 2.3 or newer)
+@item @uref{http://www.python.org,Python} (version 2.4 or newer)
 
 @item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
 

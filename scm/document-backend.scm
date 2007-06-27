@@ -31,7 +31,7 @@
 
      (if (pair? iprops)
 	 (string-append
-	  "\n\n@unnumberedsubsubsec Internal properties: \n"
+	  "\n\n@unnumberedsubsubsec Internal properties:\n"
 	  (description-list->texi internal-propdocs))
 	 ""))))
 
