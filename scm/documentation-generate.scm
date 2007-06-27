@@ -171,10 +171,6 @@
 
 @printindex cp
 
-@unnumbered Variable index
-
-@printindex vr
-
 @unnumbered Function index
 
 @printindex fn
@@ -183,7 +179,3 @@
 
 (dump-node top-node out-port 0)
 (newline (current-error-port))
-
-
-
-
