@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2007-05-04.09}
+\def\texinfoversion{2007-06-26.23}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -5765,11 +5765,11 @@ end
 % regular 0x27.  
 % 
 \def\codequoteright{%
-  \expandafter\ifx\csname SETcodequoteundirected\endcsname\relax
-    '%
-  \else
-    \char'15
-  \fi
+  \expandafter\ifx\csname SETtxicodequoteundirected\endcsname\relax
+    \expandafter\ifx\csname SETcodequoteundirected\endcsname\relax
+      '%
+    \else \char'15 \fi
+  \else \char'15 \fi
 }
 %
 % and a similar option for the left quote char vs. a grave accent.
@@ -5777,11 +5777,11 @@ end
 % the code environments to do likewise.
 % 
 \def\codequoteleft{%
-  \expandafter\ifx\csname SETcodequotebacktick\endcsname\relax
-    `%
-  \else
-    \char'22
-  \fi
+  \expandafter\ifx\csname SETtxicodequotebacktick\endcsname\relax
+    \expandafter\ifx\csname SETcodequotebacktick\endcsname\relax
+      `%
+    \else \char'22 \fi
+  \else \char'22 \fi
 }
 %
 \begingroup
@@ -6332,6 +6332,10 @@ end
 % all characters are catcode 10, 11 or 12, except \ which is active
 % (as in normal texinfo). It is necessary to change the definition of \.
 
+% Non-ASCII encodings make 8-bit characters active, so un-activate
+% them to avoid their expansion.  Must do this non-globally, to
+% confine the change to the current group.
+
 % It's necessary to have hard CRs when the macro is executed. This is
 % done by  making ^^M (\endlinechar) catcode 12 when reading the macro
 % body, and then making it the \newlinechar in \scanmacro.
@@ -6346,6 +6350,7 @@ end
   \catcode`\_=\other
   \catcode`\|=\other
   \catcode`\~=\other
+  \ifx\declaredencoding\ascii \else \setnonasciicharscatcodenonglobal\other \fi
 }
 
 \def\scanargctxt{%
@@ -7434,22 +7439,41 @@ end
 
 % @documentlanguage is usually given very early, just after
 % @setfilename.  If done too late, it may not override everything
-% properly.  Single argument is the language abbreviation.
-% It would be nice if we could set up a hyphenation file here.
+% properly.  Single argument is the language (de) or locale (de_DE)
+% abbreviation.  It would be nice if we could set up a hyphenation file.
 %
-\parseargdef\documentlanguage{%
+{
+  \catcode`\_ = \active
+  \globaldefs=1
+\parseargdef\documentlanguage{\begingroup
+  \let_=\normalunderscore  % normal _ character for filenames
   \tex % read txi-??.tex file in plain TeX.
-    % Read the file if it exists.
+    % Read the file by the name they passed if it exists.
     \openin 1 txi-#1.tex
     \ifeof 1
-      \errhelp = \nolanghelp
-      \errmessage{Cannot read language file txi-#1.tex}%
+      \documentlanguagetrywithoutunderscore{#1_\finish}%
     \else
       \input txi-#1.tex
     \fi
     \closein 1
   \endgroup
+\endgroup}
 }
+%
+% If they passed de_DE, and txi-de_DE.tex doesn't exist,
+% try txi-de.tex.
+% 
+\def\documentlanguagetrywithoutunderscore#1_#2\finish{%
+  \openin 1 txi-#1.tex
+  \ifeof 1
+    \errhelp = \nolanghelp
+    \errmessage{Cannot read language file txi-#1.tex}%
+  \else
+    \input txi-#1.tex
+  \fi
+  \closein 1
+}
+%
 \newhelp\nolanghelp{The given language definition file cannot be found or
 is empty.  Maybe you need to install it?  In the current directory
 should work if nowhere else does.}
@@ -7460,6 +7484,14 @@ should work if nowhere else does.}
    \count255=128
    \loop\ifnum\count255<256
       \global\catcode\count255=#1
+      \advance\count255 by 1
+   \repeat
+}
+
+\def\setnonasciicharscatcodenonglobal#1{%
+   \count255=128
+   \loop\ifnum\count255<256
+      \catcode\count255=#1
       \advance\count255 by 1
    \repeat
 }
@@ -8316,6 +8348,10 @@ should work if nowhere else does.}
   \ifpdf
     \pdfpageheight #7\relax
     \pdfpagewidth #8\relax
+    % if we don't reset these, they will remain at "1 true in" of
+    % whatever layout pdftex was dumped with.
+    \pdfhorigin = 1 true in
+    \pdfvorigin = 1 true in
   \fi
   %
   \setleading{\textleading}
