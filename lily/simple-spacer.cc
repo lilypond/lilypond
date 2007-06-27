@@ -81,7 +81,7 @@ Real
 Simple_spacer::rod_force (int l, int r, Real dist)
 {
   Real d = range_ideal_len (l, r);
-  Real c = range_stiffness (l, r, d > dist);
+  Real c = range_stiffness (l, r, dist > d);
   Real block_stretch = dist - d;
   return c * block_stretch;
 }

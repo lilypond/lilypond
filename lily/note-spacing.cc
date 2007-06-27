@@ -65,8 +65,16 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     the full amount of space. We give them half the amount of space, but then
     adjust things so there are no collisions.
   */
-  Real min_dist = Spacing_interface::minimum_distance (me, right_col);
+  Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
+  Real min_dist = max (0.0, skys[LEFT].distance (skys[RIGHT]));
   Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
+
+  /* if the right object sticks out a lot, include a bit of extra space.
+     But only for non-musical-columns; this shouldn't apply to accidentals */
+  if (!Paper_column::is_musical (right_col))
+    min_desired_space = max (min_desired_space,
+			     left_head_end + LEFT * skys[RIGHT].max_height ());
+
   Real ideal = base_space - increment + min_desired_space;
 
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);

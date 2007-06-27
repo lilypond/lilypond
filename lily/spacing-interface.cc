@@ -18,10 +18,11 @@
 #include "separation-item.hh"
 #include "skyline.hh"
 
-/* return the minimum distance between the left-items and the right-items of
-   this spacing object */
-Real
-Spacing_interface::minimum_distance (Grob *me, Grob *right_col)
+/* return the right-pointing skyline of the left-items and the left-pointing
+   skyline of the right-items (with the skyline of the left-items in
+   ret[LEFT]) */
+Drul_array<Skyline>
+Spacing_interface::skylines (Grob *me, Grob *right_col)
 {
   /* the logic here is a little convoluted.
      A {Staff,Note}_spacing doesn't copy left-items when it clones,
@@ -64,6 +65,14 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right_col)
 	}
     }
   while (flip (&d) != LEFT);
+
+  return skylines;
+}
+
+Real
+Spacing_interface::minimum_distance (Grob *me, Grob *right)
+{
+  Drul_array<Skyline> skylines = Spacing_interface::skylines (me, right);
 
   return max (0.0, skylines[LEFT].distance (skylines[RIGHT]));
 }

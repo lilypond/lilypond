@@ -18,6 +18,7 @@ struct Spacing_interface
   static vector<Item*> left_note_columns (Grob *me);
   static Item* right_column (Grob *me);
   static Item* left_column (Grob *me);
+  static Drul_array<Skyline> skylines (Grob *me, Grob *right_col);
 
   DECLARE_GROB_INTERFACE();
 };
