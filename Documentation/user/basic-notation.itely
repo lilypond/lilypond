@@ -3233,6 +3233,13 @@ bracket only lasts one measure, which is a duration of 3/4.
 }
 @end lilypond
 
+If you want to start a repeat at the beginning of a line and have a
+double bar at the end of the previous line, use
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+see @ref{Bar lines} for more information.
 
 @seealso
 
