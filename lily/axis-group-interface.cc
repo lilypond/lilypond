@@ -478,7 +478,7 @@ add_boxes (Grob *me, Grob *x_common, Grob *y_common, vector<Box> *const boxes, S
    positions, one for above the staff, one for below).
 
    In each pass, we loop through the unplaced grobs from left to right.
-   If the grob overlaps the right-most affected position, we place it
+   If the grob doesn't overlap the right-most affected position, we place it
    (and then update the right-most affected position to point to the right
    edge of the just-placed grob).  Otherwise, we skip it until the next pass.
 */

@@ -20,6 +20,7 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
+#include "separation-item.hh"
 #include "spaceable-grob.hh"
 #include "spacing-interface.hh"
 #include "staff-spacing.hh"
@@ -207,6 +208,49 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
     }
 }
 
+static void
+set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
+{
+
+  /*
+    This is an inner loop: look for the first normal (unbroken) Left
+    grob.  This looks like an inner loop (ie. quadratic total), but in
+    most cases, the interesting L will just be the first entry of
+    NEXT, making it linear in most of the cases.
+  */
+  Item *r = dynamic_cast<Item*> (cols[idx]);
+
+  if (Separation_item::is_empty (r))
+    return;
+
+  for (; idx != VPOS; idx--)
+    {
+      Item *l = dynamic_cast<Item*> (cols[idx]);
+      Item *lb = l->find_prebroken_piece (RIGHT);
+
+      if (Separation_item::is_empty (l) && (!lb || Separation_item::is_empty (lb)))
+	continue;
+
+      Separation_item::set_distance (Drul_array<Item *> (l, r), padding);
+      if (lb)
+	Separation_item::set_distance (Drul_array<Item*> (lb, r), padding);
+
+
+      /*
+	This check is because grace notes are set very tight, and
+	the accidentals of main note may stick out so far to cover
+	a barline preceding the grace note.
+      */
+      if (spanned_time_interval (l, r).length ().main_part_ > Rational (0))
+	break;
+
+      /*
+	this grob doesn't cause a constraint. We look further until we
+	find one that does.
+      */
+    }
+}
+
 void
 Spacing_spanner::generate_springs (Grob *me,
 				   vector<Grob*> const &cols,
@@ -219,7 +263,10 @@ Spacing_spanner::generate_springs (Grob *me,
       Paper_column *next = (i + 1 < cols.size ()) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
       if (i > 0)
-	generate_pair_spacing (me, prev, col, next, options);
+	{
+	  generate_pair_spacing (me, prev, col, next, options);
+	  set_column_rods (cols, i, 0.1); // FIXME
+	}
 
       prev = col;
     }

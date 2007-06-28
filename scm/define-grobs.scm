@@ -1114,6 +1114,7 @@
 	(axes . (0))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(X-extent . ,ly:axis-group-interface::width)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	;;		      (stencil . ,ly:paper-column::print)
 	
 	(non-musical . #t)
@@ -1229,6 +1230,7 @@
 	(axes . (0))
 	(allow-loose-spacing . #t)
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
 	
@@ -1447,14 +1449,6 @@
 	(meta . ((class . Item)
 		 (interfaces . (
 				separation-item-interface))))))
-
-    (SeparatingGroupSpanner
-     . (
-	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
-	(meta . ((class . Spanner)
-		 (interfaces . (only-prebreak-interface
-				
-				separating-group-spanner-interface))))))
 
     (Slur
      . ((details . ,default-slur-details)

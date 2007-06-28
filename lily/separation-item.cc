@@ -30,7 +30,7 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 }
 
 void
-Separation_item::set_skyline_distance (Drul_array<Item *> items,
+Separation_item::set_distance (Drul_array<Item *> items,
 				       Real padding)
 {
   Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("horizontal-skylines")),
@@ -51,11 +51,10 @@ Separation_item::set_skyline_distance (Drul_array<Item *> items,
 }
 
 bool
-Separation_item::set_distance (Drul_array<Item *> items,
-			       Real padding)
+Separation_item::is_empty (Grob *me)
 {
-  set_skyline_distance (items, padding);
-  return true;
+  Skyline_pair *sky = Skyline_pair::unsmob (me->get_property ("horizontal-skylines"));
+  return (!sky || sky->is_empty ());
 }
 
 /*
@@ -125,21 +124,6 @@ Separation_item::boxes (Grob *me, Grob *left)
     }
 
   return out;      
-}
-
-Interval
-Separation_item::width (Grob *me)
-{
-  SCM sw = me->get_property ("X-extent");
-  return ly_scm2interval (sw);
-}
-
-Interval
-Separation_item::relative_width (Grob *me, Grob *common)
-{
-  Interval iv = width (me);
-
-  return dynamic_cast<Item *> (me)->get_column ()->relative_coordinate (common, X_AXIS) + iv;
 }
 
 /*

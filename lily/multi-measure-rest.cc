@@ -79,9 +79,7 @@ Multi_measure_rest::print (SCM smob)
     {
       Item *b = sp->get_bound (d);
 
-      Interval coldim = (Separation_item::has_interface (b))
-	? Separation_item::relative_width (b, common)
-	: b->extent (common, X_AXIS);
+      Interval coldim = b->extent (common, X_AXIS);
 
       sp_iv[d] = coldim.is_empty () ? b->relative_coordinate (common, X_AXIS) : coldim[-d];
     }

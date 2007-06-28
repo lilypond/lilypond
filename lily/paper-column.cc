@@ -146,16 +146,9 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
   Direction d = LEFT;
   do
     {
-      skys[d].set_minimum_height (0.0);
-      extract_grob_set (cols[d], "elements", elts);
-
-      for (vsize i = 0; i < elts.size (); i++)
-	if (Separation_item::has_interface (elts[i]))
-	  {
-	    Skyline_pair *sp = Skyline_pair::unsmob (elts[i]->get_property ("horizontal-skylines"));
-	    if (sp)
-	      skys[d].merge ((*sp)[-d]);
-	  }
+      Skyline_pair *sp = Skyline_pair::unsmob (cols[d]->get_property ("horizontal-skylines"));
+      if (sp)
+	skys[d] = (*sp)[-d];
     }
   while (flip (&d) != LEFT);
 

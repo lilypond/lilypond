@@ -197,8 +197,9 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
       ideal = fixed;
     }
 
+  Grob *left_col = dynamic_cast<Item*> (me)->get_column ();
   Real optical_correction = next_notes_correction (me, last_grob);
-  Real min_dist = Spacing_interface::minimum_distance (me, right_col);
+  Real min_dist = Paper_column::minimum_distance (left_col, right_col);
 
   /* ensure that the "fixed" distance will leave a gap of at least 0.3 ss. */
   Real min_dist_correction = max (0.0, 0.3 + min_dist - fixed);
