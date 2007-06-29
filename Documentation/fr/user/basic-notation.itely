@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
+    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -492,7 +492,7 @@ notes réelles), on utilisera un deuxième @code{transpose}
 
 Référence du programme : @internalsref{TransposedMusic}.
 
-Exemple : @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+Exemple : @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
@@ -959,7 +959,7 @@ combien de temps les mesures sont décalées.
 
 Si vous voulez permettre le saut de ligne aux barres de mesure où
 @internalsref{Completion_heads_engraver} divise les notes, vous devez
-aussi enlever @internalsref{Forbid_line_breaks_engraver}.
+aussi enlever @internalsref{Forbid_line_break_engraver}.
 
 
 @refbugs
@@ -1643,7 +1643,7 @@ position.
 Référence du programme : @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
-Exemples : @inputfileref{input/@/test,compound@/-time@/.ly}.
+Exemples : @lsr{contemporary,compound-time-signature.ly}.
 
 
 @refbugs
@@ -1764,7 +1764,7 @@ Dans une partition écrite sur plusieurs portées, la commande
 @code{\bar} placée sur une portée s'appliquera automatiquement à
 toutes les portées. Les barres de mesure que l'on obtient alors sont
 d'un seul tenant sur les portées d'un @code{StaffGroup}, d'un
-@code{PianoStaff}, ou d'un @code{ChoirStaff}.
+@code{PianoStaff}, ou d'un @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
@@ -1946,9 +1946,9 @@ nommé @code{staff symbol}.
 L'aspect du @code{staff symbol} peut être modifié selon différentes
 propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
 éloignement. Vous en trouverez des exemples dans
-@inputfileref{input/@/test,staff@/-lines@/.ly}
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly}
 et
-@inputfileref{input/@/test,staff@/-size@/.ly}.
+@lsr{staff,changing-the-staff-size.ly}.
 
 
 De plus, les portées peuvent commencer et s'arrêter où l'on veut,
@@ -1982,10 +1982,7 @@ comme sur l'exemple suivant :
 
 Référence du programme : @internalsref{StaffSymbol}.
 
-D'autres exemples : @inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly},
-@lsr{staff,staff-line-positions.ly}
+D'autres exemples : @lsrdir{staff}.
 
 @node Writing music in parallel
 @subsection Writing music in parallel
@@ -3330,13 +3327,7 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-
-Dans l'exemple qui suit, la première fin proposée n'occupe pas une 
-mesure complète --- il lui manque un temps.  Le quatrième temps
-manquant se trouve au début de la seconde fin, qui compte donc
-un temps en trop --- tout à fait indépendamment du fait que la mélodie
-commence par une anacrouse, comme l'indique la commande @code{\partial}
-au début de l'exemple.
+Il est possible de créer des répétitions avec une levée.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
@@ -3372,6 +3363,14 @@ l'exemple suivant, le crochet ne se prolonge que sur une mesure
 }
 @end lilypond
 
+Si l'on souhaite à la fois terminer une ligne par une double barre et
+débuter la ligne suivante avec une section reprise, on peut utiliser
+@example
+@dots{} \bar "||:" \break
+\repeat volta 2 @{ @dots{}
+@end example
+
+Consultez @ref{Bar lines} pour plus d'informations.
 
 @seealso
 

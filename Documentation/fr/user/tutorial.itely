@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
+   Translation of GIT committish: 8bf657e5c944bd8da26af01d6a021b48e74ff10a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -50,18 +50,18 @@ verrez exactement le code LilyPond utilisé pour générer cette image.
 Essayez sur cette image :
 
 @c no verbatim here
+@c KEEP LY
 @lilypond[quote,ragged-right]
 \relative c'' {
-  c-\markup { \bold \huge { Click here.  } }
+  c-\markup { \bold \huge { Cliquez ici.  } }
 }
 @end lilypond
 
-En copiant et en collant tout le code @qq{ly snippet} dans un fichier test,
-vous aurez un modèle de base pour faire vos expériences.  Si vous
-apprenez de cette façon, vous aurez probablement envie d'imprimer ou
-de garder un lien vers la
-@ref{Cheat sheet}, tableau qui répertorie les commandes usuelles
-pour une consultation rapide.
+En copiant et en collant tout le code de l'extrait ly dans un fichier
+test, vous aurez un modèle de base pour faire vos expériences.  Si vous
+apprenez de cette façon, vous aurez probablement envie d'imprimer ou de
+garder un lien vers la @ref{Cheat sheet}, tableau qui répertorie les
+commandes usuelles pour une consultation rapide.
 @end ifhtml
 
 @menu
