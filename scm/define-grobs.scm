@@ -1127,6 +1127,7 @@
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
 				axis-group-interface
+				separation-item-interface
 				spaceable-grob-interface))))))
     
     (NoteCollision

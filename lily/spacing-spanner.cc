@@ -223,7 +223,7 @@ set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
   if (Separation_item::is_empty (r))
     return;
 
-  for (; idx != VPOS; idx--)
+  while (idx--)
     {
       Item *l = dynamic_cast<Item*> (cols[idx]);
       Item *lb = l->find_prebroken_piece (RIGHT);

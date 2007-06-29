@@ -179,14 +179,9 @@ Tie_engraver::stop_translation_timestep ()
       if (!wait)
 	heads_to_tie_.clear ();
 
-      Grob *sep = unsmob_grob (get_property ("breakableSeparationItem"));
       for (vsize i = 0; i < ties_.size (); i++)
-	{
-	  if (sep)
-	    ties_[i]->set_object  ("separation-item", sep->self_scm ());
-	  
 	  typeset_tie (ties_[i]);
-	}
+
       ties_.clear ();
       tie_column_ = 0;
     }

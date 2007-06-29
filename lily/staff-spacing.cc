@@ -115,26 +115,11 @@ Staff_spacing::next_notes_correction (Grob *me,
 Spring
 Staff_spacing::get_spacing (Grob *me, Grob *right_col)
 {
-  Grob *separation_item = 0;
   Item *me_item = dynamic_cast<Item *> (me);
-
-  extract_grob_set (me, "left-items", items);
-  for (vsize i = items.size (); i--;)
-    {
-      Grob *cand = items[i];
-      if (cand && Separation_item::has_interface (cand))
-	separation_item = cand;
-    }
-
-  //  printf ("doing col %d\n" , Paper_column::get_rank (left_col));
-  if (!separation_item)
-    {
-      programming_error ("no sep item");
-      return Spring ();
-    }
+  Grob *left_col = me_item->get_column ();
 
   Interval last_ext;
-  Grob *last_grob = Separation_item::extremal_break_aligned_grob (separation_item, RIGHT,
+  Grob *last_grob = Separation_item::extremal_break_aligned_grob (left_col, RIGHT,
 								  &last_ext);
   if (!last_grob)
     {
@@ -197,7 +182,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
       ideal = fixed;
     }
 
-  Grob *left_col = dynamic_cast<Item*> (me)->get_column ();
+
   Real optical_correction = next_notes_correction (me, last_grob);
   Real min_dist = Paper_column::minimum_distance (left_col, right_col);
 

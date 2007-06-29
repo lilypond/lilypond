@@ -8,6 +8,7 @@
 
 #include "separation-item.hh"
 
+#include "axis-group-interface.hh"
 #include "lookup.hh"
 #include "stencil.hh"
 #include "skyline.hh"
@@ -106,20 +107,21 @@ Separation_item::boxes (Grob *me, Grob *left)
     {
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
-	{
-	  continue;
-	}
+	continue;
+      if (Axis_group_interface::has_interface (il))
+	continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
-					    Interval (0, 0));
+					    Interval (-0.1, 0.1));
       x[LEFT] += extra[LEFT];
       x[RIGHT] += extra[RIGHT];
       if (to_boolean (elts[i]->get_property ("infinite-spacing-height")))
 	y = Interval (-infinity_f, infinity_f);
  
+      if (!x.is_empty () && !y.is_empty ())
       out.push_back (Box (x, y));
     }
 

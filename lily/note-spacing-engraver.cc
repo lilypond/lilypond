@@ -106,7 +106,7 @@ Note_spacing_engraver::stop_translation_timestep ()
       && last_spacing_parent_context_
       && last_spacing_parent_context_ == context ()->get_parent_context ())
     {
-      Grob *sep = unsmob_grob (get_property ("breakableSeparationItem"));
+      Grob *sep = unsmob_grob (get_property ("currentCommandColumn"));
       if (sep)
 	Pointer_group_interface::add_grob (last_spacing_,
 					   ly_symbol2scm ("right-items"),
