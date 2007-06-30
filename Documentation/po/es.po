@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-17 23:05+0200\n"
+"POT-Creation-Date: 2007-06-28 14:13+0200\n"
 "PO-Revision-Date: 2007-03-28 10:29+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -48,7 +48,7 @@ msgstr "rama estable"
 msgid "development-branch"
 msgstr "rama de desarrollo"
 
-#: texi-gettext.py:45
+#: texi-gettext.py:65
 msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
@@ -131,6 +131,29 @@ msgstr "Aplicaciones de ejemplo"
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "About this manual"
 msgstr "Sobre el presente manual"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Learning manual"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Notation reference"
+msgstr "Navegar por la referencia del programa"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Program usage"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Appendices"
+msgstr "Apéndice "
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Other information"
+msgstr "Más información"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @chapter in ../../../Documentation/user/tutorial.itely
