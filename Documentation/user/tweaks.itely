@@ -307,8 +307,8 @@ voices:
 } >>
 @end lilypond
 
-To make sure that the just blanked stem doesn't squeeze the too much
-tie, we also lengthen the stem, by setting the @code{length} to
+To make sure that the just-blanked stem doesn't squeeze the tie too much,
+we also lengthen the stem, by setting the @code{length} to
 @code{8},
 
 @lilypond[quote,fragment,relative=2,verbatim]

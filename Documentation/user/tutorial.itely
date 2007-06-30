@@ -383,8 +383,8 @@ see @ref{Clef}.
 @node Working on text files
 @subsection Working on text files
 
-LilyPond input files are treated like files in most programming languages:
-they are case sensitive, white-space insensitive, expressions are
+LilyPond input files are similar to source files in many common programming languages.
+They are case sensitive, and white-space is generally equivalent.  Expressions are
 formed with curly braces @{ @}, and comments are denoted with @code{%} or
 @code{%@{ ... %@}}.
 
@@ -440,7 +440,7 @@ There are two types of comments.  The percent symbol @samp{%}
 introduces a line comment; anything after @samp{%} on that line is
 ignored.  A block comment marks a whole section of music
 input as a comment.  Anything that is enclosed in @code{%@{} and @code{%@}} is
-ignored.  The following fragment shows possible uses for comments
+ignored.  (Comments do not nest.)  The following fragment shows possible uses for comments
 
 @example
 % notes for twinkle twinkle follow
@@ -572,7 +572,7 @@ a
 @subheading Warning: key signatures and pitches
 
 To determine whether to print an accidental, LilyPond examines the
-pitches and the key signature.  The key signature only effects
+pitches and the key signature.  The key signature only affects
 the @emph{printed} accidentals, not the actual pitches!  This is a
 feature that often causes confusion to newcomers, so let us explain it
 in more detail.
@@ -1463,12 +1463,12 @@ piece or two.  Start with one of the @ref{Templates}, and
 add notes.  If you need any notation that was not covered in the
 tutorial, look at the Notation Reference, starting with
 @ref{Basic notation}.  If you want to write for an instrument
-ensemble which is not covered in the templates,
+ensemble that is not covered in the templates,
 take a look at @ref{Extending the templates}.
 
 Once you have written a few short pieces, read the rest of
 the Learning Manual (chapters 3-5).  There's nothing wrong
-with reading them now, of course!  However, the rest of the
+with reading it now, of course!  However, the rest of the
 Learning Manual assumes that you are familiar with
 LilyPond input.  You may wish to skim these chapters right
 now, and come back to them after you have more experience.
@@ -1483,7 +1483,7 @@ example.
 
 In the rest of the manual, we are much more lax about the
 printed examples: sometimes they may have omitted a
-@code{\relative c'' @{ ... @}}, but in other times a different initial
+@code{\relative c'' @{ ... @}}, but other times a different initial
 pitch may be used (such as @code{c'} or @code{c,,}), and in some cases
 the whole example is in absolute note mode!  However, ambiguities like
 this only exist where the pitches are not important.  In any example
