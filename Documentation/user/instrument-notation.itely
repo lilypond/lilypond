@@ -4598,7 +4598,7 @@ figures below the notes, use
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
-have overlapping extender lines.  To avoid this problem, plese
+have overlapping extender lines.  To avoid this problem, please
 use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 

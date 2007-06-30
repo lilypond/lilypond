@@ -1054,7 +1054,7 @@ These voices are all separate from the voice that contains the notes just
 outside the @code{<< \\ >>} construct.  This should be noted when making
 changes at the voice level.  This also means that slurs and ties cannot go
 into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
-from separate @code{<< \\ >>} constructs on the same staff are the the
+from separate @code{<< \\ >>} constructs on the same staff are the
 same voice.  Here is the same example, with different noteheads for each
 voice.  Note that the change to the note-head style in the main voice does
 not affect
