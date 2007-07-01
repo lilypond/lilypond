@@ -187,7 +187,6 @@ stderr of this run."
 %% Repeats
 \test "" ##[ \repeat volta 2 { c d } #]		% VoltaRepeatedMusic
 \test "" ##[ \repeat unfold 2 { c d } #]		% UnfoldedRepeatedMusic
-\test "" ##[ \repeat fold 2 { c d } #]		% FoldedRepeatedMusic
 \test "" ##[ \repeat percent 2 { c d } #]		% PercentRepeatedMusic
 \test "" ##[ \repeat tremolo 4 { c16 d } #]		% TremoloRepeatedMusic
 \test "" ##[ \repeat volta 2 { c4 d } \alternative { { c d } { e f } } #] % 

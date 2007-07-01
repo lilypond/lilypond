@@ -689,9 +689,6 @@ Otherwise, return #f."
 (define-display-method UnfoldedRepeatedMusic (expr parser)
   (repeat->lily-string expr "unfold" parser))
 
-(define-display-method FoldedRepeatedMusic (expr parser)
-  (repeat->lily-string expr "fold" parser))
-
 (define-display-method PercentRepeatedMusic (expr parser)
   (repeat->lily-string expr "percent" parser))
 

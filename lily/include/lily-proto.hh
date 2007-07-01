@@ -55,7 +55,6 @@ class Event;
 class Event_chord;
 class Event_chord_iterator;
 class Event_iterator;
-class Folded_repeat_iterator;
 class Font_metric;
 class Font_size_engraver;
 class Global_context;

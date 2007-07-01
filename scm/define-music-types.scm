@@ -185,14 +185,6 @@ You can also use @code{\\<}, @code{\\!}, @code{\\cresc}, and
 	(types . (general-music fingering-event event))
 	))
 
-    (FoldedRepeatedMusic
-     . ((description . "Repeats with alternatives placed in parallel.")
-	(iterator-ctor . ,ly:folded-repeat-iterator::constructor)
-	(start-callback .  ,ly:repeated-music::minimum-start)
-	(length-callback . ,ly:repeated-music::folded-music-length)
-	(types . (general-music repeated-music folded-repeated-music))
-	))
-
     (GlissandoEvent
      . ((description . "Start a glissando on this note.")
 	(types . (general-music glissando-event event))
@@ -693,8 +685,7 @@ and values. E.g:
   (let* ((handle (assoc name '(("volta" . VoltaRepeatedMusic)
 			       ("unfold" . UnfoldedRepeatedMusic)
 			       ("percent" . PercentRepeatedMusic)
-			       ("tremolo" . TremoloRepeatedMusic)
-			       ("fold" . FoldedRepeatedMusic))))
+			       ("tremolo" . TremoloRepeatedMusic))))
 	 (music-name (if (pair? handle)
 			 (cdr handle)
 			 (begin
