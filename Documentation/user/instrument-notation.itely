@@ -854,7 +854,7 @@ any 8-bit character with ASCII code over 127, or a two-character
 combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
 
-To define indentifiers containing lyrics, the function @code{lyricmode}
+To define identifiers containing lyrics, the function @code{lyricmode}
 must be used.
 
 @example
