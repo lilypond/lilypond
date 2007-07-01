@@ -857,7 +857,7 @@ en savoir plus sur la notation et la gravure.
 Le
 @emph{@ref{Scheme tutorial}}
 propose une courte introduction à Scheme, le langage de programmation
-utilisé par les fonctions de musique.
+utilisé dans les fonctions de musique.
 
 @item
 @ifhtml
@@ -871,12 +871,12 @@ instruments MIDI, les noms de couleur, et la police Feta.
 Les
 @emph{@ref{Templates}}
 de pièces LilyPond.  Copiez et collez un modèle
-dans un fichier, ajouter les notes, et c'est prêt !
+dans un fichier, ajoutez les notes, et c'est prêt !
 
 @item
 La
 @emph{@ref{Cheat sheet}}
-est une référence pratique des commandes LlyPond les plus courantes.
+est une référence pratique des commandes LilyPond les plus courantes.
 
 @item
 L'
