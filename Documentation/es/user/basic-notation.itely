@@ -3355,9 +3355,8 @@ c4 c4
 
 Referencia del programa: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic} y
-@internalsref{FoldedRepeatedMusic}.
+@internalsref{VoltaRepeatedMusic} y
+@internalsref{UnfoldedRepeatedMusic}.
 
 
 @node Tremolo repeats
