@@ -29,7 +29,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/user-ln doc-po
 	cd $(outdir); texi2pdf --batch $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
 
 local-WWW: $(outdir)/lilypond.pdf $(outdir)/lilypond/index.html
-	find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(depth)/Documentation/user/$(outdir) $(outdir)/lilypond.pdf
+	cd $(outdir); find -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
 # ugh, this is not enough to avoid wasting build time, $(outdir)/user-ln should be touched for all languages
 	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $(outdir)/user-ln
 
