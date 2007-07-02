@@ -83,6 +83,20 @@ def build_pages_dict (filelist):
             else:
                 pages_dict[g[0]].append (e)
 
+def source_links_replace (m, source_val):
+    return 'href="' + os.path.join (source_val, m.group (1)) + '"'
+
+# On systems without symlinks (e.g. Windows), docs are not very usable
+# Get rid of symlinks here (also in GNUmakefile.in (local-WWW-post))
+def replace_symlinks_urls (s, prefix):
+    if prefix.startswith ('Documentation/user/'):
+        s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?)"', '\\1="../\\2"', s)
+    source_path = os.path.join (os.path.dirname (prefix), 'source')
+    if not os.path.islink (source_path):
+        return s
+    source_val = os.readlink (source_path)
+    return re.sub ('href="source/(.*?)"', lambda m: source_links_replace (m, source_val), s)
+
 def add_header (s):
     """Add header (<BODY> and doctype)"""
     if re.search (header_tag, s) == None:
@@ -101,10 +115,6 @@ def add_header (s):
             doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
             s = doctype + s
         return s
-
-def info_external_ref_remove (s):
-    """Remove info's annoying's indication of referencing external document"""
-    return re.sub (' \((lilypond|lilypond-internals|music-glossary)\)</a>', '</a>', s)
 
 def add_title (s):
     # urg
@@ -247,9 +257,9 @@ def add_html_footer (translation,
             in_f.close()
 
             s = re.sub ('%', '%%', s)
+            if target == 'offline':
+                s = replace_symlinks_urls (s, prefix)
             s = add_header (s)
-            # seems to be no more needed
-            # s = info_external_ref_remove (s)
 
             ### add footer
             if re.search (footer_tag, s) == None:
@@ -259,11 +269,6 @@ def add_html_footer (translation,
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.
                 page_flavors = add_menu (page_flavors, prefix, available, target, translation)
-            # urg, this stuff is outdated and seems useless, let's disable it
-            #else:
-            #    for e in [l.webext for l in langdefs.LANGUAGES]:
-            #        if not e in pages_dict[prefix]:
-            #            page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = s
             subst = dict ([i for i in globals().items() if type (i[1]) is str])
             subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
             for k in page_flavors.keys():

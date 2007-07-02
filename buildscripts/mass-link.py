@@ -5,19 +5,22 @@
 #
 # create hard or symbolic links to SOURCEDIR/FILES in DESTDIR
 #
-# if --prepend-suffix is specified, link to foo.bar will be called fooSUFFIX.bar
-# shell-wildcard expansion is performed on FILES.
-
-print "mass_link.py"
+# If --prepend-suffix is specified, link to foo.bar will be called fooSUFFIX.bar.
+# Shell wildcards expansion is performed on FILES.
 
 import sys
 import os
 import glob
 import getopt
 
+print "mass-link.py"
+
 optlist, args = getopt.getopt (sys.argv[1:], '', ['prepend-suffix='])
 link_type, source_dir, dest_dir = args[0:3]
 files = args[3:]
+
+source_dir = os.path.normpath (source_dir)
+dest_dir = os.path.normpath (dest_dir)
 
 prepended_suffix = ''
 for x in optlist:
@@ -46,7 +49,12 @@ sourcefiles = []
 for pattern in files:
     sourcefiles += (glob.glob (os.path.join (source_dir, pattern)))
 
-destfiles = map (lambda f: os.path.join (dest_dir, insert_suffix (os.path.basename (f))), sourcefiles)
+def relative_path (f):
+    if source_dir == '.':
+        return f
+    return f[len (source_dir) + 1:]
+
+destfiles = map (lambda f: os.path.join (dest_dir, insert_suffix (relative_path (f))), sourcefiles)
 
 def force_link (src,dest):
     if os.path.exists (dest):

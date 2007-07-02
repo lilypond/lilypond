@@ -61,7 +61,8 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifhtml
 This document is also available as a
-@uref{source/Documentation/user/lilypond.pdf,PDF}.
+@uref{source/Documentation/user/lilypond.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-big-page.html,one big page}.
 @end ifhtml
 
 

@@ -18,16 +18,20 @@ doc_dirs = ['input', 'Documentation', outdir]
 target_pattern = os.path.join (outdir, '%s-root')
 
 static_files = {
-    # ugly hack: the following overwrites HTML Info dir with a link to
-    # the (more useful) documentation index
-    os.path.join ('Documentation/user', outdir, 'index.html'):
-    '''<META HTTP-EQUIV="refresh" content="0;URL=../index.html">
-<html><body>Redirecting to the documentation index...</body></html>\n''',
     os.path.join (outdir, 'index.html'):
     '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">
 <html><body>Redirecting to the documentation index...</body></html>\n''',
     os.path.join (outdir, 'VERSION'):
     package_version + '\n' }
+
+import langdefs
+
+# ugly hack: the following overwrites HTML Info dir with a link to
+# the (more useful) documentation index
+for l in langdefs.LANGUAGES:
+    static_files[os.path.join ('Documentation/user', outdir, l.file_name ('index', '.html'))] = \
+                                  '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
+                                  '">\n<html><body>Redirecting to the documentation index...</body></html>\n'
 
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
@@ -36,7 +40,6 @@ for f, contents in static_files.items ():
 sys.path.append (buildscript_dir)
 import mirrortree
 import add_html_footer
-import langdefs
 
 sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (

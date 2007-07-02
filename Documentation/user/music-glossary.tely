@@ -1,8 +1,8 @@
-\input texinfo @c -*- coding: utf8; mode: texinfo; -*-
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @setfilename music-glosssary.info
 @settitle Music Glossary
 
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage en
 
 @c see lilypond.tely for info installation note
@@ -14,7 +14,7 @@
 @ifhtml
 This document is also available in
 @uref{source/Documentation/user/music-glossary.pdf,PDF}
-and as @uref{source/Documentation/user/music-glossary.html,one big page}.
+and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page}.
 @end ifhtml
 
 @titlepage
