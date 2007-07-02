@@ -15,15 +15,11 @@ non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/user/out-www/lilypond-internals-big-page',
                     'Documentation/user/out-www/music-glossary-big-page',
                     'out-www/examples',
-                    'Documentation/topdocs/out-www/NEWS',
-                    'Documentation/topdocs/out-www/INSTALL',
-                    'Documentation/bibliography/out-www/index',
-                    'Documentation/bibliography/out-www/engraving',
-                    'Documentation/bibliography/out-www/colorado',
-                    'Documentation/bibliography/out-www/computer-notation'
+                    'Documentation/topdocs',
+                    'Documentation/bibliography',
                     'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
-                    'Documentation/topdocs/out-www/AUTHORS']
+                    'input/']
 
 def _doc (s):
     return s
@@ -86,10 +82,13 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
+splitted_docs_re = re.compile ('Documentation/user/out-www/(lilypond|music-glossary)/')
+
 # On systems without symlinks (e.g. Windows), docs are not very usable
-# Get rid of symlinks here (also in GNUmakefile.in (local-WWW-post))
+# Get rid of symlinks references here
+# Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 def replace_symlinks_urls (s, prefix):
-    if prefix.startswith ('Documentation/user/'):
+    if splitted_docs_re.match (prefix):
         s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?)"', '\\1="../\\2"', s)
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
@@ -159,7 +158,7 @@ def find_translations (prefix, lang_ext):
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append (l)
-            elif lang_ext == '' and l.enabled and not prefix in non_copied_pages:
+            elif lang_ext == '' and l.enabled and reduce (lambda x, y: x and y, [not prefix.startswith (s) for s in non_copied_pages]):
                 # English version of missing translated pages will be written
                 missing.append (e)
     return available, missing
