@@ -8,7 +8,7 @@
 (define (music-props-doc)
   (make <texi-node>
     #:name "Music properties"
-    #:desc "All music properties, including descriptions"
+    #:desc "All music properties, including descriptions."
     #:text
     (let* ((ps (sort (map symbol->string all-music-properties) string<?))
 	   (descs (map (lambda (prop)
@@ -42,7 +42,7 @@
     (string-append
      "\nMusic event type @code{"
      (symbol->string (car entry))
-     "} is in Music objects of type "
+     "} is in music objects of type "
      (human-listify
       (sort
        (map (lambda (x) (ref-ify (symbol->string x)))
@@ -111,7 +111,7 @@
 (define (music-doc-node)
   (make <texi-node>
     #:name "Music definitions"
-    #:desc "Definition of the Input data structures"
+    #:desc "Definition of the input data structures."
     #:children
     (list
      (music-expressions-doc)

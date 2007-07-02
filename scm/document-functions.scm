@@ -37,7 +37,7 @@
 	 (sfdocs (sort fdocs string<?))) 
     (make <texi-node>
       #:name "Scheme functions"
-      #:desc "Primitive functions exported by LilyPond"
+      #:desc "Primitive functions exported by LilyPond."
       #:text
       (apply string-append sfdocs))))
 
