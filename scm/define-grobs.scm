@@ -825,8 +825,7 @@
 	(direction . ,UP)
 	(self-alignment-X . ,CENTER)
 	(meta . ((class . Item)
-		 (interfaces . (system-start-text-interface
-				side-position-interface
+		 (interfaces . (side-position-interface
 				font-interface))))))
     
     (KeyCancellation
@@ -1239,6 +1238,7 @@
 	;;		         (font-size . -6) (font-name . "sans") (Y-extent . #f)
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
+				separation-item-interface
 				axis-group-interface
 				spaceable-grob-interface))))))
 

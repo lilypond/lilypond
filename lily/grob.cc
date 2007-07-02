@@ -288,16 +288,23 @@ Grob::pure_relative_y_coordinate (Grob const *refp, int start, int end)
   Real off = 0;
 
   if (dim_cache_[Y_AXIS].offset_)
-    off = *dim_cache_[Y_AXIS].offset_;
+    {
+      if (to_boolean (get_property ("pure-Y-offset-in-progress")))
+	programming_error ("cyclic chain in pure-Y-offset callbacks");
+
+      off = *dim_cache_[Y_AXIS].offset_;
+    }
   else
     {
       SCM proc = get_property_data ("Y-offset");
 
       dim_cache_[Y_AXIS].offset_ = new Real (0.0);
+      set_property ("pure-Y-offset-in-progress", SCM_BOOL_T);
       off = robust_scm2double (call_pure_function (proc,
 						   scm_list_1 (self_scm ()),
 						   start, end),
 			       0.0);
+      del_property ("pure-Y-offset-in-progress");
       delete dim_cache_[Y_AXIS].offset_;
       dim_cache_[Y_AXIS].offset_ = 0;
     }
@@ -625,6 +632,7 @@ ADD_INTERFACE (Grob,
 	       "outside-staff-horizontal-padding "
 	       "outside-staff-padding "
 	       "outside-staff-priority "
+	       "pure-Y-offset-in-progress "
 	       "rotation "
 	       "springs-and-rods "
 	       "staff-symbol "
