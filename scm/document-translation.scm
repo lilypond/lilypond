@@ -171,11 +171,15 @@
        "."
 
        (if (and (pair? props) (not (null? props)))
-	   (string-append
-	    "\n\nThis context sets the following properties:\n\n"
-	    "@itemize @bullet\n"
-	    (apply string-append (map document-property-operation props))
-	    "@end itemize\n")
+	   (let ((str (apply string-append (map document-property-operation
+						props))))
+	     (if (string-null? str)
+		 ""
+		 (string-append
+		  "\n\nThis context sets the following properties:\n\n"
+		  "@itemize @bullet\n"
+		  str
+		  "@end itemize\n")))
 	   "")
        
        (if (null? accepts)
