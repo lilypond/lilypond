@@ -16,8 +16,9 @@
 
 LY_DEFINE (ly_output_def_lookup, "ly:output-def-lookup",
 	   2, 1, 0, (SCM pap, SCM sym, SCM def),
-	   "Lookup @var{sym} in the Output_def @var{pap}. "
-	   "Return the value or @var{def} (which defaults to  @code{'()}) if undefined.")
+	   "Look up @var{sym} in the @var{pap} output definition"
+	   " (e.g., @code{\\paper}).  Return the value or @var{def}"
+	   " (which defaults to @code{'()}) if undefined.")
 {
   LY_ASSERT_SMOB (Output_def, pap, 1);
   Output_def *op = unsmob_output_def (pap);
@@ -46,7 +47,7 @@ LY_DEFINE (ly_output_def_scope, "ly:output-def-scope",
 
 LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 	   1, 0, 0, (SCM def),
-	   "Get the parent output-def of @var{def}.")
+	   "Get the parent output definition of @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
@@ -55,7 +56,7 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
 
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   1, 0, 0, (SCM def),
-	   "Clone @var{def}.")
+	   "Clone output definition @var{def}.")
 {
   LY_ASSERT_SMOB (Output_def, def, 1);
   Output_def *op = unsmob_output_def (def);
@@ -91,7 +92,7 @@ LY_DEFINE (ly_output_def_p, "ly:output-def?",
 
 LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 	   1, 0, 0, (SCM bp),
-	   "Get output-scale for BP.")
+	   "Get output-scale for @var{bp}.")
 {
   LY_ASSERT_SMOB (Output_def, bp, 1);
   Output_def *b = unsmob_output_def (bp);
@@ -100,7 +101,7 @@ LY_DEFINE (ly_paper_outputscale, "ly:paper-outputscale",
 
 LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 	   0, 0, 0, (),
-	   "Make a output def.")
+	   "Make an output definition.")
 {
   Output_def *bp = new Output_def;
   return bp->unprotect ();
@@ -108,11 +109,9 @@ LY_DEFINE (ly_make_output_def, "ly:make-output-def",
 
 LY_DEFINE (ly_paper_get_font, "ly:paper-get-font", 2, 0, 0,
 	   (SCM paper_smob, SCM chain),
-
-	   "Return a font metric satisfying the font-qualifiers "
-	   "in the alist chain @var{chain}.\n"
-	   "(An alist chain is a list of alists, "
-	   "containing grob properties).\n")
+	   "Return a font metric satisfying the font-qualifiers"
+	   " in the alist chain @var{chain}.  (An alist chain is a"
+	   " list of alists, containing grob properties.)")
 {
   LY_ASSERT_SMOB (Output_def, paper_smob, 1);
 

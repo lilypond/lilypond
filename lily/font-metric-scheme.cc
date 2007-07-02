@@ -15,9 +15,9 @@
 LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 	   2, 0, 0,
 	   (SCM font, SCM name),
-	   "Return a Stencil from @var{font} for the glyph named @var{name}.  "
-	   "@var{font} must be available as an AFM file.  If the glyph "
-	   "is not available, return @code{#f}.")
+	   "Return a stencil from @var{font} for the glyph named @var{name}."
+	   "  @var{font} must be available as an AFM file.  If the glyph"
+	   " is not available, return @code{#f}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -32,8 +32,8 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 LY_DEFINE (ly_get_glyph, "ly:get-glyph",
 	   2, 0, 0,
 	   (SCM font, SCM index),
-	   "Retrieve a Stencil for the glyph numbered @var{index} "
-	   "in @var{font}.")
+	   "Retrieve a stencil for the glyph numbered @var{index}"
+	   " in @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -57,7 +57,7 @@ LY_DEFINE (ly_font_glyph_name_to_index, "ly:font-glyph-name-to-index",
 LY_DEFINE (ly_font_index_to_charcode, "ly:font-index-to-charcode",
 	   2, 0, 0,
 	   (SCM font, SCM index),
-	   "Return the character code for @var{index} @var{font}.")
+	   "Return the character code for @var{index} in @var{font}.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
@@ -81,9 +81,9 @@ LY_DEFINE (ly_font_glyph_name_to_charcode, "ly:font-glyph-name-to-charcode",
 LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 	   2, 0, 0,
 	   (SCM font, SCM text),
-	   "Given the font metric in @var{font} and the string @var{text}, "
-	   "compute the extents of that text in that font.  "
-	   "The return value is a pair of number-pairs.")
+	   "Given the font metric in @var{font} and the string @var{text},"
+	   " compute the extents of that text in that font.  The return"
+	   " value is a pair of number-pairs.")
 {
   Box b;
   Modified_font_metric *fm = dynamic_cast<Modified_font_metric *>
@@ -103,8 +103,8 @@ LY_DEFINE (ly_text_dimension, "ly:text-dimension",
 LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 	   1, 0, 0,
 	   (SCM font),
-	   "Given the font metric @var{font}, "
-	   "return the corresponding file name.")
+	   "Given the font metric @var{font},"
+	   " return the corresponding file name.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -117,8 +117,8 @@ LY_DEFINE (ly_font_file_name, "ly:font-file-name",
 LY_DEFINE (ly_font_name, "ly:font-name",
 	   1, 0, 0,
 	   (SCM font),
-	   "Given the font metric @var{font}, "
-	   "return the corresponding name.")
+	   "Given the font metric @var{font},"
+	   " return the corresponding name.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
   Font_metric *fm = unsmob_metrics (font);
@@ -128,8 +128,8 @@ LY_DEFINE (ly_font_name, "ly:font-name",
 
 LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 	   (SCM font),
-	   "Given the font metric @var{font}, return the "
-	   "magnification, relative to the current output-scale.")
+	   "Given the font metric @var{font}, return the"
+	   " magnification, relative to the current output-scale.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 
@@ -139,8 +139,8 @@ LY_DEFINE (ly_font_magnification, "ly:font-magnification", 1, 0, 0,
 
 LY_DEFINE (ly_font_design_size, "ly:font-design-size", 1, 0, 0,
 	   (SCM font),
-	   "Given the font metric @var{font}, return the "
-	   "design size, relative to the current output-scale.")
+	   "Given the font metric @var{font}, return the"
+	   " design size, relative to the current output-scale.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
 

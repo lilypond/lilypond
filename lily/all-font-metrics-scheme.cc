@@ -13,7 +13,7 @@
 
 LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0,
 	   (),
-	   "Forget all about previously loaded fonts. ")
+	   "Forget all about previously loaded fonts.")
 {
   delete all_fonts_global;
   all_fonts_global = new All_font_metrics (global_path.to_string ());
@@ -24,7 +24,7 @@ LY_DEFINE (ly_reset_all_fonts, "ly:reset-all-fonts", 0, 0, 0,
 
 LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 	   (SCM name),
-	   "Load the font @var{name}. ")
+	   "Load the font @var{name}.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   

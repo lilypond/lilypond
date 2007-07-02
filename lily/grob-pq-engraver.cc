@@ -49,7 +49,8 @@ Grob_pq_engraver::initialize ()
 
 LY_DEFINE (ly_grob_pq_less_p, "ly:grob-pq<?",
 	   2, 0, 0, (SCM a, SCM b),
-	   "Compare 2 grob priority queue entries. Internal")
+	   "Compare two grob priority queue entries."
+	   "  This is an internal function.")
 {
   if (Moment::compare (*unsmob_moment (scm_car (a)),
 		       *unsmob_moment (scm_car (b))) < 0)

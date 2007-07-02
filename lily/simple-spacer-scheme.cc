@@ -15,13 +15,19 @@
 
 LY_DEFINE (ly_solve_spring_rod_problem, "ly:solve-spring-rod-problem",
 	   4, 1, 0, (SCM springs, SCM rods, SCM length, SCM ragged),
-	   "Solve a spring and rod problem for @var{count} objects, that "
-	   "are connected by @var{count-1} springs, and an arbitrary number of rods "
-	   "Springs have the format (ideal, inverse_hooke) and rods (idx1, idx2, distance) "
-	   "@var{length} is a number, @var{ragged} a boolean "
-	   "Return: a list containing the force (positive for stretching, "
-	   "negative for compressing and #f for non-satisfied constraints) "
-	   "followed by the @var{spring-count}+1 positions of the objects. ")
+	   "Solve a spring and rod problem for @var{count} objects, that"
+	   " are connected by @var{count}-1 @var{springs}, and an arbitrary"
+	   " number of @var{rods}.  @var{count} is implicitly given by"
+	   " @var{springs} and @var{rods}.  The @var{springs} argument has"
+	   " the format @code{(ideal, inverse_hook)} and @var{rods} is of"
+	   " the form @code{(idx1, idx2, distance)}.\n"
+	   "\n"
+	   "@var{length} is a number, @var{ragged} a boolean.\n"
+	   "\n"
+	   "The function returns a list containing the force (positive for"
+	   " stretching, negative for compressing and @code{#f} for"
+	   " non-satisfied constraints) followed by @var{spring-count}+1"
+	   " positions of the objects.")
 {
   int len = scm_ilength (springs);
   if (len == 0)

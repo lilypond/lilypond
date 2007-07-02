@@ -10,7 +10,7 @@
 
 LY_DEFINE (ly_performance_write, "ly:performance-write",
 	   2, 0, 0, (SCM performance, SCM filename),
-	   "Write @var{performance} to @var{filename}")
+	   "Write @var{performance} to @var{filename}.")
 {
   LY_ASSERT_TYPE (unsmob_performance, performance, 1);
   LY_ASSERT_TYPE (scm_is_string, filename, 2);

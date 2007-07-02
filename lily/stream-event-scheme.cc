@@ -10,7 +10,8 @@
 
 LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
 	   1, 1, 0, (SCM cl, SCM proplist),
-	   "Creates a stream event of class @var{cl} with the given mutable property list.\n" )
+	   "Create a stream event of class @var{cl} with the given"
+	   " mutable property list.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, cl, 1);
 
@@ -26,8 +27,8 @@ LY_DEFINE (ly_make_stream_event, "ly:make-stream-event",
 
 LY_DEFINE (ly_event_property, "ly:event-property", 
            2, 0, 0, (SCM sev, SCM sym),
-	   "Get the property @var{sym} of stream event @var{mus}.\n"
-	   "If @var{sym} is undefined, return @code{'()}.\n")
+	   "Get the property @var{sym} of stream event @var{mus}."
+	   "  If @var{sym} is undefined, return @code{'()}.")
 {
   LY_ASSERT_SMOB (Stream_event, sev, 1);
   LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
@@ -49,7 +50,7 @@ LY_DEFINE (ly_event_set_property_x, "ly:event-set-property!",
 
 LY_DEFINE (ly_event_deep_copy, "ly:event-deep-copy",
 	   1, 0, 0, (SCM m),
-	   "Copy @var{m} and all sub expressions of @var{m}")
+	   "Copy @var{m} and all sub expressions of@tie{}@var{m}.")
 {
   SCM copy = m;
   if (Stream_event *ev = unsmob_stream_event (m))

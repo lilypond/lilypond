@@ -132,7 +132,8 @@ ensure_listened_hash ()
 
 LY_DEFINE (ly_get_listened_event_classes, "ly:get-listened-event-classes",
 	   0, 0, 0, (),
-	   "Returns a list of all event classes that some translator listens to.")
+	   "Return a list of all event classes that some translator listens"
+	   " to.")
 {
   ensure_listened_hash ();
   return ly_hash_table_keys (listened_event_class_table);

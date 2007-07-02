@@ -13,8 +13,9 @@
 
 LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
 	   1, 0, 0, (SCM pb),
-	   "Optimally break (pages and lines) the Paper_book PB such that page turns "
-	   "only happen in specified places, returning its pages.")
+	   "Optimally break (pages and lines) the @code{Paper_book} object"
+	   " @var{pb} such that page turns only happen in specified places,"
+	   " returning its pages.")
 {
   Page_turn_page_breaking b (unsmob_paper_book (pb));
   return b.solve ();
@@ -22,8 +23,9 @@ LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
 
 LY_DEFINE (ly_optimal_breaking, "ly:optimal-breaking",
 	   1, 0, 0, (SCM pb),
-	   "Optimally break (pages and lines) the Paper_book PB to minimise badness in "
-	   "bother vertical and horizontal spacing.")
+	   "Optimally break (pages and lines) the @code{Paper_book} object"
+	   " @var{pb} to minimize badness in bother vertical and horizontal"
+	   " spacing.")
 {
   Optimal_page_breaking b (unsmob_paper_book (pb));
   return b.solve ();

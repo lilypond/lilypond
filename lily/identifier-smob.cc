@@ -28,8 +28,8 @@ print_box (SCM b, SCM port, scm_print_state *)
    type `box', initialized to `#f'.  */
 LY_DEFINE (ly_export, "ly:export",
 	   1, 0, 0, (SCM arg),
-	   "Export a Scheme object to the parser, "
-	   "so it is treated as an identifier.")
+	   "Export a Scheme object to the parser"
+	   " so it is treated as an identifier.")
 {
   SCM_RETURN_NEWSMOB (package_tag, arg);
 }
