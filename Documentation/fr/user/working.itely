@@ -194,9 +194,9 @@ Jusqu'à maintenant, vous avez vu ce type de code :
 @lilypond[quote,verbatim,ragged-right]
 hornNotes = \relative c'' { c4 b dis c }
 \score {
- {
-   \hornNotes
- }
+  {
+    \hornNotes
+  }
 }
 @end lilypond
 

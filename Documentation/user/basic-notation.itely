@@ -1873,7 +1873,7 @@ in every context, and that type is determined by the property
 System start delimiters may be deeply nested,
 
 @lilypond[quote,ragged-right,verbatim]
-\new StaffGroup 
+\new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)

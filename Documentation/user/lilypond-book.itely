@@ -27,7 +27,7 @@ TODO: cleanup
 If you want to add pictures of music to a document, you can simply do it
 the way you would do with other types of pictures.  The pictures are
 created separately, yielding PostScript output or PNG images, and those
-are included into a La@TeX{} or HTML document.
+are included into a @LaTeX{} or HTML document.
 
 @command{lilypond-book} provides a way to automate this process: This
 program extracts snippets of music from your document, runs
@@ -35,7 +35,7 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
-This procedure may be applied to La@TeX{}, HTML, Texinfo or DocBook documents.
+This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook documents.
 
 @menu
 * An example of a musicological document::  
@@ -56,7 +56,7 @@ This procedure may be applied to La@TeX{}, HTML, Texinfo or DocBook documents.
 @section An example of a musicological document
 
 @cindex musicology
-@cindex La@TeX{}, music in
+@cindex @LaTeX{}, music in
 @cindex HTML, music in
 @cindex Texinfo, music in
 @cindex DocBook, music in
@@ -64,11 +64,11 @@ Some texts contain music examples.  These texts are musicological
 treatises, songbooks, or manuals like this.  Such texts can be made by
 hand, simply by importing a PostScript figure into the word processor.
 However, there is an automated procedure to reduce the amount of work
-involved in HTML, La@TeX{}, Texinfo and DocBook documents.
+involved in HTML, @LaTeX{}, Texinfo and DocBook documents.
 
 A script called @code{lilypond-book} will extract the music fragments,
 format them, and put back the resulting notation.  Here we show a small
-example for use with La@TeX{}.  The example also contains explanatory
+example for use with @LaTeX{}.  The example also contains explanatory
 text, so we will not comment on it further.
 
 @quotation
@@ -135,7 +135,7 @@ the files in a separate subdirectory @file{dir}.
 Running dvips will produce many warnings about fonts.  They are not
 harmful; please ignore them.
 
-Finally the result of the La@TeX{} example shown above.@footnote{This
+Finally the result of the @LaTeX{} example shown above.@footnote{This
 tutorial is processed with Texinfo, so the example gives slightly
 different results in layout.}  This finishes the tutorial section.
 
@@ -173,16 +173,16 @@ Larger examples can be put into a separate file, and introduced with
 
 
 @node Integrating LaTeX and music
-@section Integrating La@TeX{} and music
+@section Integrating @LaTeX{} and music
 
-La@TeX{} is the de-facto standard for publishing layouts in the exact
+@LaTeX{} is the de-facto standard for publishing layouts in the exact
 sciences.  It is built on top of the @TeX{} typesetting engine,
 providing the best typography available anywhere.
 
 See
 @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/english/,
-@emph{The Not So Short Introduction to La@TeX{}}} for an overview on how
-to use La@TeX{}.
+@emph{The Not So Short Introduction to @LaTeX{}}} for an overview on how
+to use @LaTeX{}.
 
 Music is entered using
 
@@ -207,7 +207,7 @@ or
 @end example
 
 Running @command{lilypond-book} yields a file that can be further
-processed with La@TeX{}.
+processed with @LaTeX{}.
 
 We show some examples here.  The lilypond environment
 
@@ -243,13 +243,13 @@ Currently, you cannot include @code{@{} or @code{@}} within
 The default line width of the music will be adjusted by examining the
 commands in the document preamble, the part of the document before
 @code{\begin@{document@}}.  The @command{lilypond-book} command sends
-these to La@TeX{} to find out how wide the text is.  The line width for
+these to @LaTeX{} to find out how wide the text is.  The line width for
 the music fragments is then adjusted to the text width.  Note that this
 heuristic algorithm can fail easily; in such cases it is necessary to
 use the @code{line-width} music fragment option.
 
 @cindex titling and lilypond-book
-@funindex \header in La@TeX{} documents
+@funindex \header in @LaTeX{} documents
 
 Each snippet will call the following macros if they have been defined by
 the user:
@@ -299,7 +299,7 @@ kpsewhich feta20.tex
 @cindex dvips
 @cindex invoking dvips
 
-For printing the La@TeX{} document you need a DVI to PostScript
+For printing the @LaTeX{} document you need a DVI to PostScript
 translator like @command{dvips}.  To use @command{dvips} to produce
 a PostScript file, add the following options to the @command{dvips}
 command line:
@@ -327,7 +327,7 @@ as if they continued after the end of the fragment.  This can be done by
 breaking the staff and suppressing inclusion of the rest of the lilypond
 output.
 
-In La@TeX{}, define @code{\betweenLilyPondSystem} in such a way that
+In @LaTeX{}, define @code{\betweenLilyPondSystem} in such a way that
 inclusion of other systems is terminated once the required number of
 systems are included.  Since @code{\betweenLilypondSystem} is first
 called @b{after} the first system, including only the first system
@@ -352,7 +352,7 @@ the number of systems you want in the output,
 @end example
 
 Remember that the definition of @code{\betweenLilyPondSystem} is
-effective until @TeX{} quits the current group (such as the La@TeX{}
+effective until @TeX{} quits the current group (such as the @LaTeX{}
 environment) or is overridden by another definition (which is, in
 most cases, for the rest of the document).  To reset your
 definition, write
@@ -443,7 +443,7 @@ produces
 
 @lilypond[fragment,staffsize=11]{<c' e' g'>}
 
-Contrary to La@TeX{}, @code{@@lilypond@{...@}} does not generate an
+Contrary to @LaTeX{}, @code{@@lilypond@{...@}} does not generate an
 in-line image.  It always gets a paragraph of its own.
 
 When using the Texinfo output format, @command{lilypond-book} also
@@ -549,7 +549,7 @@ For HTML (HTML Help, JavaHelp etc.) generation you can use the official DocBook 
 In the following, a @q{LilyPond command} refers to any command described
 in the previous sections which is handled by @command{lilypond-book} to
 produce a music snippet.  For simplicity, LilyPond commands are only
-shown in La@TeX{} syntax.
+shown in @LaTeX{} syntax.
 
 Note that the option string is parsed from left to right; if an option
 occurs multiple times, the last one is taken.
@@ -816,7 +816,7 @@ Print version information.
 @refbugs
 
 The Texinfo command @code{@@pagesizes} is not interpreted.  Similarly,
-La@TeX{} commands that change margins and line widths after the preamble
+@LaTeX{} commands that change margins and line widths after the preamble
 are ignored.
 
 Only the first @code{\score} of a LilyPond block is processed.
@@ -837,11 +837,11 @@ output format based on the input filename's extension.
 @item
 @item @file{.html} @tab HTML
 @item @file{.itely} @tab Texinfo
-@item @file{.latex} @tab La@TeX{}
-@item @file{.lytex} @tab La@TeX{}
+@item @file{.latex} @tab @LaTeX{}
+@item @file{.lytex} @tab @LaTeX{}
 @item @file{.lyxml} @tab DocBook
 @item @file{.tely} @tab Texinfo
-@item @file{.tex} @tab La@TeX{}
+@item @file{.tex} @tab @LaTeX{}
 @item @file{.texi} @tab Texinfo
 @item @file{.texinfo} @tab Texinfo
 @item @file{.xml} @tab HTML
