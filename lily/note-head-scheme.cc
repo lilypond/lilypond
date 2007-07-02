@@ -13,8 +13,8 @@
 
 LY_DEFINE (ly_note_head__stem_attachment, "ly:note-head::stem-attachment",
 	  2, 0, 0, (SCM font_metric, SCM glyph_name),
-	  "Get attachment in @var{font-metric} for attaching a stem to notehead "
-	  "@var{glyph-name}.")
+	  "Get attachment in @var{font-metric} for attaching a stem to"
+	  " notehead @var{glyph-name}.")
 {
   LY_ASSERT_SMOB (Font_metric, font_metric, 1);
   Font_metric *fm = unsmob_metrics (font_metric);

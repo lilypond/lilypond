@@ -15,8 +15,8 @@
 
 LY_DEFINE (ly_make_book, "ly:make-book",
 	   2, 0, 1, (SCM paper, SCM header, SCM scores),
-	   "Make a \\book of @var{paper} and @var{header} (which may be #f as well)  "
-	   "containing @code{\\scores}.")
+	   "Make a @code{\\book} of @var{paper} and @var{header}"
+	   " (which may be @code{#f} as well) containing @code{\\scores}.")
 {
   Output_def *odef = unsmob_output_def (paper);
   LY_ASSERT_SMOB (Output_def, paper, 1);
@@ -39,10 +39,9 @@ LY_DEFINE (ly_book_process, "ly:book-process",
 		     SCM default_paper,
 		     SCM default_layout,
 		     SCM output),
-	   "Print book. @var{output} is passed to the backend unchanged. "
-	   "Eg. it may be "
-	   "a string (for file based outputs) or a socket (for network based "
-	   "output).")
+	   "Print book.  @var{output} is passed to the backend unchanged."
+	   "  For example, it may be a string (for file based outputs)"
+	   " or a socket (for network based output).")
 {
   Book *book = unsmob_book (book_smob);
 
@@ -67,10 +66,9 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 		     SCM default_paper,
 		     SCM default_layout,
 		     SCM output),
-	   "Print book. @var{output} is passed to the backend unchanged. "
-	   "Eg. it may be "
-	   "a string (for file based outputs) or a socket (for network based "
-	   "output).")
+	   "Print book.  @var{output} is passed to the backend unchanged."
+	   "  For example, it may be a string (for file based outputs)"
+	   " or a socket (for network based output).")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
   LY_ASSERT_SMOB (Output_def, default_paper, 2);
@@ -91,7 +89,7 @@ LY_DEFINE (ly_book_process_to_systems, "ly:book-process-to-systems",
 
 LY_DEFINE (ly_book_add_score_x, "ly:book-add-score!",
 	   2, 0, 0, (SCM book_smob, SCM score),
-	   "Add @var{score} to @var{book_smob} score list.")
+	   "Add @var{score} to @var{book-smob} score list.")
 {
   LY_ASSERT_SMOB (Book, book_smob, 1);
   Book *book = unsmob_book (book_smob); 

@@ -13,8 +13,8 @@
 
 LY_DEFINE (ly_system_print, "ly:system-print",
 	   1, 0, 0, (SCM system),
-	   "Draw the system and return the prob containing its "
-	   "stencil.")
+	   "Draw the system and return the prob containing its"
+	   " stencil.")
 {
   Grob *me = unsmob_grob (system);
   System *me_system = dynamic_cast<System*> (me);
@@ -25,9 +25,9 @@ LY_DEFINE (ly_system_print, "ly:system-print",
 
 LY_DEFINE (ly_system_stretch, "ly:system-stretch",
 	   2, 0, 0, (SCM system, SCM amount_scm),
-	   "Stretch the system vertically by the given amount. "
-	   "This must be called before the system is drawn (for example "
-	   "with ly:system-print).")
+	   "Stretch the system vertically by the given amount."
+	   "  This must be called before the system is drawn (for example"
+	   " with @code{ly:system-print}).")
 {
   Grob *me = unsmob_grob (system);
   Real amount = robust_scm2double (amount_scm, 0.0);

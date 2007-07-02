@@ -47,14 +47,14 @@ FIXME: this should use ly:set-option interface instead.
 
 LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback",
 	   1, 0, 0, (SCM cb),
-	   "Specify a procedure that will be called every time lilypond modifies "
-	   "a grob property. The callback will receive as arguments "
-	   "the grob that is being modified, "
-	   "the name of the C++ file in which the modification was requested, "
-	   "the line number in the C++ file in which the modification was requested, "
-	   "the name of the function in which the modification was requested, "
-	   "the property to be changed and "
-	   "the new value for the property.")
+	   "Specify a procedure that will be called every time LilyPond"
+	   " modifies a grob property.  The callback will receive as"
+	   " arguments the grob that is being modified, the name of the"
+	   " C++ file in which the modification was requested, the line"
+	   " number in the C++ file in which the modification was requested,"
+	   " the name of the function in which the modification was"
+	   " requested, the property to be changed, and the new value for"
+	   " the property.")
 {
   modification_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;
@@ -62,13 +62,12 @@ LY_DEFINE (ly_set_grob_modification_callback, "ly:set-grob-modification-callback
 
 LY_DEFINE (ly_set_property_cache_callback, "ly:set-property-cache-callback",
 	   1, 0, 0, (SCM cb),
-	   "Specify a procedure that will be called whenever lilypond calculates "
-	   "a callback function and caches the result. The callback will "
-	   "receive as arguments "
-	   "the grob whose property it is, "
-	   "the name of the property, "
-	   "the name of the callback that calculated the property and "
-	   "the new (cached) value of the property.")
+	   "Specify a procedure that will be called whenever lilypond"
+	   " calculates a callback function and caches the result.  The"
+	   " callback will receive as arguments the grob whose property it"
+	   " is, the name of the property, the name of the callback that"
+	   " calculated the property, and the new (cached) value of the"
+	   " property.")
 {
   cache_callback =  (ly_is_procedure (cb)) ? cb : SCM_BOOL_F;
   return SCM_UNSPECIFIED;

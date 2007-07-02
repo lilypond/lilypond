@@ -50,7 +50,8 @@ lookup_tex_text_dimension (Font_metric *font, SCM text)
 LY_DEFINE (ly_load_text_dimensions, "ly:load-text-dimensions",
 	   1, 0, 0,
 	   (SCM dimension_alist),
-	   "Load dimensions from TeX in a (KEY . (W H D)) format alist")
+	   "Load dimensions from @TeX{} in a @code{(KEY . (W H D))} format"
+	   " alist.")
 {
   if (!text_dimension_hash_tab)
     {

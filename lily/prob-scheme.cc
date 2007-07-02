@@ -11,7 +11,7 @@
 
 LY_DEFINE (ly_prob_set_property_x, "ly:prob-set-property!",
 	   2, 1, 0, (SCM obj, SCM sym, SCM value),
-	   "Set property @var{sym} of @var{obj} to @var{value}")
+	   "Set property @var{sym} of @var{obj} to @var{value}.")
 {
   LY_ASSERT_SMOB (Prob, obj, 1);
   Prob *ps = unsmob_prob (obj);
@@ -52,7 +52,7 @@ LY_DEFINE (ly_prob_property, "ly:prob-property",
 LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 	   2, 0, 0,
 	   (SCM obj, SCM type),
-	   "If obj the specified prob-type?")
+	   "Is @var{obj} the specified prob-type?")
 {
   Prob*prob = unsmob_prob (obj);
   return scm_from_bool (prob && prob->type () == type);
@@ -61,7 +61,7 @@ LY_DEFINE (ly_prob_type_p, "ly:prob-type?",
 LY_DEFINE (ly_make_prob, "ly:make-prob",
 	   2, 0, 1,
 	   (SCM type, SCM init, SCM rest),
-	   "Create a Prob.")
+	   "Create a @code{Prob} object.")
 {
   Prob *pr = new Prob (type, init);
 
@@ -87,9 +87,9 @@ LY_DEFINE (ly_paper_system_p, "ly:paper-system?",
 
 LY_DEFINE (ly_paper_system_minimum_distance, "ly:paper-system-minimum-distance",
 	   2, 0, 0, (SCM sys1, SCM sys2),
-	   "Measure the minimum distance between these two paper-systems "
-	   "using their stored skylines if possible and falling back to "
-	   "their extents otherwise.")
+	   "Measure the minimum distance between these two paper-systems,"
+	   " using their stored skylines if possible and falling back to"
+	   " their extents otherwise.")
 {
   Real ret = 0;
   Prob *p1 = unsmob_prob (sys1);

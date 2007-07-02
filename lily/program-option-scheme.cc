@@ -168,7 +168,7 @@ get_help_string ()
 
 
 LY_DEFINE (ly_option_usage, "ly:option-usage", 0, 0, 0, (),
-	   "Print @code{ly:set-option} usage")
+	   "Print @code{ly:set-option} usage.")
 {
   string help = get_help_string ();
   progress_indication (help);
@@ -219,19 +219,19 @@ LY_DEFINE (ly_set_option, "ly:set-option", 1, 1, 0, (SCM var, SCM val),
 }
 
 LY_DEFINE (ly_command_line_options, "ly:command-line-options", 0, 0, 0, (),
-	   "The Scheme specified on command-line with @samp{-d}.")
+	   "The Scheme options specified on command-line with @option{-d}.")
 {
   return ly_string2scm (init_scheme_variables_global); 
 }
 
 LY_DEFINE (ly_command_line_code, "ly:command-line-code", 0, 0, 0, (),
-	   "The Scheme specified on command-line with @samp{-e}.")
+	   "The Scheme code specified on command-line with @option{-e}.")
 {
   return ly_string2scm (init_scheme_code_global); 
 }
 
 LY_DEFINE (ly_command_line_verbose_p, "ly:command-line-verbose?", 0, 0, 0, (),
-	   "Was be_verbose_global set?")
+	   "Was @code{be_verbose_global} set?")
 {
   return scm_from_bool (be_verbose_global);
 }

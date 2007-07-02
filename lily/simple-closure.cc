@@ -92,9 +92,10 @@ LY_DEFINE (ly_simple_closure_p, "ly:simple-closure?",
 
 LY_DEFINE (ly_make_simple_closure, "ly:make-simple-closure",
 	  1, 0, 0, (SCM expr),
-	  "Make a simple closure. @var{expr} should be form of "
-	  "@code{(@var{func} @var{a1} @var{A2} ...)}, and will be invoked "
-	  "as @code{(@var{func} @var{delayed-arg} @var{a1} @var{a2} ... )}.")
+	  "Make a simple closure.  @var{expr} should be form of"
+	  " @code{(@var{func} @var{a1} @var{A2} @dots{})}, and will be"
+	  " invoked as @code{(@var{func} @var{delayed-arg} @var{a1}"
+	  " @var{a2} @dots{})}.")
 {
   SCM z;
 
@@ -104,9 +105,9 @@ LY_DEFINE (ly_make_simple_closure, "ly:make-simple-closure",
 
 LY_DEFINE (ly_eval_simple_closure, "ly:eval-simple-closure",
 	  2, 2, 0, (SCM delayed, SCM closure, SCM scm_start, SCM scm_end),
-	  "Evaluate a simple closure with the given delayed argument. "
-	  "If start and end are defined, evaluate it purely with those "
-	  "start- and end-points.")
+	  "Evaluate a simple @var{closure} with the given @var{delayed}"
+	  " argument.  If @var{scm-start} and @var{scm-end} are defined,"
+	  " evaluate it purely with those start and end points.")
 {
   bool pure = (scm_is_number (scm_start) && scm_is_number (scm_end));
   int start = robust_scm2int (scm_start, 0);

@@ -11,8 +11,8 @@
 
 LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 	   (SCM font),
-	   "Given the font metric @var{font} of an OpenType font, return the "
-	   "names of the subfonts within @var{font}.")
+	   "Given the font metric @var{font} of an OpenType font, return the"
+	   " names of the subfonts within @var{font}.")
 {
   LY_ASSERT_SMOB (Font_metric, font, 1);
   Font_metric *fm = unsmob_metrics (font);
@@ -21,8 +21,8 @@ LY_DEFINE (ly_font_sub_fonts, "ly:font-sub-fonts", 1, 0, 0,
 
 LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
 	   (SCM font, SCM glyph),
-	   "Given the font metric @var{font} of an OpenType font, return the "
-	   "information about named glyph @var{glyph} (a string)")
+	   "Given the font metric @var{font} of an OpenType font, return the"
+	   " information about named glyph @var{glyph} (a string).")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
@@ -37,8 +37,8 @@ LY_DEFINE (ly_otf_font_glyph_info, "ly:otf-font-glyph-info", 2, 0, 0,
 
 LY_DEFINE (ly_otf_font_table_data, "ly:otf-font-table-data", 2, 0, 0,
 	   (SCM font, SCM tag),
-	   "Extract a table @var{tag} from @var{font}. Return empty string for "
-	   "non-existent @var{tag}.")
+	   "Extract a table @var{tag} from @var{font}.  Return empty string"
+	   " for non-existent @var{tag}.")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
@@ -74,7 +74,7 @@ LY_DEFINE (ly_otf_font_p, "ly:otf-font?", 1, 0, 0,
 
 LY_DEFINE (ly_otf_glyph_list, "ly:otf-glyph-list",
 	   1, 0, 0, (SCM font),
-	   "Return a list of glyphnames for @var{font}.")
+	   "Return a list of glyph names for @var{font}.")
 {
   Modified_font_metric *fm
     = dynamic_cast<Modified_font_metric *> (unsmob_metrics (font));
