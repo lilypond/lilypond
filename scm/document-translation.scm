@@ -221,7 +221,7 @@
 
     (make <texi-node>
       #:name "Contexts"
-      #:desc "Complete descriptions of all contexts"
+      #:desc "Complete descriptions of all contexts."
       #:children
       (map context-doc contexts))))
 
@@ -234,7 +234,7 @@
 (define (all-engravers-doc)
   (make <texi-node>
     #:name "Engravers"
-    #:desc "All separate engravers"
+    #:desc "All separate engravers."
     #:text "See @usermanref{Modifying context plug-ins}."
     #:children
     (map engraver-doc all-engravers-list)))
@@ -252,19 +252,19 @@
 (define (translation-doc-node)
   (make <texi-node>
     #:name "Translation"
-    #:desc "From music to layout"
+    #:desc "From music to layout."
     #:children
     (list
      (all-contexts-doc)
      (all-engravers-doc)
      (make <texi-node>
        #:name "Tunable context properties"
-       #:desc "All tunable context properties"
+       #:desc "All tunable context properties."
        #:text (translation-properties-doc-string
 	       all-user-translation-properties))
 
      (make <texi-node>
        #:name "Internal context properties"
-       #:desc "All internal context properties"
+       #:desc "All internal context properties."
        #:text (translation-properties-doc-string
 	       all-internal-translation-properties)))))

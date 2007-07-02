@@ -30,7 +30,7 @@ module_define_closure_func (void *closure, SCM key, SCM val, SCM result)
 
 LY_DEFINE (ly_module_copy, "ly:module-copy",
 	   2, 0, 0, (SCM dest, SCM src),
-	   "Copy all bindings from module SRC into DEST.")
+	   "Copy all bindings from module @var{src} into @var{dest}.")
 {
 #define FUNC_NAME __FUNCTION__
   SCM_VALIDATE_MODULE (1, src);
@@ -42,8 +42,8 @@ LY_DEFINE (ly_module_copy, "ly:module-copy",
 
 LY_DEFINE (ly_clear_anonymous_modules, "ly:clear-anonymous-modules",
 	   0, 0, 0, (),
-	   "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak reference "
-	   "pointer cycle explicitly.")
+	   "Plug a GUILE 1.6 and 1.7 memory leak by breaking a weak"
+	   " reference pointer cycle explicitly.")
 {
 #ifdef MODULE_GC_KLUDGE
   clear_anonymous_modules ();
@@ -68,9 +68,9 @@ ly_module_lookup (SCM module, SCM sym)
 LY_DEFINE (ly_modules_lookup, "ly:modules-lookup",
 	   2, 1, 0,
 	   (SCM modules, SCM sym, SCM def),
-	   "Lookup @var{sym} in the list @var{modules}, "
-	   "returning the first occurence.  "
-	   "If not found, return @var{default}, or @code{#f}.")
+	   "Look up @var{sym} in the list @var{modules},"
+	   " returning the first occurence.  If not found, return"
+	   " @var{def} or @code{#f} if @var{def} isn't specified.")
 {
   for (SCM s = modules; scm_is_pair (s); s = scm_cdr (s))
     {

@@ -11,7 +11,8 @@
 
 LY_DEFINE (ly_lexer_keywords, "ly:lexer-keywords",
 	  1, 0, 0, (SCM lexer),
-	  "Return a list of (KEY . CODE) pairs, signifying the lilypond reserved words list.")
+	  "Return a list of @code{(KEY . CODE)} pairs, signifying the"
+	  " LilyPond reserved words list.")
 {
   LY_ASSERT_SMOB (Lily_lexer, lexer, 1);
 

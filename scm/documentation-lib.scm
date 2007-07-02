@@ -78,9 +78,13 @@
 . string-to-use)
 "
   (string-append
-   "\n@table @asis\n"
+   "\n"
+   "@quotation\n"
+   "@table @asis\n"
    (apply string-append (map one-item->texi items-alist))
-   "\n@end table\n"))
+   "\n"
+   "@end table\n"
+   "@end quotation\n"))
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."

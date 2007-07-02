@@ -156,7 +156,9 @@
   (make <texi-node>
     #:name "Top"
     #:text 
-    (string-append  "This is the program reference for LilyPond version " (lilypond-version))
+    (string-append  "This is the program reference for version "
+		    (lilypond-version)
+		    " of LilyPond, the GNU music typesetter.")
 
     #:children
     (list

@@ -17,7 +17,7 @@
 */
 LY_DEFINE (ly_make_scale, "ly:make-scale",
 	   1, 0, 0, (SCM steps),
-	   "Create a scale. Takes a vector of ints as argument")
+	   "Create a scale.  Takes a vector of integers as argument.")
 {
   bool type_ok = scm_is_vector (steps);
 

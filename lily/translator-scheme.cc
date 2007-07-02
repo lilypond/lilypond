@@ -12,8 +12,8 @@
 
 LY_DEFINE (ly_translator_name, "ly:translator-name",
 	   1, 0, 0, (SCM trans),
-	   "Return the type name of the translator object @var{trans}. "
-	   "The name is a symbol.")
+	   "Return the type name of the translator object @var{trans}."
+	   "  The name is a symbol.")
 {
   LY_ASSERT_SMOB (Translator, trans, 1);
   Translator *tr = unsmob_translator (trans);
@@ -23,7 +23,7 @@ LY_DEFINE (ly_translator_name, "ly:translator-name",
 
 LY_DEFINE (ly_translator_description, "ly:translator-description",
 	   1, 0, 0, (SCM me),
-	   "Return an alist of properties of  translator @var{me}.")
+	   "Return an alist of properties of translator @var{me}.")
 {
   LY_ASSERT_SMOB (Translator, me, 1);
   Translator *tr = unsmob_translator (me);

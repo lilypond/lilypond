@@ -29,7 +29,8 @@ using namespace std;
 
 LY_DEFINE (ly_start_environment, "ly:start-environment",
 	   0, 0, 0, (),
-	   "Return the environment, a list of strings, that was in effect at program start")
+	   "Return the environment (a list of strings) that was in"
+	   " effect at program start.")
 {
   SCM l = SCM_EOL;
   SCM *tail = &l;
@@ -47,8 +48,8 @@ LY_DEFINE (ly_start_environment, "ly:start-environment",
 
 LY_DEFINE (ly_find_file, "ly:find-file",
 	   1, 0, 0, (SCM name),
-	   "Return the absolute file name of @var{name}, "
-	   "or @code{#f} if not found.")
+	   "Return the absolute file name of @var{name},"
+	   " or @code{#f} if not found.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
 
@@ -66,8 +67,8 @@ LY_DEFINE (ly_find_file, "ly:find-file",
 */
 LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 	   1, 1, 0, (SCM name, SCM size),
-	   "Read the file @var{name}, and return its contents in a string.  "
-	   "The file is looked up using the search path. ")
+	   "Read the file @var{name}, and return its contents in a string."
+	   "  The file is looked up using the search path.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   int sz = INT_MAX;
@@ -83,8 +84,8 @@ LY_DEFINE (ly_gulp_file, "ly:gulp-file",
 
 LY_DEFINE (ly_error, "ly:error",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to issue the error @code{msg}. "
-	   "The error is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue the error @var{str}."
+	   "  The error is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -94,8 +95,8 @@ LY_DEFINE (ly_error, "ly:error",
 
 LY_DEFINE (ly_message, "ly:message",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to issue the message @code{msg}. "
-	   "The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue the message @var{str}."
+	   "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -105,8 +106,8 @@ LY_DEFINE (ly_message, "ly:message",
 
 LY_DEFINE (ly_progress, "ly:progress",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to print progress @code{str}. "
-	   "The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to print progress @var{str}."
+	   "  The message is formatted with @code{format} and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -116,8 +117,9 @@ LY_DEFINE (ly_progress, "ly:progress",
 
 LY_DEFINE (ly_programming_error, "ly:programming-error",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to issue the warning @code{msg}. "
-	   "The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue the internal warning"
+	   "  @var{str}.  The message is formatted with @code{format}"
+	   " and @var{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -127,8 +129,8 @@ LY_DEFINE (ly_programming_error, "ly:programming-error",
 
 LY_DEFINE (ly_warning, "ly:warning",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "Scheme callable function to issue the warning @code{str}. "
-	   "The message is formatted with @code{format} and @code{rest}.")
+	   "A Scheme callable function to issue the warning @code{str}."
+	   "  The message is formatted with @code{format} and @code{rest}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
   str = scm_simple_format (SCM_BOOL_F, str, rest);
@@ -138,9 +140,9 @@ LY_DEFINE (ly_warning, "ly:warning",
 
 LY_DEFINE (ly_dir_p, "ly:dir?",
 	   1, 0, 0, (SCM s),
-	   "type predicate. A direction is @code{-1}, @code{0} or "
-	   "@code{1}, where @code{-1} represents "
-	   "left or down and @code{1} represents right or up.")
+	   "A type predicate.  The direction@tie{}@code{s} is @code{-1},"
+	   " @code{0} or@tie{}@code{1}, where @code{-1} represents"
+	   " left or down and @code{1} represents right or up.")
 {
   if (scm_is_number (s))
     {
@@ -153,8 +155,8 @@ LY_DEFINE (ly_dir_p, "ly:dir?",
 LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 	   2, 1, 0,
 	   (SCM key, SCM alist, SCM default_value),
-	   "Return value if KEY in ALIST, else DEFAULT-VALUE "
-	   "(or #f if not specified).")
+	   "Return value if @var{key} in @var{alist}, else @code{default-value}"
+	   " (or @code{#f} if not specified).")
 {
   LY_ASSERT_TYPE(ly_cheap_is_list, alist, 2);
   
@@ -170,7 +172,8 @@ LY_DEFINE (ly_assoc_get, "ly:assoc-get",
 
 LY_DEFINE (ly_string_substitute, "ly:string-substitute",
 	   3, 0, 0, (SCM a, SCM b, SCM s),
-	   "Replace string @var{a} by string @var{b} in string @var{s}.")
+	   "Replace string@tie{}@var{a} by string@tie{}@var{b} in"
+	   " string@tie{}@var{s}.")
 {
   LY_ASSERT_TYPE (scm_is_string, s, 1);
   LY_ASSERT_TYPE (scm_is_string, b, 2);
@@ -210,7 +213,8 @@ LY_DEFINE (ly_number_2_string, "ly:number->string",
 }
 
 LY_DEFINE (ly_version, "ly:version", 0, 0, 0, (),
-	   "Return the current lilypond version as a list, e.g. @code{(1 3 127 uu1)}. ")
+	   "Return the current lilypond version as a list, e.g.,"
+	   " @code{(1 3 127 uu1)}.")
 {
   char const *vs = "\'(" MAJOR_VERSION " " MINOR_VERSION " " PATCH_LEVEL " " MY_PATCH_LEVEL ")";
 
@@ -224,8 +228,8 @@ LY_DEFINE (ly_unit, "ly:unit", 0, 0, 0, (),
 }
 
 LY_DEFINE (ly_dimension_p, "ly:dimension?", 1, 0, 0, (SCM d),
-	   "Return @var{d} is a number. Used to distinguish length "
-	   "variables from normal numbers.")
+	   "Return @var{d} as a number.  Used to distinguish length"
+	   " variables from normal numbers.")
 {
   return scm_number_p (d);
 }
@@ -242,7 +246,7 @@ LY_DEFINE (ly_protects, "ly:protects",
 
 LY_DEFINE (ly_gettext, "ly:gettext",
 	   1, 0, 0, (SCM string),
-	   "Gettext wrapper.")
+	   "A Scheme wrapper function for @code{gettext}.")
 {
   LY_ASSERT_TYPE (scm_is_string, string, 1);
   return ly_string2scm (_ (scm_i_string_chars (string)));
@@ -250,8 +254,8 @@ LY_DEFINE (ly_gettext, "ly:gettext",
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",
 	   0, 0, 0, (),
-	   "Formats passed to --format as a list of strings, "
-	   "used for the output.")
+	   "Formats passed to @option{--format} as a list of strings,"
+	   " used for the output.")
 {
   vector<string> output_formats = string_split (output_format_global, ',');
 
@@ -265,7 +269,7 @@ LY_DEFINE (ly_output_formats, "ly:output-formats",
 
 LY_DEFINE (ly_wide_char_2_utf_8, "ly:wide-char->utf-8",
 	   1, 0, 0, (SCM wc),
-	   "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8")
+	   "Encode the Unicode codepoint @var{wc}, an integer, as UTF-8.")
 {
   char buf[5];
 
@@ -307,9 +311,9 @@ LY_DEFINE (ly_effective_prefix, "ly:effective-prefix",
 
 LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 	   2, 1, 0, (SCM key, SCM achain, SCM dfault),
-	   "Return value for @var{key} from a list of alists @var{achain}.  "
-	   "If no if no entry is found, return DFAULT, "
-	   "or #f if no DFAULT not specified.")
+	   "Return value for @var{key} from a list of alists @var{achain}."
+	   "  If no entry is found, return @var{dfault} or @code{#f} if no"
+	   " @var{dfault} is specified.")
 {
   if (scm_is_pair (achain))
     {
@@ -325,7 +329,7 @@ LY_DEFINE (ly_chain_assoc_get, "ly:chain-assoc-get",
 
 LY_DEFINE (ly_stderr_redirect, "ly:stderr-redirect",
 	   1, 1, 0, (SCM file_name, SCM mode),
-	   "Redirect stderr to FILE-NAME, opened with MODE.")
+	   "Redirect stderr to @var{file-name}, opened with @var{mode}.")
 {
   LY_ASSERT_TYPE (scm_is_string, file_name, 1);
 
@@ -349,7 +353,7 @@ accumulate_symbol (void *closure, SCM key, SCM val, SCM result)
 
 LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
 	  1,0,0, (SCM tab),
-	  "return a list of keys in @var{tab}")
+	  "Return a list of keys in @var{tab}.")
 {
   return scm_internal_hash_fold ((Hash_closure_function) & accumulate_symbol,
 				 NULL, SCM_EOL, tab);
@@ -357,7 +361,7 @@ LY_DEFINE (ly_hash_table_keys, "ly:hash-table-keys",
 
 LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
 	   1, 0, 0, (SCM name_sym),
-	   "Convert FooBar_Bla to foo-bar-bla style symbol.")
+	   "Convert @code{FooBar_Bla} to @code{foo-bar-bla} style symbol.")
 {
   LY_ASSERT_TYPE (ly_is_symbol, name_sym, 1);
   
@@ -373,7 +377,7 @@ LY_DEFINE (ly_camel_case_2_lisp_identifier, "ly:camel-case->lisp-identifier",
 
 LY_DEFINE (ly_expand_environment, "ly:expand-environment",
 	   1, 0, 0, (SCM str),
-	   "Expand $VAR and $@{VAR@} in @var{str}.")
+	   "Expand @code{$VAR} and @code{$@{VAR@}} in @var{str}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 
@@ -383,7 +387,7 @@ LY_DEFINE (ly_expand_environment, "ly:expand-environment",
 
 LY_DEFINE (ly_truncate_list_x, "ly:truncate-list!",
 	   2, 0, 0, (SCM lst, SCM i),
-	   "Take at most the first @var{i} of list @var{lst}")
+	   "Take at most the first @var{i} of list @var{lst}.")
 {
   LY_ASSERT_TYPE (scm_is_integer, i, 1);
 
@@ -438,7 +442,7 @@ format_single_argument (SCM arg, int precision)
 
 LY_DEFINE (ly_format, "ly:format",
 	   1, 0, 1, (SCM str, SCM rest),
-	   "LilyPond specific format, supporting ~a ~[0-9]f.")
+	   "LilyPond specific format, supporting @code{~a} and @code{~[0-9]f}.")
 {
   LY_ASSERT_TYPE (scm_is_string, str, 1);
 

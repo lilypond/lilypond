@@ -33,8 +33,8 @@ LY_DEFINE (ly_set_point_and_click, "ly:set-point-and-click",
 
 LY_DEFINE (ly_parse_file, "ly:parse-file",
 	   1, 0, 0, (SCM name),
-	   "Parse a single @code{.ly} file.  "
-	   "Upon failure, throw @code{ly-file-failed} key.")
+	   "Parse a single @code{.ly} file."
+	   "  Upon failure, throw @code{ly-file-failed} key.")
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   string file = ly_scm2string (name);
@@ -183,8 +183,8 @@ LY_DEFINE (ly_parser_define_x, "ly:parser-define!",
 
 LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 	   2, 0, 0, (SCM parser_smob, SCM symbol),
-	   "Lookup @var{symbol} in @var{parser-smob}'s module.  "
-	   "Undefined is '().")
+	   "Look up @var{symbol} in @var{parser-smob}'s module."
+	   "  Return @code{'()} if not defined.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
 
@@ -201,8 +201,8 @@ LY_DEFINE (ly_parser_lookup, "ly:parser-lookup",
 
 LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 	   2, 0, 0, (SCM parser_smob, SCM ly_code),
-	   "Parse the string @code{ly-code} with @code{parser-smob}."
-	   "Upon failure, throw @code{ly-file-failed} key.")
+	   "Parse the string @var{ly-code} with @var{parser-smob}."
+	   "  Upon failure, throw @code{ly-file-failed} key.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser_smob, 1);
   Lily_parser *parser = unsmob_lily_parser (parser_smob); 
@@ -215,9 +215,9 @@ LY_DEFINE (ly_parser_parse_string, "ly:parser-parse-string",
 
 LY_DEFINE (ly_parser_set_note_names, "ly:parser-set-note-names",
 	   2, 0, 0, (SCM parser, SCM names),
-	   "Replace current note names in @var{parser}. "
-	   "@var{names} is an alist of symbols.  "
-	   "This only has effect if the current mode is notes.")
+	   "Replace current note names in @var{parser}."
+	   "  @var{names} is an alist of symbols.  This only has effect"
+	   " if the current mode is notes.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);
@@ -243,7 +243,7 @@ LY_DEFINE (ly_parser_output_name, "ly:parser-output-name",
 
 LY_DEFINE (ly_parser_error, "ly:parser-error",
 	   2, 1, 0, (SCM parser, SCM msg, SCM input),
-	   "Display an error message, and make the parser fail")
+	   "Display an error message and make the parser fail.")
 {
   LY_ASSERT_SMOB (Lily_parser, parser, 1);
   Lily_parser *p = unsmob_lily_parser (parser);

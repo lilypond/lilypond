@@ -12,8 +12,8 @@
 
 LY_DEFINE (ly_spanner_bound, "ly:spanner-bound",
 	   2, 0, 0, (SCM slur, SCM dir),
-	   "Get one of the bounds of @var{spanner}. @var{dir} is @code{-1} "
-	   "for left, and @code{1} for right.")
+	   "Get one of the bounds of @var{slur}.  @var{dir} is @code{-1}"
+	   " for left, and @code{1} for right.")
 {
   LY_ASSERT_TYPE (unsmob_spanner, slur, 1);
   LY_ASSERT_TYPE (is_direction, dir,2);
@@ -38,7 +38,7 @@ LY_DEFINE (ly_spanner_broken_into, "ly:spanner-broken-into",
 
 LY_DEFINE (ly_spanner_p, "ly:spanner?",
 	   1, 0, 0, (SCM g),
-	   "Is  @var{g} a spanner object?")
+	   "Is @var{g} a spanner object?")
 {
   Grob *me = unsmob_grob (g);
   bool b = dynamic_cast<Spanner *> (me);

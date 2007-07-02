@@ -29,7 +29,7 @@ LY_DEFINE (ly_grob_property_data, "ly:grob-property-data",
 
 LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 	   3, 0, 0, (SCM grob, SCM sym, SCM val),
-	   "Set @var{sym} in grob @var{grob} to value @var{val}")
+	   "Set @var{sym} in grob @var{grob} to value @var{val}.")
 {
   Grob *sc = unsmob_grob (grob);
  
@@ -46,10 +46,10 @@ LY_DEFINE (ly_grob_set_property_x, "ly:grob-set-property!",
 
 LY_DEFINE (ly_grob_property, "ly:grob-property",
 	   2, 1, 0, (SCM grob, SCM sym, SCM deflt),
-	   "Return the value of a value in grob @var{g} of property @var{sym}. "
-	   "It will return @code{'()} or @var{deflt} (if specified) "
-	   "if  @var{sym} is undefined in @var{g}."
-	   "\n\n")
+	   "Return the value of a value in grob@tie{}@var{g} of property"
+	   " @var{sym}.  It returns @code{'()} (end-of-list) or"
+	   " @var{deflt} (if specified) if @var{sym} is undefined"
+	   " in@tie{}@var{g}.")
 {
   Grob *sc = unsmob_grob (grob);
    
@@ -79,10 +79,9 @@ LY_DEFINE (ly_grob_interfaces, "ly:grob-interfaces",
 
 LY_DEFINE (ly_grob_object, "ly:grob-object",
 	   2, 0, 0, (SCM grob, SCM sym),
-	   "Return the value of a pointer in grob @var{g} of property @var{sym}. "
-	   "It will return @code{' ()} (end-of-list) "
-	   "if  @var{sym} is undefined in @var{g}."
-	   "\n\n")
+	   "Return the value of a pointer in grob@tie{}@var{g} of property"
+	   " @var{sym}.  It returns @code{'()} (end-of-list) if @var{sym}"
+	   " is undefined in@tie{}@var{g}.")
 {
   Grob *sc = unsmob_grob (grob);
    
@@ -109,9 +108,9 @@ LY_DEFINE (ly_grob_layout, "ly:grob-layout",
 
 LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 	   1, 1, 0, (SCM grob, SCM global),
-	   "Get an alist chain for grob @var{grob}, with @var{global} as the "
-	   "global default. If unspecified, @code{font-defaults} "
-	   "from the layout block is taken. ")
+	   "Get an alist chain for grob @var{grob}, with @var{global} as"
+	   " the global default.  If unspecified, @code{font-defaults}"
+	   " from the layout block is taken.")
 {
   Grob *sc = unsmob_grob (grob);
    
@@ -129,8 +128,8 @@ LY_DEFINE (ly_grob_alist_chain, "ly:grob-alist-chain",
 
 LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
-	   "Get the extent in @var{axis} direction of @var{grob} relative to "
-	   "the grob @var{refp}")
+	   "Get the extent in @var{axis} direction of @var{grob} relative to"
+	   " the grob @var{refp}.")
 {
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
@@ -153,8 +152,8 @@ LY_DEFINE (ly_grob_extent, "ly:grob-extent",
 
 LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
 	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
-	   "Get the extent in @var{axis} direction of @var{grob} relative to "
-	   "the grob @var{refp}, or (0,0) if empty")
+	   "Get the extent in @var{axis} direction of @var{grob} relative to"
+	   " the grob @var{refp}, or @code{(0,0)} if empty.")
 {
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
@@ -177,8 +176,8 @@ LY_DEFINE (ly_grob_robust_relative_extent, "ly:grob-robust-relative-extent",
 
 LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 	   3, 0, 0, (SCM grob, SCM refp, SCM axis),
-	   "Get the coordinate in @var{axis} direction of @var{grob} relative to "
-	   "the grob @var{refp}")
+	   "Get the coordinate in @var{axis} direction of @var{grob} relative"
+	   " to the grob @var{refp}.")
 {
   Grob *sc = unsmob_grob (grob);
   Grob *ref = unsmob_grob (refp);
@@ -203,8 +202,8 @@ LY_DEFINE (ly_grob_relative_coordinate, "ly:grob-relative-coordinate",
 
 LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 	   2, 0, 0, (SCM grob, SCM axis),
-	   "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis, "
-	   "1 for the Y-axis.")
+	   "Get the parent of @var{grob}.  @var{axis} is 0 for the X-axis,"
+	   " 1@tie{}for the Y-axis.")
 {
   Grob *sc = unsmob_grob (grob);
    
@@ -217,7 +216,7 @@ LY_DEFINE (ly_grob_parent, "ly:grob-parent",
 
 LY_DEFINE (ly_grob_properties, "ly:grob-properties",
 	   1, 0, 0, (SCM grob),
-	   "Get the mutable proprerties of @var{grob}.")
+	   "Get the mutable properties of @var{grob}.")
 {
   Grob *g = unsmob_grob (grob);
    
@@ -241,7 +240,7 @@ LY_DEFINE (ly_grob_basic_properties, "ly:grob-basic-properties",
 
 LY_DEFINE (ly_grob_system, "ly:grob-system",
 	   1, 0, 0, (SCM grob),
-	   "Return the System Grob of @var{grob}.")
+	   "Return the system grob of @var{grob}.")
 {
   Grob *me = unsmob_grob (grob);
    
@@ -255,7 +254,7 @@ LY_DEFINE (ly_grob_system, "ly:grob-system",
 
 LY_DEFINE (ly_grob_original, "ly:grob-original",
 	   1, 0, 0, (SCM grob),
-	   "Return the unbroken original Grob of @var{grob}.")
+	   "Return the unbroken original grob of @var{grob}.")
 {
   Grob *me = unsmob_grob (grob);
    
@@ -278,7 +277,8 @@ LY_DEFINE (ly_grob_suicide_x, "ly:grob-suicide!",
 
 LY_DEFINE (ly_grob_translate_axis_x, "ly:grob-translate-axis!",
 	   3, 0, 0, (SCM grob, SCM d, SCM a),
-	   "Translate @var{g} on axis @var{a} over distance @var{d}.")
+	   "Translate @var{g} on axis@tie{}@var{a} over"
+	   " distance@tie{}@var{d}.")
 {
   Grob *me = unsmob_grob (grob);
    
@@ -309,8 +309,8 @@ LY_DEFINE (ly_grob_default_font, "ly:grob-default-font",
  */
 LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 	   3, 0, 0,  (SCM grob, SCM other, SCM axis),
-	   "Find the common refpoint of @var{grob} and @var{other} for @var{axis}."
-	   )
+	   "Find the common refpoint of @var{grob} and @var{other}"
+	   " for @var{axis}.")
 {
   
   Grob *gr = unsmob_grob (grob);
@@ -328,9 +328,8 @@ LY_DEFINE (ly_grob_common_refpoint, "ly:grob-common-refpoint",
 
 LY_DEFINE (ly_grob_common_refpoint_of_array, "ly:grob-common-refpoint-of-array",
 	   3, 0, 0,  (SCM grob, SCM others, SCM axis),
-	   "Find the common refpoint of @var{grob} and @var{others} "
-	   "(a grob-array) for @var{axis}."
-	   )
+	   "Find the common refpoint of @var{grob} and @var{others}"
+	   " (a grob-array) for @var{axis}.")
 {
   Grob *gr = unsmob_grob (grob);
    

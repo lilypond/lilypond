@@ -32,7 +32,7 @@ Script_column::add_side_positioned (Grob *me, Grob *script)
 
 LY_DEFINE (ly_grob_script_priority_less, "ly:grob-script-priority-less",
 	   2, 0, 0, (SCM a, SCM b),
-	   "Compare two grobs by script priority. For internal use.")
+	   "Compare two grobs by script priority.  For internal use.")
 {
   Grob *i1 = unsmob_grob (a);
   Grob *i2 = unsmob_grob (b);

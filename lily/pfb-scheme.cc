@@ -31,8 +31,8 @@ LY_DEFINE (ly_pfb_2_pfa, "ly:pfb->pfa",
 
 LY_DEFINE (ly_otf_2_cff, "ly:otf->cff",
 	   1, 0, 0, (SCM otf_file_name),
-	   "Convert the contents of a OTF file to CFF file, returning it as "
-	   " a string.")
+	   "Convert the contents of an OTF file to a CFF file,"
+	   " returning it as a string.")
 {
   LY_ASSERT_TYPE (scm_is_string, otf_file_name, 1);
 
