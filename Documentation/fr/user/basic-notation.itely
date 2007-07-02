@@ -1264,10 +1264,10 @@ croche, en définissant @code{merge-differently-headed}
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \new Voice << {
- c8 c4.
- \override Staff.NoteCollision
-   #'merge-differently-headed = ##t
-c8 c4.  } \\ { c2 c2 } >>
+  c8 c4.
+  \override Staff.NoteCollision
+    #'merge-differently-headed = ##t
+c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
 LilyPond empile aussi les silences à l'opposé des
@@ -1935,7 +1935,7 @@ Les accolades et crochets délimitant les systèmes peuvent être imbriqués
 en profondeur,
 
 @lilypond[quote,ragged-right,verbatim]
-\new StaffGroup 
+\new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
@@ -3399,9 +3399,9 @@ Il est possible de créer des répétitions avec une levée.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } { a | a a a a | b2. } }
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
 
