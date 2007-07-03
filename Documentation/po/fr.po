@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-28 14:13+0200\n"
+"POT-Creation-Date: 2007-07-04 00:04+0200\n"
 "PO-Revision-Date: 2007-06-30 14:29+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
@@ -17,19 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: add_html_footer.py:46
+#: add_html_footer.py:44
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
 "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
 
-#: add_html_footer.py:47
+#: add_html_footer.py:45
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 "Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu."
 "org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
 "(mail_address_url)s\">%(mail_address)s</a>"
+
+#: add_html_footer.py:46
+#, python-format
+msgid ""
+"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
+"welcome."
+msgstr ""
 
 #: add_html_footer.py:54
 #, python-format
@@ -41,11 +48,11 @@ msgstr "Autres langues&nbsp;: %s."
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
-#: add_html_footer.py:238
+#: add_html_footer.py:251
 msgid "stable-branch"
 msgstr "branche stable"
 
-#: add_html_footer.py:240
+#: add_html_footer.py:253
 msgid "development-branch"
 msgstr "branche de développement"
 
@@ -2008,7 +2015,8 @@ msgid "Integrating LaTeX and music"
 msgstr "Intégrer de la musique dans LaTeX"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating La@TeX{} and music"
+#, fuzzy
+msgid "Integrating @LaTeX{} and music"
 msgstr "Intégrer de la musique dans @LaTeX{}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
