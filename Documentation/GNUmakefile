@@ -30,7 +30,7 @@ txt-to-html:
 po-update:
 	make -C po po-update
 
-all-translation-update: po-update
+all-translations-update: po-update
 	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
 
 ifneq ($(ISOLANG),)
