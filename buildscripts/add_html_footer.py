@@ -33,16 +33,20 @@ footer = '''
 <font size="-1">
 %(footer_name_version)s
 <br>
+<address>
+%(footer_report_errors)s </address>
+<br>
+%(footer_suggest_docs)s
 </font>
-<address><font size="-1">
-%(footer_report_errors)s </font></address>
 </p>
 </div>
 '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
+footer_suggest_docs = _doc ('Your <a href="%(suggest_docs_url)s">suggestions for the documentation</a> are welcome.')
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
+suggest_docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
 
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
@@ -276,6 +280,7 @@ def add_html_footer (translation,
                         subst[name] = translation[page_flavors[k][0]] (subst[name])
                 subst['footer_name_version'] = subst['footer_name_version'] % subst
                 subst['footer_report_errors'] = subst['footer_report_errors'] % subst
+                subst['footer_suggest_docs'] = subst['footer_suggest_docs'] % subst
                 page_flavors[k][1] = page_flavors[k][1] % subst
                 out_f = open (name_filter (k), 'w')
                 out_f.write (page_flavors[k][1])
