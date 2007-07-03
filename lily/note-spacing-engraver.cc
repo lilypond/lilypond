@@ -104,7 +104,8 @@ Note_spacing_engraver::stop_translation_timestep ()
 {
   if (last_spacing_
       && last_spacing_parent_context_
-      && last_spacing_parent_context_ == context ()->get_parent_context ())
+      && last_spacing_parent_context_ == context ()->get_parent_context ()
+      && !unsmob_grob_array (last_spacing_->get_object ("right-items")))
     {
       Grob *sep = unsmob_grob (get_property ("currentCommandColumn"));
       if (sep)

@@ -2,7 +2,7 @@
 \version "2.10.0"
 \header {
 
-  texidoc = "With the new chord syntax, it is possible to associate
+  texidoc = "It is possible to associate
 fingerings uniquely with notes. This makes it possible to add
 horizontal fingerings to notes.
 

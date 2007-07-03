@@ -1,7 +1,7 @@
 \header {
 
     texidoc = "Hairpins extend to the extremes of the bound if there
-    is no adjacent hairpin of dynamic-text.  If there is, the hairpin
+    is no adjacent hairpin or dynamic-text.  If there is, the hairpin
     extends to the center of the column or the bound of the text
     respectively."
 
