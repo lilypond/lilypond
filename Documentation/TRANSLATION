@@ -181,6 +181,8 @@ translated directly in the Texinfo source
 As a notable exception, the second argument 'Bar baz' of
 @ref{Foo,'Bar baz',,info-file} should be translated.
 
+@uref's names are to be translated.
+
 In any section which looks like
 
 @menu
@@ -192,13 +194,27 @@ In any section which looks like
 the node names (nodeN) are NOT to be translated, whereas extra title
 information (thingN) is.
 
-
 Every node name or section title must from now on be translated
 separately in a .po file (just as well as LilyPond output messages).
 This .po file should be in Documentation/po.
 
-Make sure to keep *verbatim* copies of music snippets (in @lilypond blocs).
-@example blocs do not have to be verbatim copies, e.g. variable names,
+
+Please keep verbatim copies of music snippets (in @lilypond blocs).
+However, some music snippets containing text that shows in the
+rendered music, and sometimes translating this text really helps the
+user to understand the documentation; in this case, and only in this
+case, you may as an exception translate text in the music snippet, and
+then you must add a line immediately before the @lilypond block,
+beginning with
+
+@c KEEP LY
+
+Otherwise the music snippet would be reset to the same contents as the
+English version at next 'make snippet-update' run (see UPDATING A
+TRANSLATION below).
+
+
+@example blocs need not be verbatim copies, e.g. variable names,
 file names and comments should be translated.
 
 Index entries (@cindex and so on) should be translated.
@@ -234,7 +250,7 @@ UPDATE A TRANSLATION
 
 Texinfo skeleton files, i.e. .itely files not yet translated,
 containing only the Texinfo structure can be updated automatically:
-whenever 'make check-translation' shows that such files shouldbe
+whenever 'make check-translation' shows that such files should be
 updated, run from Documentation
 
     make ISOLANG=<MY_LANGUAGE> skeleton-update
@@ -244,6 +260,24 @@ Documentation or Documentation/po)
 
     make po-update
 
+Updating music snippets can quickly become cumbersome, as most
+snippets should be identical in all languages.  Fortunately, there is
+a script than can do this odd job for you (run from Documentation):
+
+    make ISOLANG=<MY_LANGUAGE> snippet-update
+
+This script overwrites music snippets in <MY_LANGUAGE>/user/every.itely
+with music snippets from user/every.itely.  It ignores skeleton files,
+and keeps intact music snippets preceded with a line starting with '@c
+KEEP LY'; it reports an error for each .itely that has not the same
+music snippet count in both languages.
+
+Finally, a command runs the three update processes above for all
+enabled languages (from Documentation):
+
+    make all-translations-update
+
+This command is mainly intended to be used by the Translation meister.
 
 
 TECHNICAL BACKGROUND
@@ -264,3 +298,5 @@ tweak links in HTML pages
 before calling texi2pdf
 * mass-link.py -- link or symlink files between English documentation
 and documentation in other languages
+* update-snippets.py -- synchronize ly snippets with those from
+English docs
