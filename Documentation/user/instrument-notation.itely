@@ -676,7 +676,6 @@ by examining the simplest method, and gradually increase complexity.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::       
 * Aligning lyrics to a melody::  
 * Working with lyrics and identifiers::  
 * Flexibility in placement::    
@@ -882,34 +881,6 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 @seealso
 
 Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
-
-
-
-@node Hyphens and extenders
-@subsection Hyphens and extenders
-
-@cindex hyphens
-
-Centered hyphens are entered as @samp{--} between syllables.
-The hyphen will have variable length depending on the space between
-the syllables and it will be centered between the syllables.
-
-@cindex melisma
-@cindex extender
-
-When a lyric is sung over many notes (this is called a melisma), this is
-indicated with a horizontal line centered between a syllable and the
-next one.  Such a line is called an extender line, and it is entered as
-@samp{__}.
-
-In tighly engraved music, hyphens can be removed.  Whether this
-happens can be controlled with the @code{minimum-distance} (minimum
-distance between two syllables) and the @code{minimum-length}
-(threshold below which hyphens are removed).
-
-@seealso
-
-Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
 
 
 
@@ -1120,6 +1091,27 @@ inserted by hand.
 @cindex melisma
 @cindex extender
 
+Melismata are indicated with a horizontal line centered between a
+syllable and the
+next one.  Such a line is called an extender line, and it is entered as
+@samp{__}.
+
+@cindex hyphens
+
+Centered hyphens are entered as @samp{--} between syllables of a same
+word.  The hyphen will be centered between the syllables, and its length
+will be adjusted depending on the space between the syllables.
+
+In tighly engraved music, hyphens can be removed.  Whether this
+happens can be controlled with the @code{minimum-distance} (minimum
+distance between two syllables) and the @code{minimum-length}
+(threshold below which hyphens are removed).
+
+@seealso
+
+Program reference: @internalsref{LyricExtender},
+@internalsref{LyricHyphen}
+
 
 @node Working with lyrics and identifiers
 @subsection Working with lyrics and identifiers
@@ -1172,7 +1164,6 @@ differing ways.  Such variations can still be captured with
 * Lyrics to multiple notes of a melisma::  
 * Divisi lyrics::               
 * Switching the melody associated with a lyrics line::  
-* Specifying melismata within the lyrics::  
 * Lyrics independent of notes::  
 @end menu
 
@@ -1358,24 +1349,6 @@ this case.
 @noindent
 The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
-
-
-@node Specifying melismata within the lyrics
-@subsubsection Specifying melismata within the lyrics
-
-It is also possible to define melismata entirely in the lyrics. This
-can be done by entering @code{_} for every note that is part of the
-melisma.
-
-@lilypond[relative=1,verbatim,fragment,quote]
-{ \set melismaBusyProperties = #'()
-  c d( e) f f( e) e e  }
-\addlyrics
- { Ky -- _ _ ri __ _ _ _  e }
-@end lilypond
-
-In this case, you can also have ties and slurs in the melody if you
-set @code{melismaBusyProperties}, as is done in the example above.
 
 
 @node Lyrics independent of notes
