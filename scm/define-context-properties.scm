@@ -536,6 +536,8 @@ event types that should be duplicated for @code{\\quote} commands.")
      (instrumentSupport ,grob-list? "list of grobs to attach instrument name
 to.")
      (tieMelismaBusy ,boolean? "Signal whether a tie is present.")
+     (hasStaffSpacing ,boolean? "True if the currentCommandColumn contains items that will
+affect spacing")
      )))
 
 (define-public all-translation-properties

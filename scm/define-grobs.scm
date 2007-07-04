@@ -1334,6 +1334,7 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(non-musical . #t)

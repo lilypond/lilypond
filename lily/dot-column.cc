@@ -36,6 +36,13 @@ Dot_column::calc_positioning_done (SCM smob)
 {
   Grob *me = unsmob_grob (smob);  
 
+  /*
+    Trigger note collision resolution first, since that may kill off
+    dots when merging.
+  */
+  if (Grob *collision = unsmob_grob (me->get_object ("note-collision")))
+    (void) collision->get_property ("positioning-done");
+
   me->set_property ("positioning-done", SCM_BOOL_T);
 
   vector<Grob*> dots
@@ -45,24 +52,19 @@ Dot_column::calc_positioning_done (SCM smob)
   Real ss = 0;
 
   Grob *commonx = me;
-  { /*
-      Trigger note collision resolution first, since that may kill off
-      dots when merging.
-    */
-    for (vsize i = 0; i < dots.size (); i++)
-      {
-	Grob *n = dots[i]->get_parent (Y_AXIS);
-	commonx = n->common_refpoint (commonx, X_AXIS);
-
-	if (Grob *stem = unsmob_grob (n->get_object("stem")))
-	  {
-	    commonx = stem->common_refpoint (commonx, X_AXIS);
-
-	    if (Stem::first_head (stem) == n)
-	      main_heads.push_back (n);
-	  }
-      }
-  }
+  for (vsize i = 0; i < dots.size (); i++)
+    {
+      Grob *n = dots[i]->get_parent (Y_AXIS);
+      commonx = n->common_refpoint (commonx, X_AXIS);
+      
+      if (Grob *stem = unsmob_grob (n->get_object("stem")))
+	{
+	  commonx = stem->common_refpoint (commonx, X_AXIS);
+	  
+	  if (Stem::first_head (stem) == n)
+	    main_heads.push_back (n);
+	}
+    }
 
   vector<Box> boxes;
   set<Grob*> stems;

@@ -50,6 +50,7 @@ protected:
 
   DECLARE_ACKNOWLEDGER (item);
   void stop_translation_timestep ();
+  void start_translation_timestep ();
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -73,7 +74,14 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
       && !current_spacings_.staff_spacing_
       && to_boolean (get_property ("createSpacing")))
     {
+      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+
       current_spacings_.staff_spacing_ = make_item ("StaffSpacing", SCM_EOL);
+      context ()->set_property ("hasStaffSpacing", SCM_BOOL_T);
+
+      Pointer_group_interface::add_grob (current_spacings_.staff_spacing_,
+					 ly_symbol2scm ("left-items"),
+					 col);
       
       if (!last_spacings_.note_spacings_.size ()
 	  && last_spacings_.staff_spacing_)
@@ -88,9 +96,15 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 	    }
 	  
 	  ga->clear ();
-	  ga->add (unsmob_grob (get_property ("currentCommandColumn")));
+	  ga->add (col);
 	}
     }
+}
+
+void
+Separating_line_group_engraver::start_translation_timestep ()
+{
+  context ()->unset_property (ly_symbol2scm ("hasStaffSpacing"));
 }
 
 void
@@ -98,6 +112,10 @@ Separating_line_group_engraver::stop_translation_timestep ()
 {
   if (!current_spacings_.is_empty ())
     last_spacings_ = current_spacings_;
+
+  if (Item *sp = current_spacings_.staff_spacing_)
+    if (Grob *col = unsmob_grob (get_property ("currentMusicalColumn")))
+      Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"), col);
 
   current_spacings_.clear ();
 }
@@ -108,5 +126,5 @@ ADD_TRANSLATOR (Separating_line_group_engraver,
 
 		/* create */ "StaffSpacing",
 		/* read */ "createSpacing",
-		/* write */ ""
+		/* write */ "hasStaffSpacing"
 		);

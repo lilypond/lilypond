@@ -142,12 +142,6 @@ Note_column::translate_rests (Grob *me, int dy)
     }
 }
 
-void
-Note_column::set_dotcol (Grob *me, Grob *d)
-{
-  Axis_group_interface::add_element (me, d);
-}
-
 Grob *
 Note_column::first_head (Grob *me)
 {
