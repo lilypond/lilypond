@@ -30,6 +30,8 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/user-ln doc-po
 
 local-WWW: $(outdir)/lilypond.pdf $(outdir)/lilypond/index.html
 	cd $(outdir); find -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
+	cd $(outdir); find \( -name 'lily-??????????.png' -o -name 'lily-??????????.ly' \) -a -not -type l | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py hard . $(top-build-dir)/Documentation/user/$(outdir)
+# FIXME
 # ugh, this is not enough to avoid wasting build time, $(outdir)/user-ln should be touched for all languages
 	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $(outdir)/user-ln
 

@@ -30,6 +30,9 @@ txt-to-html:
 po-update:
 	make -C po po-update
 
+all-translations-update: po-update
+	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
+
 ifneq ($(ISOLANG),)
 new-lang:
 	@if (( $$(file -b $(ISOLANG)) == directory )) 2>/dev/null; \
@@ -52,4 +55,7 @@ check-translation:
 skeleton-update:
 	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) --skeleton ../user/lilypond.tely
 	$(PYTHON) $(buildscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
+
+snippet-update:
+	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
 endif

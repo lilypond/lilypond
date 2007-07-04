@@ -1264,10 +1264,10 @@ croche, en définissant @code{merge-differently-headed}
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \new Voice << {
- c8 c4.
- \override Staff.NoteCollision
-   #'merge-differently-headed = ##t
-c8 c4.  } \\ { c2 c2 } >>
+  c8 c4.
+  \override Staff.NoteCollision
+    #'merge-differently-headed = ##t
+c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
 LilyPond empile aussi les silences à l'opposé des
@@ -1923,12 +1923,29 @@ s'agit de l'assemblage par défaut.
 
 @seealso
 
-
 Pour les barres de mesure au début de chaque système, voir
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, et
 @internalsref{SystemStartBracket}.  Dans chaque contexte, seul l'un de
 ces styles est utilisé, et c'est la propriété
 @internalsref{systemStartDelimiter} qui détermine lequel.
+
+@commonprop
+
+Les accolades et crochets délimitant les systèmes peuvent être imbriqués
+en profondeur,
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup
+\relative <<
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
 
 
 @node Staff symbol
@@ -2005,6 +2022,47 @@ On peut écrire plusieurs voix de façon entremêlée :
 >>
 @end lilypond
 
+Ceci fonctionne bien avec la musique pour piano :
+
+@lilypond[quote,verbatim]
+music = {
+  \key c \major
+  \time 4/4
+  \parallelMusic #'(voiceA voiceB voiceC voiceD) {
+    % Bar 1
+    r8  g'16[ c''] e''[ g' c'' e''] r8  g'16[ c''] e''[ g' c''
+e''] |
+    c'2                                 c'2 |
+    r8  a16[ d'] f'[ a d' f']       r8  a16[ d'] f'[ a d' f'] |
+    c2                                  c2 |
+
+    % Bar 2
+    a'8 b'      c'' d''    e'' f''    g'' a'' |
+    d'4         d'         d'         d' |
+    c16 d e f   d e f g    e f g a    f g a b |
+    a,4         a,4        a,4        a,4 |
+
+    % Bar 3 ...
+  }
+}
+
+\score {
+  \new PianoStaff <<
+    \music
+    \new Staff <<
+      \voiceA \\
+      \voiceB
+    >>
+    \new Staff {
+      \clef bass
+      <<
+        \voiceC \\
+        \voiceD
+      >>
+    }
+  >>
+}
+@end lilypond
 
 
 @node Connecting notes
@@ -2097,7 +2155,7 @@ r <c e g>\repeatTie
 @commonprop
 
 
-Les liaisons de tenues servent parfois à rendre un accord arpégé. Dans
+Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans
 ce cas, les notes liées ne sont pas toutes l'une contre l'autre. Il
 faut alors définir comme vraie (@q{t} pour @q{true}) la propriété
 @code{tieWaitForNote}.  Cette même méthode peut servir, par exemple, à
@@ -2110,9 +2168,21 @@ lier un trémolo à un accord :
 e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
+Il est possible de graver manuellement les liaisons de tenue, en
+changeant la propriété @code{tie-configuration}.  Pour chaque paire, le
+premier nombre indique la distance à la portée, en espaces de portée, et
+le deuxième nombre indique la direction --- 1 pour haut, @minus{}1 pour
+bas.
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
 
 @refcommands
-
 
 @funindex \tieUp
 @code{\tieUp},
@@ -2135,9 +2205,7 @@ Dans ce même manuel : @ref{Automatic note splitting}.
 Référence du programme : @internalsref{Tie}.
 
 
-
 @refbugs
-
 
 Un changement de portée, lorsqu'une liaison de tenue est active, ne
 peut produire une liaison oblique.
@@ -3331,9 +3399,9 @@ Il est possible de créer des répétitions avec une levée.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } { a | a a a a | b2. } }
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
 

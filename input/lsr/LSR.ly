@@ -33,9 +33,9 @@ These pages show LilyPond examples (snippets) from the
 
 @strong{@uref{vocal/collated-files.html,Vocal music}}
 
-@strong{@uref{non-music/collated-files.html,Non-musical}}
+@strong{@uref{nonmusic/collated-files.html,Non-musical}}
 
-@strong{@uref{instrument-specific/collated-files.html,Instrument-specific}}
+@strong{@uref{instrument/collated-files.html,Instrument-specific}}
 
 @strong{@uref{engravers/collated-files.html,Engravers}}
 
