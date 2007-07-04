@@ -757,7 +757,7 @@ introduced in @ref{Entering lyrics}.
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
 
-Lyrics are entered in a special input mode.  This mode is introduced
+Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
 @code{\lyricsto}.  In this mode you can enter lyrics,
 with punctuation and accents, and the input @code{d} is not parsed as
@@ -777,14 +777,20 @@ or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 A word or syllable of lyrics begins with an alphabetic character, and ends
 with
 any space or digit.  The following characters can be any character
-that is not a digit or white space.  One important consequence of this
-is that a word can end with @code{@}}.  The following example is
-usually a mistake in the input file.  The syllable includes a @code{@}}, so
-the
-opening brace is not balanced
+that is not a digit or white space.
+
+Any character that is not a digit or white space will be regarded as
+part of the syllable; one important consequence of this is that a word
+can end with @code{@}}, which often leads to the following mistake:
+
 @example
-\lyricmode @{ twinkle@}
+\lyricmode @{ lah- lah@}
 @end example
+
+In this example, the @code{@}} is included in the final syllable, so the
+opening brace is not balanced and the input file will probably not
+compile.
+
 
 @funindex \property in \lyricmode
 
