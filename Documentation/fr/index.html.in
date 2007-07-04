@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 68bd4534efe807b8b7394290ba510e97e38909d4
+    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -51,18 +51,20 @@
 	    <a class="title"
 	      href="user/lilypond/Tutorial.fr.html">Tutoriel</a>
 	      <br>&mdash; commencer ici
+	    <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
+	      multilingue<br>(aussi en
+	      <a class="title" href="user/music-glossary-big-page.html">page unique</a>
+	      ~ 1 Mb ou <a class="title" href="user/music-glossary.pdf">au format PDF</a>)
+	      <br>&mdash; pour les utilisateurs non anglophones
 	  </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
-	  
-            <li>
-	    <a class="title" href="topdocs/NEWS.html">Nouveautés</a>
- 	    <br>&mdash; changements depuis la version majeure précédente
-
             <li>
 	    <a class="title" href="topdocs/INSTALL.html">Installation</a>
- 	    <br>&mdash; comment compiler
+ 	      <br>&mdash; comment compiler
+	    <li><a class="title" href="../examples.html">Exemples</a>
+	      <br>&mdash; voir quelques exemples
 	  </ul>
 	  </td>
         </tr>
@@ -71,59 +73,54 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.fr.html">Manuel de l'utilisateur</a>
-(partiellement traduit,<br> aussi en <a class="title"
- 	    href="user/lilypond-big-page.html">page unique
- 	    en anglais</a> ~ 4 Mb,<br>
-ou <a class="title" href="user/lilypond.pdf">au format PDF en anglais</a>)
-
-     <br>&mdash; revue de détails
-     
-<li><a class="title" href="../examples.html">Exemples</a>
-
-     <br>&mdash; voir quelques exemples
-
-<li><a class="title" href="../input/lsr/collated-files.html">Extraits de code</a>
-     <br>&mdash; petits trucs, astuces et exemples
-
- <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
-multilingue<br>(aussi en <a class="title"
- href="user/music-glossary-big-page.html">page unique</a> ~ 1 Mb ou
-<a class="title" href="user/music-glossary.pdf">au format PDF</a>)
-
-     <br>&mdash; pour les utilisateurs non anglophones
+	      <a class="title" href="user/lilypond/index.fr.html">Manuel de l'utilisateur</a>
+	      (partiellement traduit, aussi<br>en <a class="title"
+				href="user/lilypond-big-page.html">page unique
+ 	        en anglais</a> ~ 4 Mb, ou
+	        <a class="title" href="user/lilypond.fr.pdf">au format PDF</a>)
+		<br>&mdash; revue de détails
+	    <li>
+	      <a  class="title" href="user/lilypond-internals/index.html">Référence du programme</a>
+	      (en anglais, en <a class="title" href="user/lilypond-internals-big-page.html">page
+		unique</a> ~ 1 Mb)
+	      <br>&mdash; définitions pour les retouches
 	  </ul>
 	  </td>
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-	    <li>
- <a  class="title" href="user/lilypond-internals/index.html">Référence du programme</a>
- (en anglais,<br> en <a class="title" href="user/lilypond-internals-big-page.html">page unique</a> ~ 1 Mb)
-
-     <br>&mdash; définitions pour les retouches
-
-	    <li>
-     <a  class="title"
-     href="../input/regression/collated-files.html">Tests de régression</a> (~ 5 Mb, <a  class="title" href="../input/regression/collated-files.pdf">au format PDF</a>, <a href="../test-results.html">comparaison</a>)
-
-     <br>&mdash; pour les développeurs
-
-
-	    <li><a  class="title" href="bibliography/index.html">Bibliographie</a>
-
-     <br>&mdash; informations complémentaires
-<li><a class="title"  href="THANKS.html">Remerciements</a>
-<br>&mdash; à nos contributeurs
-
-<li><a class="title"  href="DEDICATION.html">Dédicace</a>
-
-     <br>&mdash; par Jan et Han-Wen
-
+            <li><a class="title" href="topdocs/NEWS.html">Nouveautés</a>
+ 	      <br>&mdash; changements depuis la version majeure précédente
+	    <li><a class="title" href="../input/lsr/collated-files.html">Exemples de code</a>
+	      <br>&mdash; petits trucs, astuces et exemples
 	  </ul>
 	  </td>
         </tr>
-        <tr>
+	<tr>
+          <td valign="baseline" class="left-column">
+	  &nbsp;
+          <ul>
+	    <li><a  class="title" href="bibliography/index.html">Bibliographie</a>
+	      <br>&mdash; informations complémentaires
+	    <li>
+	      <a class="title" href="../input/regression/collated-files.html">Tests
+		de régression</a> (~ 5 Mb,
+	      <a  class="title" href="../input/regression/collated-files.pdf">au format PDF</a>,
+	      <a href="../test-results.html">comparaison</a>)
+	      <br>&mdash; pour les développeurs
+          </ul>
+          </td>
+          <td valign="baseline" class="right-column">
+          &nbsp;
+          <ul>
+	    <li><a class="title"  href="THANKS.html">Remerciements</a>
+	      <br>&mdash; à nos contributeurs
+	    <li><a class="title"  href="DEDICATION.html">Dédicace</a>
+	      <br>&mdash; par Jan et Han-Wen
+          </ul>
+          </td>
+        </tr>
+         <tr>
           <td valign="baseline" class="left-column">
           &nbsp;
           <ul>

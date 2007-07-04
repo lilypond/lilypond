@@ -52,7 +52,7 @@ Optimal_page_breaking::solve ()
   vsize ideal_sys_count = best.system_count ();
   vsize min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
   
-  if (page_count > 1)
+  if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
     min_sys_count -= best.systems_per_page_[page_count - 2];
 
   if (page_count == 1)

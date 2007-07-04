@@ -31,7 +31,7 @@
 
      (if (pair? iprops)
 	 (string-append
-	  "\n\n@unnumberedsubsubsec Internal properties: \n"
+	  "\n\n@unnumberedsubsubsec Internal properties:\n"
 	  (description-list->texi internal-propdocs))
 	 ""))))
 
@@ -110,7 +110,7 @@ node."
 (define (all-grobs-doc)
   (make <texi-node>
     #:name "All layout objects"
-    #:desc "Description and defaults for all Grobs"
+    #:desc "Description and defaults for all graphical objects (grobs)."
     #:children
     (map (lambda (x) (grob-doc (cdr x)))  all-grob-descriptions)))
 
@@ -147,7 +147,7 @@ node."
 (define (all-interfaces-doc)
   (make <texi-node>
     #:name "Graphical Object Interfaces"
-    #:desc "Building blocks of graphical objects"
+    #:desc "Building blocks of graphical objects."
     #:children
     (map interface-doc interface-description-alist)))
 
@@ -162,16 +162,16 @@ node."
 (define (backend-doc-node)
   (make <texi-node>
     #:name "Backend"
-    #:desc "Reference for the layout engine"
+    #:desc "Reference for the layout engine."
     #:children
     (list
      (all-grobs-doc)
      (all-interfaces-doc)
      (make <texi-node>
        #:name "User backend properties"
-       #:desc "All tunable properties in a big list"
+       #:desc "All tunable properties in a big list."
        #:text (backend-properties-doc-string all-user-grob-properties))
      (make <texi-node>
        #:name "Internal backend properties"
-       #:desc "All internal layout properties in a big list"
+       #:desc "All internal layout properties in a big list."
        #:text (backend-properties-doc-string all-internal-grob-properties)))))

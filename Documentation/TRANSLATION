@@ -5,7 +5,7 @@ SOURCES
 
 The sources live in a GIT repository.  Git 1.4.4.1 or newer is
 required, and Git 1.5.x is highly recommended.  To get a fresh version
-run
+of LilyPond sources run
 
     mkdir lily ; cd lily
     git init-db
@@ -27,6 +27,16 @@ Working on LilyPond documentation translations requires:
     * python
     * make
     * gettext
+
+
+WHICH DOCUMENTATION CAN BE TRANSLATED
+
+The makfiles and scripts infrastructure currently supports translation
+of the following documentation:
+
+    * documentation index (HTML)
+    * user manual -- Texinfo source, PDF and HTML output; Info output
+might be added if there is enough demand for it.
 
 
 STARTING A TRANSLATION IN A NEW LANGUAGE
@@ -55,6 +65,7 @@ buildscripts/langdefs.py.
 
 See next section about what files to translate and the following
 detailed instructions after the next section.
+
 
 FILES TO BE TRANSLATED
 
@@ -170,6 +181,8 @@ translated directly in the Texinfo source
 As a notable exception, the second argument 'Bar baz' of
 @ref{Foo,'Bar baz',,info-file} should be translated.
 
+@uref's names are to be translated.
+
 In any section which looks like
 
 @menu
@@ -181,13 +194,27 @@ In any section which looks like
 the node names (nodeN) are NOT to be translated, whereas extra title
 information (thingN) is.
 
-
 Every node name or section title must from now on be translated
 separately in a .po file (just as well as LilyPond output messages).
 This .po file should be in Documentation/po.
 
-Make sure to keep *verbatim* copies of music snippets (in @lilypond blocs).
-@example blocs do not have to be verbatim copies, e.g. variable names,
+
+Please keep verbatim copies of music snippets (in @lilypond blocs).
+However, some music snippets containing text that shows in the
+rendered music, and sometimes translating this text really helps the
+user to understand the documentation; in this case, and only in this
+case, you may as an exception translate text in the music snippet, and
+then you must add a line immediately before the @lilypond block,
+beginning with
+
+@c KEEP LY
+
+Otherwise the music snippet would be reset to the same contents as the
+English version at next 'make snippet-update' run (see UPDATING A
+TRANSLATION below).
+
+
+@example blocs need not be verbatim copies, e.g. variable names,
 file names and comments should be translated.
 
 Index entries (@cindex and so on) should be translated.
@@ -213,9 +240,9 @@ replace 'make' with 'make -C Documentation') and run
     make ISOLANG=<MY_LANGUAGE> check-translation
 
 This presents a diff of the original files since the most recent
-revision of the translation.  To check a single page, run
+revision of the translation.  To check a single file, run
 
-    buildscripts/check-translation.py Documentation/user/<MY-LANGUAGE>/foo/bar.itely
+    python buildscripts/check_translation.py Documentation/<MY-LANGUAGE>/user/foo.itely
 
 
 
@@ -223,7 +250,7 @@ UPDATE A TRANSLATION
 
 Texinfo skeleton files, i.e. .itely files not yet translated,
 containing only the Texinfo structure can be updated automatically:
-whenever 'make check-translation' shows that such files shouldbe
+whenever 'make check-translation' shows that such files should be
 updated, run from Documentation
 
     make ISOLANG=<MY_LANGUAGE> skeleton-update
@@ -233,6 +260,24 @@ Documentation or Documentation/po)
 
     make po-update
 
+Updating music snippets can quickly become cumbersome, as most
+snippets should be identical in all languages.  Fortunately, there is
+a script than can do this odd job for you (run from Documentation):
+
+    make ISOLANG=<MY_LANGUAGE> snippet-update
+
+This script overwrites music snippets in <MY_LANGUAGE>/user/every.itely
+with music snippets from user/every.itely.  It ignores skeleton files,
+and keeps intact music snippets preceded with a line starting with '@c
+KEEP LY'; it reports an error for each .itely that has not the same
+music snippet count in both languages.
+
+Finally, a command runs the three update processes above for all
+enabled languages (from Documentation):
+
+    make all-translations-update
+
+This command is mainly intended to be used by the Translation meister.
 
 
 TECHNICAL BACKGROUND
@@ -240,12 +285,18 @@ TECHNICAL BACKGROUND
 A number of Python scripts handle a part of the documentation
 translation process:
 
-langdefs.py  -- language definitions
-check_translation.py  -- show diff to update a translation
-texi-langutils.py  -- quickly and dirtily parse Texinfo files to
+* langdefs.py  -- language definitions
+* check_translation.py  -- show diff to update a translation
+* texi-langutils.py  -- quickly and dirtily parse Texinfo files to
 make message catalogs and Texinfo skeleton files
-texi-skeleton-update.py -- update Texinfo skeleton files
-html-gettext.py -- translate node names, section titles and cross
+* texi-skeleton-update.py -- update Texinfo skeleton files
+* html-gettext.py -- translate node names, section titles and cross
 references in HTML files generated by makeinfo
-add_html_footer.py (module called by www_post.py) -- add footer and
+* add_html_footer.py (module called by www_post.py) -- add footer and
 tweak links in HTML pages
+* texi-gettext.py -- gettext node names, section titles and references
+before calling texi2pdf
+* mass-link.py -- link or symlink files between English documentation
+and documentation in other languages
+* update-snippets.py -- synchronize ly snippets with those from
+English docs

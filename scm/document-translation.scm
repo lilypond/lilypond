@@ -45,7 +45,7 @@
 	 (string-append
 	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation  x '())) propsr)))
+	   (map (lambda (x) (property->texi 'translation x '())) propsr)))
 	 "")
      
      (if (null? propsw)
@@ -53,12 +53,12 @@
 	 (string-append
 	  "Properties (write)" 
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation  x '())) propsw))))
+	   (map (lambda (x) (property->texi 'translation x '())) propsw))))
      (if  (null? grobs)
 	  ""
 	  (string-append
-	   "This engraver creates the following layout objects: \n "
-	   (human-listify (map ref-ify (uniq-list (sort grobs string<? ))))
+	   "\n\nThis engraver creates the following layout objects:\n\n"
+	   (human-listify (map ref-ify (uniq-list (sort grobs string<?))))
 	   "."))
 
      "\n\n"
@@ -127,12 +127,14 @@
 
       (string-append
        "@item Set "
-       (format "grob-property @code{~a} " (string-join (map symbol->string path) " "))
-       (format " in @ref{~a} to @code{~a}.  " context-sym (scm->texi value))
+       (format "grob-property @code{~a} "
+	       (string-join (map symbol->string path) " "))
+       (format "in @ref{~a} to ~a."
+	       context-sym (scm->texi value))
        "\n")))
      ((equal? (object-property context-sym 'is-grob?) #t) "")
      ((equal? tag 'assign)
-      (format "@item Set translator property @code{~a} to @code{~a}"
+      (format "@item Set translator property @code{~a} to ~a.\n"
 	      context-sym
 	      (scm->texi (car args))))
      )))
@@ -158,30 +160,42 @@
       (string-append 
        desc
        (if (pair? aliases)
-	   (string-append "\n\n This context also accepts commands for the following context(s):\n\n"
-			  (human-listify aliases))
-	   "")
-       "\n\nThis context creates the following layout objects: \n\n"
-       (human-listify (uniq-list (sort grob-refs string<? )))
-       "."
-       (if (pair? props)
 	   (string-append
-	    "\n\nThis context sets the following properties:\n"
-	    "@itemize @bullet\n"
-	    (apply string-append (map document-property-operation props))
-	    "@end itemize\n")
+	    "\n\nThis context also accepts commands for the following context(s):\n\n"
+	    (human-listify aliases)
+	    ".")
+	   "")
+
+       "\n\nThis context creates the following layout objects:\n\n"
+       (human-listify (uniq-list (sort grob-refs string<?)))
+       "."
+
+       (if (and (pair? props) (not (null? props)))
+	   (let ((str (apply string-append (map document-property-operation
+						props))))
+	     (if (string-null? str)
+		 ""
+		 (string-append
+		  "\n\nThis context sets the following properties:\n\n"
+		  "@itemize @bullet\n"
+		  str
+		  "@end itemize\n")))
 	   "")
        
        (if (null? accepts)
-	   "\n\nThis context is a `bottom' context; it can not contain other contexts."
+	   "\n\nThis context is a `bottom' context; it cannot contain other contexts."
 	   (string-append
 	    "\n\nContext "
-	    name " can contain \n"
-	    (human-listify (map ref-ify (map symbol->string accepts)))))
+	    name
+	    " can contain\n"
+	    (human-listify (map ref-ify (map symbol->string accepts)))
+	    "."))
        
-       "\n\nThis context is built from the following engravers: "
-       (description-list->texi
-	(map document-engraver-by-name consists))))))
+       (if (null? consists)
+	   ""
+	   (string-append
+	    "\n\nThis context is built from the following engravers:"
+	    (description-list->texi (map document-engraver-by-name consists))))))))
 
 (define (engraver-grobs grav)
   (let* ((eg (if (symbol? grav)
@@ -211,7 +225,7 @@
 
     (make <texi-node>
       #:name "Contexts"
-      #:desc "Complete descriptions of all contexts"
+      #:desc "Complete descriptions of all contexts."
       #:children
       (map context-doc contexts))))
 
@@ -224,7 +238,7 @@
 (define (all-engravers-doc)
   (make <texi-node>
     #:name "Engravers"
-    #:desc "All separate engravers"
+    #:desc "All separate engravers."
     #:text "See @usermanref{Modifying context plug-ins}."
     #:children
     (map engraver-doc all-engravers-list)))
@@ -242,19 +256,19 @@
 (define (translation-doc-node)
   (make <texi-node>
     #:name "Translation"
-    #:desc "From music to layout"
+    #:desc "From music to layout."
     #:children
     (list
      (all-contexts-doc)
      (all-engravers-doc)
      (make <texi-node>
        #:name "Tunable context properties"
-       #:desc "All tunable context properties"
+       #:desc "All tunable context properties."
        #:text (translation-properties-doc-string
 	       all-user-translation-properties))
 
      (make <texi-node>
        #:name "Internal context properties"
-       #:desc "All internal context properties"
+       #:desc "All internal context properties."
        #:text (translation-properties-doc-string
 	       all-internal-translation-properties)))))

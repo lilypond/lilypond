@@ -30,7 +30,7 @@ LY_DEFINE (ly_pango_font_p, "ly:pango-font?",
 LY_DEFINE (ly_pango_font_physical_fonts, "ly:pango-font-physical-fonts",
 	   1, 0, 0,
 	   (SCM f),
-	   "Return alist of  (PSNAME . FILENAME) tuples.")
+	   "Return alist of @code{(PSNAME . FILENAME)} tuples.")
 {
   Pango_font *pf = dynamic_cast<Pango_font *> (unsmob_metrics (f));
 

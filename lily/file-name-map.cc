@@ -24,7 +24,7 @@ map_file_name (string s)
 
 LY_DEFINE (ly_add_file_name_alist, "ly:add-file-name-alist",
 	   1, 0, 0, (SCM alist),
-	   "Add mappings for error messages from specified alist")
+	   "Add mappings for error messages from @var{alist}.")
 {
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
+    Translation of GIT committish: 8bf657e5c944bd8da26af01d6a021b48e74ff10a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -183,13 +183,13 @@ le refléter.  Malheureusement, notre oeil nous trompe quelque peu ; il
 ne se contente pas de remarquer la distance entre les têtes de notes,
 il prend en compte également la distance entre les hampes
 consécutives.  Ainsi, par compensation, les notes avec une combinaison
-« hampe vers le haut »/@/« hampe vers le bas » doivent être éloignées
-l'une de l'autre, et les notes avec une combinaison « hampe vers le
-bas »/@/« hampe vers le haut » rapprochées, le tout dépendant de la
+@qq{hampe vers le haut}/@/@qq{hampe vers le bas} doivent être éloignées
+l'une de l'autre, et les notes avec une combinaison @qq{hampe vers le
+bas}/@/@qq{hampe vers le haut} rapprochées, le tout dépendant de la
 position verticale des notes.  Les deux premières mesures sont
 imprimées avec cette correction, les deux suivantes sans.  Les notes
-dans les deux dernières mesures forment des blocs de notes « hampe
-vers le bas »/@/« hampe vers le haut ».
+dans les deux dernières mesures forment des blocs de notes @qq{hampe
+vers le bas}/@/@qq{hampe vers le haut}.
 
 @cindex typography
 
@@ -239,7 +239,7 @@ aimons tant lire et jouer.
 Comment pouvons-nous implémenter la typographie ? Si les artisans ont
 besoin de plus de dix ans pour devenir de vrais maîtres, comment nous,
 simples programmeurs, pourrions-nous jamais écrire un programme pour
-faire leur travail?
+faire leur travail ?
 
 La réponse est : nous ne le pouvons pas.  La typographie se base sur
 le jugement visuel humain, donc les humains ne peuvent pas être
@@ -731,7 +731,13 @@ musique et du texte dans les documents.
 @node About this manual
 @section About this manual
 
-Le manuel est divisé en chapitres comme suit :
+Le manuel est divisé en quatres livres.
+
+@subsubheading Manuel d'apprentissage
+
+Ce livre explique comment débuter avec LilyPond, et expose de manière
+simple quelques concepts clés.
+
 @itemize @bullet
 
 @item
@@ -755,6 +761,17 @@ afin d'éviter les problèmes les plus courants.
 @item
 @emph{@ref{Tweaking output}}
 est une introduction aux retouches de gravure avec LilyPond.
+
+@end itemize
+
+
+@subsubheading Manuel de référence
+
+Ce livre détaille toutes les commandes LilyPond produisant une notation
+musicale.  La lecture de ce livre requiert une bonne compréhension des
+concepts exposés dans le manuel d'apprentissage.
+
+@itemize @bullet
 
 @item
 @emph{@ref{Basic notation}}
@@ -792,6 +809,16 @@ la taille de papier ou spécifier les sauts de page.
 @emph{@ref{Interfaces for programmers}}
 explique comment créer des fonctions de musique.
 
+@end itemize
+
+
+@subsubheading Utilisation du programme
+
+Ce livre explique comment exécuter le programme et comment intégrer les
+partitions LilyPond dans d'autres programmes.
+
+@itemize @bullet
+
 @item
 @emph{@ref{Running LilyPond}}
 montre comment lancer LilyPond et ses programmes auxiliaires.  De
@@ -809,6 +836,15 @@ explique comment exécuter les programmes de conversion.  Ces programmes
 sont livrés avec le paquetage Lilypond, et convertissent une variété
 de formats musicaux vers le format @code{.ly}.
 
+@end itemize
+
+
+@subsubheading Annexes
+
+Ce livre contient des tables de référence pratiques.
+
+@itemize @bullet
+
 @item
 @ifhtml
 La
@@ -821,7 +857,7 @@ en savoir plus sur la notation et la gravure.
 Le
 @emph{@ref{Scheme tutorial}}
 propose une courte introduction à Scheme, le langage de programmation
-utilisé par les fonctions de musique.
+utilisé dans les fonctions de musique.
 
 @item
 @ifhtml
@@ -835,12 +871,12 @@ instruments MIDI, les noms de couleur, et la police Feta.
 Les
 @emph{@ref{Templates}}
 de pièces LilyPond.  Copiez et collez un modèle
-dans un fichier, ajouter les notes, et c'est prêt !
+dans un fichier, ajoutez les notes, et c'est prêt !
 
 @item
 La
 @emph{@ref{Cheat sheet}}
-est une référence pratique des commandes LlyPond les plus courantes.
+est une référence pratique des commandes LilyPond les plus courantes.
 
 @item
 L'
@@ -854,63 +890,59 @@ est un index complet.
 
 @end itemize
 
-Une fois que vous êtes un utilisateur expérimenté, vous pouvez
-utiliser le manuel comme référence : il y a un index
-exhaustif@footnote{Si vous cherchez quelque chose, et que vous ne le
-trouvez pas dans le manuel, ceci est considéré comme un bogue ; dans
-ce cas, envoyez un rapport de bogue s'il-vous-plaît.}, mais ce
-document est aussi disponible en
-@iftex
-une seule grande page HTML,
-@end iftex
-@ifhtml
-@uref{source/Documentation/user/lilypond.html, une seule grande page},
-@end ifhtml
-dans laquelle la fonction recherche d'un navigateur Web est très utile
-pour trouver quelque chose. 
-@cindex search in manual
-@cindex using the manual
+@subsubheading Autre documentation
 
-@c FIXME:
-@c add/integrate glossary, put in list above
-Si vous n'êtes pas familier avec la notation musicale ou la
-terminologie, il est conseillé de consulter le glossaire, notamment
-pour les parties non encore traduites de la documentation.
+D'autres documents constituent de précieuses sources d'information.
+
+@itemize @bullet
+@cindex jargon
+@cindex terminologie
+@cindex langues étrangères
+@cindex langue
+@cindex langage
 @iftex
 Le glossaire de musique explique les termes musicaux, et inclut
 les traductions vers divers languages.  C'est un document séparé,
-disponible dans les formats HTML et PDF.
+disponible aux formats HTML et PDF.
 @end iftex
 @ifnottex
 Le @ref{Top,glossaire musical,,music-glossary} explique les termes
 musicaux et inclut les traductions vers divers languages.  Il est
 également disponible au format PDF. 
 @end ifnottex
-@cindex idiom
-@cindex jargon
-@cindex terminology
-@cindex foreign languages
-@cindex language
+Si vous n'êtes pas familier avec la notation musicale ou la
+terminologie, il est conseillé de consulter le glossaire, notamment
+pour les parties non encore traduites de la documentation.
 
-
-Ce manuel ne serait pas complet sans un certain nombre d'autres
-documents.  Ils ne sont pas tous disponibles au format papier, mais
-devraient être inclus dans le paquetage de documentation pour votre
-plateforme.
-
-@itemize @bullet
+@cindex exemples de code
+@cindex LSR
 @item
+Les
+@ifhtml
+@uref{source/input/lsr/collated-files.html,Exemples de code}
+@end ifhtml
+@ifnothtml
+Exemples de code
+@end ifnothtml
+sont une vaste sélection de petits exemples montrant des trucs, astuces
+et fonctionnalités particulières de LilyPond.  La plupart de ces
+exemples sont également disponibles sur le
+@uref{http://lsr.dsi.unimi.it/,LilyPond Snippet Repository}.  Ce site
+Web possède également le manuel de LilyPond avec une fonctionnalité de
+recherche.
+
+@item
+La
 @iftex
-Référence du programme
+référence du programme
 @end iftex
 @ifnottex
-@ref{Top,Référence du programme,,lilypond-internals}.
+@ref{Top,référence du programme,,lilypond-internals}.
 @end ifnottex
-
-La référence du programme est un groupe de pages HTML étroitement
-liées entre elles, qui documente tous les petits détails de chaque
-classe, objet et fonction de LilyPond.  Elle est produite directement
-à partir des définitions de formatage utilisées.
+est un ensemble de pages HTML étroitement liées entre elles, qui
+documente les moindres petits détails de chaque classe, objet et
+fonction de LilyPond.  Cette documentation est produite directement à
+partir des définitions de formatage utilisées.
 
 Presque toutes les fonctions de formatage utilisées en interne sont
 directement disponibles pour l'utilisateur.  Par exemple, toutes les
@@ -922,66 +954,50 @@ aussi} qui réfère à la documentation générée automatiquement.  Dans la
 documentation au format HTML, ces sous-sections ont des liens
 cliquables.
 
-@cindex snippets
-@item
-@ifnothtml
-Exemples de source divers.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/test,Various input examples}.
-@uref{source/input/test/collated-files.html,Exemples de source divers}.
-@end ifhtml
-
-Cette ensemble de fichiers montre des trucs et astuces variés, sous
-la forme d'un large fichier HTML, avec des images et des textes
-explicatifs.
-
-@item
-@ifnothtml
-Les tests de régression.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/regression,The regression tests}.
-@uref{source/input/regression/collated-files.html,Les tests de régression}.
-@end ifhtml
-
-Cet ensemble de fichiers teste chaque fonctionnalité de notation et de
-gravure de Lilypond en un seul fichier.  L'ensemble est surtout
-présent pour nous aider à deboguer les problèmes, mais peut également
-être instructif pour voir comment nous testons le logiciel.  Le format
-est identique au document de trucs et astuces.
 @end itemize
 
+Lorsque vous serez un utilisateur expérimenté, vous pourrez consulter le
+manuel comme une référence : il y a un index complet@footnote{Si vous
+cherchez quelque chose sans le trouver dans la documentation, c'est un
+bogue.  Dans ce cas, merci d'envoyer un rapport de bogue.}, mais le
+manuel est aussi disponible en
+@iftex
+une seule grande page,
+@end iftex
+@ifhtml
+@uref{source/Documentation/user/lilypond-big-page.html, une seule grande
+page},
+@end ifhtml
+ce qui facilite la recherche avec la fonction de recherche de votre
+navigateur.
 
 Dans tous les documents HTML qui incluent des fragments musicaux,
 le code Lilypond utilisé pour produire l'image peut être vu en
 cliquant l'image.
 
 L'emplacement des fichiers de documentation mentionné ici peut varier
-d'un système à l'autre.  De temps en temps, ce manuel fait référence
-aux fichiers d'exemple et d'initialisation.  Tout au long de ce
-manuel, nous donnons les emplacements des fichiers d'entrée
-relativement au répértoire racine de l'archive source.  Par exemple,
+d'un système à l'autre.  De temps en temps, ce manuel fait référence aux
+fichiers d'exemple et d'initialisation.  Tout au long de ce manuel, nous
+donnons les emplacements des fichiers d'entrée relativement au
+répértoire racine de l'archive source.  Par exemple,
 @file{input/@/test/@/bla@/.ly} peut référer au fichier
 @file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  Dans les paquets
-binaires pour les plateformes Unix, la documentation et les exemples
-se trouvent généralement sous @file{/usr/@/share/@/doc/@/lilypond/}.
-Les fichiers d'initialisation, par exemple @file{scm/@/lily@/.scm}, ou
+binaires pour les plateformes Unix, la documentation et les exemples se
+trouvent généralement sous @file{/usr/@/share/@/doc/@/lilypond/}.  Les
+fichiers d'initialisation, par exemple @file{scm/@/lily@/.scm}, ou
 @file{ly/@/engraver@/-init@/.ly}, se trouvent généralement dans le
 répértoire @file{/usr/@/share/@/lilypond/}.
 
-@cindex adjusting output
+@cindex retoucher
 @cindex variables
-@cindex properties
+@cindex propriétés
 @cindex lilypond-internals
-@cindex internal documentation
+@cindex documentation du fonctionnement interne
 @cindex Scheme
-@cindex extending lilypond
+@cindex étendre lilypond
 @cindex index
 
 Pour finir, ce manuel et les autres sont disponibles en ligne, à la
-fois aux formats PDF et HTML, à partir du site de LilyPond, accessible
+fois aux formats PDF et HTML, à partir du site Web, accessible
 à l'adresse @uref{http://@/www@/.lilypond@/.org/}.
 

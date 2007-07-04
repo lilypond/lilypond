@@ -16,8 +16,9 @@ SCM prob_property_lookup_table;
 
 LY_DEFINE (ly_property_lookup_stats, "ly:property-lookup-stats",
 	   1, 0, 0, (SCM sym),
-	   "Return hash table with a property access corresponding to @var{sym}. "
-	   "Choices are prob, grob and context.")
+	   "Return hash table with a property access corresponding to"
+	   " @var{sym}.  Choices are @code{prob}, @code{grob}, and"
+	   " @code{context}.")
 {
   if (sym == ly_symbol2scm ("context"))
     return context_property_lookup_table ? context_property_lookup_table

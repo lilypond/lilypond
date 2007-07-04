@@ -10,14 +10,14 @@
 
 LY_DEFINE (ly_make_dispatcher, "ly:make-dispatcher",
 	   0, 0, 0, (),
-	   "Returns a newly created dispatcher.")
+	   "Return a newly created dispatcher.")
 {
   return (new Dispatcher ())->unprotect ();
 }
 
 LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 	   2, 0, 0, (SCM to, SCM from),
-	   "Makes the dispatcher @var{to} listen to events from @var{from}." )
+	   "Make the dispatcher @var{to} listen to events from @var{from}.")
 {
   Dispatcher *t = unsmob_dispatcher (to);
   Dispatcher *f = unsmob_dispatcher (from);
@@ -32,8 +32,9 @@ LY_DEFINE (ly_connect_dispatchers, "ly:connect-dispatchers",
 
 LY_DEFINE (ly_add_listener, "ly:add-listener",
 	   2, 0, 1, (SCM list, SCM disp, SCM cl),
-	   "Adds the listener @var{list} to the dispatcher @var{disp}.\n"
-	   " Whenever @var{disp} hears an event of class @var{cl}, it will be forwarded to @var{list}.\n" )
+	   "Add the listener @var{list} to the dispatcher @var{disp}."
+	   "  Whenever @var{disp} hears an event of class @var{cl},"
+	   " it is forwarded to @var{list}.")
 {
   Listener *l = unsmob_listener (list);
   Dispatcher *d = unsmob_dispatcher (disp);
@@ -53,8 +54,7 @@ LY_DEFINE (ly_add_listener, "ly:add-listener",
 
 LY_DEFINE (ly_broadcast, "ly:broadcast",
 	   2, 0, 0, (SCM disp, SCM ev),
-	   "Sends the stream event @var{ev} to the dispatcher\n"
-	   "@var{disp}.")
+	   "Send the stream event @var{ev} to the dispatcher @var{disp}.")
 {
   Dispatcher *d = unsmob_dispatcher (disp);
   Stream_event *e = unsmob_stream_event (ev);

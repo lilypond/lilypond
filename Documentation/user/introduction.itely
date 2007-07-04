@@ -917,7 +917,7 @@ available in
 a big HTML page,
 @end iftex
 @ifhtml
-@uref{source/Documentation/user/lilypond.html, one big page},
+@uref{source/Documentation/user/lilypond-big-page.html, one big page},
 @end ifhtml
 which can be searched easily using the search facility of a web
 browser.

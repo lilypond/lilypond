@@ -15,15 +15,11 @@ non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/user/out-www/lilypond-internals-big-page',
                     'Documentation/user/out-www/music-glossary-big-page',
                     'out-www/examples',
-                    'Documentation/topdocs/out-www/NEWS',
-                    'Documentation/topdocs/out-www/INSTALL',
-                    'Documentation/bibliography/out-www/index',
-                    'Documentation/bibliography/out-www/engraving',
-                    'Documentation/bibliography/out-www/colorado',
-                    'Documentation/bibliography/out-www/computer-notation'
+                    'Documentation/topdocs',
+                    'Documentation/bibliography',
                     'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
-                    'Documentation/topdocs/out-www/AUTHORS']
+                    'input/']
 
 def _doc (s):
     return s
@@ -37,16 +33,20 @@ footer = '''
 <font size="-1">
 %(footer_name_version)s
 <br>
+<address>
+%(footer_report_errors)s </address>
+<br>
+%(footer_suggest_docs)s
 </font>
-<address><font size="-1">
-%(footer_report_errors)s </font></address>
 </p>
 </div>
 '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
 footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
+footer_suggest_docs = _doc ('Your <a href="%(suggest_docs_url)s">suggestions for the documentation</a> are welcome.')
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
+suggest_docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
 
 header_tag = '<!-- header_tag -->'
 footer_tag = '<!-- footer_tag -->'
@@ -83,6 +83,23 @@ def build_pages_dict (filelist):
             else:
                 pages_dict[g[0]].append (e)
 
+def source_links_replace (m, source_val):
+    return 'href="' + os.path.join (source_val, m.group (1)) + '"'
+
+splitted_docs_re = re.compile ('Documentation/user/out-www/(lilypond|music-glossary)/')
+
+# On systems without symlinks (e.g. Windows), docs are not very usable
+# Get rid of symlinks references here
+# Get rid of symlinks in GNUmakefile.in (local-WWW-post)
+def replace_symlinks_urls (s, prefix):
+    if splitted_docs_re.match (prefix):
+        s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?)"', '\\1="../\\2"', s)
+    source_path = os.path.join (os.path.dirname (prefix), 'source')
+    if not os.path.islink (source_path):
+        return s
+    source_val = os.readlink (source_path)
+    return re.sub ('href="source/(.*?)"', lambda m: source_links_replace (m, source_val), s)
+
 def add_header (s):
     """Add header (<BODY> and doctype)"""
     if re.search (header_tag, s) == None:
@@ -101,10 +118,6 @@ def add_header (s):
             doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
             s = doctype + s
         return s
-
-def info_external_ref_remove (s):
-    """Remove info's annoying's indication of referencing external document"""
-    return re.sub (' \((lilypond|lilypond-internals|music-glossary)\)</a>', '</a>', s)
 
 def add_title (s):
     # urg
@@ -149,7 +162,7 @@ def find_translations (prefix, lang_ext):
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append (l)
-            elif lang_ext == '' and l.enabled and not prefix in non_copied_pages:
+            elif lang_ext == '' and l.enabled and reduce (lambda x, y: x and y, [not prefix.startswith (s) for s in non_copied_pages]):
                 # English version of missing translated pages will be written
                 missing.append (e)
     return available, missing
@@ -247,9 +260,9 @@ def add_html_footer (translation,
             in_f.close()
 
             s = re.sub ('%', '%%', s)
+            if target == 'offline':
+                s = replace_symlinks_urls (s, prefix)
             s = add_header (s)
-            # seems to be no more needed
-            # s = info_external_ref_remove (s)
 
             ### add footer
             if re.search (footer_tag, s) == None:
@@ -259,11 +272,6 @@ def add_html_footer (translation,
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.
                 page_flavors = add_menu (page_flavors, prefix, available, target, translation)
-            # urg, this stuff is outdated and seems useless, let's disable it
-            #else:
-            #    for e in [l.webext for l in langdefs.LANGUAGES]:
-            #        if not e in pages_dict[prefix]:
-            #            page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = s
             subst = dict ([i for i in globals().items() if type (i[1]) is str])
             subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
             for k in page_flavors.keys():
@@ -272,6 +280,7 @@ def add_html_footer (translation,
                         subst[name] = translation[page_flavors[k][0]] (subst[name])
                 subst['footer_name_version'] = subst['footer_name_version'] % subst
                 subst['footer_report_errors'] = subst['footer_report_errors'] % subst
+                subst['footer_suggest_docs'] = subst['footer_suggest_docs'] % subst
                 page_flavors[k][1] = page_flavors[k][1] % subst
                 out_f = open (name_filter (k), 'w')
                 out_f.write (page_flavors[k][1])

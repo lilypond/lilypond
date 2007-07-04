@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-17 23:05+0200\n"
+"POT-Creation-Date: 2007-07-04 00:04+0200\n"
 "PO-Revision-Date: 2007-05-12 18:41+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -16,17 +16,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: add_html_footer.py:46
+#: add_html_footer.py:44
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
 "Diese Seite ist für %(package_name)s-%(package_version)s (%(branch_str)s)."
 
-#: add_html_footer.py:47
+#: add_html_footer.py:45
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 "Fehler bitte an <a href=\"%(mail_address_url)s\">%(mail_address)s</a> melden."
+
+#: add_html_footer.py:46
+#, python-format
+msgid ""
+"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
+"welcome."
+msgstr ""
 
 #: add_html_footer.py:54
 #, python-format
@@ -38,15 +45,15 @@ msgstr "Andere Sprachen: %s."
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "Über die <A HREF=\"%s\">automatische Sprachauswahl</A>."
 
-#: add_html_footer.py:238
+#: add_html_footer.py:251
 msgid "stable-branch"
 msgstr "stabiler Zweig"
 
-#: add_html_footer.py:240
+#: add_html_footer.py:253
 msgid "development-branch"
 msgstr "Entwicklungszweig"
 
-#: texi-gettext.py:45
+#: texi-gettext.py:65
 msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
@@ -129,6 +136,29 @@ msgstr "Beispielanwendung"
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "About this manual"
 msgstr "Über das Handbuch"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Learning manual"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Notation reference"
+msgstr "Zurechtfinden in der Programmreferenz"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Program usage"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Appendices"
+msgstr "Anhang"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+#, fuzzy
+msgid "Other information"
+msgstr "Mehr Information"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @chapter in ../../../Documentation/user/tutorial.itely
@@ -1991,7 +2021,8 @@ msgid "Integrating LaTeX and music"
 msgstr "Noten in LaTeX integrieren"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating La@TeX{} and music"
+#, fuzzy
+msgid "Integrating @LaTeX{} and music"
 msgstr "Noten in La@TeX{} integrieren"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely

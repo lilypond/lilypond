@@ -670,8 +670,8 @@ note@tie{}D.
 Song texts must be aligned with the notes of their melody.
 @end itemize
 
-There are a few different ways to define lyrics; the simplest
-way is to use the @code{\addlyrics} function.
+There are a few different ways to define lyrics; we shall begin
+by examining the simplest method, and gradually increase complexity.
 
 @menu
 * Setting simple songs::        
@@ -714,8 +714,10 @@ To make lyrics avoid barlines as well, use
 @node Setting simple songs
 @subsection Setting simple songs
 
-The easiest way to add lyrics to a melody is to append
 @cindex \addlyrics
+
+The easiest way to add lyrics to a melody is to append
+
 @example
 \addlyrics @{ @var{the lyrics} @}
 @end example
@@ -741,7 +743,8 @@ More stanzas can be added by adding more
 @end lilypond
 
 The command @code{\addlyrics} cannot handle polyphony settings.  For these
-cases you should use @code{\lyricsto} and @code{\lyricmode}.
+cases you should use @code{\lyricsto} and @code{\lyricmode}, as will be
+introduced in @ref{Entering lyrics}.
 
 
 
@@ -751,13 +754,16 @@ cases you should use @code{\lyricsto} and @code{\lyricmode}.
 @cindex lyrics
 @funindex \lyricmode
 @cindex punctuation
+@cindex spaces, in lyrics
+@cindex quotes, in lyrics
 
-Lyrics are entered in a special input mode.  This mode is introduced
+Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
 @code{\lyricsto}.  In this mode you can enter lyrics,
 with punctuation and accents, and the input @code{d} is not parsed as
 a pitch, but rather as a one letter syllable.  Syllables are entered
 like notes, but with pitches replaced by text.  For example,
+
 @example
 \lyricmode @{ Twin-4 kle4 twin- kle litt- le star2 @}
 @end example
@@ -771,21 +777,35 @@ or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
 A word or syllable of lyrics begins with an alphabetic character, and ends
 with
 any space or digit.  The following characters can be any character
-that is not a digit or white space.  One important consequence of this
-is that a word can end with @code{@}}.  The following example is
-usually a mistake in the input file.  The syllable includes a @code{@}}, so
-the
-opening brace is not balanced
+that is not a digit or white space.
+
+Any character that is not a digit or white space will be regarded as
+part of the syllable; one important consequence of this is that a word
+can end with @code{@}}, which often leads to the following mistake:
+
 @example
-\lyricmode @{ twinkle@}
+\lyricmode @{ lah- lah@}
 @end example
+
+In this example, the @code{@}} is included in the final syllable, so the
+opening brace is not balanced and the input file will probably not
+compile.
+
 
 @funindex \property in \lyricmode
 
 @noindent
 Similarly, a period which follows an alphabetic sequence is included in
 the resulting string.  As a consequence, spaces must be inserted around
-property commands
+property commands: do @emph{not} write
+
+@example
+\override Score.LyricText #'font-shape = #'italic
+@end example
+
+@noindent
+but instead use
+
 @example
 \override Score . LyricText #'font-shape = #'italic
 @end example
@@ -840,7 +860,7 @@ any 8-bit character with ASCII code over 127, or a two-character
 combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
 
-To define indentifiers containing lyrics, the function @code{lyricmode}
+To define identifiers containing lyrics, the function @code{lyricmode}
 must be used.
 
 @example
@@ -1470,27 +1490,25 @@ text = \lyricmode {
 its fleece was white as snow.
 }
 
-\book{
-  \score{ <<
-    \new Voice = "one" { \melody }
-    \new Lyrics \lyricsto "one" \text
-	>>
-    \layout { }
+\score{ <<
+  \new Voice = "one" { \melody }
+  \new Lyrics \lyricsto "one" \text
+>>
+  \layout { }
+}
+\markup { \column{
+  \line{ Verse 2. }
+  \line{ All the children laughed and played }
+  \line{ To see a lamb at school. }
   }
-  \markup { \column{
-    \line{ Verse 2. }
-    \line{ All the children laughed and played }
-    \line{ To see a lamb at school. }
-    }
-  }
-  \markup{
-    \wordwrap-string #"
-    Verse 3.
+}
+\markup{
+  \wordwrap-string #"
+  Verse 3.
 
-    Mary took it home again,
+  Mary took it home again,
 
-    It was against the rule."
-  }
+  It was against the rule."
 }
 @end lilypond
 
@@ -4586,7 +4604,7 @@ figures below the notes, use
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
-have overlapping extender lines.  To avoid this problem, plese
+have overlapping extender lines.  To avoid this problem, please
 use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 

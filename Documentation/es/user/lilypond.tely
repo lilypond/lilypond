@@ -7,8 +7,14 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond
+
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @c  Keep this here, since it pertains to the direntry below.
@@ -56,9 +62,11 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifhtml
 Este documento también está disponible como
-@uref{source/Documentation/user/lilypond.pdf,PDF}.
+@uref{source/Documentation/user/lilypond.es.pdf,PDF}.
 @end ifhtml
 
+@documentlanguage es
+@documentencoding UTF-8
 
 @c  This produces the unified index
 @syncodeindex fn cp
@@ -66,9 +74,6 @@ Este documento también está disponible como
 @syncodeindex pg cp
 @syncodeindex tp cp
 @syncodeindex vr cp
-
-@documentlanguage es
-@documentencoding utf-8
 
 @finalout
 
@@ -81,6 +86,14 @@ Este documento también está disponible como
 
 Copyright @copyright{} 1999--2007 por los autores
 
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
 bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
@@ -88,6 +101,15 @@ o cualquier versión posterior publicada por la Free Software Foundation;
 sin ninguna de las secciones invariantes.
 Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
 de Documentación Libre de GNU''.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
 @end quotation
 
 @vskip 20pt

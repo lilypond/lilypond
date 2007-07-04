@@ -726,7 +726,9 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 
   Real penalty = blank_page_penalty ();
   n_res.demerits_ += penalty;
-  n_res.force_.back () += penalty;
+
+  if (n_res.force_.size ())
+    n_res.force_.back () += penalty;
 
   return (m_res.demerits_ < n_res.demerits_) ? m_res : n_res;
 }
@@ -759,6 +761,9 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 Page_spacing_result
 Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result res)
 {
+  if (res.force_.empty ())
+    return res;
+
   cache_line_details (configuration);
   res.systems_per_page_ = uncompress_solution (res.systems_per_page_, cached_line_details_);
 

@@ -1990,7 +1990,7 @@ die @internalsref{systemStartDelimiter}-Eigenschaft bestimmt.
 Anfangsklammern können tief einander verschachtelt werden.
 
 @lilypond[quote,ragged-right,verbatim]
-\new StaffGroup 
+\new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
@@ -3531,9 +3531,8 @@ c4 c4
 
 Programmreferenz: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic} und
-@internalsref{FoldedRepeatedMusic}.
+@internalsref{VoltaRepeatedMusic} und
+@internalsref{UnfoldedRepeatedMusic}.
 
 
 @node Tremolo repeats

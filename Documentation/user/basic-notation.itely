@@ -1054,7 +1054,7 @@ These voices are all separate from the voice that contains the notes just
 outside the @code{<< \\ >>} construct.  This should be noted when making
 changes at the voice level.  This also means that slurs and ties cannot go
 into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
-from separate @code{<< \\ >>} constructs on the same staff are the the
+from separate @code{<< \\ >>} constructs on the same staff are the
 same voice.  Here is the same example, with different noteheads for each
 voice.  Note that the change to the note-head style in the main voice does
 not affect
@@ -1873,7 +1873,7 @@ in every context, and that type is determined by the property
 System start delimiters may be deeply nested,
 
 @lilypond[quote,ragged-right,verbatim]
-\new StaffGroup 
+\new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
@@ -3233,6 +3233,13 @@ bracket only lasts one measure, which is a duration of 3/4.
 }
 @end lilypond
 
+If you want to start a repeat at the beginning of a line and have a
+double bar at the end of the previous line, use
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+see @ref{Bar lines} for more information.
 
 @seealso
 
@@ -3350,9 +3357,8 @@ c4 c4
 
 Program reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}, and
-@internalsref{FoldedRepeatedMusic}.
+@internalsref{VoltaRepeatedMusic}, and
+@internalsref{UnfoldedRepeatedMusic}.
 
 
 @node Tremolo repeats

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-06-17 23:05+0200\n"
-"PO-Revision-Date: 2007-03-27 23:06+0200\n"
+"POT-Creation-Date: 2007-07-04 00:04+0200\n"
+"PO-Revision-Date: 2007-06-30 14:29+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,19 +17,26 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.4\n"
 
-#: add_html_footer.py:46
+#: add_html_footer.py:44
 #, python-format
 msgid "This page is for %(package_name)s-%(package_version)s (%(branch_str)s)."
 msgstr ""
 "Cette page documente %(package_name)s-%(package_version)s (%(branch_str)s)."
 
-#: add_html_footer.py:47
+#: add_html_footer.py:45
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 "Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu."
 "org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
 "(mail_address_url)s\">%(mail_address)s</a>"
+
+#: add_html_footer.py:46
+#, python-format
+msgid ""
+"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
+"welcome."
+msgstr ""
 
 #: add_html_footer.py:54
 #, python-format
@@ -41,19 +48,21 @@ msgstr "Autres langues&nbsp;: %s."
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
-#: add_html_footer.py:238
+#: add_html_footer.py:251
 msgid "stable-branch"
 msgstr "branche stable"
 
-#: add_html_footer.py:240
+#: add_html_footer.py:253
 msgid "development-branch"
 msgstr "branche de développement"
 
-#: texi-gettext.py:45
+#: texi-gettext.py:65
 msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
 msgstr ""
+"Cette section n'est pas encore traduite ; reportez-vous à l'édition de ce "
+"manuel en anglais."
 
 #. @node in ../../../Documentation/user/lilypond.tely
 msgid "Top"
@@ -132,6 +141,26 @@ msgstr "Exemples d'applications"
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "About this manual"
 msgstr "À propos de ce manuel"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Learning manual"
+msgstr "Manuel d'apprentissage"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Notation reference"
+msgstr "Manuel de référence"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Program usage"
+msgstr "Utilisation du programme"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Appendices"
+msgstr "Annexes"
+
+#. @subsubheading in ../../../Documentation/user/introduction.itely
+msgid "Other information"
+msgstr "Autres sources de documentation"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @chapter in ../../../Documentation/user/tutorial.itely
@@ -767,7 +796,7 @@ msgstr "Notation couvrant plusieurs notes"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Laissez vibrer ties"
-msgstr "Liaisons « laissez vibrer »"
+msgstr "Liaisons ``laissez vibrer''"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1231,9 +1260,8 @@ msgstr "Partitions emboîtées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
-#, fuzzy
 msgid "Page wrapping text"
-msgstr "Saut de page"
+msgstr "Texte avec sauts de page"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1242,9 +1270,8 @@ msgstr "Vue d'ensemble des commandes d'indication textuelle"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
-#, fuzzy
 msgid "Overview of text markup list commands"
-msgstr "Vue d'ensemble des commandes d'indication textuelle"
+msgstr "Vue d'ensemble des commandes de listes d'indications textuelles"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1493,9 +1520,8 @@ msgstr "Aligner des contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "Vertical grouping of grobs"
-msgstr "Espacement vertical"
+msgstr "Groupement vertical d'objets graphiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
@@ -1614,11 +1640,10 @@ msgstr "Titres personnalisés"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Reference to page numbers"
-msgstr ""
+msgstr "Référence de numéro de page"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
-#, fuzzy
 msgid "Table of contents"
 msgstr "Table des matières"
 
@@ -1898,9 +1923,8 @@ msgstr "Définition d'une nouvelle commande de marqueur"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
-#, fuzzy
 msgid "New markup list command definition"
-msgstr "Définition d'une nouvelle commande de marqueur"
+msgstr "Définition d'une nouvelle commande de liste de marqueurs"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @section in ../../../Documentation/user/programming-interface.itely
@@ -1991,7 +2015,8 @@ msgid "Integrating LaTeX and music"
 msgstr "Intégrer de la musique dans LaTeX"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating La@TeX{} and music"
+#, fuzzy
+msgid "Integrating @LaTeX{} and music"
 msgstr "Intégrer de la musique dans @LaTeX{}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely

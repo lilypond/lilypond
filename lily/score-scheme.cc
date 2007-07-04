@@ -30,7 +30,7 @@ LY_DEFINE (ly_make_score, "ly:make-score",
 
 LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 	   1, 0, 0, (SCM score),
-	   "All output defs in a score.")
+	   "All output definitions in a score.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
@@ -45,7 +45,7 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
 
 LY_DEFINE (ly_score_header, "ly:score-header",
 	   1, 0, 0, (SCM score),
-	   "return score header.")
+	   "Return score header.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
@@ -55,7 +55,7 @@ LY_DEFINE (ly_score_header, "ly:score-header",
 
 LY_DEFINE (ly_score_music, "ly:score-music",
 	   1, 0, 0, (SCM score),
-	   "return score music.")
+	   "Return score music.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
@@ -73,10 +73,10 @@ LY_DEFINE (ly_score_error_p, "ly:score-error?",
 
 LY_DEFINE (ly_score_embedded_format, "ly:score-embedded-format",
 	   2, 0, 0, (SCM score, SCM layout),
-	   "Run @var{score} through @var{layout}, an output definition, "
-	   "scaled to correct output-scale already, "
-	   "return a list of layout-lines. "
-	   "\nTake optional Object_key argument.")
+	   "Run @var{score} through @var{layout} (an output definition)"
+	   " scaled to correct output-scale already, returning a list of"
+	   " layout-lines.  This function takes an optional"
+	   " @code{Object_key} argument.")
 {
   LY_ASSERT_SMOB (Score, score, 1);
   LY_ASSERT_SMOB (Output_def, layout, 2);

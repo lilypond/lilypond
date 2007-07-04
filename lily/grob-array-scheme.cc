@@ -13,7 +13,7 @@
 LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
 	   1, 0, 0,
 	   (SCM grob_arr),
-	   "Return the grob_array length.")
+	   "Return the length of @var{grob-arr}.")
 {
   LY_ASSERT_SMOB (Grob_array, grob_arr, 1);
 
@@ -25,7 +25,7 @@ LY_DEFINE (ly_grob_array_length, "ly:grob-array-length",
 LY_DEFINE (ly_grob_array_ref, "ly:grob-array-ref",
 	   2, 0, 0,
 	   (SCM grob_arr, SCM index),
-	   "Retrieve the @code{index} element of @code{grob-arr}.")
+	   "Retrieve the @var{index}th element of @var{grob-arr}.")
 {
   Grob_array *me = unsmob_grob_array (grob_arr);
   LY_ASSERT_SMOB (Grob_array, grob_arr, 1);

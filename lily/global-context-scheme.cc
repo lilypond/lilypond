@@ -19,8 +19,9 @@
 
 LY_DEFINE (ly_format_output, "ly:format-output",
 	   1, 0, 0, (SCM context),
-	   "Given a Global context in its final state, "
-	   "process it and return the @code{Music_output} object in its final state.")
+	   "Given a global context in its final state,"
+	   " process it and return the @code{Music_output} object"
+	   " in its final state.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (context));
   
@@ -37,8 +38,8 @@ LY_DEFINE (ly_format_output, "ly:format-output",
 
 LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
           1, 0, 0, (SCM global),
-          "Create a translator group and connect it to the global context\n"
-          "@var{global}. The translator group is returned.")
+          "Create a translator group and connect it to the global context"
+          " @var{global}.  The translator group is returned.")
 {
   Global_context *g = dynamic_cast<Global_context *> (unsmob_context (global));
   LY_ASSERT_TYPE (unsmob_global_context, global, 1)
@@ -52,10 +53,8 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
 
 LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 	   1, 0, 0, (SCM output_def),
-	   "Set up a global interpretation context, using the output\n"
-	   "block @var{output_def}.\n"
-	   "The context is returned.\n"
-	   )
+	   "Set up a global interpretation context, using the output"
+	   " block @var{output_def}.  The context is returned.\n")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
   Output_def *odef = unsmob_output_def (output_def); 
@@ -73,9 +72,8 @@ LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 
 LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 	   2, 0, 0, (SCM mus, SCM ctx),
-	   "Interpret the music expression @var{mus} in the\n"
-	   "global context @var{ctx}. The context is returned in its\n"
-	   "final state.\n")
+	   "Interpret the music expression @var{mus} in the global context"
+	   " @var{ctx}.  The context is returned in its final state.")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_TYPE (unsmob_global_context, ctx, 2);
@@ -122,13 +120,13 @@ LY_DEFINE (ly_interpret_music_expression, "ly:interpret-music-expression",
 
 LY_DEFINE (ly_run_translator, "ly:run-translator",
 	   2, 1, 0, (SCM mus, SCM output_def),
-	   "Process @var{mus} according to @var{output_def}. \n"
-	   "An interpretation context is set up,\n"
-	   "and @var{mus} is interpreted with it.  \n"
-	   "The context is returned in its final state.\n"
-	   "\n\n"
-	   "Optionally, this routine takes an Object-key to\n"
-	   "to uniquely identify the Score block containing it.\n")
+	   "Process @var{mus} according to @var{output-def}.  An"
+	   " interpretation context is set up, and @var{mus} is"
+	   " interpreted with it.  The context is returned in its"
+	   " final state.\n"
+	   "\n"
+	   "Optionally, this routine takes an object-key to"
+	   " to uniquely identify the score block containing it.")
 {
   LY_ASSERT_SMOB (Music, mus, 1);
   LY_ASSERT_SMOB (Output_def, output_def, 2);

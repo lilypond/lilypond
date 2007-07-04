@@ -14,8 +14,8 @@
 
 LY_DEFINE (ly_make_paper_outputter, "ly:make-paper-outputter",
 	   2, 0, 0, (SCM port, SCM format),
-	   "Create an outputter that evaluates within "
-	   "@code{output-}@var{format}, writing to  @var{port}.")
+	   "Create an outputter that evaluates within"
+	   " @code{output-}@var{format}, writing to @var{port}.")
 {
   LY_ASSERT_TYPE (ly_is_port, port, 1);
   LY_ASSERT_TYPE (ly_is_symbol, format, 2);

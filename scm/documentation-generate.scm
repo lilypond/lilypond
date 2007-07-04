@@ -156,7 +156,9 @@
   (make <texi-node>
     #:name "Top"
     #:text 
-    (string-append  "This is the program reference for LilyPond version " (lilypond-version))
+    (string-append  "This is the program reference for version "
+		    (lilypond-version)
+		    " of LilyPond, the GNU music typesetter.")
 
     #:children
     (list
@@ -171,10 +173,6 @@
 
 @printindex cp
 
-@unnumbered Variable index
-
-@printindex vr
-
 @unnumbered Function index
 
 @printindex fn
@@ -183,7 +181,3 @@
 
 (dump-node top-node out-port 0)
 (newline (current-error-port))
-
-
-
-

@@ -19,8 +19,9 @@ LY_DEFINE (ly_input_location_p, "ly:input-location?", 1, 0, 0,
 }
 
 LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM rest),
-	   "Print @var{msg} as a GNU compliant error message, pointing to the "
-	   "location in @var{sip}. @var{msg} is interpreted similar to @code{format}'s argument\n")
+	   "Print @var{msg} as a GNU compliant error message, pointing"
+	   " to the location in @var{sip}.  @var{msg} is interpreted"
+	   " similar to @code{format}'s argument, using @var{rest}.")
 {
   Input *ip = unsmob_input (sip);
 
@@ -39,7 +40,8 @@ LY_DEFINE (ly_input_message, "ly:input-message", 2, 0, 1, (SCM sip, SCM msg, SCM
 LY_DEFINE (ly_input_file_line_char_column,
 	   "ly:input-file-line-char-column",
 	   1, 0, 0, (SCM sip),
-	   "Return input location in @var{sip} as (file-name line char column).")
+	   "Return input location in @var{sip} as"
+	   " @code{(file-name line char column)}.")
 {
   LY_ASSERT_TYPE (unsmob_input, sip, 1);
   Input *ip = unsmob_input (sip);
@@ -57,8 +59,8 @@ LY_DEFINE (ly_input_file_line_char_column,
 LY_DEFINE (ly_input_both_locations,
 	   "ly:input-both-locations",
 	   1, 0, 0, (SCM sip),
-	   "Return input location in @var{sip} as "
-	   "(file-name first-line first-column last-line last-column).")
+	   "Return input location in @var{sip} as"
+	   " @code{(file-name first-line first-column last-line last-column)}.")
 {
   
   LY_ASSERT_TYPE (unsmob_input, sip, 1);

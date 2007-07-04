@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
+    Translation of GIT committish: 8791591cda0187e947fa6162ce261bc97df698ee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,8 +8,14 @@
 
 @setfilename lilypond.info
 @settitle GNU LilyPond
+
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @c don't remove this comment.
@@ -21,14 +27,22 @@
 @omflanguage French
 @end ignore
 
+@ifhtml
+Ce document est également disponible au format
+@uref{source/Documentation/user/lilypond.fr.pdf,PDF}.
+@end ifhtml
+
 @documentlanguage fr
+@iftex
+@frenchspacing on
+@end iftex
 @documentencoding UTF-8
 
 @syncodeindex fn cp
-@syncodeindex ky cp
-@syncodeindex pg cp
-@syncodeindex tp cp
-@syncodeindex vr cp
+@c @syncodeindex ky cp
+@c @syncodeindex pg cp
+@c @syncodeindex tp cp
+@c @syncodeindex vr cp
 
 @finalout
 
@@ -39,6 +53,22 @@
 
 
 Copyright @copyright{} 1999--2007 by the authors
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -73,6 +103,22 @@ Free Documentation License''.
 Ce fichier documente GNU LilyPond.
 
 Copyright @copyright{} 1999--2007 par les auteurs
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -179,14 +225,10 @@ Annexes
 @node LilyPond command index
 @appendix LilyPond command index
 
-UNTRANSLATED NODE: IGNORE ME
-
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
-
-UNTRANSLATED NODE: IGNORE ME
 
 @printindex cp
 

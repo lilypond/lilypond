@@ -13,8 +13,8 @@
 
 LY_DEFINE (ly_relative_group_extent, "ly:relative-group-extent",
 	   3, 0, 0, (SCM elements, SCM common, SCM axis),
-	   "Determine the extent of @var{elements} relative to @var{common} in the "
-	   "@var{axis} direction.")
+	   "Determine the extent of @var{elements} relative to @var{common} in the"
+	   " @var{axis} direction.")
 {
   Grob_array *ga = unsmob_grob_array (elements);
 

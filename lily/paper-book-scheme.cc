@@ -12,7 +12,7 @@
 
 LY_DEFINE (ly_paper_book_pages, "ly:paper-book-pages",
 	   1, 0, 0, (SCM pb),
-	   "Return pages in book PB.")
+	   "Return pages in book @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob_paper_book (pb)->pages ();
@@ -42,7 +42,7 @@ LY_DEFINE (ly_paper_book_performances, "ly:paper-book-performances",
 
 LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 	   1, 0, 0, (SCM pb),
-	   "Return systems in book PB.")
+	   "Return systems in book @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   return unsmob_paper_book (pb)->systems ();
@@ -50,7 +50,7 @@ LY_DEFINE (ly_paper_book_systems, "ly:paper-book-systems",
 
 LY_DEFINE (ly_paper_book_paper, "ly:paper-book-paper",
 	   1, 0, 0, (SCM pb),
-	   "Return pages in book PB.")
+	   "Return pages in book @var{pb}.")
 {
   LY_ASSERT_SMOB (Paper_book, pb, 1);
   Paper_book *pbook = unsmob_paper_book (pb);

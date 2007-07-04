@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
+   Translation of GIT committish: 8bf657e5c944bd8da26af01d6a021b48e74ff10a
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -50,18 +50,18 @@ verrez exactement le code LilyPond utilisé pour générer cette image.
 Essayez sur cette image :
 
 @c no verbatim here
+@c KEEP LY
 @lilypond[quote,ragged-right]
 \relative c'' {
-  c-\markup { \bold \huge { Click here.  } }
+  c-\markup { \bold \huge { Cliquez ici.  } }
 }
 @end lilypond
 
-En copiant et en collant tout le code @qq{ly snippet} dans un fichier test,
-vous aurez un modèle de base pour faire vos expériences.  Si vous
-apprenez de cette façon, vous aurez probablement envie d'imprimer ou
-de garder un lien vers la
-@ref{Cheat sheet}, tableau qui répertorie les commandes usuelles
-pour une consultation rapide.
+En copiant et en collant tout le code de l'extrait ly dans un fichier
+test, vous aurez un modèle de base pour faire vos expériences.  Si vous
+apprenez de cette façon, vous aurez probablement envie d'imprimer ou de
+garder un lien vers la @ref{Cheat sheet}, tableau qui répertorie les
+commandes usuelles pour une consultation rapide.
 @end ifhtml
 
 @menu
@@ -1066,7 +1066,7 @@ Ces éléments @code{Staff} sont ensuite combinés en parallèle avec
 @end lilypond
 
 
-La commande @code{\new} introduit un « contexte de notation ».  Un
+La commande @code{\new} introduit un @qq{contexte de notation}.  Un
 contexte de notation est un environnement dans lequel les événements
 musicaux --- comme les notes ou les commandes @code{\clef} --- sont
 interprétés.   Pour des pièces simples, ces contextes sont créés
@@ -1081,7 +1081,7 @@ notation de la mélodie, alors que @code{Lyrics} gère les paroles et
 
 En termes de syntaxe, faire précéder une expression musicale de
 @code{\new} crée une plus grosse expression musicale.  En reprenant la
-comparaison, cela ressemble au signe « moins » en mathématiques.  La
+comparaison, cela ressemble au signe @qq{moins} en mathématiques.  La
 formule @math{(4+5)} est une expression, donc @math{-(4+5)} est une
 plus grosse expression.
 
@@ -1264,7 +1264,7 @@ chaque syllable par un espace :
 @cindex melisma
 @cindex extender line
 Cette mélodie se termine sur un @rglos{melisma}, c'est-à-dire qu'une
-seule syllable (« free ») correspond à plus d'une note.  Ceci est
+seule syllable (@qq{free}) correspond à plus d'une note.  Ceci est
 indiqué avec une @emph{ligne d'extension}.  Elle est entrée avec deux
 caractères souligné (@code{_}), c'est-à-dire :
 

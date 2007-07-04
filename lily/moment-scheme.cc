@@ -11,15 +11,13 @@
 /* TODO: add optional factor argument. */
 LY_DEFINE (ly_make_moment, "ly:make-moment",
 	   2, 2, 0, (SCM n, SCM d, SCM gn, SCM gd),
-	   "Create the rational number with main timing @var{n}/@var{d}, "
-	   "and optional grace timin @var{gn}/@var{gd}.\n"
+	   "Create the rational number with main timing @var{n}/@var{d},"
+	   " and optional grace timing @var{gn}/@var{gd}.\n"
 	   "\n"
-	   "\n"
-	   "Moment is a point in musical time.  "
-	   "It is consists of a pair of rationals (@var{m}, @var{g}), "
-	   "where @var{m} is the timing for the main\n"
-	   "notes, and @var{g} the timing for grace notes.  "
-	   "In absence of grace notes, @var{g} is zero.\n")
+	   "A @dfn{moment} is a point in musical time.  It consists of"
+	   " a pair of rationals (@var{m},@tie{}@var{g}), where @var{m} is"
+	   " the timing for the main notes, and @var{g} the timing for"
+	   " grace notes.  In absence of grace notes, @var{g}@tie{}is zero.")
 {
   LY_ASSERT_TYPE (scm_is_integer, n, 1);
   LY_ASSERT_TYPE (scm_is_integer, d, 2);
