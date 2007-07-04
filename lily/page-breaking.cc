@@ -759,6 +759,9 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 Page_spacing_result
 Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result res)
 {
+  if (res.force_.empty ())
+    return res;
+
   cache_line_details (configuration);
   res.systems_per_page_ = uncompress_solution (res.systems_per_page_, cached_line_details_);
 
