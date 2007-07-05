@@ -85,6 +85,87 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   return ret;
 }
 
+static Real
+knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
+{
+  Real note_head_width = increment;
+  Grob *head = right_stem ? Stem::support_head (right_stem) : 0;
+  Grob *rcolumn = dynamic_cast<Item*> (head)->get_column ();
+
+  Interval head_extent;
+  if (head)
+    {
+      head_extent = head->extent (rcolumn, X_AXIS);
+
+      if (!head_extent.is_empty ())
+	note_head_width = head_extent[RIGHT];
+
+      note_head_width -= Stem::thickness (right_stem);
+    }
+
+  return -note_head_width * get_grob_direction (right_stem)
+    * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
+}
+
+static Real
+different_directions_correction (Grob *note_spacing,
+				 Drul_array<Interval> stem_posns,
+				 Direction left_stem_dir)
+{
+  Real ret = 0.0;
+  Interval intersect = stem_posns[LEFT];
+  intersect.intersect (stem_posns[RIGHT]);
+
+  if (!intersect.is_empty ())
+    {
+      ret = abs (intersect.length ());
+
+      /*
+	Ugh. 7 is hardcoded.
+      */
+      ret = min (ret / 7, 1.0)
+	* left_stem_dir
+	* robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
+    }
+  return ret;
+}
+
+static Real
+same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
+{
+  /*
+    Correct for the following situation:
+    
+    X      X
+    |      |
+    |      |
+    |   X  |
+    |  |   |
+    ========
+    
+    ^ move the center one to the left.
+    
+    
+    this effect seems to be much more subtle than the
+    stem-direction stuff (why?), and also does not scale with the
+    difference in stem length.
+    
+  */
+
+  Interval hp = head_posns[LEFT];
+  hp.intersect (head_posns[RIGHT]);
+  if (!hp.is_empty ())
+    return 0;
+  
+  Direction lowest
+    = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
+  
+  Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
+  Real corr = robust_scm2double (note_spacing->get_property ("same-direction-correction"), 0);
+  
+  return (delta > 1) ? -lowest * corr : 0;
+}
+
 
 /**
    Correct for optical illusions. See [Wanske] p. 138. The combination
@@ -112,9 +193,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Interval bar_xextent;
   Interval bar_yextent;
 
-  bool correct_stem_dirs = true;
   Direction d = LEFT;
-  bool acc_right = false;
 
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
 							      rcolumn->break_status_dir (),
@@ -129,29 +208,24 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
 
-	  if (d == RIGHT)
-	    acc_right = acc_right || Note_column::accidentals (it);
+	  /*
+	    don't correct if accidentals are sticking out of the right side.
+	  */
+	  if (d == RIGHT && Note_column::accidentals (it))
+	    return;
 
 	  Grob *stem = Note_column::get_stem (it);
 
-	  if (!stem || !stem->is_live ())
+	  if (!stem || !stem->is_live () || Stem::is_invisible (stem))
 	    return;
-
-	  if (Stem::is_invisible (stem))
-	    {
-	      correct_stem_dirs = false;
-	      continue;
-	    }
 
 	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
 
 	  Direction stem_dir = get_grob_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != stem_dir)
-	    {
-	      correct_stem_dirs = false;
-	      continue;
-	    }
+	    return;
+
 	  stem_dirs[d] = stem_dir;
 
 	  /*
@@ -160,11 +234,10 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  */
 	  if (d == LEFT
 	      && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
-	    correct_stem_dirs = false;
+	    return;
 
 	  Interval hp = Stem::head_positions (stem);
-	  if (correct_stem_dirs
-	      && !hp.is_empty ())
+	  if (!hp.is_empty ())
 	    {
 	      Real chord_start = hp[stem_dir];
 
@@ -183,12 +256,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     }
   while (flip (&d) != LEFT);
 
-  /*
-    don't correct if accidentals are sticking out of the right side.
-  */
-  if (acc_right)
-    return;
-
   Real correction = 0.0;
 
   if (!bar_yextent.is_empty ())
@@ -198,91 +265,23 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       stem_posns[RIGHT] *= 2;
     }
 
-  if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
+  if (stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
-
-	  /*
-	    this is a knee: maximal correction.
-	  */
-	  Real note_head_width = increment;
-	  Grob *st = stems_drul[RIGHT];
-	  Grob *head = st ? Stem::support_head (st) : 0;
-
-	  Interval head_extent;
-	  if (head)
-	    {
-	      head_extent = head->extent (rcolumn, X_AXIS);
-
-	      if (!head_extent.is_empty ())
-		note_head_width = head_extent[RIGHT];
-
-	      note_head_width -= Stem::thickness (st);
-	    }
-
-	  correction = note_head_width * stem_dirs[LEFT];
-	  correction *= robust_scm2double (me->get_property ("knee-spacing-correction"), 0);
+	  correction = knee_correction (me, stems_drul[RIGHT], increment);
 	  *fixed += correction;
 	}
       else
 	{
-	  intersect = stem_posns[LEFT];
-	  intersect.intersect (stem_posns[RIGHT]);
-	  correct_stem_dirs = correct_stem_dirs && !intersect.is_empty ();
-
-	  if (correct_stem_dirs)
-	    {
-	      correction = abs (intersect.length ());
-
-	      /*
-		Ugh. 7 is hardcoded.
-	      */
-	      correction = min (correction / 7, 1.0);
-	      correction *= stem_dirs[LEFT];
-	      correction
-		*= robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
-	    }
+	  correction = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
 
 	  if (!bar_yextent.is_empty ())
 	    correction *= 0.5;
 	}
     }
-  else if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == UP)
-    {
-      /*
-	Correct for the following situation:
-
-	X      X
-	|      |
-	|      |
- 	|   X  |
-	|  |   |
-	========
-
-	^ move the center one to the left.
-
-
-	this effect seems to be much more subtle than the
-	stem-direction stuff (why?), and also does not scale with the
-	difference in stem length.
-
-      */
-
-      Interval hp = head_posns[LEFT];
-      hp.intersect (head_posns[RIGHT]);
-      if (!hp.is_empty ())
-	return;
-
-      Direction lowest
-	= (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
-
-      Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-      Real corr = robust_scm2double (me->get_property ("same-direction-correction"), 0);
-
-      if (delta > 1)
-	correction = -lowest * corr;
-    }
+  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1)
+    correction = same_direction_correction (me, head_posns);
 
   *space += correction;
 
