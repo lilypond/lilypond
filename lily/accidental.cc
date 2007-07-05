@@ -31,6 +31,24 @@ parenthesize (Grob *me, Stencil m)
   return m;
 }
 
+/*
+  Hmm. Need separate callback, or perhaps #'live bool property.
+ */
+MAKE_SCHEME_CALLBACK (Accidental_interface, after_line_breaking, 1);
+SCM
+Accidental_interface::after_line_breaking (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *tie = unsmob_grob (me->get_object ("tie"));
+
+  if (tie && !tie->original ()
+      && !to_boolean (me->get_property ("forced")))
+    {
+      me->suicide ();
+    }
+ 
+  return SCM_UNSPECIFIED;
+}
 
 /* This callback exists for the sole purpose of allowing us to override
    its pure equivalent to accidental-interface::pure-height */
@@ -140,15 +158,7 @@ SCM
 Accidental_interface::print (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *tie = unsmob_grob (me->get_object ("tie"));
 
-  if (tie && !tie->original ()
-      && !to_boolean (me->get_property ("forced")))
-    {
-      me->suicide ();
-      return SCM_EOL;
-    }
-  
   Font_metric *fm = Font_interface::get_default_font (me);
 
   SCM alist = me->get_property ("glyph-name-alist");

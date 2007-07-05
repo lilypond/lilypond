@@ -24,6 +24,8 @@
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
 	(Y-extent . ,ly:accidental-interface::height)
+	(after-line-breaking
+	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -35,6 +37,8 @@
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
 	(Y-extent . ,ly:accidental-interface::height)
+	(after-line-breaking
+	 . ,ly:accidental-interface::after-line-breaking)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -121,6 +125,7 @@
 	(stencil . ,ly:accidental-interface::print)
 	(Y-extent . ,ly:accidental-interface::height)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)	
+	(after-line-breaking . ,ly:accidental-interface::after-line-breaking)
 	(side-axis . ,X)
 	(meta . ((class . Item)
 		 (interfaces . (
