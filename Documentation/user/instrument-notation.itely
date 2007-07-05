@@ -1054,7 +1054,28 @@ Program reference: @internalsref{LyricCombineMusic}.
 @cindex melisma
 @cindex melismata
 
-The @code{\lyricsto} command detects melismata: it only puts one
+Sometimes, particularly in Medieval music, several notes are to be sung on one
+single syllable; such vocalises are called melismas, or melismata.
+
+@c this method seems to be the simplest; therefore
+@c it might be better to present it first - vv
+
+You can define melismata entirely in the lyrics, by entering @code{_}
+for every note
+that is part of the melisma.
+
+@lilypond[relative=1,verbatim,fragment,quote]
+{ \set melismaBusyProperties = #'()
+ c d( e) f f( e) e e  }
+\addlyrics
+ { Ky -- _ _ ri __ _ _ _  e }
+@end lilypond
+
+In this case, you can also have ties and slurs in the melody if you
+set @code{melismaBusyProperties}, as is done in the example above.
+
+However, the @code{\lyricsto} command can also
+detect melismata automatically: it only puts one
 syllable under a tied or slurred group of notes.  If you want to force
 an unslurred group of notes to be a melisma, insert @code{\melisma}
 after the first note of the group, and @code{\melismaEnd} after the
@@ -1079,6 +1100,9 @@ last one, e.g.,
 In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.
+
+@c TODO: there might be some more relevant place for 
+@c the following link (?)
 
 @cindex SATB
 @cindex choral score
