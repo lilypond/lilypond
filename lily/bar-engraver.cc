@@ -25,12 +25,10 @@ public:
   void request_bar (string type_string);
 
 protected:
-  virtual void finalize ();
   void stop_translation_timestep ();
   void process_acknowledged ();
 
 private:
-  void typeset_bar ();
   void create_bar ();
 
   Item *bar_;
@@ -53,12 +51,6 @@ Bar_engraver::create_bar ()
     }
 }
 
-void
-Bar_engraver::finalize ()
-{
-  typeset_bar ();
-}
-
 /*
   Bar_engraver should come *after* any engravers that
   modify whichBar
@@ -77,12 +69,6 @@ Bar_engraver::process_acknowledged ()
     create_bar ();
 }
 
-void
-Bar_engraver::typeset_bar ()
-{
-  bar_ = 0;
-}
-
 /*
   lines may only be broken if there is a barline in all staves
 */
@@ -91,8 +77,8 @@ Bar_engraver::stop_translation_timestep ()
 {
   if (!bar_)
     context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
-  else
-    typeset_bar ();
+
+  bar_ = 0;
 }
 
 ADD_TRANSLATOR (Bar_engraver,
