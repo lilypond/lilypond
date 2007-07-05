@@ -116,6 +116,12 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Direction d = LEFT;
   bool acc_right = false;
 
+  Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
+							      rcolumn->break_status_dir (),
+							      &bar_xextent);
+  if (bar)
+    bar_yextent = Staff_spacing::bar_y_positions (bar);
+
   do
     {
       vector<Grob*> const &items (ly_scm2link_array (props [d]));
@@ -129,22 +135,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  Grob *stem = Note_column::get_stem (it);
 
 	  if (!stem || !stem->is_live ())
-	    {
-	      if (d == RIGHT && Separation_item::has_interface (it))
-		{
-		  if (it->get_column () != rcolumn)
-		    it = it->find_prebroken_piece (rcolumn->break_status_dir ());
-
-		  Grob *last = Separation_item::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
-
-		  if (last)
-		    bar_yextent = Staff_spacing::bar_y_positions (last);
-
-		  break;
-		}
-
-	      return;
-	    }
+	    return;
 
 	  if (Stem::is_invisible (stem))
 	    {

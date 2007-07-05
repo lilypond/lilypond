@@ -119,8 +119,10 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
   Grob *left_col = me_item->get_column ();
 
   Interval last_ext;
-  Grob *last_grob = Separation_item::extremal_break_aligned_grob (left_col, RIGHT,
-								  &last_ext);
+  Direction break_dir = me_item->break_status_dir ();
+  Grob *last_grob = Spacing_interface::extremal_break_aligned_grob (me, LEFT,
+								    break_dir,
+								    &last_ext);
   if (!last_grob)
     {
       /*

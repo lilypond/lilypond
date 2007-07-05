@@ -49,8 +49,11 @@ protected:
   Spacings last_spacings_;
 
   DECLARE_ACKNOWLEDGER (item);
+  DECLARE_ACKNOWLEDGER (break_aligned);
   void stop_translation_timestep ();
   void start_translation_timestep ();
+
+  vector<Grob*> break_aligned_;
 public:
   TRANSLATOR_DECLARATIONS (Separating_line_group_engraver);
 };
@@ -102,6 +105,12 @@ Separating_line_group_engraver::acknowledge_item (Grob_info i)
 }
 
 void
+Separating_line_group_engraver::acknowledge_break_aligned (Grob_info gi)
+{
+  break_aligned_.push_back (gi.grob ());
+}
+
+void
 Separating_line_group_engraver::start_translation_timestep ()
 {
   context ()->unset_property (ly_symbol2scm ("hasStaffSpacing"));
@@ -110,6 +119,18 @@ Separating_line_group_engraver::start_translation_timestep ()
 void
 Separating_line_group_engraver::stop_translation_timestep ()
 {
+  for (vsize i = 0; i < break_aligned_.size (); i++)
+    {
+      SCM smob = break_aligned_[i]->self_scm ();
+
+      if (Item *sp = current_spacings_.staff_spacing_)
+	Pointer_group_interface::add_grob (sp, ly_symbol2scm ("left-break-aligned"), smob);
+
+      for (vsize j = 0; j < last_spacings_.note_spacings_.size (); j++)
+	Pointer_group_interface::add_grob (last_spacings_.note_spacings_[j],
+					   ly_symbol2scm ("right-break-aligned"), smob);
+    }
+
   if (!current_spacings_.is_empty ())
     last_spacings_ = current_spacings_;
 
@@ -118,9 +139,12 @@ Separating_line_group_engraver::stop_translation_timestep ()
       Pointer_group_interface::add_grob (sp, ly_symbol2scm ("right-items"), col);
 
   current_spacings_.clear ();
+  break_aligned_.clear ();
 }
 
 ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
+ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
+
 ADD_TRANSLATOR (Separating_line_group_engraver,
 		/* doc */ "Generates objects for computing spacing parameters.",
 

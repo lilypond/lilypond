@@ -19,6 +19,7 @@ struct Spacing_interface
   static Item* right_column (Grob *me);
   static Item* left_column (Grob *me);
   static Drul_array<Skyline> skylines (Grob *me, Grob *right_col);
+  static Grob* extremal_break_aligned_grob (Grob *me, Direction, Direction, Interval*);
 
   DECLARE_GROB_INTERFACE();
 };

@@ -168,6 +168,52 @@ Spacing_interface::left_note_columns (Grob *me)
   return get_note_columns (elts);
 }
 
+/*
+  Try to find the break-aligned symbol that belongs on the D-side
+  of ME, sticking out in direction -D. The x size is put in LAST_EXT
+*/
+Grob *
+Spacing_interface::extremal_break_aligned_grob (Grob *me,
+						Direction d,
+						Direction break_dir,
+						Interval *last_ext)
+{
+  Grob *col = 0;
+  last_ext->set_empty ();
+  Grob *last_grob = 0;
+
+  extract_grob_set (me, d == LEFT ? "left-break-aligned" : "right-break-aligned", elts);
+
+  for (vsize i = elts.size (); i--;)
+    {
+      Item *break_item = dynamic_cast<Item*> (elts[i]);
+
+      if (break_item->break_status_dir () != break_dir)
+	break_item = break_item->find_prebroken_piece (break_dir);
+
+      if (!break_item || !scm_is_pair (break_item->get_property ("space-alist")))
+	continue;
+
+      if (!col)
+	col = dynamic_cast<Item*> (elts[0])->get_column ()->find_prebroken_piece (break_dir);
+
+      Interval ext = break_item->extent (col, X_AXIS);
+
+      if (ext.is_empty ())
+	continue;
+
+      if (!last_grob
+	  || (last_grob && d * (ext[-d]- (*last_ext)[-d]) < 0))
+	{
+	  *last_ext = ext;
+	  last_grob = break_item;
+	}
+    }
+
+  return last_grob;
+}
+
+
 ADD_INTERFACE (Spacing_interface,
 	       "This object calculates the desired and minimum distances between two columns.",
 

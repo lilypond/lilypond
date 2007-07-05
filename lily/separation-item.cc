@@ -128,45 +128,6 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;      
 }
 
-/*
-  Try to find the break-aligned symbol in SEPARATION_ITEM that is
-  sticking out at direction D. The x size is put in LAST_EXT
-*/
-Grob *
-Separation_item::extremal_break_aligned_grob (Grob *me,
-					      Direction d,
-					      Interval *last_ext)
-{
-  Grob *col = dynamic_cast<Item *> (me)->get_column ();
-  last_ext->set_empty ();
-  Grob *last_grob = 0;
-
-  extract_grob_set (me, "elements", elts);
-  for (vsize i = elts.size (); i--;)
-    {
-      Grob *break_item = elts[i];
-      if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
-	continue;
-
-      if (!scm_is_pair (break_item->get_property ("space-alist")))
-	continue;
-
-      Interval ext = break_item->extent (col, X_AXIS);
-
-      if (ext.is_empty ())
-	continue;
-
-      if (!last_grob
-	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0))
-	{
-	  *last_ext = ext;
-	  last_grob = break_item;
-	}
-    }
-
-  return last_grob;
-}
-
 extern bool debug_skylines;
 MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
 SCM
