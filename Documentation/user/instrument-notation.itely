@@ -1134,16 +1134,17 @@ inserted by hand.
 @cindex melisma
 @cindex extender
 
-Melismata are indicated with a horizontal line centered between a
-syllable and the
-next one.  Such a line is called an extender line, and it is entered as
-@samp{ __ }.
+Melismata are indicated with a horizontal line centered between a syllable
+and the next one.  Such a line is called an extender line, and it is entered
+as @samp{ __ } (note the spaces before and after the two underscore
+characters).
 
 @cindex hyphens
 
-Centered hyphens are entered as @samp{ -- } between syllables of a same
-word.  The hyphen will be centered between the syllables, and its length
-will be adjusted depending on the space between the syllables.
+Centered hyphens are entered as @samp{ -- } between syllables of a same word
+(note the spaces before and after the two hyphen characters).  The hyphen
+will be centered between the syllables, and its length will be adjusted
+depending on the space between the syllables.
 
 In tighly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
