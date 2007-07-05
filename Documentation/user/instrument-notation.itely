@@ -927,10 +927,8 @@ explicitly, using @code{\lyricmode}
 @cindex automatic syllable durations
 @cindex lyrics and melodies
 
-This will place the lyrics according to the durations that were
-entered.  The lyrics can also be aligned under a given melody
-automatically.  In this case, it is no longer necessary to enter the
-correct duration for each syllable.  This is achieved by combining the
+The lyrics can be aligned under a given melody
+automatically.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
 
 @example
@@ -982,6 +980,9 @@ is the same as
 @node Another way of entering lyrics
 @subsubsection Another way of entering lyrics
 
+@c TODO: Move the following section to 
+@c "Working with lyrics and identifiers"
+
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.,
 @example
@@ -1023,7 +1024,25 @@ Program reference: @internalsref{LyricCombineMusic},
 @funindex _
 @cindex ties, in lyrics
 
+In order to assign more than one syllable to a single note, you can
+surround them with quotes or use a @code{_} character, to get spaces
+between syllables, or use tilde  symbol (@code{~}) to get a lyric
+tie@footnote{The lyric ties is implemented with the Unicode character
+U+203F, so be
+sure to have a font (Like DejaVuLGC) installed that includes this
+glyph.}.
 
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+\time 3/4
+\relative { c2 e4 g2 e4 }
+\addlyrics { gran- de_a- mi- go }
+\addlyrics { pu- "ro y ho-" nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
+@end lilypond
+
+@seealso
+
+Program reference: @internalsref{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
