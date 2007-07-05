@@ -198,7 +198,7 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
 							      rcolumn->break_status_dir (),
 							      &bar_xextent);
-  if (bar)
+  if (bar && dynamic_cast<Item*> (bar)->get_column () == rcolumn)
     bar_yextent = Staff_spacing::bar_y_positions (bar);
 
   do
