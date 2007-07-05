@@ -12,6 +12,7 @@
 #include "score-engraver.hh"
 #include "warn.hh"
 #include "item.hh"
+#include "spanner.hh"
 
 #include "translator.icc"
 
@@ -28,10 +29,13 @@ protected:
   void stop_translation_timestep ();
   void process_acknowledged ();
 
+  DECLARE_END_ACKNOWLEDGER (spanner);
+
 private:
   void create_bar ();
 
   Item *bar_;
+  vector<Spanner*> spanners_;
 };
 
 Bar_engraver::Bar_engraver ()
@@ -67,6 +71,10 @@ Bar_engraver::process_acknowledged ()
 {
   if (!bar_ && scm_is_string (get_property ("whichBar")))
     create_bar ();
+
+  if (bar_)
+    for (vsize i = 0; i < spanners_.size (); i++)
+      spanners_[i]->set_bound (RIGHT, bar_);
 }
 
 /*
@@ -79,7 +87,19 @@ Bar_engraver::stop_translation_timestep ()
     context ()->get_score_context ()->set_property ("forbidBreak", SCM_BOOL_T);
 
   bar_ = 0;
+  spanners_.clear ();
 }
+
+void
+Bar_engraver::acknowledge_end_spanner (Grob_info gi)
+{
+  Grob *g = gi.grob ();
+
+  if (to_boolean (g->get_property ("to-barline")))
+    spanners_.push_back (dynamic_cast<Spanner*> (g));
+}
+
+ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
 
 ADD_TRANSLATOR (Bar_engraver,
 		/* doc */ "Create barlines. This engraver is controlled through the "

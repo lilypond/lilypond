@@ -521,6 +521,8 @@ should use @code{LEFT}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (threshold ,number-pair? "@code{(@var{min} . @var{max})}, where
 @var{min} and @var{max} are dimensions in staff space.")
+     (to-barline ,boolean? "If true, the spanner will stop at that barline
+just before it would otherwise stop.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
