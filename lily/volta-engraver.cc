@@ -8,6 +8,7 @@
 
 #include "engraver.hh"
 
+#include "axis-group-interface.hh"
 #include "bar-line.hh"
 #include "context.hh"
 #include "grob-array.hh"
@@ -39,8 +40,9 @@ protected:
   void process_music ();
 
   Moment started_mom_;
-  Spanner *volta_span_;
-  Spanner *end_volta_span_;
+  Spanner *volta_bracket_;
+  Spanner *end_volta_bracket_;
+  Spanner *volta_spanner_;
   SCM start_string_;
 };
 
@@ -53,8 +55,9 @@ Volta_engraver::derived_mark () const
 Volta_engraver::Volta_engraver ()
 {
   start_string_ = SCM_EOL;
-  volta_span_ = 0;
-  end_volta_span_ = 0;
+  volta_bracket_ = 0;
+  end_volta_bracket_ = 0;
+  volta_spanner_ = 0;
 }
 
 void
@@ -81,7 +84,7 @@ Volta_engraver::process_music ()
       cs = scm_cdr (cs);
     }
 
-  if (volta_span_)
+  if (volta_bracket_)
     {
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
@@ -92,73 +95,91 @@ Volta_engraver::process_music ()
       end = end || early_stop;
     }
 
-  if (end && !volta_span_)
+  if (end && !volta_bracket_)
     /* fixme: be more verbose.  */
     warning (_ ("cannot end volta spanner"));
   else if (end)
     {
-      end_volta_span_ = volta_span_;
-      volta_span_ = 0;
+      end_volta_bracket_ = volta_bracket_;
+      volta_bracket_ = 0;
     }
 
-  if (volta_span_
+  if (volta_bracket_
       && (scm_is_string (start_string_) || scm_is_pair (start_string_)))
     {
       warning (_ ("already have a volta spanner, ending that one prematurely"));
 
-      if (end_volta_span_)
+      if (end_volta_bracket_)
 	{
 	  warning (_ ("also already have an ended spanner"));
 	  warning (_ ("giving up"));
 	  return;
 	}
 
-      end_volta_span_ = volta_span_;
-      volta_span_ = 0;
+      end_volta_bracket_ = volta_bracket_;
+      volta_bracket_ = 0;
     }
 
-  if (!volta_span_
+  if (!volta_bracket_
       && Text_interface::is_markup (start_string_))
     {
       started_mom_ = now_mom ();
 
-      volta_span_ = make_spanner ("VoltaBracket", SCM_EOL);
+      volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
-      volta_span_->set_property ("text", start_string_);
+      volta_bracket_->set_property ("text", start_string_);
+
+      if (!volta_spanner_)
+	{
+	  volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+	  /* ensure that we don't get spanned up by VerticalAlignment.
+	     ugh. this could cause problems if we get moved to Staff context */
+	  Axis_group_interface::add_element (unsmob_grob (get_property ("rootSystem")),
+					     volta_spanner_);
+	}
+
+      Axis_group_interface::add_element (volta_spanner_, volta_bracket_);
     }
 }
 
 void
 Volta_engraver::acknowledge_bar_line (Grob_info i)
 {
-  if (volta_span_)
-    Volta_bracket_interface::add_bar (volta_span_, i.item ());
-  if (end_volta_span_)
-    Volta_bracket_interface::add_bar (end_volta_span_, i.item ());
+  if (volta_bracket_)
+    Volta_bracket_interface::add_bar (volta_bracket_, i.item ());
+  if (end_volta_bracket_)
+    Volta_bracket_interface::add_bar (end_volta_bracket_, i.item ());
+
+  if (volta_spanner_)
+    Side_position_interface::add_support (volta_spanner_, i.grob ());
 }
 
 void
 Volta_engraver::stop_translation_timestep ()
 {
-  if (end_volta_span_ && !end_volta_span_->get_bound (RIGHT))
+  Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
+  Item *ci = dynamic_cast<Item *> (cc);
+
+  if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
+    end_volta_bracket_->set_bound (RIGHT, ci);
+
+  if (volta_spanner_ && end_volta_bracket_)
+    volta_spanner_->set_bound (RIGHT, end_volta_bracket_->get_bound (RIGHT));
+
+  if (end_volta_bracket_ && !volta_bracket_)
     {
-      Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
-      Item *ci = dynamic_cast<Item *> (cc);
-      end_volta_span_->set_bound (RIGHT, ci);
+      for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
+	Side_position_interface::add_support (volta_spanner_, unsmob_grob (scm_car (s)));
+      volta_spanner_ = 0;
     }
 
-  if (end_volta_span_)
-    for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
-      Side_position_interface::add_support (end_volta_span_, unsmob_grob (scm_car (s)));
+  end_volta_bracket_ = 0;
 
-  end_volta_span_ = 0;
+  if (volta_bracket_ && !volta_bracket_->get_bound (LEFT))
+    volta_bracket_->set_bound (LEFT, ci);
 
-  if (volta_span_ && !volta_span_->get_bound (LEFT))
-    {
-      Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
-      Item *ci = dynamic_cast<Item *> (cc);
-      volta_span_->set_bound (LEFT, ci);
-    }
+  if (volta_spanner_ && volta_bracket_ && !volta_spanner_->get_bound (LEFT))
+    volta_spanner_->set_bound (LEFT, volta_bracket_->get_bound (LEFT));
 }
 
 /*

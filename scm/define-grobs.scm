@@ -221,6 +221,7 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
+	(outside-staff-priority . 100)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -2100,16 +2101,11 @@
     (VoltaBracket
      . (
 	(stencil . ,ly:volta-bracket-interface::print)
-	(direction . ,UP)
-	(padding . 1)
 	(font-encoding . fetaNumber)
-	(minimum-Y-extent . (0 . 2))
-	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  line-thickness
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-size . -4)
-	(outside-staff-priority . 100)
+	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface
 				horizontal-bracket-interface				
@@ -2119,6 +2115,20 @@
 				font-interface)))
 	      )))
 
+    (VoltaBracketSpanner
+     . (	
+	(axes . (1))
+	(side-axis . ,Y)
+	(direction . ,UP)
+	(padding . 1)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(outside-staff-priority . 100)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
+	(meta . ((class . Spanner)
+		 (interfaces . (side-position-interface
+				axis-group-interface)))
+	      )))
 
     (VoiceFollower
      . (
