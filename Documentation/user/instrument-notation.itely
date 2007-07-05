@@ -1094,11 +1094,11 @@ inserted by hand.
 Melismata are indicated with a horizontal line centered between a
 syllable and the
 next one.  Such a line is called an extender line, and it is entered as
-@samp{__}.
+@samp{ __ }.
 
 @cindex hyphens
 
-Centered hyphens are entered as @samp{--} between syllables of a same
+Centered hyphens are entered as @samp{ -- } between syllables of a same
 word.  The hyphen will be centered between the syllables, and its length
 will be adjusted depending on the space between the syllables.
 
