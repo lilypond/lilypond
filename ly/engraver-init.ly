@@ -34,7 +34,6 @@
   %% with empty ones.
   
   \consists "Font_size_engraver"
-  \consists "Volta_engraver"
   \consists "Separating_line_group_engraver"	
   \consists "Dot_column_engraver"
   \consists "Staff_collecting_engraver"
@@ -152,7 +151,6 @@ contained staves are not connected vertically."
   
   \consists "Output_property_engraver"
   \consists "Font_size_engraver"
-  \consists "Volta_engraver"
   \consists "Separating_line_group_engraver"	
   \consists "Dot_column_engraver"
   \consists "Bar_engraver"
@@ -404,8 +402,6 @@ printing of a single line of lyrics."
   \type "Engraver_group"
   \name ChordNames
   \description "Typesets chord names."
-
-  \consists "Volta_engraver"
   
   \consists "Rest_swallow_translator" 
   \consists "Output_property_engraver"	
@@ -414,7 +410,6 @@ printing of a single line of lyrics."
   \consists "Skip_event_swallow_translator"
   \consists "Hara_kiri_engraver"
 %  \consists "Note_spacing_engraver"
-  voltaOnThisStaff = ##f
   \override VerticalAxisGroup #'minimum-Y-extent = #'(0 . 2)
   \override VerticalAxisGroup #'remove-first = ##t
   \override VerticalAxisGroup #'remove-empty = ##t
@@ -464,7 +459,8 @@ automatically when an output definition (a @code{\score} or
   \consists "Default_bar_line_engraver"
   \consists "Output_property_engraver"
   \consists "System_start_delimiter_engraver"
-  \consists "Mark_engraver"	
+  \consists "Mark_engraver"
+  \consists "Volta_engraver"
   \consists "Metronome_mark_engraver"	
   \consists "Break_align_engraver"
   \consists "Spacing_engraver"

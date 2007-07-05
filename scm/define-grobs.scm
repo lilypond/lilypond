@@ -2108,7 +2108,6 @@
 	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  line-thickness
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
-	(minimum-space . 5)
 	(font-size . -4)
 	(outside-staff-priority . 100)
 	(meta . ((class . Spanner)
