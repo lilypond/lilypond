@@ -24,6 +24,7 @@
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
 	(Y-extent . ,ly:accidental-interface::height)
+	(X-extent . ,ly:accidental-interface::width)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -2120,6 +2121,7 @@
 	(outside-staff-priority . 100)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
+	(no-alignment . ,#t)
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				axis-group-interface)))

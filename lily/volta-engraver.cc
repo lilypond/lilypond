@@ -130,13 +130,7 @@ Volta_engraver::process_music ()
       volta_bracket_->set_property ("text", start_string_);
 
       if (!volta_spanner_)
-	{
-	  volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
-	  /* ensure that we don't get spanned up by VerticalAlignment.
-	     ugh. this could cause problems if we get moved to Staff context */
-	  Axis_group_interface::add_element (unsmob_grob (get_property ("rootSystem")),
-					     volta_spanner_);
-	}
+	volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
 
       Axis_group_interface::add_element (volta_spanner_, volta_bracket_);
     }
@@ -188,6 +182,6 @@ Volta_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
 		/* doc */ "Make volta brackets.",
-		/* create */ "VoltaBracket",
+		/* create */ "VoltaBracket VoltaBracketSpanner",
 		/* read */ "repeatCommands voltaSpannerDuration stavesFound",
 		/* write */ "");

@@ -41,6 +41,20 @@ Accidental_interface::height (SCM smob)
   return Grob::stencil_height (smob);
 }
 
+/* If this gets called before line breaking, we will return a non-trivial
+   width even if we belong to a tie and won't actually get printed. */
+MAKE_SCHEME_CALLBACK (Accidental_interface, width, 1);
+SCM
+Accidental_interface::width (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Stencil *s = unsmob_stencil (get_stencil (me));
+
+  if (s)
+    return ly_interval2scm (s->extent (X_AXIS));
+  return ly_interval2scm (Interval ());
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
 SCM
 Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
@@ -148,7 +162,13 @@ Accidental_interface::print (SCM smob)
       me->suicide ();
       return SCM_EOL;
     }
-  
+
+  return get_stencil (me);
+}
+
+SCM
+Accidental_interface::get_stencil (Grob *me)
+{
   Font_metric *fm = Font_interface::get_default_font (me);
 
   SCM alist = me->get_property ("glyph-name-alist");

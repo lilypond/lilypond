@@ -620,6 +620,7 @@ ADD_INTERFACE (Axis_group_interface,
 	       "elements "
 	       "keep-fixed-while-stretching "
 	       "max-stretch "
+	       "no-alignment "
 	       "pure-Y-common "
 	       "pure-relevant-items "
 	       "pure-relevant-spanners "
