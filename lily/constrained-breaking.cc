@@ -372,7 +372,10 @@ Constrained_breaking::initialize ()
 	  line.turn_permission_ = min_permission (line.page_permission_,
 						  line.turn_permission_);
 
-	  line.extent_ = extent.is_empty () ? Interval (0, 0) : extent;
+	  line.extent_ = (extent.is_empty ()
+			  || isnan (extent[LEFT])
+			  || isnan (extent[RIGHT]))
+	    ? Interval (0, 0) : extent;
 	  line.padding_ = padding;
 	  line.space_ = space;
 	  line.inverse_hooke_ = extent.length () + space;
