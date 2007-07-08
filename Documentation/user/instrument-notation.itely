@@ -980,8 +980,64 @@ is the same as
 @node Another way of entering lyrics
 @subsubsection Another way of entering lyrics
 
-@c TODO: Move the following section to 
-@c "Working with lyrics and identifiers"
+Lyrics can also be entered without @code{\addlyrics} or
+@code{\lyricsto}.  In this case,
+syllables are entered like notes -- but with pitches replaced by text -- and the
+duration of each syllable must be entered explicitly. For example:
+ 
+@example
+play2 the4 game2.
+sink2 or4 swim2.
+@end example
+ 
+The alignment to a melody can be specified with the
+@code{associatedVoice} property,
+ 
+ @example
+\set associatedVoice = #"lala"
+ @end example
+ 
+ @noindent
+The value of the property (here: @code{"lala"}) should be the name of
+a @internalsref{Voice} context.  Without this setting, extender lines
+will not be formatted properly.
+ 
+Here is an example demonstrating manual lyric durations,
+ 
+@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
+<< \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g2.
+ }
+ \new Lyrics \lyricmode {
+   \set associatedVoice = #"melody"
+   play2 the4 game2.
+ } >>
+@end lilypond
+
+The following example is a comparison of the different commands for
+entering lyrics:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+ \new Voice = "one" \relative c'' {
+   \autoBeamOff
+   \time 2/4
+   c4 b8. a16 g4. f8 e4 d c2
+ }
+ \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+ \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+ \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
+ >>
+@end lilypond
+ 
+The second stanza is not properly aligned because the durations
+were not specified.  A solution for that, as shown with the
+third stanza, would be to use @code{\lyricsto}.
+ 
+@seealso
+ 
+Program reference: @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
