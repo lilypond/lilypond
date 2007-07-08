@@ -440,7 +440,8 @@ Grob::pure_height (Grob *refp, int start, int end)
   if (!iv.is_empty () && is_number_pair (min_ext))
     iv.unite (ly_scm2interval (min_ext));
 
-  iv.translate (offset);
+  if (!iv.is_empty ())
+    iv.translate (offset);
   return iv;
 }
 

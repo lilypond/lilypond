@@ -676,10 +676,8 @@ by examining the simplest method, and gradually increase complexity.
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Hyphens and extenders::       
-* The Lyrics context::          
-* Melismata::                   
-* Another way of entering lyrics::  
+* Aligning lyrics to a melody::  
+* Working with lyrics and identifiers::  
 * Flexibility in placement::    
 * Spacing lyrics::              
 * More about stanzas::          
@@ -772,7 +770,9 @@ There are two main methods to specify the horizontal placement
 of the syllables, either by specifying the duration of each syllable
 explicitly, like in the example above, or by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}
-or @code{\lyricsto}.  For more details see @ref{The Lyrics context}.
+or @code{\lyricsto}.
+@c  TODO: broken
+@c For more details see @ref{The Lyrics context}.
 
 A word or syllable of lyrics begins with an alphabetic character, and ends
 with
@@ -884,36 +884,13 @@ Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 
-@node Hyphens and extenders
-@subsection Hyphens and extenders
+@node Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
-@cindex hyphens
+@funindex \lyricmode
+@funindex \addlyrics
+@funindex \lyricsto
 
-Centered hyphens are entered as @samp{--} between syllables.
-The hyphen will have variable length depending on the space between
-the syllables and it will be centered between the syllables.
-
-@cindex melisma
-@cindex extender
-
-When a lyric is sung over many notes (this is called a melisma), this is
-indicated with a horizontal line centered between a syllable and the
-next one.  Such a line is called an extender line, and it is entered as
-@samp{__}.
-
-In tighly engraved music, hyphens can be removed.  Whether this
-happens can be controlled with the @code{minimum-distance} (minimum
-distance between two syllables) and the @code{minimum-length}
-(threshold below which hyphens are removed).
-
-@seealso
-
-Program reference: @internalsref{LyricHyphen}, @internalsref{LyricExtender}.
-
-
-
-@node The Lyrics context
-@subsection The Lyrics context
 
 Lyrics are printed by interpreting them in the context called
 @internalsref{Lyrics}.
@@ -922,14 +899,36 @@ Lyrics are printed by interpreting them in the context called
 \new Lyrics \lyricmode @dots{}
 @end example
 
+There are two main methods to specify the horizontal placement
+of the syllables:
+
+@itemize @bullet
+@item
+by automatically aligning
+the lyrics to a melody or other voice of music, using @code{\addlyrics}
+or @code{\lyricsto}.
+
+@item
+or by specifying the duration of each syllable
+explicitly, using @code{\lyricmode}
+@end itemize
+
+@menu
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
+@end menu
+
+@node Automatic syllable durations
+@subsubsection Automatic syllable durations
+
 @cindex automatic syllable durations
-@funindex \lyricsto
 @cindex lyrics and melodies
 
-This will place the lyrics according to the durations that were
-entered.  The lyrics can also be aligned under a given melody
-automatically.  In this case, it is no longer necessary to enter the
-correct duration for each syllable.  This is achieved by combining the
+The lyrics can be aligned under a given melody
+automatically.  This is achieved by combining the
 melody and the lyrics with the @code{\lyricsto} expression
 
 @example
@@ -978,6 +977,12 @@ is the same as
 \new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
 
+@node Another way of entering lyrics
+@subsubsection Another way of entering lyrics
+
+@c TODO: Move the following section to 
+@c "Working with lyrics and identifiers"
+
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.,
 @example
@@ -1012,11 +1017,65 @@ The final input would resemble
 Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.
 
+@node Assigning more than one syllable to a single note
+@subsubsection Assigning more than one syllable to a single note
 
-@node Melismata
-@subsection Melismata
 
-The @code{\lyricsto} command detects melismata: it only puts one
+@funindex _
+@cindex ties, in lyrics
+
+In order to assign more than one syllable to a single note, you can
+surround them with quotes or use a @code{_} character, to get spaces
+between syllables, or use tilde  symbol (@code{~}) to get a lyric
+tie@footnote{The lyric ties is implemented with the Unicode character
+U+203F, so be
+sure to have a font (Like DejaVuLGC) installed that includes this
+glyph.}.
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+\time 3/4
+\relative { c2 e4 g2 e4 }
+\addlyrics { gran- de_a- mi- go }
+\addlyrics { pu- "ro y ho-" nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
+@end lilypond
+
+@seealso
+
+Program reference: @internalsref{LyricCombineMusic}.
+
+@c Here come the section which used to be "Melismata"
+@c the new title might be more self-explanatory
+
+
+@node More than one note on a single syllable
+@subsubsection More than one note on a single syllable
+
+@cindex melisma
+@cindex melismata
+
+Sometimes, particularly in Medieval music, several notes are to be sung on one
+single syllable; such vocalises are called melismas, or melismata.
+
+@c this method seems to be the simplest; therefore
+@c it might be better to present it first - vv
+
+You can define melismata entirely in the lyrics, by entering @code{_}
+for every note
+that is part of the melisma.
+
+@lilypond[relative=1,verbatim,fragment,quote]
+{ \set melismaBusyProperties = #'()
+ c d( e) f f( e) e e  }
+\addlyrics
+ { Ky -- _ _ ri __ _ _ _  e }
+@end lilypond
+
+In this case, you can also have ties and slurs in the melody if you
+set @code{melismaBusyProperties}, as is done in the example above.
+
+However, the @code{\lyricsto} command can also
+detect melismata automatically: it only puts one
 syllable under a tied or slurred group of notes.  If you want to force
 an unslurred group of notes to be a melisma, insert @code{\melisma}
 after the first note of the group, and @code{\melismaEnd} after the
@@ -1042,6 +1101,9 @@ In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.
 
+@c TODO: there might be some more relevant place for 
+@c the following link (?)
+
 @cindex SATB
 @cindex choral score
 
@@ -1066,9 +1128,38 @@ Program reference: @internalsref{Melisma_translator}.
 Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
+@node Extenders and hyphens
+@subsubsection Extenders and hyphens
 
-@node Another way of entering lyrics
-@subsection Another way of entering lyrics
+@cindex melisma
+@cindex extender
+
+Melismata are indicated with a horizontal line centered between a syllable
+and the next one.  Such a line is called an extender line, and it is entered
+as @samp{ __ } (note the spaces before and after the two underscore
+characters).
+
+@cindex hyphens
+
+Centered hyphens are entered as @samp{ -- } between syllables of a same word
+(note the spaces before and after the two hyphen characters).  The hyphen
+will be centered between the syllables, and its length will be adjusted
+depending on the space between the syllables.
+
+In tighly engraved music, hyphens can be removed.  Whether this
+happens can be controlled with the @code{minimum-distance} (minimum
+distance between two syllables) and the @code{minimum-length}
+(threshold below which hyphens are removed).
+
+@seealso
+
+Program reference: @internalsref{LyricExtender},
+@internalsref{LyricHyphen}
+
+
+@node Working with lyrics and identifiers
+@subsection Working with lyrics and identifiers
+@cindex lyrics, identifiers
 
 Lyrics can also be entered without @code{\lyricsto}.  In this case the
 duration of each syllable must be entered explicitly, for example,
@@ -1117,7 +1208,6 @@ differing ways.  Such variations can still be captured with
 * Lyrics to multiple notes of a melisma::  
 * Divisi lyrics::               
 * Switching the melody associated with a lyrics line::  
-* Specifying melismata within the lyrics::  
 * Lyrics independent of notes::  
 @end menu
 
@@ -1303,24 +1393,6 @@ this case.
 @noindent
 The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
-
-
-@node Specifying melismata within the lyrics
-@subsubsection Specifying melismata within the lyrics
-
-It is also possible to define melismata entirely in the lyrics. This
-can be done by entering @code{_} for every note that is part of the
-melisma.
-
-@lilypond[relative=1,verbatim,fragment,quote]
-{ \set melismaBusyProperties = #'()
-  c d( e) f f( e) e e  }
-\addlyrics
- { Ky -- _ _ ri __ _ _ _  e }
-@end lilypond
-
-In this case, you can also have ties and slurs in the melody if you
-set @code{melismaBusyProperties}, as is done in the example above.
 
 
 @node Lyrics independent of notes

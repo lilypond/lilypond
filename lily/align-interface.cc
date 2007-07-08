@@ -221,6 +221,9 @@ Align_interface::get_extents_aligned_translates (Grob *me,
 	  dy = down_skyline.distance (skylines[j][-stacking_dir]);
 	}
 
+      if (isinf (dy)) /* if the skyline is empty, maybe max_height is infinity_f */
+	dy = 0.0;
+
       dy = max (0.0, dy + padding + extra_space / elems.size ());
       down_skyline.raise (-stacking_dir * dy);
       where += stacking_dir * dy;

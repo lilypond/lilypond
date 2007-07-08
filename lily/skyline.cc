@@ -419,6 +419,13 @@ Skyline::insert (Box const &b, Real horizon_padding, Axis a)
   list<Building> other_bld;
   list<Building> my_bld;
 
+  if (isnan (b[other_axis (a)][LEFT])
+      || isnan (b[other_axis (a)][RIGHT]))
+    {
+      programming_error ("insane box for skyline");
+      return;
+    }
+
   /* do the same filtering as in Skyline (vector<Box> const&, etc.) */
   Interval iv = b[a];
   iv.widen (horizon_padding);
