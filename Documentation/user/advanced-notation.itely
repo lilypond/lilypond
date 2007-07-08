@@ -395,10 +395,11 @@ object, but this can be changed by overriding the
 
   % the RehearsalMark will be aligned with the right edge of the KeySignature
   % and then shifted right by an additional 2 units.
-  \once \override Staff.KeySignature #'break-align = #2
+  \once \override Staff.KeySignature #'break-align-anchor = #2
   \mark \default
   ces1
 }
+@end lilypond
 
 Although text marks are normally only printed above the topmost
 staff, you may alter this to print them on every staff,

@@ -512,7 +512,6 @@ for showing repeats.
 @lilypond[ragged-right,verbatim]
 \new ChordNames \with {
   \override BarLine #'bar-size = #4
-  voltaOnThisStaff = ##t
   \consists Bar_engraver
   \consists "Volta_engraver"
 }

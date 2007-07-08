@@ -236,7 +236,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 		o += dir * 0.5 * ss;
 	    }
 	}
-      else if (scm_is_number (me->get_property ("staff-padding")))
+      else if (scm_is_number (me->get_property ("staff-padding")) && dir)
 	{
 	  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
 	  
