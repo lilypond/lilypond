@@ -9,9 +9,10 @@
   evenFooterMarkup = \markup {}
   }
 
-\version "2.11.20"
+\version "2.11.27"
 
-#(define (doc-char name)
+#(define-markup-command (doc-char layout props name) (string?)
+  (interpret-markup layout props
    (let* ((n (string-length name)))
      (if (> n 24)
 	 ;; split long glyph names near the middle at dots
@@ -29,69 +30,31 @@
 			       left-dot-pos))
 		(left (substring name 0 split-pos))
 		(right (substring name split-pos)))
-	   (make-line-markup
-	    (list
-	     (make-pad-to-box-markup
-	      '(0 . 36)
-	      '(-2 . 2)
-	      (make-column-markup
-	       (list
-		(make-typewriter-markup left)
-		(make-typewriter-markup
-		 (make-concat-markup
-		  (list "  " right))))))
-	     (make-pad-to-box-markup
-	      '(-2 . 4)
-	      '(-3.5 . 3.5)
-	      (make-huge-markup (make-musicglyph-markup name))))))
-	 (make-line-markup
-	  (list
-	   (make-pad-to-box-markup
-	    '(0 . 36)
-	    '(-2 . 2)
-	    (make-typewriter-markup name))
-	   (make-pad-to-box-markup
-	    '(-2 . 4)
-	    '(-3.5 . 3.5)
-	    (make-huge-markup (make-musicglyph-markup name))))))))
+	   (markup
+	     #:pad-to-box '(0 . 36) '(-2 . 2) #:column (#:typewriter left
+							#:typewriter #:concat ("  " right))
+	     #:pad-to-box '(-2 . 4) '(-3.5 . 3.5) #:huge #:musicglyph name))
+	 (markup
+	   #:pad-to-box '(0 . 36) '(-2 . 2) #:typewriter name
+	   #:pad-to-box '(-2 . 4) '(-3.5 . 3.5) #:huge #:musicglyph name)))))
 
-#(define (min-length lst n)
-   "(min	 (length lst) n)"
-   (if (or (null? lst) (<= n 0))
-       0
-       (1+ (min-length (cdr lst) (1- n)))))
+#(define-markup-list-command (doc-chars layout props names) (list?)
+   (define (min-length lst n)
+     "(min	 (length lst) n)"
+     (if (or (null? lst) (<= n 0))
+	 0
+	 (1+ (min-length (cdr lst) (1- n)))))
+   (define (doc-chars-aux names acc)
+     (let* ((n (min-length names 2))
+	    (head (take names n))
+	    (tail (drop names n)))
+       (if (null? head)
+	   (reverse! acc)
+	   (doc-chars-aux tail
+			 (cons (make-line-markup (map make-doc-char-markup head))
+			       acc)))))
+   (interpret-markup-list layout props (doc-chars-aux names (list))))
 
-#(define (doc-chars names acc)
-   (let*
-       ((n (min-length names 2))
-	(head (take names n))
-	(tail (drop names n)))
-     (if (null? head)
-	 acc
-	 (doc-chars tail
-		    (cons
-		     (make-line-markup (map doc-char head))
-		     acc)))))
-
-#(define (group-lines lines)
-   (let*
-       ((n (min-length lines 25))
-	(head (take lines n))
-	(tail (drop lines n)))
-     (cons
-      (make-column-markup head)
-      (if (null? tail)
-	  '()
-	  (group-lines tail)))))
-
-#(let*
-     ((glyphs (delete ".notdef"
-		      (ly:otf-glyph-list
-		       (ly:font-load "emmentaler-20"))))
-      (lines (doc-chars glyphs '()))
-      (pages (group-lines (reverse lines))))
-  (collect-scores-for-book
-   parser
-   (map (lambda (x)
-         (make-override-markup '(word-space . 4) x))
-    pages)))
+\markuplines \override-lines #'(word-space . 4)
+             \doc-chars #(delete ".notdef"
+                          (ly:otf-glyph-list (ly:font-load "emmentaler-20")))
