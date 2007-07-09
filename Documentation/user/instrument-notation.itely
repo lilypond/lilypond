@@ -980,42 +980,65 @@ is the same as
 @node Another way of entering lyrics
 @subsubsection Another way of entering lyrics
 
-@c TODO: Move the following section to 
-@c "Working with lyrics and identifiers"
-
-For different or more complex orderings, the best way is to setup the
-hierarchy of staves and lyrics first, e.g.,
+Lyrics can also be entered without @code{\addlyrics} or
+@code{\lyricsto}.  In this case,
+syllables are entered like notes -- but with pitches replaced by text -- and the
+duration of each syllable must be entered explicitly. For example:
+ 
 @example
-\new ChoirStaff <<
-  \new Voice = "soprano" @{ @emph{music} @}
-  \new Lyrics = "sopranoLyrics" @{ s1 @}
-  \new Lyrics = "tenorLyrics" @{ s1 @}
-  \new Voice = "tenor" @{ @emph{music} @}
->>
+play2 the4 game2.
+sink2 or4 swim2.
 @end example
+ 
+The alignment to a melody can be specified with the
+@code{associatedVoice} property,
+ 
+ @example
+\set associatedVoice = #"lala"
+ @end example
+ 
+ @noindent
+The value of the property (here: @code{"lala"}) should be the name of
+a @internalsref{Voice} context.  Without this setting, extender lines
+will not be formatted properly.
+ 
+Here is an example demonstrating manual lyric durations,
+ 
+@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
+<< \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g2.
+ }
+ \new Lyrics \lyricmode {
+   \set associatedVoice = #"melody"
+   play2 the4 game2.
+ } >>
+@end lilypond
 
-and then combine the appropriate melodies and lyric lines
+The following example is a comparison of the different commands for
+entering lyrics:
 
-@example
-\context Lyrics = sopranoLyrics \lyricsto "soprano"
-  @emph{the lyrics}
-@end example
-
-@noindent
-The final input would resemble
-
-@example
-<<\new ChoirStaff << @emph{setup the music} >>
-  \lyricsto "soprano" @emph{etc}
-  \lyricsto "alto" @emph{etc}
-  @emph{etc}
->>
-@end example
-
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+ \new Voice = "one" \relative c'' {
+   \autoBeamOff
+   \time 2/4
+   c4 b8. a16 g4. f8 e4 d c2
+ }
+ \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+ \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+ \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
+ >>
+@end lilypond
+ 
+The second stanza is not properly aligned because the durations
+were not specified.  A solution for that, as shown with the
+third stanza, would be to use @code{\lyricsto}.
+ 
 @seealso
+ 
+Program reference: @internalsref{Lyrics}.
 
-Program reference: @internalsref{LyricCombineMusic},
-@internalsref{Lyrics}.
 
 @node Assigning more than one syllable to a single note
 @subsubsection Assigning more than one syllable to a single note
@@ -1161,41 +1184,63 @@ Program reference: @internalsref{LyricExtender},
 @subsection Working with lyrics and identifiers
 @cindex lyrics, identifiers
 
-Lyrics can also be entered without @code{\lyricsto}.  In this case the
-duration of each syllable must be entered explicitly, for example,
-
+To define identifiers containing lyrics, the function @code{\lyricmode}
+must be used. You do not have to enter durations though, if you add
+@code{\addlyrics} or @code{\lyricsto}
+when invoking your identifier.
+ 
 @example
-play2 the4 game2.
-sink2 or4 swim2.
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+ <<
+   \new Voice = "one" \relative c'' @{
+     \autoBeamOff
+     \time 2/4
+     c4 b8. a16 g4. f8 e4 d c2
+   @}
+   \addlyrics @{ \verseOne @}
+ >>
+@}
 @end example
-
-The alignment to a melody can be specified with the
-@code{associatedVoice} property,
-
+ 
+@c TODO: Move the following section to 
+@c "Working with lyrics and identifiers"
+ 
+For different or more complex orderings, the best way is to setup the
+hierarchy of staves and lyrics first, e.g.,
 @example
-\set associatedVoice = #"lala"
+\new ChoirStaff <<
+  \new Voice = "soprano" @{ @emph{music} @}
+  \new Lyrics = "sopranoLyrics" @{ s1 @}
+  \new Lyrics = "tenorLyrics" @{ s1 @}
+  \new Voice = "tenor" @{ @emph{music} @}
+>>
 @end example
-
+ 
+and then combine the appropriate melodies and lyric lines
+ 
+@example
+\context Lyrics = sopranoLyrics \lyricsto "soprano"
+@emph{the lyrics}
+@end example
+ 
 @noindent
-The value of the property (here: @code{"lala"}) should be the name of
-a @internalsref{Voice} context.  Without this setting, extender lines
-will not be formatted properly.
 
-Here is an example demonstrating manual lyric durations,
-
-@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
-<< \new Voice = "melody" {
-     \time 3/4
-     c2 e4 g2.
-  }
-  \new Lyrics \lyricmode {
-    \set associatedVoice = #"melody"
-    play2 the4 game2.
-  } >>
-@end lilypond
-
-
+The final input would resemble
+ 
+@example
+<<\new ChoirStaff << @emph{setup the music} >>
+ \lyricsto "soprano" @emph{etc}
+ \lyricsto "alto" @emph{etc}
+@emph{etc}
+>>
+@end example
+ 
+@seealso
+ 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
+Program reference: @internalsref{LyricCombineMusic},
+@internalsref{Lyrics}.  
 
 @node Flexibility in placement
 @subsection Flexibility in placement
