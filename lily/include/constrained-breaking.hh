@@ -50,9 +50,9 @@ struct Line_details {
   {
     force_ = 0;
     extent_ = unsmob_stencil (pb->get_property ("stencil")) ->extent (Y_AXIS);
-    padding_ = 0;
+    padding_ = robust_scm2double (pb->get_property ("next-padding"), 0);
     bottom_padding_ = 0;
-    space_ = 1.0;
+    space_ = robust_scm2double (pb->get_property ("next-space"), 1.0);
     inverse_hooke_ = 1.0;
     break_permission_ = ly_symbol2scm ("allow");
     page_permission_ = pb->get_property ("page-break-permission");

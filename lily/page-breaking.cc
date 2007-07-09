@@ -549,7 +549,9 @@ Page_breaking::cache_line_details (vsize configuration_index)
 	    {
 	      assert (div[i] == 1);
 	      uncompressed_line_details_.push_back (Line_details (system_specs_[sys].prob_));
-	      uncompressed_line_details_.back ().padding_ = padding;
+	      uncompressed_line_details_.back ().padding_ =
+                robust_scm2double (system_specs_[sys].prob_->get_property ("next-padding"),
+                                   padding);
 	    }
 	}
       cached_line_details_ = compress_lines (uncompressed_line_details_);
