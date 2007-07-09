@@ -284,6 +284,7 @@ If we give names, Bison complains.
 %token <scm> MARKUP_HEAD_SCM0_SCM1_SCM2
 %token <scm> MARKUP_LIST_HEAD_EMPTY
 %token <scm> MARKUP_LIST_HEAD_LIST0
+%token <scm> MARKUP_LIST_HEAD_SCM0
 %token <scm> MARKUP_LIST_HEAD_SCM0_LIST1
 %token <scm> MARKUP_LIST_HEAD_SCM0_SCM1_LIST2
 %token <scm> MARKUP_IDENTIFIER
@@ -2274,6 +2275,9 @@ markup_command_list:
 		$$ = scm_list_1 ($1);
 	}
 	| MARKUP_LIST_HEAD_LIST0 markup_list	{
+		$$ = scm_list_2 ($1, $2);
+	}
+	| MARKUP_LIST_HEAD_SCM0 embedded_scm	{
 		$$ = scm_list_2 ($1, $2);
 	}
 	| MARKUP_LIST_HEAD_SCM0_LIST1 embedded_scm markup_list	{

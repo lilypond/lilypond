@@ -551,6 +551,8 @@ BOM_UTF8	\357\273\277
 			SCM tag = scm_cdr(s2);
 			if (tag == ly_symbol2scm("empty"))
 				return MARKUP_LIST_HEAD_EMPTY;
+			else if (tag == ly_symbol2scm ("scheme0"))
+				return MARKUP_LIST_HEAD_SCM0;
 			else if (tag == ly_symbol2scm ("markup-list0"))
 				return MARKUP_LIST_HEAD_LIST0;
 			else if (tag == ly_symbol2scm ("scheme0-markup-list1"))
@@ -558,7 +560,7 @@ BOM_UTF8	\357\273\277
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup-list2"))
 				return MARKUP_LIST_HEAD_SCM0_SCM1_LIST2;
 			else {
-				programming_error ("no parser tag defined for this markup signature"); 
+				programming_error ("no parser tag defined for this markup list signature"); 
 				ly_display_scm (s);
 				assert(false);
 			}
