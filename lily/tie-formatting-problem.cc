@@ -171,6 +171,7 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	  Real x_center = head->extent (x_refpoint_, X_AXIS).center ();
 	  Interval x_ext;
 	  x_ext[-dir] = x_center;
+	  x_ext[dir] = infinity_f * dir;
 	  Interval y_ext;
 	  for (vsize j = 0; j < head_boxes.size (); j++)
 	    y_ext.unite (head_boxes[j][Y_AXIS]);
