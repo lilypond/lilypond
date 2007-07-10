@@ -217,7 +217,7 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-	(outside-staff-priority . 100)
+	;; (outside-staff-priority . 100) reinstate this once it no longer moves for the treble clef
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
