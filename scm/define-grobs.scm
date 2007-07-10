@@ -217,7 +217,7 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
-	;; (outside-staff-priority . 100) reinstate this once it no longer moves for the treble clef
+	(outside-staff-priority . 100)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -1718,7 +1718,6 @@
 	(Y-extent . ,ly:axis-group-interface::height)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
 	(max-stretch . ,ly:axis-group-interface::calc-max-stretch)
-	(skyline-horizontal-padding . 1.0)
 	(meta . ((class . System)
 		 (interfaces . (system-interface
 				axis-group-interface))))))
