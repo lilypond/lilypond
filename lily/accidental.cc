@@ -31,28 +31,30 @@ parenthesize (Grob *me, Stencil m)
   return m;
 }
 
+/* If this gets called before line breaking, we will return a non-trivial
+   extent even if we belong to a tie and won't actually get printed. */
+static SCM
+get_extent (Grob *me, Axis a)
+{
+  Stencil *s = unsmob_stencil (Accidental_interface::get_stencil (me));
 
-/* This callback exists for the sole purpose of allowing us to override
-   its pure equivalent to accidental-interface::pure-height */
+  if (s)
+    return ly_interval2scm (s->extent (a));
+  return ly_interval2scm (Interval ());
+}
+
 MAKE_SCHEME_CALLBACK (Accidental_interface, height, 1);
 SCM
 Accidental_interface::height (SCM smob)
 {
-  return Grob::stencil_height (smob);
+  return get_extent (unsmob_grob (smob), Y_AXIS);
 }
 
-/* If this gets called before line breaking, we will return a non-trivial
-   width even if we belong to a tie and won't actually get printed. */
 MAKE_SCHEME_CALLBACK (Accidental_interface, width, 1);
 SCM
 Accidental_interface::width (SCM smob)
 {
-  Grob *me = unsmob_grob (smob);
-  Stencil *s = unsmob_stencil (get_stencil (me));
-
-  if (s)
-    return ly_interval2scm (s->extent (X_AXIS));
-  return ly_interval2scm (Interval ());
+  return get_extent (unsmob_grob (smob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Accidental_interface, pure_height, 3);
@@ -63,11 +65,16 @@ Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
   int start = scm_to_int (start_scm);
   int rank = me->get_column ()->get_rank ();
 
-  bool visible = to_boolean (me->get_property ("forced"))
-    || !unsmob_grob (me->get_object ("tie"))
-    || rank != start + 1; /* we are in the middle of a line */
+  if (to_boolean (me->get_property ("forced"))
+      || !unsmob_grob (me->get_object ("tie"))
+      || rank != start + 1) /* we are in the middle of a line */
+    {
+      Stencil *s = unsmob_stencil (get_stencil (me));
+      if (s)
+	return ly_interval2scm (s->extent (Y_AXIS));
+    }
 
-  return visible ? Grob::stencil_height (smob) : ly_interval2scm (Interval ());
+  return ly_interval2scm (Interval ());
 }
 
 vector<Box>
