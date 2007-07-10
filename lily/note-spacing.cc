@@ -16,6 +16,7 @@
 #include "warn.hh"
 #include "stem.hh"
 #include "separation-item.hh"
+#include "spacing-interface.hh"
 #include "staff-spacing.hh"
 #include "accidental-placement.hh"
 #include "output-def.hh"
@@ -26,224 +27,152 @@
   spacing?
 */
 
-void
+Spring
 Note_spacing::get_spacing (Grob *me, Item *right_col,
-			   Real base_space, Real increment, Real *space, Real *fixed)
+			   Real base_space, Real increment)
 {
-  Drul_array<SCM> props (me->get_object ("left-items"),
-			 me->get_object ("right-items"));
-  Direction d = LEFT;
-  Direction col_dir = right_col->break_status_dir ();
-  Drul_array<Interval> extents;
+  vector<Item*> note_columns = Spacing_interface::left_note_columns (me);
+  Real left_head_end = 0;
 
-  Interval left_head_wid;
-  do
+  for (vsize i = 0; i < note_columns.size (); i++)
     {
-      vector<Grob*> const &items (ly_scm2link_array (props [d]));
-      for (vsize i = items.size (); i--;)
-	{
-	  Item *it = dynamic_cast<Item *> (items[i]);
+       SCM r = note_columns[i]->get_object ("rest");
+       Grob *g = unsmob_grob (r);
+       Grob *col = note_columns[i]->get_column ();
 
-	  if (d == RIGHT && it->break_status_dir () != col_dir)
-	    it = it->find_prebroken_piece (col_dir);
+       if (!g)
+	 g = Note_column::first_head (note_columns[i]);
 
-	  /*
-	    some kind of mismatch, eg. a note column, that is behind a
-	    linebreak.
-	  */
-	  if (!it)
-	    continue;
-
-	  Item *it_col = it->get_column ();
-	  if (d == RIGHT && right_col != it_col)
-	    continue;
-
-	  if (Separation_item::has_interface (it))
-	    {
-	      extents[d].unite (Separation_item::width (it));
-	      continue;
-	    }
-
-	  if (d == LEFT
-	      && Note_column::has_interface (it))
-	    {
-	      SCM r = it->get_object ("rest");
-	      Grob *g = unsmob_grob (r);
-	      if (!g)
-		g = Note_column::first_head (it);
-
-	      /*
-		Ugh. If Stem is switched off, we don't know what the
-		first note head will be.
-	      */
-	      if (g)
-		{
-		  if (g->common_refpoint (it_col, X_AXIS) != it_col)
-		    programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
-		  else
-		    left_head_wid = g->extent (it_col, X_AXIS);
-		}
-	    }
-
-	  extents[d].unite (it->extent (it_col, X_AXIS));
-	  if (d == RIGHT)
-	    {
-	      Grob *accs = Note_column::accidentals (it);
-	      if (!accs)
-		accs = Note_column::accidentals (it->get_parent (X_AXIS));
-
-	      if (accs)
-		{
-		  Interval v
-		    = Accidental_placement::get_relevant_accidental_extent (accs, it_col, me);
-
-		  extents[d].unite (v);
-		}
-
-	      if (Grob *arpeggio = Note_column::arpeggio (it))
-		extents[d].unite (arpeggio->extent (it_col, X_AXIS));
-	    }
-	}
-
-      if (extents[d].is_empty ())
-	extents[d] = Interval (0, 0);
+       /*
+	 Ugh. If Stem is switched off, we don't know what the
+	 first note head will be.
+       */
+       if (g)
+	 {
+	   if (g->common_refpoint (col, X_AXIS) != col)
+	     programming_error ("Note_spacing::get_spacing (): Common refpoint incorrect");
+	   else
+	     left_head_end = g->extent (col, X_AXIS)[RIGHT];
+	 }
     }
-  while (flip (&d) != LEFT);
 
   /*
-    We look at the width of the note head, since smaller heads get less space
+    The main factor that determines the amount of space is the width of the
+    note head (or the rest). For example, a quarter rest gets almost 0.5 ss
+    less horizontal space than a note.
 
-    eg. a quarter rest gets almost 0.5 ss less horizontal space than a note.
-
-    What is sticking out of the note head (eg. a flag), doesn't get
-    the full amount of space.
-
-    FIXED also includes the left part of the right object.
+    The other parts of a note column (eg. flags, accidentals, etc.) don't get
+    the full amount of space. We give them half the amount of space, but then
+    adjust things so there are no collisions.
   */
-  *fixed
-    = (left_head_wid.is_empty () ? increment
-       :        /*
-		  Size of the head:
-		*/
-       (left_head_wid[RIGHT]+
+  Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
+  Real min_dist = max (0.0, skys[LEFT].distance (skys[RIGHT]));
+  Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
 
-	/*
-	  What's sticking out of the head, eg. a flag:
-	*/
-	(extents[LEFT][RIGHT] - left_head_wid[RIGHT]) / 2))
+  /* if the right object sticks out a lot, include a bit of extra space.
+     But only for non-musical-columns; this shouldn't apply to accidentals */
+  if (!Paper_column::is_musical (right_col))
+    min_desired_space = max (min_desired_space,
+			     left_head_end + LEFT * skys[RIGHT].max_height ());
 
-    /*
-      What is sticking out on the left side of the right note:
-    */
-    + (extents[RIGHT].is_empty ()
-       ? 0.0
-       : ((- extents[RIGHT][LEFT] / 2)
+  Real ideal = base_space - increment + min_desired_space;
 
-	  /*
-	    Add that which sticks out a lot.
-	  */
-	  + max (0.0, -extents[RIGHT][LEFT] - (base_space - 0.5 * increment))));
+  stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
-  /*
-    We don't do complicated stuff: (base_space - increment) is the
-    normal amount of white, which also determines the amount of
-    stretch. Upon (extreme) stretching, notes with accidentals should
-    stretch as much as notes without accidentals.
-  */
-  *space = (base_space - increment) + *fixed;
+  Spring ret (ideal, min_dist);
+  ret.set_inverse_compress_strength (max (0.0, ideal - max (min_dist, min_desired_space)));
+  ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
+  return ret;
+}
 
-#if 0
-  /*
-    The below situation is now handled by the "sticks out a lot" case
-    above. However we keep around the code for a few releases before
-    we drop it.
-   */
-  if (!extents[RIGHT].is_empty ()
-      && (Paper_column::is_breakable (right_col)))
+static Real
+knee_correction (Grob *note_spacing, Grob *right_stem, Real increment)
+{
+  Real note_head_width = increment;
+  Grob *head = right_stem ? Stem::support_head (right_stem) : 0;
+  Grob *rcolumn = dynamic_cast<Item*> (head)->get_column ();
+
+  Interval head_extent;
+  if (head)
     {
+      head_extent = head->extent (rcolumn, X_AXIS);
+
+      if (!head_extent.is_empty ())
+	note_head_width = head_extent[RIGHT];
+
+      note_head_width -= Stem::thickness (right_stem);
+    }
+
+  return -note_head_width * get_grob_direction (right_stem)
+    * robust_scm2double (note_spacing->get_property ("knee-spacing-correction"), 0);
+}
+
+static Real
+different_directions_correction (Grob *note_spacing,
+				 Drul_array<Interval> stem_posns,
+				 Direction left_stem_dir)
+{
+  Real ret = 0.0;
+  Interval intersect = stem_posns[LEFT];
+  intersect.intersect (stem_posns[RIGHT]);
+
+  if (!intersect.is_empty ())
+    {
+      ret = abs (intersect.length ());
+
       /*
-	This is for the situation
-
-	rest | 3/4 (eol)
-
-	Since we only take half of the right-object space above, the
-	barline will bump into the notes preceding it, if the right
-	thing is big. We add the rest of the extents here:
+	Ugh. 7 is hardcoded.
       */
-
-      *space += -extents[RIGHT][LEFT] / 2;
-      *fixed += -extents[RIGHT][LEFT] / 2;
+      ret = min (ret / 7, 1.0)
+	* left_stem_dir
+	* robust_scm2double (note_spacing->get_property ("stem-spacing-correction"), 0);
     }
-#endif
+  return ret;
+}
+
+static Real
+same_direction_correction (Grob *note_spacing, Drul_array<Interval> head_posns)
+{
+  /*
+    Correct for the following situation:
+    
+    X      X
+    |      |
+    |      |
+    |   X  |
+    |  |   |
+    ========
+    
+    ^ move the center one to the left.
+    
+    
+    this effect seems to be much more subtle than the
+    stem-direction stuff (why?), and also does not scale with the
+    difference in stem length.
+    
+  */
+
+  Interval hp = head_posns[LEFT];
+  hp.intersect (head_posns[RIGHT]);
+  if (!hp.is_empty ())
+    return 0;
   
-  stem_dir_correction (me, right_col, increment, space, fixed);
+  Direction lowest
+    = (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
+  
+  Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
+  Real corr = robust_scm2double (note_spacing->get_property ("same-direction-correction"), 0);
+  
+  return (delta > 1) ? -lowest * corr : 0;
 }
 
-Item *
-Note_spacing::left_column (Grob *me)
-{
-  if (!me->is_live ())
-    return 0;
-
-  return dynamic_cast<Item *> (me)->get_column ();
-}
-
-/*
-  Compute the column of the right-items.  This is a big function,
-  since RIGHT-ITEMS may span more columns (eg. if a clef if inserted,
-  this will add a new columns to RIGHT-ITEMS. Here we look at the
-  columns, and return the left-most. If there are multiple columns, we
-  prune RIGHT-ITEMS.
-*/
-Item *
-Note_spacing::right_column (Grob *me)
-{
-  if (!me->is_live ())
-    return 0;
-
-  Grob_array *a = unsmob_grob_array (me->get_object ("right-items"));
-  Item *mincol = 0;
-  int min_rank = INT_MAX;
-  bool prune = false;
-  for (vsize i = 0; a && i < a->size (); i++)
-    {
-      Item *ri = a->item (i);
-      Item *col = ri->get_column ();
-
-      int rank = Paper_column::get_rank (col);
-
-      if (rank < min_rank)
-	{
-	  min_rank = rank;
-	  if (mincol)
-	    prune = true;
-
-	  mincol = col;
-	}
-    }
-
-  if (prune && a)
-    {
-      vector<Grob*> &right = a->array_reference ();
-      for (vsize i = right.size (); i--;)
-	{
-	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
-	    right.erase (right.begin () + i);
-	}
-    }
-
-  if (!mincol)
-    return 0;
-
-  return mincol;
-}
 
 /**
    Correct for optical illusions. See [Wanske] p. 138. The combination
    up-stem + down-stem should get extra space, the combination
    down-stem + up-stem less.
 
-   TODO: have to check wether the stems are in the same staff.
+   TODO: have to check whether the stems are in the same staff.
 */
 void
 Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
@@ -264,9 +193,13 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
   Interval bar_xextent;
   Interval bar_yextent;
 
-  bool correct_stem_dirs = true;
   Direction d = LEFT;
-  bool acc_right = false;
+
+  Grob *bar = Spacing_interface::extremal_break_aligned_grob (me, RIGHT,
+							      rcolumn->break_status_dir (),
+							      &bar_xextent);
+  if (bar && dynamic_cast<Item*> (bar)->get_column () == rcolumn)
+    bar_yextent = Staff_spacing::bar_y_positions (bar);
 
   do
     {
@@ -275,44 +208,24 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
 
-	  if (d == RIGHT)
-	    acc_right = acc_right || Note_column::accidentals (it);
+	  /*
+	    don't correct if accidentals are sticking out of the right side.
+	  */
+	  if (d == RIGHT && Note_column::accidentals (it))
+	    return;
 
 	  Grob *stem = Note_column::get_stem (it);
 
-	  if (!stem || !stem->is_live ())
-	    {
-	      if (d == RIGHT && Separation_item::has_interface (it))
-		{
-		  if (it->get_column () != rcolumn)
-		    it = it->find_prebroken_piece (rcolumn->break_status_dir ());
-
-		  Grob *last = Separation_item::extremal_break_aligned_grob (it, LEFT, &bar_xextent);
-
-		  if (last)
-		    bar_yextent = Staff_spacing::bar_y_positions (last);
-
-		  break;
-		}
-
-	      return;
-	    }
-
-	  if (Stem::is_invisible (stem))
-	    {
-	      correct_stem_dirs = false;
-	      continue;
-	    }
+	  if (!stem || !stem->is_live () || Stem::is_invisible (stem))
+	    return;
 
 	  stems_drul[d] = stem;
 	  beams_drul[d] = Stem::get_beam (stem);
 
 	  Direction stem_dir = get_grob_direction (stem);
 	  if (stem_dirs[d] && stem_dirs[d] != stem_dir)
-	    {
-	      correct_stem_dirs = false;
-	      continue;
-	    }
+	    return;
+
 	  stem_dirs[d] = stem_dir;
 
 	  /*
@@ -321,11 +234,10 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
 	  */
 	  if (d == LEFT
 	      && Stem::duration_log (stem) > 2 && !Stem::get_beam (stem))
-	    correct_stem_dirs = false;
+	    return;
 
 	  Interval hp = Stem::head_positions (stem);
-	  if (correct_stem_dirs
-	      && !hp.is_empty ())
+	  if (!hp.is_empty ())
 	    {
 	      Real chord_start = hp[stem_dir];
 
@@ -344,12 +256,6 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
     }
   while (flip (&d) != LEFT);
 
-  /*
-    don't correct if accidentals are sticking out of the right side.
-  */
-  if (acc_right)
-    return;
-
   Real correction = 0.0;
 
   if (!bar_yextent.is_empty ())
@@ -359,96 +265,23 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       stem_posns[RIGHT] *= 2;
     }
 
-  if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
+  if (stem_dirs[LEFT] * stem_dirs[RIGHT] == -1)
     {
       if (beams_drul[LEFT] && beams_drul[LEFT] == beams_drul[RIGHT])
 	{
-
-	  /*
-	    this is a knee: maximal correction.
-	  */
-	  Real note_head_width = increment;
-	  Grob *st = stems_drul[RIGHT];
-	  Grob *head = st ? Stem::support_head (st) : 0;
-
-	  Interval head_extent;
-	  if (head)
-	    {
-	      head_extent = head->extent (rcolumn, X_AXIS);
-
-	      if (!head_extent.is_empty ())
-		note_head_width = head_extent[RIGHT];
-
-	      if (st)
-		{
-		  Real thick = Stem::thickness (st);
-
-		  note_head_width -= thick;
-		}
-	    }
-
-	  correction = note_head_width * stem_dirs[LEFT];
-	  correction *= robust_scm2double (me->get_property ("knee-spacing-correction"), 0);
+	  correction = knee_correction (me, stems_drul[RIGHT], increment);
 	  *fixed += correction;
 	}
       else
 	{
-	  intersect = stem_posns[LEFT];
-	  intersect.intersect (stem_posns[RIGHT]);
-	  correct_stem_dirs = correct_stem_dirs && !intersect.is_empty ();
-
-	  if (correct_stem_dirs)
-	    {
-	      correction = abs (intersect.length ());
-
-	      /*
-		Ugh. 7 is hardcoded.
-	      */
-	      correction = min (correction / 7, 1.0);
-	      correction *= stem_dirs[LEFT];
-	      correction
-		*= robust_scm2double (me->get_property ("stem-spacing-correction"), 0);
-	    }
+	  correction = different_directions_correction (me, stem_posns, stem_dirs[LEFT]);
 
 	  if (!bar_yextent.is_empty ())
 	    correction *= 0.5;
 	}
     }
-  else if (correct_stem_dirs && stem_dirs[LEFT] * stem_dirs[RIGHT] == UP)
-    {
-      /*
-	Correct for the following situation:
-
-	X      X
-	|      |
-	|      |
- 	|   X  |
-	|  |   |
-	========
-
-	^ move the center one to the left.
-
-
-	this effect seems to be much more subtle than the
-	stem-direction stuff (why?), and also does not scale with the
-	difference in stem length.
-
-      */
-
-      Interval hp = head_posns[LEFT];
-      hp.intersect (head_posns[RIGHT]);
-      if (!hp.is_empty ())
-	return;
-
-      Direction lowest
-	= (head_posns[LEFT][DOWN] > head_posns[RIGHT][UP]) ? RIGHT : LEFT;
-
-      Real delta = head_posns[-lowest][DOWN] - head_posns[lowest][UP];
-      Real corr = robust_scm2double (me->get_property ("same-direction-correction"), 0);
-
-      if (delta > 1)
-	correction = -lowest * corr;
-    }
+  else if (stem_dirs[LEFT] * stem_dirs[RIGHT] == 1)
+    correction = same_direction_correction (me, head_posns);
 
   *space += correction;
 

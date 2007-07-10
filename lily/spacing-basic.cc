@@ -14,6 +14,8 @@
 #include "warn.hh"
 #include "pointer-group-interface.hh"
 #include "system.hh"
+#include "spacing-interface.hh"
+#include "spring.hh"
 
 /*
   LilyPond spaces by taking a simple-minded spacing algorithm, and
@@ -24,33 +26,11 @@
   The one-size-fits all spacing. It doesn't take into account
   different spacing wishes from one to the next column.
 */
-void
-Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
-						    Real *fixed, Real *space,
-						    Spacing_options const *options)
+Spring
+Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r, Spacing_options const *options)
 {
-  *fixed = 0.0;
-  Direction d = LEFT;
-  Drul_array<Item *> cols (l, r);
-
-  do
-    {
-      /*
-	TODO: this is fishy, the extent gets distorted due to wide
-	\marks, so better not do this.
-       */
-      if (!Paper_column::is_musical (cols[d]))
-	{
-	  /*
-	    Tied accidentals over barlines cause problems, so lets see
-	    what happens if we do this for non musical columns only.
-	  */
-	  Interval lext = cols[d]->extent (cols [d], X_AXIS);
-	  if (!lext.is_empty ())
-	    *fixed += -d * lext[-d];
-	}
-    }
-  while (flip (&d) != LEFT);
+  Real min_dist = max (0.0, Paper_column::minimum_distance (l, r));
+  Real ideal;
 
   if (Paper_column::is_breakable (l) && Paper_column::is_breakable (r))
     {
@@ -61,7 +41,7 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 
       Real incr = robust_scm2double (me->get_property ("spacing-increment"), 1);
 
-      *space = *fixed + incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
+      ideal = min_dist + incr * double (mlen.main_part_ / options->global_shortest_) * 0.8;
     }
   else
     {
@@ -73,14 +53,12 @@ Spacing_spanner::standard_breakable_column_spacing (Grob *me, Item *l, Item *r,
 	    In this case, Staff_spacing should handle the job,
 	    using dt when it is 0 is silly.
 	  */
-	  *space = *fixed + 0.5;
+	  ideal = min_dist + 0.5;
 	}
       else
-	{
-	  bool dummy;
-	  *space = *fixed + options->get_duration_space (dt.main_part_, &dummy);
-	}
+	ideal = min_dist + options->get_duration_space (dt.main_part_);
     }
+  return Spring (ideal, min_dist);
 }
 
 Moment *
@@ -106,8 +84,7 @@ get_measure_length (Grob *column)
 
 Real
 Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
-			       Spacing_options const *options,
-			       bool *expand_only)
+			       Spacing_options const *options)
 {
   (void) me;
   
@@ -151,8 +128,7 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
   Real dist = 0.0;
   if (delta_t.main_part_ && !lwhen.grace_part_)
     {
-      dist = options->get_duration_space (shortest_playing_len.main_part_,
-					  expand_only);
+      dist = options->get_duration_space (shortest_playing_len.main_part_);
       dist *= double (delta_t.main_part_ / shortest_playing_len.main_part_);
     }
   else if (delta_t.grace_part_)
@@ -162,14 +138,13 @@ Spacing_spanner::note_spacing (Grob *me, Grob *lc, Grob *rc,
 	available (namely the space for the global shortest note), and
 	multiply that by grace-space-factor
       */
-      dist = options->get_duration_space (options->global_shortest_, expand_only) / 2.0;
+      dist = options->get_duration_space (options->global_shortest_) / 2.0;
       Grob *grace_spacing = unsmob_grob (lc->get_object ("grace-spacing"));
       if (grace_spacing)
 	{
 	  Spacing_options grace_opts;
 	  grace_opts.init_from_grob (grace_spacing);
-	  bool bla;
-	  dist = grace_opts.get_duration_space (delta_t.grace_part_, &bla);
+	  dist = grace_opts.get_duration_space (delta_t.grace_part_);
 	}
       
     }

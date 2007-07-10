@@ -428,5 +428,6 @@ ADD_INTERFACE (Spanner,
 	       "also the X-reference point of the spanner.\n",
 
 	       "minimum-length "
+	       "to-barline "
 	       );
 

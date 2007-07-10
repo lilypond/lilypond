@@ -24,6 +24,7 @@
 	(alteration . ,accidental-interface::calc-alteration) 
 	(stencil . ,ly:accidental-interface::print)
 	(Y-extent . ,ly:accidental-interface::height)
+	(X-extent . ,ly:accidental-interface::width)
 	(meta . ((class . Item)
 		 (interfaces . (accidental-interface
 				font-interface))))))
@@ -216,6 +217,7 @@
 	(font-size . -2)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
+	(outside-staff-priority . 100)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
 			,(ly:make-simple-closure
@@ -825,8 +827,7 @@
 	(direction . ,UP)
 	(self-alignment-X . ,CENTER)
 	(meta . ((class . Item)
-		 (interfaces . (system-start-text-interface
-				side-position-interface
+		 (interfaces . (side-position-interface
 				font-interface))))))
     
     (KeyCancellation
@@ -1114,6 +1115,7 @@
 	(axes . (0))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(X-extent . ,ly:axis-group-interface::width)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	;;		      (stencil . ,ly:paper-column::print)
 	
 	(non-musical . #t)
@@ -1126,6 +1128,7 @@
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
 				axis-group-interface
+				separation-item-interface
 				spaceable-grob-interface))))))
     
     (NoteCollision
@@ -1143,8 +1146,10 @@
 	(axes . (0 1))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	(meta . ((class . Item)
 		 (interfaces . (axis-group-interface
+				separation-item-interface
 				note-column-interface))))))
 
     (NoteHead
@@ -1171,7 +1176,7 @@
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)
 	(meta . ((class . Item)
-		 (interfaces . (
+		 (interfaces . (spacing-interface
 				note-spacing-interface))))))
 
     (NoteName
@@ -1227,6 +1232,7 @@
 	(axes . (0))
 	(allow-loose-spacing . #t)
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
+	(horizontal-skylines . ,ly:separation-item::calc-skylines)
 	;; (stencil . ,ly:paper-column::print)
 	(X-extent . ,ly:axis-group-interface::width)
 	
@@ -1234,6 +1240,7 @@
 	;;		         (font-size . -6) (font-name . "sans") (Y-extent . #f)
 	(meta . ((class . Paper_column)
 		 (interfaces . (paper-column-interface
+				separation-item-interface
 				axis-group-interface
 				spaceable-grob-interface))))))
 
@@ -1329,6 +1336,7 @@
 			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(self-alignment-X . 0)
 	(direction . ,UP)
 	(non-musical . #t)
@@ -1446,14 +1454,6 @@
 		 (interfaces . (
 				separation-item-interface))))))
 
-    (SeparatingGroupSpanner
-     . (
-	(springs-and-rods . ,ly:separating-group-spanner::set-spacing-rods)
-	(meta . ((class . Spanner)
-		 (interfaces . (only-prebreak-interface
-				
-				separating-group-spanner-interface))))))
-
     (Slur
      . ((details . ,default-slur-details)
 	(control-points . ,ly:slur::calc-control-points)
@@ -1560,7 +1560,8 @@
 	(non-musical . #t)
 	(stem-spacing-correction . 0.4)
 	(meta . ((class . Item)
-		 (interfaces . (staff-spacing-interface))))))
+		 (interfaces . (spacing-interface
+				staff-spacing-interface))))))
 
    
     (StaffSymbol
@@ -2096,17 +2097,11 @@
     (VoltaBracket
      . (
 	(stencil . ,ly:volta-bracket-interface::print)
-	(direction . ,UP)
-	(padding . 1)
 	(font-encoding . fetaNumber)
-	(minimum-Y-extent . (0 . 2))
-	(Y-offset . ,ly:side-position-interface::y-aligned-side)
-	(side-axis . ,Y)
 	(thickness . 1.6)  ;;  line-thickness
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
-	(minimum-space . 5)
 	(font-size . -4)
-	(outside-staff-priority . 100)
+	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface
 				horizontal-bracket-interface				
@@ -2116,6 +2111,21 @@
 				font-interface)))
 	      )))
 
+    (VoltaBracketSpanner
+     . (	
+	(axes . (1))
+	(side-axis . ,Y)
+	(direction . ,UP)
+	(padding . 1)
+	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(outside-staff-priority . 100)
+	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
+	(no-alignment . ,#t)
+	(meta . ((class . Spanner)
+		 (interfaces . (side-position-interface
+				axis-group-interface)))
+	      )))
 
     (VoiceFollower
      . (

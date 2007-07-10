@@ -360,6 +360,8 @@ center of the staff.")
 to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender.")
+     (no-alignment ,boolean? "If set, don't place this grob in a
+VerticalAlignment; rather, place it using its own Y-offset callback")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
@@ -521,6 +523,8 @@ should use @code{LEFT}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (threshold ,number-pair? "@code{(@var{min} . @var{max})}, where
 @var{min} and @var{max} are dimensions in staff space.")
+     (to-barline ,boolean? "If true, the spanner will stop at that barline
+just before it would otherwise stop.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
 @var{position} is the offset from the center of the staff in staff
@@ -637,6 +641,7 @@ where this is set in.")
      (normal-stems ,ly:grob-array? "Array of visible stems.") 
      (note-heads ,ly:grob-array? "List of note head grobs")
      (note-head ,ly:grob? "A single note head")
+     (pure-Y-offset-in-progress ,boolean? "A debugging aid for catching cyclic dependencies.")
      (right-items ,ly:grob-array? "")
      (right-neighbors ,ly:grob-array? "see left-neighbors")
      (separation-item ,ly:grob? "A separation item.")

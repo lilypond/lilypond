@@ -156,7 +156,6 @@ void
 Volta_bracket_interface::add_bar (Grob *me, Item *b)
 {
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("bars"), b);
-  Side_position_interface::add_support (me, b);
   add_bound_item (dynamic_cast<Spanner *> (me), b);
 }
 

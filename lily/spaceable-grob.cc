@@ -56,69 +56,34 @@ Spaceable_grob::add_rod (Grob *me, Grob *p, Real d)
 }
 
 void
-Spaceable_grob::add_spring (Grob *me, Grob *other,
-			    Real distance, Real inverse_strength)
+Spaceable_grob::add_spring (Grob *me, Grob *other, Spring sp)
 {
-  if (distance < 0.0 || inverse_strength < 0.0)
-    {
-      programming_error ("adding reverse spring, setting to unit");
-      distance = 1.0;
-      inverse_strength = 1.0;
-    }
-
-  if (isinf (distance) || isnan (distance)
-      || isnan (inverse_strength))
-    {
-      /* strength == INF is possible. It means fixed distance.  */
-      programming_error ("insane distance found");
-      distance = 1.0;
-      inverse_strength = 1.0;
-    }
-
-#ifndef NDEBUG
-  SCM mins = me->get_object ("ideal-distances");
-  for (SCM s = mins; scm_is_pair (s); s = scm_cdr (s))
-    {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
-      if (sp->other_ == other)
-	{
-	  programming_error ("already have that spring");
-	  return;
-	}
-    }
-#endif
-
-  Spring_smob spring;
-  spring.inverse_strength_ = inverse_strength;
-  spring.distance_ = distance;
-  spring.other_ = other;
-
   SCM ideal = me->get_object ("ideal-distances");
-  ideal = scm_cons (spring.smobbed_copy (), ideal);
+
+  ideal = scm_cons (scm_cons (sp.smobbed_copy (), other->self_scm ()), ideal);
   me->set_object ("ideal-distances", ideal);
 }
 
-void
-Spaceable_grob::get_spring (Grob *this_col, Grob *next_col, Real *dist, Real *inv_strength)
+Spring
+Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
 {
-  Spring_smob *spring = 0;
+  Spring *spring = 0;
 
   for (SCM s = this_col->get_object ("ideal-distances");
        !spring && scm_is_pair (s);
        s = scm_cdr (s))
     {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
-
-      if (sp && sp->other_ == next_col)
-	spring = sp;
+      if (scm_is_pair (scm_car (s))
+	  && unsmob_grob (scm_cdar (s)) == next_col
+	  && unsmob_spring (scm_caar (s)))
+	spring = unsmob_spring (scm_caar (s));
     }
 
   if (!spring)
     programming_error (_f ("No spring between column %d and next one",
 			   Paper_column::get_rank (this_col)));
 
-  *dist = (spring) ? spring->distance_ : 5.0;
-  *inv_strength = (spring) ? spring->inverse_strength_ : 1.0;
+  return spring ? *spring : Spring ();
 }
 
 

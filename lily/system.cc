@@ -19,7 +19,6 @@
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "pointer-group-interface.hh"
-#include "spacing-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 #include "lookup.hh"

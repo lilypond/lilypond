@@ -92,6 +92,7 @@ Vertical_align_engraver::qualifies (Grob_info i) const
 
   return sz > 0 && Axis_group_interface::has_interface (i.grob ())
     && !i.grob ()->get_parent (Y_AXIS)
+    && !to_boolean (i.grob ()->get_property ("no-alignment"))
     && Axis_group_interface::has_axis (i.grob (), Y_AXIS);
 }
 

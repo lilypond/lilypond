@@ -46,13 +46,14 @@ class Rhythmic_column_engraver : public Engraver
   Grob *stem_;
   Grob *note_column_;
   Grob *dotcol_;
+  Grob *arpeggio_;
 
   TRANSLATOR_DECLARATIONS (Rhythmic_column_engraver);
 protected:
 
-  DECLARE_ACKNOWLEDGER (dot_column);
   DECLARE_ACKNOWLEDGER (stem);
   DECLARE_ACKNOWLEDGER (rhythmic_head);
+  DECLARE_ACKNOWLEDGER (arpeggio);
   void process_acknowledged ();
   void stop_translation_timestep ();
 };
@@ -62,7 +63,7 @@ Rhythmic_column_engraver::Rhythmic_column_engraver ()
 
   stem_ = 0;
   note_column_ = 0;
-  dotcol_ = 0;
+  arpeggio_ = 0;
 }
 
 
@@ -72,29 +73,28 @@ Rhythmic_column_engraver::process_acknowledged ()
   if (rheads_.size ())
     {
       if (!note_column_)
-	{
-	  note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
-	}
+	note_column_ = make_item ("NoteColumn", rheads_[0]->self_scm ());
 
       for (vsize i = 0; i < rheads_.size (); i++)
-	{
-	  if (!rheads_[i]->get_parent (X_AXIS))
-	    Note_column::add_head (note_column_, rheads_[i]);
-	}
+	if (!rheads_[i]->get_parent (X_AXIS))
+	  Note_column::add_head (note_column_, rheads_[i]);
+
       rheads_.resize (0);
     }
 
   if (note_column_)
     {
-      if (dotcol_
-	  && !dotcol_->get_parent (X_AXIS))
-	Note_column::set_dotcol (note_column_, dotcol_);
-
       if (stem_
 	  && !stem_->get_parent (X_AXIS))
 	{
 	  Note_column::set_stem (note_column_, stem_);
 	  stem_ = 0;
+	}
+
+      if (arpeggio_)
+	{
+	  Pointer_group_interface::add_grob (note_column_, ly_symbol2scm ("elements"), arpeggio_);
+	  note_column_->set_object ("arpeggio", arpeggio_->self_scm ());
 	}
     }
 }
@@ -112,22 +112,22 @@ Rhythmic_column_engraver::acknowledge_rhythmic_head (Grob_info i)
 }
 
 void
-Rhythmic_column_engraver::acknowledge_dot_column (Grob_info i)
+Rhythmic_column_engraver::acknowledge_arpeggio (Grob_info i)
 {
-  dotcol_ = i.grob ();
+  arpeggio_ = i.grob ();
 }
 
 void
 Rhythmic_column_engraver::stop_translation_timestep ()
 {
   note_column_ = 0;
-  dotcol_ = 0;
   stem_ = 0;
+  arpeggio_ = 0;
 }
 
-ADD_ACKNOWLEDGER (Rhythmic_column_engraver, dot_column);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, stem);
 ADD_ACKNOWLEDGER (Rhythmic_column_engraver, rhythmic_head);
+ADD_ACKNOWLEDGER (Rhythmic_column_engraver, arpeggio);
 
 ADD_TRANSLATOR (Rhythmic_column_engraver,
 		/* doc */ "Generates NoteColumn, an objects that groups stems, noteheads and rests.",

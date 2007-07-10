@@ -3246,8 +3246,9 @@ see @ref{Bar lines} for more information.
 Examples:
 
 Brackets for the repeat are normally only printed over the topmost
-staff.  This can be adjusted by setting the @code{voltaOnThisStaff}
-property; see
+staff.  This can be adjusted by moving @code{Volta_engraver} to the
+Staff context where you want the brackets to appear;
+see @ref{Modifying context plug-ins} and
 
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 

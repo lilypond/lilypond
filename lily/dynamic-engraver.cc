@@ -176,6 +176,15 @@ Dynamic_engraver::process_music ()
 	    }
 
 	  finished_cresc_ = cresc_;
+
+	  /* backwards compatibility with hairpinToBarline */
+	  bool use_bar = to_boolean (get_property ("hairpinToBarline"))
+	    && scm_is_string (get_property ("whichBar"))
+	    && !script_ev_;
+
+	  finished_cresc_->set_property ("to-barline", scm_from_bool (use_bar));
+
+	  announce_end_grob (finished_cresc_, SCM_EOL);
 	  cresc_ = 0;
 	  current_cresc_ev_ = 0;
 	}
@@ -335,25 +344,10 @@ Dynamic_engraver::typeset_all ()
 {
   if (finished_cresc_)
     {
-      bool use_bar = to_boolean (get_property ("hairpinToBarline"))
-	&& scm_is_string (get_property ("whichBar"))
-	&& !script_ev_;
-			  
-      
-      if (!finished_cresc_->get_bound (RIGHT)
-	  || use_bar)
+      if (!finished_cresc_->get_bound (RIGHT))
 	{
 	  	  
-	  Grob *column_bound = 0;
-	  if (use_bar)
-	    {
-	      column_bound = unsmob_grob (get_property ("breakableSeparationItem"));
-	    }
-	  
-	  if (!column_bound)
-	    column_bound = unsmob_grob (use_bar
-					? get_property ("currentCommandColumn")
-					: get_property ("currentMusicalColumn"));
+	  Grob *column_bound = unsmob_grob (get_property ("currentMusicalColumn"));
 	  
 	  finished_cresc_->set_bound (RIGHT, script_
 				      ? script_
@@ -397,7 +391,6 @@ Dynamic_engraver::typeset_all ()
 	  finished_line_spanner_->set_bound (RIGHT, ci);
 	  finished_line_spanner_->set_bound (LEFT, ci);
 	}
-
       finished_line_spanner_ = 0;
     }
 }

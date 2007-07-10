@@ -8,6 +8,7 @@
 
 #include "separation-item.hh"
 
+#include "axis-group-interface.hh"
 #include "lookup.hh"
 #include "stencil.hh"
 #include "skyline.hh"
@@ -30,7 +31,7 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
 }
 
 void
-Separation_item::set_skyline_distance (Drul_array<Item *> items,
+Separation_item::set_distance (Drul_array<Item *> items,
 				       Real padding)
 {
   Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("horizontal-skylines")),
@@ -51,11 +52,10 @@ Separation_item::set_skyline_distance (Drul_array<Item *> items,
 }
 
 bool
-Separation_item::set_distance (Drul_array<Item *> items,
-			       Real padding)
+Separation_item::is_empty (Grob *me)
 {
-  set_skyline_distance (items, padding);
-  return true;
+  Skyline_pair *sky = Skyline_pair::unsmob (me->get_property ("horizontal-skylines"));
+  return (!sky || sky->is_empty ());
 }
 
 /*
@@ -97,7 +97,7 @@ Separation_item::boxes (Grob *me, Grob *left)
   vector<Grob*> elts;
 
   if (left)
-    elts = Accidental_placement::get_break_reminder_accidentals (read_only_elts, left);
+    elts = Accidental_placement::get_relevant_accidentals (read_only_elts, left);
   else
     elts = read_only_elts;
 
@@ -107,78 +107,25 @@ Separation_item::boxes (Grob *me, Grob *left)
     {
       Item *il = dynamic_cast<Item *> (elts[i]);
       if (pc != il->get_column ())
-	{
-	  continue;
-	}
+	continue;
+      if (Axis_group_interface::has_interface (il))
+	continue;
 
       Interval y (il->pure_height (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
       Interval extra = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
-					    Interval (0, 0));
+					    Interval (-0.1, 0.1));
       x[LEFT] += extra[LEFT];
       x[RIGHT] += extra[RIGHT];
       if (to_boolean (elts[i]->get_property ("infinite-spacing-height")))
 	y = Interval (-infinity_f, infinity_f);
  
+      if (!x.is_empty () && !y.is_empty ())
       out.push_back (Box (x, y));
     }
 
   return out;      
-}
-
-Interval
-Separation_item::width (Grob *me)
-{
-  SCM sw = me->get_property ("X-extent");
-  return ly_scm2interval (sw);
-}
-
-Interval
-Separation_item::relative_width (Grob *me, Grob *common)
-{
-  Interval iv = width (me);
-
-  return dynamic_cast<Item *> (me)->get_column ()->relative_coordinate (common, X_AXIS) + iv;
-}
-
-/*
-  Try to find the break-aligned symbol in SEPARATION_ITEM that is
-  sticking out at direction D. The x size is put in LAST_EXT
-*/
-Grob *
-Separation_item::extremal_break_aligned_grob (Grob *me,
-					      Direction d,
-					      Interval *last_ext)
-{
-  Grob *col = dynamic_cast<Item *> (me)->get_column ();
-  last_ext->set_empty ();
-  Grob *last_grob = 0;
-
-  extract_grob_set (me, "elements", elts);
-  for (vsize i = elts.size (); i--;)
-    {
-      Grob *break_item = elts[i];
-      if (!scm_is_symbol (break_item->get_property ("break-align-symbol")))
-	continue;
-
-      if (!scm_is_pair (break_item->get_property ("space-alist")))
-	continue;
-
-      Interval ext = break_item->extent (col, X_AXIS);
-
-      if (ext.is_empty ())
-	continue;
-
-      if (!last_grob
-	  || (last_grob && d * (ext[d]- (*last_ext)[d]) > 0))
-	{
-	  *last_ext = ext;
-	  last_grob = break_item;
-	}
-    }
-
-  return last_grob;
 }
 
 extern bool debug_skylines;
@@ -201,7 +148,7 @@ Separation_item::print (SCM smob)
 
 ADD_INTERFACE (Separation_item,
 	       "Item that computes widths to generate spacing rods. "
-	       "This is done in concert with @ref{separating-group-spanner-interface}.",
+	       ,
 
 	       "X-extent "
 	       "conditional-elements "

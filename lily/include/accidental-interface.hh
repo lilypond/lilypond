@@ -19,14 +19,14 @@ class Accidental_interface
 {
 public:
   DECLARE_SCHEME_CALLBACK (print, (SCM));
-  DECLARE_SCHEME_CALLBACK (calc_stencils, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));
+  DECLARE_SCHEME_CALLBACK (width, (SCM));
   DECLARE_SCHEME_CALLBACK (pure_height, (SCM, SCM, SCM));
   
   DECLARE_GROB_INTERFACE();
   static string get_fontcharname (string style, int alteration);
-  static vector<Box> accurate_boxes (Grob *me,
-							  Grob **common);
+  static vector<Box> accurate_boxes (Grob *me, Grob **common);
+  static SCM get_stencil (Grob *me);
 };
 
 #endif

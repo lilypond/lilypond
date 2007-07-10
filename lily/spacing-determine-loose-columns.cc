@@ -14,6 +14,7 @@
 #include "paper-column.hh"
 #include "column-x-positions.hh"
 #include "pointer-group-interface.hh"
+#include "spacing-interface.hh"
 #include "spacing-spanner.hh"
 #include "note-spacing.hh"
 #include "moment.hh"
@@ -86,7 +87,7 @@ is_loose_column (Grob *l, Grob *col, Grob *r, Spacing_options const *options)
     return false;
 
   l_neighbor = l_neighbor->get_column ();
-  r_neighbor = dynamic_cast<Item *> (Note_spacing::right_column (r_neighbor));
+  r_neighbor = dynamic_cast<Item *> (Spacing_interface::right_column (r_neighbor));
 
   if (l == l_neighbor && r == r_neighbor)
     return false;
@@ -143,8 +144,8 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
       for (vsize k = wishes.size (); k--;)
 	{
 	  Grob *sp = wishes[k];
-	  if (Note_spacing::left_column (sp) != lc
-	      || Note_spacing::right_column (sp) != rc)
+	  if (Spacing_interface::left_column (sp) != lc
+	      || Spacing_interface::right_column (sp) != rc)
 	    continue;
 
 	  if (Note_spacing::has_interface (sp))
@@ -153,26 +154,16 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 		The note spacing should be taken from the musical
 		columns.
 	      */
-	      Real space = 0.0;
-	      Real fixed = 0.0;
-	      bool dummy = false;
-		  
-	      Real base = note_spacing (me, lc, rc, options, &dummy);
-	      Note_spacing::get_spacing (sp, rc, base, options->increment_,
-					 &space, &fixed);
+	      Real base = note_spacing (me, lc, rc, options);
+	      Spring spring = Note_spacing::get_spacing (sp, rc, base, options->increment_);
 
-	      space -= options->increment_;
-
-	      dists[d] = max (dists[d], space);
+	      dists[d] = max (dists[d], spring.distance () - options->increment_);
 	    }
 	  else if (Staff_spacing::has_interface (sp))
 	    {
-	      Real space = 0;
-	      Real fixed_space = 0;
-	      Staff_spacing::get_spacing_params (sp,
-						 &space, &fixed_space);
+	      Spring spring = Staff_spacing::get_spacing (sp, rc);
 
-	      dists[d] = max (dists[d], fixed_space);
+	      dists[d] = max (dists[d], spring.min_distance ());
 	    }
 	  else
 	    programming_error ("Subversive spacing wish");
@@ -279,7 +270,7 @@ Spacing_spanner::set_explicit_neighbor_columns (vector<Grob*> const &cols)
 	  Item *wish = dynamic_cast<Item *> (wishes[k]);
 
 	  Item *lc = wish->get_column ();
-	  Grob *right = Note_spacing::right_column (wish);
+	  Grob *right = Spacing_interface::right_column (wish);
 
 	  if (!right)
 	    continue;

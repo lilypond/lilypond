@@ -26,7 +26,6 @@ public:
 
   void acknowledge_stem (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
-  void acknowledge_note_column (Grob_info);
 protected:
   void process_music ();
   void stop_translation_timestep ();
@@ -74,13 +73,6 @@ Arpeggio_engraver::acknowledge_rhythmic_head (Grob_info info)
 }
 
 void
-Arpeggio_engraver::acknowledge_note_column (Grob_info info)
-{
-  if (arpeggio_)
-    info.grob ()->set_object ("arpeggio", arpeggio_->self_scm ());
-}
-
-void
 Arpeggio_engraver::process_music ()
 {
   if (arpeggio_event_)
@@ -98,7 +90,6 @@ Arpeggio_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
 ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
-ADD_ACKNOWLEDGER (Arpeggio_engraver, note_column);
 
 ADD_TRANSLATOR (Arpeggio_engraver,
 		/* doc */ "Generate an Arpeggio symbol",

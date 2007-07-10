@@ -3,7 +3,7 @@
 \header {
 
   texidoc = "The fill-line markup command should align texts in
-  columns. For examlpe, the characters in the center should form one
+  columns. For example, the characters in the center should form one
   column."
 
 }

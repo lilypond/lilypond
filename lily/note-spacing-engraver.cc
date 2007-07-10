@@ -104,13 +104,13 @@ Note_spacing_engraver::stop_translation_timestep ()
 {
   if (last_spacing_
       && last_spacing_parent_context_
-      && last_spacing_parent_context_ == context ()->get_parent_context ())
+      && last_spacing_parent_context_ == context ()->get_parent_context ()
+      && to_boolean (get_property ("hasStaffSpacing")))
     {
-      Grob *sep = unsmob_grob (get_property ("breakableSeparationItem"));
-      if (sep)
-	Pointer_group_interface::add_grob (last_spacing_,
-					   ly_symbol2scm ("right-items"),
-					   sep);
+      Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
+      Pointer_group_interface::add_grob (last_spacing_,
+					 ly_symbol2scm ("right-items"),
+					 col);
     }
   
   if (spacing_)

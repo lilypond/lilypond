@@ -79,6 +79,8 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 
 	  Translator_group *tg = origin->implementation ();
 	  Engraver *random_source = dynamic_cast<Engraver *> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
+	  if (!random_source)
+	    random_source = this;
 
 	  /*
 	    Make left edge appear to come from same context as clef/bar-line etc.

@@ -9,6 +9,9 @@ two chords have no common head-positions range."
 \layout { ragged-right = ##t}
 
 \relative c'' {
+  \override Score.PaperColumn #'layer = #1
+  \override Score.PaperColumn #'stencil = #ly:paper-column::print
+
   \stemDown
   \time 12/4
   f8[

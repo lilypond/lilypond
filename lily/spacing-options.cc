@@ -56,8 +56,7 @@ Spacing_options::Spacing_options ()
   Get the measure wide ant for arithmetic spacing.
 */
 Real
-Spacing_options::get_duration_space (Rational d,
-				     bool *expand_only) const
+Spacing_options::get_duration_space (Rational d) const
 {
   Real k = shortest_duration_space_;
 
@@ -92,7 +91,6 @@ Spacing_options::get_duration_space (Rational d,
       */
       Real log = log_2 (global_shortest_);
       k -= log;
-      *expand_only = false;
 
       return (log_2 (d) + k) * increment_;
     }

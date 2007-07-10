@@ -15,9 +15,9 @@
   \override Score.NonMusicalPaperColumn #'stencil = #ly:paper-column::print
   \override Score.NonMusicalPaperColumn #'layer = #2
   
-  \time 1/4
+  \time 2/4
   \stemUp
-  s4
-  c4 
-  cis4 
+  s2
+  c4 r4
+  cis4 r4 
 }

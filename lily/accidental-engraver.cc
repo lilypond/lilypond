@@ -17,6 +17,7 @@
 #include "pitch.hh"
 #include "protected-scm.hh"
 #include "rhythmic-head.hh"
+#include "separation-item.hh"
 #include "side-position-interface.hh"
 #include "stream-event.hh"
 #include "tie.hh"
@@ -64,6 +65,7 @@ protected:
   void acknowledge_arpeggio (Grob_info);
   void acknowledge_rhythmic_head (Grob_info);
   void acknowledge_finger (Grob_info);
+  void acknowledge_note_column (Grob_info);
 
   void stop_translation_timestep ();
   void process_acknowledged ();
@@ -81,6 +83,7 @@ public:
 
   vector<Accidental_entry> accidentals_;
   vector<Spanner*> ties_;
+  vector<Grob*> note_columns_;
 };
 
 /*
@@ -521,6 +524,10 @@ Accidental_engraver::stop_translation_timestep ()
 	}
     }
 
+  if (accidental_placement_)
+    for (vsize i = 0; i < note_columns_.size (); i++)
+      Separation_item::add_conditional_item (note_columns_[i], accidental_placement_);
+
   accidental_placement_ = 0;
   accidentals_.clear ();
   left_objects_.clear ();
@@ -559,6 +566,12 @@ Accidental_engraver::acknowledge_tie (Grob_info info)
 }
 
 void
+Accidental_engraver::acknowledge_note_column (Grob_info info)
+{
+  note_columns_.push_back (info.grob ());
+}
+
+void
 Accidental_engraver::acknowledge_arpeggio (Grob_info info)
 {
   left_objects_.push_back (info.grob ());
@@ -582,6 +595,7 @@ ADD_ACKNOWLEDGER (Accidental_engraver, arpeggio);
 ADD_ACKNOWLEDGER (Accidental_engraver, finger);
 ADD_ACKNOWLEDGER (Accidental_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Accidental_engraver, tie);
+ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
 
 ADD_TRANSLATOR (Accidental_engraver,
 		

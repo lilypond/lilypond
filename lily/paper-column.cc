@@ -22,6 +22,7 @@
 #include "system.hh"
 #include "spring.hh"
 #include "lookup.hh"
+#include "separation-item.hh"
 #include "string-convert.hh"
 
 Grob *
@@ -136,6 +137,24 @@ Paper_column::is_breakable (Grob *me)
   return scm_is_symbol (me->get_property ("line-break-permission"));
 }
 
+Real
+Paper_column::minimum_distance (Grob *left, Grob *right)
+{
+  Drul_array<Grob*> cols (left, right);
+  Drul_array<Skyline> skys = Drul_array<Skyline> (Skyline (RIGHT), Skyline (LEFT));
+
+  Direction d = LEFT;
+  do
+    {
+      Skyline_pair *sp = Skyline_pair::unsmob (cols[d]->get_property ("horizontal-skylines"));
+      if (sp)
+	skys[d] = (*sp)[-d];
+    }
+  while (flip (&d) != LEFT);
+
+  return max (0.0, skys[LEFT].distance (skys[RIGHT]));
+}
+
 /*
   Print a vertical line and  the rank number, to aid debugging.
 */
@@ -175,8 +194,9 @@ Paper_column::print (SCM p)
   for (SCM s = me->get_object ("ideal-distances");
        scm_is_pair (s); s = scm_cdr (s))
     {
-      Spring_smob *sp = unsmob_spring (scm_car (s));
-      if (!sp->other_->get_system ())
+      Spring *sp = unsmob_spring (scm_caar (s));
+      if (!unsmob_grob (scm_cdar (s))
+	  || !unsmob_grob (scm_cdar (s))->get_system ())
 	continue;
       
       j++;
@@ -184,7 +204,7 @@ Paper_column::print (SCM p)
       vector<Offset> pts;
       pts.push_back (Offset (0, y));
 
-      Offset p2 (sp->distance_, y);
+      Offset p2 (sp->distance (), y);
       pts.push_back (p2);
       
       Stencil id_stencil = Lookup::points_to_line_stencil (0.1, pts);
@@ -192,9 +212,9 @@ Paper_column::print (SCM p)
 
       SCM distance_stc = Text_interface::interpret_markup (me->layout ()->self_scm (),
 							   small_letters,
-							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance_)));
+							   ly_string2scm (String_convert::form_string ("%5.2lf", sp->distance ())));
       
-      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance_/3, y+1)));
+      id_stencil.add_stencil (unsmob_stencil (distance_stc)->translated (Offset (sp->distance ()/3, y+1)));
       id_stencil.add_stencil (head.translated (p2));
       id_stencil = id_stencil.in_color (0,0,1);
       l.add_stencil (id_stencil);

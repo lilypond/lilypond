@@ -316,18 +316,9 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
 	{
 	  Item *it = dynamic_cast<Spanner*> (ties[i])->get_bound (d);
 	  if (it->break_status_dir ())
-	    {
-	      Item *sep
-		= dynamic_cast<Item*> (unsmob_grob (ties[i]->get_object ("separation-item")));
-	      if (sep && sep->get_column () == it->get_column ())
-		it = sep;
+	      it = it->get_column ();
 
-	      bounds.push_back (it);
-	    }
-	  else 
-	    {
-	      bounds.push_back (it);
-	    }
+	  bounds.push_back (it);
 	}
       
       set_chord_outline (bounds, d);

@@ -537,7 +537,8 @@ Skyline::to_points (Axis horizon_axis) const
 bool
 Skyline::is_empty () const
 {
-  return buildings_.empty ();
+  Building b = buildings_.front ();
+  return b.end_ == infinity_f && b.y_intercept_ == -infinity_f;
 }
 
 Skyline_pair::Skyline_pair ()

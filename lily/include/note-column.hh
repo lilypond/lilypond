@@ -30,7 +30,6 @@ public:
   static Grob *first_head (Grob *me);
   static Grob *get_rest (Grob *me);
   static void set_stem (Grob *me, Grob *);
-  static void set_dotcol (Grob *me, Grob *);
   static void add_head (Grob *me, Grob *);
   static bool has_rests (Grob *me);
   static Grob *dot_column (Grob *me);

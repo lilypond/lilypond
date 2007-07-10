@@ -8,8 +8,10 @@
 
 #include "engraver.hh"
 
+#include "axis-group-interface.hh"
 #include "bar-line.hh"
 #include "context.hh"
+#include "grob-array.hh"
 #include "international.hh"
 #include "note-column.hh"
 #include "item.hh"
@@ -31,82 +33,37 @@ public:
   TRANSLATOR_DECLARATIONS (Volta_engraver);
 protected:
 
-  DECLARE_END_ACKNOWLEDGER (staff_symbol);
-  DECLARE_ACKNOWLEDGER (staff_symbol);
   DECLARE_ACKNOWLEDGER (bar_line);
 
-  virtual void finalize ();
   virtual void derived_mark () const;
   void stop_translation_timestep ();
   void process_music ();
 
   Moment started_mom_;
-  Spanner *volta_span_;
-  Spanner *end_volta_span_;
-  SCM staff_;
+  Spanner *volta_bracket_;
+  Spanner *end_volta_bracket_;
+  Spanner *volta_spanner_;
   SCM start_string_;
-
-  bool staff_eligible ();
 };
 
 void
 Volta_engraver::derived_mark () const
 {
-  scm_gc_mark (staff_);
   scm_gc_mark (start_string_);
 }
 
 Volta_engraver::Volta_engraver ()
 {
-  staff_ = SCM_EOL;
   start_string_ = SCM_EOL;
-  volta_span_ = 0;
-  end_volta_span_ = 0;
-}
-
-/*
-  TODO: this logic should be rewritten, it is buggy.
-
-  One of the problems is that we can't determine wether or not to
-  print the volta bracket during the first step, since that requires
-  acknowledging the staff.
-*/
-bool
-Volta_engraver::staff_eligible ()
-{
-  SCM doit = get_property ("voltaOnThisStaff");
-  if (scm_is_bool (doit))
-    return to_boolean (doit);
-
-  if (!unsmob_grob (staff_))
-    return false;
-
-  /*
-    TODO: this does weird things when you open a piece with a
-    volta spanner.
-  */
-  SCM staffs = get_property ("stavesFound");
-
-  /* Only put a volta on the top staff.
-     Maybe this is a bit convoluted, and we should have a single
-     volta engraver in score context or somesuch. */
-  if (!scm_is_pair (staffs))
-    {
-      programming_error ("volta engraver can't find staves");
-      return false;
-    }
-  else if (scm_car (scm_last_pair (staffs)) != staff_)
-    return false;
-  return true;
+  volta_bracket_ = 0;
+  end_volta_bracket_ = 0;
+  volta_spanner_ = 0;
 }
 
 void
 Volta_engraver::process_music ()
 {
   SCM cs = get_property ("repeatCommands");
-
-  if (!staff_eligible ())
-    return;
 
   bool end = false;
   start_string_ = SCM_EOL;
@@ -127,7 +84,7 @@ Volta_engraver::process_music ()
       cs = scm_cdr (cs);
     }
 
-  if (volta_span_)
+  if (volta_bracket_)
     {
       SCM l (get_property ("voltaSpannerDuration"));
       Moment now = now_mom ();
@@ -138,118 +95,93 @@ Volta_engraver::process_music ()
       end = end || early_stop;
     }
 
-  if (end && !volta_span_)
+  if (end && !volta_bracket_)
     /* fixme: be more verbose.  */
     warning (_ ("cannot end volta spanner"));
   else if (end)
     {
-      end_volta_span_ = volta_span_;
-      volta_span_ = 0;
+      end_volta_bracket_ = volta_bracket_;
+      volta_bracket_ = 0;
     }
 
-  if (volta_span_
+  if (volta_bracket_
       && (scm_is_string (start_string_) || scm_is_pair (start_string_)))
     {
       warning (_ ("already have a volta spanner, ending that one prematurely"));
 
-      if (end_volta_span_)
+      if (end_volta_bracket_)
 	{
 	  warning (_ ("also already have an ended spanner"));
 	  warning (_ ("giving up"));
 	  return;
 	}
 
-      end_volta_span_ = volta_span_;
-      volta_span_ = 0;
+      end_volta_bracket_ = volta_bracket_;
+      volta_bracket_ = 0;
     }
 
-  if (!volta_span_
+  if (!volta_bracket_
       && Text_interface::is_markup (start_string_))
     {
       started_mom_ = now_mom ();
 
-      volta_span_ = make_spanner ("VoltaBracket", SCM_EOL);
+      volta_bracket_ = make_spanner ("VoltaBracket", SCM_EOL);
 
-      volta_span_->set_property ("text", start_string_);
+      volta_bracket_->set_property ("text", start_string_);
+
+      if (!volta_spanner_)
+	volta_spanner_ = make_spanner ("VoltaBracketSpanner", SCM_EOL);
+
+      Axis_group_interface::add_element (volta_spanner_, volta_bracket_);
     }
 }
 
 void
 Volta_engraver::acknowledge_bar_line (Grob_info i)
 {
-  if (volta_span_)
-    Volta_bracket_interface::add_bar (volta_span_, i.item ());
-  if (end_volta_span_)
-    Volta_bracket_interface::add_bar (end_volta_span_, i.item ());
-}
+  if (volta_bracket_)
+    Volta_bracket_interface::add_bar (volta_bracket_, i.item ());
+  if (end_volta_bracket_)
+    Volta_bracket_interface::add_bar (end_volta_bracket_, i.item ());
 
-void
-Volta_engraver::acknowledge_end_staff_symbol (Grob_info i)
-{
-  if (i.grob ()->self_scm () == staff_)
-    staff_ = SCM_EOL;
-}
-
-void
-Volta_engraver::acknowledge_staff_symbol (Grob_info i)
-{
-  /*
-    We only want to know about a single staff: then we add to the
-    support.  */
-  if (staff_ != SCM_EOL)
-    staff_ = SCM_UNDEFINED;
-
-  if (staff_ != SCM_UNDEFINED)
-    staff_ = i.grob ()->self_scm ();
-}
-
-
-void
-Volta_engraver::finalize ()
-{
+  if (volta_spanner_)
+    Side_position_interface::add_support (volta_spanner_, i.grob ());
 }
 
 void
 Volta_engraver::stop_translation_timestep ()
 {
-  if (volta_span_ && !staff_eligible ())
+  Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
+  Item *ci = dynamic_cast<Item *> (cc);
+
+  if (end_volta_bracket_ && !end_volta_bracket_->get_bound (RIGHT))
+    end_volta_bracket_->set_bound (RIGHT, ci);
+
+  if (volta_spanner_ && end_volta_bracket_)
+    volta_spanner_->set_bound (RIGHT, end_volta_bracket_->get_bound (RIGHT));
+
+  if (end_volta_bracket_ && !volta_bracket_)
     {
-      /*
-	THIS IS A KLUDGE.
-
-	we need to do this here, because STAFF_ is not initialized yet
-	in the 1st call of process_music ()
-      */
-
-      volta_span_->suicide ();
-      volta_span_ = 0;
+      for (SCM s = get_property ("stavesFound"); scm_is_pair (s); s = scm_cdr (s))
+	Side_position_interface::add_support (volta_spanner_, unsmob_grob (scm_car (s)));
+      volta_spanner_ = 0;
     }
 
-  if (end_volta_span_ && !end_volta_span_->get_bound (RIGHT))
-    {
-      Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
-      Item *ci = dynamic_cast<Item *> (cc);
-      end_volta_span_->set_bound (RIGHT, ci);
-    }
+  end_volta_bracket_ = 0;
 
-  end_volta_span_ = 0;
+  if (volta_bracket_ && !volta_bracket_->get_bound (LEFT))
+    volta_bracket_->set_bound (LEFT, ci);
 
-  if (volta_span_ && !volta_span_->get_bound (LEFT))
-    {
-      Grob *cc = unsmob_grob (get_property ("currentCommandColumn"));
-      Item *ci = dynamic_cast<Item *> (cc);
-      volta_span_->set_bound (LEFT, ci);
-    }
+  if (volta_spanner_ && volta_bracket_ && !volta_spanner_->get_bound (LEFT))
+    volta_spanner_->set_bound (LEFT, volta_bracket_->get_bound (LEFT));
 }
 
 /*
   TODO: should attach volta to paper-column if no bar is found.
 */
-ADD_ACKNOWLEDGER (Volta_engraver, staff_symbol);
-ADD_END_ACKNOWLEDGER (Volta_engraver, staff_symbol);
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
 		/* doc */ "Make volta brackets.",
-		/* create */ "VoltaBracket",
+		/* create */ "VoltaBracket VoltaBracketSpanner",
 		/* read */ "repeatCommands voltaSpannerDuration stavesFound",
 		/* write */ "");

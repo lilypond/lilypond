@@ -434,8 +434,7 @@ Note_collision_interface::get_clash_groups (Grob *me)
 */
 SCM
 Note_collision_interface::automatic_shift (Grob *me,
-					   Drul_array < vector<Grob*>
-					   > clash_groups)
+					   Drul_array<vector<Grob*> > clash_groups)
 {
   Drul_array < vector<int> > shifts;
   SCM tups = SCM_EOL;

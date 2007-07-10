@@ -194,7 +194,7 @@ Slur_engraver::process_music ()
 void
 Slur_engraver::stop_translation_timestep ()
 {
-  if (Grob *g = unsmob_grob (get_property ("breakableSeparationItem")))
+  if (Grob *g = unsmob_grob (get_property ("currentCommandColumn")))
     {
       for (vsize i = 0; i < end_slurs_.size (); i++)
 	Slur::add_extra_encompass (end_slurs_[i], g);
