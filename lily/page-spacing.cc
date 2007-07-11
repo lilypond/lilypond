@@ -13,21 +13,14 @@
 #include "page-breaking.hh"
 #include "warn.hh"
 
-/* In order to prevent possible division by zero, we require every line
-   to have a spring of non-zero length. */
-Real
-line_space (const Line_details &line)
-{
-  return max (0.1, line.space_);
-}
-
 void
 Page_spacing::calc_force ()
 {
-  if (rod_height_ + last_line_.bottom_padding_ >= page_height_ || !inverse_spring_k_)
+  if (rod_height_ + last_line_.bottom_padding_ >= page_height_)
     force_ = infinity_f;
   else
-    force_ = (page_height_ - rod_height_ - last_line_.bottom_padding_ - spring_len_) / inverse_spring_k_;
+    force_ = (page_height_ - rod_height_ - last_line_.bottom_padding_ - spring_len_)
+      / max (0.1, inverse_spring_k_);
 }
 
 void
@@ -36,8 +29,8 @@ Page_spacing::append_system (const Line_details &line)
   rod_height_ += last_line_.padding_;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += line_space (line);
-  inverse_spring_k_ += max (0.1, line.inverse_hooke_);
+  spring_len_ += line.space_;
+  inverse_spring_k_ += line.inverse_hooke_;
 
   last_line_ = line;
 
@@ -53,8 +46,8 @@ Page_spacing::prepend_system (const Line_details &line)
     last_line_ = line;
 
   rod_height_ += line.extent_.length ();
-  spring_len_ += line_space (line);
-  inverse_spring_k_ += max (0.1, line.inverse_hooke_);
+  spring_len_ += line.space_;
+  inverse_spring_k_ += line.inverse_hooke_;
 
   calc_force ();
 }

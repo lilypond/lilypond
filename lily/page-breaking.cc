@@ -619,7 +619,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
       Real ext_len = cached_line_details_[i].extent_.length ();
       Real next_rod_height = cur_rod_height + ext_len
 	+ ((cur_rod_height > 0) ? cached_line_details_[i].padding_: 0);
-      Real next_spring_height = cur_spring_height + line_space (cached_line_details_[i]);
+      Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0);
 
 
@@ -628,7 +628,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
 	      && cached_line_details_[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
 	  cur_rod_height = ext_len;
-	  cur_spring_height = line_space (cached_line_details_[i]);
+	  cur_spring_height = cached_line_details_[i].space_;
 	  cur_page_height = page_height (first_page_num + ret, false);
 	  ret++;
 	}

@@ -77,5 +77,4 @@ struct Page_spacing
   void clear ();
 };
 
-Real line_space (Line_details const &line);
 #endif /* PAGE_SPACING_HH */
