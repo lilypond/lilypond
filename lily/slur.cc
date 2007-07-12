@@ -179,7 +179,10 @@ Slur::replace_breakable_encompass_objects (Grob *me)
 	{
 	  extract_grob_set (g, "elements", breakables);
 	  for (vsize j = 0; j < breakables.size (); j++)
-	    if (breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+	    /* if we encompass a separation-item that spans multiple staves,
+	       we filter out the grobs that don't belong to our staff */
+	    if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
+		&& breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
 	      new_encompasses.push_back (breakables[j]);
 	}
       else
