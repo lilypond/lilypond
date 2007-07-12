@@ -361,14 +361,14 @@ SCM
 Slur::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  assert (staff); // delete me
-  extract_grob_set (me, "note-columns", cols);
 
-  for (vsize i = 0; i < cols.size (); i++)
-    if (Staff_symbol_referencer::get_staff_symbol (cols[i]) != staff)
-      return SCM_BOOL_T;
-  return SCM_BOOL_F;
+  extract_grob_set (me, "note-columns", cols);
+  extract_grob_set (me, "encompass-objects", extras);
+
+  Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);
+  common = common_refpoint_of_array (extras, common, Y_AXIS);
+
+  return scm_from_bool (common != me->get_parent (Y_AXIS));
 }
 
 ADD_INTERFACE (Slur,
