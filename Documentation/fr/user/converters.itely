@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ef2a56348261c657e63bfea9341bfe8e2a22f486
+    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
 
 
     When revising a translation, copy the HEAD committish of the
@@ -16,10 +16,10 @@ La musique peut aussi être récupérée par importation d'un autre
 format.  Ce chapitre passe en revue les différents outils prévus à cet
 effet et inclus dans la distribution.  Il existe d'autres outils qui
 permettent de générer du code LilyPond, comme par exemple des
-seéquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
+séquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
 de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 
-Il s'agit de programmes distinct de lilypond qui se lancent en ligne
+Il s'agit de programmes distincts de lilypond qui se lancent en ligne
 de commande.  Par @qq{ligne de commande}, nous parlons de la ligne de
 commande du système.  Les utilisateurs de Windows parlent de
 @qq{commande MSDos} ou @qq{invite de commande}, les utilisateurs
@@ -58,7 +58,7 @@ convertisseur capable d'importer directement un fichier.
 @command{midi2ly} convertit les pistes en contextes de portée
 (@internalsref{Staff}) et les canaux en contextes de voix
 (@internalsref{Voice}).  Les hauteurs sont rendues en mode relatif, et
-les durées spécifiées lorsque nécessaires.
+les durées spécifiées lorsque nécessaire.
 
 Vous pouvez enregistrer un fichier MIDI grace à un clavier
 électronique et ensuite le convertir en fichier @file{.ly}.  Néanmoins

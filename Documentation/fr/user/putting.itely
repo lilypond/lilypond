@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b40f25ec7472b855483b5eb9126747bfb9487fe1
+    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,8 @@
 @chapter Putting it all together
 
 Ce chapitre traite des principes généraux de LilyPond, et de
-la manière de créer des blocs @code{\score} @footnote{Le terme @q{score} signifie partition en anglais.}.
+la manière de créer des blocs @code{\score} @footnote{Le terme
+@q{score} signifie partition en anglais.}.
 
 
 @menu
@@ -85,18 +86,19 @@ melodie = \relative c' @{
 On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a besoin,
 c'est la section @code{melodie}. De même, on n'a pas besoin de deux sections
 @code{\score} --- si nous les gardions toutes les deux, on obtiendrait deux
-parties séparées ; mais nous voulons un vrai duo, avec les deux parties ensemble.
-Dans la section @code{\score}, on n'a pas besoin non plus de deux @code{\layout}
-ou de deux @code{\midi}.
+parties séparées ; mais nous voulons un vrai duo, avec les deux
+parties ensemble.  Dans la section @code{\score}, on n'a pas besoin
+non plus de deux @code{\layout} ou de deux @code{\midi}.
 
 Si on se contente de couper et coller les sections @code{melodie}, on se
 retrouvera avec deux sections de ce nom ; il nous faut donc les renommer.
 Appelons la section pour la soprano @code{musiqueSoprano} et celle pour le
-violoncelle @code{musiqueVioloncelle}.  Tant qu'on y est, renommons @code{texte}
-en @code{parolesSoprano}.  Attention à bien renommer les deux occurrences de
-chacune de ces dénominations : c'est-à-dire la définition de départ, où l'on
-trouve @code{mélodie = relative c' @{ }, et l'endroit où cette dénomination est
-utilisée, dans la section @code{\score}.
+violoncelle @code{musiqueVioloncelle}.  Tant qu'on y est, renommons 
+@code{texte} en @code{parolesSoprano}.  Attention à bien renommer les
+deux occurrences de chacune de ces dénominations : c'est-à-dire la
+définition de départ, où l'on trouve @code{mélodie = relative c' @{ },
+et l'endroit où cette dénomination est utilisée, dans la section 
+@code{\score}.
 
 Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
 le veut l'usage, et donnons-lui d'autres notes.
@@ -322,7 +324,7 @@ variable @code{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
 et l'insérer partout où il tombera sur @code{\melodie}.  Vous êtes
 libre de choisir comment dénommer vos variables@footnote{Les noms de
 variables sont sensibles à la casse, et ne peuvent contenir ni
-chiffres, ni tirets, ni caractères accentués.} ; ce peut être
+chiffre, ni tiret, ni caractère accentué.} ; ce peut être
 @code{melodie}, @code{global}, @code{maindroitepiano}, ou
 @code{laTeteAToto}.  Pour plus de détails, voir @ref{Saving typing
 with identifiers and functions}.
@@ -515,7 +517,7 @@ On établira alors une partie séparée en constituant un nouveau fichier :
 sera substitué le contenu du fichier @file{musique-Cor.ly}, et de ce
 fait la variable @code{notesCor} se trouvera définie.  La commande
 @code{\transpose f@tie{}c'} indique que son argument @code{\notesCor}
-soit transposé à la quinte supérieure : le son réel @samp{f} s'écrit
+sera transposé à la quinte supérieure : le son réel @samp{f} s'écrit
 @code{c'}, ce qui est la caractéristique d'un Cor en Fa. La transposition
 est visible comme suit :
 

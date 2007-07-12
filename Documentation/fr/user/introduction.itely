@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 8bf657e5c944bd8da26af01d6a021b48e74ff10a
+    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -205,10 +205,10 @@ regarde ailleurs un instant ou se déconcentre momentanement, il peut
 avoir du mal à se retrouver sur la page.
 
 De même, l'aspect robuste des symboles sur d'épaisses lignes de
-portées ressort mieux quand la partition est éloignée du lecteur,
+portée ressort mieux quand la partition est éloignée du lecteur,
 comme sur un pupitre par exemple.  Une organisation minutieuse des
 espaces vides permet de minimiser l'espace qu'occupe la musique, tout
-en évitant que les symboles s'amassent les uns contre les autres.  le
+en évitant que les symboles s'amassent les uns contre les autres.  Le
 résultat permet de réduire le nombre de pages à tourner, ce qui est un
 grand avantage.
 
@@ -387,7 +387,7 @@ musique.
 
 Le processus de formatage décide où placer les symboles.  Cependant,
 cela ne peut être fait qu'à partir du moment où il a été décidé
-@emph{quels} symbols doivent être imprimés, c'est-à-dire quelle
+@emph{quels} symboles doivent être imprimés, c'est-à-dire quelle
 notation utiliser.
 
 La notation musicale usuelle est un système d'écriture qui a évolué à
@@ -407,7 +407,7 @@ programmables : chaque type de symbole est géré par un module séparé,
 couramment appelé greffon@footnote{traduction de l'anglais
 @emph{plug-in}.}.  Chaque greffon est entièrement modulaire et
 indépendant, et donc peut être développé et amélioré séparément.  De
-tels greffons sont nommées @code{graveur}s@footnote{@code{engraver}s
+tels greffons sont nommés @code{graveur}s@footnote{@code{engraver}s
 en anglais.}, par analogie avec les artisans qui traduisent les idées
 musicales en symboles graphiques.
 
@@ -614,7 +614,7 @@ c'4 d'8
 Sur une échelle microscopique, une telle syntaxe est facile à
 utiliser.  A plus grande échelle, la syntaxe a besoin aussi de
 structure.  Comment serait-il possible autrement de rentrer des
-pièces complexes comme des symphonies ou des opéras? La structure
+pièces complexes comme des symphonies ou des opéras ? La structure
 est formée par le concept d'expression musicale : en combinant
 de petits fragments de musique pour en former de plus grands, on peut
 exprimer de la musique plus complexe.  Par exemple
@@ -639,8 +639,8 @@ des notes.
 @end lilypond
 
 @noindent
-Cette expression est mise dans une séquence en l'encadrant avec des
-accolades @code{@{@tie{}@dots{}@tie{}@}}
+Cette expression est mise dans une séquence grace à l'encadrement par
+des accolades @code{@{@tie{}@dots{}@tie{}@}}
 
 @example
 @{ f4 <<c4 d4 e4>> @}
@@ -667,23 +667,23 @@ De telles strucutres récursives peuvent être spécifiées formellement
 et de manière ordonnée dans une grammaire indépendante de tout
 contexte.  Le code d'analyse est aussi générée à partir de cette
 grammaire.  Autrement dit, la syntaxe de LilyPond est définie
-clairement et sans ambiguités.
+clairement et sans ambiguité.
 
 L'interface utilisateur et la syntaxe sont ce que les gens voient et
-manipulent le plus.  Elles sont e npartie une affaire de goût, et
+manipulent le plus.  Elles sont en partie une affaire de goût, et
 aussi sujettes à beaucoup de discussions.  Même si ces discussions sur
 les goûts ont leur mérite, elles ne sont pas très productives.  D'un
 point de vue plus large sur LilyPond, l'importance de la syntaxe est
 minime : il est facile d'inventer une syntaxe concise, alors qu'écrire
 un code de formatage décent est beaucoup plus difficile.  Ceci est
 également illustré par le nombre de lignes de codes pour les
-composants respectifs : l'analyse et la représentation représentent
+composants respectifs : l'analyse et la représentation constituent
 moins de 10% du code source.
 
 @node Example applications
 @section Example applications
 
-Nous avons conçu Lilypond comme une expérimentation visant à
+Nous avons conçu LilyPond comme une expérimentation visant à
 concentrer l'art de la gravure musicale dans un logiciel.  Grâce à
 tout ce dur labeur, le programme peut maintenant être utilisé pour
 accomplir des travaux utiles.  L'application la plus simple est
@@ -719,7 +719,7 @@ convertir des bases de données d'extraits musicaux en images pour des
 sites Internet et des présentations multimédias.
 
 Ce manuel montre également une application : le format d'entrée est du
-texte, et peut donc facilement être intégrés dans d'autres formats
+texte, et peut donc facilement être intégré dans d'autres formats
 basés sur le texte comme @LaTeX{}, HTML, ou dans le cas de ce manuel,
 Texinfo.  À l'aide d'un programme spécial, les extraits de code
 peuvent être remplacés par des images de musiques dans les fichiers de
@@ -750,7 +750,7 @@ Les utilisateurs débutants sont invités à commencer ici.
 
 @item
 @emph{@ref{Putting it all together}}
-explique des concepts généraux du format de ficheir ly. Si vous n'êtes
+explique des concepts généraux du format de fichier ly. Si vous n'êtes
 pas certain de l'endroit où placer une commande, lisez ce chapitre !
 
 @item
@@ -768,7 +768,7 @@ est une introduction aux retouches de gravure avec LilyPond.
 @subsubheading Manuel de référence
 
 Ce livre détaille toutes les commandes LilyPond produisant une notation
-musicale.  La lecture de ce livre requiert une bonne compréhension des
+musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
 concepts exposés dans le manuel d'apprentissage.
 
 @itemize @bullet
@@ -833,7 +833,7 @@ comme ce manuel.
 @item
 @emph{@ref{Converting from other formats}}
 explique comment exécuter les programmes de conversion.  Ces programmes
-sont livrés avec le paquetage Lilypond, et convertissent une variété
+sont livrés avec le paquetage LilyPond, et convertissent une variété
 de formats musicaux vers le format @code{.ly}.
 
 @end itemize
@@ -902,12 +902,12 @@ D'autres documents constituent de précieuses sources d'information.
 @cindex langage
 @iftex
 Le glossaire de musique explique les termes musicaux, et inclut
-les traductions vers divers languages.  C'est un document séparé,
+leur traduction dans diverses langues.  C'est un document séparé,
 disponible aux formats HTML et PDF.
 @end iftex
 @ifnottex
 Le @ref{Top,glossaire musical,,music-glossary} explique les termes
-musicaux et inclut les traductions vers divers languages.  Il est
+musicaux et inclut les traductions dans diverses langues.  Il est
 également disponible au format PDF. 
 @end ifnottex
 Si vous n'êtes pas familier avec la notation musicale ou la
@@ -950,7 +950,7 @@ variables qui contrôlent les épaisseurs, les distances etc., peuvent
 être modifiées dans les fichiers d'entrée.  Il y a un grand nombre
 d'options de formatage, et elles sont toutes décrites dans ce
 document.  Chaque section du manuel de notation a une section @b{Voir
-aussi} qui réfère à la documentation générée automatiquement.  Dans la
+aussi} qui renvoie à la documentation générée automatiquement.  Dans la
 documentation au format HTML, ces sous-sections ont des liens
 cliquables.
 
@@ -975,7 +975,7 @@ Dans tous les documents HTML qui incluent des fragments musicaux,
 le code Lilypond utilisé pour produire l'image peut être vu en
 cliquant l'image.
 
-L'emplacement des fichiers de documentation mentionné ici peut varier
+L'emplacement des fichiers de documentation mentionnés ici peut varier
 d'un système à l'autre.  De temps en temps, ce manuel fait référence aux
 fichiers d'exemple et d'initialisation.  Tout au long de ce manuel, nous
 donnons les emplacements des fichiers d'entrée relativement au
