@@ -83,6 +83,9 @@ Simple_spacer::rod_force (int l, int r, Real dist)
   Real d = range_ideal_len (l, r);
   Real c = range_stiffness (l, r, dist > d);
   Real block_stretch = dist - d;
+
+  if (isinf (c)) /* take care of the 0*infinity_f case */
+    return 0;
   return c * block_stretch;
 }
 
@@ -166,6 +169,9 @@ Simple_spacer::expand_line ()
   fits_ = true;
   for (vsize i=0; i < springs_.size (); i++)
     inv_hooke += springs_[i].inverse_stretch_strength ();
+
+  if (inv_hooke == 0.0) /* avoid division by zero. If springs are infinitely stiff */
+    return 0.0;         /* anyway, then it makes no difference what the force is */
 
   assert (cur_len <= line_len_);
   return (line_len_ - cur_len) / inv_hooke + force_;
