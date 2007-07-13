@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a9d6b9a317e20cff479f9e0e54320dfae40bde31
+    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -36,8 +36,8 @@ d'autres jours on ne peut tout simplement rien en tirer, on continue
 quand même à travailler, jour après jour.
 
 De même, développer LilyPond peut être une tâche harassante.  Certains
-jours, c'est un monceau de bugs duquel il faut se dépêtrer. Pourtant,
-il fait maintenant partie de notre vie, et nous nous accrochons.
+jours, c'est un monceau de bugs duquel il faut se dépêtrer.  Pourtant,
+il fait maintenant partie de notre vie, et nous nous accrochons. 
 Notre principale motivation est sans doute que notre logiciel est
 véritablement utile aux gens.  En flânant sur Internet, nous trouvons
 beaucoup de gens qui se servent de LilyPond, et réalisent des

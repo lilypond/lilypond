@@ -414,9 +414,10 @@ voir @ref{Clef}.
 @node Working on text files
 @subsection Working on text files
 
-Les fichiers d'entrée de LilyPond sont traités comme la plupart des
-langages de programmation : la casse est prise en compte mais pas les
-espaces vides, les expressions musicales sont délimitées par des
+Les fichiers d'entrée de LilyPond sont de la même veine que les
+sources dans la plupart des autres langages de programmation : la
+casse est prise en compte mais pas les
+espaces vides ; les expressions sont délimitées par des
 accolades @{ @}, et les commentaires par @code{%} ou @code{%@{ ... %@}}.
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas !
@@ -476,7 +477,7 @@ commentaires :
 tout ce qui suit ce symbole sur cette ligne sera ignoré.
 @item le bloc de commentaire, qui peut être de plusieurs lignes voire
 de toute une section : tout ce qui se trouve entre @code{%@{} et
-@code{%@}} est ignoré.
+@code{%@}} est ignoré.  Les blocs de commentaires ne peuvent s'imbriquer.
 @end itemize
 Le fragment suivant met en évidence quelques usages possibles des commentaires :
 
