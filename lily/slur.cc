@@ -368,8 +368,15 @@ Slur::calc_cross_staff (SCM smob)
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "encompass-objects", extras);
 
+  /* the separation items are dealt with in replace_breakable_encompass_objects
+     so we can ignore them here */
+  vector<Grob*> non_sep_extras;
+  for (vsize i = 0; i < extras.size (); i++)
+    if (!Separation_item::has_interface (extras[i]))
+      non_sep_extras.push_back (extras[i]);
+
   Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);
-  common = common_refpoint_of_array (extras, common, Y_AXIS);
+  common = common_refpoint_of_array (non_sep_extras, common, Y_AXIS);
 
   return scm_from_bool (common != me->get_parent (Y_AXIS));
 }
