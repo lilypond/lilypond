@@ -20,6 +20,7 @@ public:
 
   Duration ();
   Duration (int, int);
+  Duration (Rational, bool scale);
   string to_string () const;
 
   Duration compressed (Rational) const;

@@ -49,9 +49,7 @@ class Completion_heads_engraver : public Engraver
   vector<Item*> prev_notes_;
   vector<Grob*> ties_;
 
-  vector<Item*> dots_;
   vector<Stream_event*> note_events_;
-  vector<Stream_event*> scratch_note_events_;
 
   Moment note_end_mom_;
   bool is_first_;
@@ -59,7 +57,7 @@ class Completion_heads_engraver : public Engraver
   Rational do_nothing_until_;
 
   Moment next_barline_moment ();
-  Duration find_nearest_duration (Rational length);
+  Item *make_note_head (Stream_event*);
 
 public:
   TRANSLATOR_DECLARATIONS (Completion_heads_engraver);
@@ -100,46 +98,28 @@ Completion_heads_engraver::next_barline_moment ()
 {
   Moment *e = unsmob_moment (get_property ("measurePosition"));
   Moment *l = unsmob_moment (get_property ("measureLength"));
-  if (!e || !l)
+  if (!e || !l || !to_boolean (get_property ("timing")))
     {
-      programming_error ("no timing props set?");
-      return Moment (1, 1);
+      return Moment (0, 0);
     }
 
   return (*l - *e);
 }
 
-Duration
-Completion_heads_engraver::find_nearest_duration (Rational length)
+Item*
+Completion_heads_engraver::make_note_head (Stream_event *ev)
 {
-  int log_limit = 6;
+  Item *note = make_item ("NoteHead", ev->self_scm ());
+  Pitch *pit = unsmob_pitch (ev->get_property ("pitch"));
 
-  Duration d (0, 0);
+  int pos = pit->steps ();
+  SCM c0 = get_property ("middleCPosition");
+  if (scm_is_number (c0))
+    pos += scm_to_int (c0);
 
-  /*
-    this could surely be done more efficient. Left to the reader as an
-    excercise.  */
-  while (d.get_length () > length && d.duration_log () < log_limit)
-    {
-      if (d.dot_count ())
-	{
-	  d = Duration (d.duration_log (), d.dot_count ()- 1);
-	  continue;
-	}
-      else
-	d = Duration (d.duration_log () + 1, 2);
-    }
+  note->set_property ("staff-position", scm_from_int (pos));
 
-  if (d.duration_log () >= log_limit)
-    {
-      // junk the dots.
-      d = Duration (d.duration_log (), 0);
-
-      // scale up.
-      d = d.compressed (length / d.get_length ());
-    }
-
-  return d;
+  return note;
 }
 
 void
@@ -157,16 +137,16 @@ Completion_heads_engraver::process_music ()
   Duration note_dur;
   Duration *orig = 0;
   if (left_to_do_)
-    note_dur = find_nearest_duration (left_to_do_);
+    note_dur = Duration (left_to_do_, false);
   else
     {
       orig = unsmob_duration (note_events_[0]->get_property ("duration"));
       note_dur = *orig;
     }
   Moment nb = next_barline_moment ();
-  if (nb < note_dur.get_length ())
+  if (nb.main_part_ && nb < note_dur.get_length ())
     {
-      note_dur = find_nearest_duration (nb.main_part_);
+      note_dur = Duration (nb.main_part_, false);
 
       Moment next = now;
       next.main_part_ += note_dur.get_length ();
@@ -178,60 +158,23 @@ Completion_heads_engraver::process_music ()
   if (orig)
     left_to_do_ = orig->get_length ();
 
-  if (orig && note_dur.get_length () != orig->get_length ())
-    {
-      if (!scratch_note_events_.size ())
-	for (vsize i = 0; i < note_events_.size (); i++)
-	  {
-	    Stream_event *m = note_events_[i]->clone ();
-	    scratch_note_events_.push_back (m);
-	  }
-    }
-  else
-    {
-      for (vsize i = 0; i < note_events_.size (); i++)
-	{
-	  Stream_event *c =  note_events_[i]->clone ();
-	  scratch_note_events_.push_back (c);
-	}
-    }
-  
   for (vsize i = 0; left_to_do_ && i < note_events_.size (); i++)
     {
+      bool need_clone = !orig || *orig != note_dur;
       Stream_event *event = note_events_[i];
-      if (scratch_note_events_.size ())
-	{
-	  event = scratch_note_events_[i];
-	  SCM pits = note_events_[i]->get_property ("pitch");
-	  event->set_property ("pitch", pits);
-	}
 
+      if (need_clone)
+	event = event->clone ();
+
+      SCM pits = note_events_[i]->get_property ("pitch");
+
+      event->set_property ("pitch", pits);
       event->set_property ("duration", note_dur.smobbed_copy ());
+      event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
 
-      Item *note = make_item ("NoteHead", event->self_scm ());
-      note->set_property ("duration-log",
-			  scm_from_int (note_dur.duration_log ()));
-
-      int dots = note_dur.dot_count ();
-      if (dots)
-	{
-	  Item *d = make_item ("Dots", SCM_EOL);
-	  Rhythmic_head::set_dots (note, d);
-
-	  d->set_property ("dot-count", scm_from_int (dots));
-
-	  d->set_parent (note, Y_AXIS);
-	  dots_.push_back (d);
-	}
-
-      Pitch *pit = unsmob_pitch (event->get_property ("pitch"));
-
-      int pos = pit->steps ();
-      SCM c0 = get_property ("middleCPosition");
-      if (scm_is_number (c0))
-	pos += scm_to_int (c0);
-
-      note->set_property ("staff-position", scm_from_int (pos));
+      Item *note = make_note_head (event);
+      if (need_clone)
+	event->unprotect ();
       notes_.push_back (note);
     }
 
@@ -265,13 +208,6 @@ Completion_heads_engraver::stop_translation_timestep ()
   if (notes_.size ())
     prev_notes_ = notes_;
   notes_.clear ();
-
-  dots_.clear ();
-
-  for (vsize i = scratch_note_events_.size (); i--;)
-    scratch_note_events_[i]->unprotect ();
-
-  scratch_note_events_.clear ();
 }
 
 void
