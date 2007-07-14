@@ -4,6 +4,18 @@
 \header { texidoc = "
 The \fill-line command aligns and justifies markup text by setting as
 many columns as required, in a given space.
+
+In this snippet we use numbers to (beautifully) show how the command
+works; but when using text beware to use quotes if you want your words
+to stay together:
+
+\fill-line @{The quick brown fox@} results in something like:
+
+The              quick                      brown                   fox
+
+\fill-line @{\"The quick brown fox\"@} results in something like:
+
+                        The quick brown fox 
 " }
 
 \paper {
