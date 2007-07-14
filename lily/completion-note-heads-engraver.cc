@@ -148,11 +148,7 @@ Completion_heads_engraver::process_music ()
     {
       note_dur = Duration (nb.main_part_, false);
 
-      Moment next = now;
-      next.main_part_ += note_dur.get_length ();
-
-      get_global_context ()->add_moment_to_process (next);
-      do_nothing_until_ = next.main_part_;
+      do_nothing_until_ = now.main_part_ + note_dur.get_length ();
     }
 
   if (orig)
@@ -192,6 +188,8 @@ Completion_heads_engraver::process_music ()
 
   left_to_do_ -= note_dur.get_length ();
 
+  if (left_to_do_)
+    get_global_context ()->add_moment_to_process (now.main_part_ + left_to_do_);
   /*
     don't do complicated arithmetic with grace notes.
   */
