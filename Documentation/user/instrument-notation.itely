@@ -2437,7 +2437,7 @@ barring indications.
 \clef "G_8"
 b16 d16 g16 b16 e16
 \textSpannerDown
-\override TextSpanner #'bound-details #'left #'text = "XII "
+\override TextSpanner #'bound-details #'left #'text = #"XII "
   g16\startTextSpan
   b16 e16 g16 e16 b16 g16\stopTextSpan
 e16 b16 g16 d16
