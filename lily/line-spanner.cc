@@ -233,8 +233,7 @@ Line_spanner::print (SCM smob)
   do
     {
       Offset z (robust_scm2double (ly_assoc_get (ly_symbol2scm ("X"),
-						 bounds[d], SCM_BOOL_F), 0.0)
-		+ commonx->relative_coordinate (commonx, X_AXIS),
+						 bounds[d], SCM_BOOL_F), 0.0),
 		robust_scm2double (ly_assoc_get (ly_symbol2scm ("Y"),
 						 bounds[d], SCM_BOOL_F), 0.0));
       
@@ -276,6 +275,8 @@ Line_spanner::print (SCM smob)
   Stencil line;
   do
     {
+      span_points[d] += -d * gaps[d] *  dz.direction ();
+
       if (stencils[d])
 	{
 	 Stencil s = stencils[d]->translated (span_points[d]);
@@ -303,21 +304,23 @@ Line_spanner::print (SCM smob)
       if (stencils[d])
 	span_points[d] += dz_dir *
 	  (stencils[d]->extent (X_AXIS)[-d] / dz_dir[X_AXIS]);
-      
-      span_points[d] += -d * gaps[d] *  dz.direction ();
     }
   while (flip (&d) != LEFT);
 
   Offset adjust = dz.direction() * Staff_symbol_referencer::staff_space (me);
-  line.add_stencil (Line_interface::line (me, 
-					  span_points[LEFT]  + (arrows[LEFT]  ? adjust*1.4  : Offset(0,0)),
-					  span_points[RIGHT] - (arrows[RIGHT] ? adjust*0.55 : Offset(0,0))));
 
-  line.add_stencil (Line_interface::arrows (me,
-					    span_points[LEFT],
-					    span_points[RIGHT],
-					    arrows[LEFT],
-					    arrows[RIGHT]));
+  Offset line_left = span_points[LEFT] + (arrows[LEFT] ? adjust*1.4 : Offset (0, 0));
+  Offset line_right = span_points[RIGHT] - (arrows[RIGHT] ? adjust*0.55 : Offset (0, 0));
+  if (line_right[X_AXIS] > line_left[X_AXIS])
+    {
+      line.add_stencil (Line_interface::line (me, line_left, line_right));
+ 
+      line.add_stencil (Line_interface::arrows (me,
+						span_points[LEFT],
+						span_points[RIGHT],
+						arrows[LEFT],
+						arrows[RIGHT]));
+    }
 
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
 			  -me->relative_coordinate (my_common_y, Y_AXIS)));

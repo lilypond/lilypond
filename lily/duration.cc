@@ -34,6 +34,56 @@ Duration::Duration (int log, int d)
   factor_ = Rational (1, 1);
 }
 
+Duration::Duration (Rational r, bool scale)
+{
+  factor_ = Rational (1, 1);
+
+  if (r.num () == 0.0)
+    {
+      durlog_ = 0;
+      dots_ = 0;
+    }
+  else
+    {
+      /* we want to find the integer k for which 2q/p > 2^k >= q/p.
+	 It's simple to check that k' = \floor \log q - \floor \log p
+	 satisfies the left inequality and is within a factor of 2 of
+	 satistying the right one. Therefore either k = k' or k = k'+1 */
+
+      int p = r.num ();
+      int q = r.den ();
+      int k = intlog2 (q) - intlog2 (p);
+      if ((p << k) < q)
+	k++;
+
+      assert ((p << k) >= q && (p << (k-1)) < q);
+
+      /* If we were to write out log (p/q) in base 2, then the position of the
+	 first non-zero bit (ie. k in our notation) would be the durlog
+	 and the number of consecutive 1s after that bit would be the number of
+	 dots */
+      p = (p << k) - q;
+      dots_ = 0;
+      while ((p *= 2) >= q)
+	{
+	  p -= q;
+	  dots_++;
+	}
+
+      /* we only go up to 64th notes */
+      if (k > 6)
+	{
+	  durlog_ = 6;
+	  dots_ = 0;
+	}
+      else
+	durlog_ = k;
+
+      if (scale || k > 6)
+	factor_ = r / get_length ();
+    }
+}
+
 Duration
 Duration::compressed (Rational m) const
 {

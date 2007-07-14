@@ -266,7 +266,7 @@ non_overlapping_skyline (list<Box> *const boxes, Real horizon_padding, Axis hori
 	}
 
       if (iv[LEFT] - horizon_padding > last_end + EPS)
-	result.push_front (Building (last_end, -infinity_f, -infinity_f, iv[LEFT] - horizon_padding));
+	result.push_front (Building (last_end, -infinity_f, -infinity_f, iv[LEFT] - 2*horizon_padding));
 
       Building b (*i, horizon_padding, horizon_axis, sky);
       bool sloped_neighbours = horizon_padding > 0 && !isinf (iv.length ());
