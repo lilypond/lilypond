@@ -94,20 +94,28 @@ function.  This function is called as follows
 
 @funindex set-accidental-style
 @example
+#(set-accidental-style 'STYLE)
+@end example
+
+@c TODO: check the context stuff below
+@c -does it *really* work?
+@c -the default contexts as specified in
+@c  scm/music-function.scm seem to be different -vv
+
+Optionally, the function can take two arguments: the name of the
+accidental style, and an optional argument that denotes the context that
+should be changed:
+
+@example
 #(set-accidental-style 'STYLE #('CONTEXT#))
 @end example
 
-The function can take two arguments: the name of the accidental style,
-and an optional argument that denotes the context that should be
-changed.  If no context name is supplied, @code{Staff} is the default,
+If no context name is supplied, @code{Staff} is the default,
 but you may wish to apply the accidental style to a single @code{Voice}
 instead.
 
-@c TODO: we should create a very clear example, and show every
-@c accidental style on that example (with the example specially
-@c constructed so that it illustrates all the differences).  -gp
-
 The following accidental styles are supported
+
 @table @code
 @item default
 This is the default typesetting behavior.  It corresponds
@@ -115,22 +123,64 @@ to 18th century common practice: Accidentals are
 remembered to the end of the measure in which they occur and
 only on their own octave.
 
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       %#(set-accidental-style 'default) 
+       \musicA }
+       \context Staff = "down"{
+	       %#(set-accidental-style 'default)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
+}
+@end lilypond
+
 @item voice
 The normal behavior is to remember the accidentals on
 Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
 @code{default}.
 
-As a result, accidentals from one voice do not get canceled in other
-voices, which is often an unwanted result
+@example
+ \new Staff <<
+        #(set-accidental-style 'voice)
+	@{ @dots{} @}
+	>>
+@end example
 
-@lilypond[quote,ragged-right,relative=1,fragment,verbatim]
-\new Staff <<
-  #(set-accidental-style 'voice)
-  <<
-    { es g } \\
-    { c, e }
->> >>
+As a result, accidentals from one voice do not get canceled in other
+voices, which is often an unwanted result: in the following example, it
+is hard to determine whether the second @samp{a} should be played
+natural or sharp.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'voice) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'voice)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
+}
 @end lilypond
 
 The @code{voice} option should be used if the voices
@@ -147,7 +197,7 @@ accidentals also are canceled in other octaves.  Furthermore,
 in the same octave, they also get canceled in the following
 measure
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 #(set-accidental-style 'modern)
 cis' c'' cis'2 | c'' c'
 @end lilypond
@@ -157,7 +207,8 @@ cis' c'' cis'2 | c'' c'
 This rule is similar to @code{modern}, but the @q{extra} accidentals
 (the ones not typeset by @code{default}) are typeset as cautionary
 accidentals.  They are printed in reduced size or with parentheses
-@lilypond[quote,ragged-right,fragment,verbatim]
+
+@lilypond[quote,ragged-right,verbatim]
 #(set-accidental-style 'modern-cautionary)
 cis' c'' cis'2 | c'' c'
 @end lilypond
@@ -193,7 +244,7 @@ accidentals typeset as cautionaries.
 @funindex no-reset accidental style
 This is the same as @code{default} but with accidentals lasting
 @q{forever} and not only until the next measure
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim,relative=1]
 #(set-accidental-style 'no-reset)
 c1 cis cis c
 @end lilypond
@@ -204,7 +255,7 @@ are not remembered at all -- and hence all accidentals are
 typeset relative to the key signature, regardless of what was
 before in the music
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[quote,ragged-right,verbatim,relative=1]
 #(set-accidental-style 'forget)
 \key d\major c4 c cis cis d d dis dis
 @end lilypond
