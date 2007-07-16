@@ -194,6 +194,9 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
 	    }
 	  
 	  Grob *acc = unsmob_grob (heads[i]->get_object ("accidental-grob"));
+	  if (acc)
+	    acc->get_property ("stencil"); /* trigger tie-related suicide */
+
 	  if (acc && acc->is_live () && dir == RIGHT)
 	    {
 	      boxes.push_back (Box (acc->extent (x_refpoint_, X_AXIS),

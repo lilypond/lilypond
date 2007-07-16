@@ -443,6 +443,7 @@ ADD_TRANSLATOR (Dynamic_engraver,
 
 		/* create */
 		"DynamicLineSpanner "
+		"DynamicTextSpanner "
 		"DynamicText "
 		"Hairpin "
 		"TextSpanner ",

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
+    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -86,7 +86,7 @@ c, c,, e, g d,, d, d c
 @end lilypond
 
 Il existe une autre méthode pour préciser à quelle octave se situe la
-note à graver ; cette méthode demande moins d'indications d'octaves
+note à graver ; cette méthode demande moins d'indications d'octave
 (@code{'} and @code{,}) --- voir @ref{Relative octaves}.
 
 
@@ -140,7 +140,7 @@ d e fis g
 
 En accord avec les règles standards de l'écriture musicale, on imprime
 un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
-altération précédente.  Pour modifier ce comportement, écrivez
+altération précédente.  Pour modifier ce comportement, spécifiez
 @code{\set Staff.extraNatural = ##f}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
@@ -191,8 +191,8 @@ manières.  Pour plus d'information, voir @ref{Automatic accidentals}.
 @cindex quarts de ton
 @cindex demi-bémols, demi-dièses
 
-Les demi-bémols et les demi-dièses s'écrivent en ajoutant respectivement
-@code{-eh} et @code{-ih}. Voici une séries de dos altérés en hauteurs
+Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
+@code{-eh} et @code{-ih}. Voici une série de dos altérés en hauteurs
 croissantes :
 
 @lilypond[verbatim,ragged-right,quote,relative=2,fragment]
@@ -205,8 +205,8 @@ Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 @refbugs
 
 Il n'y a pas de standard universellement accepté pour noter le bémol et
-demi (qui abaisse la hauteur trois quarts de ton), donc le symbole de
-LilyPond n'est conforme à aucun standard.
+demi (qui abaisse la hauteur trois quarts de ton), le symbole de
+LilyPond n'est donc conforme à aucun standard.
 
 
 @node Note names in other languages
@@ -283,9 +283,9 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 On spécifie les octaves en ajoutant @code{'} et @code{,} aux noms de
 hauteurs.  En recopiant de la musique, on a vite fait de mettre une
 note à la mauvaise octave, et ce genre d'erreur est difficile à
-retrouver.  Le mode d'écriture \relative prévient ces erreurs en
-rendant les erreurs beaucoup plus évidentes : une seule erreur met le
-reste de la pièce à la mauvaise octave.
+retrouver.  Le mode d'écriture \relative prévient ces erreurs dans la
+mesure où elles deviennent beaucoup plus évidentes : une seule erreur
+décale le reste de la pièce à une mauvaise octave.
 
 
 @example
@@ -305,15 +305,15 @@ ou
 L'octave des notes mentionnées dans @var{musicexpr} va être calculée
 de la manière suivante : si aucun signe de changement d'octave n'est
 utilisé, l'intervalle de base entre la note actuelle et la précédente
-sera toujours d'une quarte ou moins.  Cet intervalle est déterminé
+sera toujours au plus d'une quarte.  Cet intervalle est déterminé
 sans tenir compte des altérations ; ainsi un @code{fisis} après un
-@code{ceses} sera mis au-dessus le @code{ceses}.  En d'autres termes,
+@code{ceses} sera placé au-dessus du @code{ceses}.  En d'autres termes,
 une quarte doublement augmentée demeure considérée comme un
 intervavlle plus petit qu'une quinte diminuée, bien que la quarte
 doublement augmentée soit de sept demi-tons et la quinte diminuée de
-six demi-tons seulement.
+seulement six demi-tons.
 
-Les signes de changement d'octaves @code{'} et @code{,} peuvent être
+Les signes de changement d'octave @code{'} et @code{,} peuvent être
 ajoutés pour hausser ou baisser la note d'une octave supplémentaire.
 Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de départ
 peut être spécifiée, et agira dès lors comme si elle précédait la
@@ -361,7 +361,7 @@ utiliser \relative dans de la musique transposée, un code
 
 @cindex Octave check
 
-Les tests d'octaves rendent la correction d'erreurs d'octaves plus
+Les tests d'octave rendent la correction d'erreurs d'octave plus
 facile : une note peut être suivie de @code{=}@var{quotes} indiquant à
 quelle octave absolue elle devrait être.  Dans l'exemple suivant,
 
@@ -374,7 +374,7 @@ le @code{d} générera un avertissement, puisqu'on attend un @code{d''}
 mais qu'on obtient un @code{d'} --- il n'y a qu'une tierce entre
 @code{b'} et @code{d''}.  Sur la partition, l'octave sera corrigée
 pour donner un @code{d''} et la prochaine note sera calculée en
-fonction de @code{d''} au lieu de @code{d'}.
+fonction de @code{d''} et non de @code{d'}.
 
 Il existe aussi une vérification d'octave sans changement visible en
 sortie, avec cette syntaxe :
@@ -517,7 +517,7 @@ r1 r2 r4 r8
 @end lilypond
 
 Les pauses d'une mesure complète, qui sont placées au centre de la
-mesure, doivent être entrées comme des mesures de silences.  Elles
+mesure, doivent être entrées comme des mesures de silence.  Elles
 peuvent être utilisées pour une seule mesure comme pour plusieurs, et
 leur utilisation est expliquée dans la section
 @ref{Multi measure rests}.
@@ -572,7 +572,7 @@ La commande de saut génère simplement une case vide.  Elle ne produit
 rien sur la partition, pas même un symbole transparent.  Le code de
 saut @code{s} crée tout de même une @internalsref{Staff} et une
 @internalsref{Voice} lorsque nécessaire, tout comme les commandes de
-notes et de silences.  Ainsi, le code suivant aboutit à une portée
+note et de silence.  Ainsi, le code suivant aboutit à une portée
 vide.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -612,8 +612,8 @@ Des rythmes, durées et mesures.
 @funindex \maxima
 
 Dans les modes Note, Accord et Paroles, les durées sont écrites avec
-des chiffres et des points : les durées sont indiquées par leurs
-valeurs réciproques en notation anglaise.  Une noire, par exemple, qui
+des chiffres et des points : les durées sont indiquées par leur
+valeur réciproque en notation anglaise.  Une noire, par exemple, qui
 équivaut en anglais à un 1/4 de note, @qq{quarter note}, s'écrit
 @code{4}, alors qu'une blanche (@qq{half-note}, 1/2 note) s'écrit
 @code{2}.  Pour des notes plus longues qu'une ronde, vous devrez
@@ -799,7 +799,7 @@ spécifier le positionnement du @code{TupletBracket}.  Le premier
 @code{\tweak} positionne le @code{TupletBracket} du nolet externe au
 dessus de la portée. Le second @code{\tweak} positionne le
 @code{TupletBracket} du premier triolet interne au dessous de la
-portée.  Notez que cette paire de fonctions @code{\tweak} n'affectent
+portée.  Notez que cette paire de fonctions @code{\tweak} n'affecte
 que le triolet extérieur et le premier des trois triolets imbriqués
 parce qu'ils commencent au même instant musical.  Nous utilisons
 @code{\override} de manière tout à fait normale, pour forcer le
@@ -853,7 +853,7 @@ Exemples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 @node Scaling durations
 @subsection Scaling durations
 
-Vous pouvez altérer la durée des notes en lui joignant une fraction
+Vous pouvez altérer la durée des notes en leur joignant une fraction
 @var{N/M}, donnant @q{@code{*}@var{N/M}} --- ou @q{@code{*}@var{N}} si
 @var{M=1}.  Ceci n'affectera pas l'apparence des notes ou silences
 produits.
@@ -930,7 +930,7 @@ l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
 
 @noindent
 imprimera un avertissement si le @code{currentBarNumber} n'est pas 123
-quand il est traité.
+quand le fichier est traité.
 
 @node Automatic note splitting
 @subsection Automatic note splitting
@@ -1109,14 +1109,15 @@ entre les deux constructions.
 
 La polyphonie ne change pas la relation des notes dans un bloc
 @code{\relative @{ @}}.  Chaque note est calculée en fonction de la
-note qui la précède immédiatement, sans tenir compte des voix
-différentes.
+note qui la précède immédiatement, sans tenir compte des différentes
+voix.
 
 @example
 \relative @{ noteA << noteB \\ noteC >> noteD @}
 @end example
 
-@code{noteC} est calculé relativement à @code{noteB}, pas à @code{noteA};
+@code{noteC} est calculé relativement à @code{noteB}, pas à
+@code{noteA} ;
 @code{noteD} est calculé relativement à @code{noteC}, pas à @code{noteB} ou
 @code{noteA}.
 
@@ -1153,12 +1154,12 @@ objets vers le haut, alors que @code{\voiceTwo} et @code{\voiceFour}
 les font pointer vers le bas.  La commande @code{\oneVoice} les ramène
 aux critères normaux.
 
-Une expression apparaissant directement dans un @code{<< >>}
+Une expression qui apparaît directement dans un @code{<< >>}
 appartient à la voix principale.  Ceci est utile lorsque des voix
 supplémentaires apparaissent pendant que la voix principale est jouée.
  Voici une meilleure réalisation de l'exemple de la section
-précédente.  Les notes en croix démontrent que la mélodie principale
-est maintenant dans un seul contexte de voix.
+précédente.  Les notes en croix mettent en évidence le fait que la
+mélodie principale est maintenant dans un seul contexte de voix.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -1324,7 +1325,7 @@ s'applique pour sortir le sol (@code{g}) de l'alignement, et
 @funindex \shiftOff
 @code{\shiftOff} : toutes ces commandes précisent quels accords de la
 voix courante doivent être combinés.  Les voix externes
-(habituellement, les voix un et deux) sont en @code{\shiftOff}, alors
+(habituellement, les voix une et deux) sont en @code{\shiftOff}, alors
 que les voix internes (trois et quatre) sont en @code{\shiftOn}.
 @code{\shiftOnn} et @code{\shiftOnnn} sont des niveaux supplémentaires
 de combinaison.
@@ -1360,7 +1361,7 @@ une valeur plus courte à hampe vers le haut, et une blanche hampe vers
 le bas, la croche se retrouve à la mauvaise place.
 
 Il n'y a aucune prise en charge des agrégats dans lesquels une même
-note apparaît avec différentes altérations, plaquée en même temps.  Il
+note apparaît avec différentes altérations, plaquées en même temps.  Il
 est conseillé d'avoir recours aux enharmoniques, ou d'utiliser un
 cluster spécial (voir @ref{Clusters}).
 
@@ -1709,7 +1710,7 @@ a2 g2
 @end lilypond
 
 
-@code{\partial} n'est destiné qu'à être utilisé au début d'une pièce.
+@code{\partial} n'est destiné à être utilisé qu'en début de pièce.
 Si on l'utilise ailleurs qu'au début, des messages d'erreurs peuvent
 s'afficher.
 
@@ -1824,7 +1825,7 @@ D'autres exemples : @inputfileref{input/@/test,bar@/-lines@/.ly},
 
 
 Les barres de mesure et les chiffres de mesure sont calculés
-automatiquement, ce qui n'est pas souhaitable dans la musique non
+automatiquement, ce qui n'est pas souhaitable dans le cas de musique non
 mesurée --- les cadences, par exemple. Les commandes @code{\cadenzaOn}
 and @code{\cadenzaOff} permettent de désactiver et de rétablir la
 métrique automatique.
@@ -1908,7 +1909,7 @@ de mesure sont séparées d'une portée à l'autre. Il s'agit du contexte
 >>
 @end lilypond
 
-@item Les portées du groupe ne sont pas attachées (à part par une
+@item Les portées du groupe ne sont pas attachées (hormis par une
 simple ligne verticale). Les barres de mesure sont détachées. Il
 s'agit de l'assemblage par défaut.
 
@@ -2110,7 +2111,7 @@ l'intérieur des accords.
 
 Une liaison de tenue est un moyen parmi d'autres de prolonger la durée
 d'une note, tout comme les notes pointées.  L'exemple suivant montre
-deux manières de noter exactement la même idée :
+deux manières de matérialiser exactement la même idée :
 
 
 @lilypond[quote,fragment,ragged-right]
@@ -2120,7 +2121,7 @@ deux manières de noter exactement la même idée :
 @noindent
 
 Les liaisons de tenues sont utilisées soit quant la note dépasse de la
-mesure, ou quand les points ne suffisent pas à rendre le bon rythme.
+mesure, soit quand les points ne suffisent pas à rendre le bon rythme.
 Lorsque l'on utilise ces liaisons, les valeurs rythmiques les plus
 longues doivent s'aligner sur les subidivisions de la mesure, comme
 ici :
@@ -2361,7 +2362,7 @@ d'imprimer les ligatures
 @end lilypond
 
 Lorsque ces décisions ne sont pas satisfaisantes, il est
-possible de préciser quels groupements l'ont veut, ou même de définir
+possible de préciser quels regroupements l'ont veut, ou même de définir
 des séquences de groupements en lieu et place des groupements
 par défaut. Voir @ref{Setting automatic beam behavior}
 pour plus de détails.
@@ -2407,7 +2408,7 @@ de mesure.  Le début et la fin de la ligature sont alors indiqués par
 @funindex stemRightBeamCount
 
 
-En principe, les sous-groupements à l'intérieur d'un groupe de notes
+En principe, les sous-groupes à l'intérieur d'un groupement de notes
 sont déterminés automatiquement.  Cependant, les propriétés
 @code{stemLeftBeamCount} et @code{stemRightBeamCount} peuvent
 servir à contourner ce comportement.  Lorsque l'une ou l'autre de
@@ -2445,7 +2446,7 @@ Pour plus d'information sur @code{make-moment}, voir
 
 Lorsqu'une ligature entre des notes franchit une barre de mesure,
 le retour à la ligne est en principe interdit à cet endroit.
-Ce comportement peut être changé en définissant @code{breakable}.
+Ce comportement peut être outrepassé en définissant @code{breakable}.
 
 @funindex breakable
 @cindex beams and line breaks
@@ -2486,7 +2487,7 @@ Les petites notes sont des ornements entièrement écrits.  Les plus
 courantes sont les accacciatures, qui doivent se jouer très vite,
 et qui s'écrivent sous forme d'une petite note barrée (sur la hampe)
 et liée.  L'appoggiature est une petite note non barrée, qui vole
-une fraction de la durée de la note réelle qui la suit.
+une fraction à la durée de la note réelle qui la suit.
 
 Ces petites notes sont entrées avec les commandes @code{\acciaccatura}
 et @code{\appoggiatura}, comme le montre l'exemple suivant :
@@ -2562,7 +2563,7 @@ c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
 
-Les petites notes se placent alors à 3/4 de la durée de la note
+Les petites notes se placent alors aux 3/4 de la durée de la note
 réelle.  Cet espacement peut être changé en définissant
 @code{afterGraceFraction} ; ainsi,
 
@@ -2624,7 +2625,7 @@ afin que les hampes ne soient pas toujours orientées vers le haut.
 @end example
 
 @noindent
-Il est par ailleurs possible de chager les variables
+Il est par ailleurs possible de modifier les variables
 @code{startGraceMusic}, @code{stopGraceMusic},
 @code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
 @code{startAppoggiaturaMusic}, et @code{stopAppoggiaturaMusic}.
@@ -2639,7 +2640,7 @@ s'appliquer dans d'autres situations en définissant
 @commonprop
 
 
-Il est possible de forcer un espacement fluctuant des notes d'agrément.
+Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
 
 @lilypond[relative=2,ragged-right]
 <<
@@ -2683,8 +2684,8 @@ mélez des portées comprenant des petites notes et d'autres sans :
 @end lilypond
 
 @noindent
-Il est possible de remédier à cela en insérant des silences invisibles
-correspondant aux durées des petites notes sur les autres portées ---
+Il est possible de remédier à cela en insérant sur les autres portées
+des silences invisibles correspondant à la durée des petites notes ---
 les silences invisibles peuvent également être considérés comme des
 petites notes, s'ils suivent la commande @code{grace}.
 
@@ -3028,7 +3029,7 @@ a'2\< a a a\!\mf
 Pour créer des indications de nuances qui restent alignées
 avec les nuances habituelles, voir @ref{New dynamic marks}.
 
-Le positionnement vertical des nuances est géré par
+Le positionnement vertical des nuances est géré par le
 @internalsref{DynamicLineSpanner}.
 
 @commonprop
@@ -3045,7 +3046,7 @@ la propriété @code{staff-padding}.
 
 
 Cette propriété peut aussi servir à régler des problèmes de
-collisions entre des nuances et d'autres objets.
+collision entre des nuances et d'autres objets.
 
 
 Les crescendos ou decrescendos qui aboutissent sur la première note
@@ -3221,7 +3222,7 @@ arpégé, on peut remplacer ce signe par un crochet :
 @end lilypond
 
 
-Le sens de l'arpège est parfois indiqué, par une flèche suivant la
+Le sens de l'arpège est parfois indiqué par une flèche suivant la
 vaguelette :
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
@@ -3353,7 +3354,7 @@ déclarées dans un contexte @code{Voice}.
 @cindex prima volta
 @cindex seconda volta
 
-Tous les différents types de reprises se spécifient dans
+Tous les différents types de reprise se spécifient dans
 LilyPond avec une même construction syntaxique, qui est :
 
 
@@ -3509,7 +3510,7 @@ reprises explicites --- comme celles du type @code{unfold}.
 Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour
 le rendu MIDI, il faut établir deux blocs @code{\score} : un pour le 
 MIDI, avec des reprises explicites, et l'autre pour la partition, avec
-des reprises notées sous forme de barres de reprises, de trémolos ou
+des reprises notées sous forme de barres de reprise, de trémolo ou
 de symboles de pourcentage.  Par exemple
 
 @example

@@ -179,7 +179,10 @@ Slur::replace_breakable_encompass_objects (Grob *me)
 	{
 	  extract_grob_set (g, "elements", breakables);
 	  for (vsize j = 0; j < breakables.size (); j++)
-	    if (breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
+	    /* if we encompass a separation-item that spans multiple staves,
+	       we filter out the grobs that don't belong to our staff */
+	    if (me->common_refpoint (breakables[j], Y_AXIS) == me->get_parent (Y_AXIS)
+		&& breakables[j]->get_property ("avoid-slur") == ly_symbol2scm ("inside"))
 	      new_encompasses.push_back (breakables[j]);
 	}
       else
@@ -361,14 +364,21 @@ SCM
 Slur::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
-  assert (staff); // delete me
-  extract_grob_set (me, "note-columns", cols);
 
-  for (vsize i = 0; i < cols.size (); i++)
-    if (Staff_symbol_referencer::get_staff_symbol (cols[i]) != staff)
-      return SCM_BOOL_T;
-  return SCM_BOOL_F;
+  extract_grob_set (me, "note-columns", cols);
+  extract_grob_set (me, "encompass-objects", extras);
+
+  /* the separation items are dealt with in replace_breakable_encompass_objects
+     so we can ignore them here */
+  vector<Grob*> non_sep_extras;
+  for (vsize i = 0; i < extras.size (); i++)
+    if (!Separation_item::has_interface (extras[i]))
+      non_sep_extras.push_back (extras[i]);
+
+  Grob *common = common_refpoint_of_array (cols, me, Y_AXIS);
+  common = common_refpoint_of_array (non_sep_extras, common, Y_AXIS);
+
+  return scm_from_bool (common != me->get_parent (Y_AXIS));
 }
 
 ADD_INTERFACE (Slur,

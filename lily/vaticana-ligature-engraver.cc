@@ -13,6 +13,7 @@
 #include "international.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
+#include "separation-item.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
@@ -413,6 +414,9 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
       dot->set_parent (primitive, Y_AXIS);
       primitive->set_object ("dot", dot->self_scm ());
       Dot_column::add_head (dotcol, primitive);
+
+      // FIXME: why isn't the dot picked up by Paper_column_engraver?
+      Separation_item::add_item (column, dot);
     }
 }
 

@@ -998,6 +998,7 @@
 	(word-space . 0.6)
 	(font-series . bold-narrow)
 	(font-size . 1.0)
+	(extra-spacing-width . (0.0 . 0.0))
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
 				lyric-syllable-interface

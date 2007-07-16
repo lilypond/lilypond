@@ -152,5 +152,12 @@ Spring::length (Real f) const
 {
   Real force = max (f, blocking_force_);
   Real inv_k = force < 0.0 ? inverse_compress_strength_ : inverse_stretch_strength_;
+
+  if (isinf (force))
+    {
+      programming_error ("cruelty to springs");
+      force = 0.0;
+    }
+
   return distance_ + force * inv_k;
 }

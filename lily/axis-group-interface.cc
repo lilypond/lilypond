@@ -279,8 +279,10 @@ Axis_group_interface::combine_skylines (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "elements", elements);
   Grob *y_common = common_refpoint_of_array (elements, me, Y_AXIS);
+  Grob *x_common = common_refpoint_of_array (elements, me, X_AXIS);
 
-  assert (y_common == me);
+  if (y_common != me)
+    programming_error ("combining skylines that don't belong to me");
 
   Skyline_pair ret;
   for (vsize i = 0; i < elements.size (); i++)
@@ -291,6 +293,7 @@ Axis_group_interface::combine_skylines (SCM smob)
 	  Real offset = elements[i]->relative_coordinate (y_common, Y_AXIS);
 	  Skyline_pair other = *Skyline_pair::unsmob (skyline_scm);
 	  other.raise (offset);
+	  other.shift (elements[i]->relative_coordinate (x_common, X_AXIS));
 	  ret.merge (other);
 	}
     }
