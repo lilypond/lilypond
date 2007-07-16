@@ -10,6 +10,7 @@
 #include "paper-book.hh"
 #include "page-turn-page-breaking.hh"
 #include "optimal-page-breaking.hh"
+#include "minimal-page-breaking.hh"
 
 LY_DEFINE (ly_page_turn_breaking, "ly:page-turn-breaking",
 	   1, 0, 0, (SCM pb),
@@ -28,5 +29,15 @@ LY_DEFINE (ly_optimal_breaking, "ly:optimal-breaking",
 	   " spacing.")
 {
   Optimal_page_breaking b (unsmob_paper_book (pb));
+  return b.solve ();
+}
+
+LY_DEFINE (ly_minimal_breaking, "ly:minimal-breaking",
+	   1, 0, 0, (SCM pb),
+	   "Break (pages and lines) the @code{Paper_book} object @var{pb}"
+	   "without looking for optimal spacing: stack as many lines on"
+	   "a page before moving to the next one.")
+{
+  Minimal_page_breaking b (unsmob_paper_book (pb));
   return b.solve ();
 }

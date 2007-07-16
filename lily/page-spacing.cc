@@ -24,6 +24,13 @@ Page_spacing::calc_force ()
 }
 
 void
+Page_spacing::resize (Real new_height)
+{
+  page_height_ = new_height;
+  calc_force ();
+}
+
+void
 Page_spacing::append_system (const Line_details &line)
 {
   rod_height_ += last_line_.padding_;

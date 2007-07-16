@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+A new page breaking function, @code{ly:minimal-breaking}, is dedicated
+to books with many pages or a lot of texts.
+
+@item
 A table of contents is included using @code{\markuplines \table-of-contents}.
 Elements are added to it using the @code{\tocItem} command.
 

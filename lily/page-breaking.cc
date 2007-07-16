@@ -526,6 +526,7 @@ Page_breaking::cache_line_details (vsize configuration_index)
 {
   if (cached_configuration_index_ != configuration_index)
     {
+      cached_configuration_index_ = configuration_index;
       SCM padding_scm = book_->paper_->c_variable ("page-breaking-between-system-padding");
       if (!scm_is_number (padding_scm))
 	padding_scm = book_->paper_->c_variable ("between-system-padding");
@@ -756,6 +757,65 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
     }
 
   return finalize_spacing_result (configuration, best);
+}
+
+Page_spacing_result
+Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_page_num)
+{
+  Page_spacing_result res;
+  vsize page = 0;
+  vsize page_first_line = 0;
+  Page_spacing space (page_height (first_page_num, false));
+
+  cache_line_details (configuration);
+  for (vsize line = 0; line < cached_line_details_.size (); line++)
+    {
+      Real prev_force = space.force_;
+      space.append_system (cached_line_details_[line]);
+      if ((line > page_first_line)
+	  && (isinf (space.force_)
+	      || ((line > 0)
+                  && (cached_line_details_[line-1].page_permission_ == ly_symbol2scm ("force")))))
+	{
+	  res.systems_per_page_.push_back (line - page_first_line);
+	  res.force_.push_back (prev_force);
+          res.penalty_ += cached_line_details_[line-1].page_penalty_;
+	  page++;
+	  space.resize (page_height (first_page_num + page, false));
+	  space.clear ();
+          space.append_system (cached_line_details_[line]);
+	  page_first_line = line;
+	}
+
+      if (line == cached_line_details_.size () - 1)
+	{
+	  /* This is the last line */
+	  /* When the last page height was computed, we did not know yet that it
+	   * was the last one. If the systems put on it don't fit anymore, the last
+	   * system is moved to a new page */
+	  space.resize (page_height (first_page_num + page, true));
+	  if ((line > page_first_line) && (isinf (space.force_)))
+	    {
+	      res.systems_per_page_.push_back (line - page_first_line);
+	      res.force_.push_back (prev_force);
+	      /* the last page containing the last line */
+	      space.resize (page_height (first_page_num + page + 1, true));
+	      space.clear ();
+	      space.append_system (cached_line_details_[line]);
+	      res.systems_per_page_.push_back (1);
+	      res.force_.push_back (space.force_);
+              res.penalty_ += cached_line_details_[line-1].page_penalty_;
+              res.penalty_ += cached_line_details_[line].page_penalty_;
+	    }
+	  else
+	    {
+	      res.systems_per_page_.push_back (line + 1 - page_first_line);
+	      res.force_.push_back (space.force_);
+              res.penalty_ += cached_line_details_[line].page_penalty_;
+	    }
+	}
+    }
+  return finalize_spacing_result (configuration, res);
 }
 
 /* Calculate demerits and fix res.systems_per_page_ so that

@@ -71,7 +71,7 @@ struct Page_spacing
   }
 
   void calc_force ();
-
+  void resize (Real new_height);
   void append_system (const Line_details &line);
   void prepend_system (const Line_details &line);
   void clear ();
