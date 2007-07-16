@@ -1129,7 +1129,6 @@ def test_basic_compare ():
     test_compare_signatures (names)
     
 def test_compare_signatures (names, timing=False):
-
     import time
 
     times = 1
@@ -1239,22 +1238,22 @@ def main ():
                   help='where to put the test results [tree2/compare-tree1tree2]')
 
     global options
-    (options, a) = p.parse_args ()
+    (options, args) = p.parse_args ()
 
     if options.run_test:
         run_tests ()
         sys.exit (0)
 
-    if len (a) != 2:
+    if len (args) != 2:
         p.print_usage()
         sys.exit (2)
 
     name = options.output_dir
     if not name:
-        name = a[0].replace ('/', '')
-        name = os.path.join (a[1], 'compare-' + shorten_string (name))
+        name = args[0].replace ('/', '')
+        name = os.path.join (args[1], 'compare-' + shorten_string (name))
     
-    compare_trees (a[0], a[1], name, options.threshold)
+    compare_trees (args[0], args[1], name, options.threshold)
 
 if __name__ == '__main__':
     main()
