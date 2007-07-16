@@ -114,7 +114,7 @@ If no context name is supplied, @code{Staff} is the default,
 but you may wish to apply the accidental style to a single @code{Voice}
 instead.
 
-The following accidental styles are supported
+The following accidental styles are supported:
 
 @table @code
 @item default
@@ -195,22 +195,57 @@ This rule corresponds to the common practice in the 20th century.  This rule
 prints the same accidentals as @code{default}, but temporary
 accidentals also are canceled in other octaves.  Furthermore,
 in the same octave, they also get canceled in the following
-measure
+measure: in the following example, notice the two natural signs which appear
+in the second bar of the upper staff.
 
-@lilypond[quote,ragged-right,verbatim]
-#(set-accidental-style 'modern)
-cis' c'' cis'2 | c'' c'
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
+}
 @end lilypond
 
 @item @code{modern-cautionary}
 @funindex modern-cautionary
 This rule is similar to @code{modern}, but the @q{extra} accidentals
 (the ones not typeset by @code{default}) are typeset as cautionary
-accidentals.  They are printed in reduced size or with parentheses
+accidentals.  They are printed in reduced size or (by default)
+with parentheses -- this can be set by definig the @code{cautionary-style}
+property of the @internalsref{AccidentalSuggestion} object.
 
-@lilypond[quote,ragged-right,verbatim]
-#(set-accidental-style 'modern-cautionary)
-cis' c'' cis'2 | c'' c'
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
+}
 @end lilypond
 
 @funindex modern-voice
@@ -265,7 +300,7 @@ before in the music
 @seealso
 
 Program reference: @internalsref{Accidental_engraver},
-@internalsref{Accidental}, and @internalsref{AccidentalPlacement}.
+@internalsref{Accidental}, @internalsref{AccidentalSuggestion} and @internalsref{AccidentalPlacement}.
 
 
 @refbugs
