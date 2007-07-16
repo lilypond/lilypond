@@ -71,11 +71,10 @@ struct Page_spacing
   }
 
   void calc_force ();
-
+  void resize (Real new_height);
   void append_system (const Line_details &line);
   void prepend_system (const Line_details &line);
   void clear ();
 };
 
-Real line_space (Line_details const &line);
 #endif /* PAGE_SPACING_HH */

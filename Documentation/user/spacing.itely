@@ -557,6 +557,7 @@ The pairs
 * Page breaking::               
 * Optimal page breaking::       
 * Optimal page turning::        
+* Minimal page breaking::        
 * Explicit breaks::             
 * Using an extra voice for breaks::  
 @end menu
@@ -655,11 +656,11 @@ a line break.
 The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
 
-Page breaks are computed by the @code{page-breaking} function.
-LilyPond provides two algorithms for computing page
-breaks, @code{ly:optimal-breaking} and @code{ly:page-turn-breaking}. The
-default is @code{ly:optimal-breaking}, but the value can be changed in
-the @code{\paper} block:
+Page breaks are computed by the @code{page-breaking} function.  LilyPond
+provides three algorithms for computing page breaks,
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
+@code{ly:minimal-breaking}. The default is @code{ly:optimal-breaking},
+but the value can be changed in the @code{\paper} block:
 
 @example
 \paper@{
@@ -769,6 +770,22 @@ top-level markups.
 There should only be one @code{Page_turn_engraver} in a score. If there is more
 than one, they will interfere with each other.
 
+@node Minimal page breaking
+@subsection Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+The @code{ly:minimal-breaking} function performs minimal computations to
+calculate the page breaking: it fills a page with as many systems as
+possible before moving to the next one.  Thus, it may be prefered for
+scores with many pages, where the other page breaking functions could be
+too slow or memory demanding, or a lot of texts.  It is enabled using:
+
+@example
+\paper @{
+  #(define page-breaking ly:minimal-breaking)
+@}
+@end example
 
 @node Explicit breaks
 @subsection Explicit breaks
@@ -906,7 +923,7 @@ staves inside a system.
 * Vertical spacing inside a system::  
 * Vertical spacing between systems::  
 * Explicit staff and system positioning::  
-* Two-pass vertical spacing::
+* Two-pass vertical spacing::   
 * Vertical collision avoidance::  
 @end menu
 
