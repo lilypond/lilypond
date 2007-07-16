@@ -29,7 +29,7 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/user-ln doc-po
 	cd $(outdir); texi2pdf --batch $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
 
 local-WWW: $(outdir)/lilypond.pdf $(outdir)/lilypond/index.html
-	cd $(outdir); find -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
+	find $(outdir) -name '*.html' | sed 's!$(outdir)/!!g' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
 	find $(outdir) \( -name 'lily-??????????.png' -o -name 'lily-??????????.ly' \) -a -not -type l | sed 's!$(outdir)/!!g' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard . $(top-build-dir)/Documentation/user/$(outdir)
 
 # FIXME
