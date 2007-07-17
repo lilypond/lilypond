@@ -378,10 +378,26 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @item no-reset
 @funindex no-reset accidental style
 This is the same as @code{default} but with accidentals lasting
-@q{forever} and not only until the next measure
-@lilypond[quote,ragged-right,verbatim,relative=1]
-#(set-accidental-style 'no-reset)
-c1 cis cis c
+@q{forever} and not only until the next measure:
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'no-reset) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'no-reset)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
+}
 @end lilypond
 
 @item forget
@@ -390,9 +406,25 @@ are not remembered at all -- and hence all accidentals are
 typeset relative to the key signature, regardless of what was
 before in the music
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
-#(set-accidental-style 'forget)
-\key d\major c4 c cis cis d d dis dis
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'forget) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'forget)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
+}
 @end lilypond
 @end table
 
