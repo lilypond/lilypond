@@ -82,6 +82,12 @@
     blank-last-page-force = 0
     blank-page-force = 2
 
+    %%
+    %% To limit space between systems on a page with a lot of space left
+    %%
+    page-limit-inter-system-space = ##f
+    page-limit-inter-system-space-factor = 1.4
+
     #(define font-defaults
       '((font-encoding . fetaMusic)))
 

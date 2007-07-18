@@ -21,7 +21,6 @@
 	    line-minimum-distance line-ideal-distance
 	    first-line-position
 	    line-ideal-relative-position line-minimum-relative-position
-            line-minimum-position-on-page
 	    page-maximum-space-to-fill page-maximum-space-left space-systems))
 
 ; this is for 2-pass spacing. Delete me.
@@ -102,21 +101,29 @@
 					 (filter stretchable? systems)))
 			   height-left))
 
-    (let* ((lines (map print-system systems))
-	   (posns (if (null? lines)
-		      (list)
-		      (let* ((paper (ly:paper-book-paper paper-book))
-			     (space-to-fill (page-maximum-space-to-fill
-					     page lines paper))
-			     (spacing (space-systems space-to-fill lines ragged paper #f)))
-			(if (and (> (length lines) 1)
-				 (or (not (car spacing)) (inf? (car spacing))))
-			    (begin
-			      (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
-			      (cdr (space-systems space-to-fill lines ragged paper #t)))
-			    (cdr spacing))))))
+    (let ((lines (map print-system systems)))
       (page-set-property! page 'lines lines)
-      (page-set-property! page 'configuration posns)
+      (page-set-property!
+       page 'configuration 
+       (if (null? lines)
+           (list)
+           (let* ((paper (ly:paper-book-paper paper-book))
+                  (max-space-to-fill (page-maximum-space-to-fill page lines paper))
+                  (space-to-fill (if (ly:output-def-lookup
+                                      paper 'page-limit-inter-system-space #f)
+                                     (min max-space-to-fill
+                                          (* (ly:output-def-lookup
+                                              paper 'page-limit-inter-system-space-factor 1.4)
+                                             (- max-space-to-fill
+                                                (or (page-ideal-space-left page) 0))))
+                                     max-space-to-fill))
+                  (spacing (space-systems space-to-fill lines ragged paper #f)))
+             (if (and (> (length lines) 1)
+                      (or (not (car spacing)) (inf? (car spacing))))
+                 (begin
+                   (ly:warning (_ "Can't fit systems on page -- ignoring between-system-padding"))
+                   (cdr (space-systems space-to-fill lines ragged paper #t)))
+                 (cdr spacing)))))
       page)))
 
 (define (page-breaking-wrapper paper-book)
@@ -229,12 +236,12 @@
       ;; not the first line on page
       (line-minimum-distance prev-line line layout ignore-padding)))
 
-(define (line-minimum-position-on-page line prev-line prev-position page)
+(define (line-position-on-page line prev-line prev-position page relative-positionning-fn)
   "If `line' fits on `page' after `prev-line', which position on page is
   `prev-position', then return the line's postion on page, otherwise #f.
   `prev-line' can be #f, meaning that `line' is the first line."
   (let* ((layout (ly:paper-book-paper (page-property page 'paper-book)))
-         (position (+ (line-minimum-relative-position line prev-line layout #f)
+         (position (+ (relative-positionning-fn line prev-line layout #f)
                       (if prev-line prev-position 0.0)))
          (bottom-position (- position
                              (interval-start (line-extent line)))))
@@ -253,7 +260,7 @@
 			 'bottom-space 0.0)
        (- (interval-start (line-extent last-line))))))
 
-(define (page-maximum-space-left page)
+(define (page-space-left page relative-positionning-fn)
   (let ((paper (ly:paper-book-paper (page-property page 'paper-book))))
     (let bottom-position ((lines (page-property page 'lines))
                           (prev-line #f)
@@ -261,14 +268,20 @@
       (if (null? lines)
           (page-printable-height page)
           (let* ((line (first lines))
-                 (position (line-minimum-position-on-page
-                            line prev-line prev-position page)))
+                 (position (line-position-on-page
+                            line prev-line prev-position page relative-positionning-fn)))
             (if (null? (cdr lines))
                 (and position
                      (- (page-printable-height page)
                         (- position
                            (interval-start (line-extent line)))))
                 (bottom-position (cdr lines) line position)))))))
+
+(define (page-maximum-space-left page)
+  (page-space-left page line-minimum-relative-position))
+
+(define (page-ideal-space-left page)
+  (page-space-left page line-ideal-relative-position))
 
 ;;;
 ;;; Utilities for distributing systems on a page
