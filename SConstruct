@@ -171,10 +171,17 @@ srcdir = Dir ('.').srcnode ().abspath
 #ugh
 sys.path.append (os.path.join (srcdir, 'stepmake', 'bin'))
 
-import packagepython
-
-package = packagepython.Package (srcdir)
-version = packagepython.version_tuple_to_str (package.version)
+try:
+    import packagepython
+    packagepython.Package (srcdir)
+    packagepython.version_tuple_to_str (package.version)
+except:
+    print '*** FIXME: no packagepython.  setting version to 1.0'
+    class Package:
+        name = 'lilypond'
+        release_dir = '.'
+    package = Package
+    version = '1.0'
 
 ENV = { 'PYTHONPATH': '' }
 for key in ['GUILE_LOAD_PATH', 'LD_LIBRARY_PATH', 'PATH', 'PKG_CONFIG_PATH',
