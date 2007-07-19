@@ -164,9 +164,9 @@ def add_tfm_target (target, source, env):
     base = os.path.splitext (str (target[0]))[0]
     return (target + [base + '.tfm'], source)
 
-def add_lisp_enc_tex_ly_target (target, source, env):
+def add_lisp_enc_target (target, source, env):
     base = os.path.splitext (str (target[0]))[0]
-    return (target + [base + '.lisp', base + '.enc', base + '.tex'],
+    return (target + [base + '.lisp', base + '.enc'],
         source)
 
 def add_cff_cffps_svg (target, source, env):
@@ -188,10 +188,9 @@ a = '$PYTHON $MF_TO_TABLE_PY \
 --global-lisp=${TARGET.base}.otf-gtable \
 --lisp=${TARGET.base}.lisp \
 --enc=${TARGET.base}.enc \
---tex=${TARGET.base}.tex \
 ${TARGET.base}.log'
 gtable = Builder (action = a, suffix = '.otf-gtable', src_suffix = '.log',
-         emitter = add_lisp_enc_tex_ly_target)
+         emitter = add_lisp_enc_target)
 env.Append (BUILDERS = {'GTABLE': gtable})
 
 def add_enc_src (target, source, env):
