@@ -9,6 +9,7 @@
 #include "coherent-ligature-engraver.hh"
 
 #include "warn.hh"
+#include "axis-group-interface.hh"
 #include "paper-column.hh"
 #include "pitch.hh"
 #include "pointer-group-interface.hh"
@@ -95,6 +96,9 @@ Coherent_ligature_engraver::move_related_items_to_column
 	// interest
 	continue;
 
+      if (dynamic_cast<Item*> (sibling)->get_column () != source_column)
+	continue;
+
 #if 0 /* experimental code to collapse spacing after ligature */
       Grob *sibling_parent = sibling->get_parent (X_AXIS);
       sibling_parent->warning (_f ("Coherent_ligature_engraver: "
@@ -104,6 +108,7 @@ Coherent_ligature_engraver::move_related_items_to_column
 				    scm_from_double (0.01));
 #endif
 
+      Axis_group_interface::add_element (target_column, sibling);
       sibling->set_parent (target_column, X_AXIS);
       sibling->translate_axis (offset, X_AXIS);
     }
