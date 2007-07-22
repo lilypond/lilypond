@@ -28,7 +28,7 @@ class TempDirectory:
         print 'dir is', self.dir
     def __del__ (self):
         print 'rm -rf %s' % self.dir 
-        os.system ('rm -rf %s' % self.dir )
+        os.system ('rm -rf %s' % self.dir)
     def __call__ (self):
         return self.dir
 
@@ -436,14 +436,11 @@ class FileCompareLink (FileLink):
             return 0.0
         else:
             return 100.0;
-
         
     def get_content (self, f):
         print 'reading', f
         s = open (f).read ()
         return s
-
-
 
 
 class GitFileCompareLink (FileCompareLink):
