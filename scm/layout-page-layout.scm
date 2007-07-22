@@ -245,9 +245,7 @@
                       (if prev-line prev-position 0.0)))
          (bottom-position (- position
                              (interval-start (line-extent line)))))
-    (and (or (not prev-line)
-             (< bottom-position (page-printable-height page)))
-         position)))
+    position))
 
 (define (page-maximum-space-to-fill page lines paper)
   "Return the space between the first line top position and the last line
@@ -271,7 +269,7 @@
                  (position (line-position-on-page
                             line prev-line prev-position page relative-positionning-fn)))
             (if (null? (cdr lines))
-                (and position
+                (max 0
                      (- (page-printable-height page)
                         (- position
                            (interval-start (line-extent line)))))
