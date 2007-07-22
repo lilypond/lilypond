@@ -46,6 +46,8 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
     (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
     (gs-load-fonts #f
 		   "load fonts via Ghostscript.")
+    (gs-load-lily-fonts #f
+			"load only lilypond fonts via Ghostscript.")
     (gui #f "running from gui; redirect stderr to log file")
     (help #f "show this help.") 
     (include-book-title-preview #t "include book-titles in preview images.")
