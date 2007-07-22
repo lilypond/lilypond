@@ -557,6 +557,7 @@ The pairs
 * Page breaking::               
 * Optimal page breaking::       
 * Optimal page turning::        
+* Minimal page breaking::        
 * Explicit breaks::             
 * Using an extra voice for breaks::  
 @end menu
@@ -655,11 +656,11 @@ a line break.
 The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
 
-Page breaks are computed by the @code{page-breaking} function.
-LilyPond provides two algorithms for computing page
-breaks, @code{ly:optimal-breaking} and @code{ly:page-turn-breaking}. The
-default is @code{ly:optimal-breaking}, but the value can be changed in
-the @code{\paper} block:
+Page breaks are computed by the @code{page-breaking} function.  LilyPond
+provides three algorithms for computing page breaks,
+@code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
+@code{ly:minimal-breaking}. The default is @code{ly:optimal-breaking},
+but the value can be changed in the @code{\paper} block:
 
 @example
 \paper@{
@@ -769,6 +770,22 @@ top-level markups.
 There should only be one @code{Page_turn_engraver} in a score. If there is more
 than one, they will interfere with each other.
 
+@node Minimal page breaking
+@subsection Minimal page breaking
+
+@funindex ly:minimal-breaking
+
+The @code{ly:minimal-breaking} function performs minimal computations to
+calculate the page breaking: it fills a page with as many systems as
+possible before moving to the next one.  Thus, it may be prefered for
+scores with many pages, where the other page breaking functions could be
+too slow or memory demanding, or a lot of texts.  It is enabled using:
+
+@example
+\paper @{
+  #(define page-breaking ly:minimal-breaking)
+@}
+@end example
 
 @node Explicit breaks
 @subsection Explicit breaks
@@ -906,7 +923,7 @@ staves inside a system.
 * Vertical spacing inside a system::  
 * Vertical spacing between systems::  
 * Explicit staff and system positioning::  
-* Two-pass vertical spacing::
+* Two-pass vertical spacing::   
 * Vertical collision avoidance::  
 @end menu
 
@@ -1027,6 +1044,42 @@ Space between systems are controlled by four @code{\paper} variables,
 @}
 @end example
 
+When only a couple of flat systems are placed on a page, the resulting
+vertical spacing may be non-eleguant: one system at the top of the page,
+and the other at the bottom, with a huge gap between them. To avoid this
+situation, the space added between the systems can be limited. This
+feature is activated by setting to @code{#t} the
+@code{page-limit-inter-system-space} variable in the @code{\paper}
+block. The paper variable @code{page-limit-inter-system-space-factor}
+determines how much the space can be increased: for instance, the value
+@code{1.3} means that the space can be 30% larger than what it would be
+on a ragged-bottom page.
+
+In the following example, if the inter system space were not limited,
+the second system of page 1 would be placed at the page bottom. By
+activating the space limitation, the second system is placed closer to
+the first one. By setting @code{page-limit-inter-system-space-factor} to
+@code{1}, the spacing would the same as on a ragged-bottom page, like
+the last one.
+
+@lilypond[verbatim]
+#(set-default-paper-size "a6")
+\book {
+  \paper {
+    page-limit-inter-system-space = ##t
+    page-limit-inter-system-space-factor = 1.3
+
+    oddFooterMarkup = \markup "page bottom"
+    evenFooterMarkup = \markup "page bottom"
+    oddHeaderMarkup = \markup \fill-line {
+      "page top" \fromproperty #'page:page-number-string }
+    evenHeaderMarkup = \markup \fill-line {
+      "page top" \fromproperty #'page:page-number-string }
+  }
+  \new Staff << \repeat unfold 4 { g'4 g' g' g' \break }
+                { s1*2 \pageBreak } >>
+}
+@end lilypond
 
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning

@@ -131,6 +131,8 @@ protected:
 						       vsize first_page_num);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
 					      vsize first_page_num);
+  Page_spacing_result pack_systems_on_least_pages (vsize configuration_index,
+						   vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
   bool all_lines_stretched (vsize configuration_index);
   Real blank_page_penalty () const;
