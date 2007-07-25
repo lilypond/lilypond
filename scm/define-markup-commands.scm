@@ -28,7 +28,9 @@
   (number-pair?)
   "A simple line.  Uses the @code{thickness} property."
   (let*
-      ((th (chain-assoc-get 'thickness props  0.1))
+      ((th (*
+	    (ly:output-def-lookup layout 'line-thickness)
+	    (chain-assoc-get 'thickness props 1)))
        (x (car dest))
        (y (cdr dest))
        (s (ly:make-stencil
@@ -74,7 +76,9 @@ optionally filled."
 @code{circle-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
   
-  (let* ((th (chain-assoc-get 'thickness props  0.1))
+  (let* ((th
+	  (* (ly:output-def-lookup layout 'line-thickness)
+	     (chain-assoc-get 'thickness props  1)))
 	 (size (chain-assoc-get 'font-size props 0))
 	 (pad
 	  (* (magstep size)
@@ -118,7 +122,9 @@ the PDF backend."
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
   
-  (let* ((th (chain-assoc-get 'thickness props  0.1))
+  (let* ((th (*
+	      (ly:output-def-lookup layout 'line-thickness)
+	      (chain-assoc-get 'thickness props  0.1)))
 	 (size (chain-assoc-get 'font-size props 0))
 	 (pad (* (magstep size)
 		 (chain-assoc-get 'box-padding props 0.2)))
@@ -1164,7 +1170,8 @@ figured bass notation."
       ((mag (magstep (chain-assoc-get 'font-size props 0)))
        (thickness
 	(* mag
-	   (chain-assoc-get 'thickness props 0.16)))
+	   (ly:output-def-lookup layout 'line-thickness)
+	   (chain-assoc-get 'thickness props 1.6)))
        (dy (* mag 0.15))
        (number-stencil (interpret-markup layout
 					 (prepend-alist-chain 'font-encoding 'fetaNumber props)
