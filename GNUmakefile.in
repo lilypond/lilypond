@@ -221,6 +221,8 @@ test:
 	@echo -en 'For tracking crashes: use\n\n\t'
 	@echo 'grep sourcefilename `grep -L systems.texi input/regression/out-test/*log|sed s/log/ly/g`'
 	@echo
+#FIXME: using out-test and out-$(OUT_TEST) alongside eachother?
+	mkdir -p input/regression/out-test
 	if test -d .git  ; then \
 		echo -e 'HEAD is:\n\n\t' ; \
 		git log --max-count=1 --pretty=oneline ;\
