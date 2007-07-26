@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 13:22+0200\n"
-"PO-Revision-Date: 2007-07-23 15:38+0200\n"
+"POT-Creation-Date: 2007-07-26 22:30+0200\n"
+"PO-Revision-Date: 2007-07-26 22:50+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,28 +31,28 @@ msgstr ""
 "org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
 "(mail_address_url)s\">%(mail_address)s</a>"
 
-#: add_html_footer.py:46
+#: add_html_footer.py:47
 #, python-format
 msgid ""
-"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
-"welcome."
-msgstr "Vos <a href=\\\"%(suggest_s_url)s\\\">suggestions en matière de documentation</a> sont les bienvenues."
+"Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
+"are welcome."
+msgstr "Vos <a href=\"%(suggest_Docs_url)s\">suggestions à propos de la documentation</a> sont les bienvenues."
 
-#: add_html_footer.py:54
+#: add_html_footer.py:55
 #, python-format
 msgid "Other languages: %s."
 msgstr "Autres langues&nbsp;: %s."
 
-#: add_html_footer.py:55
+#: add_html_footer.py:56
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "À propos de la <A HREF=\"%s\">sélection automatique de la langue</A>."
 
-#: add_html_footer.py:251
+#: add_html_footer.py:252
 msgid "stable-branch"
 msgstr "branche stable"
 
-#: add_html_footer.py:253
+#: add_html_footer.py:254
 msgid "development-branch"
 msgstr "branche de développement"
 
@@ -1752,6 +1752,11 @@ msgstr "Optimisation des sauts de page"
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Optimal page turning"
 msgstr "Optimisation des tournes"
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+msgid "Minimal page breaking"
+msgstr "Minimisation des sauts de page"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely

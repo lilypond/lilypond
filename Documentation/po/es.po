@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 13:22+0200\n"
+"POT-Creation-Date: 2007-07-26 22:30+0200\n"
 "PO-Revision-Date: 2007-03-28 10:29+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -30,28 +30,28 @@ msgstr ""
 "Informe de los fallos a <a href=\"%(mail_address_url)s\">%(mail_address)s</"
 "a>."
 
-#: add_html_footer.py:46
+#: add_html_footer.py:47
 #, python-format
 msgid ""
-"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
-"welcome."
+"Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
+"are welcome."
 msgstr ""
 
-#: add_html_footer.py:54
+#: add_html_footer.py:55
 #, python-format
 msgid "Other languages: %s."
 msgstr "Otros idiomas: %s."
 
-#: add_html_footer.py:55
+#: add_html_footer.py:56
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "Acerca de la <A HREF=\"%s\">selección automática del idioma</A>."
 
-#: add_html_footer.py:251
+#: add_html_footer.py:252
 msgid "stable-branch"
 msgstr "rama estable"
 
-#: add_html_footer.py:253
+#: add_html_footer.py:254
 msgid "development-branch"
 msgstr "rama de desarrollo"
 
@@ -1775,6 +1775,12 @@ msgstr "Saltos de página óptimos"
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Optimal page turning"
 msgstr "Paso de página óptimo"
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+#, fuzzy
+msgid "Minimal page breaking"
+msgstr "Saltos de página óptimos"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely

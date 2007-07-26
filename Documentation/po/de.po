@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 13:22+0200\n"
+"POT-Creation-Date: 2007-07-26 22:30+0200\n"
 "PO-Revision-Date: 2007-05-12 18:41+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -28,28 +28,28 @@ msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 "Fehler bitte an <a href=\"%(mail_address_url)s\">%(mail_address)s</a> melden."
 
-#: add_html_footer.py:46
+#: add_html_footer.py:47
 #, python-format
 msgid ""
-"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
-"welcome."
+"Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
+"are welcome."
 msgstr ""
 
-#: add_html_footer.py:54
+#: add_html_footer.py:55
 #, python-format
 msgid "Other languages: %s."
 msgstr "Andere Sprachen: %s."
 
-#: add_html_footer.py:55
+#: add_html_footer.py:56
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "Über die <A HREF=\"%s\">automatische Sprachauswahl</A>."
 
-#: add_html_footer.py:251
+#: add_html_footer.py:252
 msgid "stable-branch"
 msgstr "stabiler Zweig"
 
-#: add_html_footer.py:253
+#: add_html_footer.py:254
 msgid "development-branch"
 msgstr "Entwicklungszweig"
 
@@ -1759,6 +1759,12 @@ msgstr "Optimale Seitenumbrüche"
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Optimal page turning"
 msgstr "Optimale Umbrüche zum Blättern"
+
+#. @node in ../../../Documentation/user/spacing.itely
+#. @subsection in ../../../Documentation/user/spacing.itely
+#, fuzzy
+msgid "Minimal page breaking"
+msgstr "Optimale Seitenumbrüche"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
