@@ -71,7 +71,7 @@ baseChords =
   <a b e f>
   <a c d f>
   <a c e f>
-  <f a e f>
+  <f a e' f>
   <c e f a> 
   <c e g a>
   <f b e a>
