@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-04 00:04+0200\n"
+"POT-Creation-Date: 2007-07-17 13:22+0200\n"
 "PO-Revision-Date: 2007-03-28 10:29+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -959,23 +959,40 @@ msgstr "Introducir la letra"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Hyphens and extenders"
-msgstr "Guiones y extensiones"
+msgid "Aligning lyrics to a melody"
+msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "The Lyrics context"
-msgstr "El contexto Lyrics"
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+#, fuzzy
+msgid "Automatic syllable durations"
+msgstr "Notación automática"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Melismata"
-msgstr "Melismas"
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Another way of entering lyrics"
 msgstr "Otra manera de introducir la letra"
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Assigning more than one syllable to a single note"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "More than one note on a single syllable"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Extenders and hyphens"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsection in ../../../Documentation/user/instrument-notation.itely
+#, fuzzy
+msgid "Working with lyrics and identifiers"
+msgstr "Organizar las piezas mediante identificadores"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -996,11 +1013,6 @@ msgstr "Letras en divisi"
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Switching the melody associated with a lyrics line"
 msgstr "Cambiar la melodía dependiendo de la letra"
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Specifying melismata within the lyrics"
-msgstr "Especificar melismas dentro de la letra"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
@@ -2346,6 +2358,18 @@ msgstr "Notas al pie"
 # this is the same translation that babel LaTex package uses . FVD
 msgid "Table of Contents"
 msgstr "Índice general"
+
+#~ msgid "Hyphens and extenders"
+#~ msgstr "Guiones y extensiones"
+
+#~ msgid "The Lyrics context"
+#~ msgstr "El contexto Lyrics"
+
+#~ msgid "Melismata"
+#~ msgstr "Melismas"
+
+#~ msgid "Specifying melismata within the lyrics"
+#~ msgstr "Especificar melismas dentro de la letra"
 
 #~ msgid "English"
 #~ msgstr "Inglés"
