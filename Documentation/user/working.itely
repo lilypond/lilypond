@@ -104,7 +104,7 @@ you didn't comment the file.
 imbalance
 in the number of @code{@{} and @code{@}}.
 
-@item @strong{Explicity add durations} at the beginnings of sections
+@item @strong{Explicitly add durations} at the beginnings of sections
 and identifiers.  If you specify @code{c4 d e} at the beginning of a
 phrase (instead of just @code{c d e}) you can save yourself some
 problems if you rearrange your music later.
