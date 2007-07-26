@@ -1014,26 +1014,6 @@ Here is an example demonstrating manual lyric durations,
  } >>
 @end lilypond
 
-The following example is a comparison of the different commands for
-entering lyrics:
-
-@lilypond[quote,fragment,ragged-right,verbatim]
-<<
- \new Voice = "one" \relative c'' {
-   \autoBeamOff
-   \time 2/4
-   c4 b8. a16 g4. f8 e4 d c2
- }
- \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
- \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
- \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
- >>
-@end lilypond
- 
-The second stanza is not properly aligned because the durations
-were not specified.  A solution for that, as shown with the
-third stanza, would be to use @code{\lyricsto}.
- 
 @seealso
  
 Program reference: @internalsref{Lyrics}.
@@ -1075,6 +1055,7 @@ Program reference: @internalsref{LyricCombineMusic}.
 
 @cindex melisma
 @cindex melismata
+@cindex phrasing, in lyrics
 
 Sometimes, particularly in Medieval music, several notes are to be sung on one
 single syllable; such vocalises are called melismas, or melismata.
@@ -1514,9 +1495,6 @@ layout.
 
 @node More about stanzas
 @subsection More about stanzas
-
-@c what's this doing here?
-@cindex phrasing, in lyrics
 
 @cindex stanza number
 @subsubsection Adding stanza numbers 
@@ -2626,7 +2604,7 @@ up during the baroque period.
 @ref{Figured bass}
 @end itemize
 
-Here are all suptopics at a glance:
+Here are all subtopics at a glance:
 
 @menu
 * Ancient note heads::          
@@ -3213,7 +3191,7 @@ Editio Vaticana style.
 @refbugs
 
 Some articulations are vertically placed too closely to the
-correpsonding note heads.
+corresponding note heads.
 
 The episem line is not displayed in many cases.  If it is displayed,
 the right end of the episem line is often too far to the right.

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-04 00:04+0200\n"
+"POT-Creation-Date: 2007-07-17 13:22+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -948,22 +948,37 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Hyphens and extenders"
+msgid "Aligning lyrics to a melody"
 msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "The Lyrics context"
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Automatic syllable durations"
 msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Melismata"
-msgstr ""
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Another way of entering lyrics"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Assigning more than one syllable to a single note"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "More than one note on a single syllable"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Extenders and hyphens"
+msgstr ""
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Working with lyrics and identifiers"
 msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
@@ -984,11 +999,6 @@ msgstr ""
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Switching the melody associated with a lyrics line"
-msgstr ""
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Specifying melismata within the lyrics"
 msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
