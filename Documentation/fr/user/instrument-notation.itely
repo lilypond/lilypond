@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
+    Translation of GIT committish: e4135d227f80ed5ded732f32f0e9e3f9a1fff774
 
 
     When revising a translation, copy the HEAD committish of the
@@ -25,8 +25,6 @@ Ce chapitre traite de la notation spécifique à certains instruments.
 * Other instrument specific notation::
 @end menu 
 
-@node Piano music
-@section Piano music
 
 @node Piano music
 @section Piano music
