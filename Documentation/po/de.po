@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-29 22:03+0200\n"
+"POT-Creation-Date: 2007-08-01 14:38+0200\n"
 "PO-Revision-Date: 2007-05-12 18:41+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -28,28 +28,28 @@ msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 msgstr ""
 "Fehler bitte an <a href=\"%(mail_address_url)s\">%(mail_address)s</a> melden."
 
-#: add_html_footer.py:46
+#: add_html_footer.py:47
 #, python-format
 msgid ""
-"Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
-"welcome."
+"Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
+"are welcome."
 msgstr ""
 
-#: add_html_footer.py:54
+#: add_html_footer.py:55
 #, python-format
 msgid "Other languages: %s."
 msgstr "Andere Sprachen: %s."
 
-#: add_html_footer.py:55
+#: add_html_footer.py:56
 #, python-format
 msgid "About <A HREF=\"%s\">automatic language selection</A>."
 msgstr "Über die <A HREF=\"%s\">automatische Sprachauswahl</A>."
 
-#: add_html_footer.py:251
+#: add_html_footer.py:252
 msgid "stable-branch"
 msgstr "stabiler Zweig"
 
-#: add_html_footer.py:253
+#: add_html_footer.py:254
 msgid "development-branch"
 msgstr "Entwicklungszweig"
 
@@ -68,13 +68,6 @@ msgstr ""
 #, fuzzy
 msgid "GNU LilyPond --- program usage"
 msgstr "GNU LilyPond -- Das Notensatzprogramm"
-
-#. @node in ../../../Documentation/user/lilypond-program.tely
-#. @appendix in ../../../Documentation/user/lilypond-program.tely
-#. @node in ../../../Documentation/user/lilypond.tely
-#. @appendix in ../../../Documentation/user/lilypond.tely
-msgid "LilyPond command index"
-msgstr "Index der LilyPond-Befehle"
 
 #. @node in ../../../Documentation/user/lilypond-program.tely
 #. @appendix in ../../../Documentation/user/lilypond-program.tely
@@ -103,86 +96,148 @@ msgstr "Vordefinierte Befehle"
 msgid "Commonly tweaked properties"
 msgstr "Übliche Veränderungen der Einstellungen"
 
-#. @node in ../../../Documentation/user/install.itexi
-#. @chapter in ../../../Documentation/user/install.itexi
+#. @node in ../../../Documentation/user/install.itely
+#. @chapter in ../../../Documentation/user/install.itely
 msgid "Install"
 msgstr ""
 
-#. @section in ../../../Documentation/user/install.itexi
+#. @node in ../../../Documentation/user/install.itely
+#. @section in ../../../Documentation/user/install.itely
+msgid "Precompiled binaries"
+msgstr ""
+
+#. @subsection in ../../../Documentation/user/install.itely
 msgid "Downloading"
 msgstr ""
 
-#. @subsection in ../../../Documentation/user/install.itexi
-msgid "Source code"
+#. @node in ../../../Documentation/user/install.itely
+#. @section in ../../../Documentation/user/install.itely
+#, fuzzy
+msgid "Compiling from source"
+msgstr "Eine Quelldatei übersetzen"
+
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
+msgid "Downloading source code"
 msgstr ""
 
-#. @subsection in ../../../Documentation/user/install.itexi
-msgid "Precompiled binary packages"
-msgstr ""
-
-#. @section in ../../../Documentation/user/install.itexi
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
 msgid "Requirements"
 msgstr ""
 
-#. @subsection in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Compilation"
 msgstr "Einfache Notation"
 
-#. @subsection in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Running requirements"
 msgstr ""
 
-#. @subsection in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Building documentation"
 msgstr "Komplizierte Funktionen erstellen"
 
-#. @section in ../../../Documentation/user/install.itexi
-#, fuzzy
-msgid "Testing LilyPond"
-msgstr "LilyPond starten"
-
-#. @section in ../../../Documentation/user/install.itexi
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Building LilyPond"
 msgstr "LilyPond starten"
 
-#. @subsection in ../../../Documentation/user/install.itexi
+#. @subsubsection in ../../../Documentation/user/install.itely
 #, fuzzy
-msgid "Configuring for multiple platforms"
+msgid "Compiling"
+msgstr "Einfache Notation"
+
+#. @subsubsection in ../../../Documentation/user/install.itely
+#, fuzzy
+msgid "Compiling for multiple platforms"
 msgstr "Von anderen Formaten konvertieren"
 
-#. @section in ../../../Documentation/user/install.itexi
-msgid "Emacs mode"
-msgstr ""
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
+#, fuzzy
+msgid "Building documentation without compiling LilyPond"
+msgstr "Komplizierte Funktionen erstellen"
 
-#. @section in ../../../Documentation/user/install.itexi
-msgid "Vim mode"
-msgstr ""
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
+#, fuzzy
+msgid "Testing LilyPond"
+msgstr "LilyPond starten"
 
-#. @section in ../../../Documentation/user/install.itexi
+#. @node in ../../../Documentation/user/install.itely
+#. @subsection in ../../../Documentation/user/install.itely
 msgid "Problems"
 msgstr ""
 
-#. @subsection in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Bison 1.875"
 msgstr ""
 
-#. @unnumberedsubsec in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #. @subsubheading in ../../../Documentation/user/tutorial.itely
 msgid "MacOS X"
 msgstr "MacOS X"
 
-#. @unnumberedsubsec in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Solaris"
 msgstr "Legatobögen"
 
-#. @section in ../../../Documentation/user/install.itexi
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
+msgid "FreeBSD"
+msgstr ""
+
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "International fonts"
 msgstr "Interpretationsumgebungen"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @chapter in ../../../Documentation/user/setup.itely
+msgid "Setup"
+msgstr ""
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @section in ../../../Documentation/user/setup.itely
+msgid "Notes for the MacOS X app"
+msgstr "Anmerkungen für MacOS X"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @section in ../../../Documentation/user/setup.itely
+#, fuzzy
+msgid "Text editor support"
+msgstr "Unterstützung von Texteditoren"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+msgid "Emacs mode"
+msgstr ""
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+msgid "Vim mode"
+msgstr ""
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+#, fuzzy
+msgid "LilyPondTool"
+msgstr "Lilypond-book-Vorlagen"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+msgid "TexShop"
+msgstr ""
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @section in ../../../Documentation/user/setup.itely
+#, fuzzy
+msgid "Point and click"
+msgstr "Noten und Text"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @chapter in ../../../Documentation/user/running.itely
@@ -203,11 +258,6 @@ msgid "Environment variables"
 msgstr "Umgebungsvariablen"
 
 #. @node in ../../../Documentation/user/running.itely
-#. @section in ../../../Documentation/user/running.itely
-msgid "Notes for the MacOS X app"
-msgstr "Anmerkungen für MacOS X"
-
-#. @node in ../../../Documentation/user/running.itely
 msgid "Updating files with convert-ly"
 msgstr "Dateien mit convert-ly aktualisieren"
 
@@ -224,17 +274,6 @@ msgstr "Fehler melden"
 #. @section in ../../../Documentation/user/running.itely
 msgid "Error messages"
 msgstr "Fehlermeldungen"
-
-#. @node in ../../../Documentation/user/running.itely
-#. @section in ../../../Documentation/user/running.itely
-msgid "Editor support"
-msgstr "Unterstützung von Texteditoren"
-
-#. @node in ../../../Documentation/user/running.itely
-#. @section in ../../../Documentation/user/running.itely
-#, fuzzy
-msgid "Point and click"
-msgstr "Noten und Text"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #, fuzzy
@@ -379,6 +418,11 @@ msgstr "Anhang: Wie kann die Lizenz für eigene Dokumente verwendet werden"
 #. @top in ../../../Documentation/user/lilypond.tely
 msgid "GNU LilyPond --- The music typesetter"
 msgstr "GNU LilyPond -- Das Notensatzprogramm"
+
+#. @node in ../../../Documentation/user/lilypond.tely
+#. @appendix in ../../../Documentation/user/lilypond.tely
+msgid "LilyPond command index"
+msgstr "Index der LilyPond-Befehle"
 
 #. @node in ../../../Documentation/user/preface.itely
 #. @unnumbered in ../../../Documentation/user/preface.itely
