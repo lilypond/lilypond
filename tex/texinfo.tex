@@ -3,16 +3,16 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2007-06-26.23}
+\def\texinfoversion{2007-07-23.10}
 %
-% Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
+% Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995, 2007,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
 % 2007 Free Software Foundation, Inc.
 %
-% This texinfo.tex file is free software; you can redistribute it and/or
+% This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
-% published by the Free Software Foundation; either version 2, or (at
-% your option) any later version.
+% published by the Free Software Foundation, either version 3 of the
+% License, or (at your option) any later version.
 %
 % This texinfo.tex file is distributed in the hope that it will be
 % useful, but WITHOUT ANY WARRANTY; without even the implied warranty
@@ -20,9 +20,7 @@
 % General Public License for more details.
 %
 % You should have received a copy of the GNU General Public License
-% along with this texinfo.tex file; see the file COPYING.  If not, write
-% to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
-% Boston, MA 02110-1301, USA.
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
 %
 % As a special exception, when this file is read by TeX when processing
 % a Texinfo source document, you may use the result without
@@ -279,6 +277,50 @@
 \newdimen\cornerthick \cornerthick=.3pt
 \newdimen\topandbottommargin \topandbottommargin=.75in
 
+% Output a mark which sets \thischapter, \thissection and \thiscolor.
+% We dump everything together because we only have one kind of mark.
+% This works because we only use \botmark / \topmark, not \firstmark.
+%
+% A mark contains a subexpression of the \ifcase ... \fi construct.
+% \get*marks macros below extract the needed part using \ifcase.
+%
+% Another complication is to let the user choose whether \thischapter
+% (\thissection) refers to the chapter (section) in effect at the top
+% of a page, or that at the bottom of a page.  The solution is
+% described on page 260 of The TeXbook.  It involves outputting two
+% marks for the sectioning macros, one before the section break, and
+% one after.  I won't pretend I can describe this better than DEK...
+\def\domark{%
+  \toks0=\expandafter{\lastchapterdefs}%
+  \toks2=\expandafter{\lastsectiondefs}%
+  \toks4=\expandafter{\prevchapterdefs}%
+  \toks6=\expandafter{\prevsectiondefs}%
+  \toks8=\expandafter{\lastcolordefs}%
+  \mark{%
+                   \the\toks0 \the\toks2
+      \noexpand\or \the\toks4 \the\toks6
+    \noexpand\else \the\toks8
+  }%
+}
+% \topmark doesn't work for the very first chapter (after the title
+% page or the contents), so we use \firstmark there -- this gets us
+% the mark with the chapter defs, unless the user sneaks in, e.g.,
+% @setcolor (or @url, or @link, etc.) between @contents and the very
+% first @chapter.
+\def\gettopheadingmarks{%
+  \ifcase0\topmark\fi
+  \ifx\thischapter\empty \ifcase0\firstmark\fi \fi
+}
+\def\getbottomheadingmarks{\ifcase1\botmark\fi}
+\def\getcolormarks{\ifcase2\topmark\fi}
+
+% Avoid "undefined control sequence" errors.
+\def\lastchapterdefs{}
+\def\lastsectiondefs{}
+\def\prevchapterdefs{}
+\def\prevsectiondefs{}
+\def\lastcolordefs{}
+
 % Main output routine.
 \chardef\PAGE = 255
 \output = {\onepageout{\pagecontents\PAGE}}
@@ -296,7 +338,9 @@
   %
   % Do this outside of the \shipout so @code etc. will be expanded in
   % the headline as they should be, not taken literally (outputting ''code).
+  \ifodd\pageno \getoddheadingmarks \else \getevenheadingmarks \fi
   \setbox\headlinebox = \vbox{\let\hsize=\pagewidth \makeheadline}%
+  \ifodd\pageno \getoddfootingmarks \else \getevenfootingmarks \fi
   \setbox\footlinebox = \vbox{\let\hsize=\pagewidth \makefootline}%
   %
   {%
@@ -375,7 +419,7 @@
 % marginal hacks, juha@viisa.uucp (Juha Takala)
 \ifvoid\margin\else % marginal info is present
   \rlap{\kern\hsize\vbox to\z@{\kern1pt\box\margin \vss}}\fi
-\dimen@=\dp#1 \unvbox#1
+\dimen@=\dp#1\relax \unvbox#1\relax
 \ifvoid\footins\else\vskip\skip\footins\footnoterule \unvbox\footins\fi
 \ifr@ggedbottom \kern-\dimen@ \vfil \fi}
 }
@@ -1262,7 +1306,46 @@ be supported due to the design of the PDF format; use regular TeX (DVI
 output) for that.)}
 
 \ifpdf
-  \input pdfcolor
+  %
+  % Color manipulation macros based on pdfcolor.tex.
+  \def\cmykDarkRed{0.28 1 1 0.35}
+  \def\cmykBlack{0 0 0 1}
+  %
+  \def\pdfsetcolor#1{\pdfliteral{#1 k}}
+  % Set color, and create a mark which defines \thiscolor accordingly,
+  % so that \makeheadline knows which color to restore.
+  \def\setcolor#1{%
+    \xdef\lastcolordefs{\gdef\noexpand\thiscolor{#1}}%
+    \domark
+    \pdfsetcolor{#1}%
+  }
+  %
+  \def\maincolor{\cmykBlack}
+  \pdfsetcolor{\maincolor}
+  \edef\thiscolor{\maincolor}
+  \def\lastcolordefs{}
+  %
+  \def\makefootline{%
+    \baselineskip24pt
+    \line{\pdfsetcolor{\maincolor}\the\footline}%
+  }
+  %
+  \def\makeheadline{%
+    \vbox to 0pt{%
+      \vskip-22.5pt
+      \line{%
+        \vbox to8.5pt{}%
+        % Extract \thiscolor definition from the marks.
+        \getcolormarks
+        % Typeset the headline with \maincolor, then restore the color.
+        \pdfsetcolor{\maincolor}\the\headline\pdfsetcolor{\thiscolor}%
+      }%
+      \vss
+    }%
+    \nointerlineskip
+  }
+  %
+  %
   \pdfcatalog{/PageMode /UseOutlines}
   %
   % #1 is image name, #2 width (might be empty/whitespace), #3 height (ditto).
@@ -1329,10 +1412,9 @@ output) for that.)}
   %
   % by default, use a color that is dark enough to print on paper as
   % nearly black, but still distinguishable for online viewing.
-  % (Defined in pdfcolor.tex.)
-  \let\urlcolor = \BrickRed
-  \let\linkcolor = \BrickRed
-  \def\endlink{\Black\pdfendlink}
+  \def\urlcolor{\cmykDarkRed}
+  \def\linkcolor{\cmykDarkRed}
+  \def\endlink{\setcolor{\maincolor}\pdfendlink}
   %
   % Adding outlines to PDF; macros for calculating structure of outlines
   % come from Petr Olsak
@@ -1465,7 +1547,7 @@ output) for that.)}
       \def\@{@}%
       \let\/=\empty
       \makevalueexpandable
-      \leavevmode\urlcolor
+      \leavevmode\setcolor{\urlcolor}%
       \startlink attr{/Border [0 0 0]}%
         user{/Subtype /Link /A << /S /URI /URI (#1) >>}%
     \endgroup}
@@ -1492,13 +1574,14 @@ output) for that.)}
     {\noexpand\pdflink{\the\toksC}}\toksC={}\global\countA=0}
   \def\pdflink#1{%
     \startlink attr{/Border [0 0 0]} goto name{\pdfmkpgn{#1}}
-    \linkcolor #1\endlink}
+    \setcolor{\linkcolor}#1\endlink}
   \def\done{\edef\st{\global\noexpand\toksA={\the\toksB}}\st}
 \else
   \let\pdfmkdest = \gobble
   \let\pdfurl = \gobble
   \let\endlink = \relax
-  \let\linkcolor = \relax
+  \let\setcolor = \gobble
+  \let\pdfsetcolor = \gobble
   \let\pdfmakeoutlines = \relax
 \fi  % \ifx\pdfoutput
 
@@ -1867,6 +1950,7 @@ end
 \setfont\textttsl\ttslshape{10}{\mainmagstep}{OT1TT}
 \font\texti=cmmi10 scaled \mainmagstep
 \font\textsy=cmsy10 scaled \mainmagstep
+\def\textecsize{1095}
 
 % A few fonts for @defun names and args.
 \setfont\defbf\bfshape{10}{\magstep1}{OT1}
@@ -1886,6 +1970,7 @@ end
 \setfont\smallttsl\ttslshape{10}{900}{OT1TT}
 \font\smalli=cmmi9
 \font\smallsy=cmsy9
+\def\smallecsize{0900}
 
 % Fonts for small examples (8pt).
 \def\smallernominalsize{8pt}
@@ -1899,6 +1984,7 @@ end
 \setfont\smallerttsl\ttslshape{10}{800}{OT1TT}
 \font\smalleri=cmmi8
 \font\smallersy=cmsy8
+\def\smallerecsize{0800}
 
 % Fonts for title page (20.4pt):
 \def\titlenominalsize{20pt}
@@ -1914,6 +2000,7 @@ end
 \font\titlesy=cmsy10 scaled \magstep4
 \def\authorrm{\secrm}
 \def\authortt{\sectt}
+\def\titleecsize{2074}
 
 % Chapter (and unnumbered) fonts (17.28pt).
 \def\chapnominalsize{17pt}
@@ -1927,6 +2014,7 @@ end
 \setfont\chapsc\scbshape{10}{\magstep3}{OT1}
 \font\chapi=cmmi12 scaled \magstep2
 \font\chapsy=cmsy10 scaled \magstep3
+\def\chapecsize{1728}
 
 % Section fonts (14.4pt).
 \def\secnominalsize{14pt}
@@ -1940,6 +2028,7 @@ end
 \setfont\secsc\scbshape{10}{\magstep2}{OT1}
 \font\seci=cmmi12 scaled \magstep1
 \font\secsy=cmsy10 scaled \magstep2
+\def\sececsize{1440}
 
 % Subsection fonts (13.15pt).
 \def\ssecnominalsize{13pt}
@@ -1953,6 +2042,7 @@ end
 \setfont\ssecsc\scbshape{10}{1315}{OT1}
 \font\sseci=cmmi12 scaled \magstephalf
 \font\ssecsy=cmsy10 scaled 1315
+\def\ssececsize{1200}
 
 % Reduced fonts for @acro in text (10pt).
 \def\reducednominalsize{10pt}
@@ -1966,6 +2056,7 @@ end
 \setfont\reducedttsl\ttslshape{10}{1000}{OT1TT}
 \font\reducedi=cmmi10
 \font\reducedsy=cmsy10
+\def\reducedecsize{1000}
 
 % reset the current fonts
 \textfonts
@@ -1992,6 +2083,7 @@ end
 \setfont\textttsl\ttslshape{10}{\mainmagstep}{OT1TT}
 \font\texti=cmmi10 scaled \mainmagstep
 \font\textsy=cmsy10 scaled \mainmagstep
+\def\textecsize{1000}
 
 % A few fonts for @defun names and args.
 \setfont\defbf\bfshape{10}{\magstephalf}{OT1}
@@ -2011,6 +2103,7 @@ end
 \setfont\smallttsl\ttslshape{10}{900}{OT1TT}
 \font\smalli=cmmi9
 \font\smallsy=cmsy9
+\def\smallecsize{0900}
 
 % Fonts for small examples (8pt).
 \def\smallernominalsize{8pt}
@@ -2024,6 +2117,7 @@ end
 \setfont\smallerttsl\ttslshape{10}{800}{OT1TT}
 \font\smalleri=cmmi8
 \font\smallersy=cmsy8
+\def\smallerecsize{0800}
 
 % Fonts for title page (20.4pt):
 \def\titlenominalsize{20pt}
@@ -2039,6 +2133,7 @@ end
 \font\titlesy=cmsy10 scaled \magstep4
 \def\authorrm{\secrm}
 \def\authortt{\sectt}
+\def\titleecsize{2074}
 
 % Chapter fonts (14.4pt).
 \def\chapnominalsize{14pt}
@@ -2052,6 +2147,7 @@ end
 \setfont\chapsc\scbshape{10}{\magstep2}{OT1}
 \font\chapi=cmmi12 scaled \magstep1
 \font\chapsy=cmsy10 scaled \magstep2
+\def\chapecsize{1440}
 
 % Section fonts (12pt).
 \def\secnominalsize{12pt}
@@ -2065,6 +2161,7 @@ end
 \setfont\secsc\scbshape{10}{\magstep1}{OT1}
 \font\seci=cmmi12 
 \font\secsy=cmsy10 scaled \magstep1
+\def\sececsize{1200}
 
 % Subsection fonts (10pt).
 \def\ssecnominalsize{10pt}
@@ -2078,6 +2175,7 @@ end
 \setfont\ssecsc\scbshape{10}{1000}{OT1}
 \font\sseci=cmmi10
 \font\ssecsy=cmsy10
+\def\ssececsize{1000}
 
 % Reduced fonts for @acro in text (9pt).
 \def\reducednominalsize{9pt}
@@ -2091,6 +2189,7 @@ end
 \setfont\reducedttsl\ttslshape{10}{900}{OT1TT}
 \font\reducedi=cmmi9
 \font\reducedsy=cmsy9
+\def\reducedecsize{0900}
 
 % reduce space between paragraphs
 \divide\parskip by 2
@@ -2605,6 +2704,35 @@ end
   \thiseurofont
 }
 
+% Hacks for glyphs from the EC fonts similar to \euro.  We don't
+% use \let for the aliases, because sometimes we redefine the original
+% macro, and the alias should reflect the redefinition.
+\def\guillemetleft{{\ecfont \char"13}}
+\def\guillemotleft{\guillemetleft}
+\def\guillemetright{{\ecfont \char"14}}
+\def\guillemotright{\guillemetright}
+\def\guilsinglleft{{\ecfont \char"0E}}
+\def\guilsinglright{{\ecfont \char"0F}}
+\def\quotedblbase{{\ecfont \char"12}}
+\def\quotesinglbase{{\ecfont \char"0D}}
+%
+\def\ecfont{%
+  % We can't distinguish serif/sanserif and italic/slanted, but this
+  % is used for crude hacks anyway (like adding French and German
+  % quotes to documents typeset with CM, where we lose kerning), so
+  % hopefully nobody will notice/care.
+  \edef\ecsize{\csname\curfontsize ecsize\endcsname}%
+  \edef\nominalsize{\csname\curfontsize nominalsize\endcsname}%
+  \ifx\curfontstyle\bfstylename
+    % bold:
+    \font\thisecfont = ecb\ifusingit{i}{x}\ecsize \space at \nominalsize
+  \else
+    % regular:
+    \font\thisecfont = ec\ifusingit{ti}{rm}\ecsize \space at \nominalsize
+  \fi
+  \thisecfont
+}
+
 % @registeredsymbol - R in a circle.  The font for the R should really
 % be smaller yet, but lllsize is the best we can do for now.
 % Adapted from the plain.tex definition of \copyright.
@@ -2627,6 +2755,11 @@ end
 \def\Orb{\mathhexbox20D}
 \fi
 
+% Quotes.
+\chardef\quotedblleft="5C
+\chardef\quotedblright=`\"
+\chardef\quoteleft=`\`
+\chardef\quoteright=`\'
 
 \message{page headings,}
 
@@ -2796,6 +2929,33 @@ end
 
 \parseargdef\everyfooting{\oddfootingxxx{#1}\evenfootingxxx{#1}}
 
+% @evenheadingmarks top     \thischapter <- chapter at the top of a page
+% @evenheadingmarks bottom  \thischapter <- chapter at the bottom of a page
+%
+% The same set of arguments for:
+%
+% @oddheadingmarks
+% @evenfootingmarks
+% @oddfootingmarks
+% @everyheadingmarks
+% @everyfootingmarks
+
+\def\evenheadingmarks{\headingmarks{even}{heading}}
+\def\oddheadingmarks{\headingmarks{odd}{heading}}
+\def\evenfootingmarks{\headingmarks{even}{footing}}
+\def\oddfootingmarks{\headingmarks{odd}{footing}}
+\def\everyheadingmarks#1 {\headingmarks{even}{heading}{#1}
+                          \headingmarks{odd}{heading}{#1} }
+\def\everyfootingmarks#1 {\headingmarks{even}{footing}{#1}
+                          \headingmarks{odd}{footing}{#1} }
+% #1 = even/odd, #2 = heading/footing, #3 = top/bottom.
+\def\headingmarks#1#2#3 {%
+  \expandafter\let\expandafter\temp \csname get#3headingmarks\endcsname
+  \global\expandafter\let\csname get#1#2marks\endcsname \temp
+}
+
+\everyheadingmarks bottom
+\everyfootingmarks bottom
 
 % @headings double      turns headings on for double-sided printing.
 % @headings single      turns headings on for single-sided printing.
@@ -3836,11 +3996,21 @@ end
   \definedummyword\equiv
   \definedummyword\error
   \definedummyword\euro
+  \definedummyword\guillemetleft
+  \definedummyword\guillemetright
+  \definedummyword\guilsinglleft
+  \definedummyword\guilsinglright
   \definedummyword\expansion
   \definedummyword\minus
   \definedummyword\pounds
   \definedummyword\point
   \definedummyword\print
+  \definedummyword\quotedblbase
+  \definedummyword\quotedblleft
+  \definedummyword\quotedblright
+  \definedummyword\quoteleft
+  \definedummyword\quoteright
+  \definedummyword\quotesinglbase
   \definedummyword\result
   \definedummyword\textdegree
   %
@@ -3970,11 +4140,21 @@ end
   \def\equiv{==}%
   \def\error{error}%
   \def\euro{euro}%
+  \def\guillemetleft{<<}%
+  \def\guillemetright{>>}%
+  \def\guilsinglleft{<}%
+  \def\guilsinglright{>}%
   \def\expansion{==>}%
   \def\minus{-}%
   \def\pounds{pounds}%
   \def\point{.}%
   \def\print{-|}%
+  \def\quotedblbase{"}%
+  \def\quotedblleft{"}%
+  \def\quotedblright{"}%
+  \def\quoteleft{`}%
+  \def\quoteright{'}%
+  \def\quotesinglbase{,}%
   \def\result{=>}%
   \def\textdegree{degrees}%
   %
@@ -4099,7 +4279,7 @@ end
   %
   % If \lastskip is nonzero, that means the last item was a
   % skip.  And since a skip is discardable, that means this
-  % -\skip0 glue we're inserting is preceded by a
+  % -\whatsitskip glue we're inserting is preceded by a
   % non-discardable item, therefore it is not a potential
   % breakpoint, therefore no \nobreak needed.
   \ifx\lastskipmacro\zeroskipmacro
@@ -4575,11 +4755,15 @@ end
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi
   \fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi\fi}
 
-% Each @chapter defines this as the name of the chapter.
-% page headings and footings can use it.  @section does likewise.
-% However, they are not reliable, because we don't use marks.
+% Each @chapter defines these (using marks) as the number+name, number
+% and name of the chapter.  Page headings and footings can use
+% these.  @section does likewise.
 \def\thischapter{}
+\def\thischapternum{}
+\def\thischaptername{}
 \def\thissection{}
+\def\thissectionnum{}
+\def\thissectionname{}
 
 \newcount\absseclevel % used to calculate proper heading level
 \newcount\secbase\secbase=0 % @raisesections/@lowersections modify this count
@@ -4880,7 +5064,20 @@ end
 
 \def\chapbreak{\dobreak \chapheadingskip {-4000}}
 \def\chappager{\par\vfill\supereject}
-\def\chapoddpage{\chappager \ifodd\pageno \else \hbox to 0pt{} \chappager\fi}
+% Because \domark is called before \chapoddpage, the filler page will
+% get the headings for the next chapter, which is wrong.  But we don't
+% care -- we just disable all headings on the filler page.
+\def\chapoddpage{%
+  \chappager
+  \ifodd\pageno \else
+    \begingroup
+      \evenheadline={\hfil}\evenfootline={\hfil}%
+      \oddheadline={\hfil}\oddfootline={\hfil}%
+      \hbox to 0pt{}%
+      \chappager
+    \endgroup
+  \fi
+}
 
 \def\setchapternewpage #1 {\csname CHAPPAG#1\endcsname}
 
@@ -4914,45 +5111,72 @@ end
 \def\Yappendixkeyword{Yappendix}
 %
 \def\chapmacro#1#2#3{%
+  % Insert the first mark before the heading break (see notes for \domark).
+  \let\prevchapterdefs=\lastchapterdefs
+  \let\prevsectiondefs=\lastsectiondefs
+  \gdef\lastsectiondefs{\gdef\thissectionname{}\gdef\thissectionnum{}%
+                        \gdef\thissection{}}%
+  %
+  \def\temptype{#2}%
+  \ifx\temptype\Ynothingkeyword
+    \gdef\lastchapterdefs{\gdef\thischaptername{#1}\gdef\thischapternum{}%
+                          \gdef\thischapter{\thischaptername}}%
+  \else\ifx\temptype\Yomitfromtockeyword
+    \gdef\lastchapterdefs{\gdef\thischaptername{#1}\gdef\thischapternum{}%
+                          \gdef\thischapter{}}%
+  \else\ifx\temptype\Yappendixkeyword
+    \toks0={#1}%
+    \xdef\lastchapterdefs{%
+      \gdef\noexpand\thischaptername{\the\toks0}%
+      \gdef\noexpand\thischapternum{\appendixletter}%
+      \gdef\noexpand\thischapter{\putwordAppendix{} \noexpand\thischapternum:
+                                 \noexpand\thischaptername}%
+    }%
+  \else
+    \toks0={#1}%
+    \xdef\lastchapterdefs{%
+      \gdef\noexpand\thischaptername{\the\toks0}%
+      \gdef\noexpand\thischapternum{\the\chapno}%
+      \gdef\noexpand\thischapter{\putwordChapter{} \noexpand\thischapternum:
+                                 \noexpand\thischaptername}%
+    }%
+  \fi\fi\fi
+  %
+  % Output the mark.  Pass it through \safewhatsit, to take care of
+  % the preceding space.
+  \safewhatsit\domark
+  %
+  % Insert the chapter heading break.
   \pchapsepmacro
+  %
+  % Now the second mark, after the heading break.  No break points
+  % between here and the heading.
+  \let\prevchapterdefs=\lastchapterdefs
+  \let\prevsectiondefs=\lastsectiondefs
+  \domark
+  %
   {%
     \chapfonts \rm
     %
-    % Have to define \thissection before calling \donoderef, because the
+    % Have to define \lastsection before calling \donoderef, because the
     % xref code eventually uses it.  On the other hand, it has to be called
     % after \pchapsepmacro, or the headline will change too soon.
-    \gdef\thissection{#1}%
-    \gdef\thischaptername{#1}%
+    \gdef\lastsection{#1}%
     %
     % Only insert the separating space if we have a chapter/appendix
     % number, and don't print the unnumbered ``number''.
-    \def\temptype{#2}%
     \ifx\temptype\Ynothingkeyword
       \setbox0 = \hbox{}%
       \def\toctype{unnchap}%
-      \gdef\thischapternum{}%
-      \gdef\thischapter{#1}%
     \else\ifx\temptype\Yomitfromtockeyword
       \setbox0 = \hbox{}% contents like unnumbered, but no toc entry
       \def\toctype{omit}%
-      \gdef\thischapternum{}%
-      \gdef\thischapter{}%
     \else\ifx\temptype\Yappendixkeyword
       \setbox0 = \hbox{\putwordAppendix{} #3\enspace}%
       \def\toctype{app}%
-      \xdef\thischapternum{\appendixletter}%
-      % We don't substitute the actual chapter name into \thischapter
-      % because we don't want its macros evaluated now.  And we don't
-      % use \thissection because that changes with each section.
-      %
-      \xdef\thischapter{\putwordAppendix{} \appendixletter:
-                        \noexpand\thischaptername}%
     \else
       \setbox0 = \hbox{#3\enspace}%
       \def\toctype{numchap}%
-      \xdef\thischapternum{\the\chapno}%
-      \xdef\thischapter{\putwordChapter{} \the\chapno:
-                        \noexpand\thischaptername}%
     \fi\fi\fi
     %
     % Write the toc entry for this chapter.  Must come before the
@@ -4968,6 +5192,7 @@ end
     \donoderef{#2}%
     %
     % Typeset the actual heading.
+    \nobreak % Avoid page breaks at the interline glue.
     \vbox{\hyphenpenalty=10000 \tolerance=5000 \parindent=0pt \raggedright
           \hangindent=\wd0 \centerparametersmaybe
           \unhbox0 #1\par}%
@@ -5030,36 +5255,78 @@ end
 % the section type for xrefs (Ynumbered, Ynothing, Yappendix), #4 is the
 % section number.
 %
+\def\seckeyword{sec}
+%
 \def\sectionheading#1#2#3#4{%
   {%
     % Switch to the right set of fonts.
     \csname #2fonts\endcsname \rm
     %
-    % Insert space above the heading.
-    \csname #2headingbreak\endcsname
-    %
-    % Only insert the space after the number if we have a section number.
     \def\sectionlevel{#2}%
     \def\temptype{#3}%
     %
+    % Insert first mark before the heading break (see notes for \domark).
+    \let\prevsectiondefs=\lastsectiondefs
+    \ifx\temptype\Ynothingkeyword
+      \ifx\sectionlevel\seckeyword
+        \gdef\lastsectiondefs{\gdef\thissectionname{#1}\gdef\thissectionnum{}%
+                              \gdef\thissection{\thissectionname}}%
+      \fi
+    \else\ifx\temptype\Yomitfromtockeyword
+      % Don't redefine \thissection.
+    \else\ifx\temptype\Yappendixkeyword
+      \ifx\sectionlevel\seckeyword
+        \toks0={#1}%
+        \xdef\lastsectiondefs{%
+          \gdef\noexpand\thissectionname{\the\toks0}%
+          \gdef\noexpand\thissectionnum{#4}%
+          \gdef\noexpand\thissection{\putwordSection{} \noexpand\thissectionnum:
+                                     \noexpand\thissectionname}%
+        }%
+      \fi
+    \else
+      \ifx\sectionlevel\seckeyword
+        \toks0={#1}%
+        \xdef\lastsectiondefs{%
+          \gdef\noexpand\thissectionname{\the\toks0}%
+          \gdef\noexpand\thissectionnum{#4}%
+          \gdef\noexpand\thissection{\putwordSection{} \noexpand\thissectionnum:
+                                     \noexpand\thissectionname}%
+        }%
+      \fi
+    \fi\fi\fi
+    %
+    % Output the mark.  Pass it through \safewhatsit, to take care of
+    % the preceding space.
+    \safewhatsit\domark
+    %
+    % Insert space above the heading.
+    \csname #2headingbreak\endcsname
+    %
+    % Now the second mark, after the heading break.  No break points
+    % between here and the heading.
+    \let\prevsectiondefs=\lastsectiondefs
+    \domark
+    %
+    % Only insert the space after the number if we have a section number.
     \ifx\temptype\Ynothingkeyword
       \setbox0 = \hbox{}%
       \def\toctype{unn}%
-      \gdef\thissection{#1}%
+      \gdef\lastsection{#1}%
     \else\ifx\temptype\Yomitfromtockeyword
       % for @headings -- no section number, don't include in toc,
-      % and don't redefine \thissection.
+      % and don't redefine \lastsection.
       \setbox0 = \hbox{}%
       \def\toctype{omit}%
       \let\sectionlevel=\empty
     \else\ifx\temptype\Yappendixkeyword
       \setbox0 = \hbox{#4\enspace}%
       \def\toctype{app}%
-      \gdef\thissection{#1}%
+      \gdef\lastsection{#1}%
     \else
       \setbox0 = \hbox{#4\enspace}%
       \def\toctype{num}%
-      \gdef\thissection{#1}%
+      \gdef\lastsection{#1}%
     \fi\fi\fi
     %
     % Write the toc entry (before \donoderef).  See comments in \chapmacro.
@@ -5193,7 +5460,6 @@ end
   %
   % Don't need to put `Contents' or `Short Contents' in the headline.
   % It is abundantly clear what they are.
-  \def\thischapter{}%
   \chapmacro{#1}{Yomitfromtoc}{}%
   %
   \savepageno = \pageno
@@ -6612,7 +6878,7 @@ end
 
 % \setref{NAME}{SNT} defines a cross-reference point NAME (a node or an
 % anchor), which consists of three parts:
-% 1) NAME-title - the current sectioning name taken from \thissection,
+% 1) NAME-title - the current sectioning name taken from \lastsection,
 %                 or the anchor name.
 % 2) NAME-snt   - section number and type, passed as the SNT arg, or
 %                 empty for anchors.
@@ -6631,7 +6897,7 @@ end
 	\write\auxfile{@xrdef{#1-% #1 of \setref, expanded by the \edef
 	  ##1}{##2}}% these are parameters of \writexrdef
       }%
-      \toks0 = \expandafter{\thissection}%
+      \toks0 = \expandafter{\lastsection}%
       \immediate \writexrdef{title}{\the\toks0 }%
       \immediate \writexrdef{snt}{\csname #2\endcsname}% \Ynumbered etc.
       \safewhatsit{\writexrdef{pg}{\folio}}% will be written later, during \shipout
@@ -6694,7 +6960,7 @@ end
          goto name{\pdfmkpgn{\pdfxrefdest}}%
      \fi
     }%
-    \linkcolor
+    \setcolor{\linkcolor}%
   \fi
   %
   % Float references are printed completely differently: "Figure 1.2"
@@ -6732,7 +6998,7 @@ end
     % is a loss.  Therefore, we give the text of the node name again, so it
     % is as if TeX is seeing it for the first time.
     \ifdim \wd1 > 0pt
-      \putwordsection{} ``\printedrefname'' \putwordin{} \cite{\printedmanual}%
+      \putwordSection{} ``\printedrefname'' \putwordin{} \cite{\printedmanual}%
     \else
       % _ (for example) has to be the character _ for the purposes of the
       % control sequence corresponding to the node, but it has to expand
@@ -7232,13 +7498,13 @@ end
       \global\advance\floatno by 1
       %
       {%
-        % This magic value for \thissection is output by \setref as the
+        % This magic value for \lastsection is output by \setref as the
         % XREFLABEL-title value.  \xrefX uses it to distinguish float
         % labels (which have a completely different output format) from
         % node and anchor labels.  And \xrdef uses it to construct the
         % lists of floats.
         %
-        \edef\thissection{\floatmagic=\safefloattype}%
+        \edef\lastsection{\floatmagic=\safefloattype}%
         \setref{\floatlabel}{Yfloat}%
       }%
     \fi
@@ -7373,7 +7639,7 @@ end
 
 % #1 is the control sequence we are passed; we expand into a conditional
 % which is true if #1 represents a float ref.  That is, the magic
-% \thissection value which we \setref above.
+% \lastsection value which we \setref above.
 %
 \def\iffloat#1{\expandafter\doiffloat#1==\finish}
 %
@@ -7483,7 +7749,7 @@ should work if nowhere else does.}
 \def\setnonasciicharscatcode#1{%
    \count255=128
    \loop\ifnum\count255<256
-      \global\catcode\count255=#1
+      \global\catcode\count255=#1\relax
       \advance\count255 by 1
    \repeat
 }
@@ -7491,7 +7757,7 @@ should work if nowhere else does.}
 \def\setnonasciicharscatcodenonglobal#1{%
    \count255=128
    \loop\ifnum\count255<256
-      \catcode\count255=#1
+      \catcode\count255=#1\relax
       \advance\count255 by 1
    \repeat
 }
@@ -7906,6 +8172,7 @@ should work if nowhere else does.}
   \DeclareUnicodeCharacter{00A8}{\"{ }}
   \DeclareUnicodeCharacter{00A9}{\copyright}
   \DeclareUnicodeCharacter{00AA}{\ordf}
+  \DeclareUnicodeCharacter{00AB}{\guillemetleft}
   \DeclareUnicodeCharacter{00AD}{\-}
   \DeclareUnicodeCharacter{00AE}{\registeredsymbol}
   \DeclareUnicodeCharacter{00AF}{\={ }}
@@ -7914,6 +8181,7 @@ should work if nowhere else does.}
   \DeclareUnicodeCharacter{00B4}{\'{ }}
   \DeclareUnicodeCharacter{00B8}{\cedilla{ }}
   \DeclareUnicodeCharacter{00BA}{\ordm}
+  \DeclareUnicodeCharacter{00BB}{\guillemetright}
   \DeclareUnicodeCharacter{00BF}{\questiondown}
 
   \DeclareUnicodeCharacter{00C0}{\`A}
@@ -8262,8 +8530,16 @@ should work if nowhere else does.}
 
   \DeclareUnicodeCharacter{2013}{--}
   \DeclareUnicodeCharacter{2014}{---}
+  \DeclareUnicodeCharacter{2018}{\quoteleft}
+  \DeclareUnicodeCharacter{2019}{\quoteright}
+  \DeclareUnicodeCharacter{201A}{\quotesinglbase}
+  \DeclareUnicodeCharacter{201C}{\quotedblleft}
+  \DeclareUnicodeCharacter{201D}{\quotedblright}
+  \DeclareUnicodeCharacter{201E}{\quotedblbase}
   \DeclareUnicodeCharacter{2022}{\bullet}
   \DeclareUnicodeCharacter{2026}{\dots}
+  \DeclareUnicodeCharacter{2039}{\guilsinglleft}
+  \DeclareUnicodeCharacter{203A}{\guilsinglright}
   \DeclareUnicodeCharacter{20AC}{\euro}
 
   \DeclareUnicodeCharacter{2192}{\expansion}
@@ -8487,7 +8763,7 @@ should work if nowhere else does.}
   \parskip = 3pt plus 2pt minus 1pt
   \setleading{\textleading}%
   %
-  \dimen0 = #1
+  \dimen0 = #1\relax
   \advance\dimen0 by \voffset
   %
   \dimen2 = \hsize
