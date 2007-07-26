@@ -12,7 +12,7 @@ default:
 
 $(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
-MAKEINFO = LANG=$(ISOLANG) $(MAKEINFO_PROGRAM) --force
+MAKEINFO = LANG= $(MAKEINFO_PROGRAM) --force
 
 $(outdir)/lilypond/index.html: $(outdir)/lilypond.nexi $(outdir)/user-ln doc-po
 	mkdir -p $(dir $@)
