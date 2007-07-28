@@ -90,6 +90,9 @@ Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
 
   SCM extents = me->get_property ("adjacent-pure-heights");
 
+  if (!scm_is_vector (extents))
+    return Interval (0, 0);
+
   Interval ext;
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
@@ -131,7 +134,8 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
 	  Item *it = dynamic_cast<Item*> (items[j]);
 	  int rank = it->get_column ()->get_rank ();
 
-	  if (rank <= end && it->pure_is_visible (start, end))
+	  if (rank <= end && it->pure_is_visible (start, end)
+	      && !to_boolean (it->get_property ("cross-staff")))
 	    {
 	      Interval dims = items[j]->pure_height (common, start, end);
 	      if (!dims.is_empty ())
