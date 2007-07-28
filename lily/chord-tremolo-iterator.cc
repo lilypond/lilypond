@@ -39,7 +39,7 @@ Chord_tremolo_iterator::get_music_list () const
   Rational note_dur = total_dur / Rational (elt_count * Repeated_music::repeat_count (mus));
 
   SCM tremolo_type = scm_int2num (note_dur.den ());
-  int expected_beaming_ = max (0, (intlog2 (total_dur.den ()) - 2));
+  int expected_beaming_ = max (0, (intlog2 (total_dur.den ()) - intlog2 (total_dur.num () + 1) - 1));
 
   if (elt_count == 1)
     {
