@@ -1,0 +1,2286 @@
+# Vietnamese translation for Lilypond.
+# Copyright © 2007 Free Software Foundation, Inc.
+# Clytie Siddall <clytie@riverland.net.au>, 2007
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: lilypond 2.11.22\n"
+"Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
+"POT-Creation-Date: 2007-04-28 12:03+0200\n"
+"PO-Revision-Date: 2007-07-13 21:11+0930\n"
+"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
+"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: LocFactoryEditor 1.7b1n\n"
+
+#: convertrules.py:12
+#, python-format
+msgid "Not smart enough to convert %s"
+msgstr "Không đủ khéo để chuyển đổi %s"
+
+#: convertrules.py:13
+msgid "Please refer to the manual for details, and update manually."
+msgstr "Xem sổ tay để tìm chi tiết, và tự cập nhật."
+
+#: convertrules.py:14
+#, python-format
+msgid "%s has been replaced by %s"
+msgstr "%s đã bị thay thế bằng %s"
+
+#: convertrules.py:2408
+msgid "LilyPond source must be UTF-8"
+msgstr "Lilypond phải có mã nguồn UTF-8"
+
+#: convertrules.py:2411
+msgid "Try the texstrings backend"
+msgstr "Hãy thử hậu phương texstrings"
+
+#: convertrules.py:2414
+#, python-format
+msgid "Do something like: %s"
+msgstr "Làm gì như : %s"
+
+#: convertrules.py:2417
+msgid "Or save as UTF-8 in your editor"
+msgstr "Hoặc lưu dạng UTF-8 trong bộ biên soạn"
+
+#: fontextract.py:26
+#, python-format
+msgid "Scanning %s"
+msgstr "Đang quét %s"
+
+#: fontextract.py:71
+#, python-format
+msgid "Extracted %s"
+msgstr "Đã giải nén %s"
+
+#: fontextract.py:86
+#, python-format
+msgid "Writing fonts to %s"
+msgstr "Đang ghi các phông vào %s"
+
+#: lilylib.py:85 lilylib.py:136
+#, python-format
+msgid "Invoking `%s'"
+msgstr "Đang gọi « %s »"
+
+#: lilylib.py:87 lilylib.py:138
+#, python-format
+msgid "Running %s..."
+msgstr "Đang chạy %s..."
+
+#: lilylib.py:203
+#, python-format
+msgid "Usage: %s"
+msgstr "Cách sử dụng: %s"
+
+#: abc2ly.py:1342 convert-ly.py:71 lilypond-book.py:110 midi2ly.py:858
+#, python-format
+msgid "%s [OPTION]... FILE"
+msgstr "%s [TÙY_CHỌN]... TẬP_TIN"
+
+#: abc2ly.py:1344
+#, python-format
+msgid ""
+"abc2ly converts ABC music files (see\n"
+"%s) to LilyPond input."
+msgstr ""
+"abc2ly chuyển đổi tập tin âm nhạc kiểu ABC\n"
+"xem %s) sang kết nhập LilyPond."
+
+#: abc2ly.py:1348 etf2ly.py:1184 midi2ly.py:874
+msgid "write output to FILE"
+msgstr "xuất ra TẬP_TIN"
+
+#: abc2ly.py:1350
+msgid "be strict about succes"
+msgstr "chặt chẽ với thành công"
+
+#: abc2ly.py:1352
+msgid "preserve ABC's notion of beams"
+msgstr "bảo tồn ý kiến ABC về tia"
+
+#: abc2ly.py:1354 convert-ly.py:103 etf2ly.py:1192 lilypond-book.py:161
+#: midi2ly.py:900 musicxml2ly.py:506
+msgid "Report bugs via"
+msgstr "Thông báo lỗi cho"
+
+#: convert-ly.py:32
+msgid ""
+"Update LilyPond input to newer version.  By default, update from the\n"
+"version taken from the \\version command, to the current LilyPond version."
+msgstr "Cập nhật kết nhập Lilypond lên phiên bản mới hơn. Mặc định là cập nhật từ phiên bản đưa ra bằng lệnh « \\version », lên phiên bản Lilypond hiện thời."
+
+#: convert-ly.py:34 lilypond-book.py:59
+msgid "Examples:"
+msgstr "Thí dụ :"
+
+#: convert-ly.py:47 lilypond-book.py:83 warn.cc:48 input.cc:90
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "cảnh báo : %s"
+
+#: convert-ly.py:50 lilypond-book.py:86 warn.cc:54 input.cc:96 input.cc:104
+#, c-format, python-format
+msgid "error: %s"
+msgstr "lỗi: %s"
+
+#: convert-ly.py:66 etf2ly.py:1174 lilypond-book.py:106 midi2ly.py:87
+msgid "Distributed under terms of the GNU General Public License."
+msgstr "Được phát hành với điều kiện của Giấy phép Công cộng GNU (GPL)"
+
+#: convert-ly.py:67 etf2ly.py:1175 lilypond-book.py:107 midi2ly.py:88
+msgid "It comes with NO WARRANTY."
+msgstr "Nó KHÔNG BẢO HÀNH GÌ CẢ."
+
+#: convert-ly.py:77 convert-ly.py:97
+msgid "VERSION"
+msgstr "PHIÊN BẢN"
+
+#: convert-ly.py:79
+msgid "start from VERSION [default: \\version found in file]"
+msgstr "bắt đầu từ PHIÊN BẢN [mặc định: \\version được tìm trong tập tin]"
+
+#: convert-ly.py:82
+msgid "edit in place"
+msgstr "sửa tại chỗ"
+
+#: convert-ly.py:85
+msgid "do not add \\version command if missing"
+msgstr "không thêm lệnh \\version nếu còn thiếu"
+
+#: convert-ly.py:91
+msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
+msgstr "hiện quy tắc [mặc định: --from=0, --to=@TOPLEVEL_VERSION@]"
+
+#: convert-ly.py:96
+msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
+msgstr "chuyển đổi sang PHIÊN BẢN [mặc định: @TOPLEVEL_VERSION@]"
+
+#: convert-ly.py:144
+msgid "Applying conversion: "
+msgstr "Đang áp dụng sự chuyển đổi: "
+
+#: convert-ly.py:157
+msgid "Error while converting"
+msgstr "Gặp lỗi trong khi chuyển đổi"
+
+#: convert-ly.py:159
+msgid "Stopping at last succesful rule"
+msgstr "Đang dừng ở quy tắc thành công cuối cùng"
+
+#: convert-ly.py:181
+#, python-format
+msgid "Processing `%s'... "
+msgstr "Đang xử lý « %s »... "
+
+#: convert-ly.py:268 relocate.cc:363 source-file.cc:54
+#, c-format, python-format
+msgid "cannot open file: `%s'"
+msgstr "không thể mở tập tin « %s »"
+
+#: convert-ly.py:275
+#, python-format
+msgid "cannot determine version for `%s'.  Skipping"
+msgstr "không thể quyết định phiên bản cho « %s » nên bỏ qua"
+
+#: etf2ly.py:1180
+#, python-format
+msgid "%s [OPTION]... ETF-FILE"
+msgstr "%s [TÙY_CHỌN]... TẬP_TIN_ETF"
+
+#: etf2ly.py:1182
+msgid ""
+"Enigma Transport Format is a format used by Coda Music Technology's\n"
+"Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file."
+msgstr ""
+"ETF (định dạng truyền cơ chế) là định dạng được dùng bởi sản phẩm\n"
+"Finale của Coda Music Technology. etf2ly chuyển đổi một tập hợp con\n"
+"ETF sang một tập tin Lilypond sẵn sàng dùng."
+
+#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:499 main.cc:154 main.cc:159
+msgid "FILE"
+msgstr "TẬP TIN"
+
+#: etf2ly.py:1187 lilypond-book.py:158 midi2ly.py:888 main.cc:163
+msgid "show warranty and copyright"
+msgstr "hiện bảo hành và tác quyền"
+
+#: lilypond-book.py:57
+msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
+msgstr "Xử lý các đoạn LilyPond theo tài liệu HTML, LaTeX, texinfo hay DocBook pha giống."
+
+#: lilypond-book.py:64
+msgid "BOOK"
+msgstr "SỔ"
+
+#: lilypond-book.py:72
+#, python-format
+msgid "Exiting (%d)..."
+msgstr "Đang thoát (%d)..."
+
+#: lilypond-book.py:104
+#, python-format
+msgid "Copyright (c) %s by"
+msgstr "Tác quyền © năm %s của"
+
+#: lilypond-book.py:114
+msgid "FILTER"
+msgstr "LỌC"
+
+#: lilypond-book.py:117
+msgid "pipe snippets through FILTER [convert-ly -n -]"
+msgstr "gửi các đoạn qua ống dẫn cho bộ LỌC [convert-ly -n -]"
+
+#: lilypond-book.py:120
+msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
+msgstr "dùng định dạng xuất ĐỊNH DẠNG (texi [mặc định], texi-html, latex, html, docbook)"
+
+#: lilypond-book.py:123
+msgid "add DIR to include path"
+msgstr "thêm THƯ_MỤC vào đường dẫn bao gồm"
+
+#: lilypond-book.py:124 lilypond-book.py:136 main.cc:153
+msgid "DIR"
+msgstr "THƯ_MỤC"
+
+#: lilypond-book.py:129
+msgid "PAD"
+msgstr "PAD"
+
+#: lilypond-book.py:135
+msgid "write output to DIR"
+msgstr "xuất ra THƯ_MỤC"
+
+#: lilypond-book.py:140
+msgid "COMMAND"
+msgstr "LỆNH"
+
+#: lilypond-book.py:141
+msgid "process ly_files using COMMAND FILE..."
+msgstr "xử lý các tập tin ly_file dùng LỆNH TẬP TIN..."
+
+#: lilypond-book.py:147
+msgid "Create PDF files for use with PDFTeX"
+msgstr "Tạo tập tin PDF để sử dụng với PDFTeX"
+
+#: lilypond-book.py:150
+msgid ""
+"extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
+"must use this with dvips -h INPUT.psfonts"
+msgstr ""
+"giải nén các phông PostScript vào « INPUT.psfonts » cho LaTeX\n"
+"phải dùng nó với « dvips -h INPUT.psfonts »."
+
+#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:490 main.cc:162
+msgid "be verbose"
+msgstr "xuất chi tiết"
+
+#: lilypond-book.py:768
+#, python-format
+msgid "file not found: %s"
+msgstr "không tìm thấy tập tin: %s"
+
+#: lilypond-book.py:999
+#, python-format
+msgid "deprecated ly-option used: %s=%s"
+msgstr "dùng tùy chọn ly-option bị phản đối: %s=%s"
+
+#: lilypond-book.py:1002
+#, python-format
+msgid "compatibility mode translation: %s=%s"
+msgstr "dịch chế độ khả năng tương thích: %s=%s"
+
+#: lilypond-book.py:1006
+#, python-format
+msgid "deprecated ly-option used: %s"
+msgstr "dùng tùy chọn ly-option bị phản đối: %s"
+
+#: lilypond-book.py:1009
+#, python-format
+msgid "compatibility mode translation: %s"
+msgstr "dịch chế độ khả năng tương thích: %s"
+
+#: lilypond-book.py:1028
+#, python-format
+msgid "ignoring unknown ly option: %s"
+msgstr "đang bỏ qua tùy chọn ly lạ: %s"
+
+#: lilypond-book.py:1382
+#, python-format
+msgid "Opening filter `%s'"
+msgstr "Đang mở bộ lọc « %s »"
+
+#: lilypond-book.py:1399
+#, python-format
+msgid "`%s' failed (%d)"
+msgstr "« %s » bị lỗi (%d)"
+
+#: lilypond-book.py:1400
+msgid "The error log is as follows:"
+msgstr "Bản ghi lỗi bên dưới:"
+
+#: lilypond-book.py:1472
+msgid "cannot find \\begin{document} in LaTeX document"
+msgstr "không tìm thấy tài liệu bắt đầu « \\begin{document} » trong tài liệu LaTeX"
+
+#: lilypond-book.py:1583
+msgid "Writing snippets..."
+msgstr "Đang ghi các đoạn..."
+
+#: lilypond-book.py:1588
+msgid "Processing..."
+msgstr "Đang xử lý..."
+
+#: lilypond-book.py:1592
+msgid "All snippets are up to date..."
+msgstr "Mọi đoạn là hiện thời..."
+
+#: lilypond-book.py:1602
+#, python-format
+msgid "cannot determine format for: %s"
+msgstr "không thể xác định định dạng cho : %s"
+
+#: lilypond-book.py:1613
+#, python-format
+msgid "%s is up to date."
+msgstr "%s là hiện thời."
+
+#: lilypond-book.py:1619
+#, python-format
+msgid "Writing `%s'..."
+msgstr "Đang ghi « %s »..."
+
+#: lilypond-book.py:1674
+msgid "Output would overwrite input file; use --output."
+msgstr "Kết xuất sẽ ghi đè lên tập tin nhập vào : dùng tùy chọn « --output »."
+
+#: lilypond-book.py:1678
+#, python-format
+msgid "Reading %s..."
+msgstr "Đang đọc %s..."
+
+#: lilypond-book.py:1697
+msgid "Dissecting..."
+msgstr "Đang phân chia..."
+
+#: lilypond-book.py:1713
+#, python-format
+msgid "Compiling %s..."
+msgstr "Đang biên dịch %s..."
+
+#: lilypond-book.py:1722
+#, python-format
+msgid "Processing include: %s"
+msgstr "Đang xử lý đồ bao gồm: %s"
+
+#: lilypond-book.py:1736
+#, python-format
+msgid "Removing `%s'"
+msgstr "Đang gỡ bỏ « %s »"
+
+#: lilypond-book.py:1769
+msgid "option --psfonts not used"
+msgstr "tùy chọn « --psfonts » không được dùng"
+
+#: lilypond-book.py:1770
+msgid "processing with dvips will have no fonts"
+msgstr "xử lý với dvips thì không có phông"
+
+#: lilypond-book.py:1773
+msgid "DVIPS usage:"
+msgstr "Cách sử dụng DVIPS:"
+
+#: lilypond-book.py:1829
+#, python-format
+msgid "Writing fonts to %s..."
+msgstr "Đang ghi các phông vào %s..."
+
+#: midi2ly.py:95 lily-library.scm:577 lily-library.scm:586
+msgid "warning: "
+msgstr "cảnh báo : "
+
+#: midi2ly.py:98 midi2ly.py:913
+msgid "error: "
+msgstr "lỗi: "
+
+#: midi2ly.py:99
+msgid "Exiting ... "
+msgstr "Đang thoát... "
+
+#: midi2ly.py:846
+#, python-format
+msgid "%s output to `%s'..."
+msgstr "kết xuất %s vào « %s »..."
+
+#: midi2ly.py:860 musicxml2ly.py:486
+#, python-format
+msgid "Convert %s to LilyPond input."
+msgstr "Chuyển đổi %s sang kết nhập Lilypond."
+
+#: midi2ly.py:864
+msgid "print absolute pitches"
+msgstr "in ra độ cao thấp tuyệt đối"
+
+#: midi2ly.py:866 midi2ly.py:878
+msgid "DUR"
+msgstr "THỜI_GIAN"
+
+#: midi2ly.py:867
+msgid "quantise note durations on DUR"
+msgstr "lượng tử hoá các thời gian nốt trong THỜI_GIAN"
+
+#: midi2ly.py:870
+msgid "print explicit durations"
+msgstr "in ra các thời gian dứt khoát"
+
+#: midi2ly.py:871
+msgid "set key: ALT=+sharps|-flats; MINOR=1"
+msgstr "đặt khoá: ALT=+thăng|-giáng; THỨ=1"
+
+#: midi2ly.py:872
+msgid "ALT[:MINOR]"
+msgstr "ALT[:THỨ]"
+
+#: midi2ly.py:877
+msgid "quantise note starts on DUR"
+msgstr "lượng tử hoá sự bắt đầu nốt trong THỜI_GIAN"
+
+#: midi2ly.py:880
+msgid "DUR*NUM/DEN"
+msgstr "THỜI_GIAN*SỐ/MẬT_ĐỘ"
+
+#: midi2ly.py:883
+msgid "allow tuplet durations DUR*NUM/DEN"
+msgstr "cho phép thời gian nhiều nốt THỜI_GIAN*SỐ/MẬT_ĐỘ"
+
+#: midi2ly.py:891
+msgid "treat every text as a lyric"
+msgstr "xử lý mọi văn bản là lời nhạc"
+
+#: midi2ly.py:894
+msgid "Examples"
+msgstr "Ví dụ"
+
+#: midi2ly.py:914
+msgid "no files specified on command line."
+msgstr "chưa xác định tập tin trên dòng lệnh."
+
+#: musicxml2ly.py:474
+msgid "musicxml2ly FILE.xml"
+msgstr "musicxml2ly TẬP_TIN.xml"
+
+#: musicxml2ly.py:477
+#, python-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information."
+msgstr ""
+"Chương trình này là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó với điều kiện của Giấy Phép Công Cộng GNU như được xuất bản bởi Tổ Chức Phần Mềm Tự Do; hoặc phiên bản 2 của Giấy Phép này, hoặc (tùy chọn) bất kỳ phiên bản sau nào.\n"
+"\n"
+"Gọi lệnh « %s --warranty » để xem thêm thông tin."
+
+#: musicxml2ly.py:496
+msgid "Use lxml.etree; uses less memory and cpu time."
+msgstr "Hãy dùng « lxml.etree »; nó chiếm ít bộ nhớ và thời gian CPU hơn."
+
+#: musicxml2ly.py:504
+msgid "set output filename to FILE"
+msgstr "đặt tên tập tin xuất thành TẬP_TIN"
+
+#: getopt-long.cc:140
+#, c-format
+msgid "option `%s' requires an argument"
+msgstr "tùy chọn « %s » cần đến đối số"
+
+#: getopt-long.cc:144
+#, c-format
+msgid "option `%s' does not allow an argument"
+msgstr "tùy chọn « %s » không cho phép đối số"
+
+#: getopt-long.cc:148
+#, c-format
+msgid "unrecognized option: `%s'"
+msgstr "không nhận ra tùy chọn « %s »"
+
+#: getopt-long.cc:154
+#, c-format
+msgid "invalid argument `%s' to option `%s'"
+msgstr "đối số « %s » không hợp lệ đối với tùy chọn « %s »"
+
+#: warn.cc:68 grob.cc:557 input.cc:82
+#, c-format
+msgid "programming error: %s"
+msgstr "lỗi lập trình: %s"
+
+#: warn.cc:69 input.cc:83
+msgid "continuing, cross fingers"
+msgstr "đang tiếp tục, hy vọng"
+
+#: accidental-engraver.cc:247
+#, c-format
+msgid "accidental typesetting list must begin with context-name: %s"
+msgstr "danh sách sắp chữ dấu thăng giáng bất thường phải bắt đầu với tên ngữ cảnh: %s"
+
+#: accidental-engraver.cc:274
+#, c-format
+msgid "ignoring unknown accidental rule: %s"
+msgstr "đang bỏ qua quy tắc dấu thăng giáng bất thường lạ: %s"
+
+#: accidental-engraver.cc:290
+#, c-format
+msgid "pair or context-name expected for accidental rule, found %s"
+msgstr "mong đợi tên cặp hay ngữ cảnh cho quy tắc dấu thăng giáng bất thường, còn tìm %s"
+
+#: accidental.cc:160
+#, c-format
+msgid "Could not find glyph-name for alteration %s"
+msgstr "Không tìm thấy tên hình tượng cho %s sửa đổi"
+
+#: accidental.cc:175
+msgid "natural alteration glyph not found"
+msgstr "Không tìm thấy hình tượng sửa đổi nốt thường"
+
+#: align-interface.cc:322
+msgid "tried to get a translation for something that is no child of mine"
+msgstr "đã thử lấy bản dịch cho cái gì không phải con của tiến trình này"
+
+#: all-font-metrics.cc:143
+#, c-format
+msgid "cannot find font: `%s'"
+msgstr "không tìm thấy phông « %s »"
+
+#: apply-context-iterator.cc:31
+msgid "\\applycontext argument is not a procedure"
+msgstr "đối số áp dụng ngữ cảnh « \\applycontext » không phải thủ tục"
+
+#: auto-change-iterator.cc:63 change-iterator.cc:61
+#, c-format
+msgid "cannot change, already in translator: %s"
+msgstr "không thể thay đổi, đã trong bộ dịch: %s"
+
+#: axis-group-engraver.cc:78
+msgid "Axis_group_engraver: vertical group already has a parent"
+msgstr "Axis_group_engraver: nhóm dọc đã có cái cha"
+
+#: axis-group-engraver.cc:79
+msgid "are there two Axis_group_engravers?"
+msgstr "có hai Axis_group_engravers không?"
+
+#: axis-group-engraver.cc:80
+msgid "removing this vertical group"
+msgstr "đang gỡ bỏ nhóm dọc này"
+
+#: axis-group-interface.cc:109
+msgid "tried to calculate pure-height at a non-breakpoint"
+msgstr "đã thử tính độ cao thuần ở chỗ không phải điểm ngắt"
+
+#: axis-group-interface.cc:449
+msgid "an outside-staff object should have a direction, defaulting to up"
+msgstr "đối tượng « outside-staff » nên có hướng nên dùng giá trị Lên"
+
+#: bar-check-iterator.cc:73
+#, c-format
+msgid "barcheck failed at: %s"
+msgstr "barcheck (hàm kiểm tra gạch nhịp) bị lỗi ở : %s"
+
+#: beam-engraver.cc:126
+msgid "already have a beam"
+msgstr "đã có tia"
+
+#: beam-engraver.cc:202
+msgid "unterminated beam"
+msgstr "tia chưa chấm dứt"
+
+#: beam-engraver.cc:244 chord-tremolo-engraver.cc:138
+msgid "stem must have Rhythmic structure"
+msgstr "cọng phải có cấu trúc nhịp điệu"
+
+#: beam-engraver.cc:252
+msgid "stem does not fit in beam"
+msgstr "cọng không vừa trong tia"
+
+#: beam-engraver.cc:253
+msgid "beam was started here"
+msgstr "tia đã bắt đầu ở đây"
+
+#: beam-quanting.cc:314
+msgid "no feasible beam position"
+msgstr "không có vị trí tia có ích"
+
+#: beam.cc:160
+msgid "removing beam with no stems"
+msgstr "đang gỡ bỏ tia không có cọng"
+
+#: beam.cc:1035
+msgid "no viable initial configuration found: may not find good beam slope"
+msgstr "không tìm thấy cấu hình đầu tiên có ích: có lẽ không tìm thấy dốc tia tốt"
+
+#: break-alignment-interface.cc:195
+#, c-format
+msgid "No spacing entry from %s to `%s'"
+msgstr "Không có mục nhập khoảng cách từ %s đến « %s »"
+
+#: change-iterator.cc:23
+#, c-format
+msgid "cannot change `%s' to `%s'"
+msgstr "không thể thay đổi « %s » thành « %s »"
+
+#. FIXME: constant error message.
+#: change-iterator.cc:82
+msgid "cannot find context to switch to"
+msgstr "không tìm thấy ngữ cảnh sang đó cần chuyển đổi"
+
+#. We could change the current translator's id, but that would make
+#. errors hard to catch.
+#.
+#. last->translator_id_string () = get_change
+#. ()->change_to_id_string ();
+#: change-iterator.cc:91
+#, c-format
+msgid "not changing to same context type: %s"
+msgstr "không đang thay đổi thành cùng kiểu ngữ cảnh: %s"
+
+#. FIXME: uncomprehensable message
+#: change-iterator.cc:95
+msgid "none of these in my family"
+msgstr "không có gì trong những cái này thuộc về nhóm của tôi"
+
+#: chord-tremolo-engraver.cc:88
+msgid "No tremolo to end"
+msgstr "Không có tiếng vê đến cuối"
+
+#: chord-tremolo-engraver.cc:110
+msgid "unterminated chord tremolo"
+msgstr "tiếng vê hợp âm chưa chấm dứt"
+
+#: chord-tremolo-iterator.cc:35
+#, c-format
+msgid "expect 2 elements for chord tremolo, found %d"
+msgstr "mong đợi 2 yếu tố cho tiếng vê hợp âm, còn tìm %d"
+
+#: clef.cc:54
+#, c-format
+msgid "clef `%s' not found"
+msgstr "không tìm thấy khoá « %s »"
+
+#: cluster.cc:110
+#, c-format
+msgid "unknown cluster style `%s'"
+msgstr "kiểu dáng chùm lạ « %s »"
+
+#: cluster.cc:135
+msgid "junking empty cluster"
+msgstr "đang xoá chùm rỗng"
+
+#: coherent-ligature-engraver.cc:100
+#, c-format
+msgid "Coherent_ligature_engraver: setting `spacing-increment=0.01': ptr=%ul"
+msgstr "Coherent_ligature_engraver: đang đặt độ tăng dần khoảng cách « spacing-increment=0.01 »: ptr=%ul"
+
+#. if we get to here, just put everything on one line
+#: constrained-breaking.cc:167 constrained-breaking.cc:184
+msgid "cannot find line breaking that satisfies constraints"
+msgstr "không tìm thấy cách ngắt dòng thoả các ràng buộc"
+
+#: context-def.cc:130
+#, c-format
+msgid "program has no such type: `%s'"
+msgstr "chương trình không có kiểu như vậy: « %s »"
+
+#: context-property.cc:30
+msgid "need symbol arguments for \\override and \\revert"
+msgstr "cần thiết các đối số ký hiệu cho « \\override » (ghi đè) và « \\revert » (hoàn nguyên)"
+
+#: context.cc:144
+#, c-format
+msgid "cannot find or create new `%s'"
+msgstr "không thể tìm hay tạo « %s » mới"
+
+#: context.cc:206
+#, c-format
+msgid "cannot find or create `%s' called `%s'"
+msgstr "không thể tìm hay tạo « %s » tên « %s »"
+
+#: context.cc:268
+#, c-format
+msgid "Invalid CreateContext event: Cannot create %s context"
+msgstr "Dữ kiện tạo ngữ cảnh (CreateContext) không hợp lệ: không thể tạo ngữ cảnh %s"
+
+#: context.cc:380
+#, c-format
+msgid "cannot find or create: `%s'"
+msgstr "không thể tìm hay tạo : « %s »"
+
+#: custos.cc:77
+#, c-format
+msgid "custos `%s' not found"
+msgstr "Không tìm thấy « %s » custos"
+
+#: dispatcher.cc:71
+msgid "Event class should be a symbol"
+msgstr "Hạng dữ kiện nên là ký hiệu"
+
+#: dispatcher.cc:78
+#, c-format
+msgid "Unknown event class %s"
+msgstr "Hạng dữ kiện lạ %s"
+
+#: dots.cc:37
+#, c-format
+msgid "dot `%s' not found"
+msgstr "Không tìm thấy chấm « %s »"
+
+#: dynamic-engraver.cc:184
+msgid "cannot find start of (de)crescendo"
+msgstr "không tìm thấy đầu của sự mạnh/nhẹ dần"
+
+#: dynamic-engraver.cc:193
+msgid "already have a decrescendo"
+msgstr "đã có sự nhẹ dần"
+
+#: dynamic-engraver.cc:195
+msgid "already have a crescendo"
+msgstr "đã có sự mạnh dần"
+
+#: dynamic-engraver.cc:198
+msgid "cresc starts here"
+msgstr "sự mạnh dần bắt đầu ở đây"
+
+#: dynamic-engraver.cc:327
+msgid "unterminated (de)crescendo"
+msgstr "sự mạnh/nhẹ dần chưa chấm dứt"
+
+#: extender-engraver.cc:142 extender-engraver.cc:151
+msgid "unterminated extender"
+msgstr "bộ kéo dài chưa chấm dứt"
+
+#: font-config.cc:28
+msgid "Initializing FontConfig..."
+msgstr "Đang sở khởi phần mềm cấu hình phông FontConfig..."
+
+#: font-config.cc:44
+#, c-format
+msgid "Rebuilding FontConfig cache %s, this may take a while..."
+msgstr "Đang xây dựng lại bộ nhớ tạm FontConfig %s. Có thể hơi lâu..."
+
+#: font-config.cc:55
+#, c-format
+msgid "failed adding font directory: %s"
+msgstr "lỗi thêm thư mục phông: %s"
+
+#: font-config.cc:57
+#, c-format
+msgid "adding font directory: %s"
+msgstr "đang thêm thư mục phông: %s"
+
+#: general-scheme.cc:198
+msgid "infinity or NaN encountered while converting Real number"
+msgstr "gặp vô cực hay NaN (không phải con số) khi chuyển đổi số phức"
+
+#: general-scheme.cc:199
+msgid "setting to zero"
+msgstr "đang đặt thành số không"
+
+#: general-scheme.cc:417 output-ps.scm:61
+msgid "Found infinity or nan in output. Substituting 0.0"
+msgstr "gặp vô cực hay NaN (không phải con số) trong kết xuất nên thay thế bằng 0.0"
+
+#: glissando-engraver.cc:94
+msgid "unterminated glissando"
+msgstr "vuốt chưa chấm dứt"
+
+#: global-context-scheme.cc:87 global-context-scheme.cc:105
+msgid "no music found in score"
+msgstr "không tìm thấy âm nhạc trong bản dàn bè"
+
+#: global-context-scheme.cc:95
+msgid "Interpreting music... "
+msgstr "Đang giải thích âm nhạc... "
+
+#: global-context-scheme.cc:118
+#, c-format
+msgid "elapsed time: %.2f seconds"
+msgstr "thời gian đã qua: %.2f giây"
+
+#: gregorian-ligature-engraver.cc:59
+#, c-format
+msgid "\\%s ignored"
+msgstr "« \\%s » bị bỏ qua"
+
+#: gregorian-ligature-engraver.cc:64
+#, c-format
+msgid "implied \\%s added"
+msgstr "đã thêm « \\%s » ngầm"
+
+#. ligature may not start with 2nd head of pes or flexa
+#: gregorian-ligature-engraver.cc:212
+msgid "cannot apply `\\~' on first head of ligature"
+msgstr "không thể áp dụng « \\~ » vào đầu thứ nhất của chữ ghép"
+
+#. (pitch == prev_pitch)
+#: gregorian-ligature-engraver.cc:224
+msgid "cannot apply `\\~' on heads with identical pitch"
+msgstr "không thể áp dụng « \\~ » vào các đầu có độ cao thấp trùng"
+
+#: grob-interface.cc:57
+#, c-format
+msgid "Unknown interface `%s'"
+msgstr "Giao diện lạ « %s »"
+
+#: grob-interface.cc:68
+#, c-format
+msgid "Grob `%s' has no interface for property `%s'"
+msgstr "Grob « %s » không có giao diện cho thuộc tính « %s »"
+
+# Variable: don't translate / Biến: đừng dịch
+#: grob-property.cc:34
+#, c-format
+msgid "%d: %s"
+msgstr "%d: %s"
+
+#: grob-property.cc:174
+#, c-format
+msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
+msgstr "phụ thuộc theo chu kỳ: gặp tiến trình tính đang chạy cho #'%s (%s)"
+
+#: grob.cc:251
+msgid "Infinity or NaN encountered"
+msgstr "gặp vô cực hay NaN (không phải con số)"
+
+#: hairpin.cc:187
+msgid "decrescendo too small"
+msgstr "sự nhẹ dần quá nhỏ"
+
+#: hairpin.cc:188
+msgid "crescendo too small"
+msgstr "sự mạnh dần quá nhỏ"
+
+#: horizontal-bracket-engraver.cc:59
+msgid "do not have that many brackets"
+msgstr "không có số dấu ngoặc đó"
+
+#: horizontal-bracket-engraver.cc:68
+msgid "conflicting note group events"
+msgstr "các dữ kiện nhóm nốt xung đột với nhau"
+
+#: hyphen-engraver.cc:93
+msgid "removing unterminated hyphen"
+msgstr "đang gỡ bỏ dấu gạch nối chưa chấm dứt"
+
+#: hyphen-engraver.cc:107
+msgid "unterminated hyphen; removing"
+msgstr "gặp dấu gạch nối chưa chấm dứt nên gỡ bỏ"
+
+#: includable-lexer.cc:53 lily-guile.cc:76 lily-parser-scheme.cc:117
+#, c-format
+msgid "cannot find file: `%s'"
+msgstr "không tìm thấy tập tin: « %s »"
+
+#: includable-lexer.cc:55 lily-parser-scheme.cc:108
+#, c-format
+msgid "(search path: `%s')"
+msgstr "(đường dẫn tìm kiếm: « %s »)"
+
+#: input.cc:112 source-file.cc:168 source-file.cc:183
+msgid "position unknown"
+msgstr "vị trí không rõ"
+
+#: key-signature-interface.cc:71
+#, c-format
+msgid "No glyph found for alteration: %s"
+msgstr "Không tìm thấy hình tượng cho sự sửa đổi: %s"
+
+#: key-signature-interface.cc:81
+msgid "alteration not found"
+msgstr "Không tìm thấy sự sửa đổi"
+
+#: ligature-engraver.cc:93
+msgid "cannot find start of ligature"
+msgstr "không tìm thấy đầu của chữ ghép"
+
+#: ligature-engraver.cc:98
+msgid "no right bound"
+msgstr "không có mép bên phải"
+
+#: ligature-engraver.cc:120
+msgid "already have a ligature"
+msgstr "đã có chữ ghép"
+
+#: ligature-engraver.cc:129
+msgid "no left bound"
+msgstr "không có mép bên trái"
+
+#: ligature-engraver.cc:173
+msgid "unterminated ligature"
+msgstr "chữ ghép chưa chấm dứt"
+
+#: ligature-engraver.cc:202
+msgid "ignoring rest: ligature may not contain rest"
+msgstr "đang bỏ qua dấu lặng: chữ ghép có thể không chứa dấu lặng"
+
+#: ligature-engraver.cc:203
+msgid "ligature was started here"
+msgstr "chữ ghép đã bắt đầu ở đây"
+
+#: lily-guile.cc:78
+#, c-format
+msgid "(load path: `%s')"
+msgstr "(đường dẫn nạp: « %s »)"
+
+#: lily-guile.cc:438
+#, c-format
+msgid "cannot find property type-check for `%s' (%s)."
+msgstr "không tìm thấy hàm kiểm tra kiểu thuộc tính (property-type-check) cho « %s » (%s)."
+
+#: lily-guile.cc:441
+msgid "perhaps a typing error?"
+msgstr "có lẽ gõ sai ?"
+
+#: lily-guile.cc:448
+msgid "doing assignment anyway"
+msgstr "vẫn đang làm việc gán"
+
+#: lily-guile.cc:460
+#, c-format
+msgid "type check for `%s' failed; value `%s' must be of type `%s'"
+msgstr "lỗi kiểm tra kiểu « %s »; giá trị « %s » phải có kiểu « %s »"
+
+#: lily-lexer.cc:250
+msgid "include files are not allowed in safe mode"
+msgstr "không cho phép tập tin bao gồm (include) trong chế độ an toàn"
+
+#: lily-lexer.cc:269
+#, c-format
+msgid "identifier name is a keyword: `%s'"
+msgstr "tên bộ nhận diện là từ khoá: « %s »"
+
+#: lily-lexer.cc:284
+#, c-format
+msgid "error at EOF: %s"
+msgstr "gặp lỗi ở EOF (kết thúc tập tin): %s"
+
+#: lily-parser-scheme.cc:30
+#, c-format
+msgid "deprecated function called: %s"
+msgstr "đã gọi hàm bị phản đối: %s"
+
+#: lily-parser-scheme.cc:89
+#, c-format
+msgid "Changing working directory to: `%s'"
+msgstr "Đang thay đổi thư mục hoạt động thành: « %s »"
+
+#: lily-parser-scheme.cc:107
+#, c-format
+msgid "cannot find init file: `%s'"
+msgstr "không tìm thấy tập tin sở khởi: « %s »"
+
+#: lily-parser-scheme.cc:126
+#, c-format
+msgid "Processing `%s'"
+msgstr "Đang xử lý « %s »"
+
+#: lily-parser.cc:99
+msgid "Parsing..."
+msgstr "Đang phân tách..."
+
+#: lily-parser.cc:127
+msgid "braces do not match"
+msgstr "hai dấu ngoặc móc không khớp"
+
+#: lyric-combine-music-iterator.cc:327
+#, c-format
+msgid "cannot find Voice `%s'"
+msgstr "không tìm thấy giọng nói « %s »"
+
+#: lyric-engraver.cc:158
+msgid "Lyric syllable does not have note. Use \\lyricsto or associatedVoice."
+msgstr "Âm tiết lời nhạc không có nốt. Hãy dùng « \\lyricsto » hay « associatedVoice »."
+
+#: main.cc:100
+#, c-format
+msgid ""
+"This program is free software.  It is covered by the GNU General Public\n"
+"License and you are welcome to change it and/or distribute copies of it\n"
+"under certain conditions.  Invoke as `%s --warranty' for more\n"
+"information.\n"
+msgstr ""
+"Chương trình này là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó với điều kiện của Giấy Phép Công Cộng GNU như được xuất bản bởi Tổ Chức Phần Mềm Tự Do; hoặc phiên bản 2 của Giấy Phép này, hoặc (tùy chọn) bất kỳ phiên bản sau nào.\n"
+"\n"
+"Hãy gọi lệnh « %s --warranty » để xem thêm thông tin.\n"
+
+#: main.cc:106
+msgid ""
+"    This program is free software; you can redistribute it and/or\n"
+"modify it under the terms of the GNU General Public License version 2\n"
+"as published by the Free Software Foundation.\n"
+"\n"
+"    This program is distributed in the hope that it will be useful,\n"
+"but WITHOUT ANY WARRANTY; without even the implied warranty of\n"
+"MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n"
+"General Public License for more details.\n"
+"\n"
+"    You should have received a copy of the\n"
+"GNU General Public License along with this program; if not, write to\n"
+"the Free Software Foundation, Inc., 59 Temple Place - Suite 330,\n"
+"Boston, MA 02111-1307, USA.\n"
+msgstr ""
+"Chương trình này là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó với điều kiện của Giấy Phép Công Cộng GNU như được xuất bản bởi Tổ Chức Phần Mềm Tự Do; hoặc phiên bản 2 của Giấy Phép này, hoặc (tùy chọn) bất kỳ phiên bản sau nào.\n"
+"\n"
+"Chương trình này được phát hành vì mong muốn nó có ích, nhưng KHÔNG CÓ BẢO HÀNH GÌ CẢ, THẬM CHÍ KHÔNG CÓ BẢO ĐẢM ĐƯỢC NGỤ Ý KHẢ NĂNG BÁN HAY KHẢ NĂNG LÀM ĐƯỢC VIỆC DỨT KHOÁT. Xem Giấy Phép Công Cộng GNU để biết thêm chi tiết.\n"
+"\n"
+"Bạn đã nhận một bản sao của Giấy Phép Công Cộng GNU cùng với chương trình này; nếu không, hãy viết thư cho Tổ Chức Phần Mềm Tự Do,\n"
+"Free Software Foundation, Inc.,\n"
+"51 Franklin Street, Fifth Floor,\n"
+"Boston, MA  02110-1301, USA (Mỹ).\n"
+
+#: main.cc:137
+msgid "SYM[=VAL]"
+msgstr "SYM[=GIÁ_TRỊ]"
+
+#: main.cc:138
+msgid ""
+"set Scheme option SYM to VAL (default: #t).\n"
+"Use -dhelp for help."
+msgstr ""
+"đặt tùy chọn Scheme SYM thành GIÁ_TRỊ (mặc định: #t).\n"
+"Dùng « -dhelp » để xem trợ giúp."
+
+#: main.cc:141
+msgid "EXPR"
+msgstr "BTHỨC"
+
+#: main.cc:141
+msgid "evaluate scheme code"
+msgstr "ước lượng mã scheme"
+
+#. Bug in option parser: --output =foe is taken as an abbreviation
+#. for --output-format.
+#: main.cc:144
+msgid "FORMATs"
+msgstr "ĐỊNH_DẠNG"
+
+#: main.cc:144
+msgid "dump FORMAT,...  Also as separate options:"
+msgstr "đổ ĐỊNH_DẠNG,... Cũng làm với các tùy chọn riêng:"
+
+#: main.cc:145
+msgid "generate DVI (tex backend only)"
+msgstr "tạo ra DVI (chỉ hậu phương tex)"
+
+#: main.cc:146
+msgid "generate PDF (default)"
+msgstr "tạo ra PDF (mặc định)"
+
+#: main.cc:147
+msgid "generate PNG"
+msgstr "tạo ra PNG"
+
+#: main.cc:148
+msgid "generate PostScript"
+msgstr "tạo ra PostScript"
+
+#: main.cc:149
+msgid "generate TeX (tex backend only)"
+msgstr "tạo ra TeX (chỉ hậu phương tex)"
+
+#: main.cc:150
+msgid "show this help and exit"
+msgstr "hiển thị trợ giúp này rồi thoát"
+
+#: main.cc:151
+msgid "FIELD"
+msgstr "TRƯỜNG"
+
+#: main.cc:151
+msgid ""
+"dump header field FIELD to file\n"
+"named BASENAME.FIELD"
+msgstr ""
+"đổ trường phần đầu TRƯỜNG\n"
+"vào tập tin tên BASENAME.FIELD"
+
+#: main.cc:153
+msgid "add DIR to search path"
+msgstr "Thêm THƯ MỤC vào đường dẫn tìm kiếm"
+
+#: main.cc:154
+msgid "use FILE as init file"
+msgstr "dùng TẬP TIN là tập tin sở khởi"
+
+#: main.cc:156
+msgid "USER, GROUP, JAIL, DIR"
+msgstr "NGƯỜI DÙNG, NHÓM, JAIL, THƯ MỤC"
+
+#: main.cc:156
+msgid ""
+"chroot to JAIL, become USER:GROUP\n"
+"and cd into DIR"
+msgstr ""
+"chroot vào JAIL, trở thành NGƯỜI DÙNG:NHÓM\n"
+"và cd vào THƯ MỤC"
+
+#: main.cc:159
+msgid "write output to FILE (suffix will be added)"
+msgstr "xuất ra TẬP TIN (hậu tố cũng được thêm)"
+
+#: main.cc:160
+msgid "relocate using directory of lilypond program"
+msgstr "định vị lại dùng thư mục của chương trình lilypond"
+
+#: main.cc:161
+msgid "show version number and exit"
+msgstr "hiển thị số phiên bản rồi thoát"
+
+#: main.cc:203
+#, c-format
+msgid ""
+"Copyright (c) %s by\n"
+"%s  and others."
+msgstr ""
+"Tác quyền © năm %s\n"
+"của %s và người khác."
+
+#. No version number or newline here.  It confuses help2man.
+#: main.cc:230
+#, c-format
+msgid "Usage: %s [OPTION]... FILE..."
+msgstr "Cách sử dụng: %s [TÙY_CHỌN]... TẬP_TIN..."
+
+#: main.cc:232
+#, c-format
+msgid "Typeset music and/or produce MIDI from FILE."
+msgstr "Sắp chữ âm nhạc và/hay tạo MIDI từ TẬP TIN"
+
+#: main.cc:234
+#, c-format
+msgid "LilyPond produces beautiful music notation."
+msgstr "Lilypong tạo kiểu ghi âm nhạc rất đẹp."
+
+#: main.cc:236
+#, c-format
+msgid "For more information, see %s"
+msgstr "Để tìm thấy thông tin thêm xem %s"
+
+#: main.cc:238
+#, c-format
+msgid "Options:"
+msgstr "Tùy chọn:"
+
+#: main.cc:242
+#, c-format
+msgid "Report bugs via %s"
+msgstr "Hãy thông báo lỗi cho %s"
+
+#: main.cc:288
+#, c-format
+msgid "expected %d arguments with jail, found: %u"
+msgstr "mong đợi %d đối số với jail, còn tìm: %u"
+
+#: main.cc:302
+#, c-format
+msgid "no such user: %s"
+msgstr "không có người dùng như vậy: %s"
+
+#: main.cc:304
+#, c-format
+msgid "cannot get user id from user name: %s: %s"
+msgstr "không thể lấy ID người dùng từ tên người dùng: %s: %s"
+
+#: main.cc:319
+#, c-format
+msgid "no such group: %s"
+msgstr "không có nhóm như vậy: %s"
+
+#: main.cc:321
+#, c-format
+msgid "cannot get group id from group name: %s: %s"
+msgstr "không thể lấy ID nhóm từ tên nhóm: %s: %s"
+
+#: main.cc:329
+#, c-format
+msgid "cannot chroot to: %s: %s"
+msgstr "không thể chroot vào : %s: %s"
+
+#: main.cc:336
+#, c-format
+msgid "cannot change group id to: %d: %s"
+msgstr "không thể thay đổi ID nhóm thành: %d: %s"
+
+#: main.cc:342
+#, c-format
+msgid "cannot change user id to: %d: %s"
+msgstr "không thể thay đổi ID người dùng thành: %d: %s"
+
+#: main.cc:348
+#, c-format
+msgid "cannot change working directory to: %s: %s"
+msgstr "không thể thay đổi thư mục hoạt động thành: %s: %s"
+
+#: main.cc:594
+#, c-format
+msgid "exception caught: %s"
+msgstr "bắt ngoài lệ: %s"
+
+#. FIXME: constant error message.
+#: mark-engraver.cc:154
+msgid "rehearsalMark must have integer value"
+msgstr "rehearsalMark (dấu sự diễn tập) phải có giá trị số nguyên"
+
+#: mark-engraver.cc:160
+msgid "mark label must be a markup object"
+msgstr "nhãn dấu phải là đối tượng mã định dạng"
+
+#: mensural-ligature-engraver.cc:85
+msgid "ligature with less than 2 heads -> skipping"
+msgstr "gặp chữ ghép có ít hơn 2 đầu nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:112
+msgid "cannot determine pitch of ligature primitive -> skipping"
+msgstr "không thể quyết định độ cao thấp của điều có sẵn kiểu chữ ghép nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:126
+msgid "single note ligature - skipping"
+msgstr "gặp chữ ghép có chỉ một nốt nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:138
+msgid "prime interval within ligature -> skipping"
+msgstr "gặp khoảng phết bên trong chữ ghép nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:150
+msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
+msgstr "chữ ghép kiểu đo lường: thời gian không phải Mx, L, B hay S nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:198
+msgid "semibrevis must be followed by another one -> skipping"
+msgstr "nốt tròn phải có cái nữa theo sau nên bỏ qua"
+
+#: mensural-ligature-engraver.cc:209
+msgid ""
+"semibreves can only appear at the beginning of a ligature,\n"
+"and there may be only zero or two of them"
+msgstr ""
+"nốt tròn chỉ có thể xuất hiện ở đầu của chữ ghép,\n"
+"cũng chỉ có thể có số không hay hai nốt tròn."
+
+#: mensural-ligature-engraver.cc:236
+msgid ""
+"invalid ligatura ending:\n"
+"when the last note is a descending brevis,\n"
+"the penultimate note must be another one,\n"
+"or the ligatura must be LB or SSB"
+msgstr ""
+"kết thúc chữ ghép không hợp lệ:\n"
+"khi nốt cuối là dấu ngân đi xuống,\n"
+"nốt giáp cuối phải là cái nữa,\n"
+"hoặc chữ ghép phải là LB hay SSB."
+
+#: mensural-ligature-engraver.cc:356
+msgid "unexpected case fall-through"
+msgstr "gặp case fall-through bất thường"
+
+#: mensural-ligature.cc:141
+msgid "Mensural_ligature: unexpected case fall-through"
+msgstr "Mensural_ligature: gặp case fall-through bất thường"
+
+#: mensural-ligature.cc:192
+msgid "Mensural_ligature: (join_right == 0)"
+msgstr "Mensural_ligature: (join_right == 0)"
+
+#: midi-item.cc:81
+#, c-format
+msgid "no such MIDI instrument: `%s'"
+msgstr "không có phối nhạc MIDI như vậy: « %s »"
+
+#: midi-stream.cc:28
+#, c-format
+msgid "cannot open for write: %s: %s"
+msgstr "không thể mở đề ghi: %s: %s"
+
+#: midi-stream.cc:44
+#, c-format
+msgid "cannot write to file: `%s'"
+msgstr "không thể ghi vào tập tin: « %s »"
+
+#: music-iterator.cc:171
+msgid "Sending non-event to context"
+msgstr "Đang gửi khác-dữ-kiện cho ngữ cảnh"
+
+#: music.cc:140
+#, c-format
+msgid "octave check failed; expected \"%s\", found: \"%s\""
+msgstr "lỗi kiểm tra quãng tám: mong đợi « %s » còn tìm: « %s »"
+
+#: music.cc:203
+#, c-format
+msgid "transposition by %s makes alteration larger than double"
+msgstr "dịch giọng theo %s làm sự sửa đổi lớn hơn đôi"
+
+#: new-fingering-engraver.cc:96
+msgid "cannot add text scripts to individual note heads"
+msgstr "không thể thêm văn lệnh văn bản vào đầu nốt riêng"
+
+#: new-fingering-engraver.cc:239
+msgid "no placement found for fingerings"
+msgstr "không tìm thấy vị trí cho ngón bấm"
+
+#: new-fingering-engraver.cc:240
+msgid "placing below"
+msgstr "đang để vào bên dưới"
+
+#: note-collision.cc:464
+msgid "ignoring too many clashing note columns"
+msgstr "đang bỏ qua quá nhiều cột nốt xung đột với nhau"
+
+#: note-column.cc:124
+msgid "cannot have note heads and rests together on a stem"
+msgstr "không thể có cọng chứa cả hai đầu nốt và dấu lặng"
+
+#: note-head.cc:63
+#, c-format
+msgid "none of note heads `%s' or `%s' found"
+msgstr "không tìm thấy đầu nốt « %s » hay « %s »"
+
+#: note-heads-engraver.cc:64
+msgid "NoteEvent without pitch"
+msgstr "Có dữ kiện nốt (NoteEvent) không có độ cao thấp"
+
+#: open-type-font.cc:33
+#, c-format
+msgid "cannot allocate %lu bytes"
+msgstr "không thể cấp phát %lu byte"
+
+#: open-type-font.cc:37
+#, c-format
+msgid "cannot load font table: %s"
+msgstr "không thể nạp bảng phông: %s"
+
+#: open-type-font.cc:42
+#, c-format
+msgid "Free type error: %s"
+msgstr "Lỗi FreeType: %s"
+
+#: open-type-font.cc:100
+#, c-format
+msgid "unsupported font format: %s"
+msgstr "định dạng phông không được hỗ trợ : %s"
+
+#: open-type-font.cc:102
+#, c-format
+msgid "error reading font file %s: %s"
+msgstr "gặp lỗi khi đọc tập tin phông %s: %s"
+
+#: open-type-font.cc:177
+#, c-format
+msgid "FT_Get_Glyph_Name () Freetype error: %s"
+msgstr "Lỗi FreeType FT_Get_Glyph_Name (): %s"
+
+#: open-type-font.cc:302 pango-font.cc:167
+#, c-format
+msgid "FT_Get_Glyph_Name () error: %s"
+msgstr "Lỗi FT_Get_Glyph_Name (): %s"
+
+#: page-turn-page-breaking.cc:146
+#, c-format
+msgid "page-turn-page-breaking: breaking from %d to %d"
+msgstr "page-turn-page-breaking: ngắt từ %d đến %d"
+
+#: page-turn-page-breaking.cc:195
+msgid "cannot fit the first page turn onto a single page.  Consider setting first-page-number to an even number."
+msgstr "không thể vừa sự quay trang đầu trong một trang riêng lẻ. Đề nghị bạn đặt giá trị của số thứ tự trang đầu (first-page-number) thành số chẵn."
+
+#: page-turn-page-breaking.cc:208
+#, c-format
+msgid "Calculating page and line breaks (%d possible page breaks)..."
+msgstr "Đang tính các chỗ cần ngắt trang và dòng (%d chỗ ngắt trang có thể)..."
+
+#: page-turn-page-breaking.cc:226 paper-score.cc:146
+msgid "Drawing systems..."
+msgstr "Hệ thống vẽ..."
+
+#: page-turn-page-breaking.cc:275
+#, c-format
+msgid "break starting at page %d"
+msgstr "chỗ ngắt bắt đầu ở trang %d"
+
+#: page-turn-page-breaking.cc:276
+#, c-format
+msgid "\tdemerits: %f"
+msgstr "\tđiểm xấu : %f"
+
+#: page-turn-page-breaking.cc:277
+#, c-format
+msgid "\tsystem count: %d"
+msgstr "\ttổng hệ thống: %d"
+
+#: page-turn-page-breaking.cc:278
+#, c-format
+msgid "\tpage count: %d"
+msgstr "\ttổng trang: %d"
+
+#: page-turn-page-breaking.cc:279
+#, c-format
+msgid "\tprevious break: %d"
+msgstr "\tchỗ ngắt trước: %d"
+
+#: pango-font.cc:184
+#, c-format
+msgid ""
+"Glyph has no name, but font supports glyph naming.\n"
+"Skipping glyph U+%0X, file %s"
+msgstr ""
+"Hình tượng không có tên, nhưng phông hỗ trợ khả năng đặt tên hình tượng.\n"
+"Đang bỏ qua hình tượng U+%0X, tập tin %s"
+
+#: pango-font.cc:229
+#, c-format
+msgid "no PostScript font name for font `%s'"
+msgstr "không có tên phông PostScript cho phông « %s »"
+
+#: pango-font.cc:277
+msgid "FreeType face has no PostScript font name"
+msgstr "Mặt chữ FreeType không có tên phông PostScript"
+
+#: paper-column-engraver.cc:199
+msgid "forced break was overridden by some other event, should you be using bar checks?"
+msgstr "chỗ ngắt bị buộc đã bị ghi đè bởi dữ kiện khác, bạn có nên dùng sự kiểm tra gạch nhịp không?"
+
+#: paper-outputter-scheme.cc:30
+#, c-format
+msgid "Layout output to `%s'..."
+msgstr "Xuất bố trí ra « %s »..."
+
+#: paper-score.cc:105
+msgid "Calculating line breaks..."
+msgstr "Đang tính các chỗ ngắt dòng..."
+
+#: paper-score.cc:118
+#, c-format
+msgid "Element count %d (spanners %d) "
+msgstr "Tổng yếu tố %d (thanh ngang %d) "
+
+#: paper-score.cc:122
+msgid "Preprocessing graphical objects..."
+msgstr "Đang tiền xử lý các đối tượng đồ họa..."
+
+#: parse-scm.cc:87
+msgid "GUILE signaled an error for the expression beginning here"
+msgstr "GUILE đã thông báo lỗi cho biểu thức bắt đầu ở đây"
+
+#: percent-repeat-engraver.cc:200
+msgid "unterminated percent repeat"
+msgstr "sự lặp lại dấu phần trăm chưa chấm dứt"
+
+#: performance.cc:43
+msgid "Track..."
+msgstr "Rãnh..."
+
+#: performance.cc:72
+msgid "MIDI channel wrapped around"
+msgstr "Kênh MIDI đã cuộn vòng"
+
+#: performance.cc:73
+msgid "remapping modulo 16"
+msgstr "đang ánh xạ lại mô-đun 16"
+
+#: performance.cc:101
+#, c-format
+msgid "MIDI output to `%s'..."
+msgstr "xuất MIDI ra « %s »..."
+
+#: phrasing-slur-engraver.cc:131
+msgid "unterminated phrasing slur"
+msgstr "dấu luyến âm phân nhịp chưa chấm dứt"
+
+#: piano-pedal-engraver.cc:286
+#, c-format
+msgid "expect 3 strings for piano pedals, found: %ld"
+msgstr "mong đợi 3 chuỗi cho âm nền dương cầm, còn tìm: %ld"
+
+#: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
+#: piano-pedal-performer.cc:93
+#, c-format
+msgid "cannot find start of piano pedal: `%s'"
+msgstr "không tìm thấy đầu của âm nền dương cầm: « %s »"
+
+#: piano-pedal-engraver.cc:347
+#, c-format
+msgid "cannot find start of piano pedal bracket: `%s'"
+msgstr "không tìm thấy đầu của ngoặc âm nền dương cầm: « %s »"
+
+#: program-option-scheme.cc:207
+#, c-format
+msgid "no such internal option: %s"
+msgstr "không có tùy chọn nội bộ như vậy: %s"
+
+#: property-iterator.cc:74
+#, c-format
+msgid "not a grob name, `%s'"
+msgstr "không phải tên grob, « %s »"
+
+#: relative-octave-check.cc:38
+msgid "Failed octave check, got: "
+msgstr "Lỗi kiểm tra quãng tám, nhận: "
+
+#: relocate.cc:44
+#, c-format
+msgid "Setting %s to %s"
+msgstr "Đang đặt %s thành %s"
+
+#: relocate.cc:64
+#, c-format
+msgid "no such file: %s for %s"
+msgstr "không có tập tin như vậy: %s cho %s"
+
+#: relocate.cc:74 relocate.cc:92
+#, c-format
+msgid "no such directory: %s for %s"
+msgstr "không có thư mục như vậy: %s cho %s"
+
+#: relocate.cc:84
+#, c-format
+msgid "%s=%s (prepend)\n"
+msgstr "%s=%s (thêm vào đầu)\n"
+
+#: relocate.cc:114
+#, c-format
+msgid "not relocating, no %s/ or current/ found under %s"
+msgstr "không đang thay đổi vị trí, không tìm thấy « %s/ » hay « current/ » nằm dưới %s"
+
+#: relocate.cc:125
+#, c-format
+msgid "Relocation: compile datadir=%s, new datadir=%s"
+msgstr "Đổi vị trí: thư mục dữ liệu biên dịch là %s, thư mục dữ liệu mí là %s"
+
+#: relocate.cc:138
+#, c-format
+msgid "Relocation: framework_prefix=%s"
+msgstr "Đổi vị trí: framework_prefix=%s"
+
+#: relocate.cc:179
+#, c-format
+msgid "Relocation: is absolute: argv0=%s"
+msgstr "Đổi vị trí: là tuyệt đối: argv0=%s"
+
+#: relocate.cc:186
+#, c-format
+msgid "Relocation: from cwd: argv0=%s"
+msgstr "Đổi vị trí: từ cwd: argv0=%s"
+
+#: relocate.cc:195
+#, c-format
+msgid ""
+"Relocation: from PATH=%s\n"
+"argv0=%s"
+msgstr ""
+"Đổi vị trí: từ đường dẫn PATH=%s\n"
+"argv0=%s"
+
+#: relocate.cc:229
+msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
+msgstr "biến LILYPONDPREFIX quá cũ, hãy dùng LILYPOND_DATADIR"
+
+#: relocate.cc:357
+#, c-format
+msgid "Relocation file: %s"
+msgstr "Tập tin thay đổi vị trí: %s"
+
+#: relocate.cc:393
+#, c-format
+msgid "Unknown relocation command %s"
+msgstr "Lệnh thay đổi vị trí không rõ %s"
+
+#: rest-collision.cc:145
+msgid "cannot resolve rest collision: rest direction not set"
+msgstr "không thể giải quyết sự xung đột dấu lặng: chưa đặt hướng lặng"
+
+#: rest-collision.cc:159 rest-collision.cc:204
+msgid "too many colliding rests"
+msgstr "quá nhiều dấu lặng xung đột với nhau"
+
+#: rest.cc:132
+#, c-format
+msgid "rest `%s' not found"
+msgstr "không tìm thấy dấu lặng « %s »"
+
+#: score-engraver.cc:67
+#, c-format
+msgid "cannot find `%s'"
+msgstr "không tìm thấy « %s »"
+
+#: score-engraver.cc:69
+msgid "Music font has not been installed properly."
+msgstr "Phông âm nhạc chưa được cài đặt đúng."
+
+#: score-engraver.cc:71
+#, c-format
+msgid "Search path `%s'"
+msgstr "Đường dẫn tìm kiếm « %s »"
+
+#: score-engraver.cc:73
+msgid "Aborting"
+msgstr "Đang hủy bỏ..."
+
+#: score.cc:167
+msgid "already have music in score"
+msgstr "đã có âm nhạc trong bản đàn bè"
+
+#: score.cc:168
+msgid "this is the previous music"
+msgstr "đây là âm nhạc trước"
+
+#: score.cc:173
+msgid "errors found, ignoring music expression"
+msgstr "gặp lỗi nên bỏ qua biểu thức âm nhạc"
+
+#. FIXME:
+#: script-engraver.cc:102
+msgid "do not know how to interpret articulation: "
+msgstr "không biết cách giải thích trục bản lề: "
+
+#: script-engraver.cc:103
+msgid "scheme encoding: "
+msgstr "bảng mã scheme: "
+
+#: slur-engraver.cc:82
+#, c-format
+msgid "direction of %s invalid: %d"
+msgstr "%s có hướng không hợp lệ: %d"
+
+#: slur-engraver.cc:151
+msgid "unterminated slur"
+msgstr "dấu luyến âm chưa chấm dứt"
+
+#: slur-engraver.cc:163
+msgid "cannot end slur"
+msgstr "không thể kết thúc dấu luyến âm"
+
+#: slur.cc:355
+#, c-format
+msgid "Ignoring grob for slur: %s. avoid-slur not set?"
+msgstr "Đang bỏ qua grob cho dấu luyến âm: %s. Chưa đặt « avoid-slur » ?"
+
+#: source-file.cc:74
+#, c-format
+msgid "expected to read %d characters, got %d"
+msgstr "mong đợi đọc %d ký tự, còn nhận %d"
+
+#: spaceable-grob.cc:117
+#, c-format
+msgid "No spring between column %d and next one"
+msgstr "Khoảng có sự nhảy giữa cột %d và cái kế tiếp"
+
+#: staff-symbol-engraver.cc:62
+msgid "staff-span event has no direction"
+msgstr "dữ kiện chiếm khuông nhạc không có hướng"
+
+#: stem-engraver.cc:92
+msgid "tremolo duration is too long"
+msgstr "thời gian tiếng vê quá dài"
+
+#. FIXME:
+#: stem-engraver.cc:129
+#, c-format
+msgid "adding note head to incompatible stem (type = %d)"
+msgstr "đang thêm đầu nốt vào cọng không tương thích (kiểu = %d)"
+
+#: stem-engraver.cc:131
+msgid "maybe input should specify polyphonic voices"
+msgstr "có lẽ kết nhập vào nên xác định các giọng nói đối âm"
+
+#: stem.cc:105
+msgid "weird stem size, check for narrow beams"
+msgstr "kích cỡ cọng lạ, hãy kiểm tra có tia hẹp không"
+
+#: stem.cc:618
+#, c-format
+msgid "flag `%s' not found"
+msgstr "không tìm thấy cờ « %s »"
+
+#: stem.cc:629
+#, c-format
+msgid "flag stroke `%s' not found"
+msgstr "không tìm thấy nét cờ « %s »"
+
+#: system.cc:180
+#, c-format
+msgid "Element count %d."
+msgstr "Tổng yếu tố %d."
+
+#: system.cc:266
+#, c-format
+msgid "Grob count %d"
+msgstr "Tổng grob %d"
+
+#: text-spanner-engraver.cc:60
+msgid "cannot find start of text spanner"
+msgstr "không tìm thấy đầu của thanh ngang văn bản"
+
+#: text-spanner-engraver.cc:72
+msgid "already have a text spanner"
+msgstr "đã có thanh ngang văn bản"
+
+#: text-spanner-engraver.cc:118
+msgid "unterminated text spanner"
+msgstr "thanh ngang văn bản chưa chấm dứt"
+
+#: tie-engraver.cc:267
+msgid "lonely tie"
+msgstr "dấu nối riêng lẻ"
+
+#.
+#. Todo: should make typecheck?
+#.
+#. OTOH, Tristan Keuris writes 8/20 in his Intermezzi.
+#.
+#: time-signature-engraver.cc:64
+#, c-format
+msgid "strange time signature found: %d/%d"
+msgstr "tìm thấy chữ ký nhịp lạ: %d/%d"
+
+#. If there is no such symbol, we default to the numbered style.
+#. (Here really with a warning!)
+#: time-signature.cc:83
+#, c-format
+msgid "time signature symbol `%s' not found; reverting to numbered style"
+msgstr "không tìm thấy ký hiệu chữ ký nhịp « %s » nên hoàn nguyên về kiểu đánh số"
+
+#: translator-ctors.cc:52
+#, c-format
+msgid "unknown translator: `%s'"
+msgstr "bộ dịch lạ: « %s »"
+
+#: translator-group-ctors.cc:29
+#, c-format
+msgid "fatal error. Couldn't find type: %s"
+msgstr "lỗi nghiêm trọng. Không tìm thấy kiểu : %s"
+
+#: translator-group.cc:146
+#, c-format
+msgid "cannot find: `%s'"
+msgstr "không tìm thấy: « %s »"
+
+#: translator.cc:346
+#, c-format
+msgid "Two simultaneous %s events, junking this one"
+msgstr "Gặp hai dữ kiện %s đồng thời nên bỏ cái này"
+
+#: translator.cc:347
+#, c-format
+msgid "Previous %s event here"
+msgstr "Dữ kiện %s trước ở đây"
+
+#: trill-spanner-engraver.cc:67
+msgid "cannot find start of trill spanner"
+msgstr "không tìm thấy đầu của thanh ngang sự láy rền"
+
+#: trill-spanner-engraver.cc:79
+msgid "already have a trill spanner"
+msgstr "đã có thanh ngang sự láy rền"
+
+#: tuplet-engraver.cc:96
+msgid "No tuplet to end"
+msgstr "Không có tuplet đến cuối"
+
+#: vaticana-ligature-engraver.cc:388
+#, c-format
+msgid "ignored prefix (es) `%s' of this head according to restrictions of the selected ligature style"
+msgstr "đã bỏ qua tiền tố (es) « %s » của đầu này tùy theo các sự hạn chế của kiểu dáng chữ ghép đã chọn"
+
+#: vaticana-ligature-engraver.cc:714
+#, c-format
+msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
+msgstr "Vaticana_ligature_engraver: đang đặt « spacing-increment = %f »: ptr =%ul"
+
+#: vaticana-ligature.cc:84
+msgid "flexa-height undefined; assuming 0"
+msgstr "chưa xác định « flexa-height » nên giả sử 0"
+
+#: vaticana-ligature.cc:89
+msgid "ascending vaticana style flexa"
+msgstr "flexa kiểu Vaticana đi lên"
+
+#: vaticana-ligature.cc:177
+msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
+msgstr "Vaticana_ligature: dấu nối số không (delta_pitch == 0)"
+
+#. fixme: be more verbose.
+#: volta-engraver.cc:143
+msgid "cannot end volta spanner"
+msgstr "không thể kết thúc thanh ngang volta"
+
+#: volta-engraver.cc:153
+msgid "already have a volta spanner, ending that one prematurely"
+msgstr "đã có thanh ngang volta thì kết thúc sớm cái đó"
+
+#: volta-engraver.cc:157
+msgid "also already have an ended spanner"
+msgstr "cũng đã có thanh ngang đã kết thúc"
+
+#: volta-engraver.cc:158
+msgid "giving up"
+msgstr "đang chịu thua"
+
+#: parser.yy:704
+msgid "\\paper cannot be used in \\score, use \\layout instead"
+msgstr "« \\paper » không thể được dùng trong « \\score », hãy dùng « \\layout » thay vào đó"
+
+#: parser.yy:728
+msgid "need \\paper for paper block"
+msgstr "cần thiết « \\paper » cho khối giấy"
+
+#: parser.yy:1187
+msgid "Grob name should be alphanumeric"
+msgstr "Tên grob nên có dạng chữ số"
+
+#: parser.yy:1485
+msgid "second argument must be pitch list"
+msgstr "đối số thứ hai phải là danh sách các độ cao thấp"
+
+#: parser.yy:1512 parser.yy:1517 parser.yy:1982
+msgid "have to be in Lyric mode for lyrics"
+msgstr "ghi lời nhạc thì phải trong chế độ Lời nhạc"
+
+#: parser.yy:1614
+msgid "expecting string as script definition"
+msgstr "mong đợi chuỗi xác định văn lệnh"
+
+#: parser.yy:1769 parser.yy:1819
+#, c-format
+msgid "not a duration: %d"
+msgstr "không phải thời gian: %d"
+
+#: parser.yy:1936
+msgid "have to be in Note mode for notes"
+msgstr "ghi nốt thì phải trong chế độ Nốt"
+
+#: parser.yy:1997
+msgid "have to be in Chord mode for chords"
+msgstr "ghi hợp âm thì phải trong chế độ Hợp âm"
+
+#: lexer.ll:176
+msgid "stray UTF-8 BOM encountered"
+msgstr "gặp UTF-8 BOM rải rác"
+
+#: lexer.ll:180
+msgid "Skipping UTF-8 BOM"
+msgstr "Bỏ qua UTF-8 BOM"
+
+#: lexer.ll:235
+#, c-format
+msgid "Renaming input to: `%s'"
+msgstr "Đang thay đổi tên kết nhập thành: « %s »"
+
+#: lexer.ll:252
+msgid "quoted string expected after \\version"
+msgstr "mong đợi chuỗi đã trích dẫn sau « \\version »"
+
+#: lexer.ll:256
+msgid "quoted string expected after \\sourcefilename"
+msgstr "mong đợi chuỗi đã trích dẫn sau « \\sourcefilename »"
+
+#: lexer.ll:260
+msgid "integer expected after \\sourcefileline"
+msgstr "mong đợi số nguyên sau « \\sourcefilename »"
+
+#: lexer.ll:273
+msgid "EOF found inside a comment"
+msgstr "Gặp kết thúc tập tin trong ghi chú"
+
+#: lexer.ll:288
+msgid "\\maininput not allowed outside init files"
+msgstr "không cho phép « \\maininput » bên ngoài tập tin sở khởi"
+
+#: lexer.ll:312
+#, c-format
+msgid "wrong or undefined identifier: `%s'"
+msgstr "bộ nhận diện sai hau không được xác định: « %s »"
+
+#. backup rule
+#: lexer.ll:321
+msgid "end quote missing"
+msgstr "thiếu dấu trích dẫn kết thúc"
+
+#: lexer.ll:466
+msgid "Brace found at end of lyric.  Did you forget a space?"
+msgstr "Gặp dấu ngoặc móc ở kết thúc lời nhạc. Bạn đã quên nhập vào dấu cách không?"
+
+#: lexer.ll:559
+msgid "Brace found at end of markup.  Did you forget a space?"
+msgstr "Gặp dấu ngoặc móc ở kết thúc mã định dạng. Bạn đã quên nhập vào dấu cách không?"
+
+#: lexer.ll:663
+#, c-format
+msgid "invalid character: `%c'"
+msgstr "ký tự không hợp lệ: « %c »"
+
+#: lexer.ll:778
+#, c-format
+msgid "unknown escaped string: `\\%s'"
+msgstr "chuỗi đã thoát lạ: « \\%s »"
+
+#: lexer.ll:884
+#, c-format
+msgid "file too old: %s (oldest supported: %s)"
+msgstr "tập tin quá cũ : %s (cũ nhất được hỗ trợ : %s)"
+
+#: lexer.ll:885
+msgid "consider updating the input with the convert-ly script"
+msgstr "đề nghị bạn cập nhật kết nhập bằng văn lệnh « convert-ly »"
+
+#: lexer.ll:891
+#, c-format
+msgid "program too old: %s (file requires: %s)"
+msgstr "chương trình quá cũ : %s (tập tin cần thiết: %s)"
+
+#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
+#, scheme-format
+msgid "Invoking `~a'..."
+msgstr "đang gọi « ~a »..."
+
+#: backend-library.scm:28
+#, scheme-format
+msgid "`~a' failed (~a)"
+msgstr "lỗi « ~a » (~a)"
+
+#: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
+#, scheme-format
+msgid "Converting to `~a'..."
+msgstr "Đang chuyển đổi sang « ~a »"
+
+#: backend-library.scm:128
+#, scheme-format
+msgid "Converting to ~a..."
+msgstr "Đang chuyển đổi sang ~a..."
+
+#: backend-library.scm:166
+#, scheme-format
+msgid "Writing header field `~a' to `~a'..."
+msgstr "Đang ghi trường phần đầu « ~a » vào « ~a »..."
+
+#: define-context-properties.scm:20 define-grob-properties.scm:10
+#: define-music-properties.scm:10
+#, scheme-format
+msgid "symbol ~S redefined"
+msgstr "ký hiệu ~S đã được xác định lại"
+
+#: define-event-classes.scm:119
+#, scheme-format
+msgid "event class ~A seems to be unused"
+msgstr "hạng dữ kiện ~A có vẻ là không dùng"
+
+#. should be programming-error
+#: define-event-classes.scm:125
+#, scheme-format
+msgid "translator listens to nonexisting event class ~A"
+msgstr "bộ dịch lắng nghe hạng dữ kiện không tồn tại ~A"
+
+#: define-markup-commands.scm:273
+msgid "no systems found in \\score markup, does it have a \\layout block?"
+msgstr "không tìm thấy hệ thống trong mã định dạng « \\score », nó có khối « \\layout » không?"
+
+#: define-markup-commands.scm:1315
+#, scheme-format
+msgid "not a valid duration string: ~a"
+msgstr "không phải chuỗi thời gian hợp lệ: ~a"
+
+#: define-music-types.scm:743
+#, scheme-format
+msgid "symbol expected: ~S"
+msgstr "mong đợi ký hiệu : ~S"
+
+#: define-music-types.scm:746
+#, scheme-format
+msgid "cannot find music object: ~S"
+msgstr "không tìm thấy đối tượng âm nhạc: ~S"
+
+#: define-music-types.scm:766
+#, scheme-format
+msgid "unknown repeat type `~S'"
+msgstr "kiểu lặp lại lạ: ~S"
+
+#: define-music-types.scm:767
+msgid "See music-types.scm for supported repeats"
+msgstr "Xem « music-types.scm » để tìm các kiểu lặp lại được hỗ trợ"
+
+#: document-backend.scm:91
+#, scheme-format
+msgid "pair expected in doc ~s"
+msgstr "mong đợi cặp trong tài liệu ~s"
+
+#: document-backend.scm:135
+#, scheme-format
+msgid "cannot find interface for property: ~S"
+msgstr "không tìm thấy giao diện cho thuộc tính: ~S"
+
+#: document-backend.scm:145
+#, scheme-format
+msgid "unknown Grob interface: ~S"
+msgstr "giao diện Grob lạ: ~S"
+
+#: documentation-lib.scm:45
+#, scheme-format
+msgid "Processing ~S..."
+msgstr "Đang xử lý ~S..."
+
+#: documentation-lib.scm:150
+#, scheme-format
+msgid "Writing ~S..."
+msgstr "Đang ghi ~S..."
+
+#: documentation-lib.scm:172
+#, scheme-format
+msgid "cannot find description for property ~S (~S)"
+msgstr "không tìm thấy mô tả cho thuộc tính ~S (~S)"
+
+#: framework-eps.scm:89
+#, scheme-format
+msgid "Writing ~a..."
+msgstr "Đang ghi ~a..."
+
+#: framework-ps.scm:281
+#, scheme-format
+msgid "cannot embed ~S=~S"
+msgstr "không thể nhúng ~S=~S"
+
+#: framework-ps.scm:334
+#, scheme-format
+msgid "cannot extract file matching ~a from ~a"
+msgstr "không thể giải nén tập tin khớp với ~a từ ~a"
+
+#: framework-ps.scm:351
+#, scheme-format
+msgid "do not know how to embed ~S=~S"
+msgstr "không biết cách nhúng ~S=~S"
+
+#: framework-ps.scm:382
+#, scheme-format
+msgid "do not know how to embed font ~s ~s ~s"
+msgstr "không biết cách nhúng phông ~s ~s ~s"
+
+#: framework-ps.scm:731
+#, scheme-format
+msgid "cannot convert <stdout> to ~S"
+msgstr "không thể chuyển đổi <stdout> sang ~S"
+
+#: framework-ps.scm:750 framework-ps.scm:753
+#, scheme-format
+msgid "cannot generate ~S using the postscript back-end"
+msgstr "không thể tạo ra ~S bằng hậu phương postscript"
+
+#: framework-ps.scm:760
+msgid ""
+"\n"
+"The PostScript backend does not support the system-by-system \n"
+"output. For that, use the EPS backend instead,\n"
+"\n"
+"  lilypond -b eps <file>\n"
+"\n"
+"If have cut & pasted a lilypond fragment from a webpage, be sure\n"
+"to only remove anything before\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+"\n"
+msgstr ""
+"\n"
+"Hậu phương PostScript không hỗ trợ khả năng xuất ra mỗi hệ thống. Đối với đó, hãy dùng hậu phương EPS:\n"
+"\n"
+"  lilypond -b eps <tập_tin>\n"
+"\n"
+"Cắt và dán đoạn lilypond từ trang WWW thì cần phải gỡ bỏ các đồ nằm trước\n"
+"\n"
+"  %% ****************************************************************\n"
+"  %% Start cut-&-pastable-section\n"
+"  %% ****************************************************************\n"
+"\n"
+
+#: framework-tex.scm:360
+#, scheme-format
+msgid "TeX file name must not contain whitespace: `~a'"
+msgstr "Tên tập tin TeX không thể chứa khoảng trắng: « ~a »"
+
+#: graphviz.scm:53
+#, scheme-format
+msgid "Writing graph `~a'..."
+msgstr "Đang ghi đồ thị « ~a »..."
+
+#: layout-beam.scm:29
+#, scheme-format
+msgid "Error in beam quanting.  Expected (~S,~S) found ~S."
+msgstr "Lỗi trong khi lượng tử hoá tia. Mong đợi (~S,~S), còn tìm ~S"
+
+#: layout-beam.scm:46
+#, scheme-format
+msgid "Error in beam quanting.  Expected ~S 0, found ~S."
+msgstr "Lỗi trong khi lượng tử hoá tia. Mong đợi ~S 0, còn tìm ~S"
+
+#: layout-page-layout.scm:115
+msgid "Can't fit systems on page -- ignoring between-system-padding"
+msgstr "Không thể vừa các hệ thống trong tập tin nên bỏ qua vùng đệm giữa các hệ thống"
+
+#: layout-page-layout.scm:449
+msgid "Calculating page breaks..."
+msgstr "Đang tính các chỗ ngắt trang..."
+
+#: lily-library.scm:545
+#, scheme-format
+msgid "unknown unit: ~S"
+msgstr "đơn vị lạ: ~S"
+
+#: lily-library.scm:579
+#, scheme-format
+msgid "no \\version statement found, please add~afor future compatibility"
+msgstr "không tìm thấy câu lệnh « \\version », hãy thêm ~a để tương thích sau"
+
+#: lily-library.scm:587
+msgid "old relative compatibility not used"
+msgstr "không dùng khả năng tương thích tương đối cũ"
+
+#: lily.scm:173
+#, scheme-format
+msgid "cannot find: ~A"
+msgstr "không tìm thấy: ~A"
+
+#: lily.scm:238
+#, scheme-format
+msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
+msgstr "sai kiểu cho đối số ~a. Mong đợi ~a, còn tìm ~s"
+
+#: lily.scm:619
+#, scheme-format
+msgid "job ~a terminated with signal: ~a"
+msgstr "công việc ~a đã kết thúc với tín hiệu : ~a"
+
+#: lily.scm:622
+#, scheme-format
+msgid ""
+"logfile ~a (exit ~a):\n"
+"~a"
+msgstr ""
+"tập tin ghi lưu ~a (thoát ~a):\n"
+"~a"
+
+#: lily.scm:649 lily.scm:742
+#, scheme-format
+msgid "failed files: ~S"
+msgstr "tập tin đã thất bại: ~S"
+
+#: lily.scm:732
+#, scheme-format
+msgid "Redirecting output to ~a..."
+msgstr "Đang chuyển hướng kết xuất tới ~a ..."
+
+#: ly-syntax-constructors.scm:40
+msgid "Music head function must return Music object"
+msgstr "Hàm đầu âm nhạc phải trả lại đối tượng Âm nhạc"
+
+#: ly-syntax-constructors.scm:139
+#, scheme-format
+msgid "Invalid property operation ~a"
+msgstr "Thao tác thuộc tính không hợp lệ: ~a"
+
+#: markup.scm:94
+#, scheme-format
+msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
+msgstr "Số đối số không đúng. Mong đợi: ~A, còn tìm ~A: ~S"
+
+#: markup.scm:100
+#, scheme-format
+msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
+msgstr "Đối số không hợp lệ ở vị trí ~A. Mong đợi: ~A, còn tìm: ~S"
+
+#: music-functions.scm:228
+msgid "More alternatives than repeats.  Junking excess alternatives"
+msgstr "Số cái xen kẽ lớn hơn số sự lặp lại nên đổ các sự xen kẽ thừa"
+
+#: music-functions.scm:250
+#, scheme-format
+msgid "expecting 2 elements for chord tremolo, found ~a"
+msgstr "mong đợi 2 yếu tố cho sự vê hợp âm, còn tìm ~a"
+
+#: music-functions.scm:573
+#, scheme-format
+msgid "music expected: ~S"
+msgstr "mong đợi âm nhạc: ~S"
+
+#. FIXME: uncomprehensable message
+#: music-functions.scm:623
+#, scheme-format
+msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
+msgstr "Lỗi kiểm tra gạch nhịp. Mong đợi ở ~a, còn ở ~a"
+
+#: music-functions.scm:773
+#, scheme-format
+msgid "cannot find quoted music: `~S'"
+msgstr "không tìm thấy âm nhạc đã trích dẫn: « ~S »"
+
+#: music-functions.scm:970
+#, scheme-format
+msgid "unknown accidental style: ~S"
+msgstr "kiểu dáng dấu thăng giáng bất thường lạ: ~S"
+
+#: output-ps.scm:276
+msgid "utf-8-string encountered in PS backend"
+msgstr "gặp chuỗi UTF-8 trong hậu phương PS"
+
+#: output-svg.scm:42
+#, scheme-format
+msgid "undefined: ~S"
+msgstr "chưa xác định: ~S"
+
+#: output-svg.scm:132
+#, scheme-format
+msgid "cannot decypher Pango description: ~a"
+msgstr "Không thể giải thích mô tả Pango: ~a"
+
+#: output-tex.scm:97
+#, scheme-format
+msgid "cannot find ~a in ~a"
+msgstr "không tìm thấy ~a trong ~a"
+
+#: paper.scm:84
+msgid "set-global-staff-size: not in toplevel scope"
+msgstr "set-global-staff-size: không phải trong phạm vị cấp đầu"
+
+#: paper.scm:132
+#, scheme-format
+msgid "This is not a \\layout {} object, ~S"
+msgstr "Đây không phải đối tượng « \\layout {} », ~S"
+
+#: paper.scm:144
+#, scheme-format
+msgid "Unknown papersize: ~a"
+msgstr "Kích cỡ giấy lạ: ~a"
+
+#. TODO: should raise (generic) exception with throw, and catch
+#. that in parse-scm.cc
+#: paper.scm:159
+msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
+msgstr "Phải dùng #(set-paper-size .. ) bên trong \\paper { ... }"
+
+#: parser-clef.scm:127
+#, scheme-format
+msgid "unknown clef type `~a'"
+msgstr "kiểu khoá lạ « ~a »"
+
+#: parser-clef.scm:128
+#, scheme-format
+msgid "supported clefs: ~a"
+msgstr "các khoá đã hỗ trợ : ~a"
+
+#: ps-to-png.scm:64
+#, scheme-format
+msgid "~a exited with status: ~S"
+msgstr "~a đã thoát với trạng thái: ~S"
+
+#: to-xml.scm:180
+#, scheme-format
+msgid "assertion failed: ~S"
+msgstr "lỗi khẳng định: ~S"

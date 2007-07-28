@@ -29,8 +29,9 @@ $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/user-ln doc-po
 	cd $(outdir); texi2pdf --batch $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
 
 local-WWW: $(outdir)/lilypond.pdf $(outdir)/lilypond/index.html
-	cd $(outdir); find -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard . $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
-	cd $(outdir); find \( -name 'lily-??????????.png' -o -name 'lily-??????????.ly' \) -a -not -type l | xargs $(PYTHON) ../$(buildscript-dir)/mass-link.py hard . $(top-build-dir)/Documentation/user/$(outdir)
+	find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/user/$(outdir) lilypond.pdf
+	find $(outdir) \( -name 'lily-??????????.png' -o -name 'lily-??????????.ly' \) -a -not -type l | sed 's!$(outdir)/!!g' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard $(outdir) $(top-build-dir)/Documentation/user/$(outdir)
+
 # FIXME
 # ugh, this is not enough to avoid wasting build time, $(outdir)/user-ln should be touched for all languages
 	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $(outdir)/user-ln

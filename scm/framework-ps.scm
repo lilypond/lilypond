@@ -246,14 +246,19 @@
 
 
 (define (write-preamble paper load-fonts? port)
-
-  (define (load-font-via-GS font-name-filename)
+  (define (internal-font? file-name)
+    (or (string-startswith file-name "Emmentaler")
+	(string-startswith file-name "emmentaler")
+	(string-startswith file-name "aybabtu")
+	(string-startswith file-name "Aybabtu")))
+  (define (load-font-via-GS font-name-filename)       
     (define (ps-load-file file-name)
       (if (string? file-name)
 	  (if (string-contains file-name (ly:get-option 'datadir))
 	      (begin
 		(set! file-name (ly:string-substitute (ly:get-option 'datadir) "" file-name))
 		(format "lilypond-datadir (~a) concatstrings (r) file .loadfont" file-name))
+	      
 	      (format "(~a) (r) file .loadfont\n" file-name))
 	  (format "% cannot find font file: ~a\n" file-name)))
 
@@ -268,10 +273,7 @@
        (if (mac-font? bare-file-name)
 	   (handle-mac-font name bare-file-name)
 	   (cond
-	    ((or (string-startswith file-name "Emmentaler")
-		 (string-startswith file-name "emmentaler")
-		 (string-startswith file-name "aybabtu")
-		 (string-startswith file-name "Aybabtu"))
+	    ((internal-font? file-name)
 	     (ps-load-file (ly:find-file
 			    (format "~a.otf"  file-name))))
 	    ((string? bare-file-name)
@@ -384,6 +386,8 @@
 
   (define (load-fonts paper)
     (let* ((fonts (ly:paper-fonts paper))
+
+	   ;; todo - doc format of list.
 	   (all-font-names
 	    (map
 	     (lambda (font)
@@ -410,9 +414,20 @@
 	     (sort (apply append all-font-names)
 		   (lambda (x y) (string<? (cadr x) (cadr y))))))
 
-	   (font-loader (if (ly:get-option 'gs-load-fonts)
-			    load-font-via-GS
-			    load-font))
+	   ;; slightly spaghetti-ish: deciding what to load where
+	   ;; is smeared out.
+	   (font-loader (lambda (name)
+			  (cond
+			   ((ly:get-option 'gs-load-fonts) 
+			    (load-font-via-GS name))
+			   ((ly:get-option 'gs-load-lily-fonts)
+			    (if (or
+				 (string-contains (caddr name) (ly:get-option 'datadir))
+				 (internal-font? (caddr name)))
+
+				(load-font-via-GS name)
+				(load-font name)))
+			   (else (load-font name)))))
 			 
 	   (pfas (map font-loader font-names)))
       pfas))

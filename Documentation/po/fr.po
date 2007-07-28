@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-04 00:04+0200\n"
-"PO-Revision-Date: 2007-06-30 14:29+0200\n"
+"POT-Creation-Date: 2007-07-17 13:22+0200\n"
+"PO-Revision-Date: 2007-07-23 15:38+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid ""
 "Your <a href=\"%(suggest_s_url)s\">suggestions for the documentation</a> are "
 "welcome."
-msgstr ""
+msgstr "Vos <a href=\\\"%(suggest_s_url)s\\\">suggestions en matière de documentation</a> sont les bienvenues."
 
 #: add_html_footer.py:54
 #, python-format
@@ -135,7 +135,7 @@ msgstr "Représentation de la musique"
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "Example applications"
-msgstr "Exemples d'applications"
+msgstr "Exemples d'application"
 
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
@@ -301,7 +301,7 @@ msgstr "Hauteurs de note relatives"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Accidentals and key signatures"
-msgstr "Altérations et armures"
+msgstr "Altérations et armure"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @node in ../../../Documentation/user/basic-notation.itely
@@ -425,7 +425,7 @@ msgstr "Nolets"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Grace notes"
-msgstr "Notes d'agrément"
+msgstr "Notes d'ornement"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @section in ../../../Documentation/user/tutorial.itely
@@ -571,12 +571,12 @@ msgstr "Graver de la musique existante"
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 msgid "Large projects"
-msgstr "Vastes projets"
+msgstr "Pour des projets d'envergure"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Saving typing with identifiers and functions"
-msgstr "Gagner du temps grâce à des identificateurs et fonctions"
+msgstr "Gagner du temps grâce aux identificateurs et fonctions"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -586,7 +586,7 @@ msgstr "Feuilles de style"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Updating old files"
-msgstr "Mettre à jour des anciens fichiers"
+msgstr "Mettre à jour d'anciens fichiers"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -791,7 +791,7 @@ msgstr "Saisir la musique en parallèle"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @section in ../../../Documentation/user/basic-notation.itely
 msgid "Connecting notes"
-msgstr "Notation couvrant plusieurs notes"
+msgstr "Relier des groupes de notes"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -876,7 +876,7 @@ msgstr "Répétitions en trémolo"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Tremolo subdivisions"
-msgstr "Subdivisions de trémolo"
+msgstr "Subdivision des trémolos"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -921,7 +921,7 @@ msgstr "Accords sur plusieurs portées"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
 msgid "Chord names"
-msgstr "Accords nommés"
+msgstr "Les noms des accords"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -936,7 +936,7 @@ msgstr "Mode accords"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing chord names"
-msgstr "Imprimer des noms d'accords"
+msgstr "Imprimer des noms d'accord"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
@@ -955,23 +955,38 @@ msgstr "Saisie des paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Hyphens and extenders"
-msgstr "Traits d'union et de prolongation"
+msgid "Aligning lyrics to a melody"
+msgstr "Aligner des paroles sur une mélodie"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "The Lyrics context"
-msgstr "Le contexte de paroles (Lyrics)"
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Automatic syllable durations"
+msgstr "Durée automatique des syllabes"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Melismata"
-msgstr "Mélismes"
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsection in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Another way of entering lyrics"
 msgstr "Une autre manière de saisir des paroles"
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Assigning more than one syllable to a single note"
+msgstr "Affecter plus d'une syllabe à une note"
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "More than one note on a single syllable"
+msgstr "Plus d'une note pour une même syllabe"
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Extenders and hyphens"
+msgstr "Prolongateurs et traits d'union"
+
+#. @node in ../../../Documentation/user/instrument-notation.itely
+#. @subsection in ../../../Documentation/user/instrument-notation.itely
+msgid "Working with lyrics and identifiers"
+msgstr "Utiliser des identificateurs pour gérer les paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -995,11 +1010,6 @@ msgstr "Changer la voix associée à une ligne de paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
-msgid "Specifying melismata within the lyrics"
-msgstr "Indiquer les mélismes au sein des paroles"
-
-#. @node in ../../../Documentation/user/instrument-notation.itely
-#. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Lyrics independent of notes"
 msgstr "Paroles indépendantes des notes"
 
@@ -1011,11 +1021,11 @@ msgstr "Espacement des paroles"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "More about stanzas"
-msgstr "Plus à propos des strophes"
+msgstr "Traitement avancé des couplets"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding stanza numbers"
-msgstr "Numéroter les strophes"
+msgstr "Numéroter les couplets"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding dynamics marks"
@@ -1027,11 +1037,11 @@ msgstr "Ajouter le nom des chanteurs"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end"
-msgstr "Paroles à la fin de la partition"
+msgstr "Paroles en fin de partition"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end in multiple columns"
-msgstr "Paroles sur plusieurs colonnes à la fin de la partition"
+msgstr "Paroles sur plusieurs colonnes en fin de partition"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1081,7 +1091,7 @@ msgstr "Indications de numéro de corde"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Tablatures basic"
-msgstr "Base des tablatures"
+msgstr "Les tablatures : notions élémentaires"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1171,7 +1181,7 @@ msgstr "Guidons"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Divisiones"
-msgstr "Divisiones"
+msgstr "Divisions"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1251,12 +1261,12 @@ msgstr "Indications textuelles"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Text markup"
-msgstr "Texte mis en forme"
+msgstr "Étiquette textuelle"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Nested scores"
-msgstr "Partitions emboîtées"
+msgstr "Partitions enchâssées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1406,7 +1416,7 @@ msgstr "Spécifier la taille de la fonte musicale"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
 msgid "Educational use"
-msgstr "Utilisation en environnement éducatif"
+msgstr "Utilisation en milieu éducatif"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1481,7 +1491,7 @@ msgstr "Contextes d'interprétation"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Contexts explained"
-msgstr "Nature des contextes"
+msgstr "Tout savoir sur les contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1534,12 +1544,12 @@ msgstr "La commande @code{\\override}"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Constructing a tweak"
-msgstr "Construire une retouche"
+msgstr "Élaborer une retouche"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Navigating the program reference"
-msgstr "Chercher l'information dans le guide de référence du programme"
+msgstr "Manipuler le guide de référence du programme"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1834,7 +1844,7 @@ msgstr "Aperçu des fonctions musicales"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Simple substitution functions"
-msgstr "Fonctions de substitution simples"
+msgstr "Fonctions de substitution simple"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -1934,7 +1944,7 @@ msgstr "Contextes pour programmeurs"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Context evaluation"
-msgstr "Évaluation de contexte"
+msgstr "Évaluation d'un contexte"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -1958,7 +1968,7 @@ msgstr "Lancer lilypond"
 
 #. @subsection in ../../../Documentation/user/running.itely
 msgid "Command line options"
-msgstr "Options de ligne de commande"
+msgstr "Options en ligne de commande"
 
 #. @subsection in ../../../Documentation/user/running.itely
 msgid "Environment variables"
@@ -1995,7 +2005,7 @@ msgstr "Prise en charge par les éditeurs"
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
 msgid "Point and click"
-msgstr "Point-and-click"
+msgstr "Cliquer-pointer"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 msgid "LilyPond-book"
@@ -2015,7 +2025,6 @@ msgid "Integrating LaTeX and music"
 msgstr "Intégrer de la musique dans LaTeX"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
-#, fuzzy
 msgid "Integrating @LaTeX{} and music"
 msgstr "Intégrer de la musique dans @LaTeX{}"
 
@@ -2214,7 +2223,7 @@ msgstr "Notes, paroles et accords"
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendixsec in ../../../Documentation/user/templates.itely
 msgid "Piano templates"
-msgstr "Squelettes pour claviers"
+msgstr "Modèles pour claviers"
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
 msgid "Solo piano"
@@ -2293,7 +2302,7 @@ msgstr "Texinfo"
 #. @node in ../../../Documentation/user/cheatsheet.itely
 #. @appendix in ../../../Documentation/user/cheatsheet.itely
 msgid "Cheat sheet"
-msgstr "Feuille aide-mémoire"
+msgstr "Aide-mémoire"
 
 #. @node in ../../../Documentation/user/fdl.itexi
 #. @appendix in ../../../Documentation/user/fdl.itexi
@@ -2321,6 +2330,18 @@ msgstr "Notes de bas de page"
 
 msgid "Table of Contents"
 msgstr "Table des matières"
+
+#~ msgid "Hyphens and extenders"
+#~ msgstr "Traits d'union et de prolongation"
+
+#~ msgid "The Lyrics context"
+#~ msgstr "Le contexte de paroles (Lyrics)"
+
+#~ msgid "Melismata"
+#~ msgstr "Mélismes"
+
+#~ msgid "Specifying melismata within the lyrics"
+#~ msgstr "Indiquer les mélismes au sein des paroles"
 
 #~ msgid "English"
 #~ msgstr "Anglais"

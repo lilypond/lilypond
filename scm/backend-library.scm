@@ -96,7 +96,9 @@
 "
 		      (search-gs)
 		      (if (ly:get-option 'verbose) "" "-q")
-		      (if (ly:get-option 'gs-load-fonts)
+		      (if (or (ly:get-option 'gs-load-fonts)
+			      (ly:get-option 'gs-load-lily-fonts))
+			      
 			  " -dNOSAFER "
 			  " -dSAFER ")
 		      paper-size-string

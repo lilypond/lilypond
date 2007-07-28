@@ -1,7 +1,7 @@
 depth = ..
 
 TEX_FILES = $(filter-out texinfo.tex, $(call src-wildcard,*.tex))
-EXTRA_DIST_FILES = $(TEX_FILES) texinfo.tex texinfo.cnf quotes.patch
+EXTRA_DIST_FILES = $(TEX_FILES) texinfo.tex quotes.patch
 STEPMAKE_TEMPLATES=install install-out
 
 INSTALLATION_DIR=$(local_lilypond_datadir)/tex/

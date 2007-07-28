@@ -40,12 +40,15 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
     (debug-skylines #f "debug skylines")
     (delete-intermediate-files #f
 			       "delete unusable PostScript files")
-    (dump-profile #f "dump timing information for each file")
+    (dump-profile #f "dump memory and time information for each file")
+    (dump-cpu-profile #f "dump timing information (system-dependent)")
     (dump-signatures #f "dump output signatures of each system.  Used for regression testing.")
     
     (eps-box-padding #f "Pad EPS bounding box left edge.  Guarantee alignment between systems in LaTeX.")
     (gs-load-fonts #f
 		   "load fonts via Ghostscript.")
+    (gs-load-lily-fonts #f
+			"load only lilypond fonts via Ghostscript.")
     (gui #f "running from gui; redirect stderr to log file")
     (help #f "show this help.") 
     (include-book-title-preview #t "include book-titles in preview images.")
@@ -413,7 +416,9 @@ The syntax is the same as `define*-public'."
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
 	    "time: ~a\ncells: ~a\n"
-	    (car diff)
+	    (if (ly:get-option 'dump-cpu-profile)
+		(car diff)
+		0)
 	    (cadr diff)
 	    )))
 

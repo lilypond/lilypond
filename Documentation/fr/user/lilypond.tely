@@ -133,7 +133,7 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- The music typesetter
+@top GNU LilyPond --- le système de gravure musicale
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.11.x.
