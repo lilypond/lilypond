@@ -416,7 +416,6 @@ Vaticana_ligature_engraver::add_mora_column (Paper_column *column)
       Dot_column::add_head (dotcol, primitive);
 
       // FIXME: why isn't the dot picked up by Paper_column_engraver?
-      // it is, but in the wrong timestep. UGH
       Separation_item::add_item (column, dot);
     }
 }
