@@ -233,13 +233,11 @@ Returns `obj'.
     (set! (ly:music-property r 'repeat-count) (max times 1))
     (set! (ly:music-property r 'elements) talts)
     (if (equal? name "tremolo")
-	(let* ((dot? (zero? (modulo times 3)))
-	       (dots (if dot? 1 0))
-	       (mult (if dot?
-			 (quotient (* times 2) 3)
-			 times))
-	       (shift (- (ly:intlog2 mult))))
-	  
+	(let* ((dots (1- (logcount times)))
+	       (mult (/ (* times (ash 1 dots)) (1- (ash 2 dots))))
+	       (shift (- (ly:intlog2 (floor mult)))))
+	  (if (not (integer?  mult))
+              (ly:warning (_ "illegal tremolo repeat count: ~a") times))
 	  (if (memq 'sequential-music (ly:music-property main 'types))
 	      ;; \repeat "tremolo" { c4 d4 }
 	      (let ((children (length (ly:music-property main 'elements))))
