@@ -151,7 +151,7 @@ Lyric_engraver::stop_translation_timestep ()
 	    {
 	      text_->set_parent (head, X_AXIS);
 	      if (melisma_busy (voice))
-		text_->set_property ("self-alignment-X", scm_from_int (LEFT));
+		text_->set_property ("self-alignment-X", get_property("lyricMelismaAlignment"));
 	    }
 	  else
 	    {
@@ -169,5 +169,5 @@ Lyric_engraver::stop_translation_timestep ()
 ADD_TRANSLATOR (Lyric_engraver,
 		/* doc */ "",
 		/* create */ "LyricText",
-		/* read */ "",
+		/* read */ "lyricMelismaAlignment",
 		/* write */ "");
