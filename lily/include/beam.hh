@@ -122,7 +122,7 @@ private:
   static void consider_auto_knees (Grob *);
   static void set_stem_shorten (Grob *);
   static Real calc_stem_y (Grob *, Grob *s, Grob **c,
-			   Real, Real,
+			   Real, Real, Direction,
 			   Drul_array<Real> pos, bool french);
   static int forced_stem_count (Grob *);
 };
