@@ -84,7 +84,7 @@ void fix_prefix_set (int *current_set, int min_set, int max_set, Grob *primitive
 
 void check_and_fix_all_prefixes (vector<Grob_info> primitives)
 {
-  /* Check for illegal head modifier combinations */
+  /* Check for invalid head modifier combinations */
   for (vsize i = 0; i < primitives.size (); i++)
     {
       Grob *primitive = primitives[i].grob ();

@@ -237,7 +237,7 @@ Returns `obj'.
 	       (mult (/ (* times (ash 1 dots)) (1- (ash 2 dots))))
 	       (shift (- (ly:intlog2 (floor mult)))))
 	  (if (not (integer?  mult))
-              (ly:warning (_ "illegal tremolo repeat count: ~a") times))
+              (ly:warning (_ "invalid tremolo repeat count: ~a") times))
 	  (if (memq 'sequential-music (ly:music-property main 'types))
 	      ;; \repeat "tremolo" { c4 d4 }
 	      (let ((children (length (ly:music-property main 'elements))))
