@@ -179,7 +179,7 @@ Beam::quanting (SCM smob, SCM posns)
 
       if (Stem::is_normal_stem (s))
 	{
-	  base_lengths.push_back (calc_stem_y (me, s, common, xl, xr,
+	  base_lengths.push_back (calc_stem_y (me, s, common, xl, xr, CENTER, 
 					       Interval (0, 0), f) / ss);
 	}
       else
