@@ -279,7 +279,9 @@ encloses the contents.
 		      (- (list-ref bbox 2) (list-ref bbox 0))
 		      (- (list-ref bbox 3) (list-ref bbox 1))
 		      ))
-       (factor (exact->inexact (/ size bbox-size)))
+       (factor (if (< 0 bbox-size)
+		   (exact->inexact (/ size bbox-size))
+		   0))
        (scaled-bbox
 	(map (lambda (x) (* factor x)) bbox))
        (clip-rect-string (ly:format

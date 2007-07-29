@@ -23,7 +23,7 @@ struct Separation_item
   static vector<Box> boxes (Grob *me, Grob *left);
   static Skyline conditional_skyline (Grob *, Grob *);
   static Grob *extremal_break_aligned_grob (Grob *, Direction, Interval *);
-  static void set_distance (Drul_array<Item *>, Real);
+  static bool set_distance (Drul_array<Item *>, Real);
   static bool is_empty (Grob *me);
   static void add_item (Grob *, Item *);
   static void add_conditional_item (Grob *, Grob *);

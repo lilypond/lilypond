@@ -35,7 +35,7 @@
  * for example:
  * Ockeghem: Missa Ecce ancilla domini, bassus part, end of Christe.
  *
- * TODO: enhance robustness: in case of an illegal ligature (e.g. the
+ * TODO: enhance robustness: in case of an invalid ligature (e.g. the
  * input specifies a ligature that contains a minima), automatically
  * break the ligature into smaller, valid pieces.  Such a piece may be
  * a single note.
