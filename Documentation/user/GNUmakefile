@@ -21,7 +21,7 @@ HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
 # todo: add latex.
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
 
-INFO_DOCS = lilypond lilypond-internals music-glossary
+INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 STEPMAKE_TEMPLATES=tex texinfo omf documentation
@@ -153,10 +153,27 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_E
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
 
 #
-# One big page manual
+# One big page user manual
 #
 $(outdir)/lilypond-big-page.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
+#
+# The split program usage
+#
+$(outdir)/lilypond-program/index.html: $(outdir)/lilypond-program.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond-program --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	find $(outdir)/lilypond-program/ -name '*'.png -o -name '*'.ly | xargs rm -f
+# symbolic links to save space
+	(cd $(outdir)/lilypond-program/ ; ln -sf ../*.png ../*.ly . )
+
+#
+# One big page program usage
+#
+$(outdir)/lilypond-program-big-page.html: $(outdir)/lilypond-program.texi $(OUT_PNG_IMAGES)
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
 
 #
 # The split internals reference
@@ -191,6 +208,8 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 
 $(outdir)/lilypond.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
 
+$(outdir)/lilypond-program.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+
 $(outdir)/%.png: %.png
 	convert -depth 8 -geometry 50x50% $< $@
 
@@ -207,10 +226,11 @@ $(outdir)/%.pdf: %.eps
 DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
  $(outdir)/lilypond-internals/index.html\
- $(outdir)/music-glossary/index.html
+ $(outdir)/music-glossary/index.html\
+ $(outdir)/lilypond-program/index.html
 
 # Symlinks to refer to external source documents from split and non-split HTML
-source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source
+source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source $(outdir)/lilypond-program/source
 
 $(outdir)/source:
 	@rm -f $(@)
@@ -226,11 +246,17 @@ $(outdir)/music-glossary/source:
 	mkdir -p $(outdir)/music-glossary
 	ln -sf ../../../ $(@)
 
+$(outdir)/lilypond-program/source:
+	@rm -f $(@)
+	mkdir -p $(outdir)/lilypond-program
+	ln -sf ../../../ $(@)
+
+
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info info-dir
 
 info-dir:
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary lilypond-program
 
 
 $(outdir)/%.bib: %.bib

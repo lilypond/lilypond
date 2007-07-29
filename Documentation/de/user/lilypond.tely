@@ -41,12 +41,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @dircategory LilyPond
 @direntry
 * LilyPond: (lilypond/lilypond).           Das GNU Notensatzprogramm.
-* abc2ly: (lilypond/lilypond)Invoking abc2ly.          ABC-Dateien importieren.      
-* convert-ly: (lilypond/lilypond)Invoking convert-ly.  Ältere LilyPond-Versionen.
-* etf2ly: (lilypond/lilypond)Invoking etf2ly.          Finale-Dateien importieren.
-* lilypond-book: (lilypond/lilypond)LilyPond-book.     Noten in den Text integrieren.
-* midi2ly: (lilypond/lilypond)Invoking midi2ly.        Midi-Dateien importieren.
-* mup2ly: (lilypond/lilypond)Invoking mup2ly.          Mup-Dateien importieren.
+* abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          ABC-Dateien importieren.      
+* convert-ly: (lilypond/lilypond-program)Invoking convert-ly.  Ältere LilyPond-Versionen.
+* etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Finale-Dateien importieren.
+* lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Noten in den Text integrieren.
+* midi2ly: (lilypond/lilypond-program)Invoking midi2ly.        Midi-Dateien importieren.
+* mup2ly: (lilypond/lilypond-program)Invoking mup2ly.          Mup-Dateien importieren.
 @end direntry
 
 @c don't remove this comment.
@@ -235,12 +235,6 @@ Alles über die Notation
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
 * Interfaces for programmers::     Benutzung für Experten.
 
-Programmbenutzung
-
-* Running LilyPond::               Das Programm laufen lassen.
-* LilyPond-book::                  Noten in den Text integrieren.
-* Converting from other formats::  Andere Formate in lilypond-Quelldateien umwandeln.
-
 Anhänge
 
 * Literature list::                Wichtige Literatur über die Notation.
@@ -272,10 +266,6 @@ Anhänge
 @include non-music.itely
 @include spacing.itely
 @include programming-interface.itely
-
-@include running.itely
-@include lilypond-book.itely
-@include converters.itely
 
 
 @include literature.itely

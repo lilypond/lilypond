@@ -26,7 +26,6 @@ make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tr
 output_file = 'doc.pot'
 node_blurb = ''
 doclang = ''
-topfile = os.path.basename (texi_files[0])
 head_committish = read_pipe ('git-rev-parse HEAD')
 intro_blurb = '''@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
@@ -57,10 +56,7 @@ for x in optlist:
 		doclang = '; documentlanguage: ' + x[1]
 
 
-intro_blurb = intro_blurb % vars()
-
-
-def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=None):
+def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, output_file=None):
 	try:
 		f = open (texifilename, 'r')
 		texifile = f.read ()
@@ -68,7 +64,9 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 		includes = []
 		if write_skeleton:
 			g = open (os.path.basename (texifilename), 'w')
-			g.write (i_blurb)
+                        subst = globals ()
+                        subst.update (locals ())
+			g.write (i_blurb % subst)
 			tutu = re.findall (r"""^(\*) +([^:
 			]+)::[^
 			]*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *([^
@@ -109,7 +107,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, output_file=No
 		if process_includes:
 			dir = os.path.dirname (texifilename)
 			for item in includes:
-				process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, output_file)
+				process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, topfile, output_file)
 	except IOError, (errno, strerror):
 		print "I/O error(%s): %s: %s" % (errno, texifilename, strerror)
 
@@ -122,11 +120,11 @@ if make_gettext:
 	node_list_filename = 'node_list'
 	node_list = open (node_list_filename, 'w')
 	for texi_file in texi_files:
-		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, node_list)
+		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, texi_file, node_list)
 	for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
 		node_list.write ('_(r"' + word + '")\n')
 	node_list.close ()
 	os.system ('xgettext -c -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
 else:
 	for texi_file in texi_files:
-		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton)
+		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, texi_file)

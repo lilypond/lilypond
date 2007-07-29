@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-program.tely
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -853,7 +853,7 @@ output format based on the input filename's extension.
 @section Many quotes of a large score
 
 If you need to quote many fragments of a large score, you can also use
-the clip systems feature, see @ref{Extracting fragments of notation}.
+the clip systems feature, see @ruser{Extracting fragments of notation}.
 
 
 @node Inserting LilyPond output into OpenOffice.org

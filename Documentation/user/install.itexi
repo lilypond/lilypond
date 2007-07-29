@@ -1,17 +1,15 @@
-\input texinfo @c -*-texinfo-*-
-@setfilename INSTALL.info
-@settitle INSTALL - compiling and installing GNU LilyPond
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond-program.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
-@documentencoding utf-8
-@documentlanguage en
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 
-@node Top
-@top
-
-@contents
-
-@chapter Compiling and installing on Unix
-
+@c was "INSTALL - compiling and installing GNU LilyPond"
+@node Install
+@chapter Install
 
 @html
 <a name="download-source">
@@ -404,9 +402,4 @@ Debian GNU/Linux
         ttf-kochi-gothic ttf-kochi-mincho \
         xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
 @end verbatim
-
-
-
-
-@bye
 

@@ -61,8 +61,10 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  <td class="right-column">
 	  <ul>
             <li>
-	    <a class="title" href="topdocs/INSTALL.html">Install</a>
- 	    <br>(how to compile)
+	    <a class="title" href="user/lilypond-program/index.html">Program usage</a>
+(in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
+in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+	    <br>(how to install and run the program)
 	  
 <li><a class="title" href="../examples.html">Examples</a>
      <br>(see some examples)

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of lilypond.tely
+@c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
+    Translation of GIT committish: 3b48b5e31e0e8fe0a01b539dcb19e23e9fbf89de
 
 
     When revising a translation, copy the HEAD committish of the
@@ -94,10 +94,8 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Setting simple songs::
 * Entering lyrics::
-* Hyphens and extenders::
-* The Lyrics context::
-* Melismata::
-* Another way of entering lyrics::
+* Aligning lyrics to a melody::
+* Working with lyrics and identifiers::
 * Flexibility in placement::
 * Spacing lyrics::
 * More about stanzas::
@@ -114,23 +112,45 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Hyphens and extenders
-@subsection Hyphens and extenders
+@node Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node The Lyrics context
-@subsection The Lyrics context
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Melismata
-@subsection Melismata
+@menu 
+* Automatic syllable durations::
+* Another way of entering lyrics::
+* Assigning more than one syllable to a single note::
+* More than one note on a single syllable::
+* Extenders and hyphens::
+@end menu 
+@node Automatic syllable durations
+@subsubsection Automatic syllable durations
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Another way of entering lyrics
-@subsection Another way of entering lyrics
+@subsubsection Another way of entering lyrics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Assigning more than one syllable to a single note
+@subsubsection Assigning more than one syllable to a single note
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node More than one note on a single syllable
+@subsubsection More than one note on a single syllable
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Extenders and hyphens
+@subsubsection Extenders and hyphens
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Working with lyrics and identifiers
+@subsection Working with lyrics and identifiers
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -143,7 +163,6 @@ UNTRANSLATED NODE: IGNORE ME
 * Lyrics to multiple notes of a melisma::
 * Divisi lyrics::
 * Switching the melody associated with a lyrics line::
-* Specifying melismata within the lyrics::
 * Lyrics independent of notes::
 @end menu 
 @node Lyrics to multiple notes of a melisma
@@ -158,11 +177,6 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Switching the melody associated with a lyrics line
 @subsubsection Switching the melody associated with a lyrics line
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Specifying melismata within the lyrics
-@subsubsection Specifying melismata within the lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 

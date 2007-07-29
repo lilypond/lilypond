@@ -50,10 +50,11 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
 
 check-translation:
-	find $(ISOLANG)/user/ -name '*.*tely' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
+	find $(ISOLANG)/user/ -name '*.*te??' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
 
+TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) --skeleton ../user/lilypond.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
 	$(PYTHON) $(buildscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
 
 snippet-update:

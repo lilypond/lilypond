@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-program.tely
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -595,7 +595,7 @@ bug by following the directions on
 
 @uref{http://lilypond.org/web/devel/participating/bugs}
 
-Please construct submit @ref{Minimal examples}, of bug reports.  We do not
+Please construct submit @ruser{Minimal examples}, of bug reports.  We do not
 have the resources to investigate reports which are not as small as possible.
 
 

@@ -6,8 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename lilypond.info
-@settitle GNU LilyPond -- manuel de l'utilisateur
+@setfilename lilypond-program.info
+@settitle GNU LilyPond -- utilisation du programme
 
 @iftex
 @afourpaper
@@ -29,7 +29,7 @@
 
 @ifhtml
 Ce document est également disponible au format
-@uref{source/Documentation/user/lilypond.fr.pdf,PDF}.
+@uref{source/Documentation/user/lilypond-program.fr.pdf,PDF}.
 @end ifhtml
 
 @documentlanguage fr
@@ -49,7 +49,7 @@ Ce document est également disponible au format
 @titlepage
 @title GNU LilyPond
 @subtitle Le système de gravure musicale
-@titlefont{Manuel de l'utilisateur}
+@titlefont{Utilisation du programme}
 @author L'équipe de développement de LilyPond
 
 
@@ -101,7 +101,7 @@ Free Documentation License''.
 
 
 @ifnottex
-Ce fichier documente GNU LilyPond.
+Ce fichier documente l'utilisation du programme GNU LilyPond.
 
 Copyright @copyright{} 1999--2007 par les auteurs
 
@@ -134,10 +134,10 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- le système de gravure musicale
+@top GNU LilyPond --- utilisation du programme
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.11.x.
+Ce document est le manuel d'utilisation du programme pour GNU LilyPond 2.11.x.
 @ifhtml
 (Allez au bas de la page pour voir le numéro de version exact).
 @end ifhtml
@@ -152,36 +152,16 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-Manuel d'apprentissage
-
-* Preface::
-* Introduction::                   quoi, pourquoi comment.
-* Tutorial::                       un tutoriel d'introduction.
-* Putting it all together::        explication plus détaillée des concepts de LilyPond.
-* Working on LilyPond projects::   traite de l'utilisation quotidienne.
-* Tweaking output::                introduction aux retouches de mise en forme.
-
-Manuel de référence
-
-* Basic notation::                 notation musicale standard.
-* Instrument-specific notation::   notation spécifique à des instruments.
-* Advanced notation::              notation plus rarement utilisée.
-* Changing defaults::              retoucher la mise en forme.
-* Non-musical notation::           aspects autres que la notation musicale.
-* Spacing issues::                 mise en page de la musique sur le papier.
-* Interfaces for programmers::     utilisation avancée.
+* Install::                        comment installer ou compiler.
+* Running LilyPond::               mode d'emploi.
+* LilyPond-book::                  intégrer texte et musique.
+* Converting from other formats::  conversion vers le format source lilypond.
 
 Annexes
 
-* Literature list::                ouvrages de référence sur la notation musicale.
-* Scheme tutorial::                programmer au sein de LilyPond.
-* Notation manual tables::         tables et diagrammes.
-* Templates::                      modèles prêts à l'emploi.
-* Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
 * LilyPond command index::
 * LilyPond index::
-
 @end menu
 @end ifnottex
 
@@ -189,28 +169,12 @@ Annexes
 
 
 @include macros.itexi
-@include preface.itely
-@include introduction.itely
-@include tutorial.itely
-@include putting.itely
-@include working.itely
-@include tweaks.itely
 
+@include install.itexi
+@include running.itely
+@include lilypond-book.itely
+@include converters.itely
 
-@include basic-notation.itely
-@include instrument-notation.itely
-@include advanced-notation.itely
-@include changing-defaults.itely
-@include non-music.itely
-@include spacing.itely
-@include programming-interface.itely
-
-
-@include literature.itely
-@include scheme-tutorial.itely
-@include notation-appendices.itely
-@include templates.itely
-@include cheatsheet.itely
 @include fdl.itexi
 
 @node LilyPond command index

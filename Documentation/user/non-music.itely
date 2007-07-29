@@ -364,7 +364,7 @@ In order to use this feature, LilyPond must be invoked with
 @code{-dclip-systems}. The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
-For more information on output formats, see @ref{Invoking lilypond}.
+For more information on output formats, see @rprogram{Invoking lilypond}.
 
 @seealso
 
