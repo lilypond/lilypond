@@ -129,6 +129,7 @@ of this and other documentation.
 
 @menu
 * Install::                        How to install or compile.
+* Setup::                          Using LilyPond with other programs.
 * Running LilyPond::               Operation.
 * LilyPond-book::                  Integrating text and music.
 * Converting from other formats::  Converting to lilypond source format.
@@ -147,6 +148,7 @@ Appendices
 @include macros.itexi
 
 @include install.itexi
+@include setup.itely
 @include running.itely
 @include lilypond-book.itely
 @include converters.itely

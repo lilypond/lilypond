@@ -255,56 +255,6 @@ make conf=prof install
 @end quotation
 
 
-@section Emacs mode
-
-An Emacs mode for entering music and running LilyPond is contained in
-the source archive in the @file{elisp} directory.  Do @command{make
-install} to install it to @var{elispdir}.  The file @file{lilypond-init.el}
-should be placed to @var{load-path}@file{/site-start.d/} or appended
-to your @file{~/.emacs} or @file{~/.emacs.el}.
-
-As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
-your @var{load-path} by appending the following line (as modified) to your
-@file{~/.emacs}
-@c any reason we do not advise:  (push "~/site-lisp" load-path)
-@quotation
-@example
-(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
-@end example
-@end quotation
-
-
-@section Vim mode
-
-A Vim mode for entering music and running LilyPond is contained in the
-source archive in @code{$VIM} directory.
-
-The LilyPond file type is detected if the file @file{~/.vim/filetype.vim} @c
-has the following content
-@quotation
-@example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly           setf lilypond
-augroup END
-@end example
-@end quotation
-
-Please include this path by appending the following line to your
-@file{~/.vimrc}
-
-@quotation
-@example
-set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
-@end example
-@end quotation
-
-@noindent
-where $@{LILYPOND_VERSION@} is your lilypond version.  If Lilypond was not
-installed in @file{/usr/local/}, then change this path accordingly.
-
 
 @section Problems
 

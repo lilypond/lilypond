@@ -28,7 +28,6 @@ you are unfamiliar with the command-line.
 
 @menu
 * Invoking lilypond::           
-* Notes for the MacOS X app::   
 * Updating files with convert-ly::  
 * Reporting bugs::              
 * Error messages::              
@@ -361,60 +360,6 @@ higher values, the program uses more memory, with smaller values, it
 uses more CPU time. The default value is @code{70}.
 
 @end table
-
-
-@node Notes for the MacOS X app
-@section Notes for the MacOS X app
-
-The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are also
-included inside MacOS X .app. They can be run from the command line by
-invoking them directly, e.g.
-
-@example
-@var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond
-@end example
-
-@noindent
-The same is true of the other scripts in that directory, including
-lilypond-book, convert-ly, abc2ly, etc.
-
-Alternatively, you may create scripts which add the path
-automatically.  Create a directory to store these scripts,
-
-@example
-mkdir -p ~/bin
-cd ~/bin
-@end example
-
-Create a file called @code{lilypond} which contains
-
-@example
-exec @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond "$@@"
-@end example
-
-Create similar files @code{lilypond-book}, @code{convert-ly}, and
-any other helper programs you use (@code{abc2ly}, @code{midi2ly},
-etc).  Simply replace the @code{bin/lilypond} with
-@code{bin/convert-ly} (or other program name) in the above file.
-
-Make the file executable,
-
-@example
-chmod u+x lilypond
-@end example
-
-Now, add this directory to your path.  Modify (or create)
-a file called @code{.profile} in your home directory such that it contains
-
-@example
-export PATH=$PATH:~/bin
-@end example
-
-@noindent
-This file should end with a blank line.
-
-Note that @var{path/to} will generally be @code{/Applications/}.
 
 
 @node Updating files with convert-ly
