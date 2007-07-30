@@ -146,7 +146,7 @@ Appendices
 
 @include macros.itexi
 
-@include install.itexi
+@include install.itely
 @include setup.itely
 @include running.itely
 @include lilypond-book.itely
