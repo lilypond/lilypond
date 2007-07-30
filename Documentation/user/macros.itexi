@@ -120,11 +120,6 @@
 @ref{\NAME\,,,lilypond-program-big-page}
 @end macro
 
-@macro rprogram{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-program}
-@end macro
-
 @macro ruser{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond-big-page}
