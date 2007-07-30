@@ -151,7 +151,8 @@ Axis_group_interface::adjacent_pure_heights (SCM smob)
       for (vsize j = 0; j < spanners.size (); j++)
 	{
 	  Interval_t<int> rank_span = spanners[j]->spanned_rank_interval ();
-	  if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start)
+	  if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
+	      && !to_boolean (spanners[j]->get_property ("cross-staff")))
 	    {
 	      Interval dims = spanners[j]->pure_height (common, start, end);
 	      if (!dims.is_empty ())

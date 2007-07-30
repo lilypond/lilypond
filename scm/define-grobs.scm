@@ -605,6 +605,7 @@
 	(outside-staff-priority . 250)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 	(meta . ((class . Spanner)
 		 (interfaces . (axis-group-interface
 				dynamic-interface
