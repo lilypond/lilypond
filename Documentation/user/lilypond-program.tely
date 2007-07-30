@@ -137,7 +137,6 @@ of this and other documentation.
 Appendices
 
 * GNU Free Documentation License:: License of this document.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 @end ifnottex
@@ -154,11 +153,6 @@ Appendices
 @include converters.itely
 
 @include fdl.itexi
-
-@node LilyPond command index
-@appendix LilyPond command index
-
-@printindex ky
 
 @node LilyPond index
 @appendix LilyPond index

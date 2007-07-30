@@ -166,7 +166,7 @@ Larger examples can be put into a separate file, and introduced with
 @cindex texinfo
 @cindex latex
 @cindex texinfo
-@funindex texi
+@cindex texi
 @cindex html
 @cindex docbook
 @cindex documents, adding music to
@@ -249,7 +249,7 @@ heuristic algorithm can fail easily; in such cases it is necessary to
 use the @code{line-width} music fragment option.
 
 @cindex titling and lilypond-book
-@funindex \header in @LaTeX{} documents
+@cindex \header in @LaTeX{} documents
 
 Each snippet will call the following macros if they have been defined by
 the user:

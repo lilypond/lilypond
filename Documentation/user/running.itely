@@ -366,7 +366,7 @@ uses more CPU time. The default value is @code{70}.
 @section Updating with @command{convert-ly}
 
 @cindex Updating a LilyPond file
-@funindex convert-ly
+@cindex convert-ly
 
 The LilyPond input syntax is routinely changed to simplify it or improve
 it in different ways.  As a side effect of this, the LilyPond interpreter
