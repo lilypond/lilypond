@@ -290,10 +290,10 @@ les comportement le concernant s'appliquent quand même.  Il occupe
 une certaine place, intervient dans la gestion des collisions, et on
 peut lui attacher des liaisons ou des ligatures.
 
-@cindex transparent objects
-@cindex removing objects
-@cindex hiding objects
-@cindex invisible objects
+@cindex transparents, objets
+@cindex suppression d'objets
+@cindex masquage d'objets
+@cindex invisibles, objets
 
 L'exemple suivant montre comment tenir des notes entre différentes voix,
 au moyen de liaisons.  Ces liaisons de tenue, en principe, ne peuvent relier
@@ -338,8 +338,8 @@ en attribuant à la propriété @code{length} la valeur @code{8} :
 
 @end itemize
 
-@cindex Tweaks, distances
-@cindex Distances
+@cindex retouches, distances
+@cindex distances
 
 Les distances dans LilyPond sont mesurées dans l'unité staff-space
 (espace de portée) tandis que la plupart des propriétés relatives aux

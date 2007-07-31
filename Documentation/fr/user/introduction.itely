@@ -105,10 +105,11 @@ Fonte Feta de LilyPond (2003)
 @end multitable
 
 
-@cindex musical symbols
-@cindex font
-@cindex blackness
-@cindex balance
+@cindex symboles musicaux
+@cindex fonte
+@cindex police
+@cindex épaisseur des caractères
+@cindex équilibre
 
 @c introduce illustrating aspects of engraving, spacing...
 En matière d'espacement, la répartition de l'espace devrait refléter
@@ -119,7 +120,7 @@ imprimé deux fois : une fois en utilisant un espacement mathématique
 exact, et une autre fois avec des corrections.  Pouvez-vous les
 repérer ?
 
-@cindex optical spacing
+@cindex espacement optique
 @c file spacing-optical.
 @c need to include it here,  because we want two images.
 @lilypond
@@ -175,8 +176,9 @@ music = {
 }
 @end lilypond
 
-@cindex regular rhythms
-@cindex regular spacing
+@cindex régulier, rythme
+@cindex régulier, espacement
+@cindex espacement régulier
 
 L'extrait n'utilise que des notes de même durée ; l'espacement devrait
 le refléter.  Malheureusement, notre oeil nous trompe quelque peu ; il
@@ -191,7 +193,7 @@ imprimées avec cette correction, les deux suivantes sans.  Les notes
 dans les deux dernières mesures forment des blocs de notes @qq{hampe
 vers le bas}/@/@qq{hampe vers le haut}.
 
-@cindex typography
+@cindex typographie
 
 Les musiciens sont généralement plus absorbés par l'exécution que par
 l'étude de l'aspect graphique d'une partition, donc discutailler sur
@@ -382,8 +384,8 @@ musique.
 @node What symbols to engrave?
 @section What symbols to engrave?
 
-@cindex engraving
-@cindex typography
+@cindex gravure
+@cindex typographie
 
 Le processus de formatage décide où placer les symboles.  Cependant,
 cela ne peut être fait qu'à partir du moment où il a été décidé
@@ -392,23 +394,23 @@ notation utiliser.
 
 La notation musicale usuelle est un système d'écriture qui a évolué à
 travers les dix derniers siècles.  La forme qui est aujourd'hui
-communément utilisée date du début de la Renaissance.  Bien que la
-forme basique --- les têtes de notes sur une portée de cinq lignes ---
-n'a pas changé, les détails continuent d'évoluer pour exprimer les
-innovations de la notation contemporaine.  Par conséquent, elle
-comprend quelque 500 ans de musique, avec des applications allant des
-mélodies monodiques à de monstrueux contrepoints pour grand orchestre.
+communément utilisée date du début de la Renaissance.  Bien que la forme
+basique --- les têtes de notes sur une portée de cinq lignes --- n'a pas
+changé, les détails continuent d'évoluer pour exprimer les innovations
+de la notation contemporaine.  Par conséquent, elle comprend quelque 500
+ans de musique, avec des applications allant des mélodies monodiques à
+de monstrueux contrepoints pour grand orchestre.
 
-Comment pouvons nous appréhender un tel monstre à plusieurs têtes, et
-le confiner dans l'espace réduit d'un programme informatique ?  Notre
+Comment pouvons nous appréhender un tel monstre à plusieurs têtes, et le
+confiner dans l'espace réduit d'un programme informatique ?  Notre
 solution consiste à diviser le problème de la notation --- par
 opposition à la gravure, ou typographie --- en morceaux digestes et
 programmables : chaque type de symbole est géré par un module séparé,
 couramment appelé greffon@footnote{traduction de l'anglais
 @emph{plug-in}.}.  Chaque greffon est entièrement modulaire et
 indépendant, et donc peut être développé et amélioré séparément.  De
-tels greffons sont nommés @code{graveur}s@footnote{@code{engraver}s
-en anglais.}, par analogie avec les artisans qui traduisent les idées
+tels greffons sont nommés @code{graveur}s@footnote{@code{engraver}s en
+anglais.}, par analogie avec les artisans qui traduisent les idées
 musicales en symboles graphiques.
 
 Dans l'exemple suivant, voyons comment nous commençons avec un greffon

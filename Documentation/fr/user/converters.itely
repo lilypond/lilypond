@@ -134,7 +134,7 @@ ajoutez une indication de phrasé ou de pédale.
 @section Invoking @command{etf2ly}
 
 @cindex ETF
-@cindex enigma
+@cindex Enigma
 @cindex Finale
 @cindex Coda Technology
 
@@ -265,7 +265,7 @@ ABC synchronise paroles et musique en début de ligne ;
 @node Generating LilyPond files
 @section Generating LilyPond files
 
-@cindex External programs, generating LilyPond files
+@cindex programmes externes générant des fichiers LilyPond
 
 LilyPond ne prend pas en charge d'autre format. Cependant, certains
 outils indépendants permettent de générer des fichiers LilyPond.

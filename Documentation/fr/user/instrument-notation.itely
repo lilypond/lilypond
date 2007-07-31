@@ -266,7 +266,7 @@ Référence du programme : @internalsref{VoiceFollower}.
 @subsection Cross staff stems
 
 Pour écrire des accords qui enjambent deux portées, on allonge la hampe
-de l'une des deux portées de façon à ce qu'elle rejoigne celle de
+de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
 l'autre portée.
 
 @lilypond[ragged-right,verbatim,quote]
