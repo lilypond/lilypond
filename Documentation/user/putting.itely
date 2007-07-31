@@ -293,7 +293,7 @@ often placed above the @code{\score}.  That's just
 another shorthand that LilyPond accepts.
 
 @cindex variables
-@cindex indentifiers
+@cindex identifiers
 
 Another great shorthand is the ability to define
 variables.  All the templates use this
