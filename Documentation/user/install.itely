@@ -24,7 +24,7 @@ unstable development releases.  Stable versions have an even-numbered
 versions have an odd-numbered @q{minor} version number (i.e. 2.7, 2.9,
 2.11, etc).
 
-Building LilyPond is an involved process, so we @strong{highly}
+Building LilyPond is a very involved process, so we @strong{highly}
 recommend using the precompiled binaries.
 
 @menu
@@ -67,6 +67,7 @@ mingw
 * Downloading source code::     
 * Requirements::                
 * Building LilyPond::           
+* Building documentation without compiling LilyPond::  
 * Testing LilyPond::            
 * Problems::                    
 @end menu
@@ -205,6 +206,8 @@ make out=www web-install
 @node Building LilyPond
 @subsection Building LilyPond
 
+@subsubsection Compiling
+
 To install GNU LilyPond, type
 
 @example
@@ -223,7 +226,7 @@ points into your home directory, e.g.
 @end example
 
 
-@subsection Configuring for multiple platforms
+@subsubsection Compiling for multiple platforms
 
 If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the @code{--enable-config=CONF}
@@ -245,6 +248,30 @@ and for the profiling version, specify a different configuration
 make conf=prof
 make conf=prof install
 @end example
+
+
+@node Building documentation without compiling LilyPond
+@subsection Building documentation without compiling LilyPond
+
+The documentation can be built locally without compiling lilypond from
+scratch.
+
+From a fresh git checkout, do
+
+@example
+./autogen.sh   % ignore any warning messages
+cp GNUmakefile.in GNUmakefile
+make -C python
+nice make LILYPOND_EXTERNAL_BINARY=~/Apps/LilyPond.app/Contents/Resources/bin/lilypond web
+% change the lilypond directory as appropriate
+@end example
+
+Please note that this may break sometimes -- for example, if a new
+feature is added with a test file in input/regression, even the latest
+unstable Lily will fail to build the docs.
+
+You may build the manual ( Documentation/user/ ) without building all
+the input/* stuff.
 
 
 @node Testing LilyPond
