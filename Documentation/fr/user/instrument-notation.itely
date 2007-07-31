@@ -208,12 +208,12 @@ utilise @code{mixed} par défaut.
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
-Il est possible de régler précisément l'apparence d'un crochet de
-pédale, au moyen des propriétés @code{edge-width}, @code{edge-height},
-et @code{shorten-pair}, appliquées aux objets @code{PianoPedalBracket}
---- voir la référence du programme, section
-@internalsref{PianoPedalBracket}. Par exemple, on peut étirer le
-crochet jusqu'à l'extrémité droite de la dernière note :
+Il est possible de d'affiner l'apparence d'un crochet de pédale, au
+moyen des propriétés @code{edge-width}, @code{edge-height}, et
+@code{shorten-pair}, appliquées aux objets @code{PianoPedalBracket} ---
+voir la référence du programme, section
+@internalsref{PianoPedalBracket}. Par exemple, on peut étirer le crochet
+jusqu'à l'extrémité droite de la dernière note :
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
