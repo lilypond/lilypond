@@ -651,7 +651,6 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex phrasing slurs
 @subheading Phrasing slurs
 
-@cindex phrasing slurs
 Slurs to indicate longer phrasing can be entered with @code{\(} and
 @code{\)}.  You can have both legato slurs and phrasing slurs at the
 same time, but you cannot have simultaneous slurs or simultaneous
