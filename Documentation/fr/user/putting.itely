@@ -303,9 +303,9 @@ au-dessus. C'est juste là une autre forme abrégée que LilyPond
 accepte.
 
 @cindex variables
-@cindex indentifiers
+@cindex identificateurs
 
-Une autre abréviation pratique est la possibilité de définir
+Un autre raccourci pratique est la possibilité de définir
 des variables --- également appelées @qq{identificateurs}. Dans tous
 les modèles, vous trouverez :
 
