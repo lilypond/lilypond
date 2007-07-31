@@ -33,8 +33,8 @@ Ce document est également disponible au format
 @end ifhtml
 
 @c urg, makeinfo 4.9.91 French translation is funky
-@c @documentlanguage fr
 @iftex
+@documentlanguage fr
 @frenchspacing on
 @end iftex
 @documentencoding UTF-8
