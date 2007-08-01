@@ -820,7 +820,7 @@ de cette même syllabe.  L'exemple suivant comporte une faute de frappe
 \lyricmode @{ lah- lah@}
 @end example
 
-la dernière syllabe contient une {@}}, il y a de fait un défaut de
+la dernière syllabe contient une @code{@}}, il y a de fait un défaut de
 parité avec l'accolade ouvrante, et la compilation échouera fort
 probablement. 
 
