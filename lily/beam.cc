@@ -1149,7 +1149,8 @@ Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
   Slice beam_slice (french
 		    ? where_are_the_whole_beams (beaming)
 		    : Stem::beam_multiplicity (stem));
-
+  if (beam_slice.is_empty ())
+    beam_slice = Slice (0,0);
   Interval beam_multiplicity(beam_slice[LEFT],
 			     beam_slice[RIGHT]);
 
