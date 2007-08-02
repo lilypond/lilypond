@@ -41,12 +41,12 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @dircategory LilyPond
 @direntry
 * LilyPond: (lilypond/lilypond).           El tipografiador de música de GNU.
-* abc2ly: (lilypond/lilypond)Invocar abc2ly.           Importar archivos de ABC.      
-* convert-ly: (lilypond/lilypond)Invocar  convert-ly.  Versiones de LilyPond antiguas.
-* etf2ly: (lilypond/lilypond)Invocar etf2ly.           Importar archivos de Finale.
-* lilypond-book: (lilypond/lilypond)LilyPond-book.     Integrar texto y música.
-* midi2ly: (lilypond/lilypond)Invocar  midi2ly.        Importar archivos MIDI.
-* mup2ly: (lilypond/lilypond)Invocar mup2ly.           Importar archivos de Mup.
+* abc2ly: (lilypond/lilypond-program)Invocar abc2ly.           Importar archivos de ABC.      
+* convert-ly: (lilypond/lilypond-program)Invocar  convert-ly.  Versiones de LilyPond antiguas.
+* etf2ly: (lilypond/lilypond-program)Invocar etf2ly.           Importar archivos de Finale.
+* lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Integrar texto y música.
+* midi2ly: (lilypond/lilypond-program)Invocar  midi2ly.        Importar archivos MIDI.
+* mup2ly: (lilypond/lilypond-program)Invocar mup2ly.           Importar archivos de Mup.
 @end direntry
 
 
@@ -232,12 +232,6 @@ Referencia de la notación
 * Spacing issues::                 Presentación de la salida sobre papel.
 * Interfaces for programmers::     Utilización por expertos.
 
-Utilización del programa
-
-* Running LilyPond::               Funcionamiento.
-* LilyPond-book::                  Integrar texto y música.
-* Converting from other formats::  Convertir al formato de entrada de LilyPond.
-
 Apéndices
 
 * Literature list::                Obras de referencia sobre notación musical.
@@ -269,10 +263,6 @@ Apéndices
 @include non-music.itely
 @include spacing.itely
 @include programming-interface.itely
-
-@include running.itely
-@include lilypond-book.itely
-@include converters.itely
 
 
 @include literature.itely

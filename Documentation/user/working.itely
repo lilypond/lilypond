@@ -556,13 +556,13 @@ sometimes the changes are made to accomodate new features of LilyPond.
 
 LilyPond comes with a file that makes this updating easier:
 @code{convert-ly}.  For details about how to run this program, see
-@ref{Updating files with convert-ly}.
+@rprogram{Updating files with convert-ly}.
 
 Unfortunately, @code{convert-ly} cannot handle all input changes.  It
 takes care of simple search-and-replace changes (such as @code{raggedright}
 becoming @code{ragged-right}), but some changes are too
 complicated.  The syntax changes that @code{convert-ly} cannot handle
-are listed in @ref{Updating files with convert-ly}.
+are listed in @rprogram{Updating files with convert-ly}.
 
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,

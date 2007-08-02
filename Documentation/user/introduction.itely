@@ -778,18 +778,18 @@ LilyPond notation with other programs.
 @itemize @bullet
 
 @item
-@emph{@ref{Running LilyPond}},
+@emph{@rprogram{Running LilyPond}},
 shows how to run LilyPond and its helper programs.  In addition, this
 section explains how to upgrade input files from previous versions of
 LilyPond.
 
 @item
-@emph{@ref{LilyPond-book}},
+@emph{@rprogram{LilyPond-book}},
 explains the details behind creating
 documents with in-line music examples, like this manual.
 
 @item
-@emph{@ref{Converting from other formats}},
+@emph{@rprogram{Converting from other formats}},
 explains how to run the conversion programs.  These programs are
 supplied with the LilyPond package, and convert a variety of music
 formats to the @code{.ly} format.

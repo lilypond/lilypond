@@ -201,6 +201,17 @@ Side_position_interface::pure_y_aligned_side (SCM smob, SCM start, SCM end, SCM 
 				   cur_off);
 }
 
+MAKE_SCHEME_CALLBACK (Side_position_interface, calc_cross_staff, 1)
+SCM
+Side_position_interface::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  extract_grob_set (me, "side-support-elements", elts);
+
+  Grob *common = common_refpoint_of_array (elts, me->get_parent (Y_AXIS), Y_AXIS);
+  return scm_from_bool (common != me->get_parent (Y_AXIS));
+}
+
 SCM
 Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, int end,
 				       Real *current_off)

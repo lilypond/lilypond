@@ -1,8 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of lilypond.tely
+@c This file is part of ../user/lilypond.tely
 @ignore
     Translation of GIT committish: e4135d227f80ed5ded732f32f0e9e3f9a1fff774
-
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -222,7 +221,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 @seealso
 
-Dans ce manuel : @ref{Laissez vibrer ties}
+Dans ce manuel : @ref{Laissez vibrer ties}.
 
 @node Staff switch lines
 @subsection Staff switch lines

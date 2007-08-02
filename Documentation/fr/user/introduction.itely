@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
+    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -822,18 +822,18 @@ partitions LilyPond dans d'autres programmes.
 @itemize @bullet
 
 @item
-@emph{@ref{Running LilyPond}}
+@emph{@rprogram{Running LilyPond}}
 montre comment lancer LilyPond et ses programmes auxiliaires.  De
 plus, cette section explique comment mettre à jour des fichiers
 source écrits pour d'anciennes versions de LilyPond.
 
 @item
-@emph{@ref{LilyPond-book}} 
+@emph{@rprogram{LilyPond-book}} 
 explique comment créer des documents intégrant des exemples musicaux,
 comme ce manuel.
 
 @item
-@emph{@ref{Converting from other formats}}
+@emph{@rprogram{Converting from other formats}}
 explique comment exécuter les programmes de conversion.  Ces programmes
 sont livrés avec le paquetage LilyPond, et convertissent une variété
 de formats musicaux vers le format @code{.ly}.

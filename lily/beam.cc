@@ -1132,36 +1132,41 @@ where_are_the_whole_beams (SCM beaming)
    in POS for stem S.  This Y position is relative to S. */
 Real
 Beam::calc_stem_y (Grob *me, Grob *stem, Grob **common,
-		   Real xl, Real xr,
+		   Real xl, Real xr, Direction feather_dir, 
 		   Drul_array<Real> pos, bool french)
 {
   Real beam_translation = get_beam_translation (me);
+  Direction stem_dir = get_grob_direction (stem);
 
-  Real r = stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl;
-  Real dy = pos[RIGHT] - pos[LEFT];
   Real dx = xr - xl;
-  Real stem_y_beam0 = (dy && dx
-		       ? r / dx
-		       * dy
-		       : 0) + pos[LEFT];
+  Real relx = dx ? (stem->relative_coordinate (common[X_AXIS], X_AXIS) - xl)/dx : 0;
+  Real xdir = 2*relx-1;
 
-  Direction my_dir = get_grob_direction (stem);
+  Real stem_y = linear_combination(pos, xdir);
+
   SCM beaming = stem->get_property ("beaming");
 
-  Real stem_y = stem_y_beam0;
-  if (french)
-    {
-      Slice bm = where_are_the_whole_beams (beaming);
-      if (!bm.is_empty ())
-	stem_y += beam_translation * bm[-my_dir];
-    }
-  else
-    {
-      Slice bm = Stem::beam_multiplicity (stem);
-      if (!bm.is_empty ())
-	stem_y += bm[my_dir] * beam_translation;
-    }
+  Slice beam_slice (french
+		    ? where_are_the_whole_beams (beaming)
+		    : Stem::beam_multiplicity (stem));
+  if (beam_slice.is_empty ())
+    beam_slice = Slice (0,0);
+  Interval beam_multiplicity(beam_slice[LEFT],
+			     beam_slice[RIGHT]);
 
+  /*
+    feather dir = 1 , relx 0->1 : factor 0 -> 1
+    feather dir = 0 , relx 0->1 : factor 1 -> 1    
+    feather dir = -1, relx 0->1 : factor 1 -> 0    
+   */
+  Real feather_factor = 1;
+  if (feather_dir > 0)
+    feather_factor = relx;
+  else if (feather_dir < 0)
+    feather_factor = 1 - relx;
+  
+  stem_y += feather_factor * beam_translation
+    * beam_multiplicity[Direction(((french) ? DOWN : UP)*stem_dir)];
   Real id = me->relative_coordinate (common[Y_AXIS], Y_AXIS)
     - stem->relative_coordinate (common[Y_AXIS], Y_AXIS);
 
@@ -1209,6 +1214,7 @@ Beam::set_stem_lengths (SCM smob)
 
   Real xl = fvs ? fvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
   Real xr = lvs ? lvs->relative_coordinate (common[X_AXIS], X_AXIS) : 0.0;
+  Direction feather_dir = to_dir (me->get_property ("grow-direction"));
 
   for (vsize i = 0; i < stems.size (); i++)
     {
@@ -1216,7 +1222,7 @@ Beam::set_stem_lengths (SCM smob)
 
       bool french = to_boolean (s->get_property ("french-beaming"));
       Real stem_y = calc_stem_y (me, s, common,
-				 xl, xr,
+				 xl, xr, feather_dir,
 				 pos, french && s != lvs && s!= fvs);
 
       /*

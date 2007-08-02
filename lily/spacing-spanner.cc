@@ -223,7 +223,11 @@ set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
   if (Separation_item::is_empty (r))
     return;
 
-  while (idx--)
+  bool constraint = false;
+  bool grace = false;
+
+  idx--;
+  do
     {
       Item *l = dynamic_cast<Item*> (cols[idx]);
       Item *lb = l->find_prebroken_piece (RIGHT);
@@ -231,9 +235,9 @@ set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
       if (Separation_item::is_empty (l) && (!lb || Separation_item::is_empty (lb)))
 	continue;
 
-      Separation_item::set_distance (Drul_array<Item *> (l, r), padding);
       if (lb)
 	Separation_item::set_distance (Drul_array<Item*> (lb, r), padding);
+      constraint = Separation_item::set_distance (Drul_array<Item *> (l, r), padding);
 
 
       /*
@@ -241,14 +245,14 @@ set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
 	the accidentals of main note may stick out so far to cover
 	a barline preceding the grace note.
       */
-      if (spanned_time_interval (l, r).length ().main_part_ > Rational (0))
-	break;
+      grace = spanned_time_interval (l, r).length ().main_part_ == Rational (0);
 
       /*
 	this grob doesn't cause a constraint. We look further until we
 	find one that does.
       */
     }
+  while (idx-- && (!constraint || grace));
 }
 
 void

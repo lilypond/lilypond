@@ -163,8 +163,8 @@ positions.")
 @code{#X}), then this property determines whether the object is placed
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
-@code{#UP}, @code{#CENTER} or #DOWN.  Numerical values may also be
-used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
+@code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
+be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{CENTER}=@code{0}
 but also other numerical values are permitted.")
      (dot-color ,symbol? "Color of dots.  Options include 

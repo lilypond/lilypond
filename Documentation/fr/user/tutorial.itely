@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 8bf657e5c944bd8da26af01d6a021b48e74ff10a
+   Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -171,7 +171,7 @@ a effectuées sur votre fichier.  Si une erreur advient, c'est ce
 fichier qu'il vous faudra étudier.
 
 Notez qu'il existe d'autres éditeurs de texte, certains disposant d'un
-meilleur support pour LilyPond ; reportez-vous à @ref{Editor support}.
+meilleur support pour LilyPond ; reportez-vous à @rprogram{Editor support}.
 
 @subsubheading Unix
 
@@ -184,7 +184,7 @@ de VIM et un
 encore installés, consultez le fichier @file{INSTALL.txt}.  L'outil
 d'édition le plus facile d'utilisation est de loin
 @file{LilyPondTool}.  Vous trouverez plus d'informations dans
-@ref{Editor support}.}  Dans votre
+@rprogram{Editor support}.}  Dans votre
 éditeur, entrez le texte suivant et sauvegardez le fichier sous
 @file{test.ly}
 
@@ -414,11 +414,11 @@ voir @ref{Clef}.
 @node Working on text files
 @subsection Working on text files
 
-Les fichiers d'entrée de LilyPond sont de la même veine que les
-sources dans la plupart des autres langages de programmation : la
-casse est prise en compte mais pas les
-espaces vides ; les expressions sont délimitées par des
-accolades @{ @}, et les commentaires par @code{%} ou @code{%@{ ... %@}}.
+Le traitement des fichiers source de LilyPond est semblable à celui du
+code de nombreux langages de programmation répandus : la casse est prise
+en compte, et les caractères considérés comme espaces ont généralement
+peu d'importance.  Les expressions sont délimitées par des accolades @{
+@}, et les commentaires par @code{%} ou @code{%@{ ... %@}}.
 
 Si cette phrase vous paraît incompréhensible, ne vous en faites pas !
 Tous ces termes vont être expliqués :
@@ -453,7 +453,7 @@ soit des doubles espaces :
 @}
 @end example
 
-@item @strong{Expressions musicales :}
+@item @strong{Expressions musicales} :
 Tout morceau saisi dans LilyPond doit être placé entre @strong{@{
 accolades @}}.  Ces caractères indiquent à LilyPond que ce bloc de
 texte est une et une seule expression musicale, tout comme les
@@ -1382,7 +1382,7 @@ tout en haut de votre fichier LilyPond.
 
 Cette annotation permet de faciliter les prochaines mises à jour de
 LilyPond.  Les changements dans la syntaxe sont gérés avec un programme
-spécial, @file{convert-ly} --- voir @ref{Updating files with convert-ly}
+spécial, @file{convert-ly} --- voir @rprogram{Updating files with convert-ly}
 --- et il utilise @code{\version} pour déterminer les règles de
 conversion à appliquer au fichier.
 

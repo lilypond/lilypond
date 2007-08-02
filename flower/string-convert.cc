@@ -117,7 +117,7 @@ String_convert::hex2bin (string hex_string, string &bin_string_r)
       int high_i = hex2nibble (*byte++);
       int low_i = hex2nibble (*byte++);
       if (high_i < 0 || low_i < 0)
-	return 1; // illegal char
+	return 1; // invalid char
       bin_string_r += to_string ((char) (high_i << 4 | low_i), 1);
       i += 2;
     }

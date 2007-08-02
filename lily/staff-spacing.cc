@@ -108,7 +108,7 @@ Staff_spacing::next_notes_correction (Grob *me,
 }
 
 /* We calculate three things here: the ideal distance, the minimum distance
-   (which is the distance at which collisions will occure) and the "fixed"
+   (which is the distance at which collisions will occur) and the "fixed"
    distance, which is the distance at which things start to look really bad.
    We arrange things so that the fixed distance will be attained when the
    line is compressed with a force of 1.0 */
@@ -196,7 +196,7 @@ Staff_spacing::get_spacing (Grob *me, Grob *right_col)
   ideal += correction;
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_stretch_strength (ideal - fixed);
+  ret.set_inverse_stretch_strength (max (0.0, ideal - fixed));
   return ret;
 }
 

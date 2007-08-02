@@ -1,33 +1,82 @@
-\input texinfo @c -*-texinfo-*-
-@setfilename INSTALL.info
-@settitle INSTALL - compiling and installing GNU LilyPond
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond-program.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
-@documentencoding utf-8
-@documentlanguage en
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 
-@node Top
-@top
+@c was "INSTALL - compiling and installing GNU LilyPond"
+@node Install
+@chapter Install
 
-@contents
-
-@chapter Compiling and installing on Unix
-
-
-@html
+@c  I don't know what this comment does.  Remove?  -gp
+@ignore
+@h tml
 <a name="download-source">
-@end html
+@e nd html
+@end ignore
 
-@section Downloading
+There are two sets of releases for LilyPond: stable releases, and
+unstable development releases.  Stable versions have an even-numbered
+@q{minor} version number (i.e. 2.8, 2.10, 2.12, etc).  Development
+versions have an odd-numbered @q{minor} version number (i.e. 2.7, 2.9,
+2.11, etc).
 
-Even numbered minor versions are `stable' (2.6, 2.8, etc), while odd
-version are development releases (2.7, 2.9, etc).  Building LilyPond
-is an involved process.  If possible
-@uref{http://lilypond.org/install,download a precompiled binary} for
-your platform.
+Building LilyPond is a very involved process, so we @strong{highly}
+recommend using the precompiled binaries.
 
-@subsection Source code
+@menu
+* Precompiled binaries::        
+* Compiling from source::       
+@end menu
+
+
+@node Precompiled binaries
+@section Precompiled binaries
+
+@subsection Downloading
+
+Check out @uref{http://lilypond.org/web/install/} for up to date
+information on binary packages for your platform.  If your operating
+system is not covered on that general page, please see the complete list
+at @uref{http://download.linuxaudio.org/lilypond/binaries/}
+
+We currently create binaries for
+
+@example
+MacOS
+darwin-ppc
+darwin-x86
+freebsd-64
+freebsd-x86
+linux-64
+linux-arm
+linux-ppc
+linux-x86
+mingw
+@end example
+
+
+
+@node Compiling from source
+@section Compiling from source
+
+@menu
+* Downloading source code::     
+* Requirements::                
+* Building LilyPond::           
+* Building documentation without compiling LilyPond::  
+* Testing LilyPond::            
+* Problems::                    
+@end menu
+
+@node Downloading source code
+@subsection Downloading source code
 
 Download source
+
 @itemize @bullet
 @item tarballs from
 @uref{http://lilypond.org/download/} by HTTP.
@@ -35,6 +84,7 @@ Download source
 @uref{http://download.linuxaudio.org/lilypond/} by HTTP.
 @item 
 GIT from @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=summary,git.sv.gnu.org}
+
 @example
 git clone git://git.sv.gnu.org/lilypond.git
 @end example
@@ -48,19 +98,14 @@ The repository does not contain generated files.  To create
 
 For information on packaging, see @uref{http://lilypond.org/devel}.
 
-@subsection Precompiled binary packages
 
-Check out @uref{http://lilypond.org/web/install/} for up to date
-information on binary packages for your platform.
+@node Requirements
+@subsection Requirements
 
+@unnumberedsubsubsec Compilation
 
-
-@section Requirements
-
-@subsection Compilation
-
-In addition to the packages needed for running Lilypond (see below),
-you need the following extra packages for building.
+In addition to the packages needed for running Lilypond (see below), you
+need the following extra packages for building.
 
 When installing a binary package FOO, you may need to install the
 FOO-devel, libFOO-dev or FOO-dev package too.
@@ -69,24 +114,21 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
-@item New Century Schoolbook fonts, as PFB files. These are shipped
-with X11 and Ghostscript, and are named @file{c059033l.pfb}
+@item New Century Schoolbook fonts, as PFB files. These are shipped with
+X11 and Ghostscript, and are named @file{c059033l.pfb}
 @file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
 
 @item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.19 or
-newer),
+newer); you may need to install some additional packages to get mftrace
+to work.
 
-You will need to install some additional packages to get mftrace to
-work.
-
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.8.2 or newer).  If you are installing binary packages, you
-may need to install guile-devel or guile-dev or libguile-dev too.
+@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version
+1.8.2 or newer).  If you are installing binary packages, you may need to
+install guile-devel or guile-dev or libguile-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
 
-@item
-@uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
+@item @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
 newer). 
 
 @item @uref{http://www.python.org,Python} (version 2.4 or newer)
@@ -106,10 +148,10 @@ header files and libraries.
 
 @end itemize
 
-@subsection Running requirements
 
-Running LilyPond requires proper installation of the following
-software
+@unnumberedsubsubsec Running requirements
+
+Running LilyPond requires proper installation of the following software
 
 @itemize @bullet
 
@@ -129,17 +171,16 @@ International fonts are required to create music with international text
 or lyrics.
 
 
-@subsection Building documentation
+@unnumberedsubsubsec Building documentation
 
 You can view the documentation online at
 @uref{http://lilypond.org/doc/}, but you can also build it locally.
 This process requires a successful compile of lilypond.  The
 documentation is built by issuing
-@quotation
+
 @example
 make web
 @end example
-@end quotation
 
 Building the website requires some additional tools and packages
 
@@ -157,26 +198,97 @@ and the patch from
 The HTML files can be installed into the standard documentation path
 by issuing
 
-@quotation
 @example
 make out=www web-install
 @end example
-@end quotation
 
-@section Testing LilyPond
+
+@node Building LilyPond
+@subsection Building LilyPond
+
+@subsubsection Compiling
+
+To install GNU LilyPond, type
+
+@example
+gunzip -c lilypond-x.y.z | tar xf -
+cd lilypond-x.y.z
+./configure		# run with --help for applicable options
+make
+make install
+@end example
+
+If you are not root, you should choose a @code{--prefix} argument that
+points into your home directory, e.g.
+
+@example
+./configure --prefix=$HOME/usr
+@end example
+
+
+@subsubsection Compiling for multiple platforms
+
+If you want to build multiple versions of LilyPond with different
+configuration settings, you can use the @code{--enable-config=CONF}
+option of configure.  You should use @samp{make conf=CONF} to generate
+the output in @file{out-CONF}.  Example: Suppose you want to build
+with and without profiling, then use the following for the normal
+build
+
+@example
+./configure --prefix=$HOME/usr/ --enable-checking
+make
+make install
+@end example
+
+and for the profiling version, specify a different configuration
+
+@example
+./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
+make conf=prof
+make conf=prof install
+@end example
+
+
+@node Building documentation without compiling LilyPond
+@subsection Building documentation without compiling LilyPond
+
+The documentation can be built locally without compiling lilypond from
+scratch.
+
+From a fresh git checkout, do
+
+@example
+./autogen.sh   % ignore any warning messages
+cp GNUmakefile.in GNUmakefile
+make -C python
+nice make LILYPOND_EXTERNAL_BINARY=~/Apps/LilyPond.app/Contents/Resources/bin/lilypond web
+% change the lilypond directory as appropriate
+@end example
+
+Please note that this may break sometimes -- for example, if a new
+feature is added with a test file in input/regression, even the latest
+unstable Lily will fail to build the docs.
+
+You may build the manual ( Documentation/user/ ) without building all
+the input/* stuff.
+
+
+@node Testing LilyPond
+@subsection Testing LilyPond
 
 @html
 <a name="testing"></a>
 @end html
 
-LilyPond comes with an extensive suite that excercises the entire
+LilyPond comes with an extensive suite that exercises the entire
 program. This suite can be used to automatically check the impact of a
 change. This is done as follows
 
 @example
-  make test-baseline
-  @emph{## apply your changes, compile}
-  make check
+make test-baseline
+@emph{## apply your changes, compile}
+make check
 @end example
 
 This will leave an HTML page @file{out/test-results/index.html}.  This
@@ -186,8 +298,8 @@ whether in the layout, MIDI, performance or error reporting.
 To rerun tests, use
 
 @example
-  make test-redo           @emph{## redo files differing from baseline}
-  make test-clean          @emph{## remove all test results}
+make test-redo           @emph{## redo files differing from baseline}
+make test-clean          @emph{## remove all test results}
 @end example
 
 @noindent
@@ -200,128 +312,28 @@ CVS; especially the following patch:
 For checking the coverage of the test suite, do the following
 
 @example
-  ./buildscripts/build-coverage.sh
-  @emph{# uncovered files, least covered first}
-  python ./buildscripts/coverage.py  --summary out-cov/*.cc
-  @emph{# consecutive uncovered lines, longest first} 
-  python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
+./buildscripts/build-coverage.sh
+@emph{# uncovered files, least covered first}
+python ./buildscripts/coverage.py  --summary out-cov/*.cc
+@emph{# consecutive uncovered lines, longest first} 
+python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
 @end example
 
-@section Building LilyPond
 
-To install GNU LilyPond, type
-@quotation
-@example
-gunzip -c lilypond-x.y.z | tar xf -
-cd lilypond-x.y.z
-./configure		# run with --help for applicable options
-make
-make install
-@end example
-@end quotation
-
-If you are not root, you should choose a @code{--prefix} argument that
-points into your home directory, e.g.
-@quotation
-@example
-./configure --prefix=$HOME/usr
-@end example
-@end quotation
-
-
-@subsection Configuring for multiple platforms
-
-If you want to build multiple versions of LilyPond with different
-configuration settings, you can use the @code{--enable-config=CONF}
-option of configure.  You should use @samp{make conf=CONF} to generate
-the output in @file{out-CONF}.  Example: Suppose you want to build
-with and without profiling, then use the following for the normal
-build
-
-@quotation
-@example
-./configure --prefix=$HOME/usr/ --enable-checking
-make
-make install
-@end example
-@end quotation
-
-and for the profiling version, specify a different configuration
-
-@quotation
-@example
-./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
-make conf=prof
-make conf=prof install
-@end example
-@end quotation
-
-
-@section Emacs mode
-
-An Emacs mode for entering music and running LilyPond is contained in
-the source archive in the @file{elisp} directory.  Do @command{make
-install} to install it to @var{elispdir}.  The file @file{lilypond-init.el}
-should be placed to @var{load-path}@file{/site-start.d/} or appended
-to your @file{~/.emacs} or @file{~/.emacs.el}.
-
-As a user, you may want add your source path (e.g. @file{~/site-lisp/}) to
-your @var{load-path} by appending the following line (as modified) to your
-@file{~/.emacs}
-@c any reason we do not advise:  (push "~/site-lisp" load-path)
-@quotation
-@example
-(setq load-path (append (list (expand-file-name "~/site-lisp")) load-path))
-@end example
-@end quotation
-
-
-@section Vim mode
-
-A Vim mode for entering music and running LilyPond is contained in the
-source archive in @code{$VIM} directory.
-
-The LilyPond file type is detected if the file @file{~/.vim/filetype.vim} @c
-has the following content
-@quotation
-@example
-if exists("did_load_filetypes")
-  finish
-endif
-augroup filetypedetect
-  au! BufNewFile,BufRead *.ly           setf lilypond
-augroup END
-@end example
-@end quotation
-
-Please include this path by appending the following line to your
-@file{~/.vimrc}
-
-@quotation
-@example
-set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
-@end example
-@end quotation
-
-@noindent
-where $@{LILYPOND_VERSION@} is your lilypond version.  If Lilypond was not
-installed in @file{/usr/local/}, then change this path accordingly.
-
-
-@section Problems
+@node Problems
+@subsection Problems
 
 For help and questions use @email{lilypond-user@@gnu.org}.  Send bug
 reports to @email{bug-lilypond@@gnu.org}.
 
 Bugs that are not fault of LilyPond are documented here.
 
-@subsection Bison 1.875
+@unnumberedsubsubsec Bison 1.875
 
 There is a bug in bison-1.875: compilation fails with "parse error
 before `goto'" in line 4922 due to a bug in bison. To fix, please
 recompile bison 1.875 with the following fix
 
-@quotation
 @example
 $ cd lily; make out/parser.cc
 $ vi +4919 out/parser.cc
@@ -329,10 +341,9 @@ $ vi +4919 out/parser.cc
 # save
 $ make
 @end example
-@end quotation
 
 
-@unnumberedsubsec MacOS X
+@unnumberedsubsubsec MacOS X
 
 For Fink, use the following command to compile.
 
@@ -343,27 +354,26 @@ export PKG_CONFIG_PATH=/sw/lib/freetype219/lib/pkgconfig/:/sw/lib/fontconfig2/li
 ./configure
 @end verbatim
 
-@unnumberedsubsec  Solaris
+@unnumberedsubsubsec Solaris
 
-@itemize @bullet
-@item Solaris7, ./configure
+Solaris7, ./configure
 
 @file{./configure} needs a POSIX compliant shell.  On Solaris7,
 @file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
 is.  Run configure like
-@quotation
-@example
-	CONFIG_SHELL=/bin/ksh ksh -c ./configure
-@end example
-@end quotation
-or
-@quotation
-@example
-	CONFIG_SHELL=/bin/bash bash -c ./configure
-@end example
-@end quotation
 
-@item FreeBSD
+@example
+CONFIG_SHELL=/bin/ksh ksh -c ./configure
+@end example
+
+@noindent
+or
+
+@example
+CONFIG_SHELL=/bin/bash bash -c ./configure
+@end example
+
+@unnumberedsubsubsec FreeBSD
 
 To use system fonts, dejaview must be installed.  With the default
 port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
@@ -376,10 +386,8 @@ for your hierarchy.)
 <dir>/usr/X11R6/lib/X11/fonts</dir>
 @end example
 
-@end itemize
 
-
-@section International fonts
+@unnumberedsubsubsec International fonts
 
 On MacOs X, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
@@ -404,9 +412,4 @@ Debian GNU/Linux
         ttf-kochi-gothic ttf-kochi-mincho \
         xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
 @end verbatim
-
-
-
-
-@bye
 

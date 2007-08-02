@@ -1,4 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 
 @c **** all formats ****
 
@@ -62,7 +68,7 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
 @end ifhtml
 @ifnothtml
   @file{\DIR\}
@@ -115,30 +121,43 @@
 @ref{\NAME\,,,music-glossary-big-page}
 @end macro
 
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program-big-page}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-big-page}
+@end macro
+
 @end ifset
 
 
 @ifclear bigpage
 
-@c annoying parentheses stripped by add-html-footer.py
 @macro internalsref{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@c annoying parentheses stripped by add-html-footer.py
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
 @end macro
 
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
+@end macro
+
 @end ifclear
 
-
-@c usage: @inputfileref{input@/regression,FILE@/-NAME.ly}
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}@c
-@end macro
 
 @c to get decent quotes in `foo'
 @macro q{TEXT}
@@ -165,13 +184,19 @@
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
-
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
 @end macro
 
 @c to get decent quotes in `foo'
@@ -199,17 +224,23 @@
 @inforef{\NAME\,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}
-@end macro
-
-@macro rglos{NAME}@c
+@macro rglos{NAME}
 @vindex \NAME\
 @inforef{\NAME\,,,music-glossary}
 @end macro
 
 @macro usermanref{NAME}
 @inforef{\NAME\}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
 @end macro
 
 @c to get decent quotes in `foo'
@@ -233,10 +264,6 @@
 @code{\NAME\}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/@/\NAME\}
-@end macro
-
 @macro rglos {NAME}
 @vindex \NAME\
 @code{\NAME\}
@@ -249,6 +276,12 @@ internals document, @internalsref{\NAME\}
 @macro usermanref{NAME}
 user manual, @internalsref{\NAME\}
 @end macro
+
+@macro rprogram{NAME}
+program usage manual, @internalsref{\NAME\}
+@end macro
+
+@alias ruser=usermanref
 
 @c to get decent French quotes in `foo'
 @macro q{TEXT}

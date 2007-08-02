@@ -416,7 +416,7 @@ The syntax is the same as `define*-public'."
     (ly:progress "\nWriting timing to ~a..." outname)
     (format (open-file outname "w")
 	    "time: ~a\ncells: ~a\n"
-	    (if (ly:option 'dump-cpu-profile)
+	    (if (ly:get-option 'dump-cpu-profile)
 		(car diff)
 		0)
 	    (cadr diff)
