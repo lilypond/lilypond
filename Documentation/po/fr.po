@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 13:38+0200\n"
-"PO-Revision-Date: 2007-07-26 22:50+0200\n"
+"PO-Revision-Date: 2007-08-02 14:43+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,7 @@ msgstr ""
 #: add_html_footer.py:45
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
-"Rapporter toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu."
-"org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
-"(mail_address_url)s\">%(mail_address)s</a>"
+msgstr "Rapportez toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu.org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%(mail_address_url)s\">%(mail_address)s</a>"
 
 #: add_html_footer.py:47
 #, python-format
@@ -72,9 +69,8 @@ msgid "Top"
 msgstr "Sommaire"
 
 #. @top in ../../../Documentation/user/lilypond-program.tely
-#, fuzzy
 msgid "GNU LilyPond --- program usage"
-msgstr "GNU LilyPond --- le système de gravure musicale"
+msgstr "GNU LilyPond --- utilisation du programme"
 
 #. @node in ../../../Documentation/user/lilypond-program.tely
 #. @appendix in ../../../Documentation/user/lilypond-program.tely
@@ -106,81 +102,75 @@ msgstr "Propriétés couramment modifiées"
 #. @node in ../../../Documentation/user/install.itely
 #. @chapter in ../../../Documentation/user/install.itely
 msgid "Install"
-msgstr ""
+msgstr "Installation"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @section in ../../../Documentation/user/install.itely
 msgid "Precompiled binaries"
-msgstr ""
+msgstr "Paquets précompilés"
 
 #. @subsection in ../../../Documentation/user/install.itely
 msgid "Downloading"
-msgstr ""
+msgstr "Téléchargement"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @section in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Compiling from source"
-msgstr "Compiler un fichier"
+msgstr "Compilation à partir du code source"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
 msgid "Downloading source code"
-msgstr ""
+msgstr "Téléchargement du code source"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
 msgid "Requirements"
-msgstr ""
+msgstr "Logiciels prérequis"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Compilation"
-msgstr "Improvisation"
+msgstr "Compilation"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Running requirements"
-msgstr ""
+msgstr "Logiciels nécessaires à l'exécution"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Building documentation"
-msgstr "Construire des fonctions complexes"
+msgstr "Compilation de la documentation"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Building LilyPond"
-msgstr "Lancer LilyPond"
+msgstr "Compilation de LilyPond"
 
 #. @subsubsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Compiling"
-msgstr "Compiler un fichier"
+msgstr "Compilation"
 
 #. @subsubsection in ../../../Documentation/user/install.itely
 msgid "Compiling for multiple platforms"
-msgstr ""
+msgstr "Compilation pour plusieurs plateformes"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
 msgid "Building documentation without compiling LilyPond"
-msgstr ""
+msgstr "Compilation de la documentation sans compiler LilyPond"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Testing LilyPond"
-msgstr "Lancer LilyPond"
+msgstr "Test de LilyPond"
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
 msgid "Problems"
-msgstr ""
+msgstr "Problèmes"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Bison 1.875"
-msgstr ""
+msgstr "Bison 1.875"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 #. @subsubheading in ../../../Documentation/user/tutorial.itely
@@ -188,23 +178,21 @@ msgid "MacOS X"
 msgstr "MacOS X"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Solaris"
-msgstr "Liaisons d'articulation"
+msgstr "Solaris"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "FreeBSD"
-msgstr ""
+msgstr "FreeBSD"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "International fonts"
-msgstr "Contextes d'interprétation"
+msgstr "Polices de caractères non européens"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @chapter in ../../../Documentation/user/setup.itely
 msgid "Setup"
-msgstr ""
+msgstr "Environnement de travail"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
@@ -213,46 +201,43 @@ msgstr "Notes à l'attention des utilisateurs de MacOS X"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
-#, fuzzy
 msgid "Text editor support"
-msgstr "Prise en charge par les éditeurs"
+msgstr "LilyPond et les éditeurs de texte"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
 msgid "Emacs mode"
-msgstr ""
+msgstr "Mode Emacs"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
 msgid "Vim mode"
-msgstr ""
+msgstr "Mode Vim"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
-#, fuzzy
 msgid "LilyPondTool"
-msgstr "LilyPond-book"
+msgstr "LilyPondTool"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
-#, fuzzy
 msgid "TexShop"
-msgstr "Sommaire"
+msgstr "TexShop"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
 msgid "Point and click"
-msgstr "Cliquer-pointer"
+msgstr "Pointer-cliquer"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @chapter in ../../../Documentation/user/running.itely
 msgid "Running LilyPond"
-msgstr "Lancer LilyPond"
+msgstr "Exécution de LilyPond"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
 msgid "Invoking lilypond"
-msgstr "Lancer lilypond"
+msgstr "Lancement de lilypond"
 
 #. @subsection in ../../../Documentation/user/running.itely
 msgid "Command line options"
@@ -264,16 +249,16 @@ msgstr "Variables d'environnement"
 
 #. @node in ../../../Documentation/user/running.itely
 msgid "Updating files with convert-ly"
-msgstr "Mettre à jour des fichiers avec convert-ly"
+msgstr "Mise à jour des fichiers avec convert-ly"
 
 #. @section in ../../../Documentation/user/running.itely
 msgid "Updating with @command{convert-ly}"
-msgstr "Mettre à jour avec @command{convert-ly}"
+msgstr "Mise à jour avec @command{convert-ly}"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
 msgid "Reporting bugs"
-msgstr "Rapporter des bogues"
+msgstr "Rapport de bogue"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
@@ -286,7 +271,7 @@ msgstr "LilyPond-book"
 
 #. @chapter in ../../../Documentation/user/lilypond-book.itely
 msgid "@command{lilypond-book}: Integrating text and music"
-msgstr "@command{lilypond-book} : associer de la musique et du texte"
+msgstr "@command{lilypond-book} : association musique-texte"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -295,26 +280,26 @@ msgstr "Exemple de document musicologique"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating LaTeX and music"
-msgstr "Intégrer de la musique dans LaTeX"
+msgstr "Intégration de musique dans LaTeX"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating @LaTeX{} and music"
-msgstr "Intégrer de la musique dans @LaTeX{}"
+msgstr "Intégration de musique dans @LaTeX{}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating Texinfo and music"
-msgstr "Intégrer de la musique dans Texinfo"
+msgstr "Intégration de musique dans Texinfo"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating HTML and music"
-msgstr "Intégrer de la musique dans HTML"
+msgstr "Intégration de musique dans HTML"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Integrating DocBook and music"
-msgstr "Intégrer de la musique dans DocBook"
+msgstr "Intégration de musique dans DocBook"
 
 #. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
 msgid "Common conventions"
@@ -322,15 +307,15 @@ msgstr "Conventions communes"
 
 #. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
 msgid "Including a LilyPond file"
-msgstr "Inclure un fichier LilyPond"
+msgstr "Inclusion d'un fichier LilyPond"
 
 #. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
 msgid "Including LilyPond code"
-msgstr "Inclure du code LilyPond"
+msgstr "Inclusion de code LilyPond"
 
 #. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
 msgid "Processing the DocBook document"
-msgstr "Générer le document DocBook"
+msgstr "Génération du document DocBook"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -339,11 +324,11 @@ msgstr "Options applicables aux fragments de musique"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 msgid "Invoking lilypond-book"
-msgstr "Utiliser lilypond-book"
+msgstr "Utilisation de lilypond-book"
 
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Invoking @command{lilypond-book}"
-msgstr "Lancer @command{lilypond-book}"
+msgstr "Lancement de @command{lilypond-book}"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
@@ -353,59 +338,59 @@ msgstr "Extensions de nom de fichier"
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Many quotes of a large score"
-msgstr "Extraire plusieurs fragments d'une grande partition"
+msgstr "Extraction de plusieurs fragments d'une grande partition"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Inserting LilyPond output into OpenOffice.org"
-msgstr "Insérer le résultat de LilyPond dans OpenOffice.org"
+msgstr "Insertion du résultat de LilyPond dans OpenOffice.org"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
 msgid "Inserting LilyPond output into other programs"
-msgstr "Insérer le résultat de LilyPond dans d'autres programmes"
+msgstr "Insertion du résultat de LilyPond dans d'autres programmes"
 
 #. @node in ../../../Documentation/user/converters.itely
 #. @chapter in ../../../Documentation/user/converters.itely
 msgid "Converting from other formats"
-msgstr "Convertir à partir d'autres formats"
+msgstr "Conversion à partir d'autres formats"
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking midi2ly"
-msgstr "Utiliser midi2ly"
+msgstr "Utilisation de midi2ly"
 
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Invoking @command{midi2ly}"
-msgstr "Lancer @command{midi2ly}"
+msgstr "Utilisation @command{midi2ly}"
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking etf2ly"
-msgstr "Utiliser etf2ly"
+msgstr "Utilisation de etf2ly"
 
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Invoking @command{etf2ly}"
-msgstr "Lancer @command{etf2ly}"
+msgstr "Utilisation de @command{etf2ly}"
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking musicxml2ly"
-msgstr "Utiliser musicxml2ly"
+msgstr "Utilisation de musicxml2ly"
 
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Invoking @code{musicxml2ly}"
-msgstr "Lancer @command{musicxml2ly}"
+msgstr "Utilisation de @command{musicxml2ly}"
 
 #. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking abc2ly"
-msgstr "Utiliser abc2ly"
+msgstr "Utilisation d'abc2ly"
 
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Invoking @code{abc2ly}"
-msgstr "Lancer @command{abc2ly}"
+msgstr "Utilisation de @command{abc2ly}"
 
 #. @node in ../../../Documentation/user/converters.itely
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Generating LilyPond files"
-msgstr "Générer des fichiers LilyPond"
+msgstr "Génération de fichiers LilyPond"
 
 #. @node in ../../../Documentation/user/fdl.itexi
 #. @appendix in ../../../Documentation/user/fdl.itexi
@@ -450,7 +435,7 @@ msgstr "Gravure automatisée"
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "What symbols to engrave?"
-msgstr "Quels signes graver ?"
+msgstr "Gravure des symboles musicaux"
 
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
@@ -500,11 +485,11 @@ msgstr "Premiers pas"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Compiling a file"
-msgstr "Compiler un fichier"
+msgstr "Compilation d'un fichier"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Entering music and viewing output"
-msgstr "Saisir la musique et visualiser la partition produite"
+msgstr "Saisie de la musique et visualisation de la partition produite"
 
 #. @subsubheading in ../../../Documentation/user/tutorial.itely
 msgid "Windows"
@@ -595,19 +580,20 @@ msgstr "Clefs"
 msgid "clef"
 msgstr "clef"
 
+# bof
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "All together"
-msgstr "Tout associer"
+msgstr "Tout ensemble"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Working on text files"
-msgstr "Travailler sur des fichiers texte"
+msgstr "Travail sur des fichiers texte"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "How to read the tutorial"
-msgstr "Comment lire le tutoriel"
+msgstr "Bien lire le tutoriel"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @section in ../../../Documentation/user/tutorial.itely
@@ -798,7 +784,7 @@ msgstr "Chansons"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Printing lyrics"
-msgstr "Imprimer des paroles"
+msgstr "Impression de paroles"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
 msgid "melisma"
@@ -832,7 +818,7 @@ msgstr "Noms de note absolus"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Organizing pieces with identifiers"
-msgstr "Organiser ses pièces avec des identificateurs"
+msgstr "Organisation du code source avec des identificateurs"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
@@ -842,8 +828,9 @@ msgstr "Après le tutoriel"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "How to read the manual"
-msgstr "Comment lire le manuel"
+msgstr "Bien lire le manuel"
 
+# bof
 #. @node in ../../../Documentation/user/putting.itely
 #. @chapter in ../../../Documentation/user/putting.itely
 msgid "Putting it all together"
@@ -852,12 +839,12 @@ msgstr "Tout mettre en ordre"
 #. @node in ../../../Documentation/user/putting.itely
 #. @section in ../../../Documentation/user/putting.itely
 msgid "Extending the templates"
-msgstr "Étendre les modèles"
+msgstr "Extension des modèles"
 
 #. @node in ../../../Documentation/user/putting.itely
 #. @section in ../../../Documentation/user/putting.itely
 msgid "How LilyPond files work"
-msgstr "Comment les fichiers LilyPond sont organisés"
+msgstr "Organisation des fichiers LilyPond"
 
 #. @node in ../../../Documentation/user/putting.itely
 #. @section in ../../../Documentation/user/putting.itely
@@ -872,7 +859,7 @@ msgstr "Partitions d'orchestre"
 #. @node in ../../../Documentation/user/working.itely
 #. @chapter in ../../../Documentation/user/working.itely
 msgid "Working on LilyPond projects"
-msgstr "Travailler sur des projets LilyPond"
+msgstr "Travail sur des projets LilyPond"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -887,12 +874,12 @@ msgstr "Suggestions générales"
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 msgid "Typesetting existing music"
-msgstr "Graver de la musique existante"
+msgstr "Gravure de musique existante"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 msgid "Large projects"
-msgstr "Pour des projets d'envergure"
+msgstr "Projets d'envergure"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -907,7 +894,7 @@ msgstr "Feuilles de style"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Updating old files"
-msgstr "Mettre à jour d'anciens fichiers"
+msgstr "Mise à jour d'anciens fichiers"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -922,17 +909,17 @@ msgstr "Exemples minimaux"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @chapter in ../../../Documentation/user/tweaks.itely
 msgid "Tweaking output"
-msgstr "Retoucher les résultats"
+msgstr "Retouche des partitions"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Moving objects"
-msgstr "Déplacer des objets"
+msgstr "Déplacement d'objets"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Fixing overlapping notation"
-msgstr "Corriger les collisions d'objets"
+msgstr "Correction des collisions d'objets"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -947,7 +934,7 @@ msgstr "Fichiers fournis avec LilyPond"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Fitting music onto fewer pages"
-msgstr "Réduire le nombre de pages de la partition"
+msgstr "Réduction du nombre de pages de la partition"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -957,7 +944,7 @@ msgstr "Retouches avancées avec Scheme"
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
-msgstr "Éviter les retouches ralentissant le traitement"
+msgstr "Options ralentissant le traitement"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @chapter in ../../../Documentation/user/basic-notation.itely
@@ -1107,12 +1094,13 @@ msgstr "Symbole de la portée"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Writing music in parallel"
-msgstr "Saisir la musique en parallèle"
+msgstr "Saisie la musique en parallèle"
 
+# bof
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @section in ../../../Documentation/user/basic-notation.itely
 msgid "Connecting notes"
-msgstr "Relier des groupes de notes"
+msgstr "Notation reliant des notes"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1157,7 +1145,7 @@ msgstr "Glissando"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Arpeggio"
-msgstr "Arpège"
+msgstr "Arpèges"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1197,7 +1185,7 @@ msgstr "Répétitions en trémolo"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Tremolo subdivisions"
-msgstr "Subdivision des trémolos"
+msgstr "Trémolos de subdivision"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1257,7 +1245,7 @@ msgstr "Mode accords"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing chord names"
-msgstr "Imprimer des noms d'accord"
+msgstr "Impression de noms d'accord"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
@@ -1267,7 +1255,7 @@ msgstr "Musique vocale"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Setting simple songs"
-msgstr "Écrire des chants simples"
+msgstr "Écriture des chants simples"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1277,7 +1265,7 @@ msgstr "Saisie des paroles"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Aligning lyrics to a melody"
-msgstr "Aligner des paroles sur une mélodie"
+msgstr "Alignement des paroles sur une mélodie"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
@@ -1292,12 +1280,12 @@ msgstr "Une autre manière de saisir des paroles"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Assigning more than one syllable to a single note"
-msgstr "Affecter plus d'une syllabe à une note"
+msgstr "Plusieurs syllabes sur une même note"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "More than one note on a single syllable"
-msgstr "Plus d'une note pour une même syllabe"
+msgstr "Plusieurs notes pour une même syllabe"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
@@ -1307,7 +1295,7 @@ msgstr "Prolongateurs et traits d'union"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Working with lyrics and identifiers"
-msgstr "Utiliser des identificateurs pour gérer les paroles"
+msgstr "Utilisation d'identificateurs pour gérer les paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1327,7 +1315,7 @@ msgstr "Paroles alternatives"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Switching the melody associated with a lyrics line"
-msgstr "Changer la voix associée à une ligne de paroles"
+msgstr "Changement de la voix associée à une ligne de paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
@@ -1346,15 +1334,15 @@ msgstr "Traitement avancé des couplets"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding stanza numbers"
-msgstr "Numéroter les couplets"
+msgstr "Numérotation des couplets"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding dynamics marks"
-msgstr "Ajouter des nuances"
+msgstr "Ajout de nuances"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding singer names"
-msgstr "Ajouter le nom des chanteurs"
+msgstr "Nom des chanteurs"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing stanzas at the end"
@@ -1382,7 +1370,7 @@ msgstr "Musique rythmique"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Showing melody rhythms"
-msgstr "Graver des lignes rythmiques"
+msgstr "Gravure de lignes rythmiques"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1412,7 +1400,7 @@ msgstr "Indications de numéro de corde"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Tablatures basic"
-msgstr "Les tablatures : notions élémentaires"
+msgstr "Introduction aux tablatures"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1517,7 +1505,7 @@ msgstr "Ligatures mensurales"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Gregorian square neumes ligatures"
-msgstr "Grégorien et neumes ligaturés"
+msgstr "Neumes ligaturés grégoriens"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1617,7 +1605,7 @@ msgstr "Personnalisation des indications de nuance"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
 msgid "Preparing parts"
-msgstr "Préparer un matériel d'orchestre"
+msgstr "Préparation d'un matériel d'orchestre"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1672,17 +1660,17 @@ msgstr "Regroupement automatique de parties"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Hiding staves"
-msgstr "Masquer des portées"
+msgstr "Masquage de portées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Quoting other voices"
-msgstr "Citer d'autres voix"
+msgstr "Citation d'autres voix"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Formatting cue notes"
-msgstr "Mettre en forme une citation"
+msgstr "Mise en forme d'une citation"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1732,7 +1720,7 @@ msgstr "Improvisation"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Selecting notation font size"
-msgstr "Spécifier la taille de la fonte musicale"
+msgstr "Indication de la taille de fonte musicale"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @section in ../../../Documentation/user/advanced-notation.itely
@@ -1772,7 +1760,7 @@ msgstr "Crochets d'analyse"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Coloring objects"
-msgstr "Colorer des objets"
+msgstr "Coloration d'objets"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1787,7 +1775,7 @@ msgstr "Quadrillage temporel"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @chapter in ../../../Documentation/user/changing-defaults.itely
 msgid "Changing defaults"
-msgstr "Changer les réglages prédéfinis"
+msgstr "Modification des réglages prédéfinis"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
@@ -1802,7 +1790,7 @@ msgstr "Altérations accidentelles automatiques"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Setting automatic beam behavior"
-msgstr "Définir les règles de ligatures automatiques"
+msgstr "Définition les règles de ligatures automatiques"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
@@ -1817,7 +1805,7 @@ msgstr "Tout savoir sur les contextes"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Creating contexts"
-msgstr "Créer un contexte"
+msgstr "Création d'un contexte"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1827,27 +1815,27 @@ msgstr "Changer à la volée les propriétés de contexte"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Modifying context plug-ins"
-msgstr "Modifier les greffons de contexte"
+msgstr "Modification des greffons de contexte"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Layout tunings within contexts"
-msgstr "Affiner le rendu au sein des contextes"
+msgstr "Retouches de mise en forme au sein des contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Changing context default settings"
-msgstr "Modifier les réglages par défaut d'un contexte"
+msgstr "Modification des réglages par défaut d'un contexte"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Defining new contexts"
-msgstr "Définir de nouveaux contextes"
+msgstr "Définition de nouveaux contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Aligning contexts"
-msgstr "Aligner des contextes"
+msgstr "Alignement de contextes"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1865,12 +1853,12 @@ msgstr "La commande @code{\\override}"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Constructing a tweak"
-msgstr "Élaborer une retouche"
+msgstr "Élaboration d'une retouche"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Navigating the program reference"
-msgstr "Manipuler le guide de référence du programme"
+msgstr "Navigation dans la référence du programme"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1880,7 +1868,7 @@ msgstr "Interfaces de rendu"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Determining the grob property"
-msgstr "Déterminer la propriété de l'objet graphique (Grob)"
+msgstr "Détermination de la propriété de l'objet graphique (grob)"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1889,11 +1877,11 @@ msgstr "Objets liés à la source"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of \\tweak"
-msgstr "Utiliser du code Scheme au lieu de \\tweak"
+msgstr "Utilisation de code Scheme au lieu de \\tweak"
 
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of @code{\\tweak}"
-msgstr "Utiliser du code Scheme au lieu de @code{\\tweak}"
+msgstr "Utilisation de code Scheme au lieu de @code{\\tweak}"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "\\set versus \\override"
@@ -1941,12 +1929,12 @@ msgstr "Plusieurs partitions dans un même ouvrage"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Extracting fragments of notation"
-msgstr "Extraire des fragments"
+msgstr "Extraction de fragments musicaux"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Including LilyPond files"
-msgstr "Insérer des fichiers LilyPond"
+msgstr "Insertion de fichiers LilyPond"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1961,7 +1949,7 @@ msgstr "Titres et entêtes"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Creating titles"
-msgstr "Créer des titres"
+msgstr "Création de titres"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1986,7 +1974,7 @@ msgstr "Sortie MIDI"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Creating MIDI files"
-msgstr "Créer des fichiers MIDI"
+msgstr "Création de fichiers MIDI"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -2001,7 +1989,7 @@ msgstr "Noms d'instruments MIDI"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "Displaying LilyPond notation"
-msgstr "Afficher de la notation au format LilyPond"
+msgstr "Affichage de notation au format LilyPond"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
@@ -2026,7 +2014,7 @@ msgstr "Format de papier"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Page formatting"
-msgstr "Formater une page"
+msgstr "Mise en forme de la page"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @section in ../../../Documentation/user/spacing.itely
@@ -2036,7 +2024,7 @@ msgstr "Mise en forme de la musique"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Setting the staff size"
-msgstr "Définir la taille de la portée"
+msgstr "Définition de la taille de portée"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2046,9 +2034,8 @@ msgstr "Mise en forme de la partition"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @section in ../../../Documentation/user/spacing.itely
 msgid "Displaying spacing"
-msgstr "Montrer les espacements"
+msgstr "Mise en évidence de l'espacement"
 
-# pourquoi utiliser "rupture" au lieu de "saut" ? -JM
 #. @node in ../../../Documentation/user/spacing.itely
 #. @section in ../../../Documentation/user/spacing.itely
 msgid "Breaks"
@@ -2057,12 +2044,12 @@ msgstr "Sauts"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Line breaking"
-msgstr "Saut de ligne"
+msgstr "Sauts de ligne"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Page breaking"
-msgstr "Saut de page"
+msgstr "Sauts de page"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2112,7 +2099,7 @@ msgstr "Positionnement explicite des portées et systèmes"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Two-pass vertical spacing"
-msgstr "Optimiser le remplissage avec un deuxième passage"
+msgstr "Optimisation du remplissage avec un deuxième passage"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2140,7 +2127,7 @@ msgstr "Changement d'espacement au cours de la partition"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Changing horizontal spacing"
-msgstr "Modifier l'espacement horizontal"
+msgstr "Modification de l'espacement horizontal"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2215,7 +2202,7 @@ msgstr "Représentation interne de la musique"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @section in ../../../Documentation/user/programming-interface.itely
 msgid "Building complicated functions"
-msgstr "Construire des fonctions complexes"
+msgstr "Construction des fonctions complexes"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -2245,7 +2232,7 @@ msgstr "Interface de programmation des marqueurs de texte"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Markup construction in Scheme"
-msgstr "Construire un marqueur en Scheme"
+msgstr "Construction Scheme d'un marqueur"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -2275,12 +2262,12 @@ msgstr "Évaluation d'un contexte"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Running a function on all layout objects"
-msgstr "Appliquer une fonction à tous les objets de mise en forme"
+msgstr "Application une fonction à tous les objets de mise en forme"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @section in ../../../Documentation/user/programming-interface.itely
 msgid "Scheme procedures as properties"
-msgstr "Utiliser des procédures Scheme en tant que propriétés"
+msgstr "Utilisation de procédures Scheme comme propriétés"
 
 #. @node in ../../../Documentation/user/literature.itely
 #. @appendix in ../../../Documentation/user/literature.itely
