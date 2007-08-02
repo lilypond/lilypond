@@ -1,4 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 8a19cc25524338cdd99863ccd954bbcb8f8b2afa
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
 
 @c **** all formats ****
 
