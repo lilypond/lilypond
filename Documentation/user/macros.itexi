@@ -184,10 +184,6 @@
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
-
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
@@ -228,10 +224,6 @@
 @inforef{\NAME\,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}
-@end macro
-
 @macro rglos{NAME}
 @vindex \NAME\
 @inforef{\NAME\,,,music-glossary}
@@ -270,10 +262,6 @@
 @macro internalsref{NAME}
 @vindex \NAME\
 @code{\NAME\}
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/@/\NAME\}
 @end macro
 
 @macro rglos {NAME}
