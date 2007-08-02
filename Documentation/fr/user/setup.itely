@@ -9,36 +9,54 @@
 @end ignore
 
 
-@node Running LilyPond
-@chapter Running LilyPond
+@node Setup
+@chapter Setup
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Invoking lilypond::
-* Updating files with convert-ly::
-* Reporting bugs::
-* Error messages::
+* Notes for the MacOS X app::
+* Text editor support::
+* Point and click::
 @end menu 
-@node Invoking lilypond
-@section Invoking lilypond
+@node Notes for the MacOS X app
+@section Notes for the MacOS X app
 
 UNTRANSLATED NODE: IGNORE ME
 
-@subsection Command line options
-@subsection Environment variables
-@node Updating files with convert-ly
-@section Updating with @command{convert-ly}
+@node Text editor support
+@section Text editor support
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Reporting bugs
-@section Reporting bugs
+@menu 
+* Emacs mode::
+* Vim mode::
+* LilyPondTool::
+* TexShop::
+@end menu 
+@node Emacs mode
+@subsection Emacs mode
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Error messages
-@section Error messages
+@node Vim mode
+@subsection Vim mode
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node LilyPondTool
+@subsection LilyPondTool
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node TexShop
+@subsection TexShop
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Point and click
+@section Point and click
 
 UNTRANSLATED NODE: IGNORE ME
 

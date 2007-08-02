@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8791591cda0187e947fa6162ce261bc97df698ee
+    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,6 +17,8 @@
 \gdef\SETtxicodequotebacktick{Bla}
 @end tex
 @end iftex
+
+@c @direntry has not been added yet, as Emacs and standalone Info have no i18n support -JM
 
 @c don't remove this comment.
 @ignore

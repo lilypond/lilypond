@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
+   Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -558,14 +558,14 @@ fonctionnalités.
 
 LilyPond est fourni avec un utilitaire qui facilite cette mise à
 jour : @code{convert-ly}.  Pour savoir comment utiliser ce programme,
-voir @ref{Updating files with convert-ly}.
+voir @rprogram{Updating files with convert-ly}.
 
 Malheureusement, @code{convert-ly} ne peut pas réaliser toutes les
 modifications.  Il s'occupe des changements qui ne requièrent qu'une
 simple substitution de texte --- comme @code{raggedright} devenant
 @code{ragged-right} ---, les autres étant trop compliqués à effectuer.
 Les changements de syntaxe qui ne sont pas gérés par @code{convert-ly}
-sont énumérés dans @ref{Updating files with convert-ly}.
+sont énumérés dans @rprogram{Updating files with convert-ly}.
 
 Par exemple, dans les versions 2.4 et antérieures de LilyPond,
 les accents et les lettres non anglaises étaient entrées en

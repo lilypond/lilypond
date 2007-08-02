@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 8791591cda0187e947fa6162ce261bc97df698ee
+    Translation of GIT committish: d5b91d83f5dfec811302de39dbabdb189024f67a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -152,15 +152,15 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-* Install::                        comment installer ou compiler.
+* Install::                        installation, compilation.
+* Setup::                          utilisation de LilyPond avec d'autres programmes.
 * Running LilyPond::               mode d'emploi.
-* LilyPond-book::                  intégrer texte et musique.
+* LilyPond-book::                  intégration de texte et musique.
 * Converting from other formats::  conversion vers le format source lilypond.
 
 Annexes
 
 * GNU Free Documentation License:: licence de ce document.
-* LilyPond command index::
 * LilyPond index::
 @end menu
 @end ifnottex
@@ -170,17 +170,13 @@ Annexes
 
 @include macros.itexi
 
-@include install.itexi
+@include install.itely
+@include setup.itely
 @include running.itely
 @include lilypond-book.itely
 @include converters.itely
 
 @include fdl.itexi
-
-@node LilyPond command index
-@appendix LilyPond command index
-
-@printindex ky
 
 @node LilyPond index
 @appendix LilyPond index

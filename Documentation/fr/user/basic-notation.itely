@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
+    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -845,8 +845,6 @@ suivante, ou à la prochaine note.
 
 Référence du programme : @internalsref{TupletBracket},
 @internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
-
-Exemples: @inputfileref{input/@/regression,tuplet@/-nest@/.ly}.
 
 
 
@@ -3026,8 +3024,6 @@ d4
 
 Référence du programme : @internalsref{BreathingSign}.
 
-D'autres exemples : @inputfileref{input/@/regression,breathing@/-sign@/.ly}.
-
 
 @node Trills
 @subsection Trills
@@ -3347,10 +3343,11 @@ Consultez @ref{Bar lines} pour plus d'informations.
 
 @seealso
 
-Les crochets précédant une reprise s'impriment d'ordinaire
-seulement au-dessus de la portée du haut.  On peut ajuster cela
-en définissant la propriété @code{voltaOnThisStaff} : voir
-@lsr{repeats,volta@/-multi@/-staff@/.ly}
+Les crochets précédant une reprise s'impriment d'ordinaire seulement
+au-dessus de la portée du haut.  On peut ajuster cela en déplaçant le
+graveur @code{Volta_engraver} vers les contextes de portée
+(@code{Staff}) qui doivent comporter ces crochets ;
+voir @ref{Modifying context plug-ins} et @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
 @refbugs
