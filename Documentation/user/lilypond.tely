@@ -7,6 +7,8 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond user manual
+@documentencoding utf-8
+@documentlanguage en
 
 @iftex
 @afourpaper
@@ -69,9 +71,6 @@ This document is also available as a
 @c  This produces the unified index
 @syncodeindex fn cp
 @syncodeindex vr cp
-
-@documentlanguage en
-@documentencoding utf-8
 
 
 @finalout

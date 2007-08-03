@@ -8,6 +8,7 @@
 
 @setfilename lilypond.info
 @settitle GNU LilyPond -- manuel de l'utilisateur
+@documentencoding UTF-8
 
 @iftex
 @afourpaper
@@ -39,7 +40,6 @@ Ce document est également disponible au format
 @documentlanguage fr
 @frenchspacing on
 @end iftex
-@documentencoding UTF-8
 
 @syncodeindex fn cp
 @c @syncodeindex ky cp
