@@ -8,6 +8,7 @@
 
 @setfilename lilypond-program.info
 @settitle GNU LilyPond -- utilisation du programme
+@documentencoding UTF-8
 
 @iftex
 @afourpaper
@@ -32,11 +33,11 @@ Ce document est également disponible au format
 @uref{source/Documentation/user/lilypond-program.fr.pdf,PDF}.
 @end ifhtml
 
-@documentlanguage fr
+@c urg, makeinfo 4.9.91 French translation is funky
 @iftex
+@documentlanguage fr
 @frenchspacing on
 @end iftex
-@documentencoding UTF-8
 
 @syncodeindex fn cp
 @c @syncodeindex ky cp

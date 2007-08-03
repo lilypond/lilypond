@@ -7,6 +7,8 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond
+@documentencoding UTF-8
+@documentlanguage de
 
 @iftex
 @afourpaper
@@ -63,9 +65,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 Dieses Dokument ist auch als
 @uref{source/Documentation/user/lilypond.de.pdf,PDF} verfügbar.
 @end ifhtml
-
-@documentlanguage de
-@documentencoding UTF-8
 
 
 @c  This produces the unified index

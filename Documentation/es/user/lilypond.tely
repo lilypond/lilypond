@@ -7,6 +7,8 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond
+@documentencoding UTF-8
+@documentlanguage es
 
 @iftex
 @afourpaper
@@ -65,8 +67,6 @@ Este documento también está disponible como
 @uref{source/Documentation/user/lilypond.es.pdf,PDF}.
 @end ifhtml
 
-@documentlanguage es
-@documentencoding UTF-8
 
 @c  This produces the unified index
 @syncodeindex fn cp

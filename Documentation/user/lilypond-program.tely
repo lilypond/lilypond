@@ -7,6 +7,8 @@
 @end ignore
 @setfilename lilypond-program.info
 @settitle GNU LilyPond program usage
+@documentencoding utf-8
+@documentlanguage en
 
 @iftex
 @afourpaper
@@ -38,9 +40,6 @@ This document is also available as a
 @c  This produces the unified index
 @syncodeindex fn cp
 @syncodeindex vr cp
-
-@documentlanguage en
-@documentencoding utf-8
 
 
 @finalout
