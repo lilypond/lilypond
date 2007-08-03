@@ -50,7 +50,7 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
 
 check-translation:
-	find $(ISOLANG)/user/ -name '*.*te??' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
+	find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
