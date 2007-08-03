@@ -106,7 +106,7 @@ Lookup::dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction)
 			ly_quote_scm (l),
 			SCM_UNDEFINED));
 
-  Box box (Interval (0, 0), Interval (0, 0));
+  Box box (b.extent (X_AXIS), b.extent (Y_AXIS));
   return Stencil (box, at);
 }
 
