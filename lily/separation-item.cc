@@ -30,13 +30,12 @@ Separation_item::add_conditional_item (Grob *me, Grob *e)
   Pointer_group_interface::add_grob (me, ly_symbol2scm ("conditional-elements"), e);
 }
 
-bool
-Separation_item::set_distance (Drul_array<Item *> items,
-			       Real padding)
+Real
+Separation_item::set_distance (Item *l, Item *r, Real padding)
 {
-  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (items[LEFT]->get_property ("horizontal-skylines")),
-				   Skyline_pair::unsmob (items[RIGHT]->get_property ("horizontal-skylines")));
-  Skyline right = conditional_skyline (items[RIGHT], items[LEFT]);
+  Drul_array<Skyline_pair*> lines (Skyline_pair::unsmob (l->get_property ("horizontal-skylines")),
+				   Skyline_pair::unsmob (r->get_property ("horizontal-skylines")));
+  Skyline right = conditional_skyline (r, l);
   right.merge ((*lines[RIGHT])[LEFT]);
   
   Real dist = padding + (*lines[LEFT])[RIGHT].distance (right);
@@ -44,13 +43,13 @@ Separation_item::set_distance (Drul_array<Item *> items,
     {
       Rod rod;
 
-      rod.item_drul_ = items;
+      rod.item_drul_ = Drul_array<Item*> (l, r);
 
       rod.distance_ = dist;
       rod.add_to_cols ();
     }
 
-  return dist > 0;
+  return max (dist, 0.0);
 }
 
 bool
