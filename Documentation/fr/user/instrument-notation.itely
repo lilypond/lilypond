@@ -643,7 +643,7 @@ Voyez par vous-même :
 LilyPond intègre également deux autres modèles de chiffrages :
 une notation Jazz alternative, et un modèle appelé le système Banter.
 Voir à ce sujet @ref{Chord name chart} et
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly} pour la mise en œuvre de
+@code{input/@/test,chord@/-names@/-jazz@/.ly} pour la mise en œuvre de
 ces modèles.
 
 @cindex Banter
@@ -670,7 +670,7 @@ ces modèles.
 Exemples :
 @lsr{chords/,chord@/-name@/-exceptions@/.ly},
 @lsr{chords,chord@/-name@/-major7@/.ly} et
-@inputfileref{input/@/test,chord@/-names@/-jazz@/.ly}.
+@code{input/@/test,chord@/-names@/-jazz@/.ly}.
 
 
 Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
@@ -2405,7 +2405,7 @@ Par ailleurs, plusieurs propriétés permettent d'ajuster les graphismes
 
 @seealso
 
-Exemples : @inputfileref{input/@/test,fret@/-diagram@/.ly}
+Exemples : @code{input/@/test,fret@/-diagram@/.ly}
 
 
 @node Right hand fingerings
@@ -2781,7 +2781,7 @@ Pour utiliser les formes anciennes d'altération, utilisez la propriété
 Vous noterez que chacun de ces styles ne comporte pas toutes les
 altérations.  LilyPond changera de style s'il est besoin d'une
 altération indisponible dans le style utilisé, comme vous pouvez le
-constater dans @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
+constater dans @code{input/@/test,ancient@/-accidentals@/.ly}.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
@@ -2795,7 +2795,7 @@ l'utilisation des altérations ; @ref{Key signature} pour les armures.
 
 Référence du Programme : @internalsref{KeySignature}.
 
-Exemples : @inputfileref{input/@/test,ancient@/-accidentals@/.ly}.
+Exemples : @code{input/@/test,ancient@/-accidentals@/.ly}.
 
 @node Ancient rests
 @subsection Ancient rests
@@ -2823,7 +2823,7 @@ r\longa r\breve r1 r2 r4 r8 r16
 Les styles @code{mensural} et @code{neomensural} ne disposent pas des
 8ième et 16ième de soupir ; LilyPond utilisera dans de tels cas le
 style par défaut.  Une liste exhaustive des silences est disponible à
-@inputfileref{input/@/test,rests@/.ly}. 
+@code{input/@/test,rests@/.ly}. 
 
 En ce qui concerne la notation grégorienne, il n'y a pas de silence.
 Par contre, elle utilise les @ref{Divisiones}.
@@ -3388,7 +3388,7 @@ Dans ce même manuel : @ref{Breath marks}.
 
 Référence du Programme : @internalsref{BreathingSign}.
 
-Exemples : @inputfileref{input/@/test,divisiones@/.ly}.
+Exemples : @code{input/@/test,divisiones@/.ly}.
 
 @node Ligatures
 @subsection Ligatures
