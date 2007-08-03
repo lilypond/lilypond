@@ -32,8 +32,9 @@ Ce document est également disponible au format
 @uref{source/Documentation/user/lilypond-program.fr.pdf,PDF}.
 @end ifhtml
 
-@documentlanguage fr
+@c urg, makeinfo 4.9.91 French translation is funky
 @iftex
+@documentlanguage fr
 @frenchspacing on
 @end iftex
 @documentencoding UTF-8
