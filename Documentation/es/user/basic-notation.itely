@@ -490,7 +490,7 @@ con otro @code{transpose}
 
 Referencia del programa: @internalsref{TransposedMusic}.
 
-Ejemplo: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+Ejemplo: @code{input/@/test,smart@/-transpose@/.ly}.
 
 
 @refbugs
@@ -1583,7 +1583,7 @@ se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 Referencia del programa: @internalsref{TimeSignature} y
 @internalsref{Timing_translator}.
 
-Ejemplos: @inputfileref{input/@/test,compound@/-time@/.ly}.
+Ejemplos: @code{input/@/test,compound@/-time@/.ly}.
 
 
 @refbugs
@@ -1868,8 +1868,8 @@ que se llama el @code{staff symbol} (el símbolo del pentagrama).
 El símbolo del pentagrama se puede ajustar en el número, grosor
 y separación de las líneas, usando las propiedades.  Esto se demuestra en los
 archivos de ejemplo
-@inputfileref{input/@/test,staff@/-lines@/.ly} y
-@inputfileref{input/@/test,staff@/-size@/.ly}.
+@code{input/@/test,staff@/-lines@/.ly} y
+@code{input/@/test,staff@/-size@/.ly}.
 
 Además, los pentagramas se pueden iniciar e interrumpir libremente.  Esto se
 hace con @code{\startStaff} y @code{\stopStaff}.
@@ -1900,9 +1900,9 @@ esto se puede usar para componer tipográficamente secciones de ossia.  He aquí
 
 Referencia del programa: @internalsref{StaffSymbol}.
 
-Ejemplos: @inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly},
+Ejemplos: @code{input/@/test,staff@/-lines@/.ly},
+@code{input/@/test@/,ossia.ly},
+@code{input/@/test,staff@/-size@/.ly},
 @lsr{staff,staff-line-positions.ly}
 
 
