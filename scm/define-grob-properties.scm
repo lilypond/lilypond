@@ -189,7 +189,8 @@ X@tie{}dimension by this much.")
      (extra-dy ,number? "Slope glissandi this much extra.")
      (extra-offset ,number-pair? "A pair representing an offset.  This
 offset is added just before outputting the symbol, so the typesetting
-engine is completely oblivious to it.")
+engine is completely oblivious to it.  The values are measured in
+@code{staff-space} units of the staff's @code{StaffSymbol}.")
      (extra-spacing-width ,number-pair? "In the horizontal spacing
 problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
