@@ -48,7 +48,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Importing Finale.
 * lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Itegrating text and music.
 * midi2ly: (lilypond/lilypond-program)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond/lilypond-program)Invoking mup2ly.          Importing Mup.
 @end direntry
 
 @c don't remove this comment.
