@@ -796,7 +796,7 @@ Here, what we want to set (the @q{place}) is the @q{elements} property of
 (the @code{'elements}, @code{'duration}, @code{'pitch}, etc, that we
 see in the @code{\displayMusic} output above).  The new value is the
 former elements property, with an extra item: the
-@code{MarcatoEvent} expression, which we copy from the
+@code{ArticulationEvent} expression, which we copy from the
 @code{\displayMusic} output,
 
 @example
@@ -810,7 +810,7 @@ original list.  This is what we
 want: the same list as before, plus the new @code{ArticulationEvent}
 expression.  The order inside the elements property is not important here.
 
-Finally, once we have added the @code{MarcatoEvent} to its elements
+Finally, once we have added the marcato articulation to its @code{elements}
 property, we can return @code{result-event-chord}, hence the last line of
 the function.
 
