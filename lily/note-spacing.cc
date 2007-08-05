@@ -66,16 +66,18 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     adjust things so there are no collisions.
   */
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
-  Real min_dist = max (0.0, skys[LEFT].distance (skys[RIGHT]));
+  Real distance = skys[LEFT].distance (skys[RIGHT]);
+  Real min_dist = max (0.0, distance);
   Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
+  Real ideal = max (base_space - increment + left_head_end, min_desired_space);
 
-  /* if the right object sticks out a lot, include a bit of extra space.
-     But only for non-musical-columns; this shouldn't apply to accidentals */
+  /* If the NonMusicalPaperColumn on the right sticks out a lot, ensure that
+     the amount of whitespace between the end of the note-head and that column is
+     (base_spacing - increment) (without this line, this would be the distance,
+     not the whitespace)
+  */
   if (!Paper_column::is_musical (right_col))
-    min_desired_space = max (min_desired_space,
-			     left_head_end + LEFT * skys[RIGHT].max_height ());
-
-  Real ideal = base_space - increment + min_desired_space;
+    ideal = max (ideal, base_space - increment + distance);
 
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 

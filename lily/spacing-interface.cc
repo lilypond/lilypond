@@ -17,6 +17,7 @@
 #include "paper-column.hh"
 #include "separation-item.hh"
 #include "skyline.hh"
+#include "system.hh"
 
 /* return the right-pointing skyline of the left-items and the left-pointing
    skyline of the right-items (with the skyline of the left-items in
@@ -38,29 +39,41 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
   Drul_array<vector<Grob*> > items (ly_scm2link_array (orig->get_object ("left-items")),
 				    ly_scm2link_array (orig->get_object ("right-items")));
 
+  Grob *system = me->get_system ();
+  Grob *left_col = dynamic_cast<Item*> (me)->get_column ();
+
+  Drul_array<Grob*> columns (left_col, right_col);
+
   Direction d = LEFT;
   do
     {
-      skylines[d].set_minimum_height (0.0);
-
       for (vsize i = 0; i < items[d].size (); i++)
 	{
-	  Grob *g = items[d][i];
-	  if (Item *it = dynamic_cast<Item*> (g))
-	    if (Grob *piece = it->find_prebroken_piece (break_dirs[d]))
+	  Item *g = dynamic_cast<Item*> (items[d][i]);
+	  if (g)
+	    if (Item *piece = g->find_prebroken_piece (break_dirs[d]))
 	      g = piece;
 
-	  if (Separation_item::has_interface (g))
+	  if (g && Separation_item::has_interface (g) && g->get_column () == columns[d])
 	    {
 	      SCM sky_scm = g->get_property ("horizontal-skylines");
 	      Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
+	      Real shift = g->pure_relative_y_coordinate (system, 0, INT_MAX);
+	      Real raise = g->relative_coordinate (columns[d], X_AXIS);
+
+	      skylines[d].shift (-shift);
+	      skylines[d].raise (-raise);
+
 	      if (sky)
 		skylines[d].merge ((*sky)[-d]);
 	      else
 		programming_error ("separation item has no skyline");
-	    
+
 	      if (d == RIGHT && items[LEFT].size ())
 		skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
+
+	      skylines[d].shift (shift);
+	      skylines[d].raise (raise);
 	    }
 	}
     }
