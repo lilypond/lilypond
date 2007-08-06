@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+   Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -74,7 +74,7 @@ Notez que chaque fichier modèle contient une ligne @code{\version
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @code{convert-ly} demande que vous
-spécifiiez quelle version de LilyPond vous utilisiez.
+spécifiiez la version de LilyPond vous utilisiez alors.
 
 @item @strong{Ajoutez des contrôles}: @ref{Bar check}, @ref{Octave
 check} et @ref{Barnumber check}.  Si vous avez ajouté des contrôles de
@@ -125,12 +125,12 @@ utiliser la commande @code{showLastLength} pour accélérer la
 compilation --- voir @ref{Skipping corrected music} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
-@code{\mBreak} dans le fichier d'entrée des sauts de ligne identiques à la
-partition originale.  Cela facilite la comparaison entre la partition
-originale et la partition de LilyPond.  Lorsque vous avez fini de
-relire votre musique, vous pouvez définir @code{mBreak = @{ @}} pour
-enlever tous ces sauts de ligne, et laisser LilyPond placer les sauts
-de ligne selon son propre algorithme.
+@code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
+ligne identiques à la partition originale.  Cela facilite la
+comparaison entre la partition originale et la partition de 
+LilyPond.  Lorsque vous avez fini de relire votre musique, vous pouvez
+définir @code{mBreak = @{ @}} pour enlever tous ces sauts de ligne, et
+laisser LilyPond placer les sauts de ligne selon son propre algorithme.
 
 @end itemize
 
@@ -165,7 +165,7 @@ g4 c'8. e16
 
 @item @strong{Séparez les retouches} des définitions de
 musique.  Ce conseil a été vu dans @ref{General suggestions},
-mais pour les gros projets c'est absolument vital.  Nous
+mais pour les projets d'importance c'est absolument vital.  Nous
 pouvons avoir besoin de changer la définition de
 @code{fthenp}, mais dans ce cas nous n'aurons besoin de le faire
 qu'une seule fois, et nous pourrons encore éviter de
@@ -258,7 +258,7 @@ violin = \relative c'' @{
 
 Jusqu'ici nous avons vu des substitutions statiques : quand LilyPond
 rencontre @code{\padText}, il le remplace par le contenu que nous lui
-avons défini --- c'est-à-dire le contenu à droite de @code{padText=}).
+avons défini --- c'est-à-dire le contenu à droite de @code{padText=}.
 
 LilyPond gère également des substitutions non-statiques --- vous
 pouvez les voir comme des fonctions.
@@ -533,9 +533,9 @@ alors à
 @end example
 
 Cette approche peut être utile même si vous ne produisez qu'un seul
-jeu de partitions.  J'utilise une demi-douzaine de fichiers de
-@qq{feuille de style} pour mes projets.  Je commence chaque fichier de
-musique par @code{\include "../global.ly"} qui contient :
+jeu de partitions.  J'utilise personnellement une demi-douzaine de
+fichiers de @qq{feuille de style} pour mes projets.  Je commence
+chaque fichier de musique par @code{\include "../global.ly"} qui contient :
 
 @example
 %%%   global.ly
@@ -670,7 +670,7 @@ début de votre exemple.
 Tout l'intérêt d'un exemple minimal réside dans sa facilité de lecture :
 @itemize
 @item évitez d'utiliser des notes, armures ou métriques compliquées, à
-moins que vous vouliez montrer quelque chose en rapport avec
+moins que vous ne vouliez montrer quelque chose en rapport avec
 celles-ci,
 @item n'utilisez pas de commandes @code{\override} sauf si elles font
 l'intérêt de l'exemple.

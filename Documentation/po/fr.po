@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 13:38+0200\n"
-"PO-Revision-Date: 2007-08-02 14:43+0200\n"
+"PO-Revision-Date: 2007-08-06 14:44+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -583,7 +583,7 @@ msgstr "clef"
 # bof
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "All together"
-msgstr "Tout ensemble"
+msgstr "Assemblage"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
@@ -707,7 +707,7 @@ msgstr "Barres de ligature automatiques et manuelles"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
 msgid "beam"
-msgstr "barre de ligature"
+msgstr "barres de ligature"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
@@ -834,7 +834,7 @@ msgstr "Bien lire le manuel"
 #. @node in ../../../Documentation/user/putting.itely
 #. @chapter in ../../../Documentation/user/putting.itely
 msgid "Putting it all together"
-msgstr "Tout mettre en ordre"
+msgstr "Organisation et assemblage"
 
 #. @node in ../../../Documentation/user/putting.itely
 #. @section in ../../../Documentation/user/putting.itely
