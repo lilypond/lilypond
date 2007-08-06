@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -51,18 +51,24 @@
 	    <a class="title" href="user/lilypond/Tutorial.es.html">Tutorial</a>
 	      <br>(comience por aquí)
 
+	   <li><a class="title" href="user/music-glossary/index.html">Glosario</a> multilingüe<br>
+(en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 1 Mb,
+en <a class="title" href="user/music-glossary.pdf">PDF</a>)
+
+     <br>(para usuarios de habla no inglesa)
 	  </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
+            <li>
+	    <a class="title" href="user/lilypond-program/index.html">Instrucciones de manejo</a>
+(en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>,
+en <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+	    <br>(cómo instalar y ejecutar el programa)
 	  
-            <li>
-	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
- 	    <br>(cambios producidos desde el último lanzamiento importante)
+<li><a class="title" href="../examples.html">Ejemplos</a>
+     <br>(ver algunos ejemplos)
 
-            <li>
-	    <a class="title" href="topdocs/INSTALL.html">Instalación</a>
- 	    <br>(cómo compilarlo)
 	  </ul>
 	  </td>
         </tr>
@@ -74,47 +80,48 @@
 <a class="title" href="user/lilypond/index.es.html">Manual del usuario</a> [parcialmente traducido]<br>
 (en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb, <br>
 y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
-
      <br>(todo sobre LilyPond)
-     
-<li><a class="title" href="../examples.html">Ejemplos</a>
 
-     <br>(ver algunos ejemplos)
-
-<li><a class="title" href="../input/lsr/collated-files.html">Fragmentos de código</a>
-     <br>
-
- <li><a class="title" href="user/music-glossary/index.html">Glosario</a> multilingüe<br>
-(en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 1 Mb,
-en <a class="title" href="user/music-glossary.pdf">PDF</a>)
-
-     <br>(para usuarios de habla no inglesa)
-	  </ul>
+       <li>
+ <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a> [en inglés]<br>
+ (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)
+     <br>(definiciones para hacer trucos)
+	 
+  </ul>
 	  </td>
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-	    <li>
- <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a> [en inglés]<br>
- (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)
+            <li>
+	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
+ 	    <br>(cambios producidos desde el último<br>lanzamiento importante)
 
-     <br>(definiciones para hacer trucos)
+<li><a class="title" href="../input/lsr/collated-files.html">Fragmentos de código</a>
+     <br>(Trucos breves, consejos y ejemplos)
 
-	    <li>
-     <a  class="title" href="../input/regression/collated-files.html">Pruebas de regresión</a> (~ 5 Mb, en <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">comparación</a>)
+	</ul>
 
+    </td><tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+	<ul>
+	    <li><a class="title" href="bibliography/index.html">Bibliografía</a>
+     <br>(acerca de la información de apoyo)
+
+    <li>
+     <a  class="title" href="../input/regression/collated-files.html">Pruebas de regresión</a> (~ 5 Mb, en <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
      <br>(para los desarrolladores)
 
+	</ul>
+    </td><td class="right-column">
+          &nbsp;
+    <ul>
+        <li><a class="title"  href="THANKS.html">Agradecimientos</a>
+	<br>(a nuestros colaboradores)
 
-	    <li><a  class="title" href="bibliography/index.html">Bibliografía</a>
-
-     <br>(acerca de la información de apoyo)
-<li><a class="title"  href="THANKS.html">Agradecimientos</a>
-<br>(a nuestros colaboradores)
-
-<li><a class="title"  href="DEDICATION.html">Dedicatoria</a>
-
-     <br>(por Jan y Han-Wen)
+        <li><a class="title"  href="DEDICATION.html">Dedicatoria</a>
+	<br>(por Jan y Han-Wen)
 
 	  </ul>
 	  </td>
