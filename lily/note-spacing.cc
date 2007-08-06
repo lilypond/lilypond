@@ -8,6 +8,7 @@
 
 #include "note-spacing.hh"
 
+#include "bar-line.hh"
 #include "directional-element-interface.hh"
 #include "grob-array.hh"
 #include "paper-column.hh"
@@ -69,16 +70,21 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   Real distance = skys[LEFT].distance (skys[RIGHT]);
   Real min_dist = max (0.0, distance);
   Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
-  Real ideal = max (base_space - increment + left_head_end, min_desired_space);
+  Real ideal = base_space - increment + left_head_end;
 
-  /* If the NonMusicalPaperColumn on the right sticks out a lot, ensure that
-     the amount of whitespace between the end of the note-head and that column is
-     (base_spacing - increment) (without this line, this would be the distance,
-     not the whitespace)
-  */
-  if (!Paper_column::is_musical (right_col))
-    ideal = max (ideal, base_space - increment + distance);
+  /* If we have a NonMusical column on the right, we measure the ideal distance
+     to the bar-line (if present), not the start of the column. */
+  if (!Paper_column::is_musical (right_col) && !skys[RIGHT].is_empty ())
+    {
+      Grob *bar = Pointer_group_interface::find_grob (right_col,
+						      ly_symbol2scm ("elements"),
+						      Bar_line::has_interface);
 
+      if (bar)
+	ideal -= bar->extent (right_col, X_AXIS)[LEFT];
+    }
+
+  ideal = max (ideal, min_desired_space);
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
   Spring ret (ideal, min_dist);
