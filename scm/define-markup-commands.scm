@@ -1107,7 +1107,7 @@ Use the filled head if @var{filled} is specified."
      name)))
 
 (define-builtin-markup-command (musicglyph layout props glyph-name) (string?)
-  "@var{glyph0name} is converted to a musical symbol; for example,
+  "@var{glyph-name} is converted to a musical symbol; for example,
 @code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
 the music font.  See @usermanref{The Feta font} for a complete listing of
 the possible glyphs."
