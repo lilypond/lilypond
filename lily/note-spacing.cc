@@ -88,7 +88,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_compress_strength (max (0.0, ideal - max (min_dist, min_desired_space)));
+  ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
   ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
   return ret;
 }
@@ -215,6 +215,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       for (vsize i = 0; i < items.size (); i++)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
+	  if (!Note_column::has_interface (it))
+	    continue;
 
 	  /*
 	    don't correct if accidentals are sticking out of the right side.
