@@ -69,7 +69,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
   Real distance = skys[LEFT].distance (skys[RIGHT]);
   Real min_dist = max (0.0, distance);
-  Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
+  Real min_desired_space = left_head_end + (min_dist - left_head_end + base_space - increment) / 2;
   Real ideal = base_space - increment + left_head_end;
 
   /* If we have a NonMusical column on the right, we measure the ideal distance

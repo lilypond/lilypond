@@ -58,11 +58,12 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 	    {
 	      SCM sky_scm = g->get_property ("horizontal-skylines");
 	      Skyline_pair *sky = Skyline_pair::unsmob (sky_scm);
-	      Real shift = g->pure_relative_y_coordinate (system, 0, INT_MAX);
-	      Real raise = g->relative_coordinate (columns[d], X_AXIS);
+
+	      extract_grob_set (g, "elements", elts);
+	      Grob *ycommon = common_refpoint_of_array (elts, g, Y_AXIS);
+	      Real shift = ycommon->pure_relative_y_coordinate (system, 0, INT_MAX);
 
 	      skylines[d].shift (-shift);
-	      skylines[d].raise (-raise);
 
 	      if (sky)
 		skylines[d].merge ((*sky)[-d]);
@@ -73,7 +74,6 @@ Spacing_interface::skylines (Grob *me, Grob *right_col)
 		skylines[d].merge (Separation_item::conditional_skyline (items[d][i], items[LEFT][0]));
 
 	      skylines[d].shift (shift);
-	      skylines[d].raise (raise);
 	    }
 	}
     }
