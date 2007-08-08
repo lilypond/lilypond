@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: 32fe8d89d5c4fe9c73c1daf200cd23c7e8f2d3fc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -696,7 +696,13 @@ mezclar música y texto dentro de los documentos, en algo muy sencillo.
 @node About this manual
 @section About this manual
 
-El manual se divide en los siguientes capítulos:
+El manual se divide en cuatro libros.
+
+@subsubheading Learning manual
+
+Este libro explica cómo empezar el aprendizaje de LilyPond, así como algunos
+conceptos clave en términos sencillos.
+
 @itemize @bullet
 
 @item
@@ -721,6 +727,16 @@ comunes.
 @emph{@ref{Tweaking output}}
 muestra la manera de cambiar el grabado por omisión que produce
 LilyPond.
+
+@end itemize
+
+@subsubheading Notation reference
+
+Este libro explica todas las instrucciones de LilyPond que producen notación impresa.  Da
+por supuesto que el lector está familiarizado con los conceptos del manual
+de aprendizaje.
+
+@itemize @bullet
 
 @item
 @emph{@ref{Basic notation}}
@@ -757,22 +773,41 @@ tamaño del papel o la especificación de los saltos de página.
 @emph{@ref{Interfaces for programmers}}
 explica cómo crear funciones musicales.
 
+@end itemize
+
+
+@subsubheading Program usage
+
+Este libro explica la manera de ejecutar el programa y cómo integrar
+la notación de LilyPond con otros programas.
+
+@itemize @bullet
+
 @item
-@emph{@ref{Running LilyPond}}
+@emph{@rprogram{Running LilyPond}}
 muestra la manera de ejecutar LilyPond y sus programas asistentes.
 Además, esta sección explica cómo actualizar los archivos de entrada
 de versiones de LilyPond anteriores.
 
 @item
-@emph{@ref{LilyPond-book}} da los detalles que se encuentran detrás de la creación de
+@emph{@rprogram{LilyPond-book}}
+da los detalles que se encuentran detrás de la creación de
 documentos con ejemplos de música insertados, como este manual.
 
 @item
-@emph{@ref{Converting from other formats}}
+@emph{@rprogram{Converting from other formats}}
 explica cómo ejecutar los programas de conversión.  Estos programas se proporcionan
 con el paquete LilyPond, y convierten una amplia variedad de formatos de
 música al formato @code{.ly}.
 
+@end itemize
+
+
+@subsubheading Appendices
+
+Este libro contiene unos útiles cuadros de referencia.
+
+@itemize @bullet
 @item
 @ifhtml
 La
@@ -815,61 +850,58 @@ es un índice completo.
 @end itemize
 
 
-Cuando ya sea un usuario con experiencia podrá usar el manual como referencia:
-hay un índice muy completo@footnote{Si está buscando algo y
-no lo encuentra en el manual, eso se considera un bug (fallo).  En este
-caso le rogamos que envíe un informe de fallo.}, pero el documento también
-está disponible en
-@iftex
-una sola página HTML enorme,
-@end iftex
-@ifhtml
-@uref{source/Documentation/user/lilypond.html, una sola página enorme},
-@end ifhtml
-en la que es fácil buscar cualquier cosa utilizando la función de búsqueda de su
-navegador de web.
-@cindex buscar en el manual
-@cindex usar el manual
+@subsubheading Other information
 
-@c FIXME:
-@c add/integrate glossary, put in list above
-Si no está familiarizado con la notación o la terminología musicales
-(sobre todo si no es un anglófono nativo), le recomendamos que
-consulte también el glosario.
-@iftex
-El glosario explica los términos musicales, e incluye traducciones
-a varios idiomas.  Es un docuento aparte, disponible en HTML
-y en PDF.
-@end iftex
-@ifnottex
-El @ref{Top,Glosario de música,,music-glossary} explica los términos musicales e
-incluye traducciones a varios idiomas.  También se encuentra disponible en
-PDF.
-@end ifnottex
+Existen otras fuentes de información que pueden resultar muy útiles.
+
+@itemize @bullet
 @cindex frase idiomática
 @cindex jerga
 @cindex terminología
 @cindex idiomas extranjeros
 @cindex idioma
-
-
-Este manual no estaría completo sin un cierto número de otros documentos.  No
-se encuentran disponibles en una forma lista para la impresión, pero deberían venir incluidos con el
-paquete de documentación para su plataforma informática
-
-@itemize @bullet
 @item
+@ifnottex
+El @ref{Top,Glosario de música,,music-glossary} explica los términos musicales e
+incluye traducciones a varios idiomas.  También se encuentra disponible en
+PDF.
+@end ifnottex
+@iftex
+El glosario explica los términos musicales, e incluye traducciones
+a varios idiomas.  Es un docuento aparte, disponible en HTML
+y en PDF.
+@end iftex
+Si no está familiarizado con la notación o la terminología musicales
+(sobre todo si no es un anglófono nativo), le recomendamos que
+consulte el glosario.
+
+@cindex snippets
+@cindex LSR
+@item
+Los
+@ifhtml
+@uref{source/input/lsr/collated-files.html,fragmentos de código (snippets)}
+@end ifhtml
+@ifnothtml
+fragmentos de código (snippets)
+@end ifnothtml
+son una enorme colección de pequeños ejemplos que ejemplifican toda clase de consejos, trucos
+y funcionalidades especiales de LilyPond.  La mayor parte de estos fragmentos de código también se pueden
+encontrar en el @uref{http://lsr.dsi.unimi.it/,Archivo de fragmentos de código (snippets)
+de LilyPond}.  Este sitio web también dispone de un manual de LilyPond en el que se peuden realizar búsquedas.
+
+
+@item
+La
 @iftex
 Referencia del programa
 @end iftex
 @ifnottex
-@ref{Top,Referencia del programa,,lilypond-internals}.
+@ref{Top,referencia del programa,,lilypond-internals}
 @end ifnottex
-
-La referencia del programa es un conjunto de páginas HTML con una tupida red de enlaces cruzados,
-que documentan al detalle el meollo de todas y cada una de las
-clases, objetos y funciones de LilyPond.  Se produce directamente a partir de las
-definiciones de formateo que se utilizan.
+es un conjunto de páginas HTML con una tupida red de enlaces cruzados, que documentan al detalle el
+meollo de todas y cada una de las clases, objetos y funciones de LilyPond.
+Se produce directamente a partir de las definiciones de formateo que se utilizan.
 
 Casi toda la funcionalidad de formateo que se emplea internamente, se encuentra
 disponible para el usuario de forma directa.  Por ejemplo, todas las variables que controlan
@@ -877,40 +909,25 @@ los valores de grosor, distancias, etc., se pueden cambiar dentro de los archivo
 Hay un enorme número de opciones de formateo, y todas ellas
 se describen en este documento.  Cada sección del manual de notación
 tiene una subsección @b{Véase también}, que hace referencia a la documentación
-generada.  En el documento HTML, estas subseciones llevan enlaces que se pueden plusar.
+generada.  En el documento HTML, estas subsecciones llevan enlaces que se pueden plusar.
 
-
-@cindex fragmentos de código
-@item
-@ifnothtml
-Diversos ejemplos de entrada.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/test,Various input examples}.
-@uref{source/input/test/collated-files.html,Diversos ejemplos de entrada}.
-@end ifhtml
-
-This collection of files shows various tips and tricks, and is
-available as a big HTML document, with pictures and explanatory texts
-included.
-
-@item
-@ifnothtml
-Las pruebas de regresión.
-@end ifnothtml
-@ifhtml
-@c Works, but link name is not so nice; so write-out macro
-@c @inputfileref{input/regression,The regression tests}.
-@uref{source/input/regression/collated-files.html,The regression tests}.
-@end ifhtml
-
-Esta colección de archivos sirve para probar todas las funcionalidades de notación y grabado
-de LilyPond en un único archivo.  La colección está ahí en primer lugar para ayudarnos
-a depurar los problemas, pero puede ser muy instructiva para ver cómo ponemos al programa a hacer ejercicio.
-El formato es similar al del documento de consejos y trucos.
 @end itemize
 
+
+Cuando ya sea un usuario con experiencia podrá usar el manual como referencia:
+hay un índice muy completo@footnote{Si está buscando algo
+y no lo encuentra en el manual, eso se considera un bug (fallo).
+En este caso le rogamos que envíe un informe de fallo.}, pero el documento también está
+disponible en
+@iftex
+una sola página HTML,
+@end iftex
+@ifhtml
+@uref{source/Documentation/user/lilypond-big-page.html,una sola página enorme},
+@end ifhtml
+en la que es fácil buscar cualquier cosa utilizando la función de búsqueda de su
+navegador de web.
+ 
 
 En todos los documentos HTML que tienen fragmentos de música
 incrustados, la entrada de LilyPond que se utilizó para producir dicha
@@ -920,13 +937,13 @@ La localización exacta de los archivos de documentación que hemos mencionado p
 variar de un sistema a otro.  En ocasiones este manual hace referencia a
 archivos de inicialización y de ejemplo.  A lo largo del manual, nos referimos a
 archivos de entrada por su ruta relativa respecto de directorio de nivel más alto de los archivos de código fuente.  Por
-ejemplo, @file{input/@/test/@/bla@/.ly} puede referirse al archivo
-@file{lilypond@/2.x.y/@/input/@/test/@/bla@/.ly}.  En los paquetes binarios para
-la plataforma Unix, la documentación y los ejemplos se pueden encontrar normalmente
-en algún lugar dentro de @file{/usr/@/share/@/doc/@/lilypond/}.
-Los archivos de incialización, como por ejemplo @file{scm/@/lily@/.scm}, o
-@file{ly/@/engraver@/-init@/.ly}, se encuentran normalmente en el directorio
-@file{/usr/@/share/@/lilypond/}.
+ejemplo, @file{input/@/lsr/@/dirname/@/bla@/.ly} puede referirse al archivo
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  En los paquetes binarios para
+la plataforma Unix, normalmente la documentación y los ejemplos se encuentran
+en algún lugar dentro de
+@file{/usr/@/share/@/doc/@/lilypond/}. Los archivos de incialización, como por
+ejemplo @file{scm/@/lily@/.scm}, o @file{ly/@/engraver@/-init@/.ly},
+se encuentran normalmente en el directorio @file{/usr/@/share/@/lilypond/}.
 
 @cindex ajustar la salida
 @cindex variables
@@ -940,3 +957,5 @@ Los archivos de incialización, como por ejemplo @file{scm/@/lily@/.scm}, o
 Por último, este y el resto de los manuales están disponibles en línea tanto como archivos
 PDF como HTML en el sitio web, que encontrará en
 @uref{http://@/www@/.lilypond@/.org/}.
+
+
