@@ -5,12 +5,13 @@ Release 2.11
 
 DEVELOPMENT TEAM
 
-Han-Wen Nienhuys  - Core development
-Jan Nieuwenhuizen - Core development
-Joe Neeman        - Core development
-Graham Percival   - Documentation Editor and Bug Meister
-Mats Bengtsson    - Support Guru 
-John Mandereau    - Translation Meister
+Han-Wen Nienhuys   - Core development
+Jan Nieuwenhuizen  - Core development
+Joe Neeman         - Core development
+Graham Percival    - Documentation Editor and Bug Meister
+Valentin Villenave - Assistant Documentation Editor
+Mats Bengtsson     - Support Guru 
+John Mandereau     - Translation Meister
 
 
 CONTRIBUTORS
@@ -50,6 +51,7 @@ Christian Herzberg
 David Bobroff
 David Griffel
 Daniel Johnson
+Dominic Neumann
 Eduardo Vieira
 Frédéric Chiasson
 Georg Dummer
@@ -83,7 +85,6 @@ Steven Weber
 Tomas Sauer
 Thomas Scharkowski
 Trevor Bača
-Valentin Villenave
 Vivian Barty-Taylor
 Werner Lemberg
 Wilbert Berendsen
