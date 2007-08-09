@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: c01ece138f68cfe9521f3b0ff2d852579af45889
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -212,7 +212,6 @@ los bemoles de tres cuartos, de manera que los símbolos de LilyPond
 no se ajustan a ningún estándar.
 
 
-
 @node Note names in other languages
 @subsection Note names in other languages
 
@@ -254,7 +253,6 @@ de tono que se definen en los distintos archivos de idioma se encuentran
 listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-} significan
 @q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
 sueco, catalán y español no se ha definido aún ningún nombre especial.
-
 @c What about Turkish Maquam music and similar microtonal systems?
 @c
 @c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
@@ -278,7 +276,6 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 
 
 @node Relative octaves
-
 @subsection Relative octaves
 
 @cindex Relativo
@@ -371,12 +368,10 @@ lo que indica cuál debería ser su octava absoluta.  En el siguiente ejemplo,
 @noindent
 la @code{d} generará una advertencia, porque se esperaba un @code{d''}
 (a causa de que el intervalo de @code{b'} a @code{d''} es de una tercera solamente),
-pero aparece un @code{d'}.  En la salida, la octava se corrige para que sea
-un @code{d''} y la siguiente nota se calcula de forma relativa a @code{d''} 
-en lugar de a @code{d'}.
+pero aparece un @code{d'}.  En la salida, la octava se corrige para que sea un @code{d''} y
+la siguiente nota se calcula de forma relativa a @code{d''} en lugar de a @code{d'}.
 
-También existe una comprobación de octava que no produce ninguna salida visible.
-La sintaxis
+También existe una comprobación de octava que no produce ninguna salida visible. La sintaxis
 
 @example
 \octave @var{altura}
@@ -392,7 +387,8 @@ se aprueba sin más problema, porque el @code{e} (en modo @code{relative})
 está dentro de una quinta desde @code{a'}.  Sin embargo
 la segunda comprobación produce una advertencia porque el @code{e} no está dentro
 de una quinta del @code{b'}.  Se imprime el mensaje de advertencia y la octava se ajusta
-de modo que las notas siguientes están en la octava correcta de nuevo.
+de modo que las notas siguientes están en la octava correcta
+de nuevo.
 
 @example
 \relative c' @{
@@ -490,7 +486,7 @@ con otro @code{transpose}
 
 Referencia del programa: @internalsref{TransposedMusic}.
 
-Ejemplo: @code{input/@/test,smart@/-transpose@/.ly}.
+Ejemplo: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
@@ -528,7 +524,8 @@ a'4\rest d'4\rest
 @end lilypond
 
 @noindent
-Esto hace mucho más sencillo el formateo de la música polifónica,
+Esto hace mucho más sencillo el formateo de
+la música polifónica,
 porque el formateador automático de colisiones de silencios se olvidará de ellos.
 
 @seealso
@@ -611,8 +608,7 @@ mediante números y puntos: las duraciones se introducen como sus
 valores recíprocos respecto de la redonda.  Por ejemplo, una negra
 se escribe usando un @code{4} (puesto que es 1/4 de redonda), mientras
 que una blanca se escribe con un @code{2} (por ser 1/2 de redonda).  Para
-notas mayores de la redonda se deben usar los comandos @code{\longa} y
-@code{\breve}
+notas mayores de la redonda se deben usar los comandos @code{\longa} y @code{\breve}
 
 @example
 c'\breve
@@ -651,8 +647,7 @@ r1 r2 r4 r8 r16 r32 r64 r64
 @end lilypond
 
 Si la duración se omite, su valor será el de la duración de la nota
-anterior.  Por omisión, el valor de la primera nota es el de una
-negra.
+anterior.  Por omisión, el valor de la primera nota es el de una negra.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 { a a a2 a a4 a a1 a }
@@ -665,8 +660,7 @@ negra.
 @funindex .
 
 Para obtener duraciones de notas con puntillo, simplemente escriba un
-punto (@samp{.}) después del número.  Las notas con doble puntillo se
-consiguen de manera similar.
+punto (@samp{.}) después del número.  Las notas con doble puntillo se consiguen de manera similar.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
@@ -676,8 +670,7 @@ a'4 b' c''4. b'8 a'4. b'4.. c''8.
 
 Normalmente los puntillos se desplazan hacia arriba para evitar las
 líneas del pentagrama, excepto en situaciones de polifonía.  Se pueden
-utilizar los siguientes comandos para forzar manualmente una dirección
-en particular
+utilizar los siguientes comandos para forzar manualmente una dirección en particular
 
 @funindex \dotsUp
 @code{\dotsUp},
@@ -769,10 +762,50 @@ Para que no se impriman los números de los grupos, emplee
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
 @end lilypond
 
-@c needs revision. FVD
-Se puede hacer que los corchetes de grupo abarquen tanto como su
-duración completa indique o que lleguen hasta justo antes de la nota
-siguiente
+Utilice la función @code{\tweak} para sobreescribir los grupos anidados que comienzan en el mismo
+instante musical.  En este ejemplo, @code{\tweak} especifica un texto de fracción
+para el
+@code{TupletNumber} exterior y un texto de denominador para el @code{TupletNumber}
+del primero de los tres grupos interiores.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \times 4/3 {
+     \tweak #'text #tuplet-number::calc-denominator-text
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Aquí @code{\tweak} y @code{\override} trabajan conjuntamente para especificar la dirección
+del @code{TupletBracket} (el corchete del grupo).  El primer @code{\tweak} coloca
+el @code{TupletBracket} del grupo 
+exterior por encima del pentagrama.  El segundo @code{\tweak} coloca el
+@code{TupletBracket} del primero de los tres grupos interiores por debajo del
+pentagrama.  Tenga en cuenta que este par de funciones @code{\tweak} afecta solamente
+al grupo exterior y al primero de los tres grupos interiores porque sólo
+esos dos grupos comienzan en el mismo instante musical.  Utilizamos @code{\override}
+de la manera usual para colocar los corchetes @code{TupletBrackets} del
+segundo y tercer grupos interiores por debajo del pentagrama.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \tweak #'direction #up
+  \times 4/3 {
+     \tweak #'direction #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \override TupletBracket #'direction = #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Se puede hacer que los corchetes de grupo abarquen tanto como su duración completa indique o que lleguen hasta justo antes de la nota siguiente
 
 @lilypond[ragged-right]
 \new RhythmicStaff {
@@ -820,7 +853,7 @@ b16*4 c4
 
 @seealso
 
-En este manual: @ref{Tuplets}
+En este manual: @ref{Tuplets}.
 
 
 @node Bar check
@@ -844,7 +877,7 @@ Las comprobaciones de compás también se pueden usar en la letra de las cancion
 @example
 \lyricmode @{
   \time 2/4
-  Cam -- pa | ni -- tas 
+  Bri -- lla | Bri -- lla 
 @}
 @end example
 
@@ -890,8 +923,7 @@ compás actual) no es 123 cuando se está procesando.
 Las notas largas se pueden convertir automáticamente en notas ligadas.
 Se hace mediante la sustitución del @internalsref{Note_heads_engraver}
 por el @internalsref{Completion_heads_engraver}.  En los siguientes
-ejemplos, las notas que atraviesan la barra de compás se dividen y se
-unen mediante una ligadura.
+ejemplos, las notas que atraviesan la barra de compás se dividen y se unen mediante una ligadura.
 
 @lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
 \new Voice \with {
@@ -909,7 +941,7 @@ exactamente cuánto le falta a cada compás.
 
 Si quiere permitir el salto de línea en las barras de compás en las
 que @internalsref{Completion_heads_engraver} divide las notas, debe
-eliminar también @internalsref{Forbid_line_breaks_engraver}.
+eliminar también @internalsref{Forbid_line_break_engraver}.
 
 
 @refbugs
@@ -917,7 +949,6 @@ eliminar también @internalsref{Forbid_line_breaks_engraver}.
 No todas las duraciones (sobre todo las que contienen grupos
 especiales) se pueden representar exactamente con notas normales y
 puntillos, pero el grabador nunca insertará grupos especiales.
-
 
 @code{Completion_heads_engraver} afecta sólo a las notas; no divide
 silencios.
@@ -934,7 +965,6 @@ Referencia del programa: @internalsref{Completion_heads_engraver}.
 La polifonía en música hace referencia a tener más de una voz en una
 pieza cualquiera de música.  En LilyPond la polifonía hace referencia
 a tener más de una voz en el mismo pentagrama.
-
 
 @menu
 * Chords::                      
@@ -967,7 +997,6 @@ Para ver más información sobre los acordes, consulte @ref{Chord names}.
 Cuando se encuentra con una nota, se crea un objeto
 @internalsref{Stem} (plica) automáticamente.  Para las redondas y los
 silencios, también se crean pero se hacen invisibles.
-
 
 @refcommands
 
@@ -1021,19 +1050,18 @@ Llevan los nombres @code{"1"}, @code{"2"}, etc.  En cada
 uno de estos contextos, la dirección vertical de las ligaduras, plicas, etc., se establece
 de la manera que corresponda.
 
-Todas estas voces están separadas de la voz que contiene las noas
-justo por fuera de la construcción @code{<< \\ >>}.  Esto se debe
-tener en cuenta cuando haga algún cambio en una voz.  También
-significa que las ligaduras de unión y de expresión no pueden salir ni
-entrar en una construcción @code{<< \\ >>}.  En cambio las voces
+Todas estas voces están separadas de la voz que contiene las notas
+justo por fuera de la construcción @code{<< \\ >>}.  Se debe tener
+esto en cuenta cuando haga algún cambio en una voz.  También
+significa que las ligaduras de unión y de expresión no pueden salir de (ni
+entrar en) una construcción @code{<< \\ >>}.  En cambio las voces
 paralelas que están en construcciones @code{<< \\ >>} separadas dentro
 del mismo pentagrama, son la misma voz.  Presentamos a continuación el
 mismo ejemplo, con cabezas distintas para cada voz.  Dése cuenta de
 que el cambio en el estilo de cabezas de nota en la voz principal no
 afecta a las que están dentro de la construcción @code{<< \\ >>}.
-También, el cambio a la segunda voz en la primera construcción
-@code{<< \\ >>} es efectiva en la segunda @code{<< \\ >>}, y la voz se
-liga de una construcción a otra.
+Asimismo, el cambio a la segunda voz en la primera construcción
+@code{<< \\ >>} es efectiva en la segunda @code{<< \\ >>}, y la voz se liga de una construcción a otra.
 
 @cindex cabezas de nota, estilos de
 
@@ -1171,8 +1199,7 @@ una forma más natural de tipografiar la música.
 
 En ciertos casos de música polifónica compleja podría ser necesario
 utilizar voces adicionales para evitar colisiones entre las notas.
-Las voces adicionales se añaden definiendo un identificador como se
-muestra a continuación:
+Las voces adicionales se añaden definiendo un identificador como se muestra a continuación:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
@@ -1191,8 +1218,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 Normalmente las cabezas de nota con un número de puntillos diferente
 no se mezclan en una sola, pero cuando se le da un valor verdadero a
-la propiedad @code{merge-differently-dotted} en el objeto
-@internalsref{NoteCollision}, se juntan en una sola:
+la propiedad @code{merge-differently-dotted} en el objeto @internalsref{NoteCollision}, se juntan en una sola:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice << {
@@ -1278,9 +1304,8 @@ tienen @code{\shiftOn} (desplazamiento activado).  @code{\shiftOnn} y @code{\shi
 más grandes.
 
 Cuando LilyPond no puede con todo, se pueden usar la propiedad
-@code{force-hshift} (forzar desplazamiento) del objeto
-@internalsref{NoteColumn} y los silencios con altura para sobreescibir
-las decisiones de tipografía.
+@code{force-hshift} (forzar desplazamiento) del objeto @internalsref{NoteColumn}
+y los silencios con altura para sobreescibir las decisiones de tipografía.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative <<
@@ -1303,8 +1328,9 @@ Referencia del programa: los objetos responsables de resolver las colisiones son
 
 @refbugs
 
-Cuando se emplea @code{merge-differently-headed} con una corchea (o una nota más corta) con la plica hacia arriba,
-y una blanca con la plica hacia abajo, la corchea no tiene el desplazamiento correcto.
+Cuando se emplea @code{merge-differently-headed} con una corchea (o una nota más corta)
+con la plica hacia arriba, y una blanca con la plica hacia abajo,
+la corchea no tiene el desplazamiento correcto.
 
 No hay soporte para racimos (clusters) donde la misma nota se presenta
 con diferentes alteraciones accidentales dentro del mismo acorde.  En
@@ -1448,7 +1474,8 @@ La armadura indica la tonalidad en que se toca una pieza.  Está
 denotada por un conjunto de alteraciones (bemoles o sostenidos) al comienzo del
 pentagrama.
 
-El establecimiento o modificación de la armadura se hace con el comando @code{\key}
+El establecimiento o modificación de la armadura se hace con el
+comando @code{\key}
 
 @example
 @code{\key} @var{nota} @var{tipo}
@@ -1490,7 +1517,8 @@ fis
 @commonprop
 
 Se imprime un símbolo de becuadro para cancelar las alteraciones anteriores.  Se puede
-suprimir esto estableciendo la propiedad @code{Staff.printKeyCancellation}.
+suprimir esto estableciendo la propiedad
+@code{Staff.printKeyCancellation}.
 
 @lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
 \key d \major
@@ -1542,15 +1570,16 @@ de 2/2,
 \time 2/2 c'1
 @end lilypond
 
-Existen muchas opciones para su presentación.  Consulte @ref{Ancient time
-signatures} para ver más ejemplos.
+Existen otras muchas opciones para su presentación.  Para ver más ejemplos, consulte @ref{Ancient time
+signatures}.
 
 @code{\time} establece las propiedades @code{timeSignatureFraction},
 @code{beatLength} y @code{measureLength} en el contexto @code{Timing},
 cuyo nombre alternativo normalmente es @internalsref{Score}.  La
 propiedad @code{measureLength} determina el lugar en que se deben insertar las barras de compás
 y cómo se generan las barras de corchea auromáticas.  La modificación del valor de
-@code{timeSignatureFraction} también provoca que se imprima el símbolo.
+@code{timeSignatureFraction} también provoca que se imprima
+el símbolo.
 
 Están disponibles más opciones a través de la función de Scheme
 @code{set-time-signature}.  En combinación con el grabador
@@ -1583,7 +1612,7 @@ se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 Referencia del programa: @internalsref{TimeSignature} y
 @internalsref{Timing_translator}.
 
-Ejemplos: @code{input/@/test,compound@/-time@/.ly}.
+Ejemplos: @lsr{contemporary,compound-time-signature.ly}.
 
 
 @refbugs
@@ -1602,8 +1631,7 @@ EL barrado automático no utiliza la agrupación de compases especificada con
 @cindex acortar compases
 @funindex \partial
 
-Los compases parciales como las anacrusas o partes al alzar se escriben
-usando la construcción
+Los compases parciales como las anacrusas o partes al alzar se escriben usando la construcción
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \partial 16*5 c16 cis d dis e | a2. c,4 | b2
@@ -1615,7 +1643,8 @@ La sintaxis de este comando es la siguiente:
 \partial @var{duración}
 @end example
 
-donde @code{duración} es el valor rítmico que se se debe añadir antes del siguiente compás.
+donde @code{duración} es el valor rítmico que se se debe añadir antes
+del siguiente compás.
 
 Esto se traduce internamente a
 
@@ -1653,7 +1682,7 @@ desagradables.
 @cindex Barras de compás
 @funindex \bar
 @cindex líneas divisorias
-@cindex barras de repetición
+@cindex repetición, barras de
 
 Las líneas divisorias delimitan a los compases pero también se pueden usar
 para indicar las repeticiones.  Normalmente se insertan de manera automática.
@@ -1688,7 +1717,7 @@ el salto de línea en este punto (sin incrementar el contador de los números de
 
 En las partituras con muchos pentragramas, un comando @code{\bar} en uno de ellos se aplica
 automáticamente a todos los demás.  Las líneas resultantes se conectan entre los distintos pentagramas
-de un @code{StaffGroup}, @code{PianoStaff} o @code{ChoirStaff}.
+de un @code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
@@ -1758,7 +1787,8 @@ d4 e d c
 
 LilyPond insertará saltos de línea y de página solamente en las barras de compás.
 A menos que la música sin compasear acabe antes del final de la línea del pentagrama,
-tendrá que insertar barras de compás invisibles
+tendrá que insertar barras
+de compás invisibles
 
 @example
 \bar ""
@@ -1795,7 +1825,8 @@ están conectadas.  Esto se hace con el contexto @internalsref{GrandStaff}.
 @end lilypond
 
 @item El grupo comienza con un corchete recto y las líneas de compás están conectadas.
-Esto se hace con el contexto @internalsref{StaffGroup}
+Esto se hace con el contexto
+@internalsref{StaffGroup}
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -1842,7 +1873,7 @@ crea uno de estos tipos, y ese tipo está determinado por la propiedad
 Los delimitadores del comienzo del sistema se pueden anidar muchas veces:
 
 @lilypond[quote,ragged-right,verbatim]
-\new StaffGroup 
+\new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
     = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
@@ -1866,10 +1897,9 @@ LilyPond, estas líneas se dibujan utilizando un objeto de presentación separad
 que se llama el @code{staff symbol} (el símbolo del pentagrama).
 
 El símbolo del pentagrama se puede ajustar en el número, grosor
-y separación de las líneas, usando las propiedades.  Esto se demuestra en los
-archivos de ejemplo
-@code{input/@/test,staff@/-lines@/.ly} y
-@code{input/@/test,staff@/-size@/.ly}.
+y separación de las líneas, usando las propiedades.  Esto se demuestra en los archivos de ejemplo
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} y
+@lsr{staff,changing-the-staff-size.ly}.
 
 Además, los pentagramas se pueden iniciar e interrumpir libremente.  Esto se
 hace con @code{\startStaff} y @code{\stopStaff}.
@@ -1900,10 +1930,7 @@ esto se puede usar para componer tipográficamente secciones de ossia.  He aquí
 
 Referencia del programa: @internalsref{StaffSymbol}.
 
-Ejemplos: @code{input/@/test,staff@/-lines@/.ly},
-@code{input/@/test@/,ossia.ly},
-@code{input/@/test,staff@/-size@/.ly},
-@lsr{staff,staff-line-positions.ly}
+Ejemplos: @lsrdir{staff}
 
 
 @node Writing music in parallel
@@ -1927,7 +1954,7 @@ La música para varias partes se puede intercalar
 >>
 @end lilypond
 
-Esto funciona de manera aceptable para música de piano
+Esto funciona bastante bien para música de piano
 
 @lilypond[quote,verbatim]
 music = {
@@ -2020,8 +2047,7 @@ exactamente el mismo concepto:
 @noindent
 Se usan ligaduras de expresión bien cuando la nota atraviesa la barra
 de compás o bien cuando no se pueden usar puntillos para denotar el
-ritmo.  Cuando se usan ligaduras, las notas de mayor duración se deben
-alinear con las subdivisiones del compás, como
+ritmo.  Cuando se usan ligaduras, las notas de mayor duración se deben alinear con las subdivisiones del compás, como
 
 @lilypond[fragment,quote,ragged-right]
 \relative {
@@ -2032,14 +2058,12 @@ alinear con las subdivisiones del compás, como
 Si necesita unir muchas notas a través de las líneas divisorias, puede
 reslutar más fácil utilizar la división automática de notas (vea
 @ref{Automatic note splitting}).  Este mecanismo divide las notas
-largas de forma automática y las liga a través de las barras de
-compás.
+largas de forma automática y las liga a través de las barras de compás.
 
 @funindex \repeatTie
 
 Cuando la segunda vez de una repetición comienza con una nota ligada,
-es necesario repetir la ligadura.  Esto se puede conseguir mediante
-@code{\repeatTie},
+es necesario repetir la ligadura.  Esto se puede conseguir mediante @code{\repeatTie},
 
 @lilypond[fragment,quote,ragged-right,relative=2]
 r <c e g>\repeatTie
@@ -2050,10 +2074,9 @@ r <c e g>\repeatTie
 
 @commonprop
 
-A veces se usan ligaduras para escribir arpegios.  En este caso, dos
-notas ligadas no necesitan ser consecutivas.  Esto se puede conseguir
-estableciendo la propiedad @code{tieWaitForNote} (ligadura - esperar
-nota) al valor verdadero. La misma funcionalidad puede resultar útil,
+A veces se usan ligaduras para escribir arpegios.  En este caso, dos notas ligadas no
+necesitan ser consecutivas.  Esto se puede conseguir estableciendo la propiedad @code{tieWaitForNote}
+(ligadura - esperar nota) al valor verdadero. La misma funcionalidad puede resultar útil,
 por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
 
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
@@ -2105,8 +2128,7 @@ Referencia del programa: @internalsref{Tie}.
 Un cambio de pentagrama cuando hay una ligadura activa no producirá una ligadura inclinada.
 
 Los cambios de clave o de octava durante una ligadura de unión no
-están bien definidos realmente.  En estos casos puede ser preferible
-una ligadura de expresión.
+están bien definidos realmente.  En estos casos puede ser preferible una ligadura de expresión.
 
 
 @node Slurs
@@ -2129,23 +2151,20 @@ La dirección de una ligadura de expresión se puede especificar con
 
 Sin embargo, hay una forma abreviada muy conveniente para forzar las
 direcciones de las ligaduras de expresión.  Escibiendo @code{_} o
-@code{^} antes de los paréntesis de apertura, también se establece la
-dirección.  Por ejemplo,
+@code{^} antes de los paréntesis de apertura, también se establece la dirección.  Por ejemplo,
 
 @lilypond[relative=2,ragged-right,quote,verbatim,fragment]
 c4_( c) c^( c)
 @end lilypond
 
 Se puede imprimir una sola ligadura cada vez.  Si necesita imprimir
-una ligadura larga por encima de varias ligauras más cortas, consulte
-@ref{Phrasing slurs}.
+una ligadura larga por encima de varias ligauras más cortas, consulte @ref{Phrasing slurs}.
 
 
 @commonprop
 
 Algunos compositores escriben dos ligaduras cuando quieren acordes
-legato.  Esto se consigue en LilyPond mediante el establecimiento de
-@code{doubleSlurs},
+legato.  Esto se consigue en LilyPond mediante el establecimiento de @code{doubleSlurs},
 
 @lilypond[verbatim,ragged-right,relative,fragment,quote]
 \set doubleSlurs = ##t
@@ -2189,8 +2208,7 @@ utiliza para indicar una frase musical.  Se escribe usando @code{\(} y
 
 Tipográficamente, la ligadura de fraseo se comporta casi exactamente
 igual que una ligadura de expresión normal.  Sin embargo, se tratan
-como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto
-sobre una ligadura de fraseo; utilice en su lugar
+como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto sobre una ligadura de fraseo; utilice en su lugar
 @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, y
 @code{\phrasingSlurNeutral}.
 
@@ -2219,8 +2237,7 @@ Referencia del programa: @internalsref{PhrasingSlur}.
 
 Las ligaduras L.v. (laissez vibrer, dejar vibrar) indican que las
 notas no se deben apagar al final.  Se usan en la notación para piano,
-arpa y otros instrumentos de cuerda y percusión.  Se pueden introducir
-escribiendo @code{\laissezVibrer},
+arpa y otros instrumentos de cuerda y percusión.  Se pueden introducir escribiendo @code{\laissezVibrer},
 
 @lilypond[fragment,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer
@@ -2248,7 +2265,7 @@ LilyPond inserta las barras de corchea automáticamente
 Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita.  También es posible
 definir patrones de barrado que difieran de los ajustes por defecto.
-Consulte @ref{Setting automatic beam behavior} para ver los detalles.
+Para ver más detalles, consulte @ref{Setting automatic beam behavior}.
 
 Las notas individuales se pueden marcar con @code{\noBeam} para evitar
 que lleven una barra
@@ -2273,8 +2290,7 @@ Referencia del programa: @internalsref{Beam}.
 En ciertos casos puede ser preciso sobreescribir el algoritmo de
 barrado automático.  Por ejemplo, el barrador automático no escribe
 barras por encima de los silencios o las líneas divisorias.  Tales
-barras se especifican manualmente marcando los puntos de comienzo y
-final con @code{[} y @code{]}
+barras se especifican manualmente marcando los puntos de comienzo y final con @code{[} y @code{]}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
@@ -2292,8 +2308,7 @@ Normalmente los patrones de barrado dentro de una barra se determinan
 automáticamente.  Si es necesario se pueden usar las propiedades
 @code{stemLeftBeamCount} y @code{stemRightBeamCount} para
 sobreescribir los ajustes por defecto.  Si se establece el valor de
-una propiedad cualquiera, este valor se utilizará una sola vez, y
-después se boorará.
+una propiedad cualquiera, este valor se utilizará una sola vez, y después se boorará.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
@@ -2307,8 +2322,7 @@ después se boorará.
 
 Se puede establecer la propiedad @code{subdivideBeams} para subdividir
 todas las barras de semicorchea y de valores inferiores en las
-posiciones de las fracciones o partes, tal y como está definido por
-parte de la propiedad @code{beatLength}.
+posiciones de las fracciones o partes, tal y como está definido por parte de la propiedad @code{beatLength}.
 
 @lilypond[fragment,quote,relative=2,verbatim]
 c16[ c c c c c c c]
@@ -2324,8 +2338,7 @@ Para ver más información sobre @code{make-moment}, consulte
 @ref{Time administration}.
 
 Los saltos de línea normalmente están prohibidos cuando las barras
-cruzan las líneas divisorias.  Este comportamiento se puede modificar
-estableciendo @code{breakable}.
+cruzan las líneas divisorias.  Este comportamiento se puede modificar estableciendo @code{breakable}.
 
 @funindex breakable
 
@@ -2334,17 +2347,17 @@ estableciendo @code{breakable}.
 @cindex ángulo, barras en
 @cindex auto-knee-gap
 
+Se insertan automáticamente barras de corchea en ángulo cuando se
+detecta un desnivel muy grande entre las cabezas de las notas. 
+Este comportamiento se puede ajustar a través del objeto @code{auto-knee-gap}.
+
 
 @refbugs
 
-Se insertan automáticamente barras de corchea en ángulo cuando se
-detecta un desnivel muy grande entre las cabezas de las notas. 
-@c FIXME Este comportamiento se puede ajustar a través del objeto.
-
 Las barras que cruzan pentagramas y reciben un ángulo automático no se
-pueden usar conjuntamente con los pentagramas ocultos.  Consulte
-@ref{Hiding staves}.
+pueden usar conjuntamente con los pentagramas ocultos.  Consulte @ref{Hiding staves}.
 
+@c Is this still true with skyline spacing stuff? -J.Mandereau
 Las barras de corchea no evitan las colisiones con los símbolos que
 rodean las notas, como los textos y las alteraciones.
 
@@ -2364,8 +2377,7 @@ denota mediante una corchea pequeña, ligada, con un corchete tachado o
 atravesado por una barrita.  La appoggiatura es una nota de adorno que
 toma una fracción fija de la nota principal, y se denota como una nota
 pequeña, ligada, sin tachar.  Ambas se introducen con los comandos
-@code{\acciaccatura} y @code{\appoggiatura}, como se muestra en el
-ejemplo siguiente
+@code{\acciaccatura} y @code{\appoggiatura}, como se muestra en el ejemplo siguiente
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 b4 \acciaccatura d8 c4 \appoggiatura e8 d4
@@ -2374,8 +2386,7 @@ b4 \acciaccatura d8 c4 \appoggiatura e8 d4
 
 Ambas son formas especiales del comando @code{\grace}.  Al anteponer
 esta palabra a una expresión musical se crea una nueva expresión, que
-se imprime en un tipo más pequeño y no ocupa ningún tiempo lógico en
-el compás.
+se imprime en un tipo más pequeño y no ocupa ningún tiempo lógico en el compás.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 c4 \grace c16 c4
@@ -2386,11 +2397,12 @@ c4 \grace c16 c4
 Al contrario que @code{\acciaccatura} y @code{\appoggiatura}, el comando
 @code{\grace} no inicia una ligadura.
 
+@cindex timing, internal
+
 Internamente, la cuenta del tiempo para las notas de adorno se hace
 utilizando un segundo contador, el contador @q{de adorno}.  Cada
-instante en el tiempo comprende dos números racionales: uno denota el
-tiempo lógico, y el otro denota el tiempo de adorno.  El ejemplo
-anterior se muestra a continuación con vectores de tiempo
+instante en el tiempo comprende dos números racionales: uno denota el tiempo
+lógico, y el otro denota el tiempo de adorno.  El ejemplo anterior se muestra a continuación con vectores de tiempo
 
 @lilypond[quote,ragged-right]
 <<
@@ -2438,7 +2450,7 @@ de la longitud de la nota principal.  La fracción 3/4 se puede cambiar
 estableciendo @code{afterGraceFraction}, por ejemplo
 
 @example
-afterGraceFraction = #(cons 7 8)
+#(define afterGraceFraction (cons 7 8))
 @end example
 
 @noindent
@@ -2458,10 +2470,10 @@ Se puede conseguir el mismo efecto de forma manual haciendo
 Ajustando la duración de la nota de desplazamiento (aquí es una
 blanca), se ajusta el espacio entre la nota principal y la de adorno.
 
-Una sección @code{\grace} introduce ajustes de tipografía especiales,
+Una expresión musical @code{\grace} introduce ajustes de tipografía especiales,
 por ejemplo para producir un tipo más pequeño y para fijar las
 direcciones.  Por ello, cuando se introducen trucos para la
-presentación, deben ir dentro de la sección de adorno, por ejemplo:
+presentación, deben ir dentro de la expresión de adorno, por ejemplo:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2475,13 +2487,12 @@ presentación, deben ir dentro de la sección de adorno, por ejemplo:
 @end lilypond
 
 @noindent
-Las sobreescrituras (overrides) también se deben deshacer dentro de la sección de adorno.
+Las sobreescrituras (overrides) también se deben deshacer dentro de la expresión de adorno.
 
-La disposición de las secciones de adorno se pueden cambiar a lo largo
+La disposición de las expresiones de adorno se pueden cambiar a lo largo
 de la música usando la función @code{add-grace-property}.  El
 siguiente ejemplo suprime la definición de la dirección de la
-@code{Stem} (plica) para este adorno, y así las plicas no siempre
-apuntan hacia ariba.
+@code{Stem} (plica) para este adorno, y así las plicas no siempre apuntan hacia ariba.
 
 @example
 \new Staff @{
@@ -2532,7 +2543,7 @@ Referencia del programa: @internalsref{GraceMusic}.
 
 @refbugs
 
-Una partitura que comienza con una sección @code{\grace} requiere una declaración explícita
+Una partitura que comienza con una expresión @code{\grace} requiere una declaración explícita
 @code{\new Voice} pues en caso contrario la nota principal y la de adorno
 acabarán en pentagramas distintos.
 
@@ -2547,8 +2558,7 @@ cuando mezcle pentagramas con adornos y sin adornos, por ejemplo
 
 @noindent
 Esto se puede remediar insertando desplazamientos de adorno de las
-duraciones correspondientes en los otros pentagramas.  Para el ejemplo
-anterior
+duraciones correspondientes en los otros pentagramas.  Para el ejemplo anterior
 
 @example
 \new Staff @{ c4 \bar "|:" \grace s16 d4 @}
@@ -2556,15 +2566,15 @@ anterior
 
 Las secciones de adorno sólo se deben usar dentro de expresiones de
 música secuenciales.  No están soportados el anidado ni la
-yuxtaposición de secciones de adorno, y podría producir caídas u otros
-errores.
+yuxtaposición de secciones de adorno, y podría producir caídas u otros errores.
 
 
 
 @node Expressive marks
 @section Expressive marks
 
-Las marcas de expresión ayudan al músico a sacar de la música algo más que simples notas y ritmos.
+Las marcas de expresión ayudan al músico a sacar de la música algo más que
+simples notas y ritmos.
 
 @menu
 * Articulations::               
@@ -2597,8 +2607,7 @@ Los significados de estas abreviaturas se pueden modificar.  Consulte
 
 La indicación se coloca automáticamente, pero la dirección (arriba o abajo)
 se puede también forzar.  Como otros fragmentos de código de LilyPond,
-@code{_} los situará por debajo del pentagrama, y @code{^} los colocará
-por encima.
+@code{_} los situará por debajo del pentagrama, y @code{^} los colocará por encima.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 c''4^^ c''4_^
@@ -2638,7 +2647,6 @@ c\fermata c^\fermata c_\fermata
 @cindex prallmordent
 @cindex prall, up
 @cindex prall, down
-@cindex mordente
 @cindex thumb marking
 @cindex segno
 @cindex coda
@@ -2652,7 +2660,8 @@ He aquí un cuadro que muestra todas las articulaciones disponibles:
 @commonprop
 
 El orden vertical de las articulaciones se controla con la propiedad
-@code{script-priority}.  Cuanto más bajo es esta número, más cerca de la nota se colocará.
+@code{script-priority}.  Cuanto más bajo es esta número,
+más cerca de la nota se colocará.
 En este ejemplo el @internalsref{TextScript} (el símbolo de sostenido) tiene primero la
 prioridad más baja, así que se coloca en la parte más baja en el primer ejemplo.
 En el segundo, el semitrino (el @internalsref{Script}) tiene la prioridad más baja, por tanto
@@ -2711,7 +2720,8 @@ escribiéndolas después de las alturas
 
 @commonprop
 
-Puede ejercer un mayor control sobre la digitación de los acordes estableciendo @code{fingeringOrientations}
+Puede ejercer un mayor control sobre la digitación de los acordes
+estableciendo @code{fingeringOrientations}
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 \set fingeringOrientations = #'(left down)
@@ -2952,14 +2962,14 @@ Los trinos largos mantenidos se hacen con @code{\startTrillSpan} y
 @cindex Trinos con altura
 
 Los trinos que se tienen que ejecutar sobre notas especificadas
-explícitamente se pueden tipografiar con el comando
-@code{pitchedTrill},
+explícitamente se pueden tipografiar con el comando @code{pitchedTrill},
 
 @lilypond[ragged-right,verbatim,fragment,relative=1,quote]
 \pitchedTrill c4\startTrillSpan fis
 f\stopTrillSpan
 @end lilypond
 
+@noindent
 El primer argumento es la nota principal.  La altura de la segunda se
 imprime como una cabeza de nota sin plica entre paréntesis.
 
@@ -3057,6 +3067,8 @@ arpegio a los acordes en los dos pentagramas y establecer
 >>
 @end lilypond
 
+@c TODO: cross-voice arpeggio example?
+@c such an example is already in LSR -J.Mandereau
 
 @refcommands
 
@@ -3082,6 +3094,7 @@ Referencia del programa: @internalsref{Arpeggio}.
 
 No es posible mezclar arpegios conectados y no conectados en un
 @internalsref{PianoStaff} en el mismo instante de tiempo.
+
 
 @node Falls and doits
 @subsection Falls and doits
@@ -3117,7 +3130,6 @@ tipos de notación para las repeticiones.
 @subsection Repeat types
 
 @cindex repeticiones
-@funindex \repeat
 
 Están soportados los siguientes tipos de repetición
 
@@ -3140,8 +3152,7 @@ Hacen barras de trémolo.  Por omisión no se reproducen en la salida MIDI.
 @item porcentaje
 Hacen repeticiones de compases o parte de ellos.  Tienen un aspecto
 semejante a un signo de porcentaje.  Por omisión no se reproducen en
-la salida MIDI.  Las repeticiones de porcentaje se deben declarar
-dentro de un contexto @code{Voice}.
+la salida MIDI.  Las repeticiones de porcentaje se deben declarar dentro de un contexto @code{Voice}.
 
 @end table
 
@@ -3152,6 +3163,7 @@ dentro de un contexto @code{Voice}.
 @cindex volta
 @cindex prima volta
 @cindex seconda volta
+@funindex \repeat
 
 LilyPond tiene una construcción sintáctica para especificar distintos
 tipos de repetición.  La sintaxis es
@@ -3192,18 +3204,13 @@ c1
 \alternative { {d2 d} {f f,} }
 @end lilypond
 
-En el ejemplo siguiente, el primer final no es un compás completo
-(sólo tenía 3 partes).  El comienzo del segundo final
-contiene la cuarta parte del primer final.  Esta parte @q{adicional} en
-el segundo final se debe al final de la primera vez,
-y no tiene nada que ver con el @code{\partial} que aparece
-al principio del ejemplo.
+Se pueden crear repeticiones con anacrusa.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { g4 g g } { a | a a a a | b2. } }
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
 
@@ -3232,14 +3239,22 @@ corchete sólo dura un compás, lo que supone una duración de 3/4.
 }
 @end lilypond
 
+Si quiere comenzar una repetición al principio de una línea y tiene una
+doble barra al final de la línea anterior, utilice
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+consulte @ref{Bar lines} para ver más información.
 
 @seealso
 
 Ejemplos:
 
 Normalmente los corchetes para la repetición sólo se imprimen sobre el
-pentagrama superior.  Esto se puede ajustar estableciendo la propiedad
-@code{voltaOnThisStaff}; consulte
+pentagrama superior.  Esto se puede ajustar moviendo @code{Volta_engraver} al contexto
+Staff donde quiera que aparezcan los corchetes;
+consulte @ref{Modifying context plug-ins} y
 
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
@@ -3260,15 +3275,12 @@ Una repetición anidada como
 es ambigua porque no está claro a qué @code{\repeat} pertenece la
 @code{\alternative}.  Esta ambigüedad se resuelve haciendo que la
 @code{\alternative} pertenezca siempre a la @code{\repeat} más
-interna.  Para más claridad, se recomienda usar llaves en tales
-situaciones.
+interna.  Para más claridad, se recomienda usar llaves en tales situaciones.
 
-La información del contador de tiempo no se recuerda al comienzo de
-una alternativa, por ello después de una repetición la información de
-la cuenta de tiempo se debe reajustar manualmente; por ejemplo,
-estableciendo el valor de @code{Score.measurePosition} o introduciendo
-@code{\partial}.  De forma similar, las ligaduras de expresión o de
-unión tampoco se repiten.
+La información del contador de tiempo no se recuerda al comienzo de una alternativa,
+por ello después de una repetición la información de la cuenta de tiempo se debe reajustar
+manualmente; por ejemplo, estableciendo el valor de @code{Score.measurePosition} o
+introduciendo @code{\partial}.  De forma similar, las ligaduras de expresión o de unión tampoco se repiten.
 
 Los corchetes de primera y segunda vez no se alinean verticalmente.
 
@@ -3297,11 +3309,10 @@ todas las repeticiones en repeticiones desarrolladas o desplegadas.
 \bar "|."
 @end lilypond
 
-Cuando se elabora un archivo de partitura que utiliza
-@code{\unfoldRepeats} para el MIDI, es necesario hacer dos bloques
-@code{\score}: uno para el MIDI (con las repeticiones desplegadas) y
-otro para la notación (con primera y segunda vez, trémolo y
-repeticiones de porcentaje).  Por ejemplo,
+Cuando se elabora un archivo de partitura que utiliza @code{\unfoldRepeats} para el MIDI,
+es necesario hacer dos bloques @code{\score}: uno para el MIDI (con las repeticiones desplegadas)
+y otro para la notación (con primera y segunda vez, trémolo y repeticiones de porcentaje).
+Por ejemplo,
 
 @example
 \score @{
@@ -3321,8 +3332,7 @@ repeticiones de porcentaje).  Por ejemplo,
 @funindex repeatCommands
 
 Se puede usar la propiedad @code{repeatCommands} para controlar la
-disposición de las repeticiones.  Su valor es una lista de Scheme de
-comandos de repetición.
+disposición de las repeticiones.  Su valor es una lista de Scheme de comandos de repetición.
 
 @table @asis
 @item @code{start-repeat}
@@ -3335,8 +3345,7 @@ Imprimir una barra de compás @code{:|}
 Imprimir un corchete de volta que diga @var{texto}: El texto se puede
 especificar como una cadena de texto o como un texto de marcado,
 consulte @ref{Text markup}.  No olvide cambiar la fuente tipográfica,
-porque el tipo por defecto para los números no contiene caracteres
-alfabéticos;
+porque el tipo por defecto para los números no contiene caracteres alfabéticos;
 
 @item @code{(volta #f)}
 Detener un corchete de volta mantenido.
@@ -3364,7 +3373,8 @@ Referencia del programa: @internalsref{VoltaBracket},
 
 @cindex barras de trémolo
 
-Para colocar marcas de trémolo entre las notas, use @code{\repeat} con el estilo tremolo
+Para colocar marcas de trémolo entre las notas, use @code{\repeat} con el
+estilo tremolo
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
   \repeat "tremolo" 8 { c16 d16 }
@@ -3400,7 +3410,8 @@ Las marcas de trémolo se pueden imprimir sobre una nota única escribiendo
 @q{@code{:}[@var{número}]} después de la nota.  El número indica la
 duración de la subdivisión, y debe ser al menos 8.  Un valor de
 @var{longitud} de 8 produce una línea tachando la plica de la nota.  Si se
-omite la longitud, se utiliza el último valor (almacenado en @code{tremoloFlags})
+omite la longitud,
+se utiliza el último valor (almacenado en @code{tremoloFlags})
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 c'2:8 c':32 | c': c': |
@@ -3451,8 +3462,7 @@ se activa la propiedad @code{countPercentRepeats},
 
 
 También se pueden imprimir porcentajes aislados.  Esto se hace
-mediante la colocación de un silencio multicompás con una función de
-impresión distinta,
+mediante la colocación de un silencio multicompás con una función de impresión distinta,
 
 @lilypond[fragment,verbatim,quote]
 \override MultiMeasureRest #'stencil
@@ -3470,3 +3480,6 @@ Referencia del programa: @internalsref{RepeatSlash},
 @internalsref{DoublePercentRepeatCounter},
 @internalsref{PercentRepeatCounter},
 @internalsref{PercentRepeatedMusic}.
+
+
+
