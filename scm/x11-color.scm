@@ -3,7 +3,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2005--2006 Bernard Hurley <bernard@fong-hurley.org.uk>
+;;;; (c) 2005--2007 Bernard Hurley <bernard@fong-hurley.org.uk>
 ;;;;
 
 (define-public (make-x11-color-handler)

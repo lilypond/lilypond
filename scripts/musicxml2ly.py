@@ -475,7 +475,7 @@ License and you are welcome to change it and/or distribute copies of it
 under certain conditions.  Invoke as `lilypond --warranty' for more
 information.
 
-Copyright (c) 2005--2006 by
+Copyright (c) 2005--2007 by
     Han-Wen Nienhuys <hanwen@xs4all.nl> and
     Jan Nieuwenhuizen <janneke@gnu.org>
 """,

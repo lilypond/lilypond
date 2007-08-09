@@ -1,9 +1,9 @@
 ;;;; define-music-types.scm --
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
-;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
-;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
+;;;;
+;;;; (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;		    Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; TODO: should link back into user manual.
 

@@ -1,8 +1,8 @@
 ;;;; music-property-description.scm -- part of generated backend documentation
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
-;;;; 
-;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;;
+;;;; (c) 1998--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (music-property-description symbol type? description)
