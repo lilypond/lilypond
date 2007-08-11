@@ -2304,11 +2304,13 @@ and end point with @code{[} and @code{]}
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-Normally, beaming patterns within a beam are determined automatically.
-If necessary, the properties @code{stemLeftBeamCount} and
-@code{stemRightBeamCount} can be used to override the defaults.  If
+
+LilyPond can automatically determine beaming patterns within a beam,
+but this automatic behavior can sometimes produce odd results;
+therefore the @code{stemLeftBeamCount} and @code{stemRightBeamCount} properties can
+be used to override the defaults.  If
 either property is set, its value will be used only once, and then it
-is erased
+is erased.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {

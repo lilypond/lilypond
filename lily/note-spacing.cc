@@ -8,6 +8,7 @@
 
 #include "note-spacing.hh"
 
+#include "bar-line.hh"
 #include "directional-element-interface.hh"
 #include "grob-array.hh"
 #include "paper-column.hh"
@@ -66,21 +67,28 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     adjust things so there are no collisions.
   */
   Drul_array<Skyline> skys = Spacing_interface::skylines (me, right_col);
-  Real min_dist = max (0.0, skys[LEFT].distance (skys[RIGHT]));
-  Real min_desired_space = left_head_end + (min_dist - left_head_end) / 2;
+  Real distance = skys[LEFT].distance (skys[RIGHT]);
+  Real min_dist = max (0.0, distance);
+  Real min_desired_space = left_head_end + (min_dist - left_head_end + base_space - increment) / 2;
+  Real ideal = base_space - increment + left_head_end;
 
-  /* if the right object sticks out a lot, include a bit of extra space.
-     But only for non-musical-columns; this shouldn't apply to accidentals */
-  if (!Paper_column::is_musical (right_col))
-    min_desired_space = max (min_desired_space,
-			     left_head_end + LEFT * skys[RIGHT].max_height ());
+  /* If we have a NonMusical column on the right, we measure the ideal distance
+     to the bar-line (if present), not the start of the column. */
+  if (!Paper_column::is_musical (right_col) && !skys[RIGHT].is_empty ())
+    {
+      Grob *bar = Pointer_group_interface::find_grob (right_col,
+						      ly_symbol2scm ("elements"),
+						      Bar_line::has_interface);
 
-  Real ideal = base_space - increment + min_desired_space;
+      if (bar)
+	ideal -= bar->extent (right_col, X_AXIS)[LEFT];
+    }
 
+  ideal = max (ideal, min_desired_space);
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
   Spring ret (ideal, min_dist);
-  ret.set_inverse_compress_strength (max (0.0, ideal - max (min_dist, min_desired_space)));
+  ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
   ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
   return ret;
 }
@@ -207,6 +215,8 @@ Note_spacing::stem_dir_correction (Grob *me, Item *rcolumn,
       for (vsize i = 0; i < items.size (); i++)
 	{
 	  Item *it = dynamic_cast<Item *> (items[i]);
+	  if (!Note_column::has_interface (it))
+	    continue;
 
 	  /*
 	    don't correct if accidentals are sticking out of the right side.
