@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006  Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2007  Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (define-grob-property symbol type? description)
@@ -189,7 +189,8 @@ X@tie{}dimension by this much.")
      (extra-dy ,number? "Slope glissandi this much extra.")
      (extra-offset ,number-pair? "A pair representing an offset.  This
 offset is added just before outputting the symbol, so the typesetting
-engine is completely oblivious to it.")
+engine is completely oblivious to it.  The values are measured in
+@code{staff-space} units of the staff's @code{StaffSymbol}.")
      (extra-spacing-width ,number-pair? "In the horizontal spacing
 problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
@@ -578,185 +579,241 @@ be constructed from a whole number of squiggles.")
    `(
      ;;;;;;;;;;;;;;;;
      ;; grobs & grob arrays. (alphabetical)
-     (X-common ,ly:grob? "Common refpoint for axis group.")
+     (X-common ,ly:grob? "Common reference point for axis group.")
+
      (Y-common ,ly:grob? "See @code{X-common}.")
-     (adjacent-pure-heights ,vector? "Used by a VerticalAxisGroup to cache the Y-extents of different column ranges.")
-     (axis-group-parent-X ,ly:grob? "Containing X axis group")
-     (axis-group-parent-Y ,ly:grob? "Containing Y axis group")
-     (accidental-grobs ,list? "Alist with (NOTENAME . GROBLIST) entries")
-     (adjacent-hairpins ,ly:grob-array? "List of directly neighboring hairpins")
-     (all-elements ,ly:grob-array? "list of all grobs in this line. Its
+
+     (accidental-grob ,ly:grob? "The accidental for this note.")
+     (accidental-grobs ,list? "An alist with @code{(@var{notename} .
+@var{groblist})} entries.")
+     (adjacent-pure-heights ,vector? "Used by a @code{VerticalAxisGroup} to
+cache the @code{Y-extent}s of different column ranges.")
+     (adjacent-hairpins ,ly:grob-array? "A list of directly neighboring
+hairpins.")
+     (all-elements ,ly:grob-array? "A list of all grobs in this line.  Its
 function is to protect objects from being garbage collected.")
-     (arpeggio ,ly:grob? "pointer to arpeggio object.")
-     (beam ,ly:grob? "pointer to the beam, if applicable.")
-     (bracket ,ly:grob? "the bracket for a  number.")
-     (cross-staff ,boolean? "for a beam or a stem, true if we depend on inter-staff spacing")
-     (direction-source ,ly:grob? "in case side-relative-direction is
-set, which grob to get the direction from .")
-     (dot ,ly:grob? "reference to Dots object.")
-     (dots ,ly:grob-array? "multiple Dots objects.")
-     (figures ,ly:grob-array? "Figured bass objects for continuation line.")
-     (important-column-ranks ,vector? "Cache of columns that contain items-worth-living.")
-     (items-worth-living ,ly:grob-array? "A list of interesting items. If
-empty in a particular staff, then that staff is erased.")
+     (arpeggio ,ly:grob? "A pointer to an @code{Arpeggio} object.")
+     (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
+     (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
-     (glyph-name ,string? "a name of character within font.")
-     (left-neighbors ,ly:grob-array? " List of
-spacing-wish grobs that are close to the current column.
-
-The closest spacing-wishes determine the actual distances between the
-columns.
-")
-     (left-items ,ly:grob-array? "")
-     (pedal-text ,ly:grob? "Pointer to the text of a mixed-style piano pedal.")
-     
-     (pure-Y-common ,ly:grob? "Caches the common_refpoint_of_array of the elements grob-set")
-     (pure-relevant-items ,ly:grob-array? "A subset of elements that are relevant for finding the pure-Y-extent.")
-     (pure-relevant-spanners ,ly:grob-array? "A subset of elements that are relevant for finding the pure-Y-extent.")
-     (stem ,ly:grob? "pointer to Stem object.")
-     (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
-     (tie ,ly:grob? "")
-     (staff-symbol ,ly:grob? "the staff symbol grob that we're in.")
-     (rest ,ly:grob? "the staff symbol grob that we're in.")
-     (rests ,ly:grob-array? "A list of rest objects.")
-     (rest-collision ,ly:grob? "rest collision that a rest is in.")
-     (accidental-grob ,ly:grob? "Accidental for this note.")
-     (bars ,ly:grob-array? "list of bar line pointers.")
-     (bounded-by-me ,ly:grob-array? "list of spanners that have this
-column as start/begin point. Only columns that have grobs or act as
+     (bars ,ly:grob-array? "A list of bar line pointers.")
+     (beam ,ly:grob? "A pointer to the beam, if applicable.")
+     (bounded-by-me ,ly:grob-array? "A list of spanners that have this
+column as start/begin point.  Only columns that have grobs or act as
 bounds are spaced.")
-     
-     (columns ,ly:grob-array? "list of grobs, typically containing
-paper-columns or note-column objects.")
-     (conditional-elements ,ly:grob-array? "Internal use only")
+     (bracket ,ly:grob? "The bracket for a number.")
+
+     (columns ,ly:grob-array? "A list of grobs, typically containing
+@code{PaperColumn} or @code{NoteColumn} objects.")
+     (conditional-elements ,ly:grob-array? "Internal use only.")
+     (cross-staff ,boolean? "For a beam or a stem, this is true if we
+depend on inter-staff spacing.")
+
+     (direction-source ,ly:grob? "In case @code{side-relative-direction} is
+set, which grob to get the direction from.")
+     (dot ,ly:grob? "A reference to a @code{Dots} object.")
+     (dots ,ly:grob-array? "Multiple @code{Dots} objects.")
+
+     (elements ,ly:grob-array? "A list of grobs; the type is depending on
+the grob where this is set in.")
      (encompass-objects ,ly:grob-array? "Objects that a slur should avoid
 in addition to notes and stems.")
-     (elements ,ly:grob-array? "list of grobs, type depending on the Grob
-where this is set in.")
-     (grace-spacing ,ly:grob? "a run of grace notes.")
-     (heads ,ly:grob-array? "List of note heads.")
 
-     (note-columns ,pair? "list of NoteColumn grobs.")
+     (figures ,ly:grob-array? "Figured bass objects for continuation line.")
 
-     (normal-stems ,ly:grob-array? "Array of visible stems.") 
-     (note-heads ,ly:grob-array? "List of note head grobs")
-     (note-head ,ly:grob? "A single note head")
-     (pure-Y-offset-in-progress ,boolean? "A debugging aid for catching cyclic dependencies.")
-     (right-items ,ly:grob-array? "")
-     (right-neighbors ,ly:grob-array? "see left-neighbors")
+     (glyph-name ,string? "The glyph name within the font.")
+     (grace-spacing ,ly:grob? "A run of grace notes.")
+
+     (heads ,ly:grob-array? "A list of note heads.")
+
+     (important-column-ranks ,vector? "A cache of columns that contain
+@code{items-worth-living} data.")
+     (items-worth-living ,ly:grob-array? "A list of interesting items.  If
+empty in a particular staff, then that staff is erased.")
+
+     (left-items ,ly:grob-array? "DOCME")
+     (left-neighbors ,ly:grob-array? "A list of @code{spacing-wishes} grobs
+that are close to the current column.
+
+The closest @code{spacing-wishes} determine the actual distances between the
+columns.")
+
+     (normal-stems ,ly:grob-array? "An array of visible stems.")
+     (note-columns ,pair? "A list of @code{NoteColumn} grobs.")
+     (note-head ,ly:grob? "A single note head.")
+     (note-heads ,ly:grob-array? "A list of note head grobs.")
+
+     (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
+pedal.")
+     (pure-Y-common ,ly:grob? "A cache of the
+@code{common_refpoint_of_array} of the @code{elements} grob set.")
+     (pure-Y-offset-in-progress ,boolean? "A debugging aid for catching
+cyclic dependencies.")
+     (pure-relevant-items ,ly:grob-array? "A subset of elements that are
+relevant for finding the @code{pure-Y-extent}.")
+     (pure-relevant-spanners ,ly:grob-array? "A subset of elements that are
+relevant for finding the @code{pure-Y-extent}.")
+
+     (rest ,ly:grob? "A pointer to a @code{Rest} object.")
+     (rest-collision ,ly:grob? "A rest collision that a rest is in.")
+     (rests ,ly:grob-array? "A list of rest objects.")
+     (right-items ,ly:grob-array? "DOCME")
+     (right-neighbors ,ly:grob-array? "See @code{left-neighbors}.")
+
      (separation-item ,ly:grob? "A separation item.")
-     (slur ,ly:grob? "A pointer to a slur object")
-     (spacing ,ly:grob? "the spacing spanner governing this section.")
-     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page layout.")
-     (side-support-elements ,ly:grob-array? "the support, a list of grobs.")
-     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing objects.")
-     (stems ,ly:grob-array? "list of stem objects, corresponding to the notes that the arpeggio has to be before.")
-     (tuplets ,ly:grob-array? "list of smaller tuplet brackets")
-     (tuplet-number ,ly:grob? "the number for a bracket.")
+     (side-support-elements ,ly:grob-array? "The side support, a list of
+grobs.")
+     (slur ,ly:grob? "A pointer to a @code{Slur} object.")
+     (spaceable-staves ,ly:grob-array? "Objects to be spaced during page
+layout.")
+     (spacing ,ly:grob? "The spacing spanner governing this section.")
+     (spacing-wishes ,ly:grob-array? "List of note spacing or staff spacing
+objects.")
+     (staff-symbol ,ly:grob? "The staff symbol grob that we are in.")
+     (stem ,ly:grob? "A pointer to a @code{Stem} object.")
+     (stems ,ly:grob-array? "A list of stem objects, corresponding to the
+notes that the arpeggio has to be before.")
 
-     
-     
+     (tie ,ly:grob? "A pointer to a @code{Tie} object.")
+     (tremolo-flag ,ly:grob? "The tremolo object on a stem.")
+     (tuplet-number ,ly:grob? "The number for a bracket.")
+     (tuplets ,ly:grob-array? "A list of smaller tuplet brackets.")
+
      ;;;;;;;;;;;;;;;;
      ;; other
-     (begin-of-line-visible ,boolean? "Used for marking ChordNames that should only show changes.")
-     (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps translator) that was the cause for this grob.  ")
-     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del niente)")
-     (delta-position ,number? "vertical position difference")
-     (details ,list? "alist of parameters for detailed grob behavior.
+     (begin-of-line-visible ,boolean? "Used for marking @code{ChordNames}
+that should only show changes.")
 
-more information on the allowed parameters can be found by inspecting
-lily/slur-scoring.cc, lily/beam-quanting.cc, and
-lily/tie-formatting-problem.cc.  Setting @code{debug-tie-scoring},
+     (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps
+translator) that was the cause for this grob.")
+     (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del
+niente).")
+
+     (delta-position ,number? "The vertical position difference.")
+     (details ,list? "Alist of parameters for detailed grob behavior.
+
+More information on the allowed parameters can be found by inspecting
+@file{lily/slur-scoring.cc}, @file{lily/beam-quanting.cc}, and
+@file{lily/tie-formatting-problem.cc}.  Setting @code{debug-tie-scoring},
 @code{debug-beam-scoring} or @code{debug-slur-scoring} also provides
-useful clues.
+useful clues.")
 
-")
+     (font ,ly:font-metric? "A cached font metric object.")
 
-     (font ,ly:font-metric? "Cached font metric object")
-     (head-width ,ly:dimension? "width of this ligature head")
+     (head-width ,ly:dimension? "The width of this ligature head.")
      
-     (ideal-distances ,list? "(@var{obj} . (@var{dist} . @var{strength})) pairs.")
-     (interfaces ,list? "list of symbols indicating the interfaces supported by this object. Is initialized from the @code{meta} field.")
-     (least-squares-dy ,number? 
-		       "ideal beam slope, without damping.")
+     (ideal-distances ,list? "@code{(@var{obj} . (@var{dist} .
+@var{strength}))} pairs.")
+     (interfaces ,list? "A list of symbols indicating the interfaces
+supported by this object.  It is initialized from the @code{meta} field.")
 
-     (meta ,list? "Contains meta information. It is an alist with the
+     (least-squares-dy ,number? "The ideal beam slope, without damping.")
+
+     (meta ,list? "Provide meta information.  It is an alist with the
 entries @code{name} and @code{interfaces}.")
-     (minimum-distances ,list? "list of rods, that have the format (@var{obj} . @var{dist}).")
+     (minimum-distances ,list? "A list of rods that have the format
+@code{(@var{obj} . @var{dist})}.")
      
-     (positioning-done ,boolean?
-		       "Used to signal that a positioning element
-did its job. This ensures that a positioning is only done once.")
-     (pure-Y-extent ,number-pair? "The estimated height of a system")
+     (positioning-done ,boolean? "Used to signal that a positioning element
+did its job.  This ensures that a positioning is only done once.")
+     (pure-Y-extent ,number-pair? "The estimated height of a system.")
 
-     (quantized-positions ,number-pair? "Beam positions after quanting.")
-     (quantize-position ,boolean? "If set, a vertical alignment is aligned to be within staff spaces.")
-     (quant-score ,string? "Beam quanting score -- can be stored for
-debugging")
+     (quant-score ,string? "The Beam quanting score -- can be stored for
+debugging.")
+     (quantize-position ,boolean? "If set, a vertical alignment is aligned
+to be within staff spaces.")
+     (quantized-positions ,number-pair? "The beam positions after
+quanting.")
      
-     (script-stencil ,pair? "Pair (@code{type} . @code{arg}), which
-acts as an index for looking up a Stencil object.")
+     (script-stencil ,pair? "A pair @code{(@var{type} . @var{arg})} which
+acts as an index for looking up a @code{Stencil} object.")
+     (shorten ,ly:dimension? "The amount of space that a stem is shortened.
+Internally used to distribute beam shortening over stems.")
+     (skyline-distance ,number? "The distance between this staff and the
+next one, as determined by a skyline algorithm.")
+     (skyline-horizontal-padding ,number? "For determining the vertical
+distance between two staves, it is possible to have a configuration which
+would result in a tight interleaving of grobs from the top staff and the
+bottom staff.  The larger this parameter is, the farther apart the staves
+are placed in such a configuration.")
+     (stem-info ,pair? "A cache of stem parameters.")
 
-     (stem-info ,pair? "caching of stem parameters")
-     (shorten ,ly:dimension? "The amount of space that a
-stem. Internally used to distribute beam shortening over stems. ")
-     (skyline-distance ,number? "The distance between this staff and the next one, as determined by a skyline algorithm.")
-     (skyline-horizontal-padding ,number? "For determining the vertical distance between 2 staves, it is possible to have a configuration which would result in a tight interleaving of grobs from the top staff and the bottom staff. The larger this parameter is, the farther apart the staves are placed in such a configuration.")
- 
      (use-breve-rest ,boolean? "Use breve rests for measures longer
 than a whole rest.")
-     
 
-     
+     ;;;;;;;;;;;;;;;;
      ;; ancient notation
-     (join-right-amount ,number? "")
-     (primitive ,integer? "Pointer to a ligature primitive, i.e. an item similar to a note head that is part of a ligature. ")
 
-     
      ;;;;;;; TODO:
-     ;; there are too many properties for ancient notation
+     ;; There are too many properties for ancient notation;
      ;; probably neume-types (a list of symbols) would also work.
 
-     ;; However, such this list would consist of a couple of dozens of
+     ;; However, such a list would consist of a couple of dozens of
      ;; entries, since head prefixes may be combined in many ways.  If
-     ;; the macros in gregorian-init.ly would directly set prefix-set,
+     ;; the macros in `gregorian-init.ly' would directly set prefix-set,
      ;; all the head prefixes could be junked; however, such macros
      ;; would be quite numerous, I guess.  --jr
 
-     (auctum ,boolean? "is this neume liquescentically augmented?")
-     (ascendens ,boolean? "is this neume of an ascending type?")
-     (add-cauda ,boolean? "does this flexa require an additional cauda on the left side?")
-     (add-join ,boolean? "is this ligature head joined with the next one by a vertical line?")
-     (cavum ,boolean? "is this neume outlined?")
-     (descendens ,boolean? "is this neume of a descendent type?")
-     (deminutum ,boolean? "is this neume deminished?")
-     (flexa-height ,ly:dimension? "height of a flexa shape in a ligature grob in staff_space.")
-     (flexa-width ,ly:dimension? "width of a flexa shape in a ligature grob in staff_space.")
-     (join-heads ,boolean? "Whether to join the note heads of an ambitus grob with a vertical line.")
-     (linea ,boolean? "attach vertical lines to this neume?")
-     (add-stem ,boolean? "is this ligature head a virga and therefore needs an additional stem on the right side?")
-     (context-info ,integer? "Within a ligature, the final glyph or shape of a head may be affected by the left and/or right neighbour head.  context-info holds for each head such information about the left and right neighbour, encoded as a bit mask.")
-     (inclinatum ,boolean? "is this neume an inclinatum?")
-     (oriscus ,boolean? "is this neume an oriscus?")
-     (quilisma ,boolean? "is this neume a quilisma?")
-     (pes-or-flexa ,boolean? "shall this neume be joined with the previous head?")
-     (prefix-set ,number? "a bit mask that holds all Gregorian head prefixes, such as @code{\\virga} or @code{\\quilisma}")
+     (add-cauda ,boolean? "Does this flexa require an additional cauda on
+the left side?")
+     (add-join ,boolean? "Is this ligature head-joined with the next one
+by a vertical line?")
+     (add-stem ,boolean? "Is this ligature head a virga and therefore needs
+an additional stem on the right side?")
+     (ascendens ,boolean? "Is this neume of ascending type?")
+     (auctum ,boolean? "Is this neume liquescentically augmented?")
+
+     (cavum ,boolean? "Is this neume outlined?")
+     (context-info ,integer? "Within a ligature, the final glyph or shape of
+a head may be affected by the left and/or right neighbour head.
+@code{context-info} holds for each head such information about the left and
+right neighbour, encoded as a bit mask.")
+
+     (descendens ,boolean? "Is this neume of descendent type?")
+     (deminutum ,boolean? "Is this neume deminished?")
+
+     (flexa-height ,ly:dimension? "The height of a flexa shape in a ligature
+grob (in @code{staff-space} units).")
+     (flexa-width ,ly:dimension? "The width of a flexa shape in a
+ligature grob in (in @code{staff-space} units).")
+
+     (inclinatum ,boolean? "Is this neume an inclinatum?")
+
+     (join-heads ,boolean? "Whether to join the note heads of an ambitus
+grob with a vertical line.")
+     (join-right-amount ,number? "DOCME")
+
+     (linea ,boolean? "Attach vertical lines to this neume?")
+
+     (oriscus ,boolean? "Is this neume an oriscus?")
+
+     (pes-or-flexa ,boolean? "Shall this neume be joined with the previous
+head?")
+     (prefix-set ,number? "A bit mask that holds all Gregorian head
+prefixes, such as @code{\\virga} or @code{\\quilisma}.")
+     (primitive ,integer? "A pointer to a ligature primitive, i.e., an item
+similar to a note head that is part of a ligature.")
+
+     (quilisma ,boolean? "Is this neume a quilisma?")
+
      (stropha ,boolean? "Is this neume a stropha?")
+
      (virga ,boolean? "Is this neume a virga?")
+
      (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
 
-     ;; end ancient notation
-
+     ;;;;;;;;;;;;;;;;
      ;; fret-diagrams extra properties
-     (xo-font-magnification ,number? "Magnification used for mute and
-         open string indicators in fret diagrams")
-     (mute-string ,string? "String to be used to indicate muted string in
-         fret diagrams")
-     (open-string ,string? "String to be used to indicate open string in
-         fret diagrams")
-     (orientation ,symbol? "Orientation of fret-diagram.  Options include @code{normal} and @code{landscape}")
+     (mute-string ,string? "String to be used to indicate a muted string in
+fret diagrams")
+     (open-string ,string? "A string to be used to indicate an open string
+in fret diagrams")
+     (orientation ,symbol? "The orientation of a fret-diagram.  Options
+include @code{normal} and @code{landscape}.")
+     (xo-font-magnification ,number? "Magnification used for mute and open
+string indicators in fret diagrams.")
 
-     )))
+    )))
 
 (define-public all-backend-properties
   (append

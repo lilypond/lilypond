@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 
@@ -398,24 +398,24 @@ centered, X==1 is at the right, X == -1 is at the left."
        ))
   
 (define-public alteration-hufnagel-glyph-name-alist
-   '((1/2 . "accidentals.hufnagel-1")
+   '((-1/2 . "accidentals.hufnagel-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-medicaea-glyph-name-alist
-   '((1/2 . "accidentals.medicaea-1")
+   '((-1/2 . "accidentals.medicaea-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-vaticana-glyph-name-alist
-   '((1/2 . "accidentals.vaticana-1")
+   '((-1/2 . "accidentals.vaticana-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-mensural-glyph-name-alist
-   '((1/2 . "accidentals.mensural-1")
+   '((-1/2 . "accidentals.mensural-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
