@@ -22,6 +22,7 @@ class Note_spacing_engraver : public Engraver
 {
   typedef map <Context*, Grob*> Last_spacing_map;
   Last_spacing_map last_spacings_;
+  Grob *last_spacing_;
   
   Grob *spacing_;
 
@@ -47,6 +48,7 @@ Note_spacing_engraver::derived_mark () const
 Note_spacing_engraver::Note_spacing_engraver ()
 {
   spacing_ = 0;
+  last_spacing_ = 0;
 }
 
 void
@@ -63,9 +65,8 @@ Note_spacing_engraver::add_spacing_item (Grob *g)
 					 ly_symbol2scm ("left-items"),
 					 g);
 
-      Grob *last_spacing = last_spacings_[context ()->get_parent_context ()];
-      if (last_spacing)
-	Pointer_group_interface::add_grob (last_spacing,
+      if (last_spacing_)
+	Pointer_group_interface::add_grob (last_spacing_,
 					   ly_symbol2scm ("right-items"),
 					   g);
     }
@@ -119,6 +120,7 @@ Note_spacing_engraver::stop_translation_timestep ()
   if (spacing_)
     {
       last_spacings_[parent] = spacing_;
+      last_spacing_ = spacing_;
       spacing_ = 0;
     }
 

@@ -240,22 +240,27 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
   if (!is_normal_stem (me))
     return ly_interval2scm (iv);
 
-  /* if we are part of a cross-staff beam, return empty */
-  if (get_beam (me) && Beam::is_cross_staff (get_beam (me)))
-    return ly_interval2scm (iv);
-  
   Real ss = Staff_symbol_referencer::staff_space (me);
-  Real len = scm_to_double (calc_length (smob)) * ss / 2;
-  Direction dir = get_grob_direction (me);
 
-  Interval hp = head_positions (me);
-  if (dir == UP)
-    iv = Interval (0, len);
-  else
-    iv = Interval (-len, 0);
+  if (!to_boolean (me->get_property ("cross-staff")))
+    {
+      Real len = scm_to_double (calc_length (smob)) * ss / 2;
+      Direction dir = get_grob_direction (me);
 
-  if (!hp.is_empty ())
-    iv.translate (hp[dir] * ss / 2);
+      Interval hp = head_positions (me);
+      if (dir == UP)
+	iv = Interval (0, len);
+      else
+	iv = Interval (-len, 0);
+
+      if (!hp.is_empty ())
+	iv.translate (hp[dir] * ss / 2);
+    }
+
+  /* at a minimum, make the pure-height cover the staff symbol */
+  Real rad = Staff_symbol_referencer::staff_radius (me);
+  iv.add_point (-rad * ss);
+  iv.add_point (rad * ss);
 
   return ly_interval2scm (iv);
 }

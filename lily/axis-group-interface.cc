@@ -194,7 +194,8 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
 
       if (rank > end)
 	break;
-      else if (rank >= start && it->pure_is_visible (start, end))
+      else if (rank >= start && it->pure_is_visible (start, end)
+	       && !to_boolean (it->get_property ("cross-staff")))
 	{
 	  Interval dims = it->pure_height (common, start, end);
 	  if (!dims.is_empty ())
@@ -205,7 +206,8 @@ Axis_group_interface::relative_pure_height (Grob *me, int start, int end)
   for (vsize i = 0; i < spanners.size (); i++)
     {
       Interval_t<int> rank_span = spanners[i]->spanned_rank_interval ();
-      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start)
+      if (rank_span[LEFT] <= end && rank_span[RIGHT] >= start
+	  && !to_boolean (spanners[i]->get_property ("cross-staff")))
 	{
 	  Interval dims = spanners[i]->pure_height (common, start, end);
 	  if (!dims.is_empty ())
