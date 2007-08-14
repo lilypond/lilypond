@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: 5d9a6604876b66b860e78363521edc770ac5b455
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -44,7 +44,8 @@ lilypond puede hacer que ciertos errores se hagan más fáciles (o más difícil
 @item ¿Qué ocurre si quiere compartir sus archivos con otras personas?
 De hecho, ¿y si quiere alterar sus propios archivos después de algunos años?
 Algunos archivos de lilypond se comprenden a primera vista;
-otros pueden tenerle rascándose la cabeza durante una hora.
+otros pueden tenerle rascándose la cabeza
+durante una hora.
 
 @item ¿Qué ocurre si quiere actualizar su archivo de lilypond para poderlo usar con
 una versión más reciente del programa?  La sintaxis de la entrada se modifica
@@ -73,7 +74,8 @@ plantillas contienen una cadena como @code{\version "2.11.15"}.  Le recomendamos
 mucho que siempre incluya la @code{\version}, sin importar cuán
 pequeño pueda ser su archivo.  Desde la experiencia personal podemos decirle que es bastante frustrante
 intentar recordar el número de versión de LilyPond que estaba usando hace unos años.
-@code{convert-ly} requiere que declare qué versión de LilyPond utilizó.
+@code{convert-ly} requiere que declare
+qué versión de LilyPond utilizó.
 
 @item @strong{Incluya comprobaciones}: @ref{Bar check}, @ref{Octave check} y
 @ref{Barnumber check}.  Si
@@ -89,14 +91,18 @@ por cada línea.  El ahorro en espacio de pantalla que se obtiene al amontonar o
 si luego tiene que @q{depurar} los archivos.
 
 @item @strong{Comente los archivos}.  Utilice o números de compás (de vez en cuando)
-o referencias a temas musicales (@q{segundo tema de los violines,} @q{cuarta
+o
+referencias a temas musicales (@q{segundo tema de los violines,} @q{cuarta
 variación,} etc.).  Puede que no necesite comentarios cuando introduce una pieza por vez primera,
 pero si quiere volver a ella o modificar algo al cabo de dos o tres años,
-y también si le pasa la fuente a un amigo, será
-todo un desafío determinar sus intenciones o de qué manera estaba estructurado el archivo si no le añadió los comentarios.
+y también si le pasa la fuente a un amigo,
+será todo un desafío
+determinar sus intenciones o de qué manera estaba estructurado el archivo
+si no le añadió los comentarios.
 
-@item @strong{Aplique márgenes a las llaves}.  Muchos problemas están causados por una falta de
-equilibrio en el número de @code{@{} y @code{@}}.
+@item @strong{Aplique márgenes a las llaves}.  Muchos problemas están causados por una
+falta de equilibrio
+en el número de @code{@{} y @code{@}}.
 
 @item @strong{Escriba las duraciones explícitamente} al comienzo de las secciones
 e identificadores.  Si especifica @code{c4 d e} al principio de una frase
@@ -129,7 +135,8 @@ dentro del archivo de entrada donde el manuscrito tenga un saldo de línea.  De 
 le resultará mucho más fácil comparar la música de LilyPond con la original.
 Cuando haya terminado de revisar su partitura podrá
 definir @code{mBreak = @{ @}} para quitar todos esos saltos de línea.  Así
-permitirá a LilyPond colocar los saltos donde éste lo estime más oportuno.
+permitirá a LilyPond colocar los saltos donde éste lo estime
+más oportuno.
 
 @end itemize
 
@@ -137,7 +144,8 @@ permitirá a LilyPond colocar los saltos donde éste lo estime más oportuno.
 @node Large projects
 @subsection Large projects
 
-Al trabajar en proyecto grande se hace esencial tener una estructura clara en los archivos de lilypond.
+Al trabajar en proyecto grande se hace esencial tener una estructura clara
+en los archivos de lilypond.
 
 @itemize @bullet
 
@@ -165,7 +173,8 @@ g4 c'8. e16
 en @ref{General suggestions}, pero para proyectos
 grandes es vital.  Quizá tengamos que cambiar la
 definición de @code{fthenp}, pero en ese caso sólo lo tendremos que
-hacer una vez, y aún podremos evitar tocar nada dentro de @code{violin}.
+hacer una vez, y aún podremos evitar tocar nada
+dentro de @code{violin}.
 
 @example
 fthenp = _\markup@{
@@ -235,7 +244,8 @@ Obviamente estos identificadores son útiles para ahorrar tecleo.
 Pero son dignos de tener en cuenta incluso si se van a utilizar una sola vez:
 reducen la complejidad.  Examinemos
 el ejemplo anterior reescrito sin ningún identificador.
-Encontrará que es mucho más difícil de leer, sobre todo la última línea.
+Encontrará que es mucho más difícil de leer, sobre todo
+la última línea.
 
 @example
 violin = \relative c'' @{
@@ -287,7 +297,8 @@ en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 La salida que produce LilyPond se puede modificar profundamente; consulte
 @ref{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
 archivos a los que les quiere aplicar sus porpios trucos?  O ¿qué ocurre si, sencillamente,
-quiere separar los trucos de la propia música?  Todo esto es bastante fácil de conseguir.
+quiere separar los trucos de la propia música?  Todo esto
+es bastante fácil de conseguir.
 
 Veamos un ejemplo.  No se preocupe si no entiende
 las partes que tienen todos los @code{#()}.  Esto se explicará en
@@ -538,29 +549,28 @@ Yo utilizo media docena de archivos de
 @node Updating old files
 @section Updating old files
 
-La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A
-medida que el propio LilyPond mejora, la sintaxis (el lenguaje de la
-entrada) se modifica en consonancia.  A veces estos cambios se hacen
-para conseguir que la entrada sea más fácil de leer y escribir, y
-otras veces estos cambios son para dar cabida a nuevas funcionalidades
-de LilyPond.
+La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A medida que el propio
+LilyPond mejora, la sintaxis (el lenguaje de la entrada) se modifica en consonancia.  A
+veces estos cambios se hacen para conseguir que la entrada sea más fácil de leer y escribir, y
+otras veces estos cambios son para dar cabida a nuevas funcionalidades de LilyPond.
 
 LilyPond lleva incorporado un archivo que facilita esta actualización:
 @code{convert-ly}.  Para ver detalles sobre cómo ejecutar este programa, consulte
-@ref{Updating files with convert-ly}.
+@rprogram{Updating files with convert-ly}.
 
 Desgraciadamente @code{convert-ly} no puede tratar todos los cambios en la entrada.
 Se ocupa de los cambios sencillos de búsqueda y sustitución (como @code{raggedright}
 que se convierte en @code{ragged-right}), pero algunos cambios son demasiado
 complicados.  Los cambios de sintaxis que @code{convert-ly} es incapaz de manejar
-se relacionan en @ref{Updating files with convert-ly}.
+se relacionan en @rprogram{Updating files with convert-ly}.
 
-Por ejemplo, en la versión 2.4 y anteriores de LilyPond, los acentos y las letras no inglesas
-se introducían utilizando LaTeX: por ejemplo,
-@samp{No\"el} (que significa @q{Navidad} en francés).  En LilyPond 2.6 y siguientes, el carácter especial
-@samp{ë} debe introducirse directamente en el archivo de LilyPond como un carácter
-UTF-8.  @code{convert-ly} no puede cambiar todos los caracteres especiales de LaTeX
-a caracteres de UTF-8; tendrá que actualizar manualmente
+Por ejemplo, en la versión 2.4 y anteriores de LilyPond,
+los acentos y las letras no inglesas se introducían utilizando
+LaTeX: por ejemplo, @samp{No\"el} (que significa @q{Navidad} en francés).
+En LilyPond 2.6 y siguientes, el carácter especial @samp{ë}
+debe introducirse directamente en el archivo de LilyPond como un carácter UTF-8.
+@code{convert-ly} no puede cambiar todos los caracteres especiales
+de LaTeX a caracteres de UTF-8; tendrá que actualizar manualmente
 sus archivos de LilyPond antiguos.
 
 
@@ -579,9 +589,8 @@ el problema, comience coviertiendo grandes secciones del
 archivo de entrada en un comentario.  Después de eliminar una
 sección convirtiéndola en un comentario, pruebe a compilar el
 archivo otra vez.  Si funciona, entonces el problema debía estar
-en la porción que había eliminado.  Si no funciona,
-continúe eliminando material (transformándolo en comentarios)
-hasta que tenga algo que funcione.
+en la porción que había eliminado.  Si no funciona, continúe eliminando material
+(transformándolo en comentarios) hasta que tenga algo que funcione.
 
 En un caso extremo podría terminar con sólo
 
@@ -633,6 +642,7 @@ mínimos se utilizan para
 @item Añadir ejemplos al @uref{http://lsr@/.dsi@/.unimi@/.it/,Repositorio de Fragmentos de Código de LilyPond}
 @end itemize
 
+
 Para construir un ejemplo que sea lo más pequeño posible, la regla es
 bastante simple: quite todo lo que no sea necesario.  Al tratar de
 quitar partes innecesarias de un archivo, es una buena idea convertir líneas en
@@ -647,12 +657,14 @@ Existen dos excepciones a la regla del @qq{lo más pequeño posible}:
 @item Si puede, ponga @code{\paper@{ ragged-right=##t @}} al principio del ejemplo.
 @end itemize
 
+
 En resumen, el objetivo de un ejemplo mínimo es que sea fácil de leer:
 
 @itemize
 @item Evite usar notas, tonalidades o compases demasiado complicados, a no ser que quiera
 demostrar algo sobre el comportamiento de estos elementos precisamente.
-@item No use comandos @code{\override} a no ser que ése sea el propósito del ejemplo.
+@item No use comandos @code{\override} a no ser que ése sea el propósito
+del ejemplo.
 @end itemize
 
 
