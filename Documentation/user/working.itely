@@ -70,7 +70,7 @@ problems:
 
 @itemize @bullet
 @item @strong{Include @code{\version} numbers in every file}.  Note that all
-templates contain a @code{\version "2.11.15"} string.  We
+templates contain a @code{\version "2.11.23"} string.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
@@ -537,7 +537,7 @@ file with @code{\include "../global.ly"}, which contains
 
 @example
 %%%   global.ly
-\version "2.11.15"
+\version "2.11.23"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"

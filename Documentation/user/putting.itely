@@ -35,7 +35,7 @@ cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -64,7 +64,7 @@ text = \lyricmode @{
 Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -100,7 +100,7 @@ normally use bass clef.  We'll also give the cello some different
 notes.
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -170,7 +170,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.15"
+\version "2.11.23"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
