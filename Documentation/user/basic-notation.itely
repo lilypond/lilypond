@@ -1865,7 +1865,7 @@ The bar lines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
-@internalsref{systemStartDelimiter}.
+@code{systemStartDelimiter}.
 
 
 @commonprop
