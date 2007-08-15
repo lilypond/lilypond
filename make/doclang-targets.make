@@ -12,7 +12,7 @@ default:
 
 $(outdir)/%.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
-MAKEINFO = LANG= $(MAKEINFO_PROGRAM) --enable-encoding --force
+MAKEINFO_FLAGS += --force
 
 $(outdir)/%/index.html: $(outdir)/%.nexi $(outdir)/user-ln doc-po
 	mkdir -p $(dir $@)
