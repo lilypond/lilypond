@@ -27,6 +27,7 @@ source files.
    flower/		A simple c++ library
        include/
    input/		Music input examples
+       lsr/             Snippets from the LilyPond Snippet Repository
        mutopia/		Real music, more at www.mutopiaproject.org
        regression/	Testing of features, one test per file
        test/		Tips and tricks
