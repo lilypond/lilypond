@@ -7,6 +7,11 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@ifclear INSTALL
+@node Install
+@chapter Install
+@end ifclear
+
 @c  I don't know what this comment does.  Remove?  -gp
 @ignore
 @h tml
