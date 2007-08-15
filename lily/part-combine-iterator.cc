@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 2004--2006 Han-Wen Nienhuys
+  (c) 2004--2007 Han-Wen Nienhuys
 */
 
 #include "context.hh"

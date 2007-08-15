@@ -3,7 +3,7 @@
 
   source file of the GNU LilyPond music typesetter
 
-  (c) 1999--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+  (c) 1999--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
 #ifndef STAFF_SYMBOL_REFERENCER_HH
