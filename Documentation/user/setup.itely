@@ -7,7 +7,6 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c was "INSTALL - compiling and installing GNU LilyPond"
 @node Setup
 @chapter Setup
 
@@ -92,6 +91,7 @@ There is support from different text editors for LilyPond.
 * Vim mode::                    
 * LilyPondTool::                
 * TexShop::                     
+* TextMate::                    
 @end menu
 
 @node Emacs mode
@@ -171,6 +171,17 @@ editor for Mac OS X can be extended to run LilyPond, lilypond-book and
 convert-ly from within the editor, using the extensions available at 
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
 
+
+@node TextMate
+@subsection TextMate
+
+There is a LilyPond bundle for TextMate.  It may be installed by running
+
+@example
+mkdir -p /Library/Application\ Support/TextMate/Bundles
+cd /Library/Application\ Support/TextMate/Bundles
+svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
+@end example
 
 
 

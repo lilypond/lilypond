@@ -4,6 +4,8 @@
 \header { texidoc = "
 With the @code{\tweak} command, you can tune every grob directly. Here
 are some examples of available tweaks.
+
+
 " }
 
 \paper {

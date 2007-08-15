@@ -2,8 +2,8 @@
 \version "2.11.23"
 
 \header { texidoc = "
-Short (smaller than 1/4) tremolos can be obtained; in such a case only
-one beam is connected to the stems.
+Short tremolos (involving eighth notes or shorter durations) can be
+obtained; in such a case only one beam is connected to the stems.
 " }
 
 \layout { ragged-right = ##t }

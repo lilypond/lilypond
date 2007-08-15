@@ -3216,6 +3216,19 @@ Repeats with upbeats may be created.
 }
 @end lilypond
 
+@noindent
+or
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
+
 @funindex \repeatTie
 
 Ties may be added to a second ending,
