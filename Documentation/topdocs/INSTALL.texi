@@ -1,0 +1,19 @@
+\input texinfo @c -*-texinfo-*-
+@setfilename INSTALL.info
+@settitle INSTALL - compiling and installing GNU LilyPond
+
+@documentencoding utf-8
+@documentlanguage en
+
+@set INSTALL 1
+
+@node Top
+@top
+
+@contents
+
+@include macros.itexi
+@include install.itely
+
+@bye
+
