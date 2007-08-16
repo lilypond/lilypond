@@ -84,7 +84,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	{
 	  Real shift = bar->extent (right_col, X_AXIS)[LEFT];
 	  ideal -= shift;
-	  min_desired_space -= shift;
+	  min_desired_space -= max (shift, 0.0);
 	}
     }
 
