@@ -2231,9 +2231,9 @@ property of a @code{Beam}.  The @code{\featherDurations} function
 can be used to adjust note durations.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
 \featherDurations #(ly:make-moment 5 4) 
 {
-  \override Beam #'grow-direction = #LEFT
   c16[ c c c c c c]
 }
 @end lilypond
