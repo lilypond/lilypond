@@ -10,6 +10,7 @@
 #include "system.hh"
 #include "international.hh"
 #include "accidental-placement.hh"
+#include "accidental-interface.hh"
 #include "axis-group-interface.hh"
 #include "context.hh"
 #include "note-spacing.hh"
@@ -196,14 +197,14 @@ Paper_column_engraver::stop_translation_timestep ()
       Item *elem = items_[i];
       Grob *col = Item::is_non_musical (elem) ? command_column_ : musical_column_;
 
-      if (!elem->get_parent (X_AXIS)
-	  || !unsmob_grob (elem->get_object ("axis-group-parent-X")))
-	{
-	  Axis_group_interface::add_element (col, elem);
-	}
-      else if (Accidental_placement::has_interface (elem))
+      if (!elem->get_parent (X_AXIS))
+	elem->set_parent (col, X_AXIS);
+      if (!unsmob_grob (elem->get_object ("axis-group-parent-X")))
+	elem->set_object ("axis-group-parent-X", col->self_scm ());
+
+      if (Accidental_placement::has_interface (elem))
 	Separation_item::add_conditional_item (col, elem);
-      else
+      else if (!Accidental_interface::has_interface (elem))
 	Separation_item::add_item (col, elem);
     }
   items_.clear ();
