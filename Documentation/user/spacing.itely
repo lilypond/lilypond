@@ -620,26 +620,23 @@ Line breaks can only occur if there is a @q{proper} bar line.  A note
 which is hanging over a bar line is not proper, such as
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-c4 c2 c2 \break   % this does nothing
+c4 c2 << c2 {s4 \break } >>  % this does nothing
 c2 c4 |           % a break here would work
 c4 c2 c4 ~ \break % as does this break
 c4 c2 c4
 @end lilypond
 
-This can be avoided by removing the @code{Forbid_line_break_engraver}
-and adding the line breaks in another voice:
+This can be avoided by removing the @code{Forbid_line_break_engraver}.
+Note that manually forced line breaks have to be added in parallel
+with the music.
 
 @lilypond[quote,ragged-right,verbatim]
-\new Staff <<
-  \new Voice \with {
-    \remove Forbid_line_break_engraver
-  } {
-    c'4 c'2 c'2 c'2 c'4
-  }
-  \new Voice {
-    s1 \break s1
-  }
->>
+\new Voice \with {
+  \remove Forbid_line_break_engraver
+} {
+  c4 c2 << c2 {s4 \break } >>  % now the break is allowed
+  c2 c4 
+}
 @end lilypond
 
 
