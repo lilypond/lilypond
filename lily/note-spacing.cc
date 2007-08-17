@@ -86,6 +86,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 	  ideal -= shift;
 	  min_desired_space -= max (shift, 0.0);
 	}
+      else
+	ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
     }
 
   ideal = max (ideal, min_desired_space);
