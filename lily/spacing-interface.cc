@@ -96,6 +96,15 @@ Spacing_interface::minimum_distance (Grob *me, Grob *right)
   this will add a new column to RIGHT-ITEMS. Here we look at the
   columns, and return the left-most. If there are multiple columns, we
   prune RIGHT-ITEMS.
+
+  If we end up pruning, we add a left-neighbor to every column that
+  gets pruned. This ensures that loose columns in cross-staff music
+  do indeed get marked as loose. The problem situation is when a voice
+  passes from staff 1 to staff 2 and a clef appears later on in staff 1.
+  Then the NoteSpacing attached to the last note in staff 1 has two
+  right-items: one pointing to the next note in staff 2 and one pointing
+  to the clef. We will prune the clef right-item here and, unless we add
+  a left-neighbor to the clef, it won't get marked as loose.
 */
 Item *
 Spacing_interface::right_column (Grob *me)
@@ -122,6 +131,8 @@ Spacing_interface::right_column (Grob *me)
 
 	  mincol = col;
 	}
+      else if (rank > min_rank)
+	prune = true;
     }
 
   if (prune && a)
@@ -130,7 +141,15 @@ Spacing_interface::right_column (Grob *me)
       for (vsize i = right.size (); i--;)
 	{
 	  if (dynamic_cast<Item *> (right[i])->get_column () != mincol)
-	    right.erase (right.begin () + i);
+	    {
+	      extract_grob_set (right[i], "left-neighbors", lns);
+	      if (lns.empty ())
+		Pointer_group_interface::add_grob (right[i],
+						   ly_symbol2scm ("left-neighbors"),
+						   dynamic_cast<Item*> (me)->get_column ());
+
+	      right.erase (right.begin () + i);
+	    }
 	}
     }
 
