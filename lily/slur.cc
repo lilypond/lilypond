@@ -14,6 +14,7 @@
 #include "bezier.hh"
 #include "directional-element-interface.hh"
 #include "font-interface.hh"
+#include "item.hh"
 #include "pointer-group-interface.hh"
 #include "lookup.hh"
 #include "main.hh"		// DEBUG_SLUR_SCORING
@@ -367,6 +368,13 @@ Slur::calc_cross_staff (SCM smob)
 
   extract_grob_set (me, "note-columns", cols);
   extract_grob_set (me, "encompass-objects", extras);
+
+  for (vsize i = 0; i < cols.size (); i++)
+    {
+      if (Grob *s = Note_column::get_stem (cols[i]))
+	if (to_boolean (s->get_property ("cross-staff")))
+	  return SCM_BOOL_T;
+    }
 
   /* the separation items are dealt with in replace_breakable_encompass_objects
      so we can ignore them here */
