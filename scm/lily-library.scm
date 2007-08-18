@@ -117,9 +117,13 @@
   (let*
       ((paper (ly:parser-lookup parser '$defaultpaper))
        (layout (ly:parser-lookup parser '$defaultlayout))
-
        (count (ly:parser-lookup parser 'output-count))
-       (base (ly:parser-output-name parser)))
+       (base (ly:parser-output-name parser))
+       (output-suffix (ly:parser-lookup parser 'output-suffix)) )
+
+    (if (string? output-suffix)
+	(set! base (format "~a-~a" base (string-regexp-substitute
+					   "[^a-zA-Z0-9-]" "_" output-suffix))))
 
     ;; must be careful: output-count is under user control.
     (if (not (integer? count))
@@ -127,7 +131,6 @@
 
     (if (> count 0)
 	(set! base (format #f "~a-~a" base count)))
-
     (ly:parser-define! parser 'output-count (1+ count))
     (process-procedure book paper layout base)
     ))
