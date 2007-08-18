@@ -27,7 +27,8 @@ def copy_dir_with_test(srcdir, destdir):
 	for file in file_names:
 		if (file.endswith ('.ly')):
 			src = os.path.join (srcdir, file)
-			dest = os.path.join (destdir, file)
+			destname = file.replace (';', '-')
+			dest = os.path.join (destdir, destname)
 			copy_with_warning(src, dest)
 			os.system('convert-ly -e ' + dest)
 			if os.path.exists( dest + '~' ):

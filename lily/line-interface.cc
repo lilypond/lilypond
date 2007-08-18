@@ -127,7 +127,7 @@ Line_interface::make_dashed_line (Real thick, Offset from, Offset to,
 {
   dash_fraction = min (max (dash_fraction, 0.0), 1.0);
   Real on = dash_fraction * dash_period + thick;
-  Real off = dash_period - on;
+  Real off = max (0.0, dash_period - on);
 
   SCM at = scm_list_n (ly_symbol2scm ("dashed-line"),
 		       scm_from_double (thick),
@@ -231,6 +231,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
       Real len = (to-from).length ();
       
       int n = (int) rint ((len - period * fraction) / period);
+      n = max (0, n);
       if (n > 0)
 	{
 	  /*

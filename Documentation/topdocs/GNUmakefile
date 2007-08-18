@@ -7,6 +7,8 @@ HTML_FILES=$(TEXI_FILES:%.texi=$(outdir)/%.html) $(TELY_FILES:%.tely=$(outdir)/%
 PDF_FILES=$(outdir)/NEWS.pdf
 include $(depth)/make/stepmake.make
 
+MAKEINFO_FLAGS += -I $(top-src-dir)/Documentation/user
+
 ifneq ($(out),www)
 LILYPOND_BINARY='true'
 endif

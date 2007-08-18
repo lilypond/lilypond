@@ -137,9 +137,7 @@ Tuplet_bracket::calc_connect_to_neighbors (SCM smob)
   do
     {
       Direction break_dir = bounds[d]->break_status_dir ();
-      
       Spanner *orig_spanner = dynamic_cast<Spanner*> (me->original ());
-
       vsize neighbor_idx = me->get_break_index () - break_dir;
       if (break_dir
 	  && d == RIGHT
@@ -282,7 +280,6 @@ Tuplet_bracket::print (SCM smob)
     bracket_visibility = ly_scm2bool (bracket);
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
-
   
   SCM cpoints =  me->get_property ("control-points");
   if (scm_ilength (cpoints) < 2)
@@ -297,8 +294,6 @@ Tuplet_bracket::print (SCM smob)
   
   Interval x_span (points[LEFT][X_AXIS], points[RIGHT][X_AXIS]);
   Drul_array<Real> positions (points[LEFT][Y_AXIS], points[RIGHT][Y_AXIS]);
-
-
 
   Output_def *pap = me->layout ();
 

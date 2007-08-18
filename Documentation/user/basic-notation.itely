@@ -1865,7 +1865,7 @@ The bar lines at the start of each system are
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
 @internalsref{SystemStartBracket}.  Only one of these types is created
 in every context, and that type is determined by the property
-@internalsref{systemStartDelimiter}.
+@code{systemStartDelimiter}.
 
 
 @commonprop
@@ -3215,6 +3215,19 @@ Repeats with upbeats may be created.
   \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
+
+@noindent
+or
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
 
 @funindex \repeatTie
 

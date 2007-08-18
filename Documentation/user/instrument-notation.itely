@@ -358,14 +358,17 @@ The mode is introduced by the keyword @code{\chordmode}.
 
 Other chords may be entered by suffixing a colon and introducing a
 modifier (which may include a number if desired)
+
 @lilypond[quote,fragment,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
+
 The first number following the root is taken to be the @q{type} of the
 chord, thirds are added to the root until it reaches the specified
-number
+number.  The exception is @code{c:13}, for which the 11 is omitted.
+
 @lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13}
 @end lilypond
 
 @cindex root of chord
@@ -375,16 +378,21 @@ number
 More complex chords may also be constructed adding separate steps
 to a chord.  Additions are added after the number following
 the colon and are separated by dots
+
 @lilypond[quote,verbatim,fragment]
 \chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
+
 Chord steps can be altered by suffixing a @code{-} or @code{+} sign
 to the number
+
 @lilypond[quote,verbatim,fragment]
 \chordmode { c:7+ c:5+.3- c:3-.5-.7- }
 @end lilypond
+
 Removals are specified similarly and are introduced by a caret.  They
 must come after the additions
+
 @lilypond[quote,verbatim,fragment]
 \chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond

@@ -336,7 +336,6 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
 
   Slice ranks;
-  
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
@@ -366,7 +365,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      Beam_stem_segment seg;
 	      seg.stem_ = stem;
 	      seg.stem_x_ = stem_x;
-	      seg.rank_ = 2 * i  + (d+1)/2;
+	      seg.rank_ = 2 * i + (d+1)/2;
 	      seg.width_ = stem_width;
 	      seg.stem_index_ = i;
 	      seg.dir_ = d;
@@ -404,14 +403,15 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	  Direction event_dir = LEFT;
 	  do
 	    {
-	      bool on_bound = (event_dir == LEFT) ? j == 0 :
+	      bool on_line_bound = (segs[j].dir_ == LEFT) ? segs[j].stem_index_ == 0
+		: segs[j].stem_index_ == stems.size() - 1;
+	      bool on_beam_bound = (event_dir == LEFT) ? j == 0 :
 		j == segs.size () - 1;
-
 	      bool inside_stem = (event_dir == LEFT)
-			? segs[j].stem_index_ > 0
-			: segs[j].stem_index_ + 1  < stems.size () ;
+		? segs[j].stem_index_ > 0
+		: segs[j].stem_index_ + 1 < stems.size () ;
 		      
-	      bool event = on_bound
+	      bool event = on_beam_bound
 		|| abs (segs[j].rank_ - segs[j+event_dir].rank_) > 1
 		|| (abs (vertical_count) >= segs[j].max_connect_
 		    || abs (vertical_count) >= segs[j + event_dir].max_connect_);
@@ -423,7 +423,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 	      current.horizontal_[event_dir] = segs[j].stem_x_;
 	      if (segs[j].dir_ == event_dir)
 		{
-		  if (on_bound
+		  if (on_line_bound
 		      && me->get_bound (event_dir)->break_status_dir ())
 		    {
 		      current.horizontal_[event_dir]

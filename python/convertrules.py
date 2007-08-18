@@ -2933,7 +2933,9 @@ def conv (str):
                   sub_acc_name, str) 
     str = re.sub (r"(KeySignature|Accidental[A-Za-z]*)\s*#'style\s*=\s*#'([a-z]+)",
                   r"\1 #'glyph-name-alist = #alteration-\2-glyph-name-alist", str)
-            
+    ## FIXME: standard vs default, alteration-FOO vs FOO-alteration
+    str = str.replace ('alteration-default-glyph-name-alist',
+                       'standard-alteration-glyph-name-alist')
     return str
 
 conversions.append (((2, 11, 6), conv, """Rename accidental glyphs, use glyph-name-alist."""))
