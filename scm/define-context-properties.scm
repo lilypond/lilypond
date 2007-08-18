@@ -279,6 +279,7 @@ containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
 0 to@tie{}6 and @var{alter} a fraction, denoting alteration.  For
 alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
 
+     (lyricMelismaAlignment ,ly:dir? "Alignment to use for a melisma syllable.")
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
