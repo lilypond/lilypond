@@ -11,13 +11,19 @@
 
 (ly:add-interface
  'accidental-suggestion-interface
-   "An accidental, printed as a suggestion (typically: vertically over a note)"
-   '())
+ "An accidental, printed as a suggestion (typically: vertically over a
+note)."
+ '())
 
 (ly:add-interface
  'bass-figure-interface
- "A bass figure text"
+ "A bass figure text."
  '(implicit))
+
+(ly:add-interface
+ 'bass-figure-alignment-interface
+ "Align a bass figure."
+ '())
 
 (ly:add-interface
  'bend-after-interface
@@ -25,34 +31,28 @@
  '(thickness delta-position))
 
 (ly:add-interface
- 'bass-figure-alignment-interface
- ""
+ 'dynamic-interface
+ "Any kind of loudness sign."
  '())
 
 (ly:add-interface
- 'dynamic-interface
-   "Any kind of loudness sign"
-   '())
-
-(ly:add-interface
  'dynamic-line-spanner-interface
-   "Dynamic line spanner"
-   '(avoid-slur))
+ "Dynamic line spanner."
+ '(avoid-slur))
 
 (ly:add-interface
  'dynamic-text-spanner-interface
-   "Dynamic text spanner"
-   '(text))
+ "Dynamic text spanner."
+ '(text))
 
 (ly:add-interface
  'finger-interface
- "A fingering instruction"
+ "A fingering instruction."
  '())
 
 (ly:add-interface
  'fret-diagram-interface
- "A fret diagram"
-
+ "A fret diagram."
  '(align-dir barre-type dot-color dot-radius finger-code fret-count
 label-dir number-type size string-count xo-font-magnification
 mute-string open-string orientation string-fret-finger-combinations
@@ -65,28 +65,17 @@ thickness))
 
 (ly:add-interface
  'key-cancellation-interface
- "A key cancellation"
- '())
-
-(ly:add-interface
- 'ligature-interface
- "A ligature"
- '())
-
-(ly:add-interface
- 'key-cancellation-interface
- "A key cancellation"
+ "A key cancellation."
  '())
 
 (ly:add-interface
  'ligature-bracket-interface
- "A bracket indicating a ligature in the original edition"
+ "A bracket indicating a ligature in the original edition."
  '(width thickness height))
 
-
 (ly:add-interface
- 'lyric-syllable-interface
- "A single piece of lyrics"
+ 'ligature-interface
+ "A ligature."
  '())
 
 (ly:add-interface
@@ -95,13 +84,18 @@ thickness))
  '())
 
 (ly:add-interface
+ 'lyric-syllable-interface
+ "A single piece of lyrics."
+ '())
+
+(ly:add-interface
  'mark-interface
- "A rehearsal mark"
+ "A rehearsal mark."
  '())
 
 (ly:add-interface
  'metronome-mark-interface
- "A metronome mark"
+ "A metronome mark."
  '())
 
 (ly:add-interface
@@ -110,8 +104,8 @@ thickness))
  '(bound-padding))
 
 (ly:add-interface
-'note-name-interface
- "Note name"
+ 'note-name-interface
+ "Note names."
  '(style))
 
 (ly:add-interface
@@ -121,60 +115,48 @@ thickness))
 
 (ly:add-interface
  'parentheses-interface
- "Parentheses for other objects"
+ "Parentheses for other objects."
  '(padding stencils))
 
 (ly:add-interface
  'piano-pedal-interface
- "A piano pedal sign"
+ "A piano pedal sign."
  '())
 
 (ly:add-interface
  'piano-pedal-script-interface
- "A piano pedal sign, fixed size"
+ "A piano pedal sign, fixed size."
  '())
 
 (ly:add-interface
  'pitched-trill-interface
-   "A note head to indicate trill pitches"
-   '(accidental-grob))
-
-(ly:add-interface
- 'trill-pitch-accidental-interface
- "An accidental for trill pitch"
- '()
- )
-
-(ly:add-interface
- 'trill-spanner-interface
- "An accidental for trill pitch"
- '())
+ "A note head to indicate trill pitches."
+ '(accidental-grob))
 
 (ly:add-interface
  'rhythmic-grob-interface
- "Any object with a duration. Used to determine which grobs are
+ "Any object with a duration.  Used to determine which grobs are
 interesting enough to maintain a hara-kiri staff."
  '())
 
-
 (ly:add-interface
  'spacing-options-interface
- "Supports setting of spacing variables"
+ "Supports setting of spacing variables."
  '(spacing-increment shortest-duration-space))
 
 (ly:add-interface
  'stanza-number-interface
- "A stanza number, to be put in from of a lyrics line"
+ "A stanza number, to be put in from of a lyrics line."
  '())
 
 (ly:add-interface
  'string-number-interface
- "A string number instruction"
+ "A string number instruction."
  '())
 
 (ly:add-interface
  'stroke-finger-interface
- "A right hand finger instruction"
+ "A right hand finger instruction."
  '(digit-names))
 
 (ly:add-interface
@@ -185,18 +167,27 @@ interesting enough to maintain a hara-kiri staff."
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface
- "An interface for any notes set in a tablature staff"
+ "An interface for any notes set in a tablature staff."
+ '())
+
+(ly:add-interface
+ 'trill-spanner-interface
+ "A trill spanner."
+ '())
+
+(ly:add-interface
+ 'trill-pitch-accidental-interface
+ "An accidental for trill pitch."
  '())
 
 (ly:add-interface
  'unbreakable-spanner-interface
- "A spanner that should not be broken across line breaks. Override
-with @code{breakable=##t}. "
- 
+ "A spanner that should not be broken across line breaks.  Override
+with @code{breakable=##t}."
  '(breakable))
 
 (ly:add-interface
  'vertically-spaceable-interface
- "Objects that should be kept at constant vertical distances. Typically:
+ "Objects that should be kept at constant vertical distances.  Typically:
 @internalsref{VerticalAxisGroup} objects of @internalsref{Staff} contexts."
  '())
