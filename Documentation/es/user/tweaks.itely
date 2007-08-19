@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: d18561abb4a826a1fe77e06619b935eeaace9841
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,7 +12,6 @@
 
 Este capítulo trata de cómo modificar la salida.  LilyPond es extremadamente
 configurable; prácticamente todos los fragmentos de la salida se pueden cambiar.
-
 
 
 @menu
@@ -68,7 +67,6 @@ esta cantidad es el mero resultado del ensayo y error y de mi gusto personal
 acerca de la notación.  Pruebe el ejemplo anterior con 2.3... pero también con otros valores 
 mayores (y menores).  ¿Cuál cree que queda mejor?
 
-
 La propiedad @code{staff-padding} (relleno de pentagrama) está estrechamente relacionada.
 @code{padding} controla la cantidad de espacio mínima entre un objeto y el objeto más cercano
 (generalmente la nota o las líneas del pentagrama);
@@ -99,7 +97,8 @@ moverlo horizontal o verticalmente.  Se hace con la propiedad
 @code{extra-offset} (desplazamiento adicional).  Es ligeramente más complicado y puede
 causar otros problemas.  Cuando movemos objetos con @code{extra-offset},
 el movimiento se hace después de que LilyPond haya colocado todos los demás objetos.
-Esto significa que el resultado podría entrar en conflicto con otros objetos.
+Esto significa
+que el resultado podría entrar en conflicto con otros objetos.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:
@@ -346,7 +345,8 @@ Algunos ajustes por omisión como las definiciones de las
 Otros ajustes como las definiciones de los comandos de marcado se almacenan
 como archivos @code{.scm} (de Scheme).  Cae fuera del ámbito de presente manual
 cualquier explicación más profunda; los usuarios están advertidos de que se necesita
-una considerable cantidad de conocimientos técnicos para comprender estos archivos.
+una considerable cantidad de conocimientos técnicos
+para comprender estos archivos.
 
 @itemize @bullet
 
@@ -372,15 +372,14 @@ Archivos como @file{ly/property-init.ly} y
 
 A veces puede acabar con uno o dos pentagramas en una segunda página
 (o tercera, o cuarta...).  Es fastidioso sobre todo si observa las
-páginas anteriores y parece haber espacio sufuciente en ellas.
+páginas anteriores y parece haber
+espacio sufuciente en ellas.
 
 Al investigar asuntos relacionados con la presentación, la herramienta
 @code{annotate-spacing} (anotar el espaciado) no tiene precio.
 Este comando imprime los valores de algunos comandos de espaciado;
 consulte @ref{Displaying spacing} para ver más detalles.  A partir de
-la salida de de @code{annotate-spacing}, podemos ver qué márgenes
-podríamos desear alterar.
-
+la salida de de @code{annotate-spacing}, podemos ver qué márgenes podríamos desear alterar.
 
 Aparte de los márgenes, existen otras opciones para ahorrar espacio:
 
@@ -459,7 +458,8 @@ Altere el espaciado horizontal por medio de @code{SpacingSpanner}.  Consulte
 @section Advanced tweaks with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar de manera muy profunda utilizando
-comandos como @code{\override TextScript #'extra-offset = ( 1 . -1)}.  Pero
+comandos como
+@code{\override TextScript #'extra-offset = ( 1 . -1)}.  Pero
 tenemos un potencial incluso mayor si utilizamos Scheme.  Para ver una explicación completa
 de esto, consulte el @ref{Scheme tutorial} e
 @ref{Interfaces for programmers}.

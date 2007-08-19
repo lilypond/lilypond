@@ -1,13 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: a37d5fd612a04e602454d7773559bc8813d6a0cc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond.info
-@settitle GNU LilyPond
-@documentencoding UTF-8
+@settitle Manual del usuario de GNU LilyPond
+@documentencoding utf-8
 @documentlanguage es
 
 @iftex
@@ -50,7 +50,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * midi2ly: (lilypond/lilypond-program)Invocar  midi2ly.        Importar archivos MIDI.
 @end direntry
 
-
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
@@ -63,25 +62,23 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 @ifhtml
 Este documento también está disponible como
-@uref{source/Documentation/user/lilypond.es.pdf,PDF}.
+@uref{source/Documentation/user/lilypond.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-big-page.html,una sola página enorme}.
 @end ifhtml
 
 
 @c  This produces the unified index
 @syncodeindex fn cp
-@syncodeindex ky cp
-@syncodeindex pg cp
-@syncodeindex tp cp
 @syncodeindex vr cp
+
 
 @finalout
 
 @titlepage
 @title LilyPond
 @subtitle El tipografiador de música
+@titlefont{Manual del usuario}
 @author El equipo de desarrollo de LilyPond
-
-
 
 Copyright @copyright{} 1999--2007 por los autores
 
@@ -163,7 +160,7 @@ Free Documentation License''.
 @ifnottex
 Este archivo es la documentación de GNU LilyPond.
 
-Copyright @copyright{} 1999--2007 por los autores
+Copyright 1999--2007 por los autores
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -194,7 +191,7 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- The music typesetter
+@top GNU LilyPond --- El tipografiador de música
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Éste es el manual del usuario para GNU LilyPond de la serie 2.11.x.
