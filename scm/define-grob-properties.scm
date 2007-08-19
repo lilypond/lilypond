@@ -94,7 +94,7 @@ printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
      (break-align-anchor ,number? "Grobs aligned to this break-align
-grob will have their X-offsets shifted by this number. In barlines,
+grob will have their X-offsets shifted by this number.  In barlines,
 for example, this is used to position grobs relative to the (visual)
 center of the barline.")
      (break-align-anchor-alignment ,number? "Read by
@@ -103,7 +103,7 @@ an anchor to a grobs extent")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
-which break-aligned grobs to align this to. If the grob selected by
+which break-aligned grobs to align this to.  If the grob selected by
 the first symbol in the list is invisible due to break-visibility,
 we will align to the next grob (and so on).")
      (break-align-orders ,vector? "Defines the order in which
@@ -172,7 +172,7 @@ but also other numerical values are permitted.")
      (dot-count ,integer? "The number of dots.")
      (dot-radius ,number? "Radius of dots.")
      (duration-log ,integer? "The 2-log of the note head duration,
-i.e. @code{0} = whole note, @code{1} = half note, etc.")
+i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
      (eccentricity ,number? "How asymmetrical to make a slur.
 Positive means move the center to the right.")
@@ -221,7 +221,7 @@ include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
 include @code{upright}, @code{italic}, @code{caps}.")
      (font-size ,number? "The font size, compared to the @q{normal}
 size.  @code{0}@tie{}is style-sheet's normal size, @code{-1} is
-smaller, @code{+1} is bigger. Each step of@tie{}1 is approximately
+smaller, @code{+1} is bigger.  Each step of@tie{}1 is approximately
 12% larger, 6@tie{}steps are exactly a factor@tie{}2 larger.
 Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
@@ -331,7 +331,7 @@ collisions, even if they have a different number of dots.  This is
 normal notation for some types of polyphonic music.
 
 @code{merge-differently-dotted} only applies to opposing stem
-directions (i.e. voice 1 &@tie{}2).")
+directions (i.e., voice 1 &@tie{}2).")
      (merge-differently-headed ,boolean? "Merge note heads in
 collisions, even if they have different note heads.  The
 smaller of the two heads is rendered invisible.  This is used in
@@ -339,7 +339,7 @@ polyphonic guitar notation.  The value of this setting is used by
 @internalsref{note-collision-interface}.
 
 @code{merge-differently-headed} only applies to opposing stem
-directions (i.e. voice 1 &@tie{}2).")
+directions (i.e., voice 1 &@tie{}2).")
      (minimum-X-extent ,number-pair? "Minimum size of an object in
 X@tie{}dimension, measured in @code{staff-space} units.")
      (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
@@ -470,11 +470,11 @@ of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 @code{minimum-space} or @code{extra-space}.")
      (space-to-barline ,boolean? "If set, the distance between a note
 and the following non-musical column will be measured to the barline
-instead of to the beginning of the non-musical column. If there is a
+instead of to the beginning of the non-musical column.  If there is a
 clef change followed by a barline, for example, this means that we will
 try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
-duration.  Typically, the width of a note head. See also
+duration.  Typically, the width of a note head.  See also
 @internalsref{spacing-spanner-interface}.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
@@ -689,7 +689,7 @@ notes that the arpeggio has to be before.")
      (begin-of-line-visible ,boolean? "Used for marking @code{ChordNames}
 that should only show changes.")
 
-     (cause ,scheme? "Any kind of causation objects (i.e. music, or perhaps
+     (cause ,scheme? "Any kind of causation objects (i.e., music, or perhaps
 translator) that was the cause for this grob.")
      (circled-tip ,boolean? "Put a circle at start/end of hairpins (al/del
 niente).")
