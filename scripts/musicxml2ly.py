@@ -131,10 +131,10 @@ def musicxml_attributes_to_lily (attrs):
         'key': musicxml_key_to_lily
     }
     for (k, func) in attr_dispatch.items ():
-        childs = attrs.get_named_children (k)
+        children = attrs.get_named_children (k)
 
         ## ugh: you get clefs spread over staves for piano
-        if childs:
+        if children:
             elts.append (func (attrs))
     
     return elts

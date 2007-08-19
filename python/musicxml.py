@@ -39,10 +39,13 @@ class Xml_node:
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
-	return [c for c in self._children if isinstance(c, klass)]
+        if not klass:
+            return []
+        else:
+            return [c for c in self._children if isinstance(c, klass)]
 
     def get_named_children (self, nm):
-	return self.get_typed_children (class_dict[nm])
+	return self.get_typed_children (class_dict.get (nm))
 
     def get_named_child (self, nm):
 	return self.get_maybe_exist_named_child (nm)
