@@ -558,12 +558,11 @@ def musicxml_voice_to_lily_voice (voice):
 
 
 def musicxml_id_to_lily (id):
-    digits = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-              'nine', 'ten']
+    digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight',
+              'Nine', 'Ten']
     
     for dig in digits:
-        d = digits.index (dig) + 1
-        dig = dig[0].upper() + dig[1:]
+        d = digits.index (dig)
         id = re.sub ('%d' % d, dig, id)
 
     id = re.sub  ('[^a-zA-Z]', 'X', id)
