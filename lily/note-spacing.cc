@@ -74,7 +74,9 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
      to the bar-line (if present), not the start of the column. */
-  if (!Paper_column::is_musical (right_col) && !skys[RIGHT].is_empty ())
+  if (!Paper_column::is_musical (right_col)
+      && !skys[RIGHT].is_empty ()
+      && to_boolean (me->get_property ("space-to-barline")))
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
 						      ly_symbol2scm ("elements"),
@@ -315,6 +317,7 @@ ADD_INTERFACE (Note_spacing,
 	       "right-items "
 	       "same-direction-correction "
 	       "stem-spacing-correction "
+	       "space-to-barline "
 
 	       );
 

@@ -468,6 +468,11 @@ prefatory items, like clef and time-signature.  The format is an alist
 of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
+     (space-to-barline ,boolean? "If set, the distance between a note
+and the following non-musical column will be measured to the barline
+instead of to the beginning of the non-musical column. If there is a
+clef change followed by a barline, for example, this means that we will
+try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head. See also
 @internalsref{spacing-spanner-interface}.")
