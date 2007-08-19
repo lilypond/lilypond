@@ -74,20 +74,28 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
 
   /* If we have a NonMusical column on the right, we measure the ideal distance
      to the bar-line (if present), not the start of the column. */
-  if (!Paper_column::is_musical (right_col) && !skys[RIGHT].is_empty ())
+  if (!Paper_column::is_musical (right_col)
+      && !skys[RIGHT].is_empty ()
+      && to_boolean (me->get_property ("space-to-barline")))
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
 						      ly_symbol2scm ("elements"),
 						      Bar_line::has_interface);
 
       if (bar)
-	ideal -= bar->extent (right_col, X_AXIS)[LEFT];
+	{
+	  Real shift = bar->extent (right_col, X_AXIS)[LEFT];
+	  ideal -= shift;
+	  min_desired_space -= max (shift, 0.0);
+	}
+      else
+	ideal -= right_col->extent (right_col, X_AXIS)[RIGHT];
     }
 
   ideal = max (ideal, min_desired_space);
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
-  Spring ret (ideal, min_dist);
+  Spring ret (max (0.0, ideal), min_dist);
   ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
   ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
   return ret;
@@ -309,6 +317,7 @@ ADD_INTERFACE (Note_spacing,
 	       "right-items "
 	       "same-direction-correction "
 	       "stem-spacing-correction "
+	       "space-to-barline "
 
 	       );
 

@@ -12,7 +12,7 @@ endif
 let current_compiler = "lilypond"
 
 " default make
-setlocal makeprg=lilypond $*
+setlocal makeprg=lilypond\ $*
 " errorformat for lily (with columns) and gcc
 " (how to see multiple-line error messages?)
 setlocal errorformat=%f:%l:%c:\ %m,%f:%l:\ %m,In\ file\ included\ from\ %f:%l:,\^I\^Ifrom\ %f:%l%m

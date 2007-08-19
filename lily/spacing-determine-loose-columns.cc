@@ -157,7 +157,7 @@ Spacing_spanner::set_distances_for_loose_col (Grob *me, Grob *c,
 	      Real base = note_spacing (me, lc, rc, options);
 	      Spring spring = Note_spacing::get_spacing (sp, rc, base, options->increment_);
 
-	      dists[d] = max (dists[d], spring.distance () - options->increment_);
+	      dists[d] = max (dists[d], spring.min_distance ());
 	    }
 	  else if (Staff_spacing::has_interface (sp))
 	    {

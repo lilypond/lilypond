@@ -1174,6 +1174,7 @@
      . (
 	(stem-spacing-correction . 0.5)
 	(same-direction-correction . 0.25)
+	(space-to-barline . #t)
 	;; Changed this from 0.75.
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)
