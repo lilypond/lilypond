@@ -357,14 +357,16 @@ class Part (Music_xml_node):
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
 
-	    if not (voice_id or isinstance (n, Attributes)):
+            # TODO: If the first element of a voice is a dynamics entry,
+            #       then voice_id is not yet set! Thus it will currently be ignored
+	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
 		start_attr = n
 		continue
 
-	    if isinstance (n, Attributes):
+	    if isinstance (n, Attributes) or isinstance (n, Direction):
 		for v in voices.values ():
 		    v.add_element (n)
 		continue
@@ -477,6 +479,8 @@ class Direction (Music_xml_node):
     pass
 class DirType (Music_xml_node):
     pass
+class Wedge (Music_xml_node):
+    pass
 
 
 ## need this, not all classes are instantiated
@@ -515,7 +519,9 @@ class_dict = {
         'technical': Technical,
         'ornaments': Ornaments,
         'direction': Direction,
-        'direction-type': DirType
+        'direction-type': DirType,
+        'dynamics': Dynamics,
+        'wedge': Wedge
 }
 
 def name2class_name (name):

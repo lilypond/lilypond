@@ -499,6 +499,50 @@ class TieEvent(Event):
         return '~'
 
 
+class HairpinEvent (Event):
+    def __init__ (self, type):
+        self.type = type
+    def hairpin_to_ly (self):
+        val = ''
+        tp = { 0: '\!', 1: '\<', -1: '\>' }.get (self.type)
+        if tp:
+            val += tp
+        return val
+    
+    def ly_expression (self):
+        return self.hairpin_to_ly ()
+    
+    def print_ly (self, printer):
+        val = self.hairpin_to_ly ()
+        if val:
+            printer.dump (val)
+
+
+
+class DynamicsEvent (Event):
+    def __init__ (self):
+        self.type = None
+        self.available_commands = [ "ppppp", "pppp", "ppp", "pp", "p", 
+                                    "mp", "mf", 
+                                    "f", "ff", "fff", "ffff", 
+                                    "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" ];
+    def ly_expression (self):
+        if self.type == None:
+            return;
+        elif self.type in self.available_commands:
+            return '\%s' % self.type
+        else:
+            return '\markup{ \dynamic %s }' % self.type
+        
+    def print_ly (self, printer):
+        if self.type == None:
+            return
+        elif self.type in self.available_commands:
+            printer.dump ("\\%s" % self.type)
+        else:
+            printer.dump ("\\markup{ \\dynamic %s }" % self.type)
+
+
 class ArticulationEvent (Event):
     def __init__ (self):
         self.type = None

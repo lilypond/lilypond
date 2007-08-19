@@ -261,13 +261,43 @@ def musicxml_articulation_to_lily_event(mxl_event):
     return ev
 
 
+def musicxml_direction_to_lily( n ):
+    # TODO: Handle the <staff> element!
+    res = []
+    dirtype = n.get_maybe_exist_typed_child (musicxml.DirType)
+    if not dirtype: 
+      return res
+
+    for entry in dirtype.get_all_children ():
+        if entry.get_name () == "dynamics":
+            for dynentry in entry.get_all_children ():
+                dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp", 
+                    "f", "ff", "fff", "ffff", "fffff", "ffffff", 
+                    "mp", "mf", "sf", "sfp", "sfpp", "fp", 
+                    "rf", "rfz", "sfz", "sffz", "fz" )
+                if not dynentry.get_name() in dynamics_available: 
+                    continue
+                event = musicexp.DynamicsEvent ()
+                event.type = dynentry.get_name ()
+                res.append (event)
+      
+        if entry.get_name() == "wedge":
+            if hasattr (entry, 'type'):
+                wedgetype = entry.type;
+                wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
+                                "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
+                if wedgetypeval != None:
+                    event = musicexp.HairpinEvent (wedgetypeval)
+                    res.append (event)
+
+    return res
+
 instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
     'Open Triangle': 'opentriangle',
     'Mute Triangle': 'mutetriangle',
-    'Tambourine': 'tambourine',
-    
+    'Tambourine': 'tambourine'
 }
 
 def musicxml_note_to_lily_main_event (n):
@@ -312,6 +342,7 @@ class NegativeSkip:
 class LilyPondVoiceBuilder:
     def __init__ (self):
         self.elements = []
+        self.pending_dynamics = []
         self.end_moment = Rational (0)
         self.begin_moment = Rational (0)
         self.pending_multibar = Rational (0)
@@ -338,6 +369,16 @@ class LilyPondVoiceBuilder:
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + duration 
+
+        # Insert all pending dynamics right after the note/rest:
+        if duration > Rational (0):
+            for d in self.pending_dynamics:
+                self.elements.append (d)
+            self.pending_dynamics = []
+
+    def add_dynamics (self, dynamic):
+        # store the dynamic item(s) until we encounter the next note/rest:
+        self.pending_dynamics.append (dynamic)
 
     def add_bar_check (self, number):
         b = musicexp.BarCheck ()
@@ -390,6 +431,11 @@ def musicxml_voice_to_lily_voice (voice):
         if n.get_name () == 'forward':
             continue
 
+        if isinstance (n, musicxml.Direction):
+            for a in musicxml_direction_to_lily (n):
+                voice_builder.add_dynamics (a)
+            continue
+        
         if not n.get_maybe_exist_named_child ('chord'):
             try:
                 voice_builder.jumpto (n._when)
@@ -510,6 +556,13 @@ def musicxml_voice_to_lily_voice (voice):
                 for ch in a.get_all_children ():
                     ev = musicxml_articulation_to_lily_event (ch)
                     if ev: 
+                        ev_chord.append (ev)
+
+            dynamics = notations.get_named_children ('dynamics')
+            for a in dynamics:
+                for ch in a.get_all_children ():
+                    ev = musicxml_dynamics_to_lily_event (ch)
+                    if ev:
                         ev_chord.append (ev)
 
         mxl_beams = [b for b in n.get_named_children ('beam')
