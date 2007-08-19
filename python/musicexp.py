@@ -498,7 +498,34 @@ class TieEvent(Event):
     def ly_expression (self):
         return '~'
 
-    
+
+class ArticulationEvent (Event):
+    def __init__ (self):
+        self.type = None
+        self.force_direction = None
+
+    def direction_mod (self):
+        dirstr = { 1: '^', -1: '_', 0: '-' }.get (self.force_direction)
+        if dirstr:
+            return dirstr
+        else:
+            return ''
+
+    def ly_expression (self):
+        return '%s\\%s' % (self.direction_mod (), self.type)
+
+
+class TremoloEvent (Event):
+    def __init__ (self):
+        self.bars = 0;
+
+    def ly_expression (self):
+        str=''
+        if self.bars > 0:
+            str += ':%s' % (2 ** (2 + string.atoi (self.bars)))
+        return str
+
+
 class RhythmicEvent(Event):
     def __init__ (self):
         Event.__init__ (self)

@@ -168,6 +168,99 @@ def musicxml_spanner_to_lily_event (mxl_event):
 
     return ev
 
+def musicxml_direction_to_indicator (direction):
+    val = { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction)
+    if val:
+        return val
+    else:
+        return ''
+
+def musicxml_fermata_to_lily_event (mxl_event):
+    ev = musicexp.ArticulationEvent ()
+    ev.type = "fermata"
+    if hasattr (mxl_event, 'type'):
+      dir = musicxml_direction_to_indicator (mxl_event.type)
+      if dir:
+        ev.force_direction = dir
+    return ev
+
+def musicxml_tremolo_to_lily_event(mxl_event):
+    if mxl_event.get_name () != "tremolo": 
+        return
+    ev = musicexp.TremoloEvent ()
+    ev.bars = mxl_event.get_text ()
+    return ev
+
+# TODO: Some translations are missing!
+articulations_dict = { 
+    ##### ORNAMENTS
+    "trill-mark": "trill", 
+    "turn": "turn", 
+    #"delayed-turn": "?", 
+    "inverted-turn": "reverseturn", 
+    #"shake": "?", 
+    #"wavy-line": "?", 
+    "mordent": "mordent",
+    #"inverted-mordent": "?", 
+    #"schleifer": "?" 
+    ##### TECHNICALS
+    "up-bow": "upbow", 
+    "down-bow": "downbow", 
+    #"harmonic": "", 
+    #"open-string": "", 
+    #"thumb-position": "", 
+    #"fingering": "", 
+    #"pluck": "", 
+    #"double-tongue": "", 
+    #"triple-tongue": "", 
+    #"stopped": "", 
+    #"snap-pizzicato": "", 
+    #"fret": "", 
+    #"string": "", 
+    #"hammer-on": "", 
+    #"pull-off": "", 
+    #"bend": "", 
+    #"tap": "", 
+    #"heel": "", 
+    #"toe": "", 
+    #"fingernails": ""
+    ##### ARTICULATIONS
+    "accent": "accent", 
+    "strong-accent": "marcato", 
+    "staccato": "staccato", 
+    "tenuto": "tenuto", 
+    #"detached-legato": "", 
+    "staccatissimo": "staccatissimo", 
+    #"spiccato": "", 
+    #"scoop": "", 
+    #"plop": "", 
+    #"doit": "", 
+    #"falloff": "",
+    "breath-mark": "breathe", 
+    #"caesura": "caesura", 
+    #"stress": "", 
+    #"unstress": ""
+}
+
+def musicxml_articulation_to_lily_event(mxl_event):
+    ev = musicexp.ArticulationEvent ()
+    tp = articulations_dict.get (mxl_event.get_name ())
+    if not tp:
+        return
+    
+    ev.type = tp
+
+    # Some articulations use the type attribute, other the placement...
+    dir = None
+    if hasattr (mxl_event, 'type'):
+        dir = musicxml_direction_to_indicator (mxl_event.type)
+    if hasattr (mxl_event, 'placement'):
+        dir = musicxml_direction_to_indicator (mxl_event.placement)
+    if dir:
+        ev.force_direction = dir
+    return ev
+
+
 instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
@@ -353,6 +446,12 @@ def musicxml_voice_to_lily_voice (voice):
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
         span_events = []
+        
+        # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
+        # +tied | +slur | +tuplet | glissando | slide | 
+	      # ornaments | technical | articulations | dynamics |
+	      # +fermata | arpeggiate | non-arpeggiate | 
+	      # accidental-mark | other-notation
         if notations:
             if notations.get_tuplet():
                 tuplet_event = notations.get_tuplet()
@@ -375,6 +474,43 @@ def musicxml_voice_to_lily_voice (voice):
             mxl_tie = notations.get_tie ()
             if mxl_tie and mxl_tie.type == 'start':
                 ev_chord.append (musicexp.TieEvent ())
+                
+            fermatas = notations.get_named_children ('fermata')
+            for a in fermatas:
+                ev = musicxml_fermata_to_lily_event (a);
+                if ev: 
+                    ev_chord.append (ev)
+                
+            # Articulations can contain the following child elements:
+            #         accent | strong-accent | staccato | tenuto |
+            #         detached-legato | staccatissimo | spiccato |
+            #         scoop | plop | doit | falloff | breath-mark | 
+            #         caesura | stress | unstress
+            # Technical can contain the following child elements:
+            #         up-bow | down-bow | harmonic | open-string |
+            #         thumb-position | fingering | pluck | double-tongue |
+            #         triple-tongue | stopped | snap-pizzicato | fret |
+            #         string | hammer-on | pull-off | bend | tap | heel |
+            #         toe | fingernails | other-technical
+            # Ornaments can contain the following child elements:
+            #         trill-mark | turn | delayed-turn | inverted-turn |
+            #         shake | wavy-line | mordent | inverted-mordent | 
+            #         schleifer | tremolo | other-ornament, accidental-mark
+            ornaments = notations.get_named_children ('ornaments')
+            for a in ornaments:
+                for ch in a.get_named_children ('tremolo'):
+                    ev = musicxml_tremolo_to_lily_event (ch)
+                    if ev: 
+                        ev_chord.append (ev)
+
+            ornaments += notations.get_named_children ('articulations')
+            ornaments += notations.get_named_children ('technical')
+
+            for a in ornaments:
+                for ch in a.get_all_children ():
+                    ev = musicxml_articulation_to_lily_event (ch)
+                    if ev: 
+                        ev_chord.append (ev)
 
         mxl_beams = [b for b in n.get_named_children ('beam')
                      if (b.get_type () in ('begin', 'end')

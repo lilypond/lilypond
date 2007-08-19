@@ -450,6 +450,32 @@ class Staff (Music_xml_node):
 class Instrument (Music_xml_node):
     pass
 
+class Fermata (Music_xml_node):
+    pass
+class Dynamics (Music_xml_node):
+    pass
+class Articulations (Music_xml_node):
+    pass
+class Accent (Music_xml_node):
+    pass
+class Staccato (Music_xml_node):
+    pass
+class Tenuto (Music_xml_node):
+    pass
+class Tremolo (Music_xml_node):
+    pass
+class Technical (Music_xml_node):
+    pass
+class Ornaments (Music_xml_node):
+    pass
+
+
+class Direction (Music_xml_node):
+    pass
+class DirType (Music_xml_node):
+    pass
+
+
 ## need this, not all classes are instantiated
 ## for every input file.
 class_dict = {
@@ -477,6 +503,16 @@ class_dict = {
 	'type': Type,
 	'part-list': Part_list,
 	'staff': Staff,
+        'fermata': Fermata,
+        'articulations': Articulations,
+        'accent': Accent,
+        'staccato': Staccato,
+        'tenuto': Tenuto,
+        'tremolo': Tremolo,
+        'technical': Technical,
+        'ornaments': Ornaments,
+        'direction': Direction,
+        'direction-type': DirType
 }
 
 def name2class_name (name):
