@@ -648,9 +648,13 @@ def music_xml_voice_name_to_lily_name (part, name):
     str = "Part%sVoice%s" % (part.id, name)
     return musicxml_id_to_lily (str) 
 
-def print_voice_definitions (printer, voices):
+def print_voice_definitions (printer, part_list, voices):
+    part_dict={}
     for (part, nv_dict) in voices.items():
-        
+        part_dict[part.id] = (part, nv_dict)
+
+    for part in part_list:
+        (part, nv_dict) = part_dict[part.id]
         for (name, (voice, mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
@@ -763,7 +767,7 @@ def convert (filename, options):
     printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
-    print_voice_definitions (printer, voices)
+    print_voice_definitions (printer, part_list, voices)
     
     printer.close ()
     
