@@ -150,6 +150,7 @@
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
+	(positions . ,ly:arpeggio::calc-positions)
 	(padding . 0.5)
 	(script-priority . 0)
 	(side-axis . ,X)
