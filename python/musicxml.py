@@ -57,7 +57,7 @@ class Xml_node:
 	return self._children
 
     def get_maybe_exist_named_child (self, name):
-	return self.get_maybe_exist_typed_child (class_dict[name])
+	return self.get_maybe_exist_typed_child (class_dict.get (name))
 
     def get_maybe_exist_typed_child (self, klass):
 	cn = self.get_typed_children (klass)
@@ -93,17 +93,17 @@ class Hash_comment (Music_xml_node):
 
 class Pitch (Music_xml_node):
     def get_step (self):
-	ch = self.get_unique_typed_child (class_dict[u'step'])
+	ch = self.get_unique_typed_child (class_dict.get (u'step'))
 	step = ch.get_text ().strip ()
 	return step
     def get_octave (self):
-	ch = self.get_unique_typed_child (class_dict[u'octave'])
+	ch = self.get_unique_typed_child (class_dict.get (u'octave'))
 
 	step = ch.get_text ().strip ()
 	return int (step)
 
     def get_alteration (self):
-	ch = self.get_maybe_exist_typed_child (class_dict[u'alter'])
+	ch = self.get_maybe_exist_typed_child (class_dict.get (u'alter'))
 	alter = 0
 	if ch:
 	    alter = int (ch.get_text ().strip ())
@@ -135,7 +135,7 @@ class Attributes (Measure_element):
 	    self._dict[c.get_name()] = c
 
     def get_named_attribute (self, name):
-	return self._dict[name]
+	return self._dict.get (name)
 
     def get_measure_length (self):
         (n,d) = self.get_time_signature ()
@@ -183,7 +183,7 @@ class Note (Measure_element):
         self.instrument_name = ''
         
     def get_duration_log (self):
-	ch = self.get_maybe_exist_typed_child (class_dict[u'type'])
+	ch = self.get_maybe_exist_typed_child (class_dict.get (u'type'))
 
 	if ch:
 	    log = ch.get_text ().strip()
@@ -194,7 +194,7 @@ class Note (Measure_element):
                     '32nd': 5,
 		     'breve': -1,
                     'long': -2,
-                    'whole': 0} [log]
+                    'whole': 0}.get (log)
 	else:
 	    return 0
 
@@ -202,7 +202,7 @@ class Note (Measure_element):
 	return 1
 
     def get_pitches (self):
-	return self.get_typed_children (class_dict[u'pitch'])
+	return self.get_typed_children (class_dict.get (u'pitch'))
 
 class Part_list (Music_xml_node):
     def __init__ (self):
@@ -225,15 +225,16 @@ class Part_list (Music_xml_node):
         if not self._id_instrument_name_dict:
             self.generate_id_instrument_dict()
 
-        try:
-            return self._id_instrument_name_dict[id]
-        except KeyError:
+        instrument_name = self._id_instrument_name_dict.get (id)
+        if instrument_name:
+            return instrument_name
+        else:
             print "Opps, couldn't find instrument for ID=", id
             return "Grand Piano"
         
 class Measure(Music_xml_node):
     def get_notes (self):
-	return self.get_typed_children (class_dict[u'note'])
+	return self.get_typed_children (class_dict.get (u'note'))
 
     
 class Musicxml_voice:
@@ -294,7 +295,7 @@ class Part (Music_xml_node):
                     attributes_object = n
                     
 		    factor = Rational (1,
-				       int (attributes_dict['divisions'].get_text ()))
+				       int (attributes_dict.get ('divisions').get_text ()))
 
                 
 		if (n.get_maybe_exist_typed_child (Duration)):
@@ -355,7 +356,7 @@ class Part (Music_xml_node):
 
 	start_attr = None
 	for n in elements:
-	    voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
+	    voice_id = n.get_maybe_exist_typed_child (class_dict.get ('voice'))
 
             # TODO: If the first element of a voice is a dynamics entry,
             #       then voice_id is not yet set! Thus it will currently be ignored
@@ -400,8 +401,8 @@ class Notations (Music_xml_node):
 
 class Time_modification(Music_xml_node):
     def get_fraction (self):
-	b = self.get_maybe_exist_typed_child (class_dict['actual-notes'])
-	a = self.get_maybe_exist_typed_child (class_dict['normal-notes'])
+	b = self.get_maybe_exist_typed_child (class_dict.get ('actual-notes'))
+	a = self.get_maybe_exist_typed_child (class_dict.get ('normal-notes'))
 	return (int(a.get_text ()), int (b.get_text ()))
 
 class Accidental (Music_xml_node):
@@ -532,9 +533,10 @@ def name2class_name (name):
     return str (name)
 
 def get_class (name):
-    try:
-        return class_dict[name]
-    except KeyError:
+    classname = class_dict.get (name)
+    if classname:
+        return classname
+    else:
 	class_name = name2class_name (name)
 	klass = new.classobj (class_name, (Music_xml_node,) , {})
 	class_dict[name] = klass

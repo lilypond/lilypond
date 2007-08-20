@@ -49,7 +49,7 @@ def group_tuplets (music_list, events):
     j = 0
     for (ev_chord, tuplet_elt, fraction) in events:
         while (j < len (music_list)):
-            if music_list[j]== ev_chord:
+            if music_list[j] == ev_chord:
                 break
             j += 1
         if tuplet_elt.type == 'start':
@@ -154,26 +154,23 @@ def musicxml_spanner_to_lily_event (mxl_event):
     ev = None
     
     name = mxl_event.get_name()
-    try:
-        func = spanner_event_dict[name]
+    func = spanner_event_dict.get (name)
+    if func:
         ev = func()
-    except KeyError:
+    else:
         print 'unknown span event ', mxl_event
 
-    try:
-        key = mxl_event.get_type ()
-        ev.span_direction = spanner_type_dict[key]
-    except KeyError:
+    key = mxl_event.get_type ()
+    span_direction = spanner_type_dict.get (key)
+    if span_direction:
+        ev.span_direction = span_direction
+    else:
         print 'unknown span type', key, 'for', name
 
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    val = { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction)
-    if val:
-        return val
-    else:
-        return ''
+    return { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction, '')
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
@@ -286,6 +283,8 @@ def musicxml_direction_to_lily( n ):
                 wedgetype = entry.type;
                 wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
                                 "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
+                # Really check for != None, becaus otherwise 0 will also cause 
+                # the code to be executed!
                 if wedgetypeval != None:
                     event = musicexp.HairpinEvent (wedgetypeval)
                     res.append (event)
@@ -320,9 +319,10 @@ def musicxml_note_to_lily_main_event (n):
         event = musicexp.RestEvent()
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
-        try:
-            event.drum_type = instrument_drumtype_dict[n.instrument_name]
-        except KeyError:
+        drum_type = instrument_drumtype_dict.get (n.instrument_name)
+        if drum_type:
+            event.drum_type = drum_type
+        else:
             n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
             event.drum_type = 'acousticsnare'
     
@@ -475,11 +475,8 @@ def musicxml_voice_to_lily_voice (voice):
         
         main_event = musicxml_note_to_lily_main_event (n)
 
-        try:
-            if main_event.drum_type:
-                modes_found['drummode'] = True
-        except AttributeError:
-            pass
+        if hasattr (main_event, 'drum_type') and main_event.drum_type:
+            modes_found['drummode'] = True
 
 
         ev_chord = voice_builder.last_event_chord (n._when)
@@ -706,7 +703,7 @@ def print_voice_definitions (printer, part_list, voices):
         part_dict[part.id] = (part, nv_dict)
 
     for part in part_list:
-        (part, nv_dict) = part_dict[part.id]
+        (part, nv_dict) = part_dict.get (part.id, (None, {}))
         for (name, (voice, mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
@@ -724,13 +721,12 @@ def print_score_setup (printer, part_list, voices):
     printer.newline ()
     for part_definition in part_list:
         part_name = part_definition.id
-        try:
-            part = part_dict[part_name]
-        except KeyError:
+        part = part_dict.get (part_name)
+        if not part:
             print 'unknown part in part-list:', part_name
             continue
 
-        nv_dict = voices[part]
+        nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
                 [mxlvoice._staves.keys ()
                  for (v, mxlvoice) in nv_dict.values ()],
