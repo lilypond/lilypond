@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: 7a71a05373f51d9ffe2a1adc6d7df432d395cd2c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -91,11 +91,13 @@ secciones @code{melodia} separadas, así que vamos a cambiarles el nombre.  Llam
 @code{musicaSoprano} a la sección de la soprano y @code{musicaCello} a la sección del violoncello.
 Al mismo tiempo cambiaremos el nombre de @code{texto}
 a @code{letraSoprano}.  Recuerde cambiar el nombre a las dos apariciones de todos estos
-nombres -- tanto la definición inicial (la parte @code{melodia = relative c' @{ }) --
+nombres -- tanto la definición inicial (la
+parte @code{melodia = relative c' @{ }) --
 como el uso de ese nombre (en la sección @code{\score}).
 
 También aprovecharemos para cambiar el pentagrama de la parte del cello (los violoncellos
-se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas notas del cello.
+se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas
+notas del cello.
 
 @example
 \version "2.11.15"
@@ -204,6 +206,7 @@ celloMusic = \relative c {
   \midi { }
 }
 @end lilypond
+
 
 
 @node How LilyPond files work
@@ -329,7 +332,8 @@ de LilyPond.  Pero parece que nos saltamos la parte más importante:
 @code{\score}?
 
 No nos hemos saltado nada en absoluto.  El gran misterio es, sencillamente,
-que no hay @emph{ningún} misterio.  La siguiente línea lo explica todo:
+que no hay @emph{ningún} misterio.  La siguiente línea lo explica
+todo:
 
 @quotation
 @emph{Una @code{\score} debe comenzar con una única expresión musical.}
@@ -357,7 +361,8 @@ recorreremos el camino inverso hacia abajo.
 Una ópera de Wagner completa puede ser fácilmente el doble de larga que este manual,
 por tanto vamos a hacer sólo un cantante y un piano.
 No necesitamos un @code{GrandStaff} para este conjunto, así que
-lo retiramos.  Sin ambargo, sí que @emph{necesitamos} un cantante y un piano.
+lo retiramos.  Sin ambargo, sí que @emph{necesitamos}
+un cantante y un piano.
 
 @example
 \score @{
@@ -415,7 +420,8 @@ podríamos empezar escibiendo
 
 Pero si lo hiciéramos, la sección @code{\score} se haría bastante
 larga y sería más difícil comprender lo que ocurre.  En lugar de esto
-utilizaremos identificadores o variables.
+utilizaremos identificadores
+o variables.
 
 @example
 melodia = @{ @}
@@ -449,7 +455,8 @@ leyendo, hágalo despacio y con cuidado.  Comience por
 la capa exterior y luego trabaje sobre cada una de las capas
 interiores.  Esto también sirve para ser estricto con los márgenes
 -- ¡asegúrese de que en su editor de texto cada elemento de la misma capa
-comienza en la misma posición horizontal! --.
+comienza en la misma
+posición horizontal! --.
 
 
 
@@ -460,11 +467,10 @@ comienza en la misma posición horizontal! --.
 @section An orchestral part
 
 En música orquestal, todas las notas se imprimen dos veces.  Una vez
-en las particellas para los músicos, y otra para la partitura del
-director.  Los identificadores se pueden usar para evitar la
-duplicación del trabajo.  La música se escribe una vez y se almacena
-en una variable.  El contenido de dicha variable se usa después para
-generar tanto la particella como la partitura del director.
+en las particellas para los músicos, y otra para la partitura del director.
+Los identificadores se pueden usar para evitar la duplicación del trabajo.
+La música se escribe una vez y se almacena en una variable.
+El contenido de dicha variable se usa después para generar tanto la particella como la partitura del director.
 
 Es muy conveniente definir las notas en un archivo especial.  Por
 ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
@@ -526,8 +532,7 @@ R2*3
 @end example
 
 Cuando se imprime la particella tienen que comprimirse los silencios
-multicompás.  Esto se hace estableciendo una variable en tiempo de
-ejecución
+multicompás.  Esto se hace estableciendo una variable en tiempo de ejecución
 
 @example
 \set Score.skipBars = ##t
@@ -584,3 +589,6 @@ en el manual de notación; consulte @ref{Orchestral music}.
 
 El establecimiento de variables en tiempo de ejecución (@q{propiedades}) se trata en
 @ref{Changing context properties on the fly}.
+
+
+

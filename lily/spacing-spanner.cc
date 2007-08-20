@@ -209,71 +209,90 @@ Spacing_spanner::generate_pair_spacing (Grob *me,
 }
 
 static void
-set_column_rods (vector<Grob*> const &cols, vsize idx, Real padding)
+set_column_rods (vector<Grob*> const &cols, Real padding)
 {
+  /* distances[i] will be the minimum distance between column i and column i+1 */
+  vector<Real> distances;
 
-  /*
-    This is an inner loop: look for the first normal (unbroken) Left
-    grob.  This looks like an inner loop (ie. quadratic total), but in
-    most cases, the interesting L will just be the first entry of
-    NEXT, making it linear in most of the cases.
-  */
-  Item *r = dynamic_cast<Item*> (cols[idx]);
-
-  if (Separation_item::is_empty (r))
-    return;
-
-  bool constraint = false;
-  bool grace = false;
-
-  idx--;
-  do
+  for (vsize i = 1; i < cols.size (); i++)
     {
-      Item *l = dynamic_cast<Item*> (cols[idx]);
-      Item *lb = l->find_prebroken_piece (RIGHT);
+      Item *r = dynamic_cast<Item*> (cols[i]);
+      Item *rb = r->find_prebroken_piece (LEFT);
 
-      if (Separation_item::is_empty (l) && (!lb || Separation_item::is_empty (lb)))
+      if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
 	continue;
 
-      if (lb)
-	Separation_item::set_distance (Drul_array<Item*> (lb, r), padding);
-      constraint = Separation_item::set_distance (Drul_array<Item *> (l, r), padding);
+      Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
+      Real right_stickout = skys ? (*skys)[LEFT].max_height () : 0.0;
 
+      Drul_array<Item*> r_cols (r, rb);
+      Drul_array<Real> cur_dist (0.0, 0.0);
 
-      /*
-	This check is because grace notes are set very tight, and
-	the accidentals of main note may stick out so far to cover
-	a barline preceding the grace note.
-      */
-      grace = spanned_time_interval (l, r).length ().main_part_ == Rational (0);
+      /* This is an inner loop and hence it is potentially quadratic. However, we only continue
+	 as long as there is a rod to insert. Therefore, this loop will usually only execute
+	 a constant number of times per iteration of the outer loop. */
+      for (vsize j = i; j--;)
+	{
+	  Item *l = dynamic_cast<Item*> (cols[j]);
+	  Item *lb = l->find_prebroken_piece (RIGHT);
+	  Skyline_pair *skys = Skyline_pair::unsmob (l->get_property ("horizontal-skylines"));
+	  Real left_stickout = skys ? (*skys)[RIGHT].max_height () : 0.0;
+	  bool done = true;
 
-      /*
-	this grob doesn't cause a constraint. We look further until we
-	find one that does.
-      */
+	  Direction d = LEFT;
+	  do
+	    {
+	      if (j < i-1)
+		cur_dist[d] += distances[j];
+
+	      Item *r_col = r_cols[d];
+	      bool touches = right_stickout - left_stickout + cur_dist[d] < 0.0;
+	      Real dist = 0.0;
+
+	      /* we set a distance for the line-starter column even if it's non-broken counterpart
+		 doesn't touch the right column. */
+	      if (lb)
+		Separation_item::set_distance (lb, r_col, padding);
+
+	      if (touches || j == i-1)
+		dist = Separation_item::set_distance (l, r_col, padding);
+
+	      if (j == i-1 && d == LEFT)
+		distances.push_back (dist);
+
+	      if (j == i-1)
+		cur_dist[d] = distances[j];
+
+	      done = done && !touches;
+	    }
+	  while (flip (&d) != LEFT && rb);
+
+	  /* we need the empty check for gregorian notation, where there are a lot of
+	     extraneous paper-columns that we need to skip over */
+	  if (done && !Separation_item::is_empty (l))
+	    break;
+	}
     }
-  while (idx-- && (!constraint || grace));
 }
+
 
 void
 Spacing_spanner::generate_springs (Grob *me,
 				   vector<Grob*> const &cols,
 				   Spacing_options const *options)
 {
-  Paper_column *prev = 0;
-  for (vsize i = 0; i < cols.size (); i++)
+  Paper_column *prev = dynamic_cast<Paper_column*> (cols[0]);
+  for (vsize i = 1; i < cols.size (); i++)
     {
       Paper_column *col = dynamic_cast<Paper_column *> (cols[i]);
       Paper_column *next = (i + 1 < cols.size ()) ? dynamic_cast<Paper_column *> (cols[i+1]) : 0;
       
-      if (i > 0)
-	{
-	  generate_pair_spacing (me, prev, col, next, options);
-	  set_column_rods (cols, i, 0.1); // FIXME
-	}
+      generate_pair_spacing (me, prev, col, next, options);
 
       prev = col;
     }
+
+  set_column_rods (cols, 0.1); // FIXME: padding
 }
 
 /*

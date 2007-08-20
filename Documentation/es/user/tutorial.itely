@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dc78324e8424699ec17df064941c0c787d4eb91c
+    Translation of GIT committish: 51018f5026338e96df034b41ee173fbef0cb6158
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -114,8 +114,8 @@ para evitar ambigüedades.  Es posible que se omitan en algunos ejemplos del pre
 manual ¡pero no las omita en su propia música!
 
 @cindex Sensible a las mayúsculas
-Además la entrada de LilyPond es @strong{sensible a las mayúsculas}.  @code{ @{ c d e @} }
-es una entrada válida; @code{ @{ C D E @} } producirá un mensaje de error.
+Además la entrada de LilyPond es @strong{sensible a las mayúsculas}.  @code{ @{ c d e @}}
+es una entrada válida; @code{@{ C D E @}} producirá un mensaje de error.
 
 @sp 1
 
@@ -126,7 +126,7 @@ y cómo, para ver o imprimir el resultado.
 
 @subsubheading MacOS X
 
-Si hace doble click sobre LilyPond.app, se abrirá con un archivo 
+Si hace doble click sobre @code{LilyPond.app}, se abrirá con un archivo 
 de ejemplo.  Guárdelo, por ejemplo, como @file{prueba.ly} en el Escritorio, y 
 a continuación procéselo con la orden de menú @samp{Compilar > Componer archivo}.
 El PDF resultante se mostrará en la pantalla.
@@ -134,47 +134,41 @@ El PDF resultante se mostrará en la pantalla.
 Advierta que la primera vez que ejecute LilyPond, tardará un minuto
 o dos porque todas las tipografías del sistema han de ser analizadas previamente.
 
-Para posteriores usos de LilyPond, debería comenzar eligiendo "Nuevo"
-o "Abrir".  Tiene que grabar el archivo antes de componerlo tipográficamente.
+Para posteriores usos de LilyPond, debería comenzar eligiendo @q{Nuevo}
+o @q{Abrir}.  Tiene que grabar el archivo antes de componerlo tipográficamente.
 Si se produce algún error durante el proceso, observe la ventana del registro.
 
 @subsubheading Windows
 
-En Windows, si hace doble click sobre el icono de LilyPond que está en
-el escritorio, se abrirá un sencillo editor de texto con un archivo de
-ejemplo.  Guárdelo, por ejemplo, con el nombre @file{prueba.ly} en el
-escritorio y después haga doble click sobre el icono del archivo para
-procesarlo (el icono tiene la forma de una nota).  Transcurridos unos
-segundos, obtendrá un archivo @file{prueba.pdf} en el escritorio.
-Haga doble click sobre este archivo PDF para ver la partitura
-compuesta tipográficamente.  Un método alternativo para procesar el
-archivo @file{prueba.ly} es arrastrarlo y soltarlo sobre el icono de
-LilyPond utilizando el ratón.
+En Windows, si hace doble click sobre el icono de LilyPond que está en el escritorio, se
+abrirá un sencillo editor de texto con un archivo de ejemplo.  Guárdelo, por ejemplo, con
+el nombre @file{prueba.ly} en el escritorio y después haga doble click sobre el icono del
+archivo para procesarlo (el icono tiene la forma de una nota).  Transcurridos unos segundos,
+obtendrá un archivo @file{prueba.pdf} en el escritorio. Haga doble click sobre este archivo
+PDF para ver la partitura compuesta tipográficamente.  Un método alternativo para procesar el
+archivo @file{prueba.ly} es arrastrarlo y soltarlo sobre el icono de LilyPond utilizando
+el ratón.
 
-Para editar un archivo @file{.ly} existente, haga click sobre él con
-el botón derecho del ratón y elija @qq{Edit source} (editar el archivo
-fuente). Para empezar con un archivo vacío, arranque el editor como se
-describe más arriba y elija @qq{New} (nuevo) del menú @qq{File}
-(archivo).
+Para editar un archivo @file{.ly} existente, haga click sobre él con el botón derecho del ratón
+y elija @qq{Edit source} (editar el archivo fuente). Para empezar con un archivo vacío,
+arranque el editor como se describe más arriba y elija @qq{New} (nuevo) del menú @qq{File} (archivo).
 
-Al hacer doble click sobre el archivo no sólo se obtiene como resultado
-un archivo PDF, sino también un archivo @file{.log} que contiene cierta
-información acerca de lo que LilyPond ha hecho con el archivo.
-Si se produce algún error, examine este archivo de registro.
+Al hacer doble click sobre el archivo no sólo se obtiene como resultado un archivo PDF,
+sino también un archivo @file{.log} que contiene cierta información acerca de lo que
+LilyPond ha hecho con el archivo. Si se produce algún error, examine este archivo de registro.
 
-Tenga en cuenta que hay disponibles varios editores de texto
-alternativos con un mejor apoyo para la realización de documentos de
-LilyPond, consulte @ref{Editor support} para ver más información.
+Tenga en cuenta que hay disponibles varios editores de texto alternativos con un mejor
+apoyo para la realización de documentos de LilyPond, consulte @ref{Editor support} para ver más información.
 
 @subsubheading Unix
 
 Comience abriendo una ventana de terminal e inicando un editor de texto.  Por
 ejemplo, puede abrir un xterm y ejecutar
 @code{joe}@footnote{Existen macros para los adictos a VIM, y hay
-un @code{LilyPond-mode} (modo de LilyPond) para adictos a Emacs.  Si no han sido
+un @code{LilyPond-mode} (modo de LilyPond) para los adictos a Emacs.  Si no han sido
 instalados aún, consulte el archivo @file{INSTALL.txt}.  El
 entorno de edición más sencillo es @file{LilyPondTool}.  Consulte
-@ref{Editor support} para más información.}.  En su
+@rprogram{Editor support} para más información.}.  En su
 editor de texto, introduzca la siguiente entrada y guarde el archivo como
 @file{prueba.ly}
 
@@ -231,7 +225,8 @@ añadido la clave, el compás y las duraciones.
 @end lilypond
 
 @noindent
-Este comportamiento se puede modificar, pero en general estos valores automáticos son adecuados.
+Este comportamiento se puede modificar, pero en general estos valores automáticos
+son adecuados.
 
 
 @subheading Pitches
@@ -284,7 +279,8 @@ comilla doble @code{"}@tie{}!)  El valor inicial de
 
 @subheading Durations (rhythms)
 
-La @rglos{duration} de una nota se especifica mediante un número después del nombre de la nota.  @samp{1} significa @rglos{whole note}, @samp{2} significa @rglos{half note},
+La @rglos{duration} de una nota se especifica mediante un número después del nombre de la nota.
+@samp{1} significa @rglos{whole note}, @samp{2} significa @rglos{half note},
 @samp{4} significa @rglos{quarter note} y así sucesivamente.  Las barras de corchea se añaden
 automáticamente.
 
@@ -373,13 +369,13 @@ He aquí un pequeño ejemplo que muestra todos los elementos anteriores juntos:
 @quotation
 @table @asis
 @item Introducir alturas y duraciones
-ver @ref{Pitches} y @ref{Durations}.
+véase @ref{Pitches} y @ref{Durations}.
 @item Silencios
-ver @ref{Rests}.
+véase @ref{Rests}.
 @item Indicaciones de compás y otros comandos de tiempo
-ver @ref{Time signature}.
+véase @ref{Time signature}.
 @item Claves
-ver @ref{Clef}.
+véase @ref{Clef}.
 @end table
 @end quotation
 
@@ -387,8 +383,8 @@ ver @ref{Clef}.
 @node Working on text files
 @subsection Working on text files
 
-Los archivos de entrada de LilyPond se tratan como los archivos de la mayoría de los lenguajes de programación:
-son sensibles a las mayúsculas, insensibles al número de espacios, las expresiones
+Los archivos de entrada de LilyPond son como los archivos fuente de muchos lenguajes de programación corrientes.
+Son sensibles a las mayúsculas e insensibles al número de espacios  Las expresiones
 se forman con llaves @{ @} y los comentarios se denotan por un signo de porcentaje (@code{%}) o por 
 @code{%@{ ... %@}}.
 
@@ -401,13 +397,13 @@ significado de todos estos términos:
 @item @strong{Sensible a las mayúsculas}:
 tiene importancia el hecho de que introduzca una letra
 en minúsculas (p.ej. @code{a, b, s, t}) o en mayúsculas (p.ej.
-@code{A, B, S, T}).  Las notas son minúsculas: @code{ @{ c d e @} }
-es una entrada válida; @code{ @{ C D E @} } produciría un mensaje de error.
+@code{A, B, S, T}).  Las notas son minúsculas: @code{@{ c d e @}}
+es una entrada válida; @code{@{ C D E @}} produciría un mensaje de error.
 
 @item @strong{Insensible al número de espacios}:
 no importa cuántos
-espacios (o saltos de línea) añada.  @code{ @{ c d e @}} significa lo mismo
-que @code{ @{ c @ @ @ @ @  d e @} } y que
+espacios (o saltos de línea) añada.  @code{@{ c d e @}} significa lo mismo
+que @code{@{ c @tie{} @tie{} @tie{} d e @}} y que
 @example
           @{
 c                        d
@@ -427,11 +423,11 @@ es sangrar los bloques de código con un carácter de tabulación, o bien con do
 Todo fragmento de código de entrada para LilyPond ha de llevar
 @strong{@{ llaves @}} antes y después de la entrada.  Estas llaves le dicen a
 LilyPond que la entrada es una expresión musical unitaria, igual que
-los paréntesis @samp{()} en las matemáticas.  Las llaves deben ir rodeadas
+los paréntesis @samp{()} de las matemáticas.  Las llaves deben ir rodeadas
 de un espacio a no ser que se encuentren al comienzo o al final de una
 línea, para evitar cualquier ambigüedad.
 
-Una función (como, por ejemplo @code{\relative @{ @}} ) también es una expresión musical
+Una función (como por ejemplo @code{\relative @{ @}}) también es una expresión musical
 unitaria.
 
 @cindex comentarios
@@ -444,7 +440,7 @@ Existen dos tipos de comentarios.  El símbolo de porcentaje @samp{%}
 introduce un comentario de línea; todo lo que se encuentra después de @samp{%} en esa línea
 se ignora.  Un comentario de bloque marca una sección entera de entrada musical
 como comentario.  Todo lo que está encerrado dentro de @code{%@{} y @code{%@}} se
-ignora.  El siguiente fragmento muestra algunos posibles usos para los comentarios:
+ignora (pero los comentarios no pueden incluir otros comentarios).  El siguiente fragmento muestra algunos posibles usos para los comentarios:
 
 @example
 % a continuación van las notas de campanitas del lugar
@@ -558,7 +554,7 @@ como el alemán y el holandés.  Para utilizar otros nombres para las alteracion
 cis1 ees fisis, aeses
 @end lilypond
 
-@cindex armadura de la tonalidad, establecer
+@cindex tonalidad, armadura de la, establecer
 @subheading Key signatures
 
 La armadura de la tonadlidad se establece mediante el comando @code{\key} seguido de
@@ -655,7 +651,6 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex ligaduras de fraseo
 @subheading Phrasing slurs
 
-@cindex ligaduras de fraseo
 Las ligaduras que se utilizan para indicar fraseos más largos se pueden introducir mediante @code{\(} y
 @code{\)}.  Puede haber al mismo tiempo ligaduras de legato y ligaduras de fraseo,
 pero no es posible tener legatos simultáneos o ligaduras de expresión
@@ -1297,7 +1292,7 @@ al principio de su archivo de LilyPond.
 
 Estas anotaciones hacen menos problemáticas las subsiguientes actualizaciones de LilyPond.
 Los cambios en la sintaxis se tratan mediante un programa especial,
-@file{convert-ly} (ver @ref{Updating files with convert-ly}), y utiliza
+@file{convert-ly} (ver @rprogram{Updating files with convert-ly}), y utiliza
 @code{\version} para determinar qué reglas hay que aplicar.
 
 
@@ -1472,10 +1467,9 @@ consulte @ref{Extending the templates}.
 
 Una vez que ha escrito algunas piezas cortas, lea el resto del
 Manual de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por
-leerlos ahora mismo!  Sin embargo, el resto del Manual
+leerlo ahora mismo!  Sin embargo, el resto del Manual
 de Aprendizaje da por sentado que está familiarizado con la entrada
 de LilyPond.  Puede saltarse estos capítulos ahora
-@c should read skip
 y volver a ellos cuando haya adquirido más experiencia.
 
 
@@ -1492,10 +1486,11 @@ ejemplos impresos: a veces pueden omitir el
 diferente (como @code{c'} o @code{c,,}), y en ocasiones
 ¡todo el ejemplo estará en el modo de notas absoluto!  Sin embargo, las ambigüedades de esta clase
 existen solamente allí donde las alturas no son lo más importante.  En aquellos ejemplos
-en los que las alturas tienen importancia, hemos expresado explícitamente el modo @code{\relative}
-o bien el @code{@{ @}} de modo absoluto.
+en los que las alturas tienen importancia, hemos escrito explícitamente @code{\relative}
+o bien el @code{@{ @}} en modo absoluto.
 
 Si aún tiene dudas respecto de la entrada de LilyPond exacta que se
 ha utilizado en un ejemplo, lea la versión HTML (si no lo está haciendo ya)
 y pulse con el ratón sobre la imagen de la música.  De esta forma se mostrará la entrada
 exacta que LilyPond usó para generar este manual.
+

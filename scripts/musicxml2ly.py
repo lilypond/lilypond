@@ -131,10 +131,10 @@ def musicxml_attributes_to_lily (attrs):
         'key': musicxml_key_to_lily
     }
     for (k, func) in attr_dispatch.items ():
-        childs = attrs.get_named_children (k)
+        children = attrs.get_named_children (k)
 
         ## ugh: you get clefs spread over staves for piano
-        if childs:
+        if children:
             elts.append (func (attrs))
     
     return elts
@@ -168,13 +168,136 @@ def musicxml_spanner_to_lily_event (mxl_event):
 
     return ev
 
+def musicxml_direction_to_indicator (direction):
+    val = { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction)
+    if val:
+        return val
+    else:
+        return ''
+
+def musicxml_fermata_to_lily_event (mxl_event):
+    ev = musicexp.ArticulationEvent ()
+    ev.type = "fermata"
+    if hasattr (mxl_event, 'type'):
+      dir = musicxml_direction_to_indicator (mxl_event.type)
+      if dir:
+        ev.force_direction = dir
+    return ev
+
+def musicxml_tremolo_to_lily_event(mxl_event):
+    if mxl_event.get_name () != "tremolo": 
+        return
+    ev = musicexp.TremoloEvent ()
+    ev.bars = mxl_event.get_text ()
+    return ev
+
+# TODO: Some translations are missing!
+articulations_dict = { 
+    ##### ORNAMENTS
+    "trill-mark": "trill", 
+    "turn": "turn", 
+    #"delayed-turn": "?", 
+    "inverted-turn": "reverseturn", 
+    #"shake": "?", 
+    #"wavy-line": "?", 
+    "mordent": "mordent",
+    #"inverted-mordent": "?", 
+    #"schleifer": "?" 
+    ##### TECHNICALS
+    "up-bow": "upbow", 
+    "down-bow": "downbow", 
+    #"harmonic": "", 
+    #"open-string": "", 
+    #"thumb-position": "", 
+    #"fingering": "", 
+    #"pluck": "", 
+    #"double-tongue": "", 
+    #"triple-tongue": "", 
+    #"stopped": "", 
+    #"snap-pizzicato": "", 
+    #"fret": "", 
+    #"string": "", 
+    #"hammer-on": "", 
+    #"pull-off": "", 
+    #"bend": "", 
+    #"tap": "", 
+    #"heel": "", 
+    #"toe": "", 
+    #"fingernails": ""
+    ##### ARTICULATIONS
+    "accent": "accent", 
+    "strong-accent": "marcato", 
+    "staccato": "staccato", 
+    "tenuto": "tenuto", 
+    #"detached-legato": "", 
+    "staccatissimo": "staccatissimo", 
+    #"spiccato": "", 
+    #"scoop": "", 
+    #"plop": "", 
+    #"doit": "", 
+    #"falloff": "",
+    "breath-mark": "breathe", 
+    #"caesura": "caesura", 
+    #"stress": "", 
+    #"unstress": ""
+}
+
+def musicxml_articulation_to_lily_event(mxl_event):
+    ev = musicexp.ArticulationEvent ()
+    tp = articulations_dict.get (mxl_event.get_name ())
+    if not tp:
+        return
+    
+    ev.type = tp
+
+    # Some articulations use the type attribute, other the placement...
+    dir = None
+    if hasattr (mxl_event, 'type'):
+        dir = musicxml_direction_to_indicator (mxl_event.type)
+    if hasattr (mxl_event, 'placement'):
+        dir = musicxml_direction_to_indicator (mxl_event.placement)
+    if dir:
+        ev.force_direction = dir
+    return ev
+
+
+def musicxml_direction_to_lily( n ):
+    # TODO: Handle the <staff> element!
+    res = []
+    dirtype = n.get_maybe_exist_typed_child (musicxml.DirType)
+    if not dirtype: 
+      return res
+
+    for entry in dirtype.get_all_children ():
+        if entry.get_name () == "dynamics":
+            for dynentry in entry.get_all_children ():
+                dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp", 
+                    "f", "ff", "fff", "ffff", "fffff", "ffffff", 
+                    "mp", "mf", "sf", "sfp", "sfpp", "fp", 
+                    "rf", "rfz", "sfz", "sffz", "fz" )
+                if not dynentry.get_name() in dynamics_available: 
+                    continue
+                event = musicexp.DynamicsEvent ()
+                event.type = dynentry.get_name ()
+                res.append (event)
+      
+        if entry.get_name() == "wedge":
+            if hasattr (entry, 'type'):
+                wedgetype = entry.type;
+                wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
+                                "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
+                if wedgetypeval != None:
+                    event = musicexp.HairpinEvent (wedgetypeval)
+                    res.append (event)
+
+    return res
+
 instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
     'Open Triangle': 'opentriangle',
     'Mute Triangle': 'mutetriangle',
-    'Tambourine': 'tambourine',
-    
+    'Tambourine': 'tambourine'
 }
 
 def musicxml_note_to_lily_main_event (n):
@@ -219,6 +342,7 @@ class NegativeSkip:
 class LilyPondVoiceBuilder:
     def __init__ (self):
         self.elements = []
+        self.pending_dynamics = []
         self.end_moment = Rational (0)
         self.begin_moment = Rational (0)
         self.pending_multibar = Rational (0)
@@ -245,6 +369,16 @@ class LilyPondVoiceBuilder:
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + duration 
+
+        # Insert all pending dynamics right after the note/rest:
+        if duration > Rational (0):
+            for d in self.pending_dynamics:
+                self.elements.append (d)
+            self.pending_dynamics = []
+
+    def add_dynamics (self, dynamic):
+        # store the dynamic item(s) until we encounter the next note/rest:
+        self.pending_dynamics.append (dynamic)
 
     def add_bar_check (self, number):
         b = musicexp.BarCheck ()
@@ -297,6 +431,11 @@ def musicxml_voice_to_lily_voice (voice):
         if n.get_name () == 'forward':
             continue
 
+        if isinstance (n, musicxml.Direction):
+            for a in musicxml_direction_to_lily (n):
+                voice_builder.add_dynamics (a)
+            continue
+        
         if not n.get_maybe_exist_named_child ('chord'):
             try:
                 voice_builder.jumpto (n._when)
@@ -353,6 +492,12 @@ def musicxml_voice_to_lily_voice (voice):
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
         span_events = []
+        
+        # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
+        # +tied | +slur | +tuplet | glissando | slide | 
+	      # ornaments | technical | articulations | dynamics |
+	      # +fermata | arpeggiate | non-arpeggiate | 
+	      # accidental-mark | other-notation
         if notations:
             if notations.get_tuplet():
                 tuplet_event = notations.get_tuplet()
@@ -375,6 +520,50 @@ def musicxml_voice_to_lily_voice (voice):
             mxl_tie = notations.get_tie ()
             if mxl_tie and mxl_tie.type == 'start':
                 ev_chord.append (musicexp.TieEvent ())
+                
+            fermatas = notations.get_named_children ('fermata')
+            for a in fermatas:
+                ev = musicxml_fermata_to_lily_event (a);
+                if ev: 
+                    ev_chord.append (ev)
+                
+            # Articulations can contain the following child elements:
+            #         accent | strong-accent | staccato | tenuto |
+            #         detached-legato | staccatissimo | spiccato |
+            #         scoop | plop | doit | falloff | breath-mark | 
+            #         caesura | stress | unstress
+            # Technical can contain the following child elements:
+            #         up-bow | down-bow | harmonic | open-string |
+            #         thumb-position | fingering | pluck | double-tongue |
+            #         triple-tongue | stopped | snap-pizzicato | fret |
+            #         string | hammer-on | pull-off | bend | tap | heel |
+            #         toe | fingernails | other-technical
+            # Ornaments can contain the following child elements:
+            #         trill-mark | turn | delayed-turn | inverted-turn |
+            #         shake | wavy-line | mordent | inverted-mordent | 
+            #         schleifer | tremolo | other-ornament, accidental-mark
+            ornaments = notations.get_named_children ('ornaments')
+            for a in ornaments:
+                for ch in a.get_named_children ('tremolo'):
+                    ev = musicxml_tremolo_to_lily_event (ch)
+                    if ev: 
+                        ev_chord.append (ev)
+
+            ornaments += notations.get_named_children ('articulations')
+            ornaments += notations.get_named_children ('technical')
+
+            for a in ornaments:
+                for ch in a.get_all_children ():
+                    ev = musicxml_articulation_to_lily_event (ch)
+                    if ev: 
+                        ev_chord.append (ev)
+
+            dynamics = notations.get_named_children ('dynamics')
+            for a in dynamics:
+                for ch in a.get_all_children ():
+                    ev = musicxml_dynamics_to_lily_event (ch)
+                    if ev:
+                        ev_chord.append (ev)
 
         mxl_beams = [b for b in n.get_named_children ('beam')
                      if (b.get_type () in ('begin', 'end')
@@ -422,12 +611,11 @@ def musicxml_voice_to_lily_voice (voice):
 
 
 def musicxml_id_to_lily (id):
-    digits = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight',
-              'nine', 'ten']
+    digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight',
+              'Nine', 'Ten']
     
     for dig in digits:
-        d = digits.index (dig) + 1
-        dig = dig[0].upper() + dig[1:]
+        d = digits.index (dig)
         id = re.sub ('%d' % d, dig, id)
 
     id = re.sub  ('[^a-zA-Z]', 'X', id)
@@ -479,7 +667,7 @@ License and you are welcome to change it and/or distribute copies of it
 under certain conditions.  Invoke as `%s --warranty' for more
 information.""") % 'lilypond'
 + """
-Copyright (c) 2005--2006 by
+Copyright (c) 2005--2007 by
     Han-Wen Nienhuys <hanwen@xs4all.nl> and
     Jan Nieuwenhuizen <janneke@gnu.org>
 """),
@@ -512,9 +700,13 @@ def music_xml_voice_name_to_lily_name (part, name):
     str = "Part%sVoice%s" % (part.id, name)
     return musicxml_id_to_lily (str) 
 
-def print_voice_definitions (printer, voices):
+def print_voice_definitions (printer, part_list, voices):
+    part_dict={}
     for (part, nv_dict) in voices.items():
-        
+        part_dict[part.id] = (part, nv_dict)
+
+    for part in part_list:
+        (part, nv_dict) = part_dict[part.id]
         for (name, (voice, mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
@@ -627,7 +819,7 @@ def convert (filename, options):
     printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
-    print_voice_definitions (printer, voices)
+    print_voice_definitions (printer, part_list, voices)
     
     printer.close ()
     

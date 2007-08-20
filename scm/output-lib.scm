@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 1998--2006 Jan Nieuwenhuizen <janneke@gnu.org>
+;;;; (c) 1998--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 ;;;; Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 
@@ -383,6 +383,9 @@ centered, X==1 is at the right, X == -1 is at the left."
        (-3/4 . "accidentals.mirroredflat.flat")
        ))
 
+;; FIXME: standard vs default, alteration-FOO vs FOO-alteration
+(define-public alteration-default-glyph-name-alist standard-alteration-glyph-name-alist)
+
 (define-public makam-alteration-glyph-name-alist
      '((1 . "accidentals.doublesharp")
        (8/9 . "accidentals.sharp.slashslashslash.stemstem")
@@ -398,24 +401,24 @@ centered, X==1 is at the right, X == -1 is at the left."
        ))
   
 (define-public alteration-hufnagel-glyph-name-alist
-   '((1/2 . "accidentals.hufnagel-1")
+   '((-1/2 . "accidentals.hufnagel-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-medicaea-glyph-name-alist
-   '((1/2 . "accidentals.medicaea-1")
+   '((-1/2 . "accidentals.medicaea-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-vaticana-glyph-name-alist
-   '((1/2 . "accidentals.vaticana-1")
+   '((-1/2 . "accidentals.vaticana-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-mensural-glyph-name-alist
-   '((1/2 . "accidentals.mensural-1")
+   '((-1/2 . "accidentals.mensural-1")
      (0 . "accidentals.vaticana0")
-     (-1/2 . "accidentals.mensural1")))
+     (1/2 . "accidentals.mensural1")))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

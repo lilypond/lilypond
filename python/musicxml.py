@@ -39,10 +39,13 @@ class Xml_node:
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
-	return [c for c in self._children if isinstance(c, klass)]
+        if not klass:
+            return []
+        else:
+            return [c for c in self._children if isinstance(c, klass)]
 
     def get_named_children (self, nm):
-	return self.get_typed_children (class_dict[nm])
+	return self.get_typed_children (class_dict.get (nm))
 
     def get_named_child (self, nm):
 	return self.get_maybe_exist_named_child (nm)
@@ -354,14 +357,16 @@ class Part (Music_xml_node):
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (class_dict['voice'])
 
-	    if not (voice_id or isinstance (n, Attributes)):
+            # TODO: If the first element of a voice is a dynamics entry,
+            #       then voice_id is not yet set! Thus it will currently be ignored
+	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
 		start_attr = n
 		continue
 
-	    if isinstance (n, Attributes):
+	    if isinstance (n, Attributes) or isinstance (n, Direction):
 		for v in voices.values ():
 		    v.add_element (n)
 		continue
@@ -450,6 +455,34 @@ class Staff (Music_xml_node):
 class Instrument (Music_xml_node):
     pass
 
+class Fermata (Music_xml_node):
+    pass
+class Dynamics (Music_xml_node):
+    pass
+class Articulations (Music_xml_node):
+    pass
+class Accent (Music_xml_node):
+    pass
+class Staccato (Music_xml_node):
+    pass
+class Tenuto (Music_xml_node):
+    pass
+class Tremolo (Music_xml_node):
+    pass
+class Technical (Music_xml_node):
+    pass
+class Ornaments (Music_xml_node):
+    pass
+
+
+class Direction (Music_xml_node):
+    pass
+class DirType (Music_xml_node):
+    pass
+class Wedge (Music_xml_node):
+    pass
+
+
 ## need this, not all classes are instantiated
 ## for every input file.
 class_dict = {
@@ -477,6 +510,18 @@ class_dict = {
 	'type': Type,
 	'part-list': Part_list,
 	'staff': Staff,
+        'fermata': Fermata,
+        'articulations': Articulations,
+        'accent': Accent,
+        'staccato': Staccato,
+        'tenuto': Tenuto,
+        'tremolo': Tremolo,
+        'technical': Technical,
+        'ornaments': Ornaments,
+        'direction': Direction,
+        'direction-type': DirType,
+        'dynamics': Dynamics,
+        'wedge': Wedge
 }
 
 def name2class_name (name):

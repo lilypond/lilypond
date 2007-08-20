@@ -10,6 +10,8 @@ are collected here.
 
 \relative c'' {
       \time 3/4
+      % FIXME: standard vs default, alteration-FOO vs FOO-alteration
+      \override Staff.Accidental #'glyph-name-alist = #standard-alteration-glyph-name-alist
       cis^\markup { \typewriter default } c ces  
 
       \override Staff.Accidental #'glyph-name-alist = #alteration-hufnagel-glyph-name-alist

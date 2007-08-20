@@ -2,7 +2,7 @@
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
 ;;;; 
-;;;; (c) 2000--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
 (define (interface-doc-string interface grob-description)
@@ -60,13 +60,13 @@
 	      (interface-doc-string (cdr interface) '())
 	      "\n\n"
 	      "This grob interface is used in the following graphical objects: "
-
 	      (human-listify
 	       (map ref-ify
 		    (sort 
 		     (map symbol->string
 			  (hashq-ref iface->grob-table (car interface) '()))
-		     string<?)))))))
+		     string<?)))
+	      "."))))
 
 (define (grob-alist->texi alist)
   (let* ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))

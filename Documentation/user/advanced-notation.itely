@@ -371,6 +371,11 @@ bar lines,
 }
 @end lilypond
 
+Possible symbols for the @code{break-align-symbols} list are
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature}, and @code{time-signature}.
+
 The text marks will, by default, be aligned with the middle of the notation
 object, but this can be changed by overriding the
 @code{break-align-anchor-alignment} and
@@ -392,9 +397,10 @@ object, but this can be changed by overriding the
   \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
   \mark \default
   ces1
+  \key cis \major
 
-  % the RehearsalMark will be aligned with the right edge of the KeySignature
-  % and then shifted right by an additional 2 units.
+  % the RehearsalMark will be aligned with the left edge of the KeySignature
+  % and then shifted right by 2 units.
   \once \override Staff.KeySignature #'break-align-anchor = #2
   \mark \default
   ces1
@@ -1085,30 +1091,7 @@ c1
 See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
-The horizontal location of rehearsal marks can be adjusted by
-setting @code{break-align-symbol}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-c1
-\key cis \major
-\clef alto
-\override Score.RehearsalMark #'break-align-symbol = #'key-signature
-\mark "on-key"
-cis
-\key ces \major
-\override Score.RehearsalMark #'break-align-symbol = #'clef
-\clef treble
-\mark "on clef"
-ces
-@end lilypond
-
-@code{break-align-symbol} may also accept the following values:
-@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
-@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
-@code{key-signature}, and @code{time-signature}.  Setting
-@code{break-align-symbol} will only have an effect if the symbol
-appears at that point in the music.
-
+For common tweaks to the positioning of rehearsal marks, see @ref{Text marks}.
 
 @seealso
 
@@ -2231,9 +2214,9 @@ property of a @code{Beam}.  The @code{\featherDurations} function
 can be used to adjust note durations.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
 \featherDurations #(ly:make-moment 5 4) 
 {
-  \override Beam #'grow-direction = #LEFT
   c16[ c c c c c c]
 }
 @end lilypond

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 884968f3b77f345f327857f1df17e114adad877f
+    Translation of GIT committish: 32fe8d89d5c4fe9c73c1daf200cd23c7e8f2d3fc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -175,7 +175,7 @@ c-> c-.
 @end lilypond
 
 
-@item @code{c\mf c\sfz}
+@item @code{c2\mf c\sfz}
 @tab dinámica
 @tab
 @lilypond[fragment,relative=2]

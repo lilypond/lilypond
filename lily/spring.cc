@@ -61,20 +61,24 @@ merge_springs (vector<Spring> const &springs)
   Real avg_distance = 0;
   Real min_distance = 0;
   Real avg_stretch = 0;
+  Real avg_compress = 0;
 
   for (vsize i = 0; i < springs.size (); i++)
     {
       avg_distance += springs[i].distance ();
       avg_stretch += springs[i].inverse_stretch_strength ();
+      avg_compress += 1 / springs[i].inverse_compress_strength ();
       min_distance = max (springs[i].min_distance (), min_distance);
     }
 
   avg_stretch /= springs.size ();
+  avg_compress /= springs.size ();
   avg_distance /= springs.size ();
   avg_distance = max (min_distance + 0.3, avg_distance);
 
   Spring ret = Spring (avg_distance, min_distance);
   ret.set_inverse_stretch_strength (avg_stretch);
+  ret.set_inverse_compress_strength (1 / avg_compress);
 
   return ret;
 }

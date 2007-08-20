@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 1998--2006 Han-Wen Nienhuys <hanwen@xs4all.nl>
+;;;; (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;;;; distances are given in line-thickness (thicknesses) and
@@ -1174,6 +1174,7 @@
      . (
 	(stem-spacing-correction . 0.5)
 	(same-direction-correction . 0.25)
+	(space-to-barline . #t)
 	;; Changed this from 0.75.
 	;; If you ever change this back, please document! --hwn
 	(knee-spacing-correction . 1.0)

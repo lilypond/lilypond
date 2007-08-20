@@ -48,7 +48,6 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Importing Finale.
 * lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Itegrating text and music.
 * midi2ly: (lilypond/lilypond-program)Invoking midi2ly.        Importing MIDI.
-* mup2ly: (lilypond/lilypond-program)Invoking mup2ly.          Importing Mup.
 @end direntry
 
 @c don't remove this comment.
@@ -81,7 +80,7 @@ This document is also available as a
 @titlefont{User manual}
 @author The LilyPond development team
 
-Copyright @copyright{} 1999--2006 by the authors
+Copyright @copyright{} 1999--2007 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -112,7 +111,7 @@ Free Documentation License''.
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2006 by the authors
+Copyright @copyright{} 1999--2007 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -127,7 +126,7 @@ Free Documentation License''.
 @ifnottex
 This file documents GNU LilyPond.
 
-Copyright 1999--2006 by the authors
+Copyright 1999--2007 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document

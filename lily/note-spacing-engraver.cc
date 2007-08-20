@@ -14,12 +14,15 @@
 #include "item.hh"
 #include "pointer-group-interface.hh"
 
+#include <map>
+
 #include "translator.icc"
 
 class Note_spacing_engraver : public Engraver
 {
+  typedef map <Context*, Grob*> Last_spacing_map;
+  Last_spacing_map last_spacings_;
   Grob *last_spacing_;
-  Context *last_spacing_parent_context_;
   
   Grob *spacing_;
 
@@ -37,15 +40,15 @@ protected:
 void
 Note_spacing_engraver::derived_mark () const
 {
-  if (last_spacing_parent_context_)
-    scm_gc_mark (last_spacing_parent_context_->self_scm ());
+  for (Last_spacing_map::const_iterator i = last_spacings_.begin ();
+       i != last_spacings_.end (); i++)
+    scm_gc_mark (i->first->self_scm ());
 }
 
 Note_spacing_engraver::Note_spacing_engraver ()
 {
-  last_spacing_parent_context_ = 0;
-  last_spacing_ = 0;
   spacing_ = 0;
+  last_spacing_ = 0;
 }
 
 void
@@ -85,38 +88,39 @@ Note_spacing_engraver::acknowledge_rhythmic_grob (Grob_info gi)
 void
 Note_spacing_engraver::finalize ()
 {
-  if (last_spacing_
-      && last_spacing_parent_context_
-      && last_spacing_parent_context_ == context ()->get_parent_context ()
-      && !unsmob_grob_array (last_spacing_->get_object ("right-items")))
+  Context *parent = context ()->get_parent_context ();
+  Grob *last_spacing = last_spacings_[parent];
+
+  if (last_spacing
+      && !unsmob_grob_array (last_spacing->get_object ("right-items")))
     {
-      SCM ccol = get_property ("currentCommandColumn");
-      Grob *column = unsmob_grob (ccol);
+      Grob *col  = unsmob_grob (get_property ("currentCommandColumn"));
       
-      Pointer_group_interface::add_grob (last_spacing_,
+      Pointer_group_interface::add_grob (last_spacing,
 					 ly_symbol2scm ("right-items"),
-					 column);
+					 col);
     }
 }
 
 void
 Note_spacing_engraver::stop_translation_timestep ()
 {
-  if (last_spacing_
-      && last_spacing_parent_context_
-      && last_spacing_parent_context_ == context ()->get_parent_context ()
+  Context *parent = context ()->get_parent_context ();
+  Grob *last_spacing = last_spacings_[parent];
+
+  if (last_spacing
       && to_boolean (get_property ("hasStaffSpacing")))
     {
       Grob *col = unsmob_grob (get_property ("currentCommandColumn"));
-      Pointer_group_interface::add_grob (last_spacing_,
+      Pointer_group_interface::add_grob (last_spacing,
 					 ly_symbol2scm ("right-items"),
 					 col);
     }
   
   if (spacing_)
     {
+      last_spacings_[parent] = spacing_;
       last_spacing_ = spacing_;
-      last_spacing_parent_context_ = context ()->get_parent_context ();
       spacing_ = 0;
     }
 

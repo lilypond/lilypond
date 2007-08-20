@@ -1,7 +1,7 @@
 Info for Documentation
 ----------------------
 
-Current version of the manual: 2.11.15
+Current version of the manual: 2.11.28
 *** Please update this whenever you run convert-ly on the docs.
 
 convert-ly -e --from=... --to=... --no-version *.itely
