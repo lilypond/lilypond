@@ -60,13 +60,13 @@
 	      (interface-doc-string (cdr interface) '())
 	      "\n\n"
 	      "This grob interface is used in the following graphical objects: "
-
 	      (human-listify
 	       (map ref-ify
 		    (sort 
 		     (map symbol->string
 			  (hashq-ref iface->grob-table (car interface) '()))
-		     string<?)))))))
+		     string<?)))
+	      "."))))
 
 (define (grob-alist->texi alist)
   (let* ((uprops (filter (lambda (x) (not (object-property x 'backend-internal)))
