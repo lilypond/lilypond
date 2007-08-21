@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 13:38+0200\n"
-"PO-Revision-Date: 2007-08-06 14:44+0200\n"
+"PO-Revision-Date: 2007-08-21 22:22+0200\n"
 "Last-Translator: John Mandereau <john.mandereau@free.fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -1230,7 +1230,7 @@ msgstr "Accords sur plusieurs portées"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
 msgid "Chord names"
-msgstr "Les noms des accords"
+msgstr "Noms d'accords"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1245,7 +1245,7 @@ msgstr "Mode accords"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Printing chord names"
-msgstr "Impression de noms d'accord"
+msgstr "Impression de noms d'accords"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
@@ -1255,12 +1255,12 @@ msgstr "Musique vocale"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Setting simple songs"
-msgstr "Écriture des chants simples"
+msgstr "Écriture de chants simples"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Entering lyrics"
-msgstr "Saisie des paroles"
+msgstr "Saisie de paroles"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1290,7 +1290,7 @@ msgstr "Plusieurs notes pour une même syllabe"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Extenders and hyphens"
-msgstr "Prolongateurs et traits d'union"
+msgstr "Traits d'union et de prolongation"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1575,7 +1575,7 @@ msgstr "Étiquette textuelle"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Nested scores"
-msgstr "Partitions enchâssées"
+msgstr "Partitions emboîtées"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
