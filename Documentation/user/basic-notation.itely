@@ -2562,9 +2562,10 @@ care when you mix staves with grace notes and staves without, for example,
 This can be remedied by inserting grace skips of the corresponding
 durations in the other staves. For the above example
 
-@example
-\new Staff @{ c4 \bar "|:" \grace s16 d4 @}
-@end example
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+@end lilypond
 
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not supported,
