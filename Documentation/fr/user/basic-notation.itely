@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+    Translation of GIT committish: 83abdd314df4ce91c166bb9c5d7891256e6e1015
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1883,7 +1883,7 @@ Les barres de mesure au début de chaque système prennent l'un des styles
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
 @internalsref{SystemStartBracket}.  Dans chaque contexte, seul l'un de
 ces styles est utilisé, et c'est la propriété
-@internalsref{systemStartDelimiter} qui détermine lequel.
+@code{systemStartDelimiter} qui détermine lequel.
 
 @commonprop
 
@@ -2353,9 +2353,10 @@ de mesure.  Le début et la fin de la ligature sont alors indiqués par
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-En principe, les sous-groupes à l'intérieur d'un groupement de notes
-sont déterminés automatiquement.  Cependant, les propriétés
-@code{stemLeftBeamCount} et @code{stemRightBeamCount} permettent
+LilyPond peut déterminer automatiquement les sous-groupes à
+l'intérieur d'un groupement de notes, bien que le résultat ne soit pas 
+toujours optimal.  Les propriétés @code{stemLeftBeamCount} et
+@code{stemRightBeamCount} permettent alors
 d'ajuster ce comportement.  Lorsque l'une ou l'autre de ces propriétés
 est définie, elle ne s'applique qu'une seule fois, après quoi sa
 définition est effacée.
@@ -2624,10 +2625,11 @@ Il est possible de remédier à cela en insérant sur les autres portées
 des silences invisibles dans une expression précédée de @code{\grace},
 correspondant à la durée des petites notes.
 
-@example
-\new Staff @{ c4 \bar "|:" \grace s16 d4 @}
-@end example
-
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+@end lilypond
+ 
 Seules des expressions musicales séquentielles peuvent être utilisées
 pour des petites notes ; il n'est pas possible d'imbriquer ni de
 juxtaposer des sections de petites notes, faute de quoi le traitement du
@@ -3306,6 +3308,19 @@ Il est possible de créer des répétitions avec une levée.
   \alternative { { g4 g g e } { a a a a | b2. } }
 }
 @end lilypond
+
+@noindent
+ou
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
 
 @funindex \repeatTie
 Des liaisons de tenue peuvent être ajoutées à toute alternative :
