@@ -88,7 +88,7 @@ class Work (Xml_node):
         if wt:
             return wt.get_text ()
         else:
-            return self.get_text ()
+            return ''
       
     def get_work_title (self):
         return self.get_work_information ('work-title')
