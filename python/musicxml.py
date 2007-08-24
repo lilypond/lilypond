@@ -82,6 +82,74 @@ class Music_xml_node (Xml_node):
 	self.duration = Rational (0)
 	self.start = Rational (0)
 
+class Work (Xml_node):
+    def get_work_information (self, tag):
+        wt = self.get_maybe_exist_named_child (tag)
+        if wt:
+            return wt.get_text ()
+        else:
+            return self.get_text ()
+      
+    def get_work_title (self):
+        return self.get_work_information ('work-title')
+    def get_work_number (self):
+        return self.get_work_information ('work-number')
+    def get_opus (self):
+        return self.get_work_information ('opus')
+
+class Identification (Xml_node):
+    def get_rights (self):
+        rights = self.get_maybe_exist_named_child ('rights')
+        if rights:
+            return rights.get_text ()
+        else:
+            return ''
+
+    def get_creator (self, type):
+        creators = self.get_named_children ('creator')
+        # return the first creator tag that has type 'editor'
+        for i in creators:
+            if hasattr (i, 'type') and i.type == type:
+                return i.get_text ()
+            else:
+                return ''
+
+    def get_composer (self):
+        c = self.get_creator ('composer')
+        if c:
+            return c
+        creators = self.get_named_children ('creator')
+        # return the first creator tag that has no type at all
+        for i in creators:
+            if not hasattr (i, 'type'):
+                return i.get_text ()
+        return c
+    def get_arranger (self):
+        return self.get_creator ('arranger')
+    def get_editor (self):
+        return self.get_creator ('editor')
+    def get_poet (self):
+        return self.get_creator ('poet')
+    
+    def get_encoding_information (self, type):
+        enc = self.get_named_children ('encoding')
+        if enc:
+            children = enc[0].get_named_children (type)
+            if children:
+                return children[0].get_text ()
+        else:
+            return ''
+      
+    def get_encoding_software (self):
+        return self.get_encoding_information ('software')
+    def get_encoding_date (self):
+        return self.get_encoding_information ('encoding-date')
+    def get_encoding_person (self):
+        return self.get_encoding_information ('encoder')
+    def get_encoding_description (self):
+        return self.get_encoding_information ('encoding-description')
+      
+
 
 class Duration (Music_xml_node):
     def get_length (self):
@@ -483,6 +551,14 @@ class DirType (Music_xml_node):
 class Wedge (Music_xml_node):
     pass
 
+class Creator (Music_xml_node):
+    pass
+class Rights (Music_xml_node):
+    pass
+class Encoding (Music_xml_node):
+    pass
+class WorkTitle (Music_xml_node):
+    pass
 
 ## need this, not all classes are instantiated
 ## for every input file.
@@ -522,7 +598,15 @@ class_dict = {
         'direction': Direction,
         'direction-type': DirType,
         'dynamics': Dynamics,
-        'wedge': Wedge
+        'wedge': Wedge,
+        
+        'identification': Identification,
+        'creator': Creator,
+        'rights': Rights,
+        'encoding': Encoding,
+        'work': Work,
+        'work-title': WorkTitle
+        
 }
 
 def name2class_name (name):

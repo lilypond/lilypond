@@ -24,6 +24,59 @@ def progress (str):
     sys.stderr.flush ()
     
 
+# score information is contained in the <work>, <identification> or <movement-title> tags
+# extract those into a hash, indexed by proper lilypond header attributes
+def extract_score_information (tree):
+    score_information = {}
+    work = tree.get_maybe_exist_named_child ('work')
+    if work:
+        if work.get_work_title ():
+            score_information['title'] = work.get_work_title ()
+        if work.get_work_number ():
+            score_information['worknumber'] = work.get_work_number ()
+        if work.get_opus ():
+            score_information['opus'] = work.get_opus ()
+    else:
+        movement_title = tree.get_maybe_exist_named_child ('movement-title')
+        if movement_title:
+            score_information['title'] = movement_title.get_text ()
+    
+    identifications = tree.get_named_children ('identification')
+    for ids in identifications:
+        if ids.get_rights ():
+            score_information['copyright'] = ids.get_rights ()
+        if ids.get_composer ():
+            score_information['composer'] = ids.get_composer ()
+        if ids.get_arranger ():
+            score_information['arranger'] = ids.get_arranger ()
+        if ids.get_editor ():
+            score_information['editor'] = ids.get_editor ()
+        if ids.get_poet ():
+            score_information['poet'] = ids.get_poet ()
+            
+        if ids.get_encoding_software ():
+            score_information['tagline'] = ids.get_encoding_software ()
+            score_information['encodingsoftware'] = ids.get_encoding_software ()
+        if ids.get_encoding_date ():
+            score_information['encodingdate'] = ids.get_encoding_date ()
+        if ids.get_encoding_person ():
+            score_information['encoder'] = ids.get_encoding_person ()
+        if ids.get_encoding_description ():
+            score_information['encodingdescription'] = ids.get_encoding_description ()
+
+    return score_information
+
+def print_ly_information (printer, score_information):
+    printer.dump ('\header {')
+    printer.newline ()
+    for k in score_information.keys ():
+        printer.dump ('%s = "%s"' % (k, score_information[k]))
+        printer.newline ()
+    printer.dump ('}')
+    printer.newline ()
+    printer.newline ()
+    
+
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
     if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
@@ -198,12 +251,12 @@ articulations_dict = {
     #"shake": "?", 
     #"wavy-line": "?", 
     "mordent": "mordent",
-    #"inverted-mordent": "?", 
+    "inverted-mordent": "downmordent", 
     #"schleifer": "?" 
     ##### TECHNICALS
     "up-bow": "upbow", 
     "down-bow": "downbow", 
-    #"harmonic": "", 
+    "harmonic": "flageolet", 
     #"open-string": "", 
     #"thumb-position": "", 
     #"fingering": "", 
@@ -253,7 +306,8 @@ def musicxml_articulation_to_lily_event(mxl_event):
         dir = musicxml_direction_to_indicator (mxl_event.type)
     if hasattr (mxl_event, 'placement'):
         dir = musicxml_direction_to_indicator (mxl_event.placement)
-    if dir:
+    # \breathe cannot have any direction modifyer (^, _, -)!
+    if dir and tp != "breathe":
         ev.force_direction = dir
     return ev
 
@@ -799,6 +853,8 @@ def convert (filename, options):
         mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
         part_list = mxl_pl.get_named_children ("score-part")
         
+    # score information is contained in the <work>, <identification> or <movement-title> tags
+    score_information = extract_score_information (tree)
     parts = tree.get_typed_children (musicxml.Part)
     voices = get_all_voices (parts)
 
@@ -815,6 +871,7 @@ def convert (filename, options):
     printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
+    print_ly_information (printer, score_information)
     print_voice_definitions (printer, part_list, voices)
     
     printer.close ()
