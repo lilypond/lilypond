@@ -639,6 +639,10 @@ with the music.
 }
 @end lilypond
 
+Similarly, line breaks are normally forbidden when beams cross bar
+lines.  This behavior can be changed by setting 
+@code{\override Beam #'breakable = ##t}.
+
 
 @node Page breaking
 @subsection Page breaking
