@@ -1926,10 +1926,11 @@
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
-					     '(0.5 . -0.6)
+					     '(0.0 . -1.0)
 					     (make-musicglyph-markup "scripts.trill")))
 				   (Y . 0)
-				   (padding . 0.25)
+				   (stencil-offset . (-0.5 . 0))
+				   (padding . 1.5)
 				   (attach-dir . ,LEFT)
 				   ))
 			  (right . ((Y . 0)))
