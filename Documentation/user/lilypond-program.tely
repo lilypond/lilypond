@@ -7,7 +7,7 @@
 @end ignore
 @setfilename lilypond-program.info
 @settitle GNU LilyPond program usage
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage en
 
 @iftex

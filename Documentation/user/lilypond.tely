@@ -7,7 +7,7 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond user manual
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage en
 
 @iftex
@@ -46,7 +46,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 * abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          Importing ABC.      
 * convert-ly: (lilypond/lilypond-program)Invoking convert-ly.  Older LilyPond versions.
 * etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Importing Finale.
-* lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Itegrating text and music.
+* lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Integrating text and music.
 * midi2ly: (lilypond/lilypond-program)Invoking midi2ly.        Importing MIDI.
 @end direntry
 
