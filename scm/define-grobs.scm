@@ -1906,7 +1906,8 @@
      . (
 	(stencil . ,ly:time-signature::print)
 	(break-align-symbol . time-signature)
-	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-anchor
+	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,all-visible)
 	(avoid-slur . inside)
 	(space-alist . (
