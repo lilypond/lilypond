@@ -1,12 +1,14 @@
+
 \header {
-    texidoc = "Trill spanner"
+  texidoc = "The trill symbol and the wavy line are neatly aligned:
+the wavy line should appear to come from the crook of the r"
+
 }
 
-\version "2.10.0"
-\layout {
-    ragged-right = ##T
+\version "2.11.30"
+\paper { ragged-right = ##t }
+\relative c'' {
+  c1\startTrillSpan
+  c\stopTrillSpan
 }
-\relative \new Voice {
-    << { c1 \startTrillSpan }
-       { s2. \grace { d16[\stopTrillSpan e] } } >>
-    c4 }
+
