@@ -157,8 +157,9 @@ Al hacer doble click sobre el archivo no sólo se obtiene como resultado un arch
 sino también un archivo @file{.log} que contiene cierta información acerca de lo que
 LilyPond ha hecho con el archivo. Si se produce algún error, examine este archivo de registro.
 
-Tenga en cuenta que hay disponibles varios editores de texto alternativos con un mejor
-apoyo para la realización de documentos de LilyPond, consulte @ref{Editor support} para ver más información.
+Tenga en cuenta que hay disponibles varios editores de texto
+alternativos con un mejor apoyo para la realización de documentos de
+LilyPond, consulte @rprogram{Editor support} para ver más información.
 
 @subsubheading Unix
 
