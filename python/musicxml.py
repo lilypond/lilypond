@@ -45,7 +45,7 @@ class Xml_node:
             return [c for c in self._children if isinstance(c, klass)]
 
     def get_named_children (self, nm):
-	return self.get_typed_children (class_dict.get (nm))
+	return self.get_typed_children (get_class (nm))
 
     def get_named_child (self, nm):
 	return self.get_maybe_exist_named_child (nm)
@@ -57,7 +57,7 @@ class Xml_node:
 	return self._children
 
     def get_maybe_exist_named_child (self, name):
-	return self.get_maybe_exist_typed_child (class_dict.get (name))
+	return self.get_maybe_exist_typed_child (get_class (name))
 
     def get_maybe_exist_typed_child (self, klass):
 	cn = self.get_typed_children (klass)
@@ -148,7 +148,6 @@ class Identification (Xml_node):
         return self.get_encoding_information ('encoder')
     def get_encoding_description (self):
         return self.get_encoding_information ('encoding-description')
-      
 
 
 class Duration (Music_xml_node):
@@ -161,17 +160,17 @@ class Hash_comment (Music_xml_node):
 
 class Pitch (Music_xml_node):
     def get_step (self):
-	ch = self.get_unique_typed_child (class_dict.get (u'step'))
+	ch = self.get_unique_typed_child (get_class (u'step'))
 	step = ch.get_text ().strip ()
 	return step
     def get_octave (self):
-	ch = self.get_unique_typed_child (class_dict.get (u'octave'))
+	ch = self.get_unique_typed_child (get_class (u'octave'))
 
 	step = ch.get_text ().strip ()
 	return int (step)
 
     def get_alteration (self):
-	ch = self.get_maybe_exist_typed_child (class_dict.get (u'alter'))
+	ch = self.get_maybe_exist_typed_child (get_class (u'alter'))
 	alter = 0
 	if ch:
 	    alter = int (ch.get_text ().strip ())
@@ -251,7 +250,7 @@ class Note (Measure_element):
         self.instrument_name = ''
         
     def get_duration_log (self):
-	ch = self.get_maybe_exist_typed_child (class_dict.get (u'type'))
+	ch = self.get_maybe_exist_typed_child (get_class (u'type'))
 
 	if ch:
 	    log = ch.get_text ().strip()
@@ -270,7 +269,7 @@ class Note (Measure_element):
 	return 1
 
     def get_pitches (self):
-	return self.get_typed_children (class_dict.get (u'pitch'))
+	return self.get_typed_children (get_class (u'pitch'))
 
 class Part_list (Music_xml_node):
     def __init__ (self):
@@ -302,7 +301,7 @@ class Part_list (Music_xml_node):
         
 class Measure(Music_xml_node):
     def get_notes (self):
-	return self.get_typed_children (class_dict.get (u'note'))
+	return self.get_typed_children (get_class (u'note'))
 
     
 class Musicxml_voice:
@@ -424,7 +423,7 @@ class Part (Music_xml_node):
 
 	start_attr = None
 	for n in elements:
-	    voice_id = n.get_maybe_exist_typed_child (class_dict.get ('voice'))
+	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
             # TODO: If the first element of a voice is a dynamics entry,
             #       then voice_id is not yet set! Thus it will currently be ignored
@@ -469,8 +468,8 @@ class Notations (Music_xml_node):
 
 class Time_modification(Music_xml_node):
     def get_fraction (self):
-	b = self.get_maybe_exist_typed_child (class_dict.get ('actual-notes'))
-	a = self.get_maybe_exist_typed_child (class_dict.get ('normal-notes'))
+	b = self.get_maybe_exist_named_child ('actual-notes')
+	a = self.get_maybe_exist_named_child ('normal-notes')
 	return (int(a.get_text ()), int (b.get_text ()))
 
 class Accidental (Music_xml_node):
@@ -499,20 +498,12 @@ class Chord (Music_xml_node):
 class Dot (Music_xml_node):
     pass
 
-class Alter (Music_xml_node):
-    pass
-
 class Rest (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
         self._is_whole_measure = False
     def is_whole_measure (self):
         return self._is_whole_measure
-
-class Mode (Music_xml_node):
-    pass
-class Tied (Music_xml_node):
-    pass
 
 class Type (Music_xml_node):
     pass
@@ -521,92 +512,38 @@ class Grace (Music_xml_node):
 class Staff (Music_xml_node):
     pass
 
-class Instrument (Music_xml_node):
-    pass
-
-class Fermata (Music_xml_node):
-    pass
-class Dynamics (Music_xml_node):
-    pass
-class Articulations (Music_xml_node):
-    pass
-class Accent (Music_xml_node):
-    pass
-class Staccato (Music_xml_node):
-    pass
-class Tenuto (Music_xml_node):
-    pass
-class Tremolo (Music_xml_node):
-    pass
-class Technical (Music_xml_node):
-    pass
-class Ornaments (Music_xml_node):
-    pass
-
-
 class Direction (Music_xml_node):
     pass
 class DirType (Music_xml_node):
     pass
-class Wedge (Music_xml_node):
-    pass
 
-class Creator (Music_xml_node):
-    pass
-class Rights (Music_xml_node):
-    pass
-class Encoding (Music_xml_node):
-    pass
-class WorkTitle (Music_xml_node):
-    pass
 
 ## need this, not all classes are instantiated
-## for every input file.
+## for every input file. Only add those classes, that are either directly
+## used by class name or extend Music_xml_node in some way!
 class_dict = {
 	'#comment': Hash_comment,
 	'accidental': Accidental,
-	'alter': Alter,
 	'attributes': Attributes,
 	'beam' : Beam,
 	'chord': Chord,
 	'dot': Dot,
+	'direction': Direction,
+        'direction-type': DirType,
 	'duration': Duration,
 	'grace': Grace,
-        'instrument': Instrument, 
-	'mode' : Mode,
+        'identification': Identification,
 	'measure': Measure,
 	'notations': Notations,
 	'note': Note,
 	'part': Part,
-	'pitch': Pitch,
-	'rest':Rest,
-	'slur': Slur,
-	'tied': Tied,
-	'time-modification': Time_modification,
-	'tuplet': Tuplet,
-	'type': Type,
 	'part-list': Part_list,
-	'staff': Staff,
-        'fermata': Fermata,
-        'articulations': Articulations,
-        'accent': Accent,
-        'staccato': Staccato,
-        'tenuto': Tenuto,
-        'tremolo': Tremolo,
-        'technical': Technical,
-        'ornaments': Ornaments,
-        'direction': Direction,
-        'direction-type': DirType,
-        'dynamics': Dynamics,
-        'wedge': Wedge,
-        
-        'identification': Identification,
-        'creator': Creator,
-        'rights': Rights,
-        'encoding': Encoding,
+	'pitch': Pitch,
+	'rest': Rest,
+	'slur': Slur,
+	'time-modification': Time_modification,
+	'type': Type,
         'work': Work,
-        'work-title': WorkTitle
-        
 }
 
 def name2class_name (name):
