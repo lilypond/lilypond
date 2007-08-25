@@ -108,6 +108,7 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	@echo
 	@echo "***************************************************************"
