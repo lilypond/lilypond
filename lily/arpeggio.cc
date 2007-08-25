@@ -174,7 +174,7 @@ ADD_INTERFACE (Arpeggio,
 	       /* properties */
 	       "arpeggio-direction "
 	       "positions "
-	       "stems "
 	       "script-priority " // TODO: make around-note-interface
+	       "stems "
 	       );
 
