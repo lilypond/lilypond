@@ -777,18 +777,18 @@ demonstriert die Erstellung von musikalischen Funktionen.
 
 
 @item
-@emph{@ref{Running LilyPond}}
+@emph{@rprogram{Running LilyPond}}
 zeigt, wie LilyPond und die Hilfsprogramme gestartet werden. Zusätzlich 
 wird hier gezeigt, wie Quelldateien von älteren LilyPond-Versionen 
 aktualisiert werden können.
 
 @item
-@emph{@ref{LilyPond-book}} 
+@emph{@rprogram{LilyPond-book}}
 zeigt die Details der Integration von Noten in Texte wie etwa dieses 
 Handbuch.
 
 @item
-@emph{@ref{Converting from other formats}}
+@emph{@rprogram{Converting from other formats}}
 erklärt die Funktionsweise der Konvertierungsprogramme. Diese Programme 
 sind im LilyPond-Paket enthalten und können ein ganze Anzahl von Formaten 
 in das @code{.ly}-Format umwandeln.

@@ -7,7 +7,7 @@
 @end ignore
 @setfilename lilypond.info
 @settitle GNU LilyPond user manual
-@documentencoding utf-8
+@documentencoding UTF-8
 @documentlanguage en
 
 @iftex

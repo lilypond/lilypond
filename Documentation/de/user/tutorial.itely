@@ -180,7 +180,7 @@ der Quelldatei gelesen hat. Sollten Fehler auftreten, hilft oft ein Blick in
 diese Datei.
 
 Es gibt einige andere Editoren mit besserer Unterstützung für LilyPond; Einzelheiten 
-dazu können Sie im Kapitel @ref{Editor support} nachlesen.
+dazu können Sie im Kapitel @rprogram{Editor support} nachlesen.
 
 @subsubheading Unix
 
@@ -190,7 +190,7 @@ Beispiel können Sie xterm öffnen und
 und es gibt einen @code{LilyPond-Modus} für Emacs.  Wenn diese noch
 nicht installiert sind, lesen Sie die Datei @file{INSTALL.txt}.}
 Die einfachste Bearbeitunsumgebung ist das  @file{LilyPondTool}.
-Siehe auch @ref{Editor support} für mehr Information. Geben Sie
+Siehe auch @rprogram{Editor support} für mehr Information. Geben Sie
 folgendes in Ihrem Editor ein und speichern Sie die Datei als @file{test.ly}:
 
 @verbatim
@@ -1436,7 +1436,7 @@ am Anfang der Textdatei eingefügt.
 Durch diese Versionsmarkierung werden zukünftige Aktualisierungen
 des LilyPond-Programmes einfacher gemacht. Syntax-Änderungen
 zwischen den Programmversionen werden von einem speziellen
-Programm, @file{convert-ly}, vorgenommen (siehe @ref{Updating
+Programm, @file{convert-ly}, vorgenommen (siehe @rprogram{Updating
 files with convert-ly}). Dieses Programm braucht @code{\version},
  um zu entscheiden, welche Regeln angewandt werden müssen.
 

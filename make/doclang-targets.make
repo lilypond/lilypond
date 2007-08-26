@@ -16,12 +16,12 @@ MAKEINFO_FLAGS += --force
 
 $(outdir)/%/index.html: $(outdir)/%.nexi $(outdir)/user-ln doc-po
 	mkdir -p $(dir $@)
-	-$(MAKEINFO) -I$(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	-$(MAKEINFO) $(MAKEINFO_FLAGS) -I$(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
 # we don't make the big page until the whole manual is translated
 # if this happens, we'll have to define local-WWW differently for this language
 #$(outdir)/lilypond.html: $(outdir)/lilypond.nexi
-#	-$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
+#	-$(MAKEINFO) $(MAKEINFO_FLAGS) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/user-ln doc-po
 	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(ISOLANG) $<

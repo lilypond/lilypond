@@ -495,9 +495,9 @@ def musicxml_voice_to_lily_voice (voice):
         
         # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
         # +tied | +slur | +tuplet | glissando | slide | 
-	      # ornaments | technical | articulations | dynamics |
-	      # +fermata | arpeggiate | non-arpeggiate | 
-	      # accidental-mark | other-notation
+        #    ornaments | technical | articulations | dynamics |
+        #    +fermata | arpeggiate | non-arpeggiate | 
+        #    accidental-mark | other-notation
         if notations:
             if notations.get_tuplet():
                 tuplet_event = notations.get_tuplet()
@@ -611,12 +611,12 @@ def musicxml_voice_to_lily_voice (voice):
 
 
 def musicxml_id_to_lily (id):
-    digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight',
-              'Nine', 'Ten']
+    digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five',
+              'Six', 'Seven', 'Eight', 'Nine', 'Ten']
     
-    for dig in digits:
-        d = digits.index (dig)
-        id = re.sub ('%d' % d, dig, id)
+    for digit in digits:
+        d = digits.index (digit)
+        id = re.sub ('%d' % d, digit, id)
 
     id = re.sub  ('[^a-zA-Z]', 'X', id)
     return id
