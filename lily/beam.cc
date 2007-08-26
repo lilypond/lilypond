@@ -423,7 +423,7 @@ Beam::get_beam_segments (Grob *me_grob, Grob **common)
 			  Real neighbor_stem_x = neighbor_stem->relative_coordinate (commonx, X_AXIS);
 
 			  notehead_width = min (notehead_width,
-						fabs (neighbor_stem_x - segs[j].stem_x_)/2);
+						fabs (neighbor_stem_x - segs[j].stem_x_)/2.5);
 			}
 		      current.horizontal_[event_dir] += event_dir * notehead_width;
 		    }
