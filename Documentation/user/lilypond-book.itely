@@ -35,6 +35,9 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
+This is a separate programs from lilypond itself, and is run
+on the command-line; see @ref{Command-line usage} for more information.
+
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook documents.
 
 @menu

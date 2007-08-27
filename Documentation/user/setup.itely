@@ -10,23 +10,34 @@
 @node Setup
 @chapter Setup
 
-This chapter discusses how to set up LilyPond to integrate with various
-programs.
+This chapter discusses various post-install configuration options for
+LilyPond and various other programs.  This chapter may be safely treated
+as a reference: only read a section if it applies to you.
 
 @menu
-* Notes for the MacOS X app::   
+* Setup for specific Operating Systems::  
 * Text editor support::         
 * Point and click::             
 @end menu
 
 
-@node Notes for the MacOS X app
-@section Notes for the MacOS X app
+@node Setup for specific Operating Systems
+@section Setup for specific Operating Systems
+
+This section explains how to perform additional setup for specific
+operating systems.
+
+@menu
+* MacOS X on the command-line::  
+@end menu
+
+
+@node MacOS X on the command-line
+@subsection MacOS X on the command-line
 
 The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are also
-included inside MacOS X .app. They can be run from the command line by
-invoking them directly, e.g.
+lilypond itself) are included inside MacOS X .app. They can be run from
+the command line by invoking them directly, e.g.
 
 @example
 @var{path/to}/LilyPond.app/Contents/Resources/bin/lilypond

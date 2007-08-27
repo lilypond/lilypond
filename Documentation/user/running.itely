@@ -19,22 +19,47 @@ line in the operating system.  Windows users
 might be more familiar with the terms @q{DOS shell} or
 @q{command shell}; OSX users might be more familiar with the
 terms @q{terminal} or @q{console}.  OSX users should also
-consult @ref{Notes for the MacOS X app}.
+consult @ref{MacOS X on the command-line}.
 
 Describing how to use
 this part of an operating system is outside the scope of this
 manual; please consult other documentation on this topic if
 you are unfamiliar with the command-line.
 
+These are separate programs from lilypond itself, and are run
+on the command-line; see @ref{Command-line usage} for more information.
+
 @menu
+* Command-line usage::          
 * Invoking lilypond::           
 * Updating files with convert-ly::  
 * Reporting bugs::              
 * Error messages::              
 @end menu
 
+@node Command-line usage
+@section Command-line usage
+
+This section contains extra information for using LilyPond on the
+command-line.  This may be desirable to pass extra options to the
+program.  In addition, there are certain extra @q{helper} programs (such
+as @code{midi2ly}) which are only available on the command-line.
+
+By @q{command-line}, we mean the command line in the operating system.
+Windows users might be more familiar with the terms @q{DOS shell} or
+@q{command shell}; OSX users might be more familiar with the terms
+@q{terminal} or @q{console}.  OSX users should also consult @ref{MacOS X
+on the command-line}.
+
+Describing how to use this part of an operating system is outside the
+scope of this manual; please consult other documentation on this topic
+if you are unfamiliar with the command-line.
+
+
+
 @node Invoking lilypond
 @section Invoking lilypond
+
 @cindex Invoking LilyPond
 @cindex command line options
 @cindex options, command line
