@@ -283,7 +283,7 @@ Line_spanner::print (SCM smob)
 	 SCM align = ly_assoc_get (ly_symbol2scm ("stencil-align-dir-y"),
 				   bounds[d], SCM_BOOL_F);
 	 SCM off = ly_assoc_get (ly_symbol2scm ("stencil-offset"),
-				   bounds[d], SCM_BOOL_F);
+				 bounds[d], SCM_BOOL_F);
 
 	 if (scm_is_number (align)) 
 	   s.align_to (Y_AXIS, scm_to_double (align));
