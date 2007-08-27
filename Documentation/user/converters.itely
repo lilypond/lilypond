@@ -20,12 +20,17 @@ These are separate programs from lilypond itself, and are run
 on the command-line; see @ref{Command-line usage} for more information.
 
 
+@refbugs
+We unfortunately do not have the resources to maintain these
+programs; please consider them @qq{as-is}.  Patches are appreciated, but
+bug reports will almost certainly not be resolved.
+
 @menu
 * Invoking midi2ly::            Importing MIDI.
-* Invoking etf2ly::             Importing Finale.
-* Invoking musicxml2ly::        
+* Invoking musicxml2ly::        Importing MusicXML.
 * Invoking abc2ly::             Importing ABC.      
-* Generating LilyPond files::   
+* Invoking etf2ly::             Importing Finale.
+* Generating LilyPond files::   GUIs, transcribers, and algorithmic composition programs.
 @end menu
 
 
@@ -117,45 +122,6 @@ first note will be read and the others will be ignored.  Set them all
 to a single duration and add phrase markings or pedal indicators.
 
 
-@node Invoking etf2ly
-@section Invoking @command{etf2ly}
-
-@cindex ETF
-@cindex enigma
-@cindex Finale
-@cindex Coda Technology
-
-ETF (Enigma Transport Format) is a format used by Coda Music
-Technology's Finale product.  @command{etf2ly} will convert part of an ETF
-file to a ready-to-use LilyPond file.
-
-It is invoked from the command-line as follows.
-
-@example
-etf2ly [@var{option}]@dots{} @var{etf-file}
-@end example
-
-Note that by @q{command-line}, we mean the command line of the
-operating system.  See @ref{Converting from other formats}, for
-more information about this.
-
-The following options are supported by @command{etf2ly}:
-
-@table @code
-@item -h,--help
-this help
-@item -o,--output=FILE
-set output filename to FILE
-@item -v,--version
-version information
-@end table
-
-
-@refbugs
-
-The list of articulation scripts is incomplete.  Empty measures
-confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
-
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
@@ -179,6 +145,7 @@ set output filename to @var{file}. (default: print to stdout)
 @item -v,--version
 print version information.
 @end table
+
 
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}
@@ -240,6 +207,45 @@ ABC synchronizes words and notes at the beginning of a line;
 
 @command{abc2ly} ignores the ABC beaming.
 
+
+@node Invoking etf2ly
+@section Invoking @command{etf2ly}
+
+@cindex ETF
+@cindex enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) is a format used by Coda Music
+Technology's Finale product.  @command{etf2ly} will convert part of an ETF
+file to a ready-to-use LilyPond file.
+
+It is invoked from the command-line as follows.
+
+@example
+etf2ly [@var{option}]@dots{} @var{etf-file}
+@end example
+
+Note that by @q{command-line}, we mean the command line of the
+operating system.  See @ref{Converting from other formats}, for
+more information about this.
+
+The following options are supported by @command{etf2ly}:
+
+@table @code
+@item -h,--help
+this help
+@item -o,--output=FILE
+set output filename to FILE
+@item -v,--version
+version information
+@end table
+
+
+@refbugs
+
+The list of articulation scripts is incomplete.  Empty measures
+confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.
 
 
 @node Generating LilyPond files
