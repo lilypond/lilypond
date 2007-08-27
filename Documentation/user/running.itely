@@ -563,29 +563,13 @@ specified.  Automatically updating scheme and lilypond scheme
 interfaces is quite unlikely; be prepared to tweak scheme code
 manually.
 
-
-@ignore
-Copy and paste from CVS, last updated
-Aug 18, 2005
-
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
-convert-ly.txt?rev=HEAD&content-type=text/plain
-
-NEW: not exactly copied; this list has been modified.  Since we're
-changing the bug system, it doesn't make sense to copy from
-the bug CVS any more.  I'll figure out something else.  -gp
-@end ignore
 @verbatim
+There are a few things that the convert-ly cannot handle. Here's a list
+of limitations that the community has complained about.
 
-There are a few things that the convert-ly cannot handle. Here's a list of
-limitations
-that the community has complained about.
-
-This bug report structure has been chosen because convert-ly has a structure
-that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist,
-placed
-here for reference.
+This bug report structure has been chosen because convert-ly has a
+structure that doesn't allow to smoothly implement all needed changes.
+Thus this is just a wishlist, placed here for reference.
 
 1.6->2.0:
  Doesn't always convert figured bass correctly, specifically things like {<
