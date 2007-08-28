@@ -108,7 +108,7 @@ def parse_logfile (fn):
 
 
 
-def write_character_lisp_table (file, global_info, charmetrics):
+def character_lisp_table (global_info, charmetrics):
 
     def conv_char_metric (charmetric):
         f = 1.0
@@ -129,11 +129,14 @@ def write_character_lisp_table (file, global_info, charmetrics):
 
         return s
 
+    s = ''
     for c in charmetrics:
-        file.write (conv_char_metric (c))
+        s += conv_char_metric (c)
+
+    return s
 
 
-def write_global_lisp_table (file, global_info):
+def global_lisp_table (global_info):
     str = ''
 
     keys = ['staffsize', 'stafflinethickness', 'staff_space',
@@ -145,29 +148,31 @@ def write_global_lisp_table (file, global_info):
         if global_info.has_key (k):
             str = str + "(%s . %s)\n" % (k,global_info[k])
 
-    file.write (str)
+    return str
 
     
-def write_ps_encoding (name, file, global_info, charmetrics):
+def ps_encoding (name, global_info, charmetrics):
     encs = ['.notdef'] * 256
     for m in charmetrics:
         encs[m['code']] = m['name']
 
-    file.write ('/%s [\n' % name)
+
+    s =  ('/%s [\n' % name)
     for m in range (0, 256):
-        file.write ('  /%s %% %d\n' % (encs[m], m))
-    file.write ('] def\n')
+        s += ('  /%s %% %d\n' % (encs[m], m))
+    s +=  ('] def\n')
+    return s
 
-
-def write_deps (file, deps, targets):
+def get_deps (deps, targets):
+    s = ''
     for t in targets:
         t = re.sub ( '^\\./', '', t)
-        file.write ('%s '% t)
-    file.write (": ")
+        s += ('%s '% t)
+    s += (": ")
     for d in deps:
-        file.write ('%s ' % d)
-    file.write ('\n')
-
+        s += ('%s ' % d)
+    s += ('\n')
+    return s
 
 def help ():
     sys.stdout.write(r"""Usage: mf-to-table [OPTIONS] LOGFILEs
@@ -233,11 +238,11 @@ for filenm in files:
     elif re.search ('feta-alphabet', filenm):
         enc_name = 'FetaAlphabetEncoding';
 
-    write_ps_encoding (enc_name, open (enc_nm, 'w'), g, m)
-    write_character_lisp_table (open (char_lisp_nm, 'w'), g, m)  
-    write_global_lisp_table (open (global_lisp_nm, 'w'), g)  
+    open (enc_nm, 'w').write (ps_encoding (enc_name, g, m))
+    open (char_lisp_nm, 'w').write (character_lisp_table (g, m))
+    open (global_lisp_nm, 'w').write (global_lisp_table (g))
     if depfile_nm:
-        write_deps (open (depfile_nm, 'wb'), deps,
-              [base + '.log', base + '.dvi', base + '.pfa',
-               depfile_nm,
-               base + '.pfb'])
+        open (depfile_nm, 'wb').write (get_deps (deps,
+                                                 [base + '.log', base + '.dvi', base + '.pfa',
+                                                  depfile_nm,
+                                                  base + '.pfb']))

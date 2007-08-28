@@ -60,6 +60,12 @@ mingw
 @end example
 
 
+@c TRANSLATORS:
+@c   Please **do not** translate anything below this line.  Users
+@c   should not be compiling LilyPond themselves; if they really 
+@c   want to do so, they should be able to read the English docs,
+@c   because they'll probably need to ask questions in English
+@c   on the -devel list.   -gp
 
 @node Compiling from source
 @section Compiling from source
@@ -207,7 +213,7 @@ make out=www web-install
 @node Building LilyPond
 @subsection Building LilyPond
 
-@subsubsection Compiling
+@unnumberedsubsubsec Compiling
 
 To install GNU LilyPond, type
 
@@ -227,7 +233,7 @@ points into your home directory, e.g.
 @end example
 
 
-@subsubsection Compiling for multiple platforms
+@unnumberedsubsubsec Compiling for multiple platforms
 
 If you want to build multiple versions of LilyPond with different
 configuration settings, you can use the @code{--enable-config=CONF}
@@ -263,7 +269,7 @@ From a fresh git checkout, do
 ./autogen.sh   % ignore any warning messages
 cp GNUmakefile.in GNUmakefile
 make -C python
-nice make LILYPOND_EXTERNAL_BINARY=~/Apps/LilyPond.app/Contents/Resources/bin/lilypond web
+nice make LILYPOND_EXTERNAL_BINARY=/path/to/bin/lilypond web
 % change the lilypond directory as appropriate
 @end example
 
@@ -343,17 +349,6 @@ $ vi +4919 out/parser.cc
 $ make
 @end example
 
-
-@unnumberedsubsubsec MacOS X
-
-For Fink, use the following command to compile.
-
-@verbatim
-export GUILE=guile-1.6
-export GUILE_CONFIG=guile-1.6-config
-export PKG_CONFIG_PATH=/sw/lib/freetype219/lib/pkgconfig/:/sw/lib/fontconfig2/lib/pkgconfig/
-./configure
-@end verbatim
 
 @unnumberedsubsubsec Solaris
 

@@ -2082,7 +2082,7 @@ for example, to tie a tremolo to a chord. For example,
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
 \grace { c16[~ e~ g]~ } <c, e g>2
-\repeat "tremolo" 8 { c32~ c'~ } <c c,>1
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
 e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
@@ -3249,7 +3249,7 @@ bracket only lasts one measure, which is a duration of 3/4.
   \time 3/4
   c c c
   \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
-  \repeat "volta" 5 { d d d }
+  \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
 }
@@ -3393,16 +3393,16 @@ To place tremolo marks between notes, use @code{\repeat} with tremolo
 style
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
-  \repeat "tremolo" 8 { c16 d16 }
-  \repeat "tremolo" 4 { c16 d16 }
-  \repeat "tremolo" 2 { c16 d16 }
+  \repeat tremolo 8 { c16 d16 }
+  \repeat tremolo 4 { c16 d16 }
+  \repeat tremolo 2 { c16 d16 }
 }
 @end lilypond
 
 Tremolo marks can also be put on a single note.  In this case, the
 note should not be surrounded by braces.
 @lilypond[quote,verbatim,ragged-right]
-\repeat "tremolo" 4 c'16
+\repeat tremolo 4 c'16
 @end lilypond
 
 Similar output is obtained using the tremolo subdivision, described in
@@ -3460,8 +3460,8 @@ Percent repeats must be declared within a @code{Voice} context.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
-  \repeat "percent" 4 { c4 }
-  \repeat "percent" 2 { c2 es2 f4 fis4 g4 c4 }
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 es2 f4 fis4 g4 c4 }
 }
 @end lilypond
 
@@ -3471,7 +3471,7 @@ on the @code{countPercentRepeats} property,
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \new Voice {
 \set countPercentRepeats = ##t
-  \repeat "percent" 4 { c1 }
+  \repeat percent 4 { c1 }
 }
 @end lilypond
 

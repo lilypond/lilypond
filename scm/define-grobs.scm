@@ -1906,7 +1906,8 @@
      . (
 	(stencil . ,ly:time-signature::print)
 	(break-align-symbol . time-signature)
-	(break-align-anchor . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
+	(break-align-anchor
+	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,all-visible)
 	(avoid-slur . inside)
 	(space-alist . (
@@ -1926,10 +1927,11 @@
 	(right-bound-info . ,ly:line-spanner::calc-right-bound-info)
 
 	(bound-details . ((left . ((text . ,(make-translate-scaled-markup
-					     '(0.5 . -0.6)
+					     '(0.0 . -1.0)
 					     (make-musicglyph-markup "scripts.trill")))
 				   (Y . 0)
-				   (padding . 0.25)
+				   (stencil-offset . (-0.5 . 0))
+				   (padding . 1.5)
 				   (attach-dir . ,LEFT)
 				   ))
 			  (right . ((Y . 0)))
