@@ -13,28 +13,43 @@
 
 This chapter details the technicalities of running LilyPond.
 
-Some of these commands are run from the command-line.  By
-@q{command-line}, we mean the command
-line in the operating system.  Windows users
-might be more familiar with the terms @q{DOS shell} or
-@q{command shell}; OSX users might be more familiar with the
-terms @q{terminal} or @q{console}.  OSX users should also
-consult @ref{Notes for the MacOS X app}.
-
-Describing how to use
-this part of an operating system is outside the scope of this
-manual; please consult other documentation on this topic if
-you are unfamiliar with the command-line.
-
 @menu
-* Invoking lilypond::           
+* Normal usage::                
+* Command-line usage::          
+* Error messages::              
 * Updating files with convert-ly::  
 * Reporting bugs::              
-* Error messages::              
 @end menu
 
-@node Invoking lilypond
-@section Invoking lilypond
+
+@node Normal usage
+@section Normal usage
+
+Most users run LilyPond through a GUI; see @ruser{First steps} if
+you have not read this already.
+
+
+@node Command-line usage
+@section Command-line usage
+
+This section contains extra information about using LilyPond on the
+command-line.  This may be desirable to pass extra options to the
+program.  In addition, there are certain extra @q{helper} programs (such
+as @code{midi2ly}) which are only available on the command-line.
+
+By @q{command-line}, we mean the command line in the operating system.
+Windows users might be more familiar with the terms @q{DOS shell} or
+@q{command shell}; OSX users might be more familiar with the terms
+@q{terminal} or @q{console}.  OSX users should also consult @ref{MacOS X
+on the command-line}.
+
+Describing how to use this part of an operating system is outside the
+scope of this manual; please consult other documentation on this topic
+if you are unfamiliar with the command-line.
+
+
+@subsection Invoking lilypond
+
 @cindex Invoking LilyPond
 @cindex command line options
 @cindex options, command line
@@ -375,6 +390,80 @@ uses more CPU time. The default value is @code{70}.
 @end table
 
 
+@node Error messages
+@section Error messages
+
+@cindex error messages
+Different error messages can appear while compiling a file:
+
+@table @emph
+
+@item Warning
+@cindex warning
+Something looks suspect.  If you are requesting something out of the
+ordinary then you will understand the message, and can ignore it.
+However, warnings usually indicate that something is wrong with the
+input file.
+
+@item Error
+Something is definitely wrong.  The current processing step (parsing,
+interpreting, or formatting) will be finished, but the next step will
+be skipped.
+
+@item Fatal error
+@cindex error
+@cindex fatal error
+Something is definitely wrong, and LilyPond cannot continue.  This
+happens rarely.  The most usual cause is misinstalled fonts.
+
+@item Scheme error
+@cindex trace, Scheme
+@cindex call trace
+@cindex Scheme error
+Errors that occur while executing Scheme code are caught by the Scheme
+interpreter.  If running with the verbose option (@code{-V} or
+@code{--verbose}) then a call trace of the offending
+function call is printed.
+
+@item Programming error
+@cindex Programming error
+There was some internal inconsistency.  These error messages are
+intended to help the programmers and debuggers.  Usually, they can be
+ignored.  Sometimes, they come in such big quantities that they obscure
+other output.
+
+@item Aborted (core dumped)
+This signals a serious programming error that caused the program to
+crash.  Such errors are considered critical.  If you stumble on one,
+send a bug-report.
+@end table
+
+@cindex errors, message format
+If warnings and errors can
+be linked to some part of the input file, then error messages have the
+following form
+
+@example
+@var{filename}:@var{lineno}:@var{columnno}: @var{message}
+@var{offending input line}
+@end example
+
+A line-break is inserted in the offending line to indicate the column
+where the error was found.  For example,
+
+@example
+test.ly:2:19: error: not a duration: 5:
+  @{ c'4 e'5
+             g' @}
+@end example
+
+These locations are LilyPond's best guess about where the warning or
+error occurred, but (by their very nature) warnings and errors occur
+when something unexpected happens.  If you can't see an error in the
+indicated line of your input file, try checking one or two lines
+above the indicated position.
+
+
 @node Updating files with convert-ly
 @section Updating with @command{convert-ly}
 
@@ -389,15 +478,20 @@ syntax changes between LilyPond versions.
 
 It uses @code{\version} statements in the input files to detect the
 old version number.  In most cases, to upgrade your input file it is
-sufficient to run@footnote{MacOS X users may execute this command
-under the menu entry @samp{Compile > Update syntax}.}
+sufficient to run
 
 @example
 convert-ly -e myfile.ly
 @end example
 
+@noindent
+MacOS X users may execute this command under the menu entry
+@samp{Compile > Update syntax}.
+
 If there are no changes to myfile.ly and file called myfile.ly.NEW
 is created, then myfile.ly is already updated.
+
+@subsection Command line options
 
 @command{convert-ly} always converts up to the last syntax change handled by
 it.  This means that the @code{\version} number left in the file is
@@ -456,39 +550,26 @@ Print usage help.
 @end table
 
 
-@refbugs
+@menu
+* Problems with convert-ly::    
+@end menu
+
+
+@node Problems with convert-ly
+@subsection Problems with @code{convert-ly}
 
 Not all language changes are handled.  Only one output option can be
 specified.  Automatically updating scheme and lilypond scheme
 interfaces is quite unlikely; be prepared to tweak scheme code
 manually.
 
-
-@c  We might want to make this a completely new section, along with more
-@c  info about how to upgrade old input files.  -gp
-
-@ignore
-Copy and paste from CVS, last updated
-Aug 18, 2005
-
-http://savannah.gnu.org/cgi-bin/viewcvs/*checkout*/lilypond/lily-bugs/bugs/
-convert-ly.txt?rev=HEAD&content-type=text/plain
-
-NEW: not exactly copied; this list has been modified.  Since we're
-changing the bug system, it doesn't make sense to copy from
-the bug CVS any more.  I'll figure out something else.  -gp
-@end ignore
 @verbatim
+There are a few things that the convert-ly cannot handle. Here's a list
+of limitations that the community has complained about.
 
-There are a few things that the convert-ly cannot handle. Here's a list of
-limitations
-that the community has complained about.
-
-This bug report structure has been chosen because convert-ly has a structure
-that doesn't
-allow to smoothly implement all needed changes. Thus this is just a wishlist,
-placed
-here for reference.
+This bug report structure has been chosen because convert-ly has a
+structure that doesn't allow to smoothly implement all needed changes.
+Thus this is just a wishlist, placed here for reference.
 
 1.6->2.0:
  Doesn't always convert figured bass correctly, specifically things like {<
@@ -555,82 +636,6 @@ bug by following the directions on
 
 Please construct submit @ruser{Minimal examples}, of bug reports.  We do not
 have the resources to investigate reports which are not as small as possible.
-
-
-@node Error messages
-@section Error messages
-
-@cindex error messages
-Different error messages can appear while compiling a file:
-
-@table @emph
-@cindex warning
-
-@item Warning
-Something looks suspect.  If you are requesting something out of the
-ordinary then you will understand the message, and can ignore it.
-However, warnings usually indicate that something is wrong with the
-input file.
-
-@item Error
-Something is definitely wrong.  The current processing step (parsing,
-interpreting, or formatting) will be finished, but the next step will
-be skipped.
-
-@cindex error
-@cindex fatal error
-@item Fatal error
-Something is definitely wrong, and LilyPond cannot continue.  This
-happens rarely.  The most usual cause is misinstalled fonts.
-
-@cindex trace, Scheme
-@cindex call trace
-@cindex Scheme error
-@item Scheme error
-Errors that occur while executing Scheme code are caught by the Scheme
-interpreter.  If running with the verbose option (@code{-V} or
-@code{--verbose}) then a call trace of the offending
-function call is printed.
-
-@cindex Programming error
-@item Programming error
-There was some internal inconsistency.  These error messages are
-intended to help the programmers and debuggers.  Usually, they can be
-ignored.  Sometimes, they come in such big quantities that they obscure
-other output.  In this case, file a bug-report.
-
-@item Aborted (core dumped)
-This signals a serious programming error that caused the program to
-crash.  Such errors are considered critical.  If you stumble on one,
-send a bug-report.
-
-
-@end table
-
-@cindex errors, message format
-If warnings and errors can
-be linked to some part of the input file, then error messages have the
-following form
-
-@example
-@var{filename}:@var{lineno}:@var{columnno}: @var{message}
-@var{offending input line}
-@end example
-
-A line-break is inserted in the offending line to indicate the column
-where the error was found.  For example,
-
-@example
-test.ly:2:19: error: not a duration: 5:
-  @{ c'4 e'5
-             g' @}
-@end example
-
-These locations are LilyPond's best guess about where the warning or
-error occurred, but (by their very nature) warnings and errors occur
-when something unexpected happens.  If you can't see an error in the
-indicated line of your input file, try checking one or two lines
-above the indicated position.
 
 
 
