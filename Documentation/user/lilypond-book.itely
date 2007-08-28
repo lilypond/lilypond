@@ -793,7 +793,7 @@ cd out
 ...
 @end example
 
-@itemx --padding=@var{amount}
+@itemx --left-padding=@var{amount}
 Pad EPS boxes by this much. @var{amount} is measured in milimeters,
 and is 3.0 by default.  This option should be used if the lines of
 music stick out of the right margin.
