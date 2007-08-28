@@ -323,6 +323,22 @@ Axis_group_interface::generic_group_extent (Grob *me, Axis a)
   return ly_interval2scm (r - my_coord);
 }
 
+/* This is like generic_group_extent, but it only counts the grobs that
+   are children of some other axis-group. This is uncached; if it becomes
+   commonly used, it may be necessary to cache it somehow. */
+Interval
+Axis_group_interface::staff_extent (Grob *me, Grob *refp, Axis ext_a, Grob *staff, Axis parent_a)
+{
+  extract_grob_set (me, "elements", elts);
+  vector<Grob*> new_elts;
+
+  for (vsize i = 0; i < elts.size (); i++)
+    if (elts[i]->common_refpoint (staff, parent_a) == staff)
+      new_elts.push_back (elts[i]);
+
+  return relative_group_extent (new_elts, refp, ext_a);
+}
+
 
 Grob *
 Axis_group_interface::calc_pure_elts_and_common (Grob *me)
