@@ -576,16 +576,15 @@ Eigenschaften des Programmes benutzbar zu machen.
 
 LilyPond stellt ein Programm bereit, das Aktualisierungen 
 vereinfacht: @code{convert-ly}. Einzelheiten zur Programmbenutzung 
-finden sich in @ref{Updating files with convert-ly}.
+finden sich in @rprogram{Updating files with convert-ly}.
 
-Leider kann @code{convert-ly} nicht alle Veränderungen der Syntax 
-berücksichtigen. Hier werden einfache @qq{Suchen und 
-Ersetzen}-Veränderungen
-vorgenommen (wie etwa  @code{raggedright} zu becoming @code{ragged-right}),
-aber einige Veränderungen sind zu kompliziert. Die 
-Syntax-Veränderungen, 
-die das Programm nicht berücksichtigt, sind im Kapitel  @ref{Updating 
-files with convert-ly} aufgelistet.
+Leider kann @code{convert-ly} nicht alle Veränderungen der Syntax
+berücksichtigen. Hier werden einfache @qq{Suchen und
+Ersetzen}-Veränderungen vorgenommen (wie etwa @code{raggedright} zu
+becoming @code{ragged-right}), aber einige Veränderungen sind zu
+kompliziert. Die Syntax-Veränderungen, die das Programm nicht
+berücksichtigt, sind im Kapitel @rprogram{Updating files with
+convert-ly} aufgelistet.
 
 Zum Beispiel wurden in LilyPond 2.4 und früheren Versionen 
 Akzente und Umlaute mit LaTeX-Befehlen eingegeben, ein 

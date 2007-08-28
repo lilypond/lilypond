@@ -16,7 +16,7 @@
 #(define version-seen #f)
 #(define expect-error #f) 
 #(define output-empty-score-list #f)
-
+#(define output-suffix #f)
 #(use-modules (scm clip-region))
 \maininput
 %% there is a problem at the end of the input file

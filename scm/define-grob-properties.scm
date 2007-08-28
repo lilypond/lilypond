@@ -406,11 +406,12 @@ at a column with a negative penalty.")
 whether to put a page turn at this column.  Can be @code{force} or
 @code{allow}.")
      (parenthesized ,boolean? "Parenthesize this grob.")
-     (positions ,pair? "Pair of staff coordinates @code{(@var{left}
+     (positions ,number-pair? "Pair of staff coordinates @code{(@var{left}
 . @var{right})}, where both @var{left} and @var{right} are in
-@code{staff-space} units of the current staff.  LilyPond uses these
-values to select which slur candidate positions to use; if extreme
-positions are requested, LilyPond selects the closest positions.")
+@code{staff-space} units of the current staff.
+
+For slurs, this value selects which slur candidate
+to use; if extreme positions are requested, the closest one is taken.")
 
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")

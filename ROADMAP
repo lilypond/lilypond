@@ -27,10 +27,12 @@ source files.
    flower/		A simple c++ library
        include/
    input/		Music input examples
-       lsr/             Snippets from the LilyPond Snippet Repository
+       lsr/         Snippets from the LilyPond Snippet Repository
+                    (auto-generated, do not modify!)
+       manual/      Examples from the manual
        mutopia/		Real music, more at www.mutopiaproject.org
+       new/         Snippets which are too new for LSR
        regression/	Testing of features, one test per file
-       test/		Tips and tricks
        tutorial/	Examples from the tutorial 
    lily/		C++ sources for LilyPond (lilypond-bin)
      include/

@@ -18,12 +18,9 @@
 #include "lookup.hh"
 #include "pointer-group-interface.hh"
 
-MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
-SCM
-Arpeggio::print (SCM smob)
+Grob *
+Arpeggio::get_common_y (Grob *me)
 {
-  Grob *me = unsmob_grob (smob);
-
   Grob *common = me;
 
   extract_grob_set (me, "stems", stems);
@@ -34,17 +31,27 @@ Arpeggio::print (SCM smob)
 					Y_AXIS);
     }
 
+  return common;
+}
+
+MAKE_SCHEME_CALLBACK(Arpeggio, calc_positions, 1);
+SCM
+Arpeggio::calc_positions (SCM grob)
+{
+  Grob *me = unsmob_grob (grob);
+  Grob *common = get_common_y (me);
+  
   /*
     TODO:
 
     Using stems here is not very convenient; should store noteheads
     instead, and also put them into the support. Now we will mess up
     in vicinity of a collision.
-
   */
   Interval heads;
   Real my_y = me->relative_coordinate (common, Y_AXIS);
 
+  extract_grob_set (me, "stems", stems);
   for (vsize i = 0; i < stems.size (); i++)
     {
       Grob *stem = stems[i];
@@ -56,6 +63,20 @@ Arpeggio::print (SCM smob)
 		   - my_y);
     }
 
+  heads *= 1/Staff_symbol_referencer::staff_space(me);
+
+  return ly_interval2scm (heads);
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, print, 1);
+SCM
+Arpeggio::print (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Interval heads = robust_scm2interval (me->get_property ("positions"),
+					Interval())
+    * Staff_symbol_referencer::staff_space (me);
+  
   if (heads.is_empty () || heads.length () < 0.5)
     {
       if (!to_boolean (me->get_property ("transparent")))
@@ -101,27 +122,9 @@ SCM
 Arpeggio::brew_chord_bracket (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
-  Grob *common = me;
-
-  extract_grob_set (me, "stems", stems);
-  for (vsize i = 0; i < stems.size (); i++)
-    {
-      Grob *stem = stems[i];
-      common = common->common_refpoint (Staff_symbol_referencer::get_staff_symbol (stem),
-					Y_AXIS);
-    }
-
-  Interval heads;
-  Real my_y = me->relative_coordinate (common, Y_AXIS);
-
-  for (vsize i = 0; i < stems.size (); i++)
-    {
-      Grob *stem = stems[i];
-      Grob *ss = Staff_symbol_referencer::get_staff_symbol (stem);
-      Interval iv = Stem::head_positions (stem);
-      iv *= Staff_symbol::staff_space (ss) / 2.0;
-      heads.unite (iv + ss->relative_coordinate (common, Y_AXIS) - my_y);
-    }
+  Interval heads = robust_scm2interval (me->get_property ("positions"),
+					Interval())
+    * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
   Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
@@ -170,7 +173,8 @@ ADD_INTERFACE (Arpeggio,
 
 	       /* properties */
 	       "arpeggio-direction "
-	       "stems "
+	       "positions "
 	       "script-priority " // TODO: make around-note-interface
+	       "stems "
 	       );
 

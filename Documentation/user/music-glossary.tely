@@ -4845,7 +4845,7 @@ a @aref{chord}, usually in the distance of a third
 \relative c' {
   e2:32_"a"
   f:32 [ e8:16 f:16 g:16 a:16 ] s4
-  \repeat "tremolo" 8 { e32_"b" g }
+  \repeat tremolo 8 { e32_"b" g }
 }
 @end lilypond
 
