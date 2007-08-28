@@ -308,9 +308,9 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 
 LilyPond permet de désigner les accords par leur chiffrage jazz.
 S'il est possible d'entrer un accord sous sa forme musicale, avec
-@code{<.. >}, on peut aussi le saisir par son nom.  Pour LilyPond, un
-accord demeure un ensemble de hauteurs, et leur transposition est donc
-possible.
+@code{<.. >}, on peut aussi le saisir par son nom.  Le logiciel traite
+les accords comme des ensembles de hauteurs, donc les accords peuvent
+être transposés.
 
 @lilypond[quote,ragged-right,verbatim,ragged-right]
 twoWays = \transpose c c' {
@@ -328,7 +328,8 @@ twoWays = \transpose c c' {
 
 Cet exemple montre également que les jeux d'instructions qui permettent
 à LilyPond d'imprimer des accords ne cherchent pas à se montrer
-intelligents.  Ici, le dernier accord n'est pas interprété comme inversé.
+intelligents.  Ici, le dernier accord n'est pas interprété comme étant
+renversé.
 
 Notez bien que la valeur rythmique des accords doit être indiquée
 @emph{à l'extérieur} des symboles @code{<>}.
@@ -340,7 +341,6 @@ Notez bien que la valeur rythmique des accords doit être indiquée
 
 @node Chords mode
 @subsection Chords mode
-@cindex Mode Accords
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
 accords ne sont indiqués que par leur note fondamentale.
@@ -352,19 +352,20 @@ accords ne sont indiqués que par leur note fondamentale.
 @cindex saisir des accords
 @cindex mode accords
 
-On peut cependant obtenir des accords différents, en le spécifiant
-avec le caractère deux points (@code{:}).
+On peut cependant obtenir des accords différents, en utilisant le
+caractère deux points (@code{:}).
 
 @lilypond[quote,fragment,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
 
-Le nombre accolé à la note fondamentale est considéré comme
-@qq{chiffrage jazz} de l'accord, qui est de ce fait construit par un
-empilement de tierces :
+Le nombre accolé à la note fondamentale est considéré comme chiffrage
+jazz de l'accord, qui est de ce fait construit par un empilement de
+tierces. Notez l'exception que constitue @code{c:13} dans lequel la
+onzième est délibérément omise.
 
 @lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
 @end lilypond
 
 @cindex note fondamentale
@@ -404,19 +405,20 @@ Accord mineur.  Ce chiffrage minorise la tierce, et la septième s'il y
 en a une.
 
 @item dim
-Accord diminué. Ce chiffrage minorise la tierce, diminue la quinte et
-la septième s'il y en a une.
+Accord diminué.  Ce chiffrage minorise la tierce, diminue la quinte et
+la septième s'il y en a.
 
 @item aug
-Accord augmenté. Ce chiffrage augmente la quinte.
+Accord augmenté.  Ce chiffrage augmente la quinte.
 
 @item maj
 Accord de septième majeure. Ce chiffrage majorise la septième s'il y
 en a une (dans le cas d'un accord parfait, ce chiffrage est facultatif).
 
 @item sus
-Accord "sus". Ce chiffrage supprime la tierce, et y ajoute, suivant
-que vous spécifiez @code{2} ou @code{4}, la seconde ou la quarte.
+Accord de suspension. Ce chiffrage supprime la tierce, et y ajoute,
+suivant que vous spécifiez @code{2} ou @code{4}, la seconde ou la
+quarte.
 @end table
 
 Il est bien sûr possible de mélanger ces chiffrages avec des notes ajoutées.
@@ -431,9 +433,9 @@ Il est bien sûr possible de mélanger ces chiffrages avec des notes ajoutées.
 @funindex sus
 @funindex m
 
-Dans la mesure où un accord de treizième naturelle ne sonne pas très
-bien avec la onzième, cette note sera enlevée automatiquement (à moins
-que vous ne le spécifiez explicitement).
+Dans la mesure où un accord de treizième majeure ne sonne pas très bien
+avec la onzième, la onzième est enlevée automatiquement, à moins que
+vous ne le spécifiez explicitement.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c:13 c:13.11 c:m13 }
@@ -441,8 +443,8 @@ que vous ne le spécifiez explicitement).
 
 @funindex /
 
-Les accords peuvent être disposés de façon particulière, ou combinés avec
-une note étrangère à la basse, au moyen de @code{@var{accord}/}@var{note}
+Les accords peuvent être renversés ou combinés avec une note étrangère à
+la basse, au moyen de @code{@var{accord}/}@var{note}
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/g c/f }
 @end lilypond
@@ -457,7 +459,7 @@ supérieure sera supprimée.  Pour l'éviter, utilisez la syntaxe
 @end lilypond
 
 Le mode accords est semblable à @code{\lyricmode} ou autre, c'est-à-dire que
-la plupart des commandes sont encore disponibles ; ainsi @code{r} ou
+la plupart des commandes sont encore disponibles ; ainsi, @code{r} ou
 @code{\skip} peuvent servir à insérer des silences ou des silences
 invisibles.  De plus, les propriétés des objets peuvent être ajustées
 ou modifiées.
@@ -466,9 +468,9 @@ ou modifiées.
 
 @refbugs
 
-Aucune note ne peut être indiquée deux fois dans un accord.  Ainsi, 
-dans l'accord suivant seule la quinte augmentée, indiquée en dernier,
-est affichée :
+Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi, 
+dans l'accord suivant, seule la quinte augmentée est prise en compte,
+car elle est indiquée en dernier :
 
 @cindex agrégats
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -483,9 +485,9 @@ est affichée :
 @cindex accords
 
 Les chiffrages d'accords sont liés au contexte
-@internalsref{ChordNames}.  
-Les accords peuvent être saisis soit au moyen de la notation indiquée
-ci-dessus, soit directement avec les symboles @code{<} et @code{>}.
+@internalsref{ChordNames}.  Les accords peuvent être saisis soit au
+moyen de la notation indiquée ci-dessus, soit directement avec les
+symboles @code{<} et @code{>}.
 
 @lilypond[quote,verbatim,ragged-right]
 harmonies = {
@@ -497,11 +499,10 @@ harmonies = {
 >>
 @end lilypond
 
-Vous pouvez faire ressortir les chiffrages d'accords en définissant
-comme vraie (##t pour "true") la propriété @code{chordChanges} dans le
-contexte @internalsref{ChordNames}.  De cette façon, les chiffrages
-ne s'afficheront que lorsque les accords changeront, ou au début d'une nouvelle
-ligne.
+Vous pouvez faire ressortir les chiffrages d'accords en assignant la
+valeur vrai à la propriété @code{chordChanges} dans le contexte
+@internalsref{ChordNames}.  De cette façon, les chiffrages ne sont
+imprimés qu'aux changements d'accord ou en début de ligne.
 
 @lilypond[quote,verbatim,ragged-right]
 harmonies = \chordmode {
@@ -515,11 +516,12 @@ harmonies = \chordmode {
 >>
 @end lilypond
 
-Les exemples précédents montrent des chiffrages placés au-dessus de
-la portée, mais ce n'est pas obligé : les accords peuvent également être
-imprimés séparément -- auquel cas vous aurez peut-être besoin d'ajouter le 
-@internalsref{Volta_engraver} et le @internalsref{Bar_engraver} afin
-que les éventuelles barres de reprises s'affichent correctement.
+Les exemples précédents montrent des chiffrages placés au-dessus de la
+portée, mais ce n'est pas obligatoire : les accords peuvent également
+être imprimés séparément -- auquel cas vous aurez peut-être besoin
+d'ajouter le @internalsref{Volta_engraver} et le
+@internalsref{Bar_engraver} afin que les éventuelles barres de reprises
+s'affichent correctement.
 
 @lilypond[ragged-right,verbatim]
 \new ChordNames \with {
@@ -538,7 +540,7 @@ que les éventuelles barres de reprises s'affichent correctement.
 @end lilypond
 
 Le modèle par défaut des chiffrages d'accord est celui de
-Klaus Ignatzek pour le Jazz (cf. @ref{Literature list}).  Il s'agit
+Klaus Ignatzek pour le jazz (cf. @ref{Literature list}).  Il s'agit
 d'une notation anglo-saxonne ; cependant vous pouvez 
 indiquer vos chiffrages en notation française au moyen de
 la commande \frenchChords (voir plus bas).
@@ -547,50 +549,45 @@ Il est possible de créer votre propre modèle de chiffrages en
 réglant les propriétés suivantes :
 
 @table @code
-@itemize @bullet
 @funindex chordNameExceptions
 @item chordNameExceptions
+C'est la liste des accords mis en forme de manière particulière.
 
-C'est une liste d'accords pour lesquels vous voulez une mise en forme
-particulière.  
-
-Cette liste d'exceptions s'indique de la façon suivante : 
+Cette liste d'exceptions s'indique de la façon suivante.
 On commence par créer une expression musicale telle que
 @example
 @code{chExceptionMusic} = @{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
 @end example
-puis on la transforme en liste d'exceptions au moyen du code suivant :
+puis on la transforme en liste d'exceptions au moyen du code
 @example
 (sequential-music-to-chord-exceptions chExceptionMusic #t)
 @end example
-On peut alors ajouter ces exceptions aux exceptions par défaut
-(définies dans @file{ly/@/chord@/-modifier@/-init@/.ly}) :
+Pour qu'elles soient effectives, on ajoute ces exceptions aux exceptions
+par défaut définies dans @file{ly/@/chord@/-modifier@/-init@/.ly} :
 @example
 (append
  (sequential-music-to-chord-exceptions chExceptionMusic #t)
  ignatzekExceptions)
 @end example
 
-Voir aussi concernant cette propriété : 
+Exemple de manipulation de cette propriété :
 @lsr{chords/,chord@/-name@/-exceptions@/.ly}
 @cindex exceptions, chiffrages d'accords.
 
 
 @funindex majorSevenSymbol
 @item majorSevenSymbol
-
 Cette propriété définit l'objet employé pour indiquer une septième
 majeure.  Les options prédéfinies sont @code{whiteTriangleMarkup}
 (triangle blanc) et @code{blackTriangleMarkup} (triangle noir).  Voir aussi
-@lsr{chords,chord@/-name@/-major7@/.ly}.
+l'exemple @lsr{chords,chord@/-name@/-major7@/.ly}.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
-
 Les différents termes d'un chiffrage jazz (par exemple les notes de
-l'accord et la basse) sont habituellement séparés par un trait
-oblique.  La propriété @code{chordNameSeparator} vous permettra
-néanmoins de spécifier un autre séparateur de votre choix :
+l'accord et la basse) sont habituellement séparés par une barre oblique.
+La propriété @code{chordNameSeparator} permet d'indiquer un autre
+séparateur, par exemple
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new ChordNames \chordmode {
   c:7sus4
@@ -602,17 +599,16 @@ néanmoins de spécifier un autre séparateur de votre choix :
 
 @funindex chordRootNamer
 @item chordRootNamer
-
-Dans les chiffrages d'accord jazz, la note fondamentale de chaque
-accord est exprimée par une lettre capitale, parfois suivie d'une
-altération, correspondant à la notation anglo-saxonne de la musique.
-Cette propriété est justement en charge de cet affichage ; c'est donc
-en la définissant que l'on peut produire des chiffrages spéciaux, adaptés
-par exemple aux systèmes de notation d'autres pays.
+Dans les chiffrages d'accord jazz, la note fondamentale de chaque accord
+est exprimée par une lettre capitale, parfois suivie d'une altération,
+correspondant à la notation anglo-saxonne de la musique.  Cette
+propriété a pour valeur la fonction qui transforme la hauteur de la note
+foncdamentale en nom de note ; c'est donc en assignant une nouvelle
+fonction à cette propriété que l'on peut produire des noms de note
+spéciaux, adaptés par exemple aux systèmes de notation d'autres pays.
 
 @funindex chordNoteNamer
 @item chordNoteNamer
-
 Lorsqu'un chiffrage mentionne une note ajoutée (par exemple la basse),
 les règles utilisées sont par défaut celles définies par la propriété
 @code{chordRootNamer} ci-dessus.  Cependant, la propriété @code{chordNoteNamer}
@@ -621,13 +617,11 @@ en caractères minuscules.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
-
 Le petit @q{m} qui indique un accord mineur est, dans la notation anglo-saxonne,
 attaché à la lettre de l'accord. Cependant il est possible d'ajouter un espace
-en définissant comme vraie la propriété @code{chordPrefixSpacer}.  Cet
+en assignant la valeur vrai à la propriété @code{chordPrefixSpacer}.  Cet
 espace sera omis si une altération est présente.
 
-@end itemize
 @end table
 
 Les propriétés ci-dessus font l'objet de commandes prédéfinies
@@ -636,19 +630,16 @@ adaptées aux notations de différents pays : @code{\germanChords} et
 @code{\italianChords} pour la notation italienne et enfin
 @code{\frenchChords} pour la notation française.
 
-Voyez par vous-même :
-
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-LilyPond intègre également deux autres modèles de chiffrages :
-une notation Jazz alternative, et un modèle appelé le système Banter.
-Voir à ce sujet @ref{Chord name chart} et
-@code{input/@/test,chord@/-names@/-jazz@/.ly} pour la mise en œuvre de
-ces modèles.
+LilyPond intègre également deux autres modèles de chiffrages : une
+notation Jazz alternative, et un modèle systématique appelé système
+Banter.  Voir @ref{Chord name chart} et @lsr{chords,chord-names-jazz.ly}
+pour la mise en œuvre de ces modèles.
 
 @cindex Banter
-@cindex jazz accords chiffrages
-@cindex accords jazz chiffrages
+@cindex jazz, chiffrages d'accords
+@cindex accords jazz, chiffrage
 
 
 @refcommands
@@ -663,15 +654,10 @@ ces modèles.
 @code{\frenchChords}.
 
 
-
-
 @seealso
 
 Exemples :
-@lsr{chords/,chord@/-name@/-exceptions@/.ly},
-@lsr{chords,chord@/-name@/-major7@/.ly} et
-@code{input/@/test,chord@/-names@/-jazz@/.ly}.
-
+@lsrdir{chords}
 
 Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @file{scm/@/chord@/-entry@/.scm}.
@@ -680,10 +666,12 @@ Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @refbugs
 
 Les chiffrages d'accords ne sont déterminés que par la succession des
-hauteurs de notes.  En d'autres termes, les accords inversés ne sont
-pas reconnus, ni les notes ajoutées à la basse.  Aussi les accords
-saisis au moyen de la syntaxe @code{<.. >} peuvent-ils produire des chiffrages
-étranges.
+hauteurs de notes.  En d'autres termes, les accords inversés ne sont pas
+reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
+saisis au moyen de la syntaxe @code{<.. >} peuvent produire des
+chiffrages étranges.
+
+
 
 @node Vocal music
 @section Vocal music
@@ -722,14 +710,13 @@ examinerons par degré croissant de complexité.
 S'assurer que tous les éléments textuels et les paroles respectent
 les marges du document requiert des calculs relativement lourds ; c'est
 la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe pas.
-Vous pouvez cependant l'y forcer en définissant
+Vous pouvez cependant l'y forcer en ajoutant le code
 
 @example
 \override Score.PaperColumn #'keep-inside-line = ##t
 @end example
 
-Pour que les paroles évitent également les barres de mesure, procédez
-comme suit :
+Pour que les paroles évitent également les barres de mesure, ajoutez
 @example
 \layout @{
   \context @{
@@ -824,7 +811,7 @@ parité avec l'accolade ouvrante, et la compilation échouera fort
 probablement. 
 
 
-@funindex \property in \lyricmode
+@funindex \property dans \lyricmode
 
 @noindent
 De la même manière, un point concluant une suite de lettres sera
@@ -848,10 +835,10 @@ mais plutôt
 @cindex guillemets, dans les paroles
 @cindex liaisons, dans les paroles
 
-Pour attribuer plus d'une syllabe à une même note, vous pouvez mettre ces
-syllabes entre guillemets, ou bien remplacer les espaces par des
-caractères souligné (@code{_}), ou encore utiliser des tildes (@code{~}) pour
-obtenir des liaisons entre les syllabes.
+Pour attribuer plus d'une syllabe à une même note, vous pouvez mettre
+ces syllabes entre guillemets, ou bien remplacer l'espace par un
+caractère souligné (@code{_}), ou encore utiliser un tilde (@code{~})
+pour obtenir une liaison entre les syllabes.
 
 @lilypond[quote,relative=2,ragged-right,fragment,verbatim]
 \time 3/4
@@ -862,13 +849,13 @@ obtenir des liaisons entre les syllabes.
 @end lilypond
 
 Cette liaison adaptée aux paroles correspond au caractère Unicode
-U+203F, et n'apparaîtra que si la police utilisée l'inclut (par
-exemple DejaVuLGC).
+U+203F, et n'apparaîtra dans la partition que s'il existe une police
+incluant ce symbole (par exemple DejaVuLGC) installée sur le système.
 
 
 Pour utiliser des lettres accentuées ou des caractères spéciaux 
-(cœurs ou guillemets inversés par exemple), il suffit de les insérer
-dans le fichier et de veiller à sauvegarder ce dernier en encodage
+--- cœurs ou guillemets inversés par exemple --- il suffit de les insérer
+dans le fichier et de veiller à sauvegarder ce dernier avec le codage
 utf-8.  Voir à ce sujet @ref{Text encoding} pour plus de détails.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -877,7 +864,7 @@ utf-8.  Voir à ce sujet @ref{Text encoding} pour plus de détails.
 @end lilypond
 
 Pour utiliser des guillemets informatiques standard, faites-les
-précéder d'une barre oblique inversée :
+précéder d'une barre oblique inverse :
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
@@ -885,17 +872,17 @@ précéder d'une barre oblique inversée :
 @end lilypond
 
 Expliquer exactement comment LilyPond repère le début d'un mot en mode
- paroles (Lyrics) est quelque peu compliqué.
+paroles (Lyrics) est quelque peu compliqué.
 
-En mode Lyrics, un mot peut commencer par : tout caractère
-alphabétique, @code{_}, @code{?}, @code{!}, @code{:}, @code{'}, les
-codes de contrôle @code{^A} à @code{^F}, et @code{^Q} à @code{^W},
-@code{^Y}, @code{^^}, ou tout caractère ASCII -- à définir sur 8 bits
-au-delà du 127ième -- ou enfin tout symbole @code{`}, @code{'},
-@code{"}, ou @code{^}, s'il est précédé d'une barre oblique inverse.
+En mode Lyrics, un mot peut commencer par : tout caractère alphabétique,
+@code{_}, @code{?}, @code{!}, @code{:}, @code{'}, un des codes de
+contrôle @code{^A} à @code{^F} et @code{^Q} à @code{^W}, @code{^Y},
+@code{^^}, tout caractère ASCII de code strictement supérieur à 127, ou
+enfin un des symboles @code{`}, @code{'}, @code{"}, ou @code{^}, s'il
+est précédé d'une barre oblique inverse.
 
-Pour inclure des paroles dans un identificateur, il faut utiliser
-@code{lyricmode}.
+Pour définir un identificateur contenant des paroles, il faut utiliser
+la fonction @code{lyricmode}.
 
 @example
 verseOne = \lyricmode @{ Joy to the world the Lord is come @}
@@ -914,7 +901,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Référence du Programme : @internalsref{LyricText}, @internalsref{LyricSpace}.
+Référence du programme : @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 
@@ -926,8 +913,8 @@ Référence du Programme : @internalsref{LyricText}, @internalsref{LyricSpace}.
 @funindex \lyricsto
 
 
-Avant d'être imprimées, les paroles sont interprétées par le programme dans le
-contexte @internalsref{Lyrics}.
+Avant d'être imprimées, les paroles sont interprétées par le programme
+dans le contexte @internalsref{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -942,8 +929,8 @@ en alignant automatiquement les paroles sur une mélodie ou une autre
 voix, en ayant recours à @code{\addlyrics} ou @code{\lyricsto} ;
 
 @item
-en affectant à chaque syllabe une durée explicite, au sein du contexte
-@code{\lyricmode}
+en affectant explicitement à chaque syllabe une durée, au sein du
+contexte @code{\lyricmode}
 @end itemize
 
 @menu
@@ -957,7 +944,7 @@ en affectant à chaque syllabe une durée explicite, au sein du contexte
 @node Automatic syllable durations
 @subsubsection Automatic syllable durations
 
-@cindex durées automatiques des syllabes
+@cindex durée automatique des syllabes
 @cindex paroles et mélodies
 
 Les paroles peuvent être automatiquement alignées sous
@@ -968,12 +955,12 @@ paroles avec la commande @code{\lyricsto}.
 \new Lyrics \lyricsto @var{nom} @dots{}
 @end example
 
-Cette commande adapte les paroles aux notes de la variable @var{nom}
-qui désigne un contexte @internalsref{Voice} précédemment défini.  
-Ce contexte @code{Voice}, quel qu'il soit, intervient
-avant de spécifier les paroles avec @code{\lyricsto}.  La commande
-@code{\lyricsto} introduit automatiquement le mode @code{\lyricmode}, aussi 
-n'avez-vous pas à taper vous-même @code{\lyricmode} dans ce cas.
+Cette commande adapte les paroles aux notes de la voix (contexte
+@internalsref{Voice} dans le jargon LilyPond) @var{nom}.  Ce contexte
+@code{Voice} doit exister avant l'indication des paroles avec
+@code{\lyricsto}.  La commande @code{\lyricsto} introduit
+automatiquement le mode @code{\lyricmode}, donc dans ce cas vous n'avez
+pas à ajouter vous-même @code{\lyricmode}.
 
 L'exemple suivant récapitule les différentes manières de saisir des paroles.
 
@@ -1013,10 +1000,10 @@ est exactement la même chose que
 @node Another way of entering lyrics
 @subsubsection Another way of entering lyrics
 
-On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto}
-pour saisir des paroles.  Dans ce cas, les syllabes sont entrées tout
-comme des notes -- du texte remplace les hauteurs -- et vous devrez
-définir leur durée explicitement :
+On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto} pour
+saisir des paroles.  Dans ce cas, les syllabes sont entrées comme des
+notes --- du texte remplaçant les hauteurs --- ce qui veut dire que vous
+devez définir leur durée explicitement :
  
 @example
 play2 the4 game2.
@@ -1026,12 +1013,12 @@ sink2 or4 swim2.
 La mélodie associée à ces paroles peut être spécifiée par la propriété
 @code{associatedVoice} :
  
- @example
+@example
 \set associatedVoice = #"lala"
- @end example
+@end example
  
- @noindent
-La valeur que vous attribuerez à cette propriété (ici @code{"lala"})
+@noindent
+La valeur que vous attribuez à cette propriété (ici @code{"lala"})
 doit désigner un contexte @internalsref{Voice}, sans quoi les mélismes
 ne seront pas imprimés correctement.
  
@@ -1050,7 +1037,7 @@ Voici un exemple de cette manière de procéder :
 
 @seealso
  
-Référence du Programme : @internalsref{Lyrics}.
+Référence du programme : @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
@@ -1061,12 +1048,12 @@ Référence du Programme : @internalsref{Lyrics}.
 @cindex liaisons, dans les paroles
 
 Pour attribuer plus d'une syllabe à une même note, vous pouvez les
-mettre entre guillemets, remplacer les espaces par des caractères
-souligné (@code{_}) pour obtenir des espaces, ou bien encore utiliser
-des tildes (@code{~}) pour obtenir des liaisons entre les
-syllabes@footnote{Une liaison adaptée aux paroles correspond au
-caractère Unicode U+203F, et n'apparaîtra que si la police utilisée
-l'inclut (par exemple DejaVuLGC)}.
+mettre entre guillemets, remplacer une espace par un caractère souligné
+(@code{_}) pour obtenir une espace, ou bien encore utiliser un tilde
+(@code{~}) pour obtenir une liaison entre les syllabes@footnote{Une
+liaison adaptée aux paroles correspond au caractère Unicode U+203F, et
+n'apparaîtra dans la partition que si le système dispose d'une police
+installée qui contient ce symbole(par exemple DejaVuLGC).}.
 
 @lilypond[quote,relative=2,ragged-right,fragment,verbatim]
 \time 3/4
@@ -1159,7 +1146,8 @@ section @ref{Vocal ensembles}.
 
 @seealso
 
-Référence du Programme : @internalsref{Melisma_translator}, 
+Référence du programme : @internalsref{Melisma_translator}.
+
 @lsr{vocal,lyric@/-combine.ly}.
 
 @refbugs
@@ -1186,15 +1174,15 @@ saisissant @samp{ -- } (notez les espaces entourant le tiret double).
 Ce trait d'union sera centré entre les deux syllabes et sa longueur
 sera proportionnelle à l'espace les séparant.
 
-Dans les partitions très serrées, les traits d'union peuvent ne pas
-être imprimés.  Cet inconvénient peut être contrôlé par
-@code{minimum-distance} pour gérer l'espace minimum entre deux
-syllabes, et @code{minimum-length} (seuil en deçà duquel il n'y aura
-pas de trait d'union).
+Dans les partitions très serrées, les traits d'union peuvent ne pas être
+imprimés.  Cet inconvénient peut être contrôlé par
+@code{minimum-distance} pour gérer l'espace minimum entre deux syllabes,
+et @code{minimum-length}, seuil en deçà duquel il n'y a pas de trait
+d'union.
 
 @seealso
 
-Référence du Programme : @internalsref{LyricExtender},
+Référence du programme : @internalsref{LyricExtender},
 @internalsref{LyricHyphen}
 
 
@@ -1220,11 +1208,8 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
  
-@c TODO: Move the following section to 
-@c "Working with lyrics and identifiers"
- 
 Pour une organisation différente ou plus complexe, mieux vaut
-commencer par définir la hiérarchie des portées et des paroles :
+commencer par définir la hiérarchie des portées et des paroles,
 @example
 \new ChoirStaff <<
   \new Voice = "soprano" @{ @emph{musique} @}
@@ -1243,7 +1228,7 @@ puis combiner correctement les mélodies et les paroles :
  
 @noindent
 
-Le résultat donnera ainsi quelque chose comme :
+Le résultat donnera ainsi quelque chose comme
  
 @example
 <<\new ChoirStaff << @emph{définition de la musique} >>
@@ -1257,15 +1242,15 @@ Le résultat donnera ainsi quelque chose comme :
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
-Référence du Programme : @internalsref{LyricCombineMusic},
+Référence du programme : @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.  
+
 
 @node Flexibility in placement
 @subsection Flexibility in placement
 
-Une même mélodie peut se voir traitée différemment
-suivant les couplets.  La commande @code{\lyricsto} permet de prendre
-en compte ces variantes.
+Une même mélodie peut se voir traitée différemment suivant les couplets.
+La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 
 @menu
 * Lyrics to multiple notes of a melisma::  
@@ -1274,13 +1259,13 @@ en compte ces variantes.
 * Lyrics independent of notes::  
 @end menu
 
+
 @node Lyrics to multiple notes of a melisma
 @subsubsection Lyrics to multiple notes of a melisma
 
-
 Il peut survenir que les paroles comportent un mélisme pour l'un des
-couplets, mais plusieurs syllabes pour d'autres. Une solution consiste
-à temporairement ignorer les mélismes dans le couplet ayant plus de
+couplets, mais plusieurs syllabes pour d'autres. Une solution consiste à
+temporairement ignorer les mélismes dans le couplet ayant plus de
 syllabes.  Il suffit pour cela de définir la propriété
 @code{ignoreMelismata} à l'intérieur du contexte Lyrics.
 
@@ -1334,7 +1319,7 @@ suivant d'une note :
 @subsubsection Divisi lyrics
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
-des paroles, on peut créer des paroles alternatives -- également
+des paroles, on peut créer des paroles alternatives --- également
 qualifiées de @q{divisi}.
 
 @lilypond[verbatim,ragged-right,quote]
@@ -1382,7 +1367,7 @@ Cette astuce permet de faire varier les paroles lorsqu'une section est reprise.
 On peut créer des variations plus complexes à partir d'une mélodie à
 plusieurs voix.  Les paroles peuvent suivre l'une ou l'autre des
 lignes mélodiques, et même basculer de l'une à l'autre si l'on
-définit la propriété @code{associatedVoice}. Considérez cet exemple :
+modifie la propriété @code{associatedVoice}.  Dans cet exemple,
 
 @lilypond[ragged-right,quote]
 <<
@@ -1421,7 +1406,7 @@ définit la propriété @code{associatedVoice}. Considérez cet exemple :
 @end lilypond
 
 @noindent
-le texte du premier couplet s'aligne sur la mélodie que nous nommerons
+le texte du premier couplet s'aligne sur la mélodie nommée
 @q{lahlah},
 
 @example
@@ -1432,18 +1417,18 @@ le texte du premier couplet s'aligne sur la mélodie que nous nommerons
 
 
 Le second couplet est tout d'abord rattaché au contexte @code{lahlah},
-mais doit basculer sur une autre mélodie à la syllabe @q{ran}.  Nous
-utilisons alors
+mais bascule sur une autre mélodie sur la syllabe @q{ran}.  Pour cela,
+nous utilisons
 @example
 \set associatedVoice = alternative
 @end example
 
 @noindent
-@q{alternative} fait référence au contexte @code{Voice} qui contient
+où @code{alternative} désigne le nom du contexte @code{Voice} qui contient
 le triolet.
 
 Encore une fois, cette commande doit être spécifiée une syllabe en
-avance, c'est à dire ici avant la syllabe @q{Ty}.
+avance, c'est-à-dire ici avant la syllabe @q{Ty}.
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -1458,18 +1443,20 @@ avance, c'est à dire ici avant la syllabe @q{Ty}.
 
 @noindent
 Comme vous pouvez le voir, nous revenons ensuite à l'alignement sur la
-mélodie d'origine, en attribuant à la propriété @code{associatedVoice}
+mélodie d'origine, en assignant à la propriété @code{associatedVoice}
 la valeur @code{lahlah}.
 
 
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
-Dans certaines musiques vocales assez complexes, on peut avoir intérêt
-à imprimer les paroles indépendamment des notes.  Ces paroles peuvent
-s'aligner sur un mélodie, ici nommée @q{lyricrhythm}, qui sera ensuite
-escamotée par le contexte @code{Devnull}.  Seules subsistent alors de
-cette mélodie les valeurs rythmiques, sur lesquelles s'aligneront les paroles.
+Dans certaines musiques vocales assez complexes, on peut avoir intérêt à
+imprimer les paroles indépendamment des notes.  La mélodie sur laquelle
+s'aligne les paroles --- marquée par le tag @code{lyricrhythm} dans
+l'exemple suivant --- peut être insérée dans un contexte @code{Devnull},
+ce qui indique à LilyPond de na pas imprimer cette mélodie dans la
+partition.  Seules subsistent alors de cette mélodie les valeurs
+rythmiques, sur lesquelles s'alignent les paroles.
 
 @lilypond[quote,verbatim,ragged-right]
 voice = {
@@ -1494,7 +1481,7 @@ lyr = \lyricmode { I like my cat! }
 @node Spacing lyrics
 @subsection Spacing lyrics
 
-@cindex Espacer des paroles
+@cindex espacer des paroles
 @cindex paroles, accroître l'espacement
 
 La propriété @code{#'minimum-distance} de l'objet LyricSpace permet
@@ -1541,7 +1528,8 @@ dans le bloc @code{\layout}.
 @cindex numéro de couplet
 @subsubsection Adding stanza numbers 
 
-On peut ajouter un numéro aux couplets en définissant la valeur @code{stanza} :
+On peut ajouter un numéro aux couplets en définissant la variable
+@code{stanza} :
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \new Voice {
@@ -1551,7 +1539,7 @@ On peut ajouter un numéro aux couplets en définissant la valeur @code{stanza} 
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -1560,11 +1548,11 @@ Ces numéros se placeront juste avant le début de la première syllabe.
 
 @subsubsection Adding dynamics marks
 
-Lorsque des couplets ont des nuances différentes, vous pouvez
-le spécifier en l'indiquant avant leur numéro.  LilyPond considère
-comme objet @code{StanzaNumber} tout ce qui précède le numéro du
-couplet.  Pour des raisons techniques, vous devrez spécifier cette
-valeur @code{stanza} en dehors du mode @code{\lyricmode}.
+Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
+une nuance devant chaque numéro.  L'objet @code{StanzaNumber} contient
+tout ce qui se place au début du couplet.  Pour des raisons techniques,
+vous devrez définir la variable @code{stanza} en dehors du mode
+@code{\lyricmode}.
 
 @lilypond[quote,ragged-right,verbatim]
 text = {
@@ -1587,9 +1575,10 @@ text = {
 @cindex nom du chanteur
 @subsubsection Adding singer names
 
-On peut également ajouter le nom de chaque rôle ; ils s'afficheront au
+On peut également ajouter le nom de chaque rôle ; ils s'imprimeront au
 début de chaque ligne comme les noms d'instruments.  Il faut pour cela
-définir @code{vocalName}, et @code{shortVocalName} pour une version abrégée.
+définir @code{vocalName}, et @code{shortVocalName} pour une version
+abrégée.
 
 @lilypond[fragment,ragged-right,quote,verbatim,relative=2]
 \new Voice {
@@ -1612,8 +1601,9 @@ Ces couplets additionnels peuvent être inclus dans une section
 @code{\markup} en dehors du bloc @code{\score} principal.
 Vous en trouverez un exemple ci-dessous ; notez également les deux
 méthodes différentes employées pour indiquer les sauts de ligne,
-entre le couplet ("Verse") 2 et le couplet 3.
+entre les couplets (@q{verses} en anglais) 2 et 3.
 
+@c keeply?
 @lilypond[ragged-right,verbatim,quote]
 melody = \relative c' {
 e d c d | e e e e |
@@ -1650,11 +1640,12 @@ its fleece was white as snow.
 
 @subsubsection Printing stanzas at the end in multiple columns 
 
-Si les couplets sont vraiment nombreux, il est possible de les
-imprimer sur plusieurs colonnes.  De plus, l'exemple suivant vous
-montrera comment faire en sorte que le numéro du couplet soit décalé à
+Si les couplets sont vraiment nombreux, il est possible de les imprimer
+sur plusieurs colonnes.  De plus, l'exemple suivant vous montrera
+comment faire en sorte que le numéro du couplet soit en retrait à
 gauche, comme c'est traditionnellement le cas.
 
+@c keeply?
 @lilypond[ragged-right,quote,verbatim]
 melody = \relative c' {
   c c c c | d d d d
@@ -1718,8 +1709,8 @@ text = \lyricmode {
 
 @seealso
 
-Référence du Programme : @internalsref{LyricText}, @internalsref{StanzaNumber},
-@internalsref{VocalName}.
+Référence du programme : @internalsref{LyricText},
+@internalsref{StanzaNumber}, @internalsref{VocalName}.
 
 
 
@@ -1727,17 +1718,16 @@ Référence du Programme : @internalsref{LyricText}, @internalsref{StanzaNumber}
 @subsection Ambitus
 @cindex ambitus
 
-L'@emph{ambitus} est l'amplitude maximale des hauteurs d'une voix
-donnée dans une partition.  Ce terme peut aussi désigner la tessiture
-qu'un instrument est capable d'atteindre.  Souvent, cet ambitus est
-imprimé au début des partitions vocales, afin que les exécutants
-puissent voir au premier coup d'oeil s'ils sont en mesure de tenir
-la partie en question.
+L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
+partition.  Ce terme peut aussi désigner la tessiture qu'un instrument
+est capable d'atteindre.  Souvent, cet ambitus est imprimé au début des
+partitions vocales, afin que les exécutants puissent voir au premier
+coup d'oeil s'ils sont en mesure de tenir la partie en question.
 
-Pour exprimer l'ambitus d'une pièce, on indique avant la clé deux
-notes représentant la hauteur la plus basse et la plus haute.  Pour
-imprimer cet ambitus, il faut ajouter le graveur
-@internalsref{Ambitus_engraver} au contexte @internalsref{Voice}.  Ainsi, 
+Pour exprimer l'ambitus d'une pièce, on indique avant la clé deux notes
+représentant la hauteur la plus basse et la plus haute.  Pour imprimer
+cet ambitus, il faut ajouter le graveur @internalsref{Ambitus_engraver}
+au contexte @internalsref{Voice}.  Ainsi,
 
 @example
 \layout @{
@@ -1748,7 +1738,8 @@ imprimer cet ambitus, il faut ajouter le graveur
 @}
 @end example
 
-@dots{} donne le résultat suivant :
+@noindent
+donne pour résultat
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -1763,11 +1754,11 @@ imprimer cet ambitus, il faut ajouter le graveur
 }
 @end lilypond
 
-Si plusieurs voix se trouvent sur une même portée, on peut attribuer 
-le graveur @internalsref{Ambitus_engraver} plutôt au contexte
-@internalsref{Staff} qu'au contexte @internalsref{Voice} ; l'ambitus
-affiché sera alors celui de toutes les voix cumulées, non d'une
-seule des voix actives.
+Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
+graveur @internalsref{Ambitus_engraver} au contexte @internalsref{Staff}
+plutôt qu'au contexte @internalsref{Voice} ; l'ambitus affiché sera
+alors celui de toutes les voix cumulées, non d'une seule des voix
+actives.
 
 @lilypond[verbatim,ragged-right,quote]
 \new Staff \with {
@@ -1799,12 +1790,13 @@ Cet exemple met en œuvre une fonctionnalité avancée :
 
 @noindent
 Ce réglage déplace l'ambitus vers la gauche.  Le même résultat aurait pu
-être obtenu avec @code{extra-offset}, mais alors la mise en forme
-automatisée n'aurait pas attribué d'espace supplémentaire pour l'objet déplacé.
+être obtenu avec @code{extra-offset}, mais alors le système de mise en
+forme n'aurait pas attribué d'espace supplémentaire pour l'objet
+déplacé.
 
 @seealso
 
-Référence du Programme : @internalsref{Ambitus},
+Référence du programme : @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
@@ -1813,8 +1805,8 @@ Exemples :
 
 @refbugs
 
-Les collisions ne sont pas gérées si plusieurs ambitus sont présents
-sur une même portée.
+LilyPond ne gère pas les collisions entre plusieurs ambitus présents sur
+une même portée.
 
 
 @node Other vocal issues
@@ -1830,9 +1822,9 @@ can ask them for specific instructions about where to move these
 examples, and that might get them more involved in the docs.  -gp
 @end ignore
 
-Le @q{Parlato} est du texte scandé en rythme, mais sans hauteurs
+Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
 définies ; il est indiqué par des notes en croix, à l'instar des
-percussions.   Voir @ref{Special noteheads}.
+percussions --- voir @ref{Special noteheads}.
 
 
 @node Rhythmic music
@@ -1853,10 +1845,9 @@ montrer le rythme d'une mélodie.
 @node Showing melody rhythms
 @subsection Showing melody rhythms
 
-Au moyen d'une portée rythmique -- en anglais @q{rhythmic staff} --
-on peut montrer seulement le rythme d'une mélodie : toutes les notes sont 
-ramenées à la même hauteur, sur une portée qui ne compte elle-même
-qu'une seule ligne.
+Au moyen d'une portée rythmique -- @q{rhythmic staff} en anglais -- on
+peut montrer seulement le rythme d'une mélodie : toutes les notes sont
+ramenées à la même hauteur, sur une portée d'une seule ligne.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new RhythmicStaff {
@@ -1867,7 +1858,7 @@ qu'une seule ligne.
 
 @seealso
 
-Référence du Programme : @internalsref{RhythmicStaff}.
+Référence du programme : @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
@@ -1905,7 +1896,6 @@ Une partie de percussions utilisant plusieurs instruments requiert en
 général une portée de plusieurs lignes, où chaque hauteur sur la
 portée représente un instrument à percussion.
 
-
 Pour saisir cette musique, il faut que les notes soient situées dans
 des contextes @internalsref{DrumStaff} et @internalsref{DrumVoice}.
 
@@ -1939,7 +1929,7 @@ notation polyphonique abrégée peut être employée lorsque le contexte
 
 On peut choisir d'autres mises en forme si l'on définit la propriété
 @code{drumStyleTable} dans le contexte @internalsref{DrumVoice}.  
-Quelques variables pré-définies sont disponibles :
+Quelques variables prédéfinies sont disponibles :
 
 @table @code
 @item drums-style
@@ -1973,13 +1963,14 @@ mus = \drummode {
 }
 @end lilypond
 
-Le plan de la batterie peut inclure jusqu'à six toms différents.  S'il
-y en a moins, contentez-vous de choisir celui qui vous convient :
-ainsi les trois toms des lignes du milieu
-sont @code{tommh}, @code{tomml}, et @code{tomfh}.
+Le plan de la batterie peut inclure jusqu'à six toms différents.  Bien
+sûr, vous n'êtes pas obligé de tous les utiliser si la musique en
+prévoit moins ; par exemple, les trois toms des lignes du milieu sont
+@code{tommh}, @code{tomml}, et @code{tomfh}.
 
 @item timbales-style
-Ici une partie de timbales peut être saisie, sur une portée à deux lignes :
+Ce style permet de saisir une partie de timbales, sur une portée à deux
+lignes.
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { timh ssh timl ssl cb }
@@ -2004,7 +1995,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 @end lilypond
 
 @item congas-style
-De même, des congas peuvent s'écrire sur deux lignes :
+Ce style produit une portée à deux lignes pour une partie de congas.
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
@@ -2030,7 +2021,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @end lilypond
 
 @item bongos-style
-Ou encore des bongos, toujours sur deux lignes :
+Ce style produit une portée à deux lignes pour une partie de bongos.
 
 
 @lilypond[quote,ragged-right]
@@ -2082,7 +2073,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end table
 
 Cependant, si aucun des styles prédéfinis ne vous convient, il est aisé
-de définir le vôtre en haut de votre fichier.
+de définir le vôtre en début de fichier.
 
 @lilypond[quote,ragged-right,verbatim]
 #(define mydrums '(
@@ -2106,13 +2097,13 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 Fichier d'initialisation : @file{ly/@/drumpitch@/-init@/.ly}.
 
-Référence du Programme : @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Référence du programme : @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
 @refbugs
 
-La bibliothèque MIDI générale ne contient pas les Rimshots (coups sur
-le bord de la caisse claire), aussi sont-ils remplacés par des
-Sidesticks (largement équivalents).
+La bibliothèque MIDI générale ne contient pas les @emph{rimshots} --- coups
+sur le bord de la caisse claire --- donc ils sont remplacés par des
+@emph{sidesticks,} largement équivalents.
 
 
 
@@ -2120,13 +2111,13 @@ Sidesticks (largement équivalents).
 @node Ghost notes
 @subsection Ghost notes
 
-Des notes fantômes peuvent être créées pour les parties de percussion
-grâce à la commande @code{\parenthesize}, dont vous trouverez une
-description  détaillée dans @ref{Parentheses}. Cependant, le mode
-@code{\drummode} n'inclut pas par défaut le graveur
-@code{Parenthesis_engraver} qui permet d'imprimer ces signes.  Il faut
-donc l'ajouter explicitement dans la définition du contexte, suivant
-la manœuvre indiquée dans @ref{Changing context properties on the fly}.
+Des notes fantômes peuvent être créées pour les parties de percussion,
+grâce à la commande @code{\parenthesize} décrite dans
+@ref{Parentheses}. Cependant, le mode @code{\drummode} n'inclut pas par
+défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
+signes.  Il faut donc l'ajouter explicitement dans la définition du
+contexte, suivant la manœuvre indiquée dans @ref{Changing context
+properties on the fly}.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {
@@ -2149,8 +2140,8 @@ la manœuvre indiquée dans @ref{Changing context properties on the fly}.
 @end lilypond
 
 @noindent
-Notez que les commandes @code{\parenthesize} obligent à ajouter 
-des accords (sous la forme @code{< >}) autour de chaque élément.
+Notez que les commandes @code{\parenthesize} obligent à ajouter des
+accords --- sous la forme @code{< >} --- autour de chaque élément.
 
 @node Guitar
 @section Guitar
@@ -2172,6 +2163,7 @@ des accords (sous la forme @code{< >}) autour de chaque élément.
 @subsection String number indications
 
 @cindex cordes numérotées
+@cindex numéro de corde
 
 On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 @code{\}@var{number} :
@@ -2183,28 +2175,26 @@ On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 
 @seealso
 
-Référence du Programme : @internalsref{StringNumber},
+Référence du programme : @internalsref{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
 @node Tablatures basic
 @subsection Tablatures basic
-@cindex Tablatures de base
+@cindex tablatures de base
 
-La notation en tablature sert pour certains instruments à cordes pincées.
-Les hauteurs n'y sont pas suggérées par des têtes de notes, mais par
-des chiffres qui indiquent sur quelle corde, et à quelle case chaque
-note doit être jouée.  Dans certaines limites, LilyPond vous permet
-d'écrire des tablatures.
+La notation en tablature est utilisée pour certains instruments à cordes
+pincées.  Les hauteurs n'y sont pas indisuées par des têtes de note,
+mais par des chiffres qui indiquent sur quelle corde, et à quelle case
+chaque note doit être jouée.  Dans certaines limites, LilyPond vous
+permet d'écrire des tablatures.
 
-
-Chaque numéro de corde, associé à une note, doit être précédé d'une
+Chaque numéro de corde associé à une note doit être précédé d'une barre
 oblique inverse (ou @qq{antislash}). Ainsi, @code{c4\3} donnera un do
-noire à jouer sur la troisième corde.  Par défaut, la première corde
-est celle du haut, et les cordes suivent l'accord traditionnel d'une
-guitare à six cordes.  Les notes seront imprimées sous forme de
-tablature, dans les contextes @internalsref{TabStaff} et
-@internalsref{TabVoice}.
+noire à jouer sur la troisième corde.  Par défaut, la première corde est
+la plus aigüe, et les cordes suivent l'accord traditionnel d'une guitare
+à six cordes.  Les notes sont imprimées sous forme de tablature, dans
+les contextes @internalsref{TabStaff} et @internalsref{TabVoice}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -2216,12 +2206,12 @@ tablature, dans les contextes @internalsref{TabStaff} et
 @funindex minimumFret
 @cindex cases
 
-Quand aucune corde n'est précisée, LilyPond choisit automatiquement
-la corde où la position est la moins élevée : en numérotant chaque case,
-on peut déterminer une valeur @code{minimumFret} en-dessous de
-laquelle LilyPond s'interdira d'aller, selon qu'on désire une
-position plus ou moins haute.  Cette valeur est fixée à 0 par défaut,
-ce qui correspond donc à la position la plus basse.
+Quand aucune corde n'est précisée, LilyPond choisit automatiquement la
+corde où la position est la moins élevée et qui donne un numéro de case
+supérieur à la valeur de la propriété @code{minimumFret}.  On peut
+régler cette propriété, selon qu'on désire une position plus ou moins
+haute.  La valeur par défaut de cette propriété est fixée à 0, ce qui
+correspond à la position la plus basse.
 
 
 @example
@@ -2256,32 +2246,29 @@ comme suit :
 
 @seealso
 
-Référence du Programme : @internalsref{TabStaff}, @internalsref{TabVoice}.
+Référence du programme : @internalsref{TabStaff}, @internalsref{TabVoice}.
 
 @refbugs
 
-Les accords ne sont pas traités de façon particulière ; de ce fait,
-la sélection automatique des cordes peut souvent aboutir à une même
-corde pour jouer deux notes de l'accord.
+Les accords ne subsissent ausun traitement particulier ; de ce fait, la
+sélection automatique des cordes peut attribuer une même corde pour deux
+notes différentes de l'accord.
 
 
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
-@cindex Tablatures autres
+@cindex tablatures, autres
 
-Vous pouvez bien sûr accorder vos cordes différemment.  Cet accordage
-doit être indiqué sous forme d'une liste en langage Scheme, où chaque
-corde est représentée par un nombre entier qui indique sa hauteur à
-vide -- laquelle hauteur se compte en demi-tons à partir du do du
-milieu ; vous devez donc spécifier pour chaque corde le nombre de
-demi-tons à ajouter ou à retrancher depuis le do du milieu.  Cette
-propriété, appelée @code{stringTuning}, permet donc aussi à LilyPond
-de déterminer le nombre de cordes.
+Vous pouvez bien sûr accorder vos cordes différemment.  Cet accord est
+enregistré dans la propriété @code{stringTunings}.  La valeur de cette
+propriété doit être indiquée sous forme d'une liste en langage Scheme,
+où chaque corde est représentée par un nombre entier qui indique sa
+hauteur à vide, comptée en demi-tons à partir du do central.  Cette
+propriété permet aussi à LilyPond de déterminer le nombre de cordes.
 
-Dans l'exemple suivant, on a réglé
-@code{stringTunings} pour l'accord de la guitare basse, c'est-à-dire
-mi la ré sol.
+Dans l'exemple suivant, on a réglé @code{stringTunings} pour l'accord de
+la guitare basse, c'est-à-dire mi la ré sol.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff <<
@@ -2292,25 +2279,25 @@ mi la ré sol.
 >>
 @end lilypond
 
-Cependant, LilyPond possède des jeux de cordes prédéfinis pour le banjo,
-la mandoline, la guitare et la guitare basse ; ainsi l'accord précédent peut
-également s'indiquer :
+Toutefois, LilyPond possède des jeux de cordes prédéfinis pour le banjo,
+la mandoline, la guitare et la guitare basse ; ainsi, l'accord précédent
+peut également s'indiquer par
 
 @example
 \set TabStaff.stringTunings = #bass-tuning
 @end example
 
-Le jeu par défaut est celui de la guitare : @code{guitar-tuning}, c'est-à-dire
-le célèbre mi la ré sol si mi. Quelques autres jeux prédéfinis : 
-@code{guitar-open-g-tuning}, @code{mandolin-tuning} et
-@code{banjo-open-g-tuning}. 
+Le jeu par défaut est celui de la guitare : @code{guitar-tuning},
+c'est-à-dire le célèbre mi la ré sol si mi. D'autres jeux prédéfinis
+sont @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
+@code{banjo-open-g-tuning}.
 
 @seealso
 
-Vous trouverez une liste complète de ces jeux prédéfinis dans le fichier
+Vous trouverez une liste complète des jeux prédéfinis dans le fichier
 @file{scm/@/output@/-lib@/.scm}.
 
-Référence du Programme : @internalsref{Tab_note_heads_engraver}.
+Référence du programme : @internalsref{Tab_note_heads_engraver}.
 
 @refbugs
 
@@ -2323,8 +2310,8 @@ Aucun effet spécial de guitare n'a été implémenté à ce jour.
 @cindex Tablatures de banjo
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
-cordes.  Pour ce faire, pensez à utiliser le format de tablature pour banjo
-afin d'avoir le bon nombre de cordes, et le bon accord :
+cordes.  Pour ce faire, pensez à utiliser le format de tablature pour
+banjo, afin d'avoir le bon nombre de cordes et le bon accord :
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff <<
@@ -2339,14 +2326,14 @@ afin d'avoir le bon nombre de cordes, et le bon accord :
 >>
 @end lilypond
 
-LilyPond connaît un certain nombre de manière d'accorder un banjo :
-@code{banjo-c-tuning} (Sol Do Sol Si Ré), 
-@code{banjo-modal-tuning} (Sol Ré Sol Do Ré),
-@code{banjo-open-d-tuning} (La Ré Fa-dièse La Ré)
-et @code{banjo-open-dm-tuning} (La Ré Fa La Ré).
+LilyPond connaît un certain nombre de manières d'accorder un banjo :
+@code{banjo-c-tuning} (sol do sol si ré),
+@code{banjo-modal-tuning} (sol ré sol do ré),
+@code{banjo-open-d-tuning} (la ré fa-dièse la ré)
+et @code{banjo-open-dm-tuning} (la ré fa la ré).
 
-Tous ces accords peuvent s'appliquer à un banjo à quatre cordes, si l'on
-utilise l'option @code{four-string-banjo} :
+Tous ces accords peuvent être convertis en accords pour banjo à quatre
+cordes, si l'on utilise la fonction @code{four-string-banjo} :
 
 @example
 \set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
@@ -2360,11 +2347,11 @@ dans le fichier @file{scm/@/output@/-lib@/.scm}.
 
 @node Fret diagrams
 @subsection Fret diagrams
-@cindex Schémas d'accords
-@cindex Schémas de barrés
+@cindex schémas d'accords
+@cindex schémas de barrés
 
 On peut ajouter des diagrammes d'accords au-dessus de n'importe quelle
-note, en tant qu'objets @code{\markup}. Cet objet contiendra toutes
+note, en tant qu'objets @code{\markup}. Ces objets donnent toutes
 les informations sur le doigté et les éventuels barrés :
 
 @lilypond[verbatim, ragged-right, quote]
@@ -2394,18 +2381,18 @@ les informations sur le doigté et les éventuels barrés :
 
 Vous pouvez indiquer vos diagrammes de trois manières différentes :
 @qq{standard}, @qq{terse} ou @qq{verbeux}. Ces trois interfaces
-produisent des schémas similaires, mais demandent d'entrer plus ou
-moins d'informations.  Vous trouverez tout cela de manière détaillée
-dans @ref{Overview of text markup commands}.
+produisent des schémas similaires, mais demandent d'entrer plus ou moins
+d'informations.  Vous trouverez tout les détails dans
+@ref{Overview of text markup commands}.
 
-Par ailleurs, plusieurs propriétés permettent d'ajuster les graphismes
+Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 à votre convenance. Vous en trouverez les détails dans
 @internalsref{fret-diagram-interface}. 
 
 
 @seealso
 
-Exemples : @code{input/@/test,fret@/-diagram@/.ly}
+Exemples : @lsrdir{guitar}
 
 
 @node Right hand fingerings
@@ -2445,7 +2432,8 @@ propriété @code{strokeFingerOrientations} :
 @end lilypond
 
 Les lettres utilisées dans ces doigtés sont définies par la propriété
-@code{digit-names}, mais on peut bien sûr les changer comme on veut :
+@code{digit-names}, mais on peut bien sûr les changer en utilisant une
+chaîne de caractères comme argument de @code{\rightHandFinger}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 #(define RH rightHandFinger)
@@ -2459,7 +2447,7 @@ Les lettres utilisées dans ces doigtés sont définies par la propriété
 
 @seealso
 
-Référence : @internalsref{StrokeFinger}
+Référence du programme : @internalsref{StrokeFinger}
 
 
 
@@ -2480,9 +2468,9 @@ e16 b16 g16 d16
 @end lilypond
 
 
-Lorsque des notes doivent être jouées détimbrées (le doigt effleurant
+Lorsque des notes doivent être jouées détimbrées --- le doigt effleurant
 la corde sans la presser, en un effet presque percussif, mais où la
-hauteur est encore perceptible), on peut employer des têtes de notes
+hauteur est encore perceptible ---, on peut employer des têtes de notes
 spéciales en forme de croix.
 Vous trouverez plus de détails dans @ref{Special noteheads}.
 
@@ -2490,7 +2478,7 @@ Vous trouverez plus de détails dans @ref{Special noteheads}.
 @node Bagpipe
 @section Bagpipe
 
-@cindex Cornemuse
+@cindex cornemuse
 
 @menu
 * Bagpipe definitions::         
@@ -2502,23 +2490,23 @@ Vous trouverez plus de détails dans @ref{Special noteheads}.
 @subsection Bagpipe definitions
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
-cornemuse écossaise ; il suffit d'ajouter
+cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
 
 @example
 \include "bagpipe.ly"
 @end example
 
 @noindent
-en haut de votre fichier.  Ainsi, vous bénéficierez de commandes raccourcies
-pour les appogiatures spéciales et idiomatiques de la cornemuse.  Par exemple,
-vous pouvez écrire @code{\taor} au lieu de
+en début de fichier.  Ainsi, vous bénéficierez de commandes courtes pour
+les appogiatures spéciales et idiomatiques de la cornemuse.  Par
+exemple, @code{\taor} est un raccourci pour
 
 @example
 \grace @{ \small G32[ d G e] @}
 @end example
 
-@code{bagpipe.ly} prend également en charge les définitions de hauteurs pour la
-cornemuse ; vous n'avez donc pas à vous soucier d'employer
+@code{bagpipe.ly} prend également en charge les définitions de hauteurs
+pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
 @code{\relative} ou @code{\transpose}.
 
 @lilypond[ragged-right,verbatim,quote,notime]
@@ -2529,7 +2517,7 @@ cornemuse ; vous n'avez donc pas à vous soucier d'employer
 La musique pour cornemuse est traditionnellement écrite en ré majeur.
 Dans la mesure où c'est la seule tonalité possible, l'usage est de ne
 pas indiquer l'armure explicitement. À cet effet, pensez à commencer
-votre partition par un @code{\hideKeySignature} -- ou bien
+votre partition par @code{\hideKeySignature} -- ou bien
 @code{\showKeySignature} si, pour une raison ou pour une autre, vous
 tenez à afficher l'armure.
 
@@ -2538,7 +2526,7 @@ traditionnelle, auquel cas les do et fa devraient être abaissés en
 utilisant @code{cflat} ou @code{fflat} ; ils seront représenté par une
 note en forme de croix.
 
-Lorsqu'elles jouent des œuvres moins cérémonieuses que pour une parade
+Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
 @qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
 
@@ -2598,10 +2586,11 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
 
 La gestion par LilyPond des formes de notation ancienne inclut des
 fonctionnalités spécifiques à la notation mensurale et au chant
-grégorien.  La gestion de la basse chiffrée est à ce jour plus limitée.
+grégorien.  La basse chiffrée est également partiellement prise en
+charge.
 
-De nombreux objets graphiques (que nous appelons @qq{grob}) disposent
-d'une propriété @code{style}, comme nous le verrons dans
+De nombreux objets graphiques --- @qq{grob} dans le jargon de LilyPond
+--- disposent d'une propriété @code{style}, comme nous le verrons dans
 @itemize @bullet
 @item
 @ref{Ancient note heads},
@@ -2617,9 +2606,9 @@ d'une propriété @code{style}, comme nous le verrons dans
 @ref{Ancient time signatures}.
 @end itemize
 
-Manipuler cette propriété permet d'éviter la création d'un nouveau
-concept de notation.  L'aspect typographique de l'objet ainsi affecté
-peut alors être adapté à une forme de représentation particulière.
+Manipuler cette propriété permet d'adapter l'aspect typographique des
+grobs à une forme de notation particulière, ce qui évite la création de
+nouveaux concepts de notation.
 
 En plus des signes d'articulation standards décrits à la section
 @ref{Articulations}, la notation ancienne dispose de signes particuliers.
@@ -2644,10 +2633,10 @@ concepts sont spécifiques à la notation ancienne.
 @end itemize
 
 Si tout cela vous dépasse et que vous désirez plonger dans le vif du
-sujet sans trop vous préoccuper de personnaliser des contextes,
-consultez les pages dédiées aux contextes prédéfinis.  Ils vous
-permettront d'adapter vos contextes de voix et de portée, et vous
-n'aurez plus qu'à saisir les notes.
+sujet sans trop vous préoccuper d'ajuster des contextes, consultez les
+pages dédiées aux contextes prédéfinis.  Ils vous permettront d'adapter
+vos contextes de voix et de portée, et vous n'aurez plus qu'à saisir les
+notes.
 
 @itemize @bullet
 @item
@@ -2656,8 +2645,9 @@ n'aurez plus qu'à saisir les notes.
 @ref{Mensural contexts}.
 @end itemize
 
-La représentation de la basse chiffrée, typique de l'époque le baroque, n'est
-que partiellement gérée.
+LiliyPond gère partiellement la représentation de basses chiffrées,
+typiques de l'époque baroque, mais également employées de nos jours en
+harmonie et en analyse.
 
 @itemize @bullet
 @item
@@ -2691,19 +2681,18 @@ Voici les points que nous allons aborder :
 @cindex têtes de note, musique ancienne
 
 Pour de la musique ancienne, vous disposez de plusieurs styles de tête
-de note, en plus de celui par défaut (@code{default} style).  Vous
-pouvez affecter à la propriété @code{style} de l'objet
-@internalsref{NoteHead} les valeurs @code{baroque},
-@code{neomensural}, @code{mensural} ou @code{petrucci}.  En style
-@code{baroque}, la seule différence par rapport au style
-@code{default} concerne la @code{\breve} qui sera carrée et non pas
-ovoïde.  Le style @code{neomensural} ajoute au @code{baroque} le
-fait que les notes de durée inférieure ou égale à une ronde sont en
-forme de losange, et les hampes centrées sur la tête.  Ce style est
-particulièrement adapté à la transcription de la musique mesurée
-dans les incipits.  Le style @code{mensural} permet de reproduire les
-têtes de note telles qu'imprimées au XVIième siècle.  Enfin, le style
-@code{petrucci} qui imite les partitions historiques, bien
+de note, en plus du style par défaut @code{default}.  Vous pouvez
+affecter à la propriété @code{style} de l'objet @internalsref{NoteHead}
+les valeurs @code{baroque}, @code{neomensural}, @code{mensural} ou
+@code{petrucci}.  En style @code{baroque}, la seule différence par
+rapport au style @code{default} concerne la @code{\breve} qui sera
+carrée et non pas ovoïde.  Le style @code{neomensural} ajoute au
+@code{baroque} le fait que les notes de durée inférieure ou égale à une
+ronde sont en forme de losange, et les hampes centrées sur la tête.  Ce
+style est particulièrement adapté à la transcription de la musique
+mesurée dans les incipits.  Le style @code{mensural} permet de
+reproduire les têtes de note telles qu'imprimées au XVIe siècle.  Enfin,
+le style @code{petrucci} qui imite des partitions historiques, bien
 qu'utilisant de plus grosses têtes.
 
 L'exemple suivant illustre le style @code{neomensural}.
@@ -2841,7 +2830,7 @@ l'utilisation des silences.
 @cindex clés
 
 
-Avec LilyPond, de nombreuses clefs son disponibles, certaines dédiées
+Avec LilyPond, de nombreuses clés son disponibles, certaines dédiées
 à la musique ancienne.
 
 Le tableau suivant présente les différentes clés anciennes que vous
@@ -3213,7 +3202,7 @@ l'utilisation des indications de métrique.
 
 Les équivalences de durées de note ne sont pas modifiées par un
 changement de métrique.  Par exemple, l'équivalence 1 brève pour 3
-semi-brèves (tempus perfectum) doit s'effectuer à la main en tapant :
+semi-brèves (tempus perfectum) doit s'effectuer à la main en entrant :
 
 @example
 breveTP = #(ly:make-duration -1 0 3 2)
@@ -3258,7 +3247,7 @@ Vaticana.
 Certaines articulations sont verticalement trop proches de leurs têtes
 de note.
 
-Le trait d'un episem n'est bien souvent pas visualisable et, lorsqu'il
+Le trait d'un episem n'est bien souvent pas apparent et, lorsqu'il
 l'est, son extension à droite est trop longue.
 
 @node Custodes
@@ -3443,7 +3432,7 @@ En attendant, vous pouvez inclure le fichier
 @example
 \ligature @var{expr. musicale}
 @end example
-qui aura les mêmes effets et est reconnue stable.
+aux effet similaires, et dont la stabilité est reconnue.
 
 @menu
 * White mensural ligatures::    
@@ -4568,15 +4557,15 @@ lancer dans la saisie de votre chant comme ci-après :
 @subsection Musica ficta accidentals
 
 Dans la musique européenne d'avant le XVIIième siècle, les chanteurs
-étaient censé altérer les notes de leur propre initiative.  On
+étaient censés altérer les notes de leur propre initiative.  On
 appelait cela @q{Musica Ficta}.  Dans les transcriptions modernes, ces
 altérations se positionnent au dessus de la note concernée.
 
 @cindex Accidental, musica ficta
 @cindex Musica ficta
 
-De telles altérations suggérées sont disponibles et peuvent être
-activées positionnant @code{suggestAccidentals} à vrai.
+De telles altérations suggérées sont disponibles et peuvent être activées en assignant
+à la propriété @code{suggestAccidentals} la valeur @q{vrai} (##t pour "true").
 
 @funindex suggestAccidentals
 
@@ -4602,7 +4591,7 @@ et l'objet @internalsref{AccidentalSuggestion}.
 @c http://en.wikipedia.org/wiki/Basso_continuo#Basso_continuo
 Les parties de basse continue étaient très répandues dans la musique
 baroque et jusqu'à la fin du XVIIIième siècle.  Comme son nom
-l'indique, le @emph{continuo} constitue une partie à elle seul et qui
+l'indique, le @emph{continuo} constitue une partie à lui seul, qui
 se déroule tout au long de l'œuvre pour en donner la structure harmonique. 
 
 Les musiciens du @emph{continuo} jouent des claviers (clavecin,
@@ -4610,7 +4599,7 @@ orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur
 partie est constituée d'une portée de basse aux notes agrémentées de
 combinaisons de chiffres et signes indiquant le développement des
 accords à jouer, ainsi que leur éventuel renversement.  Cette notation
-était avant tout un guide, n'excluant pas que le musicien improvise de
+était avant tout un guide, invitant le musicien à improviser de
 lui-même l'accompagnement.
 
 LilyPond gère la basse chiffrée. 
@@ -4632,7 +4621,7 @@ sous forme chiffrée.  Le contexte @internalsref{FiguredBass} s'occupera
 ensuite de gérer les objets @internalsref{BassFigure}.
 
 En mode de saisie, un chiffrage est délimité par @code{<} et
-@code{>}.  la  durée est portée après le @code{>} :
+@code{>}.  La  durée est indiquée après le @code{>} :
 
 @example
 <4 6>
@@ -4748,7 +4737,7 @@ rendus dans un fichier MIDI.
 Du côté interne, ce code produit des étiquettes de texte que vous
 pouvez formater à votre convenance grâce aux propriétés des
 étiquettes.  Par exemple, l'espacement vertical des chiffrages est
-déterminé par @code{baseline-skip}.
+déterminé par la propriété @code{baseline-skip}.
 
 
 Des basses chiffrées peuvent aussi s'ajouter directement à des
