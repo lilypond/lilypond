@@ -368,7 +368,7 @@ chord, thirds are added to the root until it reaches the specified
 number.  The exception is @code{c:13}, for which the 11 is omitted.
 
 @lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13}
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
 @end lilypond
 
 @cindex root of chord
@@ -834,7 +834,7 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-The lyric ties is implemented with the Unicode character U+203F, so be
+The lyric tie is implemented with the Unicode character U+203F, so be
 sure to have a font (Like DejaVuLGC) installed that includes this
 glyph.
 
@@ -1000,11 +1000,11 @@ sink2 or4 swim2.
 The alignment to a melody can be specified with the
 @code{associatedVoice} property,
  
- @example
+@example
 \set associatedVoice = #"lala"
- @end example
+@end example
  
- @noindent
+@noindent
 The value of the property (here: @code{"lala"}) should be the name of
 a @internalsref{Voice} context.  Without this setting, extender lines
 will not be formatted properly.
@@ -1191,9 +1191,6 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 @}
 @end example
  
-@c TODO: Move the following section to 
-@c "Working with lyrics and identifiers"
- 
 For different or more complex orderings, the best way is to setup the
 hierarchy of staves and lyrics first, e.g.,
 @example
@@ -1230,6 +1227,7 @@ The final input would resemble
 Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.  
 
+
 @node Flexibility in placement
 @subsection Flexibility in placement
 
@@ -1244,9 +1242,9 @@ differing ways.  Such variations can still be captured with
 * Lyrics independent of notes::  
 @end menu
 
+
 @node Lyrics to multiple notes of a melisma
 @subsubsection Lyrics to multiple notes of a melisma
-
 
 One possibility is that the text has a melisma in one stanza, but
 multiple syllables in another one.  One solution is to make the faster
@@ -1517,7 +1515,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -2228,10 +2226,10 @@ chord.
 You can change the tuning of the strings.  A string tuning is given as
 a Scheme list with one integer number for each string, the number
 being the pitch (measured in semitones relative to middle C) of an
-open string.  The numbers specified for @code{stringTuning} are the
+open string.  The numbers specified for @code{stringTunings} are the
 numbers of semitones to subtract or add, starting the specified pitch
 by default middle C, in string order.  LilyPond automatically calculates
-the number of strings by looking at @code{stringTuning}.
+the number of strings by looking at @code{stringTunings}.
 
 In the next example,
 @code{stringTunings} is set for the pitches e, a, d, and g
@@ -2409,7 +2407,7 @@ The letters used for the fingerings are contained in the property
 
 @seealso
 
-Internalls: @internalsref{StrokeFinger}
+Program reference: @internalsref{StrokeFinger}
 
 
 
@@ -2469,7 +2467,7 @@ write @code{\taor} instead of
 @end example
 
 @code{bagpipe.ly} also contains pitch definitions for the bagpipe
-notes in the appropiate octaves, so you do not need to worry about
+notes in the appropriate octaves, so you do not need to worry about
 @code{\relative} or @code{\transpose}.
 
 @lilypond[ragged-right,verbatim,quote,notime]
