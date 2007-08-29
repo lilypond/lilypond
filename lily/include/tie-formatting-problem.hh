@@ -47,6 +47,7 @@ class Tie_formatting_problem
   Tie_configuration_map possibilities_;
 
   Grob *x_refpoint_;
+  Grob *y_refpoint_;
 
   
   Tie_configuration *get_configuration (int position, Direction dir, Drul_array<int> cols, bool tune_y) const;

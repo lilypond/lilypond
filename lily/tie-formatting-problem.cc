@@ -9,6 +9,7 @@
 
 #include "tie-formatting-problem.hh"
 
+#include "axis-group-interface.hh"
 #include "paper-column.hh"
 #include "bezier.hh" 
 #include "directional-element-interface.hh"
@@ -61,6 +62,7 @@ Tie_formatting_problem::get_attachment (Real y, Drul_array<int> columns) const
 Tie_formatting_problem::Tie_formatting_problem ()
 {
   x_refpoint_ = 0;
+  y_refpoint_ = 0;
   use_horizontal_spacing_ = true;
 }
 
@@ -231,9 +233,11 @@ Tie_formatting_problem::set_column_chord_outline (vector<Item*> bounds,
   chord_outlines_[key] = Skyline (boxes, details_.skyline_padding_, Y_AXIS, -dir);
   if (bounds[0]->break_status_dir ())
     {
-      Real x = robust_relative_extent (bounds[0],  x_refpoint_, X_AXIS)[-dir];
-      
-      chord_outlines_[key].set_minimum_height (x);
+      Interval iv (Axis_group_interface::staff_extent (bounds[0], x_refpoint_, X_AXIS, y_refpoint_, Y_AXIS));
+      if (iv.is_empty ())
+	iv.add_point (bounds[0]->relative_coordinate (x_refpoint_, X_AXIS));
+
+      chord_outlines_[key].set_minimum_height (iv[-dir]);
     }
   else
     {
@@ -303,10 +307,20 @@ Tie_formatting_problem::from_ties (vector<Grob*> const &ties)
     return;
   
   x_refpoint_ = ties[0];
+  y_refpoint_ = ties[0];
   for (vsize i = 0; i < ties.size (); i++)
     {
-      x_refpoint_ = dynamic_cast<Spanner*> (ties[i])->get_bound (LEFT)->common_refpoint (x_refpoint_, X_AXIS); 
-      x_refpoint_ = dynamic_cast<Spanner*> (ties[i])->get_bound (RIGHT)->common_refpoint (x_refpoint_, X_AXIS); 
+      Spanner *tie = dynamic_cast<Spanner*> (ties[i]);
+      Item *l = tie->get_bound (LEFT);
+      Item *r = tie->get_bound (RIGHT);
+
+      x_refpoint_ = l->common_refpoint (x_refpoint_, X_AXIS); 
+      x_refpoint_ = r->common_refpoint (x_refpoint_, X_AXIS);
+
+      if (!l->break_status_dir ())
+	y_refpoint_ = l->common_refpoint (y_refpoint_, Y_AXIS); 
+      if (!r->break_status_dir ())
+	y_refpoint_ = r->common_refpoint (y_refpoint_, Y_AXIS); 
     }
 
   details_.from_grob (ties[0]);
@@ -378,11 +392,19 @@ Tie_formatting_problem::from_semi_ties (vector<Grob*> const &semi_ties, Directio
       specifications_.push_back (spec);
     }
 
-  x_refpoint_ = semi_ties [0];
+  x_refpoint_ = semi_ties[0];
+  y_refpoint_ = semi_ties[0];
+
   for (vsize i = 0; i < semi_ties.size (); i++)
-    x_refpoint_ = semi_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
+    {
+      x_refpoint_ = semi_ties[i]->common_refpoint (x_refpoint_, X_AXIS); 
+      y_refpoint_ = semi_ties[i]->common_refpoint (y_refpoint_, Y_AXIS); 
+    }
   for (vsize i = 0; i < heads.size (); i++)
-    x_refpoint_ = heads[i]->common_refpoint (x_refpoint_, X_AXIS); 
+    {
+      x_refpoint_ = heads[i]->common_refpoint (x_refpoint_, X_AXIS); 
+      y_refpoint_ = heads[i]->common_refpoint (y_refpoint_, Y_AXIS) ;
+    }
 
   set_chord_outline (heads, head_dir);
 
