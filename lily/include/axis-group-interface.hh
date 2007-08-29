@@ -39,6 +39,7 @@ struct Axis_group_interface
   static void set_axes (Grob *, Axis, Axis);
   static bool has_axis (Grob *, Axis);
   static void get_children (Grob *, vector<Grob*> *);
+  static Interval staff_extent (Grob *me, Grob *ref, Axis, Grob *staff, Axis);
   DECLARE_GROB_INTERFACE();
 };
 
