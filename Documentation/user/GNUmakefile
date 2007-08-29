@@ -3,7 +3,7 @@ depth=../..
 LATEX_FILES =$(call src-wildcard,*.latex)
 
 
-EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt convert-ly.txt $(EPS_ILLUSTRATIONS)
+EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt $(EPS_ILLUSTRATIONS)
 
 IMAGES=$(call src-wildcard,*.png)
 EPS_ILLUSTRATIONS=context-example.eps
