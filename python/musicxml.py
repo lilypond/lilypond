@@ -1,4 +1,5 @@
 import new
+import string
 from rational import *
 
 class Xml_node:
@@ -326,6 +327,10 @@ class Lyric (Music_xml_node):
         
         if text:
             text = text.get_text()
+            # We need to convert soft hyphens to -, otherwise the ascii codec as well
+            # as lilypond will barf on that character
+            text = string.replace( text, u'\xad', '-' )
+        
         if text == "-" and continued:
             return "--"
         elif text == "_" and continued:
