@@ -17,46 +17,42 @@ using namespace std;
 /*
   Return: number of objects.
 */
-int
+SCM
+copy_handle (void *closure, SCM handle)
+{
+  SCM tab = (SCM) closure;
+  scm_hashq_set_x (tab, scm_car (handle), scm_cdr (handle));
+  return tab;
+}
+
+static void
 copy_scm_hashes (SCM dest, SCM src)
 {
-  int k = 0;
-  for (int i = scm_c_vector_length (src); i--;)
-    for (SCM s = scm_vector_ref (src, scm_from_int (i)); scm_is_pair (s); s = scm_cdr (s))
-      {
-	scm_hashq_set_x (dest, scm_caar (s), scm_cdar (s));
-	k++;
-      }
-  return k;
+  scm_internal_hash_for_each_handle (  (SCM (*)()) &copy_handle, dest, src);
 }
 
 Scheme_hash_table::Scheme_hash_table ()
 {
   hash_tab_ = SCM_EOL;
   smobify_self ();
-  hash_tab_ = scm_make_vector (scm_from_int (119), SCM_EOL);
-  elt_count_ = 0;
+  hash_tab_ = scm_c_make_hash_table (119);
 }
 
 Scheme_hash_table::Scheme_hash_table (Scheme_hash_table const &src)
-
 {
   hash_tab_ = SCM_EOL;
-  elt_count_ = 0;
   smobify_self ();
-
-  hash_tab_ = scm_make_vector (scm_from_int (max ((int) src.elt_count_, 11)), SCM_EOL);
-  elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
+  copy (src);
 }
 
 void
-Scheme_hash_table::operator = (Scheme_hash_table const &src)
+Scheme_hash_table::copy (Scheme_hash_table const &src)
 {
   if (&src == this)
     return;
 
-  hash_tab_ = scm_make_vector (scm_from_int (max ((int) src.elt_count_, 11)), SCM_EOL);
-  elt_count_ = copy_scm_hashes (hash_tab_, src.hash_tab_);
+  hash_tab_ = scm_c_make_hash_table (SCM_HASHTABLE_N_ITEMS(src.hash_tab_));
+  copy_scm_hashes (hash_tab_, src.hash_tab_);
 }
 
 Scheme_hash_table::~Scheme_hash_table ()
@@ -106,49 +102,34 @@ Scheme_hash_table::set (SCM k, SCM v)
 {
   assert (scm_is_symbol (k));
   SCM handle = scm_hashq_create_handle_x (hash_tab_, k, SCM_UNDEFINED);
-  if (scm_cdr (handle) == SCM_UNDEFINED)
-    elt_count_++;
-
   scm_set_cdr_x (handle, v);
-
-  /*
-    resize if getting too large.
-  */
-  if (elt_count_ > 2 * scm_c_vector_length (hash_tab_))
-    {
-      SCM nh = scm_make_vector (scm_from_int (3 * elt_count_ + 1), SCM_EOL);
-      elt_count_ = copy_scm_hashes (nh, hash_tab_);
-      hash_tab_ = nh;
-    }
 }
 
-// UGH.
 SCM
 Scheme_hash_table::get (SCM k) const
 {
-  /*
-    42 will stick out like a sore thumb, hopefully.
+  /* SCM_UNSPECIFIED will stick out like a sore thumb, hopefully.
   */
-  return scm_hashq_ref (hash_tab_, k, scm_from_int (42));
+  return scm_hashq_ref (hash_tab_, k, SCM_UNSPECIFIED);
 }
 
 void
 Scheme_hash_table::remove (SCM k)
 {
   scm_hashq_remove_x (hash_tab_, k);
-  /* Do not decrease elt_count_ as this may cause underflow.  The exact
-     value of elt_count_ is not important. */
+}
+
+static SCM
+collect_handles (void *closure, SCM key, SCM value, SCM result)
+{
+  (void) closure;
+  return scm_acons(key, value, result);
 }
 
 SCM
 Scheme_hash_table::to_alist () const
 {
-  SCM lst = SCM_EOL;
-  for (int i = scm_c_vector_length (hash_tab_); i--;)
-    for (SCM s = scm_vector_ref (hash_tab_, scm_from_int (i)); scm_is_pair (s);
-	 s = scm_cdr (s))
-      lst = scm_acons (scm_caar (s), scm_cdar (s), lst);
-  return lst;
+  return scm_internal_hash_fold ((SCM (*)()) &collect_handles, NULL, SCM_EOL, hash_tab_);
 }
 
 IMPLEMENT_SMOBS (Scheme_hash_table);
