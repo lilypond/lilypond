@@ -413,7 +413,25 @@ class SequentialMusic (NestedMusic):
         for e in self.elements:
             e.set_start (start)
             start += e.get_length()
-            
+
+class Lyrics:
+    def __init__ (self):
+        self.lyrics_syllables = []
+
+    def print_ly (self, printer):
+        printer.dump ("\lyricmode {")
+        for l in self.lyrics_syllables:
+            printer.dump ( "%s " % l )
+        printer.dump ("}")
+
+    def ly_expression (self):
+        lstr = "\lyricmode {\n  "
+        for l in self.lyrics_syllables:
+            lstr += l + " "
+        lstr += "\n}"
+        return lstr
+
+
 class EventChord(NestedMusic):
     def get_length (self):
         l = Rational (0)

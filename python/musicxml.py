@@ -299,16 +299,53 @@ class Part_list (Music_xml_node):
             print "Opps, couldn't find instrument for ID=", id
             return "Grand Piano"
         
-class Measure(Music_xml_node):
+class Measure (Music_xml_node):
     def get_notes (self):
 	return self.get_typed_children (get_class (u'note'))
 
-    
+class Syllabic (Music_xml_node):
+    def continued (self):
+        text = self.get_text()
+        return (text == "begin") or (text == "middle")
+class Text (Music_xml_node):
+    pass
+
+class Lyric (Music_xml_node):
+    def get_number (self):
+        if hasattr (self, 'number'):
+            return self.number
+        else:
+            return -1
+
+    def lyric_to_text (self):
+        continued = False
+        syllabic = self.get_maybe_exist_typed_child (Syllabic)
+        if syllabic:
+            continued = syllabic.continued ()
+        text = self.get_maybe_exist_typed_child (Text)
+        
+        if text:
+            text = text.get_text()
+        if text == "-" and continued:
+            return "--"
+        elif text == "_" and continued:
+            return "__"
+        elif continued and text:
+            return text + " --"
+        elif continued:
+            return "--"
+        elif text:
+            return text
+        else:
+            return ""
+
 class Musicxml_voice:
     def __init__ (self):
 	self._elements = []
 	self._staves = {}
 	self._start_staff = None
+        self._lyrics = []
+        self._has_lyrics = False
 
     def add_element (self, e):
 	self._elements.append (e)
@@ -320,8 +357,24 @@ class Musicxml_voice:
 		self._start_staff = name
 	    self._staves[name] = True
 
+        lyrics = e.get_typed_children (Lyric)
+        if not self._has_lyrics:
+          self.has_lyrics = len (lyrics) > 0
+
+        for l in lyrics:
+            nr = l.get_number()
+            if (nr > 0) and not (nr in self._lyrics):
+                self._lyrics.append (nr)
+
     def insert (self, idx, e):
 	self._elements.insert (idx, e)
+
+    def get_lyrics_numbers (self):
+        if (len (self._lyrics) == 0) and self._has_lyrics:
+            #only happens if none of the <lyric> tags has a number attribute
+            return [1]
+        else:
+            return self._lyrics
 
 
 
@@ -533,6 +586,7 @@ class_dict = {
 	'duration': Duration,
 	'grace': Grace,
         'identification': Identification,
+        'lyric': Lyric,
 	'measure': Measure,
 	'notations': Notations,
 	'note': Note,
@@ -541,6 +595,8 @@ class_dict = {
 	'pitch': Pitch,
 	'rest': Rest,
 	'slur': Slur,
+        'syllabic': Syllabic,
+        'text': Text,
 	'time-modification': Time_modification,
 	'type': Type,
         'work': Work,

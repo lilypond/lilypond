@@ -423,7 +423,7 @@ class LilyPondVoiceBuilder:
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + duration 
-
+        
         # Insert all pending dynamics right after the note/rest:
         if duration > Rational (0):
             for d in self.pending_dynamics:
@@ -478,6 +478,10 @@ class LilyPondVoiceBuilder:
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
+    lyrics = {}
+        
+    for k in voice.get_lyrics_numbers ():
+        lyrics[k] = []
 
     voice_builder = LilyPondVoiceBuilder()
 
@@ -616,6 +620,22 @@ def musicxml_voice_to_lily_voice (voice):
                     if ev:
                         ev_chord.append (ev)
 
+        # Extract the lyrics
+        note_lyrics_processed = []
+        note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
+        for l in note_lyrics_elements:
+            if l.get_number () < 0:
+                for k in lyrics.keys ():
+                    lyrics[k].append (l.lyric_to_text ())
+                    note_lyrics_processed.append (k)
+            else:
+                lyrics[l.number].append(l.lyric_to_text ())
+                note_lyrics_processed.append (l.number)
+        for lnr in lyrics.keys ():
+            if not lnr in note_lyrics_processed:
+                lyrics[lnr].append ("\"\"")
+
+
         mxl_beams = [b for b in n.get_named_children ('beam')
                      if (b.get_type () in ('begin', 'end')
                          and b.is_primary ())] 
@@ -637,7 +657,7 @@ def musicxml_voice_to_lily_voice (voice):
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
 
-    seq_music = musicexp.SequentialMusic()
+    seq_music = musicexp.SequentialMusic ()
 
     if 'drummode' in modes_found.keys ():
         ## \key <pitch> barfs in drummode.
@@ -645,7 +665,10 @@ def musicxml_voice_to_lily_voice (voice):
                     if not isinstance(e, musicexp.KeySignatureChange)]
     
     seq_music.elements = ly_voice
-
+    lyrics_dict = {}
+    for k in lyrics.keys ():
+        lyrics_dict[k] = musicexp.Lyrics ()
+        lyrics_dict[k].lyrics_syllables = lyrics[k]
     
     
     if len (modes_found) > 1:
@@ -658,7 +681,7 @@ def musicxml_voice_to_lily_voice (voice):
         v.mode = mode
         return_value = v
     
-    return return_value
+    return (return_value, lyrics_dict)
 
 
 def musicxml_id_to_lily (id):
@@ -702,6 +725,7 @@ def get_all_voices (parts):
         part_ly_voices = {}
         for n, v in name_voice.items ():
             progress ("Converting to LilyPond expressions...")
+            # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             part_ly_voices[n] = (musicxml_voice_to_lily_voice (v), v)
 
         all_ly_voices[p] = part_ly_voices
@@ -751,6 +775,10 @@ def music_xml_voice_name_to_lily_name (part, name):
     str = "Part%sVoice%s" % (part.id, name)
     return musicxml_id_to_lily (str) 
 
+def music_xml_lyrics_name_to_lily_name (part, name, lyricsnr):
+    str = "Part%sVoice%sLyrics%s" % (part.id, name, lyricsnr)
+    return musicxml_id_to_lily (str) 
+
 def print_voice_definitions (printer, part_list, voices):
     part_dict={}
     for (part, nv_dict) in voices.items():
@@ -758,11 +786,17 @@ def print_voice_definitions (printer, part_list, voices):
 
     for part in part_list:
         (part, nv_dict) = part_dict.get (part.id, (None, {}))
-        for (name, (voice, mxlvoice)) in nv_dict.items ():
+        for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
             voice.print_ly (printer)
             printer.newline()
+            
+            for l in lyrics.keys ():
+                lname = music_xml_lyrics_name_to_lily_name (part, name, l)
+                printer.dump ('%s = ' %lname )
+                lyrics[l].print_ly (printer)
+                printer.newline()
 
             
 def uniq_list (l):
@@ -780,6 +814,7 @@ def print_score_setup (printer, part_list, voices):
             print 'unknown part in part-list:', part_name
             continue
 
+        # TODO: Apparently this is broken! There is always only one staff...
         nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
                 [mxlvoice._staves.keys ()
@@ -793,15 +828,23 @@ def print_score_setup (printer, part_list, voices):
             printer.newline ()
             
             for s in staves:
-                staff_voices = [music_xml_voice_name_to_lily_name (part, voice_name)
+                staff_voices = [(music_xml_voice_name_to_lily_name (part, voice_name), voice_name, v)
                         for (voice_name, (v, mxlvoice)) in nv_dict.items ()
                         if mxlvoice._start_staff == s]
                 
                 printer ('\\context Staff = "%s" << ' % s)
                 printer.newline ()
-                for v in staff_voices:
+                for (v, voice_name, (music, lyrics)) in staff_voices:
                     printer ('\\context Voice = "%s"  \\%s' % (v,v))
                     printer.newline ()
+                    
+                    # Assign the lyrics to that voice
+                    for l in lyrics.keys ():
+                        ll = music_xml_lyrics_name_to_lily_name (part, voice_name, l)
+                        printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (v, ll))
+                        printer.newline()
+                        printer.newline()
+                    
                 printer ('>>')
                 printer.newline ()
                 
@@ -812,9 +855,16 @@ def print_score_setup (printer, part_list, voices):
             printer ('\\new Staff <<')
             printer.newline ()
             for (n,v) in nv_dict.items ():
+                ((music, lyrics), voice) = v
+                nn = music_xml_voice_name_to_lily_name (part, n) 
+                printer ('\\context Voice = "%s"  \\%s' % (nn,nn))
 
-                n = music_xml_voice_name_to_lily_name (part, n) 
-                printer ('\\context Voice = "%s"  \\%s' % (n,n))
+                # Assign the lyrics to that voice
+                for l in lyrics.keys ():
+                    ll = music_xml_lyrics_name_to_lily_name (part, n, l)
+                    printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (nn, ll))
+                    printer.newline()
+
             printer ('>>')
             printer.newline ()
             
