@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: e4135d227f80ed5ded732f32f0e9e3f9a1fff774
+    Translation of GIT committish: 29648c524c700d6fd057ec34b84e930ee3667334
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2589,7 +2589,7 @@ fonctionnalités spécifiques à la notation mensurale et au chant
 grégorien.  La basse chiffrée est également partiellement prise en
 charge.
 
-De nombreux objets graphiques --- @qq{grob} dans le jargon de LilyPond
+De nombreux objets graphiques --- @qq{grobs} dans le jargon de LilyPond
 --- disposent d'une propriété @code{style}, comme nous le verrons dans
 @itemize @bullet
 @item
@@ -2692,8 +2692,8 @@ ronde sont en forme de losange, et les hampes centrées sur la tête.  Ce
 style est particulièrement adapté à la transcription de la musique
 mesurée dans les incipits.  Le style @code{mensural} permet de
 reproduire les têtes de note telles qu'imprimées au XVIe siècle.  Enfin,
-le style @code{petrucci} qui imite des partitions historiques, bien
-qu'utilisant de plus grosses têtes.
+le style @code{petrucci} imite des partitions historiques, bien
+qu'il utilise de plus grosses têtes de note.
 
 L'exemple suivant illustre le style @code{neomensural}.
 
@@ -2706,16 +2706,17 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 
 Si vous écrivez en notation grégorienne, le
 @internalsref{Gregorian_ligature_engraver} se chargera de sélectionner
-la tête de notre appropriée ; il n'est donc nul besoin de spécifier le
+les têtes de note appropriées ; il est donc inutile de spécifier le
 style à utiliser.  Vous pouvez cependant spécifier par exemple le style
 @code{vaticana_punctum} pour obtenir des neumes punctums.  De même,
 c'est le @internalsref{Mensural_ligature_engraver} qui se chargera des
-ligatures mensurales.  Consultez la section @ref{Ligatures} pour
-savoir comment fonctionnent les graveurs de ligature.
+ligatures mensurales.  Consultez la section @ref{Ligatures} pour savoir
+comment fonctionnent les graveurs de ligature.
 
 @seealso
 
-Pour un aperçu de toutes les possibilités, consultez @ref{Note head styles}.
+Pour un aperçu de toutes les possibilités,
+consultez @ref{Note head styles}.
 
 
 @node Ancient accidentals
@@ -2725,8 +2726,8 @@ Pour un aperçu de toutes les possibilités, consultez @ref{Note head styles}.
 
 
 Pour utiliser les formes anciennes d'altération, utilisez la propriété
-@code{glyph-name-alist} des objets @internalsref{Accidental} et
-@internalsref{KeySignature}. 
+@code{glyph-name-alist} des objets graphiques @internalsref{Accidental}
+et @internalsref{KeySignature}.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -2768,9 +2769,9 @@ Pour utiliser les formes anciennes d'altération, utilisez la propriété
 @end lilypond
 
 Vous noterez que chacun de ces styles ne comporte pas toutes les
-altérations.  LilyPond changera de style s'il est besoin d'une
+altérations.  LilyPond changera de style s'il y a besoin d'une
 altération indisponible dans le style utilisé, comme vous pouvez le
-constater dans @code{input/@/test,ancient@/-accidentals@/.ly}.
+constater dans @lsr{ancient,ancient-accidentals.ly}.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
@@ -2778,28 +2779,28 @@ par la propriété @code{glyph-name-alist} de l'objet
 
 @seealso
 
-Dans ce même manuel : @ref{Pitches}, @ref{Cautionary accidentals} et
-@ref{Automatic accidentals} pour les principes généraux sur
-l'utilisation des altérations ; @ref{Key signature} pour les armures.
+Dans ce manuel : @ref{Pitches}, @ref{Cautionary accidentals}, et
+@ref{Automatic accidentals}, pour les principes généraux d'utilisation
+des altérations ; @ref{Key signature} pour les armures.
 
-Référence du Programme : @internalsref{KeySignature}.
+Référence du programme : @internalsref{KeySignature}.
 
-Exemples : @code{input/@/test,ancient@/-accidentals@/.ly}.
+Exemples : @lsrdir{ancient}
+
 
 @node Ancient rests
 @subsection Ancient rests
 
 @cindex silences, musique ancienne
 
-
 La propriété @code{style} de l'objet @internalsref{Rest} permet
 d'obtenir des silences de type ancien.  Vous disposez des styles
-@code{classical}, @code{neomensural}, et @code{mensural}.  Le style
+@code{classical}, @code{neomensural} et @code{mensural}.  Le style
 @code{classical} ne se distingue du style @code{default} que par le
 soupir (demi-soupir en miroir). Le style @code{neomensural} convient
 tout à fait à l'incipit lors de la transcription de musique mensurale.
-Le style @code{mensural}, enfin, imite la représentation des silences tels
-que dans les éditions du XVIième siècle.
+Le style @code{mensural}, enfin, imite la gravure des silences dans
+certaines éditions du XVIe siècle.
 
 L'exemple suivant illustre le style @code{neomensural}.
 
@@ -2809,17 +2810,16 @@ L'exemple suivant illustre le style @code{neomensural}.
 r\longa r\breve r1 r2 r4 r8 r16
 @end lilypond
 
-Les styles @code{mensural} et @code{neomensural} ne disposent pas des
-8ième et 16ième de soupir ; LilyPond utilisera dans de tels cas le
-style par défaut.  Une liste exhaustive des silences est disponible à
-@code{input/@/test,rests@/.ly}. 
+Les styles @code{mensural} et @code{neomensural} ne disposent pas des 8e
+et 16e de soupir ; LilyPond utilise dans de tels cas le style par
+défaut.  @lsr{pitches,rests} donne une liste exhaustive des silences.
 
-En ce qui concerne la notation grégorienne, il n'y a pas de silence.
-Par contre, elle utilise les @ref{Divisiones}.
+Les silences sont absents de la notation grégorienne ; par contre, cette
+notation utilise des @ref{Divisiones}.
 
 @seealso
 
-Dans ce même manuel : @ref{Rests} fournit les principes généraux sur
+Dans ce manuel : @ref{Rests} expose les principes généraux sur
 l'utilisation des silences.
 
 
@@ -2829,9 +2829,8 @@ l'utilisation des silences.
 @cindex clefs
 @cindex clés
 
-
-Avec LilyPond, de nombreuses clés son disponibles, certaines dédiées
-à la musique ancienne.
+Avec LilyPond, de nombreuses clés sont disponibles, dont certaines sont
+dédiées à la musique ancienne.
 
 Le tableau suivant présente les différentes clés anciennes que vous
 pouvez sélectionner avec la commande @code{\clef}.  Certaines de ces
@@ -3039,24 +3038,24 @@ Clé combinée ut/fa, style historique Hufnagel
 
 
 
-@emph{Moderne} signifie @qq{telles qu'on les édite dans les
-transcriptions contemporaines de musique mesurée.}
+@emph{Moderne} signifie @qq{gravé comme dans les transcriptions
+contemporaines de musique mesurée.}
 
 @emph{Petrucci} signifie @qq{inspiré des éditions réalisées par le
-Maître graveur Petrucci (1466-1539).}
+maître graveur Petrucci (1466-1539).}
 
-@emph{Historique} signifie @qq{telles qu'apparaissent dans les
-éditions historiques, manuscrites ou non, autres que celles de Petrucci.}
+@emph{Historique} signifie @qq{gravé comme dans les éditions
+historiques, manuscrites ou non, autres que celles de Petrucci.}
 
-@emph{Editio XXX} signifie @qq{telles que représentées dans les
-ouvrages estampillés Editio XXX.}
+@emph{Editio XXX} signifie @qq{gravé comme dans les ouvrages estampillés
+Editio XXX.}
 
 Les clés d'ut de Petrucci avaient une hampe gauche différente selon
 leur ligne de rattachement.
 
 @seealso
 
-Dans ce même manuel : voir @ref{Clef}.
+Dans ce manuel : voir @ref{Clef}.
 
 @refbugs
 
@@ -3069,10 +3068,10 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 
 @cindex crochets
 
-
-Utiliser la propriété @code{flag-style} de l'objet hampe
-(@internalsref{Stem}) donne accès aux crochets de style ancien.  Seul
-le style @code{mensural} en dispose.
+Le réglage de la propriété @code{flag-style} de l'objet hampe
+(@internalsref{Stem}) donne accès aux crochets de style ancien.  Les
+seuls styles actuellement pris en charge sont @code{default} et
+@code{mensural}.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \override Stem #'flag-style = #'mensural
@@ -3083,13 +3082,13 @@ c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
 c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 @end lilypond
 
-Notez que, pour chaque crochet mensural, l'extrémité la plus proche de
+Notez que pour chaque crochet mensural, l'extrémité la plus proche de
 la tête de note sera toujours attachée à une ligne de la portée.
 
-Il n'existe pas de crochet spécifique au style néo-mensural.  Nous
-vous conseillons donc, lorsque vous réalisez l'incipit d'une
-transcription, d'utiliser le style par défaut.  Les crochets
-n'existent pas en notation grégorienne.
+Il n'existe pas de crochet spécifique au style néo-mensural.  Nous vous
+conseillons donc, lorsque vous réalisez l'incipit d'une transcription,
+d'utiliser le style par défaut.  Les crochets n'existent pas en notation
+grégorienne.
 
 @refbugs
 
@@ -3099,21 +3098,21 @@ suite à des modifications intervenues au début de la série 2.3.
 L'alignement vertical des crochets par rapport aux lignes de la portée
 sous-entend que les hampes se terminent toujours soit sur une ligne,
 soit à l'exact milieu d'un interligne.  Ceci n'est pas toujours
-réalisable, surtout si vous faites appel à des fonctionnalités
-avancées de présentation de la notation classique (ce qui, par
-définition, ne devrait pas s'appliquer à la notation mensurale).
+réalisable, surtout si vous faites appel à des fonctionnalités avancées
+de présentation de la notation classique, qui, par définition, ne sont
+pas prévues pour être appliquées à la notation mensurale.
+
 
 @node Ancient time signatures
 @subsection Ancient time signatures
 
 @cindex métrique
 
-
-Les possibilités de métrique sont limitées en musique mensurale.  Les
-glyphes sont affectés à des métriques particulières.  En d'autres
-termes, pour obtenir le glyphe correspondant à une métrique mensurale
-particulière à l'aide de la commande @code{\time n/m}, vous devrez
-définir @code{n} et @code{m} selon les valeurs suivantes :
+Les chiffrages de métrique mensurale sont partiellement pris en charge.
+Les glyphes ne font que représenter des métriques particulières.  En
+d'autres termes, pour obtenir le glyphe correspondant à une métrique
+mensurale particulière à l'aide de la commande @code{\time n/m}, vous
+devez choisir la paire @code{(n,m)} parmi les valeurs suivantes :
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -3160,14 +3159,14 @@ définir @code{n} et @code{m} selon les valeurs suivantes :
 }
 @end lilypond
 
-La propriété @code{style} de l'objet @internalsref{TimeSignature}
-permet d'accéder aux indicateurs de métrique anciens.  Sont
-disponibles les styles @code{neomensural} et @code{mensural}.  Vous
-avez vu ci-dessus le style @code{neomensural}, particulièrement
-utilisé pour l'incipit des transcriptions.  Le style @code{mensural}
-imite l'aspect des éditions du XVIième siècle.
+La propriété @code{style} de l'objet @internalsref{TimeSignature} permet
+d'accéder aux indicateurs de métrique anciens.  Les styles
+@code{neomensural} et @code{mensural} sont disponibles.  Vous avez vu
+ci-dessus le style @code{neomensural}, particulièrement utilisé pour
+l'incipit des transcriptions.  Le style @code{mensural} imite l'aspect
+de certaines éditions du XVIe siècle.
 
-Voici les différences entre les différents styles :
+Voici les différences entre les styles :
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
@@ -3195,7 +3194,7 @@ Voici les différences entre les différents styles :
 
 @seealso
 
-Dans ce manuel : @ref{Time signature} fournit les principes généraux sur
+Dans ce manuel : @ref{Time signature} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
 @refbugs
@@ -3213,18 +3212,19 @@ breveTP = #(ly:make-duration -1 0 3 2)
 @noindent
 Ce qui définira @code{breveTP} à 3/2 fois 2 = 3 fois une ronde.
 
-Le symbole @code{old6/8alt} (alternatif au  symbole pour 6/8) ne peut
-être invoqué avec @code{\time}.  Utilisez alors un @code{\markup}.
+Le symbole @code{old6/8alt} --- symbole alternatif pour la métrique 6/8
+--- ne peut être utilisé grâce à une commande @code{\time}.  Utilisez
+plutôt un @code{\markup}.
+
 
 @node Ancient articulations
 @subsection Ancient articulations
 
 @cindex articulations
 
-En plus des signes d'articulation standards décrits à la
-section @ref{Articulations}, LilyPond fournit des articulations pour la
-musique ancienne.  Elles sont spécifiquement destinées au style Editio
-Vaticana.  
+En plus des signes d'articulation standards décrits à la section
+@ref{Articulations}, LilyPond fournit des articulations pour la musique
+ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian-init.ly"
@@ -3257,16 +3257,16 @@ l'est, son extension à droite est trop longue.
 @cindex custodes
 @cindex guidon
 
-Un guidon (en latin @emph{custos}, @emph{custodes} au pluriel) est un
-symbole qui apparaît à la fin d'une portée.  Il montre la hauteur de
-la ou des premières notes de la portée suivante, donnant une
-indication judicieuse à l'exécutant lors de la représentation.
+Un guidon --- @emph{custos}, pluriel @emph{custodes} en latin --- est un
+symbole qui apparaît à la fin d'une portée.  Il montre la hauteur de la
+ou des premières notes de la portée suivante, donnant une indication
+judicieuse à l'exécutant.
 
-Les guidons étaient couramment utilisés jusqu'au XVIIième siècle.  De
-nos jours, on les retrouve uniquement dans quelques formes
-particulières de notation telles que les éditions contemporaines de
-chant grégorien comme les @emph{editio vaticana}.  Différents glyphes
-existent selon le style de notation.
+Les guidons étaient couramment utilisés jusqu'au XVIIe siècle.  De nos
+jours, on les retrouve uniquement dans quelques formes particulières de
+notation telles que les éditions contemporaines de chant grégorien comme
+les @emph{editio vaticana}.  Différents glyphes existent selon le style
+de notation.
 
 L'impression de guidons s'obtient en affectant, dans un bloc
 @code{\layout}, le @internalsref{Custos_engraver} au contexte
@@ -3282,7 +3282,7 @@ L'impression de guidons s'obtient en affectant, dans un bloc
 @}
 @end example
 
-Le résultat ressemblera à :
+Le résultat ressemblera à
 
 @lilypond[quote,ragged-right]
 \score {
@@ -3299,8 +3299,8 @@ Le résultat ressemblera à :
 @end lilypond
 
 Le glyphe du guidon est déterminé par la propriété @code{style}.  Les
-styles disponibles sont : @code{vaticana}, @code{medicaea},
-@code{hufnagel}, et @code{mensural}.  En voici un aperçu :
+styles disponibles sont @code{vaticana}, @code{medicaea},
+@code{hufnagel} et @code{mensural}.  En voici un aperçu :
 
 @lilypond[quote,ragged-right,fragment]
 \new Lyrics \lyricmode {
@@ -3325,7 +3325,7 @@ styles disponibles sont : @code{vaticana}, @code{medicaea},
 
 @seealso
 
-Référence du Programme : @internalsref{Custos}.
+Référence du programme : @internalsref{Custos}.
 
 Exemples : @lsr{ancient,custodes@/.ly}.
 
@@ -3337,21 +3337,21 @@ Exemples : @lsr{ancient,custodes@/.ly}.
 @cindex divisiones
 @cindex finalis
 
-Une division est un symbole ajouté à la portée et utilisé en chant
-grégorien pour séparer les phrases ou parties.  @emph{Divisio minima},
-@emph{divisio maior} et @emph{divisio maxima} peuvent respectivement
-s'interpréter comme des pauses courte, moyenne ou longue, à l'image
-des marques de respiration (cf. @ref{Breath marks}).  Le signe
-@emph{finalis} n'est pas uniquement une marque de fin de chant ; il
-sert aussi à indiquer la fin des parties dans une structure verset/répons.
+Une division --- @emph{divisio}, pluriel @emph{divisiones} en latin ---
+est un symbole ajouté à la portée et utilisé en chant grégorien pour
+séparer les phrases ou parties.  @emph{Divisio minima}, @emph{divisio
+maior} et @emph{divisio maxima} peuvent respectivement s'interpréter
+comme une pauses courte, moyenne ou longue, à l'image des marques de
+respiration --- cf. @ref{Breath marks}.  Le signe @emph{finalis} n'est
+pas uniquement une marque de fin de chant ; il sert aussi à indiquer la
+fin de chaque partie dans une structure verset/répons.
 
 Les divisions sont disponibles après inclusion du fichier
-@file{gregorian@/-init@/.ly}.  Grâce à cela, il vous suffit d'insérer
-@code{\divisioMinima},  @code{\divisioMaior}, @code{\divisioMaxima} ou
-@code{\finalis} à l'emplacement approprié du fichier source.
-Certaines éditions utilisent @emph{virgula} ou @emph{caesura} en lieu
-et place de @emph{divisio minima} ; c'est pourquoi
-@file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
+@file{gregorian@/-init@/.ly}.  Ce fichier définit les commandes
+@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima} et
+@code{\finalis}.  Certaines éditions utilisent @emph{virgula} ou
+@emph{caesura} en lieu et place de @emph{divisio minima} ; c'est
+pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 @code{\caesura}.
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
@@ -3373,11 +3373,12 @@ et place de @emph{divisio minima} ; c'est pourquoi
 
 @seealso
 
-Dans ce même manuel : @ref{Breath marks}.
+Dans ce manuel : @ref{Breath marks}.
 
-Référence du Programme : @internalsref{BreathingSign}.
+Référence du programme : @internalsref{BreathingSign}.
 
-Exemples : @code{input/@/test,divisiones@/.ly}.
+Exemples : @lsr{expressive,breathing-sign.ly}.
+
 
 @node Ligatures
 @subsection Ligatures
@@ -3387,10 +3388,10 @@ Exemples : @code{input/@/test,divisiones@/.ly}.
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
 
-Une ligature est un symbole graphique qui représente deux notes au
-moins.  Les ligatures ont commencé à apparaître dans les manuscrits de
-chant grégorien, pour indiquer des suites ascendantes ou descendantes
-de notes.
+Une ligature est un symbole graphique qui représente un groupe d'au
+moins deux notes.  Les ligatures ont commencé à apparaître dans les
+manuscrits de chant grégorien, pour indiquer des suites ascendantes ou
+descendantes de notes.
 
 Les ligatures s'indiquent par une inclusion entre @code{\[} et 
 @code{\]}.  Certains styles de ligature peuvent demander un complément
@@ -3406,16 +3407,15 @@ la ligature :
 }
 @end lilypond
 
-Il faudra, selon le style de ligature désiré, ajouter au contexte
+Selon le style de ligature désiré, il faut ajouter au contexte
 @internalsref{Voice} le graveur de ligature approprié, comme nous le
 verrons plus loin.  Seules sont disponibles les ligatures mensurales
 blanches, avec quelques limitations.
 
 
-
 @refbugs
 
-La gestion des espacements spécifiques aux ligatures n'est à ce jour
+La gestion de l'espacement spécifique aux ligatures n'est à ce jour
 pas implémentée.  En conséquence, les ligatures sont trop espacées les
 unes des autres et les sauts de ligne mal ajustés. De plus, les
 paroles ne s'alignent pas de manière satisfaisante en présence de ligatures.
@@ -3425,14 +3425,14 @@ ligature, il faut les rassembler et les imprimer juste avant.
 
 La syntaxe utilisée correspond à l'ancienne convention de préfixage
 @code{\[ expr. musicale\]}.  Pour des raisons d'uniformité, nous
-opterons probablement pour le style suffixage (postfix)  @code{note\[
+opterons probablement pour le style en suffixe (postfix)  @code{note\[
 ... note\]}. 
 En attendant, vous pouvez inclure le fichier
 @file{gregorian@/-init@/.ly}, qui fournit une fonction Scheme 
 @example
 \ligature @var{expr. musicale}
 @end example
-aux effet similaires, et dont la stabilité est reconnue.
+qui produit le même résultat, et dont la pérennité est assurée.
 
 @menu
 * White mensural ligatures::    
@@ -3445,13 +3445,13 @@ aux effet similaires, et dont la stabilité est reconnue.
 @cindex Ligatures mensurales
 @cindex Ligatures mensurales blanches
 
-Le support des ligatures mensurales blanches est limité.
+Les ligatures mensurales blanches sont prises en charge, avec des
+limitations.
 
-La gravure des ligatures mensurales blanches s'obtient après avoir, 
-dans le bloc @code{layout}, appliqué le
-@internalsref{Mensural_ligature_engraver} au contexte
-@internalsref{Voice}, duquel on déconnecte le
-@internalsref{Ligature_bracket_engraver}, comme ici :
+La gravure des ligatures mensurales blanches s'obtient après avoir
+ajouté le @internalsref{Mensural_ligature_engraver} et enlevé le
+@internalsref{Ligature_bracket_engraver} dans le contexte
+@internalsref{Voice}, comme ici :
 
 @example
 \layout @{
@@ -3463,13 +3463,12 @@ dans le bloc @code{layout}, appliqué le
 @}
 @end example
 
-Point n'est besoin d'autre spécification pour décrire l'aspect d'une
-ligature mensurale blanche.  Son aspect sera plus ou moins déterminé,
-uniquement à partir des hauteurs et durées des notes qui la composent.
-Bien que cela demande un temps d'adaptation au nouvel utilisateur,
-cette méthode offre l'avantage que toute l'information musicale incluse
-dans la ligature est connue en interne.  Ceci est non seulement
-important pour le rendu MIDI, mais aussi pour des questions de
+Lorsque le code ci-dessus est employé, l'aspect d'une ligature mensurale
+blanche est déterminé à partir des hauteurs et durées des notes qui la
+composent.  Bien que cela demande un temps d'adaptation au nouvel
+utilisateur, cette méthode offre l'avantage que toute l'information
+musicale incluse dans la ligature est connue en interne.  Ceci est non
+seulement important pour le rendu MIDI, mais aussi pour des questions de
 transcription automatisée d'une ligature.
 
 Par exemple,
@@ -3508,9 +3507,8 @@ Par exemple,
 }
 @end lilypond
 
-Si vous ne remplacez pas le @internalsref{Ligature_bracket_engraver}
-par le @internalsref{Mensural_ligature_engraver}, voici ce que vous
-obtiendrez :
+Si on ne remplace pas le @internalsref{Ligature_bracket_engraver}
+par le @internalsref{Mensural_ligature_engraver}, on obtient
 
 @lilypond[quote,ragged-right]
 \transpose c c' {
@@ -3530,19 +3528,19 @@ obtiendrez :
 
 L'espacement horizontal n'est pas des meilleurs.
 
+
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
 
-@cindex Neumes carrés et ligatures
-@cindex Grégorien, ligaturer des neumes carrés
+@cindex neumes carrés et ligatures
+@cindex grégorien, ligatures de neumes carrés
 
-La gestion des neumes grégoriens conformément au style des Editio
-Vaticana est quelque peu limitée.  Les ligatures élémentaires sont déjà
-disponibles, mais LilyPond ne permet pas encore d'arriver à un
-résultat irréprochable dans les détails, tels qu'en matière
-d'espacement horizontal des enchaînements de ligatures, d'alignement des
-paroles ou de gestion convenable des altérations.
-
+Les neumes grégoriens conformément au style des Editio Vaticana sont
+pris en charge de façon assez limitée.  Les ligatures élémentaires sont
+déjà disponibles, mais beaucoup de règles typographiques ne sont pas
+encore implémentées, notamment l'espacement horizontal des enchaînements
+de ligatures, l'alignement des paroles ou une gestion convenable des
+altérations.
 
 Le tableau ci-dessous inventorie les différents neumes contenus dans
 le second tome de l'Antiphonale Romanum (@emph{Liber Hymnarius}) publié
@@ -4066,26 +4064,25 @@ Deminutae}
 @end multitable
 
 
-Contrairement à la majorité des autres systèmes de notation
-neumatiques, la manière de saisir les neumes n'a rien à voir avec leur
-apparence typographique ; elle se concentre plutôt sur le sens
-musical.  Ainsi, @code{\[ a \pes b \flexa g \]} produit un @emph{torculus}
-constitué de trois @emph{punctums}, alors que @code{\[ a \flexa g \pes b
-\]} produira un @emph{porrectus} avec une flexe incurvée et un seul
-@emph{punctum}.  Il n'existe pas de commande à proprement parler qui
-permette de spécifier la courbe d'une flexe ; c'est la source musicale
-qui va le déterminer.  Le fondement d'une telle approche réside dans la
-distinction que nous faisons entre les aspects musicaux de la source
-et le style de notation que nous voulons obtenir.  De ce fait, la même
+Contrairement à la majorité des autres systèmes de notation neumatique,
+la manière de saisir les neumes n'a rien à voir avec leur apparence
+typographique ; elle se concentre plutôt sur le sens musical.  Ainsi,
+@code{\[ a \pes b \flexa g \]} produit un @emph{torculus} constitué de
+trois @emph{punctums}, alors que @code{\[ a \flexa g \pes b \]} produit
+un @emph{porrectus} avec une flexe incurvée et un seul @emph{punctum}.
+Il n'existe pas de commande à proprement parler qui permette de
+spécifier la courbe d'une flexe ; c'est la source musicale qui va le
+déterminer.  Le fondement d'une telle approche réside dans la
+distinction que nous faisons entre les aspects musicaux de la source et
+le style de notation que nous voulons obtenir.  De ce fait, la même
 source pourra être utilisée pour imprimer dans un autre style de
 notation grégorienne.
 
 Le tableau suivant présente les fragments de code qui ont permis de
 générer les neumes ligaturés du tableau précédent.  Les lettres de la
-première colonne renvoient à la ligature ci-dessus.  La seconde
+première colonne renvoient aux ligatures ci-dessus.  La seconde
 colonne énumère le nom des ligatures, et la troisième le code ayant
-permis de les générer (se basant sur les sons @code{g}, @code{a}, ou
-@code{b} -- @code{sol}, @code{la}, ou @code{si}).
+permis de les générer, se basant ici sur sol, la, si.
 
 @multitable @columnfractions .02 .31 .67
 @item
@@ -4407,21 +4404,20 @@ Trigonus
 Les ligatures que nous venons de voir, bien que rudimentaires, donnent
 un aperçu des possibilités de former des ligatures grégoriennes.  En
 théorie, vous pouvez inclure entre les délimiteurs @code{\[} et
-@code{\]}, autant de sons que nécessaires à la ligature, ainsi que de 
-préfixes tels que, par exemple, @code{\pes}, @code{\flexa},
-@code{\virga}, ou @code{\inclinatum}.  Bien sûr, les règles de
-construction présentées ci-dessus peuvent se combiner, ce qui permet
-la création d'une infinité de ligatures.
+@code{\]}, autant de sons que nécessaires à la ligature, ainsi que de
+préfixes tels que @code{\pes}, @code{\flexa}, @code{\virga},
+@code{\inclinatum}, @dots{} Bien sûr, les règles de construction
+présentées ci-dessus peuvent se combiner, ce qui permet la création
+d'une infinité de ligatures.
 
-Les points d'augmentum, ou @emph{morae}, s'obtiennent avec la fonction
-@code{\augmentum}.  Notez que cette fonction @code{\augmentum} est
-implémentée en tant que fonction unaire plutôt que comme un préfixe de
-note.  Par conséquent, @code{\augmentum \virga c} ne donnera rien de
-particulier.  Il faut l'utiliser avec la syntaxe @code{\virga
-\augmentum c} ou @code{\augmentum @{\virga c@}}.  
-Par ailleurs,
-l'expression @code{\augmentum @{a g@}} constitue une forme abrégée de
-@code{\augmentum a \augmentum g}. 
+Les points d'@emph{augmentum}, ou @emph{morae}, s'obtiennent avec la
+fonction @code{\augmentum}.  Notez que cette fonction @code{\augmentum}
+est implémentée en tant que fonction unaire plutôt que comme un préfixe
+de note.  Par conséquent, @code{\augmentum \virga c} ne donnera rien de
+particulier.  Il faut l'utiliser avec la syntaxe @code{\virga \augmentum
+c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
+@code{\augmentum @{a g@}} constitue une forme abrégée de
+@code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian-init.ly"
@@ -4435,7 +4431,7 @@ l'expression @code{\augmentum @{a g@}} constitue une forme abrégée de
 
 @refcommands
 
-LilyPond dispose des préfixes suivant :
+LilyPond dispose des préfixes suivants :
 
 @funindex \virga
 @code{\virga},
@@ -4460,16 +4456,16 @@ LilyPond dispose des préfixes suivant :
 @funindex \linea
 @code{\linea}.
 
-Les préfixes de note peuvent s'agglutiner.  Néanmoins, certaines
-restrictions sont à prendre en compte.  Par exemple, on peut appliquer
-un @code{\descendens} ou un @code{\ascendens} à une note, mais pas
-les deux simultanément à la même note.
+Les préfixes de note peuvent s'agglutiner, modulo quelques restrictions.
+Par exemple, on peut appliquer un @code{\descendens} ou un
+@code{\ascendens} à une note, mais pas les deux simultanément à une même
+note.
 
 @funindex \pes
 @funindex \flexa
 Deux notes adjacentes peuvent être reliées grâce aux commandes
 @code{\pes} ou @code{\flexa} pour marquer une ligne mélodique
-ascendante ou descendante.
+respectivement ascendante ou descendante.
 
 @funindex \augmentum
 Utilisez la fonction musicale unaire @code{\augmentum} pour ajouter
@@ -4483,8 +4479,9 @@ ajoutez un silence invisible, @code{s8} par exemple, comme dernière note de
 cette portée.
 
 L'@code{\augmentum} devrait être implémenté en tant que préfixe plutôt
-qu'en tant que fonction unaire, de telle sorte que @code{\augmentum}
-puisse s'intégrer avec d'autres préfixes dans n'importe quel ordre.
+qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
+s'intégrer avec d'autres préfixes dans n'importe quel ordre.
+
 
 @node Gregorian Chant contexts
 @subsection Gregorian Chant contexts
@@ -4497,7 +4494,7 @@ Les contextes @code{VaticanaVoiceContext} et
 dans le style des éditions vaticanes.  Ces contextes initialisent
 les propriétés de tous les autres contextes et objets graphiques à des
 valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
-lancer dans la saisie de votre chant comme ci-après :
+lancer dans la saisie de votre chant, comme ci-dessous :
 
 @lilypond[quote,ragged-right,packed,verbatim]
 \include "gregorian-init.ly"
@@ -4553,19 +4550,21 @@ lancer dans la saisie de votre chant comme ci-après :
 }
 @end lilypond
 
+
 @node Musica ficta accidentals
 @subsection Musica ficta accidentals
 
-Dans la musique européenne d'avant le XVIIième siècle, les chanteurs
-étaient censés altérer les notes de leur propre initiative.  On
-appelait cela @q{Musica Ficta}.  Dans les transcriptions modernes, ces
-altérations se positionnent au dessus de la note concernée.
+Dans la musique européenne antérieure au XVIIe siècle, les chanteurs
+étaient censés altérer les notes de leur propre initiative.  On appelait
+cela @emph{musica ficta}.  Dans les transcriptions modernes, on a
+l'habitude de placer ces altérations au-dessus de la note concernée.
 
-@cindex Accidental, musica ficta
-@cindex Musica ficta
+@cindex altérations, musica ficta
+@cindex musica ficta
 
-De telles altérations suggérées sont disponibles et peuvent être activées en assignant
-à la propriété @code{suggestAccidentals} la valeur @q{vrai} (##t pour "true").
+De telles altérations suggérées sont disponibles et peuvent être
+activées en assignant à la propriété @code{suggestAccidentals} la valeur
+vrai (@code{#t} pour @q{true}).
 
 @funindex suggestAccidentals
 
@@ -4577,20 +4576,21 @@ ais bis
 
 @seealso
 
-Référence du Programme : le graveur @internalsref{Accidental_engraver}
+Référence du programme : le graveur @internalsref{Accidental_engraver}
 et l'objet @internalsref{AccidentalSuggestion}.
+
 
 @node Figured bass
 @subsection Figured bass
 
-@cindex Basse continue
-@cindex Basse chiffrée
+@cindex basse continue
+@cindex basse chiffrée
 
 @c TODO: musicological blurb about FB
 @c librement adapté de
 @c http://en.wikipedia.org/wiki/Basso_continuo#Basso_continuo
 Les parties de basse continue étaient très répandues dans la musique
-baroque et jusqu'à la fin du XVIIIième siècle.  Comme son nom
+baroque et jusqu'à la fin du XVIIIe siècle.  Comme son nom
 l'indique, le @emph{continuo} constitue une partie à lui seul, qui
 se déroule tout au long de l'œuvre pour en donner la structure harmonique. 
 
@@ -4633,7 +4633,7 @@ En mode de saisie, un chiffrage est délimité par @code{<} et
 
 Les altérations s'obtiennent en ajoutant aux chiffres les caractères
 @code{-}, @code{!} ou @code{+}. Un signe plus s'obtient grâce à
-@code{\+}, et des quintes diminuées ou des septièmes par @code{5/} et
+@code{\+}, et une quinte ou septième diminuée par @code{5/} ou
 @code{7/} respectivement.
 
 @example
@@ -4643,10 +4643,10 @@ Les altérations s'obtiennent en ajoutant aux chiffres les caractères
 \figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
 @end lilypond
 
-Le caractère @code{_} insère un espace, et l'on peut imprimer des crochets 
-avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
-chaînes de caractères ou des étiquettes (cf. @ref{Overview of text
-markup commands}). 
+Le caractère @code{_} insère un espace, et l'on peut imprimer des
+crochets avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
+chaînes de caractères ou des étiquettes --- cf. @ref{Overview of text
+markup commands}.
 
 @example
 <[4 6] 8 [_! 12] > <5 \markup @{ \number 6 \super (1) @} >
@@ -4697,8 +4697,8 @@ supplémentaires pour imprimer les prolongations, ou utiliser des
 @end lilypond
 
 Lorsque vous utilisez des lignes de prolongation, les chiffres communs
-seront verticalement alignés.  Pour l'éviter, insérez un silence par
-un @code{r} afin de réinitialiser l'alignement.  Par exemple, saisissez
+seront verticalement alignés.  Pour l'éviter, insérez un silence avec
+@code{r} afin de réinitialiser l'alignement.  Par exemple, saisissez
 
 @example
   <4 6>8 r8
@@ -4710,9 +4710,10 @@ au lieu de
   <4 6>4
 @end example
 
-Les altérations et signes plus s'impriment aussi bien avant qu'après
-les chiffres, selon les propriétés
-@code{figuredBassAlterationDirection} et @code{figuredBassPlusDirection}.
+On peut choisir d'impriemr les altérations et signes plus aussi bien
+avant qu'après les chiffres, en réglant les propriétés
+@code{figuredBassAlterationDirection} et
+@code{figuredBassPlusDirection}.
 
 @lilypond
   \figures {
@@ -4731,18 +4732,17 @@ Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
 des accords, elle est beaucoup plus simpliste.  Le mode
 @code{\figuremode} ne fait que stocker des chiffres que le contexte
 @internalsref{FiguredBass} se chargera d'imprimer tels quels.  En
-aucune manière ils ne seront transformés en son, et ils ne seront pas
+aucune manière ils ne sont transformés en son, et ils ne sont pas
 rendus dans un fichier MIDI.
 
-Du côté interne, ce code produit des étiquettes de texte que vous
+En interne, ce code produit des étiquettes de texte que vous
 pouvez formater à votre convenance grâce aux propriétés des
 étiquettes.  Par exemple, l'espacement vertical des chiffrages est
 déterminé par la propriété @code{baseline-skip}.
 
 
-Des basses chiffrées peuvent aussi s'ajouter directement à des
-contextes @code{Staff}.  L'alignement vertical sera alors
-automatiquement ajusté.
+On peut également ajouter une basse chiffrée directement à un contexte
+@code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
 
 @lilypond[ragged-right,fragment,quote]
 <<
@@ -4763,19 +4763,29 @@ automatiquement ajusté.
 @end lilypond
 
 
+@commonprop
+
+Par défaut, les chiffres sont imprimés au-dessus de la portée.  Pour les
+imprimer dessous, ajoutez
+
+@example
+\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+@end example
+
+
 @refbugs
 
-Si vous positionnez la basse chiffrée au dessus de la portée et avez
-recours aux lignes d'extension et @code{implicitBassFigures}, les
-lignes peuvent se mélanger.  Préserver l'ordre des prolongateurs peut
-s'avérer impossible lorsque plusieurs chiffrages en possèdent et qui
-se chevauchent.  Ce problème est contourné en jouant sur l'empilement
-(@code{stacking-dir}) du @code{BassFigureAlignment}.
+Si vous positionnez la basse chiffrée au dessus de la portée en ayant
+recours aux lignes d'extension et @code{implicitBassFigures}, les lignes
+peuvent se mélanger.  Préserver l'ordre des prolongateurs peut s'avérer
+impossible lorsque plusieurs chiffrages qui se chevauchent en possèdent.
+Ce problème peut être contourné en jouant sur l'empilement, avec la
+propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
 
 
 @seealso
 
-Référence du Programme : les objets @internalsref{NewBassFigure},
+Référence du programme : les objets @internalsref{NewBassFigure},
 @internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
 @internalsref{BassFigureBracket} et
 @internalsref{BassFigureContinuation}, ainsi que le contexte
@@ -4785,7 +4795,7 @@ Référence du Programme : les objets @internalsref{NewBassFigure},
 @node Other instrument specific notation
 @section Other instrument specific notation
 
-Ce chapitre dispense des informations supplémentaires et utiles à
+Cette section dispense des informations supplémentaires et utiles à
 l'écriture pour certains instruments.
 
 @menu
@@ -4798,9 +4808,9 @@ l'écriture pour certains instruments.
 @cindex harmoniques
 
 La plupart des instruments à cordes peuvent produire des harmoniques
-artificielles, lorsque l'instrumentiste
-effleure simplement la corde pour une note donnée.  Le son émis en sera
-une harmonique, que l'on peut indiquer par @code{\harmonic}.
+artificiels, lorsque l'instrumentiste effleure simplement la corde pour
+une note donnée.  Le son émis sera un harmonique, que l'on peut indiquer
+par @code{\harmonic}.
 
 @lilypond[ragged-right,verbatim,quote,fragment,relative=1]
 <c g'\harmonic>4
