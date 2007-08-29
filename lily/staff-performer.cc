@@ -13,8 +13,8 @@
 #include "performer-group.hh"
 #include "context.hh"
 
-/** Perform a staff. Individual notes should have their instrument
-    (staff-wide) set, so we override play_element ()
+/* Perform a staff. Individual notes should have their instrument
+  (staff-wide) set, so we override play_element ()
 */
 class Staff_performer : public Performer
 {
