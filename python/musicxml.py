@@ -336,11 +336,11 @@ class Lyric (Music_xml_node):
         elif text == "_" and continued:
             return "__"
         elif continued and text:
-            return text + " --"
+            return "\"" + text + "\" --"
         elif continued:
             return "--"
         elif text:
-            return text
+            return "\"" + text + "\""
         else:
             return ""
 
