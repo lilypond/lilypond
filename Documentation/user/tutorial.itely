@@ -1494,3 +1494,6 @@ used in an example, read the HTML version (if you are not already doing
 so) and click on the picture of the music.  This will display the exact
 input that LilyPond used to generate this manual.
 
+For information about the structure of the rest of the manual, see
+@ref{About this manual}.
+
