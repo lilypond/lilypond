@@ -873,7 +873,7 @@ msgstr "An LilyPond-Projekten arbeiten"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Suggestions for writing LilyPond files"
-msgstr "Verschläge, wie LilyPond-Dateien geschrieben werden sollen"
+msgstr "Vorschläge, wie LilyPond-Dateien geschrieben werden sollen"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely

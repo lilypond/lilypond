@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0bf625c588a94030d351f3f8ec631cada2e15d8a
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -325,6 +325,7 @@ Bindebogen die Stimme zu wechseln:
 
 Damit der Hals den Bogen nicht zu sehr verkleinert, wird seine 
 Länge (@code{length}) auf den Wert @code{8} gesetzt:
+
 
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
