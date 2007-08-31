@@ -1280,20 +1280,20 @@ of the manual.
 @subsection Version number
 
 @cindex versioning
-The @code{\version} statement marks for which version of LilyPond the file
-was written.  To mark a file for version 2.10.1, place
+The @code{\version} statement records the version of LilyPond that was
+used to write the file:
 
 @example
 \version "2.11.23"
 @end example
 
 @noindent
-at the top of your LilyPond file.
+by convention, this is placed at the top of your LilyPond file.
 
-These annotations make future upgrades of LilyPond go more
-smoothly.  Changes in the syntax are handled with a special program,
-@file{convert-ly} (see @rprogram{Updating files with convert-ly}), and it uses
-@code{\version} to determine what rules to apply.
+These annotations make future upgrades of LilyPond go more smoothly.
+Changes in the syntax are handled with a special program,
+@file{convert-ly} (see @rprogram{Updating files with convert-ly}), and
+it uses @code{\version} to determine what rules to apply.
 
 
 @node Adding titles
