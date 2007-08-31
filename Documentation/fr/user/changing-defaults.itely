@@ -1,160 +1,2049 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: d5b91d83f5dfec811302de39dbabdb189024f67a
-
+    Translation of GIT committish: da55a1ec3c4b8195efc910b0c986c27f244def85
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Changing defaults
 @chapter Changing defaults
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Automatic notation::
-* Interpretation contexts::
-* The \override command::
-@end menu 
+LilyPond est conçu pour engendrer, par défaut, des partitions de la
+plus haute qualité.  Cependant, on peut parfois avoir à modifier cette
+mise en page par défaut.  Celle-ci est réglée par tout un ensemble de
+@qq{leviers et manettes}, dont ce chapitre ne cherche pas à faire
+l'inventaire exhaustif.  Le propos est plutôt ici de mettre en évidence
+les différents groupes auxquels s'apparentent ces contrôles, et d'expliquer
+comment trouver le bon levier pour obtenir tel ou tel effet en particulier.
+
+@cindex Référence du programme
+
+Les moyens de contrôle des différents réglages sont décrits dans un document
+à part entière, la
+@iftex
+référence du programme
+@end iftex
+@ifnottex
+@ref{Top,Référence du programme,,lilypond-internals}.
+@end ifnottex
+Ce guide répertorie toutes les variables, fonctions et autre options que
+LilyPond met à votre disposition.  Il est consultable en ligne, au format HTML,
+@c leave the @uref as one long line.
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
+mais est également inclus dans la documentation fournie avec le logiciel.
+
+Il est quatre domaines dans lesquels on peut modifier les réglages par défaut :
+
+@itemize @bullet
+@item
+La notation automatique, ce qui revient à modifier la manière dont les éléments
+de notation sont automatiquement créés -- par exemple, les règles de ligatures.
+
+@item
+L'apparence, qui se rapporte aux objets pris individuellement -- ainsi de la direction 
+des hampes, du placement des indications textuelles.
+
+@item
+Les contextes, qui recouvrent la manière dont les évènements musicaux sont représentés sous forme de
+notation -- par exemple, le fait d'attribuer un chiffre de mesure distinct à chaque portée.
+
+@item
+La mise en page, autrement dit les marges, l'espacement, la taille du papier ; tous ces facteurs
+font l'objet des chapitres @ref{Non-musical notation} et @ref{Spacing issues}.
+@end itemize
+
+En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
+infrastructure.  Modifier les choix de mise en page revient à pénétrer dans
+les entrailles du programme, et de ce fait requiert l'emploi du Scheme.
+Les fragments de Scheme, dans un fichier @code{.ly}, sont introduits par le
+caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le 
+@ref{Scheme tutorial} fournit quelques notions de base pour saisir des nombres,
+des listes, des chaînes de caractères ou des symboles, en Scheme.}
+
+
+@menu
+* Automatic notation::          
+* Interpretation contexts::     
+* The \override command::       
+@end menu
+
+
 @node Automatic notation
 @section Automatic notation
 
-UNTRANSLATED NODE: IGNORE ME
+Cette section s'intéresse à la manière dont les altérations accidentelles 
+et les ligatures sont automatiquement ajoutées.
 
-@menu 
-* Automatic accidentals::
-* Setting automatic beam behavior::
-@end menu 
+@menu
+* Automatic accidentals::       
+* Setting automatic beam behavior::  
+@end menu
+
 @node Automatic accidentals
 @subsection Automatic accidentals
+@cindex Altérations accidentelles automatiques
 
-UNTRANSLATED NODE: IGNORE ME
+Une fonction a été créée pour regrouper les règles suivant lesquelles
+s'impriment les altérations.  Elle s'invoque de la manière suivante :
+
+@funindex set-accidental-style
+@example
+#(set-accidental-style 'REGLE)
+@end example
+
+@c TODO: check the context stuff below
+@c -does it *really* work?
+@c -the default contexts as specified in
+@c  scm/music-function.scm seem to be different -vv
+
+Cette fonction prend pour argument le nom de la règle d'altérations,
+auquel peut s'ajouter, comme argument facultatif, le contexte
+devant être affecté :
+
+@example
+#(set-accidental-style 'REGLE #('CONTEXTE#))
+@end example
+
+Si aucun contexte n'est spécifié, le contexte @code{Staff} sera affecté ; 
+cependant on peut souhaiter l'appliquer au contexte @code{Voice} en lieu 
+et place.
+
+Les régles d'altérations suivantes sont possibles :
+
+@table @code
+@item default
+C'est la règle d'impression par défaut, qui se rapporte à l'usage 
+en vigueur au XVIIIème siècle : les altérations accidentelles sont valables toute
+une mesure, et uniquement à leur propre octave.
+
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       %#(set-accidental-style 'default) 
+       \musicA }
+       \context Staff = "down"{
+	       %#(set-accidental-style 'default)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
+}
+@end lilypond
+
+@item voice
+En principe, LilyPond se souvient de toutes les altérations présentes sur la
+portée (contexte Staff).  Avec cette règle, cependant, les altérations sont indépendantes
+pour chacune des voix. 
+
+
+@example
+ \new Staff <<
+        #(set-accidental-style 'voice)
+	@{ @dots{} @}
+	>>
+@end example
+
+De ce fait, les altérations d'une voix sont ignorées dans les autres voix,
+ce qui peut donner lieu à un résultat malencontreux.  Dans l'exemple suivant,
+il est difficile de dire si le deuxième @samp{la} est dièse ou naturel.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'voice) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'voice)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
+}
+@end lilypond
+
+La règle @code{voice} n'est à envisager que dans le cas de voix devant être lues par
+des musiciens différents. S'il s'agit d'un @q{conducteur}, ou d'une portée destinée
+à un seul musicien, il vaut mieux utiliser @code{modern} ou @code{modern-cautionary}.
+
+
+@item modern
+@funindex modern style accidentals
+Cette règle est la plus courante au XXème siècle.  Les altérations accidentelles
+sont imprimées comme avec le style @code{default}, mais lorsque une note non-altérée
+apparaît à une octave différente, ou bien dans la mesure suivante, des bécarres de précaution
+sont ajoutés.  Dans l'exemple suivant, notez ainsi les deux bécarres dans la
+deuxième mesure de la main droite.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
+}
+@end lilypond
+
+@item @code{modern-cautionary}
+@funindex modern-cautionary
+Cette règle est équivalente à @code{modern}, mais les bécarres de précaution sont
+imprimés de façon particulière : soit plus petits, soit (par défaut) entre parenthèses.
+Il est possible de le définir au moyen de la propriété @code{cautionary-style}
+pour l'objet @internalsref{AccidentalSuggestion}.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
+}
+@end lilypond
+
+@funindex modern-voice
+@item modern-voice
+Cette règle sert aux altérations dans de la musique polyphonique destinée
+autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble des voix.
+Les altérations sont imprimées voix par voix, mais les autres voix, dans le même 
+contexte @internalsref{Staff}, en @emph{tiennent compte} cette fois.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-voice) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-voice)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
+}
+@end lilypond
+
+@funindex modern-voice-cautionary
+@item modern-voice-cautionary
+Cette régle est similaire à la précédente, mais les altérations de précautions
+(celles que n'aurait pas ajoutées @code{voice}), sont imprimées de façon
+particulière.  On retrouve donc toutes les altérations qu'imprimerait
+@code{default}, mais certaines sont considérées comme étant @qq{de précaution}.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-voice-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-voice-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
+}
+@end lilypond
+
+@item piano
+@funindex piano accidentals
+Cette règle est adaptée aux contextes GrandStaff -- ce qui n'empêche pas de devoir la spécifier 
+pour chaque portée individuelle au sein du contexte GrandStaff.
+
+@example
+\new GrandStaff @{ <<
+  \new Staff = "up" @{ <<
+    #(set-accidental-style 'piano)
+    @{ @dots{} @}
+  >> @}
+  \new Staff = "down"@{ <<
+    #(set-accidental-style 'piano)
+  @{ @dots{} @}
+  >> @}
+>> @}
+@end example
+
+Cette règle est communément employée pour les partitions de piano au XXème siècle.
+Très similaire à @code{modern} de par son comportement, elle s'en distingue en ce que
+les altérations tiennent compte des autre portées du contexte @internalsref{GrandStaff} ou
+@internalsref{PianoStaff}.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'piano) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'piano)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
+}
+@end lilypond
+
+@item piano-cautionary
+@funindex #(set-accidental-style 'piano-cautionary)
+Identique à @code{#(set-accidental-style 'piano)}, mais les altérations de précaution
+sont imprimées différemment.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'piano-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'piano-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
+}
+@end lilypond
+
+@item no-reset
+@funindex no-reset accidental style
+C'est la même règle que @code{default}, mais l'effet des altérations accidentelles
+ne cesse jamais, même dans les mesures suivantes.
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'no-reset) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'no-reset)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
+}
+@end lilypond
+
+@item forget
+Tout le contraire de @code{no-reset}: l'effet des altérations cesse aussitôt,
+et de ce fait, toutes les altérations, quelque soit leur place dans la mesure, sont
+imprimées, en fonction de l'armure éventuelle.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'forget) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'forget)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
+}
+@end lilypond
+@end table
+
+
+@seealso
+
+Référence du programme : @internalsref{Accidental_engraver},
+@internalsref{Accidental}, @internalsref{AccidentalSuggestion} et @internalsref{AccidentalPlacement}.
+
+
+@refbugs
+
+Les notes simultanées sont considérées comme des évènements séquentiels.
+Ce qui implique que, dans un accord, les altérations accidentelles sont 
+imprimées comme si les notes de l'accords apparaissaient une par une, en fonction
+de l'ordre dans lequels elles ont été saisies -- ce qui peut poser problème lorsqu'au
+sein d'un accord certaines altérations dépendent les unes des autres. Ce problème
+est à résoudre manuellement, en insérant des @code{!} et des @code{?} après les notes
+concernées.
+
 
 @node Setting automatic beam behavior
 @subsection Setting automatic beam behavior
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+@cindex ligatures automatiques, réglage
+@cindex réglage des ligatures automatiques
+
+@c [TODO: use \applyContext]
+
+Dans les métriques courantes, les ligatures automatiques peuvent commencer
+sur n'importe quelle note, mais ne peuvent se terminer qu'à certains points précis
+dans la mesure : sur une pulsation, ou après toute durée spécifiée par les propriétés
+nommées @code{autoBeamSettings}.  Ces propriétés consistent en une liste de règles
+relatives au début ou à la fin des ligatures.  Par défaut, elles sont définies dans
+le fichier
+@file{scm/@/auto@/-beam@/.scm}.
+
+On peut ajouter à cette liste une nouvelle règle, au moyen de la commande
+@example
+#(override-auto-beam-setting '(extrémité p q n m) a b [contexte])
+@end example
+
+@itemize @bullet
+
+@item @code{extrémité} désigne le début (@code{begin}) ou la fin (@code{end}) de la ligature.
+
+@item @code{p/q} désigne la valeur rythmique de la note que l'on veut affecter, ou de la
+plus brève des notes concernées.  Si cette règle doit s'appliquer à toutes les ligatures,
+remplacez @code{p} et @code{q} par des étoiles @qq{@code{*}}.
+
+
+@item @code{n/m} est le chiffre de mesure dans lequel la règle doit s'appliquer. Si
+celle-ci doit s'appliquer dans toutes les métriques, remplacez @code{n} et @code{m}
+par des étoiles @qq{@code{*}}.
+
+@item @code{a/b} est l'emplacement, dans la mesure, auquel les ligatures doivent
+débuter ou s'achever (suivant la valeur @q{extrémité} que nous venons de voir).
+
+
+@item @code{contexte} est un argument facultatif, qui détermine le contexte dans lequel
+la règle doit s'appliquer.  Par défaut, il s'agit de @code{'Voice}.
+@code{#(score-override-auto-beam-setting '(A B C D) E F)} équivaut à
+@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
+
+@end itemize
+
+Par exemple, si l'on veut que les ligatures s'achèvent toujours après la première noire :
+
+
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4)
+@end example
+
+On peut obliger une règle de ligatures à ne s'appliquer qu'à des groupes dont la note
+la plus brève est d'une valeur précise :
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 2/4
+#(override-auto-beam-setting '(end 1 16 * *) 1 16)
+a16 a a a a a a a |
+a32 a a a a16 a a a a a |
+#(override-auto-beam-setting '(end 1 32 * *) 1 16)
+a32 a a a a16 a a a a a |
+@end lilypond
+
+On peut obliger une règle de ligatures à ne s'appliquer que pour un chiffre de mesure
+précis :
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 5/8
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
+Enfin, on peut désactiver une règle de ligatures au moyen du réglage suivant :
+
+@example
+#(revert-auto-beam-setting '(extrémité p q n m) a b [contexte])
+@end example
+
+@noindent
+@code{extrémité}, @code{p}, @code{q}, @code{n}, @code{m}, @code{a}, @code{b} et @code{contexte}
+étant les mêmes que plus haut.  Il est même possible de désactiver des règles que l'on n'a pas
+explicitement créées : les règles par défaut, qui se trouvent dans le fichier @file{scm/@/auto@/-beam@/.scm}.
+
+
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 4/4
+a16 a a a a a a a a a a a a a a a
+#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+La commande @code{revert-auto-beam-setting} requiert exactement les mêmes arguments
+que la règle d'origine.  En d'autres termes, les étoiles ne seront pas prises en compte ici.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 1/4
+#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
+a16 a a a
+#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % ceci ne désactive pas la règle !
+a a a a
+#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % ceci marche
+a a a a
+@end lilypond
+
+
+
+@c TODO:  old material -- not covered by above stuff, I think.
+Si, dans une mesure à 5/4, l'on veut que les ligatures soient regroupées temps par temps,
+il est nécessaire d'indiquer toutes les terminaisons de ligatures.
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
+#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
+@dots{}
+@end example
+
+La même syntaxe peut servir à définir les points de départ des ligatures.
+Dans l'exemple suivant, les ligatures automatiques  ne peuvent se terminer 
+que sur une noire pointée.
+@example
+#(override-auto-beam-setting '(end * * * *) 3 8)
+#(override-auto-beam-setting '(end * * * *) 1 2)
+#(override-auto-beam-setting '(end * * * *) 7 8)
+@end example
+@c ???? Je n'y comprends rien --vv
+Dans une mesure à 4/4, cela implique que les ligatures ne peuvent se terminer que sur
+la troisième croche, ou sur le quatrième temps (après la valeur de deux fois trois croches).
+
+Si une ligature se fait de manière inattendue, pensez à vérifer les règles automatiques
+dans le fichier @file{scm/@/auto@/-beam@/.scm} pour rechercher d'éventuels conflits, dans
+la mesure ou les règles par défaut s'ajoutent à vos propres règles.  Il est alors nécessaire
+de désactiver toute règle par défaut conduisant à des ligatures indésirables.
+
+Ainsi, pour obtenir des ligatures en groupes de @code{(3 4 3 2)} notes, dans une mesure à 12/8,
+il faudra préalablement utiliser :
+
+@example
+%%% annulons les réglages par défaut relatifs à 12/8, dans scm/auto-beam.scm 
+#(revert-auto-beam-setting '(end * * 12 8) 3 8)
+#(revert-auto-beam-setting '(end * * 12 8) 3 4)
+#(revert-auto-beam-setting '(end * * 12 8) 9 8)
+
+%%% puis ajoutons nos propres règles
+#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
+@end example
+
+@cindex ligatures automatiques
+@cindex groupes de notes
+@funindex autoBeaming
+@cindex paroles
+
+Si des ligatures sont utilisées dans les paroles d'une chanson (pour indiquer des mélismes),
+les ligatures automatiques doivent être désactivées, avec @code{\autoBeamOff}.
+
+
+@refcommands
+
+@funindex \autoBeamOff
+@code{\autoBeamOff},
+@funindex \autoBeamOn
+@code{\autoBeamOn}.
+
+@commonprop
+
+Les groupes de notes reliées par les ligatures peuvent être spécifiés au moyen
+de la propriété @code{beatGrouping}.
+
+@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
+\time 5/16
+\set beatGrouping = #'(2 3)
+c8[^"(2+3)" c16 c8]
+\set beatGrouping = #'(3 2)
+c8[^"(3+2)" c16 c8]
+@end lilypond
+
+
+@refbugs
+
+Si une partition se termine alors qu'une ligature automatique est restée inachevée,
+cette dernière ligature ne sera pas imprimée du tout.  C'est également valable dans
+le cas d'une musique polyphonique, saisie avec la syntaxe @code{<< @dots{} \\ @dots{}
+>>}, où une voix se terminerait sans que la dernière ligature
+soit achevée.
 
 @node Interpretation contexts
 @section Interpretation contexts
 
-UNTRANSLATED NODE: IGNORE ME
+This section describes what contexts are, and how to modify them.
 
-@menu 
-* Contexts explained::
-* Creating contexts::
-* Changing context properties on the fly::
-* Modifying context plug-ins::
-* Layout tunings within contexts::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
-* Vertical grouping of grobs::
-@end menu 
+@menu
+* Contexts explained::          
+* Creating contexts::           
+* Changing context properties on the fly::  
+* Modifying context plug-ins::  
+* Layout tunings within contexts::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
+* Vertical grouping of grobs::  
+@end menu
+
+
 @node Contexts explained
 @subsection Contexts explained
 
-UNTRANSLATED NODE: IGNORE ME
+When music is printed, a lot of notational elements must be added to the
+output.  For example, compare the input and output of the following example:
+
+@lilypond[quote,verbatim,relative=2,fragment]
+cis4 cis2. g4
+@end lilypond
+
+The input is rather sparse, but in the output, bar lines, accidentals,
+clef, and time signature are added.  LilyPond @emph{interprets} the
+input.  During this step, the musical information is inspected in time
+order, similar to reading a score from left to right.  While reading
+the input, the program remembers where measure boundaries are, and which
+pitches require explicit accidentals.  This information can be presented on
+several levels.  For example, the effect of an accidental is limited
+to a single staff, while a bar line must be synchronized across the
+entire score.
+
+Within LilyPond, these rules and bits of information are grouped in
+@emph{Contexts}.  Some examples of contexts are @context{Voice},
+@context{Staff}, and @context{Score}.  They are hierarchical, for
+example: a @context{Staff} can contain many @context{Voice}s, and a
+@context{Score} can contain many @context{Staff} contexts.
+
+@quotation
+@image{context-example,5cm,,}
+@end quotation
+
+Each context has the responsibility for enforcing some notation rules,
+creating some notation objects and maintaining the associated
+properties.  For example, the @context{Voice} context may introduce an
+accidental and then the @context{Staff} context maintains the rule to
+show or suppress the accidental for the remainder of the measure.  The
+synchronization of bar lines is handled at @context{Score} context.
+
+However, in some music we may not want the bar lines to be
+synchronized -- consider a polymetric score in 4/4 and 3/4 time.  In
+such cases, we must modify the default settings of the @context{Score}
+and @context{Staff} contexts.
+
+For very simple scores, contexts are created implicitly, and you need
+not be aware of them.  For larger pieces, such as anything with more
+than one staff, they must be
+created explicitly to make sure that you get as many staves as you
+need, and that they are in the correct order.  For typesetting pieces
+with specialized notation, it can be useful to modify existing or
+to define new contexts.
+
+
+A complete description of all available contexts is in the program
+reference, see
+@ifhtml
+@internalsref{Contexts}.
+@end ifhtml
+@ifnothtml
+Translation @arrow{} Context.
+@end ifnothtml
+
+@c [TODO: describe propagation]
+
 
 @node Creating contexts
 @subsection Creating contexts
 
-UNTRANSLATED NODE: IGNORE ME
+For scores with only one voice and one staff, contexts are
+created automatically.  For more complex scores, it is necessary to
+create them by hand.  There are three commands that do this.
+
+@itemize @bullet
+
+@item
+The easiest command is @code{\new}, and it also the quickest to type.
+It is prepended to a music expression, for example
+
+@funindex \new
+@cindex new contexts
+@cindex Context, creating
+
+@example
+\new @var{type} @var{music expression}
+@end example
+
+@noindent
+where @var{type} is a context name (like @code{Staff} or
+@code{Voice}).  This command creates a new context, and starts
+interpreting the @var{music expression} with that.
+
+A practical application of @code{\new} is a score with many
+staves.  Each part that should be on its own staff, is preceded with
+@code{\new Staff}.
+
+@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+<<
+  \new Staff { c4 c }
+  \new Staff { d4 d }
+>>
+@end lilypond
+
+The @code{\new} command may also give a name to the context,
+
+@example
+\new @var{type} = @var{id} @var{music}
+@end example
+However, this user specified name is only used if there is no other
+context already earlier with the same name.
+
+
+@funindex \context
+
+@item
+Like @code{\new}, the @code{\context} command also directs a music
+expression to a context object, but gives the context an explicit name.  The
+syntax is
+
+@example
+\context @var{type} = @var{id} @var{music}
+@end example
+
+This form will search for an existing context of type @var{type}
+called @var{id}.  If that context does not exist yet, a new
+context with the specified name is created.  This is useful if
+the context is referred to later on.  For example, when
+setting lyrics the melody is in a named context
+
+@example
+\context Voice = "@b{tenor}" @var{music}
+@end example
+
+@noindent
+so the texts can be properly aligned to its notes,
+
+@example
+\new Lyrics \lyricsto "@b{tenor}" @var{lyrics}
+@end example
+
+@noindent
+
+Another possible use of named contexts is funneling two different
+music expressions into one context.  In the following example,
+articulations and notes are entered separately,
+
+@example
+music = @{ c4 c4 @}
+arts = @{ s4-. s4-> @}
+@end example
+
+They are combined by sending both to the same @context{Voice} context,
+
+@example
+<<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end example
+@lilypond[quote,ragged-right]
+music = { c4 c4 }
+arts = { s4-. s4-> }
+\relative c'' <<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end lilypond
+
+With this mechanism, it is possible to define an Urtext (original
+edition), with the option to put several distinct articulations on the
+same notes.
+
+@cindex creating contexts
+
+@item
+The third command for creating contexts is
+@example
+\context @var{type} @var{music}
+@end example
+
+
+@noindent
+This is similar to @code{\context} with @code{= @var{id}}, but matches
+any context of type @var{type}, regardless of its given name.
+
+This variant is used with music expressions that can be interpreted at
+several levels.  For example, the @code{\applyOutput} command (see
+@ref{Running a function on all layout objects}).  Without an explicit
+@code{\context}, it is usually applied to @context{Voice}
+
+@example
+\applyOutput #'@var{context} #@var{function}   % apply to Voice
+@end example
+
+To have it interpreted at the @context{Score} or @context{Staff} level use
+these forms
+
+@example
+\applyOutput #'Score #@var{function}
+\applyOutput #'Staff #@var{function}
+@end example
+
+@end itemize
+
 
 @node Changing context properties on the fly
 @subsection Changing context properties on the fly
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex properties
+@funindex \set
+@cindex changing properties
+
+Each context can have different @emph{properties}, variables contained
+in that context.  They can be changed during the interpretation step.
+This is achieved by inserting the @code{\set} command in the music,
+
+@example
+\set @var{context}.@var{prop} = #@var{value}
+@end example
+
+For example,
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set Score.skipBars = ##t
+R1*2
+@end lilypond
+
+This command skips measures that have no notes.  The result is that
+multi-rests are condensed.  The value assigned is a Scheme object.  In
+this case, it is @code{#t}, the boolean True value.
+
+If the @var{context} argument is left out, then the current bottom-most
+context (typically @context{ChordNames}, @context{Voice}, or
+@context{Lyrics}) is used.  In this example,
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c8 c c c
+\set autoBeaming = ##f
+c8 c c c
+@end lilypond
+
+@noindent
+the @var{context} argument to @code{\set} is left out, so automatic
+beaming is switched off in the current @internalsref{Voice}.  Note that
+the bottom-most context does not always contain the property that you
+wish to change -- for example, attempting to set the @code{skipBars}
+property (of the bottom-most context, in this case @code{Voice}) will
+have no effect.
+
+@lilypond[quote,verbatim,relative=2,fragment]
+R1*2
+\set skipBars = ##t
+R1*2
+@end lilypond
+
+Contexts are hierarchical, so if a bigger context was specified, for
+example @context{Staff}, then the change would also apply to all
+@context{Voice}s in the current stave.  The change is applied
+@q{on-the-fly}, during the music, so that the setting only affects the
+second group of eighth notes.
+
+@funindex \unset
+
+There is also an @code{\unset} command,
+@example
+\unset @var{context}.@var{prop}
+@end example
+
+@noindent
+which removes the definition of @var{prop}.  This command removes
+the definition only if it is set in @var{context}, so
+
+@example
+\set Staff.autoBeaming = ##f
+@end example
+
+@noindent
+introduces a property setting at @code{Staff} level.  The setting also
+applies to the current @code{Voice}.  However,
+
+@example
+\unset Voice.autoBeaming
+@end example
+
+@noindent
+does not have any effect.  To cancel this setting, the @code{\unset}
+must be specified on the same level as the original @code{\set}.  In
+other words, undoing the effect of @code{Staff.autoBeaming = ##f}
+requires
+@example
+\unset Staff.autoBeaming
+@end example
+
+Like @code{\set}, the @var{context} argument does not have to be
+specified for a bottom context, so the two statements
+
+@example
+\set Voice.autoBeaming = ##t
+\set autoBeaming = ##t
+@end example
+
+@noindent
+are equivalent.
+
+
+@cindex \once
+Settings that should only apply to a single time-step can be entered
+with @code{\once}, for example in
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c4
+\once \set fontSize = #4.7
+c4
+c4
+@end lilypond
+
+the property @code{fontSize} is unset automatically after the second
+note.
+
+A full description of all available context properties is in the
+program reference, see
+@ifhtml
+@internalsref{Tunable context properties}.
+@end ifhtml
+@ifnothtml
+Translation @arrow{} Tunable context properties.
+@end ifnothtml
+
 
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
-UNTRANSLATED NODE: IGNORE ME
+Notation contexts (like @code{Score} and @code{Staff}) not only
+store properties,
+they also contain plug-ins called @q{engravers} that create notation
+elements.  For example, the @code{Voice} context contains a
+@code{Note_head_engraver} and the @code{Staff} context contains a
+@code{Key_signature_engraver}.
+
+For a full a description of each plug-in, see
+@ifhtml
+@internalsref{Engravers}.
+@end ifhtml
+@ifnothtml
+Program reference @arrow Translation @arrow{} Engravers.
+@end ifnothtml
+Every context described in
+@ifhtml
+@internalsref{Contexts}
+@end ifhtml
+@ifnothtml
+Program reference @arrow Translation @arrow{} Context.
+@end ifnothtml
+lists the engravers used for that context.
+
+
+It can be useful to shuffle around these plug-ins.  This is done by
+starting a new context with @code{\new} or @code{\context}, and
+modifying it,
+
+@funindex \with
+
+@example
+\new @var{context} \with @{
+  \consists @dots{}
+  \consists @dots{}
+  \remove @dots{}
+  \remove @dots{}
+  @emph{etc.}
+@}
+@{
+  @emph{..music..}
+@}
+@end example
+
+@noindent
+where the @dots{} should be the name of an engraver.  Here is a simple
+example which removes @code{Time_signature_engraver} and
+@code{Clef_engraver} from a @code{Staff} context,
+
+@lilypond[quote,relative=1,verbatim,fragment]
+<<
+  \new Staff {
+    f2 g
+  }
+  \new Staff \with {
+     \remove "Time_signature_engraver"
+     \remove "Clef_engraver"
+  } {
+    f2 g2
+  }
+>>
+@end lilypond
+
+In the second staff there are no time signature or clef symbols.  This
+is a rather crude method of making objects disappear since it will affect
+the entire staff.  This method also influences the spacing, which may or
+may not be desirable.  A more
+sophisticated method of blanking objects is shown in @ref{Common tweaks}.
+
+The next example shows a practical application.  Bar lines and time
+signatures are normally synchronized across the score.  This is done
+by the @code{Timing_translator} and @code{Default_bar_line_engraver}.
+This plug-in keeps an administration of time signature, location
+within the measure, etc.  By moving thes engraver from @code{Score} to
+@code{Staff} context, we can have a score where each staff has its own
+time signature.
+
+@cindex polymetric scores
+@cindex Time signatures, multiple
+
+@lilypond[quote,relative=1,ragged-right,verbatim,fragment]
+\new Score \with {
+  \remove "Timing_translator"
+  \remove "Default_bar_line_engraver"
+} <<
+  \new Staff \with {
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  } {
+      \time 3/4
+      c4 c c c c c
+  }
+  \new Staff \with {
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  } {
+       \time 2/4
+       c4 c c c c c
+  }
+>>
+@end lilypond
+
 
 @node Layout tunings within contexts
 @subsection Layout tunings within contexts
 
-UNTRANSLATED NODE: IGNORE ME
+Each context is responsible for creating certain types of graphical
+objects.  The settings used for printing these objects are also stored by
+context.  By changing these settings, the appearance of objects can be
+altered.
+
+The syntax for this is
+
+@example
+\override @var{context}.@var{name} #'@var{property} = #@var{value}
+@end example
+
+Here @var{name} is the name of a graphical object, like @code{Stem} or
+@code{NoteHead}, and @var{property} is an internal variable of the
+formatting system (@q{grob property} or @q{layout property}).  The latter is a
+symbol, so it must be quoted.  The subsection @ref{Constructing a
+tweak}, explains what to fill in for @var{name}, @var{property}, and
+@var{value}.  Here we only discuss the functionality of this command.
+
+The command
+
+@verbatim
+\override Staff.Stem #'thickness = #4.0
+@end verbatim
+
+@noindent
+makes stems thicker (the default is 1.3, with staff line thickness as a
+unit).  Since the command specifies @context{Staff} as context, it only
+applies to the current staff.  Other staves will keep their normal
+appearance.  Here we see the command in action:
+
+@lilypond[quote,verbatim,relative=2,fragment]
+c4
+\override Staff.Stem #'thickness = #4.0
+c4
+c4
+c4
+@end lilypond
+
+The @code{\override} command changes the definition of the @code{Stem}
+within the current @context{Staff}.  After the command is interpreted
+all stems are thickened.
+
+Analogous to @code{\set}, the @var{context} argument may be left out,
+causing the default context @context{Voice} to be used.  Adding
+@code{\once} applies the change during one timestep only.
+
+@lilypond[quote,fragment,verbatim,relative=2]
+c4
+\once \override Stem #'thickness = #4.0
+c4
+c4
+@end lilypond
+
+The @code{\override} must be done before the object is
+started.  Therefore, when altering @emph{Spanner} objects such as slurs
+or beams, the @code{\override} command must be executed at the moment
+when the object is created.  In this example,
+
+@lilypond[quote,fragment,verbatim,relative=2]
+\override Slur #'thickness = #3.0
+c8[( c
+\override Beam #'thickness = #0.6
+c8 c])
+@end lilypond
+
+@noindent
+the slur is fatter but the beam is not.  This is because the command for
+@code{Beam} comes after the Beam is started, so it has no effect.
+
+Analogous to @code{\unset}, the @code{\revert} command for a context
+undoes an @code{\override} command; like with @code{\unset}, it only
+affects settings that were made in the same context.  In other words, the
+@code{\revert} in the next example does not do anything.
+
+@example
+\override Voice.Stem #'thickness = #4.0
+\revert Staff.Stem #'thickness
+@end example
+
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands of the form
+
+@c leave this as a long long
+@example
+\override @var{context}.@var{name} #'@var{property} #'@var{subproperty} = #@var{value}
+@end example
+
+@noindent
+such as
+
+@example
+\override Stem #'details #'beamed-lengths = #'(4 4 3)
+@end example
+
+
+@seealso
+
+Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
+@internalsref{PropertySet}, @internalsref{Backend}, and
+@internalsref{All layout objects}.
+
+
+@refbugs
+
+The back-end is not very strict in type-checking object properties.
+Cyclic references in Scheme values for properties can cause hangs
+or crashes, or both.
+
 
 @node Changing context default settings
 @subsection Changing context default settings
 
-UNTRANSLATED NODE: IGNORE ME
+The adjustments of the previous subsections (@ref{Changing context
+properties on the fly}, @ref{Modifying context plug-ins}, and
+@ref{Layout tunings within contexts}) can also be entered separately
+from the music in the @code{\layout} block,
+
+@example
+\layout @{
+  @dots{}
+  \context @{
+    \Staff
+
+    \set fontSize = #-2
+    \override Stem #'thickness = #4.0
+    \remove "Time_signature_engraver"
+  @}
+@}
+@end example
+
+The @code{\Staff} command brings in the existing definition of the
+staff context so that it can be modified.
+
+The statements
+@example
+\set fontSize = #-2
+\override Stem #'thickness = #4.0
+\remove "Time_signature_engraver"
+@end example
+
+@noindent
+affect all staves in the score.  Other contexts can be modified
+analogously.
+
+The @code{\set} keyword is optional within the @code{\layout} block, so
+
+@example
+\context @{
+  @dots{}
+  fontSize = #-2
+@}
+@end example
+
+@noindent
+will also work.
+
+
+
+@refbugs
+
+It is not possible to collect context changes in a variable and apply
+them to a @code{\context} definition by referring to that variable.
+
+The @code{\RemoveEmptyStaffContext} will overwrite your current
+@code{\Staff} settings.  If you wish to change the defaults for a
+staff which uses @code{\RemoveEmptyStaffContext}, you must do so
+after calling @code{\RemoveemptyStaffContext}, ie
+
+@example
+\layout @{
+  \context @{
+    \RemoveEmptyStaffContext
+
+    \override Stem #'thickness = #4.0
+  @}
+@}
+@end example
+
 
 @node Defining new contexts
 @subsection Defining new contexts
 
-UNTRANSLATED NODE: IGNORE ME
+Specific contexts, like @context{Staff} and @code{Voice}, are made of
+simple building blocks.  It is possible to create new types of
+contexts with different combinations of engraver plug-ins.
+
+The next example shows how to build a different type of
+@context{Voice} context from scratch.  It will be similar to
+@code{Voice}, but only prints centered slash noteheads.  It can be used
+to indicate improvisation in jazz pieces,
+
+@lilypond[quote,ragged-right]
+\layout { \context {
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \alias Voice
+}
+\context { \Staff
+  \accepts "ImproVoice"
+}}
+
+\relative c'' {
+  a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
+   c4 c^"undress" c_"while playing :)" c }
+  a1
+}
+@end lilypond
+
+
+These settings are defined within a @code{\context} block inside a
+@code{\layout} block,
+
+@example
+\layout @{
+  \context @{
+    @dots{}
+  @}
+@}
+@end example
+
+In the following discussion, the example input shown should go in place
+of the @dots{} in the previous fragment.
+
+First it is necessary to define a name for the new context:
+
+@example
+\name ImproVoice
+@end example
+
+Since it is similar to the @context{Voice}, we want commands that work
+on (existing) @context{Voice}s to remain working.  This is achieved by
+giving the new context an alias @context{Voice},
+
+@example
+\alias Voice
+@end example
+
+The context will print notes and instructive texts, so we need to add
+the engravers which provide this functionality,
+
+@example
+\consists Note_heads_engraver
+\consists Text_engraver
+@end example
+
+but we only need this on the center line,
+
+@example
+\consists Pitch_squash_engraver
+squashedPosition = #0
+@end example
+
+The @internalsref{Pitch_squash_engraver} modifies note heads (created
+by @internalsref{Note_heads_engraver}) and sets their vertical
+position to the value of @code{squashedPosition}, in this case@tie{}@code{0},
+the center line.
+
+The notes look like a slash, and have no stem,
+
+@example
+\override NoteHead #'style = #'slash
+\override Stem #'transparent = ##t
+@end example
+
+All these plug-ins have to cooperate, and this is achieved with a
+special plug-in, which must be marked with the keyword @code{\type}.
+This should always be @internalsref{Engraver_group},
+
+@example
+\type "Engraver_group"
+@end example
+
+Put together, we get
+
+@example
+\context @{
+  \name ImproVoice
+  \type "Engraver_group"
+  \consists "Note_heads_engraver"
+  \consists "Text_engraver"
+  \consists Pitch_squash_engraver
+  squashedPosition = #0
+  \override NoteHead #'style = #'slash
+  \override Stem #'transparent = ##t
+  \alias Voice
+@}
+@end example
+
+@funindex \accepts
+Contexts form hierarchies.  We want to hang the @context{ImproVoice}
+under @context{Staff}, just like normal @code{Voice}s.  Therefore, we
+modify the @code{Staff} definition with the @code{\accepts}
+command,
+
+@example
+\context @{
+  \Staff
+  \accepts ImproVoice
+@}
+@end example
+
+@funindex \denies
+The opposite of @code{\accepts} is @code{\denies},
+which is sometimes needed when reusing existing context definitions.
+
+Putting both into a @code{\layout} block, like
+
+@example
+\layout @{
+  \context @{
+    \name ImproVoice
+    @dots{}
+  @}
+  \context @{
+    \Staff
+    \accepts "ImproVoice"
+  @}
+@}
+@end example
+
+Then the output at the start of this subsection can be entered as
+
+@example
+\relative c'' @{
+  a4 d8 bes8
+  \new ImproVoice @{
+    c4^"ad lib" c
+    c4 c^"undress"
+    c c_"while playing :)"
+  @}
+  a1
+@}
+@end example
+
 
 @node Aligning contexts
 @subsection Aligning contexts
 
-UNTRANSLATED NODE: IGNORE ME
+New contexts may be aligned above or below exisiting contexts.  This
+could be useful in setting up a vocal staff (@ref{Vocal ensembles}) and
+in ossia,
+
+@cindex ossia
+@findex alignAboveContext
+@findex alignBelowContext
+
+@lilypond[quote,ragged-right]
+ossia = { f4 f f f }
+\score{
+  \relative c' \new Staff = "main" {
+    c4 c c c
+    <<
+      \new Staff \with {alignAboveContext=main} \ossia
+      { d8 f d f d f d f }
+    >>
+  }
+}
+@end lilypond
+
 
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
-UNTRANSLATED NODE: IGNORE ME
+The VerticalAlignment and VerticalAxisGroup grobs work together.
+VerticalAxisGroup groups together different grobs like Staff, Lyrics,
+etc. VerticalAlignment then vertically aligns the different grobs
+grouped together by VerticalAxisGroup. There is usually only one
+VerticalAlignment per score but every Staff, Lyrics, etc. has its own
+VerticalAxisGroup. 
+
 
 @node The \override command
 @section The @code{\override} command
 
-UNTRANSLATED NODE: IGNORE ME
+In the previous section, we have already touched on a command that
+changes layout details: the @code{\override} command.  In this section,
+we will look in more detail at how to use the command in practice.  The
+general syntax of this command is:
 
-@menu 
-* Constructing a tweak::
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Objects connected to the input::
-* Using Scheme code instead of \tweak::
-* \set versus \override::
-* Difficult tweaks::
-@end menu 
+@example
+\override @var{context}.@var{layout_object} #'@var{layout_property} = #@var{value}
+@end example
+
+This will set the @var{layout_property} of the specified @var{layout_object},
+which is a member of the @var{context}, to the @var{value}.
+
+@menu
+* Constructing a tweak::        
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Objects connected to the input::  
+* Using Scheme code instead of \tweak::  
+* \set versus \override::       
+* Difficult tweaks::            
+@end menu
+
+
+
 @node Constructing a tweak
 @subsection Constructing a tweak
 
-UNTRANSLATED NODE: IGNORE ME
+Commands which change output generally look like
+
+@example
+\override Voice.Stem #'thickness = #3.0
+@end example
+
+@noindent
+To construct this tweak we must determine these bits of information:
+
+@itemize
+@item the context: here @context{Voice}.
+@item the layout object: here @code{Stem}.
+@item the layout property: here @code{thickness}.
+@item a sensible value: here @code{3.0}.
+@end itemize
+
+Some tweakable options are called @q{subproperties} and reside inside
+properties.  To tweak those, use commands in the form
+
+@example
+\override Stem #'details #'beamed-lengths = #'(4 4 3)
+@end example
+
+@cindex internal documentation
+@cindex finding graphical objects
+@cindex graphical object descriptions
+@cindex tweaking
+@funindex \override
+@cindex internal documentation
+
+For many properties, regardless of the data type of the property, setting the
+property to false ( @code{##f} ) will result in turning it off, causing
+Lilypond to ignore that property entirely.  This is particularly useful for
+turning off grob properties which may otherwise be causing problems.
+
+We demonstrate how to glean this information from the notation manual
+and the program reference.
+
+
+
 
 @node Navigating the program reference
 @subsection Navigating the program reference
 
-UNTRANSLATED NODE: IGNORE ME
+Suppose we want to move the fingering indication in the fragment
+below:
+
+@lilypond[quote,fragment,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+If you visit the documentation on fingering instructions (in
+@ref{Fingering instructions}), you will notice:
+
+@quotation
+@seealso
+
+Program reference: @internalsref{Fingering}.
+
+@end quotation
+
+
+@c  outdated info; probably will delete.
+@ignore
+This fragment points to two parts of the program reference: a page
+on @code{FingerEvent} and one on @code{Fingering}.
+
+The page on @code{FingerEvent} describes the properties of the music
+expression for the input @code{-2}.  The page contains many links
+forward.  For example, it says
+
+@quotation
+Accepted by: @internalsref{Fingering_engraver},
+@end quotation
+
+@noindent
+That link brings us to the documentation for the Engraver, the
+plug-in, which says
+
+@quotation
+This engraver creates the following layout objects: @internalsref{Fingering}.
+@end quotation
+
+In other words, once the @code{FingerEvent}s are interpreted, the
+@code{Fingering_engraver} plug-in will process them.
+@end ignore
+
+@ignore
+@c  I can't figure out what this is supposed to mean.  -gp
+
+The @code{Fingering_engraver} is also listed to create
+@internalsref{Fingering} objects,
+
+@c  old info?  it doesn't make any sense to me with our current docs.
+This is also the
+second bit of information listed under @b{See also} in the Notation
+manual.
+@end ignore
+
+@ifnothtml
+The programmer's reference is available as an HTML document.  It is
+highly recommended that you read it in HTML form, either online or
+by downloading the HTML documentation.  This section will be much more
+difficult to understand if you are using the 
+PDF manual.
+@end ifnothtml
+
+Follow the link to @internalsref{Fingering}.  At the top of the
+page, you will see
+
+@quotation
+Fingering objects are created by: @internalsref{Fingering_engraver} and
+@internalsref{New_fingering_engraver}.
+@end quotation
+
+By following related links inside the program reference, we can follow the
+flow of information within the program:
+
+@itemize @bullet
+
+@item @internalsref{Fingering}:
+@internalsref{Fingering} objects are created by:
+@internalsref{Fingering_engraver}
+
+@item @internalsref{Fingering_engraver}:
+Music types accepted: @internalsref{fingering-event}
+
+@item @internalsref{fingering-event}:
+Music event type @code{fingering-event} is in Music expressions named
+@internalsref{FingerEvent}
+@end itemize
+
+This path goes against the flow of information in the program: it
+starts from the output, and ends at the input event.  You could
+also start at an input event, and read with the flow of
+information, eventually ending up at the output object(s).
+
+The program reference can also be browsed like a normal document.  It
+contains chapters on
+@ifhtml
+@internalsref{Music definitions},
+@end ifhtml
+@ifnothtml
+@code{Music definitions}
+@end ifnothtml
+on @internalsref{Translation}, and the @internalsref{Backend}.  Every
+chapter lists all the definitions used and all properties that may be
+tuned.
+
 
 @node Layout interfaces
 @subsection Layout interfaces
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex interface, layout
+@cindex layout interface
+@cindex grob
+
+The HTML page that we found in the previous section describes the
+layout object called @internalsref{Fingering}.  Such an object is a
+symbol within the score.  It has properties that store numbers (like
+thicknesses and directions), but also pointers to related objects.  A
+layout object is also called a @emph{Grob}, which is short for Graphical
+Object.  For more details about Grobs, see @internalsref{grob-interface}.
+
+The page for @code{Fingering} lists the definitions for the
+@code{Fingering} object.  For example, the page says
+
+@quotation
+@code{padding} (dimension, in staff space):
+
+@code{0.5}
+@end quotation
+
+@noindent
+which means that the number will be kept at a distance of at least 0.5
+of the note head.
+
+
+Each layout object may have several functions as a notational or
+typographical element.  For example, the Fingering object
+has the following aspects
+
+@itemize @bullet
+@item
+Its size is independent of the horizontal spacing, unlike slurs or beams.
+
+@item
+It is a piece of text.  Granted, it is usually a very short text.
+
+@item
+That piece of text is typeset with a font, unlike slurs or beams.
+
+@item
+Horizontally, the center of the symbol should be aligned to the
+center of the notehead.
+
+@item
+Vertically, the symbol is placed next to the note and the staff.
+
+@item
+The vertical position is also coordinated with other superscript
+and subscript symbols.
+@end itemize
+
+Each of these aspects is captured in so-called @emph{interface}s,
+which are listed on the @internalsref{Fingering} page at the bottom
+
+@quotation
+This object supports the following interfaces:
+@internalsref{item-interface},
+@internalsref{self-alignment-interface},
+@internalsref{side-position-interface}, @internalsref{text-interface},
+@internalsref{text-script-interface}, @internalsref{font-interface},
+@internalsref{finger-interface}, and @internalsref{grob-interface}.
+@end quotation
+
+Clicking any of the links will take you to the page of the respective
+object interface.  Each interface has a number of properties.  Some of
+them are not user-serviceable (@q{Internal properties}), but others
+can be modified.
+
+We have been talking of @emph{the} @code{Fingering} object, but actually it
+does not amount to much.  The initialization file (see
+@ref{Default files})
+@file{scm/@/define@/-grobs@/.scm} shows the soul of the @q{object},
+
+@example
+(Fingering
+  . ((padding . 0.5)
+     (avoid-slur . around)
+     (slur-padding . 0.2)
+     (staff-padding . 0.5)
+     (self-alignment-X . 0)
+     (self-alignment-Y . 0)
+     (script-priority . 100)
+     (stencil . ,ly:text-interface::print)
+     (direction . ,ly:script-interface::calc-direction)
+     (font-encoding . fetaNumber)
+     (font-size . -5) 		; don't overlap when next to heads.
+     (meta . ((class . Item)
+     (interfaces . (finger-interface
+                    font-interface
+                    text-script-interface
+                    text-interface
+                    side-position-interface
+                    self-alignment-interface
+                    item-interface))))))
+@end example
+
+@noindent
+As you can see, the @code{Fingering} object is nothing more than a
+bunch of variable settings, and the webpage in the Program Reference
+is directly generated from this definition.
+
 
 @node Determining the grob property
 @subsection Determining the grob property
 
-UNTRANSLATED NODE: IGNORE ME
+Recall that we wanted to change the position of the @b{2} in
+
+@lilypond[quote,fragment,relative=2,verbatim]
+c-2
+\stemUp
+f
+@end lilypond
+
+Since the @b{2} is vertically positioned next to its note, we have to
+meddle with the interface associated with this positioning.  This is
+done using @code{side-position-interface}.  The page for this interface
+says
+
+@quotation
+@code{side-position-interface}
+
+Position a victim object (this one) next to other objects (the
+support).  The property @code{direction} signifies where to put the
+victim object relative to the support (left or right, up or down?)
+@end quotation
+
+@cindex padding
+@noindent
+Below this description, the variable @code{padding} is described as
+
+@quotation
+@table @code
+@item padding
+(dimension, in staff space)
+
+Add this much extra space between objects that are next to each other.
+@end table
+@end quotation
+
+By increasing the value of @code{padding}, we can move the
+fingering away from the notehead.  The following command inserts
+3 staff spaces of white
+between the note and the fingering:
+@example
+\once \override Voice.Fingering #'padding = #3
+@end example
+
+Inserting this command before the Fingering object is created,
+i.e., before @code{c2}, yields the following result:
+
+@lilypond[quote,relative=2,fragment,verbatim]
+\once \override Voice.Fingering #'padding = #3
+c-2
+\stemUp
+f
+@end lilypond
+
+
+In this case, the context for this tweak is @context{Voice}.  This
+fact can also be deduced from the program reference, for the page for
+the @internalsref{Fingering_engraver} plug-in says
+
+@quotation
+Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
+@end quotation
+
 
 @node Objects connected to the input
 @subsection Objects connected to the input
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \tweak
+
+In some cases, it is possible to take a short-cut for tuning graphical
+objects.  For objects that result directly from a piece of the input,
+you can use the @code{\tweak} function, for example
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \tweak #'color #red d
+  g
+  \tweak #'duration-log #1  a
+>4-\tweak #'padding #10 -.
+@end lilypond
+
+As you can see, properties are set in the objects directly,
+without mentioning the grob name or context where this should be
+applied.
+
+This technique only works for objects that are directly connected to
+an @internalsref{event} from the input, for example
+
+@itemize @bullet
+@item note heads, caused by chord-pitch (i.e., notes inside a chord)
+@item articulation signs, caused by articulation instructions
+@end itemize
+
+It notably does not work for stems and accidentals (these are caused
+by note heads, not by music events) or clefs (these are not caused by
+music inputs, but rather by the change of a property value).
+
+There are very few objects which are @emph{directly} connected to
+output.  A normal note (like @code{c4}) is not directly connected
+to output, so
+
+@example
+\tweak #'color #red c4
+@end example
+
+@noindent
+does not change color.  See @ref{Displaying music expressions}, for
+details.
+
 
 @node Using Scheme code instead of \tweak
 @subsection Using Scheme code instead of @code{\tweak}
 
-UNTRANSLATED NODE: IGNORE ME
+The main disadvantage of @code{\tweak} is its syntactical
+inflexibility.  For example, the following produces a syntax error.
+
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+With other words, @code{\tweak} doesn't behave like an articulation
+regarding the syntax; in particular, it can't be attached with
+@samp{^} and @samp{_}.
+
+Using Scheme, this problem can be circumvented.  The route to the
+result is given in @ref{Adding articulation to notes (example)},
+especially how to use @code{\displayMusic} as a helping guide.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+ 
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Here, the @code{tweaks} properties of the flageolet object
+@samp{m} (created with @code{make-music}) are extracted with
+@code{ly:music-property}, a new key-value pair to change the
+font size is prepended to the property list with the
+@code{acons} Scheme function, and the result is finally
+written back with @code{set!}.  The last element of the
+@code{let} block is the return value, @samp{m} itself.
+
 
 @node \set versus \override
 @subsection @code{\set} vs. @code{\override}
 
-UNTRANSLATED NODE: IGNORE ME
+We have seen two methods of changing properties: @code{\set} and
+@code{\override}.  There are actually two different kinds of
+properties.
+
+Contexts can have properties, which are usually named in
+@code{studlyCaps}.  They mostly control the translation from
+music to notatino, eg. @code{localKeySignature} (for determining
+whether to print accidentals), @code{measurePosition} (for
+determining when to print a barline).  Context properties can
+change value over time while interpreting a piece of music;
+@code{measurePosition} is an obvious example of
+this.  Context properties are modified with @code{\set}.
+
+There is a special type of context property: the element
+description. These properties are named in @code{StudlyCaps}
+(starting with capital letters).  They contain the
+@q{default settings} for said graphical object as an
+association list.  See @file{scm/@/define@/-grobs@/.scm}
+to see what kind of settings there are.  Element descriptions
+may be modified with @code{\override}.
+
+@code{\override} is actually a shorthand;
+
+@example
+\override @var{context}.@var{name} #'@var{property} = #@var{value}
+@end example
+
+@noindent
+is more or less equivalent to
+
+@c  leave this long line -gp
+@example
+\set @var{context}.@var{name} #'@var{property} = #(cons (cons '@var{property} @var{value}) <previous value of @var{context})
+@end example
+
+The value of @code{context} (the alist) is used to initalize
+the properties of individual grobs.  Grobs also have
+properties, named in Scheme style, with
+@code{dashed-words}.  The values of grob properties change
+during the formatting process: formatting basically amounts
+to computing properties using callback functions.
+
+@code{fontSize} is a special property: it is equivalent to
+entering @code{\override ... #'font-size} for all pertinent
+objects.  Since this is a common change, the special
+property (modified with @code{\set}) was created.
+
 
 @node Difficult tweaks
 @subsection Difficult tweaks
 
-UNTRANSLATED NODE: IGNORE ME
+There are a few classes of difficult adjustments.
+
+@itemize @bullet
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@item
+One type of difficult adjustment is the appearance of spanner objects,
+such as slur and tie.  Initially, only one of these objects is created,
+and they can be adjusted with the normal mechanism.  However, in some
+cases the spanners cross line breaks.  If this happens, these objects
+are cloned.  A separate object is created for every system that it is
+in.  These are clones of the original object and inherit all
+properties, including @code{\override}s.
+
+
+In other words, an @code{\override} always affects all pieces of a
+broken spanner.  To change only one part of a spanner at a line break,
+it is necessary to hook into the formatting process.  The
+@code{after-line-breaking} callback contains the Scheme procedure that
+is called after the line breaks have been determined, and layout
+objects have been split over different systems.
+
+In the following example, we define a procedure
+@code{my-callback}.  This procedure
+
+@itemize @bullet
+@item
+determines if we have been split across line breaks
+@item
+if yes, retrieves all the split objects
+@item
+checks if we are the last of the split objects
+@item
+if yes, it sets @code{extra-offset}.
+@end itemize
+
+This procedure is installed into @internalsref{Tie}, so the last part
+of the broken tie is translated up.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+  (let* (
+         ; have we been split?
+         (orig (ly:grob-original grob))
+
+         ; if yes, get the split pieces (our siblings)
+         (siblings (if (ly:grob? orig)
+                     (ly:spanner-broken-into orig) '() )))
+
+   (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+
+\relative c'' {
+  \override Tie #'after-line-breaking =
+  #my-callback
+  c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+@noindent
+When applying this trick, the new @code{after-line-breaking} callback
+should also call the old one @code{after-line-breaking}, if there is
+one.  For example, if using this with @code{Hairpin},
+@code{ly:hairpin::after-line-breaking} should also be called.
+
+
+@item Some objects cannot be changed with @code{\override} for
+technical reasons.  Examples of those are @code{NonMusicalPaperColumn}
+and @code{PaperColumn}.  They can be changed with the
+@code{\overrideProperty} function, which works similar to @code{\once
+\override}, but uses a different syntax.
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"  % Grob name
+#'line-break-system-details     % Property name
+#'((next-padding . 20))         % Value
+@end example
+
+Note, however, that @code{\override}, applied to
+@code{NoteMusicalPaperColumn} and @code{PaperColumn}, still works as
+expected within @code{\context} blocks.
+
+@end itemize
