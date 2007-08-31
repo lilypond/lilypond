@@ -860,8 +860,8 @@ one voice on the same staff.
 * Music expressions explained::  
 * Multiple staves::             
 * Piano staves::                
-* Single staff polyphony::      
 * Combining notes into chords::  
+* Single staff polyphony::      
 @end menu
 
 
@@ -1047,6 +1047,29 @@ See @ref{Piano music}.
 @end quotation
 
 
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@cindex chords
+Chords can be made by surrounding pitches with single angle brackets.  Angle
+brackets are the symbols @samp{<} and @samp{>}.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
+@end lilypond
+
+You can combine markings like beams and ties with chords.  They must
+be placed outside the angle brackets
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
+@end lilypond
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+@end lilypond
+
+
 @node Single staff polyphony
 @subsection Single staff polyphony
 
@@ -1102,29 +1125,6 @@ Again, these expressions can be nested arbitrarily.
 @quotation
 See @ref{Basic polyphony}.
 @end quotation
-
-
-@node Combining notes into chords
-@subsection Combining notes into chords
-
-@cindex chords
-Chords can be made by surrounding pitches with single angle brackets.  Angle
-brackets are the symbols @samp{<} and @samp{>}.
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-You can combine markings like beams and ties with chords.  They must
-be placed outside the angle brackets
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 
 @node Songs
