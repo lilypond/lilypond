@@ -10,7 +10,7 @@ collected here.
 
 \relative c'' {
       \time 5/4
-      \override Staff.Accidental #'glyph-name-alist = #alteration-default-glyph-name-alist
+      \override Staff.Accidental #'glyph-name-alist = #standard-alteration-glyph-name-alist
       cisis^\markup { \typewriter default } cis c ces ceses 
       \override Staff.Accidental #'glyph-name-alist = #alteration-hufnagel-glyph-name-alist
       cisis^\markup { \typewriter hufnagel } cis c ces ceses 

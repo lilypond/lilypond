@@ -2,31 +2,37 @@
 \version "2.11.23"
 
 \header { texidoc = "
-in XXth century music, where time signatures tend to change a lot, it
+In XXth century music, where time signatures tend to change a lot, it
 is sometimes recommended to put the time signatures on top of the score
 (or above each StaffGroup in case of an orchestral score). This can be
 achieved by creating a dummy staff which only contains the
-Time-signature-engraver). In this specific example, I've used a
-separate identifier to define every time signature change, which allows
-me to not bother entering them again when typing the actual music
-(careful though: it makes getting lost easier!).
+Time-signature-engraver). In this specific example, a separate
+identifier is used to define every time signature change, which allows
+not to bother entering them again when typing the actual music (careful
+though: it makes getting lost easier!).
+
+Notice the overriding of the X-offset property: a specific trick to
+make the time signatures aligned with the barlines, thanks to Han-Wen.
 " }
 
 \layout{
-  \context { 
-    \type "Engraver_group"
-    \consists "Time_signature_engraver"
-    \consists "Axis_group_engraver"
-    \name "TimeSig"
-    \override TimeSignature #'extra-offset = #'(-2.2 . 0.0 )
-    \override TimeSignature #'font-size = #3
-  }
+ \context {
+   \type "Engraver_group"
+   \consists "Time_signature_engraver"
+   \consists "Axis_group_engraver"
+   \name "TimeSig"
+   \override TimeSignature #'font-size = #3
+   \override TimeSignature #'break-align-symbol = ##f
+   \override TimeSignature #'X-offset
+   = #ly:self-alignment-interface::x-aligned-on-self
+   \override TimeSignature #'self-alignment-X = #0
+ }
   \context {
     \Score \accepts TimeSig
   }
 
   \context { \Staff
-    \override TimeSignature #'transparent = ##t
+    \remove "Time_signature_engraver"
   }
 }
 
