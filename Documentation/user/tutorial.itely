@@ -296,7 +296,7 @@ automatically.
 If you do not specify a duration, the previous duration is used
 for the next note.  The duration of the first note defaults to a quarter.
 
-To create @rglos{dotted notes}, add a dot @samp{.} to the duration number.
+To create @rglos{dotted note}s, add a dot @samp{.} to the duration number.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -696,7 +696,7 @@ see @ref{Phrasing slurs}.
 @cindex staccato
 @subheading Articulations
 
-Common @rglos{articulations} can be added to a note using a dash @samp{-}
+Common @rglos{articulation}s can be added to a note using a dash @samp{-}
 and a single character:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: cc4d776da798710d18d2dec631b2f02c1450442f
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -527,7 +527,7 @@ eine weitere Transposition:
 
 Programmreferenz: @internalsref{TransposedMusic}.
 
-Beispiel: @inputfileref{input/@/test,smart@/-transpose@/.ly}.
+Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
@@ -1723,7 +1723,7 @@ und 3 Achtel unterteilt. Das wird im dritten Argument an
 Programmreferenz: @internalsref{TimeSignature} und
 @internalsref{Timing_translator}.
 
-Beispiele: @inputfileref{input/@/test,compound@/-time@/.ly}.
+Beispiele: @lsr{contemporary,compound-time-signature.ly}.
 
 
 @refbugs
@@ -1982,7 +1982,7 @@ Die Definition der Taktlinien am Beginn jedes Systems werden mit
 den Befehlen @internalsref{SystemStartBar}, @internalsref{SystemStartBrace} 
 und @internalsref{SystemStartBracket} festgelegt. Nur einer dieser 
 drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
-die @internalsref{systemStartDelimiter}-Eigenschaft bestimmt.
+die @code{systemStartDelimiter}-Eigenschaft bestimmt.
 
 
 @commonprop
@@ -2016,8 +2016,8 @@ zeichnet diese Linien durch ein spezielles graphisches Objekt,
 
 Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
 Abstand der Linien verändert werden. Das wird gezeigt in den Beispieldateien 
-@inputfileref{input/@/test,staff@/-lines@/.ly} und
-@inputfileref{input/@/test,staff@/-size@/.ly}.
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
+@lsr{staff,changing-the-staff-size.ly}.
 
 Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
 geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
@@ -2049,10 +2049,7 @@ benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
 
 Programmreferenz: @internalsref{StaffSymbol}.
 
-Beispiele: @inputfileref{input/@/test,staff@/-lines@/.ly},
-@inputfileref{input/@/test@/,ossia.ly},
-@inputfileref{input/@/test,staff@/-size@/.ly},
-@lsr{staff,staff-line-positions.ly}
+Beispiele: @lsrdir{staff}
 
 
 @node Writing music in parallel
@@ -2215,7 +2212,7 @@ ein Tremolo an einen Akkord zu binden. Siehe das Beispiel:
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
 \grace { c16[~ e~ g]~ } <c, e g>2
-\repeat "tremolo" 8 { c32~ c'~ } <c c,>1
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
 e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
@@ -2446,12 +2443,14 @@ Manuell definierte Balken werden mit den Zeichen @code{[} und
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-Normalerweise werden die Balken innerhalb eines größeren Balkens 
-automatisch bestimmt. Wenn nötig, kann aber mit den Eigenschaften 
-@code{stemLeftBeamCount} und @code{stemRightBeamCount} ein anderes 
-Verhalten erreicht werden. Wenn eine der Eigenschaften gesetzt ist, 
+LilyPond kann die Balkengruppen innerhalb eines größeren Balkens
+selber bestimmen, aber dabei können teilweise seltsame Ergebnisse 
+entstehen. Mit den Eigenschaften @code{stemLeftBeamCount} und 
+@code{stemRightBeamCount} können diese Unterteilungen manuell
+eingestellt werden. Wenn eine dieser Eigenschaften gesetzt ist, 
 wird es nur einmal verwendet und dann wieder zum Standard zurück 
 geschaltet.
+
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
@@ -2492,17 +2491,18 @@ die Taktlinien erstrecken. Das kann aber durch Setzen von
 @funindex auto-knee-gap
 
 
-@refbugs
-
 Balken mit Hälsen nach oben und unten werden automatisch eingesetzt, 
 wenn ein großer Abstand zwischen Notenköpfen gefunden wird. Die Größe 
 des Wertes kann mit dem 
 @code{auto-knee-gap}-Objekt eingestellt werden.
 
+@refbugs
+
 Automatisch erstellte Balken zwischen Systemen können nicht zusammen 
 mit automatisch versteckten Systemen verwendet werden. Siehe auch
  @ref{Hiding staves}.
 
+@c Is this still true with skyline spacing stuff? -J.Mandereau
 Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 @node Grace notes
@@ -2541,6 +2541,8 @@ c4 \grace c16 c4
 @noindent
 Anders als @code{\acciaccatura} oder @code{\appoggiatura} setzt 
 der @code{\grace}-Befehl keinen Bogen.
+
+@cindex Zeitberechnung, intern
 
 Programmintern wird die Zeitberechnung für Verzierungen in einer 
 zweiten Zählebene vorgenommen. Jeder Zeitpunkt beinhaltet zwei 
@@ -2614,10 +2616,10 @@ Der gleiche Effekt kann auch manuell erreicht werden:
 Indem die Dauer der unsichtbaren Note (hier eine Halbe) wird der 
 Abstand zwischen Hauptnote und Verzierung angepasst.
 
-Ein @code{\grace}-Abschnitt wird nach besonderen Satzregeln 
+Ein @code{\grace}-Notenabschnitt wird nach besonderen Satzregeln 
 gesetzt, um z. B. kleinere Noten zu benutzen und die Richtung der 
 Hälse einzustellen. Veränderungen am Layout müssen also innerhalb 
-der Verzierung gesetzt werden, damit sie auch eine Auswirkung haben.
+des Verzierungsausdrucks gesetzt werden, damit sie auch eine Auswirkung haben.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2634,10 +2636,10 @@ der Verzierung gesetzt werden, damit sie auch eine Auswirkung haben.
 Diese Einstellungen müssen auch innerhalb der Verzierungsebene wieder 
 rückgängig gemacht werden.
 
-Das Layout der Verzierungsabschnitte kann mit der Funktion 
+Das Layout der Verzierungsausdrücke kann mit der Funktion 
  @code{add-grace-property} verändert werden. Im folgenden Beispiel 
 wird die Richtung der Notenhälse neutralisiert, so dass sie nicht 
-unbedingt in die gleiche Richtung zeigen.
+unbedingt in nach oben zeigen.
 
 @example
 \new Staff @{
@@ -2690,7 +2692,7 @@ Programmreferenz: @internalsref{GraceMusic}.
 
 @refbugs
 
-Eine Partitur, die mit einem @code{\grace}-Abschnitt beginnt, benötigt 
+Eine Partitur, die mit einem @code{\grace}-Ausdruck beginnt, benötigt 
 eine explizit gesetzte neue Stimme (@code{\new Voice}), sonst werden 
 Hauptnote und Verzierung auf verschiedenen Systemen gesetzt.
 
@@ -2709,9 +2711,10 @@ Dem kann abgeholfen werden, indem unsichtbare Verzierungsnoten der selben
 Länge in die anderen Systeme gesetzt werden. Im obigen Beispiel müsste 
 also 
 
-@example
-\new Staff @{ c4 \bar "|:" \grace s16 d4 @}
-@end example
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+@end lilypond
 
 @noindent gesetzt werden.
 
@@ -3230,6 +3233,8 @@ Klaviersystem die Eigenschaft
 >>
 @end lilypond
 
+@c TODO: cross-voice arpeggio example?
+@c such an example is already in LSR -J.Mandereau
 
 @refcommands
 
@@ -3292,7 +3297,6 @@ ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
 @subsection Repeat types
 
 @cindex Wiederholungen
-@funindex \repeat
 
 Die folgenden Wiederholungsarten sind unterstützt:
 
@@ -3330,6 +3334,8 @@ berücksichtigt. Diese Wiederholungen müssen innerhalb eines Stimmen
 @cindex Volta
 @cindex Prima volta
 @cindex Seconda volta
+@cindex Zweite Klammer
+@funindex \repeat
 
 LilyPond besitzt eine einzige Syntax für alle unterschiedlichen 
 Wiederholungstypen. Sie lautet:
@@ -3381,6 +3387,18 @@ Wiederholungen können mit Auftakten kombiniert werden.
 }
 @end lilypond
 
+@noindent
+or
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
 @funindex \repeatTie
 
 Bindebögen können auch an eine zweite Klammer angefügt werden.
@@ -3401,20 +3419,32 @@ einen 3/4-Takt lang.
   \time 3/4
   c c c
   \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
-  \repeat "volta" 5 { d d d }
+  \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
 }
 @end lilypond
 
+Wenn eine Wiederholung am Anfang einer neuen Zeile beginnen soll 
+und eine Doppellinie am Ende der vorhergehenden Zeile stehen soll, 
+muss
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+
+@noindent benutzt werden. Siehe 
+ @ref{Bar lines} for more information.
 
 @seealso
 
 Beispiele:
 
 Klammern für die Wiederholung werden normalerweise nur über dem obersten 
-System ausgegeben. Das kann verändert werden, indem die Eigenschaft 
-@code{voltaOnThisStaff} aktiviert wird. Vgl.
+System ausgegeben. Das kann verändert werden, indem 
+ @code{Volta_engraver} in den @code{Staff}-Kontext gesetzt wird,
+über dem diese Klammern erscheinen sollen. Vgl.
+@ref{Modifying context plug-ins} und
 
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
@@ -3545,9 +3575,9 @@ Wiederholungstyp @code{tremolo} benutzt werden.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
-  \repeat "tremolo" 8 { c16 d16 }
-  \repeat "tremolo" 4 { c16 d16 }
-  \repeat "tremolo" 2 { c16 d16 }
+  \repeat tremolo 8 { c16 d16 }
+  \repeat tremolo 4 { c16 d16 }
+  \repeat tremolo 2 { c16 d16 }
 }
 @end lilypond
 
@@ -3555,7 +3585,7 @@ Tremolozeichen können auch einer einzelnen Noten hinzugefügt werden. In
 diesem Fall darf die Note nicht von Klammern eingefasst sein.
 
 @lilypond[quote,verbatim,ragged-right]
-\repeat "tremolo" 4 c'16
+\repeat tremolo 4 c'16
 @end lilypond
 
 Ähnliche Darstellung wird erreicht durch eine innere Tremolountereilung, 
@@ -3616,8 +3646,8 @@ Dieser Wiederholungstyp muss innerhalb eines Stimmen
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
-  \repeat "percent" 4 { c4 }
-  \repeat "percent" 2 { c2 es2 f4 fis4 g4 c4 }
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 es2 f4 fis4 g4 c4 }
 }
 @end lilypond
 

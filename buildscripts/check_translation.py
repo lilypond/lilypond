@@ -23,7 +23,11 @@ def check_file (original, translated):
     s = open (translated).read ()
     m = REVISION_RE.match (s)
     if not m:
-        raise translated + ': no GIT committish: <hash> found'
+        sys.stderr.write ('error: ' + translated + \
+                          ": no 'GIT committish: <hash>' found.\nPlease check " + \
+                          'the whole file against the original in English, then ' + \
+                          'fill in HEAD committish in the header.\n')
+        sys.exit (1)
     revision = m.group (1)
 
     c = CVS_DIFF % vars ()

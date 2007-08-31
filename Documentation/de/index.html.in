@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,7 +10,7 @@
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
     <meta name="aesop" content="links">
     <meta name="description"
-          content="Top-level index to the standard documentation for
+          content="Allgemeiner Index der Standard-Dokumentation f&uuml;r
                    LilyPond @TOPLEVEL_VERSION@">
     <style type="text/css">
     .navigation         { background-color: #e8ffe8;
@@ -51,18 +51,24 @@
 	    <a class="title" href="user/lilypond/Tutorial.html">&Uuml;bung</a>
 	      <br>(F&uuml;r einen ersten Anfang)
 
-	  </ul>
+ 
+ <li><a class="title" href="user/music-glossary/index.html">Glossar</a>
+ (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb,
+ als <a class="title" href="user/music-glossary.pdf">PDF</a>)
+ 
+      <br>(&Uuml;bersetzung von musikalischen Begriffen vom Englischen in andere Sprachen)
+        </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
-	  
             <li>
-	    <a class="title" href="topdocs/NEWS.html">Neuigkeiten</a>
- 	    <br>(&Auml;nderungen seit der letzten Hauptversion auf Englisch)
-
-            <li>
-	    <a class="title" href="topdocs/INSTALL.html">Installation</a>
- 	    <br>(Hinweise zum Kompilieren)
+            <a class="title" href="user/lilypond-program/index.html">Programmbenutzung</a>
+ (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
+ als <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+            <br>(Wie das Programm installiert und gestartet wird.)
+          
+ <li><a class="title" href="../examples.html">Beispiele</a>
+      <br>(Sehen Sie sich Notationsbeispiele an.)
 	  </ul>
 	  </td>
         </tr>
@@ -72,49 +78,50 @@
 	  <ul>
 	    <li>
 <a class="title" href="user/lilypond/index.html">Benutzerhandbuch</a>
-(auch auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a>, ca. 4&thinsp;Mb, oder
-als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
+ (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 Mb,
+ als <a class="title" href="user/lilypond.pdf">PDF</a>)
+      <br>(Notation mit LilyPond setzen.)
 
-     <br>(Alles &uuml;ber LilyPond)
-     
-<li><a class="title" href="../examples.html">Beispiele</a>
-
-     <br>(Sehen Sie sich Notationsbeispiele an)
-
-<li><a class="title" href="../input/lsr/collated-files.html">Schnipsel</a>
-     <br>
-
- <li><a class="title" href="user/music-glossary/index.html">Glossar</a>
-(auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a>, ca. 1&thinsp;Mb, oder
-als <a class="title" href="user/music-glossary.pdf">PDF</a>)
-
-     <br>(&Uuml;bersetzung von musikalischen Begriffen vom Englischen in andere Sprachen)
-	  </ul>
+        <li>
+  <a  class="title" href="user/lilypond-internals/index.html">Programmreferenz</a>
+  (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb)
+      <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen.)
+         
+   </ul>
 	  </td>
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-	    <li>
- <a  class="title" href="user/lilypond-internals/index.html">Programmreferenz</a>
- (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a>, ca. 1&thinsp;Mb)
+             <li>
+            <a class="title" href="topdocs/NEWS.html">Neuigkeiten</a>
+            <br>(&Auml;nderungen seit der letzten Hauptversion auf Englisch.)
 
-     <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen)
-
-	    <li>
-     <a  class="title" href="../input/regression/collated-files.html">Regressionsteste</a> (~ 5&thinsp;Mb, als <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>, <a href="../test-results.html">Vergleich</a>)
-
-     <br>(f&uuml;r Entwickler)
-
-
-	    <li><a  class="title" href="bibliography/index.html">Bibliographie</a>
-
-     <br>(f&uuml;r weiterf&uuml;hrende Information)
-<li><a class="title"  href="THANKS.html">Danksagungen</a>
-<br>(an die Mitwirkenden)
-
-<li><a class="title"  href="DEDICATION.html">Widmung</a>
-
-     <br>(von Jan und Han-Wen)
+ <li><a class="title" href="../input/lsr/collated-files.html">Schnipsel</a>
+      <br>(Schnelle Tricks, Tipps und Beispiele.)
+ 
+        </ul>
+ 
+     </td><tr>
+         <tr>
+           <td valign="baseline" class="left-column">
+           &nbsp;
+        <ul>
+            <li><a class="title" href="bibliography/index.html">Bibliographie</a>
+      <br>(Weiterführende Information und Literatur &uuml;ber Notation.)
+ 
+     <li>
+      <a class="title" href="../input/regression/collated-files.html">Regressionsteste</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
+      <br>(Für Entwickler.)
+ 
+        </ul>
+     </td><td class="right-column">
+           &nbsp;
+     <ul>
+         <li><a class="title"  href="THANKS.html">Danksagungen</a>
+         <br>(an die Mitwirkenden).
+ 
+         <li><a class="title"  href="DEDICATION.html">Widmung</a>
+         <br>(von Jan und Han-Wen)
 
 	  </ul>
 	  </td>
@@ -124,7 +131,7 @@ als <a class="title" href="user/music-glossary.pdf">PDF</a>)
           &nbsp;
           <ul>
             <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(Der Internetauftritt)
+              <br>(Der Internetauftritt.)
           </ul>
           </td>
           <td valign="baseline" class="right-column">

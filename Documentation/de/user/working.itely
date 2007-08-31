@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: fc6469f52dc27d4b5c22067367878a5c2ff5fb45
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -34,7 +34,7 @@ nicht
 nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
 Aber wie geht man das am besten an?
 
-Solange LilyPond Ihre Dateien versteht und die Noten so setzen, 
+Solange LilyPond Ihre Dateien versteht und die Noten so setzt, 
 wie Sie das wollen, spielt es eigentlich keine Rolle, wie Ihre 
 Dateien aussehen. Es gibt aber trotzdem ein paar Dinge, die man 
 beim Schreiben von LilyPond-Code berücksichtigen sollte.
@@ -44,8 +44,8 @@ beim Schreiben von LilyPond-Code berücksichtigen sollte.
 LilyPond-Datei kann es erleichtern (oder erschweren), bestimmte 
 Fehler zu finden.
 
-@item Was ist, wenn Sie ihre Dateien mit jemandem austauschen 
-wollen? Oder ihre Dateien nach einige Jahren noch einmal überarbeiten 
+@item Was ist, wenn Sie Ihre Dateien mit jemandem austauschen 
+wollen? Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten 
 wollen? Manche LilyPond-Dateien vesteht man auf den ersten Blick, 
 über anderen muss man eine Stunde grübeln, um die Struktur zu ahnen.
 
@@ -67,13 +67,13 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 @node General suggestions
 @subsection General suggestions
 
-Hier einige Vorschläge wie Sie Probleme vermeiden oder lösen können:
+Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 
 @itemize @bullet
 @item @strong{Schreiben Sie immer mit @code{\version} die 
 Versionsnummer 
 in jede Datei}. Beachten Sie, dass in allen Vorlagen die Versionsnummer  
-@code{\version "2.11.15"} eingetragen ist. Es empfielt sich, in alle 
+@code{\version "2.11.23"} eingetragen ist. Es empfielt sich, in alle 
 Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl 
 einzufügen. Persönliche Erfahrung hat gezeigt, dass es ziemlich 
 frustrierend sein kann zu erinnern, welche Programmversion man etwa 
@@ -104,7 +104,7 @@ notieren, aber spätestens wenn Sie nach ein paar Jahren etwas
 verändern 
 wollen oder Sie den Quelltext an einen Freund weitergeben wollen, 
 ist es weitaus komplizierter, die Dateistruktur ohne Kommentare zu 
-verstehen als wenn Sie sie rechtzeitig eingefügt hätten.
+verstehen, als wenn Sie sie rechtzeitig eingefügt hätten.
 
 @item @strong{Schreiben Sie Klammern mit Einrückung}.  Viele 
 Probleme entstehen durch ungerade Anzahl von  @code{@{} and 
@@ -139,7 +139,7 @@ Sie jedes System, nachdem Sie es fertig kopiert haben. Mit dem
 beschleunigen. Siehe auch 
 @ref{Skipping corrected music}.
 
-@item Definieren Sie @code{mBreak = @{ \break @}} schreiben Sie
+@item Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
  @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript 
 ein Zeilenumbruch vorkommt. Das macht es einfacher, die gesetzte 
 Zeile mit den ursprünglichen Noten zu vergleichen. Wenn Sie die 
@@ -154,13 +154,13 @@ Zeilenumbrüche plaziert.
 @node Large projects
 @subsection Large projects
 
-Besonders wenn sie an größeren Projekten arbeiten, ist es 
+Besonders wenn Sie an größeren Projekten arbeiten, ist es 
 unumgänglich, dass Sie ihre LilyPond-Dateien klar strukturieren.
 
 @itemize @bullet
 
 @item @strong{Verwenden Sie Variablen für jede Stimme}, innerhalb 
-der Definition sollte sowenig Struktur wie möglich sein. Die 
+der Definition sollte so wenig Struktur wie möglich sein. Die 
 Struktur des @code{\score}-Abschnittes verändert sich am ehesten, 
 während die @code{violin}-Definition sich wahrscheinlich mit einer 
 neuen Programmversion nicht verändern wird.
@@ -180,7 +180,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Trennen Sie Einstellungen von den Noten}.  Diese 
-Empfehlung wurde schon im Kapitel @ref{General suggestions} gegeben, 
+Empfehlung wurde schon im Abschnitt @ref{General suggestions} gegeben, 
 aber für große Projekte ist es unumgänglich. Muss z. B. die 
 Definition für @code{fdannp} verändert werden, so braucht 
 man es nur einmal vorzunehmen und die Noten in der Geigenstimme, 
@@ -253,7 +253,7 @@ violin = \relative c'' {
 Die Variablen haben in diesem Beispiel deutlich die 
 Tipparbeit erleichtert. Aber es lohnt sich, sie zu 
 einzusetzen, auch wenn man sie nur einmal anwendet, 
-denn Sie vereinfachen die Struktur. 
+denn sie vereinfachen die Struktur. 
 Hier ist das vorangegangene Beispiel ohne 
 Variablen. Es ist sehr viel komplizierter zu lesen, 
 besonders die letzte Zeile. 
@@ -273,7 +273,7 @@ violin = \relative c'' @{
 Bis jetzt wurde nur statische Substitution vorgestellt 
 -- wenn LilyPond den Befehl @code{\padText} findet, wird 
 er ersetzt durch durch unsere vorherige Definition (alles, 
-was nach dem @code{padtext=} kommt).
+was nach dem @code{padtext =} kommt).
 
 LilyPond kennt aber auch nicht-statische Substitutionen (man 
 kann sie sich als Funktionen vorstellen).
@@ -294,7 +294,7 @@ padText =
 }
 @end lilypond
 
-Die Benutzung von Variablen hilft auch viele Schreibarbeit zu 
+Die Benutzung von Variablen hilft auch, viele Schreibarbeit zu 
 vermeiden, wenn die Eingabesyntax von LilyPond sich verändert 
 (siehe auch @ref{Updating old files}). Wenn nur eine einzige 
 Definition (etwa @code{\dolce}) für alle Dateien verwendet wird 
@@ -338,7 +338,7 @@ werden beseitigt mit den Tricks aus dem Kapitel @ref{Moving objects}.
 Aber auch die @code{mpdolce} und @code{tempoMark}-Defintiionen 
 können verbessert werden. Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
-verwenden zu könen. Man könnte sie natürlich einfach kopieren 
+verwenden zu können. Man könnte sie natürlich einfach kopieren 
 und in die anderen Dateien einfügen, aber das ist lästig. Die 
 Defintionen verbleiben auch in der Notendatei und diese @code{#()} 
 sehen nicht wirklich schön aus. Sie sollen in einer anderen 
@@ -393,7 +393,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 }
 @end lilypond
 
-Das sieht schon besser, aber es sind noch einige Verbesserungen 
+Das sieht schon besser aus, aber es sind noch einige Verbesserungen 
 möglich. 
 Das Glissando ist schwer zu sehen, also soll es etwas dicker erscheinen 
 und dichter an den Notenköpfen gesetzt werden. Das Metronom-Zeichen 
@@ -464,12 +464,12 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 }
 @end lilypond
 
-Das sieht schon besser aus! Aber angenommen ich möchte dieses 
-Stück jetzt veröffentlichen. Mein Kompositionsprofessor mag 
-die @qq{C}-Taktangaben nicht, aber ich finde sie irgendwie 
-schöner. Also kopiere ich die Datei @file{definitions.ly} nach 
-@file{web-publish.ly} und verändere diese. Weil die Noten 
-in einem Pdf auf dem Bilschirm angezeigt werden sollen, 
+Das sieht schon besser aus! Aber angenommen Sie möchten dieses 
+Stück jetzt veröffentlichen. Ihr Kompositionsprofessor mag 
+die @qq{C}-Taktangaben nicht, aber Sie finden sie irgendwie 
+schöner. Also kopieren Sie die Datei @file{definitions.ly} nach 
+@file{web-publish.ly} und veränderen diese. Weil die Noten 
+in einer PDF-Datei auf dem Bilschirm angezeigt werden sollen, 
 bietet es sich auch an, die gesamte Ausgabe zu vergrößern.
 
 @example
@@ -556,7 +556,7 @@ für meine Projekte. Jede Notationsdatei fängt an mit
 
 @example
 %%%   global.ly
-\version "2.11.15"
+\version "2.11.23"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"
@@ -599,13 +599,13 @@ verändern, das muss manuell vorgenommen werden.
 @section Troubleshooting (taking it all apart)
 
 Früher oder später werden Sie in die Lage kommen, 
-dass LilyPond ihre Datei nicht kompilieren will. Die 
+dass LilyPond Ihre Datei nicht kompilieren will. Die 
 Information, die LilyPond während der Übersetzung 
 gibt, können Ihnen helfen, den Fehler zu finden, aber 
 in vielen Fällen müssen Sie nach der Fehlerquelle 
 auf die Suche gehen.
 
-Die besten Hilfmittel sin din diesem Fall das Zeilen- 
+Die besten Hilfmittel sind in diesem Fall das Zeilen- 
 und Blockkommentar (angezeigt durch @code{%} bzw. 
 @code{%@{ ... %@}}). Wenn Sie nicht bestimmen können, 
 wo sich das Problem befindet, beginnen Sie damit, große 
@@ -616,7 +616,7 @@ sich das Problem innerhalb der Kommentare befinden.
 Wenn es nicht funktioniert, müssen Sie weitere Teile 
 auskommentieren bis sie eine Version haben, die funktioniert.
 
-In Extremfällen bleibt nur noch solch ein Beispiel übrig,
+In Extremfällen bleibt nur noch solch ein Beispiel übrig:
 
 @example
 \score @{
@@ -633,9 +633,9 @@ In Extremfällen bleibt nur noch solch ein Beispiel übrig,
 (also eine Datei ohne Noten).
 
 Geben Sie nicht auf, wenn das vorkommen sollte. Nehmen 
-Sie das Kommentarzeichen on einem Teil wieder weg, sagen 
-wir der Bassstimme und schauen Sie, ob es funktioniert. 
-Wenn nicht, dann kommentieren sie die gesamte Bassstimme 
+Sie das Kommentarzeichen von einem Teil wieder weg, sagen 
+wir der Bassstimme, und schauen Sie, ob es funktioniert. 
+Wenn nicht, dann kommentieren Sie die gesamte Bassstimme 
 aus, aber nicht den @code{\bass}-Befehl in dem 
  @code{\score}-Abschnitt:
 
@@ -672,7 +672,7 @@ werden benutzt, um
 Schnipselsammlung}hinzuzufügen.
 @end itemize
 
-Um ein Beispiel zu konstruieren, dass so klein wie möglich ist, 
+Um ein Beispiel zu konstruieren, das so klein wie möglich ist, 
 gibt es eine einfache Regel: Alles nicht Notwendige entfernen. 
 Wenn Sie unnötige Teile einer Datei entfernen, bietet es sich an, 
 sie auszukommentieren und nicht gleich zu löschen. Auf diese Weise 
@@ -683,17 +683,17 @@ Es gibt zwei Ausnahmen dieser @qq{So klein wie möglich}-Regel:
 
 @itemize
 @item Fügen Sie immer einen @code{\version}Befehl ein.
-@item Wenn es möglich ist, benutzen Sie @code{\paper@{ ragged-right=##t @}}
+@item Wenn es möglich ist, benutzen Sie @code{\paper@{ ragged-right = ##t @}}
 am Beginn des Beispiels.
 @end itemize
 
-Der Sinn der Minimalbeispiel ist, dass sie einfach lesbar sind:
+Der Sinn der Minimalbeispiele ist, dass sie einfach lesbar sind:
 
 @itemize
 @item Vermeiden Sie es, komplizierte Noten, Schlüssel oder Taktangaben 
 zu verwenden, es sei denn, Sie wollen genau an diesen Elementen 
 etwas demonstrieren.
-@item Benutzen Sie keine @code{\override}-Befehle, wenn Sie nicht der 
+@item Benutzen Sie keine @code{\override}-Befehle, wenn sie nicht der 
 Zweck des Beispieles sind.
 @end itemize
 

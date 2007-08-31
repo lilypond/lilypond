@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-01 14:38+0200\n"
+"POT-Creation-Date: 2007-08-02 13:38+0200\n"
 "PO-Revision-Date: 2007-03-28 10:29+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: spanish <es@li.org>\n"
@@ -151,18 +151,16 @@ msgstr "Ejecutar LilyPond"
 #. @subsubsection in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Compiling"
-msgstr "Improvisación"
+msgstr "Compilar un archivo"
 
 #. @subsubsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Compiling for multiple platforms"
-msgstr "Conversión desde otros formatos"
+msgstr ""
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Building documentation without compiling LilyPond"
-msgstr "Construcción de funciones complejas"
+msgstr ""
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely

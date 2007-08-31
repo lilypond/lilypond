@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+   Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -167,7 +167,7 @@ utilisez la commande @qq{New} du menu @qq{File}.
 
 En double-cliquant sur le fichier, vous obtiendrez, en plus du fichier
 PDF, un fichier @file{.log} qui récapitule les opérations que LilyPond
-a effectuées sur votre fichier.  Si une erreur advient, c'est ce
+a effectuées sur votre fichier.  Si une erreur survient, c'est ce
 fichier qu'il vous faudra étudier.
 
 Notez qu'il existe d'autres éditeurs de texte, certains disposant d'un
@@ -268,7 +268,7 @@ celle qui la précède est supposé inférieur ou égal à une
 La note de départ est @rglos{middle C}.  Chacune des notes qui suivent
 est à moins d'une quarte de la note précédente --- en d'autres termes,
 le premier @samp{c} est le do central, entre la clé de sol et
-la clé de sa, puis est suivi par le ré le plus proche, et ainsi de
+la clé de fa, puis est suivi par le ré le plus proche, et ainsi de
 suite.  On peut bien sûr créer des mélodies d'intervalles plus étendus :
 
 @lilypond[quote,ragged-right,verbatim]
@@ -324,7 +324,7 @@ Si aucune durée n'est indiquée, la dernière durée entrée sera utilisée
 pour les notes suivantes.  En l'absence d'indication, la première note
 est une noire.
 
-Les @rglos{dotted notes} s'obtiennent en ajoutant un point @samp{.}  à
+Une @rglos{dotted note} s'obtient en ajoutant un point @samp{.}  à
 la valeur rythmique.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -350,7 +350,7 @@ caractère @samp{r}.
 
 @subheading Time signature
 
-Le @rglos{time signature} peut être défini à l'aide de la commande
+La @rglos{time signature} peut être définie à l'aide de la commande
 @code{\time} :
 
 @lilypond[quote,ragged-right,verbatim]
@@ -553,7 +553,7 @@ hauteur de chaque note en fonction de la précédente@footnote{Il existe
 un autre mode de saisie des hauteurs, le mode @ref{Absolute note
 names}, mais en pratique il est bien plus aisé et sûr d'avoir recours
 au mode de hauteurs relatives.}.  Si aucune indication supplémentaire
-d'octaviation n'est ajoutée, il en conlcuera que chaque hauteur est
+d'octaviation n'est ajoutée, il en concluera que chaque hauteur est
 située à une quarte au plus de la note précédente.
 
 Lilypond tient compte des intervalles induits par les noms des notes
@@ -652,7 +652,7 @@ d cis fis
 @end lilypond
 
 @noindent
-Aucune note n'a ici d'altération accidentelle, et pourtant vous devrez
+aucune note n'a d'altération accidentelle, et pourtant vous devrez
 entrer le @samp{is} pour les notes @code{cis} et @code{fis}.
 
 Le code @samp{d} ne veut pas dire @qq{Imprimez-moi un point noir juste
@@ -708,7 +708,7 @@ c4 ~ c8 a8 ~ a2
 @c car c'est celui qui me semble le plus couramment employé.
 
 Une @rglos{slur} d'articulation (ou @qq{legato}) peut englober
-plusieurs notes.  La note de départ et d'arrivée reçoivent
+plusieurs notes.  Les notes de départ et d'arrivée reçoivent
 respectivement un signe @samp{(} et @samp{)}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -759,7 +759,7 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @cindex staccato
 @subheading Articulations
 
-Des @rglos{articulations} peuvent être ajoutées à une note, au moyen
+Des @rglos{articulation}s peuvent être ajoutées à une note, au moyen
 d'un tiret @samp{-} suivi d'un caractère :
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -823,7 +823,7 @@ c2\< c2\ff\> c2 c2\!
 @subsection Automatic and manual beams
 
 @cindex ligatures manuelles
-Toutes les @rglos{beam}s sont dessinées automatiquement :
+Toutes les @rglos{beam} sont dessinées automatiquement :
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 a8 ais d ees r d c16 b a8
@@ -831,7 +831,7 @@ a8 ais d ees r d c16 b a8
 
 @noindent
 Lorsqu'on n'aime pas la manière dont les notes sont automatiquement
-groupées, il est possible de les entrer à la main, en marquant la
+groupées, il est possible de les ligaturer manuellement, en marquant la
 première note à attacher d'un @samp{[} et la dernière d'un @samp{]}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -1306,7 +1306,7 @@ nom des accords.  De tels accords peuvent être entrés comme les notes :
 
 Maintenant, chaque hauteur est lue comme la base de l'accord à la place
 de la note.  Ce mode est activé avec @code{\chordmode}.  D'autres
-accords peuvent être créés en ajoutant des modifiacteurs après deux
+accords peuvent être créés en ajoutant des modificateurs après deux
 points.  L'exemple suivant montre quelques modificateurs usuels :
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1317,7 +1317,7 @@ Pour la musique improvisée, les accords ne sont pas imprimés sur des
 portées mais comme des lignes à part entière.  Ceci s'obtient en
 utilisant @code{\chords} à la place de @code{\chordmode}.  La même
 syntaxe sera utilisée que dans le cas de@code{\chordmode}, mais le rendu
-des notes interviendra dans un contexte de @code{ChordNames}, avec le
+des notes interviendra dans un contexte @code{ChordNames}, avec le
 résultat suivant :
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1351,7 +1351,7 @@ se trouve à la section @ref{Chords}.
 @node Final touches
 @section Final touches
 
-L'ultime section de ce tutoriel montre comment ajouter la touche finale
+L'ultime section de ce tutoriel montre comment ajouter une touche finale
 à des morceaux simples, et consititue une introduction au reste du
 manuel.
 
@@ -1417,7 +1417,7 @@ haut de la partition.  Vous trouverez plus d'informations sur les titres
 Jusqu'ici nous n'avons utilisé que le mode @code{\relative} pour définir
 les hauteurs de notes.  Si c'est effectivement le moyen le plus simple
 d'entrer la majeure partie de votre musique, il existe une autre façon
-de procéder : le mode de hauteurs absolues.
+de procéder : le mode des hauteurs absolues.
 
 Si vous omettez la commande @code{\relative}, LilyPond considérera
 toutes les hauteurs comme des hauteurs absolues.  Un @code{c'} sera
@@ -1478,7 +1478,7 @@ bien plus facile à lire :
 Si d'aventure vous faites une erreur d'octaviation, le mode
 @code{\relative} la rendra frappante --- toutes les notes suivantes
 seront placées à la mauvaise octave.  En mode de hauteurs absolues, une
-erreur isolée ne serait pas aussi visible, et donc aussi facile à
+erreur isolée ne serait pas auntant visible, et donc aussi facile à
 dénicher.
 
 Cependant, le mode de hauteurs absolues reste utile pour les musiques où

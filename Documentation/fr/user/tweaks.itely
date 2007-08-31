@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 65dd8bb120476562eb0104c6969d72d8b105ac8f
+    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -116,7 +116,7 @@ e4^\markup{ \italic ritenuto } g b e
 
 Lorsqu'on utilise @code{extra-offset}, le premier nombre décrit le
 déplacement horizontal (négatif pour un déplacement vers la gauche) 
-tandis que le deuxième décrit un déplacement vertical (négatif 
+tandis que le deuxième décrit un déplacement vertical (positif 
 pour le haut).  Après quelques essais, on peut choisir les valeurs suivantes
 qui semblent donner un résultat satisfaisant.
 
@@ -176,7 +176,7 @@ Dans ce même manuel : @ref{The \override command}, @ref{Common tweaks}.
 
 Dans la section @ref{Moving objects}, nous avons vu comment
 déplacer un objet @code{TextScript}.  Ce même procédé peut être
-appliqué à d'autres types d'objets : il vous suffira de remplacer
+appliqué à d'autres types d'objet : il vous suffira de remplacer
 @code{TextScript} par le nom de l'objet en question.
 
 Pour trouver cette dénomination, regardez les liens @q{@strong{Voir aussi}}
@@ -224,7 +224,7 @@ Toutes ces commandes sont décrites dans les différentes sections
 de la Référence de notation.
 
 La liste complète des modifications possibles pour chaque type d'objet
-(tels que les liaisons ou les ligatures) se trouve dans la Référence du
+(tel que liaison ou ligature) se trouve dans la Référence du
 programme.  Cependant, certaines propriétés sont communes à de nombreux
 objets, et on peut de ce fait définir quelques réglages génériques.
 
@@ -258,7 +258,7 @@ d1
 
 Notez, dans le second exemple, l'importance de savoir à quel contexte
 correspond l'objet.  Dans la mesure où l'objet @code{MetronomeMark}
-appartient au contexte @code{Score}, les modifications affectant le
+appartient au contexte @code{Score}, ses modifications affectées au
 contexte @code{Voice} ne l'affecteront pas.  Pour plus de détails, voir 
 @ref{Constructing a tweak}.
 
@@ -396,11 +396,11 @@ surtout si vous constatez, en regardant les pages précédentes, qu'il
 reste encore beaucoup de place sur celles-ci.
 
 Si vous vous intéressez aux problèmes de mise en page,
-@code{annotate-spacing}, peut alors être un outil d'une valeur
+@code{annotate-spacing} peut alors être un outil d'une valeur
 inestimable.  Cette commande imprime les valeurs 
 de nombreuses commandes d'espacement concernant la mise en page.  
 Consultez @ref{Displaying spacing} pour de plus amples informations.  À l'aide 
-des informations données par @code{annotate-spacing} on peut 
+des informations données par @code{annotate-spacing}, on peut 
 voir quelles marges il est souhaitable de modifier afin de résoudre le
 problème.
 
@@ -410,7 +410,7 @@ qui permettent de gagner de la place.
 
 @itemize
 @item
-Vous pouvez demander à LilyPond de placer les systèmes aussi 
+Demander à LilyPond de placer les systèmes aussi 
 près que possible les uns des autres (pour en disposer autant
 que possible sur une page), tout en répartissant les systèmes afin
 de ne pas laisser de blanc en bas de la dernière page.
@@ -425,7 +425,7 @@ de ne pas laisser de blanc en bas de la dernière page.
 @end example
 
 @item
-Vous pouvez obliger LilyPond à mettre un certain nombre de systèmes
+Obliger LilyPond à mettre un certain nombre de systèmes
 par page.  Par exemple, si LilyPond veut placer onze systèmes dans une page,
 vous pouvez l'obliger à n'en mettre que dix.
 
@@ -485,8 +485,8 @@ Nous avons déjà vu comment le résultat obtenu avec LilyPond peut être
 largement personnalisé à l'aide de commandes comme 
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  Cependant,
 l'utilisation de Scheme ouvre des possibilités encore plus grandes.
-Pour des explications complètes là-dessus, consultez @ref{Scheme tutorial} et
-@ref{Interfaces for programmers}.
+Pour des explications complètes là-dessus, consultez le 
+@ref{Scheme tutorial}  et les @ref{Interfaces for programmers}.
 
 On peut utiliser Scheme simplement à l'aide des commandes @code{\override}.
 

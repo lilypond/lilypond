@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-01 14:38+0200\n"
+"POT-Creation-Date: 2007-08-02 13:38+0200\n"
 "PO-Revision-Date: 2007-05-12 18:41+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de <LL@li.org>\n"
@@ -149,18 +149,16 @@ msgstr "LilyPond starten"
 #. @subsubsection in ../../../Documentation/user/install.itely
 #, fuzzy
 msgid "Compiling"
-msgstr "Einfache Notation"
+msgstr "Eine Quelldatei übersetzen"
 
 #. @subsubsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Compiling for multiple platforms"
-msgstr "Von anderen Formaten konvertieren"
+msgstr ""
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Building documentation without compiling LilyPond"
-msgstr "Komplizierte Funktionen erstellen"
+msgstr ""
 
 #. @node in ../../../Documentation/user/install.itely
 #. @subsection in ../../../Documentation/user/install.itely
@@ -226,7 +224,7 @@ msgstr ""
 #. @subsection in ../../../Documentation/user/setup.itely
 #, fuzzy
 msgid "LilyPondTool"
-msgstr "Lilypond-book-Vorlagen"
+msgstr "LilyPond-Index"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
@@ -235,9 +233,8 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
-#, fuzzy
 msgid "Point and click"
-msgstr "Noten und Text"
+msgstr ""
 
 #. @node in ../../../Documentation/user/running.itely
 #. @chapter in ../../../Documentation/user/running.itely
@@ -276,9 +273,8 @@ msgid "Error messages"
 msgstr "Fehlermeldungen"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
-#, fuzzy
 msgid "LilyPond-book"
-msgstr "Lilypond-book-Vorlagen"
+msgstr ""
 
 #. @chapter in ../../../Documentation/user/lilypond-book.itely
 msgid "@command{lilypond-book}: Integrating text and music"
@@ -877,7 +873,7 @@ msgstr "An LilyPond-Projekten arbeiten"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Suggestions for writing LilyPond files"
-msgstr "Verschläge, wie LilyPond-Dateien geschrieben werden sollen"
+msgstr "Vorschläge, wie LilyPond-Dateien geschrieben werden sollen"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
@@ -1498,15 +1494,13 @@ msgstr "Vorzeichen der alten Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
-#, fuzzy
 msgid "Custodes"
-msgstr "Cluster"
+msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
-#, fuzzy
 msgid "Divisiones"
-msgstr "Getrennte Texte"
+msgstr ""
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1797,9 +1791,8 @@ msgstr "Standardeinstellungen verändern"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "Automatic notation"
-msgstr "Automatische Aufteilung von Noten"
+msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -1912,9 +1905,8 @@ msgid "\\set versus \\override"
 msgstr ""
 
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "@code{\\set} vs. @code{\\override}"
-msgstr "Der \\override-Befehl"
+msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
