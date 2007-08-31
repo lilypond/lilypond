@@ -484,6 +484,11 @@ class TextFileCompareLink (FileCompareLink):
         str = '<font size="-2"><pre>%s</pre></font>' % str
         return str
 
+class LogFileCompareLink (TextFileCompareLink):
+  def get_content (self, f):
+      c = TextFileCompareLink.get_content (self, f)
+      c = re.sub ("\nProcessing `[^\n]+'\n", '', c)
+      return c
         
 class ProfileFileLink (FileCompareLink):
     def __init__ (self, f1, f2):
@@ -842,7 +847,7 @@ class ComparisonData:
             ext = os.path.splitext (f1)[1]
             klasses = {
                 '.midi': MidiFileLink,
-                '.log' : TextFileCompareLink,
+                '.log' : LogFileCompareLink,
                 '.profile': ProfileFileLink,
                 '.gittxt': GitFileCompareLink, 
                 }

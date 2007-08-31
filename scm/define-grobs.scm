@@ -47,8 +47,10 @@
 	(Y-extent . ,ly:accidental-interface::height)
 	(X-offset . ,(ly:make-simple-closure
 		      `(,+
-			,(ly:make-simple-closure (list ly:self-alignment-interface::centered-on-x-parent))
-			,(ly:make-simple-closure (list ly:self-alignment-interface::x-aligned-on-self)))))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::centered-on-x-parent))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
 	(self-alignment-X . ,CENTER)
 	(font-size . -2)
 	(glyph-name-alist . ,standard-alteration-glyph-name-alist)

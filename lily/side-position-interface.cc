@@ -12,17 +12,17 @@
 #include <algorithm>
 using namespace std;
 
-#include "note-head.hh"
-#include "warn.hh"
-#include "main.hh"
-#include "staff-symbol-referencer.hh"
-#include "pointer-group-interface.hh"
 #include "directional-element-interface.hh"
+#include "grob.hh"
+#include "main.hh"
+#include "misc.hh"
+#include "note-head.hh"
+#include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
+#include "stem.hh"
 #include "string-convert.hh"
-#include "misc.hh"
-#include "grob.hh"
+#include "warn.hh"
 
 void
 Side_position_interface::add_support (Grob *me, Grob *e)
@@ -80,9 +80,20 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 	dim.unite (staff_extents);
     }
 
+  Direction dir = get_grob_direction (me);
+
   for (vsize i = 0; i < support.size (); i++)
     {
       Grob *e = support[i];
+
+      // In the case of a stem, we will find a note head as well
+      // ignoring the stem solves cyclic dependencies if the stem is
+      // attached to a cross-staff beam.
+      if (a == Y_AXIS
+	  && Stem::has_interface (e)
+	  && dir == - get_grob_direction (e))
+	continue;
+      
       if (e)
 	if (use_extents)
 	  dim.unite (e->maybe_pure_extent (common, a, pure, start, end));
@@ -95,8 +106,6 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 
   if (dim.is_empty ())
     dim = Interval (0, 0);
-
-  Direction dir = get_grob_direction (me);
 
   Real off = me->get_parent (a)->maybe_pure_coordinate (common, a, pure, start, end);
   Real minimum_space = ss * robust_scm2double (me->get_property ("minimum-space"), -1);

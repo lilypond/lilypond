@@ -29,41 +29,42 @@
 	   (* f0 (- x1 staff-space)))
      (- x1 x0))))
 
-(define-public (layout-set-absolute-staff-size-in-module m staff-height)
+(define-public (layout-set-absolute-staff-size-in-module module staff-height)
   (let*
-      ((pt (eval 'pt m))
+      ((pt (eval 'pt module))
        (ss (/ staff-height 4))
-       (factor (/ staff-height (* 20 pt))))
+       (factor (/ staff-height (* 20 pt)))
+       (setm! (lambda (sym val)
+		(module-define! module sym val))))
 
-    (module-define! m 'text-font-size (* 12 factor))
+    (setm! 'text-font-size (* 12 factor))
     
-    (module-define! m 'output-scale ss)
-    (module-define! m 'fonts
+    (setm! 'output-scale ss)
+    (setm! 'fonts
 		    (if tex-backend?
 			(make-cmr-tree factor)
 			(make-century-schoolbook-tree factor)))
-    (module-define! m 'staff-height staff-height)
-    (module-define! m 'staff-space ss)
+    (setm! 'staff-height staff-height)
+    (setm! 'staff-space ss)
 
-    (module-define! m 'line-thickness (calc-line-thickness ss pt))
-
-    ;;  sync with feta  
-    (module-define! m 'ledgerline-thickness (+ (* 0.5 pt) (/ ss 10)))
+    (setm! 'line-thickness (calc-line-thickness ss pt))
 
     ;;  sync with feta  
-    (module-define! m 'blot-diameter (* 0.4 pt))
+    (setm! 'ledgerline-thickness (+ (* 0.5 pt) (/ ss 10)))
+
+    ;;  sync with feta  
+    (setm! 'blot-diameter (* 0.4 pt))
     ))
 
- (define-public (layout-set-absolute-staff-size sz)
-  "Function to be called inside a \\layout{} block to set the staff size. SZ is in
-points"
-  
+(define-public (layout-set-absolute-staff-size sz)
+  "Function to be called inside a \\layout{} block to set the staff
+size. SZ is in points"
   (layout-set-absolute-staff-size-in-module (current-module) sz))
 
 (define-public (layout-set-staff-size sz)
   "Function to be called inside a \\layout{} block to set the staff
 size. SZ is in points"
-  
+
   (layout-set-absolute-staff-size (* (eval 'pt (current-module)) sz)))
 
 (define-safe-public (set-global-staff-size sz)

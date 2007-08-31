@@ -991,6 +991,8 @@ articulations, just like simple notes
 For more information about chords, see @ref{Chord names}.
 
 
+@c  I don't like having this here, but I can't think of
+@c  anywhere else to put it.  :(   -gp
 @node Stems
 @subsection Stems
 
@@ -1055,7 +1057,8 @@ outside the @code{<< \\ >>} construct.  This should be noted when making
 changes at the voice level.  This also means that slurs and ties cannot go
 into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
 from separate @code{<< \\ >>} constructs on the same staff are the
-same voice.  Here is the same example, with different noteheads for each
+same voice.  Here is the same example, with different noteheads and
+colors for each
 voice.  Note that the change to the note-head style in the main voice does
 not affect
 the inside of the @code{<< \\ >>} constructs.  Also, the change to the
@@ -1068,16 +1071,20 @@ voice in the first @code{<< \\ >>} construct is effective in the second
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
   c16 d e f
   <<
     { g4 f e } \\
     { \override NoteHead #'style = #'triangle
+      \override NoteHead #'color = #blue
     r8 e4 d c8 ~ }
   >> |
   <<
     { d2 e2 } \\
     { c8 b16 a b8 g ~ g2 } \\
-    { \override NoteHead #'style = #'slash s4 b4 c2 }
+    { \override NoteHead #'style = #'slash 
+      \override NoteHead #'color = #green
+      s4 b4 c2 }
   >>
 }
 @end lilypond
@@ -1128,12 +1135,13 @@ The command @code{\oneVoice} will revert back to the normal setting.
 An expression that appears directly inside a @code{<< >>} belongs to
 the main voice.  This is useful when extra voices appear while the main
 voice is playing.  Here is a more correct rendition of the example from
-the previous section.  The crossed noteheads demonstrate that the main
+the previous section.  The crossed colored noteheads demonstrate that the main
 melody is now in a single voice context.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
   c16 d e f
   \voiceOne
   <<
