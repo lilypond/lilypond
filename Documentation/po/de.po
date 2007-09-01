@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-08-02 13:38+0200\n"
-"PO-Revision-Date: 2007-08-30 21:37+0300\n"
+"PO-Revision-Date: 2007-09-01 11:31+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -1588,7 +1588,7 @@ msgstr "Überblick über Textbeschriftungsbefehle"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Overview of text markup list commands"
-msgstr "Überblick über Textbeschriftungsbefehle"
+msgstr "Überblick über Textbeschriftungslistenbefehle"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
