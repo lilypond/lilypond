@@ -737,22 +737,22 @@ sollten hintereinander gelsen werden.
 @ifhtml
 Die 
 @end ifhtml
-@emph{@ref{Tutorial}}
+@emph{@ref{Tutorial}},
 stellt eine einfache Einführung in den Musiksatz dar. Neulinge sollten hiermit 
 beginnen.
 
 @item
-@emph{@ref{Putting it all together}}
+@emph{@ref{Putting it all together}},
 erklärt generelle Konzepte des LilyPond-Dateiformates. Wenn Sie sich nicht 
 sicher sind, wohin ein Befehl gesetzt werden soll, lesen Sie hier nach.
 
 @item
-@emph{@ref{Working on LilyPond projects}}
+@emph{@ref{Working on LilyPond projects}},
 zeigt den wirklichen Einsatz von LilyPond und gibt Hinweise, wie einige 
 Probleme vermieden werden können.
 
 @item
-@emph{@ref{Tweaking output}}
+@emph{@ref{Tweaking output}},
 stellt dar, wie die Standardeinstellungen von LilyPond verändert werden können.
  
 @end itemize
@@ -767,42 +767,42 @@ Grundkonzeption des Programmes im Handbuch zum Lernen bekannt gemacht hat.
 @itemize @bullet
 
 @item
-@emph{@ref{Basic notation}}
+@emph{@ref{Basic notation}},
 erklärt alles über die grundlegenden Notationskonstruktionen. Dieses Kapitel 
 ist für fast jedes Notationsprojekt  nützlich.
 
 @item
-@emph{@ref{Instrument-specific notation}}
+@emph{@ref{Instrument-specific notation}},
 erklärt spezifische Schwierigkeiten, die sich bei bestimmten Notationstypen 
 ergeben. Dieses Kapitel ist nur in entsprechenden Fällen bestimmter Instrumente 
 oder bei Gesang zu konsultieren.
 
 @item
-@emph{@ref{Advanced notation}}
+@emph{@ref{Advanced notation}},
 erklärt komplizierte oder unübliche Anwendungen nach Notationsgegenstand geordnet.
 
 @item
-@emph{@ref{Changing defaults}}
+@emph{@ref{Changing defaults}},
 erklärt, wie des Layout getrimmt werden kann.
 
 @item
-@emph{@ref{Non-musical notation}}
+@emph{@ref{Non-musical notation}},
 zeigt alles, was nicht direkt mit den Noten zu tun hat wie Titel, mehrere Sätze oder 
 wie man ein MIDI-Instrument auswählt.
 
 @item
-@emph{@ref{Spacing issues}}
+@emph{@ref{Spacing issues}},
 befasst sich mit globalen Fragen wie der Definition von Papierformaten 
 oder wie man Seitenumbrüche definiert.
 
 @item
-@emph{@ref{Interfaces for programmers}}
+@emph{@ref{Interfaces for programmers}},
 demonstriert die Erstellung von musikalischen Funktionen.
 
 @end itemize
 
 
-@subsubheading Anhänge
+@subsubheading Appendices
 
 In diesem Buch werden nützliche Referenztabellen gezeigt.
 
@@ -811,39 +811,39 @@ In diesem Buch werden nützliche Referenztabellen gezeigt.
 @ifhtml
 Die
 @end ifhtml
-@emph{@ref{Literature list}}
+@emph{@ref{Literature list}},
 enthält einige wichtige Quellen für alle, die mehr über Notation und 
 den Notensatz erfahren wollen.
 
 @item
-Das 
-@emph{@ref{Scheme tutorial}}
+Die 
+@emph{@ref{Scheme tutorial}},
 stellt eine kurze Einleitung in die Scheme-Sprache dar, mit dem 
 die musikalischen Funktionen gebildet werden.
 
 @item
-@emph{@ref{Notation manual tables}}
+@emph{@ref{Notation manual tables}},
 sind Tabellen, in denen Akkordbezeichnungen, MIDI-Instrumente, 
 Farbbezeichnungen und die Zeichen der Feta-Schriftart gesammelt sind.
 
 @item
-@emph{@ref{Templates}}
+@emph{@ref{Templates}},
 von LilyPond-Stücken. Kopieren Sie einfach hier, fügen Sie in ihre Datei 
 ein und schreiben Sie noch die Noten dazu. Das ist alles!
 
 @item
 Die
-@emph{@ref{Cheat sheet}}
+@emph{@ref{Cheat sheet}},
 zeigt die wichtigsten LilyPond-Befehle.
 
 @item
 Der
-@emph{@ref{LilyPond command index}}
+@emph{@ref{LilyPond command index}},
 listet alle Befehle auf, die mit @code{\} anfangen.
 
 @item
 Der 
-@emph{@ref{LilyPond index}}
+@emph{@ref{LilyPond index}},
 ist ein vollständiger Index.
 
 @end itemize
@@ -889,7 +889,7 @@ von Notensatzformaten in das @code{.ly}-Format.
 @end itemize
 
 
-@subsubheading Andere Information
+@subsubheading Other information
 
 Es gibt einige andere Orte, die sehr wertvolle Information enthalten.
 @itemize @bullet
@@ -902,7 +902,7 @@ Es gibt einige andere Orte, die sehr wertvolle Information enthalten.
 
 @item
 @ifnottex
-Das @ref{Top,Music glossary,,Musik-Glossar}, erklärt musikalische Ausdrücke 
+Das @ref{Top,Musik-Glossar,,music-glossary}, erklärt musikalische Ausdrücke 
 und stellt Übersetzungen für einige Sprachen bereit. Es ist auch als PDF 
 erhältlich.
 @end ifnottex
@@ -939,7 +939,7 @@ Die
 Programmreferenz
 @end iftex
 @ifnottex
-@ref{Top,Program reference,,lilypond-internals}
+@ref{Top,Programmreferenz,,lilypond-internals}
 @end ifnottex
 ist eine Sammlung intensiv verlinkter HTML-Seiten,
 die alle Details jeder einzelnen LilyPond-Klasse, jedes Objektes und 
@@ -967,7 +967,8 @@ ist auch als
 große HTML-Seite erhältlich,
 @end iftex
 @ifhtml
-@uref{source/Documentation/user/lilypond-big-page.html, eine große Seite erhältlich},
+@uref{source/Documentation/user/lilypond-big-page.html, eine große Seite 
+erhältlich},
 @end ifhtml
 die auf einfache Art mit der Suchfunktion Ihres Browsers durchsucht werden kann.
 
