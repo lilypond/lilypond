@@ -991,6 +991,8 @@ articulations, just like simple notes
 For more information about chords, see @ref{Chord names}.
 
 
+@c  I don't like having this here, but I can't think of
+@c  anywhere else to put it.  :(   -gp
 @node Stems
 @subsection Stems
 

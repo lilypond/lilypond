@@ -2223,7 +2223,7 @@ can be used to adjust note durations.
 
 @refbugs
 
-The @code{\featherDuration} command only works with very short
+The @code{\featherDurations} command only works with very short
 music snippets.
 
 @node Improvisation

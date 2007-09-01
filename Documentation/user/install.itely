@@ -47,16 +47,15 @@ at @uref{http://download.linuxaudio.org/lilypond/binaries/}
 We currently create binaries for
 
 @example
-MacOS
-darwin-ppc
-darwin-x86
+MacOSX-ppc
+MacOSX-x86
 freebsd-64
 freebsd-x86
 linux-64
 linux-arm
 linux-ppc
 linux-x86
-mingw
+win32-x86
 @end example
 
 

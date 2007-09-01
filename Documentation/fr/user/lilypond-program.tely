@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: d5b91d83f5dfec811302de39dbabdb189024f67a
+    Translation of GIT committish: a8a6ce84e2b7d1bdda6d3cad2f15e6c380edad11
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -83,7 +83,7 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[raggedright]
+@lilypond[ragged-right]
 \score {
     \context Lyrics {
         \override Score.RehearsalMark #'self-alignment-X = #LEFT

@@ -35,8 +35,8 @@ The makfiles and scripts infrastructure currently supports translation
 of the following documentation:
 
     * documentation index (HTML)
-    * user manual -- Texinfo source, PDF and HTML output; Info output
-might be added if there is enough demand for it.
+    * user manual and program usage -- Texinfo source, PDF and HTML
+output; Info output might be added if there is enough demand for it.
 
 
 STARTING A TRANSLATION IN A NEW LANGUAGE
@@ -86,6 +86,9 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 1 index.html.in
   po/<MY-LANGUAGE>.po
 
+In addition, user/macros.itexi may be translated in case typographic
+rules used in this file are different in your language.
+
 -2- User manual introduction
 2 user/preface.itely
 2 user/introduction.itely
@@ -106,6 +109,8 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 4 user/scheme-tutorial.itely -- Scheme tutorial
 
 -5- Program usage
+5 user/lilypond-program.tely
+5 user/install.itely -- How to install or compile
 5 user/running.itely -- Running LilyPond
 5 user/lilypond-book.itely -- LilyPond-book
 5 user/converters.itely -- Converting from other formats
@@ -171,7 +176,7 @@ All files should be encoded in UTF-8.
 Any title which comes with one of the following commands must not be
 translated directly in the Texinfo source
 
-@node          @top                                     @majorheading
+@node                                                   @majorheading
 @chapter       @unnumbered          @appendix           @chapheading
 @section       @unnumberedsec       @appendixsec        @heading
 @subsection    @unnumberedsubsec    @appendixsubsec     @subheading
@@ -225,6 +230,14 @@ please ask the Translation meister and/or the Documentation Editor on
 lilypond-devel@gnu.org.
 
 
+* PROGRAM USAGE MANUAL
+
+Copy user/lilypond-program.tely into <MY-LANGUAGE>/user, then
+translate this file and run skeleton-update (see UPDATE A TRANSLATION
+below).  Your are now ready to translate program usage manual exactly
+like the user manual.
+
+
 * DOCUMENTATION INDEX index.html.in
 
 Unlike almost all HTML pages in this documentation, links in this page
@@ -259,6 +272,11 @@ updated, run from Documentation
 Documentation or Documentation/po)
 
     make po-update
+
+WARNING: if you run po-update and somebody else does the same and
+pushes before you push or send a patch to be applied, there will be a
+conflict when you pull.  Therefore, it is better that only the
+Translation meister runs this command.
 
 Updating music snippets can quickly become cumbersome, as most
 snippets should be identical in all languages.  Fortunately, there is

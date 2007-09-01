@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -88,7 +88,7 @@ c'est la section @code{melodie}. De même, on n'a pas besoin de deux sections
 @code{\score} --- si nous les gardions toutes les deux, on obtiendrait deux
 parties séparées ; mais nous voulons un vrai duo, avec les deux
 parties ensemble.  Dans la section @code{\score}, on n'a pas besoin
-non plus de deux @code{\layout} ou de deux @code{\midi}.
+non plus de deux @code{\layout} ni de deux @code{\midi}.
 
 Si on se contente de couper et coller les sections @code{melodie}, on se
 retrouvera avec deux sections de ce nom ; il nous faut donc les renommer.
@@ -139,7 +139,7 @@ musiqueVioloncelle = \relative c @{
 @end example
 
 Voilà qui est mieux, mais la partie de violoncelle n'apparaît pas sur
-la partition --- en effet, nous ne l'avons pas utilisée dans la section
+la partition --- en effet, nous n'y avons pas fait appel dans la section
 @code{\score}.  Si l'on veut que la partie de violoncelle s'imprime sous
 la partie de soprano, on va devoir ajouter :
 
@@ -235,8 +235,8 @@ c4 a b c
 
 Comme vous le savez maintenant (du moins nous l'espèrons), ceci ne
 peut pas être traité en tant que tel. Il s'agit de formes abrégées des
-exemples complets ; pour pouvoir être traitées, elles doivent au moins
-être encadrées par des accolades :
+exemples complets ; pour pouvoir être traitées, ces formeulations
+doivent au moins être encadrées par des accolades :
 
 @example
 @{
@@ -256,7 +256,7 @@ l'oubliez.
 }
 @end lilypond
 
-C'est ici que nous entamons les choses sérieuses : le code LilyPond,
+C'est ici que nous passons aux choses sérieuses : le code LilyPond,
 sous cette forme, est en réalité un @emph{autre} raccourci. Même s'il
 est traité sans problème, et aboutit au bon résultat, c'est une forme
 abrégée de :
@@ -321,7 +321,7 @@ melodie = \relative c' @{
 
 Lorsque LilyPond examinera ce fichier, il va prendre la valeur de la
 variable @code{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
-et l'insérer partout où il tombera sur @code{\melodie}.  Vous êtes
+et l'insérer partout où il rencontrera @code{\melodie}.  Vous êtes
 libre de choisir comment dénommer vos variables@footnote{Les noms de
 variables sont sensibles à la casse, et ne peuvent contenir ni
 chiffre, ni tiret, ni caractère accentué.} ; ce peut être
@@ -356,7 +356,7 @@ Peut-être serait-il judicieux de relire la section
 appris à construire de grandes expressions musicales petit bout
 par petit bout --- nous avons vu les notes, puis les accords, etc.
 Maintenant, nous allons partir d'une grande expression musicale,
-et redescendre la pente.
+et remonter la pente.
 
 @example
 \score @{
@@ -547,7 +547,7 @@ Il faut pour cela définir la propriété @code{skipBars} à @q{vrai} :
 @end example
 
 @noindent
-Cette commande donne la valeur @q{vrai} --- @q{true} en anglais,
+Cette commande assigne la valeur @q{vrai} --- @q{true} en anglais, et
 @samp{#t} dans le langage Scheme --- à cette propriété dans le
 contexte @code{Score}.  Si l'on ajoute dans la musique ci-dessus le
 silence multi-mesures et cette option, on obtient le résultat suivant :
