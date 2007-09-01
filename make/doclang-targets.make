@@ -49,7 +49,7 @@ LINKED_PNGS = henle-flat-gray.png baer-flat-gray.png lily-flat-bw.png
 # symlinking lily-*...
 $(outdir)/user-ln: $(top-build-dir)/Documentation/user/$(outdir)
 	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $@
-	$(PYTHON) $(buildscript-dir)/mass-link.py symbolic $(top-build-dir)/Documentation/user/$(outdir) $(outdir) 'lily-*.pdf' 'lily-*.tex' 'lily-*.texi' 'lily-*.ly' 'lily-*.txt' 'lily-*.png' 'henle-flat-gray.*' 'baer-flat-gray.*' 'lily-flat-bw.*'
+	$(PYTHON) $(buildscript-dir)/mass-link.py symbolic $(top-build-dir)/Documentation/user/$(outdir) $(outdir) 'lily-*.pdf' 'lily-*.tex' 'lily-*.texi' 'lily-*.ly' 'lily-*.txt' 'lily-*.png' 'henle-flat-gray.*' 'baer-flat-gray.*' 'lily-flat-bw.*' 'context-example.*'
 	mkdir -p $(outdir)/lilypond
 	cd $(outdir)/lilypond && $(foreach i, $(LINKED_PNGS), ln -sf ../../$(depth)/Documentation/user/$(i) $(i) &&) true
 
