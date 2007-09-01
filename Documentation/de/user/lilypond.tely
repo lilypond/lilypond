@@ -13,7 +13,6 @@
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
-@end iftex
 @tex
 \gdef\SETtxicodequoteundirected{Foo}
 \gdef\SETtxicodequotebacktick{Bla}
