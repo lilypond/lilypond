@@ -1588,7 +1588,7 @@ msgstr "Überblick über Textbeschriftungsbefehle"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Overview of text markup list commands"
-msgstr "Überblick über Textbeschriftungslistenbefehle"
+msgstr "Überblick über Textbeschriftungsbefehle für Listen"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely

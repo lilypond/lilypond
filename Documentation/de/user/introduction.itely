@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 718cc970304f6b9a3bb990259a048c06e56f4e48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -717,12 +717,19 @@ es sehr einfach, Musik und Text zu kombinieren.
 @node About this manual
 @section About this manual
 
-Das Handbuch ist in vier Bücher geteilt:
+Es gibt zwei Handbücher zu LilyPond: das @emph{Benutzerhandbuch} (dieses 
+Dokument) und das @emph{Handbuch über die Programmbenutzung}.
 
-@subsubheading Handbuch zum Lernen
+
+@subheading User manual
+
+Das Handbuch ist in drei Bücher geteilt.
+
+@subsubheading Learning manual
 
 In diesem Buch wird erklärt, wie man das Programm LilyPond erlernt; mit 
-einfachen Begriffen werden einige Schlüsselkonzepte erklärt.
+einfachen Begriffen werden einige Schlüsselkonzepte erklärt. Die Kapitel 
+sollten hintereinander gelsen werden.
 
 @itemize @bullet
 
@@ -750,7 +757,8 @@ stellt dar, wie die Standardeinstellungen von LilyPond verändert werden können
  
 @end itemize
 
-@subsubheading Alles über die Notation
+
+@subsubheading Notation reference
 
 In diesem Buch werden alle LilyPond-Befehle erklärt, die Notationszeichen 
 produzieren. Es geht von der Annahme aus, dass der Leser sich mit den 
@@ -790,34 +798,6 @@ oder wie man Seitenumbrüche definiert.
 @item
 @emph{@ref{Interfaces for programmers}}
 demonstriert die Erstellung von musikalischen Funktionen.
-
-@end itemize
-
-
-@subsubheading Programmbenutzung
-
-In diesem Buch wird erklärt, wie das Programm aufgerufen wird und wie sich 
-die von LilyPond erstellte Notation in andere Programm integrieren lässt.
-
-@itemize @bullet
-
-
-@item
-@emph{@rprogram{Running LilyPond}}
-zeigt, wie LilyPond und die Hilfsprogramme gestartet werden. Zusätzlich 
-wird hier gezeigt, wie Quelldateien von älteren LilyPond-Versionen 
-aktualisiert werden können.
-
-@item
-@emph{@rprogram{LilyPond-book}}
-zeigt die Details der Integration von Noten in Texte wie etwa dieses 
-Handbuch.
-
-@item
-@emph{@rprogram{Converting from other formats}}
-erklärt die Funktionsweise der Konvertierungsprogramme. Diese Programme 
-sind im LilyPond-Paket enthalten und können ein ganze Anzahl von Formaten 
-in das @code{.ly}-Format umwandeln.
 
 @end itemize
 
@@ -867,6 +847,47 @@ Der
 ist ein vollständiger Index.
 
 @end itemize
+
+
+@subheading Program usage
+
+In diesem Buch wird erklärt, wie das Programm ausgeführt wird und 
+wie die Notation von LilyPond in andere Programme integriert werden 
+kann.
+
+@itemize @bullet
+
+@item
+@emph{@rprogram{Install}},
+erklärt wie LilyPond installiert wird (inclusive Kompilation, wenn es 
+nötig sein sollte).
+
+@item
+@emph{@rprogram{Setup}},
+erklärt wie der Computer eingerichtet wird, damit LilyPond optimal genutzt 
+werden kann. Hierzu gehören etwa spezielle Umgebungen für bestimmte 
+Texteditoren.
+
+@item
+@emph{@rprogram{Running LilyPond}},
+zeigt, wie LilyPond und seine Hilfprogramme gestartet werden. Zusätzlich 
+wird hier erklärt, wie Quelldateien von alten LilyPond-Versionen aktualisiert 
+werden können.
+
+@item
+@emph{@rprogram{LilyPond-book}},
+erklärt die Details, um einen Text mit eingefügten Notenbeispielen (wie 
+etwa dieses Handbuch) zu 
+erstellen.
+
+@item
+@emph{@rprogram{Converting from other formats}},
+erklärt, wie die Konvertierungsprogramme aufgerufen werden. Diese 
+Programme kommen mit LilyPond zusammen und konvertieren eine Vielzahl 
+von Notensatzformaten in das @code{.ly}-Format.
+
+@end itemize
+
 
 @subsubheading Andere Information
 

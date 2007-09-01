@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 718cc970304f6b9a3bb990259a048c06e56f4e48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1064,7 +1064,8 @@ einfachen Noten.
 
 Siehe @ref{Chord names} für mehr Information.
 
-
+@c  I don't like having this here, but I can't think of
+@c  anywhere else to put it.  :(   -gp
 @node Stems
 @subsection Stems
 
@@ -1138,7 +1139,8 @@ Legato- und Bindebögen nicht in eine @code{<< \\ >>}-Umgebung
 hinein- noch aus hier hinaus ragen können. Die parallelen 
 Notenabschnitte aus unterschiedlichen @code{<< \\ >>}-Umgebungen
 hingegen gehören der gleichen Stimme an. Hier noch einmal das 
-gleiche Beispiel mit unterschiedlichen Notenköpfen für jede Stimme. 
+gleiche Beispiel mit unterschiedlichen Notenköpfen und Farben 
+für jede Stimme. 
 Die Veränderung der Notenköpfe in der Hauptstimme hat keine
 Auswirkung auf die Stimmen innerhalb der  @code{<< \\ >>}-Umgebungen, 
 und die Veränderung der Notenköpfe für die untere Stimme setzt 
@@ -1151,16 +1153,20 @@ zweiten Polyphonie-Umgebung angebunden.
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
   c16 d e f
   <<
     { g4 f e } \\
     { \override NoteHead #'style = #'triangle
+      \override NoteHead #'color = #blue
     r8 e4 d c8 ~ }
   >> |
   <<
     { d2 e2 } \\
     { c8 b16 a b8 g ~ g2 } \\
-    { \override NoteHead #'style = #'slash s4 b4 c2 }
+    { \override NoteHead #'style = #'slash 
+      \override NoteHead #'color = #green
+      s4 b4 c2 }
   >>
 }
 @end lilypond
@@ -1215,12 +1221,13 @@ Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung
 auftritt, gehört der Hauptstimme an. Das ist nützlich, wenn zusätzliche 
 Stimme auftreten, während die Hauptstimme sich fortsetzt. Hier also 
 eine bessere Version des Beispiels aus dem vorigen Abschnitt. Die 
-Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in einem 
-einzigen Stimmen (@code{voice})-Kontext befindet.
+farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in 
+einem einzigen Stimmen (@code{voice})-Kontext befindet.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
   c16 d e f
   \voiceOne
   <<

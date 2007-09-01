@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
+    Translation of GIT committish: 718cc970304f6b9a3bb990259a048c06e56f4e48
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1423,16 +1423,15 @@ dient es als Einleitung zum Rest des Handbuches.
 @subsection Version number
 
 @cindex Versionsnummern
-Der @code{\version}-Befehl zeigt an, für welche LilyPond-Version
-eine Quelldatei geschrieben worden ist. Um etwa eine Datei für die
-Version 2.11.23 zu markieren, wird einfach
+Der @code{\version}-Befehl zeigt an, welche LilyPond-Version
+für eine bestimmte Quelldatei benutzt worden ist:
 
 @example
 \version "2.11.23"
 @end example
 
 @noindent
-am Anfang der Textdatei eingefügt.
+Üblicherweise wird dieser Befehl am Anfang der Textdatei eingefügt.
 
 Durch diese Versionsmarkierung werden zukünftige Aktualisierungen
 des LilyPond-Programmes einfacher gemacht. Syntax-Änderungen
@@ -1672,5 +1671,8 @@ Quellcode genau aussehen soll, schauen Sie sich am besten die HTML-Version
 dieses Dokuments an (wenn Sie das nicht schon tun) und klicken
 Sie auf die Notenbilder, um die dazugehörige Textdatei anzuschauen,
 mit der dieses Notenbild erstellt worden ist.
+
+Mehr Information über die Struktur des restlichen Benutzerhandbuches 
+erhalten Sie im Abschnitt @ref{About this manual}.
 
 
