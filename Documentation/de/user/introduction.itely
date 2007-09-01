@@ -945,7 +945,7 @@ ist auch als
 @iftex
 große HTML-Seite erhältlich,
 @end iftex
-@fihtml
+@ifhtml
 @uref{source/Documentation/user/lilypond-big-page.html, eine große Seite erhältlich},
 @end ifhtml
 die auf einfache Art mit der Suchfunktion Ihres Browsers durchsucht werden kann.
