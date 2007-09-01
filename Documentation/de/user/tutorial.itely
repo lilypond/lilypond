@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b8d54460424b040bbc3d273048707ed2fcfd118d
+    Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -338,7 +338,7 @@ werden automatisch hinzugefügt.
 Wenn keine Dauer bezeichnet wird, wird die der vorhergehenden Note
 verwendet. Für die erste Note ist eine Viertel als Standard definiert.
 
-Um @rglos{dotted notes} zu erzeugen, wird einfach ein Punkt @q{.}
+Um @rglos{dotted note}s zu erzeugen, wird einfach ein Punkt @q{.}
 hinter die Notendauer geschrieben.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -427,10 +427,11 @@ siehe @ref{Clef}.
 @node Working on text files
 @subsection Working on text files
 
-LilyPonds Quelldateien werden wie Dateien in den meisten
-Programmiersprachen behandelt: Es ist auf Groß- und Kleinschreibung
-zu achten, Ausdrücke werden mit geschweiften Klammern @{ @}
-eingeklammert und Kommentare mit dem Prozentzeichen @code{%} auskommentiert
+LilyPonds Quelldateien ähneln Dateien in den meisten
+Programmiersprachen: Es ist auf Groß- und Kleinschreibung
+zu achten und Leerzeichen sind gleichwertig. Ausdrücke werden 
+mit geschweiften Klammern @{ @} eingeklammert und Kommentare 
+mit dem Prozentzeichen @code{%} auskommentiert
 oder mit @code{%@{ ... %@}} umgeben.
 
 Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
@@ -490,7 +491,8 @@ Noten hat. Es gibt zwei verschiedene Typen von Kommentaren. Das
 Prozentzeichen @q{%} geht einem Zeilen-Kommentar voraus: Alles
 nach diesem Zeichen wird in dieser Zeile ignoriert. Ein Block-Kommentar
 ist ein ganzer Abschnitt mit einem Kommentar. Alles, was von @code{%@{}
- und @code{%@}} umgeben ist, wird ignoriert. Das folgende Beispiel zeigt
+ und @code{%@}} umgeben ist, wird ignoriert. (Kommentare könne nicht 
+geschachtelt werden.) Das folgende Beispiel zeigt
 mögliche Anwendung von Kommentaren:
 
 @example
@@ -727,10 +729,9 @@ d4( c16) cis( d e c cis d) e( d4)
 
 @cindex Phrasierungsbögen
 @cindex Legatobögen, Phrasierung
-@cindex Bögen
+
 @subheading Phrasing slurs
 
-@cindex Phrasierungsbögen
 Bögen, die längere Phrasierungseinheiten markieren
 (Phrasierungsbögen), werden mit @code{\(} und
 @code{\)} eingegeben.  Es können sowohl Legato- als auch
@@ -779,7 +780,7 @@ siehe @ref{Phrasing slurs}.
 @cindex Staccato
 @subheading Articulations
 
-Übliche @rglos{articulations} können durch Anfügen von Minus
+Übliche @rglos{articulation}s können durch Anfügen von Minus
 (@q{-}) und einem entsprechenden Zeichen eingegeben werden:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -1424,10 +1425,10 @@ dient es als Einleitung zum Rest des Handbuches.
 @cindex Versionsnummern
 Der @code{\version}-Befehl zeigt an, für welche LilyPond-Version
 eine Quelldatei geschrieben worden ist. Um etwa eine Datei für die
-Version 2.11.20 zu markieren, wird einfach
+Version 2.11.23 zu markieren, wird einfach
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 @end example
 
 @noindent
@@ -1450,7 +1451,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 direkt nach der Versionsnummer eingefügt.
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 \header @{
   title = "Symphony"
   composer = "Ich"
@@ -1658,7 +1659,7 @@ haben wir bei vielen Beispielen in der Übung die
 @code{\relative c''}-Umgebung weggelassen.
 
 Im Rest des Handbuches wurde noch viel nachlässiger vorgegangen:
-In manchen Fällen fehlt nur das @code{\relative c''}, in anderen
+In manchen Fällen fehlt nur das @code{\relative c'' @{ ... @}}, in anderen
 wurde eine andere Oktave als Startpunkt benutzt (etwa @code{c'} oder
  @code{c,,}), manchmal ist das ganze Beispiel im absoluten Modus
 geschrieben. Solche Mehrdeutigkeiten treten aber nur in Fällen auf, in
