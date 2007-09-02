@@ -413,7 +413,25 @@ class SequentialMusic (NestedMusic):
         for e in self.elements:
             e.set_start (start)
             start += e.get_length()
-            
+
+class Lyrics:
+    def __init__ (self):
+        self.lyrics_syllables = []
+
+    def print_ly (self, printer):
+        printer.dump ("\lyricmode {")
+        for l in self.lyrics_syllables:
+            printer.dump ( "%s " % l )
+        printer.dump ("}")
+
+    def ly_expression (self):
+        lstr = "\lyricmode {\n  "
+        for l in self.lyrics_syllables:
+            lstr += l + " "
+        lstr += "\n}"
+        return lstr
+
+
 class EventChord(NestedMusic):
     def get_length (self):
         l = Rational (0)
@@ -481,13 +499,13 @@ class SlurEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '(',
             0:'',
-            1:')'}[self.span_direction]
+            1:')'}.get (self.span_direction, '')
 
 class BeamEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '[',
             0:'',
-            1:']'}[self.span_direction]
+            1:']'}.get (self.span_direction, '')
 
 class ArpeggioEvent(Event):
     def ly_expression (self):
@@ -503,11 +521,7 @@ class HairpinEvent (Event):
     def __init__ (self, type):
         self.type = type
     def hairpin_to_ly (self):
-        val = ''
-        tp = { 0: '\!', 1: '\<', -1: '\>' }.get (self.type)
-        if tp:
-            val += tp
-        return val
+        return { 0: '\!', 1: '\<', -1: '\>' }.get (self.type, '')
     
     def ly_expression (self):
         return self.hairpin_to_ly ()
@@ -549,11 +563,7 @@ class ArticulationEvent (Event):
         self.force_direction = None
 
     def direction_mod (self):
-        dirstr = { 1: '^', -1: '_', 0: '-' }.get (self.force_direction)
-        if dirstr:
-            return dirstr
-        else:
-            return ''
+        return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '')
 
     def ly_expression (self):
         return '%s\\%s' % (self.direction_mod (), self.type)
@@ -679,7 +689,7 @@ class ClefChange (Music):
         }
     
     def lisp_expression (self):
-        (glyph, pos, c0) = self.clef_dict [self.type]
+        (glyph, pos, c0) = self.clef_dict.get (self.type)
         clefsetting = """
         (make-music 'SequentialMusic
         'elements (list

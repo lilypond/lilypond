@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: us-ascii; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 8a19cc25524338cdd99863ccd954bbcb8f8b2afa
+    Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -68,7 +68,7 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}}
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
 @end ifhtml
 @ifnothtml
   @file{\DIR\}
@@ -136,13 +136,11 @@
 
 @ifclear bigpage
 
-@c annoying parentheses stripped by add-html-footer.py
 @macro internalsref{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@c annoying parentheses stripped by add-html-footer.py
 @macro rglos{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,music-glossary}
@@ -191,9 +189,7 @@
 @ref{\NAME\,,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@uref{source/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
-@end macro
+
 
 @macro rglos{NAME}
 @vindex \NAME\
@@ -235,11 +231,7 @@
 @inforef{\NAME\,,lilypond-internals}
 @end macro
 
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/\NAME\}
-@end macro
-
-@macro rglos{NAME}@c
+@macro rglos{NAME}
 @vindex \NAME\
 @inforef{\NAME\,,,music-glossary}
 @end macro
@@ -277,10 +269,6 @@
 @macro internalsref{NAME}
 @vindex \NAME\
 @code{\NAME\}
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@file{\DIR\/@/\NAME\}
 @end macro
 
 @macro rglos {NAME}
