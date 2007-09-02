@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+    Translation of GIT committish: 062f453256c5b1f3a05fa9c6b441529ebbab3ffc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,11 +61,9 @@ en <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  <td class="right-column">
 	  <ul>
             <li>
-	    <a class="title" href="user/lilypond-program/index.html">Instrucciones de manejo</a>
-(en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>,
-en <a class="title" href="user/lilypond-program.pdf">PDF</a>)
-	    <br>(cómo instalar y ejecutar el programa)
-	  
+	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
+ 	    <br>(cambios producidos desde el último<br>lanzamiento importante)
+
 <li><a class="title" href="../examples.html">Ejemplos</a>
      <br>(ver algunos ejemplos)
 
@@ -80,7 +78,7 @@ en <a class="title" href="user/lilypond-program.pdf">PDF</a>)
 <a class="title" href="user/lilypond/index.es.html">Manual del usuario</a> [parcialmente traducido]<br>
 (en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb, <br>
 y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
-     <br>(todo sobre LilyPond)
+     <br>(escribir música con LilyPond)
 
        <li>
  <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a> [en inglés]<br>
@@ -92,9 +90,11 @@ y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-            <li>
-	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
- 	    <br>(cambios producidos desde el último<br>lanzamiento importante)
+              <li>
+	    <a class="title" href="user/lilypond-program/index.html">Instrucciones de manejo</a>
+(en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>,
+en <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+	    <br>(cómo instalar y ejecutar el programa)
 
 <li><a class="title" href="../input/lsr/collated-files.html">Fragmentos de código</a>
      <br>(Trucos breves, consejos y ejemplos)
@@ -106,12 +106,12 @@ y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
           <td valign="baseline" class="left-column">
           &nbsp;
 	<ul>
-	    <li><a class="title" href="bibliography/index.html">Bibliografía</a>
-     <br>(acerca de la información de apoyo)
 
-    <li>
-     <a  class="title" href="../input/regression/collated-files.html">Pruebas de regresión</a> (~ 5 Mb, en <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
-     <br>(para los desarrolladores)
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
+              <br>(el sitio web)
+            <li>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licencia</a>
+	      <br> (la GPL de GNU) 
 
 	</ul>
     </td><td class="right-column">
@@ -125,23 +125,6 @@ y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
 
 	  </ul>
 	  </td>
-        </tr>
-        <tr>
-          <td valign="baseline" class="left-column">
-          &nbsp;
-          <ul>
-            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(el sitio web)
-          </ul>
-          </td>
-          <td valign="baseline" class="right-column">
-          &nbsp;
-          <ul>
-            <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licencia</a>
-	      <br> (la GPL de GNU) 
-          </ul>
-          </td>
         </tr>
       </tbody>
     </table>
