@@ -48,7 +48,7 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond/Tutorial.html">&Uuml;bung</a>
+	    <a class="title" href="user/lilypond/Tutorial.de.html">&Uuml;bung</a>
 	      <br>(F&uuml;r einen ersten Anfang)
 
  
@@ -77,9 +77,9 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.html">Benutzerhandbuch</a>
+<a class="title" href="user/lilypond/index.de.html">Benutzerhandbuch</a>
  (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 Mb,
- als <a class="title" href="user/lilypond.pdf">PDF</a>)
+ als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
       <br>(Notation mit LilyPond setzen.)
 
         <li>
