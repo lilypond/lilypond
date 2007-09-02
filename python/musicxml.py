@@ -168,6 +168,8 @@ class Duration (Music_xml_node):
 
 class Hash_comment (Music_xml_node):
     pass
+class Hash_text (Music_xml_node):
+    pass
 
 class Pitch (Music_xml_node):
     def get_step (self):
@@ -429,6 +431,8 @@ class Part (Music_xml_node):
             measure_start_moment = now
             measure_position = Rational (0)
 	    for n in m.get_all_children ():
+                if isinstance (n, Hash_text):
+                    continue
 		dur = Rational (0)
 
                 if n.__class__ == Attributes:
@@ -636,6 +640,7 @@ class Bend (Music_xml_node):
 ## used by class name or extend Music_xml_node in some way!
 class_dict = {
 	'#comment': Hash_comment,
+        '#text': Hash_text,
 	'accidental': Accidental,
 	'attributes': Attributes,
 	'beam' : Beam,
