@@ -536,20 +536,48 @@ class Accidental (Music_xml_node):
 	self.editorial = False
 	self.cautionary = False
 
+class Music_xml_spanner (Music_xml_node):
+    def get_type (self):
+        if hasattr (self, 'type'):
+            return self.type
+        else:
+            return 0
+    def get_size (self):
+        if hasattr (self, 'size'):
+            return string.atoi (self.size)
+        else:
+            return 0
 
-class Tuplet(Music_xml_node):
+class Tuplet(Music_xml_spanner):
     pass
 
-class Slur (Music_xml_node):
+class Slur (Music_xml_spanner):
     def get_type (self):
 	return self.type
 
-class Beam (Music_xml_node):
+class Beam (Music_xml_spanner):
     def get_type (self):
 	return self.get_text ()
     def is_primary (self):
         return self.number == "1"
+
+class Wavy_line (Music_xml_spanner):
+    pass
     
+class Pedal (Music_xml_spanner):
+    pass
+
+class Glissando (Music_xml_spanner):
+    pass
+
+class Octave_shift (Music_xml_spanner):
+    # default is 8 for the octave-shift!
+    def get_size (self):
+        if hasattr (self, 'size'):
+            return string.atoi (self.size)
+        else:
+            return 8
+
 class Chord (Music_xml_node):
     pass
 
@@ -575,6 +603,15 @@ class Direction (Music_xml_node):
 class DirType (Music_xml_node):
     pass
 
+class Bend (Music_xml_node):
+    def bend_alter (self):
+        alter = self.get_maybe_exist_named_child ('bend-alter')
+        if alter:
+            return alter.get_text()
+        else:
+            return 0
+
+
 
 ## need this, not all classes are instantiated
 ## for every input file. Only add those classes, that are either directly
@@ -584,26 +621,32 @@ class_dict = {
 	'accidental': Accidental,
 	'attributes': Attributes,
 	'beam' : Beam,
+        'bend' : Bend,
 	'chord': Chord,
 	'dot': Dot,
 	'direction': Direction,
         'direction-type': DirType,
 	'duration': Duration,
+        'glissando': Glissando,
 	'grace': Grace,
         'identification': Identification,
         'lyric': Lyric,
 	'measure': Measure,
 	'notations': Notations,
 	'note': Note,
+        'octave-shift': Octave_shift,
 	'part': Part,
 	'part-list': Part_list,
+        'pedal': Pedal,
 	'pitch': Pitch,
 	'rest': Rest,
 	'slur': Slur,
         'syllabic': Syllabic,
         'text': Text,
 	'time-modification': Time_modification,
+        'tuplet': Tuplet,
 	'type': Type,
+        'wavy-line': Wavy_line,
         'work': Work,
 }
 

@@ -195,12 +195,24 @@ def musicxml_attributes_to_lily (attrs):
 spanner_event_dict = {
     'slur' : musicexp.SlurEvent,
     'beam' : musicexp.BeamEvent,
-}        
+    'glissando' : musicexp.GlissandoEvent,
+    'pedal' : musicexp.PedalEvent,
+    'wavy-line' : musicexp.TrillSpanEvent,
+    'octave-shift' : musicexp.OctaveShiftEvent
+}
 spanner_type_dict = {
     'start': -1,
     'begin': -1,
+    'up': -2,
+    'down': -1,
     'stop': 1,
     'end' : 1
+}
+spanner_line_type_dict = {
+    'solid': 0,
+    'dashed': 1,
+    'dotted': 2,
+    'wavy': 3
 }
 
 def musicxml_spanner_to_lily_event (mxl_event):
@@ -213,12 +225,20 @@ def musicxml_spanner_to_lily_event (mxl_event):
     else:
         print 'unknown span event ', mxl_event
 
+
     key = mxl_event.get_type ()
     span_direction = spanner_type_dict.get (key)
     if span_direction:
         ev.span_direction = span_direction
     else:
         print 'unknown span type', key, 'for', name
+
+    if hasattr (mxl_event, 'line-type'):
+        span_line_type = spanner_line_type_dict.get (getattr (mxl_event, 'line-type'))
+        if span_line_type:
+            ev.line_type = span_line_type
+    # assign the size, which is used for octave-shift, etc.
+    ev.size = mxl_event.get_size ()
 
     return ev
 
@@ -234,14 +254,32 @@ def musicxml_fermata_to_lily_event (mxl_event):
         ev.force_direction = dir
     return ev
 
-def musicxml_tremolo_to_lily_event(mxl_event):
+def musicxml_tremolo_to_lily_event (mxl_event):
     if mxl_event.get_name () != "tremolo": 
         return
     ev = musicexp.TremoloEvent ()
     ev.bars = mxl_event.get_text ()
     return ev
 
+def musicxml_bend_to_lily_event (mxl_event):
+    if mxl_event.get_name () != "bend":
+        return
+    ev = musicexp.BendEvent ()
+    ev.alter = mxl_event.bend_alter ()
+    return ev
+
+
 # TODO: Some translations are missing!
+short_articulations_dict = {
+  "staccato": ".",
+  "tenuto": "-",
+  "stopped": "+",
+  "staccatissimo": "|",
+  "accent": ">",
+  "strong-accent": "^",
+  #"portato": "_", # does not exist in MusicXML
+    #"fingering": "", # fingering is special cased, as get_text() will be the event's name
+}
 articulations_dict = { 
     ##### ORNAMENTS
     "trill-mark": "trill", 
@@ -251,7 +289,7 @@ articulations_dict = {
     #"shake": "?", 
     #"wavy-line": "?", 
     "mordent": "mordent",
-    "inverted-mordent": "downmordent", 
+    "inverted-mordent": "prall",
     #"schleifer": "?" 
     ##### TECHNICALS
     "up-bow": "upbow", 
@@ -259,28 +297,21 @@ articulations_dict = {
     "harmonic": "flageolet", 
     #"open-string": "", 
     #"thumb-position": "", 
-    #"fingering": "", 
     #"pluck": "", 
     #"double-tongue": "", 
     #"triple-tongue": "", 
-    #"stopped": "", 
     #"snap-pizzicato": "", 
     #"fret": "", 
     #"string": "", 
     #"hammer-on": "", 
     #"pull-off": "", 
-    #"bend": "", 
+    #"bend": "bendAfter #%s", # bend is special-cased, as we need to process the bend-alter subelement!
     #"tap": "", 
     #"heel": "", 
     #"toe": "", 
     #"fingernails": ""
     ##### ARTICULATIONS
-    "accent": "accent", 
-    "strong-accent": "marcato", 
-    "staccato": "staccato", 
-    "tenuto": "tenuto", 
     #"detached-legato": "", 
-    "staccatissimo": "staccatissimo", 
     #"spiccato": "", 
     #"scoop": "", 
     #"plop": "", 
@@ -291,10 +322,29 @@ articulations_dict = {
     #"stress": "", 
     #"unstress": ""
 }
+articulation_spanners = [ "wavy-line" ]
 
-def musicxml_articulation_to_lily_event(mxl_event):
-    ev = musicexp.ArticulationEvent ()
-    tp = articulations_dict.get (mxl_event.get_name ())
+def musicxml_articulation_to_lily_event (mxl_event):
+    # wavy-line elements are treated as trill spanners, not as articulation ornaments
+    if mxl_event.get_name () in articulation_spanners:
+        return musicxml_spanner_to_lily_event (mxl_event)
+
+    # special case, because of the bend-alter subelement
+    if mxl_event.get_name() == "bend":
+        return musicxml_bend_to_lily_event (mxl_event)
+
+    # If we can write a shorthand, use them!
+    if mxl_event.get_name() == "fingering":
+        ev = musicexp.ShortArticulationEvent ()
+        tp = mxl_event.get_text()
+    # In all other cases, use the dicts to translate the xml tag name to a proper lilypond command
+    elif short_articulations_dict.get (mxl_event.get_name ()):
+        ev = musicexp.ShortArticulationEvent ()
+        tp = short_articulations_dict.get (mxl_event.get_name ())
+    else:
+        ev = musicexp.ArticulationEvent ()
+        tp = articulations_dict.get (mxl_event.get_name ())
+
     if not tp:
         return
     
@@ -319,6 +369,8 @@ def musicxml_direction_to_lily( n ):
     if not dirtype: 
       return res
 
+    direction_spanners = [ 'octave-shift', 'pedal' ]
+
     for entry in dirtype.get_all_children ():
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
@@ -342,6 +394,14 @@ def musicxml_direction_to_lily( n ):
                 if wedgetypeval != None:
                     event = musicexp.HairpinEvent (wedgetypeval)
                     res.append (event)
+
+
+        # octave shifts. pedal marks etc. are spanners:
+        if entry.get_name() in direction_spanners:
+            event = musicxml_spanner_to_lily_event (entry)
+            if event:
+                res.append (event)
+
 
     return res
 
@@ -491,7 +551,10 @@ def musicxml_voice_to_lily_voice (voice):
 
         if isinstance (n, musicxml.Direction):
             for a in musicxml_direction_to_lily (n):
-                voice_builder.add_dynamics (a)
+                if a.wait_for_note ():
+                    voice_builder.add_dynamics (a)
+                else:
+                    voice_builder.add_music (a, 0)
             continue
         
         if not n.get_maybe_exist_named_child ('chord'):
@@ -578,8 +641,18 @@ def musicxml_voice_to_lily_voice (voice):
                 
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
-                ev = musicxml_fermata_to_lily_event (a);
+                ev = musicxml_fermata_to_lily_event (a)
                 if ev: 
+                    ev_chord.append (ev)
+
+            arpeggiate = notations.get_named_children ('arpeggiate')
+            for a in arpeggiate:
+                ev_chord.append (musicexp.ArpeggioEvent ())
+
+            glissandos = notations.get_named_children ('glissando')
+            for a in glissandos:
+                ev = musicxml_spanner_to_lily_event (a)
+                if ev:
                     ev_chord.append (ev)
                 
             # Articulations can contain the following child elements:
