@@ -5,6 +5,7 @@ import re
 
 from rational import Rational
 
+
 class Output_stack_element:
     def __init__ (self):
         self.factor = Rational (1)
@@ -763,10 +764,27 @@ class ClefChange (Music):
     def __init__ (self):
         Music.__init__ (self)
         self.type = 'G'
-        
-    
+        self.position = 2
+        self.octave = 0
+
+    def octave_modifier (self):
+        return {1: "^8", 2: "^15", -1: "_8", -2: "_15"}.get (self.octave, '')
+    def clef_name (self):
+        return {('G', 2): "treble",
+                ('G', 1): "french",
+                ('C', 1): "soprano",
+                ('C', 2): "mezzosoprano",
+                ('C', 3): "alto",
+                ('C', 4): "tenor",
+                ('C', 5): "baritone",
+                ('F', 3): "varbaritone",
+                ('F', 4): "bass",
+                ('F', 5): "subbass",
+                ("percussion", 2): "percussion",
+                ("TAB", 5): "tab"}.get ((self.type, self.position), None)
     def ly_expression (self):
-        return '\\clef "%s"' % self.type
+        return '\\clef "%s%s"' % (self.clef_name (), self.octave_modifier ())
+
     clef_dict = {
         "G": ("clefs.G", -2, -6),
         "C": ("clefs.C", 0, 0),
@@ -774,7 +792,10 @@ class ClefChange (Music):
         }
     
     def lisp_expression (self):
-        (glyph, pos, c0) = self.clef_dict.get (self.type)
+        try:
+            (glyph, pos, c0) = self.clef_dict[self.type]
+        except KeyError:
+            return ""
         clefsetting = """
         (make-music 'SequentialMusic
         'elements (list

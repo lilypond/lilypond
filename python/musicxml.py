@@ -1,6 +1,16 @@
 import new
 import string
 from rational import *
+import re
+
+def escape_ly_output_string (input_string):
+    return_string = input_string
+    needs_quotes = re.search ("[0-9\" ]", return_string) or re.search ("^[,.]", return_string);
+    return_string = string.replace (return_string, "\"", "\\\"")
+    if needs_quotes:
+        return_string = "\"" + return_string + "\""
+    return return_string
+
 
 class Xml_node:
     def __init__ (self):
@@ -108,7 +118,7 @@ class Identification (Xml_node):
 
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
-        # return the first creator tag that has type 'editor'
+        # return the first creator tag that has the particular type
         for i in creators:
             if hasattr (i, 'type') and i.type == type:
                 return i.get_text ()
@@ -223,14 +233,22 @@ class Attributes (Measure_element):
             print 'error: requested time signature, but time sig unknown'
             return (4, 4)
 
-    def get_clef_sign (self):
+    # returns clef information in the form ("cleftype", position, octave-shift)
+    def get_clef_information (self):
+        clefinfo = ['G', 2, 0]
         mxl = self.get_named_attribute ('clef')
+        if not mxl:
+            return clefinfo
         sign = mxl.get_maybe_exist_named_child ('sign')
         if sign:
-            return sign.get_text ()
-        else:
-            print 'clef requested, but unknow'
-            return 'G'
+            clefinfo[0] = sign.get_text()
+        line = mxl.get_maybe_exist_named_child ('line')
+        if line:
+            clefinfo[1] = string.atoi (line.get_text ())
+        octave = mxl.get_maybe_exist_named_child ('clef-octave-change')
+        if octave:
+            clefinfo[2] = string.atoi (octave.get_text ())
+        return clefinfo
 
     def get_key_signature (self):
         "return (fifths, mode) tuple"
@@ -336,11 +354,11 @@ class Lyric (Music_xml_node):
         elif text == "_" and continued:
             return "__"
         elif continued and text:
-            return "\"" + text + "\" --"
+            return escape_ly_output_string (text) + " --"
         elif continued:
             return "--"
         elif text:
-            return "\"" + text + "\""
+            return escape_ly_output_string (text)
         else:
             return ""
 

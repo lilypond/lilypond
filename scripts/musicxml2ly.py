@@ -28,49 +28,42 @@ def progress (str):
 # extract those into a hash, indexed by proper lilypond header attributes
 def extract_score_information (tree):
     score_information = {}
+    def set_if_exists (field, value):
+        if value:
+            score_information[field] = value
+
     work = tree.get_maybe_exist_named_child ('work')
     if work:
-        if work.get_work_title ():
-            score_information['title'] = work.get_work_title ()
-        if work.get_work_number ():
-            score_information['worknumber'] = work.get_work_number ()
-        if work.get_opus ():
-            score_information['opus'] = work.get_opus ()
+        set_if_exists ('title', work.get_work_title ())
+        set_if_exists ('worknumber', work.get_work_number ())
+        set_if_exists ('opus', work.get_opus ())
     else:
         movement_title = tree.get_maybe_exist_named_child ('movement-title')
         if movement_title:
-            score_information['title'] = movement_title.get_text ()
+            set_if_exists ('title', movement_title.get_text ())
     
     identifications = tree.get_named_children ('identification')
     for ids in identifications:
-        if ids.get_rights ():
-            score_information['copyright'] = ids.get_rights ()
-        if ids.get_composer ():
-            score_information['composer'] = ids.get_composer ()
-        if ids.get_arranger ():
-            score_information['arranger'] = ids.get_arranger ()
-        if ids.get_editor ():
-            score_information['editor'] = ids.get_editor ()
-        if ids.get_poet ():
-            score_information['poet'] = ids.get_poet ()
+        set_if_exists ('copyright', ids.get_rights ())
+        set_if_exists ('composer', ids.get_composer ())
+        set_if_exists ('arranger', ids.get_arranger ())
+        set_if_exists ('editor', ids.get_editor ())
+        set_if_exists ('poet', ids.get_poet ())
             
-        if ids.get_encoding_software ():
-            score_information['tagline'] = ids.get_encoding_software ()
-            score_information['encodingsoftware'] = ids.get_encoding_software ()
-        if ids.get_encoding_date ():
-            score_information['encodingdate'] = ids.get_encoding_date ()
-        if ids.get_encoding_person ():
-            score_information['encoder'] = ids.get_encoding_person ()
-        if ids.get_encoding_description ():
-            score_information['encodingdescription'] = ids.get_encoding_description ()
+        set_if_exists ('tagline', ids.get_encoding_software ())
+        set_if_exists ('encodingsoftware', ids.get_encoding_software ())
+        set_if_exists ('encodingdate', ids.get_encoding_date ())
+        set_if_exists ('encoder', ids.get_encoding_person ())
+        set_if_exists ('encodingdescription', ids.get_encoding_description ())
 
     return score_information
+
 
 def print_ly_information (printer, score_information):
     printer.dump ('\header {')
     printer.newline ()
-    for k in score_information.keys ():
-        printer.dump ('%s = "%s"' % (k, score_information[k]))
+    for (k, text) in score_information.items ():
+        printer.dump ('%s = %s' % (k, musicxml.escape_ly_output_string (text)))
         printer.newline ()
     printer.dump ('}')
     printer.newline ()
@@ -135,7 +128,7 @@ def group_tuplets (music_list, events):
 
 def musicxml_clef_to_lily (attributes):
     change = musicexp.ClefChange ()
-    change.type = attributes.get_clef_sign ()
+    (change.type, change.position, change.octave) = attributes.get_clef_information ()
     return change
     
 def musicxml_time_to_lily (attributes):
@@ -356,7 +349,7 @@ def musicxml_articulation_to_lily_event (mxl_event):
         dir = musicxml_direction_to_indicator (mxl_event.type)
     if hasattr (mxl_event, 'placement'):
         dir = musicxml_direction_to_indicator (mxl_event.placement)
-    # \breathe cannot have any direction modifyer (^, _, -)!
+    # \breathe cannot have any direction modifier (^, _, -)!
     if dir and tp != "breathe":
         ev.force_direction = dir
     return ev
