@@ -540,6 +540,7 @@ a16 a a a a a a a a a a a a a a a
 La commande @code{revert-auto-beam-setting} requiert exactement les mêmes arguments
 que la règle d'origine.  En d'autres termes, les étoiles ne seront pas prises en compte ici.
 
+@c KEEP LY
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 1/4
 #(override-auto-beam-setting '(end 1 16 1 4) 1 8)
