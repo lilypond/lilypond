@@ -5,7 +5,7 @@ import re
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = re.search ("[0-9\" ]", return_string) or re.search ("^[,.]", return_string);
+    needs_quotes = re.search ("[0-9\" ,.]", return_string);
     return_string = string.replace (return_string, "\"", "\\\"")
     if needs_quotes:
         return_string = "\"" + return_string + "\""
