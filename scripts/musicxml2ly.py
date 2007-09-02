@@ -24,6 +24,59 @@ def progress (str):
     sys.stderr.flush ()
     
 
+# score information is contained in the <work>, <identification> or <movement-title> tags
+# extract those into a hash, indexed by proper lilypond header attributes
+def extract_score_information (tree):
+    score_information = {}
+    work = tree.get_maybe_exist_named_child ('work')
+    if work:
+        if work.get_work_title ():
+            score_information['title'] = work.get_work_title ()
+        if work.get_work_number ():
+            score_information['worknumber'] = work.get_work_number ()
+        if work.get_opus ():
+            score_information['opus'] = work.get_opus ()
+    else:
+        movement_title = tree.get_maybe_exist_named_child ('movement-title')
+        if movement_title:
+            score_information['title'] = movement_title.get_text ()
+    
+    identifications = tree.get_named_children ('identification')
+    for ids in identifications:
+        if ids.get_rights ():
+            score_information['copyright'] = ids.get_rights ()
+        if ids.get_composer ():
+            score_information['composer'] = ids.get_composer ()
+        if ids.get_arranger ():
+            score_information['arranger'] = ids.get_arranger ()
+        if ids.get_editor ():
+            score_information['editor'] = ids.get_editor ()
+        if ids.get_poet ():
+            score_information['poet'] = ids.get_poet ()
+            
+        if ids.get_encoding_software ():
+            score_information['tagline'] = ids.get_encoding_software ()
+            score_information['encodingsoftware'] = ids.get_encoding_software ()
+        if ids.get_encoding_date ():
+            score_information['encodingdate'] = ids.get_encoding_date ()
+        if ids.get_encoding_person ():
+            score_information['encoder'] = ids.get_encoding_person ()
+        if ids.get_encoding_description ():
+            score_information['encodingdescription'] = ids.get_encoding_description ()
+
+    return score_information
+
+def print_ly_information (printer, score_information):
+    printer.dump ('\header {')
+    printer.newline ()
+    for k in score_information.keys ():
+        printer.dump ('%s = "%s"' % (k, score_information[k]))
+        printer.newline ()
+    printer.dump ('}')
+    printer.newline ()
+    printer.newline ()
+    
+
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
     if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
@@ -49,7 +102,7 @@ def group_tuplets (music_list, events):
     j = 0
     for (ev_chord, tuplet_elt, fraction) in events:
         while (j < len (music_list)):
-            if music_list[j]== ev_chord:
+            if music_list[j] == ev_chord:
                 break
             j += 1
         if tuplet_elt.type == 'start':
@@ -154,26 +207,23 @@ def musicxml_spanner_to_lily_event (mxl_event):
     ev = None
     
     name = mxl_event.get_name()
-    try:
-        func = spanner_event_dict[name]
+    func = spanner_event_dict.get (name)
+    if func:
         ev = func()
-    except KeyError:
+    else:
         print 'unknown span event ', mxl_event
 
-    try:
-        key = mxl_event.get_type ()
-        ev.span_direction = spanner_type_dict[key]
-    except KeyError:
+    key = mxl_event.get_type ()
+    span_direction = spanner_type_dict.get (key)
+    if span_direction:
+        ev.span_direction = span_direction
+    else:
         print 'unknown span type', key, 'for', name
 
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    val = { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction)
-    if val:
-        return val
-    else:
-        return ''
+    return { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction, '')
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
@@ -201,12 +251,12 @@ articulations_dict = {
     #"shake": "?", 
     #"wavy-line": "?", 
     "mordent": "mordent",
-    #"inverted-mordent": "?", 
+    "inverted-mordent": "downmordent", 
     #"schleifer": "?" 
     ##### TECHNICALS
     "up-bow": "upbow", 
     "down-bow": "downbow", 
-    #"harmonic": "", 
+    "harmonic": "flageolet", 
     #"open-string": "", 
     #"thumb-position": "", 
     #"fingering": "", 
@@ -256,7 +306,8 @@ def musicxml_articulation_to_lily_event(mxl_event):
         dir = musicxml_direction_to_indicator (mxl_event.type)
     if hasattr (mxl_event, 'placement'):
         dir = musicxml_direction_to_indicator (mxl_event.placement)
-    if dir:
+    # \breathe cannot have any direction modifyer (^, _, -)!
+    if dir and tp != "breathe":
         ev.force_direction = dir
     return ev
 
@@ -286,6 +337,8 @@ def musicxml_direction_to_lily( n ):
                 wedgetype = entry.type;
                 wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
                                 "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
+                # Really check for != None, becaus otherwise 0 will also cause 
+                # the code to be executed!
                 if wedgetypeval != None:
                     event = musicexp.HairpinEvent (wedgetypeval)
                     res.append (event)
@@ -320,9 +373,10 @@ def musicxml_note_to_lily_main_event (n):
         event = musicexp.RestEvent()
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
-        try:
-            event.drum_type = instrument_drumtype_dict[n.instrument_name]
-        except KeyError:
+        drum_type = instrument_drumtype_dict.get (n.instrument_name)
+        if drum_type:
+            event.drum_type = drum_type
+        else:
             n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
             event.drum_type = 'acousticsnare'
     
@@ -369,7 +423,7 @@ class LilyPondVoiceBuilder:
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + duration 
-
+        
         # Insert all pending dynamics right after the note/rest:
         if duration > Rational (0):
             for d in self.pending_dynamics:
@@ -424,6 +478,10 @@ class LilyPondVoiceBuilder:
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
+    lyrics = {}
+        
+    for k in voice.get_lyrics_numbers ():
+        lyrics[k] = []
 
     voice_builder = LilyPondVoiceBuilder()
 
@@ -475,11 +533,8 @@ def musicxml_voice_to_lily_voice (voice):
         
         main_event = musicxml_note_to_lily_main_event (n)
 
-        try:
-            if main_event.drum_type:
-                modes_found['drummode'] = True
-        except AttributeError:
-            pass
+        if hasattr (main_event, 'drum_type') and main_event.drum_type:
+            modes_found['drummode'] = True
 
 
         ev_chord = voice_builder.last_event_chord (n._when)
@@ -565,6 +620,22 @@ def musicxml_voice_to_lily_voice (voice):
                     if ev:
                         ev_chord.append (ev)
 
+        # Extract the lyrics
+        note_lyrics_processed = []
+        note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
+        for l in note_lyrics_elements:
+            if l.get_number () < 0:
+                for k in lyrics.keys ():
+                    lyrics[k].append (l.lyric_to_text ())
+                    note_lyrics_processed.append (k)
+            else:
+                lyrics[l.number].append(l.lyric_to_text ())
+                note_lyrics_processed.append (l.number)
+        for lnr in lyrics.keys ():
+            if not lnr in note_lyrics_processed:
+                lyrics[lnr].append ("\"\"")
+
+
         mxl_beams = [b for b in n.get_named_children ('beam')
                      if (b.get_type () in ('begin', 'end')
                          and b.is_primary ())] 
@@ -586,7 +657,7 @@ def musicxml_voice_to_lily_voice (voice):
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
 
-    seq_music = musicexp.SequentialMusic()
+    seq_music = musicexp.SequentialMusic ()
 
     if 'drummode' in modes_found.keys ():
         ## \key <pitch> barfs in drummode.
@@ -594,7 +665,10 @@ def musicxml_voice_to_lily_voice (voice):
                     if not isinstance(e, musicexp.KeySignatureChange)]
     
     seq_music.elements = ly_voice
-
+    lyrics_dict = {}
+    for k in lyrics.keys ():
+        lyrics_dict[k] = musicexp.Lyrics ()
+        lyrics_dict[k].lyrics_syllables = lyrics[k]
     
     
     if len (modes_found) > 1:
@@ -607,7 +681,7 @@ def musicxml_voice_to_lily_voice (voice):
         v.mode = mode
         return_value = v
     
-    return return_value
+    return (return_value, lyrics_dict)
 
 
 def musicxml_id_to_lily (id):
@@ -651,6 +725,7 @@ def get_all_voices (parts):
         part_ly_voices = {}
         for n, v in name_voice.items ():
             progress ("Converting to LilyPond expressions...")
+            # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             part_ly_voices[n] = (musicxml_voice_to_lily_voice (v), v)
 
         all_ly_voices[p] = part_ly_voices
@@ -700,18 +775,28 @@ def music_xml_voice_name_to_lily_name (part, name):
     str = "Part%sVoice%s" % (part.id, name)
     return musicxml_id_to_lily (str) 
 
+def music_xml_lyrics_name_to_lily_name (part, name, lyricsnr):
+    str = "Part%sVoice%sLyrics%s" % (part.id, name, lyricsnr)
+    return musicxml_id_to_lily (str) 
+
 def print_voice_definitions (printer, part_list, voices):
     part_dict={}
     for (part, nv_dict) in voices.items():
         part_dict[part.id] = (part, nv_dict)
 
     for part in part_list:
-        (part, nv_dict) = part_dict[part.id]
-        for (name, (voice, mxlvoice)) in nv_dict.items ():
+        (part, nv_dict) = part_dict.get (part.id, (None, {}))
+        for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (part, name)
             printer.dump ('%s = ' % k)
             voice.print_ly (printer)
             printer.newline()
+            
+            for l in lyrics.keys ():
+                lname = music_xml_lyrics_name_to_lily_name (part, name, l)
+                printer.dump ('%s = ' %lname )
+                lyrics[l].print_ly (printer)
+                printer.newline()
 
             
 def uniq_list (l):
@@ -724,13 +809,13 @@ def print_score_setup (printer, part_list, voices):
     printer.newline ()
     for part_definition in part_list:
         part_name = part_definition.id
-        try:
-            part = part_dict[part_name]
-        except KeyError:
+        part = part_dict.get (part_name)
+        if not part:
             print 'unknown part in part-list:', part_name
             continue
 
-        nv_dict = voices[part]
+        # TODO: Apparently this is broken! There is always only one staff...
+        nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
                 [mxlvoice._staves.keys ()
                  for (v, mxlvoice) in nv_dict.values ()],
@@ -743,15 +828,23 @@ def print_score_setup (printer, part_list, voices):
             printer.newline ()
             
             for s in staves:
-                staff_voices = [music_xml_voice_name_to_lily_name (part, voice_name)
+                staff_voices = [(music_xml_voice_name_to_lily_name (part, voice_name), voice_name, v)
                         for (voice_name, (v, mxlvoice)) in nv_dict.items ()
                         if mxlvoice._start_staff == s]
                 
                 printer ('\\context Staff = "%s" << ' % s)
                 printer.newline ()
-                for v in staff_voices:
+                for (v, voice_name, (music, lyrics)) in staff_voices:
                     printer ('\\context Voice = "%s"  \\%s' % (v,v))
                     printer.newline ()
+                    
+                    # Assign the lyrics to that voice
+                    for l in lyrics.keys ():
+                        ll = music_xml_lyrics_name_to_lily_name (part, voice_name, l)
+                        printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (v, ll))
+                        printer.newline()
+                        printer.newline()
+                    
                 printer ('>>')
                 printer.newline ()
                 
@@ -762,9 +855,16 @@ def print_score_setup (printer, part_list, voices):
             printer ('\\new Staff <<')
             printer.newline ()
             for (n,v) in nv_dict.items ():
+                ((music, lyrics), voice) = v
+                nn = music_xml_voice_name_to_lily_name (part, n) 
+                printer ('\\context Voice = "%s"  \\%s' % (nn,nn))
 
-                n = music_xml_voice_name_to_lily_name (part, n) 
-                printer ('\\context Voice = "%s"  \\%s' % (n,n))
+                # Assign the lyrics to that voice
+                for l in lyrics.keys ():
+                    ll = music_xml_lyrics_name_to_lily_name (part, n, l)
+                    printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (nn, ll))
+                    printer.newline()
+
             printer ('>>')
             printer.newline ()
             
@@ -803,6 +903,8 @@ def convert (filename, options):
         mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
         part_list = mxl_pl.get_named_children ("score-part")
         
+    # score information is contained in the <work>, <identification> or <movement-title> tags
+    score_information = extract_score_information (tree)
     parts = tree.get_typed_children (musicxml.Part)
     voices = get_all_voices (parts)
 
@@ -819,6 +921,7 @@ def convert (filename, options):
     printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
+    print_ly_information (printer, score_information)
     print_voice_definitions (printer, part_list, voices)
     
     printer.close ()

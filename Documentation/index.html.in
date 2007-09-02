@@ -60,12 +60,10 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	  </td>
 	  <td class="right-column">
 	  <ul>
-            <li>
-	    <a class="title" href="user/lilypond-program/index.html">Program usage</a>
-(in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
-in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
-	    <br>(how to install and run the program)
-	  
+	          <li>
+	    <a class="title" href="topdocs/NEWS.html">News</a>
+ 	    <br>(changes since the previous major release)
+
 <li><a class="title" href="../examples.html">Examples</a>
      <br>(see some examples)
 
@@ -92,9 +90,11 @@ in <a class="title" href="user/lilypond.pdf">PDF</a>)
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-            <li>
-	    <a class="title" href="topdocs/NEWS.html">News</a>
- 	    <br>(changes since the previous major release)
+              <li>
+	    <a class="title" href="user/lilypond-program/index.html">Program usage</a>
+(in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
+in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+	    <br>(how to install and run the program)
 
 <li><a class="title" href="../input/lsr/collated-files.html">Snippets</a>
      <br>(Short tricks, tips, and examples)
@@ -106,12 +106,12 @@ in <a class="title" href="user/lilypond.pdf">PDF</a>)
           <td valign="baseline" class="left-column">
           &nbsp;
 	<ul>
-	    <li><a class="title" href="bibliography/index.html">Bibliography</a>
-     <br>(on background information)
 
-    <li>
-     <a class="title" href="../input/regression/collated-files.html">Regression tests</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
-     <br>(for developers)
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
+              <br>(the website)
+            <li>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">License</a>
+	      <br> (the GNU GPL) 
 
 	</ul>
     </td><td class="right-column">
@@ -125,23 +125,6 @@ in <a class="title" href="user/lilypond.pdf">PDF</a>)
 
 	  </ul>
 	  </td>
-        </tr>
-        <tr>
-          <td valign="baseline" class="left-column">
-          &nbsp;
-          <ul>
-            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(the website)
-          </ul>
-          </td>
-          <td valign="baseline" class="right-column">
-          &nbsp;
-          <ul>
-            <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">License</a>
-	      <br> (the GNU GPL) 
-          </ul>
-          </td>
         </tr>
       </tbody>
     </table>
