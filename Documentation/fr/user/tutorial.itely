@@ -171,7 +171,7 @@ a effectuées sur votre fichier.  Si une erreur survient, c'est ce
 fichier qu'il vous faudra étudier.
 
 Notez qu'il existe d'autres éditeurs de texte, certains disposant d'un
-meilleur support pour LilyPond ; reportez-vous à @rprogram{Editor support}.
+meilleur support pour LilyPond ; reportez-vous à @rprogram{Text editor support}.
 
 @subsubheading Unix
 
@@ -184,7 +184,7 @@ de VIM et un
 encore installés, consultez le fichier @file{INSTALL.txt}.  L'outil
 d'édition le plus facile d'utilisation est de loin
 @file{LilyPondTool}.  Vous trouverez plus d'informations dans
-@rprogram{Editor support}.}  Dans votre
+@rprogram{Text editor support}.}  Dans votre
 éditeur, entrez le texte suivant et sauvegardez le fichier sous
 @file{test.ly}
 

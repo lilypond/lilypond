@@ -159,7 +159,7 @@ LilyPond ha hecho con el archivo. Si se produce algún error, examine este archi
 
 Tenga en cuenta que hay disponibles varios editores de texto
 alternativos con un mejor apoyo para la realización de documentos de
-LilyPond, consulte @rprogram{Editor support} para ver más información.
+LilyPond, consulte @rprogram{Text editor support} para ver más información.
 
 @subsubheading Unix
 
@@ -169,7 +169,7 @@ ejemplo, puede abrir un xterm y ejecutar
 un @code{LilyPond-mode} (modo de LilyPond) para los adictos a Emacs.  Si no han sido
 instalados aún, consulte el archivo @file{INSTALL.txt}.  El
 entorno de edición más sencillo es @file{LilyPondTool}.  Consulte
-@rprogram{Editor support} para más información.}.  En su
+@rprogram{Text editor support} para más información.}.  En su
 editor de texto, introduzca la siguiente entrada y guarde el archivo como
 @file{prueba.ly}
 

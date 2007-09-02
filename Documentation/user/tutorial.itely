@@ -158,7 +158,7 @@ produces a @file{.log} file that contains some information on what LilyPond
 has done to the file.  If any errors occur, please examine this file.
 
 Note that there are several other text editors available, with better
-support for LilyPond, see @rprogram{Editor support}, for more information.
+support for LilyPond, see @rprogram{Text editor support}, for more information.
 
 @subsubheading Unix
 
@@ -168,7 +168,7 @@ example, you could open an xterm and execute
 is a @code{LilyPond-mode} for Emacs addicts.  If they have not been
 installed already, refer to the file @file{INSTALL.txt}.  The
 easiest editing environment is @file{LilyPondTool}.  See
-@rprogram{Editor support}, for more information.}.  In your
+@rprogram{Text editor support}, for more information.}.  In your
 text editor, enter the following input and save the file as
 @file{test.ly}
 
