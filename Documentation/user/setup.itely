@@ -100,7 +100,7 @@ There is support from different text editors for LilyPond.
 @menu
 * Emacs mode::                  
 * Vim mode::                    
-* LilyPondTool::                
+* jEdit::                       
 * TexShop::                     
 * TextMate::                    
 @end menu
@@ -162,8 +162,8 @@ where $@{LILYPOND_VERSION@} is your lilypond version.  If Lilypond was not
 installed in @file{/usr/local/}, then change this path accordingly.
 
 
-@node LilyPondTool
-@subsection LilyPondTool
+@node jEdit
+@subsection jEdit
 
 Created as a plugin for the @uref{http://@/www@/.jedit@/.org@/,jEdit}
 text editor, LilyPondTool is the most feature-rich text-based tool for

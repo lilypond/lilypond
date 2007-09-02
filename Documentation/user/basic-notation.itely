@@ -3015,13 +3015,25 @@ c2\glissando c,
 @end lilypond
 
 
+@commonprop
+
+@lilypond[quote,ragged-right,verbatim]
+I = \once \override NoteColumn #'ignore-collision = ##t
+
+\relative <<
+  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
+  { \oneVoice \I c2 \glissando \I d, }
+>>
+@end lilypond
+
+
+
 @seealso
 
-Program reference: @internalsref{Glissando}.
+Program reference: @internalsref{lissando}.
 
 Example files:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
-
 
 
 @refbugs
