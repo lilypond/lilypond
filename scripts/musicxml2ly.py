@@ -705,7 +705,7 @@ def musicxml_voice_to_lily_voice (voice):
                 note_lyrics_processed.append (l.number)
         for lnr in lyrics.keys ():
             if not lnr in note_lyrics_processed:
-                lyrics[lnr].append ("\"\"")
+                lyrics[lnr].append ("\skip4")
 
 
         mxl_beams = [b for b in n.get_named_children ('beam')
