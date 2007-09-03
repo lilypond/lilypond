@@ -1436,9 +1436,10 @@ für eine bestimmte Quelldatei benutzt worden ist:
 Durch diese Versionsmarkierung werden zukünftige Aktualisierungen
 des LilyPond-Programmes einfacher gemacht. Syntax-Änderungen
 zwischen den Programmversionen werden von einem speziellen
-Programm, @file{convert-ly}, vorgenommen (siehe @rprogram{Updating
-files with convert-ly}). Dieses Programm braucht @code{\version},
- um zu entscheiden, welche Regeln angewandt werden müssen.
+Programm, @file{convert-ly}, vorgenommen (siehe
+@rprogram{Updating files with convert-ly}). Dieses Programm braucht
+@code{\version}, um zu entscheiden, welche Regeln angewandt werden
+müssen.
 
 @node Adding titles
 @subsection Adding titles

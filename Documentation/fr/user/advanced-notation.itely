@@ -2378,7 +2378,7 @@ g
 
 Pour changer la taille des symboles musicaux (police Feta), LilyPond met
 à l'échelle la fonte dont la taille est la plus proche de la taille voulue ---
-cf. @ref{Setting the staf size}.  La taille standard, pour laquelle
+cf. @ref{Setting the staff size}.  La taille standard, pour laquelle
 @code{font-size} vaut 0, dépend de la hauteur de la portée.  À une
 portée de 20 points correspond une police de 10 points.
 
