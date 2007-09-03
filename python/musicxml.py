@@ -664,6 +664,7 @@ class_dict = {
 	'pitch': Pitch,
 	'rest': Rest,
 	'slur': Slur,
+	'staff': Staff,
         'syllabic': Syllabic,
         'text': Text,
 	'time-modification': Time_modification,
