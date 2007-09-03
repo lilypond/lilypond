@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+   Translation of GIT committish: bfbaf6488d99ab4cdfcb4efdc67eaca63a636106
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -70,7 +70,7 @@ en résoudre d'autres.
 @itemize @bullet
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
 Notez que chaque fichier modèle contient une ligne @code{\version
-"2.11.15"}.  Nous vous conseillons fortement d'inclure cette ligne,
+"2.11.32"}.  Nous vous conseillons fortement d'inclure cette ligne,
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @code{convert-ly} demande que vous
@@ -539,7 +539,7 @@ chaque fichier de musique par @code{\include "../global.ly"} qui contient :
 
 @example
 %%%   global.ly
-\version "2.11.15"
+\version "2.11.32"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-mise-en-page.ly"

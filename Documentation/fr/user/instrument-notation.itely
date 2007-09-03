@@ -322,7 +322,7 @@ twoWays = \transpose c c' {
   <f bes d'>
 }
 
-<<\new ChordNames \twoWays
+<< \new ChordNames \twoWays
    \new Voice \twoWays >>
 @end lilypond
 
@@ -526,7 +526,6 @@ s'affichent correctement.
 @lilypond[ragged-right,verbatim]
 \new ChordNames \with {
   \override BarLine #'bar-size = #4
-  voltaOnThisStaff = ##t
   \consists Bar_engraver
   \consists "Volta_engraver"
 }
@@ -1944,7 +1943,7 @@ mus = \drummode {
   cymc cyms cymr hh hhc hho hhho hhp \break
   cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
 \score {
-  <<\new DrumStaff \with {
+  << \new DrumStaff \with {
        \remove Bar_engraver
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
@@ -2129,7 +2128,7 @@ properties on the fly}.
     <<
       {
         hh8[ hh] <hh sn> hh16
-        <\parenthesize sn > hh <\parenthesize
+        < \parenthesize sn > hh < \parenthesize
         sn > hh8 <hh sn> hh
       } \\ {
         bd4 r4 bd8 bd r8 bd
@@ -2461,7 +2460,7 @@ Voici comment insérer des indications de position.
 \clef "G_8"
 b16 d16 g16 b16 e16
 \textSpannerDown
-\override TextSpanner #'bound-details #'left #'text = "XII "
+\override TextSpanner #'bound-details #'left #'text = #"XII "
   g16\startTextSpan
   b16 e16 g16 e16 b16 g16\stopTextSpan
 e16 b16 g16 d16
@@ -4608,9 +4607,9 @@ LilyPond gère la basse chiffrée.
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
   \new FiguredBass \figuremode {
-    <6 >4 <7\+ >8 <6+ [_!] >
-    <6 >4 <6 5 [3+] >
-    <_ >4 <6 5/>4
+    < 6 >4 < 7\+ >8 < 6+ [_!] >
+    < 6 >4 <6 5 [3+] >
+    < _ >4 < 6 5/>4
   }
 >>
 @end lilypond
@@ -4653,7 +4652,7 @@ markup commands}.
 @end example
 @lilypond[quote,ragged-right,fragment]
 \new FiguredBass
-\figuremode { <[4 6] 8 [_! 12] > <5 \markup{ \tiny \number 6 \super (1)} > }
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
 
 

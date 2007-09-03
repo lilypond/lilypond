@@ -176,7 +176,7 @@ mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.15"
+\version "2.11.23"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
