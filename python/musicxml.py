@@ -5,7 +5,7 @@ import re
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = re.search ("[0-9\" ,.]", return_string);
+    needs_quotes = re.search ("[0-9\" ,._-]", return_string);
     return_string = string.replace (return_string, "\"", "\\\"")
     if needs_quotes:
         return_string = "\"" + return_string + "\""
@@ -465,15 +465,15 @@ class Part (Music_xml_node):
                     and n.get_maybe_exist_typed_child (Chord)):
                     now = last_moment
                     measure_position = last_measure_position
-                    
-                last_moment = now
-                last_measure_position = measure_position
 
-		n._when = now
+                n._when = now
                 n._measure_position = measure_position
-		n._duration = dur
-		now += dur
-                measure_position += dur
+                n._duration = dur
+                if dur > Rational (0):
+                    last_moment = now
+                    last_measure_position = measure_position
+                    now += dur
+                    measure_position += dur
                 if n._name == 'note':
                     instrument = n.get_maybe_exist_named_child ('instrument')
                     if instrument:

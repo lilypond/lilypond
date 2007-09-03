@@ -433,7 +433,7 @@ class Lyrics:
         return lstr
 
 
-class EventChord(NestedMusic):
+class EventChord (NestedMusic):
     def get_length (self):
         l = Rational (0)
         for e in self.elements:
@@ -699,7 +699,7 @@ class NoteEvent(RhythmicEvent):
         self.forced_accidental = False
         
     def get_properties (self):
-        str = RhythmicEvent.get_properties ()
+        str = RhythmicEvent.get_properties (self)
         
         if self.pitch:
             str += self.pitch.lisp_expression ()

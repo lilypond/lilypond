@@ -518,10 +518,19 @@ class LilyPondVoiceBuilder:
     def last_event_chord (self, starting_at):
 
         value = None
+
+        # if the position matches, find the last EventChord, do not cross a bar line!
+        at = len( self.elements ) - 1
+        while (at >= 0 and
+               not isinstance (self.elements[at], musicexp.EventChord) and
+               not isinstance (self.elements[at], musicexp.BarCheck)):
+            at -= 1
+
         if (self.elements
-            and isinstance (self.elements[-1], musicexp.EventChord)
+            and at >= 0
+            and isinstance (self.elements[at], musicexp.EventChord)
             and self.begin_moment == starting_at):
-            value = self.elements[-1]
+            value = self.elements[at]
         else:
             self.jumpto (starting_at)
             value = None
