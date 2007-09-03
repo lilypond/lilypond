@@ -2,12 +2,11 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007.
-# , fuzzy
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-02 18:17+0200\n"
 "PO-Revision-Date: 2007-09-03 18:17+0300\n"

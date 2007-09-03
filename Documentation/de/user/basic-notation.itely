@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 718cc970304f6b9a3bb990259a048c06e56f4e48
+    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3173,6 +3173,17 @@ mit dem Befehl @code{\glissando} auf eine Note folgend notiert.
 c2\glissando c'
 \override Glissando #'style = #'zigzag
 c2\glissando c,
+@end lilypond
+ 
+@commonprop
+
+@lilypond[quote,ragged-right,verbatim]
+I = \once \override NoteColumn #'ignore-collision = ##t
+
+\relative <<
+  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
+  { \oneVoice \I c2 \glissando \I d, }
+>>
 @end lilypond
 
 

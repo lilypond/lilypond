@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,24 +49,22 @@
 	  <ul>
 	    <li>
 	    <a class="title" href="user/lilypond/Tutorial.de.html">&Uuml;bung</a>
-	      <br>(F&uuml;r einen ersten Anfang)
+	      <br>(F&uuml;r einen ersten Anfang.)
 
  
  <li><a class="title" href="user/music-glossary/index.html">Glossar</a>
  (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb,
  als <a class="title" href="user/music-glossary.pdf">PDF</a>)
  
-      <br>(&Uuml;bersetzung von musikalischen Begriffen vom Englischen in andere Sprachen)
+      <br>(&Uuml;bersetzung von musikalischen Begriffen vom Englischen in andere Sprachen.)
         </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
-            <li>
-            <a class="title" href="user/lilypond-program/index.html">Programmbenutzung</a>
- (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
- als <a class="title" href="user/lilypond-program.pdf">PDF</a>)
-            <br>(Wie das Programm installiert und gestartet wird.)
-          
+	  <li>
+	    <a class="title" href="topdocs/NEWS.html">Neuigkeiten</a>
+ 	    <br>(&Auml;nderungen seit der letzten Hauptversion auf Englisch.)
+ 
  <li><a class="title" href="../examples.html">Beispiele</a>
       <br>(Sehen Sie sich Notationsbeispiele an.)
 	  </ul>
@@ -92,10 +90,12 @@
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-             <li>
-            <a class="title" href="topdocs/NEWS.html">Neuigkeiten</a>
-            <br>(&Auml;nderungen seit der letzten Hauptversion auf Englisch.)
-
+	  <li>
+            <a class="title" href="user/lilypond-program/index.html">Programmbenutzung</a>
+ (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
+ als <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+            <br>(Wie das Programm installiert und gestartet wird.)
+          
  <li><a class="title" href="../input/lsr/collated-files.html">Schnipsel</a>
       <br>(Schnelle Tricks, Tipps und Beispiele.)
  
@@ -106,42 +106,24 @@
            <td valign="baseline" class="left-column">
            &nbsp;
         <ul>
-            <li><a class="title" href="bibliography/index.html">Bibliographie</a>
-      <br>(Weiterführende Information und Literatur &uuml;ber Notation.)
- 
-     <li>
-      <a class="title" href="../input/regression/collated-files.html">Regressionsteste</a> (~ 5 Mb, in <a  class="title" href="../input/regression/collated-files.pdf">PDF</a>)
-      <br>(Für Entwickler.)
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
+              <br>(Die Internetseite)
+            <li>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Linzenz</a>
+	      <br> (Die GNU GPL) 
  
         </ul>
      </td><td class="right-column">
            &nbsp;
      <ul>
          <li><a class="title"  href="THANKS.html">Danksagungen</a>
-         <br>(an die Mitwirkenden).
+         <br>(an die Mitwirkenden)
  
          <li><a class="title"  href="DEDICATION.html">Widmung</a>
          <br>(von Jan und Han-Wen)
 
 	  </ul>
 	  </td>
-        </tr>
-        <tr>
-          <td valign="baseline" class="left-column">
-          &nbsp;
-          <ul>
-            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(Der Internetauftritt.)
-          </ul>
-          </td>
-          <td valign="baseline" class="right-column">
-          &nbsp;
-          <ul>
-            <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Lizenz</a>
-	      <br> (Die GNU GPL) 
-          </ul>
-          </td>
         </tr>
       </tbody>
     </table>

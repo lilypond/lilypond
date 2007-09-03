@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 718cc970304f6b9a3bb990259a048c06e56f4e48
+    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -952,8 +952,8 @@ das Vorkommen von mehr als einer Stimme pro System.
 * Music expressions explained::
 * Multiple staves::
 * Piano staves::
-* Single staff polyphony::
 * Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
@@ -1169,6 +1169,29 @@ Hier ein kleines Beispiel:
 Siehe @ref{Piano music}.
 @end quotation
 
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@cindex Akkorde
+Akkorde werden notiert, indem die Tonhöhen von spitzen
+Klammern (@q{<} und @q{>}) umgeben werden.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
+@end lilypond
+
+Auch andere Markierungen wie Balken oder Bögen können mit
+den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
+spitzen Klammern gesetzt werden.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
+@end lilypond
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+@end lilypond
+
 
 @node Single staff polyphony
 @subsection Single staff polyphony
@@ -1228,30 +1251,6 @@ kombiniert werden.
 @quotation
 Siehe @ref{Basic polyphony}.
 @end quotation
-
-
-@node Combining notes into chords
-@subsection Combining notes into chords
-
-@cindex Akkorde
-Akkorde werden notiert, indem die Tonhöhen von spitzen
-Klammern (@q{<} und @q{>}) umgeben werden.
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-Auch andere Markierungen wie Balken oder Bögen können mit
-den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
-spitzen Klammern gesetzt werden.
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 
 @node Songs
