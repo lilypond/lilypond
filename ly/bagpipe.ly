@@ -45,7 +45,7 @@ hideKeySignature = {
 }
 showKeySignature = {
   % Show the key signature e.g. for BMW compatibility.
-  \override Staff.KeySignature  #'stencil = #'ly:key-signature-interface::print
+  \override Staff.KeySignature  #'stencil = #ly:key-signature-interface::print
   \set Staff.extraNatural = ##f
   \key d \major
   #(set-accidental-style 'forget)
