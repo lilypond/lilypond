@@ -70,7 +70,7 @@ o corregir problemas:
 
 @itemize @bullet
 @item @strong{Incluya los números de @code{\version} en todos los archivos}.  Dése cuenta de que todas las
-plantillas contienen una cadena como @code{\version "2.11.15"}.  Le recomendamos
+plantillas contienen una cadena como @code{\version "2.11.23"}.  Le recomendamos
 mucho que siempre incluya la @code{\version}, sin importar cuán
 pequeño pueda ser su archivo.  Desde la experiencia personal podemos decirle que es bastante frustrante
 intentar recordar el número de versión de LilyPond que estaba usando hace unos años.
@@ -537,7 +537,7 @@ Yo utilizo media docena de archivos de
 
 @example
 %%%   global.ly
-\version "2.11.15"
+\version "2.11.23"
 #(ly:set-option 'point-and-click #f)
 \include "../iniciar/iniciar-definiciones.ly"
 \include "../iniciar/iniciar-disposicion.ly"
