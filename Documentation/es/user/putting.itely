@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7a71a05373f51d9ffe2a1adc6d7df432d395cd2c
+    Translation of GIT committish: f4b1077612f63c27afd1f00a0bcbd1e78ed262c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,7 +35,7 @@ En este caso comenzaríamos con la plantilla @q{Notas y letra} (para la parte
 de soprano).
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 melodia = \relative c' @{
   \clef treble
   \key c \major
@@ -64,7 +64,7 @@ texto = \lyricmode @{
 Ahora queremos añadir una parte de violoncello.  Veamos el ejemplo @q{Sólo notas}:
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 melodia = \relative c' @{
   \clef treble
   \key c \major
@@ -100,7 +100,7 @@ se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas
 notas del cello.
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 musicaSoprano = \relative c' @{
   \clef treble
   \key c \major
@@ -170,7 +170,7 @@ Esto parece un poco enrevesado; los márgenes están descuadrados.  Esto tiene
 fácil solución.  Presentamos aquí la plantilla completa para soprano y cello.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.15"
+\version "2.11.23"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
