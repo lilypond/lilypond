@@ -297,7 +297,7 @@ automáticamente.
 Si no especifica una duración, se utiliza la duración previa para la nota siguiente.
 La figura por omisión de la primera nota es una negra.
 
-Para crear @rglos{dotted notes}, añada un punto @samp{.} al número de la duración.
+Para crear notas con puntillo (véase @rglos{dotted note}), añada un punto @samp{.} al número de la duración.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -697,7 +697,7 @@ ver @ref{Phrasing slurs}.
 @cindex staccato
 @subheading Articulations
 
-Las @rglos{articulations} más corrientes se pueden añadir a las notas utilizando un guión @samp{-}
+Las articulaciones (véase @rglos{articulation}) más corrientes se pueden añadir a las notas utilizando un guión @samp{-}
 seguido de un carácter único:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -861,8 +861,8 @@ una voz en el mismo pentragrama.
 * Music expressions explained::  
 * Multiple staves::             
 * Piano staves::                
-* Single staff polyphony::      
 * Combining notes into chords::  
+* Single staff polyphony::      
 @end menu
 
 
@@ -1047,6 +1047,27 @@ He aquí un pequeño ejemplo:
 Ver @ref{Piano music}.
 @end quotation
 
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@cindex acordes
+Los acordes se hacen rodeando las notas con paréntesis en ángulo simples. Los paréntesis
+en ángulo son los símbolos @samp{<} (menor que) y @samp{>} (mayor que).
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
+@end lilypond
+
+Se pueden combinar las marcas como barras y ligaduras con acordes.  Se deben
+colocar por fuera de los paréntesis en ángulo:
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
+@end lilypond
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+@end lilypond
 
 @node Single staff polyphony
 @subsection Single staff polyphony
@@ -1103,29 +1124,6 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 @quotation
 Ver @ref{Basic polyphony}.
 @end quotation
-
-
-@node Combining notes into chords
-@subsection Combining notes into chords
-
-@cindex acordes
-Los acordes se hacen rodeando las notas con paréntesis en ángulo simples. Los paréntesis
-en ángulo son los símbolos @samp{<} (menor que) y @samp{>} (mayor que).
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-Se pueden combinar las marcas como barras y ligaduras con acordes.  Se deben
-colocar por fuera de los paréntesis en ángulo:
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 
 @node Songs
@@ -1281,15 +1279,15 @@ del manual.
 @subsection Version number
 
 @cindex indicación de la versión
-La indicación @code{\version} indica para qué versión de LilyPond se escribió
-el archivo.  Para marcar un archivo para la versión 2.11.15, escriba
+La indicación @code{\version} deja registrado para qué versión de LilyPond se escribió
+el archivo:  
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 @end example
 
 @noindent
-al principio de su archivo de LilyPond.
+por convenio se sitúa al principio del archivo de partitura de LilyPond.
 
 Estas anotaciones hacen menos problemáticas las subsiguientes actualizaciones de LilyPond.
 Los cambios en la sintaxis se tratan mediante un programa especial,
@@ -1306,7 +1304,7 @@ principal; el bloque @code{\header} normalmente se sitúa por debajo del
 @ref{Version number}.
 
 @example
-\version "2.11.15"
+\version "2.11.23"
 \header @{
   title = "Symphony"
   composer = "Me"
@@ -1494,4 +1492,7 @@ Si aún tiene dudas respecto de la entrada de LilyPond exacta que se
 ha utilizado en un ejemplo, lea la versión HTML (si no lo está haciendo ya)
 y pulse con el ratón sobre la imagen de la música.  De esta forma se mostrará la entrada
 exacta que LilyPond usó para generar este manual.
+
+Para informarse sobre la estructura que tiene el resto del manual, consulte
+@ref{About this manual}.
 
