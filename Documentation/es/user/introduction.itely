@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 32fe8d89d5c4fe9c73c1daf200cd23c7e8f2d3fc
+    Translation of GIT committish: d1190579fd599ceac3aed3b61e8d22860ca95bcc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -696,12 +696,19 @@ mezclar música y texto dentro de los documentos, en algo muy sencillo.
 @node About this manual
 @section About this manual
 
-El manual se divide en cuatro libros.
+Hay dos manuales sobre LilyPond: el @emph{manual del usuario} (este mismo
+documento) y el de @emph{utilización del programa}.
+
+
+@subheading User manual
+
+El manual se divide en tres libros.
 
 @subsubheading Learning manual
 
 Este libro explica cómo empezar el aprendizaje de LilyPond, así como algunos
-conceptos clave en términos sencillos.
+conceptos clave en términos sencillos. Se recomienda leer estos capítulos
+secuencialmente.
 
 @itemize @bullet
 
@@ -729,6 +736,7 @@ muestra la manera de cambiar el grabado por omisión que produce
 LilyPond.
 
 @end itemize
+
 
 @subsubheading Notation reference
 
@@ -776,32 +784,6 @@ explica cómo crear funciones musicales.
 @end itemize
 
 
-@subsubheading Program usage
-
-Este libro explica la manera de ejecutar el programa y cómo integrar
-la notación de LilyPond con otros programas.
-
-@itemize @bullet
-
-@item
-@emph{@rprogram{Running LilyPond}}
-muestra la manera de ejecutar LilyPond y sus programas asistentes.
-Además, esta sección explica cómo actualizar los archivos de entrada
-de versiones de LilyPond anteriores.
-
-@item
-@emph{@rprogram{LilyPond-book}}
-da los detalles que se encuentran detrás de la creación de
-documentos con ejemplos de música insertados, como este manual.
-
-@item
-@emph{@rprogram{Converting from other formats}}
-explica cómo ejecutar los programas de conversión.  Estos programas se proporcionan
-con el paquete LilyPond, y convierten una amplia variedad de formatos de
-música al formato @code{.ly}.
-
-@end itemize
-
 
 @subsubheading Appendices
 
@@ -848,6 +830,43 @@ El
 es un índice completo.
 
 @end itemize
+
+
+@subsubheading Program usage
+
+Este libro explica la manera de ejecutar el programa y cómo integrar
+la notación de LilyPond con otros programas.
+
+@itemize @bullet
+
+@item
+@emph{@rprogram{Install}}
+explica cómo instalar LilyPond (incluyendo la compilación, si se desea).
+
+@item
+@emph{@rprogram{Setup}}
+describe cómo debe configurar el sistema para una utilización óptima de LilyPond,
+como por ejemplo el uso de entornos especiales para determinados editores de texto.
+
+@item
+@emph{@rprogram{Running LilyPond}}
+trata sobre cómo ejecutar LilyPond y sus programas de apoyo.  Además,
+esta sección explica cómo actualizar las partituras a partir de versiones anteriores
+de LilyPond.
+
+@item
+@emph{@rprogram{LilyPond-book}}
+da los detalles que se encuentran detrás de la creación de
+documentos con ejemplos de música insertados, como este mismo manual.
+
+@item
+@emph{@rprogram{Converting from other formats}}
+explica cómo ejecutar los programas de conversión.  Estos programas vienen incluidos
+en el mismo paquete que el propio LilyPond, y convierten una amplia variedad de formatos de
+música al formato @code{.ly}.
+
+@end itemize
+
 
 
 @subsubheading Other information
