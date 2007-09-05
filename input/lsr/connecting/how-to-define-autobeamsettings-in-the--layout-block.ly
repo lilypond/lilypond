@@ -13,15 +13,16 @@ do it.
       \context {
               \DrumStaff
               % set the beam division after 1/4 and after 3/4 (after 2/4 is default)
-      autoBeamSettings = #'((cons (cons '(end * * * *) (ly:make-moment 1 4))
-      default-auto-beam-settings)
-                            (cons (cons '(end * * * *) (ly:make-moment 3 4))
+      autoBeamSettings = #(cons (cons '(end * * * *) (ly:make-moment 1 4))
+
+                          (cons (cons '(end * * * *) (ly:make-moment 3 4))
       default-auto-beam-settings)
               )
       }
  }
 
  up = \drummode {hh8 hh hh hh hh hh hh hh} %%No manual beaming indication, as you can see
+
 
  down = \drummode {
       \override Beam #'positions = #'(-5 . -5)
@@ -32,6 +33,7 @@ do it.
 
  <<
       \new DrumVoice { \voiceOne  \up }
+
       \new DrumVoice { \voiceTwo \down }
 >>
 
