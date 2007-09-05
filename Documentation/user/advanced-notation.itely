@@ -39,6 +39,22 @@ simply
 insert the characters directly into the lilypond file.  The file must be
 saved as UTF-8.  For more information, see @ref{Text encoding}.
 
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
 @menu
 * Text scripts::                
 * Text and line spanners::      
@@ -75,6 +91,7 @@ To prevent text from influencing spacing, use @code{\emptyText}.
 
 More complex formatting may also be added to a note by using the
 markup command,
+
 @lilypond[fragment,ragged-right,verbatim,quote]
 c'4^\markup { bla \bold bla }
 @end lilypond
