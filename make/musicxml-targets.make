@@ -1,0 +1,1 @@
+default: $(LY_FILES)
