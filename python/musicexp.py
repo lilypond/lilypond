@@ -5,6 +5,7 @@ import re
 
 from rational import Rational
 
+
 class Output_stack_element:
     def __init__ (self):
         self.factor = Rational (1)
@@ -432,7 +433,7 @@ class Lyrics:
         return lstr
 
 
-class EventChord(NestedMusic):
+class EventChord (NestedMusic):
     def get_length (self):
         l = Rational (0)
         for e in self.elements:
@@ -492,12 +493,28 @@ class SpanEvent (Event):
     def __init__(self):
         Event.__init__ (self)
         self.span_direction = 0
+        self.line_type = 0
+        self.size = 0
+    def wait_for_note (self):
+        return True
     def get_properties(self):
         return "'span-direction  %d" % self.span_direction
     
 class SlurEvent (SpanEvent):
     def ly_expression (self):
-        return {-1: '(',
+        before = ''
+        after = ''
+        # TODO: setting dashed/dotted line style does not work, because that
+        #       command needs to be written before the note, not when the
+        #       event is observed after the note!
+        #if self.line_type == 1:
+            #before = '\\slurDotted'
+        #elif self.line_type == 2:
+            #before = '\\slurDashed'
+        #if before:
+            #after = '\\slurSolid'
+
+        return {-1: before + '(' + after,
             0:'',
             1:')'}.get (self.span_direction, '')
 
@@ -507,7 +524,58 @@ class BeamEvent (SpanEvent):
             0:'',
             1:']'}.get (self.span_direction, '')
 
+class PedalEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\sustainDown',
+            0:'',
+            1:'\\sustainUp'}.get (self.span_direction, '')
+
+# type==-1 means octave up, type==-2 means octave down
+class OctaveShiftEvent (SpanEvent):
+    def wait_for_note (self):
+        return False;
+    def ly_octave_shift_indicator (self):
+        if self.size == 8:
+            value = 1
+        elif self.size == 15:
+            value = 2
+        else:
+            value = 0
+        # -2 means up
+        if self.span_direction == -2:
+            value = -value
+        return value
+    def ly_expression (self):
+        dir = self.ly_octave_shift_indicator ()
+        value = ''
+        if dir:
+            value = '#(set-octavation %s)' % dir
+        return {-2: value,
+           -1: value,
+            0: '',
+            1: '#(set-octavation 0)'}.get (self.span_direction, '')
+
+class TrillSpanEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startTrillSpan',
+            0:'',
+            1:'\\stopTrillSpan'}.get (self.span_direction, '')
+
+class GlissandoEvent (SpanEvent):
+    def ly_expression (self):
+        style = ''
+        # TODO: wavy-line glissandos don't work, becasue the style has to be
+        #       set before the note, at the \glissando it's already too late!
+        #if self.line_type == 3: # wavy-line:
+            #style = "\once\override Glissando #'style = #'zigzag"
+        # In lilypond, glissando is NOT a spanner, unlike MusicXML.
+        return {-1: style + '\\glissando',
+            0:'',
+            1:''}.get (self.span_direction, '')
+
 class ArpeggioEvent(Event):
+    def wait_for_note (self):
+        return True;
     def ly_expression (self):
         return ('\\arpeggio')
 
@@ -517,7 +585,7 @@ class TieEvent(Event):
         return '~'
 
 
-class HairpinEvent (Event):
+class HairpinEvent (SpanEvent):
     def __init__ (self, type):
         self.type = type
     def hairpin_to_ly (self):
@@ -540,13 +608,15 @@ class DynamicsEvent (Event):
                                     "mp", "mf", 
                                     "f", "ff", "fff", "ffff", 
                                     "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" ];
+    def wait_for_note (self):
+        return True;
     def ly_expression (self):
         if self.type == None:
             return;
         elif self.type in self.available_commands:
             return '\%s' % self.type
         else:
-            return '\markup{ \dynamic %s }' % self.type
+            return '-\markup{ \dynamic %s }' % self.type
         
     def print_ly (self, printer):
         if self.type == None:
@@ -554,7 +624,7 @@ class DynamicsEvent (Event):
         elif self.type in self.available_commands:
             printer.dump ("\\%s" % self.type)
         else:
-            printer.dump ("\\markup{ \\dynamic %s }" % self.type)
+            printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
 
 
 class ArticulationEvent (Event):
@@ -568,10 +638,17 @@ class ArticulationEvent (Event):
     def ly_expression (self):
         return '%s\\%s' % (self.direction_mod (), self.type)
 
+class ShortArticulationEvent (ArticulationEvent):
+    def direction_mod (self):
+        # default is -
+        return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '-')
+    def ly_expression (self):
+        return '%s%s' % (self.direction_mod (), self.type)
 
 class TremoloEvent (Event):
     def __init__ (self):
-        self.bars = 0;
+        Event.__init__ (self)
+        self.bars = 0
 
     def ly_expression (self):
         str=''
@@ -579,6 +656,15 @@ class TremoloEvent (Event):
             str += ':%s' % (2 ** (2 + string.atoi (self.bars)))
         return str
 
+class BendEvent (Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.alter = 0
+    def ly_expression (self):
+        if self.alter:
+            return "-\\bendAfter #%s" % self.alter
+        else:
+            return ''
 
 class RhythmicEvent(Event):
     def __init__ (self):
@@ -613,7 +699,7 @@ class NoteEvent(RhythmicEvent):
         self.forced_accidental = False
         
     def get_properties (self):
-        str = RhythmicEvent.get_properties ()
+        str = RhythmicEvent.get_properties (self)
         
         if self.pitch:
             str += self.pitch.lisp_expression ()
@@ -678,10 +764,27 @@ class ClefChange (Music):
     def __init__ (self):
         Music.__init__ (self)
         self.type = 'G'
-        
-    
+        self.position = 2
+        self.octave = 0
+
+    def octave_modifier (self):
+        return {1: "^8", 2: "^15", -1: "_8", -2: "_15"}.get (self.octave, '')
+    def clef_name (self):
+        return {('G', 2): "treble",
+                ('G', 1): "french",
+                ('C', 1): "soprano",
+                ('C', 2): "mezzosoprano",
+                ('C', 3): "alto",
+                ('C', 4): "tenor",
+                ('C', 5): "baritone",
+                ('F', 3): "varbaritone",
+                ('F', 4): "bass",
+                ('F', 5): "subbass",
+                ("percussion", 2): "percussion",
+                ("TAB", 5): "tab"}.get ((self.type, self.position), None)
     def ly_expression (self):
-        return '\\clef "%s"' % self.type
+        return '\\clef "%s%s"' % (self.clef_name (), self.octave_modifier ())
+
     clef_dict = {
         "G": ("clefs.G", -2, -6),
         "C": ("clefs.C", 0, 0),
@@ -689,7 +792,10 @@ class ClefChange (Music):
         }
     
     def lisp_expression (self):
-        (glyph, pos, c0) = self.clef_dict.get (self.type)
+        try:
+            (glyph, pos, c0) = self.clef_dict[self.type]
+        except KeyError:
+            return ""
         clefsetting = """
         (make-music 'SequentialMusic
         'elements (list

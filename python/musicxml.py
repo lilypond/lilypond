@@ -1,6 +1,16 @@
 import new
 import string
 from rational import *
+import re
+
+def escape_ly_output_string (input_string):
+    return_string = input_string
+    needs_quotes = re.search ("[0-9\" ,._-]", return_string);
+    return_string = string.replace (return_string, "\"", "\\\"")
+    if needs_quotes:
+        return_string = "\"" + return_string + "\""
+    return return_string
+
 
 class Xml_node:
     def __init__ (self):
@@ -108,7 +118,7 @@ class Identification (Xml_node):
 
     def get_creator (self, type):
         creators = self.get_named_children ('creator')
-        # return the first creator tag that has type 'editor'
+        # return the first creator tag that has the particular type
         for i in creators:
             if hasattr (i, 'type') and i.type == type:
                 return i.get_text ()
@@ -157,6 +167,8 @@ class Duration (Music_xml_node):
 	return dur
 
 class Hash_comment (Music_xml_node):
+    pass
+class Hash_text (Music_xml_node):
     pass
 
 class Pitch (Music_xml_node):
@@ -223,14 +235,22 @@ class Attributes (Measure_element):
             print 'error: requested time signature, but time sig unknown'
             return (4, 4)
 
-    def get_clef_sign (self):
+    # returns clef information in the form ("cleftype", position, octave-shift)
+    def get_clef_information (self):
+        clefinfo = ['G', 2, 0]
         mxl = self.get_named_attribute ('clef')
+        if not mxl:
+            return clefinfo
         sign = mxl.get_maybe_exist_named_child ('sign')
         if sign:
-            return sign.get_text ()
-        else:
-            print 'clef requested, but unknow'
-            return 'G'
+            clefinfo[0] = sign.get_text()
+        line = mxl.get_maybe_exist_named_child ('line')
+        if line:
+            clefinfo[1] = string.atoi (line.get_text ())
+        octave = mxl.get_maybe_exist_named_child ('clef-octave-change')
+        if octave:
+            clefinfo[2] = string.atoi (octave.get_text ())
+        return clefinfo
 
     def get_key_signature (self):
         "return (fifths, mode) tuple"
@@ -336,11 +356,11 @@ class Lyric (Music_xml_node):
         elif text == "_" and continued:
             return "__"
         elif continued and text:
-            return "\"" + text + "\" --"
+            return escape_ly_output_string (text) + " --"
         elif continued:
             return "--"
         elif text:
-            return "\"" + text + "\""
+            return escape_ly_output_string (text)
         else:
             return ""
 
@@ -411,6 +431,8 @@ class Part (Music_xml_node):
             measure_start_moment = now
             measure_position = Rational (0)
 	    for n in m.get_all_children ():
+                if isinstance (n, Hash_text):
+                    continue
 		dur = Rational (0)
 
                 if n.__class__ == Attributes:
@@ -443,15 +465,15 @@ class Part (Music_xml_node):
                     and n.get_maybe_exist_typed_child (Chord)):
                     now = last_moment
                     measure_position = last_measure_position
-                    
-                last_moment = now
-                last_measure_position = measure_position
 
-		n._when = now
+                n._when = now
                 n._measure_position = measure_position
-		n._duration = dur
-		now += dur
-                measure_position += dur
+                n._duration = dur
+                if dur > Rational (0):
+                    last_moment = now
+                    last_measure_position = measure_position
+                    now += dur
+                    measure_position += dur
                 if n._name == 'note':
                     instrument = n.get_maybe_exist_named_child ('instrument')
                     if instrument:
@@ -536,20 +558,48 @@ class Accidental (Music_xml_node):
 	self.editorial = False
 	self.cautionary = False
 
+class Music_xml_spanner (Music_xml_node):
+    def get_type (self):
+        if hasattr (self, 'type'):
+            return self.type
+        else:
+            return 0
+    def get_size (self):
+        if hasattr (self, 'size'):
+            return string.atoi (self.size)
+        else:
+            return 0
 
-class Tuplet(Music_xml_node):
+class Tuplet(Music_xml_spanner):
     pass
 
-class Slur (Music_xml_node):
+class Slur (Music_xml_spanner):
     def get_type (self):
 	return self.type
 
-class Beam (Music_xml_node):
+class Beam (Music_xml_spanner):
     def get_type (self):
 	return self.get_text ()
     def is_primary (self):
         return self.number == "1"
+
+class Wavy_line (Music_xml_spanner):
+    pass
     
+class Pedal (Music_xml_spanner):
+    pass
+
+class Glissando (Music_xml_spanner):
+    pass
+
+class Octave_shift (Music_xml_spanner):
+    # default is 8 for the octave-shift!
+    def get_size (self):
+        if hasattr (self, 'size'):
+            return string.atoi (self.size)
+        else:
+            return 8
+
 class Chord (Music_xml_node):
     pass
 
@@ -575,35 +625,52 @@ class Direction (Music_xml_node):
 class DirType (Music_xml_node):
     pass
 
+class Bend (Music_xml_node):
+    def bend_alter (self):
+        alter = self.get_maybe_exist_named_child ('bend-alter')
+        if alter:
+            return alter.get_text()
+        else:
+            return 0
+
+
 
 ## need this, not all classes are instantiated
 ## for every input file. Only add those classes, that are either directly
 ## used by class name or extend Music_xml_node in some way!
 class_dict = {
 	'#comment': Hash_comment,
+        '#text': Hash_text,
 	'accidental': Accidental,
 	'attributes': Attributes,
 	'beam' : Beam,
+        'bend' : Bend,
 	'chord': Chord,
 	'dot': Dot,
 	'direction': Direction,
         'direction-type': DirType,
 	'duration': Duration,
+        'glissando': Glissando,
 	'grace': Grace,
         'identification': Identification,
         'lyric': Lyric,
 	'measure': Measure,
 	'notations': Notations,
 	'note': Note,
+        'octave-shift': Octave_shift,
 	'part': Part,
 	'part-list': Part_list,
+        'pedal': Pedal,
 	'pitch': Pitch,
 	'rest': Rest,
 	'slur': Slur,
+	'staff': Staff,
         'syllabic': Syllabic,
         'text': Text,
 	'time-modification': Time_modification,
+        'tuplet': Tuplet,
 	'type': Type,
+        'wavy-line': Wavy_line,
         'work': Work,
 }
 
