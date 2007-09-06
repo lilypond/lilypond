@@ -355,27 +355,33 @@ def musicxml_articulation_to_lily_event (mxl_event):
     return ev
 
 
-def musicxml_direction_to_lily( n ):
+def musicxml_dynamics_to_lily_event (dynentry):
+    dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp",
+        "f", "ff", "fff", "ffff", "fffff", "ffffff",
+        "mp", "mf", "sf", "sfp", "sfpp", "fp",
+        "rf", "rfz", "sfz", "sffz", "fz" )
+    if not dynentry.get_name() in dynamics_available:
+        return
+    event = musicexp.DynamicsEvent ()
+    event.type = dynentry.get_name ()
+    return event
+
+
+direction_spanners = [ 'octave-shift', 'pedal' ]
+
+def musicxml_direction_to_lily (n):
     # TODO: Handle the <staff> element!
     res = []
-    dirtype = n.get_maybe_exist_typed_child (musicxml.DirType)
-    if not dirtype: 
-      return res
+    dirtype_children = []
+    for dt in n.get_typed_children (musicxml.DirType):
+        dirtype_children += dt.get_all_children ()
 
-    direction_spanners = [ 'octave-shift', 'pedal' ]
-
-    for entry in dirtype.get_all_children ():
+    for entry in dirtype_children:
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
-                dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp", 
-                    "f", "ff", "fff", "ffff", "fffff", "ffffff", 
-                    "mp", "mf", "sf", "sfp", "sfpp", "fp", 
-                    "rf", "rfz", "sfz", "sffz", "fz" )
-                if not dynentry.get_name() in dynamics_available: 
-                    continue
-                event = musicexp.DynamicsEvent ()
-                event.type = dynentry.get_name ()
-                res.append (event)
+                ev = musicxml_dynamics_to_lily_event (dynentry)
+                if ev:
+                    res.append (ev)
       
         if entry.get_name() == "wedge":
             if hasattr (entry, 'type'):

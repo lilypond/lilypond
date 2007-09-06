@@ -616,7 +616,7 @@ class DynamicsEvent (Event):
         elif self.type in self.available_commands:
             return '\%s' % self.type
         else:
-            return '\markup{ \dynamic %s }' % self.type
+            return '-\markup{ \dynamic %s }' % self.type
         
     def print_ly (self, printer):
         if self.type == None:
@@ -624,7 +624,7 @@ class DynamicsEvent (Event):
         elif self.type in self.available_commands:
             printer.dump ("\\%s" % self.type)
         else:
-            printer.dump ("\\markup{ \\dynamic %s }" % self.type)
+            printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
 
 
 class ArticulationEvent (Event):
