@@ -3030,7 +3030,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Program reference: @internalsref{lissando}.
+Program reference: @internalsref{Glissando}.
 
 Example files:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
@@ -3317,8 +3317,6 @@ Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand; for
 example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
-
-Volta brackets are not vertically aligned.
 
 
 @node Repeats and MIDI

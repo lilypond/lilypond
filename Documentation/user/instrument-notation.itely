@@ -2218,6 +2218,22 @@ Chords are not handled in a special way, and hence the automatic
 string selector may easily select the same string to two notes in a
 chord.
 
+In order to handle @code{\partcombine}, a @code{TabStaff} must use
+specially-created voices:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+melodia = \partcombine { e4 g g g }{ e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
+
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
