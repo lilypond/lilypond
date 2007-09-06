@@ -992,6 +992,8 @@ def convert (filename, options):
     if not options.output_name:
         options.output_name = os.path.basename (filename) 
         options.output_name = os.path.splitext (options.output_name)[0]
+    elif re.match (".*\.ly", options.output_name):
+        options.output_name = os.path.splitext (options.output_name)[0]
 
 
     defs_ly_name = options.output_name + '-defs.ly'
@@ -1018,6 +1020,13 @@ def convert (filename, options):
 
     return voices
 
+def get_existing_filename_with_extension (filename, ext):
+    if not os.path.exists (filename):
+        if filename[-1] == '.':
+            filename += "xml"
+        elif not re.match ("\.xml$", filename):
+            filename += ".xml"
+    return filename
 
 def main ():
     opt_parser = option_parser()
@@ -1026,8 +1035,13 @@ def main ():
     if not args:
         opt_parser.print_usage()
         sys.exit (2)
-
-    voices = convert (args[0], options)
+    
+    # Allow the user to leave out the .xml on the filename
+    filename = get_existing_filename_with_extension (args[0], "xml")
+    if not os.path.exists (filename):
+        print "Unable to find input file %s" % args[0]
+    else:
+        voices = convert (filename, options)
 
 if __name__ == '__main__':
     main()
