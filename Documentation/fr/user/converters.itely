@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+    Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
 
     When revising a translation, copy the HEAD committish of the
@@ -20,22 +20,24 @@ séquenceurs en mode graphique ou des convertisseurs XML.  Pour plus
 de détails, rendez-vous sur le @uref{http://@/lilypond@/.org,site}.
 
 Il s'agit de programmes distincts de lilypond qui se lancent en ligne
-de commande.  Par @qq{ligne de commande}, nous parlons de la ligne de
-commande du système.  Les utilisateurs de Windows parlent de
-@qq{commande MSDos} ou @qq{invite de commande}, les utilisateurs
-d'OSX de @qq{terminal} ou de @qq{console}.  Concernant OSX,
-veuillez consuler @ref{Notes for the MacOS X app}.
+de commande.  Pour plus de précisions, reportez-vous à @ref{Command-line
+usage}.
 
-Décrire l'utilisation du système n'est pas le propos de ce manuel.
-Aussi nous invitons ceux qui ne seraient pas familiers de la ligne de
-commande, à consulter d'autres documentations sur ce sujet. 
+@refbugs
 
-@menu 
-* Invoking midi2ly::
-* Invoking etf2ly::
-* Invoking musicxml2ly::
-* Invoking abc2ly::
-* Generating LilyPond files::
+Les développeurs ne sont malheureusement pas suffisament nombreux et
+disponibles pour maintenir à jour ces programmes, considérez-les donc
+@emph{en l'état}.  Nous acceptons les patches avec plaisir, mais il y a
+peu de chance pour que nous soyons en mesure de résoudre les bogues de
+ces programmes.
+
+@menu
+* Invoking midi2ly::            importation de musique au format MIDI.
+* Invoking musicxml2ly::        importation de partitions au format MusicXML.
+* Invoking abc2ly::             importation de partitions au format ABC.
+* Invoking etf2ly::             importation de partitions Finale.
+* Generating LilyPond files::   interfaces graphiques, outils de
+                                transcription et de composition algorithmique.
 @end menu
 
 
@@ -130,48 +132,6 @@ sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
 ajoutez une indication de phrasé ou de pédale.
 
 
-@node Invoking etf2ly
-@section Invoking @command{etf2ly}
-
-@cindex ETF
-@cindex Enigma
-@cindex Finale
-@cindex Coda Technology
-
-ETF (Enigma Transport Format) est l'un des formats utilisés par le
-logiciel Finale, édité par Coda Music Technology.  @command{etf2ly}
-convertit partiellement les fichiers ETF en fichiers source LilyPond.
-
-
-Pour le lancer en ligne de commande, procédez ainsi :
-@example
-midi2ly [@var{option}]@dots{} @var{midi-file}
-@end example
-
-Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
-commande du système. Pour plus de détails, voir
-@ref{Converting from other formats}.
-
-@command{midi2ly} accepte les options suivantes :
-
-@table @code
-@item -h,--help
-Afficher cette aide.
-
-@item -o, --output=@var{file}
-Générer le résultat dans le fichier @var{file}.
-
-@item -v, --version
-Afficher le numéro de version.
-@end table
-
-
-@refbugs
-
-La liste des scripts d'articulation est incomplète.  Les mesures vides
-perturbent @command{etf2ly}.  Les séquences ne notes d'ornement ne se
-terminent pas de manière satisfaisante.
-
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
@@ -259,6 +219,50 @@ ABC synchronise paroles et musique en début de ligne ;
 @command{abc2ly} ne le fait pas.
 
 @command{abc2ly} ignore les ligatures ABC.
+
+
+
+@node Invoking etf2ly
+@section Invoking @command{etf2ly}
+
+@cindex ETF
+@cindex Enigma
+@cindex Finale
+@cindex Coda Technology
+
+ETF (Enigma Transport Format) est l'un des formats utilisés par le
+logiciel Finale, édité par Coda Music Technology.  @command{etf2ly}
+convertit partiellement les fichiers ETF en fichiers source LilyPond.
+
+
+Pour le lancer en ligne de commande, procédez ainsi :
+@example
+midi2ly [@var{option}]@dots{} @var{midi-file}
+@end example
+
+Notez bien que, par @qq{ligne de commande}, nous parlons de la ligne de
+commande du système. Pour plus de détails, voir
+@ref{Converting from other formats}.
+
+@command{midi2ly} accepte les options suivantes :
+
+@table @code
+@item -h,--help
+Afficher cette aide.
+
+@item -o, --output=@var{file}
+Générer le résultat dans le fichier @var{file}.
+
+@item -v, --version
+Afficher le numéro de version.
+@end table
+
+
+@refbugs
+
+La liste des scripts d'articulation est incomplète.  Les mesures vides
+perturbent @command{etf2ly}.  Les séquences ne notes d'ornement ne se
+terminent pas de manière satisfaisante.
 
 
 

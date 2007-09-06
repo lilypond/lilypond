@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: 29648c524c700d6fd057ec34b84e930ee3667334
+    Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2253,6 +2253,21 @@ Les accords ne subsissent ausun traitement particulier ; de ce fait, la
 sélection automatique des cordes peut attribuer une même corde pour deux
 notes différentes de l'accord.
 
+Afin que @code{\partcombine} fonctionne avec des tablatures, on doit
+ajouter au contexte @code{TabStaff} des voix fantômes :
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+melodia = \partcombine { e4 g g g }{ e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
 
 
 @node Non-guitar tablatures

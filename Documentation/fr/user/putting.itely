@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+    Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -36,7 +36,7 @@ pour soprano et violoncelle : dans ce cas l'on pourrait commencer par les
 @qq{notes et paroles}, pour la partie de soprano.
 
 @example
-\version "2.11.20"
+\version "2.11.23"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -66,7 +66,7 @@ Maintenant, on veut ajouter une partie de violoncelle.
 Jetons un coup d'oeil sur l'exemple avec les notes seules :
 
 @example
-\version "2.11.20"
+\version "2.11.23"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -104,7 +104,7 @@ Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
 le veut l'usage, et donnons-lui d'autres notes.
 
 @example
-\version "2.11.20"
+\version "2.11.23"
 musiqueSoprano = \relative c' @{
   \clef treble
   \key c \major
