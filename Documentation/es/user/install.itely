@@ -22,7 +22,7 @@
 Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las ediciones estables y las
 ediciones inestables de desarrollo.  Las versiones estables tienen como número @q{menor} de versión un
 número par (es decir: 2.8, 2.10, 2.12, etc).  Las versiones de desarrollo
-tienen un número @q{minor} de versión impar (esto es: 2.7, 2.9,
+tienen un número @q{menor} de versión impar (esto es: 2.7, 2.9,
 2.11, etc).
 
 La compilación de LilyPond es un proceso muy enrevesado, por tanto recomendamos @strong{fervientemente}
