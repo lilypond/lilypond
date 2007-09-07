@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: aea9d21f9173e688c4b18b64ef4bf955cd8d2d82
+    Translation of GIT committish: 9919203607214decd1775e05a36ecf8261e4a5a6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -54,11 +54,11 @@ Este documento está disponible también en formato
 Copyright @copyright{} 1999--2007 por los autores
 
 @quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la licencia GNU Free Documentation License, versión 1.1
-cualquier otra posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de la licencia en la sección ``GNU
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 
@@ -85,11 +85,11 @@ Free Documentation License''.
 Copyright @copyright{} 1999--2007 por los autores
 
 @quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la licencia GNU Free Documentation License, versión 1.1
-cualquier otra posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de la licencia en la sección ``GNU
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end copying
@@ -100,11 +100,11 @@ Este archivo es la documentación de la utilización del programa GNU LilyPond.
 Copyright 1999--2007 por los autores
 
 @quotation
-Se otorga permiso para copiar, distribuir y/o modificar este documento
-bajo los términos de la licencia GNU Free Documentation License, versión 1.1
-cualquier otra posterior publicada por la Free Software Foundation;
-sin ninguna de las secciones invariantes.
-Se incluye una copia de la licencia en la sección ``GNU
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
 Free Documentation License''.
 @end quotation
 @end ifnottex
