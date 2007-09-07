@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: cb5ba9fc1c9aad00b8ca087e2563d20c5af280da
+    Translation of GIT committish: d3a79b39816b0982676149d7ada2c6350bbd6bb8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3267,7 +3267,7 @@ corchete sólo dura un compás, lo que supone una duración de 3/4.
 \relative c''{
   \time 3/4
   c c c
-  \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
   \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
