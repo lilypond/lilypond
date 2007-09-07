@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: 2e0c2de412bbb1d7ff6e9437fe3df4ecfc910b84
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,14 +19,14 @@
 @e nd html
 @end ignore
 
-There are two sets of releases for LilyPond: stable releases, and
-unstable development releases.  Stable versions have an even-numbered
-@q{minor} version number (i.e. 2.8, 2.10, 2.12, etc).  Development
-versions have an odd-numbered @q{minor} version number (i.e. 2.7, 2.9,
+Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las ediciones estables y las
+ediciones inestables de desarrollo.  Las versiones estables tienen como número @q{menor} de versión un
+número par (es decir: 2.8, 2.10, 2.12, etc).  Las versiones de desarrollo
+tienen un número @q{minor} de versión impar (esto es: 2.7, 2.9,
 2.11, etc).
 
-Building LilyPond is a very involved process, so we @strong{highly}
-recommend using the precompiled binaries.
+La compilación de LilyPond es un proceso muy enrevesado, por tanto recomendamos @strong{fervientemente}
+el uso de los archivos binarios precompilados.
 
 @menu
 * Precompiled binaries::        
@@ -39,12 +39,12 @@ recommend using the precompiled binaries.
 
 @subsection Downloading
 
-Check out @uref{http://lilypond.org/web/install/} for up to date
-information on binary packages for your platform.  If your operating
-system is not covered on that general page, please see the complete list
-at @uref{http://download.linuxaudio.org/lilypond/binaries/}
+Revise el enlace @uref{http://lilypond.org/web/install/} para ver información
+actualizada sobre los paquetes binarios para su plataforma.  Si su sistema operativo
+no está contemplado en dicha página general, conslute la lista completa
+que está en @uref{http://download.linuxaudio.org/lilypond/binaries/}
 
-We currently create binaries for
+Por el momento estamos creando archivos binarios para
 
 @example
 MacOSX-ppc
