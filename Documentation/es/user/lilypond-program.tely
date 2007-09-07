@@ -1,0 +1,162 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: aea9d21f9173e688c4b18b64ef4bf955cd8d2d82
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@setfilename lilypond-program.info
+@settitle GNU LilyPond program usage
+@documentencoding UTF-8
+@documentlanguage en
+
+@iftex
+@afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
+@end iftex
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription User manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@ifhtml
+Este documento está disponible también en formato
+@uref{source/Documentation/user/lilypond-program.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página}.
+@end ifhtml
+
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle El tipografiador de música
+@titlefont{Utilización del programa}
+@author El equipo de desarrollo de LilyPond
+
+
+Copyright @copyright{} 1999--2007 por los autores
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la licencia GNU Free Documentation License, versión 1.1
+cualquier otra posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de la licencia en la sección ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+@lilypond[ragged-right]
+\score {
+  \context Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \override Score.RehearsalMark #'font-size = #-2
+    \mark #(ly:export (string-append
+      "(For LilyPond version " (lilypond-version) ")"))
+    s2
+  }
+  \layout {
+    indent = 0.0\pt
+  }
+}
+@end lilypond
+
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2007 por los autores
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la licencia GNU Free Documentation License, versión 1.1
+cualquier otra posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de la licencia en la sección ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+Este archivo es la documentación de la utilización del programa GNU LilyPond.
+
+Copyright 1999--2007 por los autores
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la licencia GNU Free Documentation License, versión 1.1
+cualquier otra posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de la licencia en la sección ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- program usage
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+
+El presente documento es el manual de utilización del programa GNU LilyPond, serie 2.11.x.
+@ifhtml
+(Consulte el final de la presente página para ver el número exacto de la versión).
+@end ifhtml
+
+@cindex web site
+@cindex URL
+
+Se puede ampliar información en
+@uref{http://@/www@/.lilypond@/.org/}.  La página web incluye copias en línea
+de esta documentación y otras.
+
+@menu
+* Install::                        Cómo instalarlo o compilarlo.
+* Setup::                          Utilizar LilyPond con notros programas.
+* Running LilyPond::               Funcionamiento.
+* LilyPond-book::                  Integrar texto y música.
+* Converting from other formats::  Convertir al formato del código de entrada de lilypond.
+
+Apéndices
+
+* GNU Free Documentation License:: Licencia de este documento.
+* LilyPond index::
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include macros.itexi
+
+@include install.itely
+@include setup.itely
+@include running.itely
+@include lilypond-book.itely
+@include converters.itely
+
+@include fdl.itexi
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye
+
