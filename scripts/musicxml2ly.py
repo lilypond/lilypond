@@ -73,7 +73,11 @@ def print_ly_information (printer, score_information):
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
     if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
-        d.duration_log = mxl_note.get_duration_log ()
+        duration_log = mxl_note.get_duration_log ()
+        if duration_log:
+            d.duration_log = mxl_note.get_duration_log ()
+        else:
+            d.duration_log = 0
     else:
         d.duration_log = 0
 
