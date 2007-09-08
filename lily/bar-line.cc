@@ -16,6 +16,22 @@
 #include "staff-symbol-referencer.hh"
 #include "line-interface.hh"
 
+/* Get the extent of just the line part of the bar (ie. excluding any
+   repeat dots) */
+Interval
+Bar_line::bar_y_extent (Grob *me, Grob *refpoint)
+{
+  SCM size = me->get_property ("bar-size");
+  if (!scm_is_number (size))
+    return Interval ();
+
+  Real h = scm_to_double (size);
+  Interval iv (-h/2, h/2);
+
+  iv.translate (me->relative_coordinate (refpoint, Y_AXIS));
+  return iv;
+}
+
 MAKE_SCHEME_CALLBACK (Bar_line, print, 1);
 SCM
 Bar_line::print (SCM smob)
