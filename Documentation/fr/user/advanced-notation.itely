@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: 3b48b5e31e0e8fe0a01b539dcb19e23e9fbf89de
+    Translation of GIT committish: a4cf6aed7bf79f3cc1892dbc92b642b2514c1674
 
 
     When revising a translation, copy the HEAD committish of the
@@ -35,6 +35,22 @@ Pour écrire des accents et autres caractères spéciaux, il suffit de
 les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
 @ref{Text encoding}.
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
 
 @menu
 * Text scripts::                
@@ -78,6 +94,7 @@ Pour revenir à l'espacement par défaut, utilisez @code{\emptyText}.
 
 Des constructions plus élaborées d'étiquette peuvent être obtenues en
 ayant recours à la commande @emph{markup} :
+
 @lilypond[fragment,ragged-right,verbatim,quote]
 c'4^\markup { bla \bold bla }
 @end lilypond
@@ -414,7 +431,7 @@ résultat.
   ces1
   \key cis \major
 
-  %  La marque sera alignée sur le côté droit de l'armure,
+  %  La marque sera alignée sur le côté gauche de l'armure,
   % puis décalée vers la droite de 2 unités.
   \once \override Staff.KeySignature #'break-align-anchor = #2
   \mark \default
