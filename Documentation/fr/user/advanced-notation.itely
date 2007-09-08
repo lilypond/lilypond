@@ -2280,11 +2280,11 @@ seront pas imprimées de façon acceptable.  utilisez plutôt
 @cindex têtes de note, spéciales
 
 Certains instruments utilisent des têtes de note différentes à des
-fins spécifiques ---ds croix pour le @q{parlato} des chanteurs ou les
+fins spécifiques --- des croix pour le @q{parlato} des chanteurs ou les
 notes étouffées des guitares ; des losanges pour les harmoniques des
 cordes.  Il existe un raccourci (@code{\harmonic}) pour les notes en
 losange ; pour les autres styles de tête, il vous faudra jouer avec la
-propriété 
+propriété @code{NoteHead}.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 c4 d
@@ -2420,61 +2420,354 @@ cours :
 @node Educational use
 @section Educational use
 
-UNTRANSLATED NODE: IGNORE ME
+Grâce aux nombreux contrôles dont LilyPond dispose, il est tout à fait
+possible de générer du matériel éducatif d'une qualité comparable aux
+grandes partitions.
 
-@menu 
-* Balloon help::
-* Blank music sheet::
-* Hidden notes::
-* Shape note heads::
-* Easy Notation note heads::
-* Analysis brackets::
-* Coloring objects::
-* Parentheses::
-* Grid lines::
-@end menu 
+@menu
+* Balloon help::                
+* Blank music sheet::           
+* Hidden notes::                
+* Shape note heads::            
+* Easy Notation note heads::    
+* Analysis brackets::           
+* Coloring objects::            
+* Parentheses::                 
+* Grid lines::                  
+@end menu
+
 @node Balloon help
 @subsection Balloon help
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez marquer et nommer des éléments de notation à l'aide de
+bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
+notation. 
+
+En voici un exemple :
+@c KEEP LY
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
+  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+}
+@end lilypond
+
+@noindent
+Vous disposez de deux fonctions musicales, @code{balloonText} et
+@code{balloonGrobText}.  @code{balloonGrobText} prend en argument
+l'objet graphique à agrémenter, alors que @code{balloonText} s'utilise
+comme une simple articulation.  Les autres arguments sont le décalage
+et le texte de la bulle.
+
+@cindex bulles
+@cindex notation, expliquer
+
+@seealso
+
+Référence du programme : @internalsref{text-balloon-interface}.
+
+
+
 
 @node Blank music sheet
 @subsection Blank music sheet
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Papier musique
+@cindex Portées, feuille blanche
+
+Une feuille de papier musique s'obtient en utilisant des notes
+invisibles, et en invalidant le @code{Bar_number_engraver}.
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\layout{ indent = #0 }
+emptymusic = {
+  \repeat unfold 2 % À modifier pour plus de lignes.
+  { s1\break }
+  \bar "|."
+}
+\new Score \with {
+  \override TimeSignature #'transparent = ##t
+% décommenter la  ligne suivante selon besoin
+%  \override Clef #'transparent = ##t
+  defaultBarType = #""
+  \remove Bar_number_engraver
+} <<
+
+% à adapter selon les portées désirées
+  \new Staff \emptymusic
+  \new TabStaff \emptymusic
+>>
+@end lilypond
+
 
 @node Hidden notes
 @subsection Hidden notes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Masquées, notes
+@cindex Invisibles, notes
+@cindex Transparentes, notes
+
+@funindex \hideNotes
+@funindex \unHideNotes
+Les notes masquées --- ou invisibles ou encore transparentes --- sont
+utiles dans le cadre d'exercices de théorie ou de composition.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c4 d4
+\hideNotes
+e4 f4
+\unHideNotes
+g4 a
+@end lilypond
+
 
 @node Shape note heads
 @subsection Shape note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tête de note, allure
+
+En notation profilée, le profil d'une tête de note correspond à la
+fonction harmonique de cette note dans la gamme.  Ce style de notation
+était très en vogue dans les recueils de chansons américains du XIXe
+siècle. 
+
+Des notes profilées sont produites après activation de
+@code{\aikenHeads} ou @code{\sacredHarpHeads}, selon le style.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Les profils sont déterminés par la hauteur dans la gamme, le premier
+degré étant défini par la commande @code{\key}. 
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Les notes profilées sont mises en œuvre par la propriété
+@code{shapeNoteStyles}, dont les valeurs sont constituées d'une liste
+de symboles.  Le n-ième élément indique le style à utiliser pour le
+n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
+
+@lilypond[verbatim,relative=1,fragment]
+  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  c8 d4. e8 a2 g1
+@end lilypond
+
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tête de note, apprentissage
+@cindex notation facile
+@cindex Hal Leonard
+
+Les notes @q{easy play} comportent le nom de la note à l'intérieur de
+la tête.  On l'utilise dans des partitions pour débutants.
+
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+  \setEasyHeads
+  c'2 e'4 f' | g'1
+@end lilypond
+
+La commande @code{\setEasyHeads} remplace tous les réglages de l'objet
+@internalsref{NoteHead}.  L'impression doit être de plus grande
+taille, afin que les lettres soient lisibles.  Voir à ce propos
+@ref{Setting the staff size}.
+
+@refcommands
+
+@funindex \setEasyHeads
+@code{\setEasyHeads}
+
 
 @node Analysis brackets
 @subsection Analysis brackets
+@cindex crochets
+@cindex crochets de phrasé
+@cindex analyse musicologique
+@cindex crochet de regroupement de notes
 
-UNTRANSLATED NODE: IGNORE ME
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce.  LilyPond permet d'utiliser une forme
+simplifiée de crochets horizontaux imbriqués, dans la mesure où le
+contexte @internalsref{Staff} comporte le graveur
+@internalsref{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{HorizontalBracket}.
+
 
 @node Coloring objects
 @subsection Coloring objects
 
-UNTRANSLATED NODE: IGNORE ME
+Des objets peuvent être colorisés individuellement.  Une listes des
+noms des couleurs disponibles se trouvent à l'annexe @ref{List of colors}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+L'intégralité de la palette des couleurs définies pour X11 est
+accessible par la fonction Scheme x11-color.  Cette fonction prend
+en argument une expression symbolique
+
+@example
+\override Beam #'color = #(x11-color 'MediumTurquoise)
+@end example
+
+ou une chaîne de caractères
+
+@example
+\override Beam #'color = #(x11-color "MediumTurquoise")
+@end example
+
+La première formulation est à la fois plus rapide à écrire et aussi
+plus efficace.  Néanmoins, la deuxième forme permet d'accéder aux noms
+composés des couleurs de X11.
+
+@example
+\override Beam #'color = #(x11-color "medium turquoise")
+@end example
+
+Lorsque la fonction x11-color ne trouve pas le paramètre fourni, elle
+revient à la couleur par défaut, le noir.  Le problème ressort de
+façon évidente au vu de la partition finale.
+
+L'exemple suivant illustre l'utilisation de la fonction
+@code{x11-color}.  Notez que, après avoir été définie à (x11-color
+'Boggle), la couleur des hampes repasse au noir.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 2/4
+  gis''8 a''
+  \override Beam #'color = #(x11-color "medium turquoise")
+  gis'' a''
+  \override NoteHead #'color = #(x11-color "LimeGreen")
+  gis'' a''
+  \override Stem #'color = #(x11-color 'Boggle)
+  gis'' a''
+}
+@end lilypond
+
+
+@seealso
+
+Annexes : @ref{List of colors}.
+
+
+@refbugs
+Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
+internet.  Aussi nous vous recommandons, dans le cadre d'une
+présentation multimedia, d'utiliser des couleurs de base.
+
+Une couleur x11 n'aura pas forcément le même rendu qu'une couleur
+normale ayant un nom similaire.
+
+Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
+@code{\override}. si besoin est, utilisez @code{\tweak}.  
+Pour plus de détails, consultez @ref{Objects connected to the input}.
+
 
 @node Parentheses
 @subsection Parentheses
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fantômes, notes
+@cindex notes fantômes
+@cindex parenthèses, notes entre
+
+Des objets peuvent être mis entre parenthèses en saisissant
+@code{\parenthesize} juste avant l'événement musical.
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize d
+  g
+>4-\parenthesize -.
+@end lilypond
+
+Ceci n'est opérationnel que dans le cadre d'un accord, qui peut ne
+comprendre qu'une seule note.
+
+@example
+< \parenthesize NOTE>
+@end example
+
 
 @node Grid lines
 @subsection Grid lines
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez tracer des lignes entre les portées, synchronisées avec
+les notes.
+@c KEEP LY
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" %% active les guides
+    gridInterval = #(ly:make-moment 1 4)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
+  %% centre les lignes guides horizontalement sous les notes
+  \override NoteColumn #'X-offset = #-0.5
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    %% centre les lignes guides verticalement
+    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
+Exemples : @lsrdir{education}
+
 
