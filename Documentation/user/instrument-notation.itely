@@ -2221,7 +2221,7 @@ chord.
 In order to handle @code{\partcombine}, a @code{TabStaff} must use
 specially-created voices:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 melodia = \partcombine { e4 g g g }{ e4 e e e }
 <<
   \new TabStaff <<
