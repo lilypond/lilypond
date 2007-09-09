@@ -1,7 +1,8 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 9919203607214decd1775e05a36ecf8261e4a5a6
+    Translation of GIT committish: c5671ac9f0a53386a9832cef3dceb6ea67b872eb
+
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -69,342 +70,53 @@ win32-x86
 @node Compiling from source
 @section Compiling from source
 
-@menu
-* Downloading source code::     
-* Requirements::                
-* Building LilyPond::           
-* Building documentation without compiling LilyPond::  
-* Testing LilyPond::            
-* Problems::                    
-@end menu
+UNTRANSLATED NODE: IGNORE ME
 
+@menu 
+* Downloading source code::
+* Requirements::
+* Building LilyPond::
+* Building documentation without compiling LilyPond::
+* Testing LilyPond::
+* Problems::
+@end menu 
 @node Downloading source code
 @subsection Downloading source code
 
-Download source
-
-@itemize @bullet
-@item tarballs from
-@uref{http://lilypond.org/download/} by HTTP.
-@item tarballs from
-@uref{http://download.linuxaudio.org/lilypond/} by HTTP.
-@item 
-GIT from @uref{http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=summary,git.sv.gnu.org}
-
-@example
-git clone git://git.sv.gnu.org/lilypond.git
-@end example
-
-The repository does not contain generated files.  To create
-@file{configure}, run
-@example
-./autogen.sh
-@end example
-@end itemize
-
-For information on packaging, see @uref{http://lilypond.org/devel}.
-
+UNTRANSLATED NODE: IGNORE ME
 
 @node Requirements
 @subsection Requirements
 
+UNTRANSLATED NODE: IGNORE ME
+
 @unnumberedsubsubsec Compilation
-
-In addition to the packages needed for running Lilypond (see below), you
-need the following extra packages for building.
-
-When installing a binary package FOO, you may need to install the
-FOO-devel, libFOO-dev or FOO-dev package too.
-
-@itemize
-
-@item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
-
-@item New Century Schoolbook fonts, as PFB files. These are shipped with
-X11 and Ghostscript, and are named @file{c059033l.pfb}
-@file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
-
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.19 or
-newer); you may need to install some additional packages to get mftrace
-to work.
-
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version
-1.8.2 or newer).  If you are installing binary packages, you may need to
-install guile-devel or guile-dev or libguile-dev too.
-
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
-
-@item @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
-newer). 
-
-@item @uref{http://www.python.org,Python} (version 2.4 or newer)
-
-@item @uref{ftp://ftp.gnu.org/gnu/make/,GNU Make} (version 3.78 or newer).
-
-@item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
-
-@item @uref{http://www.gnu.org/software/flex/,Flex} 
-
-@item @uref{http://www.perl.org/,Perl} 
-
-@item @uref{http://www.gnu.org/software/flex/,GNU Bison} 
-
-@item All packages required for running, including development packages with
-header files and libraries.
-
-@end itemize
-
-
 @unnumberedsubsubsec Running requirements
-
-Running LilyPond requires proper installation of the following software
-
-@itemize @bullet
-
-@item @uref{http://www.freetype.org/,Freetype} (version 2.1.10 or newer).
-@item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
-@item @uref{http://www.pango.org/,Pango} (version 1.12 or newer).
-@item @uref{http://www.gnu.org/software/guile/guile.html,GUILE}
-(version 1.8.2 or newer), or patch 1.8.1 with
-@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.8-rational.patch}.
-@item @uref{http://www.python.org,Python} (version 2.4 or newer).
-@item @uref{http://www.ghostscript.com,Ghostscript} (version 8.15 or
-newer. 8.50 recommended)
-@item Dejaview.  (This is normally installed by default)
-@end itemize
-
-International fonts are required to create music with international text
-or lyrics.
-
-
 @unnumberedsubsubsec Building documentation
-
-You can view the documentation online at
-@uref{http://lilypond.org/doc/}, but you can also build it locally.
-This process requires a successful compile of lilypond.  The
-documentation is built by issuing
-
-@example
-make web
-@end example
-
-Building the website requires some additional tools and packages
-
-@itemize @bullet
-@item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
-@item ImageMagick
-@item International fonts (see input/regression/utf-8.ly for hints
-about which font packages are necessary for your platform)
-@item Ghostscript, 8.50 with the patch from
-@uref{http://bugs.ghostscript.com/show_bug.cgi?id=688154}
-and the patch from
-@uref{http://bugs.ghostscript.com/show_bug.cgi?id=688017}.
-@end itemize
-
-The HTML files can be installed into the standard documentation path
-by issuing
-
-@example
-make out=www web-install
-@end example
-
-
 @node Building LilyPond
 @subsection Building LilyPond
 
+UNTRANSLATED NODE: IGNORE ME
+
 @unnumberedsubsubsec Compiling
-
-To install GNU LilyPond, type
-
-@example
-gunzip -c lilypond-x.y.z | tar xf -
-cd lilypond-x.y.z
-./configure		# run with --help for applicable options
-make
-make install
-@end example
-
-If you are not root, you should choose a @code{--prefix} argument that
-points into your home directory, e.g.
-
-@example
-./configure --prefix=$HOME/usr
-@end example
-
-
 @unnumberedsubsubsec Compiling for multiple platforms
-
-If you want to build multiple versions of LilyPond with different
-configuration settings, you can use the @code{--enable-config=CONF}
-option of configure.  You should use @samp{make conf=CONF} to generate
-the output in @file{out-CONF}.  Example: Suppose you want to build
-with and without profiling, then use the following for the normal
-build
-
-@example
-./configure --prefix=$HOME/usr/ --enable-checking
-make
-make install
-@end example
-
-and for the profiling version, specify a different configuration
-
-@example
-./configure --prefix=$HOME/usr/ --enable-profiling --enable-config=prof --disable-checking
-make conf=prof
-make conf=prof install
-@end example
-
-
 @node Building documentation without compiling LilyPond
 @subsection Building documentation without compiling LilyPond
 
-The documentation can be built locally without compiling lilypond from
-scratch.
-
-From a fresh git checkout, do
-
-@example
-./autogen.sh   % ignore any warning messages
-cp GNUmakefile.in GNUmakefile
-make -C python
-nice make LILYPOND_EXTERNAL_BINARY=/path/to/bin/lilypond web
-% change the lilypond directory as appropriate
-@end example
-
-Please note that this may break sometimes -- for example, if a new
-feature is added with a test file in input/regression, even the latest
-unstable Lily will fail to build the docs.
-
-You may build the manual ( Documentation/user/ ) without building all
-the input/* stuff.
-
+UNTRANSLATED NODE: IGNORE ME
 
 @node Testing LilyPond
 @subsection Testing LilyPond
 
-@html
-<a name="testing"></a>
-@end html
-
-LilyPond comes with an extensive suite that exercises the entire
-program. This suite can be used to automatically check the impact of a
-change. This is done as follows
-
-@example
-make test-baseline
-@emph{## apply your changes, compile}
-make check
-@end example
-
-This will leave an HTML page @file{out/test-results/index.html}.  This
-page shows all the important differences that your change introduced,
-whether in the layout, MIDI, performance or error reporting.
-
-To rerun tests, use
-
-@example
-make test-redo           @emph{## redo files differing from baseline}
-make test-clean          @emph{## remove all test results}
-@end example
-
-@noindent
-and then run @code{make check} again.
-
-For tracking memory usage as part of this test, you will need GUILE
-CVS; especially the following patch:
-@uref{http://lilypond.org/vc/gub.darcs/patches/guile-1.9-gcstats.patch}.
-
-For checking the coverage of the test suite, do the following
-
-@example
-./buildscripts/build-coverage.sh
-@emph{# uncovered files, least covered first}
-python ./buildscripts/coverage.py  --summary out-cov/*.cc
-@emph{# consecutive uncovered lines, longest first} 
-python ./buildscripts/coverage.py  --uncovered out-cov/*.cc
-@end example
-
+UNTRANSLATED NODE: IGNORE ME
 
 @node Problems
 @subsection Problems
 
-For help and questions use @email{lilypond-user@@gnu.org}.  Send bug
-reports to @email{bug-lilypond@@gnu.org}.
-
-Bugs that are not fault of LilyPond are documented here.
+UNTRANSLATED NODE: IGNORE ME
 
 @unnumberedsubsubsec Bison 1.875
-
-There is a bug in bison-1.875: compilation fails with "parse error
-before `goto'" in line 4922 due to a bug in bison. To fix, please
-recompile bison 1.875 with the following fix
-
-@example
-$ cd lily; make out/parser.cc
-$ vi +4919 out/parser.cc
-# append a semicolon to the line containing "__attribute__ ((__unused__))
-# save
-$ make
-@end example
-
-
 @unnumberedsubsubsec Solaris
-
-Solaris7, ./configure
-
-@file{./configure} needs a POSIX compliant shell.  On Solaris7,
-@file{/bin/sh} is not yet POSIX compliant, but @file{/bin/ksh} or bash
-is.  Run configure like
-
-@example
-CONFIG_SHELL=/bin/ksh ksh -c ./configure
-@end example
-
-@noindent
-or
-
-@example
-CONFIG_SHELL=/bin/bash bash -c ./configure
-@end example
-
 @unnumberedsubsubsec FreeBSD
-
-To use system fonts, dejaview must be installed.  With the default
-port, the fonts are installed in @file{usr/X11R6/lib/X11/fonts/dejavu}.
-
-Open the file @file{$LILYPONDBASE/usr/etc/fonts/local.conf} and add the
-following line just after the @code{<fontconfig>} line.  (Adjust as necessary
-for your hierarchy.)
-
-@example
-<dir>/usr/X11R6/lib/X11/fonts</dir>
-@end example
-
-
 @unnumberedsubsubsec International fonts
-
-On MacOs X, all fonts are installed by default.  However, finding all
-system fonts requires a bit of configuration; see
-@uref{http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00472.html,
-this post} on the @code{lilypond-user} mailing list.
-
-On Linux, international fonts are installed by different means on
-every distribution.  We cannot list the exact commands or packages
-that are necessary, as each distribution is different, and the exact
-package names within each distribution changes.  Here are some
-hints, though:
-
-@verbatim
-Red Hat Fedora
-
-    taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-         ttfonts-zh_CN fonts-ja fonts-hebrew 
-
-Debian GNU/Linux
-
-   apt-get install emacs-intl-fonts xfonts-intl-.* \
-        ttf-kochi-gothic ttf-kochi-mincho \
-        xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
-@end verbatim
 
