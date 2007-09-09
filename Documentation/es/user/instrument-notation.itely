@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c52ec7fbf0c02adbf88fdefca52e1b1ba842f05b
+    Translation of GIT committish: f30e512df40602171a5ab94191fee7571231b837
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2217,6 +2217,22 @@ Referencia del programa: @internalsref{TabStaff}, @internalsref{TabVoice}.
 Los acordes no se tratan de una manera especial, de aquí que el
 selector automático de cuerdas podría fácilmente seleccionar la misma cuerda para dos notas
 dentro del mismo acorde.
+
+Para manejar @code{\partcombine}, una pauta de tablatura @code{TabStaff} debe usar
+voces creadas especialmente:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+melodia = \partcombine { e4 g g g }{ e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
 
 
 @node Non-guitar tablatures
