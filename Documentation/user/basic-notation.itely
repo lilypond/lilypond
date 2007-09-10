@@ -3015,13 +3015,25 @@ c2\glissando c,
 @end lilypond
 
 
+@commonprop
+
+@lilypond[quote,ragged-right,verbatim]
+I = \once \override NoteColumn #'ignore-collision = ##t
+
+\relative <<
+  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
+  { \oneVoice \I c2 \glissando \I d, }
+>>
+@end lilypond
+
+
+
 @seealso
 
 Program reference: @internalsref{Glissando}.
 
 Example files:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
-
 
 
 @refbugs
@@ -3256,7 +3268,7 @@ bracket only lasts one measure, which is a duration of 3/4.
 \relative c''{
   \time 3/4
   c c c
-  \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
   \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
@@ -3305,8 +3317,6 @@ Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand; for
 example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
-
-Volta brackets are not vertically aligned.
 
 
 @node Repeats and MIDI

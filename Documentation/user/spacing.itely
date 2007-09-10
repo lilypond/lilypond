@@ -490,6 +490,12 @@ staves.  The sizes of individual staves are relative to the global size.
 This manual: @ref{Selecting notation font size}.
 
 
+@refbugs
+
+@code{layout-set-staff-size} does not change the distance between the
+staff lines.
+
+
 @node Score layout
 @subsection Score layout
 
