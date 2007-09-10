@@ -3268,7 +3268,7 @@ bracket only lasts one measure, which is a duration of 3/4.
 \relative c''{
   \time 3/4
   c c c
-  \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
   \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
