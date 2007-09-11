@@ -56,6 +56,9 @@ Key_signature_interface::print (SCM smob)
   */
 
   int last_pos = -1000;
+  SCM last_glyph_name = SCM_BOOL_F;
+  SCM padding_pairs = me->get_property ("padding-pairs");
+    
   Font_metric *fm = Font_interface::get_default_font (me);
   SCM alist = me->get_property ("glyph-name-alist");
 
@@ -95,13 +98,19 @@ Key_signature_interface::print (SCM smob)
 	  */
 	  Real padding = robust_scm2double (me->get_property ("padding"),
 					    0.0);
-	  if (glyph_name ==  "accidentals.natural"
+	  SCM handle = scm_assoc (scm_cons (glyph_name_scm, last_glyph_name),
+				  padding_pairs);
+	  if (scm_is_pair (handle))
+	    padding = robust_scm2double (scm_cdr (handle), 0.0);
+	  else if (glyph_name ==  "accidentals.natural"
 	      && last_pos < pos + 2
 	      && last_pos > pos - 6)
 	    padding += 0.3;
 
 	  mol.add_at_edge (X_AXIS, LEFT, acc, padding);
+	  
 	  last_pos = pos;
+	  last_glyph_name = glyph_name_scm;
 	}
     }
 
@@ -117,5 +126,6 @@ ADD_INTERFACE (Key_signature_interface,
 	       "c0-position "
 	       "glyph-name-alist "
 	       "padding "
+	       "padding-pairs "
 	       "style "
 	       );
