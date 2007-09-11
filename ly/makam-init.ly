@@ -152,33 +152,14 @@ makamGlyphs = #`((1 . "accidentals.doublesharp")
        (-8/9 . "accidentals.flat.slashslash")
        (-1 . "accidentals.flatflat"))
 
-\relative {
-
-  %{ define alteration <-> symbol mapping. The following glyphs are available.
-
-  accidentals.sharp 
-  accidentals.sharp.slashslash.stem 
-  accidentals.sharp.slashslashslash.stemstem 
-  accidentals.sharp.slashslashslash.stem 
-  accidentals.sharp.slashslash.stemstemstem 
-  accidentals.natural 
-  accidentals.flat 
-  accidentals.flat.slash 
-  accidentals.flat.slashslash 
-  accidentals.mirroredflat.flat 
-  accidentals.mirroredflat 
-  accidentals.flatflat 
-  accidentals.flatflat.slash 
-  accidentals.doublesharp 
-
-  %}
-
-  \override Accidental #'glyph-name-alist =  \makamGlyphs
-  
-  \override Staff.KeySignature #'glyph-name-alist = \makamGlyphs
-  \set Staff.keySignature =  #'(
-    (3 .  4/9)
-    (6 . -1/9))
-  
-  c cc db fk gbm gfc gfb efk dfbm
+\layout {
+  \context {
+    \Score
+    \override KeySignature #'glyph-name-alist = \makamGlyphs
+    \override Accidental #'glyph-name-alist = \makamGlyphs
+    \override AccidentalCautionary #'glyph-name-alist = \makamGlyphs
+    \override TrillPitchAccidental #'glyph-name-alist = \makamGlyphs
+    \override AmbitusAccidental #'glyph-name-alist = \makamGlyphs
+  }
 }
+
