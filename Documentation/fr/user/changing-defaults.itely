@@ -882,8 +882,8 @@ multi-mesures.  Il s'agit d'un objet Scheme, auquel on attribue la valeur boolé
 Ce changement étant appliqué @q{à la volée}, il n'affecte que le second groupe de notes.
 
 Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
-dans contexte le contexte le plus restreint où elle est employée :le plus souvent
- @context{ChordNames}, @context{Voice}, ou @context{Lyrics}. Dans l'exemple suivant...
+dans le contexte le plus restreint où elle est employée : le plus souvent
+ @context{ChordNames}, @context{Voice}, ou @context{Lyrics}. Dans l'exemple suivant,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -1935,7 +1935,7 @@ il ne peut notamment pas être accolé avec les symboles @samp{^} ou @samp{_}.
 
 C'est en se servant du langage Scheme que l'on peut résoudre ce problème.
 Dans cet exemple, on a recours aux méthodes décrites dans @ref{Adding 
-articulation to notes (example), en particulier quant à l'emploi de
+articulation to notes (example)}, en particulier quant à l'emploi de
 @code{\displayMusic}.
 
 @example

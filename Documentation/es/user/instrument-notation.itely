@@ -2221,7 +2221,7 @@ dentro del mismo acorde.
 Para manejar @code{\partcombine}, una pauta de tablatura @code{TabStaff} debe usar
 voces creadas especialmente:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 melodia = \partcombine { e4 g g g }{ e4 e e e }
 <<
   \new TabStaff <<
