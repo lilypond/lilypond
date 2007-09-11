@@ -580,7 +580,7 @@ dans le fichier @file{scm/@/auto@/-beam@/.scm} pour rechercher d'éventuels conf
 la mesure ou les règles par défaut s'ajoutent à vos propres règles.  Il est alors nécessaire
 de désactiver toute règle par défaut conduisant à des ligatures indésirables.
 
-Ainsi, pour obtenir des ligatures en groupes de @code{(3 4 3 2)} notes, dans une mesure à 12/8,
+Ainsi, pour obtenir des ligatures en groupes de @code{(3 4 3 2)} croches, dans une mesure à 12/8,
 il faudra préalablement utiliser :
 
 @example
