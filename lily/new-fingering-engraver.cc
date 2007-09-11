@@ -249,7 +249,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
       Grob *f = ft.script_;
       f->set_parent (ft.head_, X_AXIS);
       f->set_parent (ft.head_, Y_AXIS);
-
+      f->set_property ("avoid-slur", SCM_BOOL_F);
       if (hordir == LEFT
 	  && unsmob_grob (ft.head_->get_object ("accidental-grob")))
 	Side_position_interface::add_support (f,
