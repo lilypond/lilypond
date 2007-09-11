@@ -17,6 +17,7 @@
 
 #include "international.hh"
 #include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "stream-event.hh"
 #include "spanner.hh"
@@ -30,6 +31,8 @@ public:
 protected:
   virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (trill_span);
+  DECLARE_ACKNOWLEDGER (note_column);
+
   void stop_translation_timestep ();
   void process_music ();
 
@@ -57,6 +60,20 @@ Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
   Direction d = to_dir (ev->get_property ("span-direction"));
   ASSIGN_EVENT_ONCE (event_drul_[d], ev);
 }
+
+void
+Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
+{
+  if (!span_)
+    return;
+
+  Pointer_group_interface::add_grob (span_,
+				     ly_symbol2scm ("note-columns"),
+				     info.grob());
+}
+
+ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
+
 
 void
 Trill_spanner_engraver::process_music ()
