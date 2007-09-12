@@ -2152,7 +2152,7 @@ eingesetzt werden.
 LilyPond besitzt grundlegende Untersützung für mensurale Taktangaben. Die 
 Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte 
 @code{n} und @code{m} der folgenden Tabelle in den Befehl 
-@code{\time n/m) eingesetzt werden, um die entsprechenden Symbole zu erhalten.
+@code{\time n/m} eingesetzt werden, um die entsprechenden Symbole zu erhalten.
 
 @lilypond[quote,ragged-right]
 \layout {
