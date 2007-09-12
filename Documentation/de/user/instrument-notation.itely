@@ -1261,7 +1261,7 @@ Damit die Kombination von Stimmen (@code{\partcombine}) richtig funktioniert,
 müssen spziell erstellte Stimmen innerhalb des Tabulatursystems 
 (@code{TabStaff}) benutzt werden:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,verbatim]
 melodia = \partcombine { e4 g g g }{ e4 e e e }
 <<
   \new TabStaff <<
