@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d18561abb4a826a1fe77e06619b935eeaace9841
+    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -221,7 +221,7 @@ usar para aplicar trucos genéricos.
 @cindex relleno
 
 @item
-La propiedad @code{padding} (relleno) se puede establacer de forma que incremente
+La propiedad @code{padding} (relleno) se puede establecer de forma que incremente
 (o disminuya) la distancia entre símbolos que se imprimen encima
 o debajo de las notas.  Se aplica a todos los objetos con
 @code{side-position-interface}.
@@ -244,8 +244,8 @@ d1
 @end lilypond
 
 Observe en el segundo ejemplo cuán importante es determinar qué contexto
-maneja un objeto determinado.  Debido a que el objeto @code{MetronomeMark} (indicación metronímica)
-se maneja en el conexto @code{Score}, los cambios de propiedades dentro del
+maneja un objeto determinado.  Debido a que el objeto @code{MetronomeMark} (indicación metronómica)
+se maneja en el contexto @code{Score}, los cambios de propiedades dentro del
 contexto @code{Voice} no se tendrán en cuenta.  Para ver más detalles, consulte
 @ref{Constructing a tweak}.
 
@@ -355,7 +355,7 @@ para comprender estos archivos.
 @item OSX:
 @file{@var{carpeta_de_instalación}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
 Para llegar aquí, o bien entre con @code{cd} en este directorio desde el
-Terminal, o haga control-click sobre la aplicación LilyPond y elija
+Terminal, o haga control-clic sobre la aplicación LilyPond y elija
 @q{Mostrar el Contenido del Paquete}.
 
 @item Windows: @file{@var{carpeta_de_instalación}/LilyPond/usr/share/lilypond/current/}
@@ -373,7 +373,7 @@ Archivos como @file{ly/property-init.ly} y
 A veces puede acabar con uno o dos pentagramas en una segunda página
 (o tercera, o cuarta...).  Es fastidioso sobre todo si observa las
 páginas anteriores y parece haber
-espacio sufuciente en ellas.
+espacio suficiente en ellas.
 
 Al investigar asuntos relacionados con la presentación, la herramienta
 @code{annotate-spacing} (anotar el espaciado) no tiene precio.
@@ -412,12 +412,12 @@ para que use 10).
 
 @item
 Evite (o reduzca) el uso de objetos que aumenten el tamaño
-vetical de un sistema.  Por ejemplo, las repeticiones con
+vertical de un sistema.  Por ejemplo, las repeticiones con
 primera y segunda vez necesitan espacio adicional.  Si
 estas repeticiones abarcan dos sistemas, ocuparán más espacio
 que un solo sistema con las repeticiones y otro sistema sin ellas.
 
-Otro ejemplo es desplazar las expresionas dinámicas que se
+Otro ejemplo es desplazar las expresiones dinámicas que se
 @q{asoman por encima} de un sistema.
 
 @lilypond[verbatim,quote,fragment]

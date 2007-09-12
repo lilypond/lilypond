@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f4b1077612f63c27afd1f00a0bcbd1e78ed262c1
+    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -135,7 +135,7 @@ musicaCello = \relative c @{
 @end example
 
 Esto tiene una pinta prometedora, pero la parte del cello no sale en la partitura
-(no la hemos puesto en la sección @code{\score}).  Si quieremos que la parte
+(no la hemos puesto en la sección @code{\score}).  Si queremos que la parte
 del cello aparezca debajo de la de soprano, tenemos que añadir
 
 @example
@@ -361,7 +361,7 @@ recorreremos el camino inverso hacia abajo.
 Una ópera de Wagner completa puede ser fácilmente el doble de larga que este manual,
 por tanto vamos a hacer sólo un cantante y un piano.
 No necesitamos un @code{GrandStaff} para este conjunto, así que
-lo retiramos.  Sin ambargo, sí que @emph{necesitamos}
+lo retiramos.  Sin embargo, sí que @emph{necesitamos}
 un cantante y un piano.
 
 @example
@@ -408,9 +408,9 @@ voz --) y el texto de la canción.  También tenemos una pauta de piano:
 contiene un pentagrama superior (mano derecha) y un pentagrama
 inferior (mano izquierda).
 
-En este moento podríamos comenzar a meter las notas.  Dentro de las
+En este momento podríamos comenzar a meter las notas.  Dentro de las
 llaves que siguen a @code{\new Voice = vocal},
-podríamos empezar escibiendo
+podríamos empezar escribiendo
 
 @example
 \relative c'' @{

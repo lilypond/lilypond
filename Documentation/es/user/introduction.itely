@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d1190579fd599ceac3aed3b61e8d22860ca95bcc
+    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -191,7 +191,7 @@ ritmos monótonos, las correcciones de espaciado llevan a sutiles variaciones en
 la disposición de cada una de las líneas dándoles una especie de firma visual distintiva.
 Sin esta firma, todas las líneas parecerían iguales, y se convertirían en
 un laberinto.  Si un músico aparta la mirada o tiene un lapsus de
-concentración, las líneas podráin perder su lugar sobre el papel.
+concentración, las líneas podrían perder su lugar sobre el papel.
 
 De forma similar, la fuerza visual de unos símbolos pesados sobre gruesas líneas de pentagrama
 se sostiene mejor cuando el lector se aleja del papel, por
@@ -223,7 +223,7 @@ que tanto nos gusta contemplar y de las que tanto nos gusta tocar.
 
 ¿Cómo nos las arreglamos para implementar la tipografía? Si un artesano
 necesita más de diez años para convertirse en un auténtico maestro ¿cómo vamos
-a poder nosotros, simples hackers, escibir
+a poder nosotros, simples «hackers», escribir
 un programa que les quite el trabajo?
 
 La respuesta es: ¡no podemos!  Puesto que la tipografía se fundamenta en el juicio humano
@@ -236,7 +236,7 @@ de los años, el software se puede refinar para que haga un mayor número
 de cosas de forma automática, de tal forma que los ajustes manuales tienden a ser
 cada vez menos necesarios.
 
-Cuando empezamos, escibimos el programa LilyPond completamente en el lenguaje C++;
+Cuando empezamos, escribimos el programa LilyPond completamente en el lenguaje C++;
 la funcionalidad del programa quedaba como esculpida en piedra por los desarrolladores.
 Este esquema resultó no ser muy satisfactorio por una serie de motivos:
 
@@ -260,7 +260,7 @@ de la notación musical.
 @end itemize
 
 Estos problemas se han solucionado integrando un intérprete del lenguaje
-Scheme y reescibiendo parte del código de LilyPond en Scheme.
+Scheme y reescribiendo parte del código de LilyPond en Scheme.
 La actual arquitectura de formateo se construye alrededor del concepto de objetos
 gráficos, descrita por variables y funciones de Scheme.  Esta arquitectura puede
 tratar al mismo tiempo con las reglas de formateo, el estilo tipográfico
@@ -380,9 +380,9 @@ para gran orquesta.
 dentro de los límites de un programa de ordenador?  Nuestra solución es trocear el
 problema de la notación (por oposición al grabado, esto es, a la tipografía) en
 fragmentos digeribles y más fáciles de programar: cada tipo de símbolo se maneja por un
-módulo separado que recibe el nombre de plug-in.  Cada plug-in es completamente modular
+módulo separado que recibe el nombre de «plug-in».  Cada «plug-in» es completamente modular
 e independiente, de forma que puede desarrollarse y mejorarse por separado.  Estos
-plug-ins se llaman @code{engraver}s (grabadores), por analogía con los artesanos que
+«plug-ins» se llaman @code{engraver}s (grabadores), por analogía con los artesanos que
 traducen las ideas musicales a símbolos gráficos.
 
 En el siguiente ejemplo vemos cómo comenzamos con un plug-in para las cabezas
@@ -580,7 +580,7 @@ un Do1 (Do central) negra, y un Re1 (el Re por encima del Do central) corchea.
 c'4 d'8
 @end lilypond
 
-A una escala microscópca, dicha sintaxis es fácil de utilizar.  A una
+A una escala microscópica, dicha sintaxis es fácil de utilizar.  A una
 escala mayor, la sintaxis también requiere una estructura.  ¿De qué
 otra forma podríamos introducir piezas complejas como sinfonías u
 óperas?  La estructura se forma mediante el concepto de expresiones
@@ -688,7 +688,7 @@ Este manual también es un ejemplo de aplicación: el formato de entrada es text
 se puede empotrar fácilmente dentro de otros formatos basados en texto, como
 @LaTeX{}, HTML, o en el caso concreto de este manual, Texinfo.  A través de un
 programa especial, los fragmentos de entrada se pueden sustituir por imágenes musicales
-dentro de los archivos de salida PDF o HTML resutantes.  Esto convierte la tarea de 
+dentro de los archivos de salida PDF o HTML resultantes.  Esto convierte la tarea de 
 mezclar música y texto dentro de los documentos, en algo muy sencillo.
 
 
@@ -812,7 +812,7 @@ nombres de los colores y la tipografía Feta.
 @item
 @emph{@ref{Templates}}
 de piezas de LilyPond.  Sólo tiene que cortar y pegar una
-plantilla en un archivo de texto, escibir las notas y ¡ya está!
+plantilla en un archivo de texto, escribir las notas y ¡ya está!
 
 @item
 La
@@ -887,14 +887,14 @@ PDF.
 @end ifnottex
 @iftex
 El glosario explica los términos musicales, e incluye traducciones
-a varios idiomas.  Es un docuento aparte, disponible en HTML
+a varios idiomas.  Es un documento aparte, disponible en HTML
 y en PDF.
 @end iftex
 Si no está familiarizado con la notación o la terminología musicales
 (sobre todo si no es un anglófono nativo), le recomendamos que
 consulte el glosario.
 
-@cindex snippets
+@cindex snippets (fragmentos de código)
 @cindex LSR
 @item
 Los
@@ -907,7 +907,7 @@ fragmentos de código (snippets)
 son una enorme colección de pequeños ejemplos que ejemplifican toda clase de consejos, trucos
 y funcionalidades especiales de LilyPond.  La mayor parte de estos fragmentos de código también se pueden
 encontrar en el @uref{http://lsr.dsi.unimi.it/,Archivo de fragmentos de código (snippets)
-de LilyPond}.  Este sitio web también dispone de un manual de LilyPond en el que se peuden realizar búsquedas.
+de LilyPond}.  Este sitio web también dispone de un manual de LilyPond en el que se pueden realizar búsquedas.
 
 
 @item
@@ -928,7 +928,7 @@ los valores de grosor, distancias, etc., se pueden cambiar dentro de los archivo
 Hay un enorme número de opciones de formateo, y todas ellas
 se describen en este documento.  Cada sección del manual de notación
 tiene una subsección @b{Véase también}, que hace referencia a la documentación
-generada.  En el documento HTML, estas subsecciones llevan enlaces que se pueden plusar.
+generada.  En el documento HTML, estas subsecciones llevan enlaces que se pueden pulsar.
 
 @end itemize
 
@@ -960,7 +960,7 @@ ejemplo, @file{input/@/lsr/@/dirname/@/bla@/.ly} puede referirse al archivo
 @file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  En los paquetes binarios para
 la plataforma Unix, normalmente la documentación y los ejemplos se encuentran
 en algún lugar dentro de
-@file{/usr/@/share/@/doc/@/lilypond/}. Los archivos de incialización, como por
+@file{/usr/@/share/@/doc/@/lilypond/}. Los archivos de inicialización, como por
 ejemplo @file{scm/@/lily@/.scm}, o @file{ly/@/engraver@/-init@/.ly},
 se encuentran normalmente en el directorio @file{/usr/@/share/@/lilypond/}.
 
