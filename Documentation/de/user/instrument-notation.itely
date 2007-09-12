@@ -402,7 +402,7 @@ Punkten voneinander getrennt.
 \chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 
-@nointent
+@noindent
 Einzelne Intervalle können mit @code{-} oder @code{+} vergrößert 
 oder verkleinert werden.
 
@@ -3740,7 +3740,7 @@ anstelle von
   <4 6>4
 @end example
 
-@nointent
+@noindent
 schreiben.
 
 Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern stehen, 
