@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b7491566b5b8ab386588dcf94255d82590341853
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -73,7 +73,7 @@ c'4^\markup { bla \bold bla }
 @node Text scripts
 @subsection Text scripts
 
-@cindex Texto, inscripcioes de
+@cindex Texto, inscripciones de
 @cindex texto, elementos no vacíos de
 @cindex no vacíos, textos
 
@@ -687,7 +687,7 @@ Todos las siguientes instrucciones se puede utilizar con @code{\markuplines}.
 @funindex font-interface
 
 Estableciendo las propiedades de objetos que se describen más abajo, puede seleccionar
-una fuente tipográfica de entre las familias tiográficas preconfiguradas.  LilyPond contempla por defecto
+una fuente tipográfica de entre las familias tipográficas preconfiguradas.  LilyPond contempla por defecto
 la tipografía musical feta. Las tipografías del texto se seleccionan a través de
 Pango/FontConfig. La fuente tipográfica con serifa por defecto es New Century Schoolbook,
 las tipografías sans y tipo máquina de escribir son por defecto las que correspondan a la instalación
@@ -705,7 +705,7 @@ indicaciones dinámicas y @code{fetaNumber} para la tipografía de números.
 
 @item @code{font-family}
 es un símbolo que indica la clase general de la tipografía.  Están contemplados
-@code{roman} (Computer Modern), @code{sans} y @code{typewriter}.
+@code{roman} (Computer Modern), @code{sans} y @code{typewriter} (monoespaciado).
 
 @item @code{font-shape}
 es un símbolo que indica la forma de la tipografía.  Normalmente están disponibles varias
@@ -719,8 +719,8 @@ tipografía tiene varias series.  Se puede elegir entre
 
 @end itemize
 
-Las tipografías seleccionaddas de la forma que se acaba de esquematizar, vienen con una hoja de estilos predefinida.
-Si quiere usar una tipgorafía desde fuera de la hoja de estilos,
+Las tipografías seleccionadas de la forma que se acaba de esquematizar, vienen con una hoja de estilos predefinida.
+Si quiere usar una tipografía desde fuera de la hoja de estilos,
 ajuste la propiedad
 @code{font-name},
 
@@ -912,7 +912,7 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-¡Adevertencia!  Este texto se crea por parte de @code{MultiMeasureRestText}, no de
+¡Advertencia!  Este texto se crea por parte de @code{MultiMeasureRestText}, no de
 @code{TextScript}.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -945,7 +945,7 @@ definidos por el usuario.
 
 No se pueden usar digitaciones (p.ej. @code{R1-4}) para poner números
 encima de los silencios multicompás.  Y la altura de los silencios multicompás (o
-silencios centrados en el pentagrama) no se puede modficar.
+silencios centrados en el pentagrama) no se puede modificar.
 
 @cindex silencios condensados
 
@@ -1054,7 +1054,7 @@ El valor que se utilizará se almacena dentro de la propiedad
 El estilo se define por medio de la propiedad @code{markFormatter}.  Es una función
 que toma como argumentos la marca en curso (un número entero) y el contexto actual.
 Debe devolver un objeto de marcado.  En el ejemplo
-siguiente, se establece @code{markFormatter} con el valor de un procedimiento enlatado.  Despuésd de
+siguiente, se establece @code{markFormatter} con el valor de un procedimiento enlatado.  Después de
 algunos compases, se establece con el valor de una función que produce un número encerrado en una caja.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
@@ -1109,7 +1109,7 @@ c1
 Consulte @ref{The Feta font} para ver una lista de los símbolos que se pueden imprimir
 con @code{\musicglyph}.
 
-Para ver formas comunes de trucar la coolocación de las marcas de ensayo, consulte @ref{Text marks}.
+Para ver formas comunes de trucar la colocación de las marcas de ensayo, consulte @ref{Text marks}.
 
 @seealso
 
@@ -1132,7 +1132,7 @@ Ejemplos: @lsr{parts,rehearsal-mark-numbers.ly}
 @cindex números de compás
 @funindex currentBarNumber
 
-Por defecto, los números de compás se imprimien al principio de la línea.  El
+Por defecto, los números de compás se imprimen al principio de la línea.  El
 número propiamente dicho se almacena en la propiedad @code{currentBarNumber}, que normalmente
 se actualiza automáticamente para cada compás.
 
@@ -1374,7 +1374,7 @@ Se crean por medio de la invocación de la función
 La función @code{set-octavation} también admite los valores -1 (para 8va bassa), 2@tie{}(para 15ma) y
 -2 (para 15ma bassa) como argumentos.  Internamente, la función establece las propiedades
 @code{ottavation} (p.ej., para @code{"8va"} o @code{"8vb"}) y
-@code{centralCPosition}.  Para sobreescibir el texto del corchete, establezca
+@code{centralCPosition}.  Para sobreescribir el texto del corchete, establezca
 @code{ottavation} después de invocar a @code{set-octavation}, es decir
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1403,7 +1403,7 @@ en el interior de un corchete de octavación.
 @funindex \tag
 @cindex etiquetas
 
-La orden @code{\tag} marca expresiones musicales con un mombre.  Estas expresiones
+La orden @code{\tag} marca expresiones musicales con un nombre.  Estas expresiones
 etiquetadas se pueden filtrar o seleccionar más tarde.  Con este mecanismo es posible
 hacer versiones diferentes a partir de la misma fuente musical.
 
@@ -1453,7 +1453,7 @@ produciría
 
 Los argumentos de la orden @code{\tag} deben ser un símbolo
 (como @code{#'partitura} o @code{#'particella}), seguido de
-una expresión musical.  Es posible ponet varias etiquetas sobre
+una expresión musical.  Es posible poner varias etiquetas sobre
 un fragmento de música con varias apariciones de @code{\tag},
 
 @example
@@ -1478,7 +1478,7 @@ etiquetadas.
 
 La música orquestal conlleva ciertos elementos de notación especiales, tanto en la partitura del director
 como en las particellas individuales.  Esta sección explica cómo tratar con
-ciertos problemas comunes de la músca orquestal.
+ciertos problemas comunes de la música orquestal.
 
 @menu
 * Automatic part combining::    
@@ -1504,11 +1504,11 @@ y @emph{a due} quedan identificadas y es posible marcarlas.
 La sintaxis para la combinación de las partes es
 
 @example
-\partcombine @var{espresión_musical_1} @var{expresión_musical_2}
+\partcombine @var{expresión_musical_1} @var{expresión_musical_2}
 @end example
 
 
-El ejemlo siguiente ejemplifica la funcionalidad básica del combinador de
+El ejemplo siguiente ejemplifica la funcionalidad básica del combinador de
 partes: poner las partes en un solo pentagrama, y establecer las direcciones de las plicas y la
 polifonía
 
@@ -1520,7 +1520,7 @@ polifonía
 
 El primer Sol (@code{g}) aparece una sola vez, aunque se especificaba
 dos veces (una en cada parte).  Las direcciones de las plicas, ligaduras de expresión y ligaduras de unión se
-esstablecen automáticamente, dependiendo de si es un solo o un unísono.  La primera
+establecen automáticamente, dependiendo de si es un solo o un unísono.  La primera
 parte (la que tiene el contexto llamado @code{one}) siempre tiene las plicas para arriba, y
 @q{Solo}, mientras que la segunda (llamada @code{two}) siempre tiene las plicas para abajo y
 @q{Solo II}.
@@ -1619,7 +1619,7 @@ desaparece en la segunda línea
 }
 @end lilypond
 
-El primer sistema muestra todos los pentagramas al commpleto.  Si queremos que los pentagramas vacíios se
+El primer sistema muestra todos los pentagramas al completo.  Si queremos que los pentagramas vacíos se
 quiten también del primer sistema, podemos establecer @code{remove-first} al valor true en
 @internalsref{VerticalAxisGroup}.
 
@@ -1651,7 +1651,7 @@ citable.  Esto se hace con la instrucción @code{\addQuote}.
 
 @noindent
 Aquí, @var{nombre} es una cadena identificativa.  La @var{música} es cualquier tipo
-de música.  He aquí un ejemlo de @code{\addQuote}
+de música.  He aquí un ejemplo de @code{\addQuote}
 
 @example
 \addQuote clarinete \relative c' @{
@@ -1659,7 +1659,7 @@ de música.  He aquí un ejemlo de @code{\addQuote}
 @}
 @end example
 
-Esta orden se debe escribir en el niver más alto, es decir, fuera de cualquier bloque de
+Esta orden se debe escribir en el nivel más alto, es decir, fuera de cualquier bloque de
 música.
 
 Después de la llamada a @code{\addQuote}, la cita se puede hacer con
@@ -1812,7 +1812,7 @@ Las notas guía tienen un tamaño tipográfico menor.
 
 
 Además cualquier otro cambio introducido por la parte citada se debe deshacer.
-Por ejemplo, si el insturmento citado toca en una clave distinta,
+Por ejemplo, si el instrumento citado toca en una clave distinta,
 la clave original se debe hacer constar de nuevo.
 
 @end itemize
@@ -1857,7 +1857,7 @@ pues en caso contrario empezarán demasiado pronto o tarde.
 Una solución a este problema son las funciones @code{mmrest-of-length}
 y @code{skip-of-length}.  Estas funciones de Scheme toman un fragmento de música
 como argumento y generan un @code{\skip} o silencio multicompás, de la longitud exacta
-del fragmento.  El uso de @code{mmrest-of-length} se muetra
+del fragmento.  El uso de @code{mmrest-of-length} se muestra
 en el ejemplo siguiente.
 
 @lilypond[verbatim,ragged-right,quote]
@@ -1874,6 +1874,10 @@ cadenza = \relative c' {
   }
 >>
 @end lilypond
+
+
+@c I didn't translated weird blurb about contemporary music sectioning,
+@c because it will be quite soon updated. - FVD
 
 
 
@@ -1935,61 +1939,347 @@ UNTRANSLATED NODE: IGNORE ME
 @node Educational use
 @section Educational use
 
-UNTRANSLATED NODE: IGNORE ME
+Con la cantidad de control que ofrece LilyPond, se pueden hacer magníficos
+materiales de enseñanza además de unas estupendas partituras.
 
-@menu 
-* Balloon help::
-* Blank music sheet::
-* Hidden notes::
-* Shape note heads::
-* Easy Notation note heads::
-* Analysis brackets::
-* Coloring objects::
-* Parentheses::
-* Grid lines::
-@end menu 
+@menu
+* Balloon help::                
+* Blank music sheet::           
+* Hidden notes::                
+* Shape note heads::            
+* Easy Notation note heads::    
+* Analysis brackets::           
+* Coloring objects::            
+* Parentheses::                 
+* Grid lines::                  
+@end menu
+
 @node Balloon help
 @subsection Balloon help
 
-UNTRANSLATED NODE: IGNORE ME
+Los elementos de notación se pueden marcar y nombrar con la ayuda de un cartel o globo de ayuda
+rectangular.  El propósito principal de esta funcionalidad es la explicación de la notación.
+
+El ejemplo siguiente presenta una demostración de su uso.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+}
+@end lilypond
+
+@noindent
+Existen dos funciones musicales, @code{balloonText} y
+@code{balloonGrobText}. Este último toma su nombre del objeto gráfico que se adorna,
+mientras que el primero se puede usar como una articulación sobre una nota.
+Los otros argumentos son el desplazamiento y el texto de la etiqueta.
+
+@cindex globo
+@cindex notación, explicaciones
+
+@seealso
+
+Referencia del programa: @internalsref{text-balloon-interface}.
+
+
+
 
 @node Blank music sheet
 @subsection Blank music sheet
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex papel de música vacío
+@cindex Pentagramas, hoja en blanco
+
+También se pueden producir hojas de papel de música en blanco utilizando notas invisibles y
+suprimiendo el grabador @code{Bar_number_engraver}.
+
+
+@lilypond[quote,verbatim]
+\layout{ indent = #0 }
+emptymusic = {
+  \repeat unfold 2 % Change this for more lines.
+  { s1\break }
+  \bar "|."
+}
+\new Score \with {
+  \override TimeSignature #'transparent = ##t
+% un-comment this line if desired
+%  \override Clef #'transparent = ##t
+  defaultBarType = #""
+  \remove Bar_number_engraver
+} <<
+
+% modify these to get the staves you want
+  \new Staff \emptymusic
+  \new TabStaff \emptymusic
+>>
+@end lilypond
+
 
 @node Hidden notes
 @subsection Hidden notes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex ocultas, notas
+@cindex invisibles, notas
+@cindex transparentes, notas
+
+@funindex \hideNotes
+@funindex \unHideNotes
+Las notas ocultas (o invisibles, o transparentes) pueden ser de utilidad en la preparación de ejercicios
+de teoría o de composición.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c4 d4
+\hideNotes
+e4 f4
+\unHideNotes
+g4 a
+@end lilypond
+
 
 @node Shape note heads
 @subsection Shape note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex notas, cabezas de, con formas
+
+En notación de cabezas con forma, la forma de la cabeza corresponde
+a la función armónica de una nota dentro de la escala. Esta notación se hizo popular
+en los libros americanos de canciones durante el s.XIX.
+
+Las cabezas con formas se pueden producir estableciendo @code{\aikenHeads} o
+@code{\sacredHarpHeads}, según el estilo deseado.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Las formas se determinan en función del grado de la escala, donde la tónica
+está determinada por la instrucción @code{\key}
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Las cabezas con formas están programadas a través de la propiedad @code{shapeNoteStyles}.
+Su valor es un vector de símbolos.  El elemento en el lugar k indica qué estilo
+usa el grado k de la escala.  Son posibles las combinaciones
+arbitrarias, p.ej.:
+
+@lilypond[verbatim,relative=1,fragment]
+  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  c8 d4. e8 a2 g1
+@end lilypond
+
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex notas, cabezas de, estudio
+@cindex notas, cabezas de, notación simplificada
+@cindex simplificada, notación
+@cindex Hal Leonard
+
+Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la nota (en inglés) dentro de la cabeza.  Se usa
+en la música para principiantes
+
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+  \setEasyHeads
+  c'2 e'4 f' | g'1
+@end lilypond
+
+La orden @code{\setEasyHeads} sobreescribe los ajustes del objeto
+@internalsref{NoteHead}.  Para que las letras sean legibles, se tienen que imprimir
+en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipografía mayor, consulte
+@ref{Setting the staff size}.
+
+@refcommands
+
+@funindex \setEasyHeads
+@code{\setEasyHeads}
+
 
 @node Analysis brackets
 @subsection Analysis brackets
+@cindex corchetes
+@cindex fraseo, corchetes de
+@cindex musicológico, análisis
+@cindex notas, corchetes de agrupación de
 
-UNTRANSLATED NODE: IGNORE ME
+Los corchetes se usan en análisis musical para indicar las estructuras presentes en las piezas
+musicales.  LilyPond contempla una forma básica de corchetes horizontales anidados.
+Para usarlos, añada el grabador @internalsref{Horizontal_bracket_engraver}
+al contexto @internalsref{Staff}.  Un corchete se abre con
+@code{\startGroup} y se cierra con @code{\stopGroup}
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{HorizontalBracket}.
+
 
 @node Coloring objects
 @subsection Coloring objects
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden asignar colores a los objetos individuales.  Podemos usar los nombres de color
+que se relacionan en la @ref{List of colors}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+Se puede acceder al espectro completo de colores definido para X11 usando la función
+de Scheme x11-color.  Esta función acepta un argumento que puede ser un
+símbolo
+
+@example
+\override Beam #'color = #(x11-color 'MediumTurquoise)
+@end example
+
+o una cadena
+
+@example
+\override Beam #'color = #(x11-color "MediumTurquoise")
+@end example
+
+La primera forma es más rápida de escribir y más eficiente.  Sin embargo,
+es posible usar la segunda forma para acceder a los colores de X11 a través de la variante del
+nombre que tiene varias palabras
+
+@example
+\override Beam #'color = #(x11-color "medium turquoise")
+@end example
+
+Si el parámetro no tiene sentido para x11-color, el color por defecto que se devuelve
+es el negro.  Debería ser obvio, a la vista de la partitura resultante, que algo está
+mal.
+
+Este ejemplo ilustra el uso de x11-color.  Tenga en cuenta que el color de la plica
+sigue siendo negro después de haberlo establecido a (x11-color 'Boggle), que es un color sin sentido
+escrito a propósito.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 2/4
+  gis''8 a''
+  \override Beam #'color = #(x11-color "medium turquoise")
+  gis'' a''
+  \override NoteHead #'color = #(x11-color "LimeGreen")
+  gis'' a''
+  \override Stem #'color = #(x11-color 'Boggle)
+  gis'' a''
+}
+@end lilypond
+
+
+@seealso
+
+Apéndice: @ref{List of colors}.
+
+
+@refbugs
+En un navegador de web, no todos los colores de x11 se distinguen entre sí.  Para su utilización en la
+web se recomiendan los colores normales.
+
+Un color de x11 no es necesariamente de la misma tonalidad que un color normal
+con un nombre similar.
+
+Las notas de un acorde no se pueden colorear con @code{\override}; en su lugar utilice
+@code{\tweak}.  Consulte @ref{Objects connected to the input}
+para ver más detalles.
+
 
 @node Parentheses
 @subsection Parentheses
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fantasma, notas
+@cindex notas fantasma
+@cindex notas entre paréntesis
+
+Los objetos se pueden encerrar entre paréntesis anteponiendo @code{\parenthesize} al evento
+musical,
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize d
+  g
+>4-\parenthesize -.
+@end lilypond
+
+Esto sólo funciona dentro de los acordes, incluso para notas sueltas
+
+@example
+< \parenthesize NOTA>
+@end example
+
 
 @node Grid lines
 @subsection Grid lines
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden dibujar líneas verticales, sincronizadas con las notas, entre
+pentagramas.
+
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" %% sets of grid
+    gridInterval = #(ly:make-moment 1 4)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
+  %% centers grid lines  horizontally below noteheads
+  \override NoteColumn #'X-offset = #-0.5
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    %% centers grid lines  vertically
+    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
+Ejemplos: @lsrdir{education}
 

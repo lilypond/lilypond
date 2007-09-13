@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1e31973e26eedc61b771826dbe2186f79bbe89ac
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -43,16 +43,16 @@ Hansen House, Miami, Florida 1987.
 
 Este libro trata del grabado musical, es decir, composición tipográfica profesional.
 Contiene instrucciones sobre el estampado, la utilización de las plumillas y las
-convenciones notacionales.  Tambén son interesantes las secciones sobre los tecnicismos
+convenciones notacionales.  También son interesantes las secciones sobre los tecnicismos
 y la historia de la reproducción.
 
 @item Schirmer 2001
 The G.Schirmer/AMP Manual of Style and Usage. G.Schirmer/AMP, NY, 2001.
-(Este lobro se puede pedir al departamento de alquiler.)
+(Este libro se puede pedir al departamento de alquiler.)
 
 Este manual se centra específicamente en la preparación de los manuscritos para la publicación por
 Schirmer.  Discute muchos detalles que no se pueden encontrar en otros libros de notación más
-normales.  También proporciona una buena idea sobde lo que se necesita para llevar la impresión
+normales.  También proporciona una buena idea sobre lo que se necesita para llevar la impresión
 hasta la calidad editorial.
 
 @item Stone 1980
@@ -66,7 +66,7 @@ tradicional.
 
 @end table
 
-El archivo de código fuente incluye una bobliografía de Bib@TeX{} más elaborada con más de
+El archivo de código fuente incluye una bibliografía de Bib@TeX{} más elaborada con más de
 100 elementos, en
 @ifhtml
 @uref{../../bibliography/index.html, the bibliography}.

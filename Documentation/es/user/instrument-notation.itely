@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1e31973e26eedc61b771826dbe2186f79bbe89ac
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -54,7 +54,7 @@ Los matices no se colocan centrados, pero se pueden utilizar ciertas alternativa
 plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
 
 @cindex plica de pentagrama cruzado
-@cindex pentragrama cruzado, plica de
+@cindex pentagrama cruzado, plica de
 @cindex distancia entre pentagramas en música de piano
 
 
@@ -233,7 +233,7 @@ En este manual: @ref{Laissez vibrer ties}.
 
 @funindex followVoice
 
-Cuando una voz cambia a otro pentagrama, se ppuede imprimir automáticamente una línea
+Cuando una voz cambia a otro pentagrama, se puede imprimir automáticamente una línea
 que conecte las notas.  Esto se activa estableciendo
 @code{followVoice} a verdadero
 
@@ -535,7 +535,7 @@ para mostrar las repeticiones.
 
 La disposición por defecto de los nombres de acorde en la página es una pauta para el Jazz, propuesta por
 Klaus Ignatzek (véase @ref{Literature list}).  Se puede modificar a través de las
-siguientes proppiedades
+siguientes propiedades
 
 @table @code
 @funindex chordNameExceptions
@@ -562,7 +562,7 @@ Después,
 añade las nuevas excepciones a las que existen de fábrica, que se encuentran definidas en
 @file{ly/@/chord@/-modifier@/-init@/.ly}.
 
-Para ver un ejemplo de cómo modificar esta propiedad, vésae también
+Para ver un ejemplo de cómo modificar esta propiedad, véase también
 @lsr{chords,chord@/-name@/-exceptions@/.ly}
 @cindex excepciones, nombres de acordes.
 
@@ -597,7 +597,7 @@ acorde de Si) se puede producir almacenando una nueva función dentro de esta pr
 
 @funindex chordNoteNamer
 @item chordNoteNamer
-La opción por defecto es imprimir una sona nota, p.ej. el bajo, usando el
+La opción por defecto es imprimir una sola nota, p.ej. el bajo, usando el
 @code{chordRootNamer}.  La propiedad @code{chordNoteNamer} se puede establecer
 a una función especializada para cambiar este comportamiento.  Por ejemplo, la
 nota base se puede imprimir en minúsculas.
@@ -611,7 +611,7 @@ está alterada.
 
 @end table
 
-Las valiables predefinidas @code{\germanChords},
+Las variables predefinidas @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} y @code{\frenchChords}
 establecen estas variables.  El efecto se muestra
 a continuación:
@@ -648,7 +648,7 @@ chart}.  El resultado de la activación de estos estilos se muestra en
 Ejemplos:
 @lsrdir{chords}
 
-Archivos de incio: @file{scm/@/chords@/-ignatzek@/.scm} y
+Archivos de inicio: @file{scm/@/chords@/-ignatzek@/.scm} y
 @file{scm/@/chord@/-entry@/.scm}.
 
 
@@ -695,7 +695,7 @@ examinando el método más simple, y poco a poco iremos aumentando la complejida
 
 @commonprop
 
-Las comporbaciones que aseguran que las indicaciones textuales y las letras se encuentran dentro de los márgenes
+Las comprobaciones que aseguran que las indicaciones textuales y las letras se encuentran dentro de los márgenes
 es una tarea computacional relativamente grande.  Para acelerar el procesado, lilypond no realiza
 estos cálculos por defecto; para activarlos, utilice
 
@@ -990,7 +990,7 @@ es lo mismo que
 El texto también se puede introducir sin @code{\addlyrics} ni
 @code{\lyricsto}.  En este caso,
 las sílabas se escriben como notas (pero con las alturas sustituidas por texto) y la
-duración de cada sílaba se debe escibir explícitamente.  Por ejemplo:
+duración de cada sílaba se debe escribir explícitamente.  Por ejemplo:
  
 @example
 play2 the4 game2.
@@ -1034,7 +1034,7 @@ Referencia del programa: @internalsref{Lyrics}.
 @funindex _
 @cindex ligaduras, en el texto
 
-Para asignaru más de una sílaba a una sola nota, puede
+Para asignar más de una sílaba a una sola nota, puede
 encerrarlas entre comillas o utilizar un guión bajo (@code{_}), para dejar espacios
 entre las sílabas, o usar el símbolo de tilde curva (@code{~}) para obtener una ligadura en el
 texto@footnote{Las ligaduras de texto están hechas con el carácter de Unicode
@@ -1397,7 +1397,7 @@ el texto del primer verso se aplica a una melodía llamada @q{lahlah},
 
 
 El segundo verso se aplica en principio al contexto de @code{lahlah}, pero
-para la sílaba @q{ran}, cambia a una meloodía diferente.
+para la sílaba @q{ran}, cambia a una melodía diferente.
 Esto se consigue con
 @example
 \set associatedVoice = alternative
@@ -1461,7 +1461,7 @@ lyr = \lyricmode { I like my cat! }
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
 
-Para aumentar el espaciado entre las sílabas de la letra, esstablezca la propiedad minimum-distance de
+Para aumentar el espaciado entre las sílabas de la letra, establezca la propiedad minimum-distance de
 LyricSpace.
 
 @lilypond[relative,verbatim,fragment,quote,ragged-right]
@@ -1502,10 +1502,10 @@ layout o disposición.
 @node More about stanzas
 @subsection More about stanzas
 
-@cindex stanza number
+@cindex número de verso
 @subsubsection Adding stanza numbers 
 
-Los números de los versos se pueden añadir estbableciendo @code{stanza}, p.ej.,
+Los números de los versos se pueden añadir estableciendo @code{stanza}, p.ej.,
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \new Voice {
@@ -1548,11 +1548,11 @@ text = {
 >>
 @end lilypond
 
-@cindex singer name
-@cindex name of singer
+@cindex cantor, nombre del
+@cindex nombre del cantor
 @subsubsection Adding singer names
 
-También se pueden poner los nomrbes de los cantantes.  Se imprimen al comienzo de la
+También se pueden poner los nombres de los cantantes.  Se imprimen al comienzo de la
 línea, igual que los nombres de instrumento.  Se crean estableciendo un valor para
 @code{vocalName}.  Se puede definir una versión abreviada como @code{shortVocalName}.
 
@@ -1576,7 +1576,7 @@ y el resto añadido en forma de estrofa al final
 de la pieza.  Esto se puede conseguir escribiendo
 los versos adicionales dentro de una sección @code{\markup} fuera
 del bloque score principal de la partitura.  Tenga en cuenta que existen dos
-formas distincas de forzar los saltos de línea al utilizar
+formas distintas de forzar los saltos de línea al utilizar
 @code{\markup}.
 
 @lilypond[ragged-right,verbatim,quote]
@@ -1692,7 +1692,7 @@ Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 @subsection Ambitus
 @cindex ambitus
 
-El término @emph{ambitus} o ámbito, denota el rango de notas que abarca uuna voz dada
+El término @emph{ambitus} o ámbito, denota el rango de notas que abarca una voz dada
 en una parte musical.  También puede denotar el margen de notas que es capaz de tocar
 un determinado instrumento musical.  Los ámbitos se imprimen en las partes vocales de tal manera que
 los intérpretes puedan determinar con facilidad si cumplen con sus propias posibilidades.
@@ -1767,11 +1767,11 @@ reservaría espacio para el objeto que se ha movido.
 
 @seealso
 
-Program reference: @internalsref{Ambitus},
+Referencia del programa: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
-Examples:
+Ejemplos:
 @lsr{vocal,ambitus@/.ly}.
 
 @refbugs
@@ -1837,12 +1837,12 @@ Referencia del programa: @internalsref{RhythmicStaff}.
 @node Entering percussion
 @subsection Entering percussion
 
-@cindex percussion
-@cindex drums
+@cindex percusión
+@cindex batería
 
 
 Las notas de percusión se pueden escribir en el modo @code{\drummode}, que es similar
-al modo estándar apra introducir notas.  Cada elemento de un set de percusión
+al modo estándar para introducir notas.  Cada elemento de un set de percusión
 lleva un nombre completo y un nombre abreviado, y los dos se pueden usar
 en la entrada
 
@@ -1852,7 +1852,7 @@ en la entrada
 }
 @end lilypond
 
-La lista comleta de nombre de instrumentos de percusión se encuentra en el archivo de inicio
+La lista completa de nombre de instrumentos de percusión se encuentra en el archivo de inicio
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
@@ -1862,11 +1862,11 @@ Referencia del programa: @internalsref{note-event}.
 
 @node Percussion staves
 @subsection Percussion staves
-@cindex percussion
-@cindex drums
+@cindex percusión
+@cindex batería
 
 Una parte de percusión para más de un instrumento, normalmente utiliza una pauta
-de varias llíneas donde cada posición dentro de la pauta se refiere a un elemento
+de varias líneas donde cada posición dentro de la pauta se refiere a un elemento
 de percusión.
 
 
@@ -1883,7 +1883,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La notación
-polifónicca abreviada, descrita en @ref{Basic polyphony}, también se puede usar si
+polifónica abreviada, descrita en @ref{Basic polyphony}, también se puede usar si
 las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -2043,8 +2043,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
-Si no le gusta ninguna de las listas preedefinidas, puede definir su propia lista
-al principiio de su archivo
+Si no le gusta ninguna de las listas predefinidas, puede definir su propia lista
+al principio de su archivo
 
 @lilypond[quote,ragged-right,verbatim]
 #(define mydrums '(
@@ -2116,8 +2116,8 @@ alrededor de cada una de las instrucciones @code{\parenthesize}.
 @node Guitar
 @section Guitar
 
-@cindex tablature
-@cindex guitar tablature
+@cindex tablatura
+@cindex guitarra, tablatura de
 
 @menu
 * String number indications::   
@@ -2155,7 +2155,7 @@ Referencia del programa: @internalsref{StringNumber},
 La notación de tablatura se utiliza para la notación de música de instrumentos de cuerda
 pulsada.  Las alturas no se denotan mediante cabezas de nota, sino mediante
 números que indican sobre qué cuerda y traste se debe tocar la nota.  LilyPond
-contempla las tabalturas de forma limitada.
+contempla las tablaturas de forma limitada.
 
 El número de cuerda asociado a una nota se proporciona en la forma de una barra invertida
 seguida por un número, p.ej. @code{c4\3} es un Do negra sobre la tercera cuerda.
@@ -2200,8 +2200,8 @@ frag = {
 
 @commonprop
 
-Para imprimir tabalturas con las plicas hacia abajo y barras horizontales,
-inicialice el @code{TabStaff} (pentagrama de tablatura) con el código sigueinte:
+Para imprimir tablaturas con las plicas hacia abajo y barras horizontales,
+inicialice el @code{TabStaff} (pentagrama de tablatura) con el código siguiente:
 
 @example
 \stemDown
@@ -2328,7 +2328,7 @@ El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
 @cindex acordes, diagramas de
 
 Se pueden añadir diagramas de trastes a la música como elementos de marcado sobre la nota deseada.  El
-amrcado contiene información sobre el diagrama de trastes deseado, tal y como se  muestra en el
+marcado contiene información sobre el diagrama de trastes deseado, tal y como se  muestra en el
 ejemplo siguiente
 
 @lilypond[verbatim, ragged-right, quote]
@@ -2356,7 +2356,7 @@ ejemplo siguiente
 @end lilypond
 
 
-Existen trees interfaces distintos para el marcado de los diagramas de trastes: estándar, escueto
+Existen tres interfaces distintos para el marcado de los diagramas de trastes: estándar, escueto
 y prolijo.  Los tres interfaces producen unos elementos de marcado equivalentes, pero tienen
 cantidades variables de información en la cadena de marcado.  Se pueden encontrar
 más detalles sobre los interfaces de marcado en @ref{Overview of text markup commands}.
@@ -2475,7 +2475,7 @@ tierras altas; para usarlas, escriba
 
 @noindent
 al principio del archivo de entrada.  De esta forma podrá escribir las notas de adorno especiales
-que son usuales en la música de gaita, mediante isntruciones breves.  Por ejemplo, puede escribir
+que son usuales en la música de gaita, mediante instrucciones breves.  Por ejemplo, puede escribir
 @code{\taor} en lugar de
 
 @example
@@ -2492,13 +2492,13 @@ gaita en las octavas adecuadas, de forma que no se tenga que preocupar por
 @end lilypond
 
 La música de gaita utiliza siempre la tonalidad de Re mayor (aunque esto no es
-completamente cierto). Sin embargo, puesto que es la úna tonalidad que se puede utilizar,
+completamente cierto). Sin embargo, puesto que es la única tonalidad que se puede utilizar,
 normalmente la armadura no se escribe. Para configurar esto de forma correcta,
 comience la música siempre con @code{\hideKeySignature} (ocultar armadura). Si, por algún motivo,
 quiere mostrar la armadura, puede usar @code{\showKeySignature}
 en su lugar.
 
-Alguna música moderna utliza digitaciones cruzadas sobre el Do y el Fa para bemolizar estas notas.
+Alguna música moderna utiliza digitaciones cruzadas sobre el Do y el Fa para bemolizar estas notas.
 Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, el
 sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
 ligera.
@@ -2681,7 +2681,7 @@ las cabezas adecuadas, de manera que no es necesario establecer el estilo de las
 explícitamente.  Aún así, el estilo de las cabezas se puede establecer, p.ej., a
 @code{vaticana_punctum} para producir neumas punctum.  De forma similar, se utiliza un grabador
 @internalsref{Mensural_ligature_engraver} para construir automáticamente
-ligaduras emnsurales.  Consulte @ref{Ligatures} para ver cómo funcionan los grabadores
+ligaduras mensurales.  Consulte @ref{Ligatures} para ver cómo funcionan los grabadores
 de las ligaduras.
 
 @seealso
@@ -2783,7 +2783,7 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 No existen silencios de fusa y semifusa específicos para los estilos mensural
 ni neo-mensural.  En su lugar se tomarán los silencios del estilo por defecto.
-Consulte @lsr{pitches,rests} para ver un cuadro de todos los siencios.
+Consulte @lsr{pitches,rests} para ver un cuadro de todos los silencios.
 
 No hay silencios en la notación del Canto Gregoriano; en su lugar, se utilizan
 @ref{Divisiones}.
@@ -3018,7 +3018,7 @@ grabador Petrucci (1466-1539).}
 @emph{Estilo Histórico} significa @qq{como se tipografiaba o se escribía en las ediciones
 históricas (aparte de las de Petrucci).}
 
-@emph{Estilo de la Editio XXX} significa @qq{como se imprimme o imprimía en la Editio XXX.}
+@emph{Estilo de la Editio XXX} significa @qq{como se imprime o imprimía en la Editio XXX.}
 
 Petrucci usaba claves de Do que tenían barras verticales en el lado izquierdo en un equilibrio variable,
 dependiendo de la línea de la pauta en que se imprimían.
@@ -3052,7 +3052,7 @@ c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
 c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 @end lilypond
 
-Dése cuenta de que la bandera más interna de cada uno de los corchetes mensurales siempre
+Dese cuenta de que la bandera más interna de cada uno de los corchetes mensurales siempre
 se alinea verticalmente con una línea de la pauta.
 
 No existe un estilo particular de corchete para la notación neo-mensural.  Por ello,
@@ -3077,7 +3077,7 @@ notación mensural).
 @cindex compás, indicación de
 
 
-Las indicaciones de comás pensurales están contempladas de forma limitada.  Los
+Las indicaciones de compás mensurales están contempladas de forma limitada.  Los
 glifos están configurados de forma fija para determinadas fracciones de tiempo.  En otras palabras,
 para obtener un glifo de compás mensural determinado con la instrucción @code{\time n/m},
 se tienen que escoger @code{n} y @code{m} según la siguiente
@@ -3225,7 +3225,7 @@ el extremo derecho de la línea episemática se encuentra a menudo demasiado lej
 @cindex custodias
 
 Un @emph{custos} (en plural: @emph{custodias}, que en latín significa @q{guarda}) es un
-síimbolo que aparece al final de una pauta.  Anticipa la altura
+símbolo que aparece al final de una pauta.  Anticipa la altura
 de la primera o primeras notas de la línea siguiente, ayudando al intérprete con
 los saltos de línea durante la ejecución.
 
@@ -3377,7 +3377,7 @@ sobre la ligadura
 
 Para seleccionar un estilo de ligaduras específico, se debe añadir el grabador adecuado
 al contexto @internalsref{Voice}, tal y como se explica en los 
-subapartados siguientes.   Solamente están contempladas las ligaduras mensurales
+sub-apartados siguientes.   Solamente están contempladas las ligaduras mensurales
 blancas con ciertas limitaciones.
 
 
@@ -3504,7 +3504,7 @@ El espaciado horizontal es pobre.
 
 La notación de neumas cuadrados gregorianos está contemplada de forma limitada
 (siguiendo el estilo de la Editio Vaticana).  El núcleo principal del conjunto de las ligaduras
-ya se pueden tipografiar, pero aún faltan aspectos esenciales lara una composición tipográfica seria,
+ya se pueden tipografiar, pero aún faltan aspectos esenciales para una composición tipográfica seria,
 como (entre otros) la alineación horizontal de varias ligaduras,
 la alineación de la letra y un correcto manejo de las alteraciones accidentales.
 
@@ -4038,7 +4038,7 @@ mantener la atención sobre el significado musical.  Por ejemplo, @code{\[ a \pe
 mientras que @code{\[ a \flexa g \pes b \]} produce un Porrectus con una forma
 de flexa curvada y una sola cabeza de Punctum.  No existe ninguna instrucción para
 tipografiar explícitamente la forma de flexa curvada; la decisión de
-cuándo tipografiar una forma de flexa curvada está absada en la entrada
+cuándo tipografiar una forma de flexa curvada está basada en la entrada
 musical.  La idea de este enfoque es separar los aspectos musicales
 de la entrada, del estilo de notación de la salida.  De esta forma, la misma
 entrada se puede reutilizar para tipografiar la misma música en un estilo diferente
@@ -4379,7 +4379,7 @@ De esta manera se pueden crear una cantidad infinita de
 ligaduras diferentes.
 
 Los puntos de aumentación, llamados también @emph{morae}, se escriben con la función
-musical @code{\augmentum}.  Dése cuenta de que @code{\augmentum} está
+musical @code{\augmentum}.  Dese cuenta de que @code{\augmentum} está
 programado como una función musical unaria y no como un prefijo principal.  Se
 aplica solamente a la expresión musical que sigue inmediatamente.  Esto es,
 @code{\augmentum \virga c} no tendrá ningún efecto visible.  En su lugar, escriba
@@ -4441,7 +4441,7 @@ Utilice la función musical unaria @code{\augmentum} para escribir puntos de aum
 
 Cuando un punto @code{\augmentum} aparece al final de la última pauta
 dentro de una ligadura, a veces se sitúa verticalmente en un lugar equivocado.  Como solución
-parcial, escriba una noa de salto adicional (e.g. @code{s8}) como la última nota
+parcial, escriba una nota de salto adicional (e.g. @code{s8}) como la última nota
 de esa pauta.
 
 @code{\augmentum} debería estar programada como un prefijo de cabeza y no como una
@@ -4492,7 +4492,7 @@ Los contextos predefinidos de voz @code{MensuralVoiceContext} y de pauta
 @code{MensuralStaffContext} se pueden usar para grabar una pieza en estilo mensural.
 Estos contextos establecen a unos valores iniciales adecuados todas las propiedades relevantes de los contextos y
 de los objetos gráficos, de manera que pueda comenzar inmediatamente a
-escribir el canto, como lo demustra el siguiente fragmento
+escribir el canto, como lo demuestra el siguiente fragmento
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -4617,9 +4617,9 @@ Además es posible usar líneas de continuación para las cifras que se repiten,
 @end lilypond
 
 @noindent
-En este caso, las líneas de extensión siempre sustituyen a las cibras existentes.
+En este caso, las líneas de extensión siempre sustituyen a las cifras existentes.
 
-El contexto @code{FiguredBass} no presta atención a la propie línea del
+El contexto @code{FiguredBass} no presta atención a la propia línea del
 bajo. Como consecuencia, quizá tenga que insertar cifras adicionales para
 obtener líneas de extensión bajo todas las notas, y puede que necesite añadir @code{\!}
 para evitar que aparezca una línea de extensión, e.g.

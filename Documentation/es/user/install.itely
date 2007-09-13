@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: c5671ac9f0a53386a9832cef3dceb6ea67b872eb
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
 
     When revising a translation, copy the HEAD committish of the
@@ -42,7 +42,7 @@ el uso de los archivos binarios precompilados.
 
 Revise el enlace @uref{http://lilypond.org/web/install/} para ver información
 actualizada sobre los paquetes binarios para su plataforma.  Si su sistema operativo
-no está contemplado en dicha página general, conslute la lista completa
+no está contemplado en dicha página general, consulte la lista completa
 que está en @uref{http://download.linuxaudio.org/lilypond/binaries/}
 
 Por el momento estamos creando archivos binarios para

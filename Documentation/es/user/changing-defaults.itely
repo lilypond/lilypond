@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9d22963d70da2db80ead5c63eb4a6e626f975cc2
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -77,7 +77,7 @@ sobre la introducción de números, listas, cadenas y símbolos en Scheme.}
 @node Automatic notation
 @section Automatic notation
 
-Esta sección descibe la manera de cambiar la forma en que se dibujan automáticamente las alteraciones accidentales y
+Esta sección describe la manera de cambiar la forma en que se dibujan automáticamente las alteraciones accidentales y
 las barras de las figuras.
 
 @menu
@@ -194,7 +194,7 @@ se deben utilizar los estilos
 @funindex modern style accidentals
 Esta regla corresponde a la práctica común del s.XX.  Imprime
 las mismas alteraciones que @code{default}, pero las alteraciones temporales
-también se cancelan en ocatavas distintas.  Es más,
+también se cancelan en octavas distintas.  Es más,
 dentro de la misma octava, también se cancelan dentro del compás siguiente:
 en el ejemplo que aparece a continuación, fíjese en los dos becuadros que aparecen
 en el segundo compás del pentagrama superior.
@@ -251,7 +251,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @funindex modern-voice
 @item modern-voice
-Esta regla se usa para alteaciones que afectan a varias voces y que se leerán tanto por parte de músicos
+Esta regla se usa para alteraciones que afectan a varias voces y que se leerán tanto por parte de músicos
 que tocan una sola voz como por músicos que tocan todas las voces.  Las alteraciones
 se componen para cada voz, pero @emph{se cancelan} entre voces dentro del mismo
 pentagrama (@internalsref{Staff}).
@@ -308,7 +308,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano
 @funindex piano accidentals
-Este estilo de alteraciones tiene lugar dentro de un contexto de pentagramas de piano, GrandStaff. Sin ambargo, tendrá
+Este estilo de alteraciones tiene lugar dentro de un contexto de pentagramas de piano, GrandStaff. Sin embargo, tendrá
 que establecerlo explícitamente para @emph{cada uno} de los pentagramas individuales del grupo GrandStaff:
 
 @example
@@ -353,7 +353,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
 Igual que @code{#(set-accidental-style 'piano)} pero con las alteraciones adicionales
-tiografiadas como de precaución.
+tipografiadas como de precaución.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -571,7 +571,7 @@ terminaciones
 @dots{}
 @end example
 
-La misma sintaxis sepuede usar para especificar los puntos de comienzo de las barras.  En este
+La misma sintaxis se puede usar para especificar los puntos de comienzo de las barras.  En este
 ejemplo, las barras automáticas sólo pueden terminar sobre una negra con puntillo
 @example
 #(override-auto-beam-setting '(end * * * *) 3 8)
@@ -638,7 +638,7 @@ c8[^"(3+2)" c16 c8]
 Si una partitura termina con una barra automática sin finalizar y que aún
 acepta más figuras, esta última barra no se imprimirá en absoluto.  Lo mismo vale para
 las voces polifónicas, introducidas con @code{<< @dots{} \\ @dots{}
->>}.  Si una voz polifónica termina meintras una barra automática aún
+>>}.  Si una voz polifónica termina mientras una barra automática aún
 acepta notas, entonces no aparece.
 
 
@@ -717,7 +717,7 @@ consulte
 @internalsref{Contexts}.
 @end ifhtml
 @ifnothtml
-Translation @arrow{} Context.
+Traducción @arrow{} Contexto.
 @end ifnothtml
 
 @c [TODO: describe propagation]
@@ -749,7 +749,7 @@ donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
 @code{Voice}).  Esta instrucción crea un contexto nuevo, y empieza a
 interpretar la @var{expresión_musical} con él.
 
-Una aplicación práctica de @code{\new} es una partitura con muchos pentragramas.
+Una aplicación práctica de @code{\new} es una partitura con muchos pentagramas.
 Cada parte que debe ir en su propio pentagrama, va precedida de
 @code{\new Staff}.
 
@@ -825,7 +825,7 @@ arts = { s4-. s4-> }
 >>
 @end lilypond
 
-COn este mecanismo, es posible definir un Urtext (una edición
+Con este mecanismo, es posible definir un Urtext (una edición
 original), con la posibilidad de poner articulaciones distintas sobre las
 mismas notas.
 
@@ -870,7 +870,7 @@ formas:
 @cindex changing properties
 
 Cada contexto puede tener diferentes @emph{propiedades} o variables contenidas
-en dicho contexto.  Se pueden cambiar mientras se desarrolla la fase de interpretción.
+en dicho contexto.  Se pueden cambiar mientras se desarrolla la fase de interpretación.
 Esto se consigue insertando la instrucción @code{\set} en la música,
 
 @example
@@ -885,11 +885,11 @@ R1*2
 @end lilypond
 
 Esta instrucción hace que se salten los compases que no tienen ninguna nota.  El resultado es que
-los silencios multicompás se comprimen.  El valor asignado es un objero del lenguaje Scheme.  En
+los silencios multicompás se comprimen.  El valor asignado es un objeto del lenguaje Scheme.  En
 este caso, es @code{#t}, el valor booleano Verdadero.
 
 Si el argumento @var{contexto} se deja en blanco, entonces se utiliza el contexto actual más bajo
-(normalmente @context{ChordNames}, @context{Voice}, or
+(normalmente @context{ChordNames}, @context{Voice} o
 @context{Lyrics}).  En este ejemplo,
 
 @lilypond[quote,verbatim,relative=2,fragment]
@@ -976,7 +976,7 @@ c4
 la propiedad @code{fontSize} pierde su valor automáticamente después de la segunda
 nota.
 
-En la referencia del programa hay una decripción detallada de todas las propiedades de contexto disponibles,
+En la referencia del programa hay una descripción detallada de todas las propiedades de contexto disponibles,
 véase
 @ifhtml
 @internalsref{Tunable context properties}.
@@ -1010,7 +1010,7 @@ cada uno de los contextos descritos en
 @ifnothtml
 Referencia del programa @arrow Traducción @arrow{} Contexto.
 @end ifnothtml
-relaciona los grabadores utilizados para esse contexto.
+relaciona los grabadores utilizados para ese contexto.
 
 
 Puede ser útil poner o quitar estos añadidos.  Esto se hace
@@ -1062,7 +1062,7 @@ de compás están normalmente sincronizadas en toda la partitura.  Esto se hace
 por parte del @code{Timing_translator} y el grabador @code{Default_bar_line_engraver}.
 Este añadido mantiene al día la administración de la indicación de compás, colocación
 dentro del compás, etc.  Moviendo el grabador desde el contexto @code{Score} al
-contexto @code{Staff}, podemos tener una partitura donde cada pentragrama tiene su propia
+contexto @code{Staff}, podemos tener una partitura donde cada pentagrama tiene su propia
 indicación de compás.
 
 @cindex polimétricas, partituras
@@ -1198,7 +1198,7 @@ Funcionamiento interno: @internalsref{OverrideProperty}, @internalsref{RevertPro
 
 @refbugs
 
-El back-end o parte profunda del programa no es muy estrict cuando se trata de la comprobación de tipos de las propiedades de los objetos.
+El back-end o parte profunda del programa no es muy estricta cuando se trata de la comprobación de tipos de las propiedades de los objetos.
 Las referencias circulares en los valores de Scheme para las propiedades pueden causar cuelgues o
 terminaciones abruptas, o las dos cosas.
 
@@ -1420,7 +1420,7 @@ Ponemos ambos dentro de un bloque @code{\layout}, como
 @}
 @end example
 
-Así pues, la salida que aparece al comienzo de esta sub-sección se uede escribir como
+Así pues, la salida que aparece al comienzo de esta sub-sección se puede escribir como
 
 @example
 \relative c'' @{
@@ -1484,7 +1484,7 @@ sintaxis general de esta orden es:
 @end example
 
 Así establecemos la @var{propiedad_de_presentación} del @var{objeto_de_presentación} especificado,
-wque es miembro del @var{contexto}, al @var{valor} que se indica.
+que es miembro del @var{contexto}, al @var{valor} que se indica.
 
 @menu
 * Constructing a tweak::        
@@ -1518,7 +1518,7 @@ Para construir este ajuste debemos primero averiguar estos datos:
 @item un valor: aquí @code{3.0}.
 @end itemize
 
-Ciertas opciones ajustables se llaman @q{subpropieades} y residen en el interior
+Ciertas opciones ajustables se llaman @q{subpropiedades} y residen en el interior
 de las propiedades.  Para trucarlas, utilice órdenes de la forma
 
 @example
@@ -1535,7 +1535,7 @@ de las propiedades.  Para trucarlas, utilice órdenes de la forma
 Para muchas propiedades, independientemente del tipo de datos de la propiedad, el establecimiento del valor de la
 propiedad a Falso ( @code{##f} ) dará como resultado su apagado o desactivación, haciendo que
 Lilypond ignore por completo dicha propiedad.  Esto es especialmente útil para
-desactivar propiedades de objetos gráficos que, de otro modo, podríann causar problemas.
+desactivar propiedades de objetos gráficos que, de otro modo, podrían causar problemas.
 
 Explicaremos a continuación cómo extraer esta información del manual de notación y de la
 referencia del programa.
@@ -1603,7 +1603,7 @@ manual.
 @end ignore
 
 @ifnothtml
-La referencia del programador se encuentra disponible en forma dedocumento HTML.  Se recomienda
+La referencia del programador se encuentra disponible en forma de documento HTML.  Se recomienda
 mucho que lo lea en la forma HTML, bien en línea o bien
 descargando los archivos de la documentación HTML.  Esta sección sería mucho más difícil de entender
 si está utilizando el manual en
@@ -1637,10 +1637,10 @@ El tipo de evento musical @code{fingering-event} está descrito en Expresiones m
 
 Este camino se recorre en contra de la corriente de información del programa: comienza
 por la salida y acaba en el evento de entrada.  También podríamos haber
-empezado por uun evento de la entrada, y leído siguiendo el flujo de información
+empezado por un evento de la entrada, y leído siguiendo el flujo de información
 terminando en su caso en el objeto (u objetos) de la salida.
 
-La referencia del programa tamién se puede examinar como undocumento normal.  Contiene
+La referencia del programa también se puede examinar como un documento normal.  Contiene
 capítulos que tratan de
 @ifhtml
 @internalsref{Music definitions},
@@ -1662,7 +1662,7 @@ ajustar.
 
 La página HTML que pudimos ver en la sección anterior describe el
 objeto de presentación llamado @internalsref{Fingering}.  Dicho objeto es un
-síimbolo dentro de la partitura.  Tiene propiedades que guardan números (como
+símbolo dentro de la partitura.  Tiene propiedades que guardan números (como
 grosores y direcciones), pero también punteros a objetos relacionados.  Un
 objeto de presentación también se llama un @emph{Grob}, que es una abreviatura de Graphical
 Object (objeto gráfico).  Para ver más detalles acerca de los objetos gráficos o Grobs, consulte @internalsref{grob-interface}.
@@ -1687,7 +1687,7 @@ los siguientes aspectos
 
 @itemize @bullet
 @item
-Su tamañoo es independiente del espaciado horizontal, al contrario de las ligaduras o las baarras de las figuras.
+Su tamaño es independiente del espaciado horizontal, al contrario de las ligaduras o las barras de las figuras.
 
 @item
 Es un elemento de texto.  Casi seguro que es un texto muy corto.
@@ -1720,12 +1720,12 @@ Este objeto contempla los siguientes interfaces:
 @end quotation
 
 Al pulsar sobre cualquiera de los enlaces nos desplazaremos a la página del respectivo interfaz del
-objeto.  Cada interfaz tiene uncierto número de propiedades.  Algunas de ellas
+objeto.  Cada interfaz tiene un cierto número de propiedades.  Algunas de ellas
 no son para que el usuario las pueda ajustar (@q{Propiedades internas}), pero otras
 sí se pueden modificar.
 
-Hemos hestado hablando de @emph{el} objeto @code{Fingering}, pero realmente esto no significa
-mucho.  El archivo de incialización (véase
+Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero realmente esto no significa
+mucho.  El archivo de inicialización (véase
 @ref{Default files})
 @file{scm/@/define@/-grobs@/.scm} muestra el alma del @q{objeto},
 
@@ -1770,7 +1770,7 @@ f
 @end lilypond
 
 Puesto que el @b{2} se encuentra colocado verticalmente sobre su nota, tenemos que
-negociar con el interfaz asociado con esta colocaciión.  Esto se
+negociar con el interfaz asociado con esta colocación.  Esto se
 hace usando @code{side-position-interface}.  La página que describe este interface
 dice:
 
@@ -1845,7 +1845,7 @@ Como podemos ver, las propiedades se establecen directamente dentro de los objet
 sin hacer mención al nombre del grob ni al contexto en el que se tendría que
 aplicar.
 
-Esta técnica sóloo funciona para los objetos que están conectados directamente a
+Esta técnica sólo funciona para los objetos que están conectados directamente a
 un @internalsref{event} (evento) del texto de entrada, por ejemplo
 
 @itemize @bullet
@@ -1855,7 +1855,7 @@ un @internalsref{event} (evento) del texto de entrada, por ejemplo
 
 Posiblemente no funcione para plicas y alteraciones accidentales (éstos están producidos
 por parte de las cabezas de nota, no por los eventos musicales) ni para las claves (éstos no están producidos por
-ninguna entrada musical, sino más bien a causa de unn cambio en el valor de una propiedad).
+ninguna entrada musical, sino más bien a causa de un cambio en el valor de una propiedad).
 
 Existen muy pocos objetos que estén conectados @emph{directamente} al
 resultado de salida.  Una nota normal (como @code{c4}) no está conectada directamente
@@ -1987,9 +1987,9 @@ propiedades, incluyendo los @code{\override}s.
 
 En otras palabras, un @code{\override} siempre afecta a todas las piezas de un elemento de
 extensión roto.  Para cambiar sólo una parte del elemento de extensión  en un salto de línea,
-es necesario iplicarse en el proceso de formateo.  La función de callback
+es necesario implicarse en el proceso de formateo.  La función de callback
 @code{after-line-breaking} contiene el procedimiento de Scheme que
-se llama después de que see han determinado los saltos de línea, y de que los objetos de
+se llama después de que se han determinado los saltos de línea, y de que los objetos de
 presentación se han dividido sobre los diferentes sistemas o grupos de pentagramas.
 
 En el ejemplo siguiente, definimos un procedimiento
@@ -2006,7 +2006,7 @@ comprueba si nosotros somos el último de los objetos divididos
 si es así, establece @code{extra-offset}.
 @end itemize
 
-Este procedimiento se isntala dentro de @internalsref{Tie} (ligadura de unión), de forma que la última parte
+Este procedimiento se instala dentro de @internalsref{Tie} (ligadura de unión), de forma que la última parte
 de la ligadura dividida se traslada hacia arriba.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2039,7 +2039,7 @@ también se debe llamar a @code{ly:hairpin::after-line-breaking}.
 
 @item Algunos objetos no se pueden cambiar con @code{\override} por razones
 técnicas.  Ejemplo de ello son @code{NonMusicalPaperColumn}
-y @code{PaperColumn}.  Se peuden cambiar con la función
+y @code{PaperColumn}.  Se pueden cambiar con la función
 @code{\overrideProperty}, que funciona de forma parecida a @code{\once
 \override}, pero usa una sintaxis diferente.
 
