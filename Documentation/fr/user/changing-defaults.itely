@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: da55a1ec3c4b8195efc910b0c986c27f244def85
+    Translation of GIT committish: e6ce9d205cb964525629f8f454fec9229a6311aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -22,7 +22,7 @@ comment trouver le bon levier pour obtenir tel ou tel effet en particulier.
 @cindex Référence du programme
 
 Les moyens de contrôle des différents réglages sont décrits dans un document
-à part entière, la
+séparé, la
 @iftex
 référence du programme
 @end iftex
@@ -74,8 +74,8 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 @node Automatic notation
 @section Automatic notation
 
-Cette section s'intéresse à la manière dont les altérations accidentelles 
-et les ligatures sont automatiquement ajoutées.
+Cette section s'intéresse au réglage de l'impression automatique des
+altérations accidentelles et ligatures.
 
 @menu
 * Automatic accidentals::       
@@ -1254,7 +1254,7 @@ Il est impossible de stocker des modifications de contexte dans un identifieur.
 Le raccourci @code{\RemoveEmptyStaffContext} détruit tous les réglages
 du contexte @code{\Staff}. Pour modifier des propriétés de portées gouvernées
 par @code{\RemoveEmptyStaffContext}, il faut le faire impérativement @emph{après}
-avoir invoqué @code{\RemoveemptyStaffContext} :
+avoir invoqué @code{\RemoveEmptyStaffContext} :
 
 @example
 \layout @{
@@ -1279,6 +1279,7 @@ semblable à @context{Voice}, mais qui n'imprime que des têtes de notes en form
 de barres obliques, au centre de la portée.  Un tel contexte, par exemple, peut
 servir à indiquer un passage improvisé dans un morceau de jazz.
 
+@c KEEP LY
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
@@ -1297,7 +1298,7 @@ servir à indiquer un passage improvisé dans un morceau de jazz.
 
 \relative c'' {
   a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
-   c4 c^"undress" c_"while playing :)" c }
+   c4 c^"dévêtez-vous" c_"tout en jouant :)" c }
   a1
 }
 @end lilypond
@@ -1532,11 +1533,11 @@ La commande devient alors :
 @cindex régler
 @funindex \override
 
-Pour bien des propriétés, quel que soit le type de valeur requise, attribuer la
-valeur @q{Faux} (lettre @code{##f} ) reviendra à désactiver complètement
-l'action de la propriétéqui se trouve ainsi purement ignorée par LilyPond.
-Cela peut s'avérer fort utile lorsque des propriétés causeraient, autrement, des
-désagréments.
+Pour bien des propriétés, quel que soit le type de valeur requise,
+attribuer la valeur @q{faux} (@code{##f} en Scheme) reviendra à désactiver
+complètement l'action de la propriété qui se trouve ainsi purement
+ignorée par LilyPond.  Cela peut s'avérer fort utile pour des propriétés
+causant des désagréments.
 
 @c such announcements are to be avoided -vv
 @ignore
@@ -1955,7 +1956,7 @@ F = #(let ((m (make-music 'ArticulationEvent
 Ici les propriétés @code{tweaks} de l'objet flageolet nommé
 @samp{m} (créé au moyen de @code{make-music}) sont extraites par
 @code{ly:music-property}, une nouvelle valeur de la taille de fonte
-est ajoutée à la liste de ses propriétés (grpace à la fonction Scheme
+est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
 @code{acons}, et le résultat de cette opération est renvoyé par @code{set!}.
 Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
 @samp{m} lui-même.
