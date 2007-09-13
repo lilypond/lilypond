@@ -5,10 +5,9 @@ import re
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = re.search ("[-0-9\" ,._()]", return_string);
-    return_string = string.replace (return_string, "\"", "\\\"")
+    needs_quotes = not re.match ("^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
     if needs_quotes:
-        return_string = "\"" + return_string + "\""
+        return_string = "\"" + string.replace (return_string, "\"", "\\\"") + "\""
     return return_string
 
 
@@ -271,26 +270,30 @@ class Note (Measure_element):
         self.instrument_name = ''
         
     def get_duration_log (self):
-	ch = self.get_maybe_exist_typed_child (get_class (u'type'))
+        ch = self.get_maybe_exist_typed_child (get_class (u'type'))
 
-	if ch:
-	    log = ch.get_text ().strip()
-	    return {'eighth': 3,
+        if ch:
+            log = ch.get_text ().strip()
+            return {'256th': 8,
+                    '128th': 7,
+                    '64th': 6,
+                    '32nd': 5,
+                    '16th': 4,
+                    'eighth': 3,
                     'quarter': 2,
                     'half': 1,
-                    '16th': 4,
-                    '32nd': 5,
-		     'breve': -1,
-                    'long': -2,
-                    'whole': 0}.get (log)
-	else:
-	    return 0
+                    'whole': 0,
+                    'breve': -1,
+                    'long': -2}.get (log, 0)
+        else:
+            sys.stderr.write ("Encountered note without duration (no <type> element): %s\n" % self)
+            return 0
 
     def get_factor (self):
-	return 1
+        return 1
 
     def get_pitches (self):
-	return self.get_typed_children (get_class (u'pitch'))
+        return self.get_typed_children (get_class (u'pitch'))
 
 class Part_list (Music_xml_node):
     def __init__ (self):
@@ -570,7 +573,10 @@ class Music_xml_spanner (Music_xml_node):
         else:
             return 0
 
-class Tuplet(Music_xml_spanner):
+class Wedge (Music_xml_spanner):
+    pass
+
+class Tuplet (Music_xml_spanner):
     pass
 
 class Slur (Music_xml_spanner):
@@ -671,6 +677,7 @@ class_dict = {
         'tuplet': Tuplet,
 	'type': Type,
         'wavy-line': Wavy_line,
+        'wedge': Wedge,
         'work': Work,
 }
 

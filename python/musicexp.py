@@ -492,14 +492,17 @@ class Event(Music):
 class SpanEvent (Event):
     def __init__(self):
         Event.__init__ (self)
-        self.span_direction = 0
-        self.line_type = 0
-        self.size = 0
+        self.span_direction = 0 # start/stop
+        self.line_type = 'solid'
+        self.span_type = 0 # e.g. cres/decrescendo, ottava up/down
+        self.size = 0 # size of e.g. ocrave shift
     def wait_for_note (self):
         return True
     def get_properties(self):
         return "'span-direction  %d" % self.span_direction
-    
+    def set_span_type (self, type):
+        self.span_type = type
+
 class SlurEvent (SpanEvent):
     def ly_expression (self):
         before = ''
@@ -507,58 +510,49 @@ class SlurEvent (SpanEvent):
         # TODO: setting dashed/dotted line style does not work, because that
         #       command needs to be written before the note, not when the
         #       event is observed after the note!
-        #if self.line_type == 1:
-            #before = '\\slurDotted'
-        #elif self.line_type == 2:
-            #before = '\\slurDashed'
+        #before = {'dotted': '\\slurDotted', 
+        #          'dashed' : '\\slurDashed'}.get (self.line_type, '')
         #if before:
             #after = '\\slurSolid'
 
         return {-1: before + '(' + after,
-            0:'',
             1:')'}.get (self.span_direction, '')
 
 class BeamEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '[',
-            0:'',
             1:']'}.get (self.span_direction, '')
 
 class PedalEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '\\sustainDown',
-            0:'',
             1:'\\sustainUp'}.get (self.span_direction, '')
 
 # type==-1 means octave up, type==-2 means octave down
 class OctaveShiftEvent (SpanEvent):
     def wait_for_note (self):
         return False;
+    def set_span_type (self, type):
+        self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
-        if self.size == 8:
-            value = 1
-        elif self.size == 15:
-            value = 2
-        else:
-            value = 0
-        # -2 means up
-        if self.span_direction == -2:
-            value = -value
+        # convert 8/15 to lilypond indicators (+-1/+-2)
+        value = {8: 1, 15: 2}.get (self.size, 0)
+        # negative values go up!
+        value *= -1*self.span_type
         return value
     def ly_expression (self):
         dir = self.ly_octave_shift_indicator ()
         value = ''
         if dir:
             value = '#(set-octavation %s)' % dir
-        return {-2: value,
-           -1: value,
-            0: '',
+        return { 
+            -1: value,
             1: '#(set-octavation 0)'}.get (self.span_direction, '')
 
 class TrillSpanEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '\\startTrillSpan',
-            0:'',
+            0: '', # no need to write out anything for type='continue'
             1:'\\stopTrillSpan'}.get (self.span_direction, '')
 
 class GlissandoEvent (SpanEvent):
@@ -566,11 +560,10 @@ class GlissandoEvent (SpanEvent):
         style = ''
         # TODO: wavy-line glissandos don't work, becasue the style has to be
         #       set before the note, at the \glissando it's already too late!
-        #if self.line_type == 3: # wavy-line:
+        #if self.line_type == 'wavy':
             #style = "\once\override Glissando #'style = #'zigzag"
         # In lilypond, glissando is NOT a spanner, unlike MusicXML.
         return {-1: style + '\\glissando',
-            0:'',
             1:''}.get (self.span_direction, '')
 
 class ArpeggioEvent(Event):
@@ -586,10 +579,13 @@ class TieEvent(Event):
 
 
 class HairpinEvent (SpanEvent):
-    def __init__ (self, type):
-        self.type = type
+    def set_span_type (self, type):
+        self.span_type = {'crescendo' : 1, 'decrescendo' : -1, 'diminuendo' : -1 }.get (type, 0)
     def hairpin_to_ly (self):
-        return { 0: '\!', 1: '\<', -1: '\>' }.get (self.type, '')
+        if self.span_direction == 1:
+            return '\!'
+        else:
+            return {1: '\<', -1: '\>'}.get (self.span_type, '')
     
     def ly_expression (self):
         return self.hairpin_to_ly ()

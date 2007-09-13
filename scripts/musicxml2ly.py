@@ -72,14 +72,9 @@ def print_ly_information (printer, score_information):
 
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
-    if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
-        duration_log = mxl_note.get_duration_log ()
-        if duration_log:
-            d.duration_log = mxl_note.get_duration_log ()
-        else:
-            d.duration_log = 0
-    else:
-        d.duration_log = 0
+    # if the note has no Type child, then that method spits out a warning and 
+    # returns 0, i.e. a whole note
+    d.duration_log = mxl_note.get_duration_log ()
 
     d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
     d.factor = mxl_note._duration / d.get_length ()
@@ -195,21 +190,20 @@ spanner_event_dict = {
     'glissando' : musicexp.GlissandoEvent,
     'pedal' : musicexp.PedalEvent,
     'wavy-line' : musicexp.TrillSpanEvent,
-    'octave-shift' : musicexp.OctaveShiftEvent
+    'octave-shift' : musicexp.OctaveShiftEvent,
+    'wedge' : musicexp.HairpinEvent
 }
 spanner_type_dict = {
     'start': -1,
     'begin': -1,
-    'up': -2,
+    'crescendo': -1,
+    'decreschendo': -1,
+    'diminuendo': -1,
+    'continue': 0,
+    'up': -1,
     'down': -1,
     'stop': 1,
     'end' : 1
-}
-spanner_line_type_dict = {
-    'solid': 0,
-    'dashed': 1,
-    'dotted': 2,
-    'wavy': 3
 }
 
 def musicxml_spanner_to_lily_event (mxl_event):
@@ -223,17 +217,18 @@ def musicxml_spanner_to_lily_event (mxl_event):
         print 'unknown span event ', mxl_event
 
 
-    key = mxl_event.get_type ()
-    span_direction = spanner_type_dict.get (key)
-    if span_direction:
+    type = mxl_event.get_type ()
+    span_direction = spanner_type_dict.get (type)
+    # really check for None, because some types will be translated to 0, which
+    # would otherwise also lead to the unknown span warning
+    if span_direction != None:
         ev.span_direction = span_direction
     else:
-        print 'unknown span type', key, 'for', name
+        print 'unknown span type', type, 'for', name
 
-    if hasattr (mxl_event, 'line-type'):
-        span_line_type = spanner_line_type_dict.get (getattr (mxl_event, 'line-type'))
-        if span_line_type:
-            ev.line_type = span_line_type
+    ev.set_span_type (type)
+    ev.line_type = getattr (mxl_event, 'line-type', 'solid')
+
     # assign the size, which is used for octave-shift, etc.
     ev.size = mxl_event.get_size ()
 
@@ -371,7 +366,7 @@ def musicxml_dynamics_to_lily_event (dynentry):
     return event
 
 
-direction_spanners = [ 'octave-shift', 'pedal' ]
+direction_spanners = [ 'octave-shift', 'pedal', 'wedge' ]
 
 def musicxml_direction_to_lily (n):
     # TODO: Handle the <staff> element!
@@ -386,20 +381,8 @@ def musicxml_direction_to_lily (n):
                 ev = musicxml_dynamics_to_lily_event (dynentry)
                 if ev:
                     res.append (ev)
-      
-        if entry.get_name() == "wedge":
-            if hasattr (entry, 'type'):
-                wedgetype = entry.type;
-                wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
-                                "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
-                # Really check for != None, becaus otherwise 0 will also cause 
-                # the code to be executed!
-                if wedgetypeval != None:
-                    event = musicexp.HairpinEvent (wedgetypeval)
-                    res.append (event)
 
-
-        # octave shifts. pedal marks etc. are spanners:
+        # octave shifts. pedal marks, hairpins etc. are spanners:
         if entry.get_name() in direction_spanners:
             event = musicxml_spanner_to_lily_event (entry)
             if event:
@@ -1018,19 +1001,22 @@ def convert (filename, options):
     printer = musicexp.Output_printer()
     printer.set_file (open (driver_ly_name, 'w'))
     print_ly_preamble (printer, filename)
-    printer.dump (r'\include "%s"' % defs_ly_name)
+    printer.dump (r'\include "%s"' % os.path.basename (defs_ly_name))
     print_score_setup (printer, part_list, voices)
     printer.newline ()
 
     return voices
 
 def get_existing_filename_with_extension (filename, ext):
-    if not os.path.exists (filename):
-        if filename[-1] == '.':
-            filename += "xml"
-        elif not re.match ("\.xml$", filename):
-            filename += ".xml"
-    return filename
+    if os.path.exists (filename):
+        return filename
+    newfilename = filename + ".xml"
+    if os.path.exists (newfilename):
+        return newfilename;
+    newfilename = filename + "xml"
+    if os.path.exists (newfilename):
+        return newfilename;
+    return ''
 
 def main ():
     opt_parser = option_parser()
@@ -1040,12 +1026,12 @@ def main ():
         opt_parser.print_usage()
         sys.exit (2)
     
-    # Allow the user to leave out the .xml on the filename
+    # Allow the user to leave out the .xml or xml on the filename
     filename = get_existing_filename_with_extension (args[0], "xml")
-    if not os.path.exists (filename):
-        print "Unable to find input file %s" % args[0]
-    else:
+    if filename and os.path.exists (filename):
         voices = convert (filename, options)
+    else:
+        progress ("Unable to find input file %s" % args[0])
 
 if __name__ == '__main__':
     main()
