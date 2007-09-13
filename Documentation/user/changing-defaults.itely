@@ -1259,7 +1259,7 @@ them to a @code{\context} definition by referring to that variable.
 The @code{\RemoveEmptyStaffContext} will overwrite your current
 @code{\Staff} settings.  If you wish to change the defaults for a
 staff which uses @code{\RemoveEmptyStaffContext}, you must do so
-after calling @code{\RemoveemptyStaffContext}, ie
+after calling @code{\RemoveEmptyStaffContext}, ie
 
 @example
 \layout @{
