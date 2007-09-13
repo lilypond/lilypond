@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
+    Translation of GIT committish: 35ad19e0e1bcd393d45de90abe1295c16e91190b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -223,7 +223,7 @@ urlCommand     "lilypond-invoke-editor %s"
 
 El programa @file{lilypond-invoke-editor} es un pequeño programa de
 apoyo. Invoca un editor para las URIs especiales de @code{textedit},
-y lanza un navegador de web para otros.  Comprueba la variable de entorno
+y lanza un navegador de web para el resto.  Comprueba la variable de entorno
 @code{EDITOR} en busca de los siguientes patrones,
 
 @table @code
