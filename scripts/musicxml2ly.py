@@ -22,7 +22,10 @@ from rational import Rational
 def progress (str):
     sys.stderr.write (str + '\n')
     sys.stderr.flush ()
-    
+
+def error_message (str):
+    sys.stderr.write (str + '\n')
+    sys.stderr.flush ()
 
 # score information is contained in the <work>, <identification> or <movement-title> tags
 # extract those into a hash, indexed by proper lilypond header attributes
@@ -149,7 +152,7 @@ def musicxml_key_to_lily (attributes):
         start_pitch.step = n
         start_pitch.alteration = a
     except  KeyError:
-        print 'unknown mode', mode
+        error_message ('unknown mode %s' % mode)
 
     fifth = musicexp.Pitch()
     fifth.step = 4
@@ -214,7 +217,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if func:
         ev = func()
     else:
-        print 'unknown span event ', mxl_event
+        error_message ('unknown span event %s' % mxl_event)
 
 
     type = mxl_event.get_type ()
@@ -224,7 +227,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if span_direction != None:
         ev.span_direction = span_direction
     else:
-        print 'unknown span type', type, 'for', name
+        error_message ('unknown span type %s for %s' % (type, name))
 
     ev.set_span_type (type)
     ev.line_type = getattr (mxl_event, 'line-type', 'solid')
@@ -261,7 +264,6 @@ def musicxml_bend_to_lily_event (mxl_event):
     return ev
 
 
-# TODO: Some translations are missing!
 short_articulations_dict = {
   "staccato": ".",
   "tenuto": "-",
@@ -272,6 +274,7 @@ short_articulations_dict = {
   #"portato": "_", # does not exist in MusicXML
     #"fingering": "", # fingering is special cased, as get_text() will be the event's name
 }
+# TODO: Some translations are missing!
 articulations_dict = { 
     ##### ORNAMENTS
     "trill-mark": "trill", 
@@ -433,7 +436,7 @@ def musicxml_note_to_lily_main_event (n):
     return event
 
 
-## todo
+## TODO
 class NegativeSkip:
     def __init__ (self, here, dest):
         self.here = here
@@ -497,7 +500,7 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            print 'Negative skip', diff
+            error_message ('Negative skip %s' % diff)
             diff = Rational (0)
 
         if diff > Rational (0):
@@ -578,7 +581,7 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if not n.__class__.__name__ == 'Note':
-            print 'not a Note or Attributes?', n
+            error_message ('not a Note or Attributes? %s' % n)
             continue
 
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
@@ -631,7 +634,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if s.get_type () in ('start','stop')]
             if slurs:
                 if len (slurs) > 1:
-                    print 'more than 1 slur?'
+                    error_message ('more than 1 slur?')
 
                 lily_ev = musicxml_spanner_to_lily_event (slurs[0])
                 ev_chord.append (lily_ev)
@@ -746,7 +749,7 @@ def musicxml_voice_to_lily_voice (voice):
     
     
     if len (modes_found) > 1:
-       print 'Too many modes found', modes_found.keys ()
+       error_message ('Too many modes found %s' % modes_found.keys ())
 
     return_value = seq_music
     for mode in modes_found.keys ():
@@ -885,10 +888,9 @@ def print_score_setup (printer, part_list, voices):
         part_name = part_definition.id
         part = part_dict.get (part_name)
         if not part:
-            print 'unknown part in part-list:', part_name
+            error_message ('unknown part in part-list: %s' % part_name)
             continue
 
-        # TODO: Apparently this is broken! There is always only one staff...
         nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
                 [mxlvoice._staves.keys ()

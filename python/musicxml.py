@@ -2,6 +2,7 @@ import new
 import string
 from rational import *
 import re
+import sys
 
 def escape_ly_output_string (input_string):
     return_string = input_string
@@ -41,11 +42,11 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        print msg
+        sys.stderr.write (msg)
 
         p = self
         while p:
-            print '  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()]))
+            sys.stderr.write ('  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
@@ -81,7 +82,7 @@ class Xml_node:
     def get_unique_typed_child (self, klass):
 	cn = self.get_typed_children(klass)
 	if len (cn) <> 1:
-	    print self.__dict__ 
+	    sys.stderr.write (self.__dict__)
 	    raise 'Child is not unique for', (klass, 'found', cn)
 
 	return cn[0]
@@ -231,7 +232,7 @@ class Attributes (Measure_element):
             return (int (beats.get_text ()),
                     int (type.get_text ()))
         except KeyError:
-            print 'error: requested time signature, but time sig unknown'
+            sys.stderr.write ('error: requested time signature, but time sig unknown')
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -320,7 +321,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            print "Opps, couldn't find instrument for ID=", id
+            sys.stderr.write ("Opps, couldn't find instrument for ID=%s" % id)
             return "Grand Piano"
         
 class Measure (Music_xml_node):
@@ -477,6 +478,16 @@ class Part (Music_xml_node):
                     last_measure_position = measure_position
                     now += dur
                     measure_position += dur
+                elif dur < Rational (0):
+                    # backup element, reset measure position
+                    now += dur
+                    measure_position += dur
+                    if measure_position < 0:
+                        # backup went beyond the measure start => reset to 0
+                        now -= measure_position
+                        measure_position = 0
+                    last_moment = now
+                    last_measure_position = measure_position
                 if n._name == 'note':
                     instrument = n.get_maybe_exist_named_child ('instrument')
                     if instrument:
