@@ -1,0 +1,82 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond-program.tely
+@ignore
+    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Install
+@chapter Install
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Precompiled binaries::
+* Compiling from source::
+@end menu 
+@node Precompiled binaries
+@section Precompiled binaries
+
+UNTRANSLATED NODE: IGNORE ME
+
+@subsection Downloading
+@node Compiling from source
+@section Compiling from source
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Downloading source code::
+* Requirements::
+* Building LilyPond::
+* Building documentation without compiling LilyPond::
+* Testing LilyPond::
+* Problems::
+@end menu 
+@node Downloading source code
+@subsection Downloading source code
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Requirements
+@subsection Requirements
+
+UNTRANSLATED NODE: IGNORE ME
+
+@unnumberedsubsubsec Compilation
+@unnumberedsubsubsec Running requirements
+@unnumberedsubsubsec Building documentation
+@node Building LilyPond
+@subsection Building LilyPond
+
+UNTRANSLATED NODE: IGNORE ME
+
+@unnumberedsubsubsec Compiling
+@unnumberedsubsubsec Compiling for multiple platforms
+@node Building documentation without compiling LilyPond
+@subsection Building documentation without compiling LilyPond
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Testing LilyPond
+@subsection Testing LilyPond
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Problems
+@subsection Problems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@unnumberedsubsubsec Bison 1.875
+@unnumberedsubsubsec Solaris
+@unnumberedsubsubsec FreeBSD
+@unnumberedsubsubsec International fonts
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

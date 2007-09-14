@@ -6,9 +6,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond-program.info
-@settitle GNU LilyPond program usage
+@settitle GNU LilyPond Programmbenutzung
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage de
 
 @iftex
 @afourpaper
@@ -26,14 +26,15 @@
 @omfdescription User manual of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage German
 @end ignore
 
 
 @ifhtml
-This document is also available as a
-@uref{source/Documentation/user/lilypond-program.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-program-big-page.html,one big page}.
+Dieses Dokument ist auch als
+@uref{source/Documentation/user/lilypond-program.pdf,PDF} und als
+@uref{source/Documentation/user/lilypond-program-big-page.html,eine große Seite}.
+verfügbar.
 @end ifhtml
 
 
@@ -46,12 +47,29 @@ This document is also available as a
 
 @titlepage
 @title LilyPond
-@subtitle The music typesetter
-@titlefont{Program usage}
-@author The LilyPond development team
+@subtitle Das Notensatzprogramm
+@titlefont{Programmbenutzung}
+@author Das LilyPond-Entwicklerteam
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -82,7 +100,24 @@ Free Documentation License''.
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -95,9 +130,26 @@ Free Documentation License''.
 @end copying
 
 @ifnottex
-This file documents GNU LilyPond program usage.
+Diese Datei dokumentiert die Programmbenutzung von GNU LilyPond.
 
-Copyright 1999--2007 by the authors
+Copyright 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -114,28 +166,27 @@ Free Documentation License''.
 @top GNU LilyPond --- program usage
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond 2.11.x series.
+Das ist das Hanbuch zur Programmbenutzung für GNU LilyPond Version 2.11.x.
 @ifhtml
-(See the bottom of this page for the exact version number).
+(Siehe Ende der Seite für die genaue Versionsnummer).
 @end ifhtml
 
-@cindex web site
+@cindex Internetseite
 @cindex URL
 
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
+@uref{http://@/www@/.lilypond@/.org/}. Auf der Internetseite
+finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @menu
-* Install::                        How to install or compile.
-* Setup::                          Using LilyPond with other programs.
-* Running LilyPond::               Operation.
-* LilyPond-book::                  Integrating text and music.
-* Converting from other formats::  Converting to lilypond source format.
+* Install::                        Wie das Programm installiert oder kompiliert wird.
+* Setup::                          Wie LilyPond mit anderen Programmen benutzt werden kann.
+* Running LilyPond::               Betrieb des Programms.
+* LilyPond-book::                  Kombination von Text und Noten.
+* Converting from other formats::  Konvertierungen in das LilyPond-Quellformat.
 
-Appendices
+Anhänge
 
-* GNU Free Documentation License:: License of this document.
+* GNU Free Documentation License:: Die Lizenz dieses Dokuments.
 * LilyPond index::
 @end menu
 @end ifnottex

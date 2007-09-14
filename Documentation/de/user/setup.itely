@@ -1,0 +1,80 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond-program.tely
+@ignore
+    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Setup
+@chapter Setup
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Setup for specific Operating Systems::
+* Text editor support::
+* Point and click::
+@end menu 
+@node Setup for specific Operating Systems
+@section Setup for specific Operating Systems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* MacOS X on the command-line::
+@end menu 
+@node MacOS X on the command-line
+@subsection MacOS X on the command-line
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text editor support
+@section Text editor support
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Emacs mode::
+* Vim mode::
+* jEdit::
+* TexShop::
+* TextMate::
+@end menu 
+@node Emacs mode
+@subsection Emacs mode
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Vim mode
+@subsection Vim mode
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node jEdit
+@subsection jEdit
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node TexShop
+@subsection TexShop
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node TextMate
+@subsection TextMate
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Point and click
+@section Point and click
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
