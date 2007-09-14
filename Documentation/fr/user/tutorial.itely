@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
+   Translation of GIT committish: 71b67137f76fa4e8aede58299630369f616004d9
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -1077,10 +1077,10 @@ comparaison, cela ressemble au signe @qq{moins} en mathématiques.  La
 formule @math{(4+5)} est une expression, donc @math{-(4+5)} est une plus
 grosse expression.
 
-Les chiffres de mesure figurant sur une portée affectent toutes les
-autres portées ; en revanche l'armure d'une portée n'affectera
-@emph{pas} les autres portées.@footnote{Ce comportement peut être
-modifié si nécessaire : voir pour cela @ref{Changing defaults}.}.
+Les chiffres de métrique indiqués sur une portée affectent toutes les
+autres portées@footnote{Ce comportement peut être modifié si nécessaire,
+voir @ref{Polymetric notation}.}.  En revanche l'armure d'une portée
+n'affecte @emph{pas} les autres portées.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {

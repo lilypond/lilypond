@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a4cf6aed7bf79f3cc1892dbc92b642b2514c1674
+    Translation of GIT committish: 71b67137f76fa4e8aede58299630369f616004d9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3375,6 +3375,14 @@ débuter la ligne suivante avec une section reprise, on peut utiliser
 Consultez @ref{Bar lines} pour plus d'informations.
 
 @seealso
+
+Program reference: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic}, et
+@internalsref{UnfoldedRepeatedMusic}.
+
+
+Examples
 
 Les crochets précédant une reprise s'impriment d'ordinaire seulement
 au-dessus de la portée du haut.  On peut ajuster cela en déplaçant le
