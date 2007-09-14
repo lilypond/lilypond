@@ -37,6 +37,8 @@ callback for @code{after-line-breaking}.")
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached
 from main spacing.")
+     (allow-span-bar ,boolean? "If false, no inter-staff barline will
+be created below this barline.")
      (alteration ,number? "Alteration numbers for accidental.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")

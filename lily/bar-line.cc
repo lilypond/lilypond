@@ -308,6 +308,7 @@ ADD_INTERFACE (Bar_line,
 
 
 	       /* properties */
+	       "allow-span-bar "
 	       "gap "
 	       "kern "
 	       "thin-kern "

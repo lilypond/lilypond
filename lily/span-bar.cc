@@ -57,6 +57,7 @@ Span_bar::print (SCM smobbed_me)
 
   /* compose span_bar_mol */
   vector<Interval> extents;
+  vector<bool> make_span_bar;
   Grob *model_bar = 0;
   for (vsize i = elements.size (); i--;)
     {
@@ -66,6 +67,7 @@ Span_bar::print (SCM smobbed_me)
 	continue;
 
       extents.push_back (ext);
+      make_span_bar.push_back (to_boolean (bar->get_property ("allow-span-bar")));
       model_bar = bar;
     }
 
@@ -84,7 +86,7 @@ Span_bar::print (SCM smobbed_me)
 	  Interval l (prev_extent [UP],
 		      ext[DOWN]);
 
-	  if (l.is_empty ())
+	  if (l.is_empty () || !make_span_bar[i])
 	    {
 	      /* There is overlap between the bar lines.  Do nothing. */
 	    }

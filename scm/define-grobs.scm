@@ -184,6 +184,7 @@
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
 	(bar-size .  ,ly:bar-line::calc-bar-size)
+	(allow-span-bar . #t)
 	
 	(space-alist . (
 			(time-signature . (extra-space . 0.75))
