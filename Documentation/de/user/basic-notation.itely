@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3436,7 +3436,7 @@ einen 3/4-Takt lang.
 \relative c''{
   \time 3/4
   c c c
-  \set Staff.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
   \repeat volta 5 { d d d }
   \alternative { { e e e f f f }
   { g g g } }
@@ -3492,8 +3492,6 @@ muss,
 entweder durch setzen von @code{Score.measurePosition} oder indem der 
 Befehl @code{\partial} benutzt wird. Gleichermaßen werden auch Legato- oder 
 Bindebögen nicht wiederholt.
-
-Volta-Klammern werden nicht vertikal aneinander ausgerichtet.
 
 
 @node Repeats and MIDI
