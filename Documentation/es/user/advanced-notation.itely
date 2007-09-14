@@ -1,192 +1,1881 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
-
+    Translation of GIT committish: b7491566b5b8ab386588dcf94255d82590341853
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c A menu is needed before every deeper *section nesting of @node's; run
+@c     M-x texinfo-all-menus-update
+@c to automatically fill in these menus before saving changes
+
 
 @node Advanced notation
 @chapter Advanced notation
 
-UNTRANSLATED NODE: IGNORE ME
+Este capítulo se ocupa de la notación avanzada o de uso poco frecuente.
 
-@menu 
-* Text::
-* Preparing parts::
-* Orchestral music::
-* Contemporary notation::
-* Educational use::
-@end menu 
+@menu
+* Text::                        
+* Preparing parts::             
+* Orchestral music::            
+* Contemporary notation::       
+* Educational use::             
+@end menu
+
+
+
 @node Text
 @section Text
 
-UNTRANSLATED NODE: IGNORE ME
+Esta sección explica cómo incluir texto (con diversos estilos de formateo) en las
+partituras.
 
-@menu 
-* Text scripts::
-* Text and line spanners::
-* Text spanners::
-* Text marks::
-* Text markup::
-* Nested scores::
-* Page wrapping text::
-* Overview of text markup commands::
-* Overview of text markup list commands::
-* Font selection::
-* New dynamic marks::
-@end menu 
+@cindex Texto, en otros idiomas
+Para escribir texto con caracteres acentuados y especiales (como los de idiomas distintos del inglés),
+sencillamente
+inserte los caracteres directamente en el archivo de lilypond.  El archivo se debe
+guardar como UTF-8.  Para ver más información, consulte @ref{Text encoding}.
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@menu
+* Text scripts::                
+* Text and line spanners::      
+* Text spanners::               
+* Text marks::                  
+* Text markup::                 
+* Nested scores::               
+* Page wrapping text::          
+* Overview of text markup commands::  
+* Overview of text markup list commands::  
+* Font selection::              
+* New dynamic marks::           
+@end menu
+
+
 @node Text scripts
 @subsection Text scripts
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Texto, inscripcioes de
+@cindex texto, elementos no vacíos de
+@cindex no vacíos, textos
+
+Es posible colocar cadenas de texto arbitrarias o @ref{Text markup},
+encima o debajo de las notas utilizando una cadena @code{c^"texto"}.  Por omisión,
+estas indicaciones no influyen sobre el espaciado de las notas, pero si se utiliza la
+instrucción @code{\fatText}, las anchuras se tendrán en cuenta
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4^"longtext" \fatText c4_"longlongtext" c4
+@end lilypond
+
+@noindent
+Para evitar que el texto influya sobre el espaciado, utilice @code{\emptyText}.
+
+También se pueden añadir a una nota textos con un formato más complejo utilizando la
+orden markup (marcado),
+
+@lilypond[fragment,ragged-right,verbatim,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+La instrucción @code{\markup} se describe con más detalle en
+@ref{Text markup}.
+
+
+@refcommands
+
+@funindex \fatText
+@code{\fatText},
+@funindex \emptyText
+@code{\emptyText}.
+
+
+@commonprop
+
+La comprobación (por parte del programa) que asegura que las inscripciones de texto y la letra se encuentran dentro de los márgenes, es
+una tarea computacional relativamente grande.  Para acelerar el procesado, lilypond de entrada no realiza
+dichos cálculos; para habilitarlo, utilice
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+
+@seealso
+
+En este manual: @ref{Text markup}.
+
+Referencia del programa: @internalsref{TextScript}.
+
 
 @node Text and line spanners
 @subsection Text and line spanners
 
-UNTRANSLATED NODE: IGNORE ME
+Ciertas indicaciones de ejecución, p.ej., @i{rallentando},
+@i{accelerando} y los @i{trinos} se escriben como texto y se extienden
+sobre muchos compases mediante líneas, a veces punteadas u onduladas.
+
+Todos ellos usan las mismas rutinas que el glissando para dibujar los textos y las líneas,
+y por ello el ajuste fino de su comportamiento se hace de la
+misma manera. Se hace con un spanner (un objeto de extensión), y la rutina responsable
+de dibujar los objetos de extensión es @code{ly:line-interface::print}. Esta
+rutina determina la colocación exacta de los dos @i{extremos del
+objeto de extensión} y dibuja una línea entre ellos, en el estilo solicitado.
+
+He aquí un ejemplo de los distintos estilos de línea disponibles, y cómo
+aplicarles ajustes finos.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+d2 \glissando d'2
+\once \override Glissando #'dash-fraction = #0.5
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+La información que determina los puntos extremos se calcula al vuelo
+para cada objeto gráfico, pero es posible sobreescribirlos.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'bound-details #'right #'Y = #-2
+e2 \glissando f
+@end lilypond
+
+El objeto @code{Glissando}, como cualquier otro que use la rutina
+@code{ly:line-interface::print}, conlleva una lista asociativa
+anidada. En la instrucción anterior, el valor de @code{Y}
+se establece a @code{-2} para la lista asociativa correspondiente al extremo final de la
+derecha. Por supuesto, también es posible ajustar el extremo de la izquierda con
+@code{left} en vez de @code{right}.
+
+Si no se establece el valor de @code{Y}, se calcula a partir de la posición
+vertical del punto de anclaje derecho del objeto de extensión.
+
+En el caso de un salto de línea, los valores de los puntos extremos se extienden
+con los contenidos de las sublistas @code{left-broken} y @code{right-broken},
+por ejemplo
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+\override Glissando #'breakable = ##T 
+\override Glissando #'bound-details #'right-broken #'Y = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+Las siguientes propiedades se pueden usar para el ajuste fino de los objetos de extensión:
+
+@table @code
+@item Y
+Establece la coordenada Y del punto extremo, en espacios de pentagrama.  Por
+omisión, es el centro del objeto con que enlaza.  Así, para un glissando
+apuntaría al centro vertical de la cabeza de la nota.
+
+Para objetos de extensión horizontales, como el de texto y los trinos, tiene el valor
+fijo de cero.
+
+@item attach-dir
+Determina el lugar donde la línea comienza y acaba en la dirección X,
+relativo al objeto al que se enlaza.  Así, un valor de @code{-1} (o
+@code{LEFT}) hace que la línea comience o acabe en el lado izquierdo de la cabeza de la nota
+a la que el objeto se encuentra adjuntado.
+
+@item X
+Es la coordenada absoluta del extremo final. Normalmente
+se calcula al vuelo y no tiene mucho sentido sobreescribirlo.
+
+@item stencil
+Los objetos extensores de línea pueden tener símbolos al principio o al final, que se encuentra contenido
+dentro de esta subpropiedad.  Es para uso interno y se recomienda
+usar @code{text}.
+
+@item text
+Es un elemento de marcado que se evalúa para generar la propiedad stencil anterior. Se usa
+para poner @i{cresc.} y @i{tr} sobre los objetos de extensión horizontales.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'bound-details #'left #'text
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Sin un valor establecido para esto, el stencil se coloca simplemente sobre el extremo del final,
+tal y como se encuentra definido por las subpropiedades @code{X} e @code{Y}.
+La asignación de un valor para @code{stencil-align-dir-y} o para @code{stencil-offset}
+desplaza el símbolo del extremo de forma relativa al extremo de la línea
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner #'bound-details #'left #'stencil-align-dir-y = #DOWN
+\override TextSpanner #'bound-details #'right #'stencil-align-dir-y = #UP
+
+\override TextSpanner #'bound-details #'left #'text = #"gggg"
+\override TextSpanner #'bound-details #'right #'text = #"hhhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+@item arrow (flecha)
+El establecimiento de esta subpropiedad al valor de @code{#t} produce una cabeza de flecha al final de la
+línea.
+
+@item padding (relleno)
+Esta subpropiedad controla el espacio entre el punto extremo de la línea especificado
+y el extremo real.  Sin relleno, un glissando empezaría
+y acabaría en el centro de las cabezas de las notas.
+
+@end table
+
+@seealso
+
+Referencia del programa: @internalsref{TextSpanner},
+@internalsref{Glissando}, @internalsref{VoiceFollower},
+@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+
+Ejemplos: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
+
 
 @node Text spanners
 @subsection Text spanners
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Texto, objetos de extensión de
+
+Algunas indicaciones de interpretación, p.ej., @i{rallentando} o @i{accelerando},
+se escriben como texto y se extienden sobre varios compases con líneas de puntos.
+Estos textos se crean mediante objetos de extensión; añada
+@code{\startTextSpan} y @code{\stopTextSpan} a la primera y última
+notas del intervalo abarcado por el objeto de extensión.
+
+La cadena de caracteres que se imprime, así como el estilo, se establecen a través de las
+propiedades de objeto
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c1
+\textSpannerDown
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \upright "rall" } 
+c2\startTextSpan b c\stopTextSpan a
+\break
+\textSpannerUp
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \italic "rit" } 
+c2\startTextSpan b c\stopTextSpan a
+@end lilypond
+
+@refcommands
+
+@funindex textSpannerUp
+@code{\textSpannerUp},
+@funindex textSpannerDown
+@code{\textSpannerDown},
+@funindex textSpannerNeutral
+@code{\textSpannerNeutral}.
+
+
+@commonprop
+
+Para imprimir una línea continua, use
+
+@example
+\override TextSpanner #'dash-fraction = #'()
+@end example
+
+
+@seealso
+
+Referencia del programa: @internalsref{TextSpanner}.
+
 
 @node Text marks
 @subsection Text marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex coda sobre la línea divisoria
+@cindex segno sobre la línea divisoria
+@cindex calderón sobre la línea divisoria
+@cindex líneas divisorias, símbolos sobre las
+@funindex \mark
+
+La instrucción @code{\mark} (llamada de ensayo) se usa principalmente para
+@ref{Rehearsal marks},
+pero también se puede usar para poner símbolos como coda,
+segno y calderón encima de una línea divisoria.  Utilice @code{\markup} para
+acceder al símbolo apropiado (los símbolos se encuentran relacionados en
+@ref{The Feta font}).
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+@code{\mark} se tipografía solamente sobre el pentagrama superior de la partitura.  Si
+especifica la instrucción @code{\mark} en una línea divisoria, la llamada resultante
+se coloca encima de la barra.  Si lo especifica en medio de un compás
+la llamada resultante se coloca entre las notas.  Si se especifica
+antes del comienzo de una línea de la partitura, se coloca
+antes de la primera nota de esta línea.  Por último, si la marca se produce en un salto
+de línea, se imprimirá al principio
+de la línea siguiente.
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+Si no hay ninguna línea después de la actual, la llamada no se imprimirá en absoluto.
+
+
+@commonprop
+
+Para imprimir la llamada al final de la línea actual, utilice
+
+@example
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+@end example
+
+Con frecuencia, @code{\mark} se utiliza para añadir texto al final de un compás.  En tales
+casos es muy útil cambiar el @code{#'self-alignment}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+c1 c c c4 c c c
+\once \override Score.RehearsalMark #'self-alignment-X = #right
+\mark "D.S. al Fine "
+@end lilypond
+
+Las llamadas de texto se pueden alinear con otros objetos de notación además de las líneas
+divisorias,
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\relative {
+  c1
+  \key cis \major
+  \clef alto
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  \mark "on key"
+  cis
+  \key ces \major
+  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \clef treble
+  \mark "on clef"
+  ces
+  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+  \key d \minor
+  \clef tenor
+  \time 3/4
+  \mark "on time"
+  c
+}
+@end lilypond
+
+Los símbolos posibles para la lista @code{break-align-symbols} son
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature} y @code{time-signature}.
+
+Las llamadas de texto, por omisión se alinearán con el punto medio del objeto de notación,
+pero esto se puede cambiar sobreescribiendo las propiedades
+@code{break-align-anchor-alignment} y
+@code{break-align-anchor} para el objeto gráfico apropiado.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+{
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  c1
+  \key cis \major
+
+  % the RehearsalMark will be aligned with the left edge of the KeySignature
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
+  \mark \default
+  cis1
+  \key ces \major
+
+  % the RehearsalMark will be aligned with the right edge of the KeySignature
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \mark \default
+  ces1
+  \key cis \major
+
+  % the RehearsalMark will be aligned with the left edge of the KeySignature
+  % and then shifted right by 2 units.
+  \once \override Staff.KeySignature #'break-align-anchor = #2
+  \mark \default
+  ces1
+}
+@end lilypond
+
+Aunque normalmente las llamadas textuales se imprimen sólo encima del pentagrama superior,
+podemos alterar este comportamiento para que se impriman sobre todos los pentagramas,
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+{
+  \new Score \with {
+    \remove "Mark_engraver"
+  }
+  <<
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c''1 \mark "foo" c'' }
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c'1 \mark "foo" c' }
+  >>
+}
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{RehearsalMark}.
+
 
 @node Text markup
 @subsection Text markup
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex marcado
+@cindex texto, marcado de
+@cindex marcado de texto
+@cindex tipografiar texto
+
+Utilice @code{\markup} para tipografiar texto.  Las instrucciones se escriben con la barra
+invertida @code{\}.  Para escribir @code{\} and @code{#}, utilice
+comillas dobles.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { hello }
+c1_\markup { hi there }
+c1^\markup { hi \bold there, is \italic {anyone home?} }
+c1_\markup { "\special {weird} #characters" }
+@end lilypond
+
+@noindent
+Consulte @ref{Overview of text markup commands}, para ver una lista de todas las
+instrucciones.
+
+@code{\markup} se usa principalmente para indicaciones del tipo @internalsref{TextScript},
+pero también se pueden usar en cualquier lugar donde se requiere texto en lilypond
+
+@lilypond[quote,verbatim]
+\header{ title = \markup{ \bold { foo \italic { bar! } } } }
+\score{
+  \relative c'' {
+    \override Score.RehearsalMark
+      #'break-visibility = #begin-of-line-invisible
+    \override Score.RehearsalMark #'self-alignment-X = #right
+
+    \set Staff.instrumentName = \markup{ \column{ Alto solo } }
+    c2^\markup{ don't be \flat }
+    \override TextSpanner #'bound-details #'left #'text = \markup{\italic rit }
+    b2\startTextSpan
+    a2\mark \markup{ \large \bold Fine }
+    r2\stopTextSpan
+    \bar "||"
+  }
+  \addlyrics { bar, foo \markup{ \italic bar! } }
+}
+@end lilypond
+
+Una orden @code{\markup} también se puede poner por sí misma, fuera de cualquier bloque
+@code{\score}, véase @ref{Multiple scores in a book}.
+
+@lilypond[quote,ragged-right,verbatim]
+\markup{ Here is some text. }
+@end lilypond
+
+@cindex cambio de tipografía
+
+El elemento de marcado en el ejemplo presenta un ejemplo de las instrucciones de cambio de tipografía.  Las órdenes
+@code{\bold} e @code{\italic} se aplican sólo a la siguiente palabra;
+para aplicar una orden a más de una palabra, encierre las palabras
+entre llaves,
+
+@example
+\markup @{ \bold @{ buenos días @} @}
+@end example
+
+@noindent
+Para mayor claridad, también puede hacerlo para argumentos de una sola palabra, p.ej.
+
+@example
+\markup @{ ¿hay \italic @{ alguien @} ahí? @}
+@end example
+
+En el modo de marcado puede componer expresiones, similares a las expresiones
+matemáticas, documentos XML y expresiones musicales.  Podemos apilar
+las expresiones en grupos verticales con la instrucción @code{\column}.
+De forma similar, @code{\center-align} alinea textos por sus líneas medias:
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { \column { a bbbb \line { c d } } }
+c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \line { a b c } }
+@end lilypond
+
+Las listas sin una instrucción previa no se mantienen separadas.  La expresión
+
+@example
+\center-align @{ @{ a b @} @{ c d @} @}
+@end example
+
+@noindent
+
+equivale a
+
+@example
+\center-align @{ a b c d @}
+@end example
+
+@noindent
+
+Para dejar separadas las listas de palabras, podemos utilizar comillas @code{"} o la
+orden @code{\line}
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c4^\markup{ \center-align { on three lines } }
+c4^\markup{ \center-align { "all one line" } }
+c4^\markup{ \center-align { { on three lines } } }
+c4^\markup{ \center-align { \line { on one line } } }
+@end lilypond
+
+Los elementos de marcado se pueden almacenar dentro de variables, y estas variables se pueden adjuntar a notas,
+como en
+@example
+allegro = \markup @{ \bold \large @{ Allegro @} @}
+ @{ a^\allegro b c d @}
+@end example
+
+Ciertos objetos tienen procedimientos de alineación propios, que cancelan
+cualquier efecto de las alineaciones aplicadas a sus argumentos de marcado en su conjunto.
+Por ejemplo la @internalsref{RehearsalMark} se centra
+horizontalmente, por lo que usar @code{\mark \markup @{ \left-align .. @}} no tiene
+ningún efecto.
+
+Además, la colocación vertical se realiza después de crear el objeto
+de marcado de texto.  Si queremos mover un elemento de marcado completo,
+tenemos que usar la propiedad de relleno #'padding o crear un punto de @q{anclaje}
+dentro del elemento de marcado (generalmente con @code{\hspace #0}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c'4^\markup{ \raise #5 "not raised" }
+\once \override TextScript #'padding = #3
+c'4^\markup{ raised }
+c'4^\markup{ \hspace #0 \raise #1.5 raised }
+@end lilypond
+
+Algunas situaciones (como las indicaciones de dinámica) tienen propiedades de tipografía
+preestablecidas.  Si está creando texto en tales situaciones, recomendamos
+cancelar dichas propiedades con
+@code{normal-text}.  Consulte @ref{Overview of text markup commands}
+para ver más detalles.
+
+
+@seealso
+
+En el presente manual: @ref{Overview of text markup commands}.
+
+Referencia del programa: @internalsref{TextScript}.
+
+Archivos de inicio: @file{scm/@/new@/-markup@/.scm}.
+
+
+@refbugs
+
+El «kerning» y la generación de ligaduras de texto se hacen sólo cuando se usa el «backend» o fundamento de @TeX{}.
+En este caso, LilyPond no se encarga de ellos y así los textos
+quedarán espaciados ligeramente más separados.
+
+Los errores de sintaxis para el modo de marcado son confusos.
+
 
 @node Nested scores
 @subsection Nested scores
 
-UNTRANSLATED NODE: IGNORE ME
+Es posible anidar música dentro de los elementos de marcado, añadiendo un bloque @code{\score}
+a una expresión de marcado.  Dicha partitura debe contener un bloque
+@code{\layout}.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  c4 d^\markup {
+    \score {
+      \relative { c4 d e f }
+      \layout { }
+    }
+  }
+  e f
+}
+@end lilypond
 
 @node Page wrapping text
 @subsection Page wrapping text
+Dondequiera que se utilice @code{\markup} para escribir un bloque de texto que no se deba dividir,
+se puede usar @code{\markuplines} en el nivel superior del código para introducir líneas de texto
+que se pueden extender sobre varias páginas:
 
-UNTRANSLATED NODE: IGNORE ME
+@verbatim
+\markuplines {
+  \justified-lines {
+    Un texto muy largo de líneas justificadas.
+    ...
+  }
+  \justified-lines {
+    Otro párrafo muy largo.
+    ...
+  }
+  ...
+}
+@end verbatim
+
+@code{\markuplines} admite una lista de elementos de marcado, ya sea el resultado de
+una instrucción de lista de marcado, o una lista de elementos o listas de elementos. Las
+instrucciones incorporadas de lista de elementos de marcado se describen en
+@ref{Overview of text markup list commands}.
+
+@seealso
+
+En este manual: @ref{Overview of text markup list commands}, 
+@ref{New markup list command definition}.
+
+@refcommands
+
+@funindex \markuplines
+@code{\markuplines}
 
 @node Overview of text markup commands
 @subsection Overview of text markup commands
 
-UNTRANSLATED NODE: IGNORE ME
+Todas las siguientes órdenes se pueden usar dentro de @code{\markup @{ @}}.
 
 @include markup-commands.tely
+
 @node Overview of text markup list commands
 @subsection Overview of text markup list commands
 
-UNTRANSLATED NODE: IGNORE ME
+Todos las siguientes instrucciones se puede utilizar con @code{\markuplines}.
 
 @include markup-list-commands.tely
+
 @node Font selection
 @subsection Font selection
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fuente tipográfica, selección de la
+@cindex fuente tipográfica, ampliación
+@funindex font-interface
+
+Estableciendo las propiedades de objetos que se describen más abajo, puede seleccionar
+una fuente tipográfica de entre las familias tiográficas preconfiguradas.  LilyPond contempla por defecto
+la tipografía musical feta. Las tipografías del texto se seleccionan a través de
+Pango/FontConfig. La fuente tipográfica con serifa por defecto es New Century Schoolbook,
+las tipografías sans y tipo máquina de escribir son por defecto las que correspondan a la instalación
+de Pango.
+
+
+@itemize @bullet
+@item @code{font-encoding}
+es un símbolo que establece la disposición de los glifos.  Se debe ajustar solamente para
+seleccionar distintos tipos de tipografías no textuales, p.ej.:
+
+@code{fetaBraces} para las llaves de sistemas de piano, @code{fetaMusic} la
+tipografía estándar de música, incluyendo los glifos de la música antigua, @code{fetaDynamic} para
+indicaciones dinámicas y @code{fetaNumber} para la tipografía de números.
+
+@item @code{font-family}
+es un símbolo que indica la clase general de la tipografía.  Están contemplados
+@code{roman} (Computer Modern), @code{sans} y @code{typewriter}.
+
+@item @code{font-shape}
+es un símbolo que indica la forma de la tipografía.  Normalmente están disponibles varias
+formas de tipografía para cada familia.  Se puede elegir entre
+@code{italic} (cursiva), @code{caps} (versalitas) y @code{upright} (recta).
+
+@item @code{font-series}
+es un símbolo que indica la serie de la tipografía.  Normalmente cada familia y forma de
+tipografía tiene varias series.  Se puede elegir entre
+@code{medium} (normal) y @code{bold} (negrita).
+
+@end itemize
+
+Las tipografías seleccionaddas de la forma que se acaba de esquematizar, vienen con una hoja de estilos predefinida.
+Si quiere usar una tipgorafía desde fuera de la hoja de estilos,
+ajuste la propiedad
+@code{font-name},
+
+@lilypond[fragment,verbatim]
+{
+  \override Staff.TimeSignature #'font-name = #"Charter"
+  \override Staff.TimeSignature #'font-size = #2
+  \time 3/4
+  c'1_\markup {
+    \override #'(font-name . "Vera Bold")
+      { This text is in Vera Bold }
+  }
+}
+@end lilypond
+
+@noindent
+Se puede usar cualquier tipografía en la medida en que esté disponible por parte de Pango/FontConfig.
+Para conseguir una lista completa de todas las tipografías que están disponibles, ejecute la orden
+@example
+lilypond -dshow-available-fonts blabla
+@end example
+(el último argumento de la instrucción puede ser cualquier cosa, pero debe estar presente).
+
+
+El tamaño de la tipografía se puede establecer con la propiedad @code{font-size}.
+El tamaño resultante se toma como relativo al tamaño
+@code{text-font-size} tal y como está definido en el bloque @code{\paper}.
+
+@cindex fuente tipográfica, tamaño de la
+@cindex fuente tipográfica, aumento
+
+
+También es posible cambiar la familia por defecto de la tipografía para todo el
+documento.  Esto se hace llamando al árbol @code{make-pango-font-tree} desde
+dentro del bloque @code{\paper}. La función toma los nombres de las familias tipográficas
+que se deseen utilizar para el texto en estilo roman, sans serif y monoespaciado.  Por
+ejemplo,
+
+
+@cindex fuentes tipográficas, establecer la familia de las
+@cindex Pango
+
+
+@lilypond[verbatim]
+\paper  {
+  myStaffSize = #20
+
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+                           (/ myStaffSize 20)))
+}
+
+{
+  c'^\markup { roman: foo \sans bla \typewriter bar }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+
+
+@seealso
+
+Ejemplos: @lsr{text,font@/-family@/-override.ly}.
+
 
 @node New dynamic marks
 @subsection New dynamic marks
 
-UNTRANSLATED NODE: IGNORE ME
+Es posible imprimir nuevas indicaciones de dinámica o texto que debe ir alineado
+con ellas.  Utilice @code{make-dynamic-script} para crear estas
+indicaciones.  Tenga en cuenta que la tipografía de dinámica contiene solamente los caracteres
+@code{f,m,p,r,s} y @code{z}.
+
+Algunas situaciones (como las indicaciones de dinámica) tienen propiedades de tipografía
+establecidas como fijas.  Si estamos creando texto en estas situaciones,  se recomienda
+cancelar dichas propiedades con
+@code{normal-text}.  Consulte @ref{Overview of text markup commands} para
+ver más detalles.
+
+@cindex make-dynamic-script
+
+@lilypond[quote,verbatim,ragged-right]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+@cindex dinámica, indicaciones, editoriales
+@cindex dinámica, indicaciones, paréntesis
+
+También es posible imprimir las indicaciones de dinámica entre paréntesis redondos o entre corchetes rectos.
+Éstos se usan con frecuencia para añadir indicaciones de dinámica editoriales.
+
+@lilypond[quote,verbatim,ragged-right]
+rndf = \markup{ \center-align {\line { \bold{\italic (}
+  \dynamic f \bold{\italic )} }} }
+boxf = \markup{ \bracket { \dynamic f } }
+{ c'1_\rndf c'1_\boxf }
+@end lilypond
+
+
 
 @node Preparing parts
 @section Preparing parts
 
-UNTRANSLATED NODE: IGNORE ME
+Esta sección describe varias posibilidades de notación que son de utilidad al preparar
+particellas individuales.
 
-@menu 
-* Multi measure rests::
-* Metronome marks::
-* Rehearsal marks::
-* Bar numbers::
-* Instrument names::
-* Instrument transpositions::
-* Ottava brackets::
-* Different editions from one source::
-@end menu 
+@menu
+* Multi measure rests::         
+* Metronome marks::             
+* Rehearsal marks::             
+* Bar numbers::                 
+* Instrument names::            
+* Instrument transpositions::   
+* Ottava brackets::             
+* Different editions from one source::  
+@end menu
+
+
 @node Multi measure rests
 @subsection Multi measure rests
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex multicompás, silencios
+@cindex compás completo, silencios de
+@cindex Silencios multicompás
+@cindex Silencios de compás completo
+@cindex redonda, silencios de, para un compás completo
+@funindex R
+
+Los silencios de un compás completo (o muchos compases) se escriben como @samp{R}.  Esto está
+indicado específicamente para silencios de compás completo y para escribir particellas: el silencio
+se puede expandir de forma que rellene una partitura con silencios, o se puede imprimir como un solo silencio multicompás.
+Esta expansión se controla por medio de la propiedad
+@code{Score.skipBars}.  Si está establecido al valor true, los compases vacíos no se
+expandirán, y se añadirá automáticamente el número correspondiente
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
+\set Score.skipBars = ##t R1*17 R1*4
+@end lilypond
+
+El número @code{1} de @code{R1} es similar a la notación de la duración que se usa para las
+notas.  De aquí que para indicaciones de compás distintas al 4/4, tengamos que escribir
+otras duraciones.  Esto se puede hacer con puntillos de prolongación o con fracciones
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+\time 3/4
+R2. | R2.*2
+\time 13/8
+R1*13/8
+R1*13/8*12 |
+\time 10/8 R4*5*4 |
+@end lilypond
+
+Una @code{R} que dura un solo compás se imprime como un silencio de redonda o breve,
+centrado en el compás independientemente de la indicación de compás.
+
+Si hay sólo algunos compases de silencio, LilyPond imprime @q{silencios eclesiásticos}
+(un conjunto de pequeños rectángulos) en el pentagrama.  Para sustituirlos con silencios ordinarios,
+utilice @code{MultiMeasureRest.expand-limit}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+R1*2 | R1*5 | R1*9
+\override MultiMeasureRest #'expand-limit = 1
+R1*2 | R1*5 | R1*9
+@end lilypond
+
+@cindex texto sobre silencios multicompás
+@cindex textual, inscripción, sobre silencios multicompás
+@cindex calderón sobre silencios multicompás
+
+Se pueden añadir textos a los silencios multicompás utilizando la sintaxis
+@var{nota}-@code{marca} de @ref{Text markup}.
+Hay una variable (@code{\fermataMarkup}) para añadir
+calderones
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\set Score.skipBars = ##t
+\time 3/4
+R2.*10^\markup { \italic "ad lib." }
+R2.^\fermataMarkup
+@end lilypond
+
+¡Adevertencia!  Este texto se crea por parte de @code{MultiMeasureRestText}, no de
+@code{TextScript}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\override TextScript #'padding = #5
+R1^"low"
+\override MultiMeasureRestText #'padding = #5
+R1^"high"
+@end lilypond
+
+Si queremos poner texto a la izquierda de un silencio multicompás,
+adjuntamos el texto a una nota de salto de longitud cero, esto es
+
+@example
+s1*0^"Allegro"
+R1*4
+@end example
+
+
+@seealso
+
+Referencia del programa: @internalsref{MultiMeasureRestMusicGroup},
+@internalsref{MultiMeasureRest}.
+
+El objeto de presentación @internalsref{MultiMeasureRestNumber} es para el número
+por defecto, y @internalsref{MultiMeasureRestText} para los textos
+definidos por el usuario.
+
+
+@refbugs
+
+No se pueden usar digitaciones (p.ej. @code{R1-4}) para poner números
+encima de los silencios multicompás.  Y la altura de los silencios multicompás (o
+silencios centrados en el pentagrama) no se puede modficar.
+
+@cindex silencios condensados
+
+No hay ninguna forma de condensar automáticamente muchos silencios en un solo
+silencio multicompás.  Los silencios multicompás no toman parte en las comprobaciones de colisión de
+silencios.
+
+Tenga cuidado al escribir silencios multicompás seguidos por redondas.
+El código siguiente introduce dos notas que tienen una duración de cuatro compases cada una
+@example
+R1*4 cis cis
+@end example
+Cuando @code{skipBars} esté establecido, el aspecto del resultado será correcto, pero la numeración
+de los compases estará desactivada.
+
 
 @node Metronome marks
 @subsection Metronome marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Tempo
+@cindex pulsos por minuto
+@cindex metrónomo, indicación de
+
+Las indicaciones metronómicas se pueden escribir como sigue
+@example
+\tempo @var{duración} = @var{pulsos_por_minuto}
+@end example
+
+En la salida MIDI, se interpretan como un cambio de tempo.  En la salida
+visual, se imprime una indicación metronómica
+@funindex \tempo
+@lilypond[quote,ragged-right,verbatim,fragment]
+\tempo 8.=120 c''1
+@end lilypond
+
+
+@commonprop
+
+Para cambiar el tempo en la salida MIDI sin imprimir nada en la salida visual, haga invisible
+la indicación metronómica
+@example
+\once \override Score.MetronomeMark #'transparent = ##t
+@end example
+
+Para imprimir otras indicaciones metronómicas, use estas instrucciones de marcado
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
+c4^\markup {
+  (
+  \smaller \general-align #Y #DOWN \note #"16." #1
+  =
+  \smaller \general-align #Y #DOWN \note #"8" #1
+  ) }
+@end lilypond
+
+@noindent
+Consulte @ref{Text markup} para ver más detalles.
+
+
+@seealso
+
+Referencia del programa: @internalsref{MetronomeMark}.
+
+
+@refbugs
+
+No se comprueba la existencia de colisiones.  Si tenemos notas por encima de la línea superior del pentagrama
+(o notas con articulaciones, ligaduras, texto, etc), la indicación metronómica
+se podría imprimir encima de los símbolos musicales.  Si esto ocurre,
+aumente el relleno adicional de la indicación metronómica para colocarla
+más lejos del pentagrama.
+
+@example
+\override Score.MetronomeMark #'padding = #2.5
+@end example
+
 
 @node Rehearsal marks
 @subsection Rehearsal marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Ensayo, letras de
+@funindex \mark
+
+Para imprimir una letra de ensayo, utilice la orden @code{\mark}
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+La letra@tie{}@q{I} se salta de acuerdo con las tradiciones de grabado.
+Si quiere incluir la letra @q{I}, use
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
+
+La letra de ensayo se incrementa automáticamente si usa @code{\mark
+\default}, pero también puede utilizar un número entero como argumento para establecer la indicación manualmente.
+El valor que se utilizará se almacena dentro de la propiedad
+@code{rehearsalMark}.
+
+El estilo se define por medio de la propiedad @code{markFormatter}.  Es una función
+que toma como argumentos la marca en curso (un número entero) y el contexto actual.
+Debe devolver un objeto de marcado.  En el ejemplo
+siguiente, se establece @code{markFormatter} con el valor de un procedimiento enlatado.  Despuésd de
+algunos compases, se establece con el valor de una función que produce un número encerrado en una caja.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-numbers
+c1 \mark \default
+c1 \mark \default
+\set Score.markFormatter = #format-mark-box-numbers
+c1 \mark \default
+c1 \mark \default
+c1
+@end lilypond
+
+El archivo @file{scm/@/translation@/-functions@/.scm} contiene las definiciones de
+@code{format-mark-numbers} (el formato por omisión),
+@code{format-mark-box-numbers},
+@code{format-mark-letters} y @code{format-mark-box-letters}.
+Se pueden usar éstos como inspiración para otras funciones de formateo.
+
+Podemos utilizar @code{format-mark-barnumbers}, @code{format-mark-box-barnumbers}
+y @code{format-mark-circle-barnumbers} para obtener números de compás en lugar de
+números o letras secuenciales.
+
+Otros estilos de marca de ensayo se pueden especificar de forma manual
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} no afecta a las marcas que se especifican de esta forma.
+Sin embargo, es posible aplicar un elemento @code{\markup} a la cadena.
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
+@cindex segno
+@cindex coda
+@cindex D.S al Fine
+
+Los glifos musicales (como el segno) se pueden imprimir dentro de un elemento
+@code{\mark}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+c1 \mark \markup { \musicglyph #"scripts.segno" }
+c1 \mark \markup { \musicglyph #"scripts.coda" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Consulte @ref{The Feta font} para ver una lista de los símbolos que se pueden imprimir
+con @code{\musicglyph}.
+
+Para ver formas comunes de trucar la coolocación de las marcas de ensayo, consulte @ref{Text marks}.
+
+@seealso
+
+En este manual: @ref{Text marks}.
+
+Referencia del programa: @internalsref{RehearsalMark}.
+
+Archivos de inicio: @file{scm/@/translation@/-functions@/.scm} contiene la definición
+de @code{format-mark-numbers} y de
+@code{format-mark-letters}.  Se pueden usar como inspiración para escribir otras
+funciones de formateo.
+
+Ejemplos: @lsr{parts,rehearsal-mark-numbers.ly}
+
 
 @node Bar numbers
 @subsection Bar numbers
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Compás, números de
+@cindex números de compás
+@funindex currentBarNumber
+
+Por defecto, los números de compás se imprimien al principio de la línea.  El
+número propiamente dicho se almacena en la propiedad @code{currentBarNumber}, que normalmente
+se actualiza automáticamente para cada compás.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\repeat unfold 4 {c4 c c c} \break
+\set Score.currentBarNumber = #50
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+Los números de compás sólo se pueden imprimir en las líneas divisorias; para imprimir un número de
+compás al principio de la pieza, se debe añadir una línea divisoria
+vacía
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+\repeat unfold 4 {c4 c c c} \break
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+Los números de compás se pueden tipografiar a intervalos regulares en vez de al principio de cada
+línea.  Esto queda ilustrado en el ejemplo siguiente,
+cuyo código fuente se encuentra disponible como
+@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+
+@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+
+Los números de compás se pueden suprimir completamente quitando el grabador de números de compás
+de la partitura.
+
+@lilypond[verbatim,ragged-right,quote]
+\layout {
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
+}
+\relative c''{
+c4 c c c \break
+c4 c c c
+}
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{BarNumber}.
+
+Ejemplos: @lsrdir{staff}
+
+
+@refbugs
+
+Los números de compás pueden colisionar con el corchete @internalsref{StaffGroup}, si hay uno
+en la parte de arriba.  Para solucionarlo, se puede usar la propiedad de relleno
+@code{padding} de @internalsref{BarNumber} para
+colocar el número correctamente.
+
 
 @node Instrument names
 @subsection Instrument names
 
-UNTRANSLATED NODE: IGNORE ME
+En una partitura orquestal, los nombres de los instrumentos se imprimen en el lado izquierdo
+de los pentagramas.
+
+Esto se puede conseguir estableciendo @internalsref{Staff}.@code{instrumentName}
+y @internalsref{Staff}.@code{shortInstrumentName}, o bien
+@internalsref{PianoStaff}.@code{instrumentName} y
+@internalsref{PianoStaff}.@code{shortInstrumentName}.  Esto
+imprimirá el texto antes del
+principio del pentagrama.  Para el primer pentagrama se usa @code{instrumentName},
+y para los siguientes se usa @code{shortInstrumentName}.
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+\set Staff.instrumentName = "Ploink "
+\set Staff.shortInstrumentName = "Plk "
+c1
+\break
+c''
+@end lilypond
+
+También podemos usar elementos de marcado de texto para construir nombres de instrumento más complicados,
+por ejemplo
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = \markup {
+  \column { "Clarinetti"
+            \line { "in B" \smaller \flat } } }
+c''1
+@end lilypond
+
+Si queremos centrar los nombres de instrumento, hemos de centrarlos todos
+
+@lilypond[quote,verbatim,ragged-right]
+{ <<
+\new Staff {
+  \set Staff.instrumentName = \markup {
+    \center-align { "Clarinetti"
+      \line { "in B" \smaller \flat } } }
+  c''1
+}
+\new Staff {
+  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
+  c''1
+}
+>>
+}
+@end lilypond
+
+Para nombres de instrumento más largos, puede ser útil aumentar el valor de
+@code{indent} dentro del bloque @code{\layout}.
+
+Para centrar los nombres de instrumento y al mismo tiempo dejar espacio adicional a la derecha,
+
+@lilypond[quote,verbatim,ragged-right]
+\new StaffGroup \relative
+<<
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    c1 c1
+  }
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    c1 c1
+  }
+>>
+@end lilypond
+
+Para añadir nombres de instrumento a otros contextos (como @code{GrandStaff},
+@code{ChoirStaff} o @code{StaffGroup}), debemos añadir el grabador
+a dicho contexto.
+
+@example
+\layout@{
+  \context @{\GrandStaff \consists "Instrument_name_engraver"@}
+@}
+@end example
+
+@noindent
+Se puede encontrar más información sobre cómo añadir y suprimir grabadores
+en @ref{Modifying context plug-ins}.
+
+Los nombres de instrumento se pueden cambiar en mitad de una pieza,
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{InstrumentName}.
+
+
 
 @node Instrument transpositions
 @subsection Instrument transpositions
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex transposición de MIDI
+@cindex transposición instrumental
+
+También se puede especificar el tono de un instrumento transpositor.  Esto se
+aplica a muchos instrumentos de viento, por ejemplo: los clarinetes (en Si bemol, La y
+Mi bemol), la trompa (en Fa) y la trompeta (en Si bemol, Do, Re y Mi bemol).
+
+La transposición se escribe después de la palabra clave @code{\transposition}
+
+@example
+\transposition bes   %% clarinete en Si bemol
+@end example
+
+@noindent
+Esta instrucción establece la propiedad @code{instrumentTransposition}.  El valor de esta
+propiedad se utiliza para la salida MIDI y para las citas guía.  No afecta
+a la forma en que se imprimen las notas en el pentagrama en curso.  Para cambiar la salida impresa,
+véase @ref{Transpose}.
+
+El tono usado para @code{\transposition} debe corresponderse con el sonido
+real que se oye cuando el instrumento transpositor interpreta un Do central @code{c'} escrito en el
+pentagrama.  Por ejemplo, cuando escribimos una partitura en afinación de
+concierto, normalmente todas las voces se escriben en Do, por lo que
+se introducen como
+
+@example
+clarinet = @{
+  \transposition c'
+  ...
+@}
+saxophone = @{
+  \transposition c'
+  ...
+@}
+@end example
+
+La orden @code{\transposition} se debe usar cuando la música se escribe a partir de una
+particella orquestal (transportada).  Por ejemplo, en
+particellas clásicas para trompa, el tono del instrumento con frecuencia se modifica
+durante la pieza.  Al copiar las notas de la particella, utilice
+@code{\transposition}, p.ej.,
+
+@example
+\transposition d'
+c'4^"en Re"
+...
+\transposition g'
+c'4^"en Sol"
+...
+@end example
+
 
 @node Ottava brackets
 @subsection Ottava brackets
 
-UNTRANSLATED NODE: IGNORE ME
+Los corchetes de @q{Ottava} introducen un trasporte adicional de una octava para el pentagrama.
+Se crean por medio de la invocación de la función
+@code{set-octavation}
+
+@cindex ottava
+@cindex 15ma
+@cindex octavación
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c''' {
+  a2 b
+  #(set-octavation 1)
+  a b
+  #(set-octavation 0)
+  a b
+}
+@end lilypond
+
+La función @code{set-octavation} también admite los valores -1 (para 8va bassa), 2@tie{}(para 15ma) y
+-2 (para 15ma bassa) como argumentos.  Internamente, la función establece las propiedades
+@code{ottavation} (p.ej., para @code{"8va"} o @code{"8vb"}) y
+@code{centralCPosition}.  Para sobreescibir el texto del corchete, establezca
+@code{ottavation} después de invocar a @code{set-octavation}, es decir
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  #(set-octavation 1)
+  \set Staff.ottavation = #"8"
+  c'''
+}
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{OttavaBracket}.
+
+
+@refbugs
+
+@code{set-octavation} se confundirá cuando se produzcan cambios de clave
+en el interior de un corchete de octavación.
+
 
 @node Different editions from one source
 @subsection Different editions from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \tag
+@cindex etiquetas
+
+La orden @code{\tag} marca expresiones musicales con un mombre.  Estas expresiones
+etiquetadas se pueden filtrar o seleccionar más tarde.  Con este mecanismo es posible
+hacer versiones diferentes a partir de la misma fuente musical.
+
+En el ejemplo siguiente podemos ver dos versiones de una pieza musical, una
+para la partitura del director y otra con notas guía para la particella instrumental
+
+@example
+c1
+<<
+  \tag #'part <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'score R1
+>>
+c1
+@end example
+
+Lo mismo vale para las articulaciones, textos, etc.: se hacen
+anteponiendo
+@example
+-\tag #@var{su_etiqueta}
+@end example
+a una articulación, por ejemplo,
+@example
+c1-\tag #'particella ^4
+@end example
+
+Esto define una nota con una indicación condicional de digitación.
+
+@cindex keepWithTag
+@cindex removeWithTag
+Aplicando las órdenes @code{\keepWithTag} y @code{\removeWithTag},
+se pueden filtrar las expresiones etiquetadas.  Por ejemplo,
+@example
+<<
+  @var{the music}
+  \keepWithTag #'partitura @var{la música}
+  \keepWithTag #'particella @var{la música}
+>>
+@end example
+produciría
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+Los argumentos de la orden @code{\tag} deben ser un símbolo
+(como @code{#'partitura} o @code{#'particella}), seguido de
+una expresión musical.  Es posible ponet varias etiquetas sobre
+un fragmento de música con varias apariciones de @code{\tag},
+
+@example
+  \tag #'particella-original \tag #'particella-transportada @dots{}
+@end example
+
+
+@seealso
+
+Ejemplos: @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Los silencios múltiples no se funden si crea la partitura con las dos secciones
+etiquetadas.
+
+
 
 @node Orchestral music
 @section Orchestral music
 
-UNTRANSLATED NODE: IGNORE ME
+La música orquestal conlleva ciertos elementos de notación especiales, tanto en la partitura del director
+como en las particellas individuales.  Esta sección explica cómo tratar con
+ciertos problemas comunes de la músca orquestal.
 
-@menu 
-* Automatic part combining::
-* Hiding staves::
-* Quoting other voices::
-* Formatting cue notes::
-* Aligning to cadenzas::
-@end menu 
+@menu
+* Automatic part combining::    
+* Hiding staves::               
+* Quoting other voices::        
+* Formatting cue notes::        
+* Aligning to cadenzas::        
+@end menu
+
+
 @node Automatic part combining
 @subsection Automatic part combining
+@cindex particellas, combinación automática
+@cindex particellas, combinador de
 
-UNTRANSLATED NODE: IGNORE ME
+La combinación automática de particellas se usa para mezclar dos partes musicales sobre un pentagrama.
+Tiene como objetivo el tipografiado de partituras orquestales.  Cuando las dos partes
+son idénticas durante un período de tiempo, sólo se presenta una de ellas.  En los lugares
+en que las dos partes son diferentes, se tipografían como voces separadas,
+y las direcciones de las plicas se establecen de forma automática.  También las partes de solo
+y @emph{a due} quedan identificadas y es posible marcarlas.
+
+La sintaxis para la combinación de las partes es
+
+@example
+\partcombine @var{espresión_musical_1} @var{expresión_musical_2}
+@end example
+
+
+El ejemlo siguiente ejemplifica la funcionalidad básica del combinador de
+partes: poner las partes en un solo pentagrama, y establecer las direcciones de las plicas y la
+polifonía
+
+@lilypond[quote,verbatim,ragged-right,fragment]
+\new Staff \partcombine
+  \relative g' { g g a( b) c c r r }
+  \relative g' { g g r4 r e e g g }
+@end lilypond
+
+El primer Sol (@code{g}) aparece una sola vez, aunque se especificaba
+dos veces (una en cada parte).  Las direcciones de las plicas, ligaduras de expresión y ligaduras de unión se
+esstablecen automáticamente, dependiendo de si es un solo o un unísono.  La primera
+parte (la que tiene el contexto llamado @code{one}) siempre tiene las plicas para arriba, y
+@q{Solo}, mientras que la segunda (llamada @code{two}) siempre tiene las plicas para abajo y
+@q{Solo II}.
+
+Si queremos sólo las partes mezcladas y no las marcas textuales, podemos
+establecer la propiedad @code{printPartCombineTexts} al valor false
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Staff.printPartCombineTexts = ##f
+  \partcombine
+    \relative g' { g a( b) r }
+    \relative g' { g r4 r f }
+>>
+@end lilypond
+
+Para cambiar el texto que se imprime para los solos o la fusión, podemos
+establecer las propiedades @code{soloText}, @code{soloIIText} y
+@code{aDueText}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Score.soloText = #"ichi"
+  \set Score.soloIIText = #"ni"
+  \set Score.aDueText = #"tachi"
+  \partcombine
+    \relative g' { g4 g a( b) r }
+    \relative g' { g4 g r r f }
+>>
+@end lilypond
+
+Los dos argumentos de @code{\partcombine} se interpretan como contextos de
+@internalsref{Voice}.  Si se están usando octavas relativas,
+se debe especificar @code{\relative} para ambas expresiones musicales, es decir
+
+@example
+\partcombine
+  \relative @dots{} @var{expresión_musical_1}
+  \relative @dots{} @var{expresión_musical_2}
+@end example
+
+@noindent
+Una sección @code{\relative} que se encuentra fuera de @code{\partcombine} no tiene ningún
+efecto sobre las notas de @var{expresión_musical_1} y @var{expresión_musical_2}.
+
+@seealso
+
+Referencia del programa: @internalsref{PartCombineMusic}.
+
+@refbugs
+
+Si @code{printPartCombineTexts} está establecido, cuando las dos voces tocan y terminan las mismas notas,
+el combinador de partes puede tipografiar @code{a2} más
+de una vez en el mismo compás.
+
+@code{\partcombine} no puede estar dentro de @code{\times}.
+
+@code{\partcombine} no puede estar dentro de @code{\relative}.
+
+Internamente, el @code{\partcombine} interpreta los dos argumentos como
+@code{Voice}s llamadas @code{one} y @code{two}, y después decide cuándo se pueden combinar
+las partes.  Como consecuencia, si los argumentos cambian a
+contextos de @internalsref{Voice} con nombres diferentes, los eventos que contienen
+se ignorarán.
+
 
 @node Hiding staves
 @subsection Hiding staves
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Francesa, partituras a la
+@cindex Ocultación de pentagramas
+
+En las partituras orquestales, generalmente se eliminan las líneas de pauta que contienen sólo silencios;
+así se ahorra espacio.  Este estilo se llama @q{Partitura francesa}.
+Para @internalsref{Lyrics},
+@internalsref{ChordNames} y @internalsref{FiguredBass}, esta opción está
+activada por defecto.  Cuando las líneas de estos contextos resultan vacías
+después del proceso de cálculo de los saltos de línea, se eliminan.
+
+Para las pautas normales hay un contexto especializado @internalsref{Staff}, que
+hace lo mismo: las pautas que no contienen nada (o solamente
+silencios multicompás) se quitan.  La definición de contexto se almacena dentro de la variable
+@code{\RemoveEmptyStaffContext}.  Observe cómo el segundo pentagrama del siguiente ejemplo
+desaparece en la segunda línea
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \context { \RemoveEmptyStaffContext }
+}
+
+{
+  \relative c' <<
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { c4 d e f \break R1 }
+  >>
+}
+@end lilypond
+
+El primer sistema muestra todos los pentagramas al commpleto.  Si queremos que los pentagramas vacíios se
+quiten también del primer sistema, podemos establecer @code{remove-first} al valor true en
+@internalsref{VerticalAxisGroup}.
+
+@example
+\override Score.VerticalAxisGroup #'remove-first = ##t
+@end example
+
+Para quitar otros tipos de contextos, utilice @code{\AncientRemoveEmptyStaffContext}
+o @code{\RemoveEmptyRhythmicStaffContext}.
+
+Otra aplicación es hacer secciones de ossia, es decir, melodías alternativas
+sobre un trozo de pentagrama separado, con la ayuda de los pentagramas a la
+francesa.
+
 
 @node Quoting other voices
 @subsection Quoting other voices
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex guías
+
+Con las citas, se pueden insertar fragmentos de otras partes directamente dentro de una
+parte.  Antes de que una parte pueda ser citada, se debe marcar especialmente como
+citable.  Esto se hace con la instrucción @code{\addQuote}.
+
+@example
+\addQuote @var{nombre} @var{música}
+@end example
+
+
+@noindent
+Aquí, @var{nombre} es una cadena identificativa.  La @var{música} es cualquier tipo
+de música.  He aquí un ejemlo de @code{\addQuote}
+
+@example
+\addQuote clarinete \relative c' @{
+  f4 fis g gis
+@}
+@end example
+
+Esta orden se debe escribir en el niver más alto, es decir, fuera de cualquier bloque de
+música.
+
+Después de la llamada a @code{\addQuote}, la cita se puede hacer con
+@code{\quoteDuring} o con @code{\cueDuring},
+
+@example
+\quoteDuring #@var{nombre} @var{música}
+@end example
+
+En el transcurso de una parte, un fragmento de música se puede citar con la instrucción
+@code{\quoteDuring}.
+
+@example
+\quoteDuring #"clarinete" @{ s2. @}
+@end example
+
+Esto citaría tres negras (la duración de la blanca con puntillo @code{s2.})  de la voz
+@code{clarinete} que se escribió previamente.
+
+
+De manera más precisa, toma el paso de tiempo actual de la parte que se está imprimiendo,
+y extrae las notas en el punto correspondiente de la voz
+@code{\addQuote}ada.  Por tanto, el argumento de @code{\addQuote}
+debe ser la parte completa de la voz que se va a citar, incluidos los silencios
+del principio, si los hay.
+
+Las citas tienen en cuenta tanto la transposición del instrumento origen como la del de destino,
+si se han especificado utilizando la instrucción @code{\transposition}.
+
+@lilypond[quote,ragged-right,verbatim]
+\addQuote clarinet \relative c' {
+  \transposition bes
+  f4 fis g gis
+}
+
+{
+  e'8 f'8 \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
+Los tipos de eventos que aparecen en las notas guía se pueden recortar con
+la propiedad @code{quotedEventTypes}.  El valor por defecto es
+@code{(note-event rest-event)}, lo que significa que sólo las notas y los silencios
+de la voz citada acaban en el @code{\quoteDuring}.
+Al establecer
+
+@example
+\set Staff.quotedEventTypes =
+       #'(note-event articulation-event dynamic-event)
+@end example
+
+@noindent
+se citarán las notas (pero no los silencios), además de las inscripciones textuales y de dinámica.
+
+@refbugs
+
+Sólo los contenidos de la primera @internalsref{Voice} que aparece dentro de una
+instrucción @code{\addQuote} se tendrán en consideración para su cita, así que
+@var{música} no puede contener sentencias @code{\new} y @code{\context Voice}
+que podrían producir el cambio a una Voz diferente.
+
+La cita de notas de adorno es defectuosa e incluso puede causar una caída del programa LilyPond.
+
+La cita de tresillos anidados puede dar como resultado una notación pobre.
+
+
+@seealso
+
+En este manual: @ref{Instrument transpositions}.
+
+Ejemplos: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
+
+Referencia del programa: @internalsref{QuoteMusic}.
+
 
 @node Formatting cue notes
 @subsection Formatting cue notes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex guía, formateo de las notas
+
+La sección anterior trata de la inserción de notas que proceden de otra voz.
+Hay una función musical más avanzada que se llama @code{\cueDuring},
+que facilita el formateo de las notas guía.
+
+La sintaxis es
+
+@example
+  \cueDuring #@var{nombre} #@var{arriba_abajo} @var{música}
+@end example
+
+Esto insertará las notas de la parte @var{nombre} en una
+@internalsref{Voice} llamada @code{cue}.  Esto ocurre de forma simultánea
+con @var{música}, que por lo general es un silencio.  Cuando comienzan las notas guía,
+el pentagrama se hace polifónico por un momento.  El argumento
+@var{arriba_abajo} determina si las notas guía se deben tipografiar como
+primera o como segunda voz.
+
+
+@lilypond[verbatim,ragged-right]
+smaller = {
+  \set fontSize = #-2
+  \override Stem #'length-fraction = #0.8
+  \override Beam #'thickness = #0.384
+  \override Beam #'length-fraction = #0.8
+}
+
+\addQuote clarinet \relative {
+  R1*20
+  r2 r8 c' f f
+}
+
+\new Staff \relative  <<
+
+  % setup a context for cue notes.
+  \new Voice = "cue" { \smaller \skip 1*21 }
+
+  \set Score.skipBars = ##t
+
+  \new Voice {
+    R1*20
+    \cueDuring #"clarinet" #UP {
+      R1
+    }
+    g4 g2.
+  }
+>>
+@end lilypond
+
+
+Presentamos a continuación un par de consejos para culminar con éxito la escritura de notas guía.
+
+@itemize @bullet
+@item
+Las notas guía tienen un tamaño tipográfico menor.
+@item
+ la parte citada se marca con el instrumento que toca la cita.
+@item
+ cuando la parte original vuelve, se debe marcar con el nombre del instrumento
+ original.
+
+@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+
+@c Yes, this is good practice.  Otherwise, the start of the original
+@c part can only be seen from the font size.  This is not good enough
+@c for sight-reading.  It is possilbe to use other
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue
+@c   notes are
+@c finished.
+@c -hwn
+
+
+Además cualquier otro cambio introducido por la parte citada se debe deshacer.
+Por ejemplo, si el insturmento citado toca en una clave distinta,
+la clave original se debe hacer constar de nuevo.
+
+@end itemize
+
+La macroinstrucción @code{\transposedCueDuring} es
+útil para añadir notas guía a instrumentos que utilizan un rango de octava completamente distinto
+(por ejemplo, tener una cita del piccolo dentro de la parte de
+contrafagot).
+
+@lilypond[verbatim,ragged-right,quote]
+picc = \relative c''' {
+  \clef "treble^8"
+  R1 |
+  c8 c c e g2 |
+  a4 g g2 |
+}
+\addQuote "picc" { \picc }
+
+cbsn = \relative c, {
+  \clef "bass_8"
+  c4 r g r
+  \transposedCueDuring #"picc" #UP c,, { R1 } |
+  c4 r g r |
+}
+
+<<
+  \context Staff = "picc" \picc
+  \context Staff = "cbsn" \cbsn
+>>
+@end lilypond
+
+
 
 @node Aligning to cadenzas
 @subsection Aligning to cadenzas
 
-UNTRANSLATED NODE: IGNORE ME
+En un contexto orquestal, las cadenzas presentan un problema especial:
+al construir una partitura que tiene una cadenza, todos los demás instrumentos
+deben saltar tantas notas como la longitud de la cadenza,
+pues en caso contrario empezarán demasiado pronto o tarde.
+
+Una solución a este problema son las funciones @code{mmrest-of-length}
+y @code{skip-of-length}.  Estas funciones de Scheme toman un fragmento de música
+como argumento y generan un @code{\skip} o silencio multicompás, de la longitud exacta
+del fragmento.  El uso de @code{mmrest-of-length} se muetra
+en el ejemplo siguiente.
+
+@lilypond[verbatim,ragged-right,quote]
+cadenza = \relative c' {
+  c4 d8 << { e f g } \\ { d4. } >>
+  g4 f2 g4 g
+}
+
+\new GrandStaff <<
+  \new Staff { \cadenza c'4 }
+  \new Staff {
+    #(ly:export (mmrest-of-length cadenza))
+    c'4
+  }
+>>
+@end lilypond
+
+
 
 @node Contemporary notation
 @section Contemporary notation
@@ -304,7 +1993,3 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

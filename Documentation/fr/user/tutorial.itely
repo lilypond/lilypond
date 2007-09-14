@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
+   Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -171,7 +171,7 @@ a effectuées sur votre fichier.  Si une erreur survient, c'est ce
 fichier qu'il vous faudra étudier.
 
 Notez qu'il existe d'autres éditeurs de texte, certains disposant d'un
-meilleur support pour LilyPond ; reportez-vous à @rprogram{Editor support}.
+meilleur support pour LilyPond ; reportez-vous à @rprogram{Text editor support}.
 
 @subsubheading Unix
 
@@ -184,7 +184,7 @@ de VIM et un
 encore installés, consultez le fichier @file{INSTALL.txt}.  L'outil
 d'édition le plus facile d'utilisation est de loin
 @file{LilyPondTool}.  Vous trouverez plus d'informations dans
-@rprogram{Editor support}.}  Dans votre
+@rprogram{Text editor support}.}  Dans votre
 éditeur, entrez le texte suivant et sauvegardez le fichier sous
 @file{test.ly}
 
@@ -925,8 +925,8 @@ situations où il y a plus d'une voix sur une même portée.
 * Music expressions explained::
 * Multiple staves::
 * Piano staves::
-* Single staff polyphony::
 * Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
@@ -1128,6 +1128,30 @@ Voir @ref{Piano music}.
 @end quotation
 
 
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@cindex accords
+Des accords peuvent être produits en entourant les hauteurs de notes
+par des angles gauche et droit --- @samp{<} et @samp{>} ---
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
+@end lilypond
+
+Vous pouvez combiner les indications comme les liaisons et les ligatures
+de croches avec les accords.  Ils doivent cependant être placés en
+dehors des angles :
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
+@end lilypond
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+@end lilypond
+
+
 @node Single staff polyphony
 @subsection Single staff polyphony
 
@@ -1185,30 +1209,6 @@ Là encore, ces expressions peuvent s'imbriquer arbitrairement :
 @quotation
 Voir @ref{Basic polyphony}.
 @end quotation
-
-
-@node Combining notes into chords
-@subsection Combining notes into chords
-
-@cindex accords
-Des accords peuvent être produits en entourant les hauteurs de notes
-par des angles gauche et droit --- @samp{<} et @samp{>} ---
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-Vous pouvez combiner les indications comme les liaisons et les ligatures
-de croches avec les accords.  Ils doivent cependant être placés en
-dehors des angles :
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 
 @node Songs
@@ -1370,15 +1370,14 @@ manuel.
 
 @cindex versions
 La déclaration @code{\version} stipule le numéro de la version de
-LilyPond pour laquelle le fichier a été écrit.  Pour donner à un fichier
-la version 2.11.20, ajoutez
+LilyPond pour laquelle le fichier a été écrit,
 
 @example
-\version "2.11.20"
+\version "2.11.32"
 @end example
 
 @noindent
-tout en haut de votre fichier LilyPond.
+que l'on place par convention en début de fichier.
 
 Cette annotation permet de faciliter les prochaines mises à jour de
 LilyPond.  Les changements dans la syntaxe sont gérés avec un programme
@@ -1396,7 +1395,7 @@ qui existe indépendamment des expressions musicales principales.  Le
 bloc @code{\header} est habituellement placé en début de fichier.
 
 @example
-\version "2.11.20"
+\version "2.11.32"
 \header @{
   title = "Symphonie"
   composer = "Moi"
@@ -1590,3 +1589,6 @@ produit précisément tel ou tel exemple, consultez la version HTML de ce
 manuel si ce n'est pas déjà le cas, et cliquez sur l'image de la
 partition.  La source exacte utilisée pour générer ce manuel s'affichera
 alors.
+
+Pour en savoir plus sur l'organisation de la suite de ce manuel,
+reportez-vous à @ref{About this manual}.

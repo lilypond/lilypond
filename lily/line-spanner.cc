@@ -6,21 +6,21 @@
   (c) 2000--2007 Jan Nieuwenhuizen <janneke@gnu.org>
 */
 
-#include "axis-group-interface.hh"
-#include "spanner.hh"
-#include "output-def.hh"
-#include "item.hh"
-#include "staff-symbol-referencer.hh"
-#include "font-interface.hh"
-#include "warn.hh"
 #include "align-interface.hh"
+#include "axis-group-interface.hh"
+#include "font-interface.hh"
+#include "grob-interface.hh"
+#include "item.hh"
+#include "lily-proto.hh"
 #include "line-interface.hh"
 #include "moment.hh"
+#include "output-def.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "staff-symbol-referencer.hh"
 #include "system.hh"
-
-#include "lily-proto.hh"
-#include "grob-interface.hh"
 #include "text-interface.hh"
+#include "warn.hh"
 
 class Line_spanner
 {
@@ -88,8 +88,19 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 						     details, SCM_BOOL_F),
 			CENTER);
 
+      Item *bound_item = me->get_bound (dir);
+      Grob *bound_grob = bound_item;
+      if (to_boolean (ly_assoc_get (ly_symbol2scm ("end-on-note"), details, SCM_BOOL_F))
+	  && bound_item->break_status_dir ())
+	{
+	  extract_grob_set (me, "note-columns", columns);
+	  if (columns.size ())
+	    bound_grob = (dir == LEFT)
+	      ? columns[0] : columns.back();
+	}
+      
       details = scm_acons (ly_symbol2scm ("X"),
-			   scm_from_double (me->get_bound (dir)->extent (commonx, X_AXIS)
+			   scm_from_double (bound_grob->extent (commonx, X_AXIS)
 					    .linear_combination (attach)),
 			   details);
     }
@@ -336,11 +347,12 @@ ADD_INTERFACE (Line_spanner,
 	       "@code{dotted-line} or @code{zigzag}.\n"
 	       "\n",
 
+	       "bound-details " 
 	       "extra-dy "
 	       "gap "
-	       "thickness "
-	       "bound-details " 
-	       "left-bound-info " 
+	       "left-bound-info "
+	       "note-columns "
 	       "right-bound-info " 
+	       "thickness "
 	       );
 

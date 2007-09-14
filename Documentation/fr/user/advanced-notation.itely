@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: d5b91d83f5dfec811302de39dbabdb189024f67a
+    Translation of GIT committish: a4cf6aed7bf79f3cc1892dbc92b642b2514c1674
 
 
     When revising a translation, copy the HEAD committish of the
@@ -12,149 +12,1533 @@
 @node Advanced notation
 @chapter Advanced notation
 
-UNTRANSLATED NODE: IGNORE ME
+Ce chapitre traite de fonctions avancées ou moins usuelles de la notation.
 
-@menu 
-* Text::
-* Preparing parts::
-* Orchestral music::
-* Contemporary notation::
-* Educational use::
-@end menu 
+@menu
+* Text::                        
+* Preparing parts::             
+* Orchestral music::            
+* Contemporary notation::       
+* Educational use::             
+@end menu
+
+
+
 @node Text
 @section Text
 
-UNTRANSLATED NODE: IGNORE ME
+Nous allons voir ici comment insérer du texte, selon différents
+formatages, dans vos partitions.
 
-@menu 
-* Text scripts::
-* Text and line spanners::
-* Text spanners::
-* Text marks::
-* Text markup::
-* Nested scores::
-* Page wrapping text::
-* Overview of text markup commands::
-* Overview of text markup list commands::
-* Font selection::
-* New dynamic marks::
-@end menu 
+@cindex Texte, autres langues
+Pour écrire des accents et autres caractères spéciaux, il suffit de
+les insérer directement dans votre fichier LilyPond.  Ce fichier devra
+être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
+@ref{Text encoding}.
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@lilypond[fragment,ragged-right,staffsize=16,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+@menu
+* Text scripts::                
+* Text and line spanners::      
+* Text spanners::               
+* Text marks::                  
+* Text markup::                 
+* Nested scores::               
+* Page wrapping text::          
+* Overview of text markup commands::  
+* Overview of text markup list commands::  
+* Font selection::              
+* New dynamic marks::           
+@end menu
+
+
 @node Text scripts
 @subsection Text scripts
 
-UNTRANSLATED NODE: IGNORE ME
+@c I'm not fond of this "étiquette" wording of yours Jean-Charles;
+@c j'utiliserais simplement l'expression "bloc \markup" afin
+@c d'éviter toute confusion avec les \tags (qui méritent davantage
+@c le titre d'étiquette, stricto sensu) -vv
+
+@cindex Étiquette de texte
+@cindex blocs de texte
+@cindex ajout de texte
+
+Vous pouvez placer arbitrairement des chaînes de caractères, ou
+@ref{Text markup} en langage LilyPond, au dessus ou au dessous des
+notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
+indications n'affecteront en rien l'espacement des notes, sauf à
+utiliser la commande @code{\fatText}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4^"longtext" \fatText c4_"longlongtext" c4
+@end lilypond
+
+@noindent
+Pour revenir à l'espacement par défaut, utilisez @code{\emptyText}.
+
+Des constructions plus élaborées d'étiquette peuvent être obtenues en
+ayant recours à la commande @emph{markup} :
+
+@lilypond[fragment,ragged-right,verbatim,quote]
+c'4^\markup { bla \bold bla }
+@end lilypond
+
+La commande @code{\markup} est décrite plus en détails dans la section
+@ref{Text markup}.
+
+
+@refcommands
+
+@funindex \fatText
+@code{\fatText},
+@funindex \emptyText
+@code{\emptyText}.
+
+
+@commonprop
+
+S'assurer que tous les éléments textuels et les paroles respectent
+les marges du document requiert des calculs relativement lourds ; c'est
+la raison pour laquelle LilyPond, par défaut, ne s'en préoccupe pas.
+Vous pouvez cependant l'y forcer en définissant
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+
+@seealso
+
+Dans ce manuel : @ref{Text markup}.
+
+Référence du programme : @internalsref{TextScript}.
+
 
 @node Text and line spanners
 @subsection Text and line spanners
 
-UNTRANSLATED NODE: IGNORE ME
+Certaines indications d'interprétation comme @i{rallentando}, 
+@i{accelerando} ou @i{trilles}, s'incrivent textuellement et se
+prolongent sur plusieurs mesures à l'aide d'une ligne pleine, pointillée
+ou ondulée.
+
+Les routines chargées de matérialiser un @emph{glissando} sont tout à
+fait adaptées à une gestion précise, à la fois du placement du texte, et
+du calcul de l'envergure de sa ligne d'extension.  La routine
+@code{ly:line-interface::print} est plus particulièrement en charge de
+déterminer les points d'ancrage de la ligne et de la dessiner selon le
+style requis.
+  
+Voici un exemple qui illustre les différents styles de ligne
+disponibles, ainsi que la manière de les personnaliser.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+d2 \glissando d'2
+\once \override Glissando #'dash-fraction = #0.5
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+L'information qui va déterminer les extrémités est calculée à la
+volée pour chaque objet graphique.  Il est tout à fait possible de les
+régler vous-même :
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'bound-details #'right #'Y = #-2
+e2 \glissando f
+@end lilypond
+
+L'objet @code{Glissando}, comme tous ceux qui utilisent la routine
+@code{ly:line-interface::print}, comporte une liste 
+d'associations.  Dans le code ci-dessus, la valeur de @code{Y} est
+fixée, dans la liste d'associations, à @code{-2} pour l'ancrage à
+droite.  Vous pouvez naturellement ajuster l'extrémité gauche en
+remplaçant @code{right} (pour @code{droite}) par @code{left}.
+
+Si @code{Y} n'est pas fixé, sa valeur sera calculée en fonction de la
+hauteur du point de référence droite de la ligne.
+
+Lorsque survient un saut de ligne, la liste des ancrages est
+augmentée d'une liste complémentaire contenant @code{left-broken}
+(brisure à gauche) et @code{right-broken} (brisure à droite), comme
+dans l'exemple suivant :
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+\override Glissando #'breakable = ##T 
+\override Glissando #'bound-details #'right-broken #'Y = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+Vous disposez des propriétés suivantes :
+
+@table @code
+@item Y
+Fixe l'ordonnée (coordonnée-Y) de l'extrémité, mesurée en taille de
+portée.  Il s'agit par défaut du centre de l'objet de rattachement ;
+pour un glissando, ce sera le milieu de la tête de note.
+
+Pour des marques horizontales, telles du texte ou le trait d'un
+trille, cette valeur est figée à 0.
+
+@item attach-dir
+Détermine l'endroit où la ligne commence et finit, relativement à
+l'objet de rattachement. Autrement dit, une valeur de @code{-1} (ou
+@code{LEFT} pour gauche) fera commencer ou finir la ligne du côté
+gauche de la tête de note de référence.
+
+@item X
+Coordonnée absolue du point final. Dans la mesure où elle est calculée
+à la volée, il n'y a pas vraiment de raison de l'outrepasser.
+
+@item stencil
+Sous-propriété contenant les éventuels symboles présents avant ou
+après la ligne. Destinée à un usage interne, nous vous recommendons
+d'utiliser plutôt @code{text}.
+
+@item text
+Marqueur qui sera analysé pour alimenter @code{stencil}.  On y trouve
+habituellement les @i{cresc.} ou @i{tr} des extenseurs horizontaux.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'bound-details #'left #'text
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Lorsqu'ils ne sont pas définis, le tracé est tout simplement
+positionné conformément aux sous-propriétés @code{X} et @code{Y}.  En
+fixant soit @code{stencil-align-dir-y}, soit @code{stencil-offset},
+vous pouvez décaler le coin du marqueur par rapport à l'extrémité de
+la ligne.
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner #'bound-details #'left #'stencil-align-dir-y = #DOWN
+\override TextSpanner #'bound-details #'right #'stencil-align-dir-y = #UP
+
+\override TextSpanner #'bound-details #'left #'text = #"gggg"
+\override TextSpanner #'bound-details #'right #'text = #"hhhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+@item arrow
+Assigner à cette sous-propriété la valeur @code{vrai} (@code{#t})
+produira une terminaison en pointe de flèche.
+
+@item padding
+Cette sous-propriété contrôle l'espace entre les extrémités de la
+ligne, telles que définies, et la réalité.  Sans ce léger décalage, le
+début et la fin d'un glissando seraient en plein milieu des têtes de note.
+
+@end table
+
+@seealso
+
+Référence du programme : @internalsref{TextSpanner},
+@internalsref{Glissando}, @internalsref{VoiceFollower},
+@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+
+Exemples : @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
+
 
 @node Text spanners
 @subsection Text spanners
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Prolongateurs de texte
+
+Certaines indications d'interprétation comme @i{rallentando} ou 
+@i{accelerando} s'incrivent en toutes lettres et se prolongent sur
+plusieurs mesures grâce à une ligne pointillée.  Les commandes
+@code{\startTextSpan} et @code{\stopTextSpan}, respectivement
+attachées à la première et à la dernière note qu'elles concernent,
+déterminent l'envergure de ces prolongateurs, ou extenseurs.
+
+La chaîne à imprimer, ainsi que son style, sont définis par des
+propriétés, comme ici :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c1
+\textSpannerDown
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \upright "rall" } 
+c2\startTextSpan b c\stopTextSpan a
+\break
+\textSpannerUp
+\override TextSpanner #'bound-details #'left #'text =
+  \markup { \italic "rit" } 
+c2\startTextSpan b c\stopTextSpan a
+@end lilypond
+
+@refcommands
+
+@funindex textSpannerUp
+@code{\textSpannerUp},
+@funindex textSpannerDown
+@code{\textSpannerDown},
+@funindex textSpannerNeutral
+@code{\textSpannerNeutral}.
+
+
+@commonprop
+
+Pour obtenir une ligne pleine, utilisez
+
+@example
+\override TextSpanner #'dash-fraction = #'()
+@end example
+
+
+@seealso
+
+Référence du programme : @internalsref{TextSpanner}.
+
 
 @node Text marks
 @subsection Text marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex coda sur une barre de mesure
+@cindex segno sur une barre de mesure
+@cindex point d'orgue sur une barre de mesure
+@cindex barres de mesure, symboles au dessus de
+@funindex \mark
+
+La commande @code{\mark} est tout d'abord conçue pour les
+@ref{Rehearsal marks}.  Elle peut néanmoins servir à insérer des
+signes de coda ou de segno, ou bien un point d'orgue, au dessus d'une
+barre de mesure.  Couplez-la alors à la commande @code{\markup} pour
+avoir accès au symbole approprié (ils sont répertoriés dans 
+@ref{The Feta font}).
+
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Le résultat de @code{\mark} n'apparaîtra que sur la portée supérieure
+d'un système.  Si vous introduisez la commande @code{\mark} au moment
+d'une barre de mesure, la marque se placera au dessus de la barre.  Si
+vous y faites appel au milieu d'une mesure, cette marque sera
+positionnée entre les notes.  Si elle intervient en début de ligne,
+elle sera placée juste avant la première note de cette portée.  Enfin,
+une marque qui tomberait sur un saut de ligne sera imprimée au début
+de la ligne suivante.
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+Au cas où il n'y aurait pas de ligne à suivre, la marque ne sera pas imprimée.
+
+
+@commonprop
+
+Pour imprimer une marque à la fin de la portée en cours, procédez
+ainsi :
+
+@example
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+@end example
+
+@code{\mark} est souvent bien utile pour porter une indication à la
+fin d'une mesure.  Pensez alors à modifier la propriété
+@code{#'self-alignment}.  
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\override Score.RehearsalMark
+  #'break-visibility = #begin-of-line-invisible
+c1 c c c4 c c c
+\once \override Score.RehearsalMark #'self-alignment-X = #right
+\mark "D.S. al Fine "
+@end lilypond
+
+Les indications textuelles peuvent s'aligner par rapport à d'autres
+objets que des barres de mesure, tels que l'armure, la clé ou le chiffre de
+mesure : 
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\relative {
+  c1
+  \key cis \major
+  \clef alto
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  \mark "on key"
+  cis
+  \key ces \major
+  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \clef treble
+  \mark "on clef"
+  ces
+  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+  \key d \minor
+  \clef tenor
+  \time 3/4
+  \mark "on time"
+  c
+}
+@end lilypond
+
+Les symboles pris en charge par @code{break-align-symbols} sont :
+@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
+@code{key-signature}, et @code{time-signature}.
+
+Par défaut, les indications textuelles sont alignées avec le milieu
+des objets de notation. Bien entendu, vous pouvez modifier les
+propriétés @code{break-align-anchor-alignment} ou
+@code{break-align-anchor} des objets en question pour obtenir un autre
+résultat.
+
+@c KEEP LY
+@lilypond[fragment,quote,ragged-right,verbatim]
+{
+  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+  c1
+  \key cis \major
+
+  % La marque sera alignée sur le côté gauche de l'armure
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
+  \mark \default
+  cis1
+  \key ces \major
+
+  % La marque sera alignée sur le côté droit de l'armure
+  \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \mark \default
+  ces1
+  \key cis \major
+
+  %  La marque sera alignée sur le côté gauche de l'armure,
+  % puis décalée vers la droite de 2 unités.
+  \once \override Staff.KeySignature #'break-align-anchor = #2
+  \mark \default
+  ces1
+}
+@end lilypond
+
+Bien que ces indications textuelles ne soient habituellement imprimées
+qu'au niveau de la portée supérieure, vous pouvez forcer leur
+affectation à chacune des portées :
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+{
+  \new Score \with {
+    \remove "Mark_engraver"
+  }
+  <<
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c''1 \mark "foo" c'' }
+    \new Staff \with {
+      \consists "Mark_engraver"
+    }
+    { c'1 \mark "foo" c' }
+  >>
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{RehearsalMark}.
+
 
 @node Text markup
 @subsection Text markup
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex étiquette
+@cindex commentaire textuel
+@cindex étiquette textuelle
+@cindex texte ajouté
+
+La commande @code{\markup} permet d'ajouter du texte.  Vous pouvez y
+inclure des commandes, précédées d'un antislash @code{\} ; les
+caractères @code{\} et @code{#} doivent être encadrés de guillemets
+informatiques @code{"}.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { hello }
+c1_\markup { hi there }
+c1^\markup { hi \bold there, is \italic {anyone home?} }
+c1_\markup { "\special {weird} #characters" }
+@end lilypond
+
+@noindent
+Pour une liste des différentes commandes disponibles, consultez
+@ref{Overview of text markup commands}. 
+
+
+@code{\markup} est avant tout conçu pour gérer les
+@internalsref{TextScript}s, mais rien ne s'oppose à son utilisation
+pour traiter du texte avec LilyPond.
+
+@lilypond[quote,verbatim]
+\header{ title = \markup{ \bold { foo \italic { bar! } } } }
+\score{
+  \relative c'' {
+    \override Score.RehearsalMark
+      #'break-visibility = #begin-of-line-invisible
+    \override Score.RehearsalMark #'self-alignment-X = #right
+
+    \set Staff.instrumentName = \markup{ \column{ Alto solo } }
+    c2^\markup{ don't be \flat }
+    \override TextSpanner #'bound-details #'left #'text = \markup{\italic rit }
+    b2\startTextSpan
+    a2\mark \markup{ \large \bold Fine }
+    r2\stopTextSpan
+    \bar "||"
+  }
+  \addlyrics { bar, foo \markup{ \italic bar! } }
+}
+@end lilypond
+
+La commande @code{\markup} peut intervenir à tout moment, y compris en
+dehors d'un bloc @code{\score}. Voir à ce sujet 
+@ref{Multiple scores in a book}. 
+
+@lilypond[quote,ragged-right,verbatim]
+\markup{ Here is some text. }
+@end lilypond
+
+@cindex changer de police
+
+Le @emph{markup} de l'exemple précédent montre comment utiliser les
+commandes de changement de police. Les commandes @code{\bold} et
+@code{\italic} n'affectent que le premier mot qui les suit ; encadrez
+les par des accolades si vous désirez que ces commandent s'appliquent
+à plusieurs mots.
+
+@example
+\markup @{ \bold @{ c'est moi @} @}
+@end example
+
+@noindent
+Une bonne habitude à prendre consiste à utiliser des accolades même
+pour un seul mot, comme ici :
+@example
+\markup @{ qui \italic @{ est @} là ? @}
+@end example
+
+En mode @emph{markup}, vous pouvez composer des expressions comme
+en mathématiques, des documents XML ou bien les expressions musicales.
+Vous pouvez empiler ces expressions grâce à la commande
+@code{\column}, ou les centrer par rapport à leur milieu avec
+@code{\center-align}. 
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { \column { a bbbb \line { c d } } }
+c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \line { a b c } }
+@end lilypond
+
+Des listes non précédées de commande ne sont pas isolées. Ainsi, 
+@example
+\center-align @{ @{ a b @} @{ c d @} @}
+@end example
+
+@noindent
+
+est la même expression que
+
+@example
+\center-align @{ a b c d @}
+@end example
+
+@noindent
+
+L'utilisation des @code{"} ou de la commande @code{\line} permet de
+différencier les listes de mots.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c4^\markup{ \center-align { on three lines } }
+c4^\markup{ \center-align { "all one line" } }
+c4^\markup{ \center-align { { on three lines } } }
+c4^\markup{ \center-align { \line { on one line } } }
+@end lilypond
+
+Vous pouvez stocker les étiquettes textuelles en tant que variables,
+et attacher ces identificateurs à des notes, comme
+@example
+allegro = \markup @{ \bold \large @{ Allegro @} @}
+ @{ a^\allegro b c d @}
+@end example
+
+Certains objets possèdent leurs propres procédures d'alignement, qui
+annuleront toute spécification d'alignement que vous pourriez affecter
+à un argument de type @emph{markup} que vous leur auriez fourni.  Par
+exemple, les @internalsref{RehearsalMark} sont centrées
+horizontalement ; de fait, utiliser 
+@code{\mark \markup @{ \left-align .. @}} sera sans effet.
+
+Par ailleurs, le placement vertical n'est effectué qu'après la
+création de l'objet @emph{étiquette textuelle}. Si donc vous souhaitez
+déplacer une étiquette, il vous faudra utiliser la propriété
+@code{#'padding} ou créer un @qq{point d'ancrage} à l'intérieur même
+de l'étiquette (généralement avec @code{\hspace #0}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\fatText
+c'4^\markup{ \raise #5 "not raised" }
+\once \override TextScript #'padding = #3
+c'4^\markup{ raised }
+c'4^\markup{ \hspace #0 \raise #1.5 raised }
+@end lilypond
+
+Certaines situations particulières, telles que les indications de
+nuance, possèdent des propriétés prédéfinies quant à leur police.
+Nous vous conseillons, en pareil cas, de réinitialiser ces propriétés
+en utilisant @code{normal-text}.  Pour plus d'informations, consultez
+@ref{Overview of text markup commands}. 
+
+
+@seealso
+
+Dans ce manuel : @ref{Overview of text markup commands}.
+
+Référence du programme : @internalsref{TextScript}.
+
+Fichiers d'initialisation : @file{scm/@/new@/-markup@/.scm}.
+
+
+@refbugs
+
+Le crénage ou la génération de ligatures ne sont accessibles que lors
+d'un retraitement par @TeX{}.  Dans ce cas, LilyPond n'en tient pas
+compte, et l'espacement de tels textes sera trop large.
+
+Les erreurs de syntaxe sont peu loquaces.
+
 
 @node Nested scores
 @subsection Nested scores
 
-UNTRANSLATED NODE: IGNORE ME
+Rien ne s'oppose à ce qu'une étiquette ne comporte de la musique.  Il
+suffit que l'expression en question contienne un bloc @code{\score} et
+un bloc @code{\layout}.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative {
+  c4 d^\markup {
+    \score {
+      \relative { c4 d e f }
+      \layout { }
+    }
+  }
+  e f
+}
+@end lilypond
 
 @node Page wrapping text
 @subsection Page wrapping text
+Alors que @code{\markup} s'utilise pour traiter un bloc de texte
+insécable, @code{\markuplines} permet, employé en tête de partition,
+d'obtenir un bloc de lignes réparties différemment et au cas où sur
+plusieurs pages.
 
-UNTRANSLATED NODE: IGNORE ME
+@verbatim
+\markuplines {
+  \justified-lines {
+    Un long texte constitué de lignes justifiées.
+    ...
+  }
+  \justified-lines {
+    Un autre grand paragraphe justifié.
+    ...
+  }
+  ...
+}
+@end verbatim
+
+@code{\markuplines} prend en argument une liste de lignes de texte,
+qui peut elle-même consister en une suite de commandes générant à leur
+tour des lignes de texte, comme ici :
+
+@verbatim
+\markuplines {
+  \line { ... }    % une ligne alignée à gauche
+  \fill-line { \line { ... } } % une ligne centrée
+  \wordwrap-lines { ... } % une liste de lignes alignées à gauche
+  \justified-lines { ... } % une liste de lignes justifiées
+}
+@end verbatim
+
+Les différentes commandes permettant de générer des listes de lignes
+se trouve dans @ref{Overview of text markup list commands}.
+
+@seealso
+
+Dans ce manuel : @ref{Overview of text markup list commands}, 
+@ref{New markup list command definition}.
+
+@refcommands
+
+@funindex \markuplines
+@code{\markuplines}
 
 @node Overview of text markup commands
 @subsection Overview of text markup commands
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez utiliser les commandes suivantes au sein d'un bloc
+@code{\markup @{ @}}.
 
 @include markup-commands.tely
+
 @node Overview of text markup list commands
 @subsection Overview of text markup list commands
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez utiliser les commandes suivantes avec @code{\markuplines}.
 
 @include markup-list-commands.tely
+
 @node Font selection
 @subsection Font selection
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex sélection de polices
+@cindex grossissement des polices
+@funindex font-interface
+
+C'est en jouant sur les propriétés des objets décrites ci-après que
+vous pourrez sélectionner une police parmi les familles de fontes
+préconfigurées.  LilyPond utilise par défaut la police musicale feta.
+Pour le texte, les polices sont sélectionnées par Pango/Fontconfig.
+C'est New Century Schoolbook qui sert de police sérif par défaut, et
+celles définies lors de l'installation de Pango pour ce qui est du
+sans-serif et du @q{typewriter}.
+
+
+@itemize @bullet
+@item @code{font-encoding}
+symbolise le tracé des glyphes. N'utilisez cette propriété que pour
+traiter des éléments non textuels, comme :
+
+
+@code{fetaBraces} pour les accolades de partition pianistique,
+@code{fetaMusic} pour de la musique (y compris musique ancienne),
+@code{fetaDynamic} pour les nuances et @code{fetaNumber} pour les
+chiffres. 
+
+@item @code{font-family}
+symbolise les différentes familles de police : @code{roman} (Computer
+Modern), @code{sans}-serif et @code{typewriter} (espacement fixe).
+
+@item @code{font-shape}
+symbolise le style des caractères. En pratique, chaque famille de
+police dispose de @code{italic}, @code{caps} (petites capitales) ou
+@code{upright} (droit).
+
+@item @code{font-series}
+symbolise le niveau de gras des caractères. Chaque style dispose, pour
+chaque famille, de @code{medium} et @code{bold} (gras).
+
+@end itemize
+
+Les variantes ci-dessus mentionnées font référence à une feuille de
+style prédéfinie.  Vous pouvez cependant faire appel à une autre
+police, en utilisant la propriété @code{font-name} :
+
+@lilypond[fragment,verbatim]
+{
+  \override Staff.TimeSignature #'font-name = #"Charter"
+  \override Staff.TimeSignature #'font-size = #2
+  \time 3/4
+  c'1_\markup {
+    \override #'(font-name . "Vera Bold")
+      { This text is in Vera Bold }
+  }
+}
+@end lilypond
+
+@noindent
+Vous pouvez utiliser n'importe quelle police, du moment qu'elle est
+accessible par Pango/Fontconfig.  Pour obtenir la liste de toutes
+les polices disponibles sur votre machine, lancez
+@example
+lilypond -dshow-available-fonts blabla
+@end example
+(quel qu'il soit, le dernier argument est obligatoire).
+
+
+La propriété @code{font-size} permet de régler la taille de la police.
+La taille effective que vous obtiendrez dépend de
+@code{text-font-size} tel que défini dans le bloc @code{\paper}.
+
+@cindex taille de police
+@cindex police, augmenter la taille
+
+
+Vous pouvez aussi changer la police par défaut au niveau du document.
+Il suffit alors de faire appel à @code{make-pango-font-tree} au sein
+du bloc @code{paper}.  Vous définirez alors la police à utiliser pour
+du texte respectivement en roman, sans serif et monospace, comme ici : 
+
+@cindex polices, définir 
+@cindex Pango
+
+
+@lilypond[verbatim]
+\paper  {
+  myStaffSize = #20
+
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+                           (/ myStaffSize 20)))
+}
+
+{
+  c'^\markup { roman: foo \sans bla \typewriter bar }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+
+
+@seealso
+
+Exemples : @lsr{text,font@/-family@/-override.ly}.
+
 
 @node New dynamic marks
 @subsection New dynamic marks
 
-UNTRANSLATED NODE: IGNORE ME
+Grâce à la commande @code{make-dynamic-script}, vous pouvez créer de
+nouvelles marques textuelles de nuances que vous combinerez
+éventuellement avec les signes de nuances.
+Notez bien que la police des nuances en contient que les caractères
+@code{f,m,p,r,s} and @code{z}. 
+
+Certains composants, tels que les marques de nuances, possèdent des
+propriétés particulières et prédéfinies quant à leur police.  Lorsque
+vous créez du texte en pareille situation, nous vous recommandons
+d'utiliser @code{normal-text} pour annuler ces propriétés.  Voir 
+@ref{Overview of text markup commands} pour plus de détails.
+
+@cindex make-dynamic-script
+
+@lilypond[quote,verbatim,ragged-right]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+@cindex Nuances éditoriales
+@cindex Nuances, entre parenthèses
+
+Vous pouvez aussi encadrer les nuances entre parenthèses ou entre
+crochets.  Ceci est souvent utilisé pour ajouter des nuances propres à
+une édition donnée.
+
+@lilypond[quote,verbatim,ragged-right]
+rndf = \markup{ \center-align {\line { \bold{\italic (}
+  \dynamic f \bold{\italic )} }} }
+boxf = \markup{ \bracket { \dynamic f } }
+{ c'1_\rndf c'1_\boxf }
+@end lilypond
+
+
 
 @node Preparing parts
 @section Preparing parts
 
-UNTRANSLATED NODE: IGNORE ME
+Cette section décrit plusieurs fonctions qui permettent de préparer
+un matériel d'orchestre, autrement dit une partition par pupitre.
 
-@menu 
-* Multi measure rests::
-* Metronome marks::
-* Rehearsal marks::
-* Bar numbers::
-* Instrument names::
-* Instrument transpositions::
-* Ottava brackets::
-* Different editions from one source::
-@end menu 
+@menu
+* Multi measure rests::         
+* Metronome marks::             
+* Rehearsal marks::             
+* Bar numbers::                 
+* Instrument names::            
+* Instrument transpositions::   
+* Ottava brackets::             
+* Different editions from one source::  
+@end menu
+
+
 @node Multi measure rests
 @subsection Multi measure rests
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex mesures à compter
+@cindex mesure entière de silence
+@cindex Silences, multi-mesures
+@cindex Silences, mesure entère
+@cindex une pause par mesure
+@funindex R
+
+Un silence valant une ou plusieurs mesures entières s'entre avec un
+@samp{R} majuscule.  Ceci ne peut être utile que pour une mesure complètement
+vide, et pour générer des parties séparées : ce silence sera alors
+répété sur autant de mesures que nécessaire, ou bien imprimé une seule
+fois.  La répétition est contrôlée par la propriété
+@code{Score.skipBars}.  Au cas où ce commutateur est défini comme
+vrai (lettre @code{##t} pour @q{true}), les mesures vides ne seront pas répétées, et le nombre exact de
+mesures sera ajouté.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
+\set Score.skipBars = ##t R1*17 R1*4
+@end lilypond
+
+Le @code{1} de @code{R1} est le même que celui utilisé pour la durée
+des notes.  Vous devrez donc, si le morceau n'est pas à 4/4, stipuler
+un autre durée, qui pourra contenir des points d'augmentation ou être
+libellé sous forme de fraction :
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+\time 3/4
+R2. | R2.*2
+\time 13/8
+R1*13/8
+R1*13/8*12 |
+\time 10/8 R4*5*4 |
+@end lilypond
+
+Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
+une pause, tantôt comme une brève, et sera centré sur la mesure
+quelle que soit la métrique.
+
+Dans le cas où ce silence ne dure que quelques mesures, LilyPond
+imprime sur la portée des @qq{ silences d'église }, simple suite de
+rectangles.  La propriété @code{MultiMeasureRest.expand-limit} permet
+d'obtenir un silence unique.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+R1*2 | R1*5 | R1*9
+\override MultiMeasureRest #'expand-limit = 1
+R1*2 | R1*5 | R1*9
+@end lilypond
+
+@cindex texte et silence multi-mesures
+@cindex script et silence multi-mesures
+@cindex point d'orgue et silence multi-measures
+
+Vous pouvez aussi ajouter du texte à un silence multi-mesures en utilisant
+la syntaxe @var{note}-@code{markup} (cf. @ref{Text markup}).  La
+variable @code{\fermataMarkup} permet d'ajouter un point d'orgue.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\set Score.skipBars = ##t
+\time 3/4
+R2.*10^\markup { \italic "ad lib." }
+R2.^\fermataMarkup
+@end lilypond
+
+Attention !  c'est @code{MultiMeasureRestText} qui créera le texte, et
+non @code{TextScript}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\override TextScript #'padding = #5
+R1^"low"
+\override MultiMeasureRestText #'padding = #5
+R1^"high"
+@end lilypond
+
+Pour aligner votre texte sur le début de la mesure, rattachez-le à un
+silence invisible de longueur zéro comme ceci :
+
+@example
+s1*0^"Allegro"
+R1*4
+@end example
+
+
+@seealso
+
+Référence du programme : @internalsref{MultiMeasureRestMusic},
+@internalsref{MultiMeasureRest}.
+
+L'objet de rendu @internalsref{MultiMeasureRestNumber} traite les
+nombres, et @internalsref{MultiMeasureRestText} le texte ajouté par
+l'utilisateur. 
+
+
+@refbugs
+
+Vous ne pouvez pas utiliser de doigtés (p.ex. @code{R1-4}) pour
+positionner des nombres au dessus d'un silence multi-mesures, ni
+modifier la hauteur.
+
+@cindex condenser les silences
+
+Condenser plusieurs silences en un unique silence multi-mesures ne peut 
+être automatisé.  Les silences multi-mesures peuvent générer des
+collisions avec d'autres silences.
+
+Pensez à indiquer explicitement la durée de la note qui suit un
+silence multi-mesures, car elle sera par défaut égale à la durée totale
+des mesures à compter. Ainsi, dans l'exemple ci-après, les deux do
+dièses vaudront chacun quatre mesures à 4/4.
+@example
+R1*4 cis cis
+@end example
+Lorsque @code{skipBars} est activé, le résultat semblera correct, mais
+la numérotation des mesures sera suspendue. 
+
+
 
 @node Metronome marks
 @subsection Metronome marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Tempo
+@cindex battements par minute
+@cindex indication métronomique
+
+Le métronome se règle de la manière suivante,
+@example
+\tempo @var{durée} = @var{par minute}
+@end example
+
+Les indications métronomiques seront interprétées, dans le fichier
+MIDI, comme des changements de tempo.  Ils seront imprimés sur la
+partition comme ici :
+@funindex \tempo
+@lilypond[quote,ragged-right,verbatim,fragment]
+\tempo 8.=120 c''1
+@end lilypond
+
+
+@commonprop
+
+Vous pouvez indiquer un changement de tempo pour le fichier MIDI sans
+pour autant l'imprimer.  Il suffit alors de le rendre invisible pour
+l'impression :
+@example
+\once \override Score.MetronomeMark #'transparent = ##t
+@end example
+
+Vous pouvez imprimer d'autres indications métronomiques, telles que
+des équivalences, en utilisant ce type d'étiquette textuelle :
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
+c4^\markup {
+  (
+  \smaller \general-align #Y #DOWN \note #"16." #1
+  =
+  \smaller \general-align #Y #DOWN \note #"8" #1
+  ) }
+@end lilypond
+
+@noindent
+Pour plus de détails, voir @ref{Text markup}.
+
+
+@seealso
+
+Référence du programme : @internalsref{MetronomeMark}.
+
+
+@refbugs
+
+Les risques de collision ne sont pas vérifiés.  Dans le cas où il y
+aurait des notes au dessus de la portée ou d'autres objets
+(articulations, liaisons, texte, etc), l'indication métronomique peut
+venir en surimpression.  Augmentez alors le décalage de cette
+indication par rapport à la portée :
+
+@example
+\override Score.MetronomeMark #'padding = #2.5
+@end example
+
 
 @node Rehearsal marks
 @subsection Rehearsal marks
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Repères, indication de
+@funindex \mark
+
+Indiquer un repère s'obtient grâce à la commande @code{\mark}.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+La lettre@tie{}@q{I} n'est pas utilisée, conformément aux usages de la
+gravure.  Cependant, vous pourrez intégrer la lettre @q{I} en utilisant
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
+
+Lorsque vous utilisez @code{\mark \default}, le repère s'incrémente
+automatiquement ; toutefois donner un nombre en argument permet de
+spécifier manuellement le repère en question.  La valeur à utiliser
+est enregistrée dans la propriété @code{rehearsalMark}.
+
+Le style du repère est déterminé par la propriété
+@code{markFormatter}.  Il s'agit d'une fonction qui prend en arguments
+le repère en cours (un entier) ainsi que le contexte en cours, et
+retournera un objet de type étiquette.  Dans l'exemple qui suit,
+@code{markFormatter} est réglé pour une procédure type. Quelques
+mesure plus loin, son comportement est modifié pour imprimer un
+repère encadré.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-numbers
+c1 \mark \default
+c1 \mark \default
+\set Score.markFormatter = #format-mark-box-numbers
+c1 \mark \default
+c1 \mark \default
+c1
+@end lilypond
+
+Le fichier @file{scm/@/translation@/-functions@/.scm} comporte les
+définitions de @code{format-mark-numbers} (comportement par défaut), 
+@code{format-mark-box-numbers},
+@code{format-mark-letters} et @code{format-mark-box-letters}.  Vous
+pouvez vous en inspirer pour d'autres fonctions de formatage.
+
+@code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et 
+@code{format-mark-circle-barnumbers}  permettent d'imprimer le numéro
+de mesure au lieu des compteurs alphabétique ou numérique.
+
+On peut aussi spécifier manuellement une marque de repère :
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} sera sans effet sur des repères ainsi
+définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
+@cindex segno
+@cindex coda
+@cindex D.S al Fine
+
+Un @code{\mark} peut contenir un glype musical tel que le signe
+@emph{segno}.  
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+c1 \mark \markup { \musicglyph #"scripts.segno" }
+c1 \mark \markup { \musicglyph #"scripts.coda" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Pour connaître les différents symboles accessibles par
+@code{\musicglyph}, consultez @ref{The Feta font}.
+
+Pour affiner le positionnement des repères, veuillez vous référer à
+@ref{Text marks}.
+
+@seealso
+
+Dans ce manuel : @ref{Text marks}.
+
+Référence du programme : @internalsref{RehearsalMark}.
+
+Fichiers d'initialisation : @file{scm/@/translation@/-functions@/.scm}
+contient les définitions de @code{format-mark-numbers} et
+@code{format-mark-letters}.  Elles seront source d'inspiration pour
+d'autres fonctions de formatage.
+
+Exemples : @lsr{parts,rehearsal-mark-numbers.ly}
+
 
 @node Bar numbers
 @subsection Bar numbers
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Mesure, numéro de
+@cindex numéros de mesure
+@funindex currentBarNumber
+
+Les numéros de mesure sont imprimés par défaut à chaque début de
+ligne.  Ce nombre est stocké par la propriété @code{currentBarNumber}
+qui sera mis à jour à chaque mesure.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\repeat unfold 4 {c4 c c c} \break
+\set Score.currentBarNumber = #50
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+L'impression d'un numéro de mesure ne peut intervenir que s'il y a une
+barre.  Aussi, pour pouvoir le faire au début d'un morceau,
+devrez-vous ajouter une barre vide :
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+\repeat unfold 4 {c4 c c c} \break
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+Vous pouvez imprimer un numéro de mesure à intervalles réguliers plutôt
+qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant,
+dont la source complète est 
+@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+
+@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+
+Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
+donnera une partition sans numéros de mesure.
+
+@lilypond[verbatim,ragged-right,quote]
+\layout {
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
+}
+\relative c''{
+c4 c c c \break
+c4 c c c
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{BarNumber}.
+
+Exemples : @lsrdir{staff}
+
+
+@refbugs
+
+Les numéros de mesure peuvent entrer en collision avec les crochets de
+@internalsref{StaffGroup}. La propriété @code{padding} --- décalage
+--- de l'objet @internalsref{BarNumber} permet alors d'ajuster leur
+positionnement. 
+
 
 @node Instrument names
 @subsection Instrument names
 
-UNTRANSLATED NODE: IGNORE ME
+Dans un conducteur, les noms d'instrument sont portés en regard de
+chacune des portées.
+
+Ce résultat s'obtient en spécifiant
+@internalsref{Staff}.@code{instrumentName} et
+@internalsref{Staff}.@code{shortInstrumentName}, ou
+@internalsref{PianoStaff}.@code{instrumentName} et 
+@internalsref{PianoStaff}.@code{shortInstrumentName}.  L'argument
+textuel apparaîtra avant le début de la portée.  La première ligne
+affichera @code{instrumentName}, et les suivantes
+@code{shortInstrumentName}. 
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+\set Staff.instrumentName = "Ploink "
+\set Staff.shortInstrumentName = "Plk "
+c1
+\break
+c''
+@end lilypond
+
+Le recours à la commande @code{\markup} permet de construire des noms
+d'instruments particuliers, tels que
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = \markup {
+  \column { "Clarinetti"
+            \line { "in B" \smaller \flat } } }
+c''1
+@end lilypond
+
+Si vous centrez le nom d'un instrument, il faudra le faire pour tous
+
+@lilypond[quote,verbatim,ragged-right]
+{ <<
+\new Staff {
+  \set Staff.instrumentName = \markup {
+    \center-align { "Clarinetti"
+      \line { "in B" \smaller \flat } } }
+  c''1
+}
+\new Staff {
+  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
+  c''1
+}
+>>
+}
+@end lilypond
+
+Losque le nom d'un instrument est relativement long, il est judicieux
+d'augmenter le retrait --- @code{indent} --- au sein du bloc
+@code{\layout}. 
+
+Procédez comme suit pour centrer des noms d'instruments tout en
+préservant un décalage par rapport à la portée :
+
+@lilypond[quote,verbatim,ragged-right]
+\new StaffGroup \relative
+<<
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    c1 c1
+  }
+  \new Staff {
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    c1 c1
+  }
+>>
+@end lilypond
+
+Des noms d'instruments peuvent s'utiliser dans d'autres contextes, tels
+que @code{GrandStaff}, @code{ChoirStaff}, ou @code{StaffGroup}, à
+condition de leur affecter le graveur approprié :
+
+@example
+\layout@{
+  \context @{\GrandStaff \consists "Instrument_name_engraver"@}
+@}
+@end example
+
+@noindent
+Pour de plus amples informations sur la manière d'activer ou
+désactiver un graveur, voir @ref{Modifying context plug-ins}.
+
+Vous pouvez changer d'instrument en cours de morceau :
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\set Staff.instrumentName = "First"
+\set Staff.shortInstrumentName = "one"
+c1 c c c \break
+c1 c c c \break
+\set Staff.instrumentName = "Second"
+\set Staff.shortInstrumentName = "two"
+c1 c c c \break
+c1 c c c \break
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{InstrumentName}.
+
+
 
 @node Instrument transpositions
 @subsection Instrument transpositions
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex transposition, MIDI
+@cindex transposition, instrument
+
+Vous pouvez spécifier la tonalité d'un instrument transpositeur, ce
+qui est le cas pour de nombreux instruments à vent comme la clarinette
+(si bémol, la ou mi bémol), le cor (fa), ou la trompette (si bémol,
+ut, ré ou mi bémol).
+
+Cette transposition s'indique après le mot-clé @code{\transposition}.
+
+@example
+\transposition bes   %% clarinette en si bémol
+@end example
+
+@noindent
+Cette commande détermine la propriété @code{instrumentTransposition},
+dont la valeur sera utilisée pour le fichier MIDI et en cas de
+citation.  Elle n'affecte en rien la manière dont les notes seront
+imprimées sur la portée.  Référez-vous à la section @ref{Transpose}
+pour obtenir un autre résultat.
+
+La hauteur donnée en argument à @code{\transposition} doit
+correspondre à la note entendue lorsqu'un @code{do} écrit sur la
+portée est joué par l'instrument transpositeur.  Par exemple, lorsque
+vous saisissez une partition en notes réelles, toutes les voix
+devraient être en ut ; pour les instruments transpositeurs, il faudra
+procéder de cette manière : 
+
+@example
+clarinet = @{
+  \transposition c'
+  ...
+@}
+saxophone = @{
+  \transposition c'
+  ...
+@}
+@end example
+
+Lorsque vous entrez de la musique à partir d'une partie transposée,
+utilisez la commande @code{\transposition}.  Si l'on prend l'exemple
+des parties de cor, leur tonalité change souvent au cours d'un morceau ;
+en recopiant cette partie, utilisez @code{\transposition} ainsi :
+
+@example
+\transposition d'
+c'4^"en RÉ"
+...
+\transposition g'
+c'4^"en SOL"
+...
+@end example
+
 
 @node Ottava brackets
 @subsection Ottava brackets
 
-UNTRANSLATED NODE: IGNORE ME
+Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
+transposition spécifique d'une octave pour la portée en cours.  C'est
+la fonction @code{set-octavation} qui s'en charge.
+
+@cindex ottava
+@cindex 15ma
+@cindex octaviation
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c''' {
+  a2 b
+  #(set-octavation 1)
+  a b
+  #(set-octavation 0)
+  a b
+}
+@end lilypond
+
+La fonction @code{set-octavation} peut aussi prendre en argument les
+valeurs -1@tie{}(pour 8va bassa), 2@tie{}(pour 15ma --- 2 octaves) ou
+-2@tie{}(pour 15ma bassa).   En interne, cette fonction détermine les
+propriétés @code{ottavation} (p.ex. en @code{"8va"} ou @code{"8vb"})
+et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
+d'octaviation en définissant @code{ottavation} après avoir fait appel
+à @code{set-octavation} :
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  #(set-octavation 1)
+  \set Staff.ottavation = #"8"
+  c'''
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{OttavaBracket}.
+
+
+@refbugs
+
+@code{set-octavation} gère difficilement les changements de clé qui
+pourraient intervenir alors qu'elle est effective.
+
 
 @node Different editions from one source
 @subsection Different editions from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \tag
+@cindex tag
+
+La commande @code{\tag} affecte un nom à des expressions musicales.
+Les expressions ainsi balisées pourront être filtrées par la suite.
+Ce mécanisme permet d'obtenir différentes versions à partir d'une même
+source musicale. 
+
+Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
+l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
+comportera les ornements. 
+
+@example
+c1
+<<
+  \tag #'partie <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'conducteur R1
+>>
+c1
+@end example
+
+Ce principe peut s'appliquer aux articulations, textes, etc.  Il
+suffit de positionner 
+@example
+-\tag #@var{votre-balise}
+@end example
+avant l'articulation, comme ici :
+@example
+c1-\tag #'part ^4
+@end example
+
+Ceci définira une note avec une indication de doigté conditionnelle.
+
+@cindex keepWithTag
+@cindex removeWithTag
+C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
+que vous filtrerez les expressions balisées.  Par exemple :
+@example
+<<
+  @var{de la musique}
+  \keepWithTag #'score @var{de la musique}
+  \keepWithTag #'part @var{de la musique}
+>>
+@end example
+donnerait :
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+Les arguments de la commande @code{\tag} doivent être un symbole (tel
+que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
+Vous pouvez utiliser de multiples balises dans un morceau en
+saisissant plusieurs @code{\tag}.
+
+@example
+  \tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+
+@seealso
+
+Exemples : @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
+si vous imprimez une partition avec les deux sections balisées.
+
 
 @node Orchestral music
 @section Orchestral music
 
-UNTRANSLATED NODE: IGNORE ME
+La musique pour orchestre implique certaines spécificités, que ce soit
+au niveau du conducteur --- la partition du chef --- ou pour les
+partitions de chaque pupitre.  Cette section vous apprendra à gérer
+certains problèmes courants de la musique orchestrale.
 
 @menu 
 * Automatic part combining::
@@ -163,35 +1547,425 @@ UNTRANSLATED NODE: IGNORE ME
 * Formatting cue notes::
 * Aligning to cadenzas::
 @end menu 
+
+
+
 @node Automatic part combining
 @subsection Automatic part combining
+@cindex regroupement automatique de parties
+@cindex parties, combiner des
 
-UNTRANSLATED NODE: IGNORE ME
+Le regroupement automatique de parties vous permet de fusionner deux
+pupitres sur une seule portée, ceci dans le but de créer des
+partitions d'orchestre.  Lorsque les deux parties sont identiques sur
+une certaine durée, une seule s'affiche.  Lorsqu'elles diffèrent, 
+deux voix séparées apparaissent, avec des hampes dont la direction est
+gérée automatiquement.  Vous pouvez aussi identifier et faire
+ressortir les solos et parties @emph{a due}.
+
+Voici la syntaxe qui permet de combiner des parties :
+
+@example
+\partcombine @var{musicexpr1} @var{musicexpr2}
+@end example
+
+
+L'exemple suivant illustre les fonctionnalités élémentaires du
+combinateur de parties : positionner les parties sur une portée, gérer
+la direction des hampes et de la polyphonie.
+
+@lilypond[quote,verbatim,ragged-right,fragment]
+\new Staff \partcombine
+  \relative g' { g g a( b) c c r r }
+  \relative g' { g g r4 r e e g g }
+@end lilypond
+
+Le premier @code{sol} n'apparaît qu'une seule fois, alors qu'il a été
+spécifié deux fois (une fois dans chacune des parties).  La direction
+des hampes et des liaisons de tenue ou de phrasé est gérée
+automatiquement, selon qu'il s'agisse d'un solo ou d'un unisson.  La
+première partie, dont le contexte s'appellera @code{one}, aura toujours
+ses hampes dirigées vers le haut et sera notée @q{Solo}, alors que la
+deuxième, appelée @code{two}, aura des hampes vers le bas et sera
+notée @q{Solo@tie{}II}.
+
+Si votre intention n'est que de fusionner les parties, sans ajouter de
+texte, assignez faux à la propriété @code{printPartCombineTexts}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Staff.printPartCombineTexts = ##f
+  \partcombine
+    \relative g' { g a( b) r }
+    \relative g' { g r4 r f }
+>>
+@end lilypond
+
+Le texte imprimé pour les sections solo ou à l'unisson se règle par
+les propriétés @code{soloText}, @code{soloIIText}, et @code{aDueText}. 
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Score.soloText = #"ichi"
+  \set Score.soloIIText = #"ni"
+  \set Score.aDueText = #"tachi"
+  \partcombine
+    \relative g' { g4 g a( b) r }
+    \relative g' { g4 g r r f }
+>>
+@end lilypond
+
+LilyPond interprète dans un contexte @internalsref{Voice} les
+arguments fournis à @code{\partcombine}.  Si vous travaillez avec des
+octaves relatives, spécifiez @code{\relative} dans chacune des
+expressions musicales, comme ceci :
+
+@example
+\partcombine
+  \relative @dots{} @var{musicexpr1}
+  \relative @dots{} @var{musicexpr2}
+@end example
+
+@noindent
+Une section @code{\relative} en dehors de @code{\partcombine} sera
+sans effet sur les hauteurs de @var{musicexpr1} et @var{musicexpr2}.
+
+@seealso
+
+Référence du programme : @internalsref{PartCombineMusic}.
+
+@refbugs
+
+Lorsque @code{printPartCombineTexts} est actif et que les deux voix
+jouent souvent les mêmes notes, le combinateur peut afficher @code{a2}
+plus d'une fois par mesure.
+
+@code{\partcombine} ne peut s'inscrire dans un bloc @code{\times}.
+
+@code{\partcombine} ne peut s'inscrire dans un bloc @code{\relative}.
+
+En interne, @code{\partcombine} interprète les deux arguments en tant
+que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
+quand les parties seront fusionnées.  Par conséquent, si les arguments
+changent pour d'autres noms de contexte @internalsref{Voice}, les
+événements qu'ils contiendraient seront ignorés. 
+
 
 @node Hiding staves
 @subsection Hiding staves
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Frenched scores
+@cindex Masquer des portées
+
+Dans les partitions d'orchestre, les portées qui n'ont que des
+silences sont habituellement masquées afin de gagner de la place.  Ce
+style d'édition s'appelle en anglais @qq{French Score}.
+Cette fonctionnalité est activée par défaut dans les contextes 
+@internalsref{Lyrics}, @internalsref{ChordNames} et
+@internalsref{FiguredBass}.  Lorsque des lignes appartenant à ces
+contextes se retrouvent vides après placement des sauts de ligne,
+elles sont effacées.
+
+En ce qui concerne les portées normales, il existe un contexte
+@internalsref{Staff} spécifique qui permet d'arriver à ce résultat :
+les portées ne contenant rien ou uniquement des silences multi-mesures
+seront retirées.  La définition de ce contexte est enregistrée dans la
+variable @code{\RemoveEmptyStaffContext}.  Voyez comment la deuxième
+portée disparaît du deuxième système :
+
+@lilypond[quote,ragged-right,verbatim]
+\layout {
+  \context { \RemoveEmptyStaffContext }
+}
+
+{
+  \relative c' <<
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { c4 d e f \break R1 }
+  >>
+}
+@end lilypond
+
+Le premier système comportera absolument toutes les portées.  Si vous
+voulez masquer les portées vides y compris pour le premier système,
+vous devrez assigner vrai à la propriété @code{remove-first} dans
+@internalsref{VerticalAxisGroup}. 
+
+@example
+\override Score.VerticalAxisGroup #'remove-first = ##t
+@end example
+
+Pour masquer d'autres types de contextes, vous pouvez utiliser 
+@code{\AncientRemoveEmptyStaffContext} ou
+@code{\RemoveEmptyRhythmicStaffContext}. 
+
+Une application particulière de cette fonctionnalité est la création
+d'une @emph{ossia} --- variante d'une partie de la mélodie --- affichée à
+l'aide d'une portée supplémentaire.
+
 
 @node Quoting other voices
 @subsection Quoting other voices
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex cues
+@cindex citation
+
+Grâce aux citations de répliques, vous pouvez insérer directement dans une partie
+des fragments d'une autre partie.  Avant qu'une partie ne puisse être
+mentionnée ailleurs, elle doit être considérée comme reproductible.
+C'est le but de la commande @code{\addQuote}.
+
+@example
+\addQuote @var{nom} @var{musique}
+@end example
+
+
+@noindent
+Ici, @var{nom} représente une chaîne d'identification, et
+@var{musique} n'importe quelle musique.  Voici un exemple de
+@code{\addQuote} :
+
+@example
+\addQuote clarinet \relative c' @{
+  f4 fis g gis
+@}
+@end example
+
+Vous devez placer cette commande au niveau le plus haut, c'est à dire
+en dehors de tout bloc de musique.
+
+Après avoir fait appel à @code{\addquote}, la citation interviendra
+en utilisant @code{\quoteDuring} ou @code{\cueDuring} :
+
+@example
+\quoteDuring #@var{nom} @var{musique}
+@end example
+
+Au cours d'une partie, des extraits de répliques peuvent être cités en
+utilisant la commande @code{\quoteDuring}.
+
+@example
+\quoteDuring #"clarinet" @{ s2. @}
+@end example
+
+Cela citera trois noires (la durée de @code{s2.}) appartenant à la
+voix @code{clarinette} précédemment générée.
+
+Plus précisément, on s'arrête à cet instant de la partie en cours
+d'impression, et l'on extrait les notes à ce même instant dans la voix
+citée --- celle qui contient @code{\addQuote}.  C'est la raison pour
+laquelle l'argument de @code{\addQuote} doit englober toute la voix en
+question, y compris les éventuels silences à son début.
+
+Les citations tiennent compte des transpositions, aussi bien celle de
+l'instrument d'origine que celle de la partie où elle intervient, dans
+la mesure où elles sont spécifiées par la commande @code{\transposition}.
+
+@lilypond[quote,ragged-right,verbatim]
+\addQuote clarinet \relative c' {
+  \transposition bes
+  f4 fis g gis
+}
+
+{
+  e'8 f'8 \quoteDuring #"clarinet" { s2 }
+}
+@end lilypond
+
+Le type d'événements pris en charge pour la citation peut se régler
+avec la propriété @code{quotedEventTypes}.  Par défaut, sa valeur est
+fixée à @code{(note-event rest-event)}, ce qui signifie que seuls les
+notes et silences seront mentionnés par @code{\quoteDuring}.
+Définir
+
+@example
+\set Staff.quotedEventTypes =
+       #'(note-event articulation-event dynamic-event)
+@end example
+
+@noindent
+reproduira les notes (mais pas les silences), ainsi que les scripts
+et nuances.
+
+@refbugs
+
+Seul le contenu de la première @internalsref{Voice} rencontrée dans la
+partie marquée d'une commande @code{\addQuote} pourra être retenu. Par
+voie de conséquence, @code{music} ne saurait comprendre de @code{\new}
+ou une instance @code{context Voice} qui la ferait passer à une autre voix.
+
+Citer des notes d'ornement ne fonctionne pas, et peut même entraîner
+un blocage de LilyPond.
+
+Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité.
+
+
+@seealso
+
+Dans ce manuel : @ref{Instrument transpositions}.
+
+Exemples : @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
+
+Référence du programme : @internalsref{QuoteMusic}.
+
 
 @node Formatting cue notes
 @subsection Formatting cue notes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex petites notes, formater des
+
+La section précédente indiquait comment insérer des notes d'une autre
+voix.  Nous allons maintenant voir une fonction musicale avancée,
+@code{\cueDuring}, qui facilite le formatage des petites notes.
+
+Sa syntaxe est :
+
+@example
+  \cueDuring #@var{nom} #@var{updown} @var{musique}
+@end example
+
+Des notes issues de la partie @var{nom} s'insèreront dans une
+@internalsref{Voice} nommée @code{cue}, simultanément avec
+@var{musique} --- habituellement un silence.  L'apparition des petites
+notes initialise une polyphonie temporaire pour la portée concernée.  
+L'argument @var{updown} détermine si ces petites notes seront
+attachées à la première ou à la seconde voix.
+
+
+@lilypond[verbatim,ragged-right]
+smaller = {
+  \set fontSize = #-2
+  \override Stem #'length-fraction = #0.8
+  \override Beam #'thickness = #0.384
+  \override Beam #'length-fraction = #0.8
+}
+
+\addQuote clarinet \relative {
+  R1*20
+  r2 r8 c' f f
+}
+
+\new Staff \relative  <<
+
+  % setup a context for cue notes.
+  \new Voice = "cue" { \smaller \skip 1*21 }
+
+  \set Score.skipBars = ##t
+
+  \new Voice {
+    R1*20
+    \cueDuring #"clarinet" #UP {
+      R1
+    }
+    g4 g2.
+  }
+>>
+@end lilypond
+
+
+Quelques indications pour une citation efficace :
+
+@itemize @bullet
+@item
+ Les notes de la citation sont dans une police plus petite.
+@item
+ La citation comporte une étiquette indiquant l'instrument qui joue.
+@item
+ Lorsque la partie originale reprend sa place, rappeler l'instrument.
+
+@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
+
+@c Yes, this is good practice.  Otherwise, the start of the original
+@c part can only be seen from the font size.  This is not good enough
+@c for sight-reading.  It is possilbe to use other
+@c markers (e.g. a big close-bracket over the staff) to indicate the cue
+@c   notes are
+@c finished.
+@c -hwn
+
+
+Tout autre modification introduite par la citation devrait être
+annulée.  Par exemple, si l'instrument cité utilise une autre clé, il
+faudra revenir à la clé habituelle.
+
+@end itemize
+
+La macro @code{\transposedCueDuring} est particulièrement adaptée pour
+des instrument ayant une tessiture éloignée, comme dans le cas d'un
+piccolo cité dans une partie de contrebasson.
+
+@lilypond[verbatim,ragged-right,quote]
+picc = \relative c''' {
+  \clef "treble^8"
+  R1 |
+  c8 c c e g2 |
+  a4 g g2 |
+}
+\addQuote "picc" { \picc }
+
+cbsn = \relative c, {
+  \clef "bass_8"
+  c4 r g r
+  \transposedCueDuring #"picc" #UP c,, { R1 } |
+  c4 r g r |
+}
+
+<<
+  \context Staff = "picc" \picc
+  \context Staff = "cbsn" \cbsn
+>>
+@end lilypond
+
+
 
 @node Aligning to cadenzas
 @subsection Aligning to cadenzas
 
-UNTRANSLATED NODE: IGNORE ME
+Dans un contexte orchestral, une cadence constitue un problème
+spécifique.  Lors du montage d'une partition contenant une cadence,
+tous les autres instruments doivent sauter autant de notes que ce
+qu'en comporte la cadence, faute de quoi il démarreraient trop tôt ou
+trop tard. 
+
+Les fonctions @code{mmrest-of-length} ou @code{skip-of-length}
+permettent de résoudre ce problème.  Ces fonctions Scheme prennent en
+argument un fragment de musique, et génèrent un @code{\skip} ou un
+silence multi-mesures d'une durée correspondant à ce fragment.
+L'exemple qui suit illustre l'utilisation de @code{mmrest-of-length}. 
+
+@lilypond[verbatim,ragged-right,quote]
+cadenza = \relative c' {
+  c4 d8 << { e f g } \\ { d4. } >>
+  g4 f2 g4 g
+}
+
+\new GrandStaff <<
+  \new Staff { \cadenza c'4 }
+  \new Staff {
+    #(ly:export (mmrest-of-length cadenza))
+    c'4
+  }
+>>
+@end lilypond
+
+
+
 
 @node Contemporary notation
 @section Contemporary notation
 
-UNTRANSLATED NODE: IGNORE ME
+Les compositeurs du XXe siècle ont largement étendu le vocabulaire
+musical.  Face à cette expansion, de nombreuses innovations ont été
+tentées en matière de notation musicale.  L'ouvrage de Kurt Stone,
+@q{Music Notation in the 20th century} (cf. @ref{Literature
+list}), nous en propose une vue d'ensemble.
+
+Cette section aborde des aspects que l'on ne rencontre pas en notation
+traditionnelle, tels que hauteurs, ligatures de triolets ou
+articulations.  Pour tout ce qui relève de la notation traditionnelle
+au sein de la musique contemporaine, comme les microintervalles, les
+n-olets imbriqués ou les points d'orgue inhabituels, référez-vous aux
+sections appropriées de la documentation.
 
 @menu 
 * Polymetric notation::
@@ -203,108 +1977,797 @@ UNTRANSLATED NODE: IGNORE ME
 * Improvisation::
 * Selecting notation font size::
 @end menu 
+
+
 @node Polymetric notation
 @subsection Polymetric notation
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex métrique composite
+@cindex composite, métrique
+@cindex métrique polymétrique
+@cindex polymétrie
+
+LilyPond ne gère pas les métriques composites de manière explicite,
+mais on peut contourner ce problème.  Dans l'exemple suivant,
+l'indicateur de métrique est obtenu grâce à une étiquette textuelle.
+Cette étiquette vient s'insérer dans l'objet graphique (@emph{grob})
+@internalsref{TimeSignature}.  Voir aussi
+@lsr{contemporary,compound-time-signature}. 
+
+
+@lilypond[verbatim,ragged-right]
+% create 2/4 + 5/8
+tsMarkup =\markup {
+  \override #'(baseline-skip . 2) \number {
+    \column { "2" "4" }
+    \vcenter "+"
+    \bracket \column { "5" "8" }
+  }
+}
+
+{
+  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+  \override Staff.TimeSignature #'text = #tsMarkup
+  \time 3/2
+  c'2 \bar ":" c'4 c'4.
+}
+@end lilypond
+
+Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
+parviendrez en déplaçant le @internalsref{Timing_translator} dans le
+contexte @internalsref{Staff}.
+
+@example
+\layout @{
+  \context @{ \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+  @}
+  \context @{
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  @}
+
+@}
+@end example
+
+
+Maintenant, chacune des portées dispose de sa propre métrique.
+@example
+<<
+  \new Staff @{
+    \time 3/4
+    c4 c c | c c c |
+  @}
+  \new Staff @{
+    \time 2/4
+    c4 c | c c | c c
+  @}
+  \new Staff @{
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  @}
+>>
+@end example
+
+@lilypond[quote,ragged-right]
+\layout{
+  \context{
+     \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+    }
+  \context{ \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+
+\relative c' <<
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c | c c | c c
+  }
+  \new Staff {
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  }
+>>
+@end lilypond
+
+
+Une autre forme de notation polymétrique consiste dans le fait que des
+notes aient une durée relative différente selon la portée.  
+
+Vous pouvez créer une telle notation en définissant une métrique
+commune à toutes les portées,  que vous proratiserez manuellement
+selon le cas en utilisant @code{timeSignatureFraction} pour obtenir la
+division adéquate pour chaque portée.  Les durées, dans chacune des
+portées, seront alors échelonnées par rapport à la métrique commune.
+L'échelle de représentation se règle avec @code{\compressMusic} ---
+qui fonctionne comme @code{\times}, sans toutefois créer de crochet.
+La syntaxe appropriée est :
+@example
+\compressMusic #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
+@end example
+
+
+L'exemple suivant utilise parallèlement des mesures à 3/4, 9/8 et
+10/8.  Pour la deuxième portée, les durées sont multipliées par 2/3,
+de telle sorte que @w{2/3 * 9/8 = 3/4} ; pour la troisième, elles sont
+multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \compressMusic #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \compressMusic #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[ c] }
+      | c4. c4. \times 2/3 { c8 c c } c4
+    }
+  }
+>> }
+@end lilypond
+
+
+
+
+@refbugs
+
+L'utilisation de métriques différentes en parallèle entraine un
+alignement vertical.  De ce fait, les barres de mesure ont tendance à
+fausser l'espacement régulier.
+
 
 @node Time administration
 @subsection Time administration
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Temps, gestion du
+
+Le temps est administré par le @internalsref{Time_signature_engraver},
+qui réside en principe dans le contexte @internalsref{Score}.  Sa
+gestion traite les variables suivantes :
+
+@table @code
+@item currentBarNumber
+Le numéro de mesure.
+
+@item measureLength
+La longueur de la mesure, dans la métrique en cours.  Pour une mesure
+à 4/4, elle est de@tie{}1, et de 3/4 pour une mesure à 6/8.
+
+@item measurePosition
+Le moment où l'on en est dans la mesure en cours.  Cette quantité est
+remise à@tie{}0 dès lors qu'on dépasse @code{measureLength} ; la variable
+@code{currentBarNumber} est alors incrémentée.  
+
+@item timing
+Lorsqu'on lui assigne la valeur @emph{vrai}, les valeurs ci-dessus
+mentionnées sont mises à jour à chaque pas.  Fixée à @emph{faux}, le
+graveur restera indéfiniment dans la mesure en cours.
+@end table
+
+Le calage peut être modifié en réglant explicitement l'une de ces
+variables.  Dans l'exemple qui suit, nous réglons la métrique à 4/4,
+tout en fixant @code{measureLength} à 5/4.  Un peu plus loin, nous
+raccourcissons la mesure de 1/8, en assignant 7/8 à
+@code{measurePosition}, alors que nous en sommes à 2/4 dans la
+mesure ; la barre de mesure tombera donc à @w{2/4 + 3/8}.  Les 3/8
+résultent du fait que 5/4 équivaut à 10/8, mais nous nous sommes recalés
+à 7/8 de la mesure ;  donc @w{10/8 @minus{} 7/8 = 3/8}.
+
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
+\set Score.measureLength = #(ly:make-moment 5 4)
+c1 c4
+c1 c4
+c4 c4
+\set Score.measurePosition = #(ly:make-moment 7 8)
+b8 b b
+c4 c1
+@end lilypond
+
+@noindent
+Comme le montre cet exemple, @code{ly:make-moment n m} construit une
+durée de n/m fois une ronde.  
+Par conséquent, @code{ly:make-moment 1 8} correspond à une croche, et
+@code{ly:make-moment 7 16} à la durée de sept doubles croches.
+
 
 @node Proportional notation (introduction)
 @subsection Proportional notation (introduction)
+@cindex Notation proportionnelle
 
-UNTRANSLATED NODE: IGNORE ME
+Voir @ref{Proportional notation}.
+
+
+@c À faire : supprimer tout ça ?
+
+Les notes peuvent s'espacer proportionnellement en assignant une durée
+à @code{proportionalNotationDuration}
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
+Manipuler cette propriété affectera l'espacement idéal uniquement pour
+des notes consécutives.  Pour obtenir une véritable notation
+proportionnelle, vous devrez tenir compte des réglages suivants :
+
+@itemize @bullet
+
+@item La véritable notation proportionnelle exige que des symboles
+puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
+@internalsref{Separating_line_group_engraver} du contexte
+@internalsref{Staff}. 
+
+@item L'influence en matière d'espacement induite par le formatage
+(clés, barres de mesure, etc) s'annule en assignant
+@emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
+l'objet @internalsref{SpacingSpanner}.
+
+@item Les affinages optiques se règlent en assignant @emph{vrai} à la
+propriété @code{uniform-stretching} du @internalsref{SpacingSpanner}. 
+
+
+@end itemize
+
+@seealso
+
+Exemples : @lsr{spacing,proportional@/-spacing@/.ly}, 
+@lsr{spacing,proportional@/-strict@/-grace@/-notes@/.ly}, et
+@lsr{spacing,proportional@/-strict@/-notespacing@/.ly}
+
+Le fichier @file{input/proportional.ly} illustre la notation
+proportionnelle stricte.
+
 
 @node Clusters
 @subsection Clusters
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex cluster
+
+Un cluster indique un agrégat de sons.  On peut le représenter par une
+plage limitée par un ambitus (notes extrêmes).  On obtient une telle notation en
+appliquant la fonction @code{makeClusters} à une séquence d'accords,
+comme  
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\makeClusters { <c e > <b f'> }
+@end lilypond
+
+Des notes ordinaires et des clusters peuvent cohabiter sur une même
+portée, y compris simultanément --- en pareil cas, rien ne sera fait
+pour tenter d'empécher les chevauchements entre notes et clusters.
+
+@seealso
+
+Référence du programme : @internalsref{ClusterSpanner},
+@internalsref{ClusterSpannerBeacon},
+@internalsref{Cluster_spanner_engraver}.
+
+Exemples : @lsr{contemporary,cluster@/.ly}.
+
+@refbugs
+
+Les expressions musicales du type @code{<< @{ g8 e8 @} a4 >>} ne
+seront pas imprimées de façon acceptable.  utilisez plutôt 
+@code{<g a>8 <e a>8} . 
+
 
 @node Special noteheads
 @subsection Special noteheads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex têtes de note, spéciales
+
+Certains instruments utilisent des têtes de note différentes à des
+fins spécifiques --- des croix pour le @q{parlato} des chanteurs ou les
+notes étouffées des guitares ; des losanges pour les harmoniques des
+cordes.  Il existe un raccourci (@code{\harmonic}) pour les notes en
+losange ; pour les autres styles de tête, il vous faudra jouer avec la
+propriété @code{NoteHead}.
+
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d <c f\harmonic> <d a'\harmonic>
+@end lilypond
+
+@noindent
+Pour une liste exhaustive des styles de tête de note, consultez 
+@ref{Note head styles}.
+
+
+@seealso
+
+Référence du programme : @internalsref{NoteHead}.
+
 
 @node Feathered beams
 @subsection Feathered beams
 
-UNTRANSLATED NODE: IGNORE ME
+Les ligatures en soufflet s'obtiennent en définissant la propriété
+@code{grow-direction} d'une barre de ligature.  La fonction
+@code{\featherDurations} sert à ajuster la durée des notes.
+
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
+\featherDurations #(ly:make-moment 5 4) 
+{
+  c16[ c c c c c c]
+}
+@end lilypond
+
+@refbugs
+
+La commande @code{\featherDurations} ne permet de traiter que de très
+courts extraits.
 
 @node Improvisation
 @subsection Improvisation
 
-UNTRANSLATED NODE: IGNORE ME
+L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
+allongée (@emph{slash}).  Ces têtes de notes sont créées  par
+l'adjonction du graveur @internalsref{Pitch_squash_engraver} au
+contexte @internalsref{Voice}, de telle sorte que la commande
+
+@example
+\set squashedPosition = #0
+\override NoteHead #'style = #'slash
+@end example
+
+@noindent
+active les notes penchées.
+
+Vous disposez des raccourcis @code{\improvisationOn} et son corollaire
+@code{\improvisationOff} pour cette séquence, comme l'illustre
+l'exemple ci dessous.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Voice \with {
+  \consists Pitch_squash_engraver
+} \transpose c c' {
+  e8 e g a a16(bes)(a8) g \improvisationOn
+  e8
+  ~e2~e8 f4 fis8
+  ~fis2 \improvisationOff a16(bes) a8 g e
+}
+@end lilypond
+
 
 @node Selecting notation font size
 @subsection Selecting notation font size
 
-UNTRANSLATED NODE: IGNORE ME
+Le plus sûr moyen de régler la taille de la police, quelque soit le
+contexte, consiste à définir la propriété @code{fontSize}.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g
+@end lilypond
+
+@noindent
+Ceci ne modifiera en rien la taille des différents symboles tels que
+ligatures ou liaisons.
+
+En interne, la propriété @code{fontSize} d'un contexte aura pour effet
+de définir la propriété @code{font-size} pour tous les objets de
+rendu.  La valeur de @code{font-size} est un entier représentant la
+taille proportionnellement à la hauteur standard de la portée en
+cours.  Chaque incrément correspond à une augmentation d'environ
+12@tie{}% de la taille de la police. Un pas de six aboutit exactement
+au doublement de la taille.  La fonction Scheme @code{magstep}
+convertit le nombre affecté à @code{font-size} en facteur d'échelle.
+Vous pouvez aussi définir directement la propriété @code{font-size} de
+manière à n'affecter seulement que certains objets de rendu.
+
+@lilypond[quote,fragment,relative=1,verbatim]
+c8
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g
+@end lilypond
+
+Pour changer la taille des symboles musicaux (police Feta), LilyPond met
+à l'échelle la fonte dont la taille est la plus proche de la taille voulue ---
+cf. @ref{Setting the staff size}.  La taille standard, pour laquelle
+@code{font-size} vaut 0, dépend de la hauteur de la portée.  À une
+portée de 20 points correspond une police de 10 points.
+
+La propriété @code{font-size} ne peut intervenir que pour les objets
+qui utilisent des polices, autrement dit ceux qui disposent de
+l'interface de rendu @internalsref{font-interface}.
+
+@refcommands
+
+Les commandes suivantes définissent @code{fontSize} pour la voix en
+cours :
+
+@funindex \tiny
+@code{\tiny},
+@funindex \small
+@code{\small},
+@funindex \normalsize
+@code{\normalsize}.
+
+
 
 @node Educational use
 @section Educational use
 
-UNTRANSLATED NODE: IGNORE ME
+Grâce aux nombreux contrôles dont LilyPond dispose, il est tout à fait
+possible de générer du matériel éducatif d'une qualité comparable aux
+grandes partitions.
 
-@menu 
-* Balloon help::
-* Blank music sheet::
-* Hidden notes::
-* Shape note heads::
-* Easy Notation note heads::
-* Analysis brackets::
-* Coloring objects::
-* Parentheses::
-* Grid lines::
-@end menu 
+@menu
+* Balloon help::                
+* Blank music sheet::           
+* Hidden notes::                
+* Shape note heads::            
+* Easy Notation note heads::    
+* Analysis brackets::           
+* Coloring objects::            
+* Parentheses::                 
+* Grid lines::                  
+@end menu
+
 @node Balloon help
 @subsection Balloon help
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez marquer et nommer des éléments de notation à l'aide de
+bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
+notation. 
+
+En voici un exemple :
+@c KEEP LY
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Je suis une hampe" }
+  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+}
+@end lilypond
+
+@noindent
+Vous disposez de deux fonctions musicales, @code{balloonText} et
+@code{balloonGrobText}.  @code{balloonGrobText} prend en argument
+l'objet graphique à agrémenter, alors que @code{balloonText} s'utilise
+comme une simple articulation.  Les autres arguments sont le décalage
+et le texte de la bulle.
+
+@cindex bulles
+@cindex notation, expliquer
+
+@seealso
+
+Référence du programme : @internalsref{text-balloon-interface}.
+
+
+
 
 @node Blank music sheet
 @subsection Blank music sheet
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Papier musique
+@cindex Portées, feuille blanche
+
+Une feuille de papier musique s'obtient en utilisant des notes
+invisibles, et en invalidant le @code{Bar_number_engraver}.
+
+@c KEEP LY
+@lilypond[quote,verbatim]
+\layout{ indent = #0 }
+emptymusic = {
+  \repeat unfold 2 % À modifier pour plus de lignes.
+  { s1\break }
+  \bar "|."
+}
+\new Score \with {
+  \override TimeSignature #'transparent = ##t
+% décommenter la  ligne suivante selon besoin
+%  \override Clef #'transparent = ##t
+  defaultBarType = #""
+  \remove Bar_number_engraver
+} <<
+
+% à adapter selon les portées désirées
+  \new Staff \emptymusic
+  \new TabStaff \emptymusic
+>>
+@end lilypond
+
 
 @node Hidden notes
 @subsection Hidden notes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Masquées, notes
+@cindex Invisibles, notes
+@cindex Transparentes, notes
+
+@funindex \hideNotes
+@funindex \unHideNotes
+Les notes masquées --- ou invisibles ou encore transparentes --- sont
+utiles dans le cadre d'exercices de théorie ou de composition.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c4 d4
+\hideNotes
+e4 f4
+\unHideNotes
+g4 a
+@end lilypond
+
 
 @node Shape note heads
 @subsection Shape note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tête de note, allure
+
+En notation profilée, le profil d'une tête de note correspond à la
+fonction harmonique de cette note dans la gamme.  Ce style de notation
+était très en vogue dans les recueils de chansons américains du XIXe
+siècle. 
+
+Des notes profilées sont produites après activation de
+@code{\aikenHeads} ou @code{\sacredHarpHeads}, selon le style.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Les profils sont déterminés par la hauteur dans la gamme, le premier
+degré étant défini par la commande @code{\key}. 
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Les notes profilées sont mises en œuvre par la propriété
+@code{shapeNoteStyles}, dont les valeurs sont constituées d'une liste
+de symboles.  Le n-ième élément indique le style à utiliser pour le
+n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
+
+@lilypond[verbatim,relative=1,fragment]
+  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  c8 d4. e8 a2 g1
+@end lilypond
+
 
 @node Easy Notation note heads
 @subsection Easy Notation note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tête de note, apprentissage
+@cindex notation facile
+@cindex Hal Leonard
+
+Les notes @q{easy play} comportent le nom de la note à l'intérieur de
+la tête.  On l'utilise dans des partitions pour débutants.
+
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+  \setEasyHeads
+  c'2 e'4 f' | g'1
+@end lilypond
+
+La commande @code{\setEasyHeads} remplace tous les réglages de l'objet
+@internalsref{NoteHead}.  L'impression doit être de plus grande
+taille, afin que les lettres soient lisibles.  Voir à ce propos
+@ref{Setting the staff size}.
+
+@refcommands
+
+@funindex \setEasyHeads
+@code{\setEasyHeads}
+
 
 @node Analysis brackets
 @subsection Analysis brackets
+@cindex crochets
+@cindex crochets de phrasé
+@cindex analyse musicologique
+@cindex crochet de regroupement de notes
 
-UNTRANSLATED NODE: IGNORE ME
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce.  LilyPond permet d'utiliser une forme
+simplifiée de crochets horizontaux imbriqués, dans la mesure où le
+contexte @internalsref{Staff} comporte le graveur
+@internalsref{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{HorizontalBracket}.
+
 
 @node Coloring objects
 @subsection Coloring objects
 
-UNTRANSLATED NODE: IGNORE ME
+Des objets peuvent être colorisés individuellement.  Une listes des
+noms des couleurs disponibles se trouvent à l'annexe @ref{List of colors}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+L'intégralité de la palette des couleurs définies pour X11 est
+accessible par la fonction Scheme x11-color.  Cette fonction prend
+en argument une expression symbolique
+
+@example
+\override Beam #'color = #(x11-color 'MediumTurquoise)
+@end example
+
+ou une chaîne de caractères
+
+@example
+\override Beam #'color = #(x11-color "MediumTurquoise")
+@end example
+
+La première formulation est à la fois plus rapide à écrire et aussi
+plus efficace.  Néanmoins, la deuxième forme permet d'accéder aux noms
+composés des couleurs de X11.
+
+@example
+\override Beam #'color = #(x11-color "medium turquoise")
+@end example
+
+Lorsque la fonction x11-color ne trouve pas le paramètre fourni, elle
+revient à la couleur par défaut, le noir.  Le problème ressort de
+façon évidente au vu de la partition finale.
+
+L'exemple suivant illustre l'utilisation de la fonction
+@code{x11-color}.  Notez que, après avoir été définie à (x11-color
+'Boggle), la couleur des hampes repasse au noir.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 2/4
+  gis''8 a''
+  \override Beam #'color = #(x11-color "medium turquoise")
+  gis'' a''
+  \override NoteHead #'color = #(x11-color "LimeGreen")
+  gis'' a''
+  \override Stem #'color = #(x11-color 'Boggle)
+  gis'' a''
+}
+@end lilypond
+
+
+@seealso
+
+Annexes : @ref{List of colors}.
+
+
+@refbugs
+Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
+internet.  Aussi nous vous recommandons, dans le cadre d'une
+présentation multimedia, d'utiliser des couleurs de base.
+
+Une couleur x11 n'aura pas forcément le même rendu qu'une couleur
+normale ayant un nom similaire.
+
+Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
+@code{\override}. si besoin est, utilisez @code{\tweak}.  
+Pour plus de détails, consultez @ref{Objects connected to the input}.
+
 
 @node Parentheses
 @subsection Parentheses
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fantômes, notes
+@cindex notes fantômes
+@cindex parenthèses, notes entre
+
+Des objets peuvent être mis entre parenthèses en saisissant
+@code{\parenthesize} juste avant l'événement musical.
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize d
+  g
+>4-\parenthesize -.
+@end lilypond
+
+Ceci n'est opérationnel que dans le cadre d'un accord, qui peut ne
+comprendre qu'une seule note.
+
+@example
+< \parenthesize NOTE>
+@end example
+
 
 @node Grid lines
 @subsection Grid lines
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez tracer des lignes entre les portées, synchronisées avec
+les notes.
+@c KEEP LY
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" %% active les guides
+    gridInterval = #(ly:make-moment 1 4)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
+  %% centre les lignes guides horizontalement sous les notes
+  \override NoteColumn #'X-offset = #-0.5
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    %% centre les lignes guides verticalement
+    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
+Exemples : @lsrdir{education}
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

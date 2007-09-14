@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of ../user/lilypond-program.tely
+@c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: d5b91d83f5dfec811302de39dbabdb189024f67a
+    Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
 
     When revising a translation, copy the HEAD committish of the
@@ -15,12 +15,20 @@
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Notes for the MacOS X app::
+* Setup for specific Operating Systems::
 * Text editor support::
 * Point and click::
 @end menu 
-@node Notes for the MacOS X app
-@section Notes for the MacOS X app
+@node Setup for specific Operating Systems
+@section Setup for specific Operating Systems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* MacOS X on the command-line::
+@end menu 
+@node MacOS X on the command-line
+@subsection MacOS X on the command-line
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -32,8 +40,9 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Emacs mode::
 * Vim mode::
-* LilyPondTool::
+* jEdit::
 * TexShop::
+* TextMate::
 @end menu 
 @node Emacs mode
 @subsection Emacs mode
@@ -45,13 +54,18 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node LilyPondTool
-@subsection LilyPondTool
+@node jEdit
+@subsection jEdit
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node TexShop
 @subsection TexShop
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node TextMate
+@subsection TextMate
 
 UNTRANSLATED NODE: IGNORE ME
 

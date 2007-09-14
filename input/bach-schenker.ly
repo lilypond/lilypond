@@ -12,8 +12,9 @@
 %% See http://www.shaffermusic.com/doc/schenker/index.html for more information
 %%
 
+I = \once \override NoteColumn #'ignore-collision = ##t
 
-\version "2.11.30"
+\version "2.11.32"
 
 staffPiano = \new PianoStaff {
   \set Score.timing = ##f
@@ -55,7 +56,7 @@ staffPiano = \new PianoStaff {
 	    \once \override Slur #'height-limit = #6
 	    \once \override Slur #'extra-offset = #'(1.25 . 0)
 	    \slurDashed
-	    b2_( s2
+	    \I b2_( s2
 	    \once \override NoteHead #'transparent = ##t
 	    b4) s
 	    \once \override Slur #'height-limit = #3.25
@@ -75,7 +76,7 @@ staffPiano = \new PianoStaff {
 	    g8[ s s4 s2
 	      \stemDown
 	      \once \override NoteHead #'transparent = ##t
-	      b8] s8
+	      \I b8] s8
 	    \override Beam #'positions = #'(3 . -2.25)
 	    \stemUp
 	    a8[ s s4
@@ -142,9 +143,9 @@ staffPiano = \new PianoStaff {
 	    \override Beam #'positions = #'(-8 . -8)
 	    \override NoteHead #'transparent = ##t
 	    \stemDown
-	    g8[_\markup { \bold I } s4. s1 s s2
-	      d8_\markup { \bold V } s4.
-	      g,8]_\markup { \bold I } s4.
+	    \I g8[_\markup { \bold I } s4. s1 s s2
+	      \I d8_\markup { \bold V } s4.
+	      \I g,8]_\markup { \bold I } s4.
 	    \revert Beam #'positions
 	    \revert NoteHead #'transparent
 	  }
@@ -153,7 +154,7 @@ staffPiano = \new PianoStaff {
 	    \override Stem #'transparent = ##t
 	    \stemDown
 	    \override TextScript #'extra-offset = #'(-11.75 . -12.25)
-	    g'2 s1 s s2 d2 g,2
+	    \I g'2 s1 s s2 \I d2 g,2
 	    \revert Stem #'transparent
 	  }
 	  \\
@@ -171,24 +172,24 @@ staffPiano = \new PianoStaff {
 	    d)^\markup { \tiny N }
 	    \once \override NoteHead #'transparent = ##t
 	    \once \override Slur #'extra-offset = #'(0 . 0.5)
-	    fis,4_(
+	    \I fis,4_(
 	    \revert Stem #'transparent
 	    \override Stem #'length = #10
 	    \stemDown
 	    g4) s
 	    \once \override Slur #'extra-offset = #'(0 . 0.25)
-	    c8_( s
+	    \I c8_( s
 	    \override Stem #'transparent = ##t
 	    \revert Stem #'length
 	    a4)
 	    \once \override NoteHead #'transparent = ##t
-	    d4^( d,4) s2
+	    \I d4^( d,4) s2
 	  }
 	  \\
 	  {
 	    \override Stem #'transparent = ##t
 	    \override NoteHead #'transparent = ##t
-	    g'4^( s b) s2
+	    \I g'4^( s b) s2
 	    \revert Stem #'transparent
 	    \revert NoteHead #'transparent
 	    \override Beam #'positions = #'(-4 . 1)
@@ -213,7 +214,7 @@ staffPiano = \new PianoStaff {
 	    \stemDown
 	    \once \override Slur #'height-limit = #3
 	    \once \override Slur #'extra-offset = #'(0 . 0.25)
-	    g4_( s2. e4) s2. s2 s1 s2
+	    \I g4_( s2. e4) s2. s2 s1 s2
 	    \revert Stem #'transparent
 	    \revert NoteHead #'transparent
 	  }

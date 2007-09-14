@@ -67,5 +67,11 @@ practices.
 @end table
 
 The source archive includes a more elaborate Bib@TeX{} bibliography of
-over 100 entries in @file{Documentation/@/bibliography/}.  It is also
-available online from the website.
+over 100 entries in
+@ifhtml
+@uref{../../bibliography/index.html, the bibliography}.
+@end ifhtml
+@ifnothtml
+@file{Documentation/@/bibliography/}.
+@end ifnothtml
+

@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+    Translation of GIT committish: a4cf6aed7bf79f3cc1892dbc92b642b2514c1674
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -60,12 +60,8 @@
 	  </td>
 	  <td class="right-column">
 	  <ul>
-            <li>
-	    <a class="title" href="user/lilypond-program/index.fr.html">Utilisation du programme</a>
-(partiellement traduit, aussi<br>en <a class="title"
-		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
-	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
- 	      <br>&mdash; installation et exécution du programme
+            <li><a class="title" href="topdocs/NEWS.html">Nouveautés</a>
+ 	      <br>&mdash; changements depuis la version majeure précédente
 	    <li><a class="title" href="../examples.html">Exemples</a>
 	      <br>&mdash; quelques exemples
 	  </ul>
@@ -81,7 +77,7 @@
 				href="user/lilypond-big-page.html">page unique
  	        en anglais</a> ~ 4 Mb, ou
 	        <a class="title" href="user/lilypond.fr.pdf">au format PDF</a>)
-		<br>&mdash; revue de détails
+		<br>&mdash; gravure de musique avec LilyPond
 	    <li>
 	      <a  class="title" href="user/lilypond-internals/index.html">Référence du programme</a>
 	      (en anglais, en <a class="title" href="user/lilypond-internals-big-page.html">page
@@ -92,8 +88,12 @@
 	  <td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-            <li><a class="title" href="topdocs/NEWS.html">Nouveautés</a>
- 	      <br>&mdash; changements depuis la version majeure précédente
+            <li>
+	    <a class="title" href="user/lilypond-program/index.fr.html">Utilisation du programme</a>
+(partiellement traduit, aussi<br>en <a class="title"
+		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
+	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
+ 	      <br>&mdash; installation et exécution du programme
 	    <li><a class="title" href="../input/lsr/collated-files.html">Exemples de code</a>
 	      <br>&mdash; petits trucs, astuces et exemples
 	  </ul>
@@ -103,14 +103,11 @@
           <td valign="baseline" class="left-column">
 	  &nbsp;
           <ul>
-	    <li><a  class="title" href="bibliography/index.html">Bibliographie</a>
-	      <br>&mdash; informations complémentaires
-	    <li>
-	      <a class="title" href="../input/regression/collated-files.html">Tests
-		de régression</a> (~ 5 Mb,
-	      <a  class="title" href="../input/regression/collated-files.pdf">au format PDF</a>,
-	      <a href="../test-results.html">comparaison</a>)
-	      <br>&mdash; pour les développeurs
+            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
+              <br>&mdash; le site Web
+            <li>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licence</a>
+	      <br>&mdash; la licence GNU GPL
           </ul>
           </td>
           <td valign="baseline" class="right-column">
@@ -127,16 +124,6 @@
           <td valign="baseline" class="left-column">
           &nbsp;
           <ul>
-            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>&mdash; le site Web
-          </ul>
-          </td>
-          <td valign="baseline" class="right-column">
-          &nbsp;
-          <ul>
-            <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licence</a>
-	      <br>&mdash; la licence GNU GPL
           </ul>
           </td>
         </tr>

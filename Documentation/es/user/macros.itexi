@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6ffead15d2e3dffd294c8e030938facef896d861
+    Translation of GIT committish: 17e8e47bc1e57c3633c15ed08edcf4977f3aa298
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -166,10 +166,10 @@
 @end html
 @end macro
 
-@c to get decent French quotes in ``foo''
+@c to get decent quotes in ``foo''
 @macro qq{TEXT}
 @html
-&laquo;&thinsp;\TEXT\&thinsp;&raquo;
+&ldquo;\TEXT\&rdquo;
 @end html
 @end macro
 
@@ -201,16 +201,16 @@
 
 @c to get decent quotes in `foo'
 @macro q{TEXT}
-@html
+@xml
 &lsquo;\TEXT\&rsquo;
-@end html
+@end xml
 @end macro
 
-@c to get decent French quotes in ``foo''
+@c to get decent quotes in ``foo''
 @macro qq{TEXT}
-@html
-&laquo;&thinsp;\TEXT\&thinsp;&raquo;
-@end html
+@xml
+&ldquo;\TEXT\&rdquo;
+@end xml
 @end macro
 
 @end ifdocbook
@@ -248,9 +248,9 @@
 `\TEXT\'
 @end macro
 
-@c to get decent French quotes in ``foo''
+@c to get decent quotes in ``foo''
 @macro qq{TEXT}
-« \TEXT\ »
+``\TEXT\''
 @end macro
 
 @end ifinfo
@@ -270,27 +270,27 @@
 @end macro
 
 @macro seeinternals{NAME}
-@emph{Référence du programme}, @internalsref{\NAME\}
+el documento de funcionamiento interno, @internalsref{\NAME\}
 @end macro
 
 @macro usermanref{NAME}
-@emph{Manuel de l'utilisateur, \NAME\}
+el manual del usuario, @internalsref{\NAME\}
 @end macro
 
 @macro rprogram{NAME}
-@emph{Manuel d'utilisation du programme, \NAME\}
+el manual de utilización del programa, @internalsref{\NAME\}
 @end macro
 
 @alias ruser=usermanref
 
-@c to get decent French quotes in `foo'
+@c to get decent quotes in `foo'
 @macro q{TEXT}
 `\TEXT\'
 @end macro
 
-@c to get decent French quotes in ``foo''
+@c to get decent quotes in ``foo''
 @macro qq{TEXT}
-@guillemetleft{}@tie{}\TEXT\@tie{}@guillemetright{}
+``\TEXT\''
 @end macro
 
 @end iftex

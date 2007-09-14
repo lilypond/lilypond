@@ -649,6 +649,8 @@ columns.")
      (note-head ,ly:grob? "A single note head.")
      (note-heads ,ly:grob-array? "A list of note head grobs.")
 
+     (padding-pairs ,list? "An alist mapping @code{(@var{name} . @var{name})}
+to distances.")
      (pedal-text ,ly:grob? "A pointer to the text of a mixed-style piano
 pedal.")
      (pure-Y-common ,ly:grob? "A cache of the

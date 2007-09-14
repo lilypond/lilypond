@@ -1,419 +1,4757 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 9634340429eb0518432b152fe4aaf7471b67b013
-
+    Translation of GIT committish: 1e31973e26eedc61b771826dbe2186f79bbe89ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 
+@c A menu is needed before every deeper *section nesting of @node's; run
+@c     M-x texinfo-all-menus-update
+@c to automatically fill in these menus before saving changes
+
 @node Instrument-specific notation
 @chapter Instrument-specific notation
 
-UNTRANSLATED NODE: IGNORE ME
+Este capítulo explica cómo hacer notación para instrumentos específicos.
 
-@menu 
-* Piano music::
-* Chord names::
-* Vocal music::
-* Rhythmic music::
-* Guitar::
-* Bagpipe::
-* Ancient notation::
-* Other instrument specific notation::
-@end menu 
+@menu
+* Piano music::                 
+* Chord names::                 
+* Vocal music::                 
+* Rhythmic music::              
+* Guitar::                      
+* Bagpipe::                     
+* Ancient notation::            
+* Other instrument specific notation::  
+@end menu
+
+
+
 @node Piano music
 @section Piano music
 
-UNTRANSLATED NODE: IGNORE ME
+Los sistemas de piano son dos pentagramas normales agrupados mediante una llave.  Los pentagramas
+son hasta cierto punto independientes, pero a veces las voces pueden cruzarse entre los
+dos pentagramas.  También se utiliza esta notación para otros instrumentos de teclado y para el
+arpa.  El @internalsref{PianoStaff} está preparado especialmente para
+manejar este comportamiento de cruce de pentagramas.  En esta sección trataremos el
+@internalsref{PianoStaff} y alguna que otra peculiaridad pianística.
 
-@menu 
-* Automatic staff changes::
-* Manual staff switches::
-* Pedals::
-* Staff switch lines::
-* Cross staff stems::
-@end menu 
+@menu
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
+@end menu
+
+@refbugs
+
+Los matices no se colocan centrados, pero se pueden utilizar ciertas alternativas.  Consulte la
+plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
+
+@cindex plica de pentagrama cruzado
+@cindex pentragrama cruzado, plica de
+@cindex distancia entre pentagramas en música de piano
+
+
 @node Automatic staff changes
 @subsection Automatic staff changes
+@cindex Cambio automático de pentagrama
 
-UNTRANSLATED NODE: IGNORE ME
+Se puede hacer que las voces cambien automáticamente entre los pentagramas inferior y
+superior.  La sintaxis para conseguir esto es
+
+@quotation
+@example
+\autochange @dots{}@var{música}@dots{}
+@end example
+@end quotation
+
+@noindent
+Esto creará dos pentagramas dentro del PianoStaff actual, llamados
+@code{up} (arriba) y @code{down} (abajo).  El pentagrama inferior estará en clave de Fa por
+omisión.
+
+Una sección marcada @code{\relative} que se encuentra fuera de @code{\autochange} no tiene
+efecto sobre las notas de la @var{música}, por tanto, en caso necesario escriba
+@code{\relative} dentro de @code{\autochange}, como en
+
+@quotation
+@example
+\autochange \relative @dots{} @dots{}
+@end example
+@end quotation
+
+
+El cambiador automático hace el cambio basándose en la altura (el Do central es el punto
+de inflexión), y se adelanta saltando sobre los silencios para hacer cambios por
+adelantado.  He aquí un ejemplo práctico
+
+@lilypond[quote,verbatim,ragged-right]
+\new PianoStaff
+  \autochange \relative c'
+  {
+    g4 a b c d r4 a g
+  }
+@end lilypond
+
+
+@seealso
+
+En este manual: @ref{Manual staff switches}.
+
+Referencia del programa: @internalsref{AutoChangeMusic}.
+
+
+
+@refbugs
+
+Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para conseguir
+una salida de alta calidad es mejor especificar manualmente los cambios de pentagrama.
+
+
+@code{\autochange} no puede estar dentro de @code{\times}.
+
 
 @node Manual staff switches
 @subsection Manual staff switches
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex manual, cambio de pentagrama
+@cindex pentagrama, cambios manuales de
+
+Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
+@example
+\change Staff = @var{nombre_del_pentagrama} @var{música}
+@end example
+
+@noindent
+La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.  Cambia la
+voz actual de su pentagrama en curso al pentagrama de nombre
+@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama} es @code{"up"} o
+@code{"down"}.  El @context{Staff} referido debe existir previamente, por ello
+normalmente la preparación de una partitura empezará por la preparación de los pentagramas,
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{mantener vivo el pentagrama}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{ídem}
+    @}
+>>
+@end example
+
+
+y la @context{Voice} se inserta con posterioridad
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
+
 
 @node Pedals
 @subsection Pedals
+@cindex Pedales
 
-UNTRANSLATED NODE: IGNORE ME
+El piano tiene pedales que alteran la forma en que se produce el sonido.  Generalmente un
+piano tiene tres pedales: derecho, una corda y tonal (en inglés: sustain, una corda y sostenuto).
+
+
+Se puede expresar una instrucción de pedal de piano adjuntando
+@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
+@code{\treCorde}, @code{\sostenutoDown} y @code{\sostenutoUp} a una
+nota o acorde
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c'4\sustainDown c'4\sustainUp
+@end lilypond
+
+Es posible modificar lo que se imprime estableciendo @code{pedal@var{X}Strings},
+donde @var{X} es uno de los tipos de pedal: @code{Sustain},
+@code{Sostenuto} o @code{UnaCorda}.  Consulte
+@internalsref{SustainPedal} dentro de la referencia del programa para más
+información.
+
+Los pedales se pueden indicar también mediante una secuencia de corchetes, estableciendo la
+propiedad @code{pedalSustainStyle} a objetos corchete
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'bracket
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+Un tercer estilo de notación de pedal es una mezcla de texto y corchetes,
+que se obtiene estableciendo la propiedad @code{pedalSustainStyle} a
+@code{mixed}
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'mixed
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+El estilo por defecto @q{*Ped.} para los pedales derecho y una corda corresponde al
+estilo @code{#'text}.  El pedal tonal usa el estilo @code{mixed} por
+defecto.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+Para hacer un ajuste fino del aspecto de un corchete de pedal, se pueden modificar las propiedades
+@code{edge-width}, @code{edge-height} y @code{shorten-pair} de los
+objetos @code{PianoPedalBracket} (véase
+@internalsref{PianoPedalBracket} en la Referencia del programa).
+Por ejemplo, el corchete se puede extender hasta el borde derecho de la
+cabeza de la nota
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+@seealso
+
+En este manual: @ref{Laissez vibrer ties}.
 
 @node Staff switch lines
 @subsection Staff switch lines
 
-UNTRANSLATED NODE: IGNORE ME
+
+@cindex seguimiento de voz
+@cindex pentagrama, cambio
+@cindex cruce de pentagramas
+
+@funindex followVoice
+
+Cuando una voz cambia a otro pentagrama, se ppuede imprimir automáticamente una línea
+que conecte las notas.  Esto se activa estableciendo
+@code{followVoice} a verdadero
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
+>>
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{VoiceFollower}.
+
+@refcommands
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
+
 
 @node Cross staff stems
 @subsection Cross staff stems
 
-UNTRANSLATED NODE: IGNORE ME
+Los acordes que cruzan pentagramas se pueden producir mediante el incremento de la longitud
+de la plica en el pentagrama inferior, de manera que alcance a la plica que está en el pentagrama
+superior, y viceversa.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+
 
 @node Chord names
 @section Chord names
 
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* Introducing chord names::     
+* Chords mode::                 
+* Printing chord names::        
+@end menu
 
-@menu 
-* Introducing chord names::
-* Chords mode::
-* Printing chord names::
-@end menu 
+
+@c  awkward name; awkward section name.
+@c  still, the Basic "chords" seems like a good name...  :(
 @node Introducing chord names
 @subsection Introducing chord names
+@cindex acordes, nombres
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond tiene la capacidad de imprimir nombres de acordes.  Los acordes se pueden introducir
+en notación musical de acordes, es decir: @code{< .. >}, pero también se pueden
+introducir por su nombre.  Internamente los acordes se representan como un conjunto de
+notas, así que se pueden transportar
+
+
+@lilypond[quote,ragged-right,verbatim,ragged-right]
+twoWays = \transpose c c' {
+  \chordmode {
+    c1 f:sus4 bes/f
+  }
+  <c e g>
+  <f bes c'>
+  <f bes d'>
+}
+
+<< \new ChordNames \twoWays
+   \new Voice \twoWays >>
+@end lilypond
+
+Este ejemplo también muestra que las rutinas de impresión de acordes no tratan de
+ser inteligentes.  El último acorde (@code{f bes d}) no se interpreta como
+una inversión.
+
+Tenga en cuenta que la duración de los acordes se debe especificar fuera de los
+@code{<>}.
+
+@example
+<c e g>2
+@end example
+
 
 @node Chords mode
 @subsection Chords mode
+@cindex Acordes, modo de
 
-UNTRANSLATED NODE: IGNORE ME
+En el modo de acordes, se introducen conjuntos de notas o acordes con sus nombres usuales.
+Un acorde se introduce por su fundamental, que se escribe como una
+nota normal
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { es4. d8 c2 }
+@end lilypond
+
+@noindent
+El modo se inicia mediante la palabra clave @code{\chordmode}.
+
+@cindex acordes, introducción
+@cindex acordes, modo de
+
+Otros acordes se pueden escribir añadiendo al final dos puntos e introduciendo un
+modificador (que puede incluir un número si se desea)
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { e1:m e1:7 e1:m7 }
+@end lilypond
+
+El primer número que sigue a la fundamental se toma como el @q{tipo} de
+acorde, las terceras se añaden a la fundamental hasta que se alcanza el número
+especificado. La excepción es @code{c:13}, para el que se omite el 11.
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
+@end lilypond
+
+@cindex fundamental de un acorde
+@cindex adiciones, en acordes
+@cindex omisiones, en acordes
+
+También se pueden construir acordes más complejos añadiendo elementos separados
+a un acorde.  Las adiciones se escriben después del número que sigue
+a los dos puntos y van separadas por puntos
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+
+Los elementos de un acorde se pueden alterar añadiendo un signo de @code{-} ó @code{+}
+al número
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@end lilypond
+
+Las omisiones se especifican de forma similar y se escriben mediante un circunflejo.  Deben
+ir después de las adiciones
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c^3 c:7^5 c:9^3.5 }
+@end lilypond
+
+Se pueden usar modificadores para cambiar la altura de las notas.  Están previstos los siguientes
+modificadores
+
+@table @code
+@item m
+El acorde menor.  Este modificador baja la tercera y (si está presente) la séptima.
+
+@item dim
+El acorde disminuido.  Este modificador baja la tercera, la quinta y (si está presente)
+la séptima.
+
+@item aug
+El acorde aumentado.  Este modificador eleva la quinta.
+
+@item maj
+El acorde de séptima mayor.  Este modificador eleva la séptima si está presente.
+
+@item sus
+El acorde suspendido de cuarta o de segunda.  Este modificador suprime la tercera.
+Escriba @code{2} ó @code{4} para añadir la segunda o la cuarta al
+acorde.
+@end table
+
+Se pueden mezclar modificadores con adiciones
+@lilypond[quote,verbatim,fragment]
+  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
+@end lilypond
+
+@cindex modificadores, en acordes
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex sus
+@funindex m
+
+Puesto que una 11ª sin alterar no suena bien cuando se combina con una
+13ª sin alterar, la 11ª se suprime en este caso (a no ser que se añada de forma
+explícita)
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c:13 c:13.11 c:m13 }
+@end lilypond
+
+@funindex /
+
+Se puede especificar una inversión (colocar en el bajo una nota del acorde), así como
+notas del bajo, añadiendo
+@code{/}@var{pitch} al acorde
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/g c/f }
+@end lilypond
+@funindex /+
+
+Un bajo se puede añadir en lugar de moverlo dentro del mismo acorde,
+mediante @code{/+}@var{pitch}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/+g c/+f }
+@end lilypond
+
+El modo de acordes es similar a @code{\lyricmode} y demás.  La mayoría de
+los comandos siguen funcionando, por ejemplo se pueden usar @code{r} y
+@code{\skip} para insertar silencios y espacios, y las instrucciones
+de propiedades se pueden usar para modificar ciertos valores.
+
+
+
+@refbugs
+
+Cada nota sólo se puede presentar una vez dentro del acorde.  Lo siguiente
+simplemente produce el acorde aumentado, ya que el @code{5+} se interpreta en
+último lugar
+@cindex racimos (clusters)
+@lilypond[quote,ragged-right,verbatim,fragment]
+\chordmode { c:5.5-.5+ }
+@end lilypond
+
 
 @node Printing chord names
 @subsection Printing chord names
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex impresión de los nombres de acorde
+@cindex acordes, nombres de
+@cindex acordes
+
+Para la presentación de los nombres de acordes impresos utilice el contexto @internalsref{ChordNames}.
+Los acordes se puede introducir o bien usando la notación
+descrita anteriormente, o directamente usando @code{<} y @code{>}
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = {
+  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
+}
+<<
+  \new ChordNames \harmonies
+  \new Staff \harmonies
+>>
+@end lilypond
+
+Puede hacer que los cambios de acorde se hagan notar, estableciendo
+@internalsref{ChordNames}.@code{chordChanges} al valor verdadero.  Esto sólo 
+mostrará los nombres de los acordes cuando ocurra un cambio en la estructura de acordes y al comienzo
+de una línea
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \harmonies }
+  \new Staff \transpose c c' \harmonies
+>>
+@end lilypond
+
+Todos los ejemplos anteriores muestran los acordes sobre una pauta.  Esto no es
+necesario.  Los acordes también se pueden imprimir por separado.  Puede ser necesario
+añadir @internalsref{Volta_engraver} y @internalsref{Bar_engraver}
+para mostrar las repeticiones.
+
+@lilypond[ragged-right,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  \consists Bar_engraver
+  \consists "Volta_engraver"
+}
+\chordmode { \repeat volta 2 {
+  f1:maj7 f:7 bes:7
+  c:maj7
+} \alternative {
+  es e
+}
+}
+@end lilypond
+
+
+La disposición por defecto de los nombres de acorde en la página es una pauta para el Jazz, propuesta por
+Klaus Ignatzek (véase @ref{Literature list}).  Se puede modificar a través de las
+siguientes proppiedades
+
+@table @code
+@funindex chordNameExceptions
+@item chordNameExceptions
+He aquí una lista de los acordes que tienen un formateo especial.
+
+La lista de excepciones se debe codificar como
+@example
+@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
+@end example
+
+La incorporación de esta información dentro de @code{chordNameExceptions} requiere algunas
+maniobras.  El código siguiente transforma @code{chExceptionMusic}
+(que es música secuencial) en una lista de excepciones.
+@example
+(sequential-music-to-chord-exceptions chExceptionMusic #t)
+@end example
+Después,
+@example
+(append
+ (sequential-music-to-chord-exceptions chExceptionMusic #t)
+ ignatzekExceptions)
+@end example
+añade las nuevas excepciones a las que existen de fábrica, que se encuentran definidas en
+@file{ly/@/chord@/-modifier@/-init@/.ly}.
+
+Para ver un ejemplo de cómo modificar esta propiedad, vésae también
+@lsr{chords,chord@/-name@/-exceptions@/.ly}
+@cindex excepciones, nombres de acordes.
+
+
+@funindex majorSevenSymbol
+@item majorSevenSymbol
+Esta propiedad contiene el objeto de marcado usado para la séptima, cuando
+es mayor.  Las opciones predefinidas son @code{whiteTriangleMarkup} y
+@code{blackTriangleMarkup}.  Consulte
+@lsr{chords,chord@/-name@/-major7@/.ly} para ver un ejemplo.
+
+@funindex chordNameSeparator
+@item chordNameSeparator
+Las distintas partes de un acorde están separadas normalmente por una barra
+inclinada.  Estableciendo @code{chordNameSeparator}, puede especificar otros
+separadores, p.ej.
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new ChordNames \chordmode {
+  c:7sus4
+  \set chordNameSeparator
+    = \markup { \typewriter "|" }
+  c:7sus4
+}
+@end lilypond
+
+@funindex chordRootNamer
+@item chordRootNamer
+La fundamental de un acorde se imprime normalmente como una letra con una alteración
+opcional.  La transformación de nota a letra se hace por medio de esta función.
+Los nombres de nota especiales (por ejemplo, la @q{H} alemana para un
+acorde de Si) se puede producir almacenando una nueva función dentro de esta propiedad.
+
+@funindex chordNoteNamer
+@item chordNoteNamer
+La opción por defecto es imprimir una sona nota, p.ej. el bajo, usando el
+@code{chordRootNamer}.  La propiedad @code{chordNoteNamer} se puede establecer
+a una función especializada para cambiar este comportamiento.  Por ejemplo, la
+nota base se puede imprimir en minúsculas.
+
+@funindex chordPrefixSpacer
+@item chordPrefixSpacer
+La @q{m} que de nota a los acordes menores se imprime normalmente justo después de la fundamental
+del acorde. Estableciendo @code{chordPrefixSpacer}, puede insertar un separador
+entre la fundamental y la @q{m}. El separador no se usa cuando la fundamental 
+está alterada.
+
+@end table
+
+Las valiables predefinidas @code{\germanChords},
+@code{\semiGermanChords}, @code{\italianChords} y @code{\frenchChords}
+establecen estas variables.  El efecto se muestra
+a continuación:
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+También se encuentran implementados otros dos esquemas de nombres de acorde: una
+notación de acordes alternativa para Jazz, y un esquema sistemático llamado acordes de Banter.  La
+notación alternativa de Jazz se muestra también en el cuadro @ref{Chord name
+chart}.  El resultado de la activación de estos estilos se muestra en
+@lsr{chords,chord-names-jazz.ly}.
+
+@cindex Banter
+@cindex jazz, acordes de
+@cindex acordes de jazz
+
+
+@refcommands
+
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords}.
+@funindex \italianChords
+@code{\italianChords}.
+@funindex \frenchChords
+@code{\frenchChords}.
+
+
+
+
+@seealso
+
+Ejemplos:
+@lsrdir{chords}
+
+Archivos de incio: @file{scm/@/chords@/-ignatzek@/.scm} y
+@file{scm/@/chord@/-entry@/.scm}.
+
+
+@refbugs
+
+Los nombres de acorde se determinan exclusivamente a partir de la lista de notas.  No se identifican
+las inversiones de acorde ni las notas del bajo añadidas.  Esto puede
+dar como resultado nombres de acorde extraños cuando éstos se introducen con la
+sintaxis @code{< .. >}.
+
+
 
 @node Vocal music
 @section Vocal music
 
-UNTRANSLATED NODE: IGNORE ME
+Puesto que los archivos de entrada de LilyPond son de texto, hay un par de cuestiones dignas de
+consideración cuando se trabaja con música vocal:
 
-@menu 
-* Setting simple songs::
-* Entering lyrics::
-* Hyphens and extenders::
-* The Lyrics context::
-* Melismata::
-* Another way of entering lyrics::
-* Flexibility in placement::
-* Spacing lyrics::
-* More about stanzas::
-* Ambitus::
-* Other vocal issues::
-@end menu 
+@itemize @bullet
+@item
+Los textos de las canciones se deben entrar como texto, no como notas.  Por ejemplo,
+la entrada@tie{}@code{d} se debe interpretar como una sílaba de una sola letra, no como la
+nota@tie{}Re.
+
+@item
+Los textos de las canciones se deben alinear con las notas respectivas de la melodía.
+@end itemize
+
+Existen varias formas diferentes de definir la letra; comenzaremos
+examinando el método más simple, y poco a poco iremos aumentando la complejidad.
+
+@menu
+* Setting simple songs::        
+* Entering lyrics::             
+* Aligning lyrics to a melody::  
+* Working with lyrics and identifiers::  
+* Flexibility in placement::    
+* Spacing lyrics::              
+* More about stanzas::          
+* Ambitus::                     
+* Other vocal issues::          
+@end menu
+
+
+@commonprop
+
+Las comporbaciones que aseguran que las indicaciones textuales y las letras se encuentran dentro de los márgenes
+es una tarea computacional relativamente grande.  Para acelerar el procesado, lilypond no realiza
+estos cálculos por defecto; para activarlos, utilice
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+Para hacer que la letra evite las líneas divisorias también, utilice
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
+
 @node Setting simple songs
 @subsection Setting simple songs
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex \addlyrics
+
+La manera más fácil de poner letra a una melodía es añadir
+
+@example
+\addlyrics @{ @var{la letra} @}
+@end example
+
+@noindent
+a la melodía.  He aquí un ejemplo:
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative { c2 e4 g2. }
+\addlyrics { play the game }
+@end lilypond
+
+Se pueden añadir más versos mediante la adición de más 
+secciones @code{\addlyrics}
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative { c2 e4 g2. }
+\addlyrics { play the game }
+\addlyrics { speel het spel }
+\addlyrics { joue le jeu }
+@end lilypond
+
+La instrucción @code{\addlyrics} no puede manejar situaciones de polifonía.  Para estos
+casos tendrá que usar @code{\lyricsto} y @code{\lyricmode}, tal y como se explicará
+en @ref{Entering lyrics}.
+
+
 
 @node Entering lyrics
 @subsection Entering lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex letra
+@funindex \lyricmode
+@cindex puntuación
+@cindex espacios, en la letra
+@cindex comillas, en la letra
 
-@node Hyphens and extenders
-@subsection Hyphens and extenders
+La letra de las canciones se introduce en un modo de entrada especial que se inicia
+mediante la palabra clave @code{\lyricmode}, o bien mediante @code{\addlyrics} ó
+@code{\lyricsto}.  En este modo puede introducir la letra,
+con puntuación y acentos, y el carácter @code{d} no se analiza como
+una nota, sino más bien como una sílaba de una sola letra.  Las sílabas se introducen
+como las notas, pero con texto en lugar de alturas de nota.  Por ejemplo,
 
-UNTRANSLATED NODE: IGNORE ME
+@example
+\lyricmode @{ Cam-4 pa-4 ni- ta del- lu- gar2 @}
+@end example
 
-@node The Lyrics context
-@subsection The Lyrics context
+Existen dos métodos principales para especificar la colocación horizontal
+de las sílabas, bien especificando la duración de cada sílaba
+de forma explícita, como en el ejemplo anterior, o bien alineando automáticamente
+la letra a la melodía o a cualquier otra voz, usando @code{\addlyrics}
+o @code{\lyricsto}.
+@c  TODO: broken
+@c For more details see @ref{The Lyrics context}.
 
-UNTRANSLATED NODE: IGNORE ME
+Una palabra o sílaba de la letra comienza con un carácter alfabético, y termina
+con
+cualquier espacio o dígito.  Los caracteres que siguen pueden ser cualesquiera excepto
+un dígito o un espacio.
 
-@node Melismata
-@subsection Melismata
+Cualquier carácter excepto un dígito o un espacio en blanco se considera
+parte de una sílaba; esto tiene una importante consecuencia, y es que
+una palabra puede terminar en @code{@}}, lo que con frecuencia conduce al siguiente error:
 
-UNTRANSLATED NODE: IGNORE ME
+@example
+\lyricmode @{ la- la@}
+@end example
+
+En este ejemplo, el símbolo @code{@}} se encuentra incluido dentro de la sílaba final, por tanto la
+llave de apertura no se compensa con la correspondiente llave de cierre y el archivo de entrada
+probablemente no se podrá procesar.
+
+
+@funindex \property dentro de \lyricmode
+
+@noindent
+De forma similar, un punto que sigue a una secuencia alfabética queda incluido dentro de
+la cadena resultante.  Como consecuencia, se deben insertar espacios antes y después de los
+comandos de propiedades: @emph{no} escriba
+
+@example
+\override Score.LyricText #'font-shape = #'italic
+@end example
+
+@noindent
+sino lo siguiente:
+
+@example
+\override Score . LyricText #'font-shape = #'italic
+@end example
+
+@funindex _
+@cindex espacios, en la letra
+@cindex comillas, en la letra
+@cindex ligaduras, en la letra
+
+Para asignar más de una sílaba a una única nota, puede
+rodearlas por comillas o usar un carácter @code{_} (guión bajo), para obtener espacios
+entre las sílabas, o usar el símbolo de tilde curva (@code{~}) para obtener una ligadura entre sílabas de la letra.
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+\time 3/4
+\relative { c2 e4 g2 e4 }
+\addlyrics { gran- de_a- mi- go }
+\addlyrics { pu- "ro y ho-" nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
+@end lilypond
+
+La ligadura de texto se construye con el carácter Unicode U+203F, por tanto debe
+asegurarse de que tiene instalada una tipografía (como DejaVuLGC) que incluya este
+glifo.
+
+
+Para escribir letra con caracteres de una lengua no inglesa, o que tenga
+caracteres acentuados o especiales (como el símbolo del corazón o comillas inclinadas),
+introduzca simplemente los caracteres directamente en el archivo de entrada y guárdelo
+con una codificación utf-8.  Consulte @ref{Text encoding}, para ver más información.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative { e4 f e d e f e2 }
+\addlyrics { He said: “Let my peo ple go”. }
+@end lilypond
+
+Para utilizar comillas normales en la letra, escriba una barra invertida antes de las
+comillas.  Por ejemplo,
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' { \time 3/4 e4 e4. e8 d4 e d c2. }
+\addlyrics { "\"I" am so lone- "ly\"" said she }
+@end lilypond
+
+La definición completa del comienzo de una palabra en el modo Lyrics (letra) es algo más
+compleja.
+
+Una palabra en el modo Lyrics comienza por: un carácter alfabético, @code{_},
+@code{?}, @code{!}, @code{:}, @code{'}, los caracteres de control desde @code{^A}
+hasta @code{^F}, desde @code{^Q} hasta @code{^W}, @code{^Y}, @code{^^},
+cualquier carácter de 8 bits con código ASCII por encima del 127, o una combinación de
+dos caracteres consistente en la combinación de una barra invertida seguida por @code{`}, @code{'},
+@code{"} ó @code{^}.
+
+Para definir identificadores que contengan letra, se debe usar la función
+@code{lyricmode}.
+
+@example
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+  <<
+    \new Voice = "one" \relative c'' @{
+      \autoBeamOff
+      \time 2/4
+      c4 b8. a16 g4. f8 e4 d c2
+    @}
+    \addlyrics @{ \verseOne @}
+  >>
+@}
+@end example
+
+
+@seealso
+
+Referencia del programa: @internalsref{LyricText}, @internalsref{LyricSpace}.
+
+
+
+@node Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
+
+@funindex \lyricmode
+@funindex \addlyrics
+@funindex \lyricsto
+
+
+La letra se imprime a través de su interpretación dentro del contexto llamado
+@internalsref{Lyrics}.
+
+@example
+\new Lyrics \lyricmode @dots{}
+@end example
+
+Existen dos métodos principales para especificar la colocación horizontal
+de las sílabas:
+
+@itemize @bullet
+@item
+alineando automáticamente
+el texto a una melodía o a otra voz, utilizando @code{\addlyrics}
+o @code{\lyricsto}.
+
+@item
+o especificando la duración de cada sílaba
+explícitamente, utilizando @code{\lyricmode}
+@end itemize
+
+@menu
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
+@end menu
+
+@node Automatic syllable durations
+@subsubsection Automatic syllable durations
+
+@cindex duraciones automáticas de las sílabas
+@cindex letra y melodías
+
+La letra se puede alinear automáticamente bajo una melodía
+dada.  Esto se consigue combinando la
+melodía y el texto con la expresión @code{\lyricsto}
+
+@example
+\new Lyrics \lyricsto @var{nombre} @dots{}
+@end example
+
+Esto alinea la letra a las
+notas del contexto de @internalsref{Voice} llamado @var{nombre}, que debe
+existir previamente.  Por ello la @code{Voice} normalmente se especifica en primer lugar, y
+después se especifica la letra con @code{\lyricsto}.  La instrucción
+@code{\lyricsto} cambia automáticamente al modo @code{\lyricmode}, por lo que la
+palabra clave @code{\lyricmode} se puede omitir.
+
+El ejemplo siguiente utiliza comandos diferentes para introducir la letra.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+  \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+  \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
+>>
+@end lilypond
+
+El segundo verso no está bien alineado porque las duraciones
+no se han especificado.  Una solución para eso sería usar @code{\lyricsto}.
+
+El comando @code{\addlyrics} es realmente tan sólo una forma cómoda de
+escribir una estructura de LilyPond más complicada que establece la
+letra.
+
+@example
+@{ MÚSICA @}
+\addlyrics @{ LETRA @}
+@end example
+
+@noindent
+es lo mismo que
+
+@example
+\new Voice = "blabla" @{ MÚSICA @}
+\new Lyrics \lyricsto "blabla" @{ LETRA @}
+@end example
 
 @node Another way of entering lyrics
-@subsection Another way of entering lyrics
+@subsubsection Another way of entering lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+El texto también se puede introducir sin @code{\addlyrics} ni
+@code{\lyricsto}.  En este caso,
+las sílabas se escriben como notas (pero con las alturas sustituidas por texto) y la
+duración de cada sílaba se debe escibir explícitamente.  Por ejemplo:
+ 
+@example
+play2 the4 game2.
+sink2 or4 swim2.
+@end example
+
+La alineación respecto de una melodía se puede especificar con la
+propiedad @code{associatedVoice},
+ 
+@example
+\set associatedVoice = #"lala"
+@end example
+
+@noindent
+El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
+un contexto de @internalsref{Voice}.  Sin este ajuste, las líneas de extensión
+no se formatearán correctamente.
+ 
+Presentamos a continuación un ejemplo que muestra el uso de las duraciones manuales de las sílabas del texto:
+
+@lilypond[relative=1,ragged-right,verbatim,fragment,quote]
+<< \new Voice = "melody" {
+    \time 3/4
+    c2 e4 g2.
+ }
+ \new Lyrics \lyricmode {
+   \set associatedVoice = #"melody"
+   play2 the4 game2.
+ } >>
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{Lyrics}.
+
+
+@node Assigning more than one syllable to a single note
+@subsubsection Assigning more than one syllable to a single note
+
+
+@funindex _
+@cindex ligaduras, en el texto
+
+Para asignaru más de una sílaba a una sola nota, puede
+encerrarlas entre comillas o utilizar un guión bajo (@code{_}), para dejar espacios
+entre las sílabas, o usar el símbolo de tilde curva (@code{~}) para obtener una ligadura en el
+texto@footnote{Las ligaduras de texto están hechas con el carácter de Unicode
+U+203F, por tanto
+debe asegurarse de tener instalada una tipografía (como DejaVuLGC) que incluya este
+glifo.}.
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+\time 3/4
+\relative { c2 e4 g2 e4 }
+\addlyrics { gran- de_a- mi- go }
+\addlyrics { pu- "ro y ho-" nes- to }
+\addlyrics { pu- ro~y~ho- nes- to }
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{LyricCombineMusic}.
+
+@c Here come the section which used to be "Melismata"
+@c the new title might be more self-explanatory
+
+
+@node More than one note on a single syllable
+@subsubsection More than one note on a single syllable
+
+@cindex melisma
+@cindex melismata
+@cindex fraseo, en la letra
+
+A veces, y sobre todo en la música medieval, varias notas se cantan sobre una
+sílaba única; tales vocalizaciones reciben el nombre de melismas, o melismata.
+
+@c this method seems to be the simplest; therefore
+@c it might be better to present it first - vv
+
+Puede definir los melismas completamente dentro de la letra, escribiendo un guión bajo @code{_}
+para cada nota
+que forma parte del melisma.
+
+@lilypond[relative=1,verbatim,fragment,quote]
+{ \set melismaBusyProperties = #'()
+ c d( e) f f( e) e e  }
+\addlyrics
+ { Ky -- _ _ ri __ _ _ _  e }
+@end lilypond
+
+En este caso, también puede tener ligaduras de unión y de expresión en la melodía, si establece
+@code{melismaBusyProperties}, como se hizo en el ejemplo anterior.
+
+Sin embargo la instrucción @code{\lyricsto} también puede
+detectar los melismas automáticamente: sólo pone una sílaba
+debajo de un grupo de notas unidas mediante ligadura de unión o de expresión.  Si quiere forzar
+que un grupo de notas sin ligadura sea un melisma, inserte @code{\melisma}
+después de la primera nota del grupo, y @code{\melismaEnd} después de la
+última, p.ej.:
+
+@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+<<
+  \new Voice = "lala" {
+    \time 3/4
+    f4 g8
+    \melisma
+    f e f
+    \melismaEnd
+    e2
+  }
+  \new Lyrics \lyricsto "lala" {
+    la di __ daah
+  }
+>>
+@end lilypond
+
+Además, las notas se consideran un melisma si están unidas manualmente
+mediante una barra, y el barrado automático (véase @ref{Setting automatic beam
+behavior}) está desactivado.
+
+@c TODO: there might be some more relevant place for 
+@c the following link (?)
+
+@cindex SATB
+@cindex coral, partitura
+
+Hay un ejemplo completo de una disposición de partitura SATB en la sección
+@ref{Vocal ensembles}.
+
+
+@refcommands
+
+@code{\melisma}, @code{\melismaEnd}
+@funindex \melismaEnd
+@funindex \melisma
+
+@seealso
+
+Referencia del programa: @internalsref{Melisma_translator}.
+
+@lsr{vocal,lyric@/-combine.ly}.
+
+@refbugs
+
+Los melismas no se detectan automáticamente, y las líneas de extensión se deben
+insertar a mano.
+
+@node Extenders and hyphens
+@subsubsection Extenders and hyphens
+
+@cindex melisma
+@cindex extender
+
+Los melismas se indican mediante una línea horizontal centrada entre una sílaba
+y la siguiente.  Esta línea recibe el nombre de línea de extensión, y se escribe
+como @samp{ __ } (fíjese en los espacios antes y después de los dos guiones
+bajos).
+
+@cindex guiones
+
+Los guiones centrados se escriben como @samp{ -- } entre sílabas de una misma palabra
+(fíjese en los espacios antes y después de los dos guiones).  El guión
+quedará centrado entre las sílabas, y su longitud se ajustará
+en función del espacio que exista entre ellas.
+
+En la música grabada de modo muy apretado, se pueden quitar los guiones.  Se puede
+controlar si esto ocurre o no, mediante la @code{minimum-distance} (distancia
+mínima entre las dos sílabas) y la @code{minimum-length}
+(umbral por debajo del cual se suprimen los guiones).
+
+@seealso
+
+Referencia del programa: @internalsref{LyricExtender},
+@internalsref{LyricHyphen}
+
+
+@node Working with lyrics and identifiers
+@subsection Working with lyrics and identifiers
+@cindex letra, identificadores de
+
+Para definir identificadores que contengan texto, se debe usar la función @code{\lyricmode}.
+Si embargo no tendrá que escribir las duraciones, si añade
+@code{\addlyrics} o @code{\lyricsto}
+en el momento de invocar el identificador.
+ 
+@example
+verseOne = \lyricmode @{ Joy to the world the Lord is come @}
+\score @{
+ <<
+   \new Voice = "one" \relative c'' @{
+     \autoBeamOff
+     \time 2/4
+     c4 b8. a16 g4. f8 e4 d c2
+   @}
+   \addlyrics @{ \verseOne @}
+ >>
+@}
+@end example
+ 
+Para arreglos distintos o más complejos, la mejor forma es preparar previamente la
+jerarquía de pautas y textos, p.ej.:
+@example
+\new ChoirStaff <<
+  \new Voice = "soprano" @{ @emph{música} @}
+  \new Lyrics = "textoSoprano" @{ s1 @}
+  \new Lyrics = "textoTenor" @{ s1 @}
+  \new Voice = "tenor" @{ @emph{música} @}
+>>
+@end example
+ 
+y después combinar las melodías y líneas de texto apropiadas
+ 
+@example
+\context Lyrics = textoSoprano \lyricsto "soprano"
+@emph{el texto}
+@end example
+ 
+@noindent
+
+El código de entrada definitivo sería algo como
+ 
+@example
+<<\new ChoirStaff << @emph{prepare la música} >>
+ \lyricsto "soprano" @emph{etc}
+ \lyricsto "alto" @emph{etc}
+@emph{etc}
+>>
+@end example
+ 
+@seealso
+ 
+@c TODO: document \new Staff << Voice \lyricsto >> bug
+Program reference: @internalsref{LyricCombineMusic},
+@internalsref{Lyrics}.  
+
 
 @node Flexibility in placement
 @subsection Flexibility in placement
 
-UNTRANSLATED NODE: IGNORE ME
+A menudo se aplican a una melodía distintos versos de una canción de formas ligeramente
+distintas.  Tales variantes pueden aún captarse mediante
+@code{\lyricsto}.
 
-@menu 
-* Lyrics to multiple notes of a melisma::
-* Divisi lyrics::
-* Switching the melody associated with a lyrics line::
-* Specifying melismata within the lyrics::
-* Lyrics independent of notes::
-@end menu 
+@menu
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Lyrics independent of notes::  
+@end menu
+
+
 @node Lyrics to multiple notes of a melisma
 @subsubsection Lyrics to multiple notes of a melisma
 
-UNTRANSLATED NODE: IGNORE ME
+Existe la posibilidad de que el texto tenga un melisma en un verso, pero
+varias sílabas en otro.  Una solución es hacer que la voz más rápida
+ignore el melisma.  Esto se consigue estableciendo
+@code{ignoreMelismata} en el contexto Lyrics.
+
+Hay un aspecto delicado: el valor de @code{ignoreMelismata}
+se debe establecer una sílaba @emph{antes} de la sílaba no melismática
+del texto, tal y como se muestra a continuación:
+
+@c  FIXME: breaks compile
+@lilypond[verbatim,ragged-right,quote]
+%{
+<<
+  \relative \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c4
+    \slurDotted
+    f8.[( g16])
+    a4
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    more slow -- ly
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    \set ignoreMelismata = ##t % applies to "fas"
+    go fas -- ter
+    \unset ignoreMelismata
+    still
+  }
+>>
+%}
+@end lilypond
+
+
+El @code{ignoreMelismata} se aplica a la sílaba @q{fas}, por ello
+se debe introducir antes de @q{go}.
+
+La inversa también es posible: hacer que una línea de letra sea más lenta que la
+normal.  Esto se puede conseguir insertando @code{\skip}s (desplazamientos) dentro de la
+letra.  Para cada @code{\skip}, el texto se retrasará una nota más.
+Por ejemplo,
+
+@lilypond[verbatim,ragged-right,quote]
+\relative { c c g' }
+\addlyrics {
+  twin -- \skip 4
+  kle
+}
+@end lilypond
+
 
 @node Divisi lyrics
 @subsubsection Divisi lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+Puede presentar letras alternativas (o divisi) nombrando contextos de
+voz y aplicando la letra a los mencionados contextos específicos.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" {
+    \relative c' {
+      c4
+      <<
+        { \voiceOne c8 e }
+        \new Voice = "splitpart" { \voiceTwo c4 }
+      >>
+      \oneVoice c4 c | c
+    }
+  }
+  \new Lyrics \lyricsto "melody" { we shall not o- ver- come }
+  \new Lyrics \lyricsto "splitpart" { will }
+>> }
+@end lilypond
+
+
+Puede usar este truco para presentar las distintas letras de una sección
+que se repite.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ <<
+  \new Voice = "melody" \relative c' {
+    c2 e | g e | c1 |
+    \new Voice = "verse" \repeat volta 2 {c4 d e f | g1 | }
+    a2 b | c1}
+  \new Lyrics = "mainlyrics" \lyricsto melody \lyricmode {
+    do mi sol mi do
+    la si do }
+  \context Lyrics = "mainlyrics" \lyricsto verse \lyricmode {
+   do re mi fa sol }
+  \new Lyrics = "repeatlyrics" \lyricsto verse \lyricmode {
+   dodo rere mimi fafa solsol }
+>>
+}
+@end lilypond
+
+
 
 @node Switching the melody associated with a lyrics line
 @subsubsection Switching the melody associated with a lyrics line
 
-UNTRANSLATED NODE: IGNORE ME
+Son posibles variaciones más complejas en la disposición del texto.  Se puede
+cambiar la melodía para una línea de la letra durante el texto.  Esto se hace
+estableciendo la propiedad @code{associatedVoice}.  En el ejemplo
 
-@node Specifying melismata within the lyrics
-@subsubsection Specifying melismata within the lyrics
+@lilypond[ragged-right,quote]
+<<
+  \relative \new Voice = "lahlah" {
+    \set Staff.autoBeaming = ##f
+    c4
+    <<
+      \new Voice = "alternative" {
+        \voiceOne
+        \times 2/3 {
+          % show associations clearly.
+          \override NoteColumn #'force-hshift = #-3
+          f8 f g
+        }
+      }
+      {
+        \voiceTwo
+        f8.[ g16]
+        \oneVoice
+      } >>
+    a8( b) c
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    Ju -- ras -- sic Park
+  }
+  \new Lyrics \lyricsto "lahlah" {
+    % Tricky: need to set associatedVoice
+    % one syllable too soon!
+    \set associatedVoice = alternative % applies to "ran"
+    Ty --
+    ran --
+    no --
+    \set associatedVoice = lahlah % applies to "rus"
+    sau -- rus Rex
+  } >>
+@end lilypond
 
-UNTRANSLATED NODE: IGNORE ME
+@noindent
+el texto del primer verso se aplica a una melodía llamada @q{lahlah},
+
+@example
+\new Lyrics \lyricsto "lahlah" @{
+  Ju -- ras -- sic Park
+@}
+@end example
+
+
+El segundo verso se aplica en principio al contexto de @code{lahlah}, pero
+para la sílaba @q{ran}, cambia a una meloodía diferente.
+Esto se consigue con
+@example
+\set associatedVoice = alternative
+@end example
+
+@noindent
+Aquí, @code{alternative} es el nombre del contexto de @code{Voice}
+que contiene el tresillo.
+
+Una vez más, la instrucción debe ir una sílaba antes de la cuenta, antes de @q{Ty} en
+este caso.
+
+@example
+\new Lyrics \lyricsto "lahlah" @{
+  \set associatedVoice = alternative % se aplica al "ran"
+  Ty --
+  ran --
+  no --
+  \set associatedVoice = lahlah % se aplica al "rus"
+  sau -- rus Rex
+@}
+@end example
+
+@noindent
+La disposición se vuelve a cambiar a la situación inicial mediante la asignación de
+@code{lahlah} a @code{associatedVoice}.
+
 
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
-UNTRANSLATED NODE: IGNORE ME
+En cierta música vocal compleja, podría ser deseable colocar la
+letra de forma totalmente independiente de las notas.  La música que se define
+dentro de @code{lyricrhythm} desaparece dentro del contexto
+@code{Devnull}, pero los valores rítmicos aún se pueden utilizar para
+colocar la letra.
+
+@lilypond[quote,verbatim,ragged-right]
+voice = {
+  c''2
+  \tag #'music { c''2 }
+  \tag #'lyricrhythm { c''4. c''8 }
+  d''1
+}
+
+lyr = \lyricmode { I like my cat! }
+
+<<
+  \new Staff \keepWithTag #'music \voice
+  \new Devnull="nowhere" \keepWithTag #'lyricrhythm \voice
+  \new Lyrics \lyricsto "nowhere" \lyr
+  \new Staff { c'8 c' c' c' c' c' c' c'
+  c' c' c' c' c' c' c' c' }
+>>
+@end lilypond
+
 
 @node Spacing lyrics
 @subsection Spacing lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Spacing lyrics
+@cindex Lyrics, increasing space between
+
+Para aumentar el espaciado entre las sílabas de la letra, esstablezca la propiedad minimum-distance de
+LyricSpace.
+
+@lilypond[relative,verbatim,fragment,quote,ragged-right]
+{
+  c c c c
+  \override Lyrics.LyricSpace #'minimum-distance = #1.0
+  c c c c
+}
+\addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+}
+@end lilypond
+
+Para que este cambio sea válido para la letra de la partitura completa, establezca la propiedad dentro del
+layout o disposición.
+
+@lilypond[relative,verbatim,quote,ragged-right]
+\score {
+  \relative c' {
+  c c c c
+  c c c c
+  }
+  \addlyrics {
+  longtext longtext longtext longtext
+  longtext longtext longtext longtext
+  }
+  \layout {
+    \context {
+      \Lyrics
+      \override LyricSpace #'minimum-distance = #1.0
+    }
+  }
+}
+@end lilypond
+
 
 @node More about stanzas
 @subsection More about stanzas
 
-UNTRANSLATED NODE: IGNORE ME
-
+@cindex stanza number
 @subsubsection Adding stanza numbers 
+
+Los números de los versos se pueden añadir estbableciendo @code{stanza}, p.ej.,
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set stanza = "1. "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set stanza = "2. "
+  Oh, ché -- ri, je t'aime
+}
+@end lilypond
+
+@noindent
+Estos números aparecerán inmediatamente antes de la primera sílaba.
+
+
 @subsubsection Adding dynamics marks
+
+Los versos que difieren en su fuerza se pueden especificar escribiendo una
+indicación dinámica antes de cada verso.  En Lilypond, todo lo que aparece delante de
+un verso está dentro del objeto @code{StanzaNumber}; las indicaciones dinámicas
+no son diferentes.  Por razones técnicas, tendrá que establecer el valor de la sección stanza (verso)
+fuera de @code{\lyricmode}:
+
+@lilypond[quote,ragged-right,verbatim]
+text = {
+  \set stanza = \markup { \dynamic "ff" "1. " }
+  \lyricmode {
+    Big bang
+  }
+}
+
+<<
+  \new Voice = "tune" {
+    \time 3/4
+    g'4 c'2
+  }
+\new Lyrics \lyricsto "tune" \text
+>>
+@end lilypond
+
+@cindex singer name
+@cindex name of singer
 @subsubsection Adding singer names
+
+También se pueden poner los nomrbes de los cantantes.  Se imprimen al comienzo de la
+línea, igual que los nombres de instrumento.  Se crean estableciendo un valor para
+@code{vocalName}.  Se puede definir una versión abreviada como @code{shortVocalName}.
+
+@lilypond[fragment,ragged-right,quote,verbatim,relative=2]
+\new Voice {
+  \time 3/4 g2 e4 a2 f4 g2.
+} \addlyrics {
+  \set vocalName = "Bert "
+  Hi, my name is Bert.
+} \addlyrics {
+  \set vocalName = "Ernie "
+  Oh, che -- ri, je t'aime
+}
+@end lilypond
+
+
 @subsubsection Printing stanzas at the end 
+
+En ocasiones es conveniente tener un verso ajustado a la música,
+y el resto añadido en forma de estrofa al final
+de la pieza.  Esto se puede conseguir escribiendo
+los versos adicionales dentro de una sección @code{\markup} fuera
+del bloque score principal de la partitura.  Tenga en cuenta que existen dos
+formas distincas de forzar los saltos de línea al utilizar
+@code{\markup}.
+
+@lilypond[ragged-right,verbatim,quote]
+melody = \relative c' {
+e d c d | e e e e |
+d d e d | c1 |
+}
+
+text = \lyricmode {
+\set stanza = "1." Ma- ry had a lit- tle lamb,
+its fleece was white as snow.
+}
+
+\score{ <<
+  \new Voice = "one" { \melody }
+  \new Lyrics \lyricsto "one" \text
+>>
+  \layout { }
+}
+\markup { \column{
+  \line{ Verse 2. }
+  \line{ All the children laughed and played }
+  \line{ To see a lamb at school. }
+  }
+}
+\markup{
+  \wordwrap-string #"
+  Verse 3.
+
+  Mary took it home again,
+
+  It was against the rule."
+}
+@end lilypond
+
+
 @subsubsection Printing stanzas at the end in multiple columns 
+
+Cuando una pieza tiene muchos versos, a menudo se imprimen
+en varias columnas a lo largo de toda la página. Con frecuencia un número de verso fuera del margen
+precede a cada verso. El ejemplo siguiente muestra cómo producir dicha salida
+en Lilypond.
+
+@lilypond[ragged-right,quote,verbatim]
+melody = \relative c' {
+  c c c c | d d d d
+}
+ 
+text = \lyricmode {
+  \set stanza = "1." This is verse one.
+  It has two lines.
+}
+
+\score{ <<
+    \new Voice = "one" { \melody }
+    \new Lyrics \lyricsto "one" \text
+   >>
+  \layout { }
+}
+
+\markup {
+  \fill-line {
+    \hspace #0.1 % moves the column off the left margin; can be removed if
+        % space on the page is tight
+     \column {
+      \line { \bold "2."
+        \column {
+          "This is verse two."
+          "It has two lines."
+        }
+      }
+      \hspace #0.1 % adds vertical spacing between verses
+      \line { \bold "3."
+        \column {
+          "This is verse three."
+          "It has two lines."
+        }
+      }
+    }
+    \hspace #0.1  % adds horizontal spacing between columns; if they are
+        % still too close, add more " " pairs until the result 
+        % looks good
+     \column {
+      \line { \bold "4."
+        \column {
+          "This is verse four."
+          "It has two lines."
+        }
+      }
+      \hspace #0.1 % adds vertical spacing between verses
+      \line { \bold "5."
+        \column {
+          "This is verse five."
+          "It has two lines."
+        }
+      }
+    }
+  \hspace #0.1 % gives some extra space on the right margin; can
+      % be removed if page space is tight
+  }
+}
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
+@internalsref{VocalName}.
+
+
+
 @node Ambitus
 @subsection Ambitus
+@cindex ambitus
 
-UNTRANSLATED NODE: IGNORE ME
+El término @emph{ambitus} o ámbito, denota el rango de notas que abarca uuna voz dada
+en una parte musical.  También puede denotar el margen de notas que es capaz de tocar
+un determinado instrumento musical.  Los ámbitos se imprimen en las partes vocales de tal manera que
+los intérpretes puedan determinar con facilidad si cumplen con sus propias posibilidades.
+
+Los ámbitos se presentan al comienzo de la pieza junto a la clave inicial.
+El rango se especifica gráficamente mediante dos cabezas de nota que representan a las
+notas inferior y superior.  Para imprimir el ámbito, añada el grabador
+@internalsref{Ambitus_engraver} al contexto @internalsref{Voice},
+por ejemplo
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \consists Ambitus_engraver
+  @}
+@}
+@end example
+
+Lo que da como resultado la siguiente salida:
+
+@lilypond[quote,ragged-right]
+\layout {
+  \context {
+    \Staff
+    \consists Ambitus_engraver
+  }
+}
+
+\relative \new Staff {
+  as'' c e2 cis,2
+}
+@end lilypond
+
+Si tiene varias voces en un pentagrama único y quiere tener una sola indicación de ámbito
+por pentagrama en lugar de una por cada voz, añada el grabador
+@internalsref{Ambitus_engraver} al contexto @internalsref{Staff}
+y no al contexto @internalsref{Voice}.  He aquí un ejemplo:
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \consists "Ambitus_engraver"
+}
+<<
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c'' {
+    \override Ambitus #'X-offset = #-1.0
+    \voiceOne
+    c4 a d e f2
+  }
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c' {
+    \voiceTwo
+    es4 f g as b2
+  }
+>>
+@end lilypond
+
+@noindent
+Este ejemplo utiliza una capacidad avanzada,
+
+@example
+\override Ambitus #'X-offset = #-1.0
+@end example
+
+@noindent
+Este código mueve el ámbito a la izquierda.  Se podría haber conseguido el mismo
+efecto con @code{extra-offset}, pero en tal caso el sistema de formateo no
+reservaría espacio para el objeto que se ha movido.
+
+@seealso
+
+Program reference: @internalsref{Ambitus},
+@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
+@internalsref{AmbitusAccidental}.
+
+Examples:
+@lsr{vocal,ambitus@/.ly}.
+
+@refbugs
+
+No se efectúa un tratamiento de las posibles colisiones en caso de varias indicaciones de ámbito
+simultáneas en distintas voces.
+
 
 @node Other vocal issues
 @subsection Other vocal issues
 
-UNTRANSLATED NODE: IGNORE ME
+@ignore
+yeah, I'm giving up somewhat by stuffing a bunch of things in
+here.  But at least they're in the manual now; it's easier to
+move them around in the manual once they're already here.
+
+Besides, if users complain about everything stuffed in here, I
+can ask them for specific instructions about where to move these
+examples, and that might get them more involved in the docs.  -gp
+@end ignore
+
+@q{Parlato} es texto hablado sin notas pero con ritmo; su notación se
+realiza mediante cabezas de nota en forma de cruz.  Esto queda demostrado en
+@ref{Special noteheads}.
+
+
+
+
 
 @node Rhythmic music
 @section Rhythmic music
 
-UNTRANSLATED NODE: IGNORE ME
+La notación rítmica se emplea primordialmente para la percusión y la batería, pero también
+se puede utilizar para mostrar los valores rítmicos una melodía.
 
-@menu 
-* Showing melody rhythms::
-* Entering percussion::
-* Percussion staves::
-* Ghost notes::
-@end menu 
+@menu
+* Showing melody rhythms::      
+* Entering percussion::         
+* Percussion staves::           
+* Ghost notes::                 
+@end menu
+
+
 @node Showing melody rhythms
 @subsection Showing melody rhythms
 
-UNTRANSLATED NODE: IGNORE ME
+En ocasiones podría desear que se muestre sólo el ritmo de una melodía.  Esto
+se puede hacer con la pauta rítmica.  Todas las alturas de las notas en dicha pauta
+se muestran como una barra, y la pauta en sí tiene una sola línea.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
+}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{RhythmicStaff}.
+
 
 @node Entering percussion
 @subsection Entering percussion
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex percussion
+@cindex drums
+
+
+Las notas de percusión se pueden escribir en el modo @code{\drummode}, que es similar
+al modo estándar apra introducir notas.  Cada elemento de un set de percusión
+lleva un nombre completo y un nombre abreviado, y los dos se pueden usar
+en la entrada
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  hihat hh bassdrum bd
+}
+@end lilypond
+
+La lista comleta de nombre de instrumentos de percusión se encuentra en el archivo de inicio
+@file{ly/@/drumpitch@/-init@/.ly}.
+@c TODO: properly document this.
+
+@seealso
+
+Referencia del programa: @internalsref{note-event}.
 
 @node Percussion staves
 @subsection Percussion staves
+@cindex percussion
+@cindex drums
 
-UNTRANSLATED NODE: IGNORE ME
+Una parte de percusión para más de un instrumento, normalmente utiliza una pauta
+de varias llíneas donde cada posición dentro de la pauta se refiere a un elemento
+de percusión.
 
+
+Para tipografiar la música, se deben interpretar las notas dentro de los contextos
+@internalsref{DrumStaff} y @internalsref{DrumVoice}
+
+@lilypond[quote,ragged-right,verbatim]
+up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \drummode { bassdrum4 snare8 bd r bd sn4 }
+  \new DrumStaff <<
+    \new DrumVoice { \voiceOne \up }
+    \new DrumVoice { \voiceTwo \down }
+  >>
+@end lilypond
+
+El ejemplo anterior muestra una notación polifónica prolija.  La notación
+polifónicca abreviada, descrita en @ref{Basic polyphony}, también se puede usar si
+las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new DrumStaff <<
+  \new DrumVoice = "1" { s1 *2 }
+  \new DrumVoice = "2" { s1 *2 }
+  \drummode {
+    bd4 sn4 bd4 sn4
+    <<
+      { \repeat unfold 16 hh16 }
+      \\
+      { bd4 sn4 bd4 sn4 }
+    >>
+  }
+>>
+@end lilypond
+
+
+También existen otras posibilidades en lo referente a la disposición.  Para usarlas, establezca la
+propiedad @code{drumStyleTable} en el contexto @internalsref{DrumVoice}.
+Se han predefinido las siguientes variables:
+
+@table @code
+@item drums-style
+Es la opción por defecto.  Tipografía un típico set de percusión sobre una pauta de cinco líneas
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove Bar_engraver
+       \remove Time_signature_engraver
+       \override Stem #'transparent = ##t
+       \override Stem #'Y-extent-callback = ##f
+       \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText #'font-family = #'typewriter
+      \override BarNumber #'transparent =##T
+    }
+  }
+}
+@end lilypond
+
+El esquema de percusión contempla seis tambores graves (toms) distintos.  Cuando haya menos toms,
+sencillamente seleccione aquellos que producen el resultado deseado, es decir, para tener toms
+en las tres líneas centrales utilizará @code{tommh}, @code{tomml} y
+@code{tomfh}.
+
+@item timbales-style
+Esto tipografía timbales en una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode { timh ssh timl ssl cb s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+    \override StaffSymbol #'line-count = #2
+    \override StaffSymbol #'staff-space = #2
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
+    drumStyleTable = #timbales-style
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item congas-style
+Esto tipografía congas en una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    drumStyleTable = #congas-style
+    \override StaffSymbol #'line-count = #2
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item bongos-style
+Esto tipografía bongos sobre una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override StaffSymbol #'line-count = #2
+    drumStyleTable = #bongos-style
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item percussion-style
+Para tipografiar toda clase de percusiones simples sobre pautas de una línea.
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove Bar_engraver
+    drumStyleTable = #percussion-style
+    \override StaffSymbol #'line-count = #1
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+@end table
+
+Si no le gusta ninguna de las listas preedefinidas, puede definir su propia lista
+al principiio de su archivo
+
+@lilypond[quote,ragged-right,verbatim]
+#(define mydrums '(
+         (bassdrum     default   #f         -1)
+         (snare        default   #f         0)
+         (hihat        cross     #f         1)
+         (pedalhihat   xcircle   "stopped"  2)
+         (lowtom       diamond   #f         3)))
+up = \drummode { hh8 hh hh hh hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
+
+\new DrumStaff <<
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+
+@seealso
+
+Archivos de inicio: @file{ly/@/drumpitch@/-init@/.ly}.
+
+Referencia del programa: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+
+@refbugs
+
+A causa de que el estándar General MIDI no contiene golpes de aro (rim shot), para este propósito se usa
+el golpe lateral de baqueta (sidestick) en su lugar.
+
+
+@c FIXME: check name -gp
 @node Ghost notes
 @subsection Ghost notes
 
-UNTRANSLATED NODE: IGNORE ME
+Las notas fantasma para la batería e instrumentos de percusión se pueden crear utilizando la instrucción
+@code{\parenthesize} detallada en @ref{Parentheses}.  Sin embargo,
+el modo por defecto @code{\drummode} no
+incluye el añadido grabador @code{Parenthesis_engraver} que permite
+esto.
+Debe escribir el grabador añadido explícitamente en la definición de contexto tal y como se explica detalladamente
+en @ref{Changing context properties on the fly}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\new DrumStaff \with {
+  \consists "Parenthesis_engraver"
+} <<
+  \context DrumVoice  = "1"  { s1 *2 }
+  \context DrumVoice  = "2" { s1 *2 }
+  \drummode {
+    <<
+      {
+        hh8[ hh] <hh sn> hh16
+        < \parenthesize sn > hh < \parenthesize
+        sn > hh8 <hh sn> hh
+      } \\ {
+        bd4 r4 bd8 bd r8 bd
+      }
+    >>
+  }
+>>
+@end lilypond
+
+@noindent
+Tenga en cuenta, además, que debe añadir acordes (paréntesis en ángulo @code{< >})
+alrededor de cada una de las instrucciones @code{\parenthesize}.
+
 
 @node Guitar
 @section Guitar
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tablature
+@cindex guitar tablature
 
-@menu 
-* String number indications::
-* Tablatures basic::
-* Non-guitar tablatures::
-* Banjo tablatures::
-* Fret diagrams::
-* Right hand fingerings::
-* Other guitar issues::
-@end menu 
+@menu
+* String number indications::   
+* Tablatures basic::            
+* Non-guitar tablatures::       
+* Banjo tablatures::            
+* Fret diagrams::               
+* Right hand fingerings::       
+* Other guitar issues::         
+@end menu
+
 @node String number indications
 @subsection String number indications
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Cuerda, número de la
+
+Los números de cuerda se pueden añadir a los acordes especificándolos mediante
+@code{\}@var{número},
+
+@lilypond[relative,relative=1,ragged-right,fragment]
+<c\1 e\2 g\3>
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{StringNumber},
+@lsr{guitar/,string-number.ly}.
+
 
 @node Tablatures basic
 @subsection Tablatures basic
+@cindex Tablatura, principios básicos
 
-UNTRANSLATED NODE: IGNORE ME
+La notación de tablatura se utiliza para la notación de música de instrumentos de cuerda
+pulsada.  Las alturas no se denotan mediante cabezas de nota, sino mediante
+números que indican sobre qué cuerda y traste se debe tocar la nota.  LilyPond
+contempla las tabalturas de forma limitada.
+
+El número de cuerda asociado a una nota se proporciona en la forma de una barra invertida
+seguida por un número, p.ej. @code{c4\3} es un Do negra sobre la tercera cuerda.
+Por defecto, la cuerda 1 es la más aguda, y la afinación normal
+es la afinación estándar de guitarra (con 6 cuerdas).  Las notas
+se imprimen como tablatura, usando lo contextos @internalsref{TabStaff} y
+@internalsref{TabVoice}
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff {
+  a,4\5 c'\2 a\3 e'\1
+  e\4 c'\2 a\3 e'\1
+}
+@end lilypond
+
+@funindex minimumFret
+@cindex traste
+
+Cuando no se especifica ninguna cuerda, se selecciona la primera cuerda que no da un
+número de traste menor de @code{minimumFret} (traste mínimo).  El valor por defecto
+de @code{minimumFret} es cero
+
+
+@example
+e16 fis gis a b4
+\set TabStaff.minimumFret = #8
+e16 fis gis a b4
+@end example
+@lilypond[quote,ragged-right]
+frag = {
+  \key e \major
+  e16 fis gis a b4
+  \set TabStaff.minimumFret = #8
+  e16 fis gis a b4
+}
+  \new StaffGroup <<
+    \new Staff { \clef "G_8" \frag }
+    \new TabStaff { \frag }
+  >>
+@end lilypond
+
+
+@commonprop
+
+Para imprimir tabalturas con las plicas hacia abajo y barras horizontales,
+inicialice el @code{TabStaff} (pentagrama de tablatura) con el código sigueinte:
+
+@example
+\stemDown
+\override Beam #'damping = #100000
+@end example
+
+@seealso
+
+Referencia del programa: @internalsref{TabStaff}, @internalsref{TabVoice}.
+
+@refbugs
+
+Los acordes no se tratan de una manera especial, de aquí que el
+selector automático de cuerdas podría fácilmente seleccionar la misma cuerda para dos notas
+dentro del mismo acorde.
+
+Para manejar @code{\partcombine}, una pauta de tablatura @code{TabStaff} debe usar
+voces creadas especialmente:
+
+@lilypond[quote,ragged-right,verbatim]
+melodia = \partcombine { e4 g g g }{ e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
+
 
 @node Non-guitar tablatures
 @subsection Non-guitar tablatures
+@cindex Tablaturas para instr. distintos de la guitarra
 
-UNTRANSLATED NODE: IGNORE ME
+Puede cambiar la afinación de las cuerdas. Una afinación de cuerdas se da como
+una lista en lenguaje Scheme con un número entero para cada cuerda, donde el número
+es la altura (medida en semitonos desde el Do central) de una
+cuerda al aire.  Los números especificados para @code{stringTunings} son la
+cantidad de semitonos que se deben restar o añadir, comenzando por la altura especificada
+que por defecto es el Do central, y en el orden de las cuerdas.  LilyPond calcula automáticamente
+el número de cuerdas leyendo @code{stringTunings}.
+
+En el ejemplo siguiente,
+@code{stringTunings} se establece a los valores Mi, La, Re y Sol
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
+  {
+    a,4 c' a e' e c' a e'
+  }
+>>
+@end lilypond
+
+LilyPond tiene afinaciones predefinidas para el banjo, la mandolina, la guitarra
+y el bajo eléctrico.
+
+@example
+\set TabStaff.stringTunings = #bass-tuning
+@end example
+
+La afinación por omisión es @code{guitar-tuning} (la afinación estándar
+Mi-La-Re-Sol-Si-Mi).
+Otras afinaciones predefinidas son @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
+@code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo con Sol Mayor al aire).
+
+@seealso
+
+El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
+de las cuerdas.
+Referencia del programa: @internalsref{Tab_note_heads_engraver}.
+
+@refbugs
+
+No se ha implementado ningún efecto especial de guitarra.
+
+
 
 @node Banjo tablatures
 @subsection Banjo tablatures
+@cindex Banjo, tablaturas de
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond contempla el banjo de cinco cuerdas de una manera básica.  Cuando haga tablaturas
+para banjo de cinco cuerdas, utilice la función de formato de tablatura de banjo para obtener
+los números correctos
+de los trastes para la quinta cuerda:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+En LilyPond se encuentran predefinidas varias afinaciones comunes para el banjo:
+@code{banjo-c-tuning} (sol-Do-Sol-Si-Re), @code{banjo-modal-tuning} (sol-Re-Sol-Do-Re),
+@code{banjo-open-d-tuning} (Re Mayor al aire, la-Re-Fa#-La-Re) y @code{banjo-open-dm-tuning}
+(Re menor al aire, la-Re-Fa-La-Re).
+
+Estas afinaciones se pueden convertir a afinaciones para bajo de cuatro cuerdas utilizando la
+función @code{four-string-banjo}:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
+@seealso
+
+El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas para el banjo.
+
 
 @node Fret diagrams
 @subsection Fret diagrams
+@cindex trastes, diagramas de
+@cindex acordes, diagramas de
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden añadir diagramas de trastes a la música como elementos de marcado sobre la nota deseada.  El
+amrcado contiene información sobre el diagrama de trastes deseado, tal y como se  muestra en el
+ejemplo siguiente
+
+@lilypond[verbatim, ragged-right, quote]
+\new Voice {
+  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d' d' d'
+  fis'^\markup \override #'(size . 0.75) {
+    \override #'(finger-code . below-string) {
+      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                               (place-fret 5 4 3) (place-fret 4 4 4)
+                               (place-fret 3 3 2) (place-fret 2 2 1)
+                               (place-fret 1 2 1))
+    }
+  }
+  fis' fis' fis'
+  c'^\markup \override #'(dot-radius . 0.35) {
+    \override #'(finger-code . in-dot) {
+      \override #'(dot-color . white) {
+        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+      }
+    }
+  }
+  c' c' c'
+}
+@end lilypond
+
+
+Existen trees interfaces distintos para el marcado de los diagramas de trastes: estándar, escueto
+y prolijo.  Los tres interfaces producen unos elementos de marcado equivalentes, pero tienen
+cantidades variables de información en la cadena de marcado.  Se pueden encontrar
+más detalles sobre los interfaces de marcado en @ref{Overview of text markup commands}.
+
+Puede establecer un cierto número de propiedades gráficas según su elección.
+Se pueden encontrar más detalles sobre el interface de las propiedades de los diagramas de trastes en
+@internalsref{fret-diagram-interface}.
+
+
+@seealso
+
+Ejemplos: @lsrdir{guitar}
+
 
 @node Right hand fingerings
 @subsection Right hand fingerings
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden introducir las digitaciones de la mano derecha de los acordes, usando
+@code{@var{nota}-\rightHandFinger @var{dedo}}
+
+@lilypond[verbatim,fragment,relative=2]
+  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+@end lilypond
+
+Por brevedad, es posible abreviar @code{\rightHandFinger} como algo más corto,
+como por ejemplo @code{RH},
+
+@example
+#(define RH rightHandFinger)
+@end example
+
+@cindex digitaciones, mano derecha, de guitarra
+@cindex mano derecha, digitaciones para guitarra
+ 
+@commonprop
+
+Puede ejercer un mayor control sobre las digitaciones de la mano derecha estableciendo
+@code{strokeFingerOrientations},
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(up down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  \set strokeFingerOrientations = #'(up right down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+}
+@end lilypond
+
+Las letras utilizadas para las digitaciones se encuentran contenidas dentro de la propiedad
+@code{digit-names} (nombres de los dedos), pero también se pueden fijar individualmente aportando a
+@code{\rightHandFinger} un argumento de cadena, como en el ejemplo siguiente
+
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(right)
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
+  <c-\RH #5 >4
+  <c-\RH "@">4  
+}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{StrokeFinger}
+
+
 
 @node Other guitar issues
 @subsection Other guitar issues
 
-UNTRANSLATED NODE: IGNORE ME
+Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
+de guitarra:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+\clef "G_8"
+b16 d16 g16 b16 e16
+\textSpannerDown
+\override TextSpanner #'bound-details #'left #'text = #"XII "
+  g16\startTextSpan
+  b16 e16 g16 e16 b16 g16\stopTextSpan
+e16 b16 g16 d16
+@end lilypond
+
+
+Las cabezas en aspa (X) se utilizan en la música de guitarra para indicar el lugar donde el
+guitarrista debe tocar una determinada nota o acorde, con sus dedos apenas
+tocando las cuerdas en lugar de pisarlas por completo.  Esto produce en el sonido un carácter
+percusivo y ruidoso, sin perder la altura de la nota
+original.  Su notación se realiza con cabezas en equis; se muestra
+en @ref{Special noteheads}.
+
 
 @node Bagpipe
 @section Bagpipe
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Gaita
 
-@menu 
-* Bagpipe definitions::
-* Bagpipe example::
-@end menu 
+@menu
+* Bagpipe definitions::         
+* Bagpipe example::             
+@end menu
+
+
 @node Bagpipe definitions
 @subsection Bagpipe definitions
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond contiene definiciones especiales para la música de gaita escocesa de las
+tierras altas; para usarlas, escriba
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+al principio del archivo de entrada.  De esta forma podrá escribir las notas de adorno especiales
+que son usuales en la música de gaita, mediante isntruciones breves.  Por ejemplo, puede escribir
+@code{\taor} en lugar de
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@code{bagpipe.ly} también contiene definiciones de alturas para las notas de la
+gaita en las octavas adecuadas, de forma que no se tenga que preocupar por
+@code{\relative} o por @code{\transpose}.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+La música de gaita utiliza siempre la tonalidad de Re mayor (aunque esto no es
+completamente cierto). Sin embargo, puesto que es la úna tonalidad que se puede utilizar,
+normalmente la armadura no se escribe. Para configurar esto de forma correcta,
+comience la música siempre con @code{\hideKeySignature} (ocultar armadura). Si, por algún motivo,
+quiere mostrar la armadura, puede usar @code{\showKeySignature}
+en su lugar.
+
+Alguna música moderna utliza digitaciones cruzadas sobre el Do y el Fa para bemolizar estas notas.
+Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, el
+sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
+ligera.
+
 
 @node Bagpipe example
 @subsection Bagpipe example
 
-UNTRANSLATED NODE: IGNORE ME
+La conocida melodía Amazing Grace tiene este aspecto en notación de
+gaita.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
+
 
 @node Ancient notation
 @section Ancient notation
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Vaticana, Editio
+@cindex Medicaea, Editio
+@cindex hufnagel
+@cindex Petrucci
+@cindex mensural
 
-@menu 
-* Ancient note heads::
-* Ancient accidentals::
-* Ancient rests::
-* Ancient clefs::
-* Ancient flags::
-* Ancient time signatures::
-* Ancient articulations::
-* Custodes::
-* Divisiones::
-* Ligatures::
-* Gregorian Chant contexts::
-* Mensural contexts::
-* Musica ficta accidentals::
-* Figured bass::
-@end menu 
+El tratamiento de la notación antigua incluye posibilidades orientadas a la notación mensural
+y de Canto Gregoriano.  También se contempla de forma limitada la notación del
+bajo figurado.
+
+Muchos objetos gráficos ofrecen una propiedad @code{style}, consulte
+@itemize @bullet
+@item
+@ref{Ancient note heads},
+@item
+@ref{Ancient accidentals},
+@item
+@ref{Ancient rests},
+@item
+@ref{Ancient clefs},
+@item
+@ref{Ancient flags},
+@item
+@ref{Ancient time signatures}.
+@end itemize
+
+Al manipular la mencionada propiedad del elemento gráfico, la presentación tipográfica de los
+objetos gráficos afectados se puede acomodar a una variedad de notación específica
+sin necesidad de introducir ningún concepto notacional
+nuevo.
+
+Además de los signos de articulación estándar que se describen en la sección
+@ref{Articulations}, se ofrecen signos de articulación específicos para la notación
+antigua.
+
+@itemize @bullet
+@item
+@ref{Ancient articulations}
+@end itemize
+
+Otros aspectos de la notación antigua no se pueden expresar fácilmente
+en términos de cambiar simplemente una propiedad de estilo de un objeto gráfico o añadir
+símbolos de articulación.  Ciertos conceptos notacionales se introducen específicamente para
+la notación antigua,
+
+@itemize @bullet
+@item
+@ref{Custodes},
+@item
+@ref{Divisiones},
+@item
+@ref{Ligatures}.
+@end itemize
+
+Si todo esto le supone un exceso de documentación, y lo único que desea es
+navegar por el mar de la composición tipográfica sin tener que preocuparse demasiado de los detalles relativos a la
+manera de personalizar un contexto, puede echarles un vistazo a los contextos
+predefinidos.  Úselos para preparar contextos de voz y de pentagrama específicos de un estilo,
+y luego pase directamente a introducir las notas,
+
+@itemize @bullet
+@item
+@ref{Gregorian Chant contexts},
+@item
+@ref{Mensural contexts}.
+@end itemize
+
+Se contempla de forma limitada la notación del bajo figurado que apareció en el
+período barroco.
+
+@itemize @bullet
+@item
+@ref{Figured bass}
+@end itemize
+
+Aquí puede ver de forma resumida todos los apartados relacionados:
+
+@menu
+* Ancient note heads::          
+* Ancient accidentals::         
+* Ancient rests::               
+* Ancient clefs::               
+* Ancient flags::               
+* Ancient time signatures::     
+* Ancient articulations::       
+* Custodes::                    
+* Divisiones::                  
+* Ligatures::                   
+* Gregorian Chant contexts::    
+* Mensural contexts::           
+* Musica ficta accidentals::    
+* Figured bass::                
+@end menu
+
+
+
 @node Ancient note heads
 @subsection Ancient note heads
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex cabezas de nota antiguas
+
+Para la notación antigua, se puede elegir un estilo de cabezas de notas distinto al @code{default}
+(estilo por defecto).  Esto se consigue estableciendo la propiedad @code{style}
+del objeto @internalsref{NoteHead} a los valores @code{baroque},
+@code{neomensural}, @code{mensural} o @code{petrucci}.  El estilo
+@code{baroque} se diferencia del estilo por defecto @code{default} únicamente en que usa
+una forma cuadrada para las cabezas de las @code{\breve}.  El estilo
+@code{neomensural} se diferencia del estilo @code{baroque} en que
+usa cabezas romboidales para las redondas y todas las figuras de duración menor.
+Las plicas aparecen centradas sobre las cabezas.  Este estilo es particularmente
+útil al transcribir música mensural, p.ej. para el incipit.  El estilo
+@code{mensural} produce cabezas que imitan el aspecto de aquellas que aparecen en las ediciones impresas
+del siglo XVI.  Finalmente, el estilo
+@code{petrucci} también imita las ediciones históricas, pero utiliza unas cabezas
+mayores.
+
+El ejemplo siguiente muestra el estilo @code{neomensural}
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\set Score.skipBars = ##t
+\override NoteHead #'style = #'neomensural
+a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
+@end lilypond
+
+Cuando se tipografía una pieza en notación de Canto Gregoriano, el grabador
+@internalsref{Gregorian_ligature_engraver} selecciona automáticamente
+las cabezas adecuadas, de manera que no es necesario establecer el estilo de las cabezas
+explícitamente.  Aún así, el estilo de las cabezas se puede establecer, p.ej., a
+@code{vaticana_punctum} para producir neumas punctum.  De forma similar, se utiliza un grabador
+@internalsref{Mensural_ligature_engraver} para construir automáticamente
+ligaduras emnsurales.  Consulte @ref{Ligatures} para ver cómo funcionan los grabadores
+de las ligaduras.
+
+@seealso
+
+@ref{Note head styles} ofrece una visión de conjunto sobre la totalidad de los estilos de cabeza disponibles.
+
 
 @node Ancient accidentals
 @subsection Ancient accidentals
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex alteraciones accidentales
+
+
+Utilice la propiedad @code{glyph-name-alist} del elemento gráfico
+@internalsref{Accidental} y @internalsref{KeySignature} para seleccionar
+los símbolos de alteración de la notación antigua.
+
+@lilypond[quote,ragged-right,staffsize=26]
+\score {
+{
+  \fatText
+  s^\markup {
+    \column {
+      "vaticana"
+      \line { " " \musicglyph #"accidentals.vaticana-1"
+        " " \musicglyph #"accidentals.vaticana0" }
+    }
+    \column {
+      "medicaea"
+      \line { " " \musicglyph #"accidentals.medicaea-1" }
+    }
+    \column {
+      "hufnagel"
+      \line { " " \musicglyph #"accidentals.hufnagel-1" }
+    }
+    \column {
+      "mensural"
+      \line { " " \musicglyph #"accidentals.mensural-1"
+        " " \musicglyph #"accidentals.mensural1" }
+    }
+  }
+}
+\layout {
+  interscoreline = 1
+  \context { \Score \remove "Bar_number_engraver" }
+  \context { \Staff
+      \remove "Clef_engraver"
+      \remove "Key_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \override VerticalAxisGroup #'minimum-Y-extent = ##f
+    }
+  }
+}
+@end lilypond
+
+Como se muestra aquí, no todas las alteraciones están contempladas por cada uno de los estilos. Cuando
+trate de acceder a una alteración no contemplada, LilyPond cambiará a un estilo diferente,
+como se muestra en
+@lsr{ancient,ancient-accidentals.ly}.
+
+De forma similar a las alteraciones accidentales, el estilo de la armadura de la tonalidad se puede
+controlar a través de la propiedad @code{glyph-name-alist} del elemento gráfico
+@internalsref{KeySignature}.
+
+@seealso
+
+En el presente manual: @ref{Pitches}, @ref{Cautionary accidentals} y
+@ref{Automatic accidentals} proporcionan una introducción general al uso de las
+alteraciones.  @ref{Key signature} ofrece una introducción general al uso de
+las armaduras de tonalidad.
+
+Referencia del programa: @internalsref{KeySignature}.
+
+Ejemplos: @lsrdir{ancient}
 
 @node Ancient rests
 @subsection Ancient rests
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex silencios antiguos
+
+
+Utilice la propiedad @code{style} del elemento gráfico @internalsref{Rest} para seleccionar
+silencios antiguos.  Los estilos contemplados son @code{classical},
+@code{neomensural} y @code{mensural}.  @code{classical} se diferencia
+del estilo por defecto @code{default} solamente en que el silencio de negra parece
+un silencio de corchea invertido horizontalmente.  El estilo @code{neomensural} es adecuado para,
+p.ej., el incipit de una pieza transcrita de música mensural.
+Finalmente, el estilo @code{mensural} reproduce el aspecto de los silencios de las ediciones impresas históricas
+del siglo XVI.
+
+El ejemplo siguiente muestra el estilo @code{neomensural}
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\set Score.skipBars = ##t
+\override Rest #'style = #'neomensural
+r\longa r\breve r1 r2 r4 r8 r16
+@end lilypond
+
+No existen silencios de fusa y semifusa específicos para los estilos mensural
+ni neo-mensural.  En su lugar se tomarán los silencios del estilo por defecto.
+Consulte @lsr{pitches,rests} para ver un cuadro de todos los siencios.
+
+No hay silencios en la notación del Canto Gregoriano; en su lugar, se utilizan
+@ref{Divisiones}.
+
+@seealso
+
+En este manual: @ref{Rests} ofrece una introducción general al uso de los
+silencios.
+
 
 @node Ancient clefs
 @subsection Ancient clefs
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex claves
+
+
+LilyPond contempla una amplia variedad de claves, muchas de ellas antiguas.
+
+La siguiente tabla presenta todas las claves antiguas que están contempladas a través de la
+instrucción @code{\clef}.  Algunas de las claves usan el mismo glifo, pero
+se diferencian sólo en la línea en que se imprimen.  En tales casos,
+se usa un número añadido al nombre para enumerar dichas claves.
+Aún así, puede forzar manualmente que se escriba un glifo de clave sobre una
+línea arbitraria, como se encuentra descrito en @ref{Clef}.  La nota impresa a la derecha
+de cada clave en la columna de los ejemplos denota la situación del Do central (@code{c'})
+con respecto a dicha clave.
+
+@multitable @columnfractions .4 .4 .2
+@item
+@b{Descripción}
+@tab
+@b{Claves posibles}
+@tab
+@b{Ejemplo}
+
+@item
+clave de Do en estilo mensural moderno
+@tab
+@code{neomensural-c1}, @code{neomensural-c2},@*
+@code{neomensural-c3}, @code{neomensural-c4}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "neomensural-c2" c
+@end lilypond
+
+@item
+claves de Do mensurales en estilo de Petrucci, para su uso sobre diferentes líneas de la pauta
+(los ejemplos muestran la clave de Do en segunda línea)
+@tab
+@code{petrucci-c1}, @code{petrucci-c2},@*
+@code{petrucci-c3}, @code{petrucci-c4},@*
+@code{petrucci-c5}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "petrucci-c2"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Fa mensural en estilo de Petrucci
+@tab
+@code{petrucci-f}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "petrucci-f"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Sol mensural en estilo de Petrucci
+@tab
+@code{petrucci-g}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "petrucci-g"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Do mensural en estilo histórico
+@tab
+@code{mensural-c1}, @code{mensural-c2},@*
+@code{mensural-c3}, @code{mensural-c4}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "mensural-c2"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Fa mensural en estilo histórico
+@tab
+@code{mensural-f}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "mensural-f"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Sol mensural de estilo histórico
+@tab
+@code{mensural-g}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \clef "mensural-g"
+  \override NoteHead #'style = #'mensural
+  c
+@end lilypond
+
+@item
+clave de Do del estilo de la Editio Vaticana
+@tab
+@code{vaticana-do1}, @code{vaticana-do2},@*
+@code{vaticana-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'vaticana.punctum
+  \clef "vaticana-do2"
+  c
+@end lilypond
+
+@item
+clave de Fa del estilo de la Editio Vaticana
+@tab
+@code{vaticana-fa1}, @code{vaticana-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'vaticana.punctum
+  \clef "vaticana-fa2"
+  c
+@end lilypond
+
+@item
+clave de Do del estilo de la Editio Medicaea
+@tab
+@code{medicaea-do1}, @code{medicaea-do2},@*
+@code{medicaea-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'medicaea.punctum
+  \clef "medicaea-do2"
+  c
+@end lilypond
+
+@item
+clave de Fa del estilo de la Editio Medicaea
+@tab
+@code{medicaea-fa1}, @code{medicaea-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'medicaea.punctum
+  \clef "medicaea-fa2"
+  c
+@end lilypond
+
+@item
+clave de Do hufnagel de estilo histórico
+@tab
+@code{hufnagel-do1}, @code{hufnagel-do2},@*
+@code{hufnagel-do3}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-do2"
+  c
+@end lilypond
+
+@item
+clave de Fa hufnagel de estilo histórico
+@tab
+@code{hufnagel-fa1}, @code{hufnagel-fa2}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'line-count = #4
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-fa2"
+  c
+@end lilypond
+
+@item
+clave hufnagel de Do y Fa combinados de estilo histórico
+@tab
+@code{hufnagel-do-fa}
+@tab
+@lilypond[fragment,relative=1,notime]
+  \override Staff.StaffSymbol #'color = #red
+  \override Staff.LedgerLineSpanner #'color = #red
+  \override Voice.Stem #'transparent = ##t
+  \override NoteHead #'style = #'hufnagel.punctum
+  \clef "hufnagel-do-fa"
+  c
+@end lilypond
+@end multitable
+
+
+
+@emph{Estilo Moderno} significa @qq{como se encuentra tipografiado en las ediciones contemporáneas de
+música mensural transcrita.}
+
+@emph{Estilo de Petrucci} significa @qq{inspirado por las ediciones impresas del famoso
+grabador Petrucci (1466-1539).}
+
+@emph{Estilo Histórico} significa @qq{como se tipografiaba o se escribía en las ediciones
+históricas (aparte de las de Petrucci).}
+
+@emph{Estilo de la Editio XXX} significa @qq{como se imprimme o imprimía en la Editio XXX.}
+
+Petrucci usaba claves de Do que tenían barras verticales en el lado izquierdo en un equilibrio variable,
+dependiendo de la línea de la pauta en que se imprimían.
+
+@seealso
+
+En este manual: consulte @ref{Clef}.
+
+@refbugs
+
+La clave mensural de Sol está reasignada a la clave de Sol de Petrucci.
+
+
 
 @node Ancient flags
 @subsection Ancient flags
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex corchetes
+
+
+Utilice la propiedad @code{flag-style} del elemento gráfico @internalsref{Stem} para seleccionar
+los corchetes de estilo antiguo.  Aparte del estilo de corchete por defecto @code{default},
+sólo está contemplado el estilo @code{mensural}
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\override Stem #'flag-style = #'mensural
+\override Stem #'thickness = #1.0
+\override NoteHead #'style = #'mensural
+\autoBeamOff
+c'8 d'8 e'8 f'8 c'16 d'16 e'16 f'16 c'32 d'32 e'32 f'32 s8
+c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
+@end lilypond
+
+Dése cuenta de que la bandera más interna de cada uno de los corchetes mensurales siempre
+se alinea verticalmente con una línea de la pauta.
+
+No existe un estilo particular de corchete para la notación neo-mensural.  Por ello,
+cuando tipografíe el incipit de una pieza transcrita de música mensural,
+debe usar el estilo de corchete por defecto.  No existen corchetes en la notación
+del Canto Gregoriano.
+
+@refbugs
+
+La unión de los corchetes antiguos a las plicas está ligeramente desviada a causa de un
+cambio en la antigua versión 2.3.x.
+
+La alineación vertical de cada uno de los corchetes con una línea de la pauta da por supuesto que las plicas
+siempre terminan exactamente encima o bien exactamente en el medio de dos líneas de la
+pauta.  Esto puede no ser siempre cierto cuando se utilizan las posibilidades de disposición
+avanzadas de la notación clásica (que, de todas formas, por lo común se encuentra fuera del ámbito de la
+notación mensural).
 
 @node Ancient time signatures
 @subsection Ancient time signatures
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex compás, indicación de
+
+
+Las indicaciones de comás pensurales están contempladas de forma limitada.  Los
+glifos están configurados de forma fija para determinadas fracciones de tiempo.  En otras palabras,
+para obtener un glifo de compás mensural determinado con la instrucción @code{\time n/m},
+se tienen que escoger @code{n} y @code{m} según la siguiente
+tabla
+
+@lilypond[quote,ragged-right]
+\layout {
+  indent = 0.0
+  \context {
+    \Staff
+    \remove Staff_symbol_engraver
+    \remove Clef_engraver
+    \remove Time_signature_engraver
+  }
+}
+{
+  \set Score.timing = ##f
+  \set Score.barAlways = ##t
+  s_\markup { "\\time 4/4" }^\markup { "       " \musicglyph
+#"timesig.neomensural44" }
+  s
+  s_\markup { "\\time 2/2" }^\markup { "       " \musicglyph
+#"timesig.neomensural22" }
+  s
+  s_\markup { "\\time 6/4" }^\markup { "       " \musicglyph
+#"timesig.neomensural64" }
+  s
+  s_\markup { "\\time 6/8" }^\markup { "       " \musicglyph
+#"timesig.neomensural68" }
+  \break
+  s_\markup { "\\time 3/2" }^\markup { "       " \musicglyph
+#"timesig.neomensural32" }
+  s
+  s_\markup { "\\time 3/4" }^\markup { "       " \musicglyph
+#"timesig.neomensural34" }
+  s
+  s_\markup { "\\time 9/4" }^\markup { "       " \musicglyph
+#"timesig.neomensural94" }
+  s
+  s_\markup { "\\time 9/8" }^\markup { "       " \musicglyph
+#"timesig.neomensural98" }
+  \break
+  s_\markup { "\\time 4/8" }^\markup { "       " \musicglyph
+#"timesig.neomensural48" }
+  s
+  s_\markup { "\\time 2/4" }^\markup { "       " \musicglyph
+#"timesig.neomensural24" }
+}
+@end lilypond
+
+Utilice la propiedad @code{style} del elemento gráfico @internalsref{TimeSignature} para
+seleccionar las indicaciones de compás de la música antigua.  Los estilos contemplados son
+@code{neomensural} y @code{mensural}.  La tabla anterior utiliza el
+estilo @code{neomensural}.  Este estilo es adecuado para el
+incipit de las transcripciones de piezas mensurales.  El estilo @code{mensural}
+reproduce el aspecto de las ediciones impresas históricas del s. XVI.
+
+Los ejemplos siguientes muestran las diferencias que existen entre los estilos:
+
+@lilypond[ragged-right,fragment,relative=1,quote]
+{
+  \fatText
+
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter default }
+
+  \override Staff.TimeSignature #'style = #'numbered
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter numbered }
+
+  \override Staff.TimeSignature #'style = #'mensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter mensural }
+
+  \override Staff.TimeSignature #'style = #'neomensural
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter neomensural }
+  \override Staff.TimeSignature #'style = #'single-digit
+  \time 2/2
+  c1^\markup { \hspace #-2.0 \typewriter single-digit }
+}
+@end lilypond
+
+@seealso
+
+En el presente manual: @ref{Time signature} ofrece una introducción general al
+uso de las indicaciones de compás.
+
+@refbugs
+
+Las relaciones de duración de las notas no se modifican cuando cambia la indicación de compás.  Por
+ejemplo, la razón de 1 breve = 3 semibreves (tiempo perfecto) se debe
+hacer a mano mediante el establecimiento de
+
+@example
+breveTP = #(ly:make-duration -1 0 3 2)
+@dots{}
+@{ c\breveTP f1 @}
+@end example
+
+@noindent
+Esto fija un valor para @code{breveTP} de 3/2 multiplicado por 2 = 3 veces una redonda.
+
+El símbolo @code{old6/8alt} (alternativo al símbolo de 6/8) no se puede
+seleccionar directamente con @code{\time}.  En su lugar, utilice un elemento de marcado @code{\markup}.
 
 @node Ancient articulations
 @subsection Ancient articulations
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex articulaciones
+
+Además de los signos de articulación estándar que se hallan descritos en la sección
+@ref{Articulations}, se proveen signos de articulación para la notación
+antigua.  Éstos están pensados específicamente para utilizarlos con la notación del estilo
+Editio Vaticana.
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian-init.ly"
+\score {
+  \new VaticanaVoice {
+    \override TextScript #'font-family = #'typewriter
+    \override TextScript #'font-shape = #'upright
+    \override Script #'padding = #-0.1
+    a\ictus_"ictus" \break
+    a\circulus_"circulus" \break
+    a\semicirculus_"semicirculus" \break
+    a\accentus_"accentus" \break
+    \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
+  }
+}
+@end lilypond
+
+@refbugs
+
+Ciertas articulaciones se colocan demasiado cerca verticalmente de las
+cabezas de nota correspondientes.
+
+La línea episemática no se muestra en muchos casos.  Si se presenta,
+el extremo derecho de la línea episemática se encuentra a menudo demasiado lejos hacia la derecha.
 
 @node Custodes
 @subsection Custodes
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex custos
+@cindex custodias
+
+Un @emph{custos} (en plural: @emph{custodias}, que en latín significa @q{guarda}) es un
+síimbolo que aparece al final de una pauta.  Anticipa la altura
+de la primera o primeras notas de la línea siguiente, ayudando al intérprete con
+los saltos de línea durante la ejecución.
+
+Las custodias se utilizaron mucho en la notación musical hasta el siglo XVII.
+En nuestros días, sobreviven sólo en algunas formas particulares
+de notación musical como las ediciones contemporáneas de Canto Gregoriano
+como la @emph{editio vaticana}.  Hay distintos glifos para el custos
+que se utilizan en las diferentes variaciones de estilo notacional.
+
+Para tipografiar las custodias, simplemente coloque un grabador @internalsref{Custos_engraver} dentro del contexto
+@internalsref{Staff} (el contexto del pentagrama) al declarar el bloque de @code{\layout} (el bloque de disposición de la página),
+como se muestra en el ejemplo siguiente:
+
+@example
+\layout @{
+  \context @{
+    \Staff
+    \consists Custos_engraver
+    Custos \override #'style = #'mensural
+  @}
+@}
+@end example
+
+El resultado tendrá el aspecto siguiente:
+
+@lilypond[quote,ragged-right]
+\score {
+{
+  a'1
+  \override Staff.Custos #'style = #'mensural
+  \break
+  g'
+}
+\layout {
+  \context { \Staff \consists Custos_engraver }
+  }
+}
+@end lilypond
+
+El glifo del custos se selecciona mediante la propiedad @code{style}.  Los estilos
+contemplados son @code{vaticana}, @code{medicaea}, @code{hufnagel} y
+@code{mensural}.  Se muestran en el siguiente fragmento:
+
+@lilypond[quote,ragged-right,fragment]
+\new Lyrics \lyricmode {
+  \markup { \column {
+    \typewriter "vaticana"
+    \line { " " \musicglyph #"custodes.vaticana.u0" }
+  } }
+  \markup { \column {
+    \typewriter "medicaea"
+    \line { " " \musicglyph #"custodes.medicaea.u0" }
+  }}
+  \markup { \column {
+    \typewriter "hufnagel"
+    \line { " " \musicglyph #"custodes.hufnagel.u0" }
+  }}
+  \markup { \column {
+    \typewriter "mensural"
+    \line { " " \musicglyph #"custodes.mensural.u0" }
+  }}
+}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{Custos}.
+
+Ejemplos:
+@lsr{ancient,custodes@/.ly}.
+
 
 @node Divisiones
 @subsection Divisiones
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex divisio
+@cindex divisiones
+@cindex finalis
+
+Una @emph{divisio} (en plural: @emph{divisiones}, que en latín significa
+@q{división}) es un símbolo del contexto del pentagrama que se usa para estructurar
+la música Gregoriana en frases y secciones.  El significado musical de
+@emph{divisio minima}, @emph{divisio maior} y @emph{divisio maxima}
+se podrían caracterizar como una pausa corta, media y larga (respectivamente), algo así como
+las marcas de respiración de @ref{Breath marks}.  El signo de @emph{finalis} no sólo
+marca el final de un canto, sino que se usa también con frecuencia dentro de un único
+canto antifonal o responsorial para marcar el final de cada una de las secciones.
+
+
+Para usar divisiones, incluya el archivo @file{gregorian@/-init@/.ly}.  Contiene
+definiciones que podrá aplicar con tan sólo escribir
+@code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima}
+y @code{\finalis} en los lugares adecuados de la entrada.  Algunas ediciones usan
+@emph{virgula} o @emph{caesura} en vez de divisio minima.
+Por ello, @file{gregorian@/-init@/.ly} define también las instrucciones @code{\virgula} y
+@code{\caesura}
+
+@lilypondfile[quote,ragged-right]{divisiones.ly}
+
+@refcommands
+
+@funindex \virgula
+@code{\virgula},
+@funindex \caesura
+@code{\caesura},
+@funindex \divisioMinima
+@code{\divisioMinima},
+@funindex \divisioMaior
+@code{\divisioMaior},
+@funindex \divisioMaxima
+@code{\divisioMaxima},
+@funindex \finalis
+@code{\finalis}.
+
+@seealso
+
+En el presente manual: @ref{Breath marks}.
+
+Referencia del programa: @internalsref{BreathingSign}.
+
+Ejemplos: @lsr{expressive,breathing-sign.ly}.
+
 
 @node Ligatures
 @subsection Ligatures
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Ligaduras
 
-@menu 
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
-@end menu 
+@c TODO: Should double check if I recalled things correctly when I wrote
+@c down the following paragraph by heart.
+
+Una ligadura es un símbolo gráfico que representa al menos dos notas
+distintas.  Las ligaduras aparecieron originalmente en los manuscritos de la notación del
+Canto Gregoriano para denotar secuencias de notas ascendentes o descendentes.
+
+Las ligaduras se escriben encerrándolas dentro de un par @code{\[} y @code{\]}.
+Ciertos estilos de ligadura podrían necesitar una sintaxis de entrada adicional específica para
+este tipo de ligadura en particular.  Por defecto, el grabador
+@internalsref{LigatureBracket} se limita a colocar un corchete recto
+sobre la ligadura
+
+@lilypond[quote,ragged-right,verbatim]
+\transpose c c' {
+  \[ g c a f d' \]
+  a g f
+  \[ e f a g \]
+}
+@end lilypond
+
+Para seleccionar un estilo de ligaduras específico, se debe añadir el grabador adecuado
+al contexto @internalsref{Voice}, tal y como se explica en los 
+subapartados siguientes.   Solamente están contempladas las ligaduras mensurales
+blancas con ciertas limitaciones.
+
+
+
+@refbugs
+
+Las ligaduras necesitan un espaciado especial que aún no se ha desarrollado.  Como
+consecuencia, la mayor parte del tiempo existe una separación excesiva entre las ligaduras,
+y a menudo los cortes de línea no son satisfactorios.  Además, la letra de los cantos no se alinea
+correctamente con las ligaduras.
+
+Las alteraciones accidentales no se deben imprimir dentro de las ligaduras, sino que deben
+reunirse e imprimirse juntas delante de ellas.
+
+La sintaxis todavía utiliza el obsoleto estilo infijo @code{\[ música expresión
+\]}.  Por motivos de consistencia, esto cambiará algún día al estilo
+postfijo @code{nota\[ ... nota\]}.  De forma alternativa, puede incluirse el archivo
+@file{gregorian@/-init@/.ly}; proporciona una función de
+Scheme
+@example
+\ligature @var{música expresión}
+@end example
+que causa el mismo efecto y se supone que es lo bastante estable.
+
+@menu
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
+@end menu
+
 @node White mensural ligatures
 @subsubsection White mensural ligatures
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex ligaduras mensurales
+@cindex ligaduras mensurales blancas
+
+Las ligaduras mensurales blancas están contempladas de forma limitada.
+
+Para grabar ligaduras mensurales blancas, en el bloque layout o de disposición de la página coloque el grabador
+@internalsref{Mensural_ligature_engraver} dentro del contexto
+@internalsref{Voice}, y elimine el grabador
+@internalsref{Ligature_bracket_engraver}, de la siguiente manera:
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \remove Ligature_bracket_engraver
+    \consists Mensural_ligature_engraver
+  @}
+@}
+@end example
+
+No existe ningún lenguaje de entrada adicional para describir la forma de una
+ligadura mensural blanca.  Más bien la forma se determina exclusivamente a partir
+de la altura y duración de las notas comprendidas.  Si bien este enfoque podría
+hacer que un usuario con poca experiencia tardase un tiempo en acostumbrarse a él, tiene la gran ventaja de que
+toda la información musical de la ligadura se conoce internamente.
+Esto no se requiere solamente para una salida MIDI correcta, sino que también permite la
+transcripción automática de las ligaduras.
+
+Por ejemplo,
+
+@example
+\set Score.timing = ##f
+\set Score.defaultBarType = "empty"
+\override NoteHead #'style = #'neomensural
+\override Staff.TimeSignature #'style = #'neomensural
+\clef "petrucci-g"
+\[ c'\maxima g \]
+\[ d\longa c\breve f e d \]
+\[ c'\maxima d'\longa \]
+\[ e'1 a g\breve \]
+@end example
+@lilypond[quote,ragged-right]
+\score {
+  \transpose c c' {
+    \set Score.timing = ##f
+    \set Score.defaultBarType = "empty"
+    \override NoteHead #'style = #'neomensural
+    \override Staff.TimeSignature #'style = #'neomensural
+    \clef "petrucci-g"
+    \[ c'\maxima g \]
+    \[ d\longa c\breve f e d \]
+    \[ c'\maxima d'\longa \]
+    \[ e'1 a g\breve \]
+  }
+  \layout {
+    \context {
+      \Voice
+      \remove Ligature_bracket_engraver
+      \consists Mensural_ligature_engraver
+    }
+  }
+}
+@end lilypond
+
+Si no se sustituye el grabador @internalsref{Ligature_bracket_engraver} por el
+@internalsref{Mensural_ligature_engraver}, la misma música se transcribe
+de la siguiente manera:
+
+@lilypond[quote,ragged-right]
+\transpose c c' {
+  \set Score.timing = ##f
+  \set Score.defaultBarType = "empty"
+  \override NoteHead #'style = #'neomensural
+  \override Staff.TimeSignature #'style = #'neomensural
+  \clef "petrucci-g"
+  \[ c'\maxima g \]
+  \[ d\longa c\breve f e d \]
+  \[ c'\maxima d'\longa \]
+  \[ e'1 a g\breve \]
+}
+@end lilypond
+
+@refbugs
+
+El espaciado horizontal es pobre.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex ligaduras de neumas cuadrados
+@cindex ligaduras gregorianas de neumas cuadrados
+
+La notación de neumas cuadrados gregorianos está contemplada de forma limitada
+(siguiendo el estilo de la Editio Vaticana).  El núcleo principal del conjunto de las ligaduras
+ya se pueden tipografiar, pero aún faltan aspectos esenciales lara una composición tipográfica seria,
+como (entre otros) la alineación horizontal de varias ligaduras,
+la alineación de la letra y un correcto manejo de las alteraciones accidentales.
+
+
+La tabla siguiente contiene los neumas extendidos del segundo
+volumen del Antiphonale Romanum (@emph{Liber Hymnarius}), publicado
+en el año 1983 por los monjes de Solesmes.
+
+@multitable @columnfractions .4 .2 .2 .2
+
+@item
+@b{Neuma aut@*
+Neumarum Elementa}
+@tab
+@b{Figurae@*
+Rectae}
+@tab
+@b{Figurae@*
+Liquescentes@*
+Auctae}
+@tab
+@b{Figurae@*
+Liquescentes@*
+Deminutae}
+
+@c TODO: \layout block is identical in all of the below examples.
+@c Therefore, it should somehow be included rather than duplicated all
+@c the time. --jr
+
+@c why not make identifiers in ly/engraver-init.ly? --hwn
+
+@c Because it's just used to typeset plain notes without
+@c a staff for demonstration purposes rather than something
+@c special of Gregorian chant notation. --jr
+
+@item
+@code{1. Punctum}
+@tab
+@lilypond[staffsize=26,line-width=1.5\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Punctum
+    \[ b \]
+    \noBreak s^\markup {"a"} \noBreak
+
+    % Punctum Inclinatum
+    \[ \inclinatum b \]
+    \noBreak s^\markup {"b"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=2.5\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Punctum Auctum Ascendens
+    \[ \auctum \ascendens b \]
+    \noBreak s^\markup {"c"} \noBreak
+
+    % Punctum Auctum Descendens
+    \[ \auctum \descendens b \]
+    \noBreak s^\markup {"d"} \noBreak
+
+    % Punctum Inclinatum Auctum
+    \[ \inclinatum \auctum b \]
+    \noBreak s^\markup {"e"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Punctum Inclinatum Parvum
+    \[ \inclinatum \deminutum b \]
+    \noBreak s^\markup {"f"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{2. Virga}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Virga
+    \[ \virga b \]
+    \noBreak s^\markup {"g"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@tab
+
+@item
+@code{3. Apostropha vel Stropha}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Stropha
+    \[ \stropha b \]
+    \noBreak s^\markup {"h"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Stropha Aucta
+    \[ \stropha \auctum b \]
+    \noBreak s^\markup {"i"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@item
+@code{4. Oriscus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Oriscus
+    \[ \oriscus b \]
+    \noBreak s^\markup {"j"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@tab
+
+@item
+@code{5. Clivis vel Flexa}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Clivis vel Flexa
+    \[ b \flexa g \]
+    s^\markup {"k"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=2.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Clivis Aucta Descendens
+    \[ b \flexa \auctum \descendens g \]
+    \noBreak s^\markup {"l"} \noBreak
+
+    % Clivis Aucta Ascendens
+    \[ b \flexa \auctum \ascendens g \]
+    \noBreak s^\markup {"m"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Cephalicus
+    \[ b \flexa \deminutum g \]
+    s^\markup {"n"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{6. Podatus vel Pes}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Podatus vel Pes
+    \[ g \pes b \]
+    s^\markup {"o"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=2.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Pes Auctus Descendens
+    \[ g \pes \auctum \descendens b \]
+    \noBreak s^\markup {"p"} \noBreak
+
+    % Pes Auctus Ascendens
+    \[ g \pes \auctum \ascendens b \]
+    \noBreak s^\markup {"q"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Epiphonus
+    \[ g \pes \deminutum b \]
+    s^\markup {"r"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{7. Pes Quassus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Pes Quassus
+    \[ \oriscus g \pes \virga b \]
+    s^\markup {"s"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Pes Quassus Auctus Descendens
+    \[ \oriscus g \pes \auctum \descendens b \]
+    s^\markup {"t"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@item
+@code{8. Quilisma Pes}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Quilisma Pes
+    \[ \quilisma g \pes b \]
+    s^\markup {"u"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Quilisma Pes Auctus Descendens
+    \[ \quilisma g \pes \auctum \descendens b \]
+    s^\markup {"v"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@item
+@code{9. Podatus Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Pes Initio Debilis
+    \[ \deminutum g \pes b \]
+    s^\markup {"w"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Pes Auctus Descendens Initio Debilis
+    \[ \deminutum g \pes \auctum \descendens b \]
+    s^\markup {"x"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@item
+@code{10. Torculus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus
+    \[ a \pes b \flexa g \]
+    s^\markup {"y"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus Auctus Descendens
+    \[ a \pes b \flexa \auctum \descendens g \]
+    s^\markup {"z"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus Deminutus
+    \[ a \pes b \flexa \deminutum g \]
+    s^\markup {"A"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{11. Torculus Initio Debilis}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus Initio Debilis
+    \[ \deminutum a \pes b \flexa g \]
+    s^\markup {"B"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus Auctus Descendens Initio Debilis
+    \[ \deminutum a \pes b \flexa \auctum \descendens g \]
+    s^\markup {"C"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Torculus Deminutus Initio Debilis
+    \[ \deminutum a \pes b \flexa \deminutum g \]
+    s^\markup {"D"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{12. Porrectus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Porrectus
+    \[ a \flexa g \pes b \]
+    s^\markup {"E"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Porrectus Auctus Descendens
+    \[ a \flexa g \pes \auctum \descendens b \]
+    s^\markup {"F"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Porrectus Deminutus
+    \[ a \flexa g \pes \deminutum b \]
+    s^\markup {"G"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{13. Climacus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Climacus
+    \[ \virga b \inclinatum a \inclinatum g \]
+    s^\markup {"H"}
+  }
+  \layout { \neumeDemoLayout }
+}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Climacus Auctus
+    \[ \virga b \inclinatum a \inclinatum \auctum g \]
+    s^\markup {"I"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Climacus Deminutus
+    \[ \virga b \inclinatum a \inclinatum \deminutum g \]
+    s^\markup {"J"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{14. Scandicus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Scandicus
+    \[ g \pes a \virga b \]
+    s^\markup {"K"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Scandicus Auctus Descendens
+    \[ g \pes a \pes \auctum \descendens b \]
+    s^\markup {"L"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Scandicus Deminutus
+    \[ g \pes a \pes \deminutum b \]
+    s^\markup {"M"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+
+@item
+@code{15. Salicus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Salicus
+    \[ g \oriscus a \pes \virga b \]
+    s^\markup {"N"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Salicus Auctus Descendens
+    \[ g \oriscus a \pes \auctum \descendens b \]
+    s^\markup {"O"}
+  }
+\layout { \neumeDemoLayout }}
+@end lilypond
+@tab
+
+@item
+@code{16. Trigonus}
+@tab
+@lilypond[staffsize=26,line-width=1.0\cm]
+\include "gregorian-init.ly"
+\score {
+  \transpose c c' {
+    % Trigonus
+    \[ \stropha b \stropha b \stropha a \]
+    s^\markup {"P"}
+  }
+  \layout { \neumeDemoLayout }
+}
+@end lilypond
+@tab
+@tab
+
+@end multitable
+
+
+Al contrario que la mayor parte de los otros sistemas de notación de neumas, el lenguaje de entrada
+para los neumas no refleja la apariencia tipográfica, sino que está pensado para
+mantener la atención sobre el significado musical.  Por ejemplo, @code{\[ a \pes b
+\flexa g \]} produce un Torculus que consiste en tres cabezas de Punctum,
+mientras que @code{\[ a \flexa g \pes b \]} produce un Porrectus con una forma
+de flexa curvada y una sola cabeza de Punctum.  No existe ninguna instrucción para
+tipografiar explícitamente la forma de flexa curvada; la decisión de
+cuándo tipografiar una forma de flexa curvada está absada en la entrada
+musical.  La idea de este enfoque es separar los aspectos musicales
+de la entrada, del estilo de notación de la salida.  De esta forma, la misma
+entrada se puede reutilizar para tipografiar la misma música en un estilo diferente
+de notación de Canto Gregoriano.
+
+La tabla siguiente muestra los fragmentos de código que producen las
+ligaduras en la anterior tabla de neumas.  La letra de la primera columna
+de cada línea en la tabla siguiente, indica a qué ligadura de la tabla anterior se refiere.
+La segunda columna da el nombre de la
+ligadura.  La tercera columna muestra el fragmento de código que produce esta ligadura,
+utilizando @code{g}, @code{a} @code{b} (Sol, La y Si) como notas de ejemplo.
+
+@multitable @columnfractions .02 .31 .67
+@item
+@b{#}
+@tab
+@b{Nombre}
+@tab
+@b{Frase de la entrada}
+
+@item
+a
+@tab
+Punctum
+@tab
+@code{\[ b \]}
+
+@item
+b
+@tab
+Punctum Inclinatum
+@tab
+@code{\[ \inclinatum b \]}
+
+@item
+c
+@tab
+Punctum Auctum@*
+Ascendens
+@tab
+@code{\[ \auctum \ascendens b \]}
+
+@item
+d
+@tab
+Punctum Auctum@*
+Descendens
+@tab
+@code{\[ \auctum \descendens b \]}
+
+@item
+e
+@tab
+Punctum Inclinatum@*
+Auctum
+@tab
+@code{\[ \inclinatum \auctum b \]}
+
+@item
+f
+@tab
+Punctum Inclinatum@*
+Parvum @tab
+@code{\[ \inclinatum \deminutum b \]}
+
+@item
+g
+@tab
+Virga
+@tab
+@code{\[ \virga b \]}
+
+@item
+h
+@tab
+Stropha
+@tab
+@code{\[ \stropha b \]}
+
+@item
+i
+@tab
+Stropha Aucta
+@tab
+@code{\[ \stropha \auctum b \]}
+
+@item
+j
+@tab
+Oriscus
+@tab
+@code{\[ \oriscus b \]}
+
+@item
+k
+@tab
+Clivis vel Flexa
+@tab
+@code{\[ b \flexa g \]}
+
+@item
+l
+@tab
+Clivis Aucta@*
+Descendens
+@tab
+@code{\[ b \flexa \auctum \descendens g \]}
+
+@item
+m
+@tab
+Clivis Aucta@*
+Ascendens
+@tab
+@code{\[ b \flexa \auctum \ascendens g \]}
+
+@item
+n
+@tab
+Cephalicus
+@tab
+@code{\[ b \flexa \deminutum g \]}
+
+@item
+o
+@tab
+Podatus vel Pes
+@tab
+@code{\[ g \pes b \]}
+
+@item
+p
+@tab
+Pes Auctus@*
+Descendens
+@tab
+@code{\[ g \pes \auctum \descendens b \]}
+
+@item
+q
+@tab
+Pes Auctus@*
+Ascendens
+@tab
+@code{\[ g \pes \auctum \ascendens b \]}
+
+@item
+r
+@tab
+Epiphonus
+@tab
+@code{\[ g \pes \deminutum b \]}
+
+@item
+s
+@tab
+Pes Quassus
+@tab
+@code{\[ \oriscus g \pes \virga b \]}
+
+@item
+t
+@tab
+Pes Quassus@*
+Auctus Descendens @tab
+@code{\[ \oriscus g \pes \auctum \descendens b \]}
+
+@item
+u
+@tab
+Quilisma Pes
+@tab
+@code{\[ \quilisma g \pes b \]}
+
+@item
+v
+@tab
+Quilisma Pes@*
+Auctus Descendens
+@tab
+@code{\[ \quilisma g \pes \auctum \descendens b \]}
+
+@item
+w
+@tab
+Pes Initio Debilis
+@tab
+@code{\[ \deminutum g \pes b \]}
+
+@item
+x
+@tab
+Pes Auctus Descendens@*
+Initio Debilis
+@tab
+@code{\[ \deminutum g \pes \auctum \descendens b \]}
+
+@item
+y
+@tab
+Torculus
+@tab
+@code{\[ a \pes b \flexa g \]}
+
+@item
+z
+@tab
+Torculus Auctus@*
+Descendens
+@tab
+@code{\[ a \pes b \flexa \auctum \descendens g \]}
+
+@item
+A
+@tab
+Torculus Deminutus
+@tab
+@code{\[ a \pes b \flexa \deminutum g \]}
+
+@item
+B
+@tab
+Torculus Initio Debilis
+@tab
+@code{\[ \deminutum a \pes b \flexa g \]}
+
+@item
+C
+@tab
+Torculus Auctus@*
+Descendens Initio Debilis
+@tab
+@code{\[ \deminutum a \pes b \flexa \auctum \descendens g \]}
+
+@item
+D
+@tab
+Torculus Deminutus@*
+Initio Debilis
+@tab
+@code{\[ \deminutum a \pes b \flexa \deminutum g \]}
+
+@item
+E
+@tab
+Porrectus
+@tab
+@code{\[ a \flexa g \pes b \]}
+
+@item
+F
+@tab
+Porrectus Auctus@*
+Descendens
+@tab
+@code{\[ a \flexa g \pes \auctum \descendens b \]}
+
+@item
+G
+@tab
+Porrectus Deminutus
+@tab
+@code{\[ a \flexa g \pes \deminutum b \]}
+
+@item
+H
+@tab
+Climacus
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum g \]}
+
+@item
+I
+@tab
+Climacus Auctus
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum \auctum g \]}
+
+@item
+J
+@tab
+Climacus Deminutus
+@tab
+@code{\[ \virga b \inclinatum a \inclinatum \deminutum g \]}
+
+@item
+K
+@tab
+Scandicus
+@tab
+@code{\[ g \pes a \virga b \]}
+
+@item
+L
+@tab
+Scandicus Auctus@*
+Descendens
+@tab
+@code{\[ g \pes a \pes \auctum \descendens b \]}
+
+@item
+M
+@tab
+Scandicus Deminutus
+@tab
+@code{\[ g \pes a \pes \deminutum b \]}
+
+@item
+N
+@tab
+Salicus
+@tab
+@code{\[ g \oriscus a \pes \virga b \]}
+
+@item
+O
+@tab
+Salicus Auctus Descendens
+@tab
+@code{\[ g \oriscus a \pes \auctum \descendens b \]}
+
+@item
+P
+@tab
+Trigonus
+@tab
+@code{\[ \stropha b \stropha b \stropha a \]}
+@end multitable
+
+Las ligaduras que se acaban de relacionar sirven principalmente como un conjunto limitado, pero
+representativo, de ejemplos de ligaduras gregorianas.  Dentro de los delimitadores de ligadura
+@code{\[} y @code{\]}, prácticamente cualquier cantidad de notas
+se pueden acumular para formar una única ligadura, y los prefijos de cabeza como
+@code{\pes}, @code{\flexa}, @code{\virga}, @code{\inclinatum},
+etc. se pueden intermezclar como se desee.  La utilización del conjunto de reglas que subyace
+a la construcción de las ligaduras en la tabla anterior se extrapola de la forma correspondiente.
+De esta manera se pueden crear una cantidad infinita de
+ligaduras diferentes.
+
+Los puntos de aumentación, llamados también @emph{morae}, se escriben con la función
+musical @code{\augmentum}.  Dése cuenta de que @code{\augmentum} está
+programado como una función musical unaria y no como un prefijo principal.  Se
+aplica solamente a la expresión musical que sigue inmediatamente.  Esto es,
+@code{\augmentum \virga c} no tendrá ningún efecto visible.  En su lugar, escriba
+@code{\virga \augmentum c} o @code{\augmentum @{\virga c@}}.  Tenga en cuenta
+también que puede escribir @code{\augmentum @{a g@}} como abreviatura de
+@code{\augmentum a \augmentum g}.
+
+@lilypond[quote,ragged-right,verbatim]
+\include "gregorian-init.ly"
+\score {
+  \new VaticanaVoice {
+    \[ \augmentum a \flexa \augmentum g \]
+    \augmentum g
+  }
+}
+@end lilypond
+
+@refcommands
+
+Están contemplados los siguientes prefijos de cabeza:
+
+@funindex \virga
+@code{\virga},
+@funindex \stropha
+@code{\stropha},
+@funindex \inclinatum
+@code{\inclinatum},
+@funindex \auctum
+@code{\auctum},
+@funindex \descendens
+@code{\descendens},
+@funindex \ascendens
+@code{\ascendens},
+@funindex \oriscus
+@code{\oriscus},
+@funindex \quilisma
+@code{\quilisma},
+@funindex \deminutum
+@code{\deminutum},
+@funindex \cavum
+@code{\cavum},
+@funindex \linea
+@code{\linea}.
+
+Los prefijos de Punctum se pueden acumular entre sí, aunque son de aplicación ciertas restricciones.  Por
+ejemplo, se pueden aplicar @code{\descendens} o bien @code{\ascendens} a una cabeza,
+pero no los dos a la misma.
+
+@funindex \pes
+@funindex \flexa
+Dos cabezas adyacentes se pueden ligar entre sí con las instrucciones infijas @code{\pes} y
+@code{\flexa} para una línea melódica ascendente y descendente,
+respectivamente.
+
+@funindex \augmentum
+Utilice la función musical unaria @code{\augmentum} para escribir puntos de aumentación.
+
+@refbugs
+
+Cuando un punto @code{\augmentum} aparece al final de la última pauta
+dentro de una ligadura, a veces se sitúa verticalmente en un lugar equivocado.  Como solución
+parcial, escriba una noa de salto adicional (e.g. @code{s8}) como la última nota
+de esa pauta.
+
+@code{\augmentum} debería estar programada como un prefijo de cabeza y no como una
+función musical unaria, de forma que @code{\augmentum} pudiera entremezclarse
+con los prefijos de cabeza en un orden arbitrario.
 
 @node Gregorian Chant contexts
 @subsection Gregorian Chant contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex VaticanaVoiceContext
+@cindex VaticanaStaffContext
+
+El contexto predefinido de voz @code{VaticanaVoiceContext} y el de
+pauta @code{VaticanaStaffContext} se pueden utilizar para grabar una pieza de
+Canto Gregoriano en el estilo de la Editio Vaticana.  Estos contextos
+establecen a unos valores iniciales adecuados todas las propiedades relevantes de los contextos y de los objetos gráficos,
+de forma que pueda inmediatamente comenzar a escribir el canto en sí,
+como lo demuestra el siguiente fragmento
+
+@lilypond[quote,ragged-right,packed,verbatim]
+\include "gregorian-init.ly"
+\score {
+  <<
+    \new VaticanaVoice = "cantus" {
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \]
+      f \divisioMinima
+      \[ f\melisma \pes a c' c' \pes d'\melismaEnd \]
+      c' \divisioMinima \break
+      \[ c'\melisma c' \flexa a \]
+      \[ a \flexa \deminutum g\melismaEnd \] f \divisioMinima
+    }
+    \new Lyrics \lyricsto "cantus" {
+      San- ctus, San- ctus, San- ctus
+    }
+  >>
+}
+@end lilypond
+
 
 @node Mensural contexts
 @subsection Mensural contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex MensuralVoiceContext
+@cindex MensuralStaffContext
+
+Los contextos predefinidos de voz @code{MensuralVoiceContext} y de pauta
+@code{MensuralStaffContext} se pueden usar para grabar una pieza en estilo mensural.
+Estos contextos establecen a unos valores iniciales adecuados todas las propiedades relevantes de los contextos y
+de los objetos gráficos, de manera que pueda comenzar inmediatamente a
+escribir el canto, como lo demustra el siguiente fragmento
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new MensuralVoice = "discantus" \transpose c c' {
+      \override Score.BarNumber #'transparent = ##t {
+        c'1\melisma bes a g\melismaEnd
+        f\breve
+        \[ f1\melisma a c'\breve d'\melismaEnd \]
+        c'\longa
+        c'\breve\melisma a1 g1\melismaEnd
+        fis\longa^\signumcongruentiae
+      }
+    }
+    \new Lyrics \lyricsto "discantus" {
+      San -- ctus, San -- ctus, San -- ctus
+    }
+  >>
+}
+@end lilypond
 
 @node Musica ficta accidentals
 @subsection Musica ficta accidentals
 
-UNTRANSLATED NODE: IGNORE ME
+En la música europea de hasta aprox. 1600, se esperaba de los cantantes que
+alterasen cromáticamente ciertas notas de acuerdo con su propia iniciativa. Esto recibe el nombre
+de @q{Musica Ficta}. En las transcripciones modernas, estas alteraciones accidentales se
+imprimen normalmente encima de la nota.
+
+@cindex Accidental, musica ficta
+@cindex Musica ficta
+
+Están contempladas estas alteraciones sugeridas, y se pueden activar
+estableciendo @code{suggestAccidentals} al valor cierto.
+
+@funindex suggestAccidentals
+
+@lilypond[verbatim,fragment,relative=1]
+fis gis
+\set suggestAccidentals = ##t
+ais bis
+@end lilypond
+
+@seealso
+
+Referencia del programa: el grabador @internalsref{Accidental_engraver} y el objeto
+@internalsref{AccidentalSuggestion}.
 
 @node Figured bass
 @subsection Figured bass
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Bajo continuo
+
+@c TODO: musicological blurb about FB
+
+
+LilyPond contempla el bajo figurado
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass \figuremode {
+    < 6 >4 < 7\+ >8 < 6+ [_!] >
+    < 6 >4 <6 5 [3+] >
+    < _ >4 < 6 5/>4
+  }
+>>
+@end lilypond
+
+El soporte para el bajo figurado consta de dos partes: hay un modo de entrada,
+que se inicia mediante @code{\figuremode}, en el que puede escribir las cifras del bajo
+como números, y hay un contexto llamado @internalsref{FiguredBass} que se ocupa
+de crear los objetos @internalsref{BassFigure} (cifras del bajo).
+
+En el modo de entrada de cifras, un grupo de cifras del bajo se encuentra delimitado por
+los paréntesis en ángulo @code{<} y @code{>}.  La duración se introduce después del ángulo de cierre @code{>}
+@example
+<4 6>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { <4 6> }
+@end lilypond
+
+Las alteraciones se añaden al escribir @code{-}, @code{!} y @code{+}
+después de los números.  Se añadirá un signo más plus cuando escriba @code{\+}, y las
+quintas y séptimas disminuidas se pueden obtener con @code{5/} y @code{7/}.
+
+@example
+<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
+@end lilypond
+
+Se pueden insertar espacios mediante el uso de @code{_}.  Los corchetes se
+escriben con @code{[} y @code{]}. También puede incluir cadenas de
+texto y elementos de marcado textuales, consulte @ref{Overview of text markup commands}.
+
+@example
+< [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
+@end lilypond
+
+
+Además es posible usar líneas de continuación para las cifras que se repiten,
+
+@lilypond[verbatim,relative=1]
+<<
+  \new Staff {
+    \clef bass
+    c4 c c
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <4 6> <3 6> <3 7>
+  }
+>>
+@end lilypond
+
+@noindent
+En este caso, las líneas de extensión siempre sustituyen a las cibras existentes.
+
+El contexto @code{FiguredBass} no presta atención a la propie línea del
+bajo. Como consecuencia, quizá tenga que insertar cifras adicionales para
+obtener líneas de extensión bajo todas las notas, y puede que necesite añadir @code{\!}
+para evitar que aparezca una línea de extensión, e.g.
+
+@lilypond[relative=1]
+<<
+  \new Voice
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
+  }
+  {
+    \clef bass
+    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
+  }
+>>
+@end lilypond
+
+Al usar líneas de continuación, las cifras comunes siempre se colocan
+en la misma posición vertical. Si esto no es lo que desea, puede insertar un silencio
+con @code{r}. El silencio borrará cualquier alineación previa.  Por
+ejemplo, puede escribir
+
+@example
+  <4 6>8 r8
+@end example
+
+@noindent
+instead of
+@example
+  <4 6>4
+@end example
+
+Las alteraciones y signos más pueden aparecer antes o después de los números,
+dependiendo de las propiedades dirección de la alteración establecida en @code{figuredBassAlterationDirection} y la
+dirección del signo más establecida en @code{figuredBassPlusDirection}
+
+
+@lilypond
+  \figures {
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassPlusDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #-1
+    <6\+> <5+> <6 4-> r
+  }
+@end lilypond
+
+
+Aunque posiblemente la forma en que está contemplado el bajo figurado se parece superficialmente a los
+acordes, es mucho más simple.  El modo @code{\figuremode} sencillamente
+almacena los números, y el contexto @internalsref{FiguredBass} los imprime
+tal y como se han escrito.  No hay ninguna conversión a alturas de nota ni se reproduce ninguna realización
+del bajo en el archivo MIDI.
+
+Internamente, el código del programa produce elementos de marcado textual.  Puede utilizar cualquiera de las
+propiedades de los elementos de marcado textual para sobreescribir los detalles del formateo.  Por ejemplo, el
+espaciado vertical de las cifras se puede establecer con @code{baseline-skip}.
+
+
+El bajo figurado también se puede añadir a contextos @code{Staff} (de pauta)
+directamente.  En este caso, su posición vertical se ajusta de
+forma automática.
+
+@lilypond[ragged-right,fragment,quote]
+<<
+  \new Staff = someUniqueName
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+
+  %% send to existing Staff.
+  \context Staff = someUniqueName 
+  \figuremode {
+    <4>4 <6 10>8 s8
+    
+    \set Staff.useBassFigureExtenders = ##t
+    <4 6>4 <4 6>
+  }
+>>
+@end lilypond
+
+
+@commonprop
+
+Por defecto, este método produce cifras encima de las notas. Para obtener
+cifras por debajo de las notas, utilice
+
+@example
+\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+@end example
+
+
+@refbugs
+
+Al usar bajos figurados por encima del pentagrama con líneas de extensión y
+@code{implicitBassFigures}, las líneas podrían intercambiarse.
+Es imposible mantener el orden de forma consistente cuando varias cifras
+tienen líneas de extensión que se superponen.  Para evitar este problema, utilice
+@code{stacking-dir} sobre @code{BassFigureAlignment}.
+
+
+@seealso
+
+Referencia del programa: Objetos @internalsref{NewBassFigure},
+@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
+@internalsref{BassFigureBracket} y 
+@internalsref{BassFigureContinuation} y el contexto
+@internalsref{FiguredBass}.
+
+
 
 @node Other instrument specific notation
 @section Other instrument specific notation
 
-UNTRANSLATED NODE: IGNORE ME
+Esta sección incluye información adicional para la escritura de partituras destinadas a instrumentos.
 
-@menu 
-* Artificial harmonics (strings)::
-@end menu 
+@menu
+* Artificial harmonics (strings)::  
+@end menu
+
 @node Artificial harmonics (strings)
 @subsection Artificial harmonics (strings)
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex armónicos artificiales
 
+Los armónicos artificiales se tipografían con un estilo de cabeza distinto.  Se
+introducen marcando la nota que es un armónico mediante @code{\harmonic}.
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
+<c g'\harmonic>4
+@end lilypond
+

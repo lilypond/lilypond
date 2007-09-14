@@ -82,7 +82,6 @@ execute_override_property (Context *context,
     }
 
   SCM target_alist = scm_car (current_context_val);
-  SCM parent_alist = scm_cdr (current_context_val);
 
   SCM symbol = scm_car (grob_property_path);
   if (scm_is_pair (scm_cdr (grob_property_path)))
@@ -93,11 +92,10 @@ execute_override_property (Context *context,
 					 new_value);
     }
 
-  if (scm_is_pair (target_alist)
-      && scm_caar (target_alist) == symbol
-      && target_alist != parent_alist)
-    target_alist = scm_cdr (target_alist);
-
+  // it's tempting to replace the head of the list if it's the same
+  // property. However, we have to keep this info around, in case we have to
+  // \revert back to it.
+  
   target_alist = scm_acons (symbol, new_value, target_alist);
 
   bool ok = true;
