@@ -419,7 +419,12 @@ def musicxml_note_to_lily_main_event (n):
             event.cautionary = acc.editorial
         
     elif n.get_maybe_exist_typed_child (musicxml.Rest):
+        # rests can have display-octave and display-step, which are
+        # treated like an ordinary note pitch
+        rest = n.get_maybe_exist_typed_child (musicxml.Rest)
         event = musicexp.RestEvent()
+        pitch = musicxml_restdisplay_to_lily (rest)
+        event.pitch = pitch
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
         drum_type = instrument_drumtype_dict.get (n.instrument_name)
@@ -778,6 +783,17 @@ def musicxml_pitch_to_lily (mxl_pitch):
     p.alteration = mxl_pitch.get_alteration ()
     p.step = (ord (mxl_pitch.get_step ()) - ord ('A') + 7 - 2) % 7
     p.octave = mxl_pitch.get_octave () - 4
+    return p
+
+def musicxml_restdisplay_to_lily (mxl_rest):
+    p = None
+    step = mxl_rest.get_step ()
+    if step:
+        p = musicexp.Pitch()
+        p.step = (ord (step) - ord ('A') + 7 - 2) % 7
+    octave = mxl_rest.get_octave ()
+    if octave and p:
+        p.octave = octave - 4
     return p
 
 def voices_in_part (part):

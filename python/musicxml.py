@@ -629,6 +629,20 @@ class Rest (Music_xml_node):
         self._is_whole_measure = False
     def is_whole_measure (self):
         return self._is_whole_measure
+    def get_step (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'display-step'))
+        if ch:
+            step = ch.get_text ().strip ()
+            return step
+        else:
+            return None
+    def get_octave (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'display-octave'))
+        if ch:
+            step = ch.get_text ().strip ()
+            return int (step)
+        else:
+            return None
 
 class Type (Music_xml_node):
     pass

@@ -675,12 +675,23 @@ class RhythmicEvent(Event):
                 % self.duration.lisp_expression ())
     
 class RestEvent (RhythmicEvent):
+    def __init__ (self):
+        RhythmicEvent.__init__ (self)
+        self.pitch = None
     def ly_expression (self):
-        return 'r%s' % self.duration.ly_expression ()
+        if self.pitch:
+            return "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
+        else:
+            return 'r%s' % self.duration.ly_expression ()
     
     def print_ly (self, printer):
-        printer('r')
-        self.duration.print_ly (printer)
+        if self.pitch:
+            self.pitch.print_ly (printer)
+            self.duration.print_ly (printer)
+            printer ('\\rest')
+        else:
+            printer('r')
+            self.duration.print_ly (printer)
 
 class SkipEvent (RhythmicEvent):
     def ly_expression (self):
