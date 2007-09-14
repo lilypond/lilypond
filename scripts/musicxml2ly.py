@@ -476,6 +476,13 @@ class LilyPondVoiceBuilder:
                 self.elements.append (d)
             self.pending_dynamics = []
 
+    # Insert some music command that does not affect the position in the measure
+    def add_command (self, command):
+        assert isinstance (command, musicexp.Music)
+        if self.pending_multibar > Rational (0):
+            self._insert_multibar ()
+        self.elements.append (command)
+
     def add_dynamics (self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
         self.pending_dynamics.append (dynamic)
@@ -521,7 +528,6 @@ class LilyPondVoiceBuilder:
         else:
             self.jumpto (starting_at)
             value = None
-
         return value
         
     def correct_negative_skip (self, goto):
@@ -549,7 +555,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if a.wait_for_note ():
                     voice_builder.add_dynamics (a)
                 else:
-                    voice_builder.add_music (a, 0)
+                    voice_builder.add_command (a)
             continue
         
         if not n.get_maybe_exist_named_child ('chord'):
