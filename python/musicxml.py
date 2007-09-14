@@ -226,11 +226,13 @@ class Attributes (Measure_element):
 
         try:
             mxl = self.get_named_attribute ('time')
-            
-            beats = mxl.get_maybe_exist_named_child ('beats')
-            type = mxl.get_maybe_exist_named_child ('beat-type')
-            return (int (beats.get_text ()),
-                    int (type.get_text ()))
+            if mxl:
+                beats = mxl.get_maybe_exist_named_child ('beats')
+                type = mxl.get_maybe_exist_named_child ('beat-type')
+                return (int (beats.get_text ()),
+                        int (type.get_text ()))
+            else:
+                return (4, 4)
         except KeyError:
             sys.stderr.write ('error: requested time signature, but time sig unknown')
             return (4, 4)
@@ -623,6 +625,8 @@ class Chord (Music_xml_node):
 class Dot (Music_xml_node):
     pass
 
+# Rests in MusicXML are <note> blocks with a <rest> inside. This class is only
+# for the inner <rest> element, not the whole rest block.
 class Rest (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
