@@ -6,6 +6,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c say @q{@value{backslash}} instead
+@set backslash \
+
 
 @c **** format-independant ****
 
@@ -36,19 +40,19 @@
 
 
 @c  use inside the text
-@macro context{NAME}
-@vindex \NAME\
-@code{\NAME\}@c should use internalsref
+@macro context{TEXT}
+@vindex \TEXT\
+@code{\TEXT\}@c should use internalsref
 @end macro
 
-@macro refcommand{WHAT}
-@vindex \WHAT\
-@code{\WHAT\}
+@macro refcommand{TEXT}
+@vindex \TEXT\
+@code{\TEXT\}
 @end macro
 
-@macro funindex {WORD}
-@findex \WORD\
-@kindex \WORD\
+@macro funindex {TEXT}
+@findex \TEXT\
+@kindex \TEXT\
 @end macro
 
 
@@ -57,31 +61,75 @@
 
 @c   Use inside the text
 
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,NAME}
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@ifinfo
+`\TEXT\'
+@end ifinfo
+@iftex
+`\TEXT\'
+@end iftex
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end ifhtml
+@ignore
+@ifdocbook
+@xml
+&lsquo;\TEXT\&rsquo;
+@end xml
+@end docbook
+@end ignore
+@end macro
+
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@ifinfo
+``\TEXT\''
+@end ifinfo
+@iftex
+``\TEXT\''
+@end iftex
+@ifhtml
+@html
+&ldquo;\TEXT\&rdquo;
+@end html
+@end ifhtml
+@ignore
+@ifdocbook
+@xml
+&ldquo;\TEXT\&rdquo;
+@end xml
+@end docbook
+@end ignore
+@end macro
+
+
+
+
+@c usage: @lsr{ancient,custodes.ly}
+@macro lsr{DIR,TEXT}
+@ifhtml
+@uref{source/input/lsr/\DIR\/collated-files.html#\TEXT\,@file{\DIR\/\TEXT\}}
 @end ifhtml
 @ifnothtml
-  @file{\DIR\/\NAME\}
+@file{\DIR\/\TEXT\}
 @end ifnothtml
 @end macro
 
 @macro lsrdir{DIR}
 @ifhtml
-  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
+@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
 @end ifhtml
 @ifnothtml
-  @file{\DIR\}
+@file{\DIR\}
 @end ifnothtml
 @end macro
 
 
 
-
-@c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
 
 
 @ifhtml
@@ -89,37 +137,37 @@
 
 @c makeinfo-4.7 encodes html names, which means that nodes that
 @c contain nonalphanum characters will be broken links on the website.
-@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @uref{../lilypond-internals/\TEXT\.html,\TEXT\}@c
 @c @inforef{} adds ``See'' to the sentence, which is annoying, but
 @c better than a broken link.
-@c @inforef{\NAME\,,lilypond-internals}@c
+@c @inforef{\TEXT\,,lilypond-internals}@c
 @c using @ref without punctuation is OK without for formats other than info
 
 @ifset bigpage
 
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals-big-page}
+@macro internalsref{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals-big-page}
 @end macro
 
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary-big-page}
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary-big-page}
 @end macro
 
-@macro rprogram{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-program-big-page}
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program-big-page}
 @end macro
 
-@macro ruser{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-big-page}
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-big-page}
 @end macro
 
-@macro rlearning{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-learning-big-page}
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning-big-page}
 @end macro
 
 @end ifset
@@ -127,47 +175,32 @@
 
 @ifclear bigpage
 
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals}
+@macro internalsref{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals}
 @end macro
 
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary}
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary}
 @end macro
 
-@macro rprogram{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-program}
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
-@macro ruser{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond}
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond}
 @end macro
 
-@macro rlearning{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-learning}
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifclear
-
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-@html
-&lsquo;\TEXT\&rsquo;
-@end html
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-@html
-&ldquo;\TEXT\&rdquo;
-@end html
-@end macro
 
 @end ifhtml
 
@@ -175,44 +208,29 @@
 @ifdocbook
 @c ***** DOCBOOK-XML *****
 
-@macro internalsref{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-internals}
+@macro internalsref{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals}
 @end macro
 
-@macro rglos{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,music-glossary}
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary}
 @end macro
 
-@macro rprogram{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-program}
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
-@macro ruser{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond}
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond}
 @end macro
 
-@macro rlearning{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-learning}
-@end macro
-
-@c to get decent quotes in `foo'
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-@xml
-&lsquo;\TEXT\&rsquo;
-@end xml
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-@xml
-&ldquo;\TEXT\&rdquo;
-@end xml
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifdocbook
@@ -221,48 +239,37 @@
 @ifinfo
 @c **** INFO ****
 
-@macro internalsref{NAME}
-@vindex \NAME\
-@inforef{\NAME\,,lilypond-internals}
+@macro internalsref{TEXT}
+@vindex \TEXT\
+@inforef{\TEXT\,,lilypond-internals}
 @end macro
 
-@macro rglos{NAME}
-@vindex \NAME\
-@inforef{\NAME\,,music-glossary}
+@macro rglos{TEXT}
+@vindex \TEXT\
+@inforef{\TEXT\,,,music-glossary}
 @end macro
 
-@macro usermanref{NAME}
-@inforef{\NAME\}
+@macro usermanref{TEXT}
+@inforef{\TEXT\}
 @end macro
 
-@macro learningref{NAME}
-@inforef{\NAME\}
+@macro learningref{TEXT}
+@inforef{\TEXT\}
 @end macro
 
-@macro rprogram{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-program}
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
-@macro ruser{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond}
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond}
 @end macro
 
-@macro rlearning{NAME}
-@vindex \NAME\
-@ref{\NAME\,,,lilypond-learning}
-@end macro
-
-@c to get decent quotes in `foo'
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-``\TEXT\''
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifinfo
@@ -271,44 +278,34 @@
 @c **** TEX ****
 @iftex
 
-@macro internalsref{NAME}
-@vindex \NAME\
-@code{\NAME\}
+@macro internalsref{TEXT}
+@vindex \TEXT\
+@code{\TEXT\}
 @end macro
 
-@macro rglos {NAME}
-@vindex \NAME\
-@code{\NAME\}
+@macro rglos {TEXT}
+@vindex \TEXT\
+@code{\TEXT\}
 @end macro
 
-@macro seeinternals{NAME}
-internals document, @internalsref{\NAME\}
+@macro seeinternals{TEXT}
+internals document, @internalsref{\TEXT\}
 @end macro
 
-@macro usermanref{NAME}
-user manual, @internalsref{\NAME\}
+@macro usermanref{TEXT}
+user manual, @internalsref{\TEXT\}
 @end macro
 
-@macro learningref{NAME}
-learning manual, @internalsref{\NAME\}
+@macro learningref{TEXT}
+learning manual, @internalsref{\TEXT\}
 @end macro
 
-@macro rprogram{NAME}
-program usage manual, @internalsref{\NAME\}
+@macro rprogram{TEXT}
+program usage manual, @internalsref{\TEXT\}
 @end macro
 
 @alias ruser=usermanref
 @alias rlearning=learningref
-
-@c to get decent quotes in `foo'
-@macro q{TEXT}
-`\TEXT\'
-@end macro
-
-@c to get decent quotes in ``foo''
-@macro qq{TEXT}
-``\TEXT\''
-@end macro
 
 @end iftex
 
@@ -316,17 +313,17 @@ program usage manual, @internalsref{\NAME\}
 @ifnottex
 @c **** not TEX ****
 
-@macro seeinternals{NAME}
-@internalsref{\NAME\}
+@macro seeinternals{TEXT}
+@internalsref{\TEXT\}
 @end macro
 
 @ifnotinfo
-@macro usermanref{NAME}
-@ref{\NAME\}
+@macro usermanref{TEXT}
+@ref{\TEXT\}
 @end macro
 
-@macro learningref{NAME}
-@ref{\NAME\}
+@macro learningref{TEXT}
+@ref{\TEXT\}
 @end macro
 @end ifnotinfo
 
