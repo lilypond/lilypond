@@ -6,14 +6,71 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
+@c   ***** Displaying text *****
+
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
 @c say @q{@value{backslash}} instead
 @set backslash \
 
+@c to get decent quotes in `foo' and ``foo''
+@c  these need to be split up so that "@qq{foo}." looks nice.  :(
+@iftex
+@macro q{TEXT}
+`\TEXT\'
+@end macro
 
-@c **** format-independant ****
+@macro qq{TEXT}
+``\TEXT\''
+@end macro
+@end iftex
 
-@c   regions of a doc subsection
+
+@ifinfo
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@macro qq{TEXT}
+``\TEXT\''
+@end macro
+@end ifinfo
+
+
+@ifhtml
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@macro qq{TEXT}
+@html
+&ldquo;\TEXT\&rdquo;
+@end html
+@end macro
+@end ifhtml
+
+
+@ifdocbook
+@macro q{TEXT}
+@xml
+&lsquo;\TEXT\&rsquo;
+@end xml
+@end macro
+
+@macro qq{TEXT}
+@xml
+&ldquo;\TEXT\&rdquo;
+@end xml
+@end macro
+@end ifdocbook
+
+
+
+
+@c   **** Headings in a doc subsection ****
+
 @macro refcommands
 @noindent
 @subsubheading Predefined commands
@@ -39,7 +96,6 @@
 @end macro
 
 
-@c  use inside the text
 @macro context{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}@c should use internalsref
@@ -57,67 +113,7 @@
 
 
 
-@c  *** Macros with variable output ***
-
-@c   Use inside the text
-
-@c to get decent quotes in `foo'
-
-@c I don't understand why this is necessary, but it is with 4.8. :/
-@ifnotdocbook
-@macro q{TEXT}
-@ifinfo
-`\TEXT\'
-@end ifinfo
-@iftex
-`\TEXT\'
-@end iftex
-@ifhtml
-@html
-&lsquo;\TEXT\&rsquo;
-@end html
-@end ifhtml
-@end macro
-@end ifnotdocbook
-
-@ifdocbook
-@macro q{TEXT}
-@xml
-&lsquo;\TEXT\&rsquo;
-@end xml
-@end macro
-@end ifdocbook
-
-
-@c to get decent quotes in ``foo''
-@c I don't understand why this is necessary, but it is with 4.8. :/
-@ifnotdocbook
-@macro qq{TEXT}
-@ifinfo
-``\TEXT\''
-@end ifinfo
-@iftex
-``\TEXT\''
-@end iftex
-@ifhtml
-@html
-&ldquo;\TEXT\&rdquo;
-@end html
-@end ifhtml
-@end macro
-@end ifnotdocbook
-
-@ifdocbook
-@macro qq{TEXT}
-@xml
-&ldquo;\TEXT\&rdquo;
-@end xml
-@end macro
-@end ifdocbook
-
-
-
-
+@c   **** Links and references ****
 
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,TEXT}
