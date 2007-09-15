@@ -1,0 +1,164 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond Learning Manual
+@documentencoding UTF-8
+@documentlanguage en
+
+@iftex
+@afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
+@end iftex
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription User manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage English
+@end ignore
+
+
+@ifhtml
+This document is also available as a
+@uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-learning-big-page.html,one big page}.
+@end ifhtml
+
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Learning Manual}
+@author The LilyPond development team
+
+
+Copyright @copyright{} 1999--2007 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+@lilypond[ragged-right]
+\score {
+  \context Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \override Score.RehearsalMark #'font-size = #-2
+    \mark #(ly:export (string-append
+      "(For LilyPond version " (lilypond-version) ")"))
+    s2
+  }
+  \layout {
+    indent = 0.0\pt
+  }
+}
+@end lilypond
+
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2007 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+This file documents GNU LilyPond program usage.
+
+Copyright 1999--2007 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- learning manual
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+
+This is the program usage manual for GNU LilyPond 2.11.x series.
+@ifhtml
+(See the bottom of this page for the exact version number).
+@end ifhtml
+
+@cindex web site
+@cindex URL
+
+More information can be found at
+@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
+of this and other documentation.
+
+@menu
+* Preface::                        Preface.
+* Introduction::                   What, Why, How.
+* Tutorial::                       A tutorial introduction.
+* Putting it all together::        More explanation about LilyPond
+* concepts.
+* Working on LilyPond projects::   Discusses real-life usage.
+* Tweaking output::                Introduction to modifying output.
+
+Appendices
+
+* GNU Free Documentation License:: License of this document.
+* LilyPond index::
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include macros.itexi
+
+@include preface.itely
+@include introduction.itely
+@include tutorial.itely
+@include putting.itely
+@include working.itely
+@include tweaks.itely
+
+@include fdl.itexi
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye
