@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
+    Translation of GIT committish: 4d9a81ea05bea52229dd9045b9eceecd64dbe61d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -998,10 +998,11 @@ crea una expresión musical mayor.  Es semejante al signo
 menos de las matemáticas.  La fórmula @math{(4+5)} es una expresión, por tanto
 @math{-(4+5)} es una expresión más amplia.
 
-Las indicaciones de compás escritas en un pentagrama afecta al resto, pero
+Las indicaciones de compás escritas en un pentagrama afectan al
+resto de ellos@footnote{Este comportamiento se puede cambiar si uno lo desea; consulte
+@ref{Polymetric notation} para ver más detalles.}. En cambio,
 la armadura de la tonalidad de un pentagrama @emph{no} afecta a los otros
-pentagramas@footnote{Este comportamiento se puede cambiar si uno lo desea; consulte
-@ref{Changing defaults} para ver más detalles.}.
+pentagramas.
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
