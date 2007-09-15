@@ -127,15 +127,18 @@ More information can be found at
 of this and other documentation.
 
 @menu
-* Preface::                        Preface.
-* Introduction::                   What, Why, How.
-* Tutorial::                       A tutorial introduction.
-* Putting it all together::        More explanation about LilyPond
-* concepts.
-* Working on LilyPond projects::   Discusses real-life usage.
-* Tweaking output::                Introduction to modifying output.
+Manuel d'apprentissage
 
-Appendices
+* Preface::
+* Introduction::                   quoi, pourquoi comment.
+* Tutorial::                       un tutoriel d'introduction.
+* Putting it all together::        explication plus détaillée des
+concepts de LilyPond.
+* Working on LilyPond projects::   traite de l'utilisation quotidienne.
+* Tweaking output::                introduction aux retouches de mise
+en forme.
+
+Annexes
 
 * GNU Free Documentation License:: License of this document.
 * LilyPond index::
