@@ -209,15 +209,6 @@ de la presente documentación y de otras.
 @include dedication.itely
 
 @menu
-Manual de aprendizaje
-
-* Preface::                        Prefacio.
-* Introduction::                   Qué, por qué y cómo.
-* Tutorial::                       Introducción en forma de tutorial.
-* Putting it all together::        Más explicaciones sobre conceptos de LilyPond.
-* Working on LilyPond projects::   Sobre la utilización en el mundo real.
-* Tweaking output::                Introducción a las modificaciones de la salida.
-
 Referencia de la notación
 
 * Basic notation::                 Notación musical estándar.
@@ -245,12 +236,6 @@ Apéndices
 
 
 @include macros.itexi
-@include preface.itely
-@include introduction.itely
-@include tutorial.itely
-@include putting.itely
-@include working.itely
-@include tweaks.itely
 
 @include basic-notation.itely
 @include instrument-notation.itely

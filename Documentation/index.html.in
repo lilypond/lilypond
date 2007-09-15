@@ -48,7 +48,8 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond/Tutorial.html">Tutorial</a>
+	    <a class="title"
+href="user/lilypond-learning/index.html">Learning manual</a>
 	      <br>(start here)
 
 	   <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
