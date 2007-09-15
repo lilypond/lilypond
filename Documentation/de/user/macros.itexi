@@ -268,7 +268,6 @@
 @end macro
 
 @macro usermanref{NAME}
-@macro usermanref{NAME}
 @inforef{\NAME\}
 @end macro
 
@@ -308,6 +307,10 @@ Benutzerhandbuch, @internalsref{\NAME\}
 
 @macro rprogram{NAME}
 Programmbenutzung, @internalsref{\NAME\}
+@end macro
+
+@macro rlearning{NAME}
+Handbuch zum Lernen, @internalsref{\NAME\}
 @end macro
 
 @alias ruser=usermanref

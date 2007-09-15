@@ -297,6 +297,10 @@ el documento de funcionamiento interno, @internalsref{\NAME\}
 el manual del usuario, @internalsref{\NAME\}
 @end macro
 
+@macro rlearning{NAME}
+el manual de aprendizaje, @internalsref{\NAME\}
+@end macro
+
 @macro rprogram{NAME}
 el manual de utilización del programa, @internalsref{\NAME\}
 @end macro

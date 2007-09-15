@@ -302,6 +302,10 @@
 @emph{Manuel d'utilisation du programme, \NAME\}
 @end macro
 
+@macro rlearning{NAME}
+@emph{Manuel d'apprentissage du programme, \NAME\}
+@end macro
+
 @alias ruser=usermanref
 
 @c to get decent French quotes in `foo'
