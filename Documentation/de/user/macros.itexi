@@ -131,6 +131,11 @@
 @ref{\NAME\,,,lilypond-big-page}
 @end macro
 
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning-big-page}
+@end macro
+
 @end ifset
 
 
@@ -154,6 +159,11 @@
 @macro ruser{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond}
+@end macro
+
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
 @end macro
 
 @end ifclear
@@ -206,6 +216,12 @@
 @ref{\NAME\,,,lilypond}
 @end macro
 
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
+@end macro
+
+@c to get decent German quotes in `foo'
 @c to get decent German quotes in `foo'
 @macro q{TEXT}
 @html
@@ -246,6 +262,12 @@
 @ref{\NAME\,,,lilypond}
 @end macro
 
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
+@end macro
+
+@macro usermanref{NAME}
 @macro usermanref{NAME}
 @inforef{\NAME\}
 @end macro

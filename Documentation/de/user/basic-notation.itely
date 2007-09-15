@@ -141,7 +141,7 @@ Die Sequenz @code{d e f} wird interpretiert als: @qq{Setze eine
  D-Noten, eine E-Note und eine F-Note,} unabhängig von den 
  Vorzeichen der Tonart. Mehr Information über den Unterschied 
  zwischen musikalischem Inhalt und der Präsentation dieses 
- Inhalts siehe @ref{Accidentals and key signatures}.
+ Inhalts siehe @rlearning{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -1618,7 +1618,7 @@ können manuell mit dieser Eigenschaft eingegeben werden.
 Versetzungszeichen und Vorzeichen können am Anfang etwas verwirrend sein, 
 da unveränderte Noten je nach Tonart ein Auflösungszeichen bekommen 
 können (Beispiel). Mehr Information in den Abschnitten  @ref{Accidentals} 
-oder @ref{Accidentals and key signatures}.
+oder @rlearning{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
