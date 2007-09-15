@@ -58,7 +58,7 @@ Try it on this image
 By cutting and pasting everything in the @qq{ly snippet} section, you have a
 starting template for experiments.  If you like learning in this way,
 you will probably want to print out or bookmark the
-@ref{Cheat sheet}, which is a table listing of the most common
+@ruser{Cheat sheet}, which is a table listing of the most common
 commands for quick reference.
 @end ifhtml
 
@@ -369,13 +369,13 @@ Here is a small example showing all these elements together:
 @quotation
 @table @asis
 @item Entering pitches and durations
-see @ref{Pitches}, and @ref{Durations}.
+see @ruser{Pitches}, and @ruser{Durations}.
 @item Rests
-see @ref{Rests}.
+see @ruser{Rests}.
 @item Time signatures and other timing commands
-see @ref{Time signature}.
+see @ruser{Time signature}.
 @item Clefs
-see @ref{Clef}.
+see @ruser{Clef}.
 @end table
 @end quotation
 
@@ -458,13 +458,13 @@ ignored.  (Comments do not nest.)  The following fragment shows possible uses fo
 @end itemize
 
 There are more tips for constructing input files in
-@ref{Suggestions for writing LilyPond files}.
+@ruser{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
 @subsection How to read the tutorial
 
-As we saw in @ref{Working on text files}, LilyPond input must be
+As we saw in @ruser{Working on text files}, LilyPond input must be
 surrounded by @{ @} marks or a @code{\relative c'' @{ ... @}}.  For the
 rest of this manual, most examples will omit this.
 
@@ -508,9 +508,9 @@ on one staff.
 @node Relative note names
 @subsection Relative note names
 
-As we saw in @ref{Simple notation}, LilyPond calculates the pitch of
+As we saw in @ruser{Simple notation}, LilyPond calculates the pitch of
 each note relative to the previous one@footnote{There is another mode of
-entering pitches, @ref{Absolute note names}, but in practice relative
+entering pitches, @ruser{Absolute note names}, but in practice relative
 mode is much easier and safer to use.}.  If no extra octave marks
 (@code{'} and @code{,}) are added, it assumes that each pitch is within
 a fourth of the previous note.
@@ -529,9 +529,9 @@ c2 ges
 @quotation
 @table @asis
 @item Relative octaves
-see @ref{Relative octaves}.
+see @ruser{Relative octaves}.
 @item Octave check
-see @ref{Octave check}.
+see @ruser{Octave check}.
 @end table
 @end quotation
 
@@ -548,7 +548,7 @@ you might expect, a @rglos{double sharp} or @rglos{double flat} is
 made by adding @samp{isis} or @samp{eses}@footnote{This syntax
 derived from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other names for accidentals, see
-@ref{Note names in other languages}.}
+@ruser{Note names in other languages}.}
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 cis1 ees fisis, aeses
@@ -610,16 +610,16 @@ e
 Adding all alterations explicitly might require a little more effort
 when typing, but the advantage is that transposing is easier, and
 accidentals can be printed according to different conventions.  See
-@ref{Automatic accidentals}, for some examples how accidentals can be printed
+@ruser{Automatic accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
 @moreinfo
 @quotation
 @table @asis
 @item Accidentals
-see @ref{Accidentals}, and @ref{Automatic accidentals}.
+see @ruser{Accidentals}, and @ruser{Automatic accidentals}.
 @item Key signature
-see @ref{Key signature}.
+see @ruser{Key signature}.
 @end table
 @end quotation
 
@@ -679,11 +679,11 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @quotation
 @table @asis
 @item Ties
-see @ref{Ties}.
+see @ruser{Ties}.
 @item Slurs
-see @ref{Slurs}.
+see @ruser{Slurs}.
 @item Phrasing slurs
-see @ref{Phrasing slurs}.
+see @ruser{Phrasing slurs}.
 @end table
 @end quotation
 
@@ -745,11 +745,11 @@ c2\< c2\ff\> c2 c2\!
 @quotation
 @table @asis
 @item Articulations
-see @ref{Articulations}.
+see @ruser{Articulations}.
 @item Fingering
-see @ref{Fingering instructions}.
+see @ruser{Fingering instructions}.
 @item Dynamics
-see @ref{Dynamics}.
+see @ruser{Dynamics}.
 @end table
 @end quotation
 
@@ -777,9 +777,9 @@ a8[ ais] d[ ees r d] a b
 @quotation
 @table @asis
 @item Automatic beams
-see @ref{Automatic beams}.
+see @ruser{Automatic beams}.
 @item Manual beams
-see @ref{Manual beams}.
+see @ruser{Manual beams}.
 @end table
 @end quotation
 
@@ -836,11 +836,11 @@ c2 \acciaccatura b16 c2
 @quotation
 @table @asis
 @item Grace notes
-see @ref{Grace notes},
+see @ruser{Grace notes},
 @item Tuplets
-see @ref{Tuplets},
+see @ruser{Tuplets},
 @item Pickups
-see @ref{Partial measures}.
+see @ruser{Partial measures}.
 @end table
 @end quotation
 
@@ -963,7 +963,7 @@ for complex music like polyphonic scores.
 @node Multiple staves
 @subsection Multiple staves
 
-As we saw in @ref{Music expressions explained}, LilyPond input files
+As we saw in @ruser{Music expressions explained}, LilyPond input files
 are constructed out of music expressions.  If the score begins with
 simultaneous music expressions, LilyPond creates multiples staves.  However,
 it is easier to see what happens if we create each staff explicitly.
@@ -999,7 +999,7 @@ sign in mathematics.  The formula @math{(4+5)} is an expression, so
 
 Time signatures entered in one staff affects all other 
 staves@footnote{This behavior may be changed if desired; see
-@ref{Polymetric notation}, for details.}. On the other hand, 
+@ruser{Polymetric notation}, for details.}. On the other hand, 
 the key signature of one staff does @emph{not} affect other
 staves.
 
@@ -1021,7 +1021,7 @@ staves.
 @cindex staff switch, manual
 @cindex cross staff voice, manual
 Piano music is typeset in two staves connected by a brace.  Printing
-such a staff is similar to the polyphonic example in @ref{Multiple staves},
+such a staff is similar to the polyphonic example in @ruser{Multiple staves},
 but now this entire expression is inserted inside a @code{PianoStaff}:
 
 @example
@@ -1044,7 +1044,7 @@ Here is a small example
 
 @moreinfo
 @quotation
-See @ref{Piano music}.
+See @ruser{Piano music}.
 @end quotation
 
 
@@ -1124,7 +1124,7 @@ Again, these expressions can be nested arbitrarily.
 
 @moreinfo
 @quotation
-See @ref{Basic polyphony}.
+See @ruser{Basic polyphony}.
 @end quotation
 
 
@@ -1200,7 +1200,7 @@ resulting in a centered hyphen between two syllables
 @moreinfo
 @quotation
 More options, such as putting multiple stanzas below a melody, are
-discussed in @ref{Vocal music}.
+discussed in @ruser{Vocal music}.
 @end quotation
 
 
@@ -1256,7 +1256,7 @@ a lead sheet,
 @moreinfo
 @quotation
 A complete list of modifiers and other options for layout can be found
-in @ref{Chords}.
+in @ruser{Chords}.
 @end quotation
 
 
@@ -1303,7 +1303,7 @@ it uses @code{\version} to determine what rules to apply.
 The title, composer, opus number, and similar information are entered
 in the @code{\header} block.  This exists outside of the main
 music expression; the @code{\header} block is usually placed underneath
-the @ref{Version number}.
+the @ruser{Version number}.
 
 @example
 \version "2.11.23"
@@ -1319,7 +1319,7 @@ the @ref{Version number}.
 @end example
 
 When the file is processed, the title and composer are printed above
-the music.  More information on titling can be found in @ref{Creating
+the music.  More information on titling can be found in @ruser{Creating
 titles}.
 
 
@@ -1459,12 +1459,12 @@ places.  The following example uses the above variables:
 @subsection After the tutorial
 
 After finishing the tutorial, you should probably try writing a
-piece or two.  Start with one of the @ref{Templates}, and
+piece or two.  Start with one of the @ruser{Templates}, and
 add notes.  If you need any notation that was not covered in the
 tutorial, look at the Notation Reference, starting with
-@ref{Basic notation}.  If you want to write for an instrument
+@ruser{Basic notation}.  If you want to write for an instrument
 ensemble that is not covered in the templates,
-take a look at @ref{Extending the templates}.
+take a look at @ruser{Extending the templates}.
 
 Once you have written a few short pieces, read the rest of
 the Learning Manual (chapters 3-5).  There's nothing wrong
@@ -1477,7 +1477,7 @@ now, and come back to them after you have more experience.
 @node How to read the manual
 @subsection How to read the manual
 
-As we saw in @ref{How to read the tutorial}, many examples in the
+As we saw in @ruser{How to read the tutorial}, many examples in the
 tutorial omitted a @code{\relative c'' @{ ... @}} around the printed
 example.
 
@@ -1496,5 +1496,5 @@ so) and click on the picture of the music.  This will display the exact
 input that LilyPond used to generate this manual.
 
 For information about the structure of the rest of the manual, see
-@ref{About this manual}.
+@ruser{About this manual}.
 

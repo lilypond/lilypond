@@ -21,7 +21,7 @@ HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
 # todo: add latex.
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
 
-INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program
+INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 STEPMAKE_TEMPLATES=tex texinfo omf documentation
@@ -75,6 +75,7 @@ else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/*png .)
 endif
@@ -109,6 +110,7 @@ else
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	@echo
 	@echo "***************************************************************"
@@ -171,10 +173,29 @@ $(outdir)/lilypond-program/index.html: $(outdir)/lilypond-program.texi $(OUT_PNG
 	(cd $(outdir)/lilypond-program/ ; ln -sf ../*.png ../*.ly . )
 
 #
+# The Learning Manual
+#
+$(outdir)/lilypond-learning/index.html: $(outdir)/lilypond-learning.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond-learning --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	find $(outdir)/lilypond-learning/ -name '*'.png -o -name '*'.ly | xargs rm -f
+# symbolic links to save space
+	(cd $(outdir)/lilypond-learning/ ; ln -sf ../*.png ../*.ly . )
+
+
+#
 # One big page program usage
 #
 $(outdir)/lilypond-program-big-page.html: $(outdir)/lilypond-program.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
+#
+# One big page learning manual
+#
+$(outdir)/lilypond-learning-big-page.html: $(outdir)/lilypond-learning.texi $(OUT_PNG_IMAGES)
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
+
 
 
 #
@@ -212,6 +233,8 @@ $(outdir)/lilypond.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/lilypond-program.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
 
+$(outdir)/lilypond-learning.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+
 $(outdir)/%.png: %.png
 	convert -depth 8 -geometry 50x50% $< $@
 
@@ -229,10 +252,11 @@ DEEP_HTML_FILES =\
  $(outdir)/lilypond/index.html\
  $(outdir)/lilypond-internals/index.html\
  $(outdir)/music-glossary/index.html\
- $(outdir)/lilypond-program/index.html
+ $(outdir)/lilypond-program/index.html\
+ $(outdir)/lilypond-learning/index.html
 
 # Symlinks to refer to external source documents from split and non-split HTML
-source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source $(outdir)/lilypond-program/source
+source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source
 
 $(outdir)/source:
 	@rm -f $(@)
@@ -253,12 +277,16 @@ $(outdir)/lilypond-program/source:
 	mkdir -p $(outdir)/lilypond-program
 	ln -sf ../../../ $(@)
 
+$(outdir)/lilypond-learning/source:
+	@rm -f $(@)
+	mkdir -p $(outdir)/lilypond-learning
+	ln -sf ../../../ $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info info-dir
 
 info-dir:
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary lilypond-program
+	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 
 
 $(outdir)/%.bib: %.bib

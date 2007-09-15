@@ -704,6 +704,7 @@ This book explains how to begin learning LilyPond, as well as explaining
 some key concepts in easy terms.  It is recommended to read these
 chapters in a linear fashion.
 
+
 @itemize @bullet
 
 @item
@@ -738,41 +739,45 @@ This book explains all the LilyPond commands which produce notation.  It
 assumes that readers are familiar with the concepts in the Learning
 manual.
 
+All of this needs to be rewritten after GDP, anyway.
+
+@ignore
+
 @itemize @bullet
 
 @item
-@emph{@ref{Basic notation}},
+@emph{@r ef{Basic notation}},
 discusses topics grouped by notation construct.  This section gives
 details about basic notation that will be useful in almost any
 notation project.
 
 @item
-@emph{@ref{Instrument-specific notation}},
+@emph{@r ef{Instrument-specific notation}},
 discusses topics grouped by notation construct.  This section gives
 details about special notation that will only be useful for particular
 instrument (or vocal) groups.
 
 @item
-@emph{@ref{Advanced notation}},
+@emph{@r ef{Advanced notation}},
 discusses topics grouped by notation construct.  This section gives
 details about complicated or unusual notation.
 
 @item
-@emph{@ref{Changing defaults}},
+@emph{@r ef{Changing defaults}},
 explains how to fine tune layout.
 
 @item
-@emph{@ref{Non-musical notation}},
+@emph{@r ef{Non-musical notation}},
 discusses non-musical output such as titles, multiple movements,
 and how to select which MIDI instruments to use.
 
 @item
-@emph{@ref{Spacing issues}},
+@emph{@r ef{Spacing issues}},
 discusses issues which affect the global output, such as selecting
 paper size or specifying page breaks.
 
 @item
-@emph{@ref{Interfaces for programmers}},
+@emph{@r ef{Interfaces for programmers}},
 explains how to create music functions.
 
 @end itemize
@@ -787,43 +792,44 @@ This book contains useful reference charts.
 @ifhtml
 The
 @end ifhtml
-@emph{@ref{Literature list}},
+@emph{@r ef{Literature list}},
 contains a set of useful reference books for those who wish to know
 more on notation and engraving.
 
 @item
 The
-@emph{@ref{Scheme tutorial}},
+@emph{@r ef{Scheme tutorial}},
 presents a short introduction to Scheme, the programming
 language that music functions use.
 
 @item
-@emph{@ref{Notation manual tables}},
+@emph{@r ef{Notation manual tables}},
 are a set of tables showing the chord names, MIDI instruments,
 a list of color names, and the Feta font.
 
 @item
-@emph{@ref{Templates}},
+@emph{@r ef{Templates}},
 of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 
 @item
 The
-@emph{@ref{Cheat sheet}},
+@emph{@r ef{Cheat sheet}},
 is a handy reference of the most common LilyPond commands.
 
 @item
 The
-@emph{@ref{LilyPond command index}},
+@emph{@r ef{LilyPond command index}},
 is an index of all LilyPond @code{\commands}.
 
 @item
 The
-@emph{@ref{LilyPond index}},
+@emph{@r ef{LilyPond index}},
 is a complete index.
 
 @end itemize
 
+@end ignore
 
 @subheading Program usage
 

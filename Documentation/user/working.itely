@@ -77,8 +77,8 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ref{Bar check}, @ref{Octave check}, and
-@ref{Barnumber check}.  If you
+@item @strong{Include checks}: @ruser{Bar check}, @ruser{Octave check}, and
+@ruser{Barnumber check}.  If you
 include checks every so often, then if you make a mistake, you can pinpoint
 it quicker.  How often is @q{every so often}?  It depends on the complexity
 of the music.  For very simple music, perhaps just once or twice.  For
@@ -110,8 +110,8 @@ phrase (instead of just @code{c d e}) you can save yourself some
 problems if you rearrange your music later.
 
 @item @strong{Separate tweaks} from music definitions.  See
-@ref{Saving typing with identifiers and functions}, and
-@ref{Style sheets}.
+@ruser{Saving typing with identifiers and functions}, and
+@ruser{Style sheets}.
 
 @end itemize
 
@@ -128,7 +128,7 @@ piece of existing sheet music),
 only one bar per line of text), and
 check each system when you finish it.  You may use the
 @code{showLastLength} command to speed up processing -- see
-@ref{Skipping corrected music}.
+@ruser{Skipping corrected music}.
 
 @item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
 in the input file whenever the manuscript has a line break.  This
@@ -170,7 +170,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Separate tweaks from music definitions}.  This
-point was made in @ref{General suggestions}, but for large
+point was made in @ruser{General suggestions}, but for large
 projects it is absolutely vital.  We might need to change
 the definition of @code{fthenp}, but then we only need
 to do this once, and we can still avoid touching anything
@@ -284,9 +284,9 @@ padText =
 @end lilypond
 
 Using identifiers is also a good way to reduce work if the
-LilyPond input syntax changes (see @ref{Updating old files}).  If
+LilyPond input syntax changes (see @ruser{Updating old files}).  If
 you have a single definition (such as @code{\dolce}) for all your
-files (see @ref{Style sheets}), then if the syntax changes, you
+files (see @ruser{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
 instead of making changes throughout every @code{.ly} file.
 
@@ -295,14 +295,14 @@ instead of making changes throughout every @code{.ly} file.
 @section Style sheets
 
 The output that LilyPond produces can be heavily modified; see
-@ref{Tweaking output}, for details.  But what if you have many
+@ruser{Tweaking output}, for details.  But what if you have many
 files that you want to apply your tweaks to?  Or what if you
 simply want to separate your tweaks from the actual music?  This
 is quite easy to do.
 
 Let's look at an example.  Don't worry if you don't understand
 the parts with all the @code{#()}.  This is explained in
-@ref{Advanced tweaks with Scheme}.
+@ruser{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -323,7 +323,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 There are some problems with overlapping output; we'll fix those using
-the techniques in @ref{Moving objects}.  But let's also
+the techniques in @ruser{Moving objects}.  But let's also
 do something about the @code{mpdolce} and @code{tempoMark}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
@@ -626,7 +626,7 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-@ref{Minimal examples}.
+@ruser{Minimal examples}.
 
 
 @node Minimal examples

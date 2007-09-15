@@ -217,7 +217,7 @@ users a lot of flexibility to structure their files however they
 wish.  However, this flexibility can make things confusing for
 new users.  This section will explain some of this structure, but
 may gloss over some details in favor of simplicity.  For a complete
-description of the input format, see @ref{File structure}.
+description of the input format, see @ruser{File structure}.
 
 Most examples in this manual are little snippets -- for example
 
@@ -316,16 +316,16 @@ names -- it could be @code{melody}, @code{global},
 @code{pianorighthand}, or @code{foofoobarbaz}.  You
 can use whatever variable names you want.  For
 more details, see
-@ref{Saving typing with identifiers and functions}.
+@ruser{Saving typing with identifiers and functions}.
 
 For a complete definition
-of the input format, see @ref{File structure}.
+of the input format, see @ruser{File structure}.
 
 
 @node Score is a single musical expression
 @section Score is a single musical expression
 
-In the previous section, @ref{How LilyPond files work},
+In the previous section, @ruser{How LilyPond files work},
 we saw the general organization of LilyPond input
 files.  But we seemed to skip over the most important
 part: how do we figure out what to write after
@@ -341,7 +341,7 @@ all:
 
 @noindent
 You may find it useful to review
-@ref{Music expressions explained}.  In that section, we
+@ruser{Music expressions explained}.  In that section, we
 saw how to build big music expressions from small
 pieces -- we started from notes, then chords, etc.  Now
 we're going to start from a big music expression and
@@ -448,7 +448,7 @@ lower = @{ @}
 @noindent
 Remember that you can use almost any name you like.  The
 limitations on identifier names are detailed in
-@ref{File structure}.
+@ruser{File structure}.
 
 When writing a @code{\score} section, or when reading
 one, just take it slowly and carefully.  Start with
@@ -585,10 +585,10 @@ leading to
 @end lilypond
 
 More in-depth information on preparing parts and scores can be found
-in the notation manual; see @ref{Orchestral music}.
+in the notation manual; see @ruser{Orchestral music}.
 
 Setting run-time variables (@q{properties}) is discussed in
-@ref{Changing context properties on the fly}.
+@ruser{Changing context properties on the fly}.
 
 
 

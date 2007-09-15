@@ -135,7 +135,7 @@ no text, this tweak does nothing (and does @strong{not} wait until
 the next bit of text).  To change the behavior of everything after
 the command, omit the @code{\once}.  To stop this tweak, use a
 @code{\revert}.  This is explained in depth in
-@ref{The \override command}.
+@ruser{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
   % temporary code to break this example:
@@ -157,20 +157,20 @@ c4^"piu mosso" d e f
 
 @seealso
 
-This manual: @ref{The \override command}, @ref{Common tweaks}.
+This manual: @ruser{The \override command}, @ruser{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-In @ref{Moving objects}, we saw how to move a @code{TextScript}
+In @ruser{Moving objects}, we saw how to move a @code{TextScript}
 object.  The same mechanism can be used to move other types of
 objects; simply replace @code{TextScript} with the name of
 another object.
 
 To find the object name, look at the @q{@strong{see also}} at
 bottom of the relevant documentation page.  For example, at
-the bottom of @ref{Dynamics}, we see
+the bottom of @ruser{Dynamics}, we see
 
 @quotation
 @seealso
@@ -247,7 +247,7 @@ Note in the second example how important it is to figure out what
 context handles a certain object.  Since the @code{MetronomeMark} object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ref{Constructing a tweak}.
+@ruser{Constructing a tweak}.
 
 @cindex extra-offset
 
@@ -377,7 +377,7 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing}, for more
+layout spacing commands; see @ruser{Displaying spacing}, for more
 details.  From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
 
@@ -431,7 +431,7 @@ a system.
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ref{Changing horizontal spacing}, for more details.
+@ruser{Changing horizontal spacing}, for more details.
 
 @lilypond[verbatim,quote]
 \score {
@@ -461,8 +461,8 @@ We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explantion
-of this, see the @ref{Scheme tutorial}, and
-@ref{Interfaces for programmers}.
+of this, see the @ruser{Scheme tutorial}, and
+@ruser{Interfaces for programmers}.
 
 We can use Scheme to simply @code{\override} commands,
 

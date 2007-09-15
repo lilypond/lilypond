@@ -128,7 +128,7 @@ The input @code{d e f} is interpreted as @q{print a D-natural,
 E-natural, and an F-natural,} regardless of the key
 signature.  For more information about the distinction between
 musical content and the presentation of that content, see
-@ref{Accidentals and key signatures}.
+@rlearning{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -1513,7 +1513,8 @@ can be specified by setting this property directly.
 
 Accidentals and key signatures often confuse new users, because
 unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{Accidentals}, or @ref{Accidentals and key signatures}.
+more information, see @ref{Accidentals}, or @rlearning{Accidentals
+and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
