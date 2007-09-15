@@ -744,6 +744,8 @@ Este libro explica todas las instrucciones de LilyPond que producen notación im
 por supuesto que el lector está familiarizado con los conceptos del manual
 de aprendizaje.
 
+@c  we need to completely rewrite this after GDP.  -gp
+@ignore
 @itemize @bullet
 
 @item
@@ -866,7 +868,7 @@ en el mismo paquete que el propio LilyPond, y convierten una amplia variedad de 
 música al formato @code{.ly}.
 
 @end itemize
-
+@end ignore
 
 
 @subsubheading Other information

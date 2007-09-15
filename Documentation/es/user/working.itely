@@ -77,8 +77,8 @@ intentar recordar el número de versión de LilyPond que estaba usando hace unos
 @code{convert-ly} requiere que declare
 qué versión de LilyPond utilizó.
 
-@item @strong{Incluya comprobaciones}: @ref{Bar check}, @ref{Octave check} y
-@ref{Barnumber check}.  Si
+@item @strong{Incluya comprobaciones}: @ruser{Bar check}, @ruser{Octave check} y
+@ruser{Barnumber check}.  Si
 incluye comprobaciones de vez en cuando, en caso de que cometa un error podrá localizarlo mucho más rápidamente.
 ¿Con qué frecuencia es @q{de vez en cuando}?  Depende de la complejidad
 de la música.  Para una música muy sencilla, quizá tan sólo una o dos veces.  Para
@@ -110,8 +110,8 @@ e identificadores.  Si especifica @code{c4 d e} al principio de una frase
 si reelabora la música más tarde.
 
 @item @strong{Separe los trucos} de las definiciones musicales.  Consulte
-@ref{Saving typing with identifiers and functions} y
-@ref{Style sheets}.
+@ruser{Saving typing with identifiers and functions} y
+@ruser{Style sheets}.
 
 @end itemize
 
@@ -128,7 +128,7 @@ de música ya impresa),
 la práctica de escribir un compás por línea de texto), y
 compruebe cada sistema cuando lo haya terminado.  Puede usar el comando
 @code{showLastLength} para acelerar el proceso -- ver
-@ref{Skipping corrected music} -- .
+@ruser{Skipping corrected music} -- .
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo de línea.  De esta forma
@@ -170,7 +170,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Separe los trucos de las definiciones musicales}.  Ya se mencionó
-en @ref{General suggestions}, pero para proyectos
+en @ruser{General suggestions}, pero para proyectos
 grandes es vital.  Quizá tengamos que cambiar la
 definición de @code{fthenp}, pero en ese caso sólo lo tendremos que
 hacer una vez, y aún podremos evitar tocar nada
@@ -284,9 +284,9 @@ padText =
 @end lilypond
 
 La utilización de identificadores también es una buena forma de reducir el trabajo si
-la sintaxis de entrada de LilyPond cambia (ver @ref{Updating old files}).  Si
+la sintaxis de entrada de LilyPond cambia (ver @ruser{Updating old files}).  Si
 tiene una sola definición (como p.ej. @code{\dolce}) para todos sus
-archivos (ver @ref{Style sheets}), y después la sintaxis se modifica, sólo tendrá
+archivos (ver @ruser{Style sheets}), y después la sintaxis se modifica, sólo tendrá
 que actualizar su definición @code{\dolce} única,
 en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 
@@ -295,14 +295,14 @@ en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 @section Style sheets
 
 La salida que produce LilyPond se puede modificar profundamente; consulte
-@ref{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
+@ruser{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
 archivos a los que les quiere aplicar sus propios trucos?  O ¿qué ocurre si, sencillamente,
 quiere separar los trucos de la propia música?  Todo esto
 es bastante fácil de conseguir.
 
 Veamos un ejemplo.  No se preocupe si no entiende
 las partes que tienen todos los @code{#()}.  Esto se explicará en
-@ref{Advanced tweaks with Scheme}.
+@ruser{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -323,7 +323,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 Existen varios problemas con la salida que se superpone; los arreglaremos utilizando
-las técnicas descritas en @ref{Moving objects}.  Pero también haremos algo respecto a
+las técnicas descritas en @ruser{Moving objects}.  Pero también haremos algo respecto a
 las definiciones @code{mpdolce} y @code{tempoMark}.  Éstas producen la salida que
 deseamos, pero quizá las querríamos utilizar en otra pieza.
 Podríamos simplemente copiarlas y pegarlas al principio de cada archivo,
@@ -626,7 +626,7 @@ Ahora empiece poco a poco descomentando cada vez más fracciones de la
 parte del @code{bajo} hasta que encuentre la línea del problema.
 
 Otra técnica de depuración muy útil es la construcción de
-@ref{Minimal examples}.
+@ruser{Minimal examples}.
 
 
 @node Minimal examples

@@ -131,6 +131,11 @@
 @ref{\NAME\,,,lilypond-big-page}
 @end macro
 
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning-big-page}
+@end macro
+
 @end ifset
 
 
@@ -154,6 +159,11 @@
 @macro ruser{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond}
+@end macro
+
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
 @end macro
 
 @end ifclear
@@ -199,6 +209,11 @@
 @ref{\NAME\,,,lilypond}
 @end macro
 
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
+@end macro
+
 @c to get decent quotes in `foo'
 @macro q{TEXT}
 @xml
@@ -241,6 +256,11 @@
 @macro ruser{NAME}
 @vindex \NAME\
 @ref{\NAME\,,,lilypond}
+@end macro
+
+@macro rlearning{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-learning}
 @end macro
 
 @c to get decent quotes in `foo'

@@ -58,7 +58,7 @@ Pruébelo sobre esta imagen:
 Cortando y pegando todo lo que se encuentra dentro de la sección @qq{ly snippet} (fragmento de tipo ly), tendrá una
 plantilla inicial para sus experimentos.  Si le agrada esta forma de aprender,
 probablemente quiera imprimir o añadir a sus favoritos la dirección de la
-@ref{Cheat sheet}, que es una relación en forma de tabla de las instrucciones más comunes
+@ruser{Cheat sheet}, que es una relación en forma de tabla de las instrucciones más comunes
 de manera que sirvan de referencia rápida.
 @end ifhtml
 
@@ -370,13 +370,13 @@ He aquí un pequeño ejemplo que muestra todos los elementos anteriores juntos:
 @quotation
 @table @asis
 @item Introducir alturas y duraciones
-véase @ref{Pitches} y @ref{Durations}.
+véase @ruser{Pitches} y @ruser{Durations}.
 @item Silencios
-véase @ref{Rests}.
+véase @ruser{Rests}.
 @item Indicaciones de compás y otras instrucciones de tiempo
-véase @ref{Time signature}.
+véase @ruser{Time signature}.
 @item Claves
-véase @ref{Clef}.
+véase @ruser{Clef}.
 @end table
 @end quotation
 
@@ -459,13 +459,13 @@ ignora (pero los comentarios no pueden incluir otros comentarios).  El siguiente
 @end itemize
 
 Hay más trucos para elaborar archivos de entrada en
-@ref{Suggestions for writing LilyPond files}.
+@ruser{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
 @subsection How to read the tutorial
 
-Como vimos en @ref{Working on text files}, la entrada de LilyPond debe estar
+Como vimos en @ruser{Working on text files}, la entrada de LilyPond debe estar
 rodeada de llaves @{ @} o de @code{\relative c'' @{ ... @}}.  Durante el
 resto del presente manual, la mayor parte de los ejemplos omitirán las llaves.
 
@@ -509,9 +509,9 @@ o un pentagrama.
 @node Relative note names
 @subsection Relative note names
 
-Como hemos visto en @ref{Simple notation}, LilyPond calcula la altura de
+Como hemos visto en @ruser{Simple notation}, LilyPond calcula la altura de
 cada nota de forma relativa respecto de la nota anterior@footnote{Existe otra forma de
-introducir las alturas, @ref{Absolute note names}, pero en la práctica el modo
+introducir las alturas, @ruser{Absolute note names}, pero en la práctica el modo
 relativo es mucho más cómodo y seguro de utilizar.}.  Si no se añade ninguna marca de octava
 (@code{'} y @code{,}), se supone que cada altura se encuentra dentro de una
 cuarta desde la nota anterior.
@@ -530,9 +530,9 @@ c2 ges
 @quotation
 @table @asis
 @item Octavas relativas
-ver @ref{Relative octaves}.
+ver @ruser{Relative octaves}.
 @item Comprobación de octava
-ver @ref{Octave check}.
+ver @ruser{Octave check}.
 @end table
 @end quotation
 
@@ -549,7 +549,7 @@ ha podido adivinar, un @rglos{double sharp} o @rglos{double flat} se hace
 añadiendo @samp{isis} o @samp{eses}@footnote{Esta sintaxis
 derivó de las convenciones de las lenguas nórdicas y germánicas para nombrar las notas
 como el alemán y el holandés.  Para utilizar otros nombres para las alteraciones accidentales, vea
-@ref{Note names in other languages}.}
+@ruser{Note names in other languages}.}
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 cis1 ees fisis, aeses
@@ -611,16 +611,16 @@ e
 Poner todas las alteraciones de forma explícita puede que requiera algo más de trabajo
 al teclear, pero la ventaja es que la transposición es más fácil, y las
 alteraciones se pueden imprimir siguiendo varias convenciones distintas.  Consulte
-@ref{Automatic accidentals} para ver ejemplos de cómo se pueden imprimir las alteraciones
+@ruser{Automatic accidentals} para ver ejemplos de cómo se pueden imprimir las alteraciones
 de acuerdo a reglas diferentes.
 
 @moreinfo
 @quotation
 @table @asis
 @item Alteraciones accidentales
-ver @ref{Accidentals} y @ref{Automatic accidentals}.
+ver @ruser{Accidentals} y @ruser{Automatic accidentals}.
 @item Armadura de la tonalidad
-ver @ref{Key signature}.
+ver @ruser{Key signature}.
 @end table
 @end quotation
 
@@ -680,11 +680,11 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @quotation
 @table @asis
 @item Ligaduras de unión
-ver @ref{Ties}.
+ver @ruser{Ties}.
 @item Ligaduras de expresión
-ver @ref{Slurs}.
+ver @ruser{Slurs}.
 @item Ligaduras de fraseo
-ver @ref{Phrasing slurs}.
+ver @ruser{Phrasing slurs}.
 @end table
 @end quotation
 
@@ -746,11 +746,11 @@ c2\< c2\ff\> c2 c2\!
 @quotation
 @table @asis
 @item Articulaciones
-ver @ref{Articulations}.
+ver @ruser{Articulations}.
 @item Digitaciones
-ver @ref{Fingering instructions}.
+ver @ruser{Fingering instructions}.
 @item Matices
-ver @ref{Dynamics}.
+ver @ruser{Dynamics}.
 @end table
 @end quotation
 
@@ -778,9 +778,9 @@ a8[ ais] d[ ees r d] a b
 @quotation
 @table @asis
 @item Barras automáticas
-ver @ref{Automatic beams}.
+ver @ruser{Automatic beams}.
 @item Barras manuales
-ver @ref{Manual beams}.
+ver @ruser{Manual beams}.
 @end table
 @end quotation
 
@@ -837,11 +837,11 @@ c2 \acciaccatura b16 c2
 @quotation
 @table @asis
 @item Notas de adorno
-ver @ref{Grace notes},
+ver @ruser{Grace notes},
 @item Grupos especiales
-ver @ref{Tuplets},
+ver @ruser{Tuplets},
 @item Anacrusas
-ver @ref{Partial measures}.
+ver @ruser{Partial measures}.
 @end table
 @end quotation
 
@@ -964,7 +964,7 @@ para músicas complejas como las partituras polifónicas.
 @node Multiple staves
 @subsection Multiple staves
 
-Como ya hemos visto en @ref{Music expressions explained}, los archivos de entrada para LilyPond
+Como ya hemos visto en @ruser{Music expressions explained}, los archivos de entrada para LilyPond
 se construyen a base de expresiones musicales.  Si la partitura comienza con
 expresiones musicales simultáneas, LilyPond crea varios pentagramas.  Sin embargo
 es más fácil ver lo que ocurre si creamos cada uno de los pentagramas de forma explícita.
@@ -1000,7 +1000,7 @@ menos de las matemáticas.  La fórmula @math{(4+5)} es una expresión, por tant
 
 Las indicaciones de compás escritas en un pentagrama afectan al
 resto de ellos@footnote{Este comportamiento se puede cambiar si uno lo desea; consulte
-@ref{Polymetric notation} para ver más detalles.}. En cambio,
+@ruser{Polymetric notation} para ver más detalles.}. En cambio,
 la armadura de la tonalidad de un pentagrama @emph{no} afecta a los otros
 pentagramas.
 
@@ -1022,7 +1022,7 @@ pentagramas.
 @cindex salto de pentagrama, establecimiento manual
 @cindex voz de pentagrama cruzado, establecimiento manual
 La música para piano se compone tipográficamente en forma de dos pentagramas unidos mediante una llave. El aspecto impreso de
-este sistema de pentagramas se parece al ejemplo polifónico que aparece en @ref{Multiple staves},
+este sistema de pentagramas se parece al ejemplo polifónico que aparece en @ruser{Multiple staves},
 pero en esta ocasión la expresión completa se coloca dentro de un @code{PianoStaff}:
 
 @example
@@ -1045,7 +1045,7 @@ He aquí un pequeño ejemplo:
 
 @moreinfo
 @quotation
-Ver @ref{Piano music}.
+Ver @ruser{Piano music}.
 @end quotation
 
 @node Combining notes into chords
@@ -1123,7 +1123,7 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 
 @moreinfo
 @quotation
-Ver @ref{Basic polyphony}.
+Ver @ruser{Basic polyphony}.
 @end quotation
 
 
@@ -1199,7 +1199,7 @@ dando como resultado unas líneas cortas entre cada dos sílabas:
 @moreinfo
 @quotation
 Otras posibilidades como poner varios versos debajo de una melodía, se
-discuten en @ref{Vocal music}.
+discuten en @ruser{Vocal music}.
 @end quotation
 
 
@@ -1255,7 +1255,7 @@ una hoja de canción con acordes (@q{lead sheet}):
 @moreinfo
 @quotation
 Puede ver una lista completa de los modificadores y otras opciones de presentación
-en @ref{Chords}.
+en @ruser{Chords}.
 @end quotation
 
 
@@ -1302,7 +1302,7 @@ Los cambios en la sintaxis se tratan mediante un programa especial,
 La información sobre el título, autor, número de Opus y similares se escriben
 en el bloque @code{\header}.  Éste se encuentra fuera de la expresión musical
 principal; el bloque @code{\header} normalmente se sitúa por debajo del
-@ref{Version number}.
+@ruser{Version number}.
 
 @example
 \version "2.11.23"
@@ -1318,7 +1318,7 @@ principal; el bloque @code{\header} normalmente se sitúa por debajo del
 @end example
 
 Cuando se procesa el archivo, el título y el autor se imprimen por encima
-de la música.  Puede obtener más información sobre los títulos en @ref{Creating
+de la música.  Puede obtener más información sobre los títulos en @ruser{Creating
 titles}.
 
 
@@ -1458,12 +1458,12 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 @subsection After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o dos
-piezas.  Comience con una de las @ref{Templates} y añada algunas
+piezas.  Comience con una de las @ruser{Templates} y añada algunas
 notas.  Si necesita un tipo de notación que no ha sido tratada en el
 tutorial, eche un vistazo a la Referencia de Notación, empezando por
-@ref{Basic notation}.  Si quiere escribir música para un conjunto
+@ruser{Basic notation}.  Si quiere escribir música para un conjunto
 instrumental que no está cubierto por ninguna plantilla,
-consulte @ref{Extending the templates}.
+consulte @ruser{Extending the templates}.
 
 Una vez que ha escrito algunas piezas cortas, lea el resto del
 Manual de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por
@@ -1476,7 +1476,7 @@ y volver a ellos cuando haya adquirido más experiencia.
 @node How to read the manual
 @subsection How to read the manual
 
-Como ya vimos en @ref{How to read the tutorial}, muchos ejemplos del
+Como ya vimos en @ruser{How to read the tutorial}, muchos ejemplos del
 tutorial omitían el @code{\relative c'' @{ ... @}} alrededor del ejemplo
 mostrado.
 
@@ -1495,5 +1495,5 @@ y pulse con el ratón sobre la imagen de la música.  De esta forma se mostrará
 exacta que LilyPond usó para generar este manual.
 
 Para informarse sobre la estructura que tiene el resto del manual, consulte
-@ref{About this manual}.
+@ruser{About this manual}.
 

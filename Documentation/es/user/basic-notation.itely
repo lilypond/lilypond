@@ -128,7 +128,7 @@ La entrada @code{d e f} se interpreta como @q{imprimir un Re natural,
 Mi natural y Fa natural}, independientemente de la armadura de la tonalidad.
 Para ver más información acerca de la distinción entre
 el contenido musical y la presentación de ese contenido, consulte
-@ref{Accidentals and key signatures}.
+@rlearning{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -1512,7 +1512,7 @@ estableciendo esta propiedad directamente.
 
 Las alteraciones accidentales y las armaduras son una frecuente causa de confusión para los nuevos usuarios,
 porque las notas sin alteración pueden llevar signos de becuadro en función de la armadura.
-Para ver más información, consulte @ref{Accidentals} o @ref{Accidentals and key signatures}.
+Para ver más información, consulte @ref{Accidentals} o @rlearning{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
