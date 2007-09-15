@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of ../user/lilypond.tely
 @ignore
-    Translation of GIT committish: e6ce9d205cb964525629f8f454fec9229a6311aa
+    Translation of GIT committish: 76de7e168dbc9ffc7671d99663c5ce50dae42abb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -29,11 +29,12 @@ référence du programme
 @ifnottex
 @ref{Top,Référence du programme,,lilypond-internals}.
 @end ifnottex
-Ce guide répertorie toutes les variables, fonctions et autre options que
-LilyPond met à votre disposition.  Il est consultable en ligne, au format HTML,
+Ce guide répertorie toutes les variables, fonctions et autres options que
+LilyPond met à votre disposition.  Il est consultable 
 @c leave the @uref as one long line.
-@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
-mais est également inclus dans la documentation fournie avec le logiciel.
+@uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,en@tie{}ligne},
+au format HTML, mais est également inclus dans la documentation
+fournie avec le logiciel.
 
 Il est quatre domaines dans lesquels on peut modifier les réglages par défaut :
 
@@ -180,14 +181,14 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @end lilypond
 
 La règle @code{voice} n'est à envisager que dans le cas de voix devant être lues par
-des musiciens différents. S'il s'agit d'un @q{conducteur}, ou d'une portée destinée
+des musiciens différents.  S'il s'agit d'un @q{conducteur}, ou d'une portée destinée
 à un seul musicien, il vaut mieux utiliser @code{modern} ou @code{modern-cautionary}.
 
 
 @item modern
 @funindex modern style accidentals
 Cette règle est la plus courante au XXème siècle.  Les altérations accidentelles
-sont imprimées comme avec le style @code{default}, mais lorsque une note non-altérée
+sont imprimées comme avec le style @code{default}, mais lorsqu'une note non-altérée
 apparaît à une octave différente, ou bien dans la mesure suivante, des bécarres de précaution
 sont ajoutés.  Dans l'exemple suivant, notez ainsi les deux bécarres dans la
 deuxième mesure de la main droite.
@@ -395,7 +396,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @item forget
 Tout le contraire de @code{no-reset}: l'effet des altérations cesse aussitôt,
 et de ce fait, toutes les altérations, quelque soit leur place dans la mesure, sont
-imprimées, en fonction de l'armure éventuelle.
+imprimées, en fonction de l'éventuelle armure.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -429,11 +430,11 @@ Référence du programme : @internalsref{Accidental_engraver},
 @refbugs
 
 Les notes simultanées sont considérées comme des évènements séquentiels.
-Ce qui implique que, dans un accord, les altérations accidentelles sont 
+Ce qui implique que, dans un accord, les altérations accidentelles seront 
 imprimées comme si les notes de l'accords apparaissaient une par une, en fonction
 de l'ordre dans lequels elles ont été saisies -- ce qui peut poser problème lorsqu'au
-sein d'un accord certaines altérations dépendent les unes des autres. Ce problème
-est à résoudre manuellement, en insérant des @code{!} et des @code{?} après les notes
+sein d'un accord certaines altérations dépendent les unes des autres.
+Ce problème est à résoudre manuellement, en insérant des @code{!} et des @code{?} après les notes
 concernées.
 
 
@@ -470,9 +471,9 @@ plus brève des notes concernées.  Si cette règle doit s'appliquer à toutes l
 remplacez @code{p} et @code{q} par des étoiles @qq{@code{*}}.
 
 
-@item @code{n/m} est le chiffre de mesure dans lequel la règle doit s'appliquer. Si
-celle-ci doit s'appliquer dans toutes les métriques, remplacez @code{n} et @code{m}
-par des étoiles @qq{@code{*}}.
+@item @code{n/m} est le chiffre de mesure dans lequel la règle doit
+s'appliquer.  Si celle-ci doit s'appliquer dans toutes les métriques,
+remplacez @code{n} et @code{m} par des étoiles @qq{@code{*}}.
 
 @item @code{a/b} est l'emplacement, dans la mesure, auquel les ligatures doivent
 débuter ou s'achever (suivant la valeur @q{extrémité} que nous venons de voir).
@@ -693,14 +694,14 @@ et une autre à 4/4, les barres de mesures n'ont plus à être alignées : il fa
 modifier les comportement par défaut des contextes @context{Score} et @context{Staff}.
 
 Dans une partition très simple, les contextes sont créés implicitement, et peuvent
-être ignorés. Mais lorsqu'il s'agit de morceaux plus amples -- entendons par là tout
+être ignorés.  Mais lorsqu'il s'agit de morceaux plus amples -- entendons par là tout
 ce qui s'écrit sur plus d'une portée -- il faut les créer explicitement pour être sûr
 d'obtenir toutes les portées nécessaires, et dans le bon ordre.  Enfin pour des
 morceaux impliquant une notation spéciale, modifier les contextes ou en créer de nouveaux
 devient extrêment utile.
 
 Une description exhaustive de tous les contextes disponibles peut être trouvée dans la
-Référence du programme : voir
+référence du programme : voir
 @ifhtml
 @internalsref{Contexts}.
 @end ifhtml
@@ -715,7 +716,7 @@ Translation @arrow{} Context.
 @subsection Creating contexts
 
 Dans une partition contenant une seule voix sur une seule portée,
-les contextes sont automatiquement créés. Dans une partition plus complexe,
+les contextes sont automatiquement créés.  Dans une partition plus complexe,
 il faut les crééer à la main.  Trois commandes le permettent :
 
 @itemize @bullet
@@ -883,7 +884,7 @@ Ce changement étant appliqué @q{à la volée}, il n'affecte que le second grou
 
 Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
 dans le contexte le plus restreint où elle est employée : le plus souvent
- @context{ChordNames}, @context{Voice}, ou @context{Lyrics}. Dans l'exemple suivant,
+ @context{ChordNames}, @context{Voice}, ou @context{Lyrics}.  Dans l'exemple suivant,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -892,9 +893,10 @@ c8 c c c
 @end lilypond
 
 @noindent
-aucun argument @var{contexte} n'a été donné à la commande @code{\set}. De ce fait,
-les ligatures automatiques sont désactivées dans le contexte actuel, c'est-à-dire
-@internalsref{Voice}.  Notez que le contexte le plus restreint n'est pas toujours le bon,
+aucun argument @var{contexte} n'a été donné à la commande @code{\set}.
+De ce fait, les ligatures automatiques sont désactivées dans le
+contexte actuel, c'est-à-dire @internalsref{Voice}.  Notez que le
+contexte le plus restreint n'est pas toujours le bon, 
 et peut ne pas contenir la propriété qui vous intéresse : ainsi, la propriété 
 @code{skipBars}, évoquée plus haut, ne relève pas du contexte @code{Voice}, 
 et le code suivant ne fonctionnera pas.
@@ -905,7 +907,7 @@ R1*2
 R1*2
 @end lilypond
 
-Les contextes s'organisent de façon hiérarchique : aussi, si un contexte de niveau
+Les contextes s'organisent de façon hiérarchique : aussi, lorsqu'un contexte de niveau
 supérieur est spécifié (par exemple @context{Staff}), la propriété sera modifée dans
 tous les contextes inférieurs (tous les contextes @context{Voice}, par exemple)
 qu'il contient.
@@ -928,7 +930,7 @@ précis ; ainsi,
 
 @noindent
 même s'il s'applique à tous les contextes @code{Voice} contenus dans le
-contexte @code{Staff}, ne peut être annulé au niveau @code{Voice}. Le code
+contexte @code{Staff}, ne peut être annulé au niveau @code{Voice}.  Le code
 suivant sera sans effet.
 
 @example
@@ -945,7 +947,7 @@ il faut donc entrer :
 @end example
 
 Si l'on se trouve dans le contexte le plus restreint, il n'est pas obligatoire,
-là encore, de spécifier le @var{contexte}. Ainsi, les deux lignes suivantes sont équivalentes.
+là encore, de spécifier le @var{contexte}.  Ainsi, les deux lignes suivantes sont équivalentes.
 
 
 @example
@@ -967,7 +969,7 @@ c4
 
 Ici le changement de taille est annulé aussitôt après la note concernée.
 
-La Référence du programme contient une description exhaustive de toutes les
+La référence du programme contient une description exhaustive de toutes les
 propriétés contexte par contexte : voir
 @ifhtml
 @internalsref{Tunable context properties}.
@@ -981,11 +983,11 @@ Translation @arrow{} Tunable context properties.
 @subsection Modifying context plug-ins
 
 Les contextes, tels que @code{Score} ou @code{Staff}, ne contiennent
-pas que des propriétés, mais mettent également en oeuvre certains
+pas que des propriétés ; ils mettent également en œuvre certains
 sous-programmes (@q{plug-ins}, pour employer le terme consacré) nommés
 @q{graveurs} (@q{engravers}, pour reprendre le terme anglais).
 Ces sous-programmes sont chargés de créer les différents éléments de notation :
-Ainsi, on trouve, dans le contexte @code{Voice}, un graveur @code{Note_head_engraver},
+On trouve ainsi dans le contexte @code{Voice}, un graveur @code{Note_head_engraver},
 chargé des têtes de notes, et dans le contexte @code{Staff}, un graveur
 @code{Key_signature_engraver}, chargé de l'armure.
 
@@ -1003,7 +1005,7 @@ Chaque contexte mentionné dans
 @ifnothtml
 Program reference @arrow Translation @arrow{} Context.
 @end ifnothtml
-répertorie les graveurs mis en oeuvre.
+répertorie les graveurs mis en œuvre.
 
 
 On peut faire, au moyen de ces graveurs, sa propre @qq{cuisine}, en
@@ -1032,8 +1034,8 @@ des graveurs :
 
 @noindent
 Ici les points de suspension @dots{} devront être remplacés par les noms
-des graveurs désirés. Dans l'exemple suivant, on enlève, dans le contexte
-@code{Staff} le chiffre de mesure (graveur @code{Time_signature_engraver})
+des graveurs désirés.  Dans l'exemple suivant, on enlève du contexte
+@code{Staff}, le chiffre de mesure (graveur @code{Time_signature_engraver})
 et la clé (graveur @code{Clef_engraver}).
 
 @lilypond[quote,relative=1,verbatim,fragment]
@@ -1050,7 +1052,7 @@ et la clé (graveur @code{Clef_engraver}).
 >>
 @end lilypond
 
-La clé et le chiffre de mesure ont disparu de la deuxième portée. C'est une méthode
+La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une méthode
 quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
 partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
 l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
@@ -1105,8 +1107,8 @@ La syntaxe employée pour ce faire est
 Ici @var{objet} est un objet graphique, tel que @code{Stem} (les hampes)
 ou @code{NoteHead} (les têtes de note) ; @var{propriété} est une variable
 (désignée par un symbole, ce qui explique l'apostrophe) employée par le système
-de mise en page. La sous-section @ref{Constructing a
-tweak} vous aidera à savoir quoi mettre à la place de @var{objet}, @var{propriété} et
+de mise en page.  La sous-section @ref{Constructing a tweak} vous
+aidera à savoir quoi mettre à la place de @var{objet}, @var{propriété} et
 @var{valeur} ; notre propos n'est ici que d'examiner l'emploi de cette commande.
 
 La commande suivante :
@@ -1157,14 +1159,14 @@ c8 c])
 @end lilypond
 
 @noindent
-Dans cet exemple, la liaison (@q{Slur}) est épaissie, mais non la ligature
-@code{Beam}. En effet, le code qui lui est relatif n'a pas été inséré avant le début de
+Dans cet exemple, la liaison (@emph{Slur}) est épaissie, mais non la ligature
+(@emph{Beam}).  En effet, le code qui lui est relatif n'a pas été inséré avant le début de
 la ligature, et demeure donc sans effet.
 
 De même que la commande @code{\unset}, la commande @code{\revert} défait
-ce qui a été fait par une commande @code{\override}. Tout comme avec @code{\unset},
-elle ne peut annuler que les réglages effectués dans le même contexte. Ainsi dans
-l'exemple suivant, la commande @code{\revert} est sans effet.
+ce qui a été fait par une commande @code{\override}.  Tout comme avec @code{\unset},
+elle ne peut annuler que les réglages effectués dans le même contexte.
+Ainsi dans l'exemple suivant, la commande @code{\revert} est sans effet.
 
 @example
 \override Voice.Stem #'thickness = #4.0
@@ -1172,7 +1174,7 @@ l'exemple suivant, la commande @code{\revert} est sans effet.
 @end example
 
 Il existe, à l'intérieur même de certaines propriétés, des options que l'on
-nomme @q{sous-propriétés}. La syntaxe est alors
+nomme @q{sous-propriétés}.  La syntaxe est alors
 
 @c leave this as a long long
 @example
@@ -1206,7 +1208,7 @@ de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 
 Les réglages montrés dans les sous-sections @ref{Changing context
 properties on the fly}, @ref{Modifying context plug-ins} et
-@ref{Layout tunings within contexts} peuvent également être saisis séparément
+@ref{Layout tunings within contexts} peuvent également être saisis indépendamment
 de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
 
 @example
@@ -1249,10 +1251,10 @@ les lignes suivantes produiront-elles le même effet.
 
 @refbugs
 
-Il est impossible de stocker des modifications de contexte dans un identifieur.
+Il est impossible de stocker des modifications de contexte dans un identificateur.
 
 Le raccourci @code{\RemoveEmptyStaffContext} détruit tous les réglages
-du contexte @code{\Staff}. Pour modifier des propriétés de portées gouvernées
+du contexte @code{\Staff}.  Pour modifier des propriétés de portées gouvernées
 par @code{\RemoveEmptyStaffContext}, il faut le faire impérativement @emph{après}
 avoir invoqué @code{\RemoveEmptyStaffContext} :
 
@@ -1274,9 +1276,9 @@ Les contextes tels que @context{Staff} ou @code{Voice} sont faits
 de briques de constructions empilées.  En combinant divers graveurs,
 il est possible de créer de nouveaux types de contextes.
 
-Dans l'exemple suivant, on construit, de zéro, un nouveau contexte, très
+Dans l'exemple suivant, on construit, de zéro, un nouveau contexte très
 semblable à @context{Voice}, mais qui n'imprime que des têtes de notes en forme
-de barres obliques, au centre de la portée.  Un tel contexte, par exemple, peut
+de barres obliques au centre de la portée.  Un tel contexte, par exemple, peut
 servir à indiquer un passage improvisé dans un morceau de jazz.
 
 @c KEEP LY
@@ -1348,7 +1350,7 @@ squashedPosition = #0
 @end example
 
 @noindent
-Le graveur @internalsref{Pitch_squash_engraver} intercepte les notes, créées par 
+Le graveur @internalsref{Pitch_squash_engraver} intercepte les notes créées par 
 @internalsref{Note_heads_engraver}, et les @q{écrase} pour qu'elles aient toutes la
 même position verticale, définie par @code{squashedPosition} : ici il s'agit de la
 valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
@@ -1361,7 +1363,7 @@ valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
 @end example
 
 @item Afin que tous ces graveurs puissent travailler de concert, on leur adjoint un
-sous-programme special, introduit par la commande @code{\type} : il s'agit de
+sous-programme spécial, introduit par la commande @code{\type} : il s'agit de
 @internalsref{Engraver_group},
 
 @example
@@ -1387,9 +1389,10 @@ Récapitulons -- on se retrouve avec le bloc suivant :
 @end example
 
 @funindex \accepts
-Ce n'est pas tout. En effet, on veut intégrer le nouveau contexte @context{ImproVoice}
-dans la hiérarchie des contextes. Tout comme le contexte @code{Voice}, sa place est
-au sein du contexte @code{Staff}. Nous allons donc modifier le contexte @context{Staff},
+Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
+@context{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
+contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
+Nous allons donc modifier le contexte @context{Staff},
 au moyen de la commande @code{\accepts} :
 
 @example
@@ -1466,7 +1469,7 @@ ossia = { f4 f f f }
 Les objets @code{VerticalAlignment} et @code{VerticalAxisGroup}
 travaillent de concert.  Comme leurs noms anglais l'indiquent,
 @code{VerticalAxisGroup} regroupe différents objets tels que les portées
-(@code{Staff}, les paroles (@code{Lyrics}) et ainsi de suite ; puis
+(@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ; puis
 @code{VerticalAlignment} synchronise verticalement ces différents groupes.
 En général, il n'y a qu'un seul @code{VerticalAlignment} pour l'ensemble
 de la partition, mais chaque contexte @context{Staff}, @context{Lyrics}, etc.
@@ -1476,8 +1479,8 @@ possède son propre @code{VerticalAxisGroup}.
 @node The \override command
 @section The @code{\override} command
 
-La commande @code{\override} command permet de modifier la mise en page
-en détail. Examinons en détail comment l'utiliser concrètement.
+La commande @code{\override} permet de modifier la mise en page
+en détail.  Examinons son utilisation concrètementet dans les détails.
 La syntaxe de cette commande ressemble généralement à :
 
 @example
@@ -1514,10 +1517,10 @@ ressemblent en général à
 Pour élaborer un réglage de ce type, on a besoin de connaître précisément :
 
 @itemize
-@item le contexte : ici, @context{Voice} (la voix).
-@item l'objet à affecter : ici, @code{Stem} (les hampes).
-@item la propriété é modifier : ici, @code{thickness} (l'épaisseur du trait).
-@item la valeur désirée : ici, @code{3.0} (par défaut, elle est de 1.3).
+@item le contexte : ici @context{Voice} (la voix).
+@item l'objet à affecter : ici @code{Stem} (les hampes).
+@item la propriété à modifier : ici @code{thickness} (l'épaisseur du trait).
+@item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
 @end itemize
 
 Certaines @q{sous-propriétés} sont parfois contenues dans une propriété.
@@ -1607,7 +1610,7 @@ manual.
 @end ignore
 
 @ifnothtml
-Ladite Référence est disponible au format HTML, ce qui rend la navigation bien
+Ladite référence est disponible au format HTML, ce qui rend la navigation bien
 plus aisée.  Il est possible soit de la lire en ligne, soit de la télécharger
 dans ce format.  La démarche présentée ici sera plus difficle à comprendre
 dans un document au format PDF.
@@ -1625,7 +1628,7 @@ En d'autres termes, @emph{Les indications de doigtés}
 (@code{Fingering} en anglais) @emph{sont créées par les graveurs
 @internalsref{Fingering_engraver} et @internalsref{New_fingering_engraver}.}
 
-En suivant derechef les liens propres à la Référence du programme, on suit en fait
+En suivant derechef les liens propres à la référence du programme, on suit en fait
 le cheminement qui aboutit à la création de la partition :
 
 @itemize @bullet
@@ -1643,12 +1646,12 @@ Music event type @code{fingering-event} is in Music expressions named
 @end itemize
 
 Ce cheminement se produit, bien sûr, en sens inverse : nous sommes ici partis
-du résultat, et avons abouti aux évènements (en anglais, @q{Events}) engendrés
-par le fichier d'entrée. L'inverse est également possible : on peut partir d'un
-évènement, et suivre le cheminement de LilyPond, qui aboutit à la création d'un 
+du résultat, et avons abouti aux évènements (en anglais @q{Events}) engendrés
+par le fichier d'entrée.  L'inverse est également possible : on peut partir d'un
+évènement, et suivre le cheminement de LilyPond qui aboutit à la création d'un 
 ou plusieurs objets graphiques.
 
-La Référence du programme peut également se parcourir comme un document normal.
+La référence du programme peut également se parcourir comme un document normal.
 On y trouve des chapitres tels que
 @ifhtml
 @internalsref{Music definitions},
@@ -1656,14 +1659,14 @@ On y trouve des chapitres tels que
 @ifnothtml
 @code{Music definitions}
 @end ifnothtml
-@internalsref{Translation}, ou encore @internalsref{Backend}. Chaque chapitre
+@internalsref{Translation}, ou encore @internalsref{Backend}.  Chaque chapitre
 recense toutes les définitions employées, et les propriétés sujettes à 
 ajustements.
 
 @c -- what about adding a link to the glossary here ? -vv
 @ignore
 La Référence du programme n'est pas traduite en français -- notamment du fait
-qu'elle est évolution constante, tout comme LilyPond.  En revanche, les termes
+qu'elle est en évolution constante, tout comme LilyPond.  En revanche, les termes
 musicaux font l'objet d'un @commentfairelelien{glossaire} fort utile pour les utilisateurs
 francophones.
 @end ignore
@@ -1684,7 +1687,7 @@ Le fonctionnement de ces objets est décrit en détail dans @internalsref{grob-i
 
 Prenons l'exemple des doigtés (en anglais @q{Fingering}).
 La page @code{Fingering} de la Référence du programme établit une liste de définitions
-propre à ce type d'objets :
+propres à ce type d'objets :
 
 @quotation
 @code{padding} (dimension, in staff space):
@@ -1693,8 +1696,8 @@ propre à ce type d'objets :
 @end quotation
 
 @noindent
-Ce qui signifie que les doigtés doivent être maintenus à une certaine distance (@q{padding})
-des notes : 0,5 unités @q{staff-space} (espace de portée).
+Ce qui signifie que les doigtés doivent être maintenus à une certaine distance (@emph{padding})
+des notes : 0,5 unités @emph{staff-space} (espace de portée).
 
 
 Chaque objet peut avoir plusieurs attributs, en tant qu'élément typographique
@@ -1776,7 +1779,7 @@ l'occurence le fichier @file{scm/@/define@/-grobs@/.scm} :
 @end example
 
 @noindent
-...où l'on découvre que l'objet @code{Fingering} n'est rien de plus qu'un
+@dots{}où l'on découvre que l'objet @code{Fingering} n'est rien de plus qu'un
 amas de variables et de réglages.  La page de la Référence du programme est
 en fait directement engendrée par cette définition.
 
@@ -1809,7 +1812,7 @@ Ce qui signifie
 @quotation
 @code{side-position-interface}
 
-Placer l'objet affecté à proximité d'autres objets. La propriété
+Placer l'objet affecté à proximité d'autres objets.  La propriété
 @code{direction} indique où placer l'objet (à droite ou à gauche,
 en haut ou en bas).
 @end quotation
@@ -1829,7 +1832,9 @@ Add this much extra space between objects that are next to each other.
 
 @noindent
 Ce qui signifie
-@quotation Ajouter tel espace supplémentaire entre des objets proches les uns des autres.
+@quotation 
+Ajouter tel espace supplémentaire entre des objets proches les uns des
+autres.
 @end quotation
 
 @noindent
@@ -1872,7 +1877,7 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @internalsref{
 @funindex \tweak
 
 Dans certains cas, on peut passer par un raccourci pour arranger les
-objets graphiques.  Lorsque un objet est directement engendré par un élément distinct
+objets graphiques.  Lorsqu'un objet est directement engendré par un élément distinct
 du fichier source, on peut utiliser la commande @code{\tweak}.
 
 Dans l'accord suivant, les notes sont modifiées une par une :
@@ -1887,11 +1892,11 @@ Dans l'accord suivant, les notes sont modifiées une par une :
 @end lilypond
 
 Comme on peut le voir, les propriétés sont ici modifiées directement
-en même temps que les objets sont saisis. Il n'est plus besoin de spécifier ni
-le nom de l'objet (@q{grob}), ni le contexte dans lequel cela doit s'appliquer.
+en même temps que les objets sont saisis.  Il n'est plus besoin de spécifier ni
+le nom de l'objet (@emph{grob}), ni le contexte dans lequel cela doit s'appliquer.
 
 Ce procédé ne marche que pour des objets directement liés aux évènements 
-(@internalsref{event}) du fichier source. Par exemple :
+(@internalsref{Event}) du fichier source.  Par exemple :
 
 @itemize @bullet
 @item Les têtes de notes au sein d'un accord, qui sont directement engendrées par 
@@ -1900,7 +1905,7 @@ les hauteurs indiquées
 @end itemize
 
 En revanche, les hampes ou les altérations sont engendrées par les têtes de notes,
-et non par des évènements dans le fichier source. De même pour les clés, qui ne
+et non par des évènements dans le fichier source.  De même pour les clés, qui ne
 sont pas directement engendrées par le fichier source, mais plutôt par le
 changement d'une propriété interne.
 
@@ -1953,11 +1958,11 @@ F = #(let ((m (make-music 'ArticulationEvent
 @end example
 
 @noindent
-Ici les propriétés @code{tweaks} de l'objet flageolet nommé
+Ici les propriétés @code{tweak} de l'objet flageolet nommé
 @samp{m} (créé au moyen de @code{make-music}) sont extraites par
 @code{ly:music-property}, une nouvelle valeur de la taille de fonte
 est ajoutée à la liste de ses propriétés (grâce à la fonction Scheme
-@code{acons}, et le résultat de cette opération est renvoyé par @code{set!}.
+@code{acons}), et le résultat de cette opération est renvoyé par @code{set!}.
 Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
 @samp{m} lui-même.
 
@@ -1969,7 +1974,8 @@ Si les propriétés peuvent être modifiées de deux façons, par les commandes
 @code{\set} et @code{\override}, c'est qu'il y a deux types de propriétés.
 
 Les contextes peuvent avoir des propriétés, dont les noms commencent par une
-minuscule puis comprennent une ou plusieurs majuscules (de style @code{totoTutu}). Elles ont surtout trait
+minuscule puis comprennent une ou plusieurs majuscules (de style
+@code{totoTutu}).  Elles ont surtout trait
 à la notation des éléments musicaux : par exemple, @code{localKeySignature} permet
 de choisir s'il faut ou non imprimer une altération, ou @code{measurePosition} permet
 de choisir quand il faut imprimer une barre de mesure.  Ces propriétés de contextes
@@ -1980,7 +1986,7 @@ sont appelées à changer au long de l'interprétation de la partition :
 Il existe un type particulier de propriétés : les descriptions
 d'éléments.  Ces propriétés, dont les noms commencent par une majuscule, puis comprennent
 une ou plusieurs majuscules (de style @code{TotoTata}), contiennent les réglages
-@q{par défaut} pour les objets graphiques. Ces réglages sont sous forme de liste Scheme ; on
+@q{par défaut} pour les objets graphiques.  Ces réglages sont sous forme de liste Scheme ; on
 peut les consulter dans le fichier @file{scm/@/define@/-grobs@/.scm}.
 Les descriptions d'éléments doivent être modifiées avec la commande @code{\override}.
 
@@ -2006,8 +2012,9 @@ en page : en fait, la gravure d'une page n'est autre que le calcul de toutes
 ces propriétés, au moyen de fonctions de rappel.
 
 La propriété @code{fontSize} est une exception : c'est un raccourci, qui équivaudrait
-à saisir @code{\override ... #'font-size} pour tous les objets textuels. Dans la mesure
-où il s'agit d'une manipulation très courante, une propriété spéciale a été créée. Elle doit
+à saisir @code{\override @dots{} #'font-size} pour tous les objets
+textuels.  Dans la mesure où il s'agit d'une manipulation très
+courante, une propriété spéciale a été créée.  Elle doit
 être modifiée avec la commande @code{\set}.
 
 
@@ -2021,10 +2028,10 @@ Certains réglages sont plus délicats que d'autres.
 
 @item
 L'un d'entre eux est l'apparence des objets dits @q{spanner}, qui s'étendent 
-horizontalement, tels que les liaisons.  Si en principe, un seul de ces objets
-est créé à la fois, et peut donc être modifié de façon habituelle, lorsque ces
+horizontalement, tels que les liaisons.  Si, en principe, un seul de ces objets
+est créé à la fois et peut donc être modifié de façon habituelle, lorsque ces
 objets doivent enjamber un changement de ligne, ils sont dupliqués au début
-du ou des systèmes suivants. Comme ces objets sont des clones de l'objet d'origine,
+du ou des systèmes suivants.  Comme ces objets sont des clones de l'objet d'origine,
 ils en héritent toutes les propriétés, y compris les éventuelles commandes @code{\override}.
 
 
@@ -2078,12 +2085,12 @@ de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
 Lorsque cette astuce va être appliquée, notre nouvelle fonction de rappel
 @code{after-line-breaking} devra également appeler celle d'origine
 (@code{after-line-breaking}), si elle existe.
-Ainsi, si l'on veut l'utiliser pour un crescendo (objet @code{Hairpin}),
+Ainsi, pour l'utiliser dans le cas d'un crescendo (objet @code{Hairpin}),
 il faudra appeler également @code{ly:hairpin::after-line-breaking}.
 
 
 @item Pour des raisons d'ordre technique, certains objets ne peuvent être modifiés par
-@code{\override}. Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
+@code{\override}.  Parmi ceux-là, les objets @code{NonMusicalPaperColumn}
 et @code{PaperColumn}.  La commande @code{\overrideProperty} sert à les modifier, de
 façon similaire à @code{\once \override}, mais avec une syntaxe différente :
 
