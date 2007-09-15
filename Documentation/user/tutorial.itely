@@ -365,7 +365,7 @@ Here is a small example showing all these elements together:
 }
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Entering pitches and durations
@@ -525,7 +525,7 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Relative octaves
@@ -613,7 +613,7 @@ accidentals can be printed according to different conventions.  See
 @ruser{Automatic accidentals}, for some examples how accidentals can be printed
 according to different rules.
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Accidentals
@@ -675,7 +675,7 @@ can be nested.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Ties
@@ -741,7 +741,7 @@ Crescendi and decrescendi are started with the commands @code{\<} and
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Articulations
@@ -773,7 +773,7 @@ with @samp{]}.
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Automatic beams
@@ -832,7 +832,7 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 @table @asis
 @item Grace notes
@@ -1042,7 +1042,7 @@ Here is a small example
 }
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 See @ruser{Piano music}.
 @end quotation
@@ -1122,7 +1122,7 @@ Again, these expressions can be nested arbitrarily.
 >>
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 See @ruser{Basic polyphony}.
 @end quotation
@@ -1197,7 +1197,7 @@ resulting in a centered hyphen between two syllables
 >>
 @end lilypond
 
-@moreinfo
+@seeals
 @quotation
 More options, such as putting multiple stanzas below a melody, are
 discussed in @ruser{Vocal music}.
@@ -1253,7 +1253,7 @@ a lead sheet,
 @end lilypond
 
 
-@moreinfo
+@seeals
 @quotation
 A complete list of modifiers and other options for layout can be found
 in @ruser{Chords}.

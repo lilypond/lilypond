@@ -716,7 +716,7 @@ reference, see
 @internalsref{Contexts}.
 @end ifhtml
 @ifnothtml
-Translation @arrow{} Context.
+Translation @expansion{} Context.
 @end ifnothtml
 
 @c [TODO: describe propagation]
@@ -981,7 +981,7 @@ program reference, see
 @internalsref{Tunable context properties}.
 @end ifhtml
 @ifnothtml
-Translation @arrow{} Tunable context properties.
+Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 
@@ -1000,14 +1000,14 @@ For a full a description of each plug-in, see
 @internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
-Program reference @arrow Translation @arrow{} Engravers.
+Program reference @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Every context described in
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
 @ifnothtml
-Program reference @arrow Translation @arrow{} Context.
+Program reference @expansion{} Translation @expansion{} Context.
 @end ifnothtml
 lists the engravers used for that context.
 

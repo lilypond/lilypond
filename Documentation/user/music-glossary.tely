@@ -108,10 +108,10 @@ Copyright 1999--2007 by the authors
 @c arrowref
 @macro aref{word}
 @iftex
-@w{@arrow{}@strong{\word\}}@c
+@w{@expansion{}@strong{\word\}}@c
 @end iftex
 @ifnottex
-@arrow{}@ref{\word\, @strong{\word\}}@c
+@expansion{}@ref{\word\, @strong{\word\}}@c
 @end ifnottex
 @end macro
 

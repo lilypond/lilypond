@@ -6,16 +6,19 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c **** all formats ****
 
-@macro refbugs
+@c **** format-independant ****
+
+@c   regions of a doc subsection
+@macro refcommands
 @noindent
-@subsubheading Bugs
+@subsubheading Predefined commands
 
 @end macro
 
-@macro moreinfo
-@subheading More information
+@macro commonprop
+@noindent
+@subsubheading Commonly tweaked properties
 
 @end macro
 
@@ -25,12 +28,14 @@
 
 @end macro
 
-@macro refcommands
+@macro refbugs
 @noindent
-@subsubheading Predefined commands
+@subsubheading Bugs
 
 @end macro
 
+
+@c  use inside the text
 @macro context{NAME}
 @vindex \NAME\
 @code{\NAME\}@c should use internalsref
@@ -41,12 +46,6 @@
 @code{\WHAT\}
 @end macro
 
-@macro commonprop
-@noindent
-@subsubheading Commonly tweaked properties
-
-@end macro
-
 @macro funindex {WORD}
 @findex \WORD\
 @kindex \WORD\
@@ -55,6 +54,8 @@
 
 
 @c  *** Macros with variable output ***
+
+@c   Use inside the text
 
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,NAME}
@@ -76,21 +77,6 @@
 @end macro
 
 
-
-
-@macro arrow{}
-@iftex
-@tex $\\Rightarrow$ @end tex@c
-@end iftex
-@ifhtml
-@html
-&rarr;
-@end html
-@end ifhtml
-@ifinfo
--->
-@end ifinfo
-@end macro
 
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
