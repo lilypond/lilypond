@@ -754,22 +754,22 @@ de manière linéaire.
 @ifhtml
 Le
 @end ifhtml
-@emph{@ref{Tutorial}}
+@emph{@ruser{Tutorial}}
 propose une introduction en douceur à la typographie musicale.
 Les utilisateurs débutants sont invités à commencer ici.
 
 @item
-@emph{@ref{Putting it all together}}
+@emph{@ruser{Putting it all together}}
 explique des concepts généraux du format de fichier ly. Si vous n'êtes
 pas certain de l'endroit où placer une commande, lisez ce chapitre !
 
 @item
-@emph{@ref{Working on LilyPond projects}}
+@emph{@ruser{Working on LilyPond projects}}
 montre des utilisations pratiques de LilyPond et donne des conseils
 afin d'éviter les problèmes les plus courants.
 
 @item
-@emph{@ref{Tweaking output}}
+@emph{@ruser{Tweaking output}}
 est une introduction aux retouches de gravure avec LilyPond.
 
 @end itemize
@@ -784,39 +784,39 @@ concepts exposés dans le manuel d'apprentissage.
 @itemize @bullet
 
 @item
-@emph{@ref{Basic notation}}
+@emph{@ruser{Basic notation}}
 traite de sujets groupés par type de notation.  Cette section
 détaille la notation de base, qui sera utile dans la plupart des
 projets de partition.
 
 @item
-@emph{@ref{Instrument-specific notation}}
+@emph{@ruser{Instrument-specific notation}}
 traite de sujets groupés par type de notation.  Cette section détaille
 des notations spéciales qui ne seront utiles que pour des types
 particuliers d'instruments ou la voix.
 
 @item
-@emph{@ref{Advanced notation}}
+@emph{@ruser{Advanced notation}}
 traite de sujets groupés par type de notation.  Cette section
 donne des précisions à propos de notations compliquées et
 inhabituelles
 
 @item
-@emph{@ref{Changing defaults}}
+@emph{@ruser{Changing defaults}}
 explique comment ajuster finement la mise en page.
 
 @item
-@emph{@ref{Non-musical notation}}
+@emph{@ruser{Non-musical notation}}
 traite de sorties non musicales comme les titres, les mouvements
 multiples, et la sélection des instruments MIDI.
 
 @item
-@emph{@ref{Spacing issues}}
+@emph{@ruser{Spacing issues}}
 traite de sujets affectant la sortie globale, comme sélectionner
 la taille de papier ou spécifier les sauts de page.
 
 @item
-@emph{@ref{Interfaces for programmers}}
+@emph{@ruser{Interfaces for programmers}}
 explique comment créer des fonctions de musique.
 
 @end itemize
@@ -826,19 +826,21 @@ explique comment créer des fonctions de musique.
 
 Ce livre contient des tables de référence pratiques.
 
+@c  Nous avons besoin d'ecrivez tous ca, aprez GDP est fini.  -gp
+@ignore 
 @itemize @bullet
 
 @item
 @ifhtml
 La
 @end ifhtml
-@emph{@ref{Literature list}}
+@emph{@ruser{Literature list}}
 contient un choix de livres de référence utiles pour ceux qui veulent
 en savoir plus sur la notation et la gravure.
 
 @item
 Le
-@emph{@ref{Scheme tutorial}}
+@emph{@ruser{Scheme tutorial}}
 propose une courte introduction à Scheme, le langage de programmation
 utilisé dans les fonctions de musique.
 
@@ -846,29 +848,29 @@ utilisé dans les fonctions de musique.
 @ifhtml
 Les
 @end ifhtml
-@emph{@ref{Notation manual tables}}
+@emph{@ruser{Notation manual tables}}
 sont un ensemble de tableaux montrant les noms d'accord, les
 instruments MIDI, les noms de couleur, et la police Feta.
 
 @item
 Les
-@emph{@ref{Templates}}
+@emph{@ruser{Templates}}
 de pièces LilyPond.  Copiez et collez un modèle
 dans un fichier, ajoutez les notes, et c'est prêt !
 
 @item
 L'
-@emph{@ref{Cheat sheet}}
+@emph{@ruser{Cheat sheet}}
 est une référence pratique des commandes LilyPond les plus courantes.
 
 @item
 L'
-@emph{@ref{LilyPond command index}}
+@emph{@ruser{LilyPond command index}}
 est un index de toutes les @code{\commandes} LilyPond.
 
 @item
 L'
-@emph{@ref{LilyPond index}}
+@emph{@ruser{LilyPond index}}
 est un index complet.
 
 @end itemize
@@ -903,7 +905,7 @@ livrés avec le paquetage LilyPond, et convertissent divers formats
 musicaux vers le format @code{.ly}.
 
 @end itemize
-
+@end ignore
 
 
 @subsubheading Autre documentation
@@ -922,7 +924,7 @@ leur traduction dans diverses langues.  C'est un document séparé,
 disponible aux formats HTML et PDF.
 @end iftex
 @ifnottex
-Le @ref{Top,glossaire musical,,music-glossary} explique les termes
+Le @ruser{Top,glossaire musical,,music-glossary} explique les termes
 musicaux et inclut les traductions dans diverses langues.  Il est
 également disponible au format PDF. 
 @end ifnottex
@@ -953,7 +955,7 @@ La
 référence du programme
 @end iftex
 @ifnottex
-@ref{Top,référence du programme,,lilypond-internals}.
+@ruser{Top,référence du programme,,lilypond-internals}.
 @end ifnottex
 est un ensemble de pages HTML étroitement liées entre elles, qui
 documente les moindres petits détails de chaque classe, objet et

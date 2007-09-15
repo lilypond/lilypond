@@ -146,7 +146,7 @@ et n'attendra @strong{pas} le prochain texte.  Pour que ce comportement
 persiste après la commande, ne mettez pas @code{\once}.  Votre réglage
 s'appliquera alors partout, jusqu'à ce que vous l'annuliez au moyen de
 la commande @code{\revert}.  Ceci est expliqué en détail dans 
-@ref{The \override command}.
+@ruser{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
   % temporary code to break this example:
@@ -168,20 +168,20 @@ c4^"piu mosso" d e f
 
 @seealso
 
-Dans ce même manuel : @ref{The \override command}, @ref{Common tweaks}.
+Dans ce même manuel : @ruser{The \override command}, @ruser{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-Dans la section @ref{Moving objects}, nous avons vu comment
+Dans la section @ruser{Moving objects}, nous avons vu comment
 déplacer un objet @code{TextScript}.  Ce même procédé peut être
 appliqué à d'autres types d'objet : il vous suffira de remplacer
 @code{TextScript} par le nom de l'objet en question.
 
 Pour trouver cette dénomination, regardez les liens @q{@strong{Voir aussi}}
 en bas des pages de la documentation.  Par exemple, en bas de la page
-@ref{Dynamics}, nous trouvons 
+@ruser{Dynamics}, nous trouvons 
 
 @quotation
 @seealso
@@ -260,7 +260,7 @@ Notez, dans le second exemple, l'importance de savoir à quel contexte
 correspond l'objet.  Dans la mesure où l'objet @code{MetronomeMark}
 appartient au contexte @code{Score}, ses modifications affectées au
 contexte @code{Voice} ne l'affecteront pas.  Pour plus de détails, voir 
-@ref{Constructing a tweak}.
+@ruser{Constructing a tweak}.
 
 @cindex extra-offset
 
@@ -399,7 +399,7 @@ Si vous vous intéressez aux problèmes de mise en page,
 @code{annotate-spacing} peut alors être un outil d'une valeur
 inestimable.  Cette commande imprime les valeurs 
 de nombreuses commandes d'espacement concernant la mise en page.  
-Consultez @ref{Displaying spacing} pour de plus amples informations.  À l'aide 
+Consultez @ruser{Displaying spacing} pour de plus amples informations.  À l'aide 
 des informations données par @code{annotate-spacing}, on peut 
 voir quelles marges il est souhaitable de modifier afin de résoudre le
 problème.
@@ -455,7 +455,7 @@ Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
 
 @item
 Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
-@ref{Changing horizontal spacing} pour plus de détails.
+@ruser{Changing horizontal spacing} pour plus de détails.
 
 @lilypond[verbatim,quote]
 \score {
@@ -486,7 +486,7 @@ largement personnalisé à l'aide de commandes comme
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  Cependant,
 l'utilisation de Scheme ouvre des possibilités encore plus grandes.
 Pour des explications complètes là-dessus, consultez le 
-@ref{Scheme tutorial}  et les @ref{Interfaces for programmers}.
+@ruser{Scheme tutorial}  et les @ruser{Interfaces for programmers}.
 
 On peut utiliser Scheme simplement à l'aide des commandes @code{\override}.
 

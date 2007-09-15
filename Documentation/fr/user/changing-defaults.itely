@@ -1056,7 +1056,7 @@ La clé et le chiffre de mesure ont disparu de la deuxième portée.  C'est une 
 quelque peu radicale, puisqu'elle affectera toute la portée jusqu'à la fin de la
 partition.  L'espacement s'en trouve également affecté, ce qui peut être ou non
 l'effet recherché.  Une méthode plus sophistiquée aurait été de rendre ces objets
-transparents (voir @ref{Common tweaks}).
+transparents (voir @rlearning{Common tweaks}).
 
 Dans l'exemple suivant, voici une mise en pratique plus utile.  En temps
 normal, les barres de mesure et la métrique sont synchronisées verticalement
@@ -1752,8 +1752,9 @@ propriétés internes).
 
 Pour aller encore plus loin, plutôt que de simplement parler de l'objet
 @code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller explorer
-son âme même, dans les fichiers source de LilyPond (voir @ref{Default files}), en
-l'occurence le fichier @file{scm/@/define@/-grobs@/.scm} :
+son âme même, dans les fichiers source de LilyPond (voir
+@rlearning{Default files}), en l'occurence le fichier
+@file{scm/@/define@/-grobs@/.scm} :
 
 @example
 (Fingering

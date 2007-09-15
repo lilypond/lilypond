@@ -76,8 +76,8 @@ de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @code{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles}: @ref{Bar check}, @ref{Octave
-check} et @ref{Barnumber check}.  Si vous avez ajouté des contrôles de
+@item @strong{Ajoutez des contrôles}: @ruser{Bar check}, @ruser{Octave
+check} et @ruser{Barnumber check}.  Si vous avez ajouté des contrôles de
 loin en loin, et que vous faites une erreur, vous pourrez la retrouver
 plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?  Cela
 dépend de la complexité de la musique.  Pour de la musique très
@@ -104,8 +104,8 @@ structuré si vous n'y avez pas adjoint de commentaires.
 viennent d'un défaut de parité entre @code{@{} et @code{@}}.
 
 @item @strong{Séparez les affinages de mise en forme} de la musique
-elle-même. Voyez @ref{Saving typing with identifiers and functions} et
-@ref{Style sheets}.
+elle-même. Voyez @ruser{Saving typing with identifiers and functions} et
+@ruser{Style sheets}.
 
 @end itemize
 
@@ -122,7 +122,7 @@ c'est-à-dire de la musique déjà écrite,
 à la fois --- mais toujours une seule mesure par ligne de texte ---,
 et vérifiez chaque système lorsqu'il est terminé.  Vous pouvez
 utiliser la commande @code{showLastLength} pour accélérer la
-compilation --- voir @ref{Skipping corrected music} ;
+compilation --- voir @ruser{Skipping corrected music} ;
 
 @item définissez @code{mBreak = @{\break @}} et insérez
 @code{\mBreak} dans le fichier d'entrée pour obtenir des sauts de
@@ -164,7 +164,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Séparez les retouches} des définitions de
-musique.  Ce conseil a été vu dans @ref{General suggestions},
+musique.  Ce conseil a été vu dans @ruser{General suggestions},
 mais pour les projets d'importance c'est absolument vital.  Nous
 pouvons avoir besoin de changer la définition de
 @code{fthenp}, mais dans ce cas nous n'aurons besoin de le faire
@@ -281,8 +281,8 @@ padText =
 
 Utiliser les identificateurs est aussi un bon moyen pour vous épargner
 du travail si la syntaxe de LilyPond change un jour --- voir
-@ref{Updating old files}.  Si vous avez une seule définition, par
-exemple @code{\dolce}, pour tous vos fichiers (voir @ref{Style
+@ruser{Updating old files}.  Si vous avez une seule définition, par
+exemple @code{\dolce}, pour tous vos fichiers (voir @ruser{Style
 sheets}), et que la syntaxe change, alors vous n'aurez qu'à mettre à
 jour votre seule définition @code{\dolce}, au lieu de devoir modifier
 chaque fichier @code{.ly}.
@@ -292,14 +292,14 @@ chaque fichier @code{.ly}.
 @section Style sheets
 
 La sortie que produit LilyPond peut être largement modifiée --- voir
-@ref{Tweaking output} pour plus de détails.  Mais que faire si vous
+@ruser{Tweaking output} pour plus de détails.  Mais que faire si vous
 avez beaucoup de fichiers auxquels vous souhaitez appliquer vos
 retouches ? Ou si vous souhaitez simplement séparer les retouches de
 la musique elle-même ?  Rien de plus facile.
 
 Prenons un exemple.  Ne vous inquiétez pas si vous ne comprenez pas
 les parties avec tous les @code{#()}.  Celles-ci sont expliquées dans
-@ref{Advanced tweaks with Scheme}.
+@ruser{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -320,7 +320,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 Il y a quelques problèmes de chevauchement ; nous allons arranger
-cela en utilisant les techniques de @ref{Moving objects}.  On peut
+cela en utilisant les techniques de @ruser{Moving objects}.  On peut
 aussi faire quelque chose pour les définitions de @code{mpdolce}
 et @code{tempoMark}.  Elles produisent le résultat que nous désirons,
 mais nous pourrions aussi vouloir les utiliser dans une autre pièce.
@@ -632,10 +632,10 @@ problème.
 
 Une autre technique de déboguage très utile est la construction
 @iftex
-de @ref{Minimal examples}.
+de @ruser{Minimal examples}.
 @end iftex
 @ifnottex
-d'@ref{Minimal examples}.
+d'@ruser{Minimal examples}.
 @end ifnottex
 
 

@@ -127,7 +127,7 @@ a4 aes a2
 LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
 naturel, un mi naturel et un fa naturel}, sans tenir compte de l'armure.
 Pour plus d'information à propos de la distinction entre le contenu
-musical et sa représentation, voir @ref{Accidentals and key signatures}.
+musical et sa représentation, voir @rlearning{Accidentals and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -1511,7 +1511,7 @@ directement cette propriété.
 Les nouveaux utilisateurs s'embrouillent souvent dans les altérations et
 les armures, car des notes naturelles prennent ou non un bécarre selon
 l'armure.  Pour plus d'informations, voir @ref{Accidentals} ou
-@ref{Accidentals and key signatures}.
+@rlearning{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
