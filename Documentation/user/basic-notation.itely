@@ -2198,7 +2198,7 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Program reference: @seeinternals{Slur}.
+Program reference: @internalsref{Slur}.
 
 
 @node Phrasing slurs

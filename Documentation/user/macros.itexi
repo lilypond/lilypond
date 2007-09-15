@@ -62,6 +62,9 @@
 @c   Use inside the text
 
 @c to get decent quotes in `foo'
+
+@c I don't understand why this is necessary, but it is with 4.8. :/
+@ifnotdocbook
 @macro q{TEXT}
 @ifinfo
 `\TEXT\'
@@ -74,17 +77,21 @@
 &lsquo;\TEXT\&rsquo;
 @end html
 @end ifhtml
-@ignore
+@end macro
+@end ifnotdocbook
+
 @ifdocbook
+@macro q{TEXT}
 @xml
 &lsquo;\TEXT\&rsquo;
 @end xml
-@end docbook
-@end ignore
 @end macro
+@end ifdocbook
 
 
 @c to get decent quotes in ``foo''
+@c I don't understand why this is necessary, but it is with 4.8. :/
+@ifnotdocbook
 @macro qq{TEXT}
 @ifinfo
 ``\TEXT\''
@@ -97,14 +104,17 @@
 &ldquo;\TEXT\&rdquo;
 @end html
 @end ifhtml
-@ignore
+@end macro
+@end ifnotdocbook
+
 @ifdocbook
+@macro qq{TEXT}
 @xml
 &ldquo;\TEXT\&rdquo;
 @end xml
-@end docbook
-@end ignore
 @end macro
+@end ifdocbook
+
 
 
 
@@ -131,6 +141,12 @@
 
 
 
+@c  Definitions for references:
+@c     @internalsref
+@c     @rglos
+@c     @rprogram
+@c     @ruser
+@c     @rlearning
 
 @ifhtml
 @c ***** HTML *****
@@ -249,14 +265,6 @@
 @inforef{\TEXT\,,,music-glossary}
 @end macro
 
-@macro usermanref{TEXT}
-@inforef{\TEXT\}
-@end macro
-
-@macro learningref{TEXT}
-@inforef{\TEXT\}
-@end macro
-
 @macro rprogram{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-program}
@@ -288,46 +296,19 @@
 @code{\TEXT\}
 @end macro
 
-@macro seeinternals{TEXT}
-internals document, @internalsref{\TEXT\}
-@end macro
-
-@macro usermanref{TEXT}
-user manual, @internalsref{\TEXT\}
-@end macro
-
-@macro learningref{TEXT}
-learning manual, @internalsref{\TEXT\}
-@end macro
-
 @macro rprogram{TEXT}
 program usage manual, @internalsref{\TEXT\}
 @end macro
 
-@alias ruser=usermanref
-@alias rlearning=learningref
+@macro ruser{TEXT}
+user manual, @internalsref{\TEXT\}
+@end macro
+
+@macro rlearning{TEXT}
+learning manual, @internalsref{\TEXT\}
+@end macro
 
 @end iftex
-
-
-@ifnottex
-@c **** not TEX ****
-
-@macro seeinternals{TEXT}
-@internalsref{\TEXT\}
-@end macro
-
-@ifnotinfo
-@macro usermanref{TEXT}
-@ref{\TEXT\}
-@end macro
-
-@macro learningref{TEXT}
-@ref{\TEXT\}
-@end macro
-@end ifnotinfo
-
-@end ifnottex
 
 
 @c EOF
