@@ -1846,7 +1846,7 @@ without mentioning the grob name or context where this should be
 applied.
 
 This technique only works for objects that are directly connected to
-an @internalsref{event} from the input, for example
+an @internalsref{Event} from the input, for example
 
 @itemize @bullet
 @item note heads, caused by chord-pitch (i.e., notes inside a chord)
