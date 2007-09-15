@@ -1846,7 +1846,7 @@ sin hacer mención al nombre del grob ni al contexto en el que se tendría que
 aplicar.
 
 Esta técnica sólo funciona para los objetos que están conectados directamente a
-un @internalsref{event} (evento) del texto de entrada, por ejemplo
+un @internalsref{Event} (evento) del texto de entrada, por ejemplo
 
 @itemize @bullet
 @item cabezas de nota, producidas por chord-pitch (p. ej.: las notas de un acorde)
