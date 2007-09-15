@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 !-->
   <head>
-    <title>LilyPond @TOPLEVEL_VERSION@ Documentation</title>
+    <title>LilyPond @TOPLEVEL_VERSION@ documentation</title>
     <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
     <meta name="aesop" content="links">
     <meta name="description"
@@ -101,7 +101,24 @@ in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
 
 	</ul>
 
-    </td><tr>
+    </td>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+	<ul>
+            <li><a class="title"  href="devel.html">Developers resources</a>
+              <br>(documentation for developers and contributors)
+	</ul>
+    </td><td class="right-column">
+          &nbsp;
+<!-- TODO
+    <ul>
+        <li><a class="title"  href="translations.html">Translations status</a>
+        <br>(see translations progress)
+    </ul>
+-->
+	  </td>
+        </tr>
         <tr>
           <td valign="baseline" class="left-column">
           &nbsp;
