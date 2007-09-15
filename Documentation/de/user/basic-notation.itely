@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: ad389dc87664ea7cf89ae5b87ef4c591d9a29f14
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3455,6 +3455,12 @@ muss
  @ref{Bar lines} for more information.
 
 @seealso
+
+Programmreferenz: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic} und
+@internalsref{UnfoldedRepeatedMusic}.
+
 
 Beispiele:
 

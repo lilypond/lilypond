@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
+    Translation of GIT committish: ad389dc87664ea7cf89ae5b87ef4c591d9a29f14
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1113,11 +1113,12 @@ werden auch musikalische Ausdrücke durch den @code{\new}-Befehl
 erweitert.
 
 Die Taktangabe, die in einem einzelnen System angegeben wird, wirkt
-sich auf alle anderen System aus, während die
-Angabe der Tonart sich nur auf ein einzigen System
-beschränkt.@footnote{Dies kann natürlich auch geändert
+sich auf alle anderen System aus.@footnote{Dies kann natürlich auch geändert
 werden, siehe
-@ref{Changing defaults} für Einzelheiten.}
+@ref{Polymetric notation} für Einzelheiten.} Die 
+Angabe der Tonart in einem System hingegen beeinflusst @emph{nicht} die 
+Tonart der anderen Systeme.
+
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
