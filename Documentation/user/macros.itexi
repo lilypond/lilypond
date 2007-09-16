@@ -258,7 +258,7 @@
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,,music-glossary}
+@inforef{\TEXT\,,music-glossary}
 @end macro
 
 @macro rprogram{TEXT}
