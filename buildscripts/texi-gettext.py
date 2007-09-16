@@ -32,7 +32,7 @@ _doc = t.gettext
 
 include_re = re.compile (r'@include ((?!lily-).*?)\.texi$', re.M)
 whitespaces = re.compile (r'\s+')
-ref_re = re.compile (r'(?ms)@(rglos|ref)(\{)(.*?)(\})')
+ref_re = re.compile (r'(?ms)@(rglos|ruser|rprogram|ref)(\{)(.*?)(\})')
 node_section_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading)( )(.*?)(\n)')
 menu_entry_re = re.compile (r'\* (.*?)::')
 

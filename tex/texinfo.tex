@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2007-07-23.10}
+\def\texinfoversion{2007-09-03.05}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995, 2007,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -1628,8 +1628,12 @@ output) for that.)}
 \def\strutheightpercent{.70833}
 \def\strutdepthpercent {.29167}
 %
+% can get a sort of poor man's double spacing by redefining this.
+\def\baselinefactor{1}
+%
 \def\setleading#1{%
-  \normalbaselineskip = #1\relax
+  \dimen0 = #1\relax
+  \normalbaselineskip = \baselinefactor\dimen0
   \normallineskip = \lineskipfactor\normalbaselineskip
   \normalbaselines
   \setbox\strutbox =\hbox{%
@@ -6498,12 +6502,14 @@ end
   \ifnum\parencount=0 \else \badparencount \fi
   \ifnum\brackcount=0 \else \badbrackcount \fi
 }
+% these should not use \errmessage; the glibc manual, at least, actually
+% has such constructs (when documenting function pointers).
 \def\badparencount{%
-  \errmessage{Unbalanced parentheses in @def}%
+  \message{Warning: unbalanced parentheses in @def...}%
   \global\parencount=0
 }
 \def\badbrackcount{%
-  \errmessage{Unbalanced square braces in @def}%
+  \message{Warning: unbalanced square brackets in @def...}%
   \global\brackcount=0
 }
 
@@ -8577,7 +8583,7 @@ should work if nowhere else does.}
 % Don't be so finicky about underfull hboxes, either.
 \hbadness = 2000
 
-% Following George Bush, just get rid of widows and orphans.
+% Following George Bush, get rid of widows and orphans.
 \widowpenalty=10000
 \clubpenalty=10000
 
@@ -8642,7 +8648,7 @@ should work if nowhere else does.}
   \textleading = 13.2pt
   %
   % If page is nothing but text, make it come out even.
-  \internalpagesizes{46\baselineskip}{6in}%
+  \internalpagesizes{607.2pt}{6in}% that's 46 lines
                     {\voffset}{.25in}%
                     {\bindingoffset}{36pt}%
                     {11in}{8.5in}%
@@ -8698,7 +8704,7 @@ should work if nowhere else does.}
   % \global\normaloffset = -6mm
   % \global\bindingoffset = 10mm
   % @end tex
-  \internalpagesizes{51\baselineskip}{160mm}
+  \internalpagesizes{673.2pt}{160mm}% that's 51 lines
                     {\voffset}{\hoffset}%
                     {\bindingoffset}{44pt}%
                     {297mm}{210mm}%

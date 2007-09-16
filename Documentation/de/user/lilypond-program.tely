@@ -1,0 +1,212 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@setfilename lilypond-program.info
+@settitle GNU LilyPond Programmbenutzung
+@documentencoding UTF-8
+@documentlanguage de
+
+@iftex
+@afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
+@end iftex
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription User manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage German
+@end ignore
+
+
+@ifhtml
+Dieses Dokument ist auch als
+@uref{source/Documentation/user/lilypond-program.pdf,PDF} und als
+@uref{source/Documentation/user/lilypond-program-big-page.html,eine große Seite}.
+verfügbar.
+@end ifhtml
+
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Das Notensatzprogramm
+@titlefont{Programmbenutzung}
+@author Das LilyPond-Entwicklerteam
+
+
+Copyright @copyright{} 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+@lilypond[ragged-right]
+\score {
+  \context Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \override Score.RehearsalMark #'font-size = #-2
+    \mark #(ly:export (string-append
+      "(For LilyPond version " (lilypond-version) ")"))
+    s2
+  }
+  \layout {
+    indent = 0.0\pt
+  }
+}
+@end lilypond
+
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+Diese Datei dokumentiert die Programmbenutzung von GNU LilyPond.
+
+Copyright 1999--2007 bei den Authoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- program usage
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+
+Das ist das Hanbuch zur Programmbenutzung für GNU LilyPond Version 2.11.x.
+@ifhtml
+(Siehe Ende der Seite für die genaue Versionsnummer).
+@end ifhtml
+
+@cindex Internetseite
+@cindex URL
+
+@uref{http://@/www@/.lilypond@/.org/}. Auf der Internetseite
+finden sich Kopien dieser und anderer Dokumentationsdateien.
+
+@menu
+* Install::                        Wie das Programm installiert oder kompiliert wird.
+* Setup::                          Wie LilyPond mit anderen Programmen benutzt werden kann.
+* Running LilyPond::               Betrieb des Programms.
+* LilyPond-book::                  Kombination von Text und Noten.
+* Converting from other formats::  Konvertierungen in das LilyPond-Quellformat.
+
+Anhänge
+
+* GNU Free Documentation License:: Die Lizenz dieses Dokuments.
+* LilyPond index::
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include macros.itexi
+
+@include install.itely
+@include setup.itely
+@include running.itely
+@include lilypond-book.itely
+@include converters.itely
+
+@include fdl.itexi
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye

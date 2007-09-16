@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
+    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
 
 
     When revising a translation, copy the HEAD committish of the
@@ -75,6 +75,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Page breaking::
 * Optimal page breaking::
 * Optimal page turning::
+* Minimal page breaking::
 * Explicit breaks::
 * Using an extra voice for breaks::
 @end menu 
@@ -95,6 +96,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Optimal page turning
 @subsection Optimal page turning
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Minimal page breaking
+@subsection Minimal page breaking
 
 UNTRANSLATED NODE: IGNORE ME
 

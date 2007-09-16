@@ -270,15 +270,15 @@
 @end macro
 
 @macro seeinternals{NAME}
-internals document, @internalsref{\NAME\}
+@emph{Référence du programme}, @internalsref{\NAME\}
 @end macro
 
 @macro usermanref{NAME}
-user manual, @internalsref{\NAME\}
+@emph{Manuel de l'utilisateur, \NAME\}
 @end macro
 
 @macro rprogram{NAME}
-program usage manual, @internalsref{\NAME\}
+@emph{Manuel d'utilisation du programme, \NAME\}
 @end macro
 
 @alias ruser=usermanref

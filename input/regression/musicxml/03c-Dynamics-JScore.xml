@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE score-partwise PUBLIC 
+"-//Recordare//DTD MusicXML 1.0 Partwise//EN" 
+"http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise>
+<work>
+<work-title>JScore_Dynamics_Test</work-title>
+</work>
+<identification>
+<creator type="composer">Reinhold Kainhofer</creator>
+<encoding>
+<software>JMSL's MusicXMLWriter by Nick Didkovsky. Java Music Specification Language by Nick Didkovsky and Phil Burk, (c) 2003 Nick Didkovsky, Phil Burk.  Available from: http://www.algomusic.com</software>
+</encoding>
+</identification>
+<part-list>
+<score-part id="P1" >
+<part-name>Voice 1</part-name>
+</score-part>
+</part-list>
+<part id="P1" >
+<measure number="1" >
+<attributes>
+<divisions>960</divisions>
+<key><fifths>0</fifths></key>
+<time><beats>4</beats><beat-type>4</beat-type></time>
+<clef><sign>G</sign><line>2</line></clef>
+</attributes>
+<direction placement="above">
+<direction-type>
+<metronome parentheses="yes" relative-y="18">
+<beat-unit>quarter</beat-unit> 
+<per-minute>60</per-minute>
+</metronome>
+</direction-type>
+<offset>72</offset>
+<sound tempo="60" />
+</direction>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<ppp />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<pp />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<p />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<mp />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+</measure>
+<measure number="2" >
+<attributes>
+<divisions>960</divisions>
+<key><fifths>0</fifths></key>
+<time><beats>4</beats><beat-type>4</beat-type></time>
+<clef><sign>G</sign><line>2</line></clef>
+</attributes>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<mf />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<f />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<ff />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<direction placement="below" >
+<direction-type>
+<dynamics relative-y="-6" >
+<fff />
+</dynamics>
+</direction-type>
+<staff>1</staff>
+</direction>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+</measure>
+<measure number="3" >
+<attributes>
+<divisions>960</divisions>
+<key><fifths>0</fifths></key>
+<time><beats>4</beats><beat-type>4</beat-type></time>
+<clef><sign>G</sign><line>2</line></clef>
+</attributes>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+<note>
+<pitch>
+<step>G</step>
+<octave>4</octave>
+</pitch>
+<duration>960</duration>
+<voice>1</voice>
+<type>quarter</type>
+<notations>
+</notations>
+</note>
+</measure>
+<measure number="4" >
+<attributes>
+<divisions>960</divisions>
+<key><fifths>0</fifths></key>
+<time><beats>4</beats><beat-type>4</beat-type></time>
+<clef><sign>G</sign><line>2</line></clef>
+</attributes>
+</measure>
+</part>
+</score-partwise>

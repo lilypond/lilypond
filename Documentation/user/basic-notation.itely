@@ -3285,6 +3285,11 @@ see @ref{Bar lines} for more information.
 
 @seealso
 
+Program reference: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic}, and
+@internalsref{UnfoldedRepeatedMusic}.
+
 Examples:
 
 Brackets for the repeat are normally only printed over the topmost

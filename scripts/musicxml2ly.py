@@ -28,49 +28,42 @@ def progress (str):
 # extract those into a hash, indexed by proper lilypond header attributes
 def extract_score_information (tree):
     score_information = {}
+    def set_if_exists (field, value):
+        if value:
+            score_information[field] = value
+
     work = tree.get_maybe_exist_named_child ('work')
     if work:
-        if work.get_work_title ():
-            score_information['title'] = work.get_work_title ()
-        if work.get_work_number ():
-            score_information['worknumber'] = work.get_work_number ()
-        if work.get_opus ():
-            score_information['opus'] = work.get_opus ()
+        set_if_exists ('title', work.get_work_title ())
+        set_if_exists ('worknumber', work.get_work_number ())
+        set_if_exists ('opus', work.get_opus ())
     else:
         movement_title = tree.get_maybe_exist_named_child ('movement-title')
         if movement_title:
-            score_information['title'] = movement_title.get_text ()
+            set_if_exists ('title', movement_title.get_text ())
     
     identifications = tree.get_named_children ('identification')
     for ids in identifications:
-        if ids.get_rights ():
-            score_information['copyright'] = ids.get_rights ()
-        if ids.get_composer ():
-            score_information['composer'] = ids.get_composer ()
-        if ids.get_arranger ():
-            score_information['arranger'] = ids.get_arranger ()
-        if ids.get_editor ():
-            score_information['editor'] = ids.get_editor ()
-        if ids.get_poet ():
-            score_information['poet'] = ids.get_poet ()
+        set_if_exists ('copyright', ids.get_rights ())
+        set_if_exists ('composer', ids.get_composer ())
+        set_if_exists ('arranger', ids.get_arranger ())
+        set_if_exists ('editor', ids.get_editor ())
+        set_if_exists ('poet', ids.get_poet ())
             
-        if ids.get_encoding_software ():
-            score_information['tagline'] = ids.get_encoding_software ()
-            score_information['encodingsoftware'] = ids.get_encoding_software ()
-        if ids.get_encoding_date ():
-            score_information['encodingdate'] = ids.get_encoding_date ()
-        if ids.get_encoding_person ():
-            score_information['encoder'] = ids.get_encoding_person ()
-        if ids.get_encoding_description ():
-            score_information['encodingdescription'] = ids.get_encoding_description ()
+        set_if_exists ('tagline', ids.get_encoding_software ())
+        set_if_exists ('encodingsoftware', ids.get_encoding_software ())
+        set_if_exists ('encodingdate', ids.get_encoding_date ())
+        set_if_exists ('encoder', ids.get_encoding_person ())
+        set_if_exists ('encodingdescription', ids.get_encoding_description ())
 
     return score_information
+
 
 def print_ly_information (printer, score_information):
     printer.dump ('\header {')
     printer.newline ()
-    for k in score_information.keys ():
-        printer.dump ('%s = "%s"' % (k, score_information[k]))
+    for (k, text) in score_information.items ():
+        printer.dump ('%s = %s' % (k, musicxml.escape_ly_output_string (text)))
         printer.newline ()
     printer.dump ('}')
     printer.newline ()
@@ -79,10 +72,9 @@ def print_ly_information (printer, score_information):
 
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
-    if mxl_note.get_maybe_exist_typed_child (musicxml.Type):
-        d.duration_log = mxl_note.get_duration_log ()
-    else:
-        d.duration_log = 0
+    # if the note has no Type child, then that method spits out a warning and 
+    # returns 0, i.e. a whole note
+    d.duration_log = mxl_note.get_duration_log ()
 
     d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
     d.factor = mxl_note._duration / d.get_length ()
@@ -135,7 +127,7 @@ def group_tuplets (music_list, events):
 
 def musicxml_clef_to_lily (attributes):
     change = musicexp.ClefChange ()
-    change.type = attributes.get_clef_sign ()
+    (change.type, change.position, change.octave) = attributes.get_clef_information ()
     return change
     
 def musicxml_time_to_lily (attributes):
@@ -195,10 +187,21 @@ def musicxml_attributes_to_lily (attrs):
 spanner_event_dict = {
     'slur' : musicexp.SlurEvent,
     'beam' : musicexp.BeamEvent,
-}        
+    'glissando' : musicexp.GlissandoEvent,
+    'pedal' : musicexp.PedalEvent,
+    'wavy-line' : musicexp.TrillSpanEvent,
+    'octave-shift' : musicexp.OctaveShiftEvent,
+    'wedge' : musicexp.HairpinEvent
+}
 spanner_type_dict = {
     'start': -1,
     'begin': -1,
+    'crescendo': -1,
+    'decreschendo': -1,
+    'diminuendo': -1,
+    'continue': 0,
+    'up': -1,
+    'down': -1,
     'stop': 1,
     'end' : 1
 }
@@ -213,12 +216,21 @@ def musicxml_spanner_to_lily_event (mxl_event):
     else:
         print 'unknown span event ', mxl_event
 
-    key = mxl_event.get_type ()
-    span_direction = spanner_type_dict.get (key)
-    if span_direction:
+
+    type = mxl_event.get_type ()
+    span_direction = spanner_type_dict.get (type)
+    # really check for None, because some types will be translated to 0, which
+    # would otherwise also lead to the unknown span warning
+    if span_direction != None:
         ev.span_direction = span_direction
     else:
-        print 'unknown span type', key, 'for', name
+        print 'unknown span type', type, 'for', name
+
+    ev.set_span_type (type)
+    ev.line_type = getattr (mxl_event, 'line-type', 'solid')
+
+    # assign the size, which is used for octave-shift, etc.
+    ev.size = mxl_event.get_size ()
 
     return ev
 
@@ -234,14 +246,32 @@ def musicxml_fermata_to_lily_event (mxl_event):
         ev.force_direction = dir
     return ev
 
-def musicxml_tremolo_to_lily_event(mxl_event):
+def musicxml_tremolo_to_lily_event (mxl_event):
     if mxl_event.get_name () != "tremolo": 
         return
     ev = musicexp.TremoloEvent ()
     ev.bars = mxl_event.get_text ()
     return ev
 
+def musicxml_bend_to_lily_event (mxl_event):
+    if mxl_event.get_name () != "bend":
+        return
+    ev = musicexp.BendEvent ()
+    ev.alter = mxl_event.bend_alter ()
+    return ev
+
+
 # TODO: Some translations are missing!
+short_articulations_dict = {
+  "staccato": ".",
+  "tenuto": "-",
+  "stopped": "+",
+  "staccatissimo": "|",
+  "accent": ">",
+  "strong-accent": "^",
+  #"portato": "_", # does not exist in MusicXML
+    #"fingering": "", # fingering is special cased, as get_text() will be the event's name
+}
 articulations_dict = { 
     ##### ORNAMENTS
     "trill-mark": "trill", 
@@ -251,7 +281,7 @@ articulations_dict = {
     #"shake": "?", 
     #"wavy-line": "?", 
     "mordent": "mordent",
-    "inverted-mordent": "downmordent", 
+    "inverted-mordent": "prall",
     #"schleifer": "?" 
     ##### TECHNICALS
     "up-bow": "upbow", 
@@ -259,28 +289,21 @@ articulations_dict = {
     "harmonic": "flageolet", 
     #"open-string": "", 
     #"thumb-position": "", 
-    #"fingering": "", 
     #"pluck": "", 
     #"double-tongue": "", 
     #"triple-tongue": "", 
-    #"stopped": "", 
     #"snap-pizzicato": "", 
     #"fret": "", 
     #"string": "", 
     #"hammer-on": "", 
     #"pull-off": "", 
-    #"bend": "", 
+    #"bend": "bendAfter #%s", # bend is special-cased, as we need to process the bend-alter subelement!
     #"tap": "", 
     #"heel": "", 
     #"toe": "", 
     #"fingernails": ""
     ##### ARTICULATIONS
-    "accent": "accent", 
-    "strong-accent": "marcato", 
-    "staccato": "staccato", 
-    "tenuto": "tenuto", 
     #"detached-legato": "", 
-    "staccatissimo": "staccatissimo", 
     #"spiccato": "", 
     #"scoop": "", 
     #"plop": "", 
@@ -291,10 +314,29 @@ articulations_dict = {
     #"stress": "", 
     #"unstress": ""
 }
+articulation_spanners = [ "wavy-line" ]
 
-def musicxml_articulation_to_lily_event(mxl_event):
-    ev = musicexp.ArticulationEvent ()
-    tp = articulations_dict.get (mxl_event.get_name ())
+def musicxml_articulation_to_lily_event (mxl_event):
+    # wavy-line elements are treated as trill spanners, not as articulation ornaments
+    if mxl_event.get_name () in articulation_spanners:
+        return musicxml_spanner_to_lily_event (mxl_event)
+
+    # special case, because of the bend-alter subelement
+    if mxl_event.get_name() == "bend":
+        return musicxml_bend_to_lily_event (mxl_event)
+
+    # If we can write a shorthand, use them!
+    if mxl_event.get_name() == "fingering":
+        ev = musicexp.ShortArticulationEvent ()
+        tp = mxl_event.get_text()
+    # In all other cases, use the dicts to translate the xml tag name to a proper lilypond command
+    elif short_articulations_dict.get (mxl_event.get_name ()):
+        ev = musicexp.ShortArticulationEvent ()
+        tp = short_articulations_dict.get (mxl_event.get_name ())
+    else:
+        ev = musicexp.ArticulationEvent ()
+        tp = articulations_dict.get (mxl_event.get_name ())
+
     if not tp:
         return
     
@@ -306,42 +348,46 @@ def musicxml_articulation_to_lily_event(mxl_event):
         dir = musicxml_direction_to_indicator (mxl_event.type)
     if hasattr (mxl_event, 'placement'):
         dir = musicxml_direction_to_indicator (mxl_event.placement)
-    # \breathe cannot have any direction modifyer (^, _, -)!
+    # \breathe cannot have any direction modifier (^, _, -)!
     if dir and tp != "breathe":
         ev.force_direction = dir
     return ev
 
 
-def musicxml_direction_to_lily( n ):
+def musicxml_dynamics_to_lily_event (dynentry):
+    dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp",
+        "f", "ff", "fff", "ffff", "fffff", "ffffff",
+        "mp", "mf", "sf", "sfp", "sfpp", "fp",
+        "rf", "rfz", "sfz", "sffz", "fz" )
+    if not dynentry.get_name() in dynamics_available:
+        return
+    event = musicexp.DynamicsEvent ()
+    event.type = dynentry.get_name ()
+    return event
+
+
+direction_spanners = [ 'octave-shift', 'pedal', 'wedge' ]
+
+def musicxml_direction_to_lily (n):
     # TODO: Handle the <staff> element!
     res = []
-    dirtype = n.get_maybe_exist_typed_child (musicxml.DirType)
-    if not dirtype: 
-      return res
+    dirtype_children = []
+    for dt in n.get_typed_children (musicxml.DirType):
+        dirtype_children += dt.get_all_children ()
 
-    for entry in dirtype.get_all_children ():
+    for entry in dirtype_children:
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
-                dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp", 
-                    "f", "ff", "fff", "ffff", "fffff", "ffffff", 
-                    "mp", "mf", "sf", "sfp", "sfpp", "fp", 
-                    "rf", "rfz", "sfz", "sffz", "fz" )
-                if not dynentry.get_name() in dynamics_available: 
-                    continue
-                event = musicexp.DynamicsEvent ()
-                event.type = dynentry.get_name ()
+                ev = musicxml_dynamics_to_lily_event (dynentry)
+                if ev:
+                    res.append (ev)
+
+        # octave shifts. pedal marks, hairpins etc. are spanners:
+        if entry.get_name() in direction_spanners:
+            event = musicxml_spanner_to_lily_event (entry)
+            if event:
                 res.append (event)
-      
-        if entry.get_name() == "wedge":
-            if hasattr (entry, 'type'):
-                wedgetype = entry.type;
-                wedgetypeval = {"crescendo" : 1, "decrescendo" : -1, 
-                                "diminuendo" : -1, "stop" : 0 }.get (wedgetype)
-                # Really check for != None, becaus otherwise 0 will also cause 
-                # the code to be executed!
-                if wedgetypeval != None:
-                    event = musicexp.HairpinEvent (wedgetypeval)
-                    res.append (event)
+
 
     return res
 
@@ -459,10 +505,19 @@ class LilyPondVoiceBuilder:
     def last_event_chord (self, starting_at):
 
         value = None
+
+        # if the position matches, find the last EventChord, do not cross a bar line!
+        at = len( self.elements ) - 1
+        while (at >= 0 and
+               not isinstance (self.elements[at], musicexp.EventChord) and
+               not isinstance (self.elements[at], musicexp.BarCheck)):
+            at -= 1
+
         if (self.elements
-            and isinstance (self.elements[-1], musicexp.EventChord)
+            and at >= 0
+            and isinstance (self.elements[at], musicexp.EventChord)
             and self.begin_moment == starting_at):
-            value = self.elements[-1]
+            value = self.elements[at]
         else:
             self.jumpto (starting_at)
             value = None
@@ -491,7 +546,10 @@ def musicxml_voice_to_lily_voice (voice):
 
         if isinstance (n, musicxml.Direction):
             for a in musicxml_direction_to_lily (n):
-                voice_builder.add_dynamics (a)
+                if a.wait_for_note ():
+                    voice_builder.add_dynamics (a)
+                else:
+                    voice_builder.add_music (a, 0)
             continue
         
         if not n.get_maybe_exist_named_child ('chord'):
@@ -578,8 +636,18 @@ def musicxml_voice_to_lily_voice (voice):
                 
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
-                ev = musicxml_fermata_to_lily_event (a);
+                ev = musicxml_fermata_to_lily_event (a)
                 if ev: 
+                    ev_chord.append (ev)
+
+            arpeggiate = notations.get_named_children ('arpeggiate')
+            for a in arpeggiate:
+                ev_chord.append (musicexp.ArpeggioEvent ())
+
+            glissandos = notations.get_named_children ('glissando')
+            for a in glissandos:
+                ev = musicxml_spanner_to_lily_event (a)
+                if ev:
                     ev_chord.append (ev)
                 
             # Articulations can contain the following child elements:
@@ -633,7 +701,7 @@ def musicxml_voice_to_lily_voice (voice):
                 note_lyrics_processed.append (l.number)
         for lnr in lyrics.keys ():
             if not lnr in note_lyrics_processed:
-                lyrics[lnr].append ("\"\"")
+                lyrics[lnr].append ("\skip4")
 
 
         mxl_beams = [b for b in n.get_named_children ('beam')
@@ -911,6 +979,8 @@ def convert (filename, options):
     if not options.output_name:
         options.output_name = os.path.basename (filename) 
         options.output_name = os.path.splitext (options.output_name)[0]
+    elif re.match (".*\.ly", options.output_name):
+        options.output_name = os.path.splitext (options.output_name)[0]
 
 
     defs_ly_name = options.output_name + '-defs.ly'
@@ -931,12 +1001,22 @@ def convert (filename, options):
     printer = musicexp.Output_printer()
     printer.set_file (open (driver_ly_name, 'w'))
     print_ly_preamble (printer, filename)
-    printer.dump (r'\include "%s"' % defs_ly_name)
+    printer.dump (r'\include "%s"' % os.path.basename (defs_ly_name))
     print_score_setup (printer, part_list, voices)
     printer.newline ()
 
     return voices
 
+def get_existing_filename_with_extension (filename, ext):
+    if os.path.exists (filename):
+        return filename
+    newfilename = filename + ".xml"
+    if os.path.exists (newfilename):
+        return newfilename;
+    newfilename = filename + "xml"
+    if os.path.exists (newfilename):
+        return newfilename;
+    return ''
 
 def main ():
     opt_parser = option_parser()
@@ -945,8 +1025,13 @@ def main ():
     if not args:
         opt_parser.print_usage()
         sys.exit (2)
-
-    voices = convert (args[0], options)
+    
+    # Allow the user to leave out the .xml or xml on the filename
+    filename = get_existing_filename_with_extension (args[0], "xml")
+    if filename and os.path.exists (filename):
+        voices = convert (filename, options)
+    else:
+        progress ("Unable to find input file %s" % args[0])
 
 if __name__ == '__main__':
     main()

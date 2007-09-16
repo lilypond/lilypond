@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5d9a6604876b66b860e78363521edc770ac5b455
+    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -65,12 +65,12 @@ más fáciles (o más difíciles) de actualizar.
 @node General suggestions
 @subsection General suggestions
 
-Presentamos algunas sugerencias que pueden serle de ayuda para evitar
+Presentamos algunas sugerencias que le pueden servir de ayuda para evitar
 o corregir problemas:
 
 @itemize @bullet
-@item @strong{Incluya los números de @code{\version} en todos los archivos}.  Dése cuenta de que todas las
-plantillas contienen una cadena como @code{\version "2.11.15"}.  Le recomendamos
+@item @strong{Incluya los números de @code{\version} en todos los archivos}.  Dese cuenta de que todas las
+plantillas contienen una cadena como @code{\version "2.11.23"}.  Le recomendamos
 mucho que siempre incluya la @code{\version}, sin importar cuán
 pequeño pueda ser su archivo.  Desde la experiencia personal podemos decirle que es bastante frustrante
 intentar recordar el número de versión de LilyPond que estaba usando hace unos años.
@@ -125,7 +125,7 @@ de música ya impresa),
 @itemize @bullet
 
 @item Introduzca un sistema del manuscrito (la copia física) cada vez (pero mantenga
-la práctica de escibir un compás por línea de texto), y
+la práctica de escribir un compás por línea de texto), y
 compruebe cada sistema cuando lo haya terminado.  Puede usar el comando
 @code{showLastLength} para acelerar el proceso -- ver
 @ref{Skipping corrected music} -- .
@@ -259,7 +259,7 @@ violin = \relative c'' @{
 @}
 @end example
 
-Hasta ahora hemos contemplado la sustitucion estática: cuando LilyPond
+Hasta ahora hemos contemplado la sustitución estática: cuando LilyPond
 se encuentra con @code{\padText}, lo sustituye con aquello que
 hemos definido que sea (es decir, todo lo que está a la derecha de
 @code{padtext=}).
@@ -296,7 +296,7 @@ en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 
 La salida que produce LilyPond se puede modificar profundamente; consulte
 @ref{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
-archivos a los que les quiere aplicar sus porpios trucos?  O ¿qué ocurre si, sencillamente,
+archivos a los que les quiere aplicar sus propios trucos?  O ¿qué ocurre si, sencillamente,
 quiere separar los trucos de la propia música?  Todo esto
 es bastante fácil de conseguir.
 
@@ -327,7 +327,7 @@ las técnicas descritas en @ref{Moving objects}.  Pero también haremos algo res
 las definiciones @code{mpdolce} y @code{tempoMark}.  Éstas producen la salida que
 deseamos, pero quizá las querríamos utilizar en otra pieza.
 Podríamos simplemente copiarlas y pegarlas al principio de cada archivo,
-pero sería bastente molesto.  También hace que se queden las definiciones
+pero sería bastante molesto.  También hace que se queden las definiciones
 a la vista dentro de nuestros archivos de música, y yo personalmente encuentro
 todos los @code{#()} bastante poco estéticos.  Los vamos a esconder dentro de otro archivo:
 
@@ -447,7 +447,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 }
 @end lilypond
 
-¡Eso tiene un aspecto mucho mejor!  Ahora suponga que quier publicar esta
+¡Eso tiene un aspecto mucho mejor!  Ahora suponga que quiere publicar esta
 pieza.  A mi profesor de composición no le gustan las indicaciones de compás @q{C},
 pero yo les tengo cierto cariño.  Copiaremos el archivo
 actual @file{definiciones.ly} a @file{publicar-web.ly} y modificaremos
@@ -537,7 +537,7 @@ Yo utilizo media docena de archivos de
 
 @example
 %%%   global.ly
-\version "2.11.15"
+\version "2.11.23"
 #(ly:set-option 'point-and-click #f)
 \include "../iniciar/iniciar-definiciones.ly"
 \include "../iniciar/iniciar-disposicion.ly"
@@ -585,7 +585,7 @@ investigación para determinar el origen del problema.
 Las herramientas más poderosas para este cometido son el
 comentario de una sola línea (indicado por @code{%}) y el comentario de bloque
 (indicado por @code{%@{ ... %@}}).  Si no sabe dónde está
-el problema, comience coviertiendo grandes secciones del
+el problema, comience convirtiendo grandes secciones del
 archivo de entrada en un comentario.  Después de eliminar una
 sección convirtiéndola en un comentario, pruebe a compilar el
 archivo otra vez.  Si funciona, entonces el problema debía estar
@@ -598,7 +598,7 @@ En un caso extremo podría terminar con sólo
 \score @{
   <<
     % \melodia
-    % \harmonia
+    % \armonia
     % \bajo
   >>
   \layout@{@}

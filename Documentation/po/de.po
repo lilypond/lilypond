@@ -2,15 +2,14 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007.
-# , fuzzy
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-08-02 13:38+0200\n"
-"PO-Revision-Date: 2007-09-01 11:31+0200\n"
+"POT-Creation-Date: 2007-09-02 18:17+0200\n"
+"PO-Revision-Date: 2007-09-03 18:17+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +33,8 @@ msgstr ""
 msgid ""
 "Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
 "are welcome."
-msgstr "Ihre <a href=\"%(suggest_Docs_url)s\">Vorschläge für die Dokumentation</a> "
+msgstr ""
+"Ihre <a href=\"%(suggest_Docs_url)s\">Vorschläge für die Dokumentation</a> "
 "sind willkommen."
 
 #: add_html_footer.py:55
@@ -59,7 +59,9 @@ msgstr "Entwicklungszweig"
 msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
-msgstr "Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den Abschnitt im englischen Benutzerhandbuch."
+msgstr ""
+"Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den Abschnitt "
+"im englischen Benutzerhandbuch."
 
 #. @node in ../../../Documentation/user/lilypond-program.tely
 #. @node in ../../../Documentation/user/lilypond.tely
@@ -131,9 +133,8 @@ msgid "Compilation"
 msgstr "Übersetzen"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#, fuzzy
 msgid "Running requirements"
-msgstr "Voraussetzungen erfüllen"
+msgstr "Voraussetzungen zur Programmbenutzung"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Building documentation"
@@ -144,11 +145,11 @@ msgstr "Die Dokumentation übersetzen"
 msgid "Building LilyPond"
 msgstr "LilyPond übersetzen"
 
-#. @subsubsection in ../../../Documentation/user/install.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Compiling"
 msgstr "Kompilieren"
 
-#. @subsubsection in ../../../Documentation/user/install.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Compiling for multiple platforms"
 msgstr "Für mehrere Plattformen kompilieren"
 
@@ -172,11 +173,6 @@ msgid "Bison 1.875"
 msgstr "Bison 1.875"
 
 #. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
-#. @subsubheading in ../../../Documentation/user/tutorial.itely
-msgid "MacOS X"
-msgstr "MacOS X"
-
-#. @unnumberedsubsubsec in ../../../Documentation/user/install.itely
 msgid "Solaris"
 msgstr "Solaris"
 
@@ -195,8 +191,13 @@ msgstr "Setup"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
-msgid "Notes for the MacOS X app"
-msgstr "Anmerkungen für MacOS X"
+msgid "Setup for specific Operating Systems"
+msgstr "Setup für bestimmte Betriebssysteme"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+msgid "MacOS X on the command-line"
+msgstr "MacOS X auf der Kommandozeile"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
@@ -215,13 +216,18 @@ msgstr "Vim-Modus"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
-msgid "LilyPondTool"
-msgstr "LilyPondTool"
+msgid "jEdit"
+msgstr "jEdit"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @subsection in ../../../Documentation/user/setup.itely
 msgid "TexShop"
 msgstr "TexShop"
+
+#. @node in ../../../Documentation/user/setup.itely
+#. @subsection in ../../../Documentation/user/setup.itely
+msgid "TextMate"
+msgstr "TextMate"
 
 #. @node in ../../../Documentation/user/setup.itely
 #. @section in ../../../Documentation/user/setup.itely
@@ -235,6 +241,15 @@ msgstr "LilyPond starten"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
+msgid "Normal usage"
+msgstr "Übliche Programmbenutzung"
+
+#. @node in ../../../Documentation/user/running.itely
+#. @section in ../../../Documentation/user/running.itely
+msgid "Command-line usage"
+msgstr "Benutzung auf der Kommandozeile"
+
+#. @subsection in ../../../Documentation/user/running.itely
 msgid "Invoking lilypond"
 msgstr "lilypond aufrufen"
 
@@ -247,6 +262,11 @@ msgid "Environment variables"
 msgstr "Umgebungsvariablen"
 
 #. @node in ../../../Documentation/user/running.itely
+#. @section in ../../../Documentation/user/running.itely
+msgid "Error messages"
+msgstr "Fehlermeldungen"
+
+#. @node in ../../../Documentation/user/running.itely
 msgid "Updating files with convert-ly"
 msgstr "Dateien mit convert-ly aktualisieren"
 
@@ -255,14 +275,17 @@ msgid "Updating with @command{convert-ly}"
 msgstr "Dateien mit @command{convert-ly} aktualisieren"
 
 #. @node in ../../../Documentation/user/running.itely
-#. @section in ../../../Documentation/user/running.itely
-msgid "Reporting bugs"
-msgstr "Fehler melden"
+msgid "Problems with convert-ly"
+msgstr "Probleme mit convert-ly"
+
+#. @subsection in ../../../Documentation/user/running.itely
+msgid "Problems with @code{convert-ly}"
+msgstr "Probleme mit @code{convert-ly}"
 
 #. @node in ../../../Documentation/user/running.itely
 #. @section in ../../../Documentation/user/running.itely
-msgid "Error messages"
-msgstr "Fehlermeldungen"
+msgid "Reporting bugs"
+msgstr "Fehler melden"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 msgid "LilyPond-book"
@@ -277,43 +300,61 @@ msgstr "@command{lilypond-book}: Noten in den Text integrieren"
 msgid "An example of a musicological document"
 msgstr "Ein musikwissenschaftlicher Text als Beispiel"
 
-#. @node in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating LaTeX and music"
-msgstr "Noten in LaTeX integrieren"
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
+msgid "Input"
+msgstr "Eingabe"
 
-#. @section in ../../../Documentation/user/lilypond-book.itely
-#, fuzzy
-msgid "Integrating @LaTeX{} and music"
-msgstr "Noten in La@TeX{} integrieren"
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
+msgid "Processing"
+msgstr "Verarbeitung"
 
-#. @node in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating Texinfo and music"
-msgstr "Noten in Texinfo integrieren"
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
+msgid "Output"
+msgstr "Ausgabe"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating HTML and music"
-msgstr "Noten in HTML integrieren"
+msgid "Integrating music and text"
+msgstr "Noten in Text integrieren"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Integrating DocBook and music"
-msgstr "Noten in DocBook integrieren"
+#. @appendixsubsec in ../../../Documentation/user/templates.itely
+msgid "LaTeX"
+msgstr "LaTeX"
 
-#. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
+msgid "@LaTeX{}"
+msgstr "@LaTeX{}"
+
+#. @node in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
+#. @appendixsubsec in ../../../Documentation/user/templates.itely
+msgid "Texinfo"
+msgstr "Texinfo"
+
+#. @node in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
+msgid "HTML"
+msgstr "HTML"
+
+#. @node in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
+msgid "DocBook"
+msgstr "DocBook"
+
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
 msgid "Common conventions"
 msgstr "Definitionen"
 
-#. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
 msgid "Including a LilyPond file"
 msgstr "Eine LilyPond-Datei einfügen"
 
-#. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
 msgid "Including LilyPond code"
 msgstr "LilyPond-Code einfügen"
 
-#. @unnumberedsubsec in ../../../Documentation/user/lilypond-book.itely
+#. @subheading in ../../../Documentation/user/lilypond-book.itely
 msgid "Processing the DocBook document"
 msgstr "Ein DocBook-Dokument übersetzen"
 
@@ -336,17 +377,25 @@ msgid "Filename extensions"
 msgstr "Dateiendungen"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
+msgid "Alternate methods of mixing text and music"
+msgstr "Alternative Methoden, Text und Musik zu kombinieren"
+
 #. @section in ../../../Documentation/user/lilypond-book.itely
-msgid "Many quotes of a large score"
-msgstr "Viele Zitate in einer langen Partitur"
+msgid "Alternative methods of mixing text and music"
+msgstr "Alternative Methoden, Text mit Musik zu kombinieren"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
+msgid "Many quotes from a large score"
+msgstr "Viele Zitate aus einer langen Partitur"
+
+#. @node in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
 msgid "Inserting LilyPond output into OpenOffice.org"
 msgstr "LilyPond-Noten in OpenOffice.org integrieren"
 
 #. @node in ../../../Documentation/user/lilypond-book.itely
-#. @section in ../../../Documentation/user/lilypond-book.itely
+#. @subsection in ../../../Documentation/user/lilypond-book.itely
 msgid "Inserting LilyPond output into other programs"
 msgstr "LilyPond-Noten in andere Programme integrieren"
 
@@ -364,14 +413,6 @@ msgid "Invoking @command{midi2ly}"
 msgstr "@command{midi2ly} aufrufen"
 
 #. @node in ../../../Documentation/user/converters.itely
-msgid "Invoking etf2ly"
-msgstr "etf2ly aufrufen"
-
-#. @section in ../../../Documentation/user/converters.itely
-msgid "Invoking @command{etf2ly}"
-msgstr "@command{etf2ly} aufrufen"
-
-#. @node in ../../../Documentation/user/converters.itely
 msgid "Invoking musicxml2ly"
 msgstr "muscxml2ly aufrufen"
 
@@ -386,6 +427,14 @@ msgstr "abc2ly aufrufen"
 #. @section in ../../../Documentation/user/converters.itely
 msgid "Invoking @code{abc2ly}"
 msgstr "@command{abc2ly} aufrufen"
+
+#. @node in ../../../Documentation/user/converters.itely
+msgid "Invoking etf2ly"
+msgstr "etf2ly aufrufen"
+
+#. @section in ../../../Documentation/user/converters.itely
+msgid "Invoking @command{etf2ly}"
+msgstr "@command{etf2ly} aufrufen"
 
 #. @node in ../../../Documentation/user/converters.itely
 #. @section in ../../../Documentation/user/converters.itely
@@ -452,6 +501,10 @@ msgstr "Beispielanwendung"
 msgid "About this manual"
 msgstr "Über das Handbuch"
 
+#. @subheading in ../../../Documentation/user/introduction.itely
+msgid "User manual"
+msgstr "Handbuch zum Lernen"
+
 #. @subsubheading in ../../../Documentation/user/introduction.itely
 msgid "Learning manual"
 msgstr "Handbuch zum Lernen"
@@ -461,12 +514,12 @@ msgid "Notation reference"
 msgstr "Notationsreferenz"
 
 #. @subsubheading in ../../../Documentation/user/introduction.itely
-msgid "Program usage"
-msgstr "Programmbenutzung"
-
-#. @subsubheading in ../../../Documentation/user/introduction.itely
 msgid "Appendices"
 msgstr "Anhang"
+
+#. @subheading in ../../../Documentation/user/introduction.itely
+msgid "Program usage"
+msgstr "Programmbenutzung"
 
 #. @subsubheading in ../../../Documentation/user/introduction.itely
 msgid "Other information"
@@ -490,6 +543,10 @@ msgstr "Eine Quelldatei übersetzen"
 #. @subheading in ../../../Documentation/user/tutorial.itely
 msgid "Entering music and viewing output"
 msgstr "Eingabe von Noten und Ansicht des Ergebnisses"
+
+#. @subsubheading in ../../../Documentation/user/tutorial.itely
+msgid "MacOS X"
+msgstr "MacOS X"
 
 #. @subsubheading in ../../../Documentation/user/tutorial.itely
 msgid "Windows"
@@ -547,8 +604,8 @@ msgid "quarter note"
 msgstr "Viertelnote"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
-msgid "dotted notes"
-msgstr "punktierte Noten"
+msgid "dotted note"
+msgstr "punktierte Note"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @node in ../../../Documentation/user/basic-notation.itely
@@ -686,7 +743,7 @@ msgid "Articulations"
 msgstr "Artikulationszeichen"
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
-msgid "articulations"
+msgid "articulation"
 msgstr "Artikulationszeichen"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
@@ -767,13 +824,13 @@ msgstr "Klaviersysteme"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
-msgid "Single staff polyphony"
-msgstr "Mehrstimmigkeit in einem System"
+msgid "Combining notes into chords"
+msgstr "Noten zu Akkorden verbinden"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
-msgid "Combining notes into chords"
-msgstr "Noten zu Akkorden verbinden"
+msgid "Single staff polyphony"
+msgstr "Mehrstimmigkeit in einem System"
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @section in ../../../Documentation/user/tutorial.itely
@@ -1576,9 +1633,8 @@ msgstr "Geschachtelte Systeme"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
-#, fuzzy
 msgid "Page wrapping text"
-msgstr "Seitenumbrüche"
+msgstr "Text über mehrere Seiten"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1588,7 +1644,7 @@ msgstr "Überblick über Textbeschriftungsbefehle"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Overview of text markup list commands"
-msgstr "Überblick über Textbeschriftungslistenbefehle"
+msgstr "Überblick über Textbeschriftungsbefehle für Listen"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -2244,9 +2300,8 @@ msgstr "Neue Definitionen von Beschriftungsbefehlen"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
-#, fuzzy
 msgid "New markup list command definition"
-msgstr "Neue Definitionen von Beschriftungsbefehlen"
+msgstr "Neue Definitionen von Beschriftungsbefehlen für Listen"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @section in ../../../Documentation/user/programming-interface.itely
@@ -2425,14 +2480,6 @@ msgstr "Jazz combo"
 msgid "Lilypond-book templates"
 msgstr "Lilypond-book-Vorlagen"
 
-#. @appendixsubsec in ../../../Documentation/user/templates.itely
-msgid "LaTeX"
-msgstr "LaTeX"
-
-#. @appendixsubsec in ../../../Documentation/user/templates.itely
-msgid "Texinfo"
-msgstr "Texinfo"
-
 #. @node in ../../../Documentation/user/cheatsheet.itely
 #. @appendix in ../../../Documentation/user/cheatsheet.itely
 msgid "Cheat sheet"
@@ -2447,15 +2494,36 @@ msgstr "Weiter:"
 msgid "Previous:"
 msgstr "Zurück:"
 
-#, fuzzy
 msgid "Appendix "
-msgstr "Anhang"
+msgstr "Anhang "
 
 msgid "Footnotes"
 msgstr "Fußnoten"
 
 msgid "Table of Contents"
 msgstr "Inhaltsverzeichnis"
+
+#~ msgid "Notes for the MacOS X app"
+#~ msgstr "Anmerkungen für MacOS X"
+
+#~ msgid "LilyPondTool"
+#~ msgstr "LilyPondTool"
+
+#~ msgid "Integrating LaTeX and music"
+#~ msgstr "Noten in LaTeX integrieren"
+
+#, fuzzy
+#~ msgid "Integrating @LaTeX{} and music"
+#~ msgstr "Noten in La@TeX{} integrieren"
+
+#~ msgid "Integrating Texinfo and music"
+#~ msgstr "Noten in Texinfo integrieren"
+
+#~ msgid "Integrating HTML and music"
+#~ msgstr "Noten in HTML integrieren"
+
+#~ msgid "Integrating DocBook and music"
+#~ msgstr "Noten in DocBook integrieren"
 
 #~ msgid "Hyphens and extenders"
 #~ msgstr "Trennstriche und Fülllinien"

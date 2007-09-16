@@ -1,4 +1,4 @@
-@c -*- coding: us-ascii; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
     Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
 
@@ -277,15 +277,15 @@
 @end macro
 
 @macro seeinternals{NAME}
-internals document, @internalsref{\NAME\}
+Programmreferenz, @internalsref{\NAME\}
 @end macro
 
 @macro usermanref{NAME}
-user manual, @internalsref{\NAME\}
+Benutzerhandbuch, @internalsref{\NAME\}
 @end macro
 
 @macro rprogram{NAME}
-program usage manual, @internalsref{\NAME\}
+Programmbenutzung, @internalsref{\NAME\}
 @end macro
 
 @alias ruser=usermanref

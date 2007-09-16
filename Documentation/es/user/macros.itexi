@@ -1,0 +1,315 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 17e8e47bc1e57c3633c15ed08edcf4977f3aa298
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c **** all formats ****
+
+@macro refbugs
+@noindent
+@subsubheading Bugs
+
+@end macro
+
+@macro moreinfo
+@subheading More information
+
+@end macro
+
+@macro seealso
+@noindent
+@subsubheading See also
+
+@end macro
+
+@macro refcommands
+@noindent
+@subsubheading Predefined commands
+
+@end macro
+
+@macro context{NAME}
+@vindex \NAME\
+@code{\NAME\}@c should use internalsref
+@end macro
+
+@macro refcommand{WHAT}
+@vindex \WHAT\
+@code{\WHAT\}
+@end macro
+
+@macro commonprop
+@noindent
+@subsubheading Commonly tweaked properties
+
+@end macro
+
+@macro funindex {WORD}
+@findex \WORD\
+@kindex \WORD\
+@end macro
+
+
+
+@c  *** Macros with variable output ***
+
+@c usage: @lsr{ancient,custodes.ly}
+@macro lsr{DIR,NAME}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html#\NAME\,@file{\DIR\/\NAME\}}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\/\NAME\}
+@end ifnothtml
+@end macro
+
+@macro lsrdir{DIR}
+@ifhtml
+  @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
+@end ifhtml
+@ifnothtml
+  @file{\DIR\}
+@end ifnothtml
+@end macro
+
+
+
+
+@macro arrow{}
+@iftex
+@tex $\\Rightarrow$ @end tex@c
+@end iftex
+@ifhtml
+@html
+&rarr;
+@end html
+@end ifhtml
+@ifinfo
+-->
+@end ifinfo
+@end macro
+
+
+@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c say @q{@value{backslash}} instead
+@set backslash \
+
+
+@ifhtml
+@c ***** HTML *****
+
+@c makeinfo-4.7 encodes html names, which means that nodes that
+@c contain nonalphanum characters will be broken links on the website.
+@c @uref{../lilypond-internals/\NAME\.html,\NAME\}@c
+@c @inforef{} adds ``See'' to the sentence, which is annoying, but
+@c better than a broken link.
+@c @inforef{\NAME\,,lilypond-internals}@c
+@c using @ref without punctuation is OK without for formats other than info
+
+@ifset bigpage
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals-big-page}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary-big-page}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program-big-page}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-big-page}
+@end macro
+
+@end ifset
+
+
+@ifclear bigpage
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
+@end macro
+
+@end ifclear
+
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@html
+&lsquo;\TEXT\&rsquo;
+@end html
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@html
+&ldquo;\TEXT\&rdquo;
+@end html
+@end macro
+
+@end ifhtml
+
+
+@ifdocbook
+@c ***** DOCBOOK-XML *****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-internals}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,music-glossary}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+@xml
+&lsquo;\TEXT\&rsquo;
+@end xml
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+@xml
+&ldquo;\TEXT\&rdquo;
+@end xml
+@end macro
+
+@end ifdocbook
+
+
+@ifinfo
+@c **** INFO ****
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@inforef{\NAME\,,lilypond-internals}
+@end macro
+
+@macro rglos{NAME}
+@vindex \NAME\
+@inforef{\NAME\,,,music-glossary}
+@end macro
+
+@macro usermanref{NAME}
+@inforef{\NAME\}
+@end macro
+
+@macro rprogram{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond-program}
+@end macro
+
+@macro ruser{NAME}
+@vindex \NAME\
+@ref{\NAME\,,,lilypond}
+@end macro
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+``\TEXT\''
+@end macro
+
+@end ifinfo
+
+
+@c **** TEX ****
+@iftex
+
+@macro internalsref{NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro rglos {NAME}
+@vindex \NAME\
+@code{\NAME\}
+@end macro
+
+@macro seeinternals{NAME}
+el documento de funcionamiento interno, @internalsref{\NAME\}
+@end macro
+
+@macro usermanref{NAME}
+el manual del usuario, @internalsref{\NAME\}
+@end macro
+
+@macro rprogram{NAME}
+el manual de utilización del programa, @internalsref{\NAME\}
+@end macro
+
+@alias ruser=usermanref
+
+@c to get decent quotes in `foo'
+@macro q{TEXT}
+`\TEXT\'
+@end macro
+
+@c to get decent quotes in ``foo''
+@macro qq{TEXT}
+``\TEXT\''
+@end macro
+
+@end iftex
+
+
+@ifnottex
+@c **** not TEX ****
+
+@macro seeinternals{NAME}
+@internalsref{\NAME\}
+@end macro
+
+@ifnotinfo
+@macro usermanref{NAME}
+@ref{\NAME\}
+@end macro
+@end ifnotinfo
+
+@end ifnottex
+
+
+@c EOF

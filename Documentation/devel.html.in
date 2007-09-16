@@ -1,0 +1,95 @@
+<html>
+<!--
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+!-->
+  <head>
+    <title>LilyPond @TOPLEVEL_VERSION@ Developers Resources</title>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+    <meta name="aesop" content="links">
+    <meta name="description"
+          content="Top-level index to developers documentation for
+                   LilyPond @TOPLEVEL_VERSION@">
+    <style type="text/css">
+    .navigation         { background-color: #e8ffe8;
+   	                  padding: 2; border: #c0ffc0 1px solid;
+			  text-align: center;
+                          font-weight: bold;
+                          font-family: avantgarde, sans-serif;
+                          font-size: 110%; }
+      a.title { font-weight: bold; font-size: 110%; }
+      ul { margin-left: 1em; padding: 0pt; border: 0pt; }
+      ul li { margin-top: 0.2em; }
+      td.left-column { padding-right: 1em; }
+      td.right-column { padding-left: 1em; }
+      hr { border:0; height:1; color: #000000; background-color: #000000; }
+    </style> 
+  </head>
+  
+  <body>
+	<div class="navigation">
+	  <h1>LilyPond developers resources</h1>
+	</div>
+    <div align="center" class="titlepage">
+
+      <p>
+	<strong>Version @TOPLEVEL_VERSION@</strong>
+	<br>
+	<strong>@DATE@</strong>
+      </p>
+    </div>
+
+    <table align="center">
+      <tbody>
+        <tr>
+          <td class="left-column">
+	  <ul>
+      <li><a class="title"
+	  href="../input/regression/collated-files.html">Regression
+	  tests</a> (~ 5 Mb, in <a class="title"
+	  href="../input/regression/collated-files.pdf">PDF</a>)
+	<br>(general tests)
+      <li><a class="title"
+	  href="../input/regression/musicxml/collated-files.html">MusicXML regression
+	  tests</a> (in <a class="title"
+	  href="../input/regression/musicxml/collated-files.pdf">PDF</a>)
+	<br>(musicxml2ly tests)
+          </ul></td>
+	  <td class="right-column">
+          <ul>
+      <li><a class="title" href="http://lilypond.org/test">Regression tests results</a>
+	<br>(for comparison between releases)
+      <li><a class="title" href="bibliography/index.html">Bibliography</a>
+        <br>(on background information)
+          </ul></td>
+        </tr>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+	<ul>
+            <li><a class="title" href="devel.html">lilypond.git repository</a>
+              <br>(official sources)
+            <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=gub">GUB Readme</a>
+	      <br>(about Grand Unified Binaries packages)
+	</ul>
+    </td><td class="right-column">
+          &nbsp;
+	<ul>
+            <li>lilypond.org <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">Readme</a>
+and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=TRANSLATION;hb=web">Translation</a>
+              <br>(how to translate and build lilypond.org website)
+            <li>
+	      <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation/TRANSLATION;hb=lilypond/translation">Documentation translation</a>
+	      <br>(how to translate documentation)
+	</ul>
+	</td>
+        </tr>
+     </tbody>
+</table>
+
+<p><a href="index.html">Go back</a> to the Documentation index.</a></p>
+
+</body>
+</html>

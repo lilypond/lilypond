@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3db3697bb5109201192c9cecdd2e4b7a5520421a
+    Translation of GIT committish: ad389dc87664ea7cf89ae5b87ef4c591d9a29f14
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -180,7 +180,7 @@ der Quelldatei gelesen hat. Sollten Fehler auftreten, hilft oft ein Blick in
 diese Datei.
 
 Es gibt einige andere Editoren mit besserer Unterstützung für LilyPond; Einzelheiten 
-dazu können Sie im Kapitel @rprogram{Editor support} nachlesen.
+dazu können Sie im Kapitel @rprogram{Text editor support} nachlesen.
 
 @subsubheading Unix
 
@@ -190,7 +190,7 @@ Beispiel können Sie xterm öffnen und
 und es gibt einen @code{LilyPond-Modus} für Emacs.  Wenn diese noch
 nicht installiert sind, lesen Sie die Datei @file{INSTALL.txt}.}
 Die einfachste Bearbeitunsumgebung ist das  @file{LilyPondTool}.
-Siehe auch @rprogram{Editor support} für mehr Information. Geben Sie
+Siehe auch @rprogram{Text editor support} für mehr Information. Geben Sie
 folgendes in Ihrem Editor ein und speichern Sie die Datei als @file{test.ly}:
 
 @verbatim
@@ -952,8 +952,8 @@ das Vorkommen von mehr als einer Stimme pro System.
 * Music expressions explained::
 * Multiple staves::
 * Piano staves::
-* Single staff polyphony::
 * Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
@@ -1113,11 +1113,12 @@ werden auch musikalische Ausdrücke durch den @code{\new}-Befehl
 erweitert.
 
 Die Taktangabe, die in einem einzelnen System angegeben wird, wirkt
-sich auf alle anderen System aus, während die
-Angabe der Tonart sich nur auf ein einzigen System
-beschränkt.@footnote{Dies kann natürlich auch geändert
+sich auf alle anderen System aus.@footnote{Dies kann natürlich auch geändert
 werden, siehe
-@ref{Changing defaults} für Einzelheiten.}
+@ref{Polymetric notation} für Einzelheiten.} Die 
+Angabe der Tonart in einem System hingegen beeinflusst @emph{nicht} die 
+Tonart der anderen Systeme.
+
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
@@ -1168,6 +1169,29 @@ Hier ein kleines Beispiel:
 @quotation
 Siehe @ref{Piano music}.
 @end quotation
+
+@node Combining notes into chords
+@subsection Combining notes into chords
+
+@cindex Akkorde
+Akkorde werden notiert, indem die Tonhöhen von spitzen
+Klammern (@q{<} und @q{>}) umgeben werden.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>4 <c f a>2
+@end lilypond
+
+Auch andere Markierungen wie Balken oder Bögen können mit
+den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
+spitzen Klammern gesetzt werden.
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8[ <c f a>]~ <c f a>2
+@end lilypond
+
+@lilypond[quote,fragment,verbatim,relative=2,fragment]
+r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+@end lilypond
 
 
 @node Single staff polyphony
@@ -1228,30 +1252,6 @@ kombiniert werden.
 @quotation
 Siehe @ref{Basic polyphony}.
 @end quotation
-
-
-@node Combining notes into chords
-@subsection Combining notes into chords
-
-@cindex Akkorde
-Akkorde werden notiert, indem die Tonhöhen von spitzen
-Klammern (@q{<} und @q{>}) umgeben werden.
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>4 <c f a>2
-@end lilypond
-
-Auch andere Markierungen wie Balken oder Bögen können mit
-den Akkorden kombiniert werden. Sie müssen jedoch außerhalb der
-spitzen Klammern gesetzt werden.
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 
 @node Songs
@@ -1423,23 +1423,23 @@ dient es als Einleitung zum Rest des Handbuches.
 @subsection Version number
 
 @cindex Versionsnummern
-Der @code{\version}-Befehl zeigt an, für welche LilyPond-Version
-eine Quelldatei geschrieben worden ist. Um etwa eine Datei für die
-Version 2.11.23 zu markieren, wird einfach
+Der @code{\version}-Befehl zeigt an, welche LilyPond-Version
+für eine bestimmte Quelldatei benutzt worden ist:
 
 @example
 \version "2.11.23"
 @end example
 
 @noindent
-am Anfang der Textdatei eingefügt.
+Üblicherweise wird dieser Befehl am Anfang der Textdatei eingefügt.
 
 Durch diese Versionsmarkierung werden zukünftige Aktualisierungen
 des LilyPond-Programmes einfacher gemacht. Syntax-Änderungen
 zwischen den Programmversionen werden von einem speziellen
-Programm, @file{convert-ly}, vorgenommen (siehe @rprogram{Updating
-files with convert-ly}). Dieses Programm braucht @code{\version},
- um zu entscheiden, welche Regeln angewandt werden müssen.
+Programm, @file{convert-ly}, vorgenommen (siehe
+@rprogram{Updating files with convert-ly}). Dieses Programm braucht
+@code{\version}, um zu entscheiden, welche Regeln angewandt werden
+müssen.
 
 @node Adding titles
 @subsection Adding titles
@@ -1672,5 +1672,8 @@ Quellcode genau aussehen soll, schauen Sie sich am besten die HTML-Version
 dieses Dokuments an (wenn Sie das nicht schon tun) und klicken
 Sie auf die Notenbilder, um die dazugehörige Textdatei anzuschauen,
 mit der dieses Notenbild erstellt worden ist.
+
+Mehr Information über die Struktur des restlichen Benutzerhandbuches 
+erhalten Sie im Abschnitt @ref{About this manual}.
 
 
