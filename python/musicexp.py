@@ -433,6 +433,26 @@ class Lyrics:
         return lstr
 
 
+class Header:
+    def __init__ (self):
+        self.header_fields = {}
+    def set_field (self, field, value):
+        self.header_fields[field] = value
+
+    def print_ly (self, printer):
+        printer.dump ("\header {")
+        printer.newline ()
+        for (k,v) in self.header_fields.items ():
+            if v:
+                printer.dump ('%s = %s' % (k,v))
+                printer.newline ()
+        printer.dump ("}")
+        printer.newline ()
+        printer.newline ()
+
+
+
+
 class EventChord (NestedMusic):
     def __init__ (self):
         NestedMusic.__init__ (self)

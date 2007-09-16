@@ -30,10 +30,10 @@ def error_message (str):
 # score information is contained in the <work>, <identification> or <movement-title> tags
 # extract those into a hash, indexed by proper lilypond header attributes
 def extract_score_information (tree):
-    score_information = {}
+    header = musicexp.Header ()
     def set_if_exists (field, value):
         if value:
-            score_information[field] = value
+            header.set_field (field, musicxml.escape_ly_output_string (value))
 
     work = tree.get_maybe_exist_named_child ('work')
     if work:
@@ -59,19 +59,9 @@ def extract_score_information (tree):
         set_if_exists ('encoder', ids.get_encoding_person ())
         set_if_exists ('encodingdescription', ids.get_encoding_description ())
 
-    return score_information
+    return header
 
 
-def print_ly_information (printer, score_information):
-    printer.dump ('\header {')
-    printer.newline ()
-    for (k, text) in score_information.items ():
-        printer.dump ('%s = %s' % (k, musicxml.escape_ly_output_string (text)))
-        printer.newline ()
-    printer.dump ('}')
-    printer.newline ()
-    printer.newline ()
-    
 
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
@@ -1029,7 +1019,7 @@ def convert (filename, options):
     printer.set_file (open (defs_ly_name, 'w'))
 
     print_ly_preamble (printer, filename)
-    print_ly_information (printer, score_information)
+    score_information.print_ly (printer)
     print_voice_definitions (printer, part_list, voices)
     
     printer.close ()
