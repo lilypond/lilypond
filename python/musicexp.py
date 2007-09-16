@@ -434,6 +434,13 @@ class Lyrics:
 
 
 class EventChord (NestedMusic):
+    def __init__ (self):
+        NestedMusic.__init__ (self)
+        self.grace_elements = []
+    def append_grace (self, element):
+        if element:
+            self.grace_elements.append (element)
+
     def get_length (self):
         l = Rational (0)
         for e in self.elements:
@@ -450,6 +457,12 @@ class EventChord (NestedMusic):
         
         other_events = [e for e in self.elements if
                 not isinstance (e, RhythmicEvent)]
+
+        if self.grace_elements and self.elements:
+            printer ('\grace {')
+            for g in self.grace_elements:
+                g.print_ly (printer)
+            printer ('}')
 
         if rest_events:
             rest_events[0].print_ly (printer)

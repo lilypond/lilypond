@@ -80,7 +80,10 @@ def musicxml_duration_to_lily (mxl_note):
     d.duration_log = mxl_note.get_duration_log ()
 
     d.dots = len (mxl_note.get_typed_children (musicxml.Dot))
-    d.factor = mxl_note._duration / d.get_length ()
+    # Grace notes by specification have duration 0, so no time modification 
+    # factor is possible. It even messes up the output with *0/1
+    if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
+        d.factor = mxl_note._duration / d.get_length ()
 
     return d         
 
@@ -467,7 +470,11 @@ class LilyPondVoiceBuilder:
         
     def add_multibar_rest (self, duration):
         self.pending_multibar += duration
-        
+
+    def set_duration (self, duration):
+        self.end_moment = self.begin_moment + duration
+    def current_duration (self):
+        return self.end_moment - self.begin_moment
         
     def add_music (self, music, duration):
         assert isinstance (music, musicexp.Music)
@@ -476,7 +483,7 @@ class LilyPondVoiceBuilder:
 
         self.elements.append (music)
         self.begin_moment = self.end_moment
-        self.end_moment = self.begin_moment + duration 
+        self.set_duration (duration)
         
         # Insert all pending dynamics right after the note/rest:
         if duration > Rational (0):
@@ -613,8 +620,15 @@ def musicxml_voice_to_lily_voice (voice):
         if not ev_chord: 
             ev_chord = musicexp.EventChord()
             voice_builder.add_music (ev_chord, n._duration)
-
-        ev_chord.append (main_event)
+        # When a note/chord has grace notes (duration==0), the duration of the 
+        # event chord is not yet known, but the event chord was already added
+        # with duration 0. The following correct this when we hit the real note!
+        if voice_builder.current_duration () == 0 and n._duration > 0:
+            voice_builder.set_duration (n._duration)
+        if n.get_maybe_exist_typed_child (musicxml.Grace):
+            ev_chord.append_grace (main_event)
+        else:
+            ev_chord.append (main_event)
         
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
