@@ -6,7 +6,7 @@ import sys
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = not re.match ("^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
+    needs_quotes = not re.match (u"^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
     if needs_quotes:
         return_string = "\"" + string.replace (return_string, "\"", "\\\"") + "\""
     return return_string
@@ -42,11 +42,11 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        sys.stderr.write (msg)
+        sys.stderr.write (msg+'\n')
 
         p = self
         while p:
-            sys.stderr.write ('  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
+            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
@@ -82,7 +82,7 @@ class Xml_node:
     def get_unique_typed_child (self, klass):
 	cn = self.get_typed_children(klass)
 	if len (cn) <> 1:
-	    sys.stderr.write (self.__dict__)
+	    sys.stderr.write (self.__dict__ + '\n')
 	    raise 'Child is not unique for', (klass, 'found', cn)
 
 	return cn[0]
@@ -122,8 +122,7 @@ class Identification (Xml_node):
         for i in creators:
             if hasattr (i, 'type') and i.type == type:
                 return i.get_text ()
-            else:
-                return ''
+        return None
 
     def get_composer (self):
         c = self.get_creator ('composer')
@@ -134,13 +133,17 @@ class Identification (Xml_node):
         for i in creators:
             if not hasattr (i, 'type'):
                 return i.get_text ()
-        return c
+        return None
     def get_arranger (self):
         return self.get_creator ('arranger')
     def get_editor (self):
         return self.get_creator ('editor')
     def get_poet (self):
-        return self.get_creator ('poet')
+        v = self.get_creator ('lyricist')
+        if v:
+            return v
+        v = self.get_creator ('poet')
+        return v
     
     def get_encoding_information (self, type):
         enc = self.get_named_children ('encoding')
@@ -149,7 +152,7 @@ class Identification (Xml_node):
             if children:
                 return children[0].get_text ()
         else:
-            return ''
+            return None
       
     def get_encoding_software (self):
         return self.get_encoding_information ('software')
@@ -234,7 +237,7 @@ class Attributes (Measure_element):
             else:
                 return (4, 4)
         except KeyError:
-            sys.stderr.write ('error: requested time signature, but time sig unknown')
+            sys.stderr.write ('error: requested time signature, but time sig unknown\n')
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -323,7 +326,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            sys.stderr.write ("Opps, couldn't find instrument for ID=%s" % id)
+            sys.stderr.write ("Opps, couldn't find instrument for ID=%s\n" % id)
             return "Grand Piano"
         
 class Measure (Music_xml_node):

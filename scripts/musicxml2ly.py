@@ -5,6 +5,7 @@ import sys
 import re
 import os
 import string
+import codecs
 from gettext import gettext as _
 
 """
@@ -707,19 +708,20 @@ def musicxml_voice_to_lily_voice (voice):
                         ev_chord.append (ev)
 
         # Extract the lyrics
-        note_lyrics_processed = []
-        note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
-        for l in note_lyrics_elements:
-            if l.get_number () < 0:
-                for k in lyrics.keys ():
-                    lyrics[k].append (l.lyric_to_text ())
-                    note_lyrics_processed.append (k)
-            else:
-                lyrics[l.number].append(l.lyric_to_text ())
-                note_lyrics_processed.append (l.number)
-        for lnr in lyrics.keys ():
-            if not lnr in note_lyrics_processed:
-                lyrics[lnr].append ("\skip4")
+        if not rest:
+            note_lyrics_processed = []
+            note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
+            for l in note_lyrics_elements:
+                if l.get_number () < 0:
+                    for k in lyrics.keys ():
+                        lyrics[k].append (l.lyric_to_text ())
+                        note_lyrics_processed.append (k)
+                else:
+                    lyrics[l.number].append(l.lyric_to_text ())
+                    note_lyrics_processed.append (l.number)
+            for lnr in lyrics.keys ():
+                if not lnr in note_lyrics_processed:
+                    lyrics[lnr].append ("\skip4")
 
 
         mxl_beams = [b for b in n.get_named_children ('beam')
@@ -1016,7 +1018,7 @@ def convert (filename, options):
 
     printer = musicexp.Output_printer()
     progress ("Output to `%s'" % defs_ly_name)
-    printer.set_file (open (defs_ly_name, 'w'))
+    printer.set_file (codecs.open (defs_ly_name, 'wb', encoding='utf-8'))
 
     print_ly_preamble (printer, filename)
     score_information.print_ly (printer)
@@ -1027,7 +1029,7 @@ def convert (filename, options):
     
     progress ("Output to `%s'" % driver_ly_name)
     printer = musicexp.Output_printer()
-    printer.set_file (open (driver_ly_name, 'w'))
+    printer.set_file (codecs.open (driver_ly_name, 'wb', encoding='utf-8'))
     print_ly_preamble (printer, filename)
     printer.dump (r'\include "%s"' % os.path.basename (defs_ly_name))
     print_score_setup (printer, part_list, voices)
