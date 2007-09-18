@@ -13,15 +13,15 @@
 
 Ce chapitre traite de la notation spécifique à certains instruments.
 
-@menu 
-* Piano music::
-* Chord names::
-* Vocal music::
-* Rhythmic music::
-* Guitar::
-* Bagpipe::
-* Ancient notation::
-* Other instrument specific notation::
+@menu
+* Piano music::                 
+* Chord names::                 
+* Vocal music::                 
+* Rhythmic music::              
+* Guitar::                      
+* Bagpipe::                     
+* Ancient notation::            
+* Other instrument specific notation::  
 @end menu 
 
 
@@ -35,11 +35,11 @@ instruments à clavier.  Le contexte @internalsref{PianoStaff} est précisément
 conçu pour gérer la notation spécifique au piano, notamment ces croisements.
 
 @menu
-* Automatic staff changes::
-* Manual staff switches::
-* Pedals::
-* Staff switch lines::
-* Cross staff stems::
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
 @end menu
 
 @refbugs
@@ -695,8 +695,17 @@ examinerons par degré croissant de complexité.
 * Setting simple songs::        
 * Entering lyrics::             
 * Aligning lyrics to a melody::  
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
 * Working with lyrics and identifiers::  
 * Flexibility in placement::    
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Lyrics independent of notes::  
 * Spacing lyrics::              
 * More about stanzas::          
 * Ambitus::                     
@@ -941,7 +950,7 @@ contexte @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@subsection Automatic syllable durations
 
 @cindex durée automatique des syllabes
 @cindex paroles et mélodies
@@ -997,7 +1006,7 @@ est exactement la même chose que
 @end example
 
 @node Another way of entering lyrics
-@subsubsection Another way of entering lyrics
+@subsection Another way of entering lyrics
 
 On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto} pour
 saisir des paroles.  Dans ce cas, les syllabes sont entrées comme des
@@ -1040,7 +1049,7 @@ Référence du programme : @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
-@subsubsection Assigning more than one syllable to a single note
+@subsection Assigning more than one syllable to a single note
 
 
 @funindex _
@@ -1071,7 +1080,7 @@ Référence du programme : @internalsref{LyricCombineMusic}.
 
 
 @node More than one note on a single syllable
-@subsubsection More than one note on a single syllable
+@subsection More than one note on a single syllable
 
 @cindex mélisme
 @cindex vocalise
@@ -1155,7 +1164,7 @@ Certains mélismes ne sont pas détectés automatiquement ; vous devrez
 alors prolonger vous-même les syllabes concernées.
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@subsection Extenders and hyphens
 
 @cindex mélisme
 @cindex extenseur
@@ -1260,7 +1269,7 @@ La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 
 
 @node Lyrics to multiple notes of a melisma
-@subsubsection Lyrics to multiple notes of a melisma
+@subsection Lyrics to multiple notes of a melisma
 
 Il peut survenir que les paroles comportent un mélisme pour l'un des
 couplets, mais plusieurs syllabes pour d'autres. Une solution consiste à
@@ -1315,7 +1324,7 @@ suivant d'une note :
 
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@subsection Divisi lyrics
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
 des paroles, on peut créer des paroles alternatives --- également
@@ -1361,7 +1370,7 @@ Cette astuce permet de faire varier les paroles lorsqu'une section est reprise.
 
 
 @node Switching the melody associated with a lyrics line
-@subsubsection Switching the melody associated with a lyrics line
+@subsection Switching the melody associated with a lyrics line
 
 On peut créer des variations plus complexes à partir d'une mélodie à
 plusieurs voix.  Les paroles peuvent suivre l'une ou l'autre des
@@ -1447,7 +1456,7 @@ la valeur @code{lahlah}.
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@subsection Lyrics independent of notes
 
 Dans certaines musiques vocales assez complexes, on peut avoir intérêt à
 imprimer les paroles indépendamment des notes.  La mélodie sur laquelle
@@ -1525,7 +1534,7 @@ dans le bloc @code{\layout}.
 @subsection More about stanzas
 
 @cindex numéro de couplet
-@subsubsection Adding stanza numbers 
+@subsection Adding stanza numbers 
 
 On peut ajouter un numéro aux couplets en définissant la variable
 @code{stanza} :
@@ -1545,7 +1554,7 @@ On peut ajouter un numéro aux couplets en définissant la variable
 @noindent
 Ces numéros se placeront juste avant le début de la première syllabe.
 
-@subsubsection Adding dynamics marks
+@subsection Adding dynamics marks
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
 une nuance devant chaque numéro.  L'objet @code{StanzaNumber} contient
@@ -1572,7 +1581,7 @@ text = {
 
 @cindex nom de personnage
 @cindex nom du chanteur
-@subsubsection Adding singer names
+@subsection Adding singer names
 
 On peut également ajouter le nom de chaque rôle ; ils s'imprimeront au
 début de chaque ligne comme les noms d'instruments.  Il faut pour cela
@@ -1592,7 +1601,7 @@ abrégée.
 @end lilypond
 
 
-@subsubsection Printing stanzas at the end 
+@subsection Printing stanzas at the end 
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie, et de présenter tous les autres en bloc à la fin du morceau.
@@ -1637,7 +1646,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-@subsubsection Printing stanzas at the end in multiple columns 
+@subsection Printing stanzas at the end in multiple columns 
 
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  De plus, l'exemple suivant vous montrera
@@ -2681,6 +2690,8 @@ Voici les points que nous allons aborder :
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 * Gregorian Chant contexts::    
 * Mensural contexts::           
 * Musica ficta accidentals::    
@@ -3454,7 +3465,7 @@ qui produit le même résultat, et dont la pérennité est assurée.
 @end menu
 
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@subsection White mensural ligatures
 
 @cindex Ligatures mensurales
 @cindex Ligatures mensurales blanches
@@ -3544,7 +3555,7 @@ L'espacement horizontal n'est pas des meilleurs.
 
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@subsection Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés

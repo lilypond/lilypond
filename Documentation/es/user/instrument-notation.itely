@@ -684,8 +684,17 @@ examinando el método más simple, y poco a poco iremos aumentando la complejida
 * Setting simple songs::        
 * Entering lyrics::             
 * Aligning lyrics to a melody::  
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
 * Working with lyrics and identifiers::  
 * Flexibility in placement::    
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Lyrics independent of notes::  
 * Spacing lyrics::              
 * More about stanzas::          
 * Ambitus::                     
@@ -929,7 +938,7 @@ explícitamente, utilizando @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@subsection Automatic syllable durations
 
 @cindex duraciones automáticas de las sílabas
 @cindex letra y melodías
@@ -985,7 +994,7 @@ es lo mismo que
 @end example
 
 @node Another way of entering lyrics
-@subsubsection Another way of entering lyrics
+@subsection Another way of entering lyrics
 
 El texto también se puede introducir sin @code{\addlyrics} ni
 @code{\lyricsto}.  En este caso,
@@ -1028,7 +1037,7 @@ Referencia del programa: @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
-@subsubsection Assigning more than one syllable to a single note
+@subsection Assigning more than one syllable to a single note
 
 
 @funindex _
@@ -1059,7 +1068,7 @@ Referencia del programa: @internalsref{LyricCombineMusic}.
 
 
 @node More than one note on a single syllable
-@subsubsection More than one note on a single syllable
+@subsection More than one note on a single syllable
 
 @cindex melisma
 @cindex melismata
@@ -1140,7 +1149,7 @@ Los melismas no se detectan automáticamente, y las líneas de extensión se deb
 insertar a mano.
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@subsection Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -1244,7 +1253,7 @@ distintas.  Tales variantes pueden aún captarse mediante
 
 
 @node Lyrics to multiple notes of a melisma
-@subsubsection Lyrics to multiple notes of a melisma
+@subsection Lyrics to multiple notes of a melisma
 
 Existe la posibilidad de que el texto tenga un melisma en un verso, pero
 varias sílabas en otro.  Una solución es hacer que la voz más rápida
@@ -1298,7 +1307,7 @@ Por ejemplo,
 
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@subsection Divisi lyrics
 
 Puede presentar letras alternativas (o divisi) nombrando contextos de
 voz y aplicando la letra a los mencionados contextos específicos.
@@ -1344,7 +1353,7 @@ que se repite.
 
 
 @node Switching the melody associated with a lyrics line
-@subsubsection Switching the melody associated with a lyrics line
+@subsection Switching the melody associated with a lyrics line
 
 Son posibles variaciones más complejas en la disposición del texto.  Se puede
 cambiar la melodía para una línea de la letra durante el texto.  Esto se hace
@@ -1427,7 +1436,7 @@ La disposición se vuelve a cambiar a la situación inicial mediante la asignaci
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@subsection Lyrics independent of notes
 
 En cierta música vocal compleja, podría ser deseable colocar la
 letra de forma totalmente independiente de las notas.  La música que se define
@@ -1503,7 +1512,7 @@ layout o disposición.
 @subsection More about stanzas
 
 @cindex número de verso
-@subsubsection Adding stanza numbers 
+@subsection Adding stanza numbers 
 
 Los números de los versos se pueden añadir estableciendo @code{stanza}, p.ej.,
 
@@ -1523,7 +1532,7 @@ Los números de los versos se pueden añadir estableciendo @code{stanza}, p.ej.,
 Estos números aparecerán inmediatamente antes de la primera sílaba.
 
 
-@subsubsection Adding dynamics marks
+@subsection Adding dynamics marks
 
 Los versos que difieren en su fuerza se pueden especificar escribiendo una
 indicación dinámica antes de cada verso.  En Lilypond, todo lo que aparece delante de
@@ -1550,7 +1559,7 @@ text = {
 
 @cindex cantor, nombre del
 @cindex nombre del cantor
-@subsubsection Adding singer names
+@subsection Adding singer names
 
 También se pueden poner los nombres de los cantantes.  Se imprimen al comienzo de la
 línea, igual que los nombres de instrumento.  Se crean estableciendo un valor para
@@ -1569,7 +1578,7 @@ línea, igual que los nombres de instrumento.  Se crean estableciendo un valor p
 @end lilypond
 
 
-@subsubsection Printing stanzas at the end 
+@subsection Printing stanzas at the end 
 
 En ocasiones es conveniente tener un verso ajustado a la música,
 y el resto añadido en forma de estrofa al final
@@ -1613,7 +1622,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-@subsubsection Printing stanzas at the end in multiple columns 
+@subsection Printing stanzas at the end in multiple columns 
 
 Cuando una pieza tiene muchos versos, a menudo se imprimen
 en varias columnas a lo largo de toda la página. Con frecuencia un número de verso fuera del margen
@@ -2639,6 +2648,8 @@ Aquí puede ver de forma resumida todos los apartados relacionados:
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 * Gregorian Chant contexts::    
 * Mensural contexts::           
 * Musica ficta accidentals::    
@@ -3408,7 +3419,7 @@ que causa el mismo efecto y se supone que es lo bastante estable.
 @end menu
 
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@subsection White mensural ligatures
 
 @cindex ligaduras mensurales
 @cindex ligaduras mensurales blancas
@@ -3497,7 +3508,7 @@ de la siguiente manera:
 El espaciado horizontal es pobre.
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@subsection Gregorian square neumes ligatures
 
 @cindex ligaduras de neumas cuadrados
 @cindex ligaduras gregorianas de neumas cuadrados

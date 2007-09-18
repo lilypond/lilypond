@@ -712,16 +712,25 @@ wenn die Akkorde mit der @code{< ... >} Syntax notiert werden.
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Setting simple songs::
-* Entering lyrics::
-* Aligning lyrics to a melody::
-* Working with lyrics and identifiers::
-* Flexibility in placement::
-* Spacing lyrics::
-* More about stanzas::
-* Ambitus::
-* Other vocal issues::
+@menu
+* Setting simple songs::        
+* Entering lyrics::             
+* Aligning lyrics to a melody::  
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
+* Working with lyrics and identifiers::  
+* Flexibility in placement::    
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Lyrics independent of notes::  
+* Spacing lyrics::              
+* More about stanzas::          
+* Ambitus::                     
+* Other vocal issues::          
 @end menu 
 @node Setting simple songs
 @subsection Setting simple songs
@@ -746,27 +755,27 @@ UNTRANSLATED NODE: IGNORE ME
 * Extenders and hyphens::
 @end menu 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@subsection Automatic syllable durations
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Another way of entering lyrics
-@subsubsection Another way of entering lyrics
+@subsection Another way of entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Assigning more than one syllable to a single note
-@subsubsection Assigning more than one syllable to a single note
+@subsection Assigning more than one syllable to a single note
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More than one note on a single syllable
-@subsubsection More than one note on a single syllable
+@subsection More than one note on a single syllable
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@subsection Extenders and hyphens
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -787,22 +796,22 @@ UNTRANSLATED NODE: IGNORE ME
 * Lyrics independent of notes::
 @end menu 
 @node Lyrics to multiple notes of a melisma
-@subsubsection Lyrics to multiple notes of a melisma
+@subsection Lyrics to multiple notes of a melisma
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@subsection Divisi lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Switching the melody associated with a lyrics line
-@subsubsection Switching the melody associated with a lyrics line
+@subsection Switching the melody associated with a lyrics line
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@subsection Lyrics independent of notes
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -816,11 +825,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@subsubsection Adding stanza numbers 
-@subsubsection Adding dynamics marks
-@subsubsection Adding singer names
-@subsubsection Printing stanzas at the end 
-@subsubsection Printing stanzas at the end in multiple columns 
+@subsection Adding stanza numbers 
+@subsection Adding dynamics marks
+@subsection Adding singer names
+@subsection Printing stanzas at the end 
+@subsection Printing stanzas at the end in multiple columns 
 @node Ambitus
 @subsection Ambitus
 
@@ -1702,6 +1711,8 @@ Hier sind alle Unterkapitel auf einen Blick:
 * Custodes::                    
 * Divisiones::                  
 * Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 * Gregorian Chant contexts::    
 * Mensural contexts::           
 * Musica ficta accidentals::    
@@ -2480,7 +2491,7 @@ mit der selben Wirkung zur Verfügung stellt und stabil zu sein scheint.
 @end menu
 
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@subsection White mensural ligatures
 
 @cindex Mensuralligaturen
 @cindex Weiße Mensuralligaturen
@@ -2571,7 +2582,7 @@ wie folgt ausgegeben:
 Die horizontale Positionierung ist sehr schlecht.
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@subsection Gregorian square neumes ligatures
 
 @cindex Quadratische Neumenligaturen
 @cindex Gregorianische quadratische Neumenligaturen
