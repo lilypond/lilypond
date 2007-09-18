@@ -328,6 +328,11 @@ class Part_list (Music_xml_node):
         else:
             sys.stderr.write ("Opps, couldn't find instrument for ID=%s\n" % id)
             return "Grand Piano"
+
+class Part_group (Music_xml_node):
+    pass
+class Score_part (Music_xml_node):
+    pass
         
 class Measure (Music_xml_node):
     def get_notes (self):
@@ -697,10 +702,12 @@ class_dict = {
 	'note': Note,
         'octave-shift': Octave_shift,
 	'part': Part,
+    'part-group': Part_group,
 	'part-list': Part_list,
         'pedal': Pedal,
 	'pitch': Pitch,
 	'rest': Rest,
+    'score-part': Score_part,
 	'slur': Slur,
 	'staff': Staff,
         'syllabic': Syllabic,

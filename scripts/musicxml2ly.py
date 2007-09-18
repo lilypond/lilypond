@@ -63,6 +63,80 @@ def extract_score_information (tree):
     return header
 
 
+def extract_score_layout (part_list):
+    layout = musicexp.StaffGroup (None)
+    currentgroups_dict = {}
+    currentgroups = []
+    if not part_list:
+        return layout
+
+    def insert_into_layout (object):
+            if len (currentgroups) > 0:
+                group_to_insert = currentgroups_dict.get (currentgroups [-1], layout)
+            else:
+                group_to_insert = layout
+            group_to_insert.appendStaff (object)
+            return group_to_insert
+
+    def read_score_part (el):
+        if not isinstance (el, musicxml.Score_part):
+            return
+        staff = musicexp.Staff ()
+        staff.id = el.id
+        partname = el.get_maybe_exist_named_child ('part-name')
+        # Finale gives unnamed parts the name "MusicXML Part" automatically!
+        if partname and partname.get_text() != "MusicXML Part":
+            staff.instrument_name = partname.get_text ()
+        if el.get_maybe_exist_named_child ('part-abbreviation'):
+            staff.short_instrument_name = el.get_maybe_exist_named_child ('part-abbreviation').get_text ()
+        # TODO: Read in the MIDI device / instrument
+        return staff
+
+
+    parts_groups = part_list.get_all_children ()
+    # the start/end group tags are not necessarily ordered correctly, so
+    # we can't go through the children sequentially!
+
+    if len (parts_groups) == 1 and isinstance (parts_group[1], musicxml.Score_part):
+        return read_score_part (parts_group[1])
+
+    for el in parts_groups:
+        if isinstance (el, musicxml.Score_part):
+            staff = read_score_part (el)
+            insert_into_layout (staff)
+        elif isinstance (el, musicxml.Part_group):
+            if el.type == "start":
+                group = musicexp.StaffGroup ()
+                staff_group = insert_into_layout (group)
+                # If we're inserting a nested staffgroup, we need to use InnerStaffGroup
+                if staff_group != layout:
+                    group.stafftype = "InnerStaffGroup"
+                if hasattr (el, 'number'):
+                    id = el.number
+                    group.id = id
+                    currentgroups_dict[id] = group
+                    currentgroups.append (id)
+                if el.get_maybe_exist_named_child ('group-name'):
+                    group.instrument_name = el.get_maybe_exist_named_child ('group-name').get_text ()
+                if el.get_maybe_exist_named_child ('group-abbreviation'):
+                    group.short_instrument_name = el.get_maybe_exist_named_child ('group-abbreviation').get_text ()
+                if el.get_maybe_exist_named_child ('group-symbol'):
+                    group.symbol = el.get_maybe_exist_named_child ('group-symbol').get_text ()
+                if el.get_maybe_exist_named_child ('group-barline'):
+                    group.spanbar = el.get_maybe_exist_named_child ('group-barline').get_text ()
+
+            elif el.type == "stop":
+                # end the part-group, i.e. simply remove it from the lists
+                if hasattr (el, 'number'):
+                    pid = el.number
+                elif len (currentgroups) > 0:
+                    pid = el[-1]
+                if pid:
+                    del currentgroups_dict[pid]
+                    currentgroups.remove (pid)
+    return layout
+
+
 
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
@@ -884,15 +958,15 @@ def print_voice_definitions (printer, part_list, voices):
         part_dict[part.id] = (part, nv_dict)
 
     for part in part_list:
-        (part, nv_dict) = part_dict.get (part.id, (None, {}))
+        (p, nv_dict) = part_dict.get (part.id, (None, {}))
         for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
-            k = music_xml_voice_name_to_lily_name (part, name)
+            k = music_xml_voice_name_to_lily_name (p, name)
             printer.dump ('%s = ' % k)
             voice.print_ly (printer)
             printer.newline()
             
             for l in lyrics.keys ():
-                lname = music_xml_lyrics_name_to_lily_name (part, name, l)
+                lname = music_xml_lyrics_name_to_lily_name (p, name, l)
                 printer.dump ('%s = ' %lname )
                 lyrics[l].print_ly (printer)
                 printer.newline()
@@ -900,12 +974,29 @@ def print_voice_definitions (printer, part_list, voices):
             
 def uniq_list (l):
     return dict ([(elt,1) for elt in l]).keys ()
-    
-def print_score_setup (printer, part_list, voices):
-    part_dict = dict ([(p.id, p) for p in voices.keys ()]) 
 
-    printer ('<<')
-    printer.newline ()
+# format the information about the staff in the form 
+#     [staffid,
+#         [
+#            [voiceid1, [lyricsid11, lyricsid12,...] ...],
+#            [voiceid2, [lyricsid21, lyricsid22,...] ...],
+#            ...
+#         ]
+#     ]
+# raw_voices is of the form [(voicename, lyrics)*]
+def format_staff_info (part, staff_id, raw_voices):
+    voices = []
+    for (v, lyrics) in raw_voices:
+        voice_name = music_xml_voice_name_to_lily_name (part, v)
+        voice_lyrics = [music_xml_lyrics_name_to_lily_name (part, v, l)
+                   for l in lyrics.keys ()]
+        voices.append ([voice_name, voice_lyrics])
+    return [staff_id, voices]
+
+def update_score_setup (score_structure, part_list, voices):
+    part_dict = dict ([(p.id, p) for p in voices.keys ()])
+    final_part_dict = {}
+
     for part_definition in part_list:
         part_name = part_definition.id
         part = part_dict.get (part_name)
@@ -918,56 +1009,21 @@ def print_score_setup (printer, part_list, voices):
                 [mxlvoice._staves.keys ()
                  for (v, mxlvoice) in nv_dict.values ()],
                 [])
-
+        staves_info = []
         if len (staves) > 1:
+            staves_info = []
             staves = uniq_list (staves)
             staves.sort ()
-            printer ('\\context PianoStaff << ')
-            printer.newline ()
-            
             for s in staves:
-                staff_voices = [(music_xml_voice_name_to_lily_name (part, voice_name), voice_name, v)
-                        for (voice_name, (v, mxlvoice)) in nv_dict.items ()
-                        if mxlvoice._start_staff == s]
-                
-                printer ('\\context Staff = "%s" << ' % s)
-                printer.newline ()
-                for (v, voice_name, (music, lyrics)) in staff_voices:
-                    printer ('\\context Voice = "%s"  \\%s' % (v,v))
-                    printer.newline ()
-                    
-                    # Assign the lyrics to that voice
-                    for l in lyrics.keys ():
-                        ll = music_xml_lyrics_name_to_lily_name (part, voice_name, l)
-                        printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (v, ll))
-                        printer.newline()
-                        printer.newline()
-                    
-                printer ('>>')
-                printer.newline ()
-                
-            printer ('>>')
-            printer.newline ()
-            
+                thisstaff_raw_voices = [(voice_name, lyrics) 
+                    for (voice_name, ((music, lyrics), mxlvoice)) in nv_dict.items ()
+                    if mxlvoice._start_staff == s]
+                staves_info.append (format_staff_info (part, s, thisstaff_raw_voices))
         else:
-            printer ('\\new Staff <<')
-            printer.newline ()
-            for (n,v) in nv_dict.items ():
-                ((music, lyrics), voice) = v
-                nn = music_xml_voice_name_to_lily_name (part, n) 
-                printer ('\\context Voice = "%s"  \\%s' % (nn,nn))
-
-                # Assign the lyrics to that voice
-                for l in lyrics.keys ():
-                    ll = music_xml_lyrics_name_to_lily_name (part, n, l)
-                    printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (nn, ll))
-                    printer.newline()
-
-            printer ('>>')
-            printer.newline ()
-            
-    printer ('>>')
-    printer.newline ()
+            thisstaff_raw_voices = [(voice_name, lyrics) 
+                for (voice_name, ((music, lyrics), mxlvoice)) in nv_dict.items ()]
+            staves_info.append (format_staff_info (part, None, thisstaff_raw_voices))
+        score_structure.setPartInformation (part_name, staves_info)
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
@@ -995,16 +1051,17 @@ def convert (filename, options):
     
     tree = read_musicxml (filename, options.use_lxml)
 
-    part_list = []
-    id_instrument_map = {}
-    if tree.get_maybe_exist_typed_child (musicxml.Part_list):
-        mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
+    score_structure = None
+    mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
+    if mxl_pl:
+        score_structure = extract_score_layout (mxl_pl)
         part_list = mxl_pl.get_named_children ("score-part")
-        
+
     # score information is contained in the <work>, <identification> or <movement-title> tags
     score_information = extract_score_information (tree)
     parts = tree.get_typed_children (musicxml.Part)
     voices = get_all_voices (parts)
+    update_score_setup (score_structure, part_list, voices)
 
     if not options.output_name:
         options.output_name = os.path.basename (filename) 
@@ -1032,7 +1089,7 @@ def convert (filename, options):
     printer.set_file (codecs.open (driver_ly_name, 'wb', encoding='utf-8'))
     print_ly_preamble (printer, filename)
     printer.dump (r'\include "%s"' % os.path.basename (defs_ly_name))
-    print_score_setup (printer, part_list, voices)
+    score_structure.print_ly (printer)
     printer.newline ()
 
     return voices
