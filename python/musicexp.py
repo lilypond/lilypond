@@ -960,8 +960,14 @@ class Staff (StaffGroup):
             else:
                 printer ('\\context Staff << ')
             printer.newline ()
+            n = 0
+            nr_voices = len (voices)
             for [v, lyrics] in voices:
-                printer ('\\context Voice = "%s"  \\%s' % (v,v))
+                n += 1
+                voice_count_text = ''
+                if nr_voices > 1:
+                    voice_count_text = {1: ' \\voiceOne'}.get (n, ' \\voiceTwo')
+                printer ('\\context Voice = "%s" {%s \\%s }' % (v,voice_count_text,v))
                 printer.newline ()
 
                 for l in lyrics:
