@@ -226,7 +226,7 @@
 
 @macro rglos{NAME}
 @vindex \NAME\
-@inforef{\NAME\,,,music-glossary}
+@inforef{\NAME\,,music-glossary}
 @end macro
 
 @macro usermanref{NAME}
