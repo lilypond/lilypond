@@ -62,7 +62,7 @@ dafür gibt es Lösungen, vgl. die
 
 
 @node Automatic staff changes
-@subsection Automatic staff changes
+@unnumberedsubsubsec Automatic staff changes
 @cindex Automatischer Systemwechsel
 
 Stimmen können angewiesen werden, automatisch zwischen dem 
@@ -120,7 +120,7 @@ Für hohe Qualität muss der Wechsel mit der Hand eingegeben werden.
 befinden.
 
 @node Manual staff switches
-@subsection Manual staff switches
+@unnumberedsubsubsec Manual staff switches
 
 @cindex manuelle Systemwechsel
 @cindex Systemwechsel, manuell
@@ -163,7 +163,7 @@ daraufhin eingefügt.
 
 
 @node Pedals
-@subsection Pedals
+@unnumberedsubsubsec Pedals
 @cindex Pedalbezeichnung
 
 Klaviere haben Pedale, mit denen die Klangeigenschaften beeinflusst werden 
@@ -235,7 +235,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 Im Handbuch: @ref{Laissez vibrer ties}
 
 @node Staff switch lines
-@subsection Staff switch lines
+@unnumberedsubsubsec Staff switch lines
 
 
 @cindex Stimmkreuzung
@@ -274,7 +274,7 @@ Programmreferenz: @internalsref{VoiceFollower}.
 
 
 @node Cross staff stems
-@subsection Cross staff stems
+@unnumberedsubsubsec Cross staff stems
 
 Akkorde, die über zwei Systeme reichen, können erstellt werden,
 indem die Länge der Hälse im unteren System vergrößert wird, 
@@ -314,7 +314,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 
 
 @node Introducing chord names
-@subsection Introducing chord names
+@unnumberedsubsubsec Introducing chord names
 @cindex Akkordbezeichnungen
 
 LilyPond bringt Unterstützung zur Ausgabe von Akkordsymbolen 
@@ -351,7 +351,7 @@ spitzen Klammern @code{<>} notiert werden.
 
 
 @node Chords mode
-@subsection Chords mode
+@unnumberedsubsubsec Chords mode
 @cindex Akkord-Modus
 
 Im Akkord-Modus wird eine Anzahl von Tonhöhen (ein Akkord) 
@@ -507,7 +507,7 @@ weil @code{5+} als letztes kommt.
 
 
 @node Printing chord names
-@subsection Printing chord names
+@unnumberedsubsubsec Printing chord names
 
 @cindex Akkordsymbole
 @cindex Ausgabe von Akkordbezeichnungen
@@ -733,17 +733,17 @@ UNTRANSLATED NODE: IGNORE ME
 * Other vocal issues::          
 @end menu 
 @node Setting simple songs
-@subsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Entering lyrics
-@subsection Entering lyrics
+@unnumberedsubsubsec Entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@unnumberedsubsubsec Aligning lyrics to a melody
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -755,37 +755,37 @@ UNTRANSLATED NODE: IGNORE ME
 * Extenders and hyphens::
 @end menu 
 @node Automatic syllable durations
-@subsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Another way of entering lyrics
-@subsection Another way of entering lyrics
+@unnumberedsubsubsec Another way of entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Assigning more than one syllable to a single note
-@subsection Assigning more than one syllable to a single note
+@unnumberedsubsubsec Assigning more than one syllable to a single note
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More than one note on a single syllable
-@subsection More than one note on a single syllable
+@unnumberedsubsubsec More than one note on a single syllable
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Extenders and hyphens
-@subsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Working with lyrics and identifiers
-@subsection Working with lyrics and identifiers
+@unnumberedsubsubsec Working with lyrics and identifiers
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Flexibility in placement
-@subsection Flexibility in placement
+@unnumberedsubsubsec Flexibility in placement
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -796,47 +796,47 @@ UNTRANSLATED NODE: IGNORE ME
 * Lyrics independent of notes::
 @end menu 
 @node Lyrics to multiple notes of a melisma
-@subsection Lyrics to multiple notes of a melisma
+@unnumberedsubsubsec Lyrics to multiple notes of a melisma
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Divisi lyrics
-@subsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Switching the melody associated with a lyrics line
-@subsection Switching the melody associated with a lyrics line
+@unnumberedsubsubsec Switching the melody associated with a lyrics line
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Lyrics independent of notes
-@subsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Spacing lyrics
-@subsection Spacing lyrics
+@unnumberedsubsubsec Spacing lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More about stanzas
-@subsection More about stanzas
+@unnumberedsubsubsec More about stanzas
 
 UNTRANSLATED NODE: IGNORE ME
 
-@subsection Adding stanza numbers 
-@subsection Adding dynamics marks
-@subsection Adding singer names
-@subsection Printing stanzas at the end 
-@subsection Printing stanzas at the end in multiple columns 
+@unnumberedsubsubsec Adding stanza numbers 
+@unnumberedsubsubsec Adding dynamics marks
+@unnumberedsubsubsec Adding singer names
+@unnumberedsubsubsec Printing stanzas at the end 
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
 @node Ambitus
-@subsection Ambitus
+@unnumberedsubsubsec Ambitus
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Other vocal issues
-@subsection Other vocal issues
+@unnumberedsubsubsec Other vocal issues
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -856,7 +856,7 @@ aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
 
 
 @node Showing melody rhythms
-@subsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
 erreicht man mit einem Schlagzeug-Notensystem. Alle Tonhöhen werden 
@@ -876,7 +876,7 @@ Programmreferenz: @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
-@subsection Entering percussion
+@unnumberedsubsubsec Entering percussion
 
 @cindex Percussion
 @cindex Drums
@@ -903,7 +903,7 @@ der Datei @file{ly/@/drumpitch@/-init@/.ly}.
 Programmreferenz: @internalsref{note-event}.
 
 @node Percussion staves
-@subsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 @cindex Perkussion
 @cindex Schlagzeug
 
@@ -1122,7 +1122,7 @@ wird sidestick für diesen Zweck benutzt.
 
 @c FIXME: check name -tr
 @node Ghost notes
-@subsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 Geisternoten für Schlagzeug und Perkussion können mit dem 
 Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses}, 
@@ -1175,7 +1175,7 @@ Klammern für Akkorde (@code{< >}) gesetzt werden.
 @end menu
 
 @node String number indications
-@subsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex String numbers
 
@@ -1195,7 +1195,7 @@ Programmreferenz: @internalsref{StringNumber},
 
 
 @node Tablatures basic
-@subsection Tablatures basic
+@unnumberedsubsubsec Tablatures basic
 @cindex Tablatures basic
 
 Tabulatur-Notation wird für die Notation von Zupfinstrumenten benutzt. 
@@ -1286,7 +1286,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 
 
 @node Non-guitar tablatures
-@subsection Non-guitar tablatures
+@unnumberedsubsubsec Non-guitar tablatures
 @cindex Non-guitar tablatures
 
 Die Stimmung der Saiten kann verändert werden. Die Stimmung muss als 
@@ -1335,7 +1335,7 @@ Spezialeffekte für Gitarren sind noch nicht implementiert.
 
 
 @node Banjo tablatures
-@subsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 @cindex Banjo tablatures
 
 LilyPond unterstützt die Basisnotation für das fünfsaitige Banjo. Die 
@@ -1376,7 +1376,7 @@ Banjo-Stimmungen.
 
 
 @node Fret diagrams
-@subsection Fret diagrams
+@unnumberedsubsubsec Fret diagrams
 @cindex Fret-Diagramme
 @cindex Griffsymbole
 @cindex Gitarrengriffsymbole
@@ -1432,7 +1432,7 @@ Examples: @lsrdir{guitar}.
 
 
 @node Right hand fingerings
-@subsection Right hand fingerings
+@unnumberedsubsubsec Right hand fingerings
 
 Fingersatz für die rechte Hand in Akkorden kann notiert werden, indem 
 der Befehl @code{@var{note}-\rightHandFinger @var{finger}} 
@@ -1490,7 +1490,7 @@ Program reference: @internalsref{StrokeFinger}
 
 
 @node Other guitar issues
-@subsection Other guitar issues
+@unnumberedsubsubsec Other guitar issues
 
 Dieses Beispiel zeigt, wie Griff - und Barre-Angaben 
 eingefügt werden können.
@@ -1527,7 +1527,7 @@ gezeigt.
 
 
 @node Bagpipe definitions
-@subsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
 
 LilyPond besitzt spezielle Definitionen, mit der die Musik 
 des schottischen Hochland-Dudelsacks notiert wird. Um sie 
@@ -1573,7 +1573,7 @@ music.
 
 
 @node Bagpipe example
-@subsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
 
 So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für 
 Dudelsack notiert.
@@ -1722,7 +1722,7 @@ Hier sind alle Unterkapitel auf einen Blick:
 
 
 @node Ancient note heads
-@subsection Ancient note heads
+@unnumberedsubsubsec Ancient note heads
 
 @cindex Notenköpfe, Alte Musik
 
@@ -1766,7 +1766,7 @@ Notenkopfstile zur Verfügung.
 
 
 @node Ancient accidentals
-@subsection Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
 
 @cindex Vorzeichen, Alte Musik
 
@@ -1837,7 +1837,7 @@ Programmreferenz: @internalsref{KeySignature}.
 Beispiele: @lsrdir{ancient}.
 
 @node Ancient rests
-@subsection Ancient rests
+@unnumberedsubsubsec Ancient rests
 
 @cindex Pausen, Alte Musik
 
@@ -1874,7 +1874,7 @@ Einführung zur Benutzung von Pausen.
 
 
 @node Ancient clefs
-@subsection Ancient clefs
+@unnumberedsubsubsec Ancient clefs
 
 @cindex Schlüssel, Alte Musik
 
@@ -2116,7 +2116,7 @@ Der mensurale G-Schlüssel ist als Petrucci-G-schlüssel deklariert.
 
 
 @node Ancient flags
-@subsection Ancient flags
+@unnumberedsubsubsec Ancient flags
 
 @cindex Fähnchen, Alte Musik
 
@@ -2155,7 +2155,7 @@ eingesetzt werden.
 
 
 @node Ancient time signatures
-@subsection Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
 
 @cindex Taktart, Alte Musik
 @cindex Mensur
@@ -2271,7 +2271,7 @@ eine Textbeschriftung (@code{\markup}).
 
 
 @node Ancient articulations
-@subsection Ancient articulations
+@unnumberedsubsubsec Ancient articulations
 
 @cindex articulations
 
@@ -2305,7 +2305,7 @@ Die Episem-Linie wird in vielen Fällen nicht angezeigt. Wenn sie angezeigt wird
 ist das rechte Ende der Episem-Linie oft zu weit rechts.
 
 @node Custodes
-@subsection Custodes
+@unnumberedsubsubsec Custodes
 
 @cindex Custodes
 
@@ -2384,7 +2384,7 @@ Examples:
 
 
 @node Divisiones
-@subsection Divisiones
+@unnumberedsubsubsec Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -2434,7 +2434,7 @@ Programmreferenz: @internalsref{BreathingSign}.
 Beispiele: @lsr{expressive,breathing-sign.ly}.
 
 @node Ligatures
-@subsection Ligatures
+@unnumberedsubsubsec Ligatures
 
 @cindex Ligaturen
 
@@ -2491,7 +2491,7 @@ mit der selben Wirkung zur Verfügung stellt und stabil zu sein scheint.
 @end menu
 
 @node White mensural ligatures
-@subsection White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
 
 @cindex Mensuralligaturen
 @cindex Weiße Mensuralligaturen
@@ -2582,7 +2582,7 @@ wie folgt ausgegeben:
 Die horizontale Positionierung ist sehr schlecht.
 
 @node Gregorian square neumes ligatures
-@subsection Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex Quadratische Neumenligaturen
 @cindex Gregorianische quadratische Neumenligaturen
@@ -3538,7 +3538,7 @@ musikalische Funktion, so dass @code{\augmentum} mit den anderen
 Präfixen in arbiträrer Reihenfolge notiert werden kann.
 
 @node Gregorian Chant contexts
-@subsection Gregorian Chant contexts
+@unnumberedsubsubsec Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -3573,7 +3573,7 @@ begonnen werden kann. Siehe das folgende Beispiel:
 
 
 @node Mensural contexts
-@subsection Mensural contexts
+@unnumberedsubsubsec Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -3607,7 +3607,7 @@ werden kann. Siehe das folgende Beispiel:
 @end lilypond
 
 @node Musica ficta accidentals
-@subsection Musica ficta accidentals
+@unnumberedsubsubsec Musica ficta accidentals
 
 In der europäischen Musik vor 1600 wurden vom Sänger oftmals 
 chromatische Alterationen erwartet, die nicht notiert wurden. 
@@ -3637,7 +3637,7 @@ Programmreferenz: @internalsref{Accidental_engraver}-Setzer und das
 @internalsref{AccidentalSuggestion}-Objekt.
 
 @node Figured bass
-@subsection Figured bass
+@unnumberedsubsubsec Figured bass
 
 @cindex Basso continuo
 @cindex Generalbass
@@ -3849,7 +3849,7 @@ Information.
 @end menu
 
 @node Artificial harmonics (strings)
-@subsection Artificial harmonics (strings)
+@unnumberedsubsubsec Artificial harmonics (strings)
 
 @cindex Flageolett
 

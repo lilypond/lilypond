@@ -1512,7 +1512,7 @@ layout.
 @unnumberedsubsubsec More about stanzas
 
 @cindex stanza number
-@subsection Adding stanza numbers 
+@unnumberedsubsubsec Adding stanza numbers 
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
@@ -1532,7 +1532,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 These numbers are put just before the start of the first syllable.
 
 
-@subsection Adding dynamics marks
+@unnumberedsubsubsec Adding dynamics marks
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In Lilypond, everthing coming in
@@ -1559,7 +1559,7 @@ text = {
 
 @cindex singer name
 @cindex name of singer
-@subsection Adding singer names
+@unnumberedsubsubsec Adding singer names
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
@@ -1578,7 +1578,7 @@ the line, just like instrument names.  They are created by setting
 @end lilypond
 
 
-@subsection Printing stanzas at the end 
+@unnumberedsubsubsec Printing stanzas at the end 
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1622,7 +1622,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-@subsection Printing stanzas at the end in multiple columns 
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page. An outdented verse number often

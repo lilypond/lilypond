@@ -53,7 +53,7 @@ piano} au chapitre @ref{Piano templates}.
 
 
 @node Automatic staff changes
-@subsection Automatic staff changes
+@unnumberedsubsubsec Automatic staff changes
 @cindex Changements de portées automatiques
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
@@ -114,7 +114,7 @@ vaut mieux indiquer soi-même ces changements.
 
 
 @node Manual staff switches
-@subsection Manual staff switches
+@unnumberedsubsubsec Manual staff switches
 
 @cindex changements de portées manuels
 @cindex changement de portée, manuel
@@ -156,7 +156,7 @@ avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
 
 
 @node Pedals
-@subsection Pedals
+@unnumberedsubsubsec Pedals
 @cindex Pédales
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
@@ -224,7 +224,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 Dans ce manuel : @ref{Laissez vibrer ties}.
 
 @node Staff switch lines
-@subsection Staff switch lines
+@unnumberedsubsubsec Staff switch lines
 
 
 @cindex voix entre deux portées
@@ -262,7 +262,7 @@ Référence du programme : @internalsref{VoiceFollower}.
 
 
 @node Cross staff stems
-@subsection Cross staff stems
+@unnumberedsubsubsec Cross staff stems
 
 Pour écrire des accords qui enjambent deux portées, on allonge la hampe
 de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
@@ -303,7 +303,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
 @node Introducing chord names
-@subsection Introducing chord names
+@unnumberedsubsubsec Introducing chord names
 @cindex accords, chiffrage jazz
 
 LilyPond permet de désigner les accords par leur chiffrage jazz.
@@ -340,7 +340,7 @@ Notez bien que la valeur rythmique des accords doit être indiquée
 
 
 @node Chords mode
-@subsection Chords mode
+@unnumberedsubsubsec Chords mode
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
 accords ne sont indiqués que par leur note fondamentale.
@@ -479,7 +479,7 @@ car elle est indiquée en dernier :
 
 
 @node Printing chord names
-@subsection Printing chord names
+@unnumberedsubsubsec Printing chord names
 
 @cindex chiffrages d'accords
 @cindex accords
@@ -738,7 +738,7 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 
 
 @node Setting simple songs
-@subsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 @cindex \addlyrics
 
@@ -776,7 +776,7 @@ constructions polyphoniques.  Dans ce cas, mieux vaut employer
 
 
 @node Entering lyrics
-@subsection Entering lyrics
+@unnumberedsubsubsec Entering lyrics
 
 @cindex paroles
 @funindex \lyricmode
@@ -914,7 +914,7 @@ Référence du programme : @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 @node Aligning lyrics to a melody
-@subsection Aligning lyrics to a melody
+@unnumberedsubsubsec Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -950,7 +950,7 @@ contexte @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @cindex durée automatique des syllabes
 @cindex paroles et mélodies
@@ -1006,7 +1006,7 @@ est exactement la même chose que
 @end example
 
 @node Another way of entering lyrics
-@subsection Another way of entering lyrics
+@unnumberedsubsubsec Another way of entering lyrics
 
 On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto} pour
 saisir des paroles.  Dans ce cas, les syllabes sont entrées comme des
@@ -1049,7 +1049,7 @@ Référence du programme : @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
-@subsection Assigning more than one syllable to a single note
+@unnumberedsubsubsec Assigning more than one syllable to a single note
 
 
 @funindex _
@@ -1080,7 +1080,7 @@ Référence du programme : @internalsref{LyricCombineMusic}.
 
 
 @node More than one note on a single syllable
-@subsection More than one note on a single syllable
+@unnumberedsubsubsec More than one note on a single syllable
 
 @cindex mélisme
 @cindex vocalise
@@ -1164,7 +1164,7 @@ Certains mélismes ne sont pas détectés automatiquement ; vous devrez
 alors prolonger vous-même les syllabes concernées.
 
 @node Extenders and hyphens
-@subsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @cindex mélisme
 @cindex extenseur
@@ -1195,7 +1195,7 @@ Référence du programme : @internalsref{LyricExtender},
 
 
 @node Working with lyrics and identifiers
-@subsection Working with lyrics and identifiers
+@unnumberedsubsubsec Working with lyrics and identifiers
 @cindex paroles, identificateurs
 
 La fonction @code{\lyricmode} permet de définir un identificateur pour
@@ -1255,7 +1255,7 @@ Référence du programme : @internalsref{LyricCombineMusic},
 
 
 @node Flexibility in placement
-@subsection Flexibility in placement
+@unnumberedsubsubsec Flexibility in placement
 
 Une même mélodie peut se voir traitée différemment suivant les couplets.
 La commande @code{\lyricsto} permet de prendre en compte ces variantes.
@@ -1269,7 +1269,7 @@ La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 
 
 @node Lyrics to multiple notes of a melisma
-@subsection Lyrics to multiple notes of a melisma
+@unnumberedsubsubsec Lyrics to multiple notes of a melisma
 
 Il peut survenir que les paroles comportent un mélisme pour l'un des
 couplets, mais plusieurs syllabes pour d'autres. Une solution consiste à
@@ -1324,7 +1324,7 @@ suivant d'une note :
 
 
 @node Divisi lyrics
-@subsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
 des paroles, on peut créer des paroles alternatives --- également
@@ -1370,7 +1370,7 @@ Cette astuce permet de faire varier les paroles lorsqu'une section est reprise.
 
 
 @node Switching the melody associated with a lyrics line
-@subsection Switching the melody associated with a lyrics line
+@unnumberedsubsubsec Switching the melody associated with a lyrics line
 
 On peut créer des variations plus complexes à partir d'une mélodie à
 plusieurs voix.  Les paroles peuvent suivre l'une ou l'autre des
@@ -1456,7 +1456,7 @@ la valeur @code{lahlah}.
 
 
 @node Lyrics independent of notes
-@subsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 Dans certaines musiques vocales assez complexes, on peut avoir intérêt à
 imprimer les paroles indépendamment des notes.  La mélodie sur laquelle
@@ -1487,7 +1487,7 @@ lyr = \lyricmode { I like my cat! }
 
 
 @node Spacing lyrics
-@subsection Spacing lyrics
+@unnumberedsubsubsec Spacing lyrics
 
 @cindex espacer des paroles
 @cindex paroles, accroître l'espacement
@@ -1531,10 +1531,10 @@ dans le bloc @code{\layout}.
 
 
 @node More about stanzas
-@subsection More about stanzas
+@unnumberedsubsubsec More about stanzas
 
 @cindex numéro de couplet
-@subsection Adding stanza numbers 
+@unnumberedsubsubsec Adding stanza numbers 
 
 On peut ajouter un numéro aux couplets en définissant la variable
 @code{stanza} :
@@ -1554,7 +1554,7 @@ On peut ajouter un numéro aux couplets en définissant la variable
 @noindent
 Ces numéros se placeront juste avant le début de la première syllabe.
 
-@subsection Adding dynamics marks
+@unnumberedsubsubsec Adding dynamics marks
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
 une nuance devant chaque numéro.  L'objet @code{StanzaNumber} contient
@@ -1581,7 +1581,7 @@ text = {
 
 @cindex nom de personnage
 @cindex nom du chanteur
-@subsection Adding singer names
+@unnumberedsubsubsec Adding singer names
 
 On peut également ajouter le nom de chaque rôle ; ils s'imprimeront au
 début de chaque ligne comme les noms d'instruments.  Il faut pour cela
@@ -1601,7 +1601,7 @@ abrégée.
 @end lilypond
 
 
-@subsection Printing stanzas at the end 
+@unnumberedsubsubsec Printing stanzas at the end 
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie, et de présenter tous les autres en bloc à la fin du morceau.
@@ -1646,7 +1646,7 @@ its fleece was white as snow.
 @end lilypond
 
 
-@subsection Printing stanzas at the end in multiple columns 
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
 
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  De plus, l'exemple suivant vous montrera
@@ -1723,7 +1723,7 @@ Référence du programme : @internalsref{LyricText},
 
 
 @node Ambitus
-@subsection Ambitus
+@unnumberedsubsubsec Ambitus
 @cindex ambitus
 
 L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
@@ -1818,7 +1818,7 @@ une même portée.
 
 
 @node Other vocal issues
-@subsection Other vocal issues
+@unnumberedsubsubsec Other vocal issues
 
 @ignore
 yeah, I'm giving up somewhat by stuffing a bunch of things in
@@ -1851,7 +1851,7 @@ montrer le rythme d'une mélodie.
 
 
 @node Showing melody rhythms
-@subsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 Au moyen d'une portée rythmique -- @q{rhythmic staff} en anglais -- on
 peut montrer seulement le rythme d'une mélodie : toutes les notes sont
@@ -1870,7 +1870,7 @@ Référence du programme : @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
-@subsection Entering percussion
+@unnumberedsubsubsec Entering percussion
 
 @cindex percussions
 @cindex batterie
@@ -1896,7 +1896,7 @@ Ces noms sont inventoriés dans le fichier d'initialisation
 Référence du Programme : @internalsref{note-event}.
 
 @node Percussion staves
-@subsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 @cindex percussions
 @cindex batterie
 
@@ -2117,7 +2117,7 @@ sur le bord de la caisse claire --- donc ils sont remplacés par des
 
 @c FIXME: check name -gp
 @node Ghost notes
-@subsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 Des notes fantômes peuvent être créées pour les parties de percussion,
 grâce à la commande @code{\parenthesize} décrite dans
@@ -2168,7 +2168,7 @@ accords --- sous la forme @code{< >} --- autour de chaque élément.
 @end menu
 
 @node String number indications
-@subsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex cordes numérotées
 @cindex numéro de corde
@@ -2188,7 +2188,7 @@ Référence du programme : @internalsref{StringNumber},
 
 
 @node Tablatures basic
-@subsection Tablatures basic
+@unnumberedsubsubsec Tablatures basic
 @cindex tablatures de base
 
 La notation en tablature est utilisée pour certains instruments à cordes
@@ -2280,7 +2280,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 
 
 @node Non-guitar tablatures
-@subsection Non-guitar tablatures
+@unnumberedsubsubsec Non-guitar tablatures
 @cindex tablatures, autres
 
 Vous pouvez bien sûr accorder vos cordes différemment.  Cet accord est
@@ -2329,7 +2329,7 @@ Aucun effet spécial de guitare n'a été implémenté à ce jour.
 
 
 @node Banjo tablatures
-@subsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 @cindex Tablatures de banjo
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
@@ -2369,7 +2369,7 @@ dans le fichier @file{scm/@/output@/-lib@/.scm}.
 
 
 @node Fret diagrams
-@subsection Fret diagrams
+@unnumberedsubsubsec Fret diagrams
 @cindex schémas d'accords
 @cindex schémas de barrés
 
@@ -2419,7 +2419,7 @@ Exemples : @lsrdir{guitar}
 
 
 @node Right hand fingerings
-@subsection Right hand fingerings
+@unnumberedsubsubsec Right hand fingerings
 
 Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
 de @code{@var{note}-\rightHandFinger @var{doigté}}
@@ -2475,7 +2475,7 @@ Référence du programme : @internalsref{StrokeFinger}
 
 
 @node Other guitar issues
-@subsection Other guitar issues
+@unnumberedsubsubsec Other guitar issues
 
 
 Voici comment insérer des indications de position.
@@ -2510,7 +2510,7 @@ Vous trouverez plus de détails dans @ref{Special noteheads}.
 
 
 @node Bagpipe definitions
-@subsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
 cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
@@ -2555,7 +2555,7 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 
 
 @node Bagpipe example
-@subsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
 
 Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @emph{Amazing Grace}, noté dans l'idiome de la cornemuse.
@@ -2701,7 +2701,7 @@ Voici les points que nous allons aborder :
 
 
 @node Ancient note heads
-@subsection Ancient note heads
+@unnumberedsubsubsec Ancient note heads
 
 @cindex têtes de note, musique ancienne
 
@@ -2745,7 +2745,7 @@ consultez @ref{Note head styles}.
 
 
 @node Ancient accidentals
-@subsection Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
 
 @cindex altérations
 
@@ -2814,7 +2814,7 @@ Exemples : @lsrdir{ancient}
 
 
 @node Ancient rests
-@subsection Ancient rests
+@unnumberedsubsubsec Ancient rests
 
 @cindex silences, musique ancienne
 
@@ -2849,7 +2849,7 @@ l'utilisation des silences.
 
 
 @node Ancient clefs
-@subsection Ancient clefs
+@unnumberedsubsubsec Ancient clefs
 
 @cindex clefs
 @cindex clés
@@ -3089,7 +3089,7 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 
 
 @node Ancient flags
-@subsection Ancient flags
+@unnumberedsubsubsec Ancient flags
 
 @cindex crochets
 
@@ -3129,7 +3129,7 @@ pas prévues pour être appliquées à la notation mensurale.
 
 
 @node Ancient time signatures
-@subsection Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
 
 @cindex métrique
 
@@ -3243,7 +3243,7 @@ plutôt un @code{\markup}.
 
 
 @node Ancient articulations
-@subsection Ancient articulations
+@unnumberedsubsubsec Ancient articulations
 
 @cindex articulations
 
@@ -3276,7 +3276,7 @@ Le trait d'un episem n'est bien souvent pas apparent et, lorsqu'il
 l'est, son extension à droite est trop longue.
 
 @node Custodes
-@subsection Custodes
+@unnumberedsubsubsec Custodes
 
 @cindex custos
 @cindex custodes
@@ -3356,7 +3356,7 @@ Exemples : @lsr{ancient,custodes@/.ly}.
 
 
 @node Divisiones
-@subsection Divisiones
+@unnumberedsubsubsec Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -3406,7 +3406,7 @@ Exemples : @lsr{expressive,breathing-sign.ly}.
 
 
 @node Ligatures
-@subsection Ligatures
+@unnumberedsubsubsec Ligatures
 
 @cindex Ligatures
 
@@ -3465,7 +3465,7 @@ qui produit le même résultat, et dont la pérennité est assurée.
 @end menu
 
 @node White mensural ligatures
-@subsection White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
 
 @cindex Ligatures mensurales
 @cindex Ligatures mensurales blanches
@@ -3555,7 +3555,7 @@ L'espacement horizontal n'est pas des meilleurs.
 
 
 @node Gregorian square neumes ligatures
-@subsection Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés
@@ -4509,7 +4509,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
 @node Gregorian Chant contexts
-@subsection Gregorian Chant contexts
+@unnumberedsubsubsec Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -4543,7 +4543,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 
 
 @node Mensural contexts
-@subsection Mensural contexts
+@unnumberedsubsubsec Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -4577,7 +4577,7 @@ lancer dans la saisie de votre chant comme ci-après :
 
 
 @node Musica ficta accidentals
-@subsection Musica ficta accidentals
+@unnumberedsubsubsec Musica ficta accidentals
 
 Dans la musique européenne antérieure au XVIIe siècle, les chanteurs
 étaient censés altérer les notes de leur propre initiative.  On appelait
@@ -4606,7 +4606,7 @@ et l'objet @internalsref{AccidentalSuggestion}.
 
 
 @node Figured bass
-@subsection Figured bass
+@unnumberedsubsubsec Figured bass
 
 @cindex basse continue
 @cindex basse chiffrée
@@ -4828,7 +4828,7 @@ l'écriture pour certains instruments.
 @end menu
 
 @node Artificial harmonics (strings)
-@subsection Artificial harmonics (strings)
+@unnumberedsubsubsec Artificial harmonics (strings)
 
 @cindex harmoniques
 
