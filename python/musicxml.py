@@ -392,7 +392,7 @@ class Musicxml_voice:
 	    and e.get_maybe_exist_typed_child (Staff)):
 	    name = e.get_maybe_exist_typed_child (Staff).get_text ()
 
-	    if not self._start_staff:
+	    if not self._start_staff and not e.get_maybe_exist_typed_child (Grace):
 		self._start_staff = name
 	    self._staves[name] = True
 
