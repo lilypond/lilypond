@@ -70,8 +70,8 @@ c'4^\markup { bla \bold bla }
 @end menu
 
 
-@node Text scripts
-@subsection Text scripts
+@anchor{Text scripts}
+@unnumberedsubsubsec Text scripts
 
 @cindex Text scripts
 @cindex text items, non-empty
@@ -126,8 +126,8 @@ In this manual: @ref{Text markup}.
 Program reference: @internalsref{TextScript}.
 
 
-@node Text and line spanners
-@subsection Text and line spanners
+@anchor{Text and line spanners}
+@unnumberedsubsubsec Text and line spanners
 
 Some performance indications, e.g., @i{rallentando} and
 @i{accelerando} and @i{trills} are written as text and are extended
@@ -257,8 +257,8 @@ Program reference: @internalsref{TextSpanner},
 Examples: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
 
-@node Text spanners
-@subsection Text spanners
+@anchor{Text spanners}
+@unnumberedsubsubsec Text spanners
 
 @cindex Text spanners
 
@@ -308,8 +308,8 @@ To print a solid line, use
 Program reference: @internalsref{TextSpanner}.
 
 
-@node Text marks
-@subsection Text marks
+@anchor{Text marks}
+@unnumberedsubsubsec Text marks
 
 @cindex coda on bar line
 @cindex segno on bar line
@@ -451,8 +451,8 @@ staff, you may alter this to print them on every staff,
 Program reference: @internalsref{RehearsalMark}.
 
 
-@node Text markup
-@subsection Text markup
+@anchor{Text markup}
+@unnumberedsubsubsec Text markup
 
 @cindex markup
 @cindex text markup
@@ -611,8 +611,8 @@ texts will be spaced slightly too wide.
 Syntax errors for markup mode are confusing.
 
 
-@node Nested scores
-@subsection Nested scores
+@anchor{Nested scores}
+@unnumberedsubsubsec Nested scores
 
 It is possible to nest music inside markups, by adding a @code{\score}
 block to a markup expression.  Such a score must contain a @code{\layout}
@@ -630,8 +630,8 @@ block.
 }
 @end lilypond
 
-@node Page wrapping text
-@subsection Page wrapping text
+@anchor{Page wrapping text}
+@unnumberedsubsubsec Page wrapping text
 Whereas @code{\markup} is used to enter a non-breakable block of text,
 @code{\markuplines} can be used at top-level to enter lines of text that
 can spread over multiple pages:
@@ -665,22 +665,22 @@ This manual: @ref{Overview of text markup list commands},
 @funindex \markuplines
 @code{\markuplines}
 
-@node Overview of text markup commands
-@subsection Overview of text markup commands
+@anchor{Overview of text markup commands}
+@unnumberedsubsubsec Overview of text markup commands
 
 The following commands can all be used inside @code{\markup @{ @}}.
 
 @include markup-commands.tely
 
-@node Overview of text markup list commands
-@subsection Overview of text markup list commands
+@anchor{Overview of text markup list commands}
+@unnumberedsubsubsec Overview of text markup list commands
 
 The following commands can all be used with @code{\markuplines}.
 
 @include markup-list-commands.tely
 
-@node Font selection
-@subsection Font selection
+@anchor{Font selection}
+@unnumberedsubsubsec Font selection
 
 @cindex font selection
 @cindex font magnification
@@ -789,8 +789,8 @@ example,
 Examples: @lsr{text,font@/-family@/-override.ly}.
 
 
-@node New dynamic marks
-@subsection New dynamic marks
+@anchor{New dynamic marks}
+@unnumberedsubsubsec New dynamic marks
 
 It is possible to print new dynamic marks or text that should be aligned
 with dynamics.  Use @code{make-dynamic-script} to create these
@@ -845,8 +845,8 @@ individual parts.
 @end menu
 
 
-@node Multi measure rests
-@subsection Multi measure rests
+@anchor{Multi measure rests}
+@unnumberedsubsubsec Multi measure rests
 
 @cindex multi measure rests
 @cindex full measure rests
@@ -961,8 +961,8 @@ When @code{skipBars} is set, the result will look OK, but the bar
 numbering will be off.
 
 
-@node Metronome marks
-@subsection Metronome marks
+@anchor{Metronome marks}
+@unnumberedsubsubsec Metronome marks
 
 @cindex Tempo
 @cindex beats per minute
@@ -1021,8 +1021,8 @@ further away from the staff.
 @end example
 
 
-@node Rehearsal marks
-@subsection Rehearsal marks
+@anchor{Rehearsal marks}
+@unnumberedsubsubsec Rehearsal marks
 
 @cindex Rehearsal marks
 @funindex \mark
@@ -1124,8 +1124,8 @@ formatting functions.
 Examples: @lsr{parts,rehearsal-mark-numbers.ly}
 
 
-@node Bar numbers
-@subsection Bar numbers
+@anchor{Bar numbers}
+@unnumberedsubsubsec Bar numbers
 
 @cindex Bar numbers
 @cindex measure numbers
@@ -1191,8 +1191,8 @@ there is one at the top.  To solve this, the
 used to position the number correctly.
 
 
-@node Instrument names
-@subsection Instrument names
+@anchor{Instrument names}
+@unnumberedsubsubsec Instrument names
 
 In an orchestral score, instrument names are printed at the left side
 of the staves.
@@ -1294,8 +1294,8 @@ Program reference: @internalsref{InstrumentName}.
 
 
 
-@node Instrument transpositions
-@subsection Instrument transpositions
+@anchor{Instrument transpositions}
+@unnumberedsubsubsec Instrument transpositions
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
@@ -1349,8 +1349,8 @@ c'4^"in G"
 @end example
 
 
-@node Ottava brackets
-@subsection Ottava brackets
+@anchor{Ottava brackets}
+@unnumberedsubsubsec Ottava brackets
 
 @q{Ottava} brackets introduce an extra transposition of an octave for
 the staff.  They are created by invoking the function
@@ -1396,8 +1396,8 @@ Program reference: @internalsref{OttavaBracket}.
 during an octavation bracket.
 
 
-@node Different editions from one source
-@subsection Different editions from one source
+@anchor{Different editions from one source}
+@unnumberedsubsubsec Different editions from one source
 
 @funindex \tag
 @cindex tag
@@ -1488,8 +1488,8 @@ some common problems in orchestral music.
 @end menu
 
 
-@node Automatic part combining
-@subsection Automatic part combining
+@anchor{Automatic part combining}
+@unnumberedsubsubsec Automatic part combining
 @cindex automatic part combining
 @cindex part combiner
 
@@ -1586,8 +1586,8 @@ differently named @internalsref{Voice} contexts, the events in those
 will be ignored.
 
 
-@node Hiding staves
-@subsection Hiding staves
+@anchor{Hiding staves}
+@unnumberedsubsubsec Hiding staves
 
 @cindex Frenched scores
 @cindex Hiding staves
@@ -1634,8 +1634,8 @@ melodies on a separate piece of staff, with help of a Frenched
 staff.  
 
 
-@node Quoting other voices
-@subsection Quoting other voices
+@anchor{Quoting other voices}
+@unnumberedsubsubsec Quoting other voices
 
 @cindex cues
 
@@ -1734,8 +1734,8 @@ Examples: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
 Program reference: @internalsref{QuoteMusic}.
 
 
-@node Formatting cue notes
-@subsection Formatting cue notes
+@anchor{Formatting cue notes}
+@unnumberedsubsubsec Formatting cue notes
 
 @cindex cues, formatting
 
@@ -1845,8 +1845,8 @@ cbsn = \relative c, {
 
 
 
-@node Aligning to cadenzas
-@subsection Aligning to cadenzas
+@anchor{Aligning to cadenzas}
+@unnumberedsubsubsec Aligning to cadenzas
 
 In an orchestral context, cadenzas present a special problem:
 when constructing a score that includes a cadenza, all other
@@ -1905,8 +1905,8 @@ see those sections of the documentation.
 @end menu
 
 
-@node Polymetric notation
-@subsection Polymetric notation
+@anchor{Polymetric notation}
+@unnumberedsubsubsec Polymetric notation
 
 @cindex double time signatures
 @cindex signatures, polymetric
@@ -2058,8 +2058,8 @@ When using different time signatures in parallel, the spacing is
 aligned vertically, but bar lines distort the regular spacing.
 
 
-@node Time administration
-@subsection Time administration
+@anchor{Time administration}
+@unnumberedsubsubsec Time administration
 
 @cindex Time administration
 
@@ -2112,8 +2112,8 @@ note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
 
 
-@node Proportional notation (introduction)
-@subsection Proportional notation (introduction)
+@anchor{Proportional notation (introduction)}
+@unnumberedsubsubsec Proportional notation (introduction)
 @cindex Proportional notation
 
 See @ref{Proportional notation}.
@@ -2163,8 +2163,8 @@ An example of strict proportional notation is in the
 example file @file{input/proportional.ly}.
 
 
-@node Clusters
-@subsection Clusters
+@anchor{Clusters}
+@unnumberedsubsubsec Clusters
 
 @cindex cluster
 
@@ -2194,8 +2194,8 @@ Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
 accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
-@node Special noteheads
-@subsection Special noteheads
+@anchor{Special noteheads}
+@unnumberedsubsubsec Special noteheads
 
 @cindex note heads, special
 
@@ -2223,8 +2223,8 @@ To see all notehead styles, please see
 Program reference: @internalsref{NoteHead}.
 
 
-@node Feathered beams
-@subsection Feathered beams
+@anchor{Feathered beams}
+@unnumberedsubsubsec Feathered beams
 
 Feathered beams are printed by setting the @code{grow-direction}
 property of a @code{Beam}.  The @code{\featherDurations} function
@@ -2243,8 +2243,8 @@ can be used to adjust note durations.
 The @code{\featherDurations} command only works with very short
 music snippets.
 
-@node Improvisation
-@subsection Improvisation
+@anchor{Improvisation}
+@unnumberedsubsubsec Improvisation
 
 Improvisation is sometimes denoted with slashed note heads.  Such note
 heads can be created by adding a @internalsref{Pitch_squash_engraver}
@@ -2275,8 +2275,8 @@ the following example
 @end lilypond
 
 
-@node Selecting notation font size
-@subsection Selecting notation font size
+@anchor{Selecting notation font size}
+@unnumberedsubsubsec Selecting notation font size
 
 The easiest method of setting the font size of any context is by
 setting the @code{fontSize} property.
@@ -2351,8 +2351,8 @@ teaching tools in addition to great musical scores.
 * Grid lines::                  
 @end menu
 
-@node Balloon help
-@subsection Balloon help
+@anchor{Balloon help}
+@unnumberedsubsubsec Balloon help
 
 Elements of notation can be marked and named with the help of a square
 balloon.  The primary purpose of this feature is to explain notation.
@@ -2383,8 +2383,8 @@ Program reference: @internalsref{text-balloon-interface}.
 
 
 
-@node Blank music sheet
-@subsection Blank music sheet
+@anchor{Blank music sheet}
+@unnumberedsubsubsec Blank music sheet
 
 @cindex Sheet music, empty
 @cindex Staves, blank sheet
@@ -2415,8 +2415,8 @@ emptymusic = {
 @end lilypond
 
 
-@node Hidden notes
-@subsection Hidden notes
+@anchor{Hidden notes}
+@unnumberedsubsubsec Hidden notes
 
 @cindex Hidden notes
 @cindex Invisible notes
@@ -2436,8 +2436,8 @@ g4 a
 @end lilypond
 
 
-@node Shape note heads
-@subsection Shape note heads
+@anchor{Shape note heads}
+@unnumberedsubsubsec Shape note heads
 
 @cindex note heads, shape
 
@@ -2474,8 +2474,8 @@ combinations are possible, e.g.
 @end lilypond
 
 
-@node Easy Notation note heads
-@subsection Easy Notation note heads
+@anchor{Easy Notation note heads}
+@unnumberedsubsubsec Easy Notation note heads
 
 @cindex note heads, practice
 @cindex note heads, easy notation
@@ -2501,8 +2501,8 @@ to be printed in a large font size.  To print with a larger font, see
 @code{\setEasyHeads}
 
 
-@node Analysis brackets
-@subsection Analysis brackets
+@anchor{Analysis brackets}
+@unnumberedsubsubsec Analysis brackets
 @cindex brackets
 @cindex phrasing brackets
 @cindex musicological analysis
@@ -2533,8 +2533,8 @@ to @internalsref{Staff} context.  A bracket is started with
 Program reference: @internalsref{HorizontalBracket}.
 
 
-@node Coloring objects
-@subsection Coloring objects
+@anchor{Coloring objects}
+@unnumberedsubsubsec Coloring objects
 
 Individual objects may be assigned colors.  You may use the
 color names listed in the @ref{List of colors}.
@@ -2613,8 +2613,8 @@ Notes in a chord cannot be colored with @code{\override}; use
 for details.
 
 
-@node Parentheses
-@subsection Parentheses
+@anchor{Parentheses}
+@unnumberedsubsubsec Parentheses
 
 @cindex ghost notes
 @cindex notes, ghost
@@ -2638,8 +2638,8 @@ This only functions inside chords, even for single notes
 @end example
 
 
-@node Grid lines
-@subsection Grid lines
+@anchor{Grid lines}
+@unnumberedsubsubsec Grid lines
 
 Vertical lines can be drawn between staves synchronized with
 the notes.

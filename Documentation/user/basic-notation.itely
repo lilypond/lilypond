@@ -48,8 +48,8 @@ This section discusses how to specify the pitch of notes.
 @end menu
 
 
-@node Normal pitches
-@subsection Normal pitches
+@anchor{Normal pitches}
+@unnumberedsubsubsec Normal pitches
 
 @cindex Pitch names
 @cindex pitches
@@ -92,8 +92,8 @@ octave specifications (@code{'} and @code{,}).  See
 @ref{Relative octaves}.
 
 
-@node Accidentals
-@subsection Accidentals
+@anchor{Accidentals}
+@unnumberedsubsubsec Accidentals
 
 @cindex note names, Dutch
 @cindex note names, default
@@ -157,8 +157,8 @@ Program reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
 
 
-@node Cautionary accidentals
-@subsection Cautionary accidentals
+@anchor{Cautionary accidentals}
+@unnumberedsubsubsec Cautionary accidentals
 
 @cindex accidental, reminder
 @cindex accidental, cautionary
@@ -188,8 +188,8 @@ The automatic production of accidentals can be tuned in many
 ways.  For more information, see @ref{Automatic accidentals}.
 
 
-@node Micro tones
-@subsection Micro tones
+@anchor{Micro tones}
+@unnumberedsubsubsec Micro tones
 
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
@@ -212,8 +212,8 @@ three-quarter flats, so LilyPond's symbol does not conform to any
 standard.
 
 
-@node Note names in other languages
-@subsection Note names in other languages
+@anchor{Note names in other languages}
+@unnumberedsubsubsec Note names in other languages
 
 There are predefined sets of note names for various other languages.
 To use them, include the language specific init file.  For
@@ -275,8 +275,8 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 
 
 
-@node Relative octaves
-@subsection Relative octaves
+@anchor{Relative octaves}
+@unnumberedsubsubsec Relative octaves
 
 @cindex Relative
 @cindex Relative octave specification
@@ -352,8 +352,8 @@ relative within transposed music, an additional @code{\relative} must
 be placed inside @code{\transpose}.
 
 
-@node Octave check
-@subsection Octave check
+@anchor{Octave check}
+@unnumberedsubsubsec Octave check
 
 @cindex Octave check
 
@@ -414,8 +414,8 @@ the output of the piece.
 @end lilypond
 
 
-@node Transpose
-@subsection Transpose
+@anchor{Transpose}
+@unnumberedsubsubsec Transpose
 
 @cindex Transpose
 @cindex Transposition of pitches
@@ -497,8 +497,8 @@ you must put @code{\transpose} outside of @code{\relative}, since
 @code{\transpose}.
 
 
-@node Rests
-@subsection Rests
+@anchor{Rests}
+@unnumberedsubsubsec Rests
 @cindex Rests
 
 @funindex \rest
@@ -533,8 +533,8 @@ formatter will leave these rests alone.
 Program reference: @internalsref{Rest}.
 
 
-@node Skips
-@subsection Skips
+@anchor{Skips}
+@unnumberedsubsubsec Skips
 
 @cindex Skip
 @cindex Invisible rest
@@ -595,8 +595,8 @@ This section discusses rhythms, durations, and bars.
 @end menu
 
 
-@node Durations
-@subsection Durations
+@anchor{Durations}
+@unnumberedsubsubsec Durations
 
 @cindex duration
 @funindex \longa
@@ -654,8 +654,8 @@ duration.  The default for the first note is a quarter note.
 @end lilypond
 
 
-@node Augmentation dots
-@subsection Augmentation dots
+@anchor{Augmentation dots}
+@unnumberedsubsubsec Augmentation dots
 
 @funindex .
 
@@ -684,8 +684,8 @@ direction manually
 Program reference: @internalsref{Dots}, and @internalsref{DotColumn}.
 
 
-@node Tuplets
-@subsection Tuplets
+@anchor{Tuplets}
+@unnumberedsubsubsec Tuplets
 
 @cindex tuplets
 @cindex triplets
@@ -833,8 +833,8 @@ Program reference: @internalsref{TupletBracket},
 
 
 
-@node Scaling durations
-@subsection Scaling durations
+@anchor{Scaling durations}
+@unnumberedsubsubsec Scaling durations
 
 You can alter the length of duration by a fraction @var{N/M}
 appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).  This
@@ -857,8 +857,8 @@ b16*4 c4
 This manual: @ref{Tuplets}.
 
 
-@node Bar check
-@subsection Bar check
+@anchor{Bar check}
+@unnumberedsubsubsec Bar check
 
 @cindex Bar check
 @funindex barCheckSynchronize
@@ -900,8 +900,8 @@ pipeSymbol = \bar "||"
 @end lilypond
 
 
-@node Barnumber check
-@subsection Barnumber check
+@anchor{Barnumber check}
+@unnumberedsubsubsec Barnumber check
 
 When copying large pieces of music, it can be helpful to check that
 the LilyPond bar number corresponds to the original that you are
@@ -917,8 +917,8 @@ will print a warning if the @code{currentBarNumber} is not 123 when it
 is processed.
 
 
-@node Automatic note splitting
-@subsection Automatic note splitting
+@anchor{Automatic note splitting}
+@unnumberedsubsubsec Automatic note splitting
 
 Long notes can be converted automatically to tied notes.  This is done
 by replacing the @internalsref{Note_heads_engraver} by the
@@ -975,8 +975,8 @@ one voice on the same staff.
 @end menu
 
 
-@node Chords
-@subsection Chords
+@anchor{Chords}
+@unnumberedsubsubsec Chords
 
 @cindex Chords
 
@@ -993,8 +993,8 @@ For more information about chords, see @ref{Chord names}.
 
 @c  I don't like having this here, but I can't think of
 @c  anywhere else to put it.  :(   -gp
-@node Stems
-@subsection Stems
+@anchor{Stems}
+@unnumberedsubsubsec Stems
 
 Whenever a note is found, a @internalsref{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
@@ -1023,8 +1023,8 @@ a4 b c b
 @end lilypond
 
 
-@node Basic polyphony
-@subsection Basic polyphony
+@anchor{Basic polyphony}
+@unnumberedsubsubsec Basic polyphony
 
 @cindex polyphony
 
@@ -1102,8 +1102,8 @@ to the note immediately preceding it.
 @code{noteA}.
 
 
-@node Explicitly instantiating voices
-@subsection Explicitly instantiating voices
+@anchor{Explicitly instantiating voices}
+@unnumberedsubsubsec Explicitly instantiating voices
 
 @internalsref{Voice} contexts can also be instantiated manually
 inside a @code{<< >>} block to create polyphonic music, using
@@ -1221,8 +1221,8 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @end lilypond
 
 
-@node Collision Resolution
-@subsection Collision Resolution
+@anchor{Collision Resolution}
+@unnumberedsubsubsec Collision Resolution
 
 Normally, note heads with a different number of dots are not merged, but
 when the object property @code{merge-differently-dotted} is set in
@@ -1368,8 +1368,8 @@ such as key signatures, clefs and time signatures.
 @end menu
 
 
-@node Clef
-@subsection Clef
+@anchor{Clef}
+@unnumberedsubsubsec Clef
 
 @funindex \clef
 
@@ -1472,8 +1472,8 @@ Manual: @ref{Grace notes}.
 Program reference: @internalsref{Clef}.
 
 
-@node Key signature
-@subsection Key signature
+@anchor{Key signature}
+@unnumberedsubsubsec Key signature
 
 @cindex Key signature
 @funindex \key
@@ -1548,8 +1548,8 @@ Program reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}.
 
 
-@node Time signature
-@subsection Time signature
+@anchor{Time signature}
+@unnumberedsubsubsec Time signature
 
 @cindex Time signature
 @cindex meter
@@ -1630,8 +1630,8 @@ Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
 
-@node Partial measures
-@subsection Partial measures
+@anchor{Partial measures}
+@unnumberedsubsubsec Partial measures
 
 @cindex anacrusis
 @cindex upbeat
@@ -1685,8 +1685,8 @@ piece.  If you use it after the beginning, some odd warnings may
 occur.
 
 
-@node Bar lines
-@subsection Bar lines
+@anchor{Bar lines}
+@unnumberedsubsubsec Bar lines
 
 @cindex Bar lines
 @funindex \bar
@@ -1770,8 +1770,8 @@ Program reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across staves).
 
 
-@node Unmetered music
-@subsection Unmetered music
+@anchor{Unmetered music}
+@unnumberedsubsubsec Unmetered music
 
 @cindex cadenza
 @funindex \cadenzaOn
@@ -1807,8 +1807,8 @@ invisible bar lines
 to indicate where breaks can occur.
 
 
-@node System start delimiters
-@subsection System start delimiters
+@anchor{System start delimiters}
+@unnumberedsubsubsec System start delimiters
 
 @cindex start of system
 @cindex Staff, multiple
@@ -1895,8 +1895,8 @@ System start delimiters may be deeply nested,
 @end lilypond
 
 
-@node Staff symbol
-@subsection Staff symbol
+@anchor{Staff symbol}
+@unnumberedsubsubsec Staff symbol
 
 @cindex adjusting staff symbol
 
@@ -1942,8 +1942,8 @@ Program reference: @internalsref{StaffSymbol}.
 Examples: @lsrdir{staff}
 
 
-@node Writing music in parallel
-@subsection Writing music in parallel
+@anchor{Writing music in parallel}
+@unnumberedsubsubsec Writing music in parallel
 
 @cindex Writing music in parallel
 @cindex Interleaved music
@@ -2022,8 +2022,8 @@ This section deals with notation that affects groups of notes.
 @end menu
 
 
-@node Ties
-@subsection Ties
+@anchor{Ties}
+@unnumberedsubsubsec Ties
 
 @cindex tie
 @funindex ~
@@ -2140,8 +2140,8 @@ Changing clefs or octavations during a tie is not really
 well-defined.  In these cases, a slur may be preferable.
 
 
-@node Slurs
-@subsection Slurs
+@anchor{Slurs}
+@unnumberedsubsubsec Slurs
 
 @cindex Slurs
 
@@ -2201,8 +2201,8 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 Program reference: @internalsref{Slur}.
 
 
-@node Phrasing slurs
-@subsection Phrasing slurs
+@anchor{Phrasing slurs}
+@unnumberedsubsubsec Phrasing slurs
 
 @cindex phrasing slurs
 @cindex phrasing marks
@@ -2239,8 +2239,8 @@ You cannot have simultaneous phrasing slurs.
 Program reference: @internalsref{PhrasingSlur}.
 
 
-@node Laissez vibrer ties
-@subsection Laissez vibrer ties
+@anchor{Laissez vibrer ties}
+@unnumberedsubsubsec Laissez vibrer ties
 @cindex Laissez vibrer
 @cindex Ties, laissez vibrer
 
@@ -2262,8 +2262,8 @@ Example files:
 @lsr{connecting,laissez-vibrer-ties.ly}
 
 
-@node Automatic beams
-@subsection Automatic beams
+@anchor{Automatic beams}
+@unnumberedsubsubsec Automatic beams
 
 LilyPond inserts beams automatically
 
@@ -2289,8 +2289,8 @@ from being beamed
 Program reference: @internalsref{Beam}.
 
 
-@node Manual beams
-@subsection Manual beams
+@anchor{Manual beams}
+@unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
 @funindex ]
@@ -2373,8 +2373,8 @@ Beams do not avoid collisions with symbols around the notes, such as
 texts and accidentals.
 
 
-@node Grace notes
-@subsection Grace notes
+@anchor{Grace notes}
+@unnumberedsubsubsec Grace notes
 
 @funindex \grace
 @cindex ornaments
@@ -2600,8 +2600,8 @@ notes and rhythms.
 @end menu
 
 
-@node Articulations
-@subsection Articulations
+@anchor{Articulations}
+@unnumberedsubsubsec Articulations
 
 @cindex Articulations
 @cindex scripts
@@ -2700,8 +2700,8 @@ These signs appear in the printed output but have no effect on the
 MIDI rendering of the music.
 
 
-@node Fingering instructions
-@subsection Fingering instructions
+@anchor{Fingering instructions}
+@unnumberedsubsubsec Fingering instructions
 
 @cindex fingering
 @cindex finger change
@@ -2758,8 +2758,8 @@ Program reference: @internalsref{Fingering}.
 Examples: @lsr{expressive,fingering-chords.ly}
 
 
-@node Dynamics
-@subsection Dynamics
+@anchor{Dynamics}
+@unnumberedsubsubsec Dynamics
 
 @cindex Dynamics
 @funindex \pppp
@@ -2926,8 +2926,8 @@ Vertical positioning of these symbols is handled by
 @internalsref{DynamicLineSpanner}.
 
 
-@node Breath marks
-@subsection Breath marks
+@anchor{Breath marks}
+@unnumberedsubsubsec Breath marks
 
 Breath marks are entered using @code{\breathe}
 
@@ -2956,8 +2956,8 @@ Program reference: @internalsref{BreathingSign}.
 Examples: @lsr{expressive,breathing-sign.ly}
 
 
-@node Trills
-@subsection Trills
+@anchor{Trills}
+@unnumberedsubsubsec Trills
 
 Short trills are printed like normal articulation; see @ref{Articulations}.
 
@@ -2999,8 +2999,8 @@ is printed as a stemless note head in parentheses.
 Program reference: @internalsref{TrillSpanner}.
 
 
-@node Glissando
-@subsection Glissando
+@anchor{Glissando}
+@unnumberedsubsubsec Glissando
 
 @cindex Glissando
 @funindex \glissando
@@ -3042,8 +3042,8 @@ Example files:
 Printing text over the line (such as @emph{gliss.}) is not supported.
 
 
-@node Arpeggio
-@subsection Arpeggio
+@anchor{Arpeggio}
+@unnumberedsubsubsec Arpeggio
 
 @cindex Arpeggio
 @cindex broken chord
@@ -3120,8 +3120,8 @@ It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 
-@node Falls and doits
-@subsection Falls and doits
+@anchor{Falls and doits}
+@unnumberedsubsubsec Falls and doits
 
 Falls and doits can be added to notes using the @code{\bendAfter}
 command,
@@ -3150,8 +3150,8 @@ for repetitions.
 @end menu
 
 
-@node Repeat types
-@subsection Repeat types
+@anchor{Repeat types}
+@unnumberedsubsubsec Repeat types
 
 @cindex repeats
 
@@ -3181,8 +3181,8 @@ declared within a @code{Voice} context.
 @end table
 
 
-@node Repeat syntax
-@subsection Repeat syntax
+@anchor{Repeat syntax}
+@unnumberedsubsubsec Repeat syntax
 
 @cindex volta
 @cindex prima volta
@@ -3325,8 +3325,8 @@ example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
-@node Repeats and MIDI
-@subsection Repeats and MIDI
+@anchor{Repeats and MIDI}
+@unnumberedsubsubsec Repeats and MIDI
 
 @cindex expanding repeats
 @funindex \unfoldRepeats
@@ -3366,8 +3366,8 @@ percent repeats).  For example,
 @end example
 
 
-@node Manual repeat commands
-@subsection Manual repeat commands
+@anchor{Manual repeat commands}
+@unnumberedsubsubsec Manual repeat commands
 
 @funindex repeatCommands
 
@@ -3408,8 +3408,8 @@ Program reference: @internalsref{VoltaBracket},
 @internalsref{UnfoldedRepeatedMusic}.
 
 
-@node Tremolo repeats
-@subsection Tremolo repeats
+@anchor{Tremolo repeats}
+@unnumberedsubsubsec Tremolo repeats
 
 @cindex tremolo beams
 
@@ -3440,8 +3440,8 @@ In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 
-@node Tremolo subdivisions
-@subsection Tremolo subdivisions
+@anchor{Tremolo subdivisions}
+@unnumberedsubsubsec Tremolo subdivisions
 
 @cindex tremolo marks
 @funindex tremoloFlags
@@ -3470,8 +3470,8 @@ In this manual: @ref{Tremolo repeats}.
 Elsewhere: @internalsref{StemTremolo}.
 
 
-@node Measure repeats
-@subsection Measure repeats
+@anchor{Measure repeats}
+@unnumberedsubsubsec Measure repeats
 
 @cindex percent repeats
 @cindex measure repeats
