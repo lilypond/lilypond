@@ -966,7 +966,8 @@ class Staff (StaffGroup):
                 n += 1
                 voice_count_text = ''
                 if nr_voices > 1:
-                    voice_count_text = {1: ' \\voiceOne'}.get (n, ' \\voiceTwo')
+                    voice_count_text = {1: ' \\voiceOne', 2: ' \\voiceTwo',
+                                        3: ' \\voiceThree'}.get (n, ' \\voiceFour')
                 printer ('\\context Voice = "%s" {%s \\%s }' % (v,voice_count_text,v))
                 printer.newline ()
 
