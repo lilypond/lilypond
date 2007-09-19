@@ -549,6 +549,8 @@ class Part (Music_xml_node):
             sid = None
             if staff_id:
                 sid = staff_id.get_text ()
+            else:
+                sid = "None"
             if vid and not voices.has_key (vid):
                 voices[vid] = Musicxml_voice()
             if vid and sid and not n.get_maybe_exist_typed_child (Grace):
@@ -592,7 +594,7 @@ class Part (Music_xml_node):
                 if staff_id:
                     staff_id = staff_id.get_text ()
                 if staff_id:
-                    dir_voices = staff_to_voice_dict[staff_id]
+                    dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
                 else:
                     dir_voices = voices.keys ()
                 for v in dir_voices:
