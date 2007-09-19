@@ -32,38 +32,6 @@ articulations, just like simple notes
 For more information about chords, see @ref{Chord names}.
 
 
-@c  I don't like having this here, but I can't think of
-@c  anywhere else to put it.  :(   -gp
-@anchor{Stems}
-@unnumberedsubsubsec Stems
-
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created but
-made invisible.
-
-@refcommands
-
-@funindex \stemUp
-@code{\stemUp},
-@funindex \stemDown
-@code{\stemDown},
-@funindex \stemNeutral
-@code{\stemNeutral}.
-
-
-@commonprop
-
-To change the direction of stems in the middle of the staff, use
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
-
-
 @anchor{Clusters}
 @unnumberedsubsubsec Clusters
 

@@ -11,6 +11,9 @@ This chapter explains how to create musical notation.
 * Expressive marks::   Adding expression to notes.
 * Repeats::            Repeat music.
 * Simultaneous notes:: More than one note at once.
+* Staff notation::     Displaying staves.
+* Educational use::    Special notation to increase legibility.
+* Text::               Adding text to scores.
 @end menu
 
 @include pitch.itely
@@ -18,5 +21,8 @@ This chapter explains how to create musical notation.
 @include expressive.itely
 @include repeats.itely
 @include simultaneous.itely
+@include staff.itely
+@include educational.itely
+@include text.itely
 
 

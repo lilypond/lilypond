@@ -161,7 +161,6 @@ of this and other documentation.
 * Musical notation::               Musical notation.
 
 old stuff
-* Basic notation::
 * Instrument-specific notation::
 * Advanced notation::
 
@@ -190,7 +189,6 @@ Appendices
 
 @include notation.itely
 
-@include basic-notation.itely
 @include instrument-notation.itely
 @include advanced-notation.itely
 @include changing-defaults.itely
