@@ -162,7 +162,6 @@ of this and other documentation.
 
 old stuff
 * Instrument-specific notation::
-* Advanced notation::
 
 * Changing defaults::              Tuning output.
 * Non-musical notation::           Output that is not musical notation.
@@ -190,7 +189,6 @@ Appendices
 @include notation.itely
 
 @include instrument-notation.itely
-@include advanced-notation.itely
 @include changing-defaults.itely
 @include non-music.itely
 @include spacing.itely

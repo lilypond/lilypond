@@ -40,6 +40,7 @@ these files end with @samp{.ly}.
 * Extracting fragments of notation::  
 * Including LilyPond files::    
 * Text encoding::               
+* Different editions from one source::  
 @end menu
 
 
@@ -470,6 +471,80 @@ To use a Unicode escape sequence, use
 
 @lsr{text,utf-8.ly}
 
+
+@node Different editions from one source
+@subsection Different editions from one source
+
+@funindex \tag
+@cindex tag
+
+The @code{\tag} command marks music expressions with a name.  These
+tagged expressions can be filtered out later.  With this mechanism it
+is possible to make different versions of the same music source.
+
+In the following example, we see two versions of a piece of music, one
+for the full score, and one with cue notes for the instrumental part
+
+@example
+c1
+<<
+  \tag #'part <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'score R1
+>>
+c1
+@end example
+
+The same can be applied to articulations, texts, etc.: they are
+made by prepending
+@example
+-\tag #@var{your-tag}
+@end example
+to an articulation, for example,
+@example
+c1-\tag #'part ^4
+@end example
+
+This defines a note with a conditional fingering indication.
+
+@cindex keepWithTag
+@cindex removeWithTag
+By applying the @code{\keepWithTag} and @code{\removeWithTag}
+commands, tagged expressions can be filtered.  For example,
+@example
+<<
+  @var{the music}
+  \keepWithTag #'score @var{the music}
+  \keepWithTag #'part @var{the music}
+>>
+@end example
+would yield
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+The arguments of the @code{\tag} command should be a symbol
+(such as @code{#'score} or @code{#'part}), followed by a
+music expression.  It is possible to put multiple tags on
+a piece of music with multiple @code{\tag} entries,
+
+@example
+  \tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+
+@seealso
+
+Examples: @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Multiple rests are not merged if you create the score with both tagged
+sections.
 
 
 @node Titles and headers

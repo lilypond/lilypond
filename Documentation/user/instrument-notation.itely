@@ -18,646 +18,14 @@
 This chapter explains how to use notation for specific instruments.
 
 @menu
-* Piano music::                 
-* Chord names::                 
 * Vocal music::                 
-* Rhythmic music::              
+* Chord names::                 
+* Piano music::                 
+* Percussion::                  
 * Guitar::                      
-* Bagpipe::                     
+* Other instrument-specific::   
 * Ancient notation::            
-* Other instrument specific notation::  
 @end menu
-
-
-
-@node Piano music
-@section Piano music
-
-Piano staves are two normal staves coupled with a brace.  The staves
-are largely independent, but sometimes voices can cross between the
-two staves.  The same notation is also used for harps and other key
-instruments.  The @internalsref{PianoStaff} is especially built to
-handle this cross-staffing behavior.  In this section we discuss the
-@internalsref{PianoStaff} and some other pianistic peculiarities.
-
-@menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
-@end menu
-
-@refbugs
-
-Dynamics are not centered, but workarounds do exist.  See the
-@q{piano centered dynamics} template in @ref{Piano templates}.
-
-@cindex cross staff stem
-@cindex stem, cross staff
-@cindex distance between staves in piano music
-
-
-@anchor{Automatic staff changes}
-@unnumberedsubsubsec Automatic staff changes
-@cindex Automatic staff changes
-
-Voices can be made to switch automatically between the top and the bottom
-staff.  The syntax for this is
-
-@quotation
-@example
-\autochange @dots{}@var{music}@dots{}
-@end example
-@end quotation
-
-@noindent
-This will create two staves inside the current PianoStaff, called
-@code{up} and @code{down}.  The lower staff will be in bass clef by
-default.
-
-A @code{\relative} section that is outside of @code{\autochange} has
-no effect on the pitches of @var{music}, so, if necessary, put
-@code{\relative} inside @code{\autochange} like
-
-@quotation
-@example
-\autochange \relative @dots{} @dots{}
-@end example
-@end quotation
-
-
-The autochanger switches on basis of the pitch (middle C is the turning
-point), and it looks ahead skipping over rests to switch in
-advance.  Here is a practical example
-
-@lilypond[quote,verbatim,ragged-right]
-\new PianoStaff
-  \autochange \relative c'
-  {
-    g4 a b c d r4 a g
-  }
-@end lilypond
-
-
-@seealso
-
-In this manual: @ref{Manual staff switches}.
-
-Program reference: @internalsref{AutoChangeMusic}.
-
-
-
-@refbugs
-
-The staff switches may not end up in optimal places.  For high
-quality output, staff switches should be specified manually.
-
-
-@code{\autochange} cannot be inside @code{\times}.
-
-
-@anchor{Manual staff switches}
-@unnumberedsubsubsec Manual staff switches
-
-@cindex manual staff switches
-@cindex staff switch, manual
-
-Voices can be switched between staves manually, using the command
-@example
-\change Staff = @var{staffname} @var{music}
-@end example
-
-@noindent
-The string @var{staffname} is the name of the staff.  It switches the
-current voice from its current staff to the Staff called
-@var{staffname}.  Typically @var{staffname} is @code{"up"} or
-@code{"down"}.  The @context{Staff} referred to must already exist, so
-usually the setup for a score will start with a setup of the staves,
-
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{keep staff alive}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
->>
-@end example
-
-
-and the @context{Voice} is inserted afterwards
-
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
-
-
-@anchor{Pedals}
-@unnumberedsubsubsec Pedals
-@cindex Pedals
-
-Pianos have pedals that alter the way sound is produced.  Generally, a
-piano has three pedals, sustain, una corda, and sostenuto.
-
-
-Piano pedal instruction can be expressed by attaching
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
-note or chord
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
-@end lilypond
-
-What is printed can be modified by setting @code{pedal@var{X}Strings},
-where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to
-@internalsref{SustainPedal} in the program reference for more
-information.
-
-Pedals can also be indicated by a sequence of brackets, by setting the
-@code{pedalSustainStyle} property to bracket objects
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
-@end lilypond
-
-A third style of pedal notation is a mixture of text and brackets,
-obtained by setting the @code{pedalSustainStyle} property to
-@code{mixed}
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
-@end lilypond
-
-The default @q{*Ped.} style for sustain and damper pedals corresponds to
-style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
-default.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-For fine-tuning the appearance of a pedal bracket, the properties
-@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (see
-@internalsref{PianoPedalBracket} in the Program reference) can be
-modified.  For example, the bracket may be extended to the right edge
-of the note head
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-@seealso
-
-In this manual: @ref{Laissez vibrer ties}.
-
-@anchor{Staff switch lines}
-@unnumberedsubsubsec Staff switch lines
-
-
-@cindex follow voice
-@cindex staff switching
-@cindex cross staff
-
-@funindex followVoice
-
-Whenever a voice switches to another staff, a line connecting the notes
-can be printed automatically.  This is switched on by setting
-@code{followVoice} to true
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
-    c1
-    \change Staff=two
-    b2 a
-  }
-  \new Staff="two" { \clef bass \skip 1*2 }
->>
-@end lilypond
-
-@seealso
-
-Program reference: @internalsref{VoiceFollower}.
-
-@refcommands
-
-@funindex \showStaffSwitch
-@code{\showStaffSwitch},
-@funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
-
-
-@anchor{Cross staff stems}
-@unnumberedsubsubsec Cross staff stems
-
-Chords that cross staves may be produced by increasing the length
-of the stem in the lower staff, so it reaches the stem in the upper
-staff, or vice versa.
-
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
-\new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
-  }
-  \new Staff {
-    \clef bass
-    a4 a8
-  }
->>
-@end lilypond
-
-
-
-@node Chord names
-@section Chord names
-
-@menu
-* Introducing chord names::     
-* Chords mode::                 
-* Printing chord names::        
-@end menu
-
-
-@c  awkward name; awkward section name.
-@c  still, the Basic "chords" seems like a good name...  :(
-@anchor{Introducing chord names}
-@unnumberedsubsubsec Introducing chord names
-@cindex chord names
-
-LilyPond has support for printing chord names.  Chords may be entered
-in musical chord notation, i.e., @code{< .. >}, but they can also be
-entered by name.  Internally, the chords are represented as a set of
-pitches, so they can be transposed
-
-
-@lilypond[quote,ragged-right,verbatim,ragged-right]
-twoWays = \transpose c c' {
-  \chordmode {
-    c1 f:sus4 bes/f
-  }
-  <c e g>
-  <f bes c'>
-  <f bes d'>
-}
-
-<< \new ChordNames \twoWays
-   \new Voice \twoWays >>
-@end lilypond
-
-This example also shows that the chord printing routines do not try to
-be intelligent.  The last chord (@code{f bes d}) is not interpreted as
-an inversion.
-
-Note that the duration of chords must be specified outside the
-@code{<>}.
-
-@example
-<c e g>2
-@end example
-
-
-@anchor{Chords mode}
-@unnumberedsubsubsec Chords mode
-@cindex Chords mode
-
-In chord mode sets of pitches (chords) are entered with normal note
-names.  A chord is entered by the root, which is entered like a
-normal pitch
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { es4. d8 c2 }
-@end lilypond
-
-@noindent
-The mode is introduced by the keyword @code{\chordmode}.
-
-@cindex chord entry
-@cindex chord mode
-
-Other chords may be entered by suffixing a colon and introducing a
-modifier (which may include a number if desired)
-
-@lilypond[quote,fragment,verbatim]
-\chordmode { e1:m e1:7 e1:m7 }
-@end lilypond
-
-The first number following the root is taken to be the @q{type} of the
-chord, thirds are added to the root until it reaches the specified
-number.  The exception is @code{c:13}, for which the 11 is omitted.
-
-@lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
-@end lilypond
-
-@cindex root of chord
-@cindex additions, in chords
-@cindex removals, in chords
-
-More complex chords may also be constructed adding separate steps
-to a chord.  Additions are added after the number following
-the colon and are separated by dots
-
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
-@end lilypond
-
-Chord steps can be altered by suffixing a @code{-} or @code{+} sign
-to the number
-
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
-@end lilypond
-
-Removals are specified similarly and are introduced by a caret.  They
-must come after the additions
-
-@lilypond[quote,verbatim,fragment]
-\chordmode { c^3 c:7^5 c:9^3.5 }
-@end lilypond
-
-Modifiers can be used to change pitches.  The following modifiers are
-supported
-
-@table @code
-@item m
-The minor chord.  This modifier lowers the 3rd and (if present) the 7th step.
-
-@item dim
-The diminished chord.  This modifier lowers the 3rd, 5th and (if present)
-the 7th step.
-
-@item aug
-The augmented chord.  This modifier raises the 5th step.
-
-@item maj
-The major 7th chord.  This modifier raises the 7th step if present.
-
-@item sus
-The suspended 4th or 2nd.  This modifier removes the 3rd
-step.  Append either @code{2} or @code{4} to add the 2nd or 4th step to
-the chord.
-@end table
-
-Modifiers can be mixed with additions
-@lilypond[quote,verbatim,fragment]
-  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
-@end lilypond
-
-@cindex modifiers, in chords.
-@funindex aug
-@funindex dim
-@funindex maj
-@funindex sus
-@funindex m
-
-Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed in this case (unless it is added
-explicitly)
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c:13 c:13.11 c:m13 }
-@end lilypond
-
-@funindex /
-
-An inversion (putting one pitch of the chord on the bottom), as well
-as bass notes, can be specified by appending
-@code{/}@var{pitch} to the chord
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1 c/g c/f }
-@end lilypond
-@funindex /+
-
-A bass note can be added instead of transposed out of the chord,
-by using @code{/+}@var{pitch}.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1 c/+g c/+f }
-@end lilypond
-
-Chords is a mode similar to @code{\lyricmode}, etc.  Most
-of the commands continue to work, for example, @code{r} and
-@code{\skip} can be used to insert rests and spaces, and property
-commands may be used to change various settings.
-
-
-
-@refbugs
-
-Each step can only be present in a chord once.  The following
-simply produces the augmented chord, since @code{5+} is interpreted
-last
-@cindex clusters
-@lilypond[quote,ragged-right,verbatim,fragment]
-\chordmode { c:5.5-.5+ }
-@end lilypond
-
-
-@anchor{Printing chord names}
-@unnumberedsubsubsec Printing chord names
-
-@cindex printing chord names
-@cindex chord names
-@cindex chords
-
-For displaying printed chord names, use the @internalsref{ChordNames} context.
-The chords may be entered either using the notation
-described above, or directly using @code{<} and @code{>}
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = {
-  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
-}
-<<
-  \new ChordNames \harmonies
-  \new Staff \harmonies
->>
-@end lilypond
-
-You can make the chord changes stand out by setting
-@internalsref{ChordNames}.@code{chordChanges} to true.  This will only
-display chord names when there is a change in the chords scheme and at
-the start of a new line
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
-}
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \harmonies }
-  \new Staff \transpose c c' \harmonies
->>
-@end lilypond
-
-The previous examples all show chords over a staff.  This is not
-necessary.  Chords may also be printed separately.  It may be necessary
-to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
-for showing repeats.
-
-@lilypond[ragged-right,verbatim]
-\new ChordNames \with {
-  \override BarLine #'bar-size = #4
-  \consists Bar_engraver
-  \consists "Volta_engraver"
-}
-\chordmode { \repeat volta 2 {
-  f1:maj7 f:7 bes:7
-  c:maj7
-} \alternative {
-  es e
-}
-}
-@end lilypond
-
-
-The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
-following properties
-
-@table @code
-@funindex chordNameExceptions
-@item chordNameExceptions
-This is a list that contains the chords that have special formatting.
-
-The exceptions list should be encoded as
-@example
-@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
-@end example
-
-To get this information into @code{chordNameExceptions} takes a little
-manoeuvring.  The following code transforms @code{chExceptionMusic}
-(which is a sequential music) into a list of exceptions.
-@example
-(sequential-music-to-chord-exceptions chExceptionMusic #t)
-@end example
-Then,
-@example
-(append
- (sequential-music-to-chord-exceptions chExceptionMusic #t)
- ignatzekExceptions)
-@end example
-adds the new exceptions to the default ones, which are defined in
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
-
-For an example of tuning this property, see also
-@lsr{chords,chord@/-name@/-exceptions@/.ly}
-@cindex exceptions, chord names.
-
-
-@funindex majorSevenSymbol
-@item majorSevenSymbol
-This property contains the markup object used for the 7th step, when
-it is major.  Predefined options are @code{whiteTriangleMarkup} and
-@code{blackTriangleMarkup}.  See
-@lsr{chords,chord@/-name@/-major7@/.ly} for an example.
-
-@funindex chordNameSeparator
-@item chordNameSeparator
-Different parts of a chord name are normally separated by a
-slash.  By setting @code{chordNameSeparator}, you can specify other
-separators, e.g.,
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new ChordNames \chordmode {
-  c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter "|" }
-  c:7sus4
-}
-@end lilypond
-
-@funindex chordRootNamer
-@item chordRootNamer
-The root of a chord is usually printed as a letter with an optional
-alteration.  The transformation from pitch to letter is done by this
-function.  Special note names (for example, the German @q{H} for a
-B-chord) can be produced by storing a new function in this property.
-
-@funindex chordNoteNamer
-@item chordNoteNamer
-The default is to print single pitch, e.g., the bass note, using the
-@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
-to a specialized function to change this behavior.  For example, the
-base can be printed in lower case.
-
-@funindex chordPrefixSpacer
-@item chordPrefixSpacer
-The @q{m} for minor chords is usually printed right after the root of
-the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
-between the root and @q{m}. The spacer is not used when the root
-is altered.
-
-@end table
-
-The predefined variables @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords}
-set these variables.  The effect is
-demonstrated here,
-
-@lilypondfile[ragged-right]{chord-names-languages.ly}
-
-There are also two other chord name schemes implemented: an alternate
-Jazz chord notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord name
-chart}.  Turning on these styles is demonstrated in
-@lsr{chords,chord-names-jazz.ly}.
-
-@cindex Banter
-@cindex jazz chords
-@cindex chords, jazz
-
-
-@refcommands
-
-@funindex \germanChords
-@code{\germanChords},
-@funindex \semiGermanChords
-@code{\semiGermanChords}.
-@funindex \italianChords
-@code{\italianChords}.
-@funindex \frenchChords
-@code{\frenchChords}.
-
-
-
-
-@seealso
-
-Examples:
-@lsrdir{chords}
-
-Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
-@file{scm/@/chord@/-entry@/.scm}.
-
-
-@refbugs
-
-Chord names are determined solely from the list of pitches.  Chord
-inversions are not identified, and neither are added bass notes.  This
-may result in strange chord names when chords are entered with the
-@code{< .. >} syntax.
 
 
 
@@ -1716,10 +1084,641 @@ notated by cross noteheads.  This is demonstrated in
 
 
 
+@node Chord names
+@section Chord names
+
+@menu
+* Introducing chord names::     
+* Chords mode::                 
+* Printing chord names::        
+@end menu
 
 
-@node Rhythmic music
-@section Rhythmic music
+@c  awkward name; awkward section name.
+@c  still, the Basic "chords" seems like a good name...  :(
+@anchor{Introducing chord names}
+@unnumberedsubsubsec Introducing chord names
+@cindex chord names
+
+LilyPond has support for printing chord names.  Chords may be entered
+in musical chord notation, i.e., @code{< .. >}, but they can also be
+entered by name.  Internally, the chords are represented as a set of
+pitches, so they can be transposed
+
+
+@lilypond[quote,ragged-right,verbatim,ragged-right]
+twoWays = \transpose c c' {
+  \chordmode {
+    c1 f:sus4 bes/f
+  }
+  <c e g>
+  <f bes c'>
+  <f bes d'>
+}
+
+<< \new ChordNames \twoWays
+   \new Voice \twoWays >>
+@end lilypond
+
+This example also shows that the chord printing routines do not try to
+be intelligent.  The last chord (@code{f bes d}) is not interpreted as
+an inversion.
+
+Note that the duration of chords must be specified outside the
+@code{<>}.
+
+@example
+<c e g>2
+@end example
+
+
+@anchor{Chords mode}
+@unnumberedsubsubsec Chords mode
+@cindex Chords mode
+
+In chord mode sets of pitches (chords) are entered with normal note
+names.  A chord is entered by the root, which is entered like a
+normal pitch
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { es4. d8 c2 }
+@end lilypond
+
+@noindent
+The mode is introduced by the keyword @code{\chordmode}.
+
+@cindex chord entry
+@cindex chord mode
+
+Other chords may be entered by suffixing a colon and introducing a
+modifier (which may include a number if desired)
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { e1:m e1:7 e1:m7 }
+@end lilypond
+
+The first number following the root is taken to be the @q{type} of the
+chord, thirds are added to the root until it reaches the specified
+number.  The exception is @code{c:13}, for which the 11 is omitted.
+
+@lilypond[quote,fragment,verbatim]
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
+@end lilypond
+
+@cindex root of chord
+@cindex additions, in chords
+@cindex removals, in chords
+
+More complex chords may also be constructed adding separate steps
+to a chord.  Additions are added after the number following
+the colon and are separated by dots
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+
+Chord steps can be altered by suffixing a @code{-} or @code{+} sign
+to the number
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@end lilypond
+
+Removals are specified similarly and are introduced by a caret.  They
+must come after the additions
+
+@lilypond[quote,verbatim,fragment]
+\chordmode { c^3 c:7^5 c:9^3.5 }
+@end lilypond
+
+Modifiers can be used to change pitches.  The following modifiers are
+supported
+
+@table @code
+@item m
+The minor chord.  This modifier lowers the 3rd and (if present) the 7th step.
+
+@item dim
+The diminished chord.  This modifier lowers the 3rd, 5th and (if present)
+the 7th step.
+
+@item aug
+The augmented chord.  This modifier raises the 5th step.
+
+@item maj
+The major 7th chord.  This modifier raises the 7th step if present.
+
+@item sus
+The suspended 4th or 2nd.  This modifier removes the 3rd
+step.  Append either @code{2} or @code{4} to add the 2nd or 4th step to
+the chord.
+@end table
+
+Modifiers can be mixed with additions
+@lilypond[quote,verbatim,fragment]
+  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
+@end lilypond
+
+@cindex modifiers, in chords.
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex sus
+@funindex m
+
+Since an unaltered 11 does not sound good when combined with an
+unaltered 13, the 11 is removed in this case (unless it is added
+explicitly)
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c:13 c:13.11 c:m13 }
+@end lilypond
+
+@funindex /
+
+An inversion (putting one pitch of the chord on the bottom), as well
+as bass notes, can be specified by appending
+@code{/}@var{pitch} to the chord
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/g c/f }
+@end lilypond
+@funindex /+
+
+A bass note can be added instead of transposed out of the chord,
+by using @code{/+}@var{pitch}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c1 c/+g c/+f }
+@end lilypond
+
+Chords is a mode similar to @code{\lyricmode}, etc.  Most
+of the commands continue to work, for example, @code{r} and
+@code{\skip} can be used to insert rests and spaces, and property
+commands may be used to change various settings.
+
+
+
+@refbugs
+
+Each step can only be present in a chord once.  The following
+simply produces the augmented chord, since @code{5+} is interpreted
+last
+@cindex clusters
+@lilypond[quote,ragged-right,verbatim,fragment]
+\chordmode { c:5.5-.5+ }
+@end lilypond
+
+
+@anchor{Printing chord names}
+@unnumberedsubsubsec Printing chord names
+
+@cindex printing chord names
+@cindex chord names
+@cindex chords
+
+For displaying printed chord names, use the @internalsref{ChordNames} context.
+The chords may be entered either using the notation
+described above, or directly using @code{<} and @code{>}
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = {
+  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
+}
+<<
+  \new ChordNames \harmonies
+  \new Staff \harmonies
+>>
+@end lilypond
+
+You can make the chord changes stand out by setting
+@internalsref{ChordNames}.@code{chordChanges} to true.  This will only
+display chord names when there is a change in the chords scheme and at
+the start of a new line
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \harmonies }
+  \new Staff \transpose c c' \harmonies
+>>
+@end lilypond
+
+The previous examples all show chords over a staff.  This is not
+necessary.  Chords may also be printed separately.  It may be necessary
+to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
+for showing repeats.
+
+@lilypond[ragged-right,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  \consists Bar_engraver
+  \consists "Volta_engraver"
+}
+\chordmode { \repeat volta 2 {
+  f1:maj7 f:7 bes:7
+  c:maj7
+} \alternative {
+  es e
+}
+}
+@end lilypond
+
+
+The default chord name layout is a system for Jazz music, proposed by
+Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
+following properties
+
+@table @code
+@funindex chordNameExceptions
+@item chordNameExceptions
+This is a list that contains the chords that have special formatting.
+
+The exceptions list should be encoded as
+@example
+@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
+@end example
+
+To get this information into @code{chordNameExceptions} takes a little
+manoeuvring.  The following code transforms @code{chExceptionMusic}
+(which is a sequential music) into a list of exceptions.
+@example
+(sequential-music-to-chord-exceptions chExceptionMusic #t)
+@end example
+Then,
+@example
+(append
+ (sequential-music-to-chord-exceptions chExceptionMusic #t)
+ ignatzekExceptions)
+@end example
+adds the new exceptions to the default ones, which are defined in
+@file{ly/@/chord@/-modifier@/-init@/.ly}.
+
+For an example of tuning this property, see also
+@lsr{chords,chord@/-name@/-exceptions@/.ly}
+@cindex exceptions, chord names.
+
+
+@funindex majorSevenSymbol
+@item majorSevenSymbol
+This property contains the markup object used for the 7th step, when
+it is major.  Predefined options are @code{whiteTriangleMarkup} and
+@code{blackTriangleMarkup}.  See
+@lsr{chords,chord@/-name@/-major7@/.ly} for an example.
+
+@funindex chordNameSeparator
+@item chordNameSeparator
+Different parts of a chord name are normally separated by a
+slash.  By setting @code{chordNameSeparator}, you can specify other
+separators, e.g.,
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new ChordNames \chordmode {
+  c:7sus4
+  \set chordNameSeparator
+    = \markup { \typewriter "|" }
+  c:7sus4
+}
+@end lilypond
+
+@funindex chordRootNamer
+@item chordRootNamer
+The root of a chord is usually printed as a letter with an optional
+alteration.  The transformation from pitch to letter is done by this
+function.  Special note names (for example, the German @q{H} for a
+B-chord) can be produced by storing a new function in this property.
+
+@funindex chordNoteNamer
+@item chordNoteNamer
+The default is to print single pitch, e.g., the bass note, using the
+@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
+to a specialized function to change this behavior.  For example, the
+base can be printed in lower case.
+
+@funindex chordPrefixSpacer
+@item chordPrefixSpacer
+The @q{m} for minor chords is usually printed right after the root of
+the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
+between the root and @q{m}. The spacer is not used when the root
+is altered.
+
+@end table
+
+The predefined variables @code{\germanChords},
+@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords}
+set these variables.  The effect is
+demonstrated here,
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+There are also two other chord name schemes implemented: an alternate
+Jazz chord notation, and a systematic scheme called Banter chords.  The
+alternate Jazz notation is also shown on the chart in @ref{Chord name
+chart}.  Turning on these styles is demonstrated in
+@lsr{chords,chord-names-jazz.ly}.
+
+@cindex Banter
+@cindex jazz chords
+@cindex chords, jazz
+
+
+@refcommands
+
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords}.
+@funindex \italianChords
+@code{\italianChords}.
+@funindex \frenchChords
+@code{\frenchChords}.
+
+
+
+
+@seealso
+
+Examples:
+@lsrdir{chords}
+
+Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
+@file{scm/@/chord@/-entry@/.scm}.
+
+
+@refbugs
+
+Chord names are determined solely from the list of pitches.  Chord
+inversions are not identified, and neither are added bass notes.  This
+may result in strange chord names when chords are entered with the
+@code{< .. >} syntax.
+
+
+
+
+
+@node Piano music
+@section Piano music
+
+Piano staves are two normal staves coupled with a brace.  The staves
+are largely independent, but sometimes voices can cross between the
+two staves.  The same notation is also used for harps and other key
+instruments.  The @internalsref{PianoStaff} is especially built to
+handle this cross-staffing behavior.  In this section we discuss the
+@internalsref{PianoStaff} and some other pianistic peculiarities.
+
+@menu
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
+@end menu
+
+@refbugs
+
+Dynamics are not centered, but workarounds do exist.  See the
+@q{piano centered dynamics} template in @ref{Piano templates}.
+
+@cindex cross staff stem
+@cindex stem, cross staff
+@cindex distance between staves in piano music
+
+
+@anchor{Automatic staff changes}
+@unnumberedsubsubsec Automatic staff changes
+@cindex Automatic staff changes
+
+Voices can be made to switch automatically between the top and the bottom
+staff.  The syntax for this is
+
+@quotation
+@example
+\autochange @dots{}@var{music}@dots{}
+@end example
+@end quotation
+
+@noindent
+This will create two staves inside the current PianoStaff, called
+@code{up} and @code{down}.  The lower staff will be in bass clef by
+default.
+
+A @code{\relative} section that is outside of @code{\autochange} has
+no effect on the pitches of @var{music}, so, if necessary, put
+@code{\relative} inside @code{\autochange} like
+
+@quotation
+@example
+\autochange \relative @dots{} @dots{}
+@end example
+@end quotation
+
+
+The autochanger switches on basis of the pitch (middle C is the turning
+point), and it looks ahead skipping over rests to switch in
+advance.  Here is a practical example
+
+@lilypond[quote,verbatim,ragged-right]
+\new PianoStaff
+  \autochange \relative c'
+  {
+    g4 a b c d r4 a g
+  }
+@end lilypond
+
+
+@seealso
+
+In this manual: @ref{Manual staff switches}.
+
+Program reference: @internalsref{AutoChangeMusic}.
+
+
+
+@refbugs
+
+The staff switches may not end up in optimal places.  For high
+quality output, staff switches should be specified manually.
+
+
+@code{\autochange} cannot be inside @code{\times}.
+
+
+@anchor{Manual staff switches}
+@unnumberedsubsubsec Manual staff switches
+
+@cindex manual staff switches
+@cindex staff switch, manual
+
+Voices can be switched between staves manually, using the command
+@example
+\change Staff = @var{staffname} @var{music}
+@end example
+
+@noindent
+The string @var{staffname} is the name of the staff.  It switches the
+current voice from its current staff to the Staff called
+@var{staffname}.  Typically @var{staffname} is @code{"up"} or
+@code{"down"}.  The @context{Staff} referred to must already exist, so
+usually the setup for a score will start with a setup of the staves,
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{keep staff alive}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+
+and the @context{Voice} is inserted afterwards
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
+
+
+@anchor{Pedals}
+@unnumberedsubsubsec Pedals
+@cindex Pedals
+
+Pianos have pedals that alter the way sound is produced.  Generally, a
+piano has three pedals, sustain, una corda, and sostenuto.
+
+
+Piano pedal instruction can be expressed by attaching
+@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
+@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
+note or chord
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c'4\sustainDown c'4\sustainUp
+@end lilypond
+
+What is printed can be modified by setting @code{pedal@var{X}Strings},
+where @var{X} is one of the pedal types: @code{Sustain},
+@code{Sostenuto} or @code{UnaCorda}.  Refer to
+@internalsref{SustainPedal} in the program reference for more
+information.
+
+Pedals can also be indicated by a sequence of brackets, by setting the
+@code{pedalSustainStyle} property to bracket objects
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'bracket
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+A third style of pedal notation is a mixture of text and brackets,
+obtained by setting the @code{pedalSustainStyle} property to
+@code{mixed}
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'mixed
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+The default @q{*Ped.} style for sustain and damper pedals corresponds to
+style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
+default.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+For fine-tuning the appearance of a pedal bracket, the properties
+@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
+@code{PianoPedalBracket} objects (see
+@internalsref{PianoPedalBracket} in the Program reference) can be
+modified.  For example, the bracket may be extended to the right edge
+of the note head
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+@seealso
+
+In this manual: @ref{Laissez vibrer ties}.
+
+@anchor{Staff switch lines}
+@unnumberedsubsubsec Staff switch lines
+
+
+@cindex follow voice
+@cindex staff switching
+@cindex cross staff
+
+@funindex followVoice
+
+Whenever a voice switches to another staff, a line connecting the notes
+can be printed automatically.  This is switched on by setting
+@code{followVoice} to true
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
+>>
+@end lilypond
+
+@seealso
+
+Program reference: @internalsref{VoiceFollower}.
+
+@refcommands
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
+
+
+@anchor{Cross staff stems}
+@unnumberedsubsubsec Cross staff stems
+
+Chords that cross staves may be produced by increasing the length
+of the stem in the lower staff, so it reaches the stem in the upper
+staff, or vice versa.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+
+
+@node Percussion
+@section Percussion
 
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
@@ -2369,16 +2368,35 @@ pitch.  It is notated with cross noteheads; this is
 demonstrated in @ref{Special noteheads}.
 
 
-@node Bagpipe
-@section Bagpipe
+@node Other instrument-specific
+@section Other instrument-specific
 
-@cindex Bagpipe
+This section includes extra information for writing for instruments.
 
 @menu
-* Bagpipe definitions::         
-* Bagpipe example::             
+* Orchestral strings::          
+* Bagpipe::                     
 @end menu
 
+
+@node Orchestral strings
+@subsection Orchestral strings
+
+@anchor{Artificial harmonics (strings)}
+@unnumberedsubsubsec Artificial harmonics (strings)
+
+@cindex artificial harmonics
+
+Artificial harmonics are notated with a different notehead style.  They
+are entered by marking the harmonic pitch with @code{\harmonic}.
+
+@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
+<c g'\harmonic>4
+@end lilypond
+
+
+@node Bagpipe
+@subsection Bagpipe
 
 @anchor{Bagpipe definitions}
 @unnumberedsubsubsec Bagpipe definitions
@@ -4653,24 +4671,4 @@ Program reference: @internalsref{NewBassFigure},
 
 
 
-@node Other instrument specific notation
-@section Other instrument specific notation
-
-This section includes extra information for writing for instruments.
-
-@menu
-* Artificial harmonics (strings)::  
-@end menu
-
-@anchor{Artificial harmonics (strings)}
-@unnumberedsubsubsec Artificial harmonics (strings)
-
-@cindex artificial harmonics
-
-Artificial harmonics are notated with a different notehead style.  They
-are entered by marking the harmonic pitch with @code{\harmonic}.
-
-@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
-<c g'\harmonic>4
-@end lilypond
 
