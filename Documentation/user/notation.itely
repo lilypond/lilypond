@@ -6,8 +6,11 @@
 This chapter explains how to create musical notation.
 
 @menu
-* Pitches::           Writing the pitches of notes.
+* Pitches::           Writing and display the pitches of notes.
+* Rhythms::           Writing and displaying the durations of notes.
 @end menu
 
 @include pitch.itely
+@include rhythms.itely
+
 
