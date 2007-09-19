@@ -158,11 +158,13 @@ of this and other documentation.
 @include dedication.itely
 
 @menu
-Notation Reference
+* Musical notation::               Musical notation.
 
-* Basic notation::                 Standard musical notation.
-* Instrument-specific notation::   Specialized notation.
-* Advanced notation::              Less frequently used notation.
+old stuff
+* Basic notation::
+* Instrument-specific notation::
+* Advanced notation::
+
 * Changing defaults::              Tuning output.
 * Non-musical notation::           Output that is not musical notation.
 * Spacing issues::                 Display of output on paper.
@@ -185,6 +187,8 @@ Appendices
 
 
 @include macros.itexi
+
+@include notation.itely
 
 @include basic-notation.itely
 @include instrument-notation.itely

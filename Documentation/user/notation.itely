@@ -1,0 +1,13 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@node Musical notation
+@chapter Musical notation
+
+This chapter explains how to create musical notation.
+
+@menu
+* Pitches::           Writing the pitches of notes.
+@end menu
+
+@include pitch.itely
+
