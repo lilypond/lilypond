@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 import new
 import string
 from rational import *
 import re
 import sys
+import copy
 
 def escape_ly_output_string (input_string):
     return_string = input_string
@@ -518,12 +520,51 @@ class Part (Music_xml_node):
 
                 now = new_now
 
+    # modify attributes so that only those applying to the given staff remain
+    def extract_attributes_for_staff (part, attr, staff):
+        attributes = copy.copy (attr)
+        attributes._children = copy.copy (attr._children)
+        attributes._dict = attr._dict.copy ()
+        for c in attributes._children:
+            if hasattr (c, 'number') and c.number != staff:
+                attributes._children.remove (c)
+        return attributes
+
     def extract_voices (part):
 	voices = {}
 	measures = part.get_typed_children (Measure)
 	elements = []
 	for m in measures:
 	    elements.extend (m.get_all_children ())
+        # make sure we know all voices already so that dynamics, clefs, etc.
+        # can be assigned to the correct voices
+        voice_to_staff_dict = {}
+        for n in elements:
+            voice_id = n.get_maybe_exist_named_child (u'voice')
+            vid = None
+            if voice_id:
+                vid = voice_id.get_text ()
+
+            staff_id = n.get_maybe_exist_named_child (u'staff')
+            sid = None
+            if staff_id:
+                sid = staff_id.get_text ()
+            if vid and not voices.has_key (vid):
+                voices[vid] = Musicxml_voice()
+            if vid and sid and not n.get_maybe_exist_typed_child (Grace):
+                if not voice_to_staff_dict.has_key (vid):
+                    voice_to_staff_dict[vid] = sid
+        # invert the voice_to_staff_dict into a staff_to_voice_dict (since we
+        # need to assign staff-assigned objects like clefs, times, etc. to
+        # all the correct voices. This will never work entirely correct due
+        # to staff-switches, but that's the best we can do!
+        staff_to_voice_dict = {}
+        for (v,s) in voice_to_staff_dict.items ():
+            if not staff_to_voice_dict.has_key (s):
+                staff_to_voice_dict[s] = [v]
+            else:
+                staff_to_voice_dict[s].append (v)
+
 
 	start_attr = None
 	for n in elements:
@@ -538,22 +579,38 @@ class Part (Music_xml_node):
 		start_attr = n
 		continue
 
-	    if isinstance (n, Attributes) or isinstance (n, Direction):
-		for v in voices.values ():
-		    v.add_element (n)
-		continue
+            if isinstance (n, Attributes):
+                # assign these only to the voices they really belongs to!
+                for (s, vids) in staff_to_voice_dict.items ():
+                    staff_attributes = part.extract_attributes_for_staff (n, s)
+                    for v in vids:
+                        voices[v].add_element (staff_attributes)
+                continue
+
+            if isinstance (n, Direction):
+                staff_id = n.get_maybe_exist_named_child (u'staff')
+                if staff_id:
+                    staff_id = staff_id.get_text ()
+                if staff_id:
+                    dir_voices = staff_to_voice_dict[staff_id]
+                else:
+                    dir_voices = voices.keys ()
+                for v in dir_voices:
+                    voices[v].add_element (n)
+                continue
 
 	    id = voice_id.get_text ()
-	    if not voices.has_key (id):
-		voices[id] = Musicxml_voice()
-
 	    voices[id].add_element (n)
 
 	if start_attr:
-	    for (k,v) in voices.items ():
-		v.insert (0, start_attr)
+            for (s, vids) in staff_to_voice_dict.items ():
+                staff_attributes = part.extract_attributes_for_staff (start_attr, s)
+                staff_attributes.read_self ()
+                for v in vids:
+                    voices[v].insert (0, staff_attributes)
+                    voices[v]._elements[0].read_self()
 
-	part._voices = voices
+        part._voices = voices
 
     def get_voices (self):
 	return self._voices
