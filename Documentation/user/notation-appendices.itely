@@ -16,6 +16,8 @@
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
+* Overview of text markup commands::  
+* Overview of text markup list commands::  
 @end menu
 
 
@@ -202,6 +204,21 @@ accessed directly using text markup such as @code{g^\markup @{
 The following styles may be used for note heads.
 
 @lilypondfile[noindent]{note-head-style.ly}
+
+
+@node Overview of text markup commands
+@appendixsec Overview of text markup commands
+
+The following commands can all be used inside @code{\markup @{ @}}.
+
+@include markup-commands.tely
+
+@node Overview of text markup list commands
+@appendixsec Overview of text markup list commands
+
+The following commands can all be used with @code{\markuplines}.
+
+@include markup-list-commands.tely
 
 @ignore
 @n ode All context properties

@@ -674,20 +674,6 @@ This manual: @ref{Overview of text markup list commands},
 @funindex \markuplines
 @code{\markuplines}
 
-@anchor{Overview of text markup commands}
-@unnumberedsubsubsec Overview of text markup commands
-
-The following commands can all be used inside @code{\markup @{ @}}.
-
-@include markup-commands.tely
-
-@anchor{Overview of text markup list commands}
-@unnumberedsubsubsec Overview of text markup list commands
-
-The following commands can all be used with @code{\markuplines}.
-
-@include markup-list-commands.tely
-
 @anchor{Font selection}
 @unnumberedsubsubsec Font selection
 
