@@ -1,1 +1,1 @@
-default: $(LY_FILES)
+default: $(OUT_LY_FILES)
