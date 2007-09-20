@@ -1,57 +1,228 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
-
+    Translation of GIT committish: 2ae5726ea4fcbcd40e42678db32d7da3227ef44a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Notation manual tables
 @appendix Notation manual tables
 
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* Chord name chart::            
+* MIDI instruments::            
+* List of colors::              
+* The Feta font::               
+* Note head styles::            
+@end menu
 
-@menu 
-* Chord name chart::
-* MIDI instruments::
-* List of colors::
-* The Feta font::
-* Note head styles::
-@end menu 
 @node Chord name chart
 @appendixsec Chord name chart
 
-UNTRANSLATED NODE: IGNORE ME
+Die Tabelle zeigt die zwei üblichen Möglichkeiten, wie Akkordbezeichnungen
+ausgegeben werden. Es wird auch die entsprechende Note ausgegeben.
+
+@lilypondfile{chord-names-jazz.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments
 
-UNTRANSLATED NODE: IGNORE ME
+Hier eine Liste von Musikinstrumentenbezeichnungen, die als Name für 
+@code{midiInstrument} benutzt werden können.
+@c Todo: translate music instrument's names to German
+
+@cindex MIDI-Instrumentenbezeichnungen
+
+@example
+acoustic grand            contrabass           lead 7 (fifths)
+bright acoustic           tremolo strings      lead 8 (bass+lead)
+electric grand            pizzicato strings    pad 1 (new age)
+honky-tonk                orchestral strings   pad 2 (warm)
+electric piano 1          timpani              pad 3 (polysynth)
+electric piano 2          string ensemble 1    pad 4 (choir)
+harpsichord               string ensemble 2    pad 5 (bowed)
+clav                      synthstrings 1       pad 6 (metallic)
+celesta                   synthstrings 2       pad 7 (halo)
+glockenspiel              choir aahs           pad 8 (sweep)
+music box                 voice oohs           fx 1 (rain)
+vibraphone                synth voice          fx 2 (soundtrack)
+marimba                   orchestra hit        fx 3 (crystal)
+xylophone                 trumpet              fx 4 (atmosphere)
+tubular bells             trombone             fx 5 (brightness)
+dulcimer                  tuba                 fx 6 (goblins)
+drawbar organ             muted trumpet        fx 7 (echoes)
+percussive organ          french horn          fx 8 (sci-fi)
+rock organ                brass section        sitar
+church organ              synthbrass 1         banjo
+reed organ                synthbrass 2         shamisen
+accordion                 soprano sax          koto
+harmonica                 alto sax             kalimba
+concertina                tenor sax            bagpipe
+acoustic guitar (nylon)   baritone sax         fiddle
+acoustic guitar (steel)   oboe                 shanai
+electric guitar (jazz)    english horn         tinkle bell
+electric guitar (clean)   bassoon              agogo
+electric guitar (muted)   clarinet             steel drums
+overdriven guitar         piccolo              woodblock
+distorted guitar          flute                taiko drum
+guitar harmonics          recorder             melodic tom
+acoustic bass             pan flute            synth drum
+electric bass (finger)    blown bottle         reverse cymbal
+electric bass (pick)      shakuhachi           guitar fret noise
+fretless bass             whistle              breath noise
+slap bass 1               ocarina              seashore
+slap bass 2               lead 1 (square)      bird tweet
+synth bass 1              lead 2 (sawtooth)    telephone ring
+synth bass 2              lead 3 (calliope)    helicopter
+violin                    lead 4 (chiff)       applause
+viola                     lead 5 (charang)     gunshot
+cello                     lead 6 (voice)
+@end example
+
 
 @node List of colors
 @appendixsec List of colors
 
-UNTRANSLATED NODE: IGNORE ME
-
 @subsubheading Normal colors
+
+Die Syntax zur Benutzung findet sich im Abschnitt @ref{Coloring objects}.
+
+@cindex Liste der Farben
+@cindex Farben, Liste
+
+@verbatim
+black       white          red         green
+blue        cyan           magenta     yellow
+grey        darkred        darkgreen   darkblue
+darkcyan    darkmagenta    darkyellow
+@end verbatim
+
+
 @subsubheading X color names
+
+X-Farbbezeichnungen haben verschiedene Varianten:
+
+Alle Bezeichnungen, die als einziges Wort mit Großbuchstaben 
+geschrieben werden (bspw. @q{LightSlateBlue}), können auch 
+von Leerzeichen getrennt geschrieben werden
+(also @q{light slate blue}).
+
+Das Wort @q{grey} kann in jedem Fall auch @q{gray} geschrieben 
+werden (bspw. @q{DarkSlateGray}).
+
+Manche Bezeichnungen können auch ein numerales Suffix tragen 
+(etwa @q{LightSalmon4}).
+
+
 @subsubheading Color Names without a numerical suffix:
+
+@verbatim
+snow		GhostWhite	WhiteSmoke	gainsboro	FloralWhite
+OldLace		linen		AntiqueWhite	PapayaWhip	BlanchedAlmond
+bisque		PeachPuff	NavajoWhite	moccasin	cornsilk
+ivory		LemonChiffon	seashell	honeydew	MintCream
+azure		AliceBlue	lavender	LavenderBlush	MistyRose
+white		black		DarkSlateGrey	DimGrey		SlateGrey
+LightSlateGrey	grey		LightGrey	MidnightBlue	navy
+NavyBlue	CornflowerBlue	DarkSlateBlue	SlateBlue	MediumSlateBlue
+LightSlateBlue	MediumBlue	RoyalBlue	blue		DodgerBlue
+DeepSkyBlue	SkyBlue		LightSkyBlue	SteelBlue	LightSteelBlue
+LightBlue	PowderBlue	PaleTurquoise	DarkTurquoise	MediumTurquoise
+turquoise	cyan		LightCyan	CadetBlue	MediumAquamarine
+aquamarine	DarkGreen	DarkOliveGreen	DarkSeaGreen	SeaGreen
+MediumSeaGreen	LightSeaGreen	PaleGreen	SpringGreen	LawnGreen
+green		chartreuse	MediumSpringGreen	GreenYellow	LimeGreen
+YellowGreen	ForestGreen	OliveDrab	DarkKhaki	khaki
+PaleGoldenrod	LightGoldenrodYellow	LightYellow	yellow	gold
+LightGoldenrod	goldenrod	DarkGoldenrod	RosyBrown	IndianRed
+SaddleBrown	sienna		peru		burlywood	beige
+wheat		SandyBrown	tan		chocolate	firebrick
+brown		DarkSalmon	salmon		LightSalmon	orange
+DarkOrange	coral		LightCoral	tomato		OrangeRed
+red		HotPink		DeepPink	pink		LightPink
+PaleVioletRed	maroon		MediumVioletRed	VioletRed	magenta
+violet		plum		orchid		MediumOrchid	DarkOrchid
+DarkViolet	BlueViolet	purple		MediumPurple	thistle
+DarkGrey	DarkBlue	DarkCyan	DarkMagenta	DarkRed
+LightGreen
+@end verbatim
+
+
 @subsubheading Color names with a numerical suffix
+
+Für die folgenden Bezeichnungen kann das Suffix N durch eine 
+Zahl von 1--4 ersetzt werden.
+
+@verbatim
+snowN		seashellN	AntiqueWhiteN	bisqueN		PeachPuffN
+NavajoWhiteN	LemonChiffonN	cornsilkN	ivoryN		honeydewN
+LavenderBlushN	MistyRoseN	azureN		SlateBlueN	RoyalBlueN
+blueN		DodgerBlueN	SteelBlueN	DeepSkyBlueN	SkyBlueN
+LightSkyBlueN	LightSteelBlueN	LightBlueN	LightCyanN	PaleTurquoiseN
+CadetBlueN	turquoiseN	cyanN		aquamarineN	DarkSeaGreenN
+SeaGreenN	PaleGreenN	SpringGreenN	greenN		chartreuseN
+OliveDrabN	DarkOliveGreenN	khakiN		LightGoldenrodN	LightYellowN
+yellowN		goldN		goldenrodN	DarkGoldenrodN	RosyBrownN
+IndianRedN	siennaN		burlywoodN	wheatN		tanN
+chocolateN	firebrickN	brownN		salmonN		LightSalmonN
+orangeN		DarkOrangeN	coralN		tomatoN		OrangeRedN
+redN		DeepPinkN	HotPinkN	pinkN		LightPinkN
+PaleVioletRedN	maroonN		VioletRedN	magentaN	orchidN
+plumN		MediumOrchidN	DarkOrchidN	purpleN		MediumPurpleN
+thistleN
+@end verbatim
+
+
 @subsubheading Grey Scale
+
+Eine Grauskala kann mit der Bezeichnung
+
+@example
+greyN
+@end example
+
+@noindent
+erstellt werden, wobei N eine Zahl von 0--100 darstellt.
+
+
 @node The Feta font
 @appendixsec The Feta font
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Feta font
+@cindex Font, Feta
+
+Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie 
+kann direkt zugegriffen werden, indem man die übliche Textbeschriftung 
+benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart 
+zu (bspw. @code{g^\markup @{
+\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text markup}.
+
+@lilypondfile[noindent]{font-table.ly}
+
 
 @node Note head styles
 @appendixsec Note head styles
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Notenkopfarten
+@cindex Arten von Notenköpfen
+@cindex Stile, Notenköpfe
+
+Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
+
+@lilypondfile[noindent]{note-head-style.ly}
+
+@ignore
+@n ode All context properties
+@a ppendixsec All context properties
+
+@i nclude context-properties.tely
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@n ode Layout properties
+@ap pendixsec Layout properties
+
+@in clude layout-properties.tely
+
+@end ignore
