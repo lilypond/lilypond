@@ -159,10 +159,6 @@ of this and other documentation.
 
 @menu
 * Musical notation::               Musical notation.
-
-old stuff
-* Instrument-specific notation::
-
 * Changing defaults::              Tuning output.
 * Non-musical notation::           Output that is not musical notation.
 * Spacing issues::                 Display of output on paper.
@@ -188,7 +184,6 @@ Appendices
 
 @include notation.itely
 
-@include instrument-notation.itely
 @include changing-defaults.itely
 @include non-music.itely
 @include spacing.itely
