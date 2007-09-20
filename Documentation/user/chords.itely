@@ -1,13 +1,10 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 
 
-@node Chords
-@section Chords
+@node Chords Blah
+@section Chords Blah
 
 @menu
-* Introducing chord names::     
-* Chords mode::                 
-* Printing chord names::        
 @end menu
 
 

@@ -20,24 +20,7 @@ There are a few different ways to define lyrics; we shall begin
 by examining the simplest method, and gradually increase complexity.
 
 @menu
-* Setting simple songs::        
-* Entering lyrics::             
-* Aligning lyrics to a melody::  
-* Automatic syllable durations::  
-* Another way of entering lyrics::  
-* Assigning more than one syllable to a single note::  
-* More than one note on a single syllable::  
-* Extenders and hyphens::       
-* Working with lyrics and identifiers::  
-* Flexibility in placement::    
-* Lyrics to multiple notes of a melisma::  
-* Divisi lyrics::               
-* Switching the melody associated with a lyrics line::  
-* Lyrics independent of notes::  
-* Spacing lyrics::              
-* More about stanzas::          
-* Ambitus::                     
-* Other vocal issues::          
+* TODO subsection vocal music::  
 @end menu
 
 
@@ -65,7 +48,7 @@ To make lyrics avoid barlines as well, use
 
 
 @node TODO subsection vocal music
-@section TODO subsection vocal music
+@subsection TODO subsection vocal music
 
 @anchor{Setting simple songs}
 @unnumberedsubsubsec Setting simple songs

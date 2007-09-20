@@ -11,11 +11,6 @@ handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.
 
 @menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
 @end menu
 
 @refbugs
