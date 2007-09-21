@@ -80,6 +80,12 @@ highly recommended.
 
 * Use two spaces after a period.
 
+* Don't use a @ref{link to another section} in the middle of a
+  sentence.  It looks ok in HTML, moderately bad in PDF, and
+  utterly horrible in INFO.  Instead, reword the sentence so that
+  users are encouraged to see @ref{link to another section}.
+  (at the end of the sentence)
+
 * Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
   properly, either to the previous or the next word.  Example:
@@ -135,8 +141,8 @@ highly recommended.
   all such characters appear in all output formats.
 
 * Lines should be less than 72 characters long.  (I personally
-  recommend writing with 66-char lines, but don't bother changing
-  this if you see long lines.)
+  recommend writing with 66-char lines, but don't bother modifying
+  existing material.)
 
 * Use @q instead of `...' and @qq instead of ``...''.  The latter macro
   should be used with care since we use `...' as the default quoting
