@@ -63,7 +63,7 @@ Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
 introduced in a @code{.ly} file with the hash mark
-@code{#}.@footnote{@ref{Scheme tutorial}, contains a short tutorial
+@code{#}.@footnote{@rlearning{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
 
 
@@ -1438,7 +1438,7 @@ Then the output at the start of this subsection can be entered as
 @subsection Aligning contexts
 
 New contexts may be aligned above or below exisiting contexts.  This
-could be useful in setting up a vocal staff (@ref{Vocal ensembles}) and
+could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
 in ossia,
 
 @cindex ossia

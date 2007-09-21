@@ -12,7 +12,7 @@
 
 Advanced tweaks may be performed by using Scheme.  If you are
 not familiar with Scheme, you may wish to read our
-@ref{Scheme tutorial}.
+@rlearning{Scheme tutorial}.
 
 @menu
 * Music functions::             

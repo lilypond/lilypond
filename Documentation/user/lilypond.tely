@@ -167,9 +167,7 @@ of this and other documentation.
 Appendices
 
 * Literature list::                Reference works about music notation.
-* Scheme tutorial::                Programming inside LilyPond.
 * Notation manual tables::         Tables and charts.
-* Templates::                      Ready-made templates.
 * Cheat sheet::                    Summary of LilyPond syntax.
 * GNU Free Documentation License:: License of this document.
 * LilyPond command index::
@@ -191,9 +189,7 @@ Appendices
 
 
 @include literature.itely
-@include scheme-tutorial.itely
 @include notation-appendices.itely
-@include templates.itely
 @include cheatsheet.itely
 @include fdl.itexi
 

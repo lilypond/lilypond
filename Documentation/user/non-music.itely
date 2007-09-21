@@ -33,7 +33,6 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @samp{.ly}.
 
 @menu
-* File structure (introduction)::  
 * File structure::              
 * A single music expression::   
 * Multiple scores in a book::   
@@ -42,41 +41,6 @@ these files end with @samp{.ly}.
 * Text encoding::               
 * Different editions from one source::  
 @end menu
-
-
-@node File structure (introduction)
-@subsection File structure (introduction)
-
-A basic example of a lilypond input file is
-
-@example
-\version "2.11.23"
-\score @{
-  @{ @}     % this is a single music expression;
-            % all the music goes in here.
-  \header @{ @}
-  \layout @{ @}
-  \midi @{ @}
-@}
-@end example
-
-@noindent
-There are many variations of this basic pattern, but this
-example serves as a useful starting place.
-
-The major part of this manual is concerned with entering various
-forms of music in LilyPond.  However, many music expressions are not
-valid input on their own, for example, a @code{.ly} file containing
-only a note
-@example
-c'4
-@end example
-
-@noindent
-will result in a parsing error.  Instead, music should be inside other
-expressions, which may be put in a file by themselves.  Such
-expressions are called toplevel expressions; see @ref{File structure}, for
-a list of all such expressions.
 
 
 @node File structure
