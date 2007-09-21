@@ -155,7 +155,7 @@ highly recommended.
   In most cases, you should use @code{} or @samp{} instead.
 
 
-%%%%% READIBILITY
+%%%%% READABILITY
 
 * LilyPond input should be produce via
     @lilypond[verbatim,quote,ragged-right]
