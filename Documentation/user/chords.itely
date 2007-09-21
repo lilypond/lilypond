@@ -4,13 +4,25 @@
 @node Chords Blah
 @section Chords Blah
 
+Intro text.
+
 @menu
+* TODO chords fix::             
 @end menu
+
+@node TODO chords fix
+@subsection TODO chords fix
 
 
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
-@anchor{Introducing chord names}
+@menu
+* Introducing chord names::     
+* Chords mode::                 
+* Printing chord names::        
+@end menu
+
+@node Introducing chord names
 @unnumberedsubsubsec Introducing chord names
 @cindex chord names
 
@@ -46,7 +58,7 @@ Note that the duration of chords must be specified outside the
 @end example
 
 
-@anchor{Chords mode}
+@node Chords mode
 @unnumberedsubsubsec Chords mode
 @cindex Chords mode
 
@@ -182,7 +194,7 @@ last
 @end lilypond
 
 
-@anchor{Printing chord names}
+@node Printing chord names
 @unnumberedsubsubsec Printing chord names
 
 @cindex printing chord names

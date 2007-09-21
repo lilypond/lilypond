@@ -16,7 +16,12 @@ one voice on the same staff.
 @node Single voice
 @subsection Single voice
 
-@anchor{Chords}
+@menu
+* Chords::                      
+* Clusters::                    
+@end menu
+
+@node Chords
 @unnumberedsubsubsec Chords
 
 @cindex Chords
@@ -32,7 +37,7 @@ articulations, just like simple notes
 For more information about chords, see @ref{Introducing chord names}.
 
 
-@anchor{Clusters}
+@node Clusters
 @unnumberedsubsubsec Clusters
 
 @cindex cluster
@@ -67,7 +72,15 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 @node Multiple voices
 @subsection Multiple voices
 
-@anchor{Basic polyphony}
+@menu
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
+* Automatic part combining::    
+* Writing music in parallel::   
+@end menu
+
+@node Basic polyphony
 @unnumberedsubsubsec Basic polyphony
 
 @cindex polyphony
@@ -146,7 +159,7 @@ to the note immediately preceding it.
 @code{noteA}.
 
 
-@anchor{Explicitly instantiating voices}
+@node Explicitly instantiating voices
 @unnumberedsubsubsec Explicitly instantiating voices
 
 @internalsref{Voice} contexts can also be instantiated manually
@@ -265,7 +278,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @end lilypond
 
 
-@anchor{Collision Resolution}
+@node Collision Resolution
 @unnumberedsubsubsec Collision Resolution
 
 Normally, note heads with a different number of dots are not merged, but
@@ -390,7 +403,7 @@ recommended to use enharmonic transcription, or to use special cluster
 notation (see @ref{Clusters}).
 
 
-@anchor{Automatic part combining}
+@node Automatic part combining
 @unnumberedsubsubsec Automatic part combining
 @cindex automatic part combining
 @cindex part combiner
@@ -488,7 +501,7 @@ differently named @internalsref{Voice} contexts, the events in those
 will be ignored.
 
 
-@anchor{Writing music in parallel}
+@node Writing music in parallel
 @unnumberedsubsubsec Writing music in parallel
 
 @cindex Writing music in parallel

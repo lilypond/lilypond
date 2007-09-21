@@ -14,7 +14,14 @@ for repetitions.
 @node Writing repeats
 @subsection Writing repeats
 
-@anchor{Repeat types}
+@menu
+* Repeat types::                
+* Repeat syntax::               
+* Manual repeat commands::      
+* Repeats and MIDI::            
+@end menu
+
+@node Repeat types
 @unnumberedsubsubsec Repeat types
 
 @cindex repeats
@@ -45,7 +52,7 @@ declared within a @code{Voice} context.
 @end table
 
 
-@anchor{Repeat syntax}
+@node Repeat syntax
 @unnumberedsubsubsec Repeat syntax
 
 @cindex volta
@@ -189,7 +196,7 @@ example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
-@anchor{Manual repeat commands}
+@node Manual repeat commands
 @unnumberedsubsubsec Manual repeat commands
 
 @funindex repeatCommands
@@ -230,7 +237,7 @@ Program reference: @internalsref{VoltaBracket},
 @internalsref{VoltaRepeatedMusic}, and
 @internalsref{UnfoldedRepeatedMusic}.
 
-@anchor{Repeats and MIDI}
+@node Repeats and MIDI
 @unnumberedsubsubsec Repeats and MIDI
 
 @cindex expanding repeats
@@ -274,7 +281,13 @@ percent repeats).  For example,
 @node Other repeats
 @subsection Other repeats
 
-@anchor{Tremolo repeats}
+@menu
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
+@end menu
+
+@node Tremolo repeats
 @unnumberedsubsubsec Tremolo repeats
 
 @cindex tremolo beams
@@ -306,7 +319,7 @@ In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 
-@anchor{Tremolo subdivisions}
+@node Tremolo subdivisions
 @unnumberedsubsubsec Tremolo subdivisions
 
 @cindex tremolo marks
@@ -336,7 +349,7 @@ In this manual: @ref{Tremolo repeats}.
 Elsewhere: @internalsref{StemTremolo}.
 
 
-@anchor{Measure repeats}
+@node Measure repeats
 @unnumberedsubsubsec Measure repeats
 
 @cindex percent repeats

@@ -7,6 +7,13 @@
 @cindex guitar tablature
 
 @menu
+* Guitar TODO::                 
+@end menu
+
+@node Guitar TODO
+@subsection Guitar TODO
+
+@menu
 * String number indications::   
 * Tablatures basic::            
 * Non-guitar tablatures::       
@@ -16,7 +23,7 @@
 * Other guitar issues::         
 @end menu
 
-@anchor{String number indications}
+@node String number indications
 @unnumberedsubsubsec String number indications
 
 @cindex String numbers
@@ -35,7 +42,7 @@ Program reference: @internalsref{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
-@anchor{Tablatures basic}
+@node Tablatures basic
 @unnumberedsubsubsec Tablatures basic
 @cindex Tablatures basic
 
@@ -122,7 +129,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 
-@anchor{Non-guitar tablatures}
+@node Non-guitar tablatures
 @unnumberedsubsubsec Non-guitar tablatures
 @cindex Non-guitar tablatures
 
@@ -170,7 +177,7 @@ No guitar special effects have been implemented.
 
 
 
-@anchor{Banjo tablatures}
+@node Banjo tablatures
 @unnumberedsubsubsec Banjo tablatures
 @cindex Banjo tablatures
 
@@ -209,7 +216,7 @@ These tunings may be converted to four string banjo tunings using the
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
-@anchor{Fret diagrams}
+@node Fret diagrams
 @unnumberedsubsubsec Fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
@@ -258,7 +265,7 @@ Details about the property interface to fret diagrams are found at
 Examples: @lsrdir{guitar}
 
 
-@anchor{Right hand fingerings}
+@node Right hand fingerings
 @unnumberedsubsubsec Right hand fingerings
 
 Right hand fingerings in chords can be entered using
@@ -314,7 +321,7 @@ Program reference: @internalsref{StrokeFinger}
 
 
 
-@anchor{Other guitar issues}
+@node Other guitar issues
 @unnumberedsubsubsec Other guitar issues
 
 This example demonstrates how to include guitar position and

@@ -15,16 +15,16 @@ This chapter explains how to create musical notation.
 * Educational use::    Special notation to increase legibility.
 * Text::               Adding text to scores.
 
-* Vocal music::
-* Chords Blah::
-* Piano music::
-* Percussion::
-* Guitar::
-* Other instrument-specific::
-* Ancient notation::
+* Vocal music:: a
+* Chords Blah:: b
+* Piano music:: c
+* Percussion:: d
+* Guitar:: e
+* Other instrument-specific:: f
+* Ancient notation:: g
 @end menu
 
-@include pitch.itely
+@include pitches.itely
 @include rhythms.itely
 @include expressive.itely
 @include repeats.itely

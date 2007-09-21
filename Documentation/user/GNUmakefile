@@ -38,8 +38,6 @@ include $(depth)/make/stepmake.make
 
 info: $(INFO_FILES)
 
-pathsettings:
-	@echo export PATH=$(PATH)
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
 	@echo export PYTHONPATH=$(PYTHONPATH)
 
@@ -152,6 +150,8 @@ $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+# we /might/ switch to texi2html if it can be fixed:
+#	texi2html -I $(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css $<
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
 # symbolic links to save space
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )

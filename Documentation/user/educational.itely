@@ -13,7 +13,14 @@
 @node Note heads
 @subsection Note heads
 
-@anchor{Easy notation note heads}
+@menu
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+* Special noteheads::           
+@end menu
+
+@node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
 
 @cindex note heads, practice
@@ -40,7 +47,7 @@ to be printed in a large font size.  To print with a larger font, see
 @code{\setEasyHeads}
 
 
-@anchor{Shape note heads}
+@node Shape note heads
 @unnumberedsubsubsec Shape note heads
 
 @cindex note heads, shape
@@ -78,7 +85,7 @@ combinations are possible, e.g.
 @end lilypond
 
 
-@anchor{Improvisation}
+@node Improvisation
 @unnumberedsubsubsec Improvisation
 
 Improvisation is sometimes denoted with slashed note heads.  Such note
@@ -110,7 +117,7 @@ the following example
 @end lilypond
 
 
-@anchor{Special noteheads}
+@node Special noteheads
 @unnumberedsubsubsec Special noteheads
 
 @cindex note heads, special
@@ -144,7 +151,17 @@ Program reference: @internalsref{NoteHead}.
 @subsection Inside the staff
 
 
-@anchor{Selecting notation font size}
+@menu
+* Selecting notation font size::  
+* Fingering instructions::      
+* Hidden notes::                
+* Coloring objects::            
+* Parentheses::                 
+* Ambitus::                     
+* Stems::                       
+@end menu
+
+@node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
 
 The easiest method of setting the font size of any context is by
@@ -201,7 +218,7 @@ The following commands set @code{fontSize} for the current voice:
 @code{\normalsize}.
 
 
-@anchor{Fingering instructions}
+@node Fingering instructions
 @unnumberedsubsubsec Fingering instructions
 
 @cindex fingering
@@ -260,7 +277,7 @@ Examples: @lsr{expressive,fingering-chords.ly}
 
 
 
-@anchor{Hidden notes}
+@node Hidden notes
 @unnumberedsubsubsec Hidden notes
 
 @cindex Hidden notes
@@ -281,7 +298,7 @@ g4 a
 @end lilypond
 
 
-@anchor{Coloring objects}
+@node Coloring objects
 @unnumberedsubsubsec Coloring objects
 
 Individual objects may be assigned colors.  You may use the
@@ -361,7 +378,7 @@ Notes in a chord cannot be colored with @code{\override}; use
 for details.
 
 
-@anchor{Parentheses}
+@node Parentheses
 @unnumberedsubsubsec Parentheses
 
 @cindex ghost notes
@@ -386,7 +403,7 @@ This only functions inside chords, even for single notes
 @end example
 
 
-@anchor{Ambitus}
+@node Ambitus
 @unnumberedsubsubsec Ambitus
 @cindex ambitus
 
@@ -478,7 +495,7 @@ There is no collision handling in the case of multiple per-voice
 ambitus.
 
 
-@anchor{Stems}
+@node Stems
 @unnumberedsubsubsec Stems
 
 Whenever a note is found, a @internalsref{Stem} object is created
@@ -512,7 +529,13 @@ a4 b c b
 @subsection Outside the staff
 
 
-@anchor{Balloon help}
+@menu
+* Balloon help::                
+* Grid lines::                  
+* Blank music sheet::           
+@end menu
+
+@node Balloon help
 @unnumberedsubsubsec Balloon help
 
 Elements of notation can be marked and named with the help of a square
@@ -542,7 +565,7 @@ The other arguments  are the offset and the text of the label.
 Program reference: @internalsref{text-balloon-interface}.
 
 
-@anchor{Grid lines}
+@node Grid lines
 @unnumberedsubsubsec Grid lines
 
 Vertical lines can be drawn between staves synchronized with
@@ -585,7 +608,7 @@ the notes.
 Examples: @lsrdir{education}
 
 
-@anchor{Blank music sheet}
+@node Blank music sheet
 @unnumberedsubsubsec Blank music sheet
 
 @cindex Sheet music, empty

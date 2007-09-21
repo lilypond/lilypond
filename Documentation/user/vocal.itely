@@ -50,7 +50,27 @@ To make lyrics avoid barlines as well, use
 @node TODO subsection vocal music
 @subsection TODO subsection vocal music
 
-@anchor{Setting simple songs}
+@menu
+* Setting simple songs::        
+* Entering lyrics::             
+* Aligning lyrics to a melody::  
+* Automatic syllable durations::  
+* Another way of entering lyrics::  
+* Assigning more than one syllable to a single note::  
+* More than one note on a single syllable::  
+* Extenders and hyphens::       
+* Working with lyrics and identifiers::  
+* Flexibility in placement::    
+* Lyrics to multiple notes of a melisma::  
+* Divisi lyrics::               
+* Switching the melody associated with a lyrics line::  
+* Lyrics independent of notes::  
+* Spacing lyrics::              
+* More about stanzas::          
+* Other vocal issues::          
+@end menu
+
+@node Setting simple songs
 @unnumberedsubsubsec Setting simple songs
 
 @cindex \addlyrics
@@ -87,7 +107,7 @@ introduced in @ref{Entering lyrics}.
 
 
 
-@anchor{Entering lyrics}
+@node Entering lyrics
 @unnumberedsubsubsec Entering lyrics
 
 @cindex lyrics
@@ -225,7 +245,7 @@ Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 
-@anchor{Aligning lyrics to a melody}
+@node Aligning lyrics to a melody
 @unnumberedsubsubsec Aligning lyrics to a melody
 
 @funindex \lyricmode
@@ -262,7 +282,7 @@ explicitly, using @code{\lyricmode}
 * Extenders and hyphens::       
 @end menu
 
-@anchor{Automatic syllable durations}
+@node Automatic syllable durations
 @unnumberedsubsubsec Automatic syllable durations
 
 @cindex automatic syllable durations
@@ -318,7 +338,7 @@ is the same as
 \new Lyrics \lyricsto "blah" @{ LYRICS @}
 @end example
 
-@anchor{Another way of entering lyrics}
+@node Another way of entering lyrics
 @unnumberedsubsubsec Another way of entering lyrics
 
 Lyrics can also be entered without @code{\addlyrics} or
@@ -361,7 +381,7 @@ Here is an example demonstrating manual lyric durations,
 Program reference: @internalsref{Lyrics}.
 
 
-@anchor{Assigning more than one syllable to a single note}
+@node Assigning more than one syllable to a single note
 @unnumberedsubsubsec Assigning more than one syllable to a single note
 
 
@@ -392,7 +412,7 @@ Program reference: @internalsref{LyricCombineMusic}.
 @c the new title might be more self-explanatory
 
 
-@anchor{More than one note on a single syllable}
+@node More than one note on a single syllable
 @unnumberedsubsubsec More than one note on a single syllable
 
 @cindex melisma
@@ -473,7 +493,7 @@ Program reference: @internalsref{Melisma_translator}.
 Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
-@anchor{Extenders and hyphens}
+@node Extenders and hyphens
 @unnumberedsubsubsec Extenders and hyphens
 
 @cindex melisma
@@ -502,7 +522,7 @@ Program reference: @internalsref{LyricExtender},
 @internalsref{LyricHyphen}
 
 
-@anchor{Working with lyrics and identifiers}
+@node Working with lyrics and identifiers
 @unnumberedsubsubsec Working with lyrics and identifiers
 @cindex lyrics, identifiers
 
@@ -562,7 +582,7 @@ Program reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.  
 
 
-@anchor{Flexibility in placement}
+@node Flexibility in placement
 @unnumberedsubsubsec Flexibility in placement
 
 Often, different stanzas of one song are put to one melody in slightly
@@ -577,7 +597,7 @@ differing ways.  Such variations can still be captured with
 @end menu
 
 
-@anchor{Lyrics to multiple notes of a melisma}
+@node Lyrics to multiple notes of a melisma
 @unnumberedsubsubsec Lyrics to multiple notes of a melisma
 
 One possibility is that the text has a melisma in one stanza, but
@@ -631,7 +651,7 @@ For example,
 @end lilypond
 
 
-@anchor{Divisi lyrics}
+@node Divisi lyrics
 @unnumberedsubsubsec Divisi lyrics
 
 You can display alternate (or divisi) lyrics by naming voice
@@ -677,7 +697,7 @@ section.
 
 
 
-@anchor{Switching the melody associated with a lyrics line}
+@node Switching the melody associated with a lyrics line
 @unnumberedsubsubsec Switching the melody associated with a lyrics line
 
 More complex variations in text underlay are possible.  It is possible
@@ -760,7 +780,7 @@ The underlay is switched back to the starting situation by assigning
 @code{lahlah} to @code{associatedVoice}.
 
 
-@anchor{Lyrics independent of notes}
+@node Lyrics independent of notes
 @unnumberedsubsubsec Lyrics independent of notes
 
 In some complex vocal music, it may be desirable to place
@@ -789,7 +809,7 @@ lyr = \lyricmode { I like my cat! }
 @end lilypond
 
 
-@anchor{Spacing lyrics}
+@node Spacing lyrics
 @unnumberedsubsubsec Spacing lyrics
 
 @cindex Spacing lyrics
@@ -833,7 +853,7 @@ layout.
 @end lilypond
 
 
-@anchor{More about stanzas}
+@node More about stanzas
 @unnumberedsubsubsec More about stanzas
 
 @cindex stanza number
@@ -1022,7 +1042,7 @@ Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 
 
 
-@anchor{Other vocal issues}
+@node Other vocal issues
 @unnumberedsubsubsec Other vocal issues
 
 @ignore

@@ -14,7 +14,12 @@
 @subsection Attached to notes
 
 
-@anchor{Articulations}
+@menu
+* Articulations::               
+* Dynamics::                    
+@end menu
+
+@node Articulations
 @unnumberedsubsubsec Articulations
 
 @cindex Articulations
@@ -114,7 +119,7 @@ These signs appear in the printed output but have no effect on the
 MIDI rendering of the music.
 
 
-@anchor{Dynamics}
+@node Dynamics
 @unnumberedsubsubsec Dynamics
 
 @cindex Dynamics
@@ -285,7 +290,16 @@ Vertical positioning of these symbols is handled by
 @node Curves
 @subsection Curves
 
-@anchor{Ties}
+@menu
+* Ties::                        
+* Slurs::                       
+* Phrasing slurs::              
+* Laissez vibrer ties::         
+* Breath marks::                
+* Falls and doits::             
+@end menu
+
+@node Ties
 @unnumberedsubsubsec Ties
 
 @cindex tie
@@ -403,7 +417,7 @@ Changing clefs or octavations during a tie is not really
 well-defined.  In these cases, a slur may be preferable.
 
 
-@anchor{Slurs}
+@node Slurs
 @unnumberedsubsubsec Slurs
 
 @cindex Slurs
@@ -464,7 +478,7 @@ be achieved in LilyPond by setting @code{doubleSlurs},
 Program reference: @internalsref{Slur}.
 
 
-@anchor{Phrasing slurs}
+@node Phrasing slurs
 @unnumberedsubsubsec Phrasing slurs
 
 @cindex phrasing slurs
@@ -502,7 +516,7 @@ You cannot have simultaneous phrasing slurs.
 Program reference: @internalsref{PhrasingSlur}.
 
 
-@anchor{Laissez vibrer ties}
+@node Laissez vibrer ties
 @unnumberedsubsubsec Laissez vibrer ties
 @cindex Laissez vibrer
 @cindex Ties, laissez vibrer
@@ -525,7 +539,7 @@ Example files:
 @lsr{connecting,laissez-vibrer-ties.ly}
 
 
-@anchor{Breath marks}
+@node Breath marks
 @unnumberedsubsubsec Breath marks
 
 Breath marks are entered using @code{\breathe}
@@ -555,7 +569,7 @@ Program reference: @internalsref{BreathingSign}.
 Examples: @lsr{expressive,breathing-sign.ly}
 
 
-@anchor{Falls and doits}
+@node Falls and doits
 @unnumberedsubsubsec Falls and doits
 
 Falls and doits can be added to notes using the @code{\bendAfter}
@@ -571,7 +585,14 @@ c4-\bendAfter #-3
 @node Lines
 @subsection Lines
 
-@anchor{Glissando}
+@menu
+* Glissando::                   
+* Arpeggio::                    
+* Trills::                      
+* Analysis brackets::           
+@end menu
+
+@node Glissando
 @unnumberedsubsubsec Glissando
 
 @cindex Glissando
@@ -614,7 +635,7 @@ Example files:
 Printing text over the line (such as @emph{gliss.}) is not supported.
 
 
-@anchor{Arpeggio}
+@node Arpeggio
 @unnumberedsubsubsec Arpeggio
 
 @cindex Arpeggio
@@ -692,7 +713,7 @@ It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @internalsref{PianoStaff} at the same point in time.
 
 
-@anchor{Trills}
+@node Trills
 @unnumberedsubsubsec Trills
 
 Short trills are printed like normal articulation; see @ref{Articulations}.
@@ -735,7 +756,7 @@ is printed as a stemless note head in parentheses.
 Program reference: @internalsref{TrillSpanner}.
 
 
-@anchor{Analysis brackets}
+@node Analysis brackets
 @unnumberedsubsubsec Analysis brackets
 @cindex brackets
 @cindex phrasing brackets

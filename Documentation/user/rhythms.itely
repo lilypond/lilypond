@@ -18,7 +18,14 @@ This section discusses rhythms, durations, and bars.
 @node Writing rhythms
 @subsection Writing rhythms
 
-@anchor{Durations}
+@menu
+* Durations::                   
+* Augmentation dots::           
+* Tuplets::                     
+* Scaling durations::           
+@end menu
+
+@node Durations
 @unnumberedsubsubsec Durations
 
 @cindex duration
@@ -77,7 +84,7 @@ duration.  The default for the first note is a quarter note.
 @end lilypond
 
 
-@anchor{Augmentation dots}
+@node Augmentation dots
 @unnumberedsubsubsec Augmentation dots
 
 @funindex .
@@ -107,7 +114,7 @@ direction manually
 Program reference: @internalsref{Dots}, and @internalsref{DotColumn}.
 
 
-@anchor{Tuplets}
+@node Tuplets
 @unnumberedsubsubsec Tuplets
 
 @cindex tuplets
@@ -256,7 +263,7 @@ Program reference: @internalsref{TupletBracket},
 
 
 
-@anchor{Scaling durations}
+@node Scaling durations
 @unnumberedsubsubsec Scaling durations
 
 You can alter the length of duration by a fraction @var{N/M}
@@ -283,7 +290,13 @@ This manual: @ref{Tuplets}.
 @node Writing rests
 @subsection Writing rests
 
-@anchor{Rests}
+@menu
+* Rests::                       
+* Skips::                       
+* Multi measure rests::         
+@end menu
+
+@node Rests
 @unnumberedsubsubsec Rests
 @cindex Rests
 
@@ -319,7 +332,7 @@ formatter will leave these rests alone.
 Program reference: @internalsref{Rest}.
 
 
-@anchor{Skips}
+@node Skips
 @unnumberedsubsubsec Skips
 
 @cindex Skip
@@ -364,7 +377,7 @@ The fragment @code{@{ \skip 4 @} } would produce an empty page.
 Program reference: @internalsref{SkipMusic}.
 
 
-@anchor{Multi measure rests}
+@node Multi measure rests
 @unnumberedsubsubsec Multi measure rests
 
 @cindex multi measure rests
@@ -484,7 +497,15 @@ numbering will be off.
 @node Displaying rhythms
 @subsection Displaying rhythms
 
-@anchor{Time signature}
+@menu
+* Time signature::              
+* Upbeats::                     
+* Unmetered music::             
+* Polymetric notation::         
+* Automatic note splitting::    
+@end menu
+
+@node Time signature
 @unnumberedsubsubsec Time signature
 
 @cindex Time signature
@@ -566,7 +587,7 @@ Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
 
-@anchor{Upbeats}
+@node Upbeats
 @unnumberedsubsubsec Upbeats
 
 @cindex anacrusis
@@ -621,7 +642,7 @@ piece.  If you use it after the beginning, some odd warnings may
 occur.
 
 
-@anchor{Unmetered music}
+@node Unmetered music
 @unnumberedsubsubsec Unmetered music
 
 @cindex cadenza
@@ -658,7 +679,7 @@ invisible bar lines
 to indicate where breaks can occur.
 
 
-@anchor{Polymetric notation}
+@node Polymetric notation
 @unnumberedsubsubsec Polymetric notation
 
 @cindex double time signatures
@@ -809,7 +830,7 @@ When using different time signatures in parallel, the spacing is
 aligned vertically, but bar lines distort the regular spacing.
 
 
-@anchor{Automatic note splitting}
+@node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting
 
 Long notes can be converted automatically to tied notes.  This is done
@@ -856,7 +877,13 @@ Program reference: @internalsref{Completion_heads_engraver}.
 @node Beams
 @subsection Beams
 
-@anchor{Automatic beams}
+@menu
+* Automatic beams::             
+* Manual beams::                
+* Feathered beams::             
+@end menu
+
+@node Automatic beams
 @unnumberedsubsubsec Automatic beams
 
 LilyPond inserts beams automatically
@@ -883,7 +910,7 @@ from being beamed
 Program reference: @internalsref{Beam}.
 
 
-@anchor{Manual beams}
+@node Manual beams
 @unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
@@ -967,7 +994,7 @@ Beams do not avoid collisions with symbols around the notes, such as
 texts and accidentals.
 
 
-@anchor{Feathered beams}
+@node Feathered beams
 @unnumberedsubsubsec Feathered beams
 
 Feathered beams are printed by setting the @code{grow-direction}
@@ -992,7 +1019,15 @@ music snippets.
 @subsection Bars
 
 
-@anchor{Bar check}
+@menu
+* Bar check::                   
+* Bar lines::                   
+* Bar numbers::                 
+* Barnumber check::             
+* Rehearsal marks::             
+@end menu
+
+@node Bar check
 @unnumberedsubsubsec Bar check
 
 @cindex Bar check
@@ -1035,7 +1070,7 @@ pipeSymbol = \bar "||"
 @end lilypond
 
 
-@anchor{Bar lines}
+@node Bar lines
 @unnumberedsubsubsec Bar lines
 
 @cindex Bar lines
@@ -1120,7 +1155,7 @@ Program reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across staves).
 
 
-@anchor{Bar numbers}
+@node Bar numbers
 @unnumberedsubsubsec Bar numbers
 
 @cindex Bar numbers
@@ -1187,7 +1222,7 @@ there is one at the top.  To solve this, the
 used to position the number correctly.
 
 
-@anchor{Barnumber check}
+@node Barnumber check
 @unnumberedsubsubsec Barnumber check
 
 When copying large pieces of music, it can be helpful to check that
@@ -1204,7 +1239,7 @@ will print a warning if the @code{currentBarNumber} is not 123 when it
 is processed.
 
 
-@anchor{Rehearsal marks}
+@node Rehearsal marks
 @unnumberedsubsubsec Rehearsal marks
 
 @cindex Rehearsal marks
@@ -1311,7 +1346,14 @@ Examples: @lsr{parts,rehearsal-mark-numbers.ly}
 @subsection Special rhythmic concerns
 
 
-@anchor{Grace notes}
+@menu
+* Grace notes::                 
+* Aligning to cadenzas::        
+* Time administration::         
+* Proportional notation (introduction)::  
+@end menu
+
+@node Grace notes
 @unnumberedsubsubsec Grace notes
 
 @funindex \grace
@@ -1519,7 +1561,7 @@ expressions.  Nesting or juxtaposing grace sections is not supported,
 and might produce crashes or other errors.
 
 
-@anchor{Aligning to cadenzas}
+@node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
 
 In an orchestral context, cadenzas present a special problem:
@@ -1549,7 +1591,7 @@ cadenza = \relative c' {
 @end lilypond
 
 
-@anchor{Time administration}
+@node Time administration
 @unnumberedsubsubsec Time administration
 
 @cindex Time administration
@@ -1603,7 +1645,7 @@ note duration and @code{ly:make-moment 7 16} is the duration of
 seven sixteenths notes.
 
 
-@anchor{Proportional notation (introduction)}
+@node Proportional notation (introduction)
 @unnumberedsubsubsec Proportional notation (introduction)
 @cindex Proportional notation
 

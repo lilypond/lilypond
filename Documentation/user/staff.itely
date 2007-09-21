@@ -14,7 +14,13 @@ staff = singular, staves = plural
 @node Displaying staves
 @subsection Displaying staves
 
-@anchor{System start delimiters}
+@menu
+* System start delimiters::     
+* Staff symbol::                
+* Hiding staves::               
+@end menu
+
+@node System start delimiters
 @unnumberedsubsubsec System start delimiters
 
 @cindex start of system
@@ -102,7 +108,7 @@ System start delimiters may be deeply nested,
 @end lilypond
 
 
-@anchor{Staff symbol}
+@node Staff symbol
 @unnumberedsubsubsec Staff symbol
 
 @cindex adjusting staff symbol
@@ -149,7 +155,7 @@ Program reference: @internalsref{StaffSymbol}.
 Examples: @lsrdir{staff}
 
 
-@anchor{Hiding staves}
+@node Hiding staves
 @unnumberedsubsubsec Hiding staves
 
 @cindex Frenched scores
@@ -201,7 +207,14 @@ staff.
 @node Writing parts
 @subsection Writing parts
 
-@anchor{Metronome marks}
+@menu
+* Metronome marks::             
+* Instrument names::            
+* Quoting other voices::        
+* Formatting cue notes::        
+@end menu
+
+@node Metronome marks
 @unnumberedsubsubsec Metronome marks
 
 @cindex Tempo
@@ -261,7 +274,7 @@ further away from the staff.
 @end example
 
 
-@anchor{Instrument names}
+@node Instrument names
 @unnumberedsubsubsec Instrument names
 
 In an orchestral score, instrument names are printed at the left side
@@ -363,7 +376,7 @@ c1 c c c \break
 Program reference: @internalsref{InstrumentName}.
 
 
-@anchor{Quoting other voices}
+@node Quoting other voices
 @unnumberedsubsubsec Quoting other voices
 
 @cindex cues
@@ -463,7 +476,7 @@ Examples: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
 Program reference: @internalsref{QuoteMusic}.
 
 
-@anchor{Formatting cue notes}
+@node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
 @cindex cues, formatting

@@ -3,6 +3,13 @@
 @node Percussion
 @section Percussion
 
+@menu
+* TODO percussion node fix::    
+@end menu
+
+@node TODO percussion node fix
+@subsection TODO percussion node fix
+
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
@@ -14,7 +21,7 @@ also be used to show the rhythms of melodies.
 @end menu
 
 
-@anchor{Showing melody rhythms}
+@node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
 Sometimes you might want to show only the rhythm of a melody.  This
@@ -33,7 +40,7 @@ staff are squashed, and the staff itself has a single line
 Program reference: @internalsref{RhythmicStaff}.
 
 
-@anchor{Entering percussion}
+@node Entering percussion
 @unnumberedsubsubsec Entering percussion
 
 @cindex percussion
@@ -59,7 +66,7 @@ The complete list of drum names is in the init file
 
 Program reference: @internalsref{note-event}.
 
-@anchor{Percussion staves}
+@node Percussion staves
 @unnumberedsubsubsec Percussion staves
 @cindex percussion
 @cindex drums
@@ -276,7 +283,7 @@ for this purpose instead.
 
 
 @c FIXME: check name -gp
-@anchor{Ghost notes}
+@node Ghost notes
 @unnumberedsubsubsec Ghost notes
 
 Ghost notes for drums and percussion may be created using the

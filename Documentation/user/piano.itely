@@ -3,6 +3,13 @@
 @node Piano music
 @section Piano music
 
+@menu
+* TODO piano node fix::         
+@end menu
+
+@node TODO piano node fix
+@subsection TODO piano node fix
+
 Piano staves are two normal staves coupled with a brace.  The staves
 are largely independent, but sometimes voices can cross between the
 two staves.  The same notation is also used for harps and other key
@@ -11,6 +18,11 @@ handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.
 
 @menu
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
 @end menu
 
 @refbugs
@@ -23,7 +35,7 @@ Dynamics are not centered, but workarounds do exist.  See the
 @cindex distance between staves in piano music
 
 
-@anchor{Automatic staff changes}
+@node Automatic staff changes
 @unnumberedsubsubsec Automatic staff changes
 @cindex Automatic staff changes
 
@@ -82,7 +94,7 @@ quality output, staff switches should be specified manually.
 @code{\autochange} cannot be inside @code{\times}.
 
 
-@anchor{Manual staff switches}
+@node Manual staff switches
 @unnumberedsubsubsec Manual staff switches
 
 @cindex manual staff switches
@@ -120,7 +132,7 @@ and the @context{Voice} is inserted afterwards
 @end example
 
 
-@anchor{Pedals}
+@node Pedals
 @unnumberedsubsubsec Pedals
 @cindex Pedals
 
@@ -188,7 +200,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 In this manual: @ref{Laissez vibrer ties}.
 
-@anchor{Staff switch lines}
+@node Staff switch lines
 @unnumberedsubsubsec Staff switch lines
 
 
@@ -226,7 +238,7 @@ Program reference: @internalsref{VoiceFollower}.
 @code{\hideStaffSwitch}.
 
 
-@anchor{Cross staff stems}
+@node Cross staff stems
 @unnumberedsubsubsec Cross staff stems
 
 Chords that cross staves may be produced by increasing the length

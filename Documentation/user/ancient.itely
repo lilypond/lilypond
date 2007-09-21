@@ -81,6 +81,15 @@ up during the baroque period.
 Here are all subtopics at a glance:
 
 @menu
+* Ancient TODO::                
+@end menu
+
+@node Ancient TODO
+@subsection Ancient TODO
+
+
+
+@menu
 * Ancient note heads::          
 * Ancient accidentals::         
 * Ancient rests::               
@@ -99,9 +108,7 @@ Here are all subtopics at a glance:
 * Figured bass::                
 @end menu
 
-
-
-@anchor{Ancient note heads}
+@node Ancient note heads
 @unnumberedsubsubsec Ancient note heads
 
 @cindex note heads, ancient
@@ -143,7 +150,7 @@ engravers work.
 @ref{Note head styles}, gives an overview over all available note head styles.
 
 
-@anchor{Ancient accidentals}
+@node Ancient accidentals
 @unnumberedsubsubsec Ancient accidentals
 
 @cindex accidentals
@@ -212,7 +219,7 @@ Program reference: @internalsref{KeySignature}.
 
 Examples: @lsrdir{ancient}
 
-@anchor{Ancient rests}
+@node Ancient rests
 @unnumberedsubsubsec Ancient rests
 
 @cindex rests, ancient
@@ -248,7 +255,7 @@ In this manual: @ref{Rests}, gives a general introduction into the use of
 rests.
 
 
-@anchor{Ancient clefs}
+@node Ancient clefs
 @unnumberedsubsubsec Ancient clefs
 
 @cindex clefs
@@ -487,7 +494,7 @@ The mensural g clef is mapped to the Petrucci g clef.
 
 
 
-@anchor{Ancient flags}
+@node Ancient flags
 @unnumberedsubsubsec Ancient flags
 
 @cindex flags
@@ -525,7 +532,7 @@ staff lines.  This may not always be true when using advanced layout
 features of classical notation (which however are typically out of
 scope for mensural notation).
 
-@anchor{Ancient time signatures}
+@node Ancient time signatures
 @unnumberedsubsubsec Ancient time signatures
 
 @cindex time signatures
@@ -638,7 +645,7 @@ This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note.
 The @code{old6/8alt} symbol (an alternate symbol for 6/8) is not
 addressable with @code{\time}.  Use a @code{\markup} instead
 
-@anchor{Ancient articulations}
+@node Ancient articulations
 @unnumberedsubsubsec Ancient articulations
 
 @cindex articulations
@@ -672,7 +679,7 @@ corresponding note heads.
 The episem line is not displayed in many cases.  If it is displayed,
 the right end of the episem line is often too far to the right.
 
-@anchor{Custodes}
+@node Custodes
 @unnumberedsubsubsec Custodes
 
 @cindex custos
@@ -752,7 +759,7 @@ Examples:
 @lsr{ancient,custodes@/.ly}.
 
 
-@anchor{Divisiones}
+@node Divisiones
 @unnumberedsubsubsec Divisiones
 
 @cindex divisio
@@ -803,7 +810,7 @@ Program reference: @internalsref{BreathingSign}.
 Examples: @lsr{expressive,breathing-sign.ly}.
 
 
-@anchor{Ligatures}
+@node Ligatures
 @unnumberedsubsubsec Ligatures
 
 @cindex Ligatures
@@ -861,7 +868,7 @@ with the same effect and is believed to be stable.
 * Gregorian square neumes ligatures::  
 @end menu
 
-@anchor{White mensural ligatures}
+@node White mensural ligatures
 @unnumberedsubsubsec White mensural ligatures
 
 @cindex Mensural ligatures
@@ -950,7 +957,7 @@ to the following
 
 Horizontal spacing is poor.
 
-@anchor{Gregorian square neumes ligatures}
+@node Gregorian square neumes ligatures
 @unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex Square neumes ligatures
@@ -1902,7 +1909,7 @@ of the staff.
 unary music function, such that @code{\augmentum} can be intermixed
 with head prefixes in arbitrary order.
 
-@anchor{Gregorian Chant contexts}
+@node Gregorian Chant contexts
 @unnumberedsubsubsec Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
@@ -1936,7 +1943,7 @@ the following excerpt demonstrates
 @end lilypond
 
 
-@anchor{Mensural contexts}
+@node Mensural contexts
 @unnumberedsubsubsec Mensural contexts
 
 @cindex MensuralVoiceContext
@@ -1968,7 +1975,7 @@ entering the chant, as the following excerpt demonstrates
 }
 @end lilypond
 
-@anchor{Musica ficta accidentals}
+@node Musica ficta accidentals
 @unnumberedsubsubsec Musica ficta accidentals
 
 In European music from before about 1600, singers were often expected
@@ -1995,7 +2002,7 @@ ais bis
 Program reference: @internalsref{Accidental_engraver} engraver and the
 @internalsref{AccidentalSuggestion} object.
 
-@anchor{Figured bass}
+@node Figured bass
 @unnumberedsubsubsec Figured bass
 
 @cindex Basso continuo

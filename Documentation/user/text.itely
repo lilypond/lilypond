@@ -37,7 +37,15 @@ c'4^\markup { bla \bold bla }
 @node Writing text
 @subsection Writing text
 
-@anchor{Text scripts}
+@menu
+* Text scripts::                
+* Text and line spanners::      
+* Text spanners::               
+* Text marks::                  
+* New dynamic marks::           
+@end menu
+
+@node Text scripts
 @unnumberedsubsubsec Text scripts
 
 @cindex Text scripts
@@ -93,7 +101,7 @@ In this manual: @ref{Text markup}.
 Program reference: @internalsref{TextScript}.
 
 
-@anchor{Text and line spanners}
+@node Text and line spanners
 @unnumberedsubsubsec Text and line spanners
 
 Some performance indications, e.g., @i{rallentando} and
@@ -224,7 +232,7 @@ Program reference: @internalsref{TextSpanner},
 Examples: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
 
-@anchor{Text spanners}
+@node Text spanners
 @unnumberedsubsubsec Text spanners
 
 @cindex Text spanners
@@ -275,7 +283,7 @@ To print a solid line, use
 Program reference: @internalsref{TextSpanner}.
 
 
-@anchor{Text marks}
+@node Text marks
 @unnumberedsubsubsec Text marks
 
 @cindex coda on bar line
@@ -419,7 +427,7 @@ Program reference: @internalsref{RehearsalMark}.
 
 
 
-@anchor{New dynamic marks}
+@node New dynamic marks
 @unnumberedsubsubsec New dynamic marks
 
 It is possible to print new dynamic marks or text that should be aligned
@@ -460,7 +468,14 @@ boxf = \markup{ \bracket { \dynamic f } }
 @node Text markup
 @subsection Text markup
 
-@anchor{Text markup introduction}
+@menu
+* Text markup introduction::    
+* Nested scores::               
+* Page wrapping text::          
+* Font selection::              
+@end menu
+
+@node Text markup introduction
 @unnumberedsubsubsec Text markup introduction
 
 @cindex markup
@@ -620,7 +635,7 @@ texts will be spaced slightly too wide.
 Syntax errors for markup mode are confusing.
 
 
-@anchor{Nested scores}
+@node Nested scores
 @unnumberedsubsubsec Nested scores
 
 It is possible to nest music inside markups, by adding a @code{\score}
@@ -639,7 +654,7 @@ block.
 }
 @end lilypond
 
-@anchor{Page wrapping text}
+@node Page wrapping text
 @unnumberedsubsubsec Page wrapping text
 Whereas @code{\markup} is used to enter a non-breakable block of text,
 @code{\markuplines} can be used at top-level to enter lines of text that
@@ -674,7 +689,7 @@ This manual: @ref{Overview of text markup list commands},
 @funindex \markuplines
 @code{\markuplines}
 
-@anchor{Font selection}
+@node Font selection
 @unnumberedsubsubsec Font selection
 
 @cindex font selection

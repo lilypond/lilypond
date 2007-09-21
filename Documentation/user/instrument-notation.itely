@@ -27,7 +27,11 @@ This section includes extra information for writing for instruments.
 @node Orchestral strings
 @subsection Orchestral strings
 
-@anchor{Artificial harmonics (strings)}
+@menu
+* Artificial harmonics (strings)::  
+@end menu
+
+@node Artificial harmonics (strings)
 @unnumberedsubsubsec Artificial harmonics (strings)
 
 @cindex artificial harmonics
@@ -43,7 +47,12 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @node Bagpipe
 @subsection Bagpipe
 
-@anchor{Bagpipe definitions}
+@menu
+* Bagpipe definitions::         
+* Bagpipe example::             
+@end menu
+
+@node Bagpipe definitions
 @unnumberedsubsubsec Bagpipe definitions
 
 LilyPond contains special definitions for music for the Scottish
@@ -84,7 +93,7 @@ piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
 
-@anchor{Bagpipe example}
+@node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
 
 This is what the well known tune Amazing Grace looks like in bagpipe
