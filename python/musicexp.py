@@ -393,17 +393,31 @@ class NestedMusic(Music):
         return None
         
 class SequentialMusic (NestedMusic):
-    def print_ly (self, printer):
+    def get_last_event_chord (self):
+        value = None
+        at = len( self.elements ) - 1
+        while (at >= 0 and
+               not isinstance (self.elements[at], EventChord) and
+               not isinstance (self.elements[at], BarCheck)):
+            at -= 1
+
+        if (at >= 0 and isinstance (self.elements[at], EventChord)):
+            value = self.elements[at]
+        return value
+
+    def print_ly (self, printer, newline = True):
         printer ('{')
         if self.comment:
             self.print_comment (printer)
 
-        printer.newline()
+        if newline:
+            printer.newline()
         for e in self.elements:
             e.print_ly (printer)
 
         printer ('}')
-        printer.newline()
+        if newline:
+            printer.newline()
             
     def lisp_sub_expression (self, pred):
         name = self.name()
@@ -459,9 +473,12 @@ class Header:
 class EventChord (NestedMusic):
     def __init__ (self):
         NestedMusic.__init__ (self)
-        self.grace_elements = []
+        self.grace_elements = None
+        self.grace_type = None
     def append_grace (self, element):
         if element:
+            if not self.grace_elements:
+                self.grace_elements = SequentialMusic ()
             self.grace_elements.append (element)
 
     def get_length (self):
@@ -482,10 +499,12 @@ class EventChord (NestedMusic):
                 not isinstance (e, RhythmicEvent)]
 
         if self.grace_elements and self.elements:
-            printer ('\grace {')
-            for g in self.grace_elements:
-                g.print_ly (printer)
-            printer ('}')
+            if self.grace_type:
+                printer ('\\%s' % self.grace_type)
+            else:
+                printer ('\\grace')
+            # don't print newlines after the { and } braces
+            self.grace_elements.print_ly (printer, False)
 
         if rest_events:
             rest_events[0].print_ly (printer)

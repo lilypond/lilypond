@@ -683,15 +683,32 @@ def musicxml_voice_to_lily_voice (voice):
         if not ev_chord: 
             ev_chord = musicexp.EventChord()
             voice_builder.add_music (ev_chord, n._duration)
-        # When a note/chord has grace notes (duration==0), the duration of the 
-        # event chord is not yet known, but the event chord was already added
-        # with duration 0. The following correct this when we hit the real note!
-        if voice_builder.current_duration () == 0 and n._duration > 0:
-            voice_builder.set_duration (n._duration)
-        if n.get_maybe_exist_typed_child (musicxml.Grace):
-            ev_chord.append_grace (main_event)
+
+        grace = n.get_maybe_exist_typed_child (musicxml.Grace)
+        if grace:
+            grace_chord = None
+            if n.get_maybe_exist_typed_child (musicxml.Chord) and ev_chord.grace_elements:
+                grace_chord = ev_chord.grace_elements.get_last_event_chord ()
+            if not grace_chord:
+                grace_chord = musicexp.EventChord ()
+                ev_chord.append_grace (grace_chord)
+            if hasattr (grace, 'slash'):
+                # TODO: use grace_type = "appoggiatura" for slurred grace notes
+                if grace.slash == "yes":
+                    ev_chord.grace_type = "acciaccatura"
+                elif grace.slash == "no":
+                    ev_chord.grace_type = "grace"
+            # now that we have inserted the chord into the grace music, insert
+            # everything into that chord instead of the ev_chord
+            ev_chord = grace_chord
+            ev_chord.append (main_event)
         else:
             ev_chord.append (main_event)
+            # When a note/chord has grace notes (duration==0), the duration of the
+            # event chord is not yet known, but the event chord was already added
+            # with duration 0. The following correct this when we hit the real note!
+            if voice_builder.current_duration () == 0 and n._duration > 0:
+                voice_builder.set_duration (n._duration)
         
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
