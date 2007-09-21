@@ -549,9 +549,9 @@ class LilyPondVoiceBuilder:
         self.set_duration (duration)
         
         # Insert all pending dynamics right after the note/rest:
-        if duration > Rational (0):
+        if isinstance (music, musicexp.EventChord) and self.pending_dynamics:
             for d in self.pending_dynamics:
-                self.elements.append (d)
+                music.append (d)
             self.pending_dynamics = []
 
     # Insert some music command that does not affect the position in the measure
@@ -619,6 +619,9 @@ def musicxml_voice_to_lily_voice (voice):
     modes_found = {}
     lyrics = {}
         
+    # TODO: Make sure that the keys in the dict don't get reordered, since
+    #       we need the correct ordering of the lyrics stanzas! By default,
+    #       a dict will reorder its keys
     for k in voice.get_lyrics_numbers ():
         lyrics[k] = []
 
