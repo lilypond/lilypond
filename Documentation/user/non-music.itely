@@ -1128,7 +1128,7 @@ instrument is used.
 @node Displaying LilyPond notation
 @section Displaying LilyPond notation
 
-@funindex \displayLilyMusc
+@funindex \displayLilyMusic
 Displaying a music expression in LilyPond notation can be
 done using the music function @code{\displayLilyMusic}.  For example,
 
