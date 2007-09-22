@@ -33,8 +33,8 @@ Into text.
 @cindex Pitch names
 @cindex pitches
 
-A pitch name is specified using lowercase letters @code{a} through @code{g}.
-An ascending C-major scale is engraved with
+A pitch name is specified using lowercase letters @code{a} through
+@code{g}.  An ascending C-major scale is engraved with
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \clef bass
@@ -54,9 +54,9 @@ c1
 @funindex ,
 
 The optional octave specification takes the form of a series of
-single quote (@samp{'}) characters or a series of comma
-(@samp{,}) characters.  Each @samp{'} raises the pitch by one
-octave; each @samp{,} lowers the pitch by an octave.
+single quote (@samp{'}) characters or a series of comma (@samp{,})
+characters.  Each @samp{'} raises the pitch by one octave; each
+@samp{,} lowers the pitch by an octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \clef treble
@@ -65,10 +65,10 @@ c' c'' e' g d'' d' d c
 c, c,, e, g d,, d, d c
 @end lilypond
 
-An alternate method may be used to declare which octave to
-engrave a pitch; this method does not require as many
-octave specifications (@code{'} and @code{,}).  See
-@ref{Relative octaves}.
+An alternate method may be used to declare which octave to engrave
+a pitch; this method does not require as many octave
+specifications (@code{'} and @code{,}).  See @ref{Relative
+octaves}.
 
 
 @node Accidentals
@@ -77,9 +77,10 @@ octave specifications (@code{'} and @code{,}).  See
 @cindex note names, Dutch
 @cindex note names, default
 
-A sharp is formed by adding @code{-is} to the end of a pitch name and
-a flat is formed by adding @code{-es}.  Double sharps and double flats
-are obtained by adding @code{-isis} or @code{-eses} to a note name.
+A sharp is formed by adding @code{-is} to the end of a pitch name
+and a flat is formed by adding @code{-es}.  Double sharps and
+double flats are obtained by adding @code{-isis} or @code{-eses}
+to a note name.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
@@ -87,27 +88,28 @@ a2 aisis a aeses
 @end lilypond
 
 @noindent
-These are the Dutch note names.  In Dutch, @code{aes} is contracted to
-@code{as}, but both forms are accepted.  Similarly, both
-@code{es} and @code{ees} are accepted
+These are the Dutch note names.  In Dutch, @code{aes} is
+contracted to @code{as}, but both forms are accepted.  Similarly,
+both @code{es} and @code{ees} are accepted
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a2 as e es
 @end lilypond
 
-A natural will cancel the effect of an accidental or key signature.
-However, naturals are not encoded into the note name syntax with a
-suffix; a natural pitch is shown as a simple note name
+A natural will cancel the effect of an accidental or key
+signature.  However, naturals are not encoded into the note name
+syntax with a suffix; a natural pitch is shown as a simple note
+name
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a4 aes a2
 @end lilypond
 
 The input @code{d e f} is interpreted as @q{print a D-natural,
-E-natural, and an F-natural,} regardless of the key
-signature.  For more information about the distinction between
-musical content and the presentation of that content, see
-@rlearning{Accidentals and key signatures}.
+E-natural, and an F-natural,} regardless of the key signature.
+For more information about the distinction between musical content
+and the presentation of that content, see @rlearning{Accidentals
+and key signatures}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative]
 \key d \major
@@ -118,10 +120,10 @@ d e fis g
 
 @commonprop
 
-In accordance with standard typesetting rules, a natural sign is printed
-before a sharp or flat if a previous accidental needs to be
-cancelled.  To change this behavior, use
-@code{\set Staff.extraNatural = ##f}
+In accordance with standard typesetting rules, a natural sign is
+printed before a sharp or flat if a previous accidental needs to
+be cancelled.  To change this behavior, use @code{\set
+Staff.extraNatural = ##f}
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 ceses4 ces cis c
@@ -149,12 +151,11 @@ Program reference: @internalsref{LedgerLineSpanner},
 @funindex !
 
 Normally accidentals are printed automatically, but you may also
-print them manually.  A reminder accidental
-can be forced by adding an exclamation mark @code{!}
-after the pitch.  A cautionary accidental
-(i.e., an accidental within parentheses) can be obtained by adding the
-question mark @samp{?} after the pitch.  These extra accidentals
-can be used to produce natural signs, too.
+print them manually.  A reminder accidental can be forced by
+adding an exclamation mark @code{!} after the pitch.  A cautionary
+accidental (i.e., an accidental within parentheses) can be
+obtained by adding the question mark @samp{?} after the pitch.
+These extra accidentals can be used to produce natural signs, too.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 cis cis cis! cis? c c? c! c
@@ -163,8 +164,8 @@ cis cis cis! cis? c c? c! c
 
 @seealso
 
-The automatic production of accidentals can be tuned in many
-ways.  For more information, see @ref{Automatic accidentals}.
+The automatic production of accidentals can be tuned in many ways.
+For more information, see @ref{Automatic accidentals}.
 
 
 @node Micro tones
@@ -174,7 +175,8 @@ ways.  For more information, see @ref{Automatic accidentals}.
 @cindex semi-flats, semi-sharps
 
 Half-flats and half-sharps are formed by adding @code{-eh} and
-@code{-ih}; the following is a series of Cs with increasing pitches
+@code{-ih}; the following is a series of Cs with increasing
+pitches
 
 @lilypond[verbatim,ragged-right,quote,relative=2,fragment]
 \set Staff.extraNatural = ##f
@@ -194,11 +196,11 @@ standard.
 @node Note names in other languages
 @unnumberedsubsubsec Note names in other languages
 
-There are predefined sets of note names for various other languages.
-To use them, include the language specific init file.  For
-example, add @code{\include "english.ly"} to the top of the input
-file.  The available language files
-and the note names they define are
+There are predefined sets of note names for various other
+languages.  To use them, include the language specific init file.
+For example, add @code{\include "english.ly"} to the top of the
+input file.  The available language files and the note names they
+define are
 
 @cindex note names, other languages
 @c  put the rest of the old table into this new format.
@@ -217,6 +219,7 @@ and the note names they define are
 @end example
 
 @c old table
+@ignore
 @example
                         Note Names               sharp       flat     double        double
                                                                        sharp        flat
@@ -231,22 +234,24 @@ italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd        
 catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
 espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
 @end example
+@end ignore
 
 @noindent
 Note that in Dutch, German, Norwegian, and Swedish, the flat
-alterations of @samp{a} like for example @code{aes} and @code{aeses}
-are usually contracted to @code{as} and @code{ases} (or more commonly
-@code{asas}). Sometimes only these contracted names are defined in the
-corresponding language files (this also applies to the suffixes for
-quartertones below).
+alterations of @samp{a} like for example @code{aes} and
+@code{aeses} are usually contracted to @code{as} and @code{ases}
+(or more commonly @code{asas}). Sometimes only these contracted
+names are defined in the corresponding language files (this also
+applies to the suffixes for quartertones below).
 
 @noindent
 Some music uses microtones whose alterations are fractions of a
-@q{regular} sharp or flat. The note names for quartertones defined in
-the various language files are listed in the following table. Here the
-prefixes @q{semi-} and @q{sesqui-} mean @q{half} and @q{one and a
-half}, respectively. For Norwegian, Swedish, Catalan and Spanish no
-special names have been defined yet.
+@q{regular} sharp or flat. The note names for quartertones defined
+in the various language files are listed in the following table.
+Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
+@q{one and a half}, respectively. For Norwegian, Swedish, Catalan
+and Spanish no special names have been defined yet.
+
 @c What about Turkish Maquam music and similar microtonal systems?
 @c
 @c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
@@ -284,11 +289,12 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @cindex Relative octave specification
 @funindex \relative
 
-Octaves are specified by adding @code{'} and @code{,} to pitch names.
-When you copy existing music, it is easy to accidentally put a pitch
-in the wrong octave and hard to find such an error.  The relative
-octave mode prevents these errors by making the mistakes much
-larger: a single error puts the rest of the piece off by one octave
+Octaves are specified by adding @code{'} and @code{,} to pitch
+names.  When you copy existing music, it is easy to accidentally
+put a pitch in the wrong octave and hard to find such an error.
+The relative octave mode prevents these errors by making the
+mistakes much larger: a single error puts the rest of the piece
+off by one octave
 
 @example
 \relative @var{startpitch} @var{musicexpr}
@@ -304,21 +310,22 @@ or
 @noindent
 @code{c'} is used as the default if no starting pitch is defined.
 
-The octave of notes that appear in @var{musicexpr} are calculated as
-follows: if no octave changing marks are used, the basic interval
-between this and the last note is always taken to be a fourth or
-less.  This distance is determined without regarding alterations; a
-@code{fisis} following a @code{ceses} will be put above the
-@code{ceses}.  In other words, a doubly-augmented fourth is considered
-a smaller interval than a diminished fifth, even though the
-doubly-augmented fourth spans seven semitones while the diminished
-fifth only spans six semitones.
+The octave of notes that appear in @var{musicexpr} are calculated
+as follows: if no octave changing marks are used, the basic
+interval between this and the last note is always taken to be a
+fourth or less.  This distance is determined without regarding
+alterations; a @code{fisis} following a @code{ceses} will be put
+above the @code{ceses}.  In other words, a doubly-augmented fourth
+is considered a smaller interval than a diminished fifth, even
+though the doubly-augmented fourth spans seven semitones while the
+diminished fifth only spans six semitones.
 
-The octave changing marks @code{'} and @code{,} can be added to raise
-or lower the pitch by an extra octave.  Upon entering relative mode,
-an absolute starting pitch can be specified that will act as the
-predecessor of the first note of @var{musicexpr}.  If no starting pitch
-is specified, then middle C is used as a start.
+The octave changing marks @code{'} and @code{,} can be added to
+raise or lower the pitch by an extra octave.  Upon entering
+relative mode, an absolute starting pitch can be specified that
+will act as the predecessor of the first note of @var{musicexpr}.
+If no starting pitch is specified, then middle C is used as a
+start.
 
 Here is the relative mode shown in action
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -335,8 +342,8 @@ Octave changing marks are used for intervals greater than a fourth
 }
 @end lilypond
 
-If the preceding item is a chord, the first note of the chord is used
-to determine the first note of the next chord
+If the preceding item is a chord, the first note of the chord is
+used to determine the first note of the next chord
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' {
@@ -349,9 +356,9 @@ to determine the first note of the next chord
 The pitch after @code{\relative} contains a note name.
 
 The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.  To use
-relative within transposed music, an additional @code{\relative} must
-be placed inside @code{\transpose}.
+@code{\chordmode} or @code{\relative} sections in its argument.
+To use relative within transposed music, an additional
+@code{\relative} must be placed inside @code{\transpose}.
 
 
 @node Octave check
@@ -368,29 +375,31 @@ octave should be.  In the following example,
 @end example
 
 @noindent
-the @code{d} will generate a warning, because a @code{d''} is expected
-(because @code{b'} to @code{d''} is only a third), but a @code{d'} is
-found.  In the output, the octave is corrected to be a @code{d''} and
-the next note is calculated relative to @code{d''} instead of @code{d'}.
+the @code{d} will generate a warning, because a @code{d''} is
+expected (because @code{b'} to @code{d''} is only a third), but a
+@code{d'} is found.  In the output, the octave is corrected to be
+a @code{d''} and the next note is calculated relative to
+@code{d''} instead of @code{d'}.
 
-There is also an octave check that produces no visible output.  The syntax
+There is also an octave check that produces no visible output.
+The syntax
 
 @example
 \octave @var{pitch}
 @end example
 
-This checks that @var{pitch} (without quotes) yields @var{pitch} (with
-quotes) in @code{\relative} mode compared to the note given in the
-@code{\relative} command.  If not, a warning is printed, and the
-octave is corrected.  The @var{pitch} is not printed as a note.
+This checks that @var{pitch} (without quotes) yields @var{pitch}
+(with quotes) in @code{\relative} mode compared to the note given
+in the @code{\relative} command.  If not, a warning is printed,
+and the octave is corrected.  The @var{pitch} is not printed as a
+note.
 
-In the example below, the first check passes without incident, since
-the @code{e} (in @code{relative} mode) is within a fifth of
-@code{a'}.  However,
-the second check produces a warning, since the @code{e} is not within
-a fifth of @code{b'}.  The warning message is printed, and the octave
-is adjusted so that the following notes are in the correct octave
-once again.
+In the example below, the first check passes without incident,
+since the @code{e} (in @code{relative} mode) is within a fifth of
+@code{a'}.  However, the second check produces a warning, since
+the @code{e} is not within a fifth of @code{b'}.  The warning
+message is printed, and the octave is adjusted so that the
+following notes are in the correct octave once again.
 
 @example
 \relative c' @{
@@ -402,10 +411,10 @@ once again.
 
 
 The octave of a note following an octave check is determined with
-respect to the note preceding it.  In the next fragment, the last note
-is an @code{a'}, above middle C.  That means that the @code{\octave}
-check passes successfully, so the check could be deleted without changing
-the output of the piece.
+respect to the note preceding it.  In the next fragment, the last
+note is an @code{a'}, above middle C.  That means that the
+@code{\octave} check passes successfully, so the check could be
+deleted without changing the output of the piece.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
@@ -425,35 +434,36 @@ the output of the piece.
 
 A music expression can be transposed with @code{\transpose}.  The
 syntax is
+
 @example
 \transpose @var{from} @var{to} @var{musicexpr}
 @end example
 
-This means that @var{musicexpr} is transposed by the interval between
-the pitches @var{from} and @var{to}: any note with pitch @code{from}
-is changed to @code{to}.
+This means that @var{musicexpr} is transposed by the interval
+between the pitches @var{from} and @var{to}: any note with pitch
+@code{from} is changed to @code{to}.
 
 For example, consider a piece written in the key of D-major.  If
 this piece is a little too low for its performer, it can be
 transposed up to E-major with
+
 @example
 \transpose d e @dots{}
 @end example
 
-Consider a part written for violin (a C instrument).  If
-this part is to be played on the A clarinet (for which an
-A is notated as a C, and which sounds a minor third lower
-than notated), the following
-transposition will produce the appropriate part
+Consider a part written for violin (a C instrument).  If this part
+is to be played on the A clarinet (for which an A is notated as a
+C, and which sounds a minor third lower than notated), the
+following transposition will produce the appropriate part
 
 @example
 \transpose a c @dots{}
 @end example
 
 @code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose up
-half a tone.  The first version will print sharps and the second
-version will print flats
+@code{\transpose c cis} or @code{\transpose c des} will transpose
+up half a tone.  The first version will print sharps and the
+second version will print flats
 
 @lilypond[quote,ragged-right,verbatim]
 mus = { \key d \major cis d fis g }
@@ -466,10 +476,10 @@ mus = { \key d \major cis d fis g }
 @end lilypond
 
 @code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into LilyPond
-in C (or @q{concert pitch}), but they may be entered in another
-key.  For example, when entering music for a B-flat trumpet which
-begins on concert D, one would write
+transposing instrument.  Pitches are normally entered into
+LilyPond in C (or @q{concert pitch}), but they may be entered in
+another key.  For example, when entering music for a B-flat
+trumpet which begins on concert D, one would write
 
 @example
 \transpose c bes @{ e4 @dots{} @}
@@ -488,15 +498,16 @@ existing music with another @code{transpose}
 
 Program reference: @internalsref{TransposedMusic}.
 
-Example: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Example:
+@lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
 
 If you want to use both @code{\transpose} and @code{\relative},
 you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect on music that appears inside a
-@code{\transpose}.
+@code{\relative} will have no effect on music that appears inside
+a @code{\transpose}.
 
 
 @node Displaying pitches
@@ -566,8 +577,8 @@ tablature clef
 By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
 @code{^15} transposes by two octaves.  The argument @var{clefname}
-must be enclosed in quotes when it contains underscores or digits.  For
-example,
+must be enclosed in quotes when it contains underscores or digits.
+For example,
 
 @cindex choral tenor clef
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
@@ -578,11 +589,11 @@ example,
 @commonprop
 
 The command @code{\clef "treble_8"} is equivalent to setting
-@code{clefGlyph},
-@code{clefPosition} (which controls the Y position of the clef),
-@code{middleCPosition} and @code{clefOctavation}.  A clef is printed
-when any of these properties are changed.  The following example shows
-possibilities when setting properties manually.
+@code{clefGlyph}, @code{clefPosition} (which controls the Y
+position of the clef), @code{middleCPosition} and
+@code{clefOctavation}.  A clef is printed when any of these
+properties are changed.  The following example shows possibilities
+when setting properties manually.
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -619,9 +630,9 @@ Program reference: @internalsref{Clef}.
 @cindex Key signature
 @funindex \key
 
-The key signature indicates the tonality in which a piece is played.  It
-is denoted by a set of alterations (flats or sharps) at the start of the
-staff.
+The key signature indicates the tonality in which a piece is
+played.  It is denoted by a set of alterations (flats or sharps)
+at the start of the staff.
 
 Setting or changing the key signature is done with the @code{\key}
 command
@@ -643,19 +654,20 @@ command
 @cindex church modes
 
 Here, @var{type} should be @code{\major} or @code{\minor} to get
-@var{pitch}-major or @var{pitch}-minor, respectively.  You may also
-use the standard mode names (also called @q{church modes}): @code{\ionian},
-@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
-@code{\phrygian}, and @code{\dorian}.
+@var{pitch}-major or @var{pitch}-minor, respectively.  You may
+also use the standard mode names (also called @q{church modes}):
+@code{\ionian}, @code{\locrian}, @code{\aeolian},
+@code{\mixolydian}, @code{\lydian}, @code{\phrygian}, and
+@code{\dorian}.
 
-This command sets the context property
-@code{Staff.keySignature}.  Non-standard key signatures
-can be specified by setting this property directly.
+This command sets the context property @code{Staff.keySignature}.
+Non-standard key signatures can be specified by setting this
+property directly.
 
 Accidentals and key signatures often confuse new users, because
-unaltered notes get natural signs depending on the key signature.  For
-more information, see @ref{Accidentals}, or @rlearning{Accidentals
-and key signatures}.
+unaltered notes get natural signs depending on the key signature.
+For more information, see @ref{Accidentals}, or
+@rlearning{Accidentals and key signatures}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -666,9 +678,9 @@ fis
 
 @commonprop
 
-A natural sign is printed to cancel any previous accidentals.  This
-can be suppressed by setting the @code{Staff.printKeyCancellation}
-property.
+A natural sign is printed to cancel any previous accidentals.
+This can be suppressed by setting the
+@code{Staff.printKeyCancellation} property.
 
 @lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
 \key d \major
@@ -692,8 +704,8 @@ Program reference: @internalsref{KeyCancellation},
 @node Ottava brackets
 @unnumberedsubsubsec Ottava brackets
 
-@q{Ottava} brackets introduce an extra transposition of an octave for
-the staff.  They are created by invoking the function
+@q{Ottava} brackets introduce an extra transposition of an octave
+for the staff.  They are created by invoking the function
 @code{set-octavation}
 
 @cindex ottava
@@ -710,11 +722,12 @@ the staff.  They are created by invoking the function
 }
 @end lilypond
 
-The @code{set-octavation} function also takes -1 (for 8va bassa), 2@tie{}(for 15ma),
-and -2 (for 15ma bassa) as arguments.  Internally the function sets the properties
-@code{ottavation} (e.g., to @code{"8va"} or @code{"8vb"}) and
-@code{centralCPosition}.  For overriding the text of the bracket, set
-@code{ottavation} after invoking @code{set-octavation}, i.e.,
+The @code{set-octavation} function also takes -1 (for 8va bassa),
+2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
+Internally the function sets the properties @code{ottavation}
+(e.g., to @code{"8va"} or @code{"8vb"}) and
+@code{centralCPosition}.  For overriding the text of the bracket,
+set @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -743,8 +756,8 @@ during an octavation bracket.
 @cindex transposition, instrument
 
 The key of a transposing instrument can also be specified.  This
-applies to many wind instruments, for example, clarinets (B-flat, A, and
-E-flat), horn (F) and trumpet (B-flat, C, D, and E-flat).
+applies to many wind instruments, for example, clarinets (B-flat,
+A, and E-flat), horn (F) and trumpet (B-flat, C, D, and E-flat).
 
 The transposition is entered after the keyword @code{\transposition}
 
@@ -753,16 +766,16 @@ The transposition is entered after the keyword @code{\transposition}
 @end example
 
 @noindent
-This command sets the property @code{instrumentTransposition}.  The value of
-this property is used for MIDI output and quotations.  It does not
-affect how notes are printed in the current staff.  To change the printed
-output, see @ref{Transpose}.
+This command sets the property @code{instrumentTransposition}.
+The value of this property is used for MIDI output and quotations.
+It does not affect how notes are printed in the current staff.  To
+change the printed output, see @ref{Transpose}.
 
-The pitch to use for @code{\transposition} should correspond to the
-real sound heard when a @code{c'} written on the staff is played by the
-transposing instrument.  For example, when entering a score in
-concert pitch, typically all voices are entered in C, so
-they should be entered as
+The pitch to use for @code{\transposition} should correspond to
+the real sound heard when a @code{c'} written on the staff is
+played by the transposing instrument.  For example, when entering
+a score in concert pitch, typically all voices are entered in C,
+so they should be entered as
 
 @example
 clarinet = @{
@@ -777,8 +790,8 @@ saxophone = @{
 
 The command @code{\transposition} should be used when the music is
 entered from a (transposed) orchestral part.  For example, in
-classical horn parts, the tuning of the instrument is often changed
-during a piece.  When copying the notes from the part, use
+classical horn parts, the tuning of the instrument is often
+changed during a piece.  When copying the notes from the part, use
 @code{\transposition}, e.g.,
 
 @example
