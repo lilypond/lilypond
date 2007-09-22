@@ -717,7 +717,7 @@ consulte
 @internalsref{Contexts}.
 @end ifhtml
 @ifnothtml
-Traducción @arrow{} Contexto.
+Traducción @expansion{} Contexto.
 @end ifnothtml
 
 @c [TODO: describe propagation]
@@ -982,7 +982,7 @@ véase
 @internalsref{Tunable context properties}.
 @end ifhtml
 @ifnothtml
-Traducción @arrow{} propiedades de contexto ajustables.
+Traducción @expansion{} propiedades de contexto ajustables.
 @end ifnothtml
 
 
@@ -1001,14 +1001,14 @@ Para ver una descripción completa de cada uno de los añadidos, consulte
 @internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
-Referencia del programa @arrow Traducción @arrow{} Grabadores.
+Referencia del programa @expansion Traducción @expansion{} Grabadores.
 @end ifnothtml
 cada uno de los contextos descritos en
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
 @ifnothtml
-Referencia del programa @arrow Traducción @arrow{} Contexto.
+Referencia del programa @expansion Traducción @expansion{} Contexto.
 @end ifnothtml
 relaciona los grabadores utilizados para ese contexto.
 

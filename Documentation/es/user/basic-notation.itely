@@ -2196,7 +2196,7 @@ legato.  Esto se consigue en LilyPond mediante el establecimiento de @code{doubl
 
 @seealso
 
-Referencia del programa: @seeinternals{Slur}.
+Referencia del programa: @internalsref{Slur}.
 
 
 @node Phrasing slurs

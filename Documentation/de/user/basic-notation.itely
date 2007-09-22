@@ -2331,7 +2331,7 @@ markieren. Das kann in LilyPond erreicht werden, indem die Eigenschaft
 
 @seealso
 
-Programmreferenz: @seeinternals{Slur}.
+Programmreferenz: @internalsref{Slur}.
 
 
 @node Phrasing slurs

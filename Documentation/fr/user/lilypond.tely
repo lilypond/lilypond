@@ -155,11 +155,7 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-Manuel de référence
-
-* Basic notation::                 notation musicale standard.
-* Instrument-specific notation::   notation spécifique à des instruments.
-* Advanced notation::              notation plus rarement utilisée.
+* Musical notation::               notation musicale.
 * Changing defaults::              retoucher la mise en forme.
 * Non-musical notation::           aspects autres que la notation musicale.
 * Spacing issues::                 mise en page de la musique sur le papier.
@@ -184,9 +180,8 @@ Annexes
 
 @include macros.itexi
 
-@include basic-notation.itely
-@include instrument-notation.itely
-@include advanced-notation.itely
+@include notation.itely
+
 @include changing-defaults.itely
 @include non-music.itely
 @include spacing.itely

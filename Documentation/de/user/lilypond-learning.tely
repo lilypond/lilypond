@@ -8,7 +8,7 @@
 @setfilename lilypond-learning.info
 @settitle GNU LilyPond Learning Manual
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage de
 
 @iftex
 @afourpaper
@@ -26,14 +26,15 @@
 @omfdescription User manual of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage German
 @end ignore
 
 
 @ifhtml
-This document is also available as a
-@uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-learning-big-page.html,one big page}.
+Dieses Dokument ist auch als
+@uref{source/Documentation/user/lilypond-learning.de.pdf,PDF} und als 
+@uref{source/Documentation/user/lilypond-learning-big-page.html,eine große Seite}
+(in Englisch) verfügbar.
 @end ifhtml
 
 
@@ -44,14 +45,32 @@ This document is also available as a
 
 @finalout
 
+@c TRANSLATE ME
 @titlepage
 @title LilyPond
-@subtitle The music typesetter
+@subtitle Das Notensatzprogramm
 @titlefont{Learning Manual}
-@author The LilyPond development team
+@author Das LilyPond-Entwicklerteam
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -82,7 +101,24 @@ Free Documentation License''.
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -94,10 +130,28 @@ Free Documentation License''.
 @end quotation
 @end copying
 
+@c TRANSLATE ME
 @ifnottex
 This file documents GNU LilyPond program usage.
 
-Copyright 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 bei den Autoren
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{Die Übersetzung der folgenden Lizenzanmerkung ist zur Orientierung 
+für Leser, die nicht Englisch sprechen. Im rechtlichen Sinne ist aber 
+nur die englische Version gültig.}
+
+@quotation
+Es ist erlaubt, dieses Dokument unter den Bedingungen der
+GNU Free Documentation Lizenz (Version 1.1 oder
+spätere, von der Free Software Foundation publizierte Versionen), 
+zu kopieren, verbreiten und/oder
+zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+Free Documentation License'' angefügt.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -109,12 +163,14 @@ Free Documentation License''.
 @end quotation
 @end ifnottex
 
+@c TRANSLATE ME
 @ifnottex
 @node Top
 @top GNU LilyPond --- learning manual
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond 2.11.x series.
+@c TRANSLATE ME
+This is the learning manual for GNU LilyPond 2.11.x series.
 @ifhtml
 (See the bottom of this page for the exact version number).
 @end ifhtml
@@ -127,8 +183,6 @@ More information can be found at
 of this and other documentation.
 
 @menu
-Handbuch zum Lernen
-
 * Preface::                        Vorwort.
 * Introduction::                   Was, warum und wie.
 * Tutorial::                       Eine Übung zur Einführung.

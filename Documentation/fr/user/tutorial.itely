@@ -396,7 +396,7 @@ Voici un bref exemple qui montre tous ces éléments ensemble :
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Entrer des hauteurs et des durées
@@ -567,7 +567,7 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Les hauteurs de note relatives
@@ -676,7 +676,7 @@ peuvent être imprimées suivant plusieurs conventions.  Regardez
 altérations accidentelles peuvent être imprimées, suivant les règles
 que vous choisirez.
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Les altérations
@@ -741,7 +741,7 @@ liaisons de tenue peuvent être enchâssées dans un legato ou un phrasé.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item @ruser{Ties},
@@ -809,7 +809,7 @@ Crescendos et decrescendos débutent avec les commandes @code{\<} et
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item @ruser{Articulations}.
@@ -838,7 +838,7 @@ première note à attacher d'un @samp{[} et la dernière d'un @samp{]}.
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Groupements de notes et ligatures automatiques
@@ -897,7 +897,7 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Notes d'ornement
@@ -1122,7 +1122,7 @@ Voici un bref exemple :
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Voir @ruser{Piano music}.
 @end quotation
@@ -1205,7 +1205,7 @@ Là encore, ces expressions peuvent s'imbriquer arbitrairement :
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Voir @ruser{Basic polyphony}.
 @end quotation
@@ -1282,7 +1282,7 @@ entre les deux syllabes :
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Plus de possibilités, comme celle d'ajouter plusieurs lignes de paroles
 en dessous d'une même mélodie sont exposées dans @ruser{Vocal music}.
@@ -1341,7 +1341,7 @@ partition de chanson :
 @end lilypond
 
 
-@moreinfo
+@seealso
 @quotation
 Une liste complète de modificateurs et d'autres options de mise en forme
 se trouve à la section @ruser{Chords}.

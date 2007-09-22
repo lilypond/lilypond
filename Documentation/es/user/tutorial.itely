@@ -366,7 +366,7 @@ He aquí un pequeño ejemplo que muestra todos los elementos anteriores juntos:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Introducir alturas y duraciones
@@ -526,7 +526,7 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Octavas relativas
@@ -614,7 +614,7 @@ alteraciones se pueden imprimir siguiendo varias convenciones distintas.  Consul
 @ruser{Automatic accidentals} para ver ejemplos de cómo se pueden imprimir las alteraciones
 de acuerdo a reglas diferentes.
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Alteraciones accidentales
@@ -676,7 +676,7 @@ se pueden anidar unas dentro de otras.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Ligaduras de unión
@@ -742,7 +742,7 @@ Los crescendi y decrescendi comienzan con las órdenes @code{\<} y
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Articulaciones
@@ -774,7 +774,7 @@ con @samp{]}.
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Barras automáticas
@@ -833,7 +833,7 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Notas de adorno
@@ -1043,7 +1043,7 @@ He aquí un pequeño ejemplo:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Ver @ruser{Piano music}.
 @end quotation
@@ -1121,7 +1121,7 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Ver @ruser{Basic polyphony}.
 @end quotation
@@ -1196,7 +1196,7 @@ dando como resultado unas líneas cortas entre cada dos sílabas:
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Otras posibilidades como poner varios versos debajo de una melodía, se
 discuten en @ruser{Vocal music}.
@@ -1252,7 +1252,7 @@ una hoja de canción con acordes (@q{lead sheet}):
 @end lilypond
 
 
-@moreinfo
+@seealso
 @quotation
 Puede ver una lista completa de los modificadores y otras opciones de presentación
 en @ruser{Chords}.

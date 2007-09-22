@@ -706,7 +706,7 @@ référence du programme : voir
 @internalsref{Contexts}.
 @end ifhtml
 @ifnothtml
-Translation @arrow{} Context.
+Translation @expansion{} Context.
 @end ifnothtml
 
 @c [TODO: describe propagation]
@@ -975,7 +975,7 @@ propriétés contexte par contexte : voir
 @internalsref{Tunable context properties}.
 @end ifhtml
 @ifnothtml
-Translation @arrow{} Tunable context properties.
+Translation @expansion{} Tunable context properties.
 @end ifnothtml
 
 
@@ -996,14 +996,14 @@ Vous trouverez une description exhaustive de chaque graveur dans
 @internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
-Program reference @arrow Translation @arrow{} Engravers.
+Program reference @expansion Translation @expansion{} Engravers.
 @end ifnothtml
 Chaque contexte mentionné dans
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
 @ifnothtml
-Program reference @arrow Translation @arrow{} Context.
+Program reference @expansion Translation @expansion{} Context.
 @end ifnothtml
 répertorie les graveurs mis en œuvre.
 

@@ -216,12 +216,9 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @include dedication.itely
 
+@c TRANSLATE ME
 @menu
-Alles über die Notation
-
-* Basic notation::                 Grundlegende Notation.
-* Instrument-specific notation::   Spezielle Notation.
-* Advanced notation::              Seltener eingesetzte Notation.
+* Musical notation::               Musical notation.
 * Changing defaults::              Das Notenbild verfeinern.
 * Non-musical notation::           Alles, was nicht Musiknotation ist.
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
@@ -245,9 +242,8 @@ Anhänge
 
 @include macros.itexi
 
-@include basic-notation.itely
-@include instrument-notation.itely
-@include advanced-notation.itely
+@include notation.itely
+
 @include changing-defaults.itely
 @include non-music.itely
 @include spacing.itely

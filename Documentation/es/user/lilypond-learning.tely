@@ -8,7 +8,8 @@
 @setfilename lilypond-learning.info
 @settitle GNU LilyPond Learning Manual
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage es
+@c TRANSLATE ME
 
 @iftex
 @afourpaper
@@ -26,14 +27,14 @@
 @omfdescription User manual of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage Spanish
 @end ignore
 
 
 @ifhtml
-This document is also available as a
-@uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-learning-big-page.html,one big page}.
+Este documento también está disponible como
+@uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-learning-big-page.html,una sola página enorme}.
 @end ifhtml
 
 
@@ -46,12 +47,29 @@ This document is also available as a
 
 @titlepage
 @title LilyPond
-@subtitle The music typesetter
+@subtitle El tipografiador de música
 @titlefont{Learning Manual}
-@author The LilyPond development team
+@author El equipo de desarrollo de LilyPond
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 por los autores
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -82,7 +100,24 @@ Free Documentation License''.
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 por los autores
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -94,10 +129,28 @@ Free Documentation License''.
 @end quotation
 @end copying
 
+@c TRANSLATE ME
 @ifnottex
 This file documents GNU LilyPond program usage.
 
-Copyright 1999--2007 by the authors
+Copyright @copyright{} 1999--2007 por los autores
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -109,6 +162,7 @@ Free Documentation License''.
 @end quotation
 @end ifnottex
 
+@c TRANSLATE ME
 @ifnottex
 @node Top
 @top GNU LilyPond --- learning manual

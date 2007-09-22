@@ -95,7 +95,7 @@ Free Documentation License''.
 @end copying
 
 @ifnottex
-This file documents GNU LilyPond program usage.
+This file documents GNU LilyPond for beginners.
 
 Copyright 1999--2007 by the authors
 
@@ -114,7 +114,7 @@ Free Documentation License''.
 @top GNU LilyPond --- learning manual
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond 2.11.x series.
+This is the learning manual for GNU LilyPond 2.11.x series.
 @ifhtml
 (See the bottom of this page for the exact version number).
 @end ifhtml
@@ -130,9 +130,7 @@ of this and other documentation.
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
-* Fundamental concepts::           Basic concepts required for reading
-the rest of this manual.
-* Putting it all together::        More explanation.
+* Putting it all together::        More explanation about LilyPond concepts.
 * Working on LilyPond projects::   Discusses real-life usage.
 * Tweaking output::                Introduction to modifying output.
 

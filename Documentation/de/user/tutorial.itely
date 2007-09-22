@@ -409,7 +409,7 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Eingabe von Tonhöhen und -dauern
@@ -587,7 +587,7 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Relativer Oktaveintrag
@@ -692,7 +692,7 @@ unterschiedlichen Regeln erfolgen kann. Siehe
 @ruser{Automatic accidentals} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Versetzungszeichen
@@ -758,7 +758,7 @@ geschachtelt werden.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Bindebögen
@@ -829,7 +829,7 @@ beziehungsweise @code{\>} begonnen.  Ein Dynamik-Zeichen, etwa
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Artikulationszeichen
@@ -862,7 +862,7 @@ anfängt, erhält ein @q{[} (AltGr+8) und die, an der er endet, ein
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Automatische Balken
@@ -921,7 +921,7 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Vorschläge, Verzierungen
@@ -1164,7 +1164,7 @@ Hier ein kleines Beispiel:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Siehe @ruser{Piano music}.
 @end quotation
@@ -1247,7 +1247,7 @@ kombiniert werden.
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Siehe @ruser{Basic polyphony}.
 @end quotation
@@ -1331,7 +1331,7 @@ dargestellt.
 @end lilypond
 @c \addlyrics { In -- te -- res -- sant }
 
-@moreinfo
+@seealso
 @quotation
 Mehr Möglichkeiten, wie etwa mehrere Strophen unter der gleichen
 Melodie, werden im Kapitel @ruser{Vocal music} gezeigt.
@@ -1391,7 +1391,7 @@ kombiniert, hat man ein Song-Blatt.
 @end lilypond
 @c \addlyrics { Frei und froh denkt der Mensch __ }
 
-@moreinfo
+@seealso
 @quotation
 Eine vollständige Liste der Akkordbezeichnungen und andere
 Optionen für das Layout sind im Kapitel @ruser{Chords} zu

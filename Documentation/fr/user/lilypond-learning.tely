@@ -6,9 +6,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond-learning.info
-@settitle GNU LilyPond Learning Manual
+@settitle GNU LilyPond -- manuel d'initiation
 @documentencoding UTF-8
-@documentlanguage en
+
 
 @iftex
 @afourpaper
@@ -26,16 +26,20 @@
 @omfdescription User manual of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
-@omflanguage English
+@omflanguage French
 @end ignore
 
 
 @ifhtml
-This document is also available as a
-@uref{source/Documentation/user/lilypond-learning.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-learning-big-page.html,one big page}.
+Ce document est également disponible au format
+@uref{source/Documentation/user/lilypond-learning.fr.pdf,PDF}.
 @end ifhtml
 
+@c urg, makeinfo 4.9.91 French translation is funky
+@iftex
+@documentlanguage fr
+@frenchspacing on
+@end iftex
 
 @c  This produces the unified index
 @syncodeindex fn cp
@@ -46,12 +50,28 @@ This document is also available as a
 
 @titlepage
 @title LilyPond
-@subtitle The music typesetter
-@titlefont{Learning Manual}
-@author The LilyPond development team
+@subtitle Le système de gravure musicale
+@titlefont{Manuel d'initiation}
+@author L'équipe de développement de LilyPond
 
 
 Copyright @copyright{} 1999--2007 by the authors
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -84,6 +104,22 @@ Free Documentation License''.
 @copying
 Copyright @copyright{} 1999--2007 by the authors
 
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
+
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1
@@ -111,12 +147,12 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- learning manual
+@top GNU LilyPond --- manuel d'initiation
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond 2.11.x series.
+Ce document est le manuel d'initiation pour GNU LilyPond 2.11.x.
 @ifhtml
-(See the bottom of this page for the exact version number).
+(Allez au bas de la page pour voir le numéro de version exact).
 @end ifhtml
 
 @cindex web site
@@ -127,20 +163,18 @@ More information can be found at
 of this and other documentation.
 
 @menu
-Manuel d'apprentissage
+Manuel d'initiation
 
 * Preface::
 * Introduction::                   quoi, pourquoi comment.
 * Tutorial::                       un tutoriel d'introduction.
-* Putting it all together::        explication plus détaillée des
-concepts de LilyPond.
+* Putting it all together::        explication plus détaillée des concepts de LilyPond.
 * Working on LilyPond projects::   traite de l'utilisation quotidienne.
-* Tweaking output::                introduction aux retouches de mise
-en forme.
+* Tweaking output::                introduction aux retouches de mise en forme.
 
 Annexes
 
-* GNU Free Documentation License:: License of this document.
+* GNU Free Documentation License:: licence de ce document.
 * LilyPond index::
 @end menu
 @end ifnottex

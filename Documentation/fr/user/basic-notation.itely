@@ -2237,7 +2237,7 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 
 @seealso
 
-Référence du programme : @seeinternals{Slur}.
+Référence du programme : @internalsref{Slur}.
 
 
 @node Phrasing slurs
