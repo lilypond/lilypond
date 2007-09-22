@@ -14,14 +14,6 @@ This chapter explains how to create musical notation.
 * Staff notation::     Displaying staves.
 * Educational use::    Special notation to increase legibility.
 * Text::               Adding text to scores.
-
-* Vocal music:: a
-* Chords Blah:: b
-* Piano music:: c
-* Percussion:: d
-* Guitar:: e
-* Other instrument-specific:: f
-* Ancient notation:: g
 @end menu
 
 @include pitches.itely
@@ -32,13 +24,4 @@ This chapter explains how to create musical notation.
 @include staff.itely
 @include educational.itely
 @include text.itely
-
-@include vocal.itely
-@include chords.itely
-@include piano.itely
-@include percussion.itely
-@include guitar.itely
-@include instrument-notation.itely
-@include ancient.itely
-
 

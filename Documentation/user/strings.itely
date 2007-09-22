@@ -1,0 +1,35 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+
+@node Orchestral strings
+@section Orchestral strings
+
+This section includes extra information for writing for orchestral
+strings.
+
+@menu
+* Orchestral strings TODO::     
+@end menu
+
+
+
+@node Orchestral strings TODO
+@subsection Orchestral strings TODO
+
+@menu
+* Artificial harmonics (strings)::  
+@end menu
+
+@node Artificial harmonics (strings)
+@unnumberedsubsubsec Artificial harmonics (strings)
+
+@cindex artificial harmonics
+
+Artificial harmonics are notated with a different notehead style.  They
+are entered by marking the harmonic pitch with @code{\harmonic}.
+
+@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
+<c g'\harmonic>4
+@end lilypond
+
+
+
