@@ -6,8 +6,17 @@ import re
 from rational import Rational
 
 
-def escape_output_string (input_string):
-    return "\"" + string.replace (input_string, "\"", "\\\"") + "\""
+def escape_instrument_string (input_string):
+    retstring = string.replace (input_string, "\"", "\\\"")
+    if re.match ('.*\n.*', retstring):
+        strings = retstring.split ('\r\n')
+        retstring = "\\markup { \\column { "
+        for s in strings:
+            retstring += "\\line {\"" + s + "\"} "
+        retstring += "} }"
+    else:
+        retstring = "\"" + retstring + "\""
+    return retstring
 
 class Output_stack_element:
     def __init__ (self):
@@ -949,11 +958,11 @@ class StaffGroup:
         printer.newline ()
         if self.stafftype and self.instrument_name:
             printer.dump ("\\set %s.instrumentName = %s" % (self.stafftype, 
-                    escape_output_string (self.instrument_name)))
+                    escape_instrument_string (self.instrument_name)))
             printer.newline ()
         if self.stafftype and self.short_instrument_name:
             printer.dump ("\\set %s.shortInstrumentName = %s\n" % (self.stafftype, 
-                    escape_output_string (self.short_instrument_name)))
+                    escape_instrument_string (self.short_instrument_name)))
             printer.newline ()
         self.print_ly_contents (printer)
         printer.newline ()
