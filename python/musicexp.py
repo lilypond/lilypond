@@ -75,8 +75,14 @@ class Output_printer:
         self._line += str
 
     def unformatted_output (self, str):
-        self._nesting += str.count ('<') + str.count ('{')
-        self._nesting -= str.count ('>') + str.count ('}')
+        # don't indent on \< and indent only once on <<
+        self._nesting += ( str.count ('<') 
+                         - str.count ('\<') - str.count ('<<') 
+                         + str.count ('{') )
+        self._nesting -= ( str.count ('>') - str.count ('\>') - str.count ('>>')
+                                           - str.count ('->') - str.count ('_>')
+                                           - str.count ('^>')
+                         + str.count ('}') )
         self.print_verbatim (str)
         
     def print_duration_string (self, str):
