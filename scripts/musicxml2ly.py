@@ -465,7 +465,8 @@ instrument_drumtype_dict = {
     'Side Stick': 'sidestick',
     'Open Triangle': 'opentriangle',
     'Mute Triangle': 'mutetriangle',
-    'Tambourine': 'tambourine'
+    'Tambourine': 'tambourine',
+    'Bass Drum': 'bassdrum',
 }
 
 def musicxml_note_to_lily_main_event (n):
@@ -497,7 +498,7 @@ def musicxml_note_to_lily_main_event (n):
         if drum_type:
             event.drum_type = drum_type
         else:
-            n.message ("drum %s type unknow, please add to instrument_drumtype_dict" % n.instrument_name)
+            n.message ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
             event.drum_type = 'acousticsnare'
     
     if not event:

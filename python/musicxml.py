@@ -278,7 +278,7 @@ class Note (Measure_element):
         self.instrument_name = ''
         
     def get_duration_log (self):
-        ch = self.get_maybe_exist_typed_child (get_class (u'type'))
+        ch = self.get_maybe_exist_named_child (u'type')
 
         if ch:
             log = ch.get_text ().strip()
@@ -294,7 +294,7 @@ class Note (Measure_element):
                     'breve': -1,
                     'long': -2}.get (log, 0)
         else:
-            sys.stderr.write ("Encountered note without duration (no <type> element): %s\n" % self)
+            self.message ("Encountered note at %s without %s duration (no <type> element):" % (self.start, self.duration) )
             return 0
 
     def get_factor (self):
@@ -572,8 +572,6 @@ class Part (Music_xml_node):
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
-            # TODO: If the first element of a voice is a dynamics entry,
-            #       then voice_id is not yet set! Thus it will currently be ignored
 	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) ):
 		continue
 
@@ -602,7 +600,11 @@ class Part (Music_xml_node):
                 continue
 
 	    id = voice_id.get_text ()
-	    voices[id].add_element (n)
+            if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
+                #Skip this note. 
+                pass
+            else:
+                voices[id].add_element (n)
 
 	if start_attr:
             for (s, vids) in staff_to_voice_dict.items ():
