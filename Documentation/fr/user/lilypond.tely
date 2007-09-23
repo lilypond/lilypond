@@ -1,13 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: e9a620b6e7e1c0a1bf39b7063ff1744ad61efb08
+    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @setfilename lilypond.info
-@settitle GNU LilyPond -- manuel de l'utilisateur
+@settitle GNU LilyPond -- manuel de référence
 @documentencoding UTF-8
 
 @iftex
@@ -52,7 +52,7 @@ Ce document est également disponible au format
 @titlepage
 @title GNU LilyPond
 @subtitle Le système de gravure musicale
-@titlefont{Manuel de l'utilisateur}
+@titlefont{Manuel de référence}
 @author L'équipe de développement de LilyPond
 
 
@@ -140,7 +140,7 @@ Free Documentation License''.
 @top GNU LilyPond --- le système de gravure musicale
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel de l'utilisateur pour GNU LilyPond 2.11.x.
+Ce document est le manuel de référence de GNU LilyPond 2.11.x.
 @ifhtml
 (Allez au bas de la page pour voir le numéro de version exact).
 @end ifhtml
@@ -155,8 +155,9 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-* Musical notation::               notation musicale.
-* Changing defaults::              retoucher la mise en forme.
+* Musical notation::
+* Specialist notation::
+* Changing defaults::
 * Non-musical notation::           aspects autres que la notation musicale.
 * Spacing issues::                 mise en page de la musique sur le papier.
 * Interfaces for programmers::     utilisation avancée.
@@ -181,6 +182,7 @@ Annexes
 @include macros.itexi
 
 @include notation.itely
+@include specialist.itely
 
 @include changing-defaults.itely
 @include non-music.itely

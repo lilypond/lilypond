@@ -1,0 +1,1758 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Rhythms
+@section Rhythms
+
+This section discusses rhythms, durations, and bars.
+
+@menu
+* Writing rhythms::             
+* Writing rests::               
+* Displaying rhythms::          
+* Beams::                       
+* Bars::                        
+* Special rhythmic concerns::   
+@end menu
+
+
+@node Writing rhythms
+@subsection Writing rhythms
+
+@menu
+* Durations::                   
+* Augmentation dots::           
+* Tuplets::                     
+* Scaling durations::           
+@end menu
+
+@node Durations
+@unnumberedsubsubsec Durations
+
+@cindex durées
+@funindex \longa
+@funindex \breve
+@funindex \maxima
+
+Dans les modes de notes, d'accords et de paroles, les durées sont
+écrites avec des chiffres et des points : les durées sont indiquées par
+leur valeur fractionnaire par rapport à la durée d'une ronde.  Une
+noire, par exemple, qui équivaut à un 1/4 de ronde --- @qq{quarter note}
+en anglais --- s'écrit @code{4}, alors qu'une blanche ---
+@qq{half-note}, 1/2 ronde --- s'écrit @code{2}.  Pour des notes plus
+longues qu'une ronde, vous devrez utiliser les commandes @code{\longa}
+pour une longue, et @code{\breve} pour une brève, aussi appelée carrée.
+
+@example
+c'\breve
+c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
+r\longa r\breve
+r1 r2 r4 r8 r16 r32 r64 r64
+@end example
+
+@lilypond[quote]
+\score {
+\relative c'' {
+    a\breve*1/2 \autoBeamOff
+    a1 a2 a4 a8 a16 a32 a64 a64
+   \bar "empty"
+   \break
+    r\longa*1/4 r\breve *1/2
+    r1 r2 r4 r8 r16 r32 r64 r64
+  }
+  \layout {
+    ragged-right = ##t
+    indent=0\mm
+    \context {
+      \Score
+        \remove "Bar_number_engraver"
+    }
+    \context {
+      \Staff
+        \remove "Clef_engraver"
+        \override StaffSymbol #'transparent = ##t
+        \override TimeSignature #'transparent = ##t
+        \override BarLine #'transparent = ##t
+        \consists "Pitch_squash_engraver"
+    }
+  }
+}
+@end lilypond
+
+Si la durée n'est pas précisée, elle est alors assimilée à la durée
+précédente.  La valeur par défaut pour la première note est une noire
+(4).
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+{ a a a2 a a4 a a1 a }
+@end lilypond
+
+
+@node Augmentation dots
+@unnumberedsubsubsec Augmentation dots
+
+@funindex .
+
+Pour obtenir des notes pointées, ajoutez simplement un point
+(@samp{.}) au chiffre.  Les notes doublement pointées sont créées de
+la même façon.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+a'4 b' c''4. b'8 a'4. b'4.. c''8.
+@end lilypond
+
+@refcommands
+
+Les points sont normalement haussés pour éviter les lignes de portées,
+sauf dans certaines polyphonies.  Les commandes suivantes peuvent être
+utilisées pour demander manuellement une orientation particulière des
+points.
+
+@funindex \dotsUp
+@code{\dotsUp},
+@funindex \dotsDown
+@code{\dotsDown},
+@funindex \dotsNeutral
+@code{\dotsNeutral}.
+
+@seealso
+
+Référence du programme : @internalsref{Dots}, @internalsref{DotColumn}.
+
+
+@node Tuplets
+@unnumberedsubsubsec Tuplets
+
+@cindex nolets
+@cindex triolets
+@funindex \times
+
+Les nolets --- triolets, quintolets, etc. --- sont obtenus en
+multipliant toutes les durées d'une expression musicale par une
+fraction.
+
+@example
+\times @var{fraction} @var{expr_musique}
+@end example
+
+@noindent
+La durée de @var{expr_musique} sera multipliée par la fraction.  Le
+dénominateur de la fraction sera imprimé au-dessus des notes, parfois
+avec un crochet.  Le nolet le plus courant est le triolet, dans lequel 3
+notes ont la durée de 2, et où les notes durent donc 2/3 de leur valeur
+écrite.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+g'4 \times 2/3 {c'4 c' c'} d'4 d'4
+@end lilypond
+
+Les nolets peuvent être imbriqués ; par exemple,
+
+@lilypond[fragment,ragged-right,verbatim,relative=2]
+\override TupletNumber #'text = #tuplet-number::calc-fraction-text
+\times 4/6 {
+  a4 a
+  \times 3/5 { a a a a a }
+}
+@end lilypond
+
+@refcommands
+
+@funindex \tupletUp
+@code{\tupletUp},
+@funindex \tupletDown
+@code{\tupletDown},
+@funindex \tupletNeutral
+@code{\tupletNeutral}.
+
+
+@commonprop
+
+@funindex tupletNumberFormatFunction
+@cindex nolets, formatage
+
+La propriété @code{tupletSpannerDuration} spécifie la longueur voulue de
+chaque crochet.  Avec elle, vous pouvez faire plusieurs nolets en ne
+tapant @code{\times} qu'une fois, ce qui évite une longue saisie.  Dans
+le prochain exemple, deux triolets sont imprimés avec une seule fonction
+@code{\times}.
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+\set tupletSpannerDuration = #(ly:make-moment 1 4)
+\times 2/3 { c8 c c c c c }
+@end lilypond
+
+@noindent
+Pour plus d'information sur @code{make-moment}, voir
+@ref{Time administration}.
+
+L'apparence du chiffre est déterminée par la propriété @code{text} dans
+@code{TupletNumber}.  La valeur par défaut imprime seulement le
+dénominateur, mais si elle est définie par la fonction
+@code{tuplet-number::calc-fraction-text}, la fraction entière
+@var{num}:@var{den} sera imprimée à la place.
+
+Pour éviter d'imprimer les chiffres des nolets, utilisez
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+\override TupletNumber #'transparent = ##t
+\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+@end lilypond
+
+Utilisez la fonction @code{\tweak} pour définir une priorité dans le cas
+de nolets imbriqués débutant au même moment.  Dans cet exemple,
+@code{\tweak} spécifie un texte sous forme de fraction pour le
+@code{TupletNumber} externe et de dénominateur pour les trois triolets
+internes.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \times 4/3 {
+     \tweak #'text #tuplet-number::calc-denominator-text
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Ici, @code{\tweak} et @code{\override} agissent de concert pour
+spécifier le positionnement du @code{TupletBracket}.  Le premier
+@code{\tweak} positionne le @code{TupletBracket} du nolet externe au
+dessus de la portée. Le second @code{\tweak} positionne le
+@code{TupletBracket} du premier triolet interne au dessous de la
+portée.  Notez que cette paire de fonctions @code{\tweak} n'affecte
+que le triolet extérieur et le premier des trois triolets imbriqués
+parce qu'ils commencent au même instant musical.  Nous utilisons
+@code{\override} de manière tout à fait normale, pour forcer le
+positionnement du @code{TupletBracket} des deuxième et troisième
+triolets en dessous de la portée.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff {
+  \tweak #'text #tuplet-number::calc-fraction-text
+  \tweak #'direction #up
+  \times 4/3 {
+     \tweak #'direction #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \override TupletBracket #'direction = #down
+     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c'8[ c'8 c'8] }
+  }
+}
+@end lilypond
+
+Les crochets de nolets peuvent aller jusqu'aux prémisses de la mesure
+suivante, ou à la prochaine note.
+
+@lilypond[ragged-right]
+\new RhythmicStaff {
+  \set tupletFullLength = ##t
+  \time 4/4
+  \times 4/5 {
+    c4 c1
+  }
+  \set tupletFullLengthNote = ##t
+  \time 2/4
+  \times 2/3 {
+    c4 c c 
+  }
+  \time 3/4
+  c4 
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{TupletBracket},
+@internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
+
+
+
+@node Scaling durations
+@unnumberedsubsubsec Scaling durations
+
+Vous pouvez altérer la durée des notes en leur joignant une fraction
+@var{N/M}, donnant @q{@code{*}@var{N/M}} --- ou @q{@code{*}@var{N}} si
+@var{M=1}.  Ceci n'affectera pas l'apparence des notes ou silences
+produits.
+
+Dans l'exemple suivant, les trois premières notes prennent exactement
+deux temps, mais aucun triolet n'est imprimé.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\time 2/4
+a4*2/3 gis4*2/3 a4*2/3
+a4 a4 a4*2
+b16*4 c4
+@end lilypond
+
+
+@seealso
+
+Dans ce manuel : @ref{Tuplets}.
+
+
+@node Writing rests
+@subsection Writing rests
+
+@menu
+* Rests::                       
+* Skips::                       
+* Multi measure rests::         
+@end menu
+
+@node Rests
+@unnumberedsubsubsec Rests
+@cindex silences
+
+@funindex \rest
+@funindex r
+
+Les silences sont écrits comme des notes avec le nom de note @code{r}.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+r1 r2 r4 r8
+@end lilypond
+
+Les pauses d'une mesure complète, qui sont placées au centre de la
+mesure, doivent être entrées comme des mesures de silence.  Elles
+peuvent être utilisées pour une seule mesure comme pour plusieurs, et
+leur utilisation est expliquée dans la section
+@ref{Multi measure rests}.
+
+Pour spécifier explicitement la position verticale d'un silence, écrivez
+une note suivie de @code{\rest}.  Un silence sera placé à la position où
+serait imprimée la note.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+a'4\rest d'4\rest
+@end lilypond
+
+@noindent
+Cela rend plus facile la mise en place de la musique polyphonique,
+puisque le formateur automatique de collision des silences laissera ces
+silences tranquilles.
+
+@seealso
+
+Référence du programme : @internalsref{Rest}.
+
+
+@node Skips
+@unnumberedsubsubsec Skips
+
+@cindex sauts de durée
+@cindex silences invisibles
+@cindex silences d'espacement
+@funindex \skip
+@funindex s
+
+Un silence invisible --- que l'on pourrait appeler un @qq{saut} ---
+peut être entré comme une note avec le nom de note `@samp{s}' ou avec
+@code{\skip @var{durée}}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a4 a4 s4 a4 \skip 1 a4
+@end lilypond
+
+La syntaxe @code{s} est seulement disponible pour les modes d'entrée
+de notes et d'accords.  Dans d'autres situations, pour l'entrée de
+paroles par exemple, vous devrez utiliser la commande @code{\skip}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \relative { a'2 a2 }
+  \new Lyrics \lyricmode { \skip 2 bla2 }
+>>
+@end lilypond
+
+La commande de saut génère simplement une case musicale vide.  Elle ne
+produit rien sur la partition, pas même un symbole transparent.  Le code
+de saut @code{s} crée tout de même une @internalsref{Staff} et une
+@internalsref{Voice} lorsque nécessaire, tout comme les commandes de
+note et de silence.  Ainsi, le code suivant aboutit à une portée vide.
+
+@lilypond[quote,ragged-right,verbatim]
+{ s4 }
+@end lilypond
+
+Le fragment @code{@{ \skip 4 @} } produirait une page vide.
+
+@seealso
+
+Référence du programme : @internalsref{SkipMusic}.
+
+
+@node Multi measure rests
+@unnumberedsubsubsec Multi measure rests
+
+@cindex mesures à compter
+@cindex mesure entière de silence
+@cindex Silences, multi-mesures
+@cindex Silences, mesure entère
+@cindex une pause par mesure
+@funindex R
+
+Un silence valant une ou plusieurs mesures entières s'entre avec un
+@samp{R} majuscule.  Ceci ne peut être utile que pour une mesure complètement
+vide, et pour générer des parties séparées : ce silence sera alors
+répété sur autant de mesures que nécessaire, ou bien imprimé une seule
+fois.  La répétition est contrôlée par la propriété
+@code{Score.skipBars}.  Au cas où ce commutateur est défini comme
+vrai (lettre @code{##t} pour @q{true}), les mesures vides ne seront pas répétées, et le nombre exact de
+mesures sera ajouté.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
+\set Score.skipBars = ##t R1*17 R1*4
+@end lilypond
+
+Le @code{1} de @code{R1} est le même que celui utilisé pour la durée
+des notes.  Vous devrez donc, si le morceau n'est pas à 4/4, stipuler
+un autre durée, qui pourra contenir des points d'augmentation ou être
+libellé sous forme de fraction :
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+\time 3/4
+R2. | R2.*2
+\time 13/8
+R1*13/8
+R1*13/8*12 |
+\time 10/8 R4*5*4 |
+@end lilypond
+
+Un @code{R} qui s'étend sur une seule mesure s'imprime tantôt comme
+une pause, tantôt comme une brève, et sera centré sur la mesure
+quelle que soit la métrique.
+
+Dans le cas où ce silence ne dure que quelques mesures, LilyPond
+imprime sur la portée des @qq{ silences d'église }, simple suite de
+rectangles.  La propriété @code{MultiMeasureRest.expand-limit} permet
+d'obtenir un silence unique.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+R1*2 | R1*5 | R1*9
+\override MultiMeasureRest #'expand-limit = 1
+R1*2 | R1*5 | R1*9
+@end lilypond
+
+@cindex texte et silence multi-mesures
+@cindex script et silence multi-mesures
+@cindex point d'orgue et silence multi-measures
+
+Vous pouvez aussi ajouter du texte à un silence multi-mesures en utilisant
+la syntaxe @var{note}-@code{markup} (cf. @ref{Text markup}).  La
+variable @code{\fermataMarkup} permet d'ajouter un point d'orgue.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\set Score.skipBars = ##t
+\time 3/4
+R2.*10^\markup { \italic "ad lib." }
+R2.^\fermataMarkup
+@end lilypond
+
+Attention !  c'est @code{MultiMeasureRestText} qui créera le texte, et
+non @code{TextScript}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\override TextScript #'padding = #5
+R1^"low"
+\override MultiMeasureRestText #'padding = #5
+R1^"high"
+@end lilypond
+
+Pour aligner votre texte sur le début de la mesure, rattachez-le à un
+silence invisible de longueur zéro comme ceci :
+
+@example
+s1*0^"Allegro"
+R1*4
+@end example
+
+
+@seealso
+
+Référence du programme : @internalsref{MultiMeasureRestMusic},
+@internalsref{MultiMeasureRest}.
+
+L'objet de rendu @internalsref{MultiMeasureRestNumber} traite les
+nombres, et @internalsref{MultiMeasureRestText} le texte ajouté par
+l'utilisateur. 
+
+
+@refbugs
+
+Vous ne pouvez pas utiliser de doigtés (p.ex. @code{R1-4}) pour
+positionner des nombres au dessus d'un silence multi-mesures, ni
+modifier la hauteur.
+
+@cindex condenser les silences
+
+Condenser plusieurs silences en un unique silence multi-mesures ne peut 
+être automatisé.  Les silences multi-mesures peuvent générer des
+collisions avec d'autres silences.
+
+Pensez à indiquer explicitement la durée de la note qui suit un
+silence multi-mesures, car elle sera par défaut égale à la durée totale
+des mesures à compter. Ainsi, dans l'exemple ci-après, les deux do
+dièses vaudront chacun quatre mesures à 4/4.
+@example
+R1*4 cis cis
+@end example
+Lorsque @code{skipBars} est activé, le résultat semblera correct, mais
+la numérotation des mesures sera suspendue. 
+
+
+@node Displaying rhythms
+@subsection Displaying rhythms
+
+@menu
+* Time signature::              
+* Upbeats::                     
+* Unmetered music::             
+* Polymetric notation::         
+* Automatic note splitting::    
+@end menu
+
+@node Time signature
+@unnumberedsubsubsec Time signature
+
+@cindex chiffrage de mesure
+@cindex chiffre indicateur de mesure
+@cindex métrique
+@funindex \time
+
+Le chiffre de mesure indique le mètre d'une pièce : une alternance
+régulière de temps forts et de temps faibles.  Il est indiqué par une
+fraction au début de la portée.
+
+Le chiffre de mesure est réglé par la commande @code{\time}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 2/4 c'2 \time 3/4 c'2.
+@end lilypond
+
+@commonprop
+
+Le symbole imprimé peut être modifié avec la propriété @code{style}.
+En la réglant sur @code{#'()}, une fraction sera utilisée pour les
+chiffres de mesure 4/4 et 2/2.
+
+@lilypond[fragment,quote,ragged-right,verbatim]
+\time 4/4 c'1
+\time 2/2 c'1
+\override Staff.TimeSignature #'style = #'()
+\time 4/4 c'1
+\time 2/2 c'1
+@end lilypond
+
+Il y a bien d'autres options pour sa mise en place.  Voir @ref{Ancient time
+signatures} pour plus d'exemples.
+
+@code{\time} définit les propriétés @code{timeSignatureFraction},
+@code{beatLength} et @code{measureLength} dans le contexte
+@code{Timing}, qui en principe est assimilé à @internalsref{Score}.  La
+propriété @code{measureLength} détermine où des barres de mesure doivent
+être insérées, et comment les groupements de notes doivent être gérés.
+La modification de la valeur de @code{timeSignatureFraction} donne
+également lieu à l'impression d'un symbole.
+
+Plus d'options sont accessibles au moyen de la fonction Scheme
+@code{set-time-signature}.  De concert avec le
+@internalsref{Measure_grouping_engraver}, elle crée les signes de
+@internalsref{MeasureGrouping}, qui facilitent la lecture de musiques
+modernes, complexes rythmiquement.  Dans l'exemple suivant, les mesures
+à 9/8 sont subdivisées en @code{(2 2 2 3)}, ce qui est donné comme
+argument à la commande @code{set-time-signature}, en troisième position.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    #(set-time-signature 9 8 '(2 2 2 3))
+    g8[ g] d[ d] g[ g] a8[( bes g]) |
+    #(set-time-signature 5 8 '(3 2))
+    a4. g4
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists "Measure_grouping_engraver"
+    }
+  }
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{TimeSignature} et
+@internalsref{Timing_translator}.
+
+Exemples : @lsr{contemporary,compound-time-signature.ly}.
+
+
+@refbugs
+
+Le groupement automatique des ligatures n'utilise pas les groupements
+spécifiés par @code{set-time-signature}.
+
+
+@node Upbeats
+@unnumberedsubsubsec Upbeats
+
+@cindex anacrouse
+@cindex levée
+@cindex mesure incomplète
+@funindex \partial
+
+
+Les mesures incomplètes, telles que les anacrouses ou levées, doivent
+être entrées avec la commande
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\partial 16*5 c16 cis d dis e | a2. c,4 | b2
+@end lilypond
+
+
+La syntaxe de cette commande est
+
+@example
+\partial @var{durée}
+@end example
+
+@code{durée} étant la valeur rythmique devant être ajoutée avant la
+mesure suivante.
+
+Le programme traduit cette commande en
+
+@example
+\set Timing.measurePosition = -@var{durée}
+@end example
+
+
+La propriété @code{measurePosition} contient un nombre rationnel qui
+indique, à ce point précis, où l'on en est de la mesure. Notez qu'il
+peut s'agir d'un nombre négatif ; @code{\partial 4} signifie, pour le
+programme : @qq{Dans cette mesure, il reste juste une noire}.
+
+
+@refbugs
+
+Cette commande ne prend pas en compte les notes d'ornement ou
+appoggiatures au début de la musique. Lorsqu'un morceau commence par une
+levée et avec des petites notes, la commande @code{\partial} devrait être
+placée après celles-ci.
+
+@lilypond[verbatim,quote,ragged-right,relative,fragment]
+\grace f16
+\partial 4
+g4
+a2 g2
+@end lilypond
+
+@code{\partial} n'est destiné à être utilisé qu'en début de pièce.
+Si on l'utilise ailleurs qu'au début, des messages d'erreurs peuvent
+s'afficher.
+
+
+@node Unmetered music
+@unnumberedsubsubsec Unmetered music
+
+@cindex cadence
+@funindex \cadenzaOn
+@funindex \cadenzaOff
+
+
+Les barres de mesure et les numéros de mesure sont calculés
+automatiquement, ce qui n'est pas souhaitable dans le cas d'une musique
+non mesurée --- les cadences, par exemple. Les commandes
+@code{\cadenzaOn} et @code{\cadenzaOff} permettent de désactiver et de
+rétablir la métrique automatique.
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
+
+
+@refbugs
+
+LilyPond ne change de ligne ou de page qu'au niveau des barres de
+mesure.  Si votre musique non mesurée dure plus d'une ligne, il vous
+faudra insérer des barres de mesure invisibles, pour indiquer à quels
+endroit un saut de ligne peut intervenir.
+
+@example
+\bar ""
+@end example
+
+
+@node Polymetric notation
+@unnumberedsubsubsec Polymetric notation
+
+@cindex métrique composite
+@cindex composite, métrique
+@cindex métrique polymétrique
+@cindex polymétrie
+
+LilyPond ne gère pas les métriques composites de manière explicite,
+mais on peut contourner ce problème.  Dans l'exemple suivant,
+l'indicateur de métrique est obtenu grâce à une étiquette textuelle.
+Cette étiquette vient s'insérer dans l'objet graphique (@emph{grob})
+@internalsref{TimeSignature}.  Voir aussi
+@lsr{contemporary,compound-time-signature}. 
+
+
+@lilypond[verbatim,ragged-right]
+% create 2/4 + 5/8
+tsMarkup =\markup {
+  \override #'(baseline-skip . 2) \number {
+    \column { "2" "4" }
+    \vcenter "+"
+    \bracket \column { "5" "8" }
+  }
+}
+
+{
+  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+  \override Staff.TimeSignature #'text = #tsMarkup
+  \time 3/2
+  c'2 \bar ":" c'4 c'4.
+}
+@end lilypond
+
+Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
+parviendrez en déplaçant le @internalsref{Timing_translator} dans le
+contexte @internalsref{Staff}.
+
+@example
+\layout @{
+  \context @{ \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+  @}
+  \context @{
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  @}
+
+@}
+@end example
+
+
+Maintenant, chacune des portées dispose de sa propre métrique.
+@example
+<<
+  \new Staff @{
+    \time 3/4
+    c4 c c | c c c |
+  @}
+  \new Staff @{
+    \time 2/4
+    c4 c | c c | c c
+  @}
+  \new Staff @{
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  @}
+>>
+@end example
+
+@lilypond[quote,ragged-right]
+\layout{
+  \context{
+     \Score
+     \remove "Timing_translator"
+     \remove "Default_bar_line_engraver"
+    }
+  \context{ \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+
+\relative c' <<
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c | c c | c c
+  }
+  \new Staff {
+    \time 3/8
+    c4. c8 c c c4. c8 c c
+  }
+>>
+@end lilypond
+
+
+Une autre forme de notation polymétrique consiste dans le fait que des
+notes aient une durée relative différente selon la portée.  
+
+Vous pouvez créer une telle notation en définissant une métrique
+commune à toutes les portées,  que vous proratiserez manuellement
+selon le cas en utilisant @code{timeSignatureFraction} pour obtenir la
+division adéquate pour chaque portée.  Les durées, dans chacune des
+portées, seront alors échelonnées par rapport à la métrique commune.
+L'échelle de représentation se règle avec @code{\compressMusic} ---
+qui fonctionne comme @code{\times}, sans toutefois créer de crochet.
+La syntaxe appropriée est :
+@example
+\compressMusic #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
+@end example
+
+
+L'exemple suivant utilise parallèlement des mesures à 3/4, 9/8 et
+10/8.  Pour la deuxième portée, les durées sont multipliées par 2/3,
+de telle sorte que @w{2/3 * 9/8 = 3/4} ; pour la troisième, elles sont
+multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c | c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \compressMusic #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \compressMusic #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[ c] }
+      | c4. c4. \times 2/3 { c8 c c } c4
+    }
+  }
+>> }
+@end lilypond
+
+
+
+
+@refbugs
+
+L'utilisation de métriques différentes en parallèle entraine un
+alignement vertical.  De ce fait, les barres de mesure ont tendance à
+fausser l'espacement régulier.
+
+
+@node Automatic note splitting
+@unnumberedsubsubsec Automatic note splitting
+
+On peut convertir automatiquement les notes longues en notes liées.  Il
+faut pour cela remplacer le graveur @internalsref{Note_heads_engraver}
+par le graveur @internalsref{Completion_heads_engraver}.  Dans les
+exemples suivants, les notes dépassant de la mesure sont divisées et
+liées.
+
+@lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
+\new Voice \with {
+  \remove "Note_heads_engraver"
+  \consists "Completion_heads_engraver"
+} {
+  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2
+}
+@end lilypond
+
+Ce graveur divise toutes les notes qui sortent de la mesure, et insère
+des liaisons de prolongation.  Une utilisation posible consiste à
+déboguer des partitions complexes : si les mesures ne sont pas
+entièrement remplies, alors les liaisons de prolongation montrent
+exactement la durée des décalages de mesure.
+
+Si vous voulez permettre un saut de ligne aux barres de mesure où
+@internalsref{Completion_heads_engraver} divise les notes, vous devez
+aussi enlever @internalsref{Forbid_line_break_engraver}.
+
+
+@refbugs
+
+Bien que toutes les durées --- particulièrement celles contenant des
+nolets --- ne puissent pas être représentées exactement avec des notes
+normales et des points, le graveur n'insèrera pas de nolets.
+
+@code{Completion_heads_engraver} affecte seulement les notes, il ne
+divise pas les silences.
+
+@seealso
+
+Référence du programme : @internalsref{Completion_heads_engraver}.
+
+
+@node Beams
+@subsection Beams
+
+@menu
+* Automatic beams::             
+* Manual beams::                
+* Feathered beams::             
+@end menu
+
+@node Automatic beams
+@unnumberedsubsubsec Automatic beams
+
+LilyPond décide automatiquement de la manière de grouper les notes et
+d'imprimer les ligatures.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c c c \time 6/8 c c c c8. c16 c8
+@end lilypond
+
+Lorsque ce comportement automatisé n'est pas satisfaisant, on peut
+définir des groupements manuellement --- voir section suivante --- ou
+personnaliser les groupements automatiques --- voir @ref{Setting
+automatic beam behavior}.
+
+La commande @code{\noBeam} peut servir à empêcher des notes
+individuelles d'être rattachées aux autres.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c\noBeam c c
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Beam}.
+
+
+@node Manual beams
+@unnumberedsubsubsec Manual beams
+
+@cindex groupements de note manuels
+@cindex ligatures manuelles
+@funindex ]
+@funindex [
+
+Dans certaines situations, il peut s'avérer nécessaire de
+supplanter l'algorithme de groupement automatique des notes, par
+exemple pour prolonger une ligature par-dessus un silence ou une barre
+de mesure.  Le début et la fin de la ligature sont alors indiqués par
+@code{[} et @code{]}.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+{
+  r4 r8[ g' a r8] r8 g[ | a] r8
+}
+@end lilypond
+
+
+@commonprop
+
+@funindex stemLeftBeamCount
+@funindex stemRightBeamCount
+
+LilyPond peut déterminer automatiquement les sous-groupes à
+l'intérieur d'un groupement de notes, bien que le résultat ne soit pas 
+toujours optimal.  Les propriétés @code{stemLeftBeamCount} et
+@code{stemRightBeamCount} permettent alors
+d'ajuster ce comportement.  Lorsque l'une ou l'autre de ces propriétés
+est définie, elle ne s'applique qu'une seule fois, après quoi sa
+définition est effacée.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+{
+   f8[ r16
+      f g a]
+   f8[ r16
+   \set stemLeftBeamCount = #1
+      f g a]
+}
+@end lilypond
+
+La propriété @code{subdivideBeams} sert à grouper les double-croches
+ou les valeurs plus brèves pulsation par pulsation, la pulsation
+étant définie par la propriété @code{beatLength}.
+
+@lilypond[fragment,quote,relative=2,verbatim]
+c16[ c c c c c c c]
+\set subdivideBeams = ##t
+c16[ c c c c c c c]
+\set Score.beatLength = #(ly:make-moment 1 8)
+c16[ c c c c c c c]
+@end lilypond
+@funindex subdivideBeams
+
+@noindent
+Pour plus d'information sur @code{make-moment}, voir
+@ref{Time administration}.
+
+Lorsqu'une ligature franchit une barre de mesure, le saut
+de ligne est en principe interdit à cet endroit.  Ce comportement peut
+être outrepassé en définissant @code{breakable}.
+
+@funindex breakable
+
+@cindex ligatures et sauts de ligne
+@cindex ligatures coudées
+@cindex auto-knee-gap
+
+LilyPond insère automatiquement des ligatures coudées --- certaines
+notes vers le haut, d'autres vers le bas --- lorsqu'il détecte un espace
+important entre des têtes de notes. Ce comportement peut être changé par
+l'intermédiaire de l'objet @code{auto-knee-gap}
+
+
+@refbugs
+
+Les ligatures coudées à cheval sur deux portées ne peuvent être
+employées en même temps que des portées invisibles.  Voir
+@ref{Hiding staves}.
+
+@c Is this still true with skyline spacing stuff? -J.Mandereau
+Les ligatures peuvent entrer en collision avec des symboles entourant
+les notes, contrairement aux textes ou aux altérations.
+
+
+@node Feathered beams
+@unnumberedsubsubsec Feathered beams
+
+Les ligatures en soufflet s'obtiennent en définissant la propriété
+@code{grow-direction} d'une barre de ligature.  La fonction
+@code{\featherDurations} sert à ajuster la durée des notes.
+
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
+\featherDurations #(ly:make-moment 5 4) 
+{
+  c16[ c c c c c c]
+}
+@end lilypond
+
+@refbugs
+
+La commande @code{\featherDurations} ne permet de traiter que de très
+courts extraits.
+
+
+@node Bars
+@subsection Bars
+
+
+@menu
+* Bar check::                   
+* Bar lines::                   
+* Bar numbers::                 
+* Barnumber check::             
+* Rehearsal marks::             
+@end menu
+
+@node Bar check
+@unnumberedsubsubsec Bar check
+
+@cindex vérification des limites de mesure
+@cindex mesures, vérification des limites
+@funindex barCheckSynchronize
+@funindex |
+
+Les tests de limites de mesure (ou tests de mesure) aident à détecter
+les erreurs dans les durées.  Un test de mesure s'écrit avec une barre
+verticale, @samp{|}.  Lors du traitement, elle doit correspondre à une
+barre de mesure.  Sinon, un avertissement est émis.  Dans l'exemple
+suivant, le deuxième test de mesure signale une erreur.
+@example
+\time 3/4 c2 e4 | g2 |
+@end example
+
+Le test de mesure peut être aussi utilisé dans les paroles, par exemple :
+@example
+\lyricmode @{
+ \time 2/4
+ Twin -- kle | Twin -- kle
+@}
+@end example
+
+Des durées incorrectes font échouer les tests de mesure, et peuvent
+souvent mettre la partition sens dessus dessous, particulièrement s'il
+s'agit de musique polyphonique.  Vérifier les tests de mesure qui ont
+échoué et les durées incorrectes est un bon moyen de commencer à
+corriger sa partition.
+
+@funindex |
+@funindex pipeSymbol
+
+Il est aussi possible d'attribuer une autre valeur au symbole
+@code{|}, en assignant une expression musicale à @code{pipeSymbol},
+
+@lilypond[quote,ragged-right,verbatim]
+pipeSymbol = \bar "||"
+
+{ c'2 c' | c'2 c' }
+@end lilypond
+
+
+@node Bar lines
+@unnumberedsubsubsec Bar lines
+
+@cindex barres de mesure
+@funindex \bar
+@cindex barres de reprise
+
+
+Les barres de mesures délimitent les mesures, mais peuvent aussi
+indiquer une reprise. En principe, elles sont insérées automatiquement,
+et les sauts de ligne ne peuvent avoir lieu qu'au niveau de ces barres.
+
+Il est possible de forcer l'impression d'une barre de mesure spéciale,
+avec la commande @code{\bar} :
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+c4 \bar "|:" c4
+@end lilypond
+
+
+Les styles de barres de mesure disponibles sont
+
+@lilypondfile[ragged-right,quote]{bar-lines.ly}
+
+
+En plus de cela, on peut demander @code{"||:"}, qui équivaut à
+@code{"|:"}, mais qui donnera, en cas de saut de ligne, une double barre
+en fin de ligne, et une barre de reprise au début de la ligne suivante.
+
+Il est possible d'autoriser un saut de ligne même s'il n'y a pas
+de barre de mesure visible, en utilisant :
+
+@example
+\bar ""
+@end example
+
+@noindent
+
+
+Ceci insérera une barre de mesure invisible, et permettra de sauter de
+ligne à cet endroit, sans incrémenter le numéro de mesure.
+
+
+Dans une partition comprenant plusieurs portées, la commande @code{\bar}
+placée sur une portée s'applique automatiquement à toutes les
+portées. Les barres de mesure que l'on obtient alors sont d'un seul
+tenant sur les portées d'un @code{StaffGroup}, d'un @code{PianoStaff} ou
+d'un @code{GrandStaff}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+<<
+  \new StaffGroup <<
+    \new Staff {
+      e'4 d'
+      \bar "||"
+      f' e'
+    }
+    \new Staff { \clef bass c4 g e g }
+  >>
+  \new Staff { \clef bass c2 c2 }
+>>
+@end lilypond
+
+
+@commonprop
+
+@funindex whichBar
+@funindex repeatCommands
+@funindex defaultBarType
+
+
+La commande @code{\bar }@var{bartype} sert de raccourci pour @code{\set
+Timing.whichBar = }@var{bartype}.  Dès que l'on définit @code{whichBar},
+une barre de mesure est créée selon le style défini.
+
+
+Dès que la propriété @code{whichBar} est définie, une barre de mesure
+est créée.  À chaque début de mesure, elle prend la valeur de
+@code{Timing.defaultBarType}.  La valeur de @code{repeatCommands} sert à
+remplacer les barres de mesure par défaut.
+
+Nous vous invitons à utiliser @code{\repeat} pour indiquer les
+reprises. Voyez à ce sujet @ref{Repeats}.
+
+
+@seealso
+
+Dans ce manuel : @ref{Repeats}, @ref{System start delimiters}.
+
+Référence du programme : @internalsref{BarLine} (faisant partie du
+contexte @internalsref{Staff}), @internalsref{SpanBar} (sur plusieurs
+portées).
+
+
+@node Bar numbers
+@unnumberedsubsubsec Bar numbers
+
+@cindex Mesure, numéro de
+@cindex numéros de mesure
+@funindex currentBarNumber
+
+Les numéros de mesure sont imprimés par défaut à chaque début de
+ligne.  Ce nombre est stocké par la propriété @code{currentBarNumber}
+qui sera mis à jour à chaque mesure.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\repeat unfold 4 {c4 c c c} \break
+\set Score.currentBarNumber = #50
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+L'impression d'un numéro de mesure ne peut intervenir que s'il y a une
+barre.  Aussi, pour pouvoir le faire au début d'un morceau,
+devrez-vous ajouter une barre vide :
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+\repeat unfold 4 {c4 c c c} \break
+\repeat unfold 4 {c4 c c c}
+@end lilypond
+
+Vous pouvez imprimer un numéro de mesure à intervalles réguliers plutôt
+qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant,
+dont la source complète est 
+@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+
+@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+
+Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
+donnera une partition sans numéros de mesure.
+
+@lilypond[verbatim,ragged-right,quote]
+\layout {
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
+}
+\relative c''{
+c4 c c c \break
+c4 c c c
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{BarNumber}.
+
+Exemples : @lsrdir{staff}
+
+
+@refbugs
+
+Les numéros de mesure peuvent entrer en collision avec les crochets de
+@internalsref{StaffGroup}. La propriété @code{padding} --- décalage
+--- de l'objet @internalsref{BarNumber} permet alors d'ajuster leur
+positionnement. 
+
+
+@node Barnumber check
+@unnumberedsubsubsec Barnumber check
+
+Lorsque l'on recopie de longues pièces, il peut être utile de vérifier
+que les numéros de mesures de LilyPond correspondent à l'original que
+l'on recopie.  Cela se fait avec @code{\barNumberCheck}.  Par exemple,
+
+@verbatim
+\barNumberCheck #123
+@end verbatim
+
+@noindent
+affiche un avertissement lors du traitement si le numéro de mesure à ce
+point (variable @code{currentBarNumber}) n'est pas 123.
+
+
+@node Rehearsal marks
+@unnumberedsubsubsec Rehearsal marks
+
+@cindex Repères, indication de
+@funindex \mark
+
+Indiquer un repère s'obtient grâce à la commande @code{\mark}.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+La lettre@tie{}@q{I} n'est pas utilisée, conformément aux usages de la
+gravure.  Cependant, vous pourrez intégrer la lettre @q{I} en utilisant
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
+
+Lorsque vous utilisez @code{\mark \default}, le repère s'incrémente
+automatiquement ; toutefois donner un nombre en argument permet de
+spécifier manuellement le repère en question.  La valeur à utiliser
+est enregistrée dans la propriété @code{rehearsalMark}.
+
+Le style du repère est déterminé par la propriété
+@code{markFormatter}.  Il s'agit d'une fonction qui prend en arguments
+le repère en cours (un entier) ainsi que le contexte en cours, et
+retournera un objet de type étiquette.  Dans l'exemple qui suit,
+@code{markFormatter} est réglé pour une procédure type. Quelques
+mesure plus loin, son comportement est modifié pour imprimer un
+repère encadré.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-numbers
+c1 \mark \default
+c1 \mark \default
+\set Score.markFormatter = #format-mark-box-numbers
+c1 \mark \default
+c1 \mark \default
+c1
+@end lilypond
+
+Le fichier @file{scm/@/translation@/-functions@/.scm} comporte les
+définitions de @code{format-mark-numbers} (comportement par défaut), 
+@code{format-mark-box-numbers},
+@code{format-mark-letters} et @code{format-mark-box-letters}.  Vous
+pouvez vous en inspirer pour d'autres fonctions de formatage.
+
+@code{format-mark-barnumbers}, @code{format-mark-box-barnumbers} et 
+@code{format-mark-circle-barnumbers}  permettent d'imprimer le numéro
+de mesure au lieu des compteurs alphabétique ou numérique.
+
+On peut aussi spécifier manuellement une marque de repère :
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} sera sans effet sur des repères ainsi
+définis.  Un @code{\markup} peut néanmoins s'utiliser en argument.
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
+@cindex segno
+@cindex coda
+@cindex D.S al Fine
+
+Un @code{\mark} peut contenir un glype musical tel que le signe
+@emph{segno}.  
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+c1 \mark \markup { \musicglyph #"scripts.segno" }
+c1 \mark \markup { \musicglyph #"scripts.coda" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Pour connaître les différents symboles accessibles par
+@code{\musicglyph}, consultez @ref{The Feta font}.
+
+Pour affiner le positionnement des repères, veuillez vous référer à
+@ref{Text marks}.
+
+@seealso
+
+Dans ce manuel : @ref{Text marks}.
+
+Référence du programme : @internalsref{RehearsalMark}.
+
+Fichiers d'initialisation : @file{scm/@/translation@/-functions@/.scm}
+contient les définitions de @code{format-mark-numbers} et
+@code{format-mark-letters}.  Elles seront source d'inspiration pour
+d'autres fonctions de formatage.
+
+Exemples : @lsr{parts,rehearsal-mark-numbers.ly}
+
+
+@node Special rhythmic concerns
+@subsection Special rhythmic concerns
+
+
+@menu
+* Grace notes::                 
+* Aligning to cadenzas::        
+* Time administration::         
+* Proportional notation (introduction)::  
+@end menu
+
+@node Grace notes
+@unnumberedsubsubsec Grace notes
+
+@funindex \grace
+@cindex ornements
+@cindex notes d'ornement
+@cindex appoggiature
+@cindex accacciature
+@cindex petite note
+
+
+Les petites notes sont des ornements entièrement écrits.  Les plus
+courantes sont les accacciatures, qui doivent se jouer très vite,
+et qui s'écrivent sous forme d'une petite note barrée (sur la hampe)
+et liée.  L'appoggiature est une petite note non barrée, qui vole
+une fraction à la durée de la note réelle qui la suit.
+
+Ces petites notes sont entrées avec les commandes @code{\acciaccatura}
+et @code{\appoggiatura}, comme le montre l'exemple suivant :
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+\acciaccatura { g16[ f] } e4
+@end lilypond
+
+
+Ce sont là deux formes spéciales de la commande @code{\grace}, qui prend
+en charge toutes les petites notes. Si on la fait suivre d'une
+expression musicale, un groupe de petites notes sera créé, sans impact
+sur la métrique.
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+c4 \grace c16 c4
+\grace { c16[ d16] } c2 c4
+@end lilypond
+
+@noindent
+Contrairement à @code{\acciaccatura} ou @code{\appoggiatura}, la 
+commande @code{\grace} ne provoque pas de liaison.
+
+La durée des petites notes est interprétée par le programme en fonction
+d'un deuxième compteur de temps, le chronomètre @code{grace}.  Chaque
+instant est défini par deux nombres rationnels : le premier compte les
+durées réelles, le second compte la durée des petites notes.  Reprenons
+l'exemple ci-dessus en y ajoutant ces couples de nombres :
+
+@lilypond[quote,ragged-right]
+<<
+  \relative c''{
+    c4 \grace c16 c4 \grace {
+    c16[ d16] } c2 c4
+  }
+  \new Lyrics \lyricmode {
+    \override LyricText #'font-family = #'typewriter
+
+    \markup { (0,0) } 4
+    \grace { \markup {
+      ( \fraction 1 4 , \fraction -1 16 ) } 16 }
+    \markup { (\fraction 1 4 , 0 ) } 4
+    \grace {
+      \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
+      \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
+    }
+    \markup { ( \fraction 2 4 , 0 ) }
+  }
+>>
+@end lilypond
+
+Les petites notes se placent de façon synchrone entre les différentes
+portées.  Dans l'exemple suivant, il y a deux petites double-croches
+pour chaque petite croche.
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \grace { c16[ d e f] } e4 }
+   \new Staff { c4 \grace { g8[ b] } c4 } >>
+@end lilypond
+
+@funindex \afterGrace
+
+La commande @code{\afterGrace} sert à placer une petite note après une
+note réelle --- et non @emph{avant} comme d'ordinaire.  Cette commande
+requiert deux arguments : la note réelle, et la ou les petites notes qui
+suivent.
+
+@lilypond[ragged-right, verbatim,relative=2,fragment]
+c1 \afterGrace d1 { c16[ d] } c4
+@end lilypond
+
+Les petites notes se placent alors aux 3/4 de la durée de la note
+réelle.  Cette fraction peut être changée en définissant
+@code{afterGraceFraction} ; ainsi,
+
+@example
+#(define afterGraceFraction (cons 7 8))
+@end example
+
+@noindent
+placera la petite note à 7/8 de la note réelle.
+
+On peut obtenir le même effet manuellement, de la façon suivante :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Voice {
+  << { d1^\trill_( }
+     { s2 \grace { c16[ d] } } >>
+  c4)
+}
+@end lilypond
+
+@noindent
+Le silence invisible peut être plus ou moins long --- ici c'est une
+demi-pause --- afin d'ajuster l'espace entre la note réelle et les
+petites notes.
+
+Les expressions @code{\grace} obéissent à des règles typographiques
+particulières, notamment pour régler l'orientation et la taille des
+objets.  De ce fait, toute subtilité de mise en forme devra être
+indiquée @emph{à l'intérieur} de l'expression introduite par
+@code{\grace} :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Voice {
+  \acciaccatura {
+    \stemDown
+    f16->
+    \stemNeutral
+  }
+  g4
+}
+@end lilypond
+
+@noindent
+Tous les réglages ajoutés doivent également être désactivés dans cette
+même expression.
+
+Il est possible de changer globalement la mise en forme des petites
+notes dans un morceau, au moyen de la fonction
+@code{add-grace-property}.  Ici, par exemple, on ôte la définition de
+l'orientation des objets @code{Stem} pour toutes les petites notes, afin
+que les hampes ne soient pas toujours orientées vers le haut.
+
+@example
+\new Staff @{
+ #(add-grace-property 'Voice 'Stem 'direction '())
+ @dots{}
+@}
+@end example
+
+@noindent
+Il est par ailleurs possible de modifier les variables
+@code{startGraceMusic}, @code{stopGraceMusic},
+@code{startAcciaccaturaMusic}, @code{stopAcciaccaturaMusic},
+@code{startAppoggiaturaMusic}, et @code{stopAppoggiaturaMusic}.
+Pour plus de détails, voir le fichier @file{ly/@/grace@/-init@/.ly}.
+
+@noindent
+Le trait que l'on trouve sur les hampes des accacciatures peut
+être appliqué dans d'autres situations en définissant @*
+@code{\override Stem  #'stroke-style = #"grace"}.
+
+
+@commonprop
+
+Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
+
+@lilypond[relative=2,ragged-right]
+<<
+  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+  \new Staff {
+     c'4
+     \afterGrace
+     c'4
+     { c'16[ c'8 c'16] }
+     c'4
+  }  
+  \new Staff {
+     c'16[ c'16 c'16 c'16]
+     c'16[ c'16 c'16 c'16]
+     c'4
+  }
+>>
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{GraceMusic}.
+
+
+@refbugs
+
+Une partition commençant par une expression @code{\grace} doit faire
+intervenir la commande @code{\new Voice}, sans quoi la note réelle et
+la petite note se retrouveront sur des portées différentes.
+
+La synchronisation des petites notes se fait de façon parfois
+surprenante, car les autres objets de la portée --- barres de mesure,
+armures, etc. --- sont eux aussi synchrones. Pensez-y lorsque vous
+mélez des portées comprenant des petites notes et d'autres sans :
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+   \new Staff { c4 \bar "|:" d4 } >>
+@end lilypond
+
+@noindent
+Il est possible de remédier à cela en insérant sur les autres portées
+des silences invisibles dans une expression précédée de @code{\grace},
+correspondant à la durée des petites notes.
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e4 \bar "|:" \grace c16 d4 }
+   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+@end lilypond
+ 
+Seules des expressions musicales séquentielles peuvent être utilisées
+pour des petites notes ; il n'est pas possible d'imbriquer ni de
+juxtaposer des sections de petites notes, faute de quoi le traitement du
+code peut échouer ou produire des erreurs.
+
+
+@node Aligning to cadenzas
+@unnumberedsubsubsec Aligning to cadenzas
+
+Dans un contexte orchestral, une cadence constitue un problème
+spécifique.  Lors du montage d'une partition contenant une cadence,
+tous les autres instruments doivent sauter autant de notes que ce
+qu'en comporte la cadence, faute de quoi il démarreraient trop tôt ou
+trop tard. 
+
+Les fonctions @code{mmrest-of-length} ou @code{skip-of-length}
+permettent de résoudre ce problème.  Ces fonctions Scheme prennent en
+argument un fragment de musique, et génèrent un @code{\skip} ou un
+silence multi-mesures d'une durée correspondant à ce fragment.
+L'exemple qui suit illustre l'utilisation de @code{mmrest-of-length}. 
+
+@lilypond[verbatim,ragged-right,quote]
+cadenza = \relative c' {
+  c4 d8 << { e f g } \\ { d4. } >>
+  g4 f2 g4 g
+}
+
+\new GrandStaff <<
+  \new Staff { \cadenza c'4 }
+  \new Staff {
+    #(ly:export (mmrest-of-length cadenza))
+    c'4
+  }
+>>
+@end lilypond
+
+
+@node Time administration
+@unnumberedsubsubsec Time administration
+
+@cindex temps, gestion du
+
+Le temps est administré par le @internalsref{Time_signature_engraver},
+qui réside en principe dans le contexte @internalsref{Score}.  Sa
+gestion traite les variables suivantes :
+
+@table @code
+@item currentBarNumber
+Le numéro de mesure.
+
+@item measureLength
+La longueur de la mesure, dans la métrique en cours.  Pour une mesure
+à 4/4, elle est de@tie{}1, et de 3/4 pour une mesure à 6/8.
+
+@item measurePosition
+Le moment où l'on en est dans la mesure en cours.  Cette quantité est
+remise à@tie{}0 dès lors qu'on dépasse @code{measureLength} ; la variable
+@code{currentBarNumber} est alors incrémentée.  
+
+@item timing
+Lorsqu'on lui assigne la valeur @emph{vrai}, les valeurs ci-dessus
+mentionnées sont mises à jour à chaque pas.  Fixée à @emph{faux}, le
+graveur restera indéfiniment dans la mesure en cours.
+@end table
+
+Le calage peut être modifié en réglant explicitement l'une de ces
+variables.  Dans l'exemple qui suit, nous réglons la métrique à 4/4,
+tout en fixant @code{measureLength} à 5/4.  Un peu plus loin, nous
+raccourcissons la mesure de 1/8, en assignant 7/8 à
+@code{measurePosition}, alors que nous en sommes à 2/4 dans la
+mesure ; la barre de mesure tombera donc à @w{2/4 + 3/8}.  Les 3/8
+résultent du fait que 5/4 équivaut à 10/8, mais nous nous sommes recalés
+à 7/8 de la mesure ;  donc @w{10/8 @minus{} 7/8 = 3/8}.
+
+@lilypond[quote,ragged-right,verbatim,relative,fragment]
+\set Score.measureLength = #(ly:make-moment 5 4)
+c1 c4
+c1 c4
+c4 c4
+\set Score.measurePosition = #(ly:make-moment 7 8)
+b8 b b
+c4 c1
+@end lilypond
+
+@noindent
+Comme le montre cet exemple, @code{ly:make-moment n m} construit une
+durée de n/m fois une ronde.  
+Par conséquent, @code{ly:make-moment 1 8} correspond à une croche, et
+@code{ly:make-moment 7 16} à la durée de sept doubles croches.
+
+
+@node Proportional notation (introduction)
+@unnumberedsubsubsec Proportional notation (introduction)
+@cindex Notation proportionnelle
+
+Voir @ref{Proportional notation}.
+
+
+@c À faire : supprimer tout ça ?
+
+Les notes peuvent s'espacer proportionnellement en assignant une durée
+à @code{proportionalNotationDuration}
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
+Manipuler cette propriété affectera l'espacement idéal uniquement pour
+des notes consécutives.  Pour obtenir une véritable notation
+proportionnelle, vous devrez tenir compte des réglages suivants :
+
+@itemize @bullet
+
+@item La véritable notation proportionnelle exige que des symboles
+puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
+@internalsref{Separating_line_group_engraver} du contexte
+@internalsref{Staff}. 
+
+@item L'influence en matière d'espacement induite par le formatage
+(clés, barres de mesure, etc) s'annule en assignant
+@emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
+l'objet @internalsref{SpacingSpanner}.
+
+@item Les affinages optiques se règlent en assignant @emph{vrai} à la
+propriété @code{uniform-stretching} du @internalsref{SpacingSpanner}. 
+
+
+@end itemize
+
+@seealso
+
+Exemples : @lsr{spacing,proportional@/-spacing@/.ly}, 
+@lsr{spacing,proportional@/-strict@/-grace@/-notes@/.ly}, et
+@lsr{spacing,proportional@/-strict@/-notespacing@/.ly}
+
+Le fichier @file{input/proportional.ly} illustre la notation
+proportionnelle stricte.
+
+

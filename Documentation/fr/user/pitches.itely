@@ -1,0 +1,770 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Pitches
+@section Pitches
+
+This section discusses how to specify the pitch of notes.
+
+@menu
+* Writing pitches::             
+* Changing multiple pitches::   
+* Displaying pitches::          
+@end menu
+
+
+@node Writing pitches
+@subsection Writing pitches
+
+Into text.
+
+@menu
+* Normal pitches::              
+* Accidentals::                 
+* Cautionary accidentals::      
+* Micro tones::                 
+* Note names in other languages::  
+@end menu
+
+@node Normal pitches
+@unnumberedsubsubsec Normal pitches
+
+@cindex noms de note
+@cindex hauteurs
+
+La hauteur s'écrit --- à moins de préciser une autre langue --- avec la
+notation anglaise, en utilisant les lettres @code{a} à @code{g}.
+Une gamme ascendante de do majeur s'écrit
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\clef bass
+c d e f g a b c'
+@end lilypond
+
+La note @code{c} est écrite une octave sous le do central.
+
+@lilypond[quote,fragment,verbatim,ragged-right]
+\clef treble
+c1
+\clef bass
+c1
+@end lilypond
+
+@funindex '
+@funindex ,
+
+L'octave peut être précisée sous forme d'une série d'apostrophes
+@samp{'} ou d'une série de virgules @samp{,}.  Chaque @samp{'} hausse la
+note d'une octave, chaque @samp{,} baisse la note d'une octave.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\clef treble
+c' c'' e' g d'' d' d c
+\clef bass
+c, c,, e, g d,, d, d c
+@end lilypond
+
+Il existe une autre méthode pour préciser à quelle octave se situe la
+note à graver ; cette méthode demande moins d'indications d'octave
+(@code{'} ou @code{,}) --- voir @ref{Relative octaves}.
+
+
+@node Accidentals
+@unnumberedsubsubsec Accidentals
+
+@cindex noms de note, hollandais
+@cindex noms de note, par défaut
+
+Dans la notation par défaut, un dièse est formé en ajoutant @code{-is}
+après le nom de note, un bémol en ajoutant @code{-es}.  Les
+double-dièses et double-bémols sont obtenus en ajoutant @code{-isis}
+ou @code{-eses} au nom de note.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a2 ais a aes
+a2 aisis a aeses
+@end lilypond
+
+@noindent
+Ce sont les noms de note hollandais.  En hollandais, on élide @code{aes}
+pour écrire @code{as}, mais les deux formes sont acceptées.  De manière
+similaire, on accepte aussi bien @code{es} que @code{ees}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a2 as e es
+@end lilypond
+
+Un bécarre annule l'effet d'une altération, qu'elle soit accidentelle
+ou à l'armure.  Cependant, dans la syntaxe des noms de note, les
+bécarres ne s'écrivent pas avec un suffixe ; un simple nom de note
+donnera une note bécarre.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 aes a2
+@end lilypond
+
+LilyPond interprète l'entrée @code{d e f} comme @qq{imprimer un ré
+naturel, un mi naturel et un fa naturel}, sans tenir compte de l'armure.
+Pour plus d'information à propos de la distinction entre le contenu
+musical et sa représentation, voir @rlearning{Accidentals and key signatures}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+\key d \major
+d e f g
+d e fis g
+@end lilypond
+
+
+@commonprop
+
+En accord avec les règles standards de l'écriture musicale, on imprime
+un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
+altération précédente.  Pour modifier ce comportement, spécifiez
+@code{\set Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{LedgerLineSpanner},
+@internalsref{NoteHead}.
+
+
+@node Cautionary accidentals
+@unnumberedsubsubsec Cautionary accidentals
+
+@cindex altération, de précaution
+@cindex altération, entre parenthèses
+@cindex altération de précaution
+@funindex ?
+@cindex altération entre parenthèses
+@funindex !
+
+Normalement, les altérations sont imprimées automatiquement, mais il se
+peut que vous vouliez les imprimer manuellement.  On peut forcer
+l'impression d'une altération , dite @qq{de précaution}, en ajoutant un
+point d'exclamation @samp{!} après la hauteur de note.  Une altération
+entre parenthèses peut être obtenue en ajoutant un point d'interrogation
+@samp{?} après la hauteur de note.  Ces signes peuvent aussi être
+utilisés pour imprimer des bécarres.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+cis cis cis! cis? c c? c! c
+@end lilypond
+
+
+@seealso
+
+L'impression automatique des altérations peut être affinée de plusieurs
+manières.  Pour plus d'information, voir @ref{Automatic accidentals}.
+
+
+@node Micro tones
+@unnumberedsubsubsec Micro tones
+
+@cindex quarts de ton
+@cindex demi-bémols, demi-dièses
+
+Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
+@code{-eh} et @code{-ih}. Voici une série de dos altérés en hauteurs
+croissantes :
+
+@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
+\set Staff.extraNatural = ##f
+ceseh ceh cih cisih
+@end lilypond
+
+Les micro-intervalles sont aussi exportés dans le fichier MIDI.
+
+@refbugs
+
+Il n'y a pas de standard universellement accepté pour noter le bémol et
+demi (qui abaisse la hauteur trois quarts de ton), le symbole de
+LilyPond n'est donc conforme à aucun standard.
+
+
+@node Note names in other languages
+@unnumberedsubsubsec Note names in other languages
+
+Vous disposez de jeux prédéfinis de noms de notes pour plusieurs autres
+langues.  Pour les utiliser, incluez le fichier d'initialisation
+spécifique à la langue voulue.  Par exemple, pour les langues romanes,
+ajoutez @code{\include "italiano.ly"} au début du fichier source.  Les
+fichiers de langues disponibles ainsi que les noms de notes utilisés
+sont les suivants :
+
+@cindex noms de note, autres langues
+@example
+                       Noms de note              dièse       bémol      double          double
+                                                                        dièse           bémol
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es          -isis           -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat     -ss/-x/         -ff/
+                                                                        -sharpshsarp    -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es          -isis           -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es     -ississ/-isis   -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess         -ississ         -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b           -dd             -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b           -dd/-ss         -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b           -ss             -bb
+@end example
+
+@noindent
+Notez qu'en hollandais, en allemand, en norvégien et en suédois, un
+@samp{la} altéré de bemol se note @code{aes} et @code{aeses}.  Ces
+formes sont contractées en @code{as} et @code{ases} (ou plus communément
+@code{asas}).  Dans certains fichiers linguistiques, seules ces formes
+abrégées ont été définies ; ceci s'applique aussi aux suffixes pour les
+quarts de ton.
+
+@noindent
+Certaines musiques utilisent des microtonalités, pour lesquelles les
+altérations sont des fractions de dièse ou bémol @qq{normaux}.  Le
+tableau suivant répertorie les noms de note en quart de ton, tels que
+définis dans plusieurs fichiers linguistiques. Les préfixes @q{semi-} et
+@q{sesqui-} correspondent au @q{demi-} et @q{trois demis}.  À noter
+qu'aucune définition n'existe à ce jour pour le norvégien, le suédois,
+le catalan et l'espagnol.
+
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+                        Noms de note           semi-   semi-  sesqui-  sesqui-
+                                               dièse   bémol  dièse    bémol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
+
+@node Changing multiple pitches
+@subsection Changing multiple pitches
+
+@menu
+* Relative octaves::            
+* Octave check::                
+* Transpose::                   
+@end menu
+
+@node Relative octaves
+@unnumberedsubsubsec Relative octaves
+
+@cindex relatif
+@cindex indication d'octave relative
+@funindex \relative
+
+On spécifie les octaves en ajoutant @code{'} et @code{,} aux noms de
+hauteurs.  En recopiant de la musique, on a vite fait de mettre une note
+à la mauvaise octave, et ce genre d'erreur est difficile à retrouver.
+Le mode d'écriture \relative prévient ces erreurs dans la mesure où
+elles deviennent beaucoup plus évidentes : une seule erreur décale le
+reste de la pièce à une mauvaise octave.
+
+
+@example
+\relative @var{startpitch} @var{musicexpr}
+@end example
+
+@noindent
+ou
+
+@example
+\relative @var{musicexpr}
+@end example
+
+@noindent
+@code{c'} est utilisé par défaut si aucune hauteur de départ n'est
+définie.
+
+L'octave des notes mentionnées dans @var{musicexpr} va être calculée de
+la manière suivante : si aucun signe de changement d'octave n'est
+utilisé, l'intervalle de base entre la note actuelle et la précédente
+sera toujours au plus d'une quarte.  Cet intervalle est déterminé sans
+tenir compte des altérations ; ainsi un @code{fisis} après un
+@code{ceses} sera placé au-dessus du @code{ceses}.  En d'autres termes,
+une quarte doublement augmentée demeure considérée comme un intervavlle
+plus petit qu'une quinte diminuée, bien que la quarte doublement
+augmentée soit de sept demi-tons et la quinte diminuée de seulement six
+demi-tons.
+
+Les signes de changement d'octave @code{'} et @code{,} peuvent être
+ajoutés pour hausser ou baisser la note d'une octave supplémentaire.
+Lorsque l'on entre en mode @code{\relative}, une hauteur absolue de
+départ peut être spécifiée, et agira dès lors comme si elle précédait la
+première note de @var{musicexpr}.  Si aucune hauteur de départ n'est
+spécifiée, le do central sert de point de départ.
+
+Voici le mode \relative en action.
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  b c d c b c bes a
+}
+@end lilypond
+
+On utilise les signes de changement d'octave pour les intervalles
+dépassant la quarte.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
+  c g c f, c' a, e''
+}
+@end lilypond
+
+Si l'expression précédente est un accord, c'est la première note de
+l'accord qui détermine l'emplacement de la première note du prochain
+accord.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+  c <c e g>
+  <c' e g>
+  <c, e' g>
+}
+@end lilypond
+
+La hauteur après @code{\relative} contient un nom de note.
+
+La conversion en mode \relative n'affectera pas les sections @code{\transpose},
+@code{\chordmode} ou @code{\relative} situées dans son argument.  Pour
+utiliser \relative dans de la musique transposée, un code
+@code{\relative} additionnel doit être placé dans @code{\transpose}.
+
+
+@node Octave check
+@unnumberedsubsubsec Octave check
+
+@cindex vérification d'octave
+
+Les tests d'octave rendent la correction d'erreurs d'octave plus facile
+dans le mode d'octave @code{relative} : une note peut être suivie de
+@code{=}@var{apostrophes/virgules} pour indiquer à quelle octave absolue
+elle devrait être.  Dans l'exemple suivant,
+
+@example
+\relative c'' @{ c='' b=' d,='' @}
+@end example
+
+@noindent
+le @code{d} générera un avertissement, puisqu'on attend un @code{d''}
+mais qu'on obtient un @code{d'} --- il n'y a qu'une tierce entre
+@code{b'} et @code{d''}.  Sur la partition, l'octave sera corrigée pour
+donner un @code{d''} et la prochaine note sera calculée en fonction de
+@code{d''} et non de @code{d'}.
+
+Il existe aussi une vérification d'octave qui ne produit pas de musique
+imprimée, ayant pour syntaxe
+
+@example
+\octave @var{hauteur}
+@end example
+
+Cette commande vérifie que la @var{hauteur} considérée sans apostrophe
+ni virgule et comme hauteur relative, est la même que la @var{hauteur}
+absolue considérée avec ses éventuelles apostrophes ou virgules.  Sinon,
+un avertissement est émis et l'octave est corrigée.  La @var{hauteur}
+n'est pas considérée comme une note, et donc n'est pas imprimée.
+
+Dans l'exemple ci-dessous, le premier test réussit, puisque le @code{e}
+--- dans le mode @code{relative} --- est au plus à une quarte de
+@code{a'}.  Cependant, le deuxième test produit un avertissement,
+puisque le @code{e} est à quinte de @code{b'}.  Le message
+d'avertissement est émis, et l'octave est corrigée afin que les notes
+suivantes soient à nouveau à la bonne octave.
+
+@example
+\relative c' @{
+  e
+  \octave a'
+  \octave b'
+@}
+@end example
+
+L'octave d'une note qui suit un test d'octave est déterminée selon la
+note précédente.  Dans l'exemple suivant, la dernière note est un
+@code{a'}, au-dessus du do central.  Cela veut dire que le test
+@code{\octave} réussit, et peut donc être enlevé sans changer le
+résultat sur la partition.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' {
+  e
+  \octave b
+  a
+}
+@end lilypond
+
+
+@node Transpose
+@unnumberedsubsubsec Transpose
+
+@cindex transposition
+@cindex transposition des hauteurs
+@funindex \transpose
+
+Une expression musicale peut être transposée avec @code{\transpose}.
+Voici la syntaxe :
+@example
+\transpose @var{note_de départ} @var{note_d_arrivée} @var{musicexpr}
+@end example
+
+Cela signifie que @var{musicexpr} est transposé d'un intervalle entre
+les notes @var{note_de_départ} et @var{note_d_arrivée} : toute note
+dont la hauteur était @code{note_de_départ}
+est changée en @code{note_d_arrivée}.
+
+Prenons comme exemple une pièce écrite en ré majeur.  Si cette pièce est
+un peu trop basse pour l'interprète, elle peut être transposée en mi
+majeur avec
+@example
+\transpose d e @dots{}
+@end example
+
+Regardons maintenant une partie écrite pour violon --- un instrument en
+ut).  Si cette partie doit être jouée par une clarinette en la (écrite à
+la tierce mineure supérieure, un do écrit donnant un la réel), la
+transposition suivante créera la partie appropriée.
+
+@example
+\transpose a c @dots{}
+@end example
+
+@code{\transpose} fait la distinction entre les notes enharmoniques :
+@code{\transpose c cis} et @code{\transpose c des} transposeront la
+pièce un demi-ton plus haut.  Mais la première version écrira des
+dièses et la deuxième des bémols.
+
+@lilypond[quote,ragged-right,verbatim]
+mus = { \key d \major cis d fis g }
+\new Staff {
+  \clef "F" \mus
+  \clef "G"
+  \transpose c g' \mus
+  \transpose c f' \mus
+}
+@end lilypond
+
+On peut aussi utiliser @code{\transpose} pour entrer des notes écrites
+pour un instrument transpositeur.  Normalement, les hauteurs dans
+LilyPond sont écrites en ut, i.e. en sons réels, mais elles peuvent être
+écrites dans un autre ton.  Quand, par exemple, on écrit pour une
+trompette en si bémol, commençant sur ré note réelle, on pourrait écrire
+@example
+\transpose c bes @{ e4 @dots{} @}
+@end example
+
+Pour imprimer cette musique en si bémol à nouveau --- et de ce fait
+produire une partie de trompette, au lieu d'un conducteur en notes
+réelles, on utilisera un deuxième @code{transpose}
+
+@example
+\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+@end example
+
+
+@seealso
+
+Référence du programme : @internalsref{TransposedMusic}.
+
+Exemple : @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+
+
+@refbugs
+
+Si vous voulez utiliser en même temps @code{\transpose} et
+@code{\relative}, vous devez mettre @code{\transpose} en dehors de
+@code{\relative}, puisque @code{\relative} n'aura aucun effet sur la
+musique apparaissant dans un @code{\transpose}.
+
+@node Displaying pitches
+@subsection Displaying pitches
+
+@menu
+* Clef::                        
+* Key signature::               
+* Ottava brackets::             
+* Instrument transpositions::   
+@end menu
+
+@node Clef
+@unnumberedsubsubsec Clef
+
+@funindex \clef
+
+La clé indique quelles lignes de la portée correspondent à telles
+hauteurs.  Elle est réglée par la commande @code{\clef}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+{ c''2 \clef alto g'2 }
+@end lilypond
+
+@cindex clé de sol
+@cindex clé de fa
+@cindex clé d'ut
+
+Les clés prises en charge sont
+
+@multitable @columnfractions .33 .66
+@headitem Clef @tab Position
+@item @code{treble}, violin, G, G2 @tab Clé de sol 2e ligne
+@item @code{alto, C} @tab Clé d'ut 3e ligne
+@item @code{tenor} @tab Clé d'ut 4e ligne
+@item @code{bass, F} @tab Clé de fa 4e ligne
+@item @code{french} @tab Clé de sol 1e ligne
+@item @code{soprano} @tab Clé d'ut 1e ligne
+@item @code{mezzosoprano} @tab Clé d'ut 2e ligne
+@item @code{baritone} @tab Clé d'ut 5e ligne
+@item @code{varbaritone} @tab Clé de fa 3e ligne
+@item @code{subbass} @tab Clé de fa 5e ligne
+@item @code{percussion} @tab Clé de percussion
+@item @code{tab} @tab Clé de tablature
+@end multitable
+
+En ajoutant @code{_8} ou @code{^8} au nom de la clé, celle-ci est
+transposée à l'octave respectivement inférieure ou supérieure, et
+@code{_15} ou @code{^15} la transpose de deux octaves.  L'argument
+@var{clefname} doit être mis entre guillemets lorsqu'il contient un
+caractère @qq{souligné} ou des chiffres.  Par exemple,
+
+
+@cindex choral tenor clef
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\clef "G_8" c4
+@end lilypond
+
+
+@commonprop
+
+La commande @code{\clef "treble_8"} équivaut à définir @code{clefGlyph},
+@code{clefPosition} --- qui contrôle la position verticale de la clé ---
+@code{middleCPosition} et @code{clefOctavation}.  Une clé est imprimée
+lorsque l'une de ces propriétés est changée.  Les exemples suivant font
+apparaître des possibilités de réglage manuel de ces propriétés.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \set Staff.clefGlyph = #"clefs.F"
+  \set Staff.clefPosition = #2
+  c'4
+  \set Staff.clefGlyph = #"clefs.G"
+  c'4
+  \set Staff.clefGlyph = #"clefs.C"
+  c'4
+  \set Staff.clefOctavation = #7
+  c'4
+  \set Staff.clefOctavation = #0
+  \set Staff.clefPosition = #0
+  c'4
+  \clef "bass"
+  c'4
+  \set Staff.middleCPosition = #4
+  c'4
+}
+@end lilypond
+
+
+@seealso
+
+Dans ce manuel : @ref{Grace notes}.
+
+Référence du programme : @internalsref{Clef}.
+
+
+@node Key signature
+@unnumberedsubsubsec Key signature
+
+@cindex armure
+@funindex \key
+
+L'armure indique la tonalité dans laquelle la pièce doit être jouée.
+Elle comprend un ensemble d'altérations (dièses ou bémols) à la clé,
+c'est-à-dire au début de la portée.
+
+On définit ou modifie l'armure avec la commande @code{\key}
+
+@example
+@code{\key} @var{hauteur} @var{type}
+@end example
+
+@funindex \minor
+@funindex \major
+@funindex \minor
+@funindex \ionian
+@funindex \locrian
+@funindex \aeolian
+@funindex \mixolydian
+@funindex \lydian
+@funindex \phrygian
+@funindex \dorian
+@cindex modes anciens
+
+Ici, @var{type} doit être @code{\major} ou @code{\minor} afin d'avoir
+respectivement @var{hauteur}-major ou @var{hauteur}-minor.  Vous pouvez
+aussi avoir recours aux modes anciens que sont @code{\ionian},
+@code{\locrian}, @code{\aeolian}, @code{\mixolydian}, @code{\lydian},
+@code{\phrygian}, et @code{\dorian}.
+
+Cette commande fixe la propriété de contexte @code{Staff.keySignature}.
+Des armures inhabituelles peuvent être spécifiées en modifiant
+directement cette propriété.
+
+Les nouveaux utilisateurs s'embrouillent souvent dans les altérations et
+les armures, car des notes naturelles prennent ou non un bécarre selon
+l'armure.  Pour plus d'informations, voir @ref{Accidentals} ou
+@rlearning{Accidentals and key signatures}.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+\key g \major
+f1
+fis
+@end lilypond
+
+
+@commonprop
+
+Un bécarre est imprimé pour annuler toute altération précédente.  Ceci
+peut être supprimé en réglant la propriété
+@code{Staff.printKeyCancellation}.
+
+@lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+\set Staff.printKeyCancellation = ##f
+\key d \major
+a b cis d
+\key g \minor
+a bes c d
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{KeyCancellation},
+@internalsref{KeySignature}.
+
+
+@node Ottava brackets
+@unnumberedsubsubsec Ottava brackets
+
+Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
+transposition spécifique d'une octave pour la portée en cours.  C'est
+la fonction @code{set-octavation} qui s'en charge.
+
+@cindex ottava
+@cindex 15ma
+@cindex octaviation
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c''' {
+  a2 b
+  #(set-octavation 1)
+  a b
+  #(set-octavation 0)
+  a b
+}
+@end lilypond
+
+La fonction @code{set-octavation} peut aussi prendre en argument les
+valeurs -1@tie{}(pour 8va bassa), 2@tie{}(pour 15ma --- 2 octaves) ou
+-2@tie{}(pour 15ma bassa).   En interne, cette fonction détermine les
+propriétés @code{ottavation} (p.ex. en @code{"8va"} ou @code{"8vb"})
+et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
+d'octaviation en définissant @code{ottavation} après avoir fait appel
+à @code{set-octavation} :
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  #(set-octavation 1)
+  \set Staff.ottavation = #"8"
+  c'''
+}
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{OttavaBracket}.
+
+
+@refbugs
+
+@code{set-octavation} gère difficilement les changements de clé qui
+pourraient intervenir alors qu'elle est effective.
+
+
+@node Instrument transpositions
+@unnumberedsubsubsec Instrument transpositions
+
+@cindex transposition, MIDI
+@cindex transposition, instrument
+
+Vous pouvez spécifier la tonalité d'un instrument transpositeur, ce
+qui est le cas pour de nombreux instruments à vent comme la clarinette
+(si bémol, la ou mi bémol), le cor (fa), ou la trompette (si bémol,
+ut, ré ou mi bémol).
+
+Cette transposition s'indique après le mot-clé @code{\transposition}.
+
+@example
+\transposition bes   %% clarinette en si bémol
+@end example
+
+@noindent
+Cette commande détermine la propriété @code{instrumentTransposition},
+dont la valeur sera utilisée pour le fichier MIDI et en cas de
+citation.  Elle n'affecte en rien la manière dont les notes seront
+imprimées sur la portée.  Référez-vous à la section @ref{Transpose}
+pour obtenir un autre résultat.
+
+La hauteur donnée en argument à @code{\transposition} doit
+correspondre à la note entendue lorsqu'un @code{do} écrit sur la
+portée est joué par l'instrument transpositeur.  Par exemple, lorsque
+vous saisissez une partition en notes réelles, toutes les voix
+devraient être en ut ; pour les instruments transpositeurs, il faudra
+procéder de cette manière : 
+
+@example
+clarinet = @{
+  \transposition c'
+  ...
+@}
+saxophone = @{
+  \transposition c'
+  ...
+@}
+@end example
+
+Lorsque vous entrez de la musique à partir d'une partie transposée,
+utilisez la commande @code{\transposition}.  Si l'on prend l'exemple
+des parties de cor, leur tonalité change souvent au cours d'un morceau ;
+en recopiant cette partie, utilisez @code{\transposition} ainsi :
+
+@example
+\transposition d'
+c'4^"en ré"
+...
+\transposition g'
+c'4^"en sol"
+...
+@end example
+

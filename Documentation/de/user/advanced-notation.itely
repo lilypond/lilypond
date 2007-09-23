@@ -110,11 +110,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Instrument transpositions::
 * Ottava brackets::
 * Different editions from one source::
-@end menu 
-@node Multi measure rests
-@subsection Multi measure rests
-
-UNTRANSLATED NODE: IGNORE ME
+@end menu
 
 @node Metronome marks
 @subsection Metronome marks
@@ -203,10 +199,6 @@ UNTRANSLATED NODE: IGNORE ME
 * Improvisation::
 * Selecting notation font size::
 @end menu 
-@node Polymetric notation
-@subsection Polymetric notation
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Time administration
 @subsection Time administration
