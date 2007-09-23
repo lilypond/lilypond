@@ -711,18 +711,30 @@ class ShortArticulationEvent (ArticulationEvent):
     def ly_expression (self):
         return '%s%s' % (self.direction_mod (), self.type)
 
-class TremoloEvent (Event):
+class NoDirectionArticulationEvent (ArticulationEvent):
+    def ly_expression (self):
+        return '\\%s' % self.type
+
+class MarkupEvent (ShortArticulationEvent):
+    def __init__ (self):
+        ArticulationEvent.__init__ (self)
+        self.contents = None
+    def ly_expression (self):
+        if self.contents:
+            return "%s\\markup { %s }" % (self.direction_mod (), self.contents)
+
+class TremoloEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
         self.bars = 0
 
     def ly_expression (self):
         str=''
-        if self.bars > 0:
+        if self.bars and self.bars > 0:
             str += ':%s' % (2 ** (2 + string.atoi (self.bars)))
         return str
 
-class BendEvent (Event):
+class BendEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
         self.alter = 0

@@ -316,72 +316,97 @@ def musicxml_fermata_to_lily_event (mxl_event):
     return ev
 
 def musicxml_tremolo_to_lily_event (mxl_event):
-    if mxl_event.get_name () != "tremolo": 
-        return
     ev = musicexp.TremoloEvent ()
     ev.bars = mxl_event.get_text ()
     return ev
 
 def musicxml_bend_to_lily_event (mxl_event):
-    if mxl_event.get_name () != "bend":
-        return
     ev = musicexp.BendEvent ()
     ev.alter = mxl_event.bend_alter ()
     return ev
 
 
-short_articulations_dict = {
-  "staccato": ".",
-  "tenuto": "-",
-  "stopped": "+",
-  "staccatissimo": "|",
-  "accent": ">",
-  "strong-accent": "^",
-  #"portato": "_", # does not exist in MusicXML
-    #"fingering": "", # fingering is special cased, as get_text() will be the event's name
-}
+def musicxml_fingering_event (mxl_event):
+    ev = musicexp.ShortArticulationEvent ()
+    ev.type = mxl_event.get_text ()
+    return ev
+
+def musicxml_accidental_mark (mxl_event):
+    ev = musicexp.MarkupEvent ()
+    contents = { "sharp": "\\sharp",
+      "natural": "\\natural",
+      "flat": "\\flat",
+      "double-sharp": "\\doublesharp",
+      "sharp-sharp": "\\sharp\\sharp",
+      "flat-flat": "\\flat\\flat",
+      "flat-flat": "\\doubleflat",
+      "natural-sharp": "\\natural\\sharp",
+      "natural-flat": "\\natural\\flat",
+      "quarter-flat": "\\semiflat",
+      "quarter-sharp": "\\semisharp",
+      "three-quarters-flat": "\\sesquiflat",
+      "three-quarters-sharp": "\\sesquisharp",
+    }.get (mxl_event.get_text ())
+    if contents:
+        ev.contents = contents
+        return ev
+    else:
+        return None
+
+# translate articulations, ornaments and other notations into ArticulationEvents
+# possible values:
+#   -) string  (ArticulationEvent with that name)
+#   -) function (function(mxl_event) needs to return a full ArticulationEvent-derived object
+#   -) (class, name)  (like string, only that a different class than ArticulationEvent is used)
 # TODO: Some translations are missing!
-articulations_dict = { 
-    ##### ORNAMENTS
-    "trill-mark": "trill", 
-    "turn": "turn", 
-    #"delayed-turn": "?", 
-    "inverted-turn": "reverseturn", 
-    #"shake": "?", 
-    #"wavy-line": "?", 
-    "mordent": "mordent",
-    "inverted-mordent": "prall",
-    #"schleifer": "?" 
-    ##### TECHNICALS
-    "up-bow": "upbow", 
-    "down-bow": "downbow", 
-    "harmonic": "flageolet", 
-    #"open-string": "", 
-    #"thumb-position": "", 
-    #"pluck": "", 
-    #"double-tongue": "", 
-    #"triple-tongue": "", 
-    #"snap-pizzicato": "", 
-    #"fret": "", 
-    #"string": "", 
-    #"hammer-on": "", 
-    #"pull-off": "", 
-    #"bend": "bendAfter #%s", # bend is special-cased, as we need to process the bend-alter subelement!
-    #"tap": "", 
-    #"heel": "", 
-    #"toe": "", 
-    #"fingernails": ""
-    ##### ARTICULATIONS
-    #"detached-legato": "", 
-    #"spiccato": "", 
-    #"scoop": "", 
-    #"plop": "", 
-    #"doit": "", 
+articulations_dict = {
+    "accent": (musicexp.ShortArticulationEvent, ">"),
+    "accidental-mark": musicxml_accidental_mark,
+    "bend": musicxml_bend_to_lily_event,
+    "breath-mark": (musicexp.NoDirectionArticulationEvent, "breathe"),
+    #"caesura": "caesura",
+    #"delayed-turn": "?",
+    #"detached-legato": "",
+    #"doit": "",
+    #"double-tongue": "",
+    "down-bow": "downbow",
     #"falloff": "",
-    "breath-mark": "breathe", 
-    #"caesura": "caesura", 
-    #"stress": "", 
+    "fingering": musicxml_fingering_event,
+    #"fingernails": "",
+    #"fret": "",
+    #"hammer-on": "",
+    "harmonic": "flageolet",
+    #"heel": "",
+    "inverted-mordent": "prall",
+    "inverted-turn": "reverseturn",
+    "mordent": "mordent",
+    #"open-string": "",
+    #"plop": "",
+    #"pluck": "",
+    #"portato": (musicexp.ShortArticulationEvent, "_"), # does not exist in MusicXML
+    #"pull-off": "",
+    #"schleifer": "?",
+    #"scoop": "",
+    #"shake": "?",
+    #"snap-pizzicato": "",
+    #"spiccato": "",
+    "staccatissimo": (musicexp.ShortArticulationEvent, "|"),
+    "staccato": (musicexp.ShortArticulationEvent, "."),
+    "stopped": (musicexp.ShortArticulationEvent, "+"),
+    #"stress": "",
+    #"string": "",
+    "strong-accent": (musicexp.ShortArticulationEvent, "^"),
+    #"tap": "",
+    "tenuto": (musicexp.ShortArticulationEvent, "-"),
+    #"thumb-position": "",
+    #"toe": "",
+    "turn": "turn",
+    "tremolo": musicxml_tremolo_to_lily_event,
+    "trill-mark": "trill",
+    #"triple-tongue": "",
     #"unstress": ""
+    "up-bow": "upbow",
+    #"wavy-line": "?",
 }
 articulation_spanners = [ "wavy-line" ]
 
@@ -390,26 +415,18 @@ def musicxml_articulation_to_lily_event (mxl_event):
     if mxl_event.get_name () in articulation_spanners:
         return musicxml_spanner_to_lily_event (mxl_event)
 
-    # special case, because of the bend-alter subelement
-    if mxl_event.get_name() == "bend":
-        return musicxml_bend_to_lily_event (mxl_event)
-
-    # If we can write a shorthand, use them!
-    if mxl_event.get_name() == "fingering":
-        ev = musicexp.ShortArticulationEvent ()
-        tp = mxl_event.get_text()
-    # In all other cases, use the dicts to translate the xml tag name to a proper lilypond command
-    elif short_articulations_dict.get (mxl_event.get_name ()):
-        ev = musicexp.ShortArticulationEvent ()
-        tp = short_articulations_dict.get (mxl_event.get_name ())
-    else:
-        ev = musicexp.ArticulationEvent ()
-        tp = articulations_dict.get (mxl_event.get_name ())
-
-    if not tp:
+    tmp_tp = articulations_dict.get (mxl_event.get_name ())
+    if not tmp_tp:
         return
-    
-    ev.type = tp
+
+    if isinstance (tmp_tp, str):
+        ev = musicexp.ArticulationEvent ()
+        ev.type = tmp_tp
+    elif isinstance (tmp_tp, tuple):
+        ev = tmp_tp[0] ()
+        ev.type = tmp_tp[1]
+    else:
+        ev = tmp_tp (mxl_event)
 
     # Some articulations use the type attribute, other the placement...
     dir = None
@@ -417,9 +434,6 @@ def musicxml_articulation_to_lily_event (mxl_event):
         dir = musicxml_direction_to_indicator (mxl_event.type)
     if hasattr (mxl_event, 'placement'):
         dir = musicxml_direction_to_indicator (mxl_event.placement)
-    # \breathe cannot have any direction modifier (^, _, -)!
-    if dir and tp != "breathe":
-        ev.force_direction = dir
     return ev
 
 
