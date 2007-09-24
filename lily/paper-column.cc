@@ -8,6 +8,7 @@
 
 #include "paper-column.hh"
 
+#include "break-align-interface.hh"
 #include "moment.hh"
 #include "paper-score.hh"
 #include "warn.hh"
@@ -155,6 +156,23 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
   skys[RIGHT].merge (Separation_item::conditional_skyline (right, left));
 
   return max (0.0, skys[LEFT].distance (skys[RIGHT]));
+}
+
+Interval
+Paper_column::break_align_width (Grob *me)
+{
+  if (is_musical (me))
+    {
+      me->programming_error ("tried to get break-align-width of a non-musical column");
+      return Interval (0, 0);
+    }
+
+  Grob *align = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
+						    Break_alignment_interface::has_interface);
+  if (!align)
+    return Interval (0, 0);
+
+  return align->extent (me->get_parent (X_AXIS), X_AXIS);
 }
 
 /*

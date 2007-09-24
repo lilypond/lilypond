@@ -28,6 +28,7 @@ public:
   static Stencil big_rest (Grob *, Real);
   static Stencil symbol_stencil (Grob *, Real);
   static Stencil church_rest (Grob *, Font_metric *, int, Real);
+  static Interval bar_width (Spanner *me);
 };
 
 #endif /* MULTI_MEASURE_REST_HH */
