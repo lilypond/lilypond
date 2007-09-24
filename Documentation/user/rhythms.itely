@@ -611,7 +611,8 @@ Automatic beaming does not use the measure grouping specified with
 @cindex shorten measures
 @funindex \partial
 
-Partial measures, such as an anacrusis or upbeat, are entered using the
+Partial measures, such as an anacrusis or upbeat, are entered
+using the
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \partial 16*5 c16 cis d dis e | a2. c,4 | b2
@@ -717,7 +718,8 @@ tsMarkup =\markup {
 }
 
 {
-  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+  \override Staff.TimeSignature #'stencil =
+    #ly:text-interface::print
   \override Staff.TimeSignature #'text = #tsMarkup
   \time 3/2
   c'2 \bar ":" c'4 c'4.
@@ -1098,7 +1100,8 @@ Bar lines delimit measures, but are also used to indicate repeats.
 Normally they are inserted automatically.  Line breaks may only
 happen on bar lines.
 
-Special types of bar lines can be forced with the @code{\bar} command
+Special types of bar lines can be forced with the @code{\bar}
+command
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 c4 \bar "|:" c4

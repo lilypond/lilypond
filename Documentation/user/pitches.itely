@@ -12,6 +12,9 @@
 
 This section discusses how to specify the pitch of notes.
 
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{pitches-headword.ly}
+
 @menu
 * Writing pitches::             
 * Changing multiple pitches::   
@@ -491,9 +494,9 @@ trumpet which begins on concert D, one would write
 \transpose c bes @{ e4 @dots{} @}
 @end example
 
-To print this music in B-flat again (i.e., producing a trumpet part,
-instead of a concert pitch conductor's score) you would wrap the
-existing music with another @code{transpose}
+To print this music in B-flat again (i.e., producing a trumpet
+part, instead of a concert pitch conductor's score) you would wrap
+the existing music with another @code{transpose}
 
 @example
 \transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
@@ -688,7 +691,7 @@ A natural sign is printed to cancel any previous accidentals.
 This can be suppressed by setting the
 @code{Staff.printKeyCancellation} property.
 
-@lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \key d \major
 a b cis d
 \key g \minor
@@ -765,7 +768,8 @@ The key of a transposing instrument can also be specified.  This
 applies to many wind instruments, for example, clarinets (B-flat,
 A, and E-flat), horn (F) and trumpet (B-flat, C, D, and E-flat).
 
-The transposition is entered after the keyword @code{\transposition}
+The transposition is entered after the keyword
+@code{\transposition}
 
 @example
 \transposition bes   %% B-flat clarinet

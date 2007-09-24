@@ -9,9 +9,9 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
-Polyphony in music refers to having more than one voice occurring in
-a piece of music.  Polyphony in LilyPond refers to having more than
-one voice on the same staff.
+Polyphony in music refers to having more than one voice occurring
+in a piece of music.  Polyphony in LilyPond refers to having more
+than one voice on the same staff.
 
 @menu
 * Single voice::                
@@ -40,7 +40,8 @@ articulations, just like simple notes
 <c e g>4 <c>8
 @end lilypond
 
-For more information about chords, see @ref{Introducing chord names}.
+For more information about chords, see @ref{Introducing chord
+names}.
 
 
 @node Clusters
@@ -48,17 +49,19 @@ For more information about chords, see @ref{Introducing chord names}.
 
 @cindex cluster
 
-A cluster indicates a continuous range of pitches to be played.  They
-can be denoted as the envelope of a set of notes.  They are entered by
-applying the function @code{makeClusters} to a sequence of
-chords, e.g.,
+A cluster indicates a continuous range of pitches to be played.
+They can be denoted as the envelope of a set of notes.  They are
+entered by applying the function @code{makeClusters} to a sequence
+of chords, e.g.,
+
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \makeClusters { <c e > <b f'> }
 @end lilypond
 
 Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
-automatically avoid collisions between ordinary notes and clusters.
+automatically avoid collisions between ordinary notes and
+clusters.
 
 @seealso
 
@@ -91,9 +94,10 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 
 @cindex polyphony
 
-The easiest way to enter fragments with more than one voice on a staff
-is to enter each voice as a sequence (with @code{@{...@}}), and combine
-them simultaneously, separating the voices with @code{\\}
+The easiest way to enter fragments with more than one voice on a
+staff is to enter each voice as a sequence (with @code{@{...@}}),
+and combine them simultaneously, separating the voices with
+@code{\\}
 
 @funindex \\
 
@@ -108,26 +112,27 @@ them simultaneously, separating the voices with @code{\\}
 }
 @end lilypond
 
-The separator causes @internalsref{Voice} contexts@footnote{Polyphonic
-voices are sometimes called @q{layers} in other notation packages}
 @cindex layers
-to be instantiated.  They bear the names @code{"1"}, @code{"2"}, etc.  In
-each of these contexts, vertical direction of slurs, stems, etc., is set
+
+The separator causes @internalsref{Voice}
+contexts@footnote{Polyphonic voices are sometimes
+called @q{layers} in other notation packages} to be instantiated.
+They bear the names @code{"1"}, @code{"2"}, etc.  In each of these
+contexts, vertical direction of slurs, stems, etc., is set
 appropriately.
 
-These voices are all separate from the voice that contains the notes just
-outside the @code{<< \\ >>} construct.  This should be noted when making
-changes at the voice level.  This also means that slurs and ties cannot go
-into or out of a @code{<< \\ >>} construct.  Conversely, parallel voices
-from separate @code{<< \\ >>} constructs on the same staff are the
-same voice.  Here is the same example, with different noteheads and
-colors for each
-voice.  Note that the change to the note-head style in the main voice does
-not affect
-the inside of the @code{<< \\ >>} constructs.  Also, the change to the
-second
-voice in the first @code{<< \\ >>} construct is effective in the second
-@code{<< \\ >>}, and the voice is tied across the two constructs.
+These voices are all separate from the voice that contains the
+notes just outside the @code{<< \\ >>} construct.  This should be
+noted when making changes at the voice level.  This also means
+that slurs and ties cannot go into or out of a @code{<< \\ >>}
+construct.  Conversely, parallel voices from separate @code{<< \\
+>>} constructs on the same staff are the same voice.  Here is the
+same example, with different noteheads and colors for each voice.
+Note that the change to the note-head style in the main voice does
+not affect the inside of the @code{<< \\ >>} constructs.  Also,
+the change to the second voice in the first @code{<< \\ >>}
+construct is effective in the second @code{<< \\ >>}, and the
+voice is tied across the two constructs.
 
 @cindex note heads, styles
 
@@ -153,8 +158,8 @@ voice in the first @code{<< \\ >>} construct is effective in the second
 @end lilypond
 
 Polyphony does not change the relationship of notes within a
-@code{\relative @{ @}} block.  Each note is calculated relative
-to the note immediately preceding it.
+@code{\relative @{ @}} block.  Each note is calculated relative to
+the note immediately preceding it.
 
 @example
 \relative @{ noteA << noteB \\ noteC >> noteD @}
@@ -170,8 +175,8 @@ to the note immediately preceding it.
 
 @internalsref{Voice} contexts can also be instantiated manually
 inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne}, up to @code{\voiceFour} to assign stem directions
-and a horizontal shift for each part.
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem
+directions and a horizontal shift for each part.
 
 Specifically,
 @example
@@ -188,18 +193,19 @@ is equivalent to
 >>
 @end example
 
-The @code{\voiceXXX} commands set the direction of stems, slurs, ties,
-articulations, text annotations, augmentation dots of dotted
-notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree} make
-these objects point upwards, while @code{\voiceTwo} and @code{\voiceFour}
-make them point downwards.
-The command @code{\oneVoice} will revert back to the normal setting.
+The @code{\voiceXXX} commands set the direction of stems, slurs,
+ties, articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
+make these objects point upwards, while @code{\voiceTwo} and
+@code{\voiceFour} make them point downwards.  The command
+@code{\oneVoice} will revert back to the normal setting.
 
-An expression that appears directly inside a @code{<< >>} belongs to
-the main voice.  This is useful when extra voices appear while the main
-voice is playing.  Here is a more correct rendition of the example from
-the previous section.  The crossed colored noteheads demonstrate that the main
-melody is now in a single voice context.
+An expression that appears directly inside a @code{<< >>} belongs
+to the main voice.  This is useful when extra voices appear while
+the main voice is playing.  Here is a more correct rendition of
+the example from the previous section.  The crossed colored
+noteheads demonstrate that the main melody is now in a single
+voice context.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -222,7 +228,9 @@ melody is now in a single voice context.
 }
 @end lilypond
 
-The correct definition of the voices allows the melody to be slurred.
+The correct definition of the voices allows the melody to be
+slurred.
+
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   c16^( d e f
@@ -243,8 +251,8 @@ The correct definition of the voices allows the melody to be slurred.
 @end lilypond
 
 Avoiding the @code{\\} separator also allows nesting polyphony
-constructs, which in some case might be a more natural way to typeset
-the music.
+constructs, which in some case might be a more natural way to
+typeset the music.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -268,9 +276,9 @@ the music.
 }
 @end lilypond
 
-In some instances of complex polyphonic music, you may need additional
-voices to avoid collisions between notes.  Additional voices are added
-by defining an identifier, as shown below:
+In some instances of complex polyphonic music, you may need
+additional voices to avoid collisions between notes.  Additional
+voices are added by defining an identifier, as shown below:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
@@ -287,9 +295,10 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @node Collision Resolution
 @unnumberedsubsubsec Collision Resolution
 
-Normally, note heads with a different number of dots are not merged, but
-when the object property @code{merge-differently-dotted} is set in
-the @internalsref{NoteCollision} object, they are merged:
+Normally, note heads with a different number of dots are not
+merged, but when the object property
+@code{merge-differently-dotted} is set in the
+@internalsref{NoteCollision} object, they are merged:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice << {
@@ -300,8 +309,8 @@ the @internalsref{NoteCollision} object, they are merged:
 } \\ { g8.[ f16] g8.[ f16] } >>
 @end lilypond
 
-Similarly, you can merge half note heads with eighth notes, by setting
-@code{merge-differently-headed}:
+Similarly, you can merge half note heads with eighth notes, by
+setting @code{merge-differently-headed}:
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \new Voice << {
@@ -312,8 +321,9 @@ c8 c4. } \\ { c2 c2 } >>
 @end lilypond
 
 @noindent
-@code{merge-differently-headed} and @code{merge-differently-dotted}
-only apply to opposing stem directions (ie. Voice 1 & 2).
+@code{merge-differently-headed} and
+@code{merge-differently-dotted} only apply to opposing stem
+directions (ie. Voice 1 & 2).
 
 LilyPond also vertically shifts rests that are opposite of a stem,
 for example
@@ -323,14 +333,14 @@ for example
 @end lilypond
 
 If three or more notes line up in the same column,
-@code{merge-differently-headed} cannot
-successfully complete the merge of the two notes that should be merged.
-To allow the merge to work properly, apply a @code{\shift} to the note that
-should not be merged.  In the first measure of following example,
-@code{merge-differently-headed} does not work (the half-note head is
-solid).  In the second measure, @code{\shiftOn} is applied to move the
-top @code{g} out of the column, and @code{merge-differently-headed}
-works properly.
+@code{merge-differently-headed} cannot successfully complete the
+merge of the two notes that should be merged.  To allow the merge
+to work properly, apply a @code{\shift} to the note that should
+not be merged.  In the first measure of following example,
+@code{merge-differently-headed} does not work (the half-note head
+is solid).  In the second measure, @code{\shiftOn} is applied to
+move the top @code{g} out of the column, and
+@code{merge-differently-headed} works properly.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.NoteCollision #'merge-differently-headed = ##t
@@ -367,16 +377,16 @@ works properly.
 @funindex \shiftOnnn
 @code{\shiftOnnn},
 @funindex \shiftOff
-@code{\shiftOff}: these commands specify the
-degree to which chords of the current voice should be shifted.
-The outer voices (normally: voice one and
-two) have @code{\shiftOff}, while the inner voices (three and four)
-have @code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
-further shift levels.
+@code{\shiftOff}: these commands specify the degree to which
+chords of the current voice should be shifted.  The outer voices
+(normally: voice one and two) have @code{\shiftOff}, while the
+inner voices (three and four) have @code{\shiftOn}.
+@code{\shiftOnn} and @code{\shiftOnnn} define further shift
+levels.
 
-When LilyPond cannot cope, the @code{force-hshift}
-property of the @internalsref{NoteColumn} object and pitched rests can
-be used to override typesetting decisions.
+When LilyPond cannot cope, the @code{force-hshift} property of the
+@internalsref{NoteColumn} object and pitched rests can be used to
+override typesetting decisions.
 
 @lilypond[quote,verbatim,ragged-right]
 \relative <<
@@ -393,20 +403,21 @@ be used to override typesetting decisions.
 
 @seealso
 
-Program reference: the objects responsible for resolving collisions are
-@internalsref{NoteCollision} and @internalsref{RestCollision}.
+Program reference: the objects responsible for resolving
+collisions are @internalsref{NoteCollision} and
+@internalsref{RestCollision}.
 
 
 @refbugs
 
-When using @code{merge-differently-headed} with an upstem eighth or a
-shorter note, and a downstem half note, the eighth note gets the wrong
-offset.
+When using @code{merge-differently-headed} with an upstem eighth
+or a shorter note, and a downstem half note, the eighth note gets
+the wrong offset.
 
 There is no support for clusters where the same note occurs with
 different accidentals in the same chord.  In this case, it is
-recommended to use enharmonic transcription, or to use special cluster
-notation (see @ref{Clusters}).
+recommended to use enharmonic transcription, or to use special
+cluster notation (see @ref{Clusters}).
 
 
 @node Automatic part combining
@@ -414,10 +425,10 @@ notation (see @ref{Clusters}).
 @cindex automatic part combining
 @cindex part combiner
 
-Automatic part combining is used to merge two parts of music onto a
-staff.  It is aimed at typesetting orchestral scores.  When the two
-parts are identical for a period of time, only one is shown.  In
-places where the two parts differ, they are typeset as separate
+Automatic part combining is used to merge two parts of music onto
+a staff.  It is aimed at typesetting orchestral scores.  When the
+two parts are identical for a period of time, only one is shown.
+In places where the two parts differ, they are typeset as separate
 voices, and stem directions are set automatically.  Also, solo and
 @emph{a due} parts are identified and can be marked.
 
@@ -428,9 +439,9 @@ The syntax for part combining is
 @end example
 
 
-The following example demonstrates the basic functionality of the part
-combiner: putting parts on one staff, and setting stem directions and
-polyphony
+The following example demonstrates the basic functionality of the
+part combiner: putting parts on one staff, and setting stem
+directions and polyphony
 
 @lilypond[quote,verbatim,ragged-right,fragment]
 \new Staff \partcombine
@@ -438,15 +449,15 @@ polyphony
   \relative g' { g g r4 r e e g g }
 @end lilypond
 
-The first @code{g} appears only once, although it was
-specified twice (once in each part).  Stem, slur, and tie directions are
-set automatically, depending whether there is a solo or unisono.  The
-first part (with context called @code{one}) always gets up stems, and
-@q{Solo}, while the second (called @code{two}) always gets down stems and
-@q{Solo II}.
+The first @code{g} appears only once, although it was specified
+twice (once in each part).  Stem, slur, and tie directions are set
+automatically, depending whether there is a solo or unisono.  The
+first part (with context called @code{one}) always gets up stems,
+and @q{Solo}, while the second (called @code{two}) always gets
+down stems and @q{Solo II}.
 
-If you just want the merging parts, and not the textual markings, you
-may set the property @code{printPartCombineTexts} to false
+If you just want the merging parts, and not the textual markings,
+you may set the property @code{printPartCombineTexts} to false
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 \new Staff <<
@@ -474,7 +485,8 @@ properties.
 
 Both arguments to @code{\partcombine} will be interpreted as
 @internalsref{Voice} contexts.  If using relative octaves,
-@code{\relative} should be specified for both music expressions, i.e.,
+@code{\relative} should be specified for both music expressions,
+i.e.,
 
 @example
 \partcombine
@@ -483,8 +495,9 @@ Both arguments to @code{\partcombine} will be interpreted as
 @end example
 
 @noindent
-A @code{\relative} section that is outside of @code{\partcombine} has
-no effect on the pitches of @var{musicexpr1} and @var{musicexpr2}.
+A @code{\relative} section that is outside of @code{\partcombine}
+has no effect on the pitches of @var{musicexpr1} and
+@var{musicexpr2}.
 
 @seealso
 
@@ -492,19 +505,19 @@ Program reference: @internalsref{PartCombineMusic}.
 
 @refbugs
 
-When @code{printPartCombineTexts} is set, when the two voices play the
-same notes on and off, the part combiner may typeset @code{a2} more
-than once in a measure.
+When @code{printPartCombineTexts} is set, when the two voices play
+the same notes on and off, the part combiner may typeset @code{a2}
+more than once in a measure.
 
 @code{\partcombine} cannot be inside @code{\times}.
 
 @code{\partcombine} cannot be inside @code{\relative}.
 
 Internally, the @code{\partcombine} interprets both arguments as
-@code{Voice}s named @code{one} and @code{two}, and then decides when
-the parts can be combined.  Consequently, if the arguments switch to
-differently named @internalsref{Voice} contexts, the events in those
-will be ignored.
+@code{Voice}s named @code{one} and @code{two}, and then decides
+when the parts can be combined.  Consequently, if the arguments
+switch to differently named @internalsref{Voice} contexts, the
+events in those will be ignored.
 
 
 @node Writing music in parallel
