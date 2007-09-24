@@ -161,18 +161,20 @@ Paper_column::minimum_distance (Grob *left, Grob *right)
 Interval
 Paper_column::break_align_width (Grob *me)
 {
+  Grob *p = me->get_parent (X_AXIS);
+
   if (is_musical (me))
     {
       me->programming_error ("tried to get break-align-width of a non-musical column");
-      return Interval (0, 0);
+      return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
     }
 
   Grob *align = Pointer_group_interface::find_grob (me, ly_symbol2scm ("elements"),
 						    Break_alignment_interface::has_interface);
   if (!align)
-    return Interval (0, 0);
+    return Interval (0, 0) + me->relative_coordinate (p, X_AXIS);
 
-  return align->extent (me->get_parent (X_AXIS), X_AXIS);
+  return align->extent (p, X_AXIS);
 }
 
 /*
