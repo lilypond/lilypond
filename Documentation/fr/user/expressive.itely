@@ -1,0 +1,832 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Expressive marks
+@section Expressive marks
+
+@menu
+* Attached to notes::           
+* Curves::                      
+* Lines::                       
+@end menu
+
+
+@node Attached to notes
+@subsection Attached to notes
+
+
+@menu
+* Articulations::               
+* Dynamics::                    
+@end menu
+
+@node Articulations
+@unnumberedsubsubsec Articulations
+
+@cindex articulations
+@cindex symboles d'ornementation
+@cindex ornementations, symboles
+
+
+Différents symboles peuvent être ajoutés au-dessus ou au-dessous des
+notes pour indiquer des ponctuations ou des modes de jeu différents.
+On les ajoute à chaque note au moyen d'un tiret suivi du caractère
+correspondant à l'articulation désirée.  En voici une démonstration :
+
+@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+
+Il est possible de changer la signification de ces raccourcis : voir des
+exemples dans @file{ly/@/script@/-init@/.ly}.
+
+Même si LilyPond place automatiquement ces symboles, il est possible de
+l'obliger à les placer au-dessus ou en-dessous de la note, tout comme
+d'autres objets, en utilisant respectivement @code{^} et @code{_}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c''4^^ c''4_^
+@end lilypond
+
+On peut ajouter d'autres symboles, avec la syntaxe
+@var{note}@code{\}@var{symbole}.  Ici encore, on peut forcer leur
+orientation avec @code{^} and @code{_}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c\fermata c^\fermata c_\fermata
+@end lilypond
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex point d'orgue
+@cindex point d'arrêt
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex tirer l'archet
+@cindex pousser l'archet
+@cindex bouché
+@cindex sourdine
+@cindex orgue, marque de pédale d'
+@cindex grupetto
+@cindex ouvert
+@cindex flageolet
+@cindex trille
+@cindex mordant
+@cindex ornementation baroque
+@cindex baroque, ornementation
+@cindex pouce
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+Voici la liste exhaustive des symboles :
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+@commonprop
+
+Les symboles s'ordonnent verticalement suivant la propriété
+@code{script-priority}. Plus sa valeur numérique est faible, plus le
+symbole sera proche de la note. Dans l'exemple suivant, l'objet
+@internalsref{TextScript} --- le dièse --- a d'abord la propriété la
+plus basse, et il est donc placé plus près de la note ; ensuite c'est
+l'objet @internalsref{Script} qui a la propriété la plus basse, et il se
+place alors sous le dièse.  Lorsque deux objets ont la même priorité,
+c'est l'ordre dans lequel ils sont indiqués qui détermine lequel sera
+placé en premier.
+
+@lilypond[verbatim,relative=3,ragged-right,fragment,quote]
+\once \override TextScript #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+
+\once \override Script #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Script}.
+
+
+@refbugs
+
+Ces symboles sont présents sur la partition imprimée, mais
+n'ont pas d'effet sur le rendu de la musique en MIDI.
+
+
+@node Dynamics
+@unnumberedsubsubsec Dynamics
+
+@cindex nuances
+@funindex \pppp
+@funindex \ppp
+@funindex \pp
+@funindex \p
+@funindex \mp
+@funindex \mf
+@funindex \f
+@funindex \ff
+@funindex \fff
+@funindex \ffff
+@funindex \fp
+@funindex \sf
+@funindex \sff
+@funindex \sp
+@funindex \spp
+@funindex \sfz
+@funindex \rfz
+
+À chaque nuance absolue correspond une commande, qui peut être indiquée
+après une note : @code{c4\ff} par exemple.  Les commandes de nuances
+disponibles sont @code{\ppppp}, @code{\pppp}, @code{\ppp}, @code{\pp},
+@code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
+@code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
+@code{\spp}, @code{\sfz}, et @code{\rfz}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
+@end lilypond
+
+@funindex \<
+@funindex \>
+@funindex \!
+
+Un crescendo est délimité par @code{\<} et @code{\!}, ou peut se
+terminer par une commande de nuance.  Au lieu de @code{\<}
+ou @code{\>}, on peut aussi utiliser @code{\cr} et @code{\decr}.
+Ces indications sont attachées aux notes ; aussi si l'on veut
+faire se succéder plusieurs nuances pendant une note tenue, il faudra
+avoir recours à des silences invisibles :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\< c\! d\> e\!
+<< f1 { s4 s4\< s4\! \> s4\! } >>
+@end lilypond
+
+@noindent
+En principe, un soufflet --- (de)crescendo imprimé sous forme graphique --
+commence au bord gauche de la note de départ, et se termine au
+bord droit de la note d'arrivée.  Cependant, si la note d'arrivée
+est sur un premier temps, le soufflet s'arrêtera au niveau de la
+barre de mesure qui la précède.  Ce comportement peut être annulé
+en assignant @emph{faux} (lettre @q{f}) à la propriété
+@code{hairpinToBarline} :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set hairpinToBarline = ##f
+c4\< c2. c4\!
+@end lilypond
+
+On peut avoir recours à l'indication @code{\espressivo} pour indiquer un
+crescendo puis un decrescendo sur une seule note.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c2 b4 a g1\espressivo
+@end lilypond
+
+Cependant, ces deux indications graphiques peuvent se trouver très
+comprimées horizontalement.  Pour les rallonger, on peut modifier la
+propriété @code{minimum-length} de
+@code{Voice.Hairpin} --- @internalsref{Voice}
+étant le contexte, et @internalsref{Hairpin} l'objet affecté. Par
+exemple :
+
+@example
+\override Voice.Hairpin #'minimum-length = #5
+@end example
+
+@cindex al niente
+@cindex niente, al
+
+Des crescendos ou decrescendos @emph{al niente} peuvent être indiqués de
+manière graphique, en assignant @emph{vrai} (lettre @q{t}) à la
+propriété @code{circled-tip}, ce qui affiche un cercle à leur extrémité.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override Hairpin #'circled-tip = ##t
+c2\< c\!
+c4\> c\< c2\!
+@end lilypond
+
+
+@cindex crescendo
+@cindex decrescendo
+@cindex diminuendo
+
+Au lieu d'une notation graphique des crescendos, on peut utiliser
+une notation textuelle.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\setTextCresc
+c\< d e f\!
+\setHairpinCresc
+e\> d c b\!
+\setTextDecresc
+c\> d e f\!
+\setTextDim
+e\> d c b\!
+@end lilypond
+
+On peut même définir ses propres indications textuelles :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\set crescendoText = \markup { \italic "cresc. poco" }
+\set crescendoSpanner = #'dashed-line
+a'2\< a a a\!\mf
+@end lilypond
+
+Pour créer des indications de nuances qui restent alignées
+avec les nuances habituelles, voir @ref{New dynamic marks}.
+
+Le positionnement vertical des nuances est géré par le
+@internalsref{DynamicLineSpanner}.
+
+
+@commonprop
+
+Des nuances différentes situées --- ou commençant --- sur une même
+note seront alignées verticalement.  Pour aligner des nuances qui ne
+se situeraient pas sur une même note, il est possible d'augmenter
+la propriété @code{staff-padding}.
+
+@example
+\override DynamicLineSpanner #'staff-padding = #4
+@end example
+
+Cette propriété peut aussi servir à régler des problèmes de
+collision entre des nuances et d'autres objets.
+
+Les crescendos ou decrescendos qui aboutissent sur la première note
+d'une nouvelle ligne ne sont imprimés que jusqu'à la fin de la ligne
+précédente.  Ce comportement peut être outrepassé en définissant :
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
+
+Les crescendos et decrescendos indiqués textuellement --- tels que
+@emph{cresc.} ou @emph{dim.} --- sont suivis de pointillés qui montrent
+leur étendue.  On peut empêcher l'impression de ces pointillés avec :
+
+@example
+\override DynamicTextSpanner #'dash-period = #-1.0
+@end example
+
+
+@refcommands
+
+@funindex \dynamicUp
+@code{\dynamicUp},
+@funindex \dynamicDown
+@code{\dynamicDown},
+@funindex \dynamicNeutral
+@code{\dynamicNeutral}.
+
+
+@seealso
+
+Référence du programme : @internalsref{DynamicText}, @internalsref{Hairpin}.
+
+Le placement vertical de ces éléments graphiques est géré par le
+@internalsref{DynamicLineSpanner}.
+
+
+@node Curves
+@subsection Curves
+
+@menu
+* Ties::                        
+* Slurs::                       
+* Phrasing slurs::              
+* Laissez vibrer ties::         
+* Breath marks::                
+* Falls and doits::             
+@end menu
+
+@node Ties
+@unnumberedsubsubsec Ties
+
+@cindex liaison de prolongation
+@funindex ~
+
+Une liaison de tenue (ou de prolongation) relie deux notes adjacentes de
+même hauteur.  Dans les faits, elle prolonge la durée d'une note, et ne
+doit donc pas être confondue avec les liaisons d'articulation ou de
+phrasé.  Une liaison de tenue est indiquée au moyen d'un tilde @samp{~}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+
+Quand une liaison de tenue se trouve entre deux accords, toutes les
+notes de même hauteur entre ces deux accords sont reliées.  S'il n'y en
+a aucune, aucune liaison n'est créée.  Il est également possible de lier
+partiellement deux accords, en mettant les liaisons à l'intérieur des
+accords.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+
+Une liaison de tenue est un moyen parmi d'autres pour prolonger la durée
+d'une note, tout comme les points.  L'exemple suivant montre deux
+manières de matérialiser exactement la même idée :
+
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2. c'2 ~ c'4
+@end lilypond
+
+@noindent
+Les liaisons de tenues sont utilisées soit lorsque la note dépasse de la
+mesure, soit quand les points ne suffisent pas à donner la bonne durée.
+Lorsque l'on utilise ces liaisons, les valeurs rythmiques les plus
+longues doivent s'aligner sur les subidivisions de la mesure, comme ici :
+
+@c KEEP LY
+@lilypond[fragment,quote,ragged-right]
+\relative {
+  r8^"oui" c8 ~ c2 r4 | r8^"non" c2 ~ c8 r4
+}
+@end lilypond
+
+
+Lorsque l'on doit lier de nombreuses notes sur plusieurs mesures, il
+devient plus facile d'avoir recours à la division automatique des notes
+--- voir @ref{Automatic note splitting}.  Ce procédé divise
+automatiquement les notes trop longues, et les lie par-delà les barres
+de mesure.
+
+@funindex \repeatTie
+
+Lorsqu'une mesure de seconde fois après une reprise commence sur une
+note liée, la liaison doit être répétée. C'est à cela que sert la
+commande @code{\repeatTie} :
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex liaison de prolongation, répétition
+@cindex reprises avec alternatives et liaisons de prolongation
+
+@commonprop
+
+Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans ce
+cas, les notes liées ne sont pas toutes consécutives. Il faut alors
+assigner à la propriété @code{tieWaitForNote} la valeur @emph{vrai}
+(@q{t} pour @q{true}).  Cette même méthode peut servir, par exemple, à
+lier un trémolo à un accord.
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Il est possible de graver manuellement les liaisons de tenue, en
+modifiant la propriété @code{tie-configuration}.  Pour chaque paire, le
+premier nombre indique la distance à la portée, en espaces de portée, et
+le second la direction (1 pour haut, @minus{}1 pour bas).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
+
+@refcommands
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+Dans ce même manuel : @ref{Automatic note splitting}.
+
+Référence du programme : @internalsref{Tie}.
+
+
+@refbugs
+
+Un changement de portée, lorsqu'une liaison de tenue est active, ne
+peut produire une liaison oblique.
+
+Le changement de clé ou d'octave pendant une liaison de tenue produit un
+résultat indéfini.  Dans ces cas-là, il est préférable d'utiliser un
+legato.
+
+
+@node Slurs
+@unnumberedsubsubsec Slurs
+
+@cindex legato
+@cindex liaison d'articulation
+
+Une liaison d'articulation indique que les notes doivent être jouées
+liées, ou @emph{legato}.  Ces liaisons s'indiquent au moyen de
+parenthèses.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+f( g a) a8 b( a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+
+On peut indiquer l'orientation des liaisons suivantes avec
+@code{\slur@emph{DIR}}, @code{@emph{DIR}} pouvant être @code{Up} pour
+une liaison vers le haut, @code{Down} pour une liaison vers le bas, ou
+@code{Neutral} pour laisser LilyPond décider.
+
+Il existe également un raccourci pratique pour forcer l'orientation
+d'une seule liaison.  Il suffit pour cela d'ajouter @code{_} ou @code{^}
+avant d'ouvrir une parenthèse.
+
+@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
+c4_( c) c^( c)
+@end lilypond
+
+
+Une seule liaison d'articulation peut être imprimée à la fois.  S'il est
+nécessaire d'imprimer une liaison plus longue, englobant des liaisons
+plus courtes, utilisez des @ref{Phrasing slurs}.
+
+
+@commonprop
+
+Certains auteurs utilisent deux liaisons lorsqu'ils veulent
+lier des accords. Dans LilyPond, il faut pour cela assigner
+@emph{vrai} (@q{true}) la propriété @code{doubleSlurs} :
+
+@lilypond[verbatim,ragged-right,relative,fragment,quote]
+\set doubleSlurs = ##t
+<c e>4 ( <d f> <c e> <d f> )
+@end lilypond
+
+
+@refcommands
+
+@funindex \slurUp
+@code{\slurUp},
+@funindex \slurDown
+@code{\slurDown},
+@funindex \slurNeutral
+@code{\slurNeutral},
+@funindex \slurDashed
+@code{\slurDashed},
+@funindex \slurDotted
+@code{\slurDotted},
+@funindex \slurSolid
+@code{\slurSolid}.
+
+@seealso
+
+Référence du programme : @internalsref{Slur}.
+
+
+@node Phrasing slurs
+@unnumberedsubsubsec Phrasing slurs
+
+@cindex liaisons de phrasé
+@cindex phrasé, liaisons de
+
+Une liaison de phrasé relie plusieurs notes en délimitant une phrase
+musicale.  On indique les points de départ et d'arrivée avec @code{\(}
+et @code{\)} respectivement.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\time 6/4 c'\( d( e) f( e) d\)
+@end lilypond
+
+
+D'un point de vue typographique, rien ne distingue une liaison de phrasé
+d'une liaison d'articulation. Cependant, LilyPond les considère comme
+des objets différents. Une commande @code{\slurUp} n'affectera donc pas
+une liaison de phrasé : il faut plutôt utiliser @code{\phrasingSlurUp},
+@code{\phrasingSlurDown} ou @code{\phrasingSlurNeutral}.
+
+Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
+
+
+@refcommands
+
+@funindex \phrasingSlurUp
+@code{\phrasingSlurUp},
+@funindex \phrasingSlurDown
+@code{\phrasingSlurDown},
+@funindex \phrasingSlurNeutral
+@code{\phrasingSlurNeutral}.
+
+
+@seealso
+
+Référence du programme : @internalsref{PhrasingSlur}.
+
+
+@node Laissez vibrer ties
+@unnumberedsubsubsec Laissez vibrer ties
+
+@cindex laissez vibrer
+@cindex liaison, laissez vibrer
+
+Les liaisons @qq{Laissez vibrer} (L.V.) sont utilisées pour le piano, la
+harpe, et certains instruments de percussion.  Elles indiquent à
+l'instrumentiste de laisser sonner la note ou l'accord au lieu de
+l'étouffer.  Cet effet s'obtient avec la commande @code{\laissezVibrer}.
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+@seealso
+
+Référence du programme :
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+D'autres exemples :
+@lsr{connecting,laissez-vibrer-ties.ly}
+
+
+@node Breath marks
+@unnumberedsubsubsec Breath marks
+
+Les indications de respiration sont indiquées par la commande @code{\breathe}.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c'4 \breathe d4
+@end lilypond
+
+
+@commonprop
+
+On peut choisir le glyphe imprimé par cette commande, en modifiant la
+propriété @code{text} de l'objet @code{BreathingSign}, pour lui affecter
+n'importe quelle indication textuelle.  Par exemple :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+c'4
+\override BreathingSign #'text
+  = #(make-musicglyph-markup "scripts.rvarcomma")
+\breathe
+d4
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{BreathingSign}.
+
+Exemples : @lsr{expressive,breathing-sign.ly}
+
+
+@node Falls and doits
+@unnumberedsubsubsec Falls and doits
+
+Des indications de désinence peuvent être obtenues au moyen de la
+commande @code{\bendAfter} :
+
+@lilypond[fragment,ragged-right,relative=2]
+\override Score.SpacingSpanner #'shortest-duration-space = #3.0
+c4-\bendAfter #+5
+c4-\bendAfter #-3
+@end lilypond
+
+
+@node Lines
+@subsection Lines
+
+@menu
+* Glissando::                   
+* Arpeggio::                    
+* Trills::                      
+* Analysis brackets::           
+@end menu
+
+@node Glissando
+@unnumberedsubsubsec Glissando
+
+@cindex glissando
+@funindex \glissando
+
+Un glissando relie une hauteur à une autre en passant par chaque hauteur
+intermédiaire.  Il est indiqué graphiquement, par une ligne ou des
+vaguelettes entre ces deux notes. On l'obtient en accolant la commande
+@code{\glissando} à la première note.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+c2\glissando c'
+\override Glissando #'style = #'zigzag
+c2\glissando c,
+@end lilypond
+
+
+@commonprop
+
+@lilypond[quote,ragged-right,verbatim]
+I = \once \override NoteColumn #'ignore-collision = ##t
+
+\relative <<
+  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
+  { \oneVoice \I c2 \glissando \I d, }
+>>
+@end lilypond
+
+
+@seealso
+
+Référence du programme : @internalsref{Glissando}.
+
+D'autres exemples : @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}.
+
+
+@refbugs
+
+Il n'est pas possible d'imprimer un texte (tel que @emph{gliss.})
+le long de la ligne de glissando.
+
+
+@node Arpeggio
+@unnumberedsubsubsec Arpeggio
+
+@cindex arpège
+@cindex accord arpégé
+@funindex \arpeggio
+
+
+On peut indiquer qu'un accord doit être arpégé en lui accolant la
+commande @code{\arpeggio} :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+<c e g c>\arpeggio
+@end lilypond
+
+
+Pour spécifier qu'un autre accord doit être plaqué et non arpégé, on
+peut remplacer ce signe par un crochet :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\arpeggioBracket
+<c' e g c>\arpeggio
+@end lilypond
+
+
+Le sens de l'arpège est parfois indiqué par une pointe de flèche au bout
+de la vaguelette :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new Voice {
+  \arpeggioUp
+  <c e g c>\arpeggio
+  \arpeggioDown
+  <c e g c>\arpeggio
+}
+@end lilypond
+
+
+@commonprop
+
+Quand un arpège couvre plusieurs portées, il est possible d'indiquer
+l'arpège sur chacune des portées, puis de relier la ligne de vaguelettes
+en assignant @emph{vrai} à la propriété @code{connectArpeggios}, par
+exemple dans le contexte @internalsref{PianoStaff} :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \set PianoStaff.connectArpeggios = ##t
+  \new Staff { <c' e g c>\arpeggio }
+  \new Staff { \clef bass <c,, e g>\arpeggio }
+>>
+@end lilypond
+
+
+@refcommands
+
+@code{\arpeggio},
+@funindex \arpeggioUp
+@code{\arpeggioUp},
+@funindex \arpeggioDown
+@code{\arpeggioDown},
+@funindex \arpeggioNeutral
+@code{\arpeggioNeutral},
+@funindex \arpeggioBracket
+@code{\arpeggioBracket}.
+
+
+@seealso
+
+Dans ce même manuel : @ref{Ties}, pour noter explicitement des arpèges.
+
+Référence du programme : @internalsref{Arpeggio}.
+
+
+@refbugs
+
+Il est impossible de mêler au même instant, dans un contexte
+@internalsref{PianoStaff}, des lignes d'arpèges connectées et d'autres
+non connectées.
+
+
+@node Trills
+@unnumberedsubsubsec Trills
+
+Les trilles brefs s'indiquent comme n'importe quelle ponctuation :
+voir @ref{Articulations}.
+
+
+Les trilles plus longs sont délimités par @code{\startTrillSpan} et
+@code{\stopTrillSpan} :
+
+@lilypond[verbatim,ragged-right,relative=2,quote,fragment]
+\new Voice {
+  << { c1 \startTrillSpan }
+     { s2. \grace { d16[\stopTrillSpan e] } } >>
+  c4 }
+@end lilypond
+
+@cindex trilles avec hauteur explicite
+
+Les trilles qui font intervenir une hauteur précise peuvent être
+indiqués par la commande @code{pitchedTrill}.
+
+@lilypond[ragged-right,verbatim,fragment,relative=1,quote]
+\pitchedTrill c4\startTrillSpan fis
+f\stopTrillSpan
+@end lilypond
+
+@noindent
+Le premier argument est la note réelle ; le second est une hauteur qui
+sera imprimée comme une tête de note noire entre parenthèses.
+
+
+@refcommands
+
+@code{\startTrillSpan},
+@funindex \startTrillSpan
+@code{\stopTrillSpan}.
+@funindex \stopTrillSpan
+
+
+@seealso
+
+Référence du programme : @internalsref{TrillSpanner}.
+
+
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
+@cindex crochets
+@cindex crochets de phrasé
+@cindex analyse musicologique
+@cindex crochet de regroupement de notes
+
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce.  LilyPond permet d'utiliser une forme
+simplifiée de crochets horizontaux imbriqués, dans la mesure où le
+contexte @internalsref{Staff} comporte le graveur
+@internalsref{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{HorizontalBracket}.
+
+

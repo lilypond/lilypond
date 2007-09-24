@@ -1,0 +1,797 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Expressive marks
+@section Expressive marks
+
+@menu
+* Attached to notes::           
+* Curves::                      
+* Lines::                       
+@end menu
+
+
+@node Attached to notes
+@subsection Attached to notes
+
+
+@menu
+* Articulations::               
+* Dynamics::                    
+@end menu
+
+@node Articulations
+@unnumberedsubsubsec Articulations
+
+@cindex Artikulationszeichen
+@cindex Beschriftung
+@cindex Zeichen
+
+Eine Vielfalt an Symbolen kann über und unter den Noten erscheinen, 
+um zu markieren, auf welche Art die Note ausgeführt werden soll. Sie 
+werden in LilyPond notiert, indem ein Minuszeichen an die Note gehängt 
+wird, gefolgt von dem jeweiligen Zeichen. Hier einige Beispiele:
+
+@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+
+Die Bedeutung der Zeichen kann auch verändert werden. Siehe etwa 
+@file{ly/@/script@/-init@/.ly} für Beispiele.
+
+Das Artikulationszeichen wird automatisch gesetzt, aber die Richtung kann 
+auch erzwungen werden. Wie auch bei anderen LilyPond-Befehlen, erreicht 
+man mit @code{_} eine Ausrichtung unter der Note, mit @code{^} eine 
+Ausrichtung über der Note.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c''4^^ c''4_^
+@end lilypond
+
+Andere Symbole können mit der Syntax 
+@var{Note}@code{\}@var{Bezeichnung} hinzugefügt werden. 
+Auch sie können mit @code{^} und @code{_} nach oben 
+und unten gezwungen werden:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c\fermata c^\fermata c_\fermata
+@end lilypond
+
+@cindex Akzent
+@cindex Marcato
+@cindex Staccatissimo
+@cindex Espressivo
+@cindex Fermate
+@cindex Gedämpft
+@cindex Staccato
+@cindex Portato
+@cindex Tenuto
+@cindex Aufstrich
+@cindex Abstrich
+@cindex Fußbezeichnung
+@cindex Orgelpedalbezeichnung
+@cindex Triller
+@cindex Offen
+@cindex Flageolet
+@cindex Praller
+@cindex Mordent
+@cindex Doppelpraller
+@cindex Prallermordent
+@cindex Fingersatz
+@cindex Daumenbezeichnung
+@cindex Segno
+@cindex Coda
+@cindex Varcoda
+
+Hier ist eine Liste, die alle möglichen Zeichen darstellt:
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+
+@commonprop
+
+Die vertikale Anordnung der Zeichen wird durch die 
+@code{script-priority}-Eigenschaft kontrolliert. Je kleiner die Zahl 
+ist, umso näher wird das Zeichen an die Note gesetzt. In dem 
+nächsten Beispiel hat das Textsymbol (@internalsref{TextScript}),
+ein Kreuz, die niedrigste Priorität und wird also als unterstes 
+gesetzt. Im zweiten Beispiel hat der Praller (das @internalsref{Script}) 
+die niedrigste Priorität und erscheint innen. Wenn zwei Objekte die 
+gleiche Priorität haben, entscheidet die Reihenfolge, in der sie notiert 
+sind, welches zuerst kommt.
+
+@lilypond[verbatim,relative=3,ragged-right,fragment,quote]
+\once \override TextScript #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+
+\once \override Script #'script-priority = #-100
+a4^\prall^\markup { \sharp }
+@end lilypond
+
+
+@seealso
+
+Programmreferenz: @internalsref{Script}.
+
+
+@refbugs
+
+Diese Zeichen erscheinen zwar im Druck, haben aber keine Auswirkung 
+auf die produzierte MIDI-Datei.
+
+@node Dynamics
+@unnumberedsubsubsec Dynamics
+
+@cindex Lautstärke
+@cindex Dynamik
+@funindex \pppp
+@funindex \ppp
+@funindex \pp
+@funindex \p
+@funindex \mp
+@funindex \mf
+@funindex \f
+@funindex \ff
+@funindex \fff
+@funindex \ffff
+@funindex \fp
+@funindex \sf
+@funindex \sff
+@funindex \sp
+@funindex \spp
+@funindex \sfz
+@funindex \rfz
+
+Absolute Dynamikbezeichnung wird mit Befehlen nach den Noten 
+angezeigt. Die vordefinierten Befehle lauten:
+@code{\ppppp},
+@code{\pppp}, @code{\ppp},
+@code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
+@code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff},
+@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
+c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
+@end lilypond
+
+@funindex \<
+@funindex \>
+@funindex \!
+
+Eine Crescendo-Klammer wird mit dem Befehl @code{\<} begonnen und 
+mit @code{\!} oder einem absoluten Dynamikbefehl beendet. Ein 
+Decrescendo beginnt mit @code{\>} und wird auf die gleiche Art 
+beendet. @code{\cr} und @code{\decr} können anstelle von @code{\<} und 
+@code{\>} benutzt werden. Weil diese Zeichen an Noten gekoppelt sind, 
+müssen unsichtbare Noten benutzt werden, wenn mehr als ein Zeichen pro 
+Note benötigt wird.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\< c\! d\> e\!
+<< f1 { s4 s4\< s4\! \> s4\! } >>
+@end lilypond
+
+@noindent
+Eine Crescendo-Klammer beginnt normalerweise am linken Rand der Anfangsnote 
+und endet am rechten Rand der Endnote. Wenn das Ende auf den Taktanfang 
+fällt, endet die Klammer an der direkt vorhergehenden Taktlinie. Diese 
+Einstellung lässt sich aber durch die Eigenschaft @code{hairpinToBarline} 
+verändern.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set hairpinToBarline = ##f
+c4\< c2. c4\!
+@end lilypond
+
+In manchen Situationen kann auch der @code{\espressivo}-Befehl 
+geeignet sein, ein An- und Abschwellen einer Note anzuzeigen.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c2 b4 a g1\espressivo
+@end lilypond
+
+Hier können allerdings sehr kurze Klammern auftreten. Der Wert von 
+@code{minimum-length} in @internalsref{Voice}.@internalsref{Hairpin} 
+kann angepasst werden, etwa:
+
+@example
+\override Voice.Hairpin #'minimum-length = #5
+@end example
+
+@cindex Al niente
+@cindex Niente, al
+
+Klammern können auch mit einem kleinen Kreis um die Spitze 
+(al niente-Notation) gedruckt werden, 
+wenn die @code{circled-tip}-Eigenschaft gesetzt wird.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override Hairpin #'circled-tip = ##t
+c2\< c\!
+c4\> c\< c2\!
+@end lilypond
+
+
+@cindex Crescendo
+@cindex Decrescendo
+@cindex Diminuendo
+
+Anstelle der Klammern kann auch der Text @emph{cresc.} bzw. @emph{decr.}
+oder @emph{dim.} ausgegeben werden.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\setTextCresc
+c\< d e f\!
+\setHairpinCresc
+e\> d c b\!
+\setTextDecresc
+c\> d e f\!
+\setTextDim
+e\> d c b\!
+@end lilypond
+
+Dieser Text kann auch beliebig angepasst werden:
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\set crescendoText = \markup { \italic "cresc. poco" }
+\set crescendoSpanner = #'dashed-line
+a'2\< a a a\!\mf
+@end lilypond
+
+Um neue Dynamikzeichen oder Text, der mit diesen zusammen 
+gesetzt wird, zu erstellen, siehe den Abschnitt @ref{New dynamic marks}.
+
+Vertikale Position der Zeichen wird von der Funktion 
+@internalsref{DynamicLineSpanner} verwaltet.
+
+
+@commonprop
+
+Dynamikzeichen, die an der selben Note auftreten, werden vertikal 
+angeordnet. Wenn Sie sicher gehen wollen, dass die Zeichen angeordnet 
+werden, auch wenn sie nicht an der selben Note vorkommen, kann die 
+@code{staff-padding}-Eigenschaft vergrößert werden.
+
+@example
+\override DynamicLineSpanner #'staff-padding = #4
+@end example
+
+Diese Eigenschaft kann man auch benutzen, um Dynamikzeichen davor zu 
+hindern, mit anderen Noten zusammenzustoßen.
+
+Crescendi and Decrescendi, die an der ersten Note einer neuen Zeile 
+enden, werden nicht ausgegeben. Mit
+
+@example
+\override Score.Hairpin #'after-line-breaking = ##t
+@end example
+
+@noindent
+wird dieses Verhalten ausgeschaltet.
+
+Text für dynamische Änderungen (wie @emph{cresc.}) 
+wird mit einer gestrichelten Linie gesetzt. Um diese Linie 
+zu unterdrücken, kann der Befehl
+
+@example
+\override DynamicTextSpanner #'dash-period = #-1.0
+@end example
+
+@noindent
+eingesetzt werden.
+
+@refcommands
+
+@funindex \dynamicUp
+@code{\dynamicUp},
+@funindex \dynamicDown
+@code{\dynamicDown},
+@funindex \dynamicNeutral
+@code{\dynamicNeutral}.
+
+
+@seealso
+
+Programmreferenz: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Vertikale Positionierung der Symbole wird von der Eigenschaft 
+@internalsref{DynamicLineSpanner} verwaltet.
+
+
+@node Curves
+@subsection Curves
+
+@menu
+* Ties::                        
+* Slurs::                       
+* Phrasing slurs::              
+* Laissez vibrer ties::         
+* Breath marks::                
+* Falls and doits::             
+@end menu
+
+@node Ties
+@unnumberedsubsubsec Ties
+
+@cindex Bindebogen
+@cindex Überbindung
+@funindex ~
+
+Ein Bindebogen verbindet zwei benachbarte Noten der selben 
+Tonhöhe. Als Resultat wird die Dauer der Notenlänge verlängert. 
+Bindebögen dürfen nicht mit Legatobögen verwechselt werden, durch 
+die die Vortragsart bezeichnet wird, noch mit Phrasierungsbögen, 
+die musikalische Phrasen anzeigen. Eine Bindebogen wird mit der 
+Tilde @code{~} (AltGr++) notiert.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+Wenn ein Bindebogen an einen Akkord gehängt wird, werden alle Noten 
+dieses Akkordes übergebunden. Wenn kein Notenkopf passt, wird auch 
+kein Bogen erzeugt. Noten in Akkorden können auch einzeln übergebunden 
+werden, indem sie innerhalb des Akkordes hinter die entsprechende Note 
+geschrieben werden.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+Ein Bindebogen ist nur eine andere Art, die Notendauer zu verlängern, 
+ähnlich wie die Punktierung. Im nächsten Beispiel sind zwei Arten gezeigt, 
+die gleiche Notenlänge zu notieren:
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2. c'2 ~ c'4
+@end lilypond
+
+@noindent
+Bindebögen werden verwendet, wenn die Note entweder über die Taktgrenze 
+hinausragt, oder wenn Punktierung nicht benutzt werden kann, um die 
+Verlängerung anzuzeigen. Wenn man Überbindungen verwendet, sollten 
+größere Notenwerte an die Unterteilungen des Taktes angepasst werden.
+
+@lilypond[fragment,quote,ragged-right]
+\relative {
+  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+}
+@end lilypond
+
+Wenn sehr viele Noten über die Taktgrenzen hinüber angebunden 
+werden müssen, ist es oft einfacher, die automatische Aufteilung 
+von Noten einzusetzen (siehe @ref{Automatic note splitting}). Mit 
+dieser Funktion werden automatisch lange Noten aufgeteilt und über 
+die Taktgrenze übergebunden.
+
+@funindex \repeatTie
+
+Wenn die zweite Variante einer Wiederholung mit einer Überbindung 
+anfängt, muss der Bindebogen wiederholt werden. Dass geschieht durch 
+den Befehl @code{\repeatTie}.
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex Volta und Überbindung
+@cindex Wiederholung und Überbindung
+
+@commonprop
+
+Bindebögen werden teilweise verwendet, um Arpeggien auszuschreiben. 
+In diesem Fall müssen mehrere übergebundene Noten nacheinander 
+erscheinen. Das ist möglich, indem die @code{tieWaitForNote}-Eigenschaft 
+auf wahr (##t) gesetzt wird. Diese Funktion ist auch nützlich, um 
+ein Tremolo an einen Akkord zu binden. Siehe das Beispiel:
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Bindebögen können manuell gesetzt werden, indem die 
+@code{tie-configuration}-Eigenschaft verändert wird. 
+Die erste Zahl zeigt den Abstand von der Mitte des 
+Notensystems in Notenlinienzwischenräumen, die zweite 
+die Richtung (1=nach oben, -1=nach unten).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
+
+@refcommands
+
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+Im Handbuch: @ref{Automatic note splitting}.
+
+Programmreferenz: @internalsref{Tie}.
+
+
+@refbugs
+
+Der Wechsel zwischen Systemen bei aktiver Überbindung produziert keinen 
+gekrümmten Bogen.
+
+Änderung von Schlüssel oder Oktavierung zwischen übergebundenen Noten 
+ist nicht richtig definiert. In diesen Fällen kann es besser sein, einen 
+Legatobogen zu verwenden.
+
+@node Slurs
+@unnumberedsubsubsec Slurs
+
+@cindex Legatobögen
+
+Ein Legatobogen (engl. slur) zeigt an, dass die Noten 
+@emph{legato} gespielt werden sollen. Er wird mit Klammern 
+hinter den Notenwerten notiert.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+f( g a) a8 b( a4 g2 f4)
+<c e>2( <b d>2)
+@end lilypond
+
+Die Richtung eines Legatobogens kann mit den Befehlen 
+@code{\slur@emph{DIR}}, wobei @code{@emph{DIR}} entweder
+ @code{Up}, @code{Down}, oder @code{Neutral}, angezeigt
+werden.
+
+Es gibt aber auch eine Kurzform. Indem @code{_} oder @code{^} 
+for die öffnende Klammer gestellt wird, wird die Richtung 
+angegeben.
+
+@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
+c4_( c) c^( c)
+@end lilypond
+
+Nur ein Legatobogen kann gleichzeitig geschrieben werden. Wenn Sie einen 
+langen Bogen über mehreren kurzen notieren wollen, müssen Sie 
+ @ref{Phrasing slurs} benutzen.
+
+
+@commonprop
+
+Manche Komponisten schreiben zwei Legatobögen, um Legatoakkorde zu 
+markieren. Das kann in LilyPond erreicht werden, indem die Eigenschaft 
+@code{doubleSlurs} gesetzt wird.
+
+@lilypond[verbatim,ragged-right,relative,fragment,quote]
+\set doubleSlurs = ##t
+<c e>4 ( <d f> <c e> <d f> )
+@end lilypond
+
+
+@refcommands
+
+@funindex \slurUp
+@code{\slurUp},
+@funindex \slurDown
+@code{\slurDown},
+@funindex \slurNeutral
+@code{\slurNeutral},
+@funindex \slurDashed
+@code{\slurDashed},
+@funindex \slurDotted
+@code{\slurDotted},
+@funindex \slurSolid
+@code{\slurSolid}.
+
+@seealso
+
+Programmreferenz: @internalsref{Slur}.
+
+
+@node Phrasing slurs
+@unnumberedsubsubsec Phrasing slurs
+
+@cindex Phrasierungsbögen
+
+Ein Phrasierungsbogen verbindet Noten und wird verwendet, um einen 
+musikalischen Ausdruck anzuzeigen. Er wird mit den Befehlen 
+@code{\(} und @code{\)} eingegeben.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\time 6/4 c'\( d( e) f( e) d\)
+@end lilypond
+
+Im typographischen Sinne verhalten sich Phrasierungsbögen genauso wie 
+Legatobögen. Sie werden aber als eigene Objekte behandelt. Ein 
+@code{\slurUp} hat also keine Auswirkung auf die Phrasierungsbögen, 
+anstelle dessen muss 
+@code{\phrasingSlurUp}, @code{\phrasingSlurDown} oder
+@code{\phrasingSlurNeutral} benutzt werden.
+
+Es können keine simultanen Phrasierungsbögen gesetzt werden.
+
+
+@refcommands
+
+@funindex \phrasingSlurUp
+@code{\phrasingSlurUp},
+@funindex \phrasingSlurDown
+@code{\phrasingSlurDown},
+@funindex \phrasingSlurNeutral
+@code{\phrasingSlurNeutral}.
+
+
+@seealso
+
+Programmreferenz: @internalsref{PhrasingSlur}.
+
+
+@node Laissez vibrer ties
+@unnumberedsubsubsec Laissez vibrer ties
+@cindex Laissez vibrer
+@cindex Bögen, laissez vibrer
+@cindex Ausklingen lassen
+
+So genannte @qq{laissez vibrer}-Bögen werden verwendet um anzuzeigen, dass 
+man die Musik ausklingen lassen soll. Sie werden in der Klavier-, Harfen-, 
+anderer Saiteninstrument- und Schlagzeugnotation verwendet. Sie können 
+mit dem Befehl @code{\laissezVibrer} eingegeben werden.
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+@seealso
+
+Programmreferenz:
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+Beispiele:
+@lsr{connecting,laissez-vibrer-ties.ly}
+
+
+@node Breath marks
+@unnumberedsubsubsec Breath marks
+
+Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c'4 \breathe d4
+@end lilypond
+
+
+@commonprop
+
+Das Symbol für das Atemzeichen kann verändert werden, indem die Eigenschaft 
+@code{text} des @code{BreathingSign}-Objektes mit beliebigem Text 
+überschrieben wird. Zum Beispiel ergibt
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+c'4
+\override BreathingSign #'text
+  = #(make-musicglyph-markup "scripts.rvarcomma")
+\breathe
+d4
+@end lilypond
+
+@seealso
+
+Programmreferenz: @internalsref{BreathingSign}.
+
+Beispiele: @lsr{expressive,breathing-sign.ly}
+
+
+@node Falls and doits
+@unnumberedsubsubsec Falls and doits
+
+Gleiten nach oben und unten kann mit dem Befehl @code{\bendAfter} 
+notiert werden.
+
+@lilypond[fragment,ragged-right,relative=2]
+\override Score.SpacingSpanner #'shortest-duration-space = #3.0
+c4-\bendAfter #+5
+c4-\bendAfter #-3
+@end lilypond
+
+
+@node Lines
+@subsection Lines
+
+@menu
+* Glissando::                   
+* Arpeggio::                    
+* Trills::                      
+* Analysis brackets::           
+@end menu
+
+@node Glissando
+@unnumberedsubsubsec Glissando
+
+@cindex Glissando
+@funindex \glissando
+
+Ein Glissando ist ein Gleiten zwischen Tonhöhen. Es wird mit einer 
+geraden oder gezackten Linie zwischen zwei Noten notiert. Es wird 
+mit dem Befehl @code{\glissando} auf eine Note folgend notiert.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+c2\glissando c'
+\override Glissando #'style = #'zigzag
+c2\glissando c,
+@end lilypond
+ 
+@commonprop
+
+@lilypond[quote,ragged-right,verbatim]
+I = \once \override NoteColumn #'ignore-collision = ##t
+
+\relative <<
+  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
+  { \oneVoice \I c2 \glissando \I d, }
+>>
+@end lilypond
+
+
+@seealso
+
+Programmreferenz: @internalsref{Glissando}.
+
+Beispiele:
+@lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
+
+
+
+@refbugs
+
+Text über der Linie (wie etwa @emph{gliss.}) wird nicht unterstützt.
+
+
+@node Arpeggio
+@unnumberedsubsubsec Arpeggio
+
+@cindex Arpeggio
+@cindex Gebrochene Akkorde
+@funindex \arpeggio
+
+Ein Arpeggio als Zeichen, dass ein Akkord gebrochen gespielt werden soll, 
+kann mit dem Befehl @code{\arpeggio} hinter dem 
+Akkord erzeugt werden.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+<c e g c>\arpeggio
+@end lilypond
+
+Eine eckige Klammer zur Linken des Akkordes zeigt an, dass kein Arpeggio 
+gespielt werden soll.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\arpeggioBracket
+<c' e g c>\arpeggio
+@end lilypond
+
+Die Richtung des Arpeggios wird manchmal mit Pfeilen notiert und hat 
+eigene Befehle.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new Voice {
+  \arpeggioUp
+  <c e g c>\arpeggio
+  \arpeggioDown
+  <c e g c>\arpeggio
+}
+@end lilypond
+
+
+@commonprop
+
+Wenn ein Arpeggio sich über mehrere Systeme erstreckt, kann mit einem 
+Klaviersystem die Eigenschaft 
+@internalsref{PianoStaff}.@code{connectArpeggios} gesetzt werden.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \set PianoStaff.connectArpeggios = ##t
+  \new Staff { <c' e g c>\arpeggio }
+  \new Staff { \clef bass <c,, e g>\arpeggio }
+>>
+@end lilypond
+
+@c TODO: cross-voice arpeggio example?
+@c such an example is already in LSR -J.Mandereau
+
+@refcommands
+
+@code{\arpeggio},
+@funindex \arpeggioUp
+@code{\arpeggioUp},
+@funindex \arpeggioDown
+@code{\arpeggioDown},
+@funindex \arpeggioNeutral
+@code{\arpeggioNeutral},
+@funindex \arpeggioBracket
+@code{\arpeggioBracket}.
+
+
+@seealso
+
+Notationshandbuch: @ref{Ties}, um Arpeggios auszuschreiben.
+
+Programmreferenz: @internalsref{Arpeggio}.
+
+
+@refbugs
+
+Es ist nicht möglich, Arpeggios zwischen Systemen und solche, die sich 
+nur auf ein System erstrecken, zum gleichen Zeitpunkt in einem 
+Klaviersystem zu benutzen.
+
+
+@node Trills
+@unnumberedsubsubsec Trills
+@cindex Triller
+
+Kurze Triller können wie ein normales Artikulationszeichen eingegeben 
+werden, siehe @ref{Articulations}.
+
+Längere Triller werden mit den Befehlen @code{\startTrillSpan} zu 
+Beginn und @code{\stopTrillSpan} am Ende erstellt.
+
+@lilypond[verbatim,ragged-right,relative=2,quote,fragment]
+\new Voice {
+  << { c1 \startTrillSpan }
+     { s2. \grace { d16[\stopTrillSpan e] } } >>
+  c4 }
+@end lilypond
+
+@cindex Triller mit Tonhöhe
+
+Triller, die auf einer bestimmten Note ausgeführt werden sollen, können 
+mit dem Befehl @code{pitchedTrill} notiert werden.
+
+@lilypond[ragged-right,verbatim,fragment,relative=1,quote]
+\pitchedTrill c4\startTrillSpan fis
+f\stopTrillSpan
+@end lilypond
+
+@noindent
+Dabei ist das erste Argument die Hauptnote. Die zweite Note wird 
+ohne Hals in Klammern gesetzt.
+
+
+@refcommands
+
+@code{\startTrillSpan},
+@funindex \startTrillSpan
+@code{\stopTrillSpan}.
+@funindex \stopTrillSpan
+
+
+@seealso
+
+Programmreferenz: @internalsref{TrillSpanner}.
+
+
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
+
+UNTRANSLATED NODE: IGNORE ME
+
+

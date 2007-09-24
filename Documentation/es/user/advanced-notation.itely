@@ -1686,38 +1686,6 @@ en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipogra
 @code{\setEasyHeads}
 
 
-@node Analysis brackets
-@subsection Analysis brackets
-@cindex corchetes
-@cindex fraseo, corchetes de
-@cindex musicológico, análisis
-@cindex notas, corchetes de agrupación de
-
-Los corchetes se usan en análisis musical para indicar las estructuras presentes en las piezas
-musicales.  LilyPond contempla una forma básica de corchetes horizontales anidados.
-Para usarlos, añada el grabador @internalsref{Horizontal_bracket_engraver}
-al contexto @internalsref{Staff}.  Un corchete se abre con
-@code{\startGroup} y se cierra con @code{\stopGroup}
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
-  }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-}}}
-@end lilypond
-
-@seealso
-
-Referencia del programa: @internalsref{HorizontalBracket}.
-
-
 @node Coloring objects
 @subsection Coloring objects
 
