@@ -216,11 +216,16 @@ set_column_rods (vector<Grob*> const &cols, Real padding)
 
   for (vsize i = 1; i < cols.size (); i++)
     {
+      assert (distances.size () == i-1);
+
       Item *r = dynamic_cast<Item*> (cols[i]);
       Item *rb = r->find_prebroken_piece (LEFT);
 
       if (Separation_item::is_empty (r) && (!rb || Separation_item::is_empty (rb)))
-	continue;
+	{
+	  distances.push_back (0);
+	  continue;
+	}
 
       Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
       Real right_stickout = skys ? (*skys)[LEFT].max_height () : 0.0;
