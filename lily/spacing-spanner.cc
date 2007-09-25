@@ -230,6 +230,11 @@ set_column_rods (vector<Grob*> const &cols, Real padding)
       Skyline_pair *skys = Skyline_pair::unsmob (r->get_property ("horizontal-skylines"));
       Real right_stickout = skys ? (*skys)[LEFT].max_height () : 0.0;
 
+      /* min rather than max because right-stickout will be negative if the right-hand column
+	 sticks out a lot to the left */
+      right_stickout = min (right_stickout,
+			    Separation_item::conditional_skyline (r, cols[i-1]).max_height ());
+
       Drul_array<Item*> r_cols (r, rb);
       Drul_array<Real> cur_dist (0.0, 0.0);
 
