@@ -11,6 +11,9 @@
 
 This section discusses rhythms, durations, and bars.
 
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{rhythms-headword.ly}
+
 @menu
 * Writing rhythms::             
 * Writing rests::               
