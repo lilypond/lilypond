@@ -530,10 +530,10 @@ Music for multiple parts can be interleaved
 
 @lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
-  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
-  c'2                                c'2                                |
-  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
-  c'2                                c'2                                |
+  r8 g'16[ c''] e''[ g' c'' e''] r8 g'16[ c''] e''[ g' c'' e''] |
+  c'2                               c'2                         |
+  r8 a'16[ d''] f''[ a' d'' f''] r8 a'16[ d''] f''[ a' d'' f''] |
+  c'2                               c'2                         |
 }
 \new StaffGroup <<
   \new Staff \new Voice \voiceA
@@ -543,17 +543,22 @@ Music for multiple parts can be interleaved
 
 This works quite well for piano music
 
+@c  It would be nice if the first bar fit onto one 66-char line.
+@c  Maybe simplify the example?  -gp
 @lilypond[quote,verbatim]
 music = {
   \key c \major
   \time 4/4
   \parallelMusic #'(voiceA voiceB voiceC voiceD) {
     % Bar 1
-    r8  g'16[ c''] e''[ g' c'' e''] r8  g'16[ c''] e''[ g' c''
-e''] |
-    c'2                                 c'2 |
-    r8  a16[ d'] f'[ a d' f']       r8  a16[ d'] f'[ a d' f'] |
-    c2                                  c2 |
+    r8  g'16[ c''] e''[ g' c'' e'']
+      r8 g'16[ c''] e''[ g' c'' e''] |
+    c'2
+      c'2 |
+    r8  a16[ d'] f'[ a d' f']
+      r8  a16[ d'] f'[ a d' f'] |
+    c2
+      c2 |
 
     % Bar 2
     a'8 b'      c'' d''    e'' f''    g'' a'' |
