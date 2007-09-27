@@ -86,10 +86,16 @@ octaves}.
 @cindex note names, Dutch
 @cindex note names, default
 
-A sharp is formed by adding @code{-is} to the end of a pitch name
-and a flat is formed by adding @code{-es}.  Double sharps and
-double flats are obtained by adding @code{-isis} or @code{-eses}
-to a note name.
+@c following paragraph changed to match Tutorial and Accidental
+@c and Key Signature pages.  
+
+A @rglos{sharp} pitch is made by adding @samp{is} to the name, and
+a @rglos{flat} pitch by adding @samp{es}.  As you might expect, a
+@rglos{double sharp} or @rglos{double flat} is made by adding
+@samp{isis} or @samp{eses}@footnote{This syntax derived from note
+naming conventions in Nordic and Germanic languages, like German
+and Dutch.  To use other names for accidentals, see @ruser{Note
+names in other languages}.}
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
@@ -320,23 +326,41 @@ or
 @code{c'} is used as the default if no starting pitch is defined.
 
 The octave of notes that appear in @var{musicexpr} are calculated
-as follows: if no octave changing marks are used, the basic
-interval between this and the last note is always taken to be a
-fourth or less.  This distance is determined without regarding
-alterations; a @code{fisis} following a @code{ceses} will be put
-above the @code{ceses}.  In other words, a doubly-augmented fourth
-is considered a smaller interval than a diminished fifth, even
-though the doubly-augmented fourth spans seven semitones while the
+as follows:
+
+@itemize
+@item
+If no octave changing marks are used, the basic interval between
+this and the last note is always taken to be a fourth or less.
+
+@item
+This distance is determined without regarding alterations; a
+@code{fisis} following a @code{ceses} will be put above the
+@code{ceses}.  In other words, a doubly-augmented fourth is
+considered a smaller interval than a diminished fifth, even though
+the doubly-augmented fourth spans seven semitones while the
 diminished fifth only spans six semitones.
 
+@item
 The octave changing marks @code{'} and @code{,} can be added to
-raise or lower the pitch by an extra octave.  Upon entering
-relative mode, an absolute starting pitch can be specified that
-will act as the predecessor of the first note of @var{musicexpr}.
-If no starting pitch is specified, then middle C is used as a
-start.
+raise or lower the pitch by an extra octave from the basic
+interval.
+
+@item
+Multiple octave changing marks can be used.  @code{''} will raise
+the pitch by two octaves.
+
+@item 
+The pitch of the first note is relative to @code{\relative
+@var{startpitch} }.  
+
+@item
+If you do not specify @var{startpitch} then middle C is used.
+
+@end itemize 
 
 Here is the relative mode shown in action
+
 @lilypond[quote,fragment,ragged-right,verbatim]
 \relative c'' {
   b c d c b c bes a
@@ -452,9 +476,9 @@ This means that @var{musicexpr} is transposed by the interval
 between the pitches @var{from} and @var{to}: any note with pitch
 @code{from} is changed to @code{to}.
 
-For example, consider a piece written in the key of D-major.  If
-this piece is a little too low for its performer, it can be
-transposed up to E-major with
+Consider a piece written in the key of D-major.  If this piece is
+a little too low for its performer, it can be transposed up to
+E-major with
 
 @example
 \transpose d e @dots{}
