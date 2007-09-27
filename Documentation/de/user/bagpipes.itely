@@ -1,0 +1,42 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Bagpipes
+@section Bagpipes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Bagpipe::
+@end menu 
+@node Bagpipe
+@subsection Bagpipe
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Bagpipe definitions::
+* Bagpipe example::
+@end menu 
+@node Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bagpipe example
+@unnumberedsubsubsec Bagpipe example
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

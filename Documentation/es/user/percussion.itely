@@ -1,0 +1,54 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Percussion
+@section Percussion
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* TODO percussion node fix::
+@end menu 
+@node TODO percussion node fix
+@subsection TODO percussion node fix
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Showing melody rhythms::
+* Entering percussion::
+* Percussion staves::
+* Ghost notes::
+@end menu 
+@node Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Entering percussion
+@unnumberedsubsubsec Entering percussion
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Percussion staves
+@unnumberedsubsubsec Percussion staves
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ghost notes
+@unnumberedsubsubsec Ghost notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

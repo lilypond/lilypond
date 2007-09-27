@@ -1,72 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: ad389dc87664ea7cf89ae5b87ef4c591d9a29f14
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
-@c A menu is needed before every deeper *section nesting of @node's; run
-@c     M-x texinfo-all-menus-update
-@c to automatically fill in these menus before saving changes
-
-@node Basic notation
-@chapter Basic notation
-
-In diesem Kapitel wird die Notation der am häufigsten benutzten 
-Notationsformen und -elemente vorgestellt.
-
-@menu
-* Pitches::                     
-* Rhythms::                     
-* Polyphony::                   
-* Staff notation::              
-* Connecting notes::            
-* Expressive marks::            
-* Repeats::                     
-@end menu
-
-
-
-@node Pitches
-@section Pitches
-In diesem Abschnitt wird behandelt, wie die Tonhöhe angegeben wird.
-
-@menu
-* Normal pitches::              
-* Accidentals::                 
-* Cautionary accidentals::      
-* Micro tones::                 
-* Note names in other languages::  
-* Relative octaves::            
-* Octave check::                
-* Transpose::                   
-* Rests::                       
-* Skips::                       
-@end menu
-
-
-
-@node Rhythms
-@section Rhythms
-
-Dieser Abschnitt erklärt Rhythmen, Dauern und Takte.
-
-@menu
-* Durations::                   
-* Augmentation dots::           
-* Tuplets::                     
-* Scaling durations::           
-* Bar check::                   
-* Barnumber check::             
-* Automatic note splitting::    
-@end menu
-
-
-@node Polyphony
-@section Polyphony
+@node Simultaneous notes
+@section Simultaneous notes
 
 Polyphonie bedeutet in der musikalischen Terminologie das
 Vorhandensein von mehr als einer (eigenständigen) Stimme 
@@ -74,16 +15,21 @@ in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein
 von mehr als einer Stimme pro System.
 
 @menu
-* Chords::                      
-* Stems::                       
-* Basic polyphony::             
-* Explicitly instantiating voices::  
-* Collision Resolution::        
+* Single voice::                
+* Multiple voices::             
 @end menu
 
 
+@node Single voice
+@subsection Single voice
+
+@menu
+* Chords::                      
+* Clusters::                    
+@end menu
+
 @node Chords
-@subsection Chords
+@unnumberedsubsubsec Chords
 
 @cindex Akkorde
 
@@ -99,42 +45,26 @@ einfachen Noten.
 
 Siehe @ref{Chord names} für mehr Information.
 
-@c  I don't like having this here, but I can't think of
-@c  anywhere else to put it.  :(   -gp
-@node Stems
-@subsection Stems
 
-Immer, wenn das Programm eine Note findet, wird automatisch 
-ein Notenhals (@internalsref{Stem}) -Objekt erzeugt. Auch 
-für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
-gemacht.
+@node Clusters
+@unnumberedsubsubsec Clusters
 
-@refcommands
-
-@funindex \stemUp
-@code{\stemUp} (Hälse nach oben),
-@funindex \stemDown
-@code{\stemDown} (Hälse nach unten),
-@funindex \stemNeutral
-@code{\stemNeutral} (Hälse je nach Notenposition).
+UNTRANSLATED NODE: IGNORE ME
 
 
-@commonprop
+@node Multiple voices
+@subsection Multiple voices
 
-Um die Richtung der Hälse zu ändern, können die Befehle
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
-
-@noindent benutzt werden.
+@menu
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
+* Automatic part combining::    
+* Writing music in parallel::   
+@end menu
 
 @node Basic polyphony
-@subsection Basic polyphony
+@unnumberedsubsubsec Basic polyphony
 
 @cindex Mehrstimmigkeit
 @cindex Polyphonie
@@ -221,7 +151,7 @@ vorhergehenden.
 
 
 @node Explicitly instantiating voices
-@subsection Explicitly instantiating voices
+@unnumberedsubsubsec Explicitly instantiating voices
 
 @internalsref{Voice}-Kontexte können auch manuell innerhalb 
 eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
@@ -346,7 +276,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 
 @node Collision Resolution
-@subsection Collision Resolution
+@unnumberedsubsubsec Collision Resolution
 
 Normalerweise werden Notenköpfe mit einer unterschiedlichen Anzahl 
 von Punktierungen nicht verschmolzen, aber wenn die Objekt-Eigenschaft 
@@ -475,175 +405,14 @@ Fall sollte man eine enharmonische Transkription benutzen oder
 die spezielle Cluster-Notationsweise, siehe @ref{Clusters}.
 
 
+@node Automatic part combining
+@unnumberedsubsubsec Automatic part combining
 
-@node Staff notation
-@section Staff notation
-
-@cindex Notation von Systemelementen
-@cindex Systemelemente
-@cindex Symbole, systemweit
-
-Dieser Abschnitt zeigt die Notation von Symbolen, die auf 
-Systemebene wirken, wie Tonartvorzeichen, Schlüssel oder 
-Taktangaben.
-
-@menu
-* Clef::                        
-* Key signature::               
-* Time signature::              
-* Partial measures::            
-* Bar lines::                   
-* Unmetered music::             
-* System start delimiters::     
-* Staff symbol::                
-* Writing music in parallel::   
-@end menu
-
-
-@node System start delimiters
-@subsection System start delimiters
-
-@cindex Beginn eines Notensystems
-@cindex Systeme, mehrere
-@cindex Notensysteme, mehrere
-@cindex Klammer, vertikal
-@cindex Klammer, geschweift
-@cindex Partitur
-@cindex Systemgruppe
-@cindex Instrumentengruppe
-@cindex Stimmgruppe
-@cindex System, Chor
-
-Viele Partituren bestehen aus mehr als einem Notensystem. Diese Systeme 
-können auf vier unterschiedliche Arten verbunden werden:
-
-@itemize @bullet
-@item Die Gruppe wird mit einer Klammer an der linken Seite geöffnet und 
-die Taktlinien sind verbunden. Das ist der Klaviersystem 
-(@internalsref{GrandStaff})-Kontext.
-
-@lilypond[verbatim,ragged-right,quote]
-\new GrandStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item Die Gruppe beginnt mit einer Klammer und die Taktlinien sind verbunden. 
-Dieses Verhalten erzeugt der Stimmgruppen 
-(@internalsref{StaffGroup})-Kontext.
-
-@lilypond[verbatim,ragged-right,quote]
-\new StaffGroup
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item Die Gruppe beginnt mit einer Klammer, aber die Taktlinien sind nicht 
-miteinander verbunden. Das wird mit dem Chorsystem 
-(@internalsref{ChoirStaff})-Kontext erreicht.
-
-@lilypond[verbatim,ragged-right,quote]
-\new ChoirStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item Die Gruppe beginnt mit einer vertikalen Linie. Taktlinien sind nicht 
-verbunden. Das ist die Standardeinstellung für eine Partitur.
-
-@lilypond[verbatim,ragged-right,quote]
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-@end itemize
-
-
-@seealso
-
-Die Definition der Taktlinien am Beginn jedes Systems werden mit 
-den Befehlen @internalsref{SystemStartBar}, @internalsref{SystemStartBrace} 
-und @internalsref{SystemStartBracket} festgelegt. Nur einer dieser 
-drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
-die @code{systemStartDelimiter}-Eigenschaft bestimmt.
-
-
-@commonprop
-
-Anfangsklammern können tief einander verschachtelt werden.
-
-@lilypond[quote,ragged-right,verbatim]
-\new StaffGroup
-\relative <<
-  \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
->>
-@end lilypond
-
-
-@node Staff symbol
-@subsection Staff symbol
-
-@cindex Justierung von Notensystemen
-@cindex Notensysteme, Modifikation
-
-Noten, Dynamikzeichen usw. werden auf den Notenlinien angeordnet, die 
-sich zu einem Notensystem zusammenfassen lassen. Das Programm LilyPond 
-zeichnet diese Linien durch ein spezielles graphisches Objekt, 
-@code{staff symbol} (engl. @qq{staff} = Notensystem) genannt.
-
-Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
-Abstand der Linien verändert werden. Das wird gezeigt in den Beispieldateien 
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
-@lsr{staff,changing-the-staff-size.ly}.
-
-Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
-geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
-
-@lilypond[verbatim,relative=2,fragment]
-b4 b
-\override Staff.StaffSymbol #'line-count = 2
-\stopStaff \startStaff
-b b
-\revert Staff.StaffSymbol #'line-count
-\stopStaff \startStaff
-b b
-@end lilypond
-
-Kombiniert mit verkleinerten Systemen, kann man diese Funktion etwa 
-benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
-
-@cindex Ossia
-
-@lilypondfile{ossia.ly}
-
-@cindex Notenlinien, Anzahl
-@cindex Notenlinien, Dicke
-@cindex Dicke der Notenlinien einstellen
-@cindex Anzahl der Notenlinien einstellen
-@cindex Zahl der Notenlinien einstellen
-
-@seealso
-
-Programmreferenz: @internalsref{StaffSymbol}.
-
-Beispiele: @lsrdir{staff}
+UNTRANSLATED NODE: IGNORE ME
 
 
 @node Writing music in parallel
-@subsection Writing music in parallel
+@unnumberedsubsubsec Writing music in parallel
 
 @cindex Parallele Notation, Eingabe
 @cindex Eingabe von Noten parallel
@@ -705,116 +474,5 @@ e''] |
   >>
 }
 @end lilypond
-
-
-@node Connecting notes
-@section Connecting notes
-
-Dieser Abschnitt stellt Eigenschaften dar, die Gruppen von 
-Noten betreffen.
-
-@menu
-* Ties::                        
-* Slurs::                       
-* Phrasing slurs::              
-* Laissez vibrer ties::         
-* Automatic beams::             
-* Manual beams::                
-* Grace notes::                 
-@end menu
-
-
-@node Expressive marks
-@section Expressive marks
-
-Vortragszeichen helfen dem Musiker, mehr Ausdruck in die Musik zu legen.
-
-@menu
-* Articulations::               
-* Fingering instructions::      
-* Dynamics::                    
-* Breath marks::                
-* Trills::                      
-* Glissando::                   
-* Arpeggio::                    
-* Falls and doits::             
-@end menu
-
-
-@node Fingering instructions
-@subsection Fingering instructions
-
-@cindex Fingersatz
-@cindex Fingerwechsel
-
-Fingersatzanweisungen können folgenderweise notiert werden:
-@example
-@var{Note}-@var{Zahl}
-@end example
-Für Fingerwechsel muss eine Textbeschriftung (markup) benutzt werden:
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2 - 3" }
-@end lilypond
-
-Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet 
-werden, die mit dem 
-Daumen (etwa auf dem Cello) gespielt werden sollen.
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
-@end lilypond
-
-Fingersätze für Akkorde können auch zu einzelnen Noten des 
-Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer 
-direkt an die Noten angefügt werden.
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
-@end lilypond
-
-
-@commonprop
-
-Eine bessere Kontrolle über die Position der Fingersätze in Akkorden 
-lässt sich mit der Eigenschaft @code{fingeringOrientations} herstellen:
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-Mit dieser Funktion können Fingersatzbezeichnungen auch bei einstimmiger 
-Musik sehr nah in die Notenköpfe gerückt werden.
-
-@lilypond[verbatim,ragged-right,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
-
-
-@seealso
-
-Programmreferenz: @internalsref{Fingering}.
-
-Beispiele: @lsr{expressive,fingering-chords.ly}
-
-
-@node Repeats
-@section Repeats
-
-Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
-ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
-
-@menu
-* Repeat types::                
-* Repeat syntax::               
-* Repeats and MIDI::            
-* Manual repeat commands::      
-* Tremolo repeats::             
-* Tremolo subdivisions::        
-* Measure repeats::             
-@end menu
 
 

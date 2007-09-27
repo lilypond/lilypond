@@ -1,0 +1,72 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Guitar
+@section Guitar
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Guitar TODO::
+@end menu 
+@node Guitar TODO
+@subsection Guitar TODO
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* String number indications::
+* Tablatures basic::
+* Non-guitar tablatures::
+* Banjo tablatures::
+* Fret diagrams::
+* Right hand fingerings::
+* Other guitar issues::
+@end menu 
+@node String number indications
+@unnumberedsubsubsec String number indications
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Tablatures basic
+@unnumberedsubsubsec Tablatures basic
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Non-guitar tablatures
+@unnumberedsubsubsec Non-guitar tablatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fret diagrams
+@unnumberedsubsubsec Fret diagrams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Right hand fingerings
+@unnumberedsubsubsec Right hand fingerings
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Other guitar issues
+@unnumberedsubsubsec Other guitar issues
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

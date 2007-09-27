@@ -1,0 +1,150 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Vocal music
+@section Vocal music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* TODO subsection vocal music::
+@end menu 
+@node TODO subsection vocal music
+@subsection TODO subsection vocal music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Setting simple songs::
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Automatic syllable durations::
+* Another way of entering lyrics::
+* Assigning more than one syllable to a single note::
+* More than one note on a single syllable::
+* Extenders and hyphens::
+* Working with lyrics and identifiers::
+* Flexibility in placement::
+* Lyrics to multiple notes of a melisma::
+* Divisi lyrics::
+* Switching the melody associated with a lyrics line::
+* Lyrics independent of notes::
+* Spacing lyrics::
+* More about stanzas::
+* Other vocal issues::
+@end menu 
+@node Setting simple songs
+@unnumberedsubsubsec Setting simple songs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Entering lyrics
+@unnumberedsubsubsec Entering lyrics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Aligning lyrics to a melody
+@unnumberedsubsubsec Aligning lyrics to a melody
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Automatic syllable durations::
+* Another way of entering lyrics::
+* Assigning more than one syllable to a single note::
+* More than one note on a single syllable::
+* Extenders and hyphens::
+@end menu 
+@node Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Another way of entering lyrics
+@unnumberedsubsubsec Another way of entering lyrics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Assigning more than one syllable to a single note
+@unnumberedsubsubsec Assigning more than one syllable to a single note
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node More than one note on a single syllable
+@unnumberedsubsubsec More than one note on a single syllable
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Working with lyrics and identifiers
+@unnumberedsubsubsec Working with lyrics and identifiers
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Flexibility in placement
+@unnumberedsubsubsec Flexibility in placement
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Lyrics to multiple notes of a melisma::
+* Divisi lyrics::
+* Switching the melody associated with a lyrics line::
+* Lyrics independent of notes::
+@end menu 
+@node Lyrics to multiple notes of a melisma
+@unnumberedsubsubsec Lyrics to multiple notes of a melisma
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Switching the melody associated with a lyrics line
+@unnumberedsubsubsec Switching the melody associated with a lyrics line
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Spacing lyrics
+@unnumberedsubsubsec Spacing lyrics
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node More about stanzas
+@unnumberedsubsubsec More about stanzas
+
+UNTRANSLATED NODE: IGNORE ME
+
+@unnumberedsubsubsec Adding stanza numbers 
+@unnumberedsubsubsec Adding dynamics marks
+@unnumberedsubsubsec Adding singer names
+@unnumberedsubsubsec Printing stanzas at the end 
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
+@node Other vocal issues
+@unnumberedsubsubsec Other vocal issues
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

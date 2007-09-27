@@ -1,0 +1,130 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Ancient notation
+@section Ancient notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Ancient TODO::
+@end menu 
+@node Ancient TODO
+@subsection Ancient TODO
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Ancient note heads::
+* Ancient accidentals::
+* Ancient rests::
+* Ancient clefs::
+* Ancient flags::
+* Ancient time signatures::
+* Ancient articulations::
+* Custodes::
+* Divisiones::
+* Ligatures::
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
+* Gregorian Chant contexts::
+* Mensural contexts::
+* Musica ficta accidentals::
+* Figured bass::
+@end menu 
+@node Ancient note heads
+@unnumberedsubsubsec Ancient note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient rests
+@unnumberedsubsubsec Ancient rests
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient clefs
+@unnumberedsubsubsec Ancient clefs
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient flags
+@unnumberedsubsubsec Ancient flags
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ancient articulations
+@unnumberedsubsubsec Ancient articulations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Custodes
+@unnumberedsubsubsec Custodes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Divisiones
+@unnumberedsubsubsec Divisiones
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ligatures
+@unnumberedsubsubsec Ligatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
+@end menu 
+@node White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Gregorian Chant contexts
+@unnumberedsubsubsec Gregorian Chant contexts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Mensural contexts
+@unnumberedsubsubsec Mensural contexts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Musica ficta accidentals
+@unnumberedsubsubsec Musica ficta accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Figured bass
+@unnumberedsubsubsec Figured bass
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

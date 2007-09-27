@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
 
     When revising a translation, copy the HEAD committish of the
@@ -27,19 +27,14 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* File structure (introduction)::
 * File structure::
 * A single music expression::
 * Multiple scores in a book::
 * Extracting fragments of notation::
 * Including LilyPond files::
 * Text encoding::
+* Different editions from one source::
 @end menu 
-@node File structure (introduction)
-@subsection File structure (introduction)
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node File structure
 @subsection File structure
 
@@ -67,6 +62,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Text encoding
 @subsection Text encoding
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Different editions from one source
+@subsection Different editions from one source
 
 UNTRANSLATED NODE: IGNORE ME
 

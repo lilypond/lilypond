@@ -1,73 +1,13 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of lilypond.tely
+@c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 71b67137f76fa4e8aede58299630369f616004d9
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c A menu is needed before every deeper *section nesting of @node's; run
-@c     M-x texinfo-all-menus-update
-@c to automatically fill in these menus before saving changes
-
-@node Basic notation
-@chapter Basic notation
-
-De l'utilisation des fonctions de notation de base.
-
-
-@menu
-* Pitches::
-* Rhythms::
-* Polyphony::
-* Staff notation::
-* Connecting notes::
-* Expressive marks::
-* Repeats::
-@end menu
-
-
-@node Pitches
-@section Pitches
-
-De la manière de spécifier les hauteurs de notes.
-
-@menu
-* Normal pitches::
-* Accidentals::
-* Cautionary accidentals::
-* Micro tones::
-* Note names in other languages::
-* Relative octaves::
-* Octave check::
-* Transpose::
-* Rests::
-* Skips::
-@end menu
-
-
-
-
-
-@node Rhythms
-@section Rhythms
-
-Des rythmes, durées et mesures.
-
-@menu
-* Durations::
-* Augmentation dots::
-* Tuplets::
-* Scaling durations::
-* Bar check::
-* Barnumber check::
-* Automatic note splitting::
-@end menu
-
-
-@node Polyphony
-@section Polyphony
+@node Simultaneous notes
+@section Simultaneous notes
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
@@ -75,16 +15,21 @@ polyphonie fait référence au fait d'avoir plus d'une voix sur la même
 portée.
 
 @menu
-* Chords::
-* Stems::
-* Basic polyphony::
-* Explicitly instantiating voices::
-* Collision Resolution::
+* Single voice::                
+* Multiple voices::             
 @end menu
 
 
+@node Single voice
+@subsection Single voice
+
+@menu
+* Chords::                      
+* Clusters::                    
+@end menu
+
 @node Chords
-@subsection Chords
+@unnumberedsubsubsec Chords
 
 @cindex accords
 
@@ -99,38 +44,51 @@ d'articulation, comme une simple note.
 Pour plus d'information à propos des accords, voir @ref{Chord names}.
 
 
-@node Stems
-@subsection Stems
+@node Clusters
+@unnumberedsubsubsec Clusters
 
-Dès qu'une note est rencontrée, un objet @internalsref{Stem} se crée
-automatiquement.  Pour les rondes et les silences, ils sont aussi
-créés, mais en mode invisible.
+@cindex cluster
 
-@refcommands
-
-@funindex \stemUp
-@code{\stemUp},
-@funindex \stemDown
-@code{\stemDown},
-@funindex \stemNeutral
-@code{\stemNeutral}.
-
-
-@commonprop
-
-Pour changer la direction des hampes au milieu de la portée, utilisez
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
+Un cluster indique un agrégat de sons.  On peut le représenter par une
+plage limitée par un ambitus (notes extrêmes).  On obtient une telle notation en
+appliquant la fonction @code{makeClusters} à une séquence d'accords,
+comme  
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\makeClusters { <c e > <b f'> }
 @end lilypond
 
+Des notes ordinaires et des clusters peuvent cohabiter sur une même
+portée, y compris simultanément --- en pareil cas, rien ne sera fait
+pour tenter d'empécher les chevauchements entre notes et clusters.
+
+@seealso
+
+Référence du programme : @internalsref{ClusterSpanner},
+@internalsref{ClusterSpannerBeacon},
+@internalsref{Cluster_spanner_engraver}.
+
+Exemples : @lsr{contemporary,cluster@/.ly}.
+
+@refbugs
+
+Les expressions musicales du type @code{<< @{ g8 e8 @} a4 >>} ne
+seront pas imprimées de façon acceptable.  utilisez plutôt 
+@code{<g a>8 <e a>8} . 
+
+
+@node Multiple voices
+@subsection Multiple voices
+
+@menu
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
+* Automatic part combining::    
+* Writing music in parallel::   
+@end menu
 
 @node Basic polyphony
-@subsection Basic polyphony
+@unnumberedsubsubsec Basic polyphony
 
 @cindex polyphonie
 
@@ -212,7 +170,7 @@ pas à @code{noteB} ou @code{noteA}.
 
 
 @node Explicitly instantiating voices
-@subsection Explicitly instantiating voices
+@unnumberedsubsubsec Explicitly instantiating voices
 
 Les contextes @internalsref{Voice} peuvent être déclarés manuellement
 dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
@@ -335,7 +293,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 
 @node Collision Resolution
-@subsection Collision Resolution
+@unnumberedsubsubsec Collision Resolution
 
 D'ordinaire, les têtes de notes pointées et non-pointées ne sont pas
 fusionnées, mais lorsque la propriété @code{merge-differently-dotted} de
@@ -456,174 +414,109 @@ voir @ref{Clusters}.
 
 
 
-@node Staff notation
-@section Staff notation
+@node Automatic part combining
+@unnumberedsubsubsec Automatic part combining
+@cindex regroupement automatique de parties
+@cindex parties, combiner des
 
-@cindex Staff notation
+Le regroupement automatique de parties vous permet de fusionner deux
+pupitres sur une seule portée, ceci dans le but de créer des
+partitions d'orchestre.  Lorsque les deux parties sont identiques sur
+une certaine durée, une seule s'affiche.  Lorsqu'elles diffèrent, 
+deux voix séparées apparaissent, avec des hampes dont la direction est
+gérée automatiquement.  Vous pouvez aussi identifier et faire
+ressortir les solos et parties @emph{a due}.
 
-De la notation musicale concernant la portée, comme
-les armures, les clefs ou les chiffres de mesure.
+Voici la syntaxe qui permet de combiner des parties :
 
-@menu
-* Clef::
-* Key signature::
-* Time signature::
-* Partial measures::
-* Bar lines::
-* Unmetered music::
-* System start delimiters::
-* Staff symbol::
-* Writing music in parallel::
-@end menu
-
+@example
+\partcombine @var{musicexpr1} @var{musicexpr2}
+@end example
 
 
-@node System start delimiters
-@subsection System start delimiters
+L'exemple suivant illustre les fonctionnalités élémentaires du
+combinateur de parties : positionner les parties sur une portée, gérer
+la direction des hampes et de la polyphonie.
 
-@cindex système, début de
-@cindex crochet vertical
-@cindex accolade verticale
-@cindex portée multiple
-@cindex portées, groupe de
+@lilypond[quote,verbatim,ragged-right,fragment]
+\new Staff \partcombine
+  \relative g' { g g a( b) c c r r }
+  \relative g' { g g r4 r e e g g }
+@end lilypond
 
-De nombreuses partitions sont écrites sur plusieurs portées.  Ces
-portées peuvent être regroupées de quatre manières différentes.
+Le premier @code{sol} n'apparaît qu'une seule fois, alors qu'il a été
+spécifié deux fois (une fois dans chacune des parties).  La direction
+des hampes et des liaisons de tenue ou de phrasé est gérée
+automatiquement, selon qu'il s'agisse d'un solo ou d'un unisson.  La
+première partie, dont le contexte s'appellera @code{one}, aura toujours
+ses hampes dirigées vers le haut et sera notée @q{Solo}, alors que la
+deuxième, appelée @code{two}, aura des hampes vers le bas et sera
+notée @q{Solo@tie{}II}.
 
-@itemize @bullet
-@item Le groupe de portées est attaché par une accolade sur la gauche,
-et les barres de mesure sont d'un seul tenant. Il s'agit du contexte
-@internalsref{GrandStaff}.
+Si votre intention n'est que de fusionner les parties, sans ajouter de
+texte, assignez faux à la propriété @code{printPartCombineTexts}.
 
-@lilypond[verbatim,ragged-right,quote]
-\new GrandStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Staff.printPartCombineTexts = ##f
+  \partcombine
+    \relative g' { g a( b) r }
+    \relative g' { g r4 r f }
 >>
 @end lilypond
 
-@item Le groupe de portées est attaché par un crochet, et les barres
-de mesure sont d'un seul tenant. Il s'agit du contexte
-@internalsref{StaffGroup}.
+Le texte imprimé pour les sections solo ou à l'unisson se règle par
+les propriétés @code{soloText}, @code{soloIIText}, et @code{aDueText}. 
 
-@lilypond[verbatim,ragged-right,quote]
-\new StaffGroup
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+\new Staff <<
+  \set Score.soloText = #"ichi"
+  \set Score.soloIIText = #"ni"
+  \set Score.aDueText = #"tachi"
+  \partcombine
+    \relative g' { g4 g a( b) r }
+    \relative g' { g4 g r r f }
 >>
 @end lilypond
 
+LilyPond interprète dans un contexte @internalsref{Voice} les
+arguments fournis à @code{\partcombine}.  Si vous travaillez avec des
+octaves relatives, spécifiez @code{\relative} dans chacune des
+expressions musicales, comme ceci :
 
+@example
+\partcombine
+  \relative @dots{} @var{musicexpr1}
+  \relative @dots{} @var{musicexpr2}
+@end example
 
-@item Le groupe de portées est attaché par un crochet, mais les barres
-de mesure sont séparées d'une portée à l'autre. Il s'agit du contexte
-@internalsref{ChoirStaff}.
-
-@lilypond[verbatim,ragged-right,quote]
-\new ChoirStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item Les portées du groupe ne sont pas attachées (hormis par une
-simple ligne verticale). Les barres de mesure sont détachées. Il
-s'agit de l'assemblage par défaut.
-
-@lilypond[verbatim,ragged-right,quote]
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-@end itemize
-
+@noindent
+Une section @code{\relative} en dehors de @code{\partcombine} sera
+sans effet sur les hauteurs de @var{musicexpr1} et @var{musicexpr2}.
 
 @seealso
 
-Les barres de mesure au début de chaque système prennent l'un des styles
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}.  Dans chaque contexte, seul l'un de
-ces styles est utilisé, et c'est la propriété
-@code{systemStartDelimiter} qui détermine lequel.
+Référence du programme : @internalsref{PartCombineMusic}.
 
-@commonprop
+@refbugs
 
-Les accolades et crochets délimitant les systèmes peuvent être imbriqués
-en profondeur,
+Lorsque @code{printPartCombineTexts} est actif et que les deux voix
+jouent souvent les mêmes notes, le combinateur peut afficher @code{a2}
+plus d'une fois par mesure.
 
-@lilypond[quote,ragged-right,verbatim]
-\new StaffGroup
-\relative <<
-  \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
-  \new Staff { c1 }
->>
-@end lilypond
+@code{\partcombine} ne peut s'inscrire dans un bloc @code{\times}.
 
+@code{\partcombine} ne peut s'inscrire dans un bloc @code{\relative}.
 
-@node Staff symbol
-@subsection Staff symbol
-
-@cindex symbole de portée
-@cindex portée, lignes de
-
-Les notes, nuances, etc. sont regroupés dans un assemblage de lignes
-horizontales, que l'on nomme la portée (en anglais @qq{staff}, et
-@qq{staves} au pluriel).  Dans LilyPond, ces lignes sont dessinées au
-moyen d'un objet de mise en forme à part entière, nommé @code{staff
-symbol} --- symbole de portée.
-
-
-L'aspect du symbole de portée peut être modifié selon différentes
-propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
-éloignement. Vous en trouverez des exemples dans
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} et
-@lsr{staff,changing-the-staff-size.ly}.
-
-
-De plus, la portée peut commencer et s'arrêter où l'on veut, grâce aux
-commandes @code{\startStaff} et @code{\stopStaff}.
-
-@lilypond[verbatim,relative=2,fragment]
-b4 b
-\override Staff.StaffSymbol #'line-count = 2
-\stopStaff \startStaff
-b b
-\revert Staff.StaffSymbol #'line-count
-\stopStaff \startStaff
-b b
-@end lilypond
-
-Cette manière de procéder peut être utilisée pour introduire des
-@qq{ossias}, ou dans des partitions à nombre de portées variable,
-comme sur l'exemple suivant :
-
-@cindex ossia
-
-@lilypondfile{ossia.ly}
-
-@cindex lignes de portée, nombre de
-@cindex lignes de portée, épaisseur des
-@cindex épaisseur des lignes de portées
-@cindex nombre de lignes de portée
-
-@seealso
-
-Référence du programme : @internalsref{StaffSymbol}.
-
-D'autres exemples : @lsrdir{staff}.
+En interne, @code{\partcombine} interprète les deux arguments en tant
+que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
+quand les parties seront fusionnées.  Par conséquent, si les arguments
+changent pour d'autres noms de contexte @internalsref{Voice}, les
+événements qu'ils contiendraient seront ignorés. 
 
 
 @node Writing music in parallel
-@subsection Writing music in parallel
+@unnumberedsubsubsec Writing music in parallel
 
 @cindex écrire la musique en parallèle
 @cindex musique en parallèle
@@ -685,124 +578,5 @@ e''] |
   >>
 }
 @end lilypond
-
-
-@node Connecting notes
-@section Connecting notes
-
-De la notation qui affecte des groupes de notes.
-
-@menu
-* Ties::
-* Slurs::
-* Phrasing slurs::
-* Laissez vibrer ties::
-* Automatic beams::
-* Manual beams::
-* Grace notes::
-@end menu
-
-
-@node Expressive marks
-@section Expressive marks
-
-Les signes d'interprétation aident les musiciens à faire en sorte que la
-musique soit plus qu'un simple assemblage de notes et de rythmes.
-
-@menu
-* Articulations::
-* Fingering instructions::
-* Dynamics::
-* Breath marks::
-* Trills::
-* Glissando::
-* Arpeggio::
-* Falls and doits::
-@end menu
-
-
-@node Fingering instructions
-@subsection Fingering instructions
-
-@cindex doigté
-@cindex substitution de doigt
-
-
-Les doigtés peuvent être indiqués comme suit :
-@example
-@var{note}-@var{chiffre_du_doigt}
-@end example
-Pour les substitutions de doigts, on a recours à une indication
-textuelle (commande @code{\markup}) de doigté
-(commande @code{\finger}).
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2 - 3" }
-@end lilypond
-
-
-La commande @code{\thumb} peut être utilisée pour indiquer, par exemple
-dans une partition de violoncelle, si une note doit être jouée avec le
-pouce (@q{thumb} en anglais).
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
-@end lilypond
-
-
-Les doigtés des accords peuvent être saisis note par note,
-en les indiquant après chaque hauteur de note.
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
-@end lilypond
-
-
-@commonprop
-
-On peut contrôler précisément les doigtés des accords en réglant
-la propriété @code{fingeringOrientations}.
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-
-Cette propriété permet également, dans de la musique monophonique,
-d'indiquer des doigtés très proches des têtes de notes.
-
-@lilypond[verbatim,ragged-right,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
-
-
-@seealso
-
-Référence du programme : @internalsref{Fingering}.
-
-D'autres exemples : @lsr{expressive,fingering-chords.ly}.
-
-
-@node Repeats
-@section Repeats
-
-Une des notions essentielles, dans la musique, est le fait que des
-éléments soient joués plusieurs fois. Il existe de nombreuses façons
-de noter ces reprises.
-
-@menu
-* Repeat types::
-* Repeat syntax::
-* Repeats and MIDI::
-* Manual repeat commands::
-* Tremolo repeats::
-* Tremolo subdivisions::
-* Measure repeats::
-@end menu
 
 

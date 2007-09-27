@@ -1,0 +1,209 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Staff notation
+@section Staff notation
+
+staff = singular, staves = plural
+
+@menu
+* Displaying staves::           
+* Writing parts::               
+@end menu
+
+
+@node Displaying staves
+@subsection Displaying staves
+
+@menu
+* System start delimiters::     
+* Staff symbol::                
+* Hiding staves::               
+@end menu
+
+@node System start delimiters
+@unnumberedsubsubsec System start delimiters
+
+@cindex Beginn eines Notensystems
+@cindex Systeme, mehrere
+@cindex Notensysteme, mehrere
+@cindex Klammer, vertikal
+@cindex Klammer, geschweift
+@cindex Partitur
+@cindex Systemgruppe
+@cindex Instrumentengruppe
+@cindex Stimmgruppe
+@cindex System, Chor
+
+Viele Partituren bestehen aus mehr als einem Notensystem. Diese Systeme 
+können auf vier unterschiedliche Arten verbunden werden:
+
+@itemize @bullet
+@item Die Gruppe wird mit einer Klammer an der linken Seite geöffnet und 
+die Taktlinien sind verbunden. Das ist der Klaviersystem 
+(@internalsref{GrandStaff})-Kontext.
+
+@lilypond[verbatim,ragged-right,quote]
+\new GrandStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item Die Gruppe beginnt mit einer Klammer und die Taktlinien sind verbunden. 
+Dieses Verhalten erzeugt der Stimmgruppen 
+(@internalsref{StaffGroup})-Kontext.
+
+@lilypond[verbatim,ragged-right,quote]
+\new StaffGroup
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item Die Gruppe beginnt mit einer Klammer, aber die Taktlinien sind nicht 
+miteinander verbunden. Das wird mit dem Chorsystem 
+(@internalsref{ChoirStaff})-Kontext erreicht.
+
+@lilypond[verbatim,ragged-right,quote]
+\new ChoirStaff
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+
+@item Die Gruppe beginnt mit einer vertikalen Linie. Taktlinien sind nicht 
+verbunden. Das ist die Standardeinstellung für eine Partitur.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
+@end lilypond
+@end itemize
+
+
+@seealso
+
+Die Definition der Taktlinien am Beginn jedes Systems werden mit 
+den Befehlen @internalsref{SystemStartBar}, @internalsref{SystemStartBrace} 
+und @internalsref{SystemStartBracket} festgelegt. Nur einer dieser 
+drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
+die @code{systemStartDelimiter}-Eigenschaft bestimmt.
+
+
+@commonprop
+
+Anfangsklammern können tief einander verschachtelt werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup
+\relative <<
+  \set StaffGroup.systemStartDelimiterHierarchy
+    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+  \new Staff { c1 }
+>>
+@end lilypond
+
+
+@node Staff symbol
+@unnumberedsubsubsec Staff symbol
+
+@cindex Justierung von Notensystemen
+@cindex Notensysteme, Modifikation
+
+Noten, Dynamikzeichen usw. werden auf den Notenlinien angeordnet, die 
+sich zu einem Notensystem zusammenfassen lassen. Das Programm LilyPond 
+zeichnet diese Linien durch ein spezielles graphisches Objekt, 
+@code{staff symbol} (engl. @qq{staff} = Notensystem) genannt.
+
+Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
+Abstand der Linien verändert werden. Das wird gezeigt in den Beispieldateien 
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
+@lsr{staff,changing-the-staff-size.ly}.
+
+Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
+geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
+
+@lilypond[verbatim,relative=2,fragment]
+b4 b
+\override Staff.StaffSymbol #'line-count = 2
+\stopStaff \startStaff
+b b
+\revert Staff.StaffSymbol #'line-count
+\stopStaff \startStaff
+b b
+@end lilypond
+
+Kombiniert mit verkleinerten Systemen, kann man diese Funktion etwa 
+benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
+
+@cindex Ossia
+
+@lilypondfile{ossia.ly}
+
+@cindex Notenlinien, Anzahl
+@cindex Notenlinien, Dicke
+@cindex Dicke der Notenlinien einstellen
+@cindex Anzahl der Notenlinien einstellen
+@cindex Zahl der Notenlinien einstellen
+
+@seealso
+
+Programmreferenz: @internalsref{StaffSymbol}.
+
+Beispiele: @lsrdir{staff}
+
+
+@node Hiding staves
+@unnumberedsubsubsec Hiding staves
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Writing parts
+@subsection Writing parts
+
+@menu
+* Metronome marks::             
+* Instrument names::            
+* Quoting other voices::        
+* Formatting cue notes::        
+@end menu
+
+@node Metronome marks
+@unnumberedsubsubsec Metronome marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Instrument names
+@unnumberedsubsubsec Instrument names
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Quoting other voices
+@unnumberedsubsubsec Quoting other voices
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Formatting cue notes
+@unnumberedsubsubsec Formatting cue notes
+
+UNTRANSLATED NODE: IGNORE ME
+

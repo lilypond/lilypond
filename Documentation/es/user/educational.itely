@@ -1,0 +1,546 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Educational use
+@section Educational use
+
+@menu
+* Note heads::                  
+* Inside the staff::            
+* Outside the staff::           
+@end menu
+
+
+@node Note heads
+@subsection Note heads
+
+@menu
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+* Special noteheads::           
+@end menu
+
+@node Easy Notation note heads
+@unnumberedsubsubsec Easy Notation note heads
+
+@cindex notas, cabezas de, estudio
+@cindex notas, cabezas de, notación simplificada
+@cindex simplificada, notación
+@cindex Hal Leonard
+
+Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la nota (en inglés) dentro de la cabeza.  Se usa
+en la música para principiantes
+
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+  \setEasyHeads
+  c'2 e'4 f' | g'1
+@end lilypond
+
+La orden @code{\setEasyHeads} sobreescribe los ajustes del objeto
+@internalsref{NoteHead}.  Para que las letras sean legibles, se tienen que imprimir
+en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipografía mayor, consulte
+@ref{Setting the staff size}.
+
+@refcommands
+
+@funindex \setEasyHeads
+@code{\setEasyHeads}
+
+
+@node Shape note heads
+@unnumberedsubsubsec Shape note heads
+
+@cindex notas, cabezas de, con formas
+
+En notación de cabezas con forma, la forma de la cabeza corresponde
+a la función armónica de una nota dentro de la escala. Esta notación se hizo popular
+en los libros americanos de canciones durante el s.XIX.
+
+Las cabezas con formas se pueden producir estableciendo @code{\aikenHeads} o
+@code{\sacredHarpHeads}, según el estilo deseado.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Las formas se determinan en función del grado de la escala, donde la tónica
+está determinada por la instrucción @code{\key}
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Las cabezas con formas están programadas a través de la propiedad @code{shapeNoteStyles}.
+Su valor es un vector de símbolos.  El elemento en el lugar k indica qué estilo
+usa el grado k de la escala.  Son posibles las combinaciones
+arbitrarias, p.ej.:
+
+@lilypond[verbatim,relative=1,fragment]
+  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  c8 d4. e8 a2 g1
+@end lilypond
+
+
+@node Improvisation
+@unnumberedsubsubsec Improvisation
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Special noteheads
+@unnumberedsubsubsec Special noteheads
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Inside the staff
+@subsection Inside the staff
+
+
+@menu
+* Selecting notation font size::  
+* Fingering instructions::      
+* Hidden notes::                
+* Coloring objects::            
+* Parentheses::                 
+* Ambitus::                     
+* Stems::                       
+@end menu
+
+@node Selecting notation font size
+@unnumberedsubsubsec Selecting notation font size
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Fingering instructions
+@unnumberedsubsubsec Fingering instructions
+
+@cindex digitación
+@cindex cambio de dedo
+
+Las instrucciones de digitación se pueden introducir usando
+@example
+@var{nota}-@var{dígito}
+@end example
+Para los cambios de dedo, utilice marcas de texto.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+c4-1 c-2 c-3 c-4
+c^\markup { \finger "2 - 3" }
+@end lilypond
+
+Puede usar la articulación de pulgar para indicar que una nota se debe tocar con el pulgar
+(p.ej. en música de cello)
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+<a_\thumb a'-3>8 <b_\thumb b'-3>
+@end lilypond
+
+Las digitaciones para los acordes también se pueden añadir a las notas individuales del acorde
+escribiéndolas después de las alturas
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+< c-1 e-2 g-3 b-5 >4
+@end lilypond
+
+
+@commonprop
+
+Puede ejercer un mayor control sobre la digitación de los acordes
+estableciendo @code{fingeringOrientations}
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+\set fingeringOrientations = #'(left down)
+<c-1 es-2 g-4 bes-5 > 4
+\set fingeringOrientations = #'(up right down)
+<c-1 es-2 g-4 bes-5 > 4
+@end lilypond
+
+Usando esta funcionalidad, también es posible poner instrucciones de digitación muy cerca de las cabezas 
+de nota en música monofónica,
+
+@lilypond[verbatim,ragged-right,quote,fragment]
+\set fingeringOrientations = #'(right)
+<es'-2>4
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{Fingering}.
+
+Ejemplos: @lsr{expressive,fingering-chords.ly}
+
+
+@node Hidden notes
+@unnumberedsubsubsec Hidden notes
+
+@cindex ocultas, notas
+@cindex invisibles, notas
+@cindex transparentes, notas
+
+@funindex \hideNotes
+@funindex \unHideNotes
+Las notas ocultas (o invisibles, o transparentes) pueden ser de utilidad en la preparación de ejercicios
+de teoría o de composición.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c4 d4
+\hideNotes
+e4 f4
+\unHideNotes
+g4 a
+@end lilypond
+
+
+@node Coloring objects
+@unnumberedsubsubsec Coloring objects
+
+Se pueden asignar colores a los objetos individuales.  Podemos usar los nombres de color
+que se relacionan en la @ref{List of colors}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+Se puede acceder al espectro completo de colores definido para X11 usando la función
+de Scheme x11-color.  Esta función acepta un argumento que puede ser un
+símbolo
+
+@example
+\override Beam #'color = #(x11-color 'MediumTurquoise)
+@end example
+
+o una cadena
+
+@example
+\override Beam #'color = #(x11-color "MediumTurquoise")
+@end example
+
+La primera forma es más rápida de escribir y más eficiente.  Sin embargo,
+es posible usar la segunda forma para acceder a los colores de X11 a través de la variante del
+nombre que tiene varias palabras
+
+@example
+\override Beam #'color = #(x11-color "medium turquoise")
+@end example
+
+Si el parámetro no tiene sentido para x11-color, el color por defecto que se devuelve
+es el negro.  Debería ser obvio, a la vista de la partitura resultante, que algo está
+mal.
+
+Este ejemplo ilustra el uso de x11-color.  Tenga en cuenta que el color de la plica
+sigue siendo negro después de haberlo establecido a (x11-color 'Boggle), que es un color sin sentido
+escrito a propósito.
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 2/4
+  gis''8 a''
+  \override Beam #'color = #(x11-color "medium turquoise")
+  gis'' a''
+  \override NoteHead #'color = #(x11-color "LimeGreen")
+  gis'' a''
+  \override Stem #'color = #(x11-color 'Boggle)
+  gis'' a''
+}
+@end lilypond
+
+
+@seealso
+
+Apéndice: @ref{List of colors}.
+
+
+@refbugs
+En un navegador de web, no todos los colores de x11 se distinguen entre sí.  Para su utilización en la
+web se recomiendan los colores normales.
+
+Un color de x11 no es necesariamente de la misma tonalidad que un color normal
+con un nombre similar.
+
+Las notas de un acorde no se pueden colorear con @code{\override}; en su lugar utilice
+@code{\tweak}.  Consulte @ref{Objects connected to the input}
+para ver más detalles.
+
+
+@node Parentheses
+@unnumberedsubsubsec Parentheses
+
+@cindex fantasma, notas
+@cindex notas fantasma
+@cindex notas entre paréntesis
+
+Los objetos se pueden encerrar entre paréntesis anteponiendo @code{\parenthesize} al evento
+musical,
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \parenthesize d
+  g
+>4-\parenthesize -.
+@end lilypond
+
+Esto sólo funciona dentro de los acordes, incluso para notas sueltas
+
+@example
+< \parenthesize NOTA>
+@end example
+
+
+@node Ambitus
+@unnumberedsubsubsec Ambitus
+@cindex ambitus
+
+El término @emph{ambitus} o ámbito, denota el rango de notas que abarca una voz dada
+en una parte musical.  También puede denotar el margen de notas que es capaz de tocar
+un determinado instrumento musical.  Los ámbitos se imprimen en las partes vocales de tal manera que
+los intérpretes puedan determinar con facilidad si cumplen con sus propias posibilidades.
+
+Los ámbitos se presentan al comienzo de la pieza junto a la clave inicial.
+El rango se especifica gráficamente mediante dos cabezas de nota que representan a las
+notas inferior y superior.  Para imprimir el ámbito, añada el grabador
+@internalsref{Ambitus_engraver} al contexto @internalsref{Voice},
+por ejemplo
+
+@example
+\layout @{
+  \context @{
+    \Voice
+    \consists Ambitus_engraver
+  @}
+@}
+@end example
+
+Lo que da como resultado la siguiente salida:
+
+@lilypond[quote,ragged-right]
+\layout {
+  \context {
+    \Staff
+    \consists Ambitus_engraver
+  }
+}
+
+\relative \new Staff {
+  as'' c e2 cis,2
+}
+@end lilypond
+
+Si tiene varias voces en un pentagrama único y quiere tener una sola indicación de ámbito
+por pentagrama en lugar de una por cada voz, añada el grabador
+@internalsref{Ambitus_engraver} al contexto @internalsref{Staff}
+y no al contexto @internalsref{Voice}.  He aquí un ejemplo:
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \consists "Ambitus_engraver"
+}
+<<
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c'' {
+    \override Ambitus #'X-offset = #-1.0
+    \voiceOne
+    c4 a d e f2
+  }
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c' {
+    \voiceTwo
+    es4 f g as b2
+  }
+>>
+@end lilypond
+
+@noindent
+Este ejemplo utiliza una capacidad avanzada,
+
+@example
+\override Ambitus #'X-offset = #-1.0
+@end example
+
+@noindent
+Este código mueve el ámbito a la izquierda.  Se podría haber conseguido el mismo
+efecto con @code{extra-offset}, pero en tal caso el sistema de formateo no
+reservaría espacio para el objeto que se ha movido.
+
+@seealso
+
+Referencia del programa: @internalsref{Ambitus},
+@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
+@internalsref{AmbitusAccidental}.
+
+Ejemplos:
+@lsr{vocal,ambitus@/.ly}.
+
+@refbugs
+
+No se efectúa un tratamiento de las posibles colisiones en caso de varias indicaciones de ámbito
+simultáneas en distintas voces.
+
+
+@node Stems
+@unnumberedsubsubsec Stems
+
+Cuando se encuentra con una nota, se crea un objeto
+@internalsref{Stem} (plica) automáticamente.  Para las redondas y los
+silencios, también se crean pero se hacen invisibles.
+
+@refcommands
+
+@funindex \stemUp
+@code{\stemUp},
+@funindex \stemDown
+@code{\stemDown},
+@funindex \stemNeutral
+@code{\stemNeutral}.
+
+
+@commonprop
+
+Para modificar la dirección de las plicas en medio de un pentagrama, utilice
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+a4 b c b
+\override Stem #'neutral-direction = #up
+a4 b c b
+\override Stem #'neutral-direction = #down
+a4 b c b
+@end lilypond
+
+
+@node Outside the staff
+@subsection Outside the staff
+
+
+@menu
+* Balloon help::                
+* Grid lines::                  
+* Blank music sheet::           
+@end menu
+
+@node Balloon help
+@unnumberedsubsubsec Balloon help
+
+Los elementos de notación se pueden marcar y nombrar con la ayuda de un cartel o globo de ayuda
+rectangular.  El propósito principal de esta funcionalidad es la explicación de la notación.
+
+El ejemplo siguiente presenta una demostración de su uso.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+}
+@end lilypond
+
+@noindent
+Existen dos funciones musicales, @code{balloonText} y
+@code{balloonGrobText}. Este último toma su nombre del objeto gráfico que se adorna,
+mientras que el primero se puede usar como una articulación sobre una nota.
+Los otros argumentos son el desplazamiento y el texto de la etiqueta.
+
+@cindex globo
+@cindex notación, explicaciones
+
+@seealso
+
+Referencia del programa: @internalsref{text-balloon-interface}.
+
+
+@node Grid lines
+@unnumberedsubsubsec Grid lines
+
+Se pueden dibujar líneas verticales, sincronizadas con las notas, entre
+pentagramas.
+
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" %% sets of grid
+    gridInterval = #(ly:make-moment 1 4)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
+  %% centers grid lines  horizontally below noteheads
+  \override NoteColumn #'X-offset = #-0.5
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    %% centers grid lines  vertically
+    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
+Ejemplos: @lsrdir{education}
+
+
+@node Blank music sheet
+@unnumberedsubsubsec Blank music sheet
+
+@cindex papel de música vacío
+@cindex Pentagramas, hoja en blanco
+
+También se pueden producir hojas de papel de música en blanco utilizando notas invisibles y
+suprimiendo el grabador @code{Bar_number_engraver}.
+
+
+@lilypond[quote,verbatim]
+\layout{ indent = #0 }
+emptymusic = {
+  \repeat unfold 2 % Change this for more lines.
+  { s1\break }
+  \bar "|."
+}
+\new Score \with {
+  \override TimeSignature #'transparent = ##t
+% un-comment this line if desired
+%  \override Clef #'transparent = ##t
+  defaultBarType = #""
+  \remove Bar_number_engraver
+} <<
+
+% modify these to get the staves you want
+  \new Staff \emptymusic
+  \new TabStaff \emptymusic
+>>
+@end lilypond
+
+
