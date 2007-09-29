@@ -6,10 +6,8 @@
 
 @menu
 * How LilyPond files work::     
-* Score is a single musical expression::  
-* I'm seeing Voices::           
-* Voices and vocals::           
-* On the un-nestedness of brackets and ties::  
+* Voices contain music::        
+* TODO new sec fundamental::    
 @end menu
 
 
@@ -22,6 +20,14 @@ wish.  However, this flexibility can make things confusing for new
 users.  This section will explain some of this structure, but may
 gloss over some details in favor of simplicity.  For a complete
 description of the input format, see @ruser{File structure}.
+
+@menu
+* Introduction to the LilyPond file structure::  
+* Score is a single musical expression::  
+@end menu
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
 
 A basic example of a lilypond input file is
 
@@ -136,7 +142,7 @@ structure}.
 
 
 @node Score is a single musical expression
-@section Score is a single musical expression
+@subsection Score is a single musical expression
 
 We saw the general organization of LilyPond input files in the
 previous section, @ref{How LilyPond files work}.  But we seemed to
@@ -263,10 +269,21 @@ indentation -- make sure that each item on the same layer starts
 on the same horizontal position in your text editor.
 
 
+@node Voices contain music
+@section Voices contain music
+
+TODO: something cheesy and vaguely witty about voices being the
+fundamental thing that includes music in lilypond.
+
+@menu
+* I'm seeing Voices::           
+* Explicitly instantiating voices::  
+* Voices and vocals::           
+@end menu
 
 @c too cheesy?  I'm not certain.  -gp
 @node I'm seeing Voices
-@section I'm seeing Voices
+@subsection I'm seeing Voices
 
 @cindex polyphony
 
@@ -353,8 +370,117 @@ the note immediately preceding it.
 @code{noteA}.
 
 
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+TODO: more colors and stuff.
+
+@internalsref{Voice} contexts can also be instantiated manually
+inside a @code{<< >>} block to create polyphonic music, using
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem
+directions and a horizontal shift for each part.
+
+Specifically,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+is equivalent to
+
+@example
+<<
+  \new Voice = "1" @{ \voiceOne \upper @}
+  \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+The @code{\voiceXXX} commands set the direction of stems, slurs,
+ties, articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
+make these objects point upwards, while @code{\voiceTwo} and
+@code{\voiceFour} make them point downwards.  The command
+@code{\oneVoice} will revert back to the normal setting.
+
+An expression that appears directly inside a @code{<< >>} belongs
+to the main voice.  This is useful when extra voices appear while
+the main voice is playing.  Here is a more correct rendition of
+the example from the previous section.  The crossed colored
+noteheads demonstrate that the main melody is now in a single
+voice context.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2 }
+    \new Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+The correct definition of the voices allows the melody to be
+slurred.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Avoiding the @code{\\} separator also allows nesting polyphony
+constructs, which in some case might be a more natural way to
+typeset the music.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+
 @node Voices and vocals
-@section Voices and vocals
+@subsection Voices and vocals
 
 Vocal music presents a special difficulty: we need to combine two
 expressions -- notes and lyrics.
@@ -380,9 +506,19 @@ to the notes with @code{\lyricsTo@{@}}
 TODO: get some vocal person to write more.
 
 
+@node TODO new sec fundamental
+@section TODO new sec fundamental
+
+blh blah
+
+
+@menu
+* On the un-nestedness of brackets and ties::  
+@end menu
+
 @c my name start sucking the more docs I write. -gp
 @node On the un-nestedness of brackets and ties
-@section On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
 
 Different kinds of brackets and ties may be mixed freely,
 
@@ -398,8 +534,6 @@ TODO: improve this example
 @end lilypond
 
 TODO... add more info?  Fluff up the first sentence?
-
-
 
 
 

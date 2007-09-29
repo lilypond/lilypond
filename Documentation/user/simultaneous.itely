@@ -82,117 +82,14 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 @subsection Multiple voices
 
 @menu
-* Explicitly instantiating voices::  
+* TODO new sec voices::         
 * Collision Resolution::        
 * Automatic part combining::    
 * Writing music in parallel::   
 @end menu
 
-@node Explicitly instantiating voices
-@unnumberedsubsubsec Explicitly instantiating voices
-
-@internalsref{Voice} contexts can also be instantiated manually
-inside a @code{<< >>} block to create polyphonic music, using
-@code{\voiceOne}, up to @code{\voiceFour} to assign stem
-directions and a horizontal shift for each part.
-
-Specifically,
-@example
-<< \upper \\ \lower >>
-@end example
-
-@noindent
-is equivalent to
-
-@example
-<<
-  \new Voice = "1" @{ \voiceOne \upper @}
-  \new Voice = "2" @{ \voiceTwo \lower @}
->>
-@end example
-
-The @code{\voiceXXX} commands set the direction of stems, slurs,
-ties, articulations, text annotations, augmentation dots of dotted
-notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
-make these objects point upwards, while @code{\voiceTwo} and
-@code{\voiceFour} make them point downwards.  The command
-@code{\oneVoice} will revert back to the normal setting.
-
-An expression that appears directly inside a @code{<< >>} belongs
-to the main voice.  This is useful when extra voices appear while
-the main voice is playing.  Here is a more correct rendition of
-the example from the previous section.  The crossed colored
-noteheads demonstrate that the main melody is now in a single
-voice context.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  \override NoteHead #'style = #'cross
-  \override NoteHead #'color = #red
-  c16 d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2 }
-    \new Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. | s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-The correct definition of the voices allows the melody to be
-slurred.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-Avoiding the @code{\\} separator also allows nesting polyphony
-constructs, which in some case might be a more natural way to
-typeset the music.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ |
-      <<
-        {c8 b16 a b8 g ~ g2}
-        \new Voice { \voiceThree
-          s4 b4 c2
-          \oneVoice
-        }
-      >>
-    \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
+@node TODO new sec voices
+@unnumberedsubsubsec TODO new sec voices
 
 In some instances of complex polyphonic music, you may need
 additional voices to avoid collisions between notes.  Additional

@@ -20,89 +20,33 @@ for repetitions.
 @node Writing repeats
 @subsection Writing repeats
 
+Blah blah
+
 @menu
-* Repeat types::                
+* Normal repeats::              
 * Repeat syntax::               
 * Manual repeat commands::      
 * Repeats and MIDI::            
 @end menu
 
-@node Repeat types
-@unnumberedsubsubsec Repeat types
-
-@cindex repeats
-
-The following types of repetition are supported
-
-@table @code
-@item unfold
-Repeated music is fully written (played) out.  This is useful when
-entering repetitious music.  This is the only kind of repeat that
-is included in MIDI output.
-
-@item volta
-Repeats are not written out, but alternative endings (volte) are
-printed, left to right with brackets.  This is the standard notation
-for repeats with alternatives.  These are not played in MIDI output by
-default.
-
-
-@item tremolo
-Make tremolo beams.  These are not played in MIDI output by default.
-
-@item percent
-Make beat or measure repeats.  These look like percent signs.  These
-are not played in MIDI output by default.  Percent repeats must be
-declared within a @code{Voice} context.
-
-@end table
-
-
-@node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@node Normal repeats
+@unnumberedsubsubsec Normal repeats
 
 @cindex volta
 @cindex prima volta
 @cindex seconda volta
 @funindex \repeat
 
-LilyPond has one syntactic construct for specifying different types of
-repeats.  The syntax is
-
-@example
-\repeat @var{variant} @var{repeatcount} @var{repeatbody}
-@end example
-
-If you have alternative endings, you may add
-@funindex \alternative
-@example
-\alternative @{
-  @var{alternative1}
-  @var{alternative2}
-  @var{alternative3}
-  @dots{}
-@}
-@end example
-
-@noindent
-where each @var{alternative} is a music expression.  If you do not
-give enough alternatives for all of the repeats, the first alternative
-is assumed to be played more than once.
-
-Standard repeats are used like this
+Normal repeats, with or without alternate repeats, may be printed:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c1
 \repeat volta 2 { c4 d e f }
-\repeat volta 2 { f e d c }
-@end lilypond
-
-With alternative endings
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\repeat volta 2 { g f e d }
+  \alternative {
+    { cis2 g' }
+    { cis,2 b }
+  }
 c1
-\repeat volta 2 {c4 d e f}
-\alternative { {d2 d} {f f,} }
 @end lilypond
 
 Repeats with upbeats may be created.
@@ -125,7 +69,6 @@ or
   \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
 }
 @end lilypond
-
 
 
 @funindex \repeatTie
@@ -155,10 +98,12 @@ bracket only lasts one measure, which is a duration of 3/4.
 
 If you want to start a repeat at the beginning of a line and have a
 double bar at the end of the previous line, use
+
 @example
 @dots{} \bar "||:" \break 
 \repeat volta 2 @{ @dots{} 
 @end example
+
 see @ref{Bar lines} for more information.
 
 @seealso
@@ -171,10 +116,9 @@ Program reference: @internalsref{VoltaBracket},
 Examples:
 
 Brackets for the repeat are normally only printed over the topmost
-staff.  This can be adjusted by moving @code{Volta_engraver} to the
-Staff context where you want the brackets to appear;
-see @ref{Modifying context plug-ins} and
-
+staff.  This can be adjusted by moving @code{Volta_engraver} to
+the Staff context where you want the brackets to appear; see
+@ref{Modifying context plug-ins} and
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
@@ -200,6 +144,61 @@ Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand; for
 example, by setting @code{Score.measurePosition} or entering
 @code{\partial}.  Similarly, slurs or ties are also not repeated.
+
+
+
+@node Repeat syntax
+@unnumberedsubsubsec Repeat syntax
+
+@cindex repeats
+
+LilyPond has one syntactic construct for specifying different types of
+repeats.  The syntax is
+
+@example
+\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+@end example
+
+If you have alternative endings, you may add
+@funindex \alternative
+@example
+\alternative @{
+  @var{alternative1}
+  @var{alternative2}
+  @var{alternative3}
+  @dots{}
+@}
+@end example
+
+@noindent
+where each @var{alternative} is a music expression.  If you do not
+give enough alternatives for all of the repeats, the first alternative
+is assumed to be played more than once.
+
+The following types of repetition are supported
+
+@table @code
+@item unfold
+Repeated music is fully written (played) out.  This is useful when
+entering repetitious music.  This is the only kind of repeat that
+is included in MIDI output.
+
+@item volta
+Repeats are not written out, but alternative endings (volte) are
+printed, left to right with brackets.  This is the standard notation
+for repeats with alternatives.  These are not played in MIDI output by
+default.
+
+
+@item tremolo
+Make tremolo beams.  These are not played in MIDI output by default.
+
+@item percent
+Make beat or measure repeats.  These look like percent signs.  These
+are not played in MIDI output by default.  Percent repeats must be
+declared within a @code{Voice} context.
+
+@end table
 
 
 @node Manual repeat commands
