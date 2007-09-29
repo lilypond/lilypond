@@ -1219,9 +1219,8 @@ bright as day}.  Let's extend it:
  \relative c'' {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4 g8
-  a4 b8 c b a
-  d4 b8 g4.
+  d4 b8 c4 a8 d4 b8 g4 
+  g8 a4 b8 c b a d4 b8 g4.
  }
  \addlyrics {
   Girls and boys come out to play,
@@ -1242,9 +1241,8 @@ and slurs}):
  \relative c'' {
   \key g \major
   \time 6/8
-  d4 b8 c4 a8 d4 b8 g4 g8
-  a4 b8 c([ b)] a
-  d4 b8 g4.
+  d4 b8 c4 a8 d4 b8 g4 
+  g8 a4 b8 c([ b)] a d4 b8 g4.
  }
  \addlyrics {
   Girls and boys come out to play,
@@ -1254,7 +1252,8 @@ and slurs}):
 @end lilypond
 
 Here we have also used manual beaming (the square brackets @code{[
-]} ) to generate the beaming which is customarily used with lyrics.
+]} ) to generate the beaming which is customarily used with lyrics
+(see @ref{Automatic and manual beams}).
 
 If a syllable extends over several notes or a single very long
 note an @emph{extender line} is usually drawn from the syllable
@@ -1267,13 +1266,12 @@ three bars of Dido's Lament, from Purcell's Dido and Æneas:
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes
-    bes( a) b
-    c4.( bes8 a4. g8 fis4.) g8
-    fis1
+    g2 a bes bes( a) 
+    b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
-    When I am laid, am laid __ in earth,
+    When I am laid, 
+    am laid __ in earth,
   }
 >>
 @end lilypond
@@ -1293,13 +1291,12 @@ far about aligning lyrics to notes.
     \key g \major
     \time 3/4
     \partial 4
-    d4
-    g4 g a8( b) g4
-    g4 b8( c) d4 d
-    e4 c2
+    d4 g4 g a8( b) g4 g4 
+    b8( c) d4 d e4 c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger, no __ crib for a bed, __
+    A -- way in a __ man -- ger, 
+    no __ crib for a bed, __
   }
 >>
 @end lilypond
@@ -1332,7 +1329,7 @@ quotes.  Here's an example from Rossini's Figaro, where
 @seealso
 @quotation
 More options, such as inserting explicit rhythms into lyrics,
-inserting lyric ties (e.g., between @q{go al} above, 
+inserting lyric ties (e.g., between @q{go al}) above, 
 alternative ways of handling melismata,
 and adding extra verses,
 are discussed in @ruser{Vocal music}.
