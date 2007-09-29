@@ -35,9 +35,22 @@
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance.  They are added to a
 note by adding a dash and the character signifying the
-articulation.  They are demonstrated here
+articulation.
 
-@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+See @ref{List of articulations}.
+
+@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
+@lilypond[quote,ragged-right,verbatim,fragment]
+\override TextScript  #'font-family = #'typewriter
+\override TextScript  #'font-shape = #'upright
+c''4-._"c-."      s4
+c''4--_"c--"      s4
+c''4-+_"c-+"      s4
+c''4-|_"c-|"      s4
+c''4->_"c->"      s4
+c''4-^_"c-^"      s4
+c''4-__"c-_"      s4      
+@end lilypond
 
 The meanings of these shorthands can be changed.  See
 @file{ly/@/script@/-init@/.ly} for examples.
@@ -88,10 +101,6 @@ c\fermata c^\fermata c_\fermata
 @cindex segno
 @cindex coda
 @cindex varcoda
-
-Here is a chart showing all scripts available,
-
-@lilypondfile[ragged-right,quote]{script-chart.ly}
 
 
 @commonprop

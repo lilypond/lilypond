@@ -18,6 +18,7 @@
 * Note head styles::            
 * Overview of text markup commands::  
 * Overview of text markup list commands::  
+* List of articulations::       
 @end menu
 
 
@@ -219,6 +220,45 @@ The following commands can all be used inside @code{\markup @{ @}}.
 The following commands can all be used with @code{\markuplines}.
 
 @include markup-list-commands.tely
+
+@node List of articulations
+@section List of articulations
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex fermata
+@cindex stopped
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex upbow
+@cindex downbow
+@cindex foot marks
+@cindex organ pedal marks
+@cindex turn
+@cindex open
+@cindex stopped
+@cindex flageolet
+@cindex reverseturn
+@cindex trill
+@cindex prall
+@cindex mordent
+@cindex prallprall
+@cindex prallmordent
+@cindex prall, up
+@cindex prall, down
+@cindex thumb marking
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+Here is a chart showing all scripts available,
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+
 
 @ignore
 @n ode All context properties
