@@ -52,7 +52,7 @@ The easiest solution is to increase the distance between the object
 instead) and the note.  In LilyPond, this is called the
 @code{padding} property; it is measured in staff spaces.  For most
 objects, this value is around 1.0 or less (it varies with each
-object). We want to increase it, so let's try 1.5
+object).  We want to increase it, so let's try 1.5
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:

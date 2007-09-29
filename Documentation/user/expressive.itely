@@ -187,7 +187,7 @@ c\< c\! d\> e\!
 A hairpin normally starts at the left edge of the beginning note
 and ends on the right edge of the ending note.  If the ending
 note falls on the downbeat, the hairpin ends on the immediately
-preceding barline. This may be modified by setting the
+preceding barline.  This may be modified by setting the
 @code{hairpinToBarline} property,
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -363,7 +363,7 @@ lines.
 @funindex \repeatTie
 
 When a second alternative of a repeat starts with a tied note, you
-have to repeat the tie. This can be achieved with @code{\repeatTie},
+have to repeat the tie.  This can be achieved with @code{\repeatTie},
 
 @lilypond[fragment,quote,ragged-right,relative=2]
 r <c e g>\repeatTie
@@ -376,8 +376,8 @@ r <c e g>\repeatTie
 
 Ties are sometimes used to write out arpeggios.  In this case, two tied
 notes need not be consecutive.  This can be achieved by setting the
-@code{tieWaitForNote} property to true. The same feature is also useful,
-for example, to tie a tremolo to a chord. For example,
+@code{tieWaitForNote} property to true.  The same feature is also useful,
+for example, to tie a tremolo to a chord.  For example,
 
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 \set tieWaitForNote = ##t
@@ -536,8 +536,8 @@ Program reference: @internalsref{PhrasingSlur}.
 @cindex Ties, laissez vibrer
 
 L.v. ties (laissez vibrer) indicate that notes must not be damped at the
-end. It is used in notation for piano, harp and other string and
-percussion instruments. They can be entered using @code{\laissezVibrer},
+end.  It is used in notation for piano, harp and other string and
+percussion instruments.  They can be entered using @code{\laissezVibrer},
 
 @lilypond[fragment,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer

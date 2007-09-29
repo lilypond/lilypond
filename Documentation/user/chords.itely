@@ -389,8 +389,8 @@ base can be printed in lower case.
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
 The @q{m} for minor chords is usually printed right after the root of
-the chord. By setting @code{chordPrefixSpacer}, you can fix a spacer
-between the root and @q{m}. The spacer is not used when the root
+the chord.  By setting @code{chordPrefixSpacer}, you can fix a spacer
+between the root and @q{m}.  The spacer is not used when the root
 is altered.
 
 @end table

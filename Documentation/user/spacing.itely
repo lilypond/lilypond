@@ -23,8 +23,8 @@ many pages a piece of music takes.
 Globally speaking, this procedure happens in four steps: first,
 flexible distances (@q{springs}) are chosen, based on durations.  All
 possible line breaking combinations are tried, and a @q{badness} score
-is calculated for each. Then the height of each possible system is
-estimated. Finally, a page breaking and line breaking combination is chosen
+is calculated for each.  Then the height of each possible system is
+estimated.  Finally, a page breaking and line breaking combination is chosen
 so that neither the horizontal nor the vertical spacing is too cramped
 or stretched.
 
@@ -124,58 +124,58 @@ false.
 
 @funindex print-page-number
 @item print-page-number
-If set to false, page numbers will not be printed. Default is true.
+If set to false, page numbers will not be printed.  Default is true.
 
 @funindex paper-width
 @item paper-width
-The width of the page. The default is taken from the current paper size,
+The width of the page.  The default is taken from the current paper size,
 see @ref{Paper size}. 
 
 @funindex paper-height
 @item paper-height
-The height of the page. The default is taken from the current paper size,
+The height of the page.  The default is taken from the current paper size,
 see @ref{Paper size}. 
 
 @funindex top-margin
 @item top-margin
-Margin between header and top of the page. Default is@tie{}5mm.
+Margin between header and top of the page.  Default is@tie{}5mm.
 
 @funindex bottom-margin
 @item bottom-margin
-Margin between footer and bottom of the page. Default is@tie{}6mm.
+Margin between footer and bottom of the page.  Default is@tie{}6mm.
 
 @funindex left-margin
 @item left-margin
 Margin between the left side of the page and the beginning of the
-music. Unset by default, which means that the margins is determined
+music.  Unset by default, which means that the margins is determined
 based on the @code{paper-width} and @code{line-width} to center the
 score on the paper. 
 
 @funindex line-width
 @item line-width
-The length of the systems. Default is @code{paper-width} minus @tie{}20mm.
+The length of the systems.  Default is @code{paper-width} minus @tie{}20mm.
 
 @funindex head-separation
 @item head-separation
-Distance between the top-most music system and the page header. Default
+Distance between the top-most music system and the page header.  Default
 is@tie{}4mm. 
 
 @funindex foot-separation
 @item foot-separation
 Distance between the bottom-most music system and the page
-footer. Default is@tie{}4mm.
+footer.  Default is@tie{}4mm.
 
 @funindex page-top-space
 @item page-top-space
 Distance from the top of the printable area to the center of the first
-staff. This only works for staves which are vertically small. Big staves
+staff.  This only works for staves which are vertically small.  Big staves
 are set with the top of their bounding box aligned to the top of the
-printable area. Default is@tie{}12mm.
+printable area.  Default is@tie{}12mm.
 
 @funindex ragged-bottom
 @item ragged-bottom
 If set to true, systems will not be spread vertically across the page.  This
-does not affect the last page. Default is false.
+does not affect the last page.  Default is false.
 
 This should be set to true for pieces that have only two or three
 systems per page, for example orchestral scores.
@@ -183,7 +183,7 @@ systems per page, for example orchestral scores.
 @funindex ragged-last-bottom
 @item ragged-last-bottom
 If set to false, systems will be spread vertically to fill the last
-page. Default is true.
+page.  Default is true.
 
 Pieces that amply fill two pages or more should have this set to
 true.
@@ -191,13 +191,13 @@ true.
 @funindex system-count
 @item system-count
 This variable, if set, specifies into how many lines a score should be
-broken. Unset by default.
+broken.  Unset by default.
 
 @funindex between-system-space
 @item between-system-space
 This dimensions determines the distance between systems.  It is the
 ideal distance between the center of the bottom staff of one system
-and the center of the top staff of the next system. Default is@tie{}20mm.
+and the center of the top staff of the next system.  Default is@tie{}20mm.
 
 Increasing this will provide a more even appearance of the page at the
 cost of using more vertical space.
@@ -206,7 +206,7 @@ cost of using more vertical space.
 @item between-system-padding
 This dimension is the minimum amount of white space that will always
 be present between the bottom-most symbol of one system, and the
-top-most of the next system. Default is@tie{}4mm.
+top-most of the next system.  Default is@tie{}4mm.
 
 Increasing this will put systems whose bounding boxes almost touch
 farther apart.
@@ -215,30 +215,30 @@ farther apart.
 @item page-breaking-between-system-padding
 This variable tricks the page breaker into thinking that
 @code{between-system-padding} is set to something different than it
-really is. For example, if this variable is set to something substantially
+really is.  For example, if this variable is set to something substantially
 larger than @code{between-system-padding}, then the page-breaker will put
 fewer systems on each page.
 
 @funindex horizontal-shift
 @item horizontal-shift
 All systems (including titles and system separators) are shifted by
-this amount to the right. Page markup, such as headers and footers are
-not affected by this. The purpose of this variable is to make space
-for instrument names at the left. Default is@tie{}0.
+this amount to the right.  Page markup, such as headers and footers are
+not affected by this.  The purpose of this variable is to make space
+for instrument names at the left.  Default is@tie{}0.
 
 @funindex after-title-space
 @item after-title-space
-Amount of space between the title and the first system. Default is@tie{}5mm.
+Amount of space between the title and the first system.  Default is@tie{}5mm.
 
 @funindex before-title-space
 @item before-title-space
 Amount of space between the last system of the previous piece and the
-title of the next. Default is@tie{}10mm.
+title of the next.  Default is@tie{}10mm.
 
 @funindex between-title-space
 @item between-title-space
 Amount of space between consecutive titles (e.g., the title of the
-book and the title of a piece). Default is@tie{}2mm.
+book and the title of a piece).  Default is@tie{}2mm.
 
 @funindex printallheaders
 @item printallheaders
@@ -248,7 +248,7 @@ output.  Normally only the piece and opus \headers are printed.
 @funindex systemSeparatorMarkup
 @item systemSeparatorMarkup
 This contains a markup object, which will be inserted between
-systems.  This is often used for orchestral scores. Unset by default.
+systems.  This is often used for orchestral scores.  Unset by default.
 
 The markup command @code{\slashSeparator} is provided as a sensible
 default,  for example
@@ -268,8 +268,8 @@ default,  for example
 @funindex blank-page-force
 @item blank-page-force
 The penalty for having a blank page in the middle of a
-score. This is not used by @code{ly:optimal-breaking} since it will
-never consider blank pages in the middle of a score. Default value
+score.  This is not used by @code{ly:optimal-breaking} since it will
+never consider blank pages in the middle of a score.  Default value
 is 10.
 
 @funindex blank-last-page-force
@@ -280,7 +280,7 @@ Default value is 0.
 @funindex page-spacing-weight
 @item page-spacing-weight
 The relative importance of page (vertical) spacing and line (horizontal)
-spacing. High values will make page spacing more important. Default
+spacing.  High values will make page spacing more important.  Default
 value is 10.
 
 @funindex auto-first-page-number
@@ -297,17 +297,17 @@ result in the first page number remaining as is or being increased by one.
 @commonprop
 
 The header and footer are created by the functions make-footer and
-make-header, defined in \paper. The default implementations are in
+make-header, defined in \paper.  The default implementations are in
 ly/paper-defaults.ly and ly/titling-init.ly.
 
 The page layout itself is done by two functions in the \paper block,
-page-music-height and page-make-stencil. The former tells the
+page-music-height and page-make-stencil.  The former tells the
 line-breaking algorithm how much space can be spent on a page, the
 latter creates the actual page given the system to put on it.
 
-You can define paper block values in Scheme. In that case mm, in, pt,
+You can define paper block values in Scheme.  In that case mm, in, pt,
 and cm are variables defined in paper-defaults.ly with values in
-millimeters. That is why the value 2 cm must be multiplied in the
+millimeters.  That is why the value 2 cm must be multiplied in the
 example
 
 @example
@@ -666,7 +666,7 @@ inserted at top-level, between scores and top-level markups.
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
 provides three algorithms for computing page breaks,
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
-@code{ly:minimal-breaking}. The default is @code{ly:optimal-breaking},
+@code{ly:minimal-breaking}.  The default is @code{ly:optimal-breaking},
 but the value can be changed in the @code{\paper} block:
 
 @example
@@ -676,7 +676,7 @@ but the value can be changed in the @code{\paper} block:
 @end example
 
 The old page breaking algorithm is called
-@code{optimal-page-breaks}. If you are having trouble with the new page
+@code{optimal-page-breaks}.  If you are having trouble with the new page
 breakers, you can enable the old one as a workaround.
 
 @refcommands
@@ -693,8 +693,8 @@ breakers, you can enable the old one as a workaround.
 @funindex ly:optimal-breaking
 
 The @code{ly:optimal-breaking} function is LilyPond's default method of
-determining page breaks. It attempts to find a page breaking that minimizes
-cramping and stretching, both horizontally and vertically. Unlike
+determining page breaks.  It attempts to find a page breaking that minimizes
+cramping and stretching, both horizontally and vertically.  Unlike
 @code{ly:page-turn-breaking}, it has no concept of page turns.
 
 
@@ -704,26 +704,26 @@ cramping and stretching, both horizontally and vertically. Unlike
 @funindex ly:page-turn-breaking
 
 Often it is necessary to find a page breaking configuration so that there is
-a rest at the end of every second page. This way, the musician can turn the
-page without having to miss notes. The @code{ly:page-turn-breaking} function
+a rest at the end of every second page.  This way, the musician can turn the
+page without having to miss notes.  The @code{ly:page-turn-breaking} function
 attempts to find a page breaking minimizing cramping and stretching, but with
 the additional restriction that it is only allowed to introduce page turns
 in specified places.
 
-There are two steps to using this page breaking function. First, you
+There are two steps to using this page breaking function.  First, you
 must enable it in the @code{\paper} block, as explained in @ref{Page
-breaking}. Then you must tell the function where you would like to allow
+breaking}.  Then you must tell the function where you would like to allow
 page breaks.
 
-There are two ways to achieve the second step. First, you can specify each
+There are two ways to achieve the second step.  First, you can specify each
 potential page turn manually, by inserting @code{\allowPageTurn} into your
 input file at the appropriate places.
 
 If this is too tedious, you can add a @code{Page_turn_engraver} to a Staff or
-Voice context. The @code{Page_turn_engraver} will scan the context for
+Voice context.  The @code{Page_turn_engraver} will scan the context for
 sections without notes (note that it does not scan for rests; it scans for
-the absence of notes. This is so that single-staff polyphony with rests in one
-of the parts does not throw off the @code{Page_turn_engraver}). When it finds
+the absence of notes.  This is so that single-staff polyphony with rests in one
+of the parts does not throw off the @code{Page_turn_engraver}).  When it finds
 a sufficiently long section without notes, the @code{Page_turn_engraver} will
 insert an @code{\allowPageTurn} at the final barline in that section, unless
 there is a @q{special} barline (such as a double bar), in which case the
@@ -733,8 +733,8 @@ the section.
 @funindex minimumPageTurnLength
 The @code{Page_turn_engraver} reads the context property
 @code{minimumPageTurnLength} to determine how long a note-free section must
-be before a page turn is considered. The default value for
-@code{minimumPageTurnLength} is @code{#(ly:make-moment 1 1)}. If you want
+be before a page turn is considered.  The default value for
+@code{minimumPageTurnLength} is @code{#(ly:make-moment 1 1)}.  If you want
 to disable page turns, you can set it to something very large.
 
 @example
@@ -752,10 +752,10 @@ to disable page turns, you can set it to something very large.
 @end example
 
 @funindex minimumRepeatLengthForPageTurn
-The @code{Page_turn_engraver} detects volta repeats. It will only allow a page
+The @code{Page_turn_engraver} detects volta repeats.  It will only allow a page
 turn during the repeat if there is enough time at the beginning and end of the
-repeat to turn the page back. The @code{Page_turn_engraver} can also disable
-page turns if the repeat is very short. If you set the context property
+repeat to turn the page back.  The @code{Page_turn_engraver} can also disable
+page turns if the repeat is very short.  If you set the context property
 @code{minimumRepeatLengthForPageTurn} then the @code{Page_turn_engraver} will
 only allow turns in repeats whose duration is longer than this value.
 
@@ -774,7 +774,7 @@ top-level markups.
 
 @refbugs
 
-There should only be one @code{Page_turn_engraver} in a score. If there is more
+There should only be one @code{Page_turn_engraver} in a score.  If there is more
 than one, they will interfere with each other.
 
 @node Minimal page breaking
@@ -974,17 +974,17 @@ After page breaks are determined, the vertical spacing within each
 system is reevaluated in order to fill the page more evenly; if a page
 has space left over, systems are stretched in order to fill that space.
 The amount of stretching can be configured though the @code{max-stretch}
-property of the @internalsref{VerticalAlignment} grob. To disable this
+property of the @internalsref{VerticalAlignment} grob.  To disable this
 stretching entirely, set @code{max-stretch} to zero.
 
 In some situations, you may want to stretch most of a system while
-leaving some parts fixed. For example, if a piano part occurs in the
+leaving some parts fixed.  For example, if a piano part occurs in the
 middle of an orchestral score, you may want to leave the piano staves
-close to each other while stretching the rest of the score. The
+close to each other while stretching the rest of the score.  The
 @code{keep-fixed-while-stretching} property of
-@internalsref{VerticalAxisGroup} can be used to achieve this. When set
+@internalsref{VerticalAxisGroup} can be used to achieve this.  When set
 to @code{##t}, this property keeps its staff (or line of lyrics) from
-moving relative to the one directly above it. In the example above,
+moving relative to the one directly above it.  In the example above,
 you would override @code{keep-fixed-while-stretching} to @code{##t} in
 the second piano staff:
 
@@ -1029,7 +1029,7 @@ the second piano staff:
 @seealso
 
 Internals: Vertical alignment of staves is handled by the
-@internalsref{VerticalAlignment} object. The context parameters
+@internalsref{VerticalAlignment} object.  The context parameters
 specifying the vertical extent are described in connection with
 the @internalsref{Axis_group_engraver}.
 
@@ -1053,19 +1053,19 @@ Space between systems are controlled by four @code{\paper} variables,
 
 When only a couple of flat systems are placed on a page, the resulting
 vertical spacing may be non-eleguant: one system at the top of the page,
-and the other at the bottom, with a huge gap between them. To avoid this
-situation, the space added between the systems can be limited. This
+and the other at the bottom, with a huge gap between them.  To avoid this
+situation, the space added between the systems can be limited.  This
 feature is activated by setting to @code{#t} the
 @code{page-limit-inter-system-space} variable in the @code{\paper}
-block. The paper variable @code{page-limit-inter-system-space-factor}
+block.  The paper variable @code{page-limit-inter-system-space-factor}
 determines how much the space can be increased: for instance, the value
 @code{1.3} means that the space can be 30% larger than what it would be
 on a ragged-bottom page.
 
 In the following example, if the inter system space were not limited,
-the second system of page 1 would be placed at the page bottom. By
+the second system of page 1 would be placed at the page bottom.  By
 activating the space limitation, the second system is placed closer to
-the first one. By setting @code{page-limit-inter-system-space-factor} to
+the first one.  By setting @code{page-limit-inter-system-space-factor} to
 @code{1}, the spacing would the same as on a ragged-bottom page, like
 the last one.
 
@@ -1168,7 +1168,7 @@ by looking at an example that includes no overrides at all.
 @end lilypond
 
 This score isolates line- and page-breaking information in a dedicated
-voice. This technique of creating a breaks voice will help keep layout
+voice.  This technique of creating a breaks voice will help keep layout
 separate from music entry as our example becomes more complicated.
 See @ref{Using an extra voice for breaks}.
 
@@ -1297,8 +1297,8 @@ passed to these different settings will avoid this.
 @subsection Two-pass vertical spacing
 
 Warning: two-pass vertical spacing is deprecated and will be removed in
-a future version of LilyPond. Systems are now stretched automatically
-in a single pass. See @ref{Vertical spacing inside a system}.
+a future version of LilyPond.  Systems are now stretched automatically
+in a single pass.  See @ref{Vertical spacing inside a system}.
 
 In order to automatically stretch systems so that they should fill the
 space left on a page, a two-pass technique can be used:
@@ -1705,8 +1705,8 @@ paragraph, the last line simply takes its natural horizontal length.
 
 LilyPond supports proportional notation, a type of horizontal spacing
 in which each note consumes an amount of horizontal space exactly
-equivalent to its rhythmic duration. This type of proportional spacing
-is comparable to horizontal spacing on top of graph paper. Some late
+equivalent to its rhythmic duration.  This type of proportional spacing
+is comparable to horizontal spacing on top of graph paper.  Some late
 20th- and early 21st-century scores use proportional notation to
 clarify complex rhythmic relationships or to faciliate the placement
 of timelines or other graphics directly in the score.
@@ -1786,8 +1786,8 @@ The @code{proportionalNotationDuration} setting takes a single argument,
 which is the reference duration against which all music will be
 spaced.  The LilyPond Scheme function make-moment takes two arguments
 -- a numerator and denominator which together express some fraction of
-a whole note. The call @code{#(ly:make-moment 1 20)} therefore produces a
-reference duration of a twentieth note. The values
+a whole note.  The call @code{#(ly:make-moment 1 20)} therefore produces a
+reference duration of a twentieth note.  The values
 @code{#(ly:make-moment 1 16)}, @code{#(ly:make-moment 1 8)}, and
 @code{#(ly:make-moment 3 97)} are all possible as well.
 

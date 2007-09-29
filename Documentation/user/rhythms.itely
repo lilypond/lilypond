@@ -707,7 +707,7 @@ to indicate where breaks can occur.
 Double time signatures are not supported explicitly, but they can
 be faked.  In the next example, the markup for the time signature
 is created with a markup text.  This markup text is inserted in
-the @internalsref{TimeSignature} grob. See also
+the @internalsref{TimeSignature} grob.  See also
 @lsr{contemporary,compound-time-signature}.
 
 @lilypond[verbatim,ragged-right]
@@ -807,7 +807,7 @@ for each staff but replacing it manually using
 printed durations in each staff are scaled to the common time
 signature.  The latter is done with @code{\compressMusic}, which
 is used similar to @code{\times}, but does not create a tuplet
-bracket. The syntax is @example \compressMusic #'(@var{numerator}
+bracket.  The syntax is @example \compressMusic #'(@var{numerator}
 . @var{denominator}) @var{musicexpr} @end example
 
 
@@ -1580,7 +1580,7 @@ staves without, for example,
 
 @noindent
 This can be remedied by inserting grace skips of the corresponding
-durations in the other staves. For the above example
+durations in the other staves.  For the above example
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 << \new Staff { e4 \bar "|:" \grace c16 d4 }

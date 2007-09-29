@@ -120,7 +120,7 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
-@item New Century Schoolbook fonts, as PFB files. These are shipped with
+@item New Century Schoolbook fonts, as PFB files.  These are shipped with
 X11 and Ghostscript, and are named @file{c059033l.pfb}
 @file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
 
@@ -288,8 +288,8 @@ the input/* stuff.
 @end html
 
 LilyPond comes with an extensive suite that exercises the entire
-program. This suite can be used to automatically check the impact of a
-change. This is done as follows
+program.  This suite can be used to automatically check the impact of a
+change.  This is done as follows
 
 @example
 make test-baseline
@@ -337,7 +337,7 @@ Bugs that are not fault of LilyPond are documented here.
 @unnumberedsubsubsec Bison 1.875
 
 There is a bug in bison-1.875: compilation fails with "parse error
-before `goto'" in line 4922 due to a bug in bison. To fix, please
+before `goto'" in line 4922 due to a bug in bison.  To fix, please
 recompile bison 1.875 with the following fix
 
 @example

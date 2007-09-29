@@ -1985,8 +1985,8 @@ entering the chant, as the following excerpt demonstrates
 @unnumberedsubsubsec Musica ficta accidentals
 
 In European music from before about 1600, singers were often expected
-to chromatically alter notes at their own initiative. This is called
-@q{Musica Ficta}. In modern transcriptions, these accidentals are
+to chromatically alter notes at their own initiative.  This is called
+@q{Musica Ficta}.  In modern transcriptions, these accidentals are
 usually printed over the note.
 
 @cindex Accidental, musica ficta
@@ -2056,7 +2056,7 @@ diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
 @end lilypond
 
 Spaces may be inserted by using @code{_}.  Brackets are
-introduced with @code{[} and @code{]}. You can also include text
+introduced with @code{[} and @code{]}.  You can also include text
 strings and text markups, see @ref{Overview of text markup commands}.
 
 @example
@@ -2087,7 +2087,7 @@ It is also possible to use continuation lines for repeated figures,
 In this case, the extender lines always replace existing figures.
 
 The @code{FiguredBass} context doesn't pay attention to the actual
-bass line. As a consequence, you may have to insert extra figures to
+bass line.  As a consequence, you may have to insert extra figures to
 get extender lines below all notes, and you may have to add @code{\!}
 to avoid getting an extender line, e.g.
 
@@ -2106,8 +2106,8 @@ to avoid getting an extender line, e.g.
 @end lilypond
 
 When using continuation lines, common figures are always put in the
-same vertical position. When this is unwanted, you can insert a rest
-with @code{r}. The rest will clear any previous alignment.  For
+same vertical position.  When this is unwanted, you can insert a rest
+with @code{r}.  The rest will clear any previous alignment.  For
 example, you can write
 
 @example

@@ -307,7 +307,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano
 @funindex piano accidentals
-This accidental style takes place in a GrandStaff context. However, you have to 
+This accidental style takes place in a GrandStaff context.  However, you have to 
 explicitly set it for @emph{each} individual Staff of the GrandStaff:
 
 @example
@@ -584,7 +584,7 @@ In 4/4 time signature, this means that automatic beams could end only on
 If any unexpected beam behaviour occurs, check the default automatic beam
 settings in @file{scm/@/auto@/-beam@/.scm}
 for possible interference, because the beam
-endings defined there will still apply on top of your own overrides. Any
+endings defined there will still apply on top of your own overrides.  Any
 unwanted endings in the default vales must be reverted for your time
 signature(s).
 
@@ -1464,8 +1464,8 @@ ossia = { f4 f f f }
 
 The VerticalAlignment and VerticalAxisGroup grobs work together.
 VerticalAxisGroup groups together different grobs like Staff, Lyrics,
-etc. VerticalAlignment then vertically aligns the different grobs
-grouped together by VerticalAxisGroup. There is usually only one
+etc.  VerticalAlignment then vertically aligns the different grobs
+grouped together by VerticalAxisGroup.  There is usually only one
 VerticalAlignment per score but every Staff, Lyrics, etc. has its own
 VerticalAxisGroup. 
 
@@ -1933,7 +1933,7 @@ change value over time while interpreting a piece of music;
 this.  Context properties are modified with @code{\set}.
 
 There is a special type of context property: the element
-description. These properties are named in @code{StudlyCaps}
+description.  These properties are named in @code{StudlyCaps}
 (starting with capital letters).  They contain the
 @q{default settings} for said graphical object as an
 association list.  See @file{scm/@/define@/-grobs@/.scm}

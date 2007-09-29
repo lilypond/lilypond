@@ -385,7 +385,7 @@ on the @code{countPercentRepeats} property,
 
 
 
-Isolated percents can also be printed. This is done by putting a
+Isolated percents can also be printed.  This is done by putting a
 multi-measure rest with a different print function,
 
 @lilypond[fragment,verbatim,quote]

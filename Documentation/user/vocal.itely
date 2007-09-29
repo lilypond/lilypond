@@ -350,7 +350,7 @@ is the same as
 Lyrics can also be entered without @code{\addlyrics} or
 @code{\lyricsto}.  In this case,
 syllables are entered like notes -- but with pitches replaced by text -- and the
-duration of each syllable must be entered explicitly. For example:
+duration of each syllable must be entered explicitly.  For example:
  
 @example
 play2 the4 game2.
@@ -533,7 +533,7 @@ Program reference: @internalsref{LyricExtender},
 @cindex lyrics, identifiers
 
 To define identifiers containing lyrics, the function @code{\lyricmode}
-must be used. You do not have to enter durations though, if you add
+must be used.  You do not have to enter durations though, if you add
 @code{\addlyrics} or @code{\lyricsto}
 when invoking your identifier.
  
@@ -976,8 +976,8 @@ its fleece was white as snow.
 @unnumberedsubsubsec Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
-multiple columns across the page. An outdented verse number often
-introduces each verse. The following example shows how to produce such
+multiple columns across the page.  An outdented verse number often
+introduces each verse.  The following example shows how to produce such
 output in Lilypond.
 
 @lilypond[ragged-right,quote,verbatim]

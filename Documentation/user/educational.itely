@@ -209,7 +209,7 @@ closest to the desired size.  The standard font size (for
 a 20pt staff, a 10pt font is selected.
 
 The @code{font-size} property can only be set on layout objects that
-use fonts. These are the ones supporting the
+use fonts.  These are the ones supporting the
 @internalsref{font-interface} layout interface.
 
 @refcommands
@@ -559,7 +559,7 @@ The following example demonstrates its use.
 
 @noindent
 There are two music functions, @code{balloonText} and
-@code{balloonGrobText}. The latter takes the name of the grob to
+@code{balloonGrobText}.  The latter takes the name of the grob to
 adorn, while the former may be used as an articulation on a note. 
 The other arguments  are the offset and the text of the label.
 

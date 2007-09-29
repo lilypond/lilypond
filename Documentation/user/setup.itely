@@ -36,7 +36,7 @@ operating systems.
 @subsection MacOS X on the command-line
 
 The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are included inside MacOS X .app. They can be run from
+lilypond itself) are included inside MacOS X .app.  They can be run from
 the command line by invoking them directly, e.g.
 
 @example
@@ -206,7 +206,7 @@ in the PDF viewer.  This makes it easier to find input that causes
 some error in the sheet music.
 
 When this functionality is active, LilyPond adds hyperlinks to the PDF
-file. These hyperlinks are sent to the web-browser, which opens a
+file.  These hyperlinks are sent to the web-browser, which opens a
 text-editor with the cursor in the right place.
 
 To make this chain work, you should configure your PDF viewer to
@@ -222,7 +222,7 @@ urlCommand     "lilypond-invoke-editor %s"
 @end example
 
 The program @file{lilypond-invoke-editor} is a small helper
-program. It will invoke an editor for the special @code{textedit}
+program.  It will invoke an editor for the special @code{textedit}
 URIs, and run a web browser for others.  It tests the environment
 variable @code{EDITOR} for the following patterns,
 
@@ -245,10 +245,10 @@ this will invoke
 @end example
 @end table
 
-The environment variable @code{LYEDITOR} is used to override this. It
+The environment variable @code{LYEDITOR} is used to override this.  It
 contains the command line to start the editor, where @code{%(file)s},
 @code{%(column)s}, @code{%(line)s} is replaced with the file, column
-and line respectively. The  setting
+and line respectively.  The  setting
 
 @example
 emacsclient --no-wait +%(line)s:%(column)s %(file)s
@@ -261,7 +261,7 @@ invocation.
 
 @cindex file size, output
 
-The point and click links enlarge the output files significantly. For
+The point and click links enlarge the output files significantly.  For
 reducing the size of PDF and PS files, point and click may be switched
 off by issuing
 

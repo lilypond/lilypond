@@ -255,23 +255,23 @@ espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss        
 Note that in Dutch, German, Norwegian, and Swedish, the flat
 alterations of @samp{a} like for example @code{aes} and
 @code{aeses} are usually contracted to @code{as} and @code{ases}
-(or more commonly @code{asas}). Sometimes only these contracted
+(or more commonly @code{asas}).  Sometimes only these contracted
 names are defined in the corresponding language files (this also
 applies to the suffixes for quartertones below).
 
 @noindent
 Some music uses microtones whose alterations are fractions of a
-@q{regular} sharp or flat. The note names for quartertones defined
+@q{regular} sharp or flat.  The note names for quartertones defined
 in the various language files are listed in the following table.
 Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
-@q{one and a half}, respectively. For Norwegian, Swedish, Catalan
+@q{one and a half}, respectively.  For Norwegian, Swedish, Catalan
 and Spanish no special names have been defined yet.
 
 @c What about Turkish Maquam music and similar microtonal systems?
 @c
 @c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
 @c is actually misleading since the alteration is in fact one and a half
-@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+@c of a regular sharp/flat.  Whence the naming "sesqui-sharp/-flat" used below.
 
 @example
                         Note Names             semi-   semi-  sesqui-  sesqui-

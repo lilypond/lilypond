@@ -151,7 +151,7 @@ is put into the @code{thickness} variable of a @code{Stem}
 object.  @code{thickness} is measured relative to the thickness of
 staff lines, so these stem lines will be @code{2.6} times the
 width of staff lines.  This makes stems almost twice as thick as their
-normal size. To distinguish between variables defined in input files (like
+normal size.  To distinguish between variables defined in input files (like
 @code{twentyFour} in the example above) and variables of internal
 objects, we will call the latter @q{properties} and the former
 @q{identifiers.}  So, the stem object has a @code{thickness} property,

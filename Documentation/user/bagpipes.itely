@@ -53,14 +53,14 @@ notes in the appropriate octaves, so you do not need to worry about
 @end lilypond
 
 Bagpipe music nominally uses the key of D Major (even though that
-isn't really true). However, since that is the only key that can be used,
-the key signature is normally not written out. To set this up correctly,
-always start your music with @code{\hideKeySignature}. If you for some
+isn't really true).  However, since that is the only key that can be used,
+the key signature is normally not written out.  To set this up correctly,
+always start your music with @code{\hideKeySignature}.  If you for some
 reason want to show the key signature, you can use @code{\showKeySignature}
 instead.
 
 Some modern music use cross fingering on c and f to flatten those notes.
-This can be indicated by @code{cflat} or @code{fflat}. Similarly, the
+This can be indicated by @code{cflat} or @code{fflat}.  Similarly, the
 piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 

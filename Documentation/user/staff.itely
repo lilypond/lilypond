@@ -129,7 +129,7 @@ of lines, using properties.  This is demonstrated in the example files
 @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
 @lsr{staff,changing-the-staff-size.ly}.
 
-In addition, staves may be started and stopped at will. This is done
+In addition, staves may be started and stopped at will.  This is done
 with @code{\startStaff} and @code{\stopStaff}.
 
 @lilypond[verbatim,relative=2,fragment]
@@ -143,7 +143,7 @@ b b
 @end lilypond
 
 In combination with Frenched staves, this may be used to typeset ossia
-sections. An example is shown here
+sections.  An example is shown here
 
 @cindex ossia
 

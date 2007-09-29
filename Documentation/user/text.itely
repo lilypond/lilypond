@@ -116,8 +116,8 @@ over many measures with lines, sometimes dotted or wavy.
 
 These all use the same routines as the glissando for drawing the texts
 and the lines, and tuning their behavior is therefore also done in the
-same way. It is done with a spanner, and the routine responsible for
-drawing the spanners is @code{ly:line-interface::print}. This
+same way.  It is done with a spanner, and the routine responsible for
+drawing the spanners is @code{ly:line-interface::print}.  This
 routine determines the exact location of the two @i{span
 points} and draws a line in between, in the style requested.
 
@@ -147,9 +147,9 @@ e2 \glissando f
 
 The @code{Glissando} object, like any other using the
 @code{ly:line-interface::print} routine, carries a nested
-association list. In the above statement, the value for @code{Y}
+association list.  In the above statement, the value for @code{Y}
 is set to @code{-2} for the association list corresponding to the right
-end point. Of course, it is also possible to adjust the left side with
+end point.  Of course, it is also possible to adjust the left side with
 @code{left} instead of @code{right}.
 
 If @code{Y} is not set, the value is computed from the vertical
@@ -184,7 +184,7 @@ relative to the bound object.  So, a value of @code{-1} (or
 head it is attached to.
 
 @item X
-This is the absolute coordinate of the end point. It is usually
+This is the absolute coordinate of the end point.  It is usually
 computed on the fly, and there is little use in overriding it. 
 
 @item stencil
@@ -193,7 +193,7 @@ contained in this sub-property.  This is for internal use, it is
 recommended to use @code{text}.
 
 @item text
-This is a markup that is evaluated to yield stencil. It is
+This is a markup that is evaluated to yield stencil.  It is
 used to put @i{cresc.} and @i{tr} on horizontal spanners.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
@@ -681,7 +681,7 @@ can spread over multiple pages:
 @end verbatim
 
 @code{\markuplines} accepts a list of markup, that is either the result
-of a markup list command, or a list of markups or of markup lists. The
+of a markup list command, or a list of markups or of markup lists.  The
 built-in markup list commands are described in
 @ref{Overview of text markup list commands}.
 
@@ -704,8 +704,8 @@ This manual: @ref{Overview of text markup list commands},
 
 By setting the object properties described below, you can select a
 font from the preconfigured font families.  LilyPond has default
-support for the feta music fonts. Text fonts are selected through
-Pango/FontConfig. The serif font defaults to New Century Schoolbook,
+support for the feta music fonts.  Text fonts are selected through
+Pango/FontConfig.  The serif font defaults to New Century Schoolbook,
 the sans and typewriter to whatever the Pango installation defaults
 to.
 
@@ -736,7 +736,7 @@ several font series for each font family and shape.  Choices are
 @end itemize
 
 Fonts selected in the way sketched above come from a predefined style
-sheet. If you want to use a font from outside the style sheet,
+sheet.  If you want to use a font from outside the style sheet,
 then set the
 @code{font-name} property,
 
@@ -762,7 +762,7 @@ lilypond -dshow-available-fonts blabla
 
 
 The size of the font may be set with the @code{font-size}
-property. The resulting size is taken relative to the
+property.  The resulting size is taken relative to the
 @code{text-font-size} as defined in the @code{\paper} block.
 
 @cindex font size
@@ -770,9 +770,9 @@ property. The resulting size is taken relative to the
 
 
 It is also possible to change the default font family for the entire
-document. This is done by calling the @code{make-pango-font-tree} from
-within the @code{\paper} block. The function takes names for the font
-families to use for roman, sans serif and monospaced text. For
+document.  This is done by calling the @code{make-pango-font-tree} from
+within the @code{\paper} block.  The function takes names for the font
+families to use for roman, sans serif and monospaced text.  For
 example,
 
 @cindex font families, setting

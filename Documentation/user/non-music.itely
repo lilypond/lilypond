@@ -81,9 +81,9 @@ A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  If there are
 a number of @code{\scores}, one output file will be created for
 each @code{\book} block, in which all corresponding movements are
-concatenated. The only reason to explicitly specify @code{\book} blocks
+concatenated.  The only reason to explicitly specify @code{\book} blocks
 in a @code{.ly} file is if you wish multiple output files from a single
-input file. One exception is within lilypond-book documents, where you
+input file.  One exception is within lilypond-book documents, where you
 explicitly have to add a @code{\book} block if you want more than a
 single @code{\score} or @code{\markup} in the same example.
 
@@ -262,10 +262,10 @@ will normally be typeset in the form of a single output file.
 
 However, if you want multiple output files from the same @code{.ly}
 file, then you can add multiple @code{\book} blocks, where each such
-@code{\book} block will result in a separate output. If you do not
+@code{\book} block will result in a separate output.  If you do not
 specify any @code{\book} block in the file, LilyPond will implicitly
 treat the full file as a single @code{\book} block, see @ref{File
-structure}. One important exception is within lilypond-book documents,
+structure}.  One important exception is within lilypond-book documents,
 where you explicitly have to add a @code{\book} block, otherwise only
 the first @code{\score} or @code{\markup} will appear in the output.
 
@@ -300,11 +300,11 @@ the top of the file is inserted.
 @subsection Extracting fragments of notation
 
 It is possible to quote small fragments of a large score directly from
-the output. This can be compared to clipping a piece of a paper score
+the output.  This can be compared to clipping a piece of a paper score
 with scissors.
 
 This is done by definining the measures that need to be cut out
-separately. For example, including the following definition
+separately.  For example, including the following definition
 
 
 @verbatim
@@ -319,14 +319,14 @@ separately. For example, including the following definition
 
 @noindent
 will extract a fragment starting halfway the fifth measure, ending in
-the seventh measure. The meaning of @code{5 1 2} is: after a 1/2 note
+the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
 in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
 
 More clip regions can be defined by adding more pairs of
 rhythmic-locations to the list. 
 
 In order to use this feature, LilyPond must be invoked with
-@code{-dclip-systems}. The clips are output as EPS files, and are
+@code{-dclip-systems}.  The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
 For more information on output formats, see @rprogram{Invoking lilypond}.
@@ -852,10 +852,10 @@ top-level, or inside a music expression.
 @end verbatim
 
 The markups which are used to format the table of contents are defined
-in the @code{\paper} block. The default ones are @code{tocTitleMarkup},
+in the @code{\paper} block.  The default ones are @code{tocTitleMarkup},
 for formatting the title of the table, and @code{tocItemMarkup}, for
 formatting the toc elements, composed of the element title and page
-number. These variables may be changed by the user:
+number.  These variables may be changed by the user:
 
 @verbatim
 \paper {
@@ -993,11 +993,11 @@ to a score, for example,
 The tempo can be specified using the @code{\tempo} command within the 
 actual music, see @ref{Metronome marks}.  An alternative, which does not
 result in a metronome mark in the printed score, is shown in the example
-above. In this example the tempo of quarter notes is set to 72 beats per
+above.  In this example the tempo of quarter notes is set to 72 beats per
 minute. 
 This kind of tempo
-specification can not take dotted note lengths as an argument. In this
-case, break the dotted notes into smaller units. For example, a tempo
+specification can not take dotted note lengths as an argument.  In this
+case, break the dotted notes into smaller units.  For example, a tempo
 of 90 dotted quarter notes per minute can be specified as 270 eighth
 notes per minute
 
@@ -1090,7 +1090,7 @@ enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
 
 
 The MIDI block is analogous to the layout block, but it is somewhat
-simpler.  The @code{\midi} block is similar to @code{\layout}. It can contain
+simpler.  The @code{\midi} block is similar to @code{\layout}.  It can contain
 context definitions.
 
 
@@ -1165,7 +1165,7 @@ When entering or copying music, usually only the music near the end (where
 you
 are adding notes) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
-the last few measures. This is achieved by putting
+the last few measures.  This is achieved by putting
 
 @verbatim
 showLastLength = R1*5
@@ -1173,17 +1173,17 @@ showLastLength = R1*5
 @end verbatim
 
 @noindent
-in your source file. This will render only the last 5 measures
+in your source file.  This will render only the last 5 measures
 (assuming 4/4 time signature) of every @code{\score} in the input
-file. For longer pieces, rendering only a small part is often an order
+file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely
 
 Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.
 
-This property is also used to control output to the MIDI file. Note that
-it skips all events, including tempo and instrument changes. You have
+This property is also used to control output to the MIDI file.  Note that
+it skips all events, including tempo and instrument changes.  You have
 been warned.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
