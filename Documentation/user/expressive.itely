@@ -33,8 +33,8 @@
 @cindex ornaments
 
 A variety of symbols can appear above and below notes to indicate
-different characteristics of the performance.  They are added to a note
-by adding a dash and the character signifying the
+different characteristics of the performance.  They are added to a
+note by adding a dash and the character signifying the
 articulation.  They are demonstrated here
 
 @lilypondfile[quote,ragged-right]{script-abbreviations.ly}
@@ -42,9 +42,9 @@ articulation.  They are demonstrated here
 The meanings of these shorthands can be changed.  See
 @file{ly/@/script@/-init@/.ly} for examples.
 
-The script is automatically placed, but the direction can be forced as
-well.  Like other pieces of LilyPond code, @code{_} will place them
-below the staff, and @code{^} will place them above.
+The script is automatically placed, but the direction can be
+forced as well.  Like other pieces of LilyPond code, @code{_} will
+place them below the staff, and @code{^} will place them above.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 c''4^^ c''4_^

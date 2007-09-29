@@ -120,7 +120,7 @@ In addition, LilyPond input is @strong{case sensitive}.  @code{
 @{c d e @}} is valid input; @code{@{ C D E @}} will produce an
 error message.
 
-@sp 1
+@smallspace
 
 @subheading Entering music and viewing output
 
@@ -583,7 +583,7 @@ a1
 a
 @end lilypond
 
-@sp 1
+@smallspace
 
 @subheading Warning: key signatures and pitches
 
@@ -678,7 +678,7 @@ simultaneous phrasing slurs.
 a8(\( ais b c) cis2 b'2 a4 cis,\)
 @end lilypond
 
-@sp 1
+@smallspace
 
 @cindex slurs versus ties
 @subheading Warnings: slurs vs. ties

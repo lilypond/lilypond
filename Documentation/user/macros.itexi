@@ -71,6 +71,12 @@
 
 @c   **** Headings in a doc subsection ****
 
+@c not really a heading, but...
+@macro smallspace
+@sp 1
+@end macro
+
+@c absolete; being removed.
 @macro refcommands
 @noindent
 @subsubheading Predefined commands
@@ -91,7 +97,7 @@
 
 @macro refbugs
 @noindent
-@subsubheading Bugs
+@subsubheading Known issues and warnings
 
 @end macro
 
