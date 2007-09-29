@@ -27,6 +27,14 @@ You've read the tutorial, you know how to write music.  But how can you
 get the staves that you want?  The templates are ok, but what if you
 want something that isn't covered?
 
+@menu
+* Soprano and cello::           
+* Another example of extending templates::  
+@end menu
+
+@node Soprano and cello
+@unnumberedsubsec Soprano and cello
+
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
 cello.  In this case, we would start with @q{Notes and lyrics} (for the
@@ -206,11 +214,19 @@ celloMusic = \relative c {
 @end lilypond
 
 
+@node Another example of extending templates
+@unnumberedsubsec Another example of extending templates
+
+TODO: somebody else fill this in.  You guys like vocal stuff,
+right?  Get to it.  :)  -gp
 
 
 
-@node An orchestral part
-@section An orchestral part
+@node Scores and parts
+@section Scores and parts
+
+TODO: this is really old stuff from the really old tutorial.
+Rewrite, fix, etc.  -gp
 
 In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Identifiers can
