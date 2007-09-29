@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -12,31 +11,103 @@
 @node Bagpipes
 @section Bagpipes
 
-UNTRANSLATED NODE: IGNORE ME
+This section includes extra information for writing for bagpipes.
 
 @menu 
 * Bagpipe::
-@end menu 
+@end menu
+
+
 @node Bagpipe
 @subsection Bagpipe
-
-UNTRANSLATED NODE: IGNORE ME
 
 @menu 
 * Bagpipe definitions::
 * Bagpipe example::
-@end menu 
+@end menu
+
 @node Bagpipe definitions
 @unnumberedsubsubsec Bagpipe definitions
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond contiene definiciones especiales para la música de gaita escocesa de las
+tierras altas; para usarlas, escriba
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+al principio del archivo de entrada.  De esta forma podrá escribir las notas de adorno especiales
+que son usuales en la música de gaita, mediante instrucciones breves.  Por ejemplo, puede escribir
+@code{\taor} en lugar de
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@code{bagpipe.ly} también contiene definiciones de alturas para las notas de la
+gaita en las octavas adecuadas, de forma que no se tenga que preocupar por
+@code{\relative} o por @code{\transpose}.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+La música de gaita utiliza siempre la tonalidad de Re mayor (aunque esto no es
+completamente cierto). Sin embargo, puesto que es la única tonalidad que se puede utilizar,
+normalmente la armadura no se escribe. Para configurar esto de forma correcta,
+comience la música siempre con @code{\hideKeySignature} (ocultar armadura). Si, por algún motivo,
+quiere mostrar la armadura, puede usar @code{\showKeySignature}
+en su lugar.
+
+Alguna música moderna utiliza digitaciones cruzadas sobre el Do y el Fa para bemolizar estas notas.
+Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, el
+sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
+ligera.
+
 
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
 
-UNTRANSLATED NODE: IGNORE ME
+La conocida melodía Amazing Grace tiene este aspecto en notación de
+gaita.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

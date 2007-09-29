@@ -16,9 +16,9 @@ Intro text.
 * TODO chords fix::             
 @end menu
 
+
 @node TODO chords fix
 @subsection TODO chords fix
-
 
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
@@ -442,9 +442,5 @@ Chord names are determined solely from the list of pitches.  Chord
 inversions are not identified, and neither are added bass notes.  This
 may result in strange chord names when chords are entered with the
 @code{< .. >} syntax.
-
-
-
-
 
 

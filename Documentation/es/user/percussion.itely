@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -12,43 +11,319 @@
 @node Percussion
 @section Percussion
 
-UNTRANSLATED NODE: IGNORE ME
-
 @menu 
 * TODO percussion node fix::
-@end menu 
+@end menu
+
 @node TODO percussion node fix
 @subsection TODO percussion node fix
 
-UNTRANSLATED NODE: IGNORE ME
+La notación rítmica se emplea primordialmente para la percusión y la batería, pero también
+se puede utilizar para mostrar los valores rítmicos una melodía.
 
-@menu 
-* Showing melody rhythms::
-* Entering percussion::
-* Percussion staves::
-* Ghost notes::
-@end menu 
+@menu
+* Showing melody rhythms::      
+* Entering percussion::         
+* Percussion staves::           
+* Ghost notes::                 
+@end menu
+
+
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
-UNTRANSLATED NODE: IGNORE ME
+En ocasiones podría desear que se muestre sólo el ritmo de una melodía.  Esto
+se puede hacer con la pauta rítmica.  Todas las alturas de las notas en dicha pauta
+se muestran como una barra, y la pauta en sí tiene una sola línea.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
+}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{RhythmicStaff}.
+
 
 @node Entering percussion
 @unnumberedsubsubsec Entering percussion
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex percusión
+@cindex batería
+
+
+Las notas de percusión se pueden escribir en el modo @code{\drummode}, que es similar
+al modo estándar para introducir notas.  Cada elemento de un set de percusión
+lleva un nombre completo y un nombre abreviado, y los dos se pueden usar
+en la entrada
+
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+  hihat hh bassdrum bd
+}
+@end lilypond
+
+La lista completa de nombre de instrumentos de percusión se encuentra en el archivo de inicio
+@file{ly/@/drumpitch@/-init@/.ly}.
+@c TODO: properly document this.
+
+@seealso
+
+Referencia del programa: @internalsref{note-event}.
 
 @node Percussion staves
 @unnumberedsubsubsec Percussion staves
+@cindex percusión
+@cindex batería
 
-UNTRANSLATED NODE: IGNORE ME
+Una parte de percusión para más de un instrumento, normalmente utiliza una pauta
+de varias líneas donde cada posición dentro de la pauta se refiere a un elemento
+de percusión.
 
+
+Para tipografiar la música, se deben interpretar las notas dentro de los contextos
+@internalsref{DrumStaff} y @internalsref{DrumVoice}
+
+@lilypond[quote,ragged-right,verbatim]
+up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
+down = \drummode { bassdrum4 snare8 bd r bd sn4 }
+  \new DrumStaff <<
+    \new DrumVoice { \voiceOne \up }
+    \new DrumVoice { \voiceTwo \down }
+  >>
+@end lilypond
+
+El ejemplo anterior muestra una notación polifónica prolija.  La notación
+polifónica abreviada, descrita en @ref{Basic polyphony}, también se puede usar si
+las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new DrumStaff <<
+  \new DrumVoice = "1" { s1 *2 }
+  \new DrumVoice = "2" { s1 *2 }
+  \drummode {
+    bd4 sn4 bd4 sn4
+    <<
+      { \repeat unfold 16 hh16 }
+      \\
+      { bd4 sn4 bd4 sn4 }
+    >>
+  }
+>>
+@end lilypond
+
+
+También existen otras posibilidades en lo referente a la disposición.  Para usarlas, establezca la
+propiedad @code{drumStyleTable} en el contexto @internalsref{DrumVoice}.
+Se han predefinido las siguientes variables:
+
+@table @code
+@item drums-style
+Es la opción por defecto.  Tipografía un típico set de percusión sobre una pauta de cinco líneas
+
+@lilypond[quote,line-width=10.0\cm]
+nam = \lyricmode {
+  cymc cyms cymr hh hhc hho hhho hhp
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl }
+mus = \drummode {
+  cymc cyms cymr hh hhc hho hhho hhp \break
+  cb hc bd sn ss tomh tommh tomml toml tomfh tomfl s16 }
+\score {
+  << \new DrumStaff \with {
+       \remove Bar_engraver
+       \remove Time_signature_engraver
+       \override Stem #'transparent = ##t
+       \override Stem #'Y-extent-callback = ##f
+       \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
+     } \mus
+     \new Lyrics \nam
+  >>
+  \layout {
+    \context {
+      \Score
+      \override LyricText #'font-family = #'typewriter
+      \override BarNumber #'transparent =##T
+    }
+  }
+}
+@end lilypond
+
+El esquema de percusión contempla seis tambores graves (toms) distintos.  Cuando haya menos toms,
+sencillamente seleccione aquellos que producen el resultado deseado, es decir, para tener toms
+en las tres líneas centrales utilizará @code{tommh}, @code{tomml} y
+@code{tomfh}.
+
+@item timbales-style
+Esto tipografía timbales en una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { timh ssh timl ssl cb }
+mus = \drummode { timh ssh timl ssl cb s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+    \override StaffSymbol #'line-count = #2
+    \override StaffSymbol #'staff-space = #2
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
+    drumStyleTable = #timbales-style
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item congas-style
+Esto tipografía congas en una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
+mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    drumStyleTable = #congas-style
+    \override StaffSymbol #'line-count = #2
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item bongos-style
+Esto tipografía bongos sobre una pauta de dos líneas
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
+mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
+
+<<
+  \new DrumStaff \with {
+    \remove Bar_engraver
+    \remove Time_signature_engraver
+    \override StaffSymbol #'line-count = #2
+    drumStyleTable = #bongos-style
+
+    %% this sucks; it will lengthen stems.
+    \override StaffSymbol #'staff-space = #2
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+
+@item percussion-style
+Para tipografiar toda clase de percusiones simples sobre pautas de una línea.
+
+@lilypond[quote,ragged-right]
+nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
+mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
+
+<<
+  \new DrumStaff \with{
+    \remove Bar_engraver
+    drumStyleTable = #percussion-style
+    \override StaffSymbol #'line-count = #1
+    \remove Time_signature_engraver
+    \override Stem #'transparent = ##t
+    \override Stem #'Y-extent-callback = ##f
+  } \mus
+  \new Lyrics {
+    \override LyricText #'font-family = #'typewriter
+    \nam
+  }
+>>
+@end lilypond
+@end table
+
+Si no le gusta ninguna de las listas predefinidas, puede definir su propia lista
+al principio de su archivo
+
+@lilypond[quote,ragged-right,verbatim]
+#(define mydrums '(
+         (bassdrum     default   #f         -1)
+         (snare        default   #f         0)
+         (hihat        cross     #f         1)
+         (pedalhihat   xcircle   "stopped"  2)
+         (lowtom       diamond   #f         3)))
+up = \drummode { hh8 hh hh hh hhp4 hhp }
+down = \drummode { bd4 sn bd toml8 toml }
+
+\new DrumStaff <<
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
+@end lilypond
+
+
+@seealso
+
+Archivos de inicio: @file{ly/@/drumpitch@/-init@/.ly}.
+
+Referencia del programa: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+
+@refbugs
+
+A causa de que el estándar General MIDI no contiene golpes de aro (rim shot), para este propósito se usa
+el golpe lateral de baqueta (sidestick) en su lugar.
+
+
+@c FIXME: check name -gp
 @node Ghost notes
 @unnumberedsubsubsec Ghost notes
 
-UNTRANSLATED NODE: IGNORE ME
+Las notas fantasma para la batería e instrumentos de percusión se pueden crear utilizando la instrucción
+@code{\parenthesize} detallada en @ref{Parentheses}.  Sin embargo,
+el modo por defecto @code{\drummode} no
+incluye el añadido grabador @code{Parenthesis_engraver} que permite
+esto.
+Debe escribir el grabador añadido explícitamente en la definición de contexto tal y como se explica detalladamente
+en @ref{Changing context properties on the fly}.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\new DrumStaff \with {
+  \consists "Parenthesis_engraver"
+} <<
+  \context DrumVoice  = "1"  { s1 *2 }
+  \context DrumVoice  = "2" { s1 *2 }
+  \drummode {
+    <<
+      {
+        hh8[ hh] <hh sn> hh16
+        < \parenthesize sn > hh < \parenthesize
+        sn > hh8 <hh sn> hh
+      } \\ {
+        bd4 r4 bd8 bd r8 bd
+      }
+    >>
+  }
+>>
+@end lilypond
+
+@noindent
+Tenga en cuenta, además, que debe añadir acordes (paréntesis en ángulo @code{< >})
+alrededor de cada una de las instrucciones @code{\parenthesize}.
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

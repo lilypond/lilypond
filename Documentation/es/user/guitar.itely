@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -12,61 +11,346 @@
 @node Guitar
 @section Guitar
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex tablatura
+@cindex guitarra, tablatura de
 
 @menu 
 * Guitar TODO::
-@end menu 
+@end menu
+
 @node Guitar TODO
 @subsection Guitar TODO
 
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* String number indications::   
+* Tablatures basic::            
+* Non-guitar tablatures::       
+* Banjo tablatures::            
+* Fret diagrams::               
+* Right hand fingerings::       
+* Other guitar issues::         
+@end menu
 
-@menu 
-* String number indications::
-* Tablatures basic::
-* Non-guitar tablatures::
-* Banjo tablatures::
-* Fret diagrams::
-* Right hand fingerings::
-* Other guitar issues::
-@end menu 
 @node String number indications
 @unnumberedsubsubsec String number indications
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Cuerda, número de la
+
+Los números de cuerda se pueden añadir a los acordes especificándolos mediante
+@code{\}@var{número},
+
+@lilypond[relative,relative=1,ragged-right,fragment]
+<c\1 e\2 g\3>
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{StringNumber},
+@lsr{guitar/,string-number.ly}.
+
 
 @node Tablatures basic
 @unnumberedsubsubsec Tablatures basic
+@cindex Tablatura, principios básicos
 
-UNTRANSLATED NODE: IGNORE ME
+La notación de tablatura se utiliza para la notación de música de instrumentos de cuerda
+pulsada.  Las alturas no se denotan mediante cabezas de nota, sino mediante
+números que indican sobre qué cuerda y traste se debe tocar la nota.  LilyPond
+contempla las tablaturas de forma limitada.
+
+El número de cuerda asociado a una nota se proporciona en la forma de una barra invertida
+seguida por un número, p.ej. @code{c4\3} es un Do negra sobre la tercera cuerda.
+Por defecto, la cuerda 1 es la más aguda, y la afinación normal
+es la afinación estándar de guitarra (con 6 cuerdas).  Las notas
+se imprimen como tablatura, usando lo contextos @internalsref{TabStaff} y
+@internalsref{TabVoice}
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff {
+  a,4\5 c'\2 a\3 e'\1
+  e\4 c'\2 a\3 e'\1
+}
+@end lilypond
+
+@funindex minimumFret
+@cindex traste
+
+Cuando no se especifica ninguna cuerda, se selecciona la primera cuerda que no da un
+número de traste menor de @code{minimumFret} (traste mínimo).  El valor por defecto
+de @code{minimumFret} es cero
+
+
+@example
+e16 fis gis a b4
+\set TabStaff.minimumFret = #8
+e16 fis gis a b4
+@end example
+@lilypond[quote,ragged-right]
+frag = {
+  \key e \major
+  e16 fis gis a b4
+  \set TabStaff.minimumFret = #8
+  e16 fis gis a b4
+}
+  \new StaffGroup <<
+    \new Staff { \clef "G_8" \frag }
+    \new TabStaff { \frag }
+  >>
+@end lilypond
+
+
+@commonprop
+
+Para imprimir tablaturas con las plicas hacia abajo y barras horizontales,
+inicialice el @code{TabStaff} (pentagrama de tablatura) con el código siguiente:
+
+@example
+\stemDown
+\override Beam #'damping = #100000
+@end example
+
+@seealso
+
+Referencia del programa: @internalsref{TabStaff}, @internalsref{TabVoice}.
+
+@refbugs
+
+Los acordes no se tratan de una manera especial, de aquí que el
+selector automático de cuerdas podría fácilmente seleccionar la misma cuerda para dos notas
+dentro del mismo acorde.
+
+Para manejar @code{\partcombine}, una pauta de tablatura @code{TabStaff} debe usar
+voces creadas especialmente:
+
+@lilypond[quote,ragged-right,verbatim]
+melodia = \partcombine { e4 g g g }{ e4 e e e }
+<<
+  \new TabStaff <<
+    \new TabVoice = "one" s1
+    \new TabVoice = "two" s1
+    \new TabVoice = "shared" s1
+    \new TabVoice = "solo" s1
+    { \melodia }
+  >>
+>>
+@end lilypond
+
 
 @node Non-guitar tablatures
 @unnumberedsubsubsec Non-guitar tablatures
+@cindex Tablaturas para instr. distintos de la guitarra
 
-UNTRANSLATED NODE: IGNORE ME
+Puede cambiar la afinación de las cuerdas. Una afinación de cuerdas se da como
+una lista en lenguaje Scheme con un número entero para cada cuerda, donde el número
+es la altura (medida en semitonos desde el Do central) de una
+cuerda al aire.  Los números especificados para @code{stringTunings} son la
+cantidad de semitonos que se deben restar o añadir, comenzando por la altura especificada
+que por defecto es el Do central, y en el orden de las cuerdas.  LilyPond calcula automáticamente
+el número de cuerdas leyendo @code{stringTunings}.
+
+En el ejemplo siguiente,
+@code{stringTunings} se establece a los valores Mi, La, Re y Sol
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
+  {
+    a,4 c' a e' e c' a e'
+  }
+>>
+@end lilypond
+
+LilyPond tiene afinaciones predefinidas para el banjo, la mandolina, la guitarra
+y el bajo eléctrico.
+
+@example
+\set TabStaff.stringTunings = #bass-tuning
+@end example
+
+La afinación por omisión es @code{guitar-tuning} (la afinación estándar
+Mi-La-Re-Sol-Si-Mi).
+Otras afinaciones predefinidas son @code{guitar-open-g-tuning} (Sol Mayor al aire, Re-Sol-Re-Sol-Si-Re),
+@code{mandolin-tuning} (mandolina) y @code{banjo-open-g-tuning} (banjo con Sol Mayor al aire).
+
+@seealso
+
+El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
+de las cuerdas.
+Referencia del programa: @internalsref{Tab_note_heads_engraver}.
+
+@refbugs
+
+No se ha implementado ningún efecto especial de guitarra.
+
+
 
 @node Banjo tablatures
 @unnumberedsubsubsec Banjo tablatures
+@cindex Banjo, tablaturas de
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond contempla el banjo de cinco cuerdas de una manera básica.  Cuando haga tablaturas
+para banjo de cinco cuerdas, utilice la función de formato de tablatura de banjo para obtener
+los números correctos
+de los trastes para la quinta cuerda:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+En LilyPond se encuentran predefinidas varias afinaciones comunes para el banjo:
+@code{banjo-c-tuning} (sol-Do-Sol-Si-Re), @code{banjo-modal-tuning} (sol-Re-Sol-Do-Re),
+@code{banjo-open-d-tuning} (Re Mayor al aire, la-Re-Fa#-La-Re) y @code{banjo-open-dm-tuning}
+(Re menor al aire, la-Re-Fa-La-Re).
+
+Estas afinaciones se pueden convertir a afinaciones para bajo de cuatro cuerdas utilizando la
+función @code{four-string-banjo}:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
+@seealso
+
+El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas para el banjo.
+
 
 @node Fret diagrams
 @unnumberedsubsubsec Fret diagrams
+@cindex trastes, diagramas de
+@cindex acordes, diagramas de
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden añadir diagramas de trastes a la música como elementos de marcado sobre la nota deseada.  El
+marcado contiene información sobre el diagrama de trastes deseado, tal y como se  muestra en el
+ejemplo siguiente
+
+@lilypond[verbatim, ragged-right, quote]
+\new Voice {
+  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d' d' d'
+  fis'^\markup \override #'(size . 0.75) {
+    \override #'(finger-code . below-string) {
+      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                               (place-fret 5 4 3) (place-fret 4 4 4)
+                               (place-fret 3 3 2) (place-fret 2 2 1)
+                               (place-fret 1 2 1))
+    }
+  }
+  fis' fis' fis'
+  c'^\markup \override #'(dot-radius . 0.35) {
+    \override #'(finger-code . in-dot) {
+      \override #'(dot-color . white) {
+        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+      }
+    }
+  }
+  c' c' c'
+}
+@end lilypond
+
+
+Existen tres interfaces distintos para el marcado de los diagramas de trastes: estándar, escueto
+y prolijo.  Los tres interfaces producen unos elementos de marcado equivalentes, pero tienen
+cantidades variables de información en la cadena de marcado.  Se pueden encontrar
+más detalles sobre los interfaces de marcado en @ref{Overview of text markup commands}.
+
+Puede establecer un cierto número de propiedades gráficas según su elección.
+Se pueden encontrar más detalles sobre el interface de las propiedades de los diagramas de trastes en
+@internalsref{fret-diagram-interface}.
+
+
+@seealso
+
+Ejemplos: @lsrdir{guitar}
+
 
 @node Right hand fingerings
 @unnumberedsubsubsec Right hand fingerings
 
-UNTRANSLATED NODE: IGNORE ME
+Se pueden introducir las digitaciones de la mano derecha de los acordes, usando
+@code{@var{nota}-\rightHandFinger @var{dedo}}
+
+@lilypond[verbatim,fragment,relative=2]
+  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+@end lilypond
+
+Por brevedad, es posible abreviar @code{\rightHandFinger} como algo más corto,
+como por ejemplo @code{RH},
+
+@example
+#(define RH rightHandFinger)
+@end example
+
+@cindex digitaciones, mano derecha, de guitarra
+@cindex mano derecha, digitaciones para guitarra
+ 
+@commonprop
+
+Puede ejercer un mayor control sobre las digitaciones de la mano derecha estableciendo
+@code{strokeFingerOrientations},
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(up down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  \set strokeFingerOrientations = #'(up right down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+}
+@end lilypond
+
+Las letras utilizadas para las digitaciones se encuentran contenidas dentro de la propiedad
+@code{digit-names} (nombres de los dedos), pero también se pueden fijar individualmente aportando a
+@code{\rightHandFinger} un argumento de cadena, como en el ejemplo siguiente
+
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(right)
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
+  <c-\RH #5 >4
+  <c-\RH "@">4  
+}
+@end lilypond
+
+@seealso
+
+Referencia del programa: @internalsref{StrokeFinger}
+
+
 
 @node Other guitar issues
 @unnumberedsubsubsec Other guitar issues
 
-UNTRANSLATED NODE: IGNORE ME
+Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
+de guitarra:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+\clef "G_8"
+b16 d16 g16 b16 e16
+\textSpannerDown
+\override TextSpanner #'bound-details #'left #'text = #"XII "
+  g16\startTextSpan
+  b16 e16 g16 e16 b16 g16\stopTextSpan
+e16 b16 g16 d16
+@end lilypond
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+Las cabezas en aspa (X) se utilizan en la música de guitarra para indicar el lugar donde el
+guitarrista debe tocar una determinada nota o acorde, con sus dedos apenas
+tocando las cuerdas en lugar de pisarlas por completo.  Esto produce en el sonido un carácter
+percusivo y ruidoso, sin perder la altura de la nota
+original.  Su notación se realiza con cabezas en equis; se muestra
+en @ref{Special noteheads}.
+
+

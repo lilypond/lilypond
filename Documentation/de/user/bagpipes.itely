@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -12,11 +11,12 @@
 @node Bagpipes
 @section Bagpipes
 
-UNTRANSLATED NODE: IGNORE ME
+This section includes extra information for writing for bagpipes.
 
 @menu 
 * Bagpipe::
-@end menu 
+@end menu
+
 @node Bagpipe
 @subsection Bagpipe
 
@@ -25,18 +25,95 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Bagpipe definitions::
 * Bagpipe example::
-@end menu 
+@end menu
+
 @node Bagpipe definitions
 @unnumberedsubsubsec Bagpipe definitions
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond besitzt spezielle Definitionen, mit der die Musik 
+des schottischen Hochland-Dudelsacks notiert wird. Um sie 
+zu benutzen, muss
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+am Anfang der LilyPond-Quelldatei eingefügt werden. Hierdurch 
+können dann bestimmte Verzierungsnoten, die für die Dudelsackmusik 
+üblich sind, mit kurzen Befehlen eingefügt werden. So reicht etwa der 
+Befehl @code{\taor}, anstatt
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@noindent zu schreiben.
+
+@code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von 
+Dudelsacknoten in bestimmten Oktoven, so dass man sich nicht mehr um
+@code{\relative} oder @code{\transpose} kümmern muss.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+Musik für den Dudelsack wird dem Namen nach in D-dur
+ geschrieben (auch wenn das eigentlich nicht stimmt). Weil 
+ das aber die einzige Tonart ist, die benutzt werden kann, werden 
+ die Vorzeichen meistens nicht geschrieben. Damit das funktioniert, 
+ müssen die Noten immer mit @code{\hideKeySignature} beginnen. 
+ Wenn die Vorzeichen hingegen angezeigt werden sollen, kann das 
+ mithilfe des Befehls @code{\showKeySignature} vorgenommen werden.
+
+Some modern music use cross fingering on c and f to flatten those notes.
+This can be indicated by @code{cflat} or @code{fflat}. Similarly, the
+piobaireachd high g can be written @code{gflat} when it occurs in light
+music.
+
 
 @node Bagpipe example
 @unnumberedsubsubsec Bagpipe example
 
-UNTRANSLATED NODE: IGNORE ME
+So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für 
+Dudelsack notiert.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

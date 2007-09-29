@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -12,25 +11,32 @@
 @node Orchestral strings
 @section Orchestral strings
 
-UNTRANSLATED NODE: IGNORE ME
+This section includes extra information for writing for orchestral
+strings.
 
 @menu 
 * Orchestral strings TODO::
-@end menu 
+@end menu
+
 @node Orchestral strings TODO
 @subsection Orchestral strings TODO
 
-UNTRANSLATED NODE: IGNORE ME
 
 @menu 
 * Artificial harmonics (strings)::
-@end menu 
+@end menu
+
 @node Artificial harmonics (strings)
 @unnumberedsubsubsec Artificial harmonics (strings)
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Flageolett
+
+Flageolett-Töne werden mit einem anderen Notenkopfstil notiert. 
+Sie werden eingegeben, indem die Flageolettnote mit dem 
+Befehl @code{\harmonic} markiert wird.
+
+@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
+<c g'\harmonic>4
+@end lilypond
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
