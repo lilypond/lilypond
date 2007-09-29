@@ -8,6 +8,7 @@
 * How LilyPond files work::     
 * Score is a single musical expression::  
 * I'm seeing Voices::           
+* Voices and vocals::           
 * On the un-nestedness of brackets and ties::  
 @end menu
 
@@ -269,8 +270,12 @@ on the same horizontal position in your text editor.
 
 @cindex polyphony
 
-@c TODO: sex this up with colors and stuff.  -gp 
-@c TODO: actually, a general rewrite is needed.  -gp
+TODO: add intro about voices vs. layers vs. whatever.
+
+TODO: sex this up with colors and stuff.  -gp 
+
+TODO: actually, a general rewrite is needed.  -gp
+
 
 The easiest way to enter fragments with more than one voice on a
 staff is to enter each voice as a sequence (with @code{@{...@}}),
@@ -346,6 +351,33 @@ the note immediately preceding it.
 @code{noteC} is relative to @code{noteB}, not @code{noteA};
 @code{noteD} is relative to @code{noteC}, not @code{noteB} or
 @code{noteA}.
+
+
+@node Voices and vocals
+@section Voices and vocals
+
+Vocal music presents a special difficulty: we need to combine two
+expressions -- notes and lyrics.
+
+You have already seen the @code{\lyricsAdd@{@}} command, which
+handles simple cases for you.  However, @code{\lyricsAdd@{@}} is
+very limited.  For most music, you must explicitly link the lyrics
+to the notes with @code{\lyricsTo@{@}}
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+TODO: get some vocal person to write more.
 
 
 @c my name start sucking the more docs I write. -gp
