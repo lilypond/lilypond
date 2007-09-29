@@ -38,7 +38,7 @@ notes pour indiquer des ponctuations ou des modes de jeu différents.
 On les ajoute à chaque note au moyen d'un tiret suivi du caractère
 correspondant à l'articulation désirée.  En voici une démonstration :
 
-@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
 
 Il est possible de changer la signification de ces raccourcis : voir des
 exemples dans @file{ly/@/script@/-init@/.ly}.

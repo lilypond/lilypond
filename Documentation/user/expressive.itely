@@ -39,7 +39,6 @@ articulation.
 
 See @ref{List of articulations}.
 
-@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
 @lilypond[quote,ragged-right,verbatim,fragment]
 \override TextScript  #'font-family = #'typewriter
 \override TextScript  #'font-shape = #'upright

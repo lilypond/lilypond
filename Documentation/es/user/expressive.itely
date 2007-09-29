@@ -37,7 +37,7 @@ para indicar distintas características de la ejecución.  Se adjuntan a una
 nota escribiendo un guión y el carácter que significa la articulación.
 Se muestran a continuación:
 
-@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
 
 Los significados de estas abreviaturas se pueden modificar.  Consulte
 @file{ly/@/script@/-init@/.ly} para ver ejemplos.

@@ -37,7 +37,7 @@ um zu markieren, auf welche Art die Note ausgeführt werden soll. Sie
 werden in LilyPond notiert, indem ein Minuszeichen an die Note gehängt 
 wird, gefolgt von dem jeweiligen Zeichen. Hier einige Beispiele:
 
-@lilypondfile[quote,ragged-right]{script-abbreviations.ly}
+@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
 
 Die Bedeutung der Zeichen kann auch verändert werden. Siehe etwa 
 @file{ly/@/script@/-init@/.ly} für Beispiele.
