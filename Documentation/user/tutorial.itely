@@ -1163,7 +1163,6 @@ This section introduces vocal music and simple song sheets.
 * Setting simple songs::        
 * Aligning lyrics to a melody::  
 * Lyrics to multiple staves::   
-* A lead sheet::                
 @end menu
 
 
@@ -1377,62 +1376,6 @@ discussed later (see @ref{Organizing pieces with identifiers}).
 More options, such as putting multiple stanzas below the score,
 setting choral music, and lyrics to divided voices, 
 are discussed in @ruser{Vocal music}.
-@end quotation
-
-
-@node A lead sheet
-@subsection A lead sheet
-
-@cindex Lead sheets
-@cindex chords
-@cindex chord names
-
-In popular music it is common to denote accompaniment with chord
-names.  Such chords can be entered like notes,
-
-@lilypond[verbatim,quote,ragged-right]
-\chordmode { c2 f4. g8 }
-@end lilypond
-
-Now each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chordmode}.  Other chords can
-be created by adding modifiers after a colon.  The following
-example shows a few common modifiers:
-
-@lilypond[verbatim,quote,ragged-right]
-\chordmode { c2 f4:m g4:maj7 gis1:dim7 }
-@end lilypond
-
-For lead sheets, chords are not printed on staves, but as names on
-a line for themselves.  This is achieved by using @code{\chords}
-instead of @code{\chordmode}.  This uses the same syntax as
-@code{\chordmode}, but renders the notes in a @code{ChordNames}
-context, with the following result:
-
-@lilypond[verbatim,quote,ragged-right]
-\chords { c2 f4.:m g4.:maj7 gis8:dim7 }
-@end lilypond
-
-@cindex lead sheet
-When put together, chord names, lyrics and a melody form a lead
-sheet,
-
-@lilypond[verbatim,quote,ragged-right]
-<<
-  \chords { c2 g:sus4 f e }
-  \relative c'' {
-    a4 e c8 e r4
-    b2 c4( d)
-  }
-  \addlyrics { One day this shall be free __ }
->>
-@end lilypond
-
-
-@seealso
-@quotation
-A complete list of modifiers and other options for layout can be
-found in @ruser{Chords}.
 @end quotation
 
 
