@@ -7,6 +7,7 @@
 @menu
 * How LilyPond files work::     
 * Score is a single musical expression::  
+* I'm seeing Voices::           
 @end menu
 
 
@@ -259,6 +260,87 @@ each smaller layer.  It also really helps to be strict with
 indentation -- make sure that each item on the same layer starts
 on the same horizontal position in your text editor.
 
+
+
+@node I'm seeing Voices
+@section I'm seeing Voices
+
+@cindex polyphony
+
+The easiest way to enter fragments with more than one voice on a
+staff is to enter each voice as a sequence (with @code{@{...@}}),
+and combine them simultaneously, separating the voices with
+@code{\\}
+
+@funindex \\
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  c16 d e f
+  <<
+    { g4 f e | d2 e2 } \\
+    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+    { s2. | s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+@cindex layers
+
+The separator causes @internalsref{Voice}
+contexts@footnote{Polyphonic voices are sometimes
+called @q{layers} in other notation packages} to be instantiated.
+They bear the names @code{"1"}, @code{"2"}, etc.  In each of these
+contexts, vertical direction of slurs, stems, etc., is set
+appropriately.
+
+These voices are all separate from the voice that contains the
+notes just outside the @code{<< \\ >>} construct.  This should be
+noted when making changes at the voice level.  This also means
+that slurs and ties cannot go into or out of a @code{<< \\ >>}
+construct.  Conversely, parallel voices from separate @code{<< \\
+>>} constructs on the same staff are the same voice.  Here is the
+same example, with different noteheads and colors for each voice.
+Note that the change to the note-head style in the main voice does
+not affect the inside of the @code{<< \\ >>} constructs.  Also,
+the change to the second voice in the first @code{<< \\ >>}
+construct is effective in the second @code{<< \\ >>}, and the
+voice is tied across the two constructs.
+
+@cindex note heads, styles
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  <<
+    { g4 f e } \\
+    { \override NoteHead #'style = #'triangle
+      \override NoteHead #'color = #blue
+    r8 e4 d c8 ~ }
+  >> |
+  <<
+    { d2 e2 } \\
+    { c8 b16 a b8 g ~ g2 } \\
+    { \override NoteHead #'style = #'slash 
+      \override NoteHead #'color = #green
+      s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+Polyphony does not change the relationship of notes within a
+@code{\relative @{ @}} block.  Each note is calculated relative to
+the note immediately preceding it.
+
+@example
+\relative @{ noteA << noteB \\ noteC >> noteD @}
+@end example
+
+@code{noteC} is relative to @code{noteB}, not @code{noteA};
+@code{noteD} is relative to @code{noteC}, not @code{noteB} or
+@code{noteA}.
 
 
 
