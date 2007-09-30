@@ -9,7 +9,19 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+Notes, dynamic signs, etc., are grouped
+with a set of horizontal lines, called a staff (plural @q{staves}).  In
+LilyPond, these lines are drawn using a separate layout object called
+@code{staff symbol}.
+
+Two or more staves can be grouped vertically in a
+@internalsref{GrandStaff}, a @internalsref{StaffGroup}, or a
+@internalsref{ChoirStaff}.
+
+@c It seemed awkward to have the general definition of a stave in the
+@c second section, since it is already used in the first. I have moved it
+@c here.
+
 
 @menu
 * Displaying staves::           
@@ -38,11 +50,18 @@ staff = singular, staves = plural
 @cindex staff, choir
 
 Many scores consist of more than one staff.  These staves can be
-joined in four different ways
+grouped in several different ways:
 
+@c The fourth delimiter, SystemStartSquare, should also be mentioned, with a
+@c reference to the relevant section, and a single line of code here showing
+@c how to achieve it.
+ 
 @itemize @bullet
-@item The group is started with a brace at the left, and bar lines are
-connected.  This is done with the @internalsref{GrandStaff} context.
+@item
+In a @internalsref{GrandStaff},
+the group is started with a brace at the left, and bar lines are connected
+between the staves. 
+@c Arpeggios can run through several staves of a @code{GrandStaff}
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -52,9 +71,10 @@ connected.  This is done with the @internalsref{GrandStaff} context.
 >>
 @end lilypond
 
-@item The group is started with a bracket, and bar lines are connected.
-This is done with the
-@internalsref{StaffGroup} context
+@item
+In a @internalsref{StaffGroup}, the barlines
+will be drawn through all the staves, but the group is started with a
+bracket.
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -64,8 +84,9 @@ This is done with the
 >>
 @end lilypond
 
-@item The group is started with a bracket, but bar lines are not
-connected.  This is done with the @internalsref{ChoirStaff} context.
+@item
+In a @internalsref{ChoirStaff}, the group is started with a bracket,
+but bar lines are not connected. 
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -75,8 +96,10 @@ connected.  This is done with the @internalsref{ChoirStaff} context.
 >>
 @end lilypond
 
-@item The group is started with a vertical line.  Bar lines are not
-connected.  This is the default for the score.
+@item
+If no context is specified, the default properties for the score will
+be used: the group is started with a vertical line, and the bar lines are
+not connected.  
 
 @lilypond[verbatim,ragged-right,quote]
 \relative <<
@@ -86,6 +109,13 @@ connected.  This is the default for the score.
 @end lilypond
 @end itemize
 
+In addition to these four staff group types, other groupings can
+be produced by changing various properties. E.g., the
+"Mensurstriche" layout common in Renaissance music, with barlines
+running between but not through the staves, can be produced from a
+@code{StaffGroup} or @code{GrandStaff} context if the barlines are
+made transparent in the @code{Staff} itself, with the command
+@code{\override Staff.BarLine #'transparent = ##t}
 
 @seealso
 
@@ -97,6 +127,8 @@ in every context, and that type is determined by the property
 
 
 @commonprop
+@c Is it possible to use other headings than this one? It's not very
+@c informative... "Nesting braces and brackets" would be better, imho. 
 
 System start delimiters may be deeply nested,
 
@@ -119,14 +151,10 @@ System start delimiters may be deeply nested,
 
 @cindex adjusting staff symbol
 
-Notes, dynamic signs, etc., are grouped
-with a set of horizontal lines, called a staff (plural @q{staves}).  In
-LilyPond, these lines are drawn using a separate layout object called
-@code{staff symbol}.
-
-The staff symbol may be tuned in the number, thickness and distance
-of lines, using properties.  This is demonstrated in the example files
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
+The layout object which draws the lines of a staff is called @code{staff
+symbol}.  The staff symbol may be tuned in the number, thickness and
+distance of lines, using properties.  This is demonstrated in the example
+files @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
 @lsr{staff,changing-the-staff-size.ly}.
 
 In addition, staves may be started and stopped at will.  This is done
@@ -168,11 +196,11 @@ Examples: @lsrdir{staff}
 @cindex Hiding staves
 
 In orchestral scores, staff lines that only have rests are usually
-removed; this saves some space.  This style is called @q{French Score}.
-For @internalsref{Lyrics},
-@internalsref{ChordNames} and @internalsref{FiguredBass}, this is
-switched on by default.  When the lines of these contexts turn out
-empty after the line-breaking process, they are removed.
+removed; this saves some space.  This style is called @q{French
+Score}.  For @internalsref{Lyrics}, @internalsref{ChordNames} and
+@internalsref{FiguredBass}, this is switched on by default.  When
+the lines of these contexts turn out empty after the line-breaking
+process, they are removed.
 
 For normal staves, a specialized @internalsref{Staff} context is
 available, which does the same: staves containing nothing (or only
