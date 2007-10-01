@@ -90,12 +90,12 @@ octaves}.
 @c and Key Signature pages.  
 
 A @rglos{sharp} pitch is made by adding @samp{is} to the name, and
-a @rglos{flat} pitch by adding @samp{es}.  As you might expect, a
-@rglos{double sharp} or @rglos{double flat} is made by adding
-@samp{isis} or @samp{eses}@footnote{This syntax derived from note
-naming conventions in Nordic and Germanic languages, like German
-and Dutch.  To use other names for accidentals, see @ruser{Note
-names in other languages}.}
+a @rglos{flat} pitch by adding @samp{es}.  As you might expect,
+a @rglos{double sharp} or @rglos{double flat} is made by adding
+@samp{isis} or @samp{eses}.  This syntax derived from note naming
+conventions in Nordic and Germanic languages, like German and
+Dutch.  To use other names for accidentals, see @ruser{Note names
+in other languages}.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
@@ -651,8 +651,6 @@ when setting properties manually.
 
 
 @seealso
-
-Manual: @ref{Grace notes}.
 
 Program reference: @internalsref{Clef}.
 
