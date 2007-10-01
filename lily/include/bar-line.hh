@@ -19,6 +19,7 @@ public:
   static Stencil compound_barline (Grob *, string, Real height, bool rounded);
   static Stencil simple_barline (Grob *, Real wid, Real height, bool rounded);
   static Interval bar_y_extent (Grob *, Grob *);
+  DECLARE_SCHEME_CALLBACK (calc_bar_extent, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_bar_size, (SCM));
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (calc_anchor, (SCM));
