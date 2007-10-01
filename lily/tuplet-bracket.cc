@@ -77,7 +77,6 @@ flatten_number_pair_property (Grob *me,
 /*
   Return beam that encompasses the span of the tuplet bracket.
 */
-
 Grob *
 Tuplet_bracket::parallel_beam (Grob *me_grob, vector<Grob*> const &cols,
 			       bool *equally_long)
@@ -512,17 +511,15 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   bool equally_long = false;
   Grob *par_beam = parallel_beam (me, columns, &equally_long);
   
-
-
   Item *lgr = get_x_bound_item (me, LEFT, dir);
   Item *rgr = get_x_bound_item (me, RIGHT, dir);
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   bool follow_beam = par_beam
-    && ((get_grob_direction (par_beam) == dir) || to_boolean (par_beam->get_property ("knee")));
+    && ((get_grob_direction (par_beam) == dir)
+	|| to_boolean (par_beam->get_property ("knee")));
 
   vector<Offset> points;
-
   if (columns.size ()
       && follow_beam
       && Note_column::get_stem (columns[0])
@@ -533,12 +530,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
        */
       (void) par_beam->get_property ("quantized-positions");
 
-
       Drul_array<Grob *> stems (Note_column::get_stem (columns[0]),
 				Note_column::get_stem (columns.back ()));
-
-      
-      
 
       Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
       Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0)
