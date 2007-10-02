@@ -16,17 +16,25 @@
 #include "staff-symbol-referencer.hh"
 #include "line-interface.hh"
 
-/* Get the extent of just the line part of the bar (ie. excluding any
-   repeat dots) */
+MAKE_SCHEME_CALLBACK (Bar_line, calc_bar_extent, 1)
+SCM
+Bar_line::calc_bar_extent (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+
+  SCM size = me->get_property ("bar-size");
+
+  if (!scm_is_number (size))
+    return ly_interval2scm (Interval ());
+
+  Real h = scm_to_double (size);
+  return ly_interval2scm (Interval (-h/2, h/2));
+}
+
 Interval
 Bar_line::bar_y_extent (Grob *me, Grob *refpoint)
 {
-  SCM size = me->get_property ("bar-size");
-  if (!scm_is_number (size))
-    return Interval ();
-
-  Real h = scm_to_double (size);
-  Interval iv (-h/2, h/2);
+  Interval iv = robust_scm2interval (me->get_property ("bar-extent"), Interval ());
 
   iv.translate (me->relative_coordinate (refpoint, Y_AXIS));
   return iv;
@@ -317,6 +325,7 @@ ADD_INTERFACE (Bar_line,
 	       "glyph "
 	       "glyph-name "
 	       "bar-size "
+	       "bar-extent "
 	       );
 
 

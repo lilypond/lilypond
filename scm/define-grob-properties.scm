@@ -604,6 +604,9 @@ function is to protect objects from being garbage collected.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
+     (bar-extent ,number-pair? "The Y-extent of the actual barline.
+This may differ from 'Y-extent because it does not include the dots in
+a repeat barline.")
      (bars ,ly:grob-array? "A list of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
      (bounded-by-me ,ly:grob-array? "A list of spanners that have this

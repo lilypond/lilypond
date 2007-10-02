@@ -184,6 +184,7 @@
 	(stencil . ,ly:bar-line::print)
 	(glyph-name . ,bar-line::calc-glyph-name)
 	(bar-size .  ,ly:bar-line::calc-bar-size)
+	(bar-extent . ,ly:bar-line::calc-bar-extent)
 	(allow-span-bar . #t)
 	
 	(space-alist . (
@@ -1529,9 +1530,11 @@
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
 	(bar-size . ,ly:span-bar::calc-bar-size)
+	(bar-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:span-bar::width)
 	(glyph-name . ,ly:span-bar::calc-glyph-name)
 	(before-line-breaking . ,ly:span-bar::before-line-breaking)
+	(allow-span-bar . #t)
 
 	;; ugh duplication!
 
