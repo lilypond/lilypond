@@ -18,10 +18,6 @@ Two or more staves can be grouped vertically in a
 @internalsref{GrandStaff}, a @internalsref{StaffGroup}, or a
 @internalsref{ChoirStaff}.
 
-@c It seemed awkward to have the general definition of a stave in the
-@c second section, since it is already used in the first. I have moved it
-@c here.
-
 
 @menu
 * Displaying staves::           
@@ -52,16 +48,10 @@ Two or more staves can be grouped vertically in a
 Many scores consist of more than one staff.  These staves can be
 grouped in several different ways:
 
-@c The fourth delimiter, SystemStartSquare, should also be mentioned, with a
-@c reference to the relevant section, and a single line of code here showing
-@c how to achieve it.
- 
 @itemize @bullet
 @item
-In a @internalsref{GrandStaff},
-the group is started with a brace at the left, and bar lines are connected
-between the staves. 
-@c Arpeggios can run through several staves of a @code{GrandStaff}
+In a @internalsref{GrandStaff}, the group is started with a brace
+at the left, and bar lines are connected between the staves. 
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -111,24 +101,24 @@ not connected.
 
 In addition to these four staff group types, other groupings can
 be produced by changing various properties. E.g., the
-"Mensurstriche" layout common in Renaissance music, with barlines
-running between but not through the staves, can be produced from a
-@code{StaffGroup} or @code{GrandStaff} context if the barlines are
-made transparent in the @code{Staff} itself, with the command
-@code{\override Staff.BarLine #'transparent = ##t}
+@q{Mensurstriche} layout common in Renaissance music, with
+barlines running between but not through the staves, can be
+produced from a @code{StaffGroup} or @code{GrandStaff} context if
+the barlines are made transparent in the @code{Staff} itself, with
+the command @code{\override Staff.BarLine #'transparent = ##t}
 
-@seealso
+@cindex staff, nested
 
-The bar lines at the start of each system are
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace}, and
-@internalsref{SystemStartBracket}.  Only one of these types is created
-in every context, and that type is determined by the property
-@code{systemStartDelimiter}.
+Staff groups can be nested, using the context
+@code{InnerStaffGroup} or @code{InnerChoirStaff}; see
+@lsr{staff,staff-brackets.ly}
+@c snippet 137
 
+More complex nesting can be accomplished using the property
+@internalsref{systemStartDelimiterHierarchy}:
 
 @commonprop
-@c Is it possible to use other headings than this one? It's not very
-@c informative... "Nesting braces and brackets" would be better, imho. 
+
 
 System start delimiters may be deeply nested,
 
@@ -145,16 +135,32 @@ System start delimiters may be deeply nested,
 >>
 @end lilypond
 
+@seealso
+
+Each staff group context sets the property
+@code{systemStartDelimiter} to one of the values
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
+and @internalsref{SystemStartBracket}.  A fourth delimiter,
+@code{systemStartSquare}, is also available, but must be
+instantiated manually.
+
+@commonprop
+
+To display a bracket even if there is only one staff, see
+@lsr{staff,display-bracket-with-only-one-staff-in-a
+system.ly}
+@c snippet 201
 
 @node Staff symbol
 @unnumberedsubsubsec Staff symbol
 
 @cindex adjusting staff symbol
 
-The layout object which draws the lines of a staff is called @code{staff
-symbol}.  The staff symbol may be tuned in the number, thickness and
-distance of lines, using properties.  This is demonstrated in the example
-files @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
+The layout object which draws the lines of a staff is called
+@code{staff symbol}.  The staff symbol may be tuned in the number,
+thickness and distance of lines, using properties.  This is
+demonstrated in the example files
+@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
 @lsr{staff,changing-the-staff-size.ly}.
 
 In addition, staves may be started and stopped at will.  This is done
@@ -170,9 +176,10 @@ b b
 b b
 @end lilypond
 
-In combination with Frenched staves, this may be used to typeset ossia
-sections.  An example is shown here
+In combination with Frenched staves, this may be used to typeset
+@emph{ossia} sections.  An example is shown here
 
+@cindex staves, Frenched 
 @cindex ossia
 
 @lilypondfile{ossia.ly}
@@ -184,7 +191,8 @@ sections.  An example is shown here
 
 @seealso
 
-Program reference: @internalsref{StaffSymbol}.
+Program reference: @internalsref{StaffSymbol},
+@internalsref{DrumStaff}.
 
 Examples: @lsrdir{staff}
 
@@ -193,14 +201,14 @@ Examples: @lsrdir{staff}
 @unnumberedsubsubsec Hiding staves
 
 @cindex Frenched scores
-@cindex Hiding staves
+@cindex staves, hiding 
 
 In orchestral scores, staff lines that only have rests are usually
-removed; this saves some space.  This style is called @q{French
-Score}.  For @internalsref{Lyrics}, @internalsref{ChordNames} and
-@internalsref{FiguredBass}, this is switched on by default.  When
-the lines of these contexts turn out empty after the line-breaking
-process, they are removed.
+removed; this saves some space.  This style is called @q{French Score}.
+For @internalsref{Lyrics},
+@internalsref{ChordNames} and @internalsref{FiguredBass}, this is
+switched on by default.  When the lines of these contexts turn out
+empty after the line-breaking process, they are removed.
 
 For normal staves, a specialized @internalsref{Staff} context is
 available, which does the same: staves containing nothing (or only
@@ -232,11 +240,25 @@ removed from the first system too, set @code{remove-first} to true in
 To remove other types of contexts, use @code{\AncientRemoveEmptyStaffContext}
 or @code{\RemoveEmptyRhythmicStaffContext}.
 
-Another application is making ossia sections, i.e., alternative
-melodies on a separate piece of staff, with help of a Frenched
-staff.  
+Another application of the @code{\RemoveEmptyStaffContext} is to make ossia
+sections, i.e., alternative melodies on a separate piece of staff, with
+help of a Frenched staff.  See @ref{Staff symbol}. 
+
+You can make the staff lines invisible by removing the
+@code{Staff_symbol_engraver} from the @code{Staff} context.
 
 
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \context Staff \relative c'' { c8 c c16 c c c }
+  \layout{
+    \context {
+      \Staff
+      \remove Staff_symbol_engraver
+    }
+  }
+}
+@end lilypond
 
 @node Writing parts
 @subsection Writing parts
@@ -263,6 +285,7 @@ Metronome settings can be entered as follows
 In the MIDI output, they are interpreted as a tempo change.  In the
 layout output, a metronome marking is printed
 @funindex \tempo
+
 @lilypond[quote,ragged-right,verbatim,fragment]
 \tempo 8.=120 c''1
 @end lilypond
@@ -287,7 +310,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-See @ref{Text markup}, for more details.
+For more details, see @ref{Text markup}.
 
 
 @seealso
@@ -307,6 +330,7 @@ further away from the staff.
 \override Score.MetronomeMark #'padding = #2.5
 @end example
 
+@c perhaps also an example of how to move it horizontally?
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names
@@ -317,10 +341,10 @@ of the staves.
 This can be achieved by setting @internalsref{Staff}.@code{instrumentName}
 and @internalsref{Staff}.@code{shortInstrumentName}, or
 @internalsref{PianoStaff}.@code{instrumentName} and
-@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will
-print text before
-the start of the staff.  For the first staff, @code{instrumentName} is
-used, for the following ones, @code{shortInstrumentName} is used.
+@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will print text
+before the start of the staff.  For the first staff, @code{instrumentName}
+is used.  If set, @code{shortInstrumentName} is used for the following
+staves.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 \set Staff.instrumentName = "Ploink "
@@ -341,6 +365,7 @@ c''1
 @end lilypond
 
 If you wish to center the instrument names, you must center all of them
+individually:
 
 @lilypond[quote,verbatim,ragged-right]
 { <<
@@ -435,7 +460,16 @@ of music.  Here is an example of @code{\addQuote}
 @end example
 
 This command must be entered at toplevel, i.e., outside any music
-blocks.
+blocks.  Typically, one would use an already defined music event as the
+@var{music}:
+
+@example
+clarinet = \relative c' @{
+  f4 fis g gis
+@}
+\addQuote clarinet @{ \clarinet @}
+@end example
+
 
 After calling @code{\addQuote}, the quotation may then be done with
 @code{\quoteDuring} or @code{\cueDuring},
@@ -454,12 +488,15 @@ command.
 This would cite three quarter notes (the duration of @code{s2.})  of
 the previously added @code{clarinet} voice.
 
-
 More precisely, it takes the current time-step of the part being
 printed, and extracts the notes at the corresponding point of the
 @code{\addQuote}d voice.  Therefore, the argument to @code{\addQuote}
 should be the entire part of the voice to be quoted, including any
 rests at the beginning.
+
+It is possible to use another music expression instead of @code{s}, thus
+creating a polyphonic section, but this may not always give the desired
+result.
 
 Quotations take into account the transposition of both source and target
 instruments, if they are specified using the @code{\transposition} command.
@@ -475,10 +512,10 @@ instruments, if they are specified using the @code{\transposition} command.
 }
 @end lilypond
 
-The type of events that are present in cue notes can be trimmed with
+The type of events that are present in the quoted music can be trimmed with
 the @code{quotedEventTypes} property.  The default value is
 @code{(note-event rest-event)}, which means that only notes and
-rests of the cued voice end up in the @code{\quoteDuring}.
+rests of the quoted voice end up in the @code{\quoteDuring}.
 Setting
 
 @example
@@ -500,6 +537,8 @@ Quoting grace notes is broken and can even cause LilyPond to crash.
 
 Quoting nested triplets may result in poor notation.
 
+In earlier versions of LilyPond (pre 2.11), @code{addQuote} was written
+entirely in lower-case letters: @code{\addquote}.
 
 @seealso
 
@@ -574,17 +613,6 @@ Cue notes have smaller font sizes.
 @item
  when the original part takes over again, this should be marked with
  the name of the original instrument.
-
-@c really?  Are you sure about that last point?  I'll check after 3.0 -gp
-
-@c Yes, this is good practice.  Otherwise, the start of the original
-@c part can only be seen from the font size.  This is not good enough
-@c for sight-reading.  It is possilbe to use other
-@c markers (e.g. a big close-bracket over the staff) to indicate the cue
-@c   notes are
-@c finished.
-@c -hwn
-
 
 Any other changes introduced by the cued part should also be
 undone.  For example, if the cued instrument plays in a different clef,
