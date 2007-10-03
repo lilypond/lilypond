@@ -23,7 +23,7 @@ description of the input format, see @ruser{File structure}.
 
 @menu
 * Introduction to the LilyPond file structure::  
-* Score is a single musical expression::  
+* Score is a (single) compound musical expression::  
 @end menu
 
 @node Introduction to the LilyPond file structure
@@ -34,7 +34,7 @@ A basic example of a lilypond input file is
 @example
 \version "2.11.23"
 \score @{
-  @{@var{...music expression...}@}  % all the music goes here!
+  @var{...compound music expression...}  % all the music goes here!
   \header @{ @}
   \layout @{ @}
   \midi @{ @}
@@ -74,9 +74,9 @@ was wrapped up inside a @code{\score@{@}}.
 
 @smallspace
 
-A @code{\score} must begin with a single music
-expression.  Remember that a music expression could
-be anything from a single note to a huge
+A @code{\score} must begin with a compound music expression.
+Remember that a music expression could be anything from a single
+note to a huge
 
 @example
 @{
@@ -141,8 +141,11 @@ For a complete definition of the input format, see @ruser{File
 structure}.
 
 
-@node Score is a single musical expression
-@subsection Score is a single musical expression
+@node Score is a (single) compound musical expression
+@subsection Score is a (single) compound musical expression
+
+@cindex Compound music expression
+@cindex Music expression, compound
 
 We saw the general organization of LilyPond input files in the
 previous section, @ref{How LilyPond files work}.  But we seemed to
@@ -153,7 +156,7 @@ We didn't skip over it at all.  The big mystery is simply that
 there @emph{is} no mystery.  This line explains it all:
 
 @quotation
-@emph{A @code{\score} must begin with a single music expression.}
+@emph{A @code{\score} must begin with a compound music expression.}
 @end quotation
 
 @noindent
@@ -165,11 +168,11 @@ and work our way down.
 
 @example
 \score @{
-  @{ % this brace begins the overall music expression
+  @{ % this brace begins the overall compound music expression
     \new GrandStaff <<
       @var{...insert the whole score of a Wagner opera in here...}
     >>
-  @} % this brace ends the overall music expression
+  @} % this brace ends the overall compound music expression
   \layout @{ @}
 @}
 @end example
