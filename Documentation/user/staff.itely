@@ -9,10 +9,10 @@
 @node Staff notation
 @section Staff notation
 
-Notes, dynamic signs, etc., are grouped
-with a set of horizontal lines, called a staff (plural @q{staves}).  In
-LilyPond, these lines are drawn using a separate layout object called
-@code{staff symbol}.
+Notes, dynamic signs, etc., are grouped with a set of horizontal
+lines, called a staff (plural @q{staves}).  In LilyPond, these
+lines are drawn using a separate layout object called @code{staff
+symbol}.
 
 Two or more staves can be grouped vertically in a
 @internalsref{GrandStaff}, a @internalsref{StaffGroup}, or a
@@ -62,9 +62,8 @@ at the left, and bar lines are connected between the staves.
 @end lilypond
 
 @item
-In a @internalsref{StaffGroup}, the barlines
-will be drawn through all the staves, but the group is started with a
-bracket.
+In a @internalsref{StaffGroup}, the barlines will be drawn through
+all the staves, but the group is started with a bracket.
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -75,8 +74,8 @@ bracket.
 @end lilypond
 
 @item
-In a @internalsref{ChoirStaff}, the group is started with a bracket,
-but bar lines are not connected. 
+In a @internalsref{ChoirStaff}, the group is started with a
+bracket, but bar lines are not connected. 
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -87,9 +86,9 @@ but bar lines are not connected.
 @end lilypond
 
 @item
-If no context is specified, the default properties for the score will
-be used: the group is started with a vertical line, and the bar lines are
-not connected.  
+If no context is specified, the default properties for the score
+will be used: the group is started with a vertical line, and the
+bar lines are not connected.  
 
 @lilypond[verbatim,ragged-right,quote]
 \relative <<
@@ -114,19 +113,18 @@ Staff groups can be nested, using the context
 @lsr{staff,staff-brackets.ly}
 @c snippet 137
 
-More complex nesting can be accomplished using the property
-@internalsref{systemStartDelimiterHierarchy}:
-
 @commonprop
 
-
-System start delimiters may be deeply nested,
+More complex nesting can be accomplished using the property
+@internalsref{systemStartDelimiterHierarchy}.  System start
+delimiters may be deeply nested,
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup
 \relative <<
   \set StaffGroup.systemStartDelimiterHierarchy
-    = #'(SystemStartSquare (SystemStartBracket a (SystemStartSquare b)) d)
+    = #'(SystemStartSquare (SystemStartBracket a
+                             (SystemStartSquare b)) d)
   \new Staff { c1 }
   \new Staff { c1 }
   \new Staff { c1 }
@@ -163,8 +161,8 @@ demonstrated in the example files
 @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
 @lsr{staff,changing-the-staff-size.ly}.
 
-In addition, staves may be started and stopped at will.  This is done
-with @code{\startStaff} and @code{\stopStaff}.
+In addition, staves may be started and stopped at will.  This is
+done with @code{\startStaff} and @code{\stopStaff}.
 
 @lilypond[verbatim,relative=2,fragment]
 b4 b
@@ -204,17 +202,17 @@ Examples: @lsrdir{staff}
 @cindex staves, hiding 
 
 In orchestral scores, staff lines that only have rests are usually
-removed; this saves some space.  This style is called @q{French Score}.
-For @internalsref{Lyrics},
-@internalsref{ChordNames} and @internalsref{FiguredBass}, this is
-switched on by default.  When the lines of these contexts turn out
-empty after the line-breaking process, they are removed.
+removed; this saves some space.  This style is called @q{French
+Score}.  For @internalsref{Lyrics}, @internalsref{ChordNames} and
+@internalsref{FiguredBass}, this is switched on by default.  When
+the lines of these contexts turn out empty after the line-breaking
+process, they are removed.
 
 For normal staves, a specialized @internalsref{Staff} context is
 available, which does the same: staves containing nothing (or only
-multi-measure rests) are removed.  The context definition is stored in
-@code{\RemoveEmptyStaffContext} variable.  Observe how the second staff
-in this example disappears in the second line
+multi-measure rests) are removed.  The context definition is
+stored in @code{\RemoveEmptyStaffContext} variable.  Observe how
+the second staff in this example disappears in the second line
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
@@ -229,20 +227,22 @@ in this example disappears in the second line
 }
 @end lilypond
 
-The first system shows all staves in full.  If empty staves should be
-removed from the first system too, set @code{remove-first} to true in
-@internalsref{VerticalAxisGroup}.
+The first system shows all staves in full.  If empty staves should
+be removed from the first system too, set @code{remove-first} to
+true in @internalsref{VerticalAxisGroup}.
 
 @example
 \override Score.VerticalAxisGroup #'remove-first = ##t
 @end example
 
-To remove other types of contexts, use @code{\AncientRemoveEmptyStaffContext}
-or @code{\RemoveEmptyRhythmicStaffContext}.
+To remove other types of contexts, use
+@code{\AncientRemoveEmptyStaffContext} or
+@code{\RemoveEmptyRhythmicStaffContext}.
 
-Another application of the @code{\RemoveEmptyStaffContext} is to make ossia
-sections, i.e., alternative melodies on a separate piece of staff, with
-help of a Frenched staff.  See @ref{Staff symbol}. 
+Another application of the @code{\RemoveEmptyStaffContext} is to
+make ossia sections, i.e., alternative melodies on a separate
+piece of staff, with help of a Frenched staff.  See @ref{Staff
+symbol}. 
 
 You can make the staff lines invisible by removing the
 @code{Staff_symbol_engraver} from the @code{Staff} context.
@@ -278,12 +278,14 @@ You can make the staff lines invisible by removing the
 @cindex metronome marking
 
 Metronome settings can be entered as follows
+
 @example
 \tempo @var{duration} = @var{per-minute}
 @end example
 
-In the MIDI output, they are interpreted as a tempo change.  In the
-layout output, a metronome marking is printed
+In the MIDI output, they are interpreted as a tempo change.  In
+the layout output, a metronome marking is printed
+
 @funindex \tempo
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -293,11 +295,9 @@ layout output, a metronome marking is printed
 
 @commonprop
 
-To change the tempo in the MIDI output without printing anything, make
-the metronome marking invisible
-@example
-\once \override Score.MetronomeMark #'transparent = ##t
-@end example
+To change the tempo in the MIDI output without printing anything,
+make the metronome marking invisible @example \once \override
+Score.MetronomeMark #'transparent = ##t @end example
 
 To print other metronome markings, use these markup commands
 @lilypond[quote,ragged-right,verbatim,relative,fragment]
@@ -320,11 +320,11 @@ Program reference: @internalsref{MetronomeMark}.
 
 @refbugs
 
-Collisions are not checked.  If you have notes above the top line of
-the staff (or notes with articulations, slurs, text, etc), then the
-metronome marking may be printed on top of musical symbols.  If this
-occurs, increase the padding of the metronome mark to place it
-further away from the staff.
+Collisions are not checked.  If you have notes above the top line
+of the staff (or notes with articulations, slurs, text, etc), then
+the metronome marking may be printed on top of musical symbols.
+If this occurs, increase the padding of the metronome mark to
+place it further away from the staff.
 
 @example
 \override Score.MetronomeMark #'padding = #2.5
@@ -335,16 +335,17 @@ further away from the staff.
 @node Instrument names
 @unnumberedsubsubsec Instrument names
 
-In an orchestral score, instrument names are printed at the left side
-of the staves.
+In an orchestral score, instrument names are printed at the left
+side of the staves.
 
-This can be achieved by setting @internalsref{Staff}.@code{instrumentName}
-and @internalsref{Staff}.@code{shortInstrumentName}, or
+This can be achieved by setting
+@internalsref{Staff}.@code{instrumentName} and
+@internalsref{Staff}.@code{shortInstrumentName}, or
 @internalsref{PianoStaff}.@code{instrumentName} and
-@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will print text
-before the start of the staff.  For the first staff, @code{instrumentName}
-is used.  If set, @code{shortInstrumentName} is used for the following
-staves.
+@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will
+print text before the start of the staff.  For the first staff,
+@code{instrumentName} is used.  If set, @code{shortInstrumentName}
+is used for the following staves.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 \set Staff.instrumentName = "Ploink "
@@ -354,8 +355,8 @@ c1
 c''
 @end lilypond
 
-You can also use markup texts to construct more complicated instrument
-names, for example
+You can also use markup texts to construct more complicated
+instrument names, for example
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \set Staff.instrumentName = \markup {
@@ -364,8 +365,8 @@ names, for example
 c''1
 @end lilypond
 
-If you wish to center the instrument names, you must center all of them
-individually:
+If you wish to center the instrument names, you must center all of
+them individually:
 
 @lilypond[quote,verbatim,ragged-right]
 { <<
@@ -376,7 +377,8 @@ individually:
   c''1
 }
 \new Staff {
-  \set Staff.instrumentName = \markup{ \center-align { Vibraphone }}
+  \set Staff.instrumentName =
+       \markup{ \center-align { Vibraphone }}
   c''1
 }
 >>
@@ -392,19 +394,21 @@ To center instrument names while leaving extra space to the right,
 \new StaffGroup \relative
 <<
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
+    \set Staff.instrumentName =
+        \markup { \hcenter-in #10 "blabla" }
     c1 c1
   }
   \new Staff {
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
+    \set Staff.instrumentName =
+         \markup { \hcenter-in #10 "blo" }
     c1 c1
   }
 >>
 @end lilypond
 
-To add instrument names to other contexts (such as @code{GrandStaff},
-@code{ChoirStaff}, or @code{StaffGroup}), the engraver must
-be added to that context.
+To add instrument names to other contexts (such as
+@code{GrandStaff}, @code{ChoirStaff}, or @code{StaffGroup}), the
+engraver must be added to that context.
 
 @example
 \layout@{
@@ -413,8 +417,8 @@ be added to that context.
 @end example
 
 @noindent
-More information about adding and removing engravers can
-be found in @ref{Modifying context plug-ins}.
+More information about adding and removing engravers can be found
+in @ref{Modifying context plug-ins}.
 
 Instrument names may be changed in the middle of a piece,
 
@@ -440,9 +444,10 @@ Program reference: @internalsref{InstrumentName}.
 
 @cindex cues
 
-With quotations, fragments of other parts can be inserted into a part
-directly.  Before a part can be quoted, it must be marked especially as
-quotable.  This is done with the @code{\addQuote} command.
+With quotations, fragments of other parts can be inserted into a
+part directly.  Before a part can be quoted, it must be marked
+especially as quotable.  This is done with the @code{\addQuote}
+command.
 
 @example
 \addQuote @var{name} @var{music}
@@ -450,8 +455,8 @@ quotable.  This is done with the @code{\addQuote} command.
 
 
 @noindent
-Here, @var{name} is an identifying string.  The @var{music} is any kind
-of music.  Here is an example of @code{\addQuote}
+Here, @var{name} is an identifying string.  The @var{music} is any
+kind of music.  Here is an example of @code{\addQuote}
 
 @example
 \addQuote clarinet \relative c' @{
@@ -460,8 +465,8 @@ of music.  Here is an example of @code{\addQuote}
 @end example
 
 This command must be entered at toplevel, i.e., outside any music
-blocks.  Typically, one would use an already defined music event as the
-@var{music}:
+blocks.  Typically, one would use an already defined music event
+as the @var{music}:
 
 @example
 clarinet = \relative c' @{
@@ -471,35 +476,36 @@ clarinet = \relative c' @{
 @end example
 
 
-After calling @code{\addQuote}, the quotation may then be done with
-@code{\quoteDuring} or @code{\cueDuring},
+After calling @code{\addQuote}, the quotation may then be done
+with @code{\quoteDuring} or @code{\cueDuring},
 
 @example
 \quoteDuring #@var{name} @var{music}
 @end example
 
-During a part, a piece of music can be quoted with the @code{\quoteDuring}
-command.
+During a part, a piece of music can be quoted with the
+@code{\quoteDuring} command.
 
 @example
 \quoteDuring #"clarinet" @{ s2. @}
 @end example
 
-This would cite three quarter notes (the duration of @code{s2.})  of
-the previously added @code{clarinet} voice.
+This would cite three quarter notes (the duration of @code{s2.})
+of the previously added @code{clarinet} voice.
 
 More precisely, it takes the current time-step of the part being
 printed, and extracts the notes at the corresponding point of the
-@code{\addQuote}d voice.  Therefore, the argument to @code{\addQuote}
-should be the entire part of the voice to be quoted, including any
-rests at the beginning.
+@code{\addQuote}d voice.  Therefore, the argument to
+@code{\addQuote} should be the entire part of the voice to be
+quoted, including any rests at the beginning.
 
-It is possible to use another music expression instead of @code{s}, thus
-creating a polyphonic section, but this may not always give the desired
-result.
+It is possible to use another music expression instead of
+@code{s}, thus creating a polyphonic section, but this may not
+always give the desired result.
 
-Quotations take into account the transposition of both source and target
-instruments, if they are specified using the @code{\transposition} command.
+Quotations take into account the transposition of both source and
+target instruments, if they are specified using the
+@code{\transposition} command.
 
 @lilypond[quote,ragged-right,verbatim]
 \addQuote clarinet \relative c' {
@@ -512,11 +518,11 @@ instruments, if they are specified using the @code{\transposition} command.
 }
 @end lilypond
 
-The type of events that are present in the quoted music can be trimmed with
-the @code{quotedEventTypes} property.  The default value is
-@code{(note-event rest-event)}, which means that only notes and
-rests of the quoted voice end up in the @code{\quoteDuring}.
-Setting
+The type of events that are present in the quoted music can be
+trimmed with the @code{quotedEventTypes} property.  The default
+value is @code{(note-event rest-event)}, which means that only
+notes and rests of the quoted voice end up in the
+@code{\quoteDuring}.  Setting
 
 @example
 \set Staff.quotedEventTypes =
@@ -524,27 +530,30 @@ Setting
 @end example
 
 @noindent
-will quote notes (but no rests), together with scripts and dynamics.
+will quote notes (but no rests), together with scripts and
+dynamics.
 
 @refbugs
 
-Only the contents of the first @internalsref{Voice} occurring in an
-@code{\addQuote} command will be considered for quotation, so
+Only the contents of the first @internalsref{Voice} occurring in
+an @code{\addQuote} command will be considered for quotation, so
 @var{music} can not contain @code{\new} and @code{\context Voice}
 statements that would switch to a different Voice.
 
-Quoting grace notes is broken and can even cause LilyPond to crash.
+Quoting grace notes is broken and can even cause LilyPond to
+crash.
 
 Quoting nested triplets may result in poor notation.
 
-In earlier versions of LilyPond (pre 2.11), @code{addQuote} was written
-entirely in lower-case letters: @code{\addquote}.
+In earlier versions of LilyPond (pre 2.11), @code{addQuote} was
+written entirely in lower-case letters: @code{\addquote}.
 
 @seealso
 
 In this manual: @ref{Instrument transpositions}.
 
-Examples: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
+Examples: @lsr{parts,quote.ly},
+@lsr{parts,quote-transportation.ly}
 
 Program reference: @internalsref{QuoteMusic}.
 
@@ -554,9 +563,9 @@ Program reference: @internalsref{QuoteMusic}.
 
 @cindex cues, formatting
 
-The previous section deals with inserting notes from another voice.
-There is a more advanced music function called @code{\cueDuring},
-which makes formatting cue notes easier.
+The previous section deals with inserting notes from another
+voice.  There is a more advanced music function called
+@code{\cueDuring}, which makes formatting cue notes easier.
 
 The syntax is
 
@@ -565,11 +574,11 @@ The syntax is
 @end example
 
 This will insert notes from the part @var{name} into a
-@internalsref{Voice} called @code{cue}.  This happens simultaneously
-with @var{music}, which usually is a rest.  When the cue notes start,
-the staff in effect becomes polyphonic for a moment.  The argument
-@var{updown} determines whether the cue notes should be notated as a
-first or second voice.
+@internalsref{Voice} called @code{cue}.  This happens
+simultaneously with @var{music}, which usually is a rest.  When
+the cue notes start, the staff in effect becomes polyphonic for a
+moment.  The argument @var{updown} determines whether the cue
+notes should be notated as a first or second voice.
 
 
 @lilypond[verbatim,ragged-right]
@@ -608,22 +617,24 @@ Here are a couple of hints for successful cue notes
 @itemize @bullet
 @item
 Cue notes have smaller font sizes.
+
 @item
- the cued part is marked with the instrument playing the cue.
+the cued part is marked with the instrument playing the cue.
+
 @item
- when the original part takes over again, this should be marked with
- the name of the original instrument.
+when the original part takes over again, this should be marked
+with the name of the original instrument.
 
 Any other changes introduced by the cued part should also be
-undone.  For example, if the cued instrument plays in a different clef,
-the original clef should be stated once again.
+undone.  For example, if the cued instrument plays in a different
+clef, the original clef should be stated once again.
 
 @end itemize
 
-The macro @code{\transposedCueDuring} is
-useful to add cues to instruments which use a completely different
-octave range (for example, having a cue of a piccolo flute within
-a contra bassoon part).
+The macro @code{\transposedCueDuring} is useful to add cues to
+instruments which use a completely different octave range (for
+example, having a cue of a piccolo flute within a contra bassoon
+part).
 
 @lilypond[verbatim,ragged-right,quote]
 picc = \relative c''' {

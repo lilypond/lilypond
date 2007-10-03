@@ -9,8 +9,8 @@
 @node Repeats
 @section Repeats
 
-Repetition is a central concept in music, and multiple notations exist
-for repetitions.
+Repetition is a central concept in music, and multiple notations
+exist for repetitions.
 
 @menu
 * Writing repeats::             
@@ -81,9 +81,9 @@ c1
 \alternative { {f2 d} {f\repeatTie f,} }
 @end lilypond
 
-It is possible to shorten volta brackets
-by setting @code{voltaSpannerDuration}.  In the next example, the
-bracket only lasts one measure, which is a duration of 3/4.
+It is possible to shorten volta brackets by setting
+@code{voltaSpannerDuration}.  In the next example, the bracket
+only lasts one measure, which is a duration of 3/4.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c''{
@@ -96,8 +96,8 @@ bracket only lasts one measure, which is a duration of 3/4.
 }
 @end lilypond
 
-If you want to start a repeat at the beginning of a line and have a
-double bar at the end of the previous line, use
+If you want to start a repeat at the beginning of a line and have
+a double bar at the end of the previous line, use
 
 @example
 @dots{} \bar "||:" \break 
@@ -140,10 +140,11 @@ is ambiguous, since it is is not clear to which @code{\repeat} the
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
 
-Timing information is not remembered at the start of an alternative,
-so after a repeat timing information must be reset by hand; for
-example, by setting @code{Score.measurePosition} or entering
-@code{\partial}.  Similarly, slurs or ties are also not repeated.
+Timing information is not remembered at the start of an
+alternative, so after a repeat timing information must be reset by
+hand; for example, by setting @code{Score.measurePosition} or
+entering @code{\partial}.  Similarly, slurs or ties are also not
+repeated.
 
 
 
@@ -152,8 +153,8 @@ example, by setting @code{Score.measurePosition} or entering
 
 @cindex repeats
 
-LilyPond has one syntactic construct for specifying different types of
-repeats.  The syntax is
+LilyPond has one syntactic construct for specifying different
+types of repeats.  The syntax is
 
 @example
 \repeat @var{variant} @var{repeatcount} @var{repeatbody}
@@ -172,8 +173,8 @@ If you have alternative endings, you may add
 
 @noindent
 where each @var{alternative} is a music expression.  If you do not
-give enough alternatives for all of the repeats, the first alternative
-is assumed to be played more than once.
+give enough alternatives for all of the repeats, the first
+alternative is assumed to be played more than once.
 
 The following types of repetition are supported
 
@@ -185,18 +186,19 @@ is included in MIDI output.
 
 @item volta
 Repeats are not written out, but alternative endings (volte) are
-printed, left to right with brackets.  This is the standard notation
-for repeats with alternatives.  These are not played in MIDI output by
-default.
+printed, left to right with brackets.  This is the standard
+notation for repeats with alternatives.  These are not played in
+MIDI output by default.
 
 
 @item tremolo
-Make tremolo beams.  These are not played in MIDI output by default.
+Make tremolo beams.  These are not played in MIDI output by
+default.
 
 @item percent
-Make beat or measure repeats.  These look like percent signs.  These
-are not played in MIDI output by default.  Percent repeats must be
-declared within a @code{Voice} context.
+Make beat or measure repeats.  These look like percent signs.
+These are not played in MIDI output by default.  Percent repeats
+must be declared within a @code{Voice} context.
 
 @end table
 
@@ -206,8 +208,8 @@ declared within a @code{Voice} context.
 
 @funindex repeatCommands
 
-The property @code{repeatCommands} can be used to control the layout of
-repeats.  Its value is a Scheme list of repeat commands.
+The property @code{repeatCommands} can be used to control the
+layout of repeats.  Its value is a Scheme list of repeat commands.
 
 @table @asis
 @item @code{start-repeat}
@@ -217,10 +219,10 @@ Print a @code{|:} bar line.
 Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}: The text can be specified as
-a text string or as a markup text, see @ref{Text markup}.  Do not
-forget to change the font, as the default number font does not contain
-alphabetic characters;
+Print a volta bracket saying @var{text}: The text can be specified
+as a text string or as a markup text, see @ref{Text markup}.  Do
+not forget to change the font, as the default number font does not
+contain alphabetic characters;
 
 @item @code{(volta #f)}
 Stop a running volta bracket.
@@ -238,9 +240,8 @@ c4 c4
 @seealso
 
 Program reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic}, and
-@internalsref{UnfoldedRepeatedMusic}.
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
+and @internalsref{UnfoldedRepeatedMusic}.
 
 @node Repeats and MIDI
 @unnumberedsubsubsec Repeats and MIDI
@@ -267,9 +268,9 @@ repeats to unfold repeats.
 @end lilypond
 
 When creating a score file using @code{\unfoldRepeats} for MIDI,
-it is necessary to make two @code{\score} blocks: one for MIDI (with
-unfolded repeats) and one for notation (with volta, tremolo, and
-percent repeats).  For example,
+it is necessary to make two @code{\score} blocks: one for MIDI
+(with unfolded repeats) and one for notation (with volta, tremolo,
+and percent repeats).  For example,
 
 @example
 \score @{
@@ -297,8 +298,9 @@ percent repeats).  For example,
 
 @cindex tremolo beams
 
-To place tremolo marks between notes, use @code{\repeat} with tremolo
-style
+To place tremolo marks between notes, use @code{\repeat} with
+tremolo style
+
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
   \repeat tremolo 8 { c16 d16 }
@@ -309,19 +311,21 @@ style
 
 Tremolo marks can also be put on a single note.  In this case, the
 note should not be surrounded by braces.
+
 @lilypond[quote,verbatim,ragged-right]
 \repeat tremolo 4 c'16
 @end lilypond
 
-Similar output is obtained using the tremolo subdivision, described in
-@ref{Tremolo subdivisions}.
+Similar output is obtained using the tremolo subdivision,
+described in @ref{Tremolo subdivisions}.
 
 
 @seealso
 
 In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
+Program reference: @internalsref{Beam},
+@internalsref{StemTremolo}.
 
 
 @node Tremolo subdivisions
@@ -331,11 +335,11 @@ Program reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 @funindex tremoloFlags
 
 Tremolo marks can be printed on a single note by adding
-@q{@code{:}[@var{number}]} after the note.  The number indicates the
-duration of the subdivision, and it must be at least 8.  A
-@var{length} value of 8 gives one line across the note stem.  If the
-length is omitted, the last value (stored in @code{tremoloFlags}) is
-used
+@q{@code{:}[@var{number}]} after the note.  The number indicates
+the duration of the subdivision, and it must be at least 8.  A
+@var{length} value of 8 gives one line across the note stem.  If
+the length is omitted, the last value (stored in
+@code{tremoloFlags}) is used
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 c'2:8 c':32 | c': c': |
@@ -344,7 +348,8 @@ c'2:8 c':32 | c': c': |
 
 @refbugs
 
-Tremolos entered in this way do not carry over into the MIDI output.
+Tremolos entered in this way do not carry over into the MIDI
+output.
 
 
 @seealso
@@ -360,11 +365,12 @@ Elsewhere: @internalsref{StemTremolo}.
 @cindex percent repeats
 @cindex measure repeats
 
-In the @code{percent} style, a note pattern can be repeated.  It is
-printed once, and then the pattern is replaced with a special sign.
-Patterns of one and two measures are replaced by percent-like signs,
-patterns that divide the measure length are replaced by slashes.
-Percent repeats must be declared within a @code{Voice} context.
+In the @code{percent} style, a note pattern can be repeated.  It
+is printed once, and then the pattern is replaced with a special
+sign.  Patterns of one and two measures are replaced by
+percent-like signs, patterns that divide the measure length are
+replaced by slashes.  Percent repeats must be declared within a
+@code{Voice} context.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
@@ -373,8 +379,8 @@ Percent repeats must be declared within a @code{Voice} context.
 }
 @end lilypond
 
-Measure repeats of more than 2 measures get a counter, if you switch
-on the @code{countPercentRepeats} property,
+Measure repeats of more than 2 measures get a counter, if you
+switch on the @code{countPercentRepeats} property,
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \new Voice {

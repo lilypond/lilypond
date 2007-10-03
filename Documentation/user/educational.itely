@@ -34,8 +34,8 @@
 @cindex easy notation
 @cindex Hal Leonard
 
-The @q{easy play} note head includes a note name inside the head.  It is
-used in music for beginners
+The @q{easy play} note head includes a note name inside the head.
+It is used in music for beginners
 
 @lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
   \setEasyHeads
@@ -43,9 +43,9 @@ used in music for beginners
 @end lilypond
 
 The command @code{\setEasyHeads} overrides settings for the
-@internalsref{NoteHead} object.  To make the letters readable, it has
-to be printed in a large font size.  To print with a larger font, see
-@ref{Setting the staff size}.
+@internalsref{NoteHead} object.  To make the letters readable, it
+has to be printed in a large font size.  To print with a larger
+font, see @ref{Setting the staff size}.
 
 @refcommands
 
@@ -58,9 +58,9 @@ to be printed in a large font size.  To print with a larger font, see
 
 @cindex note heads, shape
 
-In shape note head notation, the shape of the note head corresponds
-to the harmonic function of a note in the scale.  This notation was
-popular in the 19th century American song books.
+In shape note head notation, the shape of the note head
+corresponds to the harmonic function of a note in the scale.  This
+notation was popular in the 19th century American song books.
 
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
@@ -72,32 +72,33 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
   c8 d4. e8 a2 g1
 @end lilypond
 
-Shapes are determined on the step in the scale, where the base of the
-scale is determined by  the @code{\key} command
+Shapes are determined on the step in the scale, where the base of
+the scale is determined by  the @code{\key} command
 
 @funindex \key
 @funindex shapeNoteStyles
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
 
-Shape note heads are implemented through the @code{shapeNoteStyles}
-property.  Its value is a vector of symbols.  The k-th element indicates
-the style to use for the k-th step of the scale.  Arbitrary
-combinations are possible, e.g.
+Shape note heads are implemented through the
+@code{shapeNoteStyles} property.  Its value is a vector of
+symbols.  The k-th element indicates the style to use for the k-th
+step of the scale.  Arbitrary combinations are possible, e.g.
 
 @lilypond[verbatim,relative=1,fragment]
-  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
-  c8 d4. e8 a2 g1
+\set shapeNoteStyles =
+  ##(cross triangle fa #f mensural xcircle diamond)
+c8 d4. e8 a2 g1
 @end lilypond
 
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
 
-Improvisation is sometimes denoted with slashed note heads.  Such note
-heads can be created by adding a @internalsref{Pitch_squash_engraver}
-to the @internalsref{Voice} context.  Then, the
-following command
+Improvisation is sometimes denoted with slashed note heads.  Such
+note heads can be created by adding a
+@internalsref{Pitch_squash_engraver} to the @internalsref{Voice}
+context.  Then, the following command
 
 @example
 \set squashedPosition = #0
@@ -108,8 +109,8 @@ following command
 switches on the slashes.
 
 There are shortcuts @code{\improvisationOn} (and an accompanying
-@code{\improvisationOff}) for this command sequence.  They are used in
-the following example
+@code{\improvisationOff}) for this command sequence.  They are
+used in the following example
 
 @lilypond[verbatim,ragged-right,quote]
 \new Voice \with {
@@ -129,10 +130,11 @@ the following example
 @cindex note heads, special
 
 Different noteheads are used by various instruments for various
-meanings -- crosses are used for @q{parlato} with vocalists, stopped
-notes on guitar; diamonds are used for harmonics on string instruments,
-etc.  There is a shorthand (@code{\harmonic}) for diamond shapes; the
-other notehead styles are produced by tweaking the property
+meanings -- crosses are used for @q{parlato} with vocalists,
+stopped notes on guitar; diamonds are used for harmonics on string
+instruments, etc.  There is a shorthand (@code{\harmonic}) for
+diamond shapes; the other notehead styles are produced by tweaking
+the property
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 c4 d
@@ -143,8 +145,7 @@ e d <c f\harmonic> <d a'\harmonic>
 @end lilypond
 
 @noindent
-To see all notehead styles, please see
-@ref{Note head styles}.
+To see all notehead styles, please see @ref{Note head styles}.
 
 
 @seealso
@@ -186,14 +187,14 @@ It does not change the size of variable symbols, such as beams or
 slurs.
 
 Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The value
-of @code{font-size} is a number indicating the size relative to the
-standard size for the current staff height.  Each step up is an
-increase of approximately 12% of the font size.  Six steps is exactly a
-factor two.  The Scheme function @code{magstep} converts a
-@code{font-size} number to a scaling factor.  The @code{font-size}
-property can also be set directly, so that only certain layout objects are
-affected.
+@code{font-size} property to be set in all layout objects.  The
+value of @code{font-size} is a number indicating the size relative
+to the standard size for the current staff height.  Each step up
+is an increase of approximately 12% of the font size.  Six steps
+is exactly a factor two.  The Scheme function @code{magstep}
+converts a @code{font-size} number to a scaling factor.  The
+@code{font-size} property can also be set directly, so that only
+certain layout objects are affected.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c8
@@ -205,11 +206,11 @@ g
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
-@code{font-size} equals 0), depends on the standard staff height.  For
-a 20pt staff, a 10pt font is selected.
+@code{font-size} equals 0), depends on the standard staff height.
+For a 20pt staff, a 10pt font is selected.
 
-The @code{font-size} property can only be set on layout objects that
-use fonts.  These are the ones supporting the
+The @code{font-size} property can only be set on layout objects
+that use fonts.  These are the ones supporting the
 @internalsref{font-interface} layout interface.
 
 @refcommands
@@ -231,9 +232,11 @@ The following commands set @code{fontSize} for the current voice:
 @cindex finger change
 
 Fingering instructions can be entered using
+
 @example
 @var{note}-@var{digit}
 @end example
+
 For finger changes, use markup texts
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
@@ -243,12 +246,14 @@ c^\markup { \finger "2 - 3" }
 
 You can use the thumb-script to indicate that a note should be
 played with the thumb (e.g., in cello music)
+
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>8 <b_\thumb b'-3>
 @end lilypond
 
-Fingerings for chords can also be added to individual notes
-of the chord by adding them after the pitches
+Fingerings for chords can also be added to individual notes of the
+chord by adding them after the pitches
+
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 < c-1 e-2 g-3 b-5 >4
 @end lilypond
@@ -256,8 +261,8 @@ of the chord by adding them after the pitches
 
 @commonprop
 
-You may exercise greater control over fingering chords by
-setting @code{fingeringOrientations}
+You may exercise greater control over fingering chords by setting
+@code{fingeringOrientations}
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 \set fingeringOrientations = #'(left down)
@@ -266,8 +271,8 @@ setting @code{fingeringOrientations}
 <c-1 es-2 g-4 bes-5 > 4
 @end lilypond
 
-Using this feature, it is also possible to put fingering instructions
-very close to note heads in monophonic music,
+Using this feature, it is also possible to put fingering
+instructions very close to note heads in monophonic music,
 
 @lilypond[verbatim,ragged-right,quote,fragment]
 \set fingeringOrientations = #'(right)
@@ -292,8 +297,9 @@ Examples: @lsr{expressive,fingering-chords.ly}
 
 @funindex \hideNotes
 @funindex \unHideNotes
-Hidden (or invisible or transparent) notes can be useful in preparing theory
-or composition exercises.
+
+Hidden (or invisible or transparent) notes can be useful in
+preparing theory or composition exercises.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 c4 d4
@@ -307,8 +313,8 @@ g4 a
 @node Coloring objects
 @unnumberedsubsubsec Coloring objects
 
-Individual objects may be assigned colors.  You may use the
-color names listed in the @ref{List of colors}.
+Individual objects may be assigned colors.  You may use the color
+names listed in the @ref{List of colors}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \override NoteHead #'color = #red
@@ -319,9 +325,9 @@ d
 e
 @end lilypond
 
-The full range of colors defined for X11 can be accessed by using the
-Scheme function x11-color.  The function takes one argument that can be a
-symbol
+The full range of colors defined for X11 can be accessed by using
+the Scheme function x11-color.  The function takes one argument
+that can be a symbol
 
 @example
 \override Beam #'color = #(x11-color 'MediumTurquoise)
@@ -333,21 +339,21 @@ or a string
 \override Beam #'color = #(x11-color "MediumTurquoise")
 @end example
 
-The first form is quicker to write and is more efficient.  However, using
-the second form it is possible to access X11 colors by the multi-word
-form of its name
+The first form is quicker to write and is more efficient.
+However, using the second form it is possible to access X11 colors
+by the multi-word form of its name
 
 @example
 \override Beam #'color = #(x11-color "medium turquoise")
 @end example
 
-If x11-color cannot make sense of the parameter then the color returned
-defaults to black.  It should be obvious from the final score that
-something is wrong.
+If x11-color cannot make sense of the parameter then the color
+returned defaults to black.  It should be obvious from the final
+score that something is wrong.
 
-This example illustrates the use of x11-color.  Notice that the stem
-color remains black after being set to (x11-color 'Boggle), which is
-deliberate nonsense.
+This example illustrates the use of x11-color.  Notice that the
+stem color remains black after being set to (x11-color 'Boggle),
+which is deliberate nonsense.
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -373,11 +379,11 @@ Appendix: @ref{List of colors}.
 
 
 @refbugs
-Not all x11 colors are distinguishable in a web browser.  For web use
-normal colors are recommended.
+Not all x11 colors are distinguishable in a web browser.  For web
+use normal colors are recommended.
 
-An x11 color is not necessarily exactly the same shade as a similarly
-named normal color.
+An x11 color is not necessarily exactly the same shade as a
+similarly named normal color.
 
 Notes in a chord cannot be colored with @code{\override}; use
 @code{\tweak} instead.  See @ref{Objects connected to the input},
@@ -391,8 +397,8 @@ for details.
 @cindex notes, ghost
 @cindex notes, parenthesized
 
-Objects may be parenthesized by prefixing @code{\parenthesize} to the music
-event,
+Objects may be parenthesized by prefixing @code{\parenthesize} to
+the music event,
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
 <
@@ -413,16 +419,17 @@ This only functions inside chords, even for single notes
 @unnumberedsubsubsec Ambitus
 @cindex ambitus
 
-The term @emph{ambitus} denotes a range of pitches for a given voice
-in a part of music.  It may also denote the pitch range that a musical
-instrument is capable of playing.  Ambits are printed on vocal parts,
-so performers can easily determine it meets their capabilities.
+The term @emph{ambitus} denotes a range of pitches for a given
+voice in a part of music.  It may also denote the pitch range that
+a musical instrument is capable of playing.  Ambits are printed on
+vocal parts, so performers can easily determine it meets their
+capabilities.
 
-Ambits are denoted at the beginning of a piece near the initial clef.
-The range is graphically specified by two note heads that represent the
-minimum and maximum pitch.  To print such ambits, add the
-@internalsref{Ambitus_engraver} to the @internalsref{Voice} context,
-for example,
+Ambits are denoted at the beginning of a piece near the initial
+clef.  The range is graphically specified by two note heads that
+represent the minimum and maximum pitch.  To print such ambits,
+add the @internalsref{Ambitus_engraver} to the
+@internalsref{Voice} context, for example,
 
 @example
 \layout @{
@@ -448,10 +455,11 @@ This results in the following output
 }
 @end lilypond
 
-If you have multiple voices in a single staff and you want a single
-ambitus per staff rather than per each voice, add the
-@internalsref{Ambitus_engraver} to the @internalsref{Staff} context
-rather than to the @internalsref{Voice} context.  Here is an example,
+If you have multiple voices in a single staff and you want a
+single ambitus per staff rather than per each voice, add the
+@internalsref{Ambitus_engraver} to the @internalsref{Staff}
+context rather than to the @internalsref{Voice} context.  Here is
+an example,
 
 @lilypond[verbatim,ragged-right,quote]
 \new Staff \with {
@@ -482,9 +490,9 @@ This example uses one advanced feature,
 @end example
 
 @noindent
-This code moves the ambitus to the left.  The same effect could have
-been achieved with @code{extra-offset}, but then the formatting system
-would not reserve space for the moved object.
+This code moves the ambitus to the left.  The same effect could
+have been achieved with @code{extra-offset}, but then the
+formatting system would not reserve space for the moved object.
 
 @seealso
 
@@ -505,8 +513,8 @@ ambitus.
 @unnumberedsubsubsec Stems
 
 Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created but
-made invisible.
+automatically.  For whole notes and rests, they are also created
+but made invisible.
 
 @refcommands
 
@@ -544,8 +552,9 @@ a4 b c b
 @node Balloon help
 @unnumberedsubsubsec Balloon help
 
-Elements of notation can be marked and named with the help of a square
-balloon.  The primary purpose of this feature is to explain notation.
+Elements of notation can be marked and named with the help of a
+square balloon.  The primary purpose of this feature is to explain
+notation.
 
 The following example demonstrates its use.
 
@@ -560,7 +569,7 @@ The following example demonstrates its use.
 @noindent
 There are two music functions, @code{balloonText} and
 @code{balloonGrobText}.  The latter takes the name of the grob to
-adorn, while the former may be used as an articulation on a note. 
+adorn, while the former may be used as an articulation on a note.
 The other arguments  are the offset and the text of the label.
 
 @cindex balloon
@@ -574,8 +583,8 @@ Program reference: @internalsref{text-balloon-interface}.
 @node Grid lines
 @unnumberedsubsubsec Grid lines
 
-Vertical lines can be drawn between staves synchronized with
-the notes.
+Vertical lines can be drawn between staves synchronized with the
+notes.
 
 @lilypond[ragged-right,quote,verbatim]
 \layout {
@@ -620,8 +629,8 @@ Examples: @lsrdir{education}
 @cindex Sheet music, empty
 @cindex Staves, blank sheet
 
-A blank music sheet can be produced also by using invisible notes, and
-removing @code{Bar_number_engraver}.
+A blank music sheet can be produced also by using invisible notes,
+and removing @code{Bar_number_engraver}.
 
 
 @lilypond[quote,verbatim]
