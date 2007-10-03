@@ -926,7 +926,7 @@ some punctuation.  It doesn't have any letters."
 \\markup \\smallCaps \"Text between double quotes\"
 @end example
 
-Note: \\smallCaps does not support accented characters."
+Note: @code{\\smallCaps} does not support accented characters."
   (define (char-list->markup chars lower)
     (let ((final-string (string-upcase (reverse-list->string chars))))
       (if lower
