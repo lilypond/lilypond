@@ -279,6 +279,23 @@ unstable Lily will fail to build the docs.
 You may build the manual ( Documentation/user/ ) without building all
 the input/* stuff.
 
+@refbugs
+
+You may also need to create a script for @command{pngtopnm} and
+@code{pnmtopng}.  On Linux, I use this:
+
+@verbatim
+export LD_LIBRARY_PATH=/usr/lib
+exec /usr/bin/pngtopnm "$@"
+@end verbatim
+
+On OSX, I use this:
+
+@verbatim
+export DYLD_LIBRARY_PATH=/sw/lib
+exec /sw/bin/pngtopnm "$@" 
+@end verbatim
+
 
 @node Testing LilyPond
 @subsection Testing LilyPond
