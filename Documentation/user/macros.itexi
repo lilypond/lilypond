@@ -66,6 +66,14 @@
 @end macro
 @end ifdocbook
 
+@c  TODO: experimental.  Don't use unless Graham confirms it.
+@macro warning{TEXT}
+@quotation
+@cartouche
+@strong{Warning:} \TEXT\
+@end cartouche
+@end quotation
+@end macro
 
 
 

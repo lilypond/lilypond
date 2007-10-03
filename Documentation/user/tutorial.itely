@@ -108,12 +108,12 @@ the result looks like this
 }
 @end lilypond
 
-@strong{Warning:} Every piece of LilyPond input needs to have
+@warning{Every piece of LilyPond input needs to have
 @strong{@{ curly braces @}} placed around the input.  The braces
 should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  These may be
 omitted in some examples in this manual, but don't forget them in
-your own music!
+your own music!}
 
 @cindex Case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
@@ -889,15 +889,15 @@ than one voice on the same staff.
 @subsection Music expressions explained
 
 In LilyPond input files, music is represented by @emph{music
-expressions}.  A single note is a music expression, although it is
-not valid input all on its own.
+expressions}.  A single note is a music expression:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a4
 @end lilypond
 
-Enclosing a group of notes in braces creates a new music
-expression:
+Enclosing a note in braces creates a @emph{compound music
+expression}.  Here we have created a compound music expression
+with two notes:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 { a4 g4 }
@@ -937,9 +937,9 @@ different amount of space.  LilyPond does not care how much (or
 little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
-@strong{Warning}: each note is relative to the previous note in
+@warning{each note is relative to the previous note in
 the input, not relative to the @code{c''} in the initial
-@code{\relative} command.
+@code{\\relative} command.}
 
 
 @subheading Simultaneous music expressions: single staff
