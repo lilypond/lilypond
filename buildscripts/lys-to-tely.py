@@ -6,7 +6,6 @@ TODO:
 
  * Add @nodes, plit at sections?
  * Less kludged first introduction file
- * include *.texi files for text at start of section?
 
 '''
 
@@ -24,17 +23,21 @@ Construct tely doc from LY-FILEs.
 
 Options:
  -h, --help                print this help
- -o, --output=NAME         write tely doc to NAME
+ -n, --name=NAME         write tely doc to NAME
  -t, --title=TITLE         set tely doc title TITLE
+ -i, --introduction=FILE   use FILE as intruduction at the top
+ -f, --footer=FILE         use FILE as footer on the bottom of the page
 
 """)
     sys.exit (0)
 
-(options, files) = getopt.getopt(sys.argv[1:], 'hn:t:', [
-    'help', 'name=', 'title='])
+(options, files) = getopt.getopt(sys.argv[1:], 'hn:t:i:f:', [
+    'help', 'name=', 'title=', 'introduction=', 'footer='])
 
 name="ly-doc"
 title="Ly Doc"
+header = None
+footer = None
 for opt in options:
     o = opt[0]
     a = opt[1]
@@ -44,6 +47,10 @@ for opt in options:
         name = a
     elif o == '-t' or o == '--title':
         title = a
+    elif o == '-i' or o == '--introduction':
+        header = a
+    elif o == '-f' or o == '--footer':
+        footer = a
     else:
         raise 'unknown opt ', o
 
@@ -79,6 +86,11 @@ if files:
 @node Top, , , (dir)
 ''' % (name, title, title)
 
+    if header:
+        header_text = open (header).read ()
+        s += header_text
+
+
     def name2line (n):
         # UGR
         s = r"""
@@ -93,7 +105,12 @@ if files:
         return s
     files.sort ()
     s = s + string.join (map (lambda x: name2line (x), files), "\n")
-    s = s + '\n@bye\n'
+    s += '\n'
+    if footer:
+        footer_text = open (footer).read ()
+        s += footer_text
+        s += '\n'
+    s = s + '@bye\n'
     f = "%s/%s.tely" % (dir, name)
     sys.stderr.write ("%s: writing %s..." % (program_name, f))
     h = open (f, "w")

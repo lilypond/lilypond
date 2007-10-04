@@ -248,6 +248,9 @@ snippet_res = {
           (?P<match>
           <(?P<inline>(inline)?)mediaobject>\s*<imageobject.*?>\s*<imagedata\s+fileref="(?P<filename>.*?\.ly)"\s*(role="(?P<options>.*?)")?\s*(/>|>\s*</imagedata>)\s*</imageobject>\s*</(inline)?mediaobject>)''',
 
+        'lilypond_version':
+         no_match,
+
         'multiline_comment':
          r'''(?smx)
           (?P<match>
@@ -263,7 +266,6 @@ snippet_res = {
 
         'verbatim':
 	no_match,
-    	
     }, 
     ##
     HTML: {
@@ -295,6 +297,9 @@ snippet_res = {
           >
           \s*(?P<filename>.*?)\s*
           </lilypondfile>)''',
+
+        'lilypond_version':
+         r'''(?mx)(?P<match><lilypond-version>)''',
 
         'multiline_comment':
          r'''(?smx)
@@ -361,6 +366,9 @@ snippet_res = {
           \])?\s*\{
            (?P<filename>\S+?)
           })''',
+
+        'lilypond_version':
+         r'''(?P<match>\\lilypond_version)''',
 
         'multiline_comment':
          no_match,
@@ -429,6 +437,9 @@ snippet_res = {
           \])?\s*{
            (?P<filename>\S+)
           })''',
+
+        'lilypond_version':
+         r'''(?mx)(?P<match>@lilypondversion)''',
 
         'multiline_comment':
          r'''(?smx)
@@ -1275,9 +1286,14 @@ class Lilypond_file_snippet (Lilypond_snippet):
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
                 % (name, contents))
 
+class Version_snippet (Snippet):
+    def replacement_text (self):
+        return (program_version)
+
 snippet_type_to_class = {
     'lilypond_file': Lilypond_file_snippet,
     'lilypond_block': Lilypond_snippet,
+    'lilypond_version': Version_snippet,
     'lilypond': Lilypond_snippet,
     'include': Include_snippet,
 }
@@ -1688,6 +1704,7 @@ def do_file (input_filename):
     #                'verb',
             'singleline_comment',
             'lilypond_file',
+            'lilypond_version',
             'include',
             'lilypond',
         )
