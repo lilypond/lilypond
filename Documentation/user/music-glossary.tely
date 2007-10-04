@@ -231,11 +231,13 @@ Languages in this order.
 * ecclesiastical mode::         
 * eighth note::                 
 * eighth rest::                 
+* elision::                     
 * embellishment::               
 * engraving::                   
 * enharmonic::                  
 * equal temperament::           
 * expression mark::             
+* extender line::               
 * F::                           
 * F clef::                      
 * fermata::                     
@@ -278,12 +280,14 @@ Languages in this order.
 * long appoggiatura::           
 * longa::                       
 * lyrics::                      
+* lyric tie::                   
 * major interval::              
 * major::                       
 * meantone temperament::        
 * measure::                     
 * mediant::                     
 * melisma::                     
+* melisma line::                
 * melodic cadence::             
 * meter::                       
 * metronome::                   
@@ -2097,6 +2101,12 @@ FI: kahdeksasosatauko.
 
 @aref{note value}.
 
+@node elision
+@section elision
+
+FIXME: languages, definition
+
+
 @node embellishment
 @section embellishment
 
@@ -2180,6 +2190,11 @@ FI: nyanssiosoitus, esitysmerkki.
 Performance indications concerning 1. volume, dynamics (for example
 @aref{forte}, @aref{crescendo}), 2. tempo (for example
 @aref{andante}, @aref{allegro}).
+
+@node extender line
+@section extender line
+
+FIXME: add this
 
 @node F
 @section F
@@ -2995,6 +3010,13 @@ DK: .,
 S: .,
 FI, sanoitus.
 
+@node lyric tie
+@section lyric tie
+
+FIXME: add languages
+
+@aref{elision}.
+
 @node major interval
 @section major interval
 
@@ -3085,6 +3107,13 @@ FI: melisma, laulettavan tavun sävelkuvio.
 
 A melisma (plural: melismata) is a group of notes or tones sung on one
 syllable in plainsong
+
+@node melisma line
+@section melisma line
+
+FIXME: add languages
+
+@aref{extender line}.
 
 @node melodic cadence
 @section melodic cadence
