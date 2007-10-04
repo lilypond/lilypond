@@ -1,14 +1,14 @@
 # French translation of GNU/lilypond - http//lilypond.org
 # Copyright © 2004 Free Software Foundation, Inc.
-# Jean-Charles Malahieude <lolyfan@wanadoo.fr>, 2007
 # Michel Robitaille <robitail@IRO.UMontreal.CA>, 1996-2007.
+# Jean-Charles Malahieude <lolyfan@wanadoo.fr>, 2007
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.11.22\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
 "POT-Creation-Date: 2007-04-28 12:03+0200\n"
-"PO-Revision-Date: 2007-09-16 14:22+0200\n"
+"PO-Revision-Date: 2007-10-02 21:50+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan@wanadoo.fr>\n"
 "Language-Team: French <traduc@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -24,7 +24,7 @@ msgstr "Pas assez d'intelligence pour convertir %s"
 #: convertrules.py:13
 msgid "Please refer to the manual for details, and update manually."
 msgstr ""
-"SVP référe-vous au manuel pour plus de détails,\n"
+"Consultez le manuel pour plus de détails,\n"
 "et faites la mise à jour manuellement."
 
 #: convertrules.py:14
@@ -34,7 +34,7 @@ msgstr "%s a été remplacé par %s"
 
 #: convertrules.py:2408
 msgid "LilyPond source must be UTF-8"
-msgstr "Le fichier source LilyPond doit être encodé en UTF-8."
+msgstr "Le fichier source LilyPond doit être codé en UTF-8."
 
 #: convertrules.py:2411
 msgid "Try the texstrings backend"
@@ -47,7 +47,7 @@ msgstr "Faites quelque chose comme : %s"
 
 #: convertrules.py:2417
 msgid "Or save as UTF-8 in your editor"
-msgstr "Ou sauvegarder en format UTF-8 à l'aide de votre éditeur."
+msgstr "Ou sauvegarder en format UTF-8 à l'aide de votre éditeur"
 
 #: fontextract.py:26
 #, python-format
@@ -126,12 +126,12 @@ msgstr "Exemples :"
 #: convert-ly.py:47 lilypond-book.py:83 warn.cc:48 input.cc:90
 #, c-format, python-format
 msgid "warning: %s"
-msgstr "AVERTISSEMENT : %s"
+msgstr "Avertissement : %s"
 
 #: convert-ly.py:50 lilypond-book.py:86 warn.cc:54 input.cc:96 input.cc:104
 #, c-format, python-format
 msgid "error: %s"
-msgstr "ERREUR : %s"
+msgstr "Erreur : %s"
 
 #: convert-ly.py:66 etf2ly.py:1174 lilypond-book.py:106 midi2ly.py:87
 msgid "Distributed under terms of the GNU General Public License."
@@ -175,7 +175,7 @@ msgstr "Erreur lors de la conversion"
 
 #: convert-ly.py:159
 msgid "Stopping at last succesful rule"
-msgstr "Arrêt après la dernière règle appliquée avec succès."
+msgstr "Arrêt après la dernière règle appliquée avec succès"
 
 #: convert-ly.py:181
 #, python-format
@@ -212,7 +212,9 @@ msgstr "FICHIER"
 
 #: etf2ly.py:1187 lilypond-book.py:158 midi2ly.py:888 main.cc:163
 msgid "show warranty and copyright"
-msgstr "afficher la notice de garantie et du droit d'auteur"
+msgstr ""
+"afficher les notices de garantie\n"
+"et du droit d'auteur"
 
 #: lilypond-book.py:57
 msgid "Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document."
@@ -250,7 +252,7 @@ msgstr ""
 
 #: lilypond-book.py:123
 msgid "add DIR to include path"
-msgstr "ajouter le RÉPERTOIRE au chemin de recherche des inclusions."
+msgstr "ajouter le RÉPERTOIRE au chemin de recherche des inclusions"
 
 #: lilypond-book.py:124 lilypond-book.py:136 main.cc:153
 msgid "DIR"
@@ -306,7 +308,7 @@ msgstr "traduction en mode de compatibilité : %s=%s"
 #: lilypond-book.py:1006
 #, python-format
 msgid "deprecated ly-option used: %s"
-msgstr "l'option ly-option est obsolète : %s"
+msgstr "option ly-option obsolète : %s"
 
 #: lilypond-book.py:1009
 #, python-format
@@ -410,11 +412,11 @@ msgstr "Écriture des fontes dans %s..."
 
 #: midi2ly.py:95 lily-library.scm:577 lily-library.scm:586
 msgid "warning: "
-msgstr "AVERTISSEMENT :"
+msgstr "Avertissement :"
 
 #: midi2ly.py:98 midi2ly.py:913
 msgid "error: "
-msgstr "ERREUR : "
+msgstr "Erreur : "
 
 #: midi2ly.py:99
 msgid "Exiting ... "
@@ -491,7 +493,7 @@ msgid ""
 "information."
 msgstr ""
 "Ce logiciel est libre. Il est couvert par la licence GNU General Public \n"
-"License, et vous êtes libre de le modifier et/ou d'en distribuer des copies \n"
+"License, et vous êtes libre de le modifier et/ou d'en distribuer des copies\n"
 "sous certaines conditions. \n"
 "Invoquez « %s --warranty » pour plus d'informations."
 
@@ -511,7 +513,7 @@ msgstr "L'option « %s » requiert un argument"
 #: getopt-long.cc:144
 #, c-format
 msgid "option `%s' does not allow an argument"
-msgstr "L'option « %s » s'emploie sans argument."
+msgstr "L'option « %s » s'emploie sans argument"
 
 #: getopt-long.cc:148
 #, c-format
@@ -548,8 +550,8 @@ msgstr "altération accidentelle inconnue, donc ignorée : %s"
 #, c-format
 msgid "pair or context-name expected for accidental rule, found %s"
 msgstr ""
-"Paire ou nom de contexte requis pour la règle d'altération accidentelle,\n"
-"%s trouvé."
+"paire ou nom de contexte requis pour la règle d'altération accidentelle,\n"
+"%s trouvé"
 
 #: accidental.cc:160
 #, c-format
@@ -558,16 +560,16 @@ msgstr "Aucun nom de glyphe ne correspond à l'altération %s"
 
 #: accidental.cc:175
 msgid "natural alteration glyph not found"
-msgstr "Pas de glyphe correspondant au bécarre."
+msgstr "pas de glyphe correspondant au bécarre"
 
 #: align-interface.cc:322
 msgid "tried to get a translation for something that is no child of mine"
-msgstr "tentative de déplacement d'un élément sans relation directe."
+msgstr "tentative de déplacement d'un élément sans relation directe"
 
 #: all-font-metrics.cc:143
 #, c-format
 msgid "cannot find font: `%s'"
-msgstr "Fonte « %s » non trouvée."
+msgstr "fonte « %s » introuvable"
 
 #: apply-context-iterator.cc:31
 msgid "\\applycontext argument is not a procedure"
@@ -588,7 +590,7 @@ msgstr "auriez-vous deux Axis_group_engravers ?"
 
 #: axis-group-engraver.cc:80
 msgid "removing this vertical group"
-msgstr "retrait de ce groupe vertical."
+msgstr "retrait de ce groupe vertical"
 
 #: axis-group-interface.cc:109
 msgid "tried to calculate pure-height at a non-breakpoint"
@@ -652,7 +654,7 @@ msgstr "impossible de changer « %s » en « %s »"
 #. FIXME: constant error message.
 #: change-iterator.cc:82
 msgid "cannot find context to switch to"
-msgstr "impossible de repérer le contexte vers lequel commuter."
+msgstr "impossible de repérer le contexte vers lequel commuter"
 
 #. We could change the current translator's id, but that would make
 #. errors hard to catch.
@@ -671,11 +673,11 @@ msgstr "aucun de ceux-ci dans ma famille"
 
 #: chord-tremolo-engraver.cc:88
 msgid "No tremolo to end"
-msgstr "Il n'y a aucun trémolo à terminer."
+msgstr "Il n'y a aucun trémolo à terminer"
 
 #: chord-tremolo-engraver.cc:110
 msgid "unterminated chord tremolo"
-msgstr "accord en tremolo non terminé."
+msgstr "accord en tremolo non terminé"
 
 #: chord-tremolo-iterator.cc:35
 #, c-format
@@ -685,7 +687,7 @@ msgstr "un accord de tremolo requiert 2 éléments, %d trouvé(s)"
 #: clef.cc:54
 #, c-format
 msgid "clef `%s' not found"
-msgstr "clé `%s' non trouvée"
+msgstr "clé `%s' introuvable"
 
 #: cluster.cc:110
 #, c-format
@@ -733,12 +735,12 @@ msgstr "Événement CreateContext invalide : impossible de créer le contexte %s
 #: context.cc:380
 #, c-format
 msgid "cannot find or create: `%s'"
-msgstr "impossible de trouver ou créer : « %s »"
+msgstr "impossible de trouver ou créer « %s »"
 
 #: custos.cc:77
 #, c-format
 msgid "custos `%s' not found"
-msgstr "custode « %s » non trouvée"
+msgstr "custode « %s » introuvable"
 
 #: dispatcher.cc:71
 msgid "Event class should be a symbol"
@@ -807,7 +809,9 @@ msgstr "initialisation à zéro"
 
 #: general-scheme.cc:417 output-ps.scm:61
 msgid "Found infinity or nan in output. Substituting 0.0"
-msgstr "La sortie contient l'infini ou une valeur non numérique. Substitution par 0.0"
+msgstr ""
+"La sortie contient l'infini ou une valeur non numérique. \n"
+"Substitution par 0.0"
 
 #: glissando-engraver.cc:94
 msgid "unterminated glissando"
@@ -844,7 +848,7 @@ msgstr "Impossible d'appliquer « \\~ » à la première tête de ligature"
 #. (pitch == prev_pitch)
 #: gregorian-ligature-engraver.cc:224
 msgid "cannot apply `\\~' on heads with identical pitch"
-msgstr "Impossible d'appliquer « \\~ » à des têtes ayant la même hauteur."
+msgstr "Impossible d'appliquer « \\~ » à des têtes ayant la même hauteur"
 
 #: grob-interface.cc:57
 #, c-format
@@ -880,11 +884,11 @@ msgstr "crescendo trop petit"
 
 #: horizontal-bracket-engraver.cc:59
 msgid "do not have that many brackets"
-msgstr "n'a pas autant de crochets."
+msgstr "n'a pas autant de crochets"
 
 #: horizontal-bracket-engraver.cc:68
 msgid "conflicting note group events"
-msgstr "événements de groupe de notes conflictuels."
+msgstr "événements de groupe de notes conflictuels"
 
 #: hyphen-engraver.cc:93
 msgid "removing unterminated hyphen"
@@ -939,7 +943,7 @@ msgstr "ligature non terminée"
 
 #: ligature-engraver.cc:202
 msgid "ignoring rest: ligature may not contain rest"
-msgstr "le silence est ignoré : une ligature ne peut contenir de silence."
+msgstr "le silence est ignoré : une ligature ne peut contenir de silence"
 
 #: ligature-engraver.cc:203
 msgid "ligature was started here"
@@ -953,15 +957,15 @@ msgstr "(chemin de chargement : « %s »)"
 #: lily-guile.cc:438
 #, c-format
 msgid "cannot find property type-check for `%s' (%s)."
-msgstr "Vérification de type de propriété pour « %s » (%s) non trouvée."
+msgstr "vérification de type de propriété pour « %s » (%s) non trouvée"
 
 #: lily-guile.cc:441
 msgid "perhaps a typing error?"
-msgstr "Probable faute de frappe."
+msgstr "Probable faute de frappe"
 
 #: lily-guile.cc:448
 msgid "doing assignment anyway"
-msgstr "Affectation faite malgré tout."
+msgstr "affectation faite malgré tout"
 
 #: lily-guile.cc:460
 #, c-format
@@ -1010,7 +1014,7 @@ msgstr "Analyse..."
 
 #: lily-parser.cc:127
 msgid "braces do not match"
-msgstr "Accolades non pairées"
+msgstr "accolades non pairées"
 
 #: lyric-combine-music-iterator.cc:327
 #, c-format
@@ -1029,8 +1033,9 @@ msgid ""
 "under certain conditions.  Invoke as `%s --warranty' for more\n"
 "information.\n"
 msgstr ""
-"Ce logiciel est libre. Il est couvert par la licence GNU General Public License,\n"
-"et vous êtes libre de le modifier et/ou d'en distribuer des copies sous certaines conditions\n"
+"Ce logiciel est libre. Il est couvert par la licence GNU General Public \n"
+"License, et vous êtes libre de le modifier et/ou d'en distribuer des copies\n"
+"sous certaines conditions.\n"
 "Invoquez « %s --warranty » pour plus d'informations.\n"
 
 #: main.cc:106
@@ -1050,18 +1055,18 @@ msgid ""
 "Boston, MA 02111-1307, USA.\n"
 msgstr ""
 "    Ce logiciel est libre; vous pouvez le redistribuer et/ou le modifier\n"
-"sous les termes de la licence GNU General Public License version 2\n"
-"tel que publié par la Free Software Foundation.\n"
+"selon les termes de la licence GNU General Public License version 2\n"
+"tel que publiée par la Free Software Foundation.\n"
 "\n"
 "    Ce logiciel est distribué dans l'espoir qu'il soit utile\n"
-"mais sans AUCUNE GARANTIE;  sans aucune garantie implicites\n"
-"COMMERCIALES ou pour RÉPONDRE À UN BESOIN PARTICULIER.. Consulter\n"
+"mais sans AUCUNE GARANTIE;  sans aucune garantie implicite\n"
+"COMMERCIALE ou pour RÉPONDRE À UN BESOIN PARTICULIER.. Consulter\n"
 "la license GNU General Public License pour plus de détails.\n"
 "\n"
 "    Vous devriez avoir reçu une copie (consulter le fichier COPYING) de la\n"
-"license GNU General Public License accompagnant ce logiciel; si absente écrire à\n"
-"la Free Software Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,\n"
-"USA.\n"
+"license GNU General Public License accompagnant ce logiciel; si absente, \n"
+" écrire à la Free Software Foundation, Inc., 59 Temple Place - Suite 330, \n"
+"Boston, MA 02111-1307, USA.\n"
 
 #: main.cc:137
 msgid "SYM[=VAL]"
@@ -1072,8 +1077,9 @@ msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
 msgstr ""
-"affecte VAL (par défaut #t) à l'option Scheme SYM.\n"
-"Utiliser -dhelp pour obtenir de l'aide."
+"affecte VAL (par défaut #t)\n"
+"à l'option Scheme SYM.\n"
+"Utiliser -dhelp pour avoir de l'aide."
 
 #: main.cc:141
 msgid "EXPR"
@@ -1081,7 +1087,7 @@ msgstr "EXPR"
 
 #: main.cc:141
 msgid "evaluate scheme code"
-msgstr "évalue du code Scheme"
+msgstr "évaluer du code Scheme"
 
 #. Bug in option parser: --output =foe is taken as an abbreviation
 #. for --output-format.
@@ -1091,7 +1097,9 @@ msgstr "FORMATs"
 
 #: main.cc:144
 msgid "dump FORMAT,...  Also as separate options:"
-msgstr "produire FORMAT,... Aussi comme options séparées :"
+msgstr ""
+"produire FORMAT,...\n"
+"Aussi comme options séparées :"
 
 #: main.cc:145
 msgid "generate DVI (tex backend only)"
@@ -1111,11 +1119,11 @@ msgstr "générer le PostScript"
 
 #: main.cc:149
 msgid "generate TeX (tex backend only)"
-msgstr "<générer le TeX (uniquement pour tex)"
+msgstr "générer le TeX (uniquement pour tex)"
 
 #: main.cc:150
 msgid "show this help and exit"
-msgstr "visualiser cette aide et sortir."
+msgstr "visualiser cette aide et sortir"
 
 #: main.cc:151
 msgid "FIELD"
@@ -1126,20 +1134,22 @@ msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
 msgstr ""
-"écrire le champ d'en-tête CHAMP dans le fichier \n"
-"nommé BASENAME.CHAMP"
+"écrire le champ d'en-tête CHAMP dans le\n"
+"fichier nommé BASENAME.CHAMP"
 
 #: main.cc:153
 msgid "add DIR to search path"
-msgstr "ajouter le RÉPERTOIRE au chemin de recherche"
+msgstr "ajouter RÉPERTOIRE au chemin de recherche"
 
 #: main.cc:154
 msgid "use FILE as init file"
-msgstr "utiliser le FICHIER comme fichier d'initialisation"
+msgstr ""
+"utiliser FICHIER comme\n"
+"fichier d'initialisation"
 
 #: main.cc:156
 msgid "USER, GROUP, JAIL, DIR"
-msgstr "UTILISATEUR,GROUPE,CAGE,RÉPERTOIRE"
+msgstr "USER,GROUP,CAGE,RÉP"
 
 #: main.cc:156
 msgid ""
@@ -1151,11 +1161,15 @@ msgstr ""
 
 #: main.cc:159
 msgid "write output to FILE (suffix will be added)"
-msgstr "produire la sortie dans le FICHIER (adjonction automatique du suffixe)"
+msgstr ""
+"produire la sortie dans FICHIER \n"
+"(adjonction automatique du suffixe)"
 
 #: main.cc:160
 msgid "relocate using directory of lilypond program"
-msgstr "redétermine le chemin d'exécution de LilyPond"
+msgstr ""
+"redétermine le chemin d'exécution\n"
+"des composants de LilyPond"
 
 #: main.cc:161
 msgid "show version number and exit"
@@ -1199,7 +1213,9 @@ msgstr "Options :"
 #: main.cc:242
 #, c-format
 msgid "Report bugs via %s"
-msgstr "Rapporter toute anomalie à %s."
+msgstr ""
+"Signaler toute anomalie à \n"
+"%s"
 
 #: main.cc:288
 #, c-format
@@ -1215,7 +1231,7 @@ msgstr "utilisateur inconnu : « %s »"
 #, c-format
 msgid "cannot get user id from user name: %s: %s"
 msgstr ""
-"impossible de repérer l'identifiant utilisateur à partir du nom d'utilisateur : \n"
+"impossible de repérer l'identifiant utilisateur à partir du nom d'utilisateur :\n"
 "%s : %s"
 
 #: main.cc:319
@@ -1238,12 +1254,12 @@ msgstr "impossible de chrooter vers : %s : %s"
 #: main.cc:336
 #, c-format
 msgid "cannot change group id to: %d: %s"
-msgstr "impossible de changer l'id de groupe en : %d : %s"
+msgstr "impossible de changer l'identifiant de groupe en : %d : %s"
 
 #: main.cc:342
 #, c-format
 msgid "cannot change user id to: %d: %s"
-msgstr "impossible de changer l'id utilisateur en : %d : %s"
+msgstr "impossible de changer l'identifiant utilisateur en : %d : %s"
 
 #: main.cc:348
 #, c-format
@@ -1253,7 +1269,7 @@ msgstr "impossible de changer le répertoire de travail en : %s : %s"
 #: main.cc:594
 #, c-format
 msgid "exception caught: %s"
-msgstr "Exception capturée : %s"
+msgstr "exception capturée : %s"
 
 #. FIXME: constant error message.
 #: mark-engraver.cc:154
@@ -1282,7 +1298,7 @@ msgstr "intervale de prime dans la ligature -> escamotage"
 
 #: mensural-ligature-engraver.cc:150
 msgid "mensural ligature: duration none of Mx, L, B, S -> skipping"
-msgstr "ligature mensurale : aucune durée parmi Mx,  L, B, S -> escamotage"
+msgstr "ligature mensurale : aucune durée parmi Mx, L, B, S -> escamotage"
 
 #: mensural-ligature-engraver.cc:198
 msgid "semibrevis must be followed by another one -> skipping"
@@ -1318,7 +1334,7 @@ msgstr "Mensural_ligature: cas inattendu et non interprétable"
 
 #: mensural-ligature.cc:192
 msgid "Mensural_ligature: (join_right == 0)"
-msgstr "Mensural_liguture: (joint_right == 0)"
+msgstr "Mensural_ligature: (joint_right == 0)"
 
 #: midi-item.cc:81
 #, c-format
@@ -1355,7 +1371,7 @@ msgstr "impossible d'ajouter du texte à des têtes de notes individuelles"
 
 #: new-fingering-engraver.cc:239
 msgid "no placement found for fingerings"
-msgstr "Nulle part où positionner des doigtés."
+msgstr "nulle part où positionner des doigtés"
 
 #: new-fingering-engraver.cc:240
 msgid "placing below"
@@ -1532,7 +1548,7 @@ msgstr "liaison de phrasé non terminée"
 #: piano-pedal-engraver.cc:286
 #, c-format
 msgid "expect 3 strings for piano pedals, found: %ld"
-msgstr "Les pédales de piano nécessitent Nécessite 3 cordes. Il y en a %ld"
+msgstr "Les pédales de piano nécessitent 3 cordes. Il y en a %ld"
 
 #: piano-pedal-engraver.cc:301 piano-pedal-engraver.cc:312
 #: piano-pedal-performer.cc:93
@@ -1668,12 +1684,12 @@ msgstr "voici la musique précédente"
 
 #: score.cc:173
 msgid "errors found, ignoring music expression"
-msgstr "suite à des erreurs répétées, l'expression musicale sera ignorée."
+msgstr "suite à des erreurs répétées, l'expression musicale sera ignorée"
 
 #. FIXME:
 #: script-engraver.cc:102
 msgid "do not know how to interpret articulation: "
-msgstr "Ne sait comment interpréter l'articulation: "
+msgstr "ne sait comment interpréter l'articulation : "
 
 #: script-engraver.cc:103
 msgid "scheme encoding: "
@@ -1787,7 +1803,7 @@ msgstr "symbole de chiffrage de mesure « %s » inconnu ; retour à un style num
 #: translator-ctors.cc:52
 #, c-format
 msgid "unknown translator: `%s'"
-msgstr "traducteur inconnu: « %s »"
+msgstr "traducteur inconnu : « %s »"
 
 #: translator-group-ctors.cc:29
 #, c-format
@@ -1910,7 +1926,7 @@ msgstr "Escamotage d'UTF-8 BOM"
 #: lexer.ll:235
 #, c-format
 msgid "Renaming input to: `%s'"
-msgstr "L'entrée a été renommé en « %s »"
+msgstr "L'entrée a été renommée en « %s »"
 
 #: lexer.ll:252
 msgid "quoted string expected after \\version"
@@ -1953,17 +1969,19 @@ msgstr "Accolade repérée à la fin d'un \"markup\". Manquerait-il un espace ?"
 #: lexer.ll:663
 #, c-format
 msgid "invalid character: `%c'"
-msgstr "caractère invalide: « %c »"
+msgstr "caractère invalide : « %c »"
 
 #: lexer.ll:778
 #, c-format
 msgid "unknown escaped string: `\\%s'"
-msgstr "chaîne d'échappement inconnue: « \\%s »"
+msgstr "chaîne d'échappement inconnue : « \\%s »"
 
 #: lexer.ll:884
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
-msgstr "%s est plus qu'obsolète ; le plus ancien pouvant être supporté est : %s"
+msgstr ""
+"%s est plus qu'obsolète ; \n"
+"le plus ancien pouvant être supporté est : %s"
 
 #: lexer.ll:885
 msgid "consider updating the input with the convert-ly script"
@@ -1982,7 +2000,7 @@ msgstr "Invocation de « ~a »..."
 #: backend-library.scm:28
 #, scheme-format
 msgid "`~a' failed (~a)"
-msgstr "« ~a » a mis (~a) en échec"
+msgstr "échec de « ~a » (~a)"
 
 #: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
 #, scheme-format
@@ -1992,7 +2010,7 @@ msgstr "Conversion à « ~a »..."
 #: backend-library.scm:128
 #, scheme-format
 msgid "Converting to ~a..."
-msgstr "Conversion à « ~a »..."
+msgstr "Conversion à ~a..."
 
 #: backend-library.scm:166
 #, scheme-format
@@ -2014,7 +2032,7 @@ msgstr "la classe d'événement ~A semble être inutilisée"
 #: define-event-classes.scm:125
 #, scheme-format
 msgid "translator listens to nonexisting event class ~A"
-msgstr "le traducteur écoute la classe d'événements inexistante ~A"
+msgstr "le traducteur écoute la classe d'événements ~A inexistante"
 
 #: define-markup-commands.scm:273
 msgid "no systems found in \\score markup, does it have a \\layout block?"
@@ -2127,15 +2145,15 @@ msgid ""
 msgstr ""
 "\n"
 "Le support PostScript ne peut traiter une sortie système par système.\n"
-"Utiliser de préférence le support EPS\\n\"\n"
+"Utiliser de préférence le support EPS\n"
 "\n"
-"  lilypond -b eps <fichier>\\n\"\n"
+"  lilypond -b eps <fichier>\n"
 "\n"
-"Si vous avez copié et collé un fragement lilypond à partir d'un page internet,\n"
+"Si vous avez copié et collé un fragment lilypond à partir d'un page internet,\n"
 "assurez-vous d'avoir bien supprimé tout ce qui précède\n"
 "\n"
 "  %% ****************************************************************\n"
-"  %% Start cut-&-pastable-section\\n\"\n"
+"  %% Start cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
 "\n"
 
@@ -2161,7 +2179,7 @@ msgstr "Erreur de définition du lien : attendait ~S 0, repéré ~S."
 
 #: layout-page-layout.scm:115
 msgid "Can't fit systems on page -- ignoring between-system-padding"
-msgstr "Les système ne tiennent pas sur la page; between-system-padding ignoré"
+msgstr "Les système ne tiennent pas sur la page ; between-system-padding ignoré"
 
 #: layout-page-layout.scm:449
 msgid "Calculating page breaks..."
@@ -2175,7 +2193,9 @@ msgstr "unité inconnue : ~S"
 #: lily-library.scm:579
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
-msgstr "déclaration de \\version absente; ajoutez ~a pour une compatibilité future"
+msgstr ""
+"déclaration de \\version absente ;\n"
+"ajoutez ~a pour une compatibilité future"
 
 #: lily-library.scm:587
 msgid "old relative compatibility not used"
@@ -2189,7 +2209,7 @@ msgstr "impossible de trouver ~A"
 #: lily.scm:238
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
-msgstr "type d'argument erroné pour ~a. Attendait ~a, a trouvé ~s"
+msgstr "type d'argument erroné pour ~a. Attendait ~a, ~s trouvé"
 
 #: lily.scm:619
 #, scheme-format
@@ -2252,7 +2272,9 @@ msgstr "requiert de la musique : ~S"
 #: music-functions.scm:623
 #, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
-msgstr "Échec du contrôle de barre de mesure. Aurait dû se trouver à ~a au lieu de ~a"
+msgstr ""
+"Échec du contrôle de barre de mesure. \n"
+"Aurait dû se trouver à ~a au lieu de ~a"
 
 #: music-functions.scm:773
 #, scheme-format
@@ -2301,7 +2323,7 @@ msgstr "Taille de papier inconnue : ~a"
 #. that in parse-scm.cc
 #: paper.scm:159
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
-msgstr "#(set-paper-size ..) doit être dans la section \\\\paper { ... }"
+msgstr "#(set-paper-size ..) doit être dans la section \\paper { ... }"
 
 #: parser-clef.scm:127
 #, scheme-format
@@ -2316,7 +2338,7 @@ msgstr "clefs reconnues : ~a"
 #: ps-to-png.scm:64
 #, scheme-format
 msgid "~a exited with status: ~S"
-msgstr "~a a terminée avec le statut: ~S"
+msgstr "~a s'est terminé avec le statut ~S"
 
 #: to-xml.scm:180
 #, scheme-format
