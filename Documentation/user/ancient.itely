@@ -1001,7 +1001,7 @@ Deminutae}
 @c Therefore, it should somehow be included rather than duplicated all
 @c the time. --jr
 
-@c why not make identifiers in ly/engraver-init.ly? --hwn
+@c why not make variables in ly/engraver-init.ly? --hwn
 
 @c Because it's just used to typeset plain notes without
 @c a staff for demonstration purposes rather than something

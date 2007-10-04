@@ -111,9 +111,8 @@ accepts.
 @smallspace
 
 @cindex variables
-@cindex identifiers
 
-Another great shorthand is the ability to define identifiers.  All
+Another great shorthand is the ability to define variables.  All
 the templates use this
 
 @example
@@ -132,7 +131,7 @@ whenever it sees @code{\melody}.  There's nothing special about
 the names -- it could be @code{melody}, @code{global},
 @code{pianorighthand}, or @code{foofoobarbaz}.  You can use
 whatever variable names you want.  For more details, see
-@ruser{Saving typing with identifiers and functions}.
+@ruser{Saving typing with variables and functions}.
 
 
 @seealso
@@ -236,7 +235,7 @@ braces next to @code{\new Voice = vocal}, we could start writing
 
 But if we did that, the @code{\score} section would get pretty
 long, and it would be harder to understand what was happening.  So
-let's use identifiers (or variables) instead.
+let's use variables instead.
 
 @example
 melody = @{ @}
@@ -262,7 +261,7 @@ lower = @{ @}
 
 @noindent
 Remember that you can use almost any name you like.  The
-limitations on identifier names are detailed in @ruser{File
+limitations on variable names are detailed in @ruser{File
 structure}.
 
 When writing (or reading) a @code{\score} section, just take it

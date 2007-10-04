@@ -93,7 +93,7 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 
 In some instances of complex polyphonic music, you may need
 additional voices to avoid collisions between notes.  Additional
-voices are added by defining an identifier, as shown below:
+voices are added by defining an variable, as shown below:
 
 @lilypond[quote,verbatim,ragged-right,relative=2]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)

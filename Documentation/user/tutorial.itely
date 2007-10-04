@@ -1365,8 +1365,8 @@ example from Handel's Judas Maccabæus:
 
 but scores any more complex than this simple example are
 better produced by separating out the staff structure
-from the notes and lyrics with identifiers.  These are
-discussed later (see @ref{Organizing pieces with identifiers}).
+from the notes and lyrics with variables.  These are
+discussed later (see @ref{Organizing pieces with variables}).
 
 @seealso
 @quotation
@@ -1387,7 +1387,7 @@ introduction to the rest of the manual.
 * Version number::              
 * Adding titles::               
 * Absolute note names::         
-* Organizing pieces with identifiers::  
+* Organizing pieces with variables::  
 * After the tutorial::          
 * How to read the manual::      
 @end menu
@@ -1514,17 +1514,17 @@ intervals, and is extremely useful for computer-generated LilyPond
 files.
 
 
-@node Organizing pieces with identifiers
-@subsection Organizing pieces with identifiers
+@node Organizing pieces with variables
+@subsection Organizing pieces with variables
 
 When all of the elements discussed earlier are combined to produce
 larger files, the music expressions get a lot bigger.  In
 polyphonic music with many staves, the input files can become very
 confusing.  We can reduce this confusion by using
-@emph{identifiers}.
+@emph{variables}.
 
-With identifiers (also known as variables or macros), we can break
-up complex music expressions.  An identifier is assigned as
+With variables (also known as variables or macros), we can break
+up complex music expressions.  An variable is assigned as
 follows
 
 @example
@@ -1534,7 +1534,7 @@ namedMusic = @{ @dots{} @}
 The contents of the music expression @code{namedMusic} can be used
 later by placing a backslash in front of the name
 (@code{\namedMusic}, just like a normal LilyPond command).
-Identifiers must be defined @emph{before} the main music
+Variables must be defined @emph{before} the main music
 expression.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1554,7 +1554,7 @@ cello = \new Staff { \relative c {
 @end lilypond
 
 @noindent
-The name of an identifier must have alphabetic characters only: no
+The name of an variable must have alphabetic characters only: no
 numbers, underscores, or dashes.
 
 It is possible to use variables for many other types of objects in
@@ -1566,7 +1566,7 @@ name = "Wendy"
 aFivePaper = \paper @{ paperheight = 21.0 \cm @}
 @end example
 
-Depending on its contents, the identifier can be used in different
+Depending on its contents, the variable can be used in different
 places.  The following example uses the above variables:
 
 @example

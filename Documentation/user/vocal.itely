@@ -65,7 +65,7 @@ To make lyrics avoid barlines as well, use
 * Assigning more than one syllable to a single note::  
 * More than one note on a single syllable::  
 * Extenders and hyphens::       
-* Working with lyrics and identifiers::  
+* Working with lyrics and variables::  
 * Flexibility in placement::    
 * Lyrics to multiple notes of a melisma::  
 * Divisi lyrics::               
@@ -227,7 +227,7 @@ any 8-bit character with ASCII code over 127, or a two-character
 combination of a backslash followed by one of @code{`}, @code{'},
 @code{"}, or @code{^}.
 
-To define identifiers containing lyrics, the function @code{lyricmode}
+To define variables containing lyrics, the function @code{lyricmode}
 must be used.
 
 @example
@@ -528,14 +528,14 @@ Program reference: @internalsref{LyricExtender},
 @internalsref{LyricHyphen}
 
 
-@node Working with lyrics and identifiers
-@unnumberedsubsubsec Working with lyrics and identifiers
-@cindex lyrics, identifiers
+@node Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
+@cindex lyrics, variables
 
-To define identifiers containing lyrics, the function @code{\lyricmode}
+To define variables containing lyrics, the function @code{\lyricmode}
 must be used.  You do not have to enter durations though, if you add
 @code{\addlyrics} or @code{\lyricsto}
-when invoking your identifier.
+when invoking your variable.
  
 @example
 verseOne = \lyricmode @{ Joy to the world the Lord is come @}

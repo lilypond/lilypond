@@ -18,7 +18,7 @@ this chapter.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with identifiers and functions::  
+* Saving typing with variables and functions::  
 * Style sheets::                
 * Updating old files::          
 * Troubleshooting (taking it all apart)::  
@@ -105,12 +105,12 @@ imbalance
 in the number of @code{@{} and @code{@}}.
 
 @item @strong{Explicitly add durations} at the beginnings of sections
-and identifiers.  If you specify @code{c4 d e} at the beginning of a
+and variables.  If you specify @code{c4 d e} at the beginning of a
 phrase (instead of just @code{c d e}) you can save yourself some
 problems if you rearrange your music later.
 
 @item @strong{Separate tweaks} from music definitions.  See
-@ruser{Saving typing with identifiers and functions}, and
+@ruser{Saving typing with variables and functions}, and
 @ruser{Style sheets}.
 
 @end itemize
@@ -149,7 +149,7 @@ lilypond files becomes vital.
 
 @itemize @bullet
 
-@item @strong{Use an identifier for each voice}, with a minimum of
+@item @strong{Use an variable for each voice}, with a minimum of
 structure inside the definition.  The structure of the
 @code{\score} section is the most likely thing to change;
 the @code{violin} definition is extremely unlikely to change
@@ -187,11 +187,11 @@ g4\fthenp c'8. e16
 @end itemize
 
 
-@node Saving typing with identifiers and functions
-@section Saving typing with identifiers and functions
+@node Saving typing with variables and functions
+@section Saving typing with variables and functions
 
 @cindex variables
-@cindex identifiers
+@cindex variables
 
 By this point, you've seen this kind of thing:
 
@@ -217,7 +217,7 @@ violin = \new Staff { \fragA \fragA \fragB \fragA }
 }
 @end lilypond
 
-However, you can also use these identifiers (also known as
+However, you can also use these variables (also known as
 variables, macros, or (user-defined) command) for tweaks:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -240,11 +240,11 @@ violin = \relative c'' {
 }
 @end lilypond
 
-These identifiers are obviously useful for saving
+These variables are obviously useful for saving
 typing.  But they're worth considering even if you
 only use them once -- they reduce complexity.  Let's
 look at the previous example without any
-identifiers.  It's a lot harder to read, especially
+variables.  It's a lot harder to read, especially
 the last line.
 
 @example
@@ -283,7 +283,7 @@ padText =
 }
 @end lilypond
 
-Using identifiers is also a good way to reduce work if the
+Using variables is also a good way to reduce work if the
 LilyPond input syntax changes (see @ruser{Updating old files}).  If
 you have a single definition (such as @code{\dolce}) for all your
 files (see @ruser{Style sheets}), then if the syntax changes, you

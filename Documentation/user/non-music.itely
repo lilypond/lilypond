@@ -132,16 +132,15 @@ Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
 @cindex variables
-@cindex identifiers
 
 @item
-An identifier, such as
+An variable, such as
 @example
 foo = @{ c4 d e d @}
 @end example
 
 This can be used later on in the file by entering @code{\foo}.  The
-name of an identifier should have alphabetic characters only; no
+name of an variable should have alphabetic characters only; no
 numbers, underscores or dashes.
 
 @end itemize

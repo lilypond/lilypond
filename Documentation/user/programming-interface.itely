@@ -251,7 +251,7 @@ noPointAndClick =
 @subsection Functions without arguments
 
 In most cases a function without arguments should be written
-with an identifier,
+with an variable,
 
 @example
 dolce = \markup@{ \italic \bold dolce @}
@@ -391,7 +391,7 @@ define some Scheme code in a macro (to be called later), use
 
 @refbugs
 
-Mixing Scheme and LilyPond identifiers is not possible with the
+Mixing Scheme and LilyPond variables is not possible with the
 @code{--safe} option.
 
 

@@ -229,7 +229,7 @@ TODO: this is really old stuff from the really old tutorial.
 Rewrite, fix, etc.  -gp
 
 In orchestral music, all notes are printed twice.  Once in a part for
-the musicians, and once in a full score for the conductor.  Identifiers can
+the musicians, and once in a full score for the conductor.  Variables can
 be used to avoid double work.  The music is entered once, and stored in
 a variable.  The contents of that variable is then used to generate
 both the part and the full score.
