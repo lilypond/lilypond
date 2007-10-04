@@ -526,5 +526,18 @@ manual tweaks.
 \override Score.PaperColumn #'keep-inside-line = ##t 
 @end example
 
+@c see issue 246
+In some cases, this must be done before @code{\override} commands
+can be processed.
+
+@verbatim
+\new Score \with {
+      \override PaperColumn #'keep-inside-line = ##t 
+  } {
+ ..
+}
+@end verbatim
+
+
 
 
