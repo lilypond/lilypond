@@ -117,7 +117,7 @@ your own music!}
 
 @cindex Case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
-@{c d e @}} is valid input; @code{@{ C D E @}} will produce an
+@{ c d e @}} is valid input; @code{@{ C D E @}} will produce an
 error message.
 
 @smallspace
