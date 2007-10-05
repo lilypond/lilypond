@@ -256,11 +256,11 @@ applies to the suffixes for quartertones below).
 
 @noindent
 Some music uses microtones whose alterations are fractions of a
-@q{regular} sharp or flat.  The note names for quartertones defined
-in the various language files are listed in the following table.
-Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
-@q{one and a half}, respectively.  For Norwegian, Swedish, Catalan
-and Spanish no special names have been defined yet.
+@q{regular} sharp or flat.  The note names for quartertones
+defined in the various language files are listed in the following
+table.  Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half}
+and @q{one and a half}, respectively.  For Norwegian, Swedish,
+Catalan and Spanish no special names have been defined yet.
 
 @c What about Turkish Maquam music and similar microtonal systems?
 @c
