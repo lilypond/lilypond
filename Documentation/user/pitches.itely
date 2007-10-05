@@ -77,6 +77,10 @@ a pitch; this method does not require as many octave
 specifications (@code{'} and @code{,}).  See @ref{Relative
 octaves}.
 
+@seealso
+
+Snippets: @lsrdir{pitch}
+
 
 @node Accidentals
 @unnumberedsubsubsec Accidentals
@@ -306,16 +310,6 @@ off by one octave
 \relative @var{startpitch} @var{musicexpr}
 @end example
 
-@noindent
-or
-
-@example
-\relative @var{musicexpr}
-@end example
-
-@noindent
-@code{c'} is used as the default if no starting pitch is defined.
-
 The octave of notes that appear in @var{musicexpr} are calculated
 as follows:
 
@@ -344,9 +338,6 @@ the pitch by two octaves.
 @item 
 The pitch of the first note is relative to @code{\relative
 @var{startpitch} }.  
-
-@item
-If you do not specify @var{startpitch} then middle C is used.
 
 @end itemize 
 
@@ -379,10 +370,17 @@ used to determine the first note of the next chord
 
 The pitch after @code{\relative} contains a note name.
 
+@refbugs
+
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
 To use relative within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
+
+@c DEPRECATED
+If no @var{startpitch} is specified for @code{\relative}, then
+@code{c'} is assumed.  However, this is a deprecated option and
+may disappear in future versions, so its use is discouraged.
 
 
 @node Octave check
