@@ -60,6 +60,7 @@
   localKeySignature = #'()
   createSpacing = ##t
   ignoreFiguredBassRest = ##t 
+  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   
   %% explicitly set instrument, so we don't get 
   %% weird effects when doing instrument names for
@@ -303,7 +304,6 @@ contained staves are connected vertically."
 distance between the staves, so cross staff beaming and slurring
 can be used."
 
-  \override VerticalAxisGroup #'minimum-Y-extent = #'(-4 . 4)
   \consists "Instrument_name_engraver"
   
   instrumentName = #'()
