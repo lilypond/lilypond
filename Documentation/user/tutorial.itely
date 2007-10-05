@@ -111,9 +111,9 @@ the result looks like this
 @warning{Every piece of LilyPond input needs to have
 @strong{@{ curly braces @}} placed around the input.  The braces
 should also be surrounded by a space unless they are at the
-beginning or end of a line to avoid ambiguities.  These may be
-omitted in some examples in this manual, but don't forget them in
-your own music!}
+beginning or end of a line to avoid ambiguities.  The braces may
+be omitted in some examples in this manual, but don't forget them
+in your own music!}
 
 @cindex Case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
@@ -421,8 +421,12 @@ will produce an error message.
 @item @strong{Whitespace insensitive}:
 it does not matter how many spaces (or new lines) you add.
 @code{@{ c d e @}} means the same thing as @code{@{ c @tie{}
-@tie{} @tie{} d e @}} and @example @{ c                        d e
-@} @end example
+@tie{} @tie{} d e @}} and
+
+@example
+@{ c                        d
+                   e   @}
+@end example
 
 @noindent
 Of course, the previous example is hard to read.  A good rule of

@@ -69,9 +69,11 @@
 @c  TODO: experimental.  Don't use unless Graham confirms it.
 @macro warning{TEXT}
 @quotation
+@quotation
 @cartouche
 @strong{Note:} \TEXT\
 @end cartouche
+@end quotation
 @end quotation
 @end macro
 
