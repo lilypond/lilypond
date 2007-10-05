@@ -216,7 +216,7 @@ controlled by the @code{glyph-name-alist} property of the
 
 @seealso
 
-In this manual: @ref{Pitches}, @ref{Cautionary accidentals}, and
+In this manual: @ref{Pitches}, @ref{Accidentals}, and
 @ref{Automatic accidentals}, give a general introduction of the use of
 accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.

@@ -30,8 +30,6 @@ Into text.
 @menu
 * Normal pitches::              
 * Accidentals::                 
-* Cautionary accidentals::      
-* Micro tones::                 
 * Note names in other languages::  
 @end menu
 
@@ -133,28 +131,6 @@ d e fis g
 @end lilypond
 
 
-@commonprop
-
-In accordance with standard typesetting rules, a natural sign is
-printed before a sharp or flat if a previous accidental needs to
-be cancelled.  To change this behavior, use @code{\set
-Staff.extraNatural = ##f}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-
-
-@seealso
-
-Program reference: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
-
-
-@node Cautionary accidentals
-@unnumberedsubsubsec Cautionary accidentals
 
 @cindex accidental, reminder
 @cindex accidental, cautionary
@@ -177,15 +153,6 @@ cis cis cis! cis? c c? c! c
 @end lilypond
 
 
-@seealso
-
-The automatic production of accidentals can be tuned in many ways.
-For more information, see @ref{Automatic accidentals}.
-
-
-@node Micro tones
-@unnumberedsubsubsec Micro tones
-
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
@@ -201,11 +168,35 @@ ceseh ceh cih cisih
 Micro tones are also exported to the MIDI file.
 
 
+@commonprop
+
+In accordance with standard typesetting rules, a natural sign is
+printed before a sharp or flat if a previous accidental needs to
+be cancelled.  To change this behavior, use @code{\set
+Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
+@seealso
+
+The automatic production of accidentals can be tuned in many ways.
+For more information, see @ref{Automatic accidentals}.
+
+Program reference: @internalsref{LedgerLineSpanner},
+@internalsref{NoteHead}.
+
+
 @refbugs
 
 There are no generally accepted standards for denoting
 three-quarter flats, so LilyPond's symbol does not conform to any
 standard.
+
 
 
 @node Note names in other languages
@@ -653,6 +644,8 @@ when setting properties manually.
 @seealso
 
 Program reference: @internalsref{Clef}.
+
+This manual: @ref{Ancient clefs}.
 
 
 @node Key signature
