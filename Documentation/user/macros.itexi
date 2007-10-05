@@ -70,7 +70,7 @@
 @macro warning{TEXT}
 @quotation
 @cartouche
-@strong{N.B.:} \TEXT\
+@strong{Note:} \TEXT\
 @end cartouche
 @end quotation
 @end macro
