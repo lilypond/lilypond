@@ -156,7 +156,7 @@ comme sur l'exemple suivant :
 
 @cindex ossia
 
-@lilypondfile{ossia.ly}
+@c @lilypondfile{ossia.ly}
 
 @cindex lignes de portée, nombre de
 @cindex lignes de portée, épaisseur des

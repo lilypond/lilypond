@@ -147,7 +147,7 @@ esto se puede usar para componer tipográficamente secciones de ossia.  He aquí
 
 @cindex ossia
 
-@lilypondfile{ossia.ly}
+@c @lilypondfile{ossia.ly}
 
 @cindex pentagrama, establecer el número de líneas del
 @cindex pentagrama, establecer el grosor de las líneas del
