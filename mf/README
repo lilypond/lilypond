@@ -77,6 +77,37 @@ Some design rules:
 . Use rounded corners.
 
 
+Hints for stem attachment:
+
+. Stem attachment of glyphs is controlled by two special variables called
+  `charwx' and `charwy'.  Stems can be regarded as (very oblonged)
+  rectangles with slightly rounded corners.  For stems pointing upwards the
+  lower right corner of this rectangle is attached to the glyph at position
+  (charwx, charwy).  For stems pointing downwards it works analogously but
+  with the upper left corner, where the position of the attachment point is
+  additionally reflected horizontally about the center of the glyph -- this
+  ensures that in most cases charwx and charwy can be set to the same values
+  for up and down stems even though these are attached at the right/left end
+  of the note, respectively.  To make this more precise, the upper left
+  corner of a down stem is attached at position (charwd/2 - charwx, charwy),
+  where `charwd' is an internal metafont variable representing the glyph
+  width as specified by the `set_char_box' command.
+
+. In case different stem attachments for upward and downward pointing stems
+  are needed, two separate glyphs must be defined in the Metafont file; of
+  course, this also applies if two entirely different shapes are needed. 
+  These have the same name but are prefixed by `u' and `d', respectively
+  (for `up' and `down', obviously).  In each of these glyphs the variables
+  charwx and charwy must be set accordingly.  If, on the other hand, the
+  attachment point is the `same' for both directions (with the
+  abovementioned horizontal reflection taken into account), then the prefix
+  `s' (for `symmetric') should be used.  See the existing files for
+  examples.  The numbers in the glyph names refer to the duration of the
+  note; e.g., `s0cross' in feta-bolletjes.mf defines the notehead for a
+  whole cross-shaped note (similarly, `s1cross' and `s2cross' are for half
+  and quarter notes, respectively).
+
+
 Finally, some rules to assure that rasterization at low resolutions gives
 good results.  Today, this is a minor issue, but in some cases it might show
 design flaws.

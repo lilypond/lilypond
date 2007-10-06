@@ -6,6 +6,18 @@ import re
 from rational import Rational
 
 
+def escape_instrument_string (input_string):
+    retstring = string.replace (input_string, "\"", "\\\"")
+    if re.match ('.*\n.*', retstring):
+        strings = retstring.split ('\r\n')
+        retstring = "\\markup { \\column { "
+        for s in strings:
+            retstring += "\\line {\"" + s + "\"} "
+        retstring += "} }"
+    else:
+        retstring = "\"" + retstring + "\""
+    return retstring
+
 class Output_stack_element:
     def __init__ (self):
         self.factor = Rational (1)
@@ -63,8 +75,14 @@ class Output_printer:
         self._line += str
 
     def unformatted_output (self, str):
-        self._nesting += str.count ('<') + str.count ('{')
-        self._nesting -= str.count ('>') + str.count ('}')
+        # don't indent on \< and indent only once on <<
+        self._nesting += ( str.count ('<') 
+                         - str.count ('\<') - str.count ('<<') 
+                         + str.count ('{') )
+        self._nesting -= ( str.count ('>') - str.count ('\>') - str.count ('>>')
+                                           - str.count ('->') - str.count ('_>')
+                                           - str.count ('^>')
+                         + str.count ('}') )
         self.print_verbatim (str)
         
     def print_duration_string (self, str):
@@ -390,17 +408,31 @@ class NestedMusic(Music):
         return None
         
 class SequentialMusic (NestedMusic):
-    def print_ly (self, printer):
+    def get_last_event_chord (self):
+        value = None
+        at = len( self.elements ) - 1
+        while (at >= 0 and
+               not isinstance (self.elements[at], EventChord) and
+               not isinstance (self.elements[at], BarCheck)):
+            at -= 1
+
+        if (at >= 0 and isinstance (self.elements[at], EventChord)):
+            value = self.elements[at]
+        return value
+
+    def print_ly (self, printer, newline = True):
         printer ('{')
         if self.comment:
             self.print_comment (printer)
 
-        printer.newline()
+        if newline:
+            printer.newline()
         for e in self.elements:
             e.print_ly (printer)
 
         printer ('}')
-        printer.newline()
+        if newline:
+            printer.newline()
             
     def lisp_sub_expression (self, pred):
         name = self.name()
@@ -433,7 +465,37 @@ class Lyrics:
         return lstr
 
 
+class Header:
+    def __init__ (self):
+        self.header_fields = {}
+    def set_field (self, field, value):
+        self.header_fields[field] = value
+
+    def print_ly (self, printer):
+        printer.dump ("\header {")
+        printer.newline ()
+        for (k,v) in self.header_fields.items ():
+            if v:
+                printer.dump ('%s = %s' % (k,v))
+                printer.newline ()
+        printer.dump ("}")
+        printer.newline ()
+        printer.newline ()
+
+
+
+
 class EventChord (NestedMusic):
+    def __init__ (self):
+        NestedMusic.__init__ (self)
+        self.grace_elements = None
+        self.grace_type = None
+    def append_grace (self, element):
+        if element:
+            if not self.grace_elements:
+                self.grace_elements = SequentialMusic ()
+            self.grace_elements.append (element)
+
     def get_length (self):
         l = Rational (0)
         for e in self.elements:
@@ -450,6 +512,14 @@ class EventChord (NestedMusic):
         
         other_events = [e for e in self.elements if
                 not isinstance (e, RhythmicEvent)]
+
+        if self.grace_elements and self.elements:
+            if self.grace_type:
+                printer ('\\%s' % self.grace_type)
+            else:
+                printer ('\\grace')
+            # don't print newlines after the { and } braces
+            self.grace_elements.print_ly (printer, False)
 
         if rest_events:
             rest_events[0].print_ly (printer)
@@ -490,7 +560,7 @@ class Event(Music):
     pass
 
 class SpanEvent (Event):
-    def __init__(self):
+    def __init__ (self):
         Event.__init__ (self)
         self.span_direction = 0 # start/stop
         self.line_type = 'solid'
@@ -641,18 +711,30 @@ class ShortArticulationEvent (ArticulationEvent):
     def ly_expression (self):
         return '%s%s' % (self.direction_mod (), self.type)
 
-class TremoloEvent (Event):
+class NoDirectionArticulationEvent (ArticulationEvent):
+    def ly_expression (self):
+        return '\\%s' % self.type
+
+class MarkupEvent (ShortArticulationEvent):
+    def __init__ (self):
+        ArticulationEvent.__init__ (self)
+        self.contents = None
+    def ly_expression (self):
+        if self.contents:
+            return "%s\\markup { %s }" % (self.direction_mod (), self.contents)
+
+class TremoloEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
         self.bars = 0
 
     def ly_expression (self):
         str=''
-        if self.bars > 0:
+        if self.bars and self.bars > 0:
             str += ':%s' % (2 ** (2 + string.atoi (self.bars)))
         return str
 
-class BendEvent (Event):
+class BendEvent (ArticulationEvent):
     def __init__ (self):
         Event.__init__ (self)
         self.alter = 0
@@ -675,12 +757,23 @@ class RhythmicEvent(Event):
                 % self.duration.lisp_expression ())
     
 class RestEvent (RhythmicEvent):
+    def __init__ (self):
+        RhythmicEvent.__init__ (self)
+        self.pitch = None
     def ly_expression (self):
-        return 'r%s' % self.duration.ly_expression ()
+        if self.pitch:
+            return "%s%s\\rest" % (self.pitch.ly_expression (), self.duration.ly_expression ())
+        else:
+            return 'r%s' % self.duration.ly_expression ()
     
     def print_ly (self, printer):
-        printer('r')
-        self.duration.print_ly (printer)
+        if self.pitch:
+            self.pitch.print_ly (printer)
+            self.duration.print_ly (printer)
+            printer ('\\rest')
+        else:
+            printer('r')
+            self.duration.print_ly (printer)
 
 class SkipEvent (RhythmicEvent):
     def ly_expression (self):
@@ -825,6 +918,114 @@ class MultiMeasureRest(Music):
 
     def ly_expression (self):
         return 'R%s' % self.duration.ly_expression ()
+
+
+class StaffGroup:
+    def __init__ (self, command = "StaffGroup"):
+        self.stafftype = command
+        self.id = None
+        self.instrument_name = None
+        self.short_instrument_name = None
+        self.symbol = None
+        self.spanbar = None
+        self.children = []
+        # part_information is a list with entries of the form
+        #     [staffid, voicelist]
+        # where voicelist is a list with entries of the form
+        #     [voiceid1, [lyricsid11, lyricsid12,...] ]
+        self.part_information = None
+
+    def appendStaff (self, staff):
+        self.children.append (staff)
+
+    def setPartInformation (self, part_name, staves_info):
+        if part_name == self.id:
+            self.part_information = staves_info
+        else:
+            for c in self.children:
+                c.setPartInformation (part_name, staves_info)
+
+    def print_ly_contents (self, printer):
+        for c in self.children:
+            if c:
+                c.print_ly (printer)
+    def print_ly_overrides (self, printer):
+        needs_with = False
+        needs_with |= self.spanbar == "no"
+        needs_with |= self.instrument_name != None
+        needs_with |= self.short_instrument_name != None
+        needs_with |= (self.symbol != None) and (self.symbol != "bracket")
+        if needs_with:
+            printer.dump ("\\with {")
+            if self.instrument_name or self.short_instrument_name:
+                printer.dump ("\\consists \"Instrument_name_engraver\"")
+            if self.spanbar == "no":
+                printer.dump ("\\override SpanBar #'transparent = ##t")
+            brack = {"brace": "SystemStartBrace",
+                     "none": "f",
+                     "line": "SystemStartBar"}.get (self.symbol, None)
+            if brack:
+                printer.dump ("systemStartDelimiter = #'%s" % brack)
+            printer.dump ("}")
+
+    def print_ly (self, printer):
+        if self.stafftype:
+            printer.dump ("\\new %s" % self.stafftype)
+        self.print_ly_overrides (printer)
+        printer.dump ("<<")
+        printer.newline ()
+        if self.stafftype and self.instrument_name:
+            printer.dump ("\\set %s.instrumentName = %s" % (self.stafftype, 
+                    escape_instrument_string (self.instrument_name)))
+            printer.newline ()
+        if self.stafftype and self.short_instrument_name:
+            printer.dump ("\\set %s.shortInstrumentName = %s\n" % (self.stafftype, 
+                    escape_instrument_string (self.short_instrument_name)))
+            printer.newline ()
+        self.print_ly_contents (printer)
+        printer.newline ()
+        printer.dump (">>")
+        printer.newline ()
+
+
+class Staff (StaffGroup):
+    def __init__ (self):
+        StaffGroup.__init__ (self, "Staff")
+        self.part = None
+
+    def print_ly_overrides (self, printer):
+        pass
+
+    def print_ly_contents (self, printer):
+        if not self.id or not self.part_information:
+            return
+
+        for [staff_id, voices] in self.part_information:
+            if staff_id:
+                printer ('\\context Staff = "%s" << ' % staff_id)
+            else:
+                printer ('\\context Staff << ')
+            printer.newline ()
+            n = 0
+            nr_voices = len (voices)
+            for [v, lyrics] in voices:
+                n += 1
+                voice_count_text = ''
+                if nr_voices > 1:
+                    voice_count_text = {1: ' \\voiceOne', 2: ' \\voiceTwo',
+                                        3: ' \\voiceThree'}.get (n, ' \\voiceFour')
+                printer ('\\context Voice = "%s" {%s \\%s }' % (v,voice_count_text,v))
+                printer.newline ()
+
+                for l in lyrics:
+                    printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (v,l))
+                    printer.newline()
+            printer ('>>')
+
+    def print_ly (self, printer):
+        if self.part_information and len (self.part_information) > 1:
+            self.stafftype = "PianoStaff"
+        StaffGroup.print_ly (self, printer)
 
 
 def test_pitch ():

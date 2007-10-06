@@ -924,65 +924,40 @@ some punctuation.  It doesn't have any letters."
   "Turn @code{text}, which should be a string, to small caps.
 @example
 \\markup \\smallCaps \"Text between double quotes\"
-@end example"
-  (define (make-small-caps-markup chars)
-    (cond ((null? chars)
-	   (markup))
-	  ((char-whitespace? (car chars))
-	   (markup #:fontsize -2 #:simple (string-upcase (list->string (cdr chars)))))
-	  (else
-	   (markup #:hspace -1
-		   #:fontsize -2 #:simple (string-upcase (list->string chars))))))
-  (define (make-not-small-caps-markup chars)
-    (cond ((null? chars)
-	   (markup))
-	  ((char-whitespace? (car chars))
-	   (markup #:simple (list->string (cdr chars))))
-	  (else
-	   (markup #:hspace -1
-		   #:simple (list->string chars)))))
-  (define (small-caps-aux done-markups current-chars rest-chars small? after-space?)
-    (cond ((null? rest-chars)
-	   ;; the end of the string: build the markup
-	   (make-line-markup (reverse! (cons ((if small?
-						  make-small-caps-markup
-						  make-not-small-caps-markup)
-					      (reverse! current-chars))
-					     done-markups))))
-	  ((char-whitespace? (car rest-chars))
-	   ;; a space char.
-	   (small-caps-aux done-markups current-chars (cdr rest-chars) small? #t))
-	  ((or (and small? (char-lower-case? (car rest-chars)))
-	       (and (not small?) (not (char-lower-case? (car rest-chars)))))
-	   ;; same case
-	   ;; add the char to the current char list
-	   (small-caps-aux done-markups
-			   (cons (car rest-chars)
-				 (if after-space? 
-				     (cons #\space current-chars)
-				     current-chars))
-			   (cdr rest-chars) 
-			   small?
-			   #f))
-	  (else
-	   ;; case change
-	   ;; make a markup with current chars, and start a new list with new char
-	   (small-caps-aux (cons ((if small?
-				      make-small-caps-markup
-				      make-not-small-caps-markup)
-				  (reverse! current-chars))
-				 done-markups)
-			   (if after-space?
-			       (list (car rest-chars) #\space)
-			       (list (car rest-chars)))
-			   (cdr rest-chars)
-			   (not small?)
-			   #f))))
-  (interpret-markup layout props (small-caps-aux (list) 
-						 (list) 
-						 (cons #\space (string->list text))
-						 #f
-						 #f)))
+@end example
+
+Note: @code{\\smallCaps} does not support accented characters."
+  (define (char-list->markup chars lower)
+    (let ((final-string (string-upcase (reverse-list->string chars))))
+      (if lower
+	  (markup #:fontsize -2 final-string)
+	  final-string)))
+  (define (make-small-caps rest-chars currents current-is-lower prev-result)
+    (if (null? rest-chars)
+	(make-concat-markup
+	  (reverse! (cons (char-list->markup currents current-is-lower)
+			  prev-result)))
+	(let* ((ch (car rest-chars))
+	       (is-lower (char-lower-case? ch)))
+	  (if (or (and current-is-lower is-lower)
+		  (and (not current-is-lower) (not is-lower)))
+	      (make-small-caps (cdr rest-chars)
+			       (cons ch currents)
+			       is-lower
+			       prev-result)
+	      (make-small-caps (cdr rest-chars)
+			       (list ch)
+			       is-lower
+			       (if (null? currents)
+				   prev-result
+				   (cons (char-list->markup
+					    currents current-is-lower)
+					 prev-result)))))))
+  (interpret-markup layout props
+    (if (string? text)
+	(make-small-caps (string->list text) (list) #f (list))
+	text)))
+
 
 (define-builtin-markup-command (caps layout props arg) (markup?)
   "Emit @var{arg} as small caps."
