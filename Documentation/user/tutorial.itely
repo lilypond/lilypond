@@ -528,7 +528,7 @@ on one staff.
 @node Relative note names
 @subsection Relative note names
 
-As we saw in @ruser{Simple notation}, LilyPond calculates the
+As we saw in @ref{Simple notation}, LilyPond calculates the
 pitch of each note relative to the previous one@footnote{There is
 another mode of entering pitches, @ruser{Absolute note names}, but
 in practice relative mode is much easier and safer to use.}.  If

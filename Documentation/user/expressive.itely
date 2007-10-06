@@ -311,7 +311,6 @@ handled by @internalsref{DynamicLineSpanner}.
 * Ties::                        
 * Slurs::                       
 * Phrasing slurs::              
-* Laissez vibrer ties::         
 * Breath marks::                
 * Falls and doits::             
 @end menu
@@ -367,6 +366,8 @@ This mechanism automatically splits long notes, and ties them
 across bar lines.
 
 @funindex \repeatTie
+@cindex repeating ties
+@cindex volta brackets and ties
 
 When a second alternative of a repeat starts with a tied note, you
 have to repeat the tie.  This can be achieved with
@@ -376,8 +377,27 @@ have to repeat the tie.  This can be achieved with
 r <c e g>\repeatTie
 @end lilypond
 
-@cindex repeating ties
-@cindex volta brackets and ties
+@cindex Laissez vibrer
+@cindex Ties, laissez vibrer
+
+L.v. ties (laissez vibrer) indicate that notes must not be damped
+at the end.  It is used in notation for piano, harp and other
+string and percussion instruments.  They can be entered using
+@code{\laissezVibrer},
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+@seealso
+
+Program reference:
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+Example files:
+@lsr{connecting,laissez-vibrer-ties.ly}
+
 
 @commonprop
 
@@ -537,30 +557,6 @@ You cannot have simultaneous phrasing slurs.
 @seealso
 
 Program reference: @internalsref{PhrasingSlur}.
-
-
-@node Laissez vibrer ties
-@unnumberedsubsubsec Laissez vibrer ties
-@cindex Laissez vibrer
-@cindex Ties, laissez vibrer
-
-L.v. ties (laissez vibrer) indicate that notes must not be damped
-at the end.  It is used in notation for piano, harp and other
-string and percussion instruments.  They can be entered using
-@code{\laissezVibrer},
-
-@lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer
-@end lilypond
-
-@seealso
-
-Program reference:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-
-Example files:
-@lsr{connecting,laissez-vibrer-ties.ly}
 
 
 @node Breath marks
