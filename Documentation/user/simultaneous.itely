@@ -43,6 +43,12 @@ articulations, just like simple notes
 For more information about chords, see @ref{Introducing chord
 names}.
 
+@refbugs
+
+Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
+accurately.  Use @code{<g a>8 <e a>8} instead.
+
+
 
 @node Clusters
 @unnumberedsubsubsec Clusters
@@ -71,44 +77,19 @@ Program reference: @internalsref{ClusterSpanner},
 
 Examples: @lsr{contemporary,cluster@/.ly}.
 
-@refbugs
-
-Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
-accurately.  Use @code{<g a>8 <e a>8} instead.
-
 
 
 @node Multiple voices
 @subsection Multiple voices
 
 @menu
-* TODO new sec voices::         
-* Collision Resolution::        
+* Collision resolution::        
 * Automatic part combining::    
 * Writing music in parallel::   
 @end menu
 
-@node TODO new sec voices
-@unnumberedsubsubsec TODO new sec voices
-
-In some instances of complex polyphonic music, you may need
-additional voices to avoid collisions between notes.  Additional
-voices are added by defining an variable, as shown below:
-
-@lilypond[quote,verbatim,ragged-right,relative=2]
-voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
-
-\relative c''' <<
-  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
-  { \voiceThree  b4} \\
-  { \voiceFive d,} \\
-  { \voiceTwo g,}
->>
-@end lilypond
-
-
-@node Collision Resolution
-@unnumberedsubsubsec Collision Resolution
+@node Collision resolution
+@unnumberedsubsubsec Collision resolution
 
 Normally, note heads with a different number of dots are not
 merged, but when the object property
@@ -170,6 +151,22 @@ move the top @code{g} out of the column, and
   { \voiceFour e,,2 e'2}
 >>
 @end lilypond
+
+In some instances of complex polyphonic music, you may need
+additional voices to avoid collisions between notes.  Additional
+voices are added by defining an variable, as shown below:
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
+
 
 
 @refcommands

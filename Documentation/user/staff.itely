@@ -314,7 +314,8 @@ For more details, see @ref{Text markup}.
 
 @seealso
 
-Program reference: @internalsref{MetronomeMark}.
+Program reference: @internalsref{MetronomeMark}, @ref{MIDI
+output}.
 
 
 @refbugs
