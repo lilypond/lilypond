@@ -148,10 +148,6 @@ highly recommended.
   should be used with care since we use `...' as the default quoting
   throughout the manual, except for things related to direct speech.
 
-  Warning: @q{} and @qq{} *MUST NOT* come at the end or beginning
-  of a line (unless it begins the paragraph).  If these macros
-  @qq{appear like this}, then they will being a new paragraph.
-
   In most cases, you should use @code{} or @samp{} instead.
 
 
