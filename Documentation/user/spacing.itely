@@ -1915,16 +1915,23 @@ turn on @code{uniform-stretching}, which is a property of
 >>
 @end lilypond
 
-Our two-staff example now spaces exactly, our rhythmic relationships
-are visually clear, and we can include a measured timeline or graphic
-if we want.
+Our two-staff example now spaces exactly, our rhythmic
+relationships are visually clear, and we can include a measured
+timeline or graphic if we want.
 
-The @code{SpacingSpanner} is an abstract grob that lives in the
-@context{Score} context.  As with our settings of
-@code{proportionalNotationDuration},
-overrides to the @code{SpacingSpanner} can occur in any of three different
-places in our input file -- in the Score @code{\with} block, in a
-Score @code{\context} block, or in note entry directly.
+Note that the LilyPond's proportional notation package expects
+that all proportional scores set the SpacingSpanner's
+'uniform-stretching attribute to ##t. Setting
+proportionalNotationDuration without also setting the
+SpacingSpanner's 'uniform-stretching attribute to ##t will, for
+example, cause Skips to consume an incorrect amount of horizontal
+space.
+
+The SpacingSpanner is an abstract grob that lives in the Score
+context. As with our settings of proportionalNotationDuration,
+overrides to the SpacingSpanner can occur in any of three
+different places in our input file – in the Score \with block, in
+a Score \context block, or in note entry directly.
 
 There is by default only one @code{SpacingSpanner} per @code{Score}.  This
 means that, by default, @code{uniform-stretching} is either turned on for the
