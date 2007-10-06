@@ -28,15 +28,15 @@ This section discusses how to specify the pitch of notes.
 Intro text.
 
 @menu
-* Normal pitches::              
-* Relative octaves::            
+* Absolute octave entry::       
+* Relative octave entry::       
 * Accidentals::                 
 * Note names in other languages::  
 @end menu
 
 
-@node Normal pitches
-@unnumberedsubsubsec Normal pitches
+@node Absolute octave entry
+@unnumberedsubsubsec Absolute octave entry
 
 @cindex Pitch names
 @cindex pitches
@@ -50,13 +50,16 @@ c d e f g a b c'
 @end lilypond
 
 There are two different ways to enter these note names with regard
-to octave placement: absolute and relative.  The relative mode will
-in most cases be the most convenient, but since the absolute mode
-is most fundamental, it will be presented first.
+to octave placement: absolute and relative.  The relative mode
+will in most cases be the most convenient, but the absolute mode
+is more fundamental and will be presented first.
 
-In absolute mode, the note name @code{c} is engraved one octave
-below middle C, and each note up to @code{b} in the octave above,
-as in the previous example.
+@cindex Absolute
+@cindex Absolute octave specification
+
+In absolute mode, every note is placed explicitly in a certain
+octave.  The note names @code{c} to @code{b} are engraved in the
+octave below middle C, as in the previous example.
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \clef treble
@@ -69,7 +72,7 @@ c1
 @funindex ,
 
 If a note should be in another octave than this, an octave
-specification can be given.  It takes the form of a series of
+specification must be given.  It takes the form of a series of
 single quote (@samp{'}) or comma (@samp{,}) characters.  Each
 @samp{'} raises the pitch by one octave; each @samp{,} lowers the
 pitch by an octave.
@@ -81,31 +84,19 @@ c' c'' e' g d'' d' d c
 c, c,, e, g d,, d, d c
 @end lilypond
 
-An alternate method may be used to declare which octave to engrave
-a pitch; this method does not require as many octave
-specifications (@code{'} and @code{,}).  See @ref{Relative
-octaves}.
 
-@seealso
-
-Snippets: @lsrdir{pitch}
-
-
-
-@node Relative octaves
-@unnumberedsubsubsec Relative octaves
+@node Relative octave entry
+@unnumberedsubsubsec Relative octaves entry
 
 @cindex Relative
 @cindex Relative octave specification
 @funindex \relative
 
-When octaves are specified as above by adding @code{'} and
-@code{,} to pitch names, it is easy to accidentally put a pitch in
-the wrong octave.  The relative octave mode prevents these errors
-since most of the time it is not necessary to indicate any octaves
-at all.  Furthermore, in absolute mode, a single mistake may be
-difficult to spot; in relative mode, a single error puts the rest
-of the piece off by one octave.
+The absolute mode requires a lot of octave specifications, which
+not only becomes tedious but also easily leads to errors.
+Therefore, it is usually more convenient to let notes be entered
+relative to the previous note.  This is done with the relative
+mode.  
 
 @example
 \relative @var{startpitch} @var{musicexpr}
@@ -162,6 +153,15 @@ fourth:
 }
 @end lilypond
 
+A note sequence without a single octave mark can nevertheless span
+large intervals:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c {
+  c f b e a d g
+}
+@end lilypond
+
 If the preceding item is a chord, the first note of the chord is
 used as the reference point for the octave placement of a
 following note or chord:
@@ -170,7 +170,7 @@ following note or chord:
 \relative c' {
   c <c e g>
   <c' e g>
-  <c, e' g>
+  <c, e' g> c
 }
 @end lilypond
 
@@ -178,6 +178,13 @@ The @var{startpitch} (after @code{\relative}) is a note name in
 absolute mode.  In principle it can be any note name, but common
 practice is to use @code{c} in various octave positions. 
 
+When octaves are specified as above by adding @code{'} and
+@code{,} to pitch names, it is easy to accidentally put a pitch in
+the wrong octave.  The relative octave mode prevents these errors
+since most of the time it is not necessary to indicate any octaves
+at all.  Furthermore, in absolute mode, a single mistake may be
+difficult to spot; in relative mode, a single error puts the rest
+of the piece off by one octave.
 
 @seealso
 
@@ -224,7 +231,7 @@ a2 aisis a aeses
 @noindent
 These are the Dutch note names.  In Dutch, @code{aes} is
 contracted to @code{as}, but both forms are accepted.  Similarly,
-both @code{es} and @code{ees} are accepted
+both @code{es} and @code{ees} are accepted:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a2 as e es
@@ -233,7 +240,7 @@ a2 as e es
 A natural will cancel the effect of an accidental or key
 signature.  However, naturals are not encoded into the note name
 syntax with a suffix; a natural pitch is shown as a simple note
-name
+name:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a4 aes a2
@@ -305,8 +312,13 @@ ceses4 ces cis c
 
 @seealso
 
-The automatic production of accidentals can be tuned in many ways.
-For more information, see @ref{Automatic accidentals}.
+The automatic production of accidentals can be tuned in many ways
+concerning for how long an accidental is considered to last.  For
+more information, see @ref{Automatic accidentals}.
+
+For @emph{musica ficta}, editorial accidentals placed above the
+staff commonly used in editions of early music, see @ref{Musica
+ficta accidentals}.
 
 Program reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
@@ -327,7 +339,7 @@ There are predefined sets of note names for various other
 languages.  To use them, include the language specific init file.
 For example, add @code{\include "english.ly"} to the top of the
 input file.  The available language files and the note names they
-define are
+define are:
 
 @cindex note names, other languages
 
@@ -389,19 +401,33 @@ Catalan and Spanish no special names have been defined yet.
 @c of a regular sharp/flat.  Whence the naming "sesqui-sharp/-flat" used below.
 
 @example
-                        Note Names             semi-   semi-  sesqui-  sesqui-
-                                               sharp   flat    sharp    flat
+@multitable @columnfractions .2 .6 .05 .05 .05 .05
+@headitem Language
+  @tab Note names
+  @tab semi- @tab semi- @tab sesqui- @tab sesqui-
 
-nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
-english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
-deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
-norsk.ly       c   d   e   f   g   a   b   h   
-svenska.ly     c   d   e   f   g   a   b   h   
-italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
-catalan.ly     do  re  mi  fa  sol la  sib si  
-espanol.ly     do  re  mi  fa  sol la  sib si  
+@item nederlands.ly
+  @tab c d e f g a bes b 
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item english.ly
+  @tab c d e f g a bf b 
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item deutsch.ly
+  @tab c d e f g a b h 
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@c @item norsk.ly
+@c   @tab c d e f g a b h 
+@c @item svenska.ly
+@c   @tab c d e f g a b h 
+@item italiano.ly
+  @tab do re mi fa sol la sib si 
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@c @item catalan.ly 
+@c   @tab do re mi fa sol la sib si 
+@c @item  espanol.ly 
+@c   @tab do re mi fa sol la sib si 
+@end multitable
 @end example
-
 
 @node Changing multiple pitches
 @subsection Changing multiple pitches
@@ -491,7 +517,8 @@ syntax is
 
 This means that @var{musicexpr} is transposed by the interval
 between the pitches @var{from} and @var{to}: any note with pitch
-@code{from} is changed to @code{to}.
+@code{from} is changed to @code{to} and any other note is
+transposed by the same interval.
 
 Consider a piece written in the key of D-major.  If this piece is
 a little too low for its performer, it can be transposed up to
@@ -504,16 +531,13 @@ E-major with
 Consider a part written for violin (a C instrument).  If this part
 is to be played on the A clarinet (for which an A is notated as a
 C, and which sounds a minor third lower than notated), the
-following transposition will produce the appropriate part
+following transposition will produce the appropriate part:
 
 @example
 \transpose a c @dots{}
 @end example
 
-@code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose
-up half a tone.  The first version will print sharps and the
-second version will print flats
+@code{\transpose} will also transpose key signatures:
 
 @lilypond[quote,ragged-right,verbatim]
 mus = { \key d \major cis d fis g }
@@ -524,6 +548,22 @@ mus = { \key d \major cis d fis g }
   \transpose c f' \mus
 }
 @end lilypond
+
+@code{\transpose} distinguishes between enharmonic pitches: both
+@code{\transpose c cis} or @code{\transpose c des} will transpose
+up half a tone.  The first version will print sharps and the notes
+will remain on the same scale step, the second version will print
+flats on the scale step above.
+
+@lilypond[quote,ragged-right,verbatim]
+mus = { c d e f }
+\new Staff {
+  \transpose c cis { \relative c' \mus }
+  \transpose c des { \relative c' \mus }
+}
+@end lilypond
+
+
 
 @code{\transpose} may also be used to input written notes for a
 transposing instrument.  Pitches are normally entered into
@@ -685,7 +725,7 @@ played.  It is denoted by a set of alterations (flats or sharps)
 at the start of the staff.
 
 Setting or changing the key signature is done with the @code{\key}
-command
+command:
 
 @example
 @code{\key} @var{pitch} @var{type}
@@ -711,7 +751,7 @@ also use the standard mode names (also called @q{church modes}):
 @code{\dorian}.
 
 This command sets the context property @code{Staff.keySignature}.
-on-standard key signatures can be specified by setting this
+Non-standard key signatures can be specified by setting this
 property directly.  See @internalsref{Key_engraver}, and for an
 example TODO.
 @c TODO: LSR snippet 248.  leave this here for now -gp
@@ -766,6 +806,8 @@ for the staff.  They are created by invoking the function
 
 @cindex ottava
 @cindex 15ma
+@cindex 8va
+@cindex 8ve
 @cindex octavation
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -782,8 +824,8 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
 Internally the function sets the properties @code{ottavation}
 (e.g., to @code{"8va"} or @code{"8vb"}) and
-@code{centralCPosition}.  For overriding the text of the bracket,
-set @code{ottavation} after invoking @code{set-octavation}, i.e.,
+@code{centralCPosition}.  To override the text of the bracket, set
+@code{ottavation} after invoking @code{set-octavation}, i.e.,
 
 @lilypond[quote,ragged-right,verbatim]
 {

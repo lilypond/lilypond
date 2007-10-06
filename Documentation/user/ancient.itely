@@ -1956,10 +1956,11 @@ the following excerpt demonstrates
 @cindex MensuralStaffContext
 
 The predefined @code{MensuralVoiceContext} and
-@code{MensuralStaffContext} can be used to engrave a piece in mensural
-style.  These contexts initialize all relevant context properties and
-grob properties to proper values, so you can immediately go ahead
-entering the chant, as the following excerpt demonstrates
+@code{MensuralStaffContext} can be used to engrave a piece in
+mensural style.  These contexts initialize all relevant context
+properties and grob properties to proper values, so you can
+immediately go ahead entering the chant, as the following excerpt
+demonstrates
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -1984,10 +1985,10 @@ entering the chant, as the following excerpt demonstrates
 @node Musica ficta accidentals
 @unnumberedsubsubsec Musica ficta accidentals
 
-In European music from before about 1600, singers were often expected
-to chromatically alter notes at their own initiative.  This is called
-@q{Musica Ficta}.  In modern transcriptions, these accidentals are
-usually printed over the note.
+In European music from before about 1600, singers were often
+expected to chromatically alter notes at their own initiative.
+This is called @q{Musica Ficta}.  In modern transcriptions, these
+accidentals are usually printed over the note.
 
 @cindex Accidental, musica ficta
 @cindex Musica ficta
@@ -2003,10 +2004,21 @@ fis gis
 ais bis
 @end lilypond
 
+This will treat @emph{every} subsequent accidentals as
+@emph{musica ficta} until it is unset with @code{\set
+suggestAccidentals = ##f}.  A more convenient way is to use
+@code{\once}:
+
+@lilypond[verbatim,fragment,relative=1]
+fis gis
+\once \set suggestAccidentals = ##t
+ais ais bis
+@end lilypond
+
 @seealso
 
-Program reference: @internalsref{Accidental_engraver} engraver and the
-@internalsref{AccidentalSuggestion} object.
+Program reference: @internalsref{Accidental_engraver} engraver and
+the @internalsref{AccidentalSuggestion} object.
 
 @node Figured bass
 @unnumberedsubsubsec Figured bass
