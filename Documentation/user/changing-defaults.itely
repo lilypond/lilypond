@@ -39,7 +39,7 @@ but is also included with the LilyPond documentation package.
 
 There are four areas where the default settings may be changed:
 
-@itemize @bullet
+@itemize
 @item
 Automatic notation: changing the automatic creation of notation
 elements.  For example, changing the beaming rules.
@@ -471,7 +471,7 @@ In order to add a rule to the list, use
 #(override-auto-beam-setting '(be p q n m) a b [context])
 @end example
 
-@itemize @bullet
+@itemize
 
 @item @code{be} is either "begin" or "end".
 
@@ -729,7 +729,7 @@ For scores with only one voice and one staff, contexts are
 created automatically.  For more complex scores, it is necessary to
 create them by hand.  There are three commands that do this.
 
-@itemize @bullet
+@itemize
 
 @item
 The easiest command is @code{\new}, and it also the quickest to type.
@@ -1621,7 +1621,7 @@ Fingering objects are created by: @internalsref{Fingering_engraver} and
 By following related links inside the program reference, we can follow the
 flow of information within the program:
 
-@itemize @bullet
+@itemize
 
 @item @internalsref{Fingering}:
 @internalsref{Fingering} objects are created by:
@@ -1685,7 +1685,7 @@ Each layout object may have several functions as a notational or
 typographical element.  For example, the Fingering object
 has the following aspects
 
-@itemize @bullet
+@itemize
 @item
 Its size is independent of the horizontal spacing, unlike slurs or beams.
 
@@ -1848,7 +1848,7 @@ applied.
 This technique only works for objects that are directly connected to
 an @internalsref{Event} from the input, for example
 
-@itemize @bullet
+@itemize
 @item note heads, caused by chord-pitch (i.e., notes inside a chord)
 @item articulation signs, caused by articulation instructions
 @end itemize
@@ -1972,7 +1972,7 @@ property (modified with @code{\set}) was created.
 
 There are a few classes of difficult adjustments.
 
-@itemize @bullet
+@itemize
 
 
 @item
@@ -1995,7 +1995,7 @@ objects have been split over different systems.
 In the following example, we define a procedure
 @code{my-callback}.  This procedure
 
-@itemize @bullet
+@itemize
 @item
 determines if we have been split across line breaks
 @item

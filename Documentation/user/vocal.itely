@@ -12,7 +12,7 @@
 Since LilyPond input files are text, there are two issues to
 consider when working with vocal music:
 
-@itemize @bullet
+@itemize
 @item
 Song texts must be entered as text, not notes.  For example, the
 input@tie{}@code{d} should be interpreted as a one letter syllable, not the
@@ -269,7 +269,7 @@ Lyrics are printed by interpreting them in the context called
 There are two main methods to specify the horizontal placement
 of the syllables:
 
-@itemize @bullet
+@itemize
 @item
 by automatically aligning
 the lyrics to a melody or other voice of music, using @code{\addlyrics}

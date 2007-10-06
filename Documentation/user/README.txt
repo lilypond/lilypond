@@ -145,13 +145,15 @@ main docs
 
   This makes it easier to avoid forgetting the `@noindent'.
 
-* in @itemize, use @item on a separate line like this:
+* in @itemize use @item on a separate line like this:
   @itemize
   @item
   Foo
 
   @item
   Bar
+
+  Do not use @itemize @bullet.
 
 * Use @q instead of `...' and @qq instead of ``...''.  The latter macro
   should be used with care since we use `...' as the default quoting

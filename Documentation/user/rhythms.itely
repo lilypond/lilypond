@@ -1724,7 +1724,7 @@ Setting this property only affects the ideal spacing between
 consecutive notes.  For true proportional notation, the following
 settings are also required.
 
-@itemize @bullet
+@itemize
 
 @item True proportional notation requires that symbols are allowed
 to overstrike each other.  That is achieved by removing the

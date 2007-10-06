@@ -37,7 +37,7 @@ As long as LilyPond can understand your files and produces the output
 that you want, it doesn't matter what your files look like.  However,
 there are a few other things to consider when writing lilypond files.
 
-@itemize @bullet
+@itemize
 @item What if you make a mistake?  The structure of a lilypond
 file can make certain errors easier (or harder) to find.
 
@@ -68,7 +68,7 @@ structured in order to be easier (or header) to update.
 Here are a few suggestions that can help you to avoid or fix
 problems:
 
-@itemize @bullet
+@itemize
 @item @strong{Include @code{\version} numbers in every file}.  Note that all
 templates contain @code{\version} information.  We
 highly recommend that you always include the @code{\version}, no matter
@@ -122,7 +122,7 @@ problems if you rearrange your music later.
 If you are entering music from an existing score (i.e., typesetting a
 piece of existing sheet music),
 
-@itemize @bullet
+@itemize
 
 @item Enter one manuscript (the physical copy) system at a time (but still
 only one bar per line of text), and
@@ -147,7 +147,7 @@ best.
 When working on a large project, having a clear structure to your
 lilypond files becomes vital.
 
-@itemize @bullet
+@itemize
 
 @item @strong{Use an variable for each voice}, with a minimum of
 structure inside the definition.  The structure of the

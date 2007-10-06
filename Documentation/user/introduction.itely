@@ -243,7 +243,7 @@ programming language; the program's functionality was set in stone by
 the developers.  That proved to be unsatisfactory for a number of
 reasons:
 
-@itemize @bullet
+@itemize
 @item When LilyPond makes mistakes,
 users need to override formatting decisions.  Therefore, the user must
 have access to the formatting engine.  Hence, rules and settings cannot
@@ -705,7 +705,7 @@ some key concepts in easy terms.  It is recommended to read these
 chapters in a linear fashion.
 
 
-@itemize @bullet
+@itemize
 
 @item
 @ifhtml
@@ -743,7 +743,7 @@ All of this needs to be rewritten after GDP, anyway.
 
 @ignore
 
-@itemize @bullet
+@itemize
 
 @item
 @emph{@r ef{Basic notation}},
@@ -787,7 +787,7 @@ explains how to create music functions.
 
 This book contains useful reference charts.
 
-@itemize @bullet
+@itemize
 @item
 @ifhtml
 The
@@ -836,7 +836,7 @@ is a complete index.
 This book explains how to execute the program and how to integrate
 LilyPond notation with other programs.
 
-@itemize @bullet
+@itemize
 
 @item
 @emph{@rprogram{Install}},
@@ -872,7 +872,7 @@ formats to the @code{.ly} format.
 
 There are a number of other places which may be very valuable.
 
-@itemize @bullet
+@itemize
 @cindex idiom
 @cindex jargon
 @cindex terminology

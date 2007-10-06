@@ -216,7 +216,7 @@ object (like slurs or beams) are documented in the Program
 Reference.  However, many layout objects share properties which can be
 used to apply generic tweaks.
 
-@itemize @bullet
+@itemize
 
 @cindex padding
 
@@ -348,7 +348,7 @@ outside the scope of this manual; users should be warned that
 a substantial amount of technical knowledge or time is required
 to understand these files.
 
-@itemize @bullet
+@itemize
 
 @item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 

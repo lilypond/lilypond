@@ -258,7 +258,7 @@ there are some external tools that also generate LilyPond files.
 
 These tools include
 
-@itemize @bullet
+@itemize
 @item
 @uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, a graphical score editor.
 @item

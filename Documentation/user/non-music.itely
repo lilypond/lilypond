@@ -49,7 +49,7 @@ these files end with @samp{.ly}.
 A @code{.ly} file contains any number of toplevel expressions, where a
 toplevel expression is one of the following
 
-@itemize @bullet
+@itemize
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
@@ -165,7 +165,7 @@ toplevel
 At any point in a file, any of the following lexical instructions can
 be entered:
 
-@itemize @bullet
+@itemize
 @item @code{\version}
 @item @code{\include}
 @item @code{\sourcefilename}
@@ -875,7 +875,7 @@ the @code{tocItemMarkup} definition.
 
 New commands and markups may also be defined to build more elaborated
 table of contents:
-@itemize @bullet
+@itemize
 @item first, define a new markup variable in the @code{\paper} block
 @item then, define a music function which aims at adding a toc element
 using this markup paper variable.

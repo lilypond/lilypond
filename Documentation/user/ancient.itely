@@ -20,7 +20,7 @@ and Gregorian Chant notation.  There is also limited support for
 figured bass notation.
 
 Many graphical objects provide a @code{style} property, see
-@itemize @bullet
+@itemize
 @item
 @ref{Ancient note heads},
 @item
@@ -44,7 +44,7 @@ In addition to the standard articulation signs described in section
 @ref{Articulations}, specific articulation signs for ancient notation
 are provided.
 
-@itemize @bullet
+@itemize
 @item
 @ref{Ancient articulations}
 @end itemize
@@ -54,7 +54,7 @@ in terms of just changing a style property of a graphical object or
 adding articulation signs.  Some notational concepts are introduced
 specifically for ancient notation,
 
-@itemize @bullet
+@itemize
 @item
 @ref{Custodes},
 @item
@@ -69,7 +69,7 @@ how to customize a context, you may have a look at the predefined
 contexts.  Use them to set up predefined style-specific voice and
 staff contexts, and directly go ahead with the note entry,
 
-@itemize @bullet
+@itemize
 @item
 @ref{Gregorian Chant contexts},
 @item
@@ -79,7 +79,7 @@ staff contexts, and directly go ahead with the note entry,
 There is limited support for figured bass notation which came
 up during the baroque period.
 
-@itemize @bullet
+@itemize
 @item
 @ref{Figured bass}
 @end itemize

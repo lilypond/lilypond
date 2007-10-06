@@ -404,7 +404,7 @@ it takes up time.  Time is a rational number that measures the length
 of a piece of music in whole notes.
 
 A music object has three kinds of types:
-@itemize @bullet
+@itemize
 @item
 music name: Each music expression has a name.  For example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
@@ -1219,7 +1219,7 @@ where @var{proc} is a Scheme function, taking three arguments.
 When interpreted, the function @var{proc} is called for every layout
 object found in the context @var{context}, with the following
 arguments:
-@itemize @bullet
+@itemize
 @item the layout object itself,
 @item the context where the layout object was created, and
 @item the context where @code{\applyOutput} is processed.

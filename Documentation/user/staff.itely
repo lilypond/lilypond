@@ -48,7 +48,7 @@ Two or more staves can be grouped vertically in a
 Many scores consist of more than one staff.  These staves can be
 grouped in several different ways:
 
-@itemize @bullet
+@itemize
 @item
 In a @internalsref{GrandStaff}, the group is started with a brace
 at the left, and bar lines are connected between the staves. 
@@ -644,7 +644,7 @@ smaller = {
 
 Here are a couple of hints for successful cue notes
 
-@itemize @bullet
+@itemize
 @item
 Cue notes have smaller font sizes.
 

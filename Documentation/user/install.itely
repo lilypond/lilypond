@@ -83,7 +83,7 @@ mingw       - Windows x86
 
 Download source
 
-@itemize @bullet
+@itemize
 @item tarballs from
 @uref{http://lilypond.org/download/} by HTTP.
 @item tarballs from
@@ -159,7 +159,7 @@ header files and libraries.
 
 Running LilyPond requires proper installation of the following software
 
-@itemize @bullet
+@itemize
 
 @item @uref{http://www.freetype.org/,Freetype} (version 2.1.10 or newer).
 @item @uref{http://www.freetype.org/,FontConfig} (version 2.2).
@@ -190,7 +190,7 @@ make web
 
 Building the website requires some additional tools and packages
 
-@itemize @bullet
+@itemize
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
 @item ImageMagick
 @item International fonts (see input/regression/utf-8.ly for hints
