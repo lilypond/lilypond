@@ -116,8 +116,7 @@ Staff groups can be nested, using the context
 @commonprop
 
 More complex nesting can be accomplished using the property
-@internalsref{systemStartDelimiterHierarchy}.  System start
-delimiters may be deeply nested,
+@internalsref{systemStartDelimiterHierarchy}: 
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup
