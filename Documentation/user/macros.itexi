@@ -14,59 +14,14 @@
 @set backslash \
 
 @c to get decent quotes in `foo' and ``foo''
-@c  these need to be split up so that "@qq{foo}." looks nice.  :(
-@iftex
 @macro q{TEXT}
-`\TEXT\'
+@quoteleft{}\TEXT\@quoteright{}
 @end macro
 
 @macro qq{TEXT}
-``\TEXT\''
-@end macro
-@end iftex
-
-
-@ifinfo
-@macro q{TEXT}
-`\TEXT\'
+@quotedblleft{}\TEXT\@quotedblright{}
 @end macro
 
-@macro qq{TEXT}
-``\TEXT\''
-@end macro
-@end ifinfo
-
-
-@ifhtml
-@macro q{TEXT}
-@html
-&lsquo;\TEXT\&rsquo;
-@end html
-@end macro
-
-@macro qq{TEXT}
-@html
-&ldquo;\TEXT\&rdquo;
-@end html
-@end macro
-@end ifhtml
-
-
-@ifdocbook
-@macro q{TEXT}
-@xml
-&lsquo;\TEXT\&rsquo;
-@end xml
-@end macro
-
-@macro qq{TEXT}
-@xml
-&ldquo;\TEXT\&rdquo;
-@end xml
-@end macro
-@end ifdocbook
-
-@c  TODO: experimental.  Don't use unless Graham confirms it.
 @macro warning{TEXT}
 @quotation
 @quotation
