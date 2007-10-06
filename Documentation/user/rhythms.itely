@@ -29,7 +29,6 @@ This section discusses rhythms, durations, and bars.
 
 @menu
 * Durations::                   
-* Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
 @end menu
@@ -50,21 +49,14 @@ values.  For example, a quarter note is entered using a @code{4}
 you must use the @code{\longa} and @code{\breve} commands
 
 @example
-c'\breve
-c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
-r\longa r\breve
-r1 r2 r4 r8 r16 r32 r64 r64
+c'\longa c'\breve c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
 @end example
 
 @lilypond[quote]
 \score {
 \relative c'' {
-    a\breve*1/2 \autoBeamOff
+    a\longa*1/4 a\breve*1/2 \autoBeamOff
     a1 a2 a4 a8 a16 a32 a64 a64
-   \bar "empty"
-   \break
-    r\longa*1/4 r\breve *1/2
-    r1 r2 r4 r8 r16 r32 r64 r64
   }
   \layout {
     ragged-right = ##t
@@ -93,9 +85,6 @@ note.
 { a a a2 a a4 a a1 a }
 @end lilypond
 
-
-@node Augmentation dots
-@unnumberedsubsubsec Augmentation dots
 
 @funindex .
 
@@ -297,6 +286,8 @@ b16*4 c4
 @seealso
 
 This manual: @ref{Tuplets}.
+
+
 
 
 @node Writing rests
@@ -899,7 +890,6 @@ Program reference: @internalsref{Completion_heads_engraver}.
 @menu
 * Automatic beams::             
 * Manual beams::                
-* Feathered beams::             
 @end menu
 
 @node Automatic beams
@@ -908,19 +898,28 @@ Program reference: @internalsref{Completion_heads_engraver}.
 LilyPond inserts beams automatically
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c8 c c c \time 6/8 c c c c8. c16 c8
+\time 2/4 c8 c c c
+\time 6/8 c c c c8. c16 c8
 @end lilypond
 
 When these automatic decisions are not good enough, beaming can be
 entered explicitly.  It is also possible to define beaming
-patterns that differ from the defaults.  See @ref{Setting
-automatic beam behavior}, for details.
+patterns that differ from the defaults.  See @ref{Manual beams}
+and @ref{Setting automatic beam behavior}.
 
-Individual notes may be marked with @code{\noBeam} to prevent them
-from being beamed
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c8 c\noBeam c c
+@commonprop
+
+Feathered beams are printed by setting the @code{grow-direction}
+property of a @code{Beam}.  The @code{\featherDurations} function
+can be used to adjust note durations.
+
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
+\featherDurations #(ly:make-moment 5 4) 
+{
+  c16[ c c c c c c]
+}
 @end lilypond
 
 
@@ -929,10 +928,23 @@ from being beamed
 Program reference: @internalsref{Beam}.
 
 
+@refbugs
+
+The @code{\featherDurations} command only works with very short
+music snippets.
+
 @node Manual beams
 @unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
+
+Individual notes may be marked with @code{\noBeam} to prevent them
+from being beamed
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c\noBeam c c
+@end lilypond
+
 @funindex ]
 @funindex [
 
@@ -1013,83 +1025,17 @@ Beams do not avoid collisions with symbols around the notes, such
 as texts and accidentals.
 
 
-@node Feathered beams
-@unnumberedsubsubsec Feathered beams
-
-Feathered beams are printed by setting the @code{grow-direction}
-property of a @code{Beam}.  The @code{\featherDurations} function
-can be used to adjust note durations.
-
-@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-\override Beam #'grow-direction = #LEFT
-\featherDurations #(ly:make-moment 5 4) 
-{
-  c16[ c c c c c c]
-}
-@end lilypond
-
-@refbugs
-
-The @code{\featherDurations} command only works with very short
-music snippets.
-
 
 @node Bars
 @subsection Bars
 
 
 @menu
-* Bar check::                   
 * Bar lines::                   
 * Bar numbers::                 
-* Barnumber check::             
+* Bar and bar number checks::   
 * Rehearsal marks::             
 @end menu
-
-@node Bar check
-@unnumberedsubsubsec Bar check
-
-@cindex Bar check
-@funindex barCheckSynchronize
-@funindex |
-
-Bar checks help detect errors in the durations.  A bar check is
-entered using the bar symbol, @samp{|}.  Whenever it is
-encountered during interpretation, it should fall on a measure
-boundary.  If it does not, a warning is printed.  In the next
-example, the second bar check will signal an error
-
-@example
-\time 3/4 c2 e4 | g2 |
-@end example
-
-Bar checks can also be used in lyrics, for example
-
-@example
-\lyricmode @{
-  \time 2/4
-  Twin -- kle | Twin -- kle
-@}
-@end example
-
-Failed bar checks are caused by entering incorrect durations.
-Incorrect durations often completely garble up the score,
-especially if the score is polyphonic, so a good place to start
-correcting input is by scanning for failed bar checks and
-incorrect durations.
-
-@funindex |
-@funindex pipeSymbol
-
-It is also possible to redefine the meaning of @code{|}.  This is
-done by assigning a music expression to @code{pipeSymbol},
-
-@lilypond[quote,ragged-right,verbatim]
-pipeSymbol = \bar "||"
-
-{ c'2 c' | c'2 c' }
-@end lilypond
-
 
 @node Bar lines
 @unnumberedsubsubsec Bar lines
@@ -1112,7 +1058,28 @@ c4 \bar "|:" c4
 
 The following bar types are available
 
-@lilypondfile[ragged-right,quote]{bar-lines.ly}
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+    \override Score.RehearsalMark #'padding = #3
+    
+    c4 \bar "|" \mark \markup {  \simple #"|" }
+    c \bar "|:" \mark \markup {  \simple #"|:" }
+    c \bar "||" \mark \markup {  \simple #"||" }
+    c \bar ":|" \mark \markup {  \simple #":|" }
+    c \bar ".|" \mark \markup {  \simple #".|" }
+    c \bar ".|." \mark \markup {  \simple #".|." }
+    c \bar ":|:" \mark \markup {  \simple #":|:" }
+    c \bar "|." \mark \markup {  \simple #"|." }
+    c \bar ":" \mark \markup {  \simple #":" }
+    c c c \bar "dashed" \mark \markup { \simple #"dashed" }
+    c c c c
+    \bar "||:" \mark \markup { \tiny \typewriter "unbroken" \simple
+#"||:" }
+    c c c c
+    \break
+    \bar "||:" \mark \markup { \tiny \typewriter "broken" \simple
+#"||:" }
+    c
+@end lilypond
 
 In addition, you can specify @code{"||:"}, which is equivalent to
 @code{"|:"} except at line breaks, where it gives a double bar
@@ -1211,7 +1178,19 @@ beginning of each line.  This is illustrated in the following
 example, whose source is available as
 @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
 
-@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+   \override Score.BarNumber  #'break-visibility = #end-of-line-invisible
+   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
+   \override Score.BarNumber #'font-size = #2
+
+   \override Score.BarNumber  #'stencil
+   = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
+   \repeat unfold 5 { c1 } \bar "|"
+
+   \override Score.BarNumber  #'stencil
+   = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
+   \repeat unfold 4 { c1 } \bar "|."
+@end lilypond
 
 Bar numbers can be removed entirely by removing the Bar number
 engraver from the score.
@@ -1245,8 +1224,49 @@ bracket, if there is one at the top.  To solve this, the
 position the number correctly.
 
 
-@node Barnumber check
-@unnumberedsubsubsec Barnumber check
+@node Bar and bar number checks
+@unnumberedsubsubsec Bar and bar number checks
+
+@cindex Bar check
+@funindex barCheckSynchronize
+@funindex |
+
+Bar checks help detect errors in the durations.  A bar check is
+entered using the bar symbol, @samp{|}.  Whenever it is
+encountered during interpretation, it should fall on a measure
+boundary.  If it does not, a warning is printed.  In the next
+example, the second bar check will signal an error
+
+@example
+\time 3/4 c2 e4 | g2 |
+@end example
+
+Bar checks can also be used in lyrics, for example
+
+@example
+\lyricmode @{
+  \time 2/4
+  Twin -- kle | Twin -- kle
+@}
+@end example
+
+Failed bar checks are caused by entering incorrect durations.
+Incorrect durations often completely garble up the score,
+especially if the score is polyphonic, so a good place to start
+correcting input is by scanning for failed bar checks and
+incorrect durations.
+
+@funindex |
+@funindex pipeSymbol
+
+It is also possible to redefine the meaning of @code{|}.  This is
+done by assigning a music expression to @code{pipeSymbol},
+
+@lilypond[quote,ragged-right,verbatim]
+pipeSymbol = \bar "||"
+
+{ c'2 c' | c'2 c' }
+@end lilypond
 
 When copying large pieces of music, it can be helpful to check
 that the LilyPond bar number corresponds to the original that you
@@ -1590,7 +1610,6 @@ durations in the other staves.  For the above example
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
-
 
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas

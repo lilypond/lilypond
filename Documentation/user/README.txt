@@ -71,6 +71,9 @@ highly recommended.
 
 * Use two spaces for indentation in lilypond examples.
 
+* If possible, only write one bar per line.  The notes on each
+  line should be an independent line (ie no \override blah c4 c)
+
 * Do not use tabs.  They expand to nothing in DVI output.
 
 * Do not use spaces at the beginning of a line (except in @example

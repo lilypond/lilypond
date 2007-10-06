@@ -238,6 +238,20 @@ glissando would start and end in the center of each note head.
 
 @end table
 
+TODO: add this somewhere
+
+@verbatim
+\new Staff {
+  \override TextSpanner #'bound-details #'left-broken #'text = ##f
+   \override TextSpanner #'bound-details #'left #'text = \markup {
+"start" }
+   c'1 \startTextSpan \break
+   c'1
+   c'1 \stopTextSpan
+}
+@end verbatim
+
+
 @seealso
 
 Program reference: @internalsref{TextSpanner},
