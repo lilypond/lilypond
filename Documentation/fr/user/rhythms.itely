@@ -1126,7 +1126,7 @@ c4 \bar "|:" c4
 
 Les styles de barres de mesure disponibles sont
 
-@lilypondfile[ragged-right,quote]{bar-lines.ly}
+@c @lilypondfile[ragged-right,quote]{bar-lines.ly}
 
 
 En plus de cela, on peut demander @code{"||:"}, qui équivaut à
@@ -1231,7 +1231,7 @@ qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant,
 dont la source complète est 
 @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
 
-@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+@c @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
 
 Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
 donnera une partition sans numéros de mesure.

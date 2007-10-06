@@ -934,7 +934,7 @@ c4 \bar "|:" c4
 
 Se encuentran disponibles los siguientes tipos de barra:
 
-@lilypondfile[ragged-right,quote]{bar-lines.ly}
+@c @lilypondfile[ragged-right,quote]{bar-lines.ly}
 
 Además se puede especificar @code{"||:"}, que equivale a
 @code{"|:"} excepto en los saltos de línea, en que produce una doble barra
@@ -1031,7 +1031,7 @@ línea.  Esto queda ilustrado en el ejemplo siguiente,
 cuyo código fuente se encuentra disponible como
 @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
 
-@lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+@c @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
 
 Los números de compás se pueden suprimir completamente quitando el grabador de números de compás
 de la partitura.
