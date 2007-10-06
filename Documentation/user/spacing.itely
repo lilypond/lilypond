@@ -2018,65 +2018,15 @@ property of @code{SpacingSpanner}.  Compare the two scores below:
 }
 @end lilypond
 
-Both scores are proportional, but the spacing in the first score is
-too loose because of the clef change.  The spacing of the second score
-remains strict, however, because @code{strict-note-spacing} is turned
-on.  Turning on @code{strict-note-spacing} causes the width of time
-signatures, key signatures and clefs to play no part in the spacing
-algorithm.  Accidentals are a different matter, however.  By default, all
-accidentals consume a little extra space, as the following pair of
-scores shows.
+Both scores are proportional, but the spacing in the first score
+is too loose because of the clef change. The spacing of the second
+score remains strict, however, because strict-note-spacing is
+turned on.  Turning on strict-note-spacing causes the width of
+time signatures, key signatures, clefs and accidentals to play no
+part in the spacing algorithm.
 
-@lilypond[quote,verbatim,ragged-right]
-\new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-}
-
-\new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
-  c'16
-  cis'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-}
-@end lilypond
-
-Both scores are proportional but the second score exhibits spacing
-irregularities due to accidentals.  Turning on @code{strict-note-spacing}
-does not work for accidentals.  Instead,
-we override the @code{X-extent} of all accidentals to zero and then move the
-accidentals to the left of the notes they modify.
-
-@lilypond[quote,verbatim,ragged-right]
-\new Staff {
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 32)
-  \override Accidental #'X-extent = #'(0 . 0)
-  \override Accidental #'extra-offset = #'(-1 . 0)
-  c'16
-  cis'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-  c'16
-}
-@end lilypond
-
-In addition to the settings given here, there are other settings that
-frequently appear in proportional scores.  These include:
+In addition to the settings given here, there are other settings
+that frequently appear in proportional scores. These include:
 
 @itemize
 @item @code{\override SpacingSpanner #'strict-grace-spacing = ##t}
