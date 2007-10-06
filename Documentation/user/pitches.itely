@@ -25,10 +25,11 @@ This section discusses how to specify the pitch of notes.
 @node Writing pitches
 @subsection Writing pitches
 
-Into text.
+Intro text.
 
 @menu
 * Normal pitches::              
+* Relative octaves::            
 * Accidentals::                 
 * Note names in other languages::  
 @end menu
@@ -48,7 +49,14 @@ A pitch name is specified using lowercase letters @code{a} through
 c d e f g a b c'
 @end lilypond
 
-The note name @code{c} is engraved one octave below middle C.
+There are two different ways to enter these note names with regard
+to octave placement: absolute and relative.  The relative mode will
+in most cases be the most convenient, but since the absolute mode
+is most fundamental, it will be presented first.
+
+In absolute mode, the note name @code{c} is engraved one octave
+below middle C, and each note up to @code{b} in the octave above,
+as in the previous example.
 
 @lilypond[quote,fragment,verbatim,ragged-right]
 \clef treble
@@ -60,10 +68,11 @@ c1
 @funindex '
 @funindex ,
 
-The optional octave specification takes the form of a series of
-single quote (@samp{'}) characters or a series of comma (@samp{,})
-characters.  Each @samp{'} raises the pitch by one octave; each
-@samp{,} lowers the pitch by an octave.
+If a note should be in another octave than this, an octave
+specification can be given.  It takes the form of a series of
+single quote (@samp{'}) or comma (@samp{,}) characters.  Each
+@samp{'} raises the pitch by one octave; each @samp{,} lowers the
+pitch by an octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \clef treble
@@ -80,6 +89,114 @@ octaves}.
 @seealso
 
 Snippets: @lsrdir{pitch}
+
+
+
+@node Relative octaves
+@unnumberedsubsubsec Relative octaves
+
+@cindex Relative
+@cindex Relative octave specification
+@funindex \relative
+
+When octaves are specified as above by adding @code{'} and
+@code{,} to pitch names, it is easy to accidentally put a pitch in
+the wrong octave.  The relative octave mode prevents these errors
+since most of the time it is not necessary to indicate any octaves
+at all.  Furthermore, in absolute mode, a single mistake may be
+difficult to spot; in relative mode, a single error puts the rest
+of the piece off by one octave.
+
+@example
+\relative @var{startpitch} @var{musicexpr}
+@end example
+
+In relative mode, each note is assumed to be as close to the
+previous note as possible.  This means that the octave of notes
+that appear in @var{musicexpr} are calculated as follows:
+
+@itemize
+@item 
+The pitch of the first note is relative to @code{\relative
+@var{startpitch} }.  
+
+@item
+If no octave changing marks are used, the basic interval between a
+note and the one that precedes it is always taken to be a fourth
+or less.
+
+@item
+This distance is determined without regarding alterations or the
+actual sounding pitches; a @code{fisis} following a @code{ceses}
+will be put above the @code{ceses}.  In other words, a
+doubly-augmented fourth is considered a smaller interval than a
+diminished fifth, even though the doubly-augmented fourth spans
+seven semitones while the diminished fifth only spans six
+semitones.
+
+@item
+The octave changing marks @code{'} and @code{,} can be added to
+raise or lower the pitch by an extra octave from the basic
+interval.
+
+@item
+Multiple octave changing marks can be used.  @code{''} will raise
+the pitch by two octaves.
+
+@end itemize 
+
+Here is the relative mode shown in action:
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  b c d c b c bes a
+}
+@end lilypond
+
+Octave changing marks are used for intervals greater than a
+fourth:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
+  c g c f, c' a, e''
+}
+@end lilypond
+
+If the preceding item is a chord, the first note of the chord is
+used as the reference point for the octave placement of a
+following note or chord:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+  c <c e g>
+  <c' e g>
+  <c, e' g>
+}
+@end lilypond
+
+The @var{startpitch} (after @code{\relative}) is a note name in
+absolute mode.  In principle it can be any note name, but common
+practice is to use @code{c} in various octave positions. 
+
+
+@seealso
+
+Snippets: @lsrdir{pitch}
+
+
+@refbugs
+
+The relative conversion will not affect @code{\transpose},
+@code{\chordmode} or @code{\relative} sections in its argument.
+To use relative within transposed music, an additional
+@code{\relative} must be placed inside @code{\transpose}.
+
+@c DEPRECATED
+If no @var{startpitch} is specified for @code{\relative}, then
+@code{c'} is assumed.  However, this is a deprecated option and
+may disappear in future versions, so its use is discouraged.
+
+
 
 
 @node Accidentals
@@ -213,7 +330,7 @@ input file.  The available language files and the note names they
 define are
 
 @cindex note names, other languages
-@c  put the rest of the old table into this new format.
+
 @example
 @multitable @columnfractions .2 .6 .05 .05 .05 .05
 @headitem Language
@@ -222,29 +339,31 @@ define are
 @item netherlands.ly
   @tab c d e f g a bes b
   @tab -is @tab -es @tab -isis @tab -eses
-@c new stuff here:
-
-
+@item english.ly
+  @tab c d e f g a bf b 
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
+@item deutsch.ly
+  @tab c d e f g a b h 
+  @tab -is @tab -es @tab -isis @tab -eses
+@item norsk.ly
+  @tab c d e f g a b h 
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
+@item svenska.ly
+  @tab c d e f g a b h 
+  @tab -iss @tab -ess @tab -ississ @tab -essess
+@item italiano.ly
+  @tab do re mi fa sol la sib si 
+  @tab -d @tab -b @tab -dd @tab -bb
+@item catalan.ly
+  @tab do re mi fa sol la sib si 
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item espanol.ly
+  @tab do re mi fa sol la sib si 
+  @tab -s @tab -b @tab -ss @tab -bb
 @end multitable
 @end example
-
-@c old table
-@ignore
-@example
-                        Note Names               sharp       flat     double        double
-                                                                       sharp        flat
-
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
-                                                                     -sharpsharp   -flatflat
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
-@end example
-@end ignore
 
 @noindent
 Note that in Dutch, German, Norwegian, and Swedish, the flat
@@ -255,12 +374,13 @@ names are defined in the corresponding language files (this also
 applies to the suffixes for quartertones below).
 
 @noindent
-Some music uses microtones whose alterations are fractions of a
-@q{regular} sharp or flat.  The note names for quartertones
+Some music uses microtones whose alterations are fractions of
+a @q{regular} sharp or flat.  The note names for quartertones
 defined in the various language files are listed in the following
 table.  Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half}
 and @q{one and a half}, respectively.  For Norwegian, Swedish,
 Catalan and Spanish no special names have been defined yet.
+
 
 @c What about Turkish Maquam music and similar microtonal systems?
 @c
@@ -287,101 +407,9 @@ espanol.ly     do  re  mi  fa  sol la  sib si
 @subsection Changing multiple pitches
 
 @menu
-* Relative octaves::            
 * Octave check::                
 * Transpose::                   
 @end menu
-
-@node Relative octaves
-@unnumberedsubsubsec Relative octaves
-
-@cindex Relative
-@cindex Relative octave specification
-@funindex \relative
-
-Octaves are specified by adding @code{'} and @code{,} to pitch
-names.  When you copy existing music, it is easy to accidentally
-put a pitch in the wrong octave and hard to find such an error.
-The relative octave mode prevents these errors by making the
-mistakes much larger: a single error puts the rest of the piece
-off by one octave
-
-@example
-\relative @var{startpitch} @var{musicexpr}
-@end example
-
-The octave of notes that appear in @var{musicexpr} are calculated
-as follows:
-
-@itemize
-@item
-If no octave changing marks are used, the basic interval between
-this and the last note is always taken to be a fourth or less.
-
-@item
-This distance is determined without regarding alterations; a
-@code{fisis} following a @code{ceses} will be put above the
-@code{ceses}.  In other words, a doubly-augmented fourth is
-considered a smaller interval than a diminished fifth, even though
-the doubly-augmented fourth spans seven semitones while the
-diminished fifth only spans six semitones.
-
-@item
-The octave changing marks @code{'} and @code{,} can be added to
-raise or lower the pitch by an extra octave from the basic
-interval.
-
-@item
-Multiple octave changing marks can be used.  @code{''} will raise
-the pitch by two octaves.
-
-@item 
-The pitch of the first note is relative to @code{\relative
-@var{startpitch} }.  
-
-@end itemize 
-
-Here is the relative mode shown in action
-
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  b c d c b c bes a
-}
-@end lilypond
-
-Octave changing marks are used for intervals greater than a fourth
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c'' {
-  c g c f, c' a, e''
-}
-@end lilypond
-
-If the preceding item is a chord, the first note of the chord is
-used to determine the first note of the next chord
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c' {
-  c <c e g>
-  <c' e g>
-  <c, e' g>
-}
-@end lilypond
-
-The pitch after @code{\relative} contains a note name.
-
-@refbugs
-
-The relative conversion will not affect @code{\transpose},
-@code{\chordmode} or @code{\relative} sections in its argument.
-To use relative within transposed music, an additional
-@code{\relative} must be placed inside @code{\transpose}.
-
-@c DEPRECATED
-If no @var{startpitch} is specified for @code{\relative}, then
-@code{c'} is assumed.  However, this is a deprecated option and
-may disappear in future versions, so its use is discouraged.
-
 
 @node Octave check
 @unnumberedsubsubsec Octave check
@@ -683,13 +711,19 @@ also use the standard mode names (also called @q{church modes}):
 @code{\dorian}.
 
 This command sets the context property @code{Staff.keySignature}.
-Non-standard key signatures can be specified by setting this
-property directly.
+on-standard key signatures can be specified by setting this
+property directly.  See @internalsref{Key_engraver}, and for an
+example TODO.
+@c TODO: LSR snippet 248.  leave this here for now -gp
 
-Accidentals and key signatures often confuse new users, because
-unaltered notes get natural signs depending on the key signature.
-For more information, see @ref{Accidentals}, or
-@rlearning{Accidentals and key signatures}.
+@warning{The relationship between accidentals and key signatures can
+be confusing to new users who think of the note letters as scale
+steps and not as absolute pitches.  The note names that are
+entered in a music expression are the raw material; key signatures
+and clefs decide how this raw material is displayed.  Thus,
+unaltered notes may get natural signs depending on the key
+signature.  For more information, see @ref{Accidentals} and
+@rlearning{Accidentals and key signatures}.}
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
