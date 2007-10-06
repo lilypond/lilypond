@@ -179,7 +179,37 @@ In combination with Frenched staves, this may be used to typeset
 @cindex staves, Frenched 
 @cindex ossia
 
-@lilypondfile{ossia.ly}
+@lilypond[verbatim,relative=2,quote]
+<<
+  \new Staff \with
+  {
+    \remove "Time_signature_engraver"
+    fontSize = #-2
+    \override StaffSymbol #'staff-space = #(magstep -2)
+    firstClef = ##f
+  }
+  \relative c'' {
+    \stopStaff
+    \skip 2
+
+    \startStaff
+    \clef treble
+    bes8[^"ossia" g bes g]
+    \stopStaff
+
+    s2
+
+    \startStaff
+    f8 d g4 
+  }
+  \new Staff  \relative
+  {
+    \time 2/4
+    c4 c g' g a a g2
+  }
+
+>>
+@end lilypond
 
 @cindex staff lines, setting number of
 @cindex staff lines, setting thickness of

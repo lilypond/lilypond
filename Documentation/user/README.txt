@@ -1,41 +1,31 @@
 Info for Documentation
 ----------------------
 
-%%%%% UPDATING DOCS
-convert-ly -e --from=... --to=... --no-version *.itely
-
-% to find the current version number,
-grep "version \"" tutorial.itely
-
-%  (nobody ever remembers to update this file, so I've stopped
-%  trying to record it here)
-
-
 %%%%% BOOKS
 
 There are three parts to the documentation: the Learning Manual,
 the Notation Reference, and the Technical Details.
 
 * Learning Manual: long, chatty, friendly explanations go here.
-This is aimed at users learning something for the first time --
-not necessarily just learning lilypond notation, but also things
-like learning how to deal with projects, tweaking, preparing parts
-for orchestras, etc.  Less formal language may be used here.
+  This is aimed at users learning something for the first time --
+  not necessarily just learning lilypond notation, but also things
+  like learning how to deal with projects, tweaking, preparing parts
+  for orchestras, etc.  Less formal language may be used here.
 
 Users are encouraged to read the complete Learning Manual from
 start-to-finish.
 
 
 * Notation Reference: a (hopefully complete) description of
-LilyPond input notation.  Some material from here may be
-duplicated in the Learning Manual (for teaching).  The material is
-presented in an approximate order of increasing difficulty, but
-the goal is _not_ to provide a step-by-step learning environment.
-For example, all material under "Pitches" should remain in that
-section, even though microtonal accidentals may seem more advanced
-than info about clefs or time signatures -- "Pitches" should be a
-one-stop reference about the pitch portion of notes.  This section
-is written in formal technical writing style.
+  LilyPond input notation.  Some material from here may be
+  duplicated in the Learning Manual (for teaching).  The material is
+  presented in an approximate order of increasing difficulty, but
+  the goal is _not_ to provide a step-by-step learning environment.
+  For example, all material under "Pitches" should remain in that
+  section, even though microtonal accidentals may seem more advanced
+  than info about clefs or time signatures -- "Pitches" should be a
+  one-stop reference about the pitch portion of notes.  This section
+  is written in formal technical writing style.
 
 Users are not expected to read this manual from start to finish.
 However, they should be familiar with the material in the Learning
@@ -44,9 +34,9 @@ that material in this book.
 
 
 * Program Usage: information about using the program lilypond with
-other programs (lilypond-book, operating systems, GUIs,
-convert-ly, etc).  This section is written in formal technical
-writing style.
+  other programs (lilypond-book, operating systems, GUIs,
+  convert-ly, etc).  This section is written in formal technical
+  writing style.
 
 Users are not expected to read this manual from start to finish.
 
@@ -56,23 +46,47 @@ Users are not expected to read this manual from start to finish.
 The order of headings inside documentation sections should be:
 
 main docs
-@refcommands
 @commonprop
 @seealso
 @refbugs
 
-(omit any headings which do not apply)
+* You must include a @seealso with at least one link to @lsrdir{}.
 
-Including at least one link to @lsrdir{} inside @seealso is
-highly recommended.
+* @commonprop and @refbugs are optional.
 
 
-%%%%% FORMATTING
+%%%%% LILYPOND FORMATTING
 
-* Use two spaces for indentation in lilypond examples.
+* Use two spaces for indentation in lilypond examples.  (no tabs)
 
 * If possible, only write one bar per line.  The notes on each
-  line should be an independent line (ie no \override blah c4 c)
+  line should be an independent line.
+  Bad:
+    \override textscript #'padding = #3 c1^"hi"
+  Good:
+    \override textscript #'padding = #3
+    c1^"hi"
+
+* LilyPond input should be produce via
+    @lilypond[verbatim,quote,ragged-right]
+  with `fragment' and `relative=2' optional.
+
+  Examples about page layout may alter the quote/ragged-right
+  options.  Omitting `verbatim' is not allowed.
+
+* Inspirational headwords are produced with
+  @lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+  {pitches-headword.ly}
+
+* Avoid long stretches of input code.  Noone is going to read them
+  in print.  Instead refer to an example input file with @lsr{}.
+
+
+%%%%% TEXT FORMATTING
+
+* Lines should be less than 72 characters long.  (I personally
+  recommend writing with 66-char lines, but don't bother modifying
+  existing material.)
 
 * Do not use tabs.  They expand to nothing in DVI output.
 
@@ -82,12 +96,6 @@ highly recommended.
   without removing those spaces.
 
 * Use two spaces after a period.
-
-* Don't use a @ref{link to another section} in the middle of a
-  sentence.  It looks ok in HTML, moderately bad in PDF, and
-  utterly horrible in INFO.  Instead, reword the sentence so that
-  users are encouraged to see @ref{link to another section}.
-  (at the end of the sentence)
 
 * Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
@@ -116,9 +124,7 @@ highly recommended.
 
   where `@example' starts the line (without leading spaces).
 
-* Use the `quote' option in @lilypond commands if possible.
-
-  Do not compress the input vertically; this is, do not use
+* Do not compress the input vertically; this is, do not use
 
     Beginning of logical unit
     @example
@@ -139,13 +145,13 @@ highly recommended.
 
   This makes it easier to avoid forgetting the `@noindent'.
 
-* Non-ASCII characters which are in utf-8 should be directly used;
-  this is, don't say `Ba@ss{}tuba' but `Baßtuba'.  This ensures that
-  all such characters appear in all output formats.
+* in @itemize, use @item on a separate line like this:
+  @itemize
+  @item
+  Foo
 
-* Lines should be less than 72 characters long.  (I personally
-  recommend writing with 66-char lines, but don't bother modifying
-  existing material.)
+  @item
+  Bar
 
 * Use @q instead of `...' and @qq instead of ``...''.  The latter macro
   should be used with care since we use `...' as the default quoting
@@ -156,13 +162,15 @@ highly recommended.
 
 %%%%% READABILITY
 
-* LilyPond input should be produce via
-    @lilypond[verbatim,quote,ragged-right]
-  with `fragment' and `relative=2' optional.
+* Non-ASCII characters which are in utf-8 should be directly used;
+  this is, don't say `Ba@ss{}tuba' but `Baßtuba'.  This ensures that
+  all such characters appear in all output formats.
 
-  Examples about page layout may alter the quote/ragged-right
-  options.  Omitting `verbatim' is not recommended (other than the
-  ``inspirational headword'' examples)
+* Don't use a @ref{link to another section} in the middle of a
+  sentence.  It looks ok in HTML, moderately bad in PDF, and
+  utterly horrible in INFO.  Instead, reword the sentence so that
+  users are encouraged to see @ref{link to another section}.
+  (at the end of the sentence)
 
 * Do not forget to create @cindex entries for new sections of text.
   Enter commands with @funindex, i.e.
@@ -170,10 +178,6 @@ highly recommended.
     @funindex \relative
   do not bother with the @code{} (they are added automatically).  These
   items are added to both the command index and the unified index.
-
-* Avoid long stretches of input code.  Noone is going to read them in
-  print.  Instead refer to an example input file (with @lsr{}); these
-  are clickable in HTML.
 
 * Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
 
@@ -185,7 +189,7 @@ highly recommended.
   3. When adding a defining example at the end of a sentence.
 
 
-%%%%% HINTS FOR TECHNICAL WRITING STYLE
+%%%%% TECHNICAL WRITING STYLE
 
 * Do not refer to LilyPond in the text.  The reader knows what the
   manual is about.  If you do, capitalization is LilyPond.
@@ -206,6 +210,16 @@ highly recommended.
 
 * The use of the word `illegal' is inappropriate in most cases.
   Say `invalid' instead.
+
+
+%%%%% UPDATING DOCS
+convert-ly -e --from=... --to=... --no-version *.itely
+
+% to find the current version number,
+grep "version \"" tutorial.itely
+
+%  (nobody ever remembers to update this file, so I've stopped
+%  trying to record it here)
 
 
 
