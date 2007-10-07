@@ -2455,7 +2455,49 @@ Performance indications concerning 1. volume, dynamics (for example
 @node extender line
 @section extender line
 
-FIXME: add this
+FIXME: add languages
+
+ES: línea de extención [de melisma, de bajo cifrado, etc.],
+I: ?,
+F: ligne d'extension [de mélisme, de basse chiffrée, etc.],
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: .
+
+The generic term for a line (or dash) of arbitrary length that
+extends text (without indicating the musical @emph{function} of
+that text.
+
+Used in many contexts, for example:
+
+@itemize
+@item
+In vocal music to indicate a single syllable to be sung for a
+@aref{melisma}
+
+@item
+In figured bass (or @aref{thorough bass}) to indicate that:
+
+	@itemize
+	@item The extended note should be held through a change in
+		harmony, when applied to one figure --OR--
+
+	@item The chord thus represented should be held above a moving
+		bass line, when applied to more than one figure.
+
+	@item These uses were not completely standardized, and some
+		composers used a single extender line to indicate the
+		latter case.
+
+	@item For more information see "Thorough bass"
+
+	@end itemize
+
+@item In string music, see "String indicator"
+
+@end itemize
 
 @node F
 @section F
