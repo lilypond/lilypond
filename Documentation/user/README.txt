@@ -3,8 +3,9 @@ Info for Documentation
 
 %%%%% BOOKS
 
-There are three parts to the documentation: the Learning Manual,
-the Notation Reference, and the Technical Details.
+There are four parts to the documentation: the Learning Manual,
+the Notation Reference, the Program Reference, and the Music
+Glossary.
 
 * Learning Manual: long, chatty, friendly explanations go here.
   This is aimed at users learning something for the first time --
@@ -30,13 +31,21 @@ start-to-finish.
 Users are not expected to read this manual from start to finish.
 However, they should be familiar with the material in the Learning
 Manual (particularly ``Fundamental Concepts''), so do not repeat
-that material in this book.
+that material in this book.  Also, you should assume that users
+know what the notation means; explaining musical concepts happens
+in the Music Glossary.
 
 
 * Program Usage: information about using the program lilypond with
   other programs (lilypond-book, operating systems, GUIs,
   convert-ly, etc).  This section is written in formal technical
   writing style.
+
+Users are not expected to read this manual from start to finish.
+
+
+* Music Glossary: information about the music notation itself.
+  Explainations and translations about notation terms go here.
 
 Users are not expected to read this manual from start to finish.
 

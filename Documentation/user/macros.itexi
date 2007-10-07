@@ -6,7 +6,6 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --

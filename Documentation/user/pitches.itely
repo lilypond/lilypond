@@ -615,11 +615,10 @@ a @code{\transpose}.
 
 @funindex \clef
 
-The clef indicates which lines of the staff correspond to which
-pitches.  The clef is set with the @code{\clef} command
+The clef is set with the @code{\clef} command
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-{ c''2 \clef alto g'2 }
+{ \clef treble g'1^G \clef alto c'1^C \clef bass f1^F }
 @end lilypond
 
 @cindex treble clef
@@ -634,9 +633,14 @@ pitches.  The clef is set with the @code{\clef} command
 @cindex varbaritone clef
 @cindex subbass clef
 
+The same clef symbols are used in different positions on
+the staff to change the range of notes shown by that staff.
+The treble (alto, bass) clef is always positioned to show
+the line on which a G (C, F) note is shown.
+ 
 Supported clefs include
 
-@multitable @columnfractions .33 .66
+@multitable @columnfractions .4 .6
 @headitem Clef @tab Position
 @item @code{treble}, violin, G, G2 @tab
 G clef on 2nd line
