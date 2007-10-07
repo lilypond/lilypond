@@ -41,7 +41,7 @@
 @sp 1
 @end macro
 
-@c absolete; being removed.
+@c obsolete; being removed.
 @macro refcommands
 @noindent
 @subsubheading Predefined commands
@@ -70,11 +70,6 @@
 @macro context{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}@c should use internalsref
-@end macro
-
-@macro refcommand{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}
 @end macro
 
 @macro funindex {TEXT}
