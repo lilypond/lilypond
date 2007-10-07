@@ -1228,7 +1228,7 @@ FI: avain, nuottiavain.
 The clef indicates which lines of the staff correspond to which
 pitches.  The three clef symbols in common use are:
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[ragged-right,quote]
 \markup {
  \column {
   \line { "The Treble or G clef:   " \musicglyph #"clefs.G" }
@@ -1242,7 +1242,7 @@ Imagine a large staff of 11 lines centered on middle C,
 sometimes called a @qq{grand staff}, with
 the bottom line representing low G and the top line high F:
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[ragged-right,quote]
 \score {
  <<
 %-- Treble Staff --%
@@ -1321,7 +1321,7 @@ which five lines have been selected from this @qq{grand staff}.
 For example, the treble or G clef indicates that the top five
 lines have been selected:
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[ragged-right,quote]
 \score {
  <<
 %-- Treble Staff --%
@@ -1410,7 +1410,7 @@ the middle five lines have been selected.  This
 relationship is shown below, where the notes show
 an arpeggio on a C major chord.
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[ragged-right,quote]
 \score {
 <<
 %-- Treble Staff --%
@@ -1513,7 +1513,7 @@ geometrically describes the development of a range of pitches
 geometrical shape of a cluster covers the area in which any single
 pitch contained in the cluster would be notated as an ordinary note.
 
-@lilypond[fragment,relative=2,verbatim,ragged-right]
+@lilypond[fragment,relative=2,ragged-right]
 \makeClusters { <c e> <b f'> <b g'> <c g> <f e> }
 @end lilypond
 
