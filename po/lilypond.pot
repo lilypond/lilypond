@@ -3,7 +3,6 @@
 # This file is distributed under the same license as lilypond package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.11.34\n"
