@@ -615,12 +615,9 @@ a @code{\transpose}.
 
 @funindex \clef
 
-The clef is set with the @code{\clef} command
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-{ \clef treble g'1^G \clef alto c'1^C \clef bass f1^F }
-@end lilypond
-
+@cindex G clef
+@cindex C clef
+@cindex F clef
 @cindex treble clef
 @cindex violin clef
 @cindex alto clef
@@ -633,40 +630,49 @@ The clef is set with the @code{\clef} command
 @cindex varbaritone clef
 @cindex subbass clef
 
-The same clef symbols are used in different positions on
+The clef is set with the @code{\clef} @var{clefname} 
+command:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+{ \clef treble g'4^G \clef alto c'4^C \clef bass f4^F }
+@end lilypond
+
+These same clef symbols are used in different positions on
 the staff to change the range of notes shown by that staff.
 The treble (alto, bass) clef is always positioned to show
-the line on which a G (C, F) note is shown.
+the line on which a g' (c', f) note is printed.
  
 Supported clefs include
 
 @multitable @columnfractions .4 .6
 @headitem Clef @tab Position
-@item @code{treble}, violin, G, G2 @tab
-G clef on 2nd line
+@item @code{treble, violin, G, G2} @tab
+G clef (g') on 2nd line
 @item @code{alto, C} @tab
-C clef on 3rd line
+C clef (c') on 3rd line
 @item @code{tenor} @tab
-C clef on 4th line.
+C clef (c') on 4th line.
 @item @code{bass, F} @tab
-F clef on 4th line
+F clef (f) on 4th line
 @item @code{french} @tab
-G clef on 1st line, so-called French violin clef
+G clef (g') on 1st line, so-called French violin clef
 @item @code{soprano} @tab
-C clef on 1st line
+C clef (c') on 1st line
 @item @code{mezzosoprano} @tab
-C clef on 2nd line
+C clef (c') on 2nd line
 @item @code{baritone} @tab
-C clef on 5th line
+C clef (c') on 5th line
 @item @code{varbaritone} @tab
-F clef on 3rd line
+F clef (f) on 3rd line
 @item @code{subbass} @tab
-F clef on 5th line
+F clef (f) on 5th line
 @item @code{percussion} @tab
 percussion clef
 @item @code{tab} @tab
 tablature clef
 @end multitable
+
+Further supported clefs are described under @ref{Ancient clefs}.
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
@@ -675,6 +681,7 @@ must be enclosed in quotes when it contains underscores or digits.
 For example,
 
 @cindex choral tenor clef
+
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \clef "G_8" c4
 @end lilypond
@@ -685,9 +692,54 @@ For example,
 The command @code{\clef "treble_8"} is equivalent to setting
 @code{clefGlyph}, @code{clefPosition} (which controls the Y
 position of the clef), @code{middleCPosition} and
-@code{clefOctavation}.  A clef is printed when any of these
-properties are changed.  The following example shows possibilities
-when setting properties manually.
+@code{clefOctavation}.  A clef is printed when either the
+@code{clefGlyph}, @code{clefPosition} or @code{clefOctavation}
+properties are changed.  Note that changing the glyph, the 
+position of the clef, or the octavation, does not in itself change
+the position of subsequent notes on the staff: the position of
+middle C must also be specified to do this.  The positional
+parameters are relative to the staff centre line, positive
+numbers displacing upwards, counting 1 for each line and
+space.  The clefOctavation value would normally be set to
+7, -7, 15 or -15, but other values are not invalid.
+
+The following examples show the possibilities
+when setting properties manually.  First some
+manual changes which preserve the standard relative
+positioning of clefs and notes:
+
+@lilypond[quote,ragged-right,verbatim]
+{
+  % The default treble clef
+  c'4
+  % The standard bass clef
+  \set Staff.clefGlyph = #"clefs.F"
+  \set Staff.clefPosition = #2
+  \set Staff.middleCPosition = #6
+  c'4
+  % The baritone clef
+  \set Staff.clefGlyph = #"clefs.C"
+  \set Staff.clefPosition = #4
+  \set Staff.middleCPosition = #4
+  c'4
+  % The standard choral tenor clef
+  \set Staff.clefGlyph = #"clefs.G"
+  \set Staff.clefPosition = #-2
+  \set Staff.clefOctavation = #7
+  \set Staff.middleCPosition = #1
+  c'4
+  % A non-standard clef
+  \set Staff.clefPosition = #0
+  \set Staff.clefOctavation = #0
+  \set Staff.middleCPosition = #-4
+  c'4
+}
+@end lilypond
+
+and some which do not:
+
+@c TODO TD Should we keep these misleading examples?
+@c TODO TD They may have value in creating educational material
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -703,20 +755,16 @@ when setting properties manually.
   \set Staff.clefOctavation = #0
   \set Staff.clefPosition = #0
   c'4
-  \clef "bass"
-  c'4
   \set Staff.middleCPosition = #4
   c'4
 }
 @end lilypond
-
 
 @seealso
 
 Program reference: @internalsref{Clef}.
 
 This manual: @ref{Ancient clefs}.
-
 
 @node Key signature
 @unnumberedsubsubsec Key signature
