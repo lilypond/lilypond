@@ -208,6 +208,7 @@ Languages in this order.
 * diatonic scale::              
 * diminished interval::         
 * diminuendo::                  
+* direct::                      
 * disjunct movement::           
 * dissonance::                  
 * dissonant interval::          
@@ -258,6 +259,7 @@ Languages in this order.
 * grand staff::                 
 * grave::                       
 * gruppetto::                   
+* H::                           
 * half note::                   
 * half rest::                   
 * harmonic cadence::            
@@ -422,6 +424,8 @@ NL: a,
 DK: a,
 S: a,
 FI: A, a.
+
+@aref{Pitch names}
 
 @node accent
 @section accent
@@ -641,10 +645,11 @@ S: förslag,
 FI: appoggiatura, etuhele.
 
 Ornamental note, usually a second, that is melodically connected with the
-main note following it.  In music before the 19th century a.@: were usually
-performed on the beat, after that mostly before the beat.  While the short
-a.@: is performed as a short note regardless of the duration of the main note
-the duration of the long a.@: is proportional to that of the main note.
+main note following it.  In music before the 19th century appoggiature were
+usually performed on the beat, after that mostly before the beat.  While the
+short appoggiatura is performed as a short note regardless of the duration of
+the main note the duration of the long appoggiatura is proportional to that of
+the main note.
 
 @lilypond[line-width=13.0\cm]
 \context Voice \relative c'' {
@@ -722,11 +727,18 @@ FI: arpeggio, murtosointu.
 @node articulation
 @section articulation
 
-@c TODO: add languages for articulation.
+ES: articulación,
+I: articulazione,
+F: articulation,
+D: Artikulation,
+NL: articulatie,
+DK: ?,
+S: ?,
+FI: ?.
+
 Articulation refers to notation which indicates how a note or notes should
 be played.  Slurs, accents, staccato, and legato are all examples of
 articulartion.
-
 
 @node ascending interval
 @section ascending interval
@@ -785,6 +797,8 @@ NL: b,
 DK: h,
 S: h,
 FI: H, h.
+
+@aref{Pitch names}
 
 @node backfall
 @section backfall
@@ -845,7 +859,7 @@ C or F clef setting middle C on the upper staff line.
 
 ES: clave de fa en cuarta,
 I: chiave di basso,
-F: clé de fa quatrième ligne,
+F: clef de fa quatrième ligne,
 D: Bassschlüssel,
 NL: bassleutel,
 DK: basnøgle,
@@ -1016,12 +1030,14 @@ DK: c,
 S: c,
 FI: C, c.
 
+@aref{Pitch names}
+
 @node C clef
 @section C clef
 
 ES: clave de do,
 I: chiave di do,
-F: clé d'ut,
+F: clef d'ut,
 D: C-Schlüssel,
 NL: C-sleutel,
 DK: c-nøgle,
@@ -1400,7 +1416,7 @@ lines have been selected:
 }  % End score
 @end lilypond
 
-Note the @qq{curl} of the G clef in centered on the
+The @qq{curl} of the G clef in centered on the
 line which represents the pitch G.
 
 In the same way, the bass or F clef indicates that
@@ -1721,7 +1737,7 @@ abbreviation @q{cresc.}.
 
 ES: notas guía,
 I: notine,
-F: petites notes précédent l'entrée d'in instrument, réplique,
+F: petites notes précédent l'entrée d'un instrument, réplique,
 D: Stichnoten,
 NL: stichnoten,
 DK: stiknoder,
@@ -1780,6 +1796,8 @@ NL: d,
 DK: d,
 S: d,
 FI: D, d.
+
+@aref{Pitch names}
 
 @node da capo
 @section da capo
@@ -2056,6 +2074,20 @@ FI: diminuendo, hiljentyen.
 
 @aref{decrescendo}.
 
+@node direct
+@section direct
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@aref{custos}.
+
 @node disjunct movement
 @section disjunct movement
 
@@ -2167,6 +2199,8 @@ NL: punt,
 DK: punkt,
 S: punkt,
 FI: piste.
+
+@c TODO: fix double redirect -- to "dotted note", and thence to "note value"?
 
 @aref{dotted note}.
 
@@ -2327,6 +2361,8 @@ DK: e,
 S: e,
 FI: E, e.
 
+@aref{Pitch names}
+
 @node ecclesiastical mode
 @section ecclesiastical mode
 
@@ -2474,13 +2510,14 @@ Used in many contexts, for example:
 
 @itemize
 @item
-In vocal music to indicate a single syllable to be sung for a
-@aref{melisma}
+In vocal music to indicate a single syllable to be sung for a melisma.  Called
+extension the the Dolmetsch Online Music Dictionary.
 
 @item
-In figured bass (or @aref{thorough bass}) to indicate that:
+In figured (or thorough) bass to indicate that:
 
 	@itemize
+
 	@item The extended note should be held through a change in
 		harmony, when applied to one figure --OR--
 
@@ -2491,13 +2528,20 @@ In figured bass (or @aref{thorough bass}) to indicate that:
 		composers used a single extender line to indicate the
 		latter case.
 
-	@item For more information see "Thorough bass"
-
 	@end itemize
 
-@item In string music, see "String indicator"
+@item
+In string music to indicate that all notes thus indicated should be played on
+the same string. On the violin, for example, a series of notes to be played on
+the G string would be indicated @q{sul G}, another series to be played on the
+D string would be indicated @q{sul D}, and so on.
 
 @end itemize
+
+@aref{melisma}, @aref{thorough bass}
+
+Sul G, Sul D, Sul A, Sul E
+
 
 @node F
 @section F
@@ -2511,12 +2555,14 @@ DK: f,
 S: f,
 FI: F, f.
 
+@aref{Pitch names}
+
 @node F clef
 @section F clef
 
 ES: clave de fa,
 I: chiave di fa,
-F: clé de fa,
+F: clef de fa,
 D: F-Schlüssel,
 NL: F-sleutel,
 DK: F-nøgle,
@@ -2526,8 +2572,8 @@ FI: F-avain.
 The position between the dots of the key symbol is the line of the F below
 central@w{ }C.  Used on the third, fourth and fifth note line.  A
 digit@w{ }8 above the clef symbol indicates that the notes must be played
-an octave higher (for example bass recorder) while 8@w{ }below the clef
-symbol indicates playing an octave lower (for example on double bass
+an octave higher (for example, bass recorder) while 8@w{ }below the clef
+symbol indicates playing an octave lower (for example, on double bass
 @aref{strings}).
 
 @lilypond[fragment,notime,line-width=13.0\cm]
@@ -2547,7 +2593,7 @@ symbol indicates playing an octave lower (for example on double bass
   f1
 }
  \lyrics {
-  "baritone  "
+  "varbaritone  "
   "bass  "
   "sub-bass  "
   "octaved up  "
@@ -2555,6 +2601,8 @@ symbol indicates playing an octave lower (for example on double bass
 }
 >>
 @end lilypond
+
+@aref{baritone clef}
 
 @c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
 
@@ -2742,12 +2790,14 @@ DK: g,
 S: g,
 FI: G, g.
 
+@aref{Pitch names}
+
 @node G clef
 @section G clef
 
 ES: clave de sol,
 I: chiave di sol,
-F: clé de sol,
+F: clef de sol,
 D: G-Schlüssel, Violinschlüssel,
 NL: G-sleutel,
 DK: g-nøgle,
@@ -2849,6 +2899,23 @@ Slow, solemn.
 @section gruppetto
 
 @aref{turn}.
+
+@node H
+@section H
+
+ES: si,
+I: si,
+F: si,
+D: H, h,
+NL: b,
+DK: h,
+S: h,
+FI: H, h.
+
+Letter name used for @q{B natural} in German and Scandinavian usage.  In the
+standard usage of these countries, @q{B} means @q{B flat}.
+
+@aref{Pitch names}, @aref{B}
 
 @node half note
 @section half note
@@ -3813,7 +3880,7 @@ half.  Another dot adds yet a fourth of the duration.
 
 Alternatively note values may be subdivided by other ratios.  Most common is
 subdivision by@w{ }3 (@emph{triplets}) and@w{ }5 (@emph{quintuplets}).
-Subdivisions by@w{ }2 (@emph{tuplets}) or@w{ }4 (@emph{quadruplets}) of
+Subdivisions by@w{ }2 (@emph{duplets}) or@w{ }4 (@emph{quadruplets}) of
 dotted notes are also frequently used.
 
 @lilypond[fragment,line-width=13.0\cm]
@@ -3947,7 +4014,7 @@ melodic line of the contrapunctal web.
 @node pause
 @section pause
 
-@ref{fermata}.
+@aref{fermata}.
 
 @node pennant
 @section pennant
@@ -4193,8 +4260,7 @@ DK: paralleltoneart,
 S: parallelltonart,
 FI: rinnakkaissävellaji.
 
-@aref{major} and @aref{minor} @aref{key}
-with the same @aref{key signature}.
+@aref{major} and @aref{minor} @aref{key}s with the same @aref{key signature}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -5144,7 +5210,7 @@ relative pitches.
 
 ES: clave de sol,
 I: chiave di violino,
-F: clé de sol,
+F: clef de sol,
 D: Violinschlüssel, Sopranschlüssel,
 NL: viool sleutel,
 DK:@w{ }diskantnøgle,
@@ -5434,7 +5500,7 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab @strong{FI}
   @tab @strong{ES}
 
-@item
+@c extra @items make this table harder to read, so I removed them.
 
 @item @strong{longa}
   @tab longa
@@ -5449,8 +5515,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab longa
   @tab longa
 
-@item
-
 @item @strong{breve}
   @tab breve
   @tab breve
@@ -5463,8 +5527,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab brevis
   @tab brevis
   @tab cuadrada
-
-@item
 
 @item @strong{whole}
   @tab semi@-breve
@@ -5479,8 +5541,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab koko@-nuotti/@w{-tauko}
   @tab redonda
 
-@item
-
 @item @strong{half}
   @tab minim
   @tab minima
@@ -5493,8 +5553,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab halv
   @tab puoli@-nuotti/@w{-tauko}
   @tab blanca
-
-@item
 
 @item @strong{quarter}
   @tab crotchet
@@ -5509,8 +5567,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab neljännesosa@-nuotti/@w{-tauko}
   @tab negra
 
-@item
-
 @item @strong{eighth}
   @tab quaver
   @tab croma
@@ -5523,8 +5579,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab åttondel
   @tab kahdeksasosa@-nuotti/@w{-tauko}
   @tab corchea
-
-@item
 
 @item @strong{sixteenth}
   @tab semiquaver
@@ -5539,8 +5593,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab kuudestoistaosa@-nuotti/@w{-tauko}
   @tab semicorchea
 
-@item
-
 @item @strong{thirty-second}
   @tab demisemiquaver
   @tab biscroma
@@ -5553,8 +5605,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab trettiotvåondel
   @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
   @tab fusa
-
-@item
 
 @item @strong{sixty-fourth}
   @tab hemidemisemiquaver
@@ -5570,7 +5620,6 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
   @tab semifusa
 
 @end multitable
-@c @item @tab @tab @tab @tab @tab @tab @tab @tab @tab
 
 @node Pitch names
 @chapter Pitch names
@@ -5580,67 +5629,45 @@ symphony orchestra are flute, oboe, clarinet, saxophone, and bassoon.
 @end table
 
 @c @multitable @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
+@c the extra @item's between each row makes the table hard to read ... so I removed them
+
 @multitable @columnfractions .11 .14 .14 .11 .1 .1 .1 .1 .1
+
+@c TODO -- figure out how to make _real_ table headers in TeXinfo
 
 @item @tab @strong{ES} @tab @strong{I} @tab @strong{F} @tab @strong{D}
 @tab @strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI}
 
-@item
-
 @item @strong{c} @tab do  @tab do  @tab ut @tab C @tab c @tab c @tab c @tab c
 
-@item
+@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut dièse
+@tab Cis  @tab cis  @tab cis  @tab cis  @tab cis
 
-@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut dièse @tab
-Cis @tab cis @tab
-cis @tab cis @tab cis
+@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol  @tab Des
+@tab des  @tab des  @tab des  @tab des
 
-@item
+@item @strong{d} @tab re  @tab re  @tab ré  @tab D  @tab d  @tab d  @tab d  @tab d
 
-@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol @tab
-Des @tab des @tab
-des @tab des @tab des
+@item @strong{e-flat} @tab mi bemol  @tab mi bemolle  @tab mi bémol @tab Es
+@tab es  @tab es  @tab es  @tab es
 
-@item
-
-@item @strong{d} @tab re  @tab re  @tab ré @tab D @tab d @tab d @tab d @tab d
-
-@item
-
-@item @strong{e} @tab mi  @tab mi  @tab mi @tab E @tab e @tab e @tab e @tab e
-
-@item
+@item @strong{e} @tab mi @tab mi @tab mi @tab E @tab e @tab e @tab e @tab e
 
 @item @strong{f} @tab fa  @tab fa  @tab fa @tab F @tab f @tab f @tab f @tab f
-
-@item
 
 @item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g @tab g
 @tab g
 
-@item
-
 @item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol @tab As
-@tab as @tab as
-@tab as @tab as
-
-@item
+@tab as  @tab as  @tab as  @tab as
 
 @item @strong{a} @tab la  @tab la  @tab la @tab A @tab a @tab a @tab a @tab a
 
-@item
+@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la dièse
+@tab Ais  @tab ais  @tab ais  @tab ais  @tab ais
 
-@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la dièse @tab
-Ais @tab ais @tab
-ais @tab ais @tab ais
-
-@item
-
-@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol @tab B
-@tab bes @tab b
-@tab b @tab b
-
-@item
+@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol  @tab B
+@tab bes  @tab b  @tab b  @tab b
 
 @item @strong{b} @tab si  @tab si  @tab si @tab H @tab b @tab h @tab h @tab h
 
