@@ -148,7 +148,10 @@ class Duration:
         str = '%d%s' % (1 << self.duration_log, '.'*self.dots)
 
         if factor <> Rational (1,1):
-            str += '*%d/%d' % (factor.numerator (), factor.denominator ())
+            if factor.denominator () <> 1:
+                str += '*%d/%d' % (factor.numerator (), factor.denominator ())
+            else:
+                str += '*%d' % factor.numerator ()
 
         return str
     
@@ -537,6 +540,13 @@ class EventChord (NestedMusic):
 
         self.print_comment (printer)
             
+class Partial (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.partial = None
+    def print_ly (self, printer):
+        if self.partial:
+            printer.dump ("\\partial %s" % self.partial.ly_expression ())
 
 class BarCheck (Music):
     def __init__ (self):

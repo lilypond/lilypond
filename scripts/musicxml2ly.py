@@ -150,7 +150,21 @@ def musicxml_duration_to_lily (mxl_note):
     if not mxl_note.get_maybe_exist_typed_child (musicxml.Grace):
         d.factor = mxl_note._duration / d.get_length ()
 
-    return d         
+    return d
+
+def rational_to_lily_duration (rational_len):
+    d = musicexp.Duration ()
+    d.duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
+    d.factor = Rational (rational_len.numerator ())
+    return d
+
+def musicxml_partial_to_lily (partial_len):
+    if partial_len > 0:
+        p = musicexp.Partial ()
+        p.partial = rational_to_lily_duration (partial_len)
+        return p
+    else:
+        return Null
 
 def group_tuplets (music_list, events):
 
@@ -535,6 +549,7 @@ class LilyPondVoiceBuilder:
         self.end_moment = Rational (0)
         self.begin_moment = Rational (0)
         self.pending_multibar = Rational (0)
+        self.ignore_skips = False
 
     def _insert_multibar (self):
         r = musicexp.MultiMeasureRest ()
@@ -575,6 +590,9 @@ class LilyPondVoiceBuilder:
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
         self.elements.append (command)
+    def add_partial (self, command):
+        self.ignore_skips = True
+        self.add_command (command)
 
     def add_dynamics (self, dynamic):
         # store the dynamic item(s) until we encounter the next note/rest:
@@ -593,7 +611,7 @@ class LilyPondVoiceBuilder:
             error_message ('Negative skip %s' % diff)
             diff = Rational (0)
 
-        if diff > Rational (0):
+        if diff > Rational (0) and not self.ignore_skips:
             skip = musicexp.SkipEvent()
             skip.duration.duration_log = 0
             skip.duration.factor = diff
@@ -601,7 +619,10 @@ class LilyPondVoiceBuilder:
             evc = musicexp.EventChord ()
             evc.elements.append (skip)
             self.add_music (evc, diff)
-                
+
+        if diff > Rational (0) and moment == 0:
+            self.ignore_skips = False
+
     def last_event_chord (self, starting_at):
 
         value = None
@@ -646,6 +667,12 @@ def musicxml_voice_to_lily_voice (voice):
         if n.get_name () == 'forward':
             continue
 
+        if isinstance (n, musicxml.Partial) and n.partial > 0:
+            a = musicxml_partial_to_lily (n.partial)
+            if a:
+                voice_builder.add_partial (a)
+            continue
+
         if isinstance (n, musicxml.Direction):
             for a in musicxml_direction_to_lily (n):
                 if a.wait_for_note ():
@@ -667,8 +694,9 @@ def musicxml_voice_to_lily_voice (voice):
                     number = int (n.get_parent ().number)
                 except ValueError:
                     number = 0
+                if number > 0:
+                    voice_builder.add_bar_check (number)
                 
-                voice_builder.add_bar_check (number)
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_music (a, Rational (0))
             continue
@@ -689,7 +717,8 @@ def musicxml_voice_to_lily_voice (voice):
                 num = int (n.get_parent ().number)
             except ValueError:
                 num = 0
-            voice_builder.add_bar_check (num)
+            if num > 0:
+                voice_builder.add_bar_check (num)
         
         main_event = musicxml_note_to_lily_main_event (n)
 

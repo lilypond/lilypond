@@ -271,6 +271,10 @@ class Attributes (Measure_element):
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)
                 
+class Partial (Measure_element):
+    def __init__ (self, partial):
+        Measure_element.__init__ (self)
+        self.partial = partial
 
 class Note (Measure_element):
     def __init__ (self):
@@ -337,6 +341,11 @@ class Score_part (Music_xml_node):
     pass
         
 class Measure (Music_xml_node):
+    def __init__ (self):
+        Music_xml_node.__init__ (self)
+        self.partial = 0
+    def is_implicit (self):
+        return hasattr (self, 'implicit') and self.implicit == 'yes'
     def get_notes (self):
 	return self.get_typed_children (get_class (u'note'))
 
@@ -443,10 +452,35 @@ class Part (Music_xml_node):
 	measures = self.get_typed_children (Measure)
         last_moment = Rational (-1)
         last_measure_position = Rational (-1)
+        measure_position = Rational (0)
+        measure_start_moment = now
+        is_first_measure = True
+        prvious_measure = None
 	for m in measures:
-            measure_start_moment = now
-            measure_position = Rational (0)
-	    for n in m.get_all_children ():
+            # implicit measures are used for artificial measures, e.g. when
+            # a repeat bar line splits a bar into two halves. In this case,
+            # don't reset the measure position to 0. They are also used for
+            # upbeats (initial value of 0 fits these, too).
+            # Also, don't reset the measure position at the end of the loop,
+            # but rather when starting the next measure (since only then do we
+            # know if the next measure is implicit and continues that measure)
+            if not m.is_implicit ():
+                # Warn about possibly overfull measures and reset the position
+                if attributes_object:
+                    length = attributes_object.get_measure_length ()
+                    new_now = measure_start_moment + length
+                    if now <> new_now:
+                        problem = 'incomplete'
+                        if now > new_now:
+                            problem = 'overfull'
+                        ## only for verbose operation.
+                        if problem <> 'incomplete' and previous_measure:
+                            previous_measure.message ('%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
+                    now = new_now
+                measure_start_moment = now
+                measure_position = Rational (0)
+
+            for n in m.get_all_children ():
                 if isinstance (n, Hash_text):
                     continue
 		dur = Rational (0)
@@ -505,20 +539,16 @@ class Part (Music_xml_node):
                     if instrument:
                         n.instrument_name = part_list.get_instrument (instrument.id)
 
-            if attributes_object:
-                length = attributes_object.get_measure_length ()
-                new_now = measure_start_moment + length
-                
-                if now <> new_now:
-                    problem = 'incomplete'
-                    if now > new_now:
-                        problem = 'overfull'
-
-                    ## only for verbose operation.
-                    if problem <> 'incomplete':
-                        m.message ('%s measure? Expected: %s, Difference: %s' % (problem, now, new_now - now))
-
-                now = new_now
+            # Incomplete first measures are not padded, but registered as partial
+            if is_first_measure:
+                is_first_measure = False
+                # upbeats are marked as implicit measures
+                if attributes_object and m.is_implicit ():
+                    length = attributes_object.get_measure_length ()
+                    measure_end = measure_start_moment + length
+                    if measure_end <> now:
+                        m.partial = now
+            previous_measure = m
 
     # modify attributes so that only those applying to the given staff remain
     def extract_attributes_for_staff (part, attr, staff):
@@ -535,6 +565,8 @@ class Part (Music_xml_node):
 	measures = part.get_typed_children (Measure)
 	elements = []
 	for m in measures:
+            if m.partial > 0:
+                elements.append (Partial (m.partial))
 	    elements.extend (m.get_all_children ())
         # make sure we know all voices already so that dynamics, clefs, etc.
         # can be assigned to the correct voices
@@ -572,7 +604,7 @@ class Part (Music_xml_node):
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
-	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) ):
+	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) or isinstance (n, Partial) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
@@ -585,6 +617,11 @@ class Part (Music_xml_node):
                     staff_attributes = part.extract_attributes_for_staff (n, s)
                     for v in vids:
                         voices[v].add_element (staff_attributes)
+                continue
+
+            if isinstance (n, Partial):
+                for v in voices.keys ():
+                    voices[v].add_element (n)
                 continue
 
             if isinstance (n, Direction):
