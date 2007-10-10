@@ -156,7 +156,14 @@ def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()
     d.duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
     d.factor = Rational (rational_len.numerator ())
-    return d
+    if d.duration_log < 0:
+        error_message ("Encountered rational duration with denominator %s, "
+                       "unable to convert to lilypond duration" %
+                       rational_len.denominator ())
+        # TODO: Test the above error message
+        return None
+    else:
+        return d
 
 def musicxml_partial_to_lily (partial_len):
     if partial_len > 0:
