@@ -567,9 +567,9 @@ mus = { c d e f }
 
 @code{\transpose} may also be used to input written notes for a
 transposing instrument.  Pitches are normally entered into
-LilyPond in C (or @q{concert pitch}), but they may be entered in
-another key.  For example, when entering music for a B-flat
-trumpet which begins on concert D, one would write
+LilyPond in C (or @notation{concert pitch}), but they may be
+entered in another key.  For example, when entering music for a
+B-flat trumpet which begins on concert D, one would write
 
 @example
 \transpose c bes @{ e4 @dots{} @}

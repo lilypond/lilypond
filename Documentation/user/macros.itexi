@@ -31,6 +31,10 @@
 @end quotation
 @end macro
 
+@macro notation{TEXT}
+@var{\TEXT\}
+@end macro
+
 
 
 @c   **** Headings in a doc subsection ****

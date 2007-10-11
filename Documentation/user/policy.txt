@@ -60,8 +60,8 @@ main docs
 @seealso
 @refbugs
 
-* You must include a @seealso with at least one link to @lsrdir{}.
-  The order of items inside the @seealso section is
+* You _must_ include a @seealso.  The order of items inside the
+  @seealso section is
 
     Music glossary: @rgloss{foo}, @rgloss{bar}.
 
@@ -71,7 +71,7 @@ main docs
 
     Program reference: @internalsref{fazzle}, @internalsref{booar}.
 
-  ("Snippets" is required; the others are optional)
+  ("Snippets" is REQUIRED; the others are optional)
 
 * @commonprop and @refbugs are optional.
 
@@ -179,11 +179,20 @@ main docs
 
   Do not use @itemize @bullet.
 
-* Use @q instead of `...' and @qq instead of ``...''.  The latter macro
-  should be used with care since we use `...' as the default quoting
-  throughout the manual, except for things related to direct speech.
+* Specially-marked text:
 
-  In most cases, you should use @code{} or @samp{} instead.
+    @code{}: actual lilypond code or property/context names.
+    @samp{}: ditto, for single-letter code.
+	@notation{}: refers to pieces of notation, such as
+	  "@notation{crescendo} is often abbreviated as
+      @notation{cresc.}"  This should also be used to refer to
+      specific lyrics ("the @notation{A - men} is centered...")
+	@q{}: used for `vague' terms in English (and other natural
+      languages).
+	@qq{}: only for actual quotes -- i.e. "he said" or "she
+      wrote".
+
+* @warning{} produces a "Note: " box.  Use for important messages.
 
 
 %%%%% READABILITY
