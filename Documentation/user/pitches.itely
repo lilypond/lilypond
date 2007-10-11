@@ -636,15 +636,16 @@ command:
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
   \new Staff {
-    g'1^G  % default treble clef
+    % treble clef by default
+    c'1^"middle C"
   }
   \new Staff {
     \clef alto
-    c'1^C
+    c'1^"middle C"
   }
   \new Staff {
     \clef bass
-    f1^F
+    f1^"middle C"
   }
 >>
 @end lilypond
