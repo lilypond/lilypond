@@ -524,17 +524,18 @@ manual tweaks.
 @example
 %%  makes sure text scripts and lyrics are within the paper margins
 \override Score.PaperColumn #'keep-inside-line = ##t 
+\override Score.NonMusicalPaperColumn #'keep-inside-line = ##t
 @end example
 
-@c see issue 246
-In some cases, this must be done before @code{\override} commands
-can be processed.
+In some cases (see issue 246), this must be done before
+@code{\override} commands can be processed.
 
 @verbatim
 \new Score \with {
-      \override PaperColumn #'keep-inside-line = ##t 
+    \override PaperColumn #'keep-inside-line = ##t 
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
   } {
- ..
+   ..
 }
 @end verbatim
 
