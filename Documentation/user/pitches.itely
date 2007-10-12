@@ -10,10 +10,11 @@
 @node Pitches
 @section Pitches
 
-This section discusses how to specify the pitch of notes.
-
 @lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
 {pitches-headword.ly}
+
+This section discusses how to specify the pitch of notes.  There
+are three steps to this process: input, modifying, and output.
 
 @menu
 * Writing pitches::             
@@ -25,7 +26,7 @@ This section discusses how to specify the pitch of notes.
 @node Writing pitches
 @subsection Writing pitches
 
-Intro text.
+This section discusses how to input pitches.
 
 @menu
 * Absolute octave entry::       
@@ -83,6 +84,10 @@ c' c'' e' g d'' d' d c
 \clef bass
 c, c,, e, g d,, d, d c
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{pitch}
 
 
 @node Relative octave entry
@@ -205,7 +210,6 @@ may disappear in future versions, so its use is discouraged.
 
 
 
-
 @node Accidentals
 @unnumberedsubsubsec Accidentals
 
@@ -320,6 +324,8 @@ For @emph{musica ficta}, editorial accidentals placed above the
 staff commonly used in editions of early music, see @ref{Musica
 ficta accidentals}.
 
+Snippets: @lsrdir{pitch}
+
 Program reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
 
@@ -429,8 +435,16 @@ Catalan and Spanish no special names have been defined yet.
 @end multitable
 @end example
 
+@seealso
+
+Snippets: @lsrdir{pitch}
+
+
+
 @node Changing multiple pitches
 @subsection Changing multiple pitches
+
+This section discusses how to modify pitches.
 
 @menu
 * Octave check::                
@@ -499,6 +513,10 @@ deleted without changing the output of the piece.
   a
 }
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{pitch}
 
 
 @node Transpose
@@ -588,8 +606,8 @@ the existing music with another @code{transpose}
 
 Program reference: @internalsref{TransposedMusic}.
 
-Example:
-@lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Snippets: @lsrdir{pitch}, @lsr{scheme,
+transpose-pitches-with-minimum-accidentals.ly}.
 
 
 @refbugs
@@ -600,8 +618,11 @@ you must put @code{\transpose} outside of @code{\relative}, since
 a @code{\transpose}.
 
 
+
 @node Displaying pitches
 @subsection Displaying pitches
+
+This section discusses how to alter the output of pitches.
 
 @menu
 * Clef::                        
@@ -802,6 +823,8 @@ and some which do not:
 
 User manual: @ref{Ancient clefs}.
 
+Snippets: @lsrdir{pitch}
+
 Program reference: @internalsref{Clef}.
 
 @node Key signature
@@ -897,6 +920,8 @@ signature for generating a whole-tone scale:
 
 @seealso
 
+Snippets: @lsrdir{pitch}
+
 @c Link to snippet 248
 Another example of using @code{keySignature} can be found in
 @lsrdir{scordatura}
@@ -945,6 +970,8 @@ Internally the function sets the properties @code{ottavation}
 
 
 @seealso
+
+Snippets: @lsrdir{pitch}
 
 Program reference: @internalsref{OttavaBracket}.
 
@@ -1040,6 +1067,10 @@ saxophone = @{
 @noindent
 to serve as a reminder
 that these parts are written in C.
+
+@seealso
+
+Snippets: @lsrdir{pitch}
 
 
 
