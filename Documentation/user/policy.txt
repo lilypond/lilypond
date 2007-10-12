@@ -183,6 +183,12 @@ main docs
 
     @code{}: actual lilypond code or property/context names.
     @samp{}: ditto, for single-letter code.
+
+
+      ** Any `\' used inside the commands below must be       **
+      ** written as `\\'.  Even if they are inside a @code{}. **
+            ( this should only affect @warning{} )
+
 	@notation{}: refers to pieces of notation, such as
 	  "@notation{crescendo} is often abbreviated as
       @notation{cresc.}"  This should also be used to refer to
@@ -191,8 +197,8 @@ main docs
       languages).
 	@qq{}: only for actual quotes -- i.e. "he said" or "she
       wrote".
-
-* @warning{} produces a "Note: " box.  Use for important messages.
+	@warning{}: produces a "Note: " box.  Use for important
+      messages.
 
 
 %%%%% READABILITY

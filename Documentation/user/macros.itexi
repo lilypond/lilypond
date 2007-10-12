@@ -31,6 +31,7 @@
 @end quotation
 @end macro
 
+@c TODO: define different output for info
 @macro notation{TEXT}
 @var{\TEXT\}
 @end macro
