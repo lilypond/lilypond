@@ -5,6 +5,8 @@
 @documentencoding UTF-8
 @documentlanguage en
 
+@afourpaper
+
 @c see lilypond.tely for info installation note
 @dircategory LilyPond
 @direntry
