@@ -608,7 +608,7 @@ class LilyPondVoiceBuilder:
     def add_bar_check (self, number):
         b = musicexp.BarCheck ()
         b.bar_number = number
-        self.add_music (b, Rational (0))
+        self.add_command (b)
 
     def jumpto (self, moment):
         current_end = self.end_moment + self.pending_multibar
@@ -705,7 +705,7 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_bar_check (number)
                 
             for a in musicxml_attributes_to_lily (n):
-                voice_builder.add_music (a, Rational (0))
+                voice_builder.add_command (a)
             continue
 
         if not n.__class__.__name__ == 'Note':
