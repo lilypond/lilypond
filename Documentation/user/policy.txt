@@ -102,6 +102,25 @@ main docs
 * Avoid long stretches of input code.  Noone is going to read them
   in print.  Instead refer to an example input file with @lsr{}.
 
+* If you want to work on an example outside of the manual (for
+  easier/faster processing), use this header:
+
+\paper {
+  #(define dump-extents #t)
+  indent = 0\mm
+  line-width = 160\mm - 2.0 * 0.4\in
+  ragged-right = ##t
+  force-assignment = #""
+  line-width = #(- line-width (* mm  3.000000))
+}
+
+\layout {
+}
+
+  You may not change any of these values.  If you are making an
+  example demonstrating special \paper{} values, contact the
+  Documentation Editor.
+
 
 %%%%% TEXT FORMATTING
 
