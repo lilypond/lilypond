@@ -42,6 +42,8 @@ This section discusses how to input pitches.
 @cindex Pitch names
 @cindex pitches
 
+@c don't use @samp here because that might get confused with
+@c octave marks
 A pitch name is specified using lowercase letters @code{a} through
 @code{g}.  An ascending C-major scale is engraved with
 
@@ -58,6 +60,8 @@ is more fundamental and will be presented first.
 @cindex Absolute
 @cindex Absolute octave specification
 
+@c don't use @samp here because that might get confused with
+@c octave marks
 In absolute mode, every note is placed explicitly in a certain
 octave.  The note names @code{c} to @code{b} are engraved in the
 octave below middle C, as in the previous example.
@@ -74,8 +78,8 @@ c1
 
 If a note should be in another octave than this, an octave
 specification must be given.  It takes the form of a series of
-single quote (@samp{'}) or comma (@samp{,}) characters.  Each
-@samp{'} raises the pitch by one octave; each @samp{,} lowers the
+single quote (@code{'}) or comma (@code{,}) characters.  Each
+@code{'} raises the pitch by one octave; each @code{,} lowers the
 pitch by an octave.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -213,19 +217,23 @@ may disappear in future versions, so its use is discouraged.
 @node Accidentals
 @unnumberedsubsubsec Accidentals
 
+@warning{New users are sometimes confused about accidentals and
+key signatures.  In LilyPond, note names are the raw input; key
+signatures and clefs determine how this raw input is displayed.
+An unaltered note like @code{c} means @q{C natural}, regardless of
+the key signature or clef.  For more information, see
+@rlearning{Accidentals and key signatures}.}
+
 @cindex note names, Dutch
 @cindex note names, default
 
-@c following paragraph changed to match Tutorial and Accidental
-@c and Key Signature pages.  
-
-A @rglos{sharp} pitch is made by adding @samp{is} to the name, and
-a @rglos{flat} pitch by adding @samp{es}.  As you might expect,
-a @rglos{double sharp} or @rglos{double flat} is made by adding
-@samp{isis} or @samp{eses}.  This syntax derived from note naming
-conventions in Nordic and Germanic languages, like German and
-Dutch.  To use other names for accidentals, see @ref{Note names
-in other languages}.
+A @notation{sharp} pitch is made by adding @code{is} to the name,
+and a @notation{flat} pitch by adding @code{es}.  As you might
+expect, a @notation{double sharp} or @notation{double flat} is
+made by adding @code{isis} or @code{eses}.  This syntax derived
+from note naming conventions in Nordic and Germanic languages,
+like German and Dutch.  To use other names for accidentals, see
+@ref{Note names in other languages}.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a2 ais a aes
@@ -250,19 +258,6 @@ name:
 a4 aes a2
 @end lilypond
 
-The input @code{d e f} is interpreted as @q{print a D-natural,
-E-natural, and an F-natural,} regardless of the key signature.
-For more information about the distinction between musical content
-and the presentation of that content, see @rlearning{Accidentals
-and key signatures}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-\key d \major
-d e f g
-d e fis g
-@end lilypond
-
-
 
 @cindex accidental, reminder
 @cindex accidental, cautionary
@@ -277,7 +272,7 @@ Normally accidentals are printed automatically, but you may also
 print them manually.  A reminder accidental can be forced by
 adding an exclamation mark @code{!} after the pitch.  A cautionary
 accidental (i.e., an accidental within parentheses) can be
-obtained by adding the question mark @samp{?} after the pitch.
+obtained by adding the question mark @code{?} after the pitch.
 These extra accidentals can be used to produce natural signs, too.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
@@ -288,8 +283,8 @@ cis cis cis! cis? c c? c! c
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
-Half-flats and half-sharps are formed by adding @code{-eh} and
-@code{-ih}; the following is a series of Cs with increasing
+Half-flats and half-sharps are formed by adding @code{eh} and
+@code{ih}; the following is a series of Cs with increasing
 pitches
 
 @lilypond[verbatim,ragged-right,quote,relative=2,fragment]
@@ -304,8 +299,7 @@ Micro tones are also exported to the MIDI file.
 
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental needs to
-be cancelled.  To change this behavior, use @code{\set
-Staff.extraNatural = ##f}
+be cancelled.  To change this behavior, use
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 ceses4 ces cis c
@@ -316,13 +310,11 @@ ceses4 ces cis c
 
 @seealso
 
-The automatic production of accidentals can be tuned in many ways
-concerning for how long an accidental is considered to last.  For
-more information, see @ref{Automatic accidentals}.
+Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
+@rglos{double flat}.
 
-For @emph{musica ficta}, editorial accidentals placed above the
-staff commonly used in editions of early music, see @ref{Musica
-ficta accidentals}.
+User manual: @ref{Automatic accidentals}, @ref{Musica ficta
+accidentals}.
 
 Snippets: @lsrdir{pitch}
 
@@ -385,7 +377,7 @@ define are:
 
 @noindent
 Note that in Dutch, German, Norwegian, and Swedish, the flat
-alterations of @samp{a} like for example @code{aes} and
+alterations of @code{a} like for example @code{aes} and
 @code{aeses} are usually contracted to @code{as} and @code{ases}
 (or more commonly @code{asas}).  Sometimes only these contracted
 names are defined in the corresponding language files (this also
@@ -393,11 +385,11 @@ applies to the suffixes for quartertones below).
 
 @noindent
 Some music uses microtones whose alterations are fractions of a
-@q{regular} sharp or flat.  The note names for quartertones
-defined in the various language files are listed in the following
-table.  Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half}
-and @q{one and a half}, respectively.  For Norwegian, Swedish,
-Catalan and Spanish no special names have been defined yet.
+@q{normal} sharp or flat.  The note names for quartertones defined
+in the various language files are listed in the following table.
+Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
+@q{one and a half}, respectively.  For Norwegian, Swedish, Catalan
+and Spanish no special names have been defined yet.
 
 
 @c What about Turkish Maquam music and similar microtonal systems?
@@ -535,8 +527,8 @@ syntax is
 
 This means that @var{musicexpr} is transposed by the interval
 between the pitches @var{from} and @var{to}: any note with pitch
-@code{from} is changed to @code{to} and any other note is
-transposed by the same interval.
+@var{from} is changed to @var{to} and any other note is transposed
+by the same interval.
 
 Consider a piece written in the key of D-major.  If this piece is
 a little too low for its performer, it can be transposed up to
@@ -595,7 +587,7 @@ B-flat trumpet which begins on concert D, one would write
 
 To print this music in B-flat again (i.e., producing a trumpet
 part, instead of a concert pitch conductor's score) you would wrap
-the existing music with another @code{transpose}
+the existing music with another @code{\transpose}
 
 @example
 \transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
@@ -740,35 +732,33 @@ For example,
 
 @commonprop
 
-When a clef change takes place at a line break the new clef
-symbol is printed at both the end of the previous line and the
-beginning of the new line by default. 
-If the warning clef at the end
-of the previous line in not required it can be suppressed
-by setting the @code{explicitClefVisibility} Staff property
-to the value @var{end-of-line-invisible}:  
-@code{\set Staff.explicitClefVisibility = #end-of-line-invisible}
-The default behaviour can be recovered with
-@code{\unset Staff.explicitClefVisibility}
+When a clef change takes place at a line break the new clef symbol
+is printed at both the end of the previous line and the beginning
+of the new line by default.  If the warning clef at the end of the
+previous line in not required it can be suppressed by setting the
+@code{explicitClefVisibility} Staff property to the value
+@var{end-of-line-invisible}:  @code{\set
+Staff.explicitClefVisibility = #end-of-line-invisible} The default
+behaviour can be recovered with @code{\unset
+Staff.explicitClefVisibility}
 
 The command @code{\clef "treble_8"} is equivalent to setting
 @code{clefGlyph}, @code{clefPosition} (which controls the Y
 position of the clef), @code{middleCPosition} and
 @code{clefOctavation}.  A clef is printed when either the
 @code{clefGlyph}, @code{clefPosition} or @code{clefOctavation}
-properties are changed.  Note that changing the glyph, the 
+properties are changed.  Note that changing the glyph, the
 position of the clef, or the octavation, does not in itself change
 the position of subsequent notes on the staff: the position of
 middle C must also be specified to do this.  The positional
-parameters are relative to the staff centre line, positive
-numbers displacing upwards, counting 1 for each line and
-space.  The clefOctavation value would normally be set to
-7, -7, 15 or -15, but other values are not invalid.
+parameters are relative to the staff centre line, positive numbers
+displacing upwards, counting 1 for each line and space.  The
+clefOctavation value would normally be set to 7, -7, 15 or -15,
+but other values are not invalid.
 
-The following examples show the possibilities
-when setting these properties manually.  First some
-manual changes which preserve the standard relative
-positioning of clefs and notes:
+The following examples show the possibilities when setting these
+properties manually.  First some manual changes which preserve the
+standard relative positioning of clefs and notes:
 
 @lilypond[quote,ragged-right,verbatim]
 {
@@ -827,11 +817,19 @@ Snippets: @lsrdir{pitch}
 
 Program reference: @internalsref{Clef}.
 
+
 @node Key signature
 @unnumberedsubsubsec Key signature
 
 @cindex Key signature
 @funindex \key
+
+@warning{New users are sometimes confused about accidentals and
+key signatures.  In LilyPond, note names are the raw input; key
+signatures and clefs determine how this raw input is displayed.
+An unaltered note like @code{c} means @q{C natural}, regardless of
+the key signature or clef.  For more information, see
+@rlearning{Accidentals and key signatures}.}
 
 The key signature indicates the tonality in which a piece is
 played.  It is denoted by a set of alterations (flats or sharps)
@@ -841,7 +839,7 @@ Setting or changing the key signature is done with the @code{\key}
 command:
 
 @example
-@code{\key} @var{pitch} @var{type}
+\key @var{pitch} @var{type}
 @end example
 
 @funindex \minor
@@ -861,16 +859,7 @@ Here, @var{type} should be @code{\major} or @code{\minor} to get
 also use the standard mode names (also called @q{church modes}):
 @code{\ionian}, @code{\locrian}, @code{\aeolian},
 @code{\mixolydian}, @code{\lydian}, @code{\phrygian}, and
-@code{\dorian}.  See @rglos{church mode}.
-
-@warning{The relationship between accidentals and key signatures can
-be confusing to new users who think of the note letters as scale
-steps and not as absolute pitches.  The note names that are
-entered in a music expression are the raw material; key signatures
-and clefs decide how this raw material is displayed.  Thus,
-unaltered notes may get natural signs depending on the key
-signature.  For more information, see @ref{Accidentals} and
-@rlearning{Accidentals and key signatures}.}
+@code{\dorian}.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 \key g \major
@@ -878,11 +867,11 @@ f1
 fis
 @end lilypond
 
+
 @commonprop
 
 A natural sign is printed to cancel any previous accidentals.
-This can be suppressed by setting the
-@code{Staff.printKeyCancellation} property.
+This may be altered:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \key d \major
@@ -896,18 +885,16 @@ a b cis d
 a bes c d
 @end lilypond
 
-The @code{\key} command sets the context property 
-@code{Staff.keySignature}.
-Non-standard key signatures can be specified by setting this
-property directly.  The format of this command is
-@code{\set Staff.keySignature} =
-#'((@var{octave} . @var{step}) . @var{alter})
-where @var{octave} specifies the octave (0 being the octave
-from middle C to the B above), @var{step} specifies the note
-within the octave (0 means C and 6 means B), and @var{alter}
-is ,SHARP ,FLAT ,DOUBLE-SHARP etc. (Note the leading comma.)
-Here is an example of a possible key
-signature for generating a whole-tone scale:
+The @code{\key} command sets the context property
+@code{Staff.keySignature}.  Non-standard key signatures can be
+specified by setting this property directly.  The format of this
+command is @code{\set Staff.keySignature} = #'((@var{octave} .
+@var{step}) . @var{alter}) where @var{octave} specifies the octave
+(0 being the octave from middle C to the B above), @var{step}
+specifies the note within the octave (0 means C and 6 means B),
+and @var{alter} is ,SHARP ,FLAT ,DOUBLE-SHARP etc. (Note the
+leading comma.) Here is an example of a possible key signature for
+generating a whole-tone scale:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'
@@ -920,9 +907,11 @@ signature for generating a whole-tone scale:
 
 @seealso
 
+Music glossary: @rglos{Church mode}, @rglos{scordatura}.
+
 Snippets: @lsrdir{pitch}
 
-@c Link to snippet 248
+FIXME Link to snippet 248 (maybe)
 Another example of using @code{keySignature} can be found in
 @lsrdir{scordatura}
 
@@ -933,15 +922,14 @@ Program reference: @internalsref{KeyCancellation},
 @node Ottava brackets
 @unnumberedsubsubsec Ottava brackets
 
-@q{Ottava} brackets introduce an extra transposition of an octave
-for the staff.  They are created by invoking the function
-@code{set-octavation}
-
 @cindex ottava
 @cindex 15ma
 @cindex 8va
 @cindex 8ve
 @cindex octavation
+
+@notation{Ottava brackets} introduce an extra transposition of an
+octave for the staff:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c''' {
@@ -988,43 +976,43 @@ during an octavation bracket.
 @cindex transposition, MIDI
 @cindex transposition, instrument
 
-The key of a transposing instrument can be specified.  This
-applies to many wind instruments, for example, clarinets (B-flat,
-A, and E-flat), horn (F) and trumpet (B-flat, C, D, and E-flat).
+The key of a @notation{transposing instrument} can be specified.
+This applies to many wind instruments, for example, clarinets
+(B-flat, A, and E-flat), horn (F) and trumpet (B-flat, C, D, and
+E-flat).
 
 The transposition is entered with the command
-@code{\transposition} @var{pitch} where @var{pitch} specifies
-the key in which the instrument plays:
 
 @example
-\transposition bes   %% B-flat clarinet
+\transposition @var{pitch}
 @end example
 
 @noindent
+where @var{pitch} specifies the key in which the instrument plays.
+For example, a part for B-flat clarinet would include
+
+@example
+\transposition bes
+@end example
+
 This command sets the property @code{instrumentTransposition}.
 The value of this property is used for MIDI output and quotations.
-MIDI output is transposed to play at concert pitch, and cue 
-notes and quotations are automatically transposed to the
-key of the instrument in which they are quoted.
-See @ref{Quoting other voices}.
-The value does not affect how notes are printed in the 
-current staff; to change the printed output, see @ref{Transpose}.
+MIDI output is transposed to play at concert pitch, and cue notes
+and quotations are automatically transposed to the key of the
+instrument in which they are quoted.
 
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a @code{c'} written on the staff is
-played by the transposing instrument.  The command 
-@code{\transposition} @var{pitch} should be used when the music
-is entered from an orchestral part written for the instrument.
-For example, in
-classical horn parts, the tuning of the instrument is often
-changed during a piece.  Here are a few notes for a violin 
-and a B-flat clarinet where the parts have been entered 
-using the notes and key as they appear in each part or the 
-conductor's score:
+played by the transposing instrument.  @code{\transposition}
+should be used when the music is entered from an orchestral part
+written for the instrument.  For example, in classical horn parts,
+the tuning of the instrument is often changed during a piece.
+Here are a few notes for a violin and a B-flat clarinet where the
+parts have been entered using the notes and key as they appear in
+each part or the conductor's score:
 
 @lilypond[quote,ragged-right,verbatim]
-\score {
-  \new GrandStaff <<
+\new GrandStaff <<
     \new Staff = "Violin I" {
       \set Staff.instrumentName = "Vln"
       \set Staff.midiInstrument="violin"
@@ -1039,19 +1027,16 @@ conductor's score:
       \transposition bes
       a'4( d''8) r d'' r d''4
     }
-  >>
-  \layout { }
-  \midi { }
-}
+>>
 @end lilypond
 
-Without the @code{\transposition} command the midi output of this 
-would play the notes a tone apart; with it the notes are played
-correctly in unison.
+Without the @code{\transposition} command the midi output of this
+music would play the notes a tone apart; with it the notes are
+played correctly in unison.
 
-However, when entering the notes of
-a score in concert pitch, when all voices are entered in C,
-they may be prefaced by (the default) @code{\transposition c'}:
+However, when entering the notes of a score in concert pitch, when
+all voices are entered in C, they may be prefaced by (the default)
+@code{\transposition c'}:
 
 @example
 clarinet = @{
@@ -1065,12 +1050,12 @@ saxophone = @{
 @end example
 
 @noindent
-to serve as a reminder
-that these parts are written in C.
+to serve as a reminder that these parts are written in C.
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+User manual: @ref{Quoting other voices}, @ref{Transpose}.
 
+Snippets: @lsrdir{pitch}
 
 
