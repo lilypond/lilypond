@@ -596,10 +596,10 @@ the existing music with another @code{\transpose}
 
 @seealso
 
-Program reference: @internalsref{TransposedMusic}.
-
 Snippets: @lsrdir{pitch}, @lsr{scheme,
 transpose-pitches-with-minimum-accidentals.ly}.
+
+Program reference: @internalsref{TransposedMusic}.
 
 
 @refbugs
@@ -909,11 +909,9 @@ generating a whole-tone scale:
 
 Music glossary: @rglos{Church mode}, @rglos{scordatura}.
 
-Snippets: @lsrdir{pitch}
-
-FIXME Link to snippet 248 (maybe)
-Another example of using @code{keySignature} can be found in
-@lsrdir{scordatura}
+Snippets: @lsrdir{pitch},
+FIXME link to snippet 248,
+FIXME link to a snippet about scordatura.
 
 Program reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}

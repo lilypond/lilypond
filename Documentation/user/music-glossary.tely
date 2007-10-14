@@ -1410,7 +1410,7 @@ lines have been selected:
     #'minimum-Y-extent = #'(0 . 0)
    \override Staff.Clef #'stencil = ##f     % No clef required
    \clef "F"
-   g,1 b, d f a
+   g,1_" " b, d f a
 %   s s s s s s  % Keep staff showing
   }  % End staff F
  >>
