@@ -63,7 +63,7 @@ main docs
 * You _must_ include a @seealso.  The order of items inside the
   @seealso section is
 
-    Music glossary: @rgloss{foo}, @rgloss{bar}.
+    Music glossary: @rglos{foo}, @rglos{bar}.
 
     User manual: @ref{baz}, @ref{foozle}.
 
@@ -72,6 +72,15 @@ main docs
     Program reference: @internalsref{fazzle}, @internalsref{booar}.
 
   ("Snippets" is REQUIRED; the others are optional)
+
+* To create links, use @ref{} if the link is within the same
+  manual.  If you are linking to another manual (say,
+  learning->glossary or user->program usage), then use:
+    @rlearning{}
+    @ruser{}
+    @rprogram{}
+    @rglos{}
+    @internalsref{}
 
 * @commonprop and @refbugs are optional.
 
