@@ -127,12 +127,9 @@ makamPitchNames = #`(
 pitchnames = \makamPitchNames 
 #(ly:parser-set-note-names parser makamPitchNames)
 
-\paper
-{
-  ragged-right = ##t
-}
-
-eksikMirroredSlashedFlat = ##f
+#(define eksikMirroredSlashedFlat
+  (if (defined? 'eksikMirroredSlashedFlat)
+       eksikMirroredSlashedFlat #f))
 
 makamGlyphs = #`((1 . "accidentals.doublesharp")
        (8/9 . "accidentals.sharp.slashslashslash.stemstem")

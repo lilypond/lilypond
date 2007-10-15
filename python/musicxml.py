@@ -1,11 +1,14 @@
+# -*- coding: utf-8 -*-
 import new
 import string
 from rational import *
 import re
+import sys
+import copy
 
 def escape_ly_output_string (input_string):
     return_string = input_string
-    needs_quotes = not re.match ("^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
+    needs_quotes = not re.match (u"^[a-zA-ZäöüÜÄÖßñ]*$", return_string);
     if needs_quotes:
         return_string = "\"" + string.replace (return_string, "\"", "\\\"") + "\""
     return return_string
@@ -41,11 +44,11 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        print msg
+        sys.stderr.write (msg+'\n')
 
         p = self
         while p:
-            print '  In: <%s %s>' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()]))
+            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
@@ -81,7 +84,7 @@ class Xml_node:
     def get_unique_typed_child (self, klass):
 	cn = self.get_typed_children(klass)
 	if len (cn) <> 1:
-	    print self.__dict__ 
+	    sys.stderr.write (self.__dict__ + '\n')
 	    raise 'Child is not unique for', (klass, 'found', cn)
 
 	return cn[0]
@@ -121,8 +124,7 @@ class Identification (Xml_node):
         for i in creators:
             if hasattr (i, 'type') and i.type == type:
                 return i.get_text ()
-            else:
-                return ''
+        return None
 
     def get_composer (self):
         c = self.get_creator ('composer')
@@ -133,13 +135,17 @@ class Identification (Xml_node):
         for i in creators:
             if not hasattr (i, 'type'):
                 return i.get_text ()
-        return c
+        return None
     def get_arranger (self):
         return self.get_creator ('arranger')
     def get_editor (self):
         return self.get_creator ('editor')
     def get_poet (self):
-        return self.get_creator ('poet')
+        v = self.get_creator ('lyricist')
+        if v:
+            return v
+        v = self.get_creator ('poet')
+        return v
     
     def get_encoding_information (self, type):
         enc = self.get_named_children ('encoding')
@@ -148,7 +154,7 @@ class Identification (Xml_node):
             if children:
                 return children[0].get_text ()
         else:
-            return ''
+            return None
       
     def get_encoding_software (self):
         return self.get_encoding_information ('software')
@@ -225,13 +231,15 @@ class Attributes (Measure_element):
 
         try:
             mxl = self.get_named_attribute ('time')
-            
-            beats = mxl.get_maybe_exist_named_child ('beats')
-            type = mxl.get_maybe_exist_named_child ('beat-type')
-            return (int (beats.get_text ()),
-                    int (type.get_text ()))
+            if mxl:
+                beats = mxl.get_maybe_exist_named_child ('beats')
+                type = mxl.get_maybe_exist_named_child ('beat-type')
+                return (int (beats.get_text ()),
+                        int (type.get_text ()))
+            else:
+                return (4, 4)
         except KeyError:
-            print 'error: requested time signature, but time sig unknown'
+            sys.stderr.write ('error: requested time signature, but time sig unknown\n')
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -270,7 +278,7 @@ class Note (Measure_element):
         self.instrument_name = ''
         
     def get_duration_log (self):
-        ch = self.get_maybe_exist_typed_child (get_class (u'type'))
+        ch = self.get_maybe_exist_named_child (u'type')
 
         if ch:
             log = ch.get_text ().strip()
@@ -286,7 +294,7 @@ class Note (Measure_element):
                     'breve': -1,
                     'long': -2}.get (log, 0)
         else:
-            sys.stderr.write ("Encountered note without duration (no <type> element): %s\n" % self)
+            self.message ("Encountered note at %s without %s duration (no <type> element):" % (self.start, self.duration) )
             return 0
 
     def get_factor (self):
@@ -320,8 +328,13 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            print "Opps, couldn't find instrument for ID=", id
+            sys.stderr.write ("Opps, couldn't find instrument for ID=%s\n" % id)
             return "Grand Piano"
+
+class Part_group (Music_xml_node):
+    pass
+class Score_part (Music_xml_node):
+    pass
         
 class Measure (Music_xml_node):
     def get_notes (self):
@@ -381,7 +394,7 @@ class Musicxml_voice:
 	    and e.get_maybe_exist_typed_child (Staff)):
 	    name = e.get_maybe_exist_typed_child (Staff).get_text ()
 
-	    if not self._start_staff:
+	    if not self._start_staff and not e.get_maybe_exist_typed_child (Grace):
 		self._start_staff = name
 	    self._staves[name] = True
 
@@ -477,6 +490,16 @@ class Part (Music_xml_node):
                     last_measure_position = measure_position
                     now += dur
                     measure_position += dur
+                elif dur < Rational (0):
+                    # backup element, reset measure position
+                    now += dur
+                    measure_position += dur
+                    if measure_position < 0:
+                        # backup went beyond the measure start => reset to 0
+                        now -= measure_position
+                        measure_position = 0
+                    last_moment = now
+                    last_measure_position = measure_position
                 if n._name == 'note':
                     instrument = n.get_maybe_exist_named_child ('instrument')
                     if instrument:
@@ -497,19 +520,58 @@ class Part (Music_xml_node):
 
                 now = new_now
 
+    # modify attributes so that only those applying to the given staff remain
+    def extract_attributes_for_staff (part, attr, staff):
+        attributes = copy.copy (attr)
+        attributes._children = copy.copy (attr._children)
+        attributes._dict = attr._dict.copy ()
+        for c in attributes._children:
+            if hasattr (c, 'number') and c.number != staff:
+                attributes._children.remove (c)
+        return attributes
+
     def extract_voices (part):
 	voices = {}
 	measures = part.get_typed_children (Measure)
 	elements = []
 	for m in measures:
 	    elements.extend (m.get_all_children ())
+        # make sure we know all voices already so that dynamics, clefs, etc.
+        # can be assigned to the correct voices
+        voice_to_staff_dict = {}
+        for n in elements:
+            voice_id = n.get_maybe_exist_named_child (u'voice')
+            vid = None
+            if voice_id:
+                vid = voice_id.get_text ()
+
+            staff_id = n.get_maybe_exist_named_child (u'staff')
+            sid = None
+            if staff_id:
+                sid = staff_id.get_text ()
+            else:
+                sid = "None"
+            if vid and not voices.has_key (vid):
+                voices[vid] = Musicxml_voice()
+            if vid and sid and not n.get_maybe_exist_typed_child (Grace):
+                if not voice_to_staff_dict.has_key (vid):
+                    voice_to_staff_dict[vid] = sid
+        # invert the voice_to_staff_dict into a staff_to_voice_dict (since we
+        # need to assign staff-assigned objects like clefs, times, etc. to
+        # all the correct voices. This will never work entirely correct due
+        # to staff-switches, but that's the best we can do!
+        staff_to_voice_dict = {}
+        for (v,s) in voice_to_staff_dict.items ():
+            if not staff_to_voice_dict.has_key (s):
+                staff_to_voice_dict[s] = [v]
+            else:
+                staff_to_voice_dict[s].append (v)
+
 
 	start_attr = None
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
-            # TODO: If the first element of a voice is a dynamics entry,
-            #       then voice_id is not yet set! Thus it will currently be ignored
 	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) ):
 		continue
 
@@ -517,22 +579,42 @@ class Part (Music_xml_node):
 		start_attr = n
 		continue
 
-	    if isinstance (n, Attributes) or isinstance (n, Direction):
-		for v in voices.values ():
-		    v.add_element (n)
-		continue
+            if isinstance (n, Attributes):
+                # assign these only to the voices they really belongs to!
+                for (s, vids) in staff_to_voice_dict.items ():
+                    staff_attributes = part.extract_attributes_for_staff (n, s)
+                    for v in vids:
+                        voices[v].add_element (staff_attributes)
+                continue
+
+            if isinstance (n, Direction):
+                staff_id = n.get_maybe_exist_named_child (u'staff')
+                if staff_id:
+                    staff_id = staff_id.get_text ()
+                if staff_id:
+                    dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
+                else:
+                    dir_voices = voices.keys ()
+                for v in dir_voices:
+                    voices[v].add_element (n)
+                continue
 
 	    id = voice_id.get_text ()
-	    if not voices.has_key (id):
-		voices[id] = Musicxml_voice()
-
-	    voices[id].add_element (n)
+            if hasattr (n, 'print-object') and getattr (n, 'print-object') == "no":
+                #Skip this note. 
+                pass
+            else:
+                voices[id].add_element (n)
 
 	if start_attr:
-	    for (k,v) in voices.items ():
-		v.insert (0, start_attr)
+            for (s, vids) in staff_to_voice_dict.items ():
+                staff_attributes = part.extract_attributes_for_staff (start_attr, s)
+                staff_attributes.read_self ()
+                for v in vids:
+                    voices[v].insert (0, staff_attributes)
+                    voices[v]._elements[0].read_self()
 
-	part._voices = voices
+        part._voices = voices
 
     def get_voices (self):
 	return self._voices
@@ -612,12 +694,28 @@ class Chord (Music_xml_node):
 class Dot (Music_xml_node):
     pass
 
+# Rests in MusicXML are <note> blocks with a <rest> inside. This class is only
+# for the inner <rest> element, not the whole rest block.
 class Rest (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
         self._is_whole_measure = False
     def is_whole_measure (self):
         return self._is_whole_measure
+    def get_step (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'display-step'))
+        if ch:
+            step = ch.get_text ().strip ()
+            return step
+        else:
+            return None
+    def get_octave (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'display-octave'))
+        if ch:
+            step = ch.get_text ().strip ()
+            return int (step)
+        else:
+            return None
 
 class Type (Music_xml_node):
     pass
@@ -665,10 +763,12 @@ class_dict = {
 	'note': Note,
         'octave-shift': Octave_shift,
 	'part': Part,
+    'part-group': Part_group,
 	'part-list': Part_list,
         'pedal': Pedal,
 	'pitch': Pitch,
 	'rest': Rest,
+    'score-part': Score_part,
 	'slur': Slur,
 	'staff': Staff,
         'syllabic': Syllabic,

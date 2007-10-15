@@ -1,20 +1,222 @@
-@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 57271e99d4571e2bda7e3991d4050b59519028c0
-
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Scheme tutorial
 @appendix Scheme tutorial
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex #
+@cindex Scheme
+@cindex GUILE
+@cindex Scheme, in-line code
+@c @cindex accessing Scheme
+@c @cindex evaluating Scheme
+@cindex LISP
+
+LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil 
+der Eingabesyntax als auch als internen Mechanismus, um Programmmodule 
+zusammenzufügen. Dieser Abschnitt ist ein sehr kurzer Überblick über 
+die Dateneingabe mit Scheme. Wenn Sie mehr über Scheme wissen wollen,
+gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
+
+Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen, 
+Zeichenketten, Listen usw. Hier ist eine Liste der Datentypen, die für 
+LilyPond-Eingabedateien relevant sind.
+
+@table @asis
+@item Boolesche Variablen
+Werte einer Booleschen Variable sind Wahr oder Falsch. Die Scheme-Entsprechung
+für Wahr ist @code{#t} und für Falsch @code{#f}.
+@funindex ##t
+@funindex ##f
+
+@item Zahlen
+Zahlen werden wie üblich eingegeben, @code{1} ist die (integre) 
+Zahl Eins, während @code{-1.5} ist eine Gleitkommazahl (also 
+eine nicht-integre).
+
+@item Zeichenketten
+Zeichenketten werden in doppelte Anführungszeichen gesetzt:
+
+@example
+"Das ist eine Zeichenkette"
+@end example
+
+Zeichenketten können über mehrere Zeilen reichen:
+
+@example
+"Das
+ist
+eine Zeichenkette"
+@end example
+
+Anführungszeichen und neue Zeilen können auch mit sogenannten 
+Fluchtsequenzen eingefügt werden. Die Zeichenkette
+@code{a sagt "b"} wird wie folgt eingegeben:
+
+@example
+"a sagt \"b\""
+@end example
+
+Neue Zeilen und Backslashe werden mit @code{\n} bzw. @code{\\}
+eingegeben.
+@end table
+
+In einer Notationsdatei werden kleine Scheme-Abschnitte mit der 
+Raute (@code{#}) eingeleitet. Die vorigen Beispiele heißen also in 
+LilyPond:
+
+@example
+##t ##f
+#1 #-1.5
+#"Das ist eine Zeichenkette"
+#"Das
+ist
+eine Zeichenkette"
+@end example
+
+Für den Rest dieses Abschnitts nehmen wir an, dass die Daten immer in 
+einer LilyPond-Datei stehen, darum wird immer die Raute verwendet.
+
+Scheme kann verwendet werden, um Berechnungen durchzuführen. Es 
+verwendet eine @emph{Präfix}-Syntax. Um 1 und@tie{}2 zu addieren, muss 
+man @code{(+ 1 2)} schreiben, und nicht @math{1+2}, wie in tranditioneller
+Mathematik.
+
+@lisp
+#(+ 1 2)
+  @result{} #3
+@end lisp
+
+Der Pfeil @result{} zeigt an, dass das Ergebnis der Auswertung von 
+@code{(+ 1 2)} @code{3}@tie{}ist. Berechnungen können geschachtelt 
+werden und das Ergebnis einer Berechnung kann für eine neue 
+Berechnung eingesetzt werden.
+
+@lisp
+#(+ 1 (* 3 4))
+  @result{} #(+ 1 12)
+  @result{} #13
+@end lisp
+
+Diese Berechnungen sind Beispiele von Auswertungen. Ein Ausdruck 
+wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt. Ähnlich 
+verhält es sich mit Variablen. Nachdem eine Variable definiert ist:
+
+@example
+twelve = #12
+@end example
+
+@noindent
+kann man sie in Ausdrücken weiterverwenden:
+
+@example
+twentyFour = #(* 2 twelve)
+@end example
+
+@noindent
+Die 24 wird in der Variablen @code{twentyFour} gespeichert.
+Die gleiche Zuweisung kann auch vollständig in Scheme geschrieben 
+werden:
+
+@example
+#(define twentyFour (* 2 twelve))
+@end example
+
+Der @emph{Name} einer Variable ist auch ein Ausdruck, genauso wie 
+eine Zahl oder eine Zeichenkette. Er wird wie folgt eingegeben:
+
+@example
+#'twentyFour
+@end example
+
+@funindex #'symbol
+@cindex Zitieren in Scheme
+
+Das Apostroph @code{'} verhindert, dass bei der Scheme-Auswertung
+ @code{twentyFour} durch @code{24} ersetzt wird. Anstatt dessen erhalten 
+ wir die Bezeichnung @code{twentyFour}.
+
+Diese Syntax wird sehr oft verwendet, weil es manche
+Einstellungsveränderungen erfordern, dass Scheme-Werte einer 
+internen Variable zugewiesen werden, wie etwa
+
+@example
+\override Stem #'thickness = #2.6
+@end example
+
+Diese Anweisung verändert die Erscheinung der Notenhälse. Der Wert 
+@code{2.6} wird der Variable @code{thickness} (Dicke) eines 
+@code{Stem}-(Hals)-Ojektes gleichgesetzt. 
+@code{thickness} wird realtiv zu den Notenlinien errechnet, in diesem 
+Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien. Dadurch 
+werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind. 
+Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt 
+definiert werden (wie @code{twentyFour} weiter oben), und zwischen denen, 
+die für interne Objekte zuständig sind, werden hier die ersteren 
+@qq{Bezeichner} genannt, die letzteren dagegen @qq{Eigenschaften}.
+Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während 
+@code{twentyFour} ein Bezeichner ist.
+
+@cindex Eigenschaften versus Bezeichner
+@cindex Bezeichner versus Eigenschaften
+
+Sowohl zweidimensionale Abstände (X- und Y-Koordinaten) als auch 
+Größen von Objekten (Intervalle mit linker und rechter Begrenzung) werden 
+als @code{pairs} (Paare) eingegeben. Ein Paar@footnote{In der 
+Scheme-Terminologie wird ein Paar @code{cons} genannt und seine 
+zwei Elemente @code{car} und @code{cdr}.} wird als @code{(erster . zweiter)}
+eingegeben und sie müssen mit dem Apostroph eingeleitet werden, genauso 
+wie Symbole:
+
+@example
+\override TextScript #'extra-offset = #'(1 . 2)
+@end example
+
+Hierdurch wird das Paar (1, 2) mit der Eigenschaft @code{extra-offset}
+des TextScript-Objektes verknüpft. Diese Zahlen werden in 
+Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite 
+nach rechts verschiebt und zwei Breiten nach oben.
+
+Die zwei Elemente eines Paares können von arbiträrem Inhalt sein, etwa
+
+@example
+#'(1 . 2)
+#'(#t . #f)
+#'("blah-blah" . 3.14159265)
+@end example
+
+Eine Liste wird eingegeben, indem die Elemente der Liste in Klammern 
+geschrieben werden, mit einem Apostroph davor. Beispielsweise:
+
+@example
+#'(1 2 3)
+#'(1 2 "string" #f)
+@end example
+
+Die ganze Zeit wurde hier schon Listen benutzt. Eine Berechnung, 
+wie @code{(+ 1 2)}, ist auch eine Liste (welche das Symbol @code{+} 
+und die Nummern 1 und@tie{}2 enthält. Normalerweise werden Listen 
+als Berechnungen interpretiert und der Scheme-Interpreter ersetzt 
+die Liste mit dem Ergebnis der Berechnung. Um eine Liste an sich 
+einzugeben, muss die Auswertung angehalten werden. Das geschieht, 
+indem der Liste ein Apostroph vorangestellt wird. Für Berechnungen 
+kann man also den Apostroph nicht verwenden.
+
+Innerhalb einer zitierten Liste (also mit Apostroph) muss man keine 
+Anführungszeichen mehr setzen. Im Folgenden ein Symbolpaar, eine 
+Symbolliste und eine Liste von Listen:
+
+@example
+#'(stem . head)
+#'(staff clef key-signature)
+#'((1) (2))
+@end example
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+

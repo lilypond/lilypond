@@ -29,18 +29,23 @@ al-niente hairpins.
    
 @item @email{benkop@@freestart.hu,Pal Benko},
     Ancient notation.
+@item @email{jch@@pps.jussieu.fr, Juliusz Chroboczek},
+    Type42 code.
 @item @email{david.feuer@@gmail.com, David Feuer},
     PS output code refactoring.
 @item @email{bernard@@fong-hurley.org.uk, Bernard Hurley},
     X11 color.
-@item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
-    Tablature support.
 @item @email{chris@@fluffhouse.org.uk, Chris Jackson},
     Piano pedals, directed arpeggios.
 @item @email{heikki.junes@@hut.fi, Heikki Junes},
     Fine tuning for quarter tones in midi output.
+@item @email{reinhold@@kainhofer.com, Reinhold Kainhofer},
+    @uref{http://reinhold.kainhofer.com},
+    Musicxml2ly development
 @item @email{m.krause@@tu-harburg.de, Michael Krause},
     Breathing signs.
+@item @email{jiba@@tuxfamily.org, Jean-Baptiste Lamy},
+    Tablature support.
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
 @item @email{joe@@neeman.com, Joe Neeman}, 
@@ -55,15 +60,13 @@ al-niente hairpins.
 @item @uref{http://www.ipd.uka.de/~reuter, Jürgen Reuter},
     Ancient notation  support (mensural notation,
     Gregorian chant notation), ambitus, clusters.
-@item @email{nicolas.sceaux@@free.fr,Nicolas Sceaux},
+@item @email{nicolas.sceaux@@free.fr, Nicolas Sceaux},
     Scheme macros, \markup syntax.
 @item @email{carldsorensen@@comcast.net, Carl Sorensen},
     Fret diagrams.    
 @item @email{rune@@zedeler.dk, Rune Zedeler},
     Auto-accidental code, zigzag glissandi, rest bugfixes, minimum
     fret, @code{subdivideBeams}.
-@item @email{jch@@pps.jussieu.fr,Juliusz Chroboczek},
-    Type42 code.
 @end itemize
 
 Font

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-	<work> <work-title>/home/reinhold/lilypond-dev-files/02_partorder.xml</work-title></work> 
+	<work> <work-title>Part order test</work-title></work> 
 	<identification> 
 		<rights>Unknown</rights>
 		<encoding>

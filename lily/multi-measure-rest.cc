@@ -16,10 +16,29 @@
 #include "misc.hh"
 #include "spanner.hh"
 #include "staff-symbol-referencer.hh"
+#include "system.hh"
 #include "text-interface.hh"
 #include "percent-repeat-item.hh"
 #include "lookup.hh"
 #include "separation-item.hh"
+
+Interval
+Multi_measure_rest::bar_width (Spanner *me)
+{
+  Interval iv;
+  Direction d = LEFT;
+  do
+    {
+      Item *col = me->get_bound (d)->get_column ();
+
+      Interval coldim = Paper_column::break_align_width (col);
+
+      iv[d] = coldim[-d];
+    }
+  while ((flip (&d)) != LEFT);
+
+  return iv;
+}
 
 MAKE_SCHEME_CALLBACK (Multi_measure_rest, percent, 1);
 SCM
@@ -34,17 +53,7 @@ Multi_measure_rest::percent (SCM smob)
 
   Grob *common_x = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT),
 							  X_AXIS);
-  Interval sp_iv;
-  Direction d = LEFT;
-  do
-    {
-      Item *col = sp->get_bound (d)->get_column ();
-
-      Interval coldim = robust_relative_extent (col, common_x, X_AXIS);
-
-      sp_iv[d] = coldim[-d];
-    }
-  while ((flip (&d)) != LEFT);
+  Interval sp_iv = bar_width (sp);
   Real x_off = 0.0;
 
   Real rx = sp->get_bound (LEFT)->relative_coordinate (common_x, X_AXIS);
@@ -71,20 +80,7 @@ Multi_measure_rest::print (SCM smob)
   Grob *me = unsmob_grob (smob);
   Spanner *sp = dynamic_cast<Spanner *> (me);
 
-  Interval sp_iv;
-  Direction d = LEFT;
-
-  Grob *common = sp->get_bound (LEFT)->common_refpoint (sp->get_bound (RIGHT), X_AXIS);
-  do
-    {
-      Item *b = sp->get_bound (d);
-
-      Interval coldim = b->extent (common, X_AXIS);
-
-      sp_iv[d] = coldim.is_empty () ? b->relative_coordinate (common, X_AXIS) : coldim[-d];
-    }
-  while ((flip (&d)) != LEFT);
-
+  Interval sp_iv = bar_width (sp);
   Real space = sp_iv.length ();
 
   Real rx = sp->get_bound (LEFT)->relative_coordinate (0, X_AXIS);

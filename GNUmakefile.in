@@ -39,14 +39,7 @@ include $(depth)/make/stepmake.make
 # 
 include local.make
 
-local-dist: dist-toplevel-txt-files dist-changelog
-
-dist-changelog:
-	if  test -d $(top-src-dir)/.git ; then \
-		cd $(top-src-dir) && git-whatchanged gub-2.9.29-2.. > $(distdir)/ChangeLog ; \
-	else \
-		cp $(top-src-dir)/ChangeLog $(distdir) ; \
-	fi
+local-dist: dist-toplevel-txt-files 
 
 all: $(outdir)/VERSION
 
@@ -213,25 +206,14 @@ $(config_h): config.hh.in
 # testing
 
 RESULT_DIR=$(top-build-dir)/out/test-results
-OUT_TEST=test
 
 
 test:
-	rm -f input/regression/out-$(OUT_TEST)/collated-files.html
 	@echo -en 'For tracking crashes: use\n\n\t'
 	@echo 'grep sourcefilename `grep -L systems.texi input/regression/out-test/*log|sed s/log/ly/g`'
 	@echo
-#FIXME: using out-test and out-$(OUT_TEST) alongside eachother?
-	mkdir -p input/regression/out-test
-	if test -d .git  ; then \
-		echo -e 'HEAD is:\n\n\t' ; \
-		git log --max-count=1 --pretty=oneline ;\
-		echo -e '\n\n\n' ; \
-		git diff ; \
-	fi > input/regression/out-test/tree.gittxt
-	$(MAKE) -C input/regression/ out=$(OUT_TEST) LILYPOND_BOOK_LILYPOND_FLAGS="-dbackend=eps --formats=ps $(LILYPOND_JOBS) -dseparate-log-files -dinclude-eps-fonts -dgs-load-lily-fonts --header=texidoc -I $(top-src-dir)/input/manual -ddump-profile -dcheck-internal-types -ddump-signatures -danti-alias-factor=1" LILYPOND_BOOK_VERBOSE= out-$(OUT_TEST)/collated-files.html
-	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
-	rsync -L -a --exclude 'out-*' --exclude 'out' --exclude mf --exclude source --exclude mf $(outdir)/share input/regression/out-test/
+	$(MAKE) -C input/regression/ out=test local-test
+	$(MAKE) -C input/regression/musicxml out=test local-test
 
 test-baseline: 
 	@if  test -d .git ; then \
@@ -239,13 +221,14 @@ test-baseline:
 	fi
 	$(MAKE) 
 	$(MAKE) test
-	rm -rf input/regression/out-test-baseline
-	mv input/regression/out-test input/regression/out-test-baseline
+	$(MAKE) -C input/regression/ local-test-baseline
+	$(MAKE) -C input/regression/musicxml local-test-baseline
 
 local-check: test
 	rm -rf $(RESULT_DIR)
 	mkdir -p $(RESULT_DIR)
 	$(PYTHON) $(buildscript-dir)/output-distance.py --create-images --output-dir $(RESULT_DIR) input/regression/out-test-baseline input/regression/out-test/
+	@find input ly -name '*.ly' -print |grep -v 'out.*/' | xargs grep '\\version' -L | grep -v "standard input" |sed 's/^/**** Missing version: /g' 
 
 
 test-redo:
@@ -256,4 +239,4 @@ test-redo:
 	$(MAKE) check
 
 test-clean:
-	$(MAKE) -C input/regression/ out=$(OUT_TEST) clean
+	$(MAKE) -C input/regression/ out=test clean

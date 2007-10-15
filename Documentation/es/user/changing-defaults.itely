@@ -1846,7 +1846,7 @@ sin hacer mención al nombre del grob ni al contexto en el que se tendría que
 aplicar.
 
 Esta técnica sólo funciona para los objetos que están conectados directamente a
-un @internalsref{event} (evento) del texto de entrada, por ejemplo
+un @internalsref{Event} (evento) del texto de entrada, por ejemplo
 
 @itemize @bullet
 @item cabezas de nota, producidas por chord-pitch (p. ej.: las notas de un acorde)
@@ -1979,7 +1979,7 @@ Hay ciertos tipos de ajustes difíciles.
 Un tipo de ajuste difícil es la apariencia visual de los objetos de extensión,
 como las ligaduras de expresión y de unión.  Inicialmente sólo se crea uno de estos objetos,
 y se pueden ajustar a través del mecanismo normal.  Sin embargo, en ocasiones
-los objetos de extensión atraviesan los altos de línea.  Si esto ocurre, estos objetos
+los objetos de extensión atraviesan los saltos de línea.  Si esto ocurre, estos objetos
 se clonan.  Se crea un objeto separado para cada grupo de pentagramas en el que está.
 Son clones del objeto original y heredan todas las
 propiedades, incluyendo los @code{\override}s.

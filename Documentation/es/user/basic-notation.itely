@@ -561,9 +561,9 @@ usar el comando @code{\skip}
 @end lilypond
 
 El comando skip es un mero contenedor musical vacío.  No produce
-ninguna salida, ni siguiera una salida transparente.
+ninguna salida, ni siquiera una salida transparente.
 
-El comando de desplazamiento @code{s} crea una @internalsref{Staff} y una
+El comando de desplazamiento @code{s} crea un @internalsref{Staff} y una
 @internalsref{Voice} cuando es necesario, de forma similar a los comandos de nota y de silencio.
 Por ejemplo, el fragmento siguiente produce un pentagrama vacío.
 

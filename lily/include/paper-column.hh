@@ -49,6 +49,7 @@ public:
   static bool is_used (Grob *);
   static bool is_breakable (Grob *);
   static Real minimum_distance (Grob *l, Grob *r);
+  static Interval break_align_width (Grob *me);
 };
 
 #endif // PAPER_COLUMN_HH
