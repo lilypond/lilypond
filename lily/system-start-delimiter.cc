@@ -113,9 +113,7 @@ System_start_delimiter::print (SCM smob)
   SCM glyph_sym = me->get_property ("style");
   Real len = ext.length ();
   if (ext.is_empty ()
-      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= ext.length ())
-      || (glyph_sym == ly_symbol2scm ("bar-line")
-	  && non_empty_count <= 1))
+      || (robust_scm2double (me->get_property ("collapse-height"), 0.0) >= ext.length ()))
     {
       me->suicide ();
       return SCM_UNSPECIFIED;
