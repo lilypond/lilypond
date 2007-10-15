@@ -137,7 +137,7 @@ middle@tie{}C.")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
-delimiter.  If equal or smaller, the bracket is removed.")
+delimiter.  If equal or smaller, the bracket/brace/line is removed.")
      (color ,color? "The color of this grob.")
      (common-shortest-duration ,ly:moment? "The most common shortest
 note length.  This is used in spacing.  Enlarging this sets the score
