@@ -72,7 +72,7 @@
 @ifhtml
 @c ***** HTML *****
 
-@macro usermanref{NAME}
+@macro ruser{NAME}
 @ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
@@ -97,7 +97,7 @@
 @ifinfo
 @c ***** info *****
 
-@macro usermanref{NAME}
+@macro ruser{NAME}
 @inforef{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
@@ -120,7 +120,7 @@
 @iftex
 @c ***** TeX *****
 
-@macro usermanref{NAME}
+@macro ruser{NAME}
 @ref{\\NAME\\}@c
 @end macro
 
