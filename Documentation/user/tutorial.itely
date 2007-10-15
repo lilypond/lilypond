@@ -8,7 +8,7 @@
 @end ignore
 
 @ignore
-Tutorial guidelines:
+Tutorial guidelines:  (different from policy.txt!)
 - unless you have a really good reason, use either
     @l ilypond[verbatim,quote,ragged-right]
   or
@@ -19,6 +19,8 @@ Tutorial guidelines:
 - use "aes" and "ees" instead of "as" and "aes".  I know it's not
   correct Dutch naming, but let's not confuse people with this
   until we get to the Basic notation chapter.
+- Add "Music glossary: @r gloss{foo}" to the _top_ of the relevant
+  portions of the tutorial.
 @end ignore
 
 
@@ -191,11 +193,14 @@ values are useful.
 
 @subheading Pitches
 
+Music glossary: @rglos{interval}, @rglos{fourth}, @rglos{scale},
+@rglos{middle C}
+
 The easiest way to enter notes is by using @code{\relative} mode.
-In this mode, the @rglos{interval} between the previous note and
-the current note is assumed to be within a @rglos{fourth}.  We
+In this mode, the @notation{interval} between the previous note and
+the current note is assumed to be within a @notation{fourth}.  We
 begin by entering the most elementary piece of music, a
-@rglos{scale}.
+@notation{scale}.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
@@ -204,9 +209,9 @@ begin by entering the most elementary piece of music, a
 }
 @end lilypond
 
-The initial note is @rglos{middle C}.  Each successive note is
+The initial note is @notation{middle C}.  Each successive note is
 within a fourth of the previous note -- in other words, the first
-@samp{c} is the closest C to middle C.  This is followed by the
+@code{c} is the closest C to middle C.  This is followed by the
 closest D to the previous note.  We can create melodies which have
 larger intervals:
 
@@ -219,7 +224,7 @@ larger intervals:
 
 @noindent
 As you may notice, this example does not start on middle C.  The
-first note -- the @samp{d} -- is the closest D to middle C.
+first note -- the @code{d} -- is the closest D to middle C.
 
 To add intervals that are larger than a fourth, we can raise the
 octave by adding a single quote @code{'} (or apostrophe) to the
@@ -243,10 +248,13 @@ this.
 
 @subheading Durations (rhythms)
 
-The @rglos{duration} of a note is specified by a number after the
-note name.  @samp{1} for a @rglos{whole note}, @samp{2} for a
-@rglos{half note}, @samp{4} for a @rglos{quarter note} and so on.
-Beams are added automatically.
+Music glossary: @rglos{duration}, @rglos{whole note},
+@rglos{half note}, @rglos{quarter note}, @rglos{dotted note}.
+
+The @notation{duration} of a note is specified by a number after
+the note name.  @samp{1} for a @notation{whole note}, @samp{2} for
+a @notation{half note}, @samp{4} for a @notation{quarter note} and
+so on.  Beams are added automatically.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -261,7 +269,7 @@ If you do not specify a duration, the previous duration is used
 for the next note.  The duration of the first note defaults to a
 quarter.
 
-To create @rglos{dotted note}s, add a dot @samp{.} to the duration
+To create @notation{dotted notes}, add a dot @samp{.} to the duration
 number.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -274,7 +282,9 @@ number.
 
 @subheading Rests
 
-A @rglos{rest} is entered just like a note with the name @samp{r}:
+Music glossary: @rglos{rest}.
+
+A @notation{rest} is entered just like a note with the name @samp{r}:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -286,7 +296,9 @@ A @rglos{rest} is entered just like a note with the name @samp{r}:
 
 @subheading Time signature
 
-The @rglos{time signature}) can be set with the @code{\time}
+Music glossary: @rglos{time signature}.
+
+The @notation{time signature}) can be set with the @code{\time}
 command:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -303,7 +315,9 @@ command:
 
 @subheading Clef
 
-The @rglos{clef} can be set using the @code{\clef} command:
+Music glossary: @rglos{clef}.
+
+The @notation{clef} can be set using the @code{\clef} command:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
@@ -332,20 +346,14 @@ Here is a small example showing all these elements together:
 }
 @end lilypond
 
-@seealso
-@quotation
-@table @asis
-@item Entering pitches and durations
-see @ruser{Pitches}, and @ruser{Durations}.
-@item Rests
-see @ruser{Rests}.
-@item Time signatures and other timing commands
-see @ruser{Time signature}.
-@item Clefs
-see @ruser{Clef}.
-@end table
-@end quotation
 
+@seealso
+
+User manual: @ruser{Writing pitches}, @ruser{Writing rhythms},
+@ruser{Writing rests}, @ruser{Time signature}, @ruser{Clef}.
+
+
+@c  KURTIS: update stuff below this line with the style above.
 
 @node Working on text files
 @subsection Working on text files
