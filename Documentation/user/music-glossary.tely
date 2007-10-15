@@ -433,7 +433,9 @@ DK: a,
 S: a,
 FI: A, a.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node accent
 @section accent
@@ -452,7 +454,9 @@ The stress of one tone over others.
 @node accessory
 @section accessory
 
-@aref{ornament}.
+@seealso
+
+@ref{ornament}.
 
 @node accidental
 @section accidental
@@ -466,9 +470,9 @@ DK: løst fortegn,
 S: tillfälligt förtecken,
 FI: tilapäinen etumerkki.
 
-An accidental has the effect of an @aref{alteration} of a note.  A
-sharp raises a tone by a @aref{semitone}, a double sharp raises it by
-a @aref{whole tone}, a flat lowers it by a semitone and a double flat
+An accidental has the effect of an @ref{alteration} of a note.  A
+sharp raises a tone by a @ref{semitone}, a double sharp raises it by
+a @ref{whole tone}, a flat lowers it by a semitone and a double flat
 lowers it by a whole tone.  A natural cancels the effect of a previous
 accidental.
 
@@ -477,11 +481,11 @@ accidental.
 << 
   \context Staff \relative c'' {
     \set Staff.extraNatural = ##f
-    gis1 gisis ges geses g!
+    gisis1 gis g! ges geses
   }
   \lyrics {
     \override Lyrics .LyricText #'self-alignment-X = #-1
-    sharp "db. sharp" flat "db. flat" natural
+    "db. sharp" sharp natural flat "db. flat"
   }
 >>
 @end lilypond
@@ -514,9 +518,9 @@ FI: adagio, hitaasti.
 
 It.@: comfortable, easy.
 1.@tie{}Slow tempo, slower -- especially in even meter -- than
-@aref{andante} and faster than @aref{largo}.
+@ref{andante} and faster than @ref{largo}.
 2.@tie{}A movement in slow tempo, especially the second (slow) movement of
-@aref{sonata}s, symphonies, etc.
+@ref{sonata}s, symphonies, etc.
 
 @node allegro
 @section allegro
@@ -531,7 +535,7 @@ S: allegro,
 FI: allegro, nopeasti.
 
 It.@: cheerful.  Quick tempo.  Also used as a title for pieces in a quick
-tempo, especially the first and last movements of a @aref{sonata}.
+tempo, especially the first and last movements of a @ref{sonata}.
 
 @node alteration
 @section alteration
@@ -546,7 +550,7 @@ S:
 FI:
 
 An alteration is the modification, raising or lowering, of a note's
-pitch.  It is established by an @aref{accidental}.
+pitch.  It is established by an @ref{accidental}.
 
 @node alto
 @section alto
@@ -563,7 +567,7 @@ FI: altto, matala naisääni.
 A female voice of low range (@emph{contralto}).  Originally the alto was a
 high male voice (hence the name), which by the use of falsetto reached the
 height of the female voice.  This type of voice is also known as
-@aref{counter tenor}.
+@ref{counter tenor}.
 
 @node alto clef
 @section alto clef
@@ -577,8 +581,11 @@ DK: altnøgle,
 S: altklav,
 FI: alttoavain.
 
-C clef setting middle C on the middle line of the staff
-@aref{C clef}.
+C clef setting middle C on the middle line of the staff.
+
+@seealso
+
+@ref{C clef}.
 
 @node ambit
 @section ambit
@@ -612,7 +619,9 @@ An anacrusis (also known as pickup or upbeat) is an incomplete measure
 of music before a section of music. It also refers to the initial note(s)
 of a melody occurring in that incomplete measure.
 
-@aref{measure}, @aref{meter}.
+@seealso
+
+@ref{measure}, @ref{meter}.
 
 @lilypond[fragment,line-width=13.0\cm]
 \key f \major
@@ -634,7 +643,9 @@ DK: ren mol,
 S: ren mollskala,
 FI: luonnollinen molliasteikko.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -790,7 +801,9 @@ DK: forstørret interval,
 S: överstigande intervall,
 FI: ylinouseva intervalli.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node autograph
 @section autograph
@@ -822,17 +835,23 @@ DK: h,
 S: h,
 FI: H, h.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node backfall
 @section backfall
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node bar
 @section bar
 
-@aref{measure}.
+@seealso
+
+@ref{measure}.
 
 @node bar line
 @section bar line
@@ -858,8 +877,8 @@ DK: baryton,
 S: baryton,
 FI: baritoni, keskikorkuinen miesääni.
 
-The male voice intermediate between the @aref{bass} and the
-@aref{tenor}.
+The male voice intermediate between the @ref{bass} and the
+@ref{tenor}.
 
 @c F: clef de troisième ligne dropped
 
@@ -876,7 +895,10 @@ S: barytonklav,
 FI: baritoniavain.
 
 C or F clef setting middle C on the upper staff line.
-@aref{C clef}, @aref{F clef}.
+
+@seealso
+
+@ref{C clef}, @ref{F clef}.
 
 @node bass clef
 @section bass clef
@@ -891,7 +913,10 @@ S: basklav,
 FI: bassoavain.
 
 A clef setting with middle C on the first top ledger line.
-@aref{F clef}.
+
+@seealso
+
+@ref{F clef}.
 
 @node bass
 @section bass
@@ -908,7 +933,10 @@ FI: basso, matala miesääni.
 1.@tie{}The lowest male voice.
 2.@tie{}Sometimes, especially in jazz music, used as
 an abbreviation for double bass.
-@aref{strings}.
+
+@seealso
+
+@ref{strings}.
 
 @node beam
 @section beam
@@ -962,7 +990,9 @@ the start of the music.
 @node bind
 @section bind
 
-@aref{tie}.
+@seealso
+
+@ref{tie}.
 
 @node brace
 @section brace
@@ -1034,7 +1064,7 @@ DK: brevis,
 S: brevis,
 FI: brevis.
 
-@aref{note value}, twice as long as a whole note.  Mainly used
+@ref{note value}, twice as long as a whole note.  Mainly used
 in pre-1650 music.
 
 @lilypond[fragment,notime,ragged-right]
@@ -1054,7 +1084,9 @@ DK: c,
 S: c,
 FI: C, c.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node C clef
 @section C clef
@@ -1101,7 +1133,9 @@ DK: kadence,
 S: kadens,
 FI: kadenssi, lopuke.
 
-@aref{harmonic cadence}, @aref{functional harmony}.
+@seealso
+
+@ref{harmonic cadence}, @ref{functional harmony}.
 
 @node cadenza
 @section cadenza
@@ -1133,7 +1167,9 @@ DK: kanon,
 S: kanon,
 FI: kaanon, tarkka jäljittely.
 
-@aref{counterpoint}.
+@seealso
+
+@ref{counterpoint}.
 
 @node cent
 @section cent
@@ -1149,13 +1185,18 @@ FI: sentti, puolisävelaskeleen sadasosa tasavireisessä
 viritysjärjestelmässä.
 
 Logarithmic unit of measurement.  1@tie{}cent is 1/1200 of an octave (1/100
-of an equally tempered @aref{semitone}).
-@aref{equal temperament}.
+of an equally tempered @ref{semitone}).
+
+@seealso
+
+@ref{equal temperament}.
 
 @node central C
 @section central C
 
-@aref{middle C}.
+@seealso
+
+@ref{middle C}.
 
 @node chord
 @section chord
@@ -1173,10 +1214,10 @@ Three or more tones sounding simultaneously.  In traditional European music
 the
 base chord is a @emph{triad} consisting of 2@w{ }thirds.  @emph{Major} (major
 +
-minor @aref{third}) as well as @emph{minor} (minor + major third)
+minor @ref{third}) as well as @emph{minor} (minor + major third)
 chords may be extended with more thirds.  Four-tone @emph{seventh chords}
 and five-tone @emph{ninth} major chords are most often used as dominants
-(@aref{functional harmony}).  A special case is chords having no
+(@ref{functional harmony}).  A special case is chords having no
 third above the lower notes to define their quality as major or minor.  Such
 chords are denoted open chords
 
@@ -1216,7 +1257,7 @@ DK: kromatisk skala,
 S: kromatisk skala,
 FI: kromaattinen asteikko.
 
-A scale consisting of all 12 @aref{semitone}s.
+A scale consisting of all 12 @ref{semitone}s.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -1235,7 +1276,7 @@ DK: kromatik,
 S: kromatik,
 FI: kromatiikka.
 
-Use of tones extraneous to a @aref{diatonic scale} (minor, major).
+Use of tones extraneous to a @ref{diatonic scale} (minor, major).
 
 @node church mode
 @section church mode
@@ -1249,7 +1290,9 @@ DK: kirketoneart,
 S: kyrkotonart,
 FI: moodi, kirkkosävellaji.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node clef
 @section clef
@@ -1263,7 +1306,9 @@ DK: nøgle,
 S: klav,
 FI: avain, nuottiavain.
 
-@aref{C clef}, @aref{F clef}, @aref{G clef}.
+@seealso
+
+@ref{C clef}, @ref{F clef}, @ref{G clef}.
 
 The clef indicates which lines of the staff correspond to which
 pitches.  The three clef symbols in common use are:
@@ -1561,12 +1606,18 @@ S: komma,
 FI: komma, korvinkuultava ero äänenkorkeudessa.
 
 Difference in pitch between a note derived from pure tuning and the same note
-derived from some other tuning method.  @aref{temperament}.
+derived from some other tuning method.
+
+@seealso
+
+@ref{temperament}.
 
 @node common meter
 @section common meter
 
-@aref{meter}.
+@seealso
+
+@ref{meter}.
 
 @node compound interval
 @section compound interval
@@ -1582,7 +1633,9 @@ FI: oktaavia laajempi intervalli.
 
 Intervals larger than an octave.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node complement
 @section complement
@@ -1596,7 +1649,9 @@ DK: komplementærinterval,
 S: komplementärintervall (?),
 FI: täydentävä intervalli.
 
-@aref{inverted interval}.
+@seealso
+
+@ref{inverted interval}.
 
 @node conjunct movement
 @section conjunct movement
@@ -1611,7 +1666,7 @@ S: stegvis rörelse,
 FI: asteittainen liike.
 
 Progressing melodically by intervals of a second.  The opposite of a
-@aref{disjunct movement}.
+@ref{disjunct movement}.
 
 @lilypond[fragment,line-width=13.0\cm]
 \key g \major \time 4/4
@@ -1630,7 +1685,9 @@ DK: konsonans,
 S: konsonans,
 FI: konsonanssi, sopusointi.
 
-@aref{harmony}.
+@seealso
+
+@ref{harmony}.
 
 @node contralto
 @section contralto
@@ -1644,7 +1701,9 @@ DK: alt,
 S: alt,
 FI: kontra-altto.
 
-@aref{alto}.
+@seealso
+
+@ref{alto}.
 
 @node counterpoint
 @section counterpoint
@@ -1716,7 +1775,9 @@ DK: kontratenor,
 S: kontratenor, counter tenor,
 FI: kontratenori.
 
-@aref{contralto}.
+@seealso
+
+@ref{contralto}.
 
 @node copying music
 @section copying music
@@ -1812,7 +1873,9 @@ DK: d,
 S: d,
 FI: D, d.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node da capo
 @section da capo
@@ -1904,8 +1967,8 @@ DK: diatonisk skala,
 S: diatonisk skala,
 FI: diatoninen asteikko.
 
-A scale consisting of 5@w{ }@aref{whole tone}s and
-2@w{ }@aref{semitone}s (S).  Scales played on the white keys
+A scale consisting of 5@w{ }@ref{whole tone}s and
+2@w{ }@ref{semitone}s (S).  Scales played on the white keys
 of a piano keybord are diatonic.
 
 The church modes are used in gregorial chant and in pre-baroque early
@@ -2073,7 +2136,9 @@ DK: formindsket interval,
 S: förminskat intervall,
 FI: vähennetty intervalli.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node diminuendo
 @section diminuendo
@@ -2087,7 +2152,9 @@ DK: diminuendo,
 S: diminuendo,
 FI: diminuendo, hiljentyen.
 
-@aref{decrescendo}.
+@seealso
+
+@ref{decrescendo}.
 
 @node direct
 @section direct
@@ -2101,7 +2168,9 @@ DK: ?,
 S: ?,
 FI: ?.
 
-@aref{custos}.
+@seealso
+
+@ref{custos}.
 
 @node disjunct movement
 @section disjunct movement
@@ -2116,7 +2185,7 @@ S: hoppande rörelse,
 FI: melodian hyppivä liike.
 
 Progressing melodically by intervals larger than a major second.
-Opposite of @aref{conjunct movement}.
+Opposite of @ref{conjunct movement}.
 
 @lilypond[fragment,ragged-right]
 \key a \major
@@ -2144,7 +2213,9 @@ DK: dissonerende interval, dissonans,
 S: dissonans,
 FI: dissonanssi, dissonoiva intervalli, riitasointi.
 
-@aref{harmony}.
+@seealso
+
+@ref{harmony}.
 
 @node dominant ninth chord
 @section dominant ninth chord
@@ -2158,7 +2229,9 @@ DK: dominantnoneakkord,
 S: dominantnonackord,
 FI: dominanttinoonisointu.
 
-@aref{chord}, @aref{functional harmony}.
+@seealso
+
+@ref{chord}, @ref{functional harmony}.
 
 @node dominant seventh chord
 @section dominant seventh chord
@@ -2172,7 +2245,9 @@ DK: dominantseptimakkord,
 S: dominantseptimackord,
 FI: dominanttiseptimisointu.
 
-@aref{chord}, @aref{functional harmony}.
+@seealso
+
+@ref{chord}, @ref{functional harmony}.
 
 @node dominant
 @section dominant
@@ -2186,8 +2261,7 @@ DK: dominant,
 S: dominant,
 FI: dominantti, huippusointu.
 
-The fifth @aref{scale degree},
-@aref{functional harmony}.
+The fifth @ref{scale degree} in @ref{functional harmony}.
 
 @node dorian mode
 @section dorian mode
@@ -2201,7 +2275,9 @@ DK: dorisk skala,
 S: dorisk tonart,
 FI: doorinen moodi.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node dot (augmentation dot)
 @section dot (augmentation dot)
@@ -2217,7 +2293,9 @@ FI: piste.
 
 @c TODO: fix double redirect -- to "dotted note", and thence to "note value"?
 
-@aref{dotted note}.
+@seealso
+
+@ref{dotted note}.
 
 @node dotted note
 @section dotted note
@@ -2231,7 +2309,9 @@ DK: punkteret node,
 S: punkterad not,
 FI: pisteellinen nuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node double appoggiatura
 @section double appoggiatura
@@ -2245,7 +2325,9 @@ DK: dobbelt forslag,
 S: dubbelslag,
 FI: kaksoisappogiatura, kaksoisetuhele.
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node double bar line
 @section double bar line
@@ -2273,7 +2355,9 @@ DK: dob@-belt@-punk@-te@-ret node,
 S: dub@-bel@-punk@-te@-rad not,
 FI: kaksoispisteellinen nuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node double flat
 @section double flat
@@ -2287,7 +2371,9 @@ DK: dob@-belt-b,
 S: dubbelbe,
 FI: kaksoisalennusmerkki.
 
-@aref{accidental}.
+@seealso
+
+@ref{accidental}.
 
 @node double sharp
 @section double sharp
@@ -2301,7 +2387,9 @@ DK: dob@-belt@-kryds,
 S: dubbelkors,
 FI: kaksoisylennysmerkki.
 
-@aref{accidental}.
+@seealso
+
+@ref{accidental}.
 
 @node double trill
 @section double trill
@@ -2329,7 +2417,9 @@ DK: todelt takt,
 S: tvåtakt,
 FI: kaksoistempo.
 
-@aref{meter}.
+@seealso
+
+@ref{meter}.
 
 @node duplet
 @section duplet
@@ -2343,7 +2433,9 @@ DK: duol,
 S: duol,
 FI: duoli.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node duration
 @section duration
@@ -2357,12 +2449,16 @@ DK: varighed,
 S: tonlängd,
 FI: kesto, aika-arvo.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node dydimic comma
 @section dydimic comma
 
-@aref{syntonic comma}.
+@seealso
+
+@ref{syntonic comma}.
 
 @node E
 @section E
@@ -2376,12 +2472,16 @@ DK: e,
 S: e,
 FI: E, e.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node ecclesiastical mode
 @section ecclesiastical mode
 
-@aref{church mode}.
+@seealso
+
+@ref{church mode}.
 
 @node eighth note
 @section eighth note
@@ -2396,7 +2496,9 @@ DK: ottendedelsnode,
 S: åttondelsnot,
 FI: kahdeksasosanuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node eighth rest
 @section eighth rest
@@ -2411,19 +2513,21 @@ DK: ottendedelspause,
 S: åttonddelspaus,
 FI: kahdeksasosatauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node elision
 @section elision
 
 FIXME: languages, definition
 
-
 @node embellishment
 @section embellishment
 
+@seealso
 
-@aref{ornament}.
+@ref{ornament}.
 
 @node engraving
 @section engraving
@@ -2484,8 +2588,12 @@ DK: ligesvævende temperatur,
 S: liksvävande temperatur,
 FI: tasavireinen.
 
-Tuning system dividing the octave into 12 equal @aref{semitone}s
-(precisely 100 @aref{cent}s).  @aref{temperament}.
+Tuning system dividing the octave into 12 equal @ref{semitone}s
+(precisely 100 @ref{cent}s).
+
+@seealso
+
+@ref{temperament}.
 
 @node expression mark
 @section expression mark
@@ -2500,8 +2608,8 @@ S: föredragsbeteckning,
 FI: nyanssiosoitus, esitysmerkki.
 
 Performance indications concerning 1. volume, dynamics (for example
-@aref{forte}, @aref{crescendo}), 2. tempo (for example
-@aref{andante}, @aref{allegro}).
+@ref{forte}, @ref{crescendo}), 2. tempo (for example
+@ref{andante}, @ref{allegro}).
 
 @node extender line
 @section extender line
@@ -2555,7 +2663,9 @@ and so on.
 
 @end itemize
 
-@aref{melisma}, @aref{sul G}, @aref{thorough bass}
+@seealso
+
+@ref{melisma}, @ref{sul G}, @ref{thorough bass}
 
 @node F
 @section F
@@ -2569,7 +2679,9 @@ DK: f,
 S: f,
 FI: F, f.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node F clef
 @section F clef
@@ -2588,7 +2700,7 @@ central@w{ }C.  Used on the third, fourth and fifth note line.  A
 digit@w{ }8 above the clef symbol indicates that the notes must be played
 an octave higher (for example, bass recorder) while 8@w{ }below the clef
 symbol indicates playing an octave lower (for example, on double bass
-@aref{strings}).
+@ref{strings}).
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -2610,13 +2722,15 @@ symbol indicates playing an octave lower (for example, on double bass
   "varbaritone  "
   "bass  "
   "sub-bass  "
-  "octaved up  "
-  "octaved down"
+  "octave up  "
+  "octave down"
 }
 >>
 @end lilypond
 
-@aref{baritone clef}
+@seealso
+
+@ref{baritone clef}
 
 @c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
 
@@ -2653,12 +2767,16 @@ DK: kvint,
 S: kvint,
 FI: kvintti.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node figured bass
 @section figured bass
 
-@aref{thorough bass}.
+@seealso
+
+@ref{thorough bass}.
 
 @node fingering
 @section fingering
@@ -2688,7 +2806,7 @@ FI: lippu, viiri.
 
 Ornament at the end of the stem of a note used for notes with values
 less than a quarter note.  The number of flags determines the
-@aref{note value}.
+@ref{note value}.
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
@@ -2713,12 +2831,16 @@ DK: b,
 S: beförtecken,
 FI: alennusmerkki.
 
-@aref{accidental}.
+@seealso
+
+@ref{accidental}.
 
 @node forefall
 @section forefall
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node forte
 @section forte
@@ -2747,7 +2869,9 @@ DK: kvart,
 S: kvart,
 FI: kvartti.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node fugue
 @section fugue
@@ -2761,7 +2885,9 @@ DK: fuga,
 S: fuga,
 FI: fuuga.
 
-@aref{counterpoint}.
+@seealso
+
+@ref{counterpoint}.
 
 @node functional harmony
 @section functional harmony
@@ -2804,7 +2930,9 @@ DK: g,
 S: g,
 FI: G, g.
 
-@aref{Pitch names}
+@seealso
+
+@ref{Pitch names}
 
 @node G clef
 @section G clef
@@ -2844,8 +2972,8 @@ scores are notated like that).
     \override Lyrics . LyricText #'X-offset = #-5
     "french violin clef"
     "violin clef"
-    "octaved up"
-    "octaved down"
+    "octave up"
+    "octave down"
   }
 >>
 @end lilypond
@@ -2877,7 +3005,9 @@ S: ornament,
 FI: korunuotit.
 
 Notes printed in small types to indicate that their time values are not
-counted in the rhythm of the bar.  @aref{appoggiatura}.
+counted in the rhythm of the bar.
+
+@ref{appoggiatura}.
 
 @node grand staff
 @section grand staff
@@ -2891,9 +3021,11 @@ DK: klaversystem,
 S: ackolad, böjd klammer,
 FI: kaksoisnuottiviivasto.
 
-@aref{brace}.
-
 A combination of two staves with a brace.  Usually used for piano music.
+
+@seealso
+
+@ref{brace}.
 
 @node grave
 @section grave
@@ -2912,7 +3044,9 @@ Slow, solemn.
 @node gruppetto
 @section gruppetto
 
-@aref{turn}.
+@seealso
+
+@ref{turn}.
 
 @node H
 @section H
@@ -2929,7 +3063,9 @@ FI: H, h.
 Letter name used for @samp{B natural} in German and Scandinavian usage.  In the
 standard usage of these countries, @samp{B} means @samp{B flat}.
 
-@aref{Pitch names}, @aref{B}
+@seealso
+
+@ref{Pitch names}, @ref{B}
 
 @node half note
 @section half note
@@ -2944,7 +3080,9 @@ DK: halvnode,
 S: halvnot,
 FI: puolinuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node half rest
 @section half rest
@@ -2959,7 +3097,9 @@ DK: halvnodespause,
 S: halvpaus,
 FI: puolitauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node harmonic cadence
 @section harmonic cadence
@@ -2974,7 +3114,9 @@ S: (harmonisk) kadens,
 FI: harmoninen kadenssi.
 
 A sequence of chords that terminates a musical phrase or
-section.  @aref{functional harmony}.
+section.
+
+@ref{functional harmony}.
 
 @lilypond[fragment,ragged-right]
 \context PianoStaff <<
@@ -3020,7 +3162,7 @@ Consonances:
 \set Score.automaticBars = ##f
 %\override Score.TextScript #'font-style = #'large
 \context Voice \relative c'' {
-  <g g>1_"unisone  " s
+  <g g>1_"unison  " s
   <g b>_"third  " s
   <g c>_"fourth  " s
   <g d'>_"fifth  " s
@@ -3042,7 +3184,7 @@ Dissonances:
 }
 @end lilypond
 
-Three note harmony @aref{chord}.
+Three note harmony @ref{chord}.
 
 @node homophony
 @section homophony
@@ -3057,7 +3199,7 @@ S: homofoni,
 FI: homofonia, yksiäänisyys.
 
 Music in which one voice leads melodically followed by the other voices more
-or less in the same rhythm.  In contrast to @aref{polyphony}.
+or less in the same rhythm.  In contrast to @ref{polyphony}.
 
 @node interval
 @section interval
@@ -3074,8 +3216,8 @@ FI: intervalli, kahden sävelen korkeusero.
 Difference in pitch between two notes.  Intervals may be perfect, minor,
 major,
 diminished, or augmented.  The augmented fourth and the diminished fifth are
-identical (@aref{enharmonic}) and are called @emph{tritonus}
-because they consist of three @aref{whole tone}s.  The addition
+identical (@ref{enharmonic}) and are called @emph{tritonus}
+because they consist of three @ref{whole tone}s.  The addition
 of such two intervals forms an octave.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
@@ -3092,7 +3234,7 @@ of such two intervals forms an octave.
   < g bis >^"augm" 
 }
 \context Lyrics \lyrics {
-  "unisone " "second " "second " "second "
+  "unison " "second " "second " "second "
   "third  " "third " "third " "third"
 }
 >>
@@ -3103,13 +3245,13 @@ of such two intervals forms an octave.
 <<
 \context Staff \relative c'' {
   < g c >1^"perfect" 
-  < g cis >^"augm" 
+  < g cis >^"aug" 
   < g d' >^"perfect" 
-  < g des' > ^"dimin" 
-  < gis es' >^"dimin" 
+  < g des' > ^"dim" 
+  < gis es' >^"dim" 
   < g! es' >^"minor" 
   < g e'! >^"major" 
-  < g eis' >^"augm" 
+  < g eis' >^"aug" 
 }
  \lyrics {
   "fourth  " "fourth  " "fifth  " "fifth  "
@@ -3175,7 +3317,9 @@ S: ren stämning,
 FI: puhdas viritys.
 
 Tuning system in which the notes are obtained by adding and subtracting
-natural fifths and thirds.  @aref{temperament}.
+natural fifths and thirds.
+
+@ref{temperament}.
 
 @node key
 @section key
@@ -3189,9 +3333,12 @@ DK: toneart,
 S: tonart,
 FI: tonaliteetti.
 
-According to the 12@w{ }tones of the @aref{chromatic scale}
+According to the 12@w{ }tones of the @ref{chromatic scale}
 there are 12@w{ }keys, one on@w{ }c, one on c-sharp, etc.
-@aref{key signature}.
+
+@seealso
+
+@ref{key signature}.
 
 @node key signature
 @section key signature
@@ -3206,7 +3353,9 @@ S: tonartssignatur,
 FI: sävellajiosoitus.
 
 The sharps or flats appearing at the beginning of each staff indicating the
-key of the music.  @aref{accidental}.
+key of the music.
+
+@ref{accidental}.
 
 @node largo
 @section largo
@@ -3235,7 +3384,7 @@ DK: ledetone,
 S: ledton,
 FI: johtosävel.
 
-The seventh @aref{scale degree}, a @aref{semitone} below
+The seventh @ref{scale degree}, a @ref{semitone} below
 the tonic; so called because of its strong tendency to @q{lead up} (resolve
 upwards) to the tonic scale degree.
 
@@ -3272,7 +3421,7 @@ FI: legato, sitoen.
 
 To be performed (a) without any perceptible interruption between the notes,
 unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
-(d) @aref{staccato}.
+(d) @ref{staccato}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -3295,12 +3444,16 @@ unlike (b) @emph{leggiero} or @emph{non-legato}, (c) @emph{portato}, and
 @node legato curve
 @section legato curve
 
-@aref{slur}, @aref{legato}.
+@seealso
+
+@ref{slur}, @ref{legato}.
 
 @node leger line
 @section leger line
 
-@aref{ledger line}.
+@seealso
+
+@ref{ledger line}.
 
 @node lilypond
 @section lilypond
@@ -3343,7 +3496,9 @@ DK: nodelinie,
 S: notlinje,
 FI: viiva, nuottiviiva.
 
-@aref{staff}.
+@seealso
+
+@ref{staff}.
 
 @node long appoggiatura
 @section long appoggiatura
@@ -3357,7 +3512,9 @@ DK: langt forslag,
 S: långt förslag,
 FI: pitkä appoggiatura, pitkä etuhele.
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node longa
 @section longa
@@ -3371,8 +3528,7 @@ DK: longa,
 S: longa,
 FI: longa.
 
-Note value: double length of @aref{breve}.
-@aref{note value}.
+Note value: double length of @ref{breve}.
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
@@ -3381,6 +3537,10 @@ Note value: double length of @aref{breve}.
   g\longa
 }
 @end lilypond
+
+@seealso
+
+@ref{note value}.
 
 @node lyrics
 @section lyrics
@@ -3399,7 +3559,9 @@ FI, sanoitus.
 
 FIXME: add languages
 
-@aref{elision}.
+@seealso
+
+@ref{elision}.
 
 @node major interval
 @section major interval
@@ -3413,7 +3575,9 @@ DK: stort interval,
 S: stort intervall,
 FI: suuri intervalli.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node major
 @section major
@@ -3427,7 +3591,9 @@ DK: dur,
 S: dur,
 FI: duuri.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node meantone temperament
 @section meantone temperament
@@ -3442,8 +3608,8 @@ S: medeltonstemperatur,
 FI: keskisävelviritys.
 
 Temperament yielding acoustically pure thirds by decreasing the natural fifth
-by 16@w{ }@aref{cent}s.  Due to the non-circular character of this
-@aref{temperament} only a limited set of keys are playable.
+by 16@w{ }@ref{cent}s.  Due to the non-circular character of this
+@ref{temperament} only a limited set of keys are playable.
 Used for tuning keyboard instruments for performance of pre-1650 music.
 
 @node measure
@@ -3458,10 +3624,12 @@ DK: takt,
 S: takt,
 FI: tahti.
 
-A group of @aref{beat}s (units of musical time) the first of which
+A group of @ref{beat}s (units of musical time) the first of which
 bears an accent.  Such groups in numbers of two or more recur consistently
 throughout the composition and are marked from each other by
-bar-lines.  @aref{meter}.
+bar-lines.
+
+@ref{meter}.
 
 @node mediant
 @section mediant
@@ -3476,10 +3644,12 @@ S: mediant,
 FI: keskisävel.
 
 1.@tie{}The third @b{scale degree}.
-2.@tie{}A @aref{chord} having its base tone
+2.@tie{}A @ref{chord} having its base tone
 a third from that of another chord.  For example, the tonic chord may be
-replaced by its lower mediant (variant tonic).  @aref{functional
-harmony}, @aref{relative key}.
+replaced by its lower mediant (variant tonic).
+
+@ref{functional
+harmony}, @ref{relative key}.
 
 @node melisma
 @section melisma
@@ -3497,12 +3667,16 @@ syllable in plainsong
 
 FIXME: add languages
 
-@aref{extender line}.
+@seealso
+
+@ref{extender line}.
 
 @node melodic cadence
 @section melodic cadence
 
-@aref{cadenza}.
+@seealso
+
+@ref{cadenza}.
 
 @node meter
 @section meter
@@ -3516,11 +3690,11 @@ DK: taktart,
 S: taktart,
 FI: aika-arvo.
 
-The basic scheme of @aref{note value}s and
-@aref{accent}s which remains unaltered throughout a composition
+The basic scheme of @ref{note value}s and
+@ref{accent}s which remains unaltered throughout a composition
 or a section of it.  For instance, 3/4 meter means that the basic
-@aref{note value}s are quarter notes and that a
-@aref{measure} consists of three of those.  According to
+@ref{note value}s are quarter notes and that a
+@ref{measure} consists of three of those.  According to
 whether there are two, three, or four units to the measure,
 one speaks of @emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8), or
 @emph{quadruple} (4/2, 4/4, 4/8) meter.  4/4 is also called common meter.
@@ -3560,7 +3734,9 @@ DK: me@-tro@-nom,
 S: me@-tro@-nom,
 FI: metronomi.
 
-Device indicating the exact tempo of a piece.  @aref{metronomic
+Device indicating the exact tempo of a piece.
+
+@ref{metronomic
 indication}.
 
 @node metronomic indication
@@ -3590,8 +3766,7 @@ DK: mezzosopran,
 S: mezzosopran,
 FI: mezzosopraano.
 
-The female voice between @aref{soprano} and
-@aref{contralto}.
+The female voice between @ref{soprano} and @ref{contralto}.
 
 @node middle C
 @section middle C
@@ -3629,7 +3804,9 @@ DK: mol,
 S: moll,
 FI: molli.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node minor interval
 @section minor interval
@@ -3643,7 +3820,9 @@ DK: lille interval,
 S: litet intervall,
 FI: pieni intervalli.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node mode
 @section mode
@@ -3657,7 +3836,9 @@ DK: skala,
 S: modus, skala,
 FI: moodi, kirkkosävelasteikko.
 
-@aref{church mode}, @aref{diatonic scale}.
+@seealso
+
+@ref{church mode}, @ref{diatonic scale}.
 
 @node modulation
 @section modulation
@@ -3671,9 +3852,9 @@ DK: modulation,
 S: modulering,
 FI: modulaatio, sävellajin vaihdos.
 
-Moving from one @aref{key} to another.  For example, the second
-subject of a @aref{sonata form} movement modulates to the dominant
-key if the key is major and to the @aref{relative key} if the key
+Moving from one @ref{key} to another.  For example, the second
+subject of a @ref{sonata form} movement modulates to the dominant
+key if the key is major and to the @ref{relative key} if the key
 is minor.
 
 @node mordent
@@ -3687,12 +3868,16 @@ DK: mordent,
 S: mordent,
 FI: mordent, korukuvio.
 
-@aref{ornament}.
+@seealso
+
+@ref{ornament}.
 
 @node motif
 @section motif
 
-@aref{motive}.
+@seealso
+
+@ref{motive}.
 
 @node motive
 @section motive
@@ -3739,8 +3924,8 @@ DK: sats,
 S: sats,
 FI: osa.
 
-Greater musical works like @aref{symphony} and
-@aref{sonata} most often consist of several -- more or less --
+Greater musical works like @ref{symphony} and
+@ref{sonata} most often consist of several -- more or less --
 independant pieces called movements.
 
 @node multibar rest
@@ -3766,7 +3951,9 @@ FI: usean tahdin mittainen tauko.
 @node mixolydian mode
 @section mixolydian mode
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node natural sign
 @section natural sign
@@ -3780,12 +3967,16 @@ DK: op@-løsningstegn,
 S: återställningstecken,
 FI: palautusmerkki.
 
-@aref{accidental}.
+@seealso
+
+@ref{accidental}.
 
 @node neighbour tones
 @section neighbour tones
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node ninth
 @section ninth
@@ -3799,12 +3990,16 @@ DK: none,
 S: nona,
 FI: nooni.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node non-legato
 @section non-legato
 
-@aref{legato}.
+@seealso
+
+@ref{legato}.
 
 @node note
 @section note
@@ -3821,7 +4016,7 @@ FI: nuotti.
 Notes are signs by means of which music is fixed in writing.  The term is also
 used for the sound indicated by a note, and even for the key of the piano
 which produces the sound.  However, a clear distinction between the terms tone
-and @aref{note} is strongly recommended.  Briefly, one sees a note,
+and @ref{note} is strongly recommended.  Briefly, one sees a note,
 and hears a tone.
 
 @node note head
@@ -3837,9 +4032,9 @@ S: nothuvud,
 FI: nuotin pää.
 
 A head-like sign which indicates pitch by its position on a
-@aref{staff} provided with a @aref{clef}, and duration
+@ref{staff} provided with a @ref{clef}, and duration
 by a variety of shapes such as hollow or black heads with or without
-@aref{stem}s, @aref{flag}s, etc.  For percussion
+@ref{stem}s, @ref{flag}s, etc.  For percussion
 instruments (often having no defined pitch) the note head may indicate the
 instrument.
 
@@ -3919,7 +4114,9 @@ dotted notes are also frequently used.
 @node octave sign
 @section octave sign
 
-@aref{G clef}, @aref{F clef}.
+@seealso
+
+@ref{G clef}, @ref{F clef}.
 
 @node octave
 @section octave
@@ -3933,7 +4130,9 @@ DK: oktav,
 S: oktav,
 FI: oktaavi.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node ornament
 @section ornament
@@ -3948,7 +4147,7 @@ S: ornament,
 FI: koru, hele.
 
 Most commonly used is the @emph{trill}, the rapid alternation of a given note
-with the diatonic @aref{second} above it.  In the music from the
+with the diatonic @ref{second} above it.  In the music from the
 middle of the 19th century and onwards the trill is performed with the main
 note first while in the music from the preceding baroque and classic periods
 the upper note is played first.
@@ -3991,7 +4190,9 @@ the
 >>
 @end lilypond
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node ossia
 @section ossia
@@ -4022,18 +4223,22 @@ S: stämma,
 FI: stemma, instrumenttiosuus.
 
 1.@tie{}In instrumental or choral music the music for the single instrument
-or voice.  2.@tie{}in contrapuntal music @aref{counterpoint} the single
+or voice.  2.@tie{}in contrapuntal music @ref{counterpoint} the single
 melodic line of the contrapunctal web.
 
 @node pause
 @section pause
 
-@aref{fermata}.
+@seealso
+
+@ref{fermata}.
 
 @node pennant
 @section pennant
 
-@aref{flag}.
+@seealso
+
+@ref{flag}.
 
 @node percussion
 @section percussion
@@ -4065,7 +4270,9 @@ DK: rent interval,
 S: rent intervall,
 FI: puhdas intervalli.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node phrase
 @section phrase
@@ -4093,8 +4300,8 @@ DK: frasering,
 S: fra@-se@-ring,
 FI: fraseeraus, jäsentäminen.
 
-The clear rendering in musical performance of the @aref{phrase}s of
-the melody.  Phrasing may be indicated by a @aref{slur}.
+The clear rendering in musical performance of the @ref{phrase}s of
+the melody.  Phrasing may be indicated by a @ref{slur}.
 
 @node pickup
 @section pickup
@@ -4108,7 +4315,9 @@ DK: optakt,
 S: upptakt,
 FI: kohotahti.
 
-@aref{anacrusis}.
+@seealso
+
+@ref{anacrusis}.
 
 @node piano
 @section piano
@@ -4164,12 +4373,16 @@ S: polyfoni,
 FI: polyfonia, moniäänisyys.
 
 Music written in a combination of several simultaneous voices (parts) of a
-more or less pronounced individuality.  @aref{counterpoint}.
+more or less pronounced individuality.
+
+@ref{counterpoint}.
 
 @node portato
 @section portato
 
-@aref{legato}.
+@seealso
+
+@ref{legato}.
 
 @node presto
 @section presto
@@ -4183,7 +4396,7 @@ DK: presto,
 S: presto,
 FI: presto, hyvin nopeasti.
 
-Very quick, i.e., quicker than @aref{allegro}; @emph{prestissimo}
+Very quick, i.e., quicker than @ref{allegro}; @emph{prestissimo}
 denotes the highest possible degree of speed.
 
 @node Pythagorean comma
@@ -4200,7 +4413,7 @@ FI: pytagorinen komma.
 
 A sequence of fifths starting on@w{ }C eventually circles back to@w{ }C,
 but this@w{ }C, obtained by adding 12@w{ }fifths, is
-24 @aref{cent}s higher than the@w{ }C obtained by adding
+24 @ref{cent}s higher than the@w{ }C obtained by adding
 7@w{ }octaves.  The difference between those two pitches is called the
 Pythagorean comma.
 
@@ -4216,7 +4429,9 @@ DK: kvartol,
 S: kvartol,
 FI: kvartoli.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node quarter note
 @section quarter note
@@ -4231,7 +4446,9 @@ DK: fjerdedelsnode,
 S: fjärdedelsnot,
 FI: neljännesosanuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node quarter rest
 @section quarter rest
@@ -4246,7 +4463,9 @@ DK:@w{ }fjerdedelspause,
 S: fjärdedelspaus,
 FI: neljännesosatauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node quintuplet
 @section quintuplet
@@ -4260,7 +4479,9 @@ DK: kvintol,
 S: kvintol,
 FI: kvintoli.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node rallentando
 @section rallentando
@@ -4274,7 +4495,9 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-Abbreviation "rall.".  @aref{ritardando}.
+Abbreviation "rall.".
+
+@ref{ritardando}.
 
 @node relative key
 @section relative key
@@ -4288,7 +4511,7 @@ DK: paralleltoneart,
 S: parallelltonart,
 FI: rinnakkaissävellaji.
 
-@aref{major} and @aref{minor} @aref{key}s with the same @aref{key signature}.
+@ref{major} and @ref{minor} @ref{key}s with the same @ref{key signature}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -4344,7 +4567,9 @@ DK: pause,
 S: paus,
 FI: tauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node rhythm
 @section rhythm
@@ -4359,10 +4584,10 @@ S: rytm,
 FI: rytmi.
 
 (a) Metrical rhythm in which every time value is a multiple or fraction of a
-fixed unit of time, called @aref{beat}, and in which the normal
-@aref{accent} recurs in regular intervals, called
-@aref{measure}.  The basic scheme of time values is called
-@aref{meter}.  (b) Measured rhythm which lacks regularly recurrent
+fixed unit of time, called @ref{beat}, and in which the normal
+@ref{accent} recurs in regular intervals, called
+@ref{measure}.  The basic scheme of time values is called
+@ref{meter}.  (b) Measured rhythm which lacks regularly recurrent
 accent.  In modern notation such music appears as a free alternation of
 different measures.  (c) Free rhythm, i.e., the use of temporal values having
 no common metrical unit (beat).
@@ -4407,7 +4632,9 @@ DK: Skala,
 S: skala,
 FI: asteikko, sävelasteikko.
 
-@aref{diatonic scale}.
+@seealso
+
+@ref{diatonic scale}.
 
 @node scale degree
 @section scale degree
@@ -4438,7 +4665,9 @@ sub@-do@-mi@-nant (S) and V = dominant (D).
 >>
 @end lilypond
 
-@aref{functional harmony}.
+@seealso
+
+@ref{functional harmony}.
 
 @node scordatura
 @section scordatura
@@ -4489,7 +4718,7 @@ FI: partituuri.
 
 A copy of orchestral, choral, or chamber music showing what each instrument is
 to play, each voice to sing, having each part arranged one underneath the
-other on different staves @aref{staff}.
+other on different staves @ref{staff}.
 
 @node second
 @section second
@@ -4503,9 +4732,9 @@ DK: sekund,
 S: sekund,
 FI: sekunti.
 
-The @aref{interval} between two neigbouring tones of a scale.  A
-@aref{diatonic scale} consists of alternating
-@aref{semitone}s and @aref{whole tone}s, hence the size
+The @ref{interval} between two neigbouring tones of a scale.  A
+@ref{diatonic scale} consists of alternating
+@ref{semitone}s and @ref{whole tone}s, hence the size
 of a se@-cond depends on the scale degrees in question.
 
 @node semitone
@@ -4520,11 +4749,11 @@ DK: halvtone,
 S: halvton,
 FI: puolisävel.
 
-The @aref{interval} of a minor second.  The (usually) smallest
+The @ref{interval} of a minor second.  The (usually) smallest
 interval in European composed music.  The interval between two neighbouring
 tones on the piano keyboard -- including black and white keys -- is a
 semitone.  An octave may be divided into 12@w{ }semitones.
-@aref{interval}, @aref{chromatic scale}.
+@ref{interval}, @ref{chromatic scale}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -4543,12 +4772,16 @@ DK: septim,
 S: septim,
 FI: septimi.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node sextolet
 @section sextolet
 
-@aref{sextuplet}
+@seealso
+
+@ref{sextuplet}
 
 @node sextuplet
 @section sextuplet
@@ -4562,12 +4795,16 @@ DK: sekstol,
 S: sextol,
 FI: sekstoli.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node shake
 @section shake
 
-@aref{trill}.
+@seealso
+
+@ref{trill}.
 
 @node sharp
 @section sharp
@@ -4581,12 +4818,16 @@ DK: kryds,
 S: kors@-förtecken,
 FI: korotusmerkki.
 
-@aref{accidental}.
+@seealso
+
+@ref{accidental}.
 
 @node short appoggiatura
 @section short appoggiatura
 
-@aref{appoggiatura}.
+@seealso
+
+@ref{appoggiatura}.
 
 @node sixteenth note
 @section sixteenth note
@@ -4601,7 +4842,9 @@ DK: sekstendedelsnode,
 S: sextondelsnot,
 FI: kuudestoistaosanuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node sixteenth rest
 @section sixteenth rest
@@ -4616,7 +4859,9 @@ DK: sekstendedelspause,
 S: sextondelspaus,
 FI: kuudesosatauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node sixth
 @section sixth
@@ -4630,7 +4875,9 @@ DK: sekst,
 S: sext,
 FI: seksti.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node sixty-fourth note
 @section sixty-fourth note
@@ -4645,7 +4892,9 @@ DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-no@-de,
 S: sextiofjärdedelsnot,
 FI: kuudeskymmenesneljäsosanuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node sixty-fourth rest
 @section sixty-fourth rest
@@ -4660,7 +4909,9 @@ DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-pau@-se,
 S: sextiofjärdedelspaus,
 FI: kuudeskymmenesneljäsosatauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node slur
 @section slur
@@ -4675,7 +4926,7 @@ S: båge,
 FI: kaari.
 
 A slur above or below a group of notes indicates that they are to be played
-@aref{legato}, e.g., with one stroke of the violin bow or with one
+@ref{legato}, e.g., with one stroke of the violin bow or with one
 breath in singing.
 
 @node solmization
@@ -4691,9 +4942,11 @@ S: solmisation,
 FI: suhteelliset laulunimet.
 
 General term for systems of designating the degrees of the
-@aref{scale}, not by letters, but by syllables (@emph{do}
+@ref{scale}, not by letters, but by syllables (@emph{do}
 (@emph{ut}), @emph{re}, @emph{mi}, @emph{fa}, @emph{sol}, @emph{la}, @emph{si}
-(@emph{ti})).  @aref{scale degree}.
+(@emph{ti})).
+
+@ref{scale degree}.
 
 @node sonata
 @section sonata
@@ -4723,8 +4976,8 @@ DK: sonateform,
 S: sonatform,
 FI: sonaattimuoto.
 
-A form used frequently for single movements of the @aref{sonata},
-@aref{symphony}, quartet, etc.  A movement written in sonata form
+A form used frequently for single movements of the @ref{sonata},
+@ref{symphony}, quartet, etc.  A movement written in sonata form
 falls into three sections called @emph{exposition}, @emph{development} and
 @emph{recapitulation}.  In the exposition the composer introduces some musical
 ideas, consisting of a number of themes; in the development section the
@@ -4733,13 +4986,15 @@ repeats the exposition, with certain modifications.  The exposition contains a
 number of themes that fall into two groups, often called first and second
 subject.  Other melodies occurring in each group are considered as
 continuations of these two.  The second theme is in another key, normally in
-the key of the @aref{dominant} if the @aref{tonic} is @aref{major}, and in the
-@aref{relative key} if the tonic is @aref{minor}.
+the key of the @ref{dominant} if the @ref{tonic} is @ref{major}, and in the
+@ref{relative key} if the tonic is @ref{minor}.
 
 @node song texts
 @section song texts
 
-@aref{lyrics}.
+@seealso
+
+@ref{lyrics}.
 
 @node soprano
 @section soprano
@@ -4794,13 +5049,15 @@ FI: nuottiviivasto.
 
 A staff (pl. staves) is a series of (normally five) horizontal lines
 upon and between which the musical notes are written, thus indicating
-(in connection with a @aref{clef}) their pitch.  Staves for
-@aref{percussion} instruments may have fewer lines.
+(in connection with a @ref{clef}) their pitch.  Staves for
+@ref{percussion} instruments may have fewer lines.
 
 @node staves
 @section staves
 
-@aref{staff}.
+@seealso
+
+@ref{staff}.
 
 @node stem
 @section stem
@@ -4814,8 +5071,10 @@ DK: hals,
 S: skaft,
 FI: nuottipalkki.
 
-Vertical line above or below a @aref{note head} shorter than a
-whole note.  @aref{beam}.
+Vertical line above or below a @ref{note head} shorter than a
+whole note.
+
+@ref{beam}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.autoBeaming = ##f
@@ -4856,8 +5115,9 @@ D: betonet taktslag,
 S: betonat taktslag,
 FI: tahdin vahva isku.
 
-@aref{beat}, @aref{accent}, @aref{measure},
-@aref{rhythm}.
+@seealso
+
+@ref{beat}, @ref{accent}, @ref{measure}, @ref{rhythm}.
 
 @node subdominant
 @section subdominant
@@ -4871,7 +5131,9 @@ DK: subdominant,
 S: subdominant,
 FI: subdominantti, alidominantti.
 
-The fourth @aref{scale degree}.  @aref{functional harmony}.
+The fourth @ref{scale degree}.
+
+@ref{functional harmony}.
 
 @node submediant
 @section submediant
@@ -4885,7 +5147,7 @@ DK: Submediant,
 S: submediant,
 FI: alikeskisävel.
 
-The sixth @aref{scale degree}.
+The sixth @ref{scale degree}.
 
 @node subtonic
 @section subtonic
@@ -4899,7 +5161,7 @@ DK: Subtonika,
 S: subtonika,
 FI: subtoonika, alitoonika.
 
-The seventh @aref{scale degree}.
+The seventh @ref{scale degree}.
 
 @node sul G
 @section sul G
@@ -4928,7 +5190,7 @@ DK: superdominant,
 S: superdominant,
 FI: ylidominantti.
 
-The sixth @aref{scale degree}.
+The sixth @ref{scale degree}.
 
 @node supertonic
 @section supertonic
@@ -4942,7 +5204,7 @@ DK: supertonika,
 S: supertonika,
 FI: ylitoonika.
 
-The second @aref{scale degree}.
+The second @ref{scale degree}.
 
 @node symphony
 @section symphony
@@ -4956,7 +5218,7 @@ DK: symfoni,
 S: symfoni,
 FI: sinfonia.
 
-A symphony may be defined as a @aref{sonata} for orchestra.
+A symphony may be defined as a @ref{sonata} for orchestra.
 
 @node syncopation
 @section syncopation
@@ -4970,8 +5232,8 @@ DK: synkope,
 S: synkop,
 FI: synkooppi.
 
-Any deliberate upsetting of the normal pulse of @aref{meter},
-@aref{accent}, and @aref{rhythm}.  The occidental system of musical
+Any deliberate upsetting of the normal pulse of @ref{meter},
+@ref{accent}, and @ref{rhythm}.  The occidental system of musical
 rhythm rests upon the grouping of equal beats into groups of two or three,
 with a regularly recurrent accent on the first beat of each group.  Any
 deviation from this scheme is felt as a disturbance or contradiction between
@@ -5000,7 +5262,7 @@ FI: syntoninen komma, terssien taajuusero luonnollisessa ja Pytagorisessa
 viritysjärjestelmässä.
 
 Difference between the natural third and the third obtained by Pythagorean
-tuning (@aref{Pythagorean comma}), equal to 22@w{ }cents.
+tuning (@ref{Pythagorean comma}), equal to 22@w{ }cents.
 
 @node system
 @section system
@@ -5014,7 +5276,7 @@ DK: system,
 S: system,
 FI: nuottijärjestelmä.
 
-The collection of staves @aref{staff}, two or more, as used for
+The collection of staves @ref{staff}, two or more, as used for
 writing down of keyboard, chamber, choral, or orchestral music.
 
 @node temperament
@@ -5030,7 +5292,9 @@ S: temperatur,
 FI: viritysjärjestelmä.
 
 Systems of tuning in which the intervals deviate from the acoustically pure
-intervals.  @aref{meantone temperament}, @aref{equal temperament}.
+intervals.
+
+@ref{meantone temperament}, @ref{equal temperament}.
 
 @node tempo indication
 @section tempo indication
@@ -5046,8 +5310,8 @@ FI: tempomerkintä.
 
 The rate of speed of a composition or a section thereof, ranging from the
 slowest to the quickest, as is indicated by tempo marks as
-@aref{largo}, @aref{adagio}, @aref{andante},
-@aref{allegro}, and @aref{presto}.
+@ref{largo}, @ref{adagio}, @ref{andante},
+@ref{allegro}, and @ref{presto}.
 
 @node tenor
 @section tenor
@@ -5061,7 +5325,7 @@ DK: tenor,
 S: tenor,
 FI: tenori, korkea miesääni.
 
-The highest male voice (apart from @aref{counter tenor}).
+The highest male voice (apart from @ref{counter tenor}).
 
 @node tenth
 @section tenth
@@ -5075,7 +5339,9 @@ DK: decim,
 S: decima,
 FI: desimi.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node tenuto
 @section tenuto
@@ -5104,7 +5370,9 @@ DK: terts,
 S: ters,
 FI: terssi.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node thirty-second note
 @section thirty-second note
@@ -5119,7 +5387,9 @@ DK: toogtredivtedelsnode,
 S: trettiotvåondelsnot,
 FI: kolmanneskymmeneskahdesosanuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node thirty-second rest
 @section thirty-second rest
@@ -5134,7 +5404,9 @@ DK: toogtredivtedelspause,
 S: trettiotvåondelspaus,
 FI: kolmanneskymmeneskahdesosatauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node thorough bass
 @section thorough bass
@@ -5149,8 +5421,8 @@ S: generalbas,
 FI: kenraalibasso, numeroitu basso.
 
 A method of indicating an accompaniment part by the bass notes only, together
-with figures designating the chief @aref{interval}s and
-@aref{chord}s to be played above the bass notes.
+with figures designating the chief @ref{interval}s and
+@ref{chord}s to be played above the bass notes.
 
 @lilypond[fragment,line-width=13.0\cm]
 \context GrandStaff <<
@@ -5189,7 +5461,7 @@ DK: bindebue,
 S: bindebåge, överbindning,
 FI: sitominen.
 
-A curved line, identical in appearance with the @aref{slur}, which
+A curved line, identical in appearance with the @ref{slur}, which
 connects two succesive notes of the same pitch, and which has the function of
 uniting them into a single sound (tone) equal to the combined durations.
 
@@ -5201,7 +5473,9 @@ uniting them into a single sound (tone) equal to the combined durations.
 @node time
 @section time
 
-@aref{meter}.
+@seealso
+
+@ref{meter}.
 
 @node time signature
 @section time signature
@@ -5215,7 +5489,9 @@ DK: taktangivelse,
 S: taktartssignatur,
 FI: tahtiosoitus.
 
-@aref{meter}.
+@seealso
+
+@ref{meter}.
 
 @node tone
 @section tone
@@ -5245,8 +5521,11 @@ DK: tonika,
 S: tonika,
 FI: toonika.
 
-The first @aref{scale degree}.
-@aref{functional harmony}.
+The first @ref{scale degree}.
+
+@seealso
+
+@ref{functional harmony}.
 
 @node transposition
 @section transposition
@@ -5295,7 +5574,9 @@ DK:@w{ }diskantnøgle,
 S: diskantklav,
 FI: diskanttiavain.
 
-@aref{G clef}.
+@seealso
+
+@ref{G clef}.
 
 @node tremolo
 @section tremolo
@@ -5309,11 +5590,11 @@ DK: tremolo,
 S: tremolo,
 FI: tremolo.
 
-On stringed instruments (@aref{strings}) the quick reiteration of
+On stringed instruments (@ref{strings}) the quick reiteration of
 the same tone, produced by a rapid up-and-down movement of the bow
 (a).  The term is also used for the rapid alternation (b) between two notes of
-a @aref{chord}, usually in the distance of a third
-(@aref{interval}).
+a @ref{chord}, usually in the distance of a third
+(@ref{interval}).
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
@@ -5337,7 +5618,9 @@ DK: treklang,
 S: treklang,
 FI: kolmisointu.
 
-@aref{chord}.
+@seealso
+
+@ref{chord}.
 
 @node trill
 @section trill
@@ -5351,7 +5634,9 @@ DK: trille,
 S: drill,
 FI: trilli.
 
-@aref{ornament}.
+@seealso
+
+@ref{ornament}.
 
 @node triple meter
 @section triple meter
@@ -5365,7 +5650,9 @@ DK: tredelt takt,
 S: tretakt,
 FI: kolmijakoinen.
 
-@aref{meter}.
+@seealso
+
+@ref{meter}.
 
 @node triplet
 @section triplet
@@ -5379,7 +5666,9 @@ DK: triol,
 S: triol,
 FI: trioli.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node tritone
 @section tritone
@@ -5393,7 +5682,9 @@ DK: tritonus,
 S: tritonus,
 FI: tritonus.
 
-@aref{interval}.
+@seealso
+
+@ref{interval}.
 
 @node tuning fork
 @section tuning fork
@@ -5423,7 +5714,9 @@ DK: dobbeltslag,
 S: dubbelslag,
 FI: korukuvio.
 
-@aref{ornament}.
+@seealso
+
+@ref{ornament}.
 
 @node unison
 @section unison
@@ -5453,7 +5746,9 @@ DK: optakt,
 S: upptakt,
 FI: kohotahti.
 
-@aref{anacrusis}
+@seealso
+
+@ref{anacrusis}
 
 @node voice
 @section voice
@@ -5467,8 +5762,8 @@ DK: stemme,
 S: stämma,
 FI: ääni, lauluääni.
 
-1.@tie{}Human voices: @aref{soprano}, @aref{mezzo-soprano},
-@aref{contralto}, @aref{tenor}, @aref{baritone}, @aref{bass}.
+1.@tie{}Human voices: @ref{soprano}, @ref{mezzo-soprano},
+@ref{contralto}, @ref{tenor}, @ref{baritone}, @ref{bass}.
 2.@tie{}A melodic layer or part of a polyphonic composition.
 
 @node weak beat
@@ -5483,7 +5778,9 @@ DK: ubetonet taktslag,
 S: obetonat taktslag,
 FI: tahdin heikko isku.
 
-@aref{beat}, @aref{measure}, @aref{rhythm}.
+@seealso
+
+@ref{beat}, @ref{measure}, @ref{rhythm}.
 
 @node whole note
 @section whole note
@@ -5498,7 +5795,9 @@ DK: helnode,
 S: helnot,
 FI: kokonuotti.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node whole rest
 @section whole rest
@@ -5513,7 +5812,9 @@ DK: helnodespause,
 S: helpaus,
 FI: kokotauko.
 
-@aref{note value}.
+@seealso
+
+@ref{note value}.
 
 @node whole tone
 @section whole tone
@@ -5527,7 +5828,7 @@ DK: heltone,
 S: helton,
 FI: kokoaskel.
 
-The @aref{interval} of a major second.  The interval between two
+The @ref{interval} of a major second.  The interval between two
 tones on the piano keyboard with exactly one key between them -- including
 black and white keys -- is a whole tone.
 
