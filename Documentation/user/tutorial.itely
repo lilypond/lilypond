@@ -10,9 +10,9 @@
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
 - unless you have a really good reason, use either
-    @l ilypond[verbatim,quote,ragged-right]
+    @lilypond[verbatim,quote,ragged-right]
   or
-    @l ilypond[verbatim,quote,ragged-right,fragment,relative=2]
+blah @lilypond[verbatim,quote,ragged-right,fragment,relative=2] f
   (without spaces)
   Don't use any other relative=X commands (make it a non-fragment
   example), and don't use fragment without relative=2.
@@ -21,6 +21,10 @@ Tutorial guidelines:  (different from policy.txt!)
   until we get to the Basic notation chapter.
 - Add "Music glossary: @r gloss{foo}" to the _top_ of the relevant
   portions of the tutorial.
+@node foo
+@section foo
+
+blah
 @end ignore
 
 

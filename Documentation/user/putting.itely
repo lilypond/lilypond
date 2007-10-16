@@ -29,7 +29,7 @@ want something that isn't covered?
 
 @menu
 * Soprano and cello::           
-* Another example of extending templates::  
+* TODO another example of extending templates::  
 @end menu
 
 @node Soprano and cello
@@ -214,8 +214,8 @@ celloMusic = \relative c {
 @end lilypond
 
 
-@node Another example of extending templates
-@unnumberedsubsec Another example of extending templates
+@node TODO another example of extending templates
+@unnumberedsubsec TODO another example of extending templates
 
 TODO: somebody else fill this in.  You guys like vocal stuff,
 right?  Get to it.  :)  -gp
@@ -345,12 +345,5 @@ leading to
   }
 >>
 @end lilypond
-
-More in-depth information on preparing parts and scores can be found
-in the notation manual; see @ruser{Orchestral music}.
-
-Setting run-time variables (@q{properties}) is discussed in
-@ruser{Changing context properties on the fly}.
-
 
 

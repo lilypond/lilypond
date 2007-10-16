@@ -13,28 +13,33 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
+TODO: explain what/why.  maybe in other sections.
+
+@menu
+* Common tweaks::               
+* TODO other name::             
+@end menu
+
+
+@node Common tweaks
+@section Common tweaks
+
+blah blah
 
 @menu
 * Moving objects::              
 * Fixing overlapping notation::  
-* Common tweaks::               
-* Default files::               
+* Other common tweaks::         
 * Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
 @end menu
 
-
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
 This may come as a surprise, but LilyPond is not perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
 solved.
 
-@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
-@c  yes, I want this TODO to be visible to end-users.  It's better
-@c  than having nothing at all.
 TODO: with the new spacing features in 2.12, these specific examples are no
 longer relevant.  However, they still demonstrate powerful features
 of lilypond, so they remain until somebody creates some better examples.
@@ -157,13 +162,13 @@ c4^"piu mosso" d e f
 
 @seealso
 
-This manual: @ruser{The \override command}, @ruser{Common tweaks}.
+This manual: @ruser{The \override command}, @ref{Common tweaks}.
 
 
 @node Fixing overlapping notation
-@section Fixing overlapping notation
+@subsection Fixing overlapping notation
 
-In @ruser{Moving objects}, we saw how to move a @code{TextScript}
+In @ref{Moving objects}, we saw how to move a @code{TextScript}
 object.  The same mechanism can be used to move other types of
 objects; simply replace @code{TextScript} with the name of
 another object.
@@ -203,8 +208,8 @@ common objects.
 @end multitable
 
 
-@node Common tweaks
-@section Common tweaks
+@node Other common tweaks
+@subsection Other common tweaks
 
 Some overrides are so common that predefined commands are provided as
 short-cuts, such as @code{\slurUp} and @code{\stemDown}.  These
@@ -333,42 +338,8 @@ are measured in staff-spaces.  For more information, see the
 relevant portion of the program reference.
 
 
-@node Default files
-@section Default files
-
-The Program Reference documentation contains a lot of information
-about LilyPond, but even more information can be gathered from
-looking at the internal LilyPond files.
-
-Some default settings (such as the definitions for
-@code{\header@{@}}s) are stored as @code{.ly} files.  Other
-settings (such as the definitions of markup commands) are
-stored as @code{.scm} (Scheme) files.  Further explanation is
-outside the scope of this manual; users should be warned that
-a substantial amount of technical knowledge or time is required
-to understand these files.
-
-@itemize
-
-@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
-
-@item OSX:
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-To access this, either @code{cd} into this directory from the
-Terminal, or control-click on the LilyPond application and select
-@q{Show Package Contents}.
-
-@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
-
-@end itemize
-
-The @file{ly/} and @file{scm/} directories will be of
-particular interest.  Files such as @file{ly/property-init.ly} and
-@file{ly/declarations-init.ly} define all the common tweaks.
-
-
 @node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@subsection Fitting music onto fewer pages
 
 Sometimes you can end up with one or two staves on a second
 (or third, or fourth...) page.  This is annoying, especially
@@ -454,14 +425,57 @@ Alter the horizontal spacing via @code{SpacingSpanner}.  See
 @end itemize
 
 
+@node TODO other name
+@section TODO other name
+
+@menu
+* Default files::               
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
+@end menu
+
+@node Default files
+@subsection Default files
+
+The Program Reference documentation contains a lot of information
+about LilyPond, but even more information can be gathered from
+looking at the internal LilyPond files.
+
+Some default settings (such as the definitions for
+@code{\header@{@}}s) are stored as @code{.ly} files.  Other
+settings (such as the definitions of markup commands) are
+stored as @code{.scm} (Scheme) files.  Further explanation is
+outside the scope of this manual; users should be warned that
+a substantial amount of technical knowledge or time is required
+to understand these files.
+
+@itemize
+
+@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+
+@item OSX:
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+To access this, either @code{cd} into this directory from the
+Terminal, or control-click on the LilyPond application and select
+@q{Show Package Contents}.
+
+@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+The @file{ly/} and @file{scm/} directories will be of
+particular interest.  Files such as @file{ly/property-init.ly} and
+@file{ly/declarations-init.ly} define all the common tweaks.
+
+
 @node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explantion
-of this, see the @ruser{Scheme tutorial}, and
+of this, see the @ref{Scheme tutorial}, and
 @ruser{Interfaces for programmers}.
 
 We can use Scheme to simply @code{\override} commands,
@@ -515,7 +529,7 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 
 
 @node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
 LilyPond can perform extra checks while it processes files.  These
 commands will take extra time, but the result may require fewer

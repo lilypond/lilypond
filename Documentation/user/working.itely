@@ -18,11 +18,7 @@ this chapter.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with variables and functions::  
-* Style sheets::                
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* When things don't work::      
 @end menu
 
 
@@ -59,6 +55,8 @@ structured in order to be easier (or header) to update.
 * General suggestions::         
 * Typesetting existing music::  
 * Large projects::              
+* Saving typing with variables and functions::  
+* Style sheets::                
 @end menu
 
 
@@ -110,8 +108,8 @@ phrase (instead of just @code{c d e}) you can save yourself some
 problems if you rearrange your music later.
 
 @item @strong{Separate tweaks} from music definitions.  See
-@ruser{Saving typing with variables and functions}, and
-@ruser{Style sheets}.
+@ref{Saving typing with variables and functions}, and
+@ref{Style sheets}.
 
 @end itemize
 
@@ -170,7 +168,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Separate tweaks from music definitions}.  This
-point was made in @ruser{General suggestions}, but for large
+point was made in previously, but for large
 projects it is absolutely vital.  We might need to change
 the definition of @code{fthenp}, but then we only need
 to do this once, and we can still avoid touching anything
@@ -188,7 +186,7 @@ g4\fthenp c'8. e16
 
 
 @node Saving typing with variables and functions
-@section Saving typing with variables and functions
+@subsection Saving typing with variables and functions
 
 @cindex variables
 @cindex variables
@@ -284,25 +282,25 @@ padText =
 @end lilypond
 
 Using variables is also a good way to reduce work if the
-LilyPond input syntax changes (see @ruser{Updating old files}).  If
+LilyPond input syntax changes (see @ref{Updating old files}).  If
 you have a single definition (such as @code{\dolce}) for all your
-files (see @ruser{Style sheets}), then if the syntax changes, you
+files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
 instead of making changes throughout every @code{.ly} file.
 
 
 @node Style sheets
-@section Style sheets
+@subsection Style sheets
 
 The output that LilyPond produces can be heavily modified; see
-@ruser{Tweaking output}, for details.  But what if you have many
+@ref{Tweaking output}, for details.  But what if you have many
 files that you want to apply your tweaks to?  Or what if you
 simply want to separate your tweaks from the actual music?  This
 is quite easy to do.
 
 Let's look at an example.  Don't worry if you don't understand
 the parts with all the @code{#()}.  This is explained in
-@ruser{Advanced tweaks with Scheme}.
+@ref{Advanced tweaks with Scheme}.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -323,7 +321,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 There are some problems with overlapping output; we'll fix those using
-the techniques in @ruser{Moving objects}.  But let's also
+the techniques in @ref{Moving objects}.  But let's also
 do something about the @code{mpdolce} and @code{tempoMark}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
@@ -546,8 +544,17 @@ file with @code{\include "../global.ly"}, which contains
 @end example
 
 
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old files::          
+* Troubleshooting (taking it all apart)::  
+* Minimal examples::            
+@end menu
+
 @node Updating old files
-@section Updating old files
+@subsection Updating old files
 
 The LilyPond input syntax occasionally changes.  As LilyPond itself
 improves, the syntax (input language) is modified accordingly.  Sometimes
@@ -575,7 +582,7 @@ your old LilyPond files.
 
 
 @node Troubleshooting (taking it all apart)
-@section Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
 
 Sooner or later, you will write a file that LilyPond cannot
 compile.  The messages that LilyPond gives may help
@@ -626,11 +633,11 @@ Now start slowly uncommenting more and more of the
 @code{bass} part until you find the problem line.
 
 Another very useful debugging technique is constructing
-@ruser{Minimal examples}.
+@ref{Minimal examples}.
 
 
 @node Minimal examples
-@section Minimal examples
+@subsection Minimal examples
 
 A minimal example is an example which is as small as possible.  These
 examples are much easier to understand than long examples.  Minimal

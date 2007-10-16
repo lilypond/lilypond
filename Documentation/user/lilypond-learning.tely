@@ -131,8 +131,8 @@ of this and other documentation.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
 * Putting it all together::        More explanation about LilyPond concepts.
-* Working on LilyPond projects::   Discusses real-life usage.
 * Tweaking output::                Introduction to modifying output.
+* Working on LilyPond projects::   Discusses real-life usage.
 
 Appendices
 
@@ -153,8 +153,8 @@ Appendices
 @include tutorial.itely
 @include fundamental.itely
 @include putting.itely
-@include working.itely
 @include tweaks.itely
+@include working.itely
 
 @include templates.itely
 @include scheme-tutorial.itely
