@@ -1784,6 +1784,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(style . bar-line)
+	(collapse-height . 5.0)
 	(thickness . 1.6)
 	(stencil . ,ly:system-start-delimiter::print)
 	(meta . ((class . Spanner)
