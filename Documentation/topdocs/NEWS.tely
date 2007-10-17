@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+The syntax for setting text on spanners has changed.  Please see
+the user manual for details.
+
+@item
 A new page breaking function, @code{ly:minimal-breaking}, is dedicated
 to books with many pages or a lot of texts.
 
