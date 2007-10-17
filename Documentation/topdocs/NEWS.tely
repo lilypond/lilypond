@@ -66,10 +66,6 @@ which scares away people.
 @end ignore
 
 @item
-The syntax for setting text on spanners has changed.  Please see
-the user manual for details.
-
-@item
 A new page breaking function, @code{ly:minimal-breaking}, is dedicated
 to books with many pages or a lot of texts.
 
@@ -119,7 +115,6 @@ All line spanners are more flexible now in the configuration of
 their end points.  This includes glissando, voice followers, text
 crescendos and other text spanners.  The old syntax for setting
 text on line spanners is no longer valid.
-
 
 @c  with ragged-right we can't see the gliss.
 @lilypond[]
