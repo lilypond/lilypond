@@ -880,6 +880,21 @@ TODO: add this somewhere
 @end verbatim
 
 
+The music function \endSpanners terminates spanners and hairpins
+after exactly one note.
+
+@lilypond[verbatim,quote,raged-right,relative=2,fragment]
+\endSpanners
+c2 \startTextSpan c2
+c2 \< c2
+@end lilypond
+
+When using \endSpanners it is not necessary to close
+\startTextSpan with \stopTextSpan, nor is it necessary to close
+hairpins with \!.
+
+
+
 @seealso
 
 Program reference: @internalsref{TextSpanner},
