@@ -1,3 +1,9 @@
+%
+% feta-params.mf -- global parameters for both feta and parmesan fonts
+%
+% source file of the GNU LilyPond music typesetter
+%
+% (c) 1997--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 stafflines := 5;
 

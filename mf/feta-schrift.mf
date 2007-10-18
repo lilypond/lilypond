@@ -1445,13 +1445,12 @@ fet_endchar;
 input feta-slag;
 
 
-% railroad tracks.
 %
-% I actually have no clue how they should look, so we use a slightly curvy
-% and tapered shape.
+% Railroad tracks.  We define two variants of these -- both as slightly
+% tapered, comma-shaped curves and as two straight parallel slashes.
 %
 
-fet_beginchar ("Caesura", "caesura");
+fet_beginchar ("Curved caesura", "caesura.curved");
 	save slant, space_between, clearance;
 	save alpha, pat;
 	save botthick, topthick;
@@ -1504,5 +1503,58 @@ fet_beginchar ("Caesura", "caesura");
 	fill pat shifted (space_between, 0);
 fet_endchar;
 
+
+fet_beginchar ("Straight caesura", "caesura.straight");
+	save slant, space_between, clearance;
+	save thick, ne, pat;
+	path pat;
+	pair ne;
+
+	slant = 2.0;
+	thick = 2.88 linethickness;
+
+	space_between# = 0.56 staff_space#;
+	clearance# = 0.2 staff_space#;
+
+	set_char_box (0, 2.0 staff_space#,
+	              staff_space# - clearance#, 1.2 staff_space#);
+	define_whole_pixels (space_between);
+
+	x1 = 0;
+	x2 = x1 + thick;
+	y1 = y2 = -d;
+
+	x3 = x4 + thick;
+	x4 = x1 + (h + d) / slant;
+	y3 = y4 = h;
+
+	ne = unitvector (z4 - z1);
+	
+	z1a = z1 + blot_diameter * ne;
+	z1b = z1 + blot_diameter * right;
+	z2a = z2 + blot_diameter * ne;
+	z2b = z2 + blot_diameter * left;
+
+	z3a = z3 - blot_diameter * ne;
+	z3b = z3 + blot_diameter * left;
+	z4a = z4 - blot_diameter * ne;
+	z4b = z4 + blot_diameter * right;
+
+	pat = z1a{-ne}
+	      .. {right}z1b
+	      -- z2b{right}
+	      .. {ne}z2a
+	      -- z3a{ne}
+	      .. {left}z3b
+	      -- z4b{left}
+	      .. {-ne}z4a
+	      -- cycle;
+
+	fill pat;
+	fill pat shifted (space_between, 0);
+
+	labels(range 1 thru 4);
+	labels(1a, 1b, 2a, 2b, 3a, 3b, 4a, 4b);
+fet_endchar;
 
 fet_endgroup ("scripts");
