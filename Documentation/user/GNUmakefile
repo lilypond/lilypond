@@ -151,7 +151,10 @@ $(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_E
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 # we /might/ switch to texi2html if it can be fixed:
-#	texi2html -I $(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css $<
+#	echo "*************************************"
+#	echo $<
+#	cd $(outdir)
+#	texi2html --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css $<
 	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
 # symbolic links to save space
 	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
