@@ -1,7 +1,11 @@
-% -*- Fundamental -*-
+%
+% feta-accordion.mf -- draw accordion symbols
+%
+% source file of the GNU LilyPond music typesetter
+%
+% (c) 1998--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 
 fet_begingroup ("accordion");
-
 
 %
 % These dimensions are the same for all register symbols.
