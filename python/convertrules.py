@@ -3013,3 +3013,9 @@ def conv (str):
 
 conversions.append (((2, 11, 23), conv, """#'break-align-symbol -> #'break-align-symbols"""))
 
+def conv (str):
+    str = re.sub (r"scripts\.caesura",
+                  r"scripts.caesura.curved", str)
+    return str
+
+conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved"""))

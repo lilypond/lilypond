@@ -42,10 +42,13 @@ ticks, vees and `railroad tracks' (caesura)."
       #(make-musicglyph-markup "scripts.upbow")
       es8 d es f g8 \breathe f |
 
-      %% caesura
+      %% caesurae
       \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.caesura")
-      es8[ d] \breathe  es[ f g f] |
+      #(make-musicglyph-markup "scripts.caesura.curved")
+      es8[ d] \breathe
+      \override BreathingSign  #'text =
+      #(make-musicglyph-markup "scripts.caesura.straight")
+                       es[ f] \breathe g[ f] |
       es2 r4 \bar "||" \break
     }
   }
