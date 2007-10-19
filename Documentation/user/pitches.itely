@@ -448,40 +448,44 @@ This section discusses how to modify pitches.
 
 @cindex Octave check
 
-Octave checks make octave errors easier to correct: a note may be
-followed by @code{=}@var{quotes} which indicates what its absolute
+In relative mode, it is easy to forget an octave changing mark.
+Octave checks make such errors easier to correct. A note may be
+followed by @code{=}@var{quotes} to indicate what its absolute
 octave should be.  In the following example,
 
 @example
-\relative c'' @{ c='' b=' d,='' @}
+\relative c'' @{ c g d='' @}
 @end example
 
 @noindent
-the @code{d} will generate a warning, because a @code{d''} is
-expected (because @code{b'} to @code{d''} is only a third), but a
-@code{d'} is found.  In the output, the octave is corrected to be
-a @code{d''} and the next note is calculated relative to
-@code{d''} instead of @code{d'}.
+the @code{d} will generate a warning, because a
+@code{d''} is expected, as indicated by the octave check
+@code{=''}, but a @code{d'} is found, since both @code{c}-@code{g}
+and @code{g}-@code{d} without octavation marks are descending
+fourths.  In the output, the octave is corrected to be a
+@code{d''} and the next note is calculated relative to @code{d''}
+instead of @code{d'}.
 
 There is also an octave check that produces no visible output.
-The syntax
+The syntax is:
 
 @example
-\octave @var{pitch}
+@var{pitch} \octave @var{controlpitch}
 @end example
 
-This checks that @var{pitch} (without quotes) yields @var{pitch}
-(with quotes) in @code{\relative} mode compared to the note given
-in the @code{\relative} command.  If not, a warning is printed,
-and the octave is corrected.  The @var{pitch} is not printed as a
-note.
+where @var{pitch} is a regular note within a music expression in
+relative mode and @var{controlpitch} is a pitch in absolute mode.
+This checks that @var{pitch} lies within the octave surrounding
+@var{controlpitch}, i.e. not more than a fourth above or below it.
+If this is not the case, a warning is printed and the octave is
+corrected.  The @var{controlpitch} is not printed as a note.
 
 In the example below, the first check passes without incident,
-since the @code{e} (in @code{relative} mode) is within a fifth of
-@code{a'}.  However, the second check produces a warning, since
-the @code{e} is not within a fifth of @code{b'}.  The warning
-message is printed, and the octave is adjusted so that the
-following notes are in the correct octave once again.
+since the @code{e} (in @code{relative} mode) is within the octave
+range of @code{a'}.  However, the second check produces a warning,
+since the @code{e} is not within the octave range of @code{b'}.
+The warning message is printed, and the octave is adjusted so that
+the following notes are in the correct octave once again.
 
 @example
 \relative c' @{
@@ -492,17 +496,28 @@ following notes are in the correct octave once again.
 @end example
 
 
-The octave of a note following an octave check is determined with
-respect to the note preceding it.  In the next fragment, the last
-note is an @code{a'}, above middle C.  That means that the
-@code{\octave} check passes successfully, so the check could be
-deleted without changing the output of the piece.
+The octave of a note following an @code{\octave} check is
+determined with respect to the note preceding it, as modified by
+the outcome of the octave check.  In the next fragment, the first
+note, an @code{e'}, lies within the octave of @code{b}, and the
+@code{\octave} check passes successfully. The second note is then
+calculated relative to (absolute) @code{e'}, which yields an 
+@code{a'}, above middle C.  In this case, the check had no
+influence on the output of the piece.
+
+The second @code{\octave} check fails: @code{a'} is not within the
+range of @code{b}. A warning is issued, and the last note is
+calculated relative to @code{a}, not to @code{a'}, and we get a
+@code{d'}.  Without the last @code{\octave} check, the last note
+would have been a @code{d''}
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
   e
   \octave b
   a
+  \octave b
+  d
 }
 @end lilypond
 
@@ -540,7 +555,7 @@ E-major with
 
 Consider a part written for violin (a C instrument).  If this part
 is to be played on the A clarinet (for which an A is notated as a
-C, and which sounds a minor third lower than notated), the
+C, and thus sounds a minor third lower than notated), the
 following transposition will produce the appropriate part:
 
 @example
@@ -573,26 +588,26 @@ mus = { c d e f }
 }
 @end lilypond
 
-
-
 @code{\transpose} may also be used to input written notes for a
-transposing instrument.  Pitches are normally entered into
-LilyPond in C (or @notation{concert pitch}), but they may be
-entered in another key.  For example, when entering music for a
-B-flat trumpet which begins on concert D, one would write
+transposing instrument.  The previous examples show how to enter
+pitches in C (or @notation{concert pitch}) and typeset them for a
+transposing instrument, but the opposite is also possible, e.g. if
+you have a set of instrumental parts and want to print a
+conductor's score.  When entering music for a B-flat trumpet which
+begins on a notated E (concert D), one would write:
 
 @example
-\transpose c bes @{ e4 @dots{} @}
+musicInBflat = @{ e4 @dots{} @}
+\transpose c bes \musicInBflat
 @end example
 
-To print this music in B-flat again (i.e., producing a trumpet
-part, instead of a concert pitch conductor's score) you would wrap
-the existing music with another @code{\transpose}
+To print this music in F (e.g., rearranging to a french horn) you
+would wrap the existing music with another @code{\transpose}
 
 @example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+musicInBflat = @{ e4 @dots{} @}
+\transpose f c @{ \transpose c bes \musicInBflat @}
 @end example
-
 
 @seealso
 
@@ -601,14 +616,12 @@ transpose-pitches-with-minimum-accidentals.ly}.
 
 Program reference: @internalsref{TransposedMusic}.
 
-
 @refbugs
 
 If you want to use both @code{\transpose} and @code{\relative},
 you must put @code{\transpose} outside of @code{\relative}, since
 @code{\relative} will have no effect on music that appears inside
-a @code{\transpose}.
-
+a @code{\transpose}. See the previous example. 
 
 
 @node Displaying pitches
@@ -658,7 +671,7 @@ command:
   }
   \new Staff {
     \clef bass
-    f1^"middle C"
+    c1^"middle C"
   }
 >>
 @end lilypond
