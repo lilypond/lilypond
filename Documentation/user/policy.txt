@@ -281,4 +281,9 @@ main docs
   Say `invalid' instead.
 
 
+FOR DOC EDITOR ONLY
+
+* sectioning commands (@node and @section) must not appear inside
+  an @ignore.  Separate those commands with a space, ie @n ode.
+
 
