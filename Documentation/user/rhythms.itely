@@ -41,13 +41,15 @@ This section discusses rhythms, durations, and bars.
 @funindex \breve
 @funindex \maxima
 
-In Note, Chord, and Lyrics mode, durations are designated by
+When entering notes or rests, durations are designated by
 numbers and dots: durations are entered as their reciprocal
 values.  For example, a quarter note is entered using a @code{4}
 (since it is a 1/4 note), while a half note is entered using a
 @code{2} (since it is a 1/2 note).  For notes longer than a whole
-you must use the @code{\longa} and @code{\breve} commands
+you must use the @code{\longa} and @code{\breve} commands.
 
+@ignore
+---- Example to be removed if following is thought better ----
 @example
 c'\longa c'\breve c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
 @end example
@@ -76,6 +78,30 @@ c'\longa c'\breve c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
   }
 }
 @end lilypond
+@end ignore
+
+@c TODO Consider whether the beams should be 
+@c      removed in the following.  If they,
+@c      the c'128 notes are not displayed
+@c      properly.  See Note below.  \autoBeamOff ?
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+<<
+  \new Staff {
+    \time 8/1
+    c'\longa c'\breve c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'128 c'128
+  }
+  \new Staff {
+    r\longa r\breve r1 r2 r4 r8 r16 r32 r64 r128 r128
+  }
+>>
+@end lilypond
+
+Note: Up to four flags and up to five beams can be attached 
+to note stems, so durations as small as 128 may be specified
+with beaming, but without beaming durations shorter than
+64 should not be entered - a warning will be produced.
+Durations up to 128 may be specified for rests.
 
 If the duration is omitted then it is set to the previously
 entered duration.  The default for the first note is a quarter
@@ -108,7 +134,18 @@ force a particular direction manually
 @funindex \dotsNeutral
 @code{\dotsNeutral}.
 
+@c TODO: after deciding the link question, fix these.  -gp
+Durations are entered in the same way in @code{drummode},
+@code{chordmode}, @code{figuremode} and (optionally) 
+in @code{lyricmode}.
+
 @seealso
+
+For alternative ways of aligning lyrics to notes see
+This manual: @ref{Vocal music}
+
+For a complete description of how to enter rests see
+This manual: @ref{Writing rests}
 
 Program reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
@@ -312,7 +349,7 @@ Rests are entered like notes with the note name @code{r}
 r1 r2 r4 r8
 @end lilypond
 
-Whole bar rests, centered in middle of the bar, must be done with
+Whole bar rests, centered in middle of the bar, must be entered as
 multi-measure rests.  They can be used for a single bar as well as
 many bars, and are discussed in @ref{Multi measure rests}.
 
@@ -389,47 +426,70 @@ Program reference: @internalsref{SkipMusic}.
 @cindex whole rests for a full measure
 @funindex R
 
-Rests for one full measure (or many bars) are entered using
-@samp{R}.  It is specifically meant for full bar rests and for
-entering parts: the rest can expand to fill a score with rests, or
-it can be printed as a single multi-measure rest.  This expansion
-is controlled by the property @code{Score.skipBars}.  If this is
-set to true, empty measures will not be expanded, and the
-appropriate number is added automatically
+Rests for one or more full measures are entered using
+@code{R} followed by a duration (see @ref{Durations}).
+The duration should correspond to an integral number 
+of bars, otherwise a barcheck warning is printed.  
+Multi-measure rests are principally used to indicate
+that a part in a multi-part score should be silent:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
-\set Score.skipBars = ##t R1*17 R1*4
+{
+ \set Score.skipBars = ##t
+ R1*4^"Piano" R1*24^"Solo" R1*4^"Piano" b'2 b'4 a'4
+}
 @end lilypond
 
-The @code{1} in @code{R1} is similar to the duration notation used
-for notes.  Hence, for time signatures other than 4/4, you must
-enter other durations.  This can be done with augmentation dots or
-fractions
+A multi-measure rest can be expanded in the printed score
+to show all the rest bars explicitly, or, as above, it can be 
+condensed to a single bar
+containing a multi-measure rest symbol, with the number of
+bars of rest printed above the bar.  This expansion
+is controlled by the property @code{Score.skipBars}.  If this is
+set to true, empty measures will condensed to a single bar.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\time 4/4 r1 | R1 | R1*2 | 
+\time 2/4 R2 | 
+\time 4/4
+\set Score.skipBars = ##t 
+R1*17 | R1*4 |
+@end lilypond
+
+The @code{1} in @code{R1} is similar to the duration notation 
+used for notes and is the length of a bar in 2/2 or 4/4 time.
+The duration in a multi-measure rest must always be an integral
+number of bar-lengths, so in other time signatures you must
+use augmentation dots or fractions:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \set Score.skipBars = ##t
 \time 3/4
 R2. | R2.*2
 \time 13/8
-R1*13/8
-R1*13/8*12 |
-\time 10/8 R4*5*4 |
+R1*13/8 | R1*13/8*12 |
+\time 10/8 
+R4*5*4 |
 @end lilypond
 
 An @code{R} spanning a single measure is printed as either a whole
-rest or a breve, centered in the measure regardless of the time
+or breve rest, centered in the measure, regardless of the time
 signature.
 
-If there are only a few measures of rest, LilyPond prints
-@q{church rests} (a series of rectangles) in the staff.  To
-replace that with a simple rest, use
+@c TODO Is "church rests" an accepted musical term?  I can't
+@c find it anywhere.  Is there a better term?  If it is
+@c retained it should be added to glossary.
+
+If there are 10 or fewer measures of rest, LilyPond prints
+@q{church rests} (a series of rectangles) in the staff and
+prints a simple line otherwise.  This default number
+may be changed by overriding 
 @code{MultiMeasureRest.expand-limit}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \set Score.skipBars = ##t
 R1*2 | R1*5 | R1*9
-\override MultiMeasureRest #'expand-limit = 1
+\override MultiMeasureRest #'expand-limit = 3
 R1*2 | R1*5 | R1*9
 @end lilypond
 
@@ -437,7 +497,7 @@ R1*2 | R1*5 | R1*9
 @cindex script on multi-measure rest
 @cindex fermata on multi-measure rest
 
-Texts can be added to multi-measure rests by using the
+Text can be added to multi-measure rests by using the
 @var{note}-@code{markup} syntax @ref{Text markup}.  A variable
 (@code{\fermataMarkup}) is provided for adding fermatas
 
@@ -458,13 +518,23 @@ R1^"low"
 R1^"high"
 @end lilypond
 
-If you want to have text on the left end of a multi-measure rest,
-attach the text to a zero-length skip note, i.e.,
+Text attached to a multi-measure rest will be centered above
+(or below) it.  Long text attached in this way will not cause
+the bar to expand, and may collide with text in adjacent bars.
+Long text is better attached to a zero-length skip note preceding
+the rest, since this will cause the bar to expand to accommodate
+the length of the text.  However, text attached above the bar
+in this way will collide with the rest number unless it is
+raised, either by increasing the padding or using @code{\raise}:
 
-@example
-s1*0^"Allegro"
+@lilypond[quote,ragged-right,verbatim,fragment]
+\set Score.skipBars = ##t
+s1*0^\markup {\hspace #0 \raise #3 [FRED.]}
 R1*4
-@end example
+s1*0^\markup {\hspace #0 \raise #3 [MABEL] }
+s1*0_\markup {\italic {Cue: ...so let it be}}
+R1*6
+@end lilypond
 
 
 @seealso
@@ -520,6 +590,8 @@ set, the result will look OK, but the bar numbering will be off.
 @cindex meter
 @funindex \time
 
+@c TODO The word 'metrum' is latin for 'metre', I think
+@c      Should we not use 'metre' or 'meter' here?
 Time signature indicates the metrum of a piece: a regular pattern
 of strong and weak beats.  It is denoted by a fraction at the
 start of the staff.
@@ -555,6 +627,8 @@ inserted, and how automatic beams should be generated.  Changing
 the value of @code{timeSignatureFraction} also causes the symbol
 to be printed.
 
+@cindex Measure groupings
+ 
 More options are available through the Scheme function
 @code{set-time-signature}.  In combination with the
 @internalsref{Measure_grouping_engraver}, it will create
@@ -895,15 +969,16 @@ Program reference: @internalsref{Completion_heads_engraver}.
 @node Automatic beams
 @unnumberedsubsubsec Automatic beams
 
-LilyPond inserts beams automatically
+By default beams are inserted automatically
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c
 \time 6/8 c c c c8. c16 c8
 @end lilypond
 
-When these automatic decisions are not good enough, beaming can be
-entered explicitly.  It is also possible to define beaming
+When these automatic decisions are not good enough, beaming 
+can be entered explicitly, see @ref{Manual beams} below.  
+It is also possible to define beaming
 patterns that differ from the defaults.  See @ref{Manual beams}
 and @ref{Setting automatic beam behavior}.
 
@@ -945,12 +1020,29 @@ from being beamed
 \time 2/4 c8 c\noBeam c c
 @end lilypond
 
+@cindex autoBeamOn
+@cindex autoBeamOff
+
+@noindent
+and automatic beaming may be turned off and on with
+@code{\autoBeamOff} and @code{\autoBeamOn} commands:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c4 c8 c8. c16 c8. c16 c8
+\autoBeamOff
+c4 c8 c8. c16 c8.
+\autoBeamOn
+c16 c8
+@end lilypond
+
 @funindex ]
 @funindex [
 
 In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the autobeamer will not put beams
-over rests or bar lines.  Such beams are specified manually by
+over rests or bar lines, and in choral scores the beaming is
+often set to follow the meter of the lyrics rather than the
+notes. Such beams can be specified manually by
 marking the begin and end point with @code{[} and @code{]}
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
@@ -984,10 +1076,12 @@ once, and then it is erased.
 @end lilypond
 
 The property @code{subdivideBeams} can be set in order to
-subdivide all 16th or shorter beams at beat positions, as defined
-by the @code{beatLength} property.
+subdivide all 16th or shorter beams.
+When set, multiple beams will be sub-divided at beat 
+positions, defined by the current value of @code{beatLength},
+by drawing only one beam over the beat.
 
-@lilypond[fragment,quote,relative=2,verbatim]
+@lilypond[fragment,ragged-right,quote,relative=2,verbatim]
 c16[ c c c c c c c]
 \set subdivideBeams = ##t
 c16[ c c c c c c c]
@@ -1001,7 +1095,8 @@ For more information about @code{make-moment}, see
 @ref{Time administration}.
 
 Line breaks are normally forbidden when beams cross bar lines.
-This behavior can be changed by setting @code{breakable}.
+This behavior can be changed by setting the @code{breakable} 
+property: @code{\override Beam #'breakable = ##t}.
 
 @funindex breakable
 
@@ -1012,8 +1107,17 @@ This behavior can be changed by setting @code{breakable}.
 
 Kneed beams are inserted automatically when a large gap is
 detected between the note heads.  This behavior can be tuned
-through the @code{auto-knee-gap} object.
+through the @code{auto-knee-gap} property.  A kneed beam is
+drawn if the gap is larger than the value of 
+@code{auto-knee-gap} plus the width of the beam object (which
+depends on the duration of the notes and the slope of the beam).
+By default @code{auto-knee-gap} is set to 5.5 staff spaces.
 
+@lilypond[fragment,ragged-right,quote,verbatim]
+f8 f''8 f8 f''8
+\override Beam #'auto-knee-gap = #6
+f8 f''8 f8 f''8
+@end lilypond
 
 @refbugs
 
@@ -1045,40 +1149,52 @@ as texts and accidentals.
 @cindex measure lines
 @cindex repeat bars
 
-Bar lines delimit measures, but are also used to indicate repeats.
-Normally they are inserted automatically.  Line breaks may only
-happen on bar lines.
+Bar lines delimit measures, and are also used to indicate
+repeats.  Normally, simple barlines are automatically inserted
+into the printed output at places
+based on the current time signature.  It is not invalid if the
+final note in a bar does not end on the automatically entered 
+barline: the note is assumed to carry over into the next bar.  
 
-Special types of bar lines can be forced with the @code{\bar}
-command
+The simple barlines inserted automatically can be changed to 
+other types with the @code{\bar} command.  For example, a closing
+double barline is usually placed at the end of a piece:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-c4 \bar "|:" c4
+@lilypond[quote,ragged-right,relative=1,fragment,verbatim]
+e4 d c2 \bar "||"
 @end lilypond
 
-The following bar types are available
+This and other special barlines may be inserted manually at any
+point.  When they coincide with the end of a bar they replace
+the simple barline which would have been inserted there 
+automatically.  When they do not coincide
+with the end of a bar the specified barline is inserted at that
+point in the printed output.  Such insertions do not affect
+the calculation and placement of subsequent automatic barlines.  
+
+Although the barline types signifying repeats may be inserted
+manually they do not in themselves cause LilyPond to recognise
+a repeated section.  Such repeated sections are better entered
+using the various repeat commands (see @ref{Repeats}), which
+automatically print the appropriate barlines.
+
+The following bar types are available for manual insertion:
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-    \override Score.RehearsalMark #'padding = #3
-    
-    c4 \bar "|" \mark \markup {  \simple #"|" }
-    c \bar "|:" \mark \markup {  \simple #"|:" }
-    c \bar "||" \mark \markup {  \simple #"||" }
-    c \bar ":|" \mark \markup {  \simple #":|" }
-    c \bar ".|" \mark \markup {  \simple #".|" }
-    c \bar ".|." \mark \markup {  \simple #".|." }
-    c \bar ":|:" \mark \markup {  \simple #":|:" }
-    c \bar "|." \mark \markup {  \simple #"|." }
-    c \bar ":" \mark \markup {  \simple #":" }
-    c c c \bar "dashed" \mark \markup { \simple #"dashed" }
-    c c c c
-    \bar "||:" \mark \markup { \tiny \typewriter "unbroken" \simple
-#"||:" }
-    c c c c
-    \break
-    \bar "||:" \mark \markup { \tiny \typewriter "broken" \simple
-#"||:" }
-    c
+\override Score.RehearsalMark #'padding = #3
+c4 \bar "|"  \mark \markup {\simple #"|"  }
+c \bar "|:"  \mark \markup {\simple #"|:" }
+c \bar "||"  \mark \markup {\simple #"||" }
+c \bar ":|"  \mark \markup {\simple #":|" }
+c \bar ".|"  \mark \markup {\simple #".|" }
+c \bar ".|." \mark \markup {\simple #".|."}
+c \bar ":|:" \mark \markup {\simple #":|:"}
+c \bar "|."  \mark \markup {\simple #"|." }
+c \bar ":"   \mark \markup {\simple #":"  }
+c c c
+\break
+c \bar "dashed" \mark \markup { \simple #"dashed" }
+c c c
 @end lilypond
 
 In addition, you can specify @code{"||:"}, which is equivalent to
@@ -1086,15 +1202,37 @@ In addition, you can specify @code{"||:"}, which is equivalent to
 line at the end of the line and a start repeat at the beginning of
 the next line. 
 
-To allow a line break where there is no visible bar line, use
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\override Score.RehearsalMark #'padding = #3
+c c c c
+\bar "||:" \mark \markup {
+  \tiny \typewriter "unbroken" \simple #"||:" }
+c c c c \break
+\bar "||:" \mark \markup {
+  \tiny \typewriter "broken" \simple #"||:" }
+c c c c
+@end lilypond
+
+Entered music is
+automatically broken into lines, but this happens only at
+manually inserted barlines or at automatically inserted barlines
+where these occur at the     
+end of complete bars, i.e. where the end of a note coincides
+with the end of a bar.  If this never happens, perhaps due to
+an error in entering durations, the outputted music can appear
+very compressed as no place can be found to make a line break.
+
+To allow a line break without printing a bar line, use
 
 @example
 \bar ""
 @end example
 
 @noindent
-This will insert an invisible bar line and allow line breaks at
-this point (without increasing the bar number counter).
+This will insert an invisible bar line and allow (but not
+force) a line break to occur at this point.  The bar number 
+counter is not increased.  To force a line break see 
+@ref{Line breaking}.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
@@ -1119,22 +1257,26 @@ connected between different staves of a @code{StaffGroup},
 @commonprop
 
 @funindex whichBar
-@funindex repeatCommands
+@c TODO remove? @funindex repeatCommands
 @funindex defaultBarType
 
-The command @code{\bar }@var{bartype} is a short cut for doing
-@code{\set Timing.whichBar = }@var{bartype}.  Whenever
-@code{whichBar} is set to a string, a bar line of that type is
-created.
+The command @code{\bar }@var{bartype} is a short cut for
+@code{\set Timing.whichBar = }@var{bartype}.  A bar line is 
+created whenever the @code{whichBar} property is
+set.  
 
-A bar line is created whenever the @code{whichBar} property is
-set.  At the start of a measure it is set to the contents of
-@code{Timing.defaultBarType}.  The contents of
+The default bar type used for automatically inserted bar lines is
+@code{"|"}.  This may be changed at any time
+with @code{\set Timing.defaultBarType = }@var{bartype}.  
+
+@ignore
+TODO Delete this section - repeats are mentioned earlier
+The contents of
 @code{repeatCommands} are used to override default measure bars.
 
 You are encouraged to use @code{\repeat} for repetitions.  See
 @ref{Repeats}.
-
+@end ignore
 
 @seealso
 
@@ -1142,7 +1284,8 @@ In this manual: @ref{Repeats}, @ref{System start delimiters}.
 
 Program reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
-staves).
+staves), @internalsref{Timing_translator} (for Timing 
+properties).
 
 
 @node Bar numbers
@@ -1152,9 +1295,11 @@ staves).
 @cindex measure numbers
 @funindex currentBarNumber
 
-Bar numbers are printed by default at the start of the line.  The
+Bar numbers are typeset by default at the start of every line
+except the first line.  The
 number itself is stored in the @code{currentBarNumber} property,
-which is normally updated automatically for every measure.
+which is normally updated automatically for every measure.  It
+may also be set manually:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \repeat unfold 4 {c4 c c c} \break
@@ -1164,7 +1309,7 @@ which is normally updated automatically for every measure.
 
 Bar numbers may only be printed at bar lines; to print a bar
 number at the beginning of a piece, an empty bar line must be
-added
+inserted there:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \set Score.currentBarNumber = #50
@@ -1174,26 +1319,39 @@ added
 @end lilypond
 
 Bar numbers can be typeset at regular intervals instead of at the
-beginning of each line.  This is illustrated in the following
-example, whose source is available as
+beginning of every line.  This is illustrated in the following
+example, which also shows how to enclose bar numbers in boxes and
+circles.
+
+@ignore
+  TODO  Text to be deleted ?
+whose source is available as
 @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+@end ignore
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-   \override Score.BarNumber  #'break-visibility = #end-of-line-invisible
-   \set Score.barNumberVisibility = #(every-nth-bar-number-visible 4)
-   \override Score.BarNumber #'font-size = #2
+% Avoid printing a bar number at the end of a line
+\override Score.BarNumber  #'break-visibility = #end-of-line-invisible
 
-   \override Score.BarNumber  #'stencil
+% Print a bar number every 3th bar
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 3)
+
+% Increase the size of the bar number by 2 
+\override Score.BarNumber #'font-size = #2
+
+% Draw a box round the following bar number(s)
+\override Score.BarNumber  #'stencil
    = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
-   \repeat unfold 5 { c1 } \bar "|"
+\repeat unfold 5 { c1 } \bar "|"
 
-   \override Score.BarNumber  #'stencil
-   = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
-   \repeat unfold 4 { c1 } \bar "|."
+% Draw a circle round the following bar number(s)
+\override Score.BarNumber  #'stencil
+  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
+\repeat unfold 4 { c1 } \bar "|."
 @end lilypond
 
 Bar numbers can be removed entirely by removing the Bar number
-engraver from the score.
+engraver from the score context.
 
 @lilypond[verbatim,ragged-right,quote]
 \layout {
@@ -1203,8 +1361,8 @@ engraver from the score.
   }
 }
 \relative c''{
-c4 c c c \break
-c4 c c c
+  c4 c c c \break
+  c4 c c c
 }
 @end lilypond
 
@@ -1218,9 +1376,11 @@ Examples: @lsrdir{staff}
 
 @refbugs
 
-Bar numbers can collide with the @internalsref{StaffGroup}
-bracket, if there is one at the top.  To solve this, the
-@code{padding} property of @internalsref{BarNumber} can be used to
+@c TODO is this still a bug in 11?
+Bar numbers can collide with the top of the 
+@internalsref{StaffGroup} bracket, if there is one.
+To solve this, the @code{padding} property of 
+@internalsref{BarNumber} can be used to
 position the number correctly.
 
 
@@ -1231,10 +1391,13 @@ position the number correctly.
 @funindex barCheckSynchronize
 @funindex |
 
-Bar checks help detect errors in the durations.  A bar check is
-entered using the bar symbol, @samp{|}.  Whenever it is
-encountered during interpretation, it should fall on a measure
-boundary.  If it does not, a warning is printed.  In the next
+Bar checks help detect errors in the entered durations.
+A bar check may be entered using the bar symbol, @code{|}, 
+at any place where a bar line is expected to fall.  
+If bar check lines are encountered at other places, 
+a list of warnings is printed in the log file,
+showing the line numbers and lines  
+in which the bar checks failed.  In the next
 example, the second bar check will signal an error
 
 @example
@@ -1246,12 +1409,11 @@ Bar checks can also be used in lyrics, for example
 @example
 \lyricmode @{
   \time 2/4
-  Twin -- kle | Twin -- kle
+  Twin -- kle | Twin -- kle |
 @}
 @end example
 
-Failed bar checks are caused by entering incorrect durations.
-Incorrect durations often completely garble up the score,
+An incorrect duration can result in a completely garbled score,
 especially if the score is polyphonic, so a good place to start
 correcting input is by scanning for failed bar checks and
 incorrect durations.
@@ -1648,9 +1810,9 @@ cadenza = \relative c' {
 @cindex Time administration
 
 Time is administered by the
-@internalsref{Time_signature_engraver}, which usually lives in the
-@internalsref{Score} context.  The bookkeeping deals with the
-following variables
+@internalsref{Time_signature_engraver}, which by default is
+to be found in the @internalsref{Score} context.
+The bookkeeping deals with the following variables
 
 @table @code
 @item currentBarNumber
