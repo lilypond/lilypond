@@ -270,7 +270,11 @@ class Attributes (Measure_element):
 
         fifths = int (key.get_maybe_exist_named_child ('fifths').get_text ())
         return (fifths, mode)
-                
+
+class Barline (Measure_element):
+    pass
+class BarStyle (Music_xml_node):
+    pass
 class Partial (Measure_element):
     def __init__ (self, partial):
         Measure_element.__init__ (self)
@@ -604,7 +608,9 @@ class Part (Music_xml_node):
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
-	    if not (voice_id or isinstance (n, Attributes) or isinstance (n, Direction) or isinstance (n, Partial) ):
+	    if not (voice_id or isinstance (n, Attributes) or
+                    isinstance (n, Direction) or isinstance (n, Partial) or
+                    isinstance (n, Barline) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
@@ -619,7 +625,7 @@ class Part (Music_xml_node):
                         voices[v].add_element (staff_attributes)
                 continue
 
-            if isinstance (n, Partial):
+            if isinstance (n, Partial) or isinstance (n, Barline):
                 for v in voices.keys ():
                     voices[v].add_element (n)
                 continue
@@ -784,6 +790,8 @@ class_dict = {
         '#text': Hash_text,
 	'accidental': Accidental,
 	'attributes': Attributes,
+        'barline': Barline,
+        'bar-style': BarStyle,
 	'beam' : Beam,
         'bend' : Bend,
 	'chord': Chord,

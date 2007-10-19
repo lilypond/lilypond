@@ -416,7 +416,7 @@ class SequentialMusic (NestedMusic):
         at = len( self.elements ) - 1
         while (at >= 0 and
                not isinstance (self.elements[at], EventChord) and
-               not isinstance (self.elements[at], BarCheck)):
+               not isinstance (self.elements[at], BarLine)):
             at -= 1
 
         if (at >= 0 and isinstance (self.elements[at], EventChord)):
@@ -449,6 +449,36 @@ class SequentialMusic (NestedMusic):
         for e in self.elements:
             e.set_start (start)
             start += e.get_length()
+
+class RepeatedMusic:
+    def __init__ (self):
+        self.repeat_type = "volta"
+        self.repeat_count = 2
+        self.endings = []
+        self.music = None
+    def set_music (self, music):
+        if isinstance (music, Music):
+            self.music = music
+        elif isinstance (music, list):
+            self.music = SequentialMusic ()
+            self.music.elements = music
+        else:
+            sys.stderr.write ("WARNING: Unable to set the music %s for the repeat %s" % (music, self))
+    def add_ending (self, music):
+        self.endings.append (music)
+    def print_ly (self, printer):
+        printer.dump ('\\repeat %s %s' % (self.repeat_type, self.repeat_count))
+        if self.music:
+            self.music.print_ly (printer)
+        else:
+            sys.stderr.write ("WARNING: Encountered repeat without body\n")
+            printer.dump ('{}')
+        if self.endings:
+            printer.dump ('\\alternative {')
+            for e in self.endings:
+                e.print_ly (printer)
+            printer.dump ('}')
+
 
 class Lyrics:
     def __init__ (self):
@@ -548,20 +578,27 @@ class Partial (Music):
         if self.partial:
             printer.dump ("\\partial %s" % self.partial.ly_expression ())
 
-class BarCheck (Music):
+class BarLine (Music):
     def __init__ (self):
         Music.__init__ (self)
         self.bar_number = 0
+        self.type = None
         
     def print_ly (self, printer):
-        if self.bar_number > 0 and (self.bar_number % 10) == 0:
-            printer.dump ("|  \\barNumberCheck #%d " % self.bar_number)
-            printer.newline ()
+        bar_symbol = { 'regular': "|", 'dotted': ":", 'dashed': ":",
+                       'heavy': "|", 'light-light': "||", 'light-heavy': "|.",
+                       'heavy-light': ".|", 'heavy-heavy': ".|.", 'tick': "'",
+                       'short': "'", 'none': "" }.get (self.type, None)
+        if bar_symbol <> None:
+            printer.dump ('\\bar "%s"' % bar_symbol)
         else:
-            printer.dump ("| ")
+            printer.dump ("|")
+
+        if self.bar_number > 0 and (self.bar_number % 10) == 0:
+            printer.dump ("\\barNumberCheck #%d " % self.bar_number)
+        else:
             printer.print_verbatim (' %% %d' % self.bar_number)
-            printer.newline ()
- 
+        printer.newline ()
 
     def ly_expression (self):
         return " | "

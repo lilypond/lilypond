@@ -173,6 +173,92 @@ def musicxml_partial_to_lily (partial_len):
     else:
         return Null
 
+# Detect repeats and alternative endings in the chord event list (music_list)
+# and convert them to the corresponding musicexp objects, containing nested
+# music
+def group_repeats (music_list):
+    repeat_replaced = True
+    music_start = 0
+    i=0
+    # Walk through the list of expressions, looking for repeat structure
+    # (repeat start/end, corresponding endings). If we find one, try to find the
+    # last event of the repeat, replace the whole structure and start over again.
+    # For nested repeats, as soon as we encounter another starting repeat bar,
+    # treat that one first, and start over for the outer repeat.
+    while repeat_replaced and i<10:
+        i += 1
+        repeat_start = -1  # position of repeat start / end
+        repeat_end = -1 # position of repeat start / end
+        repeat_times = 0
+        ending_start = -1 # position of current ending start
+        endings = [] # list of already finished endings
+        pos = 0
+        repeat_replaced = False
+        final_marker = 0
+        while pos < len (music_list) and not repeat_replaced:
+            e = music_list[pos]
+            repeat_finished = False
+            if isinstance (e, RepeatMarker):
+                if not repeat_times and e.times:
+                    repeat_times = e.times
+                if e.direction == -1:
+                    if repeat_end >= 0:
+                        repeat_finished = True
+                    else:
+                        repeat_start = pos
+                        repeat_end = -1
+                        ending_start = -1
+                        endings = []
+                elif e.direction == 1:
+                    if repeat_start < 0:
+                        repeat_start = 0
+                    if repeat_end < 0:
+                        repeat_end = pos
+                    final_marker = pos
+            elif isinstance (e, EndingMarker):
+                if e.direction == -1:
+                    if repeat_start < 0:
+                        repeat_start = 0
+                        repeat_end = pos
+                    ending_start = pos
+                elif e.direction == 1:
+                    if ending_start < 0:
+                        ending_start = 0
+                    endings.append ([ending_start, pos])
+                    ending_start = -1
+                    final_marker = pos
+            elif not isinstance (e, musicexp.BarLine):
+                # As soon as we encounter an element when repeat start and end
+                # is set and we are not inside an alternative ending,
+                # this whole repeat structure is finished => replace it
+                if repeat_start >= 0 and repeat_end > 0 and ending_start < 0:
+                    repeat_finished = True
+
+            if repeat_finished:
+                # We found the whole structure replace it!
+                r = musicexp.RepeatedMusic ()
+                if repeat_times <= 0:
+                    repeat_times = 2
+                r.repeat_count = repeat_times
+                # don't erase the first element for "implicit" repeats (i.e. no
+                # starting repeat bars at the very beginning)
+                start = repeat_start+1
+                if repeat_start == music_start:
+                    start = music_start
+                r.set_music (music_list[start:repeat_end])
+                for (start, end) in endings:
+                    s = musicexp.SequentialMusic ()
+                    s.elements = music_list[start+1:end]
+                    r.add_ending (s)
+                del music_list[repeat_start:final_marker+1]
+                music_list.insert (repeat_start, r)
+                repeat_replaced = True
+            pos += 1
+        # TODO: Implement repeats until the end without explicit ending bar
+    return music_list
+
+
+
 def group_tuplets (music_list, events):
 
 
@@ -273,6 +359,71 @@ def musicxml_attributes_to_lily (attrs):
             elts.append (func (attrs))
     
     return elts
+
+class Marker (musicexp.Music):
+    def __init__ (self):
+        self.direction = 0
+        self.event = None
+    def print_ly (self, printer):
+        sys.stderr.write ("Encountered unprocessed marker %s\n" % self)
+        pass
+    def ly_expression (self):
+        return ""
+class RepeatMarker (Marker):
+    def __init__ (self):
+        Marker.__init__ (self)
+        self.times = 0
+class EndingMarker (Marker):
+    pass
+
+# Convert the <barline> element to musicxml.BarLine (for non-standard barlines)
+# and to RepeatMarker and EndingMarker objects for repeat and
+# alternatives start/stops
+def musicxml_barline_to_lily (barline):
+    # retval contains all possible markers in the order:
+    # 0..bw_ending, 1..bw_repeat, 2..barline, 3..fw_repeat, 4..fw_ending
+    retval = {}
+    bartype_element = barline.get_maybe_exist_named_child ("bar-style")
+    repeat_element = barline.get_maybe_exist_named_child ("repeat")
+    ending_element = barline.get_maybe_exist_named_child ("ending")
+
+    bartype = None
+    if bartype_element:
+        bartype = bartype_element.get_text ()
+
+    if repeat_element and hasattr (repeat_element, 'direction'):
+        repeat = RepeatMarker ()
+        repeat.direction = {"forward": -1, "backward": 1}.get (repeat_element.direction, 0)
+
+        if ( (repeat_element.direction == "forward" and bartype == "heavy-light") or
+             (repeat_element.direction == "backward" and bartype == "light-heavy") ):
+            bartype = None
+        if hasattr (repeat_element, 'times'):
+            try:
+                repeat.times = int (repeat_element.times)
+            except ValueError:
+                repeat.times = 2
+        repeat.event = barline
+        if repeat.direction == -1:
+            retval[1] = repeat
+        else:
+            retval[3] = repeat
+
+    if ending_element and hasattr (ending_element, 'type'):
+        ending = EndingMarker ()
+        ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get (ending_element.type, 0)
+        ending.event = barline
+        if ending.direction == -1:
+            retval[0] = ending
+        else:
+            retval[4] = ending
+
+    if bartype:
+        b = musicexp.BarLine ()
+        b.type = bartype
+        retval[2] = b
+
+    return retval.values ()
 
 spanner_event_dict = {
     'slur' : musicexp.SlurEvent,
@@ -597,6 +748,9 @@ class LilyPondVoiceBuilder:
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
         self.elements.append (command)
+    def add_barline (self, barline):
+        # TODO: Implement merging of default barline and custom bar line
+        self.add_music (barline, Rational (0))
     def add_partial (self, command):
         self.ignore_skips = True
         self.add_command (command)
@@ -606,9 +760,9 @@ class LilyPondVoiceBuilder:
         self.pending_dynamics.append (dynamic)
 
     def add_bar_check (self, number):
-        b = musicexp.BarCheck ()
+        b = musicexp.BarLine ()
         b.bar_number = number
-        self.add_command (b)
+        self.add_barline (b)
 
     def jumpto (self, moment):
         current_end = self.end_moment + self.pending_multibar
@@ -638,7 +792,7 @@ class LilyPondVoiceBuilder:
         at = len( self.elements ) - 1
         while (at >= 0 and
                not isinstance (self.elements[at], musicexp.EventChord) and
-               not isinstance (self.elements[at], musicexp.BarCheck)):
+               not isinstance (self.elements[at], musicexp.BarLine)):
             at -= 1
 
         if (self.elements
@@ -703,9 +857,18 @@ def musicxml_voice_to_lily_voice (voice):
                     number = 0
                 if number > 0:
                     voice_builder.add_bar_check (number)
-                
+
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_command (a)
+            continue
+
+        if isinstance (n, musicxml.Barline):
+            barlines = musicxml_barline_to_lily (n)
+            for a in barlines:
+                if isinstance (a, musicexp.BarLine):
+                    voice_builder.add_barline (a)
+                elif isinstance (a, RepeatMarker) or isinstance (a, EndingMarker):
+                    voice_builder.add_command (a)
             continue
 
         if not n.__class__.__name__ == 'Note':
@@ -887,6 +1050,7 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder.add_music (musicexp.EventChord (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
+    ly_voice = group_repeats (ly_voice)
 
     seq_music = musicexp.SequentialMusic ()
 
