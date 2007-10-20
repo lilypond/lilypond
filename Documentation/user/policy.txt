@@ -84,6 +84,11 @@ main docs
 
 * @commonprop and @refbugs are optional.
 
+* Do not include any real info in second-level sections (ie 1.1
+  Pitches).  A first-level section may have introductory material,
+  but other than that all material goes into third-level sections
+  (ie 1.1.1 Writing Pitches).
+
 
 %%%%% LILYPOND FORMATTING
 
