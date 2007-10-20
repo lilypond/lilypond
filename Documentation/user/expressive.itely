@@ -25,51 +25,55 @@
 * Dynamics::                    
 @end menu
 
-@node Articulations
-@unnumberedsubsubsec Articulations
+@node Articulations and ornamentations
+@unnumberedsubsubsec Articulations and ornamentations
 
 @cindex Articulations
 @cindex scripts
 @cindex ornaments
 
 A variety of symbols can appear above and below notes to indicate
-different characteristics of the performance.  They are added to a
-note by adding a dash and the character signifying the
-articulation.
+different characteristics of the performance.  All these symbols
+can be attached to a note using the syntax @var{note}@code{\}@var{name}. 
 
-See @ref{List of articulations}.
+The possible values for @var{name} are listed in @ref{List of
+articulations}.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+Some of these articulations have shorthands for easier entry.  They
+are used by adding a dash and the character signifying
+the articulation to the note name.  The available shorthands and
+their output are:
+
+@example
+\relative c'' {
+c-.  c-- c-+ c-|
+c-> c-^ c-_ } 
+@end example 
+
+@lilypond[quote,ragged-right,fragment]
 \override TextScript  #'font-family = #'typewriter
 \override TextScript  #'font-shape = #'upright
-c''4-._"c-."      s4
-c''4--_"c--"      s4
-c''4-+_"c-+"      s4
-c''4-|_"c-|"      s4
-c''4->_"c->"      s4
-c''4-^_"c-^"      s4
-c''4-__"c-_"      s4      
+c''4-._"c-."   
+c''4--_"c--"   
+c''4-+_"c-+"   
+c''4-|_"c-|"   
+c''4->_"c->"   
+c''4-^_"c-^"   
+c''4-__"c-_"         
 @end lilypond
 
-The meanings of these shorthands can be changed.  See
-@file{ly/@/script@/-init@/.ly} for examples.
-
-The script is automatically placed, but the direction can be
+The marks are automatically placed, but the direction can be
 forced as well.  Like other pieces of LilyPond code, @code{_} will
 place them below the staff, and @code{^} will place them above.
+This applies both to the shorthands and the fully named
+articulations. For the shorthands, @code{_} and @code{^} replace
+the dash:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 c''4^^ c''4_^
-@end lilypond
-
-Other symbols can be added using the syntax
-@var{note}@code{\}@var{name}.  Again, they
-can be forced up or down using @code{^} and @code{_},
-e.g.,
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c\fermata c^\fermata c_\fermata
 @end lilypond
+
 
 @cindex accent
 @cindex marcato
@@ -103,6 +107,20 @@ c\fermata c^\fermata c_\fermata
 
 
 @commonprop
+
+The meanings of the shorthands can be changed.  They are defined
+in @file{ly/@/script@/-init@/.ly}, where the variables  
+@code{DashDot}, @code{DashDash}, @code{DashPlus}, @code{DashBar},
+@code{DashLarger}, @code{DashHat}, and @code{DashUnderscore}
+are associated with the default articulation marks.  If you want,
+e.g., @code{-+} to produce a trill instead of a "+", you can
+redefine the variable in your document:
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c'' { c-+ }       
+dashPlus = "trill"
+\relative c'' { c-+ }       
+@end lilypond
 
 The vertical ordering of scripts is controlled with the
 @code{script-priority} property.  The lower this number, the
@@ -161,11 +179,14 @@ Absolute dynamic marks are specified using a command after a note
 @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p}, @code{\mp},
 @code{\mf}, @code{\f}, @code{\ff}, @code{\fff}, @code{\ffff},
 @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
-@code{\sfz}, and @code{\rfz}.
+@code{\sfz}, and @code{\rfz}.  The dynamic marks can be placed
+above or below the staff with @code{_} and @code{^}, just like
+articulation marks. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
-c2\fp c\sf c\sff c\sp c\spp c\sfz c\rfz
+c2\ppp c\mp 
+c\rfz c^\mf
+c_\spp c_\staccato^\ff
 @end lilypond
 
 @funindex \<
@@ -176,14 +197,24 @@ A crescendo mark is started with @code{\<} and terminated with
 @code{\!} or an absolute dynamic.  A decrescendo is started with
 @code{\>} and is also terminated with @code{\!} or an absolute
 dynamic.  @code{\cr} and @code{\decr} may be used instead of
-@code{\<} and @code{\>}.  Because these marks are bound to notes,
-you must use spacer notes if multiple marks are needed during one
-note
+@code{\<} and @code{\>}.
+
+Because these marks are bound to notes, you must use spacer notes
+if multiple marks are needed during one note.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c\< c\! d\> e\!
 << f1 { s4 s4\< s4\! \> s4\! } >>
 @end lilypond
+
+This may give rise to very short hairpins.  Use
+@code{minimum-length} in
+@internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
+example:
+
+@example
+\override Voice.Hairpin #'minimum-length = #5
+@end example
 
 @noindent
 A hairpin normally starts at the left edge of the beginning note
@@ -191,33 +222,27 @@ and ends on the right edge of the ending note.  If the ending note
 falls on the downbeat, the hairpin ends on the immediately
 preceding barline.  This may be modified by setting the
 @code{hairpinToBarline} property,
+@cindex{Hairpin}
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+e4\< e2. e1\!
 \set hairpinToBarline = ##f
-c4\< c2. c4\!
+e4\< e2. e1\!
 @end lilypond
 
 In some situations the @code{\espressivo} articulation mark may be
-suitable to indicate a crescendo and decrescendo on the one note,
+suitable to indicate a crescendo and decrescendo on the one note:
+@cindex{espressivo, articulation} 
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c2 b4 a g1\espressivo
 @end lilypond
 
-This may give rise to very short hairpins.  Use
-@code{minimum-length} in
-@internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
-example
-
-@example
-\override Voice.Hairpin #'minimum-length = #5
-@end example
-
 @cindex al niente
 @cindex niente, al
 
 Hairpins may be printed with a circled tip (al niente notation) by
-setting the @code{circled-tip} property,
+setting the @code{circled-tip} property:
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override Hairpin #'circled-tip = ##t
@@ -230,7 +255,10 @@ c4\> c\< c2\!
 @cindex decrescendo
 @cindex diminuendo
 
-You can also use text saying @emph{cresc.} instead of hairpins
+You can use text saying @emph{cresc.} instead of hairpins with the
+commands \setTextCresc, \setTextDim, and \setTextDecresc.  The
+corresponding \setHairpinCresc, \setHairpinDim, and
+\setHairpinDecresc will revert to hairpins again: 
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \setTextCresc
@@ -243,12 +271,19 @@ c\> d e f\!
 e\> d c b\!
 @end lilypond
 
-You can also supply your own texts
+You can also supply your own texts and change the style of the
+spanner line with the properties @code{\crescendoText},
+@code{\crescendoSpanner}, @code{\decrescendoText}, and
+@code{\decrescendoSpanner}. Available values for the spanner
+properties are @code{hairpin}, @code{line}, @code{dashed-line},
+and @code{dotted-line}. If unset, a hairpin crescendo is used:
+
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'dashed-line
-a'2\< a a a\!\mf
+\set crescendoSpanner = #'dotted-line
+a'2\< a a a a a a a\!\mf
 @end lilypond
+
 
 To create new dynamic marks or text that should be aligned with
 dynamics, see @ref{New dynamic marks}.
@@ -259,7 +294,7 @@ Vertical positioning of dynamics is handled by
 
 @commonprop
 
-Dynamics that occur at, begin on, or end on, the same note will be
+Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  If you want to ensure that dynamics are
 aligned when they do not occur on the same note, you can increase
 the @code{staff-padding} property.
@@ -271,8 +306,10 @@ the @code{staff-padding} property.
 You may also use this property if the dynamics are colliding with
 other notation.
 
-Crescendi and decrescendi that end on the first note of a new line
-are not printed.  To change this behavior, use
+Crescendi and decrescendi that cross a line break will be
+continued on the second line.  If they end on the first note of a
+new line, nothing will be printed on that line.  To change this
+behavior, use
 
 @example
 \override Score.Hairpin #'after-line-breaking = ##t
@@ -302,6 +339,7 @@ printing this line, use
 Program reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
 handled by @internalsref{DynamicLineSpanner}.
+Glossary: @rglos{Hairpin}, @rglos{crescendo}, @rglos{decrescendo}
 
 
 @node Curves
