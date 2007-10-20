@@ -502,6 +502,7 @@ on one staff.
 * Accidentals and key signatures::  
 * Ties and slurs::              
 * Articulation and dynamics::   
+* Adding text::                 
 * Automatic and manual beams::  
 * Advanced rhythmic commands::  
 @end menu
@@ -786,6 +787,32 @@ see @ruser{Dynamics} (User manual) and @rglos{dynamics} (Glossary).
 @end quotation
 
 @c CONTINUE HERE
+
+@node Adding text
+@subsection Adding text
+
+Text may be added to your scores:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c1^"espr" a_"legato"
+@end lilypond
+
+Extra formatting may be added with the @code{\markup} command:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c1^\markup{ \bold espr}
+a1_\markup{
+  \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
+  }
+@end lilypond
+
+
+@c Kurt: leave this alone for now.
+
+@seealso
+
+User manual: @ruser{Writing text}.
+
 
 @node Automatic and manual beams
 @subsection Automatic and manual beams
