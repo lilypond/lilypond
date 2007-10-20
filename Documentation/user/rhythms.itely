@@ -41,40 +41,34 @@ This section discusses rhythms, durations, and bars.
 @funindex \breve
 @funindex \maxima
 
-When entering notes, durations are designated by
-numbers and dots: durations are entered as their reciprocal
-values.  For example, a quarter note is entered using a @code{4}
-(since it is a 1/4 note), while a half note is entered using a
-@code{2} (since it is a 1/2 note).  For notes longer than a whole
-you must use the @code{\longa} (a double breve) and 
-@code{\breve} commands.
-Note durations as short as 64th notes may be specified.
+When entering notes, durations are designated by numbers and dots:
+durations are entered as their reciprocal values.  For example, a
+quarter note is entered using a @code{4} (since it is a 1/4 note),
+while a half note is entered using a @code{2} (since it is a 1/2
+note).  For notes longer than a whole you must use the
+@code{\longa} (a double breve) and @code{\breve} commands.  Note
+durations as short as 64th notes may be specified.
 
 @c Two 64th notes are needed to obtain beams
-@lilypond[quote,ragged-right,verbatim,fragment]
-<<
-  \new Staff {
-    \time 8/1
-    \override Staff.TimeSignature #'stencil = ##f
-    \autoBeamOff
-    c'\longa c'\breve c'1 c'2
-    c'4 c'8 c'16 c'32 c'64 c'64
-  }
-  \new Staff {
-    \time 8/1
-    \override Staff.TimeSignature #'stencil = ##f
-    \autoBeamOn
-    c'\longa c'\breve c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
-  }
->>
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\time 8/1
+c\longa c\breve c1 c2
+c4 c8 c16 c32 c64 c64
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\time 8/1
+\autoBeamOff
+c\longa c\breve c1 c2
+c4 c8 c16 c32 c64 c64
 @end lilypond
 
 If the duration is omitted then it is set to the previously
 entered duration.  The default for the first note is a quarter
 note.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
-{ a a a2 a a4 a a1 a }
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+a a a2 a a4 a a1 a
 @end lilypond
 
 
