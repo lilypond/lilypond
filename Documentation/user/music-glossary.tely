@@ -213,7 +213,7 @@ Languages in this order.
 * diatonic scale::              
 * diminished interval::         
 * diminuendo::                  
-* direct::           
+* direct::                      
 * disjunct movement::           
 * dissonance::                  
 * dissonant interval::          
@@ -233,6 +233,7 @@ Languages in this order.
 * duplet::                      
 * duration::                    
 * dydimic comma::               
+* dynamics::                    
 * E::                           
 * ecclesiastical mode::         
 * eighth note::                 
@@ -329,8 +330,8 @@ Languages in this order.
 * perfect interval::            
 * phrase::                      
 * phrasing::                    
+* pickup::                      
 * piano::                       
-* pickup::                       
 * pitch::                       
 * pizzicato::                   
 * polyphony::                   
@@ -350,7 +351,7 @@ Languages in this order.
 * ritenuto::                    
 * scale::                       
 * scale degree::                
-* scordatura::                       
+* scordatura::                  
 * score::                       
 * second::                      
 * semitone::                    
@@ -380,7 +381,7 @@ Languages in this order.
 * subdominant::                 
 * submediant::                  
 * subtonic::                    
-* sul G::                    
+* sul G::                       
 * superdominant::               
 * supertonic::                  
 * symphony::                    
@@ -2460,6 +2461,26 @@ FI: kesto, aika-arvo.
 
 @ref{syntonic comma}.
 
+@node dynamics
+@section dynamics
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The aspect of music relating to degrees of loudness, or changes from one
+degree to another.  The terms, abbreviations, and symbols used to indicate
+this information are called dynamic marks.
+
+@seealso
+
+@ref{piano}, @ref{forte}, @ref{crescendo}, @ref{decrescendo}, @ref{diminuendo}.
+
 @node E
 @section E
 
@@ -2854,8 +2875,8 @@ DK: forte,
 S: forte,
 FI: forte, voimakkaasti.
 
-Loud, abbreviated @b{f}, @emph{fortissimo} (@b{ff}) very loud,
-@emph{mezzoforte} (@b{mf}) medium loud.
+Loud, abbreviated @samp{@b{f}}, @emph{fortissimo} (@samp{@b{ff}}) very loud,
+@emph{mezzo forte} (@samp{@b{mf}}) medium loud.
 
 @node fourth
 @section fourth
@@ -3214,11 +3235,10 @@ S: intervall,
 FI: intervalli, kahden sävelen korkeusero.
 
 Difference in pitch between two notes.  Intervals may be perfect, minor,
-major,
-diminished, or augmented.  The augmented fourth and the diminished fifth are
-identical (@ref{enharmonic}) and are called @emph{tritonus}
-because they consist of three @ref{whole tone}s.  The addition
-of such two intervals forms an octave.
+major, diminished, or augmented.  The augmented fourth and the diminished fifth
+are identical (@ref{enharmonic}) and are called @emph{tritonus} because they
+consist of three @ref{whole tone}s.  The addition of such two intervals forms an
+octave.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -4332,7 +4352,7 @@ S: piano,
 FI, piano, hiljaa.
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
-@emph{mezzopiano} (@b{mp}) medium soft.
+@emph{mezzo piano} (@b{mp}) medium soft.
 
 @node pitch
 @section pitch
