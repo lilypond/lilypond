@@ -21,7 +21,7 @@
 
 
 @menu
-* Articulations::               
+* Articulations and ornamentations::  
 * Dynamics::                    
 @end menu
 
@@ -45,9 +45,9 @@ the articulation to the note name.  The available shorthands and
 their output are:
 
 @example
-\relative c'' {
+\relative c'' @{
 c-.  c-- c-+ c-|
-c-> c-^ c-_ } 
+c-> c-^ c-_ @} 
 @end example 
 
 @lilypond[quote,ragged-right,fragment]
@@ -116,7 +116,7 @@ are associated with the default articulation marks.  If you want,
 e.g., @code{-+} to produce a trill instead of a "+", you can
 redefine the variable in your document:
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim]
 \relative c'' { c-+ }       
 dashPlus = "trill"
 \relative c'' { c-+ }       
@@ -222,7 +222,7 @@ and ends on the right edge of the ending note.  If the ending note
 falls on the downbeat, the hairpin ends on the immediately
 preceding barline.  This may be modified by setting the
 @code{hairpinToBarline} property,
-@cindex{Hairpin}
+@cindex Hairpin
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 e4\< e2. e1\!
@@ -230,9 +230,9 @@ e4\< e2. e1\!
 e4\< e2. e1\!
 @end lilypond
 
+@cindex espressivo, articulation
 In some situations the @code{\espressivo} articulation mark may be
 suitable to indicate a crescendo and decrescendo on the one note:
-@cindex{espressivo, articulation} 
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c2 b4 a g1\espressivo
@@ -778,7 +778,7 @@ time.
 @unnumberedsubsubsec Trills
 
 Short trills are printed like normal articulation; see
-@ref{Articulations}.
+@ref{Articulations and ornamentations}.
 
 Long running trills are made with @code{\startTrillSpan} and
 @code{\stopTrillSpan},

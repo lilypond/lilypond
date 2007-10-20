@@ -40,9 +40,9 @@ the affected graphical objects can be accommodated for a specific
 notation flavor without the need for introducing any new notational
 concept.
 
-In addition to the standard articulation signs described in section
-@ref{Articulations}, specific articulation signs for ancient notation
-are provided.
+In addition to the standard articulation signs described in
+section @ref{Articulations and ornamentations}, specific
+articulation signs for ancient notation are provided.
 
 @itemize
 @item
@@ -656,10 +656,10 @@ addressable with @code{\time}.  Use a @code{\markup} instead
 
 @cindex articulations
 
-In addition to the standard articulation signs described in section
-@ref{Articulations}, articulation signs for ancient notation are
-provided.  These are specifically designed for use with notation in
-Editio Vaticana style.
+In addition to the standard articulation signs described in
+section @ref{Articulations and ornamentations}, articulation signs
+for ancient notation are provided.  These are specifically
+designed for use with notation in Editio Vaticana style.
 
 @lilypond[quote,ragged-right,verbatim]
 \include "gregorian-init.ly"
