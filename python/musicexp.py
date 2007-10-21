@@ -740,6 +740,23 @@ class DynamicsEvent (Event):
             printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
 
 
+class TextEvent (Event):
+    def __init__ (self):
+        self.Text = None
+        self.force_direction = None
+        self.markup = ''
+    def wait_for_note (self):
+        return True
+
+    def direction_mod (self):
+        return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '-')
+
+    def ly_expression (self):
+        base_string = '%s\"%s\"'
+        if self.markup:
+            base_string = '%s\markup{ ' + self.markup + ' {%s} }'
+        return base_string % (self.direction_mod (), self.text)
+
 class ArticulationEvent (Event):
     def __init__ (self):
         self.type = None

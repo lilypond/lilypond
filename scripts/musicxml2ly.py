@@ -620,6 +620,32 @@ def musicxml_dynamics_to_lily_event (dynentry):
     event.type = dynentry.get_name ()
     return event
 
+def musicxml_words_to_lily_event (words):
+    event = musicexp.TextEvent ()
+    text = words.get_text ()
+    text = re.sub ('^ *\n? *', '', text)
+    text = re.sub (' *\n? *$', '', text)
+
+    if hasattr (words, 'default-y'):
+        if getattr (words, 'default-y') > 0:
+            event.force_direction = 1
+        else:
+            event.force_direction = -1
+
+    if hasattr (words, 'font-weight'):
+        font_weight = { "normal": '', "bold": '\\bold' }.get (getattr (words, 'font-weight'), '')
+        if font_weight:
+            event.markup += font_weight
+    if hasattr (words, 'font-size'):
+        font_size = { "xx-small": '\\smaller\\smaller\\smaller', "x-small": '\\smaller\\smaller', "small": '\\smaller', "medium": '', "large": '\\large', "x-large": '\\large\\large', "xx-large": '\\large\\large\\large' }.get (getattr (words, 'font-size'), '')
+        if font_size:
+            event.markup += font_size
+    #TODO: Convert the other attributes defined in %text-formatting in common.mod:
+    # color, font-family
+
+    event.text = text #re.replace (text, "^ *\n? *(.*) *\n? *", "\1")
+    return event
+
 
 direction_spanners = [ 'octave-shift', 'pedal', 'wedge' ]
 
@@ -631,11 +657,17 @@ def musicxml_direction_to_lily (n):
         dirtype_children += dt.get_all_children ()
 
     for entry in dirtype_children:
+
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
                 ev = musicxml_dynamics_to_lily_event (dynentry)
                 if ev:
                     res.append (ev)
+
+        if entry.get_name () == "words":
+            ev = musicxml_words_to_lily_event (entry)
+            if ev:
+                res.append (ev)
 
         # octave shifts. pedal marks, hairpins etc. are spanners:
         if entry.get_name() in direction_spanners:

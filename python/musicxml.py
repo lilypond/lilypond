@@ -780,6 +780,8 @@ class Bend (Music_xml_node):
         else:
             return 0
 
+class Words (Music_xml_node):
+    pass
 
 
 ## need this, not all classes are instantiated
@@ -823,6 +825,7 @@ class_dict = {
 	'type': Type,
         'wavy-line': Wavy_line,
         'wedge': Wedge,
+        'words': Words,
         'work': Work,
 }
 
