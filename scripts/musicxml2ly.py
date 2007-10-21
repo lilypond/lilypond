@@ -625,6 +625,7 @@ def musicxml_words_to_lily_event (words):
     text = words.get_text ()
     text = re.sub ('^ *\n? *', '', text)
     text = re.sub (' *\n? *$', '', text)
+    event.text = text
 
     if hasattr (words, 'default-y'):
         if getattr (words, 'default-y') > 0:
@@ -637,13 +638,36 @@ def musicxml_words_to_lily_event (words):
         if font_weight:
             event.markup += font_weight
     if hasattr (words, 'font-size'):
-        font_size = { "xx-small": '\\smaller\\smaller\\smaller', "x-small": '\\smaller\\smaller', "small": '\\smaller', "medium": '', "large": '\\large', "x-large": '\\large\\large', "xx-large": '\\large\\large\\large' }.get (getattr (words, 'font-size'), '')
+        size = getattr (words, 'font-size')
+        font_size = {
+            "xx-small": '\\teeny',
+            "x-small": '\\tiny',
+            "small": '\\small',
+            "medium": '',
+            "large": '\\large',
+            "x-large": '\\huge',
+            "xx-large": '\\bigger\\huge'
+        }.get (size, '')
         if font_size:
             event.markup += font_size
-    #TODO: Convert the other attributes defined in %text-formatting in common.mod:
-    # color, font-family
+    #if hasattr (words, 'color'):
+    #    color = getattr (words, 'color')
+    #    # TODO: In MusicXML, colors are represented as ARGB colors, in lilypond
+    #    #       as x-color. How can I convert from RGB to x-color???
+    #    font_color = {
+    #      #
+    #    }
+    if hasattr (words, 'font-style'):
+        font_style = { "italic": '\\italic' }.get (getattr (words, 'font-style'),'')
+        if font_style:
+            event.markup += font_style
 
-    event.text = text #re.replace (text, "^ *\n? *(.*) *\n? *", "\1")
+    # TODO: How should I best convert the font-family attribute?
+
+    # TODO: How can I represent the underline, overline and line-through
+    #       attributes in Lilypond? Values of these attributes indicate
+    #       the number of lines
+
     return event
 
 
