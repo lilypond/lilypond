@@ -373,6 +373,13 @@ which is deliberate nonsense.
 @end lilypond
 
 
+TODO
+you can get exact RGB colors by specifying
+
+\override NoteHead #'color = #'(1.0 0.0 0.0)
+
+
+
 @seealso
 
 Appendix: @ref{List of colors}.
