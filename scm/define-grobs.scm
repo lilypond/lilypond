@@ -2252,6 +2252,7 @@
 
 (define pure-functions
   (list
+   parenthesize-elements
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
 
