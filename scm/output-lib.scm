@@ -293,6 +293,7 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; Color
 
 (define-public color? list?)
+(define-public (rgb-color r g b) (list r g b))
 
 ; predefined colors
 (define-public black       '(0.0 0.0 0.0))
