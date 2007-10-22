@@ -671,7 +671,7 @@ command:
   }
   \new Staff {
     \clef bass
-    c1^"middle C"
+    c'1^"middle C"
   }
 >>
 @end lilypond
