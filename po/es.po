@@ -1,20 +1,23 @@
+# translation of lilypond-2.11.34.po to Spanish
 # Spanish translation of GNU Lilypond - http://lilypond.org
-# Copyright (C) 2002 Free Software Foundation, Inc.
+# Copyright (C) 2002, 2007 Free Software Foundation, Inc.
+#
 # Quique <quique@sindominio.net>, 2002, 2004.
 # Daniel Tonda <daniel dot tonda (at) gmail dot com>, 2006.
 # Francisco Vila <francisco.vila@hispalinux.es>, 2007.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.22\n"
+"Project-Id-Version: lilypond-2.11.34\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2007-04-28 12:03+0200\n"
-"PO-Revision-Date: 2007-05-31 20:19+0100\n"
+"POT-Creation-Date: 2007-10-04 17:07+0200\n"
+"PO-Revision-Date: 2007-10-07 21:25+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.4\n"
+"Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #: convertrules.py:12
 #, python-format
@@ -23,7 +26,7 @@ msgstr "No soy tan listo como para convertir %s"
 
 #: convertrules.py:13
 msgid "Please refer to the manual for details, and update manually."
-msgstr "Consulte el manual para ver los detalles, y efectúe una actualización manual"
+msgstr "Consulte el manual para ver los detalles, y efectúe una actualización manual."
 
 #: convertrules.py:14
 #, python-format
@@ -104,9 +107,9 @@ msgid "preserve ABC's notion of beams"
 msgstr "preservar la noción de las barras de ABC"
 
 #: abc2ly.py:1354 convert-ly.py:103 etf2ly.py:1192 lilypond-book.py:161
-#: midi2ly.py:900 musicxml2ly.py:506
+#: midi2ly.py:900 musicxml2ly.py:975
 msgid "Report bugs via"
-msgstr "Informe de los fallos a"
+msgstr "Informe de los fallos a través de"
 
 #: convert-ly.py:32
 msgid ""
@@ -165,7 +168,7 @@ msgstr "convertir a VERSIÓN [predeterminado: @TOPLEVEL_VERSION@]"
 
 #: convert-ly.py:144
 msgid "Applying conversion: "
-msgstr "Aplicando la conversión:"
+msgstr "Aplicando la conversión: "
 
 #: convert-ly.py:157
 msgid "Error while converting"
@@ -178,9 +181,9 @@ msgstr "Detención en la primera regla satisfactoria"
 #: convert-ly.py:181
 #, python-format
 msgid "Processing `%s'... "
-msgstr "Procesando «%s»..."
+msgstr "Procesando «%s»... "
 
-#: convert-ly.py:268 relocate.cc:363 source-file.cc:54
+#: convert-ly.py:268 relocate.cc:362 source-file.cc:54
 #, c-format, python-format
 msgid "cannot open file: `%s'"
 msgstr "no se puede abrir el archivo: «%s»"
@@ -205,7 +208,7 @@ msgstr ""
 "etf2ly convierte un subconjunto de ETF a un archivo de LilyPond\n"
 "listo para usar."
 
-#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:499 main.cc:154 main.cc:159
+#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:968 main.cc:154 main.cc:159
 msgid "FILE"
 msgstr "ARCHIVO"
 
@@ -245,11 +248,11 @@ msgstr "usar el formato de salida FORMATO (texi [predeterminado], texi-html, lat
 
 #: lilypond-book.py:123
 msgid "add DIR to include path"
-msgstr "añadir DIR a la ruta de inclusión"
+msgstr "añadir DIRECTORIO a la ruta de inclusión"
 
 #: lilypond-book.py:124 lilypond-book.py:136 main.cc:153
 msgid "DIR"
-msgstr "DIR"
+msgstr "DIRECTORIO"
 
 #: lilypond-book.py:129
 msgid "PAD"
@@ -261,11 +264,11 @@ msgstr "escribir la salida en el DIRECTORIO"
 
 #: lilypond-book.py:140
 msgid "COMMAND"
-msgstr "MANDATO"
+msgstr "INSTRUCCIÓN"
 
 #: lilypond-book.py:141
 msgid "process ly_files using COMMAND FILE..."
-msgstr "procesar ly_files utilizando ORDEN ARCHIVO..."
+msgstr "procesar ly_files utilizando INSTRUCCIÓN ARCHIVO..."
 
 #: lilypond-book.py:147
 msgid "Create PDF files for use with PDFTeX"
@@ -279,131 +282,131 @@ msgstr ""
 "extraer todas las tipografías PostScript en ENTRADA.psfonts para LaTeX\n"
 "debe utilizarse con dvips -h ENTRADA.psfonts"
 
-#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:490 main.cc:162
+#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:959 main.cc:162
 msgid "be verbose"
 msgstr "ser prolijo"
 
-#: lilypond-book.py:768
+#: lilypond-book.py:765
 #, python-format
 msgid "file not found: %s"
 msgstr "archivo no encontrado: %s"
 
-#: lilypond-book.py:999
+#: lilypond-book.py:996
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "se ha usado una ly-option obsoleta: %s=%s"
 
-#: lilypond-book.py:1002
+#: lilypond-book.py:999
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "traducción en modo de compatibilidad: %s=%s"
 
-#: lilypond-book.py:1006
+#: lilypond-book.py:1003
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "se usó una ly-option obsoleta: %s"
 
-#: lilypond-book.py:1009
+#: lilypond-book.py:1006
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "traducción en modo compatible: %s"
 
-#: lilypond-book.py:1028
+#: lilypond-book.py:1025
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "opción ly desconocida e ignorada: %s"
 
-#: lilypond-book.py:1382
+#: lilypond-book.py:1379
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "Filtro de apertura «%s»"
 
-#: lilypond-book.py:1399
+#: lilypond-book.py:1396
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "«%s» ha fallado (%d)"
 
-#: lilypond-book.py:1400
+#: lilypond-book.py:1397
 msgid "The error log is as follows:"
 msgstr "El registro de errores es como sigue:"
 
-#: lilypond-book.py:1472
+#: lilypond-book.py:1469
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr "no se encuentra \\begin{document} en el documento de LaTeX"
 
-#: lilypond-book.py:1583
+#: lilypond-book.py:1580
 msgid "Writing snippets..."
 msgstr "Escribiendo fragmentos..."
 
-#: lilypond-book.py:1588
+#: lilypond-book.py:1585
 msgid "Processing..."
 msgstr "Procesando..."
 
-#: lilypond-book.py:1592
+#: lilypond-book.py:1589
 msgid "All snippets are up to date..."
 msgstr "Todos los fragmentos están actualizados..."
 
-#: lilypond-book.py:1602
+#: lilypond-book.py:1599
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "no se puede determinar el formato de: %s"
 
-#: lilypond-book.py:1613
+#: lilypond-book.py:1610
 #, python-format
 msgid "%s is up to date."
 msgstr "%s está actualizado."
 
-#: lilypond-book.py:1619
+#: lilypond-book.py:1616
 #, python-format
 msgid "Writing `%s'..."
 msgstr "Escribiendo «%s»..."
 
-#: lilypond-book.py:1674
+#: lilypond-book.py:1671
 msgid "Output would overwrite input file; use --output."
 msgstr "La salida sobreescribiría el archivo de entrada; utilice --output."
 
-#: lilypond-book.py:1678
+#: lilypond-book.py:1675
 #, python-format
 msgid "Reading %s..."
 msgstr "Leyendo %s..."
 
-#: lilypond-book.py:1697
+#: lilypond-book.py:1694
 msgid "Dissecting..."
 msgstr "Diseccionando..."
 
-#: lilypond-book.py:1713
+#: lilypond-book.py:1710
 #, python-format
 msgid "Compiling %s..."
 msgstr "Compilando %s..."
 
-#: lilypond-book.py:1722
+#: lilypond-book.py:1719
 #, python-format
 msgid "Processing include: %s"
 msgstr "Procesando el archivo de inclusión: %s"
 
-#: lilypond-book.py:1736
+#: lilypond-book.py:1733
 #, python-format
 msgid "Removing `%s'"
 msgstr "Suprimiendo «%s»"
 
-#: lilypond-book.py:1769
+#: lilypond-book.py:1766
 msgid "option --psfonts not used"
 msgstr "opción --psfonts no utilizada"
 
-#: lilypond-book.py:1770
+#: lilypond-book.py:1767
 msgid "processing with dvips will have no fonts"
 msgstr "el procesado con dvips no contendrá ninguna tipografía"
 
-#: lilypond-book.py:1773
+#: lilypond-book.py:1770
 msgid "DVIPS usage:"
 msgstr "uso de DVIPS:"
 
-#: lilypond-book.py:1829
+#: lilypond-book.py:1826
 #, python-format
 msgid "Writing fonts to %s..."
 msgstr "Escribiendo las tipografías en %s..."
 
-#: midi2ly.py:95 lily-library.scm:577 lily-library.scm:586
+#: midi2ly.py:95 lily-library.scm:615 lily-library.scm:624
 msgid "warning: "
 msgstr "advertencia: "
 
@@ -420,7 +423,7 @@ msgstr "Saliendo... "
 msgid "%s output to `%s'..."
 msgstr "salida de %s hacia «%s»..."
 
-#: midi2ly.py:860 musicxml2ly.py:486
+#: midi2ly.py:860 musicxml2ly.py:955
 #, python-format
 msgid "Convert %s to LilyPond input."
 msgstr "Convertir %s a entrada de LilyPond."
@@ -431,11 +434,11 @@ msgstr "mostrar las alturas absolutas"
 
 #: midi2ly.py:866 midi2ly.py:878
 msgid "DUR"
-msgstr "DUR"
+msgstr "DURACIÓN"
 
 #: midi2ly.py:867
 msgid "quantise note durations on DUR"
-msgstr "cuantizar las duraciones de las notas sobre DUR"
+msgstr "cuantizar las duraciones de las notas sobre DURACIÓN"
 
 #: midi2ly.py:870
 msgid "print explicit durations"
@@ -455,7 +458,7 @@ msgstr "cuantizar los comienzos de las notras sobre DUR"
 
 #: midi2ly.py:880
 msgid "DUR*NUM/DEN"
-msgstr "DUR*NUM/DEN"
+msgstr "DURACIÓN*NUMERADOR/DENOMINADOR"
 
 #: midi2ly.py:883
 msgid "allow tuplet durations DUR*NUM/DEN"
@@ -473,11 +476,11 @@ msgstr "Ejemplos"
 msgid "no files specified on command line."
 msgstr "no se ha especificado ningún archivo en la línea de órdenes."
 
-#: musicxml2ly.py:474
+#: musicxml2ly.py:943
 msgid "musicxml2ly FILE.xml"
 msgstr "musicxml2ly ARCHIVO.xml"
 
-#: musicxml2ly.py:477
+#: musicxml2ly.py:946
 #, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -490,11 +493,11 @@ msgstr ""
 "copias de él bajo ciertas condiciones. Invóquelo como '%s --warranty' \n"
 "para obtener más información."
 
-#: musicxml2ly.py:496
+#: musicxml2ly.py:965
 msgid "Use lxml.etree; uses less memory and cpu time."
 msgstr "Use lxml.etree; utiliza menos memoria y tiempo de procesador."
 
-#: musicxml2ly.py:504
+#: musicxml2ly.py:973
 msgid "set output filename to FILE"
 msgstr "establecer el nombre del archivo de salida a ARCHIVO"
 
@@ -518,7 +521,7 @@ msgstr "opción no reconocida: «%s»"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "argumento no válido «%s» para la opción «%s»"
 
-#: warn.cc:68 grob.cc:557 input.cc:82
+#: warn.cc:68 grob.cc:565 input.cc:82
 #, c-format
 msgid "programming error: %s"
 msgstr "error de programación: %s"
@@ -527,31 +530,31 @@ msgstr "error de programación: %s"
 msgid "continuing, cross fingers"
 msgstr "continuamos; cruce los dedos"
 
-#: accidental-engraver.cc:247
+#: accidental-engraver.cc:250
 #, c-format
 msgid "accidental typesetting list must begin with context-name: %s"
 msgstr "la lista de tippografiado de alteraciones accidentales debe comenzar con context-name: %s"
 
-#: accidental-engraver.cc:274
+#: accidental-engraver.cc:277
 #, c-format
 msgid "ignoring unknown accidental rule: %s"
 msgstr "se ignora la regla desconocida de alteración accidental: %s"
 
-#: accidental-engraver.cc:290
+#: accidental-engraver.cc:293
 #, c-format
 msgid "pair or context-name expected for accidental rule, found %s"
 msgstr "se esperaba una pareja o un nombre de contexto para la regla de alteración accidental, se ha encontrado %s"
 
-#: accidental.cc:160
+#: accidental.cc:187
 #, c-format
 msgid "Could not find glyph-name for alteration %s"
 msgstr "No se ha encontrado el nombre de glifo para la alteración %s"
 
-#: accidental.cc:175
+#: accidental.cc:202
 msgid "natural alteration glyph not found"
 msgstr "no se encuentra el glifo del símbolo de becuadro"
 
-#: align-interface.cc:322
+#: align-interface.cc:325
 msgid "tried to get a translation for something that is no child of mine"
 msgstr "se ha intentado obtener una traducción de algo que no es hijo mío"
 
@@ -581,11 +584,7 @@ msgstr "¿hay dos Axis_group_engravers?"
 msgid "removing this vertical group"
 msgstr "se suprime este grupo vertical"
 
-#: axis-group-interface.cc:109
-msgid "tried to calculate pure-height at a non-breakpoint"
-msgstr "se ha intentado calcular pure-height en un lugar que no es un breakpoint"
-
-#: axis-group-interface.cc:449
+#: axis-group-interface.cc:531
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr "un objeto externo a la pauta debe tener una dirección, por omisión se establece hacia arriba"
 
@@ -614,7 +613,7 @@ msgstr "la plica no cabe dentro de la barra"
 msgid "beam was started here"
 msgstr "la barra comenzó aquí"
 
-#: beam-quanting.cc:314
+#: beam-quanting.cc:309
 msgid "no feasible beam position"
 msgstr "no hay ninguna posición viable para la barra"
 
@@ -622,7 +621,7 @@ msgstr "no hay ninguna posición viable para la barra"
 msgid "removing beam with no stems"
 msgstr "se suprime la barra sin plicas"
 
-#: beam.cc:1035
+#: beam.cc:1039
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr "no se ha encontrado ninguna configuración inicial viable; puede que no se encuentre una buena inclinación de las barras"
 
@@ -741,23 +740,23 @@ msgstr "Clase de evento %s desconocida"
 msgid "dot `%s' not found"
 msgstr "no se encuentra el puntillo «%s»"
 
-#: dynamic-engraver.cc:184
+#: dynamic-engraver.cc:193
 msgid "cannot find start of (de)crescendo"
 msgstr "no se encuentra el comienzo del (de)crescendo"
 
-#: dynamic-engraver.cc:193
+#: dynamic-engraver.cc:202
 msgid "already have a decrescendo"
 msgstr "ya tiene un decrescendo"
 
-#: dynamic-engraver.cc:195
+#: dynamic-engraver.cc:204
 msgid "already have a crescendo"
 msgstr "ya tiene un crescendo"
 
-#: dynamic-engraver.cc:198
+#: dynamic-engraver.cc:207
 msgid "cresc starts here"
 msgstr "el cresc comenzó aquí"
 
-#: dynamic-engraver.cc:327
+#: dynamic-engraver.cc:336
 msgid "unterminated (de)crescendo"
 msgstr "(de)crescendo sin terminar"
 
@@ -784,15 +783,15 @@ msgstr "fallo al añadir la carpeta de tipografías: %s"
 msgid "adding font directory: %s"
 msgstr "añadiendo carpeta de tipografías: %s"
 
-#: general-scheme.cc:198
+#: general-scheme.cc:201
 msgid "infinity or NaN encountered while converting Real number"
 msgstr "se ha encontrado infinito o NaN durante la conversión de un número Real"
 
-#: general-scheme.cc:199
+#: general-scheme.cc:202
 msgid "setting to zero"
 msgstr "estableciendo al valor cero"
 
-#: general-scheme.cc:417 output-ps.scm:61
+#: general-scheme.cc:421 output-ps.scm:61
 msgid "Found infinity or nan in output. Substituting 0.0"
 msgstr "Se ha encontrado Infinito o NaN en la salida. Se sustituye por 0.0"
 
@@ -800,15 +799,15 @@ msgstr "Se ha encontrado Infinito o NaN en la salida. Se sustituye por 0.0"
 msgid "unterminated glissando"
 msgstr "glissando sin terminar"
 
-#: global-context-scheme.cc:87 global-context-scheme.cc:105
+#: global-context-scheme.cc:85 global-context-scheme.cc:103
 msgid "no music found in score"
 msgstr "no se ha encontrado música en la partitura"
 
-#: global-context-scheme.cc:95
+#: global-context-scheme.cc:93
 msgid "Interpreting music... "
-msgstr "Interpretando la música..."
+msgstr "Interpretando la música... "
 
-#: global-context-scheme.cc:118
+#: global-context-scheme.cc:116
 #, c-format
 msgid "elapsed time: %.2f seconds"
 msgstr "tiempo transcurrido: %.2f segundos"
@@ -848,7 +847,7 @@ msgstr "El grob «%s» no tiene interfaz para la propiedad «%s»"
 msgid "%d: %s"
 msgstr "%d: %s"
 
-#: grob-property.cc:174
+#: grob-property.cc:173
 #, c-format
 msgid "cyclic dependency: calculation-in-progress encountered for #'%s (%s)"
 msgstr "dependencia cíclica: se ha encontrado calculation-in-progress para #'%s (%s)"
@@ -860,10 +859,6 @@ msgstr "se ha encontrado Infinito o NaN"
 #: hairpin.cc:187
 msgid "decrescendo too small"
 msgstr "decrescendo demasiado pequeño"
-
-#: hairpin.cc:188
-msgid "crescendo too small"
-msgstr "crescendo demasiado pequeño"
 
 #: horizontal-bracket-engraver.cc:59
 msgid "do not have that many brackets"
@@ -895,12 +890,12 @@ msgstr "(ruta de búsqueda: «%s»)"
 msgid "position unknown"
 msgstr "posición desconocida"
 
-#: key-signature-interface.cc:71
+#: key-signature-interface.cc:74
 #, c-format
 msgid "No glyph found for alteration: %s"
 msgstr "No se ha encontrado ningún glifo para la alteración: %s"
 
-#: key-signature-interface.cc:81
+#: key-signature-interface.cc:84
 msgid "alteration not found"
 msgstr "no se encuentra la alteración"
 
@@ -956,16 +951,16 @@ msgstr "se hace la asignación de todas formas"
 msgid "type check for `%s' failed; value `%s' must be of type `%s'"
 msgstr "ha fallado la comprobación de tipo para «%s»; el valor «%s» debe ser del tipo «%s»"
 
-#: lily-lexer.cc:250
+#: lily-lexer.cc:251
 msgid "include files are not allowed in safe mode"
 msgstr "no se permiten los archivos de inclusión en el modo seguro"
 
-#: lily-lexer.cc:269
+#: lily-lexer.cc:270
 #, c-format
 msgid "identifier name is a keyword: `%s'"
 msgstr "el nombre del identificativo es una palabra clave: «%s»"
 
-#: lily-lexer.cc:284
+#: lily-lexer.cc:285
 #, c-format
 msgid "error at EOF: %s"
 msgstr "error al final del archivo (EOF): %s"
@@ -1071,12 +1066,12 @@ msgid ""
 "set Scheme option SYM to VAL (default: #t).\n"
 "Use -dhelp for help."
 msgstr ""
-"establecer la opción de Scheme SYM a VAL (por omisión: #t).\n"
+"establecer la opción de Scheme SÍMBOLO a VALOR (por omisión: #t).\n"
 "Use -dhelp para obtener ayuda."
 
 #: main.cc:141
 msgid "EXPR"
-msgstr "EXPR"
+msgstr "EXPRESIÓN"
 
 #: main.cc:141
 msgid "evaluate scheme code"
@@ -1094,23 +1089,23 @@ msgstr "volcar FORMATO,...  También como opciones separadas:"
 
 #: main.cc:145
 msgid "generate DVI (tex backend only)"
-msgstr "generar salida DVI (sólo para el 'backend' tex)"
+msgstr "generar un DVI (sólo para el 'backend' tex)"
 
 #: main.cc:146
 msgid "generate PDF (default)"
-msgstr "generar una salida PDF (predeterminado)"
+msgstr "generar un PDF (predeterminado)"
 
 #: main.cc:147
 msgid "generate PNG"
-msgstr "generar una salida PNG"
+msgstr "generar un PNG"
 
 #: main.cc:148
 msgid "generate PostScript"
-msgstr "generar una salida PostScript"
+msgstr "generar un PostScript"
 
 #: main.cc:149
 msgid "generate TeX (tex backend only)"
-msgstr "generar salida TeX (sólo para el 'backend' tex)"
+msgstr "generar un TeX (sólo para el 'backend' tex)"
 
 #: main.cc:150
 msgid "show this help and exit"
@@ -1125,16 +1120,16 @@ msgid ""
 "dump header field FIELD to file\n"
 "named BASENAME.FIELD"
 msgstr ""
-"volcar el campo de cabecera FIELD a un archivo\n"
-"llamado BASENAME.FIELD"
+"volcar el campo de cabecera CAMPO a un archivo\n"
+"llamado NOMBRE_BASE.CAMPO"
 
 #: main.cc:153
 msgid "add DIR to search path"
-msgstr "añadir DIR a la ruta de búsqueda"
+msgstr "añadir DIRECTORIO a la ruta de búsqueda"
 
 #: main.cc:154
 msgid "use FILE as init file"
-msgstr "usar FICHERO como archivo de inicialización"
+msgstr "usar ARCHIVO como archivo de inicialización"
 
 #: main.cc:156
 msgid "USER, GROUP, JAIL, DIR"
@@ -1167,7 +1162,7 @@ msgid ""
 "%s  and others."
 msgstr ""
 "Copyright (c) %s by\n"
-"%s y otros"
+"%s y otros."
 
 #. No version number or newline here.  It confuses help2man.
 #: main.cc:230
@@ -1178,7 +1173,7 @@ msgstr "Uso: %s [OPCIÓN]... ARCHIVO..."
 #: main.cc:232
 #, c-format
 msgid "Typeset music and/or produce MIDI from FILE."
-msgstr "Componer tipocráficamente la música y/o producir MIDI a partir de ARCHIVO."
+msgstr "Componer tipográficamente la música y/o producir MIDI a partir de ARCHIVO."
 
 #: main.cc:234
 #, c-format
@@ -1198,7 +1193,7 @@ msgstr "Opciones:"
 #: main.cc:242
 #, c-format
 msgid "Report bugs via %s"
-msgstr "Informe de los fallos a %s."
+msgstr "Informe de los fallos a %s"
 
 #: main.cc:288
 #, c-format
@@ -1330,6 +1325,10 @@ msgstr "no se puede abrir el archivo en modo de escritura: %s: %s"
 msgid "cannot write to file: `%s'"
 msgstr "no se puede escribir el archivo: «%s»"
 
+#: minimal-page-breaking.cc:42
+msgid "Computing page breaks..."
+msgstr "Calculando saltos de página..."
+
 #: music-iterator.cc:171
 msgid "Sending non-event to context"
 msgstr "Enviando elemento que no es un evento a un contexto"
@@ -1356,7 +1355,7 @@ msgstr "no se ha encontrado ninguna ubicación válida para las digitaciones"
 msgid "placing below"
 msgstr "se coloca debajo"
 
-#: note-collision.cc:464
+#: note-collision.cc:463
 msgid "ignoring too many clashing note columns"
 msgstr "demasiadas columnas de notas que chocan entre sí; se ignoran"
 
@@ -1408,6 +1407,20 @@ msgstr "error de Freetype en FT_Get_Glyph_Name (): %s"
 msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "error en FT_Get_Glyph_Name (): %s"
 
+#. find out the ideal number of pages
+#: optimal-page-breaking.cc:44
+msgid "Finding the ideal number of pages..."
+msgstr "Buscando el número de páginas ideal..."
+
+#: optimal-page-breaking.cc:59
+msgid "Fitting music on 1 page..."
+msgstr "Disponiendo la música en una página..."
+
+#: optimal-page-breaking.cc:61
+#, c-format
+msgid "Fitting music on %d or %d pages..."
+msgstr "Disponiendo la música en %d o %d páginas..."
+
 #: page-turn-page-breaking.cc:146
 #, c-format
 msgid "page-turn-page-breaking: breaking from %d to %d"
@@ -1434,17 +1447,17 @@ msgstr "el salto comienza en la página %d"
 #: page-turn-page-breaking.cc:276
 #, c-format
 msgid "\tdemerits: %f"
-msgstr "\tdemerits: %f"
+msgstr "\tpuntuación: %f"
 
 #: page-turn-page-breaking.cc:277
 #, c-format
 msgid "\tsystem count: %d"
-msgstr "número total de \tsystem: %d"
+msgstr "número total de \tsistemas: %d"
 
 #: page-turn-page-breaking.cc:278
 #, c-format
 msgid "\tpage count: %d"
-msgstr "número total de \tpage: %d"
+msgstr "número total de \tpáginas: %d"
 
 #: page-turn-page-breaking.cc:279
 #, c-format
@@ -1469,7 +1482,7 @@ msgstr "no hay un nombre de tipografía PostScript para «%s»"
 msgid "FreeType face has no PostScript font name"
 msgstr "El tipo FreeType no tiene un nombre de tipografía PostScript"
 
-#: paper-column-engraver.cc:199
+#: paper-column-engraver.cc:221
 msgid "forced break was overridden by some other event, should you be using bar checks?"
 msgstr "el salto forzado ha sido sobreestablecido por algún otro evento, ¿quizá deba usar comprobaciones de compás?"
 
@@ -1501,7 +1514,7 @@ msgstr "repetición de porcentaje sin terminar"
 
 #: performance.cc:43
 msgid "Track..."
-msgstr "Pista ... "
+msgstr "Pista..."
 
 #: performance.cc:72
 msgid "MIDI channel wrapped around"
@@ -1536,7 +1549,7 @@ msgstr "no se encuentra el comienzo del pedal de piano «%s»"
 msgid "cannot find start of piano pedal bracket: `%s'"
 msgstr "no se encuentra el comienzo del corchete de pedal de piano «%s»"
 
-#: program-option-scheme.cc:207
+#: program-option-scheme.cc:215
 #, c-format
 msgid "no such internal option: %s"
 msgstr "no existe la opción interna %s"
@@ -1608,12 +1621,12 @@ msgstr ""
 msgid "LILYPONDPREFIX is obsolete, use LILYPOND_DATADIR"
 msgstr "LILYPONDPREFIX está obsoleto, utilice LILYPOND_DATADIR"
 
-#: relocate.cc:357
+#: relocate.cc:356
 #, c-format
 msgid "Relocation file: %s"
 msgstr "Archivo de relocalización: %s"
 
-#: relocate.cc:393
+#: relocate.cc:392
 #, c-format
 msgid "Unknown relocation command %s"
 msgstr "instrucción de relocalización %s desconocida"
@@ -1647,7 +1660,7 @@ msgstr "Ruta de búsqueda «%s»"
 
 #: score-engraver.cc:73
 msgid "Aborting"
-msgstr "Abortando"
+msgstr "Se detiene la ejecución"
 
 #: score.cc:167
 msgid "already have music in score"
@@ -1664,7 +1677,7 @@ msgstr "se han encontrado errores, se ignora la expresión musical"
 #. FIXME:
 #: script-engraver.cc:102
 msgid "do not know how to interpret articulation: "
-msgstr "no sabemos cómo interpretar la articulación:"
+msgstr "no sabemos cómo interpretar la articulación: "
 
 #: script-engraver.cc:103
 msgid "scheme encoding: "
@@ -1683,7 +1696,7 @@ msgstr "ligadura de expresión sin terminar"
 msgid "cannot end slur"
 msgstr "no se puede terminar la ligadura de expresión"
 
-#: slur.cc:355
+#: slur.cc:359
 #, c-format
 msgid "Ignoring grob for slur: %s. avoid-slur not set?"
 msgstr "Se ignora el objeto gráfico para la ligadura: %s. ¿No está establecido avoid-slur?"
@@ -1693,7 +1706,7 @@ msgstr "Se ignora el objeto gráfico para la ligadura: %s. ¿No está establecid
 msgid "expected to read %d characters, got %d"
 msgstr "se esperaba leer %d caracteres, se han obtenido %d"
 
-#: spaceable-grob.cc:117
+#: spaceable-grob.cc:83
 #, c-format
 msgid "No spring between column %d and next one"
 msgstr "No hay separación entre la columna %d y la siguiente"
@@ -1720,22 +1733,22 @@ msgstr "quizá la entrada debiera especificar voces polifónicas"
 msgid "weird stem size, check for narrow beams"
 msgstr "tamaño de plica extraño, compruebe que no haya barras estrechas"
 
-#: stem.cc:618
+#: stem.cc:623
 #, c-format
 msgid "flag `%s' not found"
 msgstr "no se encuentra el indicador «%s»"
 
-#: stem.cc:629
+#: stem.cc:634
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "no se encuentra el impacto «%s» de indicador"
 
-#: system.cc:180
+#: system.cc:179
 #, c-format
 msgid "Element count %d."
 msgstr "Número total de elementos %d."
 
-#: system.cc:266
+#: system.cc:271
 #, c-format
 msgid "Grob count %d"
 msgstr "Número de objetos gráficos: %d"
@@ -1752,7 +1765,7 @@ msgstr "ya hay un trazador de texto"
 msgid "unterminated text spanner"
 msgstr "trazador de texto sin terminar"
 
-#: tie-engraver.cc:267
+#: tie-engraver.cc:262
 msgid "lonely tie"
 msgstr "ligadura de unión solitaria"
 
@@ -1773,7 +1786,7 @@ msgstr "se ha encontrado una indicación extraña de compás: %d/%d"
 msgid "time signature symbol `%s' not found; reverting to numbered style"
 msgstr "no se encuentra el símbolo de compás «%s»; se vuelve al estilo numerado"
 
-#: translator-ctors.cc:52
+#: translator-ctors.cc:53
 #, c-format
 msgid "unknown translator: `%s'"
 msgstr "traductor desconocido: «%s»"
@@ -1788,21 +1801,21 @@ msgstr "error fatal. No se ha encontrado el tipo: %s"
 msgid "cannot find: `%s'"
 msgstr "no se encuentra «%s»"
 
-#: translator.cc:346
+#: translator.cc:347
 #, c-format
 msgid "Two simultaneous %s events, junking this one"
 msgstr "Dos eventos %s simultáneos, se recorta éste"
 
-#: translator.cc:347
+#: translator.cc:348
 #, c-format
 msgid "Previous %s event here"
 msgstr "El evento %s previo está aquí"
 
-#: trill-spanner-engraver.cc:67
+#: trill-spanner-engraver.cc:84
 msgid "cannot find start of trill spanner"
 msgstr "no se encuentra el principio del trazador de trino"
 
-#: trill-spanner-engraver.cc:79
+#: trill-spanner-engraver.cc:96
 msgid "already have a trill spanner"
 msgstr "ya tiene un trazador de trino"
 
@@ -1810,12 +1823,12 @@ msgstr "ya tiene un trazador de trino"
 msgid "No tuplet to end"
 msgstr "no hay ningún grupo especial que terminar"
 
-#: vaticana-ligature-engraver.cc:388
+#: vaticana-ligature-engraver.cc:389
 #, c-format
 msgid "ignored prefix (es) `%s' of this head according to restrictions of the selected ligature style"
 msgstr "prefijo(s) «%s» de esta cabeza ignorado(s) de acuerdo con las restricciones del estilo de ligadura seleccionado"
 
-#: vaticana-ligature-engraver.cc:714
+#: vaticana-ligature-engraver.cc:718
 #, c-format
 msgid "Vaticana_ligature_engraver: setting `spacing-increment = %f': ptr =%ul"
 msgstr "Vaticana_ligature_engraver: se establece `spacing-increment = %f': ptr =%ul"
@@ -1833,137 +1846,137 @@ msgid "Vaticana_ligature: zero join (delta_pitch == 0)"
 msgstr "Vaticana_ligature: unión nula (delta_pitch == 0)"
 
 #. fixme: be more verbose.
-#: volta-engraver.cc:143
+#: volta-engraver.cc:100
 msgid "cannot end volta spanner"
 msgstr "no se puede terminar el trazador de volta"
 
-#: volta-engraver.cc:153
+#: volta-engraver.cc:110
 msgid "already have a volta spanner, ending that one prematurely"
 msgstr "ya hay un trazador de volta, se acaba éste de forma prematura"
 
 # also...?
-#: volta-engraver.cc:157
+#: volta-engraver.cc:114
 msgid "also already have an ended spanner"
 msgstr "ya hay un trazador finalizado"
 
-#: volta-engraver.cc:158
+#: volta-engraver.cc:115
 msgid "giving up"
 msgstr "abandonando"
 
-#: parser.yy:704
+#: parser.yy:728
 msgid "\\paper cannot be used in \\score, use \\layout instead"
 msgstr "no se puede usar \\paper dentro de \\score, utilice \\layout en su lugar"
 
-#: parser.yy:728
+#: parser.yy:752
 msgid "need \\paper for paper block"
 msgstr "es necesario \\paper para el bloque 'paper'"
 
-#: parser.yy:1187
+#: parser.yy:1211
 msgid "Grob name should be alphanumeric"
 msgstr "El nombre del objeto gráfico ha de ser alfanumérico"
 
-#: parser.yy:1485
+#: parser.yy:1509
 msgid "second argument must be pitch list"
 msgstr "el segundo argumento debe ser una lista de notas"
 
-#: parser.yy:1512 parser.yy:1517 parser.yy:1982
+#: parser.yy:1536 parser.yy:1541 parser.yy:2006
 msgid "have to be in Lyric mode for lyrics"
 msgstr "para la letra se debe estar en el modo Lyric"
 
-#: parser.yy:1614
+#: parser.yy:1638
 msgid "expecting string as script definition"
 msgstr "se espera una cadena como definición del guión"
 
-#: parser.yy:1769 parser.yy:1819
+#: parser.yy:1793 parser.yy:1843
 #, c-format
 msgid "not a duration: %d"
 msgstr "no es una duración: %d"
 
-#: parser.yy:1936
+#: parser.yy:1960
 msgid "have to be in Note mode for notes"
 msgstr "para las notas se debe estar en el modo Note"
 
-#: parser.yy:1997
+#: parser.yy:2021
 msgid "have to be in Chord mode for chords"
 msgstr "para los acordes se debe estar en el modo Chord"
 
 # stray?
-#: lexer.ll:176
+#: lexer.ll:177
 msgid "stray UTF-8 BOM encountered"
 msgstr "se ha encontrado una marca BOM de UTF-8 extraña"
 
-#: lexer.ll:180
+#: lexer.ll:181
 msgid "Skipping UTF-8 BOM"
 msgstr "Se salta el BOM de UTF-8"
 
-#: lexer.ll:235
+#: lexer.ll:236
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Renombrando la entrada a: «%s»"
 
-#: lexer.ll:252
+#: lexer.ll:253
 msgid "quoted string expected after \\version"
 msgstr "se esperaba una cadena entre comillas después de \\version"
 
-#: lexer.ll:256
+#: lexer.ll:257
 msgid "quoted string expected after \\sourcefilename"
 msgstr "se esperaba una cadena entre comillas después de \\sourcefilename"
 
-#: lexer.ll:260
+#: lexer.ll:261
 msgid "integer expected after \\sourcefileline"
 msgstr "se esperaba un entero después de \\sourcefileline"
 
-#: lexer.ll:273
+#: lexer.ll:274
 msgid "EOF found inside a comment"
 msgstr "se ha encontrado EOF (fin de archivo) dentro de un comentario"
 
-#: lexer.ll:288
+#: lexer.ll:289
 msgid "\\maininput not allowed outside init files"
 msgstr "no se permite \\maininput fuera de los archivos de inicio"
 
-#: lexer.ll:312
+#: lexer.ll:313
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "identificativo equivocado o no definido: «%s»"
 
 #. backup rule
-#: lexer.ll:321
+#: lexer.ll:322
 msgid "end quote missing"
 msgstr "faltan las comillas de cierre"
 
-#: lexer.ll:466
+#: lexer.ll:467
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Se ha encontrado una llave al final de la letra. ¿Olvidó un espacio?"
 
-#: lexer.ll:559
+#: lexer.ll:580
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Se ha encontrado una llave al final del marcado, ¿Olvidó un espacio?"
 
-#: lexer.ll:663
+#: lexer.ll:684
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "carácter no válido: «%c»"
 
-#: lexer.ll:778
+#: lexer.ll:799
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "cadena de escape desconocida: `\\%s'"
 
-#: lexer.ll:884
+#: lexer.ll:905
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "archivo demasiado antiguo: %s (el más antiguo que se puede tratar es: %s)"
 
-#: lexer.ll:885
+#: lexer.ll:906
 msgid "consider updating the input with the convert-ly script"
 msgstr "considere la actualización de la entrada mediante el guión (script) convert-ly"
 
-#: lexer.ll:891
+#: lexer.ll:912
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "el programa es demasiado antiguo: %s (el archivo necesita: %s)"
 
-#: backend-library.scm:19 lily.scm:752 ps-to-png.scm:58
+#: backend-library.scm:19 lily.scm:767 ps-to-png.scm:58
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr "Invocando «~a»..."
@@ -1973,17 +1986,17 @@ msgstr "Invocando «~a»..."
 msgid "`~a' failed (~a)"
 msgstr "«~a» ha fallado (~a)"
 
-#: backend-library.scm:115 framework-tex.scm:343 framework-tex.scm:368
+#: backend-library.scm:117 framework-tex.scm:344 framework-tex.scm:369
 #, scheme-format
 msgid "Converting to `~a'..."
 msgstr "Convirtiendo en «~a»..."
 
-#: backend-library.scm:128
+#: backend-library.scm:130
 #, scheme-format
 msgid "Converting to ~a..."
 msgstr "Convirtiendo en ~a..."
 
-#: backend-library.scm:166
+#: backend-library.scm:168
 #, scheme-format
 msgid "Writing header field `~a' to `~a'..."
 msgstr "Escribiendo el campo de encabezamiento «~a» en «~a»..."
@@ -2005,31 +2018,31 @@ msgstr "parece que la clase de evento ~A está sin usar"
 msgid "translator listens to nonexisting event class ~A"
 msgstr "el traductor está escuchando a una clase de evento ~A que no existe"
 
-#: define-markup-commands.scm:273
+#: define-markup-commands.scm:280
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "no se ha encontrado ningún sistema en el marcado \\score, ¿tiene un bloque \\layout?"
 
-#: define-markup-commands.scm:1315
+#: define-markup-commands.scm:1294
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "no es una cadena válida de duración: ~a"
 
-#: define-music-types.scm:743
+#: define-music-types.scm:670
 #, scheme-format
 msgid "symbol expected: ~S"
 msgstr "se esperaba un símbolo: ~S"
 
-#: define-music-types.scm:746
+#: define-music-types.scm:673
 #, scheme-format
 msgid "cannot find music object: ~S"
 msgstr "no se encuentra el objeto musical ~S"
 
-#: define-music-types.scm:766
+#: define-music-types.scm:692
 #, scheme-format
 msgid "unknown repeat type `~S'"
 msgstr "tipo de repetición «~S» desconocido"
 
-#: define-music-types.scm:767
+#: define-music-types.scm:693
 msgid "See music-types.scm for supported repeats"
 msgstr "Consulte el archivo music-types.scm para ver los tipos de repetición soportados"
 
@@ -2053,58 +2066,58 @@ msgstr "interfaz de Objeto gráfico desconocido: ~S"
 msgid "Processing ~S..."
 msgstr "Procesando ~S..."
 
-#: documentation-lib.scm:150
+#: documentation-lib.scm:154
 #, scheme-format
 msgid "Writing ~S..."
 msgstr "Escribiendo ~S..."
 
-#: documentation-lib.scm:172
+#: documentation-lib.scm:176
 #, scheme-format
 msgid "cannot find description for property ~S (~S)"
 msgstr "no se encuentra la descripción de la propiedad ~S (~S)"
 
-#: framework-eps.scm:89
+#: framework-eps.scm:90
 #, scheme-format
 msgid "Writing ~a..."
 msgstr "Escribiendo «~a»..."
 
-#: framework-ps.scm:281
+#: framework-ps.scm:282
 #, scheme-format
 msgid "cannot embed ~S=~S"
 msgstr "no se puede empotrar ~S=~S"
 
-#: framework-ps.scm:334
+#: framework-ps.scm:335
 #, scheme-format
 msgid "cannot extract file matching ~a from ~a"
 msgstr "no se puede extraer la coincidencia de archivos ~a a partir de ~a"
 
-#: framework-ps.scm:351
+#: framework-ps.scm:352
 #, scheme-format
 msgid "do not know how to embed ~S=~S"
 msgstr "no sabemos cómo empotrar ~S=~S"
 
-#: framework-ps.scm:382
+#: framework-ps.scm:383
 #, scheme-format
 msgid "do not know how to embed font ~s ~s ~s"
 msgstr "no sabemos cómo empotrar la tipografía ~s ~s ~s"
 
-#: framework-ps.scm:731
+#: framework-ps.scm:750
 #, scheme-format
 msgid "cannot convert <stdout> to ~S"
 msgstr "no se puede convertir <stdout> a ~S"
 
-#: framework-ps.scm:750 framework-ps.scm:753
+#: framework-ps.scm:769 framework-ps.scm:772
 #, scheme-format
 msgid "cannot generate ~S using the postscript back-end"
-msgstr "no se puede generar ~S usando el back-end de postscript"
+msgstr "no se puede generar ~S usando el 'back-end' de postscript"
 
-#: framework-ps.scm:760
+#: framework-ps.scm:779
 msgid ""
 "\n"
 "The PostScript backend does not support the system-by-system \n"
 "output. For that, use the EPS backend instead,\n"
 "\n"
-"  lilypond -b eps <file>\n"
+"  lilypond -dbackend=eps FILE\n"
 "\n"
 "If have cut & pasted a lilypond fragment from a webpage, be sure\n"
 "to only remove anything before\n"
@@ -2112,13 +2125,12 @@ msgid ""
 "  %% ****************************************************************\n"
 "  %% Start cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
-"\n"
 msgstr ""
 "\n"
-"El 'backend' de PostScript no soporta la salida sistema a sistema.\n"
+"El 'backend' de PostScript no contempla la salida de sistemas individuales.\n"
 "Para ello, use en su lugar el 'backend' EPS,\n"
 "\n"
-"  lilypond -b eps <archivo>\n"
+"  lilypond -dbackend=eps ARCHIVO\n"
 "\n"
 "Si ha copiado y pegado un fragmento de lilypond desde una página web,\n"
 "asegúrese de quitar solamente lo que esté antes de\n"
@@ -2126,9 +2138,8 @@ msgstr ""
 "  %% ****************************************************************\n"
 "  %% Start cut-&-pastable-section\n"
 "  %% ****************************************************************\n"
-"\n"
 
-#: framework-tex.scm:360
+#: framework-tex.scm:361
 #, scheme-format
 msgid "TeX file name must not contain whitespace: `~a'"
 msgstr "El nombre del archivo de TeX no debe contener espacios: «~a»"
@@ -2148,44 +2159,44 @@ msgstr "Error en la cuantización de la barra.  Se esperaba (~S,~S), se ha encon
 msgid "Error in beam quanting.  Expected ~S 0, found ~S."
 msgstr "Error en la cuantización de la barra.  Se esperaba ~S 0, se ha encontrado ~S."
 
-#: layout-page-layout.scm:115
+#: layout-page-layout.scm:124
 msgid "Can't fit systems on page -- ignoring between-system-padding"
 msgstr "No se pueden dar cabida a todos los sistemas en la página; se ignora between-system-padding"
 
-#: layout-page-layout.scm:449
+#: layout-page-layout.scm:458
 msgid "Calculating page breaks..."
 msgstr "Calculando saltos de página..."
 
-#: lily-library.scm:545
+#: lily-library.scm:583
 #, scheme-format
 msgid "unknown unit: ~S"
 msgstr "unidad desconocida: ~S "
 
-#: lily-library.scm:579
+#: lily-library.scm:617
 #, scheme-format
 msgid "no \\version statement found, please add~afor future compatibility"
 msgstr "no se ha encontrado ninguna instrucción \\version, escriba~apara disponer de compatibilidad en el futuro"
 
-#: lily-library.scm:587
+#: lily-library.scm:625
 msgid "old relative compatibility not used"
 msgstr "no se ha usado la compatibilidad con el modo relativo antiguo"
 
-#: lily.scm:173
+#: lily.scm:185
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr "no se encuentra: ~A"
 
-#: lily.scm:238
+#: lily.scm:250
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "tipo equivocado para el argumento ~a.  Se esperaba ~a, se encontró ~s"
 
-#: lily.scm:619
+#: lily.scm:634
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr "la tarea ~a ha terminado con la señal: ~a"
 
-#: lily.scm:622
+#: lily.scm:637
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
@@ -2194,12 +2205,12 @@ msgstr ""
 "archivo de registro ~a (salida ~a):\n"
 "~a"
 
-#: lily.scm:649 lily.scm:742
+#: lily.scm:664 lily.scm:757
 #, scheme-format
 msgid "failed files: ~S"
 msgstr "archivos que han fallado: ~S"
 
-#: lily.scm:732
+#: lily.scm:747
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr "Redirigiendo la salida hacia ~a..."
@@ -2213,12 +2224,12 @@ msgstr "La función principal de música debe devolver un objeto musical"
 msgid "Invalid property operation ~a"
 msgstr "Operación de propiedad ~a inválida"
 
-#: markup.scm:94
+#: markup.scm:124
 #, scheme-format
 msgid "Wrong number of arguments.  Expect: ~A, found ~A: ~S"
 msgstr "Número de agumentos equivocado.  Se esperaban: ~A, se han encontrado ~A: ~S"
 
-#: markup.scm:100
+#: markup.scm:130
 #, scheme-format
 msgid "Invalid argument in position ~A.  Expect: ~A, found: ~S."
 msgstr "Argumento inválido en la posición ~A.  Se esperaba: ~A, se ha encontrado: ~S."
@@ -2227,28 +2238,33 @@ msgstr "Argumento inválido en la posición ~A.  Se esperaba: ~A, se ha encontra
 msgid "More alternatives than repeats.  Junking excess alternatives"
 msgstr "Hay más alternativas que repeticiones.  Se recortan las alternativas excedentes"
 
-#: music-functions.scm:250
+#: music-functions.scm:240
+#, scheme-format
+msgid "invalid tremolo repeat count: ~a"
+msgstr "número de repeticiones no válido para el trémolo: ~a"
+
+#: music-functions.scm:248
 #, scheme-format
 msgid "expecting 2 elements for chord tremolo, found ~a"
 msgstr "se esperaban 2 elementos para el tremolo de acorde, se han encontrado ~a"
 
-#: music-functions.scm:573
+#: music-functions.scm:571
 #, scheme-format
 msgid "music expected: ~S"
 msgstr "se esperaba algo de música: ~S"
 
 #. FIXME: uncomprehensable message
-#: music-functions.scm:623
+#: music-functions.scm:621
 #, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr "Ha fallado la comprobación de compás.  Se esperaba que estuviera en ~a, en lugar de en ~a"
 
-#: music-functions.scm:773
+#: music-functions.scm:771
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr "no se encuentra la música citada: «~S»"
 
-#: music-functions.scm:970
+#: music-functions.scm:968
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr "estilo de alteración ~S desconocido"
@@ -2257,38 +2273,38 @@ msgstr "estilo de alteración ~S desconocido"
 msgid "utf-8-string encountered in PS backend"
 msgstr "se ha encontrado una cadena UTF-8 en el 'backend' de PostScript"
 
-#: output-svg.scm:42
+#: output-svg.scm:45
 #, scheme-format
 msgid "undefined: ~S"
 msgstr "no definido: ~S"
 
-#: output-svg.scm:132
+#: output-svg.scm:135
 #, scheme-format
 msgid "cannot decypher Pango description: ~a"
 msgstr "no se puede descifrar la descripción de Pango: ~a"
 
-#: output-tex.scm:97
+#: output-tex.scm:96
 #, scheme-format
 msgid "cannot find ~a in ~a"
 msgstr "no se encuentra ~a dentro de ~a"
 
-#: paper.scm:84
+#: paper.scm:85
 msgid "set-global-staff-size: not in toplevel scope"
 msgstr "set-global-staff-size: no está en el ámbito de nivel más alto"
 
-#: paper.scm:132
+#: paper.scm:133
 #, scheme-format
 msgid "This is not a \\layout {} object, ~S"
 msgstr "Esto no es un objeto de \\layout {} , ~S"
 
-#: paper.scm:144
+#: paper.scm:145
 #, scheme-format
 msgid "Unknown papersize: ~a"
 msgstr "Tamaño de papel desconocido: ~a"
 
 #. TODO: should raise (generic) exception with throw, and catch
 #. that in parse-scm.cc
-#: paper.scm:159
+#: paper.scm:160
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr "Debe usar #(set-paper-size .. ) dentro de \\paper { ... }"
 
@@ -2311,307 +2327,3 @@ msgstr "~a salió con el estado: ~S"
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr "el aserto no se cumple: ~S"
-
-#~ msgid "lilylib module"
-#~ msgstr "módulo lilylib"
-
-#~ msgid "print this help"
-#~ msgstr "mostrar esta ayuda"
-
-#~ msgid "Binary %s has version %s, looking for version %s"
-#~ msgstr "El binario %s tiene la versión %s, buscando la versión %s"
-
-#~ msgid "`%s' failed (%s)"
-#~ msgstr "`%s' ha fallado (%s)"
-
-#~ msgid "(ignored)"
-#~ msgstr "(ignorado)"
-
-#~ msgid "Cleaning %s..."
-#~ msgstr "Limpiando %s..."
-
-#~ msgid "Removing output file"
-#~ msgstr "Eliminando el fichero de salida"
-
-#~ msgid ""
-#~ "Process LilyPond snippets in hybrid HTML, LaTeX or texinfo document.\n"
-#~ "Example usage:\n"
-#~ "\n"
-#~ "   lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" BOOK\n"
-#~ "   lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" BOOK\n"
-#~ "   lilypond-book --process='lilypond-bin -I include' BOOK\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Procesar los fragmentos LilyPond en un documento híbrido HTML, LaTeX o TexInfo.\n"
-#~ "Ejemplos de uso:\n"
-#~ "\n"
-#~ "   lilypond-book --filter=\"tr '[a-z]' '[A-Z]'\" LIBRO\n"
-#~ "   lilypond-book --filter=\"convert-ly --no-version --from=2.0.0 -\" LIBRO\n"
-#~ "   lilypond-book --process='lilypond-bin -I include' LIBRO\n"
-#~ "\n"
-
-#~ msgid "EXT"
-#~ msgstr "EXT"
-
-#~ msgid "print version information"
-#~ msgstr "mostrar el número de versión"
-
-#~ msgid "getopt says: `%s'"
-#~ msgstr "getopt dice: «%s»"
-
-#~ msgid "Run LilyPond, add titles, generate printable document."
-#~ msgstr "Ejecutar LilyPond, añadir títulos y generar un documento imprimible."
-
-#~ msgid "write Makefile dependencies for every input file"
-#~ msgstr "escribir las dependencias de Makefile de cada fichero de entrada"
-
-#~ msgid "print even more output"
-#~ msgstr "mostrar incluso más salida"
-
-#~ msgid "find pfa fonts used in FILE"
-#~ msgstr "buscar los tipos de letra pfa utilizados en el FICHERO"
-
-#~ msgid "make HTML file with links to all output"
-#~ msgstr "genear un fichero HTML con enlaces a todas las salidas"
-
-#~ msgid "add DIR to LilyPond's search path"
-#~ msgstr "añadir el DIRECTORIO a la ruta de búsqueda de LilyPond"
-
-#~ msgid "keep all output, output to directory %s.dir"
-#~ msgstr "conservar todas las salidas en el directorio %s.dir"
-
-#~ msgid "don't run LilyPond"
-#~ msgstr "no ejecutar LilyPond"
-
-#~ msgid "produce MIDI output only"
-#~ msgstr "producir solamente una salida MIDI"
-
-#~ msgid "RES"
-#~ msgstr "RES"
-
-#~ msgid "set the resolution of the preview to RES"
-#~ msgstr "establecer esta RESOLUCIÓN para la previsualización"
-
-#~ msgid "do not generate PDF output"
-#~ msgstr "no generar una salida PDF"
-
-#~ msgid "do not generate PostScript output"
-#~ msgstr "no generar una salida PostScript"
-
-#~ msgid "use pdflatex to generate PDF output"
-#~ msgstr "utilizar pdflatex para generar la salida en PDF"
-
-#~ msgid "generate PNG page images"
-#~ msgstr "generar imágenes PNG de las páginas"
-
-#~ msgid "make a picture of the first system"
-#~ msgstr "crear una imagen del primer sistema"
-
-#~ msgid "run in safe-mode"
-#~ msgstr "ejecutar en modo seguro"
-
-#~ msgid "change global setting KEY to VAL"
-#~ msgstr "cambiar la opción global CLAVE a VALOR"
-
-#~ msgid "LilyPond crashed (signal %d)."
-#~ msgstr "LilyPond se ha colgado (señal %d)."
-
-#~ msgid "Please submit a bug report to bug-lilypond@gnu.org"
-#~ msgstr "Por favor, envíe un informe de fallo a bug-lilypond@gnu.org"
-
-#~ msgid "LilyPond failed on input file %s (exit status %d)"
-#~ msgstr "Fallo de LilyPond con el fichero de entrada %s (status de salida %d)"
-
-#~ msgid "LilyPond failed on an input file (exit status %d)"
-#~ msgstr "Fallo de LilyPond con un fichero de entrada (estado de salida %d)"
-
-#~ msgid "Analyzing %s..."
-#~ msgstr "Analizando %s..."
-
-#~ msgid "no LilyPond output found for `%s'"
-#~ msgstr "no se ha encontrado ninguna salida de lilypond para «%s»"
-
-#~ msgid "invalid value: `%s'"
-#~ msgstr "valor no válido: «%s»"
-
-#~ msgid "LaTeX failed on the output file."
-#~ msgstr "Fallo de LaTeX con el fichero de salida."
-
-#~ msgid ""
-#~ "Trying create PDF, but no PFA fonts found.\n"
-#~ "Using bitmap fonts instead. This will look bad."
-#~ msgstr ""
-#~ "Intentando crear un PDF, pero no se han encontrado tipos de letra PFA.\n"
-#~ "Se usan en su lugar tipos de letra en mapa de bits. El aspecto no será bueno."
-
-#~ msgid "Writing HTML menu `%s'"
-#~ msgstr "Escribiendo el menú HTML «%s»"
-
-#~ msgid "pseudo filter"
-#~ msgstr "pseudo filtro"
-
-#~ msgid "pseudo filter only for single input file"
-#~ msgstr "pseudo filtro solamente para fichero de entrada único"
-
-#~ msgid "no files specified on command line"
-#~ msgstr "no se ha especificado ningún fichero en la línea de mandatos"
-
-#~ msgid "Running LilyPond failed. Rerun with --verbose for a trace."
-#~ msgstr "Fallo de ejecución de LilyPond. Vuelva a ejecutarlo con --verbose para obtener una traza."
-
-#~ msgid "Failed to make PS file. Rerun with --verbose for a trace."
-#~ msgstr "Se ha producido un fallo al generar el fichero PS. Vuelva a ejecutarlo con --verbose para obtener una traza."
-
-#~ msgid "Running LaTeX failed. Rerun with --verbose for a trace."
-#~ msgstr "La ejecución de LaTeX ha fallado. Vuelva a ejecutarlo con --verbose para obtener una traza."
-
-#~ msgid "%s output to <stdout>..."
-#~ msgstr "%s salida hacia <stdout>..."
-
-#~ msgid "%s output to %s..."
-#~ msgstr "%s salida hacia %s..."
-
-#~ msgid "can't find file: `%s.%s'"
-#~ msgstr "no se puede encontrar el fichero: «%s.%s»"
-
-#~ msgid "Convert MIDI to LilyPond source."
-#~ msgstr "Convertir MIDI a fuente LilyPond."
-
-#~ msgid "debug"
-#~ msgstr "depurar"
-
-#~ msgid "define macro NAME [optional expansion EXP]"
-#~ msgstr "define la macro NOMBRE [expansión opcional EXP]"
-
-#~ msgid "only pre-process"
-#~ msgstr "solamente preprocesar"
-
-#~ msgid "DIM"
-#~ msgstr "DIM"
-
-#~ msgid "default fontsize for music.  DIM is assumed to be in points"
-#~ msgstr "tamaño del tipo de letra predeterminado para música. Se da por hecho que DIM está en puntos"
-
-#~ msgid "deprecated, use --default-music-fontsize"
-#~ msgstr "obsoleto, utilice --default-music-fontsize"
-
-#~ msgid "OPT"
-#~ msgstr "OPC"
-
-#~ msgid "pass OPT quoted to the lilypond command line"
-#~ msgstr "pasar OPC entrecomillado a la línea de mandatos de lilypond"
-
-#~ msgid "force fontsize for all inline lilypond. DIM is assumed to be in points"
-#~ msgstr "forzar el tamaño del tipo de letra para todo el lilypond incorporado. Se da por hecho que DIM está en puntos"
-
-#~ msgid "deprecated, use --force-music-fontsize"
-#~ msgstr "obsoleto, utilice --force-music-fontsize"
-
-#~ msgid "include path"
-#~ msgstr "incluir la ruta"
-
-#~ msgid "write dependencies"
-#~ msgstr "escribir las dependencias"
-
-#~ msgid "PREF"
-#~ msgstr "PREF"
-
-#~ msgid "prepend PREF before each -M dependency"
-#~ msgstr "añadir el prefijo PREF a cada dependencia -M"
-
-#~ msgid "don't run lilypond"
-#~ msgstr "no ejecutar lilypond"
-
-#~ msgid "don't generate pictures"
-#~ msgstr "no generar imágenes"
-
-#~ msgid "strip all lilypond blocks from output"
-#~ msgstr "eliminar todos los bloques lilypond de la salida"
-
-#~ msgid "filename main output file"
-#~ msgstr "nombre del fichero de salida principal"
-
-#~ msgid "where to place generated files"
-#~ msgstr "donde colocar los ficheros generados"
-
-#~ msgid "LaTeX failed."
-#~ msgstr "LaTeX ha fallado."
-
-#~ msgid "checksum mismatch for font file: `%s'"
-#~ msgstr "suma de control no acorde para el fichero de fuentes: `%s'"
-
-#, fuzzy
-#~ msgid "Rebuild all .afm files, and remove all .pk and .tfm files."
-#~ msgstr "Reconstruir todos los ficheros .afm, y borrar todos los ficheros .pk y .tfm. Re-ejecutar con la opción -V para mostrar las rutas de las fuentes."
-
-#~ msgid "Loading default font"
-#~ msgstr "Cargando la fuente por defecto"
-
-#~ msgid "can't find default font: `%s'"
-#~ msgstr "no puedo encontrar la fuente por defecto: `%s'"
-
-#~ msgid "Can't switch translators, I'm there already"
-#~ msgstr "No puedo pasar de un traductor al otro, ya estoy allí"
-
-#~ msgid "I'm one myself"
-#~ msgstr "Yo mismo soy uno"
-
-#~ msgid "no one to print a tremolos"
-#~ msgstr "ninguno para la impresión de trémolos"
-
-#~ msgid "NaN"
-#~ msgstr "NaN"
-
-#, fuzzy
-#~ msgid "Junking event: `%s'"
-#~ msgstr "Invocando `%s'"
-
-#~ msgid "no one to print a repeat brace"
-#~ msgstr "ninguno para la impresión de llaves repetidas"
-
-#~ msgid "non fatal error: "
-#~ msgstr "error no fatal: "
-
-#, fuzzy
-#~ msgid "Now processing `%s'"
-#~ msgstr "Ahora en proceso: `%s'"
-
-#, fuzzy
-#~ msgid "kpathsea can not find TFM file: `%s'"
-#~ msgstr "no puedo encontrar el fichero: `%s'"
-
-#, fuzzy
-#~ msgid "use output format EXT"
-#~ msgstr "utilizar el formato de salida EXT (scm, ps, tex o as) "
-
-#, fuzzy
-#~ msgid "write Makefile dependencies"
-#~ msgstr "crear las dependencias para Makefile de cada fichero de entrada"
-
-#~ msgid "prepend DIR to dependencies"
-#~ msgstr "añadir el prefijo DIR a las dependencias"
-
-#~ msgid "Creator: "
-#~ msgstr "Creador: "
-
-#, fuzzy
-#~ msgid "at "
-#~ msgstr ", en "
-
-#~ msgid "Separation_item:  I've been drinking too much"
-#~ msgstr "Separation_item: He bebido demasiado"
-
-#~ msgid "Huh?  Got %d, expected %d characters"
-#~ msgstr "¿Eh? Se han obtenido %d caracteres, cuando se esperaban %d"
-
-#, fuzzy
-#~ msgid "Identifier should have alphabetic characters only"
-#~ msgstr "El identificativo debería contener solamente caracteres alfabéticos"
-
-#, fuzzy
-#~ msgid "Can't find music"
-#~ msgstr "no se puede encontrar: `%s'"
-
-#, fuzzy
-#~ msgid "Incorrect lilypond version: %s (%s, %s)"
-#~ msgstr "versión de lilypond incorrecta: %s (%s, %s)"

@@ -111,9 +111,11 @@ reverted as well.  The syntax for this is
 @end example
 
 @item
-All line spanners are more flexible now in the configuration of their
-end points.  This includes glissando, voice followers, text crescendos
-and other text spanners.
+All line spanners are more flexible now in the configuration of
+their end points.  This includes glissando, voice followers, text
+crescendos and other text spanners.  The old syntax for setting
+text on line spanners is no longer valid.
+
 
 @c  with ragged-right we can't see the gliss.
 @lilypond[]

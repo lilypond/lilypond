@@ -89,7 +89,7 @@ arguments, @var{context}, @var{dir} [start/stop (-1 or 1)], and
 @var{test} [shortest note in the beam].  A non-@code{#f} return value
 starts or stops the auto beam.")
      (autoBeamSettings ,list? "Specifies when automatically generated
-beams should begin and end.  See @usermanref{Setting automatic beam
+beams should begin and end.  See @ruser{Setting automatic beam
 behavior} for more information.")
      (autoBeaming ,boolean? "If set to true then beams are generated
 automatically.")

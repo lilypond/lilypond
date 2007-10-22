@@ -1784,6 +1784,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(style . bar-line)
+	(collapse-height . 5.0)
 	(thickness . 1.6)
 	(stencil . ,ly:system-start-delimiter::print)
 	(meta . ((class . Spanner)
@@ -2251,6 +2252,7 @@
 
 (define pure-functions
   (list
+   parenthesize-elements
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
 

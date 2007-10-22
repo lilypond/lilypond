@@ -263,13 +263,6 @@ Axis_group_interface::calc_skylines (SCM smob)
   extract_grob_set (me, "elements", elts);
   Skyline_pair skylines = skyline_spacing (me, elts);
 
-  /* add a minimum-Y-extent-sized box to the skyline */
-  SCM min_y_extent = me->get_property ("minimum-Y-extent");
-  if (is_number_pair (min_y_extent))
-    {
-      Box b (me->extent (me, X_AXIS), ly_scm2interval (min_y_extent));
-      skylines.insert (b, 0, X_AXIS);
-    }
   return skylines.smobbed_copy ();
 }
 

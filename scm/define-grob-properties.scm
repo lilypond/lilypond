@@ -137,7 +137,7 @@ middle@tie{}C.")
      (clip-edges ,boolean? "Allow outward pointing beamlets at the
 edges of beams?")
      (collapse-height ,ly:dimension? "Minimum height of system start
-delimiter.  If equal or smaller, the bracket is removed.")
+delimiter.  If equal or smaller, the bracket/brace/line is removed.")
      (color ,color? "The color of this grob.")
      (common-shortest-duration ,ly:moment? "The most common shortest
 note length.  This is used in spacing.  Enlarging this sets the score
@@ -316,7 +316,7 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie or slur
 contour.")
-     (long-text ,markup? "Text markup.  See @usermanref{Text
+     (long-text ,markup? "Text markup.  See @ruser{Text
 markup}.")
 
      (max-beam-connect ,integer? "Maximum number of beams to connect
@@ -520,7 +520,7 @@ through flag on.")
 typeset.  Valid choices depend on the @code{stencil} callback reading
 this property.")
 
-     (text ,markup? "Text markup.  See @usermanref{Text markup}.")
+     (text ,markup? "Text markup.  See @ruser{Text markup}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
