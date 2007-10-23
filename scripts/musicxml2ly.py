@@ -620,6 +620,23 @@ def musicxml_dynamics_to_lily_event (dynentry):
     event.type = dynentry.get_name ()
     return event
 
+# Convert single-color two-byte strings to numbers 0.0 - 1.0
+def hexcolorval_to_nr (hex_val):
+    try:
+        v = int (hex_val, 16)
+        if v == 255:
+            v = 256
+        return v / 256.
+    except ValueError:
+        return 0.
+
+def hex_to_color (hex_val):
+    res = re.match (r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$', hex_val, re.IGNORECASE)
+    if res:
+        return map (lambda x: hexcolorval_to_nr (x), res.group (2,3,4))
+    else:
+        return None
+
 def musicxml_words_to_lily_event (words):
     event = musicexp.TextEvent ()
     text = words.get_text ()
@@ -628,15 +645,21 @@ def musicxml_words_to_lily_event (words):
     event.text = text
 
     if hasattr (words, 'default-y'):
-        if getattr (words, 'default-y') > 0:
-            event.force_direction = 1
-        else:
-            event.force_direction = -1
+        offset = getattr (words, 'default-y')
+        try:
+            off = string.atoi (offset)
+            if off > 0:
+                event.force_direction = 1
+            else:
+                event.force_direction = -1
+        except ValueError:
+            event.force_direction = 0
 
     if hasattr (words, 'font-weight'):
         font_weight = { "normal": '', "bold": '\\bold' }.get (getattr (words, 'font-weight'), '')
         if font_weight:
             event.markup += font_weight
+
     if hasattr (words, 'font-size'):
         size = getattr (words, 'font-size')
         font_size = {
@@ -650,15 +673,15 @@ def musicxml_words_to_lily_event (words):
         }.get (size, '')
         if font_size:
             event.markup += font_size
-    #if hasattr (words, 'color'):
-    #    color = getattr (words, 'color')
-    #    # TODO: In MusicXML, colors are represented as ARGB colors, in lilypond
-    #    #       as x-color. How can I convert from RGB to x-color???
-    #    font_color = {
-    #      #
-    #    }
+
+    if hasattr (words, 'color'):
+        color = getattr (words, 'color')
+        rgb = hex_to_color (color)
+        if rgb:
+            event.markup += "\\with-color #(rgb-color %s %s %s)" % (rgb[0], rgb[1], rgb[2])
+
     if hasattr (words, 'font-style'):
-        font_style = { "italic": '\\italic' }.get (getattr (words, 'font-style'),'')
+        font_style = { "italic": '\\italic' }.get (getattr (words, 'font-style'), '')
         if font_style:
             event.markup += font_style
 
