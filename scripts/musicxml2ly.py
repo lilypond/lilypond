@@ -193,6 +193,7 @@ def group_repeats (music_list):
         ending_start = -1 # position of current ending start
         endings = [] # list of already finished endings
         pos = 0
+        last = len (music_list) - 1
         repeat_replaced = False
         final_marker = 0
         while pos < len (music_list) and not repeat_replaced:
@@ -233,6 +234,17 @@ def group_repeats (music_list):
                 # this whole repeat structure is finished => replace it
                 if repeat_start >= 0 and repeat_end > 0 and ending_start < 0:
                     repeat_finished = True
+
+            # Finish off all repeats without explicit ending bar (e.g. when
+            # we convert only one page of a multi-page score with repeats)
+            if pos == last and repeat_start >= 0:
+                repeat_finished = True
+                final_marker = pos
+                if repeat_end < 0:
+                    repeat_end = pos
+                if ending_start >= 0:
+                    endings.append ([ending_start, pos])
+                    ending_start = -1
 
             if repeat_finished:
                 # We found the whole structure replace it!
