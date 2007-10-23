@@ -50,7 +50,9 @@ Rational::abs () const
 Rational
 Rational::trunc_rat () const
 {
-  return Rational (num_ - (num_ % den_), den_);
+  if (is_infinity())
+    return *this;
+  return Rational ((num_ - (num_ % den_)) * sign_, den_);
 }
 
 Rational::Rational ()
@@ -79,6 +81,7 @@ void
 Rational::set_infinite (int s)
 {
   sign_ = ::sign (s) * 2;
+  num_ = 1;
 }
 
 Rational
