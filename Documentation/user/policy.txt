@@ -65,22 +65,18 @@ main docs
 
     Music glossary: @rglos{foo}, @rglos{bar}.
 
-    User manual: @ref{baz}, @ref{foozle}.
+    Learning Manual: @rlearning{baz}, @rlearning{foozle}
 
-    Snippets: @lsrdir{section}.
+    Notation Reference: @ruser{faazle}, @ruser{boo}.
+
+    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}
 
     Program reference: @internalsref{fazzle}, @internalsref{booar}.
 
   ("Snippets" is REQUIRED; the others are optional)
 
 * To create links, use @ref{} if the link is within the same
-  manual.  If you are linking to another manual (say,
-  learning->glossary or user->program usage), then use:
-    @rlearning{}
-    @ruser{}
-    @rprogram{}
-    @rglos{}
-    @internalsref{}
+  manual.
 
 * @commonprop and @refbugs are optional.
 
@@ -232,6 +228,17 @@ main docs
       wrote".
 	@warning{}: produces a "Note: " box.  Use for important
       messages.
+
+* References must occur at the end of a sentence, for more
+  information see @ref{the texinfo manual}.  Ideally this should
+  also be the final sentence of a paragraph, but this is not
+  required.  Any link in a doc section must be duplicated in the
+  @seealso section at the bottom.
+
+* Introducing examples may be done with
+     . (ie finish the previous sentence/paragaph)
+     : (ie `in this example:')
+     , (ie `may add foo with the blah construct,')
 
 
 %%%%% READABILITY
