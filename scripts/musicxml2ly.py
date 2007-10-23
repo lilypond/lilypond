@@ -894,7 +894,13 @@ def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
     lyrics = {}
-        
+
+    # Needed for melismata detection (ignore lyrics on those notes!):
+    inside_slur = False
+    is_tied = False
+    is_chord = False
+    ignore_lyrics = False
+
     # TODO: Make sure that the keys in the dict don't get reordered, since
     #       we need the correct ordering of the lyrics stanzas! By default,
     #       a dict will reorder its keys
@@ -921,7 +927,8 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_command (a)
             continue
         
-        if not n.get_maybe_exist_named_child ('chord'):
+        is_chord = n.get_maybe_exist_named_child ('chord')
+        if not is_chord:
             try:
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
@@ -968,8 +975,9 @@ def musicxml_voice_to_lily_voice (voice):
                 num = 0
             if num > 0:
                 voice_builder.add_bar_check (num)
-        
+
         main_event = musicxml_note_to_lily_main_event (n)
+        ignore_lyrics = inside_slur or is_tied or is_chord
 
         if hasattr (main_event, 'drum_type') and main_event.drum_type:
             modes_found['drummode'] = True
@@ -998,6 +1006,7 @@ def musicxml_voice_to_lily_voice (voice):
             # everything into that chord instead of the ev_chord
             ev_chord = grace_chord
             ev_chord.append (main_event)
+            ignore_lyrics = True
         else:
             ev_chord.append (main_event)
             # When a note/chord has grace notes (duration==0), the duration of the
@@ -1009,7 +1018,7 @@ def musicxml_voice_to_lily_voice (voice):
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
         span_events = []
-        
+
         # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
         # +tied | +slur | +tuplet | glissando | slide | 
         #    ornaments | technical | articulations | dynamics |
@@ -1030,14 +1039,19 @@ def musicxml_voice_to_lily_voice (voice):
             if slurs:
                 if len (slurs) > 1:
                     error_message ('more than 1 slur?')
-
+                # record the slur status for the next note in the loop
+                if slurs[0].get_type () == 'start':
+                    inside_slur = True
+                elif slurs[0].get_type () == 'stop':
+                    inside_slur = False
                 lily_ev = musicxml_spanner_to_lily_event (slurs[0])
                 ev_chord.append (lily_ev)
 
             mxl_tie = notations.get_tie ()
             if mxl_tie and mxl_tie.type == 'start':
                 ev_chord.append (musicexp.TieEvent ())
-                
+                is_tied = True
+
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
                 ev = musicxml_fermata_to_lily_event (a)
@@ -1093,7 +1107,7 @@ def musicxml_voice_to_lily_voice (voice):
                         ev_chord.append (ev)
 
         # Extract the lyrics
-        if not rest:
+        if not rest and not ignore_lyrics:
             note_lyrics_processed = []
             note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
             for l in note_lyrics_elements:
