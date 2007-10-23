@@ -122,11 +122,12 @@
           <octave>5</octave>
         </pitch>
         <duration>1</duration>
+        <tie type="start"/>
         <voice>1</voice>
         <type>quarter</type>
         <stem>down</stem>
         <notations>
-          <slur number="1" type="start"/>
+          <tied type="start"/>
         </notations>
         <lyric number="1">
           <syllabic>middle</syllabic>
@@ -135,15 +136,16 @@
       </note>
       <note>
         <pitch>
-          <step>E</step>
+          <step>C</step>
           <octave>5</octave>
         </pitch>
         <duration>1</duration>
+        <tie type="stop"/>
         <voice>1</voice>
         <type>quarter</type>
         <stem>down</stem>
         <notations>
-          <slur number="1" type="stop"/>
+          <tied type="stop"/>
         </notations>
       </note>
       <note>

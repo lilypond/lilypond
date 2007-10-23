@@ -1063,6 +1063,8 @@ def musicxml_voice_to_lily_voice (voice):
             if mxl_tie and mxl_tie.type == 'start':
                 ev_chord.append (musicexp.TieEvent ())
                 is_tied = True
+            else:
+                is_tied = False
 
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
