@@ -193,6 +193,7 @@ def group_repeats (music_list):
         ending_start = -1 # position of current ending start
         endings = [] # list of already finished endings
         pos = 0
+        last = len (music_list) - 1
         repeat_replaced = False
         final_marker = 0
         while pos < len (music_list) and not repeat_replaced:
@@ -233,6 +234,17 @@ def group_repeats (music_list):
                 # this whole repeat structure is finished => replace it
                 if repeat_start >= 0 and repeat_end > 0 and ending_start < 0:
                     repeat_finished = True
+
+            # Finish off all repeats without explicit ending bar (e.g. when
+            # we convert only one page of a multi-page score with repeats)
+            if pos == last and repeat_start >= 0:
+                repeat_finished = True
+                final_marker = pos
+                if repeat_end < 0:
+                    repeat_end = pos
+                if ending_start >= 0:
+                    endings.append ([ending_start, pos])
+                    ending_start = -1
 
             if repeat_finished:
                 # We found the whole structure replace it!
@@ -620,6 +632,23 @@ def musicxml_dynamics_to_lily_event (dynentry):
     event.type = dynentry.get_name ()
     return event
 
+# Convert single-color two-byte strings to numbers 0.0 - 1.0
+def hexcolorval_to_nr (hex_val):
+    try:
+        v = int (hex_val, 16)
+        if v == 255:
+            v = 256
+        return v / 256.
+    except ValueError:
+        return 0.
+
+def hex_to_color (hex_val):
+    res = re.match (r'#([0-9a-f][0-9a-f]|)([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])([0-9a-f][0-9a-f])$', hex_val, re.IGNORECASE)
+    if res:
+        return map (lambda x: hexcolorval_to_nr (x), res.group (2,3,4))
+    else:
+        return None
+
 def musicxml_words_to_lily_event (words):
     event = musicexp.TextEvent ()
     text = words.get_text ()
@@ -628,15 +657,21 @@ def musicxml_words_to_lily_event (words):
     event.text = text
 
     if hasattr (words, 'default-y'):
-        if getattr (words, 'default-y') > 0:
-            event.force_direction = 1
-        else:
-            event.force_direction = -1
+        offset = getattr (words, 'default-y')
+        try:
+            off = string.atoi (offset)
+            if off > 0:
+                event.force_direction = 1
+            else:
+                event.force_direction = -1
+        except ValueError:
+            event.force_direction = 0
 
     if hasattr (words, 'font-weight'):
         font_weight = { "normal": '', "bold": '\\bold' }.get (getattr (words, 'font-weight'), '')
         if font_weight:
             event.markup += font_weight
+
     if hasattr (words, 'font-size'):
         size = getattr (words, 'font-size')
         font_size = {
@@ -650,15 +685,15 @@ def musicxml_words_to_lily_event (words):
         }.get (size, '')
         if font_size:
             event.markup += font_size
-    #if hasattr (words, 'color'):
-    #    color = getattr (words, 'color')
-    #    # TODO: In MusicXML, colors are represented as ARGB colors, in lilypond
-    #    #       as x-color. How can I convert from RGB to x-color???
-    #    font_color = {
-    #      #
-    #    }
+
+    if hasattr (words, 'color'):
+        color = getattr (words, 'color')
+        rgb = hex_to_color (color)
+        if rgb:
+            event.markup += "\\with-color #(rgb-color %s %s %s)" % (rgb[0], rgb[1], rgb[2])
+
     if hasattr (words, 'font-style'):
-        font_style = { "italic": '\\italic' }.get (getattr (words, 'font-style'),'')
+        font_style = { "italic": '\\italic' }.get (getattr (words, 'font-style'), '')
         if font_style:
             event.markup += font_style
 
@@ -871,7 +906,13 @@ def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
     lyrics = {}
-        
+
+    # Needed for melismata detection (ignore lyrics on those notes!):
+    inside_slur = False
+    is_tied = False
+    is_chord = False
+    ignore_lyrics = False
+
     # TODO: Make sure that the keys in the dict don't get reordered, since
     #       we need the correct ordering of the lyrics stanzas! By default,
     #       a dict will reorder its keys
@@ -898,7 +939,8 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_command (a)
             continue
         
-        if not n.get_maybe_exist_named_child ('chord'):
+        is_chord = n.get_maybe_exist_named_child ('chord')
+        if not is_chord:
             try:
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
@@ -945,8 +987,9 @@ def musicxml_voice_to_lily_voice (voice):
                 num = 0
             if num > 0:
                 voice_builder.add_bar_check (num)
-        
+
         main_event = musicxml_note_to_lily_main_event (n)
+        ignore_lyrics = inside_slur or is_tied or is_chord
 
         if hasattr (main_event, 'drum_type') and main_event.drum_type:
             modes_found['drummode'] = True
@@ -975,6 +1018,7 @@ def musicxml_voice_to_lily_voice (voice):
             # everything into that chord instead of the ev_chord
             ev_chord = grace_chord
             ev_chord.append (main_event)
+            ignore_lyrics = True
         else:
             ev_chord.append (main_event)
             # When a note/chord has grace notes (duration==0), the duration of the
@@ -986,7 +1030,7 @@ def musicxml_voice_to_lily_voice (voice):
         notations = n.get_maybe_exist_typed_child (musicxml.Notations)
         tuplet_event = None
         span_events = []
-        
+
         # The <notation> element can have the following children (+ means implemented, ~ partially, - not):
         # +tied | +slur | +tuplet | glissando | slide | 
         #    ornaments | technical | articulations | dynamics |
@@ -1007,14 +1051,21 @@ def musicxml_voice_to_lily_voice (voice):
             if slurs:
                 if len (slurs) > 1:
                     error_message ('more than 1 slur?')
-
+                # record the slur status for the next note in the loop
+                if slurs[0].get_type () == 'start':
+                    inside_slur = True
+                elif slurs[0].get_type () == 'stop':
+                    inside_slur = False
                 lily_ev = musicxml_spanner_to_lily_event (slurs[0])
                 ev_chord.append (lily_ev)
 
             mxl_tie = notations.get_tie ()
             if mxl_tie and mxl_tie.type == 'start':
                 ev_chord.append (musicexp.TieEvent ())
-                
+                is_tied = True
+            else:
+                is_tied = False
+
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
                 ev = musicxml_fermata_to_lily_event (a)
@@ -1070,7 +1121,7 @@ def musicxml_voice_to_lily_voice (voice):
                         ev_chord.append (ev)
 
         # Extract the lyrics
-        if not rest:
+        if not rest and not ignore_lyrics:
             note_lyrics_processed = []
             note_lyrics_elements = n.get_typed_children (musicxml.Lyric)
             for l in note_lyrics_elements:
