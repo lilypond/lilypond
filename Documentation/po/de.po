@@ -489,7 +489,7 @@ msgstr "Welche Symbole?"
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "Music representation"
-msgstr "Musikalische Repräsentation"
+msgstr "Die Darstellung der Musik"
 
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
