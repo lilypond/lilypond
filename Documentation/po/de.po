@@ -1983,7 +1983,7 @@ msgstr "Mehrere Partituren in einem Buch"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Extracting fragments of notation"
-msgstr "Fragmente der Notation extrahieren"
+msgstr "Notationsfragmente extrahieren"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
