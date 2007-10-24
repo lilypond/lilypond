@@ -313,7 +313,7 @@ ceses4 ces cis c
 Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}.
 
-User manual: @ref{Automatic accidentals}, @ref{Musica ficta
+Notation reference: @ref{Automatic accidentals}, @ref{Musica ficta
 accidentals}.
 
 Snippets: @lsrdir{pitch}
@@ -824,7 +824,7 @@ and some which do not:
 
 @seealso
 
-User manual: @ref{Ancient clefs}.
+Notation reference: @ref{Ancient clefs}.
 
 Snippets: @lsrdir{pitch}
 
@@ -1065,7 +1065,7 @@ to serve as a reminder that these parts are written in C.
 
 @seealso
 
-User manual: @ref{Quoting other voices}, @ref{Transpose}.
+Notation reference: @ref{Quoting other voices}, @ref{Transpose}.
 
 Snippets: @lsrdir{pitch}
 

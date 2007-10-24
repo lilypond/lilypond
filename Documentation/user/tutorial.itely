@@ -355,7 +355,7 @@ Here is a small example showing all these elements together:
 
 @seealso
 
-User manual: @ruser{Writing pitches}, @ruser{Writing rhythms},
+Notation reference: @ruser{Writing pitches}, @ruser{Writing rhythms},
 @ruser{Writing rests}, @ruser{Time signature}, @ruser{Clef}.
 
 
@@ -785,7 +785,7 @@ see @ruser{Articulations}.
 @item Fingering
 see @ruser{Fingering instructions}.
 @item Dynamics
-see @ruser{Dynamics} (User manual) and @rglos{dynamics} (Glossary).
+see @ruser{Dynamics} (Notation reference) and @rglos{dynamics} (Glossary).
 @end table
 @end quotation
 
@@ -814,7 +814,7 @@ a1_\markup{
 
 @seealso
 
-User manual: @ruser{Writing text}.
+Notation reference: @ruser{Writing text}.
 
 
 @node Automatic and manual beams
