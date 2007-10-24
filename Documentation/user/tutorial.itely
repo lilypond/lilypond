@@ -17,7 +17,7 @@ Tutorial guidelines:  (different from policy.txt!)
   Don't use any other relative=X commands (make it a non-fragment
   example), and don't use fragment without relative=2.
 
-- use "aes" and "ees" instead of "as" and "aes".  I know it's not
+- use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
   until we get to the Basic notation chapter.
 
@@ -166,12 +166,14 @@ You will see something resembling
 
 @example
 lilypond test.ly
-GNU LilyPond 2.10.0
+GNU LilyPond 2.12.0
 Processing `test.ly'
 Parsing...
-Interpreting music... [1]
+Interpreting music... 
 Preprocessing graphical objects...
-Calculating line breaks... [2]
+Finding the ideal number of pages...
+Fitting music on 1 page...
+Drawing systems...
 Layout output to `test.ps'...
 Converting to `test.pdf'...
 @end example
