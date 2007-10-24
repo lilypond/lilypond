@@ -260,7 +260,7 @@ Music glossary: @rglos{beam}, @rglos{duration}, @rglos{whole note},
 The @notation{duration} of a note is specified by a number after
 the note name.  @samp{1} for a @notation{whole note}, @samp{2} for
 a @notation{half note}, @samp{4} for a @notation{quarter note} and
-so on.  @notation{Beam}@tie{}s are added automatically.
+so on.  @notation{Beams} are added automatically.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -592,7 +592,8 @@ signature only affects the @emph{printed} accidentals, not the note's
 newcomers, so let us explain it in more detail.
 
 LilyPond makes a sharp distinction between musical content and
-layout.  The alteration (@notation{flat}, @notation{natural} or @notation{sharp}) of a note is part of the pitch, and is therefore
+layout.  The alteration (@notation{flat}, @notation{natural} or
+@notation{sharp}) of a note is part of the pitch, and is therefore
 musical content.  Whether an accidental (a @emph{printed} flat, natural
 or sharp sign) is printed in front of the corresponding note is a
 question of layout.  Layout is something that follows rules, so
@@ -723,7 +724,7 @@ see @ruser{Phrasing slurs}.
 
 Music glossary: @rglos{articulation}.
 
-Common @notation{articulation}@tie{}s can be added to a note using a
+Common @notation{articulations} can be added to a note using a
 dash @samp{-} and a single character:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -819,8 +820,10 @@ User manual: @ruser{Writing text}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
+Music glossary: @rglos{beam}.
+
 @cindex beams, by hand
-All @rglos{beam}s are drawn automatically:
+All @notation{beams} are drawn automatically:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8 ais d ees r d c16 b a8
@@ -854,7 +857,9 @@ see @ruser{Manual beams}.
 @cindex partial measure
 @subheading Partial measure
 
-A pickup (or @rglos{anacrusis}) is entered with the keyword
+Music glossary: @rglos{anacrusis}.
+
+A pickup (or @notation{anacrusis}) is entered with the keyword
 @code{\partial}.  It is followed by a duration: @code{\partial 4}
 is a quarter note pickup and @code{\partial 8} an eighth note.
 
@@ -1249,6 +1254,8 @@ show that the music and lyrics are to occur at the same time.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
+Music glossary: @rglos{melisma}.
+
 @cindex melisma
 @cindex extender line
 @cindex hyphens
@@ -1274,7 +1281,7 @@ bright as day}.  Let's extend it:
 
 We see the extra lyrics do not align properly with the notes.  The
 word @q{shine} should be sung on two notes, not one.  This is
-called a @rglos{melisma}, a single syllable sung to more than one
+called a @notation{melisma}, a single syllable sung to more than one
 note.  There are several ways to spread a syllable over multiple
 notes, the simplest being to add a slur across them (see @ref{Ties
 and slurs}):
