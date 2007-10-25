@@ -334,8 +334,12 @@ Break_aligned_interface::calc_extent_aligned_anchor (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Real alignment = robust_scm2double (me->get_property ("break-align-anchor-alignment"), 0.0);
+  Interval iv = me->extent (me, X_AXIS);
 
-  return scm_from_double (me->extent (me, X_AXIS).linear_combination (alignment));
+  if (isinf (iv[LEFT]) && isinf (iv[RIGHT])) /* avoid NaN */
+    return scm_from_double (0.0);
+
+  return scm_from_double (iv.linear_combination (alignment));
 }
 
 MAKE_SCHEME_CALLBACK (Break_aligned_interface, calc_break_visibility, 1)
