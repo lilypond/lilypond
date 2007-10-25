@@ -376,8 +376,12 @@ which is deliberate nonsense.
 TODO
 you can get exact RGB colors by specifying
 
-\override NoteHead #'color = #'(1.0 0.0 0.0)
-
+% black
+\override Stem #'color = #(rgb-color 0 0 0)
+% white
+\override Stem #'color = #(rgb-color 1 1 1)
+% dark blue
+\override Stem #'color = #(rgb-color 0 0 0.5) 
 
 
 @seealso
