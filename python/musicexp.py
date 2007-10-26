@@ -761,6 +761,8 @@ class ArticulationEvent (Event):
     def __init__ (self):
         self.type = None
         self.force_direction = None
+    def wait_for_note (self):
+        return True;
 
     def direction_mod (self):
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '')
@@ -786,6 +788,39 @@ class MarkupEvent (ShortArticulationEvent):
     def ly_expression (self):
         if self.contents:
             return "%s\\markup { %s }" % (self.direction_mod (), self.contents)
+        else:
+            return ''
+
+class FretEvent (MarkupEvent):
+    def __init__ (self):
+        MarkupEvent.__init__ (self)
+        self.force_direction = 1
+        self.strings = 6
+        self.frets = 4
+        self.barre = None
+        self.elements = []
+    def ly_expression (self):
+        val = ""
+        if self.strings <> 6:
+            val += "w:%s;" % self.strings
+        if self.frets <> 4:
+            val += "h:%s;" % self.frets
+        if self.barre and len (self.barre) >= 3:
+            val += "c:%s-%s-%s;" % (self.barre[0], self.barre[1], self.barre[2])
+        have_fingering = False
+        for i in self.elements:
+            if len (i) > 1:
+                val += "%s-%s" % (i[0], i[1])
+            if len (i) > 2:
+                have_fingering = True
+                val += "-%s" % i[2]
+            val += ";"
+        if have_fingering:
+            val = "f:1;" + val
+        if val:
+            return "%s\\markup { \\fret-diagram #\"%s\" }" % (self.direction_mod (), val)
+        else:
+            return ''
 
 class TremoloEvent (ArticulationEvent):
     def __init__ (self):
