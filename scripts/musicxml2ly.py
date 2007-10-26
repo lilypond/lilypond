@@ -179,13 +179,13 @@ def musicxml_partial_to_lily (partial_len):
 def group_repeats (music_list):
     repeat_replaced = True
     music_start = 0
-    i=0
+    i = 0
     # Walk through the list of expressions, looking for repeat structure
     # (repeat start/end, corresponding endings). If we find one, try to find the
     # last event of the repeat, replace the whole structure and start over again.
     # For nested repeats, as soon as we encounter another starting repeat bar,
     # treat that one first, and start over for the outer repeat.
-    while repeat_replaced and i<10:
+    while repeat_replaced and i < 100:
         i += 1
         repeat_start = -1  # position of repeat start / end
         repeat_end = -1 # position of repeat start / end
@@ -220,6 +220,7 @@ def group_repeats (music_list):
                 if e.direction == -1:
                     if repeat_start < 0:
                         repeat_start = 0
+                    if repeat_end < 0:
                         repeat_end = pos
                     ending_start = pos
                 elif e.direction == 1:
@@ -417,18 +418,18 @@ def musicxml_barline_to_lily (barline):
                 repeat.times = 2
         repeat.event = barline
         if repeat.direction == -1:
-            retval[1] = repeat
-        else:
             retval[3] = repeat
+        else:
+            retval[1] = repeat
 
     if ending_element and hasattr (ending_element, 'type'):
         ending = EndingMarker ()
         ending.direction = {"start": -1, "stop": 1, "discontinue": 1}.get (ending_element.type, 0)
         ending.event = barline
         if ending.direction == -1:
-            retval[0] = ending
-        else:
             retval[4] = ending
+        else:
+            retval[0] = ending
 
     if bartype:
         b = musicexp.BarLine ()
