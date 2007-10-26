@@ -614,6 +614,7 @@ class Part (Music_xml_node):
 
 	start_attr = None
         assign_to_next_note = []
+        id = None
 	for n in elements:
 	    voice_id = n.get_maybe_exist_typed_child (get_class ('voice'))
 
@@ -639,22 +640,22 @@ class Part (Music_xml_node):
                     voices[v].add_element (n)
                 continue
 
-            if isinstance (n, Direction) or isinstance (n, Harmony):
+            if isinstance (n, Direction):
+                staff_id = n.get_maybe_exist_named_child (u'staff')
+                if staff_id:
+                    staff_id = staff_id.get_text ()
+                if staff_id:
+                    dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
+                else:
+                    dir_voices = voices.keys ()
+                for v in dir_voices:
+                    voices[v].add_element (n)
+                continue
+
+            if isinstance (n, Harmony):
                 # store the harmony element until we encounter the next note
                 # and assign it only to that one voice.
                 assign_to_next_note.append (n)
-                #staff_id = n.get_maybe_exist_named_child (u'staff')
-                #if staff_id:
-                    #staff_id = staff_id.get_text ()
-                #if staff_id:
-                    #dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
-                #else:
-                    #dir_voices = voices.keys ()
-                ## assign only to first voice, otherwise we'll have duplicates!
-                #if dir_voices:
-                    #voices[dir_voices[0]].add_element (n)
-                ##for v in dir_voices:
-                    ##voices[v].add_element (n)
                 continue
 
 	    id = voice_id.get_text ()
@@ -666,6 +667,12 @@ class Part (Music_xml_node):
                     voices[id].add_element (i)
                 assign_to_next_note = []
                 voices[id].add_element (n)
+
+        # Assign all remaining elements from assign_to_next_note to the voice
+        # of the previous note:
+        for i in assign_to_next_note:
+            voices[id].add_element (i)
+        assign_to_next_note = []
 
 	if start_attr:
             for (s, vids) in staff_to_voice_dict.items ():
