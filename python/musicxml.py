@@ -89,6 +89,14 @@ class Xml_node:
 
 	return cn[0]
 
+    def get_named_child_value_number (self, name, default):
+        n = self.get_maybe_exist_named_child (name)
+        if n:
+            return string.atoi (n.get_text())
+        else:
+            return default
+
+
 class Music_xml_node (Xml_node):
     def __init__ (self):
 	Xml_node.__init__ (self)
@@ -610,7 +618,7 @@ class Part (Music_xml_node):
 
 	    if not (voice_id or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
-                    isinstance (n, Barline) ):
+                    isinstance (n, Barline) or isinstance (n, Harmony) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
@@ -630,7 +638,7 @@ class Part (Music_xml_node):
                     voices[v].add_element (n)
                 continue
 
-            if isinstance (n, Direction):
+            if isinstance (n, Direction) or isinstance (n, Harmony):
                 staff_id = n.get_maybe_exist_named_child (u'staff')
                 if staff_id:
                     staff_id = staff_id.get_text ()
@@ -638,8 +646,11 @@ class Part (Music_xml_node):
                     dir_voices = staff_to_voice_dict.get (staff_id, voices.keys ())
                 else:
                     dir_voices = voices.keys ()
-                for v in dir_voices:
-                    voices[v].add_element (n)
+                # assign only to first voice, otherwise we'll have duplicates!
+                if dir_voices:
+                    voices[dir_voices[0]].add_element (n)
+                #for v in dir_voices:
+                    #voices[v].add_element (n)
                 continue
 
 	    id = voice_id.get_text ()
@@ -783,6 +794,30 @@ class Bend (Music_xml_node):
 class Words (Music_xml_node):
     pass
 
+class Harmony (Music_xml_node):
+    pass
+
+class Frame (Music_xml_node):
+    def get_frets (self):
+        return self.get_named_child_value_number ('frame-frets', 4)
+    def get_strings (self):
+        return self.get_named_child_value_number ('frame-strings', 6)
+    def get_first_fret (self):
+        return self.get_named_child_value_number ('first-fret', 1)
+class Frame_Note (Music_xml_node):
+    def get_string (self):
+        return self.get_named_child_value_number ('string', 1)
+    def get_fret (self):
+        return self.get_named_child_value_number ('fret', 0)
+    def get_fingering (self):
+        return self.get_named_child_value_number ('fingering', -1)
+    def get_barre (self):
+        n = self.get_maybe_exist_named_child ('barre')
+        if n:
+            return getattr (n, 'type', '')
+        else:
+            return ''
+
 
 ## need this, not all classes are instantiated
 ## for every input file. Only add those classes, that are either directly
@@ -801,8 +836,11 @@ class_dict = {
 	'direction': Direction,
         'direction-type': DirType,
 	'duration': Duration,
+        'frame': Frame,
+        'frame-note': Frame_Note,
         'glissando': Glissando,
 	'grace': Grace,
+        'harmony': Harmony,
         'identification': Identification,
         'lyric': Lyric,
 	'measure': Measure,

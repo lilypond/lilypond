@@ -737,6 +737,40 @@ def musicxml_direction_to_lily (n):
 
     return res
 
+def musicxml_frame_to_lily_event (frame):
+    ev = musicexp.FretEvent ()
+    ev.strings = frame.get_strings ()
+    ev.frets = frame.get_frets ()
+    #offset = frame.get_first_fret () - 1
+    barre = []
+    for fn in frame.get_named_children ('frame-note'):
+        fret = fn.get_fret ()
+        if fret <= 0:
+            fret = "o"
+        el = [ fn.get_string (), fret ]
+        fingering = fn.get_fingering ()
+        if fingering >= 0:
+            el.append (fingering)
+        ev.elements.append (el)
+        b = fn.get_barre ()
+        if b == 'start':
+            barre[0] = el[0] # start string
+            barre[2] = el[1] # fret
+        elif b == 'stop':
+            barre[1] = el[0] # end string
+    if barre:
+        ev.barre = barre
+    return ev
+
+def musicxml_harmony_to_lily (n):
+    res = []
+    for f in n.get_named_children ('frame'):
+        ev = musicxml_frame_to_lily_event (f)
+        if ev:
+            res.append (ev)
+
+    return res
+
 instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
@@ -938,7 +972,15 @@ def musicxml_voice_to_lily_voice (voice):
                 else:
                     voice_builder.add_command (a)
             continue
-        
+
+        if isinstance (n, musicxml.Harmony):
+            for a in musicxml_harmony_to_lily (n):
+                if a.wait_for_note ():
+                    voice_builder.add_dynamics (a)
+                else:
+                    voice_builder.add_command (a)
+            continue
+
         is_chord = n.get_maybe_exist_named_child ('chord')
         if not is_chord:
             try:
