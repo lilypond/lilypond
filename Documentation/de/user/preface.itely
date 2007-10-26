@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3237f4afc77b528ca92ca6d68664bd80e39d9e76
+    Translation of GIT committish: 8d678d320b2bef3d0ebfc737134d45bcec5e8a56
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,14 +10,14 @@
 @node Preface
 @unnumbered Preface
 
-Es muss wohl während einer Probe des EJE (Eindhovens Jugendorcherster)
+Es muss wohl während einer Probe des EJE (Eindhovens Jugendorchester)
  etwa 1995 gewesen sein, als Jan, einer der schrägen Bratschisten,
 Han-Wen, einem der verstimmten Hornisten, von seinem großartigen
 neuen Projekt erzählte, an dem er gerade arbeitete. Es sollte ein
-automatisiertes System für den Musikdruck werden (um genauer zu sein,
-es war MPP, ein Präprozessor für MusiXTeX). Wie der Zufall so will,
-hatte Han-Wen einige Stimmauszüge von einer Partitur, die er setzen 
-wollte, und so schaute er sich das Programm an und war schnell 
+automatisiertes System für den Notensatz werden (um genauer zu sein,
+es war MPP, ein Präprozessor für MusiXTeX). Zufällig wollte Han-Wen 
+gerade einige Stimmen einer Partitur ausdrucken,
+und so schaute er sich das Programm an und war schnell 
 begeistert. Man entschied sich, dass MPP in eine Sackgasse führte, 
 und nach vielem Philosophieren und hitzigem E-Mail-Austausch begann
 Han-Wen mit LilyPond 1996. Dieses Mal wurde Jan mitgerissen von 
@@ -59,5 +59,5 @@ setzen!
 
 Han-Wen und Jan
 
-Utrecht/Eindhoven, Die Niederlande, Juli 2002.
+Utrecht/Eindhoven, Niederlande, Juli 2002.
 

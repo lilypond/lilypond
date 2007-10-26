@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-09-02 18:17+0200\n"
-"PO-Revision-Date: 2007-09-03 18:17+0300\n"
+"PO-Revision-Date: 2007-10-21 18:17+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -489,7 +489,7 @@ msgstr "Welche Symbole?"
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
 msgid "Music representation"
-msgstr "Musikalische Repräsentation"
+msgstr "Die Darstellung der Musik"
 
 #. @node in ../../../Documentation/user/introduction.itely
 #. @section in ../../../Documentation/user/introduction.itely
@@ -699,7 +699,7 @@ msgstr "Warnung: Tonartbezeichnungen und Tonhöhen"
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
 msgid "Ties and slurs"
-msgstr "Bindebögen und Legaotbögen"
+msgstr "Bindebögen und Legatobögen"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @node in ../../../Documentation/user/basic-notation.itely
@@ -954,7 +954,7 @@ msgstr "Alte Dateien aktualisieren"
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
 msgid "Troubleshooting (taking it all apart)"
-msgstr "Fehlersuche (alles auseinander bauen)"
+msgstr "Fehlersuche (alles auseinandernehmen)"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
@@ -1074,7 +1074,7 @@ msgstr "Taktüberprüfung"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Barnumber check"
-msgstr "Taktnummerüberprüfung"
+msgstr "Taktzahlüberprüfung"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1159,7 +1159,7 @@ msgstr "Noten verbinden"
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
 msgid "Laissez vibrer ties"
-msgstr "Laissez vibrer-Bögen"
+msgstr "Laissez-vibrer-Bögen"
 
 #. @node in ../../../Documentation/user/basic-notation.itely
 #. @subsection in ../../../Documentation/user/basic-notation.itely
@@ -1388,7 +1388,7 @@ msgstr "Mehr über Strophen"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding stanza numbers"
-msgstr "Strophennummern"
+msgstr "Strophennummern hinzufügen"
 
 #. @subsubsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Adding dynamics marks"
@@ -1409,7 +1409,7 @@ msgstr "Die Strophen am Ende in mehreren Spalten drucken"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ambitus"
-msgstr "Ambitus"
+msgstr "Tonumfang"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1479,7 +1479,7 @@ msgstr "Fingersatz der rechten Hand"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Other guitar issues"
-msgstr "Weiter Gitarrenprobleme"
+msgstr "Weitere Gitarrenprobleme"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @section in ../../../Documentation/user/instrument-notation.itely
@@ -1504,37 +1504,37 @@ msgstr "Notation von alter Musik"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient note heads"
-msgstr "Notenköpfe der alten Musik"
+msgstr "Notenköpfe Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient accidentals"
-msgstr "Versetzungszeichen der alten Musik"
+msgstr "Versetzungszeichen Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient rests"
-msgstr "Pausen der alten Musik"
+msgstr "Pausen Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient clefs"
-msgstr "Schlüssel der alten Musik"
+msgstr "Schlüssel Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient flags"
-msgstr "Fähnchen der alten Musik"
+msgstr "Fähnchen Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient time signatures"
-msgstr "Taktangaben der alten Musik"
+msgstr "Taktangaben Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Ancient articulations"
-msgstr "Vorzeichen der alten Musik"
+msgstr "Artikulationszeichen Alter Musik"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1574,7 +1574,7 @@ msgstr "Mensural-Kontexte"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Musica ficta accidentals"
-msgstr "Musica ficta-Versetzungszeichen"
+msgstr "Musica-ficta-Versetzungszeichen"
 
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
@@ -1589,7 +1589,7 @@ msgstr "Notation für verschiedene Instrumente"
 #. @node in ../../../Documentation/user/instrument-notation.itely
 #. @subsection in ../../../Documentation/user/instrument-notation.itely
 msgid "Artificial harmonics (strings)"
-msgstr "Flageolet (Streicher)"
+msgstr "Flageolett"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @chapter in ../../../Documentation/user/advanced-notation.itely
@@ -1669,7 +1669,7 @@ msgstr "Mehrtaktige Pausen"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Metronome marks"
-msgstr "Metronombezeichnung"
+msgstr "Metronomangabe"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1679,7 +1679,7 @@ msgstr "Übungszeichen"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Bar numbers"
-msgstr "Taktnummern"
+msgstr "Taktzahlen"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1784,7 +1784,7 @@ msgstr "Pädagogische Verwendung"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Balloon help"
-msgstr "Erklärungsblasen"
+msgstr "Erklärungen in Ballonform"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1804,7 +1804,7 @@ msgstr "Notenköpfe mit besonderen Formen"
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
 msgid "Easy Notation note heads"
-msgstr "Easy Notation-Notenköpfe"
+msgstr "Easy-Notation-Notenköpfe"
 
 #. @node in ../../../Documentation/user/advanced-notation.itely
 #. @subsection in ../../../Documentation/user/advanced-notation.itely
@@ -1894,7 +1894,7 @@ msgstr "Umgebungen aneinander ausrichten"
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Vertical grouping of grobs"
-msgstr "Vertikale Gruppierung der grafischen Objekte (grob)"
+msgstr "Vertikale Gruppierung der grafischen Objekte („grob“s)"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "The \\override command"
@@ -1931,7 +1931,7 @@ msgstr "Objekte, die mit der Eingabe verbunden sind"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of \\tweak"
-msgstr "Scheme-Code anstelle von \tweak verwenden"
+msgstr "Scheme-Code anstelle von \\tweak verwenden"
 
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
 msgid "Using Scheme code instead of @code{\\tweak}"
@@ -1963,7 +1963,7 @@ msgstr "Quelldateien"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "File structure (introduction)"
-msgstr "Die Dateistruktru (Einleitung)"
+msgstr "Die Dateistruktur (Einleitung)"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1983,7 +1983,7 @@ msgstr "Mehrere Partituren in einem Buch"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Extracting fragments of notation"
-msgstr "Fragmente der Notation extrahieren"
+msgstr "Notationsfragmente extrahieren"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -1993,7 +1993,7 @@ msgstr "LilyPond-Dateien einfügen"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
 msgid "Text encoding"
-msgstr "Textkodierung"
+msgstr "Zeichenkodierung"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
@@ -2023,7 +2023,7 @@ msgstr "Inhaltsverzeichnis"
 #. @node in ../../../Documentation/user/non-music.itely
 #. @section in ../../../Documentation/user/non-music.itely
 msgid "MIDI output"
-msgstr "MDID-Ausgabe"
+msgstr "MIDI-Ausgabe"
 
 #. @node in ../../../Documentation/user/non-music.itely
 #. @subsection in ../../../Documentation/user/non-music.itely
@@ -2063,7 +2063,7 @@ msgstr "Papier und Seiten"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Paper size"
-msgstr "Papiergröße"
+msgstr "Papierformat"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2138,7 +2138,7 @@ msgstr "Vertikale Abstände"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "Vertical spacing inside a system"
-msgstr "Vertikale Abstände innerhalb eines Systemes"
+msgstr "Vertikale Abstände innerhalb eines Systems"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2176,7 +2176,7 @@ msgstr "Überblick über horizontale Abstände"
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
 msgid "New spacing area"
-msgstr "Eine neue Umgebung mit anderen Abständen"
+msgstr "Eine neuer Bereich mit anderen Abständen"
 
 #. @node in ../../../Documentation/user/spacing.itely
 #. @subsection in ../../../Documentation/user/spacing.itely
@@ -2271,7 +2271,7 @@ msgstr "Eigenschaften von Musikobjekten"
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
 msgid "Doubling a note with slurs (example)"
-msgstr "Verdopplung einer Note mit Bindebögen (Beispiel)"
+msgstr "Verdoppelung einer Note mit Bindebögen (Beispiel)"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -2447,11 +2447,11 @@ msgstr "Vokalensemble"
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
 msgid "SATB vocal score"
-msgstr "SATB Partitur"
+msgstr "SATB-Partitur"
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
 msgid "SATB vocal score and automatic piano reduction"
-msgstr "SATB Partitur und automatischer Klavierauszug"
+msgstr "SATB-Partitur und automatischer Klavierauszug"
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
 msgid "SATB with aligned contexts"
@@ -2473,7 +2473,7 @@ msgstr "Vorlage zur Transkription von Gregorianik"
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendixsec in ../../../Documentation/user/templates.itely
 msgid "Jazz combo"
-msgstr "Jazz combo"
+msgstr "Jazz-Combo"
 
 #. @node in ../../../Documentation/user/templates.itely
 #. @appendixsec in ../../../Documentation/user/templates.itely
