@@ -948,6 +948,8 @@ def musicxml_voice_to_lily_voice (voice):
     is_chord = False
     ignore_lyrics = False
 
+    current_staff = None
+
     # TODO: Make sure that the keys in the dict don't get reordered, since
     #       we need the correct ordering of the lyrics stanzas! By default,
     #       a dict will reorder its keys
@@ -984,6 +986,12 @@ def musicxml_voice_to_lily_voice (voice):
 
         is_chord = n.get_maybe_exist_named_child ('chord')
         if not is_chord:
+            s = n.get_maybe_exist_named_child ('staff')
+            if s:
+                staff = s.get_text ()
+                if current_staff and staff <> current_staff:
+                    voice_builder.add_command (musicexp.StaffChange (staff))
+                current_staff = staff
             try:
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:

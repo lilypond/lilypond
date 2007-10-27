@@ -997,6 +997,17 @@ class ClefChange (Music):
         return clefsetting
 
 
+class StaffChange (Music):
+    def __init__ (self, staff):
+        Music.__init__ (self)
+        self.staff = staff
+    def ly_expression (self):
+        if self.staff:
+            return "\\change Staff=\"%s\"" % self.staff
+        else:
+            return ''
+
+
 class MultiMeasureRest(Music):
 
     def lisp_expression (self):
