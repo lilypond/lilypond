@@ -961,6 +961,12 @@ def musicxml_voice_to_lily_voice (voice):
     for n in voice._elements:
         if n.get_name () == 'forward':
             continue
+        staff = n.get_maybe_exist_named_child ('staff')
+        if staff:
+            staff = staff.get_text ()
+            if current_staff and staff <> current_staff and not n.get_maybe_exist_named_child ('chord'):
+                voice_builder.add_command (musicexp.StaffChange (staff))
+            current_staff = staff
 
         if isinstance (n, musicxml.Partial) and n.partial > 0:
             a = musicxml_partial_to_lily (n.partial)
@@ -986,12 +992,6 @@ def musicxml_voice_to_lily_voice (voice):
 
         is_chord = n.get_maybe_exist_named_child ('chord')
         if not is_chord:
-            s = n.get_maybe_exist_named_child ('staff')
-            if s:
-                staff = s.get_text ()
-                if current_staff and staff <> current_staff:
-                    voice_builder.add_command (musicexp.StaffChange (staff))
-                current_staff = staff
             try:
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
@@ -1103,19 +1103,21 @@ def musicxml_voice_to_lily_voice (voice):
                 if len (slurs) > 1:
                     error_message ('more than 1 slur?')
                 # record the slur status for the next note in the loop
-                if slurs[0].get_type () == 'start':
-                    inside_slur = True
-                elif slurs[0].get_type () == 'stop':
-                    inside_slur = False
+                if not grace:
+                    if slurs[0].get_type () == 'start':
+                        inside_slur = True
+                    elif slurs[0].get_type () == 'stop':
+                        inside_slur = False
                 lily_ev = musicxml_spanner_to_lily_event (slurs[0])
                 ev_chord.append (lily_ev)
 
-            mxl_tie = notations.get_tie ()
-            if mxl_tie and mxl_tie.type == 'start':
-                ev_chord.append (musicexp.TieEvent ())
-                is_tied = True
-            else:
-                is_tied = False
+            if not grace:
+                mxl_tie = notations.get_tie ()
+                if mxl_tie and mxl_tie.type == 'start':
+                    ev_chord.append (musicexp.TieEvent ())
+                    is_tied = True
+                else:
+                    is_tied = False
 
             fermatas = notations.get_named_children ('fermata')
             for a in fermatas:
