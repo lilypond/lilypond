@@ -898,7 +898,7 @@ class LilyPondVoiceBuilder:
             error_message ('Negative skip %s' % diff)
             diff = Rational (0)
 
-        if diff > Rational (0) and not self.ignore_skips:
+        if diff > Rational (0) and not (self.ignore_skips and moment == 0):
             skip = musicexp.SkipEvent()
             skip.duration.duration_log = 0
             skip.duration.factor = diff

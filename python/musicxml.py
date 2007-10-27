@@ -454,6 +454,7 @@ class Part (Music_xml_node):
         
     def interpret (self):
 	"""Set durations and starting points."""
+        """The starting point of the very first note is 0!"""
         
         part_list = self.get_part_list ()
         
@@ -467,7 +468,7 @@ class Part (Music_xml_node):
         measure_position = Rational (0)
         measure_start_moment = now
         is_first_measure = True
-        prvious_measure = None
+        previous_measure = None
 	for m in measures:
             # implicit measures are used for artificial measures, e.g. when
             # a repeat bar line splits a bar into two halves. In this case,
@@ -478,7 +479,7 @@ class Part (Music_xml_node):
             # know if the next measure is implicit and continues that measure)
             if not m.is_implicit ():
                 # Warn about possibly overfull measures and reset the position
-                if attributes_object:
+                if attributes_object and previous_measure and previous_measure.partial == 0:
                     length = attributes_object.get_measure_length ()
                     new_now = measure_start_moment + length
                     if now <> new_now:
