@@ -93,6 +93,9 @@ c, c,, e, g d,, d, d c
 
 Snippets: @lsrdir{pitch}
 
+Program reference: @internalsref{LedgerLineSpanner},
+@internalsref{NoteHead}.
+
 
 @node Relative octave entry
 @unnumberedsubsubsec Relative octaves entry
@@ -317,9 +320,6 @@ Notation reference: @ref{Automatic accidentals}, @ref{Musica ficta
 accidentals}.
 
 Snippets: @lsrdir{pitch}
-
-Program reference: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
 
 
 @refbugs
@@ -591,10 +591,10 @@ mus = { c d e f }
 @code{\transpose} may also be used to input written notes for a
 transposing instrument.  The previous examples show how to enter
 pitches in C (or @notation{concert pitch}) and typeset them for a
-transposing instrument, but the opposite is also possible, e.g. if
-you have a set of instrumental parts and want to print a
-conductor's score.  When entering music for a B-flat trumpet which
-begins on a notated E (concert D), one would write:
+transposing instrument, but the opposite is also possible if you
+for example have a set of instrumental parts and want to print a
+conductor's score. For example, when entering music for a B-flat
+trumpet which begins on a notated E (concert D), one would write:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
@@ -901,13 +901,19 @@ a bes c d
 The @code{\key} command sets the context property
 @code{Staff.keySignature}.  Non-standard key signatures can be
 specified by setting this property directly.  The format of this
-command is @code{\set Staff.keySignature} = #'((@var{octave} .
-@var{step}) . @var{alter}) where @var{octave} specifies the octave
-(0 being the octave from middle C to the B above), @var{step}
-specifies the note within the octave (0 means C and 6 means B),
-and @var{alter} is ,SHARP ,FLAT ,DOUBLE-SHARP etc. (Note the
-leading comma.) Here is an example of a possible key signature for
-generating a whole-tone scale:
+command is a list:
+
+@example
+\set Staff.keySignature = #'((@var{octave} .  @var{step}) . @var{alter})
+@end example
+
+@noindent
+where, for each element in the list, @var{octave} specifies the
+octave (0 being the octave from middle C to the B above),
+@var{step} specifies the note within the octave (0 means C and 6
+means B), and @var{alter} is ,SHARP ,FLAT ,DOUBLE-SHARP etc.
+(Note the leading comma.)  Here is an example of a possible key
+signature for generating a whole-tone scale:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'
@@ -1010,7 +1016,8 @@ This command sets the property @code{instrumentTransposition}.
 The value of this property is used for MIDI output and quotations.
 MIDI output is transposed to play at concert pitch, and cue notes
 and quotations are automatically transposed to the key of the
-instrument in which they are quoted.
+instrument in which they are quoted.  For more information about
+quotations, see @ref{Quoting other voices}.
 
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a @code{c'} written on the staff is
@@ -1062,6 +1069,7 @@ saxophone = @{
 
 @noindent
 to serve as a reminder that these parts are written in C.
+
 
 @seealso
 
