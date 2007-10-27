@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 2f158e729c0d53da1523081143869488c1e24b10
+    Translation of GIT committish: 79583ed701a443510826b8f22f20fd6e7d5eccbe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -91,9 +91,9 @@
           &nbsp;
 	  <ul>
 	  <li>
-            <a class="title" href="user/lilypond-program/index.html">Programmbenutzung</a>
+            <a class="title" href="user/lilypond-program/index.de.html">Programmbenutzung</a>
  (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
- als <a class="title" href="user/lilypond-program.pdf">PDF</a>)
+ als <a class="title" href="user/lilypond-program.de.pdf">PDF</a>)
             <br>(Wie das Programm installiert und gestartet wird.)
           
  <li><a class="title" href="../input/lsr/collated-files.html">Schnipsel</a>
@@ -101,7 +101,25 @@
  
         </ul>
  
-     </td><tr>
+    </td>
+        <tr>
+          <td valign="baseline" class="left-column">
+          &nbsp;
+       <ul>
+            <li><a class="title"  href="devel.html">Resourcen f&uuml;r Entwickler</a>
+              <br>(Dokumentation f&uuml;r Entwickler und Mitwirkende.)
+       </ul>
+    </td><td class="right-column">
+          &nbsp;
+<!-- TODO
+    <ul>
+        <li><a class="title"  href="translations.html">Translations status</a>
+        <br>(see translations progress)
+    </ul>
+-->
+         </td>
+        </tr>
+
          <tr>
            <td valign="baseline" class="left-column">
            &nbsp;
@@ -109,7 +127,7 @@
             <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
               <br>(Die Internetseite)
             <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Linzenz</a>
+	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Lizenz</a>
 	      <br> (Die GNU GPL) 
  
         </ul>
