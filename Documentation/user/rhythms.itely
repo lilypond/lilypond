@@ -81,31 +81,13 @@ a a a2 a a4 a a1 a
 To obtain dotted note lengths, simply add a dot (@samp{.}) to the
 number.  Double-dotted notes are produced in a similar way.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-a'4 b' c''4. b'8 a'4. b'4.. c''8.
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 b c4. b8 a4. b4.. c8.
 @end lilypond
-
-@cindex tied notes
-@funindex ~
 
 Some durations cannot be entered using only binary durations
 and dots, and can only be represented by tying two or more 
-notes together.  Tied notes are also 
-often used prior to a syncopated section, and 
-they are also frequently used to carry notes over stronger
-beats in a bar as well as to carry notes over barlines.  To tie
-two (or more) notes together terminate all but the last one
-with a @code{~} (a tilde symbol):
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\relative c'' {
-  c4. b8 a2 |
-  g~ g8 g'4 fis8~ |
-  fis8 e4 d8~ d8 c4 b8 |
-  a2 g
-}
-@end lilypond
-
+notes together.  Tied notes are covered in @ref{Ties}.
 
 @refcommands
 
@@ -139,6 +121,10 @@ entered with \maxima, but this is supported only within
 ancient music notation.  
 See this manual: @ref{Ancient notation}
 
+Optionally, notes can be spaced proportionately to their duration.
+For details of this and other settings which control
+proportional notation see @ref{Proportional notation}.
+
 Program reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
 
@@ -150,6 +136,8 @@ Program reference: @internalsref{Dots}, and
 @cindex triplets
 @funindex \times
 
+@c TODO Add Tuplet to glossary
+
 Tuplets are made out of a music expression by multiplying all
 durations with a fraction
 
@@ -158,14 +146,14 @@ durations with a fraction
 @end example
 
 @noindent
-The duration of @var{musicexpr} will be multiplied by the
-fraction.  The fraction's denominator will be printed over the
-notes, optionally with a bracket.  The most common tuplet is the
-triplet in which 3 notes have the length of 2, so the notes are
-2/3 of their written length
+The duration of @var{musicexpr} will be multiplied by the 
+fraction.  The fraction's denominator will be printed over or 
+under the notes, optionally with a bracket.  The most common 
+tuplet is the triplet in which 3 notes have the length of 2, so 
+the notes are 2/3 of their written length.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-g'4 \times 2/3 {c'4 c' c'} d'4 d'4
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+g4 \times 2/3 {c4 c c} d4 d4
 @end lilypond
 
 Tuplets may be nested, for example,
@@ -228,14 +216,14 @@ beginning at the same music moment.  In this example,
 @code{TupletNumber} and denominator text for the
 @code{TupletNumber} of the first of the three inner tuplets.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 \new Staff {
   \tweak #'text #tuplet-number::calc-fraction-text
   \times 4/3 {
      \tweak #'text #tuplet-number::calc-denominator-text
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c8[ c8 c8] }
+     \times 2/3 { c8[ c8 c8] }
+     \times 2/3 { c8[ c8 c8] }
   }
 }
 @end lilypond
@@ -251,16 +239,16 @@ tuplets begin at the same music moment.  We use @code{\override}
 in the usual way to position the @code{TupletBrackets} of the
 second and third of the inner tuplets below the staff.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 \new Staff {
   \tweak #'text #tuplet-number::calc-fraction-text
   \tweak #'direction #up
   \times 4/3 {
      \tweak #'direction #down
-     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c8[ c8 c8] }
      \override TupletBracket #'direction = #down
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
+     \times 2/3 { c8[ c8 c8] }
+     \times 2/3 { c8[ c8 c8] }
   }
 }
 @end lilypond
@@ -285,6 +273,8 @@ note
 }
 @end lilypond
 
+Tuplets which cross barlines will prevent a line break at that
+point.
 
 @seealso
 
@@ -358,8 +348,8 @@ To explicitly specify a rest's vertical position, write a note
 followed by @code{\rest}.  A rest will be placed in the position
 where the note would appear,
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-a'4\rest d'4\rest
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a4\rest d4\rest
 @end lilypond
 
 @noindent
@@ -392,9 +382,9 @@ The @code{s} syntax is only available in note mode and chord mode.
 In other situations, for example, when entering lyrics, you should
 use the @code{\skip} command
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=2]
 <<
-  \relative { a'2 a2 }
+  { a2 a2 }
   \new Lyrics \lyricmode { \skip 2 bla2 }
 >>
 @end lilypond
@@ -555,11 +545,6 @@ This manual: @ref{Text}
 
 Program reference: 
 
-@ignore
-@c Following ref is invalid
-@c @internalsref{MultiMeasureRestMusicGroup},
-@end ignore
-
 @internalsref{MultiMeasureRest}.
 
 The layout object @internalsref{MultiMeasureRestNumber} is for the
@@ -588,12 +573,6 @@ each
 R1*4 cis cis
 @end example
 
-@ignore
-@c Bar numbering is correct in 2.11, even with skipBars set true
-When @code{skipBars} is
-set, the result will look OK, but the bar numbering will be off.
-@end ignore
-
 
 @node Displaying rhythms
 @subsection Displaying rhythms
@@ -619,8 +598,8 @@ start of the staff.
 
 The time signature is set with the @code{\time} command
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 2/4 c'2 \time 3/4 c'2.
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c2 \time 3/4 c2.
 @end lilypond
 
 @commonprop
@@ -629,12 +608,12 @@ The symbol that is printed can be customized with the @code{style}
 property.  Setting it to @code{#'()} uses fraction style for 4/4
 and 2/2 time,
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-\time 4/4 c'1
-\time 2/2 c'1
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\time 4/4 c1
+\time 2/2 c1
 \override Staff.TimeSignature #'style = #'()
-\time 4/4 c'1
-\time 2/2 c'1
+\time 4/4 c1
+\time 2/2 c1
 @end lilypond
 
 There are many more options for its layout.  See @ref{Ancient time
@@ -686,7 +665,6 @@ Examples: @lsr{contemporary,compound-time-signature.ly}.
 
 @refbugs
 
-@c Still a bug in 2.11
 Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
 
@@ -937,7 +915,6 @@ staff, shown durations are multiplied by 3/5, so that 3/5 * 10/8 =
 
 @refbugs
 
-@c This may still be a bug, but I can't demonstrate it in 2.11 -td
 When using different time signatures in parallel, the spacing is
 aligned vertically, but barlines distort the regular spacing.
 
@@ -972,12 +949,10 @@ also remove @internalsref{Forbid_line_break_engraver}.
 
 @refbugs
 
-@c Still a bug in 2.11  -td
 Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the engraver
 will not insert tuplets.
 
-@c Still a bug in 2.11 (if it can be called a bug)  -td
 @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
 
@@ -1069,11 +1044,18 @@ c16[ c c c c c c c]
 For more information about @code{make-moment}, see
 @ref{Time administration}.
 
+@c TODO Consider whether the section Setting automatic
+@c beam behavior should all be moved here.  For now
+@c here's a link to it.
+
+For details about modifying the automatic beam behaviour
+see @ref{Setting automatic beam behavior}
+
+@funindex breakable
+
 Line breaks are normally forbidden when beams cross barlines.
 This behavior can be changed by setting the @code{breakable} 
 property: @code{\override Beam #'breakable = ##t}.
-
-@funindex breakable
 
 @cindex beams and line breaks
 @cindex beams, kneed
@@ -1102,21 +1084,9 @@ Program reference: @internalsref{Beam}.
 
 @refbugs
 
-@c Is this still an issue.  Don't understand it enough to test -td
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
 
-@c Is this still true with skyline spacing stuff? -J.Mandereau
-@c Simple markup text certainly avoids beams in 2.11,          -td
-@c even in other voices.  However, notes and accidentals in    -td
-@c other voices can collide with beams.                        -td
-@ignore
-@c The old text:
-Beams do not avoid collisions with symbols around the notes, such
-as texts and accidentals.
-@end ignore
-
-@c New text:
 Beams can collide with noteheads and accidentals in other voices
 
 @node Manual beams
@@ -1152,38 +1122,63 @@ marking the begin and end point with @code{[} and @code{]}
 
 Feathered beams are used to indicate that a small group of notes
 should be played at an increasing (or decreasing) tempo, without
-changing the overall tempo of the piece.  The
-beam extent must be indicated manually using @code{[} and
-@code{]}, and the feathering is turned on by specifying a 
+changing the overall tempo of the piece.  The extent of the 
+feathered beam must be indicated manually using @code{[} and
+@code{]}, and the beam feathering is turned on by specifying a 
 direction to the Beam property @code{grow-direction}.
-The ratio between the durations of the first and last notes
-in the group can be specified with @code{\featherDurations}.  
+
+If the placement of the notes and the sound in the MIDI output
+is to reflect the ritardando or accelerando indicated by the
+feathered beam the notes must be grouped as a
+music expression delimited by braces and preceded by a
+@code{featheredDurations} command which specifies the ratio
+between the durations of the first and last notes in the group.
+
+The square brackets
+show the extent of the beam and the braces show
+which notes are to have their durations modified.  Normally 
+these would delimit the same group of notes, but this is not
+required: the two commands are independent. 
 
 In the following example the eight 16th notes occupy exactly
 the same time as a half note, but the first note is twice
 as short as the last one, with the intermediate notes gradually
 lengthening.  The first four 32nd notes gradually speed up,
-while the last four 32nd notes are constant tempo.
+while the last four 32nd notes are at a constant tempo.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 \override Beam #'grow-direction = #LEFT
 \featherDurations #(ly:make-moment 2 1)
-c16[ c c c c c c c]
+{ c16[ c c c c c c c] }
 \override Beam #'grow-direction = #RIGHT
 \featherDurations #(ly:make-moment 2 3)
-c32[ d e f]
+{ c32[ d e f] }
+% revert to non-feathered beams
 \override Beam #'grow-direction = #'()
-g32[ a b c]
+{ g32[ a b c] }
 @end lilypond
 
 @noindent
 The spacing in the printed output represents the 
 note durations only approximately, but the midi output is exact.
 
+
+@commonprop
+
+Line breaking is prevented by beams which straddle barlines. The
+@samp{breakable} property of @code{Beam} allows this behaviour
+to be overridden:
+
+@lilypond[ragged-right,relative=2,fragment,verbatim,quote]
+\override Beam #'breakable = ##t
+c8 \repeat unfold 15 {c[ c] } c
+@end lilypond
+
+
 @refbugs
 
 The @code{\featherDurations} command only works with very short
-music snippets, and if the numbers in the fraction are small.
+music snippets, and when numbers in the fraction are small.
 
 
 @node Bars
@@ -1417,8 +1412,6 @@ Examples: @lsrdir{staff}
 
 @refbugs
 
-@c Is this still a bug in 11?
-@c Yes it is, so leave it in.
 Bar numbers can collide with the top of the 
 @internalsref{StaffGroup} bracket, if there is one.
 To solve this, the @code{padding} property of 
@@ -1610,7 +1603,6 @@ Examples: @lsr{parts,rehearsal-mark-numbers.ly}
 * Grace notes::                 
 * Aligning to cadenzas::        
 * Time administration::         
-* Proportional notation (introduction)::  
 @end menu
 
 @node Grace notes
@@ -1648,41 +1640,6 @@ c4 \grace c16 c4
 @noindent
 Unlike @code{\acciaccatura} and @code{\appoggiatura}, the
 @code{\grace} command does not start a slur.
-
-@ignore
-@c This section on grace note timing is interesting, but
-@c is of no practical use to the user.  Perhaps it should
-@c be in the reference manual.
-
-@cindex timing, internal
-
-Internally, timing for grace notes is done using a second,
-@q{grace} timing.  Every point in time consists of two rational
-numbers: one denotes the logical time, one denotes the grace
-timing.  The above example is shown here with timing tuples
-
-@lilypond[quote,ragged-right]
-<<
-  \relative c''{
-    c4 \grace c16 c4 \grace {
-    c16[ d16] } c2 c4
-  }
-  \new Lyrics \lyricmode {
-    \override LyricText #'font-family = #'typewriter
-
-    \markup { (0,0) } 4
-    \grace { \markup {
-      ( \fraction 1 4 , \fraction -1 16 ) } 16 }
-    \markup { (\fraction 1 4 , 0 ) } 4
-    \grace {
-      \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
-      \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
-    }
-    \markup { ( \fraction 2 4 , 0 ) }
-  }
->>
-@end lilypond
-@end ignore
 
 The placement of grace notes is synchronized between different
 staves.  In the following example, there are two sixteenth grace
@@ -1933,14 +1890,5 @@ This manual: @ref{Bar numbers}, @ref{Unmetered music}
 Program Reference: @internalsref{Timing_translator},
 @internalsref{Score}
 
-
-@node Proportional notation (introduction)
-@unnumberedsubsubsec Proportional notation (introduction)
-@cindex Proportional notation
-
-Notes can be spaced proportionately to their duration by
-assigning a value to @code{proportionalNotationDuration}.
-For details of this and other setting which control
-proportional notation see @ref{Proportional notation}.
 
 
