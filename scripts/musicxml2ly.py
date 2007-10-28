@@ -936,11 +936,21 @@ class LilyPondVoiceBuilder:
         self.begin_moment = goto
         evc = musicexp.EventChord ()
         self.elements.append (evc)
-        
+
+
+class VoiceData:
+    def __init__ (self):
+        self.voicedata = None
+        self.ly_voice = None
+        self.lyrics_dict = {}
+        self.lyrics_order = []
+
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
     lyrics = {}
+    return_value = VoiceData ()
+    return_value.voicedata = voice
 
     # Needed for melismata detection (ignore lyrics on those notes!):
     inside_slur = False
@@ -953,7 +963,8 @@ def musicxml_voice_to_lily_voice (voice):
     # TODO: Make sure that the keys in the dict don't get reordered, since
     #       we need the correct ordering of the lyrics stanzas! By default,
     #       a dict will reorder its keys
-    for k in voice.get_lyrics_numbers ():
+    return_value.lyrics_order = voice.get_lyrics_numbers ()
+    for k in return_value.lyrics_order:
         lyrics[k] = []
 
     voice_builder = LilyPondVoiceBuilder()
@@ -1220,23 +1231,22 @@ def musicxml_voice_to_lily_voice (voice):
                     if not isinstance(e, musicexp.KeySignatureChange)]
     
     seq_music.elements = ly_voice
-    lyrics_dict = {}
     for k in lyrics.keys ():
-        lyrics_dict[k] = musicexp.Lyrics ()
-        lyrics_dict[k].lyrics_syllables = lyrics[k]
+        return_value.lyrics_dict[k] = musicexp.Lyrics ()
+        return_value.lyrics_dict[k].lyrics_syllables = lyrics[k]
     
     
     if len (modes_found) > 1:
        error_message ('Too many modes found %s' % modes_found.keys ())
 
-    return_value = seq_music
+    return_value.ly_voice = seq_music
     for mode in modes_found.keys ():
         v = musicexp.ModeChangingMusicWrapper()
-        v.element = return_value
+        v.element = seq_music
         v.mode = mode
-        return_value = v
+        return_value.ly_voice = v
     
-    return (return_value, lyrics_dict)
+    return return_value
 
 
 def musicxml_id_to_lily (id):
@@ -1292,7 +1302,7 @@ def get_all_voices (parts):
         for n, v in name_voice.items ():
             progress ("Converting to LilyPond expressions...")
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
-            part_ly_voices[n] = (musicxml_voice_to_lily_voice (v), v)
+            part_ly_voices[n] = musicxml_voice_to_lily_voice (v)
 
         all_ly_voices[p] = part_ly_voices
         
@@ -1352,16 +1362,17 @@ def print_voice_definitions (printer, part_list, voices):
 
     for part in part_list:
         (p, nv_dict) = part_dict.get (part.id, (None, {}))
-        for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
+        #for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
+        for (name, voice) in nv_dict.items ():
             k = music_xml_voice_name_to_lily_name (p, name)
             printer.dump ('%s = ' % k)
-            voice.print_ly (printer)
+            voice.ly_voice.print_ly (printer)
             printer.newline()
-            
-            for l in lyrics.keys ():
+
+            for l in voice.lyrics_order:
                 lname = music_xml_lyrics_name_to_lily_name (p, name, l)
                 printer.dump ('%s = ' %lname )
-                lyrics[l].print_ly (printer)
+                voice.lyrics_dict[l].print_ly (printer)
                 printer.newline()
 
             
@@ -1376,13 +1387,13 @@ def uniq_list (l):
 #            ...
 #         ]
 #     ]
-# raw_voices is of the form [(voicename, lyrics)*]
+# raw_voices is of the form [(voicename, lyricsids)*]
 def format_staff_info (part, staff_id, raw_voices):
     voices = []
-    for (v, lyrics) in raw_voices:
+    for (v, lyricsids) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name (part, v)
         voice_lyrics = [music_xml_lyrics_name_to_lily_name (part, v, l)
-                   for l in lyrics.keys ()]
+                   for l in lyricsids]
         voices.append ([voice_name, voice_lyrics])
     return [staff_id, voices]
 
@@ -1399,8 +1410,8 @@ def update_score_setup (score_structure, part_list, voices):
 
         nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
-                [mxlvoice._staves.keys ()
-                 for (v, mxlvoice) in nv_dict.values ()],
+                [voice.voicedata._staves.keys ()
+                 for voice in nv_dict.values ()],
                 [])
         staves_info = []
         if len (staves) > 1:
@@ -1408,13 +1419,14 @@ def update_score_setup (score_structure, part_list, voices):
             staves = uniq_list (staves)
             staves.sort ()
             for s in staves:
-                thisstaff_raw_voices = [(voice_name, lyrics) 
-                    for (voice_name, ((music, lyrics), mxlvoice)) in nv_dict.items ()
-                    if mxlvoice._start_staff == s]
+                #((music, lyrics), mxlvoice))
+                thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+                    for (voice_name, voice) in nv_dict.items ()
+                    if voice.voicedata._start_staff == s]
                 staves_info.append (format_staff_info (part, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [(voice_name, lyrics) 
-                for (voice_name, ((music, lyrics), mxlvoice)) in nv_dict.items ()]
+            thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+                for (voice_name, voice) in nv_dict.items ()]
             staves_info.append (format_staff_info (part, None, thisstaff_raw_voices))
         score_structure.setPartInformation (part_name, staves_info)
 
