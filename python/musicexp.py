@@ -8,8 +8,9 @@ from rational import Rational
 
 def escape_instrument_string (input_string):
     retstring = string.replace (input_string, "\"", "\\\"")
-    if re.match ('.*\n.*', retstring):
-        strings = retstring.split ('\r\n')
+    if re.match ('.*[\r\n]+.*', retstring):
+        rx = re.compile (r'[\n\r]+')
+        strings = rx.split (retstring)
         retstring = "\\markup { \\column { "
         for s in strings:
             retstring += "\\line {\"" + s + "\"} "
