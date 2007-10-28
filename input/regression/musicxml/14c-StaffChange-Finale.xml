@@ -4,6 +4,8 @@
 <score-partwise>
   <movement-title>Staff change in piano staff</movement-title>
   <identification>
+      <creator type="composer">The voice from the second staff has some notes/chords on the first staff</creator>
+      <creator type="arranger">The final two chords have some notes on the first, some on the second staff</creator>
     <encoding>
       <software>Finale 2007 for Windows</software>
       <software>Dolet Light for Finale 2007</software>

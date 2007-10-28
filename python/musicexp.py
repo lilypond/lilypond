@@ -1039,21 +1039,22 @@ class StaffGroup:
         self.symbol = None
         self.spanbar = None
         self.children = []
+        self.is_group = True
         # part_information is a list with entries of the form
         #     [staffid, voicelist]
         # where voicelist is a list with entries of the form
         #     [voiceid1, [lyricsid11, lyricsid12,...] ]
         self.part_information = None
 
-    def appendStaff (self, staff):
+    def append_staff (self, staff):
         self.children.append (staff)
 
-    def setPartInformation (self, part_name, staves_info):
+    def set_part_information (self, part_name, staves_info):
         if part_name == self.id:
             self.part_information = staves_info
         else:
             for c in self.children:
-                c.setPartInformation (part_name, staves_info)
+                c.set_part_information (part_name, staves_info)
 
     def print_ly_contents (self, printer):
         for c in self.children:
@@ -1073,7 +1074,7 @@ class StaffGroup:
                 printer.dump ("\\override SpanBar #'transparent = ##t")
             brack = {"brace": "SystemStartBrace",
                      "none": "f",
-                     "line": "SystemStartBar"}.get (self.symbol, None)
+                     "line": "SystemStartSquare"}.get (self.symbol, None)
             if brack:
                 printer.dump ("systemStartDelimiter = #'%s" % brack)
             printer.dump ("}")
@@ -1089,7 +1090,7 @@ class StaffGroup:
                     escape_instrument_string (self.instrument_name)))
             printer.newline ()
         if self.stafftype and self.short_instrument_name:
-            printer.dump ("\\set %s.shortInstrumentName = %s\n" % (self.stafftype, 
+            printer.dump ("\\set %s.shortInstrumentName = %s" % (self.stafftype,
                     escape_instrument_string (self.short_instrument_name)))
             printer.newline ()
         self.print_ly_contents (printer)
@@ -1101,6 +1102,7 @@ class StaffGroup:
 class Staff (StaffGroup):
     def __init__ (self):
         StaffGroup.__init__ (self, "Staff")
+        self.is_group = False
         self.part = None
 
     def print_ly_overrides (self, printer):

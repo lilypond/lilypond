@@ -62,21 +62,27 @@ def extract_score_information (tree):
 
     return header
 
+class PartGroupInfo:
+    def __init__ (self):
+        self.start = {}
+        self.end = {}
+    def is_empty (self):
+        return len (self.start) + len (self.end) == 0
+    def add_start (self, g):
+        self.start[getattr (g, 'number', "1")] = g
+    def add_end (self, g):
+        self.end[getattr (g, 'number', "1")] = g
+    def print_ly (self, printer):
+        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+    def ly_expression (self):
+        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+        return ''
+
 
 def extract_score_layout (part_list):
     layout = musicexp.StaffGroup (None)
-    currentgroups_dict = {}
-    currentgroups = []
     if not part_list:
         return layout
-
-    def insert_into_layout (object):
-            if len (currentgroups) > 0:
-                group_to_insert = currentgroups_dict.get (currentgroups [-1], layout)
-            else:
-                group_to_insert = layout
-            group_to_insert.appendStaff (object)
-            return group_to_insert
 
     def read_score_part (el):
         if not isinstance (el, musicxml.Score_part):
@@ -92,48 +98,110 @@ def extract_score_layout (part_list):
         # TODO: Read in the MIDI device / instrument
         return staff
 
+    def read_score_group (el):
+        if not isinstance (el, musicxml.Part_group):
+            return
+        group = musicexp.StaffGroup ()
+        if hasattr (el, 'number'):
+            id = el.number
+            group.id = id
+            #currentgroups_dict[id] = group
+            #currentgroups.append (id)
+        if el.get_maybe_exist_named_child ('group-name'):
+            group.instrument_name = el.get_maybe_exist_named_child ('group-name').get_text ()
+        if el.get_maybe_exist_named_child ('group-abbreviation'):
+            group.short_instrument_name = el.get_maybe_exist_named_child ('group-abbreviation').get_text ()
+        if el.get_maybe_exist_named_child ('group-symbol'):
+            group.symbol = el.get_maybe_exist_named_child ('group-symbol').get_text ()
+        if el.get_maybe_exist_named_child ('group-barline'):
+            group.spanbar = el.get_maybe_exist_named_child ('group-barline').get_text ()
+        return group
+
 
     parts_groups = part_list.get_all_children ()
-    # the start/end group tags are not necessarily ordered correctly, so
-    # we can't go through the children sequentially!
 
-    if len (parts_groups) == 1 and isinstance (parts_group[1], musicxml.Score_part):
-        return read_score_part (parts_group[1])
+    # the start/end group tags are not necessarily ordered correctly and groups
+    # might even overlap, so we can't go through the children sequentially!
 
+    # 1) Replace all Score_part objects by their corresponding Staff objects,
+    #    also collect all group start/stop points into one PartGroupInfo object
+    staves = []
+    group_info = PartGroupInfo ()
     for el in parts_groups:
         if isinstance (el, musicxml.Score_part):
-            staff = read_score_part (el)
-            insert_into_layout (staff)
+            if not group_info.is_empty ():
+                staves.append (group_info)
+                group_info = PartGroupInfo ()
+            staves.append (read_score_part (el))
         elif isinstance (el, musicxml.Part_group):
             if el.type == "start":
-                group = musicexp.StaffGroup ()
-                staff_group = insert_into_layout (group)
-                # If we're inserting a nested staffgroup, we need to use InnerStaffGroup
-                if staff_group != layout:
-                    group.stafftype = "InnerStaffGroup"
-                if hasattr (el, 'number'):
-                    id = el.number
-                    group.id = id
-                    currentgroups_dict[id] = group
-                    currentgroups.append (id)
-                if el.get_maybe_exist_named_child ('group-name'):
-                    group.instrument_name = el.get_maybe_exist_named_child ('group-name').get_text ()
-                if el.get_maybe_exist_named_child ('group-abbreviation'):
-                    group.short_instrument_name = el.get_maybe_exist_named_child ('group-abbreviation').get_text ()
-                if el.get_maybe_exist_named_child ('group-symbol'):
-                    group.symbol = el.get_maybe_exist_named_child ('group-symbol').get_text ()
-                if el.get_maybe_exist_named_child ('group-barline'):
-                    group.spanbar = el.get_maybe_exist_named_child ('group-barline').get_text ()
-
+                group_info.add_start (el)
             elif el.type == "stop":
-                # end the part-group, i.e. simply remove it from the lists
-                if hasattr (el, 'number'):
-                    pid = el.number
-                elif len (currentgroups) > 0:
-                    pid = el[-1]
-                if pid:
-                    del currentgroups_dict[pid]
-                    currentgroups.remove (pid)
+                group_info.add_end (el)
+    if not group_info.is_empty ():
+        staves.append (group_info)
+
+    # 2) Now, detect the groups:
+    group_starts = []
+    pos = 0
+    while pos < len (staves):
+        el = staves[pos]
+        if isinstance (el, PartGroupInfo):
+            prev_start = 0
+            if len (group_starts) > 0:
+                prev_start = group_starts[-1]
+            elif len (el.end) > 0: # no group to end here
+                el.end = {}
+            if len (el.end) > 0: # closes an existing group
+                ends = el.end.keys ()
+                prev_started = staves[prev_start].start.keys ()
+                grpid = None
+                intersection = filter(lambda x:x in ends, prev_started)
+                if len (intersection) > 0:
+                    grpid = intersection[0]
+                else:
+                    # Close the last started group
+                    grpid = staves[prev_start].start.keys () [0]
+                    # Find the corresponding closing tag and remove it!
+                    j = pos + 1
+                    foundclosing = False
+                    while j < len (staves) and not foundclosing:
+                        if isinstance (staves[j], PartGroupInfo) and staves[j].end.has_key (grpid):
+                            foundclosing = True
+                            del staves[j].end[grpid]
+                            if staves[j].is_empty ():
+                                del staves[j]
+                        j += 1
+                grpobj = staves[prev_start].start[grpid]
+                group = read_score_group (grpobj)
+                # remove the id from both the start and end
+                if el.end.has_key (grpid):
+                    del el.end[grpid]
+                del staves[prev_start].start[grpid]
+                if el.is_empty ():
+                    del staves[pos]
+                # replace the staves with the whole group
+                for j in staves[(prev_start + 1):pos]:
+                    if j.is_group:
+                        j.stafftype = "InnerStaffGroup"
+                    group.append_staff (j)
+                del staves[(prev_start + 1):pos]
+                staves.insert (prev_start + 1, group)
+                # reset pos so that we continue at the correct position
+                pos = prev_start
+                # remove an empty start group
+                if staves[prev_start].is_empty ():
+                    del staves[prev_start]
+                    group_starts.remove (prev_start)
+                    pos -= 1
+            elif len (el.start) > 0: # starts new part groups
+                group_starts.append (pos)
+        pos += 1
+
+    if len (staves) == 1:
+        return staves[0]
+    for i in staves:
+        layout.append_staff (i)
     return layout
 
 
@@ -1428,7 +1496,7 @@ def update_score_setup (score_structure, part_list, voices):
             thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
                 for (voice_name, voice) in nv_dict.items ()]
             staves_info.append (format_staff_info (part, None, thisstaff_raw_voices))
-        score_structure.setPartInformation (part_name, staves_info)
+        score_structure.set_part_information (part_name, staves_info)
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
