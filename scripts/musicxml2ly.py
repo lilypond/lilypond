@@ -584,6 +584,11 @@ def musicxml_fingering_event (mxl_event):
     ev.type = mxl_event.get_text ()
     return ev
 
+def musicxml_string_event (mxl_event):
+    ev = musicexp.NoDirectionArticulationEvent ()
+    ev.type = mxl_event.get_text ()
+    return ev
+
 def musicxml_accidental_mark (mxl_event):
     ev = musicexp.MarkupEvent ()
     contents = { "sharp": "\\sharp",
@@ -647,7 +652,7 @@ articulations_dict = {
     "staccato": (musicexp.ShortArticulationEvent, "."),
     "stopped": (musicexp.ShortArticulationEvent, "+"),
     #"stress": "",
-    #"string": "",
+    "string": musicxml_string_event,
     "strong-accent": (musicexp.ShortArticulationEvent, "^"),
     #"tap": "",
     "tenuto": (musicexp.ShortArticulationEvent, "-"),
