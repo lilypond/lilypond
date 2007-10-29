@@ -296,6 +296,22 @@ export DYLD_LIBRARY_PATH=/sw/lib
 exec /sw/bin/pngtopnm "$@" 
 @end verbatim
 
+In order to force make to build a complete manual (this does not
+rebuild all examples, only things which are changed), I recommend
+writing a script like this:
+
+@verbatim
+### run from Documentation/user/
+#  possibly required on OSX and/or old texinfo
+# ulimit -n 4096
+if [ -e out-www/lilypond.texi ]; then rm out-www/lilypond.* ; fi;
+if [ -e out-www/lilypond-program.texi ]; then rm
+out-www/lilypond-program.* ; fi;
+if [ -e out-www/lilypond-learning.texi ]; then rm
+out-www/lilypond-learning.* ; fi;
+nice make LILYPOND_EXTERNAL_BINARY=~/usr/bin/lilypond web
+@end verbatim
+
 
 @node Testing LilyPond
 @subsection Testing LilyPond
