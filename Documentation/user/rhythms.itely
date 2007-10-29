@@ -110,16 +110,13 @@ in @code{lyricmode}.
 @seealso
 
 For ways of specifying durations for the syllables of lyrics
-and ways of aligning lyrics to notes see
-This manual: @ref{Vocal music}
+and ways of aligning lyrics to notes see @ref{Vocal music}
 
-For a description of how to enter rests see
-This manual: @ref{Writing rests}
+For a description of how to enter rests see @ref{Writing rests}
 
 A note with the duration of a quadruple breve may be
 entered with \maxima, but this is supported only within
-ancient music notation.  
-See this manual: @ref{Ancient notation}
+ancient music notation.  See @ref{Ancient notation}
 
 Optionally, notes can be spaced proportionately to their duration.
 For details of this and other settings which control
@@ -216,15 +213,13 @@ beginning at the same music moment.  In this example,
 @code{TupletNumber} and denominator text for the
 @code{TupletNumber} of the first of the three inner tuplets.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Staff {
-  \tweak #'text #tuplet-number::calc-fraction-text
-  \times 4/3 {
-     \tweak #'text #tuplet-number::calc-denominator-text
-     \times 2/3 { c8[ c8 c8] }
-     \times 2/3 { c8[ c8 c8] }
-     \times 2/3 { c8[ c8 c8] }
-  }
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak #'text #tuplet-number::calc-fraction-text
+\times 4/3 {
+   \tweak #'text #tuplet-number::calc-denominator-text
+   \times 2/3 { c8[ c8 c8] }
+   \times 2/3 { c8[ c8 c8] }
+   \times 2/3 { c8[ c8 c8] }
 }
 @end lilypond
 
@@ -239,17 +234,15 @@ tuplets begin at the same music moment.  We use @code{\override}
 in the usual way to position the @code{TupletBrackets} of the
 second and third of the inner tuplets below the staff.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
-\new Staff {
-  \tweak #'text #tuplet-number::calc-fraction-text
-  \tweak #'direction #up
-  \times 4/3 {
-     \tweak #'direction #down
-     \times 2/3 { c8[ c8 c8] }
-     \override TupletBracket #'direction = #down
-     \times 2/3 { c8[ c8 c8] }
-     \times 2/3 { c8[ c8 c8] }
-  }
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak #'text #tuplet-number::calc-fraction-text
+\tweak #'direction #up
+\times 4/3 {
+   \tweak #'direction #down
+   \times 2/3 { c8[ c8 c8] }
+   \override TupletBracket #'direction = #down
+   \times 2/3 { c8[ c8 c8] }
+   \times 2/3 { c8[ c8 c8] }
 }
 @end lilypond
 
@@ -286,10 +279,13 @@ Program reference: @internalsref{TupletBracket},
 @node Scaling durations
 @unnumberedsubsubsec Scaling durations
 
-You can alter the length of duration by a fraction @var{N/M}
-appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).
+You can alter the length of a duration by a fraction @var{N/M}
+by appending @samp{*@var{N/M}} (or @samp{*@var{N}} if @var{M=1}).
 This will not affect the appearance of the notes or rests
-produced.  These may be combined such as @samp{*M*N}.
+produced, but the altered duration will be used in calculating the
+position within the bar and setting the duration in the MIDI
+output.  Multiplying factors may be combined
+such as @samp{*M*N}.
 
 In the following example, the first three notes take up exactly
 two beats, but no triplet bracket is printed.
@@ -301,10 +297,13 @@ a4 a4 a4*2
 b16*4 c4
 @end lilypond
 
+The duration of skip or spacing notes may also be modified by
+a multiplier.  This is useful for skipping many bars, e.g., 
+@samp{s1*23}.
 
 @seealso
 
-This manual: @ref{Tuplets}.
+This manual: @ref{Tuplets}, @ref{Skips}.
 
 
 
@@ -424,19 +423,12 @@ of bars, otherwise a barcheck warning is printed.
 Multi-measure rests are principally used to indicate
 that a part in a multi-part score should be silent:
 
-@c Ragged-right is omitted here as otherwise
-@c the annotation collides.  When a better
-@c way of avoiding collisions is discovered this
-@c example should be changed
-@c TODO But leaving it out seems to have no effect!!
-@lilypond[quote,fragment,verbatim]
-{
-  \set Score.skipBars = ##t
-  R1*4^"Instrumental"
-  R1*24^"Solo"
-  R1*4^"Instrumental"
-  b'2^"Tutti" b'4 a'4
-}
+@lilypond[quote,fragment,verbatim,relative=2]
+\set Score.skipBars = ##t
+R1*4
+R1*24
+R1*4
+b2^"Tutti" b4 a4
 @end lilypond
 
 A multi-measure rest can be expanded in the printed score
@@ -475,10 +467,8 @@ An @code{R} spanning a single measure is printed as either a whole
 or breve rest, centered in the measure, regardless of the time
 signature.
 
-@c TODO: add link to @rglos{church rests}
-
 If there are 10 or fewer measures of rest, LilyPond prints
-@notation{church rests} (a series of longa and breve rests)
+@rglos{church rests} (a series of longa and breve rests)
 in the staff and
 prints a simple line otherwise.  This default number of 10
 may be changed by overriding 
@@ -509,8 +499,10 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-Warning!  This text is created by @code{MultiMeasureRestText}, not
-@code{TextScript}.
+@warning{Text attached to a multi-measure rest is created 
+by @code{MultiMeasureRestText}, not
+@code{TextScript}.  Overrides must be directed to the correct
+object, or they will be ignored.  See the following example.}
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \override TextScript #'padding = #5
@@ -520,12 +512,11 @@ R1^"high"
 @end lilypond
 
 Text attached to a multi-measure rest will be centered above
-(or below) it.  Long text attached in this way will not cause
+(or below) it.  Long text attached in this way does not cause
 the bar to expand, and may collide with text in adjacent bars.
 Long text is better attached to a zero-length skip note preceding
-the rest, preceded by @code{\fatText}, since this will 
-cause the bar to expand to accommodate
-the length of the text:
+the rest, preceded by @code{\fatText}, since this will cause the
+bar to expand to accommodate the length of the text:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \set Score.skipBars = ##t
@@ -583,6 +574,7 @@ R1*4 cis cis
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
+* Setting automatic beam behavior::  
 @end menu
 
 @node Time signature
@@ -614,6 +606,30 @@ and 2/2 time,
 \override Staff.TimeSignature #'style = #'()
 \time 4/4 c1
 \time 2/2 c1
+@end lilypond
+
+A time signature is normally printed whenever the time signature
+changes.  If this takes place at the end of a line a warning time
+signature sign is printed at the end of the line and again at the
+start of a new line.  This default behaviour can be modified by
+setting the value of the @code{break-visibility} property.  This
+takes three values which may be set to @code{#t} or @code{#f} to
+specify whether the corresponding time signature is visible or not.
+The order of the three values is @code{end of line visible},
+@code{middle of line visible}, @code{beginning of line visible}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\time 4/4 c1
+\time 3/4 c2.
+% Do not print following time signatures
+\override Staff.TimeSignature #'break-visibility = ##(#t #f #t)
+\time 9/8 c4. c c
+\time 2/2 c1
+% Do not print a time signature at start of the next line
+\once \override Staff.TimeSignature #'break-visibility = ##(#t #t #f) 
+\break
+\time 9/8 c4. c c
+\time 12/8 c2. c2.
 @end lilypond
 
 There are many more options for its layout.  See @ref{Ancient time
@@ -962,6 +978,200 @@ split rests.
 Program reference: @internalsref{Completion_heads_engraver}.
 
 
+@node Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
+
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+@cindex automatic beams, tuning
+@cindex tuning automatic beaming
+
+@c [TODO: use \applyContext]
+
+In normal time signatures, automatic beams can start on any note but can
+only end in a few positions within the measure: beams can end on a beat,
+or at durations specified by the properties in
+@code{autoBeamSettings}.  The properties in @code{autoBeamSettings}
+consist of a list of rules for where beams can begin and end.  The
+default @code{autoBeamSettings} rules are defined in
+@file{scm/@/auto@/-beam@/.scm}.
+
+In order to add a rule to the list, use
+@example
+#(override-auto-beam-setting '(be p q n m) a b [context])
+@end example
+
+@itemize
+
+@item @code{be} is either "begin" or "end".
+
+@item @code{p/q} is the duration of the note for which you want
+to add a rule.  A beam is considered to have the duration of its
+shortest note.  Set @code{p} and @code{q} to @code{'*'} to
+have this apply to any beam.
+
+@item @code{n/m} is the time signature to which
+this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
+to have this apply in any time signature.
+
+@item @code{a/b} is the position in the bar at which the beam should
+begin/end.
+
+@item @code{context} is optional, and it specifies the context at which
+the change should be made.  The default is @code{'Voice}.
+@code{#(score-override-auto-beam-setting '(A B C D) E F)} is equivalent to
+@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
+
+@end itemize
+
+For example, if automatic beams should always end on the first quarter
+note, use
+
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4)
+@end example
+
+You can force the beam settings to only take effect on beams whose shortest
+note is a certain duration
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 2/4
+#(override-auto-beam-setting '(end 1 16 * *) 1 16)
+a16 a a a a a a a |
+a32 a a a a16 a a a a a |
+#(override-auto-beam-setting '(end 1 32 * *) 1 16)
+a32 a a a a16 a a a a a |
+@end lilypond
+
+You can force the beam settings to only take effect in certain time
+signatures
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 5/8
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
+You can also remove a previously set beam-ending rule by using
+
+@example
+#(revert-auto-beam-setting '(be p q n m) a b [context])
+@end example
+
+@noindent
+be, p, q, n, m, a, b and context are the same as above.  Note that the
+default rules are specified in @file{scm/@/auto@/-beam@/.scm},
+so you can revert rules that you did not explicitly create.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 4/4
+a16 a a a a a a a a a a a a a a a
+#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+The rule in a revert-auto-beam-setting statement must exactly match the
+original rule.  That is, no wildcard expansion is taken into account.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\time 1/4
+#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
+a16 a a a
+#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
+a a a a
+#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
+a a a a
+@end lilypond
+
+
+
+@c TODO:  old material -- not covered by above stuff, I think.
+If automatic beams should end on every quarter in 5/4 time, specify
+all endings
+@example
+#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
+#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
+#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
+@dots{}
+@end example
+
+The same syntax can be used to specify beam starting points.  In this
+example, automatic beams can only end on a dotted quarter note
+@example
+#(override-auto-beam-setting '(end * * * *) 3 8)
+#(override-auto-beam-setting '(end * * * *) 1 2)
+#(override-auto-beam-setting '(end * * * *) 7 8)
+@end example
+In 4/4 time signature, this means that automatic beams could end only on
+3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
+3/8, has passed within the measure).
+
+If any unexpected beam behaviour occurs, check the default automatic beam
+settings in @file{scm/@/auto@/-beam@/.scm}
+for possible interference, because the beam
+endings defined there will still apply on top of your own overrides.  Any
+unwanted endings in the default vales must be reverted for your time
+signature(s).
+
+For example, to typeset @code{(3 4 3 2)}-beam endings in 12/8, begin
+with
+
+@example
+%%% revert default values in scm/auto-beam.scm regarding 12/8 time
+#(revert-auto-beam-setting '(end * * 12 8) 3 8)
+#(revert-auto-beam-setting '(end * * 12 8) 3 4)
+#(revert-auto-beam-setting '(end * * 12 8) 9 8)
+
+%%% your new values
+#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
+#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
+@end example
+
+@cindex automatic beam generation
+@cindex autobeam
+@funindex autoBeaming
+@cindex lyrics
+
+If beams are used to indicate melismata in songs, then automatic
+beaming should be switched off with @code{\autoBeamOff}.
+
+
+@refcommands
+
+@funindex \autoBeamOff
+@code{\autoBeamOff},
+@funindex \autoBeamOn
+@code{\autoBeamOn}.
+
+@commonprop
+
+Beaming patterns may be altered with the @code{beatGrouping} property,
+
+@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
+\time 5/16
+\set beatGrouping = #'(2 3)
+c8[^"(2+3)" c16 c8]
+\set beatGrouping = #'(3 2)
+c8[^"(3+2)" c16 c8]
+@end lilypond
+
+
+@refbugs
+
+If a score ends while an automatic beam has not been ended and is
+still accepting notes, this last beam will not be typeset at all.  The
+same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
+>>}.  If a polyphonic voice ends while an automatic beam is still
+accepting notes, it is not typeset.
+
+
 
 
 @node Beams
@@ -1265,14 +1475,14 @@ c c c c \break
 c c c c
 @end lilypond
 
-Entered music is
+@warning{Entered music is
 automatically broken into lines, but this happens only at
 manually inserted barlines or at automatically inserted barlines
 where these occur at the     
 end of complete bars, i.e. where the end of a note coincides
 with the end of a bar.  If this never happens, perhaps due to
 an error in entering durations, the outputted music can appear
-very compressed as no place can be found to make a line break.
+very compressed as no place can be found to make a line break.}
 
 To allow a line break without printing a barline, use
 
@@ -1351,7 +1561,8 @@ may also be set manually:
 
 Bar numbers may only be printed at barlines; to print a bar
 number at the beginning of a piece, an empty barline must be
-inserted there:
+inserted there, and a value other than @code{1} must be placed
+in @code{currentBarNumber}:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \set Score.currentBarNumber = #50
@@ -1360,30 +1571,87 @@ inserted there:
 \repeat unfold 4 {c4 c c c}
 @end lilypond
 
-Bar numbers can be typeset at regular intervals instead of at the
-beginning of every line.  This is illustrated in the following
-example, which also shows how to enclose bar numbers in boxes and
-circles.
+Bar numbers can be typeset at regular intervals instead of just 
+at the beginning of every line.  To do this the default 
+behaviour must be overridden to permit bar numbers to be 
+printed at places other than the start of a line.  
+This is controlled by the 
+@code{break-visibility} property of @code{BarNumber}.  This
+takes three values which may be set to @samp{#t} or @samp{#f} to
+specify whether the a corresponding bar number is visible or not.
+The order of the three values is @samp{end of line visible, middle
+of line visible, beginning of line visible}.  In the following
+example bar numbers are printed at all possible places:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-% Avoid printing a bar number at the end of a line
-\override Score.BarNumber  #'break-visibility = #end-of-line-invisible
+\override Score.BarNumber #'break-visibility = ##(#t #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+c1 c c c c
+\break
+c c c c c
+@end lilypond
 
-% Print a bar number every 3th bar
-\set Score.barNumberVisibility = #(every-nth-bar-number-visible 3)
+@noindent
+and here the bar numbers are printed every two bars
+except at the end of the line:
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\override Score.BarNumber #'break-visibility = ##(#f #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+% Print a bar number every 2nd bar
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c c c c
+\break
+c c c c c
+@end lilypond
+
+The size of the bar number may be changed.  This is illustrated
+in the following example, which also shows how to enclose bar 
+numbers in boxes and circles, and shows an alternative way
+of specifying @samp{#(#f #t #t)} for @code{break-visibility}.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+% Prevent bar numbers at the end of a line and permit them elsewhere
+\override Score.BarNumber #'break-visibility
+  = #end-of-line-invisible
 
 % Increase the size of the bar number by 2 
 \override Score.BarNumber #'font-size = #2
+\repeat unfold 3 { c1 } \bar "|"
 
 % Draw a box round the following bar number(s)
 \override Score.BarNumber  #'stencil
-   = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
-\repeat unfold 5 { c1 } \bar "|"
+  = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
+\repeat unfold 3 { c1 } \bar "|"
 
 % Draw a circle round the following bar number(s)
 \override Score.BarNumber  #'stencil
   = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
 \repeat unfold 4 { c1 } \bar "|."
+@end lilypond
+
+Bar numbers by default are left-aligned to their parent object.
+This is usually the left edge of a line or, if numbers are printed
+within a line, the left barline of the bar.  The numbers may also
+be positioned directly on the barline or right-aligned to the 
+barline:
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #111
+\override Score.BarNumber #'break-visibility = ##(#t #t #t)
+% Increase the size of the bar number by 2
+\override Score.BarNumber #'font-size = #2
+% Print a bar number every 2nd bar
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c1
+% Centre-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #0
+c1 c1
+% Right-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #-1
+c1 c1
 @end lilypond
 
 Bar numbers can be removed entirely by removing the Bar number
@@ -1407,7 +1675,7 @@ engraver from the score context.
 
 Program reference: @internalsref{BarNumber}.
 
-Examples: @lsrdir{staff}
+Examples: @lsrdir{bar number}
 
 
 @refbugs
@@ -1623,7 +1891,8 @@ a slash.  They are entered with the commands @code{\acciaccatura}
 and @code{\appoggiatura}, as demonstrated in the following example
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+b4 \acciaccatura d8 c4 
+\appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
 
@@ -1762,6 +2031,10 @@ Program reference: @internalsref{GraceMusic}.
 
 
 @refbugs
+
+A multi-note beamed acciaccatura is printed without a slash, 
+and looks exactly the same as a multi-note beamed appoggiatura.
+@c TODO Add link to LSR snippet to add slash when available 
 
 Grace note synchronization can also lead to surprises.  Staff
 notation, such as key signatures, barlines, etc., are also

@@ -634,6 +634,7 @@ This section discusses how to alter the output of pitches.
 * Key signature::               
 * Ottava brackets::             
 * Instrument transpositions::   
+* Automatic accidentals::       
 @end menu
 
 @node Clef
@@ -1076,5 +1077,368 @@ to serve as a reminder that these parts are written in C.
 Notation reference: @ref{Quoting other voices}, @ref{Transpose}.
 
 Snippets: @lsrdir{pitch}
+
+
+@node Automatic accidentals
+@unnumberedsubsubsec Automatic accidentals
+@cindex Automatic accidentals
+
+Common rules for typesetting accidentals have been placed in a
+function.  This function is called as follows
+
+@funindex set-accidental-style
+@example
+#(set-accidental-style 'STYLE)
+@end example
+
+@c TODO: check the context stuff below
+@c -does it *really* work?
+@c -the default contexts as specified in
+@c  scm/music-function.scm seem to be different -vv
+
+Optionally, the function can take two arguments: the name of the
+accidental style, and an optional argument that denotes the context that
+should be changed:
+
+@example
+#(set-accidental-style 'STYLE #('CONTEXT#))
+@end example
+
+If no context name is supplied, @code{Staff} is the default,
+but you may wish to apply the accidental style to a single @code{Voice}
+instead.
+
+The following accidental styles are supported:
+
+@table @code
+@item default
+This is the default typesetting behavior.  It corresponds
+to 18th century common practice: Accidentals are
+remembered to the end of the measure in which they occur and
+only on their own octave.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       %#(set-accidental-style 'default) 
+       \musicA }
+       \context Staff = "down"{
+	       %#(set-accidental-style 'default)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
+}
+@end lilypond
+
+@item voice
+The normal behavior is to remember the accidentals on
+Staff-level.  This variable, however, typesets accidentals
+individually for each voice.  Apart from that, the rule is similar to
+@code{default}.
+
+@example
+ \new Staff <<
+        #(set-accidental-style 'voice)
+	@{ @dots{} @}
+	>>
+@end example
+
+As a result, accidentals from one voice do not get canceled in other
+voices, which is often an unwanted result: in the following example, it
+is hard to determine whether the second @samp{a} should be played
+natural or sharp.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'voice) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'voice)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
+}
+@end lilypond
+
+The @code{voice} option should be used if the voices
+are to be read solely by individual musicians.  If the staff is to be
+used by one musician (e.g., a conductor) then
+@code{modern} or @code{modern-cautionary}
+should be used instead.
+
+@item modern
+@funindex modern style accidentals
+This rule corresponds to the common practice in the 20th century.  This rule
+prints the same accidentals as @code{default}, but temporary
+accidentals also are canceled in other octaves.  Furthermore,
+in the same octave, they also get canceled in the following
+measure: in the following example, notice the two natural signs which appear
+in the second bar of the upper staff.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
+}
+@end lilypond
+
+@item @code{modern-cautionary}
+@funindex modern-cautionary
+This rule is similar to @code{modern}, but the @q{extra} accidentals
+(the ones not typeset by @code{default}) are typeset as cautionary
+accidentals.  They are printed in reduced size or (by default)
+with parentheses -- this can be set by definig the @code{cautionary-style}
+property of the @internalsref{AccidentalSuggestion} object.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
+}
+@end lilypond
+
+@funindex modern-voice
+@item modern-voice
+This rule is used for multivoice accidentals to be read both by musicians
+playing one voice and musicians playing all voices.  Accidentals are
+typeset for each voice, but they @emph{are} canceled across voices in
+the same @internalsref{Staff}.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-voice) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-voice)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
+}
+@end lilypond
+
+@funindex modern-voice-cautionary
+@item modern-voice-cautionary
+This rule is the same as @code{modern-voice}, but with the extra
+accidentals (the ones not typeset by @code{voice}) typeset
+as cautionaries.  Even though all accidentals typeset by
+@code{default} @emph{are} typeset by this variable,
+some of them are typeset as cautionaries.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'modern-voice-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'modern-voice-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
+}
+@end lilypond
+
+@item piano
+@funindex piano accidentals
+This accidental style takes place in a GrandStaff context.  However, you have to 
+explicitly set it for @emph{each} individual Staff of the GrandStaff:
+
+@example
+\new GrandStaff @{ <<
+  \new Staff = "up" @{ <<
+    #(set-accidental-style 'piano)
+    @{ @dots{} @}
+  >> @}
+  \new Staff = "down"@{ <<
+    #(set-accidental-style 'piano)
+  @{ @dots{} @}
+  >> @}
+>> @}
+@end example
+
+This rule reflects 20th century practice for piano notation.  Its behavior is very
+similar to @code{modern} style, but here accidentals also get canceled
+across the staves in the same @internalsref{GrandStaff} or
+@internalsref{PianoStaff}.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'piano) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'piano)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
+}
+@end lilypond
+
+@item piano-cautionary
+@funindex #(set-accidental-style 'piano-cautionary)
+Same as @code{#(set-accidental-style 'piano)} but with the extra
+accidentals typeset as cautionaries.
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'piano-cautionary) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'piano-cautionary)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
+}
+@end lilypond
+
+@item no-reset
+@funindex no-reset accidental style
+This is the same as @code{default} but with accidentals lasting
+@q{forever} and not only until the next measure:
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'no-reset) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'no-reset)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
+}
+@end lilypond
+
+@item forget
+This is sort of the opposite of @code{no-reset}: Accidentals
+are not remembered at all -- and hence all accidentals are
+typeset relative to the key signature, regardless of what was
+before in the music
+
+@lilypond[quote,ragged-right]
+musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\score { 
+	\new PianoStaff {
+       << \context Staff = "up" {
+	       #(set-accidental-style 'forget) 
+       \musicA }
+       \context Staff = "down"{
+	       #(set-accidental-style 'forget)
+       \musicB } >> }
+       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
+}
+@end lilypond
+@end table
+
+
+@seealso
+
+Program reference: @internalsref{Accidental_engraver},
+@internalsref{Accidental}, @internalsref{AccidentalSuggestion} and @internalsref{AccidentalPlacement}.
+
+
+@refbugs
+
+Simultaneous notes are considered to be entered in sequential
+mode.  This means that in a chord the accidentals are typeset as if the
+notes in the chord happen one at a time, in the order in which
+they appear in the input file.  This is a problem when accidentals
+in a chord depend on each other,
+which does not happen for the default accidental style.  The problem
+can be solved by manually inserting @code{!} and @code{?} for the
+problematic notes.
+
 
 
