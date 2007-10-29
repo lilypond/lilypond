@@ -260,6 +260,8 @@ main docs
   do not bother with the @code{} (they are added automatically).  These
   items are added to both the command index and the unified index.
 
+  Both index commands should go in front of the actual material.
+
 * Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
 
 * Colon usage
