@@ -432,6 +432,7 @@ Alter the horizontal spacing via @code{SpacingSpanner}.  See
 * Default files::               
 * Advanced tweaks with Scheme::  
 * Avoiding tweaks with slower processing::  
+* The three methods of tweaking::  
 @end menu
 
 @node Default files
@@ -551,6 +552,28 @@ In some cases (see issue 246), this must be done before
   } {
    ..
 }
+@end verbatim
+
+
+@node The three methods of tweaking
+@subsection The three methods of tweaking
+
+TODO write this.
+
+@verbatim
+\override
+@end verbatim
+
+@verbatim
+\with {
+
+}
+@end verbatim
+
+@verbatim
+\layout{ \context
+
+}}
 @end verbatim
 
 

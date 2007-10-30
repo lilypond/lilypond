@@ -130,7 +130,8 @@ of this and other documentation.
 * Preface::                        Preface.
 * Introduction::                   What, Why, How.
 * Tutorial::                       A tutorial introduction.
-* Putting it all together::        More explanation about LilyPond concepts.
+* Fundamental concepts::           Basic concepts required for reading
+the rest of this manual.
 * Tweaking output::                Introduction to modifying output.
 * Working on LilyPond projects::   Discusses real-life usage.
 
@@ -152,7 +153,6 @@ Appendices
 @include introduction.itely
 @include tutorial.itely
 @include fundamental.itely
-@include putting.itely
 @include tweaks.itely
 @include working.itely
 

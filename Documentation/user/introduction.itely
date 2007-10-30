@@ -715,10 +715,10 @@ The
 gives a gentle introduction to typesetting music.  First time
 users should start here.
 
-@item
-@emph{@ref{Putting it all together}},
-explains some general concepts about the lilypond file format.  If
-you are not certain where to place a command, read this chapter!
+@c @item
+@c @emph{@ref{Putting it all together}},
+@c explains some general concepts about the lilypond file format.  If
+@c you are not certain where to place a command, read this chapter!
 
 @item
 @emph{@ref{Working on LilyPond projects}},
