@@ -1157,7 +1157,7 @@ def musicxml_voice_to_lily_voice (voice):
             if voice_builder.current_duration () == 0 and n._duration > 0:
                 voice_builder.set_duration (n._duration)
         
-        notations = n.get_maybe_exist_typed_child (musicxml.Notations)
+        notations_children = n.get_typed_children (musicxml.Notations)
         tuplet_event = None
         span_events = []
 
@@ -1166,7 +1166,7 @@ def musicxml_voice_to_lily_voice (voice):
         #    ornaments | technical | articulations | dynamics |
         #    +fermata | arpeggiate | non-arpeggiate | 
         #    accidental-mark | other-notation
-        if notations:
+        for notations in notations_children:
             if notations.get_tuplet():
                 tuplet_event = notations.get_tuplet()
                 mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
