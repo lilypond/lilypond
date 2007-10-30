@@ -48,7 +48,7 @@ with a later version of lilypond?  The input syntax changes
 occasionally as lilypond improves.  Most changes can be
 done automatically with @code{convert-ly}, but some changes
 might require manual assistance.  Lilypond files can be
-structured in order to be easier (or header) to update.
+structured in order to be easier (or harder) to update.
 @end itemize
 
 @menu
