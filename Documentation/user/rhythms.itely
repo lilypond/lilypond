@@ -1556,48 +1556,40 @@ which is normally updated automatically for every measure.  It
 may also be set manually:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-\repeat unfold 4 {c4 c c c} \break
+c1 c c c
+\break
 \set Score.currentBarNumber = #50
-\repeat unfold 4 {c4 c c c}
+c1 c c c
 @end lilypond
 
-Bar numbers may only be printed at barlines; to print a bar
-number at the beginning of a piece, an empty barline must be
-inserted there, and a value other than @code{1} must be placed
-in @code{currentBarNumber}:
-
-@lilypond[verbatim,ragged-right,quote,fragment,relative]
-\set Score.currentBarNumber = #50
-\bar ""
-\repeat unfold 4 {c4 c c c} \break
-\repeat unfold 4 {c4 c c c}
-@end lilypond
 
 @commonprop
 
 @funindex barNumberVisibility
 @cindex bar numbers, regular spacing
 
-Bar numbers can be typeset at regular intervals instead of just 
-at the beginning of every line.  To do this the default 
-behaviour must be overridden to permit bar numbers to be 
-printed at places other than the start of a line.  
-This is controlled by the 
-@code{break-visibility} property of @code{BarNumber}.  This
-takes three values which may be set to @samp{#t} or @samp{#f} to
-specify whether the corresponding bar number is visible or not.
-The order of the three values is @samp{end of line visible, middle
-of line visible, beginning of line visible}.  In the following
+Bar numbers can be typeset at regular intervals instead of just at
+the beginning of every line.  To do this the default behaviour
+must be overridden to permit bar numbers to be printed at places
+other than the start of a line.  This is controlled by the
+@code{break-visibility} property of @code{BarNumber}.  This takes
+three values which may be set to @code{#t} or @code{#f} to specify
+whether the corresponding bar number is visible or not.  The order
+of the three values is @code{end of line visible}, @code{middle of
+line visible}, @code{beginning of line visible}.  In the following
 example bar numbers are printed at all possible places:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \override Score.BarNumber #'break-visibility = ##(#t #t #t)
 \set Score.currentBarNumber = #11
 \bar ""  % Permit first bar number to be printed
-c1 c c c c
+c1 c c c
 \break
-c c c c c
+c c c c
 @end lilypond
+
+@c  All the rest of these examples will be added to LSR
+@c  and moved into the Snippets.  -gp
 
 @noindent
 and here the bar numbers are printed every two bars
@@ -1694,6 +1686,20 @@ Bar numbers can collide with the top of the
 To solve this, the @code{padding} property of 
 @internalsref{BarNumber} can be used to
 position the number correctly.
+
+Bar numbers may only be printed at barlines; to print a bar
+number at the beginning of a piece, an empty barline must be
+inserted there, and a value other than @code{1} must be placed
+in @code{currentBarNumber}:
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+c1 c c c
+c1 c c c
+\break
+@end lilypond
+
 
 
 @node Bar and bar number checks
