@@ -619,14 +619,14 @@ The order of the three values is @code{end of line visible},
 @code{middle of line visible}, @code{beginning of line visible}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+% Do not print any time signatures at end of line
+\override Staff.TimeSignature #'break-visibility = ##(#f #t #t)
 \time 4/4 c1
 \time 3/4 c2.
-% Do not print following time signatures
-\override Staff.TimeSignature #'break-visibility = ##(#t #f #t)
+% Do not print the following 9/8 time signature
+\once \override Staff.TimeSignature #'break-visibility = ##(#t #f #t)
 \time 9/8 c4. c c
 \time 2/2 c1
-% Do not print a time signature at start of the next line
-\once \override Staff.TimeSignature #'break-visibility = ##(#t #t #f) 
 \break
 \time 9/8 c4. c c
 \time 12/8 c2. c2.
@@ -1413,10 +1413,8 @@ music snippets, and when numbers in the fraction are small.
 
 Barlines delimit measures, and are also used to indicate
 repeats.  Normally, simple barlines are automatically inserted
-into the printed output at places
-based on the current time signature.  It is not invalid if the
-final note in a bar does not end on the automatically entered 
-barline: the note is assumed to carry over into the next bar.  
+into the printed output at places based on the current time 
+signature.  
 
 The simple barlines inserted automatically can be changed to 
 other types with the @code{\bar} command.  For example, a closing
@@ -1425,6 +1423,31 @@ double barline is usually placed at the end of a piece:
 @lilypond[quote,ragged-right,relative=1,fragment,verbatim]
 e4 d c2 \bar "||"
 @end lilypond
+
+@warning{An incorrect duration can lead to poorly formatted
+music.}
+ 
+It is not invalid if the final note in a bar does not 
+end on the automatically entered barline: the note is assumed 
+to carry over into the next bar.  But if a long sequence
+of such carry-over bars appears the music can appear compressed
+or even flowing off the page.  This is because automatic line
+breaks happen only at the end of complete bars, i.e. where 
+the end of a note coincides with the end of a bar.
+
+Line breaks are also permitted at manually inserted barlines
+even within incomplete bars.  To allow a line break without 
+printing a barline, use
+
+@example
+\bar ""
+@end example
+
+@noindent
+This will insert an invisible barline and allow (but not
+force) a line break to occur at this point.  The bar number 
+counter is not increased.  To force a line break see 
+@ref{Line breaking}.
 
 This and other special barlines may be inserted manually at any
 point.  When they coincide with the end of a bar they replace
@@ -1474,27 +1497,6 @@ c c c c \break
 \bar "||:" 
 c c c c
 @end lilypond
-
-@warning{Entered music is
-automatically broken into lines, but this happens only at
-manually inserted barlines or at automatically inserted barlines
-where these occur at the     
-end of complete bars, i.e. where the end of a note coincides
-with the end of a bar.  If this never happens, perhaps due to
-an error in entering durations, the outputted music can appear
-very compressed as no place can be found to make a line break.}
-
-To allow a line break without printing a barline, use
-
-@example
-\bar ""
-@end example
-
-@noindent
-This will insert an invisible barline and allow (but not
-force) a line break to occur at this point.  The bar number 
-counter is not increased.  To force a line break see 
-@ref{Line breaking}.
 
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting barlines are
@@ -1571,6 +1573,11 @@ in @code{currentBarNumber}:
 \repeat unfold 4 {c4 c c c}
 @end lilypond
 
+@commonprop
+
+@funindex barNumberVisibility
+@cindex bar numbers, regular spacing
+
 Bar numbers can be typeset at regular intervals instead of just 
 at the beginning of every line.  To do this the default 
 behaviour must be overridden to permit bar numbers to be 
@@ -1578,7 +1585,7 @@ printed at places other than the start of a line.
 This is controlled by the 
 @code{break-visibility} property of @code{BarNumber}.  This
 takes three values which may be set to @samp{#t} or @samp{#f} to
-specify whether the a corresponding bar number is visible or not.
+specify whether the corresponding bar number is visible or not.
 The order of the three values is @samp{end of line visible, middle
 of line visible, beginning of line visible}.  In the following
 example bar numbers are printed at all possible places:
@@ -1631,6 +1638,8 @@ of specifying @samp{#(#f #t #t)} for @code{break-visibility}.
   = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
 \repeat unfold 4 { c1 } \bar "|."
 @end lilypond
+
+@cindex Bar number alignment
 
 Bar numbers by default are left-aligned to their parent object.
 This is usually the left edge of a line or, if numbers are printed
