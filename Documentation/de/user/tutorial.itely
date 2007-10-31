@@ -719,8 +719,8 @@ c4 ~ c8 a8 ~ a2
 @cindex Legatobögen
 @subheading Slurs
 
-Ein @rglos{slur} ist ein Bogen, der sich über mehrere Noten ersetreckt. Die
-Beginn- und Endnote des Slurs werden mit @q{(} beziehungsweise @q{)} markiert.
+Ein @rglos{slur} ist ein Bogen, der sich über mehrere Noten erstreckt. Seine
+Beginn- und Endnote werden mit @q{(} beziehungsweise @q{)} markiert.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
