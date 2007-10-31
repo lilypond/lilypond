@@ -708,7 +708,7 @@ siehe @ref{Key signature}.
 
 @cindex Bindebögen
 @subheading Ties
-Ein @rglos{tie} wird geschrieben, indem man eine Tilde @q{~} and die
+Ein @rglos{tie} wird geschrieben, indem man eine Tilde @q{~} an die
 erste der zu verbindenden Noten hängt.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
