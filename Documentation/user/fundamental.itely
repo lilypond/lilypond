@@ -518,6 +518,7 @@ blh blah
 
 @menu
 * On the un-nestedness of brackets and ties::  
+* Up and down::                 
 @end menu
 
 @c my name start sucking the more docs I write. -gp
@@ -538,6 +539,23 @@ TODO: improve this example
 @end lilypond
 
 TODO... add more info?  Fluff up the first sentence?
+
+
+@node Up and down
+@subsection Up and down
+
+TODO: everything
+
+By default, lilypnod does a pretty jazz'n job of picking
+directions.  But in some cases, it may be desirable to force a
+direction.
+
+@verbatim
+-
+^ _
+@end verbatim
+
+
 
 
 @node Extending the templates
