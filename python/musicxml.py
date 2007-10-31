@@ -439,11 +439,11 @@ class Musicxml_voice:
             return self._lyrics
 
 
-
 class Part (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
 	self._voices = []
+        self._staff_attributes_dict = {}
 
     def get_part_list (self):
         n = self
@@ -679,6 +679,7 @@ class Part (Music_xml_node):
             for (s, vids) in staff_to_voice_dict.items ():
                 staff_attributes = part.extract_attributes_for_staff (start_attr, s)
                 staff_attributes.read_self ()
+                part._staff_attributes_dict[s] = staff_attributes
                 for v in vids:
                     voices[v].insert (0, staff_attributes)
                     voices[v]._elements[0].read_self()

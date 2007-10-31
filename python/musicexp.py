@@ -685,9 +685,13 @@ class GlissandoEvent (SpanEvent):
             1:''}.get (self.span_direction, '')
 
 class ArpeggioEvent(Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.direction = 0
     def wait_for_note (self):
         return True;
     def ly_expression (self):
+        # TODO: Use self.direction for up/down arpeggios
         return ('\\arpeggio')
 
 
@@ -776,11 +780,17 @@ class ShortArticulationEvent (ArticulationEvent):
         # default is -
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '-')
     def ly_expression (self):
-        return '%s%s' % (self.direction_mod (), self.type)
+        if self.type:
+            return '%s%s' % (self.direction_mod (), self.type)
+        else:
+            return ''
 
 class NoDirectionArticulationEvent (ArticulationEvent):
     def ly_expression (self):
-        return '\\%s' % self.type
+        if self.type:
+            return '\\%s' % self.type
+        else:
+            return ''
 
 class MarkupEvent (ShortArticulationEvent):
     def __init__ (self):
@@ -1115,9 +1125,9 @@ class Staff (StaffGroup):
 
         for [staff_id, voices] in self.part_information:
             if staff_id:
-                printer ('\\context Staff = "%s" << ' % staff_id)
+                printer ('\\context %s = "%s" << ' % (self.stafftype, staff_id))
             else:
-                printer ('\\context Staff << ')
+                printer ('\\context %s << ' % self.stafftype)
             printer.newline ()
             n = 0
             nr_voices = len (voices)

@@ -568,6 +568,13 @@ def musicxml_fermata_to_lily_event (mxl_event):
         ev.force_direction = dir
     return ev
 
+
+def musicxml_arpeggiate_to_lily_event (mxl_event):
+    ev = musicexp.ArpeggioEvent ()
+    ev.direction = {"up": 1, "down": -1}.get (getattr (mxl_event, 'direction', None), 0)
+    return ev
+
+
 def musicxml_tremolo_to_lily_event (mxl_event):
     ev = musicexp.TremoloEvent ()
     ev.bars = mxl_event.get_text ()
@@ -618,13 +625,13 @@ def musicxml_accidental_mark (mxl_event):
 #   -) (class, name)  (like string, only that a different class than ArticulationEvent is used)
 # TODO: Some translations are missing!
 articulations_dict = {
-    "accent": (musicexp.ShortArticulationEvent, ">"),
+    "accent": (musicexp.ShortArticulationEvent, ">"), # or "accent"
     "accidental-mark": musicxml_accidental_mark,
     "bend": musicxml_bend_to_lily_event,
     "breath-mark": (musicexp.NoDirectionArticulationEvent, "breathe"),
     #"caesura": "caesura",
     #"delayed-turn": "?",
-    #"detached-legato": "",
+    "detached-legato": (musicexp.ShortArticulationEvent, "_"), # or "portato"
     #"doit": "",
     #"double-tongue": "",
     "down-bow": "downbow",
@@ -638,24 +645,23 @@ articulations_dict = {
     "inverted-mordent": "prall",
     "inverted-turn": "reverseturn",
     "mordent": "mordent",
-    #"open-string": "",
+    "open-string": "open",
     #"plop": "",
     #"pluck": "",
-    #"portato": (musicexp.ShortArticulationEvent, "_"), # does not exist in MusicXML
     #"pull-off": "",
     #"schleifer": "?",
     #"scoop": "",
     #"shake": "?",
     #"snap-pizzicato": "",
     #"spiccato": "",
-    "staccatissimo": (musicexp.ShortArticulationEvent, "|"),
-    "staccato": (musicexp.ShortArticulationEvent, "."),
-    "stopped": (musicexp.ShortArticulationEvent, "+"),
+    "staccatissimo": (musicexp.ShortArticulationEvent, "|"), # or "staccatissimo"
+    "staccato": (musicexp.ShortArticulationEvent, "."), # or "staccato"
+    "stopped": (musicexp.ShortArticulationEvent, "+"), # or "stopped"
     #"stress": "",
     "string": musicxml_string_event,
-    "strong-accent": (musicexp.ShortArticulationEvent, "^"),
+    "strong-accent": (musicexp.ShortArticulationEvent, "^"), # or "marcato"
     #"tap": "",
-    "tenuto": (musicexp.ShortArticulationEvent, "-"),
+    "tenuto": (musicexp.ShortArticulationEvent, "-"), # or "tenuto"
     #"thumb-position": "",
     #"toe": "",
     "turn": "turn",
@@ -1211,7 +1217,9 @@ def musicxml_voice_to_lily_voice (voice):
 
             arpeggiate = notations.get_named_children ('arpeggiate')
             for a in arpeggiate:
-                ev_chord.append (musicexp.ArpeggioEvent ())
+                ev = musicxml_arpeggiate_to_lily_event (a)
+                if ev:
+                    ev_chord.append (ev)
 
             glissandos = notations.get_named_children ('glissando')
             for a in glissandos:
@@ -1492,7 +1500,6 @@ def update_score_setup (score_structure, part_list, voices):
             staves = uniq_list (staves)
             staves.sort ()
             for s in staves:
-                #((music, lyrics), mxlvoice))
                 thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
                     for (voice_name, voice) in nv_dict.items ()
                     if voice.voicedata._start_staff == s]
