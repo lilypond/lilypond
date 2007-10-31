@@ -734,7 +734,7 @@ folgenden Befehlen kann ein anderes Verhalten der Punktierung erreicht werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Dots}, and @internalsref{DotColumn}.
+Programmreferenz: @internalsref{Dots} und @internalsref{DotColumn}.
 
 
 @node Tuplets
@@ -2934,7 +2934,7 @@ angezeigt. Die vordefinierten Befehle lauten:
 @code{\pppp}, @code{\ppp},
 @code{\pp}, @code{\p}, @code{\mp}, @code{\mf}, @code{\f}, @code{\ff},
 @code{\fff}, @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff},
-@code{\sp}, @code{\spp}, @code{\sfz}, and @code{\rfz}.
+@code{\sp}, @code{\spp}, @code{\sfz} und @code{\rfz}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c\ppp c\pp c \p c\mp c\mf c\f c\ff c\fff
@@ -3045,7 +3045,7 @@ werden, auch wenn sie nicht an der selben Note vorkommen, kann die
 Diese Eigenschaft kann man auch benutzen, um Dynamikzeichen davor zu 
 hindern, mit anderen Noten zusammenzustoßen.
 
-Crescendi and Decrescendi, die an der ersten Note einer neuen Zeile 
+Crescendi und Decrescendi, die an der ersten Note einer neuen Zeile 
 enden, werden nicht ausgegeben. Mit
 
 @example
@@ -3338,7 +3338,7 @@ MIDI-Datei aufgenommen.
 
 @item percent
 Hiermit können noten- oder taktweise Wiederholungszeichen notiert werden. 
-Sie erinnern and das Prozentzeichen. Auch sie werden nicht in der MIDI-Datei 
+Sie erinnern an das Prozentzeichen. Auch sie werden nicht in der MIDI-Datei 
 berücksichtigt. Diese Wiederholungen müssen innerhalb eines Stimmen 
 (@code{Voice})-Kontextes erstellt werden.
 

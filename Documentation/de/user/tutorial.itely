@@ -720,8 +720,7 @@ c4 ~ c8 a8 ~ a2
 @subheading Slurs
 
 Ein @rglos{slur} ist ein Bogen, der sich über mehrere Noten ersetreckt. Die
-Note, and der er beginnt, und die Note, an der er endet, werden mit
- @q{(} beziehungsweise @q{)} markiert.
+Beginn- und Endnote des Slurs werden mit @q{(} beziehungsweise @q{)} markiert.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
