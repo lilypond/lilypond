@@ -73,6 +73,8 @@ main docs
 
     Program reference: @internalsref{fazzle}, @internalsref{booar}.
 
+    Installed files: @file{blahz}.
+
   ("Snippets" is REQUIRED; the others are optional)
 
 * To create links, use @ref{} if the link is within the same
