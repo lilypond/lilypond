@@ -1111,10 +1111,12 @@ class StaffGroup:
 
 
 class Staff (StaffGroup):
-    def __init__ (self):
-        StaffGroup.__init__ (self, "Staff")
+    def __init__ (self, command = "Staff"):
+        StaffGroup.__init__ (self, command)
         self.is_group = False
         self.part = None
+        self.voice_command = "Voice"
+        self.substafftype = None
 
     def print_ly_overrides (self, printer):
         pass
@@ -1122,12 +1124,15 @@ class Staff (StaffGroup):
     def print_ly_contents (self, printer):
         if not self.id or not self.part_information:
             return
+        sub_staff_type = self.substafftype
+        if not sub_staff_type:
+            sub_staff_type = self.stafftype
 
         for [staff_id, voices] in self.part_information:
             if staff_id:
-                printer ('\\context %s = "%s" << ' % (self.stafftype, staff_id))
+                printer ('\\context %s = "%s" << ' % (sub_staff_type, staff_id))
             else:
-                printer ('\\context %s << ' % self.stafftype)
+                printer ('\\context %s << ' % sub_staff_type)
             printer.newline ()
             n = 0
             nr_voices = len (voices)
@@ -1137,7 +1142,7 @@ class Staff (StaffGroup):
                 if nr_voices > 1:
                     voice_count_text = {1: ' \\voiceOne', 2: ' \\voiceTwo',
                                         3: ' \\voiceThree'}.get (n, ' \\voiceFour')
-                printer ('\\context Voice = "%s" {%s \\%s }' % (v,voice_count_text,v))
+                printer ('\\context %s = "%s" {%s \\%s }' % (self.voice_command, v, voice_count_text, v))
                 printer.newline ()
 
                 for l in lyrics:
@@ -1148,7 +1153,42 @@ class Staff (StaffGroup):
     def print_ly (self, printer):
         if self.part_information and len (self.part_information) > 1:
             self.stafftype = "PianoStaff"
+            self.substafftype = "Staff"
         StaffGroup.print_ly (self, printer)
+
+class TabStaff (Staff):
+    def __init__ (self, command = "TabStaff"):
+        Staff.__init__ (self, command)
+        self.string_tunings = []
+        self.tablature_format = None
+        self.voice_command = "TabVoice"
+    def print_ly_overrides (self, printer):
+        if self.string_tunings or self.tablature_format:
+            printer.dump ("\\with {")
+            if self.string_tunings:
+                printer.dump ("stringTunings = #'(")
+                for i in self.string_tunings:
+                    printer.dump ("%s" % i.semitones ())
+                printer.dump (")")
+            if self.tablature_format:
+                printer.dump ("tablatureFormat = #%s" % self.tablature_format)
+            printer.dump ("}")
+
+
+class DrumStaff (Staff):
+    def __init__ (self, command = "DrumStaff"):
+        Staff.__init__ (self, command)
+        self.drum_style_table = None
+        self.voice_command = "DrumVoice"
+    def print_ly_overrides (self, printer):
+        if self.drum_style_table:
+            printer.dump ("\with {")
+            printer.dump ("drumStyleTable = #%s" % self.drum_style_table)
+            printer.dump ("}")
+
+class RhythmicStaff (Staff):
+    def __init__ (self, command = "RhythmicStaff"):
+        Staff.__init__ (self, command)
 
 
 def test_pitch ():

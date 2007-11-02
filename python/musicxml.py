@@ -442,7 +442,7 @@ class Musicxml_voice:
 class Part (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
-	self._voices = []
+	self._voices = {}
         self._staff_attributes_dict = {}
 
     def get_part_list (self):
@@ -688,6 +688,8 @@ class Part (Music_xml_node):
 
     def get_voices (self):
 	return self._voices
+    def get_staff_attributes (self):
+        return self._staff_attributes_dict
 
 class Notations (Music_xml_node):
     def get_tie (self):

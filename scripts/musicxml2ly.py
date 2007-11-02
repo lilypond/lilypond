@@ -79,7 +79,83 @@ class PartGroupInfo:
         return ''
 
 
-def extract_score_layout (part_list):
+def staff_attributes_to_string_tunings (mxl_attr):
+    details = mxl_attr.get_maybe_exist_named_child ('staff-details')
+    if not details:
+        return []
+    lines = 6
+    staff_lines = details.get_maybe_exist_named_child ('staff-lines')
+    if staff_lines:
+        lines = string.atoi (staff_lines.get_text ())
+
+    tunings = [0]*lines
+    staff_tunings = details.get_named_children ('staff-tuning')
+    for i in staff_tunings:
+        p = musicexp.Pitch()
+        line = 0
+        try:
+            line = string.atoi (i.line) - 1
+        except ValueError:
+            pass
+        tunings[line] = p
+
+        step = i.get_named_child (u'tuning-step')
+        step = step.get_text ().strip ()
+        p.step = (ord (step) - ord ('A') + 7 - 2) % 7
+
+        octave = i.get_named_child (u'tuning-octave')
+        octave = octave.get_text ().strip ()
+        p.octave = int (octave) - 4
+
+        alter = i.get_named_child (u'tuning-alter')
+        if alter:
+            p.alteration = int (alter.get_text ().strip ())
+    # lilypond seems to use the opposite ordering than MusicXML...
+    tunings.reverse ()
+
+    return tunings
+
+
+def staff_attributes_to_lily_staff (mxl_attr):
+    if not mxl_attr:
+        return musicexp.Staff ()
+
+    (staff_id, attributes) = mxl_attr.items ()[0]
+
+    # distinguish by clef:
+    # percussion (percussion and rhythmic), tab, and everything else
+    clef_sign = None
+    clef = attributes.get_maybe_exist_named_child ('clef')
+    if clef:
+        sign = clef.get_maybe_exist_named_child ('sign')
+        if sign:
+            clef_sign = {"percussion": "percussion", "TAB": "tab"}.get (sign.get_text (), None)
+
+    lines = 5
+    details = attributes.get_maybe_exist_named_child ('staff-details')
+    if details:
+        staff_lines = details.get_maybe_exist_named_child ('staff-lines')
+        if staff_lines:
+            lines = string.atoi (staff_lines.get_text ())
+
+    staff = None
+    if clef_sign == "percussion" and lines == 1:
+        staff = musicexp.RhythmicStaff ()
+    elif clef_sign == "percussion":
+        staff = musicexp.DrumStaff ()
+        # staff.drum_style_table = ???
+    elif clef_sign == "tab":
+        staff = musicexp.TabStaff ()
+        staff.string_tunings = staff_attributes_to_string_tunings (attributes)
+        # staff.tablature_format = ???
+    else:
+        # TODO: Handle case with lines <> 5!
+        staff = musicexp.Staff ()
+
+    return staff
+
+
+def extract_score_layout (part_list, staffinfo):
     layout = musicexp.StaffGroup (None)
     if not part_list:
         return layout
@@ -87,7 +163,11 @@ def extract_score_layout (part_list):
     def read_score_part (el):
         if not isinstance (el, musicxml.Score_part):
             return
-        staff = musicexp.Staff ()
+        # Depending on the attributes of the first measure, we create different
+        # types of staves (Staff, RhythmicStaff, DrumStaff, TabStaff, etc.)
+        staff = staff_attributes_to_lily_staff (staffinfo.get (el.id, None))
+        if not staff:
+            return None
         staff.id = el.id
         partname = el.get_maybe_exist_named_child ('part-name')
         # Finale gives unnamed parts the name "MusicXML Part" automatically!
@@ -132,7 +212,9 @@ def extract_score_layout (part_list):
             if not group_info.is_empty ():
                 staves.append (group_info)
                 group_info = PartGroupInfo ()
-            staves.append (read_score_part (el))
+            staff = read_score_part (el)
+            if staff:
+                staves.append (staff)
         elif isinstance (el, musicxml.Part_group):
             if el.type == "start":
                 group_info.add_start (el)
@@ -1039,9 +1121,9 @@ def musicxml_voice_to_lily_voice (voice):
 
     current_staff = None
 
-    # TODO: Make sure that the keys in the dict don't get reordered, since
-    #       we need the correct ordering of the lyrics stanzas! By default,
-    #       a dict will reorder its keys
+    # Make sure that the keys in the dict don't get reordered, since
+    # we need the correct ordering of the lyrics stanzas! By default,
+    # a dict will reorder its keys
     return_value.lyrics_order = voice.get_lyrics_numbers ()
     for k in return_value.lyrics_order:
         lyrics[k] = []
@@ -1364,20 +1446,22 @@ def voices_in_part (part):
     """Return a Name -> Voice dictionary for PART"""
     part.interpret ()
     part.extract_voices ()
-    voice_dict = part.get_voices ()
+    voices = part.get_voices ()
+    part_info = part.get_staff_attributes ()
 
-    return voice_dict
+    return (voices, part_info)
 
 def voices_in_part_in_parts (parts):
     """return a Part -> Name -> Voice dictionary"""
-    return dict([(p, voices_in_part (p)) for p in parts])
+    return dict([(p.id, voices_in_part (p)) for p in parts])
 
 
 def get_all_voices (parts):
     all_voices = voices_in_part_in_parts (parts)
 
     all_ly_voices = {}
-    for p, name_voice in all_voices.items ():
+    all_ly_staffinfo = {}
+    for p, (name_voice, staff_info) in all_voices.items ():
 
         part_ly_voices = {}
         for n, v in name_voice.items ():
@@ -1386,8 +1470,9 @@ def get_all_voices (parts):
             part_ly_voices[n] = musicxml_voice_to_lily_voice (v)
 
         all_ly_voices[p] = part_ly_voices
-        
-    return all_ly_voices
+        all_ly_staffinfo[p] = staff_info
+
+    return (all_ly_voices, all_ly_staffinfo)
 
 
 def option_parser ():
@@ -1428,35 +1513,30 @@ Copyright (c) 2005--2007 by
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
 
-def music_xml_voice_name_to_lily_name (part, name):
-    str = "Part%sVoice%s" % (part.id, name)
+def music_xml_voice_name_to_lily_name (part_id, name):
+    str = "Part%sVoice%s" % (part_id, name)
     return musicxml_id_to_lily (str) 
 
-def music_xml_lyrics_name_to_lily_name (part, name, lyricsnr):
-    str = "Part%sVoice%sLyrics%s" % (part.id, name, lyricsnr)
+def music_xml_lyrics_name_to_lily_name (part_id, name, lyricsnr):
+    str = "Part%sVoice%sLyrics%s" % (part_id, name, lyricsnr)
     return musicxml_id_to_lily (str) 
 
 def print_voice_definitions (printer, part_list, voices):
-    part_dict={}
-    for (part, nv_dict) in voices.items():
-        part_dict[part.id] = (part, nv_dict)
-
     for part in part_list:
-        (p, nv_dict) = part_dict.get (part.id, (None, {}))
-        #for (name, ((voice, lyrics), mxlvoice)) in nv_dict.items ():
+        part_id = part.id
+        nv_dict = voices.get (part_id, {})
         for (name, voice) in nv_dict.items ():
-            k = music_xml_voice_name_to_lily_name (p, name)
+            k = music_xml_voice_name_to_lily_name (part_id, name)
             printer.dump ('%s = ' % k)
             voice.ly_voice.print_ly (printer)
             printer.newline()
-
             for l in voice.lyrics_order:
-                lname = music_xml_lyrics_name_to_lily_name (p, name, l)
+                lname = music_xml_lyrics_name_to_lily_name (part_id, name, l)
                 printer.dump ('%s = ' %lname )
                 voice.lyrics_dict[l].print_ly (printer)
                 printer.newline()
 
-            
+
 def uniq_list (l):
     return dict ([(elt,1) for elt in l]).keys ()
 
@@ -1469,27 +1549,24 @@ def uniq_list (l):
 #         ]
 #     ]
 # raw_voices is of the form [(voicename, lyricsids)*]
-def format_staff_info (part, staff_id, raw_voices):
+def format_staff_info (part_id, staff_id, raw_voices):
     voices = []
     for (v, lyricsids) in raw_voices:
-        voice_name = music_xml_voice_name_to_lily_name (part, v)
-        voice_lyrics = [music_xml_lyrics_name_to_lily_name (part, v, l)
+        voice_name = music_xml_voice_name_to_lily_name (part_id, v)
+        voice_lyrics = [music_xml_lyrics_name_to_lily_name (part_id, v, l)
                    for l in lyricsids]
         voices.append ([voice_name, voice_lyrics])
     return [staff_id, voices]
 
 def update_score_setup (score_structure, part_list, voices):
-    part_dict = dict ([(p.id, p) for p in voices.keys ()])
-    final_part_dict = {}
 
     for part_definition in part_list:
-        part_name = part_definition.id
-        part = part_dict.get (part_name)
-        if not part:
-            error_message ('unknown part in part-list: %s' % part_name)
+        part_id = part_definition.id
+        nv_dict = voices.get (part_id)
+        if not nv_dict:
+            error_message ('unknown part in part-list: %s' % part_id)
             continue
 
-        nv_dict = voices.get (part)
         staves = reduce (lambda x,y: x+ y,
                 [voice.voicedata._staves.keys ()
                  for voice in nv_dict.values ()],
@@ -1503,12 +1580,12 @@ def update_score_setup (score_structure, part_list, voices):
                 thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
                     for (voice_name, voice) in nv_dict.items ()
                     if voice.voicedata._start_staff == s]
-                staves_info.append (format_staff_info (part, s, thisstaff_raw_voices))
+                staves_info.append (format_staff_info (part_id, s, thisstaff_raw_voices))
         else:
             thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
                 for (voice_name, voice) in nv_dict.items ()]
-            staves_info.append (format_staff_info (part, None, thisstaff_raw_voices))
-        score_structure.set_part_information (part_name, staves_info)
+            staves_info.append (format_staff_info (part_id, None, thisstaff_raw_voices))
+        score_structure.set_part_information (part_id, staves_info)
 
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
@@ -1535,17 +1612,17 @@ def convert (filename, options):
     progress ("Reading MusicXML from %s ..." % filename)
     
     tree = read_musicxml (filename, options.use_lxml)
+    parts = tree.get_typed_children (musicxml.Part)
+    (voices, staff_info) = get_all_voices (parts)
 
     score_structure = None
     mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
     if mxl_pl:
-        score_structure = extract_score_layout (mxl_pl)
+        score_structure = extract_score_layout (mxl_pl, staff_info)
         part_list = mxl_pl.get_named_children ("score-part")
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
     score_information = extract_score_information (tree)
-    parts = tree.get_typed_children (musicxml.Part)
-    voices = get_all_voices (parts)
     update_score_setup (score_structure, part_list, voices)
 
     if not options.output_name:
