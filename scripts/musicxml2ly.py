@@ -28,6 +28,27 @@ def error_message (str):
     sys.stderr.write (str + '\n')
     sys.stderr.flush ()
 
+needed_additional_definitions = []
+additional_definitions = {
+  "snappizzicato": """#(define-markup-command (snappizzicato layout props) ()
+  (interpret-markup layout props
+    (markup #:stencil
+      (ly:stencil-translate-axis
+        (ly:stencil-add
+          (make-circle-stencil 0.7 0.1 #f)
+          (ly:make-stencil
+            (list 'draw-line 0.1 0 0.1 0 1)
+            '(-0.1 . 0.1) '(0.1 . 1)
+          )
+        )
+        0.7 X
+      )
+    )
+  )
+)
+"""
+}
+
 # score information is contained in the <work>, <identification> or <movement-title> tags
 # extract those into a hash, indexed by proper lilypond header attributes
 def extract_score_information (tree):
@@ -673,6 +694,12 @@ def musicxml_fingering_event (mxl_event):
     ev.type = mxl_event.get_text ()
     return ev
 
+def musicxml_snappizzicato_event (mxl_event):
+    needed_additional_definitions.append ("snappizzicato")
+    ev = musicexp.MarkupEvent ()
+    ev.contents = "\\snappizzicato"
+    return ev
+
 def musicxml_string_event (mxl_event):
     ev = musicexp.NoDirectionArticulationEvent ()
     ev.type = mxl_event.get_text ()
@@ -734,7 +761,7 @@ articulations_dict = {
     #"schleifer": "?",
     #"scoop": "",
     #"shake": "?",
-    #"snap-pizzicato": "",
+    "snap-pizzicato": musicxml_snappizzicato_event,
     #"spiccato": "",
     "staccatissimo": (musicexp.ShortArticulationEvent, "|"), # or "staccatissimo"
     "staccato": (musicexp.ShortArticulationEvent, "."), # or "staccato"
@@ -1591,6 +1618,15 @@ def print_ly_preamble (printer, filename):
     printer.dump_version ()
     printer.print_verbatim ('%% automatically converted from %s\n' % filename)
 
+def print_ly_additional_definitions (printer, filename):
+    if needed_additional_definitions:
+        printer.newline ()
+        printer.print_verbatim ('%% additional definitions required by the score:')
+        printer.newline ()
+    for a in set(needed_additional_definitions):
+        printer.print_verbatim (additional_definitions.get (a, ''))
+
+
 def read_musicxml (filename, use_lxml):
     if use_lxml:
         import lxml.etree
@@ -1640,6 +1676,7 @@ def convert (filename, options):
     printer.set_file (codecs.open (defs_ly_name, 'wb', encoding='utf-8'))
 
     print_ly_preamble (printer, filename)
+    print_ly_additional_definitions (printer, filename)
     score_information.print_ly (printer)
     print_voice_definitions (printer, part_list, voices)
     
