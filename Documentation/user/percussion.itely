@@ -289,7 +289,7 @@ Because general MIDI does not contain rim shots, the sidestick is used
 for this purpose instead.
 
 
-@c FIXME: check name -gp
+@c TODO: check name -gp
 @node Ghost notes
 @unnumberedsubsubsec Ghost notes
 

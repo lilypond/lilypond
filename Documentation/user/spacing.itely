@@ -535,6 +535,7 @@ be altered for page formatting, set @code{annotate-spacing} in the
 @code{\paper} block, like this
 
 
+@c need to have \book{} otherwise we get  the separate systems. -hwn
 @lilypond[verbatim]
 #(set-default-paper-size "a6" 'landscape)
 
@@ -544,10 +545,9 @@ be altered for page formatting, set @code{annotate-spacing} in the
 }
 @end lilypond
 
-@c need to have \book{} otherwise we get  the separate systems. -hwn
 
+@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
 @noindent
-@c  FIXME: really bad vagueness due to bug in annotate-spacing.  -gp
 Some unit dimensions are measured in staff spaces, while others
 are measured in millimeters.
 The pairs

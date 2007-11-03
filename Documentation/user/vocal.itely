@@ -615,7 +615,7 @@ There is one tricky aspect: the setting for @code{ignoreMelismata}
 must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
-@c  FIXME: breaks compile
+@c  TODO: breaks compile
 @lilypond[verbatim,ragged-right,quote]
 %{
 <<

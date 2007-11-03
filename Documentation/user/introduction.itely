@@ -690,20 +690,18 @@ to mix music and text in documents.
 @node About this manual
 @section About this manual
 
-There are two manuals about LilyPond: the @emph{user manual} (this
-document), and @emph{program usage}.
+FIXME: needs almost-complete rewrite.  -gp
+
+There are four manuals about LilyPond: the @emph{Learning Manual},
+the @emph{Notation Reference}, the @emph{Program Usage}, and the
+@emph{Program Reference}.
 
 
-@subheading User manual
-
-The manual is divided into three books.
-
-@subsubheading Learning manual
+@subheading Learning Manual (LM)
 
 This book explains how to begin learning LilyPond, as well as explaining
 some key concepts in easy terms.  It is recommended to read these
 chapters in a linear fashion.
-
 
 @itemize
 
@@ -715,10 +713,10 @@ The
 gives a gentle introduction to typesetting music.  First time
 users should start here.
 
-@c @item
-@c @emph{@ref{Putting it all together}},
-@c explains some general concepts about the lilypond file format.  If
-@c you are not certain where to place a command, read this chapter!
+@item
+@emph{@ref{Fundamental concepts}},
+explains some general concepts about the lilypond file format.  If
+you are not certain where to place a command, read this chapter!
 
 @item
 @emph{@ref{Working on LilyPond projects}},
@@ -733,7 +731,7 @@ produces.
 @end itemize
 
 
-@subsubheading Notation reference
+@subheading Notation Reference (NR)
 
 This book explains all the LilyPond commands which produce notation.  It
 assumes that readers are familiar with the concepts in the Learning
