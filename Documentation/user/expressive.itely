@@ -45,15 +45,8 @@ the articulation to the note name.  The available shorthands and
 their output are:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override TextScript  #'font-family = #'typewriter
-\override TextScript  #'font-shape = #'upright
-c''4-._"c-."   
-c''4--_"c--"   
-c''4-+_"c-+"   
-c''4-|_"c-|"   
-c''4->_"c->"   
-c''4-^_"c-^"   
-c''4-__"c-_"         
+c4-.  c--   c-+   c-|   
+c->   c-^   c-_         
 @end lilypond
 
 The marks are automatically placed, but the direction can be
@@ -63,8 +56,8 @@ This applies both to the shorthands and the fully named
 articulations.  For the shorthands, the dash itself should be
 omitted; the shorthand signs replace it:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-c''4^^ c''4_^
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c4^^ c4_^
 c\fermata c^\fermata c_\fermata
 @end lilypond
 
@@ -364,175 +357,18 @@ Program reference: @internalsref{DynamicText},
 handled by @internalsref{DynamicLineSpanner}.
 Glossary: @rglos{Hairpin}, @rglos{crescendo}, @rglos{decrescendo}
 
+@c TODO: add link to LM directions
+
 
 @node Curves
 @subsection Curves
 
 @menu
-* Ties::                        
 * Slurs::                       
 * Phrasing slurs::              
 * Breath marks::                
 * Falls and doits::             
 @end menu
-
-@node Ties
-@unnumberedsubsubsec Ties
-
-@cindex tie
-@funindex ~
-
-A tie connects two adjacent note heads of the same pitch.  The tie
-in effect extends the length of a note. 
-
-@warning{Ties should not be confused with @emph{slurs}, which
-indicate articulation, or @emph{phrasing slurs}, which indicate
-musical phrasing. A tie is just a way of extending a note
-duration, similar to the augmentation dot.}
-
-A tie is entered using the tilde symbol @code{~}
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-e' ~ e'
-@end lilypond
-
-
-@noindent
-Ties are used either when the note crosses a bar line, or when
-dots cannot be used to denote the rhythm.  Ties should also be
-used when note values cross larger subdivisions of the measure:
-
-@lilypond[fragment,quote,ragged-right]
-\relative {
-  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
-}
-@end lilypond
-
-If you need to tie a lot of notes over bars, it may be easier to
-use automatic note splitting (see @ref{Automatic note splitting}).
-This mechanism automatically splits long notes, and ties them
-across bar lines.
-
-@funindex \repeatTie
-@cindex repeating ties
-@cindex volta brackets and ties
-
-When a tie is applied to a chord, all note heads whose pitches
-match are connected.  When no note heads match, no ties will be
-created.  Chords may be partially tied by placing the tie inside
-the chord.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
- <c e g> ~ <c e g>
-<c~ e g~ b> <c e g b>
-@end lilypond
-
-When a second alternative of a repeat starts with a tied note, you
-have to repeat the tie.  This can be achieved with
-@code{\repeatTie},
-
-@lilypond[fragment,quote,ragged-right,relative=2]
-\repeat volta 2 { c g <c e>2 ~ }
-\alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }} 
-@end lilypond
-
-@cindex Laissez vibrer
-@cindex Ties, laissez vibrer
-
-@notation{L.v.} ties (@notation{laissez vibrer}) indicate that
-notes must not be damped at the end.  It is used in notation for
-piano, harp and other string and percussion instruments.  They can
-be entered using @code{\laissezVibrer}:
-
-@lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer
-@end lilypond
-
-The direction of a tie can be specified with @code{\tieUp} or
-@code{\tieDown} (see example below).  @code{\tieNeutral} reverts
-to the default behaviour again.
-
-However, as with other music elements of this kind, there is a
-convenient shorthand for forcing tie directions.  By adding
-@code{_} or @code{^} before the tilde, the direction is also set:
-
-@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
-c4_~ c c^~ c)
-@end lilypond
-
-
-@seealso
-
-Program reference:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-
-Example files:
-@lsr{connecting,laissez-vibrer-ties.ly}
-
-
-@commonprop
-
-Ties are sometimes used to write out arpeggios.  In this case, two
-tied notes need not be consecutive.  This can be achieved by
-setting the @code{tieWaitForNote} property to true.  The same
-feature is also useful, for example, to tie a tremolo to a chord,
-but in principle, it can also be used for ordinary, consecutive
-notes:
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-\set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>2
-\repeat tremolo 8 { c32~ c'~ } <c c,>1
-e8~ c~ a~ f~ <e' c a f>2
-\tieUp c8~ a \tieDown \tieDotted g~ c g2
-@end lilypond
-
-Ties may be engraved manually by changing the
-@code{tie-configuration} property.  The first number indicates the
-distance from the center of the staff in staff-spaces, and the
-second number indicates the direction (1=up, -1=down).
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-<c e g>2~ <c e g> |
-\override TieColumn #'tie-configuration =
-  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
-<c e g>~ <c e g> |
-@end lilypond
-
-
-@refcommands
-
-
-@funindex \tieUp
-@code{\tieUp},
-@funindex \tieDown
-@code{\tieDown},
-@funindex \tieNeutral
-@code{\tieNeutral},
-@funindex \tieDotted
-@code{\tieDotted},
-@funindex \tieDashed
-@code{\tieDashed},
-@funindex \tieSolid
-@code{\tieSolid}.
-
-
-@seealso
-
-In this manual: @ref{Automatic note splitting}.
-
-Program reference: @internalsref{Tie}.
-
-
-@refbugs
-
-Switching staves when a tie is active will not produce a slanted
-tie.
-
-Changing clefs or octavations during a tie is not really
-well-defined.  In these cases, a slur may be preferable.
-
 
 @node Slurs
 @unnumberedsubsubsec Slurs
