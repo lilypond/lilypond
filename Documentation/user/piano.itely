@@ -10,11 +10,11 @@
 @section Piano music
 
 @menu
-* TODO piano node fix::         
+* Piano sections::              
 @end menu
 
-@node TODO piano node fix
-@subsection TODO piano node fix
+@node Piano sections
+@subsection Piano sections
 
 Piano staves are two normal staves coupled with a brace.  The staves
 are largely independent, but sometimes voices can cross between the

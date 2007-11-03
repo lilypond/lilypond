@@ -23,18 +23,18 @@ than one voice on the same staff.
 @subsection Single voice
 
 @menu
-* Chords::                      
+* Chorded notes::                      
 * Clusters::                    
 @end menu
 
-@node Chords
-@unnumberedsubsubsec Chords
+@node Chorded notes
+@unnumberedsubsubsec Chorded notes
 
 @cindex Chords
 
 A chord is formed by a enclosing a set of pitches between @code{<}
 and @code{>}.  A chord may be followed by a duration, and a set of
-articulations, just like simple notes
+articulations, just like simple notes:
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
 <c e g>4 <c>8

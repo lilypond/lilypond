@@ -12,14 +12,14 @@
 This chapter explains how to create musical notation.
 
 @menu
-* Vocal music:: a
-* Chords Blah:: b
-* Piano music:: c
-* Percussion:: d
-* Guitar:: e
+* Vocal music::
+* Chords::
+* Piano music::
+* Percussion::
+* Guitar::
 * Orchestral strings::
 * Bagpipes::
-* Ancient notation:: g
+* Ancient notation::
 @end menu
 
 @include vocal.itely

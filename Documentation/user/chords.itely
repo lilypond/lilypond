@@ -7,21 +7,19 @@
 @end ignore
 
 
-@node Chords Blah
-@section Chords Blah
+@node Chords
+@section Chords
 
 Intro text.
 
 @menu
-* TODO chords fix::             
+* Chords sections::             
 @end menu
 
 
-@node TODO chords fix
-@subsection TODO chords fix
+@node Chords sections
+@subsection Chords sections
 
-@c  awkward name; awkward section name.
-@c  still, the Basic "chords" seems like a good name...  :(
 @menu
 * A lead sheet::                
 * Introducing chord names::     

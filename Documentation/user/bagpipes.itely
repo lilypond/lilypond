@@ -12,12 +12,12 @@
 This section includes extra information for writing for bagpipes.
 
 @menu
-* Bagpipe::                     
+* Bagpipe sections::            
 @end menu
 
 
-@node Bagpipe
-@subsection Bagpipe
+@node Bagpipe sections
+@subsection Bagpipe sections
 
 @menu
 * Bagpipe definitions::         
