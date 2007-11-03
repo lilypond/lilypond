@@ -1,3 +1,4 @@
+
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 
@@ -519,6 +520,7 @@ blh blah
 @menu
 * On the un-nestedness of brackets and ties::  
 * Up and down::                 
+* Distances and measurements::  
 @end menu
 
 @c my name start sucking the more docs I write. -gp
@@ -555,6 +557,13 @@ direction.
 ^ _
 @end verbatim
 
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+DISCUSS
+
+TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
 
 
 
