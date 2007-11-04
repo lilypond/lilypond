@@ -1,0 +1,281 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Piano music
+@section Piano music
+
+@menu 
+* TODO piano node fix::
+@end menu
+
+@node TODO piano node fix
+@subsection TODO piano node fix
+
+Les systèmes de piano comprennent deux portées réunies par une accolade.
+Les portées sont largement autonomes, mais il arrive que des voix passent
+de l'une à l'autre.  Cette notation sert également à la harpe ou à d'autres
+instruments à clavier.  Le contexte @internalsref{PianoStaff} est précisément
+conçu pour gérer la notation spécifique au piano, notamment ces croisements.
+
+@menu
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
+@end menu
+
+@refbugs
+
+Les nuances ne sont pas centrées verticalement, mais il existe
+des astuces.  Voir à ce sujet le modèle @q{alignement des nuances au
+piano} au chapitre @ref{Piano templates}.
+
+@cindex hampe, enjambement portées
+@cindex distance entre deux portées de piano
+
+
+@node Automatic staff changes
+@unnumberedsubsubsec Automatic staff changes
+@cindex Changements de portées automatiques
+
+Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
+de la syntaxe suivante :
+
+@quotation
+@example
+\autochange @dots{}@var{musique}@dots{}
+@end example
+@end quotation
+
+@noindent
+Deux portées seront alors créées au sein du contexte @code{PianoStaff},
+nommées respectivement @code{up} et @code{down}.  La portée du bas, par
+défaut, sera en clé de fa.
+
+Une section en mode @code{\relative} se situant en dehors de la commande
+@code{\autochange} n'aura pas d'effet sur les hauteurs de l'expression
+@var{musique} ; si on utilise @code{\relative}, il est donc préférable
+de mettre @code{\relative} @emph{après} @code{\autochange} et non avant :
+
+@quotation
+@example
+\autochange \relative @dots{} @dots{}
+@end example
+@end quotation
+
+La commande @code{\autochange} bascule les notes d'une portée à l'autre
+en fonction de leur hauteur (le do du milieu servant de charnière), et
+place les silences en fonction des notes qui les suivront. Ainsi :
+
+@lilypond[quote,verbatim,ragged-right]
+\new PianoStaff
+  \autochange \relative c'
+  {
+    g4 a b c d r4 a g
+  }
+@end lilypond
+
+
+@seealso
+
+Dans ce même manuel : @ref{Manual staff switches}.
+
+Référence du programme : @internalsref{AutoChangeMusic}.
+
+
+
+@refbugs
+
+Les changements de portée automatiques n'interviennent pas toujours à
+l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
+vaut mieux indiquer soi-même ces changements.
+
+
+@code{\autochange} ne peut intervenir à l'intérieur d'une commande
+@code{\times}.
+
+
+@node Manual staff switches
+@unnumberedsubsubsec Manual staff switches
+
+@cindex changements de portées manuels
+@cindex changement de portée, manuel
+
+Il est possible de passer d'une portée à l'autre de façon manuelle, au
+moyen de la commande
+
+@example
+\change Staff = @var{nomDeLaPortee} @var{musique}
+@end example
+
+@noindent
+La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
+déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
+supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
+@var{nomDeLaPortee} désigne habituellement @code{"haut"} ou
+@code{"bas"}.  Dans tous les cas, le contexte de portée ainsi utilisé
+doit exister au préalable.  C'est pourquoi il est d'usage de commencer
+par définir les portées
+
+@example
+<<
+  \new Staff = "haut" @{
+    \skip 1 * 10  % @emph{de façon à prolonger la portée}
+    @}
+  \new Staff = "bas" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+
+avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
+
+@example
+\context Staff = bas
+  \new Voice @{ @dots{} \change Staff = haut @dots{} @}
+@end example
+
+
+@node Pedals
+@unnumberedsubsubsec Pedals
+@cindex Pédales
+
+Le piano possède deux pédales, parfois trois, permettant de modifier
+l'émission du son.  Il est possible d'indiquer précisément chacune
+d'entre elles, en ajoutant à une note ou un accord les commandes
+suivantes :
+@multitable {enfoncerr} {pédale de tenuee} {pédale una cordaa} {\sostenutoDownnnn}
+@item       @tab pédale de tenue @tab pédale @emph{una corda} @tab pédale tonale
+@item enfoncer @tab @code{\sustainDown} @tab @code{\unaCorda} @tab @code{\sostenutoDown}
+@item relâcher @tab @code{\sustainUp}   @tab @code{\treCorde} @tab @code{\sostenutoUp}
+@end multitable
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c'4\sustainDown c'4\sustainUp
+@end lilypond
+
+Les modalités d'impression de ces indications sont définies par la
+propriété @code{pedal@var{X}Strings}, @var{X} étant l'une des trois
+pédales @code{Sustain}, @code{Sostenuto} ou @code{UnaCorda}.  Voyez
+la référence du programme, section @internalsref{SustainPedal}, pour en
+savoir plus.
+
+La propriété @code{pedalSustainStyle} permet différentes notations de
+pédale, en utilisant des crochets
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'bracket
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+@noindent
+ou en mélangeant indications textuelles et crochets
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'mixed
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+@code{text} est le style de notation par défaut pour la pédale de
+tenue --- le traditionnel @q{*Ped.}.  La pédale tonale, en revanche,
+utilise @code{mixed} par défaut.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+Il est possible de d'affiner l'apparence d'un crochet de pédale, au
+moyen des propriétés @code{edge-width}, @code{edge-height}, et
+@code{shorten-pair}, appliquées aux objets @code{PianoPedalBracket} ---
+voir la référence du programme, section
+@internalsref{PianoPedalBracket}. Par exemple, on peut étirer le crochet
+jusqu'à l'extrémité droite de la dernière note :
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+@seealso
+
+Dans ce manuel : @ref{Laissez vibrer ties}.
+
+@node Staff switch lines
+@unnumberedsubsubsec Staff switch lines
+
+
+@cindex voix entre deux portées
+@cindex changements de portée
+@cindex mélodie d'une portée à une autre
+
+@funindex followVoice
+
+Lorsqu'une voix change de portée, il est possible d'imprimer
+automatiquement une ligne reliant les notes, en attribuant à la variable
+@code{followVoice} la valeur @emph{vrai} :
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
+>>
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{VoiceFollower}.
+
+@refcommands
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
+
+
+@node Cross staff stems
+@unnumberedsubsubsec Cross staff stems
+
+Pour écrire des accords qui enjambent deux portées, on allonge la hampe
+de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
+l'autre portée.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+

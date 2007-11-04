@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -13,28 +13,33 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
+TODO: explain what/why.  maybe in other sections.
+
+@menu
+* Common tweaks::               
+* TODO other name::             
+@end menu
+
+
+@node Common tweaks
+@section Common tweaks
+
+blah blah
 
 @menu
 * Moving objects::              
 * Fixing overlapping notation::  
-* Common tweaks::               
-* Default files::               
+* Other common tweaks::         
 * Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
 @end menu
 
-
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
 This may come as a surprise, but LilyPond is not perfect.  Some notation
 elements can overlap.  This is unfortunate, but (in most cases) is easily
 solved.
 
-@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
-@c  yes, I want this TODO to be visible to end-users.  It's better
-@c  than having nothing at all.
 TODO: with the new spacing features in 2.12, these specific examples are no
 longer relevant.  However, they still demonstrate powerful features
 of lilypond, so they remain until somebody creates some better examples.
@@ -52,7 +57,7 @@ The easiest solution is to increase the distance between the object
 instead) and the note.  In LilyPond, this is called the
 @code{padding} property; it is measured in staff spaces.  For most
 objects, this value is around 1.0 or less (it varies with each
-object). We want to increase it, so let's try 1.5
+object).  We want to increase it, so let's try 1.5
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:
@@ -135,7 +140,7 @@ no text, this tweak does nothing (and does @strong{not} wait until
 the next bit of text).  To change the behavior of everything after
 the command, omit the @code{\once}.  To stop this tweak, use a
 @code{\revert}.  This is explained in depth in
-@ref{The \override command}.
+@ruser{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
   % temporary code to break this example:
@@ -157,11 +162,11 @@ c4^"piu mosso" d e f
 
 @seealso
 
-This manual: @ref{The \override command}, @ref{Common tweaks}.
+This manual: @ruser{The \override command}, @ref{Common tweaks}.
 
 
 @node Fixing overlapping notation
-@section Fixing overlapping notation
+@subsection Fixing overlapping notation
 
 In @ref{Moving objects}, we saw how to move a @code{TextScript}
 object.  The same mechanism can be used to move other types of
@@ -170,7 +175,7 @@ another object.
 
 To find the object name, look at the @q{@strong{see also}} at
 bottom of the relevant documentation page.  For example, at
-the bottom of @ref{Dynamics}, we see
+the bottom of @ruser{Dynamics}, we see
 
 @quotation
 @seealso
@@ -203,8 +208,8 @@ common objects.
 @end multitable
 
 
-@node Common tweaks
-@section Common tweaks
+@node Other common tweaks
+@subsection Other common tweaks
 
 Some overrides are so common that predefined commands are provided as
 short-cuts, such as @code{\slurUp} and @code{\stemDown}.  These
@@ -216,7 +221,7 @@ object (like slurs or beams) are documented in the Program
 Reference.  However, many layout objects share properties which can be
 used to apply generic tweaks.
 
-@itemize @bullet
+@itemize
 
 @cindex padding
 
@@ -247,7 +252,7 @@ Note in the second example how important it is to figure out what
 context handles a certain object.  Since the @code{MetronomeMark} object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ref{Constructing a tweak}.
+@ruser{Constructing a tweak}.
 
 @cindex extra-offset
 
@@ -333,42 +338,8 @@ are measured in staff-spaces.  For more information, see the
 relevant portion of the program reference.
 
 
-@node Default files
-@section Default files
-
-The Program Reference documentation contains a lot of information
-about LilyPond, but even more information can be gathered from
-looking at the internal LilyPond files.
-
-Some default settings (such as the definitions for
-@code{\header@{@}}s) are stored as @code{.ly} files.  Other
-settings (such as the definitions of markup commands) are
-stored as @code{.scm} (Scheme) files.  Further explanation is
-outside the scope of this manual; users should be warned that
-a substantial amount of technical knowledge or time is required
-to understand these files.
-
-@itemize @bullet
-
-@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
-
-@item OSX:
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-To access this, either @code{cd} into this directory from the
-Terminal, or control-click on the LilyPond application and select
-@q{Show Package Contents}.
-
-@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
-
-@end itemize
-
-The @file{ly/} and @file{scm/} directories will be of
-particular interest.  Files such as @file{ly/property-init.ly} and
-@file{ly/declarations-init.ly} define all the common tweaks.
-
-
 @node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@subsection Fitting music onto fewer pages
 
 Sometimes you can end up with one or two staves on a second
 (or third, or fourth...) page.  This is annoying, especially
@@ -377,7 +348,7 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing}, for more
+layout spacing commands; see @ruser{Displaying spacing}, for more
 details.  From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
 
@@ -431,7 +402,7 @@ a system.
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ref{Changing horizontal spacing}, for more details.
+@ruser{Changing horizontal spacing}, for more details.
 
 @lilypond[verbatim,quote]
 \score {
@@ -454,15 +425,59 @@ Alter the horizontal spacing via @code{SpacingSpanner}.  See
 @end itemize
 
 
+@node TODO other name
+@section TODO other name
+
+@menu
+* Default files::               
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
+* The three methods of tweaking::  
+@end menu
+
+@node Default files
+@subsection Default files
+
+The Program Reference documentation contains a lot of information
+about LilyPond, but even more information can be gathered from
+looking at the internal LilyPond files.
+
+Some default settings (such as the definitions for
+@code{\header@{@}}s) are stored as @code{.ly} files.  Other
+settings (such as the definitions of markup commands) are
+stored as @code{.scm} (Scheme) files.  Further explanation is
+outside the scope of this manual; users should be warned that
+a substantial amount of technical knowledge or time is required
+to understand these files.
+
+@itemize
+
+@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+
+@item OSX:
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+To access this, either @code{cd} into this directory from the
+Terminal, or control-click on the LilyPond application and select
+@q{Show Package Contents}.
+
+@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+The @file{ly/} and @file{scm/} directories will be of
+particular interest.  Files such as @file{ly/property-init.ly} and
+@file{ly/declarations-init.ly} define all the common tweaks.
+
+
 @node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
 We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
 we have even more power if we use Scheme.  For a full explantion
 of this, see the @ref{Scheme tutorial}, and
-@ref{Interfaces for programmers}.
+@ruser{Interfaces for programmers}.
 
 We can use Scheme to simply @code{\override} commands,
 
@@ -515,7 +530,7 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 
 
 @node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
 LilyPond can perform extra checks while it processes files.  These
 commands will take extra time, but the result may require fewer
@@ -524,7 +539,43 @@ manual tweaks.
 @example
 %%  makes sure text scripts and lyrics are within the paper margins
 \override Score.PaperColumn #'keep-inside-line = ##t 
+\override Score.NonMusicalPaperColumn #'keep-inside-line = ##t
 @end example
+
+In some cases (see issue 246), this must be done before
+@code{\override} commands can be processed.
+
+@verbatim
+\new Score \with {
+    \override PaperColumn #'keep-inside-line = ##t 
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  } {
+   ..
+}
+@end verbatim
+
+
+@node The three methods of tweaking
+@subsection The three methods of tweaking
+
+TODO write this.
+
+@verbatim
+\override
+@end verbatim
+
+@verbatim
+\with {
+
+}
+@end verbatim
+
+@verbatim
+\layout{ \context
+
+}}
+@end verbatim
+
 
 
 

@@ -48,10 +48,11 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond/Tutorial.html">Tutorial</a>
+	    <a class="title"
+href="user/lilypond-learning/index.html">Learning manual</a>
 	      <br>(start here)
 
-	   <li><a class="title" href="user/music-glossary/index.html">Glossary</a>
+	   <li><a class="title" href="user/music-glossary/index.html">Music glossary</a>
 (in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 1 Mb,
 in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
@@ -75,7 +76,7 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.html">User manual</a>
+<a class="title" href="user/lilypond/index.html">Notation reference</a>
 (in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 Mb,
 in <a class="title" href="user/lilypond.pdf">PDF</a>)
      <br>(writing music in LilyPond)

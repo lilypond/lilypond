@@ -60,7 +60,7 @@ Essayez sur cette image :
 En copiant et en collant tout le code de l'extrait ly dans un fichier
 test, vous aurez un modèle de base pour faire vos expériences.  Si vous
 apprenez de cette façon, vous aurez probablement envie d'imprimer ou de
-garder un lien vers l'@ref{Cheat sheet}, tableau qui répertorie les
+garder un lien vers l'@ruser{Cheat sheet}, tableau qui répertorie les
 commandes usuelles pour une consultation rapide.
 @end ifhtml
 
@@ -396,17 +396,17 @@ Voici un bref exemple qui montre tous ces éléments ensemble :
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Entrer des hauteurs et des durées
-voir @ref{Pitches} and @ref{Durations}.
+voir @ruser{Pitches} and @ruser{Durations}.
 @item Les silences
-voir @ref{Rests}.
+voir @ruser{Rests}.
 @item Les chiffres de mesure et autres commandes de métrique
-voir @ref{Time signature}.
+voir @ruser{Time signature}.
 @item Les clés
-voir @ref{Clef}.
+voir @ruser{Clef}.
 @end table
 @end quotation
 
@@ -497,13 +497,13 @@ Le fragment suivant met en évidence quelques usages possibles des commentaires 
 @end itemize
 
 Vous trouverez plus d'astuces pour organiser vos fichiers LilyPond dans
-@ref{Suggestions for writing LilyPond files}.
+@ruser{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
 @subsection How to read the tutorial
 
-Comme nous l'avons vu dans @ref{Working on text files}, un code
+Comme nous l'avons vu dans @ruser{Working on text files}, un code
 LilyPond doit être encadré par des @{ @} ou bien par @code{\relative
 c'' @{ ...  @}} afin d'être compris.  Cependant, dans la suite de ce
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
@@ -548,9 +548,9 @@ Cette section présente la notation courante dont on a besoin pour
 @node Relative note names
 @subsection Relative note names
 
-Comme nous l'avons vu dans @ref{Simple notation}, LilyPond calcule la
+Comme nous l'avons vu dans @ruser{Simple notation}, LilyPond calcule la
 hauteur de chaque note en fonction de la précédente@footnote{Il existe
-un autre mode de saisie des hauteurs, le mode @ref{Absolute note
+un autre mode de saisie des hauteurs, le mode @ruser{Absolute note
 names}, mais en pratique il est bien plus aisé et sûr d'avoir recours
 au mode de hauteurs relatives.}.  Si aucune indication supplémentaire
 d'octaviation n'est ajoutée, il en concluera que chaque hauteur est
@@ -567,13 +567,13 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Les hauteurs de note relatives
-voir @ref{Relative octaves}.
+voir @ruser{Relative octaves}.
 @item Les vérifications d'octaves
-voir @ref{Octave check}.
+voir @ruser{Octave check}.
 @end table
 @end quotation
 
@@ -600,7 +600,7 @@ bémol.  Le double dièse et le double bémol s'obtiennent en ajoutant
 respectivement @samp{dd} et @samp{bb}
 @c END DIV
 
-Pour en savoir plus sur les autres langues disponibles, voir @ref{Note
+Pour en savoir plus sur les autres langues disponibles, voir @ruser{Note
 names in other languages}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -672,17 +672,17 @@ d'effort dans la phase de saisie, mais la transposition en sera
 grandement facilitée.
 De plus les altérations accidentelles
 peuvent être imprimées suivant plusieurs conventions.  Regardez
-@ref{Automatic accidentals} pour connaître les différentes manières dont les
+@ruser{Automatic accidentals} pour connaître les différentes manières dont les
 altérations accidentelles peuvent être imprimées, suivant les règles
 que vous choisirez.
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Les altérations
-voir @ref{Accidentals} and @ref{Automatic accidentals}.
+voir @ruser{Accidentals} and @ruser{Automatic accidentals}.
 @item Les armures
-voir @ref{Key signature}.
+voir @ruser{Key signature}.
 @end table
 @end quotation
 
@@ -741,12 +741,12 @@ liaisons de tenue peuvent être enchâssées dans un legato ou un phrasé.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
-@item @ref{Ties},
-@item @ref{Slurs},
-@item @ref{Phrasing slurs}.
+@item @ruser{Ties},
+@item @ruser{Slurs},
+@item @ruser{Phrasing slurs}.
 @end table
 @end quotation
 
@@ -809,12 +809,12 @@ Crescendos et decrescendos débutent avec les commandes @code{\<} et
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
-@item @ref{Articulations}.
-@item @ref{Fingering instructions}.
-@item @ref{Dynamics}.
+@item @ruser{Articulations}.
+@item @ruser{Fingering instructions}.
+@item @ruser{Dynamics}.
 @end table
 @end quotation
 
@@ -838,13 +838,13 @@ première note à attacher d'un @samp{[} et la dernière d'un @samp{]}.
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Groupements de notes et ligatures automatiques
-voir @ref{Automatic beams}.
+voir @ruser{Automatic beams}.
 @item Groupements et ligatures manuels
-voir @ref{Manual beams}.
+voir @ruser{Manual beams}.
 @end table
 @end quotation
 
@@ -897,15 +897,15 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Notes d'ornement
-voir @ref{Grace notes},
+voir @ruser{Grace notes},
 @item nolets
-voir @ref{Tuplets},
+voir @ruser{Tuplets},
 @item levées
-voir @ref{Partial measures}.
+voir @ruser{Partial measures}.
 @end table
 @end quotation
 
@@ -1037,7 +1037,7 @@ polyphoniques.
 @node Multiple staves
 @subsection Multiple staves
 
-Comme nous l'avons vu dans @ref{Music expressions explained}, un fichier
+Comme nous l'avons vu dans @ruser{Music expressions explained}, un fichier
 d'entrée LilyPond est fait d'expressions musicales.  Si la partition
 commence par plusieurs expressions simultanées, LilyPond créera
 plusieurs portées.  Cependant, il est plus facile de voir ce qu'il
@@ -1079,7 +1079,7 @@ grosse expression.
 
 Les chiffres de métrique indiqués sur une portée affectent toutes les
 autres portées@footnote{Ce comportement peut être modifié si nécessaire,
-voir @ref{Polymetric notation}.}.  En revanche l'armure d'une portée
+voir @ruser{Polymetric notation}.}.  En revanche l'armure d'une portée
 n'affecte @emph{pas} les autres portées.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1101,7 +1101,7 @@ n'affecte @emph{pas} les autres portées.
 @cindex voix changeant manuellement de portée
 La musique pour piano s'écrit sur deux portées reliées par une accolade.
 Imprimer ce type de portée revient au même que dans l'exemple de musique
-polyphonique de @ref{Multiple staves}, mais maintenant cette expression
+polyphonique de @ruser{Multiple staves}, mais maintenant cette expression
 entière doit être interprétée dans un contexte @code{PianoStaff} :
 
 @example
@@ -1122,9 +1122,9 @@ Voici un bref exemple :
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
-Voir @ref{Piano music}.
+Voir @ruser{Piano music}.
 @end quotation
 
 
@@ -1205,9 +1205,9 @@ Là encore, ces expressions peuvent s'imbriquer arbitrairement :
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
-Voir @ref{Basic polyphony}.
+Voir @ruser{Basic polyphony}.
 @end quotation
 
 
@@ -1282,10 +1282,10 @@ entre les deux syllabes :
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 Plus de possibilités, comme celle d'ajouter plusieurs lignes de paroles
-en dessous d'une même mélodie sont exposées dans @ref{Vocal music}.
+en dessous d'une même mélodie sont exposées dans @ruser{Vocal music}.
 @end quotation
 
 
@@ -1341,10 +1341,10 @@ partition de chanson :
 @end lilypond
 
 
-@moreinfo
+@seealso
 @quotation
 Une liste complète de modificateurs et d'autres options de mise en forme
-se trouve à la section @ref{Chords}.
+se trouve à la section @ruser{Chords}.
 @end quotation
 
 
@@ -1408,7 +1408,7 @@ bloc @code{\header} est habituellement placé en début de fichier.
 @end example
 Quand le fichier est traité, le titre et le compositeur sont imprimés en
 haut de la partition.  Vous trouverez plus d'informations sur les titres
-à @ref{Creating titles}.
+à @ruser{Creating titles}.
 
 @node Absolute note names
 @subsection Absolute note names
@@ -1554,12 +1554,12 @@ différents endroits.  L'exemple suivant utilise la variable ci-dessus :
 @subsection After the tutorial
 
 Après avoir parcouru ce tutoriel, vous devriez vous essayer à écrire un
-morceau ou deux.  Commencez par copier l'un des @ref{Templates} types et
+morceau ou deux.  Commencez par copier l'un des @ruser{Templates} types et
 ajoutez-y des notes.  Si vous voulez employer une notation que vous
 n'avez pas trouvé dans le tutoriel, consultez la référence de notation,
-en commençant par la @ref{Basic notation}.  Si vous désirez écrire pour
-un ensemble instrumental non couvert par les @ref{Templates}, lisez la
-section @ref{Extending the templates}.
+en commençant par la @ruser{Basic notation}.  Si vous désirez écrire pour
+un ensemble instrumental non couvert par les @ruser{Templates}, lisez la
+section @ruser{Extending the templates}.
 
 Après avoir écrit quelques pièces courtes, lisez les chapitres 3 à 5 du
 manuel d'apprentissage.  Rien ne s'oppose à ce que vous consultiez dès à
@@ -1571,7 +1571,7 @@ et y revenir plus tard après avoir acquis de l'expérience.
 @node How to read the manual
 @subsection How to read the manual
 
-Comme nous l'avons déjà vu dans @ref{How to read the tutorial}, de
+Comme nous l'avons déjà vu dans @ruser{How to read the tutorial}, de
 nombreux exemples du tutoriel n'ont pas fait apparaître
 @code{\relative c'' @{ ...  @}} dans l'extrait de code affiché.
 
@@ -1591,4 +1591,4 @@ partition.  La source exacte utilisée pour générer ce manuel s'affichera
 alors.
 
 Pour en savoir plus sur l'organisation de la suite de ce manuel,
-reportez-vous à @ref{About this manual}.
+reportez-vous à @ruser{About this manual}.

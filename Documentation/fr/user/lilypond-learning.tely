@@ -1,0 +1,199 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: e9a620b6e7e1c0a1bf39b7063ff1744ad61efb08
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond -- manuel d'initiation
+@documentencoding UTF-8
+
+
+@iftex
+@afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
+@end iftex
+
+
+@c don't remove this comment.
+@ignore
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
+@omfdescription User manual of the LilyPond music engraving system
+@omftype program usage
+@omfcategory Applications|Publishing
+@omflanguage French
+@end ignore
+
+
+@ifhtml
+Ce document est également disponible au format
+@uref{source/Documentation/user/lilypond-learning.fr.pdf,PDF}.
+@end ifhtml
+
+@c urg, makeinfo 4.9.91 French translation is funky
+@iftex
+@documentlanguage fr
+@frenchspacing on
+@end iftex
+
+@c  This produces the unified index
+@syncodeindex fn cp
+@syncodeindex vr cp
+
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle Le système de gravure musicale
+@titlefont{Manuel d'initiation}
+@author L'équipe de développement de LilyPond
+
+
+Copyright @copyright{} 1999--2007 by the authors
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+
+@vskip 20pt
+
+@lilypond[ragged-right]
+\score {
+  \context Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \override Score.RehearsalMark #'font-size = #-2
+    \mark #(ly:export (string-append
+      "(For LilyPond version " (lilypond-version) ")"))
+    s2
+  }
+  \layout {
+    indent = 0.0\pt
+  }
+}
+@end lilypond
+
+@end titlepage
+
+@copying
+Copyright @copyright{} 1999--2007 by the authors
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end copying
+
+@ifnottex
+This file documents GNU LilyPond program usage.
+
+Copyright 1999--2007 by the authors
+
+@quotation
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1
+or any later version published by the Free Software Foundation;
+with no Invariant Sections.
+A copy of the license is included in the section entitled ``GNU
+Free Documentation License''.
+@end quotation
+@end ifnottex
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- manuel d'initiation
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+
+Ce document est le manuel d'initiation pour GNU LilyPond 2.11.x.
+@ifhtml
+(Allez au bas de la page pour voir le numéro de version exact).
+@end ifhtml
+
+@cindex web site
+@cindex URL
+
+More information can be found at
+@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
+of this and other documentation.
+
+@menu
+* Preface::
+* Introduction::                   quoi, pourquoi comment.
+* Tutorial::                       un tutoriel d'introduction.
+* Putting it all together::        explication plus détaillée des concepts de LilyPond.
+* Working on LilyPond projects::   traite de l'utilisation quotidienne.
+* Tweaking output::                introduction aux retouches de mise en forme.
+
+Annexes
+
+* GNU Free Documentation License:: licence de ce document.
+* LilyPond index::
+@end menu
+@end ifnottex
+
+@contents
+
+
+@include macros.itexi
+
+@include preface.itely
+@include introduction.itely
+@include tutorial.itely
+@include putting.itely
+@include working.itely
+@include tweaks.itely
+
+@include fdl.itexi
+
+@node LilyPond index
+@appendix LilyPond index
+
+@printindex cp
+
+@bye

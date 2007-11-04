@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -243,7 +243,7 @@ programming language; the program's functionality was set in stone by
 the developers.  That proved to be unsatisfactory for a number of
 reasons:
 
-@itemize @bullet
+@itemize
 @item When LilyPond makes mistakes,
 users need to override formatting decisions.  Therefore, the user must
 have access to the formatting engine.  Hence, rules and settings cannot
@@ -690,21 +690,20 @@ to mix music and text in documents.
 @node About this manual
 @section About this manual
 
-There are two manuals about LilyPond: the @emph{user manual} (this
-document), and @emph{program usage}.
+FIXME: needs almost-complete rewrite.  -gp
+
+There are four manuals about LilyPond: the @emph{Learning Manual},
+the @emph{Notation Reference}, the @emph{Program Usage}, and the
+@emph{Program Reference}.
 
 
-@subheading User manual
-
-The manual is divided into three books.
-
-@subsubheading Learning manual
+@subheading Learning Manual (LM)
 
 This book explains how to begin learning LilyPond, as well as explaining
 some key concepts in easy terms.  It is recommended to read these
 chapters in a linear fashion.
 
-@itemize @bullet
+@itemize
 
 @item
 @ifhtml
@@ -715,7 +714,7 @@ gives a gentle introduction to typesetting music.  First time
 users should start here.
 
 @item
-@emph{@ref{Putting it all together}},
+@emph{@ref{Fundamental concepts}},
 explains some general concepts about the lilypond file format.  If
 you are not certain where to place a command, read this chapter!
 
@@ -732,47 +731,51 @@ produces.
 @end itemize
 
 
-@subsubheading Notation reference
+@subheading Notation Reference (NR)
 
 This book explains all the LilyPond commands which produce notation.  It
 assumes that readers are familiar with the concepts in the Learning
 manual.
 
-@itemize @bullet
+All of this needs to be rewritten after GDP, anyway.
+
+@ignore
+
+@itemize
 
 @item
-@emph{@ref{Basic notation}},
+@emph{@r ef{Basic notation}},
 discusses topics grouped by notation construct.  This section gives
 details about basic notation that will be useful in almost any
 notation project.
 
 @item
-@emph{@ref{Instrument-specific notation}},
+@emph{@r ef{Instrument-specific notation}},
 discusses topics grouped by notation construct.  This section gives
 details about special notation that will only be useful for particular
 instrument (or vocal) groups.
 
 @item
-@emph{@ref{Advanced notation}},
+@emph{@r ef{Advanced notation}},
 discusses topics grouped by notation construct.  This section gives
 details about complicated or unusual notation.
 
 @item
-@emph{@ref{Changing defaults}},
+@emph{@r ef{Changing defaults}},
 explains how to fine tune layout.
 
 @item
-@emph{@ref{Non-musical notation}},
+@emph{@r ef{Non-musical notation}},
 discusses non-musical output such as titles, multiple movements,
 and how to select which MIDI instruments to use.
 
 @item
-@emph{@ref{Spacing issues}},
+@emph{@r ef{Spacing issues}},
 discusses issues which affect the global output, such as selecting
 paper size or specifying page breaks.
 
 @item
-@emph{@ref{Interfaces for programmers}},
+@emph{@r ef{Interfaces for programmers}},
 explains how to create music functions.
 
 @end itemize
@@ -782,55 +785,56 @@ explains how to create music functions.
 
 This book contains useful reference charts.
 
-@itemize @bullet
+@itemize
 @item
 @ifhtml
 The
 @end ifhtml
-@emph{@ref{Literature list}},
+@emph{@r ef{Literature list}},
 contains a set of useful reference books for those who wish to know
 more on notation and engraving.
 
 @item
 The
-@emph{@ref{Scheme tutorial}},
+@emph{@r ef{Scheme tutorial}},
 presents a short introduction to Scheme, the programming
 language that music functions use.
 
 @item
-@emph{@ref{Notation manual tables}},
+@emph{@r ef{Notation manual tables}},
 are a set of tables showing the chord names, MIDI instruments,
 a list of color names, and the Feta font.
 
 @item
-@emph{@ref{Templates}},
+@emph{@r ef{Templates}},
 of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 
 @item
 The
-@emph{@ref{Cheat sheet}},
+@emph{@r ef{Cheat sheet}},
 is a handy reference of the most common LilyPond commands.
 
 @item
 The
-@emph{@ref{LilyPond command index}},
+@emph{@r ef{LilyPond command index}},
 is an index of all LilyPond @code{\commands}.
 
 @item
 The
-@emph{@ref{LilyPond index}},
+@emph{@r ef{LilyPond index}},
 is a complete index.
 
 @end itemize
 
+@end ignore
 
 @subheading Program usage
 
 This book explains how to execute the program and how to integrate
 LilyPond notation with other programs.
 
-@itemize @bullet
+@itemize
 
 @item
 @emph{@rprogram{Install}},
@@ -866,7 +870,7 @@ formats to the @code{.ly} format.
 
 There are a number of other places which may be very valuable.
 
-@itemize @bullet
+@itemize
 @cindex idiom
 @cindex jargon
 @cindex terminology

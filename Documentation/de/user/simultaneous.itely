@@ -1,0 +1,478 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Simultaneous notes
+@section Simultaneous notes
+
+Polyphonie bedeutet in der musikalischen Terminologie das
+Vorhandensein von mehr als einer (eigenständigen) Stimme 
+in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein 
+von mehr als einer Stimme pro System.
+
+@menu
+* Single voice::                
+* Multiple voices::             
+@end menu
+
+
+@node Single voice
+@subsection Single voice
+
+@menu
+* Chords::                      
+* Clusters::                    
+@end menu
+
+@node Chords
+@unnumberedsubsubsec Chords
+
+@cindex Akkorde
+
+Ein Akkord wird notiert, indem die zu ihm gehörenden Tonhöhen 
+zwischen spitze Klammern (@code{<} und @code{>} gesetzt werden.
+Auf einen Akkord kann eine Dauer-Angabe folgen, genauso wie bei 
+einfachen Noten.
+
+
+@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+<c e g>4 <c>8
+@end lilypond
+
+Siehe @ref{Chord names} für mehr Information.
+
+
+@node Clusters
+@unnumberedsubsubsec Clusters
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Multiple voices
+@subsection Multiple voices
+
+@menu
+* Basic polyphony::             
+* Explicitly instantiating voices::  
+* Collision Resolution::        
+* Automatic part combining::    
+* Writing music in parallel::   
+@end menu
+
+@node Basic polyphony
+@unnumberedsubsubsec Basic polyphony
+
+@cindex Mehrstimmigkeit
+@cindex Polyphonie
+
+Die einfachste Weise, Abschnitte mit mehr als einer Stimme pro
+Notensystem zu notieren, ist es, jede Stimme als eine
+Sequenz zu notieren (innerhalb der Klammern @code{@{...@}}) 
+und dann die beiden Klammer simultan zu kombinieren, indem
+sie mit @code{\\} getrennt werden.
+
+@funindex \\
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  c16 d e f
+  <<
+    { g4 f e | d2 e2 } \\
+    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+    { s2. | s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+Dieser Trenner veranlasst, dass Stimmen (@internalsref{Voice}) 
+-Kontexte@footnote{Polyphone Stimmen werden in anderen
+Programmen teilweise als @qq{layers} (Schichten) bezeichnet.}
+@cindex Layers
+angelegt werden. Sie tragen die Namen @code{"1"}, @code{"2"} 
+usw. In jedem dieser Kontexte wird die Richtung von Bögen,
+Hälsen usw. entsprechend angepasst.
+
+Diese Stimmen sind alle unabhängig von der Stimme, in der die 
+Noten außerhalb der @code{<< \\ >>}-Konstruktion notiert sind.
+Das sollte man berücksichtigen, wenn man auf Stimmen-Ebene
+Veränderungen vornimmt. Das bedeutet gleichzeitig auch, dass 
+Legato- und Bindebögen nicht in eine @code{<< \\ >>}-Umgebung 
+hinein- noch aus hier hinaus ragen können. Die parallelen 
+Notenabschnitte aus unterschiedlichen @code{<< \\ >>}-Umgebungen
+hingegen gehören der gleichen Stimme an. Hier noch einmal das 
+gleiche Beispiel mit unterschiedlichen Notenköpfen und Farben 
+für jede Stimme. 
+Die Veränderung der Notenköpfe in der Hauptstimme hat keine
+Auswirkung auf die Stimmen innerhalb der  @code{<< \\ >>}-Umgebungen, 
+und die Veränderung der Notenköpfe für die untere Stimme setzt 
+sich fort in der zweiten  @code{<< \\ >>}-Umgebung. Hier ist auch 
+eine Noten über die Taktgrenze hinweg an die untere Stimme der 
+zweiten Polyphonie-Umgebung angebunden.
+
+@cindex Notenköpfe, Stile
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  <<
+    { g4 f e } \\
+    { \override NoteHead #'style = #'triangle
+      \override NoteHead #'color = #blue
+    r8 e4 d c8 ~ }
+  >> |
+  <<
+    { d2 e2 } \\
+    { c8 b16 a b8 g ~ g2 } \\
+    { \override NoteHead #'style = #'slash 
+      \override NoteHead #'color = #green
+      s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+Polyphonie verändert nicht das Verhältnis der Noten 
+innerhalb einer @code{\relative @{ @}}-Umgebung.
+Jede Note wird weiterhin errechnet aus der direkt 
+vorhergehenden.
+
+@example
+\relative @{ NoteA << NoteB \\ NoteC >> NoteD @}
+@end example
+
+@code{NoteC} ist relativ zu @code{NoteB}, nicht @code{NoteA};
+@code{NoteD} ist relativ zu @code{NoteC}, nicht @code{NoteB} oder
+@code{NoteA}.
+
+
+@node Explicitly instantiating voices
+@unnumberedsubsubsec Explicitly instantiating voices
+
+@internalsref{Voice}-Kontexte können auch manuell innerhalb 
+eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
+@code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme 
+entsprechendes Verhalten von vertikaler Verschiebung und Richtung 
+von Hälsen und anderen Objekten hinzugefügt werden.
+
+Genauer gesagt,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+entspricht 
+
+@example
+<<
+  \new Voice = "1" @{ \voiceOne \upper @}
+  \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+Der @code{\voiceXXX}-Befehl setzt die Richtung von Hälsen, 
+Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen. 
+ @code{\voiceOne} und @code{\voiceThree} lassen diese Objekte 
+ nach oben zeigen, 
+ @code{\voiceTwo} und @code{\voiceFour}
+dagegen lassen sie abwärts zeigen. Der Befehl 
+@code{\oneVoice} stellt wieder auf das normale Verhalten um.
+
+Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung 
+auftritt, gehört der Hauptstimme an. Das ist nützlich, wenn zusätzliche 
+Stimme auftreten, während die Hauptstimme sich fortsetzt. Hier also 
+eine bessere Version des Beispiels aus dem vorigen Abschnitt. Die 
+farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in 
+einem einzigen Stimmen (@code{voice})-Kontext befindet.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2 }
+    \new Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Und mit der richtigen Definition der Stimmen kann die Melodie auch 
+übergebunden werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Indem man den @code{\\}-Trenner vermeidet, gelingt es auch, mehrstimmige 
+Abschnitte ineinander zu schachteln, was in manchen Fällen die bessere 
+und natürlichere Lösung sein kann.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+In manchen Fällen von sehr komplexer polyphoner Musik können noch 
+mehr Stimmen benötigt werden, um Zusammenstöße zwischen Noten zu 
+vermeiden. Zusätzliche Stimmen werden durch einen neuen Bezeichner 
+erstellt, wie das nächste Beispiel zeigt.
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
+
+
+@node Collision Resolution
+@unnumberedsubsubsec Collision Resolution
+
+Normalerweise werden Notenköpfe mit einer unterschiedlichen Anzahl 
+von Punktierungen nicht verschmolzen, aber wenn die Objekt-Eigenschaft 
+ @code{merge-differently-dotted} in ein 
+Notenkollisions (@internalsref{NoteCollision})-Objekt gesetzt wird, 
+werden sie zusammengefasst.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice << {
+  g8 g8
+  \override Staff.NoteCollision
+    #'merge-differently-dotted = ##t
+  g8 g8
+} \\ { g8.[ f16] g8.[ f16] } >>
+@end lilypond
+
+Auf gleiche Art können auch Halbe mit Achteln vereinigt werden, indem 
+@code{merge-differently-headed} eingesetzt wird:
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\new Voice << {
+  c8 c4.
+  \override Staff.NoteCollision
+    #'merge-differently-headed = ##t
+c8 c4. } \\ { c2 c2 } >>
+@end lilypond
+
+@noindent
+@code{merge-differently-headed} und @code{merge-differently-dotted}
+wirken sich allerdings nur auf Noten mit unterschiedlich gerichteten 
+Hälsen aus (wie etwa Stimme 1 und 2).
+
+LilyPond verschiebt auch Pausen vertikal, die einem Hals gegenüber stehen:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new Voice << c''4 \\ r4 >>
+@end lilypond
+
+Wenn drei oder mehr Noten in der selben Spalte angeordnet werden, 
+kann @code{merge-differently-headed} nicht mehr erfolgreich die 
+Noten vereinen, die ineinander gesetzt werden müssten. Damit die 
+Vereinigung funktioniert, muss der Befehl @code{\shift} vor die
+Note gesetzt werden, auf die er Auswirkung hat. Im ersten Takt 
+des folgenden Beispiels funktioniert @code{merge-differently-headed} 
+nicht (der Notenkopf der Halben ist schwarz). Im zweiten Takt 
+wurde @code{\shiftOn} eingefügt, um das obere @code{g} aus der 
+Spalte zu rücken, und das Vereinigen funktioniert wie gewünscht.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+<<
+  { d=''2 g2 } \\
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+<<
+  { d'=''2 \shiftOn g2 } \\ 
+  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
+  { \voiceFour e,,2 e'2}
+>>
+@end lilypond
+
+
+@refcommands
+
+@funindex \oneVoice
+@code{\oneVoice},
+@funindex \voiceOne
+@code{\voiceOne},
+@funindex \voiceTwo
+@code{\voiceTwo},
+@funindex \voiceThree
+@code{\voiceThree},
+@funindex \voiceFour
+@code{\voiceFour}.
+
+@funindex \shiftOn
+@code{\shiftOn},
+@funindex \shiftOnn
+@code{\shiftOnn},
+@funindex \shiftOnnn
+@code{\shiftOnnn},
+@funindex \shiftOff
+@code{\shiftOff}: Diese Befehle definieren den Grad, mit 
+welchem Noten der aktuellen Stimmen verschoben werden 
+sollen. Die äußeren Stimmen (normalerweise 1 und 2) haben 
+den Befehl @code{\shiftOff}, die inneren dagegen (drei und 
+vier) den Befehl @code{\shiftOn}. @code{\shiftOnn} und 
+@code{\shiftOnnn} stellen weitere Verschiebungsebenen dar.
+
+Wenn LilyPond selber keine Lösung bieten kann, können die 
+Eigenschaft @code{force-hshift} des 
+@internalsref{NoteColumn}-Objektes (siehe unten) 
+sowie Pausen mit definierter Tonhöhe eingesetzt werden, 
+um Satzentscheidungen des Programmes zu überschreiben.
+
+@lilypond[quote,verbatim,ragged-right]
+\relative <<
+{
+  <d g>
+  <d g>
+} \\ {
+  <b f'>
+  \once \override NoteColumn #'force-hshift = #1.7
+  <b f'>
+} >>
+@end lilypond
+
+
+@seealso
+
+Programmreferenz: Die Objekte, die für Auflösung von Zusammenstößen 
+zuständig sind, sind 
+@internalsref{NoteCollision} und @internalsref{RestCollision}.
+
+
+@refbugs
+
+Wenn @code{merge-differently-headed} mit einer nach oben gerichteten 
+Achtel oder kleineren Note verwendet wird, und die nach unten gerichtete 
+Note ist eine Halbe, bekommt die Achtel die falsche Richtung gesetzt.
+
+Es gibt keine Unterstützung für Cluster, in denen die gleiche Note 
+mit unterschiedlichen Vorzeichen im selben Akkord auftritt. In diesem 
+Fall sollte man eine enharmonische Transkription benutzen oder 
+die spezielle Cluster-Notationsweise, siehe @ref{Clusters}.
+
+
+@node Automatic part combining
+@unnumberedsubsubsec Automatic part combining
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Writing music in parallel
+@unnumberedsubsubsec Writing music in parallel
+
+@cindex Parallele Notation, Eingabe
+@cindex Eingabe von Noten parallel
+@cindex Verschachtelte Musik
+
+Noten für mehrere Stimmen können verschachtelt notiert werden:
+
+@lilypond[quote,fragment,verbatim]
+\parallelMusic #'(voiceA voiceB) {
+  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
+  c'2                                c'2                                |
+  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
+  c'2                                c'2                                |
+}
+\new StaffGroup <<
+  \new Staff \new Voice \voiceA
+  \new Staff \new Voice \voiceB
+>>
+@end lilypond
+
+Das funktioniert ziemlich gut für Klaviernoten:
+
+@lilypond[quote,verbatim]
+music = {
+  \key c \major
+  \time 4/4
+  \parallelMusic #'(voiceA voiceB voiceC voiceD) {
+    % Bar 1
+    r8  g'16[ c''] e''[ g' c'' e''] r8  g'16[ c''] e''[ g' c''
+e''] |
+    c'2                                 c'2 |
+    r8  a16[ d'] f'[ a d' f']       r8  a16[ d'] f'[ a d' f'] |
+    c2                                  c2 |
+
+    % Bar 2
+    a'8 b'      c'' d''    e'' f''    g'' a'' |
+    d'4         d'         d'         d' |
+    c16 d e f   d e f g    e f g a    f g a b |
+    a,4         a,4        a,4        a,4 |
+
+    % Bar 3 ...
+  }
+}
+
+\score {
+  \new PianoStaff <<
+    \music
+    \new Staff <<
+      \voiceA \\
+      \voiceB
+    >>
+    \new Staff {
+      \clef bass
+      <<
+        \voiceC \\
+        \voiceD
+      >>
+    }
+  >>
+}
+@end lilypond
+
+

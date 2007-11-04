@@ -143,7 +143,7 @@ Um das Verhalten zu verändern, so dass alles, was nach dem Befehl
 kommt, verändert wird, müssen Sie den Befehl @code{\once} weglassen. 
 Um die Veränderung zu stoppen, benutzen Sie den Befehl @code{\revert}.
 Das wird genauer im Kapitel
-@ref{The \override command} erklärt.
+@ruser{The \override command} erklärt.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
   % temporary code to break this example:
@@ -165,13 +165,13 @@ c4^"piu mosso" d e f
 
 @seealso
 
-@ref{The \override command}, @ref{Common tweaks}.
+@ruser{The \override command}, @ruser{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-Im Kapitel @ref{Moving objects} wurde gezeigt, wie man Texte 
+Im Kapitel @ruser{Moving objects} wurde gezeigt, wie man Texte 
 (@code{TextScript}-Objekte) verschiebt. Mit der gleichen 
 Technik können auch andere Objektklassen verschoben werden, 
 @code{TextScript} muss dann nur durch den Namen des Objektes 
@@ -179,7 +179,7 @@ ersetzt werden.
 
 Um den Objektnamen zu finden, siehe die @q{@strong{see also}}-Hinweise 
 am Ende des jeweiligen Abschnittes. Zum Beispiel am Ende des
-Kapitels  @ref{Dynamics} findet sich:
+Kapitels  @ruser{Dynamics} findet sich:
 
 @quotation
 @seealso
@@ -259,7 +259,7 @@ für bestimmte Objekte zuständig ist. Weil das
  @code{MetronomeMark}-Objekt vom @code{Score}-Kontext gesetzt 
 wird, werden Veränderungen innerhalb des @code{Voice}-Kontextes 
 nicht berücksichtigt. Genauere Details im Kapitel
-@ref{Constructing a tweak}.
+@ruser{Constructing a tweak}.
 
 @cindex extra-offset
 @cindex zusätzlicher Abstand
@@ -395,7 +395,7 @@ ist, um die Systeme noch unterzubringen.
 Wenn man versucht, das Layout zu verändern, kommt einem 
 der Befehl @code{annotate-spacing} zu Hilfe. Mit diesem 
 Befehl erhält man die Werte von verschiedenen Abstandsbefehlen 
-ausgedruckt, mehr Information im Kapitel @ref{Displaying spacing}. 
+ausgedruckt, mehr Information im Kapitel @ruser{Displaying spacing}. 
 Anhand dieser Angaben kann dann entschieden werden, welche 
 Werte verändert werden müssen.
 
@@ -449,7 +449,7 @@ weit @qq{hervorstehen}, zu verschieben.
 @item
 Die horizontalen Abstände können mit der 
  @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
-@ref{Changing horizontal spacing} für Einzelheiten.
+@ruser{Changing horizontal spacing} für Einzelheiten.
 
 @lilypond[verbatim,quote]
 \score {
@@ -480,8 +480,8 @@ werden kann, indem man Befehle wie
 @code{\override TextScript #'extra-offset = ( 1 . -1)} benutzt. Aber 
 noch mehr Einfluss auf die Formatierung kann durch den Einsatz von 
 Scheme genommen werden. Eine vollständige Erklärung findet sich in der 
- @ref{Scheme tutorial} und den
-@ref{Interfaces for programmers}.
+ @ruser{Scheme tutorial} und den
+@ruser{Interfaces for programmers}.
 
 Scheme kann benutzt werden, um einfach nur Befehle zu @qq{überschreiben} 
 (@code{\override}):

@@ -1,0 +1,897 @@
+
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond-learning.tely
+
+@node Fundamental concepts
+@chapter Fundamental concepts
+
+@menu
+* How LilyPond files work::     
+* Voices contain music::        
+* TODO new sec fundamental::    
+* Extending the templates::     
+* Scores and parts::            
+@end menu
+
+
+@node How LilyPond files work
+@section How LilyPond files work
+
+The LilyPond input format is quite free-form, giving experienced
+users a lot of flexibility to structure their files however they
+wish.  However, this flexibility can make things confusing for new
+users.  This section will explain some of this structure, but may
+gloss over some details in favor of simplicity.  For a complete
+description of the input format, see @ruser{File structure}.
+
+@menu
+* Introduction to the LilyPond file structure::  
+* Score is a (single) compound musical expression::  
+@end menu
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+
+A basic example of a lilypond input file is
+
+@example
+\version "2.11.23"
+\score @{
+  @var{...compound music expression...}  % all the music goes here!
+  \header @{ @}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+There are many variations of this basic pattern, but this
+example serves as a useful starting place.
+
+At this point, you may be confused, since you have never seen a
+@code{\score@{@}} before.  This is because LilyPond automatically
+adds the extra commands when you give it simple input.  LilyPond
+treats input like this:
+
+@example
+\relative c'' @{
+  c4 a d c
+@}
+@end example
+
+@noindent
+as shorthand for this:
+
+@example
+\score @{
+  \relative c'' @{
+    c4 a b c
+  @}
+  \layout @{ @}
+@}
+@end example
+
+In other words, if the input contains a single music expression,
+LilyPond will interpret the file as though the music expression
+was wrapped up inside a @code{\score@{@}}.
+
+@smallspace
+
+A @code{\score} must begin with a compound music expression.
+Remember that a music expression could be anything from a single
+note to a huge
+
+@example
+@{
+  \new GrandStaff <<
+    @var{...insert the whole score of a Wagner opera in here...}
+  >>
+@}
+@end example
+
+@noindent
+Since everything is inside @code{@{ ... @}}, it counts
+as one music expression.
+
+As we saw previously, the @code{\score} can contain other things,
+such as
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+  \header @{ @}
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+Some people put some of those commands outside the @code{\score}
+block -- for example, @code{\header} is often placed above the
+@code{\score}.  That's just another shorthand that LilyPond
+accepts.
+
+@smallspace
+
+@cindex variables
+
+Another great shorthand is the ability to define variables.  All
+the templates use this
+
+@example
+melody = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  @{ \melody @}
+@}
+@end example
+
+When LilyPond looks at this file, it takes the value of
+@code{melody} (everything after the equals sign) and inserts it
+whenever it sees @code{\melody}.  There's nothing special about
+the names -- it could be @code{melody}, @code{global},
+@code{pianorighthand}, or @code{foofoobarbaz}.  You can use
+whatever variable names you want.  For more details, see
+@ruser{Saving typing with variables and functions}.
+
+
+@seealso
+
+For a complete definition of the input format, see @ruser{File
+structure}.
+
+
+@node Score is a (single) compound musical expression
+@subsection Score is a (single) compound musical expression
+
+@cindex Compound music expression
+@cindex Music expression, compound
+
+We saw the general organization of LilyPond input files in the
+previous section, @ref{How LilyPond files work}.  But we seemed to
+skip over the most important part: how do we figure out what to
+write after @code{\score}?
+
+We didn't skip over it at all.  The big mystery is simply that
+there @emph{is} no mystery.  This line explains it all:
+
+@quotation
+@emph{A @code{\score} must begin with a compound music expression.}
+@end quotation
+
+@noindent
+You may find it useful to review @ruser{Music expressions
+explained}.  In that section, we saw how to build big music
+expressions from small pieces -- we started from notes, then
+chords, etc.  Now we're going to start from a big music expression
+and work our way down.
+
+@example
+\score @{
+  @{ % this brace begins the overall compound music expression
+    \new GrandStaff <<
+      @var{...insert the whole score of a Wagner opera in here...}
+    >>
+  @} % this brace ends the overall compound music expression
+  \layout @{ @}
+@}
+@end example
+
+A whole Wagner opera would easily double the length of this
+manual, so let's just add a singer and piano.  We don't need a
+@code{GrandStaff} for this ensemble, so we shall remove it.  We
+@emph{do} need a singer and a piano, though.
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "singer" <<
+      >>
+      \new PianoStaff = piano <<
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Remember that we use @code{<<} and @code{>>} to show simultaneous
+music.  And we definitely want to show the vocal part and piano
+part at the same time, not one after the other!
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "singer" <<
+        \new Voice = "vocal" @{ @}
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ @}
+        \new Staff = "lower" @{ @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Now we have a lot more details.  We have the singer's staff: it
+contains a @code{Voice} (in LilyPond, this term refers to a set of
+notes, not necessarily vocal notes -- for example, a violin
+generally plays one voice) and some lyrics.  We also have a piano
+staff: it contains an upper staff (right hand) and a lower staff
+(left hand).
+
+At this stage, we could start filling in notes.  Inside the curly
+braces next to @code{\new Voice = vocal}, we could start writing
+
+@example
+\relative c'' @{
+  a4 b c d
+@}
+@end example
+
+But if we did that, the @code{\score} section would get pretty
+long, and it would be harder to understand what was happening.  So
+let's use variables instead.
+
+@example
+melody = @{ @}
+text = @{ @}
+upper = @{ @}
+lower = @{ @}
+\score @{
+  @{
+    <<
+      \new Staff = "singer" <<
+        \new Voice = "vocal" @{ \melody @}
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ \upper @}
+        \new Staff = "lower" @{ \lower @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+@noindent
+Remember that you can use almost any name you like.  The
+limitations on variable names are detailed in @ruser{File
+structure}.
+
+When writing (or reading) a @code{\score} section, just take it
+slowly and carefully.  Start with the outer layer, then work on
+each smaller layer.  It also really helps to be strict with
+indentation -- make sure that each item on the same layer starts
+on the same horizontal position in your text editor.
+
+
+@node Voices contain music
+@section Voices contain music
+
+TODO: something cheesy and vaguely witty about voices being the
+fundamental thing that includes music in lilypond.
+
+@menu
+* I'm seeing Voices::           
+* Explicitly instantiating voices::  
+* Voices and vocals::           
+@end menu
+
+@c too cheesy?  I'm not certain.  -gp
+@node I'm seeing Voices
+@subsection I'm seeing Voices
+
+@cindex polyphony
+
+TODO: add intro about voices vs. layers vs. whatever.
+
+TODO: sex this up with colors and stuff.  -gp 
+
+TODO: actually, a general rewrite is needed.  -gp
+
+
+The easiest way to enter fragments with more than one voice on a
+staff is to enter each voice as a sequence (with @code{@{...@}}),
+and combine them simultaneously, separating the voices with
+@code{\\}
+
+@funindex \\
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  c16 d e f
+  <<
+    { g4 f e | d2 e2 } \\
+    { r8 e4 d c8 ~ | c b16 a b8 g ~ g2 } \\
+    { s2. | s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+@cindex layers
+
+The separator causes @internalsref{Voice}
+contexts@footnote{Polyphonic voices are sometimes
+called @q{layers} in other notation packages} to be instantiated.
+They bear the names @code{"1"}, @code{"2"}, etc.  In each of these
+contexts, vertical direction of slurs, stems, etc., is set
+appropriately.
+
+These voices are all separate from the voice that contains the
+notes just outside the @code{<< \\ >>} construct.  This should be
+noted when making changes at the voice level.  This also means
+that slurs and ties cannot go into or out of a @code{<< \\ >>}
+construct.  Conversely, parallel voices from separate @code{<< \\
+>>} constructs on the same staff are the same voice.  Here is the
+same example, with different noteheads and colors for each voice.
+Note that the change to the note-head style in the main voice does
+not affect the inside of the @code{<< \\ >>} constructs.  Also,
+the change to the second voice in the first @code{<< \\ >>}
+construct is effective in the second @code{<< \\ >>}, and the
+voice is tied across the two constructs.
+
+@cindex note heads, styles
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  <<
+    { g4 f e } \\
+    { \override NoteHead #'style = #'triangle
+      \override NoteHead #'color = #blue
+    r8 e4 d c8 ~ }
+  >> |
+  <<
+    { d2 e2 } \\
+    { c8 b16 a b8 g ~ g2 } \\
+    { \override NoteHead #'style = #'slash 
+      \override NoteHead #'color = #green
+      s4 b4 c2 }
+  >>
+}
+@end lilypond
+
+Polyphony does not change the relationship of notes within a
+@code{\relative @{ @}} block.  Each note is calculated relative to
+the note immediately preceding it.
+
+@example
+\relative @{ noteA << noteB \\ noteC >> noteD @}
+@end example
+
+@code{noteC} is relative to @code{noteB}, not @code{noteA};
+@code{noteD} is relative to @code{noteC}, not @code{noteB} or
+@code{noteA}.
+
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+TODO: more colors and stuff.
+
+@internalsref{Voice} contexts can also be instantiated manually
+inside a @code{<< >>} block to create polyphonic music, using
+@code{\voiceOne}, up to @code{\voiceFour} to assign stem
+directions and a horizontal shift for each part.
+
+Specifically,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+is equivalent to
+
+@example
+<<
+  \new Voice = "1" @{ \voiceOne \upper @}
+  \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+The @code{\voiceXXX} commands set the direction of stems, slurs,
+ties, articulations, text annotations, augmentation dots of dotted
+notes, and fingerings.  @code{\voiceOne} and @code{\voiceThree}
+make these objects point upwards, while @code{\voiceTwo} and
+@code{\voiceFour} make them point downwards.  The command
+@code{\oneVoice} will revert back to the normal setting.
+
+An expression that appears directly inside a @code{<< >>} belongs
+to the main voice.  This is useful when extra voices appear while
+the main voice is playing.  Here is a more correct rendition of
+the example from the previous section.  The crossed colored
+noteheads demonstrate that the main melody is now in a single
+voice context.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2 }
+    \new Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+The correct definition of the voices allows the melody to be
+slurred.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Avoiding the @code{\\} separator also allows nesting polyphony
+constructs, which in some case might be a more natural way to
+typeset the music.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+
+@node Voices and vocals
+@subsection Voices and vocals
+
+Vocal music presents a special difficulty: we need to combine two
+expressions -- notes and lyrics.
+
+You have already seen the @code{\lyricsAdd@{@}} command, which
+handles simple cases for you.  However, @code{\lyricsAdd@{@}} is
+very limited.  For most music, you must explicitly link the lyrics
+to the notes with @code{\lyricsTo@{@}}
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+TODO: get some vocal person to write more.
+
+
+@node TODO new sec fundamental
+@section TODO new sec fundamental
+
+blh blah
+
+
+@menu
+* On the un-nestedness of brackets and ties::  
+* Up and down::                 
+* Distances and measurements::  
+@end menu
+
+@c my name start sucking the more docs I write. -gp
+@node On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
+
+Different kinds of brackets and ties may be mixed freely,
+
+TODO: improve this example
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  r16[ g16 \times 2/3 {r16 e'8] }
+  g16( a \times 2/3 {b d e') }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
+}
+@end lilypond
+
+TODO... add more info?  Fluff up the first sentence?
+
+
+@node Up and down
+@subsection Up and down
+
+TODO: everything
+
+By default, lilypnod does a pretty jazz'n job of picking
+directions.  But in some cases, it may be desirable to force a
+direction.
+
+@verbatim
+-
+^ _
+@end verbatim
+
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+DISCUSS
+
+TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
+
+
+
+@node Extending the templates
+@section Extending the templates
+
+You've read the tutorial, you know how to write music.  But how can you
+get the staves that you want?  The templates are ok, but what if you
+want something that isn't covered?
+
+@menu
+* Soprano and cello::           
+* TODO another example of extending templates::  
+@end menu
+
+@node Soprano and cello
+@unnumberedsubsec Soprano and cello
+
+Start off with the template that seems closest to what you want to end
+up with.  Let's say that you want to write something for soprano and
+cello.  In this case, we would start with @q{Notes and lyrics} (for the
+soprano part).
+
+@example
+\version "2.11.23"
+melody = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+text = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+\score@{
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \melody
+    @}
+    \new Lyrics \lyricsto "one" \text
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Now we want to add a cello part.  Let's look at the @q{Notes only} example:
+
+@example
+\version "2.11.23"
+melody = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+\score @{
+\new Staff \melody
+\layout @{ @}
+\midi @{ @}
+@}
+@end example
+
+We don't need two @code{\version} commands.  We'll need the @code{melody}
+section.  We don't want two @code{\score} sections -- if we had two
+@code{\score}s, we'd get the two parts separately.  We want them together,
+as a duet.  Within the @code{\score} section, we don't need two
+@code{\layout} or @code{\midi}.
+
+If we simply cut and paste the @code{melody} section, we would end up with
+two @code{melody} sections.  So let's rename them.  We'll call the section
+for the soprano @code{sopranoMusic} and the section for the cello
+@code{celloMusic}.  While we're doing this, let's rename @code{text}
+to be @code{sopranoLyrics}.  Remember to rename both instances of all
+these names -- both the initial definition (the
+@code{melody = relative c' @{ } part) and the name's use (in the
+@code{\score} section).
+
+While we're doing this, let's change the cello part's staff -- celli
+normally use bass clef.  We'll also give the cello some different
+notes.
+
+@example
+\version "2.11.23"
+sopranoMusic = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+sopranoLyrics = \lyricmode @{
+  Aaa Bee Cee Dee
+@}
+
+celloMusic = \relative c @{
+  \clef bass
+  \key c \major
+  \time 4/4
+
+  d4 g fis8 e d4
+@}
+
+\score@{
+  <<
+    \new Voice = "one" @{
+      \autoBeamOff
+      \sopranoMusic
+    @}
+    \new Lyrics \lyricsto "one" \sopranoLyrics
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+This is looking promising, but the cello part won't appear in the
+score -- we haven't used it in the @code{\score} section.  If we
+want the cello part to appear under the soprano part, we need to add
+
+@example
+\new Staff \celloMusic
+@end example
+
+@noindent
+underneath the soprano stuff.  We also need to add @code{<<} and
+@code{>>} around the music -- that tells LilyPond that there's
+more than one thing (in this case, @code{Staff}) happening at once.  The
+@code{\score} looks like this now
+
+@example
+\score@{
+  <<
+    <<
+      \new Voice = "one" @{
+        \autoBeamOff
+        \sopranoMusic
+      @}
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+This looks a bit messy; the indentation is messed up now.  That is
+easily fixed.  Here's the complete soprano and cello template.
+
+@lilypond[quote,verbatim,ragged-right]
+\version "2.11.23"
+sopranoMusic = \relative c' {
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+}
+
+sopranoLyrics = \lyricmode {
+  Aaa Bee Cee Dee
+}
+
+celloMusic = \relative c {
+  \clef bass
+  \key c \major
+  \time 4/4
+
+  d4 g fis8 e d4
+}
+
+\score{
+  <<
+    <<
+      \new Voice = "one" {
+        \autoBeamOff
+        \sopranoMusic
+      }
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
+  >>
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+
+@node TODO another example of extending templates
+@unnumberedsubsec TODO another example of extending templates
+
+TODO: somebody else fill this in.  You guys like vocal stuff,
+right?  Get to it.  :)  -gp
+
+
+
+@node Scores and parts
+@section Scores and parts
+
+TODO: this is really old stuff from the really old tutorial.
+Rewrite, fix, etc.  -gp
+
+In orchestral music, all notes are printed twice.  Once in a part for
+the musicians, and once in a full score for the conductor.  Variables can
+be used to avoid double work.  The music is entered once, and stored in
+a variable.  The contents of that variable is then used to generate
+both the part and the full score.
+
+It is convenient to define the notes in a special file.  For example,
+suppose that the file @file{horn-music.ly} contains the following part
+of a horn/@/bassoon duo
+
+@example
+hornNotes = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+Then, an individual part is made by putting the following in a file
+
+@example
+\include "horn-music.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+
+@{
+ \transpose f c' \hornNotes
+@}
+@end example
+
+The line
+
+@example
+\include "horn-music.ly"
+@end example
+
+@noindent
+substitutes the contents of @file{horn-music.ly} at this position in
+the file, so @code{hornNotes} is defined afterwards.  The command
+@code{\transpose f@tie{}c'} indicates that the argument, being
+@code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
+@samp{f} is denoted by notated @code{c'}, which corresponds with the
+tuning of a normal French Horn in@tie{}F.  The transposition can be seen
+in the following output
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+In ensemble pieces, one of the voices often does not play for many
+measures.  This is denoted by a special rest, the multi-measure
+rest.  It is entered with a capital @samp{R} followed by a duration
+(@code{1}@tie{}for a whole note, @code{2}@tie{}for a half note,
+etc.).  By multiplying the
+duration, longer rests can be constructed.  For example, this rest
+takes 3@tie{}measures in 2/4 time
+
+@example
+R2*3
+@end example
+
+When printing the part, multi-rests
+must be condensed.  This is done by setting a run-time variable
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+This command sets the property @code{skipBars} in the
+@code{Score} context to true (@code{##t}).  Prepending the rest and
+this option to the music above, leads to the following result
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+
+The score is made by combining all of the music together.  Assuming
+that the other voice is in @code{bassoonNotes} in the file
+@file{bassoon-music.ly}, a score is made with
+
+@example
+\include "bassoon-music.ly"
+\include "horn-music.ly"
+
+<<
+  \new Staff \hornNotes
+  \new Staff \bassoonNotes
+>>
+@end example
+
+@noindent
+leading to
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+
+

@@ -229,7 +229,7 @@ Quelldateien anzulegen. Für Neulinge kann diese Flexibilität aber
 erst einmal verwirrend sein. In diesem Kapitel soll darum ein Teil 
 dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung 
 auch weggelassen werden. Für eine komplette Beschreibung des Eingabeformats 
-siehe @ref{File structure}.
+siehe @ruser{File structure}.
 
 Die meisten Beispiele in diesem Handbuch sind kleine Schnipsel, wie 
 etwa dieser:
@@ -332,16 +332,16 @@ vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
 gut  @code{melodie}, @code{GLOBAL},
 @code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
 Information siehe
-@ref{Saving typing with identifiers and functions}.
+@ruser{Saving typing with identifiers and functions}.
 
 Eine komplette Definition des Eingabeformats findet sich
-im Kapitel @ref{File structure}.
+im Kapitel @ruser{File structure}.
 
 
 @node Score is a single musical expression
 @section Score is a single musical expression
 
-Im vorigen Kapitel, @ref{How LilyPond files work}, 
+Im vorigen Kapitel, @ruser{How LilyPond files work}, 
 wurde die allgemeine Struktur einer LilyPond-Quelldatei 
 beschrieben. Aber anscheinend haben wir die wichtigste 
 Frage ausgelassen, nämlich wie man herausfindet, was nach 
@@ -358,7 +358,7 @@ von einem einzelnen musikalischen Ausdruck.}
 
 @noindent
 Vielleicht wollen Sie noch einmal 
-@ref{Music expressions explained} überfliegen. In diesem
+@ruser{Music expressions explained} überfliegen. In diesem
 Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke 
 aus kleinen Teilen zusammensetzen. Noten können zu Akkorden 
 verbunden werden usw. Jetzt gehen wir aber in die andere Richtung 
@@ -470,7 +470,7 @@ lower = @{ @}
 @noindent
 Nochmal: der Bezeichner kann aller möglicher Text sein. Die 
 Einschränkungen sind in
-@ref{File structure} genau aufgelistet.
+@ruser{File structure} genau aufgelistet.
 
 Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
 sollte man langsam und sorgfältig vorgehen. Am besten fängt 
@@ -617,11 +617,11 @@ Und mit LilyPond übersetzt:
 
 Tiefer gehende Information darüber, wie Stimmauszüge und Partituren 
 erstellt werden, finden sich im Notationshandbuch, siehe 
-@ref{Orchestral music}.
+@ruser{Orchestral music}.
 
 Das Setzen der Variablen, die das Verhalten von LilyPond beeinflussen 
 (@q{properties}), wird im Kapitel
-@ref{Changing context properties on the fly} besprochen.
+@ruser{Changing context properties on the fly} besprochen.
 
 
 

@@ -1,0 +1,217 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Educational use
+@section Educational use
+
+@menu
+* Note heads::                  
+* Inside the staff::            
+* Outside the staff::           
+@end menu
+
+
+@node Note heads
+@subsection Note heads
+
+@menu
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+* Special noteheads::           
+@end menu
+
+@node Easy Notation note heads
+@unnumberedsubsubsec Easy Notation note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Shape note heads
+@unnumberedsubsubsec Shape note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Improvisation
+@unnumberedsubsubsec Improvisation
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Special noteheads
+@unnumberedsubsubsec Special noteheads
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Inside the staff
+@subsection Inside the staff
+
+
+@menu
+* Selecting notation font size::  
+* Fingering instructions::      
+* Hidden notes::                
+* Coloring objects::            
+* Parentheses::                 
+* Ambitus::                     
+* Stems::                       
+@end menu
+
+@node Selecting notation font size
+@unnumberedsubsubsec Selecting notation font size
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Fingering instructions
+@unnumberedsubsubsec Fingering instructions
+
+@cindex Fingersatz
+@cindex Fingerwechsel
+
+Fingersatzanweisungen können folgenderweise notiert werden:
+@example
+@var{Note}-@var{Zahl}
+@end example
+Für Fingerwechsel muss eine Textbeschriftung (markup) benutzt werden:
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+c4-1 c-2 c-3 c-4
+c^\markup { \finger "2 - 3" }
+@end lilypond
+
+Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet 
+werden, die mit dem 
+Daumen (etwa auf dem Cello) gespielt werden sollen.
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+<a_\thumb a'-3>8 <b_\thumb b'-3>
+@end lilypond
+
+Fingersätze für Akkorde können auch zu einzelnen Noten des 
+Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer 
+direkt an die Noten angefügt werden.
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+< c-1 e-2 g-3 b-5 >4
+@end lilypond
+
+
+@commonprop
+
+Eine bessere Kontrolle über die Position der Fingersätze in Akkorden 
+lässt sich mit der Eigenschaft @code{fingeringOrientations} herstellen:
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+\set fingeringOrientations = #'(left down)
+<c-1 es-2 g-4 bes-5 > 4
+\set fingeringOrientations = #'(up right down)
+<c-1 es-2 g-4 bes-5 > 4
+@end lilypond
+
+Mit dieser Funktion können Fingersatzbezeichnungen auch bei einstimmiger 
+Musik sehr nah in die Notenköpfe gerückt werden.
+
+@lilypond[verbatim,ragged-right,quote,fragment]
+\set fingeringOrientations = #'(right)
+<es'-2>4
+@end lilypond
+
+
+@seealso
+
+Programmreferenz: @internalsref{Fingering}.
+
+Beispiele: @lsr{expressive,fingering-chords.ly}
+
+
+@node Hidden notes
+@unnumberedsubsubsec Hidden notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Coloring objects
+@unnumberedsubsubsec Coloring objects
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Parentheses
+@unnumberedsubsubsec Parentheses
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Ambitus
+@unnumberedsubsubsec Ambitus
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Stems
+@unnumberedsubsubsec Stems
+
+Immer, wenn das Programm eine Note findet, wird automatisch 
+ein Notenhals (@internalsref{Stem}) -Objekt erzeugt. Auch 
+für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
+gemacht.
+
+@refcommands
+
+@funindex \stemUp
+@code{\stemUp} (Hälse nach oben),
+@funindex \stemDown
+@code{\stemDown} (Hälse nach unten),
+@funindex \stemNeutral
+@code{\stemNeutral} (Hälse je nach Notenposition).
+
+
+@commonprop
+
+Um die Richtung der Hälse zu ändern, können die Befehle
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+a4 b c b
+\override Stem #'neutral-direction = #up
+a4 b c b
+\override Stem #'neutral-direction = #down
+a4 b c b
+@end lilypond
+
+@noindent benutzt werden.
+
+
+@node Outside the staff
+@subsection Outside the staff
+
+
+@menu
+* Balloon help::                
+* Grid lines::                  
+* Blank music sheet::           
+@end menu
+
+@node Balloon help
+@subsection Balloon help
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Grid lines
+@subsection Grid lines
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Blank music sheet
+@subsection Blank music sheet
+
+UNTRANSLATED NODE: IGNORE ME
+
+

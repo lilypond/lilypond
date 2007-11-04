@@ -1,0 +1,276 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Piano music
+@section Piano music
+
+@menu
+* Piano sections::              
+@end menu
+
+@node Piano sections
+@subsection Piano sections
+
+Piano staves are two normal staves coupled with a brace.  The staves
+are largely independent, but sometimes voices can cross between the
+two staves.  The same notation is also used for harps and other key
+instruments.  The @internalsref{PianoStaff} is especially built to
+handle this cross-staffing behavior.  In this section we discuss the
+@internalsref{PianoStaff} and some other pianistic peculiarities.
+
+@menu
+* Automatic staff changes::     
+* Manual staff switches::       
+* Pedals::                      
+* Staff switch lines::          
+* Cross staff stems::           
+@end menu
+
+@refbugs
+
+Dynamics are not centered, but workarounds do exist.  See the
+@q{piano centered dynamics} template in @rlearning{Piano templates}.
+
+@cindex cross staff stem
+@cindex stem, cross staff
+@cindex distance between staves in piano music
+
+
+@node Automatic staff changes
+@unnumberedsubsubsec Automatic staff changes
+@cindex Automatic staff changes
+
+Voices can be made to switch automatically between the top and the bottom
+staff.  The syntax for this is
+
+@quotation
+@example
+\autochange @dots{}@var{music}@dots{}
+@end example
+@end quotation
+
+@noindent
+This will create two staves inside the current PianoStaff, called
+@code{up} and @code{down}.  The lower staff will be in bass clef by
+default.
+
+A @code{\relative} section that is outside of @code{\autochange} has
+no effect on the pitches of @var{music}, so, if necessary, put
+@code{\relative} inside @code{\autochange} like
+
+@quotation
+@example
+\autochange \relative @dots{} @dots{}
+@end example
+@end quotation
+
+
+The autochanger switches on basis of the pitch (middle C is the turning
+point), and it looks ahead skipping over rests to switch in
+advance.  Here is a practical example
+
+@lilypond[quote,verbatim,ragged-right]
+\new PianoStaff
+  \autochange \relative c'
+  {
+    g4 a b c d r4 a g
+  }
+@end lilypond
+
+
+@seealso
+
+In this manual: @ref{Manual staff switches}.
+
+Program reference: @internalsref{AutoChangeMusic}.
+
+
+
+@refbugs
+
+The staff switches may not end up in optimal places.  For high
+quality output, staff switches should be specified manually.
+
+
+@code{\autochange} cannot be inside @code{\times}.
+
+
+@node Manual staff switches
+@unnumberedsubsubsec Manual staff switches
+
+@cindex manual staff switches
+@cindex staff switch, manual
+
+Voices can be switched between staves manually, using the command
+@example
+\change Staff = @var{staffname} @var{music}
+@end example
+
+@noindent
+The string @var{staffname} is the name of the staff.  It switches the
+current voice from its current staff to the Staff called
+@var{staffname}.  Typically @var{staffname} is @code{"up"} or
+@code{"down"}.  The @context{Staff} referred to must already exist, so
+usually the setup for a score will start with a setup of the staves,
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{keep staff alive}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+
+and the @context{Voice} is inserted afterwards
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
+
+
+@node Pedals
+@unnumberedsubsubsec Pedals
+@cindex Pedals
+
+Pianos have pedals that alter the way sound is produced.  Generally, a
+piano has three pedals, sustain, una corda, and sostenuto.
+
+
+Piano pedal instruction can be expressed by attaching
+@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
+@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
+note or chord
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+c'4\sustainDown c'4\sustainUp
+@end lilypond
+
+What is printed can be modified by setting @code{pedal@var{X}Strings},
+where @var{X} is one of the pedal types: @code{Sustain},
+@code{Sostenuto} or @code{UnaCorda}.  Refer to
+@internalsref{SustainPedal} in the program reference for more
+information.
+
+Pedals can also be indicated by a sequence of brackets, by setting the
+@code{pedalSustainStyle} property to bracket objects
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'bracket
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+A third style of pedal notation is a mixture of text and brackets,
+obtained by setting the @code{pedalSustainStyle} property to
+@code{mixed}
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\set Staff.pedalSustainStyle = #'mixed
+c\sustainDown d e
+b\sustainUp\sustainDown
+b g \sustainUp a \sustainDown \bar "|."
+@end lilypond
+
+The default @q{*Ped.} style for sustain and damper pedals corresponds to
+style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
+default.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+For fine-tuning the appearance of a pedal bracket, the properties
+@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
+@code{PianoPedalBracket} objects (see
+@internalsref{PianoPedalBracket} in the Program reference) can be
+modified.  For example, the bracket may be extended to the right edge
+of the note head
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
+c\sostenutoDown d e c, f g a\sostenutoUp
+@end lilypond
+
+@seealso
+
+In this manual: @ref{Ties} (laissez vibrer).
+
+@node Staff switch lines
+@unnumberedsubsubsec Staff switch lines
+
+
+@cindex follow voice
+@cindex staff switching
+@cindex cross staff
+
+@funindex followVoice
+
+Whenever a voice switches to another staff, a line connecting the notes
+can be printed automatically.  This is switched on by setting
+@code{followVoice} to true
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
+>>
+@end lilypond
+
+@seealso
+
+Program reference: @internalsref{VoiceFollower}.
+
+@refcommands
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
+
+
+@node Cross staff stems
+@unnumberedsubsubsec Cross staff stems
+
+Chords that cross staves may be produced by increasing the length
+of the stem in the lower staff, so it reaches the stem in the upper
+staff, or vice versa.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+
+
+

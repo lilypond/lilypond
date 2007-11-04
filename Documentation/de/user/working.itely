@@ -80,9 +80,9 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat. Auch @code{convert-ly} benötigt die 
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @ref{Bar check}, 
-@ref{Octave check} und
-@ref{Barnumber check}.  Wenn Sie hier und da diese Überprüfungen 
+@item @strong{Benutzen Sie Überprüfungen}: @ruser{Bar check}, 
+@ruser{Octave check} und
+@ruser{Barnumber check}.  Wenn Sie hier und da diese Überprüfungen 
 einfügen, finden Sie einen möglichen Fehler weit schneller. Wie oft 
 aber 
 ist @qq{hier und da}? Das hängt von der Komplexität der Musik ab. Bei 
@@ -117,9 +117,9 @@ ersparen Sie sich viele Probleme, wenn Sie ihre Musik
 eines Tages umarrangieren wollen.
 
 @item @strong{Trennen Sie Einstellungen} von den eigentlichen 
-Noten. Siehe auch @ref{Saving typing with identifiers and functions} 
+Noten. Siehe auch @ruser{Saving typing with identifiers and functions} 
 und
-@ref{Style sheets}.
+@ruser{Style sheets}.
 
 @end itemize
 
@@ -137,7 +137,7 @@ LilyPond-Eingabe einer gedruckten Partitur):
 Sie jedes System, nachdem Sie es fertig kopiert haben. Mit dem 
 @code{showLastLength}-Befehl können Sie den Übersetzungsprozess 
 beschleunigen. Siehe auch 
-@ref{Skipping corrected music}.
+@ruser{Skipping corrected music}.
 
 @item Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
  @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript 
@@ -180,7 +180,7 @@ g4 c'8. e16
 @end example
 
 @item @strong{Trennen Sie Einstellungen von den Noten}.  Diese 
-Empfehlung wurde schon im Abschnitt @ref{General suggestions} gegeben, 
+Empfehlung wurde schon im Abschnitt @ruser{General suggestions} gegeben, 
 aber für große Projekte ist es unumgänglich. Muss z. B. die 
 Definition für @code{fdannp} verändert werden, so braucht 
 man es nur einmal vorzunehmen und die Noten in der Geigenstimme, 
@@ -296,9 +296,9 @@ padText =
 
 Die Benutzung von Variablen hilft auch, viele Schreibarbeit zu 
 vermeiden, wenn die Eingabesyntax von LilyPond sich verändert 
-(siehe auch @ref{Updating old files}). Wenn nur eine einzige 
+(siehe auch @ruser{Updating old files}). Wenn nur eine einzige 
 Definition (etwa @code{\dolce}) für alle Dateien verwendet wird 
-(vgl. @ref{Style sheets}), muss nur diese einzige Definition 
+(vgl. @ruser{Style sheets}), muss nur diese einzige Definition 
 verändert werden, wenn sich die Syntax ändert. Alle Verwendungen 
 des Befehles beziehen sich dann auf die neue Definition.
 
@@ -306,14 +306,14 @@ des Befehles beziehen sich dann auf die neue Definition.
 @section Style sheets
 
 Die Ausgabe, die LilyPond erstellt, kann sehr start modifiziert 
-werden, siehe @ref{Tweaking output} für Einzelheiten. Aber wie 
+werden, siehe @ruser{Tweaking output} für Einzelheiten. Aber wie 
 kann man diese Änderungen auf eine ganze Serie von Dateien 
 anwenden? Oder die Einstellungen von den Noten trennen? Das 
 Verfahren ist ziemlich einfach.
 
 Hier ist ein Beispiel. Es ist nicht schlimm, wenn Sie nicht auf 
 Anhieb die Abschnitte mit den ganzen @code{#()} verstehen. Das 
-wird im Kapitel @ref{Advanced tweaks with Scheme} erklärt.
+wird im Kapitel @ruser{Advanced tweaks with Scheme} erklärt.
 
 @lilypond[quote,verbatim,ragged-right]
 mpdolce = #(make-dynamic-script (markup #:hspace 1 #:translate (cons 5 0)
@@ -334,7 +334,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 Es treten einige Probleme mit überlappenden Symbolen auf. Sie 
-werden beseitigt mit den Tricks aus dem Kapitel @ref{Moving objects}.
+werden beseitigt mit den Tricks aus dem Kapitel @ruser{Moving objects}.
 Aber auch die @code{mpdolce} und @code{tempoMark}-Defintiionen 
 können verbessert werden. Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
@@ -653,7 +653,7 @@ Bassstimme wieder hineinzunehmen, bis Sie die problematische
 Zeile finden.
 
 Eine andere nützliche Technik zur Problemlösung ist es, 
-@ref{Minimal examples} zu konstruieren.
+@ruser{Minimal examples} zu konstruieren.
 
 
 @node Minimal examples

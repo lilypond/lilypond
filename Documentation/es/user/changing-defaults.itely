@@ -717,7 +717,7 @@ consulte
 @internalsref{Contexts}.
 @end ifhtml
 @ifnothtml
-Traducción @arrow{} Contexto.
+Traducción @expansion{} Contexto.
 @end ifnothtml
 
 @c [TODO: describe propagation]
@@ -982,7 +982,7 @@ véase
 @internalsref{Tunable context properties}.
 @end ifhtml
 @ifnothtml
-Traducción @arrow{} propiedades de contexto ajustables.
+Traducción @expansion{} propiedades de contexto ajustables.
 @end ifnothtml
 
 
@@ -1001,14 +1001,14 @@ Para ver una descripción completa de cada uno de los añadidos, consulte
 @internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
-Referencia del programa @arrow Traducción @arrow{} Grabadores.
+Referencia del programa @expansion Traducción @expansion{} Grabadores.
 @end ifnothtml
 cada uno de los contextos descritos en
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
 @ifnothtml
-Referencia del programa @arrow Traducción @arrow{} Contexto.
+Referencia del programa @expansion Traducción @expansion{} Contexto.
 @end ifnothtml
 relaciona los grabadores utilizados para ese contexto.
 
@@ -1055,7 +1055,7 @@ En el segundo pentagrama no hay indicación de compás ni clave.  Ésta es
 una forma un poco fuerte de hacer desaparecer objetos, porque afectará
 al pentagrama completo.  Este método también influye en el espaciado, lo que podría ser
 deseable o no.  Un método más
-sofisticado de borrar objetos se muestra en @ref{Common tweaks}.
+sofisticado de borrar objetos se muestra en @rlearning{Common tweaks}.
 
 El ejemplo siguiente muestra una aplicación práctica.  Las líneas divisorias y las indicaciones
 de compás están normalmente sincronizadas en toda la partitura.  Esto se hace
@@ -1726,7 +1726,7 @@ sí se pueden modificar.
 
 Hemos estado hablando de @emph{el} objeto @code{Fingering}, pero realmente esto no significa
 mucho.  El archivo de inicialización (véase
-@ref{Default files})
+@rlearning{Default files})
 @file{scm/@/define@/-grobs@/.scm} muestra el alma del @q{objeto},
 
 @example

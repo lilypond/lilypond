@@ -1,0 +1,117 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Bagpipes
+@section Bagpipes
+
+This section includes extra information for writing for bagpipes.
+
+@menu 
+* Bagpipe::
+@end menu
+
+
+@node Bagpipe
+@subsection Bagpipe
+
+@menu 
+* Bagpipe definitions::
+* Bagpipe example::
+@end menu
+
+@node Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
+
+LilyPond inclut des définitions spécifiques destinées à la notation pour
+cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
+
+@example
+\include "bagpipe.ly"
+@end example
+
+@noindent
+en début de fichier.  Ainsi, vous bénéficierez de commandes courtes pour
+les appogiatures spéciales et idiomatiques de la cornemuse.  Par
+exemple, @code{\taor} est un raccourci pour
+
+@example
+\grace @{ \small G32[ d G e] @}
+@end example
+
+@code{bagpipe.ly} prend également en charge les définitions de hauteurs
+pour la cornemuse ; vous n'avez donc pas à vous soucier d'employer
+@code{\relative} ou @code{\transpose}.
+
+@lilypond[ragged-right,verbatim,quote,notime]
+\include "bagpipe.ly"
+{ \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
+@end lilypond
+
+La musique pour cornemuse est traditionnellement écrite en ré majeur.
+Dans la mesure où c'est la seule tonalité possible, l'usage est de ne
+pas indiquer l'armure explicitement. À cet effet, pensez à commencer
+votre partition par @code{\hideKeySignature} -- ou bien
+@code{\showKeySignature} si, pour une raison ou pour une autre, vous
+tenez à afficher l'armure.
+
+Des compositions actuelles peuvent ne pas respecter cette tonalité
+traditionnelle, auquel cas les do et fa devraient être abaissés en
+utilisant @code{cflat} ou @code{fflat} ; ils seront représenté par une
+note en forme de croix.
+
+Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
+ou un défilé, peut survenir un sol aigu, au doux nom de
+@qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
+
+
+@node Bagpipe example
+@unnumberedsubsubsec Bagpipe example
+
+Et voici en guise d'exemple, à quoi ressemble le chant populaire
+@emph{Amazing Grace}, noté dans l'idiome de la cornemuse.
+
+@lilypond[verbatim,quote]
+\include "bagpipe.ly"
+\layout {
+  indent = 0.0\cm
+  \context { \Score \remove "Bar_number_engraver" }
+}
+
+\header {
+  title = "Amazing Grace"
+  meter = "Hymn"
+  arranger = "Trad. arr."
+}
+
+{
+  \hideKeySignature
+  \time 3/4
+  \grg \partial 4 a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 \grg e8. f16
+  \dblA A2 \grg A4
+  \grg A2 f8. A16
+  \grg A2 \hdblf f8[ e32 d16.]
+  \grg f2 \grg f8 e
+  \thrwd d2 \grg b4
+  \grG a2 \grg a8. d16
+  \slurd d2 \grg f8[ e32 d16.]
+  \grg f2 e4
+  \thrwd d2.
+  \slurd d2
+  \bar "|."
+}
+@end lilypond
+
+

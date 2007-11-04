@@ -33,49 +33,14 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @samp{.ly}.
 
 @menu
-* File structure (introduction)::  
 * File structure::              
 * A single music expression::   
 * Multiple scores in a book::   
 * Extracting fragments of notation::  
 * Including LilyPond files::    
 * Text encoding::               
+* Different editions from one source::  
 @end menu
-
-
-@node File structure (introduction)
-@subsection File structure (introduction)
-
-A basic example of a lilypond input file is
-
-@example
-\version "2.11.23"
-\score @{
-  @{ @}     % this is a single music expression;
-            % all the music goes in here.
-  \header @{ @}
-  \layout @{ @}
-  \midi @{ @}
-@}
-@end example
-
-@noindent
-There are many variations of this basic pattern, but this
-example serves as a useful starting place.
-
-The major part of this manual is concerned with entering various
-forms of music in LilyPond.  However, many music expressions are not
-valid input on their own, for example, a @code{.ly} file containing
-only a note
-@example
-c'4
-@end example
-
-@noindent
-will result in a parsing error.  Instead, music should be inside other
-expressions, which may be put in a file by themselves.  Such
-expressions are called toplevel expressions; see @ref{File structure}, for
-a list of all such expressions.
 
 
 @node File structure
@@ -84,7 +49,7 @@ a list of all such expressions.
 A @code{.ly} file contains any number of toplevel expressions, where a
 toplevel expression is one of the following
 
-@itemize @bullet
+@itemize
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
@@ -116,9 +81,9 @@ A @code{\book} block logically combines multiple movements
 (i.e., multiple @code{\score} blocks) in one document.  If there are
 a number of @code{\scores}, one output file will be created for
 each @code{\book} block, in which all corresponding movements are
-concatenated. The only reason to explicitly specify @code{\book} blocks
+concatenated.  The only reason to explicitly specify @code{\book} blocks
 in a @code{.ly} file is if you wish multiple output files from a single
-input file. One exception is within lilypond-book documents, where you
+input file.  One exception is within lilypond-book documents, where you
 explicitly have to add a @code{\book} block if you want more than a
 single @code{\score} or @code{\markup} in the same example.
 
@@ -167,16 +132,15 @@ Markup texts are rendered above, between or below the scores or music
 expressions, wherever they appear.
 
 @cindex variables
-@cindex identifiers
 
 @item
-An identifier, such as
+An variable, such as
 @example
 foo = @{ c4 d e d @}
 @end example
 
 This can be used later on in the file by entering @code{\foo}.  The
-name of an identifier should have alphabetic characters only; no
+name of an variable should have alphabetic characters only; no
 numbers, underscores or dashes.
 
 @end itemize
@@ -201,7 +165,7 @@ toplevel
 At any point in a file, any of the following lexical instructions can
 be entered:
 
-@itemize @bullet
+@itemize
 @item @code{\version}
 @item @code{\include}
 @item @code{\sourcefilename}
@@ -297,10 +261,10 @@ will normally be typeset in the form of a single output file.
 
 However, if you want multiple output files from the same @code{.ly}
 file, then you can add multiple @code{\book} blocks, where each such
-@code{\book} block will result in a separate output. If you do not
+@code{\book} block will result in a separate output.  If you do not
 specify any @code{\book} block in the file, LilyPond will implicitly
 treat the full file as a single @code{\book} block, see @ref{File
-structure}. One important exception is within lilypond-book documents,
+structure}.  One important exception is within lilypond-book documents,
 where you explicitly have to add a @code{\book} block, otherwise only
 the first @code{\score} or @code{\markup} will appear in the output.
 
@@ -335,11 +299,11 @@ the top of the file is inserted.
 @subsection Extracting fragments of notation
 
 It is possible to quote small fragments of a large score directly from
-the output. This can be compared to clipping a piece of a paper score
+the output.  This can be compared to clipping a piece of a paper score
 with scissors.
 
 This is done by definining the measures that need to be cut out
-separately. For example, including the following definition
+separately.  For example, including the following definition
 
 
 @verbatim
@@ -354,14 +318,14 @@ separately. For example, including the following definition
 
 @noindent
 will extract a fragment starting halfway the fifth measure, ending in
-the seventh measure. The meaning of @code{5 1 2} is: after a 1/2 note
+the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
 in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
 
 More clip regions can be defined by adding more pairs of
 rhythmic-locations to the list. 
 
 In order to use this feature, LilyPond must be invoked with
-@code{-dclip-systems}. The clips are output as EPS files, and are
+@code{-dclip-systems}.  The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
 For more information on output formats, see @rprogram{Invoking lilypond}.
@@ -470,6 +434,80 @@ To use a Unicode escape sequence, use
 
 @lsr{text,utf-8.ly}
 
+
+@node Different editions from one source
+@subsection Different editions from one source
+
+@funindex \tag
+@cindex tag
+
+The @code{\tag} command marks music expressions with a name.  These
+tagged expressions can be filtered out later.  With this mechanism it
+is possible to make different versions of the same music source.
+
+In the following example, we see two versions of a piece of music, one
+for the full score, and one with cue notes for the instrumental part
+
+@example
+c1
+<<
+  \tag #'part <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'score R1
+>>
+c1
+@end example
+
+The same can be applied to articulations, texts, etc.: they are
+made by prepending
+@example
+-\tag #@var{your-tag}
+@end example
+to an articulation, for example,
+@example
+c1-\tag #'part ^4
+@end example
+
+This defines a note with a conditional fingering indication.
+
+@cindex keepWithTag
+@cindex removeWithTag
+By applying the @code{\keepWithTag} and @code{\removeWithTag}
+commands, tagged expressions can be filtered.  For example,
+@example
+<<
+  @var{the music}
+  \keepWithTag #'score @var{the music}
+  \keepWithTag #'part @var{the music}
+>>
+@end example
+would yield
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+The arguments of the @code{\tag} command should be a symbol
+(such as @code{#'score} or @code{#'part}), followed by a
+music expression.  It is possible to put multiple tags on
+a piece of music with multiple @code{\tag} entries,
+
+@example
+  \tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+
+@seealso
+
+Examples: @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Multiple rests are not merged if you create the score with both tagged
+sections.
 
 
 @node Titles and headers
@@ -813,10 +851,10 @@ top-level, or inside a music expression.
 @end verbatim
 
 The markups which are used to format the table of contents are defined
-in the @code{\paper} block. The default ones are @code{tocTitleMarkup},
+in the @code{\paper} block.  The default ones are @code{tocTitleMarkup},
 for formatting the title of the table, and @code{tocItemMarkup}, for
 formatting the toc elements, composed of the element title and page
-number. These variables may be changed by the user:
+number.  These variables may be changed by the user:
 
 @verbatim
 \paper {
@@ -837,7 +875,7 @@ the @code{tocItemMarkup} definition.
 
 New commands and markups may also be defined to build more elaborated
 table of contents:
-@itemize @bullet
+@itemize
 @item first, define a new markup variable in the @code{\paper} block
 @item then, define a music function which aims at adding a toc element
 using this markup paper variable.
@@ -954,11 +992,11 @@ to a score, for example,
 The tempo can be specified using the @code{\tempo} command within the 
 actual music, see @ref{Metronome marks}.  An alternative, which does not
 result in a metronome mark in the printed score, is shown in the example
-above. In this example the tempo of quarter notes is set to 72 beats per
+above.  In this example the tempo of quarter notes is set to 72 beats per
 minute. 
 This kind of tempo
-specification can not take dotted note lengths as an argument. In this
-case, break the dotted notes into smaller units. For example, a tempo
+specification can not take dotted note lengths as an argument.  In this
+case, break the dotted notes into smaller units.  For example, a tempo
 of 90 dotted quarter notes per minute can be specified as 270 eighth
 notes per minute
 
@@ -1051,7 +1089,7 @@ enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
 
 
 The MIDI block is analogous to the layout block, but it is somewhat
-simpler.  The @code{\midi} block is similar to @code{\layout}. It can contain
+simpler.  The @code{\midi} block is similar to @code{\layout}.  It can contain
 context definitions.
 
 
@@ -1089,7 +1127,7 @@ instrument is used.
 @node Displaying LilyPond notation
 @section Displaying LilyPond notation
 
-@funindex \displayLilyMusc
+@funindex \displayLilyMusic
 Displaying a music expression in LilyPond notation can be
 done using the music function @code{\displayLilyMusic}.  For example,
 
@@ -1126,7 +1164,7 @@ When entering or copying music, usually only the music near the end (where
 you
 are adding notes) is interesting to view and correct.  To speed up
 this correction process, it is possible to skip typesetting of all but
-the last few measures. This is achieved by putting
+the last few measures.  This is achieved by putting
 
 @verbatim
 showLastLength = R1*5
@@ -1134,17 +1172,17 @@ showLastLength = R1*5
 @end verbatim
 
 @noindent
-in your source file. This will render only the last 5 measures
+in your source file.  This will render only the last 5 measures
 (assuming 4/4 time signature) of every @code{\score} in the input
-file. For longer pieces, rendering only a small part is often an order
+file.  For longer pieces, rendering only a small part is often an order
 of magnitude quicker than rendering it completely
 
 Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is
 set, no typesetting is performed at all.
 
-This property is also used to control output to the MIDI file. Note that
-it skips all events, including tempo and instrument changes. You have
+This property is also used to control output to the MIDI file.  Note that
+it skips all events, including tempo and instrument changes.  You have
 been warned.
 
 @lilypond[quote,fragment,ragged-right,verbatim]

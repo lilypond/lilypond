@@ -225,7 +225,7 @@ ils l'entendent.  Cependant, les nouveaux utilisateurs peuvent parfois
 se perdre en raison de cette souplesse.  Cette section présente
 sommairement l'organisation du code LilyPond, en privilégiant
 la simplicité au détriment de certains détails.  Vous trouverez une
-description plus complète dans @ref{File structure}.
+description plus complète dans @ruser{File structure}.
 
 La plupart des exemples de ce manuel sont de courts fragments, par exemple
 
@@ -326,17 +326,17 @@ libre de choisir comment dénommer vos variables@footnote{Les noms de
 variables sont sensibles à la casse, et ne peuvent contenir ni
 chiffre, ni tiret, ni caractère accentué.} ; ce peut être
 @code{melodie}, @code{global}, @code{maindroitepiano}, ou
-@code{laTeteAToto}.  Pour plus de détails, voir @ref{Saving typing
+@code{laTeteAToto}.  Pour plus de détails, voir @ruser{Saving typing
 with identifiers and functions}.
 
 Pour une description complète du format des fichiers d'entrée, voir 
-@ref{File structure}.
+@ruser{File structure}.
 
 
 @node Score is a single musical expression
 @section Score is a single musical expression
 
-Dans la section précédente, @ref{How LilyPond files work}, nous
+Dans la section précédente, @ruser{How LilyPond files work}, nous
 avons vu l'organisation générale des fichiers d'entrée de LilyPond.
 Mais c'est comme si nous avions éludé la question essentielle : comment
 diable peut-on savoir quoi mettre après @code{\score} ?
@@ -352,7 +352,7 @@ expression musicale.}
 
 @noindent
 Peut-être serait-il judicieux de relire la section
-@ref{Music expressions explained}, dans laquelle vous avez
+@ruser{Music expressions explained}, dans laquelle vous avez
 appris à construire de grandes expressions musicales petit bout
 par petit bout --- nous avons vu les notes, puis les accords, etc.
 Maintenant, nous allons partir d'une grande expression musicale,
@@ -461,7 +461,7 @@ mainGauche = @{ @}
 @noindent
 Souvenez-vous que vous pouvez donner aux variables le nom que vous
 voulez, à condition de respecter les caractères autorisés. Ces
-limitations sont décrites dans @ref{File structure}.
+limitations sont décrites dans @ruser{File structure}.
 
 Quand on écrit, ou que l'on lit, une section @code{\score}, mieux vaut
 y aller lentement et soigneusement. Commencez par le niveau le plus
@@ -594,7 +594,7 @@ ce qui équivaut à
 
 Des informations plus détaillées sur la mise en place de conducteurs
 et de parties séparées se trouvent dans le manuel : voir
-@ref{Orchestral music}.
+@ruser{Orchestral music}.
 
 Les variables (@q{propriétés}) réglables sont abordées en détail dans
-@ref{Changing context properties on the fly}.
+@ruser{Changing context properties on the fly}.

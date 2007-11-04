@@ -1,0 +1,415 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Repeats
+@section Repeats
+
+Repetition is a central concept in music, and multiple notations
+exist for repetitions.
+
+@menu
+* Writing repeats::             
+* Other repeats::               
+@end menu
+
+@node Writing repeats
+@subsection Writing repeats
+
+Blah blah
+
+@menu
+* Normal repeats::              
+* Repeat syntax::               
+* Manual repeat commands::      
+* Repeats and MIDI::            
+@end menu
+
+@node Normal repeats
+@unnumberedsubsubsec Normal repeats
+
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+@funindex \repeat
+
+Normal repeats, with or without alternate repeats, may be printed:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\repeat volta 2 { c4 d e f }
+\repeat volta 2 { g f e d }
+  \alternative {
+    { cis2 g' }
+    { cis,2 b }
+  }
+c1
+@end lilypond
+
+Repeats with upbeats may be created.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
+}
+@end lilypond
+
+@noindent
+or
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
+@funindex \repeatTie
+
+Ties may be added to a second ending,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f ~ }
+\alternative { {f2 d} {f\repeatTie f,} }
+@end lilypond
+
+It is possible to shorten volta brackets by setting
+@code{voltaSpannerDuration}.  In the next example, the bracket
+only lasts one measure, which is a duration of 3/4.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c''{
+  \time 3/4
+  c c c
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \repeat volta 5 { d d d }
+  \alternative { { e e e f f f }
+  { g g g } }
+}
+@end lilypond
+
+If you want to start a repeat at the beginning of a line and have
+a double bar at the end of the previous line, use
+
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+
+see @ref{Bar lines} for more information.
+
+@seealso
+
+Program reference: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic}, and
+@internalsref{UnfoldedRepeatedMusic}.
+
+Examples:
+
+Brackets for the repeat are normally only printed over the topmost
+staff.  This can be adjusted by moving @code{Volta_engraver} to
+the Staff context where you want the brackets to appear; see
+@ref{Modifying context plug-ins} and
+@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+
+
+@refbugs
+
+@cindex repeat, ambiguous
+
+A nested repeat like
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+is ambiguous, since it is is not clear to which @code{\repeat} the
+@code{\alternative} belongs.  This ambiguity is resolved by always
+having the @code{\alternative} belong to the inner @code{\repeat}.
+For clarity, it is advisable to use braces in such situations.
+
+Timing information is not remembered at the start of an
+alternative, so after a repeat timing information must be reset by
+hand; for example, by setting @code{Score.measurePosition} or
+entering @code{\partial}.  Similarly, slurs or ties are also not
+repeated.
+
+
+
+@node Repeat syntax
+@unnumberedsubsubsec Repeat syntax
+
+@cindex repeats
+
+LilyPond has one syntactic construct for specifying different
+types of repeats.  The syntax is
+
+@example
+\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+@end example
+
+If you have alternative endings, you may add
+@funindex \alternative
+@example
+\alternative @{
+  @var{alternative1}
+  @var{alternative2}
+  @var{alternative3}
+  @dots{}
+@}
+@end example
+
+@noindent
+where each @var{alternative} is a music expression.  If you do not
+give enough alternatives for all of the repeats, the first
+alternative is assumed to be played more than once.
+
+The following types of repetition are supported
+
+@table @code
+@item unfold
+Repeated music is fully written (played) out.  This is useful when
+entering repetitious music.  This is the only kind of repeat that
+is included in MIDI output.
+
+@item volta
+Repeats are not written out, but alternative endings (volte) are
+printed, left to right with brackets.  This is the standard
+notation for repeats with alternatives.  These are not played in
+MIDI output by default.
+
+
+@item tremolo
+Make tremolo beams.  These are not played in MIDI output by
+default.
+
+@item percent
+Make beat or measure repeats.  These look like percent signs.
+These are not played in MIDI output by default.  Percent repeats
+must be declared within a @code{Voice} context.
+
+@end table
+
+
+@node Manual repeat commands
+@unnumberedsubsubsec Manual repeat commands
+
+@funindex repeatCommands
+
+The property @code{repeatCommands} can be used to control the
+layout of repeats.  Its value is a Scheme list of repeat commands.
+
+@table @asis
+@item @code{start-repeat}
+Print a @code{|:} bar line.
+
+@item @code{end-repeat}
+Print a @code{:|} bar line.
+
+@item @code{(volta @var{text})}
+Print a volta bracket saying @var{text}: The text can be specified
+as a text string or as a markup text, see @ref{Text markup}.  Do
+not forget to change the font, as the default number font does not
+contain alphabetic characters;
+
+@item @code{(volta #f)}
+Stop a running volta bracket.
+@end table
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c4
+  \set Score.repeatCommands = #'((volta "93") end-repeat)
+c4 c4
+  \set Score.repeatCommands = #'((volta #f))
+c4 c4
+@end lilypond
+
+
+@seealso
+
+Program reference: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
+and @internalsref{UnfoldedRepeatedMusic}.
+
+@node Repeats and MIDI
+@unnumberedsubsubsec Repeats and MIDI
+
+@cindex expanding repeats
+@funindex \unfoldRepeats
+
+With a little bit of tweaking, all types of repeats can be present
+in the MIDI output.  This is achieved by applying the
+@code{\unfoldRepeats} music function.  This function changes all
+repeats to unfold repeats.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+When creating a score file using @code{\unfoldRepeats} for MIDI,
+it is necessary to make two @code{\score} blocks: one for MIDI
+(with unfolded repeats) and one for notation (with volta, tremolo,
+and percent repeats).  For example,
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+
+@node Other repeats
+@subsection Other repeats
+
+@menu
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
+@end menu
+
+@node Tremolo repeats
+@unnumberedsubsubsec Tremolo repeats
+
+@cindex tremolo beams
+
+To place tremolo marks between notes, use @code{\repeat} with
+tremolo style
+
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+  \repeat tremolo 8 { c16 d16 }
+  \repeat tremolo 4 { c16 d16 }
+  \repeat tremolo 2 { c16 d16 }
+}
+@end lilypond
+
+Tremolo marks can also be put on a single note.  In this case, the
+note should not be surrounded by braces.
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+Similar output is obtained using the tremolo subdivision,
+described in @ref{Tremolo subdivisions}.
+
+
+@seealso
+
+In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
+
+Program reference: @internalsref{Beam},
+@internalsref{StemTremolo}.
+
+
+@node Tremolo subdivisions
+@unnumberedsubsubsec Tremolo subdivisions
+
+@cindex tremolo marks
+@funindex tremoloFlags
+
+Tremolo marks can be printed on a single note by adding
+@q{@code{:}[@var{number}]} after the note.  The number indicates
+the duration of the subdivision, and it must be at least 8.  A
+@var{length} value of 8 gives one line across the note stem.  If
+the length is omitted, the last value (stored in
+@code{tremoloFlags}) is used
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+c'2:8 c':32 | c': c': |
+@end lilypond
+
+
+@refbugs
+
+Tremolos entered in this way do not carry over into the MIDI
+output.
+
+
+@seealso
+
+In this manual: @ref{Tremolo repeats}.
+
+Elsewhere: @internalsref{StemTremolo}.
+
+
+@node Measure repeats
+@unnumberedsubsubsec Measure repeats
+
+@cindex percent repeats
+@cindex measure repeats
+
+In the @code{percent} style, a note pattern can be repeated.  It
+is printed once, and then the pattern is replaced with a special
+sign.  Patterns of one and two measures are replaced by
+percent-like signs, patterns that divide the measure length are
+replaced by slashes.  Percent repeats must be declared within a
+@code{Voice} context.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 es2 f4 fis4 g4 c4 }
+}
+@end lilypond
+
+Measure repeats of more than 2 measures get a counter, if you
+switch on the @code{countPercentRepeats} property,
+
+@lilypond[relative=2,fragment,quote,verbatim,ragged-right]
+\new Voice {
+\set countPercentRepeats = ##t
+  \repeat percent 4 { c1 }
+}
+@end lilypond
+
+
+
+Isolated percents can also be printed.  This is done by putting a
+multi-measure rest with a different print function,
+
+@lilypond[fragment,verbatim,quote]
+\override MultiMeasureRest #'stencil
+  = #ly:multi-measure-rest::percent
+R1
+@end lilypond
+
+
+
+
+@seealso
+
+Program reference: @internalsref{RepeatSlash},
+@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
+@internalsref{DoublePercentRepeatCounter},
+@internalsref{PercentRepeatCounter},
+@internalsref{PercentRepeatedMusic}.
+
+
+

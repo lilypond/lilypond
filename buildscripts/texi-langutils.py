@@ -31,7 +31,6 @@ intro_blurb = '''@c -*- coding: utf-8; mode: texinfo%(doclang)s -*-
 @c This file is part of %(topfile)s
 @ignore
     Translation of GIT committish: %(head_committish)s
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore

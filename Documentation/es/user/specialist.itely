@@ -1,0 +1,34 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Specialist notation
+@chapter Specialist notation
+
+This chapter explains how to create musical notation.
+
+@menu
+* Vocal music:: a
+* Chords Blah:: b
+* Piano music:: c
+* Percussion:: d
+* Guitar:: e
+* Orchestral strings::
+* Bagpipes::
+* Ancient notation:: g
+@end menu
+
+@include vocal.itely
+@include chords.itely
+@include piano.itely
+@include percussion.itely
+@include guitar.itely
+@include strings.itely
+@include bagpipes.itely
+@include ancient.itely
+
+

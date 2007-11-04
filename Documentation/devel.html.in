@@ -69,6 +69,8 @@
           <td valign="baseline" class="left-column">
           &nbsp;
 	<ul>
+	    <li><a class="title" href="http://lilypond.org/web/devel">lilypond.org development page</a>
+              <br>(for all contributors)
             <li><a class="title" href="devel.html">lilypond.git repository</a>
               <br>(official sources)
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=gub">GUB Readme</a>
@@ -77,7 +79,9 @@
     </td><td class="right-column">
           &nbsp;
 	<ul>
-            <li>lilypond.org <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">Readme</a>
+	    <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation/user/README.txt;hb=lilypond/gdp">Documentation Readme</a>
+	      <br>(for documentation editors)
+            <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">lilypond.org Readme</a>
 and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=TRANSLATION;hb=web">Translation</a>
               <br>(how to translate and build lilypond.org website)
             <li>

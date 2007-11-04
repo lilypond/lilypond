@@ -731,6 +731,8 @@ In diesem Buch wird erklärt, wie man das Programm LilyPond erlernt; mit
 einfachen Begriffen werden einige Schlüsselkonzepte erklärt. Die Kapitel 
 sollten hintereinander gelsen werden.
 
+@c we need to completely rewrite this once GDP is finished.  -gp
+@ignore
 @itemize @bullet
 
 @item
@@ -847,6 +849,7 @@ Der
 ist ein vollständiger Index.
 
 @end itemize
+@end ignore
 
 
 @subheading Program usage

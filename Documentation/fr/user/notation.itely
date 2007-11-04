@@ -1,0 +1,33 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Musical notation
+@chapter Musical notation
+
+This chapter explains how to create musical notation.
+
+@menu
+* Pitches::            Writing and display the pitches of notes.
+* Rhythms::            Writing and displaying the durations of notes.
+* Expressive marks::   Adding expression to notes.
+* Repeats::            Repeat music.
+* Simultaneous notes:: More than one note at once.
+* Staff notation::     Displaying staves.
+* Educational use::    Special notation to increase legibility.
+* Text::               Adding text to scores.
+@end menu
+
+@include pitches.itely
+@include rhythms.itely
+@include expressive.itely
+@include repeats.itely
+@include simultaneous.itely
+@include staff.itely
+@include educational.itely
+@include text.itely
+

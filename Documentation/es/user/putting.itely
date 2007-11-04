@@ -217,7 +217,7 @@ mucha flexibilidad para estructurar sus archivos de la forma que deseen.
 Sin embargo, toda esta flexibilidad puede hacer que las cosas se vuelvan confusas para
 los nuevos usuarios.  Esta sección le va a explicar parte de esta estructura, pero
 puede obviar ciertos detalles en aras de la simplicidad.  Para ver una
-descripción completa del formato de entrada, consulte @ref{File structure}.
+descripción completa del formato de entrada, consulte @ruser{File structure}.
 
 Casi todos los ejemplos del presente manual con pequeños fragmentos de código.  Por ejemplo
 
@@ -316,16 +316,16 @@ nombres -- puede ser @code{melodia}, @code{global},
 @code{manoderechadelpiano}, o @code{fulanomengano} --.  Puede
 usar el nombre de variable que desee.  Para ver más
 detalles, consulte
-@ref{Saving typing with identifiers and functions}.
+@ruser{Saving typing with identifiers and functions}.
 
 Para ver una definición completa
-del formato de entrada, consulte @ref{File structure}.
+del formato de entrada, consulte @ruser{File structure}.
 
 
 @node Score is a single musical expression
 @section Score is a single musical expression
 
-En la sección anterior, @ref{How LilyPond files work},
+En la sección anterior, @ruser{How LilyPond files work},
 pudimos ver la organización general de los archivos de entrada
 de LilyPond.  Pero parece que nos saltamos la parte más importante:
 ¿cómo averiguamos qué escribir después de
@@ -341,7 +341,7 @@ todo:
 
 @noindent
 Quizá encuentre útil dar un repaso a
-@ref{Music expressions explained}.  En esta sección, vimos
+@ruser{Music expressions explained}.  En esta sección, vimos
 cómo elaborar grandes expresiones musicales a partir de pequeñas
 piezas -- comenzábamos con notas, luego acordes, etc. --.  Ahora
 partiremos de una gran expresión musical y
@@ -448,7 +448,7 @@ inferior = @{ @}
 @noindent
 Recuerde que puede usar casi cualquier nombre que se le antoje.  Las
 limitaciones impuestas a los nombres de identificador se detallan en
-@ref{File structure}.
+@ruser{File structure}.
 
 Cuando escriba una sección @code{\score} o cuando la esté
 leyendo, hágalo despacio y con cuidado.  Comience por
@@ -585,10 +585,10 @@ lo que nos lleva a
 @end lilypond
 
 Se puede encontrar una información más profunda sobre cómo preparar particellas y partituras
-en el manual de notación; consulte @ref{Orchestral music}.
+en el manual de notación; consulte @ruser{Orchestral music}.
 
 El establecimiento de variables en tiempo de ejecución (@q{propiedades}) se trata en
-@ref{Changing context properties on the fly}.
+@ruser{Changing context properties on the fly}.
 
 
 

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -216,21 +216,11 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @include dedication.itely
 
+@c TRANSLATE ME
 @menu
-Handbuch zum Lernen
-
-* Preface::                        Vorwort.
-* Introduction::                   Was, warum und wie.
-* Tutorial::                       Eine Übung zur Einführung.
-* Putting it all together::        Genauere Erklärungen zu LilyPonds Eigenschaften.
-* Working on LilyPond projects::   Benutzung des Programms im wirklichen Leben.
-* Tweaking output::                Einleitung in die Beeinflussung des Notenbilds.
-
-Alles über die Notation
-
-* Basic notation::                 Grundlegende Notation.
-* Instrument-specific notation::   Spezielle Notation.
-* Advanced notation::              Seltener eingesetzte Notation.
+* Musical notation::               Musical notation.
+* Specialist notation::            Notation which is only used for
+specicific purposes.
 * Changing defaults::              Das Notenbild verfeinern.
 * Non-musical notation::           Alles, was nicht Musiknotation ist.
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
@@ -253,16 +243,10 @@ Anhänge
 
 
 @include macros.itexi
-@include preface.itely
-@include introduction.itely
-@include tutorial.itely
-@include putting.itely
-@include working.itely
-@include tweaks.itely
 
-@include basic-notation.itely
-@include instrument-notation.itely
-@include advanced-notation.itely
+@include notation.itely
+@include specialist.itely
+
 @include changing-defaults.itely
 @include non-music.itely
 @include spacing.itely

@@ -1,0 +1,413 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Repeats
+@section Repeats
+
+La repetición es un concepto fundamental en música, y existen varios
+tipos de notación para las repeticiones.
+
+@menu
+* Writing repeats::             
+* Other repeats::               
+@end menu
+
+@node Writing repeats
+@subsection Writing repeats
+
+@menu
+* Repeat types::                
+* Repeat syntax::               
+* Manual repeat commands::      
+* Repeats and MIDI::            
+@end menu
+
+@node Repeat types
+@unnumberedsubsubsec Repeat types
+
+@cindex repeticiones
+
+Están contemplados los siguientes tipos de repetición
+
+@table @code
+@item desplegada
+Las música repetida está completamente escrita (e interpretada).  Es
+útil cuando se introduce música repetitiva.  Éste es el único tipo de
+repetición que se incluye en la salida MIDI.
+
+@item volta (primera y segunda vez)
+Las repeticiones no están desarrolladas, pero se imprimen finales
+alternativos (volte) de izquierda a derecha con corchetes.  Ésta es la
+notación estándar para las repeticiones con alternativas.  Por omisión
+no se reproducen en la salida MIDI.
+
+
+@item trémolo
+Hacen barras de trémolo.  Por omisión no se reproducen en la salida MIDI.
+
+@item porcentaje
+Hacen repeticiones de compases o parte de ellos.  Tienen un aspecto
+semejante a un signo de porcentaje.  Por omisión no se reproducen en
+la salida MIDI.  Las repeticiones de porcentaje se deben declarar dentro de un contexto @code{Voice}.
+
+@end table
+
+
+@node Repeat syntax
+@unnumberedsubsubsec Repeat syntax
+
+@cindex volta
+@cindex prima volta
+@cindex seconda volta
+@funindex \repeat
+
+LilyPond tiene una construcción sintáctica para especificar distintos
+tipos de repetición.  La sintaxis es
+
+@example
+\repeat @var{variante} @var{número_de_repeticiones} @var{cuerpo_de_la_repetición}
+@end example
+
+Si tiene finales alternativos, puede añadir
+@funindex \alternative
+@example
+\alternative @{
+  @var{alternativa1}
+  @var{alternativa2}
+  @var{alternativa3}
+  @dots{}
+@}
+@end example
+
+@noindent
+donde cada @var{alternativa} es una expresión musical.  Si no da un
+número de alternativas suficiente para todas las repeticiones, se
+supondrá que la primera alternativa se interpreta más de una vez.
+
+Las repeticiones estándar se usan de esta forma:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 { c4 d e f }
+\repeat volta 2 { f e d c }
+@end lilypond
+
+Con finales alternativos
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f}
+\alternative { {d2 d} {f f,} }
+@end lilypond
+
+Se pueden crear repeticiones con anacrusa.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 e |
+  \repeat volta 4 { c2 d2 | e2 f2 | }
+  \alternative { { g4 g g e } { a a a a | b2. } }
+}
+@end lilypond
+
+@noindent
+o bien
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\new Staff {
+  \partial 4 
+  \repeat volta 4 { e | c2 d2 | e2 f2 | }
+  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+}
+@end lilypond
+
+
+
+@funindex \repeatTie
+
+Se pueden añadir ligaduras de unión al segundo final,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c1
+\repeat volta 2 {c4 d e f ~ }
+\alternative { {f2 d} {f\repeatTie f,} }
+@end lilypond
+
+Es posible acortar los corchetes de primera y segunda vez
+estableciendo @code{voltaSpannerDuration}.  En el ejemplo siguiente, el
+corchete sólo dura un compás, lo que supone una duración de 3/4.
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c''{
+  \time 3/4
+  c c c
+  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
+  \repeat volta 5 { d d d }
+  \alternative { { e e e f f f }
+  { g g g } }
+}
+@end lilypond
+
+Si quiere comenzar una repetición al principio de una línea y tiene una
+doble barra al final de la línea anterior, utilice
+@example
+@dots{} \bar "||:" \break 
+\repeat volta 2 @{ @dots{} 
+@end example
+consulte @ref{Bar lines} para ver más información.
+
+@seealso
+
+Referencia del programa: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic} y
+@internalsref{UnfoldedRepeatedMusic}.
+
+Ejemplos:
+
+Normalmente los corchetes para la repetición sólo se imprimen sobre el
+pentagrama superior.  Esto se puede ajustar moviendo @code{Volta_engraver} al contexto
+Staff donde quiera que aparezcan los corchetes;
+consulte @ref{Modifying context plug-ins} y
+
+@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+
+
+@refbugs
+
+@cindex repetición ambigua
+
+Una repetición anidada como
+
+@example
+\repeat @dots{}
+\repeat @dots{}
+\alternative
+@end example
+
+@noindent
+es ambigua porque no está claro a qué @code{\repeat} pertenece la
+@code{\alternative}.  Esta ambigüedad se resuelve haciendo que la
+@code{\alternative} pertenezca siempre a la @code{\repeat} más
+interna.  Para más claridad, se recomienda usar llaves en tales situaciones.
+
+La información del contador de tiempo no se recuerda al comienzo de una alternativa,
+por ello después de una repetición la información de la cuenta de tiempo se debe reajustar
+manualmente; por ejemplo, estableciendo el valor de @code{Score.measurePosition} o
+introduciendo @code{\partial}.  De forma similar, las ligaduras de expresión o de unión tampoco se repiten.
+
+Los corchetes de primera y segunda vez no se alinean verticalmente.
+
+
+@node Manual repeat commands
+@unnumberedsubsubsec Manual repeat commands
+
+@funindex repeatCommands
+
+Se puede usar la propiedad @code{repeatCommands} para controlar la
+disposición de las repeticiones.  Su valor es una lista de Scheme de comandos de repetición.
+
+@table @asis
+@item @code{start-repeat}
+Imprimir una barra de compás @code{|:}
+
+@item @code{end-repeat}
+Imprimir una barra de compás @code{:|}
+
+@item @code{(volta @var{texto})}
+Imprimir un corchete de volta que diga @var{texto}: El texto se puede
+especificar como una cadena de texto o como un texto de marcado,
+consulte @ref{Text markup}.  No olvide cambiar la fuente tipográfica,
+porque el tipo por defecto para los números no contiene caracteres alfabéticos;
+
+@item @code{(volta #f)}
+Detener un corchete de volta mantenido.
+@end table
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c4
+  \set Score.repeatCommands = #'((volta "93") end-repeat)
+c4 c4
+  \set Score.repeatCommands = #'((volta #f))
+c4 c4
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{VoltaBracket},
+@internalsref{RepeatedMusic},
+@internalsref{VoltaRepeatedMusic} y
+@internalsref{UnfoldedRepeatedMusic}.
+
+
+@node Repeats and MIDI
+@unnumberedsubsubsec Repeats and MIDI
+
+@cindex expansión de repeticiones
+@funindex \unfoldRepeats
+
+Con un poco de trucaje, todos los tipos de repeticiones pueden estar
+presentes en la salida MIDI.  Se consigue por medio de la aplicación
+de la función musical @code{\unfoldRepeats}.  Esta función transforma
+todas las repeticiones en repeticiones desarrolladas o desplegadas.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+Cuando se elabora un archivo de partitura que utiliza @code{\unfoldRepeats} para el MIDI,
+es necesario hacer dos bloques @code{\score}: uno para el MIDI (con las repeticiones desplegadas)
+y otro para la notación (con primera y segunda vez, trémolo y repeticiones de porcentaje).
+Por ejemplo,
+
+@example
+\score @{
+  @var{..música..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..música..}
+  \midi @{ .. @}
+@}
+@end example
+
+
+@node Other repeats
+@subsection Other repeats
+
+@menu
+* Tremolo repeats::             
+* Tremolo subdivisions::        
+* Measure repeats::             
+@end menu
+
+@node Tremolo repeats
+@unnumberedsubsubsec Tremolo repeats
+
+@cindex barras de trémolo
+
+Para colocar marcas de trémolo entre las notas, use @code{\repeat} con el
+estilo tremolo
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+  \repeat tremolo 8 { c16 d16 }
+  \repeat tremolo 4 { c16 d16 }
+  \repeat tremolo 2 { c16 d16 }
+}
+@end lilypond
+
+Las marcas de trémolo también se pueden poner sobre una nota única.  En este caso, la
+nota no debe estar encerrada entre llaves.
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+Se obtiene una salida similar usando la subdivisión del trémolo, que se describe en
+@ref{Tremolo subdivisions}.
+
+
+@seealso
+
+En el presente manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
+
+Referencia del programa: @internalsref{Beam}, @internalsref{StemTremolo}.
+
+
+@node Tremolo subdivisions
+@unnumberedsubsubsec Tremolo subdivisions
+
+@cindex marcas de trémolo
+@funindex tremoloFlags
+
+Las marcas de trémolo se pueden imprimir sobre una nota única escribiendo
+@q{@code{:}[@var{número}]} después de la nota.  El número indica la
+duración de la subdivisión, y debe ser al menos 8.  Un valor de
+@var{longitud} de 8 produce una línea tachando la plica de la nota.  Si se
+omite la longitud,
+se utiliza el último valor (almacenado en @code{tremoloFlags})
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+c'2:8 c':32 | c': c': |
+@end lilypond
+
+
+@refbugs
+
+Los trémolos escritos de esta forma no se trasladan a la salida MIDI.
+
+
+@seealso
+
+En el presente manual: @ref{Tremolo repeats}.
+
+En otros lugares: @internalsref{StemTremolo}.
+
+
+@node Measure repeats
+@unnumberedsubsubsec Measure repeats
+
+@cindex porcentaje, repeticiones de
+@cindex compás, repeticiones de
+
+En el estilo @code{percent} (porcentaje), se puede hacer que se repita un patrón de notas.  Se
+imprime una sola vez, y luego el patrón se sustituye con un símbolo especial.
+Los patrones de uno y dos compases se sustituyen por símbolos parecidos a un porcentaje,
+y los patrones que dividen a la duración de un compás se sustituyen por barras inclinadas.
+Las repeticiones de porcentaje se deben declarar dentro de un contexto @code{Voice}.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+  \repeat percent 4 { c4 }
+  \repeat percent 2 { c2 es2 f4 fis4 g4 c4 }
+}
+@end lilypond
+
+Las repeticiones de compás de más de 2 compases llevan un contador, si
+se activa la propiedad @code{countPercentRepeats},
+
+@lilypond[relative=2,fragment,quote,verbatim,ragged-right]
+\new Voice {
+\set countPercentRepeats = ##t
+  \repeat percent 4 { c1 }
+}
+@end lilypond
+
+
+
+También se pueden imprimir porcentajes aislados.  Esto se hace
+mediante la colocación de un silencio multicompás con una función de impresión distinta,
+
+@lilypond[fragment,verbatim,quote]
+\override MultiMeasureRest #'stencil
+  = #ly:multi-measure-rest::percent
+R1
+@end lilypond
+
+
+
+
+@seealso
+
+Referencia del programa: @internalsref{RepeatSlash},
+@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
+@internalsref{DoublePercentRepeatCounter},
+@internalsref{PercentRepeatCounter},
+@internalsref{PercentRepeatedMusic}.
+
+
+

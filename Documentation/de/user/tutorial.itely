@@ -61,7 +61,7 @@ Wenn Sie einfach alles kopieren, was im
  @qq{ly snippet} Abschnitt steht, und in eine Text-Datei
 einfügen, haben Sie schon eine fertige Vorlage für weitere
 Experimente. Wenn Sie auf diese Weise lernen, lohnt es
-sich wohl, das Kapitel @ref{Cheat sheet} auszudrucken oder
+sich wohl, das Kapitel @ruser{Cheat sheet} auszudrucken oder
 ein Lesezeichen dafür im Browser zu setzen. Hier sind die wichtigsten
 LilyPond-Befehle zum schnellen Nachschlagen aufgelistet.
 @end ifhtml
@@ -261,7 +261,7 @@ Ausnahme entsprechen sie den deutschen, deshalb wird die Voreinstellung
 von LilyPond für diese Übung beibehalten. Die @emph{Ausnahme} ist das h -- in 
 LilyPond muss man anstelle dessen b schreiben! Das deutsche b dagegen
 wird als bes notiert, ein his dagegen würde bis geschrieben. Siehe auch 
-Kap. @ref{Accidentals} und @ref{Note names in other languages}, hier wird beschrieben,
+Kap. @ruser{Accidentals} und @ruser{Note names in other languages}, hier wird beschrieben,
 wie sich die deutschen Notennamen benutzen lassen.
 @c end addition
 
@@ -409,17 +409,17 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Eingabe von Tonhöhen und -dauern
-siehe @ref{Pitches} und @ref{Durations}.
+siehe @ruser{Pitches} und @ruser{Durations}.
 @item Pausen
-siehe @ref{Rests}.
+siehe @ruser{Rests}.
 @item Taktangeben und andere Zeitangaben
-siehe @ref{Time signature}.
+siehe @ruser{Time signature}.
 @item Notenschlüssel
-siehe @ref{Clef}.
+siehe @ruser{Clef}.
 @end table
 @end quotation
 
@@ -512,13 +512,13 @@ mögliche Anwendung von Kommentaren:
 
 Weitere Vorschläge zur Konstruktion von Quelldateien
 finden sich in
-@ref{Suggestions for writing LilyPond files}.
+@ruser{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
 @subsection How to read the tutorial
 
-Wie wir in @ref{Working on text files} gesehen haben, muss LilyPond-Code
+Wie wir in @ruser{Working on text files} gesehen haben, muss LilyPond-Code
 immer von  @{ @} Zeichen oder einem @code{\relative c'' @{ ... @}} umgeben sein.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten.
@@ -565,10 +565,10 @@ die für eine Stimme auf einem System gebraucht werden.
 @node Relative note names
 @subsection Relative note names
 
-Wie wir im Kapitel @ref{Simple notation} gesehen haben,
+Wie wir im Kapitel @ruser{Simple notation} gesehen haben,
 errechnet LilyPond die Tonhöhe der folgenden Noten bezüglich
 der vorhergehenden.@footnote{Es gibt noch einen anderen Eingabemodus
-für Tonhöhen, siehe @ref{Absolute note names}, aber für die Praxis ist
+für Tonhöhen, siehe @ruser{Absolute note names}, aber für die Praxis ist
 der relative Modus viel einfacher und sicherer zu benutzen.} Wenn
 keine
 zusätzlichen Oktavierungszeichen (@code{'} und @code{,}) gesetzt sind,
@@ -587,13 +587,13 @@ c2 fis
 c2 ges
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Relativer Oktaveintrag
-siehe @ref{Relative octaves}.
+siehe @ruser{Relative octaves}.
 @item Oktaveüberprüfung
-siehe @ref{Octave check}.
+siehe @ruser{Octave check}.
 @end table
 @end quotation
 
@@ -618,7 +618,7 @@ von @q{isis} oder @q{eses} geschrieben.@footnote{Diese Syntax
 stammt aus der Tradition der germanischen Sprachen und ist also für
 deutsche Benutzer kein Problem. Es ist aber möglich, die Namen anderer
 Sprachen zu benutzen, siehe
-@ref{Note names in other languages}.}
+@ruser{Note names in other languages}.}
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 cis1 ees fisis, aeses
@@ -689,16 +689,16 @@ etwas mehr Schreibarbeit, hat aber den großen Vorteil, das
 Transposition
 sehr viel einfacher gemacht wird und der Druck von Versetzungszeichen nach
 unterschiedlichen Regeln erfolgen kann. Siehe
-@ref{Automatic accidentals} für einige Beispiele, wie Vorzeichen
+@ruser{Automatic accidentals} für einige Beispiele, wie Vorzeichen
 anhand von unterschiedlichen Regeln ausgegeben werden können.
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Versetzungszeichen
-siehe @ref{Accidentals} und @ref{Automatic accidentals}.
+siehe @ruser{Accidentals} und @ruser{Automatic accidentals}.
 @item Tonart (Vorzeichen)
-siehe @ref{Key signature}.
+siehe @ruser{Key signature}.
 @end table
 @end quotation
 
@@ -758,15 +758,15 @@ geschachtelt werden.
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Bindebögen
-siehe @ref{Ties}.
+siehe @ruser{Ties}.
 @item Legatobögen
-siehe @ref{Slurs}.
+siehe @ruser{Slurs}.
 @item Phrasierungsbögen
-siehe @ref{Phrasing slurs}.
+siehe @ruser{Phrasing slurs}.
 @end table
 @end quotation
 
@@ -829,15 +829,15 @@ beziehungsweise @code{\>} begonnen.  Ein Dynamik-Zeichen, etwa
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Artikulationszeichen
-siehe @ref{Articulations}.
+siehe @ruser{Articulations}.
 @item Fingersatz
-siehe @ref{Fingering instructions}.
+siehe @ruser{Fingering instructions}.
 @item Dynamik
-siehe @ref{Dynamics}.
+siehe @ruser{Dynamics}.
 @end table
 @end quotation
 
@@ -862,13 +862,13 @@ anfängt, erhält ein @q{[} (AltGr+8) und die, an der er endet, ein
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Automatische Balken
-siehe @ref{Automatic beams}.
+siehe @ruser{Automatic beams}.
 @item Manuelle Balken
-siehe @ref{Manual beams}.
+siehe @ruser{Manual beams}.
 @end table
 @end quotation
 
@@ -921,15 +921,15 @@ c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
 @table @asis
 @item Vorschläge, Verzierungen
-siehe @ref{Grace notes},
+siehe @ruser{Grace notes},
 @item Triolen
-siehe @ref{Tuplets},
+siehe @ruser{Tuplets},
 @item Auftakt
-siehe @ref{Partial measures}.
+siehe @ruser{Partial measures}.
 @end table
 @end quotation
 
@@ -1069,7 +1069,7 @@ werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 @node Multiple staves
 @subsection Multiple staves
 
-Wie wir in @ref{Music expressions explained} gesehen haben, sind
+Wie wir in @ruser{Music expressions explained} gesehen haben, sind
 LilyPond-Quelldateien aus musikalischen Ausdrücken konstruiert.
 Wenn die Noteneingabe mit parallelen Ausdrücken beginnt, werden
 mehrere Notensysteme erstellt. Es ist aber sicherer und einfacherer
@@ -1114,7 +1114,7 @@ erweitert.
 Die Taktangabe, die in einem einzelnen System angegeben wird, wirkt
 sich auf alle anderen System aus.@footnote{Dies kann natürlich auch geändert
 werden, siehe
-@ref{Polymetric notation} für Einzelheiten.} Die 
+@ruser{Polymetric notation} für Einzelheiten.} Die 
 Angabe der Tonart in einem System hingegen beeinflusst @emph{nicht} die 
 Tonart der anderen Systeme.
 
@@ -1143,7 +1143,7 @@ Musik für das Klavier wird üblicherweise auf zwei Systemen notiert,
 die durch eine geschweifte Klammer verbunden sind (Akkolade). 
 Um ein derartiges
 Notensystem zu erstellen, geht man ähnlich vor wie in dem Beispiel
-aus @ref{Multiple staves}, nur dass der gesamte Ausdruck jetzt in
+aus @ruser{Multiple staves}, nur dass der gesamte Ausdruck jetzt in
 eine @code{PianoStaff}-Umgebung eingefügt wird.
 
 @example
@@ -1164,9 +1164,9 @@ Hier ein kleines Beispiel:
 }
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
-Siehe @ref{Piano music}.
+Siehe @ruser{Piano music}.
 @end quotation
 
 @node Combining notes into chords
@@ -1247,9 +1247,9 @@ kombiniert werden.
 >>
 @end lilypond
 
-@moreinfo
+@seealso
 @quotation
-Siehe @ref{Basic polyphony}.
+Siehe @ruser{Basic polyphony}.
 @end quotation
 
 
@@ -1331,10 +1331,10 @@ dargestellt.
 @end lilypond
 @c \addlyrics { In -- te -- res -- sant }
 
-@moreinfo
+@seealso
 @quotation
 Mehr Möglichkeiten, wie etwa mehrere Strophen unter der gleichen
-Melodie, werden im Kapitel @ref{Vocal music} gezeigt.
+Melodie, werden im Kapitel @ruser{Vocal music} gezeigt.
 @end quotation
 
 
@@ -1391,10 +1391,10 @@ kombiniert, hat man ein Song-Blatt.
 @end lilypond
 @c \addlyrics { Frei und froh denkt der Mensch __ }
 
-@moreinfo
+@seealso
 @quotation
 Eine vollständige Liste der Akkordbezeichnungen und andere
-Optionen für das Layout sind im Kapitel @ref{Chords} zu
+Optionen für das Layout sind im Kapitel @ruser{Chords} zu
 finden.
 @end quotation
 
@@ -1464,7 +1464,7 @@ direkt nach der Versionsnummer eingefügt.
 
 Wenn die Datei übersetzt wird, werden Titel- und Komponisteneinträge
 über der Musik ausgegeben. Mehr Information über die Titelei findet
-sich im Kapitel @ref{Creating
+sich im Kapitel @ruser{Creating
 titles}.
 
 
@@ -1633,13 +1633,13 @@ Benutzung der eben definierten Bezeichner:
 
 Wenn Sie diese Übung absolviert haben, sollten Sie am
 besten ein paar Stücke selber notieren. Beginnen Sie mit
-den @ref{Templates} und fügen Sie einfach Ihre Noten
+den @ruser{Templates} und fügen Sie einfach Ihre Noten
 dazu. Wenn Sie irgendetwas brauchen, das nicht in der
 Übung besprochen wurde, schauen Sie sich den Abschnitt Alles
- über die Notation an, angefangen mit @ref{Basic notation}.
+ über die Notation an, angefangen mit @ruser{Basic notation}.
 Wenn Sie für ein Instrument oder Ensemble Noten schreiben
 wollen, für das es keine Vorlage gibt, schauen Sie ins
-Kapitel  @ref{Extending the templates}.
+Kapitel  @ruser{Extending the templates}.
 
 Wenn Sie ein paar kurze Stücke notiert haben, lesen Sie
 den Rest des Lernhandbuchs (Kapitel 3--5). Natürlich können
@@ -1653,7 +1653,7 @@ Sie einige Erfahrunge im Notieren gewonnen haben.
 @node How to read the manual
 @subsection How to read the manual
 
-Wie wir im Kapitel @ref{How to read the tutorial} gesehen haben,
+Wie wir im Kapitel @ruser{How to read the tutorial} gesehen haben,
 haben wir bei vielen Beispielen in der Übung die
 @code{\relative c''}-Umgebung weggelassen.
 
@@ -1673,6 +1673,6 @@ Sie auf die Notenbilder, um die dazugehörige Textdatei anzuschauen,
 mit der dieses Notenbild erstellt worden ist.
 
 Mehr Information über die Struktur des restlichen Benutzerhandbuches 
-erhalten Sie im Abschnitt @ref{About this manual}.
+erhalten Sie im Abschnitt @ruser{About this manual}.
 
 

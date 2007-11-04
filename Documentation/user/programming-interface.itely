@@ -12,7 +12,7 @@
 
 Advanced tweaks may be performed by using Scheme.  If you are
 not familiar with Scheme, you may wish to read our
-@ref{Scheme tutorial}.
+@rlearning{Scheme tutorial}.
 
 @menu
 * Music functions::             
@@ -230,7 +230,7 @@ turning off Point and Click).  To do this, we return a @code{void}
 music expression.
 
 That is why the form
-that is returned is the @code{(make-music ...)}. With the
+that is returned is the @code{(make-music ...)}.  With the
 @code{'void} property set to @code{#t}, the parser is told to
 actually disregard this returned music
 expression.  Thus the important part of the void music function is the
@@ -251,7 +251,7 @@ noPointAndClick =
 @subsection Functions without arguments
 
 In most cases a function without arguments should be written
-with an identifier,
+with an variable,
 
 @example
 dolce = \markup@{ \italic \bold dolce @}
@@ -359,7 +359,7 @@ traLaLa = { c'4 d'4 }
 Due to parser lookahead
 
 In this example, the assignment happens after parser has verified that
-nothing interesting happens after @code{traLaLa = @{ ... @}}. Without
+nothing interesting happens after @code{traLaLa = @{ ... @}}.  Without
 the dummy statement in the above example, the @code{newLa} definition
 is executed before @code{traLaLa} is defined, leading to a syntax
 error.
@@ -391,7 +391,7 @@ define some Scheme code in a macro (to be called later), use
 
 @refbugs
 
-Mixing Scheme and LilyPond identifiers is not possible with the
+Mixing Scheme and LilyPond variables is not possible with the
 @code{--safe} option.
 
 
@@ -404,7 +404,7 @@ it takes up time.  Time is a rational number that measures the length
 of a piece of music in whole notes.
 
 A music object has three kinds of types:
-@itemize @bullet
+@itemize
 @item
 music name: Each music expression has a name.  For example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
@@ -1143,8 +1143,8 @@ First, the function gets the indent width, a property here named
 is not found, the default value is @code{2}.  Then, a list of justified
 lines is made using the @code{make-justified-lines-markup-list}
 function, which is related to the @code{\justified-lines}
-built-in markup list command. An horizontal space is added at the
-begining using the @code{make-hspace-markup} function. Finally, the
+built-in markup list command.  An horizontal space is added at the
+begining using the @code{make-hspace-markup} function.  Finally, the
 markup list is interpreted using the @code{interpret-markup-list}
 function.
 
@@ -1159,8 +1159,8 @@ This new markup list command can be used as follows:
   @}
   \override-lines #'(par-indent . 4) \paragraph @{
     The plate would be inked, the depressions caused by the cutting
-    and stamping would hold ink. An image was formed by pressing paper
-    to the plate. The stamping and cutting was completely done by
+    and stamping would hold ink.  An image was formed by pressing paper
+    to the plate.  The stamping and cutting was completely done by
     hand.
   @}
 @}
@@ -1219,7 +1219,7 @@ where @var{proc} is a Scheme function, taking three arguments.
 When interpreted, the function @var{proc} is called for every layout
 object found in the context @var{context}, with the following
 arguments:
-@itemize @bullet
+@itemize
 @item the layout object itself,
 @item the context where the layout object was created, and
 @item the context where @code{\applyOutput} is processed.
@@ -1299,8 +1299,8 @@ can be inserted with a grob closure.  Here is a setting from
 @noindent
 In this example, both @code{ly:self-alignment-interface::x-aligned-on-self} and
 @code{ly:self-alignment-interface::centered-on-x-parent} are called
-with the grob as argument. The results are added with the @code{+}
-function. To ensure that this addition is properly executed, the whole
+with the grob as argument.  The results are added with the @code{+}
+function.  To ensure that this addition is properly executed, the whole
 thing is enclosed in @code{ly:make-simple-closure}.
 
 In fact, using a single procedure as property value is equivalent to

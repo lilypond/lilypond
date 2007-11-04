@@ -135,7 +135,7 @@ tiene ningún texto, este truco no hace nada (y @strong{no} se queda esperando a
 siguiente fragmento de texto).  Para cambiar el comportamiento permanentemente a partir
 del comando, omita el @code{\once}.  Para detener este truco, use
 @code{\revert} (revertir).  Todo esto se explica en profundidad en
-@ref{The \override command}.
+@ruser{The \override command}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=3]
   % temporary code to break this example:
@@ -157,20 +157,20 @@ c4^"piu mosso" d e f
 
 @seealso
 
-En el presente manual: @ref{The \override command}, @ref{Common tweaks}.
+En el presente manual: @ruser{The \override command}, @ruser{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-En @ref{Moving objects}, pudimos ver cómo mover un objeto @code{TextScript}.
+En @ruser{Moving objects}, pudimos ver cómo mover un objeto @code{TextScript}.
 El mismo mecanismo se puede usar para mover otros tipos de
 objetos; simplemente sustituya @code{TextScript} con el nombre de
 otro objeto.
 
 Para encontrar el nombre del objeto, consulte la sección @q{@strong{véase también}} al
 final de la página relevante dentro de la documentación.  Por ejemplo, al
-final de @ref{Dynamics}, vemos
+final de @ruser{Dynamics}, vemos
 
 @quotation
 @seealso
@@ -247,7 +247,7 @@ Observe en el segundo ejemplo cuán importante es determinar qué contexto
 maneja un objeto determinado.  Debido a que el objeto @code{MetronomeMark} (indicación metronómica)
 se maneja en el contexto @code{Score}, los cambios de propiedades dentro del
 contexto @code{Voice} no se tendrán en cuenta.  Para ver más detalles, consulte
-@ref{Constructing a tweak}.
+@ruser{Constructing a tweak}.
 
 @cindex extra-offset (desplazamiento adicional)
 
@@ -378,7 +378,7 @@ espacio suficiente en ellas.
 Al investigar asuntos relacionados con la presentación, la herramienta
 @code{annotate-spacing} (anotar el espaciado) no tiene precio.
 Este comando imprime los valores de algunos comandos de espaciado;
-consulte @ref{Displaying spacing} para ver más detalles.  A partir de
+consulte @ruser{Displaying spacing} para ver más detalles.  A partir de
 la salida de de @code{annotate-spacing}, podemos ver qué márgenes podríamos desear alterar.
 
 Aparte de los márgenes, existen otras opciones para ahorrar espacio:
@@ -431,7 +431,7 @@ Otro ejemplo es desplazar las expresiones dinámicas que se
 
 @item
 Altere el espaciado horizontal por medio de @code{SpacingSpanner}.  Consulte
-@ref{Changing horizontal spacing} para ver más detalles.
+@ruser{Changing horizontal spacing} para ver más detalles.
 
 @lilypond[verbatim,quote]
 \score {
@@ -461,8 +461,8 @@ Hemos visto cómo la salida de LilyPond se puede modificar de manera muy profund
 comandos como
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  Pero
 tenemos un potencial incluso mayor si utilizamos Scheme.  Para ver una explicación completa
-de esto, consulte el @ref{Scheme tutorial} e
-@ref{Interfaces for programmers}.
+de esto, consulte el @ruser{Scheme tutorial} e
+@ruser{Interfaces for programmers}.
 
 Podemos usar Scheme simplemente para sobreponer (@code{\override}) comandos,
 

@@ -1,0 +1,40 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Fundamental concepts
+@chapter Fundamental concepts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* File structure (introduction)::
+* How LilyPond files work::
+* Score is a single musical expression::
+@end menu 
+@node File structure (introduction)
+@section File structure (introduction)
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node How LilyPond files work
+@section How LilyPond files work
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Score is a single musical expression
+@section Score is a single musical expression
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

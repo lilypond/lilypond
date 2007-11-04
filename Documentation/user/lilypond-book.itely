@@ -314,7 +314,7 @@ command line:
 
 @noindent
 where the @var{file}@command{psfonts} file is obtained from
-@command{lilypond-book}, @xref{Invoking lilypond-book}, for details. PDF
+@command{lilypond-book}, @xref{Invoking lilypond-book}, for details.  PDF
 can then be produced with a PostScript to PDF translator like
 @code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
 will produce some warnings about fonts; these are harmless and may
@@ -503,13 +503,13 @@ based on the standard DocBook elements.
 
 For inserting all type of snippets we use the @code{mediaobject} and @code{inlinemediaobject} element, so our snippets can be
 formatted inline or not inline.
-The snippet formatting options are always provided in the @code{role} property of the innermost element (see in next sections). Tags are
+The snippet formatting options are always provided in the @code{role} property of the innermost element (see in next sections).  Tags are
 chosen to allow DocBook editors format the content gracefully.
 The DocBook files to be processed with @command{lilypond-book} should have the extension @file{.lyxml}.
 
 @subheading Including a LilyPond file
 
-This is the most simple case. We must use the @file{.ly} extension for the included file, and insert it as a standard @code{imageobject},
+This is the most simple case.  We must use the @file{.ly} extension for the included file, and insert it as a standard @code{imageobject},
 with the following structure:
 
 @example
@@ -695,7 +695,7 @@ a link.
 
 @item fontload
 This option includes fonts in all of the generated EPS-files for this
-snippet. This should be used if the snippet uses any font that LaTeX
+snippet.  This should be used if the snippet uses any font that LaTeX
 cannot find on its own.
 
 @end table
@@ -800,7 +800,7 @@ music stick out of the right margin.
 
 The width of a tightly clipped systems can vary, due to notation
 elements that stick into the left margin, such as bar numbers and
-instrument names. This option will shorten each line and move each 
+instrument names.  This option will shorten each line and move each 
 line to the right by the same amount.
 
 
