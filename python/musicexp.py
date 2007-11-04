@@ -517,6 +517,46 @@ class Header:
         printer.newline ()
 
 
+class Paper:
+    def __init__ (self):
+        self.global_staff_size = -1
+        # page size
+        self.page_width = -1
+        self.page_height = -1
+        # page margins
+        self.top_margin = -1
+        self.bottom_margin = -1
+        self.left_margin = -1
+        self.right_margin = -1
+        self.system_left_margin = -1
+        self.system_right_margin = -1
+        self.system_distance = -1
+        self.top_system_distance = -1
+
+    def print_length_field (self, printer, field, value):
+        if value >= 0:
+            printer.dump ("%s = %s\\cm" % (field, value))
+            printer.newline ()
+    def print_ly (self, printer):
+        if self.global_staff_size > 0:
+            printer.dump ('#(set-global-staff-size %s)' % self.global_staff_size)
+            printer.newline ()
+        printer.dump ('\\paper {')
+        printer.newline ()
+        self.print_length_field (printer, "paper-width", self.page_width)
+        self.print_length_field (printer, "paper-height", self.page_height)
+        self.print_length_field (printer, "top-margin", self.top_margin)
+        self.print_length_field (printer, "botton-margin", self.bottom_margin)
+        self.print_length_field (printer, "left-margin", self.left_margin)
+        # TODO: maybe set line-width instead of right-margin?
+        self.print_length_field (printer, "right-margin", self.right_margin)
+        # TODO: What's the corresponding setting for system_left_margin and
+        #        system_right_margin in Lilypond?
+        self.print_length_field (printer, "between-system-space", self.system_distance)
+        self.print_length_field (printer, "page-top-space", self.top_system_distance)
+
+        printer.dump ('}')
+        printer.newline ()
 
 
 class EventChord (NestedMusic):

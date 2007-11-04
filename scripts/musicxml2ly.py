@@ -49,6 +49,99 @@ additional_definitions = {
 """
 }
 
+def round_to_two_digits (val):
+    return round (val * 100) / 100
+
+def extract_layout_information (tree):
+    paper = musicexp.Paper ()
+    defaults = tree.get_maybe_exist_named_child ('defaults')
+    if not defaults:
+        return None
+    tenths = -1
+    scaling = defaults.get_maybe_exist_named_child ('scaling')
+    if scaling:
+        mm = scaling.get_named_child ('millimeters')
+        mm = string.atof (mm.get_text ())
+        tn = scaling.get_maybe_exist_named_child ('tenths')
+        tn = string.atof (tn.get_text ())
+        tenths = mm / tn
+        paper.global_staff_size = mm * 72.27 / 25.4
+    # We need the scaling (i.e. the size of staff tenths for everything!
+    if tenths < 0:
+        return None
+
+    def from_tenths (txt):
+        return round_to_two_digits (string.atof (txt) * tenths / 10)
+    def set_paper_variable (varname, parent, element_name):
+        el = parent.get_maybe_exist_named_child (element_name)
+        if el: # Convert to cm from tenths
+            setattr (paper, varname, from_tenths (el.get_text ()))
+
+    pagelayout = defaults.get_maybe_exist_named_child ('page-layout')
+    if pagelayout:
+        # TODO: How can one have different margins for even and odd pages???
+        set_paper_variable ("page_height", pagelayout, 'page-height')
+        set_paper_variable ("page_width", pagelayout, 'page-width')
+
+        pmargins = pagelayout.get_named_children ('page-margins')
+        for pm in pmargins:
+            set_paper_variable ("left_margin", pm, 'left-margin')
+            set_paper_variable ("right_margin", pm, 'right-margin')
+            set_paper_variable ("bottom_margin", pm, 'bottom-margin')
+            set_paper_variable ("top_margin", pm, 'top-margin')
+
+    systemlayout = defaults.get_maybe_exist_named_child ('system-layout')
+    if systemlayout:
+        sl = systemlayout.get_maybe_exist_named_child ('system-margins')
+        if sl:
+            set_paper_variable ("system_left_margin", sl, 'left-margin')
+            set_paper_variable ("system_right_margin", sl, 'right-margin')
+        set_paper_variable ("system_distance", systemlayout, 'system-distance')
+        set_paper_variable ("top_system_distance", systemlayout, 'top-system-distance')
+
+    stafflayout = defaults.get_named_children ('staff-layout')
+    for sl in stafflayout:
+        nr = getattr (sl, 'number', 1)
+        dist = sl.get_named_child ('staff-distance')
+        #TODO: the staff distance needs to be set in the Staff context!!!
+
+    # TODO: Finish appearance?, music-font?, word-font?, lyric-font*, lyric-language*
+    appearance = defaults.get_named_child ('appearance')
+    if appearance:
+        lws = appearance.get_named_children ('line-width')
+        for lw in lws:
+            # Possible types are: beam, bracket, dashes,
+            #    enclosure, ending, extend, heavy barline, leger,
+            #    light barline, octave shift, pedal, slur middle, slur tip,
+            #    staff, stem, tie middle, tie tip, tuplet bracket, and wedge
+            tp = lw.type
+            w = from_tenths (lw.get_data ())
+            # TODO: Do something with these values!
+        nss = appearance.get_named_children ('note-size')
+        for ns in nss:
+            # Possible types are: cue, grace and large
+            tp = ns.type
+            sz = from_tenths (ns.get_data ())
+            # TODO: Do something with these values!
+        # <other-appearance> elements have no specified meaning
+
+    rawmusicfont = defaults.get_named_child ('music-font')
+    if rawmusicfont:
+        # TODO: Convert the font
+        pass
+    rawwordfont = defaults.get_named_child ('word-font')
+    if rawwordfont:
+        # TODO: Convert the font
+        pass
+    rawlyricsfonts = defaults.get_named_children ('lyric-font')
+    for lyricsfont in rawlyricsfonts:
+        # TODO: Convert the font
+        pass
+
+    return paper
+
+
+
 # score information is contained in the <work>, <identification> or <movement-title> tags
 # extract those into a hash, indexed by proper lilypond header attributes
 def extract_score_information (tree):
@@ -1659,6 +1752,7 @@ def convert (filename, options):
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
     score_information = extract_score_information (tree)
+    layout_information = extract_layout_information (tree)
     update_score_setup (score_structure, part_list, voices)
 
     if not options.output_name:
@@ -1677,7 +1771,10 @@ def convert (filename, options):
 
     print_ly_preamble (printer, filename)
     print_ly_additional_definitions (printer, filename)
-    score_information.print_ly (printer)
+    if score_information:
+        score_information.print_ly (printer)
+    if layout_information:
+        layout_information.print_ly (printer)
     print_voice_definitions (printer, part_list, voices)
     
     printer.close ()
