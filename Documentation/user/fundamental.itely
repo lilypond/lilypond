@@ -1,4 +1,3 @@
-
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 
@@ -520,7 +519,7 @@ blh blah
 @menu
 * On the un-nestedness of brackets and ties::  
 * Up and down::                 
-* Distances and measurements::  
+* Distances and measurements MAYBE MOVE::  
 @end menu
 
 @c my name start sucking the more docs I write. -gp
@@ -558,8 +557,8 @@ direction.
 @end verbatim
 
 
-@node Distances and measurements
-@subsection Distances and measurements
+@node Distances and measurements MAYBE MOVE
+@subsection Distances and measurements MAYBE MOVE
 
 DISCUSS after working on other sections.
 
@@ -580,7 +579,7 @@ want something that isn't covered?
 @end menu
 
 @node Soprano and cello
-@unnumberedsubsec Soprano and cello
+@subsection Soprano and cello
 
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
@@ -762,7 +761,7 @@ celloMusic = \relative c {
 
 
 @node TODO another example of extending templates
-@unnumberedsubsec TODO another example of extending templates
+@subsection TODO another example of extending templates
 
 TODO: somebody else fill this in.  You guys like vocal stuff,
 right?  Get to it.  :)  -gp
