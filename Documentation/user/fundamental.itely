@@ -561,7 +561,7 @@ direction.
 @node Distances and measurements
 @subsection Distances and measurements
 
-DISCUSS
+DISCUSS after working on other sections.
 
 TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
 
@@ -773,7 +773,7 @@ right?  Get to it.  :)  -gp
 @section Scores and parts
 
 TODO: this is really old stuff from the really old tutorial.
-Rewrite, fix, etc.  -gp
+Rewrite, fix, etc.  Or maybe delete entirely.  -gp
 
 In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Variables can

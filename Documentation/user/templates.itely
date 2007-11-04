@@ -891,7 +891,7 @@ global = {
   \override Voice.NoteHead #'style = #'default
   \override Voice.Rest #'style = #'default
 
-  % FIXME: setting printKeyCancellation back to #t must not
+  % TODO: setting printKeyCancellation back to #t must not
   % occur in the first bar after the incipit.  Dto. for forceClef.
   % Therefore, we need an extra \skip.
   \skip 1*1
@@ -1155,7 +1155,7 @@ is within a @code{\transpose} section.
 @c   - maybe ask Amelie Zapf to clean it up, or whether I should just
 @c     make whatever changes I feel like.
 
-@c FIXME: produces a warning ; key change merge.
+@c TODO: produces a warning ; key change merge.
 @c The `line-width' argument is for the \header.
 
 @lilypond[quote,verbatim,ragged-right,line-width]

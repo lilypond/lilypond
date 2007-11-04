@@ -312,6 +312,11 @@ out-www/lilypond-learning.* ; fi;
 nice make LILYPOND_EXTERNAL_BINARY=~/usr/bin/lilypond web
 @end verbatim
 
+To rebuild the complete HTML docs, run the above script from the
+@file{Documentation/user/} directory, then run the final line (the
+@code{nice make}) from the top source dir.
+
+
 
 @node Testing LilyPond
 @subsection Testing LilyPond
