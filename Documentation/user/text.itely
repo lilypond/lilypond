@@ -150,7 +150,7 @@ default; to enable it, use
 
 In this manual: @ref{Text markup}.
 
-Program reference: @internalsref{TextScript}.
+Internals Reference: @internalsref{TextScript}.
 
 
 @node Text spanners
@@ -201,7 +201,7 @@ To print a solid line, use
 
 @seealso
 
-Program reference: @internalsref{TextSpanner}.
+Internals Reference: @internalsref{TextSpanner}.
 
 
 @node Text marks
@@ -344,7 +344,7 @@ staff, you may alter this to print them on every staff,
 
 @seealso
 
-Program reference: @internalsref{RehearsalMark}.
+Internals Reference: @internalsref{RehearsalMark}.
 
 
 
@@ -507,7 +507,7 @@ advisable to cancel those properties with @code{normal-text}.  See
 
 This manual: @ref{Overview of text markup commands}.
 
-Program reference: @internalsref{TextScript}.
+Internals Reference: @internalsref{TextScript}.
 
 Init files: @file{scm/@/new@/-markup@/.scm}.
 
@@ -897,7 +897,7 @@ hairpins with \!.
 
 @seealso
 
-Program reference: @internalsref{TextSpanner},
+Internals Reference: @internalsref{TextSpanner},
 @internalsref{Glissando}, @internalsref{VoiceFollower},
 @internalsref{TrillSpanner},
 @internalsref{line-spanner-interface}.

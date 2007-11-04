@@ -221,7 +221,7 @@ In this manual: @ref{Pitches}, @ref{Accidentals}, and
 accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.
 
-Program reference: @internalsref{KeySignature}.
+Internals Reference: @internalsref{KeySignature}.
 
 Examples: @lsrdir{ancient}
 
@@ -759,7 +759,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 @seealso
 
-Program reference: @internalsref{Custos}.
+Internals Reference: @internalsref{Custos}.
 
 Examples:
 @lsr{ancient,custodes@/.ly}.
@@ -811,7 +811,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 In this manual: @ref{Breath marks}.
 
-Program reference: @internalsref{BreathingSign}.
+Internals Reference: @internalsref{BreathingSign}.
 
 Examples: @lsr{expressive,breathing-sign.ly}.
 
@@ -2017,7 +2017,7 @@ ais ais bis
 
 @seealso
 
-Program reference: @internalsref{Accidental_engraver} engraver and
+Internals Reference: @internalsref{Accidental_engraver} engraver and
 the @internalsref{AccidentalSuggestion} object.
 
 @node Figured bass
@@ -2205,7 +2205,7 @@ use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 @seealso
 
-Program reference: @internalsref{NewBassFigure},
+Internals Reference: @internalsref{NewBassFigure},
 @internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
 @internalsref{BassFigureBracket}, and
 @internalsref{BassFigureContinuation} objects and

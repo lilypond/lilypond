@@ -20,15 +20,15 @@ are available and explains how to lookup which knob to use for a
 particular effect.
 
 
-@cindex Program reference
+@cindex Internals Reference
 
 The controls available for tuning are described in a separate
 document, the
 @iftex
-Program reference manual.
+Internals Reference manual.
 @end iftex
 @ifnottex
-@ref{Top,Program reference,,lilypond-internals}.
+@ref{Top,Internals Reference,,lilypond-internals}.
 @end ifnottex
 That manual
 lists all different variables, functions and options available in
@@ -432,14 +432,14 @@ For a full a description of each plug-in, see
 @internalsref{Engravers}.
 @end ifhtml
 @ifnothtml
-Program reference @expansion{} Translation @expansion{} Engravers.
+Internals Reference @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Every context described in
 @ifhtml
 @internalsref{Contexts}
 @end ifhtml
 @ifnothtml
-Program reference @expansion{} Translation @expansion{} Context.
+Internals Reference @expansion{} Translation @expansion{} Context.
 @end ifnothtml
 lists the engravers used for that context.
 
@@ -992,7 +992,7 @@ If you visit the documentation on fingering instructions (in
 @quotation
 @seealso
 
-Program reference: @internalsref{Fingering}.
+Internals Reference: @internalsref{Fingering}.
 
 @end quotation
 
@@ -1186,7 +1186,7 @@ does not amount to much.  The initialization file (see
 
 @noindent
 As you can see, the @code{Fingering} object is nothing more than a
-bunch of variable settings, and the webpage in the Program Reference
+bunch of variable settings, and the webpage in the Internals Reference
 is directly generated from this definition.
 
 

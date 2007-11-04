@@ -540,7 +540,7 @@ context.  The Score context is the top level notation context.
 
 @seealso
 
-Program reference: @internalsref{Contexts}.
+Internals Reference: @internalsref{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -693,8 +693,8 @@ to mix music and text in documents.
 FIXME: needs almost-complete rewrite.  -gp
 
 There are four manuals about LilyPond: the @emph{Learning Manual},
-the @emph{Notation Reference}, the @emph{Program Usage}, and the
-@emph{Program Reference}.
+the @emph{Notation Reference}, the @emph{Application Usage}, and the
+@emph{Internals Reference}.
 
 
 @subheading Learning Manual (LM)
@@ -910,10 +910,10 @@ Repository}.  This website also has a searchable LilyPond manual.
 @item
 The
 @iftex
-Program reference
+Internals Reference
 @end iftex
 @ifnottex
-@ref{Top,Program reference,,lilypond-internals}
+@ref{Top,Internals Reference,,lilypond-internals}
 @end ifnottex
 is a set of heavily cross linked HTML pages, which document the
 nitty-gritty details of each and every LilyPond class, object, and

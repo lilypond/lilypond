@@ -43,7 +43,7 @@ staff are squashed, and the staff itself has a single line
 
 @seealso
 
-Program reference: @internalsref{RhythmicStaff}.
+Internals Reference: @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
@@ -70,7 +70,7 @@ The complete list of drum names is in the init file
 
 @seealso
 
-Program reference: @internalsref{note-event}.
+Internals Reference: @internalsref{note-event}.
 
 @node Percussion staves
 @unnumberedsubsubsec Percussion staves
@@ -281,7 +281,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 Init files: @file{ly/@/drumpitch@/-init@/.ly}.
 
-Program reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Internals Reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
 @refbugs
 

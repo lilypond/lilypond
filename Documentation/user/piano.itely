@@ -87,7 +87,7 @@ advance.  Here is a practical example
 
 In this manual: @ref{Manual staff switches}.
 
-Program reference: @internalsref{AutoChangeMusic}.
+Internals Reference: @internalsref{AutoChangeMusic}.
 
 
 
@@ -193,7 +193,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 For fine-tuning the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
 @code{PianoPedalBracket} objects (see
-@internalsref{PianoPedalBracket} in the Program reference) can be
+@internalsref{PianoPedalBracket} in the Internals Reference) can be
 modified.  For example, the bracket may be extended to the right edge
 of the note head
 
@@ -234,7 +234,7 @@ can be printed automatically.  This is switched on by setting
 
 @seealso
 
-Program reference: @internalsref{VoiceFollower}.
+Internals Reference: @internalsref{VoiceFollower}.
 
 @refcommands
 

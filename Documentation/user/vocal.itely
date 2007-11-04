@@ -247,7 +247,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
+Internals Reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 
@@ -384,7 +384,7 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
  
-Program reference: @internalsref{Lyrics}.
+Internals Reference: @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
@@ -412,7 +412,7 @@ glyph.}.
 
 @seealso
 
-Program reference: @internalsref{LyricCombineMusic}.
+Internals Reference: @internalsref{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -490,7 +490,7 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Program reference: @internalsref{Melisma_translator}.
+Internals Reference: @internalsref{Melisma_translator}.
 
 @lsr{vocal,lyric@/-combine.ly}.
 
@@ -524,7 +524,7 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Program reference: @internalsref{LyricExtender},
+Internals Reference: @internalsref{LyricExtender},
 @internalsref{LyricHyphen}
 
 
@@ -584,7 +584,7 @@ The final input would resemble
 @seealso
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Program reference: @internalsref{LyricCombineMusic},
+Internals Reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.  
 
 
@@ -1043,7 +1043,7 @@ text = \lyricmode {
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
+Internals Reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 @internalsref{VocalName}.
 
 

@@ -123,7 +123,7 @@ Optionally, notes can be spaced proportionately to their duration.
 For details of this and other settings which control
 proportional notation see @ref{Proportional notation}.
 
-Program reference: @internalsref{Dots}, and
+Internals Reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
 
 
@@ -272,7 +272,7 @@ point.
 
 @seealso
 
-Program reference: @internalsref{TupletBracket},
+Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
 
 
@@ -394,7 +394,7 @@ c4_~ c c^~ c)
 
 @seealso
 
-Program reference:
+Internals Reference:
 @internalsref{LaissezVibrerTie}
 @internalsref{LaissezVibrerTieColumn}
 
@@ -453,7 +453,7 @@ second number indicates the direction (1=up, -1=down).
 
 In this manual: @ref{Automatic note splitting}.
 
-Program reference: @internalsref{Tie}.
+Internals Reference: @internalsref{Tie}.
 
 
 @refbugs
@@ -518,7 +518,7 @@ rests alone.
 
 @seealso
 
-Program reference: @internalsref{Rest}.
+Internals Reference: @internalsref{Rest}.
 
 
 @node Skips
@@ -563,7 +563,7 @@ The fragment @code{@{ \skip 4 @} } would produce an empty page.
 
 @seealso
 
-Program reference: @internalsref{SkipMusic}.
+Internals Reference: @internalsref{SkipMusic}.
 
 
 @node Multi measure rests
@@ -694,7 +694,7 @@ s1^\markup {CHORUS} % Chorus notes would go here
 
 This manual: @ref{Text}
 
-Program reference: 
+Internals Reference: 
 
 @internalsref{MultiMeasureRest}.
 
@@ -833,7 +833,7 @@ rhythmically complex modern music.  In the following example, the
 
 @seealso
 
-Program reference: @internalsref{TimeSignature}, and
+Internals Reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
 Examples: @lsr{contemporary,compound-time-signature.ly}.
@@ -1135,7 +1135,7 @@ split rests.
 
 @seealso
 
-Program reference: @internalsref{Completion_heads_engraver}.
+Internals Reference: @internalsref{Completion_heads_engraver}.
 
 
 @node Setting automatic beam behavior
@@ -1449,7 +1449,7 @@ f8 f''8 f8 f''8
 
 @seealso
 
-Program reference: @internalsref{Beam}.
+Internals Reference: @internalsref{Beam}.
 
 
 @refbugs
@@ -1696,7 +1696,7 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 In this manual: @ref{Repeats}, @ref{System start delimiters}.
 
-Program reference: @internalsref{BarLine} (created at
+Internals Reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
 staves), @internalsref{Timing_translator} (for Timing 
 properties).
@@ -1834,7 +1834,7 @@ engraver from the score context.
 
 @seealso
 
-Program reference: @internalsref{BarNumber}.
+Internals Reference: @internalsref{BarNumber}.
 
 Examples: @lsrdir{bar number}
 
@@ -2028,7 +2028,7 @@ For common tweaks to the positioning of rehearsal marks, see
 
 This manual: @ref{Text marks}.
 
-Program reference: @internalsref{RehearsalMark}.
+Internals Reference: @internalsref{RehearsalMark}.
 
 Init files: @file{scm/@/translation@/-functions@/.scm} contains
 the definition of @code{format-mark-numbers} and
@@ -2202,7 +2202,7 @@ in other staves by setting @code{strict-grace-spacing} to
 
 @seealso
 
-Program reference: @internalsref{GraceMusic}.
+Internals Reference: @internalsref{GraceMusic}.
 
 
 @refbugs
@@ -2335,7 +2335,7 @@ notes.
 
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
 
-Program Reference: @internalsref{Timing_translator},
+Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
 
 

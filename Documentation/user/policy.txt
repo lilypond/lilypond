@@ -37,8 +37,8 @@ know what the notation means; explaining musical concepts happens
 in the Music Glossary.
 
 
-* Program Usage: information about using the program lilypond with
-  other programs (lilypond-book, operating systems, GUIs,
+* Application Usage: information about using the program lilypond
+  with other programs (lilypond-book, operating systems, GUIs,
   convert-ly, etc).  This section is written in formal technical
   writing style.
 
@@ -49,6 +49,10 @@ Users are not expected to read this manual from start to finish.
   Explainations and translations about notation terms go here.
 
 Users are not expected to read this manual from start to finish.
+
+* Internals Reference: not really a documentation book, since it
+  is automagically generated from the source, but this is its
+  name.
 
 
 %%%%% SECTION ORGANIZATION
@@ -69,11 +73,13 @@ main docs
 
     Notation Reference: @ruser{faazle}, @ruser{boo}.
 
-    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}
-
-    Program reference: @internalsref{fazzle}, @internalsref{booar}.
+    Application Usage: @rprogram{blah}.
 
     Installed files: @file{blahz}.
+
+    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}
+
+    Internals Reference: @internalsref{fazzle}, @internalsref{booar}.
 
   ("Snippets" is REQUIRED; the others are optional)
 

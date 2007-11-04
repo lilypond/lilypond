@@ -180,7 +180,7 @@ the bottom of @ruser{Dynamics}, we see
 @quotation
 @seealso
 
-Program reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Internals Reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
 Vertical positioning of these symbols is handled by
 @internalsref{DynamicLineSpanner}.
 @end quotation
@@ -438,7 +438,7 @@ Alter the horizontal spacing via @code{SpacingSpanner}.  See
 @node Default files
 @subsection Default files
 
-The Program Reference documentation contains a lot of information
+The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered from
 looking at the internal LilyPond files.
 

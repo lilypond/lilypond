@@ -71,7 +71,7 @@ clusters.
 
 @seealso
 
-Program reference: @internalsref{ClusterSpanner},
+Internals Reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
@@ -215,7 +215,7 @@ override typesetting decisions.
 
 @seealso
 
-Program reference: the objects responsible for resolving
+Internals Reference: the objects responsible for resolving
 collisions are @internalsref{NoteCollision} and
 @internalsref{RestCollision}.
 
@@ -313,7 +313,7 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @seealso
 
-Program reference: @internalsref{PartCombineMusic}.
+Internals Reference: @internalsref{PartCombineMusic}.
 
 @refbugs
 

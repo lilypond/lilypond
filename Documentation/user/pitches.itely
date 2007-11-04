@@ -93,7 +93,7 @@ c, c,, e, g d,, d, d c
 
 Snippets: @lsrdir{pitch}
 
-Program reference: @internalsref{LedgerLineSpanner},
+Internals Reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
 
 
@@ -614,7 +614,7 @@ musicInBflat = @{ e4 @dots{} @}
 Snippets: @lsrdir{pitch}, @lsr{scheme,
 transpose-pitches-with-minimum-accidentals.ly}.
 
-Program reference: @internalsref{TransposedMusic}.
+Internals Reference: @internalsref{TransposedMusic}.
 
 @refbugs
 
@@ -829,7 +829,7 @@ Notation reference: @ref{Ancient clefs}.
 
 Snippets: @lsrdir{pitch}
 
-Program reference: @internalsref{Clef}.
+Internals Reference: @internalsref{Clef}.
 
 
 @node Key signature
@@ -933,7 +933,7 @@ Snippets: @lsrdir{pitch},
 FIXME link to snippet 248,
 FIXME link to a snippet about scordatura.
 
-Program reference: @internalsref{KeyCancellation},
+Internals Reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}
 
 
@@ -979,7 +979,7 @@ Internally the function sets the properties @code{ottavation}
 
 Snippets: @lsrdir{pitch}
 
-Program reference: @internalsref{OttavaBracket}.
+Internals Reference: @internalsref{OttavaBracket}.
 
 
 @refbugs
@@ -1425,7 +1425,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @seealso
 
-Program reference: @internalsref{Accidental_engraver},
+Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion} and @internalsref{AccidentalPlacement}.
 
 

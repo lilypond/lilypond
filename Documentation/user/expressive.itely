@@ -157,7 +157,7 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Program reference: @internalsref{Script}.
+Internals Reference: @internalsref{Script}.
 
 
 @refbugs
@@ -352,7 +352,7 @@ printing this line, use
 
 @seealso
 
-Program reference: @internalsref{DynamicText},
+Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
 handled by @internalsref{DynamicLineSpanner}.
 Glossary: @rglos{Hairpin}, @rglos{crescendo}, @rglos{decrescendo}
@@ -426,7 +426,7 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Program reference: @internalsref{Slur}.
+Internals Reference: @internalsref{Slur}.
 
 
 @node Phrasing slurs
@@ -465,7 +465,7 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
-Program reference: @internalsref{PhrasingSlur}.
+Internals Reference: @internalsref{PhrasingSlur}.
 
 
 @node Breath marks
@@ -494,7 +494,7 @@ d4
 
 @seealso
 
-Program reference: @internalsref{BreathingSign}.
+Internals Reference: @internalsref{BreathingSign}.
 
 Examples: @lsr{expressive,breathing-sign.ly}
 
@@ -553,7 +553,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Program reference: @internalsref{Glissando}.
+Internals Reference: @internalsref{Glissando}.
 
 Glossary: @rglos{falls}, @rglos{doits}
 Example files:
@@ -683,7 +683,7 @@ is moved to the Staff context:
 
 Notation manual: @ref{Ties}, for writing out arpeggios.
 
-Program reference: @internalsref{Arpeggio}.
+Internals Reference: @internalsref{Arpeggio}.
 
 
 @refbugs
@@ -740,7 +740,7 @@ printed as a stemless note head in parentheses.
 
 @seealso
 
-Program reference: @internalsref{TrillSpanner}.
+Internals Reference: @internalsref{TrillSpanner}.
 
 
 @node Analysis brackets
@@ -774,7 +774,7 @@ horizontal brackets.  To use this, add the
 
 @seealso
 
-Program reference: @internalsref{HorizontalBracket}.
+Internals Reference: @internalsref{HorizontalBracket}.
 
 
 

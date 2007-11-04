@@ -218,7 +218,7 @@ In combination with Frenched staves, this may be used to typeset
 
 @seealso
 
-Program reference: @internalsref{StaffSymbol},
+Internals Reference: @internalsref{StaffSymbol},
 @internalsref{DrumStaff}.
 
 Examples: @lsrdir{staff}
@@ -344,7 +344,7 @@ For more details, see @ref{Text markup}.
 
 @seealso
 
-Program reference: @internalsref{MetronomeMark}, @ref{MIDI
+Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
 
 
@@ -466,7 +466,7 @@ c1 c c c \break
 
 @seealso
 
-Program reference: @internalsref{InstrumentName}.
+Internals Reference: @internalsref{InstrumentName}.
 
 
 @node Quoting other voices
@@ -585,7 +585,7 @@ In this manual: @ref{Instrument transpositions}.
 Examples: @lsr{parts,quote.ly},
 @lsr{parts,quote-transportation.ly}
 
-Program reference: @internalsref{QuoteMusic}.
+Internals Reference: @internalsref{QuoteMusic}.
 
 
 @node Formatting cue notes

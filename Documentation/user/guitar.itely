@@ -44,7 +44,7 @@ with @code{\}@var{number},
 
 @seealso
 
-Program reference: @internalsref{StringNumber},
+Internals Reference: @internalsref{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
@@ -110,7 +110,7 @@ initialize the @code{TabStaff} with this code:
 
 @seealso
 
-Program reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
+Internals Reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
 
 @refbugs
 
@@ -175,7 +175,7 @@ Some other predefined tunings are @code{guitar-open-g-tuning},
 
 The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
-Program reference: @internalsref{Tab_note_heads_engraver}.
+Internals Reference: @internalsref{Tab_note_heads_engraver}.
 
 @refbugs
 
@@ -323,7 +323,7 @@ The letters used for the fingerings are contained in the property
 
 @seealso
 
-Program reference: @internalsref{StrokeFinger}
+Internals Reference: @internalsref{StrokeFinger}
 
 
 

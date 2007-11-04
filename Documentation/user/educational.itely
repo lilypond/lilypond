@@ -150,7 +150,7 @@ To see all notehead styles, please see @ref{Note head styles}.
 
 @seealso
 
-Program reference: @internalsref{NoteHead}.
+Internals Reference: @internalsref{NoteHead}.
 
 
 
@@ -282,7 +282,7 @@ instructions very close to note heads in monophonic music,
 
 @seealso
 
-Program reference: @internalsref{Fingering}.
+Internals Reference: @internalsref{Fingering}.
 
 Examples: @lsr{expressive,fingering-chords.ly}
 
@@ -507,7 +507,7 @@ formatting system would not reserve space for the moved object.
 
 @seealso
 
-Program reference: @internalsref{Ambitus},
+Internals Reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
@@ -588,7 +588,7 @@ The other arguments  are the offset and the text of the label.
 
 @seealso
 
-Program reference: @internalsref{text-balloon-interface}.
+Internals Reference: @internalsref{text-balloon-interface}.
 
 
 @node Grid lines
