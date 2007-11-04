@@ -15,6 +15,7 @@ configurable; virtually every fragment of output may be changed.
 
 TODO: explain what/why.  maybe in other sections.
 
+
 @menu
 * Common tweaks::               
 * TODO other name::             
@@ -429,14 +430,21 @@ Alter the horizontal spacing via @code{SpacingSpanner}.  See
 @section TODO other name
 
 @menu
-* Default files::               
+* Predefined tweaks::           
 * Advanced tweaks with Scheme::  
 * Avoiding tweaks with slower processing::  
 * The three methods of tweaking::  
 @end menu
 
-@node Default files
-@subsection Default files
+@node Predefined tweaks
+@subsection Predefined tweaks
+
+TODO: Some tweaks are really common, blah blah.
+
+for example \slurUp, \fatText.
+
+Show example, then explain where to find ly/propert-ly.
+
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered from
