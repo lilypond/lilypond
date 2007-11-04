@@ -2085,7 +2085,7 @@
 	(stacking-dir . -1)
 	(padding . 0.5)
 	(vertical-skylines . ,ly:axis-group-interface::combine-skylines)
-	(max-stretch . ,ly:align-interface::calc-max-stretch)
+	(max-stretch . 0)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
 		 (interfaces . (align-interface
