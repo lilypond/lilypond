@@ -26,9 +26,15 @@ There are a few different ways to define lyrics; we shall begin
 by examining the simplest method, and gradually increase complexity.
 
 @menu
-* TODO subsection vocal music::  
+* Setting simple songs::        
+* Entering lyrics::             
+* Aligning lyrics to a melody::  
+* Working with lyrics and variables::  
+* Flexibility in placement::    
+* Spacing lyrics::              
+* More about stanzas::          
+* Other vocal issues::          
 @end menu
-
 
 @commonprop
 
@@ -52,32 +58,8 @@ To make lyrics avoid barlines as well, use
 @}
 @end example
 
-
-@node TODO subsection vocal music
-@subsection TODO subsection vocal music
-
-@menu
-* Setting simple songs::        
-* Entering lyrics::             
-* Aligning lyrics to a melody::  
-* Automatic syllable durations::  
-* Another way of entering lyrics::  
-* Assigning more than one syllable to a single note::  
-* More than one note on a single syllable::  
-* Extenders and hyphens::       
-* Working with lyrics and variables::  
-* Flexibility in placement::    
-* Lyrics to multiple notes of a melisma::  
-* Divisi lyrics::               
-* Switching the melody associated with a lyrics line::  
-* Lyrics independent of notes::  
-* Spacing lyrics::              
-* More about stanzas::          
-* Other vocal issues::          
-@end menu
-
 @node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
+@subsection Setting simple songs
 
 @cindex \addlyrics
 
@@ -114,7 +96,7 @@ introduced in @ref{Entering lyrics}.
 
 
 @node Entering lyrics
-@unnumberedsubsubsec Entering lyrics
+@subsection Entering lyrics
 
 @cindex lyrics
 @funindex \lyricmode
@@ -206,7 +188,7 @@ it with utf-8 encoding.  See @ref{Text encoding}, for more info.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo ple go”. }
+\addlyrics { He said: â€œLet my peo ple goâ€. }
 @end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
@@ -252,7 +234,7 @@ Internals Reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 @node Aligning lyrics to a melody
-@unnumberedsubsubsec Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -529,7 +511,7 @@ Internals Reference: @internalsref{LyricExtender},
 
 
 @node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@subsection Working with lyrics and variables
 @cindex lyrics, variables
 
 To define variables containing lyrics, the function @code{\lyricmode}
@@ -589,7 +571,7 @@ Internals Reference: @internalsref{LyricCombineMusic},
 
 
 @node Flexibility in placement
-@unnumberedsubsubsec Flexibility in placement
+@subsection Flexibility in placement
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
@@ -816,7 +798,7 @@ lyr = \lyricmode { I like my cat! }
 
 
 @node Spacing lyrics
-@unnumberedsubsubsec Spacing lyrics
+@subsection Spacing lyrics
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -860,7 +842,7 @@ layout.
 
 
 @node More about stanzas
-@unnumberedsubsubsec More about stanzas
+@subsection More about stanzas
 
 @cindex stanza number
 @unnumberedsubsubsec Adding stanza numbers 
@@ -875,7 +857,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, ché -- ri, je t'aime
+  Oh, chÃ© -- ri, je t'aime
 }
 @end lilypond
 
@@ -1049,7 +1031,7 @@ Internals Reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 
 
 @node Other vocal issues
-@unnumberedsubsubsec Other vocal issues
+@subsection Other vocal issues
 
 @ignore
 yeah, I'm giving up somewhat by stuffing a bunch of things in
