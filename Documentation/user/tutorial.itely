@@ -87,7 +87,7 @@ be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the tutorial}.}
 
-@cindex Case sensitive
+@cindex case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
 @{ c d e @}} is valid input; @code{@{ C D E @}} will produce an
 error message.
@@ -97,7 +97,7 @@ error message.
 @subheading Entering music and viewing output
 
 @cindex PDF file
-@cindex Viewing music
+@cindex viewing music
 
 In this section we will explain what commands to run and how to
 view or print the output.
@@ -375,7 +375,7 @@ explain what all these terms mean:
 
 @itemize
 
-@cindex Case sensitive
+@cindex case sensitive
 @item
 @strong{Case sensitive}:
 it matters whether you enter a letter in lower case (e.g. @code{a,
@@ -521,7 +521,7 @@ Music glossary: @rglos{octave}, @rglos{fourth}, @rglos{fifth}.
 
 LilyPond calculates the pitch of each note relative to the
 previous one@footnote{There is another mode of entering pitches,
-@ruser{Absolute note names}. However, in practice relative mode is
+@ruser{Absolute octave entry}. However, in practice relative mode is
 much easier and safer to use.}, as we saw in @ref{Simple
 notation}.  If no extra @notation{octave} marks (@code{'} and
 @code{,}) are added, it assumes that each pitch is within a
@@ -531,6 +531,8 @@ LilyPond examines pitches based on the note names -- in other
 words, an augmented fourth is @emph{not} treated the same as a
 diminished fifth.  If we begin at a C, then an F-sharp will be placed a
 higher than the C, while a G-flat will be placed lower than the C.
+An F-sharp is written as @code{fis} and a G-flat is written as
+@code{ges} as we will see in @ref{Accidentals and key signatures}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2 fis
@@ -541,7 +543,7 @@ c2 ges
 @quotation
 @table @asis
 @item Relative octaves
-see @ruser{Relative octaves}.
+see @ruser{Relative octave entry}.
 @item Octave check
 see @ruser{Octave check}.
 @end table
@@ -922,7 +924,7 @@ see @ruser{Grace notes},
 @item Tuplets
 see @ruser{Tuplets},
 @item Pickups
-see @ruser{Partial measures}.
+see @ruser{Upbeats}.
 @end table
 @end quotation
 
@@ -1242,8 +1244,8 @@ This section introduces vocal music and simple song sheets.
 @node Setting simple songs
 @subsection Setting simple songs
 
-@cindex Lyrics
-@cindex Songs
+@cindex lyrics
+@cindex songs
 
 Music glossary: @rglos{lyrics}.
 
