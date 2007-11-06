@@ -198,6 +198,16 @@ at all.  Furthermore, in absolute mode, a single mistake may be
 difficult to spot; in relative mode, a single error puts the rest
 of the piece off by one octave.
 
+LilyPond examines pitches based on the note names -- in other
+words, an augmented fourth is @emph{not} treated the same as a
+diminished fifth.  If we begin at a C, then an F-sharp will be placed a
+higher than the C, while a G-flat will be placed lower than the C.
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c2 fis
+c2 ges
+@end lilypond
+
 @seealso
 
 Snippets: @lsrdir{pitch}

@@ -8,6 +8,29 @@
 @end ignore
 
 @ignore
+
+Tutorial Specification:
+
+The LM is written in a tutorial style which introduces the
+most important concepts, structure and syntax of the
+elements of a LilyPond score in a carefully graded sequence
+of steps.  Explanations of all musical concepts used in the
+Manual can be found in the Music Glossary, and readers are
+assumed to have no prior knowledge of LilyPond.  The
+objective is to take readers to a level where the Notation
+Reference can be understood and employed to both adapt the
+templates in the Appendix to their needs and to begin to
+construct their own.  Commonly used tweaks are introduced
+and explained.  Examples are provided throughout which,
+while being focussed on the topic being introduced, are long
+enough to seem real in order to retain the readers'
+interest.  Each example builds on the previous material, and
+comments are used liberally.  Every new aspect is thoroughly
+explained before it is used.
+
+@end ignore
+
+@ignore
 Tutorial guidelines:  (different from policy.txt!)
 - unless you have a really good reason, use either
     @lilypond[verbatim,quote,ragged-right]
@@ -203,20 +226,22 @@ Music glossary: @rglos{pitch}, @rglos{interval}, @rglos{fourth},
 @rglos{scale}, @rglos{middle C}, @rglos{octave}.
 
 The easiest way to enter notes is by using @code{\relative} mode.
-In this mode, the @notation{interval} between the previous note and
-the current note is assumed to be within a @notation{fourth}.  We
-begin by entering the most elementary piece of music, a
-@notation{scale}.
+In this mode, the octave is chosen automatically by assuming the 
+following note is always to be placed closest to the previous note,
+i.e., it is to be placed in the octave which is within three 
+staff spaces of the previous note.  We begin by entering the most 
+elementary piece of music, a @notation{scale}, in which every note
+is within just one staff space of the previous note.
 
 @lilypond[verbatim,quote,ragged-right]
-\relative c' {
+\relative c' {  % set the starting point to middle C
   c d e f
   g a b c
 }
 @end lilypond
 
 The initial note is @notation{middle C}.  Each successive note is
-within a fourth of the previous note -- in other words, the first
+placed closest to the previous note -- in other words, the first
 @code{c} is the closest C to middle C.  This is followed by the
 closest D to the previous note.  We can create melodies which
 have larger intervals:
@@ -229,13 +254,36 @@ have larger intervals:
 @end lilypond
 
 @noindent
-As you may notice, this example does not start on middle C.  The first
-note -- the @code{d} -- is the closest D to middle C.
+As you may notice, this example does not start on middle C.
+The first note -- the @code{d} -- is the closest D to middle C.
 
-To add intervals that are larger than a fourth, we can raise
-the @notation{octave} by adding a single quote @code{'} (or apostrophe)
-to the note name.  We can lower the octave by adding a comma @code{,} to
-the note name.
+Relative mode can be confusing initially, but is the easiest way
+to enter most melodies.  Let us see how this relative calculation
+works in practice.  Starting from a B, which is on the middle line
+in a treble clef, you can reach a C, D and E within 3 staff spaces
+going up, and an A, G and F within 3 staff spaces going down.  So
+if the note following a B is a C, D or F it will be assumed to be
+above the B, and an A, G or F will be assumed to be below.
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+b c  % c is 1 staff space up, so is the c above
+b d  % d is 2 up or 5 down, so is the d above
+b e  % e is 3 up or 4 down, so is the e above
+b a  % a is 4 up or 3 down, so is the a below
+b g  % g is 5 up or 2 down, so is the g below
+b f  % f is 6 up or 1 down, so is the f below
+@end lilypond
+
+Exactly the same happens even when any of these notes are
+sharpened or flatted (@rglos{accidentals} and the @rglos{key
+signature}) are @strong{totally ignored} in the calculation of
+relative position.  Exactly the same staff space counting is done
+from a note at any other position on the staff.
+
+To add intervals that are larger than four staff spaces, we can
+raise the @notation{octave} by adding a single quote @code{'} (or
+apostrophe) to the note name.  We can lower the octave by adding a
+comma @code{,} to the note name.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -504,7 +552,6 @@ This section introduces common notation that is used for one voice
 on one staff.
 
 @menu
-* Relative note names::         
 * Accidentals and key signatures::  
 * Ties and slurs::              
 * Articulation and dynamics::   
@@ -512,42 +559,6 @@ on one staff.
 * Automatic and manual beams::  
 * Advanced rhythmic commands::  
 @end menu
-
-
-@node Relative note names
-@subsection Relative note names
-
-Music glossary: @rglos{octave}, @rglos{fourth}, @rglos{fifth}.
-
-LilyPond calculates the pitch of each note relative to the
-previous one@footnote{There is another mode of entering pitches,
-@ruser{Absolute octave entry}. However, in practice relative mode is
-much easier and safer to use.}, as we saw in @ref{Simple
-notation}.  If no extra @notation{octave} marks (@code{'} and
-@code{,}) are added, it assumes that each pitch is within a
-@notation{fourth} of the previous note.
-
-LilyPond examines pitches based on the note names -- in other
-words, an augmented fourth is @emph{not} treated the same as a
-diminished fifth.  If we begin at a C, then an F-sharp will be placed a
-higher than the C, while a G-flat will be placed lower than the C.
-An F-sharp is written as @code{fis} and a G-flat is written as
-@code{ges} as we will see in @ref{Accidentals and key signatures}.
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c2 fis
-c2 ges
-@end lilypond
-
-@seealso
-@quotation
-@table @asis
-@item Relative octaves
-see @ruser{Relative octave entry}.
-@item Octave check
-see @ruser{Octave check}.
-@end table
-@end quotation
 
 
 @node Accidentals and key signatures
