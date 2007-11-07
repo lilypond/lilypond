@@ -5,6 +5,13 @@ texidoc = "@unnumbered LilyPond Examples
 These pages show LilyPond examples (snippets) from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
 
+@strong{@uref{pitches/collated-files.html,Pitches}}
+
+
+
+
+@subheading old stuffs
+
 @strong{@uref{ancient/collated-files.html,Ancient}}
 
 @strong{@uref{chords/collated-files.html,Chords}}
@@ -20,8 +27,6 @@ These pages show LilyPond examples (snippets) from the
 @strong{@uref{guitar/collated-files.html,Guitar notation}}
 
 @strong{@uref{parts/collated-files.html,Preparing parts}}
-
-@strong{@uref{pitch/collated-files.html,Pitch}}
 
 @strong{@uref{repeats/collated-files.html,Repeats}}
 
