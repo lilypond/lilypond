@@ -20,6 +20,7 @@ are three steps to this process: input, modifying, and output.
 * Writing pitches::             
 * Changing multiple pitches::   
 * Displaying pitches::          
+* Note heads::                  
 @end menu
 
 
@@ -1544,6 +1545,144 @@ Examples:
 
 There is no collision handling in the case of multiple per-voice
 ambitus.
+
+
+@node Note heads
+@subsection Note heads
+
+@menu
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+* Special noteheads::           
+@end menu
+
+@node Easy notation note heads
+@unnumberedsubsubsec Easy notation note heads
+
+@cindex note heads, practice
+@cindex note heads, easy notation
+@cindex easy notation
+@cindex Hal Leonard
+
+The @q{easy play} note head includes a note name inside the head.
+It is used in music for beginners
+
+@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
+  \setEasyHeads
+  c'2 e'4 f' | g'1
+@end lilypond
+
+The command @code{\setEasyHeads} overrides settings for the
+@internalsref{NoteHead} object.  To make the letters readable, it
+has to be printed in a large font size.  To print with a larger
+font, see @ref{Setting the staff size}.
+
+@refcommands
+
+@funindex \setEasyHeads
+@code{\setEasyHeads}
+
+
+@node Shape note heads
+@unnumberedsubsubsec Shape note heads
+
+@cindex note heads, shape
+
+In shape note head notation, the shape of the note head
+corresponds to the harmonic function of a note in the scale.  This
+notation was popular in the 19th century American song books.
+
+Shape note heads can be produced by setting @code{\aikenHeads} or
+@code{\sacredHarpHeads}, depending on the style desired.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Shapes are determined on the step in the scale, where the base of
+the scale is determined by  the @code{\key} command
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Shape note heads are implemented through the
+@code{shapeNoteStyles} property.  Its value is a vector of
+symbols.  The k-th element indicates the style to use for the k-th
+step of the scale.  Arbitrary combinations are possible, e.g.
+
+@lilypond[verbatim,relative=1,fragment]
+\set shapeNoteStyles =
+  ##(cross triangle fa #f mensural xcircle diamond)
+c8 d4. e8 a2 g1
+@end lilypond
+
+
+@node Improvisation
+@unnumberedsubsubsec Improvisation
+
+Improvisation is sometimes denoted with slashed note heads.  Such
+note heads can be created by adding a
+@internalsref{Pitch_squash_engraver} to the @internalsref{Voice}
+context.  Then, the following command
+
+@example
+\set squashedPosition = #0
+\override NoteHead #'style = #'slash
+@end example
+
+@noindent
+switches on the slashes.
+
+There are shortcuts @code{\improvisationOn} (and an accompanying
+@code{\improvisationOff}) for this command sequence.  They are
+used in the following example
+
+@lilypond[verbatim,ragged-right,quote]
+\new Voice \with {
+  \consists Pitch_squash_engraver
+} \transpose c c' {
+  e8 e g a a16(bes)(a8) g \improvisationOn
+  e8
+  ~e2~e8 f4 fis8
+  ~fis2 \improvisationOff a16(bes) a8 g e
+}
+@end lilypond
+
+
+@node Special noteheads
+@unnumberedsubsubsec Special noteheads
+
+@cindex note heads, special
+
+Different noteheads are used by various instruments for various
+meanings -- crosses are used for @q{parlato} with vocalists,
+stopped notes on guitar; diamonds are used for harmonics on string
+instruments, etc.  There is a shorthand (@code{\harmonic}) for
+diamond shapes; the other notehead styles are produced by tweaking
+the property
+
+@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d <c f\harmonic> <d a'\harmonic>
+@end lilypond
+
+@noindent
+To see all notehead styles, please see @ref{Note head styles}.
+
+
+@seealso
+
+Internals Reference: @internalsref{NoteHead}.
+
 
 
 

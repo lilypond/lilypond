@@ -518,7 +518,6 @@ c4-\bendAfter #-3
 * Glissando::                   
 * Arpeggio::                    
 * Trills::                      
-* Analysis brackets::           
 @end menu
 
 @node Glissando
@@ -742,39 +741,6 @@ printed as a stemless note head in parentheses.
 
 Internals Reference: @internalsref{TrillSpanner}.
 
-
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
-
-@cindex brackets
-@cindex phrasing brackets
-@cindex musicological analysis
-@cindex note grouping bracket
-
-Brackets are used in musical analysis to indicate structure in
-musical pieces.  LilyPond supports a simple form of nested
-horizontal brackets.  To use this, add the
-@internalsref{Horizontal_bracket_engraver} to the
-@internalsref{Staff} context.  A bracket is started with
-@code{\startGroup} and closed with @code{\stopGroup}.
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
-  }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-}}}
-@end lilypond
-
-@seealso
-
-Internals Reference: @internalsref{HorizontalBracket}.
 
 
 
