@@ -7,6 +7,7 @@ These pages show LilyPond examples (snippets) from the
 
 @strong{@uref{pitches/collated-files.html,Pitches}}
 
+@strong{@uref{rhythms/collated-files.html,Rhythms}}
 
 
 

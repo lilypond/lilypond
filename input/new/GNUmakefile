@@ -1,6 +1,6 @@
 depth = ../../
 
-SUBDIRS = pitches
+SUBDIRS = pitches rhythms
 SUBDIRS += ancient chords connecting contemporary education expressive
 SUBDIRS += guitar parts repeats spacing staff text vocal scheme other 
 SUBDIRS += engravers nonmusic instrument
