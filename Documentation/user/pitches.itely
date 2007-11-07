@@ -92,7 +92,7 @@ c, c,, e, g d,, d, d c
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 Internals Reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
@@ -211,7 +211,7 @@ c2 ges
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 
 @refbugs
@@ -330,7 +330,7 @@ Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 Notation reference: @ref{Automatic accidentals}, @ref{Musica ficta
 accidentals}.
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 
 @refbugs
@@ -440,7 +440,7 @@ and Spanish no special names have been defined yet.
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 
 
@@ -534,7 +534,7 @@ would have been a @code{d''}
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 
 @node Transpose
@@ -622,7 +622,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @seealso
 
-Snippets: @lsrdir{pitch}, @lsr{scheme,
+Snippets: @lsrdir{pitches}, @lsr{scheme,
 transpose-pitches-with-minimum-accidentals.ly}.
 
 Internals Reference: @internalsref{TransposedMusic}.
@@ -839,7 +839,7 @@ and some which do not:
 
 Notation reference: @ref{Ancient clefs}.
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 Internals Reference: @internalsref{Clef}.
 
@@ -941,7 +941,7 @@ signature for generating a whole-tone scale:
 
 Music glossary: @rglos{Church mode}, @rglos{scordatura}.
 
-Snippets: @lsrdir{pitch},
+Snippets: @lsrdir{pitches},
 FIXME link to snippet 248,
 FIXME link to a snippet about scordatura.
 
@@ -989,7 +989,7 @@ Internally the function sets the properties @code{ottavation}
 
 @seealso
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 Internals Reference: @internalsref{OttavaBracket}.
 
@@ -1088,7 +1088,7 @@ to serve as a reminder that these parts are written in C.
 
 Notation reference: @ref{Quoting other voices}, @ref{Transpose}.
 
-Snippets: @lsrdir{pitch}
+Snippets: @lsrdir{pitches}
 
 
 @node Automatic accidentals
@@ -1437,6 +1437,8 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @seealso
 
+Snippets: @lsrdir{pitches}
+
 Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion} and @internalsref{AccidentalPlacement}.
 
@@ -1538,8 +1540,9 @@ Internals Reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}.
 
-Examples:
+Snippets: @lsrdir{pitches},
 @lsr{vocal,ambitus@/.ly}.
+
 
 @refbugs
 
@@ -1583,6 +1586,10 @@ font, see @ref{Setting the staff size}.
 @funindex \setEasyHeads
 @code{\setEasyHeads}
 
+@seealso
+
+Snippets: @lsrdir{pitches},
+
 
 @node Shape note heads
 @unnumberedsubsubsec Shape note heads
@@ -1622,6 +1629,10 @@ step of the scale.  Arbitrary combinations are possible, e.g.
 c8 d4. e8 a2 g1
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{pitches},
+
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
@@ -1654,6 +1665,10 @@ used in the following example
 }
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{pitches},
+
 
 @node Special noteheads
 @unnumberedsubsubsec Special noteheads
@@ -1680,6 +1695,8 @@ To see all notehead styles, please see @ref{Note head styles}.
 
 
 @seealso
+
+Snippets: @lsrdir{pitches}.
 
 Internals Reference: @internalsref{NoteHead}.
 
