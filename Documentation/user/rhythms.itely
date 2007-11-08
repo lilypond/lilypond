@@ -123,6 +123,8 @@ Optionally, notes can be spaced proportionately to their duration.
 For details of this and other settings which control
 proportional notation see @ref{Proportional notation}.
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
 
@@ -271,6 +273,8 @@ Tuplets which cross barlines will prevent a line break at that
 point.
 
 @seealso
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
