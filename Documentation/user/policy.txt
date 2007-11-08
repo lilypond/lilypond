@@ -60,6 +60,7 @@ Users are not expected to read this manual from start to finish.
 The order of headings inside documentation sections should be:
 
 main docs
+@refcommands
 @commonprop
 @seealso
 @refbugs
