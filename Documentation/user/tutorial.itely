@@ -223,7 +223,8 @@ values are useful.
 @subheading Pitches
 
 Music glossary: @rglos{pitch}, @rglos{interval}, @rglos{fourth},
-@rglos{scale}, @rglos{middle C}, @rglos{octave}.
+@rglos{scale}, @rglos{middle C}, @rglos{octave},
+@rglos{accidental}.
 
 The easiest way to enter notes is by using @code{\relative} mode.
 In this mode, the octave is chosen automatically by assuming the 
@@ -254,8 +255,20 @@ have larger intervals:
 @end lilypond
 
 @noindent
-As you may notice, this example does not start on middle C.
-The first note -- the @code{d} -- is the closest D to middle C.
+It is not necessary for the first note of the melody to start on
+the note which specifies the starting pitch.  In the previous
+example, the first note -- the @code{d} -- is the closest D to
+middle C.
+
+By adding (or removing) quotes @code{'} or commas @code{,} from
+the @code{\relative c' @{} command, we can change the starting
+octave:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {  % one octave above middle C
+  e c a c
+}
+@end lilypond
 
 Relative mode can be confusing initially, but is the easiest way
 to enter most melodies.  Let us see how this relative calculation
@@ -265,22 +278,24 @@ going up, and an A, G and F within 3 staff spaces going down.  So
 if the note following a B is a C, D or F it will be assumed to be
 above the B, and an A, G or F will be assumed to be below.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-b c  % c is 1 staff space up, so is the c above
-b d  % d is 2 up or 5 down, so is the d above
-b e  % e is 3 up or 4 down, so is the e above
-b a  % a is 4 up or 3 down, so is the a below
-b g  % g is 5 up or 2 down, so is the g below
-b f  % f is 6 up or 1 down, so is the f below
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  b c  % c is 1 staff space up, so is the c above
+  b d  % d is 2 up or 5 down, so is the d above
+  b e  % e is 3 up or 4 down, so is the e above
+  b a  % a is 4 up or 3 down, so is the a below
+  b g  % g is 5 up or 2 down, so is the g below
+  b f  % f is 6 up or 1 down, so is the f below
+}
 @end lilypond
 
 Exactly the same happens even when any of these notes are
-sharpened or flatted (@rglos{accidentals} and the @rglos{key
-signature}) are @strong{totally ignored} in the calculation of
-relative position.  Exactly the same staff space counting is done
-from a note at any other position on the staff.
+sharpened or flatted.  @notation{Accidentals} are @strong{totally
+ignored} in the calculation of relative position.  Precisely the
+same staff space counting is done from a note at any other
+position on the staff.
 
-To add intervals that are larger than four staff spaces, we can
+To add intervals that are larger than three staff spaces, we can
 raise the @notation{octave} by adding a single quote @code{'} (or
 apostrophe) to the note name.  We can lower the octave by adding a
 comma @code{,} to the note name.
