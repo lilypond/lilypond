@@ -129,6 +129,18 @@ Internals Reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
 
 
+@refbugs
+
+@c duplicated in Durations and Rests.  -gp
+There is no fundamental limit to note durations (both in terms of
+longest and shortest), but the number of glyphs is limited: there
+are flags up 64th and rests up to 128th.  At the other extreme,
+there are note heads up to longa (4x whole note) and rests up to
+maxima (8 x whole).  Since beams can be extended arbitrarily,
+beamed notes can be arbitrarily short.
+
+
+
 @node Tuplets
 @unnumberedsubsubsec Tuplets
 
@@ -523,6 +535,17 @@ rests alone.
 @seealso
 
 Internals Reference: @internalsref{Rest}.
+
+
+@refbugs
+
+@c duplicated in Durations and Rests.  -gp
+There is no fundamental limit to note durations (both in terms of
+longest and shortest), but the number of glyphs is limited: there
+are flags up 64th and rests up to 128th.  At the other extreme,
+there are note heads up to longa (4x whole note) and rests up to
+maxima (8 x whole).  Since beams can be extended arbitrarily,
+beamed notes can be arbitrarily short.
 
 
 @node Skips
