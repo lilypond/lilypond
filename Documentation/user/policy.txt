@@ -78,7 +78,10 @@ main docs
 
     Installed files: @file{blahz}.
 
-    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}
+    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}.
+      (if there is only one entry, omit a final period.  If there
+       are multiple entries, separate them by commas, do not
+       include an `and', and end with a period.)
 
     Internals Reference: @internalsref{fazzle}, @internalsref{booar}.
 
