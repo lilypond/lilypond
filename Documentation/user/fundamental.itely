@@ -26,6 +26,7 @@ description of the input format, see @ruser{File structure}.
 @menu
 * Introduction to the LilyPond file structure::  
 * Score is a (single) compound musical expression::  
+* Expressions can be nested after the beginning::  
 @end menu
 
 @node Introduction to the LilyPond file structure
@@ -271,6 +272,33 @@ slowly and carefully.  Start with the outer layer, then work on
 each smaller layer.  It also really helps to be strict with
 indentation -- make sure that each item on the same layer starts
 on the same horizontal position in your text editor.
+
+
+@node Expressions can be nested after the beginning
+@subsection Expressions can be nested after the beginning
+
+TODO: this title is teh suck.  :(
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+	<<
+		\new Staff \relative c''{ c1 c c c c }
+		\new StaffGroup \relative c''{ 
+			\new Staff 
+			c1 c
+			<< c1 \new Staff { c1 } >>
+			c
+		}
+	>>
+  	\layout {
+		
+		\context{
+			\Score
+
+		}
+	}
+}
+@end lilypond
 
 
 @node Voices contain music
