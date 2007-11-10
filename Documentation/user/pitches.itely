@@ -1118,17 +1118,12 @@ If no context name is supplied, @code{Staff} is the default,
 but you may wish to apply the accidental style to a single @code{Voice}
 instead.
 
-The following accidental styles are supported:
+The following accidental styles are supported.  To demonstrate
+each style, we use the following example:
 
-@table @code
-@item default
-This is the default typesetting behavior.  It corresponds
-to 18th century common practice: Accidentals are
-remembered to the end of the measure in which they occur and
-only on their own octave.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+@c TODO: a Formatter, please clean this up.
+@lilypond[quote,ragged-right,verbatim]
+musicA = { << \relative { cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
 
 musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
@@ -1136,16 +1131,42 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
-	\new PianoStaff {
+\new PianoStaff {
+       << \context Staff = "up" {
+           %%% change the next line as desired:
+	       %#(set-accidental-style 'default) 
+       \musicA }
+       \context Staff = "down"{
+           %%% change the next line as desired:
+	       %#(set-accidental-style 'default)
+       \musicB } >> }
+@end lilypond
+
+@c don't use verbatim in this table.
+@table @code
+@item default
+This is the default typesetting behavior.  It corresponds to
+eighteenth-century common practice: Accidentals are remembered to
+the end of the measure in which they occur and only on their own
+octave.  Thus, in the example below, no natural signs are printed
+before the @code{b} in the second measure or the last @code{c}:
+
+@lilypond[quote,ragged-right]
+musicA = { << \relative { cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\new PianoStaff {
        << \context Staff = "up" {
 	       %#(set-accidental-style 'default) 
        \musicA }
        \context Staff = "down"{
 	       %#(set-accidental-style 'default)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
-}
 @end lilypond
 
 @item voice
@@ -1175,7 +1196,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'voice) 
@@ -1183,8 +1203,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'voice)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
-}
 @end lilypond
 
 The @code{voice} option should be used if the voices
@@ -1211,7 +1229,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern) 
@@ -1219,8 +1236,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
-}
 @end lilypond
 
 @item @code{modern-cautionary}
@@ -1240,7 +1255,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-cautionary) 
@@ -1248,8 +1262,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
-}
 @end lilypond
 
 @funindex modern-voice
@@ -1268,7 +1280,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-voice) 
@@ -1276,8 +1287,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-voice)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
-}
 @end lilypond
 
 @funindex modern-voice-cautionary
@@ -1297,7 +1306,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-voice-cautionary) 
@@ -1305,8 +1313,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-voice-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
-}
 @end lilypond
 
 @item piano
@@ -1341,7 +1347,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'piano) 
@@ -1349,8 +1354,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'piano)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
-}
 @end lilypond
 
 @item piano-cautionary
@@ -1367,7 +1370,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'piano-cautionary) 
@@ -1375,8 +1377,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'piano-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
-}
 @end lilypond
 
 @item no-reset
@@ -1392,7 +1392,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'no-reset) 
@@ -1400,8 +1399,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'no-reset)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
-}
 @end lilypond
 
 @item forget
@@ -1419,7 +1416,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'forget) 
@@ -1427,8 +1423,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'forget)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
-}
 @end lilypond
 @end table
 
