@@ -1175,17 +1175,15 @@ Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
 @code{default}.
 
-@example
- \new Staff <<
-        #(set-accidental-style 'voice)
-	@{ @dots{} @}
-	>>
-@end example
+As a result, accidentals from one voice do not get canceled in
+other voices, which is often an unwanted result: in the following
+example, it is hard to determine whether the second @code{a}
+should be played natural or sharp.  The @code{voice} option should
+therefore be used only if the voices are to be read solely by
+individual musicians.  If the staff is to be used by one musician
+(e.g., a conductor or in a piano score) then @code{modern} or
+@code{modern-cautionary} should be used instead.
 
-As a result, accidentals from one voice do not get canceled in other
-voices, which is often an unwanted result: in the following example, it
-is hard to determine whether the second @samp{a} should be played
-natural or sharp.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1205,20 +1203,17 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \musicB } >> }
 @end lilypond
 
-The @code{voice} option should be used if the voices
-are to be read solely by individual musicians.  If the staff is to be
-used by one musician (e.g., a conductor) then
-@code{modern} or @code{modern-cautionary}
-should be used instead.
-
 @item modern
 @funindex modern style accidentals
-This rule corresponds to the common practice in the 20th century.  This rule
-prints the same accidentals as @code{default}, but temporary
-accidentals also are canceled in other octaves.  Furthermore,
-in the same octave, they also get canceled in the following
-measure: in the following example, notice the two natural signs which appear
-in the second bar of the upper staff.
+
+This rule corresponds to the common practice in the twentieth
+century.  It prints the same accidentals as @code{default}, with
+two exceptions which serve to avoid ambiguity: after temporary
+accidentals, cancellation marks are printed also in the following
+measure (for notes in the same octave) and, in the same measure,
+for notes in other octaves.  Hence the naturals before the
+@code{b} and the @code{c} in the second measure of the upper
+staff:
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1238,13 +1233,16 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \musicB } >> }
 @end lilypond
 
-@item @code{modern-cautionary}
+@item modern-cautionary
 @funindex modern-cautionary
-This rule is similar to @code{modern}, but the @q{extra} accidentals
-(the ones not typeset by @code{default}) are typeset as cautionary
-accidentals.  They are printed in reduced size or (by default)
-with parentheses -- this can be set by definig the @code{cautionary-style}
-property of the @internalsref{AccidentalSuggestion} object.
+
+This rule is similar to @code{modern}, but the @q{extra}
+accidentals (the ones not typeset by @code{default}) are typeset
+as cautionary accidentals.  They are by default printed with
+parentheses, but they can also be printed in reduced size by
+defining the @code{cautionary-style} property of the
+@internalsref{AccidentalSuggestion} object.
+
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1264,12 +1262,18 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \musicB } >> }
 @end lilypond
 
-@funindex modern-voice
 @item modern-voice
-This rule is used for multivoice accidentals to be read both by musicians
-playing one voice and musicians playing all voices.  Accidentals are
-typeset for each voice, but they @emph{are} canceled across voices in
-the same @internalsref{Staff}.
+@funindex modern-voice
+
+This rule is used for multivoice accidentals to be read both by
+musicians playing one voice and musicians playing all voices.
+Accidentals are typeset for each voice, but they @emph{are}
+canceled across voices in the same @internalsref{Staff}.  Hence,
+the @code{a} in the last measure is canceled because the previous
+cancellation was in a different voice, and the @code{d} in the
+lower staff is canceled because of the accidental in a different
+voice in the previous measure:
+
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1291,6 +1295,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
+
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
 as cautionaries.  Even though all accidentals typeset by
@@ -1317,8 +1322,17 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano
 @funindex piano accidentals
-This accidental style takes place in a GrandStaff context.  However, you have to 
-explicitly set it for @emph{each} individual Staff of the GrandStaff:
+
+This rule reflects twentieth-century practice for piano notation.
+Its behavior is very similar to @code{modern} style, but here
+accidentals also get canceled across the staves in the same
+@internalsref{GrandStaff} or @internalsref{PianoStaff}, hence all
+the cancellations of the final notes.
+
+This accidental style takes place in a GrandStaff context.
+However, you have to explicitly set it for @emph{each} individual
+Staff of the GrandStaff:
+
 
 @example
 \new GrandStaff @{ <<
@@ -1332,11 +1346,6 @@ explicitly set it for @emph{each} individual Staff of the GrandStaff:
   >> @}
 >> @}
 @end example
-
-This rule reflects 20th century practice for piano notation.  Its behavior is very
-similar to @code{modern} style, but here accidentals also get canceled
-across the staves in the same @internalsref{GrandStaff} or
-@internalsref{PianoStaff}.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1358,6 +1367,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
+
 Same as @code{#(set-accidental-style 'piano)} but with the extra
 accidentals typeset as cautionaries.
 
@@ -1381,8 +1391,10 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @item no-reset
 @funindex no-reset accidental style
+
 This is the same as @code{default} but with accidentals lasting
 @q{forever} and not only until the next measure:
+
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
@@ -1402,10 +1414,12 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @end lilypond
 
 @item forget
-This is sort of the opposite of @code{no-reset}: Accidentals
-are not remembered at all -- and hence all accidentals are
-typeset relative to the key signature, regardless of what was
-before in the music
+@funindex forget accidental style
+
+This is the opposite of @code{no-reset}: Accidentals are not
+remembered at all -- and hence all accidentals are typeset
+relative to the key signature, regardless of what was before in
+the music:
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
