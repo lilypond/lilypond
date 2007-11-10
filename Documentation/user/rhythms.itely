@@ -286,7 +286,11 @@ point.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+FIXME: totally irrelevant link to real-music for
+discussion/demonstration purposes.
+
+Snippets: @lsrdir{rhythms},
+@lsr{real-music,creating-music-with-scheme.ly}.
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
