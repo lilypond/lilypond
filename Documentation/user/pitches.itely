@@ -1097,8 +1097,12 @@ Common rules for typesetting accidentals have been placed in a
 function.  This function is called as follows
 
 @funindex set-accidental-style
+
 @example
-#(set-accidental-style 'STYLE)
+\new Staff <<
+  #(set-accidental-style 'voice)
+  @{ @dots{} @}
+>>
 @end example
 
 @c TODO: check the context stuff below
@@ -1106,17 +1110,14 @@ function.  This function is called as follows
 @c -the default contexts as specified in
 @c  scm/music-function.scm seem to be different -vv
 
-Optionally, the function can take two arguments: the name of the
-accidental style, and an optional argument that denotes the context that
-should be changed:
+If no context name is supplied, the accidental style applies to
+the @code{Staff} by default.  Optionally, the function can take
+the context for which the style should be changed as a second
+argument:
 
 @example
-#(set-accidental-style 'STYLE #('CONTEXT#))
+#(set-accidental-style 'STYLE #('CONTEXT))
 @end example
-
-If no context name is supplied, @code{Staff} is the default,
-but you may wish to apply the accidental style to a single @code{Voice}
-instead.
 
 The following accidental styles are supported.  To demonstrate
 each style, we use the following example:
@@ -1393,7 +1394,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 @funindex no-reset accidental style
 
 This is the same as @code{default} but with accidentals lasting
-@q{forever} and not only until the next measure:
+@q{forever} and not only within the same measure:
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1694,8 +1695,6 @@ To see all notehead styles, please see @ref{Note head styles}.
 Snippets: @lsrdir{pitches}.
 
 Internals Reference: @internalsref{NoteHead}.
-
-
 
 
 
