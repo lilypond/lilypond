@@ -16,10 +16,13 @@
 void
 Page_spacing::calc_force ()
 {
-  if (rod_height_ + last_line_.bottom_padding_ >= page_height_)
+  /* If the first system is a title, we add back in the page-top-space. */
+  Real height = first_line_.title_ ? page_height_ + page_top_space_ : page_height_;
+
+  if (rod_height_ + last_line_.bottom_padding_ >= height)
     force_ = infinity_f;
   else
-    force_ = (page_height_ - rod_height_ - last_line_.bottom_padding_ - spring_len_)
+    force_ = (height - rod_height_ - last_line_.bottom_padding_ - spring_len_)
       / max (0.1, inverse_spring_k_);
 }
 
@@ -33,6 +36,9 @@ Page_spacing::resize (Real new_height)
 void
 Page_spacing::append_system (const Line_details &line)
 {
+  if (!rod_height_)
+    first_line_ = line;
+
   rod_height_ += last_line_.padding_;
 
   rod_height_ += line.extent_.length ();
@@ -55,6 +61,8 @@ Page_spacing::prepend_system (const Line_details &line)
   rod_height_ += line.extent_.length ();
   spring_len_ += line.space_;
   inverse_spring_k_ += line.inverse_hooke_;
+
+  first_line_ = line;
 
   calc_force ();
 }
@@ -153,7 +161,8 @@ bool
 Page_spacer::calc_subproblem (vsize page, vsize line)
 {
   bool last = line == lines_.size () - 1;
-  Page_spacing space (breaker_->page_height (page + first_page_num_, last));
+  Page_spacing space (breaker_->page_height (page + first_page_num_, last),
+		      breaker_->page_top_space ());
   Page_spacing_node &cur = state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
 

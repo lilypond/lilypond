@@ -36,6 +36,7 @@ compress_lines (const vector<Line_details> &orig)
 	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + old.padding_;
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
+	  compressed.title_ = old.title_;
 
 	  /* we don't need the force_ field for the vertical spacing,
 	     so we use force_ = n to signal that the line was compressed,
@@ -99,6 +100,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
   book_ = pb;
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
+  page_top_space_ = robust_scm2double (pb->paper_->c_variable ("page-top-space"), 0);
   create_system_list ();
   find_chunks_and_breaks (is_break);
 }
@@ -117,6 +119,12 @@ bool
 Page_breaking::ragged_last () const
 {
   return ragged_last_;
+}
+
+Real
+Page_breaking::page_top_space () const
+{
+  return page_top_space_;
 }
 
 /* translate indices into breaks_ into start-end parameters for the line breaker */
@@ -210,7 +218,7 @@ Page_breaking::page_height (int page_num, bool last) const
                   ly_symbol2scm ("is-last"), scm_from_bool (last),
                   SCM_UNDEFINED));
   SCM height = scm_apply_1 (calc_height, page, SCM_EOL);
-  return scm_to_double (height) - scm_to_double (book_->paper_->c_variable ("page-top-space"));
+  return scm_to_double (height) - page_top_space_;
 }
 
 SCM
@@ -765,7 +773,7 @@ Page_breaking::pack_systems_on_least_pages (vsize configuration, vsize first_pag
   Page_spacing_result res;
   vsize page = 0;
   vsize page_first_line = 0;
-  Page_spacing space (page_height (first_page_num, false));
+  Page_spacing space (page_height (first_page_num, false), page_top_space_);
 
   cache_line_details (configuration);
   for (vsize line = 0; line < cached_line_details_.size (); line++)
@@ -869,7 +877,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
 Page_spacing_result
 Page_breaking::space_systems_on_1_page (vector<Line_details> const &lines, Real page_height, bool ragged)
 {
-  Page_spacing space (page_height);
+  Page_spacing space (page_height, page_top_space_);
   Page_spacing_result ret;
 
   for (vsize i = 0; i < lines.size (); i++)
@@ -909,8 +917,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
 
   vector<Real> page1_force;
   vector<Real> page2_force;
-  Page_spacing page1 (page1_height);
-  Page_spacing page2 (page2_height);
+  Page_spacing page1 (page1_height, page_top_space_);
+  Page_spacing page2 (page2_height, page_top_space_);
 
   page1_force.resize (cached_line_details_.size () - 1, infinity_f);
   page2_force.resize (cached_line_details_.size () - 1, infinity_f);
