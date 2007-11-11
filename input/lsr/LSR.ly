@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.34"
 \header{
 texidoc = "@unnumbered LilyPond Examples
 
@@ -7,7 +7,7 @@ These pages show LilyPond examples (snippets) from the
 
 @subheading 1 Musical notation
 
-@strong{@uref{pitches/collated-files.html,Pitches}} not working :(
+@strong{@uref{pitches/collated-files.html,Pitches}}
 
 @strong{@uref{rhythms/collated-files.html,Rhythms}}
 (@uref{rhythms/collated-files.pdf,pdf link})

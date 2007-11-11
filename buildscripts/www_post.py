@@ -45,7 +45,7 @@ sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
-    exclude_dirs = '(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + r'|po|out|\w*?-root)(/|$)',
+    exclude_dirs = '(^|/)(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + r'|po|out|\w*?-root)(/|$)',
     find_files = r'.*?\.(?:midi|html|pdf|png|txt|ly|signature)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.pdf')
 
@@ -60,7 +60,7 @@ for f in files:
 dirs = [re.sub ('/' + outdir, '', d) for d in dirs]
 while outdir in dirs:
     dirs.remove (outdir)
-dirs = list( set (dirs))
+dirs = list (set (dirs))
 dirs.sort ()
 
 strip_file_name = {}
