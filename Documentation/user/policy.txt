@@ -32,9 +32,9 @@ start-to-finish.
 Users are not expected to read this manual from start to finish.
 However, they should be familiar with the material in the Learning
 Manual (particularly ``Fundamental Concepts''), so do not repeat
-that material in this book.  Also, you should assume that users
-know what the notation means; explaining musical concepts happens
-in the Music Glossary.
+that material in each section of this book.  Also, you should
+assume that users know what the notation means; explaining musical
+concepts happens in the Music Glossary.
 
 
 * Application Usage: information about using the program lilypond
