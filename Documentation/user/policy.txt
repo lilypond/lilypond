@@ -223,7 +223,6 @@ main docs
 * Specially-marked text:
 
     @code{}: actual lilypond code or property/context names.
-    @samp{}: ditto, for single-letter code.
 
 
       ** Any `\' used inside the commands below must be       **
