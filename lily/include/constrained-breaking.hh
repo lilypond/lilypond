@@ -31,6 +31,8 @@ struct Line_details {
   Real page_penalty_;
   Real turn_penalty_;
 
+  bool title_;
+
   Line_details ()
   {
     force_ = infinity_f;
@@ -44,6 +46,7 @@ struct Line_details {
     break_penalty_ = 0;
     page_penalty_ = 0;
     turn_penalty_ = 0;
+    title_ = false;
   }
 
   Line_details (Prob *pb)
@@ -60,6 +63,7 @@ struct Line_details {
     break_penalty_ = 0;
     page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
     turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
+    title_ = to_boolean (pb->get_property ("is-title"));
   }
 };
 

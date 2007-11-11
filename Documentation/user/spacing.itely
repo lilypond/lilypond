@@ -974,8 +974,10 @@ After page breaks are determined, the vertical spacing within each
 system is reevaluated in order to fill the page more evenly; if a page
 has space left over, systems are stretched in order to fill that space.
 The amount of stretching can be configured though the @code{max-stretch}
-property of the @internalsref{VerticalAlignment} grob.  To disable this
-stretching entirely, set @code{max-stretch} to zero.
+property of the @internalsref{VerticalAlignment} grob. By default,
+@code{max-stretch} is set to zero, disabling stretching. To enable
+stretching, a sane value for @code{max-stretch}
+is @code{ly:align-interface::calc-max-stretch}.
 
 In some situations, you may want to stretch most of a system while
 leaving some parts fixed.  For example, if a piano part occurs in the
@@ -997,7 +999,11 @@ the second piano staff:
   ragged-last-bottom = ##f
 }
 
-\score {
+\new Score \with
+{
+  \override VerticalAlignment #'max-stretch = #ly:align-interface::calc-max-stretch
+}
+{
 \new GrandStaff
 <<
   \new StaffGroup
