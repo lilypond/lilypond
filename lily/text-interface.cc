@@ -19,6 +19,14 @@
 #include "output-def.hh"
 #include "modified-font-metric.hh"
 
+static void
+replace_whitespace (string *str)
+{
+  for (vsize i = 0; i < str->size (); i++)
+    if (isspace ((*str)[i]))
+      (*str)[i] = ' ';
+}
+
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
 SCM
 Text_interface::interpret_string (SCM layout_smob,
@@ -31,6 +39,8 @@ Text_interface::interpret_string (SCM layout_smob,
   string str = ly_scm2string (markup);
   Output_def *layout = unsmob_output_def (layout_smob);
   Font_metric *fm = select_encoded_font (layout, props);
+
+  replace_whitespace (&str);
   return fm->word_stencil (str).smobbed_copy ();
 }
 
