@@ -1828,6 +1828,7 @@
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
+	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	;; todo: add X self alignment?
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
