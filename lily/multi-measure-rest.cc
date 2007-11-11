@@ -307,8 +307,7 @@ Multi_measure_rest::calculate_spacing_rods (Grob *me, Real length)
       rod.item_drul_[LEFT] = li;
       rod.item_drul_[RIGHT] = ri;
 
-      rod.distance_ = li->extent (li, X_AXIS)[BIGGER]
-	- ri->extent (ri, X_AXIS)[SMALLER]
+      rod.distance_ = Paper_column::minimum_distance (li, ri)
 	+ length
 	+ 2 * robust_scm2double (me->get_property ("bound-padding"), 1.0);
 
