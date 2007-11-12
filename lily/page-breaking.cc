@@ -98,6 +98,7 @@ Page_breaking::next_system (Break_position const &break_pos) const
 Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
 {
   book_ = pb;
+  system_count_ = 0;
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
   page_top_space_ = robust_scm2double (pb->paper_->c_variable ("page-top-space"), 0);
@@ -125,6 +126,12 @@ Real
 Page_breaking::page_top_space () const
 {
   return page_top_space_;
+}
+
+vsize
+Page_breaking::system_count () const
+{
+  return system_count_;
 }
 
 /* translate indices into breaks_ into start-end parameters for the line breaker */
@@ -451,6 +458,7 @@ Page_breaking::set_current_breakpoints (vsize start,
 					Line_division lower_bound,
 					Line_division upper_bound)
 {
+  system_count_ = system_count;
   current_chunks_ = chunk_list (start, end);
   current_start_breakpoint_ = start;
   current_end_breakpoint_ = end;
@@ -506,6 +514,7 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
   current_start_breakpoint_ = start;
   current_end_breakpoint_ = end;
   clear_line_details_cache ();
+  system_count_ = 0;
 
   Line_division div;
   for (vsize i = 0; i+1 < current_chunks_.size (); i++)
@@ -518,6 +527,8 @@ Page_breaking::set_to_ideal_line_configuration (vsize start, vsize end)
 	}
       else
 	div.push_back (1);
+
+      system_count_ += div.back ();
     }
   current_configurations_.clear ();
   current_configurations_.push_back (div);

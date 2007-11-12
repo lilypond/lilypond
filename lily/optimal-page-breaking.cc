@@ -39,24 +39,38 @@ Optimal_page_breaking::solve ()
   vsize end = last_break_position ();
   vsize max_sys_count = max_system_count (0, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+  SCM forced_page_count = book_->paper_->c_variable ("page-count");
 
-  /* find out the ideal number of pages */
-  message (_ ("Finding the ideal number of pages..."));
   set_to_ideal_line_configuration (0, end);
-  
-  Page_spacing_result best = space_systems_on_best_pages (0, first_page_num);
-  vsize page_count = best.systems_per_page_.size ();
-  Line_division ideal_line_division = current_configuration (0);
-  Line_division best_division = ideal_line_division;
 
-  vsize ideal_sys_count = best.system_count ();
-  vsize min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
+  Page_spacing_result best;
+  vsize page_count = robust_scm2int (forced_page_count, 1);
+  Line_division ideal_line_division;
+  Line_division best_division;
+  vsize min_sys_count = 0;
+  vsize ideal_sys_count = system_count ();
   
-  if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
-    min_sys_count -= best.systems_per_page_[page_count - 2];
+  if (!scm_is_integer (forced_page_count))
+    {
+      /* find out the ideal number of pages */
+      message (_ ("Finding the ideal number of pages..."));
+  
+      best = space_systems_on_best_pages (0, first_page_num);
+      page_count = best.systems_per_page_.size ();
+      ideal_line_division = current_configuration (0);
+      best_division = ideal_line_division;
+
+      ideal_sys_count = best.system_count ();
+      min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
+  
+      if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
+	min_sys_count -= best.systems_per_page_[page_count - 2];
+    }
 
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
+  else if (scm_is_integer (forced_page_count))
+    message (_f ("Fitting music on %d pages...", (int)page_count));
   else
     message (_f ("Fitting music on %d or %d pages...", (int)page_count-1, (int)page_count));
 
