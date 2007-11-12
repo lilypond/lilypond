@@ -141,7 +141,7 @@ $(tree-share-prefix)/lilypond-force link-tree: GNUmakefile $(outdir)/VERSION
 	mkdir -p $(tree-share-prefix)/tex
 	cd $(tree-bin) && \
 		ln -sf ../../lily/$(outconfbase)/lilypond . && \
-		for i in abc2ly convert-ly etf2ly lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
+		for i in abc2ly convert-ly etf2ly lilymidi lilypond-book lilypond-invoke-editor midi2ly musicxml2ly; \
 			do ln -sf ../../scripts/$(outconfbase)/$$i . ; done
 	cd $(tree-lib-prefix) && \
 		ln -s ../../../../python/$(outconfbase) python
