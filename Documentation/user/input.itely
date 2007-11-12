@@ -1,0 +1,624 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@node Input syntax
+@chapter Input syntax
+
+This section deals with general lilypond input syntax issues,
+rather than specific notation.
+
+@menu
+* Input files::                 
+* Common syntax issues TODO name?::  
+* Other stuffs TODO move?::     
+@end menu
+
+
+@node Input files
+@section Input files
+
+The main format of input for LilyPond are text files.  By convention,
+these files end with @samp{.ly}.
+
+@menu
+* File structure::              
+* A single music expression::   
+* Multiple scores in a book::   
+* Extracting fragments of notation::  
+* Including LilyPond files::    
+* Text encoding::               
+* Different editions from one source::  
+@end menu
+
+
+@node File structure
+@subsection File structure
+
+A @code{.ly} file contains any number of toplevel expressions, where a
+toplevel expression is one of the following
+
+@itemize
+@item
+An output definition, such as @code{\paper}, @code{\midi}, and
+@code{\layout}.  Such a definition at the toplevel changes the default
+settings for the block entered.
+
+@item
+A direct scheme expression, such as
+@code{#(set-default-paper-size "a7" 'landscape)} or
+@code{#(ly:set-option 'point-and-click #f)}.
+
+@item
+A @code{\header} block.  This sets the global header block.  This
+is the block containing the definitions for book-wide settings, like
+composer, title, etc.
+
+@item
+A @code{\score} block.  This score will be collected with other
+toplevel scores, and combined as a single @code{\book}.
+
+This behavior can be changed by setting the variable
+@code{toplevel-score-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+The @code{\score} must begin with a music expression, and may
+contain only one music expression.
+
+@item
+A @code{\book} block logically combines multiple movements
+(i.e., multiple @code{\score} blocks) in one document.  If there are
+a number of @code{\scores}, one output file will be created for
+each @code{\book} block, in which all corresponding movements are
+concatenated.  The only reason to explicitly specify @code{\book} blocks
+in a @code{.ly} file is if you wish multiple output files from a single
+input file.  One exception is within lilypond-book documents, where you
+explicitly have to add a @code{\book} block if you want more than a
+single @code{\score} or @code{\markup} in the same example.
+
+This behavior can be changed by setting the variable
+@code{toplevel-book-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item
+A compound music expression, such as
+@example
+@{ c'4 d' e'2 @}
+@end example
+
+This will add the piece in a @code{\score} and format it in a
+single book together with all other toplevel @code{\score}s and music
+expressions.  In other words, a file containing only the above
+music expression will be translated into
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        @{ c'4 d' e'2 @}
+      @}
+    @}
+  @}
+	\layout @{ @}
+	\header @{ @}
+@}
+@end example
+
+This behavior can be changed by setting the variable
+@code{toplevel-music-handler} at toplevel.  The default handler is
+defined in the init file @file{scm/@/lily@/.scm}.
+
+@item
+A markup text, a verse for example
+@example
+\markup @{
+   2.  The first line verse two.
+@}
+@end example
+
+Markup texts are rendered above, between or below the scores or music
+expressions, wherever they appear.
+
+@cindex variables
+
+@item
+An variable, such as
+@example
+foo = @{ c4 d e d @}
+@end example
+
+This can be used later on in the file by entering @code{\foo}.  The
+name of an variable should have alphabetic characters only; no
+numbers, underscores or dashes.
+
+@end itemize
+
+The following example shows three things that may be entered at
+toplevel
+
+@example
+\layout @{
+  % movements are non-justified by default
+  ragged-right = ##t
+@}
+
+\header @{
+   title = "Do-re-mi"
+@}
+
+@{ c'4 d' e2 @}
+@end example
+
+
+At any point in a file, any of the following lexical instructions can
+be entered:
+
+@itemize
+@item @code{\version}
+@item @code{\include}
+@item @code{\sourcefilename}
+@item @code{\sourcefileline}
+
+@end itemize
+
+
+@node A single music expression
+@subsection A single music expression
+
+A @code{\score} must contain a single music expression.  However,
+this music expression may be of any size.  Recall that music
+expressions may be included inside other expressions to form
+larger expressions.  All of these examples are single music
+expressions; note the curly braces @{ @} or angle brackets <<
+>> at the beginning and ending of the music.
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  { c'4 c' c' c'}
+  { d'4 d' d' d'}
+}
+@end lilypond
+
+@lilypond[ragged-right,verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple
+
+A document may contain multiple pieces of music and texts.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@funindex \book
+
+All the movements and texts which appear in the same @code{.ly} file 
+will normally be typeset in the form of a single output file. 
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+However, if you want multiple output files from the same @code{.ly}
+file, then you can add multiple @code{\book} blocks, where each such
+@code{\book} block will result in a separate output.  If you do not
+specify any @code{\book} block in the file, LilyPond will implicitly
+treat the full file as a single @code{\book} block, see @ref{File
+structure}.  One important exception is within lilypond-book documents,
+where you explicitly have to add a @code{\book} block, otherwise only
+the first @code{\score} or @code{\markup} will appear in the output.
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@example
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
+
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
+
+It is possible to quote small fragments of a large score directly from
+the output.  This can be compared to clipping a piece of a paper score
+with scissors.
+
+This is done by definining the measures that need to be cut out
+separately.  For example, including the following definition
+
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}       
+@end verbatim
+
+@noindent
+will extract a fragment starting halfway the fifth measure, ending in
+the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
+in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+
+More clip regions can be defined by adding more pairs of
+rhythmic-locations to the list. 
+
+In order to use this feature, LilyPond must be invoked with
+@code{-dclip-systems}.  The clips are output as EPS files, and are
+converted to PDF and PNG if these formats are switched on as well.
+
+For more information on output formats, see @rprogram{Invoking lilypond}.
+
+@seealso
+
+Examples: @lsr{non-notation,clip-systems.ly}
+
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+@funindex \include
+@cindex including files
+
+A large project may be split up into separate files.  To refer to another
+file, use
+
+@example
+\include "otherfile.ly"
+@end example
+
+The line @code{\include "file.ly"} is equivalent to pasting the contents
+of file.ly into the current file at the place where you have the
+\include.  For example, for a large project you might write separate files
+for each instrument part and create a @q{full score} file which brings
+together the individual instrument files.
+
+The initialization of LilyPond is done in a number of files that are
+included by default when you start the program, normally transparent to the
+user.  Run lilypond --verbose to see a list of paths and files that Lily
+finds.
+
+Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
+VERSION is in the form @q{2.6.1}) are on the path and available to
+@code{\include}.  Files in the
+current working directory are available to \include, but a file of the same
+name in LilyPond's installation takes precedence.  Files are
+available to \include from directories in the search path specified as an
+option when invoking @code{lilypond --include=DIR} which adds DIR to the
+search path.
+
+The @code{\include} statement can use full path information, but with the Unix
+convention @samp{/} rather than the DOS/Windows @samp{\}.  For example,
+if @file{stuff.ly} is located one directory higher than the current working
+directory, use
+
+@example
+\include "../stuff.ly"
+@end example
+
+
+@node Text encoding
+@subsection Text encoding
+
+LilyPond uses the Pango library to format multi-lingual texts, and
+does not perform any input-encoding conversions.  This means that any
+text, be it title, lyric text, or musical instruction containing
+non-ASCII characters, must be utf-8.  The easiest way to enter such text is
+by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
+popular modern editors have utf-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.
+
+@c  Currently not working
+@ignore
+Depending on the fonts installed, the following fragment shows Hebrew
+and Cyrillic lyrics,
+
+@cindex Cyrillic
+@cindex Hebrew
+@cindex ASCII, non
+
+@li lypondfile[fontload]{utf-8.ly}
+
+The @TeX{} backend does not handle encoding specially at all.  Strings
+in the input are put in the output as-is.  Extents of text items in the
+@TeX{} backend, are determined by reading a file created via the
+@file{texstr} backend,
+
+@example
+lilypond -dbackend=texstr input/les-nereides.ly
+latex les-nereides.texstr
+@end example
+
+The last command produces @file{les-nereides.textmetrics}, which is
+read when you execute
+
+@example
+lilypond -dbackend=tex input/les-nereides.ly
+@end example
+
+Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
+suitable LaTeX wrappers to load appropriate La@TeX{} packages for
+interpreting non-ASCII strings.
+
+@end ignore
+
+To use a Unicode escape sequence, use
+
+@example
+#(ly:export (ly:wide-char->utf-8 #x2014))
+@end example
+
+
+@seealso
+
+@lsr{text,utf-8.ly}
+
+
+@node Different editions from one source
+@subsection Different editions from one source
+
+@funindex \tag
+@cindex tag
+
+The @code{\tag} command marks music expressions with a name.  These
+tagged expressions can be filtered out later.  With this mechanism it
+is possible to make different versions of the same music source.
+
+In the following example, we see two versions of a piece of music, one
+for the full score, and one with cue notes for the instrumental part
+
+@example
+c1
+<<
+  \tag #'part <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'score R1
+>>
+c1
+@end example
+
+The same can be applied to articulations, texts, etc.: they are
+made by prepending
+@example
+-\tag #@var{your-tag}
+@end example
+to an articulation, for example,
+@example
+c1-\tag #'part ^4
+@end example
+
+This defines a note with a conditional fingering indication.
+
+@cindex keepWithTag
+@cindex removeWithTag
+By applying the @code{\keepWithTag} and @code{\removeWithTag}
+commands, tagged expressions can be filtered.  For example,
+@example
+<<
+  @var{the music}
+  \keepWithTag #'score @var{the music}
+  \keepWithTag #'part @var{the music}
+>>
+@end example
+would yield
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+The arguments of the @code{\tag} command should be a symbol
+(such as @code{#'score} or @code{#'part}), followed by a
+music expression.  It is possible to put multiple tags on
+a piece of music with multiple @code{\tag} entries,
+
+@example
+  \tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+
+@seealso
+
+Examples: @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Multiple rests are not merged if you create the score with both tagged
+sections.
+
+
+@node Common syntax issues TODO name?
+@section Common syntax issues TODO name?
+
+@menu
+* Up and down::                 
+* Distances and measurements MAYBE MOVE::  
+@end menu
+
+@node Up and down
+@subsection Up and down
+
+TODO: everything
+
+By default, lilypnod does a pretty jazz'n job of picking
+directions.  But in some cases, it may be desirable to force a
+direction.
+
+@verbatim
+-
+^ _
+@end verbatim
+
+
+@node Distances and measurements MAYBE MOVE
+@subsection Distances and measurements MAYBE MOVE
+
+DISCUSS after working on other sections.
+
+TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
+
+
+
+
+
+@node Other stuffs TODO move?
+@section Other stuffs TODO move?
+
+
+@menu
+* Displaying LilyPond notation::  
+* Skipping corrected music::    
+@end menu
+
+@node Displaying LilyPond notation
+@subsection Displaying LilyPond notation
+
+@funindex \displayLilyMusic
+Displaying a music expression in LilyPond notation can be
+done using the music function @code{\displayLilyMusic}.  For example,
+
+@example
+@{
+  \displayLilyMusic \transpose c a, @{ c e g a bes @}
+@}
+@end example
+
+will display
+
+@example
+@{ a, cis e fis g @}
+@end example
+
+By default, LilyPond will print these messages to the console along
+with all the other messages.  To split up these messages and save
+the results of @code{\display@{STUFF@}}, redirect the output to
+a file.
+
+@example
+lilypond file.ly >display.txt
+@end example
+
+
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+
+@funindex skipTypesetting
+@funindex showLastLength
+
+When entering or copying music, usually only the music near the end (where
+you
+are adding notes) is interesting to view and correct.  To speed up
+this correction process, it is possible to skip typesetting of all but
+the last few measures.  This is achieved by putting
+
+@verbatim
+showLastLength = R1*5
+\score { ... }
+@end verbatim
+
+@noindent
+in your source file.  This will render only the last 5 measures
+(assuming 4/4 time signature) of every @code{\score} in the input
+file.  For longer pieces, rendering only a small part is often an order
+of magnitude quicker than rendering it completely
+
+Skipping parts of a score can be controlled in a more fine-grained
+fashion with the property @code{Score.skipTypesetting}.  When it is
+set, no typesetting is performed at all.
+
+This property is also used to control output to the MIDI file.  Note that
+it skips all events, including tempo and instrument changes.  You have
+been warned.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  c8 d
+  \set Score.skipTypesetting = ##t
+  e e e e e e e e
+  \set Score.skipTypesetting = ##f
+  c d b bes a g c2 }
+@end lilypond
+
+In polyphonic music, @code{Score.skipTypesetting} will affect all
+voices and staves, saving even more time.
+
+
+
