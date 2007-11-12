@@ -2,7 +2,8 @@
 .SUFFIXES: .html .info .texi .texinfo
 
 $(outdir)/%.info: $(outdir)/%.texi
-	$(MAKEINFO) -I $(outdir) --output=$@ $<
+# makeinfo MUST have PNGs in cwd for info images to work
+	cd $(outdir) && $(MAKEINFO) -I$(srcdir) --output=$(@F) $(<F)
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<

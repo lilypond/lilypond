@@ -29,9 +29,7 @@ lang-merge:
 
 LINKED_PNGS = henle-flat-gray.png baer-flat-gray.png lily-flat-bw.png
 
-# makeinfo is broken, it MUST have PNGs in output dir
-# strangely, this is not true for ly PNGs
-# symlinking PNGs...
+# makeinfo MUST have PNGs in cwd for info images to work
 png-ln:
 	mkdir -p $(outdir)/lilypond
 	cd $(outdir) && $(foreach i, $(LINKED_PNGS), ln -sf ../$(depth)/Documentation/user/$(i) $(i) &&) true
