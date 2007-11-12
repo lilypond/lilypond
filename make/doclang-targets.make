@@ -42,7 +42,7 @@ local-WWW: $(DEEP_HTML_FILES) $(PDF_FILES)
 
 LINKED_PNGS = henle-flat-gray.png baer-flat-gray.png lily-flat-bw.png
 
-# makeinfo is broken, it MUST have PNGs in output dir
+# makeinfo MUST have PNGs in cwd for info images to work
 # symlinking PNGs...
 # lilypond-book -I flag seems broken too, and texi2pdf -I flag confuses
 # pdfetex with .aux and other files from English manual
