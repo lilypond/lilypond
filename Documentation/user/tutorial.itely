@@ -222,7 +222,7 @@ values are useful.
 
 @subheading Pitches
 
-Music glossary: @rglos{pitch}, @rglos{interval}, @rglos{fourth},
+Music glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
@@ -433,7 +433,7 @@ is generally equivalent.  Expressions are formed with curly braces
 @{ @}, and comments are denoted with @code{%} or @code{%@{ ...
 %@}}.
 
-If the previous sentence sounds like nonsense, don't worry!  We'll
+If the previous sentences sound like nonsense, don't worry!  We'll
 explain what all these terms mean:
 
 @itemize
@@ -664,16 +664,11 @@ accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
 
 @seealso
-@quotation
-@table @asis
-@item Accidentals
-see @ruser{Accidentals}, and @ruser{Automatic accidentals}.
-@item Key signature
-see @ruser{Key signature}
-@item Pitch names
-see @rglos{Pitch names}.
-@end table
-@end quotation
+
+Notation reference: @ruser{Accidentals}, @ruser{Automatic
+accidentals}, @ruser{Key signature}.
+
+Music glossary: @rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -685,7 +680,7 @@ see @rglos{Pitch names}.
 Music glossary: @rglos{tie}.
 
 A @notation{tie} is created by appending a tilde @samp{~} to the
-first note being tied
+first note being tied.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 g4~ g c2~
@@ -738,16 +733,9 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Ties
-see @ruser{Ties}.
-@item Slurs
-see @ruser{Slurs}.
-@item Phrasing slurs
-see @ruser{Phrasing slurs}.
-@end table
-@end quotation
+
+Notation reference: @ruser{Ties}, @ruser{Slurs}, @ruser{Phrasing
+slurs}.
 
 
 @node Articulation and dynamics
@@ -815,17 +803,12 @@ c2\< c2\ff\> c2 c2\!
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Articulations
-see @ruser{Articulations}.
-@item Fingering
-see @ruser{Fingering instructions}.
-@item Dynamics
-see @ruser{Dynamics} (Notation reference) and @rglos{dynamics}
-(Glossary).
-@end table
-@end quotation
+
+Notation reference: @ruser{Articulations}, @ruser{Fingering
+instructions}, @ruser{Dynamics}.
+
+Music glossary: @rglos{Dynamics}.
+
 
 @c CONTINUE HERE
 
@@ -877,14 +860,8 @@ a8[ ais] d[ ees r d] a b
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Automatic beams
-see @ruser{Automatic beams}.
-@item Manual beams
-see @ruser{Manual beams}.
-@end table
-@end quotation
+
+Notation reference: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
 @node Advanced rhythmic commands
@@ -943,16 +920,9 @@ c2 \acciaccatura b16 c2
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Grace notes
-see @ruser{Grace notes},
-@item Tuplets
-see @ruser{Tuplets},
-@item Pickups
-see @ruser{Upbeats}.
-@end table
-@end quotation
+
+Notation reference: @ruser{Grace notes}, @ruser{Tuplets},
+@ruser{Upbeats}.
 
 
 @node Multiple notes at once
@@ -1165,9 +1135,8 @@ Here is a small example:
 @end lilypond
 
 @seealso
-@quotation
-See @ruser{Piano music}.
-@end quotation
+
+Notation reference: @ruser{Piano music}.
 
 
 @node Combining notes into chords
@@ -1186,7 +1155,7 @@ r4 <c e g>4 <c f a>2
 @end lilypond
 
 You can combine markings like beams and ties with chords.  They
-must be placed outside the angle brackets
+must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
@@ -1250,9 +1219,8 @@ Again, these expressions can be nested arbitrarily.
 @end lilypond
 
 @seealso
-@quotation
-See @ruser{Simultaneous notes}.
-@end quotation
+
+Notation reference: @ruser{Simultaneous notes}.
 
 
 @node Songs
@@ -1632,7 +1600,7 @@ confusing.  We can reduce this confusion by using
 @emph{variables}.
 
 With variables (also known as identifiers or macros), we can break
-up complex music expressions.  An variable is assigned as
+up complex music expressions.  A variable is assigned as
 follows:
 
 @example
@@ -1662,7 +1630,7 @@ cello = \new Staff { \relative c {
 @end lilypond
 
 @noindent
-The name of an variable must have alphabetic characters only, no
+The name of a variable must have alphabetic characters only, no
 numbers, underscores, or dashes.
 
 It is possible to use variables for many other types of objects in
