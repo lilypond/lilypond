@@ -810,8 +810,6 @@ instructions}, @ruser{Dynamics}.
 Music glossary: @rglos{Dynamics}.
 
 
-@c CONTINUE HERE
-
 @node Adding text
 @subsection Adding text
 
@@ -830,8 +828,6 @@ a1_\markup{
 }
 @end lilypond
 
-
-@c Kurt: leave this alone for now.
 
 @seealso
 
@@ -1401,13 +1397,9 @@ quotes.  Here's an example from Rossini's Figaro, where
 
 
 @seealso
-@quotation
-More options, such as inserting explicit rhythms into lyrics,
-inserting lyric ties (e.g., between @q{go al}) above, 
-alternative ways of handling melismata,
-and adding extra verses,
-are discussed in @ruser{Vocal music}.
-@end quotation
+
+Notation reference: @ruser{Vocal music}.
+
 
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
@@ -1445,11 +1437,8 @@ from the notes and lyrics with variables.  These are
 discussed later (see @ref{Organizing pieces with variables}).
 
 @seealso
-@quotation
-More options, such as putting multiple stanzas below the score,
-setting choral music, and lyrics to divided voices, 
-are discussed in @ruser{Vocal music}.
-@end quotation
+
+Notation reference: @ruser{Vocal music}.
 
 
 @node Final touches
