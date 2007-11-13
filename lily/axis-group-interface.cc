@@ -97,7 +97,7 @@ Axis_group_interface::cached_pure_height (Grob *me, int start, int end)
   for (vsize i = 0; i + 1 < breaks.size (); i++)
     {
       int r = Paper_column::get_rank (cols[breaks[i]]);
-      if (r > end)
+      if (r >= end)
 	break;
 
       if (r >= start)
