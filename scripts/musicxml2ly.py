@@ -19,6 +19,8 @@ import musicexp
 
 from rational import Rational
 
+# Store command-line options in a global variable, so we can access them everythwere
+options = None
 
 def progress (str):
     sys.stderr.write (str + '\n')
@@ -753,21 +755,21 @@ def musicxml_spanner_to_lily_event (mxl_event):
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    return { "above": 1, "upright": 1, "below": -1, "downright": -1 }.get (direction, '')
+    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1 }.get (direction, 0)
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
     ev.type = "fermata"
     if hasattr (mxl_event, 'type'):
       dir = musicxml_direction_to_indicator (mxl_event.type)
-      if dir:
+      if dir and options.convert_directions:
         ev.force_direction = dir
     return ev
 
 
 def musicxml_arpeggiate_to_lily_event (mxl_event):
     ev = musicexp.ArpeggioEvent ()
-    ev.direction = {"up": 1, "down": -1}.get (getattr (mxl_event, 'direction', None), 0)
+    ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
     return ev
 
 
@@ -896,10 +898,12 @@ def musicxml_articulation_to_lily_event (mxl_event):
 
     # Some articulations use the type attribute, other the placement...
     dir = None
-    if hasattr (mxl_event, 'type'):
+    if hasattr (mxl_event, 'type') and options.convert_directions:
         dir = musicxml_direction_to_indicator (mxl_event.type)
-    if hasattr (mxl_event, 'placement'):
+    if hasattr (mxl_event, 'placement') and options.convert_directions:
         dir = musicxml_direction_to_indicator (mxl_event.placement)
+    if dir:
+        ev.force_direction = dir
     return ev
 
 
@@ -938,7 +942,7 @@ def musicxml_words_to_lily_event (words):
     text = re.sub (' *\n? *$', '', text)
     event.text = text
 
-    if hasattr (words, 'default-y'):
+    if hasattr (words, 'default-y') and options.convert_directions:
         offset = getattr (words, 'default-y')
         try:
             off = string.atoi (offset)
@@ -1624,6 +1628,12 @@ Copyright (c) 2005--2007 by
                   action = "store",
                   help = _ ("Use a different language file, e.g. 'deutsch' for deutsch.ly."))
 
+    p.add_option ('--no-articulation-directions', '--nd',
+                  action = "store_false",
+                  default = True,
+                  dest = "convert_directions",
+                  help = _ ("Do not convert directions (^, _ or -) for articulations."))
+
     p.add_option ('-o', '--output',
                   metavar=_ ("FILE"),
                   action="store",
@@ -1809,6 +1819,7 @@ def get_existing_filename_with_extension (filename, ext):
 def main ():
     opt_parser = option_parser()
 
+    global options
     (options, args) = opt_parser.parse_args ()
     if not args:
         opt_parser.print_usage()
