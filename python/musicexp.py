@@ -127,8 +127,8 @@ class Output_printer:
         self.newline ()
         self._file.close ()
         self._file = None
-        
-        
+
+
 class Duration:
     def __init__ (self):
         self.duration_log = 0
@@ -183,7 +183,71 @@ class Duration:
 
         return base * dot_fact * self.factor
 
-    
+
+# Implement the different note names for the various languages
+def pitch_generic (pitch, notenames, accidentals):
+    str = notenames[pitch.step]
+    if pitch.alteration < 0:
+        str += accidentals[0] * (-pitch.alteration)
+    elif pitch.alteration > 0:
+        str += accidentals[3] * (pitch.alteration)
+    return str
+
+def pitch_general (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['es', 'eh', 'ih', 'is'])
+    return str.replace ('aes', 'as').replace ('ees', 'es')
+
+def pitch_nederlands (pitch):
+    return pitch_general (pitch)
+
+def pitch_english (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'b'], ['f', 'qf', 'qs', 's'])
+    return str.replace ('aes', 'as').replace ('ees', 'es')
+
+def pitch_deutsch (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['es', 'eh', 'ih', 'is'])
+    return str.replace ('hes', 'b').replace ('aes', 'as').replace ('ees', 'es')
+
+def pitch_norsk (pitch):
+    return pitch_deutsch (pitch)
+
+def pitch_svenska (pitch):
+    str = pitch_generic (pitch, ['c', 'd', 'e', 'f', 'g', 'a', 'h'], ['ess', '', '', 'iss'])
+    return str.replace ('hess', 'b').replace ('aes', 'as').replace ('ees', 'es')
+
+def pitch_italiano (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', 'sb', 'sd', 'd'])
+    return str
+
+def pitch_catalan (pitch):
+    return pitch_italiano (pitch)
+
+def pitch_espanol (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 's'])
+    return str
+
+def pitch_vlaams (pitch):
+    str = pitch_generic (pitch, ['do', 're', 'mi', 'fa', 'sol', 'la', 'si'], ['b', '', '', 'k'])
+    return str
+
+def set_pitch_language (language):
+    global pitch_generating_function
+    function_dict = {
+        "nederlands": pitch_nederlands,
+        "english": pitch_english,
+        "deutsch": pitch_deutsch,
+        "norsk": pitch_norsk,
+        "svenska": pitch_svenska,
+        "italiano": pitch_italiano,
+        "catalan": pitch_catalan,
+        "espanol": pitch_espanol,
+        "vlaams": pitch_vlaams}
+    pitch_generating_function = function_dict.get (language, pitch_general)
+
+# global variable to hold the formatting function.
+pitch_generating_function = pitch_general
+
+
 class Pitch:
     def __init__ (self):
         self.alteration = 0
@@ -230,13 +294,7 @@ class Pitch:
         return self.octave * 12 + [0,2,4,5,7,9,11][self.step] + self.alteration
     
     def ly_step_expression (self): 
-        str = 'cdefgab'[self.step]
-        if self.alteration > 0:
-            str += 'is'* (self.alteration)
-        elif self.alteration < 0:
-            str += 'es'* (-self.alteration)
-
-        return str.replace ('aes', 'as').replace ('ees', 'es')
+        return pitch_generating_function (self)
     
     def ly_expression (self):
         str = self.ly_step_expression ()

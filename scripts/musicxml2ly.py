@@ -1619,7 +1619,11 @@ Copyright (c) 2005--2007 by
                   default=False,
                   dest="use_lxml",
                   help=_ ("Use lxml.etree; uses less memory and cpu time."))
-    
+
+    p.add_option ('-l', '--language',
+                  action = "store",
+                  help = _ ("Use a different language file, e.g. 'deutsch' for deutsch.ly."))
+
     p.add_option ('-o', '--output',
                   metavar=_ ("FILE"),
                   action="store",
@@ -1718,6 +1722,7 @@ def print_ly_additional_definitions (printer, filename):
         printer.newline ()
     for a in set(needed_additional_definitions):
         printer.print_verbatim (additional_definitions.get (a, ''))
+    printer.newline ()
 
 
 def read_musicxml (filename, use_lxml):
@@ -1808,7 +1813,12 @@ def main ():
     if not args:
         opt_parser.print_usage()
         sys.exit (2)
-    
+
+    if options.language:
+        musicexp.set_pitch_language (options.language)
+        needed_additional_definitions.append (options.language)
+        additional_definitions[options.language] = "\\include \"%s.ly\"\n" % options.language
+
     # Allow the user to leave out the .xml or xml on the filename
     filename = get_existing_filename_with_extension (args[0], "xml")
     if filename and os.path.exists (filename):
