@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+   Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,8 +61,6 @@ is more fundamental and will be presented first.
 @cindex Absolute
 @cindex Absolute octave specification
 
-@c don't use @samp here because that might get confused with
-@c octave marks
 In absolute mode, every note is placed explicitly in a certain
 octave.  The note names @code{c} to @code{b} are engraved in the
 octave below middle C, as in the previous example.
@@ -313,7 +311,7 @@ Micro tones are also exported to the MIDI file.
 
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental needs to
-be cancelled.  To change this behavior, use
+be canceled.  To change this behavior, use
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 ceses4 ces cis c
@@ -1099,8 +1097,12 @@ Common rules for typesetting accidentals have been placed in a
 function.  This function is called as follows
 
 @funindex set-accidental-style
+
 @example
-#(set-accidental-style 'STYLE)
+\new Staff <<
+  #(set-accidental-style 'voice)
+  @{ @dots{} @}
+>>
 @end example
 
 @c TODO: check the context stuff below
@@ -1108,29 +1110,21 @@ function.  This function is called as follows
 @c -the default contexts as specified in
 @c  scm/music-function.scm seem to be different -vv
 
-Optionally, the function can take two arguments: the name of the
-accidental style, and an optional argument that denotes the context that
-should be changed:
+If no context name is supplied, the accidental style applies to
+the @code{Staff} by default.  Optionally, the function can take
+the context for which the style should be changed as a second
+argument:
 
 @example
-#(set-accidental-style 'STYLE #('CONTEXT#))
+#(set-accidental-style 'STYLE #('CONTEXT))
 @end example
 
-If no context name is supplied, @code{Staff} is the default,
-but you may wish to apply the accidental style to a single @code{Voice}
-instead.
+The following accidental styles are supported.  To demonstrate
+each style, we use the following example:
 
-The following accidental styles are supported:
-
-@table @code
-@item default
-This is the default typesetting behavior.  It corresponds
-to 18th century common practice: Accidentals are
-remembered to the end of the measure in which they occur and
-only on their own octave.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+@c TODO: a Formatter, please clean this up.
+@lilypond[quote,ragged-right,verbatim]
+musicA = { << \relative { cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
 
 musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
@@ -1138,16 +1132,42 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
-	\new PianoStaff {
+\new PianoStaff {
+       << \context Staff = "up" {
+           %%% change the next line as desired:
+	       %#(set-accidental-style 'default) 
+       \musicA }
+       \context Staff = "down"{
+           %%% change the next line as desired:
+	       %#(set-accidental-style 'default)
+       \musicB } >> }
+@end lilypond
+
+@c don't use verbatim in this table.
+@table @code
+@item default
+This is the default typesetting behavior.  It corresponds to
+eighteenth-century common practice: Accidentals are remembered to
+the end of the measure in which they occur and only on their own
+octave.  Thus, in the example below, no natural signs are printed
+before the @code{b} in the second measure or the last @code{c}:
+
+@lilypond[quote,ragged-right]
+musicA = { << \relative { cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
+       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
+
+musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
+	\change Staff = up cis' \change Staff = down <fis, a>  
+	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
+	<f a d>2 |  } }}
+
+\new PianoStaff {
        << \context Staff = "up" {
 	       %#(set-accidental-style 'default) 
        \musicA }
        \context Staff = "down"{
 	       %#(set-accidental-style 'default)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
-}
 @end lilypond
 
 @item voice
@@ -1156,17 +1176,15 @@ Staff-level.  This variable, however, typesets accidentals
 individually for each voice.  Apart from that, the rule is similar to
 @code{default}.
 
-@example
- \new Staff <<
-        #(set-accidental-style 'voice)
-	@{ @dots{} @}
-	>>
-@end example
+As a result, accidentals from one voice do not get canceled in
+other voices, which is often an unwanted result: in the following
+example, it is hard to determine whether the second @code{a}
+should be played natural or sharp.  The @code{voice} option should
+therefore be used only if the voices are to be read solely by
+individual musicians.  If the staff is to be used by one musician
+(e.g., a conductor or in a piano score) then @code{modern} or
+@code{modern-cautionary} should be used instead.
 
-As a result, accidentals from one voice do not get canceled in other
-voices, which is often an unwanted result: in the following example, it
-is hard to determine whether the second @samp{a} should be played
-natural or sharp.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1177,7 +1195,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'voice) 
@@ -1185,24 +1202,19 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'voice)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
-}
 @end lilypond
-
-The @code{voice} option should be used if the voices
-are to be read solely by individual musicians.  If the staff is to be
-used by one musician (e.g., a conductor) then
-@code{modern} or @code{modern-cautionary}
-should be used instead.
 
 @item modern
 @funindex modern style accidentals
-This rule corresponds to the common practice in the 20th century.  This rule
-prints the same accidentals as @code{default}, but temporary
-accidentals also are canceled in other octaves.  Furthermore,
-in the same octave, they also get canceled in the following
-measure: in the following example, notice the two natural signs which appear
-in the second bar of the upper staff.
+
+This rule corresponds to the common practice in the twentieth
+century.  It prints the same accidentals as @code{default}, with
+two exceptions which serve to avoid ambiguity: after temporary
+accidentals, cancellation marks are printed also in the following
+measure (for notes in the same octave) and, in the same measure,
+for notes in other octaves.  Hence the naturals before the
+@code{b} and the @code{c} in the second measure of the upper
+staff:
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1213,7 +1225,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern) 
@@ -1221,17 +1232,18 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
-}
 @end lilypond
 
-@item @code{modern-cautionary}
+@item modern-cautionary
 @funindex modern-cautionary
-This rule is similar to @code{modern}, but the @q{extra} accidentals
-(the ones not typeset by @code{default}) are typeset as cautionary
-accidentals.  They are printed in reduced size or (by default)
-with parentheses -- this can be set by definig the @code{cautionary-style}
-property of the @internalsref{AccidentalSuggestion} object.
+
+This rule is similar to @code{modern}, but the @q{extra}
+accidentals (the ones not typeset by @code{default}) are typeset
+as cautionary accidentals.  They are by default printed with
+parentheses, but they can also be printed in reduced size by
+defining the @code{cautionary-style} property of the
+@internalsref{AccidentalSuggestion} object.
+
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1242,7 +1254,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-cautionary) 
@@ -1250,16 +1261,20 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
-}
 @end lilypond
 
-@funindex modern-voice
 @item modern-voice
-This rule is used for multivoice accidentals to be read both by musicians
-playing one voice and musicians playing all voices.  Accidentals are
-typeset for each voice, but they @emph{are} canceled across voices in
-the same @internalsref{Staff}.
+@funindex modern-voice
+
+This rule is used for multivoice accidentals to be read both by
+musicians playing one voice and musicians playing all voices.
+Accidentals are typeset for each voice, but they @emph{are}
+canceled across voices in the same @internalsref{Staff}.  Hence,
+the @code{a} in the last measure is canceled because the previous
+cancellation was in a different voice, and the @code{d} in the
+lower staff is canceled because of the accidental in a different
+voice in the previous measure:
+
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1270,7 +1285,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-voice) 
@@ -1278,12 +1292,11 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-voice)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
-}
 @end lilypond
 
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
+
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
 as cautionaries.  Even though all accidentals typeset by
@@ -1299,7 +1312,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'modern-voice-cautionary) 
@@ -1307,14 +1319,21 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'modern-voice-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
-}
 @end lilypond
 
 @item piano
 @funindex piano accidentals
-This accidental style takes place in a GrandStaff context.  However, you have to 
-explicitly set it for @emph{each} individual Staff of the GrandStaff:
+
+This rule reflects twentieth-century practice for piano notation.
+Its behavior is very similar to @code{modern} style, but here
+accidentals also get canceled across the staves in the same
+@internalsref{GrandStaff} or @internalsref{PianoStaff}, hence all
+the cancellations of the final notes.
+
+This accidental style takes place in a GrandStaff context.
+However, you have to explicitly set it for @emph{each} individual
+Staff of the GrandStaff:
+
 
 @example
 \new GrandStaff @{ <<
@@ -1329,11 +1348,6 @@ explicitly set it for @emph{each} individual Staff of the GrandStaff:
 >> @}
 @end example
 
-This rule reflects 20th century practice for piano notation.  Its behavior is very
-similar to @code{modern} style, but here accidentals also get canceled
-across the staves in the same @internalsref{GrandStaff} or
-@internalsref{PianoStaff}.
-
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
@@ -1343,7 +1357,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'piano) 
@@ -1351,12 +1364,11 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'piano)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
-}
 @end lilypond
 
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
+
 Same as @code{#(set-accidental-style 'piano)} but with the extra
 accidentals typeset as cautionaries.
 
@@ -1369,7 +1381,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'piano-cautionary) 
@@ -1377,14 +1388,14 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'piano-cautionary)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
-}
 @end lilypond
 
 @item no-reset
 @funindex no-reset accidental style
+
 This is the same as @code{default} but with accidentals lasting
-@q{forever} and not only until the next measure:
+@q{forever} and not only within the same measure:
+
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
        \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
@@ -1394,7 +1405,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'no-reset) 
@@ -1402,15 +1412,15 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'no-reset)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
-}
 @end lilypond
 
 @item forget
-This is sort of the opposite of @code{no-reset}: Accidentals
-are not remembered at all -- and hence all accidentals are
-typeset relative to the key signature, regardless of what was
-before in the music
+@funindex forget accidental style
+
+This is the opposite of @code{no-reset}: Accidentals are not
+remembered at all -- and hence all accidentals are typeset
+relative to the key signature, regardless of what was before in
+the music:
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -1421,7 +1431,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
 	<f a d>2 |  } }}
 
-\score { 
 	\new PianoStaff {
        << \context Staff = "up" {
 	       #(set-accidental-style 'forget) 
@@ -1429,8 +1438,6 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
        \context Staff = "down"{
 	       #(set-accidental-style 'forget)
        \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
-}
 @end lilypond
 @end table
 
@@ -1459,30 +1466,19 @@ problematic notes.
 @unnumberedsubsubsec Ambitus
 @cindex ambitus
 
-The term @emph{ambitus} denotes a range of pitches for a given
-voice in a part of music.  It may also denote the pitch range that
-a musical instrument is capable of playing.  Ambits are printed on
-vocal parts, so performers can easily determine it meets their
-capabilities.
+The term @notation{ambitus} or @notation{ambit} denotes a range of pitches
+for a given voice in a part of music.  It may also denote the
+pitch range that a musical instrument is capable of playing.
+Ambits are printed on vocal parts, so performers can easily
+determine if it meets their capabilities.
 
 Ambits are denoted at the beginning of a piece near the initial
 clef.  The range is graphically specified by two note heads that
 represent the minimum and maximum pitch.  To print such ambits,
 add the @internalsref{Ambitus_engraver} to the
-@internalsref{Voice} context, for example,
+@internalsref{Voice} context, for example:
 
-@example
-\layout @{
-  \context @{
-    \Voice
-    \consists Ambitus_engraver
-  @}
-@}
-@end example
-
-This results in the following output
-
-@lilypond[quote,ragged-right]
+@lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
@@ -1496,10 +1492,9 @@ This results in the following output
 @end lilypond
 
 If you have multiple voices in a single staff and you want a
-single ambitus per staff rather than per each voice, add the
+single ambitus per staff rather than per voice, add the
 @internalsref{Ambitus_engraver} to the @internalsref{Staff}
-context rather than to the @internalsref{Voice} context.  Here is
-an example,
+context rather than to the @internalsref{Voice} context:
 
 @lilypond[verbatim,ragged-right,quote]
 \new Staff \with {
@@ -1598,7 +1593,7 @@ Snippets: @lsrdir{pitches},
 
 In shape note head notation, the shape of the note head
 corresponds to the harmonic function of a note in the scale.  This
-notation was popular in the 19th century American song books.
+notation was popular in nineteenth-century American song books.
 
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
@@ -1607,11 +1602,11 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
   \aikenHeads
   c8 d4 e8 a2 g1
   \sacredHarpHeads
-  c8 d4. e8 a2 g1
+  c,8 d4. e8 a2 g1
 @end lilypond
 
-Shapes are determined on the step in the scale, where the base of
-the scale is determined by  the @code{\key} command
+Shapes are typeset according to the step in the scale, where
+the base of the scale is determined by the @code{\key} command.
 
 @funindex \key
 @funindex shapeNoteStyles
@@ -1621,7 +1616,7 @@ the scale is determined by  the @code{\key} command
 Shape note heads are implemented through the
 @code{shapeNoteStyles} property.  Its value is a vector of
 symbols.  The k-th element indicates the style to use for the k-th
-step of the scale.  Arbitrary combinations are possible, e.g.
+step of the scale.  Arbitrary combinations are possible, e.g.:
 
 @lilypond[verbatim,relative=1,fragment]
 \set shapeNoteStyles =
@@ -1667,6 +1662,7 @@ used in the following example
 
 @seealso
 
+
 Snippets: @lsrdir{pitches},
 
 
@@ -1680,7 +1676,7 @@ meanings -- crosses are used for @q{parlato} with vocalists,
 stopped notes on guitar; diamonds are used for harmonics on string
 instruments, etc.  There is a shorthand (@code{\harmonic}) for
 diamond shapes; the other notehead styles are produced by tweaking
-the property
+the property 
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 c4 d
@@ -1699,8 +1695,6 @@ To see all notehead styles, please see @ref{Note head styles}.
 Snippets: @lsrdir{pitches}.
 
 Internals Reference: @internalsref{NoteHead}.
-
-
 
 
 

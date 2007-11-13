@@ -4,7 +4,10 @@ import os
 import os.path
 import shutil
 
-dirs = ['pitches', 'rhythms']
+dirs = []
+dirs.extend(['pitches', 'rhythms'])
+
+dirs.extend(['real-music'])
 #dirs = ['ancient','chords','connecting','contemporary','expressive','education','guitar','parts','pitch','repeats','scheme','spacing','staff','text','vocal','other','nonmusic','engravers','instrument']
 notsafe=[]
 

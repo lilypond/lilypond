@@ -129,6 +129,18 @@ Internals Reference: @internalsref{Dots}, and
 @internalsref{DotColumn}.
 
 
+@refbugs
+
+@c duplicated in Durations and Rests.  -gp
+There is no fundamental limit to note durations (both in terms of
+longest and shortest), but the number of glyphs is limited: there
+are flags up 64th and rests up to 128th.  At the other extreme,
+there are note heads up to longa (4x whole note) and rests up to
+maxima (8 x whole).  Since beams can be extended arbitrarily,
+beamed notes can be arbitrarily short.
+
+
+
 @node Tuplets
 @unnumberedsubsubsec Tuplets
 
@@ -274,7 +286,11 @@ point.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+FIXME: totally irrelevant link to real-music for
+discussion/demonstration purposes.
+
+Snippets: @lsrdir{rhythms},
+@lsr{real-music,creating-music-with-scheme.ly}.
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
@@ -310,6 +326,7 @@ a multiplier.  This is useful for skipping many bars, e.g.,
 
 This manual: @ref{Tuplets}, @ref{Skips}.
 
+Snippets: @lsrdir{rhythms}
 
 @node Ties
 @unnumberedsubsubsec Ties
@@ -398,6 +415,8 @@ c4_~ c c^~ c)
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference:
 @internalsref{LaissezVibrerTie}
 @internalsref{LaissezVibrerTieColumn}
@@ -455,7 +474,11 @@ second number indicates the direction (1=up, -1=down).
 
 @seealso
 
+
+
 In this manual: @ref{Automatic note splitting}.
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Tie}.
 
@@ -522,7 +545,20 @@ rests alone.
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{Rest}.
+
+
+@refbugs
+
+@c duplicated in Durations and Rests.  -gp
+There is no fundamental limit to note durations (both in terms of
+longest and shortest), but the number of glyphs is limited: there
+are flags up 64th and rests up to 128th.  At the other extreme,
+there are note heads up to longa (4x whole note) and rests up to
+maxima (8 x whole).  Since beams can be extended arbitrarily,
+beamed notes can be arbitrarily short.
 
 
 @node Skips
@@ -566,6 +602,8 @@ commands.  For example, the following results in an empty staff.
 The fragment @code{@{ \skip 4 @} } would produce an empty page.
 
 @seealso
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{SkipMusic}.
 
@@ -697,6 +735,8 @@ s1^\markup {CHORUS} % Chorus notes would go here
 @seealso
 
 This manual: @ref{Text}
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: 
 
@@ -837,6 +877,8 @@ rhythmically complex modern music.  In the following example, the
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
@@ -904,6 +946,9 @@ a2 g2
 piece.  If you use it after the beginning, some odd warnings may
 occur.
 
+@seealso
+
+Snippets: @lsrdir{rhythms}
 
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
@@ -939,6 +984,10 @@ staff line, you will need to insert invisible barlines
 
 @noindent
 to indicate where breaks can occur.
+
+@seealso
+
+Snippets: @lsrdir{rhythms}
 
 
 @node Polymetric notation
@@ -1098,6 +1147,10 @@ staff, shown durations are multiplied by 3/5, so that 3/5 * 10/8 =
 When using different time signatures in parallel, the spacing is
 aligned vertically, but barlines distort the regular spacing.
 
+@seealso
+
+Snippets: @lsrdir{rhythms}
+
 
 @node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting
@@ -1138,6 +1191,8 @@ split rests.
 
 
 @seealso
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Completion_heads_engraver}.
 
@@ -1335,6 +1390,10 @@ same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
 >>}.  If a polyphonic voice ends while an automatic beam is still
 accepting notes, it is not typeset.
 
+@seealso
+
+Snippets: @lsrdir{rhythms}
+
 
 
 
@@ -1453,6 +1512,8 @@ f8 f''8 f8 f''8
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{Beam}.
 
 
@@ -1553,6 +1614,10 @@ c8 \repeat unfold 15 {c[ c] } c
 
 The @code{\featherDurations} command only works with very short
 music snippets, and when numbers in the fraction are small.
+
+@seealso
+
+Snippets: @lsrdir{rhythms}
 
 
 @node Bars
@@ -1700,6 +1765,8 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 In this manual: @ref{Repeats}, @ref{System start delimiters}.
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
 staves), @internalsref{Timing_translator} (for Timing 
@@ -1838,6 +1905,8 @@ engraver from the score context.
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{BarNumber}.
 
 Examples: @lsrdir{bar number}
@@ -1934,6 +2003,10 @@ are entering from.  This can be checked with
 will print a warning if the @code{currentBarNumber} is not 123
 when it is processed.
 
+@seealso
+
+Snippets: @lsrdir{rhythms}
+
 
 @node Rehearsal marks
 @unnumberedsubsubsec Rehearsal marks
@@ -2029,6 +2102,8 @@ For common tweaks to the positioning of rehearsal marks, see
 @ref{Text marks}.
 
 @seealso
+
+Snippets: @lsrdir{rhythms}
 
 This manual: @ref{Text marks}.
 
@@ -2206,6 +2281,8 @@ in other staves by setting @code{strict-grace-spacing} to
 
 @seealso
 
+Snippets: @lsrdir{rhythms}
+
 Internals Reference: @internalsref{GraceMusic}.
 
 
@@ -2267,6 +2344,10 @@ cadenza = \relative c' {
   }
 >>
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{rhythms}
 
 
 @node Time administration
@@ -2338,6 +2419,8 @@ notes.
 @seealso
 
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
+
+Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}

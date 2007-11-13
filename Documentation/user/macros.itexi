@@ -257,19 +257,22 @@
 
 @macro rglos {TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,music-glossary}
 @end macro
 
 @macro rprogram{TEXT}
-program usage manual, @internalsref{\TEXT\}
+program usage manual, @ref{\TEXT\,,,lilypond-program}
+@c @internalsref{\TEXT\}
 @end macro
 
 @macro ruser{TEXT}
-user manual, @internalsref{\TEXT\}
+user manual, @ref{\TEXT\,,,lilypond}
+@c @internalsref{\TEXT\}
 @end macro
 
 @macro rlearning{TEXT}
-learning manual, @internalsref{\TEXT\}
+learning manual, @ref{\TEXT\,,,lilypond-learning}
+@c @internalsref{\TEXT\}
 @end macro
 
 @end iftex
