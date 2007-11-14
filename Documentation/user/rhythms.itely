@@ -741,7 +741,7 @@ the rest, preceded by @code{\fatText} (turn off again with
 @code{\emptyText}), since this will cause the measure to expand to
 accommodate the length of the text:
 
-@lilypond[quote,ragged-right,verbatim,fragment]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \set Score.skipBars = ##t
 \fatText
 s1*0^\markup {[MAJOR GENERAL]}
@@ -749,8 +749,7 @@ R1*19
 s1*0^\markup {[MABEL] }
 s1*0_\markup {\italic {Cue: ... it is yours}}
 R1*30
-s1^\markup {CHORUS} % Chorus notes would go here
-c1
+c4^\markup {CHORUS} d f c
 @end lilypond
 
 

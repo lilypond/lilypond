@@ -195,7 +195,7 @@ c2\startTextSpan b c\stopTextSpan a
 To print a solid line, use
 
 @example
-\override TextSpanner #'dash-fraction = #'()
+\override TextSpanner #'style = #'line
 @end example
 
 

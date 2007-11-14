@@ -155,7 +155,8 @@ commands.
 @c - single line comments
 @ignore ... @end ignore - multi-line comment
 
-@cindex - General index. Please add as many as you can.
+@cindex - General index. Please add as many as you can.  Don't
+  capitalize the first word.
 @funindex - is for a \lilycommand.
 
 @example ... @end ignore - example text that should be set as a
