@@ -526,6 +526,14 @@ direction.
 ^ _
 @end verbatim
 
+Also cover
+#UP
+#DOWN
+#LEFT
+#RIGHT.
+
+Maybe rename section to "directions".
+
 
 @node Distances and measurements MAYBE MOVE
 @subsection Distances and measurements MAYBE MOVE
