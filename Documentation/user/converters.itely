@@ -90,7 +90,7 @@ Show summary of usage.
 @item -k, --key=@var{acc}[:@var{minor}]
 Set default key.  @math{@var{acc} > 0} sets number of sharps;
 @math{@var{acc} < 0} sets number of flats.  A minor key is indicated by
-@samp{:1}.
+@code{:1}.
 
 @item -o, --output=@var{file}
 Write output to @var{file}.

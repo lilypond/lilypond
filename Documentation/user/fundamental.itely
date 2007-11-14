@@ -1022,7 +1022,7 @@ substitutes the contents of @file{horn-music.ly} at this position in
 the file, so @code{hornNotes} is defined afterwards.  The command
 @code{\transpose f@tie{}c'} indicates that the argument, being
 @code{\hornNotes}, should be transposed by a fifth upwards.  Sounding
-@samp{f} is denoted by notated @code{c'}, which corresponds with the
+@code{f} is denoted by notated @code{c'}, which corresponds with the
 tuning of a normal French Horn in@tie{}F.  The transposition can be seen
 in the following output
 
@@ -1035,7 +1035,7 @@ in the following output
 
 In ensemble pieces, one of the voices often does not play for many
 measures.  This is denoted by a special rest, the multi-measure
-rest.  It is entered with a capital @samp{R} followed by a duration
+rest.  It is entered with a capital @code{R} followed by a duration
 (@code{1}@tie{}for a whole note, @code{2}@tie{}for a half note,
 etc.).  By multiplying the
 duration, longer rests can be constructed.  For example, this rest

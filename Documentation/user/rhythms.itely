@@ -82,7 +82,7 @@ a a a2 a a4 a a1 a
 
 @funindex .
 
-To obtain dotted note lengths, simply add a dot (@samp{.}) to the
+To obtain dotted note lengths, simply add a dot (@code{.}) to the
 number.  Double-dotted notes are produced in a similar way.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -1926,7 +1926,7 @@ c1 c c c
 @funindex |
 
 Bar checks help detect errors in the entered durations.
-A bar check may be entered using the bar symbol, @samp{|}, 
+A bar check may be entered using the bar symbol, @code{|}, 
 at any place where a bar line is expected to fall.  
 If bar check lines are encountered at other places, 
 a list of warnings is printed in the log file,
@@ -1956,10 +1956,10 @@ incorrect durations.
 @funindex pipeSymbol
 
 It is also possible to redefine the action taken when a bar check 
-or pipe symbol, @samp{|}, is encountered in the input, so that 
+or pipe symbol, @code{|}, is encountered in the input, so that 
 it does something other than a bar check.  This is done by 
 assigning a music expression to @code{pipeSymbol}.  
-In the following example @samp{|} is set to insert a double bar 
+In the following example @code{|} is set to insert a double bar 
 line wherever it appears in the input, rather than checking 
 for end of bar.
 
