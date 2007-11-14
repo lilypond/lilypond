@@ -6,6 +6,8 @@ import re
 import os
 import string
 import codecs
+import zipfile
+import StringIO
 from gettext import gettext as _
 
 """
@@ -117,13 +119,13 @@ def extract_layout_information (tree):
             #    light barline, octave shift, pedal, slur middle, slur tip,
             #    staff, stem, tie middle, tie tip, tuplet bracket, and wedge
             tp = lw.type
-            w = from_tenths (lw.get_data ())
+            w = from_tenths (lw.get_text  ())
             # TODO: Do something with these values!
         nss = appearance.get_named_children ('note-size')
         for ns in nss:
             # Possible types are: cue, grace and large
             tp = ns.type
-            sz = from_tenths (ns.get_data ())
+            sz = from_tenths (ns.get_text ())
             # TODO: Do something with these values!
         # <other-appearance> elements have no specified meaning
 
@@ -1624,6 +1626,12 @@ Copyright (c) 2005--2007 by
                   dest="use_lxml",
                   help=_ ("Use lxml.etree; uses less memory and cpu time."))
 
+    p.add_option ('-z', '--compressed',
+                  action = "store_true",
+                  dest = 'compressed',
+                  default = False,
+                  help = _ ("Input file is a zip-compressed MusicXML file."))
+
     p.add_option ('-l', '--language',
                   action = "store",
                   help = _ ("Use a different language file, e.g. 'deutsch' for deutsch.ly."))
@@ -1734,28 +1742,54 @@ def print_ly_additional_definitions (printer, filename):
         printer.print_verbatim (additional_definitions.get (a, ''))
     printer.newline ()
 
-
-def read_musicxml (filename, use_lxml):
+# Read in the tree from the given I/O object (either file or string) and 
+# demarshall it using the classes from the musicxml.py file
+def read_xml (io_object, use_lxml):
     if use_lxml:
         import lxml.etree
-        
-        tree = lxml.etree.parse (filename)
+        tree = lxml.etree.parse (io_object)
         mxl_tree = musicxml.lxml_demarshal_node (tree.getroot ())
         return mxl_tree
     else:
         from xml.dom import minidom, Node
-        
-        doc = minidom.parse(filename)
+        doc = minidom.parse(io_object)
         node = doc.documentElement
         return musicxml.minidom_demarshal_node (node)
-
     return None
+
+
+def read_musicxml (filename, compressed, use_lxml):
+    raw_string = None
+    if compressed:
+        progress ("Input file %s is compressed, extracting raw MusicXML data" % filename)
+        z = zipfile.ZipFile (filename, "r")
+        container_xml = z.read ("META-INF/container.xml")
+        if not container_xml:
+            return None
+        container = read_xml (StringIO.StringIO (container_xml), use_lxml)
+        if not container:
+            return None
+        rootfiles = container.get_maybe_exist_named_child ('rootfiles')
+        if not rootfiles:
+            return None
+        rootfile_list = rootfiles.get_named_children ('rootfile')
+        mxml_file = None
+        if len (rootfile_list) > 0:
+            mxml_file = getattr (rootfile_list[0], 'full-path', None)
+        if mxml_file:
+            raw_string = z.read (mxml_file)
+
+    io_object = filename
+    if raw_string:
+        io_object = StringIO.StringIO (raw_string)
+
+    return read_xml (io_object, use_lxml)
 
 
 def convert (filename, options):
     progress ("Reading MusicXML from %s ..." % filename)
     
-    tree = read_musicxml (filename, options.use_lxml)
+    tree = read_musicxml (filename, options.compressed, options.use_lxml)
     parts = tree.get_typed_children (musicxml.Part)
     (voices, staff_info) = get_all_voices (parts)
 
@@ -1808,10 +1842,10 @@ def convert (filename, options):
 def get_existing_filename_with_extension (filename, ext):
     if os.path.exists (filename):
         return filename
-    newfilename = filename + ".xml"
+    newfilename = filename + "." + ext
     if os.path.exists (newfilename):
         return newfilename;
-    newfilename = filename + "xml"
+    newfilename = filename + ext
     if os.path.exists (newfilename):
         return newfilename;
     return ''
@@ -1832,6 +1866,9 @@ def main ():
 
     # Allow the user to leave out the .xml or xml on the filename
     filename = get_existing_filename_with_extension (args[0], "xml")
+    if not filename:
+        filename = get_existing_filename_with_extension (args[0], "mxl")
+        options.compressed = True
     if filename and os.path.exists (filename):
         voices = convert (filename, options)
     else:
