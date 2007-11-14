@@ -48,7 +48,8 @@ quarter note is entered using a @code{4} (since it is a 1/4 note),
 while a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
 @code{\longa} (a double breve) and @code{\breve} commands.  Note
-durations as short as 64th notes may be specified.
+durations as short as 64th notes may be specified.  Shorter values
+are possible, but only as beamed notes.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -61,6 +62,8 @@ c4 c8 c16 c32 c64 c64
 and the same durations with automatic beaming turned off 
 see @ref{Automatic beams}:
 
+@c not strictly "writing rhythms"; more of a "displaying" thing,
+@c but it's ok here.  -gp
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \time 8/1
 \autoBeamOff
@@ -94,7 +97,7 @@ notes together.  Tied notes are covered in @ref{Ties}.
 
 Dots are normally moved up to avoid staff lines, except in
 polyphonic situations.  The following commands may be used to
-force a particular direction manually
+force a particular direction manually:
 
 @funindex \dotsUp
 @code{\dotsUp},
@@ -210,21 +213,25 @@ For more information about @code{make-moment}, see
 
 The format of the number is determined by the property @code{text}
 in @code{TupletNumber}.  The default prints only the denominator,
-but if it is set to the function
-@code{tuplet-number::calc-fraction-text}, @var{num}:@var{den} will
-be printed instead.
+but if the property is set with @code{\override
+TupletNumber #'text = #tuplet-number::calc-fraction-text},
+@var{num}:@var{den} will be printed instead.
 
-To avoid printing tuplet numbers, use
+To print tuplets without tuplet numbers, use
+@code{\override TupletNumber #'transparent = ##t}:
 
 @lilypond[quote,fragment,relative=2,ragged-right,verbatim]
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
+\override TupletNumber #'text = #tuplet-number::calc-fraction-text
+\times 2/3 { c8 c c }
 \override TupletNumber #'transparent = ##t
-\times 2/3 { c8 c c } \times 2/3 { c8 c c }
+\times 2/3 { c8 c c }
 @end lilypond
 
-Use the @code{\tweak} function to override nested tuplets
-beginning at the same music moment.  In this example,
-@code{\tweak} specifies fraction text for the outer
+To change the appearance of nested tuplets beginning at the same
+music moment individually, the @code{\tweak} function must be used
+(see @ref{Objects connected to the input}).  In the following
+example, @code{\tweak} specifies fraction text for the outer
 @code{TupletNumber} and denominator text for the
 @code{TupletNumber} of the first of the three inner tuplets.
 
@@ -238,16 +245,20 @@ beginning at the same music moment.  In this example,
 }
 @end lilypond
 
-Here @code{\tweak} and @code{\override} work together to specify
-@code{TupletBracket} direction.  The first @code{\tweak} positions
-the @code{TupletBracket} of the outer tuplet above the staff.  The
-second @code{\tweak} positions the @code{TupletBracket} of the
-first of the three inner tuplets below the staff.  Note that this
-pair of @code{\tweak} functions affects only the outer tuplet and
-the first of the three inner tuplets because only those two
-tuplets begin at the same music moment.  We use @code{\override}
-in the usual way to position the @code{TupletBrackets} of the
-second and third of the inner tuplets below the staff.
+@c TODO: after LM 6 Tweaks includes \tweak info, look at this.-gp
+@c It *should* be explained why \tweak must be used here, and why
+@c \override doesn't work. I've made an attempt, but I'm not sure
+@c if it is factually correct to say that \tweak must be used.
+In the next example, @code{\tweak} and @code{\override} work
+together to specify @code{TupletBracket} direction.  The first
+@code{\tweak} positions the @code{TupletBracket} of the outer
+tuplet above the staff.  The second @code{\tweak} positions the
+@code{TupletBracket} of the first of the three inner tuplets below
+the staff.  Note that the @code{\tweak} function affects only
+events that begin at the same music moment: the outer tuplet and
+the first of the three inner tuplets.  To position the
+@code{TupletBrackets} of the second and third of the inner tuplets
+below the staff, we use @code{\override} in the usual way.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak #'text #tuplet-number::calc-fraction-text
@@ -262,9 +273,9 @@ second and third of the inner tuplets below the staff.
 @end lilypond
 
 Tuplet brackets can be made to run to prefatory matter or the next
-note
+note:
 
-@lilypond[ragged-right]
+@lilypond[ragged-right,verbatim,quote]
 \new RhythmicStaff {
   \set tupletFullLength = ##t
   \time 4/4
@@ -798,11 +809,7 @@ R1*4 cis cis
 @cindex meter
 @funindex \time
 
-Time signature indicates the meter of a piece: a regular pattern
-of strong and weak beats.  It is denoted by a fraction at the
-start of the staff.
-
-The time signature is set with the @code{\time} command
+The time signature is set with the @code{\time} command:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c2 \time 3/4 c2.
@@ -1039,53 +1046,20 @@ Each staff can also have its own time signature.  This is done by
 moving the @internalsref{Timing_translator} to the
 @internalsref{Staff} context.
 
-@example
-\layout @{
-  \context @{ \Score
-     \remove "Timing_translator"
-     \remove "Default_bar_line_engraver"
-  @}
-  \context @{
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
     \Staff
-    \consists "Timing_translator"
-    \consists "Default_bar_line_engraver"
-  @}
-
-@}
-@end example
-
-
-Now, each staff has its own time signature.
-
-@example
-<<
-  \new Staff @{
-    \time 3/4
-    c4 c c | c c c |
-  @}
-  \new Staff @{
-    \time 2/4
-    c4 c | c c | c c
-  @}
-  \new Staff @{
-    \time 3/8
-    c4. c8 c c c4. c8 c c
-  @}
->>
-@end example
-
-@lilypond[quote,ragged-right]
-\layout{
-  \context{
-     \Score
-     \remove "Timing_translator"
-     \remove "Default_bar_line_engraver"
-    }
-  \context{ \Staff
     \consists "Timing_translator"
     \consists "Default_bar_line_engraver"
   }
 }
+%Now, each staff has its own time signature.
 
 \relative c' <<
   \new Staff {
