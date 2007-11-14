@@ -111,7 +111,7 @@ main docs
     - in general, use the American spellings.  The internal
       lilypond property names use this spelling.
     - list of specific terms:
-canceled, bar
+canceled, measure
 
 
 %%%%% TECHNICAL WRITING STYLE
