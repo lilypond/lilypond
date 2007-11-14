@@ -800,7 +800,6 @@ R1*4 cis cis
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
-* Setting automatic beam behavior::  
 @end menu
 
 @node Time signature
@@ -1182,7 +1181,131 @@ split rests.
 
 Snippets: @lsrdir{rhythms}
 
-Internals Reference: @internalsref{Completion_heads_engraver}.
+Internals Reference: @internalsref{Completion_heads_engraver},
+@internalsref{Forbid_line_break_engraver}.
+
+
+
+
+
+@node Beams
+@subsection Beams
+
+@menu
+* Automatic beams::             
+* Setting automatic beam behavior::  
+* Manual beams::                
+@end menu
+
+@node Automatic beams
+@unnumberedsubsubsec Automatic beams
+
+By default beams are inserted automatically:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c c c
+\time 6/8 c c c c8. c16 c8
+@end lilypond
+
+If these automatic decisions are not satisfactory, beaming can be
+entered explicitly; see @ref{Manual beams}.  It is also possible
+to define beaming patterns that differ from the defaults; see
+@ref{Setting automatic beam behavior}.  The default beaming rules
+are defined in @file{scm/@/auto@/-beam@/.scm}.
+
+@cindex autoBeamOn
+@cindex autoBeamOff
+
+@noindent
+Automatic beaming may be turned off and on with
+@code{\autoBeamOff} and @code{\autoBeamOn} commands:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+c4 c8 c8. c16 c8. c16 c8
+\autoBeamOff
+c4 c8 c8. c16 c8.
+\autoBeamOn
+c16 c8
+@end lilypond
+
+
+@commonprop
+
+Beaming patterns may be altered with the @code{beatGrouping} property,
+
+@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
+\time 5/16
+\set beatGrouping = #'(2 3)
+c8[^"(2+3)" c16 c8]
+\set beatGrouping = #'(3 2)
+c8[^"(3+2)" c16 c8]
+@end lilypond
+
+The property @code{subdivideBeams} can be set in order to
+subdivide all 16th or shorter beams.  When set, multiple beams
+will be sub-divided at beat positions, defined by the current
+value of @code{beatLength} (defaults to a quarter note), by
+drawing only one beam over the beat.
+
+@lilypond[fragment,ragged-right,quote,relative=2,verbatim]
+c32[ c c c c c c c]
+\set subdivideBeams = ##t
+c32[ c c c c c c c]
+\set Score.beatLength = #(ly:make-moment 1 8)
+c32[ c c c c c c c]
+\set Score.beatLength = #(ly:make-moment 1 16)
+c32[ c c c c c c c]
+@end lilypond
+@funindex subdivideBeams
+
+@noindent
+For more information about @code{make-moment}, see
+@ref{Time administration}.
+
+@funindex breakable
+
+Line breaks are normally forbidden when beams cross bar lines.
+This behavior can be changed by setting the @code{breakable} 
+property: @code{\override Beam #'breakable = ##t}.
+
+@lilypond[ragged-right,relative=2,fragment,verbatim,quote]
+\override Beam #'breakable = ##t
+c8 \repeat unfold 15 {c[ c] } c
+@end lilypond
+
+@cindex beams and line breaks
+@cindex beams, kneed
+@cindex kneed beams
+@cindex auto-knee-gap
+
+Kneed beams are inserted automatically when a large gap is
+detected between the note heads.  This behavior can be tuned
+through the @code{auto-knee-gap} property.  A kneed beam is
+drawn if the gap is larger than the value of 
+@code{auto-knee-gap} plus the width of the beam object (which
+depends on the duration of the notes and the slope of the beam).
+By default @code{auto-knee-gap} is set to 5.5 staff spaces.
+
+@lilypond[fragment,ragged-right,quote,verbatim]
+f8 f''8 f8 f''8
+\override Beam #'auto-knee-gap = #6
+f8 f''8 f8 f''8
+@end lilypond
+
+
+@seealso
+
+Snippets: @lsrdir{rhythms}
+
+Internals Reference: @internalsref{Beam}.
+
+
+@refbugs
+
+Automatically kneed cross-staff beams cannot be used together with
+hidden staves.  See @ref{Hiding staves}.
+
+Beams can collide with noteheads and accidentals in other voices
 
 
 @node Setting automatic beam behavior
@@ -1358,165 +1481,38 @@ beaming should be switched off with @code{\autoBeamOff}.
 @funindex \autoBeamOn
 @code{\autoBeamOn}.
 
-@commonprop
-
-Beaming patterns may be altered with the @code{beatGrouping} property,
-
-@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
-
 
 @refbugs
 
 If a score ends while an automatic beam has not been ended and is
-still accepting notes, this last beam will not be typeset at all.  The
-same holds polyphonic voices, entered with @code{<< @dots{} \\ @dots{}
->>}.  If a polyphonic voice ends while an automatic beam is still
-accepting notes, it is not typeset.
+still accepting notes, this last beam will not be typeset at all.
+The same holds for polyphonic voices, entered with @code{<<
+@dots{} \\ @dots{} >>}.  If a polyphonic voice ends while an
+automatic beam is still accepting notes, it is not typeset.
 
 @seealso
 
 Snippets: @lsrdir{rhythms}
 
-
-
-
-@node Beams
-@subsection Beams
-
-@menu
-* Automatic beams::             
-* Manual beams::                
-@end menu
-
-@node Automatic beams
-@unnumberedsubsubsec Automatic beams
-
-By default beams are inserted automatically
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c8 c c c
-\time 6/8 c c c c8. c16 c8
-@end lilypond
-
-When these automatic decisions are not good enough, beaming 
-can be entered explicitly.  It is also possible to define beaming
-patterns that differ from the defaults.  See @ref{Manual beams}
-and @ref{Setting automatic beam behavior}.
-
-@cindex autoBeamOn
-@cindex autoBeamOff
-
-@noindent
-Automatic beaming may be turned off and on with
-@code{\autoBeamOff} and @code{\autoBeamOn} commands:
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-c4 c8 c8. c16 c8. c16 c8
-\autoBeamOff
-c4 c8 c8. c16 c8.
-\autoBeamOn
-c16 c8
-@end lilypond
-
-
-@commonprop
-
-@funindex stemLeftBeamCount
-@funindex stemRightBeamCount
-
-LilyPond can automatically determine beaming patterns within a
-beam, but this automatic behavior can sometimes produce odd
-results; therefore the @code{stemLeftBeamCount} and
-@code{stemRightBeamCount} properties can be used to override the
-defaults.  If either property is set, its value will be used only
-once, and then it is erased.
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-{
-   f8[ r16
-      f g a]
-   f8[ r16
-   \set stemLeftBeamCount = #1
-      f g a]
-}
-@end lilypond
-
-The property @code{subdivideBeams} can be set in order to
-subdivide all 16th or shorter beams.
-When set, multiple beams will be sub-divided at beat 
-positions, defined by the current value of @code{beatLength},
-by drawing only one beam over the beat.
-
-@lilypond[fragment,ragged-right,quote,relative=2,verbatim]
-c16[ c c c c c c c]
-\set subdivideBeams = ##t
-c16[ c c c c c c c]
-\set Score.beatLength = #(ly:make-moment 1 8)
-c16[ c c c c c c c]
-@end lilypond
-@funindex subdivideBeams
-
-@noindent
-For more information about @code{make-moment}, see
-@ref{Time administration}.
-
-@c TODO Consider whether the section Setting automatic
-@c beam behavior should all be moved here.  For now
-@c here's a link to it.
-
-For details about modifying the automatic beam behaviour
-see @ref{Setting automatic beam behavior}
-
-@funindex breakable
-
-Line breaks are normally forbidden when beams cross barlines.
-This behavior can be changed by setting the @code{breakable} 
-property: @code{\override Beam #'breakable = ##t}.
-
-@cindex beams and line breaks
-@cindex beams, kneed
-@cindex kneed beams
-@cindex auto-knee-gap
-
-Kneed beams are inserted automatically when a large gap is
-detected between the note heads.  This behavior can be tuned
-through the @code{auto-knee-gap} property.  A kneed beam is
-drawn if the gap is larger than the value of 
-@code{auto-knee-gap} plus the width of the beam object (which
-depends on the duration of the notes and the slope of the beam).
-By default @code{auto-knee-gap} is set to 5.5 staff spaces.
-
-@lilypond[fragment,ragged-right,quote,verbatim]
-f8 f''8 f8 f''8
-\override Beam #'auto-knee-gap = #6
-f8 f''8 f8 f''8
-@end lilypond
-
-
-@seealso
-
-Snippets: @lsrdir{rhythms}
-
-Internals Reference: @internalsref{Beam}.
-
-
-@refbugs
-
-Automatically kneed cross-staff beams cannot be used together with
-hidden staves.  See @ref{Hiding staves}.
-
-Beams can collide with noteheads and accidentals in other voices
 
 @node Manual beams
 @unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
+
+In some cases it may be necessary to override the automatic
+beaming algorithm.  For example, the autobeamer will not put beams
+over rests or bar lines, and in choral scores the beaming is
+often set to follow the meter of the lyrics rather than the
+notes. Such beams can be specified manually by
+marking the begin and end point with @code{[} and @code{]}
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+{
+  r4 r8[ g' a r8] r8 g[ | a] r8
+}
+@end lilypond
+
 
 Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:
@@ -1596,19 +1592,6 @@ while the last four 32nd notes are at a constant tempo.
 @noindent
 The spacing in the printed output represents the 
 note durations only approximately, but the midi output is exact.
-
-
-@commonprop
-
-Line breaking is prevented by beams which straddle barlines. The
-@samp{breakable} property of @code{Beam} allows this behaviour
-to be overridden:
-
-@lilypond[ragged-right,relative=2,fragment,verbatim,quote]
-\override Beam #'breakable = ##t
-c8 \repeat unfold 15 {c[ c] } c
-@end lilypond
-
 
 @refbugs
 
