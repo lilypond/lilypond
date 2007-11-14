@@ -493,6 +493,7 @@ inserted by hand.
 @cindex melisma
 @cindex extender
 
+@c leave this as samp. -gp
 Melismata are indicated with a horizontal line centered between a syllable
 and the next one.  Such a line is called an extender line, and it is entered
 as @samp{ __ } (note the spaces before and after the two underscore
@@ -500,6 +501,7 @@ characters).
 
 @cindex hyphens
 
+@c leave this as samp. -gp
 Centered hyphens are entered as @samp{ -- } between syllables of a same word
 (note the spaces before and after the two hyphen characters).  The hyphen
 will be centered between the syllables, and its length will be adjusted
