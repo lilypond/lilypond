@@ -174,8 +174,7 @@ g4 \times 2/3 {c4 c c} d4 d4
 Tuplets may be nested, for example,
 
 @lilypond[fragment,ragged-right,verbatim,relative=2]
-\override TupletNumber #'text = #tuplet-number::calc-fraction-text
-\times 4/6 {
+\times 2/3 {
   a4 a
   \times 3/5 { a a a a a }
 }
@@ -734,12 +733,13 @@ R1^"low"
 R1^"high"
 @end lilypond
 
-Text attached to a multi-measure rest will be centered above
-(or below) it.  Long text attached in this way does not cause
-the bar to expand, and may collide with text in adjacent bars.
+Text attached to a multi-measure rest will be centered above or
+below it.  Long text attached in this way does not cause the
+measure to expand, and may collide with text in adjacent measures.
 Long text is better attached to a zero-length skip note preceding
-the rest, preceded by @code{\fatText}, since this will cause the
-bar to expand to accommodate the length of the text:
+the rest, preceded by @code{\fatText} (turn off again with
+@code{\emptyText}), since this will cause the measure to expand to
+accommodate the length of the text:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \set Score.skipBars = ##t
@@ -750,12 +750,13 @@ s1*0^\markup {[MABEL] }
 s1*0_\markup {\italic {Cue: ... it is yours}}
 R1*30
 s1^\markup {CHORUS} % Chorus notes would go here
+c1
 @end lilypond
 
 
 @seealso
 
-This manual: @ref{Text}
+This manual: @ref{Text}, @ref{Text scripts}.
 
 Snippets: @lsrdir{rhythms}
 
