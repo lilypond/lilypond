@@ -665,8 +665,8 @@ accidentals can be printed according to different rules, see
 
 @seealso
 
-Notation reference: @ruser{Accidentals}, @ruser{Automatic
-accidentals}, @ruser{Key signature}.
+Notation reference: @ruser{Accidentals},
+@ruser{Automatic accidentals}, @ruser{Key signature}.
 
 Music glossary: @rglos{Pitch names}.
 
@@ -734,8 +734,8 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 @seealso
 
-Notation reference: @ruser{Ties}, @ruser{Slurs}, @ruser{Phrasing
-slurs}.
+Notation reference: @ruser{Ties}, @ruser{Slurs},
+@ruser{Phrasing slurs}.
 
 
 @node Articulation and dynamics
@@ -804,8 +804,8 @@ c2\< c2\ff\> c2 c2\!
 
 @seealso
 
-Notation reference: @ruser{Articulations}, @ruser{Fingering
-instructions}, @ruser{Dynamics}.
+Notation reference: @ruser{Articulations},
+@ruser{Fingering instructions}, @ruser{Dynamics}.
 
 Music glossary: @rglos{Dynamics}.
 
