@@ -157,6 +157,8 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
+Snippets: @lsrdir{expressive}
+
 Internals Reference: @internalsref{Script}.
 
 
@@ -352,6 +354,8 @@ printing this line, use
 
 @seealso
 
+Snippets: @lsrdir{expressive}
+
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
 handled by @internalsref{DynamicLineSpanner}.
@@ -426,6 +430,8 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
+Snippets: @lsrdir{expressive}
+
 Internals Reference: @internalsref{Slur}.
 
 
@@ -465,6 +471,8 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
+Snippets: @lsrdir{expressive}
+
 Internals Reference: @internalsref{PhrasingSlur}.
 
 
@@ -493,6 +501,8 @@ d4
 @end lilypond
 
 @seealso
+
+Snippets: @lsrdir{expressive}
 
 Internals Reference: @internalsref{BreathingSign}.
 
@@ -551,6 +561,8 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 
 @seealso
+
+Snippets: @lsrdir{expressive}
 
 Internals Reference: @internalsref{Glissando}.
 
@@ -682,6 +694,8 @@ is moved to the Staff context:
 
 Notation manual: @ref{Ties}, for writing out arpeggios.
 
+Snippets: @lsrdir{expressive}
+
 Internals Reference: @internalsref{Arpeggio}.
 
 
@@ -738,6 +752,8 @@ printed as a stemless note head in parentheses.
 
 
 @seealso
+
+Snippets: @lsrdir{expressive}
 
 Internals Reference: @internalsref{TrillSpanner}.
 
