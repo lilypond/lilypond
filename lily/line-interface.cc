@@ -212,14 +212,13 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   
   Stencil stil;
 
-  SCM dash_fraction = me->get_property ("dash-fraction");
-  if (scm_is_number (dash_fraction) || type == ly_symbol2scm ("dotted-line"))
+  if (type == ly_symbol2scm ("dashed-line") || type == ly_symbol2scm ("dotted-line"))
     {
 
       Real fraction
 	= type == ly_symbol2scm ("dotted-line")
 	? 0.0
-	: robust_scm2double (dash_fraction, 0.4);
+	: robust_scm2double (me->get_property ("dash-fraction"), 0.4);
 
       fraction = min (max (fraction, 0.0), 1.0);
       Real period = Staff_symbol_referencer::staff_space (me)
@@ -249,11 +248,14 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 }
 
 ADD_INTERFACE (Line_interface,
-	       "Generic line objects. Any object using lines supports this.  Normally, "
-	       "you get a straight line. If @code{dash-period} is defined, a dashed line is "
-	       "produced; the length of the dashes is tuned with "
+	       "Generic line objects. Any object using lines supports this. "
+	       "The property @code{style} can be @code{line}, "
+	       "@code{dashed-line}, @code{trill}, \n"
+	       "@code{dotted-line} or @code{zigzag}.\n"
+	       "\n",
+	       "For dashed-line, the length of the dashes is tuned with "
 	       "@code{dash-fraction}. If the latter is set to 0, a dotted line is "
-	       "produced. If @code{dash-fraction} is negative, the line is made "
+	       "produced. If @code{dash-period} is negative, the line is made "
 	       "transparent.",
 
 	       /* properties */
