@@ -42,6 +42,7 @@
     ((end 1 32 3 2) . ,(ly:make-moment 1 2))
     ((end 1 32 3 2) . ,(ly:make-moment 5 8))
     ((end 1 32 3 2) . ,(ly:make-moment 3 4))
+    ((end 1 32 3 2) . ,(ly:make-moment 7 8))
     ((end 1 32 3 2) . ,(ly:make-moment 9 8))
     ((end 1 32 3 2) . ,(ly:make-moment 5 4))
     ((end 1 32 3 2) . ,(ly:make-moment 11 8))
