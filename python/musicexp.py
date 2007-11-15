@@ -5,6 +5,9 @@ import re
 
 from rational import Rational
 
+# Store previously converted pitch for \relative conversion as a global state variable
+previous_pitch = None
+relative_pitches = False
 
 def escape_instrument_string (input_string):
     retstring = string.replace (input_string, "\"", "\\\"")
@@ -295,14 +298,38 @@ class Pitch:
     
     def ly_step_expression (self): 
         return pitch_generating_function (self)
-    
+
+    def absolute_pitch (self):
+        if self.octave >= 0:
+            return "'" * (self.octave + 1)
+        elif self.octave < -1:
+            return "," * (-self.octave - 1)
+        else:
+            return ''
+
+    def relative_pitch (self):
+        global previous_pitch
+        if not previous_pitch:
+            previous_pitch = self
+            return self.absolute_pitch ()
+        previous_pitch_steps = previous_pitch.octave * 7 + previous_pitch.step
+        this_pitch_steps = self.octave * 7 + self.step
+        pitch_diff = (this_pitch_steps - previous_pitch_steps)
+        previous_pitch = self
+        if pitch_diff > 3:
+            return "'" * ((pitch_diff + 3) / 7)
+        elif pitch_diff < -3:
+            return "," * ((-pitch_diff + 3) / 7)
+        else:
+            return ""
+
     def ly_expression (self):
         str = self.ly_step_expression ()
-        if self.octave >= 0:
-            str += "'" * (self.octave + 1) 
-        elif self.octave < -1:
-            str += "," * (-self.octave - 1) 
-            
+        if relative_pitches:
+            str += self.relative_pitch ()
+        else:
+            str += self.absolute_pitch ()
+
         return str
     
     def print_ly (self, outputter):
@@ -389,6 +416,24 @@ class ModeChangingMusicWrapper (MusicWrapper):
     def print_ly (self, func):
         func ('\\%s' % self.mode)
         MusicWrapper.print_ly (self, func)
+
+class RelativeMusic (MusicWrapper):
+    def __init__ (self):
+        MusicWrapper.__init__ (self)
+        self.basepitch = None
+
+    def print_ly (self, func):
+        global previous_pitch
+        global relative_pitches
+        prev_relative_pitches = relative_pitches
+        relative_pitches = True
+        previous_pitch = self.basepitch
+        if not previous_pitch:
+            previous_pitch = Pitch ()
+        func ('\\relative %s%s' % (pitch_generating_function (previous_pitch), 
+                                   previous_pitch.absolute_pitch ()))
+        MusicWrapper.print_ly (self, func)
+        relative_pitches = prev_relative_pitches
 
 class TimeScaledMusic (MusicWrapper):
     def print_ly (self, func):
@@ -658,8 +703,15 @@ class EventChord (NestedMusic):
         elif len (note_events) == 1:
             note_events[0].print_ly (printer)
         elif note_events:
-            pitches = [x.pitch.ly_expression () for x in note_events]
+            global previous_pitch
+            pitches = []
+            basepitch = None
+            for x in note_events:
+                pitches.append (x.pitch.ly_expression ())
+                if not basepitch:
+                    basepitch = previous_pitch
             printer ('<%s>' % string.join (pitches))
+            previous_pitch = basepitch
             note_events[0].duration.print_ly (printer)
         else:
             pass

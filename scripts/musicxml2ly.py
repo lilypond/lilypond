@@ -1238,6 +1238,9 @@ def musicxml_voice_to_lily_voice (voice):
     lyrics = {}
     return_value = VoiceData ()
     return_value.voicedata = voice
+    
+    # First pitch needed for relative mode (if selected in command-line options)
+    first_pitch = None
 
     # Needed for melismata detection (ignore lyrics on those notes!):
     inside_slur = False
@@ -1338,6 +1341,8 @@ def musicxml_voice_to_lily_voice (voice):
                 voice_builder.add_bar_check (num)
 
         main_event = musicxml_note_to_lily_main_event (n)
+        if main_event and not first_pitch:
+            first_pitch = main_event.pitch
         ignore_lyrics = inside_slur or is_tied or is_chord
 
         if hasattr (main_event, 'drum_type') and main_event.drum_type:
@@ -1527,6 +1532,12 @@ def musicxml_voice_to_lily_voice (voice):
     
     if len (modes_found) > 1:
        error_message ('Too many modes found %s' % modes_found.keys ())
+       
+    if options.relative:
+        v = musicexp.RelativeMusic ()
+        v.element = seq_music
+        v.basepitch = first_pitch
+        seq_music = v
 
     return_value.ly_voice = seq_music
     for mode in modes_found.keys ():
@@ -1602,7 +1613,7 @@ def get_all_voices (parts):
 
 
 def option_parser ():
-    p = ly.get_option_parser(usage=_ ("musicxml2ly FILE.xml"),
+    p = ly.get_option_parser(usage=_ ("musicxml2ly [options] FILE.xml"),
                              version=('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
                                       +
 _ ("""This program is free software.  It is covered by the GNU General Public
@@ -1611,8 +1622,9 @@ under certain conditions.  Invoke as `%s --warranty' for more
 information.""") % 'lilypond'
 + """
 Copyright (c) 2005--2007 by
-    Han-Wen Nienhuys <hanwen@xs4all.nl> and
-    Jan Nieuwenhuizen <janneke@gnu.org>
+    Han-Wen Nienhuys <hanwen@xs4all.nl>,
+    Jan Nieuwenhuizen <janneke@gnu.org> and
+    Reinhold Kainhofer <reinhold@kainhofer.com>
 """),
                              description=_ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
     p.add_option ('-v', '--verbose',
@@ -1631,6 +1643,11 @@ Copyright (c) 2005--2007 by
                   dest = 'compressed',
                   default = False,
                   help = _ ("Input file is a zip-compressed MusicXML file."))
+
+    p.add_option ('-r', '--relative',
+                  action = "store_true",
+                  dest = "relative",
+                  help = _ ("Convert pitches in relative mode."))
 
     p.add_option ('-l', '--language',
                   action = "store",
