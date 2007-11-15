@@ -93,6 +93,10 @@ c4\mark "foo" c c c
 
 @end itemize
 
+@seealso
+
+Snippets: @lsrdir{text}
+
 
 
 @node Text scripts
@@ -150,6 +154,8 @@ default; to enable it, use
 
 Notation Reference: @ref{Text markup}.
 
+Snippets: @lsrdir{text}
+
 Internals Reference: @internalsref{TextScript}.
 
 
@@ -200,6 +206,8 @@ To print a solid line, use
 
 
 @seealso
+
+Snippets: @lsrdir{text}
 
 Internals Reference: @internalsref{TextSpanner}.
 
@@ -343,6 +351,8 @@ staff, you may alter this to print them on every staff,
 
 
 @seealso
+
+Snippets: @lsrdir{text}
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -507,6 +517,8 @@ advisable to cancel those properties with @code{normal-text}.  See
 
 This manual: @ref{Overview of text markup commands}.
 
+Snippets: @lsrdir{text}
+
 Internals Reference: @internalsref{TextScript}.
 
 Init files: @file{scm/@/new@/-markup@/.scm}.
@@ -540,6 +552,10 @@ contain a @code{\layout} block.
 }
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{text}
+
 @node Page wrapping text
 @unnumberedsubsubsec Page wrapping text
 
@@ -570,6 +586,8 @@ lists.  The built-in markup list commands are described in
 
 This manual: @ref{Overview of text markup list commands}, @ref{New
 markup list command definition}.
+
+Snippets: @lsrdir{text}
 
 @refcommands
 
@@ -687,7 +705,7 @@ sans serif and monospaced text.  For example,
 
 @seealso
 
-Examples: @lsr{text,font@/-family@/-override.ly}.
+Snippets: @lsrdir{text}
 
 
 @node Special text concerns
@@ -735,6 +753,10 @@ rndf = \markup{ \center-align {\line { \bold{\italic (}
 boxf = \markup{ \bracket { \dynamic f } }
 { c'1_\rndf c'1_\boxf }
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{text}
 
 
 @node Text and line spanners
@@ -897,13 +919,14 @@ hairpins with \!.
 
 @seealso
 
+Snippets: @lsrdir{text}
+
 Internals Reference: @internalsref{TextSpanner},
 @internalsref{Glissando}, @internalsref{VoiceFollower},
 @internalsref{TrillSpanner},
 @internalsref{line-spanner-interface}.
 
-Examples: @lsr{expressive,line-styles.ly},
-@lsr{expressive,line-arrows.ly}
+
 
 
 
