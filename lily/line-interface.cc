@@ -252,7 +252,7 @@ ADD_INTERFACE (Line_interface,
 	       "The property @code{style} can be @code{line}, "
 	       "@code{dashed-line}, @code{trill}, \n"
 	       "@code{dotted-line} or @code{zigzag}.\n"
-	       "\n",
+	       "\n"
 	       "For dashed-line, the length of the dashes is tuned with "
 	       "@code{dash-fraction}. If the latter is set to 0, a dotted line is "
 	       "produced. If @code{dash-period} is negative, the line is made "
