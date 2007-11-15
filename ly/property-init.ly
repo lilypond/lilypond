@@ -216,3 +216,29 @@ textSpannerUp = \override TextSpanner #'direction = #UP
 textSpannerDown = \override TextSpanner #'direction = #DOWN
 textSpannerNeutral = \revert TextSpanner #'direction
 
+%  used in the LM -- signficantly clarifies examples.
+voiceOneStyle = {
+  \override NoteHead #'style = #'diamond
+  \override NoteHead #'color = #red
+  \override Stem #'color = #red
+  \override Beam #'color = #red
+}
+voiceTwoStyle = {
+  \override NoteHead #'style = #'triangle
+  \override NoteHead #'color = #blue
+  \override Stem #'color = #blue
+  \override Beam #'color = #blue
+}
+voiceThreeStyle = {
+  \override NoteHead #'style = #'xcircle
+  \override NoteHead #'color = #green
+  \override Stem #'color = #green
+  \override Beam #'color = #green
+}
+voiceNeutralStyle = {
+  \revert NoteHead #'style
+  \revert NoteHead #'color
+  \revert Stem #'color
+  \revert Beam #'color
+}
+
