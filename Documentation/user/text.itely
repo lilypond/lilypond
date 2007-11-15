@@ -757,7 +757,7 @@ to tune them.
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 d2 \glissando d'2
-\once \override Glissando #'dash-fraction = #0.5
+\once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
 \override Glissando #'style = #'dotted-line
 d,2 \glissando d'2
