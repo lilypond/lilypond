@@ -489,7 +489,7 @@ direction (1=up, -1=down).
 
 
 
-In this manual: @ref{Automatic note splitting}.
+Notation Reference: @ref{Automatic note splitting}.
 
 Snippets: @lsrdir{rhythms}
 
@@ -1743,7 +1743,7 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 @seealso
 
-In this manual: @ref{Repeats}, @ref{System start delimiters}.
+Notation Reference: @ref{Repeats}, @ref{System start delimiters}.
 
 Snippets: @lsrdir{rhythms}
 

@@ -148,7 +148,7 @@ default; to enable it, use
 
 @seealso
 
-In this manual: @ref{Text markup}.
+Notation Reference: @ref{Text markup}.
 
 Internals Reference: @internalsref{TextScript}.
 
