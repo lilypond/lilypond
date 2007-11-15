@@ -873,6 +873,8 @@ New contexts may be aligned above or below exisiting contexts.  This
 could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
 in ossia,
 
+FIXME: this section doens't work in pdf.  (?)
+
 @cindex ossia
 @findex alignAboveContext
 @findex alignBelowContext
