@@ -277,11 +277,12 @@ note:
 @lilypond[ragged-right,verbatim,quote]
 \new RhythmicStaff {
   \set tupletFullLength = ##t
+  \set tupletFullLengthNote = ##t
   \time 4/4
   \times 4/5 {
     c4 c1
   }
-  \set tupletFullLengthNote = ##t
+  \set tupletFullLengthNote = ##f
   \time 2/4
   \times 2/3 {
     c4 c c 
