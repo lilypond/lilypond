@@ -134,6 +134,8 @@ More complex nesting can be accomplished using the property
 
 @seealso
 
+Snippets: @lsrdir{staff}
+
 Each staff group context sets the property
 @code{systemStartDelimiter} to one of the values
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
@@ -218,6 +220,8 @@ In combination with Frenched staves, this may be used to typeset
 
 @seealso
 
+Snippets: @lsrdir{staff}
+
 Internals Reference: @internalsref{StaffSymbol},
 @internalsref{DrumStaff}.
 
@@ -288,6 +292,10 @@ You can make the staff lines invisible by removing the
   }
 }
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{staff}
 
 @node Writing parts
 @subsection Writing parts
@@ -361,6 +369,10 @@ place it further away from the staff.
 @end example
 
 @c perhaps also an example of how to move it horizontally?
+
+@seealso
+
+Snippets: @lsrdir{staff}
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names
@@ -465,6 +477,8 @@ c1 c c c \break
 
 
 @seealso
+
+Snippets: @lsrdir{staff}
 
 Internals Reference: @internalsref{InstrumentName}.
 
@@ -582,8 +596,7 @@ written entirely in lower-case letters: @code{\addquote}.
 
 In this manual: @ref{Instrument transpositions}.
 
-Examples: @lsr{parts,quote.ly},
-@lsr{parts,quote-transportation.ly}
+Snippets: @lsrdir{staff}
 
 Internals Reference: @internalsref{QuoteMusic}.
 
@@ -688,7 +701,9 @@ cbsn = \relative c, {
 >>
 @end lilypond
 
+@seealso
 
+Snippets: @lsrdir{staff}
 
 
 

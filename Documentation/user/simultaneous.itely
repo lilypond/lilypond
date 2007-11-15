@@ -43,6 +43,10 @@ articulations, just like simple notes:
 For more information about chords, see @ref{Introducing chord
 names}.
 
+@seealso
+
+Snippets: @lsrdir{simultaneous}
+
 @refbugs
 
 Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
@@ -70,6 +74,8 @@ automatically avoid collisions between ordinary notes and
 clusters.
 
 @seealso
+
+Snippets: @lsrdir{simultaneous}
 
 Internals Reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
@@ -215,6 +221,8 @@ override typesetting decisions.
 
 @seealso
 
+Snippets: @lsrdir{simultaneous}
+
 Internals Reference: the objects responsible for resolving
 collisions are @internalsref{NoteCollision} and
 @internalsref{RestCollision}.
@@ -313,6 +321,8 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @seealso
 
+Snippets: @lsrdir{simultaneous}
+
 Internals Reference: @internalsref{PartCombineMusic}.
 
 @refbugs
@@ -400,5 +410,7 @@ music = {
 }
 @end lilypond
 
+@seealso
 
+Snippets: @lsrdir{simultaneous}
 
