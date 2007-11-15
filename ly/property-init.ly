@@ -203,11 +203,13 @@ italianChords = {
 improvisationOn =  {
     \set squashedPosition = #0
     \override NoteHead  #'style = #'slash
+    \override Accidental #'stencil = ##f
 }
 
 improvisationOff =  {
     \unset squashedPosition 
     \revert NoteHead #'style
+    \revert Accidental #'stencil
 }
 
 textSpannerUp = \override TextSpanner #'direction = #UP

@@ -12,7 +12,7 @@
 
   s2
   d2 \glissando d'2
-  \once \override Glissando #'dash-fraction = #0.5
+  \override Glissando #'style = #'dashed-line
   d,2 \glissando d'2
   \override Glissando #'style = #'dotted-line
   d,2 \glissando d'2

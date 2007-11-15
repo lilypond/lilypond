@@ -1,4 +1,3 @@
-
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 
@@ -27,6 +26,7 @@ description of the input format, see @ruser{File structure}.
 @menu
 * Introduction to the LilyPond file structure::  
 * Score is a (single) compound musical expression::  
+* Expressions can be nested after the beginning::  
 @end menu
 
 @node Introduction to the LilyPond file structure
@@ -272,6 +272,33 @@ slowly and carefully.  Start with the outer layer, then work on
 each smaller layer.  It also really helps to be strict with
 indentation -- make sure that each item on the same layer starts
 on the same horizontal position in your text editor.
+
+
+@node Expressions can be nested after the beginning
+@subsection Expressions can be nested after the beginning
+
+TODO: this title is teh suck.  :(
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+	<<
+		\new Staff \relative c''{ c1 c c c c }
+		\new StaffGroup \relative c''{ 
+			\new Staff 
+			c1 c
+			<< c1 \new Staff { c1 } >>
+			c
+		}
+	>>
+  	\layout {
+		
+		\context{
+			\Score
+
+		}
+	}
+}
+@end lilypond
 
 
 @node Voices contain music
@@ -520,7 +547,7 @@ blh blah
 @menu
 * On the un-nestedness of brackets and ties::  
 * Up and down::                 
-* Distances and measurements::  
+* Distances and measurements MAYBE MOVE::  
 @end menu
 
 @c my name start sucking the more docs I write. -gp
@@ -558,10 +585,10 @@ direction.
 @end verbatim
 
 
-@node Distances and measurements
-@subsection Distances and measurements
+@node Distances and measurements MAYBE MOVE
+@subsection Distances and measurements MAYBE MOVE
 
-DISCUSS
+DISCUSS after working on other sections.
 
 TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
 
@@ -580,7 +607,7 @@ want something that isn't covered?
 @end menu
 
 @node Soprano and cello
-@unnumberedsubsec Soprano and cello
+@subsection Soprano and cello
 
 Start off with the template that seems closest to what you want to end
 up with.  Let's say that you want to write something for soprano and
@@ -762,7 +789,7 @@ celloMusic = \relative c {
 
 
 @node TODO another example of extending templates
-@unnumberedsubsec TODO another example of extending templates
+@subsection TODO another example of extending templates
 
 TODO: somebody else fill this in.  You guys like vocal stuff,
 right?  Get to it.  :)  -gp
@@ -773,7 +800,7 @@ right?  Get to it.  :)  -gp
 @section Scores and parts
 
 TODO: this is really old stuff from the really old tutorial.
-Rewrite, fix, etc.  -gp
+Rewrite, fix, etc.  Or maybe delete entirely.  -gp
 
 In orchestral music, all notes are printed twice.  Once in a part for
 the musicians, and once in a full score for the conductor.  Variables can

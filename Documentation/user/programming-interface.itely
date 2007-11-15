@@ -409,7 +409,7 @@ A music object has three kinds of types:
 music name: Each music expression has a name.  For example, a note
 leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
 a @internalsref{SimultaneousMusic}.  A list of all expressions
-available is in the Program reference manual, under
+available is in the Internals Reference manual, under
 @internalsref{Music expressions}.
 
 @item
@@ -417,7 +417,7 @@ available is in the Program reference manual, under
 interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event}, and a
 @code{melodic-event}.  All classes of music are listed in the
-Program reference, under
+Internals Reference, under
 @internalsref{Music classes}.
 
 @item

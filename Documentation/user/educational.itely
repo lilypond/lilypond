@@ -6,152 +6,13 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@node Educational use
-@section Educational use
+@node Editorial annotations
+@section Editorial annotations
 
 @menu
-* Note heads::                  
 * Inside the staff::            
 * Outside the staff::           
 @end menu
-
-
-@node Note heads
-@subsection Note heads
-
-@menu
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
-* Special noteheads::           
-@end menu
-
-@node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
-
-@cindex note heads, practice
-@cindex note heads, easy notation
-@cindex easy notation
-@cindex Hal Leonard
-
-The @q{easy play} note head includes a note name inside the head.
-It is used in music for beginners
-
-@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
-  \setEasyHeads
-  c'2 e'4 f' | g'1
-@end lilypond
-
-The command @code{\setEasyHeads} overrides settings for the
-@internalsref{NoteHead} object.  To make the letters readable, it
-has to be printed in a large font size.  To print with a larger
-font, see @ref{Setting the staff size}.
-
-@refcommands
-
-@funindex \setEasyHeads
-@code{\setEasyHeads}
-
-
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
-
-@cindex note heads, shape
-
-In shape note head notation, the shape of the note head
-corresponds to the harmonic function of a note in the scale.  This
-notation was popular in the 19th century American song books.
-
-Shape note heads can be produced by setting @code{\aikenHeads} or
-@code{\sacredHarpHeads}, depending on the style desired.
-
-@lilypond[verbatim,relative=1,fragment]
-  \aikenHeads
-  c8 d4 e8 a2 g1
-  \sacredHarpHeads
-  c8 d4. e8 a2 g1
-@end lilypond
-
-Shapes are determined on the step in the scale, where the base of
-the scale is determined by  the @code{\key} command
-
-@funindex \key
-@funindex shapeNoteStyles
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
-
-Shape note heads are implemented through the
-@code{shapeNoteStyles} property.  Its value is a vector of
-symbols.  The k-th element indicates the style to use for the k-th
-step of the scale.  Arbitrary combinations are possible, e.g.
-
-@lilypond[verbatim,relative=1,fragment]
-\set shapeNoteStyles =
-  ##(cross triangle fa #f mensural xcircle diamond)
-c8 d4. e8 a2 g1
-@end lilypond
-
-
-@node Improvisation
-@unnumberedsubsubsec Improvisation
-
-Improvisation is sometimes denoted with slashed note heads.  Such
-note heads can be created by adding a
-@internalsref{Pitch_squash_engraver} to the @internalsref{Voice}
-context.  Then, the following command
-
-@example
-\set squashedPosition = #0
-\override NoteHead #'style = #'slash
-@end example
-
-@noindent
-switches on the slashes.
-
-There are shortcuts @code{\improvisationOn} (and an accompanying
-@code{\improvisationOff}) for this command sequence.  They are
-used in the following example
-
-@lilypond[verbatim,ragged-right,quote]
-\new Voice \with {
-  \consists Pitch_squash_engraver
-} \transpose c c' {
-  e8 e g a a16(bes)(a8) g \improvisationOn
-  e8
-  ~e2~e8 f4 fis8
-  ~fis2 \improvisationOff a16(bes) a8 g e
-}
-@end lilypond
-
-
-@node Special noteheads
-@unnumberedsubsubsec Special noteheads
-
-@cindex note heads, special
-
-Different noteheads are used by various instruments for various
-meanings -- crosses are used for @q{parlato} with vocalists,
-stopped notes on guitar; diamonds are used for harmonics on string
-instruments, etc.  There is a shorthand (@code{\harmonic}) for
-diamond shapes; the other notehead styles are produced by tweaking
-the property
-
-@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-c4 d
-\override NoteHead #'style = #'cross
-e f
-\revert NoteHead #'style
-e d <c f\harmonic> <d a'\harmonic>
-@end lilypond
-
-@noindent
-To see all notehead styles, please see @ref{Note head styles}.
-
-
-@seealso
-
-Program reference: @internalsref{NoteHead}.
-
 
 
 @node Inside the staff
@@ -164,7 +25,6 @@ Program reference: @internalsref{NoteHead}.
 * Hidden notes::                
 * Coloring objects::            
 * Parentheses::                 
-* Ambitus::                     
 * Stems::                       
 @end menu
 
@@ -282,7 +142,7 @@ instructions very close to note heads in monophonic music,
 
 @seealso
 
-Program reference: @internalsref{Fingering}.
+Internals Reference: @internalsref{Fingering}.
 
 Examples: @lsr{expressive,fingering-chords.ly}
 
@@ -426,100 +286,6 @@ This only functions inside chords, even for single notes
 @end example
 
 
-@node Ambitus
-@unnumberedsubsubsec Ambitus
-@cindex ambitus
-
-The term @emph{ambitus} denotes a range of pitches for a given
-voice in a part of music.  It may also denote the pitch range that
-a musical instrument is capable of playing.  Ambits are printed on
-vocal parts, so performers can easily determine it meets their
-capabilities.
-
-Ambits are denoted at the beginning of a piece near the initial
-clef.  The range is graphically specified by two note heads that
-represent the minimum and maximum pitch.  To print such ambits,
-add the @internalsref{Ambitus_engraver} to the
-@internalsref{Voice} context, for example,
-
-@example
-\layout @{
-  \context @{
-    \Voice
-    \consists Ambitus_engraver
-  @}
-@}
-@end example
-
-This results in the following output
-
-@lilypond[quote,ragged-right]
-\layout {
-  \context {
-    \Staff
-    \consists Ambitus_engraver
-  }
-}
-
-\relative \new Staff {
-  as'' c e2 cis,2
-}
-@end lilypond
-
-If you have multiple voices in a single staff and you want a
-single ambitus per staff rather than per each voice, add the
-@internalsref{Ambitus_engraver} to the @internalsref{Staff}
-context rather than to the @internalsref{Voice} context.  Here is
-an example,
-
-@lilypond[verbatim,ragged-right,quote]
-\new Staff \with {
-  \consists "Ambitus_engraver"
-}
-<<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
->>
-@end lilypond
-
-@noindent
-This example uses one advanced feature,
-
-@example
-\override Ambitus #'X-offset = #-1.0
-@end example
-
-@noindent
-This code moves the ambitus to the left.  The same effect could
-have been achieved with @code{extra-offset}, but then the
-formatting system would not reserve space for the moved object.
-
-@seealso
-
-Program reference: @internalsref{Ambitus},
-@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
-@internalsref{AmbitusAccidental}.
-
-Examples:
-@lsr{vocal,ambitus@/.ly}.
-
-@refbugs
-
-There is no collision handling in the case of multiple per-voice
-ambitus.
-
-
 @node Stems
 @unnumberedsubsubsec Stems
 
@@ -558,6 +324,7 @@ a4 b c b
 * Balloon help::                
 * Grid lines::                  
 * Blank music sheet::           
+* Analysis brackets::           
 @end menu
 
 @node Balloon help
@@ -588,7 +355,7 @@ The other arguments  are the offset and the text of the label.
 
 @seealso
 
-Program reference: @internalsref{text-balloon-interface}.
+Internals Reference: @internalsref{text-balloon-interface}.
 
 
 @node Grid lines
@@ -665,5 +432,38 @@ emptymusic = {
 >>
 @end lilypond
 
+
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
+
+@cindex brackets
+@cindex phrasing brackets
+@cindex musicological analysis
+@cindex note grouping bracket
+
+Brackets are used in musical analysis to indicate structure in
+musical pieces.  LilyPond supports a simple form of nested
+horizontal brackets.  To use this, add the
+@internalsref{Horizontal_bracket_engraver} to the
+@internalsref{Staff} context.  A bracket is started with
+@code{\startGroup} and closed with @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Internals Reference: @internalsref{HorizontalBracket}.
 
 

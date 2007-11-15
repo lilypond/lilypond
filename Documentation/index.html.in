@@ -49,10 +49,11 @@
 	  <ul>
 	    <li>
 	    <a class="title"
-href="user/lilypond-learning/index.html">Learning manual</a>
+href="user/lilypond-learning/index.html">Learning Manual (LM)</a>
 	      <br>(start here)
 
-	   <li><a class="title" href="user/music-glossary/index.html">Music glossary</a>
+	   <li><a class="title"
+href="user/music-glossary/index.html">Music Glossary (MG)</a>
 (in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 1 Mb,
 in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
@@ -76,13 +77,15 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.html">Notation reference</a>
+<a class="title" href="user/lilypond/index.html">Notation
+Reference (NR)</a>
 (in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 Mb,
 in <a class="title" href="user/lilypond.pdf">PDF</a>)
      <br>(writing music in LilyPond)
 
        <li>
- <a  class="title" href="user/lilypond-internals/index.html">Program reference</a>
+ <a  class="title"
+href="user/lilypond-internals/index.html">Internals Reference (IR)</a>
  (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 Mb)
      <br>(definitions for tweaking)
 	 
@@ -92,7 +95,8 @@ in <a class="title" href="user/lilypond.pdf">PDF</a>)
           &nbsp;
 	  <ul>
               <li>
-	    <a class="title" href="user/lilypond-program/index.html">Program usage</a>
+	    <a class="title"
+href="user/lilypond-program/index.html">Application Usage (AU)</a>
 (in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
 in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
 	    <br>(how to install and run the program)

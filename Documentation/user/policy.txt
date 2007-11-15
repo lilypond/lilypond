@@ -32,13 +32,13 @@ start-to-finish.
 Users are not expected to read this manual from start to finish.
 However, they should be familiar with the material in the Learning
 Manual (particularly ``Fundamental Concepts''), so do not repeat
-that material in this book.  Also, you should assume that users
-know what the notation means; explaining musical concepts happens
-in the Music Glossary.
+that material in each section of this book.  Also, you should
+assume that users know what the notation means; explaining musical
+concepts happens in the Music Glossary.
 
 
-* Program Usage: information about using the program lilypond with
-  other programs (lilypond-book, operating systems, GUIs,
+* Application Usage: information about using the program lilypond
+  with other programs (lilypond-book, operating systems, GUIs,
   convert-ly, etc).  This section is written in formal technical
   writing style.
 
@@ -50,12 +50,17 @@ Users are not expected to read this manual from start to finish.
 
 Users are not expected to read this manual from start to finish.
 
+* Internals Reference: not really a documentation book, since it
+  is automagically generated from the source, but this is its
+  name.
+
 
 %%%%% SECTION ORGANIZATION
 
 The order of headings inside documentation sections should be:
 
 main docs
+@refcommands
 @commonprop
 @seealso
 @refbugs
@@ -69,18 +74,21 @@ main docs
 
     Notation Reference: @ruser{faazle}, @ruser{boo}.
 
-    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}
+    Application Usage: @rprogram{blah}.
 
-    Program reference: @internalsref{fazzle}, @internalsref{booar}.
+    Installed files: @file{path/to/dir/blahz}.
 
-    Installed files: @file{blahz}.
+    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}.
+      (if there is only one entry, omit a final period.  If there
+       are multiple entries, separate them by commas, do not
+       include an `and', and end with a period.)
+
+    Internals Reference: @internalsref{fazzle}, @internalsref{booar}.
 
   ("Snippets" is REQUIRED; the others are optional)
 
 * To create links, use @ref{} if the link is within the same
   manual.
-
-* @commonprop and @refbugs are optional.
 
 * Do not include any real info in second-level sections (ie 1.1
   Pitches).  A first-level section may have introductory material,
@@ -88,172 +96,7 @@ main docs
   (ie 1.1.1 Writing Pitches).
 
 
-%%%%% LILYPOND FORMATTING
-
-* Use two spaces for indentation in lilypond examples.  (no tabs)
-
-* If possible, only write one bar per line.  The notes on each
-  line should be an independent line.
-  Bad:
-    \override textscript #'padding = #3 c1^"hi"
-  Good:
-    \override textscript #'padding = #3
-    c1^"hi"
-
-* LilyPond input should be produce via
-    @lilypond[verbatim,quote,ragged-right]
-  with `fragment' and `relative=2' optional.
-
-  Examples about page layout may alter the quote/ragged-right
-  options.  Omitting `verbatim' is not allowed.
-
-* Inspirational headwords are produced with
-  @lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-  {pitches-headword.ly}
-
-* Avoid long stretches of input code.  Noone is going to read them
-  in print.  Instead refer to an example input file with @lsr{}.
-
-* If you want to work on an example outside of the manual (for
-  easier/faster processing), use this header:
-
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  line-width = 160\mm - 2.0 * 0.4\in
-  ragged-right = ##t
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
-\layout {
-}
-
-  You may not change any of these values.  If you are making an
-  example demonstrating special \paper{} values, contact the
-  Documentation Editor.
-
-
-%%%%% TEXT FORMATTING
-
-* Lines should be less than 72 characters long.  (I personally
-  recommend writing with 66-char lines, but don't bother modifying
-  existing material.)
-
-* Do not use tabs.  They expand to nothing in DVI output.
-
-* Do not use spaces at the beginning of a line (except in @example
-  or @verbatim environments), and do not use more than a single
-  space between words.  `makeinfo' copies the input lines verbatim
-  without removing those spaces.
-
-* Use two spaces after a period.
-
-* Variables or numbers which consist of a single character
-  (probably followed by a punctuation mark) should be tied
-  properly, either to the previous or the next word.  Example:
-
-      The variable@tie{}@var{a} ...
-
-* To get consistent indentation in the DVI output it is better to
-  avoid the @verbatim environment.  Use the @example environment
-  instead if possible, but without extraneous indentation.  For
-  example, this
-
-    @example
-      foo {
-        bar
-      }
-    @end example
-
-  should be replaced with
-
-    @example
-    foo {
-      bar
-    }
-    @end example
-
-  where `@example' starts the line (without leading spaces).
-
-* Do not compress the input vertically; this is, do not use
-
-    Beginning of logical unit
-    @example
-    ...
-    @end example
-    continuation of logical unit
-
-  but
-
-    Beginning of logical unit
-
-    @example
-    ...
-    @end example
-
-    @noindent
-    continuation of logical unit
-
-  This makes it easier to avoid forgetting the `@noindent'.  Only
-  use @noindent if the material is discussing the same material;
-  new material should simply begin without anything special on the
-  line above it.
-
-* in @itemize use @item on a separate line like this:
-  @itemize
-  @item
-  Foo
-
-  @item
-  Bar
-
-  Do not use @itemize @bullet.
-
-* Specially-marked text:
-
-    @code{}: actual lilypond code or property/context names.
-    @samp{}: ditto, for single-letter code.
-
-
-      ** Any `\' used inside the commands below must be       **
-      ** written as `\\'.  Even if they are inside a @code{}. **
-            ( this should only affect @warning{} )
-
-	@notation{}: refers to pieces of notation, such as
-	  "@notation{crescendo} is often abbreviated as
-      @notation{cresc.}"  This should also be used to refer to
-      specific lyrics ("the @notation{A - men} is centered...")
-	@q{}: used for `vague' terms in English (and other natural
-      languages).
-	@qq{}: only for actual quotes -- i.e. "he said" or "she
-      wrote".
-	@warning{}: produces a "Note: " box.  Use for important
-      messages.
-
-* References must occur at the end of a sentence, for more
-  information see @ref{the texinfo manual}.  Ideally this should
-  also be the final sentence of a paragraph, but this is not
-  required.  Any link in a doc section must be duplicated in the
-  @seealso section at the bottom.
-
-* Introducing examples may be done with
-     . (ie finish the previous sentence/paragaph)
-     : (ie `in this example:')
-     , (ie `may add foo with the blah construct,')
-
-
-%%%%% READABILITY
-
-* Non-ASCII characters which are in utf-8 should be directly used;
-  this is, don't say `Ba@ss{}tuba' but `Baßtuba'.  This ensures that
-  all such characters appear in all output formats.
-
-* Don't use a @ref{link to another section} in the middle of a
-  sentence.  It looks ok in HTML, moderately bad in PDF, and
-  utterly horrible in INFO.  Instead, reword the sentence so that
-  users are encouraged to see @ref{link to another section}.
-  (at the end of the sentence)
+%%%%% GENERAL WRITING
 
 * Do not forget to create @cindex entries for new sections of text.
   Enter commands with @funindex, i.e.
@@ -264,14 +107,11 @@ main docs
 
   Both index commands should go in front of the actual material.
 
-* Abbrevs in caps, e.g., HTML, DVI, MIDI, etc.
-
-* Colon usage
-
-  1. To introduce lists
-  2. When beginning a quote: "So, he said,..."
-     This usage is rarer.  Americans often just use a comma.
-  3. When adding a defining example at the end of a sentence.
+* Preferred terms:
+    - in general, use the American spellings.  The internal
+      lilypond property names use this spelling.
+    - list of specific terms:
+canceled, bar
 
 
 %%%%% TECHNICAL WRITING STYLE
@@ -296,10 +136,5 @@ main docs
 * The use of the word `illegal' is inappropriate in most cases.
   Say `invalid' instead.
 
-
-FOR DOC EDITOR ONLY
-
-* sectioning commands (@node and @section) must not appear inside
-  an @ignore.  Separate those commands with a space, ie @n ode.
 
 

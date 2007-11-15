@@ -1828,6 +1828,7 @@
 	(avoid-slur . around)
 	(slur-padding . 0.5)
 	(script-priority . 200)
+	(cross-staff . ,ly:script-interface::calc-cross-staff)
 	;; todo: add X self alignment?
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
@@ -2085,7 +2086,7 @@
 	(stacking-dir . -1)
 	(padding . 0.5)
 	(vertical-skylines . ,ly:axis-group-interface::combine-skylines)
-	(max-stretch . ,ly:align-interface::calc-max-stretch)
+	(max-stretch . 0)
 	(meta . ((class . Spanner)
 		 (object-callbacks . ((Y-common . ,ly:axis-group-interface::calc-y-common)))
 		 (interfaces . (align-interface

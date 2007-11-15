@@ -1,7 +1,12 @@
 depth = ../../
 
-SUBDIRS = ancient chords connecting contemporary education expressive
-SUBDIRS += guitar parts pitch repeats spacing staff text vocal scheme other 
+SUBDIRS = pitches rhythms
+
+SUBDIRS += real-music
+
+# old stuffs
+SUBDIRS += ancient chords connecting contemporary education expressive
+SUBDIRS += guitar parts repeats spacing staff text vocal scheme other 
 SUBDIRS += engravers nonmusic instrument
 
 STEPMAKE_TEMPLATES=documentation texinfo tex

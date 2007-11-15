@@ -132,7 +132,7 @@ to work.
 1.8.2 or newer).  If you are installing binary packages, you may need to
 install guile-devel or guile-dev or libguile-dev too.
 
-@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.8 or newer).
+@item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.11 or newer).
 
 @item @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
 newer). 
@@ -311,6 +311,11 @@ if [ -e out-www/lilypond-learning.texi ]; then rm
 out-www/lilypond-learning.* ; fi;
 nice make LILYPOND_EXTERNAL_BINARY=~/usr/bin/lilypond web
 @end verbatim
+
+To rebuild the complete HTML docs, run the above script from the
+@file{Documentation/user/} directory, then run the final line (the
+@code{nice make}) from the top source dir.
+
 
 
 @node Testing LilyPond

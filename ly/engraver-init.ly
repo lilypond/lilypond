@@ -744,14 +744,10 @@ of Editio Vaticana."
 
   %% Prepare TextSpanner for \episem{Initium|Finis} use.
   %%
-  %% N.B.: dash-fraction MUST be unset; otherwise, TextSpanner will
-  %% always produce dashed lines, regardless of the style property.
-  %%
   %% FIXME: The line @code{\override TextSpanner #'padding = #-0.1} is
   %% required to force the articulation signs being placed vertically
   %% tightly to the correpsonding note heads.
   %%
-  \override TextSpanner #'dash-fraction = #'()
   \override TextSpanner #'style = #'line
   \override TextSpanner #'padding = #-0.1
 }

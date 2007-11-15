@@ -84,16 +84,18 @@ up during the baroque period.
 @ref{Figured bass}
 @end itemize
 
-Here are all subtopics at a glance:
+@c Here are all subtopics at a glance:
 
 @menu
-* Ancient TODO::                
+* Alternative note signs for ancient music::
+* Additional note signs for ancient music::
+* Pre-defined contexts::
+* Musica ficta accidentals::
+* Figured bass::
 @end menu
 
-@node Ancient TODO
-@subsection Ancient TODO
-
-
+@node Alternative note signs for ancient music
+@subsection Alternative note signs for ancient music
 
 @menu
 * Ancient note heads::          
@@ -102,16 +104,6 @@ Here are all subtopics at a glance:
 * Ancient clefs::               
 * Ancient flags::               
 * Ancient time signatures::     
-* Ancient articulations::       
-* Custodes::                    
-* Divisiones::                  
-* Ligatures::                   
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
-* Gregorian Chant contexts::    
-* Mensural contexts::           
-* Musica ficta accidentals::    
-* Figured bass::                
 @end menu
 
 @node Ancient note heads
@@ -221,7 +213,7 @@ In this manual: @ref{Pitches}, @ref{Accidentals}, and
 accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.
 
-Program reference: @internalsref{KeySignature}.
+Internals Reference: @internalsref{KeySignature}.
 
 Examples: @lsrdir{ancient}
 
@@ -651,6 +643,20 @@ This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note.
 The @code{old6/8alt} symbol (an alternate symbol for 6/8) is not
 addressable with @code{\time}.  Use a @code{\markup} instead
 
+
+@node Additional note signs for ancient music
+@subsection Additional note signs for ancient music
+
+@menu
+* Ancient articulations::       
+* Custodes::                    
+* Divisiones::                  
+* Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
+@end menu
+
+
 @node Ancient articulations
 @unnumberedsubsubsec Ancient articulations
 
@@ -759,7 +765,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 @seealso
 
-Program reference: @internalsref{Custos}.
+Internals Reference: @internalsref{Custos}.
 
 Examples:
 @lsr{ancient,custodes@/.ly}.
@@ -811,7 +817,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 In this manual: @ref{Breath marks}.
 
-Program reference: @internalsref{BreathingSign}.
+Internals Reference: @internalsref{BreathingSign}.
 
 Examples: @lsr{expressive,breathing-sign.ly}.
 
@@ -1915,6 +1921,16 @@ of the staff.
 unary music function, such that @code{\augmentum} can be intermixed
 with head prefixes in arbitrary order.
 
+
+@node Pre-defined contexts
+@subsection Pre-defined contexts
+
+@menu
+* Gregorian Chant contexts::    
+* Mensural contexts::           
+@end menu
+
+
 @node Gregorian Chant contexts
 @unnumberedsubsubsec Gregorian Chant contexts
 
@@ -1983,7 +1999,7 @@ demonstrates
 @end lilypond
 
 @node Musica ficta accidentals
-@unnumberedsubsubsec Musica ficta accidentals
+@subsection Musica ficta accidentals
 
 In European music from before about 1600, singers were often
 expected to chromatically alter notes at their own initiative.
@@ -2017,11 +2033,11 @@ ais ais bis
 
 @seealso
 
-Program reference: @internalsref{Accidental_engraver} engraver and
+Internals Reference: @internalsref{Accidental_engraver} engraver and
 the @internalsref{AccidentalSuggestion} object.
 
 @node Figured bass
-@unnumberedsubsubsec Figured bass
+@subsection Figured bass
 
 @cindex Basso continuo
 
@@ -2205,7 +2221,7 @@ use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 @seealso
 
-Program reference: @internalsref{NewBassFigure},
+Internals Reference: @internalsref{NewBassFigure},
 @internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
 @internalsref{BassFigureBracket}, and
 @internalsref{BassFigureContinuation} objects and

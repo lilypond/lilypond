@@ -1485,14 +1485,14 @@ when @var{label} is not found."
 
 (define-builtin-markup-list-command (justified-lines layout props args) (markup-list?)
   "Like @code{\\justify}, but return a list of lines instead of a single markup.
-Use @code{\\override #'(line-width . @var{X})} to set the line width;
+Use @code{\\override-lines #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces."
   (space-lines (chain-assoc-get 'baseline-skip props)
 	       (wordwrap-markups layout props args #t)))
 
 (define-builtin-markup-list-command (wordwrap-lines layout props args) (markup-list?)
   "Like @code{\\wordwrap}, but return a list of lines instead of a single markup.
-Use @code{\\override #'(line-width . @var{X})} to set the line width,
+Use @code{\\override-lines #'(line-width . @var{X})} to set the line width,
 where @var{X} is the number of staff spaces."
   (space-lines (chain-assoc-get 'baseline-skip props)
 	       (wordwrap-markups layout props args #f)))

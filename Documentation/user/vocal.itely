@@ -26,9 +26,13 @@ There are a few different ways to define lyrics; we shall begin
 by examining the simplest method, and gradually increase complexity.
 
 @menu
-* TODO subsection vocal music::  
+* Simple lyrics::               
+* Aligning lyrics to a melody::  
+* Vocals and variables::        
+* Flexibility in placement::    
+* Spacing vocals::              
+* More about stanzas::          
 @end menu
-
 
 @commonprop
 
@@ -53,27 +57,12 @@ To make lyrics avoid barlines as well, use
 @end example
 
 
-@node TODO subsection vocal music
-@subsection TODO subsection vocal music
+@node Simple lyrics
+@subsection Simple lyrics
 
 @menu
 * Setting simple songs::        
 * Entering lyrics::             
-* Aligning lyrics to a melody::  
-* Automatic syllable durations::  
-* Another way of entering lyrics::  
-* Assigning more than one syllable to a single note::  
-* More than one note on a single syllable::  
-* Extenders and hyphens::       
-* Working with lyrics and variables::  
-* Flexibility in placement::    
-* Lyrics to multiple notes of a melisma::  
-* Divisi lyrics::               
-* Switching the melody associated with a lyrics line::  
-* Lyrics independent of notes::  
-* Spacing lyrics::              
-* More about stanzas::          
-* Other vocal issues::          
 @end menu
 
 @node Setting simple songs
@@ -206,7 +195,7 @@ it with utf-8 encoding.  See @ref{Text encoding}, for more info.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative { e4 f e d e f e2 }
-\addlyrics { He said: “Let my peo ple go”. }
+\addlyrics { He said: â€œLet my peo ple goâ€. }
 @end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
@@ -247,12 +236,11 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
-
+Internals Reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
 
 
 @node Aligning lyrics to a melody
-@unnumberedsubsubsec Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
 @funindex \lyricmode
 @funindex \addlyrics
@@ -384,7 +372,7 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
  
-Program reference: @internalsref{Lyrics}.
+Internals Reference: @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
@@ -412,7 +400,7 @@ glyph.}.
 
 @seealso
 
-Program reference: @internalsref{LyricCombineMusic}.
+Internals Reference: @internalsref{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -490,7 +478,7 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Program reference: @internalsref{Melisma_translator}.
+Internals Reference: @internalsref{Melisma_translator}.
 
 @lsr{vocal,lyric@/-combine.ly}.
 
@@ -524,12 +512,20 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Program reference: @internalsref{LyricExtender},
+Internals Reference: @internalsref{LyricExtender},
 @internalsref{LyricHyphen}
 
 
+@node Vocals and variables
+@subsection Vocals and variables
+
+@menu
+* Working with lyrics and variables::  
+@end menu
+
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
+
 @cindex lyrics, variables
 
 To define variables containing lyrics, the function @code{\lyricmode}
@@ -584,12 +580,12 @@ The final input would resemble
 @seealso
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Program reference: @internalsref{LyricCombineMusic},
+Internals Reference: @internalsref{LyricCombineMusic},
 @internalsref{Lyrics}.  
 
 
 @node Flexibility in placement
-@unnumberedsubsubsec Flexibility in placement
+@subsection Flexibility in placement
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
@@ -815,6 +811,13 @@ lyr = \lyricmode { I like my cat! }
 @end lilypond
 
 
+@node Spacing vocals
+@subsection Spacing vocals
+
+@menu
+* Spacing lyrics::              
+@end menu
+
 @node Spacing lyrics
 @unnumberedsubsubsec Spacing lyrics
 
@@ -860,10 +863,21 @@ layout.
 
 
 @node More about stanzas
-@unnumberedsubsubsec More about stanzas
+@subsection More about stanzas
+
+@menu
+* Adding stanza numbers ::      
+* Adding dynamics marks::       
+* Adding singer names::         
+* Printing stanzas at the end ::  
+* Printing stanzas at the end in multiple columns ::  
+@end menu
+
+
+@node Adding stanza numbers 
+@unnumberedsubsubsec Adding stanza numbers 
 
 @cindex stanza number
-@unnumberedsubsubsec Adding stanza numbers 
 
 Stanza numbers can be added by setting @code{stanza}, e.g.,
 
@@ -875,7 +889,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, ché -- ri, je t'aime
+  Oh, chÃ© -- ri, je t'aime
 }
 @end lilypond
 
@@ -883,6 +897,7 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 These numbers are put just before the start of the first syllable.
 
 
+@node Adding dynamics marks
 @unnumberedsubsubsec Adding dynamics marks
 
 Stanzas differing in loudness may be indicated by putting a
@@ -908,9 +923,11 @@ text = {
 >>
 @end lilypond
 
+@node Adding singer names
+@unnumberedsubsubsec Adding singer names
+
 @cindex singer name
 @cindex name of singer
-@unnumberedsubsubsec Adding singer names
 
 Names of singers can also be added.  They are printed at the start of
 the line, just like instrument names.  They are created by setting
@@ -929,6 +946,7 @@ the line, just like instrument names.  They are created by setting
 @end lilypond
 
 
+@node Printing stanzas at the end 
 @unnumberedsubsubsec Printing stanzas at the end 
 
 Sometimes it is appropriate to have one stanza set
@@ -973,6 +991,7 @@ its fleece was white as snow.
 @end lilypond
 
 
+@node Printing stanzas at the end in multiple columns 
 @unnumberedsubsubsec Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
@@ -1043,15 +1062,14 @@ text = \lyricmode {
 
 @seealso
 
-Program reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
+Internals Reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
 @internalsref{VocalName}.
 
-
-
-@node Other vocal issues
-@unnumberedsubsubsec Other vocal issues
-
+@c TODO: stick elsewhere
 @ignore
+@n ode Other vocal issues
+@s ubsection Other vocal issues
+
 yeah, I'm giving up somewhat by stuffing a bunch of things in
 here.  But at least they're in the manual now; it's easier to
 move them around in the manual once they're already here.
@@ -1059,11 +1077,12 @@ move them around in the manual once they're already here.
 Besides, if users complain about everything stuffed in here, I
 can ask them for specific instructions about where to move these
 examples, and that might get them more involved in the docs.  -gp
-@end ignore
+
 
 @q{Parlato} is spoken without pitch but still with rhythm; it is
 notated by cross noteheads.  This is demonstrated in
 @ref{Special noteheads}.
+@end ignore
 
 
 

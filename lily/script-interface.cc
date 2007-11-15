@@ -79,7 +79,18 @@ Script_interface::calc_cross_staff (SCM smob)
 {
   Grob *me = unsmob_grob (smob);
   Grob *stem = Note_column::get_stem (me->get_parent (X_AXIS));
-  return scm_from_bool (stem && to_boolean (stem->get_property ("cross-staff")));
+
+  if (stem && to_boolean (stem->get_property ("cross-staff")))
+    return SCM_BOOL_T;
+
+  Grob *slur = unsmob_grob (me->get_object ("slur"));
+  SCM avoid_slur = me->get_property ("avoid-slur");
+  if (slur && to_boolean (slur->get_property ("cross-staff"))
+      && (avoid_slur == ly_symbol2scm ("outside")
+	  || avoid_slur == ly_symbol2scm ("around")))
+    return SCM_BOOL_T;
+
+  return SCM_BOOL_F;
 }
 
 MAKE_SCHEME_CALLBACK (Script_interface, print, 1);

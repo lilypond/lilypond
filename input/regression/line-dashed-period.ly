@@ -14,8 +14,8 @@ starts and ends on a full dash. "
 
 \relative <<
   \new Staff {
-    \override DynamicTextSpanner #'dash-fraction = ##f
     \setTextCresc
+    \set crescendoSpanner = #'line
     c1_\< c c1\!
   }
   \new Staff {

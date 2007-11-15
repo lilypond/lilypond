@@ -3,7 +3,8 @@ Info for Documentation
 
 %%%%% GENERAL POLICY
 
-See policy.txt
+Formatting: writing-texinfo.txt
+General policy: policy.txt
 
 
 %%%%% UPDATING DOCS

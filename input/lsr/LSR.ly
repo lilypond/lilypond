@@ -1,9 +1,29 @@
-\version "2.10.0"
+\version "2.11.34"
 \header{
 texidoc = "@unnumbered LilyPond Examples
 
 These pages show LilyPond examples (snippets) from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
+
+@subheading 1 Musical notation
+
+@strong{@uref{pitches/collated-files.html,Pitches}}
+
+@strong{@uref{rhythms/collated-files.html,Rhythms}}
+(@uref{rhythms/collated-files.pdf,pdf link})
+
+
+@subheading Special collections
+
+@strong{@uref{real-music/collated-files.html,Real music}}
+
+@strong{@uref{scheme/collated-files.html,Advanced stuff with
+scheme}} (actually, still old stuff)
+
+
+@sp 5
+
+@subheading old stuffs
 
 @strong{@uref{ancient/collated-files.html,Ancient}}
 
@@ -20,8 +40,6 @@ These pages show LilyPond examples (snippets) from the
 @strong{@uref{guitar/collated-files.html,Guitar notation}}
 
 @strong{@uref{parts/collated-files.html,Preparing parts}}
-
-@strong{@uref{pitch/collated-files.html,Pitch}}
 
 @strong{@uref{repeats/collated-files.html,Repeats}}
 

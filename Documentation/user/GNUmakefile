@@ -3,7 +3,8 @@ depth=../..
 LATEX_FILES =$(call src-wildcard,*.latex)
 
 
-EXTRA_DIST_FILES= $(LATEX_FILES) $(IMAGES) README.txt $(EPS_ILLUSTRATIONS)
+EXTRA_DIST_FILES = $(LATEX_FILES) $(IMAGES) $(EPS_ILLUSTRATIONS)
+EXTRA_DIST_FILES += README.txt writing-texinfo.txt policy.txt
 
 IMAGES=$(call src-wildcard,*.png)
 EPS_ILLUSTRATIONS=context-example.eps
@@ -69,19 +70,19 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/*png .)"
 	@echo "or add something like that to the postinstall script."
 	@echo
-else
+else # installing directly into standard /usr/...
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/*png .)
-endif
+endif # installing directly into standard /usr/...
 
 local-uninstall-WWW:
 	rm -f $(package_infodir)/*.png
 
-else
+else # out!=www
 
 # Cancel the default info generation rule that generates images:
 $(outdir)/%.info: # $(outdir)/%.texi
@@ -104,7 +105,7 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 	@echo "and read the extra instructions."
 	@echo
-else
+else # installing directly into standard /usr/...
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
@@ -116,10 +117,9 @@ else
 	@echo
 	@echo "    make out=www install-info "
 	@echo
-endif
+endif # installing into standard /usr/* root# installing into /usr/...
 
-
-endif
+endif # out!=www
 
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
@@ -197,8 +197,6 @@ $(outdir)/lilypond-program-big-page.html: $(outdir)/lilypond-program.texi $(OUT_
 #
 $(outdir)/lilypond-learning-big-page.html: $(outdir)/lilypond-learning.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-
 
 
 #
