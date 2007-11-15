@@ -3016,6 +3016,12 @@ conversions.append (((2, 11, 23), conv, """#'break-align-symbol -> #'break-align
 def conv (str):
     str = re.sub (r"scripts\.caesura",
                   r"scripts.caesura.curved", str)
+
+    if re.search ('dash-fraction', str):
+	error_file.write (NOT_SMART % "all settings related to dashed lines.\n")
+	error_file.write ("Use \\override ... #'style = #'line for solid lines and\n")
+	error_file.write ("\t\\override ... #'style = #'dashed-line for dashed lines.")
+
     return str
 
-conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved"""))
+conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved. Use #'style not #'dash-fraction to select solid/dashed lines."""))
