@@ -47,7 +47,7 @@ Optimal_page_breaking::solve ()
   vsize page_count = robust_scm2int (forced_page_count, 1);
   Line_division ideal_line_division;
   Line_division best_division;
-  vsize min_sys_count = 0;
+  vsize min_sys_count = 1;
   vsize ideal_sys_count = system_count ();
   
   if (!scm_is_integer (forced_page_count))

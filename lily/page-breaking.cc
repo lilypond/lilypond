@@ -690,13 +690,12 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
   assert (n >= min_page_count (configuration, first_page_num));
 
   cache_line_details (configuration);
-  if (n > cached_line_details_.size ())
-    return Page_spacing_result ();
-  if (n == 1)
+
+  if (n == 1 && n <= cached_line_details_.size ())
     ret = space_systems_on_1_page (cached_line_details_,
 				   page_height (first_page_num, is_last ()),
 				   ragged () || (is_last () && ragged_last ()));
-  else if (n == 2)
+  else if (n == 2 && n <= cached_line_details_.size ())
     ret = space_systems_on_2_pages (configuration, first_page_num);
   else
     {
