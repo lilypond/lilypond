@@ -10,7 +10,7 @@
 
 \relative c'' {
   \override TextSpanner #'bound-padding = #1.0
-  \override TextSpanner #'style = #line
+  \override TextSpanner #'style = #'line
   \override TextSpanner #'bound-details #'right #'arrow = ##t
   \override TextSpanner #'bound-details #'left #'text = #"fof"
   \override TextSpanner #'bound-details #'right #'text = #"gag"
