@@ -651,8 +651,11 @@ of music engraving into a computer program.  Thanks to all that hard
 work, the program can now be used to perform useful tasks.  The
 simplest application is printing notes.
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent
