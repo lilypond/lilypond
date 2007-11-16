@@ -569,9 +569,9 @@ The syntax is also the user-interface for LilyPond, hence it is easy
 to type
 
 @example
-%{
+@{
   c'4 d'8
-%}
+@}
 @end example
 
 @noindent
