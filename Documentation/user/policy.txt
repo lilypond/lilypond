@@ -115,6 +115,8 @@ main docs
     - list of specific terms:
 canceled
 simultaenous    NOT concurrent
+measure: the unit of music
+bar line: the symbol delimiting a measure
 
 
 

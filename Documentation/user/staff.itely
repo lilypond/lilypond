@@ -62,7 +62,7 @@ at the left, and bar lines are connected between the staves.
 @end lilypond
 
 @item
-In a @internalsref{StaffGroup}, the barlines will be drawn through
+In a @internalsref{StaffGroup}, the bar lines will be drawn through
 all the staves, but the group is started with a bracket.
 
 @lilypond[verbatim,ragged-right,quote]
@@ -101,9 +101,9 @@ bar lines are not connected.
 In addition to these four staff group types, other groupings can
 be produced by changing various properties. E.g., the
 @q{Mensurstriche} layout common in Renaissance music, with
-barlines running between but not through the staves, can be
+bar lines running between but not through the staves, can be
 produced from a @code{StaffGroup} or @code{GrandStaff} context if
-the barlines are made transparent in the @code{Staff} itself, with
+the bar lines are made transparent in the @code{Staff} itself, with
 the command @code{\override Staff.BarLine #'transparent = ##t}
 
 @cindex staff, nested

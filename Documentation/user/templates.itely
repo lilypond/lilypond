@@ -1079,7 +1079,7 @@ bassusLyrics = \lyricmode {
       \override Slur #'transparent = ##t
 
       % Comment in the below "\remove" command to allow line
-      % breaking also at those barlines where a note overlaps
+      % breaking also at those bar lines where a note overlaps
       % into the next bar.  The command is commented out in this
       % short example score, but especially for large scores, you
       % will typically yield better line breaking and thus improve

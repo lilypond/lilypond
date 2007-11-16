@@ -44,7 +44,8 @@ not perform such calculations by default; to enable it, use
 \override Score.PaperColumn #'keep-inside-line = ##t
 @end example
 
-To make lyrics avoid barlines as well, use
+To make lyrics avoid bar lines as well, use
+
 @example
 \layout @{
   \context @{
