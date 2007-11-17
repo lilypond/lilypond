@@ -12,7 +12,7 @@ if test `cat $CHECKSUM_FILE`"" = "$AUTOGEN_INPUT_CHECKSUM"; then
 fi
 
 set -e
-./autogen.sh
+${srcdir}/autogen.sh "$@"
 echo -n $AUTOGEN_INPUT_CHECKSUM > $CHECKSUM_FILE 
 
 
