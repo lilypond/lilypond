@@ -1347,25 +1347,6 @@ FI: moodi, kirkkosävellaji.
 @ref{diatonic scale}.
 
 
-@node church rest
-@section church rest
-
-ES: compases de espera (estilo de la iglesia),
-I: pausa multipla (della cappella),
-F: pause multiple (style de l'église),
-NL: meermaats rust (?),
-D: Kirchenpause,
-DK: flertaktspause (?),
-S: flertaktspaus (?),
-FI: usean tahdin mittainen tauko (?).
-
-LilyPond-specific term for an older style of multibar rests.  Instead of a long bar with a number, @q{church rest}s use a combination of longa, breve and whole rests to indicate the duration (in measures) of a rest.
-
-@seealso
-
-@ref{multibar rest}.
-
-
 @node clef
 @section clef
 
@@ -4161,25 +4142,34 @@ Greater musical works like @ref{symphony} and
 independant pieces called movements.
 
 
-@node multibar rest
-@section multibar rest
+@node multi-measure rest
+@section multi-measure rest
 
 ES: compases de espera,
 I: pausa multipla,
 F: pause multiple,
 NL: meermaats rust,
-D: mehrtaktige Pause,
+D: mehrtaktige Pause, Kirchenpause,
 DK: flertaktspause,
 S: flertaktspaus,
 FI: usean tahdin mittainen tauko.
+
+Multi-measure rests are conventionally typeset with a combination of longa,
+breve and whole rests for shorter and a long horizontal bar for longer
+spans of rest, with a number above to indicate the duration (in measures)
+of the rest. The former style is called @q{Kirchenpausen} in German, as a
+reminiscence of its use in Renaissance vocal polyphony. 
 
 @lilypond[fragment,ragged-right]
 \relative c'' {
   a1
   \set Score.skipBars = ##t R1*3
   a1
+  \set Score.skipBars = ##t R1*122
+  a1
 }
 @end lilypond
+
 
 
 @node mixolydian mode
