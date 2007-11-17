@@ -687,15 +687,19 @@ Page_spacing_result
 Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num)
 {
   Page_spacing_result ret;
-  assert (n >= min_page_count (configuration, first_page_num));
 
   cache_line_details (configuration);
+  bool valid_n = (n >= min_page_count (configuration, first_page_num)
+		  && n <= cached_line_details_.size ());
 
-  if (n == 1 && n <= cached_line_details_.size ())
+  if (!valid_n)
+    programming_error ("number of pages is out of bounds");
+
+  if (n == 1 && valid_n)
     ret = space_systems_on_1_page (cached_line_details_,
 				   page_height (first_page_num, is_last ()),
 				   ragged () || (is_last () && ragged_last ()));
-  else if (n == 2 && n <= cached_line_details_.size ())
+  else if (n == 2 && valid_n)
     ret = space_systems_on_2_pages (configuration, first_page_num);
   else
     {
@@ -721,8 +725,12 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
 
   cache_line_details (configuration);
   vsize min_p_count = min_page_count (configuration, first_page_num);
+  bool valid_n = n >= min_p_count || n <= cached_line_details_.size ();
 
-  if (n == 1)
+  if (!valid_n)
+    programming_error ("both page counts are out of bounds");
+
+  if (n == 1 && valid_n)
     {
       bool rag = ragged () || (is_last () && ragged_last ());
       Real height = page_height (first_page_num, is_last ());
@@ -736,9 +744,9 @@ Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize 
     {
       Page_spacer ps (cached_line_details_, first_page_num, this);
       
-      if (n >= min_p_count)
+      if (n >= min_p_count || !valid_n)
 	n_res = ps.solve (n);
-      if (n < cached_line_details_.size ())
+      if (n < cached_line_details_.size () || !valid_n)
 	m_res = ps.solve (n+1);
     }
 

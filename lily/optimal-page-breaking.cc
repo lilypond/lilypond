@@ -45,8 +45,8 @@ Optimal_page_breaking::solve ()
 
   Page_spacing_result best;
   vsize page_count = robust_scm2int (forced_page_count, 1);
-  Line_division ideal_line_division;
-  Line_division best_division;
+  Line_division ideal_line_division = current_configuration (0);
+  Line_division best_division = ideal_line_division;
   vsize min_sys_count = 1;
   vsize ideal_sys_count = system_count ();
   
@@ -57,8 +57,6 @@ Optimal_page_breaking::solve ()
   
       best = space_systems_on_best_pages (0, first_page_num);
       page_count = best.systems_per_page_.size ();
-      ideal_line_division = current_configuration (0);
-      best_division = ideal_line_division;
 
       ideal_sys_count = best.system_count ();
       min_sys_count = ideal_sys_count - best.systems_per_page_.back ();
@@ -66,6 +64,8 @@ Optimal_page_breaking::solve ()
       if (page_count > 1 && best.systems_per_page_[page_count - 2] > 1)
 	min_sys_count -= best.systems_per_page_[page_count - 2];
     }
+  else
+    best = space_systems_on_n_pages (0, page_count, first_page_num);
 
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
@@ -86,9 +86,7 @@ Optimal_page_breaking::solve ()
 	  vsize min_p_count = min_page_count (i, first_page_num);
 	  Page_spacing_result cur;
 
-	  if (min_p_count > page_count)
-	    continue;
-	  else if (min_p_count == page_count)
+	  if (min_p_count == page_count)
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 	  else
 	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);
