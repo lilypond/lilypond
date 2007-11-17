@@ -189,7 +189,6 @@ Languages in this order.
 * chromatic scale::             
 * chromaticism::                
 * church mode::                 
-* church rest::                 
 * clef::                        
 * cluster::                     
 * comma::                       
@@ -311,7 +310,7 @@ Languages in this order.
 * motif::                       
 * motive::                      
 * movement::                    
-* multibar rest::               
+* multi-measure rest::          
 * mixolydian mode::             
 * natural sign::                
 * neighbour tones::             
