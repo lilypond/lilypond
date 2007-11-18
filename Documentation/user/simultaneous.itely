@@ -188,6 +188,19 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @funindex \voiceFour
 @code{\voiceFour}.
 
+@funindex \voiceNeutralStyle
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@example
+\voiceNeutralStyle
+\voiceOneStyle
+\voiceTwoStyle
+\voiceThreeStyle
+\voiceFourStyle
+@end example
+
 @funindex \shiftOn
 @code{\shiftOn},
 @funindex \shiftOnn
