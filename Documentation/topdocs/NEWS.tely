@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+It is now possible to specify, using the @code{page-count} variable in
+the paper block, the number of pages that will be used.
+
+@item
 A new page breaking function, @code{ly:minimal-breaking}, is dedicated
 to books with many pages or a lot of texts.
 
