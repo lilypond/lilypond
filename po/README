@@ -1,0 +1,88 @@
+LilyPond program strings translation
+
+Addresses
+=========
+
+Free Translation Project (FTP)
+  http://translationproject.org
+
+LilyPond page on FTP
+  http://translationproject.org/domain/lilypond.html
+
+FTP coordinator
+  <coordinator (at) translationproject (dot) org>
+
+
+Instructions
+============
+
+Program strings are translated in PO files in this directory.
+
+This kind of translation is managed through the Free Translation
+Project (FTP) -- see rationale below.
+
+The only changes that should be made to this directory are
+
+1) applying changes made on the FTP. These changes should be
+automatically notified to lilypond-devel@gnu.org list by the FTP
+robot; you can also see LilyPond page on FTP.
+
+
+2) updating lilypond.pot: run 'make po-replace' at toplevel, clean up
+lilypond.pot header to make it look like its previous state, commit
+only lilypond.pot to Git and reset all .po files, roll a tarball with
+'make dist', upload it somewhere on the web (or wait for the release),
+and send a notification to FTP coordinator with a link to the tarball.
+
+
+Rationale
+=========
+Why should we use the FTP?
+
+The FTP is designed to make software usable in more languages and
+reduce software packagers work and responsability for translations, as
+it organizes translations by language teams, rather than by packages.
+This benefits to both users and developers; for example, translators
+often volunteer without the developers need to spend time and energy
+to find them, and all translation maintaining issues can be discussed
+by the language team.
+
+In a short-circuit method, translators usually send their work
+directly to the developers who commit it to the sources.  The FTP is
+not significantly slower, it can even be made as quick; for example,
+translators in 4 languages updated 2.11.34 PO between 2 and 8 days
+after I sent the notification update.
+
+We still don't use FTP for translating the documentation, because it
+has currently no infrastructure for this.
+
+
+Common issues
+=============
+
+-- I'd like to commit fixes in .po for all languages
+(e.g. punctuation, formatting), is it possible?
+
+This should be avoided.  If it really saves translators' time, apply
+changes to Git and notice both FTP coordinator (so he can apply the
+changes to FTP too) and LilyPond translation meister (at
+lilypond-devel@gnu.org).
+
+
+-- The translation in my language could be improved, how can I propose
+changes?
+
+Prepare a polite request with your changes in diff format, or better
+with inline comments to the original translation, and send it to the
+translator assigned to LilyPond in your language, with CC to your
+language team (you cand find their email addresses on LilyPond FTP
+page).
+
+If you get no reply within a reasonable timescale (2 weeks or so), or
+a negative reply, and if you still think your suggestions are
+worthwhile, please notice the developers at lilypond-devel@gnu.org.
+We can always discuss with FTP coordinators to see what we can do.
+
+
+For any other question, ask LilyPond translation meister at
+lilypond-devel@gnu.org.
