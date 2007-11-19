@@ -16,6 +16,9 @@
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
+* Overview of text markup commands::  
+* Overview of text markup list commands::  
+* List of articulations::       
 @end menu
 
 
@@ -203,16 +206,56 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 
 @lilypondfile[noindent]{note-head-style.ly}
 
-@ignore
-@n ode All context properties
-@a ppendixsec All context properties
 
-@i nclude context-properties.tely
+@node Overview of text markup commands
+@appendixsec Overview of text markup commands
+
+Todas las siguientes órdenes se pueden usar dentro de @code{\markup @{ @}}.
+
+@include markup-commands.tely
+
+@node Overview of text markup list commands
+@appendixsec Overview of text markup list commands
+
+Todos las siguientes instrucciones se puede utilizar con @code{\markuplines}.
+
+@include markup-list-commands.tely
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex acento
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex fermata
+@cindex calderón
+@cindex apagado
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex arco arriba
+@cindex arco abajo
+@cindex pedal, indicaciones de
+@cindex órgano, indicaciones de pedal de
+@cindex grupeto circular
+@cindex open
+@cindex flageolet
+@cindex grupeto circular invertido
+@cindex trino
+@cindex semitrino
+@cindex semitrino descendente
+@cindex prallprall
+@cindex prallmordent
+@cindex prall, up
+@cindex prall, down
+@cindex thumb marking
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+He aquí un cuadro que muestra todas las articulaciones disponibles:
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
 
 
-@n ode Layout properties
-@ap pendixsec Layout properties
-
-@in clude layout-properties.tely
-
-@end ignore

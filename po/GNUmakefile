@@ -6,7 +6,7 @@ depth = ..
 NAME = lilypond
 MODULE_NAME = po
 DOMAIN = $(NAME)
-EXTRA_DIST_FILES = TODO 
+EXTRA_DIST_FILES = TODO README
 STEPMAKE_TEMPLATES=podir 
 
 include $(depth)/make/stepmake.make
