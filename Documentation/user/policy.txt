@@ -87,6 +87,9 @@ main docs
 
   ("Snippets" is REQUIRED; the others are optional)
 
+  Any new concepts or links which require an explanation should go
+  as a full sentence(s) in the main text.
+
 * To create links, use @ref{} if the link is within the same
   manual.
 
