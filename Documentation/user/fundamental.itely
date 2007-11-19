@@ -28,6 +28,7 @@ description of the input format, see @ruser{File structure}.
 * Introduction to the LilyPond file structure::  
 * Score is a (single) compound musical expression::  
 * Nesting Music Expressions::   
+* On the un-nestedness of brackets and ties::  
 @end menu
 
 @node Introduction to the LilyPond file structure
@@ -360,6 +361,8 @@ be placed and explained.
 }
 @end lilypond
 
+@node On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
 
 You have already met a number of different types of bracket in
 writing the input file to LilyPond.  These obey different rules
@@ -601,22 +604,29 @@ blue triangle voice.
 }
 @end lilypond
 
+The commands @code{\voiceXXXStyle} are mainly intended for use in
+educational documents such as this one.  They modify the color
+of the notehead, the stem and the beams, and the style of the
+notehead, so that the voices may be easily distinguished.
+Voice one is set to red diamonds, voice two to blue triangles,
+voice four to green crossed circles, and voice four (not used
+here) to magenta crosses.  We shall see later how commands like 
+these may be created by the user.
+TODO: add ref to appropriate section in Tweaks
+
 Polyphony does not change the relationship of notes within a
-@code{\relative @{ @}} block.  Each note is calculated relative to
-the note immediately preceding it, or to the first note of the
-preceding chord.
+@code{\relative @{ @}} block.  Each note is still calculated 
+relative to the note immediately preceding it, or to the first 
+note of the preceding chord.  So in
 
 @example
 \relative c' @{ noteA << <noteB noteC> \\ noteD >> noteE @}
 @end example
 
-@code{noteB} is relative to @code{noteA}
-
-@code{noteC} is relative to @code{noteB}, not @code{noteA};
-
+@code{noteB} is relative to @code{noteA}                      @*
+@code{noteC} is relative to @code{noteB}, not @code{noteA};   @*
 @code{noteD} is relative to @code{noteB}, not @code{noteA} or
-@code{noteC}.
-
+@code{noteC}.                                                 @*
 @code{noteE} is relative to @code{noteD}, not @code{noteA}
 
 We are now in a position to return to the first example from
@@ -970,8 +980,7 @@ in the fine-tuning of LilyPond output.
 * Contexts explained::          
 * Creating contexts::           
 * Engravers::                   
-* Modifying Contexts::          
-* On the un-nestedness of brackets and ties::  
+* Modifying contexts::          
 @end menu
 
 @node Contexts explained
@@ -1184,40 +1193,295 @@ We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
   
 
-@node Modifying Contexts
-@subsection Modifying Contexts
+@node Modifying contexts
+@subsection Modifying contexts
 
-TODO: write section, including \with, \remove, \consists
+@menu
+* Changing context properties::  
+* Adding and removing engravers::  
+@end menu
+ 
+@node Changing context properties
+@subsubsection Changing context properties
+
+@cindex context properties
+@funindex \set
+@funindex \unset
+
+Contexts are responsible for holding the values of a number of
+context @emph{properties}.  Many of them can be changed to
+influence the interpretation of the input and so change the
+appearance of the output.  They are changed by the 
+@code{\set} command.  This takes the form
+
+@example
+\set @emph{ContextName}.@emph{propertyName} = @emph{value}
+@end example
+
+Where the @emph{ContextName} is usually @context{Score},
+@context{Staff} or @context{Voice}.  It may be omitted,
+in which case @context{Voice} is assumed.
+
+The names of context properties consist of words joined
+together with no hyphens or underscores, all except the
+first having a capital letter.  Here are a few examples
+of some commonly used ones.  There are many more.
+
+@multitable @columnfractions .3 .2 .5 
+@headitem propertyName
+  @tab Value
+  @tab Function
+@item extraNatural
+  @tab ##t or ##f
+  @tab If true (##t), set extra natural sign before accidentals
+@item currentBarNumber
+  @tab Integer
+  @tab Set the current bar number
+@item doubleSlurs
+  @tab ##t or ##f
+  @tab If true (##t), print slurs both above and below notes
+@item instrumentName
+  @tab Text
+  @tab Set the name to be placed at the start of the staff
+@item fontSize
+  @tab Number
+  @tab Increase or decrease the font size
+@item stanza
+  @tab Text
+  @tab Set the text to print before the start of a verse
+@end multitable
+   
+Before we can set any of these properties we need to know
+which context they operate in.  Sometimes this is obvious,
+but occasionally it can be tricky.  If the wrong context
+is specified, no error message is produced, but the expected
+action will not be taken.  For example, the 
+@code{instrumentName} clearly lives in the Staff context, since
+it is the staff that is named.
+In this example the first staff is labelled, but the second,
+Alto, staff is not, because we omitted the context name.
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    \set Staff.instrumentName = "Soprano"
+    c4 c
+ }
+  \new Staff \relative c' {
+  \set instrumentName = "Alto"
+  d4 d 
+ }
+>>
+@end lilypond
+
+Remember the default context name is Voice, so the second
+@code{\set} command set the property @emph{instrumentName} in the
+Voice context to @qq{Alto}, but as LilyPond does not look
+for any such property in the @context{Voice} context, no 
+further action took place.  No error message is logged in
+the log file.
+
+Similarly, if the property name is mis-spelt no error message 
+is produced, and the expected action clearly is not performed.
+If fact, you can set any (fictitious) @q{property} using any 
+name you like in any context that exists by using the 
+@code{\set} command.  But if the name is not
+known to LilyPond it will not cause any action to be taken.
+
+The @code{instrumentName} property will take effect only
+if it is set in the @context{Staff} context, but
+some properties can be set in more than one context.
+For example, the property @code{extraNatural} is by
+default set to ##t (true) for all staves.  
+If it is set to ##f (false) in the @context{Staff} context 
+it applies just to the accidentals on that staff.  
+If it is set to false in the @context{Score} context
+it applies to all staves.
+
+So this sets @code{extraNatural} in one staff:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Staff.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+@noindent
+and this sets it in all staves:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Score.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+The value of every property set in this way can be reset
+to its original value with the @code{\unset} command
+ 
+The @code{\set} and @code{\unset} commands can appear anywhere
+in the input file and will take effect from the time they are
+encountered until the end of the score or until the property is 
+@code{\set} or @code{\unset} again.  Let's try changing the 
+font size, which affects the size of the note heads (among 
+other things) several times.
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+c4 
+\set fontSize = #-4   % make noteheads smaller
+d e
+\set fontSize = #2.5  % make noteheads larger
+f g
+\unset fontSize       % return to original size
+a b
+@end lilypond
+
+We have now seen how to set the values of several different
+types of property.  Note that integers and numbers are alway 
+preceded by a hash sign, @code{#}, while a true or false value 
+is specified by ##t and ##f, with two hash signs.  A text 
+property should be enclosed in double quotation signs, as above, 
+although we shall see later that text can actually be specified
+in a much more general way by using the very powerful 
+@code{markup} command. 
 
 
+@funindex \with
 
+Context properties may also be set at the time the context is
+created.  Sometimes this is a clearer way of specifying a 
+property value if it is to remain fixed for the duration of
+the context.  When a context is created with a @code{\new}
+command it may be immediately followed by a 
+@code{\with @{ .. @}} block in which the property values are
+set.  For example, if we wish to suppress the printing of
+extra naturals for the duration of a staff we would write:
 
-@c my name start sucking the more docs I write. -gp
-@node On the un-nestedness of brackets and ties
-@subsection On the un-nestedness of brackets and ties
-
-Different kinds of brackets and ties may be mixed freely,
-
-TODO: improve this example
-
-@lilypond[quote,verbatim,fragment,ragged-right]
-{
-  r16[ g16 \times 2/3 {r16 e'8] }
-  g16( a \times 2/3 {b d e') }
-  g8[( a \times 2/3 {b d') e'~]}
-  \times 4/5 {e'32\( a b d' e'} a'4.\)
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  extraNatural = ##f
+}
+\relative c' {
+  gis ges aes ais
 }
 @end lilypond
 
-TODO... add more info?  Fluff up the first sentence?
+In effect this overrides the default value of the property.  It
+may still be changed dynamically using @code{\set} and 
+@code{\unset}.
+
+@node Adding and removing engravers
+@subsubsection Adding and removing engravers
+
+@cindex Engravers, adding
+@cindex Engravers, removing
+
+@funindex \consists
+@funindex \remove
+
+We have seen that contexts each contain several engravers, each
+of which is responsible for producing a particular part of the
+output, like barlines, staves, note heads, stems, etc.  If an
+engraver is removed from a context it can no longer produce its
+output.  This is a crude way of modifying the output, but it
+can sometimes be useful.  
+
+To remove an engraver we can use the @code{\with} command placed
+immediately after the context creation command, as in the 
+previous section.
+
+As an 
+illustration let's repeat an example from the previous 
+section with the staff lines removed.  Remember that the 
+staff lines are produced by the Staff_symbol_engraver.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove Staff_symbol_engraver
+}
+\relative c' {
+  c4 
+  \set fontSize = #-4  % make noteheads smaller
+  d e
+  \set fontSize = #2.5  % make noteheads larger
+  f g
+  \unset fontSize  % return to original size
+  a b
+}
+@end lilypond
+
+@cindex ambitus engraver
+
+Engravers can also be added to contexts.  The command
+to do this is @code{\consists @emph{Engraver_name}},
+placed inside a @code{\with} block.  Some vocal scores
+have an @rglos{ambitus} placed at the beginning of a
+staff to indicate the range of notes in that staff.
+The ambitus is produced by the @code{Ambitus_engraver},
+which is not normally included in any context.  If
+we add it to the @context{Voice} context it calculates
+the range from that voice only:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \new Voice \with {
+    \consists Ambitus_engraver
+  }
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@noindent
+but if we add the Ambitus engraver to the 
+@context{Staff} context it calculates the range from all
+the notes in all the voices on that staff:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+    \consists Ambitus_engraver
+  }
+  <<
+  \new Voice
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
 
 
 @node Extending the templates
 @section Extending the templates
 
-You've read the tutorial, you know how to write music.  But how can you
-get the staves that you want?  The templates are ok, but what if you
-want something that isn't covered?
+You've read the tutorial, you know how to write music, you 
+understand the fundamental concepts.  But how can you
+get the staves that you want?  Well, you can find lots of 
+templates in Appendix A which may give you a start.  But what
+if you want something that isn't covered there?  Read on.
 
 @menu
 * Soprano and cello::           
