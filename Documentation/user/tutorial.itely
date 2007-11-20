@@ -137,7 +137,7 @@ first.  After this, LilyPond will be much faster!}
 
 If you double click @code{LilyPond.app}, it will open with an
 example file.  Save it, for example, to @file{test.ly} on your
-Desktop, and then process it with the menu command @samp{Compile >
+Desktop, and then process it with the menu command @code{Compile >
 Typeset File}.  The resulting PDF file will be displayed on your
 screen.
 
@@ -222,7 +222,7 @@ values are useful.
 
 @subheading Pitches
 
-Music glossary: @rglos{pitch}, @rglos{interval}, @rglos{fourth},
+Music glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
@@ -321,8 +321,8 @@ Music glossary: @rglos{beam}, @rglos{duration}, @rglos{whole note},
 @rglos{half note}, @rglos{quarter note}, @rglos{dotted note}.
 
 The @notation{duration} of a note is specified by a number after
-the note name.  @samp{1} for a @notation{whole note}, @samp{2} for
-a @notation{half note}, @samp{4} for a @notation{quarter note} and
+the note name.  @code{1} for a @notation{whole note}, @code{2} for
+a @notation{half note}, @code{4} for a @notation{quarter note} and
 so on.  @notation{Beams} are added automatically.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -338,7 +338,7 @@ If you do not specify a duration, the previous duration is used
 for the next note.  The duration of the first note defaults to a
 quarter.
 
-To create @notation{dotted notes}, add a dot @samp{.} to the duration
+To create @notation{dotted notes}, add a dot @code{.} to the duration
 number.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -353,7 +353,7 @@ number.
 
 Music glossary: @rglos{rest}.
 
-A @notation{rest} is entered just like a note with the name @samp{r}:
+A @notation{rest} is entered just like a note with the name @code{r}:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -418,7 +418,7 @@ Here is a small example showing all these elements together:
 
 @seealso
 
-Notation reference: @ruser{Writing pitches}, @ruser{Writing rhythms},
+Notation Reference: @ruser{Writing pitches}, @ruser{Writing rhythms},
 @ruser{Writing rests}, @ruser{Time signature}, @ruser{Clef}.
 
 
@@ -433,7 +433,7 @@ is generally equivalent.  Expressions are formed with curly braces
 @{ @}, and comments are denoted with @code{%} or @code{%@{ ...
 %@}}.
 
-If the previous sentence sounds like nonsense, don't worry!  We'll
+If the previous sentences sound like nonsense, don't worry!  We'll
 explain what all these terms mean:
 
 @itemize
@@ -472,7 +472,7 @@ thumb is to indent code blocks with either a tab or two spaces:
 Every piece of LilyPond input needs to have @strong{@{ curly
 braces @}} placed around the input.  These braces tell LilyPond
 that the input is a single music expression, just like parentheses
-@samp{()} in mathematics.  The braces should be surrounded by a
+@code{()} in mathematics.  The braces should be surrounded by a
 space unless they are at the beginning or end of a line to avoid
 ambiguities.
 
@@ -487,7 +487,7 @@ single music expression.
 A comment is a remark for the human reader of the music input; it
 is ignored while parsing, so it has no effect on the printed
 output.  There are two types of comments.  The percent symbol
-@samp{%} introduces a line comment; anything after @samp{%} on
+@code{%} introduces a line comment; anything after @code{%} on
 that line is ignored.  A block comment marks a whole section of
 music input as a comment.  Anything that is enclosed in @code{%@{}
 and @code{%@}} is ignored.  (Comments do not nest.)  The following
@@ -584,10 +584,10 @@ on one staff.
 Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
-A @notation{sharp} pitch is made by adding @samp{is} to the name, and
-a @notation{flat} pitch by adding @samp{es}.  As you might expect, a
+A @notation{sharp} pitch is made by adding @code{is} to the name, and
+a @notation{flat} pitch by adding @code{es}.  As you might expect, a
 @notation{double sharp} or @notation{double flat} is made by adding
-@samp{isis} or @samp{eses}.  This syntax derived from note
+@code{isis} or @code{eses}.  This syntax derived from note
 naming conventions in Nordic and Germanic languages, like German
 and Dutch.  To use other names for @notation{accidentals}, see
 @ruser{Note names in other languages}.
@@ -644,9 +644,9 @@ d cis fis
 
 @noindent
 No note has a printed accidental, but you must still add the
-@samp{is} to @code{cis} and @code{fis}.
+@code{is} to @code{cis} and @code{fis}.
 
-The code @samp{e} does not mean @qq{print a black dot just below
+The code @code{e} does not mean @qq{print a black dot just below
 the first line of the staff.}  Rather, it means @qq{there is a
 note with pitch E-natural.}  In the key of A-flat major, it
 @emph{does} get an accidental:
@@ -664,16 +664,11 @@ accidentals can be printed according to different rules, see
 @ruser{Automatic accidentals}.
 
 @seealso
-@quotation
-@table @asis
-@item Accidentals
-see @ruser{Accidentals}, and @ruser{Automatic accidentals}.
-@item Key signature
-see @ruser{Key signature}
-@item Pitch names
-see @rglos{Pitch names}.
-@end table
-@end quotation
+
+Notation Reference: @ruser{Accidentals},
+@ruser{Automatic accidentals}, @ruser{Key signature}.
+
+Music glossary: @rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -684,8 +679,8 @@ see @rglos{Pitch names}.
 
 Music glossary: @rglos{tie}.
 
-A @notation{tie} is created by appending a tilde @samp{~} to the
-first note being tied
+A @notation{tie} is created by appending a tilde @code{~} to the
+first note being tied.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 g4~ g c2~
@@ -698,7 +693,7 @@ c4 ~ c8 a8 ~ a2
 Music glossary: @rglos{slur}.
 
 A @notation{slur} is a curve drawn across many notes.  The starting
-note and ending note are marked with @samp{(} and @samp{)}
+note and ending note are marked with @code{(} and @code{)}
 respectively.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -738,16 +733,9 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Ties
-see @ruser{Ties}.
-@item Slurs
-see @ruser{Slurs}.
-@item Phrasing slurs
-see @ruser{Phrasing slurs}.
-@end table
-@end quotation
+
+Notation Reference: @ruser{Ties}, @ruser{Slurs},
+@ruser{Phrasing slurs}.
 
 
 @node Articulation and dynamics
@@ -761,7 +749,7 @@ see @ruser{Phrasing slurs}.
 Music glossary: @rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
-dash @samp{-} and a single character:
+dash @code{-} and a single character:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-. c-- c-> c-^ c-+ c-_
@@ -773,14 +761,14 @@ c-. c-- c-> c-^ c-+ c-_
 Music glossary: @rglos{fingering}.
 
 Similarly, @notation{fingering} indications can be added to a note using
-a dash (@samp{-}) and the digit to be printed:
+a dash (@code{-}) and the digit to be printed:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-3 e-5 b-2 a-1
 @end lilypond
 
 Articulations and fingerings are usually placed automatically, but
-you can specify a direction using @samp{^} (up) or @samp{_}
+you can specify a direction using @code{^} (up) or @code{_}
 (down).  You can also use multiple articulations on the same note.
 However, in most cases it is best to let LilyPond determine the
 articulation directions.
@@ -815,19 +803,12 @@ c2\< c2\ff\> c2 c2\!
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Articulations
-see @ruser{Articulations}.
-@item Fingering
-see @ruser{Fingering instructions}.
-@item Dynamics
-see @ruser{Dynamics} (Notation reference) and @rglos{dynamics}
-(Glossary).
-@end table
-@end quotation
 
-@c CONTINUE HERE
+Notation Reference: @ruser{Articulations},
+@ruser{Fingering instructions}, @ruser{Dynamics}.
+
+Music glossary: @rglos{Dynamics}.
+
 
 @node Adding text
 @subsection Adding text
@@ -848,11 +829,9 @@ a1_\markup{
 @end lilypond
 
 
-@c Kurt: leave this alone for now.
-
 @seealso
 
-Notation reference: @ruser{Writing text}.
+Notation Reference: @ruser{Writing text}.
 
 
 @node Automatic and manual beams
@@ -869,22 +848,16 @@ a8 ais d ees r d c16 b a8
 
 @noindent
 If you do not like the automatic beams, they may be overridden
-manually.  Mark the first note to be beamed with @samp{[} and the
-last one with @samp{]}.
+manually.  Mark the first note to be beamed with @code{[} and the
+last one with @code{]}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Automatic beams
-see @ruser{Automatic beams}.
-@item Manual beams
-see @ruser{Manual beams}.
-@end table
-@end quotation
+
+Notation Reference: @ruser{Automatic beams}, @ruser{Manual beams}.
 
 
 @node Advanced rhythmic commands
@@ -943,16 +916,9 @@ c2 \acciaccatura b16 c2
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Grace notes
-see @ruser{Grace notes},
-@item Tuplets
-see @ruser{Tuplets},
-@item Pickups
-see @ruser{Upbeats}.
-@end table
-@end quotation
+
+Notation Reference: @ruser{Grace notes}, @ruser{Tuplets},
+@ruser{Upbeats}.
 
 
 @node Multiple notes at once
@@ -1070,7 +1036,7 @@ arbitrarily complex and large expressions.  For example,
 This is a sequence of expressions, where each expression is
 contained in the next (larger) one.  The simplest expressions are
 numbers, and larger ones are made by combining expressions with
-operators (like @samp{+}, @samp{*} and @samp{/}) and parentheses.
+operators (like @code{+}, @code{*} and @code{/}) and parentheses.
 Like mathematical expressions, music expressions can be nested
 arbitrarily deep, which is necessary for complex music like
 polyphonic scores.
@@ -1165,9 +1131,8 @@ Here is a small example:
 @end lilypond
 
 @seealso
-@quotation
-See @ruser{Piano music}.
-@end quotation
+
+Notation Reference: @ruser{Piano music}.
 
 
 @node Combining notes into chords
@@ -1178,15 +1143,15 @@ See @ruser{Piano music}.
 Music glossary: @rglos{chord}.
 
 @notation{Chords} can be made by surrounding pitches with single
-angle brackets.  Angle brackets are the symbols @samp{<} and
-@samp{>}.
+angle brackets.  Angle brackets are the symbols @code{<} and
+@code{>}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>4 <c f a>2
 @end lilypond
 
 You can combine markings like beams and ties with chords.  They
-must be placed outside the angle brackets
+must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
@@ -1222,8 +1187,8 @@ separating the voices with @code{\\}
 For polyphonic music typesetting, spacer rests can also be
 convenient; these are rests that do not print.  They are useful
 for filling up voices that temporarily do not play.  Here is the
-same example with a spacer rest (@samp{s}) instead of a normal
-rest (@samp{r}),
+same example with a spacer rest (@code{s}) instead of a normal
+rest (@code{r}),
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 <<
@@ -1250,9 +1215,8 @@ Again, these expressions can be nested arbitrarily.
 @end lilypond
 
 @seealso
-@quotation
-See @ruser{Simultaneous notes}.
-@end quotation
+
+Notation Reference: @ruser{Simultaneous notes}.
 
 
 @node Songs
@@ -1433,13 +1397,9 @@ quotes.  Here's an example from Rossini's Figaro, where
 
 
 @seealso
-@quotation
-More options, such as inserting explicit rhythms into lyrics,
-inserting lyric ties (e.g., between @q{go al}) above, 
-alternative ways of handling melismata,
-and adding extra verses,
-are discussed in @ruser{Vocal music}.
-@end quotation
+
+Notation Reference: @ruser{Vocal music}.
+
 
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
@@ -1477,11 +1437,8 @@ from the notes and lyrics with variables.  These are
 discussed later (see @ref{Organizing pieces with variables}).
 
 @seealso
-@quotation
-More options, such as putting multiple stanzas below the score,
-setting choral music, and lyrics to divided voices, 
-are discussed in @ruser{Vocal music}.
-@end quotation
+
+Notation Reference: @ruser{Vocal music}.
 
 
 @node Final touches
@@ -1632,7 +1589,7 @@ confusing.  We can reduce this confusion by using
 @emph{variables}.
 
 With variables (also known as identifiers or macros), we can break
-up complex music expressions.  An variable is assigned as
+up complex music expressions.  A variable is assigned as
 follows:
 
 @example
@@ -1662,7 +1619,7 @@ cello = \new Staff { \relative c {
 @end lilypond
 
 @noindent
-The name of an variable must have alphabetic characters only, no
+The name of a variable must have alphabetic characters only, no
 numbers, underscores, or dashes.
 
 It is possible to use variables for many other types of objects in

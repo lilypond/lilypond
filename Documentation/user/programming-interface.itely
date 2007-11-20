@@ -589,7 +589,7 @@ d'
 @subsection Doubling a note with slurs (example)
 
 Suppose we want to create a function which translates
-input like @samp{a} into @samp{a( a)}.  We begin
+input like @code{a} into @code{a( a)}.  We begin
 by examining the internal representation of the music
 we want to end up with.
 

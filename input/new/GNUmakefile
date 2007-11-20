@@ -4,6 +4,7 @@ SUBDIRS = pitches rhythms
 SUBDIRS += ancient chords connecting contemporary education expressive
 SUBDIRS += guitar parts repeats spacing staff text vocal scheme other 
 SUBDIRS += engravers nonmusic instrument
+SUBDIRS += real-music
 
 
 STEPMAKE_TEMPLATES=documentation texinfo tex

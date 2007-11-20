@@ -107,11 +107,15 @@ main docs
 
   Both index commands should go in front of the actual material.
 
+  @cindex should not be capitalized.
+
 * Preferred terms:
     - in general, use the American spellings.  The internal
       lilypond property names use this spelling.
     - list of specific terms:
-canceled, bar
+canceled
+simultaenous    NOT concurrent
+
 
 
 %%%%% TECHNICAL WRITING STYLE

@@ -24,7 +24,7 @@ rather than specific notation.
 @section Input files
 
 The main format of input for LilyPond are text files.  By convention,
-these files end with @samp{.ly}.
+these files end with @code{.ly}.
 
 @menu
 * File structure::              
@@ -363,7 +363,7 @@ option when invoking @code{lilypond --include=DIR} which adds DIR to the
 search path.
 
 The @code{\include} statement can use full path information, but with the Unix
-convention @samp{/} rather than the DOS/Windows @samp{\}.  For example,
+convention @code{/} rather than the DOS/Windows @code{\}.  For example,
 if @file{stuff.ly} is located one directory higher than the current working
 directory, use
 
@@ -525,6 +525,14 @@ direction.
 -
 ^ _
 @end verbatim
+
+Also cover
+#UP
+#DOWN
+#LEFT
+#RIGHT.
+
+Maybe rename section to "directions".
 
 
 @node Distances and measurements MAYBE MOVE

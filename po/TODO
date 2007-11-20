@@ -1,5 +1,7 @@
 TODO
 
+See also README for general instructions.
+
 FIX OR STANDARDISE TARGETS
 
 * extract translatable strings from source code to `po/out/': at toplevel, do:

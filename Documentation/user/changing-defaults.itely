@@ -873,6 +873,8 @@ New contexts may be aligned above or below exisiting contexts.  This
 could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
 in ossia,
 
+FIXME: this section doens't work in pdf.  (?)
+
 @cindex ossia
 @findex alignAboveContext
 @findex alignBelowContext
@@ -1319,7 +1321,7 @@ F = \tweak #'font-size #-3 -\flageolet
 @noindent
 With other words, @code{\tweak} doesn't behave like an articulation
 regarding the syntax; in particular, it can't be attached with
-@samp{^} and @samp{_}.
+@code{^} and @code{_}.
 
 Using Scheme, this problem can be circumvented.  The route to the
 result is given in @ref{Adding articulation to notes (example)},
@@ -1340,12 +1342,12 @@ F = #(let ((m (make-music 'ArticulationEvent
 
 @noindent
 Here, the @code{tweaks} properties of the flageolet object
-@samp{m} (created with @code{make-music}) are extracted with
+@code{m} (created with @code{make-music}) are extracted with
 @code{ly:music-property}, a new key-value pair to change the
 font size is prepended to the property list with the
 @code{acons} Scheme function, and the result is finally
 written back with @code{set!}.  The last element of the
-@code{let} block is the return value, @samp{m} itself.
+@code{let} block is the return value, @code{m} itself.
 
 
 @node \set versus \override

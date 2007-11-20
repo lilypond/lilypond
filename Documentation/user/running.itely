@@ -324,7 +324,7 @@ mount a loop device.  A separate filesystem also guarantees that LilyPond
 cannot write more space than it is allowed.
 
 @item Setting up a separate user
-A separate user and group (say, @samp{lily}/@samp{lily}) with low
+A separate user and group (say, @code{lily}/@code{lily}) with low
 privileges should be used to run LilyPond inside the jail.  There should
 be a single directory writable by this user, which should be passed in
 @var{dir}.
@@ -486,7 +486,7 @@ convert-ly -e myfile.ly
 
 @noindent
 MacOS X users may execute this command under the menu entry
-@samp{Compile > Update syntax}.
+@code{Compile > Update syntax}.
 
 If there are no changes to myfile.ly and file called myfile.ly.NEW
 is created, then myfile.ly is already updated.

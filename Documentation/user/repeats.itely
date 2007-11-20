@@ -108,6 +108,8 @@ see @ref{Bar lines} for more information.
 
 @seealso
 
+Snippets: @lsrdir{repeats}
+
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic}, and
@@ -239,6 +241,8 @@ c4 c4
 
 @seealso
 
+Snippets: @lsrdir{repeats}
+
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 and @internalsref{UnfoldedRepeatedMusic}.
@@ -322,7 +326,9 @@ described in @ref{Tremolo subdivisions}.
 
 @seealso
 
-In this manual: @ref{Tremolo subdivisions}, @ref{Repeats}.
+Notation Reference: @ref{Tremolo subdivisions}, @ref{Repeats}.
+
+Snippets: @lsrdir{repeats}
 
 Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
@@ -354,7 +360,9 @@ output.
 
 @seealso
 
-In this manual: @ref{Tremolo repeats}.
+Notation Reference: @ref{Tremolo repeats}.
+
+Snippets: @lsrdir{repeats}
 
 Elsewhere: @internalsref{StemTremolo}.
 
@@ -404,6 +412,8 @@ R1
 
 
 @seealso
+
+Snippets: @lsrdir{repeats}
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},

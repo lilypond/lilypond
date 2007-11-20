@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -23,6 +22,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Overview of text markup commands::
 * Overview of text markup list commands::
 @end menu 
+
 @node Chord name chart
 @appendixsec Chord name chart
 
@@ -43,6 +43,7 @@ UNTRANSLATED NODE: IGNORE ME
 @subsubheading Color Names without a numerical suffix:
 @subsubheading Color names with a numerical suffix
 @subsubheading Grey Scale
+
 @node The Feta font
 @appendixsec The Feta font
 
@@ -53,19 +54,55 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+
 @node Overview of text markup commands
 @appendixsec Overview of text markup commands
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez utiliser les commandes suivantes au sein d'un bloc
+@code{\markup @{ @}}.
 
 @include markup-commands.tely
+
+
 @node Overview of text markup list commands
 @appendixsec Overview of text markup list commands
 
-UNTRANSLATED NODE: IGNORE ME
+Vous pouvez utiliser les commandes suivantes avec @code{\markuplines}.
 
 @include markup-list-commands.tely
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex accent
+@cindex marcato
+@cindex staccatissimo
+@cindex espressivo
+@cindex point d'orgue
+@cindex point d'arrêt
+@cindex staccato
+@cindex portato
+@cindex tenuto
+@cindex tirer l'archet
+@cindex pousser l'archet
+@cindex bouché
+@cindex sourdine
+@cindex orgue, marque de pédale d'
+@cindex grupetto
+@cindex ouvert
+@cindex flageolet
+@cindex trille
+@cindex mordant
+@cindex ornementation baroque
+@cindex baroque, ornementation
+@cindex pouce
+@cindex segno
+@cindex coda
+@cindex varcoda
+
+
+Voici la liste exhaustive des symboles :
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+

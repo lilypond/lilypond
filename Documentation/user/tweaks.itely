@@ -13,7 +13,7 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-TODO: explain what/why.  maybe in other sections.
+FIXME: explain what/why.  maybe in other sections.
 
 
 @menu
@@ -566,7 +566,7 @@ In some cases (see issue 246), this must be done before
 @node The three methods of tweaking
 @subsection The three methods of tweaking
 
-TODO write this.
+FIXME write this.
 
 @verbatim
 \override
@@ -586,4 +586,5 @@ TODO write this.
 
 
 
+FIXME discuss \tweak
 

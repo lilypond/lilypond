@@ -85,7 +85,7 @@ advance.  Here is a practical example
 
 @seealso
 
-In this manual: @ref{Manual staff switches}.
+Notation Reference: @ref{Manual staff switches}.
 
 Internals Reference: @internalsref{AutoChangeMusic}.
 
@@ -204,7 +204,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 @seealso
 
-In this manual: @ref{Ties} (laissez vibrer).
+Notation Reference: @ref{Ties} (laissez vibrer).
 
 @node Staff switch lines
 @unnumberedsubsubsec Staff switch lines

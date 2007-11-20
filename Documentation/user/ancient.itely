@@ -208,7 +208,7 @@ controlled by the @code{glyph-name-alist} property of the
 
 @seealso
 
-In this manual: @ref{Pitches}, @ref{Accidentals}, and
+Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
 @ref{Automatic accidentals}, give a general introduction of the use of
 accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.
@@ -249,7 +249,7 @@ There are no rests in Gregorian Chant notation; instead, it uses
 
 @seealso
 
-In this manual: @ref{Rests}, gives a general introduction into the use of
+Notation Reference: @ref{Rests}, gives a general introduction into the use of
 rests.
 
 
@@ -484,7 +484,7 @@ beams, depending on which staff line it is printed.
 
 @seealso
 
-In this manual: see @ref{Clef}.
+Notation Reference: see @ref{Clef}.
 
 @refbugs
 
@@ -815,7 +815,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 @seealso
 
-In this manual: @ref{Breath marks}.
+Notation Reference: @ref{Breath marks}.
 
 Internals Reference: @internalsref{BreathingSign}.
 

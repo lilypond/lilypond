@@ -573,9 +573,9 @@ are listed in @rprogram{Updating files with convert-ly}.
 
 For example, in LilyPond 2.4 and earlier, accents and non-English
 letters were entered using LaTeX -- for example,
-@samp{No\"el} (this would print the French word for
+@code{No\"el} (this would print the French word for
 @q{Christmas}).  In LilyPond 2.6 and above, the special
-@samp{ë} must be entered directly into the LilyPond file as an
+@code{ë} must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
 your old LilyPond files.

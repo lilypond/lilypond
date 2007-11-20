@@ -21,6 +21,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Displaying LilyPond notation::
 * Skipping corrected music::
 @end menu 
+
 @node Input files
 @section Input files
 
@@ -34,7 +35,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Including LilyPond files::
 * Text encoding::
 * Different editions from one source::
-@end menu 
+@end menu
+
 @node File structure
 @subsection File structure
 
@@ -68,7 +70,79 @@ UNTRANSLATED NODE: IGNORE ME
 @node Different editions from one source
 @subsection Different editions from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \tag
+@cindex tag
+
+La commande @code{\tag} affecte un nom à des expressions musicales.
+Les expressions ainsi balisées pourront être filtrées par la suite.
+Ce mécanisme permet d'obtenir différentes versions à partir d'une même
+source musicale. 
+
+Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
+l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
+comportera les ornements. 
+
+@example
+c1
+<<
+  \tag #'partie <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'conducteur R1
+>>
+c1
+@end example
+
+Ce principe peut s'appliquer aux articulations, textes, etc.  Il
+suffit de positionner 
+@example
+-\tag #@var{votre-balise}
+@end example
+avant l'articulation, comme ici :
+@example
+c1-\tag #'part ^4
+@end example
+
+Ceci définira une note avec une indication de doigté conditionnelle.
+
+@cindex keepWithTag
+@cindex removeWithTag
+C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
+que vous filtrerez les expressions balisées.  Par exemple :
+@example
+<<
+  @var{de la musique}
+  \keepWithTag #'score @var{de la musique}
+  \keepWithTag #'part @var{de la musique}
+>>
+@end example
+donnerait :
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+Les arguments de la commande @code{\tag} doivent être un symbole (tel
+que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
+Vous pouvez utiliser de multiples balises dans un morceau en
+saisissant plusieurs @code{\tag}.
+
+@example
+  \tag #'original-part \tag #'transposed-part @dots{}
+@end example
+
+
+@seealso
+
+Exemples : @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
+si vous imprimez une partition avec les deux sections balisées.
+
 
 @node Titles and headers
 @section Titles and headers
@@ -80,7 +154,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Custom titles::
 * Reference to page numbers::
 * Table of contents::
-@end menu 
+@end menu
+
 @node Creating titles
 @subsection Creating titles
 
@@ -136,7 +211,3 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
