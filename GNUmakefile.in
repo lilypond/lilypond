@@ -16,7 +16,7 @@ SUBDIRS = buildscripts python scripts \
 ## value of DOCUMENTATION here.
 documentation-dir=$(if $(findstring no,$(DOCUMENTATION)),,Documentation)
 
-SCRIPTS = configure autogen.sh 
+SCRIPTS = configure autogen.sh smart-autogen.sh smart-configure.sh
 README_FILES = COPYING DEDICATION ROADMAP THANKS HACKING
 TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
