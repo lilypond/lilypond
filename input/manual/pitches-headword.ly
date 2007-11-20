@@ -7,15 +7,6 @@
 % Piano sonata 21 - Dem Grafen von Waldstein Gewidmet
 % chorale at measures 34 - 40+
 
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
 \layout {
    \context {
       \Score

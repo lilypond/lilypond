@@ -1,113 +1,200 @@
-\version "2.11.33"
+\version "2.11.34"
+\include "english.ly"
 
-\layout {
-   \context { \Score
-      \override NonMusicalPaperColumn #'line-break-system-details =
-      #'((alignment-offsets . (0 -14 -32 -46)))
-   }
+% NR 1.2 Rhythms
+
+% Beethoven, Op. 81a
+% Piano sonata 26 - Das Lebewohl
+% Movt II - Abwesenheit
+% Measures 31 - 34
+
+\paper {
+  #(define dump-extents #t)
+  indent = 0\mm
+  ragged-right = ##t
+  line-width = 16\cm
+  force-assignment = #""
+  line-width = #(- line-width (* mm  3.000000))
 }
 
-\new Score <<
-   \set Score.proportionalNotationDuration = #(ly:make-moment 1 96)
-   \set Score.autoBeaming = ##f
-   \set Score.tupletFullLength = ##t
-   \override Score.TupletBracket #'staff-padding = #5
-   \new StaffGroup <<
-      \new RhythmicStaff {
-         \time 4/8
-         c64 [
-         c64
-         c16
-         c64
-         c64
-         c64
-         c64
-         c16
-         c64
-         c64 ]
-         c64 [
-         \set stemLeftBeamCount = #4
-         \set stemRightBeamCount = #4
-         c64
-         \set stemLeftBeamCount = #4
-         \set stemRightBeamCount = #3
-         c64
-         c32.
-         c64
-         c64
-         c64
-         c64
-         c64
-         \set stemRightBeamCount = #4
-         c64
-         \set stemLeftBeamCount = #4
-         \set stemRightBeamCount = #3
-         c64
-         \set stemRightBeamCount = #2
-         c32.
-         \time 1/8
-         \set stemLeftBeamCount = #2
-         c64
-         c64
-         c16
-         c64
-         c64 ]
-      }
-      \new RhythmicStaff {
-         \set stemLeftBeamCount = #0
-         c16 [ ]
-         r8.
-         \times 2/3 {
-            c16 [
-            c16
-            c16
-            c16
-            c16
-            c16
+\layout { }
+
+#(set-global-staff-size 16)
+\new PianoStaff <<
+
+   % RH Staff
+   \new Staff {
+      \clef treble
+      \key c \minor
+      \time 2/4
+      \set Score.currentBarNumber = #31
+
+      <c'' c'>8 (
+      <g'' g'>8 )
+      ~
+      <g'' g'>8 (
+      <a'' a'>16
+      <f'' f'>16 )
+
+      |
+
+      \afterGrace
+         <f'' f'>8 (
+         {
+            e''16 [
+            f''16
+            e''16
+            d''16 ]
          }
-         \times 2/3 {
-            c32
-            c32
-            c32
-            c32
-            c32 ]
-            r32
+      <e''! e'>16
+      <f'' f'>16 )
+      <g'' g'>16 ( \staccato
+      <a'' a'>16 ) \staccato
+      <bf'' bf'>32  (
+      <b'' b'>32 )
+      <b'' b'>32 (
+      <c''' c''>32 )
+
+      |
+
+      b''32 (
+      c'''32
+      d'''32
+      c'''32 )
+      g''8 (
+      ~
+      g''32 [
+      a''64
+      g''64 ) ]
+
+      a''64 ( [
+      g''64 )
+      bf''64 (
+      a''64 ) ]
+
+      bf''64 ( [
+      a''64 )
+      c'''64 (
+      b''64 ) ]
+
+      c'''128 ( [
+      b''128
+      d'''128
+      c'''128
+      f'''64
+      f''64 ) ]
+      
+      |
+
+      \afterGrace
+         <f'' f'>8 (
+         {
+            e''16 [
+            f''16
+            e''16
+            d''16 ]
          }
-      }
-   >>
-   \new StaffGroup <<
-      \new RhythmicStaff {
-         \times 4/5 {
-            \set stemLeftBeamCount = #0
-            c32 [ ]
-            r16.
-            \set stemLeftBeamCount = #2
-            c16. [
-            c32
-            \set stemRightBeamCount = #3
-            c32 ] 
-            r32
-         }
-         \times 8/11 {
-            c16. [
-            c8
-            c8 ]
-         }
-         c8
-      }
-      \new RhythmicStaff {
-         \times 2/3 {
-            c16 [
-            c8. ]
-            c4
-            r4
-         }
-         \times 4/5 {
-            r16
-            \set stemLeftBeamCount = #2
-            \set stemRightBeamCount = #0
-            c16. [ ]
-         }
-      }
-   >>
+      <e''! e'>16
+      <f'' f'>16 )
+      <g'' g'>16 ( \staccato
+      <af''! af'!>16 ) \staccato
+      <bf'' bf'>32  (
+      <b'' b'>32 )
+      <b'' b'>32 (
+      <c''' c''>32 )
+   }
+
+   % LH Staff
+   \new Staff {
+      \clef bass
+      \key c \minor
+      \time 2/4
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <a f>32
+      c'32
+      <a f>32
+      c'32
+
+      |
+      
+      <bf g>32
+      c'32
+      <bf g>32
+      c'32
+
+      <bf g>32
+      c'32
+      <bf g>32
+      c'32
+
+      <bf g>32
+      c'32
+      <a f>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      |
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+
+      <a f>32
+      c'32
+      <a f>32
+      c'32
+
+      |
+      
+      <bf! g>32
+      c'32
+      <bf g>32
+      c'32
+
+      <bf g>32
+      c'32
+      <bf g>32
+      c'32
+
+      <bf g>32
+      c'32
+      <af! f>32
+      c'32
+
+      <g e>32
+      c'32
+      <g e>32
+      c'32
+   }
+
 >>
