@@ -69,7 +69,6 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
   int min_den = INT_MAX;
   int min_index = -1;
   
-  Moment beat_pos;
   for (vsize i = 1; i < infos_.size (); i++)  
     {
       Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_;

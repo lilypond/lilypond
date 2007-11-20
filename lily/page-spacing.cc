@@ -92,11 +92,10 @@ Page_spacer::solve (vsize page_count)
     resize (page_count);
 
   Page_spacing_result ret;
-  ret.force_.resize (page_count);
-  ret.systems_per_page_.resize (page_count);
 
   vsize system = lines_.size () - 1;
-  vsize tack_onto_the_end = 0;
+  vsize extra_systems = 0;
+  vsize extra_pages = 0;
 
   if (isinf (state_.at (system, page_count-1).demerits_))
     {
@@ -112,13 +111,28 @@ Page_spacer::solve (vsize page_count)
 
       if (i)
 	{
-	  tack_onto_the_end = system - i;
+	  extra_systems = system - i;
 	  system = i;
 	}
       else
-	return Page_spacing_result (); /* couldn't salvage it -- probably going to crash */
+	{
+	  /* try chopping off pages from the end */
+	  vsize j;
+	  for (j = page_count; j && isinf (state_.at (system, j-1).demerits_); j--)
+	    ;
+
+	  if (j)
+	    {
+	      extra_pages = page_count - j;
+	      page_count = j;
+	    }
+	  else
+	    return Page_spacing_result (); /* couldn't salvage it -- probably going to crash */
+	}
     }
 
+  ret.force_.resize (page_count);
+  ret.systems_per_page_.resize (page_count);
   ret.penalty_ = state_.at (system, page_count-1).penalty_
     + lines_.back ().page_penalty_ + lines_.back ().turn_penalty_;
 
@@ -133,9 +147,23 @@ Page_spacer::solve (vsize page_count)
       if (p == 0)
 	ret.systems_per_page_[p] = system + 1;
       else
-	ret.systems_per_page_[p] = system - ps.prev_ + tack_onto_the_end;
+	ret.systems_per_page_[p] = system - ps.prev_;
       system = ps.prev_;
     }
+
+  if (extra_systems)
+    {
+      ret.systems_per_page_.back () += extra_systems;
+      ret.demerits_ += 200000;
+    }
+  if (extra_pages)
+    {
+      ret.force_.insert (ret.force_.end (), extra_pages, 200000);
+      ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages, 0);
+      ret.demerits_ += 200000;
+    }
+
+
   ret.demerits_ += ret.penalty_;
   return ret;
 }

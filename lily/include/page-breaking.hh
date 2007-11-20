@@ -102,6 +102,7 @@ public:
   bool is_last () const;
   Real page_height (int page_number, bool last) const;
   Real page_top_space () const;
+  vsize system_count () const;
 
 protected:
   Paper_book *book_;
@@ -149,6 +150,7 @@ private:
   bool ragged_;
   bool ragged_last_;
   Real page_top_space_;
+  vsize system_count_;
 
   vector<Line_division> current_configurations_;
   vector<Break_position> current_chunks_;
