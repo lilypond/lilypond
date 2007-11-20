@@ -3,7 +3,6 @@
 @ignore
     Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
@@ -20,7 +19,8 @@ UNTRANSLATED NODE: IGNORE ME
 * MIDI output::
 * Displaying LilyPond notation::
 * Skipping corrected music::
-@end menu 
+@end menu
+
 @node Input files
 @section Input files
 
@@ -34,7 +34,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Including LilyPond files::
 * Text encoding::
 * Different editions from one source::
-@end menu 
+@end menu
+
 @node File structure
 @subsection File structure
 
@@ -68,7 +69,77 @@ UNTRANSLATED NODE: IGNORE ME
 @node Different editions from one source
 @subsection Different editions from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@funindex \tag
+@cindex etiquetas
+
+La orden @code{\tag} marca expresiones musicales con un nombre.  Estas expresiones
+etiquetadas se pueden filtrar o seleccionar más tarde.  Con este mecanismo es posible
+hacer versiones diferentes a partir de la misma fuente musical.
+
+En el ejemplo siguiente podemos ver dos versiones de una pieza musical, una
+para la partitura del director y otra con notas guía para la particella instrumental
+
+@example
+c1
+<<
+  \tag #'part <<
+    R1 \\
+    @{
+      \set fontSize = #-1
+      c4_"cue" f2 g4 @}
+  >>
+  \tag #'score R1
+>>
+c1
+@end example
+
+Lo mismo vale para las articulaciones, textos, etc.: se hacen
+anteponiendo
+@example
+-\tag #@var{su_etiqueta}
+@end example
+a una articulación, por ejemplo,
+@example
+c1-\tag #'particella ^4
+@end example
+
+Esto define una nota con una indicación condicional de digitación.
+
+@cindex keepWithTag
+@cindex removeWithTag
+Aplicando las órdenes @code{\keepWithTag} y @code{\removeWithTag},
+se pueden filtrar las expresiones etiquetadas.  Por ejemplo,
+@example
+<<
+  @var{the music}
+  \keepWithTag #'partitura @var{la música}
+  \keepWithTag #'particella @var{la música}
+>>
+@end example
+produciría
+
+@lilypondfile[ragged-right,quote]{tag-filter.ly}
+
+Los argumentos de la orden @code{\tag} deben ser un símbolo
+(como @code{#'partitura} o @code{#'particella}), seguido de
+una expresión musical.  Es posible poner varias etiquetas sobre
+un fragmento de música con varias apariciones de @code{\tag},
+
+@example
+  \tag #'particella-original \tag #'particella-transportada @dots{}
+@end example
+
+
+@seealso
+
+Ejemplos: @lsr{parts,tag@/-filter@/.ly}
+
+
+@refbugs
+
+Los silencios múltiples no se funden si crea la partitura con las dos secciones
+etiquetadas.
+
 
 @node Titles and headers
 @section Titles and headers
@@ -80,7 +151,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Custom titles::
 * Reference to page numbers::
 * Table of contents::
-@end menu 
+@end menu
+
 @node Creating titles
 @subsection Creating titles
 
@@ -136,7 +208,3 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

@@ -222,7 +222,7 @@ The following commands can all be used with @code{\markuplines}.
 @include markup-list-commands.tely
 
 @node List of articulations
-@section List of articulations
+@appendixsec List of articulations
 
 @cindex accent
 @cindex marcato
