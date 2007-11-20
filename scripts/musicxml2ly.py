@@ -1187,8 +1187,21 @@ class LilyPondVoiceBuilder:
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
             skip = musicexp.SkipEvent()
-            skip.duration.duration_log = 0
-            skip.duration.factor = diff
+            duration_factor = 1
+            duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (diff.denominator (), -1)
+            duration_dots = 0
+            if duration_log >= 0: # denominator is a power of 2...
+                if diff.numerator () == 3:
+                    duration_log -= 1
+                    duration_dots = 1
+                else:
+                    duration_factor = Rational (diff.numerator ())
+            else:
+                duration_log = 0
+                duration_factor = diff
+            skip.duration.duration_log = duration_log
+            skip.duration.factor = duration_factor
+            skip.duration.dots = duration_dots
 
             evc = musicexp.EventChord ()
             evc.elements.append (skip)
