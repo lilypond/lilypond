@@ -623,3 +623,14 @@ Here's the final result:
 @end lilypond
 
 
+
+
+FIXME:
+- There is a section in the manual on \set vs \override (3.3.7),
+which is incomplete.  First it doesn't mention \overrideProperty,
+nor does it mention properties which are not capitalized at all.
+And it should explain that \override should be used to set
+properties with hyphenated names, like auto-knee-gap.  (I had to
+experiment to find out how to do this.)
+
+

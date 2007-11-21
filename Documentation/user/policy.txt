@@ -8,11 +8,22 @@ There are four parts to the documentation: the Learning Manual,
 the Notation Reference, the Program Reference, and the Music
 Glossary.
 
-* Learning Manual: long, chatty, friendly explanations go here.
-  This is aimed at users learning something for the first time --
-  not necessarily just learning lilypond notation, but also things
-  like learning how to deal with projects, tweaking, preparing parts
-  for orchestras, etc.  Less formal language may be used here.
+* Learning Manual:
+  The LM is written in a tutorial style which introduces the most
+  important concepts, structure and syntax of the elements of a
+  LilyPond score in a carefully graded sequence of steps.
+  Explanations of all musical concepts used in the Manual can be
+  found in the Music Glossary, and readers are assumed to have no
+  prior knowledge of LilyPond.  The objective is to take readers to
+  a level where the Notation Reference can be understood and
+  employed to both adapt the templates in the Appendix to their
+  needs and to begin to construct their own scores.  Commonly used
+  tweaks are introduced and explained.  Examples are provided
+  throughout which, while being focussed on the topic being
+  introduced, are long enough to seem real in order to retain the
+  readers' interest.  Each example builds on the previous material,
+  and comments are used liberally.  Every new aspect is thoroughly
+  explained before it is used.
 
 Users are encouraged to read the complete Learning Manual from
 start-to-finish.
