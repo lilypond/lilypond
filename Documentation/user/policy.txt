@@ -79,7 +79,7 @@ main docs
 * You _must_ include a @seealso.  The order of items inside the
   @seealso section is
 
-    Music glossary: @rglos{foo}, @rglos{bar}.
+    Music Glossary: @rglos{foo}, @rglos{bar}.
 
     Learning Manual: @rlearning{baz}, @rlearning{foozle}
 
@@ -87,7 +87,7 @@ main docs
 
     Application Usage: @rprogram{blah}.
 
-    Installed files: @file{path/to/dir/blahz}.
+    Installed Files: @file{path/to/dir/blahz}.
 
     Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}.
       (if there is only one entry, omit a final period.  If there

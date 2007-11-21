@@ -326,7 +326,7 @@ ceses4 ces cis c
 
 @seealso
 
-Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
+Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}.
 
 Notation Reference: @ref{Automatic accidentals},
@@ -961,7 +961,7 @@ scale:
 
 @seealso
 
-Music glossary: @rglos{church mode}, @rglos{scordatura}.
+Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
 Snippets: @lsrdir{pitches},
 FIXME link to snippet 248,
