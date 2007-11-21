@@ -11,21 +11,20 @@
 
 Tutorial Specification:
 
-The LM is written in a tutorial style which introduces the
-most important concepts, structure and syntax of the
-elements of a LilyPond score in a carefully graded sequence
-of steps.  Explanations of all musical concepts used in the
-Manual can be found in the Music Glossary, and readers are
-assumed to have no prior knowledge of LilyPond.  The
-objective is to take readers to a level where the Notation
-Reference can be understood and employed to both adapt the
-templates in the Appendix to their needs and to begin to
-construct their own.  Commonly used tweaks are introduced
-and explained.  Examples are provided throughout which,
-while being focussed on the topic being introduced, are long
-enough to seem real in order to retain the readers'
-interest.  Each example builds on the previous material, and
-comments are used liberally.  Every new aspect is thoroughly
+The LM is written in a tutorial style which introduces the most
+important concepts, structure and syntax of the elements of a
+LilyPond score in a carefully graded sequence of steps.
+Explanations of all musical concepts used in the Manual can be
+found in the Music Glossary, and readers are assumed to have no
+prior knowledge of LilyPond.  The objective is to take readers to
+a level where the Notation Reference can be understood and
+employed to both adapt the templates in the Appendix to their
+needs and to begin to construct their own scores.  Commonly used
+tweaks are introduced and explained.  Examples are provided
+throughout which, while being focussed on the topic being
+introduced, are long enough to seem real in order to retain the
+readers' interest.  Each example builds on the previous material,
+and comments are used liberally.  Every new aspect is thoroughly
 explained before it is used.
 
 @end ignore
@@ -44,7 +43,7 @@ Tutorial guidelines:  (different from policy.txt!)
   correct Dutch naming, but let's not confuse people with this
   until we get to the Basic notation chapter.
 
-- Add "Music glossary: @rglos{foo}" to the _top_ of the relevant
+- Add "Music Glossary: @rglos{foo}" to the _top_ of the relevant
   portions of the tutorial.
 
 @end ignore
@@ -222,7 +221,7 @@ values are useful.
 
 @subheading Pitches
 
-Music glossary: @rglos{pitch}, @rglos{interval},
+Music Glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
 @rglos{accidental}.
 
@@ -245,7 +244,7 @@ The initial note is @notation{middle C}.  Each successive note is
 placed closest to the previous note -- in other words, the first
 @code{c} is the closest C to middle C.  This is followed by the
 closest D to the previous note.  We can create melodies which
-have larger intervals:
+have larger intervals, still using only @code{\relative} mode:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c' {
@@ -290,7 +289,7 @@ above the B, and an A, G or F will be assumed to be below.
 @end lilypond
 
 Exactly the same happens even when any of these notes are
-sharpened or flatted.  @notation{Accidentals} are @strong{totally
+sharpened or flattened.  @notation{Accidentals} are @strong{totally
 ignored} in the calculation of relative position.  Precisely the
 same staff space counting is done from a note at any other
 position on the staff.
@@ -317,13 +316,17 @@ this.
 
 @subheading Durations (rhythms)
 
-Music glossary: @rglos{beam}, @rglos{duration}, @rglos{whole note},
+Music Glossary: @rglos{beam}, @rglos{duration}, @rglos{whole note},
 @rglos{half note}, @rglos{quarter note}, @rglos{dotted note}.
 
 The @notation{duration} of a note is specified by a number after
 the note name.  @code{1} for a @notation{whole note}, @code{2} for
 a @notation{half note}, @code{4} for a @notation{quarter note} and
 so on.  @notation{Beams} are added automatically.
+
+If you do not specify a duration, the previous duration is used
+for the next note.  The duration of the first note defaults to a
+quarter.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -333,13 +336,9 @@ so on.  @notation{Beams} are added automatically.
 }
 @end lilypond
 
-@noindent
-If you do not specify a duration, the previous duration is used
-for the next note.  The duration of the first note defaults to a
-quarter.
-
-To create @notation{dotted notes}, add a dot @code{.} to the duration
-number.
+To create @notation{dotted notes}, add a dot @code{.} to the
+duration number.  The duration of a dotted note must be stated
+explicitly (i.e., with a number).
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -351,7 +350,7 @@ number.
 
 @subheading Rests
 
-Music glossary: @rglos{rest}.
+Music Glossary: @rglos{rest}.
 
 A @notation{rest} is entered just like a note with the name @code{r}:
 
@@ -365,7 +364,7 @@ A @notation{rest} is entered just like a note with the name @code{r}:
 
 @subheading Time signature
 
-Music glossary: @rglos{time signature}.
+Music Glossary: @rglos{time signature}.
 
 The @notation{time signature} can be set with the @code{\time}
 command:
@@ -384,7 +383,7 @@ command:
 
 @subheading Clef
 
-Music glossary: @rglos{clef}.
+Music Glossary: @rglos{clef}.
 
 The @notation{clef} can be set using the @code{\clef} command:
 
@@ -468,8 +467,8 @@ thumb is to indent code blocks with either a tab or two spaces:
 @end example
 
 @item
-@strong{Expressions:}
-Every piece of LilyPond input needs to have @strong{@{ curly
+@strong{Expressions}:
+every piece of LilyPond input needs to have @strong{@{ curly
 braces @}} placed around the input.  These braces tell LilyPond
 that the input is a single music expression, just like parentheses
 @code{()} in mathematics.  The braces should be surrounded by a
@@ -484,7 +483,7 @@ single music expression.
 @cindex block comment
 @item
 @strong{Comments}:
-A comment is a remark for the human reader of the music input; it
+a comment is a remark for the human reader of the music input; it
 is ignored while parsing, so it has no effect on the printed
 output.  There are two types of comments.  The percent symbol
 @code{%} introduces a line comment; anything after @code{%} on
@@ -507,9 +506,6 @@ fragment shows possible uses for comments:
 @end example
 
 @end itemize
-
-There are more tips for constructing input files in
-@ref{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
@@ -559,6 +555,13 @@ you have a starting template for experiments.  To see exactly the
 same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
+@seealso
+
+
+There are more tips for constructing input files in
+@ref{Suggestions for writing LilyPond files}.
+
+
 
 @node Single staff notation
 @section Single staff notation
@@ -581,13 +584,13 @@ on one staff.
 
 @subheading Accidentals
 
-Music glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
+Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
 A @notation{sharp} pitch is made by adding @code{is} to the name, and
 a @notation{flat} pitch by adding @code{es}.  As you might expect, a
 @notation{double sharp} or @notation{double flat} is made by adding
-@code{isis} or @code{eses}.  This syntax derived from note
+@code{isis} or @code{eses}.  This syntax is derived from note
 naming conventions in Nordic and Germanic languages, like German
 and Dutch.  To use other names for @notation{accidentals}, see
 @ruser{Note names in other languages}.
@@ -599,7 +602,7 @@ cis1 ees fisis, aeses
 @cindex key signature, setting
 @subheading Key signatures
 
-Music glossary: @rglos{key signature}, @rglos{major}, @rglos{minor}.
+Music Glossary: @rglos{key signature}, @rglos{major}, @rglos{minor}.
 
 The @notation{key signature} is set with the command @code{\key}
 followed by a pitch and @code{\major} or @code{\minor}.
@@ -615,7 +618,7 @@ a
 
 @subheading Warning: key signatures and pitches
 
-Music glossary: @rglos{accidental}, @rglos{key signature},
+Music Glossary: @rglos{accidental}, @rglos{key signature},
 @rglos{pitch}, @rglos{flat}, @rglos{natural}, @rglos{sharp},
 @rglos{transposition}.
 
@@ -665,10 +668,10 @@ accidentals can be printed according to different rules, see
 
 @seealso
 
-Notation Reference: @ruser{Accidentals},
+Notation Reference: @ruser{Note names in other languages}, @ruser{Accidentals},
 @ruser{Automatic accidentals}, @ruser{Key signature}.
 
-Music glossary: @rglos{Pitch names}.
+Music Glossary: @rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -677,7 +680,7 @@ Music glossary: @rglos{Pitch names}.
 @cindex ties
 @subheading Ties
 
-Music glossary: @rglos{tie}.
+Music Glossary: @rglos{tie}.
 
 A @notation{tie} is created by appending a tilde @code{~} to the
 first note being tied.
@@ -690,7 +693,7 @@ c4 ~ c8 a8 ~ a2
 @cindex slurs
 @subheading Slurs
 
-Music glossary: @rglos{slur}.
+Music Glossary: @rglos{slur}.
 
 A @notation{slur} is a curve drawn across many notes.  The starting
 note and ending note are marked with @code{(} and @code{)}
@@ -704,7 +707,7 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex phrasing slurs
 @subheading Phrasing slurs
 
-Music glossary: @rglos{phrasing}, @rglos{legato}.
+Music Glossary: @rglos{phrasing}, @rglos{legato}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
 @code{\(} and @code{\)}.  You can have both @notation{legato} slurs and
@@ -720,7 +723,7 @@ a8(\( ais b c) cis2 b'2 a4 cis,\)
 @cindex slurs versus ties
 @subheading Warnings: slurs vs. ties
 
-Music glossary: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
+Music Glossary: @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 
 A @notation{slur} looks like a @notation{tie}, but it has a different
 meaning.  A tie simply makes the first note longer, and can only be
@@ -746,7 +749,7 @@ Notation Reference: @ruser{Ties}, @ruser{Slurs},
 @cindex staccato
 @subheading Articulations
 
-Music glossary: @rglos{articulation}.
+Music Glossary: @rglos{articulation}.
 
 Common @notation{articulations} can be added to a note using a
 dash @code{-} and a single character:
@@ -758,7 +761,8 @@ c-. c-- c-> c-^ c-+ c-_
 @cindex fingering
 @subheading Fingerings
 
-Music glossary: @rglos{fingering}.
+Music Glossary: @rglos{fingering}.
+
 
 Similarly, @notation{fingering} indications can be added to a note using
 a dash (@code{-}) and the digit to be printed:
@@ -768,7 +772,7 @@ c-3 e-5 b-2 a-1
 @end lilypond
 
 Articulations and fingerings are usually placed automatically, but
-you can specify a direction using @code{^} (up) or @code{_}
+you can specify a direction by replacing the dash (@code{-}) with @code{^} (up) or @code{_}
 (down).  You can also use multiple articulations on the same note.
 However, in most cases it is best to let LilyPond determine the
 articulation directions.
@@ -779,7 +783,7 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 
-Music glossary: @rglos{dynamics}, @rglos{crescendo},
+Music Glossary: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
 
 @notation{Dynamic} signs are made by adding the markings (with a
@@ -806,8 +810,6 @@ c2\< c2\ff\> c2 c2\!
 
 Notation Reference: @ruser{Articulations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
-
-Music glossary: @rglos{Dynamics}.
 
 
 @node Adding text
@@ -837,7 +839,7 @@ Notation Reference: @ruser{Writing text}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
-Music glossary: @rglos{beam}.
+Music Glossary: @rglos{beam}.
 
 @cindex beams, by hand
 All @notation{beams} are drawn automatically:
@@ -868,7 +870,7 @@ Notation Reference: @ruser{Automatic beams}, @ruser{Manual beams}.
 @cindex partial measure
 @subheading Partial measure
 
-Music glossary: @rglos{anacrusis}.
+Music Glossary: @rglos{anacrusis}.
 
 A pickup (or @notation{anacrusis}) is entered with the keyword
 @code{\partial}.  It is followed by a duration: @code{\partial 4}
@@ -883,7 +885,7 @@ f8 c2 d
 @cindex triplets
 @subheading Tuplets
 
-Music glossary: @rglos{note value}, @rglos{triplet}.
+Music Glossary: @rglos{note value}, @rglos{triplet}.
 
 @notation{Tuplets} are made with the @code{\times} keyword.  It
 takes two arguments: a fraction and a piece of music.  The
@@ -903,7 +905,7 @@ Triplets make notes occupy 2/3 of their notated duration, so a
 @cindex appoggiatura
 @subheading Grace notes
 
-Music glossary: @rglos{grace notes}, @rglos{appoggiatura}.
+Music Glossary: @rglos{grace notes}, @rglos{acciacccatura}, @rglos{appoggiatura}.
 
 @notation{Grace notes} are created with the @code{\grace} command,
 although they can also be created by prefixing a music expression
@@ -969,7 +971,7 @@ one).  The result is another music expression:
 
 @subheading Simultaneous music expressions: multiple staves
 
-Music glossary: @rglos{polyphony}.
+Music Glossary: @rglos{polyphony}.
 
 This technique is useful for @notation{polyphonic} music.  To
 enter music with more voices or more staves, we combine
@@ -1020,8 +1022,8 @@ staff.
 
 This mechanism is similar to mathematical formulas: a big formula
 is created by composing small formulas.  Such formulas are called
-expressions, and their definition is recursive so you can make
-arbitrarily complex and large expressions.  For example,
+expressions, and they can contain other music expressions, so you
+can make arbitrarily complex and large expressions.  For example,
 
 @example
 1
@@ -1080,7 +1082,7 @@ creates a bigger music expression.  In this way it resembles the
 minus sign in mathematics.  The formula @math{(4+5)} is an
 expression, so @math{-(4+5)} is a bigger expression.
 
-Time signatures entered in one staff affects all other
+Time signatures entered in one staff affect all other
 staves@footnote{This behavior may be changed if desired; for
 details, see @ruser{Polymetric notation}.}.  On the other hand,
 the key signature of one staff does @emph{not} affect other
@@ -1089,8 +1091,8 @@ staves.
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   <<
-    \new Staff { \clef treble \time 3/4 c }
-    \new Staff { \clef bass \key d \major c,, }
+    \new Staff { \clef treble \key d \major \time 3/4 c }
+    \new Staff { \clef bass c,, }
   >>
 }
 @end lilypond
@@ -1104,7 +1106,7 @@ staves.
 @cindex staff switch, manual
 @cindex cross staff voice, manual
 
-Music glossary: @rglos{brace}.
+Music Glossary: @rglos{brace}.
 
 Piano music is typeset in two staves connected by a
 @notation{brace}.
@@ -1140,7 +1142,7 @@ Notation Reference: @ruser{Piano music}.
 
 @cindex chords
 
-Music glossary: @rglos{chord}.
+Music Glossary: @rglos{chord}.
 
 @notation{Chords} can be made by surrounding pitches with single
 angle brackets.  Angle brackets are the symbols @code{<} and
@@ -1237,7 +1239,7 @@ This section introduces vocal music and simple song sheets.
 @cindex lyrics
 @cindex songs
 
-Music glossary: @rglos{lyrics}.
+Music Glossary: @rglos{lyrics}.
 
 Here is the start of the melody to a nursery
 rhyme, @qq{Girls and boys come out to play}:
@@ -1274,7 +1276,7 @@ show that the music and lyrics are to occur at the same time.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-Music glossary: @rglos{melisma}, @rglos{extender line}.
+Music Glossary: @rglos{melisma}, @rglos{extender line}.
 
 @cindex melisma
 @cindex extender line
