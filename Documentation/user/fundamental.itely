@@ -347,31 +347,9 @@ Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
 have not yet been introduced.  See ...
+
 TODO Add ref to tweaks section where this example should
 be placed and explained.
-FIXME Move following example to Tweaks
-
-@lilypond[verbatim,quote,ragged-right]
-\new Staff = "main" {
-  \relative g' {
-    r4 g8 g c4 c8 d |
-    e4
-    <<  % Start main and ossia in parallel
-      { r8 f c c }  % Main music
-      \new Staff \with {  % Start ossia staff
-        \remove "Clef_engraver"
-        \remove "Time_signature_engraver"
-        % Reduce size of notes and staff
-        fontSize = #-2
-        \override StaffSymbol #'staff-space = #(magstep -2)
-        alignAboveContext = "main"  % Place above main staff
-      }
-      { s8 f f c }  % Ossia music
-    >>  % End parallel music
-    r4 |
-  }
-}
-@end lilypond
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -881,7 +859,7 @@ melismata in the lyrics.  In the example above we use the command
 Let us reuse the earlier example from Judas Maccabæus to 
 illustrate this more flexible technique.  We first recast
 it to use variables so the music and lyrics can be separated
-from the staff structure.  We also introduce a choirstaff 
+from the staff structure.  We also introduce a ChoirStaff 
 bracket.  The lyrics themselves must be introduced with 
 @code{\lyricmode} to ensure they are interpreted as lyrics
 rather than music.
@@ -1024,7 +1002,7 @@ properties.  For example, the @context{Voice} context may introduce an
 accidental and then the @context{Staff} context maintains the rule to
 show or suppress the accidental for the remainder of the measure.
 
-As another example, the synchronization of bar lines is by default 
+As another example, the synchronization of bar lines is, by default, 
 handled in the @context{Score} context.
 However, in some music we may not want the bar lines to be
 synchronized -- consider a polymetric score in 4/4 and 3/4 time.
@@ -1036,8 +1014,8 @@ not be aware of them.  For larger pieces, such as anything with more
 than one staff, they must be
 created explicitly to make sure that you get as many staves as you
 need, and that they are in the correct order.  For typesetting pieces
-with specialized notation, it is usual to modify existing or
-even to define totally new contexts.
+with specialized notation, it is usual to modify existing, or
+even to define totally new, contexts.
 
 In addition to the @context{Score,} @context{Staff} and 
 @context{Voice} contexts there are contexts which fit between
@@ -1056,7 +1034,7 @@ preceding word with no hyphen or underscore, e.g.,
 @node Creating contexts
 @subsection Creating contexts
 
-There can be only one top level context, the @context{Score} 
+There can be only one top level context: the @context{Score} 
 context.  This is created with the @code{\score} command, 
 or, in simple scores, it is created automatically.
 
@@ -1087,17 +1065,6 @@ with @code{\score}.  This is because there can be only one
 @context{Staff} and @context{Voice} contexts - each created 
 by @code{\new}.
 
-So a practical application of @code{\new} is a score with many
-staves.  Each part that should be on its own staff is preceded 
-with @code{\new Staff}.
-
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
-<<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
->>
-@end lilypond
-
 The @code{\new} command may also give a identifying name to the 
 context to distinguish it from other contexts of the same type,
 
@@ -1125,27 +1092,20 @@ Fortunately, for most scores it is not necessary to know about
 more than a few, and for simple scores you do not need to know 
 about any.  
 
-A musical score can be viewed heirarchically.  At the top level
-is the whole score.  This consists of one or more staves.
-Each staff contains one or more voices.  As we have seen, there
-are contexts which correspond to each of these levels and it 
-is in these contexts that the Engravers operate.
-
+Engravers live and operate in Contexts.
 Engravers such as the @code{Metronome_mark_engraver}, whose
-action and output applies to the score as a whole, live in
-the highest level context - the @context{Score} context.  There 
-can be only one of these engravers as there can be only one tempo
-at any particular point in the score.  
+action and output applies to the score as a whole, operate in
+the highest level context - the @context{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
-found in the Staff Context, as different staves may require 
+found in every Staff Context, as different staves may require 
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
-in a @context{Voice} context, the lowest level context of all.
+in each @context{Voice} context, the lowest level context of all.
 
 Each engraver processes the particular objects associated
-with its function, and contains the properties that relate
+with its function, and maintains the properties that relate
 to that function.  These properties, like the properties
 associated with contexts, may be modified to change the
 operation of the engraver or the appearance of those elements
@@ -1186,6 +1146,8 @@ the name, or vice versa.
 @item Stem_engraver
   @tab Creates stems and single-stem tremulos
 @end multitable
+
+@smallspace
 
 We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.

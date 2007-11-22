@@ -634,3 +634,28 @@ properties with hyphenated names, like auto-knee-gap.  (I had to
 experiment to find out how to do this.)
 
 
+FIXME: moved from fundamental, dumped here at random.
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4
+    <<  % Start main and ossia in parallel
+      { r8 f c c }  % Main music
+      \new Staff \with {  % Start ossia staff
+        \remove "Clef_engraver"
+        \remove "Time_signature_engraver"
+        % Reduce size of notes and staff
+        fontSize = #-2
+        \override StaffSymbol #'staff-space = #(magstep -2)
+        alignAboveContext = "main"  % Place above main staff
+      }
+      { s8 f f c }  % Ossia music
+    >>  % End parallel music
+    r4 |
+  }
+}
+@end lilypond
+
+
