@@ -359,6 +359,8 @@ writing the input file to LilyPond.  These obey different rules
 which can be confusing at first.  Before we explain the rules 
 let's first review the different types of bracket.
 
+@c attempt to force this onto a new page
+@need 50
 @multitable @columnfractions .3 .7 
 @headitem Bracket Type
   @tab Function
@@ -746,9 +748,9 @@ markup, ties, slurs, and dynamics:
 
 An expression that appears directly inside a @code{<< >>} belongs
 to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
-contruct).  This is useful when extra voices appear while the main
-voice is playing.  Here is a more correct rendition of the example
-from the previous section.  The red diamond-shaped notes
+construct).  This is useful when extra voices appear while the
+main voice is playing.  Here is a more correct rendition of the
+example from the previous section.  The red diamond-shaped notes
 demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
@@ -1156,13 +1158,6 @@ by modifying the action of Engravers.
 @node Modifying contexts
 @subsection Modifying contexts
 
-@menu
-* Changing context properties::  
-@end menu
- 
-@node Changing context properties
-@subsubsection Changing context properties
-
 @cindex context properties
 @funindex \set
 @funindex \unset
@@ -1186,13 +1181,15 @@ together with no hyphens or underscores, all except the
 first having a capital letter.  Here are a few examples
 of some commonly used ones.  There are many more.
 
-@multitable @columnfractions .3 .2 .5 
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .2 .2 .6 
 @headitem propertyName
   @tab Value
   @tab Function
 @item extraNatural
   @tab ##t or ##f
-  @tab If true (##t), set extra natural sign before accidentals
+  @tab If true (##t), set extra natural signs before accidentals
 @item currentBarNumber
   @tab Integer
   @tab Set the current bar number
@@ -1209,14 +1206,16 @@ of some commonly used ones.  There are many more.
   @tab Text
   @tab Set the text to print before the start of a verse
 @end multitable
-   
+
+@smallspace   
+
 Before we can set any of these properties we need to know
 which context they operate in.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
 action will not be taken.  For example, the 
 @code{instrumentName} clearly lives in the Staff context, since
-it is the staff that is named.
+it is the staff that is to be named.
 In this example the first staff is labelled, but the second,
 Alto, staff is not, because we omitted the context name.
 
@@ -1234,14 +1233,14 @@ Alto, staff is not, because we omitted the context name.
 @end lilypond
 
 Remember the default context name is Voice, so the second
-@code{\set} command set the property @emph{instrumentName} in the
+@code{\set} command set the property @code{instrumentName} in the
 Voice context to @qq{Alto}, but as LilyPond does not look
 for any such property in the @context{Voice} context, no 
-further action took place.  No error message is logged in
-the log file.
+further action took place.  this is not an error, and no error 
+message is logged in the log file.
 
 Similarly, if the property name is mis-spelt no error message 
-is produced, and the expected action clearly is not performed.
+is produced, and clearly the expected action cannot be performed.
 If fact, you can set any (fictitious) @q{property} using any 
 name you like in any context that exists by using the 
 @code{\set} command.  But if the name is not
@@ -1257,7 +1256,7 @@ it applies just to the accidentals on that staff.
 If it is set to false in the @context{Score} context
 it applies to all staves.
 
-So this sets @code{extraNatural} in one staff:
+So this turns of extra naturals in one staff:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -1272,7 +1271,7 @@ So this sets @code{extraNatural} in one staff:
 @end lilypond
 
 @noindent
-and this sets it in all staves:
+and this turns them off in all staves:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -1982,7 +1981,7 @@ see what errors it generates.
 >>
 @end example
 
-It is not strictly necessary to use the simultaneous contruct
+It is not strictly necessary to use the simultaneous construct
 @code{<<  >>} for the manual two staff and the pedal organ staff,
 since they contain only one music expression, but it does no harm
 and always using angle brackets after @code{\new Staff} is a good
