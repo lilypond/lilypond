@@ -1158,7 +1158,6 @@ by modifying the action of Engravers.
 
 @menu
 * Changing context properties::  
-* Adding and removing engravers::  
 @end menu
  
 @node Changing context properties
@@ -1288,7 +1287,7 @@ and this sets it in all staves:
 @end lilypond
 
 The value of every property set in this way can be reset
-to its original value with the @code{\unset} command
+to its original value with the @code{\unset} command.
  
 The @code{\set} and @code{\unset} commands can appear anywhere
 in the input file and will take effect from the time they are
@@ -1341,8 +1340,6 @@ In effect this overrides the default value of the property.  It
 may still be changed dynamically using @code{\set} and 
 @code{\unset}.
 
-@node Adding and removing engravers
-@subsubsection Adding and removing engravers
 
 @cindex Engravers, adding
 @cindex Engravers, removing
@@ -1384,7 +1381,10 @@ staff lines are produced by the Staff_symbol_engraver.
 @cindex ambitus engraver
 
 Engravers can also be added to contexts.  The command
-to do this is @code{\consists @emph{Engraver_name}},
+to do this is 
+
+@code{\consists @emph{Engraver_name}},
+
 placed inside a @code{\with} block.  Some vocal scores
 have an @rglos{ambitus} placed at the beginning of a
 staff to indicate the range of notes in that staff.
@@ -1440,7 +1440,8 @@ the notes in all the voices on that staff:
 You've read the tutorial, you know how to write music, you 
 understand the fundamental concepts.  But how can you
 get the staves that you want?  Well, you can find lots of 
-templates in Appendix A which may give you a start.  But what
+templates (see @ref{Templates}) which may give you a start.  
+But what
 if you want something that isn't covered there?  Read on.
 
 @menu
@@ -1568,8 +1569,8 @@ want the cello part to appear under the soprano part, we need to add
 @noindent
 underneath the soprano stuff.  We also need to add @code{<<} and
 @code{>>} around the music -- that tells LilyPond that there's
-more than one thing (in this case, @code{Staff}) happening at once.  The
-@code{\score} looks like this now
+more than one thing (in this case, two @code{Staves}) happening 
+at once.  The @code{\score} looks like this now
 
 @c Indentation in this example is deliberately poor
 @example
@@ -1903,13 +1904,13 @@ like.  Let's see how to put together the score for an organ
 prelude as an example.
 
 We begin with a header section.  Here go the title, name
-of composer, etc followed by the variable definitions
-and ending with the score block.  Let's start with these and
-fill in the details later.
+of composer, etc, then come any variable definitions, and
+finally the score block.  Let's start with these in outline
+and fill in the details later.
 
 We'll use the first two bars of Bach's prelude
-based on @emph{Jesu, meine Freude} which is set in two
-manuals and pedal organ.  The top manual has two voices,
+based on @emph{Jesu, meine Freude} which is written for two
+manuals and pedal organ.  The top manual part has two voices,
 the lower and pedal organ one each.  So we need four
 music definitions and one to define the time signature
 and key:
