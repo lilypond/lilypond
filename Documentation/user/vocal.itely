@@ -194,6 +194,8 @@ accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
 it with utf-8 encoding.  See @ref{Text encoding}, for more info.
 
+FIXME: quotes.
+
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative { e4 f e d e f e2 }
 \addlyrics { He said: â€œLet my peo ple goâ€. }
