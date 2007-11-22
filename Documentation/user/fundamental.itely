@@ -18,7 +18,7 @@
 
 The LilyPond input format is quite free-form, giving experienced
 users a lot of flexibility to structure their files however they
-wish.  However, this flexibility can make things confusing for new
+wish.  But this flexibility can make things confusing for new
 users.  This section will explain some of this structure, but may
 gloss over some details in favor of simplicity.  For a complete
 description of the input format, see @ruser{File structure}.
@@ -110,7 +110,12 @@ such as
 Some people put some of those commands outside the @code{\score}
 block -- for example, @code{\header} is often placed above the
 @code{\score}.  That's just another shorthand that LilyPond
-accepts.
+accepts.  Two more commands you have not previously seen are
+@code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as 
+shown they will cause LilyPond to produce a printed output and a 
+MIDI out respectively.  They are described fully in the
+Notation Reference - @ruser{Score layout} and 
+@ruser{Creating MIDI files}.  
 
 @smallspace
 
@@ -182,8 +187,9 @@ music expression and work our way down.
 
 A whole Wagner opera would easily double the length of this
 manual, so let's just add a singer and piano.  We don't need a
-@code{GrandStaff} for this ensemble, so we shall remove it.  We
-@emph{do} need a singer and a piano, though.
+@code{GrandStaff} for this ensemble, which simply groups a number
+of staves together with a brace at the left, so we shall remove 
+it.  We @emph{do} need a singer and a piano, though.
 
 @example
 \score @{
@@ -213,8 +219,8 @@ rather than braces is a good habit to adopt.
     <<
       \new Staff = "singer" <<
         \new Voice = "vocal" @{ @}
+        \addlyrics @{ @}
       >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
       \new PianoStaff = "piano" <<
         \new Staff = "upper" @{ @}
         \new Staff = "lower" @{ @}
@@ -246,17 +252,17 @@ long, and it would be harder to understand what was happening.  So
 let's use variables instead.
 
 @example
-melody = @{ @}
-text   = @{ @}
-upper  = @{ @}
-lower  = @{ @}
+melody = \relative c'' @{ @}
+text   = \lyricmode @{ @}
+upper  = \relative c'' @{ @}
+lower  = \relative c @{ @}
 \score @{
   @{
     <<
       \new Staff = "singer" <<
         \new Voice = "vocal" @{ \melody @}
+        \addlyrics @{ \text @}
       >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
       \new PianoStaff = "piano" <<
         \new Staff = "upper" @{ \upper @}
         \new Staff = "lower" @{ \lower @}
@@ -273,6 +279,12 @@ as it contains just alphabetic characters.  The exact
 limitations on variable names are detailed in
 @ruser{File structure}.
 
+Be careful about the difference between notes, which are introduced
+with @code{\relative}, and lyrics, which are introduced with
+@code{\lyricmode}.  These are essential to tell LilyPond
+to interpret the following content as music and text
+respectively.
+
 When writing (or reading) a @code{\score} section, just take it
 slowly and carefully.  Start with the outer layer, then work on
 each smaller layer.  It also really helps to be strict with
@@ -283,10 +295,10 @@ on the same horizontal position in your text editor.
 @node Nesting Music Expressions
 @subsection Nesting Music Expressions
 
-New staves do not have to all be declared at the beginning; 
+It is not essential to declare all staves at the beginning; 
 they may be introduced temporarily at any point.  This is
 particularly useful for creating ossia sections 
-(see @rglos{ossia}).  Here's a simple example showing how
+(see @rglos{ossia}).  Here is a simple example showing how
 to introduce a new staff temporarily for the duration of
 three notes:
 
@@ -337,6 +349,7 @@ These require further commands which
 have not yet been introduced.  See ...
 TODO Add ref to tweaks section where this example should
 be placed and explained.
+FIXME Move following example to Tweaks
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff = "main" {
@@ -387,12 +400,12 @@ let's first review the different types of bracket.
 
 To these we should add other constructs which generate lines
 between or across notes: ties (marked by a tilde, @code{~}),
-tuplets written as @code{\times x/y @{ .. @}}, and grace notes
-written as @code{\grace@{ .. @}}.
+tuplets written as @code{\times x/y @{..@}}, and grace notes
+written as @code{\grace@{..@}}.
 
 Outside LilyPond, the conventional use of brackets requires 
 the different types to be properly nested, like this, 
-@code{<< @{ ( .. ) @} >>}, with the closing brackets being
+@code{<< [ @{ ( .. ) @} ] >>}, with the closing brackets being
 encountered in exactly the opposite order to the opening 
 brackets.  This @strong{is} a requirement for the three types of 
 bracket described by the word @q{Encloses} in the table above - 
@@ -558,8 +571,8 @@ used to encode three or more voices by adding more back-slash
 separators.
 
 The Voice contexts bear the names @code{"1"}, @code{"2"}, etc.  
-In each of these contexts, vertical direction of slurs, stems, ties,
-dynamics etc., is set appropriately.
+In each of these contexts, the vertical direction of slurs, 
+stems, ties, dynamics etc., is set appropriately.
 
 @lilypond[quote,verbatim,fragment]
 \new Staff \relative c' {
@@ -608,7 +621,7 @@ educational documents such as this one.  They modify the color
 of the notehead, the stem and the beams, and the style of the
 notehead, so that the voices may be easily distinguished.
 Voice one is set to red diamonds, voice two to blue triangles,
-voice four to green crossed circles, and voice four (not used
+voice three to green crossed circles, and voice four (not used
 here) to magenta crosses.  We shall see later how commands like 
 these may be created by the user.
 TODO: add ref to appropriate section in Tweaks
@@ -619,9 +632,10 @@ relative to the note immediately preceding it, or to the first
 note of the preceding chord.  So in
 
 @example
-\relative c' @{ noteA << <noteB noteC> \\ noteD >> noteE @}
+\relative c' @{ noteA << < noteB noteC > \\ noteD >> noteE @}
 @end example
 
+@noindent
 @code{noteB} is relative to @code{noteA}                      @*
 @code{noteC} is relative to @code{noteB}, not @code{noteA};   @*
 @code{noteD} is relative to @code{noteB}, not @code{noteA} or
@@ -659,7 +673,7 @@ of music.  We can correct this
 by telling LilyPond that this third voice is really a fourth
 voice, with stems going down, using the @code{\voiceFour} 
 command.  There are also corresponding @code{\voiceOne},
-@code{\voiceTwo}, @code{voiceThree} and @code{voiceFour} 
+@code{\voiceTwo}, and @code{voiceThree} 
 commands.  This results in the following:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -724,28 +738,41 @@ generate a horizontal shift for each voice when this is required
 to avoid clashes of note heads.  The command @code{\oneVoice} 
 reverts the settings back to the normal values for a single voice.
 
-Let us see in a simple example exactly what effect 
+Let us see in some simple examples exactly what effect 
 @code{\oneVoice}, @code{\voiceOne} and @code{voiceTwo} have on
 markup, ties, slurs, and dynamics:
 
 @lilypond[quote,ragged-right,verbatim]
+\relative c'{ 
+  c-"default" d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
 \relative c'{
-c-"default" d8 ~ d e4 ( f g a ) b-> c \break
-\voiceOne
-c,-"\\voiceOne" d8 ~ d e4 ( f g a ) b-> c \break
-\oneVoice
-c,-"\\oneVoice" d8 ~ d e4 ( f g a ) b-> c \break
-\voiceTwo
-c,-"\\voiceTwo" d8 ~ d e4 ( f g a ) b-> c \break
+  \voiceOne
+  c-"\\voiceOne" d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c,-"\\oneVoice" d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceTwo
+  c-"\\voiceTwo" d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c,-"\\oneVoice" d8 ~ d e4 ( f g a ) b-> c
 }
 @end lilypond
 
 An expression that appears directly inside a @code{<< >>} belongs
-to the main voice.  This is useful when extra voices appear while
-the main voice is playing.  Here is a more correct rendition of
-the example from the previous section.  The red diamond-shaped
-notes demonstrate that the main melody is now in a single
-voice context, permitting a phrasing slur to be drawn over them.
+to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
+contruct).  This is useful when extra voices appear while the main
+voice is playing.  Here is a more correct rendition of the example
+from the previous section.  The red diamond-shaped notes
+demonstrate that the main melody is now in a single voice context,
+permitting a phrasing slur to be drawn over them.
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -824,11 +851,13 @@ as here:
 Vocal music presents a special difficulty: we need to combine two
 expressions -- notes and lyrics.
 
-You have already seen the @code{\lyricsAdd@{@}} command, which
-handles simple cases for you.  However, this technique is
-very limited.  For most music, you must explicitly link the lyrics
-to the notes with @code{\lyricsto@{@}}, using the name assigned
-to the Voice.
+You have already seen the @code{\addlyricsd@{@}} command, which
+handles simple scores well.  However, this technique is
+quite limited.  For more complex music, you must introduce the
+lyrics in a @code{Lyrics} context using @code{\new Lyrics} and
+explicitly link
+the lyrics to the notes with @code{\lyricsto@{@}}, using the 
+name assigned to the Voice.
 
 @lilypond[quote,verbatim,fragment]
 <<
