@@ -202,11 +202,11 @@
   "Ideal distance between `line' reference position and `next-line'
  reference position. If next-line is #f, return #f."
   (and next-line
-       (max (+ (max 0 (- (+ (interval-end (paper-system-staff-extents next-line))
-			    (if ignore-padding 0 (line-next-padding line next-line layout)))
-			 (interval-start (paper-system-staff-extents line))))
-	       (line-next-space line next-line layout))
-	    (line-minimum-distance line next-line layout ignore-padding))))
+       (max 0
+	    (+ (- (+ (interval-end (paper-system-staff-extents next-line))
+		     (if ignore-padding 0 (line-next-padding line next-line layout)))
+		  (interval-start (paper-system-staff-extents line)))
+	       (line-next-space line next-line layout)))))
 
 (define (first-line-position line layout)
   "Position of the first line on page"
