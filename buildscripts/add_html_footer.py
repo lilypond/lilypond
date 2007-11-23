@@ -94,7 +94,7 @@ splitted_docs_re = re.compile ('Documentation/user/out-www/(lilypond|music-gloss
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 def replace_symlinks_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?)"', '\\1="../\\2"', s)
+        s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?|context-example.*?)"', '\\1="../\\2"', s)
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
         return s
