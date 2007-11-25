@@ -1584,8 +1584,6 @@ namedMusic = @{ @dots{} @}
 The contents of the music expression @code{namedMusic} can be used
 later by placing a backslash in front of the name
 (@code{\namedMusic}, just like a normal LilyPond command).
-Variables must be defined @emph{before} the main music
-expression.
 
 @lilypond[verbatim,quote,ragged-right]
 violin = \new Staff { \relative c'' {
@@ -1607,7 +1605,22 @@ cello = \new Staff { \relative c {
 The name of a variable must have alphabetic characters only, no
 numbers, underscores, or dashes.
 
-It is possible to use variables for many other types of objects in
+Variables must be defined @emph{before} the main music
+expression, but may be used as many times as required anywhere after
+they have been defined.  They may even be used in a later definition
+of another variable, giving a way of shortening the input if a
+section of music is repeated many times.
+
+@lilypond[verbatim,quote,ragged-right]
+tripletA = \times 2/3 { c,8 e g }
+barA = { \tripletA \tripletA \tripletA \tripletA }
+
+\relative c'' {
+ \barA \barA
+}
+@end lilypond
+
+Variables may be used for many other types of objects in
 the input.  For example,
 
 @example
