@@ -22,9 +22,27 @@
 static void
 replace_whitespace (string *str)
 {
-  for (vsize i = 0; i < str->size (); i++)
-    if (isspace ((*str)[i]))
-      (*str)[i] = ' ';
+  vsize i = 0;
+  vsize n = str->size ();
+
+  while (i < n)
+    {
+      vsize char_len = 1;
+      char cur = (*str)[i];
+      
+      if ((cur & 0x11100000) == 0x11100000)
+	char_len = 3;
+      else if ((cur & 0x11000000) == 0x11000000)
+	char_len = 2;
+      else if (cur & 0x10000000)
+	programming_error ("invalid utf-8 string");
+
+      /* avoid the locale-dependent isspace */
+      if (cur == '\n' || cur == '\t' || cur == '\v')
+	(*str)[i] = ' ';
+
+      i += char_len;
+    }
 }
 
 MAKE_SCHEME_CALLBACK (Text_interface, interpret_string, 3);
