@@ -76,8 +76,6 @@ In other words, if the input contains a single music expression,
 LilyPond will interpret the file as though the music expression
 was wrapped up inside a @code{\score@{@}}.
 
-@smallspace
-
 A @code{\score} must begin with a compound music expression.
 Remember that a music expression could be anything from a single
 note to a huge
@@ -116,8 +114,6 @@ shown they will cause LilyPond to produce a printed output and a
 MIDI out respectively.  They are described fully in the
 Notation Reference - @ruser{Score layout} and 
 @ruser{Creating MIDI files}.  
-
-@smallspace
 
 @cindex variables
 
@@ -831,7 +827,7 @@ as here:
 Vocal music presents a special difficulty: we need to combine two
 expressions -- notes and lyrics.
 
-You have already seen the @code{\addlyricsd@{@}} command, which
+You have already seen the @code{\addlyrics@{@}} command, which
 handles simple scores well.  However, this technique is
 quite limited.  For more complex music, you must introduce the
 lyrics in a @code{Lyrics} context using @code{\new Lyrics} and
@@ -957,8 +953,9 @@ in the fine-tuning of LilyPond output.
 @menu
 * Contexts explained::          
 * Creating contexts::           
-* Engravers::                   
-* Modifying contexts::          
+* Engravers explained::                   
+* Modifying context properties::
+* Adding and removing engravers::          
 @end menu
 
 @node Contexts explained
@@ -985,8 +982,8 @@ to a single staff, while a bar line must be synchronized across
 the entire score.
 
 Within LilyPond, these rules and bits of information are grouped
-in @emph{Contexts}.  We have already met the @context{Voice} 
-context. 
+in @emph{Contexts}.  We have already met the 
+@context{Voice} context. 
 Others are the @context{Staff} and @context{Score} contexts.  
 Contexts are hierarchical to reflect the heirarchical nature of 
 a musical score.  
@@ -1036,7 +1033,8 @@ preceding word with no hyphen or underscore, e.g.,
 @node Creating contexts
 @subsection Creating contexts
 
-There can be only one top level context: the @context{Score} 
+There can be only one top level context: the 
+@context{Score} 
 context.  This is created with the @code{\score} command, 
 or, in simple scores, it is created automatically.
 
@@ -1083,8 +1081,10 @@ instance of a context.  We saw this in use in the section on
 lyrics in @ref{Voices and vocals}.
 
 
-@node Engravers
-@subsection Engravers
+@node Engravers explained
+@subsection Engravers explained
+
+cindex engravers
 
 Every mark on the printed output of a score produced by LilyPond
 is produced by an @code{Engraver}.  Thus there is an engraver
@@ -1155,8 +1155,8 @@ We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
   
 
-@node Modifying contexts
-@subsection Modifying contexts
+@node Modifying context properties
+@subsection Modifying context properties
 
 @cindex context properties
 @funindex \set
@@ -1210,14 +1210,14 @@ of some commonly used ones.  There are many more.
 @smallspace   
 
 Before we can set any of these properties we need to know
-which context they operate in.  Sometimes this is obvious,
+in which context they operate.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
 action will not be taken.  For example, the 
 @code{instrumentName} clearly lives in the Staff context, since
 it is the staff that is to be named.
-In this example the first staff is labelled, but the second,
-Alto, staff is not, because we omitted the context name.
+In this example the first staff is labelled, but not the second,
+because we omitted the context name.
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -1226,7 +1226,7 @@ Alto, staff is not, because we omitted the context name.
     c4 c
  }
   \new Staff \relative c' {
-  \set instrumentName = "Alto"
+  \set instrumentName = "Alto"  % Wrong!
   d4 d 
  }
 >>
@@ -1256,7 +1256,7 @@ it applies just to the accidentals on that staff.
 If it is set to false in the @context{Score} context
 it applies to all staves.
 
-So this turns of extra naturals in one staff:
+So this turns off extra naturals in one staff:
 
 @lilypond[quote,verbatim,ragged-right]
 <<
@@ -1339,6 +1339,8 @@ In effect this overrides the default value of the property.  It
 may still be changed dynamically using @code{\set} and 
 @code{\unset}.
 
+@node Adding and removing engravers
+@subsection Adding and removing engravers
 
 @cindex Engravers, adding
 @cindex Engravers, removing
