@@ -7,10 +7,23 @@ These pages show LilyPond examples (snippets) from the
 
 @subheading 1 Musical notation
 
-@strong{@uref{pitches/collated-files.html,Pitches}}
+@uref{pitches/collated-files.html,Pitches}
 
-@strong{@uref{rhythms/collated-files.html,Rhythms}}
+@uref{rhythms/collated-files.html,Rhythms}
 (@uref{rhythms/collated-files.pdf,pdf link})
+
+@uref{expressive/collated-files.html,Expressive}
+
+@uref{simultaneous/collated-files.html,Simultaneous}
+
+@uref{staff/collated-files.html,Staff}
+
+@uref{editorial/collated-files.html,Editorial}
+
+@uref{text/collated-files.html,Text}
+
+
+
 
 
 @subheading Special collections
