@@ -713,7 +713,19 @@ Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize fir
 Real
 Page_breaking::blank_page_penalty () const
 {
-  SCM penalty_sym = is_last () ? ly_symbol2scm ("blank-last-page-force") : ly_symbol2scm ("blank-page-force");
+  SCM penalty_sym;
+
+  if (is_last ())
+    penalty_sym = ly_symbol2scm ("blank-last-page-force");
+  else if (ends_score ())
+    penalty_sym = ly_symbol2scm ("blank-after-score-page-force");
+  else
+    penalty_sym = ly_symbol2scm ("blank-page-force");
+
+  Break_position const &pos = breaks_[current_end_breakpoint_];
+  if (Paper_score *ps = system_specs_[pos.system_spec_index_].pscore_)
+    return robust_scm2double (ps->layout ()->lookup_variable (penalty_sym), 0.0);
+
   return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
@@ -1006,6 +1018,12 @@ bool
 Page_breaking::is_last () const
 {
   return current_end_breakpoint_ == last_break_position ();
+}
+
+bool
+Page_breaking::ends_score () const
+{
+  return breaks_[current_end_breakpoint_].score_ender_;
 }
 
 vsize
