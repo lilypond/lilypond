@@ -1525,7 +1525,7 @@
     (SpanBar
      . (
 	(break-align-symbol . staff-bar)
-	(Y-extent . ())
+	(Y-extent . ,ly:axis-group-interface::height)
 	(layer . 0)
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
