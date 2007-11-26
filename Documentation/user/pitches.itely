@@ -62,7 +62,7 @@ is more fundamental and will be presented first.
 @cindex absolute
 @cindex absolute octave specification
 
-In absolute mode, every note is placed explicitly in a certain
+In absolute mode, every note is placed explicitly in a specific
 octave.  The note names @code{c} to @code{b} are engraved in the
 octave below middle C, as in the previous example.
 
@@ -181,7 +181,7 @@ following note or chord:
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c' {
   c <c e g>
-  <c' e g>
+  <c' e, g'>
   <c, e' g> c
 }
 @end lilypond
