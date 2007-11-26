@@ -1783,7 +1783,7 @@ space.  We could place a measured timeline or graphic above or below
 this example.
 
 The @code{proportionalNotationDuration} setting is a context setting that
-lives in @context{Score}.  Recall that context settings appear in one of
+lives in @code{Score}.  Recall that context settings appear in one of
 three locations in our input file -- in a @code{\with} block, in a
 @code{\context} block, or directly in music entry
 preceeded by the @code{\set} command.  As with all

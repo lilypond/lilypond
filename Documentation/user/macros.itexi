@@ -71,11 +71,6 @@
 @end macro
 
 
-@macro context{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}@c should use internalsref
-@end macro
-
 @macro funindex {TEXT}
 @findex \TEXT\
 @kindex \TEXT\

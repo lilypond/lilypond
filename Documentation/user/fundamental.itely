@@ -983,13 +983,13 @@ the entire score.
 
 Within LilyPond, these rules and bits of information are grouped
 in @emph{Contexts}.  We have already met the 
-@context{Voice} context. 
-Others are the @context{Staff} and @context{Score} contexts.  
+@code{Voice} context. 
+Others are the @code{Staff} and @code{Score} contexts.  
 Contexts are hierarchical to reflect the heirarchical nature of 
 a musical score.  
-For example: a @context{Staff} context can contain many 
-@context{Voice} contexts, and a @context{Score} context can 
-contain many @context{Staff} contexts.
+For example: a @code{Staff} context can contain many 
+@code{Voice} contexts, and a @code{Score} context can 
+contain many @code{Staff} contexts.
 
 @quotation
 @image{context-example,5cm,,}
@@ -997,16 +997,16 @@ contain many @context{Staff} contexts.
 
 Each context has the responsibility for enforcing some notation rules,
 creating some notation objects and maintaining the associated
-properties.  For example, the @context{Voice} context may introduce an
-accidental and then the @context{Staff} context maintains the rule to
+properties.  For example, the @code{Voice} context may introduce an
+accidental and then the @code{Staff} context maintains the rule to
 show or suppress the accidental for the remainder of the measure.
 
 As another example, the synchronization of bar lines is, by default, 
-handled in the @context{Score} context.
+handled in the @code{Score} context.
 However, in some music we may not want the bar lines to be
 synchronized -- consider a polymetric score in 4/4 and 3/4 time.
 In such cases, we must modify the default settings of the 
-@context{Score} and @context{Staff} contexts.
+@code{Score} and @code{Staff} contexts.
 
 For very simple scores, contexts are created implicitly, and you need
 not be aware of them.  For larger pieces, such as anything with more
@@ -1016,10 +1016,10 @@ need, and that they are in the correct order.  For typesetting pieces
 with specialized notation, it is usual to modify existing, or
 even to define totally new, contexts.
 
-In addition to the @context{Score,} @context{Staff} and 
-@context{Voice} contexts there are contexts which fit between
+In addition to the @code{Score,} @code{Staff} and 
+@code{Voice} contexts there are contexts which fit between
 the score and staff levels to control staff groups, such as the
-@context{PianoStaff} and @context{ChoirStaff} contexts.  There
+@code{PianoStaff} and @code{ChoirStaff} contexts.  There
 are also alternative staff and voice contexts, and contexts for
 lyrics, percussion, fret boards, figured bass, etc.  A complete
 list is shown in the Notation Reference.
@@ -1028,18 +1028,18 @@ TODO: Add link
 The names of all context types are formed from one or more 
 words, each word being capitalised and joined immediately to the 
 preceding word with no hyphen or underscore, e.g., 
-@context{GregorianTranscriptionStaff}.
+@code{GregorianTranscriptionStaff}.
 
 @node Creating contexts
 @subsection Creating contexts
 
 There can be only one top level context: the 
-@context{Score} 
+@code{Score} 
 context.  This is created with the @code{\score} command, 
 or, in simple scores, it is created automatically.
 
 For scores with only one voice and one staff, the 
-@context{Voice} and @context{Staff} contexts may be left to be 
+@code{Voice} and @code{Staff} contexts may be left to be 
 created automatically, but for more complex scores it is 
 necessary to create them by hand.  
 The simplest command that does this is @code{\new}.  
@@ -1059,10 +1059,10 @@ where @var{type} is a context name (like @code{Staff} or
 interpreting the @var{music expression} within that context.
 
 Note that there is no @code{\new Score % Invalid!} command;
-the single top-level @context{Score} context is introduced 
+the single top-level @code{Score} context is introduced 
 with @code{\score}.  This is because there can be only one 
-@context{Score} context, whereas there may be multiple 
-@context{Staff} and @context{Voice} contexts - each created 
+@code{Score} context, whereas there may be multiple 
+@code{Staff} and @code{Voice} contexts - each created 
 by @code{\new}.
 
 The @code{\new} command may also give a identifying name to the 
@@ -1073,7 +1073,7 @@ context to distinguish it from other contexts of the same type,
 @end example
 
 Note the distinction between the name of the context type,
-@context{Staff}, @context{Voice}, etc, and
+@code{Staff}, @code{Voice}, etc, and
 the identifying name of a particular instance of that type,
 which can be any sequence of letters invented by the user.
 The identifying name is used to refer back to that particular
@@ -1097,14 +1097,14 @@ about any.
 Engravers live and operate in Contexts.
 Engravers such as the @code{Metronome_mark_engraver}, whose
 action and output applies to the score as a whole, operate in
-the highest level context - the @context{Score} context.
+the highest level context - the @code{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
 found in every Staff Context, as different staves may require 
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
-in each @context{Voice} context, the lowest level context of all.
+in each @code{Voice} context, the lowest level context of all.
 
 Each engraver processes the particular objects associated
 with its function, and maintains the properties that relate
@@ -1172,9 +1172,9 @@ appearance of the output.  They are changed by the
 \set @emph{ContextName}.@emph{propertyName} = @emph{value}
 @end example
 
-Where the @emph{ContextName} is usually @context{Score},
-@context{Staff} or @context{Voice}.  It may be omitted,
-in which case @context{Voice} is assumed.
+Where the @emph{ContextName} is usually @code{Score},
+@code{Staff} or @code{Voice}.  It may be omitted,
+in which case @code{Voice} is assumed.
 
 The names of context properties consist of words joined
 together with no hyphens or underscores, all except the
@@ -1235,7 +1235,7 @@ because we omitted the context name.
 Remember the default context name is Voice, so the second
 @code{\set} command set the property @code{instrumentName} in the
 Voice context to @qq{Alto}, but as LilyPond does not look
-for any such property in the @context{Voice} context, no 
+for any such property in the @code{Voice} context, no 
 further action took place.  this is not an error, and no error 
 message is logged in the log file.
 
@@ -1247,13 +1247,13 @@ name you like in any context that exists by using the
 known to LilyPond it will not cause any action to be taken.
 
 The @code{instrumentName} property will take effect only
-if it is set in the @context{Staff} context, but
+if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
 default set to ##t (true) for all staves.  
-If it is set to ##f (false) in the @context{Staff} context 
+If it is set to ##f (false) in the @code{Staff} context 
 it applies just to the accidentals on that staff.  
-If it is set to false in the @context{Score} context
+If it is set to false in the @code{Score} context
 it applies to all staves.
 
 So this turns off extra naturals in one staff:
@@ -1391,7 +1391,7 @@ have an @rglos{ambitus} placed at the beginning of a
 staff to indicate the range of notes in that staff.
 The ambitus is produced by the @code{Ambitus_engraver},
 which is not normally included in any context.  If
-we add it to the @context{Voice} context it calculates
+we add it to the @code{Voice} context it calculates
 the range from that voice only:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1413,7 +1413,7 @@ the range from that voice only:
 
 @noindent
 but if we add the Ambitus engraver to the 
-@context{Staff} context it calculates the range from all
+@code{Staff} context it calculates the range from all
 the notes in all the voices on that staff:
 
 @lilypond[quote,verbatim,ragged-right]

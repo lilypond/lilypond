@@ -115,7 +115,7 @@ Voices can be switched between staves manually, using the command
 The string @var{staffname} is the name of the staff.  It switches the
 current voice from its current staff to the Staff called
 @var{staffname}.  Typically @var{staffname} is @code{"up"} or
-@code{"down"}.  The @context{Staff} referred to must already exist, so
+@code{"down"}.  The @code{Staff} referred to must already exist, so
 usually the setup for a score will start with a setup of the staves,
 
 @example
@@ -130,7 +130,7 @@ usually the setup for a score will start with a setup of the staves,
 @end example
 
 
-and the @context{Voice} is inserted afterwards
+and the @code{Voice} is inserted afterwards
 
 @example
 \context Staff = down
