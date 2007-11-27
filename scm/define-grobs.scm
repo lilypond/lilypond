@@ -1109,6 +1109,7 @@
 	(direction . ,UP)
 	(padding . 0.2)
 	(staff-padding . 0.25)
+	(outside-staff-priority . 450)
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				multi-measure-interface
