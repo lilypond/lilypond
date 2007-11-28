@@ -158,14 +158,6 @@ on errors, and print a stack trace.")
 
 (define-public parser #f)
 
-(define-public (lilypond-version)
-  (string-join
-   (map (lambda (x) (if (symbol? x)
-			(symbol->string x)
-			(number->string x)))
-	(ly:version))
-   "."))
-
 
 ;; TeX C++ code actually hooks into TEX_STRING_HASHLIMIT 
 (define-public TEX_STRING_HASHLIMIT 10000000)
@@ -291,6 +283,14 @@ The syntax is the same as `define*-public'."
        (set! safe-objects (cons (cons ',safe-symbol ,safe-symbol)
                                 safe-objects))
        ,safe-symbol)))
+
+(define-safe-public (lilypond-version)
+  (string-join
+   (map (lambda (x) (if (symbol? x)
+			(symbol->string x)
+			(number->string x)))
+	(ly:version))
+   "."))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; init pitch system

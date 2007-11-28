@@ -291,6 +291,7 @@ contained staves are connected vertically."
   \consists "System_start_delimiter_engraver"
   systemStartDelimiter = #'SystemStartBrace
 
+  \defaultchild "Staff"
   \accepts "Staff"
   \accepts "FiguredBass"
 }

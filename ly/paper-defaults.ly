@@ -80,7 +80,8 @@
     %% settings for the page breaker
     %%
     blank-last-page-force = 0
-    blank-page-force = 2
+    blank-after-score-page-force = 2
+    blank-page-force = 5
 
     %%
     %% To limit space between systems on a page with a lot of space left
