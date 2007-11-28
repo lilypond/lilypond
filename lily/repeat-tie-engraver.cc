@@ -1,5 +1,5 @@
 /*
-  repeat-engraver.cc -- implement Repeat_tie_engraver
+  repeat-tie-engraver.cc -- implement Repeat_tie_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -81,7 +81,7 @@ Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
 
 ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
 ADD_TRANSLATOR (Repeat_tie_engraver, 
-		/* doc */ "Create Laissez vibrer items.",
+		/* doc */ "Create repeat ties.",
 		
 		/* create */
 		"RepeatTie "
