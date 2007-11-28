@@ -52,7 +52,7 @@ This section gives a basic introduction to working with LilyPond.
 * Compiling a file::            
 * Simple notation::             
 * Working on text files::       
-* How to read the tutorial::    
+* How to read the manual::      
 @end menu
 
 
@@ -85,7 +85,7 @@ should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  The braces may
 be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
-examples in the manual, see @ref{How to read the tutorial}.}
+examples in the manual, see @ref{How to read the manual}.}
 
 @cindex case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
@@ -487,8 +487,8 @@ fragment shows possible uses for comments:
 @end itemize
 
 
-@node How to read the tutorial
-@subsection How to read the tutorial
+@node How to read the manual
+@subsection How to read the manual
 
 LilyPond input must be surrounded by @{ @} marks or a
 @code{\relative c'' @{ ... @}}, as we saw in @ref{Working on text
@@ -1477,7 +1477,6 @@ introduction to the rest of the manual.
 * Adding titles::               
 * Absolute note names::         
 * After the tutorial::          
-* How to read the manual::      
 @end menu
 
 
@@ -1557,14 +1556,6 @@ places.  The following example uses the above variables:
 @{ c4^\name @}
 @end example
 
-
-@menu
-* Version number::              
-* Adding titles::               
-* Absolute note names::         
-* After the tutorial::          
-* How to read the manual::      
-@end menu
 
 @node Version number
 @subsection Version number
@@ -1691,6 +1682,9 @@ files.
 @node After the tutorial
 @subsection After the tutorial
 
+FIXME: rewrite slightly after the rest of the LM has been
+stabilized.  Translators, ignore this section for now.
+
 After finishing the tutorial, you should probably try writing a
 piece or two.  Start by adding notes to one of the
 @ref{Templates}.  If you need any notation that was not covered in
@@ -1707,28 +1701,4 @@ wish to skim these chapters right now, and come back to them after
 you have more experience.
 
 
-@node How to read the manual
-@subsection How to read the manual
-
-Many examples in the tutorial omitted a @code{\relative c'' @{
-... @}} around the printed example, as we saw in
-@ref{How to read the tutorial}.
-
-In the rest of the manual, we are much more lax about the printed
-examples: sometimes they may have omitted a @code{\relative c'' @{
-... @}}, but other times a different initial pitch may be used
-(such as @code{c'} or @code{c,,}), and in some cases the whole
-example is in absolute note mode!  However, ambiguities like this
-only exist where the pitches are not important.  In any example
-where the pitch matters, we have explicitly stated
-@code{\relative} or absolute-mode @code{@{ @}}.
-
-If you are still confused about the exact LilyPond input that was
-used in an example, read the HTML version (if you are not already
-doing so) and click on the picture of the music.  This will
-display the exact input that LilyPond used to generate this
-manual.
-
-For information about the structure of the rest of the manual, see
-@ref{About this manual}.
 
