@@ -98,9 +98,6 @@ Slur::height (SCM smob)
     : ly_interval2scm (Interval ());
 }
 
-/*
-  Ugh should have dash-length + dash-period
-*/
 MAKE_SCHEME_CALLBACK (Slur, print, 1);
 SCM
 Slur::print (SCM smob)
@@ -122,9 +119,6 @@ Slur::print (SCM smob)
   Bezier one = get_curve (me);
   Stencil a;
 
-  /*
-    TODO: replace dashed with generic property.
-  */
   SCM p = me->get_property ("dash-period");
   SCM f = me->get_property ("dash-fraction");
   if (scm_is_number (p) && scm_is_number (f))
