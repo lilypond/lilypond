@@ -17,10 +17,211 @@ FIXME: explain what/why.  maybe in other sections.
 
 
 @menu
+* Tweaking basics::             
+* The Internals Reference manual::  
 * Common tweaks::               
 * TODO other name::             
 @end menu
 
+@node Tweaking basics
+@section Tweaking basics
+
+NB: This section is still under development and may change
+
+@q{Tweaking} is a LilyPond term for the various methods available
+to the user for modifying the actions taken during interpretation
+of the input file and modifying the appearance of the printed 
+output.  Some tweaks are very easy to use; others are more 
+complex.  But taken together the methods available for tweaking 
+permit almost any desired appearance of the printed music to be achieved.
+
+In this section we cover the basic concepts required to understand
+tweaking.  Later we give a variety of potted commands which can
+simply be copied to obtain the same effect in your own scores, and
+at the same time we show how these commands may be constructed so 
+that you may learn how to develop your own tweaks.
+
+Before starting on this Chapter you may wish to review the section
+@ref{Contexts and engravers}, as Contexts, Engravers and the 
+Properties contained within them are fundamental to understanding
+and constructing Tweaks.
+
+@menu
+* Objects and grobs and spanners and interfaces TODOname::  
+* Naming conventions of objects and properties::  
+* Tweaking methods::            
+@end menu
+
+@node Objects and grobs and spanners and interfaces TODOname
+@subsection Objects and grobs and spanners and interfaces TODOname
+
+cindex Objects
+cindex Grobs
+cindex Spanners
+cindex Interfaces
+
+Tweaking involves modifying the internal operation and structures
+of the LilyPond program, so we must first introduce some terms
+which are used to describe those internal operations and 
+structures.
+
+The term @q{Object} is a generic term used to refer to the
+multitude of internal structures built by LilyPond during the
+processing of an input file.  So when a command like @code{\new
+Staff} is encountered a new object of type @code{Staff} is
+constructed.  That @code{Staff} object then holds all the
+properties associated with that particular staff, for example, its
+name and its key signature, together with details of the engravers
+which have been assigned to operate within that staff's context.
+Similarly, there are @code{Voice} objects, @code{Score} objects,
+@code{Lyric} objects, and objects to represent barlines,
+noteheads, ties, dynamics, etc, each with their own set of
+properties.
+
+Some types of object are given special names.  Objects which
+represent items of notation on the printed output such as
+noteheads, stems, slurs, ties, fingering, clefs, etc are called
+@q{Layout objects}, often known as @q{Graphical Objects}, or
+@q{Grobs} for short.  These are still objects in the generic sense
+above, and so they too all have properties associated with them,
+such as their position, size, color, etc.
+
+Some layout objects are still more specialised.  Phrasing slurs,
+crescendo hairpins, ottavo marks, and many other grobs are not
+localised in a single place -- they have a starting point, an
+ending point, and maybe other properties concerned with their
+shape.  Objects with an extended shape like these are called
+@q{Spanners}.
+
+It remains to explain what @q{Interfaces} are.  Many different
+types of object often require to be processed in the same way.
+For example, all grobs have a color, a size, a position, etc,
+and all these properties are processed in the same way during
+LilyPond's
+interpretation of the input file.  To simplify these internal
+operations these common actions and properties are grouped 
+together in an object called a @code{grob-interface}.  Many
+other groupings into interfaces are made.  In total there are
+over 100 such interfaces.  We shall see later why this is of
+interest and use to the user.
+
+These, then, are the main terms relating to objects which we 
+shall use in this chapter.
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+We met some object naming conventions previously, in 
+@ref{Contexts and engravers}.  Here for reference is a list
+of the most common object types together with the conventions
+for naming them and a couple of examples of some real names.
+
+@multitable @columnfractions .33 .33 .33
+@headitem Object type           
+  @tab Naming convention
+  @tab Example
+@item Contexts, Layout Objects     
+  @tab Aaaa or AaaaAaaaAaaa
+  @tab Staff, GrandStaff, 
+@item Engravers
+  @tab Aaaa_aaa_engraver
+  @tab Clef_engraver, Note_heads_engraver
+@item Interfaces
+  @tab aaa-aaa-interface
+  @tab grob-interface, break-aligned-interface 
+@item Context Properties
+  @tab aaa or aaaAaaaAaaa
+  @tab alignAboveContext, skipBars
+@item Layout Object Properties
+  @tab aaa or aaa-aaa-aaa
+  @tab direction, beam-thickness
+@end multitable
+
+As we shall see shortly, the properties of different types of 
+object are modified by different commands, so it is useful to
+be able to recognise the type of object from the names of its
+properties.
+
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+We have already met the commands @code{\set} and @code{\with},
+used to change the properties of @strong{contexts} and to remove
+and add
+engravers, in @ref{Modifying context properties} and @ref{Adding
+and removing engravers}.  We now must meet one more command.
+
+The command to change the properties of @strong{layout objects} is
+@code{\override}.  Because this command has to modify
+internal properties deep within LilyPond its syntax is not
+as simple as the commands you have met so far.  It needs to
+know precisely which property of which object in which context
+has to be modified, and what its new value is to be.  Let's see
+how this is done.
+
+The general syntax of this command is:
+
+@example
+\override @emph{context}.@emph{layout_object}
+  #'@emph{layout_property} = #@emph{value}
+@end example
+
+@noindent
+This will set the @emph{layout_property} of the specified 
+@emph{layout_object}, which is a member of the @emph{context}
+context, to the value @emph{value}.
+
+For now, don't worry about the @code{#'}, which must precede the
+layout property, and the @code{#}, which must precede the value.
+These must always be present in exactly this form.  This is the
+most common command used in tweaking, and most of the rest of
+this chapter will be directed to presenting examples of how it is
+used.
+
+There is another form of the override command, 
+@code{\overrideProperty}, which is occasionally required.  
+We mention it here for completeness, but for details see 
+@ruser{Difficult tweaks}.
+
+The final tweaking command which is available is @code{\tweak}.
+It is not really a new command but a shorthand for an 
+@code{\override} command which may be used in a few special 
+circumstances.  Again, we shall not discuss or 
+use it here.  You may find the details in @ruser{Objects 
+connected to the input}.
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@cindex Internals Reference
+
+Suppose you have a slur in a score which, to your mind,
+appears too thin and you'd like to draw it a little thicker.
+How do you go about doing this?  You know from the statements
+earlier about the flexibility of LilyPond that such a thing
+should be possible, and you would probably guess that an
+@code{\override} command would be needed.  But is there a
+thickness property for a slur, and if there is, how might it 
+be modified?  This is where the Internals Reference manual
+comes in.  It contains all the information you might need to
+construct this and all other @code{\override} commands.
+
+Before we look at the Internals Reference a word of warning.
+This is a @strong{reference} document, which means there is
+little or no explanation contained within it: its purpose is
+to present information precisely and concisely.  This
+might mean it looks daunting at first sight.  Don't worry!
+The guidance and explanation presented here will enable you
+to extract the information from the Internals Reference for
+yourself with just a little practice.
+
+Let's use a concrete example.    
+
+... to be continued
+ 
+
+@c Old stuff follows  -td
 
 @node Common tweaks
 @section Common tweaks
