@@ -30,16 +30,21 @@ replace_whitespace (string *str)
       vsize char_len = 1;
       char cur = (*str)[i];
       
-      if ((cur & 0x11100000) == 0x11100000)
+      // U+10000 - U+10FFFF
+      if ((cur & 0x11110000) == 0x11110000)
+	char_len = 4;
+      // U+0800 - U+FFFF
+      else if ((cur & 0x11100000) == 0x11100000)
 	char_len = 3;
+      // U+0080 - U+07FF
       else if ((cur & 0x11000000) == 0x11000000)
 	char_len = 2;
       else if (cur & 0x10000000)
 	programming_error ("invalid utf-8 string");
-
-      /* avoid the locale-dependent isspace */
-      if (cur == '\n' || cur == '\t' || cur == '\v')
-	(*str)[i] = ' ';
+      else
+	// avoid the locale-dependent isspace
+	if (cur == '\n' || cur == '\t' || cur == '\v')
+	  (*str)[i] = ' ';
 
       i += char_len;
     }
