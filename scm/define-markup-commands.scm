@@ -124,7 +124,7 @@ thickness and padding around the markup."
   
   (let* ((th (*
 	      (ly:output-def-lookup layout 'line-thickness)
-	      (chain-assoc-get 'thickness props  0.1)))
+	      (chain-assoc-get 'thickness props 1)))
 	 (size (chain-assoc-get 'font-size props 0))
 	 (pad (* (magstep size)
 		 (chain-assoc-get 'box-padding props 0.2)))
