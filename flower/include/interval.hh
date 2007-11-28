@@ -59,9 +59,6 @@ struct Interval_t : public Drul_array<T>
   void set_empty ();
   void set_full ();
 
-  /*
-    TODO: strip hungarian suffix.
-  */
   bool is_empty () const
   {
     return at (LEFT) > at (RIGHT);
