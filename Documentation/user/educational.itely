@@ -9,6 +9,9 @@
 @node Editorial annotations
 @section Editorial annotations
 
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{editorial-headword.ly}
+
 @menu
 * Inside the staff::            
 * Outside the staff::           

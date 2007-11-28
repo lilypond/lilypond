@@ -1361,7 +1361,7 @@ Contexts can have properties, which are usually named in
 @code{studlyCaps}.  They mostly control the translation from
 music to notatino, eg. @code{localKeySignature} (for determining
 whether to print accidentals), @code{measurePosition} (for
-determining when to print a barline).  Context properties can
+determining when to print a bar line).  Context properties can
 change value over time while interpreting a piece of music;
 @code{measurePosition} is an obvious example of
 this.  Context properties are modified with @code{\set}.

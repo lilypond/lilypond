@@ -1623,7 +1623,6 @@ Snippets: @lsrdir{rhythms}
 @unnumberedsubsubsec Bar lines
 
 @cindex Bar lines
-@cindex Barlines
 @funindex \bar
 @cindex measure lines
 @cindex repeat bars

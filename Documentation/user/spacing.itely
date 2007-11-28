@@ -725,9 +725,9 @@ sections without notes (note that it does not scan for rests; it scans for
 the absence of notes.  This is so that single-staff polyphony with rests in one
 of the parts does not throw off the @code{Page_turn_engraver}).  When it finds
 a sufficiently long section without notes, the @code{Page_turn_engraver} will
-insert an @code{\allowPageTurn} at the final barline in that section, unless
-there is a @q{special} barline (such as a double bar), in which case the
-@code{\allowPageTurn} will be inserted at the final @q{special} barline in
+insert an @code{\allowPageTurn} at the final bar line in that section, unless
+there is a @q{special} bar line (such as a double bar), in which case the
+@code{\allowPageTurn} will be inserted at the final @q{special} bar line in
 the section.
 
 @funindex minimumPageTurnLength

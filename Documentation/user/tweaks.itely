@@ -588,3 +588,74 @@ FIXME write this.
 
 FIXME discuss \tweak
 
+
+
+FIXME: Move the following words and example into Tweaks or
+somewhere more suitable, leaving just a ref here. -td
+
+Ways of correcting horizontal placings are described fully 
+in the Notation Reference.  
+We introduce just one here, the @code{force-hshift} property of 
+@code{NoteColumn}.  The lower two notes of the first chord (i.e,
+those in the third voice) should not be shifted away from the
+note column of the higher two notes.  To correct this we set
+@code{force-hshift} of these notes to zero.  
+The lower note of the second chord is best placed just to the 
+right of the higher notes.  We achieve this by setting
+@code{force-hshift} of this note to 0.5, ie half a notehead's 
+width to the right of the note column of the higher notes.
+
+Here's the final result:
+    
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << 
+    { c2 aes4. bes8 } \\ 
+    { aes2 f4 fes   } \\ 
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2 
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+
+
+FIXME:
+- There is a section in the manual on \set vs \override (3.3.7),
+which is incomplete.  First it doesn't mention \overrideProperty,
+nor does it mention properties which are not capitalized at all.
+And it should explain that \override should be used to set
+properties with hyphenated names, like auto-knee-gap.  (I had to
+experiment to find out how to do this.)
+
+
+FIXME: moved from fundamental, dumped here at random.
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4
+    <<  % Start main and ossia in parallel
+      { r8 f c c }  % Main music
+      \new Staff \with {  % Start ossia staff
+        \remove "Clef_engraver"
+        \remove "Time_signature_engraver"
+        % Reduce size of notes and staff
+        fontSize = #-2
+        \override StaffSymbol #'staff-space = #(magstep -2)
+        alignAboveContext = "main"  % Place above main staff
+      }
+      { s8 f f c }  % Ossia music
+    >>  % End parallel music
+    r4 |
+  }
+}
+@end lilypond
+
+

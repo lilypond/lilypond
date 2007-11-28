@@ -569,14 +569,18 @@ The syntax is also the user-interface for LilyPond, hence it is easy
 to type
 
 @example
-c'4 d'8
+@{
+  c'4 d'8
+@}
 @end example
 
 @noindent
 a quarter note C1 (middle C) and an eighth note D1 (D above middle C)
 
-@lilypond[quote,fragment]
-c'4 d'8
+@lilypond[quote]
+{
+  c'4 d'8
+}
 @end lilypond
 
 On a microscopic scale, such syntax is easy to use.  On a larger
@@ -651,8 +655,11 @@ of music engraving into a computer program.  Thanks to all that hard
 work, the program can now be used to perform useful tasks.  The
 simplest application is printing notes.
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent

@@ -46,7 +46,7 @@ commands.
   circumstances.
 
 * Inspirational headwords are produced with
-  @lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+  @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
   {pitches-headword.ly}
 
 * Avoid long stretches of input code.  Noone is going to read them

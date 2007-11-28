@@ -100,6 +100,37 @@ voiceTwo = #(context-spec-music (make-voice-props-set 1) 'Voice)
 voiceThree =#(context-spec-music (make-voice-props-set 2) 'Voice)
 voiceFour = #(context-spec-music (make-voice-props-set 3) 'Voice)
 
+voiceOneStyle = {
+  \override NoteHead #'style = #'diamond
+  \override NoteHead #'color = #red
+  \override Stem #'color = #red
+  \override Beam #'color = #red
+}
+voiceTwoStyle = {
+  \override NoteHead #'style = #'triangle
+  \override NoteHead #'color = #blue
+  \override Stem #'color = #blue
+  \override Beam #'color = #blue
+}
+voiceThreeStyle = {
+  \override NoteHead #'style = #'xcircle
+  \override NoteHead #'color = #green
+  \override Stem #'color = #green
+  \override Beam #'color = #green
+}
+voiceFourStyle = {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #magenta
+  \override Stem #'color = #magenta
+  \override Beam #'color = #magenta
+}
+voiceNeutralStyle = {
+  \revert NoteHead #'style
+  \revert NoteHead #'color
+  \revert Stem #'color
+  \revert Beam #'color
+}
+
 	
 tiny = 
 \set fontSize = #-2
@@ -216,29 +247,4 @@ textSpannerUp = \override TextSpanner #'direction = #UP
 textSpannerDown = \override TextSpanner #'direction = #DOWN
 textSpannerNeutral = \revert TextSpanner #'direction
 
-%  used in the LM -- signficantly clarifies examples.
-voiceOneStyle = {
-  \override NoteHead #'style = #'diamond
-  \override NoteHead #'color = #red
-  \override Stem #'color = #red
-  \override Beam #'color = #red
-}
-voiceTwoStyle = {
-  \override NoteHead #'style = #'triangle
-  \override NoteHead #'color = #blue
-  \override Stem #'color = #blue
-  \override Beam #'color = #blue
-}
-voiceThreeStyle = {
-  \override NoteHead #'style = #'xcircle
-  \override NoteHead #'color = #green
-  \override Stem #'color = #green
-  \override Beam #'color = #green
-}
-voiceNeutralStyle = {
-  \revert NoteHead #'style
-  \revert NoteHead #'color
-  \revert Stem #'color
-  \revert Beam #'color
-}
 

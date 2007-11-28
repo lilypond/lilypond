@@ -482,6 +482,7 @@ output.  Players that are known to work include
 * Creating MIDI files::         
 * MIDI block::                  
 * MIDI instrument names::       
+* What goes into the MIDI?  FIXME::  
 @end menu
 
 @node Creating MIDI files
@@ -631,6 +632,57 @@ property.  The instrument name should be chosen from the list in
 If the selected instrument does not exactly match an instrument from
 the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
 instrument is used.
+
+
+@node What goes into the MIDI?  FIXME
+@subsection What goes into the MIDI?  FIXME
+
+@menu
+* Repeats and MIDI::            
+@end menu
+
+@node Repeats and MIDI
+@unnumberedsubsubsec Repeats and MIDI
+
+@cindex expanding repeats
+@funindex \unfoldRepeats
+
+With a little bit of tweaking, all types of repeats can be present
+in the MIDI output.  This is achieved by applying the
+@code{\unfoldRepeats} music function.  This function changes all
+repeats to unfold repeats.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+When creating a score file using @code{\unfoldRepeats} for MIDI,
+it is necessary to make two @code{\score} blocks: one for MIDI
+(with unfolded repeats) and one for notation (with volta, tremolo,
+and percent repeats).  For example,
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+
+
 
 
 
