@@ -290,8 +290,8 @@ Stem::calc_stem_end_position (SCM smob)
   Real stem_end = dir ? hp[dir] + dir * length : 0;
 
   /* TODO: change name  to extend-stems to staff/center/'()  */
-  bool no_extend_b = to_boolean (me->get_property ("no-stem-extend"));
-  if (!no_extend_b && dir * stem_end < 0)
+  bool no_extend = to_boolean (me->get_property ("no-stem-extend"));
+  if (!no_extend && dir * stem_end < 0)
     stem_end = 0.0;
 
   return scm_from_double (stem_end);
@@ -931,9 +931,9 @@ Stem::calc_stem_info (SCM smob)
   Obviously not for grace beams.
 
   Also, not for knees.  Seems to be a good thing. */
-  bool no_extend_b = to_boolean (me->get_property ("no-stem-extend"));
+  bool no_extend = to_boolean (me->get_property ("no-stem-extend"));
   bool is_knee = to_boolean (beam->get_property ("knee"));
-  if (!no_extend_b && !is_knee)
+  if (!no_extend && !is_knee)
     {
       /* Highest beam of (UP) beam must never be lower than middle
 	 staffline */
