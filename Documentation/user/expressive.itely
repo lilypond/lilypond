@@ -287,7 +287,10 @@ c\< d e f\!
 \setHairpinCresc
 e\> d c b\!
 \setTextDecresc
-c\> d e f\!
+e\> d e f\!
+%  FIXME: uncomment after 2.11.36
+%\setTextDecr
+%c\> d e f\!
 \setTextDim
 e\> d c b\!
 @end lilypond
