@@ -11,14 +11,8 @@
 
 #include <algorithm>
 #include <climits>
-
-/*
-  MacOS 10.3 uses g++ 3.3 which doesn't have isinf()
- */
-// #include <cmath>
-#include <math.h>
+#include <cmath>
 using namespace std;
-
 
 typedef double Real;
 extern const Real infinity_f;
