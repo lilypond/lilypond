@@ -13,7 +13,7 @@ natural sign.
 
 thenotes =  \relative cis' {
   \time 4/4
-  gisis'4 gis gisis ges |
+  gisis'4 gis geses ges |
 }
 
 <<
