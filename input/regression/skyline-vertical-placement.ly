@@ -7,7 +7,8 @@ using a skyline algorithm so that they don't collide with other objects."
 
 \version "2.11.0"
 \relative c''' {
-  \override TextScript #'outside-staff-priority = #1
+  \override TextScript #'outside-staff-priority = #2
+  \override DynamicLineSpanner #'outside-staff-priority = #1
   c
   \once \override TextScript #'self-alignment-X = #CENTER
   a,^"this doesn't collide with the c"
