@@ -30,7 +30,7 @@ class Lily_parser
   Simultaneous_music *get_chord (Pitch tonic,
 				 vector<Pitch> *adds, vector<Pitch> *subs,
 				 Pitch *inversion, Pitch *bass, Duration d);
-  void set_chord_tremolo (int type_i);
+  void set_chord_tremolo (int type);
   void set_last_duration (Duration const *);
   void set_last_pitch (Pitch const *);
 

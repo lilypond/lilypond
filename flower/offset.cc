@@ -19,12 +19,6 @@ Offset::to_string () const
 }
 #endif
 
-bool
-isinf_b (Real r)
-{
-  return (fabs (r) > 1e20);
-}
-
 /*
   free bsd fix by John Galbraith
 */
@@ -33,7 +27,7 @@ Offset
 complex_multiply (Offset z1, Offset z2)
 {
   Offset z;
-  if (!isinf_b (z2[Y_AXIS]))
+  if (!isinf (z2[Y_AXIS]))
     {
       z[X_AXIS] = z1[X_AXIS] * z2[X_AXIS] - z1[Y_AXIS] * z2[Y_AXIS];
       z[Y_AXIS] = z1[X_AXIS] * z2[Y_AXIS] + z1[Y_AXIS] * z2[X_AXIS];

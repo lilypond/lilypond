@@ -53,7 +53,7 @@ class Midi_header : public Midi_chunk
 public:
   DECLARE_CLASSNAME(Midi_header);
 
-  Midi_header (int format_i, int tracks_i, int clocks_per_4_i);
+  Midi_header (int format, int tracks, int clocks_per_4);
 };
 
 class Midi_track : public Midi_chunk

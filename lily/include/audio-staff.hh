@@ -14,7 +14,7 @@
 struct Audio_staff : public Audio_element
 {
   void add_audio_item (Audio_item *l);
-  void output (Midi_stream &midi_stream_r, int track_i);
+  void output (Midi_stream &midi_stream_r, int track);
 
   Audio_staff ();
   
