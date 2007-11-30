@@ -1190,7 +1190,7 @@ class LilyPondVoiceBuilder:
             duration_factor = 1
             duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (diff.denominator (), -1)
             duration_dots = 0
-            if duration_log >= 0: # denominator is a power of 2...
+            if duration_log > 0: # denominator is a power of 2...
                 if diff.numerator () == 3:
                     duration_log -= 1
                     duration_dots = 1
