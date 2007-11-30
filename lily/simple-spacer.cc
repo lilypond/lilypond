@@ -266,7 +266,7 @@ Simple_spacer::force_penalty (bool ragged) const
 
   /* Use a convex compression penalty. */
   Real f = force_;
-  return f - (f < 0 ? f*f*f*f*4 : 0);
+  return f - (f < 0 ? f*f*f*f*2 : 0);
 }
 
 /****************************************************************/

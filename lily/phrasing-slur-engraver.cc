@@ -47,6 +47,7 @@ protected:
   DECLARE_ACKNOWLEDGER (fingering);
   DECLARE_ACKNOWLEDGER (note_column);
   DECLARE_ACKNOWLEDGER (slur);
+  DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
@@ -113,6 +114,13 @@ Phrasing_slur_engraver::acknowledge_text_script (Grob_info info)
 }
 
 void
+Phrasing_slur_engraver::acknowledge_script (Grob_info info)
+{
+  if (!info.grob ()->internal_has_interface (ly_symbol2scm ("dynamic-interface")))
+    acknowledge_extra_object (info);
+}
+
+void
 Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
 {
   acknowledge_extra_object (info);
@@ -164,6 +172,7 @@ ADD_ACKNOWLEDGER (Phrasing_slur_engraver, accidental);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, fingering)
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, note_column);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
 

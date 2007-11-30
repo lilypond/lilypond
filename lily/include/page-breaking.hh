@@ -100,6 +100,7 @@ public:
   bool ragged () const;
   bool ragged_last () const;
   bool is_last () const;
+  bool ends_score () const;
   Real page_height (int page_number, bool last) const;
   Real page_top_space () const;
   vsize system_count () const;

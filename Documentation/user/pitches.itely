@@ -62,7 +62,7 @@ is more fundamental and will be presented first.
 @cindex absolute
 @cindex absolute octave specification
 
-In absolute mode, every note is placed explicitly in a certain
+In absolute mode, every note is placed explicitly in a specific
 octave.  The note names @code{c} to @code{b} are engraved in the
 octave below middle C, as in the previous example.
 
@@ -181,7 +181,7 @@ following note or chord:
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c' {
   c <c e g>
-  <c' e g>
+  <c' e, g'>
   <c, e' g> c
 }
 @end lilypond
@@ -329,8 +329,11 @@ ceses4 ces cis c
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}.
 
+Learning Manual: @rlearning{Accidentals and key signatures}.
+
 Notation Reference: @ref{Automatic accidentals},
-@ref{Musica ficta accidentals}.
+@ref{Musica ficta accidentals},
+@ref{Note names in other languages}.
 
 Snippets: @lsrdir{pitches}.
 
@@ -963,6 +966,8 @@ scale:
 
 Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
+Learning Manual: @rlearning{Accidentals and key signatures}.
+
 Snippets: @lsrdir{pitches},
 FIXME link to snippet 248,
 FIXME link to a snippet about scordatura.
@@ -1010,6 +1015,8 @@ Internally the function sets the properties @code{ottavation}
 
 
 @seealso
+
+Music Glossary: @c FIXME add link once it's in the glossary @c @rgloss{ottava}.
 
 Snippets: @lsrdir{pitches}.
 
@@ -1107,6 +1114,8 @@ to serve as a reminder that these parts are written in C.
 
 
 @seealso
+
+Music Glossary: @c FIXME add link once it's in the glossary @c @rgloss{instrument transposition}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -1781,7 +1790,7 @@ Snippets: @lsrdir{pitches}.
 Internals reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion},
 @internalsref{AccidentalPlacement}, @internalsref{GrandStaff} and
-@internalsref{PianoStaff}.
+@internalsref{PianoStaff}, @internalsref{Staff}.
 
 
 @refbugs
@@ -1804,7 +1813,7 @@ The term @notation{ambitus} or @notation{ambit} denotes a range of
 pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
 Ambits are printed on vocal parts, so performers can easily
-determine if it meets their capabilities.
+determine if it matches their capabilities.
 
 Ambits are denoted at the beginning of a piece near the initial
 clef.  The range is graphically specified by two note heads that
@@ -1865,8 +1874,9 @@ formatting system would not reserve space for the moved object.
 
 @seealso
 
-Snippets: @lsrdir{pitches},
-@lsr{vocal,ambitus@/.ly}.
+Snippets: @lsrdir{pitches}.
+@c FIXME: lsr stuff.
+@c @lsr{vocal,ambitus@/.ly}.
 
 Internals reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
@@ -1918,6 +1928,8 @@ font, see @ref{Setting the staff size}.
 @code{\setEasyHeads}
 
 @seealso
+
+Notation Reference: @ref{Setting the staff size}.
 
 Snippets: @lsrdir{pitches},
 
@@ -2034,5 +2046,7 @@ To see all notehead styles, please see @ref{Note head styles}.
 @seealso
 
 Snippets: @lsrdir{pitches}.
+
+Notation Reference: @ref{Note head styles}.
 
 Internals reference: @internalsref{NoteHead}.

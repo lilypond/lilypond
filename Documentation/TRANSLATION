@@ -255,7 +255,7 @@ replace 'make' with 'make -C Documentation') and run
 This presents a diff of the original files since the most recent
 revision of the translation.  To check a single file, run
 
-    python buildscripts/check_translation.py Documentation/<MY-LANGUAGE>/user/foo.itely
+    python buildscripts/check_translation.py buildscripts Documentation/<MY-LANGUAGE>/user/foo.itely
 
 
 

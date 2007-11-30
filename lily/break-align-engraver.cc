@@ -23,12 +23,14 @@ class Break_align_engraver : public Engraver
   Item *left_edge_;
 
   void add_to_group (SCM, Item *);
+  void create_alignment (Grob_info);
 protected:
   void stop_translation_timestep ();
   virtual void derived_mark () const;
 public:
   TRANSLATOR_DECLARATIONS (Break_align_engraver);
   DECLARE_ACKNOWLEDGER (break_aligned);
+  DECLARE_ACKNOWLEDGER (break_alignable);
 };
 
 void
@@ -54,6 +56,18 @@ Break_align_engraver::derived_mark () const
 }
 
 void
+Break_align_engraver::acknowledge_break_alignable (Grob_info inf)
+{
+  if (!align_)
+    create_alignment (inf);
+
+  Grob *g = inf.grob ();
+
+  if (!g->get_parent (X_AXIS))
+    g->set_parent (align_, X_AXIS);
+}
+
+void
 Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 {
   if (Item *item = dynamic_cast<Item *> (inf.grob ()))
@@ -72,26 +86,30 @@ Break_align_engraver::acknowledge_break_aligned (Grob_info inf)
 	return;
 	  
       if (!align_)
-	{
-	  align_ = make_item ("BreakAlignment", SCM_EOL);
-
-	  Context *origin = inf.origin_contexts (this)[0];
-
-	  Translator_group *tg = origin->implementation ();
-	  Engraver *random_source = dynamic_cast<Engraver *> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
-	  if (!random_source)
-	    random_source = this;
-
-	  /*
-	    Make left edge appear to come from same context as clef/bar-line etc.
-	  */
-	  left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
-	  add_to_group (left_edge_->get_property ("break-align-symbol"),
-			left_edge_);
-	}
+	create_alignment (inf);
 
       add_to_group (align_name, item);
     }
+}
+
+void
+Break_align_engraver::create_alignment (Grob_info inf)
+{
+  align_ = make_item ("BreakAlignment", SCM_EOL);
+
+  Context *origin = inf.origin_contexts (this)[0];
+
+  Translator_group *tg = origin->implementation ();
+  Engraver *random_source = dynamic_cast<Engraver *> (unsmob_translator (scm_car (tg->get_simple_trans_list ())));
+  if (!random_source)
+    random_source = this;
+
+  /*
+    Make left edge appear to come from same context as clef/bar-line etc.
+  */
+  left_edge_ = random_source->make_item ("LeftEdge", SCM_EOL);
+  add_to_group (left_edge_->get_property ("break-align-symbol"),
+		left_edge_);
 }
 
 void
@@ -119,6 +137,7 @@ Break_align_engraver::add_to_group (SCM align_name, Item *item)
   Axis_group_interface::add_element (group, item);
 }
 ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Break_align_engraver, break_alignable);
 ADD_TRANSLATOR (Break_align_engraver,
 		"Align grobs with corresponding @code{break-align-symbols} into "
 		"groups, and order the groups according to @code{breakAlignOrder}. "

@@ -112,10 +112,10 @@ to a single staff, while a bar line must be synchronized across the
 entire score.
 
 Within LilyPond, these rules and bits of information are grouped in
-@emph{Contexts}.  Some examples of contexts are @context{Voice},
-@context{Staff}, and @context{Score}.  They are hierarchical, for
-example: a @context{Staff} can contain many @context{Voice}s, and a
-@context{Score} can contain many @context{Staff} contexts.
+@emph{Contexts}.  Some examples of contexts are @code{Voice},
+@code{Staff}, and @code{Score}.  They are hierarchical, for
+example: a @code{Staff} can contain many @code{Voice}s, and a
+@code{Score} can contain many @code{Staff} contexts.
 
 @quotation
 @image{context-example,5cm,,}
@@ -123,15 +123,15 @@ example: a @context{Staff} can contain many @context{Voice}s, and a
 
 Each context has the responsibility for enforcing some notation rules,
 creating some notation objects and maintaining the associated
-properties.  For example, the @context{Voice} context may introduce an
-accidental and then the @context{Staff} context maintains the rule to
+properties.  For example, the @code{Voice} context may introduce an
+accidental and then the @code{Staff} context maintains the rule to
 show or suppress the accidental for the remainder of the measure.  The
-synchronization of bar lines is handled at @context{Score} context.
+synchronization of bar lines is handled at @code{Score} context.
 
 However, in some music we may not want the bar lines to be
 synchronized -- consider a polymetric score in 4/4 and 3/4 time.  In
-such cases, we must modify the default settings of the @context{Score}
-and @context{Staff} contexts.
+such cases, we must modify the default settings of the @code{Score}
+and @code{Staff} contexts.
 
 For very simple scores, contexts are created implicitly, and you need
 not be aware of them.  For larger pieces, such as anything with more
@@ -239,7 +239,7 @@ music = @{ c4 c4 @}
 arts = @{ s4-. s4-> @}
 @end example
 
-They are combined by sending both to the same @context{Voice} context,
+They are combined by sending both to the same @code{Voice} context,
 
 @example
 <<
@@ -276,13 +276,13 @@ any context of type @var{type}, regardless of its given name.
 This variant is used with music expressions that can be interpreted at
 several levels.  For example, the @code{\applyOutput} command (see
 @ref{Running a function on all layout objects}).  Without an explicit
-@code{\context}, it is usually applied to @context{Voice}
+@code{\context}, it is usually applied to @code{Voice}
 
 @example
 \applyOutput #'@var{context} #@var{function}   % apply to Voice
 @end example
 
-To have it interpreted at the @context{Score} or @context{Staff} level use
+To have it interpreted at the @code{Score} or @code{Staff} level use
 these forms
 
 @example
@@ -320,8 +320,8 @@ multi-rests are condensed.  The value assigned is a Scheme object.  In
 this case, it is @code{#t}, the boolean True value.
 
 If the @var{context} argument is left out, then the current bottom-most
-context (typically @context{ChordNames}, @context{Voice}, or
-@context{Lyrics}) is used.  In this example,
+context (typically @code{ChordNames}, @code{Voice}, or
+@code{Lyrics}) is used.  In this example,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -344,8 +344,8 @@ R1*2
 @end lilypond
 
 Contexts are hierarchical, so if a bigger context was specified, for
-example @context{Staff}, then the change would also apply to all
-@context{Voice}s in the current stave.  The change is applied
+example @code{Staff}, then the change would also apply to all
+@code{Voice}s in the current stave.  The change is applied
 @q{on-the-fly}, during the music, so that the setting only affects the
 second group of eighth notes.
 
@@ -551,7 +551,7 @@ The command
 
 @noindent
 makes stems thicker (the default is 1.3, with staff line thickness as a
-unit).  Since the command specifies @context{Staff} as context, it only
+unit).  Since the command specifies @code{Staff} as context, it only
 applies to the current staff.  Other staves will keep their normal
 appearance.  Here we see the command in action:
 
@@ -564,11 +564,11 @@ c4
 @end lilypond
 
 The @code{\override} command changes the definition of the @code{Stem}
-within the current @context{Staff}.  After the command is interpreted
+within the current @code{Staff}.  After the command is interpreted
 all stems are thickened.
 
 Analogous to @code{\set}, the @var{context} argument may be left out,
-causing the default context @context{Voice} to be used.  Adding
+causing the default context @code{Voice} to be used.  Adding
 @code{\once} applies the change during one timestep only.
 
 @lilypond[quote,fragment,verbatim,relative=2]
@@ -707,12 +707,12 @@ after calling @code{\RemoveEmptyStaffContext}, ie
 @node Defining new contexts
 @subsection Defining new contexts
 
-Specific contexts, like @context{Staff} and @code{Voice}, are made of
+Specific contexts, like @code{Staff} and @code{Voice}, are made of
 simple building blocks.  It is possible to create new types of
 contexts with different combinations of engraver plug-ins.
 
 The next example shows how to build a different type of
-@context{Voice} context from scratch.  It will be similar to
+@code{Voice} context from scratch.  It will be similar to
 @code{Voice}, but only prints centered slash noteheads.  It can be used
 to indicate improvisation in jazz pieces,
 
@@ -760,9 +760,9 @@ First it is necessary to define a name for the new context:
 \name ImproVoice
 @end example
 
-Since it is similar to the @context{Voice}, we want commands that work
-on (existing) @context{Voice}s to remain working.  This is achieved by
-giving the new context an alias @context{Voice},
+Since it is similar to the @code{Voice}, we want commands that work
+on (existing) @code{Voice}s to remain working.  This is achieved by
+giving the new context an alias @code{Voice},
 
 @example
 \alias Voice
@@ -820,8 +820,8 @@ Put together, we get
 @end example
 
 @funindex \accepts
-Contexts form hierarchies.  We want to hang the @context{ImproVoice}
-under @context{Staff}, just like normal @code{Voice}s.  Therefore, we
+Contexts form hierarchies.  We want to hang the @code{ImproVoice}
+under @code{Staff}, just like normal @code{Voice}s.  Therefore, we
 modify the @code{Staff} definition with the @code{\accepts}
 command,
 
@@ -945,7 +945,7 @@ Commands which change output generally look like
 To construct this tweak we must determine these bits of information:
 
 @itemize
-@item the context: here @context{Voice}.
+@item the context: here @code{Voice}.
 @item the layout object: here @code{Stem}.
 @item the layout property: here @code{thickness}.
 @item a sensible value: here @code{3.0}.
@@ -1248,7 +1248,7 @@ f
 @end lilypond
 
 
-In this case, the context for this tweak is @context{Voice}.  This
+In this case, the context for this tweak is @code{Voice}.  This
 fact can also be deduced from the program reference, for the page for
 the @internalsref{Fingering_engraver} plug-in says
 

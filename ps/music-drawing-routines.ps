@@ -59,31 +59,10 @@ bind def
   b4_Inc_state restore
 } bind def 
 
-
-%<font> <encoding> <name> reencode-font
-/reencode-font
-{
-    /name exch def
-    /encoding exch def
-    dup length
-    dict begin {
-	1 index /FID ne {def} {pop
-	pop} ifelse
-    }
-    forall
-    /Encoding encoding
-    def currentdict
-    end
-    name exch definefont
-} bind def
-
-
-
 /set_tex_dimen
 {
 	cvr def
 } bind def
-
 
 /stroke_and_fill {
 	gsave

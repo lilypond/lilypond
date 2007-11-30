@@ -1,8 +1,14 @@
 depth = ../../
 
-SUBDIRS = pitches rhythms
+# NR 1
+SUBDIRS = pitches rhythms expressive repeats simultaneous staff editorial text
+
 
 SUBDIRS += real-music
+
+### FIXME: temporary template for creating other dirs.
+###  will be removed once everything else is stable.
+SUBDIRS += null
 
 # old stuffs
 SUBDIRS += ancient chords connecting contemporary education expressive

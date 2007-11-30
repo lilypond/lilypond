@@ -52,7 +52,7 @@ This section gives a basic introduction to working with LilyPond.
 * Compiling a file::            
 * Simple notation::             
 * Working on text files::       
-* How to read the tutorial::    
+* How to read the manual::      
 @end menu
 
 
@@ -85,7 +85,7 @@ should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  The braces may
 be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
-examples in the manual, see @ref{How to read the tutorial}.}
+examples in the manual, see @ref{How to read the manual}.}
 
 @cindex case sensitive
 In addition, LilyPond input is @strong{case sensitive}.  @code{
@@ -487,8 +487,8 @@ fragment shows possible uses for comments:
 @end itemize
 
 
-@node How to read the tutorial
-@subsection How to read the tutorial
+@node How to read the manual
+@subsection How to read the manual
 
 LilyPond input must be surrounded by @{ @} marks or a
 @code{\relative c'' @{ ... @}}, as we saw in @ref{Working on text
@@ -920,7 +920,7 @@ than one voice on the same staff.
 @menu
 * Music expressions explained::  
 * Multiple staves::             
-* Piano staves::                
+* Staff groups::                
 * Combining notes into chords::  
 * Single staff polyphony::      
 @end menu
@@ -951,6 +951,34 @@ one).  The result is another music expression:
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 { { a4 g } f g }
 @end lilypond
+
+@cindex expression
+@cindex music expression
+@subheading Analogy: mathematical expressions
+
+This mechanism is similar to mathematical formulas: a big formula
+is created by composing small formulas.  Such formulas are called
+expressions, and they can contain other music expressions, so you
+can make arbitrarily complex and large expressions.  For example,
+
+@example
+1
+
+1 + 2
+
+(1 + 2) * 3
+
+((1 + 2) * 3) / (4 * 5)
+@end example
+
+This is a sequence of expressions, where each expression is
+contained in the next (larger) one.  The simplest expressions are
+numbers, and larger ones are made by combining expressions with
+operators (like @code{+}, @code{*} and @code{/}) and parentheses.
+Like mathematical expressions, music expressions can be nested
+arbitrarily deep, which is necessary for complex music like
+polyphonic scores.
+
 
 @subheading Simultaneous music expressions: multiple staves
 
@@ -999,34 +1027,6 @@ staff.
 }
 @end lilypond
 
-@cindex expression
-@cindex music expression
-@subheading Analogy: mathematical expressions
-
-This mechanism is similar to mathematical formulas: a big formula
-is created by composing small formulas.  Such formulas are called
-expressions, and they can contain other music expressions, so you
-can make arbitrarily complex and large expressions.  For example,
-
-@example
-1
-
-1 + 2
-
-(1 + 2) * 3
-
-((1 + 2) * 3) / (4 * 5)
-@end example
-
-This is a sequence of expressions, where each expression is
-contained in the next (larger) one.  The simplest expressions are
-numbers, and larger ones are made by combining expressions with
-operators (like @code{+}, @code{*} and @code{/}) and parentheses.
-Like mathematical expressions, music expressions can be nested
-arbitrarily deep, which is necessary for complex music like
-polyphonic scores.
-
-
 @node Multiple staves
 @subsection Multiple staves
 
@@ -1069,7 +1069,9 @@ Time signatures entered in one staff affect all other
 staves@footnote{This behavior may be changed if desired; for
 details, see @ruser{Polymetric notation}.}.  On the other hand,
 the key signature of one staff does @emph{not} affect other
-staves.
+staves.  This different default behaviour is because scores with
+transposing instruments are more common than polyrhythmic
+scores.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -1083,11 +1085,12 @@ staves.
 
 
 
-@node Piano staves
-@subsection Piano staves
+@node Staff groups
+@subsection Staff groups
 
-@cindex staff switch, manual
-@cindex cross staff voice, manual
+@cindex piano staff
+@cindex choir staff
+@cindex grand staff
 
 Music Glossary: @rglos{brace}.
 
@@ -1115,9 +1118,18 @@ Here is a small example:
 }
 @end lilypond
 
+Other staff groupings are introduced with
+@code{\new GrandStaff,} suitable for orchestral
+scores, and @code{\new ChoirStaff,} suitable for
+vocal scores.  These staff groups each form another
+type of context, one that generates the brace at the
+left end of every system and also controls the extent
+of barlines.
+
 @seealso
 
-Notation Reference: @ruser{Piano music}.
+Notation Reference: @ruser{Piano music}, 
+@ruser{Displaying staves}.
 
 
 @node Combining notes into chords
@@ -1128,15 +1140,19 @@ Notation Reference: @ruser{Piano music}.
 Music Glossary: @rglos{chord}.
 
 @notation{Chords} can be made by surrounding pitches with single
-angle brackets.  Angle brackets are the symbols @code{<} and
-@code{>}.
+angle brackets.  Note that all the notes in a chord must have the
+same duration, and that duration is placed after the closing 
+bracket. 
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>4 <c f a>2
 @end lilypond
 
-You can combine markings like beams and ties with chords.  They
-must be placed outside the angle brackets.
+Think of chords as almost equivalent to single notes:
+almost everything you can attach to a single note can be attached
+to a chord, and everything must go @emph{outside} the angle 
+brackets.  For example, you can combine markings like beams and 
+ties with chords.  They must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
@@ -1253,8 +1269,9 @@ separating each syllable with a space.
 @end lilypond
 
 Note the curly brackets delimiting both the music and the lyrics,
-and the angle brackets @code{<< ... >>} around the whole piece to
-show that the music and lyrics are to occur at the same time.
+and the double angle brackets @code{<< ... >>} around the whole 
+piece to show that the music and lyrics are to occur at the same 
+time.
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
@@ -1309,6 +1326,25 @@ multiple notes, the simplest being to add a slur across them (see
 Here we have also used manual beaming (the square brackets @code{[
 ]} ) to generate the beaming which is customarily used with lyrics
 (see @ref{Automatic and manual beams}).
+
+As an alternative to using slurs, the melismata may be indicated
+just in the lyrics by using an underscore, @code{_}, for each
+note that should be included in the melisma:
+
+@lilypond[verbatim,quote,ragged-right]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 d4 b8 g4 
+    g8 a4 b8 c[ b] a d4 b8 g4.
+  }
+  \addlyrics {
+    Girls and boys come out to play,
+    The moon doth shine _ as bright as day;
+  }
+>> 
+@end lilypond
 
 If a syllable extends over several notes or a single very long
 note an @notation{extender line} is usually drawn from the
@@ -1416,14 +1452,16 @@ example from Handel's Judas Maccabæus:
 >>
 @end lilypond
 
+@noindent
 but scores any more complex than this simple example are
 better produced by separating out the staff structure
-from the notes and lyrics with variables.  These are
-discussed later (see @ref{Organizing pieces with variables}).
+from the notes and lyrics with variables.  These
+discussed in @ref{Organizing pieces with variables}.
 
 @seealso
 
 Notation Reference: @ruser{Vocal music}.
+
 
 
 @node Final touches
@@ -1434,13 +1472,89 @@ add the final touches to simple pieces, and provides an
 introduction to the rest of the manual.
 
 @menu
+* Organizing pieces with variables::  
 * Version number::              
 * Adding titles::               
 * Absolute note names::         
-* Organizing pieces with variables::  
 * After the tutorial::          
-* How to read the manual::      
 @end menu
+
+
+@node Organizing pieces with variables
+@subsection Organizing pieces with variables
+
+When all of the elements discussed earlier are combined to produce
+larger files, the music expressions get a lot bigger.  In
+polyphonic music with many staves, the input files can become very
+confusing.  We can reduce this confusion by using
+@emph{variables}.
+
+With variables (also known as identifiers or macros), we can break
+up complex music expressions.  A variable is assigned as
+follows:
+
+@example
+namedMusic = @{ @dots{} @}
+@end example
+
+The contents of the music expression @code{namedMusic} can be used
+later by placing a backslash in front of the name
+(@code{\namedMusic}, just like a normal LilyPond command).
+
+@lilypond[verbatim,quote,ragged-right]
+violin = \new Staff { \relative c'' {
+  a4 b c b
+}}
+cello = \new Staff { \relative c {
+  \clef bass
+  e2 d
+}}
+{
+  <<
+    \violin
+    \cello
+  >>
+}
+@end lilypond
+
+@noindent
+The name of a variable must have alphabetic characters only, no
+numbers, underscores, or dashes.
+
+Variables must be defined @emph{before} the main music
+expression, but may be used as many times as required anywhere after
+they have been defined.  They may even be used in a later definition
+of another variable, giving a way of shortening the input if a
+section of music is repeated many times.
+
+@lilypond[verbatim,quote,ragged-right]
+tripletA = \times 2/3 { c,8 e g }
+barA = { \tripletA \tripletA \tripletA \tripletA }
+
+\relative c'' {
+ \barA \barA
+}
+@end lilypond
+
+Variables may be used for many other types of objects in
+the input.  For example,
+
+@example
+width = 4.5\cm
+name = "Wendy"
+aFivePaper = \paper @{ paperheight = 21.0 \cm @}
+@end example
+
+Depending on its contents, the variable can be used in different
+places.  The following example uses the above variables:
+
+@example
+\paper @{
+  \aFivePaper
+  line-width = \width
+@}
+@{ c4^\name @}
+@end example
 
 
 @node Version number
@@ -1540,9 +1654,9 @@ of quote @code{'} marks.  Consider this fragment from Mozart:
 }
 @end lilypond
 
-All these quotes makes the input less readable and it is a source
+All these quotes makes the input less readable and they are a source
 of errors.  With @code{\relative}, the previous example is much
-easier to read:
+easier to read and type:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -1564,72 +1678,12 @@ intervals, and is extremely useful for computer-generated LilyPond
 files.
 
 
-@node Organizing pieces with variables
-@subsection Organizing pieces with variables
-
-When all of the elements discussed earlier are combined to produce
-larger files, the music expressions get a lot bigger.  In
-polyphonic music with many staves, the input files can become very
-confusing.  We can reduce this confusion by using
-@emph{variables}.
-
-With variables (also known as identifiers or macros), we can break
-up complex music expressions.  A variable is assigned as
-follows:
-
-@example
-namedMusic = @{ @dots{} @}
-@end example
-
-The contents of the music expression @code{namedMusic} can be used
-later by placing a backslash in front of the name
-(@code{\namedMusic}, just like a normal LilyPond command).
-Variables must be defined @emph{before} the main music
-expression.
-
-@lilypond[verbatim,quote,ragged-right]
-violin = \new Staff { \relative c'' {
-  a4 b c b
-}}
-cello = \new Staff { \relative c {
-  \clef bass
-  e2 d
-}}
-{
-  <<
-    \violin
-    \cello
-  >>
-}
-@end lilypond
-
-@noindent
-The name of a variable must have alphabetic characters only, no
-numbers, underscores, or dashes.
-
-It is possible to use variables for many other types of objects in
-the input.  For example,
-
-@example
-width = 4.5\cm
-name = "Wendy"
-aFivePaper = \paper @{ paperheight = 21.0 \cm @}
-@end example
-
-Depending on its contents, the variable can be used in different
-places.  The following example uses the above variables:
-
-@example
-\paper @{
-  \aFivePaper
-  line-width = \width
-@}
-@{ c4^\name @}
-@end example
-
 
 @node After the tutorial
 @subsection After the tutorial
+
+FIXME: rewrite slightly after the rest of the LM has been
+stabilized.  Translators, ignore this section for now.
 
 After finishing the tutorial, you should probably try writing a
 piece or two.  Start by adding notes to one of the
@@ -1647,28 +1701,4 @@ wish to skim these chapters right now, and come back to them after
 you have more experience.
 
 
-@node How to read the manual
-@subsection How to read the manual
-
-Many examples in the tutorial omitted a @code{\relative c'' @{
-... @}} around the printed example, as we saw in
-@ref{How to read the tutorial}.
-
-In the rest of the manual, we are much more lax about the printed
-examples: sometimes they may have omitted a @code{\relative c'' @{
-... @}}, but other times a different initial pitch may be used
-(such as @code{c'} or @code{c,,}), and in some cases the whole
-example is in absolute note mode!  However, ambiguities like this
-only exist where the pitches are not important.  In any example
-where the pitch matters, we have explicitly stated
-@code{\relative} or absolute-mode @code{@{ @}}.
-
-If you are still confused about the exact LilyPond input that was
-used in an example, read the HTML version (if you are not already
-doing so) and click on the picture of the music.  This will
-display the exact input that LilyPond used to generate this
-manual.
-
-For information about the structure of the rest of the manual, see
-@ref{About this manual}.
 

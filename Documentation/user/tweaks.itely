@@ -13,14 +13,534 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-FIXME: explain what/why.  maybe in other sections.
+NB: This chapter is still under development and this version is
+somewhat experimental; nothing is fixed.  Don't translate yet!
+
 
 
 @menu
+* Tweaking basics::             
+* The Internals Reference manual::  
 * Common tweaks::               
 * TODO other name::             
 @end menu
 
+@node Tweaking basics
+@section Tweaking basics
+
+@q{Tweaking} is a LilyPond term for the various methods available
+to the user for modifying the actions taken during interpretation
+of the input file and modifying the appearance of the printed 
+output.  Some tweaks are very easy to use; others are more 
+complex.  But taken together the methods available for tweaking 
+permit almost any desired appearance of the printed music to be achieved.
+
+In this section we cover the basic concepts required to understand
+tweaking.  Later we give a variety of potted commands which can
+simply be copied to obtain the same effect in your own scores, and
+at the same time we show how these commands may be constructed so 
+that you may learn how to develop your own tweaks.
+
+Before starting on this Chapter you may wish to review the section
+@ref{Contexts and engravers}, as Contexts, Engravers and the 
+Properties contained within them are fundamental to understanding
+and constructing Tweaks.
+
+@menu
+* Objects and interfaces::      
+* Naming conventions of objects and properties::  
+* Tweaking methods::            
+@end menu
+
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@cindex Objects
+@cindex Grobs
+@cindex Spanners
+@cindex Interfaces
+
+Tweaking involves modifying the internal operation and structures
+of the LilyPond program, so we must first introduce some terms
+which are used to describe those internal operations and 
+structures.
+
+The term @q{Object} is a generic term used to refer to the
+multitude of internal structures built by LilyPond during the
+processing of an input file.  So when a command like @code{\new
+Staff} is encountered a new object of type @code{Staff} is
+constructed.  That @code{Staff} object then holds all the
+properties associated with that particular staff, for example, its
+name and its key signature, together with details of the engravers
+which have been assigned to operate within that staff's context.
+Similarly, there are @code{Voice} objects, @code{Score} objects,
+@code{Lyric} objects, and objects to represent barlines,
+noteheads, ties, dynamics, etc, each with their own set of
+properties.
+
+Some types of object are given special names.  Objects which
+represent items of notation on the printed output such as
+noteheads, stems, slurs, ties, fingering, clefs, etc are called
+@q{Layout objects}, often known as @q{Graphical Objects}, or
+@q{Grobs} for short.  These are still objects in the generic sense
+above, and so they too all have properties associated with them,
+such as their position, size, color, etc.
+
+Some layout objects are still more specialised.  Phrasing slurs,
+crescendo hairpins, ottavo marks, and many other grobs are not
+localised in a single place -- they have a starting point, an
+ending point, and maybe other properties concerned with their
+shape.  Objects with an extended shape like these are called
+@q{Spanners}.
+
+It remains to explain what @q{Interfaces} are.  Many objects,
+even though they are quite different, share common features 
+which need to be processed in the same way.
+For example, all grobs have a color, a size, a position, etc,
+and all these properties are processed in the same way during
+LilyPond's
+interpretation of the input file.  To simplify these internal
+operations these common actions and properties are grouped 
+together in an object called a @code{grob-interface}.  There
+are many other groupings of common properties like this, each 
+one given a name ending in @code{-interface}.  In total there
+are over 100 such interfaces.  We shall see later why this is
+of interest and use to the user.
+
+These, then, are the main terms relating to objects which we 
+shall use in this chapter.
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+We met some object naming conventions previously, in 
+@ref{Contexts and engravers}.  Here for reference is a list
+of the most common object types together with the conventions
+for naming them and a couple of examples of some real names.
+
+@multitable @columnfractions .33 .33 .33
+@headitem Object type           
+  @tab Naming convention
+  @tab Example
+@item Contexts, Layout Objects     
+  @tab Aaaa or AaaaAaaaAaaa
+  @tab Staff, GrandStaff, 
+@item Engravers
+  @tab Aaaa_aaa_engraver
+  @tab Clef_engraver, Note_heads_engraver
+@item Interfaces
+  @tab aaa-aaa-interface
+  @tab grob-interface, break-aligned-interface 
+@item Context Properties
+  @tab aaa or aaaAaaaAaaa
+  @tab alignAboveContext, skipBars
+@item Layout Object Properties
+  @tab aaa or aaa-aaa-aaa
+  @tab direction, beam-thickness
+@end multitable
+
+As we shall see shortly, the properties of different types of 
+object are modified by different commands, so it is useful to
+be able to recognise the type of object from the names of its
+properties.
+
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+We have already met the commands @code{\set} and @code{\with},
+used to change the properties of @strong{contexts} and to remove
+and add
+engravers, in @ref{Modifying context properties} and @ref{Adding
+and removing engravers}.  We now must meet one more command.
+
+The command to change the properties of @strong{layout objects} is
+@code{\override}.  Because this command has to modify
+internal properties deep within LilyPond its syntax is not
+as simple as the commands you have met so far.  It needs to
+know precisely which property of which object in which context
+has to be modified, and what its new value is to be.  Let's see
+how this is done.
+
+The general syntax of this command is:
+
+@example
+\override @emph{context}.@emph{layout_object} #'@emph{layout_property} = #@emph{value}
+@end example
+
+@noindent
+This will set the property with the name @emph{layout_property}
+of the layout object with the name 
+@emph{layout_object}, which is a member of the @emph{context}
+context, to the value @emph{value}.
+
+For now, don't worry about the @code{#'}, which must precede the
+layout property, and the @code{#}, which must precede the value.
+These must always be present in exactly this form.  This is the
+most common command used in tweaking, and most of the rest of
+this chapter will be directed to presenting examples of how it is
+used.
+
+Once overridden, the property retains its new value until it is
+overridden again or a @code{\revert} command is encountered.
+The @code{\revert} command has the following syntax and causes
+the value of the property to revert to its original default
+value; note, not its previous value if several @code{\override}
+commands have been issued.
+
+@example
+\revert @emph{context}.@emph{layout_object} #'@emph{layout_property}
+@end example
+
+There is another form of the override command, 
+@code{\overrideProperty}, which is occasionally required.  
+We mention it here for completeness, but for details see 
+@ruser{Difficult tweaks}.
+
+The final tweaking command which is available is @code{\tweak}.
+It is not really a new command but a shorthand for an 
+@code{\override} command which may be used in a few special 
+circumstances.  Again, we shall not discuss or 
+use it here.  You may find the details in 
+@ruser{Objects connected to the input}.
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@cindex Internals Reference
+
+@menu
+* Properties of layout objects::  
+* Properties found in interfaces::  
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@cindex properties of layout objects
+@cindex properties of grobs
+@cindex grobs, properties of
+@cindex layout objects, properties of
+
+Suppose you have a slur in a score which, to your mind,
+appears too thin and you'd like to draw it a little thicker.
+How do you go about doing this?  You know from the statements
+earlier about the flexibility of LilyPond that such a thing
+should be possible, and you would probably guess that an
+@code{\override} command would be needed.  But is there a
+thickness property for a slur, and if there is, how might it 
+be modified?  This is where the Internals Reference manual
+comes in.  It contains all the information you might need to
+construct this and all other @code{\override} commands.
+
+Before we look at the Internals Reference a word of warning.
+This is a @strong{reference} document, which means there is
+little or no explanation contained within it: its purpose is
+to present information precisely and concisely.  This
+might mean it looks daunting at first sight.  Don't worry!
+The guidance and explanation presented here will enable you
+to extract the information from the Internals Reference for
+yourself with just a little practice.
+
+@cindex override example
+@cindex Internals Reference, example of using
+
+Let's use a concrete example with a simple fragment of real
+music:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  { r4 b8 b[( g]) g | g[( e]) e d[( f]) a | a g }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond 
+
+Suppose now that we decide we would like the slurs to be a
+little heavier.  Is this possible?  The slur is certainly a
+layout object, so the question is, @q{Is there a property
+belonging to a slur which controls the heaviness?}  To answer
+this we must look in the Internals Reference, or IR for short.
+
+The IR for the version of LilyPond you are using may be found
+on the LilyPond website at http://lilypond.org.  Go to the
+documentation page and click on the Internals Reference link.
+For learning purposes you should use the standard html version,
+not the @q{one big page} or the PDF.  For the next few
+paragraphs to make sense you will need to actually do this
+as you read.
+
+Under the heading @strong{Top} you will see five links.  Select
+the link to the @emph{Backend}, which is where information about
+layout objects is to be found.  There, under the heading 
+@strong{Backend}, select the link to @emph{All layout objects}.
+The page that appears lists all the layout objects used in your
+version of LilyPond, in alphabetic order.  Select the link to
+Slur, and the properties of Slurs are listed.
+
+(An alternative way of finding this page is from the Notation
+Reference.  On one of the pages that deals with slurs you may
+find a link to the Internals Reference.  This link will
+take you directly to this page, but often it is easier to go
+straight to the IR and search there.)
+
+This Slur page in the IR tells us first that Slur objects are 
+created by the 
+Slur_engraver.  Then it lists the standard settings.  Note
+these are @strong{not} in alphabetic order.  Browse down
+them looking for a property that might control the heaviness
+of slurs, and you should find
+
+@example
+@code{thickness} (number)
+     @code{1.2}
+     Line thickness, generally measured in @code{line-thickness}
+@end example
+
+This tells us first that there @emph{is} a property that
+controls thickness, that its value is a simple @emph{number},
+that the default value is 1.2, and that the units are
+in another property called @code{line-thickness}.  This looks
+a good bet to change the heaviness.
+
+As we said earlier, there are few to no explanations in the IR,
+but we already have enough information to try changing the
+slur thickness.  We see that the name of the layout object 
+is @code{Slur}, that the name of the property to change is
+@code{thickness} and that the new value should be a number
+somewhat larger than 1.2 if we are to make slurs thicker.
+
+But what is the Context?  We could guess that slurs are in
+the Voice context, as they are clearly closely associated
+with individual lines of music, but can we be sure?  To
+find out, go back to the top of the IR page describing the
+Slur, where it says @q{Slur objects are created by: Slur
+engraver}.  So slurs will be created in whichever context
+the @code{Slur_engraver} is in.  Follow the link to the
+@code{Slur_engraver} page.  At the very bottom it tells
+us that @code{Slur_engraver} is part of five Voice contexts,
+including the standard voice context, @code{Voice}, so our 
+guess was correct.
+
+We can now construct the @code{\override} command by simply
+substituting the values we have found for the names.  Let's
+use a very large value for the thickness at first, so we
+can be sure the command is working.  We get:
+
+@example
+  \override Voice.Slur #'thickness = #5.0
+@end example 
+
+Don't forget the @code{#'} preceding the
+property name and and @code{#} preceding the new value!
+
+The final question is, @q{Where should this command be
+placed?}  While you are unsure and learning, the best 
+answer is, @q{Within the music, before the first slur and 
+close to it.}  Let's do that:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  { 
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Voice.Slur #'thickness = #5.0
+    r4 b8 b[( g]) g | g[( e]) e d[( f]) a | a g
+  }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond 
+
+@cindex overriding once only
+@cindex once override
+@funindex \once
+
+As you can see, all the slurs are thicker.  But, what if we
+wanted just the first slur to be thicker?  This is achieved
+with the @code{\once} command.  Placed immediately before
+the @code{\override} command it causes it to affect only the
+slur on the @strong{immediately following} note.  If the
+immediately following note does not have a slur the command
+has no effect.  So the command must be repositioned as follows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  { 
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Voice.Slur #'thickness = #5.0
+    b[( g]) g | g[( e]) e d[( f]) a | a g 
+  }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond 
+ 
+Finally, what if we wanted just the first two slurs to be
+heavier?  Well, we could use two commands, each preceded by
+@code{\once} placed immediately before each of the notes where
+the slurs begin:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Voice.Slur #'thickness = #5.0
+    b[( g]) g |
+    % Increase thickness of immediately following slur only
+    \once \override Voice.Slur #'thickness = #5.0
+    g[( e]) e d[( f]) a | a g
+  }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond 
+
+@cindex revert
+@funindex \revert
+
+@noindent
+or we could omit the @code{\once} command and use the 
+@code{\revert} command
+to return the @code{thickness} property to its default value:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Voice.Slur #'thickness = #5.0
+    b[( g]) g |
+    g[( e]) 
+    % Revert thickness of all following slurs to default of 1.2
+    \revert Voice.Slur #'thickness
+    e d[( f]) a | a g
+  }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond
+
+@noindent
+The @code{\revert} command can be used to return any property
+changed with @code{\override} back to its default value.
+You may use whichever method best suits what you want to do.
+
+That concludes our introduction to the IR, and the basic
+method of tweaking.  Several examples follow in the later
+sections of this Chapter, but with progressively fewer words
+of guidance and explanation. 
+
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@cindex interface properties
+@cindex properties in interfaces
+
+Suppose now that we wish to color a slur red.  We would go
+to the properties on Slurs in the IR as described in the
+previous section, and look in vain, because there is nothing
+there that looks like it might change the color.  This is
+because the color property is one that is common to all
+layout objects, so, rather than including it in every layout
+object, it is grouped together with other similar common
+properties and placed in an @strong{Interface}, the 
+@code{grob-interface}.  (Remember, grob is short for 
+@q{graphical object}, itself another name for a layout object.)
+
+So now we need to learn how to find the properties of interfaces,
+and to discover what objects use these interface properties.
+
+Look again at the IR page which describes the Slur.  At the
+bottom of the page is a list of clickable (in the html versions
+of the IT) interfaces which the Slur supports.  The list has 
+three items: @code{spanner-interface}, @code{slur-interface}
+and @code{grob-interface}.
+
+The @code{spanner-interface} holds properties common to 
+spanners -- objects which extend over several notes --
+as do Slurs.
+
+The @code{slur-interface} holds properties common to ordinary
+slurs and phrasing slurs.
+
+The @code{grob-interface} holds properties common to all
+layout objects, and it is here that you will find the 
+@code{color} property, which appears as
+
+@example
+color(list)
+     The color of this grob
+@end example
+
+... to be continued
+
+@ignore
+@c The rest of this section is rubbish and will need to be rewritten  -td
+ 
+The value then is described as a @emph{list}?  Why do we need
+a list to specify a color?  Well, we don't, but there are
+several ways to specify a color and some of them do need a list.
+See the Notation Reference @ruser{List of colors}.  This shows
+the @q{Normal colors} and the longer list of @q{X color names}.
+The normal colors are written as a one-member list, which can
+be written simply as @code{red}.  But the X color names must be 
+written as a two-member list:
+
+@example
+(x11-color 'LimeGreen)
+@end example
+
+@noindent
+where the first item in the list is always @q{x11-color} to
+indicate this is a color from the longer list of X11 colors,
+and the second item is the name of the color from the list
+of X11 colors in the Notation Reference.
+
+@cindex properties as lists
+@cindex properties as text strings
+
+This introduces two new concepts.  
+
+First the brackets round
+this property value are required to form the two items into
+a list, as required by the color property.  Brackets would 
+generate an error if placed around a @q{normal color}, though,
+because these are shorthand names known to LilyPond which
+generate the appropriate list automatically.  
+
+Second, because the second
+item is a text string it needs to be introduced with a
+single apostrophe, @code{'}.  This is why these apostrophes
+are needed before @code{'thickness} and @code{'color'}.
+These are both text strings too.
+
+So, putting this into practice, we can change the second
+slur to the normal color magenta and the third slur
+to the X11 color, DarkOrange, where we have made all the 
+slurs thicker to show the colors better, as follows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    \override Voice.Slur #'thickness = #5.0
+    r4 b8
+    b[( g]) g |
+    \once \override Voice.Slur #'color = #magenta
+    g[( e]) e
+    \once \override Voice.Slur #'color = #(x11-color 'DarkOrange)
+    d[( f]) a | a g
+  }
+  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+}
+@end lilypond
+
+@end ignore
+ 
+
+@c Old stuff follows  -td
 
 @node Common tweaks
 @section Common tweaks

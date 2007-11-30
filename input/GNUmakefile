@@ -1,8 +1,6 @@
 depth = ..
 
-### FIXME: change this back before merging with main!!!
 SUBDIRS = regression tutorial mutopia manual lsr new 
-#SUBDIRS = tutorial mutopia manual lsr new 
 
 examples = typography-demo les-nereides wilhelmus proportional bach-schenker cary
 

@@ -1414,6 +1414,8 @@ c^"This text is padded away from the previous text"
 c^"This text is placed close to the previous text"
 @end lilypond
 
+FIXME: this example doesn't work any more ?
+
 By default, outside-staff objects are placed without regard to
 their horizontal distance from the previously-posititioned grobs.  This
 can lead to situations in which objects are placed very close to each
@@ -1781,7 +1783,7 @@ space.  We could place a measured timeline or graphic above or below
 this example.
 
 The @code{proportionalNotationDuration} setting is a context setting that
-lives in @context{Score}.  Recall that context settings appear in one of
+lives in @code{Score}.  Recall that context settings appear in one of
 three locations in our input file -- in a @code{\with} block, in a
 @code{\context} block, or directly in music entry
 preceeded by the @code{\set} command.  As with all

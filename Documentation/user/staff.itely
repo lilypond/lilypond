@@ -9,6 +9,9 @@
 @node Staff notation
 @section Staff notation
 
+@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+{staff-headword.ly}
+
 Notes, dynamic signs, etc., are grouped with a set of horizontal
 lines, called a staff (plural @q{staves}).  In LilyPond, these
 lines are drawn using a separate layout object called @code{staff

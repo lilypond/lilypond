@@ -43,37 +43,12 @@ protected:
 
   DECLARE_TRANSLATOR_LISTENER (mark);
   DECLARE_ACKNOWLEDGER (break_alignment);
-  DECLARE_ACKNOWLEDGER (break_aligned);
 };
 
 Mark_engraver::Mark_engraver ()
 {
   text_ = 0;
   mark_ev_ = 0;
-}
-
-/*
-  This is a flawed approach, since various break-aligned objects may
-  not appear depending on key signature etc.
-
-   We keep it in case someone puts the engraver in a lower context than score.
- */
-void
-Mark_engraver::acknowledge_break_aligned (Grob_info inf)
-{
-  Grob *s = inf.grob ();
-  if (text_
-      && !text_->get_parent (X_AXIS)
-      && (text_->get_property_data ("break-align-symbol")
-	  == s->get_property_data ("break-align-symbol"))
-      && Axis_group_interface::has_interface (s))
-    {
-      /*
-	RehearsalMark cannot be break-aligned, since the width of the
-	object should not be taken into alignment considerations.
-      */
-      text_->set_parent (s, X_AXIS);
-    }
 }
 
 void
@@ -161,7 +136,6 @@ Mark_engraver::process_music ()
     }
 }
 
-ADD_ACKNOWLEDGER (Mark_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Mark_engraver,

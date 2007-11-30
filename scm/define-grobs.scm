@@ -1109,6 +1109,7 @@
 	(direction . ,UP)
 	(padding . 0.2)
 	(staff-padding . 0.25)
+	(outside-staff-priority . 450)
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				multi-measure-interface
@@ -1525,7 +1526,7 @@
     (SpanBar
      . (
 	(break-align-symbol . staff-bar)
-	(Y-extent . ())
+	(Y-extent . ,ly:axis-group-interface::height)
 	(layer . 0)
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)

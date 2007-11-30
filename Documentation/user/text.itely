@@ -9,6 +9,9 @@
 @node Text
 @section Text
 
+@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+{text-headword.ly}
+
 This section explains how to include text (with various
 formatting) in your scores.
 
@@ -889,7 +892,7 @@ TODO: add this somewhere
 The music function \endSpanners terminates spanners and hairpins
 after exactly one note.
 
-@lilypond[verbatim,quote,raged-right,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
 \endSpanners
 c2 \startTextSpan c2
 c2 \< c2

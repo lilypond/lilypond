@@ -55,6 +55,11 @@ setTextCresc = {
 }
 
 setTextDecresc = {
+    \set decrescendoText = \markup { \italic "decresc." }
+    \set decrescendoSpanner = #'dashed-line
+}
+
+setTextDecr = {
     \set decrescendoText = \markup { \italic "decr." }
     \set decrescendoSpanner = #'dashed-line
 }

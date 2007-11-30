@@ -103,7 +103,7 @@ public:
 class Audio_tempo : public Audio_item
 {
 public:
-  Audio_tempo (int per_minute_4_i);
+  Audio_tempo (int per_minute_4);
 
   int per_minute_4_;
 };

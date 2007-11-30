@@ -106,41 +106,41 @@ bool
 Vaticana_ligature_engraver::is_stacked_head (int prefix_set,
 					     int context_info)
 {
-  bool is_stacked_b;
+  bool is_stacked;
 
   // upper head of pes is stacked upon lower head of pes ...
-  is_stacked_b = context_info & PES_UPPER;
+  is_stacked = context_info & PES_UPPER;
 
   // ... unless this note starts a flexa
   if (context_info & FLEXA_LEFT)
-    is_stacked_b = false;
+    is_stacked = false;
 
   // ... or another pes
   if (context_info & PES_LOWER)
-    is_stacked_b = false;
+    is_stacked = false;
 
   // ... or the previous note is a semivocalis or inclinatum
   if (context_info & AFTER_DEMINUTUM)
-    is_stacked_b = false;
+    is_stacked = false;
 
   // auctum head is never stacked upon preceding note
   if (prefix_set & AUCTUM)
-    is_stacked_b = false;
+    is_stacked = false;
 
   // virga is never stacked upon preceding note
   if (prefix_set & VIRGA)
-    is_stacked_b = false;
+    is_stacked = false;
 
   // oriscus is never stacked upon preceding note
   if (prefix_set & ORISCUS)
-    is_stacked_b = false;
+    is_stacked = false;
 
   if ((prefix_set & DEMINUTUM)
       && ! (prefix_set & INCLINATUM)
       && (context_info & FLEXA_RIGHT))
-    is_stacked_b = true; // semivocalis head of deminutus form
+    is_stacked = true; // semivocalis head of deminutus form
 
-  return is_stacked_b;
+  return is_stacked;
 }
 
 /*

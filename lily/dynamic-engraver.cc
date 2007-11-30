@@ -179,8 +179,7 @@ Dynamic_engraver::process_music ()
 
 	  /* backwards compatibility with hairpinToBarline */
 	  bool use_bar = to_boolean (get_property ("hairpinToBarline"))
-	    && scm_is_string (get_property ("whichBar"))
-	    && !script_ev_;
+	    && scm_is_string (get_property ("whichBar"));
 
 	  finished_cresc_->set_property ("to-barline", scm_from_bool (use_bar));
 

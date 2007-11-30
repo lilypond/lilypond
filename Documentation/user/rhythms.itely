@@ -106,33 +106,24 @@ force a particular direction manually:
 @funindex \dotsNeutral
 @code{\dotsNeutral}.
 
-@c TODO: after deciding the link question, fix these.  -gp
-Durations are entered in the same way in @code{drummode},
-@code{chordmode}, @code{figuremode}, and (optionally) 
-in @code{lyricmode}.
-
-@seealso
-
-Notation Reference:
-@itemize
-@item
 For ways of specifying durations for the syllables of lyrics and
 ways of aligning lyrics to notes see @ref{Vocal music}.
 
-@item
-For a description of how to enter rests see @ref{Writing rests}.
-
-@item
 A note with the duration of a quadruple breve may be entered with
 @code{\maxima}, but this is supported only within ancient music
 notation; see @ref{Ancient notation}.
 
-@item
 Optionally, notes can be spaced proportionately to their duration.
 For details of this and other settings which control proportional
 notation see @ref{Proportional notation}.
 
-@end itemize
+
+@seealso
+
+Music Glossary: @rglos{breve}, @rglos{longa}.
+
+Notation Reference: @ref{Writing rests}, @ref{Vocal music},
+@ref{Ancient notation}, @ref{Proportional notation}.
 
 Snippets: @lsrdir{rhythms}
 
