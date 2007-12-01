@@ -463,9 +463,6 @@ for repeated bass figures.")
 context names whose vertical axis groups should be taken into account
 for vertical spacing of systems.")
      (vocalName ,markup? "Name of a vocal line.")
-     (voltaOnThisStaff ,boolean? "Normally, volta brackets are put
-only on the topmost staff.  This variable overrides this behavior, when
-set to @code{#t} or @code{#f}.")
      (voltaSpannerDuration ,ly:moment? "This specifies the maximum
 duration to use for the brackets printed for @code{\\alternative}.
 This can be used to shrink the length of brackets in the situation
