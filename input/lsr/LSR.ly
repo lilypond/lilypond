@@ -8,6 +8,7 @@ These pages show LilyPond examples (snippets) from the
 @subheading 1 Musical notation
 
 @uref{pitches/collated-files.html,Pitches}
+(@uref{pitches/collated-files.pdf,pdf link})
 
 @uref{rhythms/collated-files.html,Rhythms}
 (@uref{rhythms/collated-files.pdf,pdf link})
@@ -23,57 +24,31 @@ These pages show LilyPond examples (snippets) from the
 @uref{text/collated-files.html,Text}
 
 
+@subheading 1 Specialist notation
+
+@uref{vocal/collated-files.html,Vocal}
+
+@uref{chords/collated-files.html,Chords}
+
+@uref{piano/collated-files.html,Piano}
+
+@uref{percussion/collated-files.html,Percussion}
+
+@uref{guitar/collated-files.html,Guitar}
+
+@uref{strings/collated-files.html,Strings}
+
+@uref{bagpipes/collated-files.html,Bagpipes}
+
+@uref{ancient/collated-files.html,Ancient}
 
 
 
 @subheading Special collections
 
-@strong{@uref{real-music/collated-files.html,Real music}}
-
-@strong{@uref{scheme/collated-files.html,Advanced stuff with
-scheme}} (actually, still old stuff)
+@uref{other/collated-files.html,other}
 
 
-@sp 5
-
-@subheading old stuffs
-
-@strong{@uref{ancient/collated-files.html,Ancient}}
-
-@strong{@uref{chords/collated-files.html,Chords}}
-
-@strong{@uref{connecting/collated-files.html,Connecting notes}}
-
-@strong{@uref{contemporary/collated-files.html,Contemporary notation}}
-
-@strong{@uref{expressive/collated-files.html,Expressive marks}}
-
-@strong{@uref{education/collated-files.html,Education}}
-
-@strong{@uref{guitar/collated-files.html,Guitar notation}}
-
-@strong{@uref{parts/collated-files.html,Preparing parts}}
-
-@strong{@uref{repeats/collated-files.html,Repeats}}
-
-@strong{@uref{spacing/collated-files.html,Spacing issues}}
-
-@strong{@uref{staff/collated-files.html,Staff notation}}
-
-@strong{@uref{text/collated-files.html,Text}}
-
-@strong{@uref{vocal/collated-files.html,Vocal music}}
-
-@strong{@uref{nonmusic/collated-files.html,Non-musical}}
-
-@strong{@uref{instrument/collated-files.html,Instrument-specific}}
-
-@strong{@uref{engravers/collated-files.html,Engravers}}
-
-@strong{@uref{scheme/collated-files.html,Advanced stuff with scheme}}
-
-@strong{@uref{other/collated-files.html,Other: snippets that do not fit
-into the above categories.}}
 "
 }
 
