@@ -1,0 +1,5 @@
+# -*-python-*-
+
+Import ('env', 'collate')
+collate (title = 'Sample snippets from LSR')
+
