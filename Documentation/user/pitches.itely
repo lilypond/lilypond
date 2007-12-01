@@ -313,6 +313,10 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
+@lsr{pitches,preventing-extra-naturals-from-being-automatically-added.ly}
+
+LSR toremove:
+@quotation
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental needs to
 be canceled.  To change this behavior, use
@@ -322,7 +326,7 @@ ceses4 ces cis c
 \set Staff.extraNatural = ##f
 ceses4 ces cis c
 @end lilypond
-
+@end quotation
 
 @seealso
 
@@ -918,6 +922,10 @@ fis
 
 @commonprop
 
+@lsr{pitches,preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+
+LSR toremove:
+@quotation
 A natural sign is printed to cancel any previous accidentals.
 This may be altered:
 
@@ -932,6 +940,7 @@ a b cis d
 \key g \minor
 a bes c d
 @end lilypond
+@end quotation
 
 The @code{\key} command sets the context property
 @code{Staff.keySignature}.  Non-standard key signatures can be
