@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-11-25 14:23+0100\n"
-"PO-Revision-Date: 2007-11-28 18:43+0200\n"
+"PO-Revision-Date: 2007-12-01 16:58+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -1582,9 +1582,8 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/expressive.itely
 #. @subsection in ../../../Documentation/user/expressive.itely
-#, fuzzy
 msgid "Curves"
-msgstr "Pause"
+msgstr "Bögen"
 
 #. @node in ../../../Documentation/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/expressive.itely
@@ -1598,9 +1597,8 @@ msgstr "Glissando zu unbestimmter Tonhöhe"
 
 #. @node in ../../../Documentation/user/expressive.itely
 #. @subsection in ../../../Documentation/user/expressive.itely
-#, fuzzy
 msgid "Lines"
-msgstr "Bindebögen"
+msgstr "Linien"
 
 #. @node in ../../../Documentation/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/expressive.itely
@@ -2024,7 +2022,7 @@ msgstr "Akkorde"
 #. @node in ../../../Documentation/user/chords.itely
 #. @subsection in ../../../Documentation/user/chords.itely
 msgid "Chords sections"
-msgstr "Auswahl von Akkorden"
+msgstr "Notation von Akkorden"
 
 #. @node in ../../../Documentation/user/chords.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/chords.itely
@@ -2053,9 +2051,8 @@ msgstr "Notation für Klavier"
 
 #. @node in ../../../Documentation/user/piano.itely
 #. @subsection in ../../../Documentation/user/piano.itely
-#, fuzzy
 msgid "Piano sections"
-msgstr "Klaviersysteme"
+msgstr "Notation von Musik für Klavier"
 
 #. @node in ../../../Documentation/user/piano.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/piano.itely
@@ -2089,9 +2086,8 @@ msgstr "Schlagzeug"
 
 #. @node in ../../../Documentation/user/percussion.itely
 #. @subsection in ../../../Documentation/user/percussion.itely
-#, fuzzy
 msgid "Percussion sections"
-msgstr "Schlagzeugsysteme"
+msgstr "Notation für Schlagzeug"
 
 #. @node in ../../../Documentation/user/percussion.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/percussion.itely
@@ -2120,9 +2116,8 @@ msgstr "Gitarre"
 
 #. @node in ../../../Documentation/user/guitar.itely
 #. @subsection in ../../../Documentation/user/guitar.itely
-#, fuzzy
 msgid "Guitar sections"
-msgstr "Auswahl der Schriftart"
+msgstr "Notation für Guitarre"
 
 #. @node in ../../../Documentation/user/guitar.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/guitar.itely
@@ -2166,9 +2161,8 @@ msgstr "Orchesterstreicher"
 
 #. @node in ../../../Documentation/user/strings.itely
 #. @subsection in ../../../Documentation/user/strings.itely
-#, fuzzy
 msgid "Orchestral strings sections"
-msgstr "Orchestermusik"
+msgstr "Notation von Orchestermusik"
 
 #. @node in ../../../Documentation/user/strings.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/strings.itely
@@ -2177,15 +2171,13 @@ msgstr "Flageolett"
 
 #. @node in ../../../Documentation/user/bagpipes.itely
 #. @section in ../../../Documentation/user/bagpipes.itely
-#, fuzzy
 msgid "Bagpipes"
 msgstr "Dudelsack"
 
 #. @node in ../../../Documentation/user/bagpipes.itely
 #. @subsection in ../../../Documentation/user/bagpipes.itely
-#, fuzzy
 msgid "Bagpipe sections"
-msgstr "Dudelsack-Defintionen"
+msgstr "Notation von Musik für Dudelsack"
 
 #. @node in ../../../Documentation/user/bagpipes.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/bagpipes.itely
