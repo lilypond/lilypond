@@ -8,6 +8,10 @@ dirs = []
 #  NR 1
 dirs.extend(['pitches', 'rhythms', 'expressive',
 'repeats', 'simultaneous', 'staff', 'editorial', 'text'])
+# NR 2
+dirs.extend(['vocal', 'chords', 'piano',
+'percussion', 'guitar', 'strings', 'bagpipes', 'ancient'])
+
 
 
 #

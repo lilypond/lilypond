@@ -2,9 +2,14 @@ depth = ../../
 
 # NR 1
 SUBDIRS = pitches rhythms expressive repeats simultaneous staff editorial text
+# NR 2
+SUBDIRS += vocal chords piano percussion guitar strings bagpipes ancient
 
 
+SUBDIRS += other
 
+
+# old
 SUBDIRS += ancient chords connecting contemporary education expressive
 SUBDIRS += guitar parts repeats spacing staff text vocal scheme other 
 SUBDIRS += engravers nonmusic instrument
