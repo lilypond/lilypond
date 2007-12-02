@@ -1,8 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
-
+    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,22 +14,128 @@
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* File structure (introduction)::
 * How LilyPond files work::
-* Score is a single musical expression::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
 @end menu 
-@node File structure (introduction)
-@section File structure (introduction)
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node How LilyPond files work
 @section How LilyPond files work
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Score is a single musical expression
-@section Score is a single musical expression
+@menu 
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting Music Expressions::
+* On the un-nestedness of brackets and ties::
+@end menu 
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Score is a (single) compound musical expression
+@subsection Score is a (single) compound musical expression
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Nesting Music Expressions
+@subsection Nesting Music Expressions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@ 
+@node On the un-nestedness of brackets and ties
+@subsection On the un-nestedness of brackets and ties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Voices contain music
+@section Voices contain music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* I'm hearing Voices::
+* Explicitly instantiating voices::
+* Voices and vocals::
+@end menu 
+@node I'm hearing Voices
+@subsection I'm hearing Voices
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Explicitly instantiating voices
+@subsection Explicitly instantiating voices
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Voices and vocals
+@subsection Voices and vocals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Contexts and engravers
+@section Contexts and engravers
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
+@end menu 
+@node Contexts explained
+@subsection Contexts explained
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Creating contexts
+@subsection Creating contexts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Engravers explained
+@subsection Engravers explained
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Modifying context properties
+@subsection Modifying context properties
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Adding and removing engravers
+@subsection Adding and removing engravers
+
+UNTRANSLATED NODE: IGNORE ME
+
+@ 
+@node Extending the templates
+@section Extending the templates
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Soprano and cello::
+* Four-part SATB vocal score::
+* Building a score from scratch::
+@end menu 
+@node Soprano and cello
+@subsection Soprano and cello
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Four-part SATB vocal score
+@subsection Four-part SATB vocal score
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Building a score from scratch
+@subsection Building a score from scratch
 
 UNTRANSLATED NODE: IGNORE ME
 

@@ -1,8 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
-
+    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,31 +14,21 @@
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* TODO subsection vocal music::
+* Simple lyrics::
+* Aligning lyrics to a melody::
+* Vocals and variables::
+* Flexibility in placement::
+* Spacing vocals::
+* More about stanzas::
 @end menu 
-@node TODO subsection vocal music
-@subsection TODO subsection vocal music
+@node Simple lyrics
+@subsection Simple lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
 * Setting simple songs::
 * Entering lyrics::
-* Aligning lyrics to a melody::
-* Automatic syllable durations::
-* Another way of entering lyrics::
-* Assigning more than one syllable to a single note::
-* More than one note on a single syllable::
-* Extenders and hyphens::
-* Working with lyrics and identifiers::
-* Flexibility in placement::
-* Lyrics to multiple notes of a melisma::
-* Divisi lyrics::
-* Switching the melody associated with a lyrics line::
-* Lyrics independent of notes::
-* Spacing lyrics::
-* More about stanzas::
-* Other vocal issues::
 @end menu 
 @node Setting simple songs
 @unnumberedsubsubsec Setting simple songs
@@ -52,7 +41,7 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @node Aligning lyrics to a melody
-@unnumberedsubsubsec Aligning lyrics to a melody
+@subsection Aligning lyrics to a melody
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -88,13 +77,21 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Working with lyrics and identifiers
-@unnumberedsubsubsec Working with lyrics and identifiers
+@node Vocals and variables
+@subsection Vocals and variables
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Working with lyrics and variables::
+@end menu 
+@node Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Flexibility in placement
-@unnumberedsubsubsec Flexibility in placement
+@subsection Flexibility in placement
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -124,23 +121,53 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node Spacing vocals
+@subsection Spacing vocals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Spacing lyrics::
+@end menu 
 @node Spacing lyrics
 @unnumberedsubsubsec Spacing lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More about stanzas
-@unnumberedsubsubsec More about stanzas
+@subsection More about stanzas
 
 UNTRANSLATED NODE: IGNORE ME
 
+@menu 
+* Adding stanza numbers ::
+* Adding dynamics marks::
+* Adding singer names::
+* Printing stanzas at the end ::
+* Printing stanzas at the end in multiple columns ::
+@end menu 
+@node Adding stanza numbers 
 @unnumberedsubsubsec Adding stanza numbers 
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Adding dynamics marks
 @unnumberedsubsubsec Adding dynamics marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Adding singer names
 @unnumberedsubsubsec Adding singer names
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Printing stanzas at the end 
 @unnumberedsubsubsec Printing stanzas at the end 
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Printing stanzas at the end in multiple columns 
 @unnumberedsubsubsec Printing stanzas at the end in multiple columns 
-@node Other vocal issues
-@unnumberedsubsubsec Other vocal issues
 
 UNTRANSLATED NODE: IGNORE ME
 

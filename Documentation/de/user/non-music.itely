@@ -1,8 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
-
+    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,61 +14,9 @@
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Input files::
 * Titles and headers::
 * MIDI output::
-* Displaying LilyPond notation::
-* Skipping corrected music::
 @end menu 
-@node Input files
-@section Input files
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* File structure::
-* A single music expression::
-* Multiple scores in a book::
-* Extracting fragments of notation::
-* Including LilyPond files::
-* Text encoding::
-* Different editions from one source::
-@end menu 
-@node File structure
-@subsection File structure
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node A single music expression
-@subsection A single music expression
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Multiple scores in a book
-@subsection Multiple scores in a book
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Including LilyPond files
-@subsection Including LilyPond files
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Text encoding
-@subsection Text encoding
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Different editions from one source
-@subsection Different editions from one source
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Titles and headers
 @section Titles and headers
 
@@ -110,6 +57,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Creating MIDI files::
 * MIDI block::
 * MIDI instrument names::
+* What goes into the MIDI?  FIXME::
 @end menu 
 @node Creating MIDI files
 @subsection Creating MIDI files
@@ -126,13 +74,16 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Displaying LilyPond notation
-@section Displaying LilyPond notation
+@node What goes into the MIDI?  FIXME
+@subsection What goes into the MIDI?  FIXME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Skipping corrected music
-@section Skipping corrected music
+@menu 
+* Repeats and MIDI::
+@end menu 
+@node Repeats and MIDI
+@unnumberedsubsubsec Repeats and MIDI
 
 UNTRANSLATED NODE: IGNORE ME
 

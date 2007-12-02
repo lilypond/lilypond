@@ -1,0 +1,129 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Input syntax
+@chapter Input syntax
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Input files::
+* Common syntax issues TODO name?::
+* Other stuffs TODO move?::
+@end menu 
+@node Input files
+@section Input files
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* File structure::
+* A single music expression::
+* Multiple scores in a book::
+* Extracting fragments of notation::
+* Including LilyPond files::
+* Text encoding::
+* Different editions from one source::
+@end menu 
+@node File structure
+@subsection File structure
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node A single music expression
+@subsection A single music expression
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Including LilyPond files
+@subsection Including LilyPond files
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text encoding
+@subsection Text encoding
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Different editions from one source
+@subsection Different editions from one source
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Common syntax issues TODO name?
+@section Common syntax issues TODO name?
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Up and down::
+* Distances and measurements MAYBE MOVE::
+@end menu 
+@node Up and down
+@subsection Up and down
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Distances and measurements MAYBE MOVE
+@subsection Distances and measurements MAYBE MOVE
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Other stuffs TODO move?
+@section Other stuffs TODO move?
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Displaying LilyPond notation::
+* Skipping corrected music::
+* context list FIXME::
+* another thing FIXME::
+* Input modes FIXME::
+@end menu 
+@node Displaying LilyPond notation
+@subsection Displaying LilyPond notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Skipping corrected music
+@subsection Skipping corrected music
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node context list FIXME
+@subsection context list FIXME
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node another thing FIXME
+@subsection another thing FIXME
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Input modes FIXME
+@subsection Input modes FIXME
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
