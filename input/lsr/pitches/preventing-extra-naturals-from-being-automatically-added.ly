@@ -8,8 +8,8 @@ note needs to be canceled.  To change this behavior, set the
 extraNatural property to \"false\" in the Staff context. 
 " }
 
-{
-aeses4 aes ais a
+\relative {
+aeses'4 aes ais a
 \set Staff.extraNatural = ##f
 aeses4 aes ais a
 }

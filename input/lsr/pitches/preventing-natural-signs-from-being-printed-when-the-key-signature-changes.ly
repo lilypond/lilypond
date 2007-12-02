@@ -8,7 +8,7 @@ altered by setting to \"false\" the printKeyCancellation property in
 the Staff context.
 " }
 
-{
+\relative {
 \key d \major
 a b cis d
 \key g \minor
