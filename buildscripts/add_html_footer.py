@@ -92,9 +92,10 @@ splitted_docs_re = re.compile ('Documentation/user/out-www/(lilypond|music-gloss
 # On systems without symlinks (e.g. Windows), docs are not very usable
 # Get rid of symlinks references here
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
+# this also fixes missing PNGs only present in translated docs
 def replace_symlinks_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(lily-.*?|.*?-flat-.*?|context-example.*?)"', '\\1="../\\2"', s)
+        s = re.sub ('(href|src)="(lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
         return s
@@ -261,8 +262,7 @@ def add_html_footer (translation,
             in_f.close()
 
             s = re.sub ('%', '%%', s)
-            if target == 'offline':
-                s = replace_symlinks_urls (s, prefix)
+            s = replace_symlinks_urls (s, prefix)
             s = add_header (s)
 
             ### add footer
