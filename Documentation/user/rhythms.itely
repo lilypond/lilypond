@@ -287,6 +287,10 @@ note:
 }
 @end lilypond
 
+@code{\compressMusic} works similarly to \times, but does not
+create a tuplet bracket; see @ref{Polymetric notation}.
+
+
 @refbugs
 
 Tuplets which cross bar lines will prevent a line break at that
@@ -294,16 +298,10 @@ point.
 
 @seealso
 
-Notation Reference: @ref{Time administration}, @ref{Objects connected to the input}.
+Notation Reference: @ref{Time administration},
+@ref{Objects connected to the input}, @ref{Polymetric notation}.
 
-@code{\compressMusic} works similarly to \times, but does not
-create a tuplet bracket; see @ref{Polymetric notation}.
-
-FIXME: totally irrelevant link to real-music for
-discussion/demonstration purposes.
-
-Snippets: @lsrdir{rhythms},
-@lsr{real-music,creating-music-with-scheme.ly}.
+Snippets: @lsrdir{rhythms}.
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
