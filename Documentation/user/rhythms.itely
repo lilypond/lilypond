@@ -294,6 +294,8 @@ point.
 
 @seealso
 
+Notation Reference: @ref{Time administration}, @ref{Objects connected to the input}.
+
 @code{\compressMusic} works similarly to \times, but does not
 create a tuplet bracket; see @ref{Polymetric notation}.
 
@@ -335,7 +337,7 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 
 @seealso
 
-This manual: @ref{Tuplets}, @ref{Skips}, @ref{Polymetric notation}.
+Notation Reference: @ref{Tuplets}, @ref{Skips}, @ref{Polymetric notation}.
 
 Snippets: @lsrdir{rhythms}
 
