@@ -21,6 +21,7 @@ somewhat experimental; nothing is fixed.  Don't translate yet!
 @menu
 * Tweaking basics::             
 * The Internals Reference manual::  
+* Appearance of objects::       
 * Common tweaks::               
 * TODO other name::             
 @end menu
@@ -42,7 +43,7 @@ at the same time we show how these commands may be constructed so
 that you may learn how to develop your own tweaks.
 
 Before starting on this Chapter you may wish to review the section
-@ref{Contexts and engravers}, as Contexts, Engravers and the 
+@ref{Contexts and engravers}, as Contexts, Engravers, and the 
 Properties contained within them are fundamental to understanding
 and constructing Tweaks.
 
@@ -151,8 +152,8 @@ properties.
 
 We have already met the commands @code{\set} and @code{\with},
 used to change the properties of @strong{contexts} and to remove
-and add
-engravers, in @ref{Modifying context properties} and @ref{Adding
+and add @strong{engravers}, in 
+@ref{Modifying context properties} and @ref{Adding
 and removing engravers}.  We now must meet one more command.
 
 The command to change the properties of @strong{layout objects} is
@@ -175,14 +176,11 @@ of the layout object with the name
 @emph{layout_object}, which is a member of the @emph{context}
 context, to the value @emph{value}.
 
-The @emph{context} can be omitted in many situations, and in fact
-must be omitted in some.
-@c Eg: Context must not be present when overriding LyricText 
-@c properties within a \lyricsto block.
-It can be omitted when the context is one of lowest level
-contexts, i.e., @code{Voice} or @code{Lyrics}, and we shall omit
-it in the following examples.  Later we shall see when it must be
-specified.
+The @emph{context} can be omitted (and usually is) when the 
+required context is unambiguously implied and is one of lowest
+level contexts, i.e., @code{Voice} or @code{Lyrics}, and we shall
+omit it in the following examples.  Later we shall see when it 
+must be specified.
 
 For now, don't worry about the @code{#'}, which must precede the
 layout property, and the @code{#}, which must precede the value.
@@ -208,6 +206,7 @@ There is another form of the override command,
 @code{\overrideProperty}, which is occasionally required.  
 We mention it here for completeness, but for details see 
 @ruser{Difficult tweaks}.
+@c Maybe explain in a later iteration  -td
 
 The final tweaking command which is available is @code{\tweak}.
 It is not really a new command but a shorthand for an 
@@ -215,6 +214,7 @@ It is not really a new command but a shorthand for an
 circumstances.  Again, we shall not discuss or use it here.  
 You may find the details in 
 @ruser{Objects connected to the input}.
+@c Maybe explain in a later iteration  -td
 
 @node The Internals Reference manual
 @section The Internals Reference manual
@@ -250,7 +250,7 @@ Before we look at the Internals Reference a word of warning.
 This is a @strong{reference} document, which means there is
 little or no explanation contained within it: its purpose is
 to present information precisely and concisely.  This
-might mean it looks daunting at first sight.  Don't worry!
+means it might look daunting at first sight.  Don't worry!
 The guidance and explanation presented here will enable you
 to extract the information from the Internals Reference for
 yourself with just a little practice.
@@ -352,8 +352,18 @@ close to it.}  Let's do that:
 }
 @end lilypond 
 
-What if we had needed the Context?  What is it?  We could
-guess that slurs are in
+@noindent
+and we see that the slur is indeed heavier.
+
+So this is the basic way of constructing @code{\override}
+commands.  There are a few more complications that we
+shall meet in later sections, but you now know all the
+essentials required to make up your own -- but you will
+still need some practice.  This is provided in the examples
+which follow.
+
+But first, what if we had needed to specifiy the Context?  
+What is it?  We could guess that slurs are in
 the Voice context, as they are clearly closely associated
 with individual lines of music, but can we be sure?  To
 find out, go back to the top of the IR page describing the
@@ -364,7 +374,9 @@ the @code{Slur_engraver} is in.  Follow the link to the
 us that @code{Slur_engraver} is part of five Voice contexts,
 including the standard voice context, @code{Voice}, so our 
 guess was correct.  And because @code{Voice} is one of the
-lowest level contexts we can omit it in this location.
+lowest level contexts which is implied unambiguously by 
+the fact that we are entering notes, we can omit it in this 
+location.
 
 @heading Overriding once only
 
@@ -372,14 +384,17 @@ lowest level contexts we can omit it in this location.
 @cindex once override
 @funindex \once
 
-As you can see, all the slurs are thicker in the final example
-above.  But, what if we
+As you can see, @emph{all} the slurs are thicker in the 
+final example above.  But what if we
 wanted just the first slur to be thicker?  This is achieved
 with the @code{\once} command.  Placed immediately before
-the @code{\override} command it causes it to affect only the
+the @code{\override} command it causes it to change only the
 slur on the @strong{immediately following} note.  If the
 immediately following note does not have a slur the command
-has no effect.  So the command must be repositioned as follows:
+has no effect at all -- it is not remembered until a slur
+is encountered, it is simply discarded.  So the command with
+@code{\once} must be 
+repositioned as follows:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -393,6 +408,9 @@ has no effect.  So the command must be repositioned as follows:
   \addlyrics { The man who feels love's sweet e -- mo -- tion }
 }
 @end lilypond 
+
+@noindent
+Now only the first slur is made heavier.
  
 @heading Reverting
 
@@ -423,7 +441,8 @@ the slurs begin:
 @noindent
 or we could omit the @code{\once} command and use the 
 @code{\revert} command
-to return the @code{thickness} property to its default value:
+to return the @code{thickness} property to its default value
+after the second slur:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -449,8 +468,10 @@ You may use whichever method best suits what you want to do.
 
 That concludes our introduction to the IR, and the basic
 method of tweaking.  Several examples follow in the later
-sections of this Chapter, but with progressively fewer words
-of guidance and explanation. 
+sections of this Chapter, partly to introduce you to some of the
+additional features of the IR, and partly to give you more 
+practice in extracting information from it.  These example will
+contain progressively fewer words of guidance and explanation. 
 
 @node Properties found in interfaces
 @subsection Properties found in interfaces
@@ -487,6 +508,20 @@ Now we see all the user-settable properties which control fonts,
 including @code{font-shape(symbol)}, where @code{symbol} can be
 set to @code{upright}, @code{italics} or @code{caps}.
 
+You will notice that that @code{font-series} and @code{font-size}
+are also listed there.
+This immediately raises the question: Why are the common font
+properties @code{font-series} and @code{font-size} listed under
+@code{LyricText} as well as under the interface 
+@code{font-interface} but @code{font-shape} is not?  The answer
+is that @code{font-series} and @code{font-size} are changed
+from their global default values when a @code{LyricText} object
+is created, but @code{font-shape} is not.  The entries in 
+@code{LyricText} then tell you the values for those two
+properties which apply to @code{LyricText}.  Other objects
+which support @code{font-interface} will set these
+properties diferently when they are created.
+
 Let's see if we can now construct the @code{\override} command
 to change the lyrics to italics.  The object is @code{LyricText},
 the property is @code{'font-shape} and the value is 
@@ -497,9 +532,9 @@ the values of
 @code{'font-shape} are symbols they must be introduced with a
 single apostrophe, @code{'}.  That is why apostrophes
 are needed before @code{'thickness} in the earlier example
-and @code{'font-shape}.  These are both symbols too.  So
-what are symbols?  They are special names which are known
-internally to LilyPond.  Some of them are names of properties,
+and @code{'font-shape}.  These are both symbols too.  
+Symbols are special names which are known internally to 
+LilyPond.  Some of them are the names of properties,
 like @code{'thickness} or @code{'font-shape}, others are in
 effect special values that can be given to properties, like
 @code{'italic}.  Note the distinction from arbitary
@@ -534,9 +569,21 @@ lyrics which it should affect, like this:
 @noindent
 and the lyrics are all printed in italics.
 
-(In this case, if you try specifying the context the command
-will fail.  In lyric mode the @code{Lyrics} context is always
-assumed and must not be specified.)
+In the case of lyrics, if you try specifying the context in the 
+format given earlier the command will fail.  A syllable
+entered in lyricmode is terminated by either a space,
+a newline or a digit.  All other characters are included 
+as part of the syllable.  For this reason a space or newline
+must appear before the terminating @code{@}} to prevent it being
+included as part of the final syllable.  Similarly,
+spaces must be inserted before and after the
+period or dot, @q{.}, separating the context name from the
+object name, as otherwise the two names are run together and
+the interpreter cannot recognise them.  So the command should be:
+
+@example
+  \override Lyrics . LyricText #'font-shape = #'italic
+@end example
 
 @node Types of properties
 @subsection Types of properties
@@ -547,25 +594,25 @@ So far we have seen two types of property: @code{number} and
 @code{symbol}.  To be valid, the value given to a property
 must be of the correct type and obey the rules for that type.
 The type of property is always shown in brackets after the
-property name in the IR.  Here is a list of the types you
-may need, together with the rules for that type, and some
-examples.  You must add a hash symbol, @code{#}, of course, 
+property name in the IR.  Here is a list of the types you may 
+need, together with the rules for that type, and some examples.
+You must always add a hash symbol, @code{#}, of course, 
 to the front of these values when they are entered in the 
 @code{\override} command.
 
-@multitable @columnfractions .33 .33 .33
+@multitable @columnfractions .25 .45 .3
 @headitem Property type           
   @tab Rules
   @tab Examples
 @item Boolean
   @tab Either True or False, represented by #t or #f
-  @tab #t, #f
+  @tab @code{#t}, @code{#f}
 @item Dimension (in staff space)
   @tab A positive decimal number (in units of staff space)
   @tab 2.5, 0.34
 @item Direction
-  @tab A valid direction symbol or its numerical equivalent
-  @tab #LEFT, #CENTER, #UP, 1, -1
+  @tab A valid direction constant or its numerical equivalent
+  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP}, 1, -1
 @item Integer
   @tab A positive whole number
   @tab 3, 1
@@ -575,31 +622,247 @@ preceded by an apostrophe
   @tab '(left-edge staff-bar), '(1), '(1.0 0.25 0.5)
 @item Markup
   @tab Any valid markup
-  @tab \markup @{ \italic "cresc." @}
+  @tab @code{\markup @{ \italic "cresc." @}}
 @item Moment
   @tab A fraction of a whole note constructed with the 
 make-moment function
-  @tab (ly:make-moment 1 4), (ly:make-moment 3 8)
+  @tab @code{(ly:make-moment 1 4)}, @code{(ly:make-moment 3 8)}
 @item Number
   @tab Any positive or negative decimal value
   @tab 3.5, -2.45
 @item Pair (of numbers)
-  @tab Two numbers separated by a 'space . space' and enclosed
+  @tab Two numbers separated by a @q{space . space} and enclosed
 in brackets preceded by an apostrophe
   @tab '(2 . 3.5), '(0.1 . -3.2)
 @item Symbol
   @tab Any of the set of permitted symbols for that property,
 preceded by an apostrophe
-  @tab 'italic, 'inside
+  @tab @code{'italic}, @code{'inside}
 @item Unknown
   @tab A procedure or #f (to cause no action)
-  @tab bend::print, ly:text-interface::print, #f
+  @tab @code{bend::print}, @code{ly:text-interface::print}, #f
 @item Vector
   @tab A list of three items enclosed in brackets and preceded
 by a hash, @code{#}, sign
-  @tab #(#t #t #f), 
+  @tab @code{#(#t #t #f)} 
 @end multitable
 
+@node Appearance of objects
+@section Appearance of objects
+
+Let us now put what we have learnt into practice with a few
+examples which show how tweaks may be used to change the 
+appearance of the printed music.
+
+@menu
+* Visibility and color of objects::  
+* Size of objects::             
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+In the educational use of music we might wish to print a score
+with certain elements omitted as an exercise where the student is
+required to fill in the missing elements.  As a simple example,
+let use suppose the exercise is to supply the missing barlines 
+in a piece of music.  How do we prevent the barlines printing?
+
+As before, we go to the IR to find the layout object which prints
+barlines.  Going via @emph{Backend} and @emph{All layout objects}
+we find there
+is a layout object called @code{BarLine}.  Its properties include
+two that control its visibility: @code{break-visibility} and
+@code{stencil}.  Barline also supports a number of interfaces, 
+including the @code{grob-interface}, where we find the 
+@code{transparent} and the @code{color} properties.  All
+of these can affect the visibility of barlines (and, of course,
+by extension, many other layout objects too.)  Let's consider
+each of these in turn.
+
+@heading stencil
+@cindex stencil
+
+This property controls the appearance of the barlines.  In common
+with many other properties, it can be set to print nothing by 
+setting its value to @code{#f}.  Let's try it, as before, omitting
+the Context:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+The barlines are still printed.  What is wrong?  Go back to the
+IR and look again at the page giving the properties of BarLine.
+At the top of the page it says @qq{Barline objects are created
+by: Bar_engraver}.  Go to the Bar_engraver page.  At the bottom
+it gives a list of Contexts in which the bar engraver operates.
+All of them are of the type @code{Staff}, so the reason the
+@code{\override} command failed to work as expected is because
+@code{Barline} is not in the default @code{Voice} context.
+If the context
+is specified wrongly, the command simply does not work.  No
+error message is produced, and nothing is logged in the log
+file.  Let's try correcting it by adding the context:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+Now the barlines have vanished.
+
+@heading break-visibility
+
+@cindex break-visibility
+
+We see from the BarLine properties in the IR that the 
+break-visibility property requires a vector of three booleans.
+These control respectively whether barlines are printed at
+the end of a line, in the middle of lines, and at the beginning
+of lines.  For our example we want all barlines to be suppressed,
+so the value we need is #(#f #f #f).  Let's try that, remembering
+to include the @code{Staff} context.  Note also that in writing
+this value we have two hash signs before the opening bracket.
+One is required as part of the value to introduce a vector, 
+and one is required, as always, to precede the value in the
+@code{\override} command.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+And we see this too removes all the barlines.
+
+@heading transparent
+@cindex transparent
+
+We see from the properties specified in the @code{grob-interface}
+page in the IR that the transparent property is a boolean.  This
+should be set to @code{#t} to make the grob transparent.  If we 
+wanted to make the time signature invisible rather than the 
+barlines we need to find the time signature grob name.  Back to
+the @q{All layout objects} page in the IR to find the properties
+of the @code{TimeSignature} layout object.  This is produced by
+the @code{Time_signature_engraver} which you can check also lives
+in the @code{Staff} context and also supports the 
+@code{grob-interface}.  So the command to make the time signature
+transparent is:
+here:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'transparent = ##t
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+@noindent
+The time signature is gone, but this command leaves a gap where 
+the time signature should be.  If this is not wanted the stencil
+for the time signature should be set to @code{#f} instead:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'stencil = ##f
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+@noindent
+and the difference is obvious: setting the stencil to @code{#f}
+removes the object entirely; making the object @code{transparent}
+leaves it where it is, but makes it invisible.
+
+@heading color
+@cindex color
+
+Finally we could make the barlines invisible by coloring
+them white.  The color property is specified in the 
+@code{grob-interface} as requiring a list, with no
+explanation of what that list should be.  The list it
+requires is actually a list of values in internal units,
+but, to avoid having to know what these are, there are several
+ways provided to specify colours.  The first is to use one
+of the @q{normal} colours listed in the first table in
+@ruser{B.3 List of colors}.  To set the barlines to white
+we write:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #white
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+@noindent
+and again, we see the barlines are not visible.  Note that
+@emph{white} is not preceded by an apostrophe -- it is not
+a symbol, but a @emph{function}.  When called, it provides
+the list of internal values required to set the color to
+white.  The other colors in the normal list are functions
+too.  To convince yourself this is working you might like 
+to change the color to one of the other functions in the
+list.
+
+@cindex color, X11
+@cindex X11 colors
+
+The second way of changing the color is to use the list of
+X11 color names in the second list in @ruser{B.3 List of colors}.
+However, these must be preceded by another function, which
+converts X11 color names into the list of internal values,
+@code{x11-color}, like this:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(x11-color 'white)
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+@noindent
+Note that in this case the function @code{x11-color} takes
+a symbol as an argument, so the symbol must be preceded by
+an apostrophe and the two enclosed in brackets.
+
+@cindex rgb colors
+@cindex color, rgb
+
+There is yet a third function which converts RGB values into
+internal colors -- the @code{rgb-color} function.  This takes
+three arguments giving the intensities of the red, green and 
+blue colors.  These take values in the range 0 to 1.  So to
+set the color to red the value should be @code{(rgb-color 1 0 0)}
+and to white it should be @code{(rgb-color 1 1 1)}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+}
+@end lilypond
+
+@node Size of objects
+@subsection Size of objects
+
+ 
 ... to be continued
 
 
