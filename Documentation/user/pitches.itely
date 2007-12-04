@@ -313,7 +313,8 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
-@lsr{pitches,preventing-extra-naturals-from-being-automatically-added.ly}
+Snippets: @lsrdir{pitches},
+@lsr{pitches,preventing-extra-naturals-from-being-automatically-added.ly}.
 
 LSR toremove:
 @quotation
@@ -339,7 +340,6 @@ Notation Reference: @ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
-Snippets: @lsrdir{pitches}.
 
 
 @refbugs
@@ -922,7 +922,11 @@ fis
 
 @commonprop
 
-@lsr{pitches,preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+Snippets: @lsrdir{pitches},
+@lsr{pitches,preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}.
+
+FIXME link to snippet 248,
+FIXME link to a snippet about scordatura.
 
 LSR toremove:
 @quotation
@@ -940,7 +944,8 @@ a b cis d
 \key g \minor
 a bes c d
 @end lilypond
-@end quotation
+
+LSR toadd, then remove from here.
 
 The @code{\key} command sets the context property
 @code{Staff.keySignature}.  Non-standard key signatures can be
@@ -970,16 +975,13 @@ scale:
   }
 }
 @end lilypond
+@end quotation
 
 @seealso
 
 Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
-
-Snippets: @lsrdir{pitches},
-FIXME link to snippet 248,
-FIXME link to a snippet about scordatura.
 
 Internals reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
