@@ -48,7 +48,7 @@ Copyright @copyright{} 1999--2007 by the authors
 @end titlepage
 
 
-@c FIXME: multiple omfcreators?
+@c TODO: multiple omfcreators?
 @ignore
 @omfcreator Christian Mondrup
 @omfdescription Glossary of musical terms with translations

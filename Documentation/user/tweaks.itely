@@ -29,12 +29,23 @@ somewhat experimental; nothing is fixed.  Don't translate yet!
 @node Tweaking basics
 @section Tweaking basics
 
+@menu
+* Introduction to tweaks::      
+* Objects and interfaces::      
+* Naming conventions of objects and properties::  
+* Tweaking methods::            
+@end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
 @q{Tweaking} is a LilyPond term for the various methods available
 to the user for modifying the actions taken during interpretation
 of the input file and modifying the appearance of the printed 
 output.  Some tweaks are very easy to use; others are more 
 complex.  But taken together the methods available for tweaking 
-permit almost any desired appearance of the printed music to be achieved.
+permit almost any desired appearance of the printed music to be 
+achieved.
 
 In this section we cover the basic concepts required to understand
 tweaking.  Later we give a variety of potted commands which can
@@ -46,12 +57,6 @@ Before starting on this Chapter you may wish to review the section
 @ref{Contexts and engravers}, as Contexts, Engravers, and the 
 Properties contained within them are fundamental to understanding
 and constructing Tweaks.
-
-@menu
-* Objects and interfaces::      
-* Naming conventions of objects and properties::  
-* Tweaking methods::            
-@end menu
 
 @node Objects and interfaces
 @subsection Objects and interfaces
@@ -117,8 +122,11 @@ shall use in this chapter.
 We met some object naming conventions previously, in 
 @ref{Contexts and engravers}.  Here for reference is a list
 of the most common object and property types together with 
-the conventions
-for naming them and a couple of examples of some real names.
+the conventions for naming them and a couple of examples of 
+some real names.  We have used A to stand for any capitalised
+alphabetic character and aaa to stand for any number of
+lower-case alphabetic characters.  Other charaters are used
+verbatim. 
 
 @multitable @columnfractions .33 .33 .33
 @headitem Object/property type           
@@ -264,8 +272,14 @@ music:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 6/8
-  { r4 b8 b[( g]) g | g[( e]) e d[( f]) a | a g }
-  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+  { 
+    r4 b8 b[( g]) g | 
+    g[( e]) e d[( f]) a | 
+    a g
+  }
+  \addlyrics { 
+    The man who feels love's sweet e -- mo -- tion 
+  }
 }
 @end lilypond 
 
@@ -310,11 +324,10 @@ of slurs, and you should find
      Line thickness, generally measured in @code{line-thickness}
 @end example
 
-This tells us first that there @emph{is} a property that
-controls thickness, that its value is a simple @emph{number},
+This looks a good bet to change the heaviness. It tells us that
+the value of @code{thickness} is a simple @emph{number},
 that the default value is 1.2, and that the units are
-in another property called @code{line-thickness}.  This looks
-a good bet to change the heaviness.
+in another property called @code{line-thickness}.
 
 As we said earlier, there are few to no explanations in the IR,
 but we already have enough information to try changing the
@@ -346,9 +359,13 @@ close to it.}  Let's do that:
   { 
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
-    r4 b8 b[( g]) g | g[( e]) e d[( f]) a | a g
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
   }
-  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
 }
 @end lilypond 
 
@@ -363,7 +380,7 @@ still need some practice.  This is provided in the examples
 which follow.
 
 But first, what if we had needed to specifiy the Context?  
-What is it?  We could guess that slurs are in
+What should it be?  We could guess that slurs are in
 the Voice context, as they are clearly closely associated
 with individual lines of music, but can we be sure?  To
 find out, go back to the top of the IR page describing the
@@ -403,9 +420,13 @@ repositioned as follows:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g | g[( e]) e d[( f]) a | a g 
+    b[( g]) g | 
+    g[( e]) e d[( f]) a | 
+    a g 
   }
-  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+  \addlyrics { 
+    The man who feels love's sweet e -- mo -- tion 
+  }
 }
 @end lilypond 
 
@@ -429,9 +450,12 @@ the slurs begin:
     b[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a | a g
+    g[( e]) e d[( f]) a | 
+    a g
   }
-  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+  \addlyrics { 
+    The man who feels love's sweet e -- mo -- tion 
+  }
 }
 @end lilypond 
 
@@ -455,9 +479,12 @@ after the second slur:
     g[( e]) 
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a | a g
+    e d[( f]) a | 
+    a g
   }
-  \addlyrics { The man who feels love's sweet e -- mo -- tion }
+  \addlyrics { 
+    The man who feels love's sweet e -- mo -- tion 
+  }
 }
 @end lilypond
 
@@ -499,8 +526,8 @@ and to discover what objects use these interface properties.
 Look again at the IR page which describes LyricText.  At the
 bottom of the page is a list of clickable (in the html versions
 of the IR) interfaces which LyricText supports.  The list has 
-seven items, including @code{font-interface}, which looks 
-promising.  Clicking on this brings up the properties associated
+seven items, including @code{font-interface}.  
+Clicking on this brings up the properties associated
 with this interface, which are also properties of all the objects
 which support it, including LyricText.
 
@@ -551,20 +578,20 @@ in italics should be
 and this should be placed just in front of and close to the
 lyrics which it should affect, like this:
 
-@example
-@{
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
   \time 6/8
-  @{
-    r4 b8
-    b[( cis]) g |
-    g[( e]) e
-    d[( fis]) a | a g
-  @}
-  \addlyrics @{
-  \override LyricText #'font-shape = #'italic
-  The man who feels love's sweet e -- mo -- tion @}
-@}
-@end example
+  {
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    \override LyricText #'font-shape = #'italic
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond
 
 @noindent
 and the lyrics are all printed in italics.
@@ -585,6 +612,12 @@ the interpreter cannot recognise them.  So the command should be:
   \override Lyrics . LyricText #'font-shape = #'italic
 @end example
 
+@warning{In lyrics always leave whitespace between the final
+syllable and the terminating brace.}
+
+@warning{In overrides in lyrics always place spaces around
+the dot between the context name and the object name.}
+
 @node Types of properties
 @subsection Types of properties
 
@@ -600,7 +633,7 @@ You must always add a hash symbol, @code{#}, of course,
 to the front of these values when they are entered in the 
 @code{\override} command.
 
-@multitable @columnfractions .25 .45 .3
+@multitable @columnfractions .2 .45 .35
 @headitem Property type           
   @tab Rules
   @tab Examples
@@ -686,20 +719,23 @@ each of these in turn.
 This property controls the appearance of the barlines.  In common
 with many other properties, it can be set to print nothing by 
 setting its value to @code{#f}.  Let's try it, as before, omitting
-the Context:
+the implied Context, @code{Voice}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
 The barlines are still printed.  What is wrong?  Go back to the
 IR and look again at the page giving the properties of BarLine.
 At the top of the page it says @qq{Barline objects are created
-by: Bar_engraver}.  Go to the Bar_engraver page.  At the bottom
+by: Bar_engraver}.  Go to the @code{Bar_engraver} page.
+At the bottom
 it gives a list of Contexts in which the bar engraver operates.
 All of them are of the type @code{Staff}, so the reason the
 @code{\override} command failed to work as expected is because
@@ -707,13 +743,15 @@ All of them are of the type @code{Staff}, so the reason the
 If the context
 is specified wrongly, the command simply does not work.  No
 error message is produced, and nothing is logged in the log
-file.  Let's try correcting it by adding the context:
+file.  Let's try correcting it by adding the correct context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -728,7 +766,8 @@ break-visibility property requires a vector of three booleans.
 These control respectively whether barlines are printed at
 the end of a line, in the middle of lines, and at the beginning
 of lines.  For our example we want all barlines to be suppressed,
-so the value we need is #(#f #f #f).  Let's try that, remembering
+so the value we need is @code{#(#f #f #f)}.  
+Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
 this value we have two hash signs before the opening bracket.
 One is required as part of the value to introduce a vector, 
@@ -739,7 +778,9 @@ and one is required, as always, to precede the value in the
 {
   \time 12/16
   \override Staff.BarLine #'break-visibility = ##(#f #f #f)
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -749,23 +790,27 @@ And we see this too removes all the barlines.
 @cindex transparent
 
 We see from the properties specified in the @code{grob-interface}
-page in the IR that the transparent property is a boolean.  This
-should be set to @code{#t} to make the grob transparent.  If we 
-wanted to make the time signature invisible rather than the 
-barlines we need to find the time signature grob name.  Back to
+page in the IR that the @code{transparent} property is a boolean.
+This
+should be set to @code{#t} to make the grob transparent.
+In this next example let us make the time signature invisible 
+rather than the barlines.  
+To do this we need to find the grob name for the time signature.
+Back to
 the @q{All layout objects} page in the IR to find the properties
 of the @code{TimeSignature} layout object.  This is produced by
 the @code{Time_signature_engraver} which you can check also lives
 in the @code{Staff} context and also supports the 
 @code{grob-interface}.  So the command to make the time signature
 transparent is:
-here:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -778,7 +823,9 @@ for the time signature should be set to @code{#f} instead:
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -791,21 +838,23 @@ leaves it where it is, but makes it invisible.
 @cindex color
 
 Finally we could make the barlines invisible by coloring
-them white.  The color property is specified in the 
-@code{grob-interface} as requiring a list, with no
+them white.  The @code{grob-interface} specifies that the
+color property value is a list, but there is no
 explanation of what that list should be.  The list it
 requires is actually a list of values in internal units,
-but, to avoid having to know what these are, there are several
-ways provided to specify colours.  The first is to use one
+but, to avoid having to know what these are, several ways
+are provided to specify colors.  The first way is to use one
 of the @q{normal} colours listed in the first table in
-@ruser{B.3 List of colors}.  To set the barlines to white
+@ruser{List of colors}.  To set the barlines to white
 we write:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -823,7 +872,7 @@ list.
 @cindex X11 colors
 
 The second way of changing the color is to use the list of
-X11 color names in the second list in @ruser{B.3 List of colors}.
+X11 color names in the second list in @ruser{List of colors}.
 However, these must be preceded by another function, which
 converts X11 color names into the list of internal values,
 @code{x11-color}, like this:
@@ -832,7 +881,9 @@ converts X11 color names into the list of internal values,
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
 
@@ -855,14 +906,245 @@ and to white it should be @code{(rgb-color 1 1 1)}:
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
-  c4 b8 c d16 c d8 g, a16 b8 c d4 e16 e8
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
 }
 @end lilypond
+
+Finally, there is also a grey scale available as part of the
+X11 set of colors.  These range from black, @code{'grey0'},
+to white, @code{'grey100}, in steps of 1.  Let's illustrate
+this by setting all the layout objects in our example to
+various shades of grey:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
+  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
+  \override Staff.Clef          #'color = #(x11-color 'grey60)
+  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
+  \override Voice.Stem          #'color = #(x11-color 'grey85)
+  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Note the contexts associated with each of the layout objects.
+
 
 @node Size of objects
 @subsection Size of objects
 
- 
+Let us begin by looking again at the earlier example 
+FIXME BROKEN LINK
+@c (see @ref{Nesting music expressions}) which showed
+how to introduce a new temporary staff, as in an @rglos{ossia}.  
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+       \relative g' {
+         r4 g8 g c4 c8 d |
+         e4 r8
+         <<
+           { f c c }
+           \new Staff \with {
+             alignAboveContext = "main" }
+           { f8 f c }
+         >>
+         r4 |
+       }
+     }
+@end lilypond
+
+Ossia are normally written without clef and time signature, and
+are usually printed slightly smaller than the main staff.  We
+already know now how to remove the clef and time signature --
+we simply set the stencil of each to @code{#f}, as follows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+      }
+      {
+        \override Staff.Clef #'stencil = ##f
+        \override Staff.TimeSignature #'stencil = ##f
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+where the extra pair of braces after the @code{\with} clause are
+required to ensure the enclosed overrrides amd music are applied
+to the ossia staff.
+
+But what is the difference between modifying the staff context by 
+using @code{\with} and modifying the stencils of the clef and the
+time signature with \override?  The main difference is that 
+changes made in a @code{\with} clause are made at the time the
+context is created, and remain in force as the @strong{default}
+values for the duration of that context, whereas
+@code{\set} or @code{\override} commands embedded in the
+music are dynamic -- they make changes synchronised with
+a particular point in the music.  If changes are unset or
+reverted using @code{\unset} or @code{\revert} they return to
+their default values, which will be the ones set in the 
+@code{\with} clause, or if none have been set there, the normal
+default values.
+
+Some context properties
+can be modified only in @code{\with} clauses.  These are those
+properties which cannot sensibly be changed after the context 
+has been created.  @code{alignAboveContext} and its partner,
+@code{alignBelowContext}, are two such properties -- once the
+staff has been created its alignment is decided and it would
+make no sense to try to change it later.
+
+The default values of layout object propertiess can also be set
+in @code{\with} clauses.  Simply use the normal @code{\override}
+command leaving out the context name, since this is unambiguously
+defined as the context the @code{\with} clause is modifying.
+If fact, an error will be generated if a context is specified
+in this location.
+
+So we could replace the example above with
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        % Don't print clefs in this staff
+        \override Clef #'stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature #'stencil = ##f
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Finally we come to changing the size of layout objects.
+
+Some layout objects are created as glyphs selected from
+a font.  These include noteheads, accidentals, markup, 
+clefs, time signatures, dynamics and lyrics.  
+Their size is changed by modifying the
+@code{font-size} property, as we shall shortly see.  
+Other layout objects such as slurs, ties, in general, spanner
+objects, are drawn individually, so there is no @code{font-size}
+associated with them.  These objects generally derive their
+size from the objects to which they are attached, so usually
+there is no need to change their size manually.  Still other 
+properties such as the length of stems and barlines, thickness 
+of beams and other lines, and the separation of staff lines all 
+need to be modified in special ways. 
+
+Returning to the ossia example, let us first change the font-size.
+We can do this in two ways.  We can either change the size of the
+fonts of each object type, like @code{NoteHead}s with commands
+like
+
+@example
+\override NoteHead #'font-size = #-2
+@end example
+
+or we can change the size of all fonts by setting a special
+property, @code{fontSize}, using @code{\set}, or by including
+it in a @code{\with} clause (without the @code{\set}.
+
+@example
+\set fontSize = #-2
+@end example
+
+In both examples the font size is reduced by 2 steps, where each
+step reduces or increases the size by 12%.
+
+Let's try it in our ossia example:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        % Reduce all font sizes by 24%
+        fontSize = #-2
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+This is still not quite right.  The noteheads and flags are 
+smaller, but the stems are too long in proportion and the
+staff lines are spaced too widely apart.  These need to be
+scaled down in proportion to the font reduction.
+
+This can be done with the help of a special function called
+@code{magstep} provided for exactly this purpose.  It takes
+one argument, the change in font size (#-2 in the example above)
+and returns a scaling factor suitable for reducing other
+objects in proportion.  It is used like this:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        fontSize = #-2
+        % Reduce stems and line spacing to match
+        \override StaffSymbol #'staff-space = #(magstep -2)
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Since the length of stems is always calculated relative to the
+value of the @code{staff-space} property these are automatically
+scaled down in length too.
+
+This, then, completes the creation of an ossia.  The sizes of all
+other objects may be modified in analogous ways.
+
+
 ... to be continued
 
 
