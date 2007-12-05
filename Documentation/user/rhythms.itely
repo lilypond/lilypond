@@ -38,6 +38,7 @@ This section discusses rhythms, durations, and bars.
 @unnumberedsubsubsec Durations
 
 @cindex duration
+@cindex beams, automatic
 @funindex \longa
 @funindex \breve
 @funindex \maxima
@@ -122,7 +123,7 @@ notation see @ref{Proportional notation}.
 
 Music Glossary: @rglos{breve}, @rglos{longa}.
 
-Notation Reference: @ref{Writing rests}, @ref{Vocal music},
+Notation Reference:@ref{Automatic beams}, @ref{Ties}, @ref{Writing rests}, @ref{Vocal music},
 @ref{Ancient notation}, @ref{Proportional notation}.
 
 Snippets: @lsrdir{rhythms}
@@ -170,7 +171,7 @@ the notes are 2/3 of their written length.
 g4 \times 2/3 {c4 c c} d4 d4
 @end lilypond
 
-Tuplets may be nested, for example,
+Tuplets may be nested; for example,
 
 @lilypond[fragment,ragged-right,verbatim,relative=2]
 \times 2/3 {
@@ -192,6 +193,7 @@ Tuplets may be nested, for example,
 @commonprop
 
 @funindex tupletNumberFormatFunction
+@funindex tupletSpannerDuration
 @cindex tuplet formatting
 
 The property @code{tupletSpannerDuration} specifies how long each
@@ -208,6 +210,8 @@ In the next example, there are two triplets shown, while
 @noindent
 For more information about @code{make-moment}, see
 @ref{Time administration}.
+
+@funindex TupletNumber
 
 The format of the number is determined by the property @code{text}
 in @code{TupletNumber}.  The default prints only the denominator,
@@ -242,6 +246,9 @@ example, @code{\tweak} specifies fraction text for the outer
    \times 2/3 { c8[ c8 c8] }
 }
 @end lilypond
+
+@cindex bracket, tuplet
+@funindex TupletBracket
 
 @c TODO: after LM 6 Tweaks includes \tweak info, look at this.-gp
 @c It *should* be explained why \tweak must be used here, and why
@@ -287,6 +294,9 @@ note:
 }
 @end lilypond
 
+@funindex \compressMusic
+@funindex \times
+
 @code{\compressMusic} works similarly to \times, but does not
 create a tuplet bracket; see @ref{Polymetric notation}.
 
@@ -297,6 +307,8 @@ Tuplets which cross bar lines will prevent a line break at that
 point.
 
 @seealso
+
+Music Glossary: @c TODO Add @rglos{Tuplet} when Tuplet has been added to the Glossary
 
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
@@ -401,6 +413,10 @@ have to repeat the tie.  This can be achieved with
 
 @cindex Laissez vibrer
 @cindex Ties, laissez vibrer
+@funindex \laissezVibrer
+@funindex \tieUp
+@funindex \tieDown
+@funindex \tieNeutral
 
 @notation{L.v.} ties (@notation{laissez vibrer}) indicate that
 notes must not be damped at the end.  It is used in notation for
@@ -425,6 +441,8 @@ c4_~ c c^~ c)
 
 
 @seealso
+
+Music Glossary: @rglos{tie}, @c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
 
 Snippets: @lsrdir{rhythms}
 
