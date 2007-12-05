@@ -26,7 +26,7 @@ description of the input format, see @ruser{File structure}.
 @menu
 * Introduction to the LilyPond file structure::  
 * Score is a (single) compound musical expression::  
-* Nesting Music Expressions::   
+* Nesting music expressions::   
 * On the un-nestedness of brackets and ties::  
 @end menu
 
@@ -305,8 +305,8 @@ indentation -- make sure that each item on the same layer starts
 on the same horizontal position in your text editor.
 
 
-@node Nesting Music Expressions
-@subsection Nesting Music Expressions
+@node Nesting music expressions
+@subsection Nesting music expressions
 
 It is not essential to declare all staves at the beginning; 
 they may be introduced temporarily at any point.  This is
@@ -359,10 +359,7 @@ which is below.
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
-have not yet been introduced.  See ...
-
-TODO Add ref to tweaks section where this example should
-be placed and explained.
+have not yet been introduced.  See @ref{Size of objects}
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -561,7 +558,26 @@ of polyphony.  Here's a simple example:
 @end lilypond
 
 It is not necessary to use a separate @code{<< \\ >>} construct
-for each bar, but it does help the legibility of the code.  TODO
+for each bar. For music with few notes in each bar this layout
+can help the legibility of the code, but if there are many
+notes in each bar it may be better to split out each voice
+separately, like this:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+<< {
+  % Voice "1"
+  r4 g g4. a8 |
+  bes4 bes c bes |
+  a2. r4 |
+} \\ {
+  % Voice "2"
+  d,2 d4 g |
+  g4 g g8( a) g4 |
+  fis2. s4 |
+} >>
+@end lilypond
+
 
 This example has just two voices, but the same contruct may be
 used to encode three or more voices by adding more back-slash
@@ -624,8 +640,9 @@ notehead, so that the voices may be easily distinguished.
 Voice one is set to red diamonds, voice two to blue triangles,
 voice three to green crossed circles, and voice four (not used
 here) to magenta crosses.  We shall see later how commands like 
-these may be created by the user.
-TODO: add ref to appropriate section in Tweaks
+these may be created by the user.  
+See @ref{Visibility and color of objects}
+TODO Add link to using variables for tweaks
 
 Polyphony does not change the relationship of notes within a
 @code{\relative @{ @}} block.  Each note is still calculated 
@@ -993,9 +1010,9 @@ in the fine-tuning of LilyPond output.
 @menu
 * Contexts explained::          
 * Creating contexts::           
-* Engravers explained::                   
-* Modifying context properties::
-* Adding and removing engravers::          
+* Engravers explained::         
+* Modifying context properties::  
+* Adding and removing engravers::  
 @end menu
 
 @node Contexts explained
