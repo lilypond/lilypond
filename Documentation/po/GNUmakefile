@@ -5,9 +5,11 @@ STEPMAKE_TEMPLATES=podir
 include $(depth)/make/stepmake.make
 
 doc-localedir=$(outdir)
+LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 DOMAIN=lilypond-doc
 DOC_PO_SOURCES = add_html_footer.py texi-gettext.py
 TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)
+TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/user/lilypond*.tely))
 
 messages: $(MO_FILES)
 	for i in $(CATALOGS); do \

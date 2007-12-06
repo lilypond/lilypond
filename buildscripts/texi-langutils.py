@@ -118,6 +118,7 @@ if node_blurb != '':
 if make_gettext:
 	node_list_filename = 'node_list'
 	node_list = open (node_list_filename, 'w')
+	node_list.write ('# -*- coding: utf-8 -*-\n')
 	for texi_file in texi_files:
 		process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, os.path.basename (texi_file), node_list)
 	for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
