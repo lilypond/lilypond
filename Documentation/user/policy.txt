@@ -121,7 +121,9 @@ main docs
 
   Both index commands should go in front of the actual material.
 
-  @cindex should not be capitalized.
+  @cindex entries should not be capitalized, ie
+    @cindex time signature
+  is preferred.  (instead of `Time signature')
 
 * Preferred terms:
     - in general, use the American spellings.  The internal
