@@ -316,19 +316,6 @@ Micro tones are also exported to the MIDI file.
 Snippets: @lsrdir{pitches},
 @lsr{pitches,preventing-extra-naturals-from-being-automatically-added.ly}.
 
-LSR toremove:
-@quotation
-In accordance with standard typesetting rules, a natural sign is
-printed before a sharp or flat if a previous accidental needs to
-be canceled.  To change this behavior, use
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-@end quotation
-
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
@@ -922,60 +909,9 @@ fis
 
 @commonprop
 
-Snippets: @lsrdir{pitches},
-@lsr{pitches,preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}.
-
-FIXME link to snippet 248,
-FIXME link to a snippet about scordatura.
-
-LSR toremove:
-@quotation
-A natural sign is printed to cancel any previous accidentals.
-This may be altered:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-\set Staff.printKeyCancellation = ##f
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-@end lilypond
-
-LSR toadd, then remove from here.
-
-The @code{\key} command sets the context property
-@code{Staff.keySignature}.  Non-standard key signatures can be
-specified by setting this property directly.  The format of this
-command is a list:
-
-@example
-\set Staff.keySignature =
-  #'((@var{octave} . @var{step}) . @var{alter})
-@end example
-
-@noindent
-where, for each element in the list, @var{octave} specifies the
-octave (0 being the octave from middle C to the B above),
-@var{step} specifies the note within the octave (0 means C and 6
-means B), and @var{alter} is @code{,SHARP} @code{,FLAT}
-@code{,DOUBLE-SHARP} etc.  (Note the leading comma.)  Here is an
-example of a possible key signature for generating a whole-tone
-scale:
-
-@lilypond[verbatim,quote,ragged-right]
-\relative c' {
-  \new Staff {
-    \set Staff.keySignature =
-      #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
-    c d e fis aes bes c
-  }
-}
-@end lilypond
-@end quotation
+Snippets: @lsrdir{pitches}, @lsr{pitches,
+preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly},
+@lsr{pitches, non-traditional-key-signatures.ly}
 
 @seealso
 
