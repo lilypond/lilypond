@@ -135,13 +135,9 @@ Internals Reference: @internalsref{Dots},
 @refbugs
 
 @c duplicated in Durations and Rests.  -gp
-There is no fundamental limit to note durations (both in terms of
+There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
-are flags up to 64th and rests up to 128th.  At the other extreme,
-there are note heads up to longa (4x whole note) and rests up to
-maxima (8 x whole).  Since beams can be stacked without needing
-extra glyphs, beamed notes can be arbitrarily short.
-
+are rests from 128th to maxima (8 x whole).
 
 
 @node Tuplets
@@ -411,8 +407,8 @@ have to repeat the tie.  This can be achieved with
 \alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }} 
 @end lilypond
 
-@cindex Laissez vibrer
-@cindex Ties, laissez vibrer
+@cindex laissez vibrer
+@cindex ties, laissez vibrer
 @funindex \laissezVibrer
 @funindex \tieUp
 @funindex \tieDown
@@ -536,7 +532,7 @@ well-defined.  In these cases, a slur may be preferable.
 
 @node Rests
 @unnumberedsubsubsec Rests
-@cindex Rests
+@cindex rest
 
 @funindex \rest
 @funindex r
@@ -573,7 +569,9 @@ a4\rest d4\rest
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Notation Reference: @ref{Multi measure rests}.
+
+Snippets: @lsrdir{rhythms}.
 
 Internals Reference: @internalsref{Rest}.
 
@@ -581,20 +579,16 @@ Internals Reference: @internalsref{Rest}.
 @refbugs
 
 @c duplicated in Durations and Rests.  -gp
-There is no fundamental limit to note durations (both in terms of
+There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
-are flags up 64th and rests up to 128th.  At the other extreme,
-there are note heads up to longa (4x whole note) and rests up to
-maxima (8 x whole).  Since beams can be stacked without needing
-extra glyphs, beamed notes can be arbitrarily short.
-
+are rests from 128th to maxima (8 x whole).
 
 @node Skips
 @unnumberedsubsubsec Skips
 
-@cindex Skip
-@cindex Invisible rest
-@cindex Space note
+@cindex skip
+@cindex invisible rest
+@cindex space note
 @funindex \skip
 @funindex s
 
@@ -646,9 +640,9 @@ Internals Reference: @internalsref{SkipMusic}.
 
 @cindex multi measure rests
 @cindex full measure rests
-@cindex Rests, multi measure
-@cindex Rests, full measure
-@cindex whole rests for a full measure
+@cindex rest, multi measure
+@cindex rest, full measure
+@cindex whole rest for a full measure
 @funindex R
 
 Rests for one or more full measures are entered using @code{R}
@@ -818,7 +812,7 @@ R1*4 cis cis
 @node Time signature
 @unnumberedsubsubsec Time signature
 
-@cindex Time signature
+@cindex time signature
 @cindex meter
 @funindex \time
 
@@ -878,7 +872,7 @@ inserted, and how automatic beams should be generated.  Changing
 the value of @code{timeSignatureFraction} also causes the symbol
 to be printed.
 
-@cindex Measure groupings
+@cindex measure groupings
  
 More options are available through the Scheme function
 @code{set-time-signature}, which takes three arguments: the number
@@ -1631,7 +1625,7 @@ Snippets: @lsrdir{rhythms}
 @node Bar lines
 @unnumberedsubsubsec Bar lines
 
-@cindex Bar lines
+@cindex bar lines
 @funindex \bar
 @cindex measure lines
 @cindex repeat bars
@@ -1772,7 +1766,7 @@ properties).
 @node Bar numbers
 @unnumberedsubsubsec Bar numbers
 
-@cindex Bar numbers
+@cindex bar numbers
 @cindex measure numbers
 @funindex currentBarNumber
 
@@ -1858,7 +1852,7 @@ of specifying @code{#(#f #t #t)} for @code{break-visibility}.
 \repeat unfold 4 { c1 } \bar "|."
 @end lilypond
 
-@cindex Bar number alignment
+@cindex bar number alignment
 
 Bar numbers by default are left-aligned to their parent object.
 This is usually the left edge of a line or, if numbers are printed
@@ -1933,7 +1927,7 @@ c1 c c c
 @node Bar and bar number checks
 @unnumberedsubsubsec Bar and bar number checks
 
-@cindex Bar check
+@cindex bar check
 @funindex barCheckSynchronize
 @funindex |
 
@@ -2006,7 +2000,7 @@ Snippets: @lsrdir{rhythms}
 @node Rehearsal marks
 @unnumberedsubsubsec Rehearsal marks
 
-@cindex Rehearsal marks
+@cindex rehearsal marks
 @funindex \mark
 
 To print a rehearsal mark, use the @code{\mark} command
@@ -2350,7 +2344,7 @@ Snippets: @lsrdir{rhythms}
 @node Time administration
 @unnumberedsubsubsec Time administration
 
-@cindex Time administration
+@cindex time administration
 
 @funindex currentBarNumber
 @funindex measurePosition
