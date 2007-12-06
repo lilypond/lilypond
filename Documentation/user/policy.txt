@@ -123,7 +123,8 @@ main docs
 
   @cindex entries should not be capitalized, ie
     @cindex time signature
-  is preferred.  (instead of `Time signature')
+  is preferred.  (instead of `Time signature')   Only use capital
+  letters for musical terms which demand them, like D.S. al Fine.
 
 * Preferred terms:
     - in general, use the American spellings.  The internal
