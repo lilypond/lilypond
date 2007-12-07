@@ -9,12 +9,12 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-06 16:13+0100\n"
-"PO-Revision-Date: 2007-12-01 16:58+0200\n"
+"PO-Revision-Date: 2007-12-07 18:06+0200\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: add_html_footer.py:44
 #, python-format
@@ -5138,7 +5138,7 @@ msgstr "\\set versus \\override"
 #. @subsection in ../../../Documentation/es/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/de/user/changing-defaults.itely
 msgid "@code{\\set} vs. @code{\\override}"
-msgstr "@code{\\set} vs. @code{\\override}"
+msgstr "@code{\\set} versus @code{\\override}"
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
@@ -5662,9 +5662,8 @@ msgstr "Klaviersysteme"
 #. @subsection in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
-#, fuzzy
 msgid "Printing lyrics"
-msgstr "Eingabe von Text"
+msgstr "Eingabe von Gesangtext"
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
 #. @subsection in ../../../Documentation/fr/user/tutorial.itely
@@ -5672,7 +5671,6 @@ msgstr "Eingabe von Text"
 #. @subsection in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
-#, fuzzy
 msgid "Organizing pieces with identifiers"
 msgstr "Stücke durch Bezeichner organisieren"
 
@@ -5691,9 +5689,8 @@ msgstr "Alles zusammenfügen"
 #. @section in ../../../Documentation/es/user/putting.itely
 #. @node in ../../../Documentation/de/user/putting.itely
 #. @section in ../../../Documentation/de/user/putting.itely
-#, fuzzy
 msgid "Score is a single musical expression"
-msgstr "Score ist ein (einziger)  zusammengesetzter musikalischer Ausdruck"
+msgstr "Score ist ein einziger musikalischer Ausdruck"
 
 #. @node in ../../../Documentation/fr/user/putting.itely
 #. @section in ../../../Documentation/fr/user/putting.itely
@@ -5710,7 +5707,6 @@ msgstr "Eine Orchesterstimme"
 #. @section in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
-#, fuzzy
 msgid "Saving typing with identifiers and functions"
 msgstr "Tipparbeit sparen durch Bezeichner und Funktionen"
 
@@ -5766,7 +5762,6 @@ msgstr "Mikrotöne"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
-#, fuzzy
 msgid "Relative octaves"
 msgstr "Relative Oktavenbezeichnung"
 
@@ -5849,7 +5844,6 @@ msgstr "Einfache Mehrstimmigkeit"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/simultaneous.itely
 #. @node in ../../../Documentation/de/user/simultaneous.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/simultaneous.itely
-#, fuzzy
 msgid "Collision Resolution"
 msgstr "Auflösung von Zusammenstößen"
 
@@ -5868,7 +5862,6 @@ msgstr "Pädagogische Verwendung"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/educational.itely
 #. @node in ../../../Documentation/de/user/educational.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/educational.itely
-#, fuzzy
 msgid "Easy Notation note heads"
 msgstr "Easy-Notation-Notenköpfe"
 
@@ -5883,7 +5876,6 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 #. @node in ../../../Documentation/es/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/vocal.itely
-#, fuzzy
 msgid "Working with lyrics and identifiers"
 msgstr "Mit Gesangtexten und Bezeichnern arbeiten"
 
