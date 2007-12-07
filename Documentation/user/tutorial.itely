@@ -1065,13 +1065,11 @@ creates a bigger music expression.  In this way it resembles the
 minus sign in mathematics.  The formula @math{(4+5)} is an
 expression, so @math{-(4+5)} is a bigger expression.
 
-Time signatures entered in one staff affect all other
-staves@footnote{This behavior may be changed if desired; for
-details, see @ruser{Polymetric notation}.}.  On the other hand,
-the key signature of one staff does @emph{not} affect other
-staves.  This different default behaviour is because scores with
-transposing instruments are more common than polyrhythmic
-scores.
+Time signatures entered in one staff affects all other staves by
+default.  On the other hand, the key signature of one staff does
+@emph{not} affect other staves.  This different default behaviour
+is because scores with transposing instruments are more common
+than polyrhythmic scores.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {

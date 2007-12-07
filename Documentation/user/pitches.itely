@@ -43,8 +43,6 @@ This section discusses how to input pitches.
 @cindex pitch names
 @cindex pitches
 
-@c don't use @samp here because that might get confused with
-@c octave marks
 A pitch name is specified using lowercase letters@tie{}@code{a}
 through@tie{}@code{g}.  An ascending C-major scale is engraved
 with
@@ -313,8 +311,14 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
-Snippets: @lsrdir{pitches},
-@lsr{pitches,preventing-extra-naturals-from-being-automatically-added.ly}.
+@lsr{pitches,
+preventing-extra-naturals-from-being-automatically-added.ly}
+
+@lsr{pitches,
+dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+
+@lsr{pitches,
+makam.ly}
 
 @seealso
 
@@ -327,6 +331,7 @@ Notation Reference: @ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
+Snippets: @lsrdir{pitches}.
 
 
 @refbugs
@@ -407,13 +412,6 @@ Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
 @q{one and a half}, respectively.  For the other languages no
 special names have been defined yet.
 
-
-@c What about Turkish Maquam music and similar microtonal systems?
-@c
-@c Note that the term "three-quarter-sharp/-flat" used in
-@c lilypond's source code is actually misleading since the
-@c alteration is in fact one and a half of a regular sharp/flat.
-@c Whence the naming "sesqui-sharp/-flat" used below.
 
 @example
 @multitable @columnfractions .2 .6 .05 .05 .05 .05
@@ -603,10 +601,10 @@ will remain on the same scale step, the second version will print
 flats on the scale step above.
 
 @lilypond[verbatim,quote,ragged-right]
-mus = { c d e f }
+mus = \relative c' { c d e f }
 \new Staff {
-  \transpose c cis { \relative c' \mus }
-  \transpose c des { \relative c' \mus }
+  \transpose c cis { \mus }
+  \transpose c des { \mus }
 }
 @end lilypond
 
@@ -631,10 +629,14 @@ musicInBflat = @{ e4 @dots{} @}
 \transpose f c @{ \transpose c bes \musicInBflat @}
 @end example
 
+@commonprop
+
+@lsr{pitches,transposing-pitches-with-minimum-accidentals.ly}
+
+
 @seealso
 
-Snippets: @lsrdir{pitches}, @lsr{scheme,
-transpose-pitches-with-minimum-accidentals.ly}.
+Snippets: @lsrdir{pitches}.
 
 Internals reference: @internalsref{TransposedMusic}.
 
@@ -680,24 +682,17 @@ This section discusses how to alter the output of pitches.
 @cindex varbaritone clef
 @cindex subbass clef
 
-The clef is set with the @code{\clef} @var{clefname}
-command:
+The clef is set with the @code{\clef} @var{clefname} command:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
-<<
-  \new Staff {
-    % treble clef by default
-    c'1^"middle C"
-  }
-  \new Staff {
-    \clef alto
-    c'1^"middle C"
-  }
-  \new Staff {
-    \clef bass
-    c'1^"middle C"
-  }
->>
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+\clef treble
+c2 c
+\clef alto
+c2 c
+\clef tenor
+c2 c
+\clef bass
+c2 c
 @end lilypond
 
 The clef can also be changed inside the staff:
@@ -771,6 +766,7 @@ For example,
 
 @commonprop
 
+@c FIXME
 When a clef change takes place at a line break the new clef symbol
 is printed at both the end of the previous line and the beginning
 of the new line by default.  If the warning clef at the end of the
@@ -848,6 +844,12 @@ and some which do not:
 }
 @end lilypond
 
+@commonprop
+
+@lsr{pitches,
+clefs-commonly-tweaked-properties.ly}
+
+
 @seealso
 
 Notation Reference: @ref{Ancient clefs}.
@@ -909,15 +911,22 @@ fis
 
 @commonprop
 
-Snippets: @lsrdir{pitches}, @lsr{pitches,
-preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly},
+@lsr{pitches,
+preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+
 @lsr{pitches, non-traditional-key-signatures.ly}
+
+@lsr{pitches,
+dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+
 
 @seealso
 
 Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
+
+Snippets: @lsrdir{pitches}.
 
 Internals reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
@@ -935,14 +944,12 @@ Internals reference: @internalsref{KeyCancellation},
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
-\relative c''' {
-  a2 b
-  #(set-octavation 1)
-  a b
-  #(set-octavation 0)
-  a b
-}
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+a'2 b
+#(set-octavation 1)
+a b
+#(set-octavation 0)
+a b
 @end lilypond
 
 The @code{set-octavation} function also takes -1 (for 8va bassa),
@@ -952,12 +959,10 @@ Internally the function sets the properties @code{ottavation}
 @code{middleCPosition}.  To override the text of the bracket, set
 @code{ottavation} after invoking @code{set-octavation}, i.e.,
 
-@lilypond[verbatim,quote,ragged-right]
-{
-  #(set-octavation 1)
-  \set Staff.ottavation = #"8"
-  c'''
-}
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+#(set-octavation 1)
+\set Staff.ottavation = #"8"
+c'
 @end lilypond
 
 
@@ -1085,7 +1090,7 @@ function.  This function is called as follows
 >>
 @end example
 
-@c TODO: check the context stuff below
+@c FIXME: check the context stuff below
 @c -does it *really* work?
 @c -the default contexts as specified in
 @c  scm/music-function.scm seem to be different -vv
@@ -1389,7 +1394,7 @@ musicB = {
 This rule is used for multivoice accidentals to be read both by
 musicians playing one voice and musicians playing all voices.
 Accidentals are typeset for each voice, but they @emph{are}
-canceled across voices in the same @internalsref{Staff}.  Hence,
+canceled across voices in the same @code{Staff}.  Hence,
 the@tie{}@code{a} in the last measure is canceled because the
 previous cancellation was in a different voice, and
 the@tie{}@code{d} in the lower staff is canceled because of the
@@ -1764,71 +1769,38 @@ determine if it matches their capabilities.
 
 Ambits are denoted at the beginning of a piece near the initial
 clef.  The range is graphically specified by two note heads that
-represent the minimum and maximum pitch.  To print such ambits,
-add the @code{Ambitus_engraver} to the @code{Voice} context, for
-example:
+represent the minimum and maximum pitch.  Accidentals are only
+printed if they are not part of the key signature.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
   \context {
-    \Staff
+    \Voice
     \consists Ambitus_engraver
   }
 }
 
-\relative \new Staff {
-  as'' c e2 cis,2
+\relative c'' {
+  aes c e2 cis,2
 }
 @end lilypond
 
-If you have multiple voices in a single staff and you want a
-single ambitus per staff rather than per voice, add the
-@code{Ambitus_engraver} to the @code{Staff} context rather than to
-the @code{Voice} context:
 
-@lilypond[verbatim,quote,ragged-right]
-\new Staff \with {
-  \consists "Ambitus_engraver"
-}
-<<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
->>
-@end lilypond
+@commonprop
 
-@noindent
-This example uses one advanced feature,
+@lsr{pitch, adding-ambiti-per-voice.ly}
 
-@example
-\override Ambitus #'X-offset = #-1.0
-@end example
+@lsr{pitch, ambiti-multiple-voices.ly}
 
-@noindent
-This code moves the ambitus to the left.  The same effect could
-have been achieved with @code{extra-offset}, but then the
-formatting system would not reserve space for the moved object.
 
 @seealso
 
 Snippets: @lsrdir{pitches}.
-@c FIXME: lsr stuff.
-@c @lsr{vocal,ambitus@/.ly}.
 
 Internals reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}, @internalsref{Ambitus_engraver},
-@internalsref{Staff} and @internalsref{Voice}.
+@internalsref{Staff}, @internalsref{Voice}.
 
 
 @refbugs
@@ -1899,7 +1871,7 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
 \aikenHeads
 c8 d4 e8 a2 g1
 \sacredHarpHeads
-c,8 d4. e8 a2 g1
+c,8 d4 e8 a2 g1
 @end lilypond
 
 Shapes are typeset according to the step in the scale, where
@@ -1918,8 +1890,14 @@ step of the scale.  Arbitrary combinations are possible, e.g.:
 @lilypond[verbatim,fragment,relative=1]
 \set shapeNoteStyles =
   ##(cross triangle fa #f mensural xcircle diamond)
-c8 d4. e8 a2 g1
+c8 d4 e8 a2 g1
 @end lilypond
+
+@commonprop
+
+@lsr{pitches,
+applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
+
 
 @seealso
 
