@@ -533,10 +533,15 @@ well-defined.  In these cases, a slur may be preferable.
 @node Rests
 @unnumberedsubsubsec Rests
 @cindex rest
+@cindex maxima
+@cindex longa
+@cindex breve
 
 @funindex \rest
 @funindex r
 @funindex \maxima
+@funindex \longa
+@funindex \breve
 
 Rests are entered like notes with the note name @code{r}:
 
@@ -598,6 +603,8 @@ note with note name @code{s} or with @code{\skip @var{duration}}
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a4 a4 s4 a4 \skip 1 a4
 @end lilypond
+
+@cindex lyrics, skip
 
 The @code{s} syntax is only available in note mode and chord mode.
 In other situations, for example, when entering lyrics, one must
@@ -695,6 +702,9 @@ An @code{R} spanning a single measure is printed as either a whole
 or breve rest, centered in the measure, regardless of the time
 signature.
 
+@cindex church rest
+@cindex rest, church
+
 If there are 10 or fewer measures of rest, LilyPond prints
 @rglos{church rests} (a series of longa and breve rests)
 in the staff and
@@ -763,13 +773,12 @@ c4^\markup {CHORUS} d f c
 
 @seealso
 
-This manual: @ref{Text}, @ref{Text scripts}.
+Notation Reference: @ref{Durations}, @ref{Text},
+@ref{Text markup}, @ref{Text scripts}.
 
 Snippets: @lsrdir{rhythms}
 
-Internals Reference: 
-
-@internalsref{MultiMeasureRest}.
+Internals Reference: @internalsref{MultiMeasureRest}.
 
 The layout object @internalsref{MultiMeasureRestNumber} is for the
 default number, and @internalsref{MultiMeasureRestText} for user
