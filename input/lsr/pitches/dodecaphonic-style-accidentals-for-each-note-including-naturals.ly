@@ -7,9 +7,11 @@ In early XXth century works, starting with Schönberg, Berg and Webern
 has to be regarded as equal, without any hierarchy such as the
 classical (tonal) degrees. Therefore, these composers print one
 accidental for each note, even at natural pitches, to emphasize their
-new approach to music theory and language. This snippet (thanks to Rune
-Zedeler) shows how to achieve such notation rules with LilyPond.
+new approach to music theory and language. This snippet shows how to
+achieve such notation rules with LilyPond.
 " }
+
+% thanks to Rune Zedeler for this cool function :)
 
 webernAccidentals = {
     % the 5s are just "a value different from any accidental"
