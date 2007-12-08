@@ -261,7 +261,7 @@ program usage manual, @ref{\TEXT\,,,lilypond-program}
 @end macro
 
 @macro ruser{TEXT}
-user manual, @ref{\TEXT\,,,lilypond}
+notation reference, @ref{\TEXT\,,,lilypond}
 @c @internalsref{\TEXT\}
 @end macro
 

@@ -106,7 +106,7 @@ Note that there are several other text editors available with
 better support for LilyPond.  For more information, see
 @rprogram{Text editor support}.
 
-@warning{the first time you ever run LilyPond, it may take a
+@warning{The first time you ever run LilyPond, it may take a
 minute or two because all of the system fonts have to be analyzed
 first.  After this, LilyPond will be much faster!}
 
@@ -147,7 +147,7 @@ examine this file.
 
 @subsubheading Unix
 
-Create a file (such as @file{test.ly}) and enter:
+Create a text file called @file{test.ly} and enter:
 
 @example
 @{
@@ -780,8 +780,8 @@ c\ff c\mf c\p c\pp
 @cindex crescendo
 
 @notation{Crescendi} and @notation{decrescendi} are started with
-the commands @code{\<} and @code{\>}.  An ending dynamic, for
-example @code{\f}, will finish the (de)crescendo, or the command
+the commands @code{\<} and @code{\>}.  The next dynamics sign, for
+example @code{\f}, will end the (de)crescendo, or the command
 @code{\!} can be used:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -958,8 +958,8 @@ one).  The result is another music expression:
 
 This mechanism is similar to mathematical formulas: a big formula
 is created by composing small formulas.  Such formulas are called
-expressions, and they can contain other music expressions, so you
-can make arbitrarily complex and large expressions.  For example,
+expressions, and they can contain other expressions, so you can
+make arbitrarily complex and large expressions.  For example,
 
 @example
 1
@@ -1011,6 +1011,7 @@ LilyPond code like this makes it much easier for humans to read.
 @warning{each note is relative to the previous note in
 the input, not relative to the @code{c''} in the initial
 @code{\\relative} command.}
+@c FIXME: number of backslashes?!
 
 
 @subheading Simultaneous music expressions: single staff
@@ -1154,10 +1155,7 @@ ties with chords.  They must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
-@end lilypond
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
+r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @end lilypond
 
 
@@ -1453,7 +1451,7 @@ example from Handel's Judas Maccabæus:
 @noindent
 but scores any more complex than this simple example are
 better produced by separating out the staff structure
-from the notes and lyrics with variables.  These
+from the notes and lyrics with variables.  These are
 discussed in @ref{Organizing pieces with variables}.
 
 @seealso
