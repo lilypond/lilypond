@@ -764,91 +764,10 @@ For example,
 \clef "G_8" c4
 @end lilypond
 
-@commonprop
-
-@c FIXME
-When a clef change takes place at a line break the new clef symbol
-is printed at both the end of the previous line and the beginning
-of the new line by default.  If the warning clef at the end of the
-previous line in not required it can be suppressed by setting the
-@code{explicitClefVisibility} Staff property to the value
-@var{end-of-line-invisible}:  @code{\set
-Staff.explicitClefVisibility = #end-of-line-invisible} The default
-behaviour can be recovered with @code{\unset
-Staff.explicitClefVisibility}
-
-The command @code{\clef "treble_8"} is equivalent to setting
-@code{clefGlyph}, @code{clefPosition} (which controls the Y
-position of the clef), @code{middleCPosition} and
-@code{clefOctavation}.  A clef is printed when either the
-@code{clefGlyph}, @code{clefPosition} or @code{clefOctavation}
-properties are changed.  Note that changing the glyph, the
-position of the clef, or the octavation, does not in itself change
-the position of subsequent notes on the staff: the position of
-middle C must also be specified to do this.  The positional
-parameters are relative to the staff centre line, positive numbers
-displacing upwards, counting 1 for each line and space.  The
-clefOctavation value would normally be set to 7, -7, 15 or -15,
-but other values are not invalid.
-
-The following examples show the possibilities when setting these
-properties manually.  First some manual changes which preserve the
-standard relative positioning of clefs and notes:
-
-@lilypond[verbatim,quote,ragged-right]
-{
-  % The default treble clef
-  c'4
-  % The standard bass clef
-  \set Staff.clefGlyph = #"clefs.F"
-  \set Staff.clefPosition = #2
-  \set Staff.middleCPosition = #6
-  c'4
-  % The baritone clef
-  \set Staff.clefGlyph = #"clefs.C"
-  \set Staff.clefPosition = #4
-  \set Staff.middleCPosition = #4
-  c'4
-  % The standard choral tenor clef
-  \set Staff.clefGlyph = #"clefs.G"
-  \set Staff.clefPosition = #-2
-  \set Staff.clefOctavation = #-7
-  \set Staff.middleCPosition = #1
-  c'4
-  % A non-standard clef
-  \set Staff.clefPosition = #0
-  \set Staff.clefOctavation = #0
-  \set Staff.middleCPosition = #-4
-  c'4
-}
-@end lilypond
-
-and some which do not:
-
-@lilypond[verbatim,quote,ragged-right]
-{
-  \set Staff.clefGlyph = #"clefs.F"
-  \set Staff.clefPosition = #2
-  c'4
-  \set Staff.clefGlyph = #"clefs.G"
-  c'4
-  \set Staff.clefGlyph = #"clefs.C"
-  c'4
-  \set Staff.clefOctavation = #7
-  c'4
-  \set Staff.clefOctavation = #0
-  \set Staff.clefPosition = #0
-  c'4
-  \set Staff.middleCPosition = #4
-  c'4
-}
-@end lilypond
-
 
 @commonprop
 
-@lsr{pitches,
-clefs-commonly-tweaked-properties.ly}
+@lsr{pitches, clefs-commonly-tweaked-properties.ly}
 
 
 @seealso
