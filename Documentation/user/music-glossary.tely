@@ -323,6 +323,7 @@ Languages in this order.
 * octave::                      
 * ornament::                    
 * ossia::                       
+* ottava::                      
 * part::                        
 * pause::                       
 * pennant::                     
@@ -4447,6 +4448,12 @@ FI: ossia, vaihtoehtoinen esitystapa.
 Ossia (otherwise) marks an alternative.  It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
+
+
+@node ottava
+@section ottava
+
+FIXME
 
 
 @node part

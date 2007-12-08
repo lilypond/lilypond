@@ -844,6 +844,7 @@ and some which do not:
 }
 @end lilypond
 
+
 @commonprop
 
 @lsr{pitches,
@@ -968,7 +969,7 @@ c'
 
 @seealso
 
-Music Glossary: @c FIXME add link once it's in the glossary @c @rgloss{ottava}.
+Music Glossary: @rglos{ottava}.
 
 Snippets: @lsrdir{pitches}.
 
@@ -1066,8 +1067,6 @@ to serve as a reminder that these parts are written in C.
 
 
 @seealso
-
-Music Glossary: @c FIXME add link once it's in the glossary @c @rgloss{instrument transposition}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 

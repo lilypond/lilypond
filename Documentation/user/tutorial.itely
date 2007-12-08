@@ -1008,10 +1008,10 @@ different amount of space.  LilyPond does not care how much (or
 little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
+@c FIXME: number of backslashes?!  works in html but not pdf.
 @warning{each note is relative to the previous note in
 the input, not relative to the @code{c''} in the initial
 @code{\\relative} command.}
-@c FIXME: number of backslashes?!
 
 
 @subheading Simultaneous music expressions: single staff
