@@ -311,14 +311,11 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
-@lsr{pitches,
-preventing-extra-naturals-from-being-automatically-added.ly}
+@lilypondfile[quote,ragged-right,texidoc]{pitches/preventing-extra-naturals-from-being-automatically-added.ly}
 
-@lsr{pitches,
-dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+@lilypondfile[quote,ragged-right,texidoc]{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
-@lsr{pitches,
-makam.ly}
+@lilypondfile[quote,ragged-right,texidoc]{pitches/makam.ly}
 
 @seealso
 
