@@ -163,7 +163,7 @@ page.
 fractions. This allows some forms of microtonal music.  For example,
 Turkish makam music uses 1/9th tone alterations.
 
-@lilypondfile{makam.ly}
+@lilypondfile{pitches/makam.ly}
 
 
 
