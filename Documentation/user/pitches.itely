@@ -628,7 +628,8 @@ musicInBflat = @{ e4 @dots{} @}
 
 @commonprop
 
-@lsr{pitches,transposing-pitches-with-minimum-accidentals.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @seealso
@@ -764,7 +765,8 @@ For example,
 
 @commonprop
 
-@lsr{pitches, clefs-commonly-tweaked-properties.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/clefs-commonly-tweaked-properties.ly}
 
 
 @seealso
@@ -828,13 +830,14 @@ fis
 
 @commonprop
 
-@lsr{pitches,
-preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lsr{pitches, non-traditional-key-signatures.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/non-traditional-key-signatures.ly}
 
-@lsr{pitches,
-dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
 @seealso
@@ -1703,9 +1706,11 @@ printed if they are not part of the key signature.
 
 @commonprop
 
-@lsr{pitch, adding-ambiti-per-voice.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/adding-ambiti-per-voice.ly}
 
-@lsr{pitch, ambiti-multiple-voices.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/ambiti-multiple-voices.ly}
 
 
 @seealso
@@ -1810,8 +1815,8 @@ c8 d4 e8 a2 g1
 
 @commonprop
 
-@lsr{pitches,
-applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
 
 @seealso
