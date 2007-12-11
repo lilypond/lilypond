@@ -441,6 +441,10 @@ repositioned as follows:
 
 @noindent
 Now only the first slur is made heavier.
+
+The @code{\once} command can also be used before @code{\set}
+and @code{\unset}, and before the command to be introduced
+in the following section -- @code{revert}.
  
 @subheading Reverting
 
@@ -471,9 +475,6 @@ the slurs begin:
   }
 }
 @end lilypond 
-
-@cindex revert
-@funindex \revert
 
 @noindent
 or we could omit the @code{\once} command and use the 
@@ -1269,7 +1270,10 @@ this @q{nestling} of the notes on adjacent staves:
 >>
 @end lilypond 
 
-
+@c TODO Mention somewhere, probably not here, how to avoid staves
+@c interleaving too much by specifying skyline-horizontal-padding
+@c Presumably this moves the skyline boundary further out, making
+@c objects appear wider?  Not yet tested.  -td
 
 @node Within-staff objects
 @subsection Within-staff objects
@@ -1281,7 +1285,7 @@ These commands are essential when writing polyphonic music to
 permit the interweaving melodic lines to be distinguished.
 But occasionally it may be necessary to override this automatic
 behaviour.  This can be done for whole sections of music or even
-for an individual note.  The property which control this
+for an individual note.  The property which controls this
 behaviour is the @code{direction} property of each layout object.
 We first explain what this does, and then introduce a number of
 ready-made commands which avoid your having to code explicit
@@ -1362,7 +1366,7 @@ where it is not obvious.
 @item \tupletDown
   @tab \tupletUp
   @tab \tupletNeutral
-  @tab Tuplets below or above notes
+  @tab Tuplets are below/above notes
 @end multitable
 
 Note that these predefined commands may @strong{not} be 
@@ -1370,7 +1374,7 @@ preceded by @code{\once}.  If you wish to limit the
 effect to a single note you must either use the equivalent
 @code{\once \override} command or use the predefined command
 followed after the affected note by the corresponding 
-@code{\neutralXXX} command.
+@code{\xxxNeutral} command.
 
 @subheading Fingering
 @cindex fingering, placement
@@ -1393,10 +1397,11 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-This may be suitable for single notes, but the @code{direction}
+This is how to control fingering on single notes, but the 
+@code{direction}
 property is ignored for chords.  Instead, by default, the
-fingering is placed both above and below the notes of a chord,
-as shown:
+fingering is automatically placed both above and below the 
+notes of a chord, as shown:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <c-5 g-3>
@@ -1425,7 +1430,7 @@ to the left (if @code{left} appears, or to the right
 (if @code{right} appears).  Conversely, if a location is not
 listed, no fingering is placed there.  LilyPond takes these 
 contraints and works out the best placement for the fingering
-for the notes of the following chords.  Note that @code{left} and
+of the notes of the following chords.  Note that @code{left} and
 @code{right} are mutually exclusive -- fingering may be placed
 only on one side or the other, not both.
 
@@ -1451,15 +1456,257 @@ Here are a few examples:
 \set fingeringOrientations = #'(right)
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
-
 @end lilypond 
+
+@noindent
+If the fingering seems a little crowded the @code{font-size}
+could be reduced.  The default value can be seen from the
+@code{Fingering} object in the IR to be @code{-5}, so let's
+try @code{-7}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
 
 @node Outside staff objects
 @subsection Outside staff objects
 
-TODO  - dynamics, markup
-      - Priority
-      - \fatText
+Outside-staff objects are automatically placed to avoid collisions.
+Objects with the lower value of @code{outside-staff-priority} 
+property are placed nearer to the staff, and other outside-staff
+objects are then raised as far as necessary to avoid collisions.  
+The @code{outside-staff-priority} is defined in the 
+@code{grob-interface} and so is a property of all layout objects.
+It is set to @code{#f} (the default) for all within-staff objects,
+and is set explicitly to the default numerical value appropriate 
+to the each object as it is created.  The following table shows
+the default numerical values for some of the commonest 
+outside-staff objects.  Others may be found in the object 
+properties listed in the IR.
+
+@multitable @columnfractions .3 .3 
+@headitem Layout Object           @tab Priority
+@item @code{BarNumber}            @tab @code{ 100}
+@item @code{DynamicLineSpanner}   @tab @code{ 250}
+@item @code{DynamicText}          @tab @code{ 250}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{OttavaBracket}        @tab @code{ 400}
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{TextScript}           @tab @code{ 450}
+@end multitable
+
+TODO Add example showing iteraction of all these
+
+If this ordering does not give you the placing you want, the
+priority of the objects may be overridden.  Suppose we would
+like @qq{Text3} to be placed above @qq{Text4} in the example
+under Automatic behaviour, above (see @ref{Automatic behaviour}).
+All we need to do is to look up the priority of @code{TextScript}
+in the IR or in the table above, and increase the priority of
+@qq{Text3} to a higher value:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+This certainly lifts @qq{Text3} above @qq{Text4} but it also
+lifts it above @qq{Text2}, and @qq{Text4} now drops down.
+Perhaps this is not so good.  Can we instead position them all
+at the same distance from the staff?  To do this, we clearly
+will need to space the notes out horizontally to make more
+room for the text.  This is done using the @code{fatText}
+command.
+
+@subheading \fatText
+
+@funindex \fatText
+@cindex notes, spreading out with text
+
+By default, text produced by markup takes up no horizontal space
+as far as laying out the music is concerned.  The @code{\fatText} 
+command reverses this behaviour, causing the notes to be spaced 
+out as far as is necessary to accommodate the text:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\fatText  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond  
+
+The command to revert to the default behaviour is 
+@code{\emptyText}.  Remember @code{\once} only works with
+@code{\override}, @code{\set}, @code{\revert} or @code{unset},
+so cannot be used with @code{\fatText}.
+
+Markup text will also avoid notes which project above the staff.
+If this is not desired, the automatic displacement upwards may
+be turned off by setting the priority to @code{#f}.  Here's an
+example to show how markup text interacts with such notes.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\fatText  % and turn on fatText
+c,,2^"Long Text   "  % Spaces at end are honoured
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Dynamic markings will normally be positioned beneath the
+staff, but may be positioned above with the @code{dynamicUp}
+command.  They will be positioned vertically relative to the
+note to which they are attached, and will float below (or above)
+all within-staff objects such as phrasing slurs and bar numbers.
+This can give quite acceptable results, as this example
+shows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+However, if the notes and attached dynamics are close
+together the automatic placement will avoid collisions
+by displacing later dynamic markings further away, but this may 
+not be the optimum placement, as this rather artificial example
+shows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Should a similar situation arise in @q{real} music, it may 
+be preferable to space out the notes
+a little further, so the dynamic markings can all fit at the
+same vertical distance from the staff.  We were able to do this
+for markup text by using the @code{\fatText} command, but there
+is no equivalent command for dynamic marks.  So we shall have to
+work out how to do this using @code{\override} commands.
+
+@subheading Grob sizing
+
+@cindex grob sizing
+@cindex sizing grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+First we must learn how grobs are sized.  All grobs have a
+reference point defined within them which is used to position 
+them relative to their parent object.  This point in the grob
+is then positioned at a horizontal distance, @code{X-offset},
+and at a vertical distance, @code{Y-offset}, from its parent.
+The horizontal extent of the object is given by a pair of
+numbers, @code{X-extent}, which say where the left and right
+edges are relative to the reference point.  The vertical extent
+is similarly defined by a pair of numbers, @code{Y-extent}.
+These are properties of all grobs which support the 
+@code{grob-interface}.
+
+@cindex @code{extra-spacing-width}
+
+By default, outside-staff objects are given a width of zero so
+that they may overlap in the horizontal direction.  This is done
+by by the trick of adding infinity to the leftmost extent and 
+minus infinity to the rightmost extent by setting the 
+@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
+to ensure they do not overlap in the horizontal direction we
+must override this value of @code{extra-spacing-width} to
+@code{'(0 . 0)} so the true width shines through.  This is
+the command to do this for dynamic text:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Let's see if this works in our previous example:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Well, it has certainly stopped the dynamic marks being 
+displaced, but two problems remain.  The marks should be
+spaced a little further apart and it would be better
+if they were all the same distance from the staff.
+We can solve the first problem easily.  Instead of making
+the @code{extra-spacing-width} zero we could add a little
+more to it.  The units are the space between two staff
+lines, so moving the left edge half a unit to the left and the
+right edge half a unit to the right should do it:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+This looks better, but maybe we would prefer the dynamic marks
+to be aligned along the same baseline rather than going up and
+down with the notes.  There is a property to control this, but
+it is not so easy to find in the IR.  It is not a property of
+@code{DynamicText} but of @code{DynamicLineSpanner}.  
+This is because the baseline should apply equally to @strong{all}
+dynamics, including those created as extended spanners.
+So this is the way to align the dynamic marks in our example: 
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 unit
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+% Align dynamics to a base line 2 units above staff
+\override DynamicLineSpanner #'staff-padding = #2
+a4\f b\mf c\mp b\p
+@end lilypond
 
 
 
@@ -1474,28 +1721,64 @@ TODO  - dynamics, markup
 @node Moving objects
 @subsection Moving objects
 
-This may come as a surprise, but LilyPond is not perfect.  Some notation
-elements can overlap.  This is unfortunate, but (in most cases) is easily
-solved.
-
-TODO: with the new spacing features in 2.12, these specific examples are no
-longer relevant.  However, they still demonstrate powerful features
-of lilypond, so they remain until somebody creates some better examples.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+This may come as a surprise, but LilyPond is not perfect.  Some 
+notation elements can overlap.  This is unfortunate, but in fact 
+rather rare.  Usually the need to move objects is or clarity or 
+aesthetic reasons -- they would look better with a little more 
+space around them. 
 
 @cindex padding
 
-The easiest solution is to increase the distance between the object
-(in this case text, but it could easily be fingerings or dynamics
-instead) and the note.  In LilyPond, this is called the
-@code{padding} property; it is measured in staff spaces.  For most
-objects, this value is around 1.0 or less (it varies with each
-object).  We want to increase it, so let's try 1.5
+When objects are being placed they are positioned so
+that a gap given by the value of the appropriate padding property
+is left between the edge of the object being placed and the edge
+of the previously placed object.
+The layout property which controls spacing is called
+@code{padding}.  It specifies the gap that must be left between
+the top and bottom edges of objects which are positioned
+either above or below another previously placed object, or 
+between the sides of objects which are positioned to the left or 
+right of previously placed objects.
+Instead of @code{padding} some objects have instead a 
+@code{left-padding} or @code{right-padding} property. 
+All padding values are measured in staff spaces.  For most
+objects, this value is set by default to be around 1.0 or less 
+(it varies with each object).  It may be overridden if a larger
+(or smaller) gap is required.  
+
+To discover which padding property is required for the object
+you wish to reposition, you
+need to return to the IR and look up the object's properties.
+Be aware that the padding property might not be located in the
+obvious object.  For example, the placement of accidentals is
+controlled by @code{left-padding} and @code{right-padding},
+but these are to be found in the @code{AccidentalPlacement}
+object.
+
+Here's an example.
+
+Let's try the effect of @code{padding} on the rather artificial
+example above.  This is a property of 
+@code{DynamicLineSpanner}, not @code{DynamicText}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Increase vertical padding by 5 units
+\override DynamicLineSpanner #'padding = #'5
+a4\f b\mf c\mp b\p
+@end lilypond
+
+Dynamics are positioned vertically with respect to the note to
+which they are attached.  We see that this has moved all the 
+dynamics up by five staff spaces, but has had no effect on the 
+horizontal separation, nor on the placement of the dynamics
+relative to each other.
+
+TODO To be continued ....
+
+TODO Old stuff follows
+
+  We want to increase it, so let's try 1.5
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
   % temporary code to break this example:
@@ -2085,6 +2368,7 @@ nor does it mention properties which are not capitalized at all.
 And it should explain that \override should be used to set
 properties with hyphenated names, like auto-knee-gap.  (I had to
 experiment to find out how to do this.)
+
 
 
 
