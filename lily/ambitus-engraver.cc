@@ -10,6 +10,7 @@
 
 #include "engraver.hh"
 
+#include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "item.hh"
 #include "note-head.hh"
@@ -17,6 +18,7 @@
 #include "pointer-group-interface.hh"
 #include "protected-scm.hh"
 #include "side-position-interface.hh"
+#include "separation-item.hh"
 #include "staff-symbol-referencer.hh" 
 #include "stream-event.hh"
 
@@ -38,6 +40,7 @@ private:
   Item *group_;
   Drul_array<Item *> heads_;
   Drul_array<Item *> accidentals_;
+  Drul_array<Stream_event *> causes_;
   Pitch_interval pitch_interval_;
   bool is_typeset_;
   int start_c0_;
@@ -65,7 +68,6 @@ Ambitus_engraver::create_ambitus ()
 			     accidentals_[d]->self_scm ());
       Axis_group_interface::add_element (group_, heads_[d]);
       Axis_group_interface::add_element (group_, accidentals_[d]);
-      Side_position_interface::add_support (accidentals_[d], heads_[d]);
     }
   while (flip (&d) != DOWN);
 
@@ -120,7 +122,9 @@ Ambitus_engraver::acknowledge_note_head (Grob_info info)
   if (nr && nr->in_event_class ("note-event"))
     {
       Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
-      pitch_interval_.add_point (pitch);
+      Direction expand_dir = pitch_interval_.add_point (pitch);
+      if (expand_dir)
+	causes_[expand_dir] = nr;
     }
 }
 
@@ -129,10 +133,15 @@ Ambitus_engraver::finalize ()
 {
   if (ambitus_ && !pitch_interval_.is_empty ())
     {
+      Grob * accidental_placement =
+	make_item ("AccidentalPlacement",
+		   accidentals_[DOWN]->self_scm ());
+
       Direction d = DOWN;
       do
 	{
 	  Pitch p = pitch_interval_[d];
+	  heads_[d]->set_property ("cause", causes_[d]->self_scm());
 	  heads_[d]->set_property ("staff-position",
 				   scm_from_int (start_c0_
 						 + p.steps ()));
@@ -157,12 +166,15 @@ Ambitus_engraver::finalize ()
 	    {
 	      accidentals_[d]->set_property ("alteration", ly_rational2scm (p.get_alteration ()));
 	    }
+	  Separation_item::add_conditional_item (heads_[d], accidental_placement);
+	  Accidental_placement::add_accidental (accidental_placement, accidentals_[d]);
 	}
       while (flip (&d) != DOWN);
 
 
       Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[DOWN]);
       Pointer_group_interface::add_grob (ambitus_, ly_symbol2scm ("note-heads"), heads_[UP]);
+      Axis_group_interface::add_element (group_, accidental_placement);
     }
   else
     {

@@ -28,13 +28,21 @@ Pitch_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-void
+Direction
 Pitch_interval::add_point (Pitch p)
 {
   if (at (LEFT).tone_pitch () > p.tone_pitch ())
-    at (LEFT) = p;
-  if (at (RIGHT).tone_pitch () < p.tone_pitch ())
-    at (RIGHT) = p;
+    {
+      at (LEFT) = p;
+      return LEFT;
+    }
+  else if (at (RIGHT).tone_pitch () < p.tone_pitch ())
+    {
+      at (RIGHT) = p;
+      return RIGHT;
+    }
+  else
+    return CENTER;
 }
 
 
@@ -56,11 +64,19 @@ Pitch_lexicographic_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-void
+Direction
 Pitch_lexicographic_interval::add_point (Pitch p)
 {
   if (at (LEFT) > p)
-    at (LEFT) = p;
-  if (at (RIGHT) < p)
-    at (RIGHT) = p;
+    {
+      at (LEFT) = p;
+      return LEFT;
+    }
+  else if (at (RIGHT) < p)
+    {
+      at (RIGHT) = p;
+      return RIGHT;
+    }
+  else
+    return CENTER;
 }
