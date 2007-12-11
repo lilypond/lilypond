@@ -52,17 +52,16 @@ with
 c d e f g a b c'
 @end lilypond
 
-There are two different ways to enter these note names with regard
-to octave placement: absolute and relative.  The relative mode
-will in most cases be the most convenient, but the absolute mode
-is more fundamental and will be presented first.
-
 @cindex absolute
 @cindex absolute octave specification
 
-In absolute mode, every note is placed explicitly in a specific
-octave.  The note names @code{c} to @code{b} are engraved in the
-octave below middle C, as in the previous example.
+There are two different ways to enter these note names with regard
+to octave placement: absolute and relative.  The relative mode
+will in most cases be the most convenient, but the absolute mode
+is more fundamental and will be presented first.  In absolute
+mode, every note is placed explicitly in a specific octave.  The
+note names @code{c} to @code{b} are engraved in the octave below
+middle C, as in the previous example.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef treble
@@ -174,7 +173,8 @@ large intervals:
 
 If the preceding item is a chord, the first note of the chord is
 used as the reference point for the octave placement of a
-following note or chord:
+following note or chord.  Inside of chords the next note is always
+relative to the preceding one.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c' {
@@ -254,9 +254,9 @@ a2 aisis a aeses
 @end lilypond
 
 @noindent
-These are the Dutch note names.  In Dutch, @code{aes} is
-contracted to @code{as}, but both forms are accepted.  Similarly,
-both @code{es} and @code{ees} are accepted:
+The above notes are the Dutch note names.  In Dutch, @code{aes} is
+contracted to @code{as}, but both forms are accepted in LilyPond.
+Similarly, both @code{es} and @code{ees} are accepted:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a2 as e es
@@ -303,7 +303,7 @@ pitches
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \set Staff.extraNatural = ##f
-ceseh ceh cih cisih
+ceseh ces ceh c cih cis cisih
 @end lilypond
 
 Micro tones are also exported to the MIDI file.
@@ -548,6 +548,7 @@ Snippets: @lsrdir{pitches}.
 
 @cindex transpose
 @cindex transposition of pitches
+@cindex transposing instruments
 @funindex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
@@ -996,10 +997,10 @@ Snippets: @lsrdir{pitches}.
 @unnumberedsubsubsec Automatic accidentals
 @cindex automatic accidentals
 
+@funindex set-accidental-style
+
 Common rules for typesetting accidentals have been placed in a
 function.  This function is called as follows
-
-@funindex set-accidental-style
 
 @example
 \new Staff <<
