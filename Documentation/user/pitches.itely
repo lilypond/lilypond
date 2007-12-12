@@ -999,8 +999,9 @@ Snippets: @lsrdir{pitches}.
 
 @funindex set-accidental-style
 
-Common rules for typesetting accidentals have been placed in a
-function.  This function is called as follows
+There are many different conventions on how to typeset accidentals. 
+LilyPond provides a function to specify which such accidental style to
+use.   This function is called as follows
 
 @example
 \new Staff <<
@@ -1009,18 +1010,15 @@ function.  This function is called as follows
 >>
 @end example
 
-@c FIXME: check the context stuff below
-@c -does it *really* work?
-@c -the default contexts as specified in
-@c  scm/music-function.scm seem to be different -vv
-
-If no context name is supplied, the accidental style applies to
-the @code{Staff} by default.  Optionally, the function can take
-the context for which the style should be changed as a second
-argument:
+The accidental style applies to the current @code{Staff} by default
+(with the exception of the styles @code{piano} and
+@code{piano-cautionary}, see below.  
+Optionally, the function can take second argument which determines in
+which scope the style should be changed.  For example, to use the same
+style in all staves of the current @code{StaffGroup}, use
 
 @example
-#(set-accidental-style 'STYLE #('CONTEXT))
+#(set-accidental-style 'voice 'StaffGroup)
 @end example
 
 The following accidental styles are supported.  To demonstrate
@@ -1062,17 +1060,36 @@ musicB = {
   <<
     \context Staff = "up" {
       %%% change the next line as desired:
-      %#(set-accidental-style 'default)
+      #(set-accidental-style 'default)
       \musicA
     }
     \context Staff = "down" {
       %%% change the next line as desired:
-      %#(set-accidental-style 'default)
+      #(set-accidental-style 'default)
       \musicB
     }
   >>
 }
 @end lilypond
+
+Note that the last lines of this example can be replaced by the
+followin, as long as the same accidental style should be used in both
+staves. 
+@example
+\new PianoStaff @{
+  <<
+    \context Staff = "up" @{
+      %%% change the next line as desired:
+      #(set-accidental-style 'default 'Score)
+      \musicA
+    @}
+    \context Staff = "down" @{
+      \musicB
+    @}
+  >>
+@}
+@end example
+
 
 @c don't use verbatim in this table.
 @table @code
@@ -1119,11 +1136,11 @@ musicB = {
 \new PianoStaff {
   <<
     \context Staff = "up" {
-      %#(set-accidental-style 'default)
+      #(set-accidental-style 'default)
       \musicA
     }
     \context Staff = "down" {
-      %#(set-accidental-style 'default)
+      #(set-accidental-style 'default)
       \musicB
     }
   >>
@@ -1428,25 +1445,10 @@ This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
 accidentals also get canceled across the staves in the same
 GrandStaff or PianoStaff, hence all the cancellations of the final
-notes.
+notes. 
 
-This accidental style takes place in a GrandStaff context.
-However, you have to explicitly set it for @emph{each} individual
-Staff of the GrandStaff:
-
-
-@example
-\new GrandStaff @{ <<
-  \new Staff = "up" @{ <<
-    #(set-accidental-style 'piano)
-    @{ @dots{} @}
-  >> @}
-  \new Staff = "down" @{ <<
-    #(set-accidental-style 'piano)
-    @{ @dots{} @}
-  >> @}
->> @}
-@end example
+This accidental style applies to the current @code{GrandStaff} or
+@code{PianoStaff} by default.
 
 @lilypond[quote,ragged-right]
 musicA = {
@@ -1487,7 +1489,6 @@ musicB = {
       \musicA
     }
     \context Staff = "down" {
-      #(set-accidental-style 'piano)
       \musicB
     }
   >>
@@ -1539,7 +1540,6 @@ musicB = {
       \musicA
     }
     \context Staff = "down" {
-      #(set-accidental-style 'piano-cautionary)
       \musicB
     }
   >>
