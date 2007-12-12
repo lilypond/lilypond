@@ -1282,7 +1282,7 @@ We have already seen how the commands @code{\voiceXXX} affect
 the direction of slurs, ties, fingering and 
 everything else which depends on the direction of the stems.
 These commands are essential when writing polyphonic music to
-permit the interweaving melodic lines to be distinguished.
+permit interweaving melodic lines to be distinguished.
 But occasionally it may be necessary to override this automatic
 behaviour.  This can be done for whole sections of music or even
 for an individual note.  The property which controls this
@@ -1296,7 +1296,8 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
-The following example shows first the default behaviour of stems,
+The following example shows in bar 1 the default behaviour of 
+stems, 
 with those on high notes pointing down and those on low notes
 pointing up, followed by four notes with all stems forced down, 
 four notes with all stems forced up, and finally four notes
@@ -1727,6 +1728,108 @@ rather rare.  Usually the need to move objects is or clarity or
 aesthetic reasons -- they would look better with a little more 
 space around them. 
 
+There are three main main approaches to resolving overlapping
+notation.  They should be considered in the following order:
+
+@itemize @bullet
+@item
+The @strong{direction} of one of the overlapping objects may
+be changed using the predefined commands listed above for
+within-staff objects (see @ref{Within-staff objects}).  
+Stems, slurs, beams, ties, dynamics, text and tuplets may be 
+repositioned easily in this way.  The limitation is that you
+have a choice of only two positions, and neither may be
+suitable.
+
+@item
+The @strong{object properties} taken into account by LilyPond 
+when positioning the objects may be modified.  The advantages
+of making changes to this type of property are (a) that some 
+other objects will be moved automatically if necessary to make
+room and (b) the single change can apply to all instances of 
+the same type of object.  Such properties include:
+
+@itemize @minus
+@item @code{direction}
+@item @code{left-padding}
+@item @code{padding}
+@item @code{right-padding}
+@item @code{self-alignment} 
+
+Objects do not all have all of these properties in general.
+It is necessary to go to the IR to look up which properties
+are available for the object in question.
+
+@end itemize
+
+@item
+Finally, when all else fails, objects may be repositioned manually
+by changing their separation distance from other objects, or by 
+repositioning them relative to the staff center line.  The 
+disadvantage is that the correct values for the repositioning have
+to be worked out, often by trial and error, for every object
+individually.  The properties that can be used for this type of
+repositioning are:
+
+@itemize @minus
+@item @code{extra-offset}
+
+@cindex extra-offset property
+
+This property applies to any layout object
+supporting the @code{grob-interface}.  It takes a pair of
+numbers giving the extra displacement in the horizontal and
+vertical directions.  Negative numbers move the object to
+the left and down.  The units are staff-spaces.  The extra
+displacement is made after the typesetting of objects is
+finished, so an object may be repositioned anywhere without
+affecting anything else.
+
+@item @code{force-hshift}
+
+@cindex force-hshift property
+
+Closely spaced notes in a chord, or notes occuring at the same 
+time in different voices, are arranged in two, occasionally more, 
+columns to prevent the noteheads overlapping.  These are called
+note columns, and an object called @code{NoteColumn} is created
+to lay out the notes in that column.  There are separate columns
+for each voice.  The @code{force-hshift}
+property is a property of a @code{NoteColumn} (actually of the
+@code{note-column-interface}).  Changing it permits a note column
+to be moved in units appropriate to a note column, viz. the note
+head width of the first voice note.  It is preferable to the
+@code{extra-offset} property for this purpose as there is no need
+to work out the distance in staff-spaces.
+
+@item @code{positions}
+
+@cindex positions property
+
+This is most useful for manually adjusting the slope and height 
+of beams, ties, slurs, and tuplets.   It takes a pair of numbers 
+giving the position of the left and right ends of the beam, slur, 
+etc. relative to the center line of the staff.  Units are 
+staff-spaces.
+
+
+@item @code{staff-position}
+
+@cindex staff-position property
+
+@code{staff-position} is a property of the 
+@code{staff-symbol-referencer-interface}, which is supported by
+objects which are positioned relative to the staff.  It specifies
+the vertical position of the object relative to the center line
+of the staff in half staff-spaces.
+
+@end itemize
+ 
+@end itemize
+
+Let us examine some of these approaches in more detail.
+
+@subheading padding
 @cindex padding
 
 When objects are being placed they are positioned so
@@ -1773,6 +1876,11 @@ which they are attached.  We see that this has moved all the
 dynamics up by five staff spaces, but has had no effect on the 
 horizontal separation, nor on the placement of the dynamics
 relative to each other.
+
+
+@subheading extra-offset
+
+
 
 TODO To be continued ....
 
@@ -2368,6 +2476,7 @@ nor does it mention properties which are not capitalized at all.
 And it should explain that \override should be used to set
 properties with hyphenated names, like auto-knee-gap.  (I had to
 experiment to find out how to do this.)
+
 
 
 

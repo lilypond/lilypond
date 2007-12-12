@@ -655,8 +655,9 @@ Internals Reference: @internalsref{SkipMusic}.
 Rests for one or more full measures are entered using @code{R}
 followed by a duration (see @ref{Durations}).  The duration should
 correspond to an integral number of measures, otherwise a barcheck
-warning is printed.  Multi-measure rests are principally used to
-indicate that a part in a multi-part score should be silent:
+warning is printed.  A @rglos{multi-measure rest} is used 
+principally to indicate that a part in a multi-part score should 
+be silent:
 
 @lilypond[quote,fragment,verbatim,relative=2]
 \set Score.skipBars = ##t
@@ -704,10 +705,11 @@ signature.
 
 @cindex church rest
 @cindex rest, church
+@cindex kirchenpausen 
 
 If there are 10 or fewer measures of rest, LilyPond prints
-@rglos{church rests} (a series of longa and breve rests)
-in the staff and
+a series of longa and breve rests (called in German 
+Kirchenpausen - @q{church rests}) within the staff and
 prints a simple line otherwise.  This default number of 10
 may be changed by overriding 
 @code{MultiMeasureRest.expand-limit}.
@@ -2424,6 +2426,7 @@ Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
