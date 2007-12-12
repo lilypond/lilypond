@@ -1673,7 +1673,7 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 @noindent
-Well, it has certainly stopped the dynamic marks being 
+Well, it has certainly stopped the dynamic marks being
 displaced, but two problems remain.  The marks should be
 spaced a little further apart and it would be better
 if they were all the same distance from the staff.
@@ -1724,73 +1724,117 @@ a4\f b\mf c\mp b\p
 
 This may come as a surprise, but LilyPond is not perfect.  Some 
 notation elements can overlap.  This is unfortunate, but in fact 
-rather rare.  Usually the need to move objects is or clarity or 
-aesthetic reasons -- they would look better with a little more 
-space around them. 
+rather rare.  Usually the need to move objects is for clarity or
+aesthetic reasons -- they would look better with a little more
+space around them.
 
 There are three main main approaches to resolving overlapping
 notation.  They should be considered in the following order:
 
-@itemize @bullet
+@enumerate
 @item
 The @strong{direction} of one of the overlapping objects may
 be changed using the predefined commands listed above for
-within-staff objects (see @ref{Within-staff objects}).  
-Stems, slurs, beams, ties, dynamics, text and tuplets may be 
+within-staff objects (see @ref{Within-staff objects}).
+Stems, slurs, beams, ties, dynamics, text and tuplets may be
 repositioned easily in this way.  The limitation is that you
 have a choice of only two positions, and neither may be
 suitable.
 
 @item
-The @strong{object properties} taken into account by LilyPond 
+The @strong{object properties} taken into account by LilyPond
 when positioning the objects may be modified.  The advantages
-of making changes to this type of property are (a) that some 
+of making changes to this type of property are (a) that some
 other objects will be moved automatically if necessary to make
-room and (b) the single change can apply to all instances of 
+room and (b) the single change can apply to all instances of
 the same type of object.  Such properties include:
 
-@itemize @minus
+@itemize @bullet
 @item @code{direction}
-@item @code{left-padding}
-@item @code{padding}
-@item @code{right-padding}
-@item @code{self-alignment} 
+
+This has already been covered in some detail -- see
+@ref{Within-staff objects}.
+
+@item @code{left-padding}, @code{padding}, 
+      @code{right-padding}, @code{staff-padding}
+@cindex left-padding property
+@cindex padding property
+@cindex right-padding property
+
+The @code{padding} property specifies the gap that must be left 
+between
+the top and bottom edges of objects which are positioned
+either above or below another previously placed object, or
+between the sides of objects which are positioned to the left or
+right of previously placed objects.
+Instead of @code{padding} some objects have instead a
+@code{left-padding} or @code{right-padding} property.
+All padding values are measured in staff spaces.  For most
+objects, this value is set by default to be around 1.0 or less
+(it varies with each object).  It may be overridden if a larger
+(or smaller) gap is required.
+
+The @code{staff-padding} property is closely related.  @code{padding}
+controls the minimum amount of space between an object and the nearest
+other object (generally the note or the staff lines);
+@code{staff-padding} controls the minimum amount of space between an
+object and the staff.
+
+To discover which padding property is required for the object
+you wish to reposition, you
+need to return to the IR and look up the object's properties.
+Be aware that the padding property might not be located in the
+obvious object.  For example, the placement of accidentals is
+controlled by @code{left-padding} and @code{right-padding},
+but these are to be found in the @code{AccidentalPlacement}
+object.
+
+@item @code{self-alignment-X}
+
+This property aligns the object to the left, to the right, or
+centers it with respect to the parent object's reference point.
+It may be used with all objects which support the
+@code{self-alignment-interface} -- in general these are objects
+that contain text.  The values are @code{LEFT}, @code{RIGHT}
+or @code{CENTER}.  The movement is limited by the length of the
+object.
+
+@end itemize
 
 Objects do not all have all of these properties in general.
 It is necessary to go to the IR to look up which properties
 are available for the object in question.
 
-@end itemize
-
 @item
 Finally, when all else fails, objects may be repositioned manually
-by changing their separation distance from other objects, or by 
-repositioning them relative to the staff center line.  The 
-disadvantage is that the correct values for the repositioning have
-to be worked out, often by trial and error, for every object
-individually.  The properties that can be used for this type of
+by changing their separation distance from other objects, or by
+repositioning them relative to the staff center line.  The
+disadvantages are that the correct values for the repositioning
+have to be worked out, often by trial and error, for every object
+individually, and the user is responsible for any collisions that
+might follow.  But the main difficulty with this approach is that
+the repositioning values may need to be reworked if the music is
+later modified.  The properties that can be used for this type of
 repositioning are:
 
-@itemize @minus
+@itemize @bullet
 @item @code{extra-offset}
-
 @cindex extra-offset property
 
 This property applies to any layout object
 supporting the @code{grob-interface}.  It takes a pair of
 numbers giving the extra displacement in the horizontal and
 vertical directions.  Negative numbers move the object to
-the left and down.  The units are staff-spaces.  The extra
+the left or down.  The units are staff-spaces.  The extra
 displacement is made after the typesetting of objects is
 finished, so an object may be repositioned anywhere without
 affecting anything else.
 
 @item @code{force-hshift}
-
 @cindex force-hshift property
 
-Closely spaced notes in a chord, or notes occuring at the same 
-time in different voices, are arranged in two, occasionally more, 
+Closely spaced notes in a chord, or notes occuring at the same
+time in different voices, are arranged in two, occasionally more,
 columns to prevent the noteheads overlapping.  These are called
 note columns, and an object called @code{NoteColumn} is created
 to lay out the notes in that column.  There are separate columns
@@ -1803,65 +1847,62 @@ head width of the first voice note.  It is preferable to the
 to work out the distance in staff-spaces.
 
 @item @code{positions}
-
 @cindex positions property
 
-This is most useful for manually adjusting the slope and height 
-of beams, ties, slurs, and tuplets.   It takes a pair of numbers 
-giving the position of the left and right ends of the beam, slur, 
-etc. relative to the center line of the staff.  Units are 
+This is most useful for manually adjusting the slope and height
+of beams, ties, slurs, and tuplets.   It takes a pair of numbers
+giving the position of the left and right ends of the beam, slur,
+etc. relative to the center line of the staff.  Units are
 staff-spaces.
 
-
 @item @code{staff-position}
-
 @cindex staff-position property
 
-@code{staff-position} is a property of the 
+@code{staff-position} is a property of the
 @code{staff-symbol-referencer-interface}, which is supported by
 objects which are positioned relative to the staff.  It specifies
 the vertical position of the object relative to the center line
 of the staff in half staff-spaces.
 
 @end itemize
- 
-@end itemize
 
-Let us examine some of these approaches in more detail.
+Objects do not all have all of these properties in general.
+It is necessary to go to the IR to look up which properties
+are available for the object in question.
+
+@end enumerate
+
+Here is a list of the objects which are most likely to be
+involved in collisions, together with the name of the object which
+should be looked up in the IR in order to discover which properties
+should be used to move them.
+
+@multitable @columnfractions .33 .66
+@headitem Object type           @tab Object name
+@item Articulations             @tab @code{Script}
+@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
+@item Dynamics (horizontally)   @tab @code{DynamicText}
+@item Fingerings                @tab @code{Fingering}
+@item Rehearsal / Text marks    @tab @code{RehearsalMark}
+@item Slurs                     @tab @code{Slur}
+@item Text e.g. @code{^"text"}  @tab @code{TextScript}
+@item Ties                      @tab @code{Tie}
+@end multitable
+
+
+@node Fixing overlapping notation
+@subsection Fixing overlapping notation
+
+Let's now see how the properties in the previous section can
+help to resolve overlapping notation.
 
 @subheading padding
 @cindex padding
 
-When objects are being placed they are positioned so
-that a gap given by the value of the appropriate padding property
-is left between the edge of the object being placed and the edge
-of the previously placed object.
-The layout property which controls spacing is called
-@code{padding}.  It specifies the gap that must be left between
-the top and bottom edges of objects which are positioned
-either above or below another previously placed object, or 
-between the sides of objects which are positioned to the left or 
-right of previously placed objects.
-Instead of @code{padding} some objects have instead a 
-@code{left-padding} or @code{right-padding} property. 
-All padding values are measured in staff spaces.  For most
-objects, this value is set by default to be around 1.0 or less 
-(it varies with each object).  It may be overridden if a larger
-(or smaller) gap is required.  
-
-To discover which padding property is required for the object
-you wish to reposition, you
-need to return to the IR and look up the object's properties.
-Be aware that the padding property might not be located in the
-obvious object.  For example, the placement of accidentals is
-controlled by @code{left-padding} and @code{right-padding},
-but these are to be found in the @code{AccidentalPlacement}
-object.
-
-Here's an example.
+TODO Find a better example
 
 Let's try the effect of @code{padding} on the rather artificial
-example above.  This is a property of 
+example above.  This is a property of
 @code{DynamicLineSpanner}, not @code{DynamicText}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -1872,196 +1913,10 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 Dynamics are positioned vertically with respect to the note to
-which they are attached.  We see that this has moved all the 
-dynamics up by five staff spaces, but has had no effect on the 
+which they are attached.  We see that this has moved all the
+dynamics up by five staff spaces, but has had no effect on the
 horizontal separation, nor on the placement of the dynamics
 relative to each other.
-
-
-@subheading extra-offset
-
-
-
-TODO To be continued ....
-
-TODO Old stuff follows
-
-  We want to increase it, so let's try 1.5
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-That looks better, but it isn't quite big enough.  After experimenting
-with a few values, we think 2.3 is the best number in this case.  However,
-this number is merely the result of experimentation and my personal
-taste in notation.  Try the above example with 2.3... but also try higher
-(and lower) numbers.  Which do you think looks the best?
-
-The @code{staff-padding} property is closely related.  @code{padding}
-controls the minimum amount of space between an object and the nearest
-other object (generally the note or the staff lines);
-@code{staff-padding} controls the minimum amount of space between an
-object and the staff.  This is a subtle difference, but you can see
-the behavior here.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-\break
-c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-@end lilypond
-
-@cindex extra-offset
-
-Another solution gives us complete control over placing the object -- we
-can move it horizontally or vertically.  This is done with the
-@code{extra-offset} property.  It is slightly more complicated and can
-cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.  This
-means
-that the result can overlap with other objects.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-With @code{extra-offset}, the first number controls the horizontal
-movement (left is negative); the second number controls the vertical
-movement (up is positive).  After a bit of experimenting, we decided
-that these values look good
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
-
-@noindent
-Again, these numbers are simply the result of a few experiments and
-looking at the output.  You might prefer the text to be slightly higher,
-or to the left, or whatever.  Try it and look at the result!
-
-One final warning: in this section, we used
-
-@example
-\once \override TextScript @dots{}
-@end example
-
-This tweaks the display of text for the next note.  If the note has
-no text, this tweak does nothing (and does @strong{not} wait until
-the next bit of text).  To change the behavior of everything after
-the command, omit the @code{\once}.  To stop this tweak, use a
-@code{\revert}.  This is explained in depth in
-@ruser{The \override command}.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b
-\once \override TextScript #'padding = #4.6
-  a4 b
-c4^"piu mosso" d e f
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\break
-\override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\revert TextScript #'padding
-c4^"piu mosso" d e f
-@end lilypond
-
-
-@node Fixing overlapping notation
-@subsection Fixing overlapping notation
-
-In @ref{Moving objects}, we saw how to move a @code{TextScript}
-object.  The same mechanism can be used to move other types of
-objects; simply replace @code{TextScript} with the name of
-another object.
-
-To find the object name, look at the @q{@strong{see also}} at
-bottom of the relevant documentation page.  For example, at
-the bottom of @ruser{Dynamics}, we see
-
-@quotation
-@seealso
-
-Internals Reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
-Vertical positioning of these symbols is handled by
-@internalsref{DynamicLineSpanner}.
-@end quotation
-
-@noindent
-So to move dynamics around vertically, we use
-
-@example
-\override DynamicLineSpanner #'padding = #2.0
-@end example
-
-We cannot list every object, but here is a list of the most
-common objects.
-
-@multitable @columnfractions .33 .66
-@headitem Object type           @tab Object name
-@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
-@item Dynamics (horizontally)   @tab @code{DynamicText}
-@item Ties                      @tab @code{Tie}
-@item Slurs                     @tab @code{Slur}
-@item Articulations             @tab @code{Script}
-@item Fingerings                @tab @code{Fingering}
-@item Text e.g. @code{^"text"}  @tab @code{TextScript}
-@item Rehearsal / Text marks    @tab @code{RehearsalMark}
-@end multitable
-
-Ways of correcting horizontal placings are described fully 
-in the Notation Reference.  
-We introduce just one here, the @code{force-hshift} property of 
-@code{NoteColumn}.  The lower two notes of the first chord (i.e,
-those in the third voice) should not be shifted away from the
-note column of the higher two notes.  To correct this we set
-@code{force-hshift} of these notes to zero.  
-The lower note of the second chord is best placed just to the 
-right of the higher notes.  We achieve this by setting
-@code{force-hshift} of this note to 0.5, ie half a notehead's 
-width to the right of the note column of the higher notes.
-
-Here's the final result:
-    
-@lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
-  \key aes \major
-  << 
-    { c2 aes4. bes8 } \\ 
-    { aes2 f4 fes   } \\ 
-    { \voiceFour
-      \once \override NoteColumn #'force-hshift = #0 <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5 des2 
-    }
-  >> |
-  <c ees aes c>1 |
-}
-@end lilypond
-
-@cindex padding
 
 The @code{padding} property can be set to increase
 (or decrease) the distance between symbols that are printed
@@ -2091,15 +1946,54 @@ is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ruser{Constructing a tweak}.
 
-@cindex extra-offset
 
-The @code{extra-offset} property moves objects around
-in the output; it requires a pair of numbers.  The first number
-controls horizontal movement; a positive number will
-move the object to the right.  The second number controls vertical
-movement; a positive number will move it higher.  The
-@code{extra-offset} property is a low-level feature: the
-formatting engine is completely oblivious to these offsets.
+@subheading self-alignment-X
+@cindex self-alignment-X
+
+The following example shows how this can resolve the collision
+of a string fingering object with a note's stem by aligning the
+right edge with the reference point of the parent note:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+< a \2 >
+\once \override StringNumber #'self-alignment-X = #RIGHT
+< a \2 >
+@end lilypond
+
+@subheading extra-offset
+@cindex extra-offset property
+
+Another solution gives us complete control over placing the object -- we
+can move it horizontally or vertically.  This is done with the
+@code{extra-offset} property.  It is slightly more complicated and can
+cause other problems.  When we move objects with @code{extra-offset},
+the movement is done after LilyPond has placed all other objects.  This
+means that the result can overlap with other objects.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+With @code{extra-offset}, the first number controls the horizontal
+movement (left is negative); the second number controls the vertical
+movement (up is positive).  After a bit of experimenting, we decided
+that these values look good
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+  % temporary code to break this example:
+  \override TextScript #'outside-staff-priority = ##f
+\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
+e4^\markup{ \italic ritenuto } g b e
+@end lilypond
+
+@noindent
+Again, these numbers are simply the result of a few experiments and
+looking at the output.  You might prefer the text to be slightly higher,
+or to the left, or whatever.  Try it and look at the result!
 
 In the following example, the second fingering is moved a little to
 the left, and 1.8 staff space downwards:
@@ -2111,6 +2005,42 @@ f-5
     #'extra-offset = #'(-0.3 . -1.8)
 f-5
 @end lilypond
+
+
+@subheading force-hshift
+@cindex force-hshift property
+
+We introduce just one here, the @code{force-hshift} property of
+@code{NoteColumn}.  The lower two notes of the first chord (i.e,
+those in the third voice) should not be shifted away from the
+note column of the higher two notes.  To correct this we set
+@code{force-hshift} of these notes to zero.
+The lower note of the second chord is best placed just to the
+right of the higher notes.  We achieve this by setting
+@code{force-hshift} of this note to 0.5, ie half a notehead's
+width to the right of the note column of the higher notes.
+
+Here's the final result:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+TODO To be continued ....
+
+TODO Old stuff follows
 
 
 
