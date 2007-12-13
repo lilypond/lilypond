@@ -171,7 +171,9 @@ BOM_UTF8	\357\273\277
   return type;
 }
 
-<INITIAL,chords,lyrics,figures,notes>{BOM_UTF8} {
+   /* Use the trailing context feature. Otherwise, the BOM will not be
+      found if the file starts with an identifier definition. */
+<INITIAL,chords,lyrics,figures,notes>{BOM_UTF8}/.* {
   if (this->lexloc->line_number () != 1 || this->lexloc->column_number () != 0)
     {
       LexerError (_ ("stray UTF-8 BOM encountered").c_str ());
