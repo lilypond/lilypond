@@ -1075,7 +1075,7 @@ class Lilypond_snippet (Snippet):
         open (self.basename () + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
-        return re.sub (r'\\(version|sourcefileline)[^\n]*\n', '', ly)
+        return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
              
     def ly_is_outdated (self):
         base = self.basename ()

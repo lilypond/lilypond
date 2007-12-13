@@ -4,10 +4,10 @@
 using namespace std;
 
 const Real infinity_f =
-  #ifdef INFINITY
+#ifdef INFINITY
   INFINITY
-  #else
+#else
   HUGE_VAL  
-  #endif
+#endif
   ;
   
