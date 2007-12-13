@@ -304,7 +304,8 @@ point.
 
 @seealso
 
-Music Glossary: @c TODO Add @rglos{Tuplet} when Tuplet has been added to the Glossary
+Music Glossary:
+@c TODO Add @rglos{Tuplet} when Tuplet has been added to the Glossary
 
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
@@ -438,7 +439,8 @@ c4_~ c c^~ c)
 
 @seealso
 
-Music Glossary: @rglos{tie}, @c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
+Music Glossary: @rglos{tie},
+@c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
 
 Snippets: @lsrdir{rhythms}
 
@@ -1035,6 +1037,9 @@ Snippets: @lsrdir{rhythms}
 @cindex polymetric signatures
 @cindex meter, polymetric
 
+@c TODO: add glossary entries for {signature, polymetric},
+@c {meter, polymetric}, {polymetric} (time signature, double}. rp
+
 Double time signatures are not supported explicitly, but they can
 be faked.  In the next example, the markup for the time signature
 is created with a markup text.  This markup text is inserted in
@@ -1107,6 +1112,7 @@ printed durations in each staff are scaled to the common time
 signature.  The latter is done with @code{\compressMusic}, which
 is used in a similar way to @code{\times}, but does not create 
 a tuplet bracket.  The syntax is 
+
 @funindex \compressMusic
 
 @example 
@@ -1154,7 +1160,15 @@ aligned vertically, but bar lines distort the regular spacing.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+@ignore
+TODO: add @rglos{signature, polymetric}, {polymetric}, {time
+signature, double}, and {meter, polymetric}. when glossary entries
+exist.
+@end ignore
+
+Snippets: @lsrdir{rhythms}, @lsr{contemporary,compound-time-signature}.
+
+Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
 
 
 @node Automatic note splitting
@@ -1199,7 +1213,8 @@ split rests.
 
 Snippets: @lsrdir{rhythms}
 
-Internals Reference: @internalsref{Completion_heads_engraver},
+Internals Reference: @internalsref{Note_heads_engraver},
+@internalsref{Completion_heads_engraver},
 @internalsref{Forbid_line_break_engraver}.
 
 
@@ -1218,7 +1233,10 @@ Internals Reference: @internalsref{Completion_heads_engraver},
 @node Automatic beams
 @unnumberedsubsubsec Automatic beams
 
-By default beams are inserted automatically:
+By default, beams are inserted automatically:
+
+@cindex beams, manual
+@cindex manual beams
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c
@@ -1259,6 +1277,7 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
+@c [TODO I think this could be worded more clearly, but I'm not sure how.] rp
 The property @code{subdivideBeams} can be set in order to
 subdivide all 16th or shorter beams.  When set, multiple beams
 will be sub-divided at beat positions, defined by the current
@@ -1281,6 +1300,8 @@ For more information about @code{make-moment}, see
 @ref{Time administration}.
 
 @funindex breakable
+@cindex break, line
+@cindex line breaks
 
 Line breaks are normally forbidden when beams cross bar lines.
 This behavior can be changed by setting the @code{breakable} 
@@ -1312,6 +1333,8 @@ f8 f''8 f8 f''8
 
 
 @seealso
+
+Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
 
 Snippets: @lsrdir{rhythms}
 
