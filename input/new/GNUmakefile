@@ -10,8 +10,8 @@ SUBDIRS += other
 
 
 # old
-SUBDIRS += ancient chords connecting contemporary education expressive
-SUBDIRS += guitar parts repeats spacing staff text vocal scheme other 
+SUBDIRS += connecting contemporary education 
+SUBDIRS += parts spacing scheme  
 SUBDIRS += engravers nonmusic instrument
 SUBDIRS += real-music
 
