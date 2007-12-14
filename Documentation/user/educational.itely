@@ -282,7 +282,8 @@ the music event,
 >4-\parenthesize -.
 @end lilypond
 
-This only functions inside chords, even for single notes
+This only functions inside chords, to parenthesize a single note it 
+must be enclosed with @code{<>} as if it is a chord.
 
 @example
 < \parenthesize NOTE>
@@ -343,7 +344,7 @@ The following example demonstrates its use.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+  <c-\balloonText #'(-2 . -2) \markup { "I'm a notehead" }  >8
 }
 @end lilypond
 
