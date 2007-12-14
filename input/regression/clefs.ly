@@ -3,8 +3,7 @@
 \header{
 
   texidoc=" Clefs with @code{full-size-change} should be typeset in
-full size. For octaviated clefs, the ``8'' should appear closely above
-or below the clef respectively."
+full size."
 
 }
 
