@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2007-12-06 16:13+0100\n"
-"PO-Revision-Date: 2007-11-25 15:21+0100\n"
+"PO-Revision-Date: 2007-12-15 15:15+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,7 @@ msgstr ""
 #: add_html_footer.py:45
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
-"Rapportez toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu."
-"org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%"
-"(mail_address_url)s\">%(mail_address)s</a>"
+msgstr "Rapportez toute anomalie en français à <a href=\"mailto:lilypond-user-fr@gnu.org\">lilypond-user-fr@gnu.org</a> ou en anglais à <a href=\"%(mail_address_url)s\">%(mail_address)s</a>"
 
 #: add_html_footer.py:47
 #, python-format
@@ -1120,7 +1117,6 @@ msgstr "La partition est une unique expression musicale composée"
 
 #. @node in ../../../Documentation/user/fundamental.itely
 #. @subsection in ../../../Documentation/user/fundamental.itely
-#, fuzzy
 msgid "Nesting music expressions"
 msgstr "Expressions musicales imbriquées"
 
@@ -1249,32 +1245,28 @@ msgstr "Retouche des partitions"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Tweaking basics"
-msgstr "Retouche des partitions"
+msgstr "Retouches élémentaires"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Introduction to tweaks"
-msgstr "Élaboration d'une retouche"
+msgstr "Introduction aux retouches"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Objects and interfaces"
-msgstr "Interfaces de rendu"
+msgstr "Objets et interfaces"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
 msgid "Naming conventions of objects and properties"
-msgstr ""
+msgstr "Conventions de noms d'objets et de propriétés"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Tweaking methods"
-msgstr "Retouche des partitions"
+msgstr "Méthodes de retouche"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -1291,31 +1283,28 @@ msgid "Overriding once only"
 msgstr ""
 
 #. @heading in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Reverting"
-msgstr "Rapport de bogue"
+msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Properties found in interfaces"
-msgstr "Interfaces de programmation"
+msgstr "Propriétés listées par interface"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Types of properties"
-msgstr "Propriétés de la musique"
+msgstr "Types de propriétés"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
 msgid "Appearance of objects"
-msgstr ""
+msgstr "Apparence des objets"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
 msgid "Visibility and color of objects"
-msgstr ""
+msgstr "Visibilité et couleur des objets"
 
 #. @heading in ../../../Documentation/user/tweaks.itely
 msgid "stencil"
@@ -1326,20 +1315,17 @@ msgid "break-visibility"
 msgstr ""
 
 #. @heading in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "transparent"
-msgstr "Transposition"
+msgstr "transposition"
 
 #. @heading in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "color"
-msgstr "accord"
+msgstr "couleur"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-#, fuzzy
 msgid "Size of objects"
-msgstr "Déplacement d'objets"
+msgstr "Taille des objets"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
@@ -2691,17 +2677,14 @@ msgid "Durations"
 msgstr "Durées"
 
 #. @rglos in ../../../Documentation/user/rhythms.itely
-#, fuzzy
 msgid "breve"
-msgstr "accolade"
+msgstr "brève"
 
 #. @rglos in ../../../Documentation/user/rhythms.itely
-#, fuzzy
 msgid "longa"
-msgstr "Chansons"
+msgstr "longue"
 
 #. @rglos in ../../../Documentation/user/rhythms.itely
-#, fuzzy
 msgid "Tuplet"
 msgstr "Nolets"
 
@@ -2718,7 +2701,7 @@ msgstr "Changement d'échelle des durées"
 
 #. @rglos in ../../../Documentation/user/rhythms.itely
 msgid "laissez vibrer"
-msgstr ""
+msgstr "laissez vibrer"
 
 #. @node in ../../../Documentation/user/rhythms.itely
 #. @subsection in ../../../Documentation/user/rhythms.itely
@@ -2755,7 +2738,7 @@ msgstr "Silences multi-mesures"
 
 #. @rglos in ../../../Documentation/user/rhythms.itely
 msgid "church rests"
-msgstr "longues figure de silence"
+msgstr "longues figures de silence"
 
 #. @node in ../../../Documentation/user/rhythms.itely
 #. @subsection in ../../../Documentation/user/rhythms.itely
@@ -5592,7 +5575,6 @@ msgid "Cheat sheet"
 msgstr "Aide-mémoire"
 
 #. @top in ../../../Documentation/fr/user/lilypond-learning.tely
-#, fuzzy
 msgid "GNU LilyPond --- manuel d'initiation"
 msgstr "GNU LilyPond --- manuel d'initiation"
 
@@ -5600,7 +5582,7 @@ msgstr "GNU LilyPond --- manuel d'initiation"
 #. @subsubheading in ../../../Documentation/es/user/macros.itexi
 #. @subsubheading in ../../../Documentation/de/user/macros.itexi
 msgid "Bugs"
-msgstr ""
+msgstr "Bogues"
 
 #. @subheading in ../../../Documentation/fr/user/introduction.itely
 msgid "Manuel de l'utilisateur"
@@ -5623,15 +5605,14 @@ msgid "Utilisation du programme"
 msgstr ""
 
 #. @subsubheading in ../../../Documentation/fr/user/introduction.itely
-#, fuzzy
 msgid "Autre documentation"
-msgstr "Compilation de la documentation"
+msgstr ""
 
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "fourth"
-msgstr ""
+msgstr "quarte"
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
 #. @subsection in ../../../Documentation/fr/user/tutorial.itely
@@ -5648,9 +5629,8 @@ msgstr "Bien lire le tutoriel"
 #. @subsection in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
-#, fuzzy
 msgid "Relative note names"
-msgstr "Noms de note absolus"
+msgstr ""
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
 #. @subsection in ../../../Documentation/fr/user/tutorial.itely
@@ -5667,9 +5647,8 @@ msgstr "Double portée"
 #. @subsection in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
-#, fuzzy
 msgid "Printing lyrics"
-msgstr "Saisie de paroles"
+msgstr "Gravure de paroles"
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
 #. @subsection in ../../../Documentation/fr/user/tutorial.itely
@@ -5677,7 +5656,6 @@ msgstr "Saisie de paroles"
 #. @subsection in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
-#, fuzzy
 msgid "Organizing pieces with identifiers"
 msgstr "Organisation du code source avec des variables"
 
@@ -5688,7 +5666,6 @@ msgstr "Organisation du code source avec des variables"
 #. @chapter in ../../../Documentation/es/user/putting.itely
 #. @node in ../../../Documentation/de/user/putting.itely
 #. @chapter in ../../../Documentation/de/user/putting.itely
-#, fuzzy
 msgid "Putting it all together"
 msgstr "Assemblage"
 
@@ -5698,7 +5675,6 @@ msgstr "Assemblage"
 #. @section in ../../../Documentation/es/user/putting.itely
 #. @node in ../../../Documentation/de/user/putting.itely
 #. @section in ../../../Documentation/de/user/putting.itely
-#, fuzzy
 msgid "Score is a single musical expression"
 msgstr "La partition est une unique expression musicale composée"
 
@@ -5708,9 +5684,8 @@ msgstr "La partition est une unique expression musicale composée"
 #. @section in ../../../Documentation/es/user/putting.itely
 #. @node in ../../../Documentation/de/user/putting.itely
 #. @section in ../../../Documentation/de/user/putting.itely
-#, fuzzy
 msgid "An orchestral part"
-msgstr "Cordes frottées"
+msgstr "Partie d'orchestre"
 
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
@@ -5718,7 +5693,6 @@ msgstr "Cordes frottées"
 #. @section in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
-#, fuzzy
 msgid "Saving typing with identifiers and functions"
 msgstr "Économies de saisie grâce aux identificateurs et fonctions"
 
@@ -5728,19 +5702,16 @@ msgstr "Économies de saisie grâce aux identificateurs et fonctions"
 #. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
-#, fuzzy
 msgid "Default files"
-msgstr "Fichiers d'entrée"
+msgstr "Fichiers fournis avec le logiciel"
 
 #. @top in ../../../Documentation/fr/user/lilypond-program.tely
-#, fuzzy
 msgid "GNU LilyPond --- utilisation du programme"
-msgstr "GNU LilyPond --- utilisation du programme"
+msgstr ""
 
 #. @top in ../../../Documentation/fr/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond --- le système de gravure musicale"
-msgstr "GNU LilyPond --- manuel d'initiation"
+msgstr ""
 
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
@@ -5748,9 +5719,8 @@ msgstr "GNU LilyPond --- manuel d'initiation"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
-#, fuzzy
 msgid "Normal pitches"
-msgstr "Répétitions courantes"
+msgstr "Hauteurs courantes"
 
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
@@ -5758,9 +5728,8 @@ msgstr "Répétitions courantes"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
-#, fuzzy
 msgid "Cautionary accidentals"
-msgstr "Altérations accidentelles automatiques"
+msgstr "Altérations accidentelles"
 
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
@@ -5768,9 +5737,8 @@ msgstr "Altérations accidentelles automatiques"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
-#, fuzzy
 msgid "Micro tones"
-msgstr "Fonctions musicales"
+msgstr "Altérations microtonales"
 
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
@@ -5778,7 +5746,6 @@ msgstr "Fonctions musicales"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
-#, fuzzy
 msgid "Relative octaves"
 msgstr "Octaves relatives"
 
@@ -5788,9 +5755,8 @@ msgstr "Octaves relatives"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/rhythms.itely
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "Augmentation dots"
-msgstr "Polices de caractères non européens"
+msgstr "Points d'augmentation"
 
 #. @node in ../../../Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/rhythms.itely
@@ -5798,9 +5764,8 @@ msgstr "Polices de caractères non européens"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/rhythms.itely
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "Feathered beams"
-msgstr "Musique sans métrique"
+msgstr "Liens de croches en soufflet"
 
 #. @node in ../../../Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/rhythms.itely
@@ -5808,9 +5773,8 @@ msgstr "Musique sans métrique"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/rhythms.itely
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "Bar check"
-msgstr "Vérification d'octave"
+msgstr "Vérification des limites de mesure"
 
 #. @node in ../../../Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/rhythms.itely
@@ -5818,9 +5782,8 @@ msgstr "Vérification d'octave"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/rhythms.itely
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "Barnumber check"
-msgstr "Vérification des limites et numéros de mesure"
+msgstr "Vérification des numéros de mesure"
 
 #. @node in ../../../Documentation/fr/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/rhythms.itely
@@ -5828,9 +5791,8 @@ msgstr "Vérification des limites et numéros de mesure"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/rhythms.itely
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
-#, fuzzy
 msgid "Proportional notation (introduction)"
-msgstr "Notation proportionnelle"
+msgstr "Introduction à la notation proportionnelle"
 
 #. @node in ../../../Documentation/fr/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/expressive.itely
@@ -5839,7 +5801,7 @@ msgstr "Notation proportionnelle"
 #. @node in ../../../Documentation/de/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/expressive.itely
 msgid "Laissez vibrer ties"
-msgstr ""
+msgstr "Liaisons ``laissez vibrer''"
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
@@ -5847,9 +5809,8 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
-#, fuzzy
 msgid "Repeat types"
-msgstr "Répétitions"
+msgstr "Types de répétitions"
 
 #. @node in ../../../Documentation/fr/user/simultaneous.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/simultaneous.itely
@@ -5857,9 +5818,8 @@ msgstr "Répétitions"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/simultaneous.itely
 #. @node in ../../../Documentation/de/user/simultaneous.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/simultaneous.itely
-#, fuzzy
 msgid "Basic polyphony"
-msgstr "polyphonie"
+msgstr "Polyphonie basique"
 
 #. @node in ../../../Documentation/fr/user/simultaneous.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/simultaneous.itely
@@ -5867,7 +5827,6 @@ msgstr "polyphonie"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/simultaneous.itely
 #. @node in ../../../Documentation/de/user/simultaneous.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/simultaneous.itely
-#, fuzzy
 msgid "Collision Resolution"
 msgstr "Résolution des collisions"
 
@@ -5877,9 +5836,8 @@ msgstr "Résolution des collisions"
 #. @section in ../../../Documentation/es/user/educational.itely
 #. @node in ../../../Documentation/de/user/educational.itely
 #. @section in ../../../Documentation/de/user/educational.itely
-#, fuzzy
 msgid "Educational use"
-msgstr "durée"
+msgstr "Utilisation en milieu éducatif"
 
 #. @node in ../../../Documentation/fr/user/educational.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/educational.itely
@@ -5887,7 +5845,6 @@ msgstr "durée"
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/educational.itely
 #. @node in ../../../Documentation/de/user/educational.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/educational.itely
-#, fuzzy
 msgid "Easy Notation note heads"
 msgstr "Têtes de note avec nom de note"
 
@@ -5902,7 +5859,6 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 #. @node in ../../../Documentation/es/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/vocal.itely
-#, fuzzy
 msgid "Working with lyrics and identifiers"
 msgstr "Travail avec des paroles et variables"
 
@@ -5910,9 +5866,8 @@ msgstr "Travail avec des paroles et variables"
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 #. @node in ../../../Documentation/es/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/es/user/vocal.itely
-#, fuzzy
 msgid "Other vocal issues"
-msgstr "Autres éléments relatifs à la guitare"
+msgstr "Autres éléments relatifs à la voix"
 
 #. @node in ../../../Documentation/fr/user/chords.itely
 #. @section in ../../../Documentation/fr/user/chords.itely
@@ -5920,7 +5875,6 @@ msgstr "Autres éléments relatifs à la guitare"
 #. @section in ../../../Documentation/es/user/chords.itely
 #. @node in ../../../Documentation/de/user/chords.itely
 #. @section in ../../../Documentation/de/user/chords.itely
-#, fuzzy
 msgid "Chords Blah"
 msgstr "Accords"
 
@@ -5957,7 +5911,6 @@ msgstr ""
 #. @subsection in ../../../Documentation/es/user/guitar.itely
 #. @node in ../../../Documentation/de/user/guitar.itely
 #. @subsection in ../../../Documentation/de/user/guitar.itely
-#, fuzzy
 msgid "Guitar TODO"
 msgstr "Guitare"
 
@@ -5967,7 +5920,6 @@ msgstr "Guitare"
 #. @subsection in ../../../Documentation/es/user/strings.itely
 #. @node in ../../../Documentation/de/user/strings.itely
 #. @subsection in ../../../Documentation/de/user/strings.itely
-#, fuzzy
 msgid "Orchestral strings TODO"
 msgstr "Cordes frottées"
 
@@ -5977,7 +5929,6 @@ msgstr "Cordes frottées"
 #. @subsection in ../../../Documentation/es/user/bagpipes.itely
 #. @node in ../../../Documentation/de/user/bagpipes.itely
 #. @subsection in ../../../Documentation/de/user/bagpipes.itely
-#, fuzzy
 msgid "Bagpipe"
 msgstr "Cornemuse"
 
@@ -5987,17 +5938,15 @@ msgstr "Cornemuse"
 #. @subsection in ../../../Documentation/es/user/ancient.itely
 #. @node in ../../../Documentation/de/user/ancient.itely
 #. @subsection in ../../../Documentation/de/user/ancient.itely
-#, fuzzy
 msgid "Ancient TODO"
-msgstr "Silences anciens"
+msgstr "Musique ancienne"
 
 #. @node in ../../../Documentation/fr/user/changing-defaults.itely
 #. @section in ../../../Documentation/fr/user/changing-defaults.itely
 #. @node in ../../../Documentation/es/user/changing-defaults.itely
 #. @section in ../../../Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Automatic notation"
-msgstr "Découpage automatique des notes"
+msgstr "Notation automatique"
 
 #. @subheading in ../../../Documentation/es/user/introduction.itely
 #. @subheading in ../../../Documentation/de/user/introduction.itely
@@ -6006,25 +5955,21 @@ msgstr ""
 
 #. @subsubheading in ../../../Documentation/es/user/introduction.itely
 #. @subsubheading in ../../../Documentation/de/user/introduction.itely
-#, fuzzy
 msgid "Learning manual"
-msgstr "Manuel d'initiation"
+msgstr ""
 
 #. @subsubheading in ../../../Documentation/es/user/introduction.itely
 #. @subsubheading in ../../../Documentation/de/user/introduction.itely
-#, fuzzy
 msgid "Notation reference"
-msgstr "Manuel de notation"
+msgstr ""
 
 #. @top in ../../../Documentation/es/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond --- El tipografiador de música"
-msgstr "GNU LilyPond --- utilisation du programme"
+msgstr ""
 
 #. @top in ../../../Documentation/de/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond -- Das Notationsprogramm"
-msgstr "GNU LilyPond --- utilisation du programme"
+msgstr ""
 
 msgid "Up:"
 msgstr "Haut&nbsp;:"

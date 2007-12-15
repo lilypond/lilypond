@@ -2561,7 +2561,7 @@ FI: kesto, aika-arvo.
 
 ES: ?,
 I: ?,
-F: ?,
+F: nuances,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2741,8 +2741,6 @@ Performance indications concerning 1. volume, dynamics (for example
 @node extender line
 @section extender line
 
-FIXME: add languages
-
 ES: línea de extención [de melisma, de bajo cifrado, etc.],
 I: ?,
 F: ligne d'extension [de mélisme, de basse chiffrée, etc.],
@@ -2861,15 +2859,12 @@ symbol indicates playing an octave lower (for example, on double bass
 
 @ref{baritone clef}
 
-@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
-
-
 @node feathered beam
 @section feathered beam
 
 ES: ?,
 I: ?,
-F: ?,
+F: liens de croches en soufflet,
 D: ?,
 NL: ?,
 DK: ?,
@@ -2891,7 +2886,7 @@ Internals Reference: @ruser{Manual beams}
 
 ES: calderón,
 I: corona,
-F: point d'orgue, point d'arrêt,
+F: point d'orgue, point d'arrêt, @c 'point d'orgue' on a note, 'point d'arret' on a rest.
 D: Fermate,
 NL: fermate,
 DK: fermat,
