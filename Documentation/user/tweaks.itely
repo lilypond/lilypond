@@ -13,7 +13,7 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-NB: This chapter is still under development and this version is
+TODO: This chapter is still under development and this version is
 somewhat experimental; nothing is fixed.  Don't translate yet!
 
 
@@ -25,8 +25,7 @@ somewhat experimental; nothing is fixed.  Don't translate yet!
 * Placement of objects::        
 * Collisions of objects::       
 * Page layout::                 
-* Common tweaks::               
-* TODO other name::             
+* Further tweaking::            
 @end menu
 
 @node Tweaking basics
@@ -1219,14 +1218,13 @@ normally avoided automatically.  There are commands and
 overrides which can modify this automatic behaviour, as we
 shall shortly see.
 
-Objects belonging outside the staff include things 
-such as rehearsal marks, text and dynamic markings. 
-LilyPond’s rule for the 
-vertical placement of outside-staff objects is to place them as 
-close to the staff as possible but not so close that they 
-collide with any other object.  LilyPond uses the 
-@code{outside-staff-priority} property to determine the order 
-in which the objects should be placed, as follows.
+Objects belonging outside the staff include things such as
+rehearsal marks, text and dynamic markings.  LilyPond's rule for
+the vertical placement of outside-staff objects is to place them
+as close to the staff as possible but not so close that they
+collide with any other object.  LilyPond uses the
+@code{outside-staff-priority} property to determine the order in
+which the objects should be placed, as follows.
 
 First, LilyPond places all the within-staff objects.
 Then it sorts the outside-staff objects according to their 
@@ -1726,23 +1724,22 @@ Stems, slurs, beams, ties, dynamics, text and tuplets may be
 repositioned easily in this way.  The limitation is that you
 have a choice of only two positions, and neither may be
 suitable.
-
-@sp 1
+@smallspace
 @item
 The @strong{object properties}, which LilyPond uses
-when positioning layout objects, may be modified.  The advantages
+when positioning layout objects, may be modified using 
+@code{\override}.  The advantages
 of making changes to this type of property are (a) that some
 other objects will be moved automatically if necessary to make
 room and (b) the single override can apply to all instances of
 the same type of object.  Such properties include:
-
 @itemize
-@sp 1
+@smallspace
 @item @code{direction}
+
 This has already been covered in some detail -- see
 @ref{Within-staff objects}.
-
-@sp 1
+@smallspace
 @item @code{padding}, @code{left-padding},
       @code{right-padding}, @code{staff-padding}
 
@@ -1750,7 +1747,6 @@ This has already been covered in some detail -- see
 @cindex padding property
 @cindex right-padding property
 @cindex staff-padding property
-@sp 1
 The @code{padding} property specifies the gap that must be left
 between
 the top and bottom edges of objects which are positioned
@@ -1758,34 +1754,36 @@ either above or below another previously placed object, or
 between the sides of objects which are positioned to the left or
 right of previously placed objects.  @code{padding} can be applied
 to all objects which support the @code{side-position-interface}.
-Instead of @code{padding} some objects have instead a
-@code{left-padding} or @code{right-padding} property.
-All padding values are measured in staff spaces.  For most
-objects, this value is set by default to be around 1.0 or less
-(it varies with each object).  It may be overridden if a larger
-(or smaller) gap is required.
 
-The @code{staff-padding} property is closely related.  @code{padding}
-controls the minimum amount of space between any object which 
+Instead of @code{padding}, the placement of groups of accidentals
+is controlled by @code{left-padding} and @code{right-padding}.
+These properties are to be found in the @code{AccidentalPlacement}
+object which, note, lives in the @strong{staff} context.
+
+The @code{staff-padding} property is closely related to the
+@code{padding} property:  @code{padding}
+controls the minimum amount of space between any object which
 supports the @code{side-position-interface} and the nearest
 other object (generally the note or the staff lines);
 @code{staff-padding} applies only to those objects which are always
-set outside the staff, and it controls the minimum amount of space 
-that should be inserted between an object and the staff.  Note that
-@code{staff-padding} has no effect on objects which are set relative
-to the note rather than the staff, even though it may be set for 
-such objects.
+set outside the staff -- it controls the minimum amount of space
+that should be inserted between that object and the staff.  Note
+that @code{staff-padding} has no effect on objects which are
+positioned relative to the note rather than the staff, even though
+it may be overridden without error for such objects -- it is simply
+ignored.
 
 To discover which padding property is required for the object
 you wish to reposition, you
 need to return to the IR and look up the object's properties.
 Be aware that the padding properties might not be located in the
-obvious object.  For example, the placement of accidentals is
-controlled by @code{left-padding} and @code{right-padding},
-but these are to be found in the @code{AccidentalPlacement}
-object which lives in the staff context.
+obvious object, so look in objects that appear to be related.
 
-@sp 1
+All padding values are measured in staff spaces.  For most
+objects, this value is set by default to be around 1.0 or less
+(it varies with each object).  It may be overridden if a larger
+(or smaller) gap is required.
+@smallspace
 @item @code{self-alignment-X}
 
 @cindex self-alignment-X property
@@ -1798,7 +1796,19 @@ or @code{CENTER}.  The movement is limited by the length of the
 object.  Any numerical value between @code{-1} and @code{+1} may
 also be specified, where @code{-1} is left-aligned and @code{+1}
 is right-aligned.
+@smallspace
+@item @code{extra-spacing-width} property
 
+@cindex extra-spacing-width property
+This property is available for all objects which support the
+@code{item-interface}.  It takes two numbers, the first is added
+to the leftmost extent and the second is added to the rightmost 
+extent.  Negative numbers move the edge to the left, positive to
+the right.  Note that not all objects honour both numbers.  For
+example, the @code{Accidental} object only takes notice of the
+first (left edge) number.
+
+@smallspace
 @item @code{staff-position}
 
 @cindex staff-position property
@@ -1807,31 +1817,29 @@ is right-aligned.
 objects which are positioned relative to the staff.  It specifies
 the vertical position of the object relative to the center line
 of the staff in half staff-spaces.  It is useful in resolving
-collisions between layout objects like multi-measure rests and
-notes in different voices.  If the object is repositioned beyond
-the limits of the staff, ledger lines are automatically inserted.
+collisions between layout objects like multi-measure rests, ties
+and notes in different voices.  
 
 @end itemize
 
 Objects do not all have all of these properties in general.
 It is necessary to go to the IR to look up which properties
 are available for the object in question.
-
-@sp 1
+@smallspace
 @item
-Finally, when all else fails, objects may be repositioned manually
-by changing the distance which separates them from other objects,
-or by repositioning them relative to the staff center line.  The
+Finally, when all else fails, objects may be repositioned 
+vertically relative to the staff center line, or by
+displacing them by any distance to a new position.  The
 disadvantages are that the correct values for the repositioning
 have to be worked out, often by trial and error, for every object
-individually, and the user is responsible for any collisions that
-might follow.  But the main difficulty with this approach is that
-the repositioning values may need to be reworked if the music is
-later modified.  The properties that can be used for this type of
-repositioning are:
-
+individually, and, because the movement is done after LilyPond has
+placed all other objects, the user is responsible for avoiding any
+collisions that might ensue.  But the main difficulty with this
+approach is that the repositioning values may need to be reworked
+if the music is later modified.  The properties that can be used
+for this type of manual repositioning are:
 @itemize
-@sp 1
+@smallspace
 @item @code{extra-offset}
 
 @cindex extra-offset property
@@ -1843,8 +1851,7 @@ the left or down.  The units are staff-spaces.  The extra
 displacement is made after the typesetting of objects is
 finished, so an object may be repositioned anywhere without
 affecting anything else.
-
-@sp 1
+@smallspace
 @item @code{force-hshift}
 
 @cindex force-hshift property
@@ -1860,12 +1867,12 @@ to be moved in units appropriate to a note column, viz. the note
 head width of the first voice note.  It is preferable to the
 @code{extra-offset} property for this purpose as there is no need
 to work out the distance in staff-spaces.
-
+@smallspace
 @item @code{positions}
 
 @cindex positions property
 This is most useful for manually adjusting the slope and height
-of beams, ties, slurs, and tuplets.   It takes a pair of numbers
+of beams, slurs, and tuplets.   It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
 staff-spaces.
@@ -1990,11 +1997,12 @@ example of a collision of this type:
 << {c c c c} \\ {R1} >>
 @end lilypond
 
-The best solution here is to move the multimeasure rest down.
+The best solution here is to move the multimeasure rest down,
+since the rest is in voice two.
 The default in @code{\voiceTwo} (i.e. in the second voice of a
 @code{<<@{...@} \\ @{...@}>>} construct)
-is that staff-position is set to -4 for MultiMeasureRest, so
-we need to move it, say, four half-staff spaces down to
+is that @code{staff-position} is set to -4 for MultiMeasureRest, 
+so we need to move it, say, four half-staff spaces down to
 @code{-8}.
 
 @lilypond[quote,verbatim,fragment,ragged-right, relative=1]
@@ -2007,17 +2015,13 @@ we need to move it, say, four half-staff spaces down to
 @end lilypond
 
 This is better than using, for example, @code{extra-offset},
-because the extra ledger lines are inserted automatically.
+because the ledger line above the rest is inserted automatically.
 
 @subheading extra-offset property
 @cindex extra-offset property
 
 The @code{extra-offset} property provides complete control over the
 positioning of an object both horizontally and vertically.
-It is slightly more complicated than other overrides and can
-cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.
-This means that the result can overlap with other objects.
 
 In the following example, the second fingering is moved a little to
 the left, and 1.8 staff space downwards:
@@ -2033,14 +2037,11 @@ f-5
 
 @subheading force-hshift property
 @cindex force-hshift property
-@c FIXME: this doesn't work.
-@c @n ode Chopin finally corrected
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
 
 We can now see how to apply the final corrections to the Chopin
-example introduced at the end of
-FIXME
-@c ref{I'm hearing voices}
-, which
+example introduced at the end of @ref{I'm hearing Voices}, which
 was left looking like this:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -2091,16 +2092,16 @@ Here's the final result:
 @cindex positions property
 
 The @code{positions} property allows the position and slope of
-ties, tuplets, slurs, phrasing slurs and beams to be controlled
+ tuplets, slurs, phrasing slurs and beams to be controlled
 manually.  Here's an example which has an ugly phrasing slur
-due to starting it on the acciaccatura.
+due to it trying to avoid the slur on the acciaccatura.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4  \acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
 @noindent
-We simply could move the phrasing slur above the notes, and this
+We could simply move the phrasing slur above the notes, and this
 would be the preferred solution:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
@@ -2112,8 +2113,8 @@ r4
 @noindent
 but if there were some reason why this could not be done the
 other alternative would be to move the left end of the phrasing
-slur down a little using   This also resolves the rather nasty shape,
-which is due to the attempt to avoid the slur on the acciaccature.
+slur down a little using the @code{positions} property.  This 
+also resolves the rather nasty shape.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=1]
 r4
@@ -2136,7 +2137,8 @@ collides with the upper notes:
 
 @noindent
 This can only be resolved by manually moving both ends of the beam 
-up from their position at 2 staff-spaces to, say, 3:
+up from their position at 2 staff-spaces above the center line to, 
+say, 3:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 {
@@ -2157,9 +2159,6 @@ the second block of quavers, but not to any of the beams in the
 second voice.
 
 TODO Examples of real music showing collisions and their resolution
-
-TODO Old stuff follows
-
 
 
 @node Page layout
@@ -2220,69 +2219,92 @@ systems, they will take up more space than one system with
 the volta repeats and another system without.
 
 Another example is moving dynamics which @q{stick out} of
-a system.
+a system, as in the second bar here:
 
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
+@lilypond[verbatim,quote,fragment,ragged-right,relative=1]
+e4 c g\f c
+\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
+e4 c g\f c
 @end lilypond
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ruser{Changing horizontal spacing}, for more details.
+@ruser{Changing horizontal spacing}, for more details.  Here's
+an example first showing the default behaviour:
 
 @lilypond[verbatim,quote]
 \score {
   \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+and now with @code{common-shortest-duration} increased from the
+value of @code{1/4} (a quarter note is the most common in this
+example) to @code{1/2}:
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
   }
   \layout {
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
+                #'common-shortest-duration = #(ly:make-moment 1 2)
     }
   }
 }
 @end lilypond
 
+@noindent
+Note that this override cannot be modified dynamically, so it must
+always be placed in a @code{\context@{..@}} block so that it applies
+to the whole score.
+
+TODO Add description of using \context in this way earlier if it is
+not already anywhere  -td
+
 @end itemize
 
+TODO  Mention line-thickness somewhere else and move this there
+
+@cindex Tweaks, distances
+@cindex Distances
+
+Distances in LilyPond are measured in staff-spaces, while most
+thickness properties are measured in line-thickness.  Some
+properties are different; for example, the thickness of beams
+are measured in staff-spaces.  For more information, see the
+relevant portion of the program reference.
 
 
-@node Common tweaks
-@section Common tweaks
 
-blah blah
+@node Further tweaking
+@section Further tweaking
 
 @menu
-* Other common tweaks::         
+* Other uses for tweaks::       
+* Other sources of information::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
 @end menu
 
-
-
-@node Other common tweaks
-@subsection Other common tweaks
-
-Some overrides are so common that predefined commands are provided as
-short-cuts, such as @code{\slurUp} and @code{\stemDown}.  These
-commands are described in the Notation Reference under the appropriate
-sections.
-
-The complete list of modifications available for each type of
-object (like slurs or beams) are documented in the Program
-Reference.  However, many layout objects share properties which can be
-used to apply generic tweaks.
+@node Other uses for tweaks
+@subsection Other uses for tweaks
 
 @itemize
-
 
 @item
 Setting the @code{transparent} property will cause an object to be printed
@@ -2310,7 +2332,6 @@ voice.  By introducing a tie in a different voice,
 and blanking the first up-stem in that voice, the tie appears to cross
 voices:
 
-
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
   \once \override Stem #'transparent = ##t
@@ -2336,40 +2357,15 @@ we also lengthen the stem, by setting the @code{length} to
 
 @end itemize
 
-@cindex Tweaks, distances
-@cindex Distances
 
-Distances in LilyPond are measured in staff-spaces, while most
-thickness properties are measured in line-thickness.  Some
-properties are different; for example, the thickness of beams
-are measured in staff-spaces.  For more information, see the
-relevant portion of the program reference.
-
-
-
-@node TODO other name
-@section TODO other name
-
-@menu
-* Predefined tweaks::           
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
-* The three methods of tweaking::  
-@end menu
-
-@node Predefined tweaks
-@subsection Predefined tweaks
-
-TODO: Some tweaks are really common, blah blah.
-
-for example \slurUp, \fatText.
-
-Show example, then explain where to find ly/propert-ly.
-
+@node Other sources of information
+@subsection Other sources of information
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered from
 looking at the internal LilyPond files.
+
+TODO Show example, then explain where to find ly/propert-ly.
 
 Some default settings (such as the definitions for
 @code{\header@{@}}s) are stored as @code{.ly} files.  Other
@@ -2410,6 +2406,8 @@ of this, see the @ref{Scheme tutorial}, and
 
 We can use Scheme to simply @code{\override} commands,
 
+TODO Check this is a valid example with skylining
+
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
@@ -2426,6 +2424,8 @@ padText = #(define-music-function (parser location padding) (number?)
 @end lilypond
 
 We can use it to create new commands,
+
+TODO Check this is a valid example with skylining
 
 @lilypond[quote,verbatim,ragged-right]
 tempoMark = #(define-music-function (parser location padding marktext)
@@ -2484,42 +2484,7 @@ In some cases (see issue 246), this must be done before
 @end verbatim
 
 
-@node The three methods of tweaking
-@subsection The three methods of tweaking
 
-FIXME write this.
-
-@verbatim
-\override
-@end verbatim
-
-@verbatim
-\with {
-
-}
-@end verbatim
-
-@verbatim
-\layout{ \context
-
-}}
-@end verbatim
-
-
-
-FIXME discuss \tweak
-
-
-
-
-
-FIXME:
-- There is a section in the manual on \set vs \override (3.3.7),
-which is incomplete.  First it doesn't mention \overrideProperty,
-nor does it mention properties which are not capitalized at all.
-And it should explain that \override should be used to set
-properties with hyphenated names, like auto-knee-gap.  (I had to
-experiment to find out how to do this.)
 
 
 
