@@ -871,8 +871,10 @@ Beam::no_visible_stem_positions (Grob *me, Interval default_value)
 
   Direction dir = get_grob_direction (me);
   Real y = head_positions[dir]
-    + dir * get_beam_translation (me) * multiplicity.length () / 2;
+    * 0.5 * Staff_symbol_referencer::staff_space (me)
+    + dir * get_beam_translation (me) * (multiplicity.length () + 1);
 
+  y /= Staff_symbol_referencer::staff_space (me);
   return Interval (y,y);
 }
 
