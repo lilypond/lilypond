@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e9a620b6e7e1c0a1bf39b7063ff1744ad61efb08
+    Translation of GIT committish: 007d0b5b94c36f9d9e228309d5b0e6a67ae27ebc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -166,12 +166,14 @@ of this and other documentation.
 * Preface::
 * Introduction::                   quoi, pourquoi comment.
 * Tutorial::                       un tutoriel d'introduction.
-* Putting it all together::        explication plus détaillée des concepts de LilyPond.
-* Working on LilyPond projects::   traite de l'utilisation quotidienne.
+* Fundamental concepts::           concepts de base de LilyPond.
 * Tweaking output::                introduction aux retouches de mise en forme.
+* Working on LilyPond projects::   traite de l'utilisation quotidienne.
 
 Annexes
 
+* Templates::                      modèles prêts à l'emploi.
+* Scheme tutorial::                programmer au sein de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
 * LilyPond index::
 @end menu
@@ -185,10 +187,12 @@ Annexes
 @include preface.itely
 @include introduction.itely
 @include tutorial.itely
-@include putting.itely
-@include working.itely
+@include fundamental.itely
 @include tweaks.itely
+@include working.itely
 
+@include templates.itely
+@include scheme-tutorial.itely
 @include fdl.itexi
 
 @node LilyPond index
