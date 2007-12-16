@@ -167,9 +167,15 @@ Beam::calc_direction (SCM smob)
 	  Grob *stem = first_normal_stem (me);
 
 	  /*
-	    ugh: stems[0] case happens for chord tremolo.
+	    This happens for chord tremolos.
 	  */
-	  dir = to_dir ((stem ? stem : stems[0])->get_property ("default-direction"));
+	  if (!stem)
+	    stem = stems[0];
+	  
+	  if (is_direction (stem->get_property_data ("direction"))) 
+	    dir = to_dir (stem->get_property_data ("direction"));
+	  else
+	    dir = to_dir (stem->get_property ("default-direction"));
 	}
     }
 
@@ -848,6 +854,30 @@ Beam::calc_stem_shorten (SCM smob)
 }
 
 
+Interval
+Beam::no_visible_stem_positions (Grob *me, Interval default_value)
+{
+  extract_grob_set (me, "stems", stems);
+  if (stems.empty ())
+    return default_value;
+  
+  Interval head_positions;
+  Slice multiplicity;
+  for (vsize i = 0; i < stems.size(); i++)
+    {
+      head_positions.unite (Stem::head_positions (stems[i]));
+      multiplicity.unite (Stem::beam_multiplicity (stems[i]));
+    }
+
+  Direction dir = get_grob_direction (me);
+  Real y = head_positions[dir]
+    * 0.5 * Staff_symbol_referencer::staff_space (me)
+    + dir * get_beam_translation (me) * (multiplicity.length () + 1);
+
+  y /= Staff_symbol_referencer::staff_space (me);
+  return Interval (y,y);
+}
+
 
 /*
   Compute a first approximation to the beam slope.
@@ -863,7 +893,7 @@ Beam::calc_least_squares_positions (SCM smob, SCM posns)
   int count = normal_stem_count (me);
   Interval pos (0,0);
   if (count < 1)
-    return ly_interval2scm (pos);
+    return ly_interval2scm (no_visible_stem_positions (me, pos));
 
   vector<Real> x_posns;
   extract_grob_set (me, "normal-stems", stems);
@@ -1230,7 +1260,7 @@ Beam::set_stem_lengths (SCM smob)
 	for normal beams, but for tremolo beams it looks silly otherwise.
       */
       if (gap
-	   && !Stem::is_invisible (s))
+	  && !Stem::is_invisible (s))
 	stem_y += thick * 0.5 * get_grob_direction (s);
 
       /*

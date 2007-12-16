@@ -125,9 +125,15 @@ def set_char_box (expr b_sharp, w_sharp, d_sharp, h_sharp) =
 	charwx := charwd;
 	charwy := 0;
 
-	% additions for mf2pt1
+	% additions for mf2pt1 (`bbox' is called `glyph_dimensions' starting
+	% with version 2.4.2)
 	if known bp_per_pixel:
 		special "% MF2PT1: bbox "
+			& to_bp (-b) & " "
+			& to_bp (-d) & " "
+			& to_bp (w) & " "
+			& to_bp (h);
+		special "% MF2PT1: glyph_dimensions "
 			& to_bp (-b) & " "
 			& to_bp (-d) & " "
 			& to_bp (w) & " "

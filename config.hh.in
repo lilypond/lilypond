@@ -89,6 +89,9 @@
 /* define if you have sstream */
 #define HAVE_SSTREAM 0
 
+/* define if you have boost/lambda/lambda.hpp */
+#define HAVE_BOOST_LAMBDA_LAMBDA_HPP 0
+
 /* define if you have fontconfig */
 #define HAVE_FONTCONFIG 0
 
