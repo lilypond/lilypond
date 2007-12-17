@@ -1612,11 +1612,11 @@ which notes are to have their durations modified.  Normally
 these would delimit the same group of notes, but this is not
 required: the two commands are independent. 
 
-In the following example the eight 16th notes occupy exactly
-the same time as a half note, but the first note is twice
-as short as the last one, with the intermediate notes gradually
-lengthening.  The first four 32nd notes gradually speed up,
-while the last four 32nd notes are at a constant tempo.
+In the following example the eight 16th notes occupy exactly the
+same time as a half note, but the first note is one half as long
+as the last one, with the intermediate notes gradually
+lengthening.  The first four 32nd notes gradually speed up, while
+the last four 32nd notes are at a constant tempo.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 \override Beam #'grow-direction = #LEFT
@@ -1688,6 +1688,10 @@ or even flowing off the page.  This is because automatic line
 breaks happen only at the end of complete bars, i.e. where 
 the end of a note coincides with the end of a bar.
 
+@cindex line breaks
+@cindex bar lines, invisible
+@cindex measure lines, invisible
+
 Line breaks are also permitted at manually inserted bar lines
 even within incomplete bars.  To allow a line break without 
 printing a bar line, use
@@ -1730,6 +1734,8 @@ and three types of repeat bar line:
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|" b
 @end lilypond
+
+@cindex repeats
 
 Although the bar line types signifying repeats may be inserted
 manually they do not in themselves cause LilyPond to recognise
@@ -1787,7 +1793,8 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 @seealso
 
-Notation Reference: @ref{Repeats}, @ref{System start delimiters}.
+Notation Reference: @ref{Line breaking}, @ref{Repeats},
+@ref{System start delimiters}.
 
 Snippets: @lsrdir{rhythms}
 
@@ -1804,11 +1811,10 @@ properties).
 @cindex measure numbers
 @funindex currentBarNumber
 
-Bar numbers are typeset by default at the start of every line
-except the first line.  The
-number itself is stored in the @code{currentBarNumber} property,
-which is normally updated automatically for every measure.  It
-may also be set manually:
+Bar numbers are typeset by default at the start of every line except
+the first line.  The number itself is stored in the
+@code{currentBarNumber} property, which is normally updated
+automatically for every measure.  It may also be set manually:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 c1 c c c
@@ -1860,6 +1866,9 @@ c1 c c c c
 \break
 c c c c c
 @end lilypond
+
+@cindex measure number, format
+@cindex bar number, format
 
 The size of the bar number may be changed.  This is illustrated
 in the following example, which also shows how to enclose bar 
@@ -1972,7 +1981,7 @@ If bar check lines are encountered at other places,
 a list of warnings is printed in the log file,
 showing the line numbers and lines  
 in which the bar checks failed.  In the next
-example, the second bar check will signal an error
+example, the second bar check will signal an error.
 
 @example
 \time 3/4 c2 e4 | g2 |
@@ -2035,6 +2044,7 @@ Snippets: @lsrdir{rhythms}
 @unnumberedsubsubsec Rehearsal marks
 
 @cindex rehearsal marks
+@cindex mark, rehearsal
 @funindex \mark
 
 To print a rehearsal mark, use the @code{\mark} command
@@ -2059,6 +2069,13 @@ The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the
 mark manually.  The value to use is stored in the property
 @code{rehearsalMark}.
+
+@cindex rehearsal mark format
+@cindex rehearsal mark style
+@cindex style, rehearsal mark
+@cindex format, rehearsal mark
+@cindex mark, rehearsal, style
+@cindex mark, rehearsal, format
 
 The style is defined by the property @code{markFormatter}.  It is
 a function taking the current mark (an integer) and the current
@@ -2128,7 +2145,7 @@ For common tweaks to the positioning of rehearsal marks, see
 
 Snippets: @lsrdir{rhythms}
 
-This manual: @ref{Text marks}.
+This manual: @ref{The Feta font}, @ref{Text marks}.
 
 Internals Reference: @internalsref{RehearsalMark}.
 
