@@ -358,11 +358,14 @@ Spanner::set_spacing_rods (SCM smob)
     {
       Rod r;
       Spanner *sp = dynamic_cast<Spanner *> (me);
-      
-
       System *root = get_root_system (me);
-      vector<Item*> cols (root->broken_col_range (sp->get_bound (LEFT)->get_column (),
-						  sp->get_bound (RIGHT)->get_column ()));
+      Drul_array<Item*> bounds (sp->get_bound (LEFT),
+				sp->get_bound (RIGHT));
+      if (!bounds[LEFT] || !bounds[RIGHT])
+	return SCM_UNSPECIFIED;
+      
+      vector<Item*> cols (root->broken_col_range (bounds[LEFT]->get_column (),
+						  bounds[RIGHT]->get_column ()));
 
       if (cols.size ())
 	{

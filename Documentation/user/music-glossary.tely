@@ -36,6 +36,7 @@ and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page
 @author Jan Nieuwenhuizen   @c Dutch glossary
 
 @c Fixes by Jean-Pierre Coulon and `Dirk', alphabetized by last name, KK, 10/07
+@c Updates to the German translation by Till Rettig, 12/07
 
 Copyright @copyright{} 1999--2007 by the authors
 
@@ -470,7 +471,7 @@ The stress of one tone over others.
 ES: alteración accidental,
 I: accidento,
 F: altération accidentelle,
-D: Vorzeichen, Versetzungszeichen, Akzidenz,
+D: Versetzungszeichen, Akzidenz,
 NL: toevallig (verplaatsings)teken,
 DK: løst fortegn,
 S: tillfälligt förtecken,
@@ -551,9 +552,9 @@ tempo, especially the first and last movements of a @ref{sonata}.
 @section alteration
 
 ES: alteración,
-I: alterazione
-F: altération
-D:
+I: alterazione,
+F: altération,
+D: Alteration,
 NL: verhoging of verlaging,
 DK:
 S:
@@ -606,7 +607,7 @@ C clef setting middle C on the middle line of the staff.
 ES: ámbito,
 I: ambitus,
 F: ambitus,
-D: ambitus,
+D: Ambitus,
 NL: ambitus,
 DK: ambitus,
 S: ambitus,
@@ -651,8 +652,8 @@ of a melody occurring in that incomplete measure.
 
 ES: escala menor antigua,
 I: scala minore naturale,
-F: forme du mode mineur ancien, troisème mode, mode hellénique
-D: reines Moll,
+F: forme du mode mineur ancien, troisème mode, mode hellénique,
+D: reines Moll, natürliches Moll,
 NL: authentieke mineurtoonladder,
 DK: ren mol,
 S: ren mollskala,
@@ -690,7 +691,7 @@ Walking tempo/character.
 ES: apoyatura,
 I: appoggiatura,
 F: appoggiature, (port de voix),
-D: Vorschlag,
+D: Vorschlag, Vorhalt
 NL: voorslag,
 DK: forslag,
 S: förslag,
@@ -788,7 +789,7 @@ D: Artikulation,
 NL: articulatie,
 DK: ?,
 S: ?,
-FI: ?.
+FI: artikulaatio, ilmaisu.
 
 Articulation refers to notation which indicates how a note or notes should
 be played.  Slurs, accents, staccato, and legato are all examples of
@@ -1619,7 +1620,9 @@ shown below, where the notes show an arpeggio on a C major chord.
 @node cluster
 @section cluster
 
-ES: racimo.
+ES: racimo,
+DE: Cluster,
+FI: klusteri, cluster.
 
 A @emph{cluster} is a range of simultaneously sounding pitches that
 may change over time.  The set of available pitches to apply usually
@@ -1894,7 +1897,7 @@ when to start playing.  Usually printed in a smaller type.
 @section custos
 
 F: guidon,
-D: Notenzeiger.
+D: Notenzeiger, Custos.
 
 A custos is a staff symbol that appears at the end of a staff line
 with monophonic musical contents (i.e., with a single voice).  It
@@ -2221,7 +2224,7 @@ FI: vähennetty intervalli.
 ES: diminuendo,
 I: diminuendo,
 F: diminuendo,
-D: Diminuendo,
+D: diminuendo,
 NL: diminuendo,
 DK: diminuendo,
 S: diminuendo,
@@ -2231,14 +2234,13 @@ FI: diminuendo, hiljentyen.
 
 @ref{decrescendo}.
 
-
 @node direct
 @section direct
 
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Weiser, Zeiger,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2247,7 +2249,6 @@ FI: ?.
 @seealso
 
 @ref{custos}.
-
 
 @node disjunct movement
 @section disjunct movement
@@ -2503,7 +2504,7 @@ A simultaneous trill on two notes, usually in the distance of a third.
 ES: tiempo binario,
 I: tempo binario,
 F: temps binaire,
-D: in zwei,
+D: in zwei, grader Takt,
 NL: tweedelige maatsoort,
 DK: todelt takt,
 S: tvåtakt,
@@ -2562,7 +2563,7 @@ FI: kesto, aika-arvo.
 ES: ?,
 I: ?,
 F: nuances,
-D: ?,
+D: Dynamik, Lautstärke,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2658,7 +2659,7 @@ FIXME: languages, definition
 ES: grabar,
 I: incisione,
 F: gravure,
-D: Notenstechen, Notendruck
+D: Notenstich, Notendruck
 NL: steken,
 DK: nodestik,
 S: nottryck,
@@ -2744,11 +2745,11 @@ Performance indications concerning 1. volume, dynamics (for example
 ES: línea de extención [de melisma, de bajo cifrado, etc.],
 I: ?,
 F: ligne d'extension [de mélisme, de basse chiffrée, etc.],
-D: ?,
+D: Fülllinie,
 NL: ?,
 DK: ?,
 S: ?,
-FI: .
+FI: ?.
 
 The generic term for a line (or dash) of arbitrary length that
 extends text (without indicating the musical @emph{function} of
@@ -2865,7 +2866,7 @@ symbol indicates playing an octave lower (for example, on double bass
 ES: ?,
 I: ?,
 F: liens de croches en soufflet,
-D: ?,
+D: gespreizter Balken,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2977,7 +2978,7 @@ less than a quarter note.  The number of flags determines the
 ES: bemol,
 I: bemolle,
 F: bémol,
-D: B, b,
+D: B,
 NL: mol,
 DK: b,
 S: beförtecken,
@@ -3177,7 +3178,7 @@ counted in the rhythm of the bar.
 ES: sistema de piano,
 I: accolatura,
 F: accolade,
-D: Akkolade,
+D: Akkolade, Klaviersystem,
 NL: piano systeem,
 DK: klaversystem,
 S: ackolad, böjd klammer,
@@ -3196,7 +3197,7 @@ A combination of two staves with a brace.  Usually used for piano music.
 ES: grave,
 I: grave,
 F: grave,
-D: grave, langsam,
+D: Grave, Langsam,
 NL: grave, ernstig,
 DK: grave,
 S: grave,
@@ -3591,7 +3592,7 @@ A ledger line is an extension of the staff.
 ES: legato,
 I: legato,
 F: legato, lié,
-D: legato,
+D: legato, gebunden,
 NL: legato,
 DK: legato,
 S: legato,
@@ -3655,7 +3656,9 @@ A pond with lilies floating in it, also the name of a music typesetter.
 @node ligature
 @section ligature
 
-ES: ligadura
+ES: ligadura,
+DE: Ligatur,
+FI: ligatuura.
 
 A ligature is a coherent graphical symbol that represents at least two
 distinct notes.  Ligatures originally appeared in the manuscripts of
@@ -3690,7 +3693,7 @@ FI: viiva, nuottiviiva.
 ES: apoyatura larga,
 I: appoggiatura lunga,
 F: appoggiature longue,
-D: langer Vorschlag,
+D: Vorhalt,
 NL: Lange voorslag,
 DK: langt forslag,
 S: långt förslag,
@@ -3732,17 +3735,26 @@ Note value: double length of @ref{breve}.
 @section lyrics
 
 ES: letra (de la canción),
-I: .,
+I: ?,
 F: paroles,
-D: Liedtext,
+D: Liedtext, Gesangtext,
 NL: liedtekst,
-DK: .,
-S: .,
-FI, sanoitus.
+DK: ?,
+S: ?,
+FI: sanoitus.
 
 
 @node lyric tie
 @section lyric tie
+
+ES: ?,
+I: ?,
+F: ?,
+D: Textbindung,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 FIXME: add languages
 
@@ -3849,6 +3861,7 @@ harmony}, @ref{relative key}.
 
 ES: melisma,
 F: mélisme,
+D: Melisma,
 NL: melisma,
 FI: melisma, laulettavan tavun sävelkuvio.
 
@@ -4033,7 +4046,7 @@ FI: pieni intervalli.
 ES: modo,
 I: modo,
 F: mode,
-D: Modus,
+D: Kirchentonart, Modus,
 NL: modus,
 DK: skala,
 S: modus, skala,
@@ -4449,6 +4462,8 @@ of the music, for example for small hands.
 @section ottava
 
 FIXME
+
+DE: Oktavierung.
 
 
 @node part
@@ -4871,7 +4886,7 @@ metrical unit (beat).
 ES: ritardando,
 I: ritardando,
 F: ritardando,
-D: Ritardando, langsamer werden,
+D: ritardando, langsamer werden,
 NL: ritardando,
 DK: ritardando,
 S: ritardando,
@@ -4886,7 +4901,7 @@ Gradually slackening in speed.  Mostly abbreviated to rit.@: or ritard.
 ES: ritenuto,
 I: ritenuto,
 F: ritenuto,
-D: Ritenuto,
+D: ritenuto,
 NL: ritenuto,
 DK: ritenuto,
 S: ritenuto,
@@ -4952,7 +4967,7 @@ scale as roots of chords.  The most important are degrees I = tonic
 ES: ?,
 I: scordatura,
 F: à cordes ravallées,
-D: ?,
+D: Skordatur,
 NL: ?,
 DK: ?,
 S: ?,
@@ -5006,7 +5021,7 @@ one underneath the other on different staves @ref{staff}.
 ES: segunda,
 I: secunda,
 F: seconde,
-D: Sekund(a),
+D: Sekunde,
 NL: secunde,
 DK: sekund,
 S: sekund,
@@ -5213,7 +5228,7 @@ FI: kuudeskymmenesneljäsosatauko.
 ES: ligadura (de expresión),
 I: legatura (di portamento or espressiva),
 F: liaison, coulé,
-D: Bogen, Legatobogen, Phrasierungsbogen,
+D: Bogen (Legatobogen, Phrasierungsbogen),
 NL: fraseringsboog, legatoboog, streekboog,
 DK: legatobue, fraseringsbue,
 S: båge,
@@ -5320,7 +5335,7 @@ The highest female voice.
 ES: picado,
 I: staccato,
 F: staccato, piqué, détaché,
-D: Staccato,
+D: staccato,
 NL: staccato,
 DK: staccato,
 S: staccato,
@@ -5346,7 +5361,7 @@ below the note head.
 ES: pentagrama,
 I: pentagramma, rigo (musicale),
 F: portée,
-D: Notenzeile,
+D: Notensystem, Notenzeile,
 NL: (noten)balk, partij,
 DK: nodesystem,
 S: notsystem,
@@ -5483,7 +5498,7 @@ The seventh @ref{scale degree}.
 ES: sobre la G,
 I: sul g,
 F: sur la G,
-D: ?,
+D: auf G, auf der G-Saite,
 NL: ?,
 DK: ?,
 S: ?,
@@ -5593,7 +5608,7 @@ Pythagorean tuning (@ref{Pythagorean comma}), equal to 22@w{ }cents.
 ES: sistema,
 I: accollatura,
 F: système,
-D: Notensystem,
+D: Notensystem, Partitur,
 NL: systeem,
 DK: system,
 S: system,
@@ -5789,7 +5804,7 @@ together with figures designating the chief @ref{interval}s and
 ES: ligadura de prolongación,
 I: legatura (di valore),
 F: liaison,
-D: Haltebogen,
+D: Haltebogen, Bindebogen,
 NL: overbinding, bindingsboog,
 DK: bindebue,
 S: bindebåge, överbindning,
@@ -5989,7 +6004,7 @@ FI: trilli.
 ES: compás ternario,
 I: tempo ternario,
 F: mesure ternaire,
-D: in drei,
+D: in drei, ungerader Takt,
 NL: driedelige maatsoort,
 DK: tredelt takt,
 S: tretakt,
@@ -6441,6 +6456,8 @@ the item explanation texts.
 Edition 1974.
 
 @item Webster's Revised Unabridged Dictionary, Springfield 1913.
+
+@item Felix Krohn, Lyhyt musiikkioppi, Porvoo, Helsinki, 1976.
 
 @end itemize
 

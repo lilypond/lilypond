@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: 007d0b5b94c36f9d9e228309d5b0e6a67ae27ebc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,41 +11,289 @@
 @node Fundamental concepts
 @chapter Fundamental concepts
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+@menu
 * How LilyPond files work::
 * Voices contain music::
 * Contexts and engravers::
 * Extending the templates::
-@end menu 
+@end menu
+
 @node How LilyPond files work
 @section How LilyPond files work
 
-UNTRANSLATED NODE: IGNORE ME
+La mise en forme des fichiers d'entrée de LilyPond est vraiment
+peu astreignante, afin d'offrir assez de souplesse aux utilisateurs
+expérimentés pour qu'ils puissent organiser leurs fichiers comme
+ils l'entendent.  Cependant, les nouveaux utilisateurs peuvent parfois
+se perdre en raison de cette souplesse.  Cette section présente
+sommairement l'organisation du code LilyPond, en privilégiant
+la simplicité au détriment de certains détails.  Vous trouverez une
+description plus complète dans @ruser{File structure}.
 
 @menu 
 * Introduction to the LilyPond file structure::
 * Score is a (single) compound musical expression::
-* Nesting Music Expressions::
+* Nesting music expressions::
 * On the un-nestedness of brackets and ties::
-@end menu 
+@end menu
+
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
-UNTRANSLATED NODE: IGNORE ME
+@c FIXME this subsection translation is very outdated
+@c but wait until it is in a stable state in English
+
+La plupart des exemples de ce manuel sont de courts fragments, par exemple
+
+@example
+c4 a b c
+@end example
+
+Comme vous le savez maintenant (du moins nous l'espèrons), ceci ne
+peut pas être traité en tant que tel. Il s'agit de formes abrégées des
+exemples complets ; pour pouvoir être traitées, ces formeulations
+doivent au moins être encadrées par des accolades :
+
+@example
+@{
+  c4 a b c
+@}
+@end example
+
+La plupart des exemples font aussi intervenir la commande
+@code{\relative}, suivie de @code{c'} ou @code{c''}.  Elle n'est pas à
+proprement parler nécessaire pour le traitement des exemples, mais
+dans la plupart des cas le résultat sera vraiment déplorable si vous
+l'oubliez.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  c4 a b c
+}
+@end lilypond
+
+C'est ici que nous passons aux choses sérieuses : le code LilyPond,
+sous cette forme, est en réalité un @emph{autre} raccourci. Même s'il
+est traité sans problème, et aboutit au bon résultat, c'est une forme
+abrégée de :
+
+@example
+\score @{
+  \relative c'' @{
+    c4 a b c
+  @}
+@}
+@end example
+
+Un bloc @code{\score} doit commencer par une et une seule expression
+musicale. Rappelez-vous que cette expression peut être ce que vous
+voulez, d'une note toute seule à un gigantesque
+
+@example
+@{
+  \new GrandStaff <<
+    collez ici la partition complète de votre opéra de Wagner préféré
+  >>
+@}
+@end example
+
+@noindent
+Dès lors que tout cela est entre accolades : @code{@{ ... @}}, c'est
+une et une seule expression musicale.
+
+Le bloc @code{\score} peut contenir d'autres éléments, tels que
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+  \layout @{ @}
+  \midi @{ @}
+  \header @{ @}
+@}
+@end example
+
+@noindent
+Certains préfèrent mettre ces commandes en dehors du bloc 
+@code{\score} --- par exemple, on met souvent le @code{\header}
+au-dessus. C'est juste là une autre forme abrégée que LilyPond
+accepte.
+
+@cindex variables
+@cindex identificateurs
+
+Un autre raccourci pratique est la possibilité de définir
+des variables --- également appelées @qq{identificateurs}. Dans tous
+les modèles, vous trouverez :
+
+@example
+melodie = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  @{ \melodie @}
+@}
+@end example
+
+Lorsque LilyPond examinera ce fichier, il va prendre la valeur de la
+variable @code{melodie}, c'est-à-dire tout ce qui suit le signe @code{=},
+et l'insérer partout où il rencontrera @code{\melodie}.  Vous êtes
+libre de choisir comment dénommer vos variables@footnote{Les noms de
+variables sont sensibles à la casse, et ne peuvent contenir ni
+chiffre, ni tiret, ni caractère accentué.} ; ce peut être
+@code{melodie}, @code{global}, @code{maindroitepiano}, ou
+@code{laTeteAToto}.  Pour plus de détails, voir @ruser{Saving typing
+with identifiers and functions}.
+
+Pour une description complète du format des fichiers d'entrée, voir 
+@ruser{File structure}.
+
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
+Dans la section précédente, nous avons vu l'organisation générale des
+fichiers d'entrée de LilyPond.  Mais c'est comme si nous avions éludé la
+question essentielle : comment diable peut-on savoir quoi mettre après
+@code{\score} ?
+
+En fait, nous ne l'avons pas éludée du tout : le grand mystère est
+tout simplement qu'il n'y a @emph{pas} de mystère.  Allez,
+expliquons-le en une ligne :
+
+@quotation
+@emph{Un bloc @code{\score} doit commencer par une et une seule
+expression musicale.}
+@end quotation
+
+@noindent
+Peut-être serait-il judicieux de relire la section
+@ruser{Music expressions explained}, dans laquelle vous avez
+appris à construire de grandes expressions musicales petit bout
+par petit bout --- nous avons vu les notes, puis les accords, etc.
+Maintenant, nous allons partir d'une grande expression musicale,
+et remonter la pente.
+
+@example
+\score @{
+  @{   % cette accolade marque le début de l'expression musicale
+    \new GrandStaff <<
+    insérez ici votre opéra de Wagner préféré
+    >>
+  @}   % cette accolade marque la fin de l'expression musicale
+  \layout @{ @}
+@}
+@end example
+
+Un opéra de Wagner multiplierait facilement la longueur de ce manuel
+par deux ou trois, alors faisons-le en version chant/piano.  On n'a
+plus besoin d'une partition d'orchestre --- @code{GrandStaff} --- donc
+laissons cela de côté.  Par contre, un chanteur et un piano
+@emph{pourraient} nous être utiles.
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "chanteur" <<
+      >>
+      \new PianoStaff = piano <<
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Vous vous souvenez que nous avons recours à @code{<<} et @code{>>}
+pour mettre en place des musiques simultanées.  Et, pour le
+coup, on aimerait @emph{vraiment} que la partie vocale et l'accompagnement
+soient imprimés ensemble...
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "chanteur" <<
+        \new Voice = "chant" @{ @}
+      >>
+      \new Lyrics \lyricsto chant \new Lyrics @{ @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "mainDroite" @{ @}
+        \new Staff = "mainGauche" @{ @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+On y voit nettement plus clair maintenant.  Nous voici donc avec la
+partie du chanteur, qui contient un ensemble @code{Voice}, ce qui dans
+LilyPond correspond à une voix, au sens de voix d'une polyphonie plutôt que
+de voix chantée --- ce pourrait être une partie de violon par
+exemple.
+
+Nous avons également une partie de piano, qui contient deux portées :
+une pour la main droite, une autre pour la main gauche.
+
+
+À ce point, on pourrait commencer à ajouter les notes. Dans les
+accolades qui suivent @code{\new Voice = chant}, on pourrait commencer
+à écrire
+
+@example
+\relative c'' @{
+  a4 b c d
+@}
+@end example
+
+Mais si l'on procédait ainsi, la section @code{\score} deviendrait
+vite assez touffue, et très rapidement on ne s'y retrouverait plus.
+C'est pourquoi on utilisera plutôt des variables, ou identificateurs :
+
+@example
+melodie = @{ @}
+texte = @{ @}
+mainDroite = @{ @}
+mainGauche = @{ @}
+\score @{
+  @{
+    <<
+      \new Staff = "chanteur" <<
+        \new Voice = "chant" @{ \melodie @}
+      >>
+      \new Lyrics \lyricsto chant \new Lyrics @{ \texte @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "mainDroite" @{ \mainDroite @}
+        \new Staff = "mainGauche" @{ \mainGauche @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+@noindent
+Souvenez-vous que vous pouvez donner aux variables le nom que vous
+voulez, à condition de respecter les caractères autorisés. Ces
+limitations sont décrites dans @ruser{File structure}.
+
+Quand on écrit, ou que l'on lit, une section @code{\score}, mieux vaut
+y aller lentement et soigneusement. Commencez par le niveau le plus
+large, puis travaillez sur chaque niveau plus détaillé.  À ce propos,
+une indentation stricte et propre est vraiment d'une aide précieuse :
+assurez-vous que chaque élément d'un même niveau a le même décalage
+horizontal dans votre éditeur de texte !
+
+
+
+@node Nesting music expressions
+@subsection Nesting music expressions
+
 UNTRANSLATED NODE: IGNORE ME
 
-@node Nesting Music Expressions
-@subsection Nesting Music Expressions
-
-UNTRANSLATED NODE: IGNORE ME
-
-@ 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
@@ -56,11 +304,12 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+@menu
 * I'm hearing Voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
-@end menu 
+@end menu
+
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
@@ -69,7 +318,125 @@ UNTRANSLATED NODE: IGNORE ME
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-UNTRANSLATED NODE: IGNORE ME
+Les contextes @internalsref{Voice} peuvent être déclarés manuellement
+dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
+utilisant @code{\voiceOne}, @dots{} jusqu'à @code{\voiceFour} pour
+assigner des directions de hampes et un déplacement horizontal pour
+chaque partie.
+
+En particulier,
+@example
+<< \upper \\ \lower >>
+@end example
+
+@noindent
+équivaut à
+
+@example
+<<
+ \new Voice = "1" @{ \voiceOne \upper @}
+ \new Voice = "2" @{ \voiceTwo \lower @}
+>>
+@end example
+
+Les commandes @code{\voiceXXX} fixent la direction des hampes, des
+liaisons de prolongations et de phrasé, des articulations, des
+annotations, des points d'augmentation des notes pointées et des
+doigtés.  @code{\voiceOne} et @code{\voiceThree} font pointer ces objets
+vers le haut, alors que @code{\voiceTwo} et @code{\voiceFour} les font
+pointer vers le bas.  La commande @code{\oneVoice} les ramène aux
+critères normaux.
+
+Une expression séquentielle qui apparaît en premier dans un @code{<< >>}
+appartient à la voix principale.  Ceci est utile lorsque des voix
+supplémentaires apparaissent pendant que la voix principale est jouée.
+Voici une meilleure réalisation de l'exemple de la section précédente.
+Les notes colorées et en croix mettent en évidence le fait que la mélodie principale
+est maintenant dans un seul contexte de voix.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \override NoteHead #'style = #'cross
+  \override NoteHead #'color = #red
+  c16 d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2 }
+    \new Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. | s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+La définition correcte des voix permet à la mélodie d'être liée.
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+      \oneVoice
+    }
+    \new Voice { \voiceThree
+      s2. s4 b4 c2
+      \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Le fait d'éviter le séparateur @code{\\} permet aussi d'imbriquer des
+constructions polyphoniques, ce qui peut être une manière plus naturelle
+de saisir la musique.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  \voiceOne
+  <<
+    { g4 f e | d2 e2) }
+    \context Voice="1" { \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice { \voiceThree
+          s4 b4 c2
+          \oneVoice
+        }
+      >>
+    \oneVoice
+    }
+  >>
+  \oneVoice
+}
+@end lilypond
+
+Dans certaines circonstances de polyphonie complexe, vous pourrez être
+amené à recourir à des voix supplémentaires afin d'éviter des collisions
+de notes.  Ces voix additionnelles s'ajoutent en définissant un
+identificateur, comme le montre l'exemple suivant :
+
+@lilypond[quote,verbatim,ragged-right,relative=2]
+voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
+
+\relative c''' <<
+  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
+  { \voiceThree  b4} \\
+  { \voiceFive d,} \\
+  { \voiceTwo g,}
+>>
+@end lilypond
+
 
 @node Voices and vocals
 @subsection Voices and vocals
@@ -79,24 +446,218 @@ UNTRANSLATED NODE: IGNORE ME
 @node Contexts and engravers
 @section Contexts and engravers
 
-UNTRANSLATED NODE: IGNORE ME
+Nous avons évoqué rapidement les contextes et graveurs dans les sections
+précédentes ; examinons en détail ces concepts essentiels dans la
+maîtrise de LilyPond.
 
-@menu 
+@menu
 * Contexts explained::
 * Creating contexts::
 * Engravers explained::
 * Modifying context properties::
 * Adding and removing engravers::
-@end menu 
+@end menu
+
 @node Contexts explained
 @subsection Contexts explained
 
-UNTRANSLATED NODE: IGNORE ME
+Imprimer de la musique impose d'ajouter un certain nombre d'éléments de notation.
+Par exemple, voici un fragment de partition, précédé du code qui l'engendre :
+
+@lilypond[quote,verbatim,relative=2,fragment]
+cis4 cis2. g4
+@end lilypond
+
+Si le code est assez austère, dans la parition ont été ajoutés un chiffre de mesure,
+des barres de mesure, des altérations et une clé.  Pour une bonne raison : LilyPond
+@emph{interprète} le code.  Il le compulse dans l'ordre chronologique, de même qu'on
+lit une partition de gauche à droite ; et pendant ce traitement, le logiciel garde en
+mémoire les limites des mesures, ou encore quelles hauteurs de notes demandent des
+altérations accidentelles.  Ces informations se présentent à plusieurs niveaux : ainsi,
+une altération n'a d'effet que sur une seule portée, tandis qu'une barre de mesure doit
+être synchronisée sur toute l'étendue verticale de la partition.
+
+LilyPond regroupe ces règles et ces fragments d'information dans des
+@emph{Contextes}.  Certains contextes sont les voix (contexte @context{Voice}),
+les portées (contexte @context{Staff}), ou la partition dans son ensemble
+(contexte @context{Score}).  Ils sont ordonnés hiérarchiquement : ainsi un
+contexte @context{Staff} peut contenir plusieurs contextes @context{Voice}, et un
+contexte @context{Score} peut contenir plusieurs contextes @context{Staff}.
+
+@quotation
+@image{context-example,5cm,,}
+@end quotation
+
+Chaque contexte est chargé de faire appliquer certaines règles de gravure,
+de créer certains objets, et de prendre en compte les propriétés qui leur
+sont associées.  Ainsi, le contexte @context{Voice} peut faire intervenir une
+altération accidentelle, puis le contexte @context{Staff} devra déterminer si
+cette dernière devra être imprimée ou non dans la suite de la mesure.  Les barres
+de mesure, enfin, sont alignées verticalement grâce au contexte @context{Score}.
+
+En revanche, dans une musique polymétrique, par exemple mélant une portée à 3/4
+et une autre à 4/4, les barres de mesures n'ont plus à être alignées : il faut alors 
+modifier les comportement par défaut des contextes @context{Score} et @context{Staff}.
+
+Dans une partition très simple, les contextes sont créés implicitement, et peuvent
+être ignorés.  Mais lorsqu'il s'agit de morceaux plus amples -- entendons par là tout
+ce qui s'écrit sur plus d'une portée -- il faut les créer explicitement pour être sûr
+d'obtenir toutes les portées nécessaires, et dans le bon ordre.  Enfin pour des
+morceaux impliquant une notation spéciale, modifier les contextes ou en créer de nouveaux
+devient extrêment utile.
+
+Une description exhaustive de tous les contextes disponibles peut être trouvée dans la
+référence du programme : voir
+@ifhtml
+@internalsref{Contexts}.
+@end ifhtml
+@ifnothtml
+Translation @expansion{} Context.
+@end ifnothtml
+
+@c [TODO: describe propagation]
+
 
 @node Creating contexts
 @subsection Creating contexts
 
-UNTRANSLATED NODE: IGNORE ME
+Dans une partition contenant une seule voix sur une seule portée,
+les contextes sont automatiquement créés.  Dans une partition plus complexe,
+il faut les crééer à la main.  Trois commandes le permettent :
+
+@itemize @bullet
+
+@item
+La plus facile, et la plus rapide à saisir, est @code{\new} -- @qq{nouveau} en français.
+Elle introduit une expression musicale, comme suit :
+
+@funindex \new
+@cindex nouveaux contextes
+@cindex Contextes, création de
+
+@example
+\new @var{Contexte} @var{expression musicale}
+@end example
+
+@noindent
+le choix du @var{Contexte} pouvant être, par exemple, @code{Staff} ou
+@code{Voice}.  Cette commande crée un contexte, puis interprète 
+l'@var{expression musicale} dans ledit contexte.
+
+En pratique, la commande @code{\new} peut servir dans une partition
+comprenant plusieurs portées.  Comme chaque partie doit se trouver sur sa propre
+portée, il faut la faire précéder de @code{\new Staff}.
+
+@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
+<<
+  \new Staff { c4 c }
+  \new Staff { d4 d }
+>>
+@end lilypond
+
+La commande @code{\new} peut aussi permettre de nommer le contexte créé :
+
+@example
+\new @var{Contexte} = @var{"inventezUnNom"} @var{musique}
+@end example
+Le nom que vous choisirez ne pourra être attribué que si aucun autre contexte
+n'a été créé précédemment avec le même nom.
+
+
+@funindex \context
+
+@item
+Tout comme @code{\new}, la commande @code{\context} envoie une expression musicale
+vers un contexte donné, mais attribue nécessairement un nom à ce contexte.  La
+syntaxe est la suivante :
+
+@example
+\context @var{Contexte} = @var{unNom} @var{musique}
+@end example
+
+Cette commande va partir à la recherche d'un contexte déjà existant, de type
+@var{Contexte}, et portant le nom @var{unNom}.  Ce qui peut être fort utile 
+pour se référer à un contexte existant.  S'il s'avère que le contexte en question
+n'existe pas encore, il est créé.  Dans le cas de musique vocale avec des paroles,
+cela donne :
+
+@example
+\context Voice = "@b{tenor}" @var{musique}
+@end example
+
+@noindent
+et (pour que le texte soit aligné correctement avec les notes) :
+
+@example
+\new Lyrics \lyricsto "@b{tenor}" @var{paroles}
+@end example
+
+@noindent
+
+Une autre utilité de dénommer les contextes est de superposer en un même
+contexte différentes expressions musicales.  Dans l'exemple suivant, les
+notes et les ponctuations ont été saisies séparément :
+
+@example
+musique = @{ c4 c4 @}
+ponctuation = @{ s4-. s4-> @}
+@end example
+
+En les envoyant toutes deux dans le même contexte @context{Voice}, on les combine :
+
+@example
+<<
+  \new Staff \context Voice = "A" \musique
+  \context Voice = "A" \ponctuation
+>>
+@end example
+@lilypond[quote,ragged-right]
+music = { c4 c4 }
+arts = { s4-. s4-> }
+\relative c'' <<
+  \new Staff \context Voice = "A" \music
+  \context Voice = "A" \arts
+>>
+@end lilypond
+
+De cette façon, il est possible d'élaborer une édition Urtext (c'est-à-dire originale,
+la plupart du temps sans ponctuations), en laissant la possibilité d'ajouter différentes
+ponctuations sur les mêmes notes.
+
+@cindex crééer des contextes
+
+@item
+La dernière commande pour créer des contextes est
+@example
+\context @var{Contexte} @var{musique}
+@end example
+
+
+@noindent
+Elle ressemble à l'emploi de @code{\context} avec @code{= @var{unNom}}, mais
+cette fois elle se considèrera chez elle partout où elle trouvera un contexte
+de type @var{Contexte}, quel que puisse être son nom.
+
+@c Au secours ! --vv
+
+Cette variante sert à des expressions musicales qui peuvent être interprétées à
+plusieurs niveaux.  Par exemple, une commande telle que @code{\applyOutput} (voir
+@ref{Running a function on all layout objects}) : si elle n'est pas associée avec
+@code{\context}, elle s'applique par défaut dans le contexte @context{Voice}.
+
+@example
+\applyOutput #'@var{Contexte} #@var{fonction}   % s'applique dans le contexte Voice
+@end example
+
+Pour l'appliquer au contexte @context{Score} ou @context{Staff}, il faut utiliser :
+
+@example
+\applyOutput #'Score #@var{fonction}
+\applyOutput #'Staff #@var{fonction}
+@end example
+
+@end itemize
+
 
 @node Engravers explained
 @subsection Engravers explained
@@ -113,21 +674,210 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@ 
+
 @node Extending the templates
 @section Extending the templates
 
-UNTRANSLATED NODE: IGNORE ME
+Bon, vous avez lu le tutoriel, vous savez écrire de la musique.  Mais
+comment obtenir les portées que vous voulez ?  Les @ref{Templates},
+c'est bien beau, mais que faire quand ils ne traitent pas ce que l'on
+veut précisément ?
 
-@menu 
+Les exemples qui suivent vous donneront des méthodes générales pour
+adapter des modèles.
+
+@menu
 * Soprano and cello::
 * Four-part SATB vocal score::
 * Building a score from scratch::
-@end menu 
+@end menu
+
 @node Soprano and cello
 @subsection Soprano and cello
 
-UNTRANSLATED NODE: IGNORE ME
+Commencez par le modèle qui vous semblera le plus proche de ce à quoi
+vous voulez aboutir.  Disons par exemple que vous voulez écrire une pièce
+pour soprano et violoncelle : dans ce cas l'on pourrait commencer par les
+@qq{notes et paroles}, pour la partie de soprano.
+
+@example
+\version "2.11.23"
+melodie = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+texte = \lyricmode @{
+  Laaa Siii Dooo Rééé
+@}
+
+\score@{
+  <<
+    \new Voice = "voixUn" @{
+      \autoBeamOff
+      \melodie
+    @}
+    \new Lyrics \lyricsto "voixUn" \texte
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Maintenant, on veut ajouter une partie de violoncelle.
+Jetons un coup d'oeil sur l'exemple avec les notes seules :
+
+@example
+\version "2.11.23"
+melodie = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+\score @{
+\new Staff \melodie
+\layout @{ @}
+\midi @{ @}
+@}
+@end example
+
+
+On n'a pas besoin de deux commandes @code{\version}.  Ce dont on a besoin,
+c'est la section @code{melodie}. De même, on n'a pas besoin de deux sections
+@code{\score} --- si nous les gardions toutes les deux, on obtiendrait deux
+parties séparées ; mais nous voulons un vrai duo, avec les deux
+parties ensemble.  Dans la section @code{\score}, on n'a pas besoin
+non plus de deux @code{\layout} ni de deux @code{\midi}.
+
+Si on se contente de couper et coller les sections @code{melodie}, on se
+retrouvera avec deux sections de ce nom ; il nous faut donc les renommer.
+Appelons la section pour la soprano @code{musiqueSoprano} et celle pour le
+violoncelle @code{musiqueVioloncelle}.  Tant qu'on y est, renommons 
+@code{texte} en @code{parolesSoprano}.  Attention à bien renommer les
+deux occurrences de chacune de ces dénominations : c'est-à-dire la
+définition de départ, où l'on trouve @code{mélodie = relative c' @{ },
+et l'endroit où cette dénomination est utilisée, dans la section 
+@code{\score}.
+
+Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
+le veut l'usage, et donnons-lui d'autres notes.
+
+@example
+\version "2.11.23"
+musiqueSoprano = \relative c' @{
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+@}
+
+parolesSoprano = \lyricmode @{
+  Laaa Siii Dooo Rééé
+@}
+
+musiqueVioloncelle = \relative c @{
+  \clef bass
+  \key c \major
+  \time 4/4
+
+  d4 g fis8 e d4
+@}
+
+\score@{
+  <<
+    \new Voice = "voixUn" @{
+      \autoBeamOff
+      \musiqueSoprano
+    @}
+    \new Lyrics \lyricsto "voixUn" \parolesSoprano
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+Voilà qui est mieux, mais la partie de violoncelle n'apparaît pas sur
+la partition --- en effet, nous n'y avons pas fait appel dans la section
+@code{\score}.  Si l'on veut que la partie de violoncelle s'imprime sous
+la partie de soprano, on va devoir ajouter :
+
+@example
+\new Staff \musiqueVioloncelle
+@end example
+
+@noindent
+en dessous de tout ce qui concerne la soprano.  Il nous faut également
+encadrer la musique par des @code{<<} et @code{>>}, qui feront comprendre
+à LilyPond que plusieurs évènements --- ici, des objets @code{Staff} ---
+se déroulent en même temps.  Le bloc @code{\score} ressemble maintenant à
+
+@example
+\score@{
+  <<
+    <<
+      \new Voice = "voixUn" @{
+        \autoBeamOff
+        \musiqueSoprano
+      @}
+      \new Lyrics \lyricsto "voixUn" \parolesSoprano
+    >>
+    \new Staff \musiqueVioloncelle
+  >>
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+C'est un peu le bazar dans tout ça ; mais il vous sera facile de
+mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
+soprano et violoncelle au complet :
+
+@lilypond[quote,verbatim,ragged-right]
+\version "2.11.23"
+sopranoMusic = \relative c' {
+  \clef treble
+  \key c \major
+  \time 4/4
+
+  a4 b c d
+}
+
+sopranoLyrics = \lyricmode {
+  Aaa Bee Cee Dee
+}
+
+celloMusic = \relative c {
+  \clef bass
+  \key c \major
+  \time 4/4
+
+  d4 g fis8 e d4
+}
+
+\score{
+  <<
+    <<
+      \new Voice = "one" {
+        \autoBeamOff
+        \sopranoMusic
+      }
+      \new Lyrics \lyricsto "one" \sopranoLyrics
+    >>
+    \new Staff \celloMusic
+  >>
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
 
 @node Four-part SATB vocal score
 @subsection Four-part SATB vocal score
@@ -139,7 +889,3 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

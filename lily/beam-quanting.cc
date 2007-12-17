@@ -37,8 +37,8 @@ Beam_quant_parameters::fill (Grob *him)
 {
   SCM details = him->get_property ("details");
 
-  /*
-    TODO: put in define-grobs.scm
+  /* 
+     TODO: The default values should be copied to define-grobs.scm.
    */
   INTER_QUANT_PENALTY = get_detail (details, ly_symbol2scm ("inter-quant-penalty"), 1000.0);
   SECONDARY_BEAM_DEMERIT = get_detail (details, ly_symbol2scm ("secondary-beam-demerit"), 10.0);
@@ -113,7 +113,6 @@ Beam::quanting (SCM smob, SCM posns)
   /*
     Calculations are relative to a unit-scaled staff, i.e. the quants are
     divided by the current staff_space.
-
   */
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real thickness = Beam::get_thickness (me) / ss;
@@ -133,7 +132,6 @@ Beam::quanting (SCM smob, SCM posns)
   /*
     going to REGION_SIZE == 2, yields another 0.6 second with
     wtk1-fugue2.
-
 
     (result indexes between 70 and 575)  ? --hwn.
 
