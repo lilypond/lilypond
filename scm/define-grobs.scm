@@ -486,6 +486,7 @@
 	(stencil . ,ly:cluster::print)
 	(minimum-length . 0.0)
 	(padding . 0.25)
+	(cross-staff . ,ly:cluster::calc-cross-staff)
 	(style . ramp)
 	(meta . ((class . Spanner)
 		 (interfaces . (cluster-interface))))))
