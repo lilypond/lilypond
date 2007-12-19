@@ -1138,7 +1138,7 @@ lyrics in @ref{Voices and vocals}.
 @node Engravers explained
 @subsection Engravers explained
 
-cindex engravers
+@cindex engravers
 
 Every mark on the printed output of a score produced by LilyPond
 is produced by an @code{Engraver}.  Thus there is an engraver
