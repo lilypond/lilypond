@@ -1224,6 +1224,7 @@
 	(staff-padding . 1.0)
 	(padding . 0.5)
 	(minimum-length . 1.0)
+	(style . dashed-line)
 	(dash-fraction . 0.3)
 	(edge-height . (0 . 1.2))
 	(direction . ,UP)
