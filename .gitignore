@@ -5,6 +5,7 @@
 *.600pk
 *.afm
 *.aux
+*.checksum
 *.eps
 *.gcda
 *.gcno
@@ -12,12 +13,11 @@
 *.graph
 *.log
 *.midi
+*.new
 *.orig
 *.patch
 *.pats
-*.pdf
 *.profile
-*.ps
 *.pyc
 *.rej
 *.signature
@@ -30,9 +30,14 @@
 .dotest
 .gdbinit
 .htaccess
+/*.abc
 /*.html
 /*.ly
+/*.pdf
 /*.png
+/*.po
+/*.ppm
+/*.ps
 /.sconf_temp
 /.sconsign.dblite
 /GNUmakefile
@@ -58,8 +63,10 @@ config.status.lineno
 configure
 gcstat*.scm
 lily-[0-9a-f][0-9a-f][0-9a-f]*
+nohup.out
 out-cov
 out-scons
 out-test
+pats
 tags
 test-output-distance
