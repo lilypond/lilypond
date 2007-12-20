@@ -2216,6 +2216,8 @@ notes for every eighth grace note
 
 @funindex \afterGrace
 
+@cindex grace notes, following
+
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace
 notes following the main note.
@@ -2289,6 +2291,8 @@ Another option is to change the variables @code{startGraceMusic},
 seen in the file @file{ly/@/grace@/-init@/.ly}.  By redefining
 them other effects may be obtained.
 
+@cindex stem, with slash
+
 @noindent
 The slash through the stem in @emph{acciaccatura}s can be obtained in
 other situations by @code{\override Stem  #'stroke-style =
@@ -2321,6 +2325,9 @@ in other staves by setting @code{strict-grace-spacing} to
 
 
 @seealso
+
+Music Glossary: @rglos{grace notes}, @rglos{acciaccatura}, 
+@c [TODO add appoggiatura]
 
 Snippets: @lsrdir{rhythms}
 
@@ -2360,17 +2367,20 @@ supported, and might produce crashes or other errors.
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
 
+@cindex cadenza
+@cindex cadenza, aligning to
+@cindex aligning to cadenza
+
 In an orchestral context, cadenzas present a special problem: when
 constructing a score that includes a cadenza, all other
 instruments should skip just as many notes as the length of the
 cadenza, otherwise they will start too soon or too late.
 
-A solution to this problem are the functions
+A solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
-functions take a piece of music as argument, and generate a
-multi-rest or @code{\skip}, exactly as long as the piece.  The use
-of @code{mmrest-of-length} is demonstrated in the following
-example.
+functions take a piece of music as argument, and generate a multi-rest
+or @code{\skip}, exactly as long as the piece.  The use of
+@code{mmrest-of-length} is demonstrated in the following example.
 
 @lilypond[verbatim,ragged-right,quote]
 cadenza = \relative c' {
@@ -2396,6 +2406,9 @@ Snippets: @lsrdir{rhythms}
 @unnumberedsubsubsec Time administration
 
 @cindex time administration
+@cindex timing (within the score)
+@cindex music, unmetered
+@cindex unmetered music
 
 @funindex currentBarNumber
 @funindex measurePosition
@@ -2409,6 +2422,9 @@ default is to be found in the @code{Score} context.  An alias,
 The following properties of @code{Timing} are used
 to keep track of timing within the score.
  
+@cindex bar number
+@cindex measure number
+
 @table @code
 @item currentBarNumber
 The current measure number.  For an example showing the
