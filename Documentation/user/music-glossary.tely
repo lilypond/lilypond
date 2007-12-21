@@ -413,6 +413,7 @@ Languages in this order.
 * triplet::                     
 * tritone::                     
 * tuning fork::                 
+* tuplet::                      
 * turn::                        
 * unison::                      
 * upbeat::                      
@@ -2860,6 +2861,9 @@ symbol indicates playing an octave lower (for example, on double bass
 
 @ref{baritone clef}
 
+@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
+
+
 @node feathered beam
 @section feathered beam
 
@@ -2887,7 +2891,7 @@ Internals Reference: @ruser{Manual beams}
 
 ES: calderón,
 I: corona,
-F: point d'orgue, point d'arrêt, @c 'point d'orgue' on a note, 'point d'arret' on a rest.
+F: point d'orgue, point d'arrêt,
 D: Fermate,
 NL: fermate,
 DK: fermat,
@@ -6064,6 +6068,18 @@ FI: viritysavain.
 A two-pronged piece of steel used to indicate absolute pitch.  Tuning
 forks give the international pitch for the tone @emph{a} (440
 vibrations per second).
+
+
+@node tuplet
+@section tuplet
+
+A non-standard subdivision of a beat or part of a beat, usually
+indicated with a bracket and a number indicating the number of
+subdivisions.
+
+@seealso
+
+@ref{triplet}, @ref{note value}.
 
 
 @node turn

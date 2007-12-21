@@ -147,8 +147,6 @@ are rests from 128th to maxima (8 x whole).
 @cindex triplets
 @funindex \times
 
-@c TODO Add Tuplet to glossary
-
 Tuplets are made out of a music expression by multiplying all
 durations with a fraction:
 
@@ -304,8 +302,7 @@ point.
 
 @seealso
 
-Music Glossary:
-@c TODO Add @rglos{Tuplet} when Tuplet has been added to the Glossary
+Music Glossary: @rglos{tuplet}.
 
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
@@ -1161,8 +1158,8 @@ aligned vertically, but bar lines distort the regular spacing.
 @seealso
 
 @ignore
-TODO: add @rglos{signature, polymetric}, {polymetric}, {time
-signature, double}, and {meter, polymetric}. when glossary entries
+TODO: add @rglos{polymetric time signature}, {polymetric}, {double time
+signature}, and {polymetric meter}. when glossary entries
 exist.
 @end ignore
 
@@ -1282,7 +1279,7 @@ The property @code{subdivideBeams} can be set in order to
 subdivide all 16th or shorter beams.  When set, multiple beams
 will be sub-divided at beat positions, defined by the current
 value of @code{beatLength} (defaults to a quarter note), by
-drawing only one beam over the beat.
+drawing only one beam over the connection between beats.
 
 @lilypond[fragment,ragged-right,quote,relative=2,verbatim]
 c32[ c c c c c c c]
