@@ -16,7 +16,7 @@ class Pitch_interval : public Drul_array<Pitch>
 public:
   Pitch_interval ();
   Pitch_interval (Pitch, Pitch);
-  Direction add_point (Pitch);
+  Drul_array<bool> add_point (Pitch);
   bool is_empty () const;
 };
 
@@ -25,7 +25,7 @@ class Pitch_lexicographic_interval : public Drul_array<Pitch>
 public:
   Pitch_lexicographic_interval ();
   Pitch_lexicographic_interval (Pitch, Pitch);
-  Direction add_point (Pitch);
+  Drul_array<bool> add_point (Pitch);
   bool is_empty () const;
 };
 

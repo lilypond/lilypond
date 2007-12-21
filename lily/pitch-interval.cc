@@ -28,26 +28,21 @@ Pitch_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-Direction
+Drul_array<bool>
 Pitch_interval::add_point (Pitch p)
 {
-  if (is_empty())
-    {
-      at (LEFT) = at (RIGHT) = p;
-      return CENTER;
-    }
-  else if (at (LEFT).tone_pitch () > p.tone_pitch ())
+  Drul_array<bool> expansions(false,false);
+  if (at (LEFT).tone_pitch () > p.tone_pitch ())
     {
       at (LEFT) = p;
-      return LEFT;
+      expansions [LEFT] = true;
     }
-  else if (at (RIGHT).tone_pitch () < p.tone_pitch ())
+  if (at (RIGHT).tone_pitch () < p.tone_pitch ())
     {
       at (RIGHT) = p;
-      return RIGHT;
+      expansions [RIGHT] = true;
     }
-  else
-    return CENTER;
+  return expansions;
 }
 
 
@@ -69,24 +64,19 @@ Pitch_lexicographic_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-Direction
+Drul_array<bool>
 Pitch_lexicographic_interval::add_point (Pitch p)
 {
-  if (is_empty())
-    {
-      at (LEFT) = at (RIGHT) = p;
-      return CENTER;
-    }
-  else if (at (LEFT) > p)
+  Drul_array<bool> expansions(false,false);
+  if (at (LEFT) > p)
     {
       at (LEFT) = p;
-      return LEFT;
+      expansions [LEFT] = true;
     }
-  else if (at (RIGHT) < p)
+  if (at (RIGHT) < p)
     {
       at (RIGHT) = p;
-      return RIGHT;
+      expansions [RIGHT] = true;
     }
-  else
-    return CENTER;
+  return expansions;
 }
