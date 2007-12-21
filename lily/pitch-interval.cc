@@ -31,7 +31,12 @@ Pitch_interval::is_empty () const
 Direction
 Pitch_interval::add_point (Pitch p)
 {
-  if (at (LEFT).tone_pitch () > p.tone_pitch ())
+  if (is_empty())
+    {
+      at (LEFT) = at (RIGHT) = p;
+      return CENTER;
+    }
+  else if (at (LEFT).tone_pitch () > p.tone_pitch ())
     {
       at (LEFT) = p;
       return LEFT;
@@ -67,7 +72,12 @@ Pitch_lexicographic_interval::is_empty () const
 Direction
 Pitch_lexicographic_interval::add_point (Pitch p)
 {
-  if (at (LEFT) > p)
+  if (is_empty())
+    {
+      at (LEFT) = at (RIGHT) = p;
+      return CENTER;
+    }
+  else if (at (LEFT) > p)
     {
       at (LEFT) = p;
       return LEFT;
