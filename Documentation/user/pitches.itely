@@ -90,7 +90,7 @@ c, c,, e, g d,, d, d c
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{LedgerLineSpanner},
+Internals Reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
 
 
@@ -311,9 +311,11 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]{pitches/preventing-extra-naturals-from-being-automatically-added.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/preventing-extra-naturals-from-being-automatically-added.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+@lilypondfile[quote,ragged-right,texidoc]
+{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 @lilypondfile[quote,ragged-right,texidoc]{pitches/makam.ly}
 
@@ -474,10 +476,10 @@ octave should be.  In the following example,
 @noindent
 the@tie{}@code{d} will generate a warning, because
 a@tie{}@code{d''} is expected, as indicated by the octave check
-@code{=''}, but a @code{d'} is found, since both @code{c}-@code{g}
-and @code{g}-@code{d} without octavation marks are descending
-fourths.  In the output, the octave is corrected to be
-a@tie{}@code{d''} and the next note is calculated relative
+@code{=''}, but a@tie{}@code{d'} is found, since both
+@code{c}-@code{g} and @code{g}-@code{d} without octavation marks
+are descending fourths.  In the output, the octave is corrected to
+be a@tie{}@code{d''} and the next note is calculated relative
 to@tie{}@code{d''} instead of@tie{}@code{d'}.
 
 There is also an octave check that produces no visible output.
@@ -558,6 +560,7 @@ syntax is
 \transpose @var{from} @var{to} @var{musicexpr}
 @end example
 
+@noindent
 This means that @var{musicexpr} is transposed by the interval
 between the pitches @var{from} and @var{to}: any note with pitch
 @var{from} is changed to @var{to} and any other note is transposed
@@ -637,7 +640,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{TransposedMusic}.
+Internals Reference: @internalsref{TransposedMusic}.
 
 @refbugs
 
@@ -776,7 +779,7 @@ Notation Reference: @ref{Ancient clefs}.
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{Clef}.
+Internals Reference: @internalsref{Clef}.
 
 
 @node Key signature
@@ -849,7 +852,7 @@ Learning Manual: @rlearning{Accidentals and key signatures}.
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{KeyCancellation},
+Internals Reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
 
 
@@ -893,7 +896,7 @@ Music Glossary: @rglos{ottava}.
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{OttavaBracket}.
+Internals Reference: @internalsref{OttavaBracket}.
 
 
 @refbugs
@@ -999,9 +1002,9 @@ Snippets: @lsrdir{pitches}.
 
 @funindex set-accidental-style
 
-There are many different conventions on how to typeset accidentals. 
-LilyPond provides a function to specify which such accidental style to
-use.   This function is called as follows
+There are many different conventions on how to typeset
+accidentals.  LilyPond provides a function to specify which such
+accidental style to use.  This function is called as follows
 
 @example
 \new Staff <<
@@ -1010,12 +1013,12 @@ use.   This function is called as follows
 >>
 @end example
 
-The accidental style applies to the current @code{Staff} by default
-(with the exception of the styles @code{piano} and
-@code{piano-cautionary}, see below.  
-Optionally, the function can take second argument which determines in
-which scope the style should be changed.  For example, to use the same
-style in all staves of the current @code{StaffGroup}, use
+The accidental style applies to the current @code{Staff} by
+default (with the exception of the styles @code{piano} and
+@code{piano-cautionary}, see below.  Optionally, the function can
+take a second argument which determines in which scope the style
+should be changed.  For example, to use the same style in all
+staves of the current @code{StaffGroup}, use
 
 @example
 #(set-accidental-style 'voice 'StaffGroup)
@@ -1073,8 +1076,8 @@ musicB = {
 @end lilypond
 
 Note that the last lines of this example can be replaced by the
-followin, as long as the same accidental style should be used in both
-staves. 
+following, as long as the same accidental style should be used in
+both staves.
 @example
 \new PianoStaff @{
   <<
@@ -1095,7 +1098,7 @@ staves.
 @table @code
 @item default
 This is the default typesetting behavior.  It corresponds to
-eighteenth-century common practice: Accidentals are remembered to
+eighteenth-century common practice: accidentals are remembered to
 the end of the measure in which they occur and only on their own
 octave.  Thus, in the example below, no natural signs are printed
 before the@tie{}@code{b} in the second measure or the
@@ -1148,10 +1151,10 @@ musicB = {
 @end lilypond
 
 @item voice
-The normal behavior is to remember the accidentals on
-Staff-level.  This variable, however, typesets accidentals
-individually for each voice.  Apart from that, the rule is similar
-to @code{default}.
+The normal behavior is to remember the accidentals on Staff-level.
+In this style, however, accidentals are typeset individually for
+each voice.  Apart from that, the rule is similar to
+@code{default}.
 
 As a result, accidentals from one voice do not get canceled in
 other voices, which is often an unwanted result: in the following
@@ -1389,7 +1392,7 @@ musicB = {
 This rule is the same as @code{modern-voice}, but with the extra
 accidentals (the ones not typeset by @code{voice}) typeset
 as cautionaries.  Even though all accidentals typeset by
-@code{default} @emph{are} typeset by this variable,
+@code{default} @emph{are} typeset with this rule,
 some of them are typeset as cautionaries.
 
 @lilypond[quote,ragged-right]
@@ -1445,7 +1448,7 @@ This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
 accidentals also get canceled across the staves in the same
 GrandStaff or PianoStaff, hence all the cancellations of the final
-notes. 
+notes.
 
 This accidental style applies to the current @code{GrandStaff} or
 @code{PianoStaff} by default.
@@ -1658,7 +1661,7 @@ musicB = {
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{Accidental_engraver},
+Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion},
 @internalsref{AccidentalPlacement}, @internalsref{GrandStaff} and
 @internalsref{PianoStaff}, @internalsref{Staff}.
@@ -1672,7 +1675,7 @@ if the notes in the chord happen one at a time, in the order in
 which they appear in the input file.  This is a problem when
 accidentals in a chord depend on each other, which does not happen
 for the default accidental style.  The problem can be solved by
-manually inserting@tie{}@code{!} and@tie{}@code{?}  for the
+manually inserting@tie{}@code{!} and@tie{}@code{?} for the
 problematic notes.
 
 
@@ -1718,7 +1721,7 @@ printed if they are not part of the key signature.
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{Ambitus},
+Internals Reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}, @internalsref{Ambitus_engraver},
 @internalsref{Staff}, @internalsref{Voice}.
@@ -1773,7 +1776,7 @@ Notation Reference: @ref{Setting the staff size}.
 
 Snippets: @lsrdir{pitches},
 
-Internals reference: @internalsref{NoteHead}.
+Internals Reference: @internalsref{NoteHead}.
 
 
 @node Shape note heads
@@ -1862,7 +1865,7 @@ used in the following example:
 
 Snippets: @lsrdir{pitches}.
 
-Internals reference: @internalsref{Pitch_squash_engraver} and
+Internals Reference: @internalsref{Pitch_squash_engraver},
 @internalsref{Voice}.
 
 @node Special noteheads
@@ -1895,4 +1898,4 @@ Snippets: @lsrdir{pitches}.
 
 Notation Reference: @ref{Note head styles}.
 
-Internals reference: @internalsref{NoteHead}.
+Internals Reference: @internalsref{NoteHead}.
