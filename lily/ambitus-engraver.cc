@@ -122,9 +122,11 @@ Ambitus_engraver::acknowledge_note_head (Grob_info info)
   if (nr && nr->in_event_class ("note-event"))
     {
       Pitch pitch = *unsmob_pitch (nr->get_property ("pitch"));
-      Direction expand_dir = pitch_interval_.add_point (pitch);
-      if (expand_dir)
-	causes_[expand_dir] = nr;
+      Drul_array<bool> expands = pitch_interval_.add_point (pitch);
+      if (expands[UP])
+	causes_[UP] = nr;
+      if (expands[DOWN])
+	causes_[DOWN] = nr;
     }
 }
 
