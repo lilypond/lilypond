@@ -4,6 +4,10 @@
 @node Fundamental concepts
 @chapter Fundamental concepts
 
+You've seen in the Tutorial how to produce beautifully printed
+music from a simple text file.  This section introduces the
+concepts and techniques required to produce equally beautiful
+but more complex scores.
 
 @menu
 * How LilyPond files work::     
@@ -331,6 +335,12 @@ three notes:
 }
 @end lilypond
 
+@noindent
+Note that the size of the clef is the same as a clef printed
+following a clef change -- slightly smaller than the clef
+at the begining of the line.  This is usual for clefs printed
+in the middle of a line.
+
 The ossia section may be placed above the staff
 as follows:
 
@@ -371,7 +381,7 @@ let's first review the different types of bracket.
 
 @c attempt to force this onto a new page
 @need 50
-@multitable @columnfractions .3 .7 
+@multitable @columnfractions .3 .7
 @headitem Bracket Type
   @tab Function
 @item @code{@{ .. @}}
@@ -379,7 +389,7 @@ let's first review the different types of bracket.
 @item @code{< .. >}
   @tab Encloses the notes of a chord
 @item @code{<< .. >>}
-  @tab Encloses concurrent or simultaneous sections 
+  @tab Encloses concurrent or simultaneous sections
 @item @code{( .. )}
   @tab Marks the start and end of a slur
 @item @code{\( .. \)}
@@ -393,17 +403,17 @@ between or across notes: ties (marked by a tilde, @code{~}),
 tuplets written as @code{\times x/y @{..@}}, and grace notes
 written as @code{\grace@{..@}}.
 
-Outside LilyPond, the conventional use of brackets requires 
-the different types to be properly nested, like this, 
+Outside LilyPond, the conventional use of brackets requires
+the different types to be properly nested, like this,
 @code{<< [ @{ ( .. ) @} ] >>}, with the closing brackets being
-encountered in exactly the opposite order to the opening 
-brackets.  This @strong{is} a requirement for the three types of 
+encountered in exactly the opposite order to the opening
+brackets.  This @strong{is} a requirement for the three types of
 bracket described by the word @q{Encloses} in the table above --
 they must nest properly.
-However, the remaining brackets, described with the word 
+However, the remaining brackets, described with the word
 @q{Marks} in the table above together with ties and tuplets,
 do @strong{not} have to nest
-properly with any of the brackets.  In fact, these are not 
+properly with any of the brackets.  In fact, these are not
 brackets in the sense that
 they enclose something -- they are simply markers to indicate
 where something starts and ends.
@@ -536,6 +546,7 @@ and colors for the three voices.
 @end lilypond
 
 Let us see how this is done.
+@smallspace
 
 @funindex \\
 
@@ -1138,7 +1149,7 @@ lyrics in @ref{Voices and vocals}.
 @node Engravers explained
 @subsection Engravers explained
 
-cindex engravers
+@cindex engravers
 
 Every mark on the printed output of a score produced by LilyPond
 is produced by an @code{Engraver}.  Thus there is an engraver
@@ -1225,7 +1236,7 @@ appearance of the output.  They are changed by the
 @code{\set} command.  This takes the form
 
 @example
-\set @emph{ContextName}.@emph{propertyName} = @emph{value}
+\set @emph{ContextName}.@emph{propertyName} = #@emph{value}
 @end example
 
 Where the @emph{ContextName} is usually @code{Score},
@@ -1239,29 +1250,45 @@ of some commonly used ones.  There are many more.
 
 @c attempt to force this onto a new page
 @need 50
-@multitable @columnfractions .2 .2 .6 
+@multitable @columnfractions .25 .2 .4 .15
 @headitem propertyName
   @tab Value
   @tab Function
+  @tab Example
 @item extraNatural
-  @tab ##t or ##f
-  @tab If true (##t), set extra natural signs before accidentals
+  @tab Boolean
+  @tab If true, set extra natural signs before accidentals
+  @tab @code{#t}, @code{#f}
 @item currentBarNumber
   @tab Integer
   @tab Set the current bar number
+  @tab @code{50}
 @item doubleSlurs
-  @tab ##t or ##f
-  @tab If true (##t), print slurs both above and below notes
+  @tab Boolean
+  @tab If true, print slurs both above and below notes
+  @tab @code{#t}, @code{#f}
 @item instrumentName
   @tab Text
   @tab Set the name to be placed at the start of the staff
+  @tab @code{"Cello I"}
 @item fontSize
-  @tab Number
+  @tab Real
   @tab Increase or decrease the font size
+  @tab @code{2.4}
 @item stanza
   @tab Text
   @tab Set the text to print before the start of a verse
+  @tab @code{"2"}
 @end multitable
+@noindent
+where a Boolean is either True (@code{#t}) or False (@code{#f}),
+an Integer is a positive whole number, a Real is a positive
+or negative decimal number, and text is enclosed in double
+apostrophes.  Note the occurrence of hash signs,
+(@code{#}), in two different places -- as part of the Boolean 
+value before the @code{t} or @code{f}, and before @emph{value}
+in the @code{\set} statement.  So when a Boolean is being 
+entered you need to code two hash signs, e.g., @code{##t}.
 
 @smallspace   
 
@@ -1504,6 +1531,8 @@ get the staves that you want?  Well, you can find lots of
 templates (see @ref{Templates}) which may give you a start.  
 But what
 if you want something that isn't covered there?  Read on.
+
+TODO Add links to templates after they have been moved to LSR
 
 @menu
 * Soprano and cello::           
@@ -2131,5 +2160,6 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
 
 

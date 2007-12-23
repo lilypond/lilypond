@@ -28,13 +28,21 @@ Pitch_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-void
+Drul_array<bool>
 Pitch_interval::add_point (Pitch p)
 {
+  Drul_array<bool> expansions(false,false);
   if (at (LEFT).tone_pitch () > p.tone_pitch ())
-    at (LEFT) = p;
+    {
+      at (LEFT) = p;
+      expansions [LEFT] = true;
+    }
   if (at (RIGHT).tone_pitch () < p.tone_pitch ())
-    at (RIGHT) = p;
+    {
+      at (RIGHT) = p;
+      expansions [RIGHT] = true;
+    }
+  return expansions;
 }
 
 
@@ -56,11 +64,19 @@ Pitch_lexicographic_interval::is_empty () const
   return at (LEFT) > at (RIGHT);
 }
 
-void
+Drul_array<bool>
 Pitch_lexicographic_interval::add_point (Pitch p)
 {
+  Drul_array<bool> expansions(false,false);
   if (at (LEFT) > p)
-    at (LEFT) = p;
+    {
+      at (LEFT) = p;
+      expansions [LEFT] = true;
+    }
   if (at (RIGHT) < p)
-    at (RIGHT) = p;
+    {
+      at (RIGHT) = p;
+      expansions [RIGHT] = true;
+    }
+  return expansions;
 }

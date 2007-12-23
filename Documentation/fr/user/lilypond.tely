@@ -1,13 +1,13 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+    Translation of GIT committish: 007d0b5b94c36f9d9e228309d5b0e6a67ae27ebc
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @setfilename lilypond.info
-@settitle GNU LilyPond -- manuel de référence
+@settitle GNU LilyPond -- manuel de notation
 @documentencoding UTF-8
 
 @iftex
@@ -155,19 +155,18 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @include dedication.itely
 
 @menu
-* Musical notation::
-* Specialist notation::
-* Changing defaults::
+* Musical notation::               notation générale.
+* Specialist notation::            notation à usage spécifique.
+* Input syntax::                   généralités sur les fichiers sources.
 * Non-musical notation::           aspects autres que la notation musicale.
 * Spacing issues::                 mise en page de la musique sur le papier.
+* Changing defaults::              ajustement de la gravure.
 * Interfaces for programmers::     utilisation avancée.
 
 Annexes
 
 * Literature list::                ouvrages de référence sur la notation musicale.
-* Scheme tutorial::                programmer au sein de LilyPond.
 * Notation manual tables::         tables et diagrammes.
-* Templates::                      modèles prêts à l'emploi.
 * Cheat sheet::                    résumé de la syntaxe de LilyPond.
 * GNU Free Documentation License:: licence de ce document.
 * LilyPond command index::
@@ -184,16 +183,16 @@ Annexes
 @include notation.itely
 @include specialist.itely
 
-@include changing-defaults.itely
+@include input.itely
 @include non-music.itely
 @include spacing.itely
+
+@include changing-defaults.itely
 @include programming-interface.itely
 
 
 @include literature.itely
-@include scheme-tutorial.itely
 @include notation-appendices.itely
-@include templates.itely
 @include cheatsheet.itely
 @include fdl.itexi
 

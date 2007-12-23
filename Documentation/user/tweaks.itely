@@ -13,8 +13,8 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-NB: This chapter is still under development and this version is
-somewhat experimental; nothing is fixed.  Don't translate yet!
+TODO: This chapter is still under development and this version is
+not yet complete.  Don't translate yet!
 
 
 
@@ -25,8 +25,7 @@ somewhat experimental; nothing is fixed.  Don't translate yet!
 * Placement of objects::        
 * Collisions of objects::       
 * Page layout::                 
-* Common tweaks::               
-* TODO other name::             
+* Further tweaking::            
 @end menu
 
 @node Tweaking basics
@@ -57,7 +56,7 @@ at the same time we show how these commands may be constructed so
 that you may learn how to develop your own tweaks.
 
 Before starting on this Chapter you may wish to review the section
-@ref{Contexts and engravers}, as Contexts, Engravers, and the 
+@ref{Contexts and engravers}, as Contexts, Engravers, and the
 Properties contained within them are fundamental to understanding
 and constructing Tweaks.
 
@@ -163,7 +162,7 @@ properties.
 
 We have already met the commands @code{\set} and @code{\with},
 used to change the properties of @strong{contexts} and to remove
-and add @strong{engravers}, in 
+and add @strong{engravers}, in
 @ref{Modifying context properties} and @ref{Adding
 and removing engravers}.  We now must meet one more command.
 
@@ -187,10 +186,10 @@ of the layout object with the name
 @emph{layout_object}, which is a member of the @emph{context}
 context, to the value @emph{value}.
 
-The @emph{context} can be omitted (and usually is) when the 
+The @emph{context} can be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
-level contexts, i.e., @code{Voice}, @code{ChordNames} or 
-@code{Lyrics}, and we shall omit it in many of the following 
+level contexts, i.e., @code{Voice}, @code{ChordNames} or
+@code{Lyrics}, and we shall omit it in many of the following
 examples.  We shall see later when it must be specified.
 
 For now, don't worry about the @code{#'}, which must precede the
@@ -212,18 +211,18 @@ commands have been issued.
 @end example
 
 Again, just like @emph{context} in the @code{\override} command,
-@emph{context} is often not needed.  It will be omitted 
+@emph{context} is often not needed.  It will be omitted
 in many of the following examples.
 
 There is another form of the override command, 
-@code{\overrideProperty}, which is occasionally required.  
+@code{\overrideProperty}, which is occasionally required.
 We mention it here for completeness, but for details see 
 @ruser{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
 The final tweaking command which is available is @code{\tweak}.
 It is not really a new command but a shorthand for an 
-@code{\override} command which must be used in a few special 
+@code{\override} command which must be used in a few special
 circumstances.  Again, we shall not discuss or use it here.  
 You may find the details in 
 @ruser{Objects connected to the input}.
@@ -277,12 +276,12 @@ music:
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 6/8
-  { 
+  {
     r4 b8 b[( g]) g | 
     g[( e]) e d[( f]) a | 
     a g
   }
-  \addlyrics { 
+  \addlyrics {
     The man who feels love's sweet e -- mo -- tion 
   }
 }
@@ -355,13 +354,13 @@ property name and and @code{#} preceding the new value!
 
 The final question is, @q{Where should this command be
 placed?}  While you are unsure and learning, the best 
-answer is, @q{Within the music, before the first slur and 
+answer is, @q{Within the music, before the first slur and
 close to it.}  Let's do that:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 6/8
-  { 
+  {
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
     r4 b8 b[( g]) g |
@@ -397,7 +396,7 @@ engraver}.  So slurs will be created in whichever context
 the @code{Slur_engraver} is in.  Follow the link to the
 @code{Slur_engraver} page.  At the very bottom it tells
 us that @code{Slur_engraver} is part of five Voice contexts,
-including the standard voice context, @code{Voice}, so our 
+including the standard voice context, @code{Voice}, so our
 guess was correct.  And because @code{Voice} is one of the
 lowest level contexts which is implied unambiguously by 
 the fact that we are entering notes, we can omit it in this 
@@ -409,7 +408,7 @@ location.
 @cindex once override
 @funindex \once
 
-As you can see, @emph{all} the slurs are thicker in the 
+As you can see, @emph{all} the slurs are thicker in the
 final example above.  But what if we
 wanted just the first slur to be thicker?  This is achieved
 with the @code{\once} command.  Placed immediately before
@@ -419,13 +418,13 @@ If the
 immediately following note does not begin a slur the command
 has no effect at all -- it is not remembered until a slur
 is encountered, it is simply discarded.  So the command with
-@code{\once} must be 
+@code{\once} must be
 repositioned as follows:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 6/8
-  { 
+  {
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
@@ -433,7 +432,7 @@ repositioned as follows:
     g[( e]) e d[( f]) a | 
     a g 
   }
-  \addlyrics { 
+  \addlyrics {
     The man who feels love's sweet e -- mo -- tion 
   }
 }
@@ -441,6 +440,10 @@ repositioned as follows:
 
 @noindent
 Now only the first slur is made heavier.
+
+The @code{\once} command can also be used before @code{\set}
+and @code{\unset}, and before the command to be introduced
+in the following section -- @code{revert}.
  
 @subheading Reverting
 
@@ -466,17 +469,14 @@ the slurs begin:
     g[( e]) e d[( f]) a | 
     a g
   }
-  \addlyrics { 
+  \addlyrics {
     The man who feels love's sweet e -- mo -- tion 
   }
 }
 @end lilypond 
 
-@cindex revert
-@funindex \revert
-
 @noindent
-or we could omit the @code{\once} command and use the 
+or we could omit the @code{\once} command and use the
 @code{\revert} command
 to return the @code{thickness} property to its default value
 after the second slur:
@@ -495,7 +495,7 @@ after the second slur:
     e d[( f]) a | 
     a g
   }
-  \addlyrics { 
+  \addlyrics {
     The man who feels love's sweet e -- mo -- tion 
   }
 }
@@ -530,7 +530,7 @@ give an italic shape.
 This is because the shape property is one that is common to all
 font objects, so, rather than including it in every layout
 object, it is grouped together with other similar common
-properties and placed in an @strong{Interface}, the 
+properties and placed in an @strong{Interface}, the
 @code{font-interface}.
 
 So now we need to learn how to find the properties of interfaces,
@@ -539,7 +539,7 @@ and to discover what objects use these interface properties.
 Look again at the IR page which describes LyricText.  At the
 bottom of the page is a list of clickable (in the html versions
 of the IR) interfaces which LyricText supports.  The list has 
-seven items, including @code{font-interface}.  
+seven items, including @code{font-interface}.
 Clicking on this brings up the properties associated
 with this interface, which are also properties of all the objects
 which support it, including LyricText.
@@ -552,11 +552,11 @@ You will notice that that @code{font-series} and @code{font-size}
 are also listed there.
 This immediately raises the question: Why are the common font
 properties @code{font-series} and @code{font-size} listed under
-@code{LyricText} as well as under the interface 
+@code{LyricText} as well as under the interface
 @code{font-interface} but @code{font-shape} is not?  The answer
 is that @code{font-series} and @code{font-size} are changed
 from their global default values when a @code{LyricText} object
-is created, but @code{font-shape} is not.  The entries in 
+is created, but @code{font-shape} is not.  The entries in
 @code{LyricText} then tell you the values for those two
 properties which apply to @code{LyricText}.  Other objects
 which support @code{font-interface} will set these
@@ -564,7 +564,7 @@ properties diferently when they are created.
 
 Let's see if we can now construct the @code{\override} command
 to change the lyrics to italics.  The object is @code{LyricText},
-the property is @code{font-shape} and the value is 
+the property is @code{font-shape} and the value is
 @code{italic}.  As before, we'll omit the context.
 
 As an aside, although it is an important one, note that because 
@@ -572,7 +572,7 @@ the values of
 @code{font-shape} are symbols they must be introduced with a
 single apostrophe, @code{'}.  That is why apostrophes
 are needed before @code{thickness} in the earlier example
-and @code{font-shape}.  These are both symbols too.  
+and @code{font-shape}.  These are both symbols too.
 Symbols are special names which are known internally to 
 LilyPond.  Some of them are the names of properties,
 like @code{thickness} or @code{font-shape}, others are in
@@ -645,7 +645,7 @@ must be of the correct type and obey the rules for that type.
 The type of property is always shown in brackets after the
 property name in the IR.  Here is a list of the types you may 
 need, together with the rules for that type, and some examples.
-You must always add a hash symbol, @code{#}, of course, 
+You must always add a hash symbol, @code{#}, of course,
 to the front of these values when they are entered in the 
 @code{\override} command.
 
@@ -661,7 +661,7 @@ to the front of these values when they are entered in the
   @tab @code{2.5}, @code{0.34}
 @item Direction
   @tab A valid direction constant or its numerical equivalent
-  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP}, 
+  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP},
        @code{1}, @code{-1}
 @item Integer
   @tab A positive whole number
@@ -669,7 +669,7 @@ to the front of these values when they are entered in the
 @item List
   @tab A bracketed set of items separated by spaces,
 preceded by an apostrophe
-  @tab @code{'(left-edge staff-bar)}, @code{'(1)}, 
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Markup
   @tab Any valid markup
@@ -677,7 +677,7 @@ preceded by an apostrophe
 @item Moment
   @tab A fraction of a whole note constructed with the 
 make-moment function
-  @tab @code{(ly:make-moment 1 4)}, 
+  @tab @code{(ly:make-moment 1 4)},
        @code{(ly:make-moment 3 8)}
 @item Number
   @tab Any positive or negative decimal value
@@ -692,12 +692,12 @@ preceded by an apostrophe
   @tab @code{'italic}, @code{'inside}
 @item Unknown
   @tab A procedure or @code{#f} (to cause no action)
-  @tab @code{bend::print}, @code{ly:text-interface::print}, 
+  @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
   @tab A list of three items enclosed in brackets and preceded
 by a hash sign, @code{#}.
-  @tab @code{#(#t #t #f)} 
+  @tab @code{#(#t #t #f)}
 @end multitable
 
 @node Appearance of objects
@@ -727,8 +727,8 @@ barlines.  Going via @emph{Backend} and @emph{All layout objects}
 we find there
 is a layout object called @code{BarLine}.  Its properties include
 two that control its visibility: @code{break-visibility} and
-@code{stencil}.  Barline also supports a number of interfaces, 
-including the @code{grob-interface}, where we find the 
+@code{stencil}.  Barline also supports a number of interfaces,
+including the @code{grob-interface}, where we find the
 @code{transparent} and the @code{color} properties.  All
 of these can affect the visibility of barlines (and, of course,
 by extension, many other layout objects too.)  Let's consider
@@ -783,13 +783,13 @@ Now the barlines have vanished.
 
 @cindex break-visibility property
 
-We see from the @code{BarLine} properties in the IR that the 
-@code{break-visibility} property requires a vector of three 
+We see from the @code{BarLine} properties in the IR that the
+@code{break-visibility} property requires a vector of three
 booleans.
 These control respectively whether barlines are printed at
 the end of a line, in the middle of lines, and at the beginning
 of lines.  For our example we want all barlines to be suppressed,
-so the value we need is @code{#(#f #f #f)}.  
+so the value we need is @code{#(#f #f #f)}.
 Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
 this value we have two hash signs before the opening bracket.
@@ -823,7 +823,7 @@ Back to
 the @q{All layout objects} page in the IR to find the properties
 of the @code{TimeSignature} layout object.  This is produced by
 the @code{Time_signature_engraver} which you can check also lives
-in the @code{Staff} context and also supports the 
+in the @code{Staff} context and also supports the
 @code{grob-interface}.  So the command to make the time signature
 transparent is:
 
@@ -842,7 +842,7 @@ The time signature is gone, but this command leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
 an exercise for the student to fill it in, but in other 
 circumstances a gap might be undesirable.  To remove it, the 
-stencil for the time signature should be set to @code{#f} 
+stencil for the time signature should be set to @code{#f}
 instead:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -975,7 +975,7 @@ found.
 
 Let us begin by looking again at the earlier example 
 see @ref{Nesting music expressions}) which showed
-how to introduce a new temporary staff, as in an @rglos{ossia}.  
+how to introduce a new temporary staff, as in an @rglos{ossia}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1082,7 +1082,7 @@ Some layout objects are created as glyphs selected from
 a typeface font.  These include noteheads, accidentals, markup, 
 clefs, time signatures, dynamics and lyrics.  
 Their size is changed by modifying the
-@code{font-size} property, as we shall shortly see.  Other 
+@code{font-size} property, as we shall shortly see.  Other
 layout objects such as slurs and ties -- in general, spanner
 objects -- are drawn individually, so there is no 
 @code{font-size}
@@ -1218,23 +1218,22 @@ normally avoided automatically.  There are commands and
 overrides which can modify this automatic behaviour, as we
 shall shortly see.
 
-Objects belonging outside the staff include things 
-such as rehearsal marks, text and dynamic markings. 
-LilyPond’s rule for the 
-vertical placement of outside-staff objects is to place them as 
-close to the staff as possible but not so close that they 
-collide with any other object.  LilyPond uses the 
-@code{outside-staff-priority} property to determine the order 
-in which the objects should be placed, as follows.
+Objects belonging outside the staff include things such as
+rehearsal marks, text and dynamic markings.  LilyPond's rule for
+the vertical placement of outside-staff objects is to place them
+as close to the staff as possible but not so close that they
+collide with any other object.  LilyPond uses the
+@code{outside-staff-priority} property to determine the order in
+which the objects should be placed, as follows.
 
 First, LilyPond places all the within-staff objects.
 Then it sorts the outside-staff objects according to their 
 @code{outside-staff-priority}.  The outside-staff objects are
 taken one by one, beginning with the object with the lowest
-@code{outside-staff-priority}, and placed so that they do not 
+@code{outside-staff-priority}, and placed so that they do not
 collide with any objects that have already been placed. That is, 
 if two outside-staff grobs are competing for the same space, the 
-one with the lower @code{outside-staff-priority} will be placed 
+one with the lower @code{outside-staff-priority} will be placed
 closer to the staff.  If two objects have the same
 @code{outside-staff-priority} the one encountered first will be
 placed closer to the staff.
@@ -1269,7 +1268,10 @@ this @q{nestling} of the notes on adjacent staves:
 >>
 @end lilypond 
 
-
+@c TODO Mention somewhere, probably not here, how to avoid staves
+@c interleaving too much by specifying skyline-horizontal-padding
+@c Presumably this moves the skyline boundary further out, making
+@c objects appear wider?  Not yet tested.  -td
 
 @node Within-staff objects
 @subsection Within-staff objects
@@ -1278,10 +1280,10 @@ We have already seen how the commands @code{\voiceXXX} affect
 the direction of slurs, ties, fingering and 
 everything else which depends on the direction of the stems.
 These commands are essential when writing polyphonic music to
-permit the interweaving melodic lines to be distinguished.
+permit interweaving melodic lines to be distinguished.
 But occasionally it may be necessary to override this automatic
 behaviour.  This can be done for whole sections of music or even
-for an individual note.  The property which control this
+for an individual note.  The property which controls this
 behaviour is the @code{direction} property of each layout object.
 We first explain what this does, and then introduce a number of
 ready-made commands which avoid your having to code explicit
@@ -1292,7 +1294,8 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
-The following example shows first the default behaviour of stems,
+The following example shows in bar 1 the default behaviour of 
+stems, 
 with those on high notes pointing down and those on low notes
 pointing up, followed by four notes with all stems forced down, 
 four notes with all stems forced up, and finally four notes
@@ -1326,51 +1329,51 @@ where it is not obvious.
 @headitem Down/Left           
   @tab Up/Right
   @tab Revert
-  @tab Effect 
-@item \arpeggioDown
-  @tab \arpeggioUp
-  @tab \arpeggioNeutral
+  @tab Effect
+@item @code{\arpeggioDown}
+  @tab @code{\arpeggioUp}
+  @tab @code{\arpeggioNeutral}
   @tab Arrow is at bottom, at top, or no arrow
-@item \dotsDown
-  @tab \dotsUp
-  @tab \dotsNeutral
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
   @tab Direction of movement to avoid staff lines
-@item \dynamicDown
-  @tab \dynamicUp
-  @tab \dynamicNeutral
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
   @tab
-@item \phrasingSlurDown
-  @tab \phrasingSlurUp
-  @tab \phrasingSlurNeutral
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
   @tab Note: distinct from slur commands
-@item \slurDown     
-  @tab \slurUp
-  @tab \slurNeutral
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
   @tab
-@item \stemDown
-  @tab \stemUp
-  @tab \stemNeutral
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
   @tab
-@item \textSpannerDown
-  @tab \textSpannerUp
-  @tab \textSpannerNeutral
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
   @tab Text entered as spanner is below/above staff
-@item \tieDown
-  @tab \tieUp
-  @tab \tieNeutral
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
   @tab
-@item \tupletDown
-  @tab \tupletUp
-  @tab \tupletNeutral
-  @tab Tuplets below or above notes
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Tuplets are below/above notes
 @end multitable
 
-Note that these predefined commands may @strong{not} be 
+Note that these predefined commands may @strong{not} be
 preceded by @code{\once}.  If you wish to limit the
 effect to a single note you must either use the equivalent
 @code{\once \override} command or use the predefined command
 followed after the affected note by the corresponding 
-@code{\neutralXXX} command.
+@code{\xxxNeutral} command.
 
 @subheading Fingering
 @cindex fingering, placement
@@ -1393,10 +1396,11 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-This may be suitable for single notes, but the @code{direction}
+This is how to control fingering on single notes, but the 
+@code{direction}
 property is ignored for chords.  Instead, by default, the
-fingering is placed both above and below the notes of a chord,
-as shown:
+fingering is automatically placed both above and below the 
+notes of a chord, as shown:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <c-5 g-3>
@@ -1420,12 +1424,12 @@ property of the @code{Voice} context, created and used by the
 
 The property may be set to a list of one to three values.
 It controls whether fingerings may be placed above (if 
-@code{up} appears in the list), below (if @code{down} appears), 
-to the left (if @code{left} appears, or to the right 
+@code{up} appears in the list), below (if @code{down} appears),
+to the left (if @code{left} appears, or to the right
 (if @code{right} appears).  Conversely, if a location is not
 listed, no fingering is placed there.  LilyPond takes these 
 contraints and works out the best placement for the fingering
-for the notes of the following chords.  Note that @code{left} and
+of the notes of the following chords.  Note that @code{left} and
 @code{right} are mutually exclusive -- fingering may be placed
 only on one side or the other, not both.
 
@@ -1451,16 +1455,245 @@ Here are a few examples:
 \set fingeringOrientations = #'(right)
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
-
 @end lilypond 
+
+@noindent
+If the fingering seems a little crowded the @code{font-size}
+could be reduced.  The default value can be seen from the
+@code{Fingering} object in the IR to be @code{-5}, so let's
+try @code{-7}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
 
 @node Outside staff objects
 @subsection Outside staff objects
 
-TODO  - dynamics, markup
-      - Priority
-      - \fatText
+Outside-staff objects are automatically placed to avoid collisions.
+Objects with the lower value of @code{outside-staff-priority}
+property are placed nearer to the staff, and other outside-staff
+objects are then raised as far as necessary to avoid collisions.  
+The @code{outside-staff-priority} is defined in the
+@code{grob-interface} and so is a property of all layout objects.
+It is set to @code{#f} (the default) for all within-staff objects,
+and is set explicitly to the default numerical value appropriate 
+to the each object as it is created.  The following table shows
+the default numerical values for some of the commonest 
+outside-staff objects.  Others may be found in the object 
+properties listed in the IR.
 
+@multitable @columnfractions .3 .3 
+@headitem Layout Object           @tab Priority
+@item @code{BarNumber}            @tab @code{ 100}
+@item @code{DynamicLineSpanner}   @tab @code{ 250}
+@item @code{DynamicText}          @tab @code{ 250}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{OttavaBracket}        @tab @code{ 400}
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{TextScript}           @tab @code{ 450}
+@item @code{TextSpanner}          @tab @code{ 350}
+@end multitable
+
+TODO Add example showing iteraction of all these
+
+If this ordering does not give you the placing you want, the
+priority of the objects may be overridden.  Suppose we would
+like @qq{Text3} to be placed above @qq{Text4} in the example
+under Automatic behaviour, above (see @ref{Automatic behaviour}).
+All we need to do is to look up the priority of @code{TextScript}
+in the IR or in the table above, and increase the priority of
+@qq{Text3} to a higher value:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+This certainly lifts @qq{Text3} above @qq{Text4} but it also
+lifts it above @qq{Text2}, and @qq{Text4} now drops down.
+Perhaps this is not so good.  Can we instead position them all
+at the same distance from the staff?  To do this, we clearly
+will need to space the notes out horizontally to make more
+room for the text.  This is done using the @code{fatText}
+command.
+
+@subheading \fatText
+
+@funindex \fatText
+@cindex notes, spreading out with text
+
+By default, text produced by markup takes up no horizontal space
+as far as laying out the music is concerned.  The @code{\fatText}
+command reverses this behaviour, causing the notes to be spaced 
+out as far as is necessary to accommodate the text:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\fatText  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond  
+
+The command to revert to the default behaviour is 
+@code{\emptyText}.  Remember @code{\once} only works with
+@code{\override}, @code{\set}, @code{\revert} or @code{unset},
+so cannot be used with @code{\fatText}.
+
+Markup text will also avoid notes which project above the staff.
+If this is not desired, the automatic displacement upwards may
+be turned off by setting the priority to @code{#f}.  Here's an
+example to show how markup text interacts with such notes.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\fatText  % and turn on fatText
+c,,2^"Long Text   "  % Spaces at end are honoured
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Dynamic markings will normally be positioned beneath the
+staff, but may be positioned above with the @code{dynamicUp}
+command.  They will be positioned vertically relative to the
+note to which they are attached, and will float below (or above)
+all within-staff objects such as phrasing slurs and bar numbers.
+This can give quite acceptable results, as this example
+shows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+However, if the notes and attached dynamics are close
+together the automatic placement will avoid collisions
+by displacing later dynamic markings further away, but this may 
+not be the optimum placement, as this rather artificial example
+shows:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Should a similar situation arise in @q{real} music, it may
+be preferable to space out the notes
+a little further, so the dynamic markings can all fit at the
+same vertical distance from the staff.  We were able to do this
+for markup text by using the @code{\fatText} command, but there
+is no equivalent command for dynamic marks.  So we shall have to
+work out how to do this using @code{\override} commands.
+
+@subheading Grob sizing
+
+@cindex grob sizing
+@cindex sizing grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+First we must learn how grobs are sized.  All grobs have a
+reference point defined within them which is used to position 
+them relative to their parent object.  This point in the grob
+is then positioned at a horizontal distance, @code{X-offset},
+and at a vertical distance, @code{Y-offset}, from its parent.
+The horizontal extent of the object is given by a pair of
+numbers, @code{X-extent}, which say where the left and right
+edges are relative to the reference point.  The vertical extent
+is similarly defined by a pair of numbers, @code{Y-extent}.
+These are properties of all grobs which support the 
+@code{grob-interface}.
+
+@cindex @code{extra-spacing-width}
+
+By default, outside-staff objects are given a width of zero so
+that they may overlap in the horizontal direction.  This is done
+by by the trick of adding infinity to the leftmost extent and 
+minus infinity to the rightmost extent by setting the 
+@code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
+to ensure they do not overlap in the horizontal direction we
+must override this value of @code{extra-spacing-width} to
+@code{'(0 . 0)} so the true width shines through.  This is
+the command to do this for dynamic text:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Let's see if this works in our previous example:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Well, it has certainly stopped the dynamic marks being
+displaced, but two problems remain.  The marks should be
+spaced a little further apart and it would be better
+if they were all the same distance from the staff.
+We can solve the first problem easily.  Instead of making
+the @code{extra-spacing-width} zero we could add a little
+more to it.  The units are the space between two staff
+lines, so moving the left edge half a unit to the left and the
+right edge half a unit to the right should do it:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+This looks better, but maybe we would prefer the dynamic marks
+to be aligned along the same baseline rather than going up and
+down with the notes.  The property to do this is
+@code{staff-padding} which is covered in the following section.
 
 
 @node Collisions of objects
@@ -1474,208 +1707,234 @@ TODO  - dynamics, markup
 @node Moving objects
 @subsection Moving objects
 
-This may come as a surprise, but LilyPond is not perfect.  Some notation
-elements can overlap.  This is unfortunate, but (in most cases) is easily
-solved.
+This may come as a surprise, but LilyPond is not perfect.  Some 
+notation elements can overlap.  This is unfortunate, but in fact 
+rather rare.  Usually the need to move objects is for clarity or
+aesthetic reasons -- they would look better with a little more
+or a little less space around them.
 
-TODO: with the new spacing features in 2.12, these specific examples are no
-longer relevant.  However, they still demonstrate powerful features
-of lilypond, so they remain until somebody creates some better examples.
+There are three main main approaches to resolving overlapping
+notation.  They should be considered in the following order:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@enumerate
+@item
+The @strong{direction} of one of the overlapping objects may
+be changed using the predefined commands listed above for
+within-staff objects (see @ref{Within-staff objects}).
+Stems, slurs, beams, ties, dynamics, text and tuplets may be
+repositioned easily in this way.  The limitation is that you
+have a choice of only two positions, and neither may be
+suitable.
 
-@cindex padding
+@item
+The @strong{object properties}, which LilyPond uses
+when positioning layout objects, may be modified using
+@code{\override}.  The advantages
+of making changes to this type of property are (a) that some
+other objects will be moved automatically if necessary to make
+room and (b) the single override can apply to all instances of
+the same type of object.  Such properties include:
+@itemize
 
-The easiest solution is to increase the distance between the object
-(in this case text, but it could easily be fingerings or dynamics
-instead) and the note.  In LilyPond, this is called the
-@code{padding} property; it is measured in staff spaces.  For most
-objects, this value is around 1.0 or less (it varies with each
-object).  We want to increase it, so let's try 1.5
+@item 
+@code{direction}
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+This has already been covered in some detail -- see
+@ref{Within-staff objects}.
 
-That looks better, but it isn't quite big enough.  After experimenting
-with a few values, we think 2.3 is the best number in this case.  However,
-this number is merely the result of experimentation and my personal
-taste in notation.  Try the above example with 2.3... but also try higher
-(and lower) numbers.  Which do you think looks the best?
+@item 
+@code{padding}, @code{left-padding},
+@code{right-padding}, @code{staff-padding}
 
-The @code{staff-padding} property is closely related.  @code{padding}
-controls the minimum amount of space between an object and the nearest
+@cindex left-padding property
+@cindex padding property
+@cindex right-padding property
+@cindex staff-padding property
+As an object is being positioned the value of its @code{padding}
+property specifies the gap that must be left between itself and
+the nearest edge of the object against which it is being
+positioned.  Note that it is the @code{padding} value of the object
+@strong{being placed} that is used;
+the @code{padding} value of the object which is already placed is
+ignored.  Gaps specified by @code{padding} can be applied
+to all objects which support the @code{side-position-interface}.
+
+Instead of @code{padding}, the placement of groups of accidentals
+is controlled by @code{left-padding} and @code{right-padding}.
+These properties are to be found in the @code{AccidentalPlacement}
+object which, note, lives in the @strong{staff} context.  Because
+accidentals are always positioned after and to the left of
+noteheads only the @code{right-padding} property has any effect.
+
+The @code{staff-padding} property is closely related to the
+@code{padding} property:  @code{padding}
+controls the minimum amount of space between any object which
+supports the @code{side-position-interface} and the nearest
 other object (generally the note or the staff lines);
-@code{staff-padding} controls the minimum amount of space between an
-object and the staff.  This is a subtle difference, but you can see
-the behavior here.
+@code{staff-padding} applies only to those objects which are always
+set outside the staff -- it controls the minimum amount of space
+that should be inserted between that object and the staff.  Note
+that @code{staff-padding} has no effect on objects which are
+positioned relative to the note rather than the staff, even though
+it may be overridden without error for such objects -- it is simply
+ignored.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-\break
-c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-@end lilypond
+To discover which padding property is required for the object
+you wish to reposition, you
+need to return to the IR and look up the object's properties.
+Be aware that the padding properties might not be located in the
+obvious object, so look in objects that appear to be related.
 
-@cindex extra-offset
+All padding values are measured in staff spaces.  For most
+objects, this value is set by default to be around 1.0 or less
+(it varies with each object).  It may be overridden if a larger
+(or smaller) gap is required.
 
-Another solution gives us complete control over placing the object -- we
-can move it horizontally or vertically.  This is done with the
-@code{extra-offset} property.  It is slightly more complicated and can
-cause other problems.  When we move objects with @code{extra-offset},
-the movement is done after LilyPond has placed all other objects.  This
-means
-that the result can overlap with other objects.
+@item 
+@code{self-alignment-X}
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@cindex self-alignment-X property
+This property aligns the object to the left, to the right, or
+centers it with respect to the parent object's reference point.
+It may be used with all objects which support the
+@code{self-alignment-interface}.  In general these are objects
+that contain text.  The values are @code{LEFT}, @code{RIGHT}
+or @code{CENTER}.  The movement is limited by the length of the
+object.  Any numerical value between @code{-1} and @code{+1} may
+also be specified, where @code{-1} is left-aligned, @code{+1}
+is right-aligned, and numbers in between move the text
+progressively from left-aligned to right-aligned.
 
-With @code{extra-offset}, the first number controls the horizontal
-movement (left is negative); the second number controls the vertical
-movement (up is positive).  After a bit of experimenting, we decided
-that these values look good
+@item 
+@code{extra-spacing-width}
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@cindex extra-spacing-width property
+This property is available for all objects which support the
+@code{item-interface}.  It takes two numbers, the first is added
+to the leftmost extent and the second is added to the rightmost
+extent.  Negative numbers move the edge to the left, positive to
+the right, so to widen an object the first number must be negative,
+the second positive.  Note that not all objects honour both
+numbers.  For example, the @code{Accidental} object only takes
+notice of the first (left edge) number.
 
-@noindent
-Again, these numbers are simply the result of a few experiments and
-looking at the output.  You might prefer the text to be slightly higher,
-or to the left, or whatever.  Try it and look at the result!
+@item 
+@code{staff-position}
 
-One final warning: in this section, we used
+@cindex staff-position property
+@code{staff-position} is a property of the
+@code{staff-symbol-referencer-interface}, which is supported by
+objects which are positioned relative to the staff.  It specifies
+the vertical position of the object relative to the center line
+of the staff in half staff-spaces.  It is useful in resolving
+collisions between layout objects like multi-measure rests, ties
+and notes in different voices.
 
-@example
-\once \override TextScript @dots{}
-@end example
+@item 
+@code{force-hshift}
 
-This tweaks the display of text for the next note.  If the note has
-no text, this tweak does nothing (and does @strong{not} wait until
-the next bit of text).  To change the behavior of everything after
-the command, omit the @code{\once}.  To stop this tweak, use a
-@code{\revert}.  This is explained in depth in
-@ruser{The \override command}.
+@cindex force-hshift property
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b
-\once \override TextScript #'padding = #4.6
-  a4 b
-c4^"piu mosso" d e f
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\break
-\override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\revert TextScript #'padding
-c4^"piu mosso" d e f
-@end lilypond
+TODO Move this explanation and add expanation of \shiftOn etc to
+     Explicitly instantiating voices section in Fundamental concepts
+
+[Closely spaced notes in a chord, or notes occuring at the same
+time in different voices, are arranged in two, occasionally more,
+columns to prevent the noteheads overlapping.  These are called
+note columns, and an object called @code{NoteColumn} is created
+to lay out the notes in that column.  There are separate columns
+for each voice.]
+The @code{force-hshift}
+property is a property of a @code{NoteColumn} (actually of the
+@code{note-column-interface}).  Changing it permits a note column
+to be moved in units appropriate to a note column, viz. the note
+head width of the first voice note.  It should be used in
+complex situations where the normal @code{\shiftOn} commands (see
+@ref{Explicitly instantiating voices}) do
+not resolve the note conflict.  It is preferable to the
+@code{extra-offset} property for this purpose as there is no need
+to work out the distance in staff-spaces, and moving the notes
+into or out of a @code{NoteColumn} affects other actions such as
+merging noteheads.
+
+@end itemize
+
+Objects do not all have all of these properties in general.
+It is necessary to go to the IR to look up which properties
+are available for the object in question.
+
+@item
+Finally, when all else fails, objects may be manually repositioned
+relative to the staff center line verically, or by
+displacing them by any distance to a new position.  The
+disadvantages are that the correct values for the repositioning
+have to be worked out, often by trial and error, for every object
+individually, and, because the movement is done after LilyPond has
+placed all other objects, the user is responsible for avoiding any
+collisions that might ensue.  But the main difficulty with this
+approach is that the repositioning values may need to be reworked
+if the music is later modified.  The properties that can be used
+for this type of manual repositioning are:
+
+@table @code
+@item extra-offset
+@cindex extra-offset property
+This property applies to any layout object
+supporting the @code{grob-interface}.  It takes a pair of
+numbers which specify the extra displacement in the horizontal and
+vertical directions.  Negative numbers move the object to
+the left or down.  The units are staff-spaces.  The extra
+displacement is made after the typesetting of objects is
+finished, so an object may be repositioned anywhere without
+affecting anything else.
+
+@item positions
+@cindex positions property
+This is most useful for manually adjusting the slope and height
+of beams, slurs, and tuplets.   It takes a pair of numbers
+giving the position of the left and right ends of the beam, slur,
+etc. relative to the center line of the staff.  Units are
+staff-spaces.
+@end table
+
+Objects do not all have all of these properties in general.
+It is necessary to go to the IR to look up which properties
+are available for the object in question.
+
+@end enumerate
+
+Here is a list of the objects which are most likely to be
+involved in collisions, together with the name of the object which
+should be looked up in the IR in order to discover which properties
+should be used to move them.
+
+@multitable @columnfractions .5 .5
+@headitem Object type           @tab Object name
+@item Articulations             @tab @code{Script}
+@item Beams                     @tab @code{Beam}
+@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
+@item Dynamics (horizontally)   @tab @code{DynamicText}
+@item Fingerings                @tab @code{Fingering}
+@item Rehearsal / Text marks    @tab @code{RehearsalMark}
+@item Slurs                     @tab @code{Slur}
+@item Text e.g. @code{^"text"}  @tab @code{TextScript}
+@item Ties                      @tab @code{Tie}
+@item Tuplets                   @tab @code{TupletBracket}
+@end multitable
 
 
 @node Fixing overlapping notation
 @subsection Fixing overlapping notation
 
-In @ref{Moving objects}, we saw how to move a @code{TextScript}
-object.  The same mechanism can be used to move other types of
-objects; simply replace @code{TextScript} with the name of
-another object.
+Let's now see how the properties in the previous section can
+help to resolve overlapping notation.
 
-To find the object name, look at the @q{@strong{see also}} at
-bottom of the relevant documentation page.  For example, at
-the bottom of @ruser{Dynamics}, we see
-
-@quotation
-@seealso
-
-Internals Reference: @internalsref{DynamicText}, @internalsref{Hairpin}.
-Vertical positioning of these symbols is handled by
-@internalsref{DynamicLineSpanner}.
-@end quotation
-
-@noindent
-So to move dynamics around vertically, we use
-
-@example
-\override DynamicLineSpanner #'padding = #2.0
-@end example
-
-We cannot list every object, but here is a list of the most
-common objects.
-
-@multitable @columnfractions .33 .66
-@headitem Object type           @tab Object name
-@item Dynamics (vertically)     @tab @code{DynamicLineSpanner}
-@item Dynamics (horizontally)   @tab @code{DynamicText}
-@item Ties                      @tab @code{Tie}
-@item Slurs                     @tab @code{Slur}
-@item Articulations             @tab @code{Script}
-@item Fingerings                @tab @code{Fingering}
-@item Text e.g. @code{^"text"}  @tab @code{TextScript}
-@item Rehearsal / Text marks    @tab @code{RehearsalMark}
-@end multitable
-
-Ways of correcting horizontal placings are described fully 
-in the Notation Reference.  
-We introduce just one here, the @code{force-hshift} property of 
-@code{NoteColumn}.  The lower two notes of the first chord (i.e,
-those in the third voice) should not be shifted away from the
-note column of the higher two notes.  To correct this we set
-@code{force-hshift} of these notes to zero.  
-The lower note of the second chord is best placed just to the 
-right of the higher notes.  We achieve this by setting
-@code{force-hshift} of this note to 0.5, ie half a notehead's 
-width to the right of the note column of the higher notes.
-
-Here's the final result:
-    
-@lilypond[quote,verbatim,fragment,ragged-right]
-\new Staff \relative c'' {
-  \key aes \major
-  << 
-    { c2 aes4. bes8 } \\ 
-    { aes2 f4 fes   } \\ 
-    { \voiceFour
-      \once \override NoteColumn #'force-hshift = #0 <ees c>2
-      \once \override NoteColumn #'force-hshift = #0.5 des2 
-    }
-  >> |
-  <c ees aes c>1 |
-}
-@end lilypond
-
-@cindex padding
+@subheading padding property
+@cindex padding property
 
 The @code{padding} property can be set to increase
 (or decrease) the distance between symbols that are printed
-above or below notes.  This applies to all objects with
-@code{side-position-interface}.
+above or below notes.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
@@ -1700,15 +1959,89 @@ is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ruser{Constructing a tweak}.
 
-@cindex extra-offset
+@subheading left-padding and right-padding properties
+@cindex left-padding property
+@cindex right-padding property
 
-The @code{extra-offset} property moves objects around
-in the output; it requires a pair of numbers.  The first number
-controls horizontal movement; a positive number will
-move the object to the right.  The second number controls vertical
-movement; a positive number will move it higher.  The
-@code{extra-offset} property is a low-level feature: the
-formatting engine is completely oblivious to these offsets.
+TODO Example of this - at the moment I can't find one! -td
+
+@subheading staff-padding property
+@cindex staff-padding property
+
+@code{staff-padding} can be used to align objects such as dynamics
+along a baseline at a fixed height above the staff, rather than
+at a height dependent on the position of the note to which they
+are attached.  It is not a property of
+@code{DynamicText} but of @code{DynamicLineSpanner}.
+This is because the baseline should apply equally to @strong{all}
+dynamics, including those created as extended spanners.
+So this is the way to align the dynamic marks in the example
+taken from the previous section:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 unit
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+% Align dynamics to a base line 2 units above staff
+\override DynamicLineSpanner #'staff-padding = #2
+a4\f b\mf c\mp b\p
+@end lilypond
+
+
+@subheading self-alignment-X property
+@cindex self-alignment-X property
+
+The following example shows how this can resolve the collision
+of a string fingering object with a note's stem by aligning the
+right edge with the reference point of the parent note:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+< a \2 >
+\once \override StringNumber #'self-alignment-X = #RIGHT
+< a \2 >
+@end lilypond
+
+@subheading staff-position property
+@cindex staff-position property
+
+Multimeasure rests in one voice can collide with notes in another.
+Since these rests are typeset centered between the bar lines, it
+would require significant effort for LilyPond to figure out which
+other notes might collide with it, since all the current collision
+handling between notes and between notes and rests is done only
+for notes and rests that occur at the same time.  Here's an
+example of a collision of this type:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<< {c c c c} \\ {R1} >>
+@end lilypond
+
+The best solution here is to move the multimeasure rest down,
+since the rest is in voice two.
+The default in @code{\voiceTwo} (i.e. in the second voice of a
+@code{<<@{...@} \\ @{...@}>>} construct)
+is that @code{staff-position} is set to -4 for MultiMeasureRest,
+so we need to move it, say, four half-staff spaces down to
+@code{-8}.
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<<
+  {c c c c}
+\\
+  \override MultiMeasureRest #'staff-position = #-8
+  {R1}
+>>
+@end lilypond
+
+This is better than using, for example, @code{extra-offset},
+because the ledger line above the rest is inserted automatically.
+
+@subheading extra-offset property
+@cindex extra-offset property
+
+The @code{extra-offset} property provides complete control over the
+positioning of an object both horizontally and vertically.
 
 In the following example, the second fingering is moved a little to
 the left, and 1.8 staff space downwards:
@@ -1722,13 +2055,277 @@ f-5
 @end lilypond
 
 
+@subheading force-hshift property
+@cindex force-hshift property
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
+
+We can now see how to apply the final corrections to the Chopin
+example introduced at the end of @ref{I'm hearing Voices}, which
+was left looking like this:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      <ees c>2
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+The lower two notes of the first chord (i.e,
+those in the third voice) should not be shifted away from the
+note column of the higher two notes.  To correct this we set
+@code{force-hshift}, which is a property of
+@code{NoteColumn}, of these notes to zero.
+The lower note of the second chord is best placed just to the
+right of the higher notes.  We achieve this by setting
+@code{force-hshift} of this note to 0.5, ie half a notehead's
+width to the right of the note column of the higher notes.
+
+Here's the final result:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+@subheading positions property
+@cindex positions property
+
+The @code{positions} property allows the position and slope of
+ tuplets, slurs, phrasing slurs and beams to be controlled
+manually.  Here's an example which has an ugly phrasing slur
+due to its trying to avoid the slur on the acciaccatura.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4  \acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+We could simply move the phrasing slur above the notes, and this
+would be the preferred solution:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\phrasingSlurUp
+\acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+but if there were some reason why this could not be done the
+other alternative would be to move the left end of the phrasing
+slur down a little using the @code{positions} property.  This
+also resolves the rather nasty shape.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\acciaccatura
+e8\( d8 c ~c d c d\)
+@end lilypond
+
+Here's a further example taken from the opening of the left-hand
+staff of Chopin's Prelude Op 28 No. 2.  We see that the beam 
+collides with the upper notes:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+\clef "bass"
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+This can only be resolved by manually moving both ends of the beam 
+up from their position at 2 staff-spaces above the center line to, 
+say, 3:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \clef "bass"
+  <<
+    \override Beam #'positions = #'(3 . 3)
+    {b,8 ais, b, g,}
+  \\
+    {e, g e, g}
+  >>
+  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Note that the override continues to apply in the first voice of
+the second block of quavers, but not to any of the beams in the
+second voice.
+
+TODO Examples of real music showing collisions and their resolution
+
 
 @node Page layout
 @section Page layout
 
 @menu
+* Introduction to layout::      
+* Global sizes::                
+* Line breaks::                 
+* Page breaks::                 
 * Fitting music onto fewer pages::  
 @end menu
+
+@node Introduction to layout
+@subsection Introduction to layout
+
+The global paper layout is determined by three factors: 
+the page layout, the line breaks, and the spacing. These all 
+influence each other. The choice of spacing determines how 
+densely each system of music is set. This influences where line 
+breaks are chosen, and thus ultimately, how many pages a piece 
+of music takes.
+
+Settings which influence layout may be placed in two blocks.
+The @code{\paper @{...@}} block is placed outside any
+@code{\score @{...@}} blocks and contains settings that
+relate to the entire document.  The @code{\layout @{...@}}
+block is placed within a @code{\score @{...@}} block and
+contains settings for that particular score.  If you have
+only one @code{\score @{...@}} block the two have the same
+effect.  In general the commands shown in this section can
+be placed in either.
+
+Much more detail on the options for tweaking the laying out
+of music are contained in @ruser{Spacing issues}.
+
+@node Global sizes
+@subsection Global sizes
+
+TODO Check all these examples
+
+The default @strong{paper size} which LilyPond assumes in laying
+out the music is A4.  This may be changed in two ways:
+
+@example
+#(set-default-paper-size "a6")
+
+\paper @{
+#(set-paper-size "letter")
+@}
+@end example
+
+@noindent
+The first command sets the size of all pages. The second command
+sets the size of the pages to which the \paper block applies - if
+the \paper block is at the top of the file, then it will apply
+to all pages.  Support for the following paper sizes is included:
+a6, a5, a4, a3, legal, letter, 11x17 (also known as tabloid).
+Setting the paper size automatically sets suitable margins and 
+line length.
+
+If the symbol @code{landscape} is supplied as an argument to
+@code{set-default-paper-size}, the pages will be rotated by 90
+degrees, and wider line widths will be set correspondingly, e.g.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+The default @strong{staff size} is set to 20 points.
+This may be changed in two ways:
+
+@example
+#(set-global-staff-size 14)
+
+\paper @{
+#(set-global-staff-size 16)
+@}
+@end example
+
+@noindent
+The first command sets the size in all pages. The second command
+sets the size in the pages to which the \paper block applies  if
+the \paper block is at the top of the file, then it will apply
+to all pages.  All the fonts are automatically scaled to suit
+the new value of the staff size.
+
+@node Line breaks
+@subsection Line breaks
+
+Line breaks are normally computed automatically. They are chosen
+so that lines look neither cramped nor loose, and consecutive
+lines have similar density.  Occasionally you might want to
+override the automatic breaks; you can do this by specifying
+@code{\break}. This will force a line break at this point.  However,
+line breaks can only occur at the end of @q{complete} bars, i.e.,
+where there are no notes or tuplets left @q{hanging} over the bar
+line.  If you want to have a line break where there is no bar line, 
+you can force an invisible bar line by entering @code{\bar ""},
+although again there must be no notes left hanging over in any of
+the staves.
+
+The opposite command, @code{\noBreak}, forbids a line break at the
+bar line where it is inserted.
+
+The most basic settings influencing line spacing are @code{indent}
+and @code{line-width}. They are set in the @code{\layout} block.
+They control the indentation of the first line of music, and the 
+lengths of the lines.
+
+If @code{ragged-right} is set to true in the @code{\layout} block,
+then systems end at their natural horizontal length, instead of
+being spread horizontally to fill the whole line. This is useful
+for short fragments, and for checking how tight the natural
+spacing is.
+
+The option @code{ragged-last} is similar to @code{ragged-right},
+but affects only the last line of the piece.
+
+@example
+\layout @{
+indent = #0
+line-width = #150
+ragged-last = ##t
+@}
+@end example
+
+@node Page breaks
+@subsection Page breaks
+
+The default page breaking may be overriden by inserting 
+@code{\pageBreak} or @code{\noPageBreak} commands.
+These commands are analogous to @code{\break} and @code{\noBreak}.
+These commands force and forbid a page-break at the point where
+they are inserted.
+Of course, the @code{\pageBreak} command also forces a line break.
+Like @code{\break}, the @code{\pageBreak} command is effective only
+at the end of a @q{complete} bar as defined above.  For more
+details see @ruser{Page breaking} and following sections.
+
+There are also analogous settings to @code{ragged-right} and
+@code{ragged-last} which have the same effect on vertical spacing:
+@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
+@code{##t} the systems on all pages or just the last page
+respectively are not justified vertically.
+
+For more details see @ruser{Vertical spacing}.
 
 @node Fitting music onto fewer pages
 @subsection Fitting music onto fewer pages
@@ -1781,73 +2378,92 @@ systems, they will take up more space than one system with
 the volta repeats and another system without.
 
 Another example is moving dynamics which @q{stick out} of
-a system.
+a system, as in the second bar here:
 
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
+@lilypond[verbatim,quote,fragment,ragged-right,relative=1]
+e4 c g\f c
+\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
+e4 c g\f c
 @end lilypond
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ruser{Changing horizontal spacing}, for more details.
+@ruser{Changing horizontal spacing}, for more details.  Here's
+an example first showing the default behaviour:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,ragged-right]
 \score {
   \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+and now with @code{common-shortest-duration} increased from the
+value of @code{1/4} (a quarter note is the most common in this
+example) to @code{1/2}:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
   }
   \layout {
     \context {
       \Score
       \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
+                #'common-shortest-duration = #(ly:make-moment 1 2)
     }
   }
 }
 @end lilypond
 
+@noindent
+Note that this override cannot be modified dynamically, so it must
+always be placed in a @code{\context@{..@}} block so that it applies
+to the whole score.
+
+TODO Add description of using \context in this way earlier if it is
+not already anywhere  -td
+
 @end itemize
 
+TODO  Mention line-thickness somewhere else and move this there
+
+@cindex Tweaks, distances
+@cindex Distances
+
+Distances in LilyPond are measured in staff-spaces, while most
+thickness properties are measured in line-thickness.  Some
+properties are different; for example, the thickness of beams
+are measured in staff-spaces.  For more information, see the
+relevant portion of the program reference.
 
 
 
-
-@c Old stuff follows  -td
-
-@node Common tweaks
-@section Common tweaks
-
-blah blah
+@node Further tweaking
+@section Further tweaking
 
 @menu
-* Other common tweaks::         
+* Other uses for tweaks::       
+* Other sources of information::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
 @end menu
 
-
-
-@node Other common tweaks
-@subsection Other common tweaks
-
-Some overrides are so common that predefined commands are provided as
-short-cuts, such as @code{\slurUp} and @code{\stemDown}.  These
-commands are described in the Notation Reference under the appropriate
-sections.
-
-The complete list of modifications available for each type of
-object (like slurs or beams) are documented in the Program
-Reference.  However, many layout objects share properties which can be
-used to apply generic tweaks.
+@node Other uses for tweaks
+@subsection Other uses for tweaks
 
 @itemize
-
 
 @item
 Setting the @code{transparent} property will cause an object to be printed
@@ -1875,7 +2491,6 @@ voice.  By introducing a tie in a different voice,
 and blanking the first up-stem in that voice, the tie appears to cross
 voices:
 
-
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
   \once \override Stem #'transparent = ##t
@@ -1901,40 +2516,15 @@ we also lengthen the stem, by setting the @code{length} to
 
 @end itemize
 
-@cindex Tweaks, distances
-@cindex Distances
 
-Distances in LilyPond are measured in staff-spaces, while most
-thickness properties are measured in line-thickness.  Some
-properties are different; for example, the thickness of beams
-are measured in staff-spaces.  For more information, see the
-relevant portion of the program reference.
-
-
-
-@node TODO other name
-@section TODO other name
-
-@menu
-* Predefined tweaks::           
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
-* The three methods of tweaking::  
-@end menu
-
-@node Predefined tweaks
-@subsection Predefined tweaks
-
-TODO: Some tweaks are really common, blah blah.
-
-for example \slurUp, \fatText.
-
-Show example, then explain where to find ly/propert-ly.
-
+@node Other sources of information
+@subsection Other sources of information
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered from
 looking at the internal LilyPond files.
+
+TODO Show example, then explain where to find ly/propert-ly.
 
 Some default settings (such as the definitions for
 @code{\header@{@}}s) are stored as @code{.ly} files.  Other
@@ -1975,6 +2565,8 @@ of this, see the @ref{Scheme tutorial}, and
 
 We can use Scheme to simply @code{\override} commands,
 
+TODO Check this is a valid example with skylining
+
 @lilypond[quote,verbatim,ragged-right]
 padText = #(define-music-function (parser location padding) (number?)
 #{
@@ -1991,6 +2583,8 @@ padText = #(define-music-function (parser location padding) (number?)
 @end lilypond
 
 We can use it to create new commands,
+
+TODO Check this is a valid example with skylining
 
 @lilypond[quote,verbatim,ragged-right]
 tempoMark = #(define-music-function (parser location padding marktext)
@@ -2049,42 +2643,12 @@ In some cases (see issue 246), this must be done before
 @end verbatim
 
 
-@node The three methods of tweaking
-@subsection The three methods of tweaking
-
-FIXME write this.
-
-@verbatim
-\override
-@end verbatim
-
-@verbatim
-\with {
-
-}
-@end verbatim
-
-@verbatim
-\layout{ \context
-
-}}
-@end verbatim
-
-
-
-FIXME discuss \tweak
 
 
 
 
 
-FIXME:
-- There is a section in the manual on \set vs \override (3.3.7),
-which is incomplete.  First it doesn't mention \overrideProperty,
-nor does it mention properties which are not capitalized at all.
-And it should explain that \override should be used to set
-properties with hyphenated names, like auto-knee-gap.  (I had to
-experiment to find out how to do this.)
+
 
 
 

@@ -147,8 +147,6 @@ are rests from 128th to maxima (8 x whole).
 @cindex triplets
 @funindex \times
 
-@c TODO Add Tuplet to glossary
-
 Tuplets are made out of a music expression by multiplying all
 durations with a fraction:
 
@@ -304,7 +302,7 @@ point.
 
 @seealso
 
-Music Glossary: @c TODO Add @rglos{Tuplet} when Tuplet has been added to the Glossary
+Music Glossary: @rglos{tuplet}.
 
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
@@ -438,7 +436,8 @@ c4_~ c c^~ c)
 
 @seealso
 
-Music Glossary: @rglos{tie}, @c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
+Music Glossary: @rglos{tie},
+@c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
 
 Snippets: @lsrdir{rhythms}
 
@@ -533,10 +532,15 @@ well-defined.  In these cases, a slur may be preferable.
 @node Rests
 @unnumberedsubsubsec Rests
 @cindex rest
+@cindex maxima
+@cindex longa
+@cindex breve
 
 @funindex \rest
 @funindex r
 @funindex \maxima
+@funindex \longa
+@funindex \breve
 
 Rests are entered like notes with the note name @code{r}:
 
@@ -599,6 +603,8 @@ note with note name @code{s} or with @code{\skip @var{duration}}
 a4 a4 s4 a4 \skip 1 a4
 @end lilypond
 
+@cindex lyrics, skip
+
 The @code{s} syntax is only available in note mode and chord mode.
 In other situations, for example, when entering lyrics, one must
 use the @code{\skip} command:
@@ -648,8 +654,9 @@ Internals Reference: @internalsref{SkipMusic}.
 Rests for one or more full measures are entered using @code{R}
 followed by a duration (see @ref{Durations}).  The duration should
 correspond to an integral number of measures, otherwise a barcheck
-warning is printed.  Multi-measure rests are principally used to
-indicate that a part in a multi-part score should be silent:
+warning is printed.  A @rglos{multi-measure rest} is used 
+principally to indicate that a part in a multi-part score should 
+be silent:
 
 @lilypond[quote,fragment,verbatim,relative=2]
 \set Score.skipBars = ##t
@@ -695,9 +702,13 @@ An @code{R} spanning a single measure is printed as either a whole
 or breve rest, centered in the measure, regardless of the time
 signature.
 
+@cindex church rest
+@cindex rest, church
+@cindex kirchenpausen 
+
 If there are 10 or fewer measures of rest, LilyPond prints
-@rglos{church rests} (a series of longa and breve rests)
-in the staff and
+a series of longa and breve rests (called in German 
+Kirchenpausen - @q{church rests}) within the staff and
 prints a simple line otherwise.  This default number of 10
 may be changed by overriding 
 @code{MultiMeasureRest.expand-limit}.
@@ -763,13 +774,12 @@ c4^\markup {CHORUS} d f c
 
 @seealso
 
-This manual: @ref{Text}, @ref{Text scripts}.
+Notation Reference: @ref{Durations}, @ref{Text},
+@ref{Text markup}, @ref{Text scripts}.
 
 Snippets: @lsrdir{rhythms}
 
-Internals Reference: 
-
-@internalsref{MultiMeasureRest}.
+Internals Reference: @internalsref{MultiMeasureRest}.
 
 The layout object @internalsref{MultiMeasureRestNumber} is for the
 default number, and @internalsref{MultiMeasureRestText} for user
@@ -1024,6 +1034,9 @@ Snippets: @lsrdir{rhythms}
 @cindex polymetric signatures
 @cindex meter, polymetric
 
+@c TODO: add glossary entries for {signature, polymetric},
+@c {meter, polymetric}, {polymetric} (time signature, double}. rp
+
 Double time signatures are not supported explicitly, but they can
 be faked.  In the next example, the markup for the time signature
 is created with a markup text.  This markup text is inserted in
@@ -1096,6 +1109,7 @@ printed durations in each staff are scaled to the common time
 signature.  The latter is done with @code{\compressMusic}, which
 is used in a similar way to @code{\times}, but does not create 
 a tuplet bracket.  The syntax is 
+
 @funindex \compressMusic
 
 @example 
@@ -1143,7 +1157,15 @@ aligned vertically, but bar lines distort the regular spacing.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+@ignore
+TODO: add @rglos{polymetric time signature}, {polymetric}, {double time
+signature}, and {polymetric meter}. when glossary entries
+exist.
+@end ignore
+
+Snippets: @lsrdir{rhythms}, @lsr{contemporary,compound-time-signature}.
+
+Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
 
 
 @node Automatic note splitting
@@ -1188,7 +1210,8 @@ split rests.
 
 Snippets: @lsrdir{rhythms}
 
-Internals Reference: @internalsref{Completion_heads_engraver},
+Internals Reference: @internalsref{Note_heads_engraver},
+@internalsref{Completion_heads_engraver},
 @internalsref{Forbid_line_break_engraver}.
 
 
@@ -1207,7 +1230,10 @@ Internals Reference: @internalsref{Completion_heads_engraver},
 @node Automatic beams
 @unnumberedsubsubsec Automatic beams
 
-By default beams are inserted automatically:
+By default, beams are inserted automatically:
+
+@cindex beams, manual
+@cindex manual beams
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4 c8 c c c
@@ -1248,11 +1274,12 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
+@c [TODO I think this could be worded more clearly, but I'm not sure how.] rp
 The property @code{subdivideBeams} can be set in order to
 subdivide all 16th or shorter beams.  When set, multiple beams
 will be sub-divided at beat positions, defined by the current
 value of @code{beatLength} (defaults to a quarter note), by
-drawing only one beam over the beat.
+drawing only one beam over the connection between beats.
 
 @lilypond[fragment,ragged-right,quote,relative=2,verbatim]
 c32[ c c c c c c c]
@@ -1270,6 +1297,8 @@ For more information about @code{make-moment}, see
 @ref{Time administration}.
 
 @funindex breakable
+@cindex break, line
+@cindex line breaks
 
 Line breaks are normally forbidden when beams cross bar lines.
 This behavior can be changed by setting the @code{breakable} 
@@ -1301,6 +1330,8 @@ f8 f''8 f8 f''8
 
 
 @seealso
+
+Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
 
 Snippets: @lsrdir{rhythms}
 
@@ -1578,11 +1609,11 @@ which notes are to have their durations modified.  Normally
 these would delimit the same group of notes, but this is not
 required: the two commands are independent. 
 
-In the following example the eight 16th notes occupy exactly
-the same time as a half note, but the first note is twice
-as short as the last one, with the intermediate notes gradually
-lengthening.  The first four 32nd notes gradually speed up,
-while the last four 32nd notes are at a constant tempo.
+In the following example the eight 16th notes occupy exactly the
+same time as a half note, but the first note is one half as long
+as the last one, with the intermediate notes gradually
+lengthening.  The first four 32nd notes gradually speed up, while
+the last four 32nd notes are at a constant tempo.
 
 @lilypond[ragged-right,relative=1,fragment,verbatim,quote]
 \override Beam #'grow-direction = #LEFT
@@ -1654,6 +1685,10 @@ or even flowing off the page.  This is because automatic line
 breaks happen only at the end of complete bars, i.e. where 
 the end of a note coincides with the end of a bar.
 
+@cindex line breaks
+@cindex bar lines, invisible
+@cindex measure lines, invisible
+
 Line breaks are also permitted at manually inserted bar lines
 even within incomplete bars.  To allow a line break without 
 printing a bar line, use
@@ -1696,6 +1731,8 @@ and three types of repeat bar line:
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 f1 \bar "|:" g \bar ":|:" a \bar ":|" b
 @end lilypond
+
+@cindex repeats
 
 Although the bar line types signifying repeats may be inserted
 manually they do not in themselves cause LilyPond to recognise
@@ -1753,7 +1790,8 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 @seealso
 
-Notation Reference: @ref{Repeats}, @ref{System start delimiters}.
+Notation Reference: @ref{Line breaking}, @ref{Repeats},
+@ref{System start delimiters}.
 
 Snippets: @lsrdir{rhythms}
 
@@ -1770,11 +1808,10 @@ properties).
 @cindex measure numbers
 @funindex currentBarNumber
 
-Bar numbers are typeset by default at the start of every line
-except the first line.  The
-number itself is stored in the @code{currentBarNumber} property,
-which is normally updated automatically for every measure.  It
-may also be set manually:
+Bar numbers are typeset by default at the start of every line except
+the first line.  The number itself is stored in the
+@code{currentBarNumber} property, which is normally updated
+automatically for every measure.  It may also be set manually:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 c1 c c c
@@ -1826,6 +1863,9 @@ c1 c c c c
 \break
 c c c c c
 @end lilypond
+
+@cindex measure number, format
+@cindex bar number, format
 
 The size of the bar number may be changed.  This is illustrated
 in the following example, which also shows how to enclose bar 
@@ -1938,7 +1978,7 @@ If bar check lines are encountered at other places,
 a list of warnings is printed in the log file,
 showing the line numbers and lines  
 in which the bar checks failed.  In the next
-example, the second bar check will signal an error
+example, the second bar check will signal an error.
 
 @example
 \time 3/4 c2 e4 | g2 |
@@ -2001,6 +2041,7 @@ Snippets: @lsrdir{rhythms}
 @unnumberedsubsubsec Rehearsal marks
 
 @cindex rehearsal marks
+@cindex mark, rehearsal
 @funindex \mark
 
 To print a rehearsal mark, use the @code{\mark} command
@@ -2025,6 +2066,13 @@ The mark is incremented automatically if you use @code{\mark
 \default}, but you can also use an integer argument to set the
 mark manually.  The value to use is stored in the property
 @code{rehearsalMark}.
+
+@cindex rehearsal mark format
+@cindex rehearsal mark style
+@cindex style, rehearsal mark
+@cindex format, rehearsal mark
+@cindex mark, rehearsal, style
+@cindex mark, rehearsal, format
 
 The style is defined by the property @code{markFormatter}.  It is
 a function taking the current mark (an integer) and the current
@@ -2094,7 +2142,7 @@ For common tweaks to the positioning of rehearsal marks, see
 
 Snippets: @lsrdir{rhythms}
 
-This manual: @ref{Text marks}.
+This manual: @ref{The Feta font}, @ref{Text marks}.
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -2164,6 +2212,8 @@ notes for every eighth grace note
 @end lilypond
 
 @funindex \afterGrace
+
+@cindex grace notes, following
 
 If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace
@@ -2238,6 +2288,8 @@ Another option is to change the variables @code{startGraceMusic},
 seen in the file @file{ly/@/grace@/-init@/.ly}.  By redefining
 them other effects may be obtained.
 
+@cindex stem, with slash
+
 @noindent
 The slash through the stem in @emph{acciaccatura}s can be obtained in
 other situations by @code{\override Stem  #'stroke-style =
@@ -2270,6 +2322,9 @@ in other staves by setting @code{strict-grace-spacing} to
 
 
 @seealso
+
+Music Glossary: @rglos{grace notes}, @rglos{acciaccatura}, 
+@c [TODO add appoggiatura]
 
 Snippets: @lsrdir{rhythms}
 
@@ -2309,17 +2364,20 @@ supported, and might produce crashes or other errors.
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
 
+@cindex cadenza
+@cindex cadenza, aligning to
+@cindex aligning to cadenza
+
 In an orchestral context, cadenzas present a special problem: when
 constructing a score that includes a cadenza, all other
 instruments should skip just as many notes as the length of the
 cadenza, otherwise they will start too soon or too late.
 
-A solution to this problem are the functions
+A solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
-functions take a piece of music as argument, and generate a
-multi-rest or @code{\skip}, exactly as long as the piece.  The use
-of @code{mmrest-of-length} is demonstrated in the following
-example.
+functions take a piece of music as argument, and generate a multi-rest
+or @code{\skip}, exactly as long as the piece.  The use of
+@code{mmrest-of-length} is demonstrated in the following example.
 
 @lilypond[verbatim,ragged-right,quote]
 cadenza = \relative c' {
@@ -2345,6 +2403,9 @@ Snippets: @lsrdir{rhythms}
 @unnumberedsubsubsec Time administration
 
 @cindex time administration
+@cindex timing (within the score)
+@cindex music, unmetered
+@cindex unmetered music
 
 @funindex currentBarNumber
 @funindex measurePosition
@@ -2358,6 +2419,9 @@ default is to be found in the @code{Score} context.  An alias,
 The following properties of @code{Timing} are used
 to keep track of timing within the score.
  
+@cindex bar number
+@cindex measure number
+
 @table @code
 @item currentBarNumber
 The current measure number.  For an example showing the
@@ -2415,6 +2479,7 @@ Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 

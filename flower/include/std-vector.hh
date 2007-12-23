@@ -25,7 +25,7 @@
 
 using namespace std;
 
-#if HAVE_BOOST_LAMBDA
+#if HAVE_BOOST_LAMBDA_LAMBDA_HPP
 #include <boost/lambda/lambda.hpp>
 #endif
 
@@ -226,7 +226,7 @@ find (vector<T> const &v, T const &key)
   return find (v.begin (), v.end (), key);
 }
 
-#if HAVE_BOOST_LAMBDA
+#if HAVE_BOOST_LAMBDA_LAMBDA_HPP
 #include <boost/lambda/lambda.hpp>
 using namespace boost::lambda;
 template<typename T>

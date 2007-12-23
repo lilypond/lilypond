@@ -69,6 +69,14 @@ outroot=.
 include $(config_make)
 
 include $(depth)/make/toplevel-version.make
+
+#
+# suggested settings
+#
+# CPU_COUNT=2   ## for SMP/Multicore machine
+# 
+-include $(depth)/local.make
+
 MICRO_VERSION=$(PATCH_LEVEL)
 BUILD_VERSION=1
 

@@ -32,12 +32,6 @@ INSTALLATION_FILES=$(config_make) VERSION
 STEPMAKE_TEMPLATES=toplevel po install
 include $(depth)/make/stepmake.make
 
-#
-# suggested settings
-#
-# LILYPOND_JOBS= -djob-count=X   ## for SMP/Multicore machine
-# 
-include local.make
 
 local-dist: dist-toplevel-txt-files 
 
@@ -220,8 +214,8 @@ test-baseline:
 	fi
 	$(MAKE) 
 	$(MAKE) test
-	$(MAKE) -C input/regression/ local-test-baseline
-	$(MAKE) -C input/regression/musicxml local-test-baseline
+	$(MAKE) out=test -C input/regression/ local-test-baseline
+	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
 
 local-check: test
 	rm -rf $(RESULT_DIR)
@@ -239,3 +233,4 @@ test-redo:
 
 test-clean:
 	$(MAKE) -C input/regression/ out=test clean
+

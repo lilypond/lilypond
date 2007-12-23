@@ -83,6 +83,7 @@ public:
   static Real get_thickness (Grob *me);
   static void connect_beams (Grob *me);
   static vector<Beam_segment> get_beam_segments (Grob *me_grob, Grob **common); 
+  static Interval no_visible_stem_positions (Grob *me, Interval default_value);
   
   DECLARE_SCHEME_CALLBACK (rest_collision_callback, (SCM element, SCM prev_off));
   DECLARE_SCHEME_CALLBACK (print, (SCM));

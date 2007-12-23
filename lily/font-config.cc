@@ -45,8 +45,10 @@ init_fontconfig ()
 			
   vector<string> dirs;
 
-  dirs.push_back (lilypond_datadir + "/fonts/otf/");
-  dirs.push_back (lilypond_datadir + "/fonts/type1/");
+  /* Extra trailing slash suddenly breaks fontconfig (fc-cache 2.5.0)
+     on windows.  */
+  dirs.push_back (lilypond_datadir + "/fonts/otf");
+  dirs.push_back (lilypond_datadir + "/fonts/type1");
   
   for (vsize i = 0; i < dirs.size (); i++)
     {

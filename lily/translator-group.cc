@@ -214,7 +214,8 @@ precomputed_recurse_over_translators (Context *c, Translator_precompute_index id
 }
 
 void
-recurse_over_translators (Context *c, Translator_method ptr, Translator_group_method tg_ptr, Direction dir)
+recurse_over_translators (Context *c, Translator_method ptr,
+			  Translator_group_method tg_ptr, Direction dir)
 {
   Translator_group *tg
     = dynamic_cast<Translator_group *> (c->implementation ());

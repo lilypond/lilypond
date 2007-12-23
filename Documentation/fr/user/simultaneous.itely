@@ -81,7 +81,6 @@ seront pas imprimées de façon acceptable.  utilisez plutôt
 
 @menu
 * Basic polyphony::             
-* Explicitly instantiating voices::  
 * Collision Resolution::        
 * Automatic part combining::    
 * Writing music in parallel::   
@@ -167,129 +166,6 @@ qui la précède immédiatement, sans tenir compte des différentes voix.
 @code{noteC} est calculé relativement à @code{noteB}, non pas à
 @code{noteA} ; @code{noteD} est calculé relativement à @code{noteC}, non
 pas à @code{noteB} ou @code{noteA}.
-
-
-@node Explicitly instantiating voices
-@unnumberedsubsubsec Explicitly instantiating voices
-
-Les contextes @internalsref{Voice} peuvent être déclarés manuellement
-dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
-utilisant @code{\voiceOne}, @dots{} jusqu'à @code{\voiceFour} pour
-assigner des directions de hampes et un déplacement horizontal pour
-chaque partie.
-
-En particulier,
-@example
-<< \upper \\ \lower >>
-@end example
-
-@noindent
-équivaut à
-
-@example
-<<
- \new Voice = "1" @{ \voiceOne \upper @}
- \new Voice = "2" @{ \voiceTwo \lower @}
->>
-@end example
-
-Les commandes @code{\voiceXXX} fixent la direction des hampes, des
-liaisons de prolongations et de phrasé, des articulations, des
-annotations, des points d'augmentation des notes pointées et des
-doigtés.  @code{\voiceOne} et @code{\voiceThree} font pointer ces objets
-vers le haut, alors que @code{\voiceTwo} et @code{\voiceFour} les font
-pointer vers le bas.  La commande @code{\oneVoice} les ramène aux
-critères normaux.
-
-Une expression séquentielle qui apparaît en premier dans un @code{<< >>}
-appartient à la voix principale.  Ceci est utile lorsque des voix
-supplémentaires apparaissent pendant que la voix principale est jouée.
-Voici une meilleure réalisation de l'exemple de la section précédente.
-Les notes colorées et en croix mettent en évidence le fait que la mélodie principale
-est maintenant dans un seul contexte de voix.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  \override NoteHead #'style = #'cross
-  \override NoteHead #'color = #red
-  c16 d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2 }
-    \new Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. | s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-La définition correcte des voix permet à la mélodie d'être liée.
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
-      \oneVoice
-    }
-    \new Voice { \voiceThree
-      s2. s4 b4 c2
-      \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-Le fait d'éviter le séparateur @code{\\} permet aussi d'imbriquer des
-constructions polyphoniques, ce qui peut être une manière plus naturelle
-de saisir la musique.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff \relative c' {
-  c16^( d e f
-  \voiceOne
-  <<
-    { g4 f e | d2 e2) }
-    \context Voice="1" { \voiceTwo
-      r8 e4 d c8 ~ |
-      <<
-        {c8 b16 a b8 g ~ g2}
-        \new Voice { \voiceThree
-          s4 b4 c2
-          \oneVoice
-        }
-      >>
-    \oneVoice
-    }
-  >>
-  \oneVoice
-}
-@end lilypond
-
-Dans certaines circonstances de polyphonie complexe, vous pourrez être
-amené à recourir à des voix supplémentaires afin d'éviter des collisions
-de notes.  Ces voix additionnelles s'ajoutent en définissant un
-identificateur, comme le montre l'exemple suivant :
-
-@lilypond[quote,verbatim,ragged-right,relative=2]
-voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
-
-\relative c''' <<
-  { \voiceOne g4 ~  \stemDown g32[ f( es d c b a b64 )g] } \\
-  { \voiceThree  b4} \\
-  { \voiceFive d,} \\
-  { \voiceTwo g,}
->>
-@end lilypond
 
 
 @node Collision Resolution

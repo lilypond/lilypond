@@ -138,7 +138,7 @@ STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20050624)
 
 AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h])
 AC_LANG_PUSH(C++)
-AC_CHECK_HEADERS([sstream])
+AC_CHECK_HEADERS([sstream boost/lambda/lambda.hpp])
 AC_LANG_POP(C++)
 AC_HEADER_STAT
 AC_FUNC_MEMCMP
