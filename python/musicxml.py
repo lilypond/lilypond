@@ -700,8 +700,8 @@ class Notations (Music_xml_node):
 	else:
 	    return None
 
-    def get_tuplet (self):
-	return self.get_maybe_exist_typed_child (Tuplet)
+    def get_tuplets (self):
+	return self.get_typed_children (Tuplet)
 
 class Time_modification(Music_xml_node):
     def get_fraction (self):

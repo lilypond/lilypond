@@ -1404,8 +1404,7 @@ def musicxml_voice_to_lily_voice (voice):
         #    +fermata | arpeggiate | non-arpeggiate | 
         #    accidental-mark | other-notation
         for notations in notations_children:
-            if notations.get_tuplet():
-                tuplet_event = notations.get_tuplet()
+            for tuplet_event in notations.get_tuplets():
                 mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
                 frac = (1,1)
                 if mod:
