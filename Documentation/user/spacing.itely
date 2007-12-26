@@ -1414,7 +1414,7 @@ c^"This text is padded away from the previous text"
 c^"This text is placed close to the previous text"
 @end lilypond
 
-FIXME: this example doesn't work any more ?
+TODO: this example doesn't work any more ?
 
 By default, outside-staff objects are placed without regard to
 their horizontal distance from the previously-posititioned grobs.  This

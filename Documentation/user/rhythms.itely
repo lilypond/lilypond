@@ -244,7 +244,7 @@ example, @code{\tweak} specifies fraction text for the outer
 @cindex bracket, tuplet
 @funindex TupletBracket
 
-@c TODO: after LM 6 Tweaks includes \tweak info, look at this.-gp
+@c FIXME: after LM 6 Tweaks includes \tweak info, look at this.-gp
 @c It *should* be explained why \tweak must be used here, and why
 @c \override doesn't work. I've made an attempt, but I'm not sure
 @c if it is factually correct to say that \tweak must be used.
@@ -526,7 +526,7 @@ well-defined.  In these cases, a slur may be preferable.
 @menu
 * Rests::                       
 * Skips::                       
-* Multi measure rests::         
+* Full measure rests::          
 @end menu
 
 @node Rests
@@ -558,7 +558,7 @@ Rests are entered like notes with the note name @code{r}:
 
 Whole measure rests, centered in middle of the measure, must be entered as
 multi-measure rests.  They can be used for a single measure as well as
-many measures and are discussed in @ref{Multi measure rests}.
+many measures and are discussed in @ref{Full measure rests}.
 
 To explicitly specify a rest's vertical position, write a note
 followed by @code{\rest}.  A rest will be placed in the position
@@ -573,7 +573,7 @@ a4\rest d4\rest
 
 @seealso
 
-Notation Reference: @ref{Multi measure rests}.
+Notation Reference: @ref{Full measure rests}.
 
 Snippets: @lsrdir{rhythms}.
 
@@ -641,8 +641,8 @@ Snippets: @lsrdir{rhythms}
 Internals Reference: @internalsref{SkipMusic}.
 
 
-@node Multi measure rests
-@unnumberedsubsubsec Multi measure rests
+@node Full measure rests
+@unnumberedsubsubsec Full measure rests
 
 @cindex multi measure rests
 @cindex full measure rests
