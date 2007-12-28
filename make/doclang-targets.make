@@ -36,22 +36,18 @@ local-WWW: $(DEEP_HTML_FILES) $(PDF_FILES)
 	find $(outdir) -name '*.html' | xargs grep -L --label="" 'UNTRANSLATED NODE: IGNORE ME' | sed 's!$(outdir)/!!g' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py --prepend-suffix .$(ISOLANG) hard $(outdir) $(top-build-dir)/Documentation/user/$(outdir) $(TELY_FILES:%.tely=%.pdf)
 	find $(outdir) \( -name 'lily-??????????.png' -o -name 'lily-??????????.ly' \) -a -not -type l | sed 's!$(outdir)/!!g' | xargs $(PYTHON) $(buildscript-dir)/mass-link.py hard $(outdir) $(top-build-dir)/Documentation/user/$(outdir)
 
-# FIXME
-# ugh, this is not enough to avoid wasting build time, $(outdir)/user-ln should be touched for all languages
-	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $(outdir)/user-ln
-
 LINKED_PNGS = henle-flat-gray.png baer-flat-gray.png lily-flat-bw.png
 
 # makeinfo MUST have PNGs in cwd for info images to work
 # symlinking PNGs...
-# lilypond-book -I flag seems broken too, and texi2pdf -I flag confuses
-# pdfetex with .aux and other files from English manual
+# texi2pdf -I flag confuses pdfetex with .aux and other files
+# from English manual
 # symlinking lily-*...
 $(outdir)/user-ln: $(top-build-dir)/Documentation/user/$(outdir)
-	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $@
 	$(PYTHON) $(buildscript-dir)/mass-link.py symbolic $(top-build-dir)/Documentation/user/$(outdir) $(outdir) 'lily-*.pdf' 'lily-*.tex' 'lily-*.texi' 'lily-*.ly' 'lily-*.txt' 'lily-*.png' 'henle-flat-gray.*' 'baer-flat-gray.*' 'lily-flat-bw.*' 'context-example.*'
 	mkdir -p $(outdir)/lilypond
 	cd $(outdir)/lilypond && $(foreach i, $(LINKED_PNGS), ln -sf ../../$(depth)/Documentation/user/$(i) $(i) &&) true
+	touch -mr $(top-build-dir)/Documentation/user/$(outdir) $@
 
 local-WWW-clean: deep-WWW-clean
 
