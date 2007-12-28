@@ -311,13 +311,13 @@ Micro tones are also exported to the MIDI file.
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/preventing-extra-naturals-from-being-automatically-added.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]{pitches/makam.ly}
+@lilypondfile[lilyquote,ragged-right,texidoc]{pitches/makam.ly}
 
 @seealso
 
@@ -632,7 +632,7 @@ musicInBflat = @{ e4 @dots{} @}
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
@@ -769,7 +769,7 @@ For example,
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/clefs-commonly-tweaked-properties.ly}
 
 
@@ -834,13 +834,13 @@ fis
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/non-traditional-key-signatures.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
@@ -1710,10 +1710,10 @@ printed if they are not part of the key signature.
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/adding-ambiti-per-voice.ly}
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/ambiti-multiple-voices.ly}
 
 
@@ -1819,7 +1819,7 @@ c8 d4 e8 a2 g1
 
 @commonprop
 
-@lilypondfile[quote,ragged-right,texidoc]
+@lilypondfile[lilyquote,ragged-right,texidoc]
 {pitches/applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
 
