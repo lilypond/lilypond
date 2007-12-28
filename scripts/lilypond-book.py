@@ -188,6 +188,7 @@ INDENT = 'indent'
 LATEX = 'latex'
 LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
+LILYQUOTE = 'lilyquote'
 NOFRAGMENT = 'nofragment'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
@@ -509,6 +510,8 @@ ly_options = {
         LINE_WIDTH: r'''line-width = %(line-width)s''',
 
         QUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
+
+        LILYQUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
 
         RAGGED_RIGHT: r'''ragged-right = ##t''',
 
@@ -1250,11 +1253,14 @@ class Lilypond_snippet (Snippet):
 
         if VERBATIM in self.option_dict:
             verb = self.substring ('code')
-            str += (output[TEXINFO][VERBATIM] % vars ())
+            str += output[TEXINFO][VERBATIM] % vars ()
             if not QUOTE in self.option_dict:
                 str = output[TEXINFO][NOQUOTE] % vars ()
 
-        str += self.output_info ()
+        if LILYQUOTE in self.option_dict:
+            str += output[TEXINFO][QUOTE] % {'str':self.output_info ()}
+        else:
+            str += self.output_info ()
 
 #                str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 #                str += ('@tex\n' + self.output_latex () + '\n@end tex\n')

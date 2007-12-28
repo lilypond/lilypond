@@ -631,6 +631,8 @@ Reduce line length of a music snippet by @math{2*0.4}@dmn{in} and put
 the output into a quotation block.  The value @q{0.4@dmn{in}} can be
 controlled with the @code{exampleindent} option.
 
+@c in lilypond-book.py at l.953, it is said that this option is broken.
+@c remove?
 @item exampleindent
 Set the amount by which the @code{quote} option indents a music snippet.
 
@@ -687,6 +689,12 @@ lilypond-book --process="lilypond --format=tex --tex \
 
 Most LilyPond test documents (in the @file{input} directory of the
 distribution) are small @file{.ly} files which look exactly like this.
+
+@item lilyquote
+(Only for Texinfo output.)  This is the same option as quote, but only
+the music snippet is put into a quotation block.  This option is useful
+if you want to @code{quote} the music snippet but not the @code{texidoc}
+documentation block.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print
