@@ -875,6 +875,9 @@ class Lilypond_snippet (Snippet):
         os = match.group ('options')
         self.do_options (os, self.type)
 
+    def verb_ly (self):
+        return self.substring ('code')
+
     def ly (self):
         contents = self.substring ('code')
         return ('\\sourcefileline %d\n%s'
@@ -1169,7 +1172,7 @@ class Lilypond_snippet (Snippet):
             else:
                 str = '<mediaobject>' + str + '</mediaobject>'
         if VERBATIM in self.option_dict:
-                verb = verbatim_html (self.substring ('code'))
+                verb = verbatim_html (self.verb_ly ())
                 str = output[DOCBOOK][VERBATIM] % vars () + str
         return str
 	
@@ -1179,7 +1182,7 @@ class Lilypond_snippet (Snippet):
         if global_options.format == HTML:
             str += self.output_print_filename (HTML)
             if VERBATIM in self.option_dict:
-                verb = verbatim_html (self.substring ('code'))
+                verb = verbatim_html (self.verb_ly ())
                 str += output[HTML][VERBATIM] % vars ()
             if QUOTE in self.option_dict:
                 str = output[HTML][QUOTE] % vars ()
@@ -1213,7 +1216,7 @@ class Lilypond_snippet (Snippet):
         if global_options.format == LATEX:
             str += self.output_print_filename (LATEX)
             if VERBATIM in self.option_dict:
-                verb = self.substring ('code')
+                verb = self.verb_ly ()
                 str += (output[LATEX][VERBATIM] % vars ())
 
         str += (output[LATEX][OUTPUT] % vars ())
@@ -1251,16 +1254,16 @@ class Lilypond_snippet (Snippet):
             if os.path.exists (texidoc):
                 str += '@include %(texidoc)s\n\n' % vars ()
 
+        substr = ''
         if VERBATIM in self.option_dict:
-            verb = self.substring ('code')
-            str += output[TEXINFO][VERBATIM] % vars ()
+            verb = self.verb_ly ()
+            substr += output[TEXINFO][VERBATIM] % vars ()
             if not QUOTE in self.option_dict:
-                str = output[TEXINFO][NOQUOTE] % vars ()
-
+                substr = output[TEXINFO][NOQUOTE] % {'str':substr}
+        substr += self.output_info ()
         if LILYQUOTE in self.option_dict:
-            str += output[TEXINFO][QUOTE] % {'str':self.output_info ()}
-        else:
-            str += self.output_info ()
+            substr = output[TEXINFO][QUOTE] % {'str':substr}
+        str += substr
 
 #                str += ('@ifinfo\n' + self.output_info () + '\n@end ifinfo\n')
 #                str += ('@tex\n' + self.output_latex () + '\n@end tex\n')
@@ -1274,12 +1277,25 @@ class Lilypond_snippet (Snippet):
 
         return str
 
+re_begin_verbatim = re.compile (r'\s+%.*?begin verbatim.*\n*', re.M)
+re_end_verbatim = re.compile (r'\s+%.*?end verbatim.*$', re.M)
+
 class Lilypond_file_snippet (Lilypond_snippet):
+    def __init__ (self, type, match, format, line_number):
+        Lilypond_snippet.__init__ (self, type, match, format, line_number)
+        self.contents = open (find_file (self.substring ('filename'))).read ()
+
+    def verb_ly (self):
+        s = self.contents
+        s = re_begin_verbatim.split (s)[-1]
+        s = re_end_verbatim.split (s)[0]
+        return s
+
     def ly (self):
         name = self.substring ('filename')
-        contents = open (find_file (name)).read ()
         return ('\\sourcefilename \"%s\"\n\\sourcefileline 0\n%s'
-                % (name, contents))
+                % (name, self.contents))
+
 
 snippet_type_to_class = {
     'lilypond_file': Lilypond_file_snippet,

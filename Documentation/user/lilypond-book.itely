@@ -655,6 +655,23 @@ enclosed in a verbatim block, followed by any text given with the
 displayed.  This option does not work well with @code{\lilypond@{@}} if
 it is part of a paragraph.
 
+If @code{verbatim} is used in a @code{lilypondfile} command, it is
+possible to enclose verbatim only a part of the source file.  If the
+source file contain a comment containing @samp{begin verbatim} (without
+quotes), quoting the source in the verbatim block will start after the
+last occurence of such a comment; similarly, quoting the source verbatim
+will stop just before the first occurence of a comment containing
+@samp{end verbatim}, it there is any.  In the following source file
+example, the music will be interpreted in relative mode, but the
+verbatim quote will not show the @code{relative} block.
+
+@example
+\relative c' { % begin verbatim
+  c4 e2 g4
+  f2 e % end verbatim
+}
+@end example
+
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the
 @option{--header=@/texidoc} option, and the file to be processed is
@@ -691,10 +708,11 @@ Most LilyPond test documents (in the @file{input} directory of the
 distribution) are small @file{.ly} files which look exactly like this.
 
 @item lilyquote
-(Only for Texinfo output.)  This is the same option as quote, but only
-the music snippet is put into a quotation block.  This option is useful
-if you want to @code{quote} the music snippet but not the @code{texidoc}
-documentation block.
+(Only for Texinfo output.)  This option is similar to quote, but only
+the music snippet (and the optional verbatim block implied by
+@code{verbatim} option) is put into a quotation block.  This option is
+useful if you want to @code{quote} the music snippet but not the
+@code{texidoc} documentation block.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print
