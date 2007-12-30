@@ -1,12 +1,7 @@
-
 depth = ../../../
 
-STEPMAKE_TEMPLATES=documentation texinfo tex
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+STEPMAKE_TEMPLATES=documentation
 
-EXTRA_DIST_FILES= 
+EXTRA_DIST_FILES=$(call src-wildcard,*.ly)
 
 include $(depth)/make/stepmake.make
-
-TITLE=Sample snippets from LSR
-
