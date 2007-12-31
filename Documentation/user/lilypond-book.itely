@@ -666,10 +666,10 @@ example, the music will be interpreted in relative mode, but the
 verbatim quote will not show the @code{relative} block.
 
 @example
-\relative c' { % begin verbatim
+\relative c' @{ % begin verbatim
   c4 e2 g4
   f2 e % end verbatim
-}
+@}
 @end example
 
 @item texidoc
