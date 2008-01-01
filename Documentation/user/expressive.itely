@@ -31,13 +31,14 @@
 @node Articulations and ornamentations
 @unnumberedsubsubsec Articulations and ornamentations
 
-@cindex Articulations
+@cindex articulations
 @cindex scripts
 @cindex ornaments
 
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance.  All these symbols
-can be attached to a note using the syntax @var{note}@code{\}@var{name}. 
+can be attached to a note using the syntax
+@var{note}@code{\}@var{name}.
 
 The possible values for @var{name} are listed in @ref{List of
 articulations}.
@@ -47,19 +48,19 @@ are used by adding a dash and the character signifying
 the articulation to the note name.  The available shorthands and
 their output are:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c4-.  c--   c-+   c-|   
-c->   c-^   c-_         
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c4-.  c--   c-+   c-|
+c->   c-^   c-_
 @end lilypond
 
 The marks are automatically placed, but the direction can be
-forced as well.  Like other pieces of LilyPond code, @code{_} will
-place them below the staff, and @code{^} will place them above.
-This applies both to the shorthands and the fully named
-articulations.  For the shorthands, the dash itself should be
-omitted; the shorthand signs replace it:
+forced as well.  Like other pieces of LilyPond code,
+@code{_}@tie{}will place them below the staff, and@tie{}@code{^}
+will place them above.  This applies both to the shorthands and
+the fully named articulations.  For the shorthands, the dash
+itself should be omitted; the direction signs replace it:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4^^ c4_^
 c\fermata c^\fermata c_\fermata
 @end lilypond
@@ -99,57 +100,30 @@ c\fermata c^\fermata c_\fermata
 @commonprop
 
 The meanings of the shorthands can be changed.  They are defined
-in @file{ly/@/script@/-init@/.ly}, where the variables  
-@code{DashDot}, @code{DashDash}, @code{DashPlus}, @code{DashBar},
-@code{DashLarger}, @code{DashHat}, and @code{DashUnderscore}
+in @file{ly/@/script@/-init@/.ly}, where the variables
+@code{dashDot}, @code{dashDash}, @code{dashPlus}, @code{dashBar},
+@code{dashLarger}, @code{dashHat}, and @code{dashUnderscore}
 are associated with the default articulation marks.  If you want,
 e.g., @code{-+} to produce a trill instead of a "+", you can
 redefine the variable in your document:
 
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' { c-+ }       
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' { c-+ }
 dashPlus = "trill"
-\relative c'' { c-+ }       
+\relative c'' { c-+ }
 @end lilypond
 
 The vertical ordering of scripts is controlled with the
 @code{script-priority} property.  The lower this number, the
 closer it will be put to the note.  In this example, the
-@internalsref{TextScript} (the sharp symbol) first has the lowest
+@code{TextScript} (the sharp symbol) first has the lowest
 priority, so it is put lowest in the first example.  In the
-second, the prall trill (the @internalsref{Script}) has the
+second, the prall trill (the @code{Script}) has the
 lowest, so it is on the inside.  When two objects have the same
 priority, the order in which they are entered decides which one
 comes first.
 
-
-@commonprop
-
-The meanings of the shorthands can be changed.  They are defined
-in @file{ly/@/script@/-init@/.ly}, where the variables  
-@code{DashDot}, @code{DashDash}, @code{DashPlus}, @code{DashBar},
-@code{DashLarger}, @code{DashHat}, and @code{DashUnderscore}
-are associated with the default articulation marks.  If you want,
-e.g., @code{-+} to produce a trill instead of a "+", you can
-redefine the variable in your document:
-
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' { c-+ }       
-dashPlus = "trill"
-\relative c'' { c-+ }       
-@end lilypond
-
-The vertical ordering of scripts is controlled with the
-@code{script-priority} property.  The lower this number, the
-closer it will be put to the note.  In this example, the
-@internalsref{TextScript} (the sharp symbol) first has the lowest
-priority, so it is put lowest in the first example.  In the
-second, the prall trill (the @internalsref{Script}) has the
-lowest, so it is on the inside.  When two objects have the same
-priority, the order in which they are entered decides which one
-comes first.
-
-@lilypond[verbatim,relative=3,ragged-right,fragment,quote]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=3]
 \once \override TextScript #'script-priority = #-100
 a4^\prall^\markup { \sharp }
 
@@ -162,7 +136,8 @@ a4^\prall^\markup { \sharp }
 
 Snippets: @lsrdir{expressive}
 
-Internals Reference: @internalsref{Script}.
+Internals Reference: @internalsref{Script},
+@internalsref{TextScript}.
 
 
 @refbugs
@@ -174,7 +149,7 @@ MIDI rendering of the music.
 @node Dynamics
 @unnumberedsubsubsec Dynamics
 
-@cindex Dynamics
+@cindex dynamics
 @funindex \pppp
 @funindex \ppp
 @funindex \pp
@@ -193,17 +168,17 @@ MIDI rendering of the music.
 @funindex \sfz
 @funindex \rfz
 
-Absolute dynamic marks are specified using a command after a note
-@code{c4\ff}.  The available dynamic marks are @code{\ppppp},
+Absolute dynamic marks are specified using a command after a note,
+like @code{c4\ff}.  The available dynamic marks are @code{\ppppp},
 @code{\pppp}, @code{\ppp}, @code{\pp}, @code{\p}, @code{\mp},
 @code{\mf}, @code{\f}, @code{\ff}, @code{\fff}, @code{\ffff},
 @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
 @code{\sfz}, and @code{\rfz}.  The dynamic marks can be placed
-above or below the staff with @code{_} and @code{^}, just like
-articulation marks. 
+above or below the staff with@tie{}@code{_} and@tie{}@code{^},
+just like articulation marks.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-c2\ppp c\mp 
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c2\ppp c\mp
 c\rfz c^\mf
 c_\spp c_\staccato^\ff
 @end lilypond
@@ -222,15 +197,14 @@ graphical sign (a @q{hairpin}), or with textual signs.
 Because these marks are bound to notes, you must use spacer notes
 if multiple marks are needed during one note.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c\< c\! d\> e\!
 << f1 { s4 s4\< s4\! \> s4\! } >>
 @end lilypond
 
-This may give rise to very short hairpins.  Use
-@code{minimum-length} in
-@internalsref{Voice}.@internalsref{Hairpin} to lengthen them, for
-example:
+This may give rise to very short hairpins.  To lengthen them, use
+for example @code{minimum-length} in
+@internalsref{Voice}.@internalsref{Hairpin}:
 
 @example
 \override Voice.Hairpin #'minimum-length = #5
@@ -241,10 +215,10 @@ A hairpin normally starts at the left edge of the beginning note
 and ends on the right edge of the ending note.  If the ending note
 falls on the downbeat, the hairpin ends on the immediately
 preceding bar line.  This may be modified by setting the
-@code{hairpinToBar line} property,
-@cindex Hairpin
+@code{hairpinToBarline} property:
+@cindex hairpin
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 e4\< e2. e1\!
 \set hairpinToBarline = ##f
 e4\< e2. e1\!
@@ -254,7 +228,7 @@ e4\< e2. e1\!
 In some situations the @code{\espressivo} articulation mark may be
 suitable to indicate a crescendo and decrescendo on the one note:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2 b4 a g1\espressivo
 @end lilypond
 
@@ -264,12 +238,11 @@ c2 b4 a g1\espressivo
 Hairpins may be printed with a circled tip (al niente notation) by
 setting the @code{circled-tip} property:
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \override Hairpin #'circled-tip = ##t
 c2\< c\!
 c4\> c\< c2\!
 @end lilypond
-
 
 @cindex crescendo
 @cindex decrescendo
@@ -279,9 +252,9 @@ You can use text saying @emph{cresc.}, @emph{decr.}, or
 @emph{dim.} instead of hairpins with the commands \setTextCresc,
 \setTextDim, and \setTextDecresc.  The corresponding
 \setHairpinCresc, \setHairpinDim, and \setHairpinDecresc will
-revert to hairpins again: 
+revert to hairpins again:
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \setTextCresc
 c\< d e f\!
 \setHairpinCresc
@@ -297,22 +270,31 @@ e\> d c b\!
 You can also supply your own texts and change the style of the
 spanner line with the properties @code{\crescendoText},
 @code{\crescendoSpanner}, @code{\decrescendoText}, and
-@code{\decrescendoSpanner}. Available values for the spanner
+@code{\decrescendoSpanner}.  Available values for the spanner
 properties are @code{hairpin}, @code{line}, @code{dashed-line},
-and @code{dotted-line}. If unset, a hairpin crescendo is used:
+and @code{dotted-line}.  If unset, a hairpin crescendo is used:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \set crescendoText = \markup { \italic "cresc. poco" }
 \set crescendoSpanner = #'dotted-line
 a'2\< a a a a a a a\!\mf
 @end lilypond
-
 
 To create new dynamic marks or text that should be aligned with
 dynamics, see @ref{New dynamic marks}.
 
 Vertical positioning of dynamics is handled by
 @internalsref{DynamicLineSpanner}.
+
+
+@refcommands
+
+@funindex \dynamicUp
+@code{\dynamicUp},
+@funindex \dynamicDown
+@code{\dynamicDown},
+@funindex \dynamicNeutral
+@code{\dynamicNeutral}.
 
 
 @commonprop
@@ -326,6 +308,7 @@ the @code{staff-padding} property.
 \override DynamicLineSpanner #'staff-padding = #4
 @end example
 
+@noindent
 You may also use this property if the dynamics are colliding with
 other notation.
 
@@ -347,26 +330,18 @@ printing this line, use
 @end example
 
 
-@refcommands
-
-@funindex \dynamicUp
-@code{\dynamicUp},
-@funindex \dynamicDown
-@code{\dynamicDown},
-@funindex \dynamicNeutral
-@code{\dynamicNeutral}.
-
-
 @seealso
+
+Music Glossary: @rglos{hairpin}, @rglos{crescendo},
+@rglos{decrescendo}.
+
+Learning Manual: @rlearning{Articulation and dynamics}.
 
 Snippets: @lsrdir{expressive}
 
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
 handled by @internalsref{DynamicLineSpanner}.
-Glossary: @rglos{Hairpin}, @rglos{crescendo}, @rglos{decrescendo}
-
-@c TODO: add link to LM directions
 
 
 @node Curves
@@ -382,12 +357,12 @@ Glossary: @rglos{Hairpin}, @rglos{crescendo}, @rglos{decrescendo}
 @node Slurs
 @unnumberedsubsubsec Slurs
 
-@cindex Slurs
+@cindex slurs
 
 A slur indicates that notes are to be played bound or
 @emph{legato}.  They are entered using parentheses:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 f( g a) a8 b( a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
@@ -395,27 +370,16 @@ f( g a) a8 b( a4 g2 f4)
 Just as with ties, the direction of a slur can be specified with
 @code{\slur@emph{DIR}}, where @code{@emph{DIR}} is either
 @code{Up}, @code{Down}, or @code{Neutral} (automatically
-selected).  The shorthands are also available: by adding
-@code{_} or @code{^} before the opening parentheses, the direction
-is also set.  
+selected).  The shorthands are also available: by
+adding@tie{}@code{_} or@tie{}@code{^} before the opening
+parentheses, the direction is also set.
 
-@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4_( c) c^( c)
 @end lilypond
 
 Only one slur can be printed at once.  If you need to print a long
 slur over a few small slurs, please see @ref{Phrasing slurs}.
-
-
-@commonprop
-
-Some composers write two slurs when they want legato chords.  This
-can be achieved in LilyPond by setting @code{doubleSlurs},
-
-@lilypond[verbatim,ragged-right,relative,fragment,quote]
-\set doubleSlurs = ##t
-<c e>4 ( <d f> <c e> <d f> )
-@end lilypond
 
 
 @refcommands
@@ -432,6 +396,18 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 @code{\slurDotted},
 @funindex \slurSolid
 @code{\slurSolid}.
+
+
+@commonprop
+
+Some composers write two slurs when they want legato chords.  This
+can be achieved in LilyPond by setting @code{doubleSlurs},
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+\set doubleSlurs = ##t
+<c e>4 ( <d f> <c e> <d f> )
+@end lilypond
+
 
 @seealso
 
@@ -450,7 +426,7 @@ A phrasing slur (or phrasing mark) connects notes and is used to
 indicate a musical sentence.  It is written using @code{\(} and
 @code{\)} respectively:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \time 6/4 c'\( d( e) f( e) d\)
 @end lilypond
 
@@ -458,8 +434,8 @@ Typographically, the phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects.  A
 @code{\slurUp} will have no effect on a phrasing slur; instead,
 use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
-@code{\phrasingSlurNeutral}, or use the shorthands @code{_} and
-@code{^}.
+@code{\phrasingSlurNeutral}, or use the shorthands@tie{}@code{_}
+and@tie{}@code{^}.
 
 You cannot have simultaneous phrasing slurs.
 
@@ -484,9 +460,9 @@ Internals Reference: @internalsref{PhrasingSlur}.
 @node Breath marks
 @unnumberedsubsubsec Breath marks
 
-Breath marks are entered using @code{\breathe}
+Breath marks are entered using @code{\breathe}:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 c'4 \breathe d4
 @end lilypond
 
@@ -497,7 +473,7 @@ The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object
 with any markup text.  For example,
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 c'4
 \override BreathingSign #'text
   = #(make-musicglyph-markup "scripts.rvarcomma")
@@ -507,11 +483,9 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{expressive}, @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}.
-
-Examples: @lsr{expressive,breathing-sign.ly}
 
 
 @node Falls and doits
@@ -520,7 +494,7 @@ Examples: @lsr{expressive,breathing-sign.ly}
 Falls and doits can be added to notes using the @code{\bendAfter}
 command,
 
-@lilypond[fragment,ragged-right,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \override Score.SpacingSpanner #'shortest-duration-space = #3.0
 c4-\bendAfter #+5
 c4-\bendAfter #-3
@@ -538,14 +512,14 @@ c4-\bendAfter #-3
 @node Glissando
 @unnumberedsubsubsec Glissando
 
-@cindex Glissando
+@cindex glissando
 @funindex \glissando
 
 A glissando is a smooth change in pitch.  It is denoted by a line
 or a wavy line between two notes.  It is requested by attaching
-@code{\glissando} to a note
+@code{\glissando} to a note:
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2\glissando c'
 \override Glissando #'style = #'zigzag
 c2\glissando c,
@@ -554,10 +528,10 @@ c2\glissando c,
 @commonprop
 
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 I = \once \override NoteColumn #'ignore-collision = ##t
 
-\relative <<
+\relative c' <<
   { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
   { \oneVoice \I c2 \glissando \I d, }
 >>
@@ -567,13 +541,15 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Music Glossary: @rglos{falls}, @rglos{doits}.
+
+Snippets: @lsrdir{expressive}.
+
+@c FIXME: I need to figure out what's up with these.  -gp
+@c @lsr{expressive,glissando.ly},
+@c @lsr{expressive,line-styles.ly}
 
 Internals Reference: @internalsref{Glissando}.
-
-Glossary: @rglos{falls}, @rglos{doits}
-Example files:
-@lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
 
 
 @refbugs
@@ -585,31 +561,31 @@ supported.
 @node Arpeggio
 @unnumberedsubsubsec Arpeggio
 
-@cindex Arpeggio
+@cindex arpeggio
 @cindex broken chord
 @funindex \arpeggio
 
 You can specify an arpeggio sign (also known as broken chord) on a
 chord by attaching an @code{\arpeggio} to the chord:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 <c e g c>\arpeggio
 @end lilypond
 
-A square bracket on the left is used to indicate that the chord should
-@emph{not} be arpeggiated:
+A square bracket on the left is used to indicate that the chord
+should @emph{not} be arpeggiated:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \arpeggioBracket
-<c' e g c>\arpeggio
+<c e g c>\arpeggio
 @end lilypond
 
 The direction of the arpeggio can be denoted by adding an
-arrowhead to the wiggly line. This is done with the commands
-@code{arpeggioUp} and @code{arpeggioDown}. @code{arpeggioNeutral}
+arrowhead to the wiggly line.  This is done with the commands
+@code{arpeggioUp} and @code{arpeggioDown}.  @code{arpeggioNeutral}
 reverts to the arrow-less version:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \new Voice {
   \arpeggioUp
   <c e g c>\arpeggio
@@ -619,67 +595,6 @@ reverts to the arrow-less version:
   <c e g c>\arpeggio
 }
 @end lilypond
-
-
-@commonprop
-
-In a @code{PianoStaff}, it is possible to let an arpeggio cross
-between the staves by setting the property
-@internalsref{PianoStaff}.@code{connectArpeggios}. 
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \set PianoStaff.connectArpeggios = ##t
-  \new Staff { <c' e g c>\arpeggio }
-  \new Staff { \clef bass <c,, e g>\arpeggio }
->>
-@end lilypond
-
-The same can be accomplished in contexts other than
-@code{PianoStaff} if the @code{Span_arpeggio_engraver} is included
-in the Score context.
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \new StaffGroup {
-    \set Score.connectArpeggios = ##t
-    <<
-      \new Voice \relative c' {
-        <e g>4\arpeggio
-      }
-      \new Voice  \relative c {
-        \clef bass
-        <c e>4\arpeggio
-      }
-    >>
-  }
-  \layout {
-    \context {
-      \Score 
-      \consists "Span_arpeggio_engraver"
-    } 
-  }
-}
-@end lilypond
-
-Similarly,  an arpeggio can be drawn across notes in
-different voices on the same staff if the Span_arpeggio_engraver
-is moved to the Staff context:
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff
-\with {
-  \consists "Span_arpeggio_engraver"
-} \relative c' {
-  \set Staff.connectArpeggios = ##t
-    <<
-    {<e' g>4\arpeggio <d f> <d f>2 }
-  \\
-  {<d, f>2\arpeggio  <g b>2  }
-  >>
-}
-@end lilypond
-
 
 
 @refcommands
@@ -695,19 +610,80 @@ is moved to the Staff context:
 @code{\arpeggioBracket}.
 
 
+@commonprop
+
+In a @code{PianoStaff}, it is possible to let an arpeggio cross
+between the staves by setting the property
+@code{PianoStaff}.@code{connectArpeggios}.
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+\new PianoStaff <<
+  \set PianoStaff.connectArpeggios = ##t
+  \new Staff { <c' e g c>\arpeggio }
+  \new Staff { \clef bass <c,, e g>\arpeggio }
+>>
+@end lilypond
+
+The same can be accomplished in contexts other than
+@code{PianoStaff} if the @code{Span_arpeggio_engraver} is included
+in the Score context.
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \new StaffGroup {
+    \set Score.connectArpeggios = ##t
+    <<
+      \new Voice \relative c' {
+        <e g>4\arpeggio
+      }
+      \new Voice  \relative c {
+        \clef bass
+        <c e>4\arpeggio
+      }
+    >>
+  }
+  \layout {
+    \context {
+      \Score
+      \consists "Span_arpeggio_engraver"
+    }
+  }
+}
+@end lilypond
+
+Similarly, an arpeggio can be drawn across notes in different
+voices on the same staff if the @code{Span_arpeggio_engraver} is
+moved to the Staff context:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff
+\with {
+  \consists "Span_arpeggio_engraver"
+} \relative c' {
+  \set Staff.connectArpeggios = ##t
+    <<
+    {<e' g>4\arpeggio <d f> <d f>2 }
+  \\
+  {<d, f>2\arpeggio  <g b>2  }
+  >>
+}
+@end lilypond
+
+
 @seealso
 
-Notation manual: @ref{Ties}, for writing out arpeggios.
+Notation Reference: @ref{Ties}, for writing out arpeggios.
 
 Snippets: @lsrdir{expressive}
 
-Internals Reference: @internalsref{Arpeggio}.
+Internals Reference: @internalsref{Arpeggio},
+@internalsref{PianoStaff}.
 
 
 @refbugs
 
 It is not possible to mix connected arpeggios and unconnected
-arpeggios in one @internalsref{PianoStaff} at the same point in
+arpeggios in one @code{PianoStaff} at the same point in
 time.
 
 
@@ -718,30 +694,28 @@ Short trills are printed with @code{\trill} like normal
 articulation; see @ref{Articulations and ornamentations}.
 
 Long running trills are made with @code{\startTrillSpan} and
-@code{\stopTrillSpan}. In the following example, it is shown in
+@code{\stopTrillSpan}.  In the following example, it is shown in
 the common combination with grace notes.  If a more precise
 control of the placement of the grace notes is needed, see
 @ref{Grace notes}.
 
-@lilypond[verbatim,ragged-right,relative=2,quote,fragment]
-\relative c''
-{c1 \afterGrace 
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c1 \afterGrace
 d1\startTrillSpan { c16[\stopTrillSpan d] }
-c4 }
+c4
 @end lilypond
 
-@cindex Pitched trills
+@cindex pitched trills
 
 Trills that should be executed on an explicitly specified pitch
 can be typeset with the command @code{pitchedTrill}, and the
 syntax @code{\pitchedTrill} @var{mainnote}@code{\startTrillSpan}
 @var{trillnote} @var{endnote} @code{\stopTrillSpan}.
 
-@lilypond[ragged-right,verbatim,fragment,relative=1,quote]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \pitchedTrill e2 \startTrillSpan fis
 d\stopTrillSpan
 @end lilypond
-
 
 @noindent
 The first argument is the main note.  The pitch of the second is
@@ -761,7 +735,3 @@ printed as a stemless note head in parentheses.
 Snippets: @lsrdir{expressive}
 
 Internals Reference: @internalsref{TrillSpanner}.
-
-
-
-
