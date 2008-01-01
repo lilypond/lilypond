@@ -1,21 +1,28 @@
-depth = ../../
+depth = ../..
 
-# NR 1
-SUBDIRS = pitches rhythms expressive repeats simultaneous staff editorial text
-# NR 2
-SUBDIRS += vocal chords piano percussion guitar strings bagpipes ancient
-
-
-SUBDIRS += other
-
-### FIXME: temporary template for creating other dirs.
-###  will be removed once everything else is stable.
-SUBDIRS += null
+# urg, can't name itely templates foo.itely.in because of standard rule
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+LOCALSTEPMAKE_TEMPLATES=lilypond ly
 EXTRA_DIST_FILES=README
+
 include $(depth)/make/stepmake.make
 
-TITLE=LilyPond Examples
+IN_ITELY_FILES = $(call src-wildcard,*-intro.itely)
+GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 
+$(outdir)/%.itely: %-intro.itely %.snippet-list
+	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py --name=$@ --template=$< < $*.snippet-list
+
+$(outdir)/snippets.texi: snippets.tely $(GENERATED_ITELY_FILES)
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BINARY) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+
+$(outdir)/snippets-big-page.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES)
+	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+
+
+$(outdir)/snippets/index.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I$(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+
+local-WWW: $(outdir)/snippets.pdf $(outdir)/snippets/index.html $(outdir)/snippets-big-page.html

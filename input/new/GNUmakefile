@@ -1,30 +1,21 @@
 depth = ../../
 
 # NR 1
-SUBDIRS = pitches rhythms expressive repeats simultaneous staff editorial text
+SUBDIRS = pitches rhythms expressive-marks repeats simultaneous-notes staff-notation editorial-and-educational-use text
 # NR 2
-SUBDIRS += vocal chords piano percussion guitar strings bagpipes ancient
+SUBDIRS += vocal-music chords piano-music percussion guitar strings bagpipes ancient-notation
 
 
 SUBDIRS += other
 
 
 # old
-SUBDIRS += connecting contemporary education 
-SUBDIRS += parts spacing scheme  
-SUBDIRS += engravers nonmusic instrument
-SUBDIRS += real-music
-
-### FIXME: temporary template for creating other dirs.
-###  will be removed once everything else is stable.
-SUBDIRS += null
+SUBDIRS += parts spacing schemelanguage
+SUBDIRS += real-music paper-and-layout
 
 
-STEPMAKE_TEMPLATES=documentation texinfo tex
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
+STEPMAKE_TEMPLATES=documentation
 EXTRA_DIST_FILES=README
+
 include $(depth)/make/stepmake.make
-
-
-TITLE=LilyPond Examples
 

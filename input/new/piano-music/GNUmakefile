@@ -1,4 +1,4 @@
-depth = ../../../
+depth = ../../..
 
 STEPMAKE_TEMPLATES=documentation
 

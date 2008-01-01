@@ -87,7 +87,7 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning)/')
+splitted_docs_re = re.compile ('(input/lsr/out-www/snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 # On systems without symlinks (e.g. Windows), docs are not very usable
 # Get rid of symlinks references here

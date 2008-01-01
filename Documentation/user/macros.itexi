@@ -83,7 +83,7 @@
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,TEXT}
 @ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html#\TEXT\,@file{\DIR\/\TEXT\}}
+@uref{source/input/lsr/snippets/\DIR\.html#\TEXT\,@file{\DIR\/\TEXT\}}
 @end ifhtml
 @ifnothtml
 @file{\DIR\/\TEXT\}
@@ -92,10 +92,10 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
+@uref{source/input/lsr/snippets\DIR\.html,\DIR\}
 @end ifhtml
 @ifnothtml
-@file{\DIR\}
+\DIR\
 @end ifnothtml
 @end macro
 

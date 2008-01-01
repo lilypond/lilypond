@@ -312,12 +312,12 @@ Micro tones are also exported to the MIDI file.
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/preventing-extra-naturals-from-being-automatically-added.ly}
+{preventing-extra-naturals-from-being-automatically-added.ly}
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
-@lilypondfile[lilyquote,ragged-right,texidoc]{pitches/makam.ly}
+@lilypondfile[lilyquote,ragged-right,texidoc]{makam.ly}
 
 @seealso
 
@@ -633,7 +633,7 @@ musicInBflat = @{ e4 @dots{} @}
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
+{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @seealso
@@ -770,7 +770,7 @@ For example,
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/clefs-commonly-tweaked-properties.ly}
+{clefs-commonly-tweaked-properties.ly}
 
 
 @seealso
@@ -835,13 +835,13 @@ fis
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
+{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/non-traditional-key-signatures.ly}
+{non-traditional-key-signatures.ly}
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
 @seealso
@@ -1711,10 +1711,10 @@ printed if they are not part of the key signature.
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/adding-ambiti-per-voice.ly}
+{adding-ambiti-per-voice.ly}
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/ambiti-multiple-voices.ly}
+{ambiti-multiple-voices.ly}
 
 
 @seealso
@@ -1820,7 +1820,7 @@ c8 d4 e8 a2 g1
 @commonprop
 
 @lilypondfile[lilyquote,ragged-right,texidoc]
-{pitches/applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
+{applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
 
 @seealso

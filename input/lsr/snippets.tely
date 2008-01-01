@@ -1,0 +1,88 @@
+\input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
+@setfilename snippets.info
+@settitle LilyPond snippets
+@documentencoding UTF-8
+@documentlanguage en
+
+@iftex
+@afourpaper
+@end iftex
+
+@finalout
+
+@node Top
+@top LilyPond examples
+
+This document shows LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
+
+Snippets are grouped by tags; many tags match a section of LilyPond
+notation manual.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+
+@lilypond[ragged-right]
+\score {
+  \context Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \override Score.RehearsalMark #'font-size = #-1
+    \mark #(ly:export (string-append
+      "This document is for LilyPond version " (lilypond-version) "."))
+    s2
+  }
+  \layout {
+    indent = 0.0\pt
+  }
+}
+@end lilypond
+
+@c maybe generate/update @menu and @includes automatically? --jm
+@menu
+Musical notation
+* Pitches::
+* Rhythms::
+* Expressive marks::
+* Repeats::
+* Simultaneous notes::
+* Staff notation::
+* Editorial and educational use::
+* Text::
+
+Specialist notation
+* Vocal music::
+* Chords::
+* Piano::
+* Percussion::
+* Guitar::
+* Strings::
+@c * Bagpipes::
+* Ancient notation::
+
+Other collections
+* Other::
+@end menu
+
+@contents
+
+@include pitches.itely
+@include rhythms.itely
+@include expressive-marks.itely
+@include repeats.itely
+@include simultaneous-notes.itely
+@include staff-notation.itely
+@include editorial-and-educational-use.itely
+@include text.itely
+
+@include vocal-music.itely
+@include chords.itely
+@include piano-music.itely
+@include percussion.itely
+@include guitar.itely
+@include strings.itely
+@c @include bagpipes.itely
+@include ancient-notation.itely
+
+@include other.itely
+
+@bye
