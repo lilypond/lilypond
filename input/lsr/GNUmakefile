@@ -4,7 +4,7 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-EXTRA_DIST_FILES=README
+EXTRA_DIST_FILES=README $(call src-wildcard, *.snippet-list)
 
 include $(depth)/make/stepmake.make
 
