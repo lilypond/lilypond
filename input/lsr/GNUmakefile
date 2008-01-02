@@ -17,6 +17,7 @@ $(outdir)/%.itely: %-intro.itely %.snippet-list
 $(outdir)/snippets.texi: snippets.tely $(GENERATED_ITELY_FILES)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BINARY) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
 
+$(outdir)/snippets-big-page.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 $(outdir)/snippets/index.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
