@@ -6,6 +6,11 @@
 
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @finalout
@@ -38,6 +43,7 @@ or figure for each example to see the corresponding input file.
 @end lilypond
 
 @c maybe generate/update @menu and @includes automatically? --jm
+@ifnottex
 @menu
 Musical notation
 * Pitches::
@@ -60,10 +66,19 @@ Specialist notation
 * Ancient notation::
 
 Other collections
+* Contexts and engravers::
+* Tweaks and overrides::
+* Paper and layout::
+* Titles::
+* Spacing::
+* MIDI::
 * Other::
 @end menu
+@end ifnottex
 
+@iftex
 @contents
+@end iftex
 
 @include pitches.itely
 @include rhythms.itely
@@ -83,6 +98,12 @@ Other collections
 @c @include bagpipes.itely
 @include ancient-notation.itely
 
+@include contexts-and-engravers.itely
+@include tweaks-and-overrides.itely
+@include paper-and-layout.itely
+@include titles.itely
+@include spacing.itely
+@include midi.itely
 @include other.itely
 
 @bye

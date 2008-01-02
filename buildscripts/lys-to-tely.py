@@ -14,25 +14,29 @@ import os
 import getopt
 
 program_name = 'lys-to-tely'
+
 include_snippets = '@lysnippets'
+fragment_options = 'printfilename,texidoc'
 
 def help ():
     sys.stdout.write (r"""Usage: %(program_name)s [OPTIONS]... LY-FILE...
 Construct tely doc from LY-FILEs.
 
 Options:
- -h, --help                print this help
- -o, --output=NAME         write tely doc to NAME
- -t, --title=TITLE         set tely doc title TITLE
-     --template=TEMPLATE   use TEMPLATE as Texinfo template file,
+ -h, --help                     print this help
+ -f, --fragment-options=OPTIONS use OPTIONS as lilypond-book fragment
+   options
+ -o, --output=NAME              write tely doc to NAME
+ -t, --title=TITLE              set tely doc title TITLE
+     --template=TEMPLATE        use TEMPLATE as Texinfo template file,
    instead of standard template; TEMPLATE should contain a command
-   '%(include_snippets)s' to tell where to insert LY-FILEs.  When this option
-   is used, NAME and TITLE are ignored
+   '%(include_snippets)s' to tell where to insert LY-FILEs.  When this
+   option is used, NAME and TITLE are ignored.
 """ % vars ())
     sys.exit (0)
 
-(options, files) = getopt.getopt (sys.argv[1:], 'hn:t:',
-                     ['help', 'name=', 'title=', 'template='])
+(options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
+                     ['fragment-options=', 'help', 'name=', 'title=', 'template='])
 
 name = "ly-doc"
 title = "Ly Doc"
@@ -69,10 +73,12 @@ for opt in options:
         name = a
     elif o == '-t' or o == '--title':
         title = a
+    elif o == '-f' or o == '--fragment-options':
+        fragment_options = a
     elif o == '--template':
         template = open (a, 'r').read ()
     else:
-        raise 'unknown opt ', o
+        raise Exception ('unknown option: ' + o)
 
 def name2line (n):
     # UGR
@@ -83,7 +89,7 @@ def name2line (n):
 @end html
 @end ifhtml
 
-@lilypondfile[printfilename,texidoc]{%s}""" % (n, n)
+@lilypondfile[%s]{%s}""" % (n, fragment_options, n)
     return s
 
 if files:

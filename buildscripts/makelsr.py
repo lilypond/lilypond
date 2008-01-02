@@ -3,6 +3,7 @@
 import sys
 import os
 import glob
+import re
 
 USAGE = '''  Usage: makelsr.py LSR_SNIPPETS_DIR
 This script must be run from top of the source tree;
@@ -24,7 +25,9 @@ TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 TAGS.extend (['vocal-music', 'chords', 'piano-music',
 'percussion', 'guitar', 'strings', 'bagpipes', 'ancient-notation'])
 
-TAGS.append ('other')
+# other
+TAGS.extend (['contexts-and-engravers', 'tweaks-and-overrides', 'paper-and-layout', 'breaks',
+'spacing', 'midi', 'titles', 'other'])
 
 def exit_with_usage (n=0):
 	sys.stderr.write (USAGE)
@@ -41,13 +44,19 @@ if not (os.path.isdir (DEST) and os.path.isdir (NEW_LYS)):
 unsafe = []
 unconverted = []
 
+# mark the section that will be printed verbatim by lilypond-book
+end_header_re = re.compile ('(\\header {.*?}\n)\n', re.M | re.S)
+
+def mark_verbatim_section (ly_code):
+	return end_header_re.sub ('\\1% begin verbatim\n', ly_code)
+
 def copy_ly (srcdir, name, tags):
 	global unsafe
 	global unconverted
 	dest = os.path.join (DEST, name)
 	f = open (dest, 'w')
 	f.write (LY_HEADER % ', '.join (tags))
-	f.write (open (os.path.join (srcdir, name)).read ())
+	f.write (mark_verbatim_section (open (os.path.join (srcdir, name)).read ()))
 	f.close ()
 	e = os.system('convert-ly -e ' + dest)
 	if e:
