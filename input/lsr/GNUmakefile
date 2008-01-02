@@ -4,7 +4,7 @@ depth = ../..
 
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
-EXTRA_DIST_FILES=README $(call src-wildcard, *.snippet-list)
+EXTRA_DIST_FILES += README $(call src-wildcard,*.snippet-list)
 
 include $(depth)/make/stepmake.make
 
@@ -19,7 +19,6 @@ $(outdir)/snippets.texi: snippets.tely $(GENERATED_ITELY_FILES)
 
 $(outdir)/snippets-big-page.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES)
 	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
-
 
 $(outdir)/snippets/index.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 	mkdir -p $(dir $@)
