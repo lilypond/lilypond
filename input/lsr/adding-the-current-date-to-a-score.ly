@@ -10,7 +10,7 @@ to enter the date manually to the @code{.ly} file. But that's very
 error prone. It's easy to forget updating the date. So i thought it
 would be useful if you can add the date on which the PDF file is
 generated automatically. I did't figure it out myself, but I asked on 
-lilypond-user@gnu.org. And guess what? Someone came with an excellent
+lilypond-user@@gnu.org. And guess what? Someone came with an excellent
 solution! So thank you very much Toine Schreurs for sending this
 solution to the user mailing list. I post it here for future reference.
 
