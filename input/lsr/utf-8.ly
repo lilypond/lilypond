@@ -30,7 +30,7 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 "
   
 }
-
+% begin verbatim
 % Cyrillic font
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.

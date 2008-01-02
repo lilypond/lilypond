@@ -9,7 +9,7 @@ some additional text below it, such as \"molto\" or \"poco\".
 The example also illustrates how to use modify the way an object
 normally is printed, using some Scheme code.  
 " }
-
+% begin verbatim
 hairpinWithCenteredText = #(define-music-function
                           (parser location text) (markup?)
 #{

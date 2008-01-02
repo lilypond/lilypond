@@ -6,7 +6,7 @@
   texidoc = "Text that can spread over pages is entered with the
 @code{\\markuplines} command."
 }
-
+% begin verbatim
 #(set-default-paper-size "a6")
 
 #(define-markup-list-command (paragraph layout props args) (markup-list?)

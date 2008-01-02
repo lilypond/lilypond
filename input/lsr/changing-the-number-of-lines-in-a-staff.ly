@@ -8,7 +8,7 @@ The number of lines in a staff may changed by overriding
 
 
 " }
-
+% begin verbatim
 upper = \relative c'' {
   c1 d e f
 }

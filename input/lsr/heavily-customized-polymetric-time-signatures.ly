@@ -7,7 +7,7 @@ Though the set-time-signature thing was not the most essential here, it
 has been included to show the beat of this piece (which is a template
 of a real balkan song!).
 " }
-
+% begin verbatim
 #(define (compound-time one two three four five six seven eight nine ten num)
   (markup #:override '(baseline-skip . 0) #:number 
    (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num)) #:vcenter "+" (#:column (three num)) #:vcenter "+" (#:column (four num)) #:vcenter "+" (#:column (five num)) #:vcenter "+" (#:column (six num)) #:vcenter "+" (#:column (seven num)) #:vcenter "+" (#:column (eight num)) #:vcenter "+" (#:column (nine num)) #:vcenter "+" (#:column (ten num))))))

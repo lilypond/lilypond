@@ -8,7 +8,7 @@ to cancel any accidentals from previous key signatures. This may be
 altered by setting to \"false\" the printKeyCancellation property in
 the Staff context.
 " }
-
+% begin verbatim
 \relative {
 \key d \major
 a b cis d

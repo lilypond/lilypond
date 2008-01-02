@@ -6,7 +6,7 @@
 Clusters are a device to denote that a complete range of notes is to be
 played.
 " }
-
+% begin verbatim
 \layout {
   ragged-right = ##t 
 }

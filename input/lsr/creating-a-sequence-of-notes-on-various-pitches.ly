@@ -11,7 +11,7 @@ functions were borrowed from the Tips and Tricks document in the manual.
 This example creates the rhythm used throughout Mars, from The Planets,
 by Gustav Holst.
 " }
-
+% begin verbatim
 #(define (make-note-req p d)
   (make-music 'NoteEvent
    'duration d

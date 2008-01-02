@@ -6,7 +6,7 @@
 Breathing signs are available in different tastes: commas (default),
 ticks, vees and `railroad tracks' (caesura).
 " }
-
+% begin verbatim
 {
   %% Modern notation:
   \new Staff {

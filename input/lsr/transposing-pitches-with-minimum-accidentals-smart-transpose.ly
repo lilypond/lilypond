@@ -10,7 +10,7 @@ accidentals should be removed, as well as E-sharp (-> F), bC (-> B), bF
 In this manner, the most natural enharmonic notes are chosen in this
 example.
 " }
-
+% begin verbatim
 #(define  (naturalise-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (ly:pitch-alteration p))

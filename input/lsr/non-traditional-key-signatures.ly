@@ -16,7 +16,7 @@ generating a whole-tone scale:
 
 
 " }
-
+% begin verbatim
 \relative c' {
            \new Staff {
              \set Staff.keySignature =

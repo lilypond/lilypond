@@ -15,7 +15,7 @@ numbers before the \"translate\" change the x- and y-origin of the
 rectangle.  Make sure to put the Hairpin in a lower layer than the Text
 Markup to actually draw the rectangle above the hairpin. 
 " }
-
+% begin verbatim
 \score
 {
     \relative c' {

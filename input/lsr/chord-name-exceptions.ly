@@ -6,7 +6,7 @@
 The property @code{chordNameExceptions} can used to store a list of
 special notations for specific chords. 
 " }
-
+% begin verbatim
 % 7sus4 denoted with ^7 wahh
 chExceptionMusic = {
   <c f g bes>1-\markup { \super "7" "wahh" }

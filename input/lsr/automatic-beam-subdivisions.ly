@@ -7,7 +7,7 @@ Lilypond can subdivide beams automatically. Set the property
 subdivideBeams, and beams are subdivided at beat positions (as
 specified in beat length)
 " }
-
+% begin verbatim
 \relative{ b'32^"default"[ a g f c' b a g f e d' c b a g f ]
 	       \set subdivideBeams = ##t
 	       b32^"subdivision enabled"[ a g f c' b a g f e d' c b a g f ] 

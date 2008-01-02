@@ -11,7 +11,7 @@ adapting the automatic beaming behaviour. (You can even add graphic
 measure groping indications, the appropriate snippet in this database.)
 
 " }
-
+% begin verbatim
 #(define (compound-time one two num)
   (markup #:override '(baseline-skip . 0) #:number 
    (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num))))))

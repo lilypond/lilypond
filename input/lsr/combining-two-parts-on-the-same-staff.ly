@@ -19,7 +19,7 @@ staff : standard polyphony, \\partcombine whitout texts, and
 
 
 " }
-
+% begin verbatim
 musicUp = { 	 \time 4/4
 			\relative c'' {
 				a4 c4.(g8) a4 |

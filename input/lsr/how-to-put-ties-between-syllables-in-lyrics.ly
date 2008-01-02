@@ -5,7 +5,7 @@
 \header { texidoc = "
 This can be achieved by separating those syllables by tildes.  
 " }
-
+% begin verbatim
 \lyrics {
   wa~o~a 
 }

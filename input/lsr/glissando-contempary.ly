@@ -5,7 +5,7 @@
 \header { texidoc = "
 Use a glissando without final note. Contemporary glissando !
 " }
-
+% begin verbatim
 \relative c'' {
     \override Glissando #'style = #'zigzag
      \time 3/4
@@ -18,4 +18,4 @@ Use a glissando without final note. Contemporary glissando !
 \addlyrics { unHideNotes cadenzaOff, skip_and_\bar \skip 4  }
 \layout{raggedright = ##t}
 \header { tagline="" }
-
+% begin verbatim

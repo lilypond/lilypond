@@ -13,7 +13,7 @@ inside a tuplet section. This snippet demonstrates how to superpose
 manual beaming, manual slurs, ties, and phrasing slurs, while using
 tuplet sections (enclosed with curly braces).
 " }
-
+% begin verbatim
 {
   r16[ g16 \times 2/3 {r16 e'8] }
   

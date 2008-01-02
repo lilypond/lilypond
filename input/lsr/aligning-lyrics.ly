@@ -8,7 +8,7 @@ overriding the #'self-alignment-X property of the LyricText object. #-1
 is left, #0 is center and #1 is right; however, you can use #LEFT,
 #CENTER and #RIGHT as well.
 " }
-
+% begin verbatim
 \relative c'' {
 c1 c c}
 \addlyrics {\once \override LyricText #'self-alignment-X = #LEFT "This is left-aligned" 
