@@ -8,7 +8,7 @@ include $(depth)/make/stepmake.make
 
 MFTRACE_FLAGS=  --simplify
 
-EXTRA_DIST_FILES += README 
+EXTRA_DIST_FILES += README mf2pt1.mp
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
 FETA_MF_FILES = $(call src-wildcard,feta[0-9]*.mf)\
