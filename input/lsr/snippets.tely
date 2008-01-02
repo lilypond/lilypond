@@ -15,11 +15,17 @@
 
 @finalout
 
-@node Top
-@top LilyPond examples
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Snippets}
+@author LilyPond Snippet Repository contributors
+
+@vskip 20pt
 
 This document shows LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
+in the public domain.
 
 Snippets are grouped by tags; many tags match a section of LilyPond
 notation manual.
@@ -41,9 +47,28 @@ or figure for each example to see the corresponding input file.
   }
 }
 @end lilypond
+@end titlepage
+
+@iftex
+@contents
+@end iftex
+
+@ifnottex
+@node Top
+@top LilyPond examples
+
+This document shows LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
+in the public domain.
+
+Snippets are grouped by tags; many tags match a section of LilyPond
+notation manual.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+@end ifnottex
 
 @c maybe generate/update @menu and @includes automatically? --jm
-@ifnottex
 @menu
 Musical notation
 * Pitches::
@@ -74,11 +99,6 @@ Other collections
 * MIDI::
 * Other::
 @end menu
-@end ifnottex
-
-@iftex
-@contents
-@end iftex
 
 @include pitches.itely
 @include rhythms.itely
@@ -95,6 +115,7 @@ Other collections
 @include percussion.itely
 @include guitar.itely
 @include strings.itely
+@c ignore empty section
 @c @include bagpipes.itely
 @include ancient-notation.itely
 
