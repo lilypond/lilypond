@@ -20,6 +20,7 @@ specific notation.
 @menu
 * Titles and headers::          
 * MIDI output::                 
+* other midi::                  
 @end menu
 
 
@@ -682,6 +683,10 @@ and percent repeats).  For example,
 @end example
 
 
+@node other midi
+@section other midi
+
+Micro tones are also exported to the MIDI file.
 
 
 

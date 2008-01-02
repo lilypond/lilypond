@@ -49,6 +49,10 @@ commands.
   @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
   {pitches-headword.ly}
 
+* LSR snippets are linked with
+  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+  {filename.ly}
+
 * Avoid long stretches of input code.  Noone is going to read them
   in print.  Please create a smaller example.  (the smaller
   example does not need to be minimal, however)
