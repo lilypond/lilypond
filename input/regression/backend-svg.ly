@@ -1,4 +1,4 @@
-
+%{
 #(ly:set-option 'backend 'svg)
 #(set! output-count 1)
 
@@ -44,3 +44,4 @@
     }
   }
 }
+%}
