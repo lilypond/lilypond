@@ -37,7 +37,7 @@ commands.
     \override textscript #'padding = #3
     c1^"hi"
 
-* LilyPond input should be produce via
+* LilyPond input should be produced via
     @lilypond[verbatim,quote,ragged-right]
   with `fragment' and `relative=2' optional.
 
