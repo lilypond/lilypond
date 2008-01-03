@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: a57cf78b3c1213b41b1f4fc5b92f0f4a948c7b5c
+    Translation of GIT committish: d8f1a358802cf74903eb2dfa7ce761ca4803c634
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -94,7 +94,9 @@
 		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
 	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
  	      <br>&mdash; installation et exécution des programmes
-	    <li><a class="title" href="../input/lsr/collated-files.html">Exemples de code</a>
+	    <li><a class="title" href="../input/lsr/snippets/index.html">Exemples de code</a>
+(en <a class="title" href="../input/lsr/snippets-big-page.html">une seule grande page</a>,
+au format <a class="title" href="../input/lsr/snippets.pdf">PDF</a>)
 	      <br>&mdash; petits trucs, astuces et exemples
 	  </ul>
 	  </td>
