@@ -6,7 +6,7 @@
 Some dynamics may involve text indications (such as \"più forte\",
 \"piano subito\", etc.). They can be produced using a \\markup bloc.
 " }
-
+% begin verbatim
 \layout{ragged-right = ##t}
 
 piuf =	\markup {  \italic "molto" \dynamic "f" }

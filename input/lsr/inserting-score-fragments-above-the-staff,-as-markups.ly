@@ -6,7 +6,7 @@
 The \\markup command is quite versatile. In this snippet, it contains a
 \\score bloc instead of texts or marks.
 " }
-
+% begin verbatim
 tuning = \markup {
     \score {
 	\new Staff \with {
@@ -24,7 +24,7 @@ tuning = \markup {
     subtitle = "Suite IV"
     subsubtitle = \markup { "Originalstimmung:" \tuning }
 }
-
+% begin verbatim
 \relative {
     \time 4/8
     \times 2/3 { c'8 d e } \times 2/3 {c d e}

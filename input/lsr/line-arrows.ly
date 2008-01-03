@@ -3,7 +3,7 @@
 \header {
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
 }
-
+% begin verbatim
 \version "2.11.35"
 
 \paper {

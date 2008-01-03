@@ -6,7 +6,7 @@
 Ambits can be added per voice. In that case, the ambitus must be moved
 manually to prevent collisions. 
 " }
-
+% begin verbatim
 {
 \new Staff <<
   \new Voice \with {

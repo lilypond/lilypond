@@ -92,7 +92,7 @@
 
 @macro lsrdir{DIR}
 @ifhtml
-@uref{source/input/lsr/snippets\DIR\.html,\DIR\}
+@uref{source/input/lsr/snippets/\DIR\.html,\DIR\}
 @end ifhtml
 @ifnothtml
 \DIR\

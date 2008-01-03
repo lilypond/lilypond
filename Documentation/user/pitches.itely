@@ -88,7 +88,7 @@ c, c,, e, g d,, d, d c
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{LedgerLineSpanner},
 @internalsref{NoteHead}.
@@ -209,7 +209,7 @@ c2 ges
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 
 @refbugs
@@ -306,18 +306,11 @@ pitches
 ceseh ces ceh c cih cis cisih
 @end lilypond
 
-Micro tones are also exported to the MIDI file.
-
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {preventing-extra-naturals-from-being-automatically-added.ly}
-
-@lilypondfile[lilyquote,ragged-right,texidoc]
-{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
-
-@lilypondfile[lilyquote,ragged-right,texidoc]{makam.ly}
 
 @seealso
 
@@ -330,7 +323,11 @@ Notation Reference: @ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches},
+@lsr{Pitches,
+dodecaphonic-style-accidentals-for-each-note-including-naturals.ly},
+@lsr{Pitches, makam.ly}.
+
 
 
 @refbugs
@@ -446,7 +443,7 @@ special names have been defined yet.
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 
 @node Changing multiple pitches
@@ -542,7 +539,7 @@ a@tie{}@code{d''}.
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 
 @node Transpose
@@ -632,13 +629,13 @@ musicInBflat = @{ e4 @dots{} @}
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{TransposedMusic}.
 
@@ -769,7 +766,7 @@ For example,
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {clefs-commonly-tweaked-properties.ly}
 
 
@@ -777,7 +774,7 @@ For example,
 
 Notation Reference: @ref{Ancient clefs}.
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{Clef}.
 
@@ -834,13 +831,13 @@ fis
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {non-traditional-key-signatures.ly}
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
@@ -850,7 +847,7 @@ Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
@@ -894,7 +891,7 @@ c'
 
 Music Glossary: @rglos{ottava}.
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{OttavaBracket}.
 
@@ -993,7 +990,7 @@ to serve as a reminder that these parts are written in C.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 
 @node Automatic accidentals
@@ -1659,7 +1656,7 @@ musicB = {
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion},
@@ -1710,16 +1707,16 @@ printed if they are not part of the key signature.
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {adding-ambiti-per-voice.ly}
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {ambiti-multiple-voices.ly}
 
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
@@ -1774,7 +1771,7 @@ font, see @ref{Setting the staff size}.
 
 Notation Reference: @ref{Setting the staff size}.
 
-Snippets: @lsrdir{pitches},
+Snippets: @lsrdir{Pitches},
 
 Internals Reference: @internalsref{NoteHead}.
 
@@ -1819,13 +1816,13 @@ c8 d4 e8 a2 g1
 
 @commonprop
 
-@lilypondfile[lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 
 @node Improvisation
@@ -1863,7 +1860,7 @@ used in the following example:
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{Pitch_squash_engraver},
 @internalsref{Voice}.
@@ -1894,7 +1891,7 @@ To see all notehead styles, please see @ref{Note head styles}.
 
 @seealso
 
-Snippets: @lsrdir{pitches}.
+Snippets: @lsrdir{Pitches}.
 
 Notation Reference: @ref{Note head styles}.
 

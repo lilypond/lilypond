@@ -6,7 +6,7 @@
 To make the \\flageolet circle smaller you can use the following scheme
 code (found in the Lilypond-user-archive)
 " }
-
+% begin verbatim
 F = #(let ((m (make-music 'ArticulationEvent
                           'articulation-type "flageolet")))
        (set! (ly:music-property m 'tweaks)

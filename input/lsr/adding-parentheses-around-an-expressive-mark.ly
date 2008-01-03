@@ -6,7 +6,7 @@
 The parenthesize function is a special tweak that encloses objects in
 parentheses. The associated grob is Score.ParenthesesItem.
 " }
-
+% begin verbatim
 \relative {
   c4 -\parenthesize -.
 

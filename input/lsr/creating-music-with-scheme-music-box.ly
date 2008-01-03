@@ -9,5 +9,5 @@ This example shows prelude in C major of Bach's Well-Tempered Klavier
 
 BROKEN (?) IN 2.11, COMMENTED OUT.
 " }
-
+% begin verbatim
 { c'4 }

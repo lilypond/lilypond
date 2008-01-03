@@ -9,7 +9,7 @@ you might wish to specify instead, so you can obtain the same random
 notes each time): i.e. to get different random notes patterns, just
 change this number.
 " }
-
+% begin verbatim
 \score {
 { #(let ((random-state (seed->random-state (current-time))))
     (ly:export

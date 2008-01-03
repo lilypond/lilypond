@@ -8,7 +8,7 @@ LilyPond's support of ancient notation.
 
 
 " }
-
+% begin verbatim
 upperStaff = \context GregorianStaff = "upperStaff" <<
   \context GregorianVoice <<
     \set Score.timing = ##f

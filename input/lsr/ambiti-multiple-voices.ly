@@ -12,7 +12,7 @@ This example uses one advanced feature,
 
 
 @code{ \\override Ambitus #'X-offset = #-1.0 }
-
+% begin verbatim
 
 
 This code moves the ambitus to the left.  The same effect could have

@@ -7,7 +7,7 @@ The appearance of slurs may be changed from solid to dotted or dashed.
 
 
 " }
-
+% begin verbatim
 \score{
 	\relative c'{
 		c( d e  c) |

@@ -6,15 +6,26 @@
 
 @iftex
 @afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\gdef\SETtxicodequoteundirected{Foo}
+\gdef\SETtxicodequotebacktick{Bla}
+@end tex
 @end iftex
 
 @finalout
 
-@node Top
-@top LilyPond examples
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Snippets}
+@author LilyPond Snippet Repository contributors
+
+@vskip 20pt
 
 This document shows LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}.
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
+in the public domain.
 
 Snippets are grouped by tags; many tags match a section of LilyPond
 notation manual.
@@ -36,6 +47,26 @@ or figure for each example to see the corresponding input file.
   }
 }
 @end lilypond
+@end titlepage
+
+@iftex
+@contents
+@end iftex
+
+@ifnottex
+@node Top
+@top LilyPond examples
+
+This document shows LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
+in the public domain.
+
+Snippets are grouped by tags; many tags match a section of LilyPond
+notation manual.
+
+In the HTML version of this document, you can click on the file name
+or figure for each example to see the corresponding input file.
+@end ifnottex
 
 @c maybe generate/update @menu and @includes automatically? --jm
 @menu
@@ -60,10 +91,14 @@ Specialist notation
 * Ancient notation::
 
 Other collections
+* Contexts and engravers::
+* Tweaks and overrides::
+* Paper and layout::
+* Titles::
+* Spacing::
+* MIDI::
 * Other::
 @end menu
-
-@contents
 
 @include pitches.itely
 @include rhythms.itely
@@ -80,9 +115,16 @@ Other collections
 @include percussion.itely
 @include guitar.itely
 @include strings.itely
+@c ignore empty section
 @c @include bagpipes.itely
 @include ancient-notation.itely
 
+@include contexts-and-engravers.itely
+@include tweaks-and-overrides.itely
+@include paper-and-layout.itely
+@include titles.itely
+@include spacing.itely
+@include midi.itely
 @include other.itely
 
 @bye

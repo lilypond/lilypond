@@ -6,7 +6,7 @@
   microtonal alterations."
 
 }
-
+% begin verbatim
 
 \version "2.11.35"
 

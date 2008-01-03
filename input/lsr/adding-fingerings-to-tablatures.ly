@@ -6,7 +6,7 @@
 To add fingerings to tablatures, you can use a combination of
 @code{\\markup} and @code{\\finger}. 
 " }
-
+% begin verbatim
 one = \markup{ \finger "1" }
 two = \markup{ \finger "2" }
 threetwo = \markup{ \column {\finger "3" \finger "2"} }

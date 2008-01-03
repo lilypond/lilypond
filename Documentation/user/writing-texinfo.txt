@@ -37,7 +37,7 @@ commands.
     \override textscript #'padding = #3
     c1^"hi"
 
-* LilyPond input should be produce via
+* LilyPond input should be produced via
     @lilypond[verbatim,quote,ragged-right]
   with `fragment' and `relative=2' optional.
 
@@ -48,6 +48,10 @@ commands.
 * Inspirational headwords are produced with
   @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
   {pitches-headword.ly}
+
+* LSR snippets are linked with
+  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+  {filename.ly}
 
 * Avoid long stretches of input code.  Noone is going to read them
   in print.  Please create a smaller example.  (the smaller

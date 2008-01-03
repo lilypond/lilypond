@@ -149,6 +149,7 @@ Languages in this order.
 * accessory::                   
 * accidental::                  
 * accelerando::                 
+* acciaccatura::                
 * adagio::                      
 * allegro::                     
 * alteration::                  
@@ -362,7 +363,6 @@ Languages in this order.
 * sextuplet::                   
 * shake::                       
 * sharp::                       
-* short appoggiatura::          
 * sixteenth note::              
 * sixteenth rest::              
 * sixth::                       
@@ -512,6 +512,18 @@ S: accelerando,
 FI: accelerando, kiihdyttäen.
 
 Increase tempo.
+
+@node acciaccatura
+@section acciaccatura
+
+A grace note which takes its time from the rest or note preceding the
+principal note to which it is attached. The acciaccatura is drawn as a
+small eighth note (quaver) with a line drawn through the flag and
+stem.
+
+@seealso
+
+@ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
 
 
 @node adagio
@@ -2289,7 +2301,7 @@ ES: intervalo disonante, disonancia,
 I: intervallo dissonante, dissonanza,
 F: dissonance,
 D: Dissonanz,
-NL: dissonant interval; dissonant,
+NL: dissonant interval, dissonant,
 DK: dissonerende interval, dissonans,
 S: dissonans,
 FI: dissonanssi, dissonoiva intervalli, riitasointi.
@@ -3173,7 +3185,9 @@ FI: korunuotit.
 Notes printed in small types to indicate that their time values are not
 counted in the rhythm of the bar.
 
-@ref{appoggiatura}.
+@seealso
+
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
 
 
 @node grand staff
@@ -4214,7 +4228,8 @@ FI: palautusmerkki.
 
 @seealso
 
-@ref{appoggiatura}.
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
+@ref{ornament}.
 
 
 @node ninth
@@ -4442,7 +4457,7 @@ the
 
 @seealso
 
-@ref{appoggiatura}.
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes}.
 
 
 @node ossia
@@ -5126,14 +5141,6 @@ FI: korotusmerkki.
 @seealso
 
 @ref{accidental}.
-
-
-@node short appoggiatura
-@section short appoggiatura
-
-@seealso
-
-@ref{appoggiatura}.
 
 
 @node sixteenth note

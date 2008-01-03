@@ -10,7 +10,7 @@ In time signature 2/2 or 4/4 the beam are  @code{         _____        
 
 
 " }
-
+% begin verbatim
 % Automatic beams two per two in 4/4 or 2/2 time signature
 %	     _____
 % Default   | | | | 

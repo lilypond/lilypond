@@ -7,7 +7,7 @@ The \\whiteout command underlays a white box under a markup. Since
 staff lines are in a lower layer than most other grobs, this white box
 will not overlap any other grob.
 " }
-
+% begin verbatim
 \paper
 {
   ragged-right = ##t

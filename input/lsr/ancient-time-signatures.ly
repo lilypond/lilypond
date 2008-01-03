@@ -7,7 +7,7 @@ Time signatures may also be engraved in an old style.
 
 
 " }
-
+% begin verbatim
 \score {
    { 
     \override Staff.TimeSignature  #'style = #'neomensural
