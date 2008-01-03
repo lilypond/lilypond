@@ -12,7 +12,7 @@ the output (mainly to remove outline overlaps and to add hints).
 
 The recommended calling sequence of mf2pt1 is
 
-  mf2pt1 --rounding=0.001 <other options> <font>
+  mf2pt1 --rounding=0.0001 <other options> <font>
 
 You need mf2pt1 version 2.1 or newer.
 
