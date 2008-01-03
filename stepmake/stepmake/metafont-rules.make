@@ -13,11 +13,8 @@ $(outdir)/%.tfm $(outdir)/%.log: %.mf
 	mv $(basename $(@F)).log $(basename $(@F)).tfm $(outdir)
 	rm -f $(basename $(@F)).*gf  $(basename $(@F)).*pk
 
+$(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
+	cd $(outdir) && MFINPUTS=.. $(PERL) ../$(buildscript-dir)/mf2pt1.pl $(MF2PT1_OPTIONS) $<
 
-MFTRACE_FORMATS = pfa pfb svg
-$(outdir)/%.pfb $(outdir)/%.svg $(outdir)/%.pfa: %.mf
-	MFINPUTS=$(src-dir) $(MFTRACE) $(MFTRACE_FLAGS) -I $(src-dir) -I $(outdir)/ --formats=pfa,pfb,svg $(basename $(@F))
-#	-mv $(MFTRACE_FORMATS:%=$(basename $(@F).%)) $(outdir)
-	-mv $(basename $(@F)).pfa $(outdir)
-	-mv $(basename $(@F)).pfb $(outdir)
-	-mv $(basename $(@F)).svg $(outdir)
+$(outdir)/mf2pt1.mem:
+	cd $(outdir) && mpost -progname=mpost -ini ../mf2pt1 \\dump

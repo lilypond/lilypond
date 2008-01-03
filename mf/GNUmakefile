@@ -56,13 +56,13 @@ $(outdir)/aybabtu.otf-gtable: $(BRACES:%=$(outdir)/feta-braces-%.otf-gtable)
 #
 
 
-$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfa  $(outdir)/feta-alphabet%.pfa  $(outdir)/parmesan%.pfa $(outdir)/feta%.otf-table $(outdir)/feta%.otf-gtable
+$(outdir)/emmentaler-%.otf $(outdir)/emmentaler-%.svg: $(outdir)/emmentaler-%.pe $(outdir)/feta%.pfb  $(outdir)/feta-alphabet%.pfb  $(outdir)/parmesan%.pfb $(outdir)/feta%.otf-table $(outdir)/feta%.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script $(notdir $(basename ,$@).pe)
 
-$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfa) $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(outdir)/aybabtu.pe $(foreach s,$(BRACES),$(outdir)/feta-braces-$(s).pfb) $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable
 	cd $(outdir) && $(FONTFORGE) -script aybabtu.pe
 
-$(outdir)/%.pfa: $(outdir)/%.log
+$(outdir)/%.pfb: $(outdir)/%.log
 
 $(outdir)/%.otf-table: $(outdir)/%.lisp
 	cat $< \
@@ -84,7 +84,7 @@ $(outdir)/feta11.otf-table: $(outdir)/feta11.lisp $(outdir)/parmesan11.lisp $(ou
 
 $(outdir)/aybabtu.otf: $(outdir)/aybabtu.subfonts $(outdir)/aybabtu.fontname $(outdir)/aybabtu.otf-table $(outdir)/aybabtu.otf-gtable $(outdir)/aybabtu.pe
 
-$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfa)
+$(outdir)/aybabtu.otf $(outdir)/aybabtu.svg: $(BRACES:%=$(outdir)/feta-braces-%.pfb)
 
 $(outdir)/aybabtu.fontname:
 	echo -n 'aybabtu' > $@
@@ -95,11 +95,11 @@ $(PE_SCRIPTS): $(buildscript-dir)/gen-emmentaler-scripts.py
 	$(PYTHON) $< --dir=$(outdir)
 
 ALL_FONTS = $(FETA_FONTS)
-PFA_FILES = $(ALL_FONTS:%=$(outdir)/%.pfa)
+PFB_FILES = $(ALL_FONTS:%=$(outdir)/%.pfb)
 
 # Make tfm files first, log files last,
 # so that normally log files aren't made twice
-ALL_GEN_FILES=$(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFA_FILES) $(OTF_FILES) $(SVG_FILES) 
+ALL_GEN_FILES=$(LOG_FILES) $(ENC_FILES) $(LISP_FILES) $(OTF_TABLES) $(NCSB_OTFS) $(PFB_FILES) $(OTF_FILES) $(SVG_FILES) 
 
 #PRE_INSTALL=$(MAKE) "$(ALL_GEN_FILES)"
 
@@ -115,7 +115,7 @@ INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/svg
 INSTALLATION_OUT_FILES4=$(SVG_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
-INSTALLATION_OUT_FILES5=$(PFA_FILES)
+INSTALLATION_OUT_FILES5=$(PFB_FILES)
 
 export MFINPUTS:=.:$(MFINPUTS)
 
