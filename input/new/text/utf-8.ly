@@ -29,6 +29,8 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
   
 }
 
+% end verbatim - this comment is a hack to prevent texinfo.tex
+% from choking on non-European UTF-8 subsets
 % Cyrillic font
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
