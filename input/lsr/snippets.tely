@@ -97,8 +97,13 @@ Other collections
 * Titles::
 * Spacing::
 * MIDI::
+* Templates::
 * Other::
 @end menu
+
+
+@c Please take care of naming every .itely
+@c with an existing tag name.
 
 @include pitches.itely
 @include rhythms.itely
@@ -125,6 +130,9 @@ Other collections
 @include titles.itely
 @include spacing.itely
 @include midi.itely
+@include template.itely
+
+@c temporary input/new tag, will be deleted
 @include other.itely
 
 @bye

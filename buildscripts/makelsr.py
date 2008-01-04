@@ -27,7 +27,7 @@ TAGS.extend (['vocal-music', 'chords', 'piano-music',
 
 # other
 TAGS.extend (['contexts-and-engravers', 'tweaks-and-overrides', 'paper-and-layout', 'breaks',
-'spacing', 'midi', 'titles', 'other'])
+'spacing', 'midi', 'titles', 'template', 'other'])
 
 def exit_with_usage (n=0):
 	sys.stderr.write (USAGE)
