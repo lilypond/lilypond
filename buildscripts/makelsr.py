@@ -61,11 +61,12 @@ def copy_ly (srcdir, name, tags):
 	global unconverted
 	dest = os.path.join (DEST, name)
 	f = open (dest, 'w')
+	tags = ', '.join (tags)
 	if in_dir in srcdir:
 		h = LY_HEADER_LSR
 	else:
 		h = LY_HEADER_NEW
-	f.write (h % ', '.join (tags))
+	f.write (h % vars ())
 	f.write (mark_verbatim_section (open (os.path.join (srcdir, name)).read ()))
 	f.close ()
 	e = os.system('convert-ly -e ' + dest)
@@ -98,11 +99,12 @@ def read_source (src):
 	s = {}
 	l = dict ([(tag, set()) for tag in TAGS])
 	for f in glob.glob (os.path.join (src, '*.ly')):
+		basename = os.path.basename (f)
 		m = tags_re.search (open (f, 'r').read ())
 		if m:
 			file_tags = [tag.strip() for tag in m.group (1). split(',')]
-			s[f] = (src, file_tags)
-			[l[tag].add (f) for tag in file_tags if tag in TAGS]
+			s[basename] = (src, file_tags)
+			[l[tag].add (basename) for tag in file_tags if tag in TAGS]
 		else:
 			notags_files.append (f)
 	return s, l

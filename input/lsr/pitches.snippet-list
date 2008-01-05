@@ -1,11 +1,12 @@
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
 glissando-contempary.ly
 ambiti-multiple-voices.ly
-volta-multi-staff.ly
-transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 makam.ly
+transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+jazz-combo-template.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 generating-random-notes.ly
+quoting-another-voice-with-transposition.ly
 adding-ambiti-per-voice.ly
 clefs-commonly-tweaked-properties.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
