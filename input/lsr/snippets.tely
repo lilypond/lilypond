@@ -112,7 +112,6 @@ Other collections
 * Spacing::
 * MIDI::
 * Templates::
-* Other::
 @end menu
 
 
@@ -145,8 +144,5 @@ Other collections
 @include spacing.itely
 @include midi.itely
 @include template.itely
-
-@c temporary input/new tag, will be deleted
-@include other.itely
 
 @bye
