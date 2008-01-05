@@ -23,12 +23,19 @@
 
 @vskip 20pt
 
-This document shows LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
-in the public domain.
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR). It is in the public domain.
 
-Snippets are grouped by tags; many tags match a section of LilyPond
-notation manual.
+Please note that it is not an exact subset of LSR: some snippets come
+from @file{input/new} LilyPond sources directory, and snippets from LSR
+are converted through @command{convert-ly}, as LSR is based on a stable
+LilyPond version, and this document may be for a newer version (see
+below).
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
 
 In the HTML version of this document, you can click on the file name
 or figure for each example to see the corresponding input file.
@@ -57,12 +64,19 @@ or figure for each example to see the corresponding input file.
 @node Top
 @top LilyPond examples
 
-This document shows LilyPond snippets from the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}. It is
-in the public domain.
+This document shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR). It is in the public domain.
 
-Snippets are grouped by tags; many tags match a section of LilyPond
-notation manual.
+Please note that it is not an exact subset of LSR: some snippets come
+from @file{input/new} LilyPond sources directory, and snippets from LSR
+are converted through @command{convert-ly}, as LSR is based on a stable
+LilyPond version, and this document may be for a newer version (see
+below).
+
+Snippets are grouped by tags; tags listed in the table of contents match
+a section of LilyPond notation manual.  Snippets may have several tags,
+and not all LSR tags may appear in this document.
 
 In the HTML version of this document, you can click on the file name
 or figure for each example to see the corresponding input file.
@@ -98,7 +112,6 @@ Other collections
 * Spacing::
 * MIDI::
 * Templates::
-* Other::
 @end menu
 
 
@@ -131,8 +144,5 @@ Other collections
 @include spacing.itely
 @include midi.itely
 @include template.itely
-
-@c temporary input/new tag, will be deleted
-@include other.itely
 
 @bye

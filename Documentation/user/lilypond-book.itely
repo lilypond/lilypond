@@ -23,8 +23,8 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
-This is a separate programs from lilypond itself, and is run
-on the command-line; see @ref{Command-line usage} for more information.
+This is a separate program from @command{lilypond} itself, and is run on
+the command-line; for more information, see @ref{Command-line usage}.
 
 This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook documents.
 
@@ -73,7 +73,7 @@ text, so we will not comment on it further.
 
 \begin{document}
 
-Documents for @command{lilypond-book} may freely mix music and text.
+Documents for \verb+lilypond-book+ may freely mix music and text.
 For example,
 
 \begin{lilypond}
@@ -93,45 +93,35 @@ Larger examples can be put into a separate file, and introduced with
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
+(If needed, replace screech-boink.ly by any .ly file you put in the same
+directory as this file.)
+
 \end{document}
 @end verbatim
 @end quotation
 
 @subheading Processing
 
-Under Unix, you can view the results as follows
+Save the code above to a file called @file{lilybook.lytex}, then in a
+terminal run
 
 @example
-cd input/tutorial
-mkdir -p out/
-lilypond-book --output=out --psfonts lilybook.tex
-@emph{lilypond-book (GNU LilyPond) 2.6.0}
-@emph{Reading lilybook.tex...}
+lilypond-book --output=out --pdf lilybook.lytex
+@emph{lilypond-book (GNU LilyPond) 2.11.37}
+@emph{Reading lilybook.lytex...}
 @emph{..lots of stuff deleted..}
-@emph{Compiling out/lilybook.tex...}
+@emph{Compiling lilybook.tex...}
 cd out
-latex lilybook
-@emph{lots of stuff deleted}
-xdvi lilybook
+pdflatex lilybook
+@emph{..lots of stuff deleted..}
+xpdf lilybook
+@emph{(replace @command{xpdf} by your favorite PDF viewer)}
 @end example
-
-To convert the file into a PDF document, run the following commands
-
-@example
-dvips -o -Ppdf -h lilybook.psfonts lilybook
-ps2pdf lilybook.ps
-@end example
-
-If you are running latex in twocolumn mode, remember to add
-@code{-t landscape} to the dvips options.
 
 Running @command{lilypond-book} and @command{latex} creates a lot of
 temporary files, which would clutter up the working directory.  To
 remedy this, use the @code{--output=@var{dir}} option.  It will create
 the files in a separate subdirectory @file{dir}.
-
-Running dvips will produce many warnings about fonts.  They are not
-harmful; please ignore them.
 
 Finally the result of the @LaTeX{} example shown above.@footnote{This
 tutorial is processed with Texinfo, so the example gives slightly
@@ -213,7 +203,7 @@ or
 Running @command{lilypond-book} yields a file that can be further
 processed with @LaTeX{}.
 
-We show some examples here.  The lilypond environment
+We show some examples here.  The @code{lilypond} environment
 
 @example
 \begin[quote,fragment,staffsize=26]@{lilypond@}
@@ -258,15 +248,17 @@ use the @code{line-width} music fragment option.
 Each snippet will call the following macros if they have been defined by
 the user:
 
-@code{\preLilyPondExample} called before the music
+@itemize bullet
+@item @code{\preLilyPondExample} called before the music,
 
-@code{\postLilyPondExample} called after the music
+@item @code{\postLilyPondExample} called after the music,
 
-@code{\betweenLilyPondSystem[1]} is called between systems if
+@item @code{\betweenLilyPondSystem[1]} is called between systems if
 @code{lilypond-book} has split the snippet into several postscript
 files.  It must be defined as taking one parameter and will be
 passed the number of files already included in this snippet.
 The default is to simply insert a @code{\linebreak}.
+@end itemize
 
 @ignore
 Broken stuff.  :(
@@ -298,33 +290,7 @@ kpsewhich feta20.tex
 
 @end ignore
 
-@cindex outline fonts
-@cindex type1 fonts
-@cindex dvips
-@cindex invoking dvips
-
-For printing the @LaTeX{} document you need a DVI to PostScript
-translator like @command{dvips}.  To use @command{dvips} to produce
-a PostScript file, add the following options to the @command{dvips}
-command line:
-
-@example
--o -Ppdf -h @var{file}.psfonts
-@end example
-
-@noindent
-where the @var{file}@command{psfonts} file is obtained from
-@command{lilypond-book}, @xref{Invoking lilypond-book}, for details.  PDF
-can then be produced with a PostScript to PDF translator like
-@code{ps2pdf} (which is part of GhostScript).  Running @command{dvips}
-will produce some warnings about fonts; these are harmless and may
-be ignored.
-
-If you are running latex in twocolumn mode, remember to add
-@code{-t landscape} to the dvips options.
-
-@cindex international characters
-@cindex latin1
+@commonprop
 
 Sometimes it is useful to display music elements (such as ties and slurs)
 as if they continued after the end of the fragment.  This can be done by
@@ -334,7 +300,7 @@ output.
 In @LaTeX{}, define @code{\betweenLilyPondSystem} in such a way that
 inclusion of other systems is terminated once the required number of
 systems are included.  Since @code{\betweenLilypondSystem} is first
-called @b{after} the first system, including only the first system
+called @emph{after} the first system, including only the first system
 is trivial.
 
 @example
@@ -345,8 +311,8 @@ is trivial.
 \end@{lilypond@}
 @end example
 
-If a greater number of systems is requested, a TeX conditional must be
-used before the @code{\endinput}.  In this example, replace @q{2} by
+If a greater number of systems is requested, a @TeX{} conditional must
+be used before the @code{\endinput}.  In this example, replace @q{2} by
 the number of systems you want in the output,
 
 @example
@@ -366,7 +332,7 @@ definition, write
 @end example
 
 @noindent
-in your LaTeX source.
+in your @LaTeX{} source.
 
 This may be simplified by defining a @TeX{} macro
 
@@ -385,6 +351,11 @@ and then saying only how many systems you want before each fragment,
 \onlyFirstNSystems@{1@}
 \begin@{lilypond@}...\end@{lilypond@}
 @end example
+
+@seealso
+There are specific @command{lilypond-book} command line options and
+other details to know when processing @LaTeX{} documents, see
+@ref{Invoking lilypond-book}.
 
 
 @node Texinfo
@@ -418,8 +389,9 @@ or
 
 When @command{lilypond-book} is run on it, this results in a Texinfo
 file (with extension @file{.texi}) containing @code{@@image} tags for
-HTML and info output.  For the printed edition, the raw @TeX{} output of
-LilyPond is included in the main document.
+HTML, Info and printed output.  @command{lilypond-book} generates images
+of the music in EPS and PDF formats for use in the printed output, and
+in PNG format for use in HTML and Info output.
 
 We show two simple examples here.  A @code{lilypond} environment
 
@@ -449,10 +421,6 @@ produces
 
 Contrary to @LaTeX{}, @code{@@lilypond@{...@}} does not generate an
 in-line image.  It always gets a paragraph of its own.
-
-When using the Texinfo output format, @command{lilypond-book} also
-generates bitmaps of the music (in PNG format), so you can make an HTML
-document with embedded music.
 
 
 @node HTML
@@ -494,23 +462,26 @@ To include separate files, say
 @node DocBook
 @subsection DocBook
 
-For inserting LilyPond snippets it is good to keep the conformity of
-our DocBook document, thus allowing us to use DocBook editors,
-validation etc. So we don't use custom tags, only specify a convention
-based on the standard DocBook elements.
+For inserting LilyPond snippets it is good to keep the conformity of our
+DocBook document, thus allowing us to use DocBook editors, validation
+etc. So we don't use custom tags, only specify a convention based on the
+standard DocBook elements.
 
 @subheading Common conventions
 
-For inserting all type of snippets we use the @code{mediaobject} and @code{inlinemediaobject} element, so our snippets can be
-formatted inline or not inline.
-The snippet formatting options are always provided in the @code{role} property of the innermost element (see in next sections).  Tags are
-chosen to allow DocBook editors format the content gracefully.
-The DocBook files to be processed with @command{lilypond-book} should have the extension @file{.lyxml}.
+For inserting all type of snippets we use the @code{mediaobject} and
+@code{inlinemediaobject} element, so our snippets can be formatted
+inline or not inline.  The snippet formatting options are always
+provided in the @code{role} property of the innermost element (see in
+next sections).  Tags are chosen to allow DocBook editors format the
+content gracefully.  The DocBook files to be processed with
+@command{lilypond-book} should have the extension @file{.lyxml}.
 
 @subheading Including a LilyPond file
 
-This is the most simple case.  We must use the @file{.ly} extension for the included file, and insert it as a standard @code{imageobject},
-with the following structure:
+This is the most simple case.  We must use the @file{.ly} extension for
+the included file, and insert it as a standard @code{imageobject}, with
+the following structure:
 
 @example
 <mediaobject>
@@ -520,11 +491,14 @@ with the following structure:
 </mediaobject>
 @end example
 
-Note that you can use mediaobject or inlinemediaobject as the outermost element as you wish.
+Note that you can use mediaobject or inlinemediaobject as the outermost
+element as you wish.
 
 @subheading Including LilyPond code
 
-Including LilyPond code is possible by using a @code{programlisting}, where the language is set to @code{lilypond} with the following structure:
+Including LilyPond code is possible by using a @code{programlisting},
+where the language is set to @code{lilypond} with the following
+structure:
 
 @example
 <inlinemediaobject>
@@ -539,7 +513,9 @@ Including LilyPond code is possible by using a @code{programlisting}, where the 
 </inlinemediaobject>
 @end example
 
-As you can see, the outermost element is a @code{mediaobject} or @code{inlinemediaobject}, and there is a @code{textobject} containing the @code{programlisting} inside.
+As you can see, the outermost element is a @code{mediaobject} or
+@code{inlinemediaobject}, and there is a @code{textobject} containing
+the @code{programlisting} inside.
 
 @subheading Processing the DocBook document
 
@@ -571,16 +547,17 @@ The following options are available for LilyPond commands:
 Set staff size to @var{ht}, which is measured in points.
 
 @item ragged-right
-Produce ragged-right lines with natural spacing (i.e., @code{ragged-right
-= ##t} is added to the LilyPond snippet).  This is the default for the
-@code{\lilypond@{@}} command if no @code{line-width} option is present.
-It is also the default for the @code{lilypond} environment if the
-@code{fragment} option is set, and no line width is explicitly
-specified.
+Produce ragged-right lines with natural spacing, i.e.,
+@code{ragged-right = ##t} is added to the LilyPond snippet.  This is the
+default for the @code{\lilypond@{@}} command if no @code{line-width}
+option is present.  It is also the default for the @code{lilypond}
+environment if the @code{fragment} option is set, and no line width is
+explicitly specified.
 
+@c does this option still exist in lilypond? -jm
 @item packed
-Produce lines with packed spacing (i.e., @code{packed = ##t} is added
-to the LilyPond snippet).
+Produce lines with packed spacing, i.e., @code{packed = ##t} is added
+to the LilyPond snippet.
 
 @item line-width
 @itemx line-width=@var{size}\@var{unit}
@@ -612,7 +589,7 @@ c'4
 without @code{\layout}, @code{\score}, etc.
 
 @item nofragment
-Don't add additional code to complete LilyPond code in music snippets.
+Do not add additional code to complete LilyPond code in music snippets.
 Since this is the default, @code{nofragment} is redundant normally.
 
 @item indent=@var{size}\@var{unit}
@@ -631,8 +608,6 @@ Reduce line length of a music snippet by @math{2*0.4}@dmn{in} and put
 the output into a quotation block.  The value @q{0.4@dmn{in}} can be
 controlled with the @code{exampleindent} option.
 
-@c in lilypond-book.py at l.953, it is said that this option is broken.
-@c remove?
 @item exampleindent
 Set the amount by which the @code{quote} option indents a music snippet.
 
@@ -663,13 +638,21 @@ last occurence of such a comment; similarly, quoting the source verbatim
 will stop just before the first occurence of a comment containing
 @samp{end verbatim}, it there is any.  In the following source file
 example, the music will be interpreted in relative mode, but the
-verbatim quote will not show the @code{relative} block.
+verbatim quote will not show the @code{relative} block, i.e.
 
 @example
 \relative c' @{ % begin verbatim
   c4 e2 g4
   f2 e % end verbatim
 @}
+@end example
+
+@noindent
+will be printed with a verbatim block like
+
+@example
+  c4 e2 g4
+  f2 e
 @end example
 
 @item texidoc
@@ -731,15 +714,40 @@ cannot find on its own.
 @section Invoking @command{lilypond-book}
 
 @command{lilypond-book} produces a file with one of the following
-extensions: @file{.tex}, @file{.texi}, @file{.html}  or @file{.xml}, depending on the
-output format.  All of @file{.tex}, @file{.texi} and @file{.xml} files need further
-processing.
+extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
+depending on the output format.  All of @file{.tex}, @file{.texi} and
+@file{.xml} files need further processing.
 
-@command{lilypond-book} can also create a PSFONTS file, which is required
-by @command{dvips} to produce Postscript and PDF files.
+@command{lilypond-book} can also create a @file{.psfonts} file, which is
+required by @command{dvips} to produce PostScript and PDF files.
 
-To produce PDF output from the lilypond-book file (here called
-@code{yourfile.lytex}) via LaTeX, you should do
+@subheading Format-specific instructions
+
+@subsubheading @LaTeX{}
+
+There are two ways of processing your @LaTeX{} document for printing or
+publishing: getting a PDF file directly with PDF@LaTeX{}, or getting a
+PostScript file with @LaTeX{} via a DVI to PostScript translator like
+@command{dvips}.  The first way is simpler and recommended@footnote{Note
+that PDF@LaTeX{} and @LaTeX{} may not be both usable to compile any
+@LaTeX{} document, that is why we explain the two ways.}, and whichever
+way you use, you can easily convert between PostScript and PDF with
+tools, like @command{ps2pdf} and @command{pdf2ps} included in
+Ghostscript package.
+
+To produce a PDF file through PDF@LaTeX{}, use
+
+@example
+lilypond-book --pdf yourfile.pdftex
+pdflatex yourfile.tex
+@end example
+
+@cindex outline fonts
+@cindex type1 fonts
+@cindex dvips
+@cindex invoking dvips
+To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf}, you
+should do
 
 @example
 lilypond-book --psfonts yourfile.lytex
@@ -748,22 +756,22 @@ dvips -o -h yourfile.psfonts -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
+@noindent
 The @file{.dvi} file created by this process will not contain
 noteheads.  This is normal; if you follow the instructions, they
 will be included in the @file{.ps} and @file{.pdf} files.
 
-To produce a PDF file through PDF(La)TeX, use
- 
-@example
-lilypond-book --pdf yourfile.pdftex
-pdflatex yourfile.tex
-@end example
- 
+Running @command{dvips} will produce some warnings about fonts; these
+are harmless and may be ignored.  If you are running @command{latex} in
+twocolumn mode, remember to add @code{-t landscape} to the
+@command{dvips} options.
+
+@subsubheading Texinfo
 
 To produce a Texinfo document (in any output format), follow the normal
-procedures for Texinfo (this is, either call @command{texi2dvi} or
-@command{makeinfo}, depending on the output format you want to
-create).
+procedures for Texinfo; this is, either call @command{texi2pdf} or
+@command{texi2dvi} or @command{makeinfo}, depending on the output format
+you want to create.
 @ifinfo
 @xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, and @ref{Creating
 an Info File, , , texinfo, GNU Texinfo}.
@@ -773,26 +781,32 @@ See the documentation of Texinfo for further details.
 @end ifnotinfo
 
 
+@subheading Command line options
+
 @command{lilypond-book} accepts the following command line options:
 
 @table @code
 @item -f @var{format}
 @itemx --format=@var{format}
-Specify the document type to process: @code{html}, @code{latex}, @code{texi} (the default) or @code{docbook}.  If this option is missing,
-@command{lilypond-book} tries to detect the format automatically.
+Specify the document type to process: @code{html}, @code{latex},
+@code{texi} (the default) or @code{docbook}.  If this option is missing,
+@command{lilypond-book} tries to detect the format automatically, see
+@ref{Filename extensions}.
 
+@c This complicated detail is not implemented, comment it out -jm
+@ignore
 The @code{texi} document type produces a Texinfo file with music
-fragments in the DVI output only.  For getting images in the HTML
+fragments in the printed output only.  For getting images in the HTML
 version, the format @code{texi-html} must be used instead.
 
-[Note: Currently, @code{texi} is the same as @code{texi-html}.]
+[Note: currently, @code{texi} is the same as @code{texi-html}.]
+@end ignore
 
 @item -F @var{filter}
 @itemx --filter=@var{filter}
 Pipe snippets through @var{filter}.  @code{lilypond-book} will
-not --filter and --process at the same time.
+not --filter and --process at the same time.  For example,
 
-Example:
 @example
 lilypond-book --filter='convert-ly --from=2.0.0 -' my-book.tely
 @end example
@@ -811,7 +825,7 @@ Place generated files in directory @var{dir}.  Running
 @command{lilypond-book} generates lots of small files that LilyPond will
 process.  To avoid all that garbage in the source directory use the
 @option{--output} command line option, and change to that directory
-before running @command{latex} or @command{makeinfo}:
+before running @command{latex} or @command{makeinfo}.
 
 @example
 lilypond-book --output=out yourfile.lytex
@@ -833,11 +847,11 @@ line to the right by the same amount.
 @item -P @var{process}
 @itemx --process=@var{command}
 Process LilyPond snippets using @var{command}.  The default command is
-@code{lilypond}.  @code{lilypond-book} will not --filter and --process
-at the same time.
+@code{lilypond}.  @code{lilypond-book} will not @code{--filter} and
+@code{--process} at the same time.
 
 @itemx --psfonts
-extract all PostScript fonts into @file{@var{file}.psfonts} for dvips.
+Extract all PostScript fonts into @file{@var{file}.psfonts} for dvips.
 This is necessary for @command{dvips -h @var{file}.psfonts}.
 
 @item -V
@@ -863,9 +877,9 @@ Only the first @code{\score} of a LilyPond block is processed.
 
 You can use any filename extension for the input file, but if you do not
 use the recommended extension for a particular format you may need to
-manually specify the output format.  @xref{Invoking lilypond-book}, for
-details.  Otherwise, @command{lilypond-book} automatically selects the
-output format based on the input filename's extension.
+manually specify the output format; for details, see @ref{Invoking
+lilypond-book}.  Otherwise, @command{lilypond-book} automatically
+selects the output format based on the input filename's extension.
 
 @quotation
 @multitable @columnfractions .2 .5
@@ -884,9 +898,19 @@ output format based on the input filename's extension.
 @end multitable
 @end quotation
 
+If you use the same filename extension for the input file than the
+extension @command{lilypond-book} uses for the output file, and if the
+input file is in the same directory as @command{lilypond-book} working
+directory, you must use @code{--output} option to make
+@command{lilypond-book} running, otherwise the will exit with an error
+message like @qq{Output would overwrite input file}.
+
 
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
+
+This section shows methods to integrate text and music, different than
+the automated method with @command{lilypond-book}.
 
 @menu
 * Many quotes from a large score::  
@@ -907,7 +931,7 @@ the clip systems feature, see @ruser{Extracting fragments of notation}.
 @cindex OpenOffice.org
 
 LilyPond notation can be added to OpenOffice.org with
-@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
 
 
 @node Inserting LilyPond output into other programs
@@ -935,7 +959,7 @@ the following options
 @{ c1 @}
 @end example
 
-To produce a useful @file{eps} file, use
+To produce a useful EPS file, use
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly

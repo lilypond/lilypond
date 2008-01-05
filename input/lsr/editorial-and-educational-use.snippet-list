@@ -5,6 +5,7 @@ coloring-objects.ly
 inserting-score-fragments-above-the-staff,-as-markups.ly
 rhythmic-slashes.ly
 changing-the-default-text-font-family.ly
+three-sided-box.ly
 clefs-commonly-tweaked-properties.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 changing-an-individual-notes-size-in-a-chord.ly
