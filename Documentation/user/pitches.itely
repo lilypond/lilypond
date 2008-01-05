@@ -837,9 +837,6 @@ fis
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {non-traditional-key-signatures.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
-
 
 @seealso
 
@@ -1652,6 +1649,11 @@ musicB = {
 }
 @end lilypond
 @end table
+
+@commonprop
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
 @seealso

@@ -546,7 +546,6 @@ and colors for the three voices.
 @end lilypond
 
 Let us see how this is done.
-@smallspace
 
 @funindex \\
 
@@ -1288,9 +1287,7 @@ apostrophes.  Note the occurrence of hash signs,
 (@code{#}), in two different places -- as part of the Boolean 
 value before the @code{t} or @code{f}, and before @emph{value}
 in the @code{\set} statement.  So when a Boolean is being 
-entered you need to code two hash signs, e.g., @code{##t}.
-
-@smallspace   
+entered you need to code two hash signs, e.g., @code{##t}.  
 
 Before we can set any of these properties we need to know
 in which context they operate.  Sometimes this is obvious,
