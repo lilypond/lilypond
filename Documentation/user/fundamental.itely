@@ -727,9 +727,8 @@ colliding.  This often works well, but in this example the
 notes of the third voice are clearly not well placed by default.
 LilyPond provides several ways to adjust the horizontal placing
 of notes.  We are not quite ready yet to see how to correct this,
-so we shall leave this problem until a later section (see ... )
-
-TODO link.
+so we shall leave this problem until a later section 
+(see @ref{Fixing overlapping notation} )
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -820,16 +819,23 @@ permitting a phrasing slur to be drawn over them.
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
   \voiceOneStyle
-  c16^( d e f  % These notes are monophonic
-  <<           % Start simultaneous section of three voices
-    { g4 f e | d2 e2) }  % Continue the main voice in parallel
-    \new Voice {         % Initiate second voice
-      \voiceTwo          % Set stems, etc, down
+  % The following notes are monophonic
+  c16^( d e f
+  % Start simultaneous section of three voices
+  <<
+    % Continue the main voice in parallel
+    { g4 f e | d2 e2) }
+    % Initiate second voice
+    \new Voice {
+      % Set stems, etc, down
+      \voiceTwo
       r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
     }
-    \new Voice {         % Initiate third voice
-      \voiceThree        % Set stems, etc, up
-      s2. | s4 b4 c2 
+    % Initiate third voice
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b4 c2
     }
   >>
 }
@@ -852,7 +858,7 @@ typeset the music.
       r8 e4 d c8 ~ |
       <<
         {c8 b16 a b8 g ~ g2}
-        \new Voice { 
+        \new Voice {
           \voiceThree
           s4 b4 c2
         }
@@ -863,25 +869,30 @@ typeset the music.
 @end lilypond
 
 
-This method of nesting new voices briefly is useful 
+This method of nesting new voices briefly is useful
 when only small sections of the music
 are polyphonic, but when the whole staff is largely polyphonic
-it can be clearer to use multiple voices throughout, using 
-spacing notes to step over sections where the voice is silent, 
+it can be clearer to use multiple voices throughout, using
+spacing notes to step over sections where the voice is silent,
 as here:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' <<
-  \new Voice {   % Initiate first voice
+  % Initiate first voice
+  \new Voice {
     \voiceOne
     c16^( d e f g4 f e | d2 e2) |
   }
-  \new Voice {   % Initiate second voice
-    \voiceTwo    % set stems, etc down
+  % Initiate second voice
+  \new Voice {
+    % set stems, etc down
+    \voiceTwo
     s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
   }
-  \new Voice {   % Initiate third voice
-    \voiceThree  % set stems, etc up
+  % Initiate third voice
+  \new Voice {
+    % set stems, etc up
+    \voiceThree
     s1 | s4 b4 c2 |
   }
 >>
@@ -1381,11 +1392,14 @@ other things) several times.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 c4 
-\set fontSize = #-4   % make noteheads smaller
+% make noteheads smaller
+\set fontSize = #-4
 d e
-\set fontSize = #2.5  % make noteheads larger
+% make noteheads larger
+\set fontSize = #2.5
 f g
-\unset fontSize       % return to original size
+% return to original size
+\unset fontSize
 a b
 @end lilypond
 
