@@ -40,7 +40,6 @@ and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page
 
 Copyright @copyright{} 1999--2007 by the authors
 
-
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.1
   or any later version published by the Free Software Foundation,
@@ -94,7 +93,6 @@ English glossary translations.
 @end table
 @*
 Copyright 1999--2007 by the authors
-
 
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.1
@@ -569,9 +567,9 @@ I: alterazione,
 F: altération,
 D: Alteration,
 NL: verhoging of verlaging,
-DK:
-S:
-FI:
+DK: ?,
+S: ?,
+FI: ?.
 
 An alteration is the modification, raising or lowering, of a note's
 pitch.  It is established by an @ref{accidental}.
@@ -626,7 +624,7 @@ DK: ambitus,
 S: ambitus,
 FI: ambitus, ääniala, soitinala.
 
-The term ambit (from latin: ambitus, plural: ambitus) denotes a range
+The term ambit (from Latin: ambitus, plural: ambitus) denotes a range
 of pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
 
@@ -1629,7 +1627,6 @@ shown below, where the notes show an arpeggio on a C major chord.
 @end lilypond
 
 
-
 @node cluster
 @section cluster
 
@@ -1795,7 +1792,7 @@ DK: kontrapunkt,
 S: kontrapunkt,
 FI: kontrapunkti, ääni ääntä vastaan.
 
-From latin @emph{punctus contra punctum}, note against note.  The combination
+From Latin @emph{punctus contra punctum}, note against note.  The combination
 into a single musical fabric of lines or parts which have distinct melodic
 significance.  A frequently used polyphonic technique is imitation, in its
 strictest form found in the canon needing only one part to be written down
@@ -1912,11 +1909,11 @@ when to start playing.  Usually printed in a smaller type.
 F: guidon,
 D: Notenzeiger, Custos.
 
-A custos is a staff symbol that appears at the end of a staff line
-with monophonic musical contents (i.e., with a single voice).  It
-anticipates the pitch of the first note of the following line and thus
-helps the player or singer to manage line breaks during performance,
-thus enhancing readability of a score.
+A custos (plural: custodes) is a staff symbol that appears at the
+end of a staff line with monophonic musical contents (i.e., with a
+single voice).  It anticipates the pitch of the first note of the
+following line and thus helps the player or singer to manage line
+breaks during performance, thus enhancing readability of a score.
 
 Custodes were frequently used in music notation until the 16th
 century.  There were different appearences for different notation
@@ -2247,6 +2244,7 @@ FI: diminuendo, hiljentyen.
 
 @ref{decrescendo}.
 
+
 @node direct
 @section direct
 
@@ -2262,6 +2260,7 @@ FI: ?.
 @seealso
 
 @ref{custos}.
+
 
 @node disjunct movement
 @section disjunct movement
@@ -2389,11 +2388,9 @@ DK: punkt,
 S: punkt,
 FI: piste.
 
-@c TODO: fix double redirect -- to "dotted note", and thence to "note value"?
-
 @seealso
 
-@ref{dotted note}.
+@ref{dotted note}, @ref{note value}.
 
 
 @node dotted note
@@ -2655,7 +2652,18 @@ FI: kahdeksasosatauko.
 @node elision
 @section elision
 
-TODO: languages, definition
+@c TODO: add languages
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@c TODO definition -- referenced from lyric tie
 
 
 @node embellishment
@@ -3675,7 +3683,12 @@ A pond with lilies floating in it, also the name of a music typesetter.
 @section ligature
 
 ES: ligadura,
+I: ?,
+F: ligature,
 DE: Ligatur,
+NL: ?,
+DK: ?,
+S: ?,
 FI: ligatuura.
 
 A ligature is a coherent graphical symbol that represents at least two
@@ -3774,7 +3787,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-TODO: add languages
+@c TODO: add languages
 
 @seealso
 
@@ -3890,7 +3903,7 @@ syllable in plainsong
 @node melisma line
 @section melisma line
 
-TODO: add languages
+@c TODO: add languages
 
 @seealso
 
@@ -4480,9 +4493,28 @@ of the music, for example for small hands.
 @node ottava
 @section ottava
 
-TODO
+@c TODO
 
-DE: Oktavierung.
+ES: ?,
+I: ottava,
+F: octave,
+DE: Oktavierung,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Italian] The interval of an octave, abbreviated 8va.
+
+@emph{All'ottava}, @emph{ottava alta}, @emph{ottava sopra}, or
+@emph{8va} written above a passage indicates that it should be played
+an octave higher than written. @emph{Ottava bassa}, @emph{ottava
+sotto}, or @emph{8va} written below a passage indicates that it should
+be played an octave lower than written.
+
+@seealso
+
+@ref{interval}.
 
 
 @node part
@@ -5378,9 +5410,9 @@ DK: nodesystem,
 S: notsystem,
 FI: nuottiviivasto.
 
-A staff (pl. staves) is a series of (normally five) horizontal lines
-upon and between which the musical notes are written, thus indicating
-(in connection with a @ref{clef}) their pitch.  Staves for
+A staff (plural: staves) is a series of (normally five) horizontal
+lines upon and between which the musical notes are written, thus
+indicating (in connection with a @ref{clef}) their pitch.  Staves for
 @ref{percussion} instruments may have fewer lines.
 
 
@@ -5627,7 +5659,6 @@ FI: nuottijärjestelmä.
 
 The collection of staves (@ref{staff}), two or more, as used for writing
 down of keyboard, chamber, choral, or orchestral music.
-
 
 
 @node temperament
@@ -6246,8 +6277,6 @@ A family of blown wooden musical instruments.  Today some of these
 instruments are actually made from metal.  The woodwind instruments
 commonly used in a symphony orchestra are flute, oboe, clarinet,
 saxophone, and bassoon.
-
-
 
 
 @node Duration names notes and rests
