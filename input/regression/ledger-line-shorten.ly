@@ -1,6 +1,6 @@
 \header {
     texidoc = "Ledger lines are shortened when they are very close. This ensures
-that  ledgers lines stay separate."
+that ledger lines stay separate."
 }
 \version "2.10.0"
 

@@ -2,7 +2,7 @@
 
   texidoc = "If @code{extraNatural} is set then keys that are not
   altered farther away (eg from sharp to double sharp) are
-  cancelled. Otherwise only keys that does not accur in the new key
+  cancelled. Otherwise only keys that do not occur in the new key
   signature are cancelled."  }
 
 
