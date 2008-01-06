@@ -38,7 +38,8 @@ pitchnamesSuomi = #`(
 	(a . ,(ly:make-pitch -1 5 NATURAL))
 	(ais . ,(ly:make-pitch -1 5 SHARP))
 	(aisis . ,(ly:make-pitch -1 5 DOUBLE-SHARP))
-	(bb . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
+	(bb . ,(ly:make-pitch -1 6 DOUBLE-FLAT)) ;; should be bes. Kept for downwards compatibility
+	(bes . ,(ly:make-pitch -1 6 DOUBLE-FLAT))
 	(heses . ,(ly:make-pitch -1 6 DOUBLE-FLAT))  ;;non-standard name for bb
 	(b . ,(ly:make-pitch -1 6 FLAT))
 	(h . ,(ly:make-pitch -1 6 NATURAL))
