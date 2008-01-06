@@ -309,13 +309,13 @@ found."
   (lset-difference eq? a b))
 
 (define-public (uniq-list lst)
-  "Uniq LST, assuming that it is sorted"
+  "Uniq LST, assuming that it is sorted. Uses equal? for comparisons."
 
   (reverse! 
    (fold (lambda (x acc)
 	   (if (null? acc)
 	       (list x)
-	       (if (eq? x (car acc))
+	       (if (equal? x (car acc))
 		   acc
 		   (cons x acc))))
 	 '() lst) '()))
