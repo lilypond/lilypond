@@ -1,7 +1,7 @@
 \version "2.10.0"
 \header {
   texidoc = "@cindex Midi Volume Equaliser
-The full orchestra plays a notes, where groups stop one after
+The full orchestra plays a note, where groups stop one after
 another. Use this to tune equalizer settings. "
 }
 

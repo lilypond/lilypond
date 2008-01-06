@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "The minimum distance between lyrics are determined by the
+  texidoc = "The minimum distance between lyrics is determined by the
 @code{minimum-distance} of @code{LyricHyphen} and
 @code{LyricSpace}.
 
