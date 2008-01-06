@@ -26,7 +26,7 @@ PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)\
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table)\
  $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
-SVG_FILES = $(OTF_FILES:%.otf=%.svg) $(ALL_FONTS:%=$(outdir)/%.svg)
+SVG_FILES = $(OTF_FILES:%.otf=%.svg)
 
 FC_FIND=$(shell $(FCMATCH) --verbose 'Century Schoolbook L:style=$(1)' | grep 'file:' | sed 's/.*"\([^"]*\)".*/\1/g')
 
@@ -110,9 +110,6 @@ INSTALLATION_OUT_SUFFIXES=1 2 3 4 5 6
 
 INSTALLATION_OUT_DIR2=$(local_lilypond_datadir)/fonts/otf
 INSTALLATION_OUT_FILES2=$(OTF_FILES) $(NCSB_OTFS)
-
-INSTALLATION_OUT_DIR4=$(local_lilypond_datadir)/fonts/svg
-INSTALLATION_OUT_FILES4=$(SVG_FILES)
 
 INSTALLATION_OUT_DIR5=$(local_lilypond_datadir)/fonts/type1
 INSTALLATION_OUT_FILES5=$(PFB_FILES)
