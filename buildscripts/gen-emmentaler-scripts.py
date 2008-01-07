@@ -41,8 +41,8 @@ notice += "resulting document to be covered by the GNU General Public License.";
 
 SetFontNames("%(name)s-%(design_size)d", "%(name)s", "%(name)s %(design_size)d", "%(design_size)d", notice, "@TOPLEVEL_VERSION@");
 
-MergeFonts("feta%(design_size)d.pfa");
-MergeFonts("parmesan%(design_size)d.pfa");
+MergeFonts("feta%(design_size)d.pfb");
+MergeFonts("parmesan%(design_size)d.pfb");
 
 # load nummer/din after setting PUA.
 i = 0;
@@ -66,7 +66,7 @@ PRIVATE AREA
 endloop
 
 
-MergeFonts("feta-alphabet%(design_size)d.pfa");
+MergeFonts("feta-alphabet%(design_size)d.pfb");
 MergeKern("feta-alphabet%(design_size)d.tfm");
 
 LoadTableFromFile("LILF", "%(filename)s-%(design_size)d.subfonts");
