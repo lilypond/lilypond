@@ -1268,10 +1268,6 @@ this @q{nestling} of the notes on adjacent staves:
 >>
 @end lilypond 
 
-@c TODO Mention somewhere, probably not here, how to avoid staves
-@c interleaving too much by specifying skyline-horizontal-padding
-@c Presumably this moves the skyline boundary further out, making
-@c objects appear wider?  Not yet tested.  -td
 
 @node Within-staff objects
 @subsection Within-staff objects
@@ -1322,8 +1318,6 @@ However, these explicit overrides are not usually used, as there
 are simpler equivalent predefined commands available.  
 Here is a table of the commonest.  The meaning of each is stated
 where it is not obvious.
-
-@c TODO put @code{} round all these
 
 @multitable @columnfractions .2 .2 .2 .4
 @headitem Down/Left           
@@ -1488,17 +1482,20 @@ try @code{-7}:
 Outside-staff objects are automatically placed to avoid collisions.
 Objects with the lower value of @code{outside-staff-priority}
 property are placed nearer to the staff, and other outside-staff
-objects are then raised as far as necessary to avoid collisions.  
+objects are then raised as far as necessary to avoid collisions.
 The @code{outside-staff-priority} is defined in the
 @code{grob-interface} and so is a property of all layout objects.
 It is set to @code{#f} (the default) for all within-staff objects,
-and is set explicitly to the default numerical value appropriate 
+and is set explicitly to the default numerical value appropriate
 to the each object as it is created.  The following table shows
-the default numerical values for some of the commonest 
-outside-staff objects.  Others may be found in the object 
+the default numerical values for some of the commonest
+outside-staff objects.  Others may be found in the object
 properties listed in the IR.
 
-@multitable @columnfractions .3 .3 
+TODO Distinguish between Staff and Score objects when it
+is clear how to do this
+
+@multitable @columnfractions .3 .3
 @headitem Layout Object           @tab Priority
 @item @code{BarNumber}            @tab @code{ 100}
 @item @code{DynamicLineSpanner}   @tab @code{ 250}
@@ -1510,7 +1507,56 @@ properties listed in the IR.
 @item @code{TextSpanner}          @tab @code{ 350}
 @end multitable
 
-TODO Add example showing iteraction of all these
+Here is an example showing the default placement of these.
+
+@cindex text spanner
+@cindex ottava bracket
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+#(set-octavation 1)
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Metronome Mark
+\tempo 4 = 72
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+#(set-octavation 0)
+c, c c c
+@end lilypond
+
+This example also shows how to create Text Spanners -- 
+text with extender lines above a section of music.  The
+spanner extends from the @code{\startTextSpan} command to
+the @code{\stopTextSpan} command, and the format of the
+text is defined by the @code{\override TextSpanner} command.
+For more details see @ruser{Text spanners}.
+
+It also shows how ottava brackets are created.
+
+Note that bar numbers and rehearsal marks are not shown.  
+By default these are created in the @code{Score} context 
+and their @code{outside-staff-priority} is ignored
+relative to the rest of these layout objects, which are
+created in the @code{Staff} context.
+If you wish to place bar numbers or rehearsal marks
+in accordance with the value of their
+@code{outside-staff-priority} the @code{Bar_number_engraver}
+or @code{Mark_engraver} should be removed
+from the @code{Score} context and placed in the top
+@code{Staff} context.
 
 If this ordering does not give you the placing you want, the
 priority of the objects may be overridden.  Suppose we would
@@ -1702,13 +1748,14 @@ down with the notes.  The property to do this is
 @menu
 * Moving objects::              
 * Fixing overlapping notation::  
+* Real music example::          
 @end menu
 
 @node Moving objects
 @subsection Moving objects
 
-This may come as a surprise, but LilyPond is not perfect.  Some 
-notation elements can overlap.  This is unfortunate, but in fact 
+This may come as a surprise, but LilyPond is not perfect.  Some
+notation elements can overlap.  This is unfortunate, but in fact
 rather rare.  Usually the need to move objects is for clarity or
 aesthetic reasons -- they would look better with a little more
 or a little less space around them.
@@ -1736,13 +1783,13 @@ room and (b) the single override can apply to all instances of
 the same type of object.  Such properties include:
 @itemize
 
-@item 
+@item
 @code{direction}
 
 This has already been covered in some detail -- see
 @ref{Within-staff objects}.
 
-@item 
+@item
 @code{padding}, @code{left-padding},
 @code{right-padding}, @code{staff-padding}
 
@@ -1790,7 +1837,7 @@ objects, this value is set by default to be around 1.0 or less
 (it varies with each object).  It may be overridden if a larger
 (or smaller) gap is required.
 
-@item 
+@item
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
@@ -1805,7 +1852,7 @@ also be specified, where @code{-1} is left-aligned, @code{+1}
 is right-aligned, and numbers in between move the text
 progressively from left-aligned to right-aligned.
 
-@item 
+@item
 @code{extra-spacing-width}
 
 @cindex extra-spacing-width property
@@ -1818,7 +1865,7 @@ the second positive.  Note that not all objects honour both
 numbers.  For example, the @code{Accidental} object only takes
 notice of the first (left edge) number.
 
-@item 
+@item
 @code{staff-position}
 
 @cindex staff-position property
@@ -1830,20 +1877,17 @@ of the staff in half staff-spaces.  It is useful in resolving
 collisions between layout objects like multi-measure rests, ties
 and notes in different voices.
 
-@item 
+@item
 @code{force-hshift}
 
 @cindex force-hshift property
 
-TODO Move this explanation and add expanation of \shiftOn etc to
-     Explicitly instantiating voices section in Fundamental concepts
-
-[Closely spaced notes in a chord, or notes occuring at the same
+Closely spaced notes in a chord, or notes occuring at the same
 time in different voices, are arranged in two, occasionally more,
 columns to prevent the noteheads overlapping.  These are called
 note columns, and an object called @code{NoteColumn} is created
-to lay out the notes in that column.  There are separate columns
-for each voice.]
+to lay out the notes in that column.
+
 The @code{force-hshift}
 property is a property of a @code{NoteColumn} (actually of the
 @code{note-column-interface}).  Changing it permits a note column
@@ -2144,7 +2188,7 @@ e8\( d8 c ~c d c d\)
 @end lilypond
 
 Here's a further example taken from the opening of the left-hand
-staff of Chopin's Prelude Op 28 No. 2.  We see that the beam 
+staff of Chopin's Prelude Op 28 No. 2.  We see that the beam
 collides with the upper notes:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -2156,8 +2200,8 @@ collides with the upper notes:
 @end lilypond
 
 @noindent
-This can only be resolved by manually moving both ends of the beam 
-up from their position at 2 staff-spaces above the center line to, 
+This can only be resolved by manually moving both ends of the beam
+up from their position at 2 staff-spaces above the center line to,
 say, 3:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -2178,7 +2222,438 @@ Note that the override continues to apply in the first voice of
 the second block of quavers, but not to any of the beams in the
 second voice.
 
-TODO Examples of real music showing collisions and their resolution
+@node Real music example
+@subsection Real music example
+
+We end this section on Tweaks by showing the steps to be taken to 
+deal with a tricky example which needs several tweaks to produce 
+the desired output.  The example has been deliberately chosen to 
+illustrate the use of the Notation Reference to resolve unusual 
+problems with notation.  It is not representative of more usual 
+engraving process, so please do not let these difficulties put 
+you off!  Fortunately, difficulties like these are not very common!
+
+The example is from Chopin's Premi�re Ballade, Op. 23, bars 6 to
+9, the transition from the opening Lento to Moderato.
+Here, first, is what we want the output to look like, but to avoid
+over-complicating the example too much we have left out the
+dynamics, fingering and pedalling.
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  bes2.^\markup {\bold "Moderato"} r8
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+We note first that the right hand part in the third bar
+requires four voices.  These are the five beamed eighth notes,
+the tied C, the half-note D which is merged with the eighth note
+D, and the dotted quarter note F-sharp, which is also merged with
+the eighth note at the same pitch.  Everything else is in a single
+voice, so the easiest way is to introduce these four voices
+temporarily at the time they are needed.  If you have forgotten
+how to do this, look at @ref{I'm hearing Voices}.  Let us begin
+by entering the notes as two variables and setting up the staff
+structure in a score block, and see what LilyPond produces by
+default:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4. g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8 d fis bes a | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2 |
+  <d g, d>1 |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+All the notes are right, but the appearance is far from
+satisfactory.  The tie clashes with the change in time signature,
+the beaming in the third bar is wrong, the notes are not
+merged together, and several notation elements are missing.  
+Let's first deal with the easier things.
+We can correct the beaming by inserting a beam
+manually, and we can easily add the left hand slur and the right 
+hand phrasing slur, since these were all covered in the Tutorial.
+Doing this gives:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1) |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+The first bar is now correct.  The second bar contains an arpeggio
+and is terminated by a double barline.  How do we do these, as they
+have not been mentioned in this Learning Manual?  This is where
+we need to turn to the Notation Reference.  Looking up @q{arpeggio}
+and @q{barline} in the
+index quickly shows us that an arpeggio is produced by appending
+@code{\arpeggio} to a chord, and a double barline is produced by
+the @code{\bar "||"} command.  That's easily done.  We next need
+to correct the collision of the tie with the time signature.  This
+is best done by moving the tie upwards.  Moving objects was covered
+earlier in @ref{Moving objects}, which says that objects positioned
+relative to the staff can be moved by overriding their
+@code{staff-position} property, which is specified in half staff
+spaces relative to the center line of the staff.  So the following
+override placed just before the first tied note would move the tie
+up to 3.5 half staff spaces above the center line:
+
+@code{\once \override Tie #'staff-position = #3.5}
+
+This completes bar two, giving:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+On to bar three and the start of the Moderato section.  The
+tutorial showed how to add embolded text with the
+@code{\markup} command, so adding @q{Moderato} in bold is easy.
+But how do we merge notes in different voices together?  The
+index in the Notation Reference does not mention merging,
+but a search of the text for @q{merge} quickly leads us to
+the overrides for merging differently headed and differently
+dotted notes in @ruser{Collision Resolution}.  In our
+example we need to merge both types of note for the duration
+of the polyphonic section in bar 3, so using the information
+in the Notation Reference we add
+
+@example
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+\override Staff.NoteCollision #'merge-differently-dotted = ##t
+@end example
+
+@noindent
+to the start of that section and
+
+@example
+\revert Staff.NoteCollision #'merge-differently-headed
+\revert Staff.NoteCollision #'merge-differently-dotted
+@end example
+
+@noindent
+to the end, giving:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted  
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+These overrides have merged the two F-sharp notes, but not the two 
+on D.  Why not?  The answer is there in the same section in the
+Notation Reference -- notes being merged must have stems in 
+opposite directions and two notes cannot be merged successfully if 
+there is a third note in the same note column.  Here the two D's 
+both have upward stems and there is a third note -- the C.  We know
+how to change the stem direction using @code{\stemDown}, and
+the Notation Reference also says how to move the C -- apply a shift
+using one of the @code{\shift} commands.  But which one?
+The C is in voice two which has shift off, and the two D's are in
+voices one and three, which have shift off and shift on,
+respectively.  So we have to shift the C a further level still
+using @code{\shiftOnn} to avoid it interferring with the two D's.  
+Applying these changes gives:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Move the c2 out of the main note column so the merge will work
+    {c,8~ \shiftOnn c2 | }
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Nearly there.  Only two problems remain: The downward stem on the
+merged D should not be there, and the C would be better positioned
+to the right of the D's.  We know how to do both of these from the
+earlier tweaks: we make the stem transparent, and move the C with
+the @code{force-hshift} property.  Here's the final result:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
 
 
 @node Page layout
@@ -2233,11 +2708,11 @@ out the music is A4.  This may be changed in two ways:
 
 @noindent
 The first command sets the size of all pages. The second command
-sets the size of the pages to which the \paper block applies - if
+sets the size of the pages to which the \paper block applies -- if
 the \paper block is at the top of the file, then it will apply
-to all pages.  Support for the following paper sizes is included:
+to all pages.  Support for the following paper sizes is available:
 a6, a5, a4, a3, legal, letter, 11x17 (also known as tabloid).
-Setting the paper size automatically sets suitable margins and 
+Setting the paper size automatically sets suitable margins and
 line length.
 
 If the symbol @code{landscape} is supplied as an argument to
@@ -2261,7 +2736,7 @@ This may be changed in two ways:
 
 @noindent
 The first command sets the size in all pages. The second command
-sets the size in the pages to which the \paper block applies  if
+sets the size in the pages to which the \paper block applies - if
 the \paper block is at the top of the file, then it will apply
 to all pages.  All the fonts are automatically scaled to suit
 the new value of the staff size.
@@ -2269,24 +2744,24 @@ the new value of the staff size.
 @node Line breaks
 @subsection Line breaks
 
-Line breaks are normally computed automatically. They are chosen
+Line breaks are normally determined automatically. They are chosen
 so that lines look neither cramped nor loose, and consecutive
 lines have similar density.  Occasionally you might want to
 override the automatic breaks; you can do this by specifying
 @code{\break}. This will force a line break at this point.  However,
 line breaks can only occur at the end of @q{complete} bars, i.e.,
 where there are no notes or tuplets left @q{hanging} over the bar
-line.  If you want to have a line break where there is no bar line, 
+line.  If you want to have a line break where there is no bar line,
 you can force an invisible bar line by entering @code{\bar ""},
 although again there must be no notes left hanging over in any of
-the staves.
+the staves at this point, or it will be ignored.
 
 The opposite command, @code{\noBreak}, forbids a line break at the
 bar line where it is inserted.
 
 The most basic settings influencing line spacing are @code{indent}
 and @code{line-width}. They are set in the @code{\layout} block.
-They control the indentation of the first line of music, and the 
+They control the indentation of the first line of music, and the
 lengths of the lines.
 
 If @code{ragged-right} is set to true in the @code{\layout} block,
@@ -2311,9 +2786,9 @@ ragged-last = ##t
 
 The default page breaking may be overriden by inserting 
 @code{\pageBreak} or @code{\noPageBreak} commands.
-These commands are analogous to @code{\break} and @code{\noBreak}.
-These commands force and forbid a page-break at the point where
-they are inserted.
+These commands are analogous to the @code{\break} and 
+@code{\noBreak} commands discused above and force or forbid 
+a page-break at the point where they are inserted.
 Of course, the @code{\pageBreak} command also forces a line break.
 Like @code{\break}, the @code{\pageBreak} command is effective only
 at the end of a @q{complete} bar as defined above.  For more
@@ -2323,7 +2798,7 @@ There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
 @code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
 @code{##t} the systems on all pages or just the last page
-respectively are not justified vertically.
+respectively will not be justified vertically.
 
 For more details see @ruser{Vertical spacing}.
 
@@ -2641,6 +3116,7 @@ In some cases (see issue 246), this must be done before
    ..
 }
 @end verbatim
+
 
 
 
