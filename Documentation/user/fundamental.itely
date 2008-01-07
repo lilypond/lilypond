@@ -898,6 +898,35 @@ as here:
 >>
 @end lilypond
 
+@cindex note column
+@cindex shift commands
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+Closely spaced notes in a chord, or notes occuring at the same
+time in different voices, are arranged in two, occasionally more,
+columns to prevent the noteheads overlapping.  These are called
+note columns.  There are separate columns for each voice, and 
+the currently specified voice-dependent shift is applied to the 
+note column if there would otherwise be a collision.
+
+The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
+@code{\shiftOff} commands specify the degree to which notes and
+chords of the voice should be shifted if a collision
+would otherwise occur. By default, the outer voices (normally 
+voices one and two) have @code{\shiftOff} specified, while the 
+inner voices (three and four) have @code{\shiftOn} specified.  
+When a shift is applied, Voices one and three are shifted to 
+the right and voices two and four to the left.
+
+@code{\shiftOnn} and @code{\shiftOnnn} define further shift 
+levels which may be specified temporarily to resolve collisions 
+in complex situations -- see
+@c FIXME failed link
+@c @ref{Real music example}.
+
 
 @node Voices and vocals
 @subsection Voices and vocals
@@ -910,7 +939,7 @@ handles simple scores well.  However, this technique is
 quite limited.  For more complex music, you must introduce the
 lyrics in a @code{Lyrics} context using @code{\new Lyrics} and
 explicitly link
-the lyrics to the notes with @code{\lyricsto@{@}}, using the 
+the lyrics to the notes with @code{\lyricsto@{@}}, using the
 name assigned to the Voice.
 
 @lilypond[quote,verbatim,fragment]
