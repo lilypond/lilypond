@@ -1048,6 +1048,7 @@
 	(direction . ,UP)
 	(padding . 0.8)
 	(side-axis . ,Y)
+	(extra-spacing-width . (+inf.0 . -inf.0))
 	(outside-staff-priority . 1000)
 	(meta . ((class . Item)
 		 (interfaces . (text-interface
