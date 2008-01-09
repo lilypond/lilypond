@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Switching melody to a different voice works even
+  texidoc = "Switching the melody to a different voice works even
 the switch occurs together with context instantiation."
 
 }

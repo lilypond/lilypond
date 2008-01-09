@@ -1,6 +1,6 @@
 \header
 {
-texidoc = "switching voices halfway a lyricsto is possible."
+texidoc = "switching voices in the middle of the lyrics is possible using @code{lyricsto}."
   }
 \version "2.10.12"
 

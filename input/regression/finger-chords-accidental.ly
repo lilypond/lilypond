@@ -12,4 +12,5 @@
   r4 
   \set fingeringOrientations = #'(left)
   <cis''-3 >
+  <cis''-3 e''>
 }

@@ -2,7 +2,7 @@
 
 \header {
 
-  texidoc = "Hyphens are print at the beginning of the line only when
+  texidoc = "Hyphens are printed at the beginning of the line only when
 they go past the first note. "
 
 }

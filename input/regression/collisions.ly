@@ -2,7 +2,7 @@
 \header{
   texidoc="
 In addition to normal collision rules, there is support for polyphony, 
-where the collosion are avoided by shifting middle voices horizontally.
+where the collisions are avoided by shifting middle voices horizontally.
 "
 }
 

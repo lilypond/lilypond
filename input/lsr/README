@@ -3,5 +3,6 @@ http://lsr.dsi.unimi.it/
 
 Any changes made to .ly files (other than AAA-intro-*.ly) will be
 lost.  Please make updates to the LSR database directly.  You must
-be an editor to change "approved" snippets in LSR.
-
+be an editor to change "approved" snippets in LSR; otherwise just
+copy the snippet you want to modify in a new snippet, and tag it 
+with the "correction-wanted" tag.
