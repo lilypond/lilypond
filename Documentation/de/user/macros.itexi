@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d30aabb4adc9e13c7a5a99a22230e97a0f164255
+    Translation of GIT committish: db57f02c46305a587071dfb73a51bd8250df2482
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -66,11 +66,30 @@
 @end macro
 @end ifdocbook
 
+@macro warning{TEXT}
+@quotation
+@quotation
+@cartouche
+@b{Achtung:} \TEXT\
+@end cartouche
+@end quotation
+@end quotation
+@end macro
 
+@c TODO: define different output for info
+@macro notation{TEXT}
+@var{\TEXT\}
+@end macro
 
 
 @c   **** Headings in a doc subsection ****
 
+@c not really a heading, but...
+@macro smallspace
+@sp 1
+@end macro
+
+@c obsolete; being removed.
 @macro refcommands
 @noindent
 @subsubheading Predefined commands
@@ -101,10 +120,6 @@
 @code{\TEXT\}@c should use internalsref
 @end macro
 
-@macro refcommand{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}
-@end macro
 
 @macro funindex {TEXT}
 @findex \TEXT\
@@ -289,19 +304,22 @@
 
 @macro rglos {TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,music-glossary}
 @end macro
 
 @macro rprogram{TEXT}
-Programmbenutzung, @internalsref{\TEXT\}
+Programmbenutzung, @ref{\TEXT\,,,lilypond-program}
+@c @internalsref{\TEXT\}
 @end macro
 
 @macro ruser{TEXT}
-Benutzerhandbuch, @internalsref{\TEXT\}
+Benutzerhandbuch, @ref{\TEXT\,,,lilypond}
+@c @internalsref{\TEXT\}
 @end macro
 
 @macro rlearning{TEXT}
-Handbuch zum Lernen, @internalsref{\TEXT\}
+Handbuch zum Lernen, @ref{\TEXT\,,,lilypond-learning}
+@c @internalsref{\TEXT\}
 @end macro
 
 @end iftex
