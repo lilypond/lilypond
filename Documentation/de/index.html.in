@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: c66d9ff79ebf27bc21fbd7f4a55ec052df33984b
+    Translation of GIT committish: 90fd19c1e2a433d6657cf7270cf0d1932cb4934a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -56,7 +56,7 @@
  (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb,
  als <a class="title" href="user/music-glossary.pdf">PDF</a>)
  
-      <br>(&Uuml;bersetzung von musikalischen Begriffen vom Englischen in andere Sprachen.)
+      <br>(&Uuml;bersetzung von musikalischen Begriffen aus dem Englischen in andere Sprachen.)
         </ul>
 	  </td>
 	  <td class="right-column">
@@ -96,9 +96,11 @@
  als <a class="title" href="user/lilypond-program.de.pdf">PDF</a>)
             <br>(Wie das Programm installiert und gestartet wird.)
           
- <li><a class="title" href="../input/lsr/collated-files.html">Schnipsel</a>
-      <br>(Schnelle Tricks, Tipps und Beispiele.)
- 
+          
+<li><a class="title" href="../input/lsr/snippets/index.html">Schnipsel</a>
+(auf <a class="title" href="../input/lsr/snippets-big-page.html">einer gro&szlig;en Seite</a>,
+als <a class="title" href="../input/lsr/snippets.pdf">PDF</a>)
+     <br>(Schnelle Tricks, Tipps und Beispiele.)
         </ul>
  
     </td>
