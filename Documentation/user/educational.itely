@@ -309,7 +309,7 @@ but made invisible.
 
 @commonprop
 
-To change the direction of stems in the middle of the staff, use
+To change the direction of stems on the center line of the staff, use
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 a4 b c b
@@ -344,7 +344,7 @@ The following example demonstrates its use.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <c-\balloonText #'(-2 . -2) \markup { "I'm a notehead" }  >8
+  <f-\balloonText #'(-2 . -2) \markup { "I'm a notehead" }  >8
 }
 @end lilypond
 
