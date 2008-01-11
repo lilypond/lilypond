@@ -60,9 +60,10 @@ This section gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @subsection Compiling a file
 
-The first example demonstrates how to start working with LilyPond.
-To create sheet music, we write a text file that specifies the
-notation.  For example, if we write:
+@qq{Compiling} is the term used for processing an input text file
+in LilyPond format to produce a file which can be printed and
+(optionally) a MIDI file which can be played.  The first example
+shows what a simple input text file looks like.
 
 @example
 @{
@@ -698,12 +699,12 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex phrasing slurs
 @subheading Phrasing slurs
 
-Music Glossary: @rglos{phrasing}, @rglos{legato}.
+Music Glossary: @rglos{slurs}, @rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
-@code{\(} and @code{\)}.  You can have both @notation{legato}
-slurs and phrasing slurs at the same time, but you cannot have
-simultaneous legato slurs or simultaneous phrasing slurs.
+@code{\(} and @code{\)}.  You can have both @notation{slurs}
+and phrasing slurs at the same time, but you cannot have
+simultaneous slurs or simultaneous phrasing slurs.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
