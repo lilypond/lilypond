@@ -66,6 +66,9 @@ which scares away people.
 @end ignore
 
 @item
+Underlining is now possible with the @code{\underline} markup command.
+
+@item
 It is now possible to specify, using the @code{page-count} variable in
 the paper block, the number of pages that will be used.
 
