@@ -117,6 +117,22 @@ the PDF backend."
      (cons (+ (- half) (car yext))
 	   (+ half (cdr yext))))))
 
+(define-builtin-markup-command (underline layout props arg) (markup?)
+  "Underline @var{arg}.  Looks at @code{thickness} to determine line
+thickness and y offset."
+  (let* ((th (*
+	      (ly:output-def-lookup layout 'line-thickness)
+	      (chain-assoc-get 'thickness props 1)))
+	 (m (interpret-markup layout props arg))
+	 (x (cdr (ly:stencil-extent m X)))
+	 (y (* th -2))
+	 (line (ly:make-stencil
+		`(draw-line ,th 0 ,y ,x ,y)
+		(cons (min x 0) (max x 0))
+		(cons th th)))
+	 (s (ly:stencil-add m line)))
+    s))
+
 (define-builtin-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line

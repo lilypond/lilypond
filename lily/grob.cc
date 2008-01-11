@@ -265,7 +265,8 @@ Grob::translate_axis (Real y, Axis a)
 Real
 Grob::relative_coordinate (Grob const *refp, Axis a) const
 {
-  if (refp == this)
+  /* eaa - hmmm, should we do a programming_error() here? */
+  if ((this == NULL) || (refp == this))
     return 0.0;
 
   /* We catch PARENT_L_ == nil case with this, but we crash if we did
