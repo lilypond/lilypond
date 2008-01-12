@@ -315,7 +315,7 @@ Languages in this order.
 * movement::                    
 * multi-measure rest::          
 * mixolydian mode::             
-* natural sign::                
+* natural::                     
 * neighbour tones::             
 * ninth::                       
 * non-legato::                  
@@ -486,7 +486,7 @@ An accidental has the effect of an @ref{alteration} of a note.  A
 sharp raises a tone by a @ref{semitone}, a double sharp raises it by a
 @ref{whole tone}, a flat lowers it by a semitone and a double flat
 lowers it by a whole tone.  A natural cancels the effect of a previous
-accidental.
+accidental, or a sharp or flat in the key signature.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -545,10 +545,15 @@ FI: adagio, hitaasti.
 
 It.@: comfortable, easy.
 
-1.@tie{}Slow tempo, slower -- especially in
-even meter -- than @ref{andante} and faster than @ref{largo}.
-2.@tie{}A movement in slow tempo, especially the second (slow)
-movement of @ref{sonata}s, symphonies, etc.
+@itemize
+
+@item Slow tempo, slower -- especially in even meter -- than
+@ref{andante} and faster than @ref{largo}.
+
+@item A movement in slow tempo, especially the second (slow) movement
+of @ref{sonata}s, symphonies, etc.
+
+@end itemize
 
 
 @node allegro
@@ -859,10 +864,15 @@ DK: håndskrift, autograf,
 S: handskrift,
 FI: käsinkirjoitettu nuotti.
 
-1.@tie{}A manuscript in the composer's own hand.
-2.@tie{}Music prepared for photoreproduction by freehand drawing, with
+@itemize
+
+@item A manuscript in the composer's own hand.
+
+@item Music prepared for photoreproduction by freehand drawing, with
 the aid of a straightedge ruler and T-square only, which attempts to
 emulate engraving. This required more skill than did engraving.
+
+@end itemize
 
 
 @node B
@@ -979,9 +989,14 @@ DK: bas,
 S: bas,
 FI: basso, matala miesääni.
 
-1.@tie{}The lowest male voice.
-2.@tie{}Sometimes, especially in jazz music, used as an abbreviation
-for double bass.
+@itemize
+
+@item The lowest male voice.
+
+@item Sometimes, especially in jazz music, used as an abbreviation for
+double bass.
+
+@end itemize
 
 @seealso
 
@@ -2623,7 +2638,8 @@ indicate this information are called dynamic marks.
 
 @seealso
 
-@ref{piano}, @ref{forte}, @ref{crescendo}, @ref{decrescendo}, @ref{diminuendo}.
+@ref{piano}, @ref{forte}, @ref{crescendo}, @ref{decrescendo},
+@ref{diminuendo}.
 
 
 @node E
@@ -2793,9 +2809,15 @@ DK: foredragsbetegnelse,
 S: föredragsbeteckning,
 FI: nyanssiosoitus, esitysmerkki.
 
-Performance indications concerning 1. volume, dynamics (for example
-@ref{forte}, @ref{crescendo}), 2. tempo (for example @ref{andante},
-@ref{allegro}).
+Performance indications concerning:
+
+@itemize
+
+@item volume, dynamics (for example @ref{forte}, @ref{crescendo}),
+
+@item tempo (for example @ref{andante}, @ref{allegro}).
+
+@end itemize
 
 
 @node extender line
@@ -2816,10 +2838,11 @@ text (without indicating the musical @emph{function} of that text).
 Used in many contexts, for example:
 
 @itemize
-@item
-In vocal music to indicate the syllable for a melisma.  Called
+
+@item In vocal music to indicate the syllable for a melisma.  Called
 @q{extension} in the
-@uref{http://www.dolmetsch.com/defse1.htm,Dolmetsch Online Music Dictionary}.
+@uref{http://www.dolmetsch.com/defse1.htm,Dolmetsch Online Music
+Dictionary}.
 
 @item
 In figured (or thorough) bass to indicate that:
@@ -3232,7 +3255,8 @@ counted in the rhythm of the bar.
 
 @seealso
 
-@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes}, @ref{ornament}.
+@ref{acciaccatura}, @ref{appoggiatura}, @ref{grace notes},
+@ref{ornament}.
 
 
 @node grand staff
@@ -3933,13 +3957,18 @@ DK: mediant,
 S: mediant,
 FI: keskisävel.
 
-1.@tie{}The third @b{scale degree}.
-2.@tie{}A @ref{chord} having its base tone a third from that of
-another chord.  For example, the tonic chord may be replaced by its
-lower mediant (variant tonic).
+@itemize
 
-@ref{functional
-harmony}, @ref{relative key}.
+@item The third @b{scale degree}.
+
+@item A @ref{chord} having its base tone a third from that of another
+chord.  For example, the tonic chord may be replaced by its lower
+mediant (variant tonic).
+
+@end itemize
+
+@seealso
+@ref{functional harmony}, @ref{relative key}.
 
 
 @node melisma
@@ -4281,8 +4310,8 @@ German, as a reminiscence of its use in Renaissance vocal polyphony.
 @ref{diatonic scale}.
 
 
-@node natural sign
-@section natural sign
+@node natural
+@section natural
 
 ES: becuadro,
 I: bequadro,
@@ -4591,9 +4620,15 @@ DK: stemme,
 S: stämma,
 FI: stemma, instrumenttiosuus.
 
-1.@tie{}In instrumental or choral music the music for the single instrument
-or voice.  2.@tie{}in contrapuntal music @ref{counterpoint} the single
-melodic line of the contrapunctal web.
+@itemize
+
+@item In instrumental or choral music the music for the single instrument
+or voice.
+
+@item in contrapuntal music @ref{counterpoint} the single melodic line
+of the contrapunctal web.
+
+@end itemize
 
 
 @node pause
@@ -5053,7 +5088,6 @@ metrical unit (beat).
 @end itemize
 
 
-
 @node ritardando
 @section ritardando
 
@@ -5253,7 +5287,7 @@ FI: septimi.
 
 @seealso
 
-@ref{sextuplet}
+@ref{sextuplet}, @ref{note value}.
 
 
 @node sextuplet
@@ -5387,7 +5421,6 @@ FI: kuudeskymmenesneljäsosatauko.
 @ref{note value}.
 
 
-
 @node slur
 @section slur
 
@@ -5403,7 +5436,6 @@ FI: kaari.
 A slur above or below a group of notes indicates that they are to be
 played @ref{legato}, e.g., with one stroke of the violin bow or with
 one breath in singing.
-
 
 
 @node solmization
@@ -5424,7 +5456,6 @@ General term for systems of designating the degrees of the
 (@emph{ti})).
 
 @ref{scale degree}.
-
 
 
 @node sonata
@@ -5749,7 +5780,6 @@ contradiction between the underlaying (normal) pulse and the actual
 @end lilypond
 
 
-
 @node syntonic comma
 @section syntonic comma
 
@@ -5765,7 +5795,6 @@ Pytagorisessa viritysjärjestelmässä.
 
 Difference between the natural third and the third obtained by
 Pythagorean tuning (@ref{Pythagorean comma}), equal to 22@w{ }cents.
-
 
 
 @node system
@@ -6306,9 +6335,14 @@ DK: stemme,
 S: stämma,
 FI: ääni, lauluääni.
 
-1.@tie{}Human voices: @ref{soprano}, @ref{mezzo-soprano},
+@itemize
+
+@item Human voices: @ref{soprano}, @ref{mezzo-soprano},
 @ref{contralto}, @ref{tenor}, @ref{baritone}, @ref{bass}.
-2.@tie{}A melodic layer or part of a polyphonic composition.
+
+@item A melodic layer or part of a polyphonic composition.
+
+@end itemize
 
 
 @node weak beat
@@ -6364,7 +6398,6 @@ FI: kokotauko.
 @ref{note value}.
 
 
-
 @node whole tone
 @section whole tone
 
@@ -6380,8 +6413,6 @@ FI: kokoaskel.
 The @ref{interval} of a major second.  The interval between two tones
 on the piano keyboard with exactly one key between them -- including
 black and white keys -- is a whole tone.
-
-
 
 
 @node woodwind
@@ -6546,8 +6577,6 @@ saxophone, and bassoon.
 @end multitable
 
 
-
-
 @node Pitch names
 @chapter Pitch names
 
@@ -6605,9 +6634,6 @@ dièse @tab Ais  @tab ais  @tab ais  @tab ais  @tab ais
 @tab h
 
 @end multitable
-
-
-
 
 
 @menu
