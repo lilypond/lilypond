@@ -791,15 +791,14 @@ See the documentation of Texinfo for further details.
 Specify the document type to process: @code{html}, @code{latex},
 @code{texi} (the default) or @code{docbook}.  If this option is missing,
 @command{lilypond-book} tries to detect the format automatically, see
-@ref{Filename extensions}.
+@ref{Filename extensions}. Currently, @code{texi} is the same as
+@code{texi-html}.
 
 @c This complicated detail is not implemented, comment it out -jm
 @ignore
 The @code{texi} document type produces a Texinfo file with music
 fragments in the printed output only.  For getting images in the HTML
 version, the format @code{texi-html} must be used instead.
-
-[Note: currently, @code{texi} is the same as @code{texi-html}.]
 @end ignore
 
 @item -F @var{filter}
@@ -849,6 +848,9 @@ line to the right by the same amount.
 Process LilyPond snippets using @var{command}.  The default command is
 @code{lilypond}.  @code{lilypond-book} will not @code{--filter} and
 @code{--process} at the same time.
+
+@item --pdf
+Create PDF files for use with PDFLaTeX.
 
 @itemx --psfonts
 Extract all PostScript fonts into @file{@var{file}.psfonts} for dvips.
