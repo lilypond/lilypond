@@ -120,18 +120,17 @@ the PDF backend."
 (define-builtin-markup-command (underline layout props arg) (markup?)
   "Underline @var{arg}.  Looks at @code{thickness} to determine line
 thickness and y offset."
-  (let* ((th (*
+  (let* ((thick (*
 	      (ly:output-def-lookup layout 'line-thickness)
 	      (chain-assoc-get 'thickness props 1)))
-	 (m (interpret-markup layout props arg))
-	 (x (cdr (ly:stencil-extent m X)))
-	 (y (* th -2))
+	 (markup (interpret-markup layout props arg))
+	 (x (cdr (ly:stencil-extent markup X)))
+	 (y (* thick -2))
 	 (line (ly:make-stencil
-		`(draw-line ,th 0 ,y ,x ,y)
+		`(draw-line ,thick 0 ,y ,x ,y)
 		(cons (min x 0) (max x 0))
-		(cons th th)))
-	 (s (ly:stencil-add m line)))
-    s))
+		(cons thick thick))))
+	 (ly:stencil-add markup line)))
 
 (define-builtin-markup-command (box layout props arg) (markup?)
   "Draw a box round @var{arg}.  Looks at @code{thickness},
