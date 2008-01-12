@@ -478,7 +478,7 @@ be a@tie{}@code{d''} and the next note is calculated relative
 to@tie{}@code{d''} instead of@tie{}@code{d'}.
 
 There is also an octave check that produces no visible output.
-The syntax is
+The syntax is:
 
 @example
 @var{pitch} \octave @var{controlpitch}
@@ -563,7 +563,7 @@ by the same interval.
 
 Consider a piece written in the key of D-major.  If this piece is
 a little too low for its performer, it can be transposed up to
-E-major with
+E-major with:
 
 @example
 \transpose d e @dots{}
@@ -572,7 +572,7 @@ E-major with
 Consider a part written for violin (a C instrument).  If this part is to
 be played on the A clarinet (for which an A is notated as a C, and thus
 sounds a minor third lower than notated), the appropriate part will be
-produces with
+produces with:
 
 @example
 \transpose a c' @dots{}
@@ -618,7 +618,7 @@ musicInBflat = @{ e4 @dots{} @}
 @end example
 
 To print this music in F (e.g., rearranging to a French horn) you
-would wrap the existing music with another @code{\transpose}
+would wrap the existing music with another @code{\transpose}:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
