@@ -27,11 +27,14 @@ This document shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR). It is in the public domain.
 
-Please note that it is not an exact subset of LSR: some snippets come
-from @file{input/new} LilyPond sources directory, and snippets from LSR
-are converted through @command{convert-ly}, as LSR is based on a stable
-LilyPond version, and this document may be for a newer version (see
-below).
+We would like to address many thanks to Sebastiano Vigna for maintaining
+LSR web site and database, and the University of Milano for hosting LSR.
+
+Please note that this document is not an exact subset of LSR: some
+snippets come from @file{input/new} LilyPond sources directory, and
+snippets from LSR are converted through @command{convert-ly}, as LSR is
+based on a stable LilyPond version, and this document may be for a newer
+version (see below).
 
 Snippets are grouped by tags; tags listed in the table of contents match
 a section of LilyPond notation manual.  Snippets may have several tags,
