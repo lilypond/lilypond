@@ -121,16 +121,8 @@ The pitch of the first note is relative to @code{@var{startpitch}}.
 
 @item
 If no octave changing mark is used on a pitch, its octave is calculated
-so that the interval with the previous note is a fourth or less.  This
-interval is determined without regarding alterations or the actual
-sounding pitches, it is determined only with note names.  For example,
-an augmented fourth is considered a @emph{smaller} interval than a
-diminished fifth, even though these intervals both span six semitones.
-Even @qq{worse}, a doubly-augmented fourth is considered a smaller
-interval than a diminished fifth, even though the doubly-augmented
-fourth spans seven semitones while the diminished fifth only spans six
-semitones; that is why a B-sharp following an F will be put above
-the F.
+so that the interval with the previous note is less than a fifth.  This
+interval is determined without considering accidentals.
 
 @item
 An octave changing mark@tie{}@code{'} or@tie{}@code{,} can be added to
@@ -138,8 +130,8 @@ respectively raise or lower a pitch by an extra octave, relatively to
 the pitch calculated without octave mark.
 
 @item
-Multiple octave changing marks can be used.  @code{''}@tie{}will
-raise the pitch by two octaves.
+Multiple octave changing marks can be used.  @code{''}@tie{}and
+@code{,,}@tie{} will alter the pitch by two octaves.
 
 @end itemize
 
@@ -205,7 +197,18 @@ c2 fis
 c2 ges
 @end lilypond
 
+In addition, an augmented fourth is considered a smaller interval
+than a diminished fifth, even though these intervals both span six
+semitones.  Even @qq{worse}, a doubly-augmented fourth is
+considered a smaller interval than a diminished fifth, even though
+the doubly-augmented fourth spans seven semitones while the
+diminished fifth only spans six semitones; that is why a B-sharp
+following an F will be put above the F.
+
+
 @seealso
+
+Music Glossary: @rglos{fifth}, @rglos{interval}.
 
 Snippets: @lsrdir{Pitches}.
 
