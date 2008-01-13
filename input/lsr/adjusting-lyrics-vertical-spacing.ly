@@ -10,20 +10,25 @@ Staff.
 % begin verbatim
 % Default layout:
 \score{
-<<
-\new Staff \new Voice = m \relative c'{ c4 d e f g f e d c1 }
-\new Lyrics \lyricsto m {aa aa aa aa aa aa aa aa aa }
- >>
+  <<
+    \new Staff \new Voice = m \relative c'{ c4 d e f g f e d c1}
+    \new Lyrics \lyricsto m {aa aa aa aa aa aa aa aa aa }
+  >>
 }
 
 % Reducing the minimum space below the Staff and above the Lyrics:
-\score{
-<<
-\new Staff \with {\override VerticalAxisGroup #'minimum-Y-extent = #'(-1
-. 4)}
- \new Voice = m \relative c'{ c4 d e f g f e d c1 }
-\new Lyrics \with {\override VerticalAxisGroup #'minimum-Y-extent =
-#'(-1.2 . 1)}
-\lyricsto m {aa aa aa aa aa aa aa aa aa }
- >>
+
+\score {
+  <<
+    \new Staff \with {
+      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1. 4)}
+    \new Voice = m \relative c'{ c4 d e f g f e d c1 }
+    \new Lyrics \with {
+      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 1)}
+    \lyricsto m {aa aa aa aa aa aa aa aa aa }
+  >>
+
+  \header {
+    tagline = ""
+  }
 }

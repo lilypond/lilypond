@@ -21,29 +21,32 @@ staff : standard polyphony, \\partcombine whitout texts, and
 
 " }
 % begin verbatim
-musicUp = { 	 \time 4/4
-			\relative c'' {
-				a4 c4.(g8) a4 |
-				g4 e' g,( a8 b) | 
-				c b a2.
-			}
+musicUp = {
+  \time 4/4
+  \relative c'' {
+    a4 c4.(g8) a4 |
+    g4 e' g,( a8 b) | 
+    c b a2.
+  }
 }
 
 musicDown = {
-			\relative c'' {
-				g4 e4.(d8) c4 |
-				r2 g'4( f8 e) |
-				d2 a
-			}
+  \relative c'' {
+    g4 e4.(d8) c4 |
+    r2 g'4( f8 e) |
+    d2 a
+  }
 }
+
 \score{
-	\new Staff {
-		\set Staff.instrumentName = "Standard polyphony  "
-		<< \musicUp  \\ \musicDown >>
-	}
-	\layout{ 
-	indent = 6.0\cm 
-	}
+  \new Staff {
+    \set Staff.instrumentName = "Standard polyphony  "
+    << \musicUp  \\ \musicDown >>
+}
+
+  \layout{ 
+    indent = 6.0\cm 
+  }
 }
 
 \score{

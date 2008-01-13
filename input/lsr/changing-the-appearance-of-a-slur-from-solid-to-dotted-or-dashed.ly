@@ -10,18 +10,18 @@ The appearance of slurs may be changed from solid to dotted or dashed.
 " }
 % begin verbatim
 \score{
-	\relative c'{
-		c( d e  c) |
-		\slurDotted
-		c( d e  c) |
-		\slurSolid
-		c( d e  c) |
-		\slurDashed
-		c( d e  c) |
-		\slurSolid
-		c( d e  c) |
-	}
-	\layout{ raggedright=##t }
+  \relative c'{
+    c( d e  c) |
+    \slurDotted
+    c( d e  c) |
+    \slurSolid
+    c( d e  c) |
+    \slurDashed
+    c( d e  c) |
+    \slurSolid
+    c( d e  c) |
+  }
+  \layout{ raggedright=##t }
 }
 
 

@@ -23,18 +23,18 @@ When a clef change takes place at a line break the new clef symbol is
 printed at both the end of the previous line and the beginning of the
 new line by default. If the warning clef at the end of the previous
 line in not required it can be suppressed by setting the
-explicitClefVisibility Staff property to the value  @code{
-end-of-line-invisible: \\set Staff.explicitClefVisibility =
-#end-of-line-invisible  } The default behaviour can be recovered with 
-@code{\\unset Staff.explicitClefVisibility}
-% begin verbatim
+explicitClefVisibility Staff property to the value 
+@code{end-of-line-invisible: \\set Staff.explicitClefVisibility =
+#end-of-line-invisible} The default behaviour can be recovered with 
+@code{\\unset Staff.explicitClefVisibility}.
+
 
 The following examples show the possibilities when setting these
 properties manually. On the first line, the manual changes preserve the
 standard relative positioning of clefs and notes, whereas on the second
 line, they do not. 
 " }
-
+% begin verbatim
 {
            % The default treble clef
            c'4

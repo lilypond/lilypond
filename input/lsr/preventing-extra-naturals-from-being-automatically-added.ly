@@ -11,7 +11,7 @@ extraNatural property to \"false\" in the Staff context.
 " }
 % begin verbatim
 \relative {
-aeses'4 aes ais a
-\set Staff.extraNatural = ##f
-aeses4 aes ais a
+  aeses'4 aes ais a
+  \set Staff.extraNatural = ##f
+  aeses4 aes ais a
 }

@@ -28,22 +28,18 @@ fragment = {
   \break
 }
 
-\relative {
-	  \set shapeNoteStyles = ##(do re mi fa #f la ti)
-	  \fragment
+\score {
+  \new Staff {
+    \transpose c d 
+    \relative {
+      \set shapeNoteStyles = ##(do re mi fa #f la ti)
+      \fragment \break
+    }
+    
+    \relative {
+      \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+      \fragment
+    }
+  }
 }
-
-%  temporary change help LSR integration -gp
-%{
-\transpose c d 
-  \relative {
-	  \set shapeNoteStyles = ##(do re mi fa #f la ti)
-	  \fragment
-}
-
-\relative {
-	\set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
-	\fragment
-}
-%}
 

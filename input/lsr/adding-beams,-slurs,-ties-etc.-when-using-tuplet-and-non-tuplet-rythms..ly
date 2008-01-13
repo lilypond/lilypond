@@ -17,10 +17,7 @@ tuplet sections (enclosed with curly braces).
 % begin verbatim
 {
   r16[ g16 \times 2/3 {r16 e'8] }
-  
- g16( a \times 2/3 {b d e') }
- 
- g8[( a \times 2/3 {b d') e'~]}
- 
- \times 4/5 {e'32\( a b d' e'} a'4.\)
+  g16( a \times 2/3 {b d e') }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
 }

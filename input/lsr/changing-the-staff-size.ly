@@ -9,16 +9,17 @@ In order to change staff sizes, both @code{staff-space} and
 " }
 % begin verbatim
 {
-    \new Staff \relative c'' { \dynamicDown c8 \ff c c c c c c c } 
+  \new Staff \relative c'' { \dynamicDown c8 \ff c c c c c c c } 
 }
 
 {
-    \new Staff \with {
-	fontSize = #-3
-	\override StaffSymbol #'staff-space = #(magstep -3)
-    } {
-	\clef bass
-	c8 c c c  c c c c
-    }
+  \new Staff \with {
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+  }
+  {
+    \clef bass
+    c8 c c c  c c c c
+  }
 }
 

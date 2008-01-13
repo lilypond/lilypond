@@ -1,9 +1,7 @@
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
-glissando-contempary.ly
 ambiti-multiple-voices.ly
-makam.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
-jazz-combo-template.ly
+makam.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 generating-random-notes.ly
 quoting-another-voice-with-transposition.ly
