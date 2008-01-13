@@ -51,7 +51,7 @@ unconverted = []
 notags_files = []
 
 # mark the section that will be printed verbatim by lilypond-book
-end_header_re = re.compile ('(\\header {.*?"\\s*}\n)\n', re.M | re.S)
+end_header_re = re.compile ('(\\header {.+?(?:"\\s*|\\s+)}\n)\n', re.M | re.S)
 
 def mark_verbatim_section (ly_code):
 	return end_header_re.sub ('\\1% begin verbatim\n', ly_code)
@@ -144,7 +144,8 @@ dump_file_list ('lsr-unsafe.txt', unsafe)
 sys.stderr.write ('''
 
 Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
-  xargs git-diff < lsr-unsafe.txt
+  git add input/lsr
+  xargs git-diff HEAD < lsr-unsafe.txt
 
 ''')
 
