@@ -918,13 +918,15 @@ Otherwise, return #f."
 								 value ?clef-glyph
 								 symbol 'clefGlyph)
 							  (music 'PropertySet
-								 symbol 'middleCPosition)
+								 symbol 'middleCClefPosition)
 							  (music 'PropertySet
 								 value ?clef-position
 								 symbol 'clefPosition)
 							  (music 'PropertySet
 								 value ?clef-octavation
-								 symbol 'clefOctavation)))))
+								 symbol 'clefOctavation)
+							  (music 'ApplyContext
+								 procedure ly:set-middle-C!)))))
     (let ((clef-prop+name (assoc (list ?clef-glyph ?clef-position 0)
 				 clef-name-alist)))
       (if clef-prop+name
