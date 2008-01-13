@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 007d0b5b94c36f9d9e228309d5b0e6a67ae27ebc
+    Translation of GIT committish: c887c0f8714c999e42fa87d4d1116b8d19e0b93c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,71 +11,53 @@
 @node Install
 @chapter Install
 
-UNTRANSLATED NODE: IGNORE ME
+LilyPond est distribué dans deux types de moutures : les versions
+stables, qui portent un numéro mineur de version pair, par exemple 1.6,
+2.8, 2.12, et les versions de développement, qui portent un numéro
+mineur de version impair, par exemple 1.3, 2.9, 2.11.
+
+La compilation de LilyPond est une tâche exigeante et parfois
+laborieuse, c'est pourquoi nous recommandons @strong{fortement}
+l'utilisations des binaires précompilés.
 
 @menu 
 * Precompiled binaries::
 * Compiling from source::
-@end menu 
+@end menu
+
 @node Precompiled binaries
 @section Precompiled binaries
 
-UNTRANSLATED NODE: IGNORE ME
-
 @subsection Downloading
+
+Consultez @uref{http://lilypond.org/web/install/} pour connaître les
+derniers paquets binaires dipsonibles pour votre plateforme.  Si votre
+système d'exploitation n'est pas présent sur cette page, consultez la
+liste complète sur @uref{http://download.linuxaudio.org/lilypond/binaries/}.
+
+Actuellement, nous compilons des paquets pour les architectures
+
+@example
+darwin-ppc  - MacOS X PowerPC
+darwin-x86  - MacOS X Intel
+freebsd-64  - FreeBSD 6.x, x86_64
+freebsd-x86 - FreeBSD 4.x, x86
+linux-64    - Toutes distributions GNU/Linux, x86_64
+linux-arm   - Toutes distributions GNU/Linux, arm
+linux-ppc   - Toutes distributions GNU/Linux, powerpc
+linux-x86   - Toutes distributions GNU/Linux, x86
+mingw       - Windows x86
+@end example
+
+
 @node Compiling from source
 @section Compiling from source
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Downloading source code::
-* Requirements::
-* Building LilyPond::
-* Building documentation without compiling LilyPond::
-* Testing LilyPond::
-* Problems::
-@end menu 
-@node Downloading source code
-@subsection Downloading source code
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Requirements
-@subsection Requirements
-
-UNTRANSLATED NODE: IGNORE ME
-
-@unnumberedsubsubsec Compilation
-@unnumberedsubsubsec Running requirements
-@unnumberedsubsubsec Building documentation
-@node Building LilyPond
-@subsection Building LilyPond
-
-UNTRANSLATED NODE: IGNORE ME
-
-@unnumberedsubsubsec Compiling
-@unnumberedsubsubsec Compiling for multiple platforms
-@node Building documentation without compiling LilyPond
-@subsection Building documentation without compiling LilyPond
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Testing LilyPond
-@subsection Testing LilyPond
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Problems
-@subsection Problems
-
-UNTRANSLATED NODE: IGNORE ME
-
-@unnumberedsubsubsec Bison 1.875
-@unnumberedsubsubsec Solaris
-@unnumberedsubsubsec FreeBSD
-@unnumberedsubsubsec International fonts
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@end ifhtml
+@iftex
+Toute cette section ne sera pas traduite, car la compilation de LilyPond
+demande de maîtriser un minimum l'anglais ; reportez-vous donc à
+l'édition de ce manuel en anglais.
+@endiftex
