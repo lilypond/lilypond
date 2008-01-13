@@ -105,7 +105,12 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
 	for (int i = l; i < r; i++)
-	  springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+	  {
+	    if (spring_dist)
+	      springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+	    else
+	      springs_[i].set_distance (dist / (r - l));
+	  }
 
       return;
     }
