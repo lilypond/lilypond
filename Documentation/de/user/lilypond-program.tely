@@ -32,7 +32,7 @@
 
 @ifhtml
 Dieses Dokument ist auch als
-@uref{source/Documentation/user/lilypond-program.pdf,PDF} und als
+@uref{source/Documentation/user/lilypond-program.de.pdf,PDF} und als
 @uref{source/Documentation/user/lilypond-program-big-page.html,eine große Seite}.
 verfügbar.
 @end ifhtml
@@ -65,7 +65,8 @@ nur die englische Version gültig.}
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -113,7 +114,8 @@ nur die englische Version gültig.}
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -145,7 +147,8 @@ nur die englische Version gültig.}
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne
+Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -163,10 +166,10 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- program usage
+@top GNU LilyPond -- Programmbenutzung
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Das ist das Hanbuch zur Programmbenutzung für GNU LilyPond Version 2.11.x.
+Das ist das Handbuch zur Programmbenutzung für GNU LilyPond Version 2.11.x.
 @ifhtml
 (Siehe Ende der Seite für die genaue Versionsnummer).
 @end ifhtml

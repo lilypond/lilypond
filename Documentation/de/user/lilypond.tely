@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+    Translation of GIT committish: 90fd19c1e2a433d6657cf7270cf0d1932cb4934a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -42,7 +42,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c 
 @dircategory LilyPond
 @direntry
-* LilyPond: (lilypond/lilypond).           Das GNU Notensatzprogramm.
+* LilyPond: (lilypond/lilypond).                               Das GNU Notensatzprogramm.
 * abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          ABC-Dateien importieren.      
 * convert-ly: (lilypond/lilypond-program)Invoking convert-ly.  Ältere LilyPond-Versionen.
 * etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Finale-Dateien importieren.
@@ -64,7 +64,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 Dieses Dokument ist auch als
 @uref{source/Documentation/user/lilypond.de.pdf,PDF} und als 
 @uref{source/Documentation/user/lilypond-big-page.html,eine große Seite}
-(in Englisch) verfügbar.
+(auf Englisch) verfügbar.
 @end ifhtml
 
 
@@ -84,8 +84,6 @@ Dieses Dokument ist auch als
 @titlefont{Benutzerhandbuch}
 @author Das LilyPond-Entwicklerteam
 
-
-
 Copyright @copyright{} 1999--2007 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
@@ -99,7 +97,8 @@ nur die englische Version gültig.}
 @quotation
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
-spätere, von der Free Software Foundation publizierte Versionen), 
+spätere, von der Free Software Foundation publizierte Versionen, ohne 
+invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -148,7 +147,7 @@ nur die englische Version gültig.}
 Es ist erlaubt, dieses Dokument unter den Bedingungen der
 GNU Free Documentation Lizenz (Version 1.1 oder
 spätere, von der Free Software Foundation publizierte Versionen, ohne 
-Invariante Abschnitte), 
+invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
 zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
@@ -216,22 +215,21 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @include dedication.itely
 
-@c TRANSLATE ME
 @menu
-* Musical notation::               Musical notation.
-* Specialist notation::            Notation which is only used for
-specicific purposes.
-* Changing defaults::              Das Notenbild verfeinern.
+* Musical notation::               Allgemeine Notation von Musik.
+* Specialist notation::            Notation, die nur für spezielle Zwecke 
+    eingesetzt wird.
+* Input syntax::                   Allgemeine Information über die 
+    Quelledateien von LilyPond.
 * Non-musical notation::           Alles, was nicht Musiknotation ist.
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
+* Changing defaults::              Das Notenbild verfeinern.
 * Interfaces for programmers::     Benutzung für Experten.
 
 Anhänge
 
 * Literature list::                Wichtige Literatur über die Notation.
-* Scheme tutorial::                Programmierung in LilyPond.
 * Notation manual tables::         Tabellen und Grafiken.
-* Templates::                      Funktionierende Vorlagen.
 * Cheat sheet::                    Überblick über die LilyPond-Syntax.
 * GNU Free Documentation License:: Die Lizenz dieses Handbuchs.
 * LilyPond command index::
@@ -247,16 +245,16 @@ Anhänge
 @include notation.itely
 @include specialist.itely
 
-@include changing-defaults.itely
+@include input.itely
 @include non-music.itely
 @include spacing.itely
+
+@include changing-defaults.itely
 @include programming-interface.itely
 
 
 @include literature.itely
-@include scheme-tutorial.itely
 @include notation-appendices.itely
-@include templates.itely
 @include cheatsheet.itely
 @include fdl.itexi
 

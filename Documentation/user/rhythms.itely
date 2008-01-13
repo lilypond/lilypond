@@ -768,9 +768,21 @@ R1*19
 s1*0^\markup {[MABEL] }
 s1*0_\markup {\italic {Cue: ... it is yours}}
 R1*30
+\emptyText
 c4^\markup {CHORUS} d f c
 @end lilypond
 
+@noindent
+Text attached to a skip note in this way is left-aligned to the
+position where the note would be placed in the bar, and placed
+above the bar count numeral, but because the bar length is
+determined by the length of the text, the text will appear to be
+centered.  If two (or more) texts are
+attached to skip notes in a bar the bar length is determined by
+the longer text, and the shorter text is then clearly
+left-aligned, as shown in the second bar above.  If the shorter
+text of two marks is short enough to fit it will be placed
+alongside and to the left of the bar count numeral.
 
 @seealso
 

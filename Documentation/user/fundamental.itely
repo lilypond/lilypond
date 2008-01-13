@@ -127,8 +127,8 @@ accepts.
 Two more commands you have not previously seen are
 @code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as 
 shown they will cause LilyPond to produce a printed output and a 
-MIDI out respectively.  They are described fully in the
-Notation Reference -- @ruser{Score layout} and 
+MIDI output respectively.  They are described fully in the
+Notation Reference -- @ruser{Score layout} and
 @ruser{Creating MIDI files}.
 
 The @code{\book} command allows
@@ -158,7 +158,7 @@ whenever it sees @code{\melody}.  There's nothing special about
 the names -- it could be @code{melody}, @code{global}, 
 @code{TimeKey},
 @code{pianorighthand}, or @code{foofoobarbaz}.  For more details,
-see @ruser{Saving typing with variables and functions}.
+see @ref{Saving typing with variables and functions}.
 Remember that you can use almost any name you like as long
 as it contains just alphabetic characters and is distinct from
 LilyPond command names.  The exact
@@ -623,22 +623,28 @@ blue triangle voice.
 
 @lilypond[quote,verbatim]
 \new Staff \relative c' {
-  \voiceOneStyle
+  % Main voice
   c16 d e f
   << % Bar 1
-    { g4 f e } \\
-    {
+    { 
+      \voiceOneStyle
+      g4 f e
+    }
+  \\
+    { 
       \voiceTwoStyle
       r8 e4 d c8 ~
     }
-  >> |
+  >>
   << % Bar 2
-    { d2 e2 } \\
-    { c8 b16 a b8 g ~ g2 } \\
+    { d2 e2 }  % Voice 1 continues
+  \\
+    { c8 b16 a b8 g ~ g2 }  % Voice 2 continues
+  \\
     {
       \voiceThreeStyle
       s4 b4 c2
-     }
+    }
   >>
 }
 @end lilypond
@@ -681,8 +687,8 @@ enter the music of the first bar in three voices:
   \key aes \major
   << 
     { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
-  >> |
-  <c ees aes c>1 |
+  >>
+  <c ees aes c>1
 }
 @end lilypond
 
@@ -785,8 +791,9 @@ Let us see in some simple examples exactly what effect
 markup, ties, slurs, and dynamics:
 
 @lilypond[quote,ragged-right,verbatim]
-\relative c'{ 
-  c-"default" d8 ~ d e4 ( f g a ) b-> c
+\relative c'{
+  % Default behaviour or behaviour after \oneVoice
+  c d8 ~ d e4 ( f g a ) b-> c
 }
 @end lilypond
 
@@ -898,6 +905,43 @@ as here:
 >>
 @end lilypond
 
+@cindex note column
+@cindex shift commands
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+Closely spaced notes in a chord, or notes occuring at the same
+time in different voices, are arranged in two, occasionally more,
+columns to prevent the noteheads overlapping.  These are called
+note columns.  There are separate columns for each voice, and 
+the currently specified voice-dependent shift is applied to the 
+note column if there would otherwise be a collision.  This can
+be seen in the example above.  In bar 2 the C in voice two is
+shifted to the right relative to the D in voice one, and in the
+final chord the C in voice three is also shifted to the right
+relative to the other notes.
+
+The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
+@code{\shiftOff} commands specify the degree to which notes and
+chords of the voice should be shifted if a collision
+would otherwise occur. By default, the outer voices (normally 
+voices one and two) have @code{\shiftOff} specified, while the 
+inner voices (three and four) have @code{\shiftOn} specified.  
+When a shift is applied, Voices one and three are shifted to 
+the right and voices two and four to the left.
+
+@code{\shiftOnn} and @code{\shiftOnnn} define further shift
+levels which may be specified temporarily to resolve collisions
+in complex situations -- see @ref{Real music example}.
+
+A note column can contain just one note (or chord) from a voice
+with stems up and one note (or chord) from a voice with stems
+down.  If notes from two voices which have their stems in the
+same direction are placed at the same position and both voices 
+have no shift or the same shift specified, the error message
+@qq{Too many clashing note columns} will be produced.
 
 @node Voices and vocals
 @subsection Voices and vocals
@@ -910,7 +954,7 @@ handles simple scores well.  However, this technique is
 quite limited.  For more complex music, you must introduce the
 lyrics in a @code{Lyrics} context using @code{\new Lyrics} and
 explicitly link
-the lyrics to the notes with @code{\lyricsto@{@}}, using the 
+the lyrics to the notes with @code{\lyricsto@{@}}, using the
 name assigned to the Voice.
 
 @lilypond[quote,verbatim,fragment]
@@ -1179,7 +1223,7 @@ found in every Staff Context, as different staves may require
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
-in each @code{Voice} context, the lowest level context of all.
+in every @code{Voice} context, the lowest level context of all.
 
 Each engraver processes the particular objects associated
 with its function, and maintains the properties that relate
@@ -1260,11 +1304,11 @@ of some commonly used ones.  There are many more.
 
 @c attempt to force this onto a new page
 @need 50
-@multitable @columnfractions .25 .2 .4 .15
+@multitable @columnfractions .25 .15 .45 .15
 @headitem propertyName
-  @tab Value
+  @tab Type
   @tab Function
-  @tab Example
+  @tab Example Value
 @item extraNatural
   @tab Boolean
   @tab If true, set extra natural signs before accidentals
@@ -1290,6 +1334,7 @@ of some commonly used ones.  There are many more.
   @tab Set the text to print before the start of a verse
   @tab @code{"2"}
 @end multitable
+
 @noindent
 where a Boolean is either True (@code{#t}) or False (@code{#f}),
 an Integer is a positive whole number, a Real is a positive
@@ -1304,7 +1349,7 @@ Before we can set any of these properties we need to know
 in which context they operate.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
-action will not be taken.  For example, the 
+action will not take place.  For example, the
 @code{instrumentName} clearly lives in the Staff context, since
 it is the staff that is to be named.
 In this example the first staff is labelled, but not the second,
@@ -1434,8 +1479,8 @@ extra naturals for the duration of a staff we would write:
 @end lilypond
 
 In effect this overrides the default value of the property.  It
-may still be changed dynamically using @code{\set} and 
-@code{\unset}.
+may still be changed dynamically using @code{\set} and returned
+to its (new) default value with @code{\unset}.
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -1821,7 +1866,7 @@ lower = \relative c, {
 
 None of the templates provides this layout exactly.  The
 nearest is @q{SATB vocal score and automatic piano reduction},
-but we shall need to change the layout and add a piano
+but we need to change the layout and add a piano
 accompaniment which is not derived automatically from the
 vocal parts.  The variables holding the music and words for
 the vocal parts are fine, but we shall need to add variables for
@@ -1833,11 +1878,11 @@ score shown above.  We need to rearrange them so there are
 four staves with the words written directly underneath the
 notes for each part.
 All the voices should be @code{\voiceOne}, which is
-the default, so the @code{\voiceXXX} commands can be removed.
+the default, so the @code{\voiceXXX} commands should be removed.
 We also need to specify the tenor clef for the tenors.
-The way in which lyrics are specified has also been simplified
-as we have not yet encountered the method used in the template.
-We've also added the names of each staff.
+The way in which lyrics are specified in the template has not yet
+been encountered so we need to use the method with which we are 
+familiar.  We should also add the names of each staff.
 
 Doing this gives for our ChoirStaff:
 
@@ -2011,7 +2056,8 @@ and fill in the details later.
 
 We'll use the first two bars of Bach's prelude
 based on @emph{Jesu, meine Freude} which is written for two
-manuals and pedal organ.  The top manual part has two voices,
+manuals and pedal organ.  You can see these two bars of music
+at the bottom of this section.  The top manual part has two voices,
 the lower and pedal organ one each.  So we need four
 music definitions and one to define the time signature
 and key:

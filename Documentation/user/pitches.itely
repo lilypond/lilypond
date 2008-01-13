@@ -112,36 +112,26 @@ mode.
 @end example
 
 In relative mode, each note is assumed to be as close to the
-previous note as possible.  This means that the octave of notes
-that appear in @var{musicexpr} are calculated as follows:
+previous note as possible.  This means that the octave of pitches
+in @var{musicexpr} is calculated as follows:
 
 @itemize
 @item
-The pitch of the first note is relative to @code{\relative
-@var{startpitch} }.
+The pitch of the first note is relative to @code{@var{startpitch}}.
 
 @item
-If no octave changing marks are used, the basic interval between a
-note and the one that precedes it is always taken to be a fourth
-or less.
+If no octave changing mark is used on a pitch, its octave is calculated
+so that the interval with the previous note is less than a fifth.  This
+interval is determined without considering accidentals.
 
 @item
-This distance is determined without regarding alterations or the
-actual sounding pitches; a @code{fisis} following a @code{ceses}
-will be put above the @code{ceses}.  In other words, a
-doubly-augmented fourth is considered a smaller interval than a
-diminished fifth, even though the doubly-augmented fourth spans
-seven semitones while the diminished fifth only spans six
-semitones.
+An octave changing mark@tie{}@code{'} or@tie{}@code{,} can be added to
+respectively raise or lower a pitch by an extra octave, relatively to
+the pitch calculated without octave mark.
 
 @item
-The octave changing marks@tie{}@code{'} and@tie{}@code{,} can be
-added to raise or lower the pitch by an extra octave from the
-basic interval.
-
-@item
-Multiple octave changing marks can be used.  @code{''}@tie{}will
-raise the pitch by two octaves.
+Multiple octave changing marks can be used.  @code{''}@tie{}and
+@code{,,}@tie{} will alter the pitch by two octaves.
 
 @end itemize
 
@@ -186,7 +176,8 @@ relative to the preceding one.
 
 The @var{startpitch} (after @code{\relative}) is a note name in
 absolute mode.  In principle it can be any note name, but common
-practice is to use@tie{}@code{c} in various octave positions.
+practice is to use@tie{}@code{c} in various octave positions or the
+first note of @var{musicexpr}.
 
 When octaves are specified as above by adding@tie{}@code{'}
 and@tie{}@code{,} to pitch names, it is easy to accidentally put a
@@ -196,18 +187,28 @@ indicate any octaves at all.  Furthermore, in absolute mode, a
 single mistake may be difficult to spot; in relative mode, a
 single error puts the rest of the piece off by one octave.
 
-LilyPond examines pitches based on the note names -- in other
-words, an augmented fourth is @emph{not} treated the same as a
-diminished fifth.  If we begin at a C, then an F-sharp will be
-placed higher than the C, while a G-flat will be placed lower than
-the C.
+As explained above, the octave of pitches is calculated only with the
+note names, regardless of any alterations. Therefore, an F-sharp
+following a C will be placed higher than the C, while a G-flat following
+a C will be placed lower than the C.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2 fis
 c2 ges
 @end lilypond
 
+In addition, an augmented fourth is considered a smaller interval
+than a diminished fifth, even though these intervals both span six
+semitones.  Even @qq{worse}, a doubly-augmented fourth is
+considered a smaller interval than a diminished fifth, even though
+the doubly-augmented fourth spans seven semitones while the
+diminished fifth only spans six semitones; that is why a B-sharp
+following an F will be put above the F.
+
+
 @seealso
+
+Music Glossary: @rglos{fifth}, @rglos{interval}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -243,7 +244,7 @@ see @rlearning{Accidentals and key signatures}.}
 A @notation{sharp} pitch is made by adding @code{is} to the name,
 and a @notation{flat} pitch by adding @code{es}.  As you might
 expect, a @notation{double sharp} or @notation{double flat} is
-made by adding @code{isis} or @code{eses}.  This syntax derived
+made by adding @code{isis} or @code{eses}.  This syntax is derived
 from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other names for accidentals, see
 @ref{Note names in other languages}.
@@ -565,19 +566,19 @@ by the same interval.
 
 Consider a piece written in the key of D-major.  If this piece is
 a little too low for its performer, it can be transposed up to
-E-major with
+E-major with:
 
 @example
 \transpose d e @dots{}
 @end example
 
-Consider a part written for violin (a C instrument).  If this part
-is to be played on the A clarinet (for which an A is notated as a
-C, and thus sounds a minor third lower than notated), the
-following transposition will produce the appropriate part:
+Consider a part written for violin (a C instrument).  If this part is to
+be played on the A clarinet (for which an A is notated as a C, and thus
+sounds a minor third lower than notated), the appropriate part will be
+produces with:
 
 @example
-\transpose a c @dots{}
+\transpose a c' @dots{}
 @end example
 
 @code{\transpose} will also transpose key signatures:
@@ -616,15 +617,15 @@ trumpet which begins on a notated E (concert D), one would write:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
-\transpose c bes \musicInBflat
+\transpose c bes, \musicInBflat
 @end example
 
-To print this music in F (e.g., rearranging to a french horn) you
-would wrap the existing music with another @code{\transpose}
+To print this music in F (e.g., rearranging to a French horn) you
+would wrap the existing music with another @code{\transpose}:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
-\transpose f c @{ \transpose c bes \musicInBflat @}
+\transpose f c' @{ \transpose c bes, \musicInBflat @}
 @end example
 
 @commonprop
@@ -714,10 +715,10 @@ The clef can also be changed inside the staff:
 >>
 @end lilypond
 
-These same clef symbols are used in different positions on the
-staff to change the range of notes shown by that staff.  The
-treble (alto, bass) clef is always positioned to show the line on
-which a@tie{}@code{g'} (@code{c'}, @code{f}) note is printed.
+These same clef symbols are used in different positions on the staff to
+change the range of notes shown by that staff.  The treble (respectively
+alto, bass) clef is always positioned to show the line on which
+a@tie{}@code{g'} (resp. @code{c'}, @code{f}) note is printed.
 
 Supported clefs include
 
@@ -800,7 +801,7 @@ Setting or changing the key signature is done with the @code{\key}
 command:
 
 @example
-\key @var{pitch} @var{type}
+\key @var{pitch} @var{mode}
 @end example
 
 @funindex \minor
@@ -815,9 +816,9 @@ command:
 @funindex \dorian
 @cindex church modes
 
-Here, @var{type} should be @code{\major} or @code{\minor} to get
+Here, @var{mode} should be @code{\major} or @code{\minor} to get
 @var{pitch}-major or @var{pitch}-minor, respectively.  You may
-also use the standard mode names (also called @q{church modes}):
+also use the standard mode names, also called @q{church modes}:
 @code{\ionian}, @code{\locrian}, @code{\aeolian},
 @code{\mixolydian}, @code{\lydian}, @code{\phrygian}, and
 @code{\dorian}.

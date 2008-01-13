@@ -100,6 +100,8 @@ Examples: @lsr{contemporary,cluster@/.ly}.
 @node Collision resolution
 @unnumberedsubsubsec Collision resolution
 
+@cindex Merging noteheads
+
 Normally, note heads with a different number of dots are not
 merged, but when the object property
 @code{merge-differently-dotted} is set in the

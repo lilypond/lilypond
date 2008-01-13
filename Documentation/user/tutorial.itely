@@ -31,8 +31,9 @@ Tutorial guidelines:  (different from policy.txt!)
 @chapter Tutorial
 
 This tutorial starts with an introduction to the LilyPond music
-language and how to produce printed music.  After this first
-contact we will explain how to create common musical notation.
+language and explains how to produce printed music.  After this first
+contact we will explain how to create beautiful printed music 
+containing common musical notation.
 
 @menu
 * First steps::                 
@@ -59,9 +60,10 @@ This section gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @subsection Compiling a file
 
-The first example demonstrates how to start working with LilyPond.
-To create sheet music, we write a text file that specifies the
-notation.  For example, if we write:
+@qq{Compiling} is the term used for processing an input text file
+in LilyPond format to produce a file which can be printed and
+(optionally) a MIDI file which can be played.  The first example
+shows what a simple input text file looks like.
 
 @example
 @{
@@ -138,7 +140,10 @@ pointer.
 To edit an existing @file{.ly} file, right-click on it and
 select @qq{Edit source}.  To get an empty file to start from, run
 the editor as described above and use @qq{New} in
-the @qq{File} menu.
+the @qq{File} menu, or right-click on the desktop and select
+@qq{New..Text Document}, change its name to a name of your choice
+and change the file extension to @code{.ly}.  Double-click the
+icon to type in your LilyPond source code as before.
 
 Double-clicking the file does not only result in a PDF file, but
 also produces a @file{.log} file that contains some information on
@@ -260,9 +265,9 @@ above the B, and an A, G or F will be assumed to be below.
   b c  % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
   b e  % e is 3 up or 4 down, so is the e above
-  b a  % a is 4 up or 3 down, so is the a below
+  b a  % a is 6 up or 1 down, so is the a below
   b g  % g is 5 up or 2 down, so is the g below
-  b f  % f is 6 up or 1 down, so is the f below
+  b f  % f is 4 up or 3 down, so is the f below
 }
 @end lilypond
 
@@ -290,7 +295,7 @@ To change a note by two (or more!) octaves, we use multiple
 quotes @code{''} and not one double quote @code{"}@tie{}!  The
 initial value in @code{\relative c'} may also be modified like
 this.
-
+@c " - keeps quotes in order for context-sensitive editor -td
 
 @subheading Durations (rhythms)
 
@@ -407,7 +412,7 @@ Notation Reference: @ruser{Writing pitches},
 
 LilyPond input files are similar to source files in many common
 programming languages.  They are case sensitive, and white-space
-is generally equivalent.  Expressions are formed with curly braces
+is generally ignored.  Expressions are formed with curly braces
 @{ @}, and comments are denoted with @code{%} or @code{%@{ ...
 %@}}.
 
@@ -454,8 +459,9 @@ that the input is a single music expression, just like parentheses
 space unless they are at the beginning or end of a line to avoid
 ambiguities.
 
-A function (such as @code{\relative @{ @}}) also counts as a
-single music expression.
+A LilyPond command followed by a simple expression in braces (such
+as @code{\relative @{ @}}) also counts as a single music 
+expression.
 
 @cindex comments
 @cindex line comment
@@ -468,7 +474,10 @@ output.  There are two types of comments.  The percent symbol
 @code{%} introduces a line comment; anything after @code{%} on
 that line is ignored.  A block comment marks a whole section of
 music input as a comment.  Anything that is enclosed in @code{%@{}
-and @code{%@}} is ignored.  (Comments do not nest.)  The following
+and @code{%@}} is ignored.  However, block comments do not @q{nest}.
+This means that you cannot place a block comment inside another 
+block comment.  If you try, the first @code{%@}} will terminate 
+@emph{both} block comments.  The following
 fragment shows possible uses for comments:
 
 @example
@@ -538,7 +547,8 @@ cut-&-pastable section} to the bottom of the file.
 
 
 There are more tips for constructing input files in
-@ref{Suggestions for writing LilyPond files}.
+@ref{Suggestions for writing LilyPond files}.  But it might be
+best to read through the rest of the tutorial first.
 
 
 
@@ -627,8 +637,8 @@ d cis fis
 @end lilypond
 
 @noindent
-No note has a printed accidental, but you must still add the
-@code{is} to @code{cis} and @code{fis}.
+No note has a printed accidental, but you must still add
+@code{is} and type @code{cis} and @code{fis} in the input file.
 
 The code @code{e} does not mean @qq{print a black dot just below
 the first line of the staff.}  Rather, it means @qq{there is a
@@ -689,12 +699,12 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex phrasing slurs
 @subheading Phrasing slurs
 
-Music Glossary: @rglos{phrasing}, @rglos{legato}.
+Music Glossary: @rglos{slurs}, @rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
-@code{\(} and @code{\)}.  You can have both @notation{legato}
-slurs and phrasing slurs at the same time, but you cannot have
-simultaneous legato slurs or simultaneous phrasing slurs.
+@code{\(} and @code{\)}.  You can have both @notation{slurs}
+and phrasing slurs at the same time, but you cannot have
+simultaneous slurs or simultaneous phrasing slurs.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
@@ -790,7 +800,7 @@ c2\< c2\ff\> c2 c2\!
 
 @seealso
 
-Notation Reference: @ruser{Articulations},
+Notation Reference: @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
 
@@ -887,7 +897,7 @@ Triplets make notes occupy 2/3 of their notated duration, so a
 @cindex appoggiatura
 @subheading Grace notes
 
-Music Glossary: @rglos{grace notes}, @rglos{acciacccatura},
+Music Glossary: @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
 @notation{Grace notes} are created with the @code{\grace} command,
@@ -1324,7 +1334,7 @@ Here we have also used manual beaming (the square brackets @code{[
 (see @ref{Automatic and manual beams}).
 
 As an alternative to using slurs, the melismata may be indicated
-just in the lyrics by using an underscore, @code{_}, for each
+in just the lyrics by using an underscore, @code{_}, for each
 note that should be included in the melisma:
 
 @lilypond[verbatim,quote,ragged-right]
