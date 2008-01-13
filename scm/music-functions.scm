@@ -439,20 +439,27 @@ i.e.  this is not an override"
       "Either reset middleCPosition to the stored original, or remember
 old middleCPosition, add OCTAVATION to middleCPosition, and set
 OTTAVATION to `8va', or whatever appropriate."	    
-      (if (number? (ly:context-property	 context 'middleCOffset))
-	  (let ((where (ly:context-property-where-defined context 'middleCOffset)))
-	    (ly:context-unset-property where 'middleCOffset)
-	    (ly:context-unset-property where 'ottavation)))
-
-      (let* ((offset (* -7 octavation))
-	     (string (cdr (assoc octavation '((2 . "15ma")
-					      (1 . "8va")
-					      (0 . #f)
-					      (-1 . "8vb")
-					      (-2 . "15mb"))))))
-	(ly:context-set-property! context 'middleCOffset offset)
-	(ly:context-set-property! context 'ottavation string)
-	(ly:set-middle-C! context)))
+      (if (number? (ly:context-property	 context 'middleCPosition))
+	  (begin
+	    (if (number? (ly:context-property context 'originalMiddleCPosition))
+		(let ((where (ly:context-property-where-defined context 'middleCPosition)))
+		  
+		  (ly:context-set-property! context 'middleCPosition
+					    (ly:context-property context 'originalMiddleCPosition))
+		  (ly:context-unset-property where 'originalMiddleCPosition)
+		  (ly:context-unset-property where 'ottavation)))
+ot	    
+	    (let* ((where (ly:context-property-where-defined context 'middleCPosition))
+		   (c0 (ly:context-property context 'middleCPosition))
+		   (new-c0 (+ c0 (* -7 octavation)))
+		   (string (cdr (assoc octavation '((2 . "15ma")
+						    (1 . "8va")
+						    (0 . #f)
+						    (-1 . "8vb")
+						    (-2 . "15mb"))))))
+	      (ly:context-set-property! context 'middleCPosition new-c0)
+	      (ly:context-set-property! context 'originalMiddleCPosition c0)
+	      (ly:context-set-property! context 'ottavation string)))))
     (set! (ly:music-property m 'procedure) ottava-modify)
     (context-spec-music m 'Staff)))
 

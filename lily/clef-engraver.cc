@@ -202,5 +202,6 @@ ADD_TRANSLATOR (Clef_engraver,
 		"clefPosition "
 		"explicitClefVisibility "
 		"forceClef "
+		"middleCPosition "
 		,
 		/* write */ "");
