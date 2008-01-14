@@ -60,4 +60,4 @@ UNTRANSLATED NODE: IGNORE ME
 Toute cette section ne sera pas traduite, car la compilation de LilyPond
 demande de maîtriser un minimum l'anglais ; reportez-vous donc à
 l'édition de ce manuel en anglais.
-@endiftex
+@end iftex
