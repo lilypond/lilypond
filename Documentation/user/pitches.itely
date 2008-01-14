@@ -245,9 +245,8 @@ A @notation{sharp} pitch is made by adding @code{is} to the name,
 and a @notation{flat} pitch by adding @code{es}.  As you might
 expect, a @notation{double sharp} or @notation{double flat} is
 made by adding @code{isis} or @code{eses}.  This syntax is derived
-from note naming conventions in Nordic and Germanic languages,
-like German and Dutch.  To use other names for accidentals, see
-@ref{Note names in other languages}.
+from Dutch note naming conventions.  To use other names for
+accidentals, see @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a2 ais a aes
@@ -255,9 +254,9 @@ a2 aisis a aeses
 @end lilypond
 
 @noindent
-The above notes are the Dutch note names.  In Dutch, @code{aes} is
-contracted to @code{as}, but both forms are accepted in LilyPond.
-Similarly, both @code{es} and @code{ees} are accepted:
+In Dutch, @code{aes} is contracted to @code{as}, but both forms
+are accepted in LilyPond.  Similarly, both @code{es} and
+@code{ees} are accepted:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a2 as e es
@@ -322,7 +321,7 @@ ceseh ces ceh c cih cis cisih
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}.
+@rglos{double flat}.  @c FIXME note names
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
@@ -399,14 +398,11 @@ define are:
 @end multitable
 @end example
 
-@c TODO: move most of this junk into glossary
-@noindent
 Note that in some languages such as Norwegian and Swedish, the usual
 spelling for accidentals is a double @q{s} such as in @code{ciss}
 or @code{cess}.  For both historical reasons and a greater simplicity,
 LilyPond uses a single @q{s} for all these languages.
 
-@noindent
 Similarly, in Germanic and Nordic languages, alterations 
 of@tie{}@code{a}, like for example @code{aes} and
 @code{aeses}, are usually contracted to @code{as} and @code{ases}
@@ -414,14 +410,12 @@ of@tie{}@code{a}, like for example @code{aes} and
 names are defined in the corresponding language files (this also
 applies to the suffixes for quartertones below).
 
-@noindent
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quartertones defined
 in the various language files are listed in the following table.
 Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
 @q{one and a half}, respectively.  For the other languages, no
 special names have been defined yet.
-
 
 @example
 @multitable @columnfractions .2 .6 .05 .05 .05 .05
