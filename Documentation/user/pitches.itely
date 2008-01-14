@@ -394,7 +394,7 @@ define are:
 @end example
 
 @noindent
-Note that in Danish, German, Norwegian, and Swedish, the usual
+Note that in some languages such as Norwegian and Swedish, the usual
 spelling for accidentals is a double q{s} such as in @code{ciss}
 or @{cess}.  For both historical reasons and a greater simplicity,
 LilyPond uses a single @q{s} for all these languages.
@@ -909,6 +909,9 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 @refbugs
 
+@c FIXME: This should have been fixed by Joe.
+@c If it hasn't, we should mention the appropriate
+@c workaround (there is a snippet in the LSR) -vv
 @code{set-octavation} will get confused when clef changes happen
 during an octavation bracket.
 
@@ -919,12 +922,19 @@ during an octavation bracket.
 @cindex transposition, MIDI
 @cindex transposition, instrument
 
+When typesetting scores that involve transposing instruments,
+some parts can be typeset in a different pitch than the @qq{concert pitch}}.
+
 The key of a @notation{transposing instrument} can be specified.
 This applies to many wind instruments, for example, clarinets
 (B-flat, A, and E-flat), horn (F) and trumpet (B-flat, C, D, and
 E-flat).
 
-The transposition is entered with the command
+For such instruments, LilyPond will print a correct part, but is not
+aware whether the instrument is playing in concert pitch or not.
+This can lead to problems if you want a MIDI output, or if you quote
+other parts in a transposing staff. In such cases, an explicit transposition
+has to be specified, with the command
 
 @example
 \transposition @var{pitch}
@@ -1750,11 +1760,44 @@ ambitus.
 @subsection Note heads
 
 @menu
+* Special note heads::
 * Easy notation note heads::
 * Shape note heads::
 * Improvisation::
-* Special noteheads::
 @end menu
+
+@node Special note heads
+@unnumberedsubsubsec Special note heads
+
+@cindex note heads, special
+
+Different note heads are used by various instruments for various
+meanings -- crosses are used for @q{parlato} with vocalists,
+stopped notes on guitar; diamonds are used for harmonics on string
+instruments, etc.  There is a shorthand (@code{\harmonic}) for
+diamond shapes; the other note head styles are produced by tweaking
+the property:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d <c f\harmonic> <d a'\harmonic>
+@end lilypond
+
+@noindent
+To see all note head styles, please see @ref{Note head styles}.
+
+
+@seealso
+
+Snippets: @lsrdir{Pitches}.
+
+Notation Reference: @ref{Note head styles}.
+
+Internals Reference: @internalsref{NoteHead}.
+
 
 @node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
@@ -1844,6 +1887,11 @@ Snippets: @lsrdir{Pitches}.
 @node Improvisation
 @unnumberedsubsubsec Improvisation
 
+@cindex improvisation
+@cindex slashed note heads
+@cindex note heads, improvisation
+@cindex note heads, slashed
+
 Improvisation is sometimes denoted with slashed note heads.  Such
 note heads can be created by adding a @code{Pitch_squash_engraver}
 to the @code{Voice} context.  Then, the following command
@@ -1881,34 +1929,3 @@ Snippets: @lsrdir{Pitches}.
 Internals Reference: @internalsref{Pitch_squash_engraver},
 @internalsref{Voice}.
 
-@node Special noteheads
-@unnumberedsubsubsec Special noteheads
-
-@cindex note heads, special
-
-Different noteheads are used by various instruments for various
-meanings -- crosses are used for @q{parlato} with vocalists,
-stopped notes on guitar; diamonds are used for harmonics on string
-instruments, etc.  There is a shorthand (@code{\harmonic}) for
-diamond shapes; the other notehead styles are produced by tweaking
-the property:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
-c4 d
-\override NoteHead #'style = #'cross
-e f
-\revert NoteHead #'style
-e d <c f\harmonic> <d a'\harmonic>
-@end lilypond
-
-@noindent
-To see all notehead styles, please see @ref{Note head styles}.
-
-
-@seealso
-
-Snippets: @lsrdir{Pitches}.
-
-Notation Reference: @ref{Note head styles}.
-
-Internals Reference: @internalsref{NoteHead}.
