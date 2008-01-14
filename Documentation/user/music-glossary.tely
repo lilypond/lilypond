@@ -325,6 +325,7 @@ Languages in this order.
 * non-legato::                  
 * note::                        
 * note head::                   
+* note names::                  
 * note value::                  
 * octave sign::                 
 * octave::                      
@@ -4607,6 +4608,12 @@ by a variety of shapes such as hollow or black heads with or without
 @ref{stem}s, @ref{flag}s, etc.  For percussion
 instruments (often having no defined pitch) the note head may indicate the
 instrument.
+
+
+@node note names
+@section note names
+
+@c FIXME
 
 
 @node note value
