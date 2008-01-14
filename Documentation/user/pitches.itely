@@ -131,7 +131,7 @@ Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
 @code{,,}@tie{} will alter the pitch by two octaves.
 
 @item
-The pitch of the first note is relative to @code{@var{startpitch}}.
+The pitch of the first note is relative to @code{@var{startpitch}.
 
 @end itemize
 
