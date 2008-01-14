@@ -84,7 +84,7 @@ Simple_spacer::rod_force (int l, int r, Real dist)
   Real c = range_stiffness (l, r, dist > d);
   Real block_stretch = dist - d;
 
-  if (isinf (c) && block_stretch == 0) /* take care of the 0*infinity_f case */
+  if (isinf (c)) /* take care of the 0*infinity_f case */
     return 0;
   return c * block_stretch;
 }
