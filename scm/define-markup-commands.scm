@@ -124,11 +124,12 @@ thickness and y offset."
 	      (ly:output-def-lookup layout 'line-thickness)
 	      (chain-assoc-get 'thickness props 1)))
 	 (markup (interpret-markup layout props arg))
-	 (x (cdr (ly:stencil-extent markup X)))
+	 (x1 (car (ly:stencil-extent markup X)))
+	 (x2 (cdr (ly:stencil-extent markup X)))
 	 (y (* thick -2))
 	 (line (ly:make-stencil
-		`(draw-line ,thick 0 ,y ,x ,y)
-		(cons (min x 0) (max x 0))
+		`(draw-line ,thick ,x1 ,y ,x2 ,y)
+		(cons (min x1 0) (max x2 0))
 		(cons thick thick))))
 	 (ly:stencil-add markup line)))
 

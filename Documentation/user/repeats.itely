@@ -261,8 +261,11 @@ c4 c4
 c4 c4
 @end lilypond
 
+@c FIXME: improve visibility of bar lines link?
 
 @seealso
+
+Notation Reference: @ref{Bar lines}.
 
 Snippets: @lsrdir{repeats}
 
