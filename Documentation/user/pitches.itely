@@ -923,7 +923,7 @@ during an octavation bracket.
 @cindex transposition, instrument
 
 When typesetting scores that involve transposing instruments,
-some parts can be typeset in a different pitch than the @qq{concert pitch}}.
+some parts can be typeset in a different pitch than the @qq{concert pitch}.
 
 The key of a @notation{transposing instrument} can be specified.
 This applies to many wind instruments, for example, clarinets
