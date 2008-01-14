@@ -131,7 +131,7 @@ Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
 @code{,,}@tie{} will alter the pitch by two octaves.
 
 @item
-The pitch of the first note is relative to @code{@var{startpitch}.
+The pitch of the first note is relative to @code{@var{startpitch}}.
 
 @end itemize
 
@@ -401,8 +401,8 @@ define are:
 
 @noindent
 Note that in some languages such as Norwegian and Swedish, the usual
-spelling for accidentals is a double q{s} such as in @code{ciss}
-or @{cess}.  For both historical reasons and a greater simplicity,
+spelling for accidentals is a double @q{s} such as in @code{ciss}
+or @code{cess}.  For both historical reasons and a greater simplicity,
 LilyPond uses a single @q{s} for all these languages.
 
 @noindent
