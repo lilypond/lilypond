@@ -117,9 +117,6 @@ in @var{musicexpr} is calculated as follows:
 
 @itemize
 @item
-The pitch of the first note is relative to @code{@var{startpitch}}.
-
-@item
 If no octave changing mark is used on a pitch, its octave is calculated
 so that the interval with the previous note is less than a fifth.  This
 interval is determined without considering accidentals.
@@ -130,8 +127,11 @@ respectively raise or lower a pitch by an extra octave, relatively to
 the pitch calculated without octave mark.
 
 @item
-Multiple octave changing marks can be used.  @code{''}@tie{}and
+Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
 @code{,,}@tie{} will alter the pitch by two octaves.
+
+@item
+The pitch of the first note is relative to @code{@var{startpitch}}.
 
 @end itemize
 
@@ -217,7 +217,7 @@ Snippets: @lsrdir{Pitches}.
 
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
-To use relative within transposed music, an additional
+To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
 
 @c DEPRECATED
@@ -394,9 +394,15 @@ define are:
 @end example
 
 @noindent
-Note that in Dutch, German, Norwegian, and Swedish, the flat
-alterations of@tie{}@code{a} like for example @code{aes} and
-@code{aeses} are usually contracted to @code{as} and @code{ases}
+Note that in Danish, German, Norwegian, and Swedish, the usual
+spelling for accidentals is a double q{s} such as in @code{ciss}
+or @{cess}.  For both historical reasons and a greater simplicity,
+LilyPond uses a single @q{s} for all these languages.
+
+@noindent
+Similarly, in Germanic and Nordic languages, alterations 
+of@tie{}@code{a}, like for example @code{aes} and
+@code{aeses}, are usually contracted to @code{as} and @code{ases}
 (or more commonly @code{asas}).  Sometimes only these contracted
 names are defined in the corresponding language files (this also
 applies to the suffixes for quartertones below).
@@ -406,7 +412,7 @@ Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quartertones defined
 in the various language files are listed in the following table.
 Here the prefixes @q{semi-} and @q{sesqui-} mean @q{half} and
-@q{one and a half}, respectively.  For the other languages no
+@q{one and a half}, respectively.  For the other languages, no
 special names have been defined yet.
 
 
@@ -521,7 +527,7 @@ is then calculated relative to (absolute)@tie{}@code{e'}, which
 yields an@tie{}@code{a'}, above middle@tie{}C.  In this case, the
 check had no influence on the output of the piece.
 
-The second @code{\octave} check fails: @code{a'}@tie{}is not
+The second @code{\octave} check, however, fails: @code{a'}@tie{}is not
 within the range of@tie{}@code{b}.  A warning is issued, and the
 last note is calculated relative to@tie{}@code{a}, not
 to@tie{}@code{a'}, and we get a@tie{}@code{d'}.  Without the last
@@ -548,7 +554,6 @@ Snippets: @lsrdir{Pitches}.
 
 @cindex transpose
 @cindex transposition of pitches
-@cindex transposing instruments
 @funindex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
@@ -607,8 +612,11 @@ mus = \relative c' { c d e f }
 }
 @end lilypond
 
-@code{\transpose} may also be used to input written notes for a
-transposing instrument.  The previous examples show how to enter
+@cindex transposing instruments
+
+@code{\transpose} may also be used in a different way,
+to input written notes for a transposing instrument.
+The previous examples show how to enter
 pitches in C (or @notation{concert pitch}) and typeset them for a
 transposing instrument, but the opposite is also possible if you
 for example have a set of instrumental parts and want to print a
@@ -620,13 +628,18 @@ musicInBflat = @{ e4 @dots{} @}
 \transpose c bes, \musicInBflat
 @end example
 
+@noindent
 To print this music in F (e.g., rearranging to a French horn) you
-would wrap the existing music with another @code{\transpose}:
+could wrap the existing music with another @code{\transpose}:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
 \transpose f c' @{ \transpose c bes, \musicInBflat @}
 @end example
+
+@noindent
+For more information about transposing instruments,
+see @ref{Instrument transpositions}.
 
 @commonprop
 
