@@ -179,13 +179,13 @@ absolute mode.  In principle it can be any note name, but common
 practice is to use@tie{}@code{c} in various octave positions or the
 first note of @var{musicexpr}.
 
-When octaves are specified in absolute mode, by adding@tie{}@code{'}
-and@tie{}@code{,} to pitch names, it is easy to accidentally put a
-pitch in the wrong octave.  The relative octave mode reduces
-these errors since most of the time it is not necessary to
-indicate any octaves at all.  Furthermore, in absolute mode, a
-single mistake may be difficult to spot; in relative mode, a
-single error puts the rest of the piece off by one octave.
+When octaves are specified in absolute mode it is easy to
+accidentally put a pitch in the wrong octave.  Relative octave
+mode reduces these errors since most of the time it is not
+necessary to indicate any octaves at all.  Furthermore, in
+absolute mode, a single mistake may be difficult to spot; in
+relative mode, a single error puts the rest of the piece off by
+one octave.
 
 As explained above, the octave of pitches is calculated only with the
 note names, regardless of any alterations. Therefore, an F-sharp
@@ -399,6 +399,7 @@ define are:
 @end multitable
 @end example
 
+@c TODO: move most of this junk into glossary
 @noindent
 Note that in some languages such as Norwegian and Swedish, the usual
 spelling for accidentals is a double @q{s} such as in @code{ciss}
@@ -523,7 +524,6 @@ correct octave once again.
 @}
 @end example
 
-
 The octave of a note following an @code{\octave} check is
 determined with respect to the note preceding it, as modified by
 the outcome of the octave check.  In the next fragment, the first
@@ -533,7 +533,7 @@ is then calculated relative to (absolute)@tie{}@code{e'}, which
 yields an@tie{}@code{a'}, above middle@tie{}C.  In this case, the
 check had no influence on the output of the piece.
 
-The second @code{\octave} check, however, fails: @code{a'}@tie{}is not
+The second @code{\octave} check fails: @code{a'}@tie{}is not
 within the range of@tie{}@code{b}.  A warning is issued, and the
 last note is calculated relative to@tie{}@code{a}, not
 to@tie{}@code{a'}, and we get a@tie{}@code{d'}.  Without the last
@@ -620,14 +620,14 @@ mus = \relative c' { c d e f }
 
 @cindex transposing instruments
 
-@code{\transpose} may also be used in a different way,
-to input written notes for a transposing instrument.
-The previous examples show how to enter
-pitches in C (or @notation{concert pitch}) and typeset them for a
-transposing instrument, but the opposite is also possible if you
-for example have a set of instrumental parts and want to print a
-conductor's score.  For example, when entering music for a B-flat
-trumpet which begins on a notated E (concert D), one would write:
+@code{\transpose} may also be used in a different way, to input
+written notes for a transposing instrument.  The previous examples
+show how to enter pitches in C (or @notation{concert pitch}) and
+typeset them for a transposing instrument, but the opposite is
+also possible if you for example have a set of instrumental parts
+and want to print a conductor's score.  For example, when entering
+music for a B-flat trumpet which begins on a notated E (concert
+D), one would write:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
@@ -654,6 +654,8 @@ see @ref{Instrument transpositions}.
 
 
 @seealso
+
+Notation Reference: @ref{Instrument transpositions}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -928,19 +930,20 @@ during an octavation bracket.
 @cindex transposition, MIDI
 @cindex transposition, instrument
 
-When typesetting scores that involve transposing instruments,
-some parts can be typeset in a different pitch than the @qq{concert pitch}.
+When typesetting scores that involve transposing instruments, some
+parts can be typeset in a different pitch than the
+@notation{concert pitch}.
 
 The key of a @notation{transposing instrument} can be specified.
 This applies to many wind instruments, for example, clarinets
 (B-flat, A, and E-flat), horn (F) and trumpet (B-flat, C, D, and
 E-flat).
 
-For such instruments, LilyPond will print a correct part, but is not
-aware whether the instrument is playing in concert pitch or not.
-This can lead to problems if you want a MIDI output, or if you quote
-other parts in a transposing staff. In such cases, an explicit transposition
-has to be specified, with the command
+For such instruments, LilyPond will print a correct part, but is
+not aware whether the instrument is playing in concert pitch or
+not.  This can lead to problems if you want a MIDI output, or if
+you quote other parts in a transposing staff.  In such cases, an
+explicit transposition must be specified:
 
 @example
 \transposition @var{pitch}
@@ -948,7 +951,7 @@ has to be specified, with the command
 
 @noindent
 where @var{pitch} specifies the key in which the instrument plays.
-For example, a part for B-flat clarinet would include
+For example, a part for B-flat clarinet would include:
 
 @example
 \transposition bes
@@ -1015,6 +1018,8 @@ to serve as a reminder that these parts are written in C.
 
 @seealso
 
+Music Glossary: @c TODO @rglos{concert pitch}
+
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
 Snippets: @lsrdir{Pitches}.
@@ -1039,11 +1044,10 @@ accidental style to use.  This function is called as follows
 
 The accidental style applies to the current @code{Staff} by
 default (with the exception of the styles @code{piano} and
-@code{piano-cautionary}, which are explained below).
-Optionally, the function can
-take a second argument which determines in which scope the style
-should be changed.  For example, to use the same style in all
-staves of the current @code{StaffGroup}, use
+@code{piano-cautionary}, which are explained below).  Optionally,
+the function can take a second argument which determines in which
+scope the style should be changed.  For example, to use the same
+style in all staves of the current @code{StaffGroup}, use
 
 @example
 #(set-accidental-style 'voice 'StaffGroup)
