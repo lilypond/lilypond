@@ -179,9 +179,9 @@ absolute mode.  In principle it can be any note name, but common
 practice is to use@tie{}@code{c} in various octave positions or the
 first note of @var{musicexpr}.
 
-When octaves are specified as above by adding@tie{}@code{'}
+When octaves are specified in absolute mode, by adding@tie{}@code{'}
 and@tie{}@code{,} to pitch names, it is easy to accidentally put a
-pitch in the wrong octave.  The relative octave mode prevents
+pitch in the wrong octave.  The relative octave mode reduces
 these errors since most of the time it is not necessary to
 indicate any octaves at all.  Furthermore, in absolute mode, a
 single mistake may be difficult to spot; in relative mode, a
@@ -294,6 +294,12 @@ signs, too.
 cis cis cis! cis? c c? c! c
 @end lilypond
 
+Accidentals are not printed on tied notes, except when the tie
+crosses a line break, where a reminder accidental is automatically added:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+cis1~ cis~ \break cis
+@end lilypond
 
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
@@ -1033,7 +1039,8 @@ accidental style to use.  This function is called as follows
 
 The accidental style applies to the current @code{Staff} by
 default (with the exception of the styles @code{piano} and
-@code{piano-cautionary}, see below.  Optionally, the function can
+@code{piano-cautionary}, which are explained below).
+Optionally, the function can
 take a second argument which determines in which scope the style
 should be changed.  For example, to use the same style in all
 staves of the current @code{StaffGroup}, use
