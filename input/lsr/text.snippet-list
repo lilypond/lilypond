@@ -5,12 +5,13 @@ center-text-below-hairpin-dynamics.ly
 piano-template-with-centered-lyrics.ly
 demonstrating-all-headers.ly
 changing-the-default-text-font-family.ly
-how-to-put-ties-between-syllables-in-lyrics.ly
+combining-two-parts-on-the-same-staff.ly
 aligning-and-centering-instrument-names.ly
 utf-8.ly
 outputting-the-version-number.ly
 blanking-staff-lines-using-the--whiteout-command.ly
-combining-two-parts-on-the-same-staff.ly
+formatting-lyrics-syllables.ly
+how-to-put-ties-between-syllables-in-lyrics.ly
 markup-lines.ly
 adjusting-lyrics-vertical-spacing.ly
 aligning-lyrics.ly

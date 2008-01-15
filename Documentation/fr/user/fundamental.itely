@@ -642,7 +642,8 @@ de type @var{Contexte}, quel que puisse être son nom.
 
 Cette variante sert à des expressions musicales qui peuvent être interprétées à
 plusieurs niveaux.  Par exemple, une commande telle que @code{\applyOutput} (voir
-@ref{Running a function on all layout objects}) : si elle n'est pas associée avec
+@c FIXME: broken link
+@c @ref{Running a function on all layout objects}) : si elle n'est pas associée avec
 @code{\context}, elle s'applique par défaut dans le contexte @context{Voice}.
 
 @example

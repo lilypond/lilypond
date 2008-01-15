@@ -4,10 +4,10 @@
 \version "2.11.35"
 
 \header { texidoc = "
-The \\startTextSpan and \\stopTextSpan commands give you the ability to
-create text spanners as easily as pedals indications or octavations.
-Override some properties of the TextSpanner object to modify its
-output.
+The <code>\\startTextSpan</code> and <code>\\stopTextSpan</code>
+commands give you the ability to create text spanners as easily as
+pedals indications or octavations. Override some properties of the
+<code>TextSpanner</code> object to modify its output.
 " }
 % begin verbatim
 \relative c''{

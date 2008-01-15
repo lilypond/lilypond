@@ -10,9 +10,7 @@ parentheses. The associated grob is Score.ParenthesesItem.
 % begin verbatim
 \relative {
   c4 -\parenthesize -.
-
   \override ParenthesesItem #'padding = #0.1
   <d \parenthesize fis a> 
-
 }
 

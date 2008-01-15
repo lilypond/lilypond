@@ -48,7 +48,11 @@ names}.
 
 @seealso
 
-Snippets: @lsrdir{simultaneous}
+Music Glossary: @rglos{chord}.
+
+Notation Reference: @ref{Introducing chord names}.
+
+Snippets: @lsrdir{simultaneous}.
 
 @refbugs
 
@@ -78,7 +82,7 @@ clusters.
 
 @seealso
 
-Snippets: @lsrdir{simultaneous}
+Snippets: @lsrdir{simultaneous}.
 
 Internals Reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
@@ -100,7 +104,8 @@ Examples: @lsr{contemporary,cluster@/.ly}.
 @node Collision resolution
 @unnumberedsubsubsec Collision resolution
 
-@cindex Merging noteheads
+@cindex merging notes
+@cindex note collisions
 
 Normally, note heads with a different number of dots are not
 merged, but when the object property
@@ -130,7 +135,7 @@ c8 c4. } \\ { c2 c2 } >>
 @noindent
 @code{merge-differently-headed} and
 @code{merge-differently-dotted} only apply to opposing stem
-directions (ie. Voice 1 & 2).
+directions (i.e. Voice 1 & 2).
 
 LilyPond also vertically shifts rests that are opposite of a stem,
 for example
@@ -138,6 +143,8 @@ for example
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new Voice << c''4 \\ r4 >>
 @end lilypond
+
+@cindex shift note
 
 If three or more notes line up in the same column,
 @code{merge-differently-headed} cannot successfully complete the
@@ -162,6 +169,10 @@ move the top @code{g} out of the column, and
   { \voiceFour e,,2 e'2}
 >>
 @end lilypond
+
+@cindex multiple voices
+@cindex polyphonic music
+@cindex shifting voices
 
 In some instances of complex polyphonic music, you may need
 additional voices to avoid collisions between notes.  Additional
@@ -239,7 +250,7 @@ override typesetting decisions.
 
 @seealso
 
-Snippets: @lsrdir{simultaneous}
+Snippets: @lsrdir{simultaneous}.
 
 Internals Reference: the objects responsible for resolving
 collisions are @internalsref{NoteCollision} and
@@ -339,7 +350,9 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @seealso
 
-Snippets: @lsrdir{simultaneous}
+@c FIXME: add Music Glossary: @rglos{a due}. after glossary addition.
+
+Snippets: @lsrdir{simultaneous}.
 
 Internals Reference: @internalsref{PartCombineMusic}.
 

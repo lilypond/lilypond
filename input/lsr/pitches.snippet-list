@@ -1,9 +1,7 @@
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
-glissando-contempary.ly
-ambiti-multiple-voices.ly
-makam.ly
+creating-a-sequence-of-notes-on-various-pitches.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
-jazz-combo-template.ly
+makam.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 generating-random-notes.ly
 quoting-another-voice-with-transposition.ly
@@ -12,5 +10,5 @@ clefs-commonly-tweaked-properties.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
 creating-music-with-scheme-music-box.ly
-creating-a-sequence-of-notes-on-various-pitches.ly
+ambiti-multiple-voices.ly
 non-traditional-key-signatures.ly

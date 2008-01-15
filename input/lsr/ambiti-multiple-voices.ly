@@ -7,39 +7,27 @@
 If you have multiple voices in a single staff and you want a single
 ambitus per staff rather than per voice, add the
 @code{Ambitus_engraver} to the @code{Staff} context rather than to the
-@code{Voice} context.
+@code{Voice} context. Therefore, in this example, one need to use
 
-This example uses one advanced feature,
+@code{\\override Staff.Ambitus #'X-offset = #-1.0}
 
-
-@code{ \\override Ambitus #'X-offset = #-1.0 }
-% begin verbatim
-
-
-This code moves the ambitus to the left.  The same effect could have
-been achieved with @code{extra-offset}, but then the formatting system
-would not reserve space for the moved object.
-
-
-
+to move the ambitus to the left.  The same effect could also have been
+achieved with @code{extra-offset}, but then the formatting system would
+not reserve space for the moved object. 
 " }
-
+% begin verbatim
 \new Staff \with {
   \consists "Ambitus_engraver"
-}
+  }
 <<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
+  \new Voice \relative c'' {
+      \override Staff.Ambitus #'X-offset = #-1.0
+      \voiceOne
+      c4 a d e f1
+    }
+  \new Voice \relative c' {
+      \voiceTwo
+      es4 f g as b1
+    }
 >>
 

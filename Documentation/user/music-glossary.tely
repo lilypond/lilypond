@@ -143,6 +143,7 @@ Languages in this order.
 
 @menu
 * A::                           
+* a due::                       
 * accent::                      
 * accessory::                   
 * accidental::                  
@@ -193,8 +194,12 @@ Languages in this order.
 * cluster::                     
 * comma::                       
 * common meter::                
-* compound interval::           
+* common time::                 
 * complement::                  
+* compound interval::           
+* compound meter::              
+* compound time::               
+* concert pitch::               
 * conjunct movement::           
 * consonance::                  
 * contralto::                   
@@ -271,6 +276,7 @@ Languages in this order.
 * half rest::                   
 * harmonic cadence::            
 * harmony::                     
+* hemiola::                     
 * homophony::                   
 * interval::                    
 * inverted interval::           
@@ -321,6 +327,7 @@ Languages in this order.
 * non-legato::                  
 * note::                        
 * note head::                   
+* note names::                  
 * note value::                  
 * octave sign::                 
 * octave::                      
@@ -344,6 +351,7 @@ Languages in this order.
 * polyphony::                   
 * portato::                     
 * presto::                      
+* proportion::                  
 * Pythagorean comma::           
 * quadruplet::                  
 * quarter note::                
@@ -367,6 +375,7 @@ Languages in this order.
 * sextuplet::                   
 * shake::                       
 * sharp::                       
+* simple meter::                
 * sixteenth note::              
 * sixteenth rest::              
 * sixth::                       
@@ -408,6 +417,7 @@ Languages in this order.
 * time signature::              
 * tone::                        
 * tonic::                       
+* transposing instrument::      
 * transposition::               
 * treble clef::                 
 * tremolo::                     
@@ -441,6 +451,37 @@ NL: a,
 DK: a,
 S: a,
 FI: A, a.
+
+@seealso
+
+@ref{Pitch names}
+
+
+@node a due
+@section a due
+
+ES: ?,
+I: a due,
+F: à deux,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Abbreviated @samp{a2} or @samp{a 2}.
+
+@enumerate
+
+@item An indication in orchestral scores that a single part notated on a single
+staff that normally carries parts for two players (e.g. first and second oboes)
+is to be played by both players.
+
+@item Or conversely, that two pitches or parts notated on a staff that normally
+carries a single part (e.g. first violin) are to be played by different players,
+or groups of players (@q{desks}).
+
+@end enumerate
 
 @seealso
 
@@ -1713,9 +1754,39 @@ same note derived from some other tuning method.
 @node common meter
 @section common meter
 
+@ref{common time}
+
 @seealso
 
 @ref{meter}.
+
+
+@node common time
+@section common time
+
+4/4 time.  The symbol, which resembles a capital letter C derives from
+mensural notation (q.v.).
+
+@seealso
+
+@ref{meter}.
+
+
+@node complement
+@section complement
+
+ES: intervalo invertido,
+I: rivolto,
+F: intervalle complémentaire,
+D: Komplementärintervall,
+NL: complementair interval,
+DK: komplementærinterval,
+S: komplementärintervall (?),
+FI: täydentävä intervalli.
+
+@seealso
+
+@ref{inverted interval}.
 
 
 @node compound interval
@@ -1737,21 +1808,58 @@ Intervals larger than an octave.
 @ref{interval}.
 
 
-@node complement
-@section complement
+@node compound meter
+@section compound meter
 
-ES: intervalo invertido,
-I: rivolto,
-F: intervalle complémentaire,
-D: Komplementärintervall,
-NL: complementair interval,
-DK: komplementærinterval,
-S: komplementärintervall (?),
-FI: täydentävä intervalli.
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A meter that includes a triplet subdivision within the beat, such as
+6/8, 9/8, 12/8.
 
 @seealso
 
-@ref{inverted interval}.
+@ref{meter}, @ref{simple meter}.
+
+
+@node compound time
+@section compound time
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@ref{compound meter}
+
+@seealso
+
+@ref{meter}.
+
+
+@node concert pitch
+@section concert pitch
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+FIXME: this is a placeholder
 
 
 @node conjunct movement
@@ -1953,7 +2061,7 @@ performance, thus enhancing readability of a score.
 Custodes were frequently used in music notation until the 16th
 century.  There were different appearences for different notation
 styles.  Nowadays, they have survived only in special forms of musical
-notation such as via the editio vaticana dating back to the beginning
+notation such as via the Editio Vaticana dating back to the beginning
 of the 20th century
 
 @lilypond
@@ -2007,7 +2115,7 @@ S: da capo,
 FI: da capo, alusta.
 
 The term indicates repetition of the piece from the beginning to the
-end or to a certain place marked @emph{fine}.  Mostly abbreviated as
+end or to a certain place marked @emph{fine}.  Usually abbreviated as
 @samp{D.C.}.
 
 
@@ -3444,6 +3552,34 @@ Dissonances:
 Three note harmony @ref{chord}.
 
 
+@node hemiola
+@section hemiola
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Greek: in Latin, @emph{sesquialtera}] The ratio 3:2. Refers to
+the use of three notes of equal value in the time normally occupied by
+of two notes of equal value.  The resulting rhythm can be expressed in
+modern terms as a substitution (for example) of a bar in 3/2 for one
+of 6/4, or of a bar in 3/4 for one of 6/8.  During the Baroque era,
+hemiola is most frequently as a special effect (or @emph{affect}) at
+cadences.
+
+@c TODO: prepare example - {\time 6/4 c2. c2. | c2 c c} or
+@c cont'd:	  {\time 6/4 c2. c2. | \time 3/2 c2 c2 c2 }
+
+@seealso
+
+@ref{mensural notation}, @ref{meter}
+
+
 @node homophony
 @section homophony
 
@@ -4005,14 +4141,27 @@ sung on one syllable, especially as applied to liturgical chant.
 @node mensural notation
 @section mensural notation
 
-@c TODO: add languages, definition, references
+@c FIXME: add languages
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@c TODO: add definition (inc. info on proportional notation)
+
+@c FIXME: add cross-references.
 
 
 @node meter
 @section meter
 
-ES: compás,
-I: tempo, metro,
+ES: tiempo, compás,
+I: tempo, misura,
 F: indication de mesure, mesure,
 D: Taktart, Metrum,
 NL: maatsoort,
@@ -4020,37 +4169,145 @@ DK: taktart,
 S: taktart,
 FI: aika-arvo.
 
-The basic scheme of @ref{note value}s and @ref{accent}s which remains
-unaltered throughout a composition or a section of it.  For instance,
-3/4 meter means that the basic @ref{note value}s are quarter notes and
-that a @ref{measure} consists of three of those.  According to whether
-there are two, three, or four units to the measure, one speaks of
-@emph{duple} (2/2, 2/4, 2/8), @emph{triple} (3/2, 3/4, 3/8), or
-@emph{quadruple} (4/2, 4/4, 4/8) meter.  4/4 is also called common
-meter.
+The basic pattern of @ref{note value}s and @ref{accent}s that remains
+unaltered throughout a composition or a section of it. Meters can be
+@emph{duple} or @emph{triple} depending on how the beat is grouped in
+the composition (or in sections thereof):
+
+@itemize
+
+@item In duple meters, the beat recurs in groups of two.
+
+@item In triple meters, the beat recurs in groups of three.
+
+@end itemize
+
+Other recurrence patterns are possible:
+
+@itemize
+
+@item Quadruple meter: groups of four.  A special case of duple meter.
+
+@item Quintuple meter: groups of five
+
+@item Sextuple meter: groups of six.  A special case of:
+
+@itemize
+@item Duple meter, subdivided in three (less frequent); or
+@item Triple meter, subdivided in two (more frequent).
+@end itemize
+
+@item Septuple meter: groups of seven.
+
+@item etc.
+
+@end itemize
+
+Other than quadruple and sextuple meters, these other recurrence
+patterns were not frequently used prior to the 20th Century.
+
+In addition to classification by @emph{tactus}, meters can be further
+classified by how the tactus is subdivided: in two, the meter is
+@emph{simple}; in three, the meter is @emph{compound}.
+
+@itemize
+
+@item Simple meter
+
+@itemize
+@item duple: 2/2, 2/4, 2/8
+@item triple: 3/2, 3/4, 3/8
+@item quadruple: 4/2, 4/4 (also called common time), 4/8
+@end itemize
+
+@item Compound meter
+
+@itemize
+@item duple: 6/8
+@item triple: 9/8
+@item quadruple: 12/8
+@end itemize
+
+@end itemize
+
+Time signatures are placed at the beginning of a composition (or
+section) to indicate the meter.  For instance, a piece written in
+simple triple meter with a beat on each quarter note has a time
+signature of 3/4.
+
+Simple duple meter:
+
+@lilypond[fragment,line-width=13.0\cm]
+\relative c'' {
+  \time 2/4
+  \key c \major
+  c4. d8 | e4 d | f e | d8 b c4 \bar "||"}
+@end lilypond
+
+Simple triple meter:
 
 @lilypond[fragment,line-width=13.0\cm]
 \relative c'' {
   \time 3/4
-  \key f \major
-  c es d | c bes8 a bes4 | c es d | c2 \bar "||"}
+  \key c \minor
+  c es d8 c | d4 b g | d' f es8 d | es d c2 \bar "||"}
 @end lilypond
+
+Simple quadruple meter (French folk tune, @emph{Au clair de la lune}):
+
+@lilypond[fragment,line-width=13.0\cm]
+\relative c'' {
+  \time 4/4
+  \key g \major
+  g4 g g a | b2 a | g4 b a a | g1 \bar "||"}
+@end lilypond
+
+Simple quintuple meter (B. Marcello, 1686-1739):
+
+@lilypond[fragment,line-width=13.0\cm]
+\relative c'' {
+  \time 5/4
+  \key c \major
+  r4 cis8 bis ais4 dis c8 ais |
+  aes4 bes8 aes ges4 aes f8 es \bar "||"}
+@end lilypond
+
+Compound duple meter:
 
 @lilypond[fragment,line-width=13.0\cm]
 \relative c' {
   \time 6/8
   \key f \major
-  f8 f f f a16 g a f |
-  c'8 c c c e16 d e c \bar "||"}
+  f8 f g a bes16 a g f |
+  g8 g bes a c16 a bes g
+  \bar "||"}
 @end lilypond
 
+Compound triple meter (J.S. Bach, 1685-1750):
+
 @lilypond[fragment,line-width=13.0\cm]
-\relative c'' {
-  \time 5/4
-  \key g \major
-  d4 b8 g b d d c a4 |
-  g8 g16 g g8 g16 g g8 fis16 g a8 fis16 e d4 \bar "||"}
+\relative c' {
+  \time 9/8
+  \key f \major
+  r8 g( a) b( d c) c( e d) |
+  d( c fis) g( d b) g( a b)
+  \bar "||"}
 @end lilypond
+
+Compound quadruple meter (P. Yon, 1886-1943):
+
+@lilypond[fragment,line-width=13.0\cm]
+\relative c' {
+  \time 12/8
+  \key e \major
+  b8.( a16) gis8 a8.( gis16) fis8 gis8.( fis16) e8 fis4 b,8 |
+  e4 e8 fis( gis) a b4.~ b4 b8
+  \bar "||"}
+@end lilypond
+
+@seealso
+
+@ref{hemiola}, @ref{time signature}
 
 
 @node metronome
@@ -4066,6 +4323,8 @@ S: me@-tro@-nom,
 FI: metronomi.
 
 Device indicating the exact tempo of a piece.
+
+@seealso
 
 @ref{metronomic indication}.
 
@@ -4400,6 +4659,14 @@ instruments (often having no defined pitch) the note head may indicate the
 instrument.
 
 
+@node note names
+@section note names
+
+@seealso
+
+@ref{Pitch names}
+
+
 @node note value
 @section note value
 
@@ -4500,7 +4767,7 @@ FI: oktaavi.
 
 @seealso
 
-@ref{interval}.
+@ref{ottava}, @ref{interval}.
 
 
 @node ornament
@@ -4584,7 +4851,7 @@ of the music, for example for small hands.
 @node ottava
 @section ottava
 
-@c TODO
+@c TODO: translations
 
 ES: ?,
 I: ottava,
@@ -4622,13 +4889,17 @@ FI: stemma, instrumenttiosuus.
 
 @itemize
 
-@item In instrumental or choral music the music for the single instrument
-or voice.
+@item In instrumental or choral music, the music for a single
+instrument or voice.
 
-@item in contrapuntal music @ref{counterpoint} the single melodic line
-of the contrapunctal web.
+@item in contrapuntal music, a single melodic line in the contrapuntal
+web.
 
 @end itemize
+
+@seealso
+
+@ref{counterpoint}
 
 
 @node pause
@@ -4878,6 +5149,30 @@ Very quick, i.e., quicker than @ref{allegro}; @emph{prestissimo}
 denotes the highest possible degree of speed.
 
 
+@node proportion
+@section proportion
+
+ES: proporción,
+I: ?,
+F: proportion,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Latin @emph{proportio}]  In mensural notation, a ratio that
+expresses the relationship between the note values that follow with
+those that precede; or between the note values of a passage and an
+assumed @q{normal} relationship of note values to the metrical pulse.
+
+@c TODO: add an example or two.  O => 4/3, and its modern equivalent
+
+@seealso
+
+@ref{mensural notation}
+
+
 @node Pythagorean comma
 @section Pythagorean comma
 
@@ -5038,9 +5333,6 @@ FI: toisto.
 }
 @end lilypond
 
-@c F: 'pause' if you mean a whole rest, 'silence' if you do not want to
-@c     specify the rest's value.
-
 
 @node rest
 @section rest
@@ -5053,6 +5345,9 @@ NL: rust,
 DK: pause,
 S: paus,
 FI: tauko.
+
+@c F: 'pause' if you mean a whole rest, 'silence' if you do not want to
+@c     specify the rest's value.
 
 @seealso
 
@@ -5330,6 +5625,27 @@ FI: korotusmerkki.
 @seealso
 
 @ref{accidental}.
+
+
+@node simple meter
+@section simple meter
+
+ES: ?,
+I: ?,
+F: ?,
+UK: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A meter in which the basic beat is subdivided in two: that is, a meter
+that does not include triplet subdivision of the beat.
+
+@seealso
+
+@ref{compound meter}, @ref{meter}.
 
 
 @node sixteenth note
@@ -6035,9 +6351,13 @@ DK: taktangivelse,
 S: taktartssignatur,
 FI: tahtiosoitus.
 
+The sign placed at the beginning of a composition to indicate its
+meter.  It most often takes the form of a fraction, but a few signs
+derived from mensural notation and proportions are also employed.
+
 @seealso
 
-@ref{meter}.
+@ref{mensural notation}, @ref{meter}.
 
 
 @node tone
@@ -6075,6 +6395,21 @@ The first @ref{scale degree}.
 @seealso
 
 @ref{functional harmony}.
+
+
+@node transposing instrument
+@section transposing instrument
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+FIXME: this is a placeholder
 
 
 @node transposition
@@ -6580,59 +6915,73 @@ saxophone, and bassoon.
 @node Pitch names
 @chapter Pitch names
 
-@table @code
-@item PITCH NAMES
-@end table
+@c -is/-es endings for Danish per Rune Zedeler
+@c		and for Finnish per Risto Vääräniemi
+@c -iss/-ess endings for Swedish per Mats Bengtsson
 
-@c @multitable @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
-@c the extra @item's between each row makes the table hard to read ... so I removed them
-
-@multitable @columnfractions .11 .14 .14 .11 .1 .1 .1 .1 .1
-
-@c TODO -- figure out how to make _real_ table headers in TeXinfo
-
-@item @tab @strong{ES} @tab @strong{I} @tab @strong{F} @tab @strong{D}
-@tab @strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI}
-
-@item @strong{c} @tab do  @tab do  @tab ut @tab C @tab c @tab c @tab c
-@tab c
-
-@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut
-dièse @tab Cis  @tab cis  @tab cis  @tab cis  @tab cis
-
-@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol 
-@tab Des @tab des  @tab des  @tab des  @tab des
-
-@item @strong{d} @tab re  @tab re  @tab ré  @tab D  @tab d  @tab d 
-@tab d  @tab d
-
-@item @strong{e-flat} @tab mi bemol  @tab mi bemolle  @tab mi bémol
-@tab Es @tab es  @tab es  @tab es  @tab es
-
-@item @strong{e} @tab mi @tab mi @tab mi @tab E @tab e @tab e @tab e
-@tab e
-
-@item @strong{f} @tab fa  @tab fa  @tab fa @tab F @tab f @tab f @tab f
-@tab f
-
-@item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g
-@tab g @tab g
-
-@item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol
-@tab As @tab as  @tab as  @tab as  @tab as
-
-@item @strong{a} @tab la  @tab la  @tab la @tab A @tab a @tab a @tab a
-@tab a
-
-@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la
-dièse @tab Ais  @tab ais  @tab ais  @tab ais  @tab ais
-
-@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol 
-@tab B @tab bes  @tab b  @tab b  @tab b
-
-@item @strong{b} @tab si  @tab si  @tab si @tab H @tab b @tab h @tab h
-@tab h
-
+@multitable {c-sharp}
+  {do sostenido} {do diesis} {ut dièse} {Cis}
+  {cis} {cis} {ciss} {cis}
+@headitem EN
+  @tab ES @tab I @tab F @tab D
+  @tab NL @tab DK @tab S @tab FI
+@item @strong{c}
+  @tab do @tab do @tab ut @tab C
+  @tab c @tab c @tab c @tab c
+@item @strong{c-sharp}
+  @tab do sostenido @tab do diesis @tab ut dièse @tab Cis
+  @tab cis @tab cis @tab ciss @tab cis
+@item @strong{d-flat}
+  @tab re bemol @tab re bemolle @tab ré bémol @tab Des
+  @tab des @tab des @tab dess @tab des
+@item @strong{d}
+  @tab re @tab re @tab ré @tab D
+  @tab d @tab d @tab d @tab d
+@item @strong{d-sharp}
+  @tab re sostenido @tab re diesis @tab re dièse @tab Dis
+  @tab dis @tab dis @tab diss @tab dis
+@item @strong{e-flat}
+  @tab mi bemol @tab mi bemolle @tab mi bémol @tab Es
+  @tab es @tab es @tab ess @tab es
+@item @strong{e}
+  @tab mi @tab mi @tab mi @tab E
+  @tab e @tab e @tab e @tab e
+@item @strong{f-flat} = e
+  @tab fa bemol @tab fa bemolle @tab fa bémol @tab Fes
+  @tab fes @tab fes @tab fess @tab fes
+@item @strong{f}
+  @tab fa @tab fa @tab fa @tab F
+  @tab f @tab f @tab f @tab f
+@item @strong{e-sharp} = f
+  @tab mi sostenido @tab mi diesis @tab mi dièse @tab Eis
+  @tab eis @tab eis @tab eiss @tab eis
+@item @strong{f-sharp}
+  @tab fa sostenido @tab fa diesis @tab fa dièse @tab Fis
+  @tab fis @tab fis @tab fiss @tab fis
+@item @strong{g-flat}
+  @tab sol bemol @tab sol bemolle @tab sol bémol @tab Ges
+  @tab ges @tab ges @tab gess @tab ges
+@item @strong{g}
+  @tab sol @tab sol @tab sol @tab G
+  @tab g @tab g @tab g @tab g
+@item @strong{g-sharp}
+  @tab sol sostenido @tab sol diesis @tab sol dièse @tab Gis
+  @tab gis @tab gis @tab giss @tab gis
+@item @strong{a-flat}
+  @tab la bemol @tab la bemolle @tab la bémol @tab As
+  @tab as @tab as @tab as @tab as
+@item @strong{a}
+  @tab la @tab la @tab la @tab A
+  @tab a @tab a @tab a @tab a
+@item @strong{a-sharp}
+  @tab la sostenido @tab la diesis @tab la dièse @tab Ais
+  @tab ais @tab ais @tab ais @tab ais
+@item @strong{b-flat}
+  @tab si bemol @tab si bemolle @tab si bémol @tab B
+  @tab bes @tab b @tab b @tab b
+@item @strong{b}
+  @tab si @tab si @tab si @tab H
+  @tab b @tab h @tab h @tab h
 @end multitable
 
 

@@ -11,7 +11,10 @@ is left, #0 is center and #1 is right; however, you can use #LEFT,
 " }
 % begin verbatim
 \relative c'' {
-c1 c c}
-\addlyrics {\once \override LyricText #'self-alignment-X = #LEFT "This is left-aligned" 
-\once \override LyricText #'self-alignment-X = #CENTER "This is centered" 
-\once \override LyricText #'self-alignment-X = #1 "this is right-aligned"  }
+  c1 c c
+}
+\addlyrics {
+  \once \override LyricText #'self-alignment-X = #LEFT "This is left-aligned" 
+  \once \override LyricText #'self-alignment-X = #CENTER "This is centered" 
+  \once \override LyricText #'self-alignment-X = #1 "this is right-aligned"  
+}

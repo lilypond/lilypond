@@ -10,10 +10,10 @@ signs ease reading rhythmically complex modern music.  In the following
 example, the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is
 passed to @code{set-time-signature} as the third argument @code{(2 2 2
 3)}
-% begin verbatim
+
 
 " }
-
+% begin verbatim
 \score {
   \relative c'' {
     #(set-time-signature 9 8 '(2 2 2 3))
