@@ -1,5 +1,5 @@
-creating-blank-staves.ly
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
+creating-blank-staves.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 coloring-objects.ly
 inserting-score-fragments-above-the-staff,-as-markups.ly
@@ -9,4 +9,5 @@ three-sided-box.ly
 clefs-commonly-tweaked-properties.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
+formatting-lyrics-syllables.ly
 changing-an-individual-notes-size-in-a-chord.ly

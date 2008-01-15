@@ -4,18 +4,23 @@
 \version "2.11.35"
 
 \header { texidoc = "
-The commonly used @code{\\key} command sets the context property
-Staff.keySignature. However, non-standard key signatures can be
-specified by setting this property directly. The format of this command
-is a list: @code{ \\set Staff.keySignature =
-  #'((octave . step) . alter) } where, for each element in the list,
-octave specifies the octave (0 being the octave from middle C to the B
-above), step specifies the note within the octave (0 means C and 6
-means B), and alter is ,SHARP ,FLAT ,DOUBLE-SHARP etc. (Note the
-leading comma.) Here is an example of a possible key signature for
-generating a whole-tone scale:
+The commonly used @code{\\key} command sets the @code{keySignature}
+property, in the @code{Staff} context. However, non-standard key
+signatures can be specified by setting this property directly. The
+format of this command is a list: @code{ \\set Staff.keySignature =
+#'(((octave . step) . alter) ((octave . step) . alter) ...) } where,
+for each element in the list, octave specifies the octave (0 being the
+octave from middle C to the B above), step specifies the note within
+the octave (0 means C and 6 means B), and alter is ,SHARP ,FLAT
+,DOUBLE-SHARP etc. (Note the leading comma.)
+
+However, for each item in the list, you can also use the alternative
+format (step . alter), which specifies that the same alteration should
+hold in all octaves.
 
 
+Here is an example of a possible key signature for generating a
+whole-tone scale: 
 " }
 % begin verbatim
 \relative c' {

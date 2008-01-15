@@ -24,9 +24,8 @@ printed at both the end of the previous line and the beginning of the
 new line by default. If the warning clef at the end of the previous
 line in not required it can be suppressed by setting the
 explicitClefVisibility Staff property to the value 
-@code{end-of-line-invisible: \\set Staff.explicitClefVisibility =
-#end-of-line-invisible} The default behaviour can be recovered with 
-@code{\\unset Staff.explicitClefVisibility}.
+@code{end-of-line-invisible}. The default behaviour can be recovered
+with  @code{\\unset Staff.explicitClefVisibility}.
 
 
 The following examples show the possibilities when setting these
@@ -37,44 +36,48 @@ line, they do not.
 % begin verbatim
 {
            % The default treble clef
-           c'4
+           c'1
            % The standard bass clef
            \set Staff.clefGlyph = #"clefs.F"
            \set Staff.clefPosition = #2
            \set Staff.middleCPosition = #6
-           c'4
+           c'
            % The baritone clef
            \set Staff.clefGlyph = #"clefs.C"
            \set Staff.clefPosition = #4
            \set Staff.middleCPosition = #4
-           c'4
+           c'
            % The standard choral tenor clef
            \set Staff.clefGlyph = #"clefs.G"
            \set Staff.clefPosition = #-2
            \set Staff.clefOctavation = #-7
            \set Staff.middleCPosition = #1
-           c'4
+           c'
            % A non-standard clef
            \set Staff.clefPosition = #0
            \set Staff.clefOctavation = #0
            \set Staff.middleCPosition = #-4
-           c'4 \break
-
+           c' \break
+           
+           
            % The following clef changes do not preserve
            % the normal relationship between notes and clefs:
 
            \set Staff.clefGlyph = #"clefs.F"
            \set Staff.clefPosition = #2
-           c'4
+           c'
            \set Staff.clefGlyph = #"clefs.G"
-           c'4
+           c'
            \set Staff.clefGlyph = #"clefs.C"
-           c'4
+           c'
            \set Staff.clefOctavation = #7
-           c'4
+           c'
            \set Staff.clefOctavation = #0
            \set Staff.clefPosition = #0
-           c'4
+           c'
+           
+           % Here we go back to the normal clef:
+           
            \set Staff.middleCPosition = #4
-           c'4
+           c'
          }
