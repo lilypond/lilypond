@@ -143,6 +143,7 @@ Languages in this order.
 
 @menu
 * A::                           
+* a due::                       
 * accent::                      
 * accessory::                   
 * accidental::                  
@@ -198,6 +199,7 @@ Languages in this order.
 * compound interval::           
 * compound meter::              
 * compound time::               
+* concert pitch::               
 * conjunct movement::           
 * consonance::                  
 * contralto::                   
@@ -415,6 +417,7 @@ Languages in this order.
 * time signature::              
 * tone::                        
 * tonic::                       
+* transposing instrument::      
 * transposition::               
 * treble clef::                 
 * tremolo::                     
@@ -448,6 +451,37 @@ NL: a,
 DK: a,
 S: a,
 FI: A, a.
+
+@seealso
+
+@ref{Pitch names}
+
+
+@node a due
+@section a due
+
+ES: ?,
+I: a due,
+F: à deux,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Abbreviated @samp{a2} or @samp{a 2}.
+
+@enumerate
+
+@item An indication in orchestral scores that a single part notated on a single
+staff that normally carries parts for two players (e.g. first and second oboes)
+is to be played by both players.
+
+@item Or conversely, that two pitches or parts notated on a staff that normally
+carries a single part (e.g. first violin) are to be played by different players,
+or groups of players (@q{desks}).
+
+@end enumerate
 
 @seealso
 
@@ -1811,6 +1845,21 @@ FI: ?.
 @seealso
 
 @ref{meter}.
+
+
+@node concert pitch
+@section concert pitch
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+FIXME: this is a placeholder
 
 
 @node conjunct movement
@@ -4613,7 +4662,9 @@ instrument.
 @node note names
 @section note names
 
-@c FIXME
+@seealso
+
+@ref{Pitch names}
 
 
 @node note value
@@ -6346,6 +6397,21 @@ The first @ref{scale degree}.
 @ref{functional harmony}.
 
 
+@node transposing instrument
+@section transposing instrument
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+FIXME: this is a placeholder
+
+
 @node transposition
 @section transposition
 
@@ -6849,59 +6915,73 @@ saxophone, and bassoon.
 @node Pitch names
 @chapter Pitch names
 
-@table @code
-@item PITCH NAMES
-@end table
+@c -is/-es endings for Danish per Rune Zedeler
+@c		and for Finnish per Risto Vääräniemi
+@c -iss/-ess endings for Swedish per Mats Bengtsson
 
-@c @multitable @columnfractions .105 .145 .125 .125 .125 .125 .125 .125
-@c the extra @item's between each row makes the table hard to read ... so I removed them
-
-@multitable @columnfractions .11 .14 .14 .11 .1 .1 .1 .1 .1
-
-@c TODO -- figure out how to make _real_ table headers in TeXinfo
-
-@item @tab @strong{ES} @tab @strong{I} @tab @strong{F} @tab @strong{D}
-@tab @strong{NL} @tab @strong{DK} @tab @strong{S} @tab @strong{FI}
-
-@item @strong{c} @tab do  @tab do  @tab ut @tab C @tab c @tab c @tab c
-@tab c
-
-@item @strong{c-sharp} @tab do sostenido  @tab do diesis  @tab ut
-dièse @tab Cis  @tab cis  @tab cis  @tab cis  @tab cis
-
-@item @strong{d-flat} @tab re bemol  @tab re bemolle  @tab ré bémol 
-@tab Des @tab des  @tab des  @tab des  @tab des
-
-@item @strong{d} @tab re  @tab re  @tab ré  @tab D  @tab d  @tab d 
-@tab d  @tab d
-
-@item @strong{e-flat} @tab mi bemol  @tab mi bemolle  @tab mi bémol
-@tab Es @tab es  @tab es  @tab es  @tab es
-
-@item @strong{e} @tab mi @tab mi @tab mi @tab E @tab e @tab e @tab e
-@tab e
-
-@item @strong{f} @tab fa  @tab fa  @tab fa @tab F @tab f @tab f @tab f
-@tab f
-
-@item @strong{g} @tab sol  @tab sol  @tab sol @tab G @tab g @tab g
-@tab g @tab g
-
-@item @strong{a-flat} @tab la bemol  @tab la bemolle  @tab la bémol
-@tab As @tab as  @tab as  @tab as  @tab as
-
-@item @strong{a} @tab la  @tab la  @tab la @tab A @tab a @tab a @tab a
-@tab a
-
-@item @strong{a-sharp} @tab la sostenido  @tab la diesis  @tab la
-dièse @tab Ais  @tab ais  @tab ais  @tab ais  @tab ais
-
-@item @strong{b-flat} @tab si bemol  @tab si bemolle  @tab si bémol 
-@tab B @tab bes  @tab b  @tab b  @tab b
-
-@item @strong{b} @tab si  @tab si  @tab si @tab H @tab b @tab h @tab h
-@tab h
-
+@multitable {c-sharp}
+  {do sostenido} {do diesis} {ut dièse} {Cis}
+  {cis} {cis} {ciss} {cis}
+@headitem EN
+  @tab ES @tab I @tab F @tab D
+  @tab NL @tab DK @tab S @tab FI
+@item @strong{c}
+  @tab do @tab do @tab ut @tab C
+  @tab c @tab c @tab c @tab c
+@item @strong{c-sharp}
+  @tab do sostenido @tab do diesis @tab ut dièse @tab Cis
+  @tab cis @tab cis @tab ciss @tab cis
+@item @strong{d-flat}
+  @tab re bemol @tab re bemolle @tab ré bémol @tab Des
+  @tab des @tab des @tab dess @tab des
+@item @strong{d}
+  @tab re @tab re @tab ré @tab D
+  @tab d @tab d @tab d @tab d
+@item @strong{d-sharp}
+  @tab re sostenido @tab re diesis @tab re dièse @tab Dis
+  @tab dis @tab dis @tab diss @tab dis
+@item @strong{e-flat}
+  @tab mi bemol @tab mi bemolle @tab mi bémol @tab Es
+  @tab es @tab es @tab ess @tab es
+@item @strong{e}
+  @tab mi @tab mi @tab mi @tab E
+  @tab e @tab e @tab e @tab e
+@item @strong{f-flat} = e
+  @tab fa bemol @tab fa bemolle @tab fa bémol @tab Fes
+  @tab fes @tab fes @tab fess @tab fes
+@item @strong{f}
+  @tab fa @tab fa @tab fa @tab F
+  @tab f @tab f @tab f @tab f
+@item @strong{e-sharp} = f
+  @tab mi sostenido @tab mi diesis @tab mi dièse @tab Eis
+  @tab eis @tab eis @tab eiss @tab eis
+@item @strong{f-sharp}
+  @tab fa sostenido @tab fa diesis @tab fa dièse @tab Fis
+  @tab fis @tab fis @tab fiss @tab fis
+@item @strong{g-flat}
+  @tab sol bemol @tab sol bemolle @tab sol bémol @tab Ges
+  @tab ges @tab ges @tab gess @tab ges
+@item @strong{g}
+  @tab sol @tab sol @tab sol @tab G
+  @tab g @tab g @tab g @tab g
+@item @strong{g-sharp}
+  @tab sol sostenido @tab sol diesis @tab sol dièse @tab Gis
+  @tab gis @tab gis @tab giss @tab gis
+@item @strong{a-flat}
+  @tab la bemol @tab la bemolle @tab la bémol @tab As
+  @tab as @tab as @tab as @tab as
+@item @strong{a}
+  @tab la @tab la @tab la @tab A
+  @tab a @tab a @tab a @tab a
+@item @strong{a-sharp}
+  @tab la sostenido @tab la diesis @tab la dièse @tab Ais
+  @tab ais @tab ais @tab ais @tab ais
+@item @strong{b-flat}
+  @tab si bemol @tab si bemolle @tab si bémol @tab B
+  @tab bes @tab b @tab b @tab b
+@item @strong{b}
+  @tab si @tab si @tab si @tab H
+  @tab b @tab h @tab h @tab h
 @end multitable
 
 
