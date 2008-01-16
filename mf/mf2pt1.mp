@@ -10,7 +10,7 @@
 
 %%%% ==================================================================== %%%%
 %%%% mf2pt1                                                               %%%%
-%%%% Copyright (C) 2007 Scott Pakin                                       %%%%
+%%%% Copyright (C) 2008 Scott Pakin                                       %%%%
 %%%%                                                                      %%%%
 %%%% This program may be distributed and/or modified under the conditions %%%%
 %%%% of the LaTeX Project Public License, either version 1.3c of this     %%%%
@@ -196,7 +196,8 @@ enddef;
 %%   The algorithm used is quite simple:
 %%
 %%   \begin{itemize}
-%%     \item Find a point~$P$ on the path which has a non-zero direction.
+%%     \item Find a point~$P$ on the path which has a non-zero direction,
+%%     and which is on a not-too-short path element.
 %%
 %%     \item Construct a ray of ``infinite'' length, starting in the
 %%     vicinity of~$P$ which intersects the path at this point.
@@ -204,7 +205,7 @@ enddef;
 %%     \item Use \mfcomment
 %      |intersectiontimes| to find the intersection.  If the direction of
 %%     the path at this point is (near) zero, or if we have a grazing
-%%     intersection, get a new ray.
+%%     intersection or even a tangent, get a new ray.
 %%
 %%     \item Shorten the ray so that it starts right after the
 %%     intersection.  Repeat the previous step until no intersection is
@@ -232,37 +233,57 @@ vardef crossproduct (expr u, v) =
 enddef;
 
 vardef makeline primary p =
-  save start, loop, d, n;
+  save start, bad_n, loop, distance, d, i, n;
   pair start, d;
 
   loop := 0;
-  for i = 0.5 step 1 until length p - 0.5:
-    n := uniformdeviate 0.9 - 0.45 + i;    % Add some randomness to get different lines for each function call.
-    start := point n of p;
-    d := direction n of p;
-    if d <> (0, 0):
-      loop := 1;
+  bad_n := -1;
+  for i := 0 step 1 until length p - 1:
+    distance := length (point i of p - point (i + 1) of p);
+    if distance <> 0:
+      if distance < 1:
+        % In case we don't find something better.
+        bad_n := i;
+      else:
+        n := i;
+        loop := 1;
+      fi;
     fi;
     exitif loop = 1;
   endfor;
 
   if loop = 0:
-    errmessage ("Cannot find a starting point on path for orientation test");
+    if bad_n <> -1:
+      n := bad_n;
+      loop = 1;
+    fi;
   fi;
 
-  d := unitvector (d rotated (uniformdeviate 160 + 10));  % Again, some added randomness
+  % Add some randomness to get different lines for each function call.
+  n := n + uniformdeviate 0.8 + 0.1;
+  start := point n of p;
 
-  % Construct a line which intersects the path at least once.
-  start - eps * d
-  -- infinity * d
+  if loop = 0:
+    % Construct a line which misses the degenerated path.
+    start + (1, 0)
+    -- start + (1, 1)
+  else:
+    d := direction n of p;
+
+    % Again, some added randomness.
+    n := uniformdeviate 150 + 15;
+    d := unitvector (d rotated n);
+
+    % Construct a line which intersects the path at least once.
+    start - eps * d
+    -- infinity * d
+  fi
 enddef;
 
 vardef is_clockwise primary p =
   save line, cut, cut_new, res, line_dir, tangent_dir;
   path line;
   pair cut, cut_new, line_dir, tangent_dir;
-
-  res := 1;
 
   line := makeline p;
   line_dir := direction 0 of line;
@@ -279,21 +300,31 @@ vardef is_clockwise primary p =
       % The vector is zero or too small.
       line := makeline p;
       line_dir := direction 0 of line;
-    elseif crossproduct (tangent_dir, line_dir) < 0.02:
-      % Grazing intersection
+
+    elseif abs (ypart cut_new - floor (ypart cut_new + 0.5)) < eps:
+      % Avoid possible tangent touching in a corner or cusp.
       line := makeline p;
       line_dir := direction 0 of line;
+
+    elseif crossproduct (tangent_dir, line_dir) < 0.2:
+      % Grazing intersection (arcsin 0.2 ~= 11.5 degrees).
+      line := makeline p;
+      line_dir := direction 0 of line;
+
     else:
-      % Try again.
+      % Go ahead.
       cut := cut_new;
       line := subpath (xpart cut + eps, infinity) of line;
     fi;
   endfor;
 
   tangent_dir := direction (ypart cut) of p;
-  res := (angle tangent_dir - angle line_dir + 180) mod 360 - 180;
-
-  res < 0
+  if tangent_dir <> (0, 0):
+    res := (angle tangent_dir - angle line_dir + 180) mod 360 - 180;
+    res < 0
+  else:
+    false
+  fi
 enddef;
 
 
