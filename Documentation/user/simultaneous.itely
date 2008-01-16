@@ -273,6 +273,7 @@ cluster notation (see @ref{Clusters}).
 @unnumberedsubsubsec Automatic part combining
 @cindex automatic part combining
 @cindex part combiner
+@cindex combining parts
 
 Automatic part combining is used to merge two parts of music onto
 a staff.  It is aimed at typesetting orchestral scores.  When the
@@ -290,7 +291,7 @@ The syntax for part combining is
 
 The following example demonstrates the basic functionality of the
 part combiner: putting parts on one staff, and setting stem
-directions and polyphony
+directions and polyphony.
 
 @lilypond[quote,verbatim,ragged-right,fragment]
 \new Staff \partcombine
@@ -306,7 +307,7 @@ and @q{Solo}, while the second (called @code{two}) always gets
 down stems and @q{Solo II}.
 
 If you just want the merging parts, and not the textual markings,
-you may set the property @code{printPartCombineTexts} to false
+you may set the property @code{printPartCombineTexts} to false.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 \new Staff <<
@@ -350,15 +351,15 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @seealso
 
-@c FIXME: add Music Glossary: @rglos{a due}. after glossary addition.
+Music Glossary: @rglos{a due}.
 
 Snippets: @lsrdir{simultaneous}.
 
-Internals Reference: @internalsref{PartCombineMusic}.
+Internals Reference: @internalsref{PartCombineMusic}, @internalsref{Voice}.
 
 @refbugs
 
-When @code{printPartCombineTexts} is set, when the two voices play
+When @code{printPartCombineTexts} is set, if the two voices play
 the same notes on and off, the part combiner may typeset @code{a2}
 more than once in a measure.
 
@@ -379,7 +380,7 @@ events in those will be ignored.
 @cindex Writing music in parallel
 @cindex Interleaved music
 
-Music for multiple parts can be interleaved
+Music for multiple parts can be interleaved:
 
 @lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
@@ -394,7 +395,7 @@ Music for multiple parts can be interleaved
 >>
 @end lilypond
 
-This works quite well for piano music
+This works quite well for piano music.
 
 @c  It would be nice if the first bar fit onto one 66-char line.
 @c  Maybe simplify the example?  -gp
