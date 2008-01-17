@@ -758,7 +758,7 @@ ps2pdf yourfile.ps
 
 @noindent
 The @file{.dvi} file created by this process will not contain
-noteheads.  This is normal; if you follow the instructions, they
+ note heads.  This is normal; if you follow the instructions, they
 will be included in the @file{.ps} and @file{.pdf} files.
 
 Running @command{dvips} will produce some warnings about fonts; these

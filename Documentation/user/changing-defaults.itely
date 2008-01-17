@@ -713,7 +713,7 @@ contexts with different combinations of engraver plug-ins.
 
 The next example shows how to build a different type of
 @code{Voice} context from scratch.  It will be similar to
-@code{Voice}, but only prints centered slash noteheads.  It can be used
+@code{Voice}, but only prints centered slash note heads.  It can be used
 to indicate improvisation in jazz pieces,
 
 @lilypond[quote,ragged-right]
@@ -1131,7 +1131,7 @@ That piece of text is typeset with a font, unlike slurs or beams.
 
 @item
 Horizontally, the center of the symbol should be aligned to the
-center of the notehead.
+center of the note head.
 
 @item
 Vertically, the symbol is placed next to the note and the staff.
@@ -1230,7 +1230,7 @@ Add this much extra space between objects that are next to each other.
 @end quotation
 
 By increasing the value of @code{padding}, we can move the
-fingering away from the notehead.  The following command inserts
+fingering away from the note head.  The following command inserts
 3 staff spaces of white
 between the note and the fingering:
 @example

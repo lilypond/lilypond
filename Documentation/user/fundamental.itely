@@ -521,7 +521,7 @@ must have the same duration.  Neither can they be written
 as sequential notes, as they must start at the same time.
 This section of the bar requires three voices, and the
 normal practice would be to write the whole bar as three
-voices, as shown here, where we have used different noteheads
+voices, as shown here, where we have used different note heads
 and colors for the three voices.
 
 @c The following should appear as music without code
@@ -615,7 +615,7 @@ into or out of a simultaneous construct.  Conversely,
 parallel voices from separate simultaneous constructs on the same
 staff are the same voice.  Other voice-related properties also
 carry across simultaneous constructs.  Here is the same example,
-with different colors and noteheads for each voice.  Note that
+with different colors and note heads for each voice.  Note that
 changes in one Voice do not affect other voices, but they do
 persist in the same Voice later.  Note also that tied notes may be
 split across the same voices in two constructs, shown here in the
@@ -651,8 +651,8 @@ blue triangle voice.
 
 The commands @code{\voiceXXXStyle} are mainly intended for use in
 educational documents such as this one.  They modify the color
-of the notehead, the stem and the beams, and the style of the
-notehead, so that the voices may be easily distinguished.
+of the note head, the stem and the beams, and the style of the
+ note head, so that the voices may be easily distinguished.
 Voice one is set to red diamonds, voice two to blue triangles,
 voice three to green crossed circles, and voice four (not used
 here) to magenta crosses.  We shall see later how commands like 
@@ -724,7 +724,7 @@ commands.  This results in the following:
 
 @noindent
 and exposes a problem commonly encountered with multiple
-voices: the stems of notes can collide with noteheads
+voices: the stems of notes can collide with note heads
 in other voices.  In laying out the notes, LilyPond allows the
 notes or chords from two voices to occupy the same vertical
 note column provided the stems are in opposite directions, but
@@ -914,7 +914,7 @@ as here:
 
 Closely spaced notes in a chord, or notes occuring at the same
 time in different voices, are arranged in two, occasionally more,
-columns to prevent the noteheads overlapping.  These are called
+columns to prevent the note heads overlapping.  These are called
 note columns.  There are separate columns for each voice, and 
 the currently specified voice-dependent shift is applied to the 
 note column if there would otherwise be a collision.  This can
@@ -1207,7 +1207,7 @@ lyrics in @ref{Voices and vocals}.
 
 Every mark on the printed output of a score produced by LilyPond
 is produced by an @code{Engraver}.  Thus there is an engraver
-to print staves, one to print noteheads, one for stems, one for
+to print staves, one to print note heads, one for stems, one for
 beams, etc, etc.  In total there are over 120 such engravers!
 Fortunately, for most scores it is not necessary to know about 
 more than a few, and for simple scores you do not need to know 
@@ -1259,7 +1259,7 @@ the name, or vice versa.
 @item Metronome_mark_engraver
   @tab Engraves metronome marking
 @item Note_heads_engraver
-  @tab Engraves noteheads
+  @tab Engraves note heads
 @item Rest_engraver
   @tab Engraves rests
 @item Staff_symbol_engraver
@@ -1437,10 +1437,10 @@ other things) several times.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 c4 
-% make noteheads smaller
+% make note heads smaller
 \set fontSize = #-4
 d e
-% make noteheads larger
+% make note heads larger
 \set fontSize = #2.5
 f g
 % return to original size
@@ -1513,9 +1513,9 @@ staff lines are produced by the Staff_symbol_engraver.
 }
 \relative c' {
   c4 
-  \set fontSize = #-4  % make noteheads smaller
+  \set fontSize = #-4  % make note heads smaller
   d e
-  \set fontSize = #2.5  % make noteheads larger
+  \set fontSize = #2.5  % make note heads larger
   f g
   \unset fontSize  % return to original size
   a b

@@ -83,12 +83,12 @@ name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
 Similarly, there are @code{Voice} objects, @code{Score} objects,
 @code{Lyric} objects, and objects to represent barlines,
-noteheads, ties, dynamics, etc, each with their own set of
+ note heads, ties, dynamics, etc, each with their own set of
 properties.
 
 Some types of object are given special names.  Objects which
 represent items of notation on the printed output such as
-noteheads, stems, slurs, ties, fingering, clefs, etc are called
+ note heads, stems, slurs, ties, fingering, clefs, etc are called
 @q{Layout objects}, often known as @q{Graphical Objects}, or
 @q{Grobs} for short.  These are still objects in the generic sense
 above, and so they too all have properties associated with them,
@@ -1079,7 +1079,7 @@ So we could replace the example above with
 Finally we come to changing the size of layout objects.
 
 Some layout objects are created as glyphs selected from
-a typeface font.  These include noteheads, accidentals, markup, 
+a typeface font.  These include note heads, accidentals, markup, 
 clefs, time signatures, dynamics and lyrics.  
 Their size is changed by modifying the
 @code{font-size} property, as we shall shortly see.  Other
@@ -1137,7 +1137,7 @@ Let's try it in our ossia example:
 }
 @end lilypond
 
-This is still not quite right.  The noteheads and flags are 
+This is still not quite right.  The note heads and flags are 
 smaller, but the stems are too long in proportion and the
 staff lines are spaced too widely apart.  These need to be
 scaled down in proportion to the font reduction.
@@ -1213,7 +1213,7 @@ Within-staff objects are those that are located on the staff
 these are usually fixed by the music itself -- they are
 vertically positioned on specific lines of the staff or are 
 tied to other objects that are so positioned.  Collisions of
-noteheads, stems and accidentals in closely set chords are
+ note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
 overrides which can modify this automatic behaviour, as we
 shall shortly see.
@@ -1811,7 +1811,7 @@ is controlled by @code{left-padding} and @code{right-padding}.
 These properties are to be found in the @code{AccidentalPlacement}
 object which, note, lives in the @strong{staff} context.  Because
 accidentals are always positioned after and to the left of
-noteheads only the @code{right-padding} property has any effect.
+ note heads only the @code{right-padding} property has any effect.
 
 The @code{staff-padding} property is closely related to the
 @code{padding} property:  @code{padding}
@@ -1884,7 +1884,7 @@ and notes in different voices.
 
 Closely spaced notes in a chord, or notes occuring at the same
 time in different voices, are arranged in two, occasionally more,
-columns to prevent the noteheads overlapping.  These are called
+columns to prevent the note heads overlapping.  These are called
 note columns, and an object called @code{NoteColumn} is created
 to lay out the notes in that column.
 
@@ -1899,7 +1899,7 @@ not resolve the note conflict.  It is preferable to the
 @code{extra-offset} property for this purpose as there is no need
 to work out the distance in staff-spaces, and moving the notes
 into or out of a @code{NoteColumn} affects other actions such as
-merging noteheads.
+merging note heads.
 
 @end itemize
 
@@ -2131,7 +2131,7 @@ note column of the higher two notes.  To correct this we set
 @code{NoteColumn}, of these notes to zero.
 The lower note of the second chord is best placed just to the
 right of the higher notes.  We achieve this by setting
-@code{force-hshift} of this note to 0.5, ie half a notehead's
+@code{force-hshift} of this note to 0.5, ie half a note head's
 width to the right of the note column of the higher notes.
 
 Here's the final result:

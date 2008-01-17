@@ -379,7 +379,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 @end lilypond
 
 That looks better, but let's make a few changes.  The glissando is hard
-to see, so let's make it thicker and closer to the noteheads.  Let's
+to see, so let's make it thicker and closer to the note heads.  Let's
 put the metronome marking above the clef, instead of over the first
 note.  And finally, my composition professor hates @q{C} time signatures,
 so we'd better make that @q{4/4} instead.
