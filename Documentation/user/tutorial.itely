@@ -1133,7 +1133,7 @@ scores, and @code{\new ChoirStaff,} suitable for
 vocal scores.  These staff groups each form another
 type of context, one that generates the brace at the
 left end of every system and also controls the extent
-of barlines.
+of bar lines.
 
 @seealso
 

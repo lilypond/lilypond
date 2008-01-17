@@ -82,7 +82,7 @@ properties associated with that particular staff, for example, its
 name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
 Similarly, there are @code{Voice} objects, @code{Score} objects,
-@code{Lyric} objects, and objects to represent barlines,
+@code{Lyric} objects, and objects to represent bar lines,
  note heads, ties, dynamics, etc, each with their own set of
 properties.
 
@@ -718,26 +718,26 @@ appearance of the printed music.
 In the educational use of music we might wish to print a score
 with certain elements omitted as an exercise for the student,
 who is required to supply them.  As a simple example,
-let us suppose the exercise is to supply the missing barlines 
-in a piece of music.  But the barlines are normally inserted
+let us suppose the exercise is to supply the missing bar lines 
+in a piece of music.  But the bar lines are normally inserted
 automatically.  How do we prevent them printing?
 
 As before, we go to the IR to find the layout object which prints
-barlines.  Going via @emph{Backend} and @emph{All layout objects}
+bar lines.  Going via @emph{Backend} and @emph{All layout objects}
 we find there
 is a layout object called @code{BarLine}.  Its properties include
 two that control its visibility: @code{break-visibility} and
 @code{stencil}.  Barline also supports a number of interfaces,
 including the @code{grob-interface}, where we find the
 @code{transparent} and the @code{color} properties.  All
-of these can affect the visibility of barlines (and, of course,
+of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider
 each of these in turn.
 
 @subheading stencil
 @cindex stencil property
 
-This property controls the appearance of the barlines by specifying
+This property controls the appearance of the bar lines by specifying
 the symbol (glyph) which should be printed.  In common
 with many other properties, it can be set to print nothing by 
 setting its value to @code{#f}.  Let's try it, as before, omitting
@@ -753,7 +753,7 @@ the implied Context, @code{Voice}:
 }
 @end lilypond
 
-The barlines are still printed.  What is wrong?  Go back to the
+The bar lines are still printed.  What is wrong?  Go back to the
 IR and look again at the page giving the properties of BarLine.
 At the top of the page it says @qq{Barline objects are created
 by: Bar_engraver}.  Go to the @code{Bar_engraver} page.
@@ -777,7 +777,7 @@ file.  Let's try correcting it by adding the correct context:
 }
 @end lilypond
 
-Now the barlines have vanished.
+Now the bar lines have vanished.
 
 @subheading break-visibility
 
@@ -786,9 +786,9 @@ Now the barlines have vanished.
 We see from the @code{BarLine} properties in the IR that the
 @code{break-visibility} property requires a vector of three
 booleans.
-These control respectively whether barlines are printed at
+These control respectively whether bar lines are printed at
 the end of a line, in the middle of lines, and at the beginning
-of lines.  For our example we want all barlines to be suppressed,
+of lines.  For our example we want all bar lines to be suppressed,
 so the value we need is @code{#(#f #f #f)}.
 Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
@@ -807,7 +807,7 @@ the @code{\override} command.
 }
 @end lilypond
 
-And we see this too removes all the barlines.
+And we see this too removes all the bar lines.
 
 @subheading transparent
 @cindex transparent property
@@ -817,7 +817,7 @@ page in the IR that the @code{transparent} property is a boolean.
 This
 should be set to @code{#t} to make the grob transparent.
 In this next example let us make the time signature invisible 
-rather than the barlines.  
+rather than the bar lines.  
 To do this we need to find the grob name for the time signature.
 Back to
 the @q{All layout objects} page in the IR to find the properties
@@ -863,7 +863,7 @@ leaves it where it is, but makes it invisible.
 @subheading color
 @cindex color property
 
-Finally we could make the barlines invisible by coloring
+Finally we could make the bar lines invisible by coloring
 them white.  The @code{grob-interface} specifies that the
 color property value is a list, but there is no
 explanation of what that list should be.  The list it
@@ -871,7 +871,7 @@ requires is actually a list of values in internal units,
 but, to avoid having to know what these are, several ways
 are provided to specify colors.  The first way is to use one
 of the @q{normal} colours listed in the first table in
-@ruser{List of colors}.  To set the barlines to white
+@ruser{List of colors}.  To set the bar lines to white
 we write:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -885,7 +885,7 @@ we write:
 @end lilypond
 
 @noindent
-and again, we see the barlines are not visible.  Note that
+and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
 a symbol, but a @emph{function}.  When called, it provides
 the list of internal values required to set the color to
@@ -1089,7 +1089,7 @@ objects -- are drawn individually, so there is no
 associated with them.  These objects generally derive their
 size from the objects to which they are attached, so usually
 there is no need to change their size manually.  Still other 
-properties such as the length of stems and barlines, thickness 
+properties such as the length of stems and bar lines, thickness 
 of beams and other lines, and the separation of staff lines all 
 need to be modified in special ways. 
 
@@ -2396,12 +2396,12 @@ lhMusic = \relative c' {
 @end lilypond
 
 The first bar is now correct.  The second bar contains an arpeggio
-and is terminated by a double barline.  How do we do these, as they
+and is terminated by a double bar line.  How do we do these, as they
 have not been mentioned in this Learning Manual?  This is where
 we need to turn to the Notation Reference.  Looking up @q{arpeggio}
-and @q{barline} in the
+and @q{bar line} in the
 index quickly shows us that an arpeggio is produced by appending
-@code{\arpeggio} to a chord, and a double barline is produced by
+@code{\arpeggio} to a chord, and a double bar line is produced by
 the @code{\bar "||"} command.  That's easily done.  We next need
 to correct the collision of the tie with the time signature.  This
 is best done by moving the tie upwards.  Moving objects was covered

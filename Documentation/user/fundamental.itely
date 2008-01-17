@@ -1493,7 +1493,7 @@ to its (new) default value with @code{\unset}.
 
 We have seen that contexts each contain several engravers, each
 of which is responsible for producing a particular part of the
-output, like barlines, staves, note heads, stems, etc.  If an
+output, like bar lines, staves, note heads, stems, etc.  If an
 engraver is removed from a context it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.  
