@@ -6919,9 +6919,7 @@ saxophone, and bassoon.
 @c		and for Finnish per Risto Vääräniemi
 @c -iss/-ess endings for Swedish per Mats Bengtsson
 
-@multitable {c-sharp}
-  {do sostenido} {do diesis} {ut dièse} {Cis}
-  {cis} {cis} {ciss} {cis}
+@multitable {c-sharp} {do sostenido} {do diesis} {ut dièse} {Cis} {cis} {cis} {ciss} {cis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
