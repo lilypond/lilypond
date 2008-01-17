@@ -139,6 +139,19 @@ More complex nesting can be accomplished using the property
 >>
 @end lilypond
 
+Each staff group context sets the property
+@code{systemStartDelimiter} to one of the values
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
+and @internalsref{SystemStartBracket}.  A fourth delimiter,
+@code{systemStartSquare}, is also available, but must be
+instantiated manually
+
+@c FIXME: Graham will deal with this.  -gp
+@c snippet 201
+To display a bracket even if there is only one staff, see
+@lsr{staff,display-bracket-with-only-one-staff-in-a
+system.ly}
+
 @seealso
 
 Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
@@ -148,22 +161,10 @@ Snippets: @lsrdir{staff}
 
 Internals Reference: @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{StaffGroup},
+@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
+@internalsref{SystemStartBracket},
 @internalsref{systemStartDelimiterHierarchy}.
 
-Each staff group context sets the property
-@code{systemStartDelimiter} to one of the values
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-and @internalsref{SystemStartBracket}.  A fourth delimiter,
-@code{systemStartSquare}, is also available, but must be
-instantiated manually.
-
-@commonprop
-
-To display a bracket even if there is only one staff, see
-@lsr{staff,display-bracket-with-only-one-staff-in-a
-system.ly}
-@c  FIXME: Graham will deal with this.
-@c snippet 201
 
 @node Staff symbol
 @unnumberedsubsubsec Staff symbol
@@ -190,11 +191,12 @@ b b
 b b
 @end lilypond
 
+@cindex staves, Frenched
+@cindex ossia
+@cindex Frenched staves
+
 In combination with Frenched staves, this may be used to typeset
 @emph{ossia} sections.  An example is shown here
-
-@cindex staves, Frenched 
-@cindex ossia
 
 @lilypond[verbatim,relative=2,quote]
 <<
@@ -235,12 +237,13 @@ In combination with Frenched staves, this may be used to typeset
 
 @seealso
 
+Music Glossary: @rglos{ossia}, @rglos{staff},
+@c FIXME: add  @rglos{Frenched staff}
+
 Snippets: @lsrdir{staff}
 
 Internals Reference: @internalsref{StaffSymbol},
 @internalsref{DrumStaff}.
-
-Examples: @lsrdir{staff}
 
 
 @node Hiding staves
