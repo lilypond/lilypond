@@ -12,7 +12,7 @@
 @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
 {staff-headword.ly}
 
-Notes, dynamic signs, etc., are grouped with a set of horizontal
+Notes, dynamic signs, rests, etc., are grouped with a set of horizontal
 lines, called a staff (plural @q{staves}).  In LilyPond, these
 lines are drawn using a separate layout object called @code{staff
 symbol}.
@@ -41,12 +41,13 @@ Two or more staves can be grouped vertically in a
 @unnumberedsubsubsec System start delimiters
 
 @cindex start of system
-@cindex Staff, multiple
+@cindex staff, multiple
 @cindex bracket, vertical
 @cindex brace, vertical
 @cindex grand staff
 @cindex staff group
 @cindex staff, choir
+@cindex system
 
 Many scores consist of more than one staff.  These staves can be
 grouped in several different ways:
@@ -101,6 +102,9 @@ bar lines are not connected.
 @end lilypond
 @end itemize
 
+@cindex Mensurstriche layout
+@cindex Renaissance music
+
 In addition to these four staff group types, other groupings can
 be produced by changing various properties. E.g., the
 @q{Mensurstriche} layout common in Renaissance music, with
@@ -137,7 +141,14 @@ More complex nesting can be accomplished using the property
 
 @seealso
 
+Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
+@c FIXME add @rglos{bracket}
+
 Snippets: @lsrdir{staff}
+
+Internals Reference: @internalsref{ChoirStaff},
+@internalsref{GrandStaff}, @internalsref{StaffGroup},
+@internalsref{systemStartDelimiterHierarchy}.
 
 Each staff group context sets the property
 @code{systemStartDelimiter} to one of the values
@@ -151,6 +162,7 @@ instantiated manually.
 To display a bracket even if there is only one staff, see
 @lsr{staff,display-bracket-with-only-one-staff-in-a
 system.ly}
+@c  FIXME: Graham will deal with this.
 @c snippet 201
 
 @node Staff symbol
