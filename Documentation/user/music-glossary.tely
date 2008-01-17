@@ -176,6 +176,7 @@ Languages in this order.
 * beat::                        
 * bind::                        
 * brace::                       
+* bracket::                       
 * brass::                       
 * breath mark::                 
 * breve::                       
@@ -262,6 +263,9 @@ Languages in this order.
 * forefall::                    
 * forte::                       
 * fourth::                      
+* Frenched score::                      
+* Frenched staff::                      
+* Frenched staves::                      
 * fugue::                       
 * functional harmony::          
 * G::                           
@@ -1119,9 +1123,11 @@ DK: klamme,
 S: klammer,
 FI: yhdistävä sulkumerkki.
 
-Symbol at the start of a system connecting staves.  Curly braces are
-used for connecting piano staves, angular brackets for connecting
-parts in an orchestral or choral score.
+Symbol at the start of a system connecting staves.
+
+Curly braces are used for connecting piano staves, and sometimes for connecting
+the staves of like instruments in an orchestral score when written on different
+staves (e.g. first and second flutes):
 
 @lilypond[fragment,ragged-right]
 \context GrandStaff <<
@@ -1129,12 +1135,31 @@ parts in an orchestral or choral score.
   \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
 
+Angular brackets for connecting parts in an orchestral or choral score:
+
 @lilypond[fragment,ragged-right]
 \context StaffGroup <<
 %  \set StaffGroup.minVerticalAlign = #12
   \relative c'' \context Staff = SA { \clef treble g4 e c2 }
   \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
+
+
+@node bracket
+@section bracket
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+@seealso
+
+@ref{brace}
 
 
 @node brass
@@ -3220,6 +3245,68 @@ FI: kvartti.
 @seealso
 
 @ref{interval}.
+
+
+@node Frenched score
+@section Frenched score
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A @q{condensed} score, produced by omitting staves for instruments that are not
+playing at the moment, and by moving up additional systems from following pages
+to take up the space thus liberated, which reduces the total number of pages
+used to print the work.
+
+The specific rules for @q{frenching} a score differ from publisher to publisher.
+If you are producing scores for eventual publication by a commercial publisher,
+you may wish to procure a copy of their style manual.
+
+@seealso
+
+@ref{Frenched staff}.
+
+
+@node Frenched staff
+@section Frenched staff
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Analogous to Frenched scores (@emph{q.v}), a Frenched staff has unneeded
+measures or sections removed.  This would be useful for producing, for example,
+an @emph{ossia} staff.
+
+@seealso
+
+@ref{ossia}.
+
+
+@node Frenched staves
+@section Frenched staves
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The plural of @ref{Frenched staff}, @emph{q.v.}.
 
 
 @node fugue
@@ -6918,10 +7005,9 @@ saxophone, and bassoon.
 @c -is/-es endings for Danish per Rune Zedeler
 @c		and for Finnish per Risto Vääräniemi
 @c -iss/-ess endings for Swedish per Mats Bengtsson
+@c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
 
-@multitable {c-sharp}
-  {do sostenido} {do diesis} {ut dièse} {Cis}
-  {cis} {cis} {ciss} {cis}
+@multitable {c-sharp} {do sostenido} {do diesis} {ut dièse} {Cis} {cis} {cis} {ciss} {cis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
@@ -6969,13 +7055,13 @@ saxophone, and bassoon.
   @tab gis @tab gis @tab giss @tab gis
 @item @strong{a-flat}
   @tab la bemol @tab la bemolle @tab la bémol @tab As
-  @tab as @tab as @tab as @tab as
+  @tab as @tab as @tab ass @tab as
 @item @strong{a}
   @tab la @tab la @tab la @tab A
   @tab a @tab a @tab a @tab a
 @item @strong{a-sharp}
   @tab la sostenido @tab la diesis @tab la dièse @tab Ais
-  @tab ais @tab ais @tab ais @tab ais
+  @tab ais @tab ais @tab aiss @tab ais
 @item @strong{b-flat}
   @tab si bemol @tab si bemolle @tab si bémol @tab B
   @tab bes @tab b @tab b @tab b
