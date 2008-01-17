@@ -176,7 +176,7 @@ $(tree-share-prefix)/mf-link-tree link-mf-tree: $(tree-share-prefix)/lilypond-fo
 	-cd $(tree-share-prefix)/fonts/tfm && \
 		ln -s ../../../../../../mf/$(outconfbase)/*.tfm .
 	-cd $(tree-share-prefix)/fonts/type1 && \
-		ln -s ../../../../../../mf/$(outconfbase)/*.pfa .
+		ln -s ../../../../../../mf/$(outconfbase)/*.pf? .
 
 TAGS.make: dummy
 	etags -o $@ $(find $(top-src-dir) -name 'GNUmakefile*' -o -name '*.make')

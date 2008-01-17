@@ -321,7 +321,7 @@ ceseh ces ceh c cih cis cisih
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}.  @c FIXME note names
+@rglos{double flat}, @rglos{Pitch names}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
@@ -398,17 +398,19 @@ define are:
 @end multitable
 @end example
 
-Note that in some languages such as Norwegian and Swedish, the usual
-spelling for accidentals is a double @q{s} such as in @code{ciss}
-or @code{cess}.  For both historical reasons and a greater simplicity,
-LilyPond uses a single @q{s} for all these languages.
+Note that in some languages such as Norwegian and Swedish, the
+usual spelling for accidentals is a double @q{s} such as in
+@code{ciss} or @code{cess}.  For both historical reasons and a
+greater simplicity, LilyPond uses a single @q{s} for all these
+languages.
 
-Similarly, in Germanic and Nordic languages, alterations 
-of@tie{}@code{a}, like for example @code{aes} and
-@code{aeses}, are usually contracted to @code{as} and @code{ases}
-(or more commonly @code{asas}).  Sometimes only these contracted
-names are defined in the corresponding language files (this also
-applies to the suffixes for quartertones below).
+Similarly, in Germanic and Nordic languages, alterations
+of@tie{}@code{a}, like for example @code{aes} and @code{aeses},
+are usually contracted to @code{as} and @code{ases} (or more
+commonly @code{asas}).  This also applies to @code{eeses} being
+accepted as @code{eses}.  Sometimes only these contracted names
+are defined in the corresponding language files (this also applies
+to the suffixes for quartertones below).
 
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quartertones defined

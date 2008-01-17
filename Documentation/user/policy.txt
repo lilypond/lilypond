@@ -133,8 +133,8 @@ main docs
 canceled
 simultaenous    NOT concurrent
 measure: the unit of music
-bar line: the symbol delimiting a measure
-
+bar line: the symbol delimiting a measure   NOT barline
+note head   NOT notehead
 
 
 %%%%% TECHNICAL WRITING STYLE
