@@ -74,6 +74,8 @@ c, c,, e, g d,, d, d c
 
 @seealso
 
+Music Glossary: @rglos{Pitch names}.
+
 Snippets: @lsrdir{Pitches}.
 
 
@@ -123,7 +125,7 @@ absolute octave mode, and it is recommended that it be a octave of
 
 Here is the relative mode shown in action:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \relative c {
   \clef bass
   c d e f g a b c
@@ -133,7 +135,7 @@ Here is the relative mode shown in action:
 Octave changing marks are used for intervals greater than a
 fourth:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   c g c f, c' a, e'' c
 }
@@ -142,7 +144,7 @@ fourth:
 A note sequence without a single octave mark can nevertheless span
 large intervals:
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \relative c {
   c f b e a d g c
 }
@@ -153,7 +155,7 @@ used as the reference point for the octave placement of a
 following note or chord.  Inside of chords the next note is always
 relative to the preceding one.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,ragged-right]
 \relative c' {
   c
   <c e g>
@@ -180,17 +182,19 @@ double-augmented fourth is considered a smaller interval than a
 double-diminished fifth, regardless of the number of semitones
 that each interval contains.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c2 fis
-c2 ges
-b2 eisis
-b2 feses
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  c2 fis
+  c2 ges
+  b2 eisis
+  b2 feses
+}
 @end lilypond
 
 
 @seealso
 
-Music Glossary: @rglos{fifth}, @rglos{interval}.
+Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -243,6 +247,7 @@ name:
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a4 aes a2
 @end lilypond
+
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
@@ -273,14 +278,14 @@ be obtained by adding the question mark@tie{}@code{?} after the
 pitch.  These extra accidentals can be used to produce natural
 signs, too.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis cis cis! cis? c c? c! c
 @end lilypond
 
 Accidentals are only printed on tied notes which begin a new
 system:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis1~ cis~ \break cis
 @end lilypond
 
@@ -411,13 +416,14 @@ contracted names are defined in the corresponding language files.
 a2 as e es a ases e eses
 @end lilypond
 
-Note that in some languages such as Norwegian and Swedish, the
-usual spelling for accidentals is a double @q{s} such as in
-@code{ciss} or @code{cess}.  For both historical reasons and a
-greater simplicity, LilyPond uses a single @q{s} for all these
-languages.
+In some languages such as Norwegian and Swedish, the usual
+spelling for accidentals is a double @q{s} such as in @code{ciss}
+or @code{cess}.  For both historical reasons and a greater
+simplicity, LilyPond uses a single @q{s} for all these languages.
 
 @seealso
+
+Music Glossary: @lsrdir{Pitch names}.
 
 Snippets: @lsrdir{Pitches}.
 
