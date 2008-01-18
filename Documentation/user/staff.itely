@@ -17,9 +17,8 @@ lines, called a staff (plural @q{staves}).  In LilyPond, these
 lines are drawn using a separate layout object called @code{staff
 symbol}.
 
-Two or more staves can be grouped vertically in a
-@internalsref{GrandStaff}, a @internalsref{StaffGroup}, or a
-@internalsref{ChoirStaff}.
+Two or more staves can be grouped vertically in a @code{GrandStaff}, a
+@code{StaffGroup}, or a @code{ChoirStaff}.
 
 
 @menu
@@ -54,7 +53,7 @@ grouped in several different ways:
 
 @itemize
 @item
-In a @internalsref{GrandStaff}, the group is started with a brace
+In a @code{GrandStaff}, the group is started with a brace
 at the left, and bar lines are connected between the staves. 
 
 @lilypond[verbatim,ragged-right,quote]
@@ -66,7 +65,7 @@ at the left, and bar lines are connected between the staves.
 @end lilypond
 
 @item
-In a @internalsref{StaffGroup}, the bar lines will be drawn through
+In a @code{StaffGroup}, the bar lines will be drawn through
 all the staves, but the group is started with a bracket.
 
 @lilypond[verbatim,ragged-right,quote]
@@ -78,7 +77,7 @@ all the staves, but the group is started with a bracket.
 @end lilypond
 
 @item
-In a @internalsref{ChoirStaff}, the group is started with a
+In a @code{ChoirStaff}, the group is started with a
 bracket, but bar lines are not connected. 
 
 @lilypond[verbatim,ragged-right,quote]
@@ -123,7 +122,7 @@ Staff groups can be nested, using the context
 @commonprop
 
 More complex nesting can be accomplished using the property
-@internalsref{systemStartDelimiterHierarchy}: 
+@code{systemStartDelimiterHierarchy}: 
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup
@@ -237,8 +236,7 @@ In combination with Frenched staves, this may be used to typeset
 
 @seealso
 
-Music Glossary: @rglos{ossia}, @rglos{staff},
-@c FIXME: add  @rglos{Frenched staff}
+Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
 Snippets: @lsrdir{staff}
 

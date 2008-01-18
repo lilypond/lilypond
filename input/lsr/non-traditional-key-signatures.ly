@@ -24,10 +24,8 @@ whole-tone scale:
 " }
 % begin verbatim
 \relative c' {
-           \new Staff {
-             \set Staff.keySignature =
-               #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
-             c d e fis aes bes c2
-           }
-         }
+  \set Staff.keySignature =
+    #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
+  c d e fis aes bes c2
+}
 

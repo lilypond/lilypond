@@ -1095,7 +1095,7 @@ bassusLyrics = \lyricmode {
 
 This example demonstrates how to do modern transcription of Gregorian
 music.  Gregorian music has no measure, no stems; it uses only half and
-quarter noteheads, and special marks, indicating rests of different length.
+quarter note heads, and special marks, indicating rests of different length.
 
 @lilypond[quote,verbatim,ragged-right]
 \include "gregorian-init.ly"

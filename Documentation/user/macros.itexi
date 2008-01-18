@@ -54,7 +54,8 @@
 
 @macro commonprop
 @noindent
-@subsubheading Commonly tweaked properties
+@c @subsubheading Commonly tweaked properties
+@subsubheading Selected Snippets
 
 @end macro
 
@@ -62,6 +63,7 @@
 @noindent
 @subsubheading See also
 
+@indent
 @end macro
 
 @macro refbugs

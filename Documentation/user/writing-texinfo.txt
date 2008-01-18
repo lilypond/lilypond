@@ -157,6 +157,8 @@ commands.
 %%%%% SYNTAX SURVEY
 
 @c - single line comments
+  "@c NOTE:" is a comment which should remain in the final
+  version.  (gp only command ;)
 @ignore ... @end ignore - multi-line comment
 
 @cindex - General index. Please add as many as you can.  Don't

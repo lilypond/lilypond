@@ -1355,7 +1355,7 @@ Internals Reference: @internalsref{Beam}.
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
 
-Beams can collide with noteheads and accidentals in other voices
+Beams can collide with note heads and accidentals in other voices
 
 
 @node Setting automatic beam behavior

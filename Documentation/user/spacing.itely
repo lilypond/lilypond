@@ -1844,7 +1844,7 @@ reference durations space music tightly.
 @end lilypond
 
 Note that too large a reference duration -- such as the eighth note,
-above -- spaces music too tightly and can cause notehead collisions.
+above -- spaces music too tightly and can cause note head collisions.
 Note also that proportional notation in general takes up more
 horizontal space that does classical spacing.  Proportional spacing
 provides rhythmic clarity at the expense of horizontal space.

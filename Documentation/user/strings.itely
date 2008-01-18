@@ -30,7 +30,7 @@ strings.
 
 @cindex artificial harmonics
 
-Artificial harmonics are notated with a different notehead style.  They
+Artificial harmonics are notated with a different note head style.  They
 are entered by marking the harmonic pitch with @code{\harmonic}.
 
 @lilypond[ragged-right,verbatim,quote,fragment,relative=1]

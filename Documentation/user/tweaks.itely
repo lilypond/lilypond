@@ -82,13 +82,13 @@ properties associated with that particular staff, for example, its
 name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
 Similarly, there are @code{Voice} objects, @code{Score} objects,
-@code{Lyric} objects, and objects to represent barlines,
-noteheads, ties, dynamics, etc, each with their own set of
+@code{Lyric} objects, and objects to represent bar lines,
+ note heads, ties, dynamics, etc, each with their own set of
 properties.
 
 Some types of object are given special names.  Objects which
 represent items of notation on the printed output such as
-noteheads, stems, slurs, ties, fingering, clefs, etc are called
+ note heads, stems, slurs, ties, fingering, clefs, etc are called
 @q{Layout objects}, often known as @q{Graphical Objects}, or
 @q{Grobs} for short.  These are still objects in the generic sense
 above, and so they too all have properties associated with them,
@@ -718,26 +718,26 @@ appearance of the printed music.
 In the educational use of music we might wish to print a score
 with certain elements omitted as an exercise for the student,
 who is required to supply them.  As a simple example,
-let us suppose the exercise is to supply the missing barlines 
-in a piece of music.  But the barlines are normally inserted
+let us suppose the exercise is to supply the missing bar lines 
+in a piece of music.  But the bar lines are normally inserted
 automatically.  How do we prevent them printing?
 
 As before, we go to the IR to find the layout object which prints
-barlines.  Going via @emph{Backend} and @emph{All layout objects}
+bar lines.  Going via @emph{Backend} and @emph{All layout objects}
 we find there
 is a layout object called @code{BarLine}.  Its properties include
 two that control its visibility: @code{break-visibility} and
 @code{stencil}.  Barline also supports a number of interfaces,
 including the @code{grob-interface}, where we find the
 @code{transparent} and the @code{color} properties.  All
-of these can affect the visibility of barlines (and, of course,
+of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider
 each of these in turn.
 
 @subheading stencil
 @cindex stencil property
 
-This property controls the appearance of the barlines by specifying
+This property controls the appearance of the bar lines by specifying
 the symbol (glyph) which should be printed.  In common
 with many other properties, it can be set to print nothing by 
 setting its value to @code{#f}.  Let's try it, as before, omitting
@@ -753,7 +753,7 @@ the implied Context, @code{Voice}:
 }
 @end lilypond
 
-The barlines are still printed.  What is wrong?  Go back to the
+The bar lines are still printed.  What is wrong?  Go back to the
 IR and look again at the page giving the properties of BarLine.
 At the top of the page it says @qq{Barline objects are created
 by: Bar_engraver}.  Go to the @code{Bar_engraver} page.
@@ -777,7 +777,7 @@ file.  Let's try correcting it by adding the correct context:
 }
 @end lilypond
 
-Now the barlines have vanished.
+Now the bar lines have vanished.
 
 @subheading break-visibility
 
@@ -786,9 +786,9 @@ Now the barlines have vanished.
 We see from the @code{BarLine} properties in the IR that the
 @code{break-visibility} property requires a vector of three
 booleans.
-These control respectively whether barlines are printed at
+These control respectively whether bar lines are printed at
 the end of a line, in the middle of lines, and at the beginning
-of lines.  For our example we want all barlines to be suppressed,
+of lines.  For our example we want all bar lines to be suppressed,
 so the value we need is @code{#(#f #f #f)}.
 Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
@@ -807,7 +807,7 @@ the @code{\override} command.
 }
 @end lilypond
 
-And we see this too removes all the barlines.
+And we see this too removes all the bar lines.
 
 @subheading transparent
 @cindex transparent property
@@ -817,7 +817,7 @@ page in the IR that the @code{transparent} property is a boolean.
 This
 should be set to @code{#t} to make the grob transparent.
 In this next example let us make the time signature invisible 
-rather than the barlines.  
+rather than the bar lines.  
 To do this we need to find the grob name for the time signature.
 Back to
 the @q{All layout objects} page in the IR to find the properties
@@ -863,7 +863,7 @@ leaves it where it is, but makes it invisible.
 @subheading color
 @cindex color property
 
-Finally we could make the barlines invisible by coloring
+Finally we could make the bar lines invisible by coloring
 them white.  The @code{grob-interface} specifies that the
 color property value is a list, but there is no
 explanation of what that list should be.  The list it
@@ -871,7 +871,7 @@ requires is actually a list of values in internal units,
 but, to avoid having to know what these are, several ways
 are provided to specify colors.  The first way is to use one
 of the @q{normal} colours listed in the first table in
-@ruser{List of colors}.  To set the barlines to white
+@ruser{List of colors}.  To set the bar lines to white
 we write:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -885,7 +885,7 @@ we write:
 @end lilypond
 
 @noindent
-and again, we see the barlines are not visible.  Note that
+and again, we see the bar lines are not visible.  Note that
 @emph{white} is not preceded by an apostrophe -- it is not
 a symbol, but a @emph{function}.  When called, it provides
 the list of internal values required to set the color to
@@ -1079,7 +1079,7 @@ So we could replace the example above with
 Finally we come to changing the size of layout objects.
 
 Some layout objects are created as glyphs selected from
-a typeface font.  These include noteheads, accidentals, markup, 
+a typeface font.  These include note heads, accidentals, markup, 
 clefs, time signatures, dynamics and lyrics.  
 Their size is changed by modifying the
 @code{font-size} property, as we shall shortly see.  Other
@@ -1089,7 +1089,7 @@ objects -- are drawn individually, so there is no
 associated with them.  These objects generally derive their
 size from the objects to which they are attached, so usually
 there is no need to change their size manually.  Still other 
-properties such as the length of stems and barlines, thickness 
+properties such as the length of stems and bar lines, thickness 
 of beams and other lines, and the separation of staff lines all 
 need to be modified in special ways. 
 
@@ -1137,7 +1137,7 @@ Let's try it in our ossia example:
 }
 @end lilypond
 
-This is still not quite right.  The noteheads and flags are 
+This is still not quite right.  The note heads and flags are 
 smaller, but the stems are too long in proportion and the
 staff lines are spaced too widely apart.  These need to be
 scaled down in proportion to the font reduction.
@@ -1213,7 +1213,7 @@ Within-staff objects are those that are located on the staff
 these are usually fixed by the music itself -- they are
 vertically positioned on specific lines of the staff or are 
 tied to other objects that are so positioned.  Collisions of
-noteheads, stems and accidentals in closely set chords are
+ note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
 overrides which can modify this automatic behaviour, as we
 shall shortly see.
@@ -1811,7 +1811,7 @@ is controlled by @code{left-padding} and @code{right-padding}.
 These properties are to be found in the @code{AccidentalPlacement}
 object which, note, lives in the @strong{staff} context.  Because
 accidentals are always positioned after and to the left of
-noteheads only the @code{right-padding} property has any effect.
+ note heads only the @code{right-padding} property has any effect.
 
 The @code{staff-padding} property is closely related to the
 @code{padding} property:  @code{padding}
@@ -1884,7 +1884,7 @@ and notes in different voices.
 
 Closely spaced notes in a chord, or notes occuring at the same
 time in different voices, are arranged in two, occasionally more,
-columns to prevent the noteheads overlapping.  These are called
+columns to prevent the note heads overlapping.  These are called
 note columns, and an object called @code{NoteColumn} is created
 to lay out the notes in that column.
 
@@ -1899,7 +1899,7 @@ not resolve the note conflict.  It is preferable to the
 @code{extra-offset} property for this purpose as there is no need
 to work out the distance in staff-spaces, and moving the notes
 into or out of a @code{NoteColumn} affects other actions such as
-merging noteheads.
+merging note heads.
 
 @end itemize
 
@@ -2131,7 +2131,7 @@ note column of the higher two notes.  To correct this we set
 @code{NoteColumn}, of these notes to zero.
 The lower note of the second chord is best placed just to the
 right of the higher notes.  We achieve this by setting
-@code{force-hshift} of this note to 0.5, ie half a notehead's
+@code{force-hshift} of this note to 0.5, ie half a note head's
 width to the right of the note column of the higher notes.
 
 Here's the final result:
@@ -2396,12 +2396,12 @@ lhMusic = \relative c' {
 @end lilypond
 
 The first bar is now correct.  The second bar contains an arpeggio
-and is terminated by a double barline.  How do we do these, as they
+and is terminated by a double bar line.  How do we do these, as they
 have not been mentioned in this Learning Manual?  This is where
 we need to turn to the Notation Reference.  Looking up @q{arpeggio}
-and @q{barline} in the
+and @q{bar line} in the
 index quickly shows us that an arpeggio is produced by appending
-@code{\arpeggio} to a chord, and a double barline is produced by
+@code{\arpeggio} to a chord, and a double bar line is produced by
 the @code{\bar "||"} command.  That's easily done.  We next need
 to correct the collision of the tie with the time signature.  This
 is best done by moving the tie upwards.  Moving objects was covered

@@ -344,7 +344,7 @@ The following example demonstrates its use.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <f-\balloonText #'(-2 . -2) \markup { "I'm a notehead" }  >8
+  <f-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
 }
 @end lilypond
 
@@ -379,7 +379,7 @@ notes.
 
 \new Score \with {
   \consists "Grid_line_span_engraver"
-  %% centers grid lines  horizontally below noteheads
+  %% centers grid lines  horizontally below note heads
   \override NoteColumn #'X-offset = #-0.5
 }
 
