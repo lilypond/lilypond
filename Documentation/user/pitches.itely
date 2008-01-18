@@ -27,7 +27,9 @@ are three steps to this process: input, modifying, and output.
 @node Writing pitches
 @subsection Writing pitches
 
-This section discusses how to input pitches.
+This section discusses how to input pitches.  There are two
+different ways to place notes in octaves: absolute and relative
+mode.  In most cases, relative mode will be more convient.
 
 @menu
 * Absolute octave entry::
@@ -42,42 +44,26 @@ This section discusses how to input pitches.
 
 @cindex pitch names
 @cindex pitches
-
-A pitch name is specified using lowercase letters@tie{}@code{a}
-through@tie{}@code{g}.  An ascending C-major scale is engraved
-with
-
-@lilypond[verbatim,quote,ragged-right,fragment]
-\clef bass
-c d e f g a b c'
-@end lilypond
-
 @cindex absolute
 @cindex absolute octave specification
 
-There are two different ways to enter these note names with regard
-to octave placement: absolute and relative.  The relative mode
-will in most cases be the most convenient, but the absolute mode
-is more fundamental and will be presented first.  In absolute
-mode, every note is placed explicitly in a specific octave.  The
-note names @code{c} to @code{b} are engraved in the octave below
-middle C, as in the previous example.
+A pitch name is specified using lowercase letters@tie{}@code{a}
+through@tie{}@code{g}.  The note names @code{c} to @code{b} are
+engraved in the octave below middle C.
 
+@c NOTE: don't use c' here.
 @lilypond[verbatim,quote,ragged-right,fragment]
-\clef treble
-c1
 \clef bass
-c1
+c d e f g a b c
 @end lilypond
 
 @funindex '
 @funindex ,
 
-If a note should be in another octave than this, an octave
-specification must be given.  It takes the form of a series of
-single quote@tie{}(@code{'}) or comma@tie{}(@code{,}) characters.
-Each@tie{}@code{'} raises the pitch by one octave;
-each@tie{}@code{,} lowers the pitch by an octave.
+Other octaves may be specified with a single quote@tie{}(@code{'})
+or comma@tie{}(@code{,}) character.  Each@tie{}@code{'} raises the
+pitch by one octave; each@tie{}@code{,} lowers the pitch by an
+octave.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef treble
@@ -89,9 +75,6 @@ c, c,, e, g d,, d, d c
 @seealso
 
 Snippets: @lsrdir{Pitches}.
-
-Internals Reference: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
 
 
 @node Relative octave entry
@@ -131,15 +114,19 @@ Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
 @code{,,}@tie{} will alter the pitch by two octaves.
 
 @item
-The pitch of the first note is relative to @code{@var{startpitch}}.
+The pitch of the first note is relative to
+@code{@var{startpitch}}.  @var{startpitch} is specified in
+absolute octave mode, and it is recommended that it be a octave of
+@code{c}.
 
 @end itemize
 
 Here is the relative mode shown in action:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
-\relative c'' {
-  b c d c b c bes a
+\relative c {
+  \clef bass
+  c d e f g a b c
 }
 @end lilypond
 
@@ -148,7 +135,7 @@ fourth:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
-  c g c f, c' a, e''
+  c g c f, c' a, e'' c
 }
 @end lilypond
 
@@ -157,7 +144,7 @@ large intervals:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c {
-  c f b e a d g
+  c f b e a d g c
 }
 @end lilypond
 
@@ -168,16 +155,14 @@ relative to the preceding one.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c' {
-  c <c e g>
-  <c' e, g'>
-  <c, e' g> c
+  c
+  <c e g>
+  % the C is now an octave higher
+  <c' e g'>
+  % the C returns to the original pitch
+  <c, e, g''>
 }
 @end lilypond
-
-The @var{startpitch} (after @code{\relative}) is a note name in
-absolute mode.  In principle it can be any note name, but common
-practice is to use@tie{}@code{c} in various octave positions or the
-first note of @var{musicexpr}.
 
 When octaves are specified in absolute mode it is easy to
 accidentally put a pitch in the wrong octave.  Relative octave
@@ -220,7 +205,7 @@ The relative conversion will not affect @code{\transpose},
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
 
-@c DEPRECATED
+@c TODO: DEPRECATED
 If no @var{startpitch} is specified for @code{\relative},
 then@tie{}@code{c'} is assumed.  However, this is a deprecated
 option and may disappear in future versions, so its use is
@@ -253,15 +238,6 @@ a2 ais a aes
 a2 aisis a aeses
 @end lilypond
 
-@noindent
-In Dutch, @code{aes} is contracted to @code{as}, but both forms
-are accepted in LilyPond.  Similarly, both @code{es} and
-@code{ees} are accepted:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-a2 as e es
-@end lilypond
-
 A natural will cancel the effect of an accidental or key
 signature.  However, naturals are not encoded into the note name
 syntax with a suffix; a natural pitch is shown as a simple note
@@ -270,6 +246,17 @@ name:
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a4 aes a2
 @end lilypond
+@cindex quarter tones
+@cindex semi-flats, semi-sharps
+
+Half-flats and half-sharps are formed by adding @code{eh} and
+@code{ih}; the following is a series of Cs with increasing
+pitches
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+ceseh1 ces ceh c cih cis cisih
+@end lilypond
+
 
 
 @cindex accidental, reminder
@@ -300,18 +287,6 @@ crosses a line break, where a reminder accidental is automatically added:
 cis1~ cis~ \break cis
 @end lilypond
 
-@cindex quarter tones
-@cindex semi-flats, semi-sharps
-
-Half-flats and half-sharps are formed by adding @code{eh} and
-@code{ih}; the following is a series of Cs with increasing
-pitches
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\set Staff.extraNatural = ##f
-ceseh ces ceh c cih cis cisih
-@end lilypond
-
 
 @commonprop
 
@@ -333,7 +308,6 @@ Snippets: @lsrdir{Pitches},
 @lsr{Pitches,
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly},
 @lsr{Pitches, makam.ly}.
-
 
 
 @refbugs
@@ -398,6 +372,14 @@ define are:
 @end multitable
 @end example
 
+In Dutch, @code{aes} is contracted to @code{as}, but both forms
+are accepted in LilyPond.  Similarly, both @code{es} and
+@code{ees} are accepted:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+a2 as e es
+@end lilypond
+
 Note that in some languages such as Norwegian and Swedish, the
 usual spelling for accidentals is a double @q{s} such as in
 @code{ciss} or @code{cess}.  For both historical reasons and a
@@ -434,6 +416,7 @@ special names have been defined yet.
 @item deutsch.ly
   @tab c d e f g a b h
   @tab -ih @tab -eh @tab -isih @tab -eseh
+@c TODO:
 @c @item norsk.ly
 @c   @tab c d e f g a b h
 @c @item svenska.ly
@@ -1119,7 +1102,7 @@ both staves.
 @end example
 
 
-@c don't use verbatim in this table.
+@c NOTE: don't use verbatim in this table.
 @table @code
 @item default
 This is the default typesetting behavior.  It corresponds to
