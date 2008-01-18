@@ -472,13 +472,22 @@ a comment is a remark for the human reader of the music input; it
 is ignored while parsing, so it has no effect on the printed
 output.  There are two types of comments.  The percent symbol
 @code{%} introduces a line comment; anything after @code{%} on
-that line is ignored.  A block comment marks a whole section of
-music input as a comment.  Anything that is enclosed in @code{%@{}
-and @code{%@}} is ignored.  However, block comments do not @q{nest}.
-This means that you cannot place a block comment inside another 
-block comment.  If you try, the first @code{%@}} will terminate 
-@emph{both} block comments.  The following
-fragment shows possible uses for comments:
+that line is ignored.  By convention, a line comment is placed
+@emph{above} the code it refers to.
+
+@example
+a4 a a a
+% this comment refers to the Bs
+b2 b
+@end example
+
+A block comment marks a whole section of music input as a comment.
+Anything that is enclosed in @code{%@{} and @code{%@}} is ignored.
+However, block comments do not @q{nest}.  This means that you
+cannot place a block comment inside another block comment.  If you
+try, the first @code{%@}} will terminate @emph{both} block
+comments.  The following fragment shows possible uses for
+comments:
 
 @example
 % notes for twinkle twinkle follow
