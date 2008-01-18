@@ -11,13 +11,13 @@ the Staff context.
 " }
 % begin verbatim
 \relative {
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-\set Staff.printKeyCancellation = ##f
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
+  \key d \major
+  a b cis d
+  \key g \minor
+  a bes c d
+  \set Staff.printKeyCancellation = ##f
+  \key d \major
+  a b cis d
+  \key g \minor
+  a bes c d
 }
