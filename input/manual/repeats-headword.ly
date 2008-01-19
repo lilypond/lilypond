@@ -8,18 +8,7 @@
 % Movt II, Andante con moto
 % Measures 9 - 16
 
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
 \layout { }
-
-#(set-global-staff-size 18)
 
 \new PianoStaff <<
 

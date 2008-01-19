@@ -7,17 +7,6 @@
 % Piano sonata 19 - "Leichte Sonate"
 % measures 1 - 12
 
-#(set-global-staff-size 16)
-
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
 %\layout {
 %   \context {
 %      \Score

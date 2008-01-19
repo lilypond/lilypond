@@ -8,17 +8,6 @@
 % Movt II - Arietta - Adagio molto semplice e cantabile
 % measures 108 - 118
 
-#(set-global-staff-size 16)
-
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
 \layout {
    \context {
       \Score

@@ -5,18 +5,7 @@
 
 % L. v. Beethoven, Op. 110
 % Piano sonata 31
-% measures 1 - 
-
-#(set-global-staff-size 14)
-
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  %ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
+% measures 1 - 7
 
 \layout {
    \context {

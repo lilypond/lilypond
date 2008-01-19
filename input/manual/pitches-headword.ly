@@ -7,14 +7,6 @@
 % Piano sonata 21 - Dem Grafen von Waldstein Gewidmet
 % chorale at measures 34 - 40+
 
-\layout {
-   \context {
-      \Score
-      \override SpacingSpanner #'base-shortest-duration = 
-         #(ly:make-moment 1 20) 
-   }
-}
-
 \new PianoStaff <<
 
    % RH Staff
@@ -74,8 +66,8 @@
          |
          b'2. ( \sf \>
          a'4 ) 
-         |
          \clef bass
+         | \break
          s1 \p
          |
          s1

@@ -7,15 +7,6 @@
 % Piano sonata 18, Movt II, Scherzo
 % Measures 9 - 14
 
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
-}
-
 \layout { }
 
 \new PianoStaff <<

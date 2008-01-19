@@ -8,18 +8,15 @@
 % Movt II - Abwesenheit
 % Measures 31 - 34
 
-\paper {
-  #(define dump-extents #t)
-  indent = 0\mm
-  ragged-right = ##t
-  line-width = 16\cm
-  force-assignment = #""
-  line-width = #(- line-width (* mm  3.000000))
+\layout {
+   \context {
+      \Score
+      \override SpacingSpanner #'base-shortest-duration = 
+         #(ly:make-moment 1 40) 
+      %\override SpacingSpanner #'strict-grace-spacing = ##t
+   }
 }
 
-\layout { }
-
-#(set-global-staff-size 16)
 \new PianoStaff <<
 
    % RH Staff
