@@ -26,7 +26,7 @@ map <buffer> <F4> :w<Return>:se makeprg=lilypond\ -m\ %<<Return>:make<Return>:!t
 map <buffer> <F5> :w<Return>:se makeprg=lilypond\ %<<Return>:make<Return>
 "
 " <F6>  view ps
-map <buffer> <F6> :!gv -watch %<.ps &<Return>
+map <buffer> <F6> :!gv --watch %<.ps &<Return>
 "
 " <S-F6>  view dvi
 map <buffer> <S-F6> :!xdvi %<.dvi &<Return>
