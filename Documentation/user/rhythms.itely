@@ -1019,6 +1019,18 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+Bar numbering is resumed at the end of the cadenza as if the
+cadenza were not there:
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+\override Score.BarNumber #'break-visibility = ##( #t #t #t )
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
 
 @refbugs
 
@@ -1046,8 +1058,10 @@ Snippets: @lsrdir{rhythms}
 @cindex polymetric signatures
 @cindex meter, polymetric
 
-@c TODO: add glossary entries for {signature, polymetric},
-@c {meter, polymetric}, {polymetric} (time signature, double}. rp
+Music Glossary:
+@rglos{polymetric}
+@rglos{polymetric time signature}
+@rglos{meter}
 
 Double time signatures are not supported explicitly, but they can
 be faked.  In the next example, the markup for the time signature
@@ -1169,12 +1183,6 @@ aligned vertically, but bar lines distort the regular spacing.
 
 @seealso
 
-@ignore
-TODO: add @rglos{polymetric time signature}, {polymetric}, {double time
-signature}, and {polymetric meter}. when glossary entries
-exist.
-@end ignore
-
 Snippets: @lsrdir{rhythms}, @lsr{contemporary,compound-time-signature}.
 
 Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
@@ -1286,19 +1294,26 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
-@c [TODO I think this could be worded more clearly, but I'm not sure how.] rp
-The property @code{subdivideBeams} can be set in order to
-subdivide all 16th or shorter beams.  When set, multiple beams
-will be sub-divided at beat positions, defined by the current
-value of @code{beatLength} (defaults to a quarter note), by
-drawing only one beam over the connection between beats.
+The beams of consecutive 16th (or shorter) notes are, by default,
+not sub-divided.  That is, the three (or more) beams stretch
+unbroken over entire groups of notes.  This behaviour can
+be modified to sub-divide the beams into sub-groups by setting 
+the property @code{subdivideBeams}.  When set, multiple beams 
+will be sub-divided at intervals defined by the current value of
+@code{beatLength} by reducing the multiple beams to just one beam
+between the sub-groups. Note that @code{beatLength} lives in the
+@code{Score} context and defaults to a quarter note.  It must be
+set to a fraction giving the duration of the beam sub-group
+using the @code{make-moment} function, as shown here:
 
 @lilypond[fragment,ragged-right,quote,relative=2,verbatim]
 c32[ c c c c c c c]
 \set subdivideBeams = ##t
 c32[ c c c c c c c]
+% Set beam sub-group length to an eighth note
 \set Score.beatLength = #(ly:make-moment 1 8)
 c32[ c c c c c c c]
+% Set beam sub-group length to a sixteenth note
 \set Score.beatLength = #(ly:make-moment 1 16)
 c32[ c c c c c c c]
 @end lilypond
@@ -1370,7 +1385,7 @@ Beams can collide with note heads and accidentals in other voices
 @c [TODO: use \applyContext]
 
 In normal time signatures, automatic beams can start on any note
-but can only end in a few positions within the measure: beams can
+but can end in only a few positions within the measure: beams can
 end on a beat, or at durations specified by the properties in
 @code{autoBeamSettings}.  The properties in
 @code{autoBeamSettings} consist of a list of rules for where beams
@@ -1597,6 +1612,8 @@ the group as a whole.
 
 
 @commonprop
+
+@unnumberedsubsubsec Feathered beams
 
 @cindex beams, feathered
 @funindex \featherDurations 
@@ -2335,8 +2352,10 @@ in other staves by setting @code{strict-grace-spacing} to
 
 @seealso
 
-Music Glossary: @rglos{grace notes}, @rglos{acciaccatura}, 
-@c [TODO add appoggiatura]
+Music Glossary:
+@rglos{grace notes},
+@rglos{acciaccatura},
+@rglos{appoggiatura}
 
 Snippets: @lsrdir{rhythms}
 
@@ -2491,6 +2510,7 @@ Snippets: @lsrdir{rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
