@@ -85,7 +85,7 @@ local-WWW-post:
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf
 	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(outdir) "$(WEB_TARGETS)"
-	find $(foreach t, $(WEB_TARGETS), $(outdir)/$(t)-root) -type l -delete
+	find $(outdir)/offline-root -type l -delete
 
 
 tree-prefix = $(outdir)
