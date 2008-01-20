@@ -54,7 +54,9 @@ engraved in the octave below middle C.
 @c NOTE: don't use c' here.
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef bass
-c d e f g a b c d e f g
+c d e f
+g a b c
+d e f g
 @end lilypond
 
 @funindex '
@@ -67,9 +69,11 @@ octave.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef treble
-c' c'' e' g d'' d' d c
+c' c'' e' g
+d'' d' d c
 \clef bass
-c, c,, e, g d,, d, d c
+c, c,, e, g
+d,, d, d c
 @end lilypond
 
 @seealso
@@ -128,7 +132,9 @@ Here is the relative mode shown in action:
 @lilypond[verbatim,quote,ragged-right]
 \relative c {
   \clef bass
-  c d e f g a b c d e f g
+  c d e f
+  g a b c
+  d e f g
 }
 @end lilypond
 
@@ -137,7 +143,8 @@ fourth:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
-  c g c f, c' a, e'' c
+  c g c f,
+  c' a, e'' c
 }
 @end lilypond
 
@@ -146,7 +153,8 @@ large intervals:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c {
-  c f b e a d g c
+  c f b e
+  a d g c
 }
 @end lilypond
 
@@ -288,7 +296,9 @@ Accidentals are only printed on tied notes which begin a new
 system:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-cis1~ cis~ \break cis
+cis1~ cis~
+\break
+cis
 @end lilypond
 
 
@@ -656,31 +666,6 @@ c
 c
 @end lilypond
 
-The clef can also be changed inside the staff:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=0]
-\new PianoStaff <<
-  \new Staff {
-    \time 2/4
-    \clef treble
-    r16
-    \clef bass
-    e g c e e, g c
-  }
-  \new Staff {
-    \clef bass
-    c,,8 r
-    \clef treble
-    g''''4
-  }
->>
-@end lilypond
-
-These same clef symbols are used in different positions on the staff to
-change the range of notes shown by that staff.  The treble (respectively
-alto, bass) clef is always positioned to show the line on which
-a@tie{}@code{g'} (resp. @code{c'}, @code{f}) note is printed.
-
 Supported clefs include
 
 @multitable @columnfractions .4 .6
@@ -722,7 +707,8 @@ For example,
 @cindex choral tenor clef
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
-\clef "G_8" c4
+\clef "treble_8" c1
+\clef "bass^15" c1
 @end lilypond
 
 
@@ -786,7 +772,8 @@ called @q{church modes}: @code{\ionian}, @code{\locrian},
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key g \major
-f1
+fis1
+f
 fis
 @end lilypond
 
@@ -881,93 +868,70 @@ during an octavation bracket.
 
 When typesetting scores that involve transposing instruments, some
 parts can be typeset in a different pitch than the
-@notation{concert pitch}.
-
-The key of a @notation{transposing instrument} can be specified.
-This applies to many wind instruments, for example, clarinets
-(B-flat, A, and E-flat), horn (F) and trumpet (B-flat, C, D,
-and@tie{}F).
-
-For such instruments, LilyPond will print a correct part, but is
-not aware whether the instrument is playing in concert pitch or
-not.  This can lead to problems if you want a MIDI output, or if
-you quote other parts in a transposing staff.  In such cases, an
-explicit transposition must be specified:
+@notation{concert pitch}.  In these cases, the key of the
+@notation{transposing instrument} should be specified; otherwise
+the MIDI output and cues in other parts will produce incorrect
+pitches.  For more information about quotations, see @ref{Quoting
+other voices}.
 
 @example
 \transposition @var{pitch}
 @end example
 
-@noindent
-where @var{pitch} specifies the key in which the instrument plays.
-For example, a part for B-flat clarinet would include:
-
-@example
-\transposition bes
-@end example
-
-This command sets the property @code{instrumentTransposition}.
-The value of this property is used for MIDI output and quotations.
-MIDI output is transposed to play at concert pitch, and cue notes
-and quotations are automatically transposed to the key of the
-instrument in which they are quoted.  For more information about
-quotations, see @ref{Quoting other voices}.
-
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a@tie{}@code{c'} written on the staff is
-played by the transposing instrument.  @code{\transposition}
-should be used when the music is entered from an orchestral part
-written for the instrument.  For example, in classical horn parts,
-the tuning of the instrument is often changed during a piece.
-Here are a few notes for a violin and a B-flat clarinet where the
+played by the transposing instrument.
+
+Here are a few notes for violin and B-flat clarinet where the
 parts have been entered using the notes and key as they appear in
-each part or the conductor's score:
+each part of the conductor's score.  The two instruments are
+playing in unison.
 
 @lilypond[verbatim,quote,ragged-right]
 \new GrandStaff <<
-  \new Staff = "Violin I" {
-    \set Staff.instrumentName = "Vln"
-    \set Staff.midiInstrument="violin"
-    \key c \major
-    \transposition c
-    g'4( c''8) r c'' r c''4
+  \new Staff = "Vln" {
+    \relative c'' {
+      \transposition c'
+      \set Staff.instrumentName = "Vln"
+      \set Staff.midiInstrument="violin"
+      \key c \major
+      c4 d e f
+    }
   }
-  \new Staff = "Clarinet" {
-    \set Staff.instrumentName = "Cl"
-    \set Staff.midiInstrument="clarinet"
-    \key d \major
-    \transposition bes
-    a'4( d''8) r d'' r d''4
+  \new Staff = "clarinet" {
+    \relative c'' {
+      \transposition bes
+      \set Staff.instrumentName = \markup {Cl (B\flat)}
+      \set Staff.midiInstrument="clarinet"
+      \key d \major
+      d e fis g
+    }
   }
 >>
 @end lilypond
 
-Without the @code{\transposition} command the MIDI output of this
-music would play the notes a tone apart; with it the notes are
-played correctly in unison.
+The @code{\transposition} may be changed during a piece.  For
+example, a clarinetist may switch from an A clarinet to a B-flat
+clarinet.
 
-However, when entering the notes of a score in concert pitch, when
-all voices are entered in C, they may be prefaced by (the default)
-@code{\transposition c'}:
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+\set Staff.instrumentName = "Cl (A)"
+\key a \major
+\transposition a
+c d e f
+\fatText
+r1^\markup{Switch to B\flat clarinet}
 
-@example
-clarinet = @{
-  \transposition c'
-  ...
-@}
-saxophone = @{
-  \transposition c'
-  ...
-@}
-@end example
-
-@noindent
-to serve as a reminder that these parts are written in C.
+\key bes \major
+\transposition bes
+c2 g
+@end lilypond
 
 
 @seealso
 
-Music Glossary: @c TODO @rglos{concert pitch}
+Music Glossary: @rglos{concert pitch}, @rglos{transposing
+instrument}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -1669,7 +1633,7 @@ problematic notes.
 The term @notation{ambitus} or @notation{ambit} denotes a range of
 pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
-Ambits are printed on vocal parts, so performers can easily
+Ambits are printed on vocal parts so that performers can easily
 determine if it matches their capabilities.
 
 Ambits are denoted at the beginning of a piece near the initial
@@ -1815,7 +1779,7 @@ notation was popular in nineteenth-century American song books.
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
-@lilypond[verbatim,fragment,relative=1]
+@lilypond[verbatim,fragment,quote,ragged-right,relative=1]
 \aikenHeads
 c8 d4 e8 a2 g1
 \sacredHarpHeads
