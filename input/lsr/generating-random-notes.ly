@@ -4,7 +4,7 @@
 \version "2.11.35"
 
 \header { texidoc = "
-This Scheme-based snippet allows you to generate 32 random notes (or as
+This Scheme-based snippet allows you to generate 24 random notes (or as
 many as you want), based on the current time (or any randomish number
 you might wish to specify instead, so you can obtain the same random
 notes each time): i.e. to get different random notes patterns, just
@@ -23,6 +23,6 @@ change this number.
                               'pitch (ly:make-pitch (quotient idx 7)
                                       (remainder idx 7)
                                       0))))))
-       (make-list 32)))))
+       (make-list 24)))))
    }
 }

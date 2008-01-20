@@ -64,9 +64,10 @@ naturaliseMusic =
 			(naturalise m))
 
 \score {
-   \context Staff {
+   \new Staff {
     \transpose c ais \music
-    \naturaliseMusic \transpose c ais \music
+    \naturaliseMusic \transpose c ais \music 
+    \break
     \transpose c deses \music
     \naturaliseMusic \transpose c deses \music
   }

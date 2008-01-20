@@ -9,8 +9,8 @@ as compound time signatures (e.g. \"3/8 + 2/8\"), which combine two or
 more inequal metrics. LilyPond can make such musics quite easy to read
 and play, by explicitly printing the compound time signatures and
 adapting the automatic beaming behaviour. (You can even add graphic
-measure groping indications, the appropriate snippet in this database.)
-
+measure grouping indications, see the appropriate snippet in this
+database.) 
 " }
 % begin verbatim
 #(define (compound-time one two num)

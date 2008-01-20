@@ -35,49 +35,49 @@ line, they do not.
 " }
 % begin verbatim
 {
-           % The default treble clef
-           c'1
-           % The standard bass clef
-           \set Staff.clefGlyph = #"clefs.F"
-           \set Staff.clefPosition = #2
-           \set Staff.middleCPosition = #6
-           c'
-           % The baritone clef
-           \set Staff.clefGlyph = #"clefs.C"
-           \set Staff.clefPosition = #4
-           \set Staff.middleCPosition = #4
-           c'
-           % The standard choral tenor clef
-           \set Staff.clefGlyph = #"clefs.G"
-           \set Staff.clefPosition = #-2
-           \set Staff.clefOctavation = #-7
-           \set Staff.middleCPosition = #1
-           c'
-           % A non-standard clef
-           \set Staff.clefPosition = #0
-           \set Staff.clefOctavation = #0
-           \set Staff.middleCPosition = #-4
-           c' \break
-           
-           
-           % The following clef changes do not preserve
-           % the normal relationship between notes and clefs:
-
-           \set Staff.clefGlyph = #"clefs.F"
-           \set Staff.clefPosition = #2
-           c'
-           \set Staff.clefGlyph = #"clefs.G"
-           c'
-           \set Staff.clefGlyph = #"clefs.C"
-           c'
-           \set Staff.clefOctavation = #7
-           c'
-           \set Staff.clefOctavation = #0
-           \set Staff.clefPosition = #0
-           c'
-           
-           % Here we go back to the normal clef:
-           
-           \set Staff.middleCPosition = #4
-           c'
-         }
+  % The default treble clef
+  c'1
+  % The standard bass clef
+  \set Staff.clefGlyph = #"clefs.F"
+  \set Staff.clefPosition = #2
+  \set Staff.middleCPosition = #6
+  c'
+  % The baritone clef
+  \set Staff.clefGlyph = #"clefs.C"
+  \set Staff.clefPosition = #4
+  \set Staff.middleCPosition = #4
+  c'
+  % The standard choral tenor clef
+  \set Staff.clefGlyph = #"clefs.G"
+  \set Staff.clefPosition = #-2
+  \set Staff.clefOctavation = #-7
+  \set Staff.middleCPosition = #1
+  c'
+  % A non-standard clef
+  \set Staff.clefPosition = #0
+  \set Staff.clefOctavation = #0
+  \set Staff.middleCPosition = #-4
+  c' \break
+  
+  
+  % The following clef changes do not preserve
+  % the normal relationship between notes and clefs:
+  
+  \set Staff.clefGlyph = #"clefs.F"
+  \set Staff.clefPosition = #2
+  c'
+  \set Staff.clefGlyph = #"clefs.G"
+  c'
+  \set Staff.clefGlyph = #"clefs.C"
+  c'
+  \set Staff.clefOctavation = #7
+  c'
+  \set Staff.clefOctavation = #0
+  \set Staff.clefPosition = #0
+  c'
+  
+  % Here we go back to the normal clef:
+  
+  \set Staff.middleCPosition = #4
+  c'
+}
