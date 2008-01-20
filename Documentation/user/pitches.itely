@@ -54,7 +54,7 @@ engraved in the octave below middle C.
 @c NOTE: don't use c' here.
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef bass
-c d e f g a b c
+c d e f g a b c d e f g
 @end lilypond
 
 @funindex '
@@ -128,7 +128,7 @@ Here is the relative mode shown in action:
 @lilypond[verbatim,quote,ragged-right]
 \relative c {
   \clef bass
-  c d e f g a b c
+  c d e f g a b c d e f g
 }
 @end lilypond
 
@@ -170,9 +170,9 @@ When octaves are specified in absolute mode it is easy to
 accidentally put a pitch in the wrong octave.  Relative octave
 mode reduces these errors since most of the time it is not
 necessary to indicate any octaves at all.  Furthermore, in
-absolute mode, a single mistake may be difficult to spot; in
-relative mode, a single error puts the rest of the piece off by
-one octave.
+absolute mode a single mistake may be difficult to spot, while in
+relative mode a single error puts the rest of the piece off by one
+octave.
 
 As explained above, the octave of pitches is calculated only with
 the note names, regardless of any alterations.  Therefore, an
@@ -195,6 +195,8 @@ that each interval contains.
 @seealso
 
 Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
+
+Notation Reference: @ref{Octave check}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -331,8 +333,8 @@ define are:
 
 @cindex note names, other languages
 
-@example
-@multitable {nederlands.ly a} {do re mi fa sol la sib si a} {-iss/-is a} {-ess/-es a} {-ississ/-isis a} {-ississ/-isis a}
+@smallexample
+@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Language
   @tab Note names
   @tab sharp @tab flat @tab double sharp @tab double flat
@@ -372,7 +374,7 @@ define are:
   @tab do re mi fa sol la sib si
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
-@end example
+@end smallexample
 
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quartertones defined
@@ -381,8 +383,8 @@ Here the prefixes @notation{semi-} and @notation{sesqui-} mean
 @q{half} and @q{one and a half}, respectively.  For the other
 languages, no special names have been defined yet.
 
-@example
-@multitable {nederlands.ly a} {do re mi fa sol la sib si a} {-iss/-is a} {-ess/-es a} {-ississ/-isis a} {-ississ/-isis a}
+@smallexample
+@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
 @headitem Language
   @tab Note names
   @tab semi- @tab semi- @tab sesqui- @tab sesqui-
@@ -403,7 +405,7 @@ languages, no special names have been defined yet.
   @tab do re mi fa sol la sib si
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
-@end example
+@end smallexample
 
 In Dutch, @code{aes} is contracted to @code{as}, but both forms
 are accepted in LilyPond.  Similarly, both @code{es} and
@@ -444,81 +446,51 @@ This section discusses how to modify pitches.
 @cindex octave check
 
 In relative mode, it is easy to forget an octave changing mark.
-Octave checks make such errors easier to correct.  A note may be
-followed by @code{=}@var{quotes} to indicate what its absolute
-octave should be.  In the following example,
+Octave checks make such errors easier to correct by displaying a
+warning if a note is found in an unexpected octave.  There are two
+types of octave checks: the first changes the pitch, while the
+second does not change the pitch.  Both checks print warnings and
+change the octave for future notes.
 
-@example
-\relative c'' @{
-  c g d=''
-@}
-@end example
+Consider the simple example:
 
-@noindent
-the@tie{}@code{d} will generate a warning, because
-a@tie{}@code{d''} is expected, as indicated by the octave check
-@code{=''}, but a@tie{}@code{d'} is found, since both
-@code{c}-@code{g} and @code{g}-@code{d} without octavation marks
-are descending fourths.  In the output, the octave is corrected to
-be a@tie{}@code{d''} and the next note is calculated relative
-to@tie{}@code{d''} instead of@tie{}@code{d'}.
+@lilypond[verbatim,quote,ragged-right,fragment]
+\relative c'' {
+  c2 d
+  e2 f
+}
+@end lilypond
 
-There is also an octave check which produces no visible output.
-The syntax is:
+To check the octave of the @code{d} (changing the pitch
+automatically if necessary), add @code{=}@var{quotes} after the
+pitch.  The @var{quotes} indicate what its absolute octave should
+be.  This example will generate a warning, because the second note
+is the absolute octave @code{d''} instead of @code{d'} indicated
+by the octave check.
 
-@example
-@var{pitch} \octave @var{controlpitch}
-@end example
+@lilypond[verbatim,quote,ragged-right,fragment]
+\relative c'' {
+  c2 d='
+  e2 f
+}
+@end lilypond
 
-@noindent
-where @var{pitch} is a regular note within a music expression in
-relative mode and @var{controlpitch} is a pitch in absolute mode.
-This checks that @var{pitch} lies within the octave surrounding
+To check the octave of the@tie{}@code{d} (without changing the
+pitch), add @code{\octave}@tie{}@var{controlpitch} to the note.
+This checks that the note lies within the octave surrounding
 @var{controlpitch}, i.e. not more than a fourth above or below it.
 If this is not the case, a warning is printed and the octave is
 corrected.  The @var{controlpitch} is not printed as a note.
 
-In the example below, the first check passes without incident,
-since the@tie{}@code{e} (in @code{relative} mode) is within the
-octave range of@tie{}@code{a'}.  However, the second check
-produces a warning, since the@tie{}@code{e} is not within the
-octave range of@tie{}@code{b'}.  The warning message is printed,
-and the octave is adjusted so that the following notes are in the
-correct octave once again.
-
-@example
-\relative c' @{
-  e
-  \octave a'
-  \octave b'
-@}
-@end example
-
-The octave of a note following an @code{\octave} check is
-determined with respect to the note preceding it, as modified by
-the outcome of the octave check.  In the next fragment, the first
-note, an@tie{}@code{e'}, lies within the octave of@tie{}@code{b},
-and the @code{\octave} check passes successfully.  The second note
-is then calculated relative to (absolute)@tie{}@code{e'}, which
-yields an@tie{}@code{a'}, above middle@tie{}C.  In this case, the
-check had no influence on the output of the piece.
-
-The second @code{\octave} check fails: @code{a'}@tie{}is not
-within the range of@tie{}@code{b}.  A warning is issued, and the
-last note is calculated relative to@tie{}@code{a}, not
-to@tie{}@code{a'}, and we get a@tie{}@code{d'}.  Without the last
-@code{\octave} check, the last note would have been
-a@tie{}@code{d''}.
-
 @lilypond[verbatim,quote,ragged-right,fragment]
-\relative c' {
-  e
-  \octave b
-  a
-  \octave b
-  d
+\relative c'' {
+  c2 d \octave d'
+  e2 f
 }
 @end lilypond
+
+In both cases, the following note (the@tie{}@code{e}) is adjusted
+to be relative to@tie{}@code{d'} instead of@tie{}@code{d''}.
 
 @seealso
 
@@ -546,30 +518,27 @@ with pitch @var{frompitch} is changed to @var{topitch} and any
 other note is transposed by the same interval.
 
 Consider a piece written in the key of D-major.  It can be
-transposed up to E-major with:
-
-@example
-\transpose d e @dots{}
-@end example
-
-Consider a part written for violin (a C instrument).  If this part
-is to be played on the A clarinet (for which an A is notated as a
-C and thus sounds a minor third lower than notated), the
-appropriate part will be produced with:
-
-@example
-\transpose a c' @dots{}
-@end example
-
-@code{\transpose} will also transpose key signatures:
+transposed up to E-major:
 
 @lilypond[verbatim,quote,ragged-right]
-mus = { \key d \major cis d fis g }
-\new Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
+\transpose d e {
+  \relative c' {
+    \key d \major
+    d4 fis a d
+  }
+}
+@end lilypond
+
+If a part written in C (normal concert pitch) is to be played on
+the A clarinet (for which an A is notated as a C and thus sounds a
+minor third lower than notated), the appropriate part will be
+produced with:
+
+@lilypond[verbatim,quote,ragged-right]
+\transpose a c' {
+  \relative c' {
+    c4 d e g
+  }
 }
 @end lilypond
 
@@ -615,6 +584,7 @@ musicInBflat = @{ e4 @dots{} @}
 @noindent
 For more information about transposing instruments,
 see @ref{Instrument transpositions}.
+
 
 @commonprop
 
