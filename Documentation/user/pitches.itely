@@ -866,7 +866,9 @@ other voices}.
 
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a@tie{}@code{c'} written on the staff is
-played by the transposing instrument.
+played by the transposing instrument.  @code{\transposition}
+should @emph{only} be used if the pitches are @emph{not} being
+entered in concert pitch.
 
 Here are a few notes for violin and B-flat clarinet where the
 parts have been entered using the notes and key as they appear in
@@ -892,6 +894,7 @@ playing in unison.
       \set Staff.midiInstrument="clarinet"
       \transposition bes
 
+      % not concert pitch
       \key d \major
       a4( d8) r d r d4
     }
