@@ -17,10 +17,10 @@ This section discusses how to specify the pitch of notes.  There
 are three steps to this process: input, modifying, and output.
 
 @menu
-* Writing pitches::
-* Changing multiple pitches::
-* Displaying pitches::
-* Note heads::
+* Writing pitches::             
+* Changing multiple pitches::   
+* Displaying pitches::          
+* Note heads::                  
 @end menu
 
 
@@ -32,10 +32,10 @@ different ways to place notes in octaves: absolute and relative
 mode.  In most cases, relative mode will be more convient.
 
 @menu
-* Absolute octave entry::
-* Relative octave entry::
-* Accidentals::
-* Note names in other languages::
+* Absolute octave entry::       
+* Relative octave entry::       
+* Accidentals::                 
+* Note names in other languages::  
 @end menu
 
 
@@ -90,11 +90,13 @@ Snippets: @lsrdir{Pitches}.
 @cindex relative octave specification
 @funindex \relative
 
-The absolute mode requires a lot of octave specifications, which
-not only becomes tedious but also easily leads to errors.
-Therefore, it is usually more convenient to let notes be entered
-relative to the previous note.  This is done with the relative
-mode.
+When octaves are specified in absolute mode it is easy to
+accidentally put a pitch in the wrong octave.  Relative octave
+mode reduces these errors since most of the time it is not
+necessary to indicate any octaves at all.  Furthermore, in
+absolute mode a single mistake may be difficult to spot, while in
+relative mode a single error puts the rest of the piece off by one
+octave.
 
 @example
 \relative @var{startpitch} @var{musicexpr}
@@ -174,14 +176,6 @@ relative to the preceding one.
 }
 @end lilypond
 
-When octaves are specified in absolute mode it is easy to
-accidentally put a pitch in the wrong octave.  Relative octave
-mode reduces these errors since most of the time it is not
-necessary to indicate any octaves at all.  Furthermore, in
-absolute mode a single mistake may be difficult to spot, while in
-relative mode a single error puts the rest of the piece off by one
-octave.
-
 As explained above, the octave of pitches is calculated only with
 the note names, regardless of any alterations.  Therefore, an
 E-double-sharp sharp following a B will be placed higher, while an
@@ -204,7 +198,7 @@ that each interval contains.
 
 Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
 
-Notation Reference: @ref{Octave check}.
+Notation Reference: @ref{Octave corrections and checks}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -245,8 +239,7 @@ from Dutch note naming conventions.  To use other names for
 accidentals, see @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-a2 ais a aes
-a2 aisis a aeses
+ais1 aes aisis aeses
 @end lilypond
 
 A natural will cancel the effect of an accidental or key
@@ -285,11 +278,11 @@ print them manually.  A reminder accidental can be forced by
 adding an exclamation mark@tie{}@code{!} after the pitch.  A
 cautionary accidental (i.e., an accidental within parentheses) can
 be obtained by adding the question mark@tie{}@code{?} after the
-pitch.  These extra accidentals can be used to produce natural
-signs, too.
+pitch.  These extra accidentals can also be used to produce
+natural signs.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-cis cis cis! cis? c c? c! c
+cis cis cis! cis? c c c! c?
 @end lilypond
 
 Accidentals are only printed on tied notes which begin a new
@@ -446,37 +439,30 @@ Snippets: @lsrdir{Pitches}.
 This section discusses how to modify pitches.
 
 @menu
-* Octave check::
-* Transpose::
+* Octave corrections and checks::  
+* Transpose::                   
 @end menu
 
-@node Octave check
-@unnumberedsubsubsec Octave check
+@node Octave corrections and checks
+@unnumberedsubsubsec Octave corrections and checks
 
+@cindex octave correction
 @cindex octave check
+@funindex =
+@funindex \octave
 
 In relative mode, it is easy to forget an octave changing mark.
-Octave checks make such errors easier to correct by displaying a
-warning if a note is found in an unexpected octave.  There are two
-types of octave checks: the first changes the pitch, while the
-second does not change the pitch.  Both checks print warnings and
-change the octave for future notes.
+Octave corrections and checks make such errors easier to find
+by displaying a warning if a note is found in an unexpected
+octave.  An octave correction will change the pitch, while an
+octave check does not change the pitch.  Both commands will print
+a warning and change the octave for future notes.
 
-Consider the simple example:
-
-@lilypond[verbatim,quote,ragged-right,fragment]
-\relative c'' {
-  c2 d
-  e2 f
-}
-@end lilypond
-
-To check the octave of the @code{d} (changing the pitch
-automatically if necessary), add @code{=}@var{quotes} after the
+To use an octave correction, add @code{=}@var{quotes} after the
 pitch.  The @var{quotes} indicate what its absolute octave should
-be.  This example will generate a warning, because the second note
-is the absolute octave @code{d''} instead of @code{d'} indicated
-by the octave check.
+be.  This example will generate a warning (and change the pitch)
+because the second note is the absolute octave @code{d''} instead
+of @code{d'} as indicated by the octave correction.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -485,12 +471,12 @@ by the octave check.
 }
 @end lilypond
 
-To check the octave of the@tie{}@code{d} (without changing the
-pitch), add @code{\octave}@tie{}@var{controlpitch} to the note.
-This checks that the note lies within the octave surrounding
-@var{controlpitch}, i.e. not more than a fourth above or below it.
-If this is not the case, a warning is printed and the octave is
-corrected.  The @var{controlpitch} is not printed as a note.
+To use an octave check, add @code{\octave}@tie{}@var{controlpitch}
+to the note.  This checks that the note lies within the octave
+surrounding @var{controlpitch}, i.e. not more than a fourth above
+or below it.  If this is not the case, a warning is printed and
+the octave is corrected.  The @var{controlpitch} is not printed as
+a note.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -528,7 +514,8 @@ with pitch @var{frompitch} is changed to @var{topitch} and any
 other note is transposed by the same interval.
 
 Consider a piece written in the key of D-major.  It can be
-transposed up to E-major:
+transposed up to E-major; note that the key signature is
+automatically transposed as well.
 
 @lilypond[verbatim,quote,ragged-right]
 \transpose d e {
@@ -624,12 +611,12 @@ a @code{\transpose}.
 This section discusses how to alter the output of pitches.
 
 @menu
-* Clef::
-* Key signature::
-* Ottava brackets::
-* Instrument transpositions::
-* Automatic accidentals::
-* Ambitus::
+* Clef::                        
+* Key signature::               
+* Ottava brackets::             
+* Instrument transpositions::   
+* Automatic accidentals::       
+* Ambitus::                     
 @end menu
 
 
@@ -657,16 +644,16 @@ The clef is set with the @code{\clef} @var{clefname} command:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \clef treble
-c1
+c2 c
 \clef alto
-c
+c2 c
 \clef tenor
-c
+c2 c
 \clef bass
-c
+c2 c
 @end lilypond
 
-Supported clefs include
+Supported clefs include:
 
 @multitable @columnfractions .4 .6
 @headitem Clef @tab Position
@@ -742,10 +729,8 @@ see @rlearning{Accidentals and key signatures}.}
 
 The key signature indicates the tonality in which a piece is
 played.  It is denoted by a set of alterations (flats or sharps)
-at the start of the staff.
-
-Setting or changing the key signature is done with the @code{\key}
-command:
+at the start of the staff.  Setting or changing the key signature
+is done with the @code{\key} command:
 
 @example
 \key @var{pitch} @var{mode}
@@ -838,6 +823,7 @@ c'
 @end lilypond
 @end ignore
 
+@c FIXME: add this
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 @c {}
 
@@ -891,20 +877,23 @@ playing in unison.
 \new GrandStaff <<
   \new Staff = "Vln" {
     \relative c'' {
-      \transposition c'
       \set Staff.instrumentName = "Vln"
       \set Staff.midiInstrument="violin"
+      % strictly speaking not necessary, but a good reminder
+      \transposition c'
+
       \key c \major
-      c4 d e f
+      g4( c8) r c r c4
     }
   }
   \new Staff = "clarinet" {
     \relative c'' {
-      \transposition bes
       \set Staff.instrumentName = \markup {Cl (B\flat)}
       \set Staff.midiInstrument="clarinet"
+      \transposition bes
+
       \key d \major
-      d e fis g
+      a4( d8) r d r d4
     }
   }
 >>
@@ -930,8 +919,8 @@ c2 g
 
 @seealso
 
-Music Glossary: @rglos{concert pitch}, @rglos{transposing
-instrument}.
+Music Glossary: @rglos{concert pitch},
+@rglos{transposing instrument}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -1684,10 +1673,10 @@ ambitus.
 @subsection Note heads
 
 @menu
-* Special note heads::
-* Easy notation note heads::
-* Shape note heads::
-* Improvisation::
+* Special note heads::          
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
 @end menu
 
 @node Special note heads
