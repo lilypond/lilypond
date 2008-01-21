@@ -474,13 +474,12 @@ of @code{d'} as indicated by the octave correction.
 To use an octave check, add @code{\octave}@tie{}@var{controlpitch}
 to the note.  This checks that the note lies within the octave
 surrounding @var{controlpitch}, i.e. not more than a fourth above
-or below it.  If this is not the case, a warning is printed and
-the octave is corrected.  The @var{controlpitch} is not printed as
-a note.
+or below it.  If this is not the case, a warning is printed.  The
+@var{controlpitch} is not printed as a note.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
-  c2 d \octave d'
+  c2 d \octave c'
   e2 f
 }
 @end lilypond
@@ -534,10 +533,16 @@ produced with:
 @lilypond[verbatim,quote,ragged-right]
 \transpose a c' {
   \relative c' {
+    \key c \major
     c4 d e g
   }
 }
 @end lilypond
+
+@noindent
+Note that we specify @code{\key c \major} explicitly.  If we do
+not specify a key signature, the notes will be transposed but no
+key signature will be printed.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose c cis} or @code{\transpose c des} will transpose
