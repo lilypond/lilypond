@@ -110,7 +110,7 @@ initialize the @code{TabStaff} with this code:
 
 @seealso
 
-Internals Reference: @internalsref{TabStaff}, @internalsref{TabVoice}.
+Internals Reference: @internalsref{TabNoteHead}, @internalsref{TabStaff}, @internalsref{TabVoice}.
 
 @refbugs
 
