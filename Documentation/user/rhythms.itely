@@ -1245,6 +1245,7 @@ Internals Reference: @internalsref{Note_heads_engraver},
 * Automatic beams::             
 * Setting automatic beam behavior::  
 * Manual beams::                
+* Feathered beams::             
 @end menu
 
 @node Automatic beams
@@ -1613,6 +1614,7 @@ the group as a whole.
 
 @commonprop
 
+@node Feathered beams
 @unnumberedsubsubsec Feathered beams
 
 @cindex beams, feathered
