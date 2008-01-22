@@ -13,8 +13,6 @@ new approach to music theory and language. This snippet shows how to
 achieve such notation rules with LilyPond.
 " }
 % begin verbatim
-% thanks to Rune Zedeler for this cool function :)
-
 webernAccidentals = {
     % the 5s are just "a value different from any accidental"
     \set Staff.keySignature = #'((0 . 5) (1 . 5) (2 . 5) (3 . 5)

@@ -1,8 +1,9 @@
 combining-dynamics-with-markup-texts.ly
 creating-text-spanners.ly
 vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
+markup-lines.ly
 center-text-below-hairpin-dynamics.ly
-piano-template-with-centered-lyrics.ly
+ottava-text.ly
 demonstrating-all-headers.ly
 changing-the-default-text-font-family.ly
 combining-two-parts-on-the-same-staff.ly
@@ -12,6 +13,6 @@ outputting-the-version-number.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 formatting-lyrics-syllables.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
-markup-lines.ly
+piano-template-with-centered-lyrics.ly
 adjusting-lyrics-vertical-spacing.ly
 aligning-lyrics.ly

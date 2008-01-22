@@ -1,7 +1,8 @@
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
 creating-a-sequence-of-notes-on-various-pitches.ly
-transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 makam.ly
+transposing-pitches-with-minimum-accidentals-smart-transpose.ly
+ottava-text.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 generating-random-notes.ly
 quoting-another-voice-with-transposition.ly
