@@ -198,7 +198,7 @@ that each interval contains.
 
 Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
 
-Notation Reference: @ref{Octave corrections and checks}.
+Notation Reference: @ref{Octave checks}.
 
 Snippets: @lsrdir{Pitches}.
 
@@ -439,30 +439,30 @@ Snippets: @lsrdir{Pitches}.
 This section discusses how to modify pitches.
 
 @menu
-* Octave corrections and checks::  
+* Octave checks::               
 * Transpose::                   
 @end menu
 
-@node Octave corrections and checks
-@unnumberedsubsubsec Octave corrections and checks
+@node Octave checks
+@unnumberedsubsubsec Octave checks
 
 @cindex octave correction
 @cindex octave check
 @funindex =
 @funindex \octave
 
+@c FIXME: bad descriptions.
 In relative mode, it is easy to forget an octave changing mark.
-Octave corrections and checks make such errors easier to find
-by displaying a warning if a note is found in an unexpected
-octave.  An octave correction will change the pitch, while an
-octave check does not change the pitch.  Both commands will print
-a warning and change the octave for future notes.
+Octave checks make such errors easier to find by displaying a
+warning and correcting the octave if a note is found in an
+unexpected octave.
 
-To use an octave correction, add @code{=}@var{quotes} after the
-pitch.  The @var{quotes} indicate what its absolute octave should
-be.  This example will generate a warning (and change the pitch)
-because the second note is the absolute octave @code{d''} instead
-of @code{d'} as indicated by the octave correction.
+To check the octave of a specific note, add
+@code{=}@tie{}@var{quotes} after the pitch.  The @var{quotes}
+indicate what its absolute octave should be.  This example will
+generate a warning (and change the pitch) because the second note
+is the absolute octave @code{d''} instead of @code{d'} as
+indicated by the octave correction.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -471,21 +471,41 @@ of @code{d'} as indicated by the octave correction.
 }
 @end lilypond
 
-To use an octave check, add @code{\octave}@tie{}@var{controlpitch}
-to the note.  This checks that the note lies within the octave
-surrounding @var{controlpitch}, i.e. not more than a fourth above
-or below it.  If this is not the case, a warning is printed.  The
-@var{controlpitch} is not printed as a note.
+The octave of pitches may also be checked with the
+@code{\octave}@tie{}@var{controlpitch} command.
+@var{controlpitch} is specified in absolute mode.  This checks
+that the interval between the previous note and the
+@var{contorlpitch} is within a fourth (the normal calculation of
+relative mode).  If this check fails, a warning is printed, but
+the previous note is not changed.  Future notes are relative to
+the @var{controlpitch}.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
-  c2 d \octave c'
+  c2 d
+  \octave c'
   e2 f
 }
 @end lilypond
 
-In both cases, the following note (the@tie{}@code{e}) is adjusted
-to be relative to@tie{}@code{d'} instead of@tie{}@code{d''}.
+Compare these two bars.  The first and third @code{\octave} check
+fail, but the second ones passes without fail.
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\relative c'' {
+  c4 f g f
+
+  c4
+  \octave c'
+  f
+  \octave c'
+  g
+  \octave c'
+  f
+}
+@end lilypond
+
+
 
 @seealso
 
