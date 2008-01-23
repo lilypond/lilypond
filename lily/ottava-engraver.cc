@@ -60,9 +60,8 @@ Ottava_spanner_engraver::process_music ()
 	  span_ = make_spanner ("OttavaBracket", SCM_EOL);
 	  span_->set_property ("text", ott);
 
-	  SCM c0 (get_property ("middleCPosition"));
-	  SCM oc0 (get_property ("originalMiddleCPosition"));
-	  if (scm_less_p (oc0, c0) == SCM_BOOL_T)
+	  SCM offset (get_property ("middleCOffset"));
+	  if (robust_scm2double (offset, 0) > 0)
 	    span_->set_property ("direction", scm_from_int (DOWN));
 	}
     }
