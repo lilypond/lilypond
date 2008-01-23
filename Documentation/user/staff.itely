@@ -154,7 +154,7 @@ system.ly}
 @seealso
 
 Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
-@c FIXME add @rglos{bracket}
+@rglos{bracket}.
 
 Snippets: @lsrdir{staff}
 
@@ -248,16 +248,17 @@ Internals Reference: @internalsref{StaffSymbol},
 @unnumberedsubsubsec Hiding staves
 
 @cindex Frenched scores
-@cindex staves, hiding 
+@cindex staves, hiding
+@cindex staves, empty 
 
 In orchestral scores, staff lines that only have rests are usually
 removed; this saves some space.  This style is called @q{French
-Score}.  For @internalsref{Lyrics}, @internalsref{ChordNames} and
-@internalsref{FiguredBass}, this is switched on by default.  When
+Score}.  For @code{Lyrics}, @code{ChordNames} and
+@code{FiguredBass}, this is switched on by default.  When
 the lines of these contexts turn out empty after the line-breaking
 process, they are removed.
 
-For normal staves, a specialized @internalsref{Staff} context is
+For normal staves, a specialized @code{Staff} context is
 available, which does the same: staves containing nothing (or only
 multi-measure rests) are removed.  The context definition is
 stored in @code{\RemoveEmptyStaffContext} variable.  Observe how
@@ -278,7 +279,7 @@ the second staff in this example disappears in the second line
 
 The first system shows all staves in full.  If empty staves should
 be removed from the first system too, set @code{remove-first} to
-true in @internalsref{VerticalAxisGroup}.
+true in @code{VerticalAxisGroup}.
 
 @example
 \override Score.VerticalAxisGroup #'remove-first = ##t
@@ -287,6 +288,8 @@ true in @internalsref{VerticalAxisGroup}.
 To remove other types of contexts, use
 @code{\AncientRemoveEmptyStaffContext} or
 @code{\RemoveEmptyRhythmicStaffContext}.
+
+@cindex ossia
 
 Another application of the @code{\RemoveEmptyStaffContext} is to
 make ossia sections, i.e., alternative melodies on a separate
@@ -311,7 +314,13 @@ You can make the staff lines invisible by removing the
 
 @seealso
 
+Notation Reference: @ref{Staff symbol}.
+
 Snippets: @lsrdir{staff}
+
+Internals Reference: @internalsref{ChordNames},
+@internalsref{FiguredBass}, @internalsref{Lyrics},
+@internalsref{Staff}, @internalsref{VerticalAxisGroup}.
 
 @node Writing parts
 @subsection Writing parts
