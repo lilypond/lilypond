@@ -1,4 +1,15 @@
 \version "2.11.33"
+\header {
+  doctitle = "Transposing music with minimum accidentals"
+  lsrtags = "pitches"
+ texidoc = "There is a way to enforce enharmonic modifications for
+notes in order to have the minimum number of accidentals. In that
+case, ``Double accidentals should be removed, as well as E-sharp
+(-> F), bC (-> B), bF (-> E), B-sharp (-> C).'', as proposed by a
+request for a new feature.  In this manner, the most natural
+enharmonic notes are chosen in this example.  "
+}
+
 #(define  (naturalise-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (* 4 (ly:pitch-alteration p))) 
