@@ -119,7 +119,7 @@ Volta_bracket_interface::modify_edge_height (Spanner *me)
 
   extract_grob_set (me, "bars", bars);
   Grob *endbar = bars.size () ? bars.back () : 0;
-  SCM glyph = endbar ? endbar->get_property ("glyph") : SCM_EOL;
+  SCM glyph = endbar ? endbar->get_property ("glyph-name") : SCM_EOL;
 
   string str;
   if (scm_is_string (glyph))
