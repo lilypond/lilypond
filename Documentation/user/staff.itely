@@ -377,6 +377,14 @@ For more details, see @ref{Text markup}.
 
 @seealso
 
+Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
+@rglos{tempo indication}.
+@c FIXME : add @rglos{Mälzels Metronome}, @rglos{M.M.}, @rglos{tempo}?
+
+Notation Reference: @ref{Text markup}.
+
+Snippets: @lsrdir{staff}.
+
 Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
 
@@ -395,9 +403,6 @@ place it further away from the staff.
 
 @c perhaps also an example of how to move it horizontally?
 
-@seealso
-
-Snippets: @lsrdir{staff}
 
 @node Instrument names
 @unnumberedsubsubsec Instrument names
