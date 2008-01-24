@@ -1,5 +1,5 @@
 applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
-creating-a-sequence-of-notes-on-various-pitches.ly
+ambiti-multiple-voices.ly
 makam.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 ottava-text.ly
@@ -10,6 +10,5 @@ adding-ambiti-per-voice.ly
 clefs-commonly-tweaked-properties.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
-creating-music-with-scheme-music-box.ly
-ambiti-multiple-voices.ly
+creating-a-sequence-of-notes-on-various-pitches.ly
 non-traditional-key-signatures.ly
