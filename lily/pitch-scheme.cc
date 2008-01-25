@@ -142,3 +142,21 @@ LY_DEFINE (ly_pitch_diff, "ly:pitch-diff",
 
   return pitch_interval (*r, *p).smobbed_copy ();
 }
+
+/* FIXME: probably isn't the right place for this function */
+#include "context.hh"
+LY_DEFINE (ly_set_middle_C_x, "ly:set-middle-C!",
+	   1, 0, 0, (SCM context),
+	   "Set the @code{middleCPosition} variable in @var{context}"
+	   " based on the variables @code{middleCClefPosition} and"
+	   " middleCOffset.")
+{
+  LY_ASSERT_SMOB (Context, context, 1);
+
+  Context *c = unsmob_context (context);
+  int clef_pos = robust_scm2int (c->get_property ("middleCClefPosition"), 0);
+  int offset = robust_scm2int (c->get_property ("middleCOffset"), 0);
+
+  c->set_property (ly_symbol2scm ("middleCPosition"), scm_from_int (clef_pos + offset));
+  return SCM_UNDEFINED;
+}

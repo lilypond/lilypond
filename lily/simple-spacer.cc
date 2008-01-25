@@ -84,7 +84,7 @@ Simple_spacer::rod_force (int l, int r, Real dist)
   Real c = range_stiffness (l, r, dist > d);
   Real block_stretch = dist - d;
 
-  if (isinf (c)) /* take care of the 0*infinity_f case */
+  if (isinf (c) && block_stretch == 0) /* take care of the 0*infinity_f case */
     return 0;
   return c * block_stretch;
 }
@@ -105,7 +105,12 @@ Simple_spacer::add_rod (int l, int r, Real dist)
       Real spring_dist = range_ideal_len (l, r);
       if (spring_dist < dist)
 	for (int i = l; i < r; i++)
-	  springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+	  {
+	    if (spring_dist)
+	      springs_[i].set_distance (springs_[i].distance () * dist / spring_dist);
+	    else
+	      springs_[i].set_distance (dist / (r - l));
+	  }
 
       return;
     }

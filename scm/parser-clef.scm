@@ -113,15 +113,17 @@
     (if (pair? e)
 	(let* ((musics (map make-prop-set
 			    `(((symbol . clefGlyph) (value . ,(cadr e)))
-			      ((symbol . middleCPosition)
+			      ((symbol . middleCClefPosition)
 			       (value . ,(+ oct
 					    (caddr e)
 					    (cdr (assoc (cadr e) c0-pitch-alist)))))
 			      ((symbol . clefPosition) (value . ,(caddr e)))
 			      ((symbol . clefOctavation) (value . ,(- oct))))))
+	       (recalc-mid-C (make-music 'ApplyContext))
 	       (seq (make-music 'SequentialMusic
-				'elements musics))
+				'elements (append musics (list recalc-mid-C))))
 	       (csp (make-music 'ContextSpeccedMusic)))
+	  (set! (ly:music-property recalc-mid-C 'procedure) ly:set-middle-C!)
 	  (context-spec-music seq 'Staff))
 	(begin
 	  (ly:warning (_ "unknown clef type `~a'") clef-name)

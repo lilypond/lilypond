@@ -505,6 +505,7 @@ automatically when an output definition (a @code{\score} or
   tieWaitForNote = ##f
   clefGlyph = #"clefs.G"
   clefPosition = #-2
+  middleCClefPosition = #-6
   middleCPosition = #-6
   firstClef = ##t
   
@@ -571,7 +572,8 @@ automatically when an output definition (a @code{\score} or
 
   bassStaffProperties = #'((assign clefGlyph "clefs.F")
   (assign clefPosition 2)
-  (assign middleCPosition 6))
+  (assign middleCPosition 6)
+  (assign middleCClefPosition 6))
 %% tablature:
   stringOneTopmost = ##t
   highStringOne = ##t
@@ -782,6 +784,7 @@ of Editio Vaticana."
   %% Choose vaticana do clef on 3rd line as default.
   clefGlyph = #"clefs.vaticana.do"
   middleCPosition = #1
+  middleCClefPosition = #1
   clefPosition = #1
   clefOctavation = #0
 
@@ -882,6 +885,7 @@ accommodated for typesetting a piece in mensural style."
 
   %% Choose petrucci g clef on 2nd line as default.
   clefGlyph = #"clefs.petrucci.g"
+  middleCClefPosition = #-6
   middleCPosition = #-6
   clefPosition = #-2
   clefOctavation = #0

@@ -306,9 +306,15 @@ markup.  Called with two arguments, event and context.")
 @code{midiMinimumVolume}.")
      (midiMinimumVolume ,number? "Set the minimum loudness for MIDI.
 Ranges from 0 to@tie{}1.")
+     (middleCClefPosition ,number? "The position of the middle C,
+as determined only by the clef.  This can be calculated by looking at
+@code{clefPosition} and @code{clefGlyph}.")
+     (middleCOffset ,number? "The offset of
+middle C from the position given by @code{middleCClefPosition} This
+is used for ottava brackets.")
      (middleCPosition ,number? "The place of the middle C, measured in
 half staff-spaces.  Usually determined by looking at
-@code{clefPosition} and @code{clefGlyph}.")
+@code{middleCClefPosition} and @code{middleCOffset}.")
      (minimumFret ,number? "The tablature auto string-selecting
 mechanism selects the highest string with a fret at least
 @code{minimumFret}.")
