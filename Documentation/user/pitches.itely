@@ -254,9 +254,8 @@ a4 aes a2
 @cindex quarter tones
 @cindex semi-flats, semi-sharps
 
-Half-flats and half-sharps are formed by adding @code{eh} and
-@code{ih}; the following is a series of Cs with increasing
-pitches
+Quarter tones may be added; the following is a series of Cs with
+increasing pitches
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 ceseh1 ces ceh c cih cis cisih
