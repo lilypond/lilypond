@@ -176,7 +176,7 @@ Languages in this order.
 * beat::                        
 * bind::                        
 * brace::                       
-* bracket::                       
+* bracket::                     
 * brass::                       
 * breath mark::                 
 * breve::                       
@@ -263,9 +263,9 @@ Languages in this order.
 * forefall::                    
 * forte::                       
 * fourth::                      
-* Frenched score::                      
-* Frenched staff::                      
-* Frenched staves::                      
+* Frenched score::              
+* Frenched staff::              
+* Frenched staves::             
 * fugue::                       
 * functional harmony::          
 * G::                           
@@ -313,6 +313,7 @@ Languages in this order.
 * meter::                       
 * metronome::                   
 * metronomic indication::       
+* metronome mark::              
 * mezzo-soprano::               
 * middle C::                    
 * minor::                       
@@ -4293,9 +4294,9 @@ Other recurrence patterns are possible:
 Other than quadruple and sextuple meters, these other recurrence
 patterns were not frequently used prior to the 20th Century.
 
-In addition to classification by @emph{tactus}, meters can be further
-classified by how the tactus is subdivided: in two, the meter is
-@emph{simple}; in three, the meter is @emph{compound}.
+In addition to classification by primary beat grouping, meters can be further
+classified by how the primary beat is subdivided: if in two, the meter is
+@emph{simple}; if in three, the meter is @emph{compound}.
 
 @itemize
 
@@ -4359,7 +4360,7 @@ Simple quintuple meter (B. Marcello, 1686-1739):
   aes4 bes8 aes ges4 aes f8 es \bar "||"}
 @end lilypond
 
-Compound duple meter:
+Compound duple meter (unknown):
 
 @lilypond[fragment,line-width=13.0\cm]
 \relative c' {
@@ -4387,7 +4388,7 @@ Compound quadruple meter (P. Yon, 1886-1943):
 \relative c' {
   \time 12/8
   \key e \major
-  b8.( a16) gis8 a8.( gis16) fis8 gis8.( fis16) e8 fis4 b,8 |
+  b'8.( a16) gis8 a8.( gis16) fis8 gis8.( fis16) e8 fis4 b,8 |
   e4 e8 fis( gis) a b4.~ b4 b8
   \bar "||"}
 @end lilypond
@@ -4411,13 +4412,27 @@ FI: metronomi.
 
 Device indicating the exact tempo of a piece.
 
+Invented ca. 1812 by Dietrich Nikolaus Winkler of Amsterdam, but takes its name
+from Johann Nepomuk Mälzel, who copied the device, added a scale of tempo
+divisions, and patented it as a "metronome".  The inevitable lawsuit that
+followed acknowledged Winkler as the creator, but by then Mälzel had already
+sold many of them, and people had taken to calling it a Mälzel Metronome.
+
 @seealso
 
-@ref{metronomic indication}.
+@ref{metronome mark}.
 
 
 @node metronomic indication
 @section metronomic indication
+
+@seealso
+
+@ref{metronome mark}
+
+
+@node metronome mark
+@section metronome mark
 
 ES: indicación metronómica,
 I: indicazione metronomica,
@@ -4428,8 +4443,13 @@ DK: metronomtal,
 S: metronomangivelse,
 FI: metronomiosoitus.
 
-Exact tempo indication (in beats per minute).  Also denoted by
-M.M.@: (Mälzels Metronom).
+Exact tempo indication (in beats per minute).  Abbreviated @samp{M.M.} or
+@samp{MM}, which is short for Mälzels Metronom (or Mälzel's Mark,
+@emph{anglice}).
+
+@seealso
+
+@ref{metronome}
 
 
 @node mezzo-soprano
@@ -6858,26 +6878,20 @@ saxophone, and bassoon.
 @node Duration names notes and rests
 @chapter Duration names, notes and rests
 
-@table @code
-@item DURATION NAMES, NOTES AND RESTS
-@end table
-
 @multitable @columnfractions .15 .26 .33 .26
 
-@item
+@headitem @strong{US}
   @tab @strong{UK}
   @tab @strong{I}
   @tab @strong{F (note name / rest name)}
-@item
+@headitem
   @tab @strong{D}
   @tab @strong{NL}
   @tab @strong{DK}
-@item
+@headitem
   @tab @strong{S}
   @tab @strong{FI}
   @tab @strong{ES}
-
-@c extra @items make this table harder to read, so I removed them.
 
 @item @strong{longa}
   @tab longa
