@@ -407,17 +407,19 @@ place it further away from the staff.
 @node Instrument names
 @unnumberedsubsubsec Instrument names
 
+@cindex instrument names
+@cindex instrument names, short
+
 In an orchestral score, instrument names are printed at the left
 side of the staves.
 
-This can be achieved by setting
-@internalsref{Staff}.@code{instrumentName} and
-@internalsref{Staff}.@code{shortInstrumentName}, or
-@internalsref{PianoStaff}.@code{instrumentName} and
-@internalsref{PianoStaff}.@code{shortInstrumentName}.  This will
-print text before the start of the staff.  For the first staff,
-@code{instrumentName} is used.  If set, @code{shortInstrumentName}
-is used for the following staves.
+This can be achieved by setting @code{Staff}.@code{instrumentName} and
+@code{Staff}.@code{shortInstrumentName}, or
+@code{PianoStaff}.@code{instrumentName} and
+@code{PianoStaff}.@code{shortInstrumentName}.  This will print text
+before the start of the staff.  For the first staff,
+@code{instrumentName} is used.  If set, @code{shortInstrumentName} is
+used for the following staves.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 \set Staff.instrumentName = "Ploink "
@@ -436,6 +438,8 @@ instrument names, for example
             \line { "in B" \smaller \flat } } }
 c''1
 @end lilypond
+
+@cindex instrument names, centering
 
 If you wish to center the instrument names, you must center all of
 them individually:
@@ -492,6 +496,8 @@ engraver must be added to that context.
 More information about adding and removing engravers can be found
 in @ref{Modifying context plug-ins}.
 
+@cindex instrument names, changing
+
 Instrument names may be changed in the middle of a piece,
 
 @lilypond[quote,fragment,verbatim,ragged-right]
@@ -508,15 +514,20 @@ c1 c c c \break
 
 @seealso
 
+Notation Reference: @ref{Modifying context plug-ins}.
+
 Snippets: @lsrdir{staff}
 
-Internals Reference: @internalsref{InstrumentName}.
+Internals Reference: @internalsref{InstrumentName},
+@internalsref{PianoStaff}, @internalsref{Staff}.
 
 
 @node Quoting other voices
 @unnumberedsubsubsec Quoting other voices
 
 @cindex cues
+@cindex quoting other voices
+@cindex fragments
 
 With quotations, fragments of other parts can be inserted into a
 part directly.  Before a part can be quoted, it must be marked
@@ -609,8 +620,8 @@ dynamics.
 
 @refbugs
 
-Only the contents of the first @internalsref{Voice} occurring in
-an @code{\addQuote} command will be considered for quotation, so
+Only the contents of the first @code{Voice} occurring in an
+@code{\addQuote} command will be considered for quotation, so
 @var{music} can not contain @code{\new} and @code{\context Voice}
 statements that would switch to a different Voice.
 
@@ -628,7 +639,7 @@ Notation Reference: @ref{Instrument transpositions}.
 
 Snippets: @lsrdir{staff}
 
-Internals Reference: @internalsref{QuoteMusic}.
+Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
 
 @node Formatting cue notes

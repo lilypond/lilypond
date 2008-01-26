@@ -124,10 +124,6 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 X11 and Ghostscript, and are named @file{c059033l.pfb}
 @file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
 
-@item @uref{http://www.xs4all.nl/~hanwen/mftrace/,mftrace} (1.1.19 or
-newer); you may need to install some additional packages to get mftrace
-to work.
-
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version
 1.8.2 or newer).  If you are installing binary packages, you may need to
 install guile-devel or guile-dev or libguile-dev too.
