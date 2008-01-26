@@ -7,7 +7,7 @@ MF_LOG_FILES = $(addprefix $(outdir)/, $(FONT_FILES:.mf=.log))
 DVI_FILES += $(MF_DVI_FILES)
 TFM_FILES += $(MF_TFM_FILES)
 
-MF2PT1_OPTIONS=--rounding=0.0001 
-
-
-
+MF2PT1_OPTIONS=--rounding=0.0001 \
+               --family=$(<:%.mf=%) \
+               --fullname=$(<:%.mf=%) \
+               --name=$(<:%.mf=%)
