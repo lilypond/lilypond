@@ -1530,6 +1530,7 @@
      . (
 	(break-align-symbol . staff-bar)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(cross-staff . #t)
 	(layer . 0)
 	(non-musical . #t)
 	(stencil . ,ly:span-bar::print)
