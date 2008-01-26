@@ -53,7 +53,7 @@ A basic example of a lilypond input file is
 There are many variations of this basic pattern, but this
 example serves as a useful starting place.
 
-Up to this point none of the examples you have seen have used a
+Up to this point none of the examples you have seen has used a
 @code{\score@{@}} command.  This is because LilyPond automatically
 adds the extra commands which are needed when you give it simple 
 input.  LilyPond treats input like this:
@@ -90,7 +90,7 @@ command, leaving the others to default.
 
 A @code{\score} block must always contain just one music 
 expression, and
-this must appear first within the @code{\score @{..@}} block.
+this must appear immediately after the @code{\score} command.
 Remember that a music expression could be anything from a single
 note to a huge compound expression like
 
@@ -106,8 +106,8 @@ note to a huge compound expression like
 Since everything is inside @code{@{ ... @}}, it counts
 as one music expression.
 
-As we saw previously, the @code{\score} can contain other things,
-such as
+As we saw previously, the @code{\score} block can contain other 
+things, such as
 
 @example
 \score @{
@@ -121,7 +121,7 @@ such as
 @noindent
 Some people put some of those commands outside the @code{\score}
 block -- for example, @code{\header} is often placed above the
-@code{\score}.  That's just another shorthand that LilyPond
+@code{\score} command.  That's just another shorthand that LilyPond
 accepts.
 
 Two more commands you have not previously seen are
@@ -187,7 +187,7 @@ We didn't skip over it at all.  The big mystery is simply that
 there @emph{is} no mystery.  This line explains it all:
 
 @quotation
-@emph{A @code{\score} must begin with a compound music expression.}
+@emph{A @code{\score} block must begin with a compound music expression.}
 @end quotation
 
 @noindent
@@ -226,12 +226,14 @@ it.  We @emph{do} need a singer and a piano, though.
 @}
 @end example
 
-Remember that we use @code{<<} and @code{>>} to show simultaneous
+Remember that we use @code{<< ... >>} instead of
+@code{@{ ... @}} to show simultaneous
 music.  And we definitely want to show the vocal part and piano
 part at the same time, not one after the other!  However, the
-@code{<< .. >>} construct is not really necessary for the Singer
+@code{<< ... >>} construct is not really necessary for the Singer
 staff, as it contains only one music expression, but Staves often
-do require simultaneous Voices within them, so using @code{<< .. >>}
+do require simultaneous Voices within them, so using 
+@code{<< ... >>}
 rather than braces is a good habit to adopt. We'll add some real
 music later; for now let's just put in some dummy notes and lyrics.
 
@@ -240,7 +242,7 @@ music later; for now let's just put in some dummy notes and lyrics.
   <<
     \new Staff = "singer" <<
       \new Voice = "vocal" { c'1 }
-      \addlyrics { One }
+      \addlyrics { And }
     >>
     \new PianoStaff = "piano" <<
       \new Staff = "upper" { c'1 }
@@ -263,7 +265,7 @@ braces next to @code{\new Voice = vocal}, we could start writing
 
 @example
 \relative c'' @{
-  a4 b c d
+  r4 d8\noBeam g, c4 r
 @}
 @end example
 
@@ -274,7 +276,7 @@ of the previous section, remember?  So, adding a few notes, we
 now have a piece of real music:
 
 @lilypond[verbatim,quote,ragged-right]
-melody = \relative c'' { r4 d8\noBeam g, c r4 }
+melody = \relative c'' { r4 d8\noBeam g, c4 r }
 text   = \lyricmode { And God said, }
 upper  = \relative c'' { <g d g,>2~ <g d g,> }
 lower  = \relative c { b2 e2 }
@@ -789,18 +791,21 @@ and placing the music in voice four:
 @end lilypond
 
 @noindent
-and exposes a problem commonly encountered with multiple
-voices: the stems of notes can collide with note heads
+We see that this fixes the stem direction, but exposes a 
+problem sometimes encountered with multiple voices -- the 
+stems of the notes in one voice can collide with the note heads
 in other voices.  In laying out the notes, LilyPond allows the
 notes or chords from two voices to occupy the same vertical
 note column provided the stems are in opposite directions, but
-the notes from a third voice are displaced to avoid the stems
-colliding.  This often works well, but in this example the
+the notes from the third and fourth voices are displaced to if
+necessary to avoid the note heads
+colliding.  This usually works well, but in this example the
 notes of the lowest voice are clearly not well placed by default.
 LilyPond provides several ways to adjust the horizontal placing
 of notes.  We are not quite ready yet to see how to correct this,
-so we shall leave this problem until a later section 
-(see @ref{Fixing overlapping notation} )
+so we shall leave this problem until a later section
+(see the force-hshift property in @ref{Fixing overlapping 
+notation} )
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -1214,11 +1219,9 @@ In addition to the @code{Score,} @code{Staff} and
 the score and staff levels to control staff groups, such as the
 @code{PianoStaff} and @code{ChoirStaff} contexts.  There
 are also alternative staff and voice contexts, and contexts for
-lyrics, percussion, fret boards, figured bass, etc.  A complete
-list is shown in the Notation Reference.
-TODO: Add link
+lyrics, percussion, fret boards, figured bass, etc.
 
-The names of all context types are formed from one or more 
+The names of all context types are formed from one or more
 words, each word being capitalised and joined immediately to the 
 preceding word with no hyphen or underscore, e.g., 
 @code{GregorianTranscriptionStaff}.
@@ -1462,8 +1465,8 @@ if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
 default set to ##t (true) for all staves.  
-If it is set to ##f (false) in the @code{Staff} context 
-it applies just to the accidentals on that staff.  
+If it is set to ##f (false) in one particular @code{Staff} 
+context it applies just to the accidentals on that staff.
 If it is set to false in the @code{Score} context
 it applies to all staves.
 
@@ -1504,7 +1507,8 @@ in the input file and will take effect from the time they are
 encountered until the end of the score or until the property is 
 @code{\set} or @code{\unset} again.  Let's try changing the 
 font size, which affects the size of the note heads (among 
-other things) several times.
+other things) several times.  The change is from the default
+value, not the current value.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
 c4 
@@ -1586,9 +1590,9 @@ To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation 
 command, as in the previous section.
 
-As an 
-illustration let's repeat an example from the previous 
-section with the staff lines removed.  Remember that the 
+As an
+illustration let's repeat an example from the previous
+section with the staff lines removed.  Remember that the
 staff lines are produced by the Staff_symbol_engraver.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1735,7 +1739,6 @@ melody = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
@@ -1764,7 +1767,6 @@ melody = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
@@ -1787,7 +1789,7 @@ for the soprano @code{sopranoMusic} and the section for the cello
 @code{celloMusic}.  While we're doing this, let's rename @code{text}
 to be @code{sopranoLyrics}.  Remember to rename both instances of all
 these names -- both the initial definition (the
-@code{melody = relative c' @{ } part) and the name's use (in the
+@code{melody = \relative c' @{ } part) and the name's use (in the
 @code{\score} section).
 
 While we're doing this, let's change the cello part's staff -- celli
@@ -1800,7 +1802,6 @@ sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
@@ -1812,7 +1813,6 @@ celloMusic = \relative c @{
   \clef bass
   \key c \major
   \time 4/4
-
   d4 g fis8 e d4
 @}
 
@@ -1871,7 +1871,6 @@ sopranoMusic = \relative c' {
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 }
 
@@ -1883,7 +1882,6 @@ celloMusic = \relative c {
   \clef bass
   \key c \major
   \time 4/4
-
   d4 g fis8 e d4
 }
 
@@ -1907,7 +1905,7 @@ celloMusic = \relative c {
 @node Four-part SATB vocal score
 @subsection Four-part SATB vocal score
 
-Most vocal scores of music written for four-part mixed choir 
+Most vocal scores of music written for four-part mixed choir
 with orchestral accompaniment such as Mendelssohn's Elijah or
 Handel's Messiah have the choral music and words on four
 staves, one for each of SATB, with a piano reduction of the
@@ -2342,6 +2340,7 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
 
 
 
