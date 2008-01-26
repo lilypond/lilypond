@@ -134,7 +134,6 @@ config_vars = [
     'LIBS',
     'LINKFLAGS',
     'MF',
-    'MFTRACE',
     'PERL',
     'PYTHON',
     'SH',
@@ -434,8 +433,6 @@ def configure (target, source, env):
     test_program (required, 'guile-config', '1.8', 'GUILE development',
             'libguile-dev or guile-devel')
     test_program (required, 'mf', '0.0', 'Metafont', 'tetex-bin')
-    test_program (required, 'mftrace', '1.1.19',
-              'mftrace (http://xs4all.nl/~hanwen/mftrace)', 'mftrace')
     test_program (required, 'python', '2.1', 'Python (www.python.org)',
               'python')
     # Silly, and breaks with /bin/sh == dash

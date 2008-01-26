@@ -6,8 +6,6 @@ LOCALSTEPMAKE_TEMPLATES=lilypond
 include $(depth)/make/stepmake.make
 
 
-MFTRACE_FLAGS=  --simplify
-
 EXTRA_DIST_FILES += README mf2pt1.mp
 
 # We don't use $(MF_FILES), because there's more .mf cruft here
@@ -37,9 +35,6 @@ LOG_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.log)
 LISP_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.lisp)
 ENC_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.enc)
 TFM_FILES = $(FETA_MF_FILES:%.mf=$(outdir)/%.tfm)
-
-ENCODING_FILE=$(findstring $(<F:.mf=.enc), $(FETA_MF_FILES:.mf=.enc))
-MFTRACE_FLAGS=$(if $(ENCODING_FILE),--encoding $(outdir)/$(ENCODING_FILE),) --no-afm
 
 $(outdir)/aybabtu.otf-table: $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 	cat $^ > $@
