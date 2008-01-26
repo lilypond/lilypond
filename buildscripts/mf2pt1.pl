@@ -429,7 +429,9 @@ sub get_bboxes ($)
     execute_command 1, ("mpost", "-mem=mf2pt1", "-progname=mpost",
                         "\\mode:=localfont; mag:=$mag; bpppix $bpppix; input $mffile");
     opendir (CURDIR, ".") || die "${progname}: $! ($filedir)\n";
-    @charfiles = grep /^$filebase.*\.\d+$/, readdir(CURDIR);
+    @charfiles = sort
+                   { ($a=~ /\.(\d+)$/)[0] <=> ($b=~ /\.(\d+)$/)[0] }
+                   grep /^$filebase.*\.\d+$/, readdir(CURDIR);
     close CURDIR;
     @fontbbox = (1000000, 1000000, -1000000, -1000000);
     foreach my $psfile (@charfiles) {
