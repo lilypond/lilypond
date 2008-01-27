@@ -288,7 +288,7 @@ Accidentals are only printed on tied notes which begin a new
 system:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-cis1~ cis~
+cis1 ~ cis ~
 \break
 cis
 @end lilypond
@@ -310,10 +310,7 @@ Notation Reference: @ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
-Snippets: @lsrdir{Pitches},
-@lsr{Pitches,
-dodecaphonic-style-accidentals-for-each-note-including-naturals.ly},
-@lsr{Pitches, makam.ly}.
+Snippets: @lsrdir{Pitches}.
 
 
 @refbugs
@@ -450,7 +447,6 @@ This section discusses how to modify pitches.
 @funindex =
 @funindex \octave
 
-@c FIXME: bad descriptions.
 In relative mode, it is easy to forget an octave changing mark.
 Octave checks make such errors easier to find by displaying a
 warning and correcting the octave if a note is found in an
@@ -474,8 +470,8 @@ The octave of pitches may also be checked with the
 @code{\octave}@tie{}@var{controlpitch} command.
 @var{controlpitch} is specified in absolute mode.  This checks
 that the interval between the previous note and the
-@var{contorlpitch} is within a fourth (the normal calculation of
-relative mode).  If this check fails, a warning is printed, but
+@var{contorlpitch} is within a fourth (i.e. the normal calculation
+of relative mode).  If this check fails, a warning is printed, but
 the previous note is not changed.  Future notes are relative to
 the @var{controlpitch}.
 
@@ -487,8 +483,8 @@ the @var{controlpitch}.
 }
 @end lilypond
 
-Compare these two bars.  The first and third @code{\octave} check
-fail, but the second ones passes without fail.
+Compare the two bars below.  The first and third @code{\octave}
+check fail, but the second ones passes without fail.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -503,7 +499,6 @@ fail, but the second ones passes without fail.
   f
 }
 @end lilypond
-
 
 
 @seealso
@@ -890,9 +885,12 @@ other voices}.
 
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a@tie{}@code{c'} written on the staff is
-played by the transposing instrument.  @code{\transposition}
-should @emph{only} be used if the pitches are @emph{not} being
-entered in concert pitch.
+played by the transposing instrument.  This pitch is entered in
+absolute mode, so an instrument which produces a real sound which
+is one tone higher than the printed music should use
+@code{\transposition d'}.  @code{\transposition} should
+@emph{only} be used if the pitches are @emph{not} being entered in
+concert pitch.
 
 Here are a few notes for violin and B-flat clarinet where the
 parts have been entered using the notes and key as they appear in
@@ -1749,7 +1747,7 @@ Internals Reference: @internalsref{NoteHead},
 @cindex Hal Leonard
 
 The @q{easy play} note head includes a note name inside the head.
-It is used in music for beginners
+It is used in music for beginners.
 
 @lilypond[verbatim,quote,ragged-right]
 #(set-global-staff-size 26)
