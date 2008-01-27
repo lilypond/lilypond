@@ -25,10 +25,10 @@ For maintenance reasons, we don't excercise the entire markup command set.
 
 
 
-\version "2.11.5"
+\version "2.11.38"
 
 {
-  \fatText
+  \textLengthOn
   f'1-\markup {
     foo
     \raise #0.2 \hbracket \bold bar

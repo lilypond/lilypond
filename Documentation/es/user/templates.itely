@@ -35,7 +35,7 @@ solista o un fragmento melódico.  Córtelo y péguelo en un archivo,
 escriba las notas y ¡ha terminado!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -60,7 +60,7 @@ barrado automático, tendrá que cambiar o convertir en un comentario la línea
 correspondiente.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -91,7 +91,7 @@ text = \lyricmode {
 ¿Quiere preparar una «lead sheet» u hoja guía de una canción con acordes?  ¡No busque más!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -124,7 +124,7 @@ harmonies = \chordmode {
 Esta plantilla le permite preparar una canción con melodía, letra y acordes.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -165,7 +165,7 @@ harmonies = \chordmode {
 He aquí un sencillo sistema de piano.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -199,7 +199,7 @@ Aquí tenemos el típico formato de canción: un pentagrama con la melodía y la
 acompañamiento de piano.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -255,7 +255,7 @@ En lugar de tener un pentagrama dedicado a la melodía y la letra puede colocar
 la letra en medio de los pentagramas del piano (y omitir el pentagrama separado para la melodía).
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -302,7 +302,7 @@ ya que la plantilla está aquí mismo, no tiene que hacer el trucaje
 usted mismo.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -397,7 +397,7 @@ Esta plantilla es una demostración de un cuarteto de cuerda.  También usa una 
 para las indicaciones del compás y de la armadura de la tonalidad.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 
 global= {
   \time 4/4
@@ -457,7 +457,7 @@ contiene todas las definiciones musicales.  Los otros archivos (@code{score.ly},
 
 @verbatim
 %%%%% piece.ly
-\version "2.11.23"
+\version "2.11.38"
 
 global= {
   \time 4/4
@@ -503,7 +503,7 @@ music = {
 
 
 %%%%% score.ly
-\version "2.11.23"
+\version "2.11.38"
 \include "piece.ly"
 #(set-global-staff-size 14)
 \score {
@@ -514,7 +514,7 @@ music = {
 
 
 %%%%% vn1.ly
-\version "2.11.23"
+\version "2.11.38"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn1 \music
@@ -523,7 +523,7 @@ music = {
 
 
 %%%%% vn2.ly
-\version "2.11.23"
+\version "2.11.38"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn2 \music
@@ -532,7 +532,7 @@ music = {
 
 
 %%%%% vla.ly
-\version "2.11.23"
+\version "2.11.38"
 \include "piece.ly"
 \score {
   \keepWithTag #'vla \music
@@ -541,7 +541,7 @@ music = {
 
 
 %%%%% vlc.ly
-\version "2.11.23"
+\version "2.11.38"
 \include "piece.ly"
 \score {
   \keepWithTag #'vlc \music
@@ -561,7 +561,7 @@ Por ejemplo, la indicación de compás y la armadura de la tonalidad son casi si
 para todas las partes.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = {
    \key c \major
    \time 4/4
@@ -642,7 +642,7 @@ usar una definición musical más de una vez.  Si hace algún cambio en las nota
 reducción de piano.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = {
    \key c \major
    \time 4/4
@@ -735,7 +735,7 @@ Aquí todas las líneas de texto se colocan usando @code{alignAboveContext}
 y @code{alignBelowContext}.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = {
   \key c \major
   \time 4/4
@@ -859,7 +859,7 @@ A modo de compromiso, las líneas de compás se suelen imprimir entre los pentag
 en vez de hacerlo sobre ellos.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
-\version "2.11.23"
+\version "2.11.38"
 
 global = {
   \set Score.skipBars = ##t
@@ -1099,7 +1099,7 @@ nota de blanca y negra, y marcas especiales que indican silencios de distinta lo
 
 @lilypond[quote,verbatim,ragged-right]
 \include "gregorian-init.ly"
-\version "2.11.23"
+\version "2.11.38"
 
 chant = \relative c' {
   \set Score.timing = ##f
@@ -1159,7 +1159,7 @@ sección @code{\transpose}.
 @c The `line-width' argument is for the \header.
 
 @lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.11.23"
+\version "2.11.38"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1435,7 +1435,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.11.23"
+\version "2.11.38"
 \header {
   dedication = "dedication"
   title = "Title"

@@ -1373,7 +1373,7 @@ La déclaration @code{\version} stipule le numéro de la version de
 LilyPond pour laquelle le fichier a été écrit,
 
 @example
-\version "2.11.32"
+\version "2.11.38"
 @end example
 
 @noindent
@@ -1395,7 +1395,7 @@ qui existe indépendamment des expressions musicales principales.  Le
 bloc @code{\header} est habituellement placé en début de fichier.
 
 @example
-\version "2.11.32"
+\version "2.11.38"
 \header @{
   title = "Symphonie"
   composer = "Moi"

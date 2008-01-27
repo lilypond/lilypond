@@ -933,7 +933,7 @@ clarinet.
 \key a \major
 \transposition a
 c d e f
-\fatText
+\textLengthOn
 r1^\markup{Switch to B\flat clarinet}
 
 \key bes \major
@@ -1752,21 +1752,25 @@ It is used in music for beginners.
 @lilypond[verbatim,quote,ragged-right]
 #(set-global-staff-size 26)
 \relative c' {
-  \setEasyHeads
+  \easyHeadsOn
   c2 e4 f
   g1
+  \easyHeadsOff
+  c,1
 }
 @end lilypond
 
-The command @code{\setEasyHeads} overrides settings for the
-@code{NoteHead} object.  To make the letters readable, it
-has to be printed in a large font size.  To print with a larger
-font, see @ref{Setting the staff size}.
+The command @code{\easyHeadsOn} overrides settings for the
+@code{NoteHead} object.  These settings can be reverted with the command
+@code{\easyHeadsOff}. To make the letters readable, it has to be printed
+in a large font size.  To print with a larger font, see @ref{Setting the
+staff size}.
 
 @refcommands
 
-@funindex \setEasyHeads
-@code{\setEasyHeads}
+@funindex \easyHeadsOn
+@funindex \easyHeadsOff
+@code{\easyHeadsOn}, @code{\easyHeadsOff}
 
 @seealso
 

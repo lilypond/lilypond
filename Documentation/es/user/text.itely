@@ -61,14 +61,14 @@ c'4^\markup { bla \bold bla }
 Es posible colocar cadenas de texto arbitrarias o @ref{Text markup},
 encima o debajo de las notas utilizando una cadena @code{c^"texto"}.  Por omisión,
 estas indicaciones no influyen sobre el espaciado de las notas, pero si se utiliza la
-instrucción @code{\fatText}, las anchuras se tendrán en cuenta
+instrucción @code{\textLengthOn}, las anchuras se tendrán en cuenta
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4^"longtext" \fatText c4_"longlongtext" c4
+c4^"longtext" \textLengthOn c4_"longlongtext" c4
 @end lilypond
 
 @noindent
-Para evitar que el texto influya sobre el espaciado, utilice @code{\emptyText}.
+Para evitar que el texto influya sobre el espaciado, utilice @code{\textLengthOff}.
 
 También se pueden añadir a una nota textos con un formato más complejo utilizando la
 orden markup (marcado),
@@ -83,10 +83,10 @@ La instrucción @code{\markup} se describe con más detalle en
 
 @refcommands
 
-@funindex \fatText
-@code{\fatText},
-@funindex \emptyText
-@code{\emptyText}.
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @commonprop
@@ -126,7 +126,7 @@ aplicarles ajustes finos.
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 d2 \glissando d'2
-\once \override Glissando #'dash-fraction = #0.5
+\once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
 \override Glissando #'style = #'dotted-line
 d,2 \glissando d'2
@@ -280,7 +280,7 @@ c2\startTextSpan b c\stopTextSpan a
 Para imprimir una línea continua, use
 
 @example
-\override TextSpanner #'dash-fraction = #'()
+\override TextSpanner #'style = #'line
 @end example
 
 
@@ -582,7 +582,7 @@ Para dejar separadas las listas de palabras, podemos utilizar comillas @code{"} 
 orden @code{\line}
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c4^\markup{ \center-align { on three lines } }
 c4^\markup{ \center-align { "all one line" } }
 c4^\markup{ \center-align { { on three lines } } }
@@ -608,7 +608,7 @@ tenemos que usar la propiedad de relleno #'padding o crear un punto de @q{anclaj
 dentro del elemento de marcado (generalmente con @code{\hspace #0}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c'4^\markup{ \raise #5 "not raised" }
 \once \override TextScript #'padding = #3
 c'4^\markup{ raised }

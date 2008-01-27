@@ -2,7 +2,7 @@
   texidoc = "Excercise all output functions"
 }
 
-\version "2.10.0"
+\version "2.11.38"
 
 \paper { ragged-right = ##t }
 
@@ -25,7 +25,7 @@
       \override Glissando #'style = #'zigzag
       \slurDashed
       f2( \glissando f')
-      \setEasyHeads
+      \easyHeadsOn
       f e 
     }
   >>

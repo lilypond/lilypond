@@ -756,19 +756,19 @@ Text attached to a multi-measure rest will be centered above or
 below it.  Long text attached in this way does not cause the
 measure to expand, and may collide with text in adjacent measures.
 Long text is better attached to a zero-length skip note preceding
-the rest, preceded by @code{\fatText} (turn off again with
-@code{\emptyText}), since this will cause the measure to expand to
+the rest, preceded by @code{\textLengthOn} (turn off again with
+@code{\textLengthOff}), since this will cause the measure to expand to
 accommodate the length of the text:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \set Score.skipBars = ##t
-\fatText
+\textLengthOn
 s1*0^\markup {[MAJOR GENERAL]}
 R1*19
 s1*0^\markup {[MABEL] }
 s1*0_\markup {\italic {Cue: ... it is yours}}
 R1*30
-\emptyText
+\textLengthOff
 c4^\markup {CHORUS} d f c
 @end lilypond
 

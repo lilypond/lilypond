@@ -40,7 +40,7 @@ description of the input format, see @ruser{File structure}.
 A basic example of a lilypond input file is
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \score @{
   @var{...compound music expression...}  % all the music goes here!
   \header @{ @}
@@ -1734,7 +1734,7 @@ cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1762,7 +1762,7 @@ text = \lyricmode @{
 Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1797,7 +1797,7 @@ normally use bass clef.  We'll also give the cello some different
 notes.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -1866,7 +1866,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -1914,7 +1914,7 @@ from Handel's Messiah:
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2088,7 +2088,7 @@ Combining all these together and adding the music
 for the three bars of the example above gives:
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2186,7 +2186,7 @@ music definitions and one to define the time signature
 and key:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \header @{
   title = "Jesu, meine Freude"
   composer = "J S Bach"
@@ -2295,7 +2295,7 @@ may vary.  All that remains now
 is to add the music, and combine all the parts together.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

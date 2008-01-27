@@ -1,5 +1,5 @@
 #(ly:set-option 'old-relative)
-\version "2.10.0"
+\version "2.11.38"
 
 %{
  Header for Petites Preludes.
@@ -126,7 +126,7 @@ four = \relative c{
 	d4. fis16 g r16 bes8. ~ bes4 |
 	%10
 	\stemDown
-	<< d,1  { \fatText s4^\markup { \hspace #20 }
+	<< d,1  { \textLengthOn s4^\markup { \hspace #20 }
 		 s4^\markup { \hspace #1 }  s4 }
 	     >>
 }
