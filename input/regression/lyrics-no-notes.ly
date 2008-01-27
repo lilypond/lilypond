@@ -8,13 +8,13 @@ the papercolumn is very wide."
   ragged-right = ##t
 }
 
-\version "2.10.7"
+\version "2.11.38"
 <<
   \new Staff \relative c' {
     \key aes \major
     \context Voice = "1" { 
       f8 f
-      \emptyText
+      \textLengthOff
       
       f^"xxxxxxxxxxxxxxxxxxxxxxxxxx"  f
     }

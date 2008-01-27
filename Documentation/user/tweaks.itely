@@ -1646,21 +1646,21 @@ Perhaps this is not so good.  What we would really like to do
 is to position all the annotation at the same distance above
 the staff?  To do this, we clearly
 will need to space the notes out horizontally to make more
-room for the text.  This is done using the @code{fatText}
+room for the text.  This is done using the @code{textLengthOn}
 command.
 
-@subheading \fatText
+@subheading \textLengthOn
 
-@funindex \fatText
+@funindex \textLengthOn
 @cindex notes, spreading out with text
 
 By default, text produced by markup takes up no horizontal space
-as far as laying out the music is concerned.  The @code{\fatText}
+as far as laying out the music is concerned.  The @code{\textLengthOn}
 command reverses this behaviour, causing the notes to be spaced
 out as far as is necessary to accommodate the text:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\fatText  % Cause notes to space out to accommodate text
+\textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
 c^"Text2"
 c^"Text3"
@@ -1668,9 +1668,9 @@ c^"Text4"
 @end lilypond  
 
 The command to revert to the default behaviour is 
-@code{\emptyText}.  Remember @code{\once} only works with
+@code{\textLengthOff}.  Remember @code{\once} only works with
 @code{\override}, @code{\set}, @code{\revert} or @code{unset},
-so cannot be used with @code{\fatText}.
+so cannot be used with @code{\textLengthOn}.
 
 Markup text will also avoid notes which project above the staff.
 If this is not desired, the automatic displacement upwards may
@@ -1693,7 +1693,7 @@ c''2
 R1
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-\fatText  % and turn on fatText
+\textLengthOn  % and turn on textLengthOn
 c,,2^"Long Text   "  % Spaces at end are honoured
 c''2
 @end lilypond
@@ -1734,7 +1734,7 @@ Should a similar situation arise in @q{real} music, it may
 be preferable to space out the notes
 a little further, so the dynamic markings can all fit at the
 same vertical distance from the staff.  We were able to do this
-for markup text by using the @code{\fatText} command, but there
+for markup text by using the @code{\textLengthOn} command, but there
 is no equivalent command for dynamic marks.  So we shall have to
 work out how to do this using @code{\override} commands.
 

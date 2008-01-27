@@ -21,7 +21,7 @@
 % Copyright 2006 for the entire score;
 % All rights reserved by the composer.
 
-\version "2.11.2"
+\version "2.11.38"
 
 \include "english.ly"
 \include "cary-layout.ly"
@@ -322,11 +322,11 @@
 				\override Stem #'length = #10
 				\override Beam #'positions = #'(-13 . -13)
 				\override DynamicLineSpanner #'staff-padding = #18
-				\override TextSpanner #'edge-text = #(cons (markup #:italic "covered") "")
+				\override TextSpanner #'bound-details #'left #'text = #(markup (#:italic "covered"))
 				\override TextSpanner #'dash-period = #1
 				\override TextSpanner #'dash-fraction = #0.2
-				\override TextSpanner #'edge-height = #'(0 . 1.25)
-				\override TextSpanner #'bound-padding = #0.5
+				\override TextSpanner #'bound-details #'left #'padding = #0.5
+				\override TextSpanner #'bound-details #'right #'padding = #0.5
 				\override TextSpanner #'staff-padding = #4
 			} {
 				

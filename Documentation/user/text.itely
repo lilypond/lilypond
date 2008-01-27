@@ -96,15 +96,15 @@ Snippets: @lsrdir{text}
 It is possible to place arbitrary strings of text or @ref{Text
 markup}, above or below notes by using a string @code{c^"text"}.
 By default, these indications do not influence the note spacing,
-but by using the command @code{\fatText}, the widths will be taken
+but by using the command @code{\textLengthOn}, the widths will be taken
 into account
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4^"longtext" \fatText c4_"longlongtext" c4
+c4^"longtext" \textLengthOn c4_"longlongtext" c4
 @end lilypond
 
 @noindent
-To prevent text from influencing spacing, use @code{\emptyText}.
+To prevent text from influencing spacing, use @code{\textLengthOff}.
 
 More complex formatting may also be added to a note by using the
 markup command,
@@ -119,10 +119,10 @@ markup}.
 
 @refcommands
 
-@funindex \fatText
-@code{\fatText},
-@funindex \emptyText
-@code{\emptyText}.
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @commonprop
@@ -459,7 +459,7 @@ To keep lists of words distinct, please use quotes @code{"} or
 the @code{\line} command
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c4^\markup{ \center-align { on three lines } }
 c4^\markup{ \center-align { "all one line" } }
 c4^\markup{ \center-align { { on three lines } } }
@@ -487,7 +487,7 @@ markup, you need to use the #'padding property or create an
 #0}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c'4^\markup{ \raise #5 "not raised" }
 \once \override TextScript #'padding = #3
 c'4^\markup{ raised }

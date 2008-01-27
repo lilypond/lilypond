@@ -174,7 +174,7 @@ et @internalsref{KeySignature}.
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
 {
-  \fatText
+  \textLengthOn
   s^\markup {
     \column {
       "vaticana"
@@ -612,7 +612,7 @@ Voici les différences entre les styles :
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
-  \fatText
+  \textLengthOn
 
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }

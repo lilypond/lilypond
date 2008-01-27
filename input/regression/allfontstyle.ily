@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.38"
 
 \header{
     texidoc="
@@ -11,7 +11,7 @@ Different text styles are used for various purposes.
 }
 
 \relative c'' \context Staff {
-    \emptyText
+    \textLengthOff
     \repeat volta 2 { \time 4/4 c4^"cuivre"_\fermata }
     \alternative {
 	{

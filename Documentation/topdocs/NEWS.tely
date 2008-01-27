@@ -40,7 +40,7 @@ See user manual, \NAME\
 
 @ifhtml
 This document is also available in @uref{NEWS.pdf,PDF}. It's part of
-the @uref{../,LilyPond Documentation} 
+the @uref{../,LilyPond Documentation} .
 @end ifhtml
 
 
@@ -64,6 +64,14 @@ which scares away people.
 * only show user-visible changes. 
 
 @end ignore
+
+@item
+@code{\setEasyHeads} has been renamed to @code{\easyHeadsOn}, and a new
+command @code{\easyHeadsOff} reverts note heads to normal heads.
+
+@item
+@code{\fatText} and @code{\emptyText} have been renamed to
+@code{\textLengthOn} and @code{\textLengthOff}, respectively.
 
 @item
 Underlining is now possible with the @code{\underline} markup command.

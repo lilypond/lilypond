@@ -67,14 +67,14 @@ Vous pouvez placer arbitrairement des chaînes de caractères, ou
 @ref{Text markup} en langage LilyPond, au dessus ou au dessous des
 notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
 indications n'affecteront en rien l'espacement des notes, sauf à
-utiliser la commande @code{\fatText}.
+utiliser la commande @code{\textLengthOn}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4^"longtext" \fatText c4_"longlongtext" c4
+c4^"longtext" \textLengthOn c4_"longlongtext" c4
 @end lilypond
 
 @noindent
-Pour revenir à l'espacement par défaut, utilisez @code{\emptyText}.
+Pour revenir à l'espacement par défaut, utilisez @code{\textLengthOff}.
 
 Des constructions plus élaborées d'étiquette peuvent être obtenues en
 ayant recours à la commande @emph{markup} :
@@ -89,10 +89,10 @@ La commande @code{\markup} est décrite plus en détails dans la section
 
 @refcommands
 
-@funindex \fatText
-@code{\fatText},
-@funindex \emptyText
-@code{\emptyText}.
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @commonprop
@@ -134,7 +134,7 @@ disponibles, ainsi que la manière de les personnaliser.
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 d2 \glissando d'2
-\once \override Glissando #'dash-fraction = #0.5
+\once \override Glissando #'style = #'dashed-line
 d,2 \glissando d'2
 \override Glissando #'style = #'dotted-line
 d,2 \glissando d'2
@@ -292,7 +292,7 @@ c2\startTextSpan b c\stopTextSpan a
 Pour obtenir une ligne pleine, utilisez
 
 @example
-\override TextSpanner #'dash-fraction = #'()
+\override TextSpanner #'style = #'line
 @end example
 
 
@@ -608,7 +608,7 @@ L'utilisation des @code{"} ou de la commande @code{\line} permet de
 différencier les listes de mots.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c4^\markup{ \center-align { on three lines } }
 c4^\markup{ \center-align { "all one line" } }
 c4^\markup{ \center-align { { on three lines } } }
@@ -636,7 +636,7 @@ déplacer une étiquette, il vous faudra utiliser la propriété
 de l'étiquette (généralement avec @code{\hspace #0}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\fatText
+\textLengthOn
 c'4^\markup{ \raise #5 "not raised" }
 \once \override TextScript #'padding = #3
 c'4^\markup{ raised }

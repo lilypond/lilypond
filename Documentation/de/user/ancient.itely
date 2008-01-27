@@ -179,7 +179,7 @@ und Versetzungszeichen für die Alte Musik ausgewählt werden.
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
 {
-  \fatText
+  \textLengthOn
   s^\markup {
     \column {
       "vaticana"
@@ -621,7 +621,7 @@ Im folgenden Beispiel sind die unterschiedlichen Stile dargestellt.
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
-  \fatText
+  \textLengthOn
 
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }

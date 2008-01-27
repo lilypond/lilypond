@@ -1284,7 +1284,7 @@ La indicación @code{\version} deja registrado para qué versión de LilyPond se
 el archivo:  
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 @end example
 
 @noindent
@@ -1305,7 +1305,7 @@ principal; el bloque @code{\header} normalmente se sitúa por debajo del
 @ruser{Version number}.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \header @{
   title = "Symphony"
   composer = "Me"

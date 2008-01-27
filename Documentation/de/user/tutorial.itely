@@ -1667,7 +1667,7 @@ Der @code{\version}-Befehl zeigt an, welche LilyPond-Version
 für eine bestimmte Quelldatei benutzt worden ist:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 @end example
 
 @noindent
@@ -1689,7 +1689,7 @@ außerhalb der musikalischen Ausdrücke, meistens wird die
 @code{\header}-Umgebung direkt nach der Versionsnummer eingefügt.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \header @{
   title = "Symphony"
   composer = "Ich"

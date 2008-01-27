@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.38"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -219,9 +219,9 @@ middleDynamics = {
 	s32 s s\! s
     
     }
-    \fatText
+    \textLengthOn
     s32 s-"rall." s s s8 s4
-    \emptyText
+    \textLengthOff
     | %5
     s2-"a tempo" s8
     s \> s s

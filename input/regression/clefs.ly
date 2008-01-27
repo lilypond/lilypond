@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.38"
 
 \header{
 
@@ -13,7 +13,7 @@ full size."
 
 
 { 
-  \fatText
+  \textLengthOn
   \clef "treble" c'1^"treble" \bar "||"
   \clef "french"c'1^"french" \bar "||"
   \clef "soprano"c'1^"soprano" \bar "||"

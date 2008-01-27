@@ -37,19 +37,19 @@ Les notes @q{easy play} comportent le nom de la note à l'intérieur de
 la tête.  On l'utilise dans des partitions pour débutants.
 
 @lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
-  \setEasyHeads
+  \easyHeadsOn
   c'2 e'4 f' | g'1
 @end lilypond
 
-La commande @code{\setEasyHeads} remplace tous les réglages de l'objet
+La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
 @internalsref{NoteHead}.  L'impression doit être de plus grande
 taille, afin que les lettres soient lisibles.  Voir à ce propos
 @ref{Setting the staff size}.
 
 @refcommands
 
-@funindex \setEasyHeads
-@code{\setEasyHeads}
+@funindex \easyHeadsOn
+@code{\easyHeadsOn}
 
 
 @node Shape note heads
