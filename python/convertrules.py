@@ -3025,3 +3025,12 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved. Use #'style not #'dash-fraction to select solid/dashed lines."""))
+
+def conv (str):
+    str = re.sub (r"setEasyHeads", r"easyHeadsOn", str)
+    str = re.sub (r"fatText", r"textLengthOn", str)
+    str = re.sub (r"emptyText", r"textLengthOff", str)
+    return str
+
+conversions.append (((2, 11, 38), conv, """\\setEasyHeads -> \\easyHeadsOn, \\fatText -> \\textLengthOn,
+\\emptyText -> \\textLengthOff"""))
