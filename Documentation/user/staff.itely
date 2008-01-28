@@ -378,8 +378,7 @@ For more details, see @ref{Text markup}.
 @seealso
 
 Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
-@rglos{tempo indication}.
-@c FIXME : add @rglos{Mälzels Metronome}, @rglos{M.M.}, @rglos{tempo}?
+@rglos{tempo indication}, @rglos{metronome mark}.
 
 Notation Reference: @ref{Text markup}.
 
@@ -528,6 +527,7 @@ Internals Reference: @internalsref{InstrumentName},
 @cindex cues
 @cindex quoting other voices
 @cindex fragments
+@cindex cue notes
 
 With quotations, fragments of other parts can be inserted into a
 part directly.  Before a part can be quoted, it must be marked
@@ -645,6 +645,11 @@ Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 @node Formatting cue notes
 @unnumberedsubsubsec Formatting cue notes
 
+@cindex cues
+@cindex cue notes
+@cindex cue notes, formatting
+@cindex fragments
+@cindex quoting other voices 
 @cindex cues, formatting
 
 The previous section deals with inserting notes from another
@@ -658,7 +663,7 @@ The syntax is
 @end example
 
 This will insert notes from the part @var{name} into a
-@internalsref{Voice} called @code{cue}.  This happens
+@code{Voice} called @code{cue}.  This happens
 simultaneously with @var{music}, which usually is a rest.  When
 the cue notes start, the staff in effect becomes polyphonic for a
 moment.  The argument @var{updown} determines whether the cue
@@ -696,19 +701,20 @@ smaller = {
 @end lilypond
 
 
-Here are a couple of hints for successful cue notes
+Here are a couple of hints for successful cue notes:
 
 @itemize
 @item
 Cue notes have smaller font sizes.
 
 @item
-the cued part is marked with the instrument playing the cue.
+The cued part is marked with the instrument playing the cue.
 
 @item
-when the original part takes over again, this should be marked
+When the original part takes over again, this should be marked
 with the name of the original instrument.
 
+@item
 Any other changes introduced by the cued part should also be
 undone.  For example, if the cued instrument plays in a different
 clef, the original clef should be stated once again.
@@ -744,8 +750,8 @@ cbsn = \relative c, {
 
 @seealso
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{staff}.
 
-
+Internals Reference: @internalsref{Voice}.
 
 
