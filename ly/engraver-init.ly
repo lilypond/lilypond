@@ -619,7 +619,7 @@ automatically when an output definition (a @code{\score} or
 
   verticallySpacedContexts = #'(Staff)
 
-  hairpinToBarline = ##t 
+  \override Voice #'hairpinToBarline = ##t 
   
   timing = ##t
 }
