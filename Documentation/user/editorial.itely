@@ -98,7 +98,7 @@ The following commands set @code{fontSize} for the current voice:
 
 @seealso
 
-Snippets: @lsrdir{editorial}.
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference: @internalsref{font-interface}.
 
@@ -166,7 +166,7 @@ instructions very close to note heads in monophonic music,
 
 @seealso
 
-Snippets: @lsrdir{editorial}.
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference: @internalsref{Fingering}.
 
@@ -425,7 +425,7 @@ notes.
 >>
 @end lilypond
 
-Examples: @lsrdir{education}
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Blank music sheet

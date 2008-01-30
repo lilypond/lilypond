@@ -126,7 +126,7 @@ Music Glossary: @rglos{breve}, @rglos{longa}.
 Notation Reference:@ref{Automatic beams}, @ref{Ties}, @ref{Writing rests}, @ref{Vocal music},
 @ref{Ancient notation}, @ref{Proportional notation}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Dots},
 @internalsref{DotColumn}.
@@ -307,7 +307,7 @@ Music Glossary: @rglos{tuplet}.
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
 
-Snippets: @lsrdir{rhythms}.
+Snippets: @lsrdir{Rhythms,Rhythms}.
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
@@ -343,7 +343,7 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 
 Notation Reference: @ref{Tuplets}, @ref{Skips}, @ref{Polymetric notation}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 @node Ties
 @unnumberedsubsubsec Ties
@@ -439,7 +439,7 @@ c4_~ c c^~ c)
 Music Glossary: @rglos{tie},
 @c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{LaissezVibrerTie}
@@ -503,7 +503,7 @@ direction (1=up, -1=down).
 
 Notation Reference: @ref{Automatic note splitting}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Tie}.
 
@@ -575,7 +575,7 @@ a4\rest d4\rest
 
 Notation Reference: @ref{Full measure rests}.
 
-Snippets: @lsrdir{rhythms}.
+Snippets: @lsrdir{Rhythms,Rhythms}.
 
 Internals Reference: @internalsref{Rest}.
 
@@ -636,7 +636,7 @@ commands.  For example, the following results in an empty staff.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{SkipMusic}.
 
@@ -789,7 +789,7 @@ alongside and to the left of the bar count numeral.
 Notation Reference: @ref{Durations}, @ref{Text},
 @ref{Text markup}, @ref{Text scripts}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{MultiMeasureRest}.
 
@@ -926,7 +926,7 @@ rhythmically complex modern music.  In the following example, the
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
@@ -996,7 +996,7 @@ occur.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 @node Unmetered music
 @unnumberedsubsubsec Unmetered music
@@ -1047,7 +1047,7 @@ to indicate where breaks can occur.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Polymetric notation
@@ -1183,7 +1183,7 @@ aligned vertically, but bar lines distort the regular spacing.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}, @c @lsr{contemporary,compound-time-signature}.
+Snippets: @lsrdir{Rhythms,Rhythms}, @c @lsr{contemporary,compound-time-signature}.
 
 Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
 
@@ -1228,7 +1228,7 @@ split rests.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Note_heads_engraver},
 @internalsref{Completion_heads_engraver},
@@ -1361,7 +1361,7 @@ f8 f''8 f8 f''8
 
 Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Beam}.
 
@@ -1558,7 +1558,7 @@ automatic beam is still accepting notes, it is not typeset.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Manual beams
@@ -1669,7 +1669,7 @@ music snippets, and when numbers in the fraction are small.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 
@@ -1824,7 +1824,7 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 Notation Reference: @ref{Line breaking}, @ref{Repeats},
 @ref{System start delimiters}.
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
@@ -1966,11 +1966,9 @@ engraver from the score context.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{BarNumber}.
-
-Examples: @lsrdir{bar number}
 
 
 @refbugs
@@ -2065,7 +2063,7 @@ when it is processed.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Rehearsal marks
@@ -2171,7 +2169,7 @@ For common tweaks to the positioning of rehearsal marks, see
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 This manual: @ref{The Feta font}, @ref{Text marks}.
 
@@ -2359,7 +2357,7 @@ Music Glossary:
 @rglos{acciaccatura},
 @rglos{appoggiatura}
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{GraceMusic}.
 
@@ -2429,7 +2427,7 @@ cadenza = \relative c' {
 
 @seealso
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Time administration
@@ -2508,7 +2506,7 @@ notes.
 
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
 
-Snippets: @lsrdir{rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}

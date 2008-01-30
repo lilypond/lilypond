@@ -618,7 +618,7 @@ A linebreaking configuration can be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
-@lsrdir{spacing}
+@c @lsrdir{spacing}
 
 @refbugs
 

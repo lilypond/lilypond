@@ -92,9 +92,10 @@
 @end ifnothtml
 @end macro
 
-@macro lsrdir{DIR}
+@c usage: @lsrdir{ancient,Ancient-notation}
+@macro lsrdir{SECTION,DIR}
 @ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html,\DIR\}
+@uref{source/input/lsr/snippets/\SECTION\.html,\DIR\}
 @end ifhtml
 @ifnothtml
 \DIR\

@@ -215,7 +215,7 @@ the use of key signatures.
 
 Internals Reference: @internalsref{KeySignature}.
 
-Examples: @lsrdir{ancient}
+Examples: @c @lsrdir{ancient}
 
 @node Ancient rests
 @unnumberedsubsubsec Ancient rests

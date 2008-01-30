@@ -186,7 +186,7 @@ see @ref{Bar lines} for more information.
 
 @seealso
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
@@ -267,7 +267,7 @@ c4 c4
 
 Notation Reference: @ref{Bar lines}.
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -346,7 +346,7 @@ Notation Reference: @ref{Tremolo repeats}.
 Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Elsewhere: @internalsref{StemTremolo}.
 
@@ -396,7 +396,7 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},

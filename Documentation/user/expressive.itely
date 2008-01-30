@@ -134,7 +134,7 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Script},
 @internalsref{TextScript}.
@@ -337,7 +337,7 @@ Music Glossary: @rglos{hairpin}, @rglos{crescendo},
 
 Learning Manual: @rlearning{Articulation and dynamics}.
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
@@ -411,7 +411,7 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Slur}.
 
@@ -452,7 +452,7 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{PhrasingSlur}.
 
@@ -483,7 +483,7 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{expressive}, @c @lsr{expressive,breathing-sign.ly}.
+Snippets: @lsrdir{Expressive,Expressive-marks}, @c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}.
 
@@ -543,7 +543,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 Music Glossary: @rglos{falls}, @rglos{doits}.
 
-Snippets: @lsrdir{expressive}.
+Snippets: @lsrdir{Expressive,Expressive-marks}.
 
 @c FIXME: I need to figure out what's up with these.  -gp
 @c @lsr{expressive,glissando.ly},
@@ -674,7 +674,7 @@ moved to the Staff context:
 
 Notation Reference: @ref{Ties}, for writing out arpeggios.
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Arpeggio},
 @internalsref{PianoStaff}.
@@ -732,6 +732,6 @@ printed as a stemless note head in parentheses.
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{TrillSpanner}.
