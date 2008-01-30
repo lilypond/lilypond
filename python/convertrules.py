@@ -93,7 +93,7 @@ conversions.append ((
 def conv(str):
     if re.search ('\\\\header', str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "new \\header format")
+	error_file.write (NOT_SMART % _ ("new \\header format"))
 	error_file.write ('\n')
     return str
 
@@ -127,7 +127,7 @@ conversions.append (((1,0,5), conv, 'ChoireStaff -> ChoirStaff'))
 def conv(str):
     if re.search ('[a-zA-Z]+ = *\\translator',str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\translator syntax")
+	error_file.write (NOT_SMART % _ ("\\translator syntax"))
 	error_file.write ('\n')
     #	raise FatalConversionError ()
     return str
@@ -378,7 +378,7 @@ def conv (str):
 		  "\\\\musicalpitch #'(\\1)", str)
     if re.search ('\\\\notenames',str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "new \\notenames format")
+	error_file.write (NOT_SMART % _ ("new \\notenames format"))
 	error_file.write ('\n')
     return str
 
@@ -398,7 +398,7 @@ conversions.append (((1,3,39), conv, '\\key A ;  ->\\key a;'))
 def conv (str):
     if re.search ('\\[:',str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "new tremolo format")
+	error_file.write (NOT_SMART % _ ("new tremolo format"))
 	error_file.write ('\n')
     return str
 
@@ -425,7 +425,7 @@ conversions.append (((1,3,49), conv,
 def conv (str):
     if re.search ('\\\\keysignature', str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "new tremolo format")
+	error_file.write (NOT_SMART % _ ("new tremolo format"))
 	error_file.write ('\n')
     return str
 
@@ -538,7 +538,7 @@ def conv (str):
     str = re.sub ('ChordNames*', 'ChordNames', str)
     if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "new \\textscript markup text")
+	error_file.write (NOT_SMART % _ ("new \\textscript markup text"))
 	error_file.write ('\n')
 
     str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
@@ -1158,7 +1158,7 @@ conversions.append (((1,7,23), conv,"barNonAuto -> automaticBars"))
 def conv(str):
     if re.search( r'-(start|stop)Cluster', str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "Cluster syntax")
+	error_file.write (NOT_SMART % _ ("cluster syntax"))
 	error_file.write ('\n')
 	error_file.write (UPDATE_MANUALLY)
 	error_file.write ('\n')
@@ -2479,7 +2479,7 @@ def conv (str):
     if re.search ("(override-|revert-)auto-beam-setting", str)\
        or re.search ("autoBeamSettings", str):
 	error_file.write ('\n')
-	error_file.write (NOT_SMART % "auto beam settings")
+	error_file.write (NOT_SMART % _ ("auto beam settings"))
 	error_file.write ('\n')
 	error_file.write ('''
 Auto beam settings must now specify each interesting moment in a measure
@@ -2971,8 +2971,8 @@ def conv (str):
                   str)
 
     if re.search ('edge-text', str):
-	error_file.write (NOT_SMART % "edge-text settings for TextSpanner.")
-	error_file.write ("Use\n\n"
+	error_file.write (NOT_SMART % _ ("edge-text settings for TextSpanner."))
+	error_file.write (_ ("Use\n\n%s") %
                           "\t\\override TextSpanner #'bound-details #'right #'text = <right-text>\n"
                           "\t\\override TextSpanner #'bound-details #'left #'text = <left-text>\n")
 
@@ -3018,9 +3018,9 @@ def conv (str):
                   r"scripts.caesura.curved", str)
 
     if re.search ('dash-fraction', str):
-	error_file.write (NOT_SMART % "all settings related to dashed lines.\n")
-	error_file.write ("Use \\override ... #'style = #'line for solid lines and\n")
-	error_file.write ("\t\\override ... #'style = #'dashed-line for dashed lines.")
+	error_file.write (NOT_SMART % _ ("all settings related to dashed lines.\n"))
+	error_file.write (_ ("Use \\override ... #'style = #'line for solid lines and\n"))
+	error_file.write (_ ("\t\\override ... #'style = #'dashed-line for dashed lines."))
 
     return str
 

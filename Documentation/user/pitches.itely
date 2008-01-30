@@ -80,7 +80,7 @@ d,, d, d c
 
 Music Glossary: @rglos{Pitch names}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Relative octave entry
@@ -200,7 +200,7 @@ Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
 
 Notation Reference: @ref{Octave checks}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @refbugs
@@ -310,7 +310,7 @@ Notation Reference: @ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @refbugs
@@ -424,9 +424,9 @@ simplicity, LilyPond uses a single @q{s} for all these languages.
 
 @seealso
 
-Music Glossary: @lsrdir{Pitch names}.
+Music Glossary: @rglos{Pitch names}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Changing multiple pitches
@@ -502,7 +502,7 @@ check fail, but the second ones passes without fail.
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Transpose
@@ -611,7 +611,7 @@ see @ref{Instrument transpositions}.
 
 Notation Reference: @ref{Instrument transpositions}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{TransposedMusic}.
 
@@ -727,7 +727,7 @@ For example,
 
 Notation Reference: @ref{Ancient clefs}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Clef}.
 
@@ -796,7 +796,7 @@ Music Glossary: @rglos{church mode}, @rglos{scordatura}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
@@ -836,7 +836,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 Music Glossary: @rglos{ottava}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{OttavaBracket}.
 
@@ -926,7 +926,7 @@ Music Glossary: @rglos{concert pitch},
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Automatic accidentals
@@ -1597,7 +1597,7 @@ musicB = {
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion},
@@ -1657,7 +1657,7 @@ printed if they are not part of the key signature.
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
@@ -1707,7 +1707,7 @@ To see all note head styles, please see @ref{Note head styles}.
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Notation Reference: @ref{Note head styles}.
 
@@ -1753,7 +1753,7 @@ staff size}.
 
 Notation Reference: @ref{Setting the staff size}.
 
-Snippets: @lsrdir{Pitches},
+Snippets: @lsrdir{Pitches,Pitches},
 
 Internals Reference: @internalsref{NoteHead}.
 
@@ -1792,7 +1792,7 @@ the base of the scale is determined by the @code{\key} command.
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Improvisation
@@ -1823,7 +1823,7 @@ rhythm.  Such note heads can be created:
 
 @seealso
 
-Snippets: @lsrdir{Pitches}.
+Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Pitch_squash_engraver},
 @internalsref{Voice}.

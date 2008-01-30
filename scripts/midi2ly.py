@@ -31,6 +31,7 @@ import sys
 
 import midi
 import lilylib as ly
+global _;_=ly._
 
 ################################################################
 ## CONSTANTS
@@ -55,15 +56,6 @@ allowed_tuplet_clocks = []
 
 ################################################################
 
-localedir = '@localedir@'
-try:
-    import gettext
-    gettext.bindtextdomain ('lilypond', localedir)
-    gettext.textdomain ('lilypond')
-    _ = gettext.gettext
-except:
-    def _ (s):
-        return s
 
 program_name = sys.argv[0]
 program_version = '@TOPLEVEL_VERSION@'
@@ -75,7 +67,7 @@ def identify ():
 
 def warranty ():
     identify ()
-    sys.stdout.write ('''
+    ly.encoded_write (sys.stdout, '''
 Copyright (c) %s by
 
  Han-Wen Nienhuys
@@ -89,14 +81,14 @@ Copyright (c) %s by
 
 
 def progress (s):
-    errorport.write (s + '\n')
+    ly.encoded_write (errorport, s + '\n')
 
 def warning (s):
     progress (_ ("warning: ") + s)
         
 def error (s):
     progress (_ ("error: ") + s)
-    raise _ ("Exiting ... ")
+    raise _ ("Exiting... ")
 
 def system (cmd, ignore_error = 0):
     return ly.system (cmd, ignore_error=ignore_error)
@@ -107,7 +99,6 @@ def strip_extension (f, ext):
         e = ''
     return p + e
 
-
 
 
 class Duration:
@@ -891,12 +882,13 @@ def get_option_parser ():
     p.add_option ('-x', '--text-lyrics', help=_ ("treat every text as a lyric"),
            action='store_true')
 
-    p.add_option_group (_ ("Examples"),
+# urg, Python 2.5 optparse is broken, it doesn't accept Unicode strings
+    p.add_option_group (_ ("Examples").encode (sys.stdout.encoding),
               description = r'''
   midi2ly --key=-2:1 --duration-quant=32 \
     --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
-    p.add_option_group ('bugs',
+    p.add_option_group (_ ('Bugs').encode (sys.stdout.encoding),
                         description=(_ ('Report bugs via')
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
@@ -910,8 +902,8 @@ def do_options ():
 
     if not args or args[0] == '-':
         opt_parser.print_help ()
-        sys.stderr.write ('\n%s: %s %s\n' % (program_name, _ ("error: "),
-                          _ ("no files specified on command line.")))
+        ly.stderr_write ('\n%s: %s %s\n' % (program_name, _ ("error: "),
+                         _ ("no files specified on command line.")))
         sys.exit (2)
 
     if options.duration_quant:

@@ -116,7 +116,7 @@ the command @code{\override Staff.BarLine #'transparent = ##t}
 
 Staff groups can be nested, using the context
 @code{InnerStaffGroup} or @code{InnerChoirStaff}; see
-@lsr{staff,staff-brackets.ly}
+@c @lsr{staff,staff-brackets.ly}
 @c snippet 137
 
 @commonprop
@@ -148,15 +148,14 @@ instantiated manually
 @c FIXME: Graham will deal with this.  -gp
 @c snippet 201
 To display a bracket even if there is only one staff, see
-@lsr{staff,display-bracket-with-only-one-staff-in-a
-system.ly}
+@c @lsr{staff,display-bracket-with-only-one-staff-in-a system.ly}
 
 @seealso
 
 Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
 @rglos{bracket}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{StaffGroup},
@@ -174,8 +173,8 @@ The layout object which draws the lines of a staff is called
 @code{staff symbol}.  The staff symbol may be tuned in the number,
 thickness and distance of lines, using properties.  This is
 demonstrated in the example files
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
-@lsr{staff,changing-the-staff-size.ly}.
+@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
+@c @lsr{staff,changing-the-staff-size.ly}.
 
 In addition, staves may be started and stopped at will.  This is
 done with @code{\startStaff} and @code{\stopStaff}.
@@ -238,7 +237,7 @@ In combination with Frenched staves, this may be used to typeset
 
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{StaffSymbol},
 @internalsref{DrumStaff}.
@@ -316,7 +315,7 @@ You can make the staff lines invisible by removing the
 
 Notation Reference: @ref{Staff symbol}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChordNames},
 @internalsref{FiguredBass}, @internalsref{Lyrics},
@@ -382,7 +381,7 @@ Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 
 Notation Reference: @ref{Text markup}.
 
-Snippets: @lsrdir{staff}.
+Snippets: @lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
@@ -515,7 +514,7 @@ c1 c c c \break
 
 Notation Reference: @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{InstrumentName},
 @internalsref{PianoStaff}, @internalsref{Staff}.
@@ -637,7 +636,7 @@ written entirely in lower-case letters: @code{\addquote}.
 
 Notation Reference: @ref{Instrument transpositions}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
@@ -750,7 +749,7 @@ cbsn = \relative c, {
 
 @seealso
 
-Snippets: @lsrdir{staff}.
+Snippets: @lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{Voice}.
 

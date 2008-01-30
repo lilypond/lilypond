@@ -74,16 +74,15 @@ def exit (i):
         sys.exit (i)
 
 def identify ():
-    sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+    ly.encoded_write (sys.stdout, '%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
-def progress (s):
-    sys.stderr.write (s)
+progress = ly.progress
 
 def warning (s):
-    sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
 
 def error (s):
-    sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
 
 def ps_page_count (ps_name):
     header = open (ps_name).read (1024)
@@ -94,7 +93,7 @@ def ps_page_count (ps_name):
 
 def warranty ():
     identify ()
-    sys.stdout.write ('''
+    ly.encoded_write (sys.stdout, '''
 %s
 
 %s
@@ -1417,8 +1416,8 @@ def filter_pipe (input, cmd):
         exit_status = status >> 8
         error (_ ("`%s' failed (%d)") % (cmd, exit_status))
         error (_ ("The error log is as follows:"))
-        sys.stderr.write (error)
-        sys.stderr.write (stderr.read ())
+        ly.stderr_write (error)
+        ly.stderr_write (stderr.read ())
         exit (status)
 
     if global_options.verbose:

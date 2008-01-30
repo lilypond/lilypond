@@ -25,11 +25,11 @@ from rational import Rational
 options = None
 
 def progress (str):
-    sys.stderr.write (str + '\n')
+    stderr_write (str + '\n')
     sys.stderr.flush ()
 
 def error_message (str):
-    sys.stderr.write (str + '\n')
+    stderr_write (str + '\n')
     sys.stderr.flush ()
 
 needed_additional_definitions = []
