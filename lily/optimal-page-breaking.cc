@@ -149,7 +149,7 @@ Optimal_page_breaking::solve ()
 	break;
     }
 
-  message ("Drawing systems...");
+  message (_ ("Drawing systems..."));
   break_into_pieces (0, end, best_division);
   SCM lines = systems ();
   return make_pages (best.systems_per_page_, lines);
