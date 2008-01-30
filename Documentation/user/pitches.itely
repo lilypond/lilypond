@@ -210,7 +210,7 @@ The relative conversion will not affect @code{\transpose},
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
 
-@c TODO: DEPRECATED
+@c NOTE: DEPRECATED
 If no @var{startpitch} is specified for @code{\relative},
 then@tie{}@code{c'} is assumed.  However, this is a deprecated
 option and may disappear in future versions, so its use is
@@ -452,16 +452,15 @@ Octave checks make such errors easier to find by displaying a
 warning and correcting the octave if a note is found in an
 unexpected octave.
 
-To check the octave of a specific note, add
-@code{=}@tie{}@var{quotes} after the pitch.  The @var{quotes}
-indicate what its absolute octave should be.  This example will
-generate a warning (and change the pitch) because the second note
-is the absolute octave @code{d''} instead of @code{d'} as
-indicated by the octave correction.
+To check the octave of a specific note, specify the absolute
+octave after the @code{=}@tie{}symbol.  This example will generate
+a warning (and change the pitch) because the second note is the
+absolute octave @code{d''} instead of @code{d'} as indicated by
+the octave correction.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
-  c2 d='
+  c2 d='4 d
   e2 f
 }
 @end lilypond
@@ -470,7 +469,7 @@ The octave of pitches may also be checked with the
 @code{\octave}@tie{}@var{controlpitch} command.
 @var{controlpitch} is specified in absolute mode.  This checks
 that the interval between the previous note and the
-@var{contorlpitch} is within a fourth (i.e. the normal calculation
+@var{controlpitch} is within a fourth (i.e. the normal calculation
 of relative mode).  If this check fails, a warning is printed, but
 the previous note is not changed.  Future notes are relative to
 the @var{controlpitch}.
@@ -829,22 +828,8 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @commonprop
 
-@ignore
-Internally the function sets the properties @code{ottavation}
-(e.g., to @code{"8va"} or @code{"8vb"}) and
-@code{middleCPosition}.  To override the text of the bracket, set
-@code{ottavation} after invoking @code{set-octavation}, i.e.,
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-#(set-octavation 1)
-\set Staff.ottavation = #"8"
-c'
-@end lilypond
-@end ignore
-
-@c FIXME: add this
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ottava-text.ly}
 
 
 @seealso
@@ -855,14 +840,6 @@ Snippets: @lsrdir{Pitches}.
 
 Internals Reference: @internalsref{OttavaBracket}.
 
-
-@refbugs
-
-@c FIXME: This should have been fixed by Joe.
-@c If it hasn't, we should mention the appropriate
-@c workaround (there is a snippet in the LSR) -vv
-@code{set-octavation} will get confused when clef changes happen
-during an octavation bracket.
 
 
 @node Instrument transpositions
