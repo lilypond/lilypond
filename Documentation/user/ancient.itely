@@ -200,7 +200,7 @@ ancient accidentals.
 As shown, not all accidentals are supported by each style.  When
 trying to access an unsupported accidental, LilyPond will switch to a
 different style, as demonstrated in
-@lsr{ancient,ancient-accidentals.ly}.
+@c @lsr{ancient,ancient-accidentals.ly}.
 
 Similarly to local accidentals, the style of the key signature can be
 controlled by the @code{glyph-name-alist} property of the
@@ -215,7 +215,7 @@ the use of key signatures.
 
 Internals Reference: @internalsref{KeySignature}.
 
-Examples: @lsrdir{ancient}
+Examples: @c @lsrdir{ancient}
 
 @node Ancient rests
 @unnumberedsubsubsec Ancient rests
@@ -242,7 +242,7 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
-taken.  See @lsr{pitches,rests} for a chart of all rests.
+taken.  See @c @lsr{pitches,rests} for a chart of all rests.
 
 There are no rests in Gregorian Chant notation; instead, it uses
 @ref{Divisiones}.
@@ -768,7 +768,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 Internals Reference: @internalsref{Custos}.
 
 Examples:
-@lsr{ancient,custodes@/.ly}.
+@c @lsr{ancient,custodes@/.ly}.
 
 
 @node Divisiones
@@ -819,7 +819,7 @@ Notation Reference: @ref{Breath marks}.
 
 Internals Reference: @internalsref{BreathingSign}.
 
-Examples: @lsr{expressive,breathing-sign.ly}.
+Examples: @c @lsr{expressive,breathing-sign.ly}.
 
 
 @node Ligatures

@@ -345,7 +345,7 @@ adds the new exceptions to the default ones, which are defined in
 @file{ly/@/chord@/-modifier@/-init@/.ly}.
 
 For an example of tuning this property, see also
-@lsr{chords,chord@/-name@/-exceptions@/.ly}
+@c @lsr{chords,chord@/-name@/-exceptions@/.ly}
 @cindex exceptions, chord names.
 
 
@@ -354,7 +354,7 @@ For an example of tuning this property, see also
 This property contains the markup object used for the 7th step, when
 it is major.  Predefined options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.  See
-@lsr{chords,chord@/-name@/-major7@/.ly} for an example.
+@c @lsr{chords,chord@/-name@/-major7@/.ly} for an example.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
@@ -404,7 +404,7 @@ There are also two other chord name schemes implemented: an alternate
 Jazz chord notation, and a systematic scheme called Banter chords.  The
 alternate Jazz notation is also shown on the chart in @ref{Chord name
 chart}.  Turning on these styles is demonstrated in
-@lsr{chords,chord-names-jazz.ly}.
+@c @lsr{chords,chord-names-jazz.ly}.
 
 @cindex Banter
 @cindex jazz chords
@@ -428,7 +428,7 @@ chart}.  Turning on these styles is demonstrated in
 @seealso
 
 Examples:
-@lsrdir{chords}
+@c @lsrdir{chords}
 
 Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
 @file{scm/@/chord@/-entry@/.scm}.

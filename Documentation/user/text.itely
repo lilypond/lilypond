@@ -82,7 +82,7 @@ c4\mark "foo" c c c
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 
 
@@ -141,7 +141,7 @@ default; to enable it, use
 
 Notation Reference: @ref{Text markup}.
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -194,7 +194,7 @@ To print a solid line, use
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextSpanner}.
 
@@ -339,7 +339,7 @@ staff, you may alter this to print them on every staff,
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -504,7 +504,7 @@ advisable to cancel those properties with @code{normal-text}.  See
 
 This manual: @ref{Overview of text markup commands}.
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -541,7 +541,7 @@ contain a @code{\layout} block.
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 @node Page wrapping text
 @unnumberedsubsubsec Page wrapping text
@@ -574,7 +574,7 @@ lists.  The built-in markup list commands are described in
 This manual: @ref{Overview of text markup list commands}, @ref{New
 markup list command definition}.
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 @refcommands
 
@@ -692,7 +692,7 @@ sans serif and monospaced text.  For example,
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 
 @node Special text concerns
@@ -743,7 +743,7 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 
 @node Text and line spanners
@@ -906,7 +906,7 @@ hairpins with \!.
 
 @seealso
 
-Snippets: @lsrdir{text}
+Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextSpanner},
 @internalsref{Glissando}, @internalsref{VoiceFollower},
