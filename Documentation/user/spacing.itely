@@ -1039,8 +1039,8 @@ Internals: Vertical alignment of staves is handled by the
 specifying the vertical extent are described in connection with
 the @internalsref{Axis_group_engraver}.
 
-Example files: @lsr{spacing,page-spacing.ly},
-@lsr{spacing,alignment-vertical-spacing.ly}.
+Example files: @c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 
 @node Vertical spacing between systems

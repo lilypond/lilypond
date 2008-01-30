@@ -45,7 +45,7 @@ with @code{\}@var{number},
 @seealso
 
 Internals Reference: @internalsref{StringNumber},
-@lsr{guitar/,string-number.ly}.
+@c @lsr{guitar/,string-number.ly}.
 
 
 @node Tablatures basic

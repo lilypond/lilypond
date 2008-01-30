@@ -161,7 +161,7 @@ and brackets for the repeat are thus normally only printed over
 the topmost staff.  This can be adjusted by adding
 @code{Volta_engraver} to the Staff context where you want the
 brackets to appear; see @ref{Modifying context plug-ins} and
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@c @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 @lilypond[verbatim,ragged-right,quote]
 \score { <<

@@ -329,7 +329,7 @@ For more information on output formats, see @rprogram{Invoking lilypond}.
 
 @seealso
 
-Examples: @lsr{non-notation,clip-systems.ly}
+Examples: @c @lsr{non-notation,clip-systems.ly}
 
 
 @node Including LilyPond files
@@ -429,7 +429,7 @@ To use a Unicode escape sequence, use
 
 @seealso
 
-@lsr{text,utf-8.ly}
+@c @lsr{text,utf-8.ly}
 
 
 @node Different editions from one source
@@ -498,7 +498,7 @@ a piece of music with multiple @code{\tag} entries,
 
 @seealso
 
-Examples: @lsr{parts,tag@/-filter@/.ly}
+Examples: @c @lsr{parts,tag@/-filter@/.ly}
 
 
 @refbugs

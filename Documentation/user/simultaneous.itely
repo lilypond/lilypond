@@ -88,7 +88,7 @@ Internals Reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
-Examples: @lsr{contemporary,cluster@/.ly}.
+Examples: @c @lsr{contemporary,cluster@/.ly}.
 
 
 

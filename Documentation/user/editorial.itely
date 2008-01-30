@@ -170,7 +170,7 @@ Snippets: @lsrdir{editorial}.
 
 Internals Reference: @internalsref{Fingering}.
 
-Examples: @lsr{expressive,fingering-chords.ly}
+Examples: @c @lsr{expressive,fingering-chords.ly}
 
 
 

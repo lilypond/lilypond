@@ -483,7 +483,7 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{expressive}, @lsr{expressive,breathing-sign.ly}.
+Snippets: @lsrdir{expressive}, @c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}.
 

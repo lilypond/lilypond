@@ -446,7 +446,7 @@ Internals Reference:
 @internalsref{LaissezVibrerTieColumn}
 
 Example files:
-@lsr{connecting,laissez-vibrer-ties.ly}
+@c @lsr{connecting,laissez-vibrer-ties.ly}
 
 
 @commonprop
@@ -931,7 +931,7 @@ Snippets: @lsrdir{rhythms}
 Internals Reference: @internalsref{TimeSignature}, and
 @internalsref{Timing_translator}.
 
-Examples: @lsr{contemporary,compound-time-signature.ly}.
+Examples: @c @lsr{contemporary,compound-time-signature.ly}.
 
 
 @refbugs
@@ -1067,7 +1067,7 @@ Double time signatures are not supported explicitly, but they can
 be faked.  In the next example, the markup for the time signature
 is created with a markup text.  This markup text is inserted in
 the @internalsref{TimeSignature} grob.  See also
-@lsr{contemporary,compound-time-signature}.
+@c @lsr{contemporary,compound-time-signature}.
 
 @lilypond[verbatim,ragged-right]
 % create 2/4 + 5/8
@@ -1183,7 +1183,7 @@ aligned vertically, but bar lines distort the regular spacing.
 
 @seealso
 
-Snippets: @lsrdir{rhythms}, @lsr{contemporary,compound-time-signature}.
+Snippets: @lsrdir{rhythms}, @c @lsr{contemporary,compound-time-signature}.
 
 Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
 
@@ -2182,7 +2182,7 @@ the definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
 
-Examples: @lsr{parts,rehearsal-mark-numbers.ly}
+Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
 
 @node Special rhythmic concerns
