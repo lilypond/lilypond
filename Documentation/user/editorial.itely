@@ -170,9 +170,6 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference: @internalsref{Fingering}.
 
-Examples: @c @lsr{expressive,fingering-chords.ly}
-
-
 
 @node Hidden notes
 @unnumberedsubsubsec Hidden notes
@@ -195,9 +192,20 @@ e4 f4
 g4 a
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Coloring objects
 @unnumberedsubsubsec Coloring objects
+
+@cindex colored objects
+@cindex colors
+@cindex coloring objects
+@cindex colored notes
+@cindex coloring notes
+@cindex notes, colored
 
 Individual objects may be assigned colors.  You may use the color
 names listed in the @ref{List of colors}.
@@ -210,6 +218,8 @@ d
 \override Stem #'color = #blue
 e
 @end lilypond
+
+@cindex x11-color
 
 The full range of colors defined for X11 can be accessed by using
 the Scheme function x11-color.  The function takes one argument
@@ -272,8 +282,10 @@ you can get exact RGB colors by specifying
 
 @seealso
 
-Appendix: @ref{List of colors}.
+Notation Reference: @ref{List of colors}, @ref{Objects connected to
+the input}.
 
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 @refbugs
 Not all x11 colors are distinguishable in a web browser.  For web
@@ -293,6 +305,7 @@ for details.
 @cindex ghost notes
 @cindex notes, ghost
 @cindex notes, parenthesized
+@cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event,
@@ -312,13 +325,19 @@ must be enclosed with @code{<>} as if it is a chord.
 < \parenthesize NOTE>
 @end example
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Stems
 @unnumberedsubsubsec Stems
 
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created
-but made invisible.
+@cindex stem
+
+Whenever a note is found, a @code{Stem} object is created
+automatically.  For whole notes and rests, they are also created but
+made invisible.
 
 @refcommands
 
@@ -332,6 +351,11 @@ but made invisible.
 
 @commonprop
 
+@cindex stem, direction
+@cindex stem, up
+@cindex stem, down
+@cindex stem, neutral
+
 To change the direction of stems on the center line of the staff, use
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
@@ -341,6 +365,10 @@ a4 b c b
 \override Stem #'neutral-direction = #down
 a4 b c b
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Outside the staff
