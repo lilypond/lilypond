@@ -66,8 +66,10 @@ local-help:
   .             to=0.1.74.jcn2\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\
-  doc         update all documentation\n\
+  doc         update all documentation (without images)\n\
   cvs-clean   also remove out directories and generated files\n\
+  info        update info docs (without images)\n\
+  info out=www  update info docs with images\n\
   maintainerclean also remove distributed generated files\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
