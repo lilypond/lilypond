@@ -38,19 +38,28 @@ if os.environ.has_key ('LILYPOND_DATADIR') :
 sys.path.insert (0, os.path.join (datadir, 'python'))
 
 
-
+# Python 2.5 only accepts strings with proper Python internal encoding
+# (i.e. ASCII or Unicode) when writing to stdout/stderr, so we must
+# use ugettext iso gettext, and encode the string when writing to
+# stdout/stderr
 
 localedir = '@localedir@'
 try:
     import gettext
-    gettext.bindtextdomain ('lilypond', localedir)
-    gettext.textdomain ('lilypond')
-    _ = gettext.gettext
+    t = gettext.translation ('lilypond', localedir)
+    _ = t.ugettext
 except:
     def _ (s):
 	return s
 underscore = _
-progress = sys.stderr.write 
+
+def encoded_write(f, s):
+    f.write (s.encode (f.encoding))
+
+def stderr_write (s):
+    encoded_write (sys.stderr, s)
+
+progress = stderr_write
 
 # Modified version of the commands.mkarg(x), which always uses 
 # double quotes (since Windows can't handle the single quotes:
