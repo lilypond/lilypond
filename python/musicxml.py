@@ -324,6 +324,9 @@ class Note (Measure_element):
                     'whole': 0,
                     'breve': -1,
                     'long': -2}.get (log, 0)
+	elif self.get_maybe_exist_named_child (u'grace'):
+	    # FIXME: is it ok to default to eight note for grace notes?
+	    return 3
         else:
             self.message ("Encountered note at %s with %s duration (no <type> element):" % (self.start, self.duration) )
             return 0
