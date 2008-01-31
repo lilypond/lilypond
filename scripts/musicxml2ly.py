@@ -1150,7 +1150,7 @@ class LilyPondVoiceBuilder:
         self.set_duration (duration)
         
         # Insert all pending dynamics right after the note/rest:
-        if isinstance (music, musicexp.EventChord) and self.pending_dynamics:
+        if isinstance (music, musicexp.ChordEvent) and self.pending_dynamics:
             for d in self.pending_dynamics:
                 music.append (d)
             self.pending_dynamics = []
@@ -1203,7 +1203,7 @@ class LilyPondVoiceBuilder:
             skip.duration.factor = duration_factor
             skip.duration.dots = duration_dots
 
-            evc = musicexp.EventChord ()
+            evc = musicexp.ChordEvent ()
             evc.elements.append (skip)
             self.add_music (evc, diff)
 
@@ -1214,16 +1214,16 @@ class LilyPondVoiceBuilder:
 
         value = None
 
-        # if the position matches, find the last EventChord, do not cross a bar line!
+        # if the position matches, find the last ChordEvent, do not cross a bar line!
         at = len( self.elements ) - 1
         while (at >= 0 and
-               not isinstance (self.elements[at], musicexp.EventChord) and
+               not isinstance (self.elements[at], musicexp.ChordEvent) and
                not isinstance (self.elements[at], musicexp.BarLine)):
             at -= 1
 
         if (self.elements
             and at >= 0
-            and isinstance (self.elements[at], musicexp.EventChord)
+            and isinstance (self.elements[at], musicexp.ChordEvent)
             and self.begin_moment == starting_at):
             value = self.elements[at]
         else:
@@ -1234,7 +1234,7 @@ class LilyPondVoiceBuilder:
     def correct_negative_skip (self, goto):
         self.end_moment = goto
         self.begin_moment = goto
-        evc = musicexp.EventChord ()
+        evc = musicexp.ChordEvent ()
         self.elements.append (evc)
 
 
@@ -1364,7 +1364,7 @@ def musicxml_voice_to_lily_voice (voice):
 
         ev_chord = voice_builder.last_event_chord (n._when)
         if not ev_chord: 
-            ev_chord = musicexp.EventChord()
+            ev_chord = musicexp.ChordEvent()
             voice_builder.add_music (ev_chord, n._duration)
 
         grace = n.get_maybe_exist_typed_child (musicxml.Grace)
@@ -1373,7 +1373,7 @@ def musicxml_voice_to_lily_voice (voice):
             if n.get_maybe_exist_typed_child (musicxml.Chord) and ev_chord.grace_elements:
                 grace_chord = ev_chord.grace_elements.get_last_event_chord ()
             if not grace_chord:
-                grace_chord = musicexp.EventChord ()
+                grace_chord = musicexp.ChordEvent ()
                 ev_chord.append_grace (grace_chord)
             if hasattr (grace, 'slash'):
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
@@ -1524,7 +1524,7 @@ def musicxml_voice_to_lily_voice (voice):
             tuplet_events.append ((ev_chord, tuplet_event, frac))
 
     ## force trailing mm rests to be written out.   
-    voice_builder.add_music (musicexp.EventChord (), Rational (0))
+    voice_builder.add_music (musicexp.ChordEvent (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
     ly_voice = group_repeats (ly_voice)
