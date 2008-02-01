@@ -29,7 +29,7 @@ are three steps to this process: input, modifying, and output.
 
 This section discusses how to input pitches.  There are two
 different ways to place notes in octaves: absolute and relative
-mode.  In most cases, relative mode will be more convient.
+mode.  In most cases, relative mode will be more convenient.
 
 @menu
 * Absolute octave entry::       
@@ -417,10 +417,6 @@ contracted names are defined in the corresponding language files.
 a2 as e es a ases e eses
 @end lilypond
 
-In some languages such as Norwegian and Swedish, the usual
-spelling for accidentals is a double @q{s} such as in @code{ciss}
-or @code{cess}.  For both historical reasons and a greater
-simplicity, LilyPond uses a single @q{s} for all these languages.
 
 @seealso
 
@@ -676,25 +672,25 @@ Supported clefs include:
 @multitable @columnfractions .4 .6
 @headitem Clef @tab Position
 @item @code{treble, violin, G, G2} @tab
-G clef (g') on 2nd line
+G clef, g' is on 2nd line
 @item @code{alto, C} @tab
-C clef (c') on 3rd line
+C clef, c' is on 3rd line
 @item @code{tenor} @tab
-C clef (c') on 4th line
+C clef, c' is on 4th line
 @item @code{bass, F} @tab
-F clef (f) on 4th line
+F clef, f is on 4th line
 @item @code{french} @tab
-G clef (g') on 1st line, so-called French violin clef
+G clef, g' is on 1st line, so-called French violin clef
 @item @code{soprano} @tab
-C clef (c') on 1st line
+C clef, c' is on 1st line
 @item @code{mezzosoprano} @tab
-C clef (c') on 2nd line
+C clef, c' is on 2nd line
 @item @code{baritone} @tab
-C clef (c') on 5th line
+C clef, c' is on 5th line
 @item @code{varbaritone} @tab
-F clef (f) on 3rd line
+F clef, f is on 3rd line
 @item @code{subbass} @tab
-F clef (f) on 5th line
+F clef, f is on 5th line
 @item @code{percussion} @tab
 percussion clef
 @item @code{tab} @tab
