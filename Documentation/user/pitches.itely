@@ -40,7 +40,7 @@ mode.  In most cases, relative mode will be more convenient.
 
 
 @node Absolute octave entry
-@unnumberedsubsubsec Absolute octave entry
+@subsubsection Absolute octave entry
 
 @cindex pitch names
 @cindex pitches
@@ -84,7 +84,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Relative octave entry
-@unnumberedsubsubsec Relative octave entry
+@subsubsection Relative octave entry
 
 @cindex relative
 @cindex relative octave specification
@@ -219,7 +219,7 @@ discouraged.
 
 
 @node Accidentals
-@unnumberedsubsubsec Accidentals
+@subsubsection Accidentals
 
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
@@ -322,7 +322,7 @@ standard.
 
 
 @node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
+@subsubsection Note names in other languages
 
 There are predefined sets of note names for various other
 languages.  To use them, include the language specific init file.
@@ -436,7 +436,7 @@ This section discusses how to modify pitches.
 @end menu
 
 @node Octave checks
-@unnumberedsubsubsec Octave checks
+@subsubsection Octave checks
 
 @cindex octave correction
 @cindex octave check
@@ -502,7 +502,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Transpose
-@unnumberedsubsubsec Transpose
+@subsubsection Transpose
 
 @cindex transpose
 @cindex transposition of pitches
@@ -635,7 +635,7 @@ This section discusses how to alter the output of pitches.
 
 
 @node Clef
-@unnumberedsubsubsec Clef
+@subsubsection Clef
 
 @funindex \clef
 
@@ -729,7 +729,7 @@ Internals Reference: @internalsref{Clef}.
 
 
 @node Key signature
-@unnumberedsubsubsec Key signature
+@subsubsection Key signature
 
 @cindex key signature
 @funindex \key
@@ -799,7 +799,7 @@ Internals Reference: @internalsref{KeyCancellation},
 
 
 @node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@subsubsection Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -839,7 +839,7 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@subsubsection Instrument transpositions
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
@@ -926,7 +926,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Automatic accidentals
-@unnumberedsubsubsec Automatic accidentals
+@subsubsection Automatic accidentals
 @cindex automatic accidentals
 
 @funindex set-accidental-style
@@ -1614,7 +1614,7 @@ problematic notes.
 
 
 @node Ambitus
-@unnumberedsubsubsec Ambitus
+@subsubsection Ambitus
 @cindex ambitus
 
 The term @notation{ambitus} or @notation{ambit} denotes a range of
@@ -1678,7 +1678,7 @@ ambitus.
 @end menu
 
 @node Special note heads
-@unnumberedsubsubsec Special note heads
+@subsubsection Special note heads
 
 @cindex note heads, special
 
@@ -1712,7 +1712,7 @@ Internals Reference: @internalsref{NoteHead},
 
 
 @node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
+@subsubsection Easy notation note heads
 
 @cindex note heads, practice
 @cindex note heads, easy notation
@@ -1755,7 +1755,7 @@ Internals Reference: @internalsref{NoteHead}.
 
 
 @node Shape note heads
-@unnumberedsubsubsec Shape note heads
+@subsubsection Shape note heads
 
 @cindex note heads, shape
 @funindex \key
@@ -1792,7 +1792,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Improvisation
-@unnumberedsubsubsec Improvisation
+@subsubsection Improvisation
 
 @cindex improvisation
 @cindex slashed note heads
