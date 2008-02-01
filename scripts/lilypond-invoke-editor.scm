@@ -127,15 +127,16 @@ Options:
 
 (define (strip-framework-path var)
   (define pat "lilypond/usr")
-  (let*
-      ((val (getenv var))
-       (paths (string-split val #\:))
-       (without (remove (lambda (s) (string-contains s pat))
-			paths)))
-
-    (if (not (= (length without)
-		(length paths)))
-	(setenv var (string-join without ":")))))
+  (if (getenv var)
+      (let*
+	  ((val (getenv var))
+	   (paths (string-split val #\:))
+	   (without (remove (lambda (s) (string-contains s pat))
+			    paths)))
+	
+	(if (not (= (length without)
+		    (length paths)))
+	    (setenv var (string-join without ":"))))))
 
 (define (main args)
   (let ((files (parse-options args)))

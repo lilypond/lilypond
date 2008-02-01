@@ -202,6 +202,21 @@ class Pitch (Music_xml_node):
 	    alter = int (ch.get_text ().strip ())
 	return alter
 
+class Unpitched (Music_xml_node):
+    def get_step (self):
+	ch = self.get_unique_typed_child (get_class (u'display-step'))
+	step = ch.get_text ().strip ()
+	return step
+
+    def get_octave (self):
+	ch = self.get_unique_typed_child (get_class (u'display-octave'))
+
+	if ch:
+	    octave = ch.get_text ().strip ()
+	    return int (octave)
+	else:
+	    return None
+
 class Measure_element (Music_xml_node):
     def get_voice_id (self):
 	voice_id = self.get_maybe_exist_named_child ('voice')
@@ -309,8 +324,11 @@ class Note (Measure_element):
                     'whole': 0,
                     'breve': -1,
                     'long': -2}.get (log, 0)
+	elif self.get_maybe_exist_named_child (u'grace'):
+	    # FIXME: is it ok to default to eight note for grace notes?
+	    return 3
         else:
-            self.message ("Encountered note at %s without %s duration (no <type> element):" % (self.start, self.duration) )
+            self.message ("Encountered note at %s with %s duration (no <type> element):" % (self.start, self.duration) )
             return 0
 
     def get_factor (self):
@@ -879,6 +897,7 @@ class_dict = {
 	'time-modification': Time_modification,
         'tuplet': Tuplet,
 	'type': Type,
+	'unpitched': Unpitched,
         'wavy-line': Wavy_line,
         'wedge': Wedge,
         'words': Words,

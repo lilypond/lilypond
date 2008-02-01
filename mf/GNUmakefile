@@ -121,7 +121,7 @@ $(outdir)/aybabtu.fontname:
 $(outdir)/aybabtu.subfonts:
 	echo $(subst .mf,,$(call src-wildcard,feta-braces-[a-z].mf)) > $@
 
-$(PE_SCRIPTS): $(buildscript-dir)/out/gen-emmentaler-scripts
+$(PE_SCRIPTS): $(top-build-dir)/buildscripts/$(outdir)/gen-emmentaler-scripts
 	$(PYTHON) $< --dir=$(outdir)
 
 ALL_FONTS = $(FETA_FONTS)

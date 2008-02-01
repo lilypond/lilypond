@@ -25,11 +25,11 @@ from rational import Rational
 options = None
 
 def progress (str):
-    stderr_write (str + '\n')
+    ly.stderr_write (str + '\n')
     sys.stderr.flush ()
 
 def error_message (str):
-    stderr_write (str + '\n')
+    ly.stderr_write (str + '\n')
     sys.stderr.flush ()
 
 needed_additional_definitions = []
@@ -196,7 +196,6 @@ class PartGroupInfo:
         error_message ("Unprocessed PartGroupInfo %s encountered" % self)
         return ''
 
-
 def staff_attributes_to_string_tunings (mxl_attr):
     details = mxl_attr.get_maybe_exist_named_child ('staff-details')
     if not details:
@@ -219,7 +218,7 @@ def staff_attributes_to_string_tunings (mxl_attr):
 
         step = i.get_named_child (u'tuning-step')
         step = step.get_text ().strip ()
-        p.step = (ord (step) - ord ('A') + 7 - 2) % 7
+        p.step = musicxml_step_to_lily (step)
 
         octave = i.get_named_child (u'tuning-octave')
         octave = octave.get_text ().strip ()
@@ -1071,26 +1070,34 @@ instrument_drumtype_dict = {
 def musicxml_note_to_lily_main_event (n):
     pitch  = None
     duration = None
-        
-    mxl_pitch = n.get_maybe_exist_typed_child (musicxml.Pitch)
     event = None
+
+    mxl_pitch = n.get_maybe_exist_typed_child (musicxml.Pitch)
     if mxl_pitch:
         pitch = musicxml_pitch_to_lily (mxl_pitch)
-        event = musicexp.NoteEvent()
+        event = musicexp.NoteEvent ()
         event.pitch = pitch
 
         acc = n.get_maybe_exist_named_child ('accidental')
         if acc:
             # let's not force accs everywhere. 
             event.cautionary = acc.editorial
+
+    elif n.get_maybe_exist_typed_child (musicxml.Unpitched):
+	# Unpitched elements have display-step and can also have
+	# display-octave.
+	unpitched = n.get_maybe_exist_typed_child (musicxml.Unpitched)
+	event = musicexp.NoteEvent ()
+	event.pitch = musicxml_unpitched_to_lily (unpitched)
         
     elif n.get_maybe_exist_typed_child (musicxml.Rest):
         # rests can have display-octave and display-step, which are
         # treated like an ordinary note pitch
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
-        event = musicexp.RestEvent()
+        event = musicexp.RestEvent ()
         pitch = musicxml_restdisplay_to_lily (rest)
         event.pitch = pitch
+
     elif n.instrument_name:
         event = musicexp.NoteEvent ()
         drum_type = instrument_drumtype_dict.get (n.instrument_name)
@@ -1099,11 +1106,13 @@ def musicxml_note_to_lily_main_event (n):
         else:
             n.message ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
             event.drum_type = 'acousticsnare'
-    
-    if not event:
+
+    else:
         n.message ("cannot find suitable event")
 
-    event.duration = musicxml_duration_to_lily (n)
+    if event:
+	event.duration = musicxml_duration_to_lily (n)
+
     return event
 
 
@@ -1150,7 +1159,7 @@ class LilyPondVoiceBuilder:
         self.set_duration (duration)
         
         # Insert all pending dynamics right after the note/rest:
-        if isinstance (music, musicexp.EventChord) and self.pending_dynamics:
+        if isinstance (music, musicexp.ChordEvent) and self.pending_dynamics:
             for d in self.pending_dynamics:
                 music.append (d)
             self.pending_dynamics = []
@@ -1203,7 +1212,7 @@ class LilyPondVoiceBuilder:
             skip.duration.factor = duration_factor
             skip.duration.dots = duration_dots
 
-            evc = musicexp.EventChord ()
+            evc = musicexp.ChordEvent ()
             evc.elements.append (skip)
             self.add_music (evc, diff)
 
@@ -1214,16 +1223,16 @@ class LilyPondVoiceBuilder:
 
         value = None
 
-        # if the position matches, find the last EventChord, do not cross a bar line!
+        # if the position matches, find the last ChordEvent, do not cross a bar line!
         at = len( self.elements ) - 1
         while (at >= 0 and
-               not isinstance (self.elements[at], musicexp.EventChord) and
+               not isinstance (self.elements[at], musicexp.ChordEvent) and
                not isinstance (self.elements[at], musicexp.BarLine)):
             at -= 1
 
         if (self.elements
             and at >= 0
-            and isinstance (self.elements[at], musicexp.EventChord)
+            and isinstance (self.elements[at], musicexp.ChordEvent)
             and self.begin_moment == starting_at):
             value = self.elements[at]
         else:
@@ -1234,7 +1243,7 @@ class LilyPondVoiceBuilder:
     def correct_negative_skip (self, goto):
         self.end_moment = goto
         self.begin_moment = goto
-        evc = musicexp.EventChord ()
+        evc = musicexp.ChordEvent ()
         self.elements.append (evc)
 
 
@@ -1244,6 +1253,12 @@ class VoiceData:
         self.ly_voice = None
         self.lyrics_dict = {}
         self.lyrics_order = []
+
+def musicxml_step_to_lily (step):
+    if step:
+	return (ord (step) - ord ('A') + 7 - 2) % 7
+    else:
+	return None
 
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
@@ -1358,13 +1373,12 @@ def musicxml_voice_to_lily_voice (voice):
             first_pitch = main_event.pitch
         ignore_lyrics = inside_slur or is_tied or is_chord
 
-        if hasattr (main_event, 'drum_type') and main_event.drum_type:
+        if main_event and hasattr (main_event, 'drum_type') and main_event.drum_type:
             modes_found['drummode'] = True
-
 
         ev_chord = voice_builder.last_event_chord (n._when)
         if not ev_chord: 
-            ev_chord = musicexp.EventChord()
+            ev_chord = musicexp.ChordEvent()
             voice_builder.add_music (ev_chord, n._duration)
 
         grace = n.get_maybe_exist_typed_child (musicxml.Grace)
@@ -1373,14 +1387,12 @@ def musicxml_voice_to_lily_voice (voice):
             if n.get_maybe_exist_typed_child (musicxml.Chord) and ev_chord.grace_elements:
                 grace_chord = ev_chord.grace_elements.get_last_event_chord ()
             if not grace_chord:
-                grace_chord = musicexp.EventChord ()
+                grace_chord = musicexp.ChordEvent ()
                 ev_chord.append_grace (grace_chord)
             if hasattr (grace, 'slash'):
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
                 if grace.slash == "yes":
                     ev_chord.grace_type = "acciaccatura"
-                elif grace.slash == "no":
-                    ev_chord.grace_type = "grace"
             # now that we have inserted the chord into the grace music, insert
             # everything into that chord instead of the ev_chord
             ev_chord = grace_chord
@@ -1524,7 +1536,7 @@ def musicxml_voice_to_lily_voice (voice):
             tuplet_events.append ((ev_chord, tuplet_event, frac))
 
     ## force trailing mm rests to be written out.   
-    voice_builder.add_music (musicexp.EventChord (), Rational (0))
+    voice_builder.add_music (musicexp.ChordEvent (), Rational (0))
     
     ly_voice = group_tuplets (voice_builder.elements, tuplet_events)
     ly_voice = group_repeats (ly_voice)
@@ -1560,7 +1572,6 @@ def musicxml_voice_to_lily_voice (voice):
     
     return return_value
 
-
 def musicxml_id_to_lily (id):
     digits = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five',
               'Six', 'Seven', 'Eight', 'Nine', 'Ten']
@@ -1572,20 +1583,30 @@ def musicxml_id_to_lily (id):
     id = re.sub  ('[^a-zA-Z]', 'X', id)
     return id
 
-
 def musicxml_pitch_to_lily (mxl_pitch):
-    p = musicexp.Pitch()
+    p = musicexp.Pitch ()
     p.alteration = mxl_pitch.get_alteration ()
-    p.step = (ord (mxl_pitch.get_step ()) - ord ('A') + 7 - 2) % 7
+    p.step = musicxml_step_to_lily (mxl_pitch.get_step ())
     p.octave = mxl_pitch.get_octave () - 4
+    return p
+
+def musicxml_unpitched_to_lily (mxl_unpitched):
+    p = None
+    step = mxl_unpitched.get_step ()
+    if step:
+	p = musicexp.Pitch ()
+	p.step = musicxml_step_to_lily (step)
+    octave = mxl_unpitched.get_octave ()
+    if octave and p:
+	p.octave = octave - 4
     return p
 
 def musicxml_restdisplay_to_lily (mxl_rest):
     p = None
     step = mxl_rest.get_step ()
     if step:
-        p = musicexp.Pitch()
-        p.step = (ord (step) - ord ('A') + 7 - 2) % 7
+        p = musicexp.Pitch ()
+        p.step = musicxml_step_to_lily (step)
     octave = mxl_rest.get_octave ()
     if octave and p:
         p.octave = octave - 4

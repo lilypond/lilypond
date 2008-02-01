@@ -53,8 +53,11 @@ except:
 	return s
 underscore = _
 
+# Urg, Python 2.4 does not define stderr/stdout encoding
+# Maybe guess encoding from LANG/LC_ALL/LC_CTYPE?
+
 def encoded_write(f, s):
-    f.write (s.encode (f.encoding))
+    f.write (s.encode (f.encoding or 'utf_8'))
 
 def stderr_write (s):
     encoded_write (sys.stderr, s)
