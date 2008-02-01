@@ -1763,7 +1763,7 @@ These are properties of all grobs which support the
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
-by by the trick of adding infinity to the leftmost extent and 
+by the trick of adding infinity to the leftmost extent and 
 minus infinity to the rightmost extent by setting the 
 @code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
 to ensure they do not overlap in the horizontal direction we
@@ -2985,6 +2985,7 @@ not already anywhere  -td
 
 @menu
 * Other uses for tweaks::       
+* Using variables for tweaks::  
 * Other sources of information::  
 * Advanced tweaks with Scheme::  
 * Avoiding tweaks with slower processing::  
@@ -3094,6 +3095,10 @@ while the second (with no stencil) does not.
 
 @end itemize
 
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+TODO Add section
 
 @node Other sources of information
 @subsection Other sources of information
@@ -3219,6 +3224,7 @@ In some cases (see issue 246), this must be done before
    ..
 }
 @end verbatim
+
 
 
 
