@@ -519,11 +519,11 @@ class SequentialMusic (NestedMusic):
         value = None
         at = len( self.elements ) - 1
         while (at >= 0 and
-               not isinstance (self.elements[at], EventChord) and
+               not isinstance (self.elements[at], ChordEvent) and
                not isinstance (self.elements[at], BarLine)):
             at -= 1
 
-        if (at >= 0 and isinstance (self.elements[at], EventChord)):
+        if (at >= 0 and isinstance (self.elements[at], ChordEvent)):
             value = self.elements[at]
         return value
 
@@ -662,7 +662,7 @@ class Paper:
         printer.newline ()
 
 
-class EventChord (NestedMusic):
+class ChordEvent (NestedMusic):
     def __init__ (self):
         NestedMusic.__init__ (self)
         self.grace_elements = None
@@ -1178,7 +1178,7 @@ class MultiMeasureRest(Music):
   'elements
   (list (make-music (quote BarCheck))
         (make-music
-          'EventChord
+          'ChordEvent
           'elements
           (list (make-music
                   'MultiMeasureRestEvent
@@ -1366,7 +1366,7 @@ def test_pitch ():
 
 def test_printer ():
     def make_note ():
-        evc = EventChord()
+        evc = ChordEvent()
         n = NoteEvent()
         evc.append (n)
         return n
@@ -1396,21 +1396,21 @@ def test_printer ():
 def test_expr ():
     m = SequentialMusic()
     l = 2  
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 1
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 3
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 2 
@@ -1421,7 +1421,7 @@ def test_expr ():
     evc.type = 'treble'
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     tonic = Pitch ()
     tonic.step = 2
     tonic.alteration = -2

@@ -1084,6 +1084,7 @@ SopTwoLyrics = \lyricmode {
     >>
     \new Staff <<
       \new Voice = "SopTwo" {
+        \global
         \SopTwoMusic
       }
       \new Lyrics \lyricsto "SopTwo" {
@@ -1132,7 +1133,7 @@ VerseFour  = \lyricmode {
     >>
     \new Staff <<
       \clef "bass"
-      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
       \new Voice = "Bass"  { \voiceTwo \BassMusic  }
     >>
   >>
@@ -1432,11 +1433,11 @@ because we omitted the context name.
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    \set Staff.instrumentName = "Soprano"
+    \set Staff.instrumentName = #"Soprano"
     c4 c
  }
   \new Staff \relative c' {
-  \set instrumentName = "Alto"  % Wrong!
+  \set instrumentName = #"Alto"  % Wrong!
   d4 d 
  }
 >>
@@ -1866,7 +1867,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+\version "2.11.37"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -1925,7 +1926,7 @@ sopWords = \lyricmode {
 }
 altoMusic = \relative a' {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
 altoWords = \sopWords
 tenorMusic = \relative c' {
@@ -2340,6 +2341,7 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
 
 
 
