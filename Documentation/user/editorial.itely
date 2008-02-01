@@ -400,15 +400,17 @@ The following example demonstrates its use.
 @end lilypond
 
 @noindent
-There are two music functions, @code{balloonText} and
-@code{balloonGrobText}.  The latter takes the name of the grob to
-adorn, while the former may be used as an articulation on a note.
-The other arguments  are the offset and the text of the label.
+There are two music functions, @code{balloonGrobText} and
+@code{balloonText}; the former takes the name of the grob to adorn,
+while the latter may be used as an articulation on a note.  The other
+arguments are the offset and the text of the label.
 
 @cindex balloon
 @cindex notation, explaining
 
 @seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference: @internalsref{text-balloon-interface}.
 
@@ -453,14 +455,18 @@ notes.
 >>
 @end lilypond
 
+@seealso
+
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Blank music sheet
 @unnumberedsubsubsec Blank music sheet
 
-@cindex Sheet music, empty
-@cindex Staves, blank sheet
+@cindex sheet music, empty
+@cindex staves, blank sheet
+@cindex blank staff paper
+@cindex staff paper, blank
 
 A blank music sheet can be produced also by using invisible notes,
 and removing @code{Bar_number_engraver}.
@@ -487,6 +493,10 @@ emptymusic = {
 >>
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Analysis brackets
 @unnumberedsubsubsec Analysis brackets
@@ -496,11 +506,10 @@ emptymusic = {
 @cindex musicological analysis
 @cindex note grouping bracket
 
-Brackets are used in musical analysis to indicate structure in
-musical pieces.  LilyPond supports a simple form of nested
-horizontal brackets.  To use this, add the
-@internalsref{Horizontal_bracket_engraver} to the
-@internalsref{Staff} context.  A bracket is started with
+Brackets are used in musical analysis to indicate structure in musical
+pieces.  LilyPond supports a simple form of nested horizontal
+brackets.  To use this, add the @code{Horizontal_bracket_engraver} to
+the @code{Staff} context.  A bracket is started with
 @code{\startGroup} and closed with @code{\stopGroup}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -519,6 +528,9 @@ horizontal brackets.  To use this, add the
 
 @seealso
 
-Internals Reference: @internalsref{HorizontalBracket}.
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference: @internalsref{HorizontalBracket},
+@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
 
 
