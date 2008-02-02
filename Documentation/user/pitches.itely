@@ -1817,6 +1817,14 @@ rhythm.  Such note heads can be created:
 }
 @end lilypond
 
+
+@refcommands
+
+@funindex \improvisationOn
+@funindex \improvisationOff
+
+@code{\improvisationOn}, @code{\improvisationOff}
+
 @seealso
 
 Snippets: @lsrdir{Pitches,Pitches}.
