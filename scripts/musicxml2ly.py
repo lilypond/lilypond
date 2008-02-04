@@ -767,23 +767,24 @@ def musicxml_fermata_to_lily_event (mxl_event):
         ev.force_direction = dir
     return ev
 
-
 def musicxml_arpeggiate_to_lily_event (mxl_event):
     ev = musicexp.ArpeggioEvent ()
     ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
     return ev
 
-
 def musicxml_tremolo_to_lily_event (mxl_event):
     ev = musicexp.TremoloEvent ()
-    ev.bars = mxl_event.get_text ()
+    txt = mxl_event.get_text ()
+    if txt:
+	ev.bars = mxl_event.get_text ()
+    else:
+	ev.bars = "3"
     return ev
 
 def musicxml_bend_to_lily_event (mxl_event):
     ev = musicexp.BendEvent ()
     ev.alter = mxl_event.bend_alter ()
     return ev
-
 
 def musicxml_fingering_event (mxl_event):
     ev = musicexp.ShortArticulationEvent ()
@@ -1480,12 +1481,6 @@ def musicxml_voice_to_lily_voice (voice):
             #         shake | wavy-line | mordent | inverted-mordent | 
             #         schleifer | tremolo | other-ornament, accidental-mark
             ornaments = notations.get_named_children ('ornaments')
-            for a in ornaments:
-                for ch in a.get_named_children ('tremolo'):
-                    ev = musicxml_tremolo_to_lily_event (ch)
-                    if ev: 
-                        ev_chord.append (ev)
-
             ornaments += notations.get_named_children ('articulations')
             ornaments += notations.get_named_children ('technical')
 
