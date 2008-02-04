@@ -796,6 +796,13 @@ def musicxml_bend_to_lily_event (mxl_event):
     ev.alter = mxl_event.bend_alter ()
     return ev
 
+def musicxml_caesura_to_lily_event (mxl_event):
+    ev = musicexp.MarkupEvent ()
+    # FIXME: default to straight or curved caesura?
+    ev.contents = "\\musicglyph #\"scripts.caesura.straight\""
+    ev.force_direction = 1
+    return ev
+
 def musicxml_fingering_event (mxl_event):
     ev = musicexp.ShortArticulationEvent ()
     ev.type = mxl_event.get_text ()
@@ -845,7 +852,7 @@ articulations_dict = {
     "accidental-mark": musicxml_accidental_mark,
     "bend": musicxml_bend_to_lily_event,
     "breath-mark": (musicexp.NoDirectionArticulationEvent, "breathe"),
-    #"caesura": "caesura",
+    "caesura": musicxml_caesura_to_lily_event,
     #"delayed-turn": "?",
     "detached-legato": (musicexp.ShortArticulationEvent, "_"), # or "portato"
     "doit": musicxml_doit_to_lily_event,
