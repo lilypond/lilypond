@@ -284,8 +284,8 @@ natural signs.
 cis cis cis! cis? c c c! c?
 @end lilypond
 
-Accidentals are only printed on tied notes that begin a new
-system:
+Accidentals on tied notes are only printed at the beginning of a
+new system:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis1 ~ cis ~
