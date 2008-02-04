@@ -887,7 +887,7 @@ articulations_dict = {
     "strong-accent": (musicexp.ShortArticulationEvent, "^"), # or "marcato"
     #"tap": "",
     "tenuto": (musicexp.ShortArticulationEvent, "-"), # or "tenuto"
-    #"thumb-position": "",
+    "thumb-position": "thumb",
     #"toe": "",
     "turn": "turn",
     "tremolo": musicxml_tremolo_to_lily_event,
