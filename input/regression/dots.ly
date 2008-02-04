@@ -1,7 +1,7 @@
 \version "2.10.0" \header{
 
 
-    texidoc=" Noteheads can have dots, and rests too.  
+    texidoc=" Both noteheads and rests can have dots.  
     Augmentation dots should never be printed on a staff line,
 but rather be shifted vertically. They should go up, but in case of
 multiple parts, the down stems have down shifted dots.  In case of

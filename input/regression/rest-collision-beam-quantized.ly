@@ -1,5 +1,5 @@
 \header {
-  texidoc = "Rests under beams moved by whole staff spaces."
+  texidoc = "Rests under beams are moved by whole staff spaces."
 }
 
 \layout {

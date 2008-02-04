@@ -4,7 +4,7 @@
 texidoc="
 Beams should behave reasonably well, even under extreme circumstances.
 Stems may be short, but noteheads should never touch the beam.  Note that
-under normal circumstances, these beams would get knees here
+under normal circumstances, these beams would get knees.  Here
 @code{Beam.auto-knee-gap} was set to false.
 "
 }

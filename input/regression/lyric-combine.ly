@@ -9,7 +9,7 @@ have melismata either by setting a property melismaBusy, or by setting
 automaticMelismas (which will set melismas during slurs and ties).  If
 you want a different order than first Music, then Lyrics, you must
 precook a chord of staves/lyrics and label those.  Of course, the
-lyrics ignores any other rhythms in the piece."
+lyrics ignore any other rhythms in the piece."
 
 }
 
