@@ -781,6 +781,16 @@ def musicxml_tremolo_to_lily_event (mxl_event):
 	ev.bars = "3"
     return ev
 
+def musicxml_falloff_to_lily_event (mxl_event):
+    ev = musicexp.BendEvent ()
+    ev.alter = -4
+    return ev
+
+def musicxml_doit_to_lily_event (mxl_event):
+    ev = musicexp.BendEvent ()
+    ev.alter = 4
+    return ev
+
 def musicxml_bend_to_lily_event (mxl_event):
     ev = musicexp.BendEvent ()
     ev.alter = mxl_event.bend_alter ()
@@ -838,10 +848,10 @@ articulations_dict = {
     #"caesura": "caesura",
     #"delayed-turn": "?",
     "detached-legato": (musicexp.ShortArticulationEvent, "_"), # or "portato"
-    #"doit": "",
+    "doit": musicxml_doit_to_lily_event,
     #"double-tongue": "",
     "down-bow": "downbow",
-    #"falloff": "",
+    "falloff": musicxml_falloff_to_lily_event,
     "fingering": musicxml_fingering_event,
     #"fingernails": "",
     #"fret": "",
