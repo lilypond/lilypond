@@ -37,8 +37,9 @@ This section discusses rhythms, durations, and bars.
 @node Durations
 @unnumberedsubsubsec Durations
 
-@cindex duration
-@cindex beams, automatic
+@cindex durations, of notes
+@cindex note durations
+
 @funindex \longa
 @funindex \breve
 @funindex \maxima
@@ -80,6 +81,8 @@ note.
 a a a2 a a4 a a1 a
 @end lilypond
 
+@cindex notes, dotted
+@cindex dotted notes
 
 @funindex .
 
@@ -121,9 +124,11 @@ notation see @ref{Proportional notation}.
 
 @seealso
 
-Music Glossary: @rglos{breve}, @rglos{longa}.
+Music Glossary: @rglos{breve}, @rglos{longa}, @rglos{note value}
+@rglos{Duration names notes and rests}.
 
-Notation Reference:@ref{Automatic beams}, @ref{Ties}, @ref{Writing rests}, @ref{Vocal music},
+Notation Reference: @ref{Automatic beams}, @ref{Ties}, 
+@ref{Writing rhythms}, @ref{Writing rests}, @ref{Vocal music},
 @ref{Ancient notation}, @ref{Proportional notation}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
@@ -2510,6 +2515,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
