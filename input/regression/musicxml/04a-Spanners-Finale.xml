@@ -262,7 +262,7 @@
         <stem>down</stem>
         <notations>
           <ornaments>
-            <wavy-line number="1" type="stop"/>
+            <wavy-line number="1" type="start"/>
           </ornaments>
         </notations>
       </note>
@@ -277,7 +277,7 @@
         <stem>down</stem>
         <notations>
           <ornaments>
-            <wavy-line default-y="10" number="1" type="start"/>
+            <wavy-line default-y="10" number="1" type="stop"/>
           </ornaments>
         </notations>
       </note>
@@ -292,6 +292,7 @@
         <stem>down</stem>
         <notations>
           <ornaments>
+            <wavy-line number="1" type="start"/>
             <wavy-line number="1" type="stop"/>
           </ornaments>
         </notations>

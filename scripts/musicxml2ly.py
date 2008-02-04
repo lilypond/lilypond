@@ -756,11 +756,13 @@ def musicxml_spanner_to_lily_event (mxl_event):
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1 }.get (direction, 0)
+    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
-    ev.type = "fermata"
+    txt = mxl_event.get_text ()
+    # The contents of the element defined the shape, possible are normal, angled and square
+    ev.type = { "angled": "shortfermata", "square": "longfermata" }.get (txt, "fermata")
     if hasattr (mxl_event, 'type'):
       dir = musicxml_direction_to_indicator (mxl_event.type)
       if dir and options.convert_directions:
@@ -776,9 +778,9 @@ def musicxml_tremolo_to_lily_event (mxl_event):
     ev = musicexp.TremoloEvent ()
     txt = mxl_event.get_text ()
     if txt:
-	ev.bars = mxl_event.get_text ()
+      ev.bars = txt
     else:
-	ev.bars = "3"
+      ev.bars = "3"
     return ev
 
 def musicxml_falloff_to_lily_event (mxl_event):
