@@ -21,6 +21,8 @@
 * List of articulations::       
 * All context properties::      
 * Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
 @end menu
 
 
@@ -272,4 +274,16 @@ Here is a chart showing all scripts available,
 @appendixsec Layout properties
 
 @include layout-properties.tely
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+@include identifiers.tely
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@include scheme-functions.tely
 
