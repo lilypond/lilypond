@@ -12,7 +12,7 @@
 @lilypondfile[ragged-right,line-width=16\cm,staffsize=14,quote]
 {rhythms-headword.ly}
 
-This section discusses rhythms, durations, and bars.
+This section discusses rhythms, rests, durations, beaming and bars.
 
 @menu
 * Writing rhythms::             
@@ -44,14 +44,14 @@ This section discusses rhythms, durations, and bars.
 @funindex \breve
 @funindex \maxima
 
-When entering notes, durations are designated by numbers and dots:
-durations are entered as their reciprocal values.  For example, a
+Durations are designated by numbers and dots.
+Durations are entered as their reciprocal values.  For example, a
 quarter note is entered using a @code{4} (since it is a 1/4 note),
-while a half note is entered using a @code{2} (since it is a 1/2
+and a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
-@code{\longa} (a double breve) and @code{\breve} commands.  Note
-durations as short as 64th notes may be specified.  Shorter values
-are possible, but only as beamed notes.
+@code{\longa} (a double breve) and @code{\breve} commands.  
+Durations as short as 64th notes may be specified.  Shorter values
+are possible, but only as beamed notes:
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -61,7 +61,7 @@ c4 c8 c16 c32 c64 c64
 @end lilypond
 
 @noindent
-and the same durations with automatic beaming turned off 
+and the same durations with automatic beaming turned off;
 see @ref{Automatic beams}:
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
@@ -72,6 +72,10 @@ see @ref{Automatic beams}:
 c\longa c\breve c1 c2
 c4 c8 c16 c32 c64 c64
 @end lilypond
+
+A note with the duration of a quadruple breve may be entered with
+@code{\maxima}, but this is supported only within ancient music
+notation; see @ref{Ancient notation}.
 
 If the duration is omitted then it is set to the previously
 entered duration.  The default for the first note is a quarter
@@ -86,22 +90,31 @@ a a a2 a a4 a a1 a
 
 @funindex .
 
-To obtain dotted note lengths, simply add a dot (@code{.}) to the
-number.  Double-dotted notes are produced in a similar way.
+To obtain dotted note lengths, place a dot (@code{.}) after the
+duration.  Double-dotted notes are specified by appending two
+dots, and so on.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a4 b c4. b8 a4. b4.. c8.
 @end lilypond
 
-Some durations cannot be entered using only binary durations
-and dots, and can only be represented by tying two or more 
-notes together.  Tied notes are covered in @ref{Ties}.
+Some durations cannot be represented with just binary durations
+and dots; they can only be represented by tying two or more
+notes together; see @ref{Ties}.
+
+For ways of specifying durations for the syllables of lyrics and
+ways of aligning lyrics to notes see @ref{Vocal music}.
+
+Optionally, notes can be spaced proportionately to their duration.
+For details of this and other settings which control proportional
+notation see @ref{Proportional notation}.
 
 @refcommands
 
 Dots are normally moved up to avoid staff lines, except in
 polyphonic situations.  The following commands may be used to
-force a particular direction manually:
+force a particular direction manually, and to return to the
+default behaviour:
 
 @funindex \dotsUp
 @code{\dotsUp},
@@ -110,24 +123,13 @@ force a particular direction manually:
 @funindex \dotsNeutral
 @code{\dotsNeutral}.
 
-For ways of specifying durations for the syllables of lyrics and
-ways of aligning lyrics to notes see @ref{Vocal music}.
-
-A note with the duration of a quadruple breve may be entered with
-@code{\maxima}, but this is supported only within ancient music
-notation; see @ref{Ancient notation}.
-
-Optionally, notes can be spaced proportionately to their duration.
-For details of this and other settings which control proportional
-notation see @ref{Proportional notation}.
-
 
 @seealso
 
 Music Glossary: @rglos{breve}, @rglos{longa}, @rglos{note value}
 @rglos{Duration names notes and rests}.
 
-Notation Reference: @ref{Automatic beams}, @ref{Ties}, 
+Notation Reference: @ref{Automatic beams}, @ref{Ties},
 @ref{Writing rhythms}, @ref{Writing rests}, @ref{Vocal music},
 @ref{Ancient notation}, @ref{Proportional notation}.
 
@@ -139,7 +141,7 @@ Internals Reference: @internalsref{Dots},
 
 @refbugs
 
-@c duplicated in Durations and Rests.  -gp
+@c deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
 are rests from 128th to maxima (8 x whole).
