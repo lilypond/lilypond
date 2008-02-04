@@ -19,6 +19,8 @@
 * Overview of text markup commands::  
 * Overview of text markup list commands::  
 * List of articulations::       
+* All context properties::      
+* Layout properties::           
 @end menu
 
 
@@ -260,16 +262,14 @@ Here is a chart showing all scripts available,
 
 
 
-@ignore
-@n ode All context properties
-@a ppendixsec All context properties
+@node All context properties
+@appendixsec All context properties
 
-@i nclude context-properties.tely
+@include context-properties.tely
 
 
-@n ode Layout properties
-@ap pendixsec Layout properties
+@node Layout properties
+@appendixsec Layout properties
 
-@in clude layout-properties.tely
+@include layout-properties.tely
 
-@end ignore
