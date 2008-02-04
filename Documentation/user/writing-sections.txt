@@ -36,6 +36,7 @@ subsection,
   *Do not* assume that the existing text is accurate/complete;
   some of the manual is highly out of date.
 - is the material in the @refbugs  still accurate?
+- process anything on the TODO list on the GDP web site.
 - can the examples be improved (made more explanatory), or is
   there any missing info?  (feel free to ask specific questions
   on -user; a couple of people claimed to be interesting in being
