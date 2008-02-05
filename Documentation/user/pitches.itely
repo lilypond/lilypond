@@ -1696,7 +1696,7 @@ e d <c f\harmonic> <d a'\harmonic>
 @end lilypond
 
 @noindent
-To see all note head styles, please see @ref{Note head styles}.
+To see all note head styles, see @ref{Note head styles}.
 
 
 @seealso
