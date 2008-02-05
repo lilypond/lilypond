@@ -480,7 +480,7 @@ the @var{controlpitch}.
 @end lilypond
 
 Compare the two bars below.  The first and third @code{\octave}
-check fail, but the second ones does not fail.
+check fail, but the second one does not fail.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
