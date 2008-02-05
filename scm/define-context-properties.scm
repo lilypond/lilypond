@@ -228,7 +228,7 @@ for the full staff.")
 
 
      (gridInterval ,ly:moment? "Interval for which to generate
-@ref{GridPoint}s.")
+@code{GridPoint}s.")
 
 
      (hairpinToBarline ,boolean? "If set, end a hairpin at the barline

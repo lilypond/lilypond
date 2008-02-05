@@ -23,5 +23,5 @@ $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
 		mv $$TMP/*pfb $(outdir) ; \
 		rm -rf $$TMP
 
-$(outdir)/mf2pt1.mem:
-	cd $(outdir) && mpost -progname=mpost -ini ../mf2pt1 \\dump
+$(outdir)/mf2pt1.mem: mf2pt1.mp
+	cd $(outdir) && mpost -progname=mpost -ini $(top-src-dir)/mf/mf2pt1.mp \\dump

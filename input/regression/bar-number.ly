@@ -3,7 +3,7 @@
 
 \header {
 
-texidoc="Bar number may be set and their padding adjusted individually.  
+texidoc="Bar numbers may be set and their padding adjusted individually.  
 The counting of bar numbers is started after the anacrusis.
 
 To prevent clashes at the beginning of a line, the padding may have to 

@@ -14,7 +14,7 @@
 {pitches-headword.ly}
 
 This section discusses how to specify the pitch of notes.  There
-are three steps to this process: input, modifying, and output.
+are three steps to this process: input, modification, and output.
 
 @menu
 * Writing pitches::             
@@ -29,7 +29,7 @@ are three steps to this process: input, modifying, and output.
 
 This section discusses how to input pitches.  There are two
 different ways to place notes in octaves: absolute and relative
-mode.  In most cases, relative mode will be more convient.
+mode.  In most cases, relative mode will be more convenient.
 
 @menu
 * Absolute octave entry::       
@@ -40,7 +40,7 @@ mode.  In most cases, relative mode will be more convient.
 
 
 @node Absolute octave entry
-@unnumberedsubsubsec Absolute octave entry
+@subsubsection Absolute octave entry
 
 @cindex pitch names
 @cindex pitches
@@ -84,7 +84,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Relative octave entry
-@unnumberedsubsubsec Relative octave entry
+@subsubsection Relative octave entry
 
 @cindex relative
 @cindex relative octave specification
@@ -114,8 +114,8 @@ interval is determined without considering accidentals.
 
 @item
 An octave changing mark@tie{}@code{'} or@tie{}@code{,} can be added to
-respectively raise or lower a pitch by an extra octave, relatively to
-the pitch calculated without octave mark.
+respectively raise or lower a pitch by an extra octave, relative to
+the pitch calculated without an octave mark.
 
 @item
 Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
@@ -162,7 +162,7 @@ large intervals:
 
 If the preceding item is a chord, the first note of the chord is
 used as the reference point for the octave placement of a
-following note or chord.  Inside of chords the next note is always
+following note or chord.  Inside chords, the next note is always
 relative to the preceding one.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -178,8 +178,8 @@ relative to the preceding one.
 
 As explained above, the octave of pitches is calculated only with
 the note names, regardless of any alterations.  Therefore, an
-E-double-sharp sharp following a B will be placed higher, while an
-F-double-flat would be placed lower.  In other words, a
+E-double-sharp following a B will be placed higher, while an
+F-double-flat will be placed lower.  In other words, a
 double-augmented fourth is considered a smaller interval than a
 double-diminished fifth, regardless of the number of semitones
 that each interval contains.
@@ -219,7 +219,7 @@ discouraged.
 
 
 @node Accidentals
-@unnumberedsubsubsec Accidentals
+@subsubsection Accidentals
 
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
@@ -284,8 +284,8 @@ natural signs.
 cis cis cis! cis? c c c! c?
 @end lilypond
 
-Accidentals are only printed on tied notes which begin a new
-system:
+Accidentals on tied notes are only printed at the beginning of a
+new system:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis1 ~ cis ~
@@ -316,19 +316,19 @@ Snippets: @lsrdir{Pitches,Pitches}.
 @refbugs
 
 There are no generally accepted standards for denoting
-three-quarter flats, so LilyPond's symbol does not conform to any
-standard.
+quarter-tone accidentals, so LilyPond's symbol does not conform to
+any standard.
 
 
 
 @node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
+@subsubsection Note names in other languages
 
 There are predefined sets of note names for various other
-languages.  To use them, include the language specific init file.
-For example, add @code{\include "english.ly"} to the top of the
-input file.  The available language files and the note names they
-define are:
+languages.  To use them, include the language-specific init file.
+For example, to use English notes names, add @code{\include
+"english.ly"} to the top of the input file.  The available
+language files and the note names they define are:
 
 @cindex note names, other languages
 
@@ -375,11 +375,23 @@ define are:
 @end multitable
 @end smallexample
 
+In Dutch, @code{aes} is contracted to @code{as}, but both forms
+are accepted in LilyPond.  Similarly, both @code{es} and
+@code{ees} are accepted.  This also applies to
+@code{aeses}@tie{}/@tie{}@code{ases} and
+@code{eeses}@tie{}/@tie{}@code{eses}.  Sometimes only these
+contracted names are defined in the corresponding language files.
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+a2 as e es a ases e eses
+@end lilypond
+
+
 Some music uses microtones whose alterations are fractions of a
-@q{normal} sharp or flat.  The note names for quartertones defined
-in the various language files are listed in the following table.
-Here the prefixes @notation{semi-} and @notation{sesqui-} mean
-@q{half} and @q{one and a half}, respectively.  For the other
+@q{normal} sharp or flat.  The note names for quarter-tones
+defined in the various language files are listed in the following
+table.  Here the prefixes @notation{semi-} and @notation{sesqui-}
+mean @q{half} and @q{one and a half}, respectively.  For the other
 languages, no special names have been defined yet.
 
 @smallexample
@@ -406,21 +418,6 @@ languages, no special names have been defined yet.
 @end multitable
 @end smallexample
 
-In Dutch, @code{aes} is contracted to @code{as}, but both forms
-are accepted in LilyPond.  Similarly, both @code{es} and
-@code{ees} are accepted.  This also applies to
-@code{aeses}@tie{}/@tie{}@code{ases} and
-@code{eeses}@tie{}/@tie{}@code{eses}.  Sometimes only these
-contracted names are defined in the corresponding language files.
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-a2 as e es a ases e eses
-@end lilypond
-
-In some languages such as Norwegian and Swedish, the usual
-spelling for accidentals is a double @q{s} such as in @code{ciss}
-or @code{cess}.  For both historical reasons and a greater
-simplicity, LilyPond uses a single @q{s} for all these languages.
 
 @seealso
 
@@ -440,7 +437,7 @@ This section discusses how to modify pitches.
 @end menu
 
 @node Octave checks
-@unnumberedsubsubsec Octave checks
+@subsubsection Octave checks
 
 @cindex octave correction
 @cindex octave check
@@ -483,7 +480,7 @@ the @var{controlpitch}.
 @end lilypond
 
 Compare the two bars below.  The first and third @code{\octave}
-check fail, but the second ones passes without fail.
+check fail, but the second ones does not fail.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -506,7 +503,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Transpose
-@unnumberedsubsubsec Transpose
+@subsubsection Transpose
 
 @cindex transpose
 @cindex transposition of pitches
@@ -523,7 +520,8 @@ syntax is
 This means that @var{musicexpr} is transposed by the interval
 between the pitches @var{frompitch} and @var{topitch}: any note
 with pitch @var{frompitch} is changed to @var{topitch} and any
-other note is transposed by the same interval.
+other note is transposed by the same interval.  Both pitches are
+entered in absolute mode.
 
 Consider a piece written in the key of D-major.  It can be
 transposed up to E-major; note that the key signature is
@@ -559,7 +557,7 @@ key signature will be printed.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
 @code{\transpose c cis} or @code{\transpose c des} will transpose
-up half a tone.  The first version will print sharps and the notes
+up a semitone.  The first version will print sharps and the notes
 will remain on the same scale step, the second version will print
 flats on the scale step above.
 
@@ -579,8 +577,8 @@ show how to enter pitches in C (or @notation{concert pitch}) and
 typeset them for a transposing instrument, but the opposite is
 also possible if you for example have a set of instrumental parts
 and want to print a conductor's score.  For example, when entering
-music for a B-flat trumpet which begins on a notated E (concert
-D), one would write:
+music for a B-flat trumpet that begins on a notated E (concert D),
+one would write:
 
 @example
 musicInBflat = @{ e4 @dots{} @}
@@ -617,10 +615,10 @@ Internals Reference: @internalsref{TransposedMusic}.
 
 @refbugs
 
-If you want to use both @code{\transpose} and @code{\relative},
-you must put @code{\transpose} outside of @code{\relative}, since
-@code{\relative} will have no effect on music that appears inside
-a @code{\transpose}.
+The relative conversion will not affect @code{\transpose},
+@code{\chordmode} or @code{\relative} sections in its argument.
+To use relative mode within transposed music, an additional
+@code{\relative} must be placed inside @code{\transpose}.
 
 
 @node Displaying pitches
@@ -639,7 +637,7 @@ This section discusses how to alter the output of pitches.
 
 
 @node Clef
-@unnumberedsubsubsec Clef
+@subsubsection Clef
 
 @funindex \clef
 
@@ -658,7 +656,8 @@ This section discusses how to alter the output of pitches.
 @cindex varbaritone clef
 @cindex subbass clef
 
-The clef is set with the @code{\clef} @var{clefname} command:
+The clef is set with the @code{\clef} @var{clefname} command.
+Middle C is shown in every example.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \clef treble
@@ -671,35 +670,29 @@ c2 c
 c2 c
 @end lilypond
 
-Supported clefs include:
+Other clefs include:
 
-@multitable @columnfractions .4 .6
-@headitem Clef @tab Position
-@item @code{treble, violin, G, G2} @tab
-G clef (g') on 2nd line
-@item @code{alto, C} @tab
-C clef (c') on 3rd line
-@item @code{tenor} @tab
-C clef (c') on 4th line
-@item @code{bass, F} @tab
-F clef (f) on 4th line
-@item @code{french} @tab
-G clef (g') on 1st line, so-called French violin clef
-@item @code{soprano} @tab
-C clef (c') on 1st line
-@item @code{mezzosoprano} @tab
-C clef (c') on 2nd line
-@item @code{baritone} @tab
-C clef (c') on 5th line
-@item @code{varbaritone} @tab
-F clef (f) on 3rd line
-@item @code{subbass} @tab
-F clef (f) on 5th line
-@item @code{percussion} @tab
-percussion clef
-@item @code{tab} @tab
-tablature clef
-@end multitable
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+\clef french
+c2 c
+\clef soprano
+c2 c
+\clef mezzosoprano
+c2 c
+\clef baritone
+c2 c
+
+\break
+
+\clef varbaritone
+c2 c
+\clef subbass
+c2 c
+\clef percussion
+c2 c
+\clef tab
+c2 c
+@end lilypond
 
 Further supported clefs are described under @ref{Ancient clefs}.
 
@@ -707,13 +700,14 @@ By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
 @code{^15} transposes by two octaves.  The argument @var{clefname}
 must be enclosed in quotes when it contains underscores or digits.
-For example,
 
 @cindex choral tenor clef
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
-\clef "treble_8" c1
-\clef "bass^15" c1
+\clef "treble_8"
+c2 c
+\clef "bass^15"
+c2 c
 @end lilypond
 
 
@@ -733,7 +727,7 @@ Internals Reference: @internalsref{Clef}.
 
 
 @node Key signature
-@unnumberedsubsubsec Key signature
+@subsubsection Key signature
 
 @cindex key signature
 @funindex \key
@@ -769,9 +763,9 @@ is done with the @code{\key} command:
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
 respectively.  You may also use the standard mode names, also
-called @q{church modes}: @code{\ionian}, @code{\locrian},
-@code{\aeolian}, @code{\mixolydian}, @code{\lydian},
-@code{\phrygian}, and @code{\dorian}.
+called @q{church modes}: @code{\ionian}, @code{\dorian},
+@code{\phrygian}, @code{\lydian}, @code{\mixolydian},
+@code{\aeolian}, and @code{\locrian}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key g \major
@@ -803,7 +797,7 @@ Internals Reference: @internalsref{KeyCancellation},
 
 
 @node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@subsubsection Ottava brackets
 
 @cindex ottava
 @cindex 15ma
@@ -843,7 +837,7 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@subsubsection Instrument transpositions
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
@@ -863,7 +857,7 @@ other voices}.
 The pitch to use for @code{\transposition} should correspond to
 the real sound heard when a@tie{}@code{c'} written on the staff is
 played by the transposing instrument.  This pitch is entered in
-absolute mode, so an instrument which produces a real sound which
+absolute mode, so an instrument that produces a real sound which
 is one tone higher than the printed music should use
 @code{\transposition d'}.  @code{\transposition} should
 @emph{only} be used if the pitches are @emph{not} being entered in
@@ -930,13 +924,13 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Automatic accidentals
-@unnumberedsubsubsec Automatic accidentals
+@subsubsection Automatic accidentals
 @cindex automatic accidentals
 
 @funindex set-accidental-style
 
 There are many different conventions on how to typeset
-accidentals.  LilyPond provides a function to specify which such
+accidentals.  LilyPond provides a function to specify which
 accidental style to use.  This function is called as follows
 
 @example
@@ -949,7 +943,7 @@ accidental style to use.  This function is called as follows
 The accidental style applies to the current @code{Staff} by
 default (with the exception of the styles @code{piano} and
 @code{piano-cautionary}, which are explained below).  Optionally,
-the function can take a second argument which determines in which
+the function can take a second argument that determines in which
 scope the style should be changed.  For example, to use the same
 style in all staves of the current @code{StaffGroup}, use
 
@@ -1150,7 +1144,7 @@ musicB = {
 
 This rule corresponds to the common practice in the twentieth
 century.  It prints the same accidentals as @code{default}, with
-two exceptions which serve to avoid ambiguity: after temporary
+two exceptions that serve to avoid ambiguity: after temporary
 accidentals, cancellation marks are printed also in the following
 measure (for notes in the same octave) and, in the same measure,
 for notes in other octaves.  Hence the naturals before
@@ -1618,7 +1612,7 @@ problematic notes.
 
 
 @node Ambitus
-@unnumberedsubsubsec Ambitus
+@subsubsection Ambitus
 @cindex ambitus
 
 The term @notation{ambitus} or @notation{ambit} denotes a range of
@@ -1629,7 +1623,7 @@ determine if it matches their capabilities.
 
 Ambits are denoted at the beginning of a piece near the initial
 clef.  The range is graphically specified by two note heads that
-represent the minimum and maximum pitch.  Accidentals are only
+represent the lowest and highest pitches.  Accidentals are only
 printed if they are not part of the key signature.
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1682,7 +1676,7 @@ ambitus.
 @end menu
 
 @node Special note heads
-@unnumberedsubsubsec Special note heads
+@subsubsection Special note heads
 
 @cindex note heads, special
 
@@ -1716,7 +1710,7 @@ Internals Reference: @internalsref{NoteHead},
 
 
 @node Easy notation note heads
-@unnumberedsubsubsec Easy notation note heads
+@subsubsection Easy notation note heads
 
 @cindex note heads, practice
 @cindex note heads, easy notation
@@ -1759,7 +1753,7 @@ Internals Reference: @internalsref{NoteHead}.
 
 
 @node Shape note heads
-@unnumberedsubsubsec Shape note heads
+@subsubsection Shape note heads
 
 @cindex note heads, shape
 @funindex \key
@@ -1796,7 +1790,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 
 @node Improvisation
-@unnumberedsubsubsec Improvisation
+@subsubsection Improvisation
 
 @cindex improvisation
 @cindex slashed note heads
@@ -1820,6 +1814,14 @@ rhythm.  Such note heads can be created:
   a16(bes) a8 g e
 }
 @end lilypond
+
+
+@refcommands
+
+@funindex \improvisationOn
+@funindex \improvisationOff
+
+@code{\improvisationOn}, @code{\improvisationOff}
 
 @seealso
 

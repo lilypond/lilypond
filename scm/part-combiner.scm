@@ -230,8 +230,10 @@ Voice-state objects
     
     (set! (ly:music-property m 'elements) (list m1 m2))
     (set! (ly:music-property m 'split-list)
-	  (determine-split-list (reverse! (cdr (assoc "one" evs1)) '())
-				(reverse! (cdr (assoc "two" evs2)) '())))
+      (if (and (assoc "one" evs1) (assoc "two" evs2))
+  	  (determine-split-list (reverse! (cdr (assoc "one" evs1)) '())
+	  			(reverse! (cdr (assoc "two" evs2)) '()))
+	  '() ))
     m))
 
 (define-public (determine-split-list evl1 evl2)

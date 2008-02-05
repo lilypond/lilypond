@@ -31,21 +31,29 @@ start-to-finish.
 
 * Notation Reference: a (hopefully complete) description of
   LilyPond input notation.  Some material from here may be
-  duplicated in the Learning Manual (for teaching).  The material is
-  presented in an approximate order of increasing difficulty, but
-  the goal is _not_ to provide a step-by-step learning environment.
-  For example, all material under "Pitches" should remain in that
-  section, even though microtonal accidentals may seem more advanced
-  than info about clefs or time signatures -- "Pitches" should be a
-  one-stop reference about the pitch portion of notes.  This section
-  is written in formal technical writing style.
+  duplicated in the Learning Manual (for teaching), but consider
+  the NR to be the "definitive" description of each notation
+  element, with the LM being an "extra".  The goal is _not_ to
+  provide a step-by-step learning environment -- do not avoid
+  using notation that has not be introduced previously in the
+  NR  (for example, use \break if appropriate).  This section is
+  written in formal technical writing style.
 
-Users are not expected to read this manual from start to finish.
-However, they should be familiar with the material in the Learning
-Manual (particularly ``Fundamental Concepts''), so do not repeat
-that material in each section of this book.  Also, you should
-assume that users know what the notation means; explaining musical
-concepts happens in the Music Glossary.
+Avoid duplication.  Although users are not expected to read this
+manual from start to finish, they should be familiar with the
+material in the Learning Manual (particularly ``Fundamental
+Concepts''), so do not repeat that material in each section of
+this book.  Also watch out for common constructs, like ^ - _ for
+directions -- those are explained in NR 3.  In NR 1, you can
+mention that "dynamics (or whatever) may be placed above or below
+the staff, for details see @ref{Up and down}".
+
+Most tweaks should be added to LSR and not placed directly in the
+.itely file.  In some cases, tweaks may be placed in the main
+text, but ask about this first.
+
+Finally, you should assume that users know what the notation
+means; explaining musical concepts happens in the Music Glossary.
 
 
 * Application Usage: information about using the program lilypond
