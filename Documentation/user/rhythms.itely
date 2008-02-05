@@ -51,7 +51,7 @@ and a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
 @code{\longa} (a double breve) and @code{\breve} commands.  
 Durations as short as 64th notes may be specified.  Shorter values
-are possible, but only as beamed notes:
+are possible, but only as beamed notes.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -61,8 +61,8 @@ c4 c8 c16 c32 c64 c64
 @end lilypond
 
 @noindent
-and the same durations with automatic beaming turned off;
-see @ref{Automatic beams}:
+Here are the same durations with automatic beaming turned off.
+(See @ref{Automatic beams}.)
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
@@ -75,9 +75,9 @@ c4 c8 c16 c32 c64 c64
 
 A note with the duration of a quadruple breve may be entered with
 @code{\maxima}, but this is supported only within ancient music
-notation; see @ref{Ancient notation}.
+notation.  For details, see @ref{Ancient notation}.
 
-If the duration is omitted then it is set to the previously
+If the duration is omitted, it is set to the previously
 entered duration.  The default for the first note is a quarter
 note.
 
@@ -99,15 +99,15 @@ a4 b c4. b8 a4. b4.. c8.
 @end lilypond
 
 Some durations cannot be represented with just binary durations
-and dots; they can only be represented by tying two or more
-notes together; see @ref{Ties}.
+and dots; they can be represented only by tying two or more
+notes together.  For details, see @ref{Ties}.
 
 For ways of specifying durations for the syllables of lyrics and
-ways of aligning lyrics to notes see @ref{Vocal music}.
+ways of aligning lyrics to notes, see @ref{Vocal music}.
 
-Optionally, notes can be spaced proportionately to their duration.
-For details of this and other settings which control proportional
-notation see @ref{Proportional notation}.
+Optionally, notes can be spaced strictly proportionately to their
+duration.  For details of this and other settings which control 
+proportional notation, see @ref{Proportional notation}.
 
 @refcommands
 
@@ -143,8 +143,8 @@ Internals Reference: @internalsref{Dots},
 
 @c deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
-longest and shortest), but the number of glyphs is limited: there
-are rests from 128th to maxima (8 x whole).
+longest and shortest), but the number of glyphs is limited:
+rests from 128th to maxima (8 x whole) may be printed.
 
 
 @node Tuplets
@@ -2517,6 +2517,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
