@@ -25,9 +25,10 @@ I recommend working on one subsection at a time.  For each
 subsection,
 - check the mundane formatting.  Are the headings (@refcommands,
   @seealso, etc) in the right order?
+- add any appropriate index entries.
 - check the links in the @seealso section -- links to music
   glossary, internal references, and other NR sections are the
-  main concern.
+  main concern.  Check for potential additions.
 - move LSR-worthy material into LSR.  Add the snippet (or
   just send it to Valentin for adding), delete the material from
   the .itely file, and add a @lilypondfile command.
