@@ -1502,6 +1502,7 @@
      . (
 	(axes . (1))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(staff-padding . 1.0)
@@ -1715,6 +1716,7 @@
      . (
 	(axes . (1))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)
@@ -2061,6 +2063,7 @@
      . (
 	(axes . (1))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(side-axis . ,Y)
 	(padding . 1.2)
