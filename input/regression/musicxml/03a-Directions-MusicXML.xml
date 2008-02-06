@@ -741,7 +741,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><syllabic>begin</syllabic><text>to fff</text></lyric>
+        <lyric number="1"><syllabic>end</syllabic><text>to fff</text></lyric>
       </note>
       <note>
         <rest/>

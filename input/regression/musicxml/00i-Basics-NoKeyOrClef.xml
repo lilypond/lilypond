@@ -1,29 +1,17 @@
 <?xml version="1.0"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise>
-	<work> <work-title>/home/reinhold/lilypond-dev-files/07_nokey.xml</work-title></work> 
-	<identification> 
-		<rights>Unknown</rights>
-		<encoding>
-			<software>Rosegarden-4</software>
-		</encoding>
-	</identification> 
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd">
+<score-partwise version="2.0">
+	<work><work-title>No key or clef given</work-title></work> 
+	<identification/>
 	<part-list>
 		<score-part id="0">
-			<part-name>NoClef Test</part-name>
-			<score-instrument id="#1">
-				<instrument-name>0</instrument-name>
-			</score-instrument>
-			<midi-instrument id="#1">
-				<midi-channel>1</midi-channel>
-				<midi-program>1</midi-program>
-			</midi-instrument>
+			<part-name></part-name>
 		</score-part>
 	</part-list>
 	<part id="0">
 		<measure number="1">
 			<attributes>
-				<divisions>960</divisions>
+				<divisions>1</divisions>
 				<time>
 				<beats>4</beats>
 				<beat-type>4</beat-type>
@@ -34,19 +22,18 @@
 					<step>C</step>
 					<octave>4</octave>
 				</pitch>
-				<duration>3840</duration>
+				<duration>4</duration>
 				<voice>1</voice>
 				<type>whole</type>
 			</note>
 		</measure>
-
 		<measure number="2">
 			<note>
 				<pitch>
 					<step>C</step>
 					<octave>4</octave>
 				</pitch>
-				<duration>3840</duration>
+				<duration>4</duration>
 				<voice>1</voice>
 				<type>whole</type>
 			</note>
