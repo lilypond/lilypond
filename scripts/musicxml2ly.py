@@ -935,7 +935,7 @@ def musicxml_dynamics_to_lily_event (dynentry):
     dynamicsname = dynentry.get_name ()
     if dynamicsname == "other-dynamics":
         dynamicsname = dynentry.get_text ()
-    if not dynamicsname:
+    if not dynamicsname or dynamicsname=="#text":
         return
 
     if not dynamicsname in dynamics_available:
