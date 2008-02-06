@@ -49,8 +49,7 @@ additional_definitions = {
       )
     )
   )
-)
-"""
+)"""
 }
 
 def round_to_two_digits (val):
@@ -928,15 +927,26 @@ def musicxml_articulation_to_lily_event (mxl_event):
     return ev
 
 
+
 def musicxml_dynamics_to_lily_event (dynentry):
-    dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp",
-        "f", "ff", "fff", "ffff", "fffff", "ffffff",
-        "mp", "mf", "sf", "sfp", "sfpp", "fp",
-        "rf", "rfz", "sfz", "sffz", "fz" )
-    if not dynentry.get_name() in dynamics_available:
+    dynamics_available = (
+        "ppppp", "pppp", "ppp", "pp", "p", "mp", "mf", 
+        "f", "ff", "fff", "ffff", "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" )
+    dynamicsname = dynentry.get_name ()
+    if dynamicsname == "other-dynamics":
+        dynamicsname = dynentry.get_text ()
+    if not dynamicsname:
         return
+
+    if not dynamicsname in dynamics_available:
+        # Get rid of - in tag names (illegal in ly tags!)
+        dynamicstext = dynamicsname
+        dynamicsname = string.replace (dynamicsname, "-", "")
+        additional_definitions[dynamicsname] = dynamicsname + \
+              "=#(make-dynamic-script \"" + dynamicstext + "\")"
+        needed_additional_definitions.append (dynamicsname)
     event = musicexp.DynamicsEvent ()
-    event.type = dynentry.get_name ()
+    event.type = dynamicsname
     return event
 
 # Convert single-color two-byte strings to numbers 0.0 - 1.0
@@ -1804,6 +1814,7 @@ def print_ly_additional_definitions (printer, filename):
         printer.newline ()
     for a in set(needed_additional_definitions):
         printer.print_verbatim (additional_definitions.get (a, ''))
+        printer.newline ()
     printer.newline ()
 
 # Read in the tree from the given I/O object (either file or string) and 
