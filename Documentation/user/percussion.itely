@@ -28,7 +28,7 @@ also be used to show the rhythms of melodies.
 
 
 @node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
+@subsubsection Showing melody rhythms
 
 Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
@@ -47,7 +47,7 @@ Internals Reference: @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
-@unnumberedsubsubsec Entering percussion
+@subsubsection Entering percussion
 
 @cindex percussion
 @cindex drums
@@ -73,7 +73,7 @@ The complete list of drum names is in the init file
 Internals Reference: @internalsref{note-event}.
 
 @node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@subsubsection Percussion staves
 @cindex percussion
 @cindex drums
 
@@ -291,7 +291,7 @@ for this purpose instead.
 
 @c TODO: check name -gp
 @node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@subsubsection Ghost notes
 
 Ghost notes for drums and percussion may be created using the
 @code{\parenthesize} command detailed in @ref{Parentheses}.  However,

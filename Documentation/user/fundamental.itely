@@ -1585,7 +1585,7 @@ engraver is removed from a context it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.
 
-@unnumberedsubsubsec Changing a single context
+@subsubsection Changing a single context
 
 To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation 
@@ -1666,7 +1666,7 @@ the notes in all the voices on that staff:
 >>
 @end lilypond
 
-@unnumberedsubsubsec Changing all contexts of the same type
+@subsubsection Changing all contexts of the same type
 
 The examples above show how to remove or add engravers to
 individual contexts.  It is also possible to remove or add 

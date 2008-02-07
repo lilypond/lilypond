@@ -39,7 +39,7 @@ information, see @ref{Text encoding}.
 @end menu
 
 @node Overview of text entry
-@unnumberedsubsubsec Overview of text entry
+@subsubsection Overview of text entry
 
 There are four ways to add text to scores:
 
@@ -87,7 +87,7 @@ Snippets: @lsrdir{Text,Text}
 
 
 @node Text scripts
-@unnumberedsubsubsec Text scripts
+@subsubsection Text scripts
 
 @cindex Text scripts
 @cindex text items, non-empty
@@ -147,7 +147,7 @@ Internals Reference: @internalsref{TextScript}.
 
 
 @node Text spanners
-@unnumberedsubsubsec Text spanners
+@subsubsection Text spanners
 
 @cindex Text spanners
 
@@ -200,7 +200,7 @@ Internals Reference: @internalsref{TextSpanner}.
 
 
 @node Text marks
-@unnumberedsubsubsec Text marks
+@subsubsection Text marks
 
 @cindex coda on bar line
 @cindex segno on bar line
@@ -356,7 +356,7 @@ Internals Reference: @internalsref{RehearsalMark}.
 @end menu
 
 @node Text markup introduction
-@unnumberedsubsubsec Text markup introduction
+@subsubsection Text markup introduction
 
 @cindex markup
 @cindex text markup
@@ -521,7 +521,7 @@ Syntax errors for markup mode are confusing.
 
 
 @node Nested scores
-@unnumberedsubsubsec Nested scores
+@subsubsection Nested scores
 
 It is possible to nest music inside markups, by adding a
 @code{\score} block to a markup expression.  Such a score must
@@ -544,7 +544,7 @@ contain a @code{\layout} block.
 Snippets: @lsrdir{Text,Text}
 
 @node Page wrapping text
-@unnumberedsubsubsec Page wrapping text
+@subsubsection Page wrapping text
 
 Whereas @code{\markup} is used to enter a non-breakable block of
 text, @code{\markuplines} can be used at top-level to enter lines
@@ -582,7 +582,7 @@ Snippets: @lsrdir{Text,Text}
 @code{\markuplines}
 
 @node Font selection
-@unnumberedsubsubsec Font selection
+@subsubsection Font selection
 
 @cindex font selection
 @cindex font magnification
@@ -706,7 +706,7 @@ Snippets: @lsrdir{Text,Text}
 @end menu
 
 @node New dynamic marks
-@unnumberedsubsubsec New dynamic marks
+@subsubsection New dynamic marks
 
 It is possible to print new dynamic marks or text that should be
 aligned with dynamics.  Use @code{make-dynamic-script} to create
@@ -747,7 +747,7 @@ Snippets: @lsrdir{Text,Text}
 
 
 @node Text and line spanners
-@unnumberedsubsubsec Text and line spanners
+@subsubsection Text and line spanners
 
 Some performance indications, e.g., @i{rallentando} and
 @i{accelerando} and @i{trills} are written as text and are
