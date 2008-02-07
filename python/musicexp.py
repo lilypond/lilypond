@@ -872,27 +872,17 @@ class HairpinEvent (SpanEvent):
 class DynamicsEvent (Event):
     def __init__ (self):
         self.type = None
-        self.available_commands = [ "ppppp", "pppp", "ppp", "pp", "p", 
-                                    "mp", "mf", 
-                                    "f", "ff", "fff", "ffff", 
-                                    "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" ];
     def wait_for_note (self):
         return True;
     def ly_expression (self):
-        if self.type == None:
-            return;
-        elif self.type in self.available_commands:
+        if self.type:
             return '\%s' % self.type
         else:
-            return '-\markup{ \dynamic %s }' % self.type
-        
+            return;
+
     def print_ly (self, printer):
-        if self.type == None:
-            return
-        elif self.type in self.available_commands:
+        if self.type:
             printer.dump ("\\%s" % self.type)
-        else:
-            printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
 
 
 class TextEvent (Event):

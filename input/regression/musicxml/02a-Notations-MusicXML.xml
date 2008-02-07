@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
-          "http://www.musicxml.org/dtds/partwise.dtd">
+                                "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="2.0">
-  <movement-title>All MusicXML Notations</movement-title>
+  <movement-title>MusicXML notations (attached to note)</movement-title>
   <identification/>
   <part-list>
     <score-part id="P1">
@@ -1130,8 +1130,60 @@
       </barline>
     </measure>
     
-    <!-- General tests: multiple notations, directions, pedal spanners, etc. -->
+    <!-- Dynamics, attached to notes by putting them inside <notations> tags -->
     <measure number="22">
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <dynamics><f/></dynamics>
+        </notations>
+        <lyric number="1"><text>f</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <dynamics><ppp/></dynamics>
+        </notations>
+        <lyric number="1"><text>ppp</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <dynamics><sfp/></dynamics>
+        </notations>
+        <lyric number="1"><text>sfp</text></lyric>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step><octave>5</octave>
+        </pitch>
+        <duration>1</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <notations>
+          <dynamics><other-dynamics>sfffz</other-dynamics></dynamics>
+        </notations>
+        <lyric number="1"><text>Oth.dyn.</text></lyric>
+      </note>
+    </measure>
+    
+    <!-- General tests: multiple notations, directions, pedal spanners, etc. -->
+    <measure number="23">
       <direction placement="below">
         <direction-type>
           <pedal line="no" relative-x="-9" type="start"/>

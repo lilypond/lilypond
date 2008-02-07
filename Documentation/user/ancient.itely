@@ -107,7 +107,7 @@ up during the baroque period.
 @end menu
 
 @node Ancient note heads
-@unnumberedsubsubsec Ancient note heads
+@subsubsection Ancient note heads
 
 @cindex note heads, ancient
 
@@ -149,7 +149,7 @@ engravers work.
 
 
 @node Ancient accidentals
-@unnumberedsubsubsec Ancient accidentals
+@subsubsection Ancient accidentals
 
 @cindex accidentals
 
@@ -218,7 +218,7 @@ Internals Reference: @internalsref{KeySignature}.
 Examples: @c @lsrdir{ancient}
 
 @node Ancient rests
-@unnumberedsubsubsec Ancient rests
+@subsubsection Ancient rests
 
 @cindex rests, ancient
 
@@ -254,7 +254,7 @@ rests.
 
 
 @node Ancient clefs
-@unnumberedsubsubsec Ancient clefs
+@subsubsection Ancient clefs
 
 @cindex clefs
 
@@ -493,7 +493,7 @@ The mensural g clef is mapped to the Petrucci g clef.
 
 
 @node Ancient flags
-@unnumberedsubsubsec Ancient flags
+@subsubsection Ancient flags
 
 @cindex flags
 
@@ -531,7 +531,7 @@ features of classical notation (which however are typically out of
 scope for mensural notation).
 
 @node Ancient time signatures
-@unnumberedsubsubsec Ancient time signatures
+@subsubsection Ancient time signatures
 
 @cindex time signatures
 
@@ -658,7 +658,7 @@ addressable with @code{\time}.  Use a @code{\markup} instead
 
 
 @node Ancient articulations
-@unnumberedsubsubsec Ancient articulations
+@subsubsection Ancient articulations
 
 @cindex articulations
 
@@ -692,7 +692,7 @@ The episem line is not displayed in many cases.  If it is displayed,
 the right end of the episem line is often too far to the right.
 
 @node Custodes
-@unnumberedsubsubsec Custodes
+@subsubsection Custodes
 
 @cindex custos
 @cindex custodes
@@ -772,7 +772,7 @@ Examples:
 
 
 @node Divisiones
-@unnumberedsubsubsec Divisiones
+@subsubsection Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -823,7 +823,7 @@ Examples: @c @lsr{expressive,breathing-sign.ly}.
 
 
 @node Ligatures
-@unnumberedsubsubsec Ligatures
+@subsubsection Ligatures
 
 @cindex Ligatures
 
@@ -881,7 +881,7 @@ with the same effect and is believed to be stable.
 @end menu
 
 @node White mensural ligatures
-@unnumberedsubsubsec White mensural ligatures
+@subsubsection White mensural ligatures
 
 @cindex Mensural ligatures
 @cindex White mensural ligatures
@@ -970,7 +970,7 @@ to the following
 Horizontal spacing is poor.
 
 @node Gregorian square neumes ligatures
-@unnumberedsubsubsec Gregorian square neumes ligatures
+@subsubsection Gregorian square neumes ligatures
 
 @cindex Square neumes ligatures
 @cindex Gregorian square neumes ligatures
@@ -1932,7 +1932,7 @@ with head prefixes in arbitrary order.
 
 
 @node Gregorian Chant contexts
-@unnumberedsubsubsec Gregorian Chant contexts
+@subsubsection Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -1966,7 +1966,7 @@ the following excerpt demonstrates
 
 
 @node Mensural contexts
-@unnumberedsubsubsec Mensural contexts
+@subsubsection Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
