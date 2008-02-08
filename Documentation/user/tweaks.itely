@@ -13,10 +13,6 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-TODO: This chapter is still under development and this version is
-not yet complete.  Don't translate yet!
-
-
 
 @menu
 * Tweaking basics::             
@@ -49,7 +45,7 @@ permit almost any desired appearance of the printed music to be
 achieved.
 
 In this section we cover the basic concepts required to understand
-tweaking.  Later we give a variety of potted commands which can
+tweaking.  Later we give a variety of ready-made commands which can
 simply be copied to obtain the same effect in your own scores, and
 at the same time we show how these commands may be constructed so 
 that you may learn how to develop your own tweaks.
@@ -80,10 +76,12 @@ constructed.  That @code{Staff} object then holds all the
 properties associated with that particular staff, for example, its
 name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
-Similarly, there are @code{Voice} objects, @code{Score} objects,
-@code{Lyric} objects, and objects to represent bar lines,
- note heads, ties, dynamics, etc, each with their own set of
-properties.
+Similarly, there are objects to hold the properties of all other
+contexts, such as @code{Voice} objects, @code{Score} objects,
+@code{Lyrics} objects, as well as objects to represent all
+notational elements such as bar lines,
+note heads, ties, dynamics, etc.  Every object has its own set of
+property values.
 
 Some types of object are given special names.  Objects which
 represent items of notation on the printed output such as
@@ -133,9 +131,12 @@ verbatim.
 @headitem Object/property type           
   @tab Naming convention
   @tab Example
-@item Contexts, Layout Objects     
+@item Contexts
   @tab Aaaa or AaaaAaaaAaaa
-  @tab Staff, GrandStaff, 
+  @tab Staff, GrandStaff
+@item Layout Objects
+  @tab Aaaa or AaaaAaaaAaaa
+  @tab Slur, NoteHead
 @item Engravers
   @tab Aaaa_aaa_engraver
   @tab Clef_engraver, Note_heads_engraver
@@ -220,12 +221,12 @@ We mention it here for completeness, but for details see
 @c Maybe explain in a later iteration  -td
 
 The final tweaking command which is available is @code{\tweak}.
-It is not really a new command but a shorthand for an 
-@code{\override} command which must be used in a few special
-circumstances.  Again, we shall not discuss or use it here.  
-You may find the details in 
+This should be used to change the properties of objects which
+occur at the same musical moment, such as the notes within a
+chord.  Using @code{\override} would affect all the notes
+within a chord, whereas @code{\tweak} affects just the following
+item in the input stream.  You may find the details in
 @ruser{Objects connected to the input}.
-@c Maybe explain in a later iteration  -td
 
 @node The Internals Reference manual
 @section The Internals Reference manual
@@ -748,8 +749,6 @@ of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider
 each of these in turn.
 
-@c FIXME: is this what you meant?
-@c TODO Change all other headings like this
 @subheading stencil
 @cindex stencil property
 
@@ -1535,27 +1534,37 @@ and to a numerical value appropriate to each outside-staff object
 when the object is created.  The following table shows
 the default numerical values for some of the commonest
 outside-staff objects which are, by default, placed in the
-@code{Staff} Context.
+@code{Staff} or @code{Voice} contexts.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Layout Object           
   @tab Priority     
   @tab Controls position of:
-@item @code{DynamicLineSpanner}   
-  @tab @code{ 250}  
-  @tab All dynamic markings
-@item @code{OttavaBracket}        
-  @tab @code{ 400}
-  @tab Ottava brackets
-@item @code{TextScript}           
-  @tab @code{ 450}
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text over full-bar rests
+@item @code{TextScript}
+  @tab @code{450}
   @tab Markup text
-@item @code{TextSpanner}          
-  @tab @code{ 350}
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Ottava brackets
+@item @code{TextSpanner}
+  @tab @code{350}
   @tab Text spanners
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab All dynamic markings
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Volta brackets
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Spanning trills
 @end multitable
 
-Here is an example showing the default placement of these.
+Here is an example showing the default placement of some of
+these.
 
 @cindex text spanner
 @funindex \startTextSpan
@@ -1609,9 +1618,9 @@ given the following default @code{outside-staff-priority} values:
 
 @multitable @columnfractions .3 .3
 @headitem Layout Object           @tab Priority
-@item @code{BarNumber}            @tab @code{ 100}
-@item @code{MetronomeMark}        @tab @code{1000}
 @item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
 @end multitable
 
 If the default values of @code{outside-staff-priority} does not
@@ -1620,7 +1629,8 @@ may be overridden.  Suppose we would
 like the ottava bracket to be placed below the text spanner in the
 example above.  All we need to do is to look up the priority of
 @code{OttavaBracket} in the IR or in the tables above, and reduce
-it to a value lower than that of a @code{TextSpanner}:
+it to a value lower than that of a @code{TextSpanner}, remembering
+that @code{OttavaBracket} is created in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1629,7 +1639,7 @@ it to a value lower than that of a @code{TextSpanner}:
 % Place dynamics above staff
 \dynamicUp
 %Place following Ottava Bracket below Text Spanners
-\once \override OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 #(set-octavation 1)
 c' \startTextSpan
@@ -1932,16 +1942,19 @@ objects, this value is set by default to be around 1.0 or less
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
-This property aligns the object to the left, to the right, or
-centers it with respect to the parent object's reference point.
-It may be used with all objects which support the
-@code{self-alignment-interface}.  In general these are objects
+This property can be used to align the object to the left, to 
+the right, or to center it with respect to the parent object's 
+reference point.  It may be used with all objects which support
+the @code{self-alignment-interface}.  In general these are objects
 that contain text.  The values are @code{LEFT}, @code{RIGHT}
-or @code{CENTER}.  The movement is limited by the length of the
-object.  Any numerical value between @code{-1} and @code{+1} may
-also be specified, where @code{-1} is left-aligned, @code{+1}
-is right-aligned, and numbers in between move the text
-progressively from left-aligned to right-aligned.
+or @code{CENTER}.  Alternatively, a numerical value between 
+@code{-1} and @code{+1} may be specified, where @code{-1} is 
+left-aligned, @code{+1} is right-aligned, and numbers in between 
+move the text progressively from left-aligned to right-aligned.
+Numerical values greater than @code{1} may be specified to move
+the text even further to the left, or less than @code{-1} to
+move the text even further to the right.  A change of @code{1}
+in the value corresponds to a movement of half the text's length.
 
 @item
 @code{extra-spacing-width}
@@ -2029,7 +2042,12 @@ This is most useful for manually adjusting the slope and height
 of beams, slurs, and tuplets.   It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
-staff-spaces.
+staff-spaces.  Note, though, that slurs and phrasing slurs cannot
+be repositioned by arbitrarily large amounts.  LilyPond first
+generates a list of possible positions for the slur and by default
+finds the slur that @qq{looks best}.  If the @code{positions}
+property has been overridden the slur that is closest to the
+requested positions is selected from the list.
 @end table
 
 Objects do not all have all of these properties in general.
@@ -2089,10 +2107,17 @@ d1
 @end lilypond
 
 Note in the second example how important it is to figure out what
-context handles a certain object.  Since the @code{MetronomeMark} object
+context handles a certain object.  Since the @code{MetronomeMark}
+object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ruser{Constructing a tweak}.
+
+If the @code{padding} property of an object is increased when that
+object is in a stack of objects being positioned according to
+their @code{outside-staff-priority}, then that object and all 
+objects outside it are moved.
+ 
 
 @subheading left-padding and right-padding properties
 @cindex left-padding property
@@ -2991,6 +3016,7 @@ In some cases (see issue 246), this must be done before
    ..
 }
 @end verbatim
+
 
 
 
