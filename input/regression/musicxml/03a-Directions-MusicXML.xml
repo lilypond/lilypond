@@ -4,6 +4,7 @@
 <score-partwise version="2.0">
   <movement-title>MusicXML directions (attached to staff)</movement-title>
   <identification/>
+  <defaults/>
   <part-list>
     <score-part id="P1">
       <part-name></part-name>
@@ -506,7 +507,7 @@
       </note>
       <direction>
         <direction-type>
-          <braclet type="stop" line-end="none"/>
+          <bracket type="stop" line-end="none"/>
         </direction-type>
       </direction>
       <note>
@@ -718,6 +719,8 @@
       <direction placement="below">
         <direction-type>
           <dynamics><ppp/></dynamics>
+        </direction-type>
+        <direction-type>
           <wedge type="crescendo"/>
         </direction-type>
         <offset>2</offset>
@@ -732,6 +735,8 @@
       <direction placement="below">
         <direction-type>
           <wedge type="stop"/>
+        </direction-type>
+        <direction-type>
           <dynamics><fff/></dynamics>
         </direction-type>
         <offset>2</offset>
