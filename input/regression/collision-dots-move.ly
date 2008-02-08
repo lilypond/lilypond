@@ -1,8 +1,8 @@
 \version "2.10.0"
 \header {
     
-    texidoc = "If collision resolution finds dotted note head must
-	remain on left hand side, move dots to the right."
+    texidoc = "If dotted note heads must remain on the left side,  
+collision resolution moves the dots to the right."
 
 }
 

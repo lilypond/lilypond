@@ -67,7 +67,7 @@ To make lyrics avoid bar lines as well, use
 @end menu
 
 @node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
+@subsubsection Setting simple songs
 
 @cindex \addlyrics
 
@@ -104,7 +104,7 @@ introduced in @ref{Entering lyrics}.
 
 
 @node Entering lyrics
-@unnumberedsubsubsec Entering lyrics
+@subsubsection Entering lyrics
 
 @cindex lyrics
 @funindex \lyricmode
@@ -280,7 +280,7 @@ explicitly, using @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@unnumberedsubsubsec Automatic syllable durations
+@subsubsection Automatic syllable durations
 
 @cindex automatic syllable durations
 @cindex lyrics and melodies
@@ -336,7 +336,7 @@ is the same as
 @end example
 
 @node Another way of entering lyrics
-@unnumberedsubsubsec Another way of entering lyrics
+@subsubsection Another way of entering lyrics
 
 Lyrics can also be entered without @code{\addlyrics} or
 @code{\lyricsto}.  In this case,
@@ -379,7 +379,7 @@ Internals Reference: @internalsref{Lyrics}.
 
 
 @node Assigning more than one syllable to a single note
-@unnumberedsubsubsec Assigning more than one syllable to a single note
+@subsubsection Assigning more than one syllable to a single note
 
 
 @funindex _
@@ -410,7 +410,7 @@ Internals Reference: @internalsref{LyricCombineMusic}.
 
 
 @node More than one note on a single syllable
-@unnumberedsubsubsec More than one note on a single syllable
+@subsubsection More than one note on a single syllable
 
 @cindex melisma
 @cindex melismata
@@ -491,7 +491,7 @@ Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
 @node Extenders and hyphens
-@unnumberedsubsubsec Extenders and hyphens
+@subsubsection Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -529,7 +529,7 @@ Internals Reference: @internalsref{LyricExtender},
 @end menu
 
 @node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@subsubsection Working with lyrics and variables
 
 @cindex lyrics, variables
 
@@ -605,7 +605,7 @@ differing ways.  Such variations can still be captured with
 
 
 @node Lyrics to multiple notes of a melisma
-@unnumberedsubsubsec Lyrics to multiple notes of a melisma
+@subsubsection Lyrics to multiple notes of a melisma
 
 One possibility is that the text has a melisma in one stanza, but
 multiple syllables in another one.  One solution is to make the faster
@@ -659,7 +659,7 @@ For example,
 
 
 @node Divisi lyrics
-@unnumberedsubsubsec Divisi lyrics
+@subsubsection Divisi lyrics
 
 You can display alternate (or divisi) lyrics by naming voice
 contexts and attaching lyrics to those specific contexts.
@@ -705,7 +705,7 @@ section.
 
 
 @node Switching the melody associated with a lyrics line
-@unnumberedsubsubsec Switching the melody associated with a lyrics line
+@subsubsection Switching the melody associated with a lyrics line
 
 More complex variations in text underlay are possible.  It is possible
 to switch the melody for a line of lyrics during the text.  This is
@@ -788,7 +788,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Lyrics independent of notes
-@unnumberedsubsubsec Lyrics independent of notes
+@subsubsection Lyrics independent of notes
 
 In some complex vocal music, it may be desirable to place
 lyrics completely independently of notes.  Music defined
@@ -824,7 +824,7 @@ lyr = \lyricmode { I like my cat! }
 @end menu
 
 @node Spacing lyrics
-@unnumberedsubsubsec Spacing lyrics
+@subsubsection Spacing lyrics
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -880,7 +880,7 @@ layout.
 
 
 @node Adding stanza numbers 
-@unnumberedsubsubsec Adding stanza numbers 
+@subsubsection Adding stanza numbers 
 
 @cindex stanza number
 
@@ -903,7 +903,7 @@ These numbers are put just before the start of the first syllable.
 
 
 @node Adding dynamics marks
-@unnumberedsubsubsec Adding dynamics marks
+@subsubsection Adding dynamics marks
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In Lilypond, everthing coming in
@@ -929,7 +929,7 @@ text = {
 @end lilypond
 
 @node Adding singer names
-@unnumberedsubsubsec Adding singer names
+@subsubsection Adding singer names
 
 @cindex singer name
 @cindex name of singer
@@ -952,7 +952,7 @@ the line, just like instrument names.  They are created by setting
 
 
 @node Printing stanzas at the end 
-@unnumberedsubsubsec Printing stanzas at the end 
+@subsubsection Printing stanzas at the end 
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -997,7 +997,7 @@ its fleece was white as snow.
 
 
 @node Printing stanzas at the end in multiple columns 
-@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
+@subsubsection Printing stanzas at the end in multiple columns 
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often

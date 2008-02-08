@@ -2,8 +2,8 @@
 \version "2.10.0"
 \header
 {
-  texidoc ="Slurs may be placed over rest. The slur will avoid colliding with
-the rest.
+  texidoc ="Slurs may be placed over rests. The slur will avoid
+colliding with the rests.
 
 "
 }

@@ -1,10 +1,8 @@
 \version "2.10.0"
 \header {
-
   texidoc = "With the @code{\\lyricsto} mechanism, individual lyric
-    lines can be associated with one melody line. For each lyric line,
-    can be tuned whether to follow melismata or not."
-  
+    lines can be associated with one melody line. Each lyric line
+can be tuned to either follow or ignore melismata."
 }
 
 

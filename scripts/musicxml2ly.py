@@ -49,8 +49,7 @@ additional_definitions = {
       )
     )
   )
-)
-"""
+)"""
 }
 
 def round_to_two_digits (val):
@@ -756,27 +755,41 @@ def musicxml_spanner_to_lily_event (mxl_event):
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1 }.get (direction, 0)
+    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
-    ev.type = "fermata"
+    txt = mxl_event.get_text ()
+    # The contents of the element defined the shape, possible are normal, angled and square
+    ev.type = { "angled": "shortfermata", "square": "longfermata" }.get (txt, "fermata")
     if hasattr (mxl_event, 'type'):
       dir = musicxml_direction_to_indicator (mxl_event.type)
       if dir and options.convert_directions:
         ev.force_direction = dir
     return ev
 
-
 def musicxml_arpeggiate_to_lily_event (mxl_event):
     ev = musicexp.ArpeggioEvent ()
     ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
     return ev
 
-
 def musicxml_tremolo_to_lily_event (mxl_event):
     ev = musicexp.TremoloEvent ()
-    ev.bars = mxl_event.get_text ()
+    txt = mxl_event.get_text ()
+    if txt:
+      ev.bars = txt
+    else:
+      ev.bars = "3"
+    return ev
+
+def musicxml_falloff_to_lily_event (mxl_event):
+    ev = musicexp.BendEvent ()
+    ev.alter = -4
+    return ev
+
+def musicxml_doit_to_lily_event (mxl_event):
+    ev = musicexp.BendEvent ()
+    ev.alter = 4
     return ev
 
 def musicxml_bend_to_lily_event (mxl_event):
@@ -784,6 +797,12 @@ def musicxml_bend_to_lily_event (mxl_event):
     ev.alter = mxl_event.bend_alter ()
     return ev
 
+def musicxml_caesura_to_lily_event (mxl_event):
+    ev = musicexp.MarkupEvent ()
+    # FIXME: default to straight or curved caesura?
+    ev.contents = "\\musicglyph #\"scripts.caesura.straight\""
+    ev.force_direction = 1
+    return ev
 
 def musicxml_fingering_event (mxl_event):
     ev = musicexp.ShortArticulationEvent ()
@@ -834,13 +853,13 @@ articulations_dict = {
     "accidental-mark": musicxml_accidental_mark,
     "bend": musicxml_bend_to_lily_event,
     "breath-mark": (musicexp.NoDirectionArticulationEvent, "breathe"),
-    #"caesura": "caesura",
+    "caesura": musicxml_caesura_to_lily_event,
     #"delayed-turn": "?",
     "detached-legato": (musicexp.ShortArticulationEvent, "_"), # or "portato"
-    #"doit": "",
+    "doit": musicxml_doit_to_lily_event,
     #"double-tongue": "",
     "down-bow": "downbow",
-    #"falloff": "",
+    "falloff": musicxml_falloff_to_lily_event,
     "fingering": musicxml_fingering_event,
     #"fingernails": "",
     #"fret": "",
@@ -867,7 +886,7 @@ articulations_dict = {
     "strong-accent": (musicexp.ShortArticulationEvent, "^"), # or "marcato"
     #"tap": "",
     "tenuto": (musicexp.ShortArticulationEvent, "-"), # or "tenuto"
-    #"thumb-position": "",
+    "thumb-position": "thumb",
     #"toe": "",
     "turn": "turn",
     "tremolo": musicxml_tremolo_to_lily_event,
@@ -908,15 +927,26 @@ def musicxml_articulation_to_lily_event (mxl_event):
     return ev
 
 
+
 def musicxml_dynamics_to_lily_event (dynentry):
-    dynamics_available = ( "p", "pp", "ppp", "pppp", "ppppp", "pppppp",
-        "f", "ff", "fff", "ffff", "fffff", "ffffff",
-        "mp", "mf", "sf", "sfp", "sfpp", "fp",
-        "rf", "rfz", "sfz", "sffz", "fz" )
-    if not dynentry.get_name() in dynamics_available:
+    dynamics_available = (
+        "ppppp", "pppp", "ppp", "pp", "p", "mp", "mf", 
+        "f", "ff", "fff", "ffff", "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" )
+    dynamicsname = dynentry.get_name ()
+    if dynamicsname == "other-dynamics":
+        dynamicsname = dynentry.get_text ()
+    if not dynamicsname or dynamicsname=="#text":
         return
+
+    if not dynamicsname in dynamics_available:
+        # Get rid of - in tag names (illegal in ly tags!)
+        dynamicstext = dynamicsname
+        dynamicsname = string.replace (dynamicsname, "-", "")
+        additional_definitions[dynamicsname] = dynamicsname + \
+              "=#(make-dynamic-script \"" + dynamicstext + "\")"
+        needed_additional_definitions.append (dynamicsname)
     event = musicexp.DynamicsEvent ()
-    event.type = dynentry.get_name ()
+    event.type = dynamicsname
     return event
 
 # Convert single-color two-byte strings to numbers 0.0 - 1.0
@@ -1480,12 +1510,6 @@ def musicxml_voice_to_lily_voice (voice):
             #         shake | wavy-line | mordent | inverted-mordent | 
             #         schleifer | tremolo | other-ornament, accidental-mark
             ornaments = notations.get_named_children ('ornaments')
-            for a in ornaments:
-                for ch in a.get_named_children ('tremolo'):
-                    ev = musicxml_tremolo_to_lily_event (ch)
-                    if ev: 
-                        ev_chord.append (ev)
-
             ornaments += notations.get_named_children ('articulations')
             ornaments += notations.get_named_children ('technical')
 
@@ -1790,6 +1814,7 @@ def print_ly_additional_definitions (printer, filename):
         printer.newline ()
     for a in set(needed_additional_definitions):
         printer.print_verbatim (additional_definitions.get (a, ''))
+        printer.newline ()
     printer.newline ()
 
 # Read in the tree from the given I/O object (either file or string) and 

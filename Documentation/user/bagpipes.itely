@@ -25,7 +25,7 @@ This section includes extra information for writing for bagpipes.
 @end menu
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@subsubsection Bagpipe definitions
 
 LilyPond contains special definitions for music for the Scottish
 highland bagpipe; to use them, add
@@ -66,7 +66,7 @@ music.
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@subsubsection Bagpipe example
 
 This is what the well known tune Amazing Grace looks like in bagpipe
 notation.
