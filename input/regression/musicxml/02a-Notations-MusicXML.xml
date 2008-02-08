@@ -1182,36 +1182,8 @@
       </note>
     </measure>
     
-    <!-- General tests: multiple notations, directions, pedal spanners, etc. -->
+    <!-- General tests: multiple notations, directions, etc. -->
     <measure number="23">
-      <direction placement="below">
-        <direction-type>
-          <pedal line="no" relative-x="-9" type="start"/>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
-      <direction placement="below">
-        <direction-type>
-          <pedal line="no" type="stop"/>
-        </direction-type>
-      </direction>
-      <note>
-        <pitch>
-          <step>G</step>
-          <octave>4</octave>
-        </pitch>
-        <duration>1</duration>
-        <voice>1</voice>
-        <type>quarter</type>
-      </note>
       <note>
         <pitch>
           <step>G</step>
@@ -1244,6 +1216,12 @@
           </articulations>
         </notations>
         <lyric number="1"><text>ab./bel./bel.</text></lyric>
+      </note>
+      <note>
+        <rest/>
+        <duration>2</duration>
+        <voice>1</voice>
+        <type>half</type>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
