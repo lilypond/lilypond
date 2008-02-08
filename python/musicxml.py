@@ -751,6 +751,12 @@ class Wedge (Music_xml_spanner):
 class Tuplet (Music_xml_spanner):
     pass
 
+class Bracket (Music_xml_spanner):
+    pass
+
+class Dashes (Music_xml_spanner):
+    pass
+
 class Slur (Music_xml_spanner):
     def get_type (self):
 	return self.type
@@ -867,7 +873,9 @@ class_dict = {
         'bar-style': BarStyle,
 	'beam' : Beam,
         'bend' : Bend,
+        'bracket' : Bracket,
 	'chord': Chord,
+        'dashes' : Dashes,
 	'dot': Dot,
 	'direction': Direction,
         'direction-type': DirType,

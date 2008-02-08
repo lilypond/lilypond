@@ -705,12 +705,14 @@ def musicxml_barline_to_lily (barline):
     return retval.values ()
 
 spanner_event_dict = {
-    'slur' : musicexp.SlurEvent,
     'beam' : musicexp.BeamEvent,
+    'dashes' : musicexp.TextSpannerEvent,
+    'bracket' : musicexp.BracketSpannerEvent,
     'glissando' : musicexp.GlissandoEvent,
-    'pedal' : musicexp.PedalEvent,
-    'wavy-line' : musicexp.TrillSpanEvent,
     'octave-shift' : musicexp.OctaveShiftEvent,
+    'pedal' : musicexp.PedalEvent,
+    'slur' : musicexp.SlurEvent,
+    'wavy-line' : musicexp.TrillSpanEvent,
     'wedge' : musicexp.HairpinEvent
 }
 spanner_type_dict = {
@@ -720,6 +722,7 @@ spanner_type_dict = {
     'decreschendo': -1,
     'diminuendo': -1,
     'continue': 0,
+    'change': 0,
     'up': -1,
     'down': -1,
     'stop': 1,
@@ -1023,34 +1026,82 @@ def musicxml_words_to_lily_event (words):
     return event
 
 
-direction_spanners = [ 'octave-shift', 'pedal', 'wedge' ]
+
+def musicxml_rehearsal_to_ly_mark (mxl_event):
+    text = mxl_event.get_text ()
+    if not text:
+        return
+    # default is boxed rehearsal marks!
+    encl = "box"
+    if hasattr (mxl_event, 'enclosure'):
+        encl = {"none": None, "square": "box", "circle": "circle" }.get (mxl_event.enclosure, None)
+    if encl:
+        text = "\\%s { %s }" % (encl, text)
+    ev = musicexp.MarkEvent ("\\markup { %s }" % text)
+    return ev
+
+
+# translate directions into Events, possible values:
+#   -) string  (MarkEvent with that command)
+#   -) function (function(mxl_event) needs to return a full Event-derived object
+#   -) (class, name)  (like string, only that a different class than MarkEvent is used)
+directions_dict = {
+#     'accordion-registration' : musicxml_accordion_to_ly,
+    'coda' : (musicexp.MusicGlyphMarkEvent, "coda"),
+#     'damp' : ???
+#     'damp-all' : ???
+#     'eyeglasses': ??????
+#     'harp-pedals' : 
+#     'image' : 
+#     'metronome' : 
+    'rehearsal' : musicxml_rehearsal_to_ly_mark,
+#     'scordatura' : 
+    'segno' : (musicexp.MusicGlyphMarkEvent, "segno"),
+    'words' : musicxml_words_to_lily_event,
+}
+directions_spanners = [ 'octave-shift', 'pedal', 'wedge', 'dashes', 'bracket' ]
 
 def musicxml_direction_to_lily (n):
     # TODO: Handle the <staff> element!
     res = []
+    # placement applies to all children!
+    dir = None
+    if hasattr (n, 'placement') and options.convert_directions:
+        dir = musicxml_direction_to_indicator (n.placement)
     dirtype_children = []
+    # TODO: The direction-type is used for grouping (e.g. dynamics with text), 
+    #       so we can't simply flatten them out!
     for dt in n.get_typed_children (musicxml.DirType):
         dirtype_children += dt.get_all_children ()
 
     for entry in dirtype_children:
+        # backets, dashes, octave shifts. pedal marks, hairpins etc. are spanners:
+        if entry.get_name() in directions_spanners:
+            event = musicxml_spanner_to_lily_event (entry)
+            if event:
+                res.append (event)
+            continue
+
+        # now treat all the "simple" ones, that can be translated using the dict
+        ev = None
+        tmp_tp = directions_dict.get (entry.get_name (), None)
+        if isinstance (tmp_tp, str): # string means MarkEvent
+            ev = musicexp.MarkEvent (tmp_tp)
+        elif isinstance (tmp_tp, tuple): # tuple means (EventClass, "text")
+            ev = tmp_tp[0] (tmp_tp[1])
+        elif tmp_tp:
+            ev = tmp_tp (entry)
+        if ev:
+            # TODO: set the correct direction! Unfortunately, \mark in ly does
+            #       not seem to support directions!
+            res.append (ev)
+            continue
 
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
                 ev = musicxml_dynamics_to_lily_event (dynentry)
                 if ev:
                     res.append (ev)
-
-        if entry.get_name () == "words":
-            ev = musicxml_words_to_lily_event (entry)
-            if ev:
-                res.append (ev)
-
-        # octave shifts. pedal marks, hairpins etc. are spanners:
-        if entry.get_name() in direction_spanners:
-            event = musicxml_spanner_to_lily_event (entry)
-            if event:
-                res.append (event)
-
 
     return res
 
