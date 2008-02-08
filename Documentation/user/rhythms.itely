@@ -35,7 +35,7 @@ This section discusses rhythms, rests, durations, beaming and bars.
 @end menu
 
 @node Durations
-@unnumberedsubsubsec Durations
+@subsubsection Durations
 
 @cindex durations, of notes
 @cindex note durations
@@ -62,7 +62,6 @@ c4 c8 c16 c32 c64 c64
 
 @noindent
 Here are the same durations with automatic beaming turned off.
-(See @ref{Automatic beams}.)
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
@@ -106,7 +105,7 @@ For ways of specifying durations for the syllables of lyrics and
 ways of aligning lyrics to notes, see @ref{Vocal music}.
 
 Optionally, notes can be spaced strictly proportionately to their
-duration.  For details of this and other settings which control 
+duration.  For details of this and other settings which control
 proportional notation, see @ref{Proportional notation}.
 
 @refcommands
@@ -141,14 +140,14 @@ Internals Reference: @internalsref{Dots},
 
 @refbugs
 
-@c deliberately duplicated in Durations and Rests.  -gp
+@c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited:
 rests from 128th to maxima (8 x whole) may be printed.
 
 
 @node Tuplets
-@unnumberedsubsubsec Tuplets
+@subsubsection Tuplets
 
 @cindex tuplets
 @cindex triplets
@@ -193,10 +192,13 @@ Tuplets may be nested; for example,
 
 @commonprop
 
+@cindex tuplet formatting
+@cindex triplet formatting
+
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
-@cindex tuplet formatting
 
+@c Sent to Snippet 5 Feb 08
 The property @code{tupletSpannerDuration} specifies how long each
 bracket should last.  With this, you can make lots of tuplets
 while typing @code{\times} only once, thus saving lots of typing.
@@ -214,14 +216,12 @@ For more information about @code{make-moment}, see
 
 @funindex TupletNumber
 
-The format of the number is determined by the property @code{text}
-in @code{TupletNumber}.  The default prints only the denominator,
-but if the property is set with @code{\override
-TupletNumber #'text = #tuplet-number::calc-fraction-text},
-@var{num}:@var{den} will be printed instead.
+By default, only the numerator of the tuplet number
+is printed over the tuplet bracket, i.e. the denominator
+of the argument to the @code{\times} command.  Alternatively,
+@var{num}:@var{den} of the tuplet number may be printed, or
+the tuplet number may be suppressed altogether.
 
-To print tuplets without tuplet numbers, use
-@code{\override TupletNumber #'transparent = ##t}:
 
 @lilypond[quote,fragment,relative=2,ragged-right,verbatim]
 \times 2/3 { c8 c c } \times 2/3 { c8 c c }
@@ -231,14 +231,57 @@ To print tuplets without tuplet numbers, use
 \times 2/3 { c8 c c }
 @end lilypond
 
-To change the appearance of nested tuplets beginning at the same
-music moment individually, the @code{\tweak} function must be used
-(see @ref{Objects connected to the input}).  In the following
-example, @code{\tweak} specifies fraction text for the outer
-@code{TupletNumber} and denominator text for the
-@code{TupletNumber} of the first of the three inner tuplets.
+@c TODO Add snippet to show this
+Tuplets may extend over bar lines, but they will inhibit a
+line break unless the @code{Forbid_line_break_engraver} is
+removed from the @code{Voice context}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@subheading Modifying nested tuplets
+
+@cindex tuplets, nested
+@cindex triplets, nested
+@cindex bracket, tuplet
+@cindex tuplet bracket
+@cindex triplet bracket
+@funindex TupletBracket
+
+If nested tuplets do not begin at the same moment their
+appearance may be modified in the usual way with 
+@code{\override} commands:
+
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c See issue 509
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\times 2/3 { c8[ c c]}
+\once \override TupletNumber #'text = #tuplet-number::calc-fraction-text
+\times 2/3 {
+  c[ c]
+  c[ c]
+  \once \override TupletNumber #'transparent = ##t
+  \times 2/3 { c8[ c c] }
+\times 2/3 { c8[ c c]}
+}
+@end lilypond
+
+However, if the nested tuplets begin at the same musical moment,
+@code{\override} commands cannot be applied to just one of them
+-- they apply to both.  So to change the appearance of nested 
+tuplets beginning at the same musical moment individually, the 
+@code{\tweak} function must be used (see @ref{Objects connected 
+to the input}).  The @code{\tweak} function is applied to the
+following @code{\times} command as it appears in the input stream,
+and so can distinguish between separate @code{\times} commands
+even if their tuplets begin at the same musical moment.
+
+In this example, the @code{\tweak} command is used to specify 
+fraction text for the outer @code{TupletNumber} and denominator 
+text for the @code{TupletNumber} of the first of the three 
+inner tuplets.
+
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c so use relative=1 until this is fixed
+@c See issue 509
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \tweak #'text #tuplet-number::calc-fraction-text
 \times 4/3 {
    \tweak #'text #tuplet-number::calc-denominator-text
@@ -248,23 +291,16 @@ example, @code{\tweak} specifies fraction text for the outer
 }
 @end lilypond
 
-@cindex bracket, tuplet
-@funindex TupletBracket
-
-@c FIXME: after LM 6 Tweaks includes \tweak info, look at this.-gp
-@c It *should* be explained why \tweak must be used here, and why
-@c \override doesn't work. I've made an attempt, but I'm not sure
-@c if it is factually correct to say that \tweak must be used.
 In the next example, @code{\tweak} and @code{\override} work
 together to specify @code{TupletBracket} direction.  The first
 @code{\tweak} positions the @code{TupletBracket} of the outer
 tuplet above the staff.  The second @code{\tweak} positions the
 @code{TupletBracket} of the first of the three inner tuplets below
-the staff.  Note that the @code{\tweak} function affects only
-events that begin at the same music moment: the outer tuplet and
-the first of the three inner tuplets.  To position the
-@code{TupletBrackets} of the second and third of the inner tuplets
-below the staff, we use @code{\override} in the usual way.
+the staff.  Note that the @code{\tweak} command needs to be used
+only for events that begin at the same music moment: the outer 
+tuplet and the first of the three inner tuplets.  To position the
+@code{TupletBracket}s of the second and third of the inner tuplets
+below the staff, we can use @code{\override} in the usual way.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak #'text #tuplet-number::calc-fraction-text
@@ -278,15 +314,34 @@ below the staff, we use @code{\override} in the usual way.
 }
 @end lilypond
 
-Tuplet brackets can be made to run to prefatory matter or the next
-note:
+@subheading Modifying tuplet bracket length
+
+@cindex tuplet bracket length
+@cindex triplet bracket length
+@cindex bracket length, tuplets
+@funindex tupletFullLength
+@funindex tupletFullLengthNote
+
+Tuplet brackets can be made to run to prefatory matter or the 
+next note.
+Default tuplet brackets end at the right edge of the final note
+of the tuplet; full-length tuplet brackets extend farther to the
+right, either to cover all the non-rhythmic notation up to the
+following note, or to cover only the whitespace before the next 
+item of notation, be that a clef, time signature, key signature,
+or another note.  The example shows how to switch tuplets to
+full length mode and how to modify what material they cover.
+
 
 @lilypond[ragged-right,verbatim,quote]
 \new RhythmicStaff {
+  % Set tuplets to be extendable ..
   \set tupletFullLength = ##t
+  % .. to cover all items up to the next note
   \set tupletFullLengthNote = ##t
   \time 2/4
   \times 2/3 { c4 c c }
+  % .. or to cover just whitespace
   \set tupletFullLengthNote = ##f
   \time 4/4
   \times 4/5 { c4 c1 }
@@ -295,21 +350,25 @@ note:
 }
 @end lilypond
 
+@subheading Compressing music
+
+@cindex compressing music
 @funindex \compressMusic
-@funindex \times
 
 @code{\compressMusic} works similarly to \times, but does not
-create a tuplet bracket; see @ref{Polymetric notation}.
+create a tuplet bracket.  One application is in polymetric
+notation, as shown in the following example.  See 
+@ref{Polymetric notation}.
 
+@c not added yet. -gp
+@c @lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+@c {printing-music-with-different-time-signatures.ly}
 
-@refbugs
-
-Tuplets which cross bar lines will prevent a line break at that
-point.
 
 @seealso
 
-Music Glossary: @rglos{tuplet}.
+Music Glossary: @rglos{triplet}, @rglos{tuplet}, 
+@rglos{polymetric}.
 
 Notation Reference: @ref{Time administration},
 @ref{Objects connected to the input}, @ref{Polymetric notation}.
@@ -322,7 +381,7 @@ Internals Reference: @internalsref{TupletBracket},
 
 
 @node Scaling durations
-@unnumberedsubsubsec Scaling durations
+@subsubsection Scaling durations
 
 You can alter the length of a duration by a fraction @var{N/M}
 by appending @code{*@var{N/M}} (or @code{*@var{N}} if @var{M=1}).
@@ -353,7 +412,7 @@ Notation Reference: @ref{Tuplets}, @ref{Skips}, @ref{Polymetric notation}.
 Snippets: @lsrdir{Rhythms,Rhythms}
 
 @node Ties
-@unnumberedsubsubsec Ties
+@subsubsection Ties
 
 @cindex tie
 @funindex ~
@@ -537,7 +596,7 @@ well-defined.  In these cases, a slur may be preferable.
 @end menu
 
 @node Rests
-@unnumberedsubsubsec Rests
+@subsubsection Rests
 @cindex rest
 @cindex maxima
 @cindex longa
@@ -589,13 +648,13 @@ Internals Reference: @internalsref{Rest}.
 
 @refbugs
 
-@c duplicated in Durations and Rests.  -gp
+@c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
 longest and shortest), but the number of glyphs is limited: there
 are rests from 128th to maxima (8 x whole).
 
 @node Skips
-@unnumberedsubsubsec Skips
+@subsubsection Skips
 
 @cindex skip
 @cindex invisible rest
@@ -649,7 +708,7 @@ Internals Reference: @internalsref{SkipMusic}.
 
 
 @node Full measure rests
-@unnumberedsubsubsec Full measure rests
+@subsubsection Full measure rests
 
 @cindex multi measure rests
 @cindex full measure rests
@@ -839,7 +898,7 @@ R1*4 cis cis
 @end menu
 
 @node Time signature
-@unnumberedsubsubsec Time signature
+@subsubsection Time signature
 
 @cindex time signature
 @cindex meter
@@ -948,7 +1007,7 @@ Automatic beaming does not use the measure grouping specified with
 
 
 @node Upbeats
-@unnumberedsubsubsec Upbeats
+@subsubsection Upbeats
 
 @cindex anacrusis
 @cindex upbeat
@@ -1006,7 +1065,7 @@ occur.
 Snippets: @lsrdir{Rhythms,Rhythms}
 
 @node Unmetered music
-@unnumberedsubsubsec Unmetered music
+@subsubsection Unmetered music
 
 @cindex cadenza
 @funindex \cadenzaOn
@@ -1058,7 +1117,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Polymetric notation
+@subsubsection Polymetric notation
 
 @cindex double time signatures
 @cindex signatures, polymetric
@@ -1196,7 +1255,7 @@ Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translat
 
 
 @node Automatic note splitting
-@unnumberedsubsubsec Automatic note splitting
+@subsubsection Automatic note splitting
 
 Long notes which overrun bar lines can be converted automatically
 to tied notes.  This is done by replacing the
@@ -1256,7 +1315,7 @@ Internals Reference: @internalsref{Note_heads_engraver},
 @end menu
 
 @node Automatic beams
-@unnumberedsubsubsec Automatic beams
+@subsubsection Automatic beams
 
 By default, beams are inserted automatically:
 
@@ -1382,7 +1441,7 @@ Beams can collide with note heads and accidentals in other voices
 
 
 @node Setting automatic beam behavior
-@unnumberedsubsubsec Setting automatic beam behavior
+@subsubsection Setting automatic beam behavior
 
 @funindex autoBeamSettings
 @funindex (end * * * *)
@@ -1569,7 +1628,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Manual beams
-@unnumberedsubsubsec Manual beams
+@subsubsection Manual beams
 
 @cindex beams, manual
 
@@ -1622,7 +1681,7 @@ the group as a whole.
 @commonprop
 
 @node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@subsubsection Feathered beams
 
 @cindex beams, feathered
 @funindex \featherDurations 
@@ -1692,7 +1751,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 @end menu
 
 @node Bar lines
-@unnumberedsubsubsec Bar lines
+@subsubsection Bar lines
 
 @cindex bar lines
 @funindex \bar
@@ -1840,7 +1899,7 @@ properties).
 
 
 @node Bar numbers
-@unnumberedsubsubsec Bar numbers
+@subsubsection Bar numbers
 
 @cindex bar numbers
 @cindex measure numbers
@@ -2001,7 +2060,7 @@ c1 c c c
 
 
 @node Bar and bar number checks
-@unnumberedsubsubsec Bar and bar number checks
+@subsubsection Bar and bar number checks
 
 @cindex bar check
 @funindex barCheckSynchronize
@@ -2074,7 +2133,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Rehearsal marks
+@subsubsection Rehearsal marks
 
 @cindex rehearsal marks
 @cindex mark, rehearsal
@@ -2201,7 +2260,7 @@ Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 @end menu
 
 @node Grace notes
-@unnumberedsubsubsec Grace notes
+@subsubsection Grace notes
 
 @funindex \grace
 @cindex ornaments
@@ -2400,7 +2459,7 @@ expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Aligning to cadenzas
+@subsubsection Aligning to cadenzas
 
 @cindex cadenza
 @cindex cadenza, aligning to
@@ -2438,7 +2497,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 
 @node Time administration
-@unnumberedsubsubsec Time administration
+@subsubsection Time administration
 
 @cindex time administration
 @cindex timing (within the score)
@@ -2517,6 +2576,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 

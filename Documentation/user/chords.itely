@@ -29,7 +29,7 @@ Intro text.
 
 @c really awkward; I just shoved this in here from the tutorial.
 @node A lead sheet
-@unnumberedsubsubsec A lead sheet
+@subsubsection A lead sheet
 
 @cindex Lead sheets
 @cindex chords
@@ -85,7 +85,7 @@ found in @ruser{Chords}.
 
 
 @node Introducing chord names
-@unnumberedsubsubsec Introducing chord names
+@subsubsection Introducing chord names
 @cindex chord names
 
 LilyPond has support for printing chord names.  Chords may be entered
@@ -121,7 +121,7 @@ Note that the duration of chords must be specified outside the
 
 
 @node Chords mode
-@unnumberedsubsubsec Chords mode
+@subsubsection Chords mode
 @cindex Chords mode
 
 In chord mode sets of pitches (chords) are entered with normal note
@@ -257,7 +257,7 @@ last
 
 
 @node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@subsubsection Printing chord names
 
 @cindex printing chord names
 @cindex chord names
