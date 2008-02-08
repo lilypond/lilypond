@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
-<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 0.6b Partwise//EN"
+<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 2.0 Partwise//EN"
  "http://www.musicxml.org/dtds/partwise.dtd">
-<score-partwise>
-	<identification>
-		<encoding>
-			<software>/usr/bin/vi</software>
-			<encoding-date>2007-01-22</encoding-date>
-		</encoding>
-	</identification>
+<score-partwise version="2.0">
+  <work><work-title>No time signature given</work-title></work> 
+	<identification/>
 	<part-list>
 		<score-part id="P1">
-			<part-name>MIDI Track 1</part-name>
+			<part-name></part-name>
 		</score-part>
 	</part-list>
 	<part id="P1">
 		<measure number="1">
 			<attributes>
-				<divisions>96</divisions>
+				<divisions>1</divisions>
 				<key><fifths>0</fifths></key>
 				<staves>2</staves>
 				<clef number="1"><sign>G</sign><line>2</line></clef>
@@ -24,7 +20,7 @@
 			</attributes>
 			<note>
 				<pitch><step>F</step><octave>4</octave></pitch>
-				<duration>384</duration>
+				<duration>4</duration>
 				<voice>1</voice>
 				<type>whole</type>
 				<staff>1</staff>
@@ -32,7 +28,7 @@
 			<backup><duration>384</duration></backup>
 			<note>
 				<pitch><step>B</step><octave>2</octave></pitch>
-				<duration>384</duration>
+				<duration>4</duration>
 				<voice>2</voice>
 				<type>whole</type>
 				<staff>2</staff>
