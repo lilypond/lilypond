@@ -946,7 +946,7 @@ def musicxml_dynamics_to_lily_event (dynentry):
         dynamicstext = dynamicsname
         dynamicsname = string.replace (dynamicsname, "-", "")
         additional_definitions[dynamicsname] = dynamicsname + \
-              "=#(make-dynamic-script \"" + dynamicstext + "\")"
+              " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append (dynamicsname)
     event = musicexp.DynamicsEvent ()
     event.type = dynamicsname
@@ -1026,6 +1026,69 @@ def musicxml_words_to_lily_event (words):
     return event
 
 
+# convert accordion-registration to lilypond.
+# Since lilypond does not have any built-in commands, we need to create
+# the markup commands manually and define our own variables.
+# Idea was taken from: http://lsr.dsi.unimi.it/LSR/Item?id=194
+def musicxml_accordion_to_markup (mxl_event):
+    commandname = "accReg"
+    command = ""
+
+    high = mxl_event.get_maybe_exist_named_child ('accordion-high')
+    if high:
+        commandname += "H"
+        command += """\\combine
+          \\raise #2.5 \\musicglyph #\"accordion.accDot\"
+          """
+    middle = mxl_event.get_maybe_exist_named_child ('accordion-middle')
+    if middle:
+        txt = 1
+        try:
+          txt = string.atoi (middle.get_text ())
+        except ValueError:
+            pass
+        if txt == 3:
+            commandname += "MMM"
+            command += """\\combine
+          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons 1 0) \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons -1 0) \\musicglyph #\"accordion.accDot\"
+          """
+        elif txt == 2:
+            commandname += "MM"
+            command += """\\combine
+          \\raise #1.5 \\translate #(cons 0.5 0) \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons -0.5 0) \\musicglyph #\"accordion.accDot\"
+          """
+        elif not txt <= 0:
+            commandname += "M"
+            command += """\\combine
+          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          """
+    low = mxl_event.get_maybe_exist_named_child ('accordion-low')
+    if low:
+        commandname += "L"
+        command += """\\combine
+          \\raise #0.5 \musicglyph #\"accordion.accDot\"
+          """
+
+    command += "\musicglyph #\"accordion.accDiscant\""
+    command = "\\markup { \\normalsize %s }" % command
+    additional_definitions[commandname] = "%s = %s" % (commandname, command)
+    print additional_definitions
+    needed_additional_definitions.append (commandname)
+    return "\\%s" % commandname
+
+def musicxml_accordion_to_ly (mxl_event):
+    txt = musicxml_accordion_to_markup (mxl_event)
+    if txt:
+        ev = musicexp.MarkEvent (txt)
+        return ev
+    return
+
 
 def musicxml_rehearsal_to_ly_mark (mxl_event):
     text = mxl_event.get_text ()
@@ -1040,13 +1103,12 @@ def musicxml_rehearsal_to_ly_mark (mxl_event):
     ev = musicexp.MarkEvent ("\\markup { %s }" % text)
     return ev
 
-
 # translate directions into Events, possible values:
 #   -) string  (MarkEvent with that command)
 #   -) function (function(mxl_event) needs to return a full Event-derived object
 #   -) (class, name)  (like string, only that a different class than MarkEvent is used)
 directions_dict = {
-#     'accordion-registration' : musicxml_accordion_to_ly,
+    'accordion-registration' : musicxml_accordion_to_ly,
     'coda' : (musicexp.MusicGlyphMarkEvent, "coda"),
 #     'damp' : ???
 #     'damp-all' : ???
