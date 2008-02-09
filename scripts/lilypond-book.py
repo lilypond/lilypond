@@ -125,9 +125,9 @@ def get_option_parser ():
                   default=[os.path.abspath (os.getcwd ())])
 
     p.add_option ('--left-padding', 
-                  metavar=_("PAD"),
+                  metavar=_ ("PAD"),
                   dest="padding_mm",
-                  help="Pad left side of music to align music inspite of uneven bar numbers. (in mm)",
+                  help=_ ("pad left side of music to align music inspite of uneven bar numbers (in mm)"),
                   type="float",
                   default=3.0)
     
@@ -143,7 +143,7 @@ def get_option_parser ():
     p.add_option ('--pdf',
                   action="store_true",
                   dest="create_pdf",
-                  help=_ ("Create PDF files for use with PDFTeX"),
+                  help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
                   help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
