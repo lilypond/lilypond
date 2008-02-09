@@ -1042,6 +1042,8 @@ def musicxml_accordion_to_markup (mxl_event):
           """
     middle = mxl_event.get_maybe_exist_named_child ('accordion-middle')
     if middle:
+        # By default, use one dot (when no or invalid content is given). The 
+        # MusicXML spec is quiet about this case...
         txt = 1
         try:
           txt = string.atoi (middle.get_text ())
@@ -1077,8 +1079,8 @@ def musicxml_accordion_to_markup (mxl_event):
 
     command += "\musicglyph #\"accordion.accDiscant\""
     command = "\\markup { \\normalsize %s }" % command
+    # Define the newly built command \accReg[H][MMM][L]
     additional_definitions[commandname] = "%s = %s" % (commandname, command)
-    print additional_definitions
     needed_additional_definitions.append (commandname)
     return "\\%s" % commandname
 
