@@ -24,7 +24,8 @@ Bar_line::calc_bar_extent (SCM smob)
 
   SCM size = me->get_property ("bar-size");
 
-  if (!scm_is_number (size))
+  if (!scm_is_number (size)
+      || !Staff_symbol_referencer::get_staff_symbol (me))
     return ly_interval2scm (Interval ());
 
   Real h = scm_to_double (size);
